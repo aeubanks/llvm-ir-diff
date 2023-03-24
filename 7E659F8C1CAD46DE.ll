@@ -101,7 +101,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
 
 31:                                               ; preds = %28, %24, %22
   %32 = phi ptr [ %26, %24 ], [ %26, %28 ], [ null, %22 ]
-  invoke void @_ZN8Parallel6gatherEiPi(i32 noundef %12, ptr noundef nonnull %32)
+  invoke void @_ZN8Parallel6gatherEiPi(i32 noundef %12, ptr noundef %32)
           to label %33 unwind label %150
 
 33:                                               ; preds = %31
@@ -165,19 +165,19 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   call void @llvm.memset.p0.i64(ptr align 8 %59, i8 0, i64 %60, i1 false), !tbaa !23
   br label %61
 
-61:                                               ; preds = %58, %57, %39
+61:                                               ; preds = %39, %58, %57
   %62 = phi ptr [ %50, %57 ], [ %50, %58 ], [ null, %39 ]
   %63 = phi ptr [ %43, %57 ], [ %43, %58 ], [ null, %39 ]
   %64 = phi ptr [ %56, %57 ], [ %56, %58 ], [ null, %39 ]
-  invoke void @_ZN8Parallel7gathervIdEEvPKT_iPS1_PKi(ptr noundef %2, i32 noundef %12, ptr noundef nonnull %63, ptr noundef nonnull %32)
+  invoke void @_ZN8Parallel7gathervIdEEvPKT_iPS1_PKi(ptr noundef %2, i32 noundef %12, ptr noundef %63, ptr noundef %32)
           to label %65 unwind label %158
 
 65:                                               ; preds = %61
-  invoke void @_ZN8Parallel7gathervIdEEvPKT_iPS1_PKi(ptr noundef %3, i32 noundef %12, ptr noundef nonnull %62, ptr noundef nonnull %32)
+  invoke void @_ZN8Parallel7gathervIdEEvPKT_iPS1_PKi(ptr noundef %3, i32 noundef %12, ptr noundef %62, ptr noundef %32)
           to label %66 unwind label %158
 
 66:                                               ; preds = %65
-  invoke void @_ZN8Parallel7gathervIdEEvPKT_iPS1_PKi(ptr noundef %4, i32 noundef %12, ptr noundef nonnull %64, ptr noundef nonnull %32)
+  invoke void @_ZN8Parallel7gathervIdEEvPKT_iPS1_PKi(ptr noundef %4, i32 noundef %12, ptr noundef %64, ptr noundef %32)
           to label %67 unwind label %158
 
 67:                                               ; preds = %66
@@ -274,11 +274,11 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %110 = load i32, ptr %109, align 8, !tbaa !38
   %111 = and i32 %110, -261
   %112 = or i32 %111, 256
-  store i32 %112, ptr %109, align 8, !tbaa !44
+  store i32 %112, ptr %109, align 8, !tbaa !38
   %113 = load i64, ptr %106, align 8
   %114 = getelementptr inbounds i8, ptr %9, i64 %113
   %115 = getelementptr inbounds %"class.std::ios_base", ptr %114, i64 0, i32 1
-  store i64 8, ptr %115, align 8, !tbaa !45
+  store i64 8, ptr %115, align 8, !tbaa !40
   %116 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull @.str.1, i64 noundef 5)
           to label %117 unwind label %164
 
@@ -288,13 +288,13 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %120 = load i64, ptr %119, align 8
   %121 = getelementptr inbounds i8, ptr %9, i64 %120
   %122 = getelementptr inbounds %"class.std::basic_ios", ptr %121, i64 0, i32 5
-  %123 = load ptr, ptr %122, align 8, !tbaa !46
+  %123 = load ptr, ptr %122, align 8, !tbaa !45
   %124 = icmp eq ptr %123, null
   br i1 %124, label %307, label %125
 
 125:                                              ; preds = %117
   %126 = getelementptr inbounds %"class.std::ctype", ptr %123, i64 0, i32 8
-  %127 = load i8, ptr %126, align 8, !tbaa !48
+  %127 = load i8, ptr %126, align 8, !tbaa !47
   %128 = icmp eq i8 %127, 0
   br i1 %128, label %132, label %129
 
@@ -380,7 +380,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %169 = load i64, ptr %168, align 8
   %170 = getelementptr inbounds i8, ptr %9, i64 %169
   %171 = getelementptr inbounds %"class.std::ios_base", ptr %170, i64 0, i32 2
-  store i64 5, ptr %171, align 8, !tbaa !51
+  store i64 5, ptr %171, align 8, !tbaa !50
   %172 = add nuw nsw i64 %144, 1
   %173 = trunc i64 %172 to i32
   %174 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %9, i32 noundef %173)
@@ -392,7 +392,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %178 = load i64, ptr %177, align 8
   %179 = getelementptr inbounds i8, ptr %174, i64 %178
   %180 = getelementptr inbounds %"class.std::ios_base", ptr %179, i64 0, i32 2
-  store i64 18, ptr %180, align 8, !tbaa !51
+  store i64 18, ptr %180, align 8, !tbaa !50
   %181 = getelementptr inbounds double, ptr %63, i64 %144
   %182 = load double, ptr %181, align 8, !tbaa !23
   %183 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %174, double noundef %182)
@@ -404,7 +404,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %187 = load i64, ptr %186, align 8
   %188 = getelementptr inbounds i8, ptr %183, i64 %187
   %189 = getelementptr inbounds %"class.std::basic_ios", ptr %188, i64 0, i32 5
-  %190 = load ptr, ptr %189, align 8, !tbaa !46
+  %190 = load ptr, ptr %189, align 8, !tbaa !45
   %191 = icmp eq ptr %190, null
   br i1 %191, label %192, label %194
 
@@ -417,7 +417,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
 
 194:                                              ; preds = %184
   %195 = getelementptr inbounds %"class.std::ctype", ptr %190, i64 0, i32 8
-  %196 = load i8, ptr %195, align 8, !tbaa !48
+  %196 = load i8, ptr %195, align 8, !tbaa !47
   %197 = icmp eq i8 %196, 0
   br i1 %197, label %201, label %198
 
@@ -444,7 +444,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
 
 210:                                              ; preds = %207
   %211 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %209)
-          to label %143 unwind label %212
+          to label %143 unwind label %212, !llvm.loop !51
 
 212:                                              ; preds = %166, %175, %201, %202, %207, %210
   %213 = landingpad { ptr, i32 }
@@ -462,13 +462,13 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %219 = load i64, ptr %218, align 8
   %220 = getelementptr inbounds i8, ptr %9, i64 %219
   %221 = getelementptr inbounds %"class.std::basic_ios", ptr %220, i64 0, i32 5
-  %222 = load ptr, ptr %221, align 8, !tbaa !46
+  %222 = load ptr, ptr %221, align 8, !tbaa !45
   %223 = icmp eq ptr %222, null
   br i1 %223, label %307, label %224
 
 224:                                              ; preds = %216
   %225 = getelementptr inbounds %"class.std::ctype", ptr %222, i64 0, i32 8
-  %226 = load i8, ptr %225, align 8, !tbaa !48
+  %226 = load i8, ptr %225, align 8, !tbaa !47
   %227 = icmp eq i8 %226, 0
   br i1 %227, label %231, label %228
 
@@ -514,7 +514,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %252 = load i64, ptr %251, align 8
   %253 = getelementptr inbounds i8, ptr %9, i64 %252
   %254 = getelementptr inbounds %"class.std::ios_base", ptr %253, i64 0, i32 2
-  store i64 5, ptr %254, align 8, !tbaa !51
+  store i64 5, ptr %254, align 8, !tbaa !50
   %255 = add nuw nsw i64 %243, 1
   %256 = trunc i64 %255 to i32
   %257 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %9, i32 noundef %256)
@@ -526,7 +526,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %261 = load i64, ptr %260, align 8
   %262 = getelementptr inbounds i8, ptr %257, i64 %261
   %263 = getelementptr inbounds %"class.std::ios_base", ptr %262, i64 0, i32 2
-  store i64 18, ptr %263, align 8, !tbaa !51
+  store i64 18, ptr %263, align 8, !tbaa !50
   %264 = getelementptr inbounds double, ptr %62, i64 %243
   %265 = load double, ptr %264, align 8, !tbaa !23
   %266 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %257, double noundef %265)
@@ -538,7 +538,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %270 = load i64, ptr %269, align 8
   %271 = getelementptr inbounds i8, ptr %266, i64 %270
   %272 = getelementptr inbounds %"class.std::basic_ios", ptr %271, i64 0, i32 5
-  %273 = load ptr, ptr %272, align 8, !tbaa !46
+  %273 = load ptr, ptr %272, align 8, !tbaa !45
   %274 = icmp eq ptr %273, null
   br i1 %274, label %275, label %277
 
@@ -551,7 +551,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
 
 277:                                              ; preds = %267
   %278 = getelementptr inbounds %"class.std::ctype", ptr %273, i64 0, i32 8
-  %279 = load i8, ptr %278, align 8, !tbaa !48
+  %279 = load i8, ptr %278, align 8, !tbaa !47
   %280 = icmp eq i8 %279, 0
   br i1 %280, label %284, label %281
 
@@ -578,7 +578,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
 
 293:                                              ; preds = %290
   %294 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %292)
-          to label %242 unwind label %295
+          to label %242 unwind label %295, !llvm.loop !53
 
 295:                                              ; preds = %249, %258, %284, %285, %290, %293
   %296 = landingpad { ptr, i32 }
@@ -596,7 +596,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %302 = load i64, ptr %301, align 8
   %303 = getelementptr inbounds i8, ptr %9, i64 %302
   %304 = getelementptr inbounds %"class.std::basic_ios", ptr %303, i64 0, i32 5
-  %305 = load ptr, ptr %304, align 8, !tbaa !46
+  %305 = load ptr, ptr %304, align 8, !tbaa !45
   %306 = icmp eq ptr %305, null
   br i1 %306, label %307, label %309
 
@@ -609,7 +609,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
 
 309:                                              ; preds = %299
   %310 = getelementptr inbounds %"class.std::ctype", ptr %305, i64 0, i32 8
-  %311 = load i8, ptr %310, align 8, !tbaa !48
+  %311 = load i8, ptr %310, align 8, !tbaa !47
   %312 = icmp eq i8 %311, 0
   br i1 %312, label %316, label %313
 
@@ -660,7 +660,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %340 = load i64, ptr %339, align 8
   %341 = getelementptr inbounds i8, ptr %9, i64 %340
   %342 = getelementptr inbounds %"class.std::ios_base", ptr %341, i64 0, i32 5
-  %343 = load i32, ptr %342, align 8, !tbaa !52
+  %343 = load i32, ptr %342, align 8, !tbaa !54
   %344 = or i32 %343, 4
   invoke void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %341, i32 noundef %344)
           to label %395 unwind label %164
@@ -671,7 +671,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %348 = load i64, ptr %347, align 8
   %349 = getelementptr inbounds i8, ptr %9, i64 %348
   %350 = getelementptr inbounds %"class.std::ios_base", ptr %349, i64 0, i32 2
-  store i64 5, ptr %350, align 8, !tbaa !51
+  store i64 5, ptr %350, align 8, !tbaa !50
   %351 = add nuw nsw i64 %328, 1
   %352 = trunc i64 %351 to i32
   %353 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %9, i32 noundef %352)
@@ -683,7 +683,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %357 = load i64, ptr %356, align 8
   %358 = getelementptr inbounds i8, ptr %353, i64 %357
   %359 = getelementptr inbounds %"class.std::ios_base", ptr %358, i64 0, i32 2
-  store i64 18, ptr %359, align 8, !tbaa !51
+  store i64 18, ptr %359, align 8, !tbaa !50
   %360 = getelementptr inbounds double, ptr %64, i64 %328
   %361 = load double, ptr %360, align 8, !tbaa !23
   %362 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %353, double noundef %361)
@@ -695,7 +695,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
   %366 = load i64, ptr %365, align 8
   %367 = getelementptr inbounds i8, ptr %362, i64 %366
   %368 = getelementptr inbounds %"class.std::basic_ios", ptr %367, i64 0, i32 5
-  %369 = load ptr, ptr %368, align 8, !tbaa !46
+  %369 = load ptr, ptr %368, align 8, !tbaa !45
   %370 = icmp eq ptr %369, null
   br i1 %370, label %371, label %373
 
@@ -708,7 +708,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
 
 373:                                              ; preds = %363
   %374 = getelementptr inbounds %"class.std::ctype", ptr %369, i64 0, i32 8
-  %375 = load i8, ptr %374, align 8, !tbaa !48
+  %375 = load i8, ptr %374, align 8, !tbaa !47
   %376 = icmp eq i8 %375, 0
   br i1 %376, label %380, label %377
 
@@ -735,7 +735,7 @@ define dso_local void @_ZN7WriteXY5writeERKNSt7__cxx1112basic_stringIcSt11char_t
 
 389:                                              ; preds = %386
   %390 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %388)
-          to label %327 unwind label %391
+          to label %327 unwind label %391, !llvm.loop !55
 
 391:                                              ; preds = %345, %354, %380, %381, %386, %389
   %392 = landingpad { ptr, i32 }
@@ -984,18 +984,21 @@ attributes #15 = { builtin nounwind }
 !35 = !{!8, !8, i64 0}
 !36 = !{!37, !37, i64 0}
 !37 = !{!"vtable pointer", !9, i64 0}
-!38 = !{!39, !40, i64 24}
-!39 = !{!"_ZTSSt8ios_base", !32, i64 8, !32, i64 16, !40, i64 24, !41, i64 28, !41, i64 32, !7, i64 40, !42, i64 48, !8, i64 64, !12, i64 192, !7, i64 200, !43, i64 208}
-!40 = !{!"_ZTSSt13_Ios_Fmtflags", !8, i64 0}
-!41 = !{!"_ZTSSt12_Ios_Iostate", !8, i64 0}
-!42 = !{!"_ZTSNSt8ios_base6_WordsE", !7, i64 0, !32, i64 8}
-!43 = !{!"_ZTSSt6locale", !7, i64 0}
-!44 = !{!40, !40, i64 0}
-!45 = !{!39, !32, i64 8}
-!46 = !{!47, !7, i64 240}
-!47 = !{!"_ZTSSt9basic_iosIcSt11char_traitsIcEE", !39, i64 0, !7, i64 216, !8, i64 224, !17, i64 225, !7, i64 232, !7, i64 240, !7, i64 248, !7, i64 256}
-!48 = !{!49, !8, i64 56}
-!49 = !{!"_ZTSSt5ctypeIcE", !50, i64 0, !7, i64 16, !17, i64 24, !7, i64 32, !7, i64 40, !7, i64 48, !8, i64 56, !8, i64 57, !8, i64 313, !8, i64 569}
-!50 = !{!"_ZTSNSt6locale5facetE", !12, i64 8}
-!51 = !{!39, !32, i64 16}
-!52 = !{!39, !41, i64 32}
+!38 = !{!39, !39, i64 0}
+!39 = !{!"_ZTSSt13_Ios_Fmtflags", !8, i64 0}
+!40 = !{!41, !32, i64 8}
+!41 = !{!"_ZTSSt8ios_base", !32, i64 8, !32, i64 16, !39, i64 24, !42, i64 28, !42, i64 32, !7, i64 40, !43, i64 48, !8, i64 64, !12, i64 192, !7, i64 200, !44, i64 208}
+!42 = !{!"_ZTSSt12_Ios_Iostate", !8, i64 0}
+!43 = !{!"_ZTSNSt8ios_base6_WordsE", !7, i64 0, !32, i64 8}
+!44 = !{!"_ZTSSt6locale", !7, i64 0}
+!45 = !{!46, !7, i64 240}
+!46 = !{!"_ZTSSt9basic_iosIcSt11char_traitsIcEE", !41, i64 0, !7, i64 216, !8, i64 224, !17, i64 225, !7, i64 232, !7, i64 240, !7, i64 248, !7, i64 256}
+!47 = !{!48, !8, i64 56}
+!48 = !{!"_ZTSSt5ctypeIcE", !49, i64 0, !7, i64 16, !17, i64 24, !7, i64 32, !7, i64 40, !7, i64 48, !8, i64 56, !8, i64 57, !8, i64 313, !8, i64 569}
+!49 = !{!"_ZTSNSt6locale5facetE", !12, i64 8}
+!50 = !{!41, !32, i64 16}
+!51 = distinct !{!51, !52}
+!52 = !{!"llvm.loop.mustprogress"}
+!53 = distinct !{!53, !52}
+!54 = !{!41, !42, i64 32}
+!55 = distinct !{!55, !52}

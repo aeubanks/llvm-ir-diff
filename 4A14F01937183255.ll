@@ -36,58 +36,58 @@ $_ZN14btQuantizedBvh21mergeInternalNodeAabbEiRK9btVector3S2_ = comdat any
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
 define dso_local void @_ZN14btQuantizedBvhC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(244) %0) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14btQuantizedBvh, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 1
-  %3 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 2
-  %4 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 4
-  store i32 275, ptr %4, align 8, !tbaa !8
-  %5 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 6
-  store i8 0, ptr %5, align 8, !tbaa !22
-  %6 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 6
-  store i8 1, ptr %6, align 8, !tbaa !23
-  %7 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 5
-  store ptr null, ptr %7, align 8, !tbaa !24
-  %8 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 2
-  store i32 0, ptr %8, align 4, !tbaa !25
-  %9 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 3
-  store i32 0, ptr %9, align 8, !tbaa !26
-  %10 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 6
-  store i8 1, ptr %10, align 8, !tbaa !23
-  %11 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 5
-  store ptr null, ptr %11, align 8, !tbaa !24
-  %12 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 2
-  store i32 0, ptr %12, align 4, !tbaa !25
-  %13 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 3
-  store i32 0, ptr %13, align 8, !tbaa !26
-  %14 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 6
-  store i8 1, ptr %14, align 8, !tbaa !27
-  %15 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 5
-  store ptr null, ptr %15, align 8, !tbaa !28
-  %16 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 2
-  store i32 0, ptr %16, align 4, !tbaa !29
-  %17 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 3
-  store i32 0, ptr %17, align 8, !tbaa !30
-  %18 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 6
-  store i8 1, ptr %18, align 8, !tbaa !27
-  %19 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 5
-  store ptr null, ptr %19, align 8, !tbaa !28
-  %20 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 2
-  store i32 0, ptr %20, align 4, !tbaa !29
-  %21 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 3
-  store i32 0, ptr %21, align 8, !tbaa !30
-  %22 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 12
-  store i32 0, ptr %22, align 8, !tbaa !31
-  %23 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 6
-  store i8 1, ptr %23, align 8, !tbaa !32
-  %24 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 5
-  store ptr null, ptr %24, align 8, !tbaa !33
-  %25 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
-  store i32 0, ptr %25, align 4, !tbaa !34
-  %26 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 3
-  store i32 0, ptr %26, align 8, !tbaa !35
+  %2 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 4
+  store i32 275, ptr %2, align 8, !tbaa !8
+  %3 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 6
+  store i8 0, ptr %3, align 8, !tbaa !22
+  %4 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 6
+  store i8 1, ptr %4, align 8, !tbaa !23
+  %5 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 5
+  store ptr null, ptr %5, align 8, !tbaa !24
+  %6 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 2
+  store i32 0, ptr %6, align 4, !tbaa !25
+  %7 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 3
+  store i32 0, ptr %7, align 8, !tbaa !26
+  %8 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 6
+  store i8 1, ptr %8, align 8, !tbaa !23
+  %9 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 5
+  store ptr null, ptr %9, align 8, !tbaa !24
+  %10 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 2
+  store i32 0, ptr %10, align 4, !tbaa !25
+  %11 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 3
+  store i32 0, ptr %11, align 8, !tbaa !26
+  %12 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 6
+  store i8 1, ptr %12, align 8, !tbaa !27
+  %13 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 5
+  store ptr null, ptr %13, align 8, !tbaa !28
+  %14 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 2
+  store i32 0, ptr %14, align 4, !tbaa !29
+  %15 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 3
+  store i32 0, ptr %15, align 8, !tbaa !30
+  %16 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 6
+  store i8 1, ptr %16, align 8, !tbaa !27
+  %17 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 5
+  store ptr null, ptr %17, align 8, !tbaa !28
+  %18 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 2
+  store i32 0, ptr %18, align 4, !tbaa !29
+  %19 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 3
+  store i32 0, ptr %19, align 8, !tbaa !30
+  %20 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 12
+  store i32 0, ptr %20, align 8, !tbaa !31
+  %21 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 6
+  store i8 1, ptr %21, align 8, !tbaa !32
+  %22 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 5
+  store ptr null, ptr %22, align 8, !tbaa !33
+  %23 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
+  store i32 0, ptr %23, align 4, !tbaa !34
+  %24 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 3
+  store i32 0, ptr %24, align 8, !tbaa !35
+  %25 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 2
+  %26 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 1
   %27 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 15
   store i32 0, ptr %27, align 8, !tbaa !36
-  store <4 x float> <float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000, float 0.000000e+00>, ptr %2, align 8, !tbaa !37
-  store <4 x float> <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0.000000e+00>, ptr %3, align 8, !tbaa !37
+  store <4 x float> <float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000, float 0.000000e+00>, ptr %26, align 8, !tbaa !37
+  store <4 x float> <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0.000000e+00>, ptr %25, align 8, !tbaa !37
   ret void
 }
 
@@ -126,9 +126,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI18btQuantizedBvhNo
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !27
   store ptr null, ptr %2, align 8, !tbaa !28
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !29
   %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !30
@@ -151,9 +151,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI18btOptimizedBvhNo
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !23
   store ptr null, ptr %2, align 8, !tbaa !24
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !25
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !26
@@ -309,16 +309,14 @@ define dso_local void @_ZN14btQuantizedBvh13buildInternalEv(ptr noundef nonnull 
   store i32 0, ptr %97, align 4, !tbaa !44
   tail call void @_ZN14btQuantizedBvh9buildTreeEii(ptr noundef nonnull align 8 dereferenceable(244) %0, i32 noundef 0, i32 noundef %4)
   %98 = load i8, ptr %2, align 8, !tbaa !22, !range !45, !noundef !46
-  %99 = icmp eq i8 %98, 0
-  br i1 %99, label %180, label %100
+  %99 = icmp ne i8 %98, 0
+  %100 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
+  %101 = load i32, ptr %100, align 4
+  %102 = icmp eq i32 %101, 0
+  %103 = select i1 %99, i1 %102, i1 false
+  br i1 %103, label %104, label %181
 
-100:                                              ; preds = %96
-  %101 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
-  %102 = load i32, ptr %101, align 4, !tbaa !34
-  %103 = icmp eq i32 %102, 0
-  br i1 %103, label %104, label %180
-
-104:                                              ; preds = %100
+104:                                              ; preds = %96
   %105 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 3
   %106 = load i32, ptr %105, align 8, !tbaa !35
   %107 = icmp eq i32 %106, 0
@@ -326,7 +324,7 @@ define dso_local void @_ZN14btQuantizedBvh13buildInternalEv(ptr noundef nonnull 
 
 108:                                              ; preds = %104
   %109 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 32, i32 noundef 16)
-  %110 = load i32, ptr %101, align 4, !tbaa !34
+  %110 = load i32, ptr %100, align 4, !tbaa !34
   %111 = icmp sgt i32 %110, 0
   br i1 %111, label %112, label %139
 
@@ -388,13 +386,13 @@ define dso_local void @_ZN14btQuantizedBvh13buildInternalEv(ptr noundef nonnull 
   store i8 1, ptr %143, align 8, !tbaa !32
   store ptr %109, ptr %140, align 8, !tbaa !33
   store i32 1, ptr %105, align 8, !tbaa !35
-  %149 = load i32, ptr %101, align 4, !tbaa !34
+  %149 = load i32, ptr %100, align 4, !tbaa !34
   %150 = add nsw i32 %149, 1
   br label %151
 
 151:                                              ; preds = %104, %148
   %152 = phi i32 [ %150, %148 ], [ 1, %104 ]
-  store i32 %152, ptr %101, align 4, !tbaa !34
+  store i32 %152, ptr %100, align 4, !tbaa !34
   %153 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 5
   %154 = load ptr, ptr %153, align 8, !tbaa !33
   %155 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 5
@@ -430,11 +428,11 @@ define dso_local void @_ZN14btQuantizedBvh13buildInternalEv(ptr noundef nonnull 
   %178 = select i1 %176, i32 1, i32 %177
   %179 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %154, i64 0, i32 3
   store i32 %178, ptr %179, align 4, !tbaa !54
-  br label %180
+  %180 = load i32, ptr %100, align 4, !tbaa !34
+  br label %181
 
-180:                                              ; preds = %151, %100, %96
-  %181 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
-  %182 = load i32, ptr %181, align 4, !tbaa !34
+181:                                              ; preds = %151, %96
+  %182 = phi i32 [ %180, %151 ], [ %101, %96 ]
   %183 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 15
   store i32 %182, ptr %183, align 8, !tbaa !36
   %184 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 5
@@ -446,11 +444,11 @@ define dso_local void @_ZN14btQuantizedBvh13buildInternalEv(ptr noundef nonnull 
   %190 = select i1 %186, i1 true, i1 %189
   br i1 %190, label %192, label %191
 
-191:                                              ; preds = %180
+191:                                              ; preds = %181
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %185)
   br label %192
 
-192:                                              ; preds = %180, %191
+192:                                              ; preds = %181, %191
   store i8 1, ptr %187, align 8, !tbaa !27
   store ptr null, ptr %184, align 8, !tbaa !28
   store i32 0, ptr %3, align 4, !tbaa !29
@@ -470,9 +468,9 @@ define dso_local void @_ZN14btQuantizedBvh13buildInternalEv(ptr noundef nonnull 
   br label %202
 
 202:                                              ; preds = %192, %201
-  %203 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 2
   store i8 1, ptr %197, align 8, !tbaa !23
   store ptr null, ptr %194, align 8, !tbaa !24
+  %203 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 2
   store i32 0, ptr %203, align 4, !tbaa !25
   %204 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 3
   store i32 0, ptr %204, align 8, !tbaa !26
@@ -680,7 +678,7 @@ define dso_local void @_ZN14btQuantizedBvh9buildTreeEii(ptr noundef nonnull alig
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #17
   %152 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %147, i64 %114, i32 1
   %153 = load <2 x float>, ptr %152, align 4, !tbaa.struct !56
-  %154 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %147, i64 %114, i32 1, i32 0, i64 2
+  %154 = getelementptr inbounds i8, ptr %152, i64 8
   %155 = load <2 x float>, ptr %154, align 4, !tbaa.struct !57
   br label %156
 
@@ -798,10 +796,10 @@ define dso_local void @_ZN14btQuantizedBvhD2Ev(ptr noundef nonnull align 8 deref
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %57
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !32
   store ptr null, ptr %2, align 8, !tbaa !33
+  %11 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
   store i32 0, ptr %11, align 4, !tbaa !34
   %12 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 3
   store i32 0, ptr %12, align 8, !tbaa !35
@@ -818,10 +816,10 @@ define dso_local void @_ZN14btQuantizedBvhD2Ev(ptr noundef nonnull align 8 deref
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %14)
           to label %21 unwind label %60
 
-21:                                               ; preds = %10, %20
-  %22 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 2
+21:                                               ; preds = %20, %10
   store i8 1, ptr %16, align 8, !tbaa !27
   store ptr null, ptr %13, align 8, !tbaa !28
+  %22 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 2
   store i32 0, ptr %22, align 4, !tbaa !29
   %23 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 3
   store i32 0, ptr %23, align 8, !tbaa !30
@@ -838,10 +836,10 @@ define dso_local void @_ZN14btQuantizedBvhD2Ev(ptr noundef nonnull align 8 deref
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %25)
           to label %32 unwind label %62
 
-32:                                               ; preds = %21, %31
-  %33 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 2
+32:                                               ; preds = %31, %21
   store i8 1, ptr %27, align 8, !tbaa !27
   store ptr null, ptr %24, align 8, !tbaa !28
+  %33 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 2
   store i32 0, ptr %33, align 4, !tbaa !29
   %34 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 3
   store i32 0, ptr %34, align 8, !tbaa !30
@@ -858,10 +856,10 @@ define dso_local void @_ZN14btQuantizedBvhD2Ev(ptr noundef nonnull align 8 deref
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %36)
           to label %43 unwind label %67
 
-43:                                               ; preds = %32, %42
-  %44 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 2
+43:                                               ; preds = %42, %32
   store i8 1, ptr %38, align 8, !tbaa !23
   store ptr null, ptr %35, align 8, !tbaa !24
+  %44 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 2
   store i32 0, ptr %44, align 4, !tbaa !25
   %45 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 3
   store i32 0, ptr %45, align 8, !tbaa !26
@@ -879,9 +877,9 @@ define dso_local void @_ZN14btQuantizedBvhD2Ev(ptr noundef nonnull align 8 deref
   br label %54
 
 54:                                               ; preds = %43, %53
-  %55 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 2
   store i8 1, ptr %49, align 8, !tbaa !23
   store ptr null, ptr %46, align 8, !tbaa !24
+  %55 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 2
   store i32 0, ptr %55, align 4, !tbaa !25
   %56 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 3
   store i32 0, ptr %56, align 8, !tbaa !26
@@ -1038,7 +1036,7 @@ define dso_local noundef i32 @_ZN14btQuantizedBvh17calcSplittingAxisEii(ptr noca
   %32 = phi <2 x float> [ %49, %29 ], [ zeroinitializer, %8 ]
   %33 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %23, i64 %30, i32 1
   %34 = load <2 x float>, ptr %33, align 4, !tbaa.struct !56
-  %35 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %23, i64 %30, i32 1, i32 0, i64 2
+  %35 = getelementptr inbounds i8, ptr %33, i64 8
   %36 = load <2 x float>, ptr %35, align 4, !tbaa.struct !57
   %37 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %23, i64 %30
   %38 = load <2 x float>, ptr %37, align 4, !tbaa.struct !56
@@ -1134,7 +1132,7 @@ define dso_local noundef i32 @_ZN14btQuantizedBvh17calcSplittingAxisEii(ptr noca
   %118 = phi <2 x float> [ %139, %115 ], [ zeroinitializer, %94 ]
   %119 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %109, i64 %116, i32 1
   %120 = load <2 x float>, ptr %119, align 4, !tbaa.struct !56
-  %121 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %109, i64 %116, i32 1, i32 0, i64 2
+  %121 = getelementptr inbounds i8, ptr %119, i64 8
   %122 = load <2 x float>, ptr %121, align 4, !tbaa.struct !57
   %123 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %109, i64 %116
   %124 = load <2 x float>, ptr %123, align 4, !tbaa.struct !56
@@ -1227,7 +1225,7 @@ define dso_local noundef i32 @_ZN14btQuantizedBvh25sortAndCalcSplittingIndexEiii
   %11 = icmp sgt i32 %2, %1
   %12 = getelementptr inbounds i8, ptr %7, i64 12
   store i32 0, ptr %12, align 4
-  br i1 %11, label %13, label %89
+  br i1 %11, label %13, label %137
 
 13:                                               ; preds = %4
   %14 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 6
@@ -1252,219 +1250,273 @@ define dso_local noundef i32 @_ZN14btQuantizedBvh25sortAndCalcSplittingIndexEiii
 31:                                               ; preds = %13
   %32 = shufflevector <4 x float> %21, <4 x float> poison, <2 x i32> zeroinitializer
   %33 = shufflevector <4 x float> %26, <4 x float> poison, <2 x i32> zeroinitializer
-  br label %56
+  br label %104
 
-34:                                               ; preds = %13, %34
-  %35 = phi i64 [ %54, %34 ], [ %29, %13 ]
-  %36 = phi float [ %53, %34 ], [ 0.000000e+00, %13 ]
-  %37 = phi <2 x float> [ %52, %34 ], [ zeroinitializer, %13 ]
-  %38 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %28, i64 %35, i32 1
-  %39 = load <2 x float>, ptr %38, align 4, !tbaa.struct !56
-  %40 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %28, i64 %35, i32 1, i32 0, i64 2
-  %41 = load <2 x float>, ptr %40, align 4, !tbaa.struct !57
-  %42 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %28, i64 %35
-  %43 = load <2 x float>, ptr %42, align 4, !tbaa.struct !56
-  %44 = getelementptr inbounds i8, ptr %42, i64 8
-  %45 = load <2 x float>, ptr %44, align 4, !tbaa.struct !57
-  %46 = extractelement <2 x float> %41, i64 0
-  %47 = extractelement <2 x float> %45, i64 0
-  %48 = fadd float %46, %47
-  %49 = fadd <2 x float> %39, %43
-  %50 = fmul <2 x float> %49, <float 5.000000e-01, float 5.000000e-01>
-  %51 = fmul float %48, 5.000000e-01
-  %52 = fadd <2 x float> %37, %50
-  %53 = fadd float %51, %36
-  %54 = add nsw i64 %35, 1
-  %55 = icmp eq i64 %54, %30
-  br i1 %55, label %89, label %34
+34:                                               ; preds = %13
+  %35 = sub nsw i64 %30, %29
+  %36 = xor i64 %29, -1
+  %37 = and i64 %35, 1
+  %38 = icmp eq i64 %37, 0
+  br i1 %38, label %57, label %39
 
-56:                                               ; preds = %31, %56
-  %57 = phi i64 [ %87, %56 ], [ %29, %31 ]
-  %58 = phi float [ %86, %56 ], [ 0.000000e+00, %31 ]
-  %59 = phi <2 x float> [ %85, %56 ], [ zeroinitializer, %31 ]
-  %60 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %18, i64 %57, i32 1
-  %61 = getelementptr inbounds i16, ptr %60, i64 2
-  %62 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %18, i64 %57
-  %63 = getelementptr inbounds i16, ptr %62, i64 2
-  %64 = load i16, ptr %61, align 2, !tbaa !48
-  %65 = load i16, ptr %63, align 2, !tbaa !48
-  %66 = insertelement <2 x i16> poison, i16 %64, i64 0
-  %67 = insertelement <2 x i16> %66, i16 %65, i64 1
-  %68 = uitofp <2 x i16> %67 to <2 x float>
-  %69 = fdiv <2 x float> %68, %32
-  %70 = fadd <2 x float> %69, %33
-  %71 = shufflevector <2 x float> %70, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
-  %72 = fadd <2 x float> %70, %71
-  %73 = extractelement <2 x float> %72, i64 0
-  %74 = load <2 x i16>, ptr %60, align 2, !tbaa !48
-  %75 = uitofp <2 x i16> %74 to <2 x float>
-  %76 = fdiv <2 x float> %75, %23
-  %77 = fadd <2 x float> %76, %24
-  %78 = load <2 x i16>, ptr %62, align 2, !tbaa !48
-  %79 = uitofp <2 x i16> %78 to <2 x float>
-  %80 = fdiv <2 x float> %79, %23
-  %81 = fadd <2 x float> %80, %24
-  %82 = fadd <2 x float> %77, %81
-  %83 = fmul <2 x float> %82, <float 5.000000e-01, float 5.000000e-01>
-  %84 = fmul float %73, 5.000000e-01
-  %85 = fadd <2 x float> %59, %83
-  %86 = fadd float %84, %58
-  %87 = add nsw i64 %57, 1
-  %88 = icmp eq i64 %87, %30
-  br i1 %88, label %89, label %56
+39:                                               ; preds = %34
+  %40 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %28, i64 %29, i32 1
+  %41 = load <2 x float>, ptr %40, align 4, !tbaa.struct !56
+  %42 = getelementptr inbounds i8, ptr %40, i64 8
+  %43 = load <2 x float>, ptr %42, align 4, !tbaa.struct !57
+  %44 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %28, i64 %29
+  %45 = load <2 x float>, ptr %44, align 4, !tbaa.struct !56
+  %46 = getelementptr inbounds i8, ptr %44, i64 8
+  %47 = load <2 x float>, ptr %46, align 4, !tbaa.struct !57
+  %48 = extractelement <2 x float> %43, i64 0
+  %49 = extractelement <2 x float> %47, i64 0
+  %50 = fadd float %48, %49
+  %51 = fadd <2 x float> %41, %45
+  %52 = fmul <2 x float> %51, <float 5.000000e-01, float 5.000000e-01>
+  %53 = fmul float %50, 5.000000e-01
+  %54 = fadd <2 x float> %52, zeroinitializer
+  %55 = fadd float %53, 0.000000e+00
+  %56 = add nsw i64 %29, 1
+  br label %57
 
-89:                                               ; preds = %56, %34, %4
-  %90 = phi float [ 0.000000e+00, %4 ], [ %53, %34 ], [ %86, %56 ]
-  %91 = phi <2 x float> [ zeroinitializer, %4 ], [ %52, %34 ], [ %85, %56 ]
-  %92 = sitofp i32 %9 to float
-  %93 = fdiv float 1.000000e+00, %92
-  %94 = insertelement <2 x float> poison, float %93, i64 0
-  %95 = shufflevector <2 x float> %94, <2 x float> poison, <2 x i32> zeroinitializer
-  %96 = fmul <2 x float> %95, %91
-  store <2 x float> %96, ptr %7, align 8, !tbaa !37
-  %97 = fmul float %93, %90
-  store float %97, ptr %10, align 8, !tbaa !37
-  %98 = sext i32 %3 to i64
-  %99 = getelementptr inbounds float, ptr %7, i64 %98
-  %100 = load float, ptr %99, align 4, !tbaa !37
-  br i1 %11, label %101, label %189
+57:                                               ; preds = %39, %34
+  %58 = phi <2 x float> [ undef, %34 ], [ %54, %39 ]
+  %59 = phi float [ undef, %34 ], [ %55, %39 ]
+  %60 = phi i64 [ %29, %34 ], [ %56, %39 ]
+  %61 = phi float [ 0.000000e+00, %34 ], [ %55, %39 ]
+  %62 = phi <2 x float> [ zeroinitializer, %34 ], [ %54, %39 ]
+  %63 = sub nsw i64 0, %30
+  %64 = icmp eq i64 %36, %63
+  br i1 %64, label %137, label %65
 
-101:                                              ; preds = %89
-  %102 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 6
-  %103 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 5
-  %104 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 3
-  %105 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 3, i32 0, i64 2
-  %106 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 1
-  %107 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 1, i32 0, i64 2
-  %108 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 5
-  %109 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %8, i64 0, i32 1
-  %110 = getelementptr inbounds float, ptr %8, i64 %98
-  %111 = sext i32 %1 to i64
-  %112 = sext i32 %2 to i64
-  br label %113
+65:                                               ; preds = %57, %65
+  %66 = phi i64 [ %102, %65 ], [ %60, %57 ]
+  %67 = phi float [ %101, %65 ], [ %61, %57 ]
+  %68 = phi <2 x float> [ %100, %65 ], [ %62, %57 ]
+  %69 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %28, i64 %66, i32 1
+  %70 = load <2 x float>, ptr %69, align 4, !tbaa.struct !56
+  %71 = getelementptr inbounds i8, ptr %69, i64 8
+  %72 = load <2 x float>, ptr %71, align 4, !tbaa.struct !57
+  %73 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %28, i64 %66
+  %74 = load <2 x float>, ptr %73, align 4, !tbaa.struct !56
+  %75 = getelementptr inbounds i8, ptr %73, i64 8
+  %76 = load <2 x float>, ptr %75, align 4, !tbaa.struct !57
+  %77 = extractelement <2 x float> %72, i64 0
+  %78 = extractelement <2 x float> %76, i64 0
+  %79 = fadd float %77, %78
+  %80 = fadd <2 x float> %70, %74
+  %81 = fmul <2 x float> %80, <float 5.000000e-01, float 5.000000e-01>
+  %82 = fmul float %79, 5.000000e-01
+  %83 = fadd <2 x float> %68, %81
+  %84 = fadd float %82, %67
+  %85 = add nsw i64 %66, 1
+  %86 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %28, i64 %85, i32 1
+  %87 = load <2 x float>, ptr %86, align 4, !tbaa.struct !56
+  %88 = getelementptr inbounds i8, ptr %86, i64 8
+  %89 = load <2 x float>, ptr %88, align 4, !tbaa.struct !57
+  %90 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %28, i64 %85
+  %91 = load <2 x float>, ptr %90, align 4, !tbaa.struct !56
+  %92 = getelementptr inbounds i8, ptr %90, i64 8
+  %93 = load <2 x float>, ptr %92, align 4, !tbaa.struct !57
+  %94 = extractelement <2 x float> %89, i64 0
+  %95 = extractelement <2 x float> %93, i64 0
+  %96 = fadd float %94, %95
+  %97 = fadd <2 x float> %87, %91
+  %98 = fmul <2 x float> %97, <float 5.000000e-01, float 5.000000e-01>
+  %99 = fmul float %96, 5.000000e-01
+  %100 = fadd <2 x float> %83, %98
+  %101 = fadd float %99, %84
+  %102 = add nsw i64 %66, 2
+  %103 = icmp eq i64 %102, %30
+  br i1 %103, label %137, label %65
 
-113:                                              ; preds = %101, %185
-  %114 = phi i64 [ %111, %101 ], [ %187, %185 ]
-  %115 = phi i32 [ %1, %101 ], [ %186, %185 ]
+104:                                              ; preds = %31, %104
+  %105 = phi i64 [ %135, %104 ], [ %29, %31 ]
+  %106 = phi float [ %134, %104 ], [ 0.000000e+00, %31 ]
+  %107 = phi <2 x float> [ %133, %104 ], [ zeroinitializer, %31 ]
+  %108 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %18, i64 %105, i32 1
+  %109 = getelementptr inbounds i16, ptr %108, i64 2
+  %110 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %18, i64 %105
+  %111 = getelementptr inbounds i16, ptr %110, i64 2
+  %112 = load i16, ptr %109, align 2, !tbaa !48
+  %113 = load i16, ptr %111, align 2, !tbaa !48
+  %114 = insertelement <2 x i16> poison, i16 %112, i64 0
+  %115 = insertelement <2 x i16> %114, i16 %113, i64 1
+  %116 = uitofp <2 x i16> %115 to <2 x float>
+  %117 = fdiv <2 x float> %116, %32
+  %118 = fadd <2 x float> %117, %33
+  %119 = shufflevector <2 x float> %118, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
+  %120 = fadd <2 x float> %118, %119
+  %121 = extractelement <2 x float> %120, i64 0
+  %122 = load <2 x i16>, ptr %108, align 2, !tbaa !48
+  %123 = uitofp <2 x i16> %122 to <2 x float>
+  %124 = fdiv <2 x float> %123, %23
+  %125 = fadd <2 x float> %124, %24
+  %126 = load <2 x i16>, ptr %110, align 2, !tbaa !48
+  %127 = uitofp <2 x i16> %126 to <2 x float>
+  %128 = fdiv <2 x float> %127, %23
+  %129 = fadd <2 x float> %128, %24
+  %130 = fadd <2 x float> %125, %129
+  %131 = fmul <2 x float> %130, <float 5.000000e-01, float 5.000000e-01>
+  %132 = fmul float %121, 5.000000e-01
+  %133 = fadd <2 x float> %107, %131
+  %134 = fadd float %132, %106
+  %135 = add nsw i64 %105, 1
+  %136 = icmp eq i64 %135, %30
+  br i1 %136, label %137, label %104
+
+137:                                              ; preds = %104, %57, %65, %4
+  %138 = phi float [ 0.000000e+00, %4 ], [ %59, %57 ], [ %101, %65 ], [ %134, %104 ]
+  %139 = phi <2 x float> [ zeroinitializer, %4 ], [ %58, %57 ], [ %100, %65 ], [ %133, %104 ]
+  %140 = sitofp i32 %9 to float
+  %141 = fdiv float 1.000000e+00, %140
+  %142 = insertelement <2 x float> poison, float %141, i64 0
+  %143 = shufflevector <2 x float> %142, <2 x float> poison, <2 x i32> zeroinitializer
+  %144 = fmul <2 x float> %143, %139
+  store <2 x float> %144, ptr %7, align 8, !tbaa !37
+  %145 = fmul float %141, %138
+  store float %145, ptr %10, align 8, !tbaa !37
+  %146 = sext i32 %3 to i64
+  %147 = getelementptr inbounds float, ptr %7, i64 %146
+  %148 = load float, ptr %147, align 4, !tbaa !37
+  br i1 %11, label %149, label %237
+
+149:                                              ; preds = %137
+  %150 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 6
+  %151 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 5
+  %152 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 3
+  %153 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 3, i32 0, i64 2
+  %154 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 1
+  %155 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 1, i32 0, i64 2
+  %156 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 5
+  %157 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %8, i64 0, i32 1
+  %158 = getelementptr inbounds float, ptr %8, i64 %146
+  %159 = sext i32 %1 to i64
+  %160 = sext i32 %2 to i64
+  br label %161
+
+161:                                              ; preds = %149, %233
+  %162 = phi i64 [ %159, %149 ], [ %235, %233 ]
+  %163 = phi i32 [ %1, %149 ], [ %234, %233 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %8) #17
-  %116 = load i8, ptr %102, align 8, !tbaa !22, !range !45, !noundef !46
-  %117 = icmp eq i8 %116, 0
-  br i1 %117, label %146, label %118
+  %164 = load i8, ptr %150, align 8, !tbaa !22, !range !45, !noundef !46
+  %165 = icmp eq i8 %164, 0
+  br i1 %165, label %194, label %166
 
-118:                                              ; preds = %113
-  %119 = load ptr, ptr %103, align 8, !tbaa !28
-  %120 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %119, i64 %114, i32 1
-  %121 = getelementptr inbounds i16, ptr %120, i64 2
-  %122 = load i16, ptr %121, align 2, !tbaa !48
-  %123 = uitofp i16 %122 to float
-  %124 = load float, ptr %105, align 8, !tbaa !37
-  %125 = fdiv float %123, %124
-  %126 = load float, ptr %107, align 8, !tbaa !37
-  %127 = fadd float %125, %126
-  %128 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %127, i64 0
-  %129 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %119, i64 %114
-  %130 = getelementptr inbounds i16, ptr %129, i64 2
-  %131 = load i16, ptr %130, align 2, !tbaa !48
-  %132 = uitofp i16 %131 to float
-  %133 = fdiv float %132, %124
-  %134 = load <2 x float>, ptr %104, align 8, !tbaa !37
-  %135 = load <2 x float>, ptr %106, align 8, !tbaa !37
-  %136 = load <2 x i16>, ptr %120, align 2, !tbaa !48
-  %137 = uitofp <2 x i16> %136 to <2 x float>
-  %138 = fdiv <2 x float> %137, %134
-  %139 = fadd <2 x float> %138, %135
-  %140 = load <2 x i16>, ptr %129, align 2, !tbaa !48
-  %141 = uitofp <2 x i16> %140 to <2 x float>
-  %142 = fdiv <2 x float> %141, %134
-  %143 = fadd <2 x float> %142, %135
-  %144 = fadd float %133, %126
-  %145 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %144, i64 0
-  br label %156
+166:                                              ; preds = %161
+  %167 = load ptr, ptr %151, align 8, !tbaa !28
+  %168 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %167, i64 %162, i32 1
+  %169 = getelementptr inbounds i16, ptr %168, i64 2
+  %170 = load i16, ptr %169, align 2, !tbaa !48
+  %171 = uitofp i16 %170 to float
+  %172 = load float, ptr %153, align 8, !tbaa !37
+  %173 = fdiv float %171, %172
+  %174 = load float, ptr %155, align 8, !tbaa !37
+  %175 = fadd float %173, %174
+  %176 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %175, i64 0
+  %177 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %167, i64 %162
+  %178 = getelementptr inbounds i16, ptr %177, i64 2
+  %179 = load i16, ptr %178, align 2, !tbaa !48
+  %180 = uitofp i16 %179 to float
+  %181 = fdiv float %180, %172
+  %182 = load <2 x float>, ptr %152, align 8, !tbaa !37
+  %183 = load <2 x float>, ptr %154, align 8, !tbaa !37
+  %184 = load <2 x i16>, ptr %168, align 2, !tbaa !48
+  %185 = uitofp <2 x i16> %184 to <2 x float>
+  %186 = fdiv <2 x float> %185, %182
+  %187 = fadd <2 x float> %186, %183
+  %188 = load <2 x i16>, ptr %177, align 2, !tbaa !48
+  %189 = uitofp <2 x i16> %188 to <2 x float>
+  %190 = fdiv <2 x float> %189, %182
+  %191 = fadd <2 x float> %190, %183
+  %192 = fadd float %181, %174
+  %193 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %192, i64 0
+  br label %204
 
-146:                                              ; preds = %113
-  %147 = load ptr, ptr %108, align 8, !tbaa !24
-  %148 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %147, i64 %114, i32 1
-  %149 = load <2 x float>, ptr %148, align 4, !tbaa.struct !56
-  %150 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %147, i64 %114, i32 1, i32 0, i64 2
-  %151 = load <2 x float>, ptr %150, align 4, !tbaa.struct !57
-  %152 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %147, i64 %114
-  %153 = load <2 x float>, ptr %152, align 4, !tbaa.struct !56
-  %154 = getelementptr inbounds i8, ptr %152, i64 8
-  %155 = load <2 x float>, ptr %154, align 4, !tbaa.struct !57
-  br label %156
+194:                                              ; preds = %161
+  %195 = load ptr, ptr %156, align 8, !tbaa !24
+  %196 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %195, i64 %162, i32 1
+  %197 = load <2 x float>, ptr %196, align 4, !tbaa.struct !56
+  %198 = getelementptr inbounds i8, ptr %196, i64 8
+  %199 = load <2 x float>, ptr %198, align 4, !tbaa.struct !57
+  %200 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %195, i64 %162
+  %201 = load <2 x float>, ptr %200, align 4, !tbaa.struct !56
+  %202 = getelementptr inbounds i8, ptr %200, i64 8
+  %203 = load <2 x float>, ptr %202, align 4, !tbaa.struct !57
+  br label %204
 
-156:                                              ; preds = %118, %146
-  %157 = phi <2 x float> [ %128, %118 ], [ %151, %146 ]
-  %158 = phi <2 x float> [ %139, %118 ], [ %149, %146 ]
-  %159 = phi <2 x float> [ %143, %118 ], [ %153, %146 ]
-  %160 = phi <2 x float> [ %145, %118 ], [ %155, %146 ]
-  %161 = fadd <2 x float> %157, %160
-  %162 = extractelement <2 x float> %161, i64 0
-  %163 = fadd <2 x float> %158, %159
-  %164 = fmul <2 x float> %163, <float 5.000000e-01, float 5.000000e-01>
-  %165 = fmul float %162, 5.000000e-01
-  %166 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %165, i64 0
-  store <2 x float> %164, ptr %8, align 8
-  store <2 x float> %166, ptr %109, align 8
-  %167 = load float, ptr %110, align 4, !tbaa !37
-  %168 = fcmp ogt float %167, %100
-  br i1 %168, label %169, label %185
+204:                                              ; preds = %166, %194
+  %205 = phi <2 x float> [ %176, %166 ], [ %199, %194 ]
+  %206 = phi <2 x float> [ %187, %166 ], [ %197, %194 ]
+  %207 = phi <2 x float> [ %191, %166 ], [ %201, %194 ]
+  %208 = phi <2 x float> [ %193, %166 ], [ %203, %194 ]
+  %209 = fadd <2 x float> %205, %208
+  %210 = extractelement <2 x float> %209, i64 0
+  %211 = fadd <2 x float> %206, %207
+  %212 = fmul <2 x float> %211, <float 5.000000e-01, float 5.000000e-01>
+  %213 = fmul float %210, 5.000000e-01
+  %214 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %213, i64 0
+  store <2 x float> %212, ptr %8, align 8
+  store <2 x float> %214, ptr %157, align 8
+  %215 = load float, ptr %158, align 4, !tbaa !37
+  %216 = fcmp ogt float %215, %148
+  br i1 %216, label %217, label %233
 
-169:                                              ; preds = %156
-  %170 = sext i32 %115 to i64
-  br i1 %117, label %177, label %171
+217:                                              ; preds = %204
+  %218 = sext i32 %163 to i64
+  br i1 %165, label %225, label %219
 
-171:                                              ; preds = %169
+219:                                              ; preds = %217
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5)
-  %172 = load ptr, ptr %103, align 8, !tbaa !28
-  %173 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %172, i64 %114
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(16) %173, i64 16, i1 false), !tbaa.struct !39
-  %174 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %172, i64 %170
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %173, ptr noundef nonnull align 4 dereferenceable(16) %174, i64 16, i1 false), !tbaa.struct !39
-  %175 = load ptr, ptr %103, align 8, !tbaa !28
-  %176 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %175, i64 %170
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %176, ptr noundef nonnull align 4 dereferenceable(16) %5, i64 16, i1 false), !tbaa.struct !39
+  %220 = load ptr, ptr %151, align 8, !tbaa !28
+  %221 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %220, i64 %162
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(16) %221, i64 16, i1 false), !tbaa.struct !39
+  %222 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %220, i64 %218
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %221, ptr noundef nonnull align 4 dereferenceable(16) %222, i64 16, i1 false), !tbaa.struct !39
+  %223 = load ptr, ptr %151, align 8, !tbaa !28
+  %224 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %223, i64 %218
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %224, ptr noundef nonnull align 4 dereferenceable(16) %5, i64 16, i1 false), !tbaa.struct !39
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5)
-  br label %183
+  br label %231
 
-177:                                              ; preds = %169
+225:                                              ; preds = %217
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %6)
-  %178 = load ptr, ptr %108, align 8, !tbaa !24
-  %179 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %178, i64 %114
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(64) %6, ptr noundef nonnull align 4 dereferenceable(64) %179, i64 64, i1 false), !tbaa.struct !55
-  %180 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %178, i64 %170
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(64) %179, ptr noundef nonnull align 4 dereferenceable(64) %180, i64 64, i1 false), !tbaa.struct !55
-  %181 = load ptr, ptr %108, align 8, !tbaa !24
-  %182 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %181, i64 %170
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(64) %182, ptr noundef nonnull align 4 dereferenceable(64) %6, i64 64, i1 false), !tbaa.struct !55
+  %226 = load ptr, ptr %156, align 8, !tbaa !24
+  %227 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %226, i64 %162
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(64) %6, ptr noundef nonnull align 4 dereferenceable(64) %227, i64 64, i1 false), !tbaa.struct !55
+  %228 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %226, i64 %218
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(64) %227, ptr noundef nonnull align 4 dereferenceable(64) %228, i64 64, i1 false), !tbaa.struct !55
+  %229 = load ptr, ptr %156, align 8, !tbaa !24
+  %230 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %229, i64 %218
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(64) %230, ptr noundef nonnull align 4 dereferenceable(64) %6, i64 64, i1 false), !tbaa.struct !55
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %6)
-  br label %183
+  br label %231
 
-183:                                              ; preds = %171, %177
-  %184 = add nsw i32 %115, 1
-  br label %185
+231:                                              ; preds = %219, %225
+  %232 = add nsw i32 %163, 1
+  br label %233
 
-185:                                              ; preds = %183, %156
-  %186 = phi i32 [ %184, %183 ], [ %115, %156 ]
+233:                                              ; preds = %231, %204
+  %234 = phi i32 [ %232, %231 ], [ %163, %204 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %8) #17
-  %187 = add nsw i64 %114, 1
-  %188 = icmp eq i64 %187, %112
-  br i1 %188, label %189, label %113
+  %235 = add nsw i64 %162, 1
+  %236 = icmp eq i64 %235, %160
+  br i1 %236, label %237, label %161
 
-189:                                              ; preds = %185, %89
-  %190 = phi i32 [ %1, %89 ], [ %186, %185 ]
-  %191 = sdiv i32 %9, 3
-  %192 = add nsw i32 %191, %1
-  %193 = icmp sle i32 %190, %192
-  %194 = xor i32 %191, -1
-  %195 = add i32 %194, %2
-  %196 = icmp sge i32 %190, %195
-  %197 = select i1 %193, i1 true, i1 %196
-  %198 = ashr i32 %9, 1
-  %199 = add nsw i32 %198, %1
-  %200 = select i1 %197, i32 %199, i32 %190
+237:                                              ; preds = %233, %137
+  %238 = phi i32 [ %1, %137 ], [ %234, %233 ]
+  %239 = sdiv i32 %9, 3
+  %240 = add nsw i32 %239, %1
+  %241 = icmp sle i32 %238, %240
+  %242 = xor i32 %239, -1
+  %243 = add i32 %242, %2
+  %244 = icmp sge i32 %238, %243
+  %245 = select i1 %241, i1 true, i1 %244
+  %246 = ashr i32 %9, 1
+  %247 = add nsw i32 %246, %1
+  %248 = select i1 %245, i32 %247, i32 %238
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #17
-  ret i32 %200
+  ret i32 %248
 }
 
 ; Function Attrs: uwtable
@@ -2141,7 +2193,7 @@ define dso_local void @_ZNK14btQuantizedBvh26reportAabbOverlappingNodexEP21btNod
   %102 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %87, i64 0, i32 2
   %103 = load i32, ptr %102, align 4, !tbaa !52
   %104 = icmp sgt i32 %103, -1
-  %105 = and i1 %104, %101
+  %105 = select i1 %104, i1 %101, i1 false
   br i1 %105, label %106, label %112
 
 106:                                              ; preds = %84
@@ -2154,7 +2206,7 @@ define dso_local void @_ZNK14btQuantizedBvh26reportAabbOverlappingNodexEP21btNod
   br label %114
 
 112:                                              ; preds = %84
-  %113 = or i1 %101, %104
+  %113 = select i1 %101, i1 true, i1 %104
   br i1 %113, label %114, label %117
 
 114:                                              ; preds = %112, %106
@@ -2192,7 +2244,7 @@ define dso_local void @_ZNK14btQuantizedBvh26reportAabbOverlappingNodexEP21btNod
 132:                                              ; preds = %10
   %133 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 5
   %134 = load ptr, ptr %133, align 8, !tbaa !28
-  call void @_ZNK14btQuantizedBvh42walkRecursiveQuantizedTreeAgainstQueryAabbEPK18btQuantizedBvhNodeP21btNodeOverlapCallbackPtS5_(ptr noundef nonnull align 8 dereferenceable(244) %0, ptr noundef nonnull %134, ptr noundef %1, ptr noundef nonnull %5, ptr noundef nonnull %6)
+  call void @_ZNK14btQuantizedBvh42walkRecursiveQuantizedTreeAgainstQueryAabbEPK18btQuantizedBvhNodeP21btNodeOverlapCallbackPtS5_(ptr noundef nonnull align 8 dereferenceable(244) %0, ptr noundef %134, ptr noundef %1, ptr noundef nonnull %5, ptr noundef nonnull %6)
   br label %135
 
 135:                                              ; preds = %130, %126, %10, %132, %131
@@ -2388,7 +2440,7 @@ define dso_local void @_ZNK14btQuantizedBvh26walkStacklessQuantizedTreeEP21btNod
   %50 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %20, i64 0, i32 2
   %51 = load i32, ptr %50, align 4, !tbaa !52
   %52 = icmp sgt i32 %51, -1
-  %53 = and i1 %52, %49
+  %53 = select i1 %52, i1 %49, i1 false
   br i1 %53, label %54, label %60
 
 54:                                               ; preds = %17
@@ -2401,7 +2453,7 @@ define dso_local void @_ZNK14btQuantizedBvh26walkStacklessQuantizedTreeEP21btNod
   br label %62
 
 60:                                               ; preds = %17
-  %61 = or i1 %49, %52
+  %61 = select i1 %49, i1 true, i1 %52
   br i1 %61, label %62, label %65
 
 62:                                               ; preds = %54, %60
@@ -2537,7 +2589,7 @@ define dso_local void @_ZNK14btQuantizedBvh39walkStacklessQuantizedTreeCacheFrie
   %91 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %61, i64 0, i32 2
   %92 = load i32, ptr %91, align 4, !tbaa !52
   %93 = icmp sgt i32 %92, -1
-  %94 = and i1 %93, %90
+  %94 = select i1 %93, i1 %90, i1 false
   br i1 %94, label %95, label %101
 
 95:                                               ; preds = %58
@@ -2550,7 +2602,7 @@ define dso_local void @_ZNK14btQuantizedBvh39walkStacklessQuantizedTreeCacheFrie
   br label %103
 
 101:                                              ; preds = %58
-  %102 = or i1 %90, %93
+  %102 = select i1 %90, i1 true, i1 %93
   br i1 %102, label %103, label %106
 
 103:                                              ; preds = %101, %95
@@ -2953,14 +3005,14 @@ define dso_local void @_ZNK14btQuantizedBvh27walkStacklessTreeAgainstRayEP21btNo
   %137 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %102, i64 0, i32 1, i32 0, i64 1
   %138 = load float, ptr %137, align 4, !tbaa !37
   %139 = fcmp ogt float %70, %138
-  br i1 %139, label %195, label %140
+  br i1 %139, label %183, label %140
 
 140:                                              ; preds = %135
   %141 = getelementptr inbounds [4 x float], ptr %102, i64 0, i64 1
   %142 = load float, ptr %141, align 4, !tbaa !37
   %143 = fcmp uge float %72, %142
-  %144 = and i1 %136, %143
-  br i1 %144, label %145, label %195
+  %144 = and i1 %143, %136
+  br i1 %144, label %145, label %183
 
 145:                                              ; preds = %140
   %146 = load float, ptr %87, align 16, !tbaa !37
@@ -2983,7 +3035,7 @@ define dso_local void @_ZNK14btQuantizedBvh27walkStacklessTreeAgainstRayEP21btNo
   %163 = extractelement <2 x float> %153, i64 1
   %164 = fcmp ogt float %163, %162
   %165 = select i1 %161, i1 true, i1 %164
-  br i1 %165, label %195, label %166
+  br i1 %165, label %183, label %166
 
 166:                                              ; preds = %145
   %167 = shufflevector <2 x float> %153, <2 x float> poison, <2 x i32> <i32 1, i32 0>
@@ -3002,29 +3054,29 @@ define dso_local void @_ZNK14btQuantizedBvh27walkStacklessTreeAgainstRayEP21btNo
   %180 = fcmp ogt float %170, %179
   %181 = fcmp ogt float %176, %172
   %182 = select i1 %180, i1 true, i1 %181
-  br i1 %182, label %195, label %183
+  br i1 %182, label %183, label %187
 
-183:                                              ; preds = %166
-  %184 = fcmp ogt float %176, %170
-  %185 = select i1 %184, float %176, float %170
-  %186 = fcmp olt float %179, %172
-  %187 = select i1 %186, float %179, float %172
-  %188 = fcmp olt float %185, %59
-  %189 = fcmp ogt float %187, 0.000000e+00
-  %190 = select i1 %188, i1 %189, i1 false
-  %191 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %102, i64 0, i32 2
-  %192 = load i32, ptr %191, align 4, !tbaa !58
-  %193 = icmp eq i32 %192, -1
-  %194 = and i1 %190, %193
-  br i1 %194, label %199, label %207
-
-195:                                              ; preds = %140, %145, %166, %135
-  %196 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %102, i64 0, i32 2
-  %197 = load i32, ptr %196, align 4, !tbaa !58
-  %198 = icmp eq i32 %197, -1
+183:                                              ; preds = %145, %166, %135, %140
+  %184 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %102, i64 0, i32 2
+  %185 = load i32, ptr %184, align 4, !tbaa !58
+  %186 = icmp eq i32 %185, -1
   br label %207
 
-199:                                              ; preds = %183
+187:                                              ; preds = %166
+  %188 = fcmp ogt float %176, %170
+  %189 = select i1 %188, float %176, float %170
+  %190 = fcmp olt float %179, %172
+  %191 = select i1 %190, float %179, float %172
+  %192 = fcmp olt float %189, %59
+  %193 = fcmp ogt float %191, 0.000000e+00
+  %194 = select i1 %192, i1 %193, i1 false
+  %195 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %102, i64 0, i32 2
+  %196 = load i32, ptr %195, align 4, !tbaa !58
+  %197 = icmp eq i32 %196, -1
+  %198 = select i1 %197, i1 %194, i1 false
+  br i1 %198, label %199, label %207
+
+199:                                              ; preds = %187
   %200 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %102, i64 0, i32 3
   %201 = load i32, ptr %200, align 4, !tbaa !60
   %202 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %102, i64 0, i32 4
@@ -3035,10 +3087,10 @@ define dso_local void @_ZNK14btQuantizedBvh27walkStacklessTreeAgainstRayEP21btNo
   tail call void %206(ptr noundef nonnull align 8 dereferenceable(8) %1, i32 noundef %201, i32 noundef %203)
   br label %212
 
-207:                                              ; preds = %195, %183
-  %208 = phi i1 [ %198, %195 ], [ %193, %183 ]
-  %209 = phi ptr [ %196, %195 ], [ %191, %183 ]
-  %210 = phi i1 [ false, %195 ], [ %190, %183 ]
+207:                                              ; preds = %183, %187
+  %208 = phi i1 [ %186, %183 ], [ %197, %187 ]
+  %209 = phi ptr [ %184, %183 ], [ %195, %187 ]
+  %210 = phi i1 [ false, %183 ], [ %194, %187 ]
   %211 = select i1 %210, i1 true, i1 %208
   br i1 %211, label %212, label %215
 
@@ -3313,7 +3365,7 @@ define dso_local void @_ZNK14btQuantizedBvh36walkStacklessQuantizedTreeAgainstRa
   %227 = extractelement <2 x float> %217, i64 1
   %228 = fcmp ogt float %227, %226
   %229 = select i1 %225, i1 true, i1 %228
-  br i1 %229, label %256, label %230
+  br i1 %229, label %247, label %230
 
 230:                                              ; preds = %180
   %231 = shufflevector <2 x float> %217, <2 x float> poison, <2 x i32> <i32 1, i32 0>
@@ -3332,25 +3384,25 @@ define dso_local void @_ZNK14btQuantizedBvh36walkStacklessQuantizedTreeAgainstRa
   %244 = fcmp ogt float %234, %243
   %245 = fcmp ogt float %240, %236
   %246 = select i1 %244, i1 true, i1 %245
-  br i1 %246, label %256, label %247
+  br i1 %246, label %247, label %248
 
-247:                                              ; preds = %230
-  %248 = fcmp ogt float %240, %234
-  %249 = select i1 %248, float %240, float %234
-  %250 = fcmp olt float %243, %236
-  %251 = select i1 %250, float %243, float %236
-  %252 = fcmp olt float %249, %33
-  %253 = fcmp ogt float %251, 0.000000e+00
-  %254 = select i1 %252, i1 %253, i1 false
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %9) #17
-  %255 = and i1 %179, %254
-  br i1 %255, label %257, label %264
-
-256:                                              ; preds = %180, %230
+247:                                              ; preds = %180, %230
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %9) #17
   br label %264
 
-257:                                              ; preds = %247
+248:                                              ; preds = %230
+  %249 = fcmp ogt float %240, %234
+  %250 = select i1 %249, float %240, float %234
+  %251 = fcmp olt float %243, %236
+  %252 = select i1 %251, float %243, float %236
+  %253 = fcmp olt float %250, %33
+  %254 = fcmp ogt float %252, 0.000000e+00
+  %255 = select i1 %253, i1 %254, i1 false
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %9) #17
+  %256 = select i1 %179, i1 %255, i1 false
+  br i1 %256, label %257, label %264
+
+257:                                              ; preds = %248
   %258 = load i32, ptr %177, align 4, !tbaa !52
   %259 = ashr i32 %258, 21
   %260 = and i32 %258, 2097151
@@ -3360,9 +3412,9 @@ define dso_local void @_ZNK14btQuantizedBvh36walkStacklessQuantizedTreeAgainstRa
   tail call void %263(ptr noundef nonnull align 8 dereferenceable(8) %1, i32 noundef %259, i32 noundef %260)
   br label %267
 
-264:                                              ; preds = %152, %256, %247
-  %265 = phi i1 [ %254, %247 ], [ false, %256 ], [ false, %152 ]
-  %266 = or i1 %179, %265
+264:                                              ; preds = %152, %247, %248
+  %265 = phi i1 [ %255, %248 ], [ false, %247 ], [ false, %152 ]
+  %266 = select i1 %265, i1 true, i1 %179
   br i1 %266, label %267, label %270
 
 267:                                              ; preds = %257, %264
@@ -3477,58 +3529,58 @@ define dso_local noundef zeroext i1 @_ZN14btQuantizedBvh9serializeEPvjb(ptr noun
   %7 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 15
   store i32 %6, ptr %7, align 8, !tbaa !36
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14btQuantizedBvh, i64 0, inrange i32 0, i64 2), ptr %1, align 8, !tbaa !5
-  %8 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 1
-  %9 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 2
-  %10 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 4
-  store i32 275, ptr %10, align 8, !tbaa !8
-  %11 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 6
-  store i8 0, ptr %11, align 8, !tbaa !22
-  %12 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 8, i32 6
-  store i8 1, ptr %12, align 8, !tbaa !23
-  %13 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 8, i32 5
-  store ptr null, ptr %13, align 8, !tbaa !24
-  %14 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 8, i32 2
-  store i32 0, ptr %14, align 4, !tbaa !25
-  %15 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 8, i32 3
-  store i32 0, ptr %15, align 8, !tbaa !26
-  %16 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 9, i32 6
-  store i8 1, ptr %16, align 8, !tbaa !23
-  %17 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 9, i32 5
-  store ptr null, ptr %17, align 8, !tbaa !24
-  %18 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 9, i32 2
-  store i32 0, ptr %18, align 4, !tbaa !25
-  %19 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 9, i32 3
-  store i32 0, ptr %19, align 8, !tbaa !26
-  %20 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 10, i32 6
-  store i8 1, ptr %20, align 8, !tbaa !27
-  %21 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 10, i32 5
-  store ptr null, ptr %21, align 8, !tbaa !28
-  %22 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 10, i32 2
-  store i32 0, ptr %22, align 4, !tbaa !29
-  %23 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 10, i32 3
-  store i32 0, ptr %23, align 8, !tbaa !30
-  %24 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 11, i32 6
-  store i8 1, ptr %24, align 8, !tbaa !27
-  %25 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 11, i32 5
-  store ptr null, ptr %25, align 8, !tbaa !28
-  %26 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 11, i32 2
-  store i32 0, ptr %26, align 4, !tbaa !29
-  %27 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 11, i32 3
-  store i32 0, ptr %27, align 8, !tbaa !30
-  %28 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 12
-  store i32 0, ptr %28, align 8, !tbaa !31
-  %29 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 14, i32 6
-  store i8 1, ptr %29, align 8, !tbaa !32
-  %30 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 14, i32 5
-  store ptr null, ptr %30, align 8, !tbaa !33
-  %31 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 14, i32 2
-  store i32 0, ptr %31, align 4, !tbaa !34
-  %32 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 14, i32 3
-  store i32 0, ptr %32, align 8, !tbaa !35
+  %8 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 4
+  store i32 275, ptr %8, align 8, !tbaa !8
+  %9 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 6
+  store i8 0, ptr %9, align 8, !tbaa !22
+  %10 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 8, i32 6
+  store i8 1, ptr %10, align 8, !tbaa !23
+  %11 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 8, i32 5
+  store ptr null, ptr %11, align 8, !tbaa !24
+  %12 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 8, i32 2
+  store i32 0, ptr %12, align 4, !tbaa !25
+  %13 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 8, i32 3
+  store i32 0, ptr %13, align 8, !tbaa !26
+  %14 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 9, i32 6
+  store i8 1, ptr %14, align 8, !tbaa !23
+  %15 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 9, i32 5
+  store ptr null, ptr %15, align 8, !tbaa !24
+  %16 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 9, i32 2
+  store i32 0, ptr %16, align 4, !tbaa !25
+  %17 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 9, i32 3
+  store i32 0, ptr %17, align 8, !tbaa !26
+  %18 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 10, i32 6
+  store i8 1, ptr %18, align 8, !tbaa !27
+  %19 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 10, i32 5
+  store ptr null, ptr %19, align 8, !tbaa !28
+  %20 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 10, i32 2
+  store i32 0, ptr %20, align 4, !tbaa !29
+  %21 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 10, i32 3
+  store i32 0, ptr %21, align 8, !tbaa !30
+  %22 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 11, i32 6
+  store i8 1, ptr %22, align 8, !tbaa !27
+  %23 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 11, i32 5
+  store ptr null, ptr %23, align 8, !tbaa !28
+  %24 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 11, i32 2
+  store i32 0, ptr %24, align 4, !tbaa !29
+  %25 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 11, i32 3
+  store i32 0, ptr %25, align 8, !tbaa !30
+  %26 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 12
+  store i32 0, ptr %26, align 8, !tbaa !31
+  %27 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 14, i32 6
+  store i8 1, ptr %27, align 8, !tbaa !32
+  %28 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 14, i32 5
+  store ptr null, ptr %28, align 8, !tbaa !33
+  %29 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 14, i32 2
+  store i32 0, ptr %29, align 4, !tbaa !34
+  %30 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 14, i32 3
+  store i32 0, ptr %30, align 8, !tbaa !35
+  %31 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 2
+  %32 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 1
   %33 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 15
   store i32 0, ptr %33, align 8, !tbaa !36
-  store <4 x float> <float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000, float 0.000000e+00>, ptr %8, align 8, !tbaa !37
-  store <4 x float> <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0.000000e+00>, ptr %9, align 8, !tbaa !37
+  store <4 x float> <float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000, float 0.000000e+00>, ptr %32, align 8, !tbaa !37
+  store <4 x float> <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0.000000e+00>, ptr %31, align 8, !tbaa !37
   %34 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 5
   %35 = load i32, ptr %34, align 4, !tbaa !44
   br i1 %3, label %36, label %186
@@ -3546,7 +3598,7 @@ define dso_local noundef zeroext i1 @_ZN14btQuantizedBvh9serializeEPvjb(ptr noun
   %45 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 1
   %46 = getelementptr inbounds i8, ptr %0, i64 11
   %47 = load i8, ptr %46, align 1, !tbaa !40
-  store i8 %47, ptr %8, align 4, !tbaa !40
+  store i8 %47, ptr %32, align 4, !tbaa !40
   %48 = getelementptr inbounds i8, ptr %0, i64 10
   %49 = load i8, ptr %48, align 2, !tbaa !40
   %50 = getelementptr inbounds i8, ptr %1, i64 9
@@ -3606,7 +3658,7 @@ define dso_local noundef zeroext i1 @_ZN14btQuantizedBvh9serializeEPvjb(ptr noun
   %89 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 2
   %90 = getelementptr inbounds i8, ptr %0, i64 27
   %91 = load i8, ptr %90, align 1, !tbaa !40
-  store i8 %91, ptr %9, align 4, !tbaa !40
+  store i8 %91, ptr %31, align 4, !tbaa !40
   %92 = getelementptr inbounds i8, ptr %0, i64 26
   %93 = load i8, ptr %92, align 2, !tbaa !40
   %94 = getelementptr inbounds i8, ptr %1, i64 25
@@ -3738,9 +3790,9 @@ define dso_local noundef zeroext i1 @_ZN14btQuantizedBvh9serializeEPvjb(ptr noun
   %187 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 5
   store i32 %35, ptr %187, align 4, !tbaa !44
   %188 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr noundef nonnull align 8 dereferenceable(16) %188, i64 16, i1 false), !tbaa.struct !56
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %32, ptr noundef nonnull align 8 dereferenceable(16) %188, i64 16, i1 false), !tbaa.struct !56
   %189 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 2
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %9, ptr noundef nonnull align 8 dereferenceable(16) %189, i64 16, i1 false), !tbaa.struct !56
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %31, ptr noundef nonnull align 8 dereferenceable(16) %189, i64 16, i1 false), !tbaa.struct !56
   %190 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 3
   %191 = getelementptr inbounds %class.btQuantizedBvh, ptr %1, i64 0, i32 3
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %191, ptr noundef nonnull align 8 dereferenceable(16) %190, i64 16, i1 false), !tbaa.struct !56
@@ -3752,515 +3804,503 @@ define dso_local noundef zeroext i1 @_ZN14btQuantizedBvh9serializeEPvjb(ptr noun
 195:                                              ; preds = %186, %36
   %196 = phi i32 [ %183, %36 ], [ %193, %186 ]
   %197 = phi i32 [ %185, %36 ], [ %194, %186 ]
-  store i32 %196, ptr %28, align 8
+  store i32 %196, ptr %26, align 8
   store i32 %197, ptr %33, align 8, !tbaa !36
   %198 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 6
   %199 = load i8, ptr %198, align 8, !tbaa !22, !range !45, !noundef !46
-  store i8 %199, ptr %11, align 8, !tbaa !22
+  store i8 %199, ptr %9, align 8, !tbaa !22
   %200 = getelementptr inbounds i8, ptr %1, i64 248
   %201 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 5
   %202 = load i32, ptr %201, align 4, !tbaa !44
   %203 = load i8, ptr %198, align 8, !tbaa !22, !range !45, !noundef !46
   %204 = icmp eq i8 %203, 0
-  br i1 %204, label %284, label %205
+  br i1 %204, label %277, label %205
 
 205:                                              ; preds = %195
-  %206 = load ptr, ptr %25, align 8, !tbaa !28
-  %207 = icmp eq ptr %206, null
-  %208 = load i8, ptr %24, align 8
-  %209 = icmp eq i8 %208, 0
-  %210 = select i1 %207, i1 true, i1 %209
-  br i1 %210, label %212, label %211
+  store ptr %200, ptr %23, align 8, !tbaa !28
+  %206 = icmp sgt i32 %202, 0
+  br i1 %3, label %212, label %207
 
-211:                                              ; preds = %205
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %206)
-  br label %212
+207:                                              ; preds = %205
+  br i1 %206, label %208, label %274
 
-212:                                              ; preds = %205, %211
-  store ptr %200, ptr %25, align 8, !tbaa !28
-  %213 = icmp sgt i32 %202, 0
-  br i1 %3, label %219, label %214
+208:                                              ; preds = %207
+  %209 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 5
+  %210 = load ptr, ptr %209, align 8, !tbaa !28
+  %211 = zext i32 %202 to i64
+  br label %249
 
-214:                                              ; preds = %212
-  br i1 %213, label %215, label %281
+212:                                              ; preds = %205
+  br i1 %206, label %213, label %274
 
-215:                                              ; preds = %214
-  %216 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 5
-  %217 = load ptr, ptr %216, align 8, !tbaa !28
-  %218 = zext i32 %202 to i64
-  br label %256
+213:                                              ; preds = %212
+  %214 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 5
+  %215 = load ptr, ptr %214, align 8, !tbaa !28
+  %216 = zext i32 %202 to i64
+  br label %217
 
-219:                                              ; preds = %212
-  br i1 %213, label %220, label %281
+217:                                              ; preds = %213, %217
+  %218 = phi i64 [ 0, %213 ], [ %247, %217 ]
+  %219 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %215, i64 %218
+  %220 = load i16, ptr %219, align 4, !tbaa !48
+  %221 = tail call i16 @llvm.bswap.i16(i16 %220)
+  %222 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %218
+  store i16 %221, ptr %222, align 4, !tbaa !48
+  %223 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %215, i64 %218, i32 0, i64 1
+  %224 = load i16, ptr %223, align 2, !tbaa !48
+  %225 = tail call i16 @llvm.bswap.i16(i16 %224)
+  %226 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %218, i32 0, i64 1
+  store i16 %225, ptr %226, align 2, !tbaa !48
+  %227 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %215, i64 %218, i32 0, i64 2
+  %228 = load i16, ptr %227, align 4, !tbaa !48
+  %229 = tail call i16 @llvm.bswap.i16(i16 %228)
+  %230 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %218, i32 0, i64 2
+  store i16 %229, ptr %230, align 4, !tbaa !48
+  %231 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %215, i64 %218, i32 1
+  %232 = load i16, ptr %231, align 2, !tbaa !48
+  %233 = tail call i16 @llvm.bswap.i16(i16 %232)
+  %234 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %218, i32 1
+  store i16 %233, ptr %234, align 2, !tbaa !48
+  %235 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %215, i64 %218, i32 1, i64 1
+  %236 = load i16, ptr %235, align 2, !tbaa !48
+  %237 = tail call i16 @llvm.bswap.i16(i16 %236)
+  %238 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %218, i32 1, i64 1
+  store i16 %237, ptr %238, align 2, !tbaa !48
+  %239 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %215, i64 %218, i32 1, i64 2
+  %240 = load i16, ptr %239, align 2, !tbaa !48
+  %241 = tail call i16 @llvm.bswap.i16(i16 %240)
+  %242 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %218, i32 1, i64 2
+  store i16 %241, ptr %242, align 2, !tbaa !48
+  %243 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %215, i64 %218, i32 2
+  %244 = load i32, ptr %243, align 4, !tbaa !52
+  %245 = tail call i32 @llvm.bswap.i32(i32 %244)
+  %246 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %218, i32 2
+  store i32 %245, ptr %246, align 4, !tbaa !52
+  %247 = add nuw nsw i64 %218, 1
+  %248 = icmp eq i64 %247, %216
+  br i1 %248, label %274, label %217
 
-220:                                              ; preds = %219
-  %221 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 5
-  %222 = load ptr, ptr %221, align 8, !tbaa !28
-  %223 = zext i32 %202 to i64
-  br label %224
+249:                                              ; preds = %208, %249
+  %250 = phi i64 [ 0, %208 ], [ %272, %249 ]
+  %251 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %210, i64 %250
+  %252 = load i16, ptr %251, align 4, !tbaa !48
+  %253 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %250
+  store i16 %252, ptr %253, align 4, !tbaa !48
+  %254 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %210, i64 %250, i32 0, i64 1
+  %255 = load i16, ptr %254, align 2, !tbaa !48
+  %256 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %250, i32 0, i64 1
+  store i16 %255, ptr %256, align 2, !tbaa !48
+  %257 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %210, i64 %250, i32 0, i64 2
+  %258 = load i16, ptr %257, align 4, !tbaa !48
+  %259 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %250, i32 0, i64 2
+  store i16 %258, ptr %259, align 4, !tbaa !48
+  %260 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %210, i64 %250, i32 1
+  %261 = load i16, ptr %260, align 2, !tbaa !48
+  %262 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %250, i32 1
+  store i16 %261, ptr %262, align 2, !tbaa !48
+  %263 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %210, i64 %250, i32 1, i64 1
+  %264 = load i16, ptr %263, align 2, !tbaa !48
+  %265 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %250, i32 1, i64 1
+  store i16 %264, ptr %265, align 2, !tbaa !48
+  %266 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %210, i64 %250, i32 1, i64 2
+  %267 = load i16, ptr %266, align 2, !tbaa !48
+  %268 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %250, i32 1, i64 2
+  store i16 %267, ptr %268, align 2, !tbaa !48
+  %269 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %210, i64 %250, i32 2
+  %270 = load i32, ptr %269, align 4, !tbaa !52
+  %271 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %250, i32 2
+  store i32 %270, ptr %271, align 4, !tbaa !52
+  %272 = add nuw nsw i64 %250, 1
+  %273 = icmp eq i64 %272, %211
+  br i1 %273, label %274, label %249
 
-224:                                              ; preds = %220, %224
-  %225 = phi i64 [ 0, %220 ], [ %254, %224 ]
-  %226 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %222, i64 %225
-  %227 = load i16, ptr %226, align 4, !tbaa !48
-  %228 = tail call i16 @llvm.bswap.i16(i16 %227)
-  %229 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %225
-  store i16 %228, ptr %229, align 4, !tbaa !48
-  %230 = getelementptr inbounds [3 x i16], ptr %226, i64 0, i64 1
-  %231 = load i16, ptr %230, align 2, !tbaa !48
-  %232 = tail call i16 @llvm.bswap.i16(i16 %231)
-  %233 = getelementptr inbounds [3 x i16], ptr %229, i64 0, i64 1
-  store i16 %232, ptr %233, align 2, !tbaa !48
-  %234 = getelementptr inbounds [3 x i16], ptr %226, i64 0, i64 2
-  %235 = load i16, ptr %234, align 4, !tbaa !48
-  %236 = tail call i16 @llvm.bswap.i16(i16 %235)
-  %237 = getelementptr inbounds [3 x i16], ptr %229, i64 0, i64 2
-  store i16 %236, ptr %237, align 4, !tbaa !48
-  %238 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %222, i64 %225, i32 1
-  %239 = load i16, ptr %238, align 2, !tbaa !48
-  %240 = tail call i16 @llvm.bswap.i16(i16 %239)
-  %241 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %229, i64 0, i32 1
-  store i16 %240, ptr %241, align 2, !tbaa !48
-  %242 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %222, i64 %225, i32 1, i64 1
-  %243 = load i16, ptr %242, align 4, !tbaa !48
-  %244 = tail call i16 @llvm.bswap.i16(i16 %243)
-  %245 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %229, i64 0, i32 1, i64 1
-  store i16 %244, ptr %245, align 4, !tbaa !48
-  %246 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %222, i64 %225, i32 1, i64 2
-  %247 = load i16, ptr %246, align 2, !tbaa !48
-  %248 = tail call i16 @llvm.bswap.i16(i16 %247)
-  %249 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %229, i64 0, i32 1, i64 2
-  store i16 %248, ptr %249, align 2, !tbaa !48
-  %250 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %222, i64 %225, i32 2
-  %251 = load i32, ptr %250, align 4, !tbaa !52
-  %252 = tail call i32 @llvm.bswap.i32(i32 %251)
-  %253 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %229, i64 0, i32 2
-  store i32 %252, ptr %253, align 4, !tbaa !52
-  %254 = add nuw nsw i64 %225, 1
-  %255 = icmp eq i64 %254, %223
-  br i1 %255, label %281, label %224
+274:                                              ; preds = %249, %217, %212, %207
+  %275 = sext i32 %202 to i64
+  %276 = shl nsw i64 %275, 4
+  br label %441
 
-256:                                              ; preds = %215, %256
-  %257 = phi i64 [ 0, %215 ], [ %279, %256 ]
-  %258 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %217, i64 %257
-  %259 = load i16, ptr %258, align 4, !tbaa !48
-  %260 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %200, i64 %257
-  store i16 %259, ptr %260, align 4, !tbaa !48
-  %261 = getelementptr inbounds [3 x i16], ptr %258, i64 0, i64 1
-  %262 = load i16, ptr %261, align 2, !tbaa !48
-  %263 = getelementptr inbounds [3 x i16], ptr %260, i64 0, i64 1
-  store i16 %262, ptr %263, align 2, !tbaa !48
-  %264 = getelementptr inbounds [3 x i16], ptr %258, i64 0, i64 2
-  %265 = load i16, ptr %264, align 4, !tbaa !48
-  %266 = getelementptr inbounds [3 x i16], ptr %260, i64 0, i64 2
-  store i16 %265, ptr %266, align 4, !tbaa !48
-  %267 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %217, i64 %257, i32 1
-  %268 = load i16, ptr %267, align 2, !tbaa !48
-  %269 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %260, i64 0, i32 1
-  store i16 %268, ptr %269, align 2, !tbaa !48
-  %270 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %217, i64 %257, i32 1, i64 1
-  %271 = load i16, ptr %270, align 4, !tbaa !48
-  %272 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %260, i64 0, i32 1, i64 1
-  store i16 %271, ptr %272, align 4, !tbaa !48
-  %273 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %217, i64 %257, i32 1, i64 2
-  %274 = load i16, ptr %273, align 2, !tbaa !48
-  %275 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %260, i64 0, i32 1, i64 2
-  store i16 %274, ptr %275, align 2, !tbaa !48
-  %276 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %217, i64 %257, i32 2
-  %277 = load i32, ptr %276, align 4, !tbaa !52
-  %278 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %260, i64 0, i32 2
-  store i32 %277, ptr %278, align 4, !tbaa !52
-  %279 = add nuw nsw i64 %257, 1
-  %280 = icmp eq i64 %279, %218
-  br i1 %280, label %281, label %256
+277:                                              ; preds = %195
+  %278 = load ptr, ptr %15, align 8, !tbaa !24
+  %279 = icmp eq ptr %278, null
+  %280 = load i8, ptr %14, align 8
+  %281 = icmp eq i8 %280, 0
+  %282 = select i1 %279, i1 true, i1 %281
+  br i1 %282, label %284, label %283
 
-281:                                              ; preds = %256, %224, %219, %214
-  %282 = sext i32 %202 to i64
-  %283 = shl nsw i64 %282, 4
-  br label %448
+283:                                              ; preds = %277
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %278)
+  br label %284
 
-284:                                              ; preds = %195
-  %285 = load ptr, ptr %17, align 8, !tbaa !24
-  %286 = icmp eq ptr %285, null
-  %287 = load i8, ptr %16, align 8
-  %288 = icmp eq i8 %287, 0
-  %289 = select i1 %286, i1 true, i1 %288
-  br i1 %289, label %291, label %290
+284:                                              ; preds = %277, %283
+  store i8 0, ptr %14, align 8, !tbaa !23
+  store ptr %200, ptr %15, align 8, !tbaa !24
+  store i32 %202, ptr %16, align 4, !tbaa !25
+  store i32 %202, ptr %17, align 8, !tbaa !26
+  %285 = icmp sgt i32 %202, 0
+  br i1 %3, label %291, label %286
 
-290:                                              ; preds = %284
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %285)
-  br label %291
+286:                                              ; preds = %284
+  br i1 %285, label %287, label %434
 
-291:                                              ; preds = %284, %290
-  store i8 0, ptr %16, align 8, !tbaa !23
-  store ptr %200, ptr %17, align 8, !tbaa !24
-  store i32 %202, ptr %18, align 4, !tbaa !25
-  store i32 %202, ptr %19, align 8, !tbaa !26
-  %292 = icmp sgt i32 %202, 0
-  br i1 %3, label %298, label %293
+287:                                              ; preds = %286
+  %288 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 5
+  %289 = zext i32 %202 to i64
+  %290 = load ptr, ptr %288, align 8, !tbaa !24
+  br label %414
 
-293:                                              ; preds = %291
-  br i1 %292, label %294, label %441
+291:                                              ; preds = %284
+  br i1 %285, label %292, label %434
 
-294:                                              ; preds = %293
-  %295 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 5
-  %296 = zext i32 %202 to i64
-  %297 = load ptr, ptr %295, align 8, !tbaa !24
-  br label %421
+292:                                              ; preds = %291
+  %293 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 5
+  %294 = zext i32 %202 to i64
+  %295 = load ptr, ptr %293, align 8, !tbaa !24
+  br label %296
 
-298:                                              ; preds = %291
-  br i1 %292, label %299, label %441
-
-299:                                              ; preds = %298
-  %300 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 9, i32 5
-  %301 = zext i32 %202 to i64
-  %302 = load ptr, ptr %300, align 8, !tbaa !24
-  br label %303
-
-303:                                              ; preds = %299, %303
-  %304 = phi ptr [ %200, %299 ], [ %409, %303 ]
-  %305 = phi ptr [ %302, %299 ], [ %405, %303 ]
-  %306 = phi i64 [ 0, %299 ], [ %419, %303 ]
-  %307 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %305, i64 %306
-  %308 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %304, i64 %306
-  %309 = getelementptr inbounds i8, ptr %307, i64 3
-  %310 = load i8, ptr %309, align 1, !tbaa !40
-  store i8 %310, ptr %308, align 4, !tbaa !40
-  %311 = getelementptr inbounds i8, ptr %307, i64 2
-  %312 = load i8, ptr %311, align 2, !tbaa !40
-  %313 = getelementptr inbounds i8, ptr %308, i64 1
-  store i8 %312, ptr %313, align 1, !tbaa !40
-  %314 = getelementptr inbounds i8, ptr %307, i64 1
+296:                                              ; preds = %292, %296
+  %297 = phi ptr [ %200, %292 ], [ %402, %296 ]
+  %298 = phi ptr [ %295, %292 ], [ %398, %296 ]
+  %299 = phi i64 [ 0, %292 ], [ %412, %296 ]
+  %300 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %298, i64 %299
+  %301 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %297, i64 %299
+  %302 = getelementptr inbounds i8, ptr %300, i64 3
+  %303 = load i8, ptr %302, align 1, !tbaa !40
+  store i8 %303, ptr %301, align 4, !tbaa !40
+  %304 = getelementptr inbounds i8, ptr %300, i64 2
+  %305 = load i8, ptr %304, align 2, !tbaa !40
+  %306 = getelementptr inbounds i8, ptr %301, i64 1
+  store i8 %305, ptr %306, align 1, !tbaa !40
+  %307 = getelementptr inbounds i8, ptr %300, i64 1
+  %308 = load i8, ptr %307, align 1, !tbaa !40
+  %309 = getelementptr inbounds i8, ptr %301, i64 2
+  store i8 %308, ptr %309, align 2, !tbaa !40
+  %310 = load i8, ptr %300, align 4, !tbaa !40
+  %311 = getelementptr inbounds i8, ptr %301, i64 3
+  store i8 %310, ptr %311, align 1, !tbaa !40
+  %312 = getelementptr inbounds float, ptr %300, i64 1
+  %313 = getelementptr inbounds float, ptr %301, i64 1
+  %314 = getelementptr inbounds i8, ptr %300, i64 7
   %315 = load i8, ptr %314, align 1, !tbaa !40
-  %316 = getelementptr inbounds i8, ptr %308, i64 2
-  store i8 %315, ptr %316, align 2, !tbaa !40
-  %317 = load i8, ptr %307, align 4, !tbaa !40
-  %318 = getelementptr inbounds i8, ptr %308, i64 3
+  store i8 %315, ptr %313, align 4, !tbaa !40
+  %316 = getelementptr inbounds i8, ptr %300, i64 6
+  %317 = load i8, ptr %316, align 2, !tbaa !40
+  %318 = getelementptr inbounds i8, ptr %301, i64 5
   store i8 %317, ptr %318, align 1, !tbaa !40
-  %319 = getelementptr inbounds float, ptr %307, i64 1
-  %320 = getelementptr inbounds float, ptr %308, i64 1
-  %321 = getelementptr inbounds i8, ptr %307, i64 7
-  %322 = load i8, ptr %321, align 1, !tbaa !40
-  store i8 %322, ptr %320, align 4, !tbaa !40
-  %323 = getelementptr inbounds i8, ptr %307, i64 6
-  %324 = load i8, ptr %323, align 2, !tbaa !40
-  %325 = getelementptr inbounds i8, ptr %308, i64 5
-  store i8 %324, ptr %325, align 1, !tbaa !40
-  %326 = getelementptr inbounds i8, ptr %307, i64 5
+  %319 = getelementptr inbounds i8, ptr %300, i64 5
+  %320 = load i8, ptr %319, align 1, !tbaa !40
+  %321 = getelementptr inbounds i8, ptr %301, i64 6
+  store i8 %320, ptr %321, align 2, !tbaa !40
+  %322 = load i8, ptr %312, align 4, !tbaa !40
+  %323 = getelementptr inbounds i8, ptr %301, i64 7
+  store i8 %322, ptr %323, align 1, !tbaa !40
+  %324 = getelementptr inbounds float, ptr %300, i64 2
+  %325 = getelementptr inbounds float, ptr %301, i64 2
+  %326 = getelementptr inbounds i8, ptr %300, i64 11
   %327 = load i8, ptr %326, align 1, !tbaa !40
-  %328 = getelementptr inbounds i8, ptr %308, i64 6
-  store i8 %327, ptr %328, align 2, !tbaa !40
-  %329 = load i8, ptr %319, align 4, !tbaa !40
-  %330 = getelementptr inbounds i8, ptr %308, i64 7
+  store i8 %327, ptr %325, align 4, !tbaa !40
+  %328 = getelementptr inbounds i8, ptr %300, i64 10
+  %329 = load i8, ptr %328, align 2, !tbaa !40
+  %330 = getelementptr inbounds i8, ptr %301, i64 9
   store i8 %329, ptr %330, align 1, !tbaa !40
-  %331 = getelementptr inbounds float, ptr %307, i64 2
-  %332 = getelementptr inbounds float, ptr %308, i64 2
-  %333 = getelementptr inbounds i8, ptr %307, i64 11
-  %334 = load i8, ptr %333, align 1, !tbaa !40
-  store i8 %334, ptr %332, align 4, !tbaa !40
-  %335 = getelementptr inbounds i8, ptr %307, i64 10
-  %336 = load i8, ptr %335, align 2, !tbaa !40
-  %337 = getelementptr inbounds i8, ptr %308, i64 9
-  store i8 %336, ptr %337, align 1, !tbaa !40
-  %338 = getelementptr inbounds i8, ptr %307, i64 9
+  %331 = getelementptr inbounds i8, ptr %300, i64 9
+  %332 = load i8, ptr %331, align 1, !tbaa !40
+  %333 = getelementptr inbounds i8, ptr %301, i64 10
+  store i8 %332, ptr %333, align 2, !tbaa !40
+  %334 = load i8, ptr %324, align 4, !tbaa !40
+  %335 = getelementptr inbounds i8, ptr %301, i64 11
+  store i8 %334, ptr %335, align 1, !tbaa !40
+  %336 = getelementptr inbounds float, ptr %300, i64 3
+  %337 = getelementptr inbounds float, ptr %301, i64 3
+  %338 = getelementptr inbounds i8, ptr %300, i64 15
   %339 = load i8, ptr %338, align 1, !tbaa !40
-  %340 = getelementptr inbounds i8, ptr %308, i64 10
-  store i8 %339, ptr %340, align 2, !tbaa !40
-  %341 = load i8, ptr %331, align 4, !tbaa !40
-  %342 = getelementptr inbounds i8, ptr %308, i64 11
+  store i8 %339, ptr %337, align 4, !tbaa !40
+  %340 = getelementptr inbounds i8, ptr %300, i64 14
+  %341 = load i8, ptr %340, align 2, !tbaa !40
+  %342 = getelementptr inbounds i8, ptr %301, i64 13
   store i8 %341, ptr %342, align 1, !tbaa !40
-  %343 = getelementptr inbounds float, ptr %307, i64 3
-  %344 = getelementptr inbounds float, ptr %308, i64 3
-  %345 = getelementptr inbounds i8, ptr %307, i64 15
-  %346 = load i8, ptr %345, align 1, !tbaa !40
-  store i8 %346, ptr %344, align 4, !tbaa !40
-  %347 = getelementptr inbounds i8, ptr %307, i64 14
-  %348 = load i8, ptr %347, align 2, !tbaa !40
-  %349 = getelementptr inbounds i8, ptr %308, i64 13
-  store i8 %348, ptr %349, align 1, !tbaa !40
-  %350 = getelementptr inbounds i8, ptr %307, i64 13
-  %351 = load i8, ptr %350, align 1, !tbaa !40
-  %352 = getelementptr inbounds i8, ptr %308, i64 14
-  store i8 %351, ptr %352, align 2, !tbaa !40
-  %353 = load i8, ptr %343, align 4, !tbaa !40
-  %354 = getelementptr inbounds i8, ptr %308, i64 15
-  store i8 %353, ptr %354, align 1, !tbaa !40
-  %355 = load ptr, ptr %300, align 8, !tbaa !24
-  %356 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %355, i64 %306, i32 1
-  %357 = load ptr, ptr %17, align 8, !tbaa !24
-  %358 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %357, i64 %306, i32 1
-  %359 = getelementptr inbounds i8, ptr %356, i64 3
-  %360 = load i8, ptr %359, align 1, !tbaa !40
-  store i8 %360, ptr %358, align 4, !tbaa !40
-  %361 = getelementptr inbounds i8, ptr %356, i64 2
-  %362 = load i8, ptr %361, align 2, !tbaa !40
-  %363 = getelementptr inbounds i8, ptr %358, i64 1
-  store i8 %362, ptr %363, align 1, !tbaa !40
-  %364 = getelementptr inbounds i8, ptr %356, i64 1
+  %343 = getelementptr inbounds i8, ptr %300, i64 13
+  %344 = load i8, ptr %343, align 1, !tbaa !40
+  %345 = getelementptr inbounds i8, ptr %301, i64 14
+  store i8 %344, ptr %345, align 2, !tbaa !40
+  %346 = load i8, ptr %336, align 4, !tbaa !40
+  %347 = getelementptr inbounds i8, ptr %301, i64 15
+  store i8 %346, ptr %347, align 1, !tbaa !40
+  %348 = load ptr, ptr %293, align 8, !tbaa !24
+  %349 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %348, i64 %299, i32 1
+  %350 = load ptr, ptr %15, align 8, !tbaa !24
+  %351 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %350, i64 %299, i32 1
+  %352 = getelementptr inbounds i8, ptr %349, i64 3
+  %353 = load i8, ptr %352, align 1, !tbaa !40
+  store i8 %353, ptr %351, align 4, !tbaa !40
+  %354 = getelementptr inbounds i8, ptr %349, i64 2
+  %355 = load i8, ptr %354, align 2, !tbaa !40
+  %356 = getelementptr inbounds i8, ptr %351, i64 1
+  store i8 %355, ptr %356, align 1, !tbaa !40
+  %357 = getelementptr inbounds i8, ptr %349, i64 1
+  %358 = load i8, ptr %357, align 1, !tbaa !40
+  %359 = getelementptr inbounds i8, ptr %351, i64 2
+  store i8 %358, ptr %359, align 2, !tbaa !40
+  %360 = load i8, ptr %349, align 4, !tbaa !40
+  %361 = getelementptr inbounds i8, ptr %351, i64 3
+  store i8 %360, ptr %361, align 1, !tbaa !40
+  %362 = getelementptr inbounds float, ptr %349, i64 1
+  %363 = getelementptr inbounds float, ptr %351, i64 1
+  %364 = getelementptr inbounds i8, ptr %349, i64 7
   %365 = load i8, ptr %364, align 1, !tbaa !40
-  %366 = getelementptr inbounds i8, ptr %358, i64 2
-  store i8 %365, ptr %366, align 2, !tbaa !40
-  %367 = load i8, ptr %356, align 4, !tbaa !40
-  %368 = getelementptr inbounds i8, ptr %358, i64 3
+  store i8 %365, ptr %363, align 4, !tbaa !40
+  %366 = getelementptr inbounds i8, ptr %349, i64 6
+  %367 = load i8, ptr %366, align 2, !tbaa !40
+  %368 = getelementptr inbounds i8, ptr %351, i64 5
   store i8 %367, ptr %368, align 1, !tbaa !40
-  %369 = getelementptr inbounds float, ptr %356, i64 1
-  %370 = getelementptr inbounds float, ptr %358, i64 1
-  %371 = getelementptr inbounds i8, ptr %356, i64 7
-  %372 = load i8, ptr %371, align 1, !tbaa !40
-  store i8 %372, ptr %370, align 4, !tbaa !40
-  %373 = getelementptr inbounds i8, ptr %356, i64 6
-  %374 = load i8, ptr %373, align 2, !tbaa !40
-  %375 = getelementptr inbounds i8, ptr %358, i64 5
-  store i8 %374, ptr %375, align 1, !tbaa !40
-  %376 = getelementptr inbounds i8, ptr %356, i64 5
+  %369 = getelementptr inbounds i8, ptr %349, i64 5
+  %370 = load i8, ptr %369, align 1, !tbaa !40
+  %371 = getelementptr inbounds i8, ptr %351, i64 6
+  store i8 %370, ptr %371, align 2, !tbaa !40
+  %372 = load i8, ptr %362, align 4, !tbaa !40
+  %373 = getelementptr inbounds i8, ptr %351, i64 7
+  store i8 %372, ptr %373, align 1, !tbaa !40
+  %374 = getelementptr inbounds float, ptr %349, i64 2
+  %375 = getelementptr inbounds float, ptr %351, i64 2
+  %376 = getelementptr inbounds i8, ptr %349, i64 11
   %377 = load i8, ptr %376, align 1, !tbaa !40
-  %378 = getelementptr inbounds i8, ptr %358, i64 6
-  store i8 %377, ptr %378, align 2, !tbaa !40
-  %379 = load i8, ptr %369, align 4, !tbaa !40
-  %380 = getelementptr inbounds i8, ptr %358, i64 7
+  store i8 %377, ptr %375, align 4, !tbaa !40
+  %378 = getelementptr inbounds i8, ptr %349, i64 10
+  %379 = load i8, ptr %378, align 2, !tbaa !40
+  %380 = getelementptr inbounds i8, ptr %351, i64 9
   store i8 %379, ptr %380, align 1, !tbaa !40
-  %381 = getelementptr inbounds float, ptr %356, i64 2
-  %382 = getelementptr inbounds float, ptr %358, i64 2
-  %383 = getelementptr inbounds i8, ptr %356, i64 11
-  %384 = load i8, ptr %383, align 1, !tbaa !40
-  store i8 %384, ptr %382, align 4, !tbaa !40
-  %385 = getelementptr inbounds i8, ptr %356, i64 10
-  %386 = load i8, ptr %385, align 2, !tbaa !40
-  %387 = getelementptr inbounds i8, ptr %358, i64 9
-  store i8 %386, ptr %387, align 1, !tbaa !40
-  %388 = getelementptr inbounds i8, ptr %356, i64 9
+  %381 = getelementptr inbounds i8, ptr %349, i64 9
+  %382 = load i8, ptr %381, align 1, !tbaa !40
+  %383 = getelementptr inbounds i8, ptr %351, i64 10
+  store i8 %382, ptr %383, align 2, !tbaa !40
+  %384 = load i8, ptr %374, align 4, !tbaa !40
+  %385 = getelementptr inbounds i8, ptr %351, i64 11
+  store i8 %384, ptr %385, align 1, !tbaa !40
+  %386 = getelementptr inbounds float, ptr %349, i64 3
+  %387 = getelementptr inbounds float, ptr %351, i64 3
+  %388 = getelementptr inbounds i8, ptr %349, i64 15
   %389 = load i8, ptr %388, align 1, !tbaa !40
-  %390 = getelementptr inbounds i8, ptr %358, i64 10
-  store i8 %389, ptr %390, align 2, !tbaa !40
-  %391 = load i8, ptr %381, align 4, !tbaa !40
-  %392 = getelementptr inbounds i8, ptr %358, i64 11
+  store i8 %389, ptr %387, align 4, !tbaa !40
+  %390 = getelementptr inbounds i8, ptr %349, i64 14
+  %391 = load i8, ptr %390, align 2, !tbaa !40
+  %392 = getelementptr inbounds i8, ptr %351, i64 13
   store i8 %391, ptr %392, align 1, !tbaa !40
-  %393 = getelementptr inbounds float, ptr %356, i64 3
-  %394 = getelementptr inbounds float, ptr %358, i64 3
-  %395 = getelementptr inbounds i8, ptr %356, i64 15
-  %396 = load i8, ptr %395, align 1, !tbaa !40
-  store i8 %396, ptr %394, align 4, !tbaa !40
-  %397 = getelementptr inbounds i8, ptr %356, i64 14
-  %398 = load i8, ptr %397, align 2, !tbaa !40
-  %399 = getelementptr inbounds i8, ptr %358, i64 13
-  store i8 %398, ptr %399, align 1, !tbaa !40
-  %400 = getelementptr inbounds i8, ptr %356, i64 13
-  %401 = load i8, ptr %400, align 1, !tbaa !40
-  %402 = getelementptr inbounds i8, ptr %358, i64 14
-  store i8 %401, ptr %402, align 2, !tbaa !40
-  %403 = load i8, ptr %393, align 4, !tbaa !40
-  %404 = getelementptr inbounds i8, ptr %358, i64 15
-  store i8 %403, ptr %404, align 1, !tbaa !40
-  %405 = load ptr, ptr %300, align 8, !tbaa !24
-  %406 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %405, i64 %306, i32 2
-  %407 = load i32, ptr %406, align 4, !tbaa !58
-  %408 = tail call i32 @llvm.bswap.i32(i32 %407)
-  %409 = load ptr, ptr %17, align 8, !tbaa !24
-  %410 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %409, i64 %306, i32 2
-  store i32 %408, ptr %410, align 4, !tbaa !58
-  %411 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %405, i64 %306, i32 3
-  %412 = load i32, ptr %411, align 4, !tbaa !60
-  %413 = tail call i32 @llvm.bswap.i32(i32 %412)
-  %414 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %409, i64 %306, i32 3
-  store i32 %413, ptr %414, align 4, !tbaa !60
-  %415 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %405, i64 %306, i32 4
-  %416 = load i32, ptr %415, align 4, !tbaa !61
-  %417 = tail call i32 @llvm.bswap.i32(i32 %416)
-  %418 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %409, i64 %306, i32 4
-  store i32 %417, ptr %418, align 4, !tbaa !61
-  %419 = add nuw nsw i64 %306, 1
-  %420 = icmp eq i64 %419, %301
-  br i1 %420, label %441, label %303
+  %393 = getelementptr inbounds i8, ptr %349, i64 13
+  %394 = load i8, ptr %393, align 1, !tbaa !40
+  %395 = getelementptr inbounds i8, ptr %351, i64 14
+  store i8 %394, ptr %395, align 2, !tbaa !40
+  %396 = load i8, ptr %386, align 4, !tbaa !40
+  %397 = getelementptr inbounds i8, ptr %351, i64 15
+  store i8 %396, ptr %397, align 1, !tbaa !40
+  %398 = load ptr, ptr %293, align 8, !tbaa !24
+  %399 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %398, i64 %299, i32 2
+  %400 = load i32, ptr %399, align 4, !tbaa !58
+  %401 = tail call i32 @llvm.bswap.i32(i32 %400)
+  %402 = load ptr, ptr %15, align 8, !tbaa !24
+  %403 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %402, i64 %299, i32 2
+  store i32 %401, ptr %403, align 4, !tbaa !58
+  %404 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %398, i64 %299, i32 3
+  %405 = load i32, ptr %404, align 4, !tbaa !60
+  %406 = tail call i32 @llvm.bswap.i32(i32 %405)
+  %407 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %402, i64 %299, i32 3
+  store i32 %406, ptr %407, align 4, !tbaa !60
+  %408 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %398, i64 %299, i32 4
+  %409 = load i32, ptr %408, align 4, !tbaa !61
+  %410 = tail call i32 @llvm.bswap.i32(i32 %409)
+  %411 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %402, i64 %299, i32 4
+  store i32 %410, ptr %411, align 4, !tbaa !61
+  %412 = add nuw nsw i64 %299, 1
+  %413 = icmp eq i64 %412, %294
+  br i1 %413, label %434, label %296
 
-421:                                              ; preds = %294, %421
-  %422 = phi ptr [ %200, %294 ], [ %433, %421 ]
-  %423 = phi ptr [ %297, %294 ], [ %431, %421 ]
-  %424 = phi i64 [ 0, %294 ], [ %439, %421 ]
-  %425 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %423, i64 %424
-  %426 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %422, i64 %424
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %426, ptr noundef nonnull align 4 dereferenceable(16) %425, i64 16, i1 false), !tbaa.struct !56
-  %427 = load ptr, ptr %295, align 8, !tbaa !24
-  %428 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %427, i64 %424, i32 1
-  %429 = load ptr, ptr %17, align 8, !tbaa !24
-  %430 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %429, i64 %424, i32 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %430, ptr noundef nonnull align 4 dereferenceable(16) %428, i64 16, i1 false), !tbaa.struct !56
-  %431 = load ptr, ptr %295, align 8, !tbaa !24
-  %432 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %431, i64 %424, i32 2
-  %433 = load ptr, ptr %17, align 8, !tbaa !24
-  %434 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %433, i64 %424, i32 2
-  %435 = load <2 x i32>, ptr %432, align 4, !tbaa !41
-  store <2 x i32> %435, ptr %434, align 4, !tbaa !41
-  %436 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %431, i64 %424, i32 4
-  %437 = load i32, ptr %436, align 4, !tbaa !61
-  %438 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %433, i64 %424, i32 4
-  store i32 %437, ptr %438, align 4, !tbaa !61
-  %439 = add nuw nsw i64 %424, 1
-  %440 = icmp eq i64 %439, %296
-  br i1 %440, label %441, label %421
+414:                                              ; preds = %287, %414
+  %415 = phi ptr [ %200, %287 ], [ %426, %414 ]
+  %416 = phi ptr [ %290, %287 ], [ %424, %414 ]
+  %417 = phi i64 [ 0, %287 ], [ %432, %414 ]
+  %418 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %416, i64 %417
+  %419 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %415, i64 %417
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %419, ptr noundef nonnull align 4 dereferenceable(16) %418, i64 16, i1 false), !tbaa.struct !56
+  %420 = load ptr, ptr %288, align 8, !tbaa !24
+  %421 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %420, i64 %417, i32 1
+  %422 = load ptr, ptr %15, align 8, !tbaa !24
+  %423 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %422, i64 %417, i32 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %423, ptr noundef nonnull align 4 dereferenceable(16) %421, i64 16, i1 false), !tbaa.struct !56
+  %424 = load ptr, ptr %288, align 8, !tbaa !24
+  %425 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %424, i64 %417, i32 2
+  %426 = load ptr, ptr %15, align 8, !tbaa !24
+  %427 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %426, i64 %417, i32 2
+  %428 = load <2 x i32>, ptr %425, align 4, !tbaa !41
+  store <2 x i32> %428, ptr %427, align 4, !tbaa !41
+  %429 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %424, i64 %417, i32 4
+  %430 = load i32, ptr %429, align 4, !tbaa !61
+  %431 = getelementptr inbounds %struct.btOptimizedBvhNode, ptr %426, i64 %417, i32 4
+  store i32 %430, ptr %431, align 4, !tbaa !61
+  %432 = add nuw nsw i64 %417, 1
+  %433 = icmp eq i64 %432, %289
+  br i1 %433, label %434, label %414
 
-441:                                              ; preds = %421, %303, %293, %298
-  %442 = phi ptr [ %200, %293 ], [ %200, %298 ], [ %409, %303 ], [ %433, %421 ]
-  %443 = sext i32 %202 to i64
-  %444 = shl nsw i64 %443, 6
-  %445 = load i8, ptr %16, align 8
-  %446 = icmp eq i8 %445, 0
-  br i1 %446, label %448, label %447
+434:                                              ; preds = %414, %296, %286, %291
+  %435 = phi ptr [ %200, %286 ], [ %200, %291 ], [ %402, %296 ], [ %426, %414 ]
+  %436 = sext i32 %202 to i64
+  %437 = shl nsw i64 %436, 6
+  %438 = load i8, ptr %14, align 8
+  %439 = icmp eq i8 %438, 0
+  br i1 %439, label %441, label %440
 
-447:                                              ; preds = %441
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %442)
-  br label %448
+440:                                              ; preds = %434
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %435)
+  br label %441
 
-448:                                              ; preds = %447, %441, %281
-  %449 = phi ptr [ %24, %281 ], [ %16, %441 ], [ %16, %447 ]
-  %450 = phi ptr [ %25, %281 ], [ %17, %441 ], [ %17, %447 ]
-  %451 = phi ptr [ %26, %281 ], [ %18, %441 ], [ %18, %447 ]
-  %452 = phi ptr [ %27, %281 ], [ %19, %441 ], [ %19, %447 ]
-  %453 = phi i64 [ %283, %281 ], [ %444, %441 ], [ %444, %447 ]
-  store i8 0, ptr %449, align 8, !tbaa !62
-  store ptr null, ptr %450, align 8, !tbaa !63
-  store i32 0, ptr %451, align 4, !tbaa !41
-  store i32 0, ptr %452, align 8, !tbaa !41
-  %454 = getelementptr inbounds i8, ptr %200, i64 %453
-  %455 = load i32, ptr %7, align 8, !tbaa !36
-  %456 = load ptr, ptr %30, align 8, !tbaa !33
-  %457 = icmp eq ptr %456, null
-  %458 = load i8, ptr %29, align 8
-  %459 = icmp eq i8 %458, 0
-  %460 = select i1 %457, i1 true, i1 %459
-  br i1 %460, label %462, label %461
+441:                                              ; preds = %440, %434, %274
+  %442 = phi ptr [ %22, %274 ], [ %14, %434 ], [ %14, %440 ]
+  %443 = phi ptr [ %23, %274 ], [ %15, %434 ], [ %15, %440 ]
+  %444 = phi ptr [ %24, %274 ], [ %16, %434 ], [ %16, %440 ]
+  %445 = phi ptr [ %25, %274 ], [ %17, %434 ], [ %17, %440 ]
+  %446 = phi i64 [ %276, %274 ], [ %437, %434 ], [ %437, %440 ]
+  store i8 0, ptr %442, align 8, !tbaa !62
+  store ptr null, ptr %443, align 8, !tbaa !63
+  store i32 0, ptr %444, align 4, !tbaa !41
+  store i32 0, ptr %445, align 8, !tbaa !41
+  %447 = getelementptr inbounds i8, ptr %200, i64 %446
+  %448 = load i32, ptr %7, align 8, !tbaa !36
+  %449 = load ptr, ptr %28, align 8, !tbaa !33
+  %450 = icmp eq ptr %449, null
+  %451 = load i8, ptr %27, align 8
+  %452 = icmp eq i8 %451, 0
+  %453 = select i1 %450, i1 true, i1 %452
+  br i1 %453, label %455, label %454
 
-461:                                              ; preds = %448
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %456)
-  br label %462
+454:                                              ; preds = %441
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %449)
+  br label %455
 
-462:                                              ; preds = %448, %461
-  store i8 0, ptr %29, align 8, !tbaa !32
-  store ptr %454, ptr %30, align 8, !tbaa !33
-  store i32 %455, ptr %31, align 4, !tbaa !34
-  store i32 %455, ptr %32, align 8, !tbaa !35
-  %463 = load i32, ptr %7, align 8, !tbaa !36
-  %464 = icmp sgt i32 %463, 0
-  br i1 %3, label %469, label %465
+455:                                              ; preds = %441, %454
+  store i8 0, ptr %27, align 8, !tbaa !32
+  store ptr %447, ptr %28, align 8, !tbaa !33
+  store i32 %448, ptr %29, align 4, !tbaa !34
+  store i32 %448, ptr %30, align 8, !tbaa !35
+  %456 = load i32, ptr %7, align 8, !tbaa !36
+  %457 = icmp sgt i32 %456, 0
+  br i1 %3, label %462, label %458
 
-465:                                              ; preds = %462
-  br i1 %464, label %466, label %540
+458:                                              ; preds = %455
+  br i1 %457, label %459, label %533
 
-466:                                              ; preds = %465
-  %467 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 5
-  %468 = load ptr, ptr %467, align 8, !tbaa !33
-  br label %510
+459:                                              ; preds = %458
+  %460 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 5
+  %461 = load ptr, ptr %460, align 8, !tbaa !33
+  br label %503
 
-469:                                              ; preds = %462
-  br i1 %464, label %470, label %540
+462:                                              ; preds = %455
+  br i1 %457, label %463, label %533
 
-470:                                              ; preds = %469
-  %471 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 5
-  %472 = load ptr, ptr %471, align 8, !tbaa !33
-  %473 = zext i32 %463 to i64
-  br label %474
+463:                                              ; preds = %462
+  %464 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 5
+  %465 = load ptr, ptr %464, align 8, !tbaa !33
+  %466 = zext i32 %456 to i64
+  br label %467
 
-474:                                              ; preds = %470, %474
-  %475 = phi i64 [ 0, %470 ], [ %508, %474 ]
-  %476 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %472, i64 %475
-  %477 = load i16, ptr %476, align 4, !tbaa !48
-  %478 = tail call i16 @llvm.bswap.i16(i16 %477)
-  %479 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %454, i64 %475
-  store i16 %478, ptr %479, align 4, !tbaa !48
-  %480 = getelementptr inbounds [3 x i16], ptr %476, i64 0, i64 1
-  %481 = load i16, ptr %480, align 2, !tbaa !48
-  %482 = tail call i16 @llvm.bswap.i16(i16 %481)
-  %483 = getelementptr inbounds [3 x i16], ptr %479, i64 0, i64 1
-  store i16 %482, ptr %483, align 2, !tbaa !48
-  %484 = getelementptr inbounds [3 x i16], ptr %476, i64 0, i64 2
-  %485 = load i16, ptr %484, align 4, !tbaa !48
-  %486 = tail call i16 @llvm.bswap.i16(i16 %485)
-  %487 = getelementptr inbounds [3 x i16], ptr %479, i64 0, i64 2
-  store i16 %486, ptr %487, align 4, !tbaa !48
-  %488 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %472, i64 %475, i32 1
-  %489 = load i16, ptr %488, align 2, !tbaa !48
-  %490 = tail call i16 @llvm.bswap.i16(i16 %489)
-  %491 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %479, i64 0, i32 1
-  store i16 %490, ptr %491, align 2, !tbaa !48
-  %492 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %472, i64 %475, i32 1, i64 1
-  %493 = load i16, ptr %492, align 4, !tbaa !48
-  %494 = tail call i16 @llvm.bswap.i16(i16 %493)
-  %495 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %479, i64 0, i32 1, i64 1
-  store i16 %494, ptr %495, align 4, !tbaa !48
-  %496 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %472, i64 %475, i32 1, i64 2
-  %497 = load i16, ptr %496, align 2, !tbaa !48
-  %498 = tail call i16 @llvm.bswap.i16(i16 %497)
-  %499 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %479, i64 0, i32 1, i64 2
-  store i16 %498, ptr %499, align 2, !tbaa !48
-  %500 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %472, i64 %475, i32 2
-  %501 = load i32, ptr %500, align 4, !tbaa !50
-  %502 = tail call i32 @llvm.bswap.i32(i32 %501)
-  %503 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %479, i64 0, i32 2
-  store i32 %502, ptr %503, align 4, !tbaa !50
-  %504 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %472, i64 %475, i32 3
-  %505 = load i32, ptr %504, align 4, !tbaa !54
-  %506 = tail call i32 @llvm.bswap.i32(i32 %505)
-  %507 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %479, i64 0, i32 3
-  store i32 %506, ptr %507, align 4, !tbaa !54
-  %508 = add nuw nsw i64 %475, 1
-  %509 = icmp eq i64 %508, %473
-  br i1 %509, label %540, label %474
+467:                                              ; preds = %463, %467
+  %468 = phi i64 [ 0, %463 ], [ %501, %467 ]
+  %469 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %465, i64 %468
+  %470 = load i16, ptr %469, align 4, !tbaa !48
+  %471 = tail call i16 @llvm.bswap.i16(i16 %470)
+  %472 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %468
+  store i16 %471, ptr %472, align 4, !tbaa !48
+  %473 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %465, i64 %468, i32 0, i64 1
+  %474 = load i16, ptr %473, align 2, !tbaa !48
+  %475 = tail call i16 @llvm.bswap.i16(i16 %474)
+  %476 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %468, i32 0, i64 1
+  store i16 %475, ptr %476, align 2, !tbaa !48
+  %477 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %465, i64 %468, i32 0, i64 2
+  %478 = load i16, ptr %477, align 4, !tbaa !48
+  %479 = tail call i16 @llvm.bswap.i16(i16 %478)
+  %480 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %468, i32 0, i64 2
+  store i16 %479, ptr %480, align 4, !tbaa !48
+  %481 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %465, i64 %468, i32 1
+  %482 = load i16, ptr %481, align 2, !tbaa !48
+  %483 = tail call i16 @llvm.bswap.i16(i16 %482)
+  %484 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %468, i32 1
+  store i16 %483, ptr %484, align 2, !tbaa !48
+  %485 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %465, i64 %468, i32 1, i64 1
+  %486 = load i16, ptr %485, align 2, !tbaa !48
+  %487 = tail call i16 @llvm.bswap.i16(i16 %486)
+  %488 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %468, i32 1, i64 1
+  store i16 %487, ptr %488, align 2, !tbaa !48
+  %489 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %465, i64 %468, i32 1, i64 2
+  %490 = load i16, ptr %489, align 2, !tbaa !48
+  %491 = tail call i16 @llvm.bswap.i16(i16 %490)
+  %492 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %468, i32 1, i64 2
+  store i16 %491, ptr %492, align 2, !tbaa !48
+  %493 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %465, i64 %468, i32 2
+  %494 = load i32, ptr %493, align 4, !tbaa !50
+  %495 = tail call i32 @llvm.bswap.i32(i32 %494)
+  %496 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %468, i32 2
+  store i32 %495, ptr %496, align 4, !tbaa !50
+  %497 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %465, i64 %468, i32 3
+  %498 = load i32, ptr %497, align 4, !tbaa !54
+  %499 = tail call i32 @llvm.bswap.i32(i32 %498)
+  %500 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %468, i32 3
+  store i32 %499, ptr %500, align 4, !tbaa !54
+  %501 = add nuw nsw i64 %468, 1
+  %502 = icmp eq i64 %501, %466
+  br i1 %502, label %533, label %467
 
-510:                                              ; preds = %466, %510
-  %511 = phi i64 [ 0, %466 ], [ %536, %510 ]
-  %512 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %468, i64 %511
-  %513 = load i16, ptr %512, align 4, !tbaa !48
-  %514 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %454, i64 %511
-  store i16 %513, ptr %514, align 4, !tbaa !48
-  %515 = getelementptr inbounds [3 x i16], ptr %512, i64 0, i64 1
-  %516 = load i16, ptr %515, align 2, !tbaa !48
-  %517 = getelementptr inbounds [3 x i16], ptr %514, i64 0, i64 1
-  store i16 %516, ptr %517, align 2, !tbaa !48
-  %518 = getelementptr inbounds [3 x i16], ptr %512, i64 0, i64 2
-  %519 = load i16, ptr %518, align 4, !tbaa !48
-  %520 = getelementptr inbounds [3 x i16], ptr %514, i64 0, i64 2
-  store i16 %519, ptr %520, align 4, !tbaa !48
-  %521 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %468, i64 %511, i32 1
-  %522 = load i16, ptr %521, align 2, !tbaa !48
-  %523 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %514, i64 0, i32 1
-  store i16 %522, ptr %523, align 2, !tbaa !48
-  %524 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %468, i64 %511, i32 1, i64 1
-  %525 = load i16, ptr %524, align 4, !tbaa !48
-  %526 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %514, i64 0, i32 1, i64 1
-  store i16 %525, ptr %526, align 4, !tbaa !48
-  %527 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %468, i64 %511, i32 1, i64 2
-  %528 = load i16, ptr %527, align 2, !tbaa !48
-  %529 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %514, i64 0, i32 1, i64 2
-  store i16 %528, ptr %529, align 2, !tbaa !48
-  %530 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %468, i64 %511, i32 2
-  %531 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %514, i64 0, i32 2
-  %532 = load <2 x i32>, ptr %530, align 4, !tbaa !41
-  store <2 x i32> %532, ptr %531, align 4, !tbaa !41
-  %533 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %514, i64 0, i32 4
-  store i32 0, ptr %533, align 4, !tbaa !41
-  %534 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %514, i64 0, i32 4, i64 1
-  store i32 0, ptr %534, align 4, !tbaa !41
-  %535 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %514, i64 0, i32 4, i64 2
-  store i32 0, ptr %535, align 4, !tbaa !41
-  %536 = add nuw nsw i64 %511, 1
-  %537 = load i32, ptr %7, align 8, !tbaa !36
-  %538 = sext i32 %537 to i64
-  %539 = icmp slt i64 %536, %538
-  br i1 %539, label %510, label %540
+503:                                              ; preds = %459, %503
+  %504 = phi i64 [ 0, %459 ], [ %529, %503 ]
+  %505 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %461, i64 %504
+  %506 = load i16, ptr %505, align 4, !tbaa !48
+  %507 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504
+  store i16 %506, ptr %507, align 4, !tbaa !48
+  %508 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %461, i64 %504, i32 0, i64 1
+  %509 = load i16, ptr %508, align 2, !tbaa !48
+  %510 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504, i32 0, i64 1
+  store i16 %509, ptr %510, align 2, !tbaa !48
+  %511 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %461, i64 %504, i32 0, i64 2
+  %512 = load i16, ptr %511, align 4, !tbaa !48
+  %513 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504, i32 0, i64 2
+  store i16 %512, ptr %513, align 4, !tbaa !48
+  %514 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %461, i64 %504, i32 1
+  %515 = load i16, ptr %514, align 2, !tbaa !48
+  %516 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504, i32 1
+  store i16 %515, ptr %516, align 2, !tbaa !48
+  %517 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %461, i64 %504, i32 1, i64 1
+  %518 = load i16, ptr %517, align 2, !tbaa !48
+  %519 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504, i32 1, i64 1
+  store i16 %518, ptr %519, align 2, !tbaa !48
+  %520 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %461, i64 %504, i32 1, i64 2
+  %521 = load i16, ptr %520, align 2, !tbaa !48
+  %522 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504, i32 1, i64 2
+  store i16 %521, ptr %522, align 2, !tbaa !48
+  %523 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %461, i64 %504, i32 2
+  %524 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504, i32 2
+  %525 = load <2 x i32>, ptr %523, align 4, !tbaa !41
+  store <2 x i32> %525, ptr %524, align 4, !tbaa !41
+  %526 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504, i32 4
+  store i32 0, ptr %526, align 4, !tbaa !41
+  %527 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504, i32 4, i64 1
+  store i32 0, ptr %527, align 4, !tbaa !41
+  %528 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %447, i64 %504, i32 4, i64 2
+  store i32 0, ptr %528, align 4, !tbaa !41
+  %529 = add nuw nsw i64 %504, 1
+  %530 = load i32, ptr %7, align 8, !tbaa !36
+  %531 = sext i32 %530 to i64
+  %532 = icmp slt i64 %529, %531
+  br i1 %532, label %503, label %533
 
-540:                                              ; preds = %510, %474, %465, %469
-  %541 = load i8, ptr %29, align 8
-  %542 = icmp eq i8 %541, 0
-  br i1 %542, label %544, label %543
+533:                                              ; preds = %503, %467, %458, %462
+  %534 = load i8, ptr %27, align 8
+  %535 = icmp eq i8 %534, 0
+  br i1 %535, label %537, label %536
 
-543:                                              ; preds = %540
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %454)
-  br label %544
+536:                                              ; preds = %533
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %447)
+  br label %537
 
-544:                                              ; preds = %540, %543
-  store i8 0, ptr %29, align 8, !tbaa !32
-  store ptr null, ptr %30, align 8, !tbaa !33
-  store i32 0, ptr %31, align 4, !tbaa !34
-  store i32 0, ptr %32, align 8, !tbaa !35
+537:                                              ; preds = %533, %536
+  store i8 0, ptr %27, align 8, !tbaa !32
+  store ptr null, ptr %28, align 8, !tbaa !33
+  store i32 0, ptr %29, align 4, !tbaa !34
+  store i32 0, ptr %30, align 8, !tbaa !35
   store ptr null, ptr %1, align 8, !tbaa !63
   ret i1 true
 }
@@ -4387,15 +4427,15 @@ define dso_local noundef ptr @_ZN14btQuantizedBvh18deSerializeInPlaceEPvjb(ptr n
   %73 = load <4 x i16>, ptr %72, align 4, !tbaa !48
   %74 = tail call <4 x i16> @llvm.bswap.v4i16(<4 x i16> %73)
   store <4 x i16> %74, ptr %72, align 4, !tbaa !48
-  %75 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %72, i64 0, i32 1, i64 1
-  %76 = load i16, ptr %75, align 4, !tbaa !48
+  %75 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %43, i64 %71, i32 1, i64 1
+  %76 = load i16, ptr %75, align 2, !tbaa !48
   %77 = tail call i16 @llvm.bswap.i16(i16 %76)
-  store i16 %77, ptr %75, align 4, !tbaa !48
-  %78 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %72, i64 0, i32 1, i64 2
+  store i16 %77, ptr %75, align 2, !tbaa !48
+  %78 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %43, i64 %71, i32 1, i64 2
   %79 = load i16, ptr %78, align 2, !tbaa !48
   %80 = tail call i16 @llvm.bswap.i16(i16 %79)
   store i16 %80, ptr %78, align 2, !tbaa !48
-  %81 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %72, i64 0, i32 2
+  %81 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %43, i64 %71, i32 2
   %82 = load i32, ptr %81, align 4, !tbaa !52
   %83 = tail call i32 @llvm.bswap.i32(i32 %82)
   store i32 %83, ptr %81, align 4, !tbaa !52
@@ -4496,9 +4536,9 @@ define dso_local noundef ptr @_ZN14btQuantizedBvh18deSerializeInPlaceEPvjb(ptr n
   %142 = tail call <4 x i16> @llvm.bswap.v4i16(<4 x i16> %141)
   store <4 x i16> %142, ptr %140, align 4, !tbaa !48
   %143 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %131, i64 %139, i32 1, i64 1
-  %144 = load i16, ptr %143, align 4, !tbaa !48
+  %144 = load i16, ptr %143, align 2, !tbaa !48
   %145 = tail call i16 @llvm.bswap.i16(i16 %144)
-  store i16 %145, ptr %143, align 4, !tbaa !48
+  store i16 %145, ptr %143, align 2, !tbaa !48
   %146 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %131, i64 %139, i32 1, i64 2
   %147 = load i16, ptr %146, align 2, !tbaa !48
   %148 = tail call i16 @llvm.bswap.i16(i16 %147)
@@ -4585,10 +4625,10 @@ declare float @llvm.fmuladd.f32(float, float, float) #15
 declare noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef, i32 noundef) local_unnamed_addr #14
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.bswap.i16(i16) #16
+declare i32 @llvm.bswap.i32(i32) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.bswap.i32(i32) #16
+declare i16 @llvm.bswap.i16(i16) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare float @llvm.sqrt.f32(float) #16

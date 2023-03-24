@@ -323,9 +323,9 @@ define internal fastcc void @RestartModel(ptr noundef %0) unnamed_addr #4 {
   store i8 %45, ptr %44, align 1, !tbaa !49
   %46 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %43, i32 1
   store i8 1, ptr %46, align 1, !tbaa !51
-  %47 = getelementptr inbounds %struct.CPpmd_State, ptr %44, i64 0, i32 2
+  %47 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %43, i32 2
   store i16 0, ptr %47, align 1, !tbaa !52
-  %48 = getelementptr inbounds %struct.CPpmd_State, ptr %44, i64 0, i32 3
+  %48 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %43, i32 3
   store i16 0, ptr %48, align 1, !tbaa !53
   %49 = or i64 %43, 1
   %50 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %49
@@ -333,9 +333,9 @@ define internal fastcc void @RestartModel(ptr noundef %0) unnamed_addr #4 {
   store i8 %51, ptr %50, align 1, !tbaa !49
   %52 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %49, i32 1
   store i8 1, ptr %52, align 1, !tbaa !51
-  %53 = getelementptr inbounds %struct.CPpmd_State, ptr %50, i64 0, i32 2
+  %53 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %49, i32 2
   store i16 0, ptr %53, align 1, !tbaa !52
-  %54 = getelementptr inbounds %struct.CPpmd_State, ptr %50, i64 0, i32 3
+  %54 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %49, i32 3
   store i16 0, ptr %54, align 1, !tbaa !53
   %55 = add nuw nsw i64 %43, 2
   %56 = icmp eq i64 %55, 256

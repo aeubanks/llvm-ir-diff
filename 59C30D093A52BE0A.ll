@@ -213,15 +213,15 @@ define dso_local void @_Z30BENCHMARK_ANISTROPIC_DIFFUSIONRN9benchmark5StateE(ptr
   %17 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
   br label %18
 
-18:                                               ; preds = %30, %14
+18:                                               ; preds = %34, %14
   %19 = load i64, ptr %0, align 8, !tbaa !20
   %20 = icmp eq i64 %19, 0
-  br i1 %20, label %21, label %30, !prof !34
+  br i1 %20, label %21, label %34, !prof !34
 
 21:                                               ; preds = %18
   %22 = load i8, ptr %16, align 8, !tbaa !35, !range !36, !noundef !37
   %23 = icmp eq i8 %22, 0
-  br i1 %23, label %24, label %34
+  br i1 %23, label %24, label %30
 
 24:                                               ; preds = %21
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -230,28 +230,28 @@ define dso_local void @_Z30BENCHMARK_ANISTROPIC_DIFFUSIONRN9benchmark5StateE(ptr
   %27 = load i64, ptr %0, align 8
   %28 = icmp eq i64 %27, 0
   %29 = select i1 %26, i1 true, i1 %28
-  br i1 %29, label %34, label %30
+  br i1 %29, label %30, label %34
 
-30:                                               ; preds = %24, %18
-  %31 = phi i64 [ %19, %18 ], [ %27, %24 ]
-  %32 = add i64 %31, -1
-  store i64 %32, ptr %0, align 8, !tbaa !20
-  %33 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @anisotropicDiffusionKernel(i32 noundef %5, i32 noundef %5, ptr noundef %33, ptr noundef nonnull %10, i32 noundef 10)
+30:                                               ; preds = %24, %21
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %31 = load ptr, ptr %2, align 8, !tbaa !16
+  %32 = load i64, ptr %31, align 8, !tbaa !18
+  %33 = icmp eq i64 %32, 20
+  br i1 %33, label %38, label %39
+
+34:                                               ; preds = %24, %18
+  %35 = phi i64 [ %19, %18 ], [ %27, %24 ]
+  %36 = add i64 %35, -1
+  store i64 %36, ptr %0, align 8, !tbaa !20
+  %37 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @anisotropicDiffusionKernel(i32 noundef %5, i32 noundef %5, ptr noundef %37, ptr noundef nonnull %10, i32 noundef 10)
   br label %18, !llvm.loop !39
 
-34:                                               ; preds = %24, %21
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %35 = load ptr, ptr %2, align 8, !tbaa !16
-  %36 = load i64, ptr %35, align 8, !tbaa !18
-  %37 = icmp eq i64 %36, 20
-  br i1 %37, label %38, label %39
-
-38:                                               ; preds = %34
+38:                                               ; preds = %30
   tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %10, ptr noundef nonnull @.str.3, i32 noundef %5, i32 noundef %5)
   br label %39
 
-39:                                               ; preds = %38, %34
+39:                                               ; preds = %38, %30
   tail call void @free(ptr noundef %10) #15
   ret void
 }

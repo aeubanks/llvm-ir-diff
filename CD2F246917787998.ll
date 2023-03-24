@@ -624,8 +624,8 @@ define dso_local i32 @make_font(ptr noundef %0, ptr noundef %1) local_unnamed_ad
   %21 = icmp eq ptr %20, null
   br i1 %21, label %22, label %24
 
-22:                                               ; preds = %2, %15, %18
-  %23 = phi i32 [ %16, %15 ], [ -20, %2 ], [ -10, %18 ]
+22:                                               ; preds = %15, %2, %18
+  %23 = phi i32 [ -20, %2 ], [ %16, %15 ], [ -10, %18 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #6
   br label %54
 
@@ -730,8 +730,8 @@ define dso_local i32 @zsetfont(ptr noundef %0) #0 {
   %13 = icmp eq ptr %12, null
   br i1 %13, label %14, label %16
 
-14:                                               ; preds = %1, %7, %10
-  %15 = phi i32 [ %8, %7 ], [ -20, %1 ], [ -10, %10 ]
+14:                                               ; preds = %7, %1, %10
+  %15 = phi i32 [ -20, %1 ], [ %8, %7 ], [ -10, %10 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #6
   br label %23
 

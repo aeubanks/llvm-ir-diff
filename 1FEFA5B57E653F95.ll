@@ -45,8 +45,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.49 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 @.str.50 = private unnamed_addr constant [3 x i8] c"%f\00", align 1
 @.str.51 = private unnamed_addr constant [4 x i8] c"%ld\00", align 1
-@str = private unnamed_addr constant [536 x i8] c"              _____ _                 _      __  __  ____   _____ \0A             / ____(_)               | |    |  \\/  |/ __ \\ / ____|\0A            | (___  _ _ __ ___  _ __ | | ___| \\  / | |  | | |     \0A             \\___ \\| | '_ ` _ \\| '_ \\| |/ _ \\ |\\/| | |  | | |     \0A             ____) | | | | | | | |_) | |  __/ |  | | |__| | |____ \0A            |_____/|_|_| |_| |_| .__/|_|\\___|_|  |_|\\____/ \\_____|\0A                               | |                                \0A                               |_|                                \00", align 1
-@str.52 = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
+@str = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
+@str.52 = private unnamed_addr constant [536 x i8] c"              _____ _                 _      __  __  ____   _____ \0A             / ____(_)               | |    |  \\/  |/ __ \\ / ____|\0A            | (___  _ _ __ ___  _ __ | | ___| \\  / | |  | | |     \0A             \\___ \\| | '_ ` _ \\| '_ \\| |/ _ \\ |\\/| | |  | | |     \0A             ____) | | | | | | | |_) | |  __/ |  | | |__| | |____ \0A            |_____/|_|_| |_| |_| .__/|_|\\___|_|  |_|\\____/ \\_____|\0A                               | |                                \0A                               |_|                                \00", align 1
 @str.53 = private unnamed_addr constant [29 x i8] c"Usage: ./SimpleMOC <options>\00", align 1
 @str.54 = private unnamed_addr constant [17 x i8] c"Options include:\00", align 1
 @str.55 = private unnamed_addr constant [51 x i8] c"  -t <threads>     Number of OpenMP threads to run\00", align 1
@@ -60,9 +60,9 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @logo(i32 noundef %0) local_unnamed_addr #0 {
   %2 = alloca [100 x i8], align 16
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %6 = tail call i32 @putchar(i32 10)
   %7 = load ptr, ptr @stdout, align 8, !tbaa !5
   %8 = tail call i32 @fputc(i32 32, ptr %7)
@@ -347,14 +347,14 @@ define dso_local void @logo(i32 noundef %0) local_unnamed_addr #0 {
   %280 = load ptr, ptr @stdout, align 8, !tbaa !5
   %281 = tail call i32 @fputc(i32 10, ptr %280)
   %282 = tail call i32 @putchar(i32 10)
-  %283 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %283 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   call void @llvm.lifetime.end.p0(i64 100, ptr nonnull %2) #10
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @border_print() local_unnamed_addr #0 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   ret void
 }
 
@@ -523,7 +523,7 @@ define dso_local void @print_input_summary(ptr nocapture noundef readonly byval(
   %71 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 13, i64 1, ptr %70)
   %72 = load ptr, ptr @stdout, align 8, !tbaa !5
   %73 = tail call i32 @fputc(i32 10, ptr %72)
-  %74 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %74 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %75 = load i32, ptr %0, align 8, !tbaa !9
   %76 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.15, i32 noundef %75)
   %77 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 1
@@ -619,7 +619,7 @@ define dso_local void @print_input_summary(ptr nocapture noundef readonly byval(
   br label %155
 
 155:                                              ; preds = %131, %135, %143, %148
-  %156 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %156 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   ret void
 }
 
@@ -895,13 +895,13 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
 
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

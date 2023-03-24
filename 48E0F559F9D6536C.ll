@@ -442,7 +442,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive17FindAndReadMarkerEP
   store i64 %136, ptr %19, align 8, !tbaa !24
   br label %140
 
-137:                                              ; preds = %124, %120, %126, %112
+137:                                              ; preds = %120, %124, %126, %112
   %138 = add nuw nsw i64 %113, 1
   %139 = icmp eq i64 %138, %111
   br i1 %139, label %142, label %112, !llvm.loop !32
@@ -463,7 +463,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive17FindAndReadMarkerEP
   %148 = icmp ugt i64 %146, %147
   br i1 %148, label %149, label %89
 
-149:                                              ; preds = %142, %86, %106, %140
+149:                                              ; preds = %142, %86, %140, %106
   %150 = phi i32 [ %141, %140 ], [ 1, %106 ], [ 1, %86 ], [ 1, %142 ]
   call void @_ZdaPv(ptr noundef nonnull %33) #16
   br label %155
@@ -480,8 +480,8 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive17FindAndReadMarkerEP
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #17
   resume { ptr, i32 } %154
 
-155:                                              ; preds = %22, %16, %149
-  %156 = phi i32 [ %150, %149 ], [ %20, %16 ], [ 0, %22 ]
+155:                                              ; preds = %149, %22, %16
+  %156 = phi i32 [ %20, %16 ], [ 0, %22 ], [ %150, %149 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #17
   ret i32 %156
 }
@@ -517,7 +517,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr 
   %7 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 5
   %8 = load i8, ptr %7, align 8, !tbaa !5, !range !36, !noundef !37
   %9 = icmp eq i8 %8, 0
-  br i1 %9, label %104, label %10
+  br i1 %9, label %100, label %10
 
 10:                                               ; preds = %4
   %11 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 7
@@ -570,7 +570,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr 
   %43 = phi ptr [ %41, %40 ], [ %14, %20 ]
   %44 = getelementptr inbounds i8, ptr %43, i64 %6
   store ptr %44, ptr %11, align 8, !tbaa !39
-  br label %93
+  br label %89
 
 45:                                               ; preds = %45, %25
   %46 = phi i64 [ 0, %25 ], [ %67, %45 ]
@@ -612,7 +612,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr 
 
 75:                                               ; preds = %70
   %76 = invoke noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %11)
-          to label %77 unwind label %95
+          to label %77 unwind label %91
 
 77:                                               ; preds = %75
   br i1 %76, label %78, label %87
@@ -633,67 +633,61 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr 
   br i1 %86, label %89, label %70, !llvm.loop !43
 
 87:                                               ; preds = %77
-  %88 = trunc i64 %71 to i32
+  %88 = and i64 %71, 4294967295
   br label %89
 
-89:                                               ; preds = %80, %87
-  %90 = phi i32 [ %88, %87 ], [ %2, %80 ]
-  %91 = tail call i32 @llvm.umin.i32(i32 %90, i32 %2)
-  %92 = zext i32 %91 to i64
-  br label %93
+89:                                               ; preds = %80, %87, %42
+  %90 = phi i64 [ %88, %87 ], [ %6, %42 ], [ %6, %80 ]
+  store i64 %90, ptr %5, align 8, !tbaa !28
+  br label %103
 
-93:                                               ; preds = %89, %42
-  %94 = phi i64 [ %92, %89 ], [ %6, %42 ]
-  store i64 %94, ptr %5, align 8, !tbaa !28
-  br label %107
-
-95:                                               ; preds = %75
-  %96 = landingpad { ptr, i32 }
+91:                                               ; preds = %75
+  %92 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTI18CInBufferException
-  %97 = extractvalue { ptr, i32 } %96, 1
-  %98 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI18CInBufferException) #17
-  %99 = icmp eq i32 %97, %98
-  br i1 %99, label %100, label %119
+  %93 = extractvalue { ptr, i32 } %92, 1
+  %94 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI18CInBufferException) #17
+  %95 = icmp eq i32 %93, %94
+  br i1 %95, label %96, label %115
 
-100:                                              ; preds = %95
-  %101 = extractvalue { ptr, i32 } %96, 0
-  %102 = tail call ptr @__cxa_begin_catch(ptr %101) #17
-  %103 = load i32, ptr %102, align 4, !tbaa !44
+96:                                               ; preds = %91
+  %97 = extractvalue { ptr, i32 } %92, 0
+  %98 = tail call ptr @__cxa_begin_catch(ptr %97) #17
+  %99 = load i32, ptr %98, align 4, !tbaa !44
   tail call void @__cxa_end_catch()
-  br label %117
-
-104:                                              ; preds = %4
-  %105 = load ptr, ptr %0, align 8, !tbaa !22
-  %106 = call noundef i32 @_Z10ReadStreamP19ISequentialInStreamPvPm(ptr noundef %105, ptr noundef %1, ptr noundef nonnull %5)
-  br label %107
-
-107:                                              ; preds = %104, %93
-  %108 = phi i32 [ 0, %93 ], [ %106, %104 ]
-  %109 = icmp eq ptr %3, null
-  %110 = load i64, ptr %5, align 8, !tbaa !28
-  br i1 %109, label %113, label %111
-
-111:                                              ; preds = %107
-  %112 = trunc i64 %110 to i32
-  store i32 %112, ptr %3, align 4, !tbaa !27
   br label %113
 
-113:                                              ; preds = %107, %111
-  %114 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 4
-  %115 = load i64, ptr %114, align 8, !tbaa !24
-  %116 = add i64 %115, %110
-  store i64 %116, ptr %114, align 8, !tbaa !24
-  br label %117
+100:                                              ; preds = %4
+  %101 = load ptr, ptr %0, align 8, !tbaa !22
+  %102 = call noundef i32 @_Z10ReadStreamP19ISequentialInStreamPvPm(ptr noundef %101, ptr noundef %1, ptr noundef nonnull %5)
+  br label %103
 
-117:                                              ; preds = %113, %100
-  %118 = phi i32 [ %108, %113 ], [ %103, %100 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #17
-  ret i32 %118
+103:                                              ; preds = %100, %89
+  %104 = phi i32 [ 0, %89 ], [ %102, %100 ]
+  %105 = icmp eq ptr %3, null
+  %106 = load i64, ptr %5, align 8, !tbaa !28
+  br i1 %105, label %109, label %107
 
-119:                                              ; preds = %95
+107:                                              ; preds = %103
+  %108 = trunc i64 %106 to i32
+  store i32 %108, ptr %3, align 4, !tbaa !27
+  br label %109
+
+109:                                              ; preds = %103, %107
+  %110 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 4
+  %111 = load i64, ptr %110, align 8, !tbaa !24
+  %112 = add i64 %111, %106
+  store i64 %112, ptr %110, align 8, !tbaa !24
+  br label %113
+
+113:                                              ; preds = %109, %96
+  %114 = phi i32 [ %104, %109 ], [ %99, %96 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #17
-  resume { ptr, i32 } %96
+  ret i32 %114
+
+115:                                              ; preds = %91
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #17
+  resume { ptr, i32 } %92
 }
 
 ; Function Attrs: nofree nosync nounwind memory(none)
@@ -1709,7 +1703,7 @@ define dso_local void @_ZN8NArchive4NZip10CInArchive9ReadExtraEjRNS0_11CExtraBlo
   store i8 %202, ptr %11, align 1, !tbaa !29
   br label %203
 
-203:                                              ; preds = %180, %196, %199
+203:                                              ; preds = %180, %199, %196
   %204 = phi i64 [ 1, %180 ], [ 1, %199 ], [ 0, %196 ]
   %205 = load i64, ptr %33, align 8, !tbaa !24
   %206 = add i64 %205, %204
@@ -1796,7 +1790,7 @@ define dso_local void @_ZN8NArchive4NZip10CInArchive9ReadExtraEjRNS0_11CExtraBlo
   store i8 %248, ptr %11, align 1, !tbaa !29
   br label %249
 
-249:                                              ; preds = %235, %242, %245
+249:                                              ; preds = %235, %245, %242
   %250 = phi i64 [ 1, %235 ], [ 1, %245 ], [ 0, %242 ]
   %251 = load i64, ptr %33, align 8, !tbaa !24
   %252 = add i64 %251, %250
@@ -1963,7 +1957,7 @@ define dso_local void @_ZN8NArchive4NZip10CInArchive9ReadExtraEjRNS0_11CExtraBlo
   %328 = icmp ugt i32 %327, 3
   br i1 %328, label %35, label %335
 
-329:                                              ; preds = %288, %290, %292, %75, %77, %71, %73, %265, %309
+329:                                              ; preds = %288, %290, %292, %75, %77, %71, %73, %309, %265
   %330 = phi { ptr, i32 } [ %310, %309 ], [ %266, %265 ], [ %72, %71 ], [ %74, %73 ], [ %76, %75 ], [ %78, %77 ], [ %293, %292 ], [ %289, %288 ], [ %291, %290 ]
   %331 = load ptr, ptr %27, align 8, !tbaa !26
   %332 = icmp eq ptr %331, null
@@ -2594,8 +2588,8 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive23ReadLocalItemDescri
   tail call void @__cxa_throw(ptr nonnull %106, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-107:                                              ; preds = %92, %95, %93
-  %108 = phi i32 [ %94, %93 ], [ 0, %95 ], [ 0, %92 ]
+107:                                              ; preds = %95, %92, %93
+  %108 = phi i32 [ %94, %93 ], [ 0, %92 ], [ 0, %95 ]
   ret i32 %108
 }
 
@@ -2635,22 +2629,22 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive28ReadLocalItemAfterC
   br i1 %24, label %134, label %25
 
 25:                                               ; preds = %20
-  %26 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 8
-  %27 = load i64, ptr %26, align 8, !tbaa !82
-  %28 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %1, i64 0, i32 4
-  %29 = load i64, ptr %28, align 8, !tbaa !83
-  %30 = getelementptr inbounds %"class.NArchive::NZip::CItemEx", ptr %1, i64 0, i32 2
-  %31 = load i32, ptr %30, align 4, !tbaa !80
-  %32 = zext i32 %31 to i64
-  %33 = getelementptr inbounds %"class.NArchive::NZip::CItemEx", ptr %1, i64 0, i32 3
-  %34 = load i16, ptr %33, align 8, !tbaa !76
-  %35 = zext i16 %34 to i64
-  %36 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 5
-  %37 = load i64, ptr %36, align 8, !tbaa !87
-  %38 = add i64 %29, %27
-  %39 = add i64 %38, %32
-  %40 = add i64 %39, %35
-  %41 = add i64 %40, %37
+  %26 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %1, i64 0, i32 4
+  %27 = load i64, ptr %26, align 8, !tbaa !83
+  %28 = getelementptr inbounds %"class.NArchive::NZip::CItemEx", ptr %1, i64 0, i32 2
+  %29 = load i32, ptr %28, align 4, !tbaa !80
+  %30 = zext i32 %29 to i64
+  %31 = add i64 %27, %30
+  %32 = getelementptr inbounds %"class.NArchive::NZip::CItemEx", ptr %1, i64 0, i32 3
+  %33 = load i16, ptr %32, align 8, !tbaa !76
+  %34 = zext i16 %33 to i64
+  %35 = add i64 %31, %34
+  %36 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 8
+  %37 = load i64, ptr %36, align 8, !tbaa !82
+  %38 = add i64 %35, %37
+  %39 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 5
+  %40 = load i64, ptr %39, align 8, !tbaa !87
+  %41 = add i64 %38, %40
   %42 = load ptr, ptr %0, align 8, !tbaa !22
   %43 = load ptr, ptr %42, align 8, !tbaa !20
   %44 = getelementptr inbounds ptr, ptr %43, i64 6
@@ -2819,7 +2813,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive28ReadLocalItemAfterC
   %116 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 4
   %117 = load i32, ptr %116, align 4, !tbaa !86
   %118 = icmp eq i32 %86, %117
-  %119 = load i64, ptr %36, align 8
+  %119 = load i64, ptr %39, align 8
   %120 = icmp eq i64 %119, %99
   %121 = select i1 %118, i1 %120, i1 false
   %122 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 6
@@ -3092,8 +3086,8 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive6FindCdERNS0_7CCdInfo
 
 43:                                               ; preds = %38
   %44 = load i32, ptr %7, align 4, !tbaa !27
-  %45 = icmp eq i32 %44, %19
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #17
+  %45 = icmp eq i32 %44, %19
   br i1 %45, label %48, label %148
 
 46:                                               ; preds = %40, %36
@@ -3108,7 +3102,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive6FindCdERNS0_7CCdInfo
   br label %52
 
 52:                                               ; preds = %48, %145
-  %53 = phi i64 [ %51, %48 ], [ %146, %145 ]
+  %53 = phi i64 [ %51, %48 ], [ %147, %145 ]
   %54 = getelementptr inbounds i8, ptr %16, i64 %53
   %55 = load i32, ptr %54, align 4, !tbaa !27
   %56 = load i32, ptr @_ZN8NArchive4NZip10NSignature16kEndOfCentralDirE, align 4, !tbaa !27
@@ -3273,12 +3267,12 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive6FindCdERNS0_7CCdInfo
   br label %148
 
 145:                                              ; preds = %52, %124
-  %146 = add nsw i64 %53, -1
-  %147 = icmp slt i64 %53, 1
-  br i1 %147, label %148, label %52, !llvm.loop !99
+  %146 = icmp slt i64 %53, 1
+  %147 = add nsw i64 %53, -1
+  br i1 %146, label %148, label %52, !llvm.loop !99
 
-148:                                              ; preds = %145, %142, %128, %119, %90, %29, %33, %43, %15
-  %149 = phi i32 [ 1, %15 ], [ %28, %29 ], [ 1, %33 ], [ 1, %43 ], [ 0, %90 ], [ 0, %119 ], [ 0, %128 ], [ 0, %142 ], [ 1, %145 ]
+148:                                              ; preds = %145, %142, %128, %119, %90, %15, %43, %33, %29
+  %149 = phi i32 [ 1, %15 ], [ %28, %29 ], [ 1, %33 ], [ 1, %43 ], [ 0, %142 ], [ 0, %128 ], [ 0, %119 ], [ 0, %90 ], [ 1, %145 ]
   call void @_ZdaPv(ptr noundef nonnull %16) #16
   br label %152
 
@@ -3288,8 +3282,8 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive6FindCdERNS0_7CCdInfo
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #17
   resume { ptr, i32 } %151
 
-152:                                              ; preds = %2, %148
-  %153 = phi i32 [ %149, %148 ], [ %13, %2 ]
+152:                                              ; preds = %148, %2
+  %153 = phi i32 [ %13, %2 ], [ %149, %148 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #17
   ret i32 %153
 }
@@ -3798,8 +3792,8 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive15ReadLocalsAndCdER13
   store i32 %90, ptr %12, align 8, !tbaa !27
   br label %91
 
-91:                                               ; preds = %89, %86
-  %92 = phi i32 [ 0, %89 ], [ 3, %86 ]
+91:                                               ; preds = %86, %89
+  %92 = phi i32 [ 3, %86 ], [ 0, %89 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %9) #17
   br label %93
 
@@ -4367,15 +4361,15 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive15ReadLocalsAndCdER13
   store i32 %429, ptr %12, align 8, !tbaa !27
   br label %430
 
-430:                                              ; preds = %428, %425
-  %431 = phi i32 [ %147, %428 ], [ 1, %425 ]
+430:                                              ; preds = %425, %428
+  %431 = phi i32 [ 1, %425 ], [ %147, %428 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #17
   %432 = zext i1 %427 to i32
   br label %433
 
-433:                                              ; preds = %214, %239, %430, %267, %273, %278, %249, %258, %205
-  %434 = phi i32 [ 1, %205 ], [ 1, %258 ], [ 1, %249 ], [ 1, %278 ], [ 1, %273 ], [ 1, %267 ], [ %432, %430 ], [ 1, %239 ], [ 1, %214 ]
-  %435 = phi i32 [ 1, %205 ], [ 1, %258 ], [ 1, %249 ], [ 1, %278 ], [ 1, %273 ], [ 1, %267 ], [ %431, %430 ], [ 1, %239 ], [ 1, %214 ]
+433:                                              ; preds = %214, %430, %267, %273, %278, %249, %258, %239, %205
+  %434 = phi i32 [ 1, %205 ], [ 1, %239 ], [ 1, %258 ], [ 1, %249 ], [ 1, %278 ], [ 1, %273 ], [ 1, %267 ], [ %432, %430 ], [ 1, %214 ]
+  %435 = phi i32 [ 1, %205 ], [ 1, %239 ], [ 1, %258 ], [ 1, %249 ], [ 1, %278 ], [ 1, %273 ], [ 1, %267 ], [ %431, %430 ], [ 1, %214 ]
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV7CBufferIhE, i64 0, inrange i32 0, i64 2), ptr %129, align 8, !tbaa !20
   %436 = load ptr, ptr %142, align 8, !tbaa !26
   %437 = icmp eq ptr %436, null
@@ -4630,7 +4624,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive11ReadHeadersER13CObj
   %31 = extractvalue { ptr, i32 } %30, 1
   %32 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE) #17
   %33 = icmp eq i32 %31, %32
-  br i1 %33, label %34, label %329
+  br i1 %33, label %34, label %328
 
 34:                                               ; preds = %29
   %35 = extractvalue { ptr, i32 } %30, 0
@@ -4644,7 +4638,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive11ReadHeadersER13CObj
 
 39:                                               ; preds = %3
   %40 = icmp ugt i32 %28, 1
-  br i1 %40, label %327, label %41
+  br i1 %40, label %326, label %41
 
 41:                                               ; preds = %39
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %24) #17
@@ -4677,13 +4671,13 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive11ReadHeadersER13CObj
   %61 = load ptr, ptr %60, align 8
   %62 = tail call noundef i32 %61(ptr noundef nonnull align 8 dereferenceable(8) %55, i64 noundef %57, i32 noundef 0, ptr noundef nonnull %58)
   %63 = icmp eq i32 %62, 0
-  br i1 %63, label %64, label %325
+  br i1 %63, label %64, label %324
 
 64:                                               ; preds = %51
   %65 = load i64, ptr %58, align 8, !tbaa !24
   %66 = load i64, ptr %56, align 8, !tbaa !35
   %67 = icmp eq i64 %65, %66
-  br i1 %67, label %68, label %325
+  br i1 %67, label %68, label %324
 
 68:                                               ; preds = %64
   %69 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 1
@@ -4703,21 +4697,21 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive11ReadHeadersER13CObj
   %75 = load i32, ptr %20, align 4, !tbaa !27
   %76 = icmp eq i32 %75, 4
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %20) #17
-  br i1 %76, label %78, label %77
+  br i1 %76, label %77, label %81
 
 77:                                               ; preds = %74
+  %78 = load i32, ptr %21, align 4, !tbaa !27
+  store i32 %78, ptr %69, align 8, !tbaa !27
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %21) #17
-  br label %325
+  %79 = call noundef i32 @_ZN8NArchive4NZip10CInArchive15ReadLocalsAndCdER13CObjectVectorINS0_7CItemExEEPNS0_13CProgressVirtERyRi(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull align 8 dereferenceable(32) %1, ptr noundef %2, ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef nonnull align 4 dereferenceable(4) %24)
+  %80 = icmp eq i32 %79, 0
+  br i1 %80, label %82, label %324
 
-78:                                               ; preds = %74
-  %79 = load i32, ptr %21, align 4, !tbaa !27
-  store i32 %79, ptr %69, align 8, !tbaa !27
+81:                                               ; preds = %74
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %21) #17
-  %80 = call noundef i32 @_ZN8NArchive4NZip10CInArchive15ReadLocalsAndCdER13CObjectVectorINS0_7CItemExEEPNS0_13CProgressVirtERyRi(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull align 8 dereferenceable(32) %1, ptr noundef %2, ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef nonnull align 4 dereferenceable(4) %24)
-  %81 = icmp eq i32 %80, 0
-  br i1 %81, label %82, label %325
+  br label %324
 
-82:                                               ; preds = %78
+82:                                               ; preds = %77
   %83 = load i64, ptr %58, align 8, !tbaa !24
   %84 = add i64 %83, -4
   %85 = load i64, ptr %23, align 8, !tbaa !34
@@ -4738,7 +4732,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive11ReadHeadersER13CObj
   %96 = load i32, ptr %95, align 8, !tbaa !100
   %97 = load i32, ptr @_ZN8NArchive4NZip10NSignature21kZip64EndOfCentralDirE, align 4, !tbaa !27
   %98 = icmp ne i32 %96, %97
-  br i1 %98, label %182, label %99
+  br i1 %98, label %181, label %99
 
 99:                                               ; preds = %89
   store i8 1, ptr %27, align 8, !tbaa !128
@@ -4859,28 +4853,28 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive11ReadHeadersER13CObj
   %155 = load i32, ptr %13, align 4, !tbaa !27
   %156 = icmp eq i32 %155, 4
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %13) #17
-  br i1 %156, label %158, label %157
+  br i1 %156, label %157, label %162
 
 157:                                              ; preds = %154
+  %158 = load i32, ptr %14, align 4, !tbaa !27
+  store i32 %158, ptr %95, align 8, !tbaa !27
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %14) #17
-  br label %180
+  %159 = icmp ne i32 %122, 0
+  %160 = icmp ne i32 %124, 0
+  %161 = select i1 %159, i1 true, i1 %160
+  br i1 %161, label %163, label %165
 
-158:                                              ; preds = %154
-  %159 = load i32, ptr %14, align 4, !tbaa !27
-  store i32 %159, ptr %95, align 8, !tbaa !27
+162:                                              ; preds = %154
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %14) #17
-  %160 = icmp ne i32 %122, 0
-  %161 = icmp ne i32 %124, 0
-  %162 = select i1 %160, i1 true, i1 %161
-  br i1 %162, label %163, label %165
+  br label %174
 
-163:                                              ; preds = %158
+163:                                              ; preds = %157
   %164 = call ptr @__cxa_allocate_exception(i64 4) #17
   store i32 5, ptr %164, align 4, !tbaa !46
   call void @__cxa_throw(ptr nonnull %164, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-165:                                              ; preds = %158
+165:                                              ; preds = %157
   %166 = load i32, ptr %24, align 4, !tbaa !27
   %167 = sext i32 %166 to i64
   %168 = icmp eq i64 %126, %167
@@ -4889,290 +4883,283 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CInArchive11ReadHeadersER13CObj
   %171 = load i64, ptr %22, align 8
   %172 = icmp eq i64 %130, %171
   %173 = select i1 %170, i1 %172, i1 false
-  br i1 %173, label %174, label %180
+  br i1 %173, label %175, label %174
 
-174:                                              ; preds = %165
-  %175 = load i64, ptr %23, align 8, !tbaa !34
-  %176 = icmp eq i64 %132, %175
-  br i1 %176, label %181, label %177
+174:                                              ; preds = %162, %165
+  call void @llvm.lifetime.end.p0(i64 44, ptr nonnull %25) #17
+  br label %324
 
-177:                                              ; preds = %174
-  %178 = load i32, ptr %92, align 4, !tbaa !67
+175:                                              ; preds = %165
+  %176 = load i64, ptr %23, align 8, !tbaa !34
+  %177 = icmp eq i64 %132, %176
+  %178 = load i32, ptr %92, align 4
   %179 = icmp eq i32 %178, 0
-  br i1 %179, label %181, label %180
-
-180:                                              ; preds = %157, %177, %165
+  %180 = select i1 %177, i1 true, i1 %179
   call void @llvm.lifetime.end.p0(i64 44, ptr nonnull %25) #17
-  br label %325
+  br i1 %180, label %181, label %324
 
-181:                                              ; preds = %174, %177
-  call void @llvm.lifetime.end.p0(i64 44, ptr nonnull %25) #17
-  br label %182
+181:                                              ; preds = %175, %89
+  %182 = phi i32 [ %158, %175 ], [ %96, %89 ]
+  %183 = phi i64 [ %132, %175 ], [ 0, %89 ]
+  %184 = phi i64 [ %130, %175 ], [ 0, %89 ]
+  %185 = phi i64 [ %128, %175 ], [ 0, %89 ]
+  %186 = phi i64 [ %126, %175 ], [ 0, %89 ]
+  %187 = load i32, ptr @_ZN8NArchive4NZip10NSignature28kZip64EndOfCentralDirLocatorE, align 4, !tbaa !27
+  %188 = icmp eq i32 %182, %187
+  br i1 %188, label %189, label %233
 
-182:                                              ; preds = %181, %89
-  %183 = phi i32 [ %96, %89 ], [ %159, %181 ]
-  %184 = phi i64 [ 0, %89 ], [ %132, %181 ]
-  %185 = phi i64 [ 0, %89 ], [ %130, %181 ]
-  %186 = phi i64 [ 0, %89 ], [ %128, %181 ]
-  %187 = phi i64 [ 0, %89 ], [ %126, %181 ]
-  %188 = load i32, ptr @_ZN8NArchive4NZip10NSignature28kZip64EndOfCentralDirLocatorE, align 4, !tbaa !27
-  %189 = icmp eq i32 %183, %188
-  br i1 %189, label %190, label %234
-
-190:                                              ; preds = %182
+189:                                              ; preds = %181
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %12) #17
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %11) #17
-  %191 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %12, i32 noundef 4, ptr noundef nonnull %11)
-  %192 = icmp eq i32 %191, 0
-  br i1 %192, label %195, label %193
+  %190 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %12, i32 noundef 4, ptr noundef nonnull %11)
+  %191 = icmp eq i32 %190, 0
+  br i1 %191, label %194, label %192
 
-193:                                              ; preds = %190
-  %194 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 6, ptr %194, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %194, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+192:                                              ; preds = %189
+  %193 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 6, ptr %193, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %193, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-195:                                              ; preds = %190
-  %196 = load i32, ptr %11, align 4, !tbaa !27
-  %197 = icmp eq i32 %196, 4
+194:                                              ; preds = %189
+  %195 = load i32, ptr %11, align 4, !tbaa !27
+  %196 = icmp eq i32 %195, 4
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %11) #17
-  br i1 %197, label %200, label %198
+  br i1 %196, label %199, label %197
 
-198:                                              ; preds = %195
-  %199 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 0, ptr %199, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %199, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+197:                                              ; preds = %194
+  %198 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 0, ptr %198, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %198, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-200:                                              ; preds = %195
+199:                                              ; preds = %194
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %12) #17
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #17
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %9) #17
-  %201 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %10, i32 noundef 8, ptr noundef nonnull %9)
-  %202 = icmp eq i32 %201, 0
-  br i1 %202, label %205, label %203
+  %200 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %10, i32 noundef 8, ptr noundef nonnull %9)
+  %201 = icmp eq i32 %200, 0
+  br i1 %201, label %204, label %202
 
-203:                                              ; preds = %200
-  %204 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 6, ptr %204, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %204, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+202:                                              ; preds = %199
+  %203 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 6, ptr %203, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %203, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-205:                                              ; preds = %200
-  %206 = load i32, ptr %9, align 4, !tbaa !27
-  %207 = icmp eq i32 %206, 8
+204:                                              ; preds = %199
+  %205 = load i32, ptr %9, align 4, !tbaa !27
+  %206 = icmp eq i32 %205, 8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %9) #17
-  br i1 %207, label %210, label %208
+  br i1 %206, label %209, label %207
 
-208:                                              ; preds = %205
-  %209 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 0, ptr %209, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %209, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+207:                                              ; preds = %204
+  %208 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 0, ptr %208, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %208, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-210:                                              ; preds = %205
-  %211 = load i64, ptr %10, align 8, !tbaa !34
+209:                                              ; preds = %204
+  %210 = load i64, ptr %10, align 8, !tbaa !34
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #17
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #17
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %7) #17
-  %212 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %8, i32 noundef 4, ptr noundef nonnull %7)
-  %213 = icmp eq i32 %212, 0
-  br i1 %213, label %216, label %214
+  %211 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %8, i32 noundef 4, ptr noundef nonnull %7)
+  %212 = icmp eq i32 %211, 0
+  br i1 %212, label %215, label %213
 
-214:                                              ; preds = %210
-  %215 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 6, ptr %215, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %215, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+213:                                              ; preds = %209
+  %214 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 6, ptr %214, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %214, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-216:                                              ; preds = %210
-  %217 = load i32, ptr %7, align 4, !tbaa !27
-  %218 = icmp eq i32 %217, 4
+215:                                              ; preds = %209
+  %216 = load i32, ptr %7, align 4, !tbaa !27
+  %217 = icmp eq i32 %216, 4
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #17
-  br i1 %218, label %221, label %219
+  br i1 %217, label %220, label %218
 
-219:                                              ; preds = %216
-  %220 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 0, ptr %220, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %220, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+218:                                              ; preds = %215
+  %219 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 0, ptr %219, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %219, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-221:                                              ; preds = %216
+220:                                              ; preds = %215
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #17
-  %222 = icmp eq i64 %94, %211
-  br i1 %222, label %223, label %325
+  %221 = icmp eq i64 %94, %210
+  br i1 %221, label %222, label %324
 
-223:                                              ; preds = %221
+222:                                              ; preds = %220
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %6) #17
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #17
-  %224 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %6, i32 noundef 4, ptr noundef nonnull %5)
-  %225 = icmp eq i32 %224, 0
-  br i1 %225, label %228, label %226
+  %223 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %6, i32 noundef 4, ptr noundef nonnull %5)
+  %224 = icmp eq i32 %223, 0
+  br i1 %224, label %227, label %225
 
-226:                                              ; preds = %223
-  %227 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 6, ptr %227, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %227, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+225:                                              ; preds = %222
+  %226 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 6, ptr %226, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %226, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-228:                                              ; preds = %223
-  %229 = load i32, ptr %5, align 4, !tbaa !27
-  %230 = icmp eq i32 %229, 4
+227:                                              ; preds = %222
+  %228 = load i32, ptr %5, align 4, !tbaa !27
+  %229 = icmp eq i32 %228, 4
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #17
-  br i1 %230, label %231, label %233
+  br i1 %229, label %230, label %232
 
-231:                                              ; preds = %228
-  %232 = load i32, ptr %6, align 4, !tbaa !27
-  store i32 %232, ptr %95, align 8, !tbaa !27
+230:                                              ; preds = %227
+  %231 = load i32, ptr %6, align 4, !tbaa !27
+  store i32 %231, ptr %95, align 8, !tbaa !27
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #17
-  br label %234
+  br label %233
 
-233:                                              ; preds = %228
+232:                                              ; preds = %227
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #17
-  br label %325
+  br label %324
 
-234:                                              ; preds = %231, %182
-  %235 = phi i32 [ %232, %231 ], [ %183, %182 ]
-  %236 = load i32, ptr @_ZN8NArchive4NZip10NSignature16kEndOfCentralDirE, align 4, !tbaa !27
-  %237 = icmp eq i32 %235, %236
-  br i1 %237, label %238, label %325
+233:                                              ; preds = %230, %181
+  %234 = phi i32 [ %231, %230 ], [ %182, %181 ]
+  %235 = load i32, ptr @_ZN8NArchive4NZip10NSignature16kEndOfCentralDirE, align 4, !tbaa !27
+  %236 = icmp eq i32 %234, %235
+  br i1 %236, label %237, label %324
 
-238:                                              ; preds = %234
+237:                                              ; preds = %233
   call void @llvm.lifetime.start.p0(i64 18, ptr nonnull %26) #17
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #17
-  %239 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %26, i32 noundef 18, ptr noundef nonnull %4)
-  %240 = icmp eq i32 %239, 0
-  br i1 %240, label %243, label %241
+  %238 = call noundef i32 @_ZN8NArchive4NZip10CInArchive9ReadBytesEPvjPj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull %26, i32 noundef 18, ptr noundef nonnull %4)
+  %239 = icmp eq i32 %238, 0
+  br i1 %239, label %242, label %240
 
-241:                                              ; preds = %238
-  %242 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 6, ptr %242, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %242, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+240:                                              ; preds = %237
+  %241 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 6, ptr %241, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %241, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-243:                                              ; preds = %238
-  %244 = load i32, ptr %4, align 4, !tbaa !27
-  %245 = icmp eq i32 %244, 18
+242:                                              ; preds = %237
+  %243 = load i32, ptr %4, align 4, !tbaa !27
+  %244 = icmp eq i32 %243, 18
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #17
-  br i1 %245, label %248, label %246
+  br i1 %244, label %247, label %245
 
-246:                                              ; preds = %243
-  %247 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 0, ptr %247, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %247, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+245:                                              ; preds = %242
+  %246 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 0, ptr %246, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %246, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-248:                                              ; preds = %243
-  %249 = load i16, ptr %26, align 16, !tbaa !30
-  %250 = getelementptr inbounds i8, ptr %26, i64 2
-  %251 = load i16, ptr %250, align 2, !tbaa !30
-  %252 = getelementptr inbounds i8, ptr %26, i64 4
-  %253 = load i16, ptr %252, align 4, !tbaa !30
-  %254 = getelementptr inbounds i8, ptr %26, i64 6
-  %255 = load i16, ptr %254, align 2, !tbaa !30
-  %256 = getelementptr inbounds i8, ptr %26, i64 8
-  %257 = load i32, ptr %256, align 8, !tbaa !27
-  %258 = getelementptr inbounds i8, ptr %26, i64 12
-  %259 = load i32, ptr %258, align 4, !tbaa !27
-  %260 = getelementptr inbounds i8, ptr %26, i64 16
-  %261 = load i16, ptr %260, align 16, !tbaa !30
-  %262 = icmp ne i16 %249, -1
-  %263 = select i1 %98, i1 true, i1 %262
-  %264 = icmp ne i16 %251, -1
-  %265 = select i1 %98, i1 true, i1 %264
-  %266 = icmp ne i32 %259, -1
-  %267 = select i1 %98, i1 true, i1 %266
-  %268 = zext i32 %259 to i64
-  %269 = select i1 %267, i64 %268, i64 %184
-  %270 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 8, i32 3
-  %271 = zext i16 %261 to i32
-  call void @_ZN8NArchive4NZip10CInArchive10ReadBufferER7CBufferIhEj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull align 8 dereferenceable(24) %270, i32 noundef %271)
-  %272 = icmp ne i16 %249, 0
-  %273 = select i1 %263, i1 %272, i1 false
-  %274 = icmp ne i16 %251, 0
-  %275 = select i1 %265, i1 %274, i1 false
-  %276 = select i1 %273, i1 true, i1 %275
-  br i1 %276, label %277, label %279
+247:                                              ; preds = %242
+  %248 = load i16, ptr %26, align 16, !tbaa !30
+  %249 = getelementptr inbounds i8, ptr %26, i64 2
+  %250 = load i16, ptr %249, align 2, !tbaa !30
+  %251 = getelementptr inbounds i8, ptr %26, i64 4
+  %252 = load i16, ptr %251, align 4, !tbaa !30
+  %253 = getelementptr inbounds i8, ptr %26, i64 6
+  %254 = load i16, ptr %253, align 2, !tbaa !30
+  %255 = getelementptr inbounds i8, ptr %26, i64 8
+  %256 = load i32, ptr %255, align 8, !tbaa !27
+  %257 = getelementptr inbounds i8, ptr %26, i64 12
+  %258 = load i32, ptr %257, align 4, !tbaa !27
+  %259 = getelementptr inbounds i8, ptr %26, i64 16
+  %260 = load i16, ptr %259, align 16, !tbaa !30
+  %261 = icmp ne i16 %248, -1
+  %262 = select i1 %98, i1 true, i1 %261
+  %263 = icmp ne i16 %250, -1
+  %264 = select i1 %98, i1 true, i1 %263
+  %265 = icmp ne i32 %258, -1
+  %266 = select i1 %98, i1 true, i1 %265
+  %267 = zext i32 %258 to i64
+  %268 = select i1 %266, i64 %267, i64 %183
+  %269 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 8, i32 3
+  %270 = zext i16 %260 to i32
+  call void @_ZN8NArchive4NZip10CInArchive10ReadBufferER7CBufferIhEj(ptr noundef nonnull align 8 dereferenceable(138) %0, ptr noundef nonnull align 8 dereferenceable(24) %269, i32 noundef %270)
+  %271 = icmp ne i16 %248, 0
+  %272 = select i1 %262, i1 %271, i1 false
+  %273 = icmp ne i16 %250, 0
+  %274 = select i1 %264, i1 %273, i1 false
+  %275 = select i1 %272, i1 true, i1 %274
+  br i1 %275, label %276, label %278
 
-277:                                              ; preds = %248
-  %278 = call ptr @__cxa_allocate_exception(i64 4) #17
-  store i32 5, ptr %278, align 4, !tbaa !46
-  call void @__cxa_throw(ptr nonnull %278, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
+276:                                              ; preds = %247
+  %277 = call ptr @__cxa_allocate_exception(i64 4) #17
+  store i32 5, ptr %277, align 4, !tbaa !46
+  call void @__cxa_throw(ptr nonnull %277, ptr nonnull @_ZTIN8NArchive4NZip19CInArchiveExceptionE, ptr null) #19
   unreachable
 
-279:                                              ; preds = %248
-  %280 = icmp ne i32 %257, -1
-  %281 = select i1 %98, i1 true, i1 %280
-  %282 = zext i32 %257 to i64
-  %283 = select i1 %281, i64 %282, i64 %185
-  %284 = icmp ne i16 %255, -1
-  %285 = select i1 %98, i1 true, i1 %284
-  %286 = zext i16 %255 to i64
-  %287 = select i1 %285, i64 %286, i64 %186
-  %288 = icmp ne i16 %253, -1
-  %289 = select i1 %98, i1 true, i1 %288
-  %290 = zext i16 %253 to i64
-  %291 = select i1 %289, i64 %290, i64 %187
-  %292 = trunc i64 %291 to i32
-  %293 = and i32 %292, 65535
-  %294 = load i32, ptr %24, align 4, !tbaa !27
-  %295 = and i32 %294, 65535
-  %296 = icmp eq i32 %293, %295
-  %297 = trunc i64 %287 to i32
-  %298 = and i32 %297, 65535
-  %299 = icmp eq i32 %298, %295
-  %300 = select i1 %296, i1 %299, i1 false
-  %301 = trunc i64 %283 to i32
-  %302 = load i64, ptr %22, align 8
-  %303 = trunc i64 %302 to i32
-  %304 = icmp eq i32 %301, %303
-  %305 = select i1 %300, i1 %304, i1 false
-  br i1 %305, label %306, label %323
+278:                                              ; preds = %247
+  %279 = icmp ne i32 %256, -1
+  %280 = select i1 %98, i1 true, i1 %279
+  %281 = zext i32 %256 to i64
+  %282 = select i1 %280, i64 %281, i64 %184
+  %283 = icmp ne i16 %254, -1
+  %284 = select i1 %98, i1 true, i1 %283
+  %285 = zext i16 %254 to i64
+  %286 = select i1 %284, i64 %285, i64 %185
+  %287 = icmp ne i16 %252, -1
+  %288 = select i1 %98, i1 true, i1 %287
+  %289 = zext i16 %252 to i64
+  %290 = select i1 %288, i64 %289, i64 %186
+  %291 = trunc i64 %290 to i32
+  %292 = and i32 %291, 65535
+  %293 = load i32, ptr %24, align 4, !tbaa !27
+  %294 = and i32 %293, 65535
+  %295 = icmp eq i32 %292, %294
+  %296 = trunc i64 %286 to i32
+  %297 = and i32 %296, 65535
+  %298 = icmp eq i32 %297, %294
+  %299 = select i1 %295, i1 %298, i1 false
+  %300 = trunc i64 %282 to i32
+  %301 = load i64, ptr %22, align 8
+  %302 = trunc i64 %301 to i32
+  %303 = icmp eq i32 %300, %302
+  %304 = select i1 %299, i1 %303, i1 false
+  br i1 %304, label %305, label %322
 
-306:                                              ; preds = %279
-  %307 = trunc i64 %269 to i32
-  %308 = load i64, ptr %23, align 8, !tbaa !34
-  %309 = trunc i64 %308 to i32
-  %310 = icmp eq i32 %307, %309
-  br i1 %310, label %314, label %311
+305:                                              ; preds = %278
+  %306 = trunc i64 %268 to i32
+  %307 = load i64, ptr %23, align 8, !tbaa !34
+  %308 = trunc i64 %307 to i32
+  %309 = icmp eq i32 %306, %308
+  %310 = load i32, ptr %92, align 4
+  %311 = icmp eq i32 %310, 0
+  %312 = select i1 %309, i1 true, i1 %311
+  br i1 %312, label %313, label %322
 
-311:                                              ; preds = %306
-  %312 = load i32, ptr %92, align 4, !tbaa !67
-  %313 = icmp eq i32 %312, 0
-  br i1 %313, label %314, label %323
+313:                                              ; preds = %305
+  %314 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 5
+  store i8 0, ptr %314, align 8, !tbaa !5
+  %315 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 7
+  call void @_ZN9CInBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(45) %315)
+  %316 = load i32, ptr %92, align 4, !tbaa !67
+  %317 = icmp eq i32 %293, %316
+  %318 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 10
+  %319 = zext i1 %317 to i8
+  store i8 %319, ptr %318, align 1, !tbaa !129
+  %320 = load i64, ptr %93, align 8, !tbaa !24
+  %321 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 8, i32 2
+  store i64 %320, ptr %321, align 8, !tbaa !130
+  br label %322
 
-314:                                              ; preds = %311, %306
-  %315 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 5
-  store i8 0, ptr %315, align 8, !tbaa !5
-  %316 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 7
-  call void @_ZN9CInBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(45) %316)
-  %317 = load i32, ptr %92, align 4, !tbaa !67
-  %318 = icmp eq i32 %294, %317
-  %319 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 10
-  %320 = zext i1 %318 to i8
-  store i8 %320, ptr %319, align 1, !tbaa !129
-  %321 = load i64, ptr %93, align 8, !tbaa !24
-  %322 = getelementptr inbounds %"class.NArchive::NZip::CInArchive", ptr %0, i64 0, i32 8, i32 2
-  store i64 %321, ptr %322, align 8, !tbaa !130
-  br label %323
-
-323:                                              ; preds = %279, %311, %314
-  %324 = phi i32 [ 0, %314 ], [ 1, %311 ], [ 1, %279 ]
+322:                                              ; preds = %278, %305, %313
+  %323 = phi i32 [ 0, %313 ], [ 1, %305 ], [ 1, %278 ]
   call void @llvm.lifetime.end.p0(i64 18, ptr nonnull %26) #17
-  br label %325
+  br label %324
 
-325:                                              ; preds = %221, %323, %234, %180, %233, %77, %64, %78, %51
-  %326 = phi i32 [ %80, %78 ], [ %62, %51 ], [ 1, %64 ], [ 1, %77 ], [ %324, %323 ], [ 1, %233 ], [ 1, %234 ], [ 1, %180 ], [ 1, %221 ]
+324:                                              ; preds = %220, %232, %174, %322, %175, %233, %81, %64, %77, %51
+  %325 = phi i32 [ %79, %77 ], [ %62, %51 ], [ 1, %64 ], [ 1, %81 ], [ %323, %322 ], [ 1, %232 ], [ 1, %175 ], [ 1, %233 ], [ 1, %174 ], [ 1, %220 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %24) #17
-  br label %327
+  br label %326
 
-327:                                              ; preds = %39, %325
-  %328 = phi i32 [ %326, %325 ], [ %28, %39 ]
+326:                                              ; preds = %39, %324
+  %327 = phi i32 [ %325, %324 ], [ %28, %39 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %23) #17
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %22) #17
-  ret i32 %328
+  ret i32 %327
 
-329:                                              ; preds = %29
+328:                                              ; preds = %29
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %23) #17
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %22) #17
   resume { ptr, i32 } %30
@@ -5237,7 +5224,7 @@ define dso_local noundef ptr @_ZN8NArchive4NZip10CInArchive19CreateLimitedStream
   store i8 0, ptr %37, align 8, !tbaa !138
   ret ptr %5
 
-38:                                               ; preds = %3, %21, %29
+38:                                               ; preds = %29, %21, %3
   %39 = landingpad { ptr, i32 }
           cleanup
   %40 = load ptr, ptr %5, align 8, !tbaa !20
@@ -5678,7 +5665,7 @@ define linkonce_odr dso_local void @_ZN8NArchive4NZip5CItemC2ERKS1_(ptr noundef 
   tail call void @_ZN8NArchive4NZip11CExtraBlockD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %41) #17
   br label %67
 
-67:                                               ; preds = %47, %65
+67:                                               ; preds = %65, %47
   %68 = phi { ptr, i32 } [ %66, %65 ], [ %48, %47 ]
   tail call void @_ZN8NArchive4NZip10CLocalItemD2Ev(ptr noundef nonnull align 8 dereferenceable(80) %0) #17
   br label %36

@@ -292,17 +292,17 @@ define dso_local { <2 x float>, <2 x float> } @_ZNK13btConvexShape44localGetSupp
   %185 = fmul <2 x float> %163, %184
   %186 = fsub <2 x float> %182, %185
   %187 = fsub float %172, %175
-  %188 = insertelement <2 x float> poison, float %187, i64 0
-  %189 = fmul <2 x float> %163, %186
-  %190 = extractelement <2 x float> %189, i64 1
-  %191 = extractelement <2 x float> %186, i64 0
-  %192 = extractelement <2 x float> %163, i64 0
-  %193 = tail call float @llvm.fmuladd.f32(float %192, float %191, float %190)
-  %194 = tail call float @llvm.fmuladd.f32(float %162, float %187, float %193)
-  %195 = fcmp ogt float %194, 0xC3ABC16D60000000
-  %196 = select i1 %195, <2 x float> %186, <2 x float> zeroinitializer
-  %197 = select i1 %195, <2 x float> %188, <2 x float> <float 0.000000e+00, float poison>
-  %198 = select i1 %195, float %194, float 0xC3ABC16D60000000
+  %188 = fmul <2 x float> %163, %186
+  %189 = extractelement <2 x float> %188, i64 1
+  %190 = extractelement <2 x float> %186, i64 0
+  %191 = extractelement <2 x float> %163, i64 0
+  %192 = tail call float @llvm.fmuladd.f32(float %191, float %190, float %189)
+  %193 = tail call float @llvm.fmuladd.f32(float %162, float %187, float %192)
+  %194 = fcmp ogt float %193, 0xC3ABC16D60000000
+  %195 = insertelement <2 x float> poison, float %187, i64 0
+  %196 = select i1 %194, <2 x float> %186, <2 x float> zeroinitializer
+  %197 = select i1 %194, <2 x float> %195, <2 x float> <float 0.000000e+00, float poison>
+  %198 = select i1 %194, float %193, float 0xC3ABC16D60000000
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #13
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %7) #13
   %199 = getelementptr inbounds [4 x float], ptr %7, i64 0, i64 2
@@ -316,15 +316,15 @@ define dso_local { <2 x float>, <2 x float> } @_ZNK13btConvexShape44localGetSupp
   %205 = fadd <2 x float> %180, %204
   %206 = fsub <2 x float> %205, %185
   %207 = fsub float %203, %175
-  %208 = insertelement <2 x float> poison, float %207, i64 0
-  %209 = fmul <2 x float> %163, %206
-  %210 = extractelement <2 x float> %209, i64 1
-  %211 = extractelement <2 x float> %206, i64 0
-  %212 = tail call float @llvm.fmuladd.f32(float %192, float %211, float %210)
-  %213 = tail call float @llvm.fmuladd.f32(float %162, float %207, float %212)
-  %214 = fcmp ogt float %213, %198
-  %215 = select i1 %214, <2 x float> %206, <2 x float> %196
-  %216 = select i1 %214, <2 x float> %208, <2 x float> %197
+  %208 = fmul <2 x float> %163, %206
+  %209 = extractelement <2 x float> %208, i64 1
+  %210 = extractelement <2 x float> %206, i64 0
+  %211 = tail call float @llvm.fmuladd.f32(float %191, float %210, float %209)
+  %212 = tail call float @llvm.fmuladd.f32(float %162, float %207, float %211)
+  %213 = fcmp ogt float %212, %198
+  %214 = insertelement <2 x float> poison, float %207, i64 0
+  %215 = select i1 %213, <2 x float> %206, <2 x float> %196
+  %216 = select i1 %213, <2 x float> %214, <2 x float> %197
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #13
   %217 = insertelement <2 x float> %216, float 0.000000e+00, i64 1
   br label %329

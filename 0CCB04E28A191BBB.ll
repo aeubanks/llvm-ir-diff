@@ -911,7 +911,7 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard5CItem9CheckPathERK13CObjectV
   %5 = load i8, ptr %4, align 2
   %6 = icmp ne i8 %5, 0
   %7 = select i1 %2, i1 true, i1 %6
-  br i1 %7, label %8, label %95
+  br i1 %7, label %8, label %98
 
 8:                                                ; preds = %3
   %9 = getelementptr inbounds %class.CBaseRecordVector, ptr %1, i64 0, i32 2
@@ -920,7 +920,7 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard5CItem9CheckPathERK13CObjectV
   %12 = load i32, ptr %11, align 4, !tbaa !24
   %13 = sub nsw i32 %10, %12
   %14 = icmp slt i32 %13, 0
-  br i1 %14, label %95, label %15
+  br i1 %14, label %98, label %15
 
 15:                                               ; preds = %8
   br i1 %2, label %21, label %16
@@ -941,7 +941,7 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard5CItem9CheckPathERK13CObjectV
   %25 = icmp eq i8 %24, 0
   %26 = icmp ne i32 %10, %12
   %27 = select i1 %25, i1 %26, i1 false
-  br i1 %27, label %95, label %28
+  br i1 %27, label %98, label %28
 
 28:                                               ; preds = %22, %21
   %29 = getelementptr inbounds %"struct.NWildcard::CItem", ptr %0, i64 0, i32 2
@@ -949,7 +949,7 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard5CItem9CheckPathERK13CObjectV
   %31 = icmp eq i8 %30, 0
   %32 = icmp eq i32 %10, %12
   %33 = select i1 %31, i1 %32, i1 false
-  br i1 %33, label %95, label %34
+  br i1 %33, label %98, label %34
 
 34:                                               ; preds = %28
   %35 = getelementptr inbounds %"struct.NWildcard::CItem", ptr %0, i64 0, i32 1
@@ -985,12 +985,12 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard5CItem9CheckPathERK13CObjectV
   br label %66
 
 59:                                               ; preds = %51
-  %60 = icmp eq i32 %12, 0
+  %60 = icmp ne i32 %12, 0
   br label %95
 
 61:                                               ; preds = %91
   %62 = add nuw nsw i64 %68, 1
-  %63 = icmp slt i64 %68, %57
+  %63 = icmp sge i64 %68, %57
   %64 = trunc i64 %62 to i32
   %65 = icmp eq i32 %58, %64
   br i1 %65, label %95, label %66, !llvm.loop !46
@@ -998,7 +998,7 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard5CItem9CheckPathERK13CObjectV
 66:                                               ; preds = %55, %61
   %67 = phi i32 [ %12, %55 ], [ %92, %61 ]
   %68 = phi i64 [ %56, %55 ], [ %62, %61 ]
-  %69 = phi i1 [ true, %55 ], [ %63, %61 ]
+  %69 = phi i1 [ false, %55 ], [ %63, %61 ]
   %70 = icmp sgt i32 %67, 0
   br i1 %70, label %71, label %91
 
@@ -1034,9 +1034,14 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard5CItem9CheckPathERK13CObjectV
   %94 = icmp eq i32 %93, %92
   br i1 %94, label %95, label %61
 
-95:                                               ; preds = %61, %91, %59, %40, %8, %28, %22, %3
-  %96 = phi i1 [ false, %3 ], [ false, %8 ], [ false, %22 ], [ false, %28 ], [ false, %40 ], [ %60, %59 ], [ %63, %61 ], [ %69, %91 ]
-  ret i1 %96
+95:                                               ; preds = %91, %61, %59, %40
+  %96 = phi i1 [ true, %40 ], [ %60, %59 ], [ %63, %61 ], [ %69, %91 ]
+  %97 = xor i1 %96, true
+  br label %98
+
+98:                                               ; preds = %95, %8, %28, %22, %3
+  %99 = phi i1 [ false, %3 ], [ false, %8 ], [ false, %22 ], [ false, %28 ], [ %97, %95 ]
+  ret i1 %99
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -1545,12 +1550,12 @@ define linkonce_odr dso_local noundef i32 @_ZN13CObjectVectorIN9NWildcard11CCens
   tail call void @_ZN13CObjectVectorIN9NWildcard5CItemEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %61) #20
   br label %78
 
-78:                                               ; preds = %67, %76
+78:                                               ; preds = %76, %67
   %79 = phi { ptr, i32 } [ %77, %76 ], [ %68, %67 ]
   tail call void @_ZN13CObjectVectorIN9NWildcard11CCensorNodeEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %31) #20
   br label %80
 
-80:                                               ; preds = %58, %78
+80:                                               ; preds = %78, %58
   %81 = phi { ptr, i32 } [ %79, %78 ], [ %59, %58 ]
   %82 = load ptr, ptr %5, align 8, !tbaa !5
   %83 = icmp eq ptr %82, null
@@ -1763,45 +1768,37 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard11CCensorNode16NeedCheckSubDi
   %2 = getelementptr inbounds %"class.NWildcard::CCensorNode", ptr %0, i64 0, i32 3, i32 0, i32 0, i32 2
   %3 = load i32, ptr %2, align 4, !tbaa !24
   %4 = icmp sgt i32 %3, 0
-  br i1 %4, label %5, label %31
+  br i1 %4, label %5, label %23
 
 5:                                                ; preds = %1
   %6 = getelementptr inbounds %"class.NWildcard::CCensorNode", ptr %0, i64 0, i32 3, i32 0, i32 0, i32 3
   %7 = load ptr, ptr %6, align 8, !tbaa !21
   %8 = zext i32 %3 to i64
-  %9 = zext i32 %3 to i64
-  %10 = load ptr, ptr %7, align 8, !tbaa !25
-  %11 = getelementptr inbounds %"struct.NWildcard::CItem", ptr %10, i64 0, i32 1
-  %12 = load i8, ptr %11, align 8, !tbaa !41, !range !13, !noundef !14
-  %13 = icmp eq i8 %12, 0
-  br i1 %13, label %24, label %31
+  br label %12
 
-14:                                               ; preds = %24
-  %15 = add nuw nsw i64 %27, 1
-  %16 = icmp ult i64 %15, %8
-  %17 = icmp eq i64 %15, %9
-  br i1 %17, label %31, label %18, !llvm.loop !60
+9:                                                ; preds = %19
+  %10 = add nuw nsw i64 %13, 1
+  %11 = icmp eq i64 %10, %8
+  br i1 %11, label %23, label %12, !llvm.loop !60
 
-18:                                               ; preds = %14
-  %19 = getelementptr inbounds ptr, ptr %7, i64 %15
-  %20 = load ptr, ptr %19, align 8, !tbaa !25
-  %21 = getelementptr inbounds %"struct.NWildcard::CItem", ptr %20, i64 0, i32 1
-  %22 = load i8, ptr %21, align 8, !tbaa !41, !range !13, !noundef !14
-  %23 = icmp eq i8 %22, 0
-  br i1 %23, label %24, label %31, !llvm.loop !60
+12:                                               ; preds = %5, %9
+  %13 = phi i64 [ 0, %5 ], [ %10, %9 ]
+  %14 = getelementptr inbounds ptr, ptr %7, i64 %13
+  %15 = load ptr, ptr %14, align 8, !tbaa !25
+  %16 = getelementptr inbounds %"struct.NWildcard::CItem", ptr %15, i64 0, i32 1
+  %17 = load i8, ptr %16, align 8, !tbaa !41, !range !13, !noundef !14
+  %18 = icmp eq i8 %17, 0
+  br i1 %18, label %19, label %23
 
-24:                                               ; preds = %5, %18
-  %25 = phi ptr [ %20, %18 ], [ %10, %5 ]
-  %26 = phi i1 [ %16, %18 ], [ true, %5 ]
-  %27 = phi i64 [ %15, %18 ], [ 0, %5 ]
-  %28 = getelementptr inbounds %class.CBaseRecordVector, ptr %25, i64 0, i32 2
-  %29 = load i32, ptr %28, align 4, !tbaa !24
-  %30 = icmp sgt i32 %29, 1
-  br i1 %30, label %31, label %14
+19:                                               ; preds = %12
+  %20 = getelementptr inbounds %class.CBaseRecordVector, ptr %15, i64 0, i32 2
+  %21 = load i32, ptr %20, align 4, !tbaa !24
+  %22 = icmp sgt i32 %21, 1
+  br i1 %22, label %23, label %9
 
-31:                                               ; preds = %24, %18, %14, %5, %1
-  %32 = phi i1 [ false, %1 ], [ true, %5 ], [ %16, %14 ], [ %16, %18 ], [ %26, %24 ]
-  ret i1 %32
+23:                                               ; preds = %9, %12, %19, %1
+  %24 = phi i1 [ false, %1 ], [ false, %9 ], [ true, %12 ], [ true, %19 ]
+  ret i1 %24
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
@@ -1809,42 +1806,33 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard11CCensorNode20AreThereInclud
   %2 = getelementptr inbounds %"class.NWildcard::CCensorNode", ptr %0, i64 0, i32 3, i32 0, i32 0, i32 2
   %3 = load i32, ptr %2, align 4, !tbaa !24
   %4 = icmp sgt i32 %3, 0
-  br i1 %4, label %26, label %5
+  br i1 %4, label %21, label %5
 
 5:                                                ; preds = %1
   %6 = getelementptr inbounds %"class.NWildcard::CCensorNode", ptr %0, i64 0, i32 2, i32 0, i32 0, i32 2
   %7 = load i32, ptr %6, align 4, !tbaa !24
   %8 = icmp sgt i32 %7, 0
-  br i1 %8, label %9, label %26
+  br i1 %8, label %9, label %21
 
 9:                                                ; preds = %5
   %10 = getelementptr inbounds %"class.NWildcard::CCensorNode", ptr %0, i64 0, i32 2, i32 0, i32 0, i32 3
   %11 = load ptr, ptr %10, align 8, !tbaa !21
   %12 = zext i32 %7 to i64
-  %13 = zext i32 %7 to i64
-  %14 = load ptr, ptr %11, align 8, !tbaa !25
-  %15 = tail call noundef zeroext i1 @_ZNK9NWildcard11CCensorNode20AreThereIncludeItemsEv(ptr noundef nonnull align 8 dereferenceable(120) %14)
-  br i1 %15, label %26, label %16
+  br label %13
 
-16:                                               ; preds = %9, %20
-  %17 = phi i64 [ %18, %20 ], [ 0, %9 ]
-  %18 = add nuw nsw i64 %17, 1
-  %19 = icmp eq i64 %18, %13
-  br i1 %19, label %24, label %20, !llvm.loop !61
+13:                                               ; preds = %13, %9
+  %14 = phi i64 [ 0, %9 ], [ %18, %13 ]
+  %15 = getelementptr inbounds ptr, ptr %11, i64 %14
+  %16 = load ptr, ptr %15, align 8, !tbaa !25
+  %17 = tail call noundef zeroext i1 @_ZNK9NWildcard11CCensorNode20AreThereIncludeItemsEv(ptr noundef nonnull align 8 dereferenceable(120) %16)
+  %18 = add nuw nsw i64 %14, 1
+  %19 = icmp eq i64 %18, %12
+  %20 = select i1 %17, i1 true, i1 %19
+  br i1 %20, label %21, label %13, !llvm.loop !61
 
-20:                                               ; preds = %16
-  %21 = getelementptr inbounds ptr, ptr %11, i64 %18
-  %22 = load ptr, ptr %21, align 8, !tbaa !25
-  %23 = tail call noundef zeroext i1 @_ZNK9NWildcard11CCensorNode20AreThereIncludeItemsEv(ptr noundef nonnull align 8 dereferenceable(120) %22)
-  br i1 %23, label %24, label %16, !llvm.loop !61
-
-24:                                               ; preds = %20, %16
-  %25 = icmp ult i64 %18, %12
-  br label %26
-
-26:                                               ; preds = %24, %9, %5, %1
-  %27 = phi i1 [ true, %1 ], [ false, %5 ], [ true, %9 ], [ %25, %24 ]
-  ret i1 %27
+21:                                               ; preds = %13, %5, %1
+  %22 = phi i1 [ true, %1 ], [ false, %5 ], [ %17, %13 ]
+  ret i1 %22
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -2740,13 +2728,13 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
           to label %19 unwind label %16
 
 19:                                               ; preds = %18
-  %20 = getelementptr inbounds %class.CBaseRecordVector, ptr %5, i64 0, i32 2
-  %21 = load i32, ptr %20, align 4, !tbaa !24
-  %22 = add nsw i32 %21, -1
-  %23 = getelementptr inbounds %class.CBaseRecordVector, ptr %5, i64 0, i32 3
-  %24 = load ptr, ptr %23, align 8, !tbaa !21
-  %25 = sext i32 %22 to i64
-  %26 = getelementptr inbounds ptr, ptr %24, i64 %25
+  %20 = getelementptr inbounds %class.CBaseRecordVector, ptr %5, i64 0, i32 3
+  %21 = load ptr, ptr %20, align 8, !tbaa !21
+  %22 = getelementptr inbounds %class.CBaseRecordVector, ptr %5, i64 0, i32 2
+  %23 = load i32, ptr %22, align 4, !tbaa !24
+  %24 = add nsw i32 %23, -1
+  %25 = sext i32 %24 to i64
+  %26 = getelementptr inbounds ptr, ptr %21, i64 %25
   %27 = load ptr, ptr %26, align 8, !tbaa !25
   %28 = getelementptr inbounds %class.CStringBase, ptr %27, i64 0, i32 1
   %29 = load i32, ptr %28, align 8, !tbaa !17
@@ -2758,7 +2746,7 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
           to label %32 unwind label %34
 
 32:                                               ; preds = %31
-  %33 = load ptr, ptr %23, align 8, !tbaa !21
+  %33 = load ptr, ptr %20, align 8, !tbaa !21
   br label %36
 
 34:                                               ; preds = %31
@@ -2767,7 +2755,7 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
   br label %472
 
 36:                                               ; preds = %32, %19
-  %37 = phi ptr [ %33, %32 ], [ %24, %19 ]
+  %37 = phi ptr [ %33, %32 ], [ %21, %19 ]
   %38 = load ptr, ptr %37, align 8, !tbaa !25
   %39 = getelementptr inbounds %class.CStringBase, ptr %38, i64 0, i32 1
   %40 = load i32, ptr %39, align 8, !tbaa !17
@@ -2784,20 +2772,20 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
   br i1 %45, label %71, label %46
 
 46:                                               ; preds = %36, %41
-  %47 = load i32, ptr %20, align 4, !tbaa !24
+  %47 = load i32, ptr %22, align 4, !tbaa !24
   %48 = icmp sgt i32 %47, 0
   br i1 %48, label %54, label %76
 
 49:                                               ; preds = %68
   %50 = add nuw nsw i64 %55, 1
-  %51 = load i32, ptr %20, align 4, !tbaa !24
+  %51 = load i32, ptr %22, align 4, !tbaa !24
   %52 = sext i32 %51 to i64
   %53 = icmp slt i64 %50, %52
   br i1 %53, label %54, label %70, !llvm.loop !66
 
 54:                                               ; preds = %46, %49
   %55 = phi i64 [ %50, %49 ], [ 0, %46 ]
-  %56 = load ptr, ptr %23, align 8, !tbaa !21
+  %56 = load ptr, ptr %20, align 8, !tbaa !21
   %57 = getelementptr inbounds ptr, ptr %56, i64 %55
   %58 = load ptr, ptr %57, align 8, !tbaa !25
   %59 = load ptr, ptr %58, align 8, !tbaa !5
@@ -2826,7 +2814,7 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
   br i1 %69, label %71, label %76
 
 71:                                               ; preds = %68, %61, %36, %41, %70
-  %72 = load i32, ptr %20, align 4, !tbaa !24
+  %72 = load i32, ptr %22, align 4, !tbaa !24
   %73 = icmp sgt i32 %72, 1
   %74 = add nsw i32 %72, -1
   %75 = select i1 %73, i32 %74, i32 1
@@ -2853,7 +2841,7 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
   %86 = phi i32 [ %332, %348 ], [ 0, %79 ]
   %87 = phi ptr [ %328, %348 ], [ %78, %79 ]
   %88 = ptrtoint ptr %87 to i64
-  %89 = load ptr, ptr %23, align 8, !tbaa !21
+  %89 = load ptr, ptr %20, align 8, !tbaa !21
   %90 = load ptr, ptr %89, align 8, !tbaa !25
   %91 = getelementptr inbounds %class.CStringBase, ptr %90, i64 0, i32 1
   %92 = load i32, ptr %91, align 8, !tbaa !17
@@ -3199,7 +3187,7 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
   store i32 0, ptr %326, align 4, !tbaa !15
   br label %327
 
-327:                                              ; preds = %324, %240, %234
+327:                                              ; preds = %234, %240, %324
   %328 = phi ptr [ %221, %240 ], [ %258, %324 ], [ %221, %234 ]
   %329 = phi i32 [ %222, %240 ], [ %251, %324 ], [ %222, %234 ]
   %330 = sext i32 %236 to i64
@@ -3209,7 +3197,7 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
   %333 = sext i32 %332 to i64
   %334 = getelementptr inbounds i32, ptr %328, i64 %333
   store i32 0, ptr %334, align 4, !tbaa !15
-  %335 = load i32, ptr %20, align 4, !tbaa !24
+  %335 = load i32, ptr %22, align 4, !tbaa !24
   %336 = call i32 @llvm.smin.i32(i32 %335, i32 1)
   %337 = icmp sgt i32 %335, 0
   br i1 %337, label %339, label %338
@@ -3219,7 +3207,7 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
           to label %348 unwind label %126
 
 339:                                              ; preds = %327
-  %340 = load ptr, ptr %23, align 8, !tbaa !21
+  %340 = load ptr, ptr %20, align 8, !tbaa !21
   %341 = load ptr, ptr %340, align 8, !tbaa !25
   %342 = icmp eq ptr %341, null
   br i1 %342, label %338, label %343
@@ -3405,7 +3393,7 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
   call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %6) #20
   br label %467
 
-436:                                              ; preds = %379, %427
+436:                                              ; preds = %427, %379
   %437 = phi i32 [ %422, %427 ], [ %380, %379 ]
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %7) #20
   %438 = getelementptr inbounds %class.CBaseRecordVector, ptr %7, i64 0, i32 1
@@ -3484,8 +3472,8 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
   br label %467
 
 467:                                              ; preds = %428, %434, %465, %126
-  %468 = phi ptr [ %352, %465 ], [ %352, %434 ], [ %352, %428 ], [ %127, %126 ]
-  %469 = phi { ptr, i32 } [ %466, %465 ], [ %435, %434 ], [ %429, %428 ], [ %128, %126 ]
+  %468 = phi ptr [ %127, %126 ], [ %352, %465 ], [ %352, %434 ], [ %352, %428 ]
+  %469 = phi { ptr, i32 } [ %128, %126 ], [ %466, %465 ], [ %435, %434 ], [ %429, %428 ]
   %470 = icmp eq ptr %468, null
   br i1 %470, label %472, label %471
 
@@ -3493,7 +3481,7 @@ define dso_local void @_ZN9NWildcard7CCensor7AddItemEbRK11CStringBaseIwEb(ptr no
   call void @_ZdaPv(ptr noundef nonnull %468) #18
   br label %472
 
-472:                                              ; preds = %81, %467, %471, %34, %66, %16
+472:                                              ; preds = %34, %66, %471, %467, %81, %16
   %473 = phi { ptr, i32 } [ %17, %16 ], [ %35, %34 ], [ %67, %66 ], [ %82, %81 ], [ %469, %467 ], [ %469, %471 ]
   call void @_ZN13CObjectVectorI11CStringBaseIwEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #20
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #20
@@ -3614,8 +3602,8 @@ define dso_local noundef zeroext i1 @_ZNK9NWildcard7CCensor9CheckPathERK11CStrin
   %5 = alloca i8, align 1
   %6 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
   %7 = load i32, ptr %6, align 4, !tbaa !24
-  %8 = icmp slt i32 %7, 1
-  br i1 %8, label %43, label %9
+  %8 = icmp sgt i32 %7, 0
+  br i1 %8, label %9, label %43
 
 9:                                                ; preds = %3
   %10 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
@@ -4276,12 +4264,12 @@ define linkonce_odr dso_local void @_ZN9NWildcard11CCensorNodeC2ERKS0_(ptr nound
 76:                                               ; preds = %71
   ret void
 
-77:                                               ; preds = %65, %74
+77:                                               ; preds = %74, %65
   %78 = phi { ptr, i32 } [ %75, %74 ], [ %66, %65 ]
   tail call void @_ZN13CObjectVectorIN9NWildcard11CCensorNodeEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %29) #20
   br label %79
 
-79:                                               ; preds = %56, %77
+79:                                               ; preds = %77, %56
   %80 = phi { ptr, i32 } [ %78, %77 ], [ %57, %56 ]
   %81 = load ptr, ptr %4, align 8, !tbaa !5
   %82 = icmp eq ptr %81, null

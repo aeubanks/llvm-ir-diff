@@ -208,10 +208,10 @@ define linkonce_odr dso_local void @_ZN11btRigidBodyD2Ev(ptr noundef nonnull ali
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !29
   store ptr null, ptr %2, align 8, !tbaa !26
+  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
   store i32 0, ptr %11, align 4, !tbaa !30
   %12 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 3
   store i32 0, ptr %12, align 8, !tbaa !31
@@ -1327,8 +1327,8 @@ define dso_local void @_ZN18btSliderConstraint8getInfo1EPN17btTypedConstraint17b
   br i1 %94, label %98, label %95
 
 95:                                               ; preds = %92
-  %96 = load i8, ptr %40, align 1, !tbaa !72
-  %97 = icmp ne i8 %96, 0
+  %96 = load i8, ptr %40, align 1, !tbaa !72, !range !32
+  %97 = icmp eq i8 %96, 0
   br label %101
 
 98:                                               ; preds = %83, %92
@@ -1339,12 +1339,12 @@ define dso_local void @_ZN18btSliderConstraint8getInfo1EPN17btTypedConstraint17b
   br label %107
 
 101:                                              ; preds = %95, %38
-  %102 = phi i1 [ %97, %95 ], [ false, %38 ]
+  %102 = phi i1 [ %97, %95 ], [ true, %38 ]
   %103 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 55
   %104 = load i8, ptr %103, align 4
-  %105 = icmp ne i8 %104, 0
-  %106 = select i1 %102, i1 true, i1 %105
-  br i1 %106, label %107, label %114
+  %105 = icmp eq i8 %104, 0
+  %106 = select i1 %102, i1 %105, i1 false
+  br i1 %106, label %114, label %107
 
 107:                                              ; preds = %98, %101
   %108 = load i32, ptr %1, align 4, !tbaa !78
@@ -1936,10 +1936,10 @@ define dso_local void @_ZN18btSliderConstraint19calculateTransformsERK11btTransf
   %519 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 36, i32 0, i32 0, i64 2, i32 0, i64 1
   %520 = load float, ptr %518, align 8, !tbaa !5
   %521 = load float, ptr %519, align 8, !tbaa !5
-  %522 = insertelement <2 x float> poison, float %458, i64 0
-  %523 = insertelement <2 x float> %522, float %520, i64 1
-  %524 = shufflevector <2 x float> %493, <2 x float> poison, <2 x i32> zeroinitializer
-  %525 = fmul <2 x float> %523, %524
+  %522 = shufflevector <2 x float> %493, <2 x float> poison, <2 x i32> zeroinitializer
+  %523 = insertelement <2 x float> poison, float %458, i64 0
+  %524 = insertelement <2 x float> %523, float %520, i64 1
+  %525 = fmul <2 x float> %522, %524
   %526 = insertelement <2 x float> poison, float %491, i64 0
   %527 = shufflevector <2 x float> %526, <2 x float> poison, <2 x i32> zeroinitializer
   %528 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %527, <2 x float> %457, <2 x float> %525)
@@ -1952,7 +1952,7 @@ define dso_local void @_ZN18btSliderConstraint19calculateTransformsERK11btTransf
   %534 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 36, i32 0, i32 0, i64 2, i32 0, i64 2
   %535 = load float, ptr %533, align 4, !tbaa !5
   %536 = load float, ptr %534, align 4, !tbaa !5
-  %537 = fmul float %535, %502
+  %537 = fmul float %502, %535
   %538 = tail call float @llvm.fmuladd.f32(float %491, float %498, float %537)
   %539 = tail call float @llvm.fmuladd.f32(float %505, float %536, float %538)
   %540 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 43, i32 0, i64 2
@@ -2329,430 +2329,399 @@ define dso_local void @_ZN18btSliderConstraint18getInfo2NonVirtualEPN17btTypedCo
   store float %277, ptr %278, align 4, !tbaa !5
   %279 = load i8, ptr %9, align 8, !tbaa !61, !range !32, !noundef !33
   %280 = icmp ne i8 %279, 0
-  br i1 %280, label %281, label %288
+  %281 = load float, ptr %10, align 4
+  %282 = fmul float %157, %281
+  %283 = fcmp ogt float %282, 0.000000e+00
+  %284 = select i1 %283, i32 2, i32 1
+  %285 = select i1 %280, i32 %284, i32 0
+  %286 = select i1 %280, float %282, float 0.000000e+00
+  %287 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 50
+  %288 = load i8, ptr %287, align 4, !tbaa !9, !range !32, !noundef !33
+  %289 = or i8 %288, %279
+  %290 = icmp eq i8 %289, 0
+  br i1 %290, label %434, label %291
 
-281:                                              ; preds = %88
-  %282 = load float, ptr %10, align 4, !tbaa !5
-  %283 = fmul float %157, %282
-  %284 = fcmp ogt float %283, 0.000000e+00
-  %285 = select i1 %284, i32 2, i32 1
-  %286 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 50
-  %287 = load i8, ptr %286, align 4, !tbaa !9, !range !32, !noundef !33
-  br label %292
-
-288:                                              ; preds = %88
-  %289 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 50
-  %290 = load i8, ptr %289, align 4, !tbaa !9, !range !32, !noundef !33
-  %291 = icmp eq i8 %290, 0
-  br i1 %291, label %438, label %292
-
-292:                                              ; preds = %281, %288
-  %293 = phi i8 [ %287, %281 ], [ 1, %288 ]
-  %294 = phi float [ %283, %281 ], [ 0.000000e+00, %288 ]
-  %295 = phi i32 [ %285, %281 ], [ 0, %288 ]
-  %296 = shl nsw i32 %92, 2
-  %297 = sext i32 %296 to i64
-  %298 = getelementptr inbounds float, ptr %241, i64 %297
-  store float %98, ptr %298, align 4, !tbaa !5
-  %299 = or i32 %296, 1
-  %300 = sext i32 %299 to i64
-  %301 = getelementptr inbounds float, ptr %241, i64 %300
-  store float %99, ptr %301, align 4, !tbaa !5
-  %302 = or i32 %296, 2
-  %303 = sext i32 %302 to i64
-  %304 = getelementptr inbounds float, ptr %241, i64 %303
-  store float %100, ptr %304, align 4, !tbaa !5
-  %305 = insertelement <2 x float> poison, float %99, i64 0
-  %306 = insertelement <2 x float> %305, float %100, i64 1
-  %307 = fmul <2 x float> %306, %207
-  %308 = fmul float %98, %214
-  %309 = tail call float @llvm.fmuladd.f32(float %201, float %99, float %308)
-  %310 = getelementptr inbounds float, ptr %113, i64 %297
-  %311 = insertelement <2 x float> poison, float %100, i64 0
-  %312 = insertelement <2 x float> %311, float %98, i64 1
-  %313 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %204, <2 x float> %312, <2 x float> %307)
-  %314 = fmul <2 x float> %218, %313
-  store <2 x float> %314, ptr %310, align 4, !tbaa !5
-  %315 = fmul float %152, %309
-  %316 = getelementptr inbounds float, ptr %113, i64 %303
+291:                                              ; preds = %88
+  %292 = shl nsw i32 %92, 2
+  %293 = sext i32 %292 to i64
+  %294 = getelementptr inbounds float, ptr %241, i64 %293
+  store float %98, ptr %294, align 4, !tbaa !5
+  %295 = or i32 %292, 1
+  %296 = sext i32 %295 to i64
+  %297 = getelementptr inbounds float, ptr %241, i64 %296
+  store float %99, ptr %297, align 4, !tbaa !5
+  %298 = or i32 %292, 2
+  %299 = sext i32 %298 to i64
+  %300 = getelementptr inbounds float, ptr %241, i64 %299
+  store float %100, ptr %300, align 4, !tbaa !5
+  %301 = insertelement <2 x float> poison, float %99, i64 0
+  %302 = insertelement <2 x float> %301, float %100, i64 1
+  %303 = fmul <2 x float> %302, %207
+  %304 = fmul float %98, %214
+  %305 = tail call float @llvm.fmuladd.f32(float %201, float %99, float %304)
+  %306 = getelementptr inbounds float, ptr %113, i64 %293
+  %307 = insertelement <2 x float> poison, float %100, i64 0
+  %308 = insertelement <2 x float> %307, float %98, i64 1
+  %309 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %204, <2 x float> %308, <2 x float> %303)
+  %310 = fmul <2 x float> %218, %309
+  store <2 x float> %310, ptr %306, align 4, !tbaa !5
+  %311 = fmul float %152, %305
+  %312 = getelementptr inbounds float, ptr %113, i64 %299
+  store float %311, ptr %312, align 4, !tbaa !5
+  %313 = getelementptr inbounds float, ptr %126, i64 %293
+  %314 = fmul <2 x float> %222, %309
+  store <2 x float> %314, ptr %313, align 4, !tbaa !5
+  %315 = fmul float %158, %305
+  %316 = getelementptr inbounds float, ptr %126, i64 %299
   store float %315, ptr %316, align 4, !tbaa !5
-  %317 = getelementptr inbounds float, ptr %126, i64 %297
-  %318 = fmul <2 x float> %222, %313
-  store <2 x float> %318, ptr %317, align 4, !tbaa !5
-  %319 = fmul float %158, %309
-  %320 = getelementptr inbounds float, ptr %126, i64 %303
-  store float %319, ptr %320, align 4, !tbaa !5
-  %321 = load float, ptr %13, align 8, !tbaa !63
-  %322 = load float, ptr %15, align 4, !tbaa !64
-  %323 = fcmp oeq float %321, %322
-  %324 = and i1 %280, %323
-  %325 = getelementptr inbounds float, ptr %193, i64 %297
-  store float 0.000000e+00, ptr %325, align 4, !tbaa !5
-  %326 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 9
-  %327 = load ptr, ptr %326, align 8, !tbaa !116
-  %328 = getelementptr inbounds float, ptr %327, i64 %297
-  store float 0.000000e+00, ptr %328, align 4, !tbaa !5
-  %329 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 10
-  %330 = load ptr, ptr %329, align 8, !tbaa !117
-  %331 = getelementptr inbounds float, ptr %330, i64 %297
-  store float 0.000000e+00, ptr %331, align 4, !tbaa !5
-  %332 = icmp eq i8 %293, 0
-  %333 = or i1 %332, %324
-  br i1 %333, label %368, label %334
+  %317 = load float, ptr %13, align 8, !tbaa !63
+  %318 = load float, ptr %15, align 4, !tbaa !64
+  %319 = fcmp oeq float %317, %318
+  %320 = select i1 %280, i1 %319, i1 false
+  %321 = getelementptr inbounds float, ptr %193, i64 %293
+  store float 0.000000e+00, ptr %321, align 4, !tbaa !5
+  %322 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 9
+  %323 = load ptr, ptr %322, align 8, !tbaa !116
+  %324 = getelementptr inbounds float, ptr %323, i64 %293
+  store float 0.000000e+00, ptr %324, align 4, !tbaa !5
+  %325 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 10
+  %326 = load ptr, ptr %325, align 8, !tbaa !117
+  %327 = getelementptr inbounds float, ptr %326, i64 %293
+  store float 0.000000e+00, ptr %327, align 4, !tbaa !5
+  %328 = icmp eq i8 %288, 0
+  %329 = or i1 %320, %328
+  br i1 %329, label %364, label %330
 
-334:                                              ; preds = %292
-  %335 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 8
-  %336 = load ptr, ptr %335, align 8, !tbaa !118
-  %337 = getelementptr inbounds float, ptr %336, i64 4
-  store float 0.000000e+00, ptr %337, align 4, !tbaa !5
-  %338 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 52
-  %339 = load float, ptr %338, align 8, !tbaa !119
-  %340 = load float, ptr %12, align 4, !tbaa !62
-  %341 = load float, ptr %13, align 8, !tbaa !63
-  %342 = load float, ptr %15, align 4, !tbaa !64
-  %343 = load float, ptr %1, align 8, !tbaa !110
-  %344 = load float, ptr %132, align 4, !tbaa !111
-  %345 = fmul float %343, %344
-  %346 = tail call noundef float @_ZN17btTypedConstraint14getMotorFactorEfffff(ptr noundef nonnull align 8 dereferenceable(96) %0, float noundef %340, float noundef %341, float noundef %342, float noundef %339, float noundef %345)
-  %347 = load float, ptr %338, align 8, !tbaa !119
-  %348 = load ptr, ptr %139, align 8, !tbaa !113
-  %349 = getelementptr inbounds float, ptr %348, i64 %297
-  %350 = load float, ptr %349, align 4, !tbaa !5
-  %351 = fneg float %157
-  %352 = fmul float %346, %351
-  %353 = tail call float @llvm.fmuladd.f32(float %352, float %347, float %350)
-  store float %353, ptr %349, align 4, !tbaa !5
-  %354 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 53
-  %355 = load float, ptr %354, align 4, !tbaa !120
-  %356 = fneg float %355
-  %357 = load float, ptr %1, align 8, !tbaa !110
-  %358 = load ptr, ptr %326, align 8, !tbaa !116
-  %359 = getelementptr inbounds float, ptr %358, i64 %297
-  %360 = load float, ptr %359, align 4, !tbaa !5
-  %361 = tail call float @llvm.fmuladd.f32(float %356, float %357, float %360)
-  store float %361, ptr %359, align 4, !tbaa !5
-  %362 = load float, ptr %354, align 4, !tbaa !120
-  %363 = load float, ptr %1, align 8, !tbaa !110
-  %364 = load ptr, ptr %329, align 8, !tbaa !117
-  %365 = getelementptr inbounds float, ptr %364, i64 %297
-  %366 = load float, ptr %365, align 4, !tbaa !5
-  %367 = tail call float @llvm.fmuladd.f32(float %362, float %363, float %366)
-  store float %367, ptr %365, align 4, !tbaa !5
-  br label %368
+330:                                              ; preds = %291
+  %331 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 8
+  %332 = load ptr, ptr %331, align 8, !tbaa !118
+  %333 = getelementptr inbounds float, ptr %332, i64 4
+  store float 0.000000e+00, ptr %333, align 4, !tbaa !5
+  %334 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 52
+  %335 = load float, ptr %334, align 8, !tbaa !119
+  %336 = load float, ptr %12, align 4, !tbaa !62
+  %337 = load float, ptr %13, align 8, !tbaa !63
+  %338 = load float, ptr %15, align 4, !tbaa !64
+  %339 = load float, ptr %1, align 8, !tbaa !110
+  %340 = load float, ptr %132, align 4, !tbaa !111
+  %341 = fmul float %339, %340
+  %342 = tail call noundef float @_ZN17btTypedConstraint14getMotorFactorEfffff(ptr noundef nonnull align 8 dereferenceable(96) %0, float noundef %336, float noundef %337, float noundef %338, float noundef %335, float noundef %341)
+  %343 = load float, ptr %334, align 8, !tbaa !119
+  %344 = load ptr, ptr %139, align 8, !tbaa !113
+  %345 = getelementptr inbounds float, ptr %344, i64 %293
+  %346 = load float, ptr %345, align 4, !tbaa !5
+  %347 = fneg float %157
+  %348 = fmul float %342, %347
+  %349 = tail call float @llvm.fmuladd.f32(float %348, float %343, float %346)
+  store float %349, ptr %345, align 4, !tbaa !5
+  %350 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 53
+  %351 = load float, ptr %350, align 4, !tbaa !120
+  %352 = fneg float %351
+  %353 = load float, ptr %1, align 8, !tbaa !110
+  %354 = load ptr, ptr %322, align 8, !tbaa !116
+  %355 = getelementptr inbounds float, ptr %354, i64 %293
+  %356 = load float, ptr %355, align 4, !tbaa !5
+  %357 = tail call float @llvm.fmuladd.f32(float %352, float %353, float %356)
+  store float %357, ptr %355, align 4, !tbaa !5
+  %358 = load float, ptr %350, align 4, !tbaa !120
+  %359 = load float, ptr %1, align 8, !tbaa !110
+  %360 = load ptr, ptr %325, align 8, !tbaa !117
+  %361 = getelementptr inbounds float, ptr %360, i64 %293
+  %362 = load float, ptr %361, align 4, !tbaa !5
+  %363 = tail call float @llvm.fmuladd.f32(float %358, float %359, float %362)
+  store float %363, ptr %361, align 4, !tbaa !5
+  br label %364
 
-368:                                              ; preds = %334, %292
-  %369 = phi ptr [ %364, %334 ], [ %330, %292 ]
-  %370 = phi ptr [ %358, %334 ], [ %327, %292 ]
-  br i1 %280, label %371, label %438
+364:                                              ; preds = %330, %291
+  %365 = phi ptr [ %360, %330 ], [ %326, %291 ]
+  %366 = phi ptr [ %354, %330 ], [ %323, %291 ]
+  br i1 %280, label %367, label %434
 
-371:                                              ; preds = %368
-  %372 = load float, ptr %1, align 8, !tbaa !110
-  %373 = load float, ptr %132, align 4, !tbaa !111
-  %374 = fmul float %372, %373
-  %375 = load ptr, ptr %139, align 8, !tbaa !113
-  %376 = getelementptr inbounds float, ptr %375, i64 %297
-  %377 = load float, ptr %376, align 4, !tbaa !5
-  %378 = tail call float @llvm.fmuladd.f32(float %374, float %294, float %377)
-  store float %378, ptr %376, align 4, !tbaa !5
-  %379 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 8
-  %380 = load ptr, ptr %379, align 8, !tbaa !118
-  %381 = getelementptr inbounds float, ptr %380, i64 %297
-  store float 0.000000e+00, ptr %381, align 4, !tbaa !5
-  %382 = getelementptr inbounds float, ptr %369, i64 %297
-  br i1 %323, label %383, label %385
+367:                                              ; preds = %364
+  %368 = load float, ptr %1, align 8, !tbaa !110
+  %369 = load float, ptr %132, align 4, !tbaa !111
+  %370 = fmul float %368, %369
+  %371 = load ptr, ptr %139, align 8, !tbaa !113
+  %372 = getelementptr inbounds float, ptr %371, i64 %293
+  %373 = load float, ptr %372, align 4, !tbaa !5
+  %374 = tail call float @llvm.fmuladd.f32(float %370, float %286, float %373)
+  store float %374, ptr %372, align 4, !tbaa !5
+  %375 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 8
+  %376 = load ptr, ptr %375, align 8, !tbaa !118
+  %377 = getelementptr inbounds float, ptr %376, i64 %293
+  store float 0.000000e+00, ptr %377, align 4, !tbaa !5
+  %378 = getelementptr inbounds float, ptr %365, i64 %293
+  br i1 %319, label %379, label %381
 
-383:                                              ; preds = %371
-  %384 = getelementptr inbounds float, ptr %370, i64 %297
-  store float 0xC7EFFFFFE0000000, ptr %384, align 4, !tbaa !5
-  br label %390
+379:                                              ; preds = %367
+  %380 = getelementptr inbounds float, ptr %366, i64 %293
+  store float 0xC7EFFFFFE0000000, ptr %380, align 4, !tbaa !5
+  br label %386
 
-385:                                              ; preds = %371
-  %386 = icmp eq i32 %295, 1
-  %387 = getelementptr inbounds float, ptr %370, i64 %297
-  br i1 %386, label %388, label %389
+381:                                              ; preds = %367
+  %382 = icmp eq i32 %285, 1
+  %383 = getelementptr inbounds float, ptr %366, i64 %293
+  br i1 %382, label %384, label %385
 
-388:                                              ; preds = %385
-  store float 0xC7EFFFFFE0000000, ptr %387, align 4, !tbaa !5
-  br label %390
+384:                                              ; preds = %381
+  store float 0xC7EFFFFFE0000000, ptr %383, align 4, !tbaa !5
+  br label %386
 
-389:                                              ; preds = %385
-  store float 0.000000e+00, ptr %387, align 4, !tbaa !5
-  br label %390
+385:                                              ; preds = %381
+  store float 0.000000e+00, ptr %383, align 4, !tbaa !5
+  br label %386
 
-390:                                              ; preds = %388, %389, %383
-  %391 = phi float [ 0.000000e+00, %388 ], [ 0x47EFFFFFE0000000, %389 ], [ 0x47EFFFFFE0000000, %383 ]
-  store float %391, ptr %382, align 4, !tbaa !5
-  %392 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 19
-  %393 = load float, ptr %392, align 8, !tbaa !121
-  %394 = fsub float 1.000000e+00, %393
-  %395 = tail call float @llvm.fabs.f32(float %394)
-  %396 = fcmp ueq float %394, 0.000000e+00
-  br i1 %396, label %433, label %397
+386:                                              ; preds = %384, %385, %379
+  %387 = phi float [ 0.000000e+00, %384 ], [ 0x47EFFFFFE0000000, %385 ], [ 0x47EFFFFFE0000000, %379 ]
+  store float %387, ptr %378, align 4, !tbaa !5
+  %388 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 19
+  %389 = load float, ptr %388, align 8, !tbaa !121
+  %390 = fsub float 1.000000e+00, %389
+  %391 = tail call float @llvm.fabs.f32(float %390)
+  %392 = fcmp ueq float %390, 0.000000e+00
+  br i1 %392, label %429, label %393
 
-397:                                              ; preds = %390
-  %398 = load float, ptr %4, align 4, !tbaa !5
-  %399 = getelementptr inbounds [4 x float], ptr %4, i64 0, i64 1
+393:                                              ; preds = %386
+  %394 = load float, ptr %4, align 4, !tbaa !5
+  %395 = getelementptr inbounds [4 x float], ptr %4, i64 0, i64 1
+  %396 = load float, ptr %395, align 4, !tbaa !5
+  %397 = fmul float %99, %396
+  %398 = tail call float @llvm.fmuladd.f32(float %394, float %98, float %397)
+  %399 = getelementptr inbounds [4 x float], ptr %4, i64 0, i64 2
   %400 = load float, ptr %399, align 4, !tbaa !5
-  %401 = fmul float %99, %400
-  %402 = tail call float @llvm.fmuladd.f32(float %398, float %98, float %401)
-  %403 = getelementptr inbounds [4 x float], ptr %4, i64 0, i64 2
+  %401 = tail call float @llvm.fmuladd.f32(float %400, float %100, float %398)
+  %402 = load float, ptr %5, align 4, !tbaa !5
+  %403 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 1
   %404 = load float, ptr %403, align 4, !tbaa !5
-  %405 = tail call float @llvm.fmuladd.f32(float %404, float %100, float %402)
-  %406 = load float, ptr %5, align 4, !tbaa !5
-  %407 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 1
+  %405 = fmul float %99, %404
+  %406 = tail call float @llvm.fmuladd.f32(float %402, float %98, float %405)
+  %407 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 2
   %408 = load float, ptr %407, align 4, !tbaa !5
-  %409 = fmul float %99, %408
-  %410 = tail call float @llvm.fmuladd.f32(float %406, float %98, float %409)
-  %411 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 2
-  %412 = load float, ptr %411, align 4, !tbaa !5
-  %413 = tail call float @llvm.fmuladd.f32(float %412, float %100, float %410)
-  %414 = fsub float %405, %413
-  %415 = fmul float %157, %414
-  %416 = icmp eq i32 %295, 1
-  br i1 %416, label %417, label %424
+  %409 = tail call float @llvm.fmuladd.f32(float %408, float %100, float %406)
+  %410 = fsub float %401, %409
+  %411 = fmul float %157, %410
+  %412 = icmp eq i32 %285, 1
+  br i1 %412, label %413, label %420
 
-417:                                              ; preds = %397
-  %418 = fcmp olt float %415, 0.000000e+00
-  br i1 %418, label %419, label %433
+413:                                              ; preds = %393
+  %414 = fcmp olt float %411, 0.000000e+00
+  br i1 %414, label %415, label %429
 
-419:                                              ; preds = %417
-  %420 = fneg float %395
-  %421 = fmul float %415, %420
-  %422 = load float, ptr %376, align 4, !tbaa !5
-  %423 = fcmp ogt float %421, %422
-  br i1 %423, label %431, label %433
+415:                                              ; preds = %413
+  %416 = fneg float %391
+  %417 = fmul float %411, %416
+  %418 = load float, ptr %372, align 4, !tbaa !5
+  %419 = fcmp ogt float %417, %418
+  br i1 %419, label %427, label %429
 
-424:                                              ; preds = %397
-  %425 = fcmp ogt float %415, 0.000000e+00
-  br i1 %425, label %426, label %433
+420:                                              ; preds = %393
+  %421 = fcmp ogt float %411, 0.000000e+00
+  br i1 %421, label %422, label %429
 
-426:                                              ; preds = %424
-  %427 = fneg float %395
-  %428 = fmul float %415, %427
-  %429 = load float, ptr %376, align 4, !tbaa !5
-  %430 = fcmp olt float %428, %429
-  br i1 %430, label %431, label %433
+422:                                              ; preds = %420
+  %423 = fneg float %391
+  %424 = fmul float %411, %423
+  %425 = load float, ptr %372, align 4, !tbaa !5
+  %426 = fcmp olt float %424, %425
+  br i1 %426, label %427, label %429
 
-431:                                              ; preds = %426, %419
-  %432 = phi float [ %421, %419 ], [ %428, %426 ]
-  store float %432, ptr %376, align 4, !tbaa !5
-  br label %433
+427:                                              ; preds = %422, %415
+  %428 = phi float [ %417, %415 ], [ %424, %422 ]
+  store float %428, ptr %372, align 4, !tbaa !5
+  br label %429
 
-433:                                              ; preds = %431, %417, %424, %419, %426, %390
-  %434 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 17
-  %435 = load float, ptr %434, align 8, !tbaa !122
-  %436 = load float, ptr %376, align 4, !tbaa !5
-  %437 = fmul float %435, %436
-  store float %437, ptr %376, align 4, !tbaa !5
-  br label %438
+429:                                              ; preds = %427, %413, %420, %415, %422, %386
+  %430 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 17
+  %431 = load float, ptr %430, align 8, !tbaa !122
+  %432 = load float, ptr %372, align 4, !tbaa !5
+  %433 = fmul float %431, %432
+  store float %433, ptr %372, align 4, !tbaa !5
+  br label %434
 
-438:                                              ; preds = %368, %433, %288
-  %439 = phi i32 [ 4, %288 ], [ 5, %433 ], [ 5, %368 ]
-  %440 = load i8, ptr %30, align 1, !tbaa !72, !range !32, !noundef !33
-  %441 = icmp ne i8 %440, 0
-  br i1 %441, label %442, label %449
+434:                                              ; preds = %364, %429, %88
+  %435 = phi i32 [ 4, %88 ], [ 5, %429 ], [ 5, %364 ]
+  %436 = load i8, ptr %30, align 1, !tbaa !72, !range !32, !noundef !33
+  %437 = icmp ne i8 %436, 0
+  %438 = load float, ptr %29, align 4
+  %439 = fcmp ogt float %438, 0.000000e+00
+  %440 = select i1 %437, float %438, float 0.000000e+00
+  %441 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 55
+  %442 = load i8, ptr %441, align 4, !tbaa !123, !range !32, !noundef !33
+  %443 = or i8 %442, %436
+  %444 = icmp eq i8 %443, 0
+  br i1 %444, label %573, label %445
 
-442:                                              ; preds = %438
-  %443 = load float, ptr %29, align 4, !tbaa !71
-  %444 = fcmp ogt float %443, 0.000000e+00
-  %445 = select i1 %444, i32 1, i32 2
-  %446 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 55
-  %447 = load i8, ptr %446, align 4, !tbaa !123, !range !32, !noundef !33
-  %448 = icmp eq i8 %447, 0
-  br label %453
+445:                                              ; preds = %434
+  %446 = load i32, ptr %91, align 8, !tbaa !106
+  %447 = mul nsw i32 %446, %435
+  %448 = load ptr, ptr %112, align 8, !tbaa !108
+  %449 = sext i32 %447 to i64
+  %450 = getelementptr inbounds float, ptr %448, i64 %449
+  store float %98, ptr %450, align 4, !tbaa !5
+  %451 = add nsw i32 %447, 1
+  %452 = sext i32 %451 to i64
+  %453 = getelementptr inbounds float, ptr %448, i64 %452
+  store float %99, ptr %453, align 4, !tbaa !5
+  %454 = add nsw i32 %447, 2
+  %455 = sext i32 %454 to i64
+  %456 = getelementptr inbounds float, ptr %448, i64 %455
+  store float %100, ptr %456, align 4, !tbaa !5
+  %457 = load ptr, ptr %125, align 8, !tbaa !109
+  %458 = getelementptr inbounds float, ptr %457, i64 %449
+  store float %137, ptr %458, align 4, !tbaa !5
+  %459 = getelementptr inbounds float, ptr %457, i64 %452
+  store float %138, ptr %459, align 4, !tbaa !5
+  %460 = getelementptr inbounds float, ptr %457, i64 %455
+  store float %136, ptr %460, align 4, !tbaa !5
+  %461 = load float, ptr %31, align 8, !tbaa !73
+  %462 = load float, ptr %33, align 4, !tbaa !74
+  %463 = fcmp oeq float %461, %462
+  %464 = select i1 %437, i1 %463, i1 false
+  %465 = icmp eq i8 %442, 0
+  %466 = or i1 %464, %465
+  br i1 %466, label %499, label %467
 
-449:                                              ; preds = %438
-  %450 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 55
-  %451 = load i8, ptr %450, align 4, !tbaa !123, !range !32, !noundef !33
-  %452 = icmp eq i8 %451, 0
-  br i1 %452, label %588, label %453
+467:                                              ; preds = %445
+  %468 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 8
+  %469 = load ptr, ptr %468, align 8, !tbaa !118
+  %470 = getelementptr inbounds float, ptr %469, i64 %449
+  store float 0.000000e+00, ptr %470, align 4, !tbaa !5
+  %471 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 47
+  %472 = load float, ptr %471, align 8, !tbaa !75
+  %473 = load float, ptr %31, align 8, !tbaa !73
+  %474 = load float, ptr %33, align 4, !tbaa !74
+  %475 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 57
+  %476 = load float, ptr %475, align 8, !tbaa !124
+  %477 = load float, ptr %1, align 8, !tbaa !110
+  %478 = load float, ptr %132, align 4, !tbaa !111
+  %479 = fmul float %477, %478
+  %480 = tail call noundef float @_ZN17btTypedConstraint14getMotorFactorEfffff(ptr noundef nonnull align 8 dereferenceable(96) %0, float noundef %472, float noundef %473, float noundef %474, float noundef %476, float noundef %479)
+  %481 = load float, ptr %475, align 8, !tbaa !124
+  %482 = fmul float %480, %481
+  %483 = load ptr, ptr %139, align 8, !tbaa !113
+  %484 = getelementptr inbounds float, ptr %483, i64 %449
+  store float %482, ptr %484, align 4, !tbaa !5
+  %485 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 58
+  %486 = load float, ptr %485, align 4, !tbaa !125
+  %487 = fneg float %486
+  %488 = load float, ptr %1, align 8, !tbaa !110
+  %489 = fmul float %488, %487
+  %490 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 9
+  %491 = load ptr, ptr %490, align 8, !tbaa !116
+  %492 = getelementptr inbounds float, ptr %491, i64 %449
+  store float %489, ptr %492, align 4, !tbaa !5
+  %493 = load float, ptr %485, align 4, !tbaa !125
+  %494 = load float, ptr %1, align 8, !tbaa !110
+  %495 = fmul float %493, %494
+  %496 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 10
+  %497 = load ptr, ptr %496, align 8, !tbaa !117
+  %498 = getelementptr inbounds float, ptr %497, i64 %449
+  store float %495, ptr %498, align 4, !tbaa !5
+  br label %499
 
-453:                                              ; preds = %442, %449
-  %454 = phi i1 [ %448, %442 ], [ false, %449 ]
-  %455 = phi float [ %443, %442 ], [ 0.000000e+00, %449 ]
-  %456 = phi i32 [ %445, %442 ], [ 0, %449 ]
-  %457 = load i32, ptr %91, align 8, !tbaa !106
-  %458 = mul nsw i32 %457, %439
-  %459 = load ptr, ptr %112, align 8, !tbaa !108
-  %460 = sext i32 %458 to i64
-  %461 = getelementptr inbounds float, ptr %459, i64 %460
-  store float %98, ptr %461, align 4, !tbaa !5
-  %462 = add nsw i32 %458, 1
-  %463 = sext i32 %462 to i64
-  %464 = getelementptr inbounds float, ptr %459, i64 %463
-  store float %99, ptr %464, align 4, !tbaa !5
-  %465 = add nsw i32 %458, 2
-  %466 = sext i32 %465 to i64
-  %467 = getelementptr inbounds float, ptr %459, i64 %466
-  store float %100, ptr %467, align 4, !tbaa !5
-  %468 = load ptr, ptr %125, align 8, !tbaa !109
-  %469 = getelementptr inbounds float, ptr %468, i64 %460
-  store float %137, ptr %469, align 4, !tbaa !5
-  %470 = getelementptr inbounds float, ptr %468, i64 %463
-  store float %138, ptr %470, align 4, !tbaa !5
-  %471 = getelementptr inbounds float, ptr %468, i64 %466
-  store float %136, ptr %471, align 4, !tbaa !5
-  %472 = load float, ptr %31, align 8, !tbaa !73
-  %473 = load float, ptr %33, align 4, !tbaa !74
-  %474 = fcmp oeq float %472, %473
-  %475 = and i1 %441, %474
-  %476 = or i1 %454, %475
-  br i1 %476, label %509, label %477
+499:                                              ; preds = %467, %445
+  br i1 %437, label %500, label %573
 
-477:                                              ; preds = %453
-  %478 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 8
-  %479 = load ptr, ptr %478, align 8, !tbaa !118
-  %480 = getelementptr inbounds float, ptr %479, i64 %460
-  store float 0.000000e+00, ptr %480, align 4, !tbaa !5
-  %481 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 47
-  %482 = load float, ptr %481, align 8, !tbaa !75
-  %483 = load float, ptr %31, align 8, !tbaa !73
-  %484 = load float, ptr %33, align 4, !tbaa !74
-  %485 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 57
-  %486 = load float, ptr %485, align 8, !tbaa !124
-  %487 = load float, ptr %1, align 8, !tbaa !110
-  %488 = load float, ptr %132, align 4, !tbaa !111
-  %489 = fmul float %487, %488
-  %490 = tail call noundef float @_ZN17btTypedConstraint14getMotorFactorEfffff(ptr noundef nonnull align 8 dereferenceable(96) %0, float noundef %482, float noundef %483, float noundef %484, float noundef %486, float noundef %489)
-  %491 = load float, ptr %485, align 8, !tbaa !124
-  %492 = fmul float %490, %491
-  %493 = load ptr, ptr %139, align 8, !tbaa !113
-  %494 = getelementptr inbounds float, ptr %493, i64 %460
-  store float %492, ptr %494, align 4, !tbaa !5
-  %495 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 58
-  %496 = load float, ptr %495, align 4, !tbaa !125
-  %497 = fneg float %496
-  %498 = load float, ptr %1, align 8, !tbaa !110
-  %499 = fmul float %498, %497
-  %500 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 9
-  %501 = load ptr, ptr %500, align 8, !tbaa !116
-  %502 = getelementptr inbounds float, ptr %501, i64 %460
-  store float %499, ptr %502, align 4, !tbaa !5
-  %503 = load float, ptr %495, align 4, !tbaa !125
-  %504 = load float, ptr %1, align 8, !tbaa !110
-  %505 = fmul float %503, %504
-  %506 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 10
-  %507 = load ptr, ptr %506, align 8, !tbaa !117
-  %508 = getelementptr inbounds float, ptr %507, i64 %460
-  store float %505, ptr %508, align 4, !tbaa !5
-  br label %509
+500:                                              ; preds = %499
+  %501 = load float, ptr %1, align 8, !tbaa !110
+  %502 = load float, ptr %132, align 4, !tbaa !111
+  %503 = fmul float %501, %502
+  %504 = load ptr, ptr %139, align 8, !tbaa !113
+  %505 = getelementptr inbounds float, ptr %504, i64 %449
+  %506 = load float, ptr %505, align 4, !tbaa !5
+  %507 = tail call float @llvm.fmuladd.f32(float %503, float %440, float %506)
+  store float %507, ptr %505, align 4, !tbaa !5
+  %508 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 8
+  %509 = load ptr, ptr %508, align 8, !tbaa !118
+  %510 = getelementptr inbounds float, ptr %509, i64 %449
+  store float 0.000000e+00, ptr %510, align 4, !tbaa !5
+  %511 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 9
+  %512 = load ptr, ptr %511, align 8, !tbaa !116
+  %513 = getelementptr inbounds float, ptr %512, i64 %449
+  br i1 %463, label %517, label %514
 
-509:                                              ; preds = %477, %453
-  br i1 %441, label %510, label %588
+514:                                              ; preds = %500
+  %515 = select i1 %439, float 0.000000e+00, float 0xC7EFFFFFE0000000
+  %516 = select i1 %439, float 0x47EFFFFFE0000000, float 0.000000e+00
+  br label %517
 
-510:                                              ; preds = %509
-  %511 = load float, ptr %1, align 8, !tbaa !110
-  %512 = load float, ptr %132, align 4, !tbaa !111
-  %513 = fmul float %511, %512
-  %514 = load ptr, ptr %139, align 8, !tbaa !113
-  %515 = getelementptr inbounds float, ptr %514, i64 %460
-  %516 = load float, ptr %515, align 4, !tbaa !5
-  %517 = tail call float @llvm.fmuladd.f32(float %513, float %455, float %516)
-  store float %517, ptr %515, align 4, !tbaa !5
-  %518 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 8
-  %519 = load ptr, ptr %518, align 8, !tbaa !118
-  %520 = getelementptr inbounds float, ptr %519, i64 %460
-  store float 0.000000e+00, ptr %520, align 4, !tbaa !5
-  %521 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 10
-  br i1 %474, label %522, label %526
+517:                                              ; preds = %514, %500
+  %518 = phi float [ 0xC7EFFFFFE0000000, %500 ], [ %515, %514 ]
+  %519 = phi float [ 0x47EFFFFFE0000000, %500 ], [ %516, %514 ]
+  store float %518, ptr %513, align 4, !tbaa !5
+  %520 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 10
+  %521 = load ptr, ptr %520, align 8, !tbaa !117
+  %522 = getelementptr inbounds float, ptr %521, i64 %449
+  store float %519, ptr %522, align 4, !tbaa !5
+  %523 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 22
+  %524 = load float, ptr %523, align 4, !tbaa !126
+  %525 = fsub float 1.000000e+00, %524
+  %526 = tail call float @llvm.fabs.f32(float %525)
+  %527 = fcmp ueq float %525, 0.000000e+00
+  br i1 %527, label %568, label %528
 
-522:                                              ; preds = %510
-  %523 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 9
-  %524 = load ptr, ptr %523, align 8, !tbaa !116
-  %525 = getelementptr inbounds float, ptr %524, i64 %460
-  store float 0xC7EFFFFFE0000000, ptr %525, align 4, !tbaa !5
-  br label %533
+528:                                              ; preds = %517
+  %529 = getelementptr inbounds %class.btTypedConstraint, ptr %0, i64 0, i32 5
+  %530 = load ptr, ptr %529, align 8, !tbaa !34
+  %531 = getelementptr inbounds %class.btRigidBody, ptr %530, i64 0, i32 3
+  %532 = load float, ptr %531, align 4, !tbaa !5
+  %533 = getelementptr inbounds %class.btRigidBody, ptr %530, i64 0, i32 3, i32 0, i64 1
+  %534 = load float, ptr %533, align 4, !tbaa !5
+  %535 = fmul float %99, %534
+  %536 = tail call float @llvm.fmuladd.f32(float %532, float %98, float %535)
+  %537 = getelementptr inbounds %class.btRigidBody, ptr %530, i64 0, i32 3, i32 0, i64 2
+  %538 = load float, ptr %537, align 4, !tbaa !5
+  %539 = tail call float @llvm.fmuladd.f32(float %538, float %100, float %536)
+  %540 = getelementptr inbounds %class.btTypedConstraint, ptr %0, i64 0, i32 6
+  %541 = load ptr, ptr %540, align 8, !tbaa !35
+  %542 = getelementptr inbounds %class.btRigidBody, ptr %541, i64 0, i32 3
+  %543 = load float, ptr %542, align 4, !tbaa !5
+  %544 = getelementptr inbounds %class.btRigidBody, ptr %541, i64 0, i32 3, i32 0, i64 1
+  %545 = load float, ptr %544, align 4, !tbaa !5
+  %546 = fmul float %99, %545
+  %547 = tail call float @llvm.fmuladd.f32(float %543, float %98, float %546)
+  %548 = getelementptr inbounds %class.btRigidBody, ptr %541, i64 0, i32 3, i32 0, i64 2
+  %549 = load float, ptr %548, align 4, !tbaa !5
+  %550 = tail call float @llvm.fmuladd.f32(float %549, float %100, float %547)
+  %551 = fsub float %539, %550
+  br i1 %439, label %552, label %559
 
-526:                                              ; preds = %510
-  %527 = icmp eq i32 %456, 1
-  %528 = getelementptr inbounds %"struct.btTypedConstraint::btConstraintInfo2", ptr %1, i64 0, i32 9
-  %529 = load ptr, ptr %528, align 8, !tbaa !116
-  %530 = getelementptr inbounds float, ptr %529, i64 %460
-  br i1 %527, label %531, label %532
+552:                                              ; preds = %528
+  %553 = fcmp olt float %551, 0.000000e+00
+  br i1 %553, label %554, label %568
 
-531:                                              ; preds = %526
-  store float 0.000000e+00, ptr %530, align 4, !tbaa !5
-  br label %533
+554:                                              ; preds = %552
+  %555 = fneg float %526
+  %556 = fmul float %551, %555
+  %557 = load float, ptr %505, align 4, !tbaa !5
+  %558 = fcmp ogt float %556, %557
+  br i1 %558, label %566, label %568
 
-532:                                              ; preds = %526
-  store float 0xC7EFFFFFE0000000, ptr %530, align 4, !tbaa !5
-  br label %533
+559:                                              ; preds = %528
+  %560 = fcmp ogt float %551, 0.000000e+00
+  br i1 %560, label %561, label %568
 
-533:                                              ; preds = %531, %532, %522
-  %534 = phi float [ 0x47EFFFFFE0000000, %531 ], [ 0.000000e+00, %532 ], [ 0x47EFFFFFE0000000, %522 ]
-  %535 = load ptr, ptr %521, align 8, !tbaa !117
-  %536 = getelementptr inbounds float, ptr %535, i64 %460
-  store float %534, ptr %536, align 4, !tbaa !5
-  %537 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 22
-  %538 = load float, ptr %537, align 4, !tbaa !126
-  %539 = fsub float 1.000000e+00, %538
-  %540 = tail call float @llvm.fabs.f32(float %539)
-  %541 = fcmp ueq float %539, 0.000000e+00
-  br i1 %541, label %583, label %542
+561:                                              ; preds = %559
+  %562 = fneg float %526
+  %563 = fmul float %551, %562
+  %564 = load float, ptr %505, align 4, !tbaa !5
+  %565 = fcmp olt float %563, %564
+  br i1 %565, label %566, label %568
 
-542:                                              ; preds = %533
-  %543 = getelementptr inbounds %class.btTypedConstraint, ptr %0, i64 0, i32 5
-  %544 = load ptr, ptr %543, align 8, !tbaa !34
-  %545 = getelementptr inbounds %class.btRigidBody, ptr %544, i64 0, i32 3
-  %546 = load float, ptr %545, align 4, !tbaa !5
-  %547 = getelementptr inbounds %class.btRigidBody, ptr %544, i64 0, i32 3, i32 0, i64 1
-  %548 = load float, ptr %547, align 4, !tbaa !5
-  %549 = fmul float %99, %548
-  %550 = tail call float @llvm.fmuladd.f32(float %546, float %98, float %549)
-  %551 = getelementptr inbounds %class.btRigidBody, ptr %544, i64 0, i32 3, i32 0, i64 2
-  %552 = load float, ptr %551, align 4, !tbaa !5
-  %553 = tail call float @llvm.fmuladd.f32(float %552, float %100, float %550)
-  %554 = getelementptr inbounds %class.btTypedConstraint, ptr %0, i64 0, i32 6
-  %555 = load ptr, ptr %554, align 8, !tbaa !35
-  %556 = getelementptr inbounds %class.btRigidBody, ptr %555, i64 0, i32 3
-  %557 = load float, ptr %556, align 4, !tbaa !5
-  %558 = getelementptr inbounds %class.btRigidBody, ptr %555, i64 0, i32 3, i32 0, i64 1
-  %559 = load float, ptr %558, align 4, !tbaa !5
-  %560 = fmul float %99, %559
-  %561 = tail call float @llvm.fmuladd.f32(float %557, float %98, float %560)
-  %562 = getelementptr inbounds %class.btRigidBody, ptr %555, i64 0, i32 3, i32 0, i64 2
-  %563 = load float, ptr %562, align 4, !tbaa !5
-  %564 = tail call float @llvm.fmuladd.f32(float %563, float %100, float %561)
-  %565 = fsub float %553, %564
-  %566 = icmp eq i32 %456, 1
-  br i1 %566, label %567, label %574
+566:                                              ; preds = %561, %554
+  %567 = phi float [ %556, %554 ], [ %563, %561 ]
+  store float %567, ptr %505, align 4, !tbaa !5
+  br label %568
 
-567:                                              ; preds = %542
-  %568 = fcmp olt float %565, 0.000000e+00
-  br i1 %568, label %569, label %583
+568:                                              ; preds = %566, %552, %559, %554, %561, %517
+  %569 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 20
+  %570 = load float, ptr %569, align 4, !tbaa !127
+  %571 = load float, ptr %505, align 4, !tbaa !5
+  %572 = fmul float %570, %571
+  store float %572, ptr %505, align 4, !tbaa !5
+  br label %573
 
-569:                                              ; preds = %567
-  %570 = fneg float %540
-  %571 = fmul float %565, %570
-  %572 = load float, ptr %515, align 4, !tbaa !5
-  %573 = fcmp ogt float %571, %572
-  br i1 %573, label %581, label %583
-
-574:                                              ; preds = %542
-  %575 = fcmp ogt float %565, 0.000000e+00
-  br i1 %575, label %576, label %583
-
-576:                                              ; preds = %574
-  %577 = fneg float %540
-  %578 = fmul float %565, %577
-  %579 = load float, ptr %515, align 4, !tbaa !5
-  %580 = fcmp olt float %578, %579
-  br i1 %580, label %581, label %583
-
-581:                                              ; preds = %576, %569
-  %582 = phi float [ %571, %569 ], [ %578, %576 ]
-  store float %582, ptr %515, align 4, !tbaa !5
-  br label %583
-
-583:                                              ; preds = %581, %567, %574, %569, %576, %533
-  %584 = getelementptr inbounds %class.btSliderConstraint, ptr %0, i64 0, i32 20
-  %585 = load float, ptr %584, align 4, !tbaa !127
-  %586 = load float, ptr %515, align 4, !tbaa !5
-  %587 = fmul float %585, %586
-  store float %587, ptr %515, align 4, !tbaa !5
-  br label %588
-
-588:                                              ; preds = %509, %583, %449
+573:                                              ; preds = %499, %568, %434
   ret void
 }
 
@@ -3158,23 +3127,23 @@ define dso_local void @_ZN18btSliderConstraint18solveConstraintIntER11btRigidBod
   %335 = fneg float %333
   %336 = select i1 %334, float %335, float %333
   store float %332, ptr %149, align 8, !tbaa !77
-  %337 = load float, ptr %164, align 4, !tbaa !5
-  %338 = load float, ptr %103, align 8, !tbaa !5
+  %337 = load float, ptr %103, align 8, !tbaa !5
+  %338 = load float, ptr %164, align 4, !tbaa !5
   %339 = load float, ptr %104, align 4, !tbaa !5
   %340 = fneg float %339
   %341 = load float, ptr %6, align 4, !tbaa !5
   %342 = fneg float %341
-  %343 = fmul float %337, %342
-  %344 = fneg float %338
+  %343 = fmul float %338, %342
+  %344 = fneg float %337
   %345 = load float, ptr %105, align 8, !tbaa !5
   %346 = load float, ptr %106, align 4, !tbaa !5
   %347 = fneg float %346
   %348 = load float, ptr %51, align 4, !tbaa !5
   %349 = fneg float %348
-  %350 = fmul float %337, %349
+  %350 = fmul float %338, %349
   %351 = fneg float %345
   %352 = load float, ptr %107, align 8, !tbaa !56
-  %353 = fmul float %337, %352
+  %353 = fmul float %338, %352
   %354 = load float, ptr %114, align 8, !tbaa !5
   %355 = load float, ptr %115, align 4, !tbaa !5
   %356 = load float, ptr %116, align 8, !tbaa !5
@@ -3182,13 +3151,13 @@ define dso_local void @_ZN18btSliderConstraint18solveConstraintIntER11btRigidBod
   %358 = load <2 x float>, ptr %157, align 4, !tbaa !5
   %359 = extractelement <2 x float> %358, i64 1
   %360 = fmul float %359, %340
-  %361 = tail call float @llvm.fmuladd.f32(float %338, float %337, float %360)
+  %361 = tail call float @llvm.fmuladd.f32(float %337, float %338, float %360)
   %362 = extractelement <2 x float> %358, i64 0
   %363 = tail call float @llvm.fmuladd.f32(float %339, float %362, float %343)
   %364 = fmul float %362, %344
   %365 = tail call float @llvm.fmuladd.f32(float %341, float %359, float %364)
   %366 = fmul float %359, %347
-  %367 = tail call float @llvm.fmuladd.f32(float %345, float %337, float %366)
+  %367 = tail call float @llvm.fmuladd.f32(float %345, float %338, float %366)
   %368 = tail call float @llvm.fmuladd.f32(float %346, float %362, float %350)
   %369 = fmul float %362, %351
   %370 = tail call float @llvm.fmuladd.f32(float %348, float %359, float %369)

@@ -129,13 +129,13 @@ define dso_local noundef i32 @_ZN18btQuantizedBvhTree20_calc_splitting_axisER18G
   br i1 %17, label %34, label %18
 
 18:                                               ; preds = %9
-  %19 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %12
-  %20 = getelementptr inbounds %class.btAABB, ptr %19, i64 0, i32 1
-  %21 = load float, ptr %20, align 4, !tbaa !17
-  %22 = load float, ptr %19, align 4, !tbaa !17
+  %19 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %12, i32 0, i32 1
+  %20 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %12
+  %21 = load float, ptr %19, align 4, !tbaa !17
+  %22 = load float, ptr %20, align 4, !tbaa !17
   %23 = fadd float %21, %22
-  %24 = getelementptr inbounds [4 x float], ptr %20, i64 0, i64 1
-  %25 = getelementptr inbounds [4 x float], ptr %19, i64 0, i64 1
+  %24 = getelementptr inbounds [4 x float], ptr %19, i64 0, i64 1
+  %25 = getelementptr inbounds [4 x float], ptr %20, i64 0, i64 1
   %26 = fmul float %23, 5.000000e-01
   %27 = load <2 x float>, ptr %24, align 4, !tbaa !17
   %28 = load <2 x float>, ptr %25, align 4, !tbaa !17
@@ -160,13 +160,13 @@ define dso_local noundef i32 @_ZN18btQuantizedBvhTree20_calc_splitting_axisER18G
   %43 = phi i64 [ %75, %42 ], [ %37, %34 ]
   %44 = phi float [ %73, %42 ], [ %38, %34 ]
   %45 = phi <2 x float> [ %74, %42 ], [ %39, %34 ]
-  %46 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %43
-  %47 = getelementptr inbounds %class.btAABB, ptr %46, i64 0, i32 1
-  %48 = load float, ptr %47, align 4, !tbaa !17
-  %49 = load float, ptr %46, align 4, !tbaa !17
+  %46 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %43, i32 0, i32 1
+  %47 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %43
+  %48 = load float, ptr %46, align 4, !tbaa !17
+  %49 = load float, ptr %47, align 4, !tbaa !17
   %50 = fadd float %48, %49
-  %51 = getelementptr inbounds [4 x float], ptr %47, i64 0, i64 1
-  %52 = getelementptr inbounds [4 x float], ptr %46, i64 0, i64 1
+  %51 = getelementptr inbounds [4 x float], ptr %46, i64 0, i64 1
+  %52 = getelementptr inbounds [4 x float], ptr %47, i64 0, i64 1
   %53 = fmul float %50, 5.000000e-01
   %54 = load <2 x float>, ptr %51, align 4, !tbaa !17
   %55 = load <2 x float>, ptr %52, align 4, !tbaa !17
@@ -175,13 +175,13 @@ define dso_local noundef i32 @_ZN18btQuantizedBvhTree20_calc_splitting_axisER18G
   %58 = fadd float %44, %53
   %59 = fadd <2 x float> %45, %57
   %60 = add nsw i64 %43, 1
-  %61 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %60
-  %62 = getelementptr inbounds %class.btAABB, ptr %61, i64 0, i32 1
-  %63 = load float, ptr %62, align 4, !tbaa !17
-  %64 = load float, ptr %61, align 4, !tbaa !17
+  %61 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %60, i32 0, i32 1
+  %62 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %60
+  %63 = load float, ptr %61, align 4, !tbaa !17
+  %64 = load float, ptr %62, align 4, !tbaa !17
   %65 = fadd float %63, %64
-  %66 = getelementptr inbounds [4 x float], ptr %62, i64 0, i64 1
-  %67 = getelementptr inbounds [4 x float], ptr %61, i64 0, i64 1
+  %66 = getelementptr inbounds [4 x float], ptr %61, i64 0, i64 1
+  %67 = getelementptr inbounds [4 x float], ptr %62, i64 0, i64 1
   %68 = fmul float %65, 5.000000e-01
   %69 = load <2 x float>, ptr %66, align 4, !tbaa !17
   %70 = load <2 x float>, ptr %67, align 4, !tbaa !17
@@ -215,13 +215,13 @@ define dso_local noundef i32 @_ZN18btQuantizedBvhTree20_calc_splitting_axisER18G
   %92 = phi i64 [ %89, %86 ], [ %113, %91 ]
   %93 = phi float [ 0.000000e+00, %86 ], [ %111, %91 ]
   %94 = phi <2 x float> [ zeroinitializer, %86 ], [ %112, %91 ]
-  %95 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %88, i64 %92
-  %96 = getelementptr inbounds %class.btAABB, ptr %95, i64 0, i32 1
-  %97 = load float, ptr %96, align 4, !tbaa !17
-  %98 = load float, ptr %95, align 4, !tbaa !17
+  %95 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %88, i64 %92, i32 0, i32 1
+  %96 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %88, i64 %92
+  %97 = load float, ptr %95, align 4, !tbaa !17
+  %98 = load float, ptr %96, align 4, !tbaa !17
   %99 = fadd float %97, %98
-  %100 = getelementptr inbounds [4 x float], ptr %96, i64 0, i64 1
-  %101 = getelementptr inbounds [4 x float], ptr %95, i64 0, i64 1
+  %100 = getelementptr inbounds [4 x float], ptr %95, i64 0, i64 1
+  %101 = getelementptr inbounds [4 x float], ptr %96, i64 0, i64 1
   %102 = fmul float %99, 5.000000e-01
   %103 = fsub float %102, %82
   %104 = fmul float %103, %103
@@ -284,15 +284,15 @@ define dso_local noundef i32 @_ZN18btQuantizedBvhTree30_sort_and_calc_splitting_
   br i1 %21, label %38, label %22
 
 22:                                               ; preds = %13
-  %23 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %16
-  %24 = getelementptr inbounds %class.btAABB, ptr %23, i64 0, i32 1
-  %25 = getelementptr inbounds [4 x float], ptr %24, i64 0, i64 2
+  %23 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %16, i32 0, i32 1
+  %24 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %16
+  %25 = getelementptr inbounds [4 x float], ptr %23, i64 0, i64 2
   %26 = load float, ptr %25, align 4, !tbaa !17
-  %27 = getelementptr inbounds [4 x float], ptr %23, i64 0, i64 2
+  %27 = getelementptr inbounds [4 x float], ptr %24, i64 0, i64 2
   %28 = load float, ptr %27, align 4, !tbaa !17
   %29 = fadd float %26, %28
-  %30 = load <2 x float>, ptr %24, align 4, !tbaa !17
-  %31 = load <2 x float>, ptr %23, align 4, !tbaa !17
+  %30 = load <2 x float>, ptr %23, align 4, !tbaa !17
+  %31 = load <2 x float>, ptr %24, align 4, !tbaa !17
   %32 = fadd <2 x float> %30, %31
   %33 = fmul <2 x float> %32, <float 5.000000e-01, float 5.000000e-01>
   %34 = fmul float %29, 5.000000e-01
@@ -315,30 +315,30 @@ define dso_local noundef i32 @_ZN18btQuantizedBvhTree30_sort_and_calc_splitting_
   %47 = phi i64 [ %79, %46 ], [ %41, %38 ]
   %48 = phi float [ %78, %46 ], [ %42, %38 ]
   %49 = phi <2 x float> [ %77, %46 ], [ %43, %38 ]
-  %50 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %47
-  %51 = getelementptr inbounds %class.btAABB, ptr %50, i64 0, i32 1
-  %52 = getelementptr inbounds [4 x float], ptr %51, i64 0, i64 2
+  %50 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %47, i32 0, i32 1
+  %51 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %47
+  %52 = getelementptr inbounds [4 x float], ptr %50, i64 0, i64 2
   %53 = load float, ptr %52, align 4, !tbaa !17
-  %54 = getelementptr inbounds [4 x float], ptr %50, i64 0, i64 2
+  %54 = getelementptr inbounds [4 x float], ptr %51, i64 0, i64 2
   %55 = load float, ptr %54, align 4, !tbaa !17
   %56 = fadd float %53, %55
-  %57 = load <2 x float>, ptr %51, align 4, !tbaa !17
-  %58 = load <2 x float>, ptr %50, align 4, !tbaa !17
+  %57 = load <2 x float>, ptr %50, align 4, !tbaa !17
+  %58 = load <2 x float>, ptr %51, align 4, !tbaa !17
   %59 = fadd <2 x float> %57, %58
   %60 = fmul <2 x float> %59, <float 5.000000e-01, float 5.000000e-01>
   %61 = fmul float %56, 5.000000e-01
   %62 = fadd <2 x float> %60, %49
   %63 = fadd float %61, %48
   %64 = add nsw i64 %47, 1
-  %65 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %64
-  %66 = getelementptr inbounds %class.btAABB, ptr %65, i64 0, i32 1
-  %67 = getelementptr inbounds [4 x float], ptr %66, i64 0, i64 2
+  %65 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %64, i32 0, i32 1
+  %66 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %64
+  %67 = getelementptr inbounds [4 x float], ptr %65, i64 0, i64 2
   %68 = load float, ptr %67, align 4, !tbaa !17
-  %69 = getelementptr inbounds [4 x float], ptr %65, i64 0, i64 2
+  %69 = getelementptr inbounds [4 x float], ptr %66, i64 0, i64 2
   %70 = load float, ptr %69, align 4, !tbaa !17
   %71 = fadd float %68, %70
-  %72 = load <2 x float>, ptr %66, align 4, !tbaa !17
-  %73 = load <2 x float>, ptr %65, align 4, !tbaa !17
+  %72 = load <2 x float>, ptr %65, align 4, !tbaa !17
+  %73 = load <2 x float>, ptr %66, align 4, !tbaa !17
   %74 = fadd <2 x float> %72, %73
   %75 = fmul <2 x float> %74, <float 5.000000e-01, float 5.000000e-01>
   %76 = fmul float %71, 5.000000e-01
@@ -362,7 +362,7 @@ define dso_local noundef i32 @_ZN18btQuantizedBvhTree30_sort_and_calc_splitting_
   %90 = sext i32 %4 to i64
   %91 = getelementptr inbounds float, ptr %7, i64 %90
   %92 = load float, ptr %91, align 4, !tbaa !17
-  br i1 %11, label %93, label %132
+  br i1 %11, label %93, label %133
 
 93:                                               ; preds = %81
   %94 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %1, i64 0, i32 5
@@ -373,20 +373,20 @@ define dso_local noundef i32 @_ZN18btQuantizedBvhTree30_sort_and_calc_splitting_
   %99 = sext i32 %3 to i64
   br label %100
 
-100:                                              ; preds = %93, %128
-  %101 = phi i64 [ %98, %93 ], [ %130, %128 ]
-  %102 = phi i32 [ %2, %93 ], [ %129, %128 ]
+100:                                              ; preds = %93, %129
+  %101 = phi i64 [ %98, %93 ], [ %131, %129 ]
+  %102 = phi i32 [ %2, %93 ], [ %130, %129 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %8) #13
   %103 = load ptr, ptr %94, align 8, !tbaa !13
-  %104 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101
-  %105 = getelementptr inbounds %class.btAABB, ptr %104, i64 0, i32 1
-  %106 = getelementptr inbounds [4 x float], ptr %105, i64 0, i64 2
+  %104 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101, i32 0, i32 1
+  %105 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101
+  %106 = getelementptr inbounds [4 x float], ptr %104, i64 0, i64 2
   %107 = load float, ptr %106, align 4, !tbaa !17
-  %108 = getelementptr inbounds [4 x float], ptr %104, i64 0, i64 2
+  %108 = getelementptr inbounds [4 x float], ptr %105, i64 0, i64 2
   %109 = load float, ptr %108, align 4, !tbaa !17
   %110 = fadd float %107, %109
-  %111 = load <2 x float>, ptr %105, align 4, !tbaa !17
-  %112 = load <2 x float>, ptr %104, align 4, !tbaa !17
+  %111 = load <2 x float>, ptr %104, align 4, !tbaa !17
+  %112 = load <2 x float>, ptr %105, align 4, !tbaa !17
   %113 = fadd <2 x float> %111, %112
   %114 = fmul <2 x float> %113, <float 5.000000e-01, float 5.000000e-01>
   %115 = fmul float %110, 5.000000e-01
@@ -395,47 +395,48 @@ define dso_local noundef i32 @_ZN18btQuantizedBvhTree30_sort_and_calc_splitting_
   store <2 x float> %116, ptr %95, align 8
   %117 = load float, ptr %96, align 4, !tbaa !17
   %118 = fcmp ogt float %117, %92
-  br i1 %118, label %119, label %128
+  br i1 %118, label %119, label %129
 
 119:                                              ; preds = %100
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6)
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %104, i64 16, i1 false), !tbaa.struct !14
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %97, ptr noundef nonnull align 4 dereferenceable(16) %105, i64 16, i1 false), !tbaa.struct !14
-  %120 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101, i32 1
-  %121 = load i32, ptr %120, align 4, !tbaa !19
-  %122 = sext i32 %102 to i64
-  %123 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %122
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(36) %104, ptr noundef nonnull align 4 dereferenceable(36) %123, i64 36, i1 false), !tbaa.struct !23
-  %124 = load ptr, ptr %94, align 8, !tbaa !13
-  %125 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %124, i64 %122
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(32) %125, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !23
-  %126 = getelementptr inbounds i8, ptr %125, i64 32
-  store i32 %121, ptr %126, align 4, !tbaa.struct !25
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %105, i64 16, i1 false), !tbaa.struct !14
+  %120 = getelementptr inbounds %class.btAABB, ptr %105, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %97, ptr noundef nonnull align 4 dereferenceable(16) %120, i64 16, i1 false), !tbaa.struct !14
+  %121 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101, i32 1
+  %122 = load i32, ptr %121, align 4, !tbaa !19
+  %123 = sext i32 %102 to i64
+  %124 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %123
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(36) %105, ptr noundef nonnull align 4 dereferenceable(36) %124, i64 36, i1 false), !tbaa.struct !23
+  %125 = load ptr, ptr %94, align 8, !tbaa !13
+  %126 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %125, i64 %123
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(32) %126, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !23
+  %127 = getelementptr inbounds i8, ptr %126, i64 32
+  store i32 %122, ptr %127, align 4, !tbaa.struct !25
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6)
-  %127 = add nsw i32 %102, 1
-  br label %128
+  %128 = add nsw i32 %102, 1
+  br label %129
 
-128:                                              ; preds = %119, %100
-  %129 = phi i32 [ %127, %119 ], [ %102, %100 ]
+129:                                              ; preds = %119, %100
+  %130 = phi i32 [ %128, %119 ], [ %102, %100 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %8) #13
-  %130 = add nsw i64 %101, 1
-  %131 = icmp eq i64 %130, %99
-  br i1 %131, label %132, label %100
+  %131 = add nsw i64 %101, 1
+  %132 = icmp eq i64 %131, %99
+  br i1 %132, label %133, label %100
 
-132:                                              ; preds = %128, %81
-  %133 = phi i32 [ %2, %81 ], [ %129, %128 ]
-  %134 = sdiv i32 %9, 3
-  %135 = add nsw i32 %134, %2
-  %136 = icmp sle i32 %133, %135
-  %137 = xor i32 %134, -1
-  %138 = add i32 %137, %3
-  %139 = icmp sge i32 %133, %138
-  %140 = select i1 %136, i1 true, i1 %139
-  %141 = ashr i32 %9, 1
-  %142 = add nsw i32 %141, %2
-  %143 = select i1 %140, i32 %142, i32 %133
+133:                                              ; preds = %129, %81
+  %134 = phi i32 [ %2, %81 ], [ %130, %129 ]
+  %135 = sdiv i32 %9, 3
+  %136 = add nsw i32 %135, %2
+  %137 = icmp sle i32 %134, %136
+  %138 = xor i32 %135, -1
+  %139 = add i32 %138, %3
+  %140 = icmp sge i32 %134, %139
+  %141 = select i1 %137, i1 true, i1 %140
+  %142 = ashr i32 %9, 1
+  %143 = add nsw i32 %142, %2
+  %144 = select i1 %141, i32 %143, i32 %134
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #13
-  ret i32 %143
+  ret i32 %144
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
@@ -843,7 +844,7 @@ define dso_local void @_ZN21btGImpactQuantizedBvh5refitEv(ptr nocapture noundef 
   %2 = alloca %class.btAABB, align 8
   %3 = load i32, ptr %0, align 8, !tbaa !26
   %4 = icmp eq i32 %3, 0
-  br i1 %4, label %168, label %5
+  br i1 %4, label %176, label %5
 
 5:                                                ; preds = %1
   %6 = getelementptr inbounds %class.btQuantizedBvhTree, ptr %0, i64 0, i32 2, i32 0, i32 5
@@ -864,9 +865,9 @@ define dso_local void @_ZN21btGImpactQuantizedBvh5refitEv(ptr nocapture noundef 
   %21 = load ptr, ptr %6, align 8, !tbaa !31
   br label %22
 
-22:                                               ; preds = %5, %164
-  %23 = phi ptr [ %21, %5 ], [ %165, %164 ]
-  %24 = phi i64 [ %20, %5 ], [ %25, %164 ]
+22:                                               ; preds = %5, %172
+  %23 = phi ptr [ %21, %5 ], [ %173, %172 ]
+  %24 = phi i64 [ %20, %5 ], [ %25, %172 ]
   %25 = add nsw i64 %24, -1
   %26 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %25, i32 2
   %27 = load i32, ptr %26, align 4, !tbaa !34
@@ -932,35 +933,35 @@ define dso_local void @_ZN21btGImpactQuantizedBvh5refitEv(ptr nocapture noundef 
   %80 = getelementptr inbounds i16, ptr %61, i64 2
   store i16 %79, ptr %80, align 2, !tbaa !32
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #13
-  br label %164
+  br label %172
 
 81:                                               ; preds = %22
   %82 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %24
   %83 = load float, ptr %8, align 8, !tbaa !17
-  %84 = load <4 x float>, ptr %7, align 8
-  %85 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %24, i32 1, i64 1
-  %86 = load <2 x float>, ptr %9, align 4, !tbaa !17
-  %87 = load <4 x i16>, ptr %82, align 2, !tbaa !32
-  %88 = uitofp <4 x i16> %87 to <4 x float>
-  %89 = shufflevector <2 x float> %86, <2 x float> poison, <4 x i32> <i32 undef, i32 0, i32 1, i32 undef>
-  %90 = insertelement <4 x float> %89, float %83, i64 0
-  %91 = insertelement <4 x float> %90, float %83, i64 3
-  %92 = fdiv <4 x float> %88, %91
-  %93 = load <2 x float>, ptr %11, align 4, !tbaa !17
-  %94 = load <2 x i16>, ptr %85, align 2, !tbaa !32
-  %95 = uitofp <2 x i16> %94 to <2 x float>
-  %96 = fdiv <2 x float> %95, %86
-  %97 = fadd <2 x float> %93, %96
-  %98 = shufflevector <2 x float> %93, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
-  %99 = shufflevector <4 x float> %84, <4 x float> %98, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
-  %100 = shufflevector <4 x float> %99, <4 x float> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 0>
-  %101 = fadd <4 x float> %100, %92
-  %102 = fcmp olt <4 x float> %101, <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0xC7EFFFFFE0000000>
-  %103 = fcmp ogt <4 x float> %101, <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0xC7EFFFFFE0000000>
+  %84 = load float, ptr %7, align 8, !tbaa !17
+  %85 = load <2 x float>, ptr %9, align 4, !tbaa !17
+  %86 = load <2 x float>, ptr %11, align 4, !tbaa !17
+  %87 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %24, i32 1, i64 1
+  %88 = load <4 x i16>, ptr %82, align 2, !tbaa !32
+  %89 = uitofp <4 x i16> %88 to <4 x float>
+  %90 = shufflevector <2 x float> %85, <2 x float> poison, <4 x i32> <i32 undef, i32 0, i32 1, i32 undef>
+  %91 = insertelement <4 x float> %90, float %83, i64 0
+  %92 = insertelement <4 x float> %91, float %83, i64 3
+  %93 = fdiv <4 x float> %89, %92
+  %94 = shufflevector <2 x float> %86, <2 x float> poison, <4 x i32> <i32 undef, i32 0, i32 1, i32 undef>
+  %95 = insertelement <4 x float> %94, float %84, i64 0
+  %96 = insertelement <4 x float> %95, float %84, i64 3
+  %97 = fadd <4 x float> %93, %96
+  %98 = load <2 x i16>, ptr %87, align 2, !tbaa !32
+  %99 = uitofp <2 x i16> %98 to <2 x float>
+  %100 = fdiv <2 x float> %99, %85
+  %101 = fadd <2 x float> %86, %100
+  %102 = fcmp olt <4 x float> %97, <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0xC7EFFFFFE0000000>
+  %103 = fcmp ogt <4 x float> %97, <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0xC7EFFFFFE0000000>
   %104 = shufflevector <4 x i1> %102, <4 x i1> %103, <4 x i32> <i32 0, i32 1, i32 2, i32 7>
-  %105 = select <4 x i1> %104, <4 x float> %101, <4 x float> <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0xC7EFFFFFE0000000>
-  %106 = fcmp ogt <2 x float> %97, <float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000>
-  %107 = select <2 x i1> %106, <2 x float> %97, <2 x float> <float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000>
+  %105 = select <4 x i1> %104, <4 x float> %97, <4 x float> <float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0x47EFFFFFE0000000, float 0xC7EFFFFFE0000000>
+  %106 = fcmp ogt <2 x float> %101, <float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000>
+  %107 = select <2 x i1> %106, <2 x float> %101, <2 x float> <float 0xC7EFFFFFE0000000, float 0xC7EFFFFFE0000000>
   %108 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %24, i32 2
   %109 = load i32, ptr %108, align 4, !tbaa !34
   %110 = icmp slt i32 %109, 0
@@ -969,69 +970,77 @@ define dso_local void @_ZN21btGImpactQuantizedBvh5refitEv(ptr nocapture noundef 
   %113 = trunc i64 %24 to i32
   %114 = add i32 %112, %113
   %115 = icmp eq i32 %114, 0
-  br i1 %115, label %134, label %116
+  br i1 %115, label %138, label %116
 
 116:                                              ; preds = %81
   %117 = sext i32 %114 to i64
   %118 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %117
   %119 = load <4 x i16>, ptr %118, align 2, !tbaa !32
   %120 = uitofp <4 x i16> %119 to <4 x float>
-  %121 = fdiv <4 x float> %120, %91
+  %121 = fdiv <4 x float> %120, %92
   %122 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %117, i32 1, i64 1
   %123 = load <2 x i16>, ptr %122, align 2, !tbaa !32
   %124 = uitofp <2 x i16> %123 to <2 x float>
-  %125 = fdiv <2 x float> %124, %86
-  %126 = fadd <4 x float> %100, %121
-  %127 = fcmp ogt <4 x float> %105, %126
-  %128 = fcmp olt <4 x float> %105, %126
-  %129 = shufflevector <4 x i1> %127, <4 x i1> %128, <4 x i32> <i32 0, i32 1, i32 2, i32 7>
-  %130 = select <4 x i1> %129, <4 x float> %126, <4 x float> %105
-  %131 = fadd <2 x float> %93, %125
-  %132 = fcmp olt <2 x float> %107, %131
-  %133 = select <2 x i1> %132, <2 x float> %131, <2 x float> %107
-  br label %134
+  %125 = fdiv <2 x float> %124, %85
+  %126 = insertelement <4 x float> poison, float %84, i64 0
+  %127 = shufflevector <2 x float> %86, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
+  %128 = shufflevector <4 x float> %126, <4 x float> %127, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
+  %129 = shufflevector <4 x float> %128, <4 x float> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 0>
+  %130 = fadd <4 x float> %129, %121
+  %131 = fcmp ogt <4 x float> %105, %130
+  %132 = fcmp olt <4 x float> %105, %130
+  %133 = shufflevector <4 x i1> %131, <4 x i1> %132, <4 x i32> <i32 0, i32 1, i32 2, i32 7>
+  %134 = select <4 x i1> %133, <4 x float> %130, <4 x float> %105
+  %135 = fadd <2 x float> %86, %125
+  %136 = fcmp olt <2 x float> %107, %135
+  %137 = select <2 x i1> %136, <2 x float> %135, <2 x float> %107
+  br label %138
 
-134:                                              ; preds = %116, %81
-  %135 = phi <4 x float> [ %105, %81 ], [ %130, %116 ]
-  %136 = phi <2 x float> [ %107, %81 ], [ %133, %116 ]
-  %137 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %25
-  %138 = fcmp olt <4 x float> %135, %100
-  %139 = load <4 x float>, ptr %13, align 8
-  %140 = fcmp olt <2 x float> %136, %93
-  %141 = select <4 x i1> %138, <4 x float> %100, <4 x float> %135
-  %142 = insertelement <4 x float> poison, float %83, i64 0
+138:                                              ; preds = %116, %81
+  %139 = phi <4 x float> [ %134, %116 ], [ %105, %81 ]
+  %140 = phi <2 x float> [ %137, %116 ], [ %107, %81 ]
+  %141 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %25
+  %142 = insertelement <4 x float> poison, float %84, i64 0
   %143 = shufflevector <2 x float> %86, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
   %144 = shufflevector <4 x float> %142, <4 x float> %143, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
   %145 = shufflevector <4 x float> %144, <4 x float> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 0>
-  %146 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %25, i32 1, i64 1
-  %147 = load <2 x float>, ptr %14, align 4, !tbaa !17
-  %148 = select <2 x i1> %140, <2 x float> %93, <2 x float> %136
-  %149 = fcmp olt <2 x float> %147, %148
-  %150 = select <2 x i1> %149, <2 x float> %147, <2 x float> %148
-  %151 = fsub <2 x float> %150, %93
-  %152 = fmul <2 x float> %86, %151
-  %153 = shufflevector <2 x float> %147, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
-  %154 = shufflevector <4 x float> %139, <4 x float> %153, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
-  %155 = shufflevector <4 x float> %154, <4 x float> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 0>
-  %156 = fcmp olt <4 x float> %155, %141
-  %157 = select <4 x i1> %156, <4 x float> %155, <4 x float> %141
-  %158 = fsub <4 x float> %157, %100
-  %159 = fmul <4 x float> %145, %158
-  %160 = fadd <4 x float> %159, <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
-  %161 = fptoui <4 x float> %160 to <4 x i16>
-  store <4 x i16> %161, ptr %137, align 2, !tbaa !32
-  %162 = fadd <2 x float> %152, <float 5.000000e-01, float 5.000000e-01>
-  %163 = fptoui <2 x float> %162 to <2 x i16>
-  store <2 x i16> %163, ptr %146, align 2, !tbaa !32
-  br label %164
+  %146 = fcmp olt <4 x float> %139, %145
+  %147 = load <4 x float>, ptr %13, align 8
+  %148 = fcmp olt <2 x float> %140, %86
+  %149 = select <4 x i1> %146, <4 x float> %145, <4 x float> %139
+  %150 = insertelement <4 x float> poison, float %83, i64 0
+  %151 = shufflevector <2 x float> %85, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
+  %152 = shufflevector <4 x float> %150, <4 x float> %151, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
+  %153 = shufflevector <4 x float> %152, <4 x float> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 0>
+  %154 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %23, i64 %25, i32 1, i64 1
+  %155 = load <2 x float>, ptr %14, align 4, !tbaa !17
+  %156 = select <2 x i1> %148, <2 x float> %86, <2 x float> %140
+  %157 = fcmp olt <2 x float> %155, %156
+  %158 = select <2 x i1> %157, <2 x float> %155, <2 x float> %156
+  %159 = fsub <2 x float> %158, %86
+  %160 = fmul <2 x float> %85, %159
+  %161 = shufflevector <2 x float> %155, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
+  %162 = shufflevector <4 x float> %147, <4 x float> %161, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
+  %163 = shufflevector <4 x float> %162, <4 x float> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 0>
+  %164 = fcmp olt <4 x float> %163, %149
+  %165 = select <4 x i1> %164, <4 x float> %163, <4 x float> %149
+  %166 = fsub <4 x float> %165, %145
+  %167 = fmul <4 x float> %153, %166
+  %168 = fadd <4 x float> %167, <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
+  %169 = fptoui <4 x float> %168 to <4 x i16>
+  store <4 x i16> %169, ptr %141, align 2, !tbaa !32
+  %170 = fadd <2 x float> %160, <float 5.000000e-01, float 5.000000e-01>
+  %171 = fptoui <2 x float> %170 to <2 x i16>
+  store <2 x i16> %171, ptr %154, align 2, !tbaa !32
+  br label %172
 
-164:                                              ; preds = %134, %29
-  %165 = phi ptr [ %23, %134 ], [ %34, %29 ]
-  %166 = and i64 %25, 4294967295
-  %167 = icmp eq i64 %166, 0
-  br i1 %167, label %168, label %22
+172:                                              ; preds = %138, %29
+  %173 = phi ptr [ %23, %138 ], [ %34, %29 ]
+  %174 = and i64 %25, 4294967295
+  %175 = icmp eq i64 %174, 0
+  br i1 %175, label %176, label %22
 
-168:                                              ; preds = %164, %1
+176:                                              ; preds = %172, %1
   ret void
 }
 
@@ -1194,7 +1203,7 @@ define dso_local void @_ZN21btGImpactQuantizedBvh8buildSetEv(ptr noundef nonnull
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %81)
           to label %88 unwind label %89
 
-88:                                               ; preds = %80, %87
+88:                                               ; preds = %87, %80
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #13
   resume { ptr, i32 } %82
 
@@ -1359,7 +1368,7 @@ define dso_local noundef zeroext i1 @_ZNK21btGImpactQuantizedBvh8boxQueryERK6btA
   %120 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %91, i64 %92, i32 2
   %121 = load i32, ptr %120, align 4, !tbaa !34
   %122 = icmp sgt i32 %121, -1
-  %123 = and i1 %119, %122
+  %123 = select i1 %122, i1 %119, i1 false
   br i1 %123, label %124, label %221
 
 124:                                              ; preds = %116
@@ -1513,7 +1522,7 @@ define dso_local noundef zeroext i1 @_ZNK21btGImpactQuantizedBvh8boxQueryERK6btA
 221:                                              ; preds = %112, %116
   %222 = phi i1 [ %115, %112 ], [ %122, %116 ]
   %223 = phi i1 [ false, %112 ], [ %119, %116 ]
-  %224 = or i1 %222, %223
+  %224 = select i1 %223, i1 true, i1 %222
   br i1 %224, label %225, label %227
 
 225:                                              ; preds = %214, %221
@@ -1693,7 +1702,7 @@ define dso_local noundef zeroext i1 @_ZNK21btGImpactQuantizedBvh8rayQueryERK9btV
   %134 = getelementptr inbounds %struct.BT_QUANTIZED_BVH_NODE, ptr %25, i64 %26, i32 2
   %135 = load i32, ptr %134, align 4, !tbaa !34
   %136 = icmp sgt i32 %135, -1
-  %137 = and i1 %133, %136
+  %137 = select i1 %136, i1 %133, i1 false
   br i1 %137, label %138, label %235
 
 138:                                              ; preds = %126
@@ -1847,7 +1856,7 @@ define dso_local noundef zeroext i1 @_ZNK21btGImpactQuantizedBvh8rayQueryERK9btV
 235:                                              ; preds = %122, %126
   %236 = phi i1 [ %125, %122 ], [ %136, %126 ]
   %237 = phi i1 [ false, %122 ], [ %133, %126 ]
-  %238 = or i1 %236, %237
+  %238 = select i1 %237, i1 true, i1 %236
   br i1 %238, label %239, label %241
 
 239:                                              ; preds = %228, %235

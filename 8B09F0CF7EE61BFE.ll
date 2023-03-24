@@ -727,8 +727,8 @@ define linkonce_odr dso_local noundef i32 @_ZN12gjkepa2_impl3GJK8EvaluateERKNS_1
 106:                                              ; preds = %99, %104
   %107 = phi ptr [ %103, %99 ], [ %105, %104 ]
   %108 = fneg float %91
-  %109 = fneg float %90
-  %110 = fneg float %88
+  %109 = fneg float %88
+  %110 = fneg float %90
   %111 = extractvalue { <2 x float>, <2 x float> } %87, 1
   %112 = extractvalue { <2 x float>, <2 x float> } %87, 0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #11
@@ -745,11 +745,11 @@ define linkonce_odr dso_local noundef i32 @_ZN12gjkepa2_impl3GJK8EvaluateERKNS_1
   %123 = load float, ptr %23, align 8, !tbaa !23
   %124 = load float, ptr %115, align 4, !tbaa !23
   %125 = insertelement <2 x float> %120, float %124, i64 1
-  %126 = insertelement <2 x float> poison, float %109, i64 0
+  %126 = insertelement <2 x float> poison, float %110, i64 0
   %127 = shufflevector <2 x float> %126, <2 x float> poison, <2 x i32> zeroinitializer
   %128 = fmul <2 x float> %125, %127
   %129 = insertelement <2 x float> %118, float %123, i64 1
-  %130 = insertelement <2 x float> poison, float %110, i64 0
+  %130 = insertelement <2 x float> poison, float %109, i64 0
   %131 = shufflevector <2 x float> %130, <2 x float> poison, <2 x i32> zeroinitializer
   %132 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %129, <2 x float> %131, <2 x float> %128)
   %133 = load float, ptr %116, align 8, !tbaa !23
@@ -760,8 +760,8 @@ define linkonce_odr dso_local noundef i32 @_ZN12gjkepa2_impl3GJK8EvaluateERKNS_1
   %138 = load float, ptr %25, align 8, !tbaa !23
   %139 = getelementptr inbounds %"struct.gjkepa2_impl::MinkowskiDiff", ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 1
   %140 = load float, ptr %139, align 4, !tbaa !23
-  %141 = fmul float %140, %109
-  %142 = tail call float @llvm.fmuladd.f32(float %138, float %110, float %141)
+  %141 = fmul float %140, %110
+  %142 = tail call float @llvm.fmuladd.f32(float %138, float %109, float %141)
   %143 = getelementptr inbounds %"struct.gjkepa2_impl::MinkowskiDiff", ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 2
   %144 = load float, ptr %143, align 8, !tbaa !23
   %145 = tail call float @llvm.fmuladd.f32(float %144, float %108, float %142)
@@ -819,596 +819,595 @@ define linkonce_odr dso_local noundef i32 @_ZN12gjkepa2_impl3GJK8EvaluateERKNS_1
   store <2 x float> %189, ptr %193, align 8, !tbaa.struct !24
   %194 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 5, i64 3, i32 1, i32 0, i64 2
   store <2 x float> %192, ptr %194, align 8, !tbaa.struct !26
-  %195 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 0, i32 1
-  store float 1.000000e+00, ptr %195, align 8, !tbaa !23
-  %196 = load ptr, ptr %41, align 8, !tbaa !30
-  %197 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %196, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %43, ptr noundef nonnull align 4 dereferenceable(16) %197, i64 16, i1 false), !tbaa.struct !24
-  %198 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 3
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %198, ptr noundef nonnull align 4 dereferenceable(16) %197, i64 16, i1 false)
-  %199 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %199, ptr noundef nonnull align 4 dereferenceable(16) %197, i64 16, i1 false)
-  %200 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %200, ptr noundef nonnull align 4 dereferenceable(16) %197, i64 16, i1 false)
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %197, i64 16, i1 false)
-  %201 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %4, i64 0, i32 1
-  %202 = getelementptr inbounds float, ptr %7, i64 1
-  %203 = load i32, ptr %18, align 4, !tbaa !18
-  %204 = load <2 x float>, ptr %43, align 8, !tbaa !23
-  %205 = load float, ptr %50, align 8, !tbaa !23
-  %206 = getelementptr inbounds [4 x float], ptr %6, i64 0, i64 1
-  %207 = getelementptr inbounds [4 x float], ptr %6, i64 0, i64 2
-  %208 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 1, i32 0, i64 1
-  %209 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 1, i32 0, i64 2
-  %210 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 2, i32 0, i64 1
-  %211 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 2, i32 0, i64 2
-  %212 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 3, i32 0, i64 1
-  %213 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 3, i32 0, i64 2
-  br label %214
+  store float 1.000000e+00, ptr %59, align 8, !tbaa !23
+  %195 = load ptr, ptr %41, align 8, !tbaa !30
+  %196 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %195, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %43, ptr noundef nonnull align 4 dereferenceable(16) %196, i64 16, i1 false), !tbaa.struct !24
+  %197 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 3
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %197, ptr noundef nonnull align 4 dereferenceable(16) %196, i64 16, i1 false)
+  %198 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %198, ptr noundef nonnull align 4 dereferenceable(16) %196, i64 16, i1 false)
+  %199 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %199, ptr noundef nonnull align 4 dereferenceable(16) %196, i64 16, i1 false)
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %196, i64 16, i1 false)
+  %200 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %4, i64 0, i32 1
+  %201 = getelementptr inbounds float, ptr %7, i64 1
+  %202 = load i32, ptr %18, align 4, !tbaa !18
+  %203 = load <2 x float>, ptr %43, align 8, !tbaa !23
+  %204 = load float, ptr %50, align 8, !tbaa !23
+  %205 = getelementptr inbounds [4 x float], ptr %6, i64 0, i64 1
+  %206 = getelementptr inbounds [4 x float], ptr %6, i64 0, i64 2
+  %207 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 1, i32 0, i64 1
+  %208 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 1, i32 0, i64 2
+  %209 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 2, i32 0, i64 1
+  %210 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 2, i32 0, i64 2
+  %211 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 3, i32 0, i64 1
+  %212 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 3, i32 0, i64 2
+  br label %213
 
-214:                                              ; preds = %552, %106
-  %215 = phi float [ %205, %106 ], [ %554, %552 ]
-  %216 = phi i32 [ %203, %106 ], [ %222, %552 ]
-  %217 = phi float [ 0.000000e+00, %106 ], [ %432, %552 ]
-  %218 = phi i32 [ 0, %106 ], [ %421, %552 ]
-  %219 = phi float [ %52, %106 ], [ %540, %552 ]
-  %220 = phi i32 [ 0, %106 ], [ %559, %552 ]
-  %221 = phi <2 x float> [ %204, %106 ], [ %555, %552 ]
-  %222 = sub i32 1, %216
-  %223 = zext i32 %216 to i64
-  %224 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %223
-  %225 = zext i32 %222 to i64
-  %226 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %225
-  %227 = fmul <2 x float> %221, %221
-  %228 = extractelement <2 x float> %227, i64 1
-  %229 = extractelement <2 x float> %221, i64 0
-  %230 = call float @llvm.fmuladd.f32(float %229, float %229, float %228)
-  %231 = call float @llvm.fmuladd.f32(float %215, float %215, float %230)
-  %232 = call float @llvm.sqrt.f32(float %231)
-  %233 = fcmp olt float %232, 0x3F1A36E2E0000000
-  br i1 %233, label %234, label %236
+213:                                              ; preds = %551, %106
+  %214 = phi float [ %204, %106 ], [ %553, %551 ]
+  %215 = phi i32 [ %202, %106 ], [ %221, %551 ]
+  %216 = phi float [ 0.000000e+00, %106 ], [ %431, %551 ]
+  %217 = phi i32 [ 0, %106 ], [ %420, %551 ]
+  %218 = phi float [ %52, %106 ], [ %539, %551 ]
+  %219 = phi i32 [ 0, %106 ], [ %558, %551 ]
+  %220 = phi <2 x float> [ %203, %106 ], [ %554, %551 ]
+  %221 = sub i32 1, %215
+  %222 = zext i32 %215 to i64
+  %223 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %222
+  %224 = zext i32 %221 to i64
+  %225 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %224
+  %226 = fmul <2 x float> %220, %220
+  %227 = extractelement <2 x float> %226, i64 1
+  %228 = extractelement <2 x float> %220, i64 0
+  %229 = call float @llvm.fmuladd.f32(float %228, float %228, float %227)
+  %230 = call float @llvm.fmuladd.f32(float %214, float %214, float %229)
+  %231 = call float @llvm.sqrt.f32(float %230)
+  %232 = fcmp olt float %231, 0x3F1A36E2E0000000
+  br i1 %232, label %233, label %235
 
-234:                                              ; preds = %214
-  %235 = zext i32 %216 to i64
+233:                                              ; preds = %213
+  %234 = zext i32 %215 to i64
   store i32 1, ptr %19, align 8, !tbaa !17
-  br label %619
+  br label %618
 
-236:                                              ; preds = %214
-  %237 = fneg <2 x float> %221
-  %238 = fneg float %215
-  %239 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %223, i32 2
-  %240 = load i32, ptr %239, align 8, !tbaa !21
-  %241 = zext i32 %240 to i64
-  %242 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %223, i32 1, i64 %241
-  store float 0.000000e+00, ptr %242, align 4, !tbaa !23
-  %243 = load i32, ptr %17, align 8, !tbaa !5
-  %244 = add i32 %243, -1
-  store i32 %244, ptr %17, align 8, !tbaa !5
-  %245 = zext i32 %244 to i64
-  %246 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %245
-  %247 = load ptr, ptr %246, align 8, !tbaa !30
-  %248 = getelementptr inbounds [4 x ptr], ptr %224, i64 0, i64 %241
-  store ptr %247, ptr %248, align 8, !tbaa !30
-  %249 = add i32 %240, 1
-  store i32 %249, ptr %239, align 8, !tbaa !21
-  %250 = fdiv float 1.000000e+00, %232
-  %251 = insertelement <2 x float> poison, float %250, i64 0
-  %252 = shufflevector <2 x float> %251, <2 x float> poison, <2 x i32> zeroinitializer
-  %253 = fmul <2 x float> %252, %237
-  %254 = fmul float %250, %238
-  %255 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %254, i64 0
-  store <2 x float> %253, ptr %247, align 4, !tbaa.struct !24
-  %256 = getelementptr inbounds i8, ptr %247, i64 8
-  store <2 x float> %255, ptr %256, align 4, !tbaa.struct !26
-  %257 = load ptr, ptr %0, align 8, !tbaa !30
-  %258 = load i64, ptr %38, align 8, !tbaa !31
-  %259 = load i64, ptr %39, align 8, !tbaa !31
-  %260 = getelementptr inbounds i8, ptr %257, i64 %259
-  %261 = and i64 %258, 1
-  %262 = icmp eq i64 %261, 0
-  br i1 %262, label %268, label %263
+235:                                              ; preds = %213
+  %236 = fneg <2 x float> %220
+  %237 = fneg float %214
+  %238 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %222, i32 2
+  %239 = load i32, ptr %238, align 8, !tbaa !21
+  %240 = zext i32 %239 to i64
+  %241 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %222, i32 1, i64 %240
+  store float 0.000000e+00, ptr %241, align 4, !tbaa !23
+  %242 = load i32, ptr %17, align 8, !tbaa !5
+  %243 = add i32 %242, -1
+  store i32 %243, ptr %17, align 8, !tbaa !5
+  %244 = zext i32 %243 to i64
+  %245 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %244
+  %246 = load ptr, ptr %245, align 8, !tbaa !30
+  %247 = getelementptr inbounds [4 x ptr], ptr %223, i64 0, i64 %240
+  store ptr %246, ptr %247, align 8, !tbaa !30
+  %248 = add i32 %239, 1
+  store i32 %248, ptr %238, align 8, !tbaa !21
+  %249 = fdiv float 1.000000e+00, %231
+  %250 = insertelement <2 x float> poison, float %249, i64 0
+  %251 = shufflevector <2 x float> %250, <2 x float> poison, <2 x i32> zeroinitializer
+  %252 = fmul <2 x float> %251, %236
+  %253 = fmul float %249, %237
+  %254 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %253, i64 0
+  store <2 x float> %252, ptr %246, align 4, !tbaa.struct !24
+  %255 = getelementptr inbounds i8, ptr %246, i64 8
+  store <2 x float> %254, ptr %255, align 4, !tbaa.struct !26
+  %256 = load ptr, ptr %0, align 8, !tbaa !30
+  %257 = load i64, ptr %38, align 8, !tbaa !31
+  %258 = load i64, ptr %39, align 8, !tbaa !31
+  %259 = getelementptr inbounds i8, ptr %256, i64 %258
+  %260 = and i64 %257, 1
+  %261 = icmp eq i64 %260, 0
+  br i1 %261, label %267, label %262
 
-263:                                              ; preds = %236
-  %264 = load ptr, ptr %260, align 8, !tbaa !32
-  %265 = add i64 %258, -1
-  %266 = getelementptr i8, ptr %264, i64 %265, !nosanitize !34
-  %267 = load ptr, ptr %266, align 8, !nosanitize !34
-  br label %270
+262:                                              ; preds = %235
+  %263 = load ptr, ptr %259, align 8, !tbaa !32
+  %264 = add i64 %257, -1
+  %265 = getelementptr i8, ptr %263, i64 %264, !nosanitize !34
+  %266 = load ptr, ptr %265, align 8, !nosanitize !34
+  br label %269
 
-268:                                              ; preds = %236
-  %269 = inttoptr i64 %258 to ptr
-  br label %270
+267:                                              ; preds = %235
+  %268 = inttoptr i64 %257 to ptr
+  br label %269
 
-270:                                              ; preds = %268, %263
-  %271 = phi ptr [ %267, %263 ], [ %269, %268 ]
-  %272 = call { <2 x float>, <2 x float> } %271(ptr noundef nonnull align 8 dereferenceable(24) %260, ptr noundef nonnull align 4 dereferenceable(16) %247)
-  %273 = load float, ptr %247, align 4, !tbaa !23
-  %274 = getelementptr inbounds [4 x float], ptr %247, i64 0, i64 1
-  %275 = load float, ptr %274, align 4, !tbaa !23
-  %276 = load float, ptr %256, align 4, !tbaa !23
-  %277 = load ptr, ptr %92, align 8, !tbaa !30
-  %278 = load i64, ptr %38, align 8, !tbaa !31
-  %279 = load i64, ptr %39, align 8, !tbaa !31
-  %280 = getelementptr inbounds i8, ptr %277, i64 %279
-  %281 = and i64 %278, 1
-  %282 = icmp eq i64 %281, 0
-  br i1 %282, label %288, label %283
+269:                                              ; preds = %267, %262
+  %270 = phi ptr [ %266, %262 ], [ %268, %267 ]
+  %271 = call { <2 x float>, <2 x float> } %270(ptr noundef nonnull align 8 dereferenceable(24) %259, ptr noundef nonnull align 4 dereferenceable(16) %246)
+  %272 = load float, ptr %246, align 4, !tbaa !23
+  %273 = getelementptr inbounds [4 x float], ptr %246, i64 0, i64 1
+  %274 = load float, ptr %273, align 4, !tbaa !23
+  %275 = load float, ptr %255, align 4, !tbaa !23
+  %276 = load ptr, ptr %92, align 8, !tbaa !30
+  %277 = load i64, ptr %38, align 8, !tbaa !31
+  %278 = load i64, ptr %39, align 8, !tbaa !31
+  %279 = getelementptr inbounds i8, ptr %276, i64 %278
+  %280 = and i64 %277, 1
+  %281 = icmp eq i64 %280, 0
+  br i1 %281, label %287, label %282
 
-283:                                              ; preds = %270
-  %284 = load ptr, ptr %280, align 8, !tbaa !32
-  %285 = add i64 %278, -1
-  %286 = getelementptr i8, ptr %284, i64 %285, !nosanitize !34
-  %287 = load ptr, ptr %286, align 8, !nosanitize !34
-  br label %290
+282:                                              ; preds = %269
+  %283 = load ptr, ptr %279, align 8, !tbaa !32
+  %284 = add i64 %277, -1
+  %285 = getelementptr i8, ptr %283, i64 %284, !nosanitize !34
+  %286 = load ptr, ptr %285, align 8, !nosanitize !34
+  br label %289
 
-288:                                              ; preds = %270
-  %289 = inttoptr i64 %278 to ptr
-  br label %290
+287:                                              ; preds = %269
+  %288 = inttoptr i64 %277 to ptr
+  br label %289
 
-290:                                              ; preds = %283, %288
-  %291 = phi ptr [ %287, %283 ], [ %289, %288 ]
-  %292 = fneg float %276
-  %293 = fneg float %275
-  %294 = fneg float %273
-  %295 = extractvalue { <2 x float>, <2 x float> } %272, 1
-  %296 = extractvalue { <2 x float>, <2 x float> } %272, 0
+289:                                              ; preds = %282, %287
+  %290 = phi ptr [ %286, %282 ], [ %288, %287 ]
+  %291 = fneg float %275
+  %292 = fneg float %272
+  %293 = fneg float %274
+  %294 = extractvalue { <2 x float>, <2 x float> } %271, 1
+  %295 = extractvalue { <2 x float>, <2 x float> } %271, 0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #11
-  %297 = load <4 x float>, ptr %20, align 8
-  %298 = shufflevector <4 x float> %297, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %299 = load <4 x float>, ptr %113, align 4
-  %300 = shufflevector <4 x float> %299, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %301 = load <4 x float>, ptr %114, align 8
-  %302 = shufflevector <4 x float> %301, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %303 = load float, ptr %23, align 8, !tbaa !23
-  %304 = load float, ptr %115, align 4, !tbaa !23
-  %305 = insertelement <2 x float> %300, float %304, i64 1
-  %306 = insertelement <2 x float> poison, float %293, i64 0
-  %307 = shufflevector <2 x float> %306, <2 x float> poison, <2 x i32> zeroinitializer
-  %308 = fmul <2 x float> %305, %307
-  %309 = insertelement <2 x float> %298, float %303, i64 1
-  %310 = insertelement <2 x float> poison, float %294, i64 0
-  %311 = shufflevector <2 x float> %310, <2 x float> poison, <2 x i32> zeroinitializer
-  %312 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %309, <2 x float> %311, <2 x float> %308)
-  %313 = load float, ptr %116, align 8, !tbaa !23
-  %314 = insertelement <2 x float> %302, float %313, i64 1
-  %315 = insertelement <2 x float> poison, float %292, i64 0
-  %316 = shufflevector <2 x float> %315, <2 x float> poison, <2 x i32> zeroinitializer
-  %317 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %314, <2 x float> %316, <2 x float> %312)
-  %318 = load float, ptr %25, align 8, !tbaa !23
-  %319 = load float, ptr %139, align 4, !tbaa !23
-  %320 = fmul float %319, %293
-  %321 = call float @llvm.fmuladd.f32(float %318, float %294, float %320)
-  %322 = load float, ptr %143, align 8, !tbaa !23
-  %323 = call float @llvm.fmuladd.f32(float %322, float %292, float %321)
-  %324 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %323, i64 0
-  store <2 x float> %317, ptr %4, align 8
-  store <2 x float> %324, ptr %201, align 8
-  %325 = call { <2 x float>, <2 x float> } %291(ptr noundef nonnull align 8 dereferenceable(24) %280, ptr noundef nonnull align 4 dereferenceable(16) %4)
-  %326 = extractvalue { <2 x float>, <2 x float> } %325, 0
-  %327 = extractvalue { <2 x float>, <2 x float> } %325, 1
-  %328 = extractelement <2 x float> %326, i64 0
-  %329 = extractelement <2 x float> %326, i64 1
-  %330 = extractelement <2 x float> %327, i64 0
-  %331 = load float, ptr %31, align 8, !tbaa !23
-  %332 = load float, ptr %159, align 4, !tbaa !23
-  %333 = fmul float %329, %332
-  %334 = call float @llvm.fmuladd.f32(float %331, float %328, float %333)
-  %335 = load float, ptr %163, align 8, !tbaa !23
-  %336 = call float @llvm.fmuladd.f32(float %335, float %330, float %334)
-  %337 = load float, ptr %166, align 8, !tbaa !23
-  %338 = fadd float %337, %336
+  %296 = load <4 x float>, ptr %20, align 8
+  %297 = shufflevector <4 x float> %296, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %298 = load <4 x float>, ptr %113, align 4
+  %299 = shufflevector <4 x float> %298, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %300 = load <4 x float>, ptr %114, align 8
+  %301 = shufflevector <4 x float> %300, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %302 = load float, ptr %23, align 8, !tbaa !23
+  %303 = load float, ptr %115, align 4, !tbaa !23
+  %304 = insertelement <2 x float> %299, float %303, i64 1
+  %305 = insertelement <2 x float> poison, float %293, i64 0
+  %306 = shufflevector <2 x float> %305, <2 x float> poison, <2 x i32> zeroinitializer
+  %307 = fmul <2 x float> %304, %306
+  %308 = insertelement <2 x float> %297, float %302, i64 1
+  %309 = insertelement <2 x float> poison, float %292, i64 0
+  %310 = shufflevector <2 x float> %309, <2 x float> poison, <2 x i32> zeroinitializer
+  %311 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %308, <2 x float> %310, <2 x float> %307)
+  %312 = load float, ptr %116, align 8, !tbaa !23
+  %313 = insertelement <2 x float> %301, float %312, i64 1
+  %314 = insertelement <2 x float> poison, float %291, i64 0
+  %315 = shufflevector <2 x float> %314, <2 x float> poison, <2 x i32> zeroinitializer
+  %316 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %313, <2 x float> %315, <2 x float> %311)
+  %317 = load float, ptr %25, align 8, !tbaa !23
+  %318 = load float, ptr %139, align 4, !tbaa !23
+  %319 = fmul float %318, %293
+  %320 = call float @llvm.fmuladd.f32(float %317, float %292, float %319)
+  %321 = load float, ptr %143, align 8, !tbaa !23
+  %322 = call float @llvm.fmuladd.f32(float %321, float %291, float %320)
+  %323 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %322, i64 0
+  store <2 x float> %316, ptr %4, align 8
+  store <2 x float> %323, ptr %200, align 8
+  %324 = call { <2 x float>, <2 x float> } %290(ptr noundef nonnull align 8 dereferenceable(24) %279, ptr noundef nonnull align 4 dereferenceable(16) %4)
+  %325 = extractvalue { <2 x float>, <2 x float> } %324, 0
+  %326 = extractvalue { <2 x float>, <2 x float> } %324, 1
+  %327 = extractelement <2 x float> %325, i64 0
+  %328 = extractelement <2 x float> %325, i64 1
+  %329 = extractelement <2 x float> %326, i64 0
+  %330 = load float, ptr %31, align 8, !tbaa !23
+  %331 = load float, ptr %159, align 4, !tbaa !23
+  %332 = fmul float %328, %331
+  %333 = call float @llvm.fmuladd.f32(float %330, float %327, float %332)
+  %334 = load float, ptr %163, align 8, !tbaa !23
+  %335 = call float @llvm.fmuladd.f32(float %334, float %329, float %333)
+  %336 = load float, ptr %166, align 8, !tbaa !23
+  %337 = fadd float %336, %335
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #11
-  %339 = load <4 x float>, ptr %26, align 8
-  %340 = shufflevector <4 x float> %339, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %341 = load <4 x float>, ptr %152, align 4
-  %342 = shufflevector <4 x float> %341, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %343 = load <4 x float>, ptr %154, align 8
-  %344 = shufflevector <4 x float> %343, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %345 = load float, ptr %29, align 8, !tbaa !23
-  %346 = load float, ptr %156, align 4, !tbaa !23
-  %347 = insertelement <2 x float> %342, float %346, i64 1
-  %348 = shufflevector <2 x float> %326, <2 x float> poison, <2 x i32> <i32 1, i32 1>
-  %349 = fmul <2 x float> %347, %348
-  %350 = insertelement <2 x float> %340, float %345, i64 1
-  %351 = shufflevector <2 x float> %326, <2 x float> poison, <2 x i32> zeroinitializer
-  %352 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %350, <2 x float> %351, <2 x float> %349)
-  %353 = load float, ptr %157, align 8, !tbaa !23
-  %354 = insertelement <2 x float> %344, float %353, i64 1
-  %355 = shufflevector <2 x float> %327, <2 x float> poison, <2 x i32> zeroinitializer
-  %356 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %354, <2 x float> %355, <2 x float> %352)
-  %357 = load <2 x float>, ptr %33, align 8, !tbaa !23
-  %358 = fadd <2 x float> %357, %356
-  %359 = fsub <2 x float> %296, %358
-  %360 = extractelement <2 x float> %295, i64 0
-  %361 = fsub float %360, %338
-  %362 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %361, i64 0
-  %363 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %247, i64 0, i32 1
-  store <2 x float> %359, ptr %363, align 4, !tbaa.struct !24
-  %364 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %247, i64 0, i32 1, i32 0, i64 2
-  store <2 x float> %362, ptr %364, align 4, !tbaa.struct !26
-  %365 = load i32, ptr %239, align 8, !tbaa !21
-  %366 = add i32 %365, -1
-  %367 = zext i32 %366 to i64
-  %368 = getelementptr inbounds [4 x ptr], ptr %224, i64 0, i64 %367
-  %369 = load ptr, ptr %368, align 8, !tbaa !30
-  %370 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %369, i64 0, i32 1
-  %371 = load float, ptr %370, align 4, !tbaa !23
-  %372 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %369, i64 0, i32 1, i32 0, i64 1
-  %373 = load float, ptr %372, align 4, !tbaa !23
-  %374 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %369, i64 0, i32 1, i32 0, i64 2
-  %375 = load float, ptr %374, align 4, !tbaa !23
-  %376 = load float, ptr %6, align 16, !tbaa !23
-  %377 = fsub float %371, %376
-  %378 = load float, ptr %206, align 4, !tbaa !23
-  %379 = fsub float %373, %378
-  %380 = load float, ptr %207, align 8, !tbaa !23
-  %381 = fsub float %375, %380
-  %382 = fmul float %379, %379
-  %383 = call float @llvm.fmuladd.f32(float %377, float %377, float %382)
-  %384 = call float @llvm.fmuladd.f32(float %381, float %381, float %383)
-  %385 = fcmp olt float %384, 0x3F1A36E2E0000000
-  br i1 %385, label %436, label %386
+  %338 = load <4 x float>, ptr %26, align 8
+  %339 = shufflevector <4 x float> %338, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %340 = load <4 x float>, ptr %152, align 4
+  %341 = shufflevector <4 x float> %340, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %342 = load <4 x float>, ptr %154, align 8
+  %343 = shufflevector <4 x float> %342, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %344 = load float, ptr %29, align 8, !tbaa !23
+  %345 = load float, ptr %156, align 4, !tbaa !23
+  %346 = insertelement <2 x float> %341, float %345, i64 1
+  %347 = shufflevector <2 x float> %325, <2 x float> poison, <2 x i32> <i32 1, i32 1>
+  %348 = fmul <2 x float> %346, %347
+  %349 = insertelement <2 x float> %339, float %344, i64 1
+  %350 = shufflevector <2 x float> %325, <2 x float> poison, <2 x i32> zeroinitializer
+  %351 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %349, <2 x float> %350, <2 x float> %348)
+  %352 = load float, ptr %157, align 8, !tbaa !23
+  %353 = insertelement <2 x float> %343, float %352, i64 1
+  %354 = shufflevector <2 x float> %326, <2 x float> poison, <2 x i32> zeroinitializer
+  %355 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %353, <2 x float> %354, <2 x float> %351)
+  %356 = load <2 x float>, ptr %33, align 8, !tbaa !23
+  %357 = fadd <2 x float> %356, %355
+  %358 = fsub <2 x float> %295, %357
+  %359 = extractelement <2 x float> %294, i64 0
+  %360 = fsub float %359, %337
+  %361 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %360, i64 0
+  %362 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %246, i64 0, i32 1
+  store <2 x float> %358, ptr %362, align 4, !tbaa.struct !24
+  %363 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %246, i64 0, i32 1, i32 0, i64 2
+  store <2 x float> %361, ptr %363, align 4, !tbaa.struct !26
+  %364 = load i32, ptr %238, align 8, !tbaa !21
+  %365 = add i32 %364, -1
+  %366 = zext i32 %365 to i64
+  %367 = getelementptr inbounds [4 x ptr], ptr %223, i64 0, i64 %366
+  %368 = load ptr, ptr %367, align 8, !tbaa !30
+  %369 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %368, i64 0, i32 1
+  %370 = load float, ptr %369, align 4, !tbaa !23
+  %371 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %368, i64 0, i32 1, i32 0, i64 1
+  %372 = load float, ptr %371, align 4, !tbaa !23
+  %373 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %368, i64 0, i32 1, i32 0, i64 2
+  %374 = load float, ptr %373, align 4, !tbaa !23
+  %375 = load float, ptr %6, align 16, !tbaa !23
+  %376 = fsub float %370, %375
+  %377 = load float, ptr %205, align 4, !tbaa !23
+  %378 = fsub float %372, %377
+  %379 = load float, ptr %206, align 8, !tbaa !23
+  %380 = fsub float %374, %379
+  %381 = fmul float %378, %378
+  %382 = call float @llvm.fmuladd.f32(float %376, float %376, float %381)
+  %383 = call float @llvm.fmuladd.f32(float %380, float %380, float %382)
+  %384 = fcmp olt float %383, 0x3F1A36E2E0000000
+  br i1 %384, label %435, label %385
 
-386:                                              ; preds = %290
-  %387 = load float, ptr %200, align 16, !tbaa !23
-  %388 = fsub float %371, %387
-  %389 = load float, ptr %208, align 4, !tbaa !23
-  %390 = fsub float %373, %389
-  %391 = load float, ptr %209, align 8, !tbaa !23
-  %392 = fsub float %375, %391
-  %393 = fmul float %390, %390
-  %394 = call float @llvm.fmuladd.f32(float %388, float %388, float %393)
-  %395 = call float @llvm.fmuladd.f32(float %392, float %392, float %394)
-  %396 = fcmp olt float %395, 0x3F1A36E2E0000000
-  br i1 %396, label %436, label %397
+385:                                              ; preds = %289
+  %386 = load float, ptr %199, align 16, !tbaa !23
+  %387 = fsub float %370, %386
+  %388 = load float, ptr %207, align 4, !tbaa !23
+  %389 = fsub float %372, %388
+  %390 = load float, ptr %208, align 8, !tbaa !23
+  %391 = fsub float %374, %390
+  %392 = fmul float %389, %389
+  %393 = call float @llvm.fmuladd.f32(float %387, float %387, float %392)
+  %394 = call float @llvm.fmuladd.f32(float %391, float %391, float %393)
+  %395 = fcmp olt float %394, 0x3F1A36E2E0000000
+  br i1 %395, label %435, label %396
 
-397:                                              ; preds = %386
-  %398 = load float, ptr %199, align 16, !tbaa !23
-  %399 = fsub float %371, %398
-  %400 = load float, ptr %210, align 4, !tbaa !23
-  %401 = fsub float %373, %400
-  %402 = load float, ptr %211, align 8, !tbaa !23
-  %403 = fsub float %375, %402
-  %404 = fmul float %401, %401
-  %405 = call float @llvm.fmuladd.f32(float %399, float %399, float %404)
-  %406 = call float @llvm.fmuladd.f32(float %403, float %403, float %405)
-  %407 = fcmp olt float %406, 0x3F1A36E2E0000000
-  br i1 %407, label %436, label %408
+396:                                              ; preds = %385
+  %397 = load float, ptr %198, align 16, !tbaa !23
+  %398 = fsub float %370, %397
+  %399 = load float, ptr %209, align 4, !tbaa !23
+  %400 = fsub float %372, %399
+  %401 = load float, ptr %210, align 8, !tbaa !23
+  %402 = fsub float %374, %401
+  %403 = fmul float %400, %400
+  %404 = call float @llvm.fmuladd.f32(float %398, float %398, float %403)
+  %405 = call float @llvm.fmuladd.f32(float %402, float %402, float %404)
+  %406 = fcmp olt float %405, 0x3F1A36E2E0000000
+  br i1 %406, label %435, label %407
 
-408:                                              ; preds = %397
-  %409 = load float, ptr %198, align 16, !tbaa !23
-  %410 = fsub float %371, %409
-  %411 = load float, ptr %212, align 4, !tbaa !23
-  %412 = fsub float %373, %411
-  %413 = load float, ptr %213, align 8, !tbaa !23
-  %414 = fsub float %375, %413
-  %415 = fmul float %412, %412
-  %416 = call float @llvm.fmuladd.f32(float %410, float %410, float %415)
-  %417 = call float @llvm.fmuladd.f32(float %414, float %414, float %416)
-  %418 = fcmp olt float %417, 0x3F1A36E2E0000000
-  br i1 %418, label %436, label %419
+407:                                              ; preds = %396
+  %408 = load float, ptr %197, align 16, !tbaa !23
+  %409 = fsub float %370, %408
+  %410 = load float, ptr %211, align 4, !tbaa !23
+  %411 = fsub float %372, %410
+  %412 = load float, ptr %212, align 8, !tbaa !23
+  %413 = fsub float %374, %412
+  %414 = fmul float %411, %411
+  %415 = call float @llvm.fmuladd.f32(float %409, float %409, float %414)
+  %416 = call float @llvm.fmuladd.f32(float %413, float %413, float %415)
+  %417 = fcmp olt float %416, 0x3F1A36E2E0000000
+  br i1 %417, label %435, label %418
 
-419:                                              ; preds = %408
-  %420 = add nuw nsw i32 %218, 1
-  %421 = and i32 %420, 3
-  %422 = zext i32 %421 to i64
-  %423 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 %422
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %423, ptr noundef nonnull align 4 dereferenceable(16) %370, i64 16, i1 false), !tbaa.struct !24
-  %424 = load float, ptr %43, align 8, !tbaa !23
-  %425 = load float, ptr %44, align 4, !tbaa !23
-  %426 = fmul float %425, %373
-  %427 = call float @llvm.fmuladd.f32(float %424, float %371, float %426)
-  %428 = load float, ptr %50, align 8, !tbaa !23
-  %429 = call float @llvm.fmuladd.f32(float %428, float %375, float %427)
-  %430 = fdiv float %429, %232
-  %431 = fcmp ogt float %430, %217
-  %432 = select i1 %431, float %430, float %217
-  %433 = fsub float %232, %432
-  %434 = call float @llvm.fmuladd.f32(float %232, float 0xBF1A36E2E0000000, float %433)
-  %435 = fcmp ugt float %434, 0.000000e+00
-  br i1 %435, label %464, label %450
+418:                                              ; preds = %407
+  %419 = add nuw nsw i32 %217, 1
+  %420 = and i32 %419, 3
+  %421 = zext i32 %420 to i64
+  %422 = getelementptr inbounds [4 x %class.btVector3], ptr %6, i64 0, i64 %421
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %422, ptr noundef nonnull align 4 dereferenceable(16) %369, i64 16, i1 false), !tbaa.struct !24
+  %423 = load float, ptr %43, align 8, !tbaa !23
+  %424 = load float, ptr %44, align 4, !tbaa !23
+  %425 = fmul float %424, %372
+  %426 = call float @llvm.fmuladd.f32(float %423, float %370, float %425)
+  %427 = load float, ptr %50, align 8, !tbaa !23
+  %428 = call float @llvm.fmuladd.f32(float %427, float %374, float %426)
+  %429 = fdiv float %428, %231
+  %430 = fcmp ogt float %429, %216
+  %431 = select i1 %430, float %429, float %216
+  %432 = fsub float %231, %431
+  %433 = call float @llvm.fmuladd.f32(float %231, float 0xBF1A36E2E0000000, float %432)
+  %434 = fcmp ugt float %433, 0.000000e+00
+  br i1 %434, label %463, label %449
 
-436:                                              ; preds = %408, %397, %386, %290
-  %437 = load i32, ptr %18, align 4, !tbaa !18
-  %438 = zext i32 %437 to i64
-  %439 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %438
-  %440 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %438, i32 2
-  %441 = load i32, ptr %440, align 8, !tbaa !21
-  %442 = add i32 %441, -1
-  store i32 %442, ptr %440, align 8, !tbaa !21
-  %443 = zext i32 %442 to i64
-  %444 = getelementptr inbounds [4 x ptr], ptr %439, i64 0, i64 %443
-  %445 = load ptr, ptr %444, align 8, !tbaa !30
-  %446 = load i32, ptr %17, align 8, !tbaa !5
-  %447 = add i32 %446, 1
-  store i32 %447, ptr %17, align 8, !tbaa !5
-  %448 = zext i32 %446 to i64
-  %449 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %448
-  store ptr %445, ptr %449, align 8, !tbaa !30
-  br label %619
+435:                                              ; preds = %407, %396, %385, %289
+  %436 = load i32, ptr %18, align 4, !tbaa !18
+  %437 = zext i32 %436 to i64
+  %438 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %437
+  %439 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %437, i32 2
+  %440 = load i32, ptr %439, align 8, !tbaa !21
+  %441 = add i32 %440, -1
+  store i32 %441, ptr %439, align 8, !tbaa !21
+  %442 = zext i32 %441 to i64
+  %443 = getelementptr inbounds [4 x ptr], ptr %438, i64 0, i64 %442
+  %444 = load ptr, ptr %443, align 8, !tbaa !30
+  %445 = load i32, ptr %17, align 8, !tbaa !5
+  %446 = add i32 %445, 1
+  store i32 %446, ptr %17, align 8, !tbaa !5
+  %447 = zext i32 %445 to i64
+  %448 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %447
+  store ptr %444, ptr %448, align 8, !tbaa !30
+  br label %618
 
-450:                                              ; preds = %419
-  %451 = load i32, ptr %18, align 4, !tbaa !18
-  %452 = zext i32 %451 to i64
-  %453 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %452
-  %454 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %452, i32 2
-  %455 = load i32, ptr %454, align 8, !tbaa !21
-  %456 = add i32 %455, -1
-  store i32 %456, ptr %454, align 8, !tbaa !21
-  %457 = zext i32 %456 to i64
-  %458 = getelementptr inbounds [4 x ptr], ptr %453, i64 0, i64 %457
-  %459 = load ptr, ptr %458, align 8, !tbaa !30
-  %460 = load i32, ptr %17, align 8, !tbaa !5
-  %461 = add i32 %460, 1
-  store i32 %461, ptr %17, align 8, !tbaa !5
-  %462 = zext i32 %460 to i64
-  %463 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %462
-  store ptr %459, ptr %463, align 8, !tbaa !30
-  br label %619
+449:                                              ; preds = %418
+  %450 = load i32, ptr %18, align 4, !tbaa !18
+  %451 = zext i32 %450 to i64
+  %452 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %451
+  %453 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %451, i32 2
+  %454 = load i32, ptr %453, align 8, !tbaa !21
+  %455 = add i32 %454, -1
+  store i32 %455, ptr %453, align 8, !tbaa !21
+  %456 = zext i32 %455 to i64
+  %457 = getelementptr inbounds [4 x ptr], ptr %452, i64 0, i64 %456
+  %458 = load ptr, ptr %457, align 8, !tbaa !30
+  %459 = load i32, ptr %17, align 8, !tbaa !5
+  %460 = add i32 %459, 1
+  store i32 %460, ptr %17, align 8, !tbaa !5
+  %461 = zext i32 %459 to i64
+  %462 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %461
+  store ptr %458, ptr %462, align 8, !tbaa !30
+  br label %618
 
-464:                                              ; preds = %419
+463:                                              ; preds = %418
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %7) #11
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #11
   store i32 0, ptr %8, align 4, !tbaa !46
-  switch i32 %365, label %539 [
-    i32 2, label %465
-    i32 3, label %516
-    i32 4, label %526
+  switch i32 %364, label %538 [
+    i32 2, label %464
+    i32 3, label %515
+    i32 4, label %525
   ]
 
-465:                                              ; preds = %464
-  %466 = load ptr, ptr %224, align 8, !tbaa !30
-  %467 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %466, i64 0, i32 1
-  %468 = getelementptr inbounds [4 x ptr], ptr %224, i64 0, i64 1
-  %469 = load ptr, ptr %468, align 8, !tbaa !30
-  %470 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %469, i64 0, i32 1
-  %471 = load float, ptr %470, align 4, !tbaa !23
-  %472 = load float, ptr %467, align 4, !tbaa !23
-  %473 = fsub float %471, %472
-  %474 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %469, i64 0, i32 1, i32 0, i64 1
-  %475 = load float, ptr %474, align 4, !tbaa !23
-  %476 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %466, i64 0, i32 1, i32 0, i64 1
-  %477 = load float, ptr %476, align 4, !tbaa !23
-  %478 = fsub float %475, %477
-  %479 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %469, i64 0, i32 1, i32 0, i64 2
-  %480 = load float, ptr %479, align 4, !tbaa !23
-  %481 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %466, i64 0, i32 1, i32 0, i64 2
-  %482 = load float, ptr %481, align 4, !tbaa !23
-  %483 = fsub float %480, %482
-  %484 = fmul float %478, %478
-  %485 = call float @llvm.fmuladd.f32(float %473, float %473, float %484)
-  %486 = call float @llvm.fmuladd.f32(float %483, float %483, float %485)
-  %487 = fcmp ogt float %486, 0.000000e+00
-  br i1 %487, label %488, label %604
+464:                                              ; preds = %463
+  %465 = load ptr, ptr %223, align 8, !tbaa !30
+  %466 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %465, i64 0, i32 1
+  %467 = getelementptr inbounds [4 x ptr], ptr %223, i64 0, i64 1
+  %468 = load ptr, ptr %467, align 8, !tbaa !30
+  %469 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %468, i64 0, i32 1
+  %470 = load float, ptr %469, align 4, !tbaa !23
+  %471 = load float, ptr %466, align 4, !tbaa !23
+  %472 = fsub float %470, %471
+  %473 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %468, i64 0, i32 1, i32 0, i64 1
+  %474 = load float, ptr %473, align 4, !tbaa !23
+  %475 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %465, i64 0, i32 1, i32 0, i64 1
+  %476 = load float, ptr %475, align 4, !tbaa !23
+  %477 = fsub float %474, %476
+  %478 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %468, i64 0, i32 1, i32 0, i64 2
+  %479 = load float, ptr %478, align 4, !tbaa !23
+  %480 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %465, i64 0, i32 1, i32 0, i64 2
+  %481 = load float, ptr %480, align 4, !tbaa !23
+  %482 = fsub float %479, %481
+  %483 = fmul float %477, %477
+  %484 = call float @llvm.fmuladd.f32(float %472, float %472, float %483)
+  %485 = call float @llvm.fmuladd.f32(float %482, float %482, float %484)
+  %486 = fcmp ogt float %485, 0.000000e+00
+  br i1 %486, label %487, label %603
 
-488:                                              ; preds = %465
-  %489 = fmul float %477, %478
-  %490 = call float @llvm.fmuladd.f32(float %472, float %473, float %489)
-  %491 = call float @llvm.fmuladd.f32(float %482, float %483, float %490)
-  %492 = fneg float %491
-  %493 = fdiv float %492, %486
-  %494 = fcmp ult float %493, 1.000000e+00
-  br i1 %494, label %499, label %495
+487:                                              ; preds = %464
+  %488 = fmul float %476, %477
+  %489 = call float @llvm.fmuladd.f32(float %471, float %472, float %488)
+  %490 = call float @llvm.fmuladd.f32(float %481, float %482, float %489)
+  %491 = fneg float %490
+  %492 = fdiv float %491, %485
+  %493 = fcmp ult float %492, 1.000000e+00
+  br i1 %493, label %498, label %494
 
-495:                                              ; preds = %488
+494:                                              ; preds = %487
   store <2 x float> <float 0.000000e+00, float 1.000000e+00>, ptr %7, align 16, !tbaa !23
   store i32 2, ptr %8, align 4, !tbaa !46
-  %496 = fmul float %475, %475
-  %497 = call float @llvm.fmuladd.f32(float %471, float %471, float %496)
-  %498 = call float @llvm.fmuladd.f32(float %480, float %480, float %497)
-  br label %539
+  %495 = fmul float %474, %474
+  %496 = call float @llvm.fmuladd.f32(float %470, float %470, float %495)
+  %497 = call float @llvm.fmuladd.f32(float %479, float %479, float %496)
+  br label %538
 
-499:                                              ; preds = %488
-  %500 = fcmp ugt float %493, 0.000000e+00
-  br i1 %500, label %505, label %501
+498:                                              ; preds = %487
+  %499 = fcmp ugt float %492, 0.000000e+00
+  br i1 %499, label %504, label %500
 
-501:                                              ; preds = %499
+500:                                              ; preds = %498
   store <2 x float> <float 1.000000e+00, float 0.000000e+00>, ptr %7, align 16, !tbaa !23
   store i32 1, ptr %8, align 4, !tbaa !46
-  %502 = fmul float %477, %477
-  %503 = call float @llvm.fmuladd.f32(float %472, float %472, float %502)
-  %504 = call float @llvm.fmuladd.f32(float %482, float %482, float %503)
-  br label %539
+  %501 = fmul float %476, %476
+  %502 = call float @llvm.fmuladd.f32(float %471, float %471, float %501)
+  %503 = call float @llvm.fmuladd.f32(float %481, float %481, float %502)
+  br label %538
 
-505:                                              ; preds = %499
-  store float %493, ptr %202, align 4, !tbaa !23
-  %506 = fsub float 1.000000e+00, %493
-  store float %506, ptr %7, align 16, !tbaa !23
+504:                                              ; preds = %498
+  store float %492, ptr %201, align 4, !tbaa !23
+  %505 = fsub float 1.000000e+00, %492
+  store float %505, ptr %7, align 16, !tbaa !23
   store i32 3, ptr %8, align 4, !tbaa !46
-  %507 = fmul float %473, %493
-  %508 = fmul float %478, %493
-  %509 = fmul float %483, %493
-  %510 = fadd float %472, %507
-  %511 = fadd float %477, %508
-  %512 = fadd float %482, %509
-  %513 = fmul float %511, %511
-  %514 = call float @llvm.fmuladd.f32(float %510, float %510, float %513)
-  %515 = call float @llvm.fmuladd.f32(float %512, float %512, float %514)
-  br label %539
+  %506 = fmul float %472, %492
+  %507 = fmul float %477, %492
+  %508 = fmul float %482, %492
+  %509 = fadd float %471, %506
+  %510 = fadd float %476, %507
+  %511 = fadd float %481, %508
+  %512 = fmul float %510, %510
+  %513 = call float @llvm.fmuladd.f32(float %509, float %509, float %512)
+  %514 = call float @llvm.fmuladd.f32(float %511, float %511, float %513)
+  br label %538
 
-516:                                              ; preds = %464
-  %517 = load ptr, ptr %224, align 8, !tbaa !30
-  %518 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %517, i64 0, i32 1
-  %519 = getelementptr inbounds [4 x ptr], ptr %224, i64 0, i64 1
-  %520 = load ptr, ptr %519, align 8, !tbaa !30
-  %521 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %520, i64 0, i32 1
-  %522 = getelementptr inbounds [4 x ptr], ptr %224, i64 0, i64 2
-  %523 = load ptr, ptr %522, align 8, !tbaa !30
-  %524 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %523, i64 0, i32 1
-  %525 = call noundef float @_ZN12gjkepa2_impl3GJK13projectoriginERK9btVector3S3_S3_PfRj(ptr noundef nonnull align 4 dereferenceable(16) %518, ptr noundef nonnull align 4 dereferenceable(16) %521, ptr noundef nonnull align 4 dereferenceable(16) %524, ptr noundef nonnull %7, ptr noundef nonnull align 4 dereferenceable(4) %8)
-  br label %539
+515:                                              ; preds = %463
+  %516 = load ptr, ptr %223, align 8, !tbaa !30
+  %517 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %516, i64 0, i32 1
+  %518 = getelementptr inbounds [4 x ptr], ptr %223, i64 0, i64 1
+  %519 = load ptr, ptr %518, align 8, !tbaa !30
+  %520 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %519, i64 0, i32 1
+  %521 = getelementptr inbounds [4 x ptr], ptr %223, i64 0, i64 2
+  %522 = load ptr, ptr %521, align 8, !tbaa !30
+  %523 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %522, i64 0, i32 1
+  %524 = call noundef float @_ZN12gjkepa2_impl3GJK13projectoriginERK9btVector3S3_S3_PfRj(ptr noundef nonnull align 4 dereferenceable(16) %517, ptr noundef nonnull align 4 dereferenceable(16) %520, ptr noundef nonnull align 4 dereferenceable(16) %523, ptr noundef nonnull %7, ptr noundef nonnull align 4 dereferenceable(4) %8)
+  br label %538
 
-526:                                              ; preds = %464
-  %527 = load ptr, ptr %224, align 8, !tbaa !30
-  %528 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %527, i64 0, i32 1
-  %529 = getelementptr inbounds [4 x ptr], ptr %224, i64 0, i64 1
-  %530 = load ptr, ptr %529, align 8, !tbaa !30
-  %531 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %530, i64 0, i32 1
-  %532 = getelementptr inbounds [4 x ptr], ptr %224, i64 0, i64 2
-  %533 = load ptr, ptr %532, align 8, !tbaa !30
-  %534 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %533, i64 0, i32 1
-  %535 = getelementptr inbounds [4 x ptr], ptr %224, i64 0, i64 3
-  %536 = load ptr, ptr %535, align 8, !tbaa !30
-  %537 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %536, i64 0, i32 1
-  %538 = call noundef float @_ZN12gjkepa2_impl3GJK13projectoriginERK9btVector3S3_S3_S3_PfRj(ptr noundef nonnull align 4 dereferenceable(16) %528, ptr noundef nonnull align 4 dereferenceable(16) %531, ptr noundef nonnull align 4 dereferenceable(16) %534, ptr noundef nonnull align 4 dereferenceable(16) %537, ptr noundef nonnull %7, ptr noundef nonnull align 4 dereferenceable(4) %8)
-  br label %539
+525:                                              ; preds = %463
+  %526 = load ptr, ptr %223, align 8, !tbaa !30
+  %527 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %526, i64 0, i32 1
+  %528 = getelementptr inbounds [4 x ptr], ptr %223, i64 0, i64 1
+  %529 = load ptr, ptr %528, align 8, !tbaa !30
+  %530 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %529, i64 0, i32 1
+  %531 = getelementptr inbounds [4 x ptr], ptr %223, i64 0, i64 2
+  %532 = load ptr, ptr %531, align 8, !tbaa !30
+  %533 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %532, i64 0, i32 1
+  %534 = getelementptr inbounds [4 x ptr], ptr %223, i64 0, i64 3
+  %535 = load ptr, ptr %534, align 8, !tbaa !30
+  %536 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %535, i64 0, i32 1
+  %537 = call noundef float @_ZN12gjkepa2_impl3GJK13projectoriginERK9btVector3S3_S3_S3_PfRj(ptr noundef nonnull align 4 dereferenceable(16) %527, ptr noundef nonnull align 4 dereferenceable(16) %530, ptr noundef nonnull align 4 dereferenceable(16) %533, ptr noundef nonnull align 4 dereferenceable(16) %536, ptr noundef nonnull %7, ptr noundef nonnull align 4 dereferenceable(4) %8)
+  br label %538
 
-539:                                              ; preds = %505, %501, %495, %464, %526, %516
-  %540 = phi float [ %219, %464 ], [ %538, %526 ], [ %525, %516 ], [ %498, %495 ], [ %504, %501 ], [ %515, %505 ]
-  %541 = fcmp ult float %540, 0.000000e+00
-  br i1 %541, label %604, label %542
+538:                                              ; preds = %504, %500, %494, %463, %525, %515
+  %539 = phi float [ %218, %463 ], [ %537, %525 ], [ %524, %515 ], [ %497, %494 ], [ %503, %500 ], [ %514, %504 ]
+  %540 = fcmp ult float %539, 0.000000e+00
+  br i1 %540, label %603, label %541
 
-542:                                              ; preds = %539
-  %543 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %225, i32 2
-  store i32 0, ptr %543, align 8, !tbaa !21
+541:                                              ; preds = %538
+  %542 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %224, i32 2
+  store i32 0, ptr %542, align 8, !tbaa !21
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %43, i8 0, i64 16, i1 false)
-  store i32 %222, ptr %18, align 4, !tbaa !18
-  %544 = load i32, ptr %239, align 8, !tbaa !21
-  %545 = icmp eq i32 %544, 0
-  br i1 %545, label %546, label %548
+  store i32 %221, ptr %18, align 4, !tbaa !18
+  %543 = load i32, ptr %238, align 8, !tbaa !21
+  %544 = icmp eq i32 %543, 0
+  br i1 %544, label %545, label %547
 
-546:                                              ; preds = %542
-  %547 = load i32, ptr %8, align 4, !tbaa !46
-  br label %552
+545:                                              ; preds = %541
+  %546 = load i32, ptr %8, align 4, !tbaa !46
+  br label %551
 
-548:                                              ; preds = %542
-  %549 = load i32, ptr %17, align 8, !tbaa !5
-  %550 = load i32, ptr %8, align 4, !tbaa !46
-  %551 = zext i32 %544 to i64
-  br label %563
+547:                                              ; preds = %541
+  %548 = load i32, ptr %17, align 8, !tbaa !5
+  %549 = load i32, ptr %8, align 4, !tbaa !46
+  %550 = zext i32 %543 to i64
+  br label %562
 
-552:                                              ; preds = %597, %546
-  %553 = phi i32 [ %547, %546 ], [ %550, %597 ]
-  %554 = phi float [ 0.000000e+00, %546 ], [ %600, %597 ]
-  %555 = phi <2 x float> [ zeroinitializer, %546 ], [ %601, %597 ]
-  %556 = icmp eq i32 %553, 15
-  %557 = load i32, ptr %19, align 8
-  %558 = select i1 %556, i32 1, i32 %557
-  %559 = add i32 %220, 1
-  %560 = icmp ult i32 %559, 128
-  %561 = select i1 %560, i32 %558, i32 2
-  store i32 %561, ptr %19, align 8, !tbaa !17
+551:                                              ; preds = %596, %545
+  %552 = phi i32 [ %546, %545 ], [ %549, %596 ]
+  %553 = phi float [ 0.000000e+00, %545 ], [ %599, %596 ]
+  %554 = phi <2 x float> [ zeroinitializer, %545 ], [ %600, %596 ]
+  %555 = icmp eq i32 %552, 15
+  %556 = load i32, ptr %19, align 8
+  %557 = select i1 %555, i32 1, i32 %556
+  %558 = add i32 %219, 1
+  %559 = icmp ult i32 %558, 128
+  %560 = select i1 %559, i32 %557, i32 2
+  store i32 %560, ptr %19, align 8, !tbaa !17
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #11
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #11
-  %562 = icmp eq i32 %561, 0
-  br i1 %562, label %214, label %622
+  %561 = icmp eq i32 %560, 0
+  br i1 %561, label %213, label %621
 
-563:                                              ; preds = %548, %597
-  %564 = phi i32 [ 0, %548 ], [ %598, %597 ]
-  %565 = phi i64 [ 0, %548 ], [ %602, %597 ]
-  %566 = phi float [ 0.000000e+00, %548 ], [ %600, %597 ]
-  %567 = phi i32 [ %549, %548 ], [ %599, %597 ]
-  %568 = phi <2 x float> [ zeroinitializer, %548 ], [ %601, %597 ]
-  %569 = trunc i64 %565 to i32
-  %570 = shl nuw i32 1, %569
-  %571 = and i32 %550, %570
-  %572 = icmp eq i32 %571, 0
-  %573 = getelementptr inbounds [4 x ptr], ptr %224, i64 0, i64 %565
-  %574 = load ptr, ptr %573, align 8, !tbaa !30
-  br i1 %572, label %593, label %575
+562:                                              ; preds = %547, %596
+  %563 = phi i32 [ 0, %547 ], [ %597, %596 ]
+  %564 = phi i64 [ 0, %547 ], [ %601, %596 ]
+  %565 = phi float [ 0.000000e+00, %547 ], [ %599, %596 ]
+  %566 = phi i32 [ %548, %547 ], [ %598, %596 ]
+  %567 = phi <2 x float> [ zeroinitializer, %547 ], [ %600, %596 ]
+  %568 = trunc i64 %564 to i32
+  %569 = shl nuw i32 1, %568
+  %570 = and i32 %549, %569
+  %571 = icmp eq i32 %570, 0
+  %572 = getelementptr inbounds [4 x ptr], ptr %223, i64 0, i64 %564
+  %573 = load ptr, ptr %572, align 8, !tbaa !30
+  br i1 %571, label %592, label %574
 
-575:                                              ; preds = %563
-  %576 = zext i32 %564 to i64
-  %577 = getelementptr inbounds [4 x ptr], ptr %226, i64 0, i64 %576
-  store ptr %574, ptr %577, align 8, !tbaa !30
-  %578 = getelementptr inbounds [4 x float], ptr %7, i64 0, i64 %565
-  %579 = load float, ptr %578, align 4, !tbaa !23
-  %580 = add i32 %564, 1
-  store i32 %580, ptr %543, align 8, !tbaa !21
-  %581 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %225, i32 1, i64 %576
-  store float %579, ptr %581, align 4, !tbaa !23
-  %582 = load ptr, ptr %573, align 8, !tbaa !30
-  %583 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %582, i64 0, i32 1
-  %584 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %582, i64 0, i32 1, i32 0, i64 2
-  %585 = load float, ptr %584, align 4, !tbaa !23
-  %586 = fmul float %579, %585
-  %587 = load <2 x float>, ptr %583, align 4, !tbaa !23
-  %588 = insertelement <2 x float> poison, float %579, i64 0
-  %589 = shufflevector <2 x float> %588, <2 x float> poison, <2 x i32> zeroinitializer
-  %590 = fmul <2 x float> %589, %587
-  %591 = fadd <2 x float> %590, %568
-  store <2 x float> %591, ptr %43, align 8, !tbaa !23
-  %592 = fadd float %586, %566
-  store float %592, ptr %50, align 8, !tbaa !23
-  br label %597
+574:                                              ; preds = %562
+  %575 = zext i32 %563 to i64
+  %576 = getelementptr inbounds [4 x ptr], ptr %225, i64 0, i64 %575
+  store ptr %573, ptr %576, align 8, !tbaa !30
+  %577 = getelementptr inbounds [4 x float], ptr %7, i64 0, i64 %564
+  %578 = load float, ptr %577, align 4, !tbaa !23
+  %579 = add i32 %563, 1
+  store i32 %579, ptr %542, align 8, !tbaa !21
+  %580 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %224, i32 1, i64 %575
+  store float %578, ptr %580, align 4, !tbaa !23
+  %581 = load ptr, ptr %572, align 8, !tbaa !30
+  %582 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %581, i64 0, i32 1
+  %583 = getelementptr inbounds %"struct.gjkepa2_impl::GJK::sSV", ptr %581, i64 0, i32 1, i32 0, i64 2
+  %584 = load float, ptr %583, align 4, !tbaa !23
+  %585 = fmul float %578, %584
+  %586 = load <2 x float>, ptr %582, align 4, !tbaa !23
+  %587 = insertelement <2 x float> poison, float %578, i64 0
+  %588 = shufflevector <2 x float> %587, <2 x float> poison, <2 x i32> zeroinitializer
+  %589 = fmul <2 x float> %588, %586
+  %590 = fadd <2 x float> %589, %567
+  store <2 x float> %590, ptr %43, align 8, !tbaa !23
+  %591 = fadd float %585, %565
+  store float %591, ptr %50, align 8, !tbaa !23
+  br label %596
 
-593:                                              ; preds = %563
-  %594 = add i32 %567, 1
-  store i32 %594, ptr %17, align 8, !tbaa !5
-  %595 = zext i32 %567 to i64
-  %596 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %595
-  store ptr %574, ptr %596, align 8, !tbaa !30
-  br label %597
+592:                                              ; preds = %562
+  %593 = add i32 %566, 1
+  store i32 %593, ptr %17, align 8, !tbaa !5
+  %594 = zext i32 %566 to i64
+  %595 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %594
+  store ptr %573, ptr %595, align 8, !tbaa !30
+  br label %596
 
-597:                                              ; preds = %575, %593
-  %598 = phi i32 [ %580, %575 ], [ %564, %593 ]
-  %599 = phi i32 [ %567, %575 ], [ %594, %593 ]
-  %600 = phi float [ %592, %575 ], [ %566, %593 ]
-  %601 = phi <2 x float> [ %591, %575 ], [ %568, %593 ]
-  %602 = add nuw nsw i64 %565, 1
-  %603 = icmp eq i64 %602, %551
-  br i1 %603, label %552, label %563
+596:                                              ; preds = %574, %592
+  %597 = phi i32 [ %579, %574 ], [ %563, %592 ]
+  %598 = phi i32 [ %566, %574 ], [ %593, %592 ]
+  %599 = phi float [ %591, %574 ], [ %565, %592 ]
+  %600 = phi <2 x float> [ %590, %574 ], [ %567, %592 ]
+  %601 = add nuw nsw i64 %564, 1
+  %602 = icmp eq i64 %601, %550
+  br i1 %602, label %551, label %562
 
-604:                                              ; preds = %539, %465
-  %605 = load i32, ptr %18, align 4, !tbaa !18
-  %606 = zext i32 %605 to i64
-  %607 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %606
-  %608 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %606, i32 2
-  %609 = load i32, ptr %608, align 8, !tbaa !21
-  %610 = add i32 %609, -1
-  store i32 %610, ptr %608, align 8, !tbaa !21
-  %611 = zext i32 %610 to i64
-  %612 = getelementptr inbounds [4 x ptr], ptr %607, i64 0, i64 %611
-  %613 = load ptr, ptr %612, align 8, !tbaa !30
-  %614 = load i32, ptr %17, align 8, !tbaa !5
-  %615 = add i32 %614, 1
-  store i32 %615, ptr %17, align 8, !tbaa !5
-  %616 = zext i32 %614 to i64
-  %617 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %616
-  store ptr %613, ptr %617, align 8, !tbaa !30
+603:                                              ; preds = %538, %464
+  %604 = load i32, ptr %18, align 4, !tbaa !18
+  %605 = zext i32 %604 to i64
+  %606 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %605
+  %607 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %605, i32 2
+  %608 = load i32, ptr %607, align 8, !tbaa !21
+  %609 = add i32 %608, -1
+  store i32 %609, ptr %607, align 8, !tbaa !21
+  %610 = zext i32 %609 to i64
+  %611 = getelementptr inbounds [4 x ptr], ptr %606, i64 0, i64 %610
+  %612 = load ptr, ptr %611, align 8, !tbaa !30
+  %613 = load i32, ptr %17, align 8, !tbaa !5
+  %614 = add i32 %613, 1
+  store i32 %614, ptr %17, align 8, !tbaa !5
+  %615 = zext i32 %613 to i64
+  %616 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 6, i64 %615
+  store ptr %612, ptr %616, align 8, !tbaa !30
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #11
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #11
-  %618 = load i32, ptr %19, align 8
-  br label %624
+  %617 = load i32, ptr %19, align 8
+  br label %623
 
-619:                                              ; preds = %234, %436, %450
-  %620 = phi i64 [ %235, %234 ], [ %438, %436 ], [ %452, %450 ]
-  %621 = load i32, ptr %19, align 8
-  br label %624
+618:                                              ; preds = %233, %435, %449
+  %619 = phi i64 [ %234, %233 ], [ %437, %435 ], [ %451, %449 ]
+  %620 = load i32, ptr %19, align 8
+  br label %623
 
-622:                                              ; preds = %552
-  %623 = zext i32 %222 to i64
-  br label %624
+621:                                              ; preds = %551
+  %622 = zext i32 %221 to i64
+  br label %623
 
-624:                                              ; preds = %622, %604, %619
-  %625 = phi i64 [ %606, %604 ], [ %620, %619 ], [ %623, %622 ]
-  %626 = phi i32 [ %618, %604 ], [ %621, %619 ], [ %561, %622 ]
-  %627 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %625
-  %628 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 9
-  store ptr %627, ptr %628, align 8, !tbaa !20
-  switch i32 %626, label %639 [
-    i32 0, label %629
-    i32 1, label %637
+623:                                              ; preds = %621, %603, %618
+  %624 = phi i64 [ %605, %603 ], [ %619, %618 ], [ %622, %621 ]
+  %625 = phi i32 [ %617, %603 ], [ %620, %618 ], [ %560, %621 ]
+  %626 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 4, i64 %624
+  %627 = getelementptr inbounds %"struct.gjkepa2_impl::GJK", ptr %0, i64 0, i32 9
+  store ptr %626, ptr %627, align 8, !tbaa !20
+  switch i32 %625, label %638 [
+    i32 0, label %628
+    i32 1, label %636
   ]
 
-629:                                              ; preds = %624
-  %630 = load float, ptr %43, align 8, !tbaa !23
-  %631 = load float, ptr %44, align 4, !tbaa !23
-  %632 = fmul float %631, %631
-  %633 = call float @llvm.fmuladd.f32(float %630, float %630, float %632)
-  %634 = load float, ptr %50, align 8, !tbaa !23
-  %635 = call float @llvm.fmuladd.f32(float %634, float %634, float %633)
-  %636 = call float @llvm.sqrt.f32(float %635)
-  br label %637
+628:                                              ; preds = %623
+  %629 = load float, ptr %43, align 8, !tbaa !23
+  %630 = load float, ptr %44, align 4, !tbaa !23
+  %631 = fmul float %630, %630
+  %632 = call float @llvm.fmuladd.f32(float %629, float %629, float %631)
+  %633 = load float, ptr %50, align 8, !tbaa !23
+  %634 = call float @llvm.fmuladd.f32(float %633, float %633, float %632)
+  %635 = call float @llvm.sqrt.f32(float %634)
+  br label %636
 
-637:                                              ; preds = %624, %629
-  %638 = phi float [ %636, %629 ], [ 0.000000e+00, %624 ]
-  store float %638, ptr %40, align 8, !tbaa !19
-  br label %639
+636:                                              ; preds = %623, %628
+  %637 = phi float [ %635, %628 ], [ 0.000000e+00, %623 ]
+  store float %637, ptr %40, align 8, !tbaa !19
+  br label %638
 
-639:                                              ; preds = %637, %624
+638:                                              ; preds = %636, %623
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %6) #11
-  ret i32 %626
+  ret i32 %625
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -2175,12 +2174,12 @@ define linkonce_odr dso_local noundef i32 @_ZN12gjkepa2_impl3EPA8EvaluateERNS_3G
   br label %350
 
 342:                                              ; preds = %329, %324
-  %343 = phi float [ %332, %329 ], [ %215, %324 ]
-  %344 = phi float [ %327, %329 ], [ %214, %324 ]
-  %345 = phi ptr [ %334, %329 ], [ %213, %324 ]
-  %346 = phi ptr [ %336, %329 ], [ %212, %324 ]
-  %347 = phi ptr [ %338, %329 ], [ %211, %324 ]
-  %348 = phi <4 x float> [ %330, %329 ], [ %216, %324 ]
+  %343 = phi float [ %215, %324 ], [ %332, %329 ]
+  %344 = phi float [ %214, %324 ], [ %327, %329 ]
+  %345 = phi ptr [ %213, %324 ], [ %334, %329 ]
+  %346 = phi ptr [ %212, %324 ], [ %336, %329 ]
+  %347 = phi ptr [ %211, %324 ], [ %338, %329 ]
+  %348 = phi <4 x float> [ %216, %324 ], [ %330, %329 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #11
   %349 = icmp eq i32 %223, 255
   br i1 %349, label %350, label %208
@@ -2493,13 +2492,13 @@ define dso_local noundef float @_ZN15btGjkEpaSolver214SignedDistanceERK9btVector
 
 87:                                               ; preds = %84
   %88 = extractvalue { <2 x float>, <2 x float> } %86, 0
-  %89 = extractvalue { <2 x float>, <2 x float> } %86, 1
-  %90 = insertelement <2 x float> poison, float %68, i64 0
-  %91 = shufflevector <2 x float> %90, <2 x float> poison, <2 x i32> zeroinitializer
-  %92 = fmul <2 x float> %91, %88
-  %93 = extractelement <2 x float> %89, i64 0
+  %89 = insertelement <2 x float> poison, float %68, i64 0
+  %90 = shufflevector <2 x float> %89, <2 x float> poison, <2 x i32> zeroinitializer
+  %91 = fmul <2 x float> %90, %88
+  %92 = extractvalue { <2 x float>, <2 x float> } %86, 1
+  %93 = extractelement <2 x float> %92, i64 0
   %94 = fmul float %68, %93
-  %95 = fadd <2 x float> %66, %92
+  %95 = fadd <2 x float> %66, %91
   %96 = fadd float %63, %94
   %97 = load ptr, ptr %28, align 8, !tbaa !20
   %98 = getelementptr inbounds [4 x ptr], ptr %97, i64 0, i64 %61
@@ -2568,20 +2567,20 @@ define dso_local noundef float @_ZN15btGjkEpaSolver214SignedDistanceERK9btVector
           to label %152 unwind label %198
 
 152:                                              ; preds = %121
-  %153 = extractvalue { <2 x float>, <2 x float> } %151, 0
-  %154 = extractvalue { <2 x float>, <2 x float> } %151, 1
-  %155 = load float, ptr %47, align 8, !tbaa !23
-  %156 = extractelement <2 x float> %153, i64 0
-  %157 = load float, ptr %48, align 4, !tbaa !23
-  %158 = extractelement <2 x float> %153, i64 1
-  %159 = fmul float %158, %157
-  %160 = call float @llvm.fmuladd.f32(float %155, float %156, float %159)
-  %161 = load float, ptr %49, align 8, !tbaa !23
-  %162 = extractelement <2 x float> %154, i64 0
-  %163 = call float @llvm.fmuladd.f32(float %161, float %162, float %160)
-  %164 = load float, ptr %50, align 8, !tbaa !23
-  %165 = fadd float %164, %163
+  %153 = load float, ptr %47, align 8, !tbaa !23
+  %154 = load float, ptr %48, align 4, !tbaa !23
+  %155 = load float, ptr %49, align 8, !tbaa !23
+  %156 = load float, ptr %50, align 8, !tbaa !23
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #11
+  %157 = extractvalue { <2 x float>, <2 x float> } %151, 1
+  %158 = extractelement <2 x float> %157, i64 0
+  %159 = extractvalue { <2 x float>, <2 x float> } %151, 0
+  %160 = extractelement <2 x float> %159, i64 0
+  %161 = extractelement <2 x float> %159, i64 1
+  %162 = fmul float %161, %154
+  %163 = call float @llvm.fmuladd.f32(float %153, float %160, float %162)
+  %164 = call float @llvm.fmuladd.f32(float %155, float %158, float %163)
+  %165 = fadd float %156, %164
   %166 = fmul float %68, %165
   %167 = load <4 x float>, ptr %51, align 8
   %168 = shufflevector <4 x float> %167, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
@@ -2591,19 +2590,19 @@ define dso_local noundef float @_ZN15btGjkEpaSolver214SignedDistanceERK9btVector
   %172 = shufflevector <4 x float> %171, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
   %173 = load float, ptr %55, align 8, !tbaa !23
   %174 = load float, ptr %56, align 4, !tbaa !23
-  %175 = shufflevector <2 x float> %153, <2 x float> poison, <2 x i32> <i32 1, i32 1>
-  %176 = insertelement <2 x float> %170, float %174, i64 1
-  %177 = fmul <2 x float> %175, %176
-  %178 = insertelement <2 x float> %168, float %173, i64 1
-  %179 = shufflevector <2 x float> %153, <2 x float> poison, <2 x i32> zeroinitializer
-  %180 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %178, <2 x float> %179, <2 x float> %177)
-  %181 = load float, ptr %57, align 8, !tbaa !23
-  %182 = insertelement <2 x float> %172, float %181, i64 1
-  %183 = shufflevector <2 x float> %154, <2 x float> poison, <2 x i32> zeroinitializer
-  %184 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %182, <2 x float> %183, <2 x float> %180)
-  %185 = load <2 x float>, ptr %54, align 4, !tbaa !23
-  %186 = fadd <2 x float> %185, %184
-  %187 = fmul <2 x float> %91, %186
+  %175 = load float, ptr %57, align 8, !tbaa !23
+  %176 = load <2 x float>, ptr %54, align 4, !tbaa !23
+  %177 = shufflevector <2 x float> %159, <2 x float> poison, <2 x i32> <i32 1, i32 1>
+  %178 = insertelement <2 x float> %170, float %174, i64 1
+  %179 = fmul <2 x float> %177, %178
+  %180 = insertelement <2 x float> %168, float %173, i64 1
+  %181 = shufflevector <2 x float> %159, <2 x float> poison, <2 x i32> zeroinitializer
+  %182 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %180, <2 x float> %181, <2 x float> %179)
+  %183 = insertelement <2 x float> %172, float %175, i64 1
+  %184 = shufflevector <2 x float> %157, <2 x float> poison, <2 x i32> zeroinitializer
+  %185 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %183, <2 x float> %184, <2 x float> %182)
+  %186 = fadd <2 x float> %176, %185
+  %187 = fmul <2 x float> %90, %186
   %188 = fadd float %64, %166
   %189 = fadd <2 x float> %65, %187
   %190 = add nuw nsw i64 %61, 1
@@ -2635,83 +2634,83 @@ define dso_local noundef float @_ZN15btGjkEpaSolver214SignedDistanceERK9btVector
   %206 = phi float [ 0.000000e+00, %27 ], [ %201, %200 ]
   %207 = phi float [ 0.000000e+00, %27 ], [ %96, %200 ]
   %208 = phi <2 x float> [ zeroinitializer, %27 ], [ %189, %200 ]
-  %209 = getelementptr inbounds [4 x float], ptr %3, i64 0, i64 1
-  %210 = getelementptr inbounds [4 x float], ptr %3, i64 0, i64 2
+  %209 = getelementptr inbounds [4 x float], ptr %3, i64 0, i64 2
+  %210 = getelementptr inbounds [4 x float], ptr %3, i64 0, i64 1
   %211 = getelementptr inbounds %class.btTransform, ptr %3, i64 0, i32 1
-  %212 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 1
-  %213 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 1, i32 0, i64 1
-  %214 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 1, i32 0, i64 2
-  %215 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 2
+  %212 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 1, i32 0, i64 2
+  %213 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 1
+  %214 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 1, i32 0, i64 1
+  %215 = getelementptr inbounds %class.btTransform, ptr %3, i64 0, i32 1, i32 0, i64 2
   %216 = load float, ptr %215, align 4, !tbaa !23
-  %217 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 2, i32 0, i64 1
+  %217 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 2, i32 0, i64 2
   %218 = load float, ptr %217, align 4, !tbaa !23
-  %219 = fmul float %206, %218
-  %220 = call float @llvm.fmuladd.f32(float %216, float %205, float %219)
-  %221 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 2, i32 0, i64 2
+  %219 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 2
+  %220 = load float, ptr %219, align 4, !tbaa !23
+  %221 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 2, i32 0, i64 1
   %222 = load float, ptr %221, align 4, !tbaa !23
-  %223 = call float @llvm.fmuladd.f32(float %222, float %207, float %220)
-  %224 = getelementptr inbounds %class.btTransform, ptr %3, i64 0, i32 1, i32 0, i64 2
-  %225 = load float, ptr %224, align 4, !tbaa !23
-  %226 = fadd float %225, %223
+  %223 = fmul float %206, %222
+  %224 = call float @llvm.fmuladd.f32(float %220, float %205, float %223)
+  %225 = call float @llvm.fmuladd.f32(float %218, float %207, float %224)
+  %226 = fadd float %216, %225
   %227 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %226, i64 0
   %228 = getelementptr inbounds %"struct.btGjkEpaSolver2::sResults", ptr %4, i64 0, i32 1
   %229 = getelementptr inbounds %"struct.btGjkEpaSolver2::sResults", ptr %4, i64 0, i32 1, i64 0, i32 0, i64 2
-  %230 = load <4 x float>, ptr %3, align 4
+  %230 = load <4 x float>, ptr %209, align 4
   %231 = shufflevector <4 x float> %230, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %232 = load <4 x float>, ptr %209, align 4
+  %232 = load <4 x float>, ptr %3, align 4
   %233 = shufflevector <4 x float> %232, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
   %234 = load <4 x float>, ptr %210, align 4
   %235 = shufflevector <4 x float> %234, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %236 = load float, ptr %212, align 4, !tbaa !23
-  %237 = load float, ptr %213, align 4, !tbaa !23
-  %238 = insertelement <2 x float> poison, float %206, i64 0
-  %239 = shufflevector <2 x float> %238, <2 x float> poison, <2 x i32> zeroinitializer
-  %240 = insertelement <2 x float> %233, float %237, i64 1
-  %241 = fmul <2 x float> %239, %240
-  %242 = insertelement <2 x float> %231, float %236, i64 1
-  %243 = insertelement <2 x float> poison, float %205, i64 0
-  %244 = shufflevector <2 x float> %243, <2 x float> poison, <2 x i32> zeroinitializer
-  %245 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %242, <2 x float> %244, <2 x float> %241)
-  %246 = load float, ptr %214, align 4, !tbaa !23
-  %247 = insertelement <2 x float> %235, float %246, i64 1
-  %248 = insertelement <2 x float> poison, float %207, i64 0
-  %249 = shufflevector <2 x float> %248, <2 x float> poison, <2 x i32> zeroinitializer
-  %250 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %247, <2 x float> %249, <2 x float> %245)
-  %251 = load <2 x float>, ptr %211, align 4, !tbaa !23
-  %252 = fadd <2 x float> %251, %250
+  %236 = load <2 x float>, ptr %211, align 4, !tbaa !23
+  %237 = load float, ptr %212, align 4, !tbaa !23
+  %238 = load float, ptr %213, align 4, !tbaa !23
+  %239 = load float, ptr %214, align 4, !tbaa !23
+  %240 = insertelement <2 x float> poison, float %206, i64 0
+  %241 = shufflevector <2 x float> %240, <2 x float> poison, <2 x i32> zeroinitializer
+  %242 = insertelement <2 x float> %235, float %239, i64 1
+  %243 = fmul <2 x float> %241, %242
+  %244 = insertelement <2 x float> %233, float %238, i64 1
+  %245 = insertelement <2 x float> poison, float %205, i64 0
+  %246 = shufflevector <2 x float> %245, <2 x float> poison, <2 x i32> zeroinitializer
+  %247 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %244, <2 x float> %246, <2 x float> %243)
+  %248 = insertelement <2 x float> %231, float %237, i64 1
+  %249 = insertelement <2 x float> poison, float %207, i64 0
+  %250 = shufflevector <2 x float> %249, <2 x float> poison, <2 x i32> zeroinitializer
+  %251 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %248, <2 x float> %250, <2 x float> %247)
+  %252 = fadd <2 x float> %236, %251
   store <2 x float> %252, ptr %228, align 4, !tbaa.struct !24
   store <2 x float> %227, ptr %229, align 4, !tbaa.struct !26
-  %253 = load <4 x float>, ptr %3, align 4
+  %253 = load <4 x float>, ptr %209, align 4
   %254 = shufflevector <4 x float> %253, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %255 = load <4 x float>, ptr %209, align 4
+  %255 = load <4 x float>, ptr %3, align 4
   %256 = shufflevector <4 x float> %255, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
   %257 = load <4 x float>, ptr %210, align 4
   %258 = shufflevector <4 x float> %257, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %259 = load float, ptr %212, align 4, !tbaa !23
-  %260 = load float, ptr %213, align 4, !tbaa !23
-  %261 = shufflevector <2 x float> %208, <2 x float> poison, <2 x i32> zeroinitializer
-  %262 = insertelement <2 x float> %256, float %260, i64 1
-  %263 = fmul <2 x float> %261, %262
-  %264 = insertelement <2 x float> %254, float %259, i64 1
-  %265 = insertelement <2 x float> poison, float %204, i64 0
-  %266 = shufflevector <2 x float> %265, <2 x float> poison, <2 x i32> zeroinitializer
-  %267 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %264, <2 x float> %266, <2 x float> %263)
-  %268 = load float, ptr %214, align 4, !tbaa !23
-  %269 = insertelement <2 x float> %258, float %268, i64 1
-  %270 = shufflevector <2 x float> %208, <2 x float> poison, <2 x i32> <i32 1, i32 1>
-  %271 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %269, <2 x float> %270, <2 x float> %267)
-  %272 = load <2 x float>, ptr %211, align 4, !tbaa !23
-  %273 = fadd <2 x float> %272, %271
+  %259 = load <2 x float>, ptr %211, align 4, !tbaa !23
+  %260 = load float, ptr %212, align 4, !tbaa !23
+  %261 = load float, ptr %213, align 4, !tbaa !23
+  %262 = load float, ptr %214, align 4, !tbaa !23
+  %263 = shufflevector <2 x float> %208, <2 x float> poison, <2 x i32> zeroinitializer
+  %264 = insertelement <2 x float> %258, float %262, i64 1
+  %265 = fmul <2 x float> %263, %264
+  %266 = insertelement <2 x float> %256, float %261, i64 1
+  %267 = insertelement <2 x float> poison, float %204, i64 0
+  %268 = shufflevector <2 x float> %267, <2 x float> poison, <2 x i32> zeroinitializer
+  %269 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %266, <2 x float> %268, <2 x float> %265)
+  %270 = insertelement <2 x float> %254, float %260, i64 1
+  %271 = shufflevector <2 x float> %208, <2 x float> poison, <2 x i32> <i32 1, i32 1>
+  %272 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %270, <2 x float> %271, <2 x float> %269)
+  %273 = fadd <2 x float> %259, %272
   %274 = load float, ptr %215, align 4, !tbaa !23
   %275 = load float, ptr %217, align 4, !tbaa !23
-  %276 = extractelement <2 x float> %208, i64 0
-  %277 = fmul float %276, %275
-  %278 = call float @llvm.fmuladd.f32(float %274, float %204, float %277)
-  %279 = load float, ptr %221, align 4, !tbaa !23
-  %280 = extractelement <2 x float> %208, i64 1
-  %281 = call float @llvm.fmuladd.f32(float %279, float %280, float %278)
-  %282 = load float, ptr %224, align 4, !tbaa !23
-  %283 = fadd float %282, %281
+  %276 = load float, ptr %219, align 4, !tbaa !23
+  %277 = load float, ptr %221, align 4, !tbaa !23
+  %278 = extractelement <2 x float> %208, i64 0
+  %279 = fmul float %278, %277
+  %280 = call float @llvm.fmuladd.f32(float %276, float %204, float %279)
+  %281 = extractelement <2 x float> %208, i64 1
+  %282 = call float @llvm.fmuladd.f32(float %275, float %281, float %280)
+  %283 = fadd float %274, %282
   %284 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %283, i64 0
   %285 = getelementptr inbounds %"struct.btGjkEpaSolver2::sResults", ptr %4, i64 0, i32 1, i64 1
   store <2 x float> %273, ptr %285, align 4, !tbaa.struct !24
@@ -2820,8 +2819,8 @@ define dso_local noundef float @_ZN15btGjkEpaSolver214SignedDistanceERK9btVector
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %7) #11
   ret float %354
 
-355:                                              ; preds = %198, %196, %317, %58, %349
-  %356 = phi { ptr, i32 } [ %350, %349 ], [ %59, %58 ], [ %199, %198 ], [ %197, %196 ], [ %318, %317 ]
+355:                                              ; preds = %196, %198, %58, %349, %317
+  %356 = phi { ptr, i32 } [ %350, %349 ], [ %59, %58 ], [ %318, %317 ], [ %199, %198 ], [ %197, %196 ]
   call void @llvm.lifetime.end.p0(i64 464, ptr nonnull %10) #11
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %9) #11
   invoke void @_ZN13btConvexShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %8)
@@ -2983,15 +2982,15 @@ define linkonce_odr dso_local noundef float @_ZN12gjkepa2_impl3GJK13projectorigi
 90:                                               ; preds = %79, %75, %69, %54
   %91 = phi i32 [ 0, %54 ], [ 2, %69 ], [ 0, %75 ], [ 2, %79 ]
   %92 = phi i32 [ 0, %54 ], [ 2, %69 ], [ 1, %75 ], [ 3, %79 ]
-  %93 = phi float [ 0.000000e+00, %54 ], [ 0.000000e+00, %69 ], [ 1.000000e+00, %75 ], [ %80, %79 ]
-  %94 = phi float [ 0.000000e+00, %54 ], [ 1.000000e+00, %69 ], [ 0.000000e+00, %75 ], [ %67, %79 ]
+  %93 = phi float [ 0.000000e+00, %54 ], [ 1.000000e+00, %69 ], [ 0.000000e+00, %75 ], [ %67, %79 ]
+  %94 = phi float [ 0.000000e+00, %54 ], [ 0.000000e+00, %69 ], [ 1.000000e+00, %75 ], [ %80, %79 ]
   %95 = phi float [ -1.000000e+00, %54 ], [ %72, %69 ], [ %78, %75 ], [ %89, %79 ]
   %96 = and i32 %92, 1
   %97 = or i32 %96, %91
   store i32 %97, ptr %4, align 4, !tbaa !46
-  store float %93, ptr %3, align 4, !tbaa !23
+  store float %94, ptr %3, align 4, !tbaa !23
   %98 = getelementptr inbounds float, ptr %3, i64 1
-  store float %94, ptr %98, align 4, !tbaa !23
+  store float %93, ptr %98, align 4, !tbaa !23
   %99 = getelementptr inbounds float, ptr %3, i64 2
   store float 0.000000e+00, ptr %99, align 4, !tbaa !23
   %100 = load float, ptr %1, align 4, !tbaa !23
@@ -3000,13 +2999,13 @@ define linkonce_odr dso_local noundef float @_ZN12gjkepa2_impl3GJK13projectorigi
   br label %103
 
 103:                                              ; preds = %90, %43
-  %104 = phi float [ %102, %90 ], [ %17, %43 ]
-  %105 = phi float [ %101, %90 ], [ %12, %43 ]
-  %106 = phi float [ %100, %90 ], [ %7, %43 ]
-  %107 = phi i32 [ %92, %90 ], [ 0, %43 ]
-  %108 = phi float [ %93, %90 ], [ 0.000000e+00, %43 ]
-  %109 = phi float [ %94, %90 ], [ 0.000000e+00, %43 ]
-  %110 = phi float [ %95, %90 ], [ -1.000000e+00, %43 ]
+  %104 = phi float [ %17, %43 ], [ %102, %90 ]
+  %105 = phi float [ %12, %43 ], [ %101, %90 ]
+  %106 = phi float [ %7, %43 ], [ %100, %90 ]
+  %107 = phi i32 [ 0, %43 ], [ %92, %90 ]
+  %108 = phi float [ 0.000000e+00, %43 ], [ %93, %90 ]
+  %109 = phi float [ 0.000000e+00, %43 ], [ %94, %90 ]
+  %110 = phi float [ -1.000000e+00, %43 ], [ %95, %90 ]
   %111 = fneg float %26
   %112 = fmul float %35, %111
   %113 = tail call float @llvm.fmuladd.f32(float %23, float %38, float %112)
@@ -3075,12 +3074,12 @@ define linkonce_odr dso_local noundef float @_ZN12gjkepa2_impl3GJK13projectorigi
 
 163:                                              ; preds = %152, %148, %142, %124
   %164 = phi i32 [ 3, %152 ], [ 1, %148 ], [ 2, %142 ], [ %107, %124 ]
-  %165 = phi float [ %153, %152 ], [ 1.000000e+00, %148 ], [ 0.000000e+00, %142 ], [ %108, %124 ]
-  %166 = phi float [ %140, %152 ], [ 0.000000e+00, %148 ], [ 1.000000e+00, %142 ], [ %109, %124 ]
+  %165 = phi float [ %140, %152 ], [ 0.000000e+00, %148 ], [ 1.000000e+00, %142 ], [ %108, %124 ]
+  %166 = phi float [ %153, %152 ], [ 1.000000e+00, %148 ], [ 0.000000e+00, %142 ], [ %109, %124 ]
   %167 = phi float [ %162, %152 ], [ %151, %148 ], [ %145, %142 ], [ -1.000000e+00, %124 ]
   %168 = fcmp olt float %110, 0.000000e+00
   %169 = fcmp olt float %167, %110
-  %170 = or i1 %168, %169
+  %170 = select i1 %168, i1 true, i1 %169
   br i1 %170, label %171, label %179
 
 171:                                              ; preds = %163
@@ -3091,17 +3090,17 @@ define linkonce_odr dso_local noundef float @_ZN12gjkepa2_impl3GJK13projectorigi
   %176 = or i32 %173, %175
   store i32 %176, ptr %4, align 4, !tbaa !46
   %177 = getelementptr inbounds float, ptr %3, i64 1
-  store float %165, ptr %177, align 4, !tbaa !23
+  store float %166, ptr %177, align 4, !tbaa !23
   %178 = getelementptr inbounds float, ptr %3, i64 2
-  store float %166, ptr %178, align 4, !tbaa !23
+  store float %165, ptr %178, align 4, !tbaa !23
   store float 0.000000e+00, ptr %3, align 4, !tbaa !23
   br label %179
 
 179:                                              ; preds = %171, %163, %103
-  %180 = phi i32 [ %164, %171 ], [ %164, %163 ], [ %107, %103 ]
-  %181 = phi float [ %165, %171 ], [ %165, %163 ], [ %108, %103 ]
-  %182 = phi float [ %166, %171 ], [ %166, %163 ], [ %109, %103 ]
-  %183 = phi float [ %167, %171 ], [ %110, %163 ], [ %110, %103 ]
+  %180 = phi i32 [ %107, %103 ], [ %164, %163 ], [ %164, %171 ]
+  %181 = phi float [ %108, %103 ], [ %165, %163 ], [ %165, %171 ]
+  %182 = phi float [ %109, %103 ], [ %166, %163 ], [ %166, %171 ]
+  %183 = phi float [ %110, %103 ], [ %110, %163 ], [ %167, %171 ]
   %184 = fneg float %29
   %185 = fmul float %35, %184
   %186 = tail call float @llvm.fmuladd.f32(float %28, float %38, float %185)
@@ -3173,12 +3172,12 @@ define linkonce_odr dso_local noundef float @_ZN12gjkepa2_impl3GJK13projectorigi
 
 239:                                              ; preds = %228, %224, %218, %200
   %240 = phi i32 [ 3, %228 ], [ 1, %224 ], [ 2, %218 ], [ %180, %200 ]
-  %241 = phi float [ %229, %228 ], [ 1.000000e+00, %224 ], [ 0.000000e+00, %218 ], [ %181, %200 ]
-  %242 = phi float [ %216, %228 ], [ 0.000000e+00, %224 ], [ 1.000000e+00, %218 ], [ %182, %200 ]
+  %241 = phi float [ %216, %228 ], [ 0.000000e+00, %224 ], [ 1.000000e+00, %218 ], [ %181, %200 ]
+  %242 = phi float [ %229, %228 ], [ 1.000000e+00, %224 ], [ 0.000000e+00, %218 ], [ %182, %200 ]
   %243 = phi float [ %238, %228 ], [ %227, %224 ], [ %221, %218 ], [ -1.000000e+00, %200 ]
   %244 = fcmp olt float %183, 0.000000e+00
   %245 = fcmp olt float %243, %183
-  %246 = or i1 %244, %245
+  %246 = select i1 %244, i1 true, i1 %245
   br i1 %246, label %247, label %254
 
 247:                                              ; preds = %239
@@ -3188,14 +3187,14 @@ define linkonce_odr dso_local noundef float @_ZN12gjkepa2_impl3GJK13projectorigi
   %251 = or i32 %249, %250
   store i32 %251, ptr %4, align 4, !tbaa !46
   %252 = getelementptr inbounds float, ptr %3, i64 2
-  store float %241, ptr %252, align 4, !tbaa !23
-  store float %242, ptr %3, align 4, !tbaa !23
+  store float %242, ptr %252, align 4, !tbaa !23
+  store float %241, ptr %3, align 4, !tbaa !23
   %253 = getelementptr inbounds float, ptr %3, i64 1
   store float 0.000000e+00, ptr %253, align 4, !tbaa !23
   br label %254
 
 254:                                              ; preds = %247, %239, %179
-  %255 = phi float [ %243, %247 ], [ %183, %239 ], [ %183, %179 ]
+  %255 = phi float [ %183, %179 ], [ %183, %239 ], [ %243, %247 ]
   %256 = fcmp olt float %255, 0.000000e+00
   br i1 %256, label %257, label %310
 
@@ -3258,8 +3257,8 @@ define linkonce_odr dso_local noundef float @_ZN12gjkepa2_impl3GJK13projectorigi
   store float %308, ptr %309, align 4, !tbaa !23
   br label %310
 
-310:                                              ; preds = %254, %257, %5
-  %311 = phi float [ -1.000000e+00, %5 ], [ %271, %257 ], [ %255, %254 ]
+310:                                              ; preds = %5, %254, %257
+  %311 = phi float [ %271, %257 ], [ %255, %254 ], [ -1.000000e+00, %5 ]
   ret float %311
 }
 
@@ -3340,10 +3339,10 @@ define linkonce_odr dso_local noundef float @_ZN12gjkepa2_impl3GJK13projectorigi
   %79 = extractelement <2 x float> %78, i64 0
   %80 = extractelement <2 x float> %78, i64 1
   %81 = fmul float %79, %80
-  %82 = fcmp ole float %81, 0.000000e+00
-  %83 = fcmp one float %80, 0.000000e+00
-  %84 = and i1 %83, %82
-  br i1 %84, label %85, label %269
+  %82 = fcmp ugt float %81, 0.000000e+00
+  %83 = fcmp ueq float %80, 0.000000e+00
+  %84 = or i1 %83, %82
+  br i1 %84, label %269, label %85
 
 85:                                               ; preds = %6
   call void @llvm.lifetime.start.p0(i64 12, ptr nonnull %7) #11
@@ -3652,8 +3651,8 @@ define linkonce_odr dso_local void @_ZNK12gjkepa2_impl3GJK10getsupportERK9btVect
 57:                                               ; preds = %50, %55
   %58 = phi ptr [ %54, %50 ], [ %56, %55 ]
   %59 = fneg float %42
-  %60 = fneg float %41
-  %61 = fneg float %39
+  %60 = fneg float %39
+  %61 = fneg float %41
   %62 = extractvalue { <2 x float>, <2 x float> } %38, 1
   %63 = extractvalue { <2 x float>, <2 x float> } %38, 0
   %64 = getelementptr inbounds %"struct.gjkepa2_impl::MinkowskiDiff", ptr %0, i64 0, i32 2
@@ -3673,11 +3672,11 @@ define linkonce_odr dso_local void @_ZNK12gjkepa2_impl3GJK10getsupportERK9btVect
   %77 = load float, ptr %68, align 8, !tbaa !23
   %78 = load float, ptr %69, align 4, !tbaa !23
   %79 = insertelement <2 x float> %74, float %78, i64 1
-  %80 = insertelement <2 x float> poison, float %60, i64 0
+  %80 = insertelement <2 x float> poison, float %61, i64 0
   %81 = shufflevector <2 x float> %80, <2 x float> poison, <2 x i32> zeroinitializer
   %82 = fmul <2 x float> %79, %81
   %83 = insertelement <2 x float> %72, float %77, i64 1
-  %84 = insertelement <2 x float> poison, float %61, i64 0
+  %84 = insertelement <2 x float> poison, float %60, i64 0
   %85 = shufflevector <2 x float> %84, <2 x float> poison, <2 x i32> zeroinitializer
   %86 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %83, <2 x float> %85, <2 x float> %82)
   %87 = load float, ptr %70, align 8, !tbaa !23
@@ -3689,8 +3688,8 @@ define linkonce_odr dso_local void @_ZNK12gjkepa2_impl3GJK10getsupportERK9btVect
   %93 = load float, ptr %92, align 8, !tbaa !23
   %94 = getelementptr inbounds %"struct.gjkepa2_impl::MinkowskiDiff", ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 1
   %95 = load float, ptr %94, align 4, !tbaa !23
-  %96 = fmul float %95, %60
-  %97 = tail call float @llvm.fmuladd.f32(float %93, float %61, float %96)
+  %96 = fmul float %95, %61
+  %97 = tail call float @llvm.fmuladd.f32(float %93, float %60, float %96)
   %98 = getelementptr inbounds %"struct.gjkepa2_impl::MinkowskiDiff", ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 2
   %99 = load float, ptr %98, align 8, !tbaa !23
   %100 = tail call float @llvm.fmuladd.f32(float %99, float %59, float %97)
@@ -3896,8 +3895,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
 106:                                              ; preds = %99, %104
   %107 = phi ptr [ %103, %99 ], [ %105, %104 ]
   %108 = fneg float %92
-  %109 = fneg float %91
-  %110 = fneg float %89
+  %109 = fneg float %89
+  %110 = fneg float %91
   %111 = extractvalue { <2 x float>, <2 x float> } %88, 1
   %112 = extractvalue { <2 x float>, <2 x float> } %88, 0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %7) #11
@@ -3910,11 +3909,11 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %119 = load float, ptr %24, align 8, !tbaa !23
   %120 = load float, ptr %25, align 4, !tbaa !23
   %121 = insertelement <2 x float> %116, float %120, i64 1
-  %122 = insertelement <2 x float> poison, float %109, i64 0
+  %122 = insertelement <2 x float> poison, float %110, i64 0
   %123 = shufflevector <2 x float> %122, <2 x float> poison, <2 x i32> zeroinitializer
   %124 = fmul <2 x float> %121, %123
   %125 = insertelement <2 x float> %114, float %119, i64 1
-  %126 = insertelement <2 x float> poison, float %110, i64 0
+  %126 = insertelement <2 x float> poison, float %109, i64 0
   %127 = shufflevector <2 x float> %126, <2 x float> poison, <2 x i32> zeroinitializer
   %128 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %125, <2 x float> %127, <2 x float> %124)
   %129 = load float, ptr %26, align 8, !tbaa !23
@@ -3924,8 +3923,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %133 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %130, <2 x float> %132, <2 x float> %128)
   %134 = load float, ptr %27, align 8, !tbaa !23
   %135 = load float, ptr %28, align 4, !tbaa !23
-  %136 = fmul float %135, %109
-  %137 = call float @llvm.fmuladd.f32(float %134, float %110, float %136)
+  %136 = fmul float %135, %110
+  %137 = call float @llvm.fmuladd.f32(float %134, float %109, float %136)
   %138 = load float, ptr %29, align 8, !tbaa !23
   %139 = call float @llvm.fmuladd.f32(float %138, float %108, float %137)
   %140 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %139, i64 0
@@ -4056,8 +4055,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
 239:                                              ; preds = %232, %237
   %240 = phi ptr [ %236, %232 ], [ %238, %237 ]
   %241 = fneg float %225
-  %242 = fneg float %224
-  %243 = fneg float %222
+  %242 = fneg float %222
+  %243 = fneg float %224
   %244 = extractvalue { <2 x float>, <2 x float> } %221, 1
   %245 = extractvalue { <2 x float>, <2 x float> } %221, 0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #11
@@ -4070,11 +4069,11 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %252 = load float, ptr %24, align 8, !tbaa !23
   %253 = load float, ptr %25, align 4, !tbaa !23
   %254 = insertelement <2 x float> %249, float %253, i64 1
-  %255 = insertelement <2 x float> poison, float %242, i64 0
+  %255 = insertelement <2 x float> poison, float %243, i64 0
   %256 = shufflevector <2 x float> %255, <2 x float> poison, <2 x i32> zeroinitializer
   %257 = fmul <2 x float> %254, %256
   %258 = insertelement <2 x float> %247, float %252, i64 1
-  %259 = insertelement <2 x float> poison, float %243, i64 0
+  %259 = insertelement <2 x float> poison, float %242, i64 0
   %260 = shufflevector <2 x float> %259, <2 x float> poison, <2 x i32> zeroinitializer
   %261 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %258, <2 x float> %260, <2 x float> %257)
   %262 = load float, ptr %26, align 8, !tbaa !23
@@ -4084,8 +4083,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %266 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %263, <2 x float> %265, <2 x float> %261)
   %267 = load float, ptr %27, align 8, !tbaa !23
   %268 = load float, ptr %28, align 4, !tbaa !23
-  %269 = fmul float %268, %242
-  %270 = call float @llvm.fmuladd.f32(float %267, float %243, float %269)
+  %269 = fmul float %268, %243
+  %270 = call float @llvm.fmuladd.f32(float %267, float %242, float %269)
   %271 = load float, ptr %29, align 8, !tbaa !23
   %272 = call float @llvm.fmuladd.f32(float %271, float %241, float %270)
   %273 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %272, i64 0
@@ -4307,8 +4306,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
 448:                                              ; preds = %441, %446
   %449 = phi ptr [ %445, %441 ], [ %447, %446 ]
   %450 = fneg float %434
-  %451 = fneg float %433
-  %452 = fneg float %431
+  %451 = fneg float %431
+  %452 = fneg float %433
   %453 = extractvalue { <2 x float>, <2 x float> } %430, 1
   %454 = extractvalue { <2 x float>, <2 x float> } %430, 0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #11
@@ -4321,11 +4320,11 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %461 = load float, ptr %358, align 8, !tbaa !23
   %462 = load float, ptr %359, align 4, !tbaa !23
   %463 = insertelement <2 x float> %458, float %462, i64 1
-  %464 = insertelement <2 x float> poison, float %451, i64 0
+  %464 = insertelement <2 x float> poison, float %452, i64 0
   %465 = shufflevector <2 x float> %464, <2 x float> poison, <2 x i32> zeroinitializer
   %466 = fmul <2 x float> %463, %465
   %467 = insertelement <2 x float> %456, float %461, i64 1
-  %468 = insertelement <2 x float> poison, float %452, i64 0
+  %468 = insertelement <2 x float> poison, float %451, i64 0
   %469 = shufflevector <2 x float> %468, <2 x float> poison, <2 x i32> zeroinitializer
   %470 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %467, <2 x float> %469, <2 x float> %466)
   %471 = load float, ptr %360, align 8, !tbaa !23
@@ -4335,8 +4334,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %475 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %472, <2 x float> %474, <2 x float> %470)
   %476 = load float, ptr %361, align 8, !tbaa !23
   %477 = load float, ptr %362, align 4, !tbaa !23
-  %478 = fmul float %477, %451
-  %479 = call float @llvm.fmuladd.f32(float %476, float %452, float %478)
+  %478 = fmul float %477, %452
+  %479 = call float @llvm.fmuladd.f32(float %476, float %451, float %478)
   %480 = load float, ptr %363, align 8, !tbaa !23
   %481 = call float @llvm.fmuladd.f32(float %480, float %450, float %479)
   %482 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %481, i64 0
@@ -4467,8 +4466,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
 581:                                              ; preds = %574, %579
   %582 = phi ptr [ %578, %574 ], [ %580, %579 ]
   %583 = fneg float %567
-  %584 = fneg float %566
-  %585 = fneg float %564
+  %584 = fneg float %564
+  %585 = fneg float %566
   %586 = extractvalue { <2 x float>, <2 x float> } %563, 1
   %587 = extractvalue { <2 x float>, <2 x float> } %563, 0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #11
@@ -4481,11 +4480,11 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %594 = load float, ptr %358, align 8, !tbaa !23
   %595 = load float, ptr %359, align 4, !tbaa !23
   %596 = insertelement <2 x float> %591, float %595, i64 1
-  %597 = insertelement <2 x float> poison, float %584, i64 0
+  %597 = insertelement <2 x float> poison, float %585, i64 0
   %598 = shufflevector <2 x float> %597, <2 x float> poison, <2 x i32> zeroinitializer
   %599 = fmul <2 x float> %596, %598
   %600 = insertelement <2 x float> %589, float %594, i64 1
-  %601 = insertelement <2 x float> poison, float %585, i64 0
+  %601 = insertelement <2 x float> poison, float %584, i64 0
   %602 = shufflevector <2 x float> %601, <2 x float> poison, <2 x i32> zeroinitializer
   %603 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %600, <2 x float> %602, <2 x float> %599)
   %604 = load float, ptr %360, align 8, !tbaa !23
@@ -4495,8 +4494,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %608 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %605, <2 x float> %607, <2 x float> %603)
   %609 = load float, ptr %361, align 8, !tbaa !23
   %610 = load float, ptr %362, align 4, !tbaa !23
-  %611 = fmul float %610, %584
-  %612 = call float @llvm.fmuladd.f32(float %609, float %585, float %611)
+  %611 = fmul float %610, %585
+  %612 = call float @llvm.fmuladd.f32(float %609, float %584, float %611)
   %613 = load float, ptr %363, align 8, !tbaa !23
   %614 = call float @llvm.fmuladd.f32(float %613, float %583, float %612)
   %615 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %614, i64 0
@@ -4697,8 +4696,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
 772:                                              ; preds = %765, %770
   %773 = phi ptr [ %769, %765 ], [ %771, %770 ]
   %774 = fneg float %757
-  %775 = fneg float %756
-  %776 = fneg float %754
+  %775 = fneg float %754
+  %776 = fneg float %756
   %777 = extractvalue { <2 x float>, <2 x float> } %753, 1
   %778 = extractvalue { <2 x float>, <2 x float> } %753, 0
   %779 = getelementptr inbounds %"struct.gjkepa2_impl::MinkowskiDiff", ptr %0, i64 0, i32 2
@@ -4718,11 +4717,11 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %792 = load float, ptr %783, align 8, !tbaa !23
   %793 = load float, ptr %784, align 4, !tbaa !23
   %794 = insertelement <2 x float> %789, float %793, i64 1
-  %795 = insertelement <2 x float> poison, float %775, i64 0
+  %795 = insertelement <2 x float> poison, float %776, i64 0
   %796 = shufflevector <2 x float> %795, <2 x float> poison, <2 x i32> zeroinitializer
   %797 = fmul <2 x float> %794, %796
   %798 = insertelement <2 x float> %787, float %792, i64 1
-  %799 = insertelement <2 x float> poison, float %776, i64 0
+  %799 = insertelement <2 x float> poison, float %775, i64 0
   %800 = shufflevector <2 x float> %799, <2 x float> poison, <2 x i32> zeroinitializer
   %801 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %798, <2 x float> %800, <2 x float> %797)
   %802 = load float, ptr %785, align 8, !tbaa !23
@@ -4734,8 +4733,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %808 = load float, ptr %807, align 8, !tbaa !23
   %809 = getelementptr inbounds %"struct.gjkepa2_impl::MinkowskiDiff", ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 1
   %810 = load float, ptr %809, align 4, !tbaa !23
-  %811 = fmul float %810, %775
-  %812 = tail call float @llvm.fmuladd.f32(float %808, float %776, float %811)
+  %811 = fmul float %810, %776
+  %812 = tail call float @llvm.fmuladd.f32(float %808, float %775, float %811)
   %813 = getelementptr inbounds %"struct.gjkepa2_impl::MinkowskiDiff", ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 2
   %814 = load float, ptr %813, align 8, !tbaa !23
   %815 = tail call float @llvm.fmuladd.f32(float %814, float %774, float %812)
@@ -4878,8 +4877,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
 926:                                              ; preds = %919, %924
   %927 = phi ptr [ %923, %919 ], [ %925, %924 ]
   %928 = fneg float %912
-  %929 = fneg float %911
-  %930 = fneg float %909
+  %929 = fneg float %909
+  %930 = fneg float %911
   %931 = extractvalue { <2 x float>, <2 x float> } %908, 1
   %932 = extractvalue { <2 x float>, <2 x float> } %908, 0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #11
@@ -4892,11 +4891,11 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %939 = load float, ptr %783, align 8, !tbaa !23
   %940 = load float, ptr %784, align 4, !tbaa !23
   %941 = insertelement <2 x float> %936, float %940, i64 1
-  %942 = insertelement <2 x float> poison, float %929, i64 0
+  %942 = insertelement <2 x float> poison, float %930, i64 0
   %943 = shufflevector <2 x float> %942, <2 x float> poison, <2 x i32> zeroinitializer
   %944 = fmul <2 x float> %941, %943
   %945 = insertelement <2 x float> %934, float %939, i64 1
-  %946 = insertelement <2 x float> poison, float %930, i64 0
+  %946 = insertelement <2 x float> poison, float %929, i64 0
   %947 = shufflevector <2 x float> %946, <2 x float> poison, <2 x i32> zeroinitializer
   %948 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %945, <2 x float> %947, <2 x float> %944)
   %949 = load float, ptr %785, align 8, !tbaa !23
@@ -4906,8 +4905,8 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN12gjkepa2_impl3GJK13Enclose
   %953 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %950, <2 x float> %952, <2 x float> %948)
   %954 = load float, ptr %807, align 8, !tbaa !23
   %955 = load float, ptr %809, align 4, !tbaa !23
-  %956 = fmul float %955, %929
-  %957 = call float @llvm.fmuladd.f32(float %954, float %930, float %956)
+  %956 = fmul float %955, %930
+  %957 = call float @llvm.fmuladd.f32(float %954, float %929, float %956)
   %958 = load float, ptr %813, align 8, !tbaa !23
   %959 = call float @llvm.fmuladd.f32(float %958, float %928, float %957)
   %960 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %959, i64 0

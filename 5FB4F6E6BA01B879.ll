@@ -1439,13 +1439,13 @@ define dso_local noundef i32 @_ZN12CEncoderInfo4InitEjjP20CBaseRandomGenerator(p
   store ptr getelementptr inbounds ({ [8 x ptr], [4 x ptr] }, ptr @_ZTV19CBenchmarkOutStream, i64 0, inrange i32 1, i64 2), ptr %32, align 8, !tbaa !54
   %35 = getelementptr inbounds %struct.CEncoderInfo, ptr %0, i64 0, i32 8
   store ptr %31, ptr %35, align 8, !tbaa !68
-  %36 = getelementptr inbounds i8, ptr %31, i64 16
-  %37 = zext i32 %14 to i64
+  %36 = zext i32 %14 to i64
+  %37 = getelementptr inbounds i8, ptr %31, i64 16
   tail call void @MidFree(ptr noundef null)
   store ptr null, ptr %33, align 8, !tbaa !26
-  %38 = tail call ptr @MidAlloc(i64 noundef %37)
+  %38 = tail call ptr @MidAlloc(i64 noundef %36)
   store ptr %38, ptr %33, align 8, !tbaa !26
-  store i64 %37, ptr %36, align 8, !tbaa !21
+  store i64 %36, ptr %37, align 8, !tbaa !21
   %39 = icmp eq ptr %38, null
   br i1 %39, label %188, label %40
 
@@ -1832,10 +1832,10 @@ define linkonce_odr dso_local void @_ZN21CBenchRandomGenerator8GenerateEv(ptr no
   br label %84
 
 84:                                               ; preds = %55, %72
-  %85 = phi i32 [ %69, %55 ], [ %83, %72 ]
-  %86 = phi i32 [ %64, %55 ], [ %79, %72 ]
-  %87 = phi i32 [ %70, %55 ], [ %83, %72 ]
-  %88 = phi i32 [ %59, %55 ], [ %75, %72 ]
+  %85 = phi i32 [ %83, %72 ], [ %69, %55 ]
+  %86 = phi i32 [ %79, %72 ], [ %64, %55 ]
+  %87 = phi i32 [ %83, %72 ], [ %70, %55 ]
+  %88 = phi i32 [ %75, %72 ], [ %59, %55 ]
   %89 = icmp ult i32 %88, %10
   br i1 %89, label %90, label %55, !llvm.loop !82
 
@@ -1961,7 +1961,7 @@ define dso_local noundef i32 @_ZN12CEncoderInfo6EncodeEv(ptr nocapture noundef n
   store ptr null, ptr %14, align 8, !tbaa !76
   br label %43
 
-43:                                               ; preds = %24, %30, %42
+43:                                               ; preds = %24, %42, %30
   %44 = load ptr, ptr %2, align 8, !tbaa !54
   %45 = getelementptr inbounds ptr, ptr %44, i64 2
   %46 = load ptr, ptr %45, align 8
@@ -2162,8 +2162,8 @@ define dso_local noundef i32 @_ZN12CEncoderInfo6DecodeEj(ptr nocapture noundef n
           cleanup
   br label %112
 
-103:                                              ; preds = %59, %81, %92, %100
-  %104 = phi i32 [ 0, %92 ], [ 0, %100 ], [ %82, %81 ], [ %58, %59 ]
+103:                                              ; preds = %59, %81, %100, %92
+  %104 = phi i32 [ 0, %100 ], [ 0, %92 ], [ %82, %81 ], [ %58, %59 ]
   %105 = load ptr, ptr %19, align 8, !tbaa !54
   %106 = getelementptr inbounds ptr, ptr %105, i64 2
   %107 = load ptr, ptr %106, align 8
@@ -2211,7 +2211,7 @@ define dso_local noundef i32 @_ZN12CEncoderInfo6DecodeEj(ptr nocapture noundef n
   call void @__clang_call_terminate(ptr %131) #23
   unreachable
 
-132:                                              ; preds = %13, %124, %121
+132:                                              ; preds = %13, %121, %124
   %133 = phi i32 [ %104, %121 ], [ %104, %124 ], [ -2147467259, %13 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #21
   %134 = load ptr, ptr %5, align 8, !tbaa !54
@@ -2252,7 +2252,7 @@ define dso_local noundef i32 @_ZN12CEncoderInfo6DecodeEj(ptr nocapture noundef n
   call void @__clang_call_terminate(ptr %155) #23
   unreachable
 
-156:                                              ; preds = %146, %142
+156:                                              ; preds = %142, %146
   %157 = phi { ptr, i32 } [ %143, %142 ], [ %147, %146 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #21
   %158 = load ptr, ptr %5, align 8, !tbaa !54
@@ -2290,7 +2290,7 @@ define dso_local noundef i32 @_Z9LzmaBenchjjP14IBenchCallback(i32 noundef %0, i3
   %17 = or i1 %16, %15
   %18 = icmp ugt i32 %13, 65536
   %19 = or i1 %17, %18
-  br i1 %19, label %521, label %20
+  br i1 %19, label %536, label %20
 
 20:                                               ; preds = %3
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #21
@@ -2301,7 +2301,7 @@ define dso_local noundef i32 @_Z9LzmaBenchjjP14IBenchCallback(i32 noundef %0, i3
   store i64 %21, ptr %24, align 16
   %25 = getelementptr inbounds i8, ptr %24, i64 8
   %26 = icmp eq i32 %13, 0
-  br i1 %26, label %75, label %27
+  br i1 %26, label %78, label %27
 
 27:                                               ; preds = %20
   %28 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %21
@@ -2336,825 +2336,842 @@ define dso_local noundef i32 @_Z9LzmaBenchjjP14IBenchCallback(i32 noundef %0, i3
   %43 = zext i32 %14 to i64
   br label %44
 
-44:                                               ; preds = %42, %72
-  %45 = phi i64 [ 0, %42 ], [ %73, %72 ]
-  %46 = icmp eq i64 %45, 0
-  %47 = select i1 %46, ptr %2, ptr null
-  %48 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %45, i32 10
-  store ptr %47, ptr %48, align 8, !tbaa !98
-  %49 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %45, i32 1
-  %50 = invoke noundef i32 @_Z11CreateCoderyR9CMyComPtrI14ICompressCoderEb(i64 noundef 196865, ptr noundef nonnull align 8 dereferenceable(8) %49, i1 noundef zeroext true)
-          to label %51 unwind label %53
+44:                                               ; preds = %42, %75
+  %45 = phi i64 [ 0, %42 ], [ %76, %75 ]
+  %46 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %45
+  %47 = icmp eq i64 %45, 0
+  %48 = select i1 %47, ptr %2, ptr null
+  %49 = getelementptr inbounds %struct.CEncoderInfo, ptr %46, i64 0, i32 10
+  store ptr %48, ptr %49, align 8, !tbaa !98
+  %50 = getelementptr inbounds %struct.CEncoderInfo, ptr %46, i64 0, i32 1
+  %51 = invoke noundef i32 @_Z11CreateCoderyR9CMyComPtrI14ICompressCoderEb(i64 noundef 196865, ptr noundef nonnull align 8 dereferenceable(8) %50, i1 noundef zeroext true)
+          to label %52 unwind label %54
 
-51:                                               ; preds = %44
-  %52 = icmp eq i32 %50, 0
-  br i1 %52, label %55, label %508
+52:                                               ; preds = %44
+  %53 = icmp eq i32 %51, 0
+  br i1 %53, label %56, label %523
 
-53:                                               ; preds = %44
-  %54 = landingpad { ptr, i32 }
+54:                                               ; preds = %44
+  %55 = landingpad { ptr, i32 }
           cleanup
-  br label %519
+  br label %534
 
-55:                                               ; preds = %51
-  %56 = load ptr, ptr %49, align 8, !tbaa !76
-  %57 = icmp eq ptr %56, null
-  br i1 %57, label %508, label %61
+56:                                               ; preds = %52
+  %57 = load ptr, ptr %50, align 8, !tbaa !76
+  %58 = icmp eq ptr %57, null
+  br i1 %58, label %523, label %59
 
-58:                                               ; preds = %69
-  %59 = add nuw nsw i64 %62, 1
-  %60 = icmp eq i64 %59, %43
-  br i1 %60, label %72, label %61, !llvm.loop !99
+59:                                               ; preds = %56
+  %60 = getelementptr inbounds %struct.CEncoderInfo, ptr %46, i64 0, i32 6
+  br label %64
 
-61:                                               ; preds = %55, %58
-  %62 = phi i64 [ %59, %58 ], [ 0, %55 ]
-  %63 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %45, i32 6, i64 %62
-  %64 = invoke noundef i32 @_Z11CreateCoderyR9CMyComPtrI14ICompressCoderEb(i64 noundef 196865, ptr noundef nonnull align 8 dereferenceable(8) %63, i1 noundef zeroext false)
-          to label %65 unwind label %67
+61:                                               ; preds = %72
+  %62 = add nuw nsw i64 %65, 1
+  %63 = icmp eq i64 %62, %43
+  br i1 %63, label %75, label %64, !llvm.loop !99
 
-65:                                               ; preds = %61
-  %66 = icmp eq i32 %64, 0
-  br i1 %66, label %69, label %508
+64:                                               ; preds = %59, %61
+  %65 = phi i64 [ 0, %59 ], [ %62, %61 ]
+  %66 = getelementptr inbounds [2 x %class.CMyComPtr], ptr %60, i64 0, i64 %65
+  %67 = invoke noundef i32 @_Z11CreateCoderyR9CMyComPtrI14ICompressCoderEb(i64 noundef 196865, ptr noundef nonnull align 8 dereferenceable(8) %66, i1 noundef zeroext false)
+          to label %68 unwind label %70
 
-67:                                               ; preds = %61
-  %68 = landingpad { ptr, i32 }
+68:                                               ; preds = %64
+  %69 = icmp eq i32 %67, 0
+  br i1 %69, label %72, label %523
+
+70:                                               ; preds = %64
+  %71 = landingpad { ptr, i32 }
           cleanup
-  br label %519
+  br label %534
 
-69:                                               ; preds = %65
-  %70 = load ptr, ptr %63, align 8, !tbaa !76
-  %71 = icmp eq ptr %70, null
-  br i1 %71, label %508, label %58
+72:                                               ; preds = %68
+  %73 = load ptr, ptr %66, align 8, !tbaa !76
+  %74 = icmp eq ptr %73, null
+  br i1 %74, label %523, label %61
 
-72:                                               ; preds = %58
-  %73 = add nuw nsw i64 %45, 1
-  %74 = icmp eq i64 %73, %21
-  br i1 %74, label %77, label %44, !llvm.loop !100
+75:                                               ; preds = %61
+  %76 = add nuw nsw i64 %45, 1
+  %77 = icmp eq i64 %76, %21
+  br i1 %77, label %80, label %44, !llvm.loop !100
 
-75:                                               ; preds = %20
+78:                                               ; preds = %20
   store ptr %25, ptr %7, align 8, !tbaa !96
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #21
-  %76 = getelementptr inbounds %class.CBaseRandomGenerator, ptr %8, i64 0, i32 1
+  %79 = getelementptr inbounds %class.CBaseRandomGenerator, ptr %8, i64 0, i32 1
   store i32 362436069, ptr %8, align 4, !tbaa !79
-  store i32 521288629, ptr %76, align 4, !tbaa !81
-  br label %90
+  store i32 521288629, ptr %79, align 4, !tbaa !81
+  br label %93
 
-77:                                               ; preds = %72
+80:                                               ; preds = %75
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #21
-  %78 = getelementptr inbounds %class.CBaseRandomGenerator, ptr %8, i64 0, i32 1
+  %81 = getelementptr inbounds %class.CBaseRandomGenerator, ptr %8, i64 0, i32 1
   store i32 362436069, ptr %8, align 4, !tbaa !79
-  store i32 521288629, ptr %78, align 4, !tbaa !81
-  br label %82
+  store i32 521288629, ptr %81, align 4, !tbaa !81
+  br label %85
 
-79:                                               ; preds = %86
-  %80 = add nuw nsw i64 %83, 1
-  %81 = icmp eq i64 %80, %21
-  br i1 %81, label %90, label %82, !llvm.loop !101
+82:                                               ; preds = %89
+  %83 = add nuw nsw i64 %86, 1
+  %84 = icmp eq i64 %83, %21
+  br i1 %84, label %93, label %85, !llvm.loop !101
 
-82:                                               ; preds = %77, %79
-  %83 = phi i64 [ %80, %79 ], [ 0, %77 ]
-  %84 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %83
-  %85 = invoke noundef i32 @_ZN12CEncoderInfo4InitEjjP20CBaseRandomGenerator(ptr noundef nonnull align 8 dereferenceable(224) %84, i32 noundef %1, i32 noundef %0, ptr noundef nonnull %8)
-          to label %86 unwind label %88
+85:                                               ; preds = %80, %82
+  %86 = phi i64 [ %83, %82 ], [ 0, %80 ]
+  %87 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %86
+  %88 = invoke noundef i32 @_ZN12CEncoderInfo4InitEjjP20CBaseRandomGenerator(ptr noundef nonnull align 8 dereferenceable(224) %87, i32 noundef %1, i32 noundef %0, ptr noundef nonnull %8)
+          to label %89 unwind label %91
 
-86:                                               ; preds = %82
-  %87 = icmp eq i32 %85, 0
-  br i1 %87, label %79, label %504
+89:                                               ; preds = %85
+  %90 = icmp eq i32 %88, 0
+  br i1 %90, label %82, label %519
 
-88:                                               ; preds = %82
-  %89 = landingpad { ptr, i32 }
+91:                                               ; preds = %85
+  %92 = landingpad { ptr, i32 }
           cleanup
-  br label %506
-
-90:                                               ; preds = %79, %75
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %9) #21
-  %91 = invoke i32 @CriticalSection_Init(ptr noundef nonnull %9)
-          to label %92 unwind label %169
-
-92:                                               ; preds = %90
-  %93 = getelementptr inbounds %class.CBenchProgressStatus, ptr %9, i64 0, i32 1
-  store i32 0, ptr %93, align 8, !tbaa !34
-  %94 = getelementptr inbounds %class.CBenchProgressStatus, ptr %9, i64 0, i32 2
-  store i8 1, ptr %94, align 4, !tbaa !49
-  br i1 %26, label %238, label %95
-
-95:                                               ; preds = %92
-  %96 = getelementptr inbounds %struct.timeval, ptr %6, i64 0, i32 1
-  %97 = icmp eq i32 %13, 1
-  %98 = invoke noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #22
-          to label %99 unwind label %207
-
-99:                                               ; preds = %95
-  %100 = getelementptr inbounds i8, ptr %98, i64 8
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CBenchProgressInfo, i64 0, inrange i32 0, i64 2), ptr %98, align 8, !tbaa !54
-  %101 = getelementptr inbounds %class.CBenchProgressInfo, ptr %98, i64 0, i32 3, i32 6
-  store i32 0, ptr %101, align 8, !tbaa !102
-  %102 = getelementptr inbounds %class.CBenchProgressInfo, ptr %98, i64 0, i32 5
-  store ptr null, ptr %102, align 8, !tbaa !39
-  %103 = getelementptr inbounds i8, ptr %24, i64 48
-  store ptr %98, ptr %103, align 8, !tbaa !90
-  %104 = getelementptr inbounds i8, ptr %24, i64 64
-  store i32 1, ptr %100, align 8, !tbaa !67
-  %105 = load ptr, ptr %104, align 8, !tbaa !85
-  %106 = icmp eq ptr %105, null
-  br i1 %106, label %114, label %107
-
-107:                                              ; preds = %99
-  %108 = load ptr, ptr %105, align 8, !tbaa !54
-  %109 = getelementptr inbounds ptr, ptr %108, i64 2
-  %110 = load ptr, ptr %109, align 8
-  %111 = invoke noundef i32 %110(ptr noundef nonnull align 8 dereferenceable(8) %105)
-          to label %112 unwind label %207
-
-112:                                              ; preds = %107
-  %113 = load ptr, ptr %103, align 8, !tbaa !90
-  br label %114
-
-114:                                              ; preds = %112, %99
-  %115 = phi ptr [ %113, %112 ], [ %98, %99 ]
-  store ptr %98, ptr %104, align 8, !tbaa !85
-  %116 = getelementptr inbounds %class.CBenchProgressInfo, ptr %115, i64 0, i32 2
-  store ptr %9, ptr %116, align 8, !tbaa !29
-  %117 = invoke noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #22
-          to label %118 unwind label %207
-
-118:                                              ; preds = %114
-  %119 = getelementptr inbounds i8, ptr %117, i64 8
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CBenchProgressInfo, i64 0, inrange i32 0, i64 2), ptr %117, align 8, !tbaa !54
-  %120 = getelementptr inbounds %class.CBenchProgressInfo, ptr %117, i64 0, i32 3, i32 6
-  store i32 0, ptr %120, align 8, !tbaa !102
-  %121 = getelementptr inbounds %class.CBenchProgressInfo, ptr %117, i64 0, i32 5
-  store ptr null, ptr %121, align 8, !tbaa !39
-  %122 = getelementptr inbounds i8, ptr %24, i64 56
-  store ptr %117, ptr %122, align 8, !tbaa !90
-  %123 = getelementptr inbounds i8, ptr %24, i64 72
-  store i32 1, ptr %119, align 8, !tbaa !67
-  %124 = load ptr, ptr %123, align 8, !tbaa !85
-  %125 = icmp eq ptr %124, null
-  br i1 %125, label %133, label %126
-
-126:                                              ; preds = %118
-  %127 = load ptr, ptr %124, align 8, !tbaa !54
-  %128 = getelementptr inbounds ptr, ptr %127, i64 2
-  %129 = load ptr, ptr %128, align 8
-  %130 = invoke noundef i32 %129(ptr noundef nonnull align 8 dereferenceable(8) %124)
-          to label %131 unwind label %207
-
-131:                                              ; preds = %126
-  %132 = load ptr, ptr %122, align 8, !tbaa !90
-  br label %133
-
-133:                                              ; preds = %131, %118
-  %134 = phi ptr [ %132, %131 ], [ %117, %118 ]
-  store ptr %117, ptr %123, align 8, !tbaa !85
-  %135 = getelementptr inbounds %class.CBenchProgressInfo, ptr %134, i64 0, i32 2
-  store ptr %9, ptr %135, align 8, !tbaa !29
-  %136 = load ptr, ptr %103, align 8, !tbaa !90
-  %137 = getelementptr inbounds %class.CBenchProgressInfo, ptr %136, i64 0, i32 5
-  store ptr %2, ptr %137, align 8, !tbaa !39
-  %138 = load ptr, ptr %103, align 8, !tbaa !90
-  %139 = getelementptr inbounds %class.CBenchProgressInfo, ptr %138, i64 0, i32 3, i32 6
-  store i32 %13, ptr %139, align 8, !tbaa !103
-  %140 = getelementptr inbounds %class.CBenchProgressInfo, ptr %138, i64 0, i32 3
-  %141 = getelementptr inbounds %class.CBenchProgressInfo, ptr %138, i64 0, i32 3, i32 1
-  store i64 1000000, ptr %141, align 8, !tbaa !42
-  %142 = getelementptr inbounds %class.CBenchProgressInfo, ptr %138, i64 0, i32 3, i32 3
-  store i64 1000000, ptr %142, align 8, !tbaa !43
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #21
-  %143 = call i32 @gettimeofday(ptr noundef nonnull %6, ptr noundef null) #21
-  %144 = icmp eq i32 %143, 0
-  br i1 %144, label %148, label %145
-
-145:                                              ; preds = %133
-  %146 = call i64 @time(ptr noundef null) #21
-  %147 = mul i64 %146, 1000000
-  br label %153
-
-148:                                              ; preds = %133
-  %149 = load i64, ptr %6, align 8, !tbaa !44
-  %150 = mul i64 %149, 1000000
-  %151 = load i64, ptr %96, align 8, !tbaa !46
-  %152 = add i64 %150, %151
-  br label %153
-
-153:                                              ; preds = %145, %148
-  %154 = phi i64 [ %152, %148 ], [ %147, %145 ]
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #21
-  store i64 %154, ptr %140, align 8, !tbaa !47
-  %155 = call i64 @clock() #21
-  %156 = getelementptr inbounds %class.CBenchProgressInfo, ptr %138, i64 0, i32 3, i32 2
-  store i64 %155, ptr %156, align 8, !tbaa !48
-  br i1 %97, label %161, label %157
-
-157:                                              ; preds = %153
-  %158 = invoke i32 @Thread_Create(ptr noundef nonnull %25, ptr noundef nonnull @_ZN12CEncoderInfo20EncodeThreadFunctionEPv, ptr noundef nonnull %25)
-          to label %159 unwind label %217
-
-159:                                              ; preds = %157
-  %160 = icmp eq i32 %158, 0
-  br i1 %160, label %165, label %496
-
-161:                                              ; preds = %153
-  %162 = invoke noundef i32 @_ZN12CEncoderInfo6EncodeEv(ptr noundef nonnull align 8 dereferenceable(224) %25)
-          to label %163 unwind label %219
-
-163:                                              ; preds = %161
-  %164 = icmp eq i32 %162, 0
-  br i1 %164, label %235, label %496
-
-165:                                              ; preds = %159, %221
-  %166 = phi i64 [ %222, %221 ], [ 1, %159 ]
-  %167 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %166
-  %168 = invoke noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #22
-          to label %171 unwind label %205
-
-169:                                              ; preds = %90
-  %170 = landingpad { ptr, i32 }
-          cleanup
-  br label %502
-
-171:                                              ; preds = %165
-  %172 = getelementptr inbounds i8, ptr %168, i64 8
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CBenchProgressInfo, i64 0, inrange i32 0, i64 2), ptr %168, align 8, !tbaa !54
-  %173 = getelementptr inbounds %class.CBenchProgressInfo, ptr %168, i64 0, i32 3, i32 6
-  store i32 0, ptr %173, align 8, !tbaa !102
-  %174 = getelementptr inbounds %class.CBenchProgressInfo, ptr %168, i64 0, i32 5
-  store ptr null, ptr %174, align 8, !tbaa !39
-  %175 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %166, i32 2, i64 0
-  store ptr %168, ptr %175, align 8, !tbaa !90
-  %176 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %166, i32 3, i64 0
-  store i32 1, ptr %172, align 8, !tbaa !67
-  %177 = load ptr, ptr %176, align 8, !tbaa !85
-  %178 = icmp eq ptr %177, null
-  br i1 %178, label %186, label %179
-
-179:                                              ; preds = %171
-  %180 = load ptr, ptr %177, align 8, !tbaa !54
-  %181 = getelementptr inbounds ptr, ptr %180, i64 2
-  %182 = load ptr, ptr %181, align 8
-  %183 = invoke noundef i32 %182(ptr noundef nonnull align 8 dereferenceable(8) %177)
-          to label %184 unwind label %205
-
-184:                                              ; preds = %179
-  %185 = load ptr, ptr %175, align 8, !tbaa !90
-  br label %186
-
-186:                                              ; preds = %184, %171
-  %187 = phi ptr [ %185, %184 ], [ %168, %171 ]
-  store ptr %168, ptr %176, align 8, !tbaa !85
-  %188 = getelementptr inbounds %class.CBenchProgressInfo, ptr %187, i64 0, i32 2
-  store ptr %9, ptr %188, align 8, !tbaa !29
-  %189 = invoke noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #22
-          to label %190 unwind label %205
-
-190:                                              ; preds = %186
-  %191 = getelementptr inbounds i8, ptr %189, i64 8
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CBenchProgressInfo, i64 0, inrange i32 0, i64 2), ptr %189, align 8, !tbaa !54
-  %192 = getelementptr inbounds %class.CBenchProgressInfo, ptr %189, i64 0, i32 3, i32 6
-  store i32 0, ptr %192, align 8, !tbaa !102
-  %193 = getelementptr inbounds %class.CBenchProgressInfo, ptr %189, i64 0, i32 5
-  store ptr null, ptr %193, align 8, !tbaa !39
-  %194 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %166, i32 2, i64 1
-  store ptr %189, ptr %194, align 8, !tbaa !90
-  %195 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %166, i32 3, i64 1
-  store i32 1, ptr %191, align 8, !tbaa !67
-  %196 = load ptr, ptr %195, align 8, !tbaa !85
-  %197 = icmp eq ptr %196, null
-  br i1 %197, label %209, label %198
-
-198:                                              ; preds = %190
-  %199 = load ptr, ptr %196, align 8, !tbaa !54
-  %200 = getelementptr inbounds ptr, ptr %199, i64 2
-  %201 = load ptr, ptr %200, align 8
-  %202 = invoke noundef i32 %201(ptr noundef nonnull align 8 dereferenceable(8) %196)
-          to label %203 unwind label %205
-
-203:                                              ; preds = %198
-  %204 = load ptr, ptr %194, align 8, !tbaa !90
-  br label %209
-
-205:                                              ; preds = %165, %179, %186, %198
-  %206 = landingpad { ptr, i32 }
-          cleanup
-  br label %499
-
-207:                                              ; preds = %95, %107, %114, %126
-  %208 = landingpad { ptr, i32 }
-          cleanup
-  br label %499
-
-209:                                              ; preds = %203, %190
-  %210 = phi ptr [ %204, %203 ], [ %189, %190 ]
-  store ptr %189, ptr %195, align 8, !tbaa !85
-  %211 = getelementptr inbounds %class.CBenchProgressInfo, ptr %210, i64 0, i32 2
-  store ptr %9, ptr %211, align 8, !tbaa !29
-  %212 = invoke i32 @Thread_Create(ptr noundef nonnull %167, ptr noundef nonnull @_ZN12CEncoderInfo20EncodeThreadFunctionEPv, ptr noundef nonnull %167)
-          to label %213 unwind label %215
-
-213:                                              ; preds = %209
-  %214 = icmp eq i32 %212, 0
-  br i1 %214, label %221, label %496
-
-215:                                              ; preds = %209
-  %216 = landingpad { ptr, i32 }
-          cleanup
-  br label %499
-
-217:                                              ; preds = %157
-  %218 = landingpad { ptr, i32 }
-          cleanup
-  br label %499
-
-219:                                              ; preds = %161
-  %220 = landingpad { ptr, i32 }
-          cleanup
-  br label %499
-
-221:                                              ; preds = %213
-  %222 = add nuw nsw i64 %166, 1
-  %223 = icmp eq i64 %222, %21
-  br i1 %223, label %224, label %165, !llvm.loop !104
-
-224:                                              ; preds = %221
-  %225 = icmp ugt i32 %13, 1
-  br i1 %225, label %226, label %235
-
-226:                                              ; preds = %224, %230
-  %227 = phi i64 [ %231, %230 ], [ 0, %224 ]
-  %228 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %227
-  %229 = invoke i32 @Thread_Wait(ptr noundef nonnull %228)
-          to label %230 unwind label %233
-
-230:                                              ; preds = %226
-  %231 = add nuw nsw i64 %227, 1
-  %232 = icmp eq i64 %231, %21
-  br i1 %232, label %235, label %226, !llvm.loop !106
-
-233:                                              ; preds = %226
-  %234 = landingpad { ptr, i32 }
-          cleanup
-  br label %499
-
-235:                                              ; preds = %230, %163, %224
-  %236 = load i32, ptr %93, align 8, !tbaa !34
-  %237 = icmp eq i32 %236, 0
-  br i1 %237, label %238, label %496
-
-238:                                              ; preds = %92, %235
-  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %10) #21
-  %239 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 6
-  store i32 0, ptr %239, align 8, !tbaa !102
-  %240 = getelementptr inbounds i8, ptr %24, i64 48
-  %241 = load ptr, ptr %240, align 8, !tbaa !90
-  %242 = getelementptr inbounds %class.CBenchProgressInfo, ptr %241, i64 0, i32 3
-  %243 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 1
-  store i64 1000000, ptr %243, align 8, !tbaa !42
-  %244 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 3
-  store i64 1000000, ptr %244, align 8, !tbaa !43
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #21
-  %245 = call i32 @gettimeofday(ptr noundef nonnull %5, ptr noundef null) #21
-  %246 = icmp eq i32 %245, 0
-  br i1 %246, label %247, label %253
-
-247:                                              ; preds = %238
-  %248 = load i64, ptr %5, align 8, !tbaa !44
-  %249 = mul i64 %248, 1000000
-  %250 = getelementptr inbounds %struct.timeval, ptr %5, i64 0, i32 1
-  %251 = load i64, ptr %250, align 8, !tbaa !46
-  %252 = add i64 %249, %251
-  br label %256
-
-253:                                              ; preds = %238
-  %254 = call i64 @time(ptr noundef null) #21
-  %255 = mul i64 %254, 1000000
-  br label %256
-
-256:                                              ; preds = %253, %247
-  %257 = phi i64 [ %252, %247 ], [ %255, %253 ]
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #21
-  %258 = load i64, ptr %242, align 8, !tbaa !47
-  %259 = sub i64 %257, %258
-  store i64 %259, ptr %10, align 8, !tbaa !47
-  %260 = call i64 @clock() #21
-  %261 = getelementptr inbounds %class.CBenchProgressInfo, ptr %241, i64 0, i32 3, i32 2
-  %262 = load i64, ptr %261, align 8, !tbaa !48
-  %263 = sub i64 %260, %262
-  %264 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 2
-  store i64 %263, ptr %264, align 8, !tbaa !48
-  %265 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 4
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %265, i8 0, i64 16, i1 false)
-  store i32 1, ptr %239, align 8, !tbaa !102
-  br i1 %26, label %315, label %266
-
-266:                                              ; preds = %256
-  %267 = and i64 %21, 3
-  %268 = icmp ult i32 %13, 4
-  br i1 %268, label %297, label %269
-
-269:                                              ; preds = %266
-  %270 = and i64 %21, 2147483644
-  br label %271
-
-271:                                              ; preds = %271, %269
-  %272 = phi i64 [ 0, %269 ], [ %294, %271 ]
-  %273 = phi <2 x i64> [ zeroinitializer, %269 ], [ %293, %271 ]
-  %274 = phi i64 [ 0, %269 ], [ %295, %271 ]
-  %275 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %272, i32 12
-  %276 = load <2 x i32>, ptr %275, align 4, !tbaa !20
-  %277 = zext <2 x i32> %276 to <2 x i64>
-  %278 = add <2 x i64> %273, %277
-  %279 = or i64 %272, 1
-  %280 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %279, i32 12
-  %281 = load <2 x i32>, ptr %280, align 4, !tbaa !20
-  %282 = zext <2 x i32> %281 to <2 x i64>
-  %283 = add <2 x i64> %278, %282
-  %284 = or i64 %272, 2
-  %285 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %284, i32 12
-  %286 = load <2 x i32>, ptr %285, align 4, !tbaa !20
-  %287 = zext <2 x i32> %286 to <2 x i64>
-  %288 = add <2 x i64> %283, %287
-  %289 = or i64 %272, 3
-  %290 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %289, i32 12
-  %291 = load <2 x i32>, ptr %290, align 4, !tbaa !20
-  %292 = zext <2 x i32> %291 to <2 x i64>
-  %293 = add <2 x i64> %288, %292
-  %294 = add nuw nsw i64 %272, 4
-  %295 = add i64 %274, 4
-  %296 = icmp eq i64 %295, %270
-  br i1 %296, label %297, label %271, !llvm.loop !107
-
-297:                                              ; preds = %271, %266
-  %298 = phi <2 x i64> [ undef, %266 ], [ %293, %271 ]
-  %299 = phi i64 [ 0, %266 ], [ %294, %271 ]
-  %300 = phi <2 x i64> [ zeroinitializer, %266 ], [ %293, %271 ]
-  %301 = icmp eq i64 %267, 0
-  br i1 %301, label %313, label %302
-
-302:                                              ; preds = %297, %302
-  %303 = phi i64 [ %310, %302 ], [ %299, %297 ]
-  %304 = phi <2 x i64> [ %309, %302 ], [ %300, %297 ]
-  %305 = phi i64 [ %311, %302 ], [ 0, %297 ]
-  %306 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %303, i32 12
-  %307 = load <2 x i32>, ptr %306, align 4, !tbaa !20
-  %308 = zext <2 x i32> %307 to <2 x i64>
-  %309 = add <2 x i64> %304, %308
-  %310 = add nuw nsw i64 %303, 1
-  %311 = add i64 %305, 1
-  %312 = icmp eq i64 %311, %267
-  br i1 %312, label %313, label %302, !llvm.loop !108
-
-313:                                              ; preds = %302, %297
-  %314 = phi <2 x i64> [ %298, %297 ], [ %309, %302 ]
-  store <2 x i64> %314, ptr %265, align 8, !tbaa !41
-  br label %315
-
-315:                                              ; preds = %313, %256
-  %316 = load ptr, ptr %2, align 8, !tbaa !54
-  %317 = load ptr, ptr %316, align 8
-  %318 = invoke noundef i32 %317(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(52) %10, i1 noundef zeroext true)
-          to label %319 unwind label %321
-
-319:                                              ; preds = %315
-  %320 = icmp eq i32 %318, 0
-  br i1 %320, label %323, label %492
-
-321:                                              ; preds = %315
-  %322 = landingpad { ptr, i32 }
-          cleanup
-  br label %494
-
-323:                                              ; preds = %319
-  store i32 0, ptr %93, align 8, !tbaa !34
-  store i8 0, ptr %94, align 4, !tbaa !49
-  %324 = mul nuw nsw i32 %13, %14
-  br i1 %26, label %470, label %325
-
-325:                                              ; preds = %323
-  %326 = getelementptr inbounds %struct.timeval, ptr %4, i64 0, i32 1
-  %327 = icmp ugt i32 %324, 1
-  %328 = zext i32 %14 to i64
-  br label %329
-
-329:                                              ; preds = %325, %385
-  %330 = phi i64 [ 0, %325 ], [ %386, %385 ]
-  %331 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %330
-  %332 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %330, i32 12
-  %333 = load i32, ptr %332, align 4, !tbaa !62
-  %334 = udiv i32 67108864, %333
-  %335 = add nuw nsw i32 %334, 2
-  %336 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %330, i32 4
-  store i32 %335, ptr %336, align 8, !tbaa !91
-  %337 = icmp eq i64 %330, 0
-  br i1 %337, label %338, label %360
-
-338:                                              ; preds = %329
-  %339 = load ptr, ptr %240, align 8, !tbaa !90
-  %340 = getelementptr inbounds %class.CBenchProgressInfo, ptr %339, i64 0, i32 5
-  store ptr %2, ptr %340, align 8, !tbaa !39
-  %341 = load ptr, ptr %240, align 8, !tbaa !90
-  %342 = getelementptr inbounds %class.CBenchProgressInfo, ptr %341, i64 0, i32 3, i32 6
-  store i32 %324, ptr %342, align 8, !tbaa !103
-  %343 = getelementptr inbounds %class.CBenchProgressInfo, ptr %341, i64 0, i32 3
-  %344 = getelementptr inbounds %class.CBenchProgressInfo, ptr %341, i64 0, i32 3, i32 1
-  store i64 1000000, ptr %344, align 8, !tbaa !42
-  %345 = getelementptr inbounds %class.CBenchProgressInfo, ptr %341, i64 0, i32 3, i32 3
-  store i64 1000000, ptr %345, align 8, !tbaa !43
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #21
-  %346 = call i32 @gettimeofday(ptr noundef nonnull %4, ptr noundef null) #21
-  %347 = icmp eq i32 %346, 0
-  br i1 %347, label %348, label %353
-
-348:                                              ; preds = %338
-  %349 = load i64, ptr %4, align 8, !tbaa !44
-  %350 = mul i64 %349, 1000000
-  %351 = load i64, ptr %326, align 8, !tbaa !46
-  %352 = add i64 %350, %351
-  br label %356
-
-353:                                              ; preds = %338
-  %354 = call i64 @time(ptr noundef null) #21
-  %355 = mul i64 %354, 1000000
-  br label %356
-
-356:                                              ; preds = %348, %353
-  %357 = phi i64 [ %352, %348 ], [ %355, %353 ]
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #21
-  store i64 %357, ptr %343, align 8, !tbaa !47
-  %358 = call i64 @clock() #21
-  %359 = getelementptr inbounds %class.CBenchProgressInfo, ptr %341, i64 0, i32 3, i32 2
-  store i64 %358, ptr %359, align 8, !tbaa !48
-  br label %360
-
-360:                                              ; preds = %356, %329
-  br i1 %327, label %364, label %379
-
-361:                                              ; preds = %375
-  %362 = add nuw nsw i64 %365, 1
-  %363 = icmp eq i64 %362, %328
-  br i1 %363, label %385, label %364, !llvm.loop !110
-
-364:                                              ; preds = %360, %361
-  %365 = phi i64 [ %362, %361 ], [ 0, %360 ]
-  %366 = icmp eq i64 %365, 0
-  %367 = select i1 %337, i1 %366, i1 false
-  %368 = zext i1 %367 to i8
-  %369 = getelementptr inbounds %struct.CEncoderInfo, ptr %331, i64 0, i32 5, i64 %365
-  %370 = getelementptr inbounds %struct.CEncoderInfo, ptr %331, i64 0, i32 5, i64 %365, i32 1
-  %371 = trunc i64 %365 to i32
-  store i32 %371, ptr %370, align 8, !tbaa !111
-  store ptr %331, ptr %369, align 8, !tbaa !113
-  %372 = getelementptr inbounds %struct.CEncoderInfo, ptr %331, i64 0, i32 5, i64 %365, i32 2
-  store i8 %368, ptr %372, align 4, !tbaa !114
-  %373 = getelementptr inbounds [2 x %"class.NWindows::CThread"], ptr %331, i64 0, i64 %365
-  %374 = invoke i32 @Thread_Create(ptr noundef nonnull %373, ptr noundef nonnull @_ZN12CEncoderInfo20DecodeThreadFunctionEPv, ptr noundef nonnull %369)
-          to label %375 unwind label %377
-
-375:                                              ; preds = %364
-  %376 = icmp eq i32 %374, 0
-  br i1 %376, label %361, label %492
-
-377:                                              ; preds = %364
-  %378 = landingpad { ptr, i32 }
-          cleanup
-  br label %494
-
-379:                                              ; preds = %360
-  %380 = invoke noundef i32 @_ZN12CEncoderInfo6DecodeEj(ptr noundef nonnull align 8 dereferenceable(224) %331, i32 noundef 0)
-          to label %381 unwind label %383
-
-381:                                              ; preds = %379
-  %382 = icmp eq i32 %380, 0
-  br i1 %382, label %385, label %492
-
-383:                                              ; preds = %379
-  %384 = landingpad { ptr, i32 }
-          cleanup
-  br label %494
-
-385:                                              ; preds = %361, %381
-  %386 = add nuw nsw i64 %330, 1
-  %387 = icmp eq i64 %386, %21
-  br i1 %387, label %388, label %329, !llvm.loop !115
-
-388:                                              ; preds = %385
-  %389 = icmp ult i32 %324, 2
-  br i1 %389, label %413, label %390
-
-390:                                              ; preds = %388, %394
-  %391 = phi i64 [ %395, %394 ], [ 0, %388 ]
-  %392 = phi i32 [ %406, %394 ], [ 0, %388 ]
-  %393 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %391
-  br label %397
-
-394:                                              ; preds = %402
-  %395 = add nuw nsw i64 %391, 1
-  %396 = icmp eq i64 %395, %21
-  br i1 %396, label %411, label %390, !llvm.loop !116
-
-397:                                              ; preds = %390, %402
-  %398 = phi i64 [ 0, %390 ], [ %407, %402 ]
-  %399 = phi i32 [ %392, %390 ], [ %406, %402 ]
-  %400 = getelementptr inbounds [2 x %"class.NWindows::CThread"], ptr %393, i64 0, i64 %398
-  %401 = invoke i32 @Thread_Wait(ptr noundef nonnull %400)
-          to label %402 unwind label %409
-
-402:                                              ; preds = %397
-  %403 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %391, i32 7, i64 %398
-  %404 = load i32, ptr %403, align 4, !tbaa !20
-  %405 = icmp eq i32 %404, 0
-  %406 = select i1 %405, i32 %399, i32 %404
-  %407 = add nuw nsw i64 %398, 1
-  %408 = icmp eq i64 %407, %328
-  br i1 %408, label %394, label %397, !llvm.loop !117
-
-409:                                              ; preds = %397
-  %410 = landingpad { ptr, i32 }
-          cleanup
-  br label %494
-
-411:                                              ; preds = %394
-  %412 = icmp eq i32 %406, 0
-  br i1 %412, label %413, label %492
-
-413:                                              ; preds = %388, %411
-  %414 = load i32, ptr %93, align 8, !tbaa !34
-  %415 = icmp eq i32 %414, 0
-  br i1 %415, label %416, label %492
-
-416:                                              ; preds = %413
-  %417 = load ptr, ptr %240, align 8, !tbaa !90
-  %418 = getelementptr inbounds %class.CBenchProgressInfo, ptr %417, i64 0, i32 3
-  call fastcc void @_ZL13SetFinishTimeRK10CBenchInfoRS_(ptr noundef nonnull align 8 dereferenceable(52) %418, ptr noundef nonnull align 8 dereferenceable(52) %10)
-  %419 = getelementptr inbounds i8, ptr %24, i64 80
-  %420 = load i32, ptr %419, align 8, !tbaa !91
-  %421 = mul i32 %420, %14
-  store i32 %421, ptr %239, align 8, !tbaa !102
-  %422 = and i64 %21, 3
-  %423 = icmp ult i32 %13, 4
-  br i1 %423, label %452, label %424
-
-424:                                              ; preds = %416
-  %425 = and i64 %21, 2147483644
-  br label %426
-
-426:                                              ; preds = %426, %424
-  %427 = phi i64 [ 0, %424 ], [ %449, %426 ]
-  %428 = phi <2 x i64> [ zeroinitializer, %424 ], [ %448, %426 ]
-  %429 = phi i64 [ 0, %424 ], [ %450, %426 ]
-  %430 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %427, i32 12
-  %431 = load <2 x i32>, ptr %430, align 4, !tbaa !20
-  %432 = zext <2 x i32> %431 to <2 x i64>
-  %433 = add <2 x i64> %428, %432
-  %434 = or i64 %427, 1
-  %435 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %434, i32 12
-  %436 = load <2 x i32>, ptr %435, align 4, !tbaa !20
-  %437 = zext <2 x i32> %436 to <2 x i64>
-  %438 = add <2 x i64> %433, %437
-  %439 = or i64 %427, 2
-  %440 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %439, i32 12
-  %441 = load <2 x i32>, ptr %440, align 4, !tbaa !20
-  %442 = zext <2 x i32> %441 to <2 x i64>
-  %443 = add <2 x i64> %438, %442
-  %444 = or i64 %427, 3
-  %445 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %444, i32 12
-  %446 = load <2 x i32>, ptr %445, align 4, !tbaa !20
-  %447 = zext <2 x i32> %446 to <2 x i64>
-  %448 = add <2 x i64> %443, %447
-  %449 = add nuw nsw i64 %427, 4
-  %450 = add i64 %429, 4
-  %451 = icmp eq i64 %450, %425
-  br i1 %451, label %452, label %426, !llvm.loop !118
-
-452:                                              ; preds = %426, %416
-  %453 = phi <2 x i64> [ undef, %416 ], [ %448, %426 ]
-  %454 = phi i64 [ 0, %416 ], [ %449, %426 ]
-  %455 = phi <2 x i64> [ zeroinitializer, %416 ], [ %448, %426 ]
-  %456 = icmp eq i64 %422, 0
-  br i1 %456, label %468, label %457
-
-457:                                              ; preds = %452, %457
-  %458 = phi i64 [ %465, %457 ], [ %454, %452 ]
-  %459 = phi <2 x i64> [ %464, %457 ], [ %455, %452 ]
-  %460 = phi i64 [ %466, %457 ], [ 0, %452 ]
-  %461 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %458, i32 12
-  %462 = load <2 x i32>, ptr %461, align 4, !tbaa !20
-  %463 = zext <2 x i32> %462 to <2 x i64>
-  %464 = add <2 x i64> %459, %463
-  %465 = add nuw nsw i64 %458, 1
-  %466 = add i64 %460, 1
-  %467 = icmp eq i64 %466, %422
-  br i1 %467, label %468, label %457, !llvm.loop !119
-
-468:                                              ; preds = %457, %452
-  %469 = phi <2 x i64> [ %453, %452 ], [ %464, %457 ]
-  store <2 x i64> %469, ptr %265, align 8, !tbaa !41
-  br label %476
-
-470:                                              ; preds = %323
-  %471 = load ptr, ptr %240, align 8, !tbaa !90
-  %472 = getelementptr inbounds %class.CBenchProgressInfo, ptr %471, i64 0, i32 3
-  call fastcc void @_ZL13SetFinishTimeRK10CBenchInfoRS_(ptr noundef nonnull align 8 dereferenceable(52) %472, ptr noundef nonnull align 8 dereferenceable(52) %10)
-  %473 = getelementptr inbounds i8, ptr %24, i64 80
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %265, i8 0, i64 16, i1 false)
-  %474 = load i32, ptr %473, align 8, !tbaa !91
-  %475 = mul i32 %474, %14
-  store i32 %475, ptr %239, align 8, !tbaa !102
-  br label %476
-
-476:                                              ; preds = %470, %468
-  %477 = load ptr, ptr %2, align 8, !tbaa !54
-  %478 = getelementptr inbounds ptr, ptr %477, i64 1
-  %479 = load ptr, ptr %478, align 8
-  %480 = invoke noundef i32 %479(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(52) %10, i1 noundef zeroext false)
-          to label %481 unwind label %483
-
-481:                                              ; preds = %476
-  %482 = icmp eq i32 %480, 0
-  br i1 %482, label %485, label %492
-
-483:                                              ; preds = %476
-  %484 = landingpad { ptr, i32 }
-          cleanup
-  br label %494
-
-485:                                              ; preds = %481
-  %486 = load ptr, ptr %2, align 8, !tbaa !54
-  %487 = getelementptr inbounds ptr, ptr %486, i64 1
-  %488 = load ptr, ptr %487, align 8
-  %489 = invoke noundef i32 %488(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(52) %10, i1 noundef zeroext true)
-          to label %492 unwind label %490
-
-490:                                              ; preds = %485
-  %491 = landingpad { ptr, i32 }
-          cleanup
-  br label %494
-
-492:                                              ; preds = %381, %375, %485, %481, %413, %411, %319
-  %493 = phi i32 [ %318, %319 ], [ %480, %481 ], [ %414, %413 ], [ %406, %411 ], [ %489, %485 ], [ %374, %375 ], [ %380, %381 ]
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %10) #21
-  br label %496
-
-494:                                              ; preds = %383, %377, %490, %483, %409, %321
-  %495 = phi { ptr, i32 } [ %322, %321 ], [ %378, %377 ], [ %384, %383 ], [ %410, %409 ], [ %491, %490 ], [ %484, %483 ]
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %10) #21
-  br label %499
-
-496:                                              ; preds = %213, %159, %163, %235, %492
-  %497 = phi i32 [ %493, %492 ], [ %236, %235 ], [ %158, %159 ], [ %162, %163 ], [ %212, %213 ]
-  %498 = call i32 @pthread_mutex_destroy(ptr noundef nonnull %9) #21
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %9) #21
-  br label %504
-
-499:                                              ; preds = %219, %215, %217, %205, %207, %494, %233
-  %500 = phi { ptr, i32 } [ %234, %233 ], [ %495, %494 ], [ %206, %205 ], [ %208, %207 ], [ %216, %215 ], [ %218, %217 ], [ %220, %219 ]
-  %501 = call i32 @pthread_mutex_destroy(ptr noundef nonnull %9) #21
-  br label %502
-
-502:                                              ; preds = %499, %169
-  %503 = phi { ptr, i32 } [ %500, %499 ], [ %170, %169 ]
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %9) #21
-  br label %506
-
-504:                                              ; preds = %86, %496
-  %505 = phi i32 [ %497, %496 ], [ %85, %86 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #21
-  br label %508
-
-506:                                              ; preds = %502, %88
-  %507 = phi { ptr, i32 } [ %89, %88 ], [ %503, %502 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #21
-  br label %519
-
-508:                                              ; preds = %51, %55, %69, %65, %504
-  %509 = phi i32 [ %505, %504 ], [ -2147467263, %69 ], [ %64, %65 ], [ -2147467263, %55 ], [ %50, %51 ]
-  %510 = load i64, ptr %24, align 8
-  %511 = icmp eq i64 %510, 0
-  br i1 %511, label %518, label %512
-
-512:                                              ; preds = %508
-  %513 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %510
-  br label %514
-
-514:                                              ; preds = %514, %512
-  %515 = phi ptr [ %516, %514 ], [ %513, %512 ]
-  %516 = getelementptr inbounds %struct.CEncoderInfo, ptr %515, i64 -1
-  call void @_ZN12CEncoderInfoD2Ev(ptr noundef nonnull align 8 dereferenceable(224) %516) #21
-  %517 = icmp eq ptr %516, %25
-  br i1 %517, label %518, label %514
-
-518:                                              ; preds = %514, %508
-  call void @_ZdaPv(ptr noundef nonnull %24) #24
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #21
   br label %521
 
-519:                                              ; preds = %53, %67, %506
-  %520 = phi { ptr, i32 } [ %507, %506 ], [ %68, %67 ], [ %54, %53 ]
+93:                                               ; preds = %82, %78
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %9) #21
+  %94 = invoke i32 @CriticalSection_Init(ptr noundef nonnull %9)
+          to label %95 unwind label %174
+
+95:                                               ; preds = %93
+  %96 = getelementptr inbounds %class.CBenchProgressStatus, ptr %9, i64 0, i32 1
+  store i32 0, ptr %96, align 8, !tbaa !34
+  %97 = getelementptr inbounds %class.CBenchProgressStatus, ptr %9, i64 0, i32 2
+  store i8 1, ptr %97, align 4, !tbaa !49
+  br i1 %26, label %241, label %98
+
+98:                                               ; preds = %95
+  %99 = getelementptr inbounds %struct.timeval, ptr %6, i64 0, i32 1
+  %100 = icmp eq i32 %13, 1
+  %101 = getelementptr inbounds i8, ptr %24, i64 48
+  %102 = getelementptr inbounds i8, ptr %24, i64 64
+  %103 = invoke noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #22
+          to label %104 unwind label %210
+
+104:                                              ; preds = %98
+  %105 = getelementptr inbounds i8, ptr %103, i64 8
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CBenchProgressInfo, i64 0, inrange i32 0, i64 2), ptr %103, align 8, !tbaa !54
+  %106 = getelementptr inbounds %class.CBenchProgressInfo, ptr %103, i64 0, i32 3, i32 6
+  store i32 0, ptr %106, align 8, !tbaa !102
+  %107 = getelementptr inbounds %class.CBenchProgressInfo, ptr %103, i64 0, i32 5
+  store ptr null, ptr %107, align 8, !tbaa !39
+  store ptr %103, ptr %101, align 8, !tbaa !90
+  store i32 1, ptr %105, align 8, !tbaa !67
+  %108 = load ptr, ptr %102, align 8, !tbaa !85
+  %109 = icmp eq ptr %108, null
+  br i1 %109, label %117, label %110
+
+110:                                              ; preds = %104
+  %111 = load ptr, ptr %108, align 8, !tbaa !54
+  %112 = getelementptr inbounds ptr, ptr %111, i64 2
+  %113 = load ptr, ptr %112, align 8
+  %114 = invoke noundef i32 %113(ptr noundef nonnull align 8 dereferenceable(8) %108)
+          to label %115 unwind label %210
+
+115:                                              ; preds = %110
+  %116 = load ptr, ptr %101, align 8, !tbaa !90
+  br label %117
+
+117:                                              ; preds = %115, %104
+  %118 = phi ptr [ %116, %115 ], [ %103, %104 ]
+  store ptr %103, ptr %102, align 8, !tbaa !85
+  %119 = getelementptr inbounds %class.CBenchProgressInfo, ptr %118, i64 0, i32 2
+  store ptr %9, ptr %119, align 8, !tbaa !29
+  %120 = invoke noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #22
+          to label %121 unwind label %210
+
+121:                                              ; preds = %117
+  %122 = getelementptr inbounds i8, ptr %120, i64 8
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CBenchProgressInfo, i64 0, inrange i32 0, i64 2), ptr %120, align 8, !tbaa !54
+  %123 = getelementptr inbounds %class.CBenchProgressInfo, ptr %120, i64 0, i32 3, i32 6
+  store i32 0, ptr %123, align 8, !tbaa !102
+  %124 = getelementptr inbounds %class.CBenchProgressInfo, ptr %120, i64 0, i32 5
+  store ptr null, ptr %124, align 8, !tbaa !39
+  %125 = getelementptr inbounds i8, ptr %24, i64 56
+  store ptr %120, ptr %125, align 8, !tbaa !90
+  %126 = getelementptr inbounds i8, ptr %24, i64 72
+  store i32 1, ptr %122, align 8, !tbaa !67
+  %127 = load ptr, ptr %126, align 8, !tbaa !85
+  %128 = icmp eq ptr %127, null
+  br i1 %128, label %136, label %129
+
+129:                                              ; preds = %121
+  %130 = load ptr, ptr %127, align 8, !tbaa !54
+  %131 = getelementptr inbounds ptr, ptr %130, i64 2
+  %132 = load ptr, ptr %131, align 8
+  %133 = invoke noundef i32 %132(ptr noundef nonnull align 8 dereferenceable(8) %127)
+          to label %134 unwind label %210
+
+134:                                              ; preds = %129
+  %135 = load ptr, ptr %125, align 8, !tbaa !90
+  br label %136
+
+136:                                              ; preds = %134, %121
+  %137 = phi ptr [ %135, %134 ], [ %120, %121 ]
+  store ptr %120, ptr %126, align 8, !tbaa !85
+  %138 = getelementptr inbounds %class.CBenchProgressInfo, ptr %137, i64 0, i32 2
+  store ptr %9, ptr %138, align 8, !tbaa !29
+  %139 = load ptr, ptr %101, align 8, !tbaa !90
+  %140 = getelementptr inbounds %class.CBenchProgressInfo, ptr %139, i64 0, i32 5
+  store ptr %2, ptr %140, align 8, !tbaa !39
+  %141 = load ptr, ptr %101, align 8, !tbaa !90
+  %142 = getelementptr inbounds %class.CBenchProgressInfo, ptr %141, i64 0, i32 3, i32 6
+  store i32 %13, ptr %142, align 8, !tbaa !103
+  %143 = getelementptr inbounds %class.CBenchProgressInfo, ptr %141, i64 0, i32 3
+  %144 = getelementptr inbounds %class.CBenchProgressInfo, ptr %141, i64 0, i32 3, i32 1
+  store i64 1000000, ptr %144, align 8, !tbaa !42
+  %145 = getelementptr inbounds %class.CBenchProgressInfo, ptr %141, i64 0, i32 3, i32 3
+  store i64 1000000, ptr %145, align 8, !tbaa !43
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #21
+  %146 = call i32 @gettimeofday(ptr noundef nonnull %6, ptr noundef null) #21
+  %147 = icmp eq i32 %146, 0
+  br i1 %147, label %151, label %148
+
+148:                                              ; preds = %136
+  %149 = call i64 @time(ptr noundef null) #21
+  %150 = mul i64 %149, 1000000
+  br label %156
+
+151:                                              ; preds = %136
+  %152 = load i64, ptr %6, align 8, !tbaa !44
+  %153 = mul i64 %152, 1000000
+  %154 = load i64, ptr %99, align 8, !tbaa !46
+  %155 = add i64 %153, %154
+  br label %156
+
+156:                                              ; preds = %148, %151
+  %157 = phi i64 [ %155, %151 ], [ %150, %148 ]
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #21
+  store i64 %157, ptr %143, align 8, !tbaa !47
+  %158 = call i64 @clock() #21
+  %159 = getelementptr inbounds %class.CBenchProgressInfo, ptr %141, i64 0, i32 3, i32 2
+  store i64 %158, ptr %159, align 8, !tbaa !48
+  br i1 %100, label %164, label %160
+
+160:                                              ; preds = %156
+  %161 = invoke i32 @Thread_Create(ptr noundef nonnull %25, ptr noundef nonnull @_ZN12CEncoderInfo20EncodeThreadFunctionEPv, ptr noundef nonnull %25)
+          to label %162 unwind label %220
+
+162:                                              ; preds = %160
+  %163 = icmp eq i32 %161, 0
+  br i1 %163, label %168, label %511
+
+164:                                              ; preds = %156
+  %165 = invoke noundef i32 @_ZN12CEncoderInfo6EncodeEv(ptr noundef nonnull align 8 dereferenceable(224) %25)
+          to label %166 unwind label %222
+
+166:                                              ; preds = %164
+  %167 = icmp eq i32 %165, 0
+  br i1 %167, label %238, label %511
+
+168:                                              ; preds = %162, %224
+  %169 = phi i64 [ %225, %224 ], [ 1, %162 ]
+  %170 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %169
+  %171 = getelementptr inbounds %struct.CEncoderInfo, ptr %170, i64 0, i32 2
+  %172 = getelementptr inbounds %struct.CEncoderInfo, ptr %170, i64 0, i32 3
+  %173 = invoke noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #22
+          to label %176 unwind label %208
+
+174:                                              ; preds = %93
+  %175 = landingpad { ptr, i32 }
+          cleanup
+  br label %517
+
+176:                                              ; preds = %168
+  %177 = getelementptr inbounds i8, ptr %173, i64 8
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CBenchProgressInfo, i64 0, inrange i32 0, i64 2), ptr %173, align 8, !tbaa !54
+  %178 = getelementptr inbounds %class.CBenchProgressInfo, ptr %173, i64 0, i32 3, i32 6
+  store i32 0, ptr %178, align 8, !tbaa !102
+  %179 = getelementptr inbounds %class.CBenchProgressInfo, ptr %173, i64 0, i32 5
+  store ptr null, ptr %179, align 8, !tbaa !39
+  store ptr %173, ptr %171, align 8, !tbaa !90
+  store i32 1, ptr %177, align 8, !tbaa !67
+  %180 = load ptr, ptr %172, align 8, !tbaa !85
+  %181 = icmp eq ptr %180, null
+  br i1 %181, label %189, label %182
+
+182:                                              ; preds = %176
+  %183 = load ptr, ptr %180, align 8, !tbaa !54
+  %184 = getelementptr inbounds ptr, ptr %183, i64 2
+  %185 = load ptr, ptr %184, align 8
+  %186 = invoke noundef i32 %185(ptr noundef nonnull align 8 dereferenceable(8) %180)
+          to label %187 unwind label %208
+
+187:                                              ; preds = %182
+  %188 = load ptr, ptr %171, align 8, !tbaa !90
+  br label %189
+
+189:                                              ; preds = %187, %176
+  %190 = phi ptr [ %188, %187 ], [ %173, %176 ]
+  store ptr %173, ptr %172, align 8, !tbaa !85
+  %191 = getelementptr inbounds %class.CBenchProgressInfo, ptr %190, i64 0, i32 2
+  store ptr %9, ptr %191, align 8, !tbaa !29
+  %192 = invoke noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #22
+          to label %193 unwind label %208
+
+193:                                              ; preds = %189
+  %194 = getelementptr inbounds i8, ptr %192, i64 8
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CBenchProgressInfo, i64 0, inrange i32 0, i64 2), ptr %192, align 8, !tbaa !54
+  %195 = getelementptr inbounds %class.CBenchProgressInfo, ptr %192, i64 0, i32 3, i32 6
+  store i32 0, ptr %195, align 8, !tbaa !102
+  %196 = getelementptr inbounds %class.CBenchProgressInfo, ptr %192, i64 0, i32 5
+  store ptr null, ptr %196, align 8, !tbaa !39
+  %197 = getelementptr inbounds [2 x ptr], ptr %171, i64 0, i64 1
+  store ptr %192, ptr %197, align 8, !tbaa !90
+  %198 = getelementptr inbounds [2 x %class.CMyComPtr.0], ptr %172, i64 0, i64 1
+  store i32 1, ptr %194, align 8, !tbaa !67
+  %199 = load ptr, ptr %198, align 8, !tbaa !85
+  %200 = icmp eq ptr %199, null
+  br i1 %200, label %212, label %201
+
+201:                                              ; preds = %193
+  %202 = load ptr, ptr %199, align 8, !tbaa !54
+  %203 = getelementptr inbounds ptr, ptr %202, i64 2
+  %204 = load ptr, ptr %203, align 8
+  %205 = invoke noundef i32 %204(ptr noundef nonnull align 8 dereferenceable(8) %199)
+          to label %206 unwind label %208
+
+206:                                              ; preds = %201
+  %207 = load ptr, ptr %197, align 8, !tbaa !90
+  br label %212
+
+208:                                              ; preds = %168, %182, %189, %201
+  %209 = landingpad { ptr, i32 }
+          cleanup
+  br label %514
+
+210:                                              ; preds = %98, %110, %117, %129
+  %211 = landingpad { ptr, i32 }
+          cleanup
+  br label %514
+
+212:                                              ; preds = %206, %193
+  %213 = phi ptr [ %207, %206 ], [ %192, %193 ]
+  store ptr %192, ptr %198, align 8, !tbaa !85
+  %214 = getelementptr inbounds %class.CBenchProgressInfo, ptr %213, i64 0, i32 2
+  store ptr %9, ptr %214, align 8, !tbaa !29
+  %215 = invoke i32 @Thread_Create(ptr noundef nonnull %170, ptr noundef nonnull @_ZN12CEncoderInfo20EncodeThreadFunctionEPv, ptr noundef nonnull %170)
+          to label %216 unwind label %218
+
+216:                                              ; preds = %212
+  %217 = icmp eq i32 %215, 0
+  br i1 %217, label %224, label %511
+
+218:                                              ; preds = %212
+  %219 = landingpad { ptr, i32 }
+          cleanup
+  br label %514
+
+220:                                              ; preds = %160
+  %221 = landingpad { ptr, i32 }
+          cleanup
+  br label %514
+
+222:                                              ; preds = %164
+  %223 = landingpad { ptr, i32 }
+          cleanup
+  br label %514
+
+224:                                              ; preds = %216
+  %225 = add nuw nsw i64 %169, 1
+  %226 = icmp eq i64 %225, %21
+  br i1 %226, label %227, label %168, !llvm.loop !104
+
+227:                                              ; preds = %224
+  %228 = icmp ugt i32 %13, 1
+  br i1 %228, label %229, label %238
+
+229:                                              ; preds = %227, %233
+  %230 = phi i64 [ %234, %233 ], [ 0, %227 ]
+  %231 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %230
+  %232 = invoke i32 @Thread_Wait(ptr noundef nonnull %231)
+          to label %233 unwind label %236
+
+233:                                              ; preds = %229
+  %234 = add nuw nsw i64 %230, 1
+  %235 = icmp eq i64 %234, %21
+  br i1 %235, label %238, label %229, !llvm.loop !106
+
+236:                                              ; preds = %229
+  %237 = landingpad { ptr, i32 }
+          cleanup
+  br label %514
+
+238:                                              ; preds = %233, %166, %227
+  %239 = load i32, ptr %96, align 8, !tbaa !34
+  %240 = icmp eq i32 %239, 0
+  br i1 %240, label %241, label %511
+
+241:                                              ; preds = %95, %238
+  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %10) #21
+  %242 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 6
+  store i32 0, ptr %242, align 8, !tbaa !102
+  %243 = getelementptr inbounds i8, ptr %24, i64 48
+  %244 = load ptr, ptr %243, align 8, !tbaa !90
+  %245 = getelementptr inbounds %class.CBenchProgressInfo, ptr %244, i64 0, i32 3
+  %246 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 1
+  store i64 1000000, ptr %246, align 8, !tbaa !42
+  %247 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 3
+  store i64 1000000, ptr %247, align 8, !tbaa !43
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #21
+  %248 = call i32 @gettimeofday(ptr noundef nonnull %5, ptr noundef null) #21
+  %249 = icmp eq i32 %248, 0
+  br i1 %249, label %250, label %256
+
+250:                                              ; preds = %241
+  %251 = load i64, ptr %5, align 8, !tbaa !44
+  %252 = mul i64 %251, 1000000
+  %253 = getelementptr inbounds %struct.timeval, ptr %5, i64 0, i32 1
+  %254 = load i64, ptr %253, align 8, !tbaa !46
+  %255 = add i64 %252, %254
+  br label %259
+
+256:                                              ; preds = %241
+  %257 = call i64 @time(ptr noundef null) #21
+  %258 = mul i64 %257, 1000000
+  br label %259
+
+259:                                              ; preds = %250, %256
+  %260 = phi i64 [ %255, %250 ], [ %258, %256 ]
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #21
+  %261 = load i64, ptr %245, align 8, !tbaa !47
+  %262 = sub i64 %260, %261
+  store i64 %262, ptr %10, align 8, !tbaa !47
+  %263 = call i64 @clock() #21
+  %264 = getelementptr inbounds %class.CBenchProgressInfo, ptr %244, i64 0, i32 3, i32 2
+  %265 = load i64, ptr %264, align 8, !tbaa !48
+  %266 = sub i64 %263, %265
+  %267 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 2
+  store i64 %266, ptr %267, align 8, !tbaa !48
+  %268 = getelementptr inbounds %struct.CBenchInfo, ptr %10, i64 0, i32 4
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %268, i8 0, i64 16, i1 false)
+  store i32 1, ptr %242, align 8, !tbaa !102
+  br i1 %26, label %323, label %269
+
+269:                                              ; preds = %259
+  %270 = and i64 %21, 3
+  %271 = icmp ult i32 %13, 4
+  br i1 %271, label %304, label %272
+
+272:                                              ; preds = %269
+  %273 = and i64 %21, 2147483644
+  br label %274
+
+274:                                              ; preds = %274, %272
+  %275 = phi i64 [ 0, %272 ], [ %301, %274 ]
+  %276 = phi <2 x i64> [ zeroinitializer, %272 ], [ %300, %274 ]
+  %277 = phi i64 [ 0, %272 ], [ %302, %274 ]
+  %278 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %275
+  %279 = getelementptr inbounds %struct.CEncoderInfo, ptr %278, i64 0, i32 12
+  %280 = load <2 x i32>, ptr %279, align 4, !tbaa !20
+  %281 = zext <2 x i32> %280 to <2 x i64>
+  %282 = add <2 x i64> %276, %281
+  %283 = or i64 %275, 1
+  %284 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %283
+  %285 = getelementptr inbounds %struct.CEncoderInfo, ptr %284, i64 0, i32 12
+  %286 = load <2 x i32>, ptr %285, align 4, !tbaa !20
+  %287 = zext <2 x i32> %286 to <2 x i64>
+  %288 = add <2 x i64> %282, %287
+  %289 = or i64 %275, 2
+  %290 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %289
+  %291 = getelementptr inbounds %struct.CEncoderInfo, ptr %290, i64 0, i32 12
+  %292 = load <2 x i32>, ptr %291, align 4, !tbaa !20
+  %293 = zext <2 x i32> %292 to <2 x i64>
+  %294 = add <2 x i64> %288, %293
+  %295 = or i64 %275, 3
+  %296 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %295
+  %297 = getelementptr inbounds %struct.CEncoderInfo, ptr %296, i64 0, i32 12
+  %298 = load <2 x i32>, ptr %297, align 4, !tbaa !20
+  %299 = zext <2 x i32> %298 to <2 x i64>
+  %300 = add <2 x i64> %294, %299
+  %301 = add nuw nsw i64 %275, 4
+  %302 = add i64 %277, 4
+  %303 = icmp eq i64 %302, %273
+  br i1 %303, label %304, label %274, !llvm.loop !107
+
+304:                                              ; preds = %274, %269
+  %305 = phi <2 x i64> [ undef, %269 ], [ %300, %274 ]
+  %306 = phi i64 [ 0, %269 ], [ %301, %274 ]
+  %307 = phi <2 x i64> [ zeroinitializer, %269 ], [ %300, %274 ]
+  %308 = icmp eq i64 %270, 0
+  br i1 %308, label %321, label %309
+
+309:                                              ; preds = %304, %309
+  %310 = phi i64 [ %318, %309 ], [ %306, %304 ]
+  %311 = phi <2 x i64> [ %317, %309 ], [ %307, %304 ]
+  %312 = phi i64 [ %319, %309 ], [ 0, %304 ]
+  %313 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %310
+  %314 = getelementptr inbounds %struct.CEncoderInfo, ptr %313, i64 0, i32 12
+  %315 = load <2 x i32>, ptr %314, align 4, !tbaa !20
+  %316 = zext <2 x i32> %315 to <2 x i64>
+  %317 = add <2 x i64> %311, %316
+  %318 = add nuw nsw i64 %310, 1
+  %319 = add i64 %312, 1
+  %320 = icmp eq i64 %319, %270
+  br i1 %320, label %321, label %309, !llvm.loop !108
+
+321:                                              ; preds = %309, %304
+  %322 = phi <2 x i64> [ %305, %304 ], [ %317, %309 ]
+  store <2 x i64> %322, ptr %268, align 8, !tbaa !41
+  br label %323
+
+323:                                              ; preds = %321, %259
+  %324 = load ptr, ptr %2, align 8, !tbaa !54
+  %325 = load ptr, ptr %324, align 8
+  %326 = invoke noundef i32 %325(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(52) %10, i1 noundef zeroext true)
+          to label %327 unwind label %329
+
+327:                                              ; preds = %323
+  %328 = icmp eq i32 %326, 0
+  br i1 %328, label %331, label %507
+
+329:                                              ; preds = %323
+  %330 = landingpad { ptr, i32 }
+          cleanup
+  br label %509
+
+331:                                              ; preds = %327
+  store i32 0, ptr %96, align 8, !tbaa !34
+  store i8 0, ptr %97, align 4, !tbaa !49
+  %332 = mul nuw nsw i32 %13, %14
+  br i1 %26, label %485, label %333
+
+333:                                              ; preds = %331
+  %334 = getelementptr inbounds %struct.timeval, ptr %4, i64 0, i32 1
+  %335 = icmp ugt i32 %332, 1
+  %336 = zext i32 %14 to i64
+  br label %337
+
+337:                                              ; preds = %333, %394
+  %338 = phi i64 [ 0, %333 ], [ %395, %394 ]
+  %339 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %338
+  %340 = getelementptr inbounds %struct.CEncoderInfo, ptr %339, i64 0, i32 12
+  %341 = load i32, ptr %340, align 4, !tbaa !62
+  %342 = udiv i32 67108864, %341
+  %343 = add nuw nsw i32 %342, 2
+  %344 = getelementptr inbounds %struct.CEncoderInfo, ptr %339, i64 0, i32 4
+  store i32 %343, ptr %344, align 8, !tbaa !91
+  %345 = icmp eq i64 %338, 0
+  br i1 %345, label %346, label %369
+
+346:                                              ; preds = %337
+  %347 = getelementptr inbounds %struct.CEncoderInfo, ptr %339, i64 0, i32 2
+  %348 = load ptr, ptr %347, align 8, !tbaa !90
+  %349 = getelementptr inbounds %class.CBenchProgressInfo, ptr %348, i64 0, i32 5
+  store ptr %2, ptr %349, align 8, !tbaa !39
+  %350 = load ptr, ptr %347, align 8, !tbaa !90
+  %351 = getelementptr inbounds %class.CBenchProgressInfo, ptr %350, i64 0, i32 3, i32 6
+  store i32 %332, ptr %351, align 8, !tbaa !103
+  %352 = getelementptr inbounds %class.CBenchProgressInfo, ptr %350, i64 0, i32 3
+  %353 = getelementptr inbounds %class.CBenchProgressInfo, ptr %350, i64 0, i32 3, i32 1
+  store i64 1000000, ptr %353, align 8, !tbaa !42
+  %354 = getelementptr inbounds %class.CBenchProgressInfo, ptr %350, i64 0, i32 3, i32 3
+  store i64 1000000, ptr %354, align 8, !tbaa !43
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #21
+  %355 = call i32 @gettimeofday(ptr noundef nonnull %4, ptr noundef null) #21
+  %356 = icmp eq i32 %355, 0
+  br i1 %356, label %357, label %362
+
+357:                                              ; preds = %346
+  %358 = load i64, ptr %4, align 8, !tbaa !44
+  %359 = mul i64 %358, 1000000
+  %360 = load i64, ptr %334, align 8, !tbaa !46
+  %361 = add i64 %359, %360
+  br label %365
+
+362:                                              ; preds = %346
+  %363 = call i64 @time(ptr noundef null) #21
+  %364 = mul i64 %363, 1000000
+  br label %365
+
+365:                                              ; preds = %357, %362
+  %366 = phi i64 [ %361, %357 ], [ %364, %362 ]
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #21
+  store i64 %366, ptr %352, align 8, !tbaa !47
+  %367 = call i64 @clock() #21
+  %368 = getelementptr inbounds %class.CBenchProgressInfo, ptr %350, i64 0, i32 3, i32 2
+  store i64 %367, ptr %368, align 8, !tbaa !48
+  br label %369
+
+369:                                              ; preds = %365, %337
+  br i1 %335, label %373, label %388
+
+370:                                              ; preds = %384
+  %371 = add nuw nsw i64 %374, 1
+  %372 = icmp eq i64 %371, %336
+  br i1 %372, label %394, label %373, !llvm.loop !110
+
+373:                                              ; preds = %369, %370
+  %374 = phi i64 [ %371, %370 ], [ 0, %369 ]
+  %375 = icmp eq i64 %374, 0
+  %376 = select i1 %345, i1 %375, i1 false
+  %377 = zext i1 %376 to i8
+  %378 = getelementptr inbounds %struct.CEncoderInfo, ptr %339, i64 0, i32 5, i64 %374
+  %379 = getelementptr inbounds %struct.CEncoderInfo, ptr %339, i64 0, i32 5, i64 %374, i32 1
+  %380 = trunc i64 %374 to i32
+  store i32 %380, ptr %379, align 8, !tbaa !111
+  store ptr %339, ptr %378, align 8, !tbaa !113
+  %381 = getelementptr inbounds %struct.CEncoderInfo, ptr %339, i64 0, i32 5, i64 %374, i32 2
+  store i8 %377, ptr %381, align 4, !tbaa !114
+  %382 = getelementptr inbounds [2 x %"class.NWindows::CThread"], ptr %339, i64 0, i64 %374
+  %383 = invoke i32 @Thread_Create(ptr noundef nonnull %382, ptr noundef nonnull @_ZN12CEncoderInfo20DecodeThreadFunctionEPv, ptr noundef nonnull %378)
+          to label %384 unwind label %386
+
+384:                                              ; preds = %373
+  %385 = icmp eq i32 %383, 0
+  br i1 %385, label %370, label %507
+
+386:                                              ; preds = %373
+  %387 = landingpad { ptr, i32 }
+          cleanup
+  br label %509
+
+388:                                              ; preds = %369
+  %389 = invoke noundef i32 @_ZN12CEncoderInfo6DecodeEj(ptr noundef nonnull align 8 dereferenceable(224) %339, i32 noundef 0)
+          to label %390 unwind label %392
+
+390:                                              ; preds = %388
+  %391 = icmp eq i32 %389, 0
+  br i1 %391, label %394, label %507
+
+392:                                              ; preds = %388
+  %393 = landingpad { ptr, i32 }
+          cleanup
+  br label %509
+
+394:                                              ; preds = %370, %390
+  %395 = add nuw nsw i64 %338, 1
+  %396 = icmp eq i64 %395, %21
+  br i1 %396, label %397, label %337, !llvm.loop !115
+
+397:                                              ; preds = %394
+  %398 = icmp ult i32 %332, 2
+  br i1 %398, label %423, label %399
+
+399:                                              ; preds = %397, %404
+  %400 = phi i64 [ %405, %404 ], [ 0, %397 ]
+  %401 = phi i32 [ %416, %404 ], [ 0, %397 ]
+  %402 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %400
+  %403 = getelementptr inbounds %struct.CEncoderInfo, ptr %402, i64 0, i32 7
+  br label %407
+
+404:                                              ; preds = %412
+  %405 = add nuw nsw i64 %400, 1
+  %406 = icmp eq i64 %405, %21
+  br i1 %406, label %421, label %399, !llvm.loop !116
+
+407:                                              ; preds = %399, %412
+  %408 = phi i64 [ 0, %399 ], [ %417, %412 ]
+  %409 = phi i32 [ %401, %399 ], [ %416, %412 ]
+  %410 = getelementptr inbounds [2 x %"class.NWindows::CThread"], ptr %402, i64 0, i64 %408
+  %411 = invoke i32 @Thread_Wait(ptr noundef nonnull %410)
+          to label %412 unwind label %419
+
+412:                                              ; preds = %407
+  %413 = getelementptr inbounds [2 x i32], ptr %403, i64 0, i64 %408
+  %414 = load i32, ptr %413, align 4, !tbaa !20
+  %415 = icmp eq i32 %414, 0
+  %416 = select i1 %415, i32 %409, i32 %414
+  %417 = add nuw nsw i64 %408, 1
+  %418 = icmp eq i64 %417, %336
+  br i1 %418, label %404, label %407, !llvm.loop !117
+
+419:                                              ; preds = %407
+  %420 = landingpad { ptr, i32 }
+          cleanup
+  br label %509
+
+421:                                              ; preds = %404
+  %422 = icmp eq i32 %416, 0
+  br i1 %422, label %423, label %507
+
+423:                                              ; preds = %397, %421
+  %424 = load i32, ptr %96, align 8, !tbaa !34
+  %425 = icmp eq i32 %424, 0
+  br i1 %425, label %426, label %507
+
+426:                                              ; preds = %423
+  %427 = load ptr, ptr %243, align 8, !tbaa !90
+  %428 = getelementptr inbounds %class.CBenchProgressInfo, ptr %427, i64 0, i32 3
+  call fastcc void @_ZL13SetFinishTimeRK10CBenchInfoRS_(ptr noundef nonnull align 8 dereferenceable(52) %428, ptr noundef nonnull align 8 dereferenceable(52) %10)
+  %429 = getelementptr inbounds i8, ptr %24, i64 80
+  %430 = load i32, ptr %429, align 8, !tbaa !91
+  %431 = mul i32 %430, %14
+  store i32 %431, ptr %242, align 8, !tbaa !102
+  %432 = and i64 %21, 3
+  %433 = icmp ult i32 %13, 4
+  br i1 %433, label %466, label %434
+
+434:                                              ; preds = %426
+  %435 = and i64 %21, 2147483644
+  br label %436
+
+436:                                              ; preds = %436, %434
+  %437 = phi i64 [ 0, %434 ], [ %463, %436 ]
+  %438 = phi <2 x i64> [ zeroinitializer, %434 ], [ %462, %436 ]
+  %439 = phi i64 [ 0, %434 ], [ %464, %436 ]
+  %440 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %437
+  %441 = getelementptr inbounds %struct.CEncoderInfo, ptr %440, i64 0, i32 12
+  %442 = load <2 x i32>, ptr %441, align 4, !tbaa !20
+  %443 = zext <2 x i32> %442 to <2 x i64>
+  %444 = add <2 x i64> %438, %443
+  %445 = or i64 %437, 1
+  %446 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %445
+  %447 = getelementptr inbounds %struct.CEncoderInfo, ptr %446, i64 0, i32 12
+  %448 = load <2 x i32>, ptr %447, align 4, !tbaa !20
+  %449 = zext <2 x i32> %448 to <2 x i64>
+  %450 = add <2 x i64> %444, %449
+  %451 = or i64 %437, 2
+  %452 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %451
+  %453 = getelementptr inbounds %struct.CEncoderInfo, ptr %452, i64 0, i32 12
+  %454 = load <2 x i32>, ptr %453, align 4, !tbaa !20
+  %455 = zext <2 x i32> %454 to <2 x i64>
+  %456 = add <2 x i64> %450, %455
+  %457 = or i64 %437, 3
+  %458 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %457
+  %459 = getelementptr inbounds %struct.CEncoderInfo, ptr %458, i64 0, i32 12
+  %460 = load <2 x i32>, ptr %459, align 4, !tbaa !20
+  %461 = zext <2 x i32> %460 to <2 x i64>
+  %462 = add <2 x i64> %456, %461
+  %463 = add nuw nsw i64 %437, 4
+  %464 = add i64 %439, 4
+  %465 = icmp eq i64 %464, %435
+  br i1 %465, label %466, label %436, !llvm.loop !118
+
+466:                                              ; preds = %436, %426
+  %467 = phi <2 x i64> [ undef, %426 ], [ %462, %436 ]
+  %468 = phi i64 [ 0, %426 ], [ %463, %436 ]
+  %469 = phi <2 x i64> [ zeroinitializer, %426 ], [ %462, %436 ]
+  %470 = icmp eq i64 %432, 0
+  br i1 %470, label %483, label %471
+
+471:                                              ; preds = %466, %471
+  %472 = phi i64 [ %480, %471 ], [ %468, %466 ]
+  %473 = phi <2 x i64> [ %479, %471 ], [ %469, %466 ]
+  %474 = phi i64 [ %481, %471 ], [ 0, %466 ]
+  %475 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %472
+  %476 = getelementptr inbounds %struct.CEncoderInfo, ptr %475, i64 0, i32 12
+  %477 = load <2 x i32>, ptr %476, align 4, !tbaa !20
+  %478 = zext <2 x i32> %477 to <2 x i64>
+  %479 = add <2 x i64> %473, %478
+  %480 = add nuw nsw i64 %472, 1
+  %481 = add i64 %474, 1
+  %482 = icmp eq i64 %481, %432
+  br i1 %482, label %483, label %471, !llvm.loop !119
+
+483:                                              ; preds = %471, %466
+  %484 = phi <2 x i64> [ %467, %466 ], [ %479, %471 ]
+  store <2 x i64> %484, ptr %268, align 8, !tbaa !41
+  br label %491
+
+485:                                              ; preds = %331
+  %486 = load ptr, ptr %243, align 8, !tbaa !90
+  %487 = getelementptr inbounds %class.CBenchProgressInfo, ptr %486, i64 0, i32 3
+  call fastcc void @_ZL13SetFinishTimeRK10CBenchInfoRS_(ptr noundef nonnull align 8 dereferenceable(52) %487, ptr noundef nonnull align 8 dereferenceable(52) %10)
+  %488 = getelementptr inbounds i8, ptr %24, i64 80
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %268, i8 0, i64 16, i1 false)
+  %489 = load i32, ptr %488, align 8, !tbaa !91
+  %490 = mul i32 %489, %14
+  store i32 %490, ptr %242, align 8, !tbaa !102
+  br label %491
+
+491:                                              ; preds = %485, %483
+  %492 = load ptr, ptr %2, align 8, !tbaa !54
+  %493 = getelementptr inbounds ptr, ptr %492, i64 1
+  %494 = load ptr, ptr %493, align 8
+  %495 = invoke noundef i32 %494(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(52) %10, i1 noundef zeroext false)
+          to label %496 unwind label %498
+
+496:                                              ; preds = %491
+  %497 = icmp eq i32 %495, 0
+  br i1 %497, label %500, label %507
+
+498:                                              ; preds = %491
+  %499 = landingpad { ptr, i32 }
+          cleanup
+  br label %509
+
+500:                                              ; preds = %496
+  %501 = load ptr, ptr %2, align 8, !tbaa !54
+  %502 = getelementptr inbounds ptr, ptr %501, i64 1
+  %503 = load ptr, ptr %502, align 8
+  %504 = invoke noundef i32 %503(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(52) %10, i1 noundef zeroext true)
+          to label %507 unwind label %505
+
+505:                                              ; preds = %500
+  %506 = landingpad { ptr, i32 }
+          cleanup
+  br label %509
+
+507:                                              ; preds = %390, %384, %500, %496, %423, %421, %327
+  %508 = phi i32 [ %326, %327 ], [ %495, %496 ], [ %424, %423 ], [ %416, %421 ], [ %504, %500 ], [ %383, %384 ], [ %389, %390 ]
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %10) #21
+  br label %511
+
+509:                                              ; preds = %419, %498, %505, %392, %386, %329
+  %510 = phi { ptr, i32 } [ %330, %329 ], [ %387, %386 ], [ %393, %392 ], [ %420, %419 ], [ %506, %505 ], [ %499, %498 ]
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %10) #21
+  br label %514
+
+511:                                              ; preds = %216, %162, %166, %238, %507
+  %512 = phi i32 [ %508, %507 ], [ %239, %238 ], [ %161, %162 ], [ %165, %166 ], [ %215, %216 ]
+  %513 = call i32 @pthread_mutex_destroy(ptr noundef nonnull %9) #21
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %9) #21
+  br label %519
+
+514:                                              ; preds = %222, %218, %220, %208, %210, %509, %236
+  %515 = phi { ptr, i32 } [ %237, %236 ], [ %510, %509 ], [ %209, %208 ], [ %211, %210 ], [ %219, %218 ], [ %221, %220 ], [ %223, %222 ]
+  %516 = call i32 @pthread_mutex_destroy(ptr noundef nonnull %9) #21
+  br label %517
+
+517:                                              ; preds = %514, %174
+  %518 = phi { ptr, i32 } [ %515, %514 ], [ %175, %174 ]
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %9) #21
+  br label %521
+
+519:                                              ; preds = %89, %511
+  %520 = phi i32 [ %512, %511 ], [ %88, %89 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #21
+  br label %523
+
+521:                                              ; preds = %517, %91
+  %522 = phi { ptr, i32 } [ %92, %91 ], [ %518, %517 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #21
+  br label %534
+
+523:                                              ; preds = %52, %56, %72, %68, %519
+  %524 = phi i32 [ %520, %519 ], [ -2147467263, %72 ], [ %67, %68 ], [ -2147467263, %56 ], [ %51, %52 ]
+  %525 = load i64, ptr %24, align 8
+  %526 = icmp eq i64 %525, 0
+  br i1 %526, label %533, label %527
+
+527:                                              ; preds = %523
+  %528 = getelementptr inbounds %struct.CEncoderInfo, ptr %25, i64 %525
+  br label %529
+
+529:                                              ; preds = %529, %527
+  %530 = phi ptr [ %531, %529 ], [ %528, %527 ]
+  %531 = getelementptr inbounds %struct.CEncoderInfo, ptr %530, i64 -1
+  call void @_ZN12CEncoderInfoD2Ev(ptr noundef nonnull align 8 dereferenceable(224) %531) #21
+  %532 = icmp eq ptr %531, %25
+  br i1 %532, label %533, label %529
+
+533:                                              ; preds = %529, %523
+  call void @_ZdaPv(ptr noundef nonnull %24) #24
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #21
+  br label %536
+
+534:                                              ; preds = %54, %70, %521
+  %535 = phi { ptr, i32 } [ %522, %521 ], [ %71, %70 ], [ %55, %54 ]
   call void @_ZN14CBenchEncodersD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %7) #21
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #21
-  resume { ptr, i32 } %520
+  resume { ptr, i32 } %535
 
-521:                                              ; preds = %3, %518
-  %522 = phi i32 [ %509, %518 ], [ -2147024809, %3 ]
-  ret i32 %522
+536:                                              ; preds = %3, %533
+  %537 = phi i32 [ %524, %533 ], [ -2147024809, %3 ]
+  ret i32 %537
 }
 
 declare noundef i32 @_Z11CreateCoderyR9CMyComPtrI14ICompressCoderEb(i64 noundef, ptr noundef nonnull align 8 dereferenceable(8), i1 noundef zeroext) local_unnamed_addr #5
@@ -3450,8 +3467,8 @@ define dso_local noundef zeroext i1 @_Z15CrcInternalTestv() local_unnamed_addr #
   ret i1 %140
 
 145:                                              ; preds = %133, %21
-  %146 = phi ptr [ null, %21 ], [ %2, %133 ]
-  %147 = phi { ptr, i32 } [ %22, %21 ], [ %134, %133 ]
+  %146 = phi ptr [ %2, %133 ], [ null, %21 ]
+  %147 = phi { ptr, i32 } [ %134, %133 ], [ %22, %21 ]
   invoke void @MidFree(ptr noundef %146)
           to label %151 unwind label %148
 
@@ -3505,12 +3522,12 @@ define dso_local noundef i32 @_Z8CrcBenchjjRy(i32 noundef %0, i32 noundef %1, pt
 
 14:                                               ; preds = %12
   %15 = icmp eq ptr %13, null
-  br i1 %15, label %337, label %18
+  br i1 %15, label %334, label %18
 
 16:                                               ; preds = %12, %3
   %17 = landingpad { ptr, i32 }
           cleanup
-  br label %343
+  br label %340
 
 18:                                               ; preds = %14
   %19 = lshr i32 %1, 2
@@ -3536,7 +3553,7 @@ define dso_local noundef i32 @_Z8CrcBenchjjRy(i32 noundef %0, i32 noundef %1, pt
   %31 = getelementptr inbounds %struct.CCrcInfo, ptr %30, i64 %10
   br label %32
 
-32:                                               ; preds = %29, %32
+32:                                               ; preds = %32, %29
   %33 = phi ptr [ %30, %29 ], [ %35, %32 ]
   %34 = getelementptr inbounds %struct._CThread, ptr %33, i64 0, i32 1
   store i32 0, ptr %34, align 8, !tbaa !93
@@ -3682,7 +3699,7 @@ define dso_local noundef i32 @_Z8CrcBenchjjRy(i32 noundef %0, i32 noundef %1, pt
 140:                                              ; preds = %25
   %141 = landingpad { ptr, i32 }
           cleanup
-  br label %335
+  br label %332
 
 142:                                              ; preds = %134
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #21
@@ -3717,17 +3734,17 @@ define dso_local noundef i32 @_Z8CrcBenchjjRy(i32 noundef %0, i32 noundef %1, pt
 
 161:                                              ; preds = %157
   %162 = icmp eq i32 %160, 0
-  br i1 %162, label %167, label %333
+  br i1 %162, label %167, label %330
 
 163:                                              ; preds = %180, %176
   %164 = landingpad { ptr, i32 }
           cleanup
-  br label %335
+  br label %332
 
 165:                                              ; preds = %157
   %166 = landingpad { ptr, i32 }
           cleanup
-  br label %335
+  br label %332
 
 167:                                              ; preds = %161
   %168 = load i32, ptr %7, align 8, !tbaa !124
@@ -3767,14 +3784,14 @@ define dso_local noundef i32 @_Z8CrcBenchjjRy(i32 noundef %0, i32 noundef %1, pt
 186:                                              ; preds = %189
   %187 = add nuw nsw i64 %190, 1
   %188 = icmp eq i64 %187, %10
-  br i1 %188, label %310, label %189, !llvm.loop !135
+  br i1 %188, label %307, label %189, !llvm.loop !135
 
 189:                                              ; preds = %185, %186
   %190 = phi i64 [ 0, %185 ], [ %187, %186 ]
   %191 = getelementptr inbounds %struct.CCrcInfo, ptr %156, i64 %190, i32 5
   %192 = load i8, ptr %191, align 4, !tbaa !136, !range !50, !noundef !51
   %193 = icmp eq i8 %192, 0
-  br i1 %193, label %333, label %186
+  br i1 %193, label %330, label %186
 
 194:                                              ; preds = %18
   %195 = icmp eq i32 %1, 0
@@ -3913,109 +3930,104 @@ define dso_local noundef i32 @_Z8CrcBenchjjRy(i32 noundef %0, i32 noundef %1, pt
 294:                                              ; preds = %285, %291
   %295 = phi i64 [ %290, %285 ], [ %293, %291 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #21
-  br label %300
+  br label %296
 
-296:                                              ; preds = %304
-  %297 = add nuw nsw i32 %302, 1
-  %298 = icmp uge i32 %302, %21
-  %299 = icmp eq i32 %302, %21
-  br i1 %299, label %308, label %300, !llvm.loop !137
+296:                                              ; preds = %299, %294
+  %297 = phi i32 [ 0, %294 ], [ %301, %299 ]
+  %298 = invoke i32 @CrcCalc(ptr noundef nonnull %13, i64 noundef %9)
+          to label %299 unwind label %304
 
-300:                                              ; preds = %296, %294
-  %301 = phi i1 [ %298, %296 ], [ false, %294 ]
-  %302 = phi i32 [ %297, %296 ], [ 0, %294 ]
-  %303 = invoke i32 @CrcCalc(ptr noundef nonnull %13, i64 noundef %9)
-          to label %304 unwind label %306
+299:                                              ; preds = %296
+  %300 = icmp ne i32 %298, %282
+  %301 = add nuw nsw i32 %297, 1
+  %302 = icmp eq i32 %297, %21
+  %303 = select i1 %300, i1 true, i1 %302
+  br i1 %303, label %306, label %296, !llvm.loop !137
 
-304:                                              ; preds = %300
-  %305 = icmp eq i32 %303, %282
-  br i1 %305, label %296, label %308
-
-306:                                              ; preds = %300
-  %307 = landingpad { ptr, i32 }
+304:                                              ; preds = %296
+  %305 = landingpad { ptr, i32 }
           cleanup
-  br label %335
+  br label %332
 
-308:                                              ; preds = %304, %296
-  %309 = phi i1 [ %301, %304 ], [ %298, %296 ]
-  br i1 %309, label %310, label %333
+306:                                              ; preds = %299
+  br i1 %300, label %330, label %307
 
-310:                                              ; preds = %186, %308
-  %311 = phi i64 [ %295, %308 ], [ %155, %186 ]
+307:                                              ; preds = %186, %306
+  %308 = phi i64 [ %295, %306 ], [ %155, %186 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #21
-  %312 = call i32 @gettimeofday(ptr noundef nonnull %4, ptr noundef null) #21
-  %313 = icmp eq i32 %312, 0
-  br i1 %313, label %314, label %320
+  %309 = call i32 @gettimeofday(ptr noundef nonnull %4, ptr noundef null) #21
+  %310 = icmp eq i32 %309, 0
+  br i1 %310, label %311, label %317
 
-314:                                              ; preds = %310
-  %315 = load i64, ptr %4, align 8, !tbaa !44
-  %316 = mul i64 %315, 1000000
-  %317 = getelementptr inbounds %struct.timeval, ptr %4, i64 0, i32 1
-  %318 = load i64, ptr %317, align 8, !tbaa !46
-  %319 = add i64 %316, %318
-  br label %323
+311:                                              ; preds = %307
+  %312 = load i64, ptr %4, align 8, !tbaa !44
+  %313 = mul i64 %312, 1000000
+  %314 = getelementptr inbounds %struct.timeval, ptr %4, i64 0, i32 1
+  %315 = load i64, ptr %314, align 8, !tbaa !46
+  %316 = add i64 %313, %315
+  br label %320
 
-320:                                              ; preds = %310
-  %321 = tail call i64 @time(ptr noundef null) #21
-  %322 = mul i64 %321, 1000000
-  br label %323
+317:                                              ; preds = %307
+  %318 = tail call i64 @time(ptr noundef null) #21
+  %319 = mul i64 %318, 1000000
+  br label %320
 
-323:                                              ; preds = %314, %320
-  %324 = phi i64 [ %319, %314 ], [ %322, %320 ]
+320:                                              ; preds = %311, %317
+  %321 = phi i64 [ %316, %311 ], [ %319, %317 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #21
-  %325 = sub i64 %324, %311
-  %326 = icmp eq i64 %324, %311
-  %327 = tail call i64 @llvm.umax.i64(i64 %325, i64 1)
-  %328 = zext i32 %22 to i64
-  %329 = select i1 %326, i64 1, i64 %327
-  %330 = mul i64 %11, 1000000
-  %331 = mul i64 %330, %328
-  %332 = udiv i64 %331, %329
-  store i64 %332, ptr %2, align 8, !tbaa !41
-  br label %333
+  %322 = sub i64 %321, %308
+  %323 = icmp eq i64 %321, %308
+  %324 = tail call i64 @llvm.umax.i64(i64 %322, i64 1)
+  %325 = zext i32 %22 to i64
+  %326 = select i1 %323, i64 1, i64 %324
+  %327 = mul i64 %11, 1000000
+  %328 = mul i64 %327, %325
+  %329 = udiv i64 %328, %326
+  store i64 %329, ptr %2, align 8, !tbaa !41
+  br label %330
 
-333:                                              ; preds = %161, %189, %308, %323
-  %334 = phi i32 [ 0, %323 ], [ 1, %308 ], [ 1, %189 ], [ %160, %161 ]
+330:                                              ; preds = %161, %189, %306, %320
+  %331 = phi i32 [ 0, %320 ], [ 1, %306 ], [ 1, %189 ], [ %160, %161 ]
   call void @_ZN11CCrcThreadsD2Ev(ptr noundef nonnull align 8 dereferenceable(16) %7) #21
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #21
-  br label %337
+  br label %334
 
-335:                                              ; preds = %163, %165, %306, %140
-  %336 = phi { ptr, i32 } [ %141, %140 ], [ %307, %306 ], [ %166, %165 ], [ %164, %163 ]
+332:                                              ; preds = %163, %165, %304, %140
+  %333 = phi { ptr, i32 } [ %141, %140 ], [ %305, %304 ], [ %166, %165 ], [ %164, %163 ]
   call void @_ZN11CCrcThreadsD2Ev(ptr noundef nonnull align 8 dereferenceable(16) %7) #21
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #21
-  br label %343
+  br label %340
 
-337:                                              ; preds = %14, %333
-  %338 = phi i32 [ %334, %333 ], [ -2147024882, %14 ]
+334:                                              ; preds = %14, %330
+  %335 = phi i32 [ %331, %330 ], [ -2147024882, %14 ]
   invoke void @MidFree(ptr noundef %13)
-          to label %342 unwind label %339
+          to label %339 unwind label %336
 
-339:                                              ; preds = %337
-  %340 = landingpad { ptr, i32 }
+336:                                              ; preds = %334
+  %337 = landingpad { ptr, i32 }
           catch ptr null
-  %341 = extractvalue { ptr, i32 } %340, 0
-  call void @__clang_call_terminate(ptr %341) #23
+  %338 = extractvalue { ptr, i32 } %337, 0
+  call void @__clang_call_terminate(ptr %338) #23
   unreachable
 
-342:                                              ; preds = %337
-  ret i32 %338
+339:                                              ; preds = %334
+  ret i32 %335
 
-343:                                              ; preds = %335, %16
-  %344 = phi ptr [ null, %16 ], [ %13, %335 ]
-  %345 = phi { ptr, i32 } [ %17, %16 ], [ %336, %335 ]
-  invoke void @MidFree(ptr noundef %344)
-          to label %349 unwind label %346
+340:                                              ; preds = %332, %16
+  %341 = phi ptr [ %13, %332 ], [ null, %16 ]
+  %342 = phi { ptr, i32 } [ %333, %332 ], [ %17, %16 ]
+  invoke void @MidFree(ptr noundef %341)
+          to label %346 unwind label %343
 
-346:                                              ; preds = %343
-  %347 = landingpad { ptr, i32 }
+343:                                              ; preds = %340
+  %344 = landingpad { ptr, i32 }
           catch ptr null
-  %348 = extractvalue { ptr, i32 } %347, 0
-  call void @__clang_call_terminate(ptr %348) #23
+  %345 = extractvalue { ptr, i32 } %344, 0
+  call void @__clang_call_terminate(ptr %345) #23
   unreachable
 
-349:                                              ; preds = %343
-  resume { ptr, i32 } %345
+346:                                              ; preds = %340
+  resume { ptr, i32 } %342
 }
 
 ; Function Attrs: nobuiltin allocsize(0)
@@ -4036,33 +4048,23 @@ define internal noundef i32 @_ZL17CrcThreadFunctionPv(ptr nocapture noundef %0) 
   %9 = load i32, ptr %8, align 8, !tbaa !131
   %10 = zext i32 %5 to i64
   %11 = icmp eq i32 %7, 0
-  br i1 %11, label %25, label %12
+  br i1 %11, label %19, label %15
 
-12:                                               ; preds = %1
-  %13 = tail call i32 @CrcCalc(ptr noundef %3, i64 noundef %10)
-  %14 = icmp eq i32 %13, %9
-  br i1 %14, label %15, label %25
+12:                                               ; preds = %15
+  %13 = add nuw i32 %16, 1
+  %14 = icmp eq i32 %13, %7
+  br i1 %14, label %19, label %15, !llvm.loop !137
 
-15:                                               ; preds = %12, %19
-  %16 = phi i32 [ %17, %19 ], [ 0, %12 ]
-  %17 = add nuw i32 %16, 1
-  %18 = icmp eq i32 %17, %7
-  br i1 %18, label %22, label %19, !llvm.loop !137
+15:                                               ; preds = %1, %12
+  %16 = phi i32 [ %13, %12 ], [ 0, %1 ]
+  %17 = tail call i32 @CrcCalc(ptr noundef %3, i64 noundef %10)
+  %18 = icmp eq i32 %17, %9
+  br i1 %18, label %12, label %19
 
-19:                                               ; preds = %15
-  %20 = tail call i32 @CrcCalc(ptr noundef %3, i64 noundef %10)
-  %21 = icmp eq i32 %20, %9
-  br i1 %21, label %15, label %22, !llvm.loop !137
-
-22:                                               ; preds = %15, %19
-  %23 = icmp uge i32 %17, %7
-  %24 = zext i1 %23 to i8
-  br label %25
-
-25:                                               ; preds = %22, %12, %1
-  %26 = phi i8 [ 1, %1 ], [ 0, %12 ], [ %24, %22 ]
-  %27 = getelementptr inbounds %struct.CCrcInfo, ptr %0, i64 0, i32 5
-  store i8 %26, ptr %27, align 4, !tbaa !136
+19:                                               ; preds = %12, %15, %1
+  %20 = phi i8 [ 1, %1 ], [ 0, %15 ], [ 1, %12 ]
+  %21 = getelementptr inbounds %struct.CCrcInfo, ptr %0, i64 0, i32 5
+  store i8 %20, ptr %21, align 4, !tbaa !136
   ret i32 0
 }
 
@@ -4263,8 +4265,8 @@ define linkonce_odr dso_local noundef i32 @_ZN18CBenchmarkInStream14QueryInterfa
   %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(40) %0)
   br label %87
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
+87:                                               ; preds = %77, %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %82
+  %88 = phi i32 [ 0, %82 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ], [ -2147467262, %77 ]
   ret i32 %88
 }
 
@@ -4423,8 +4425,8 @@ define linkonce_odr dso_local noundef i32 @_ZN19CBenchmarkOutStream14QueryInterf
   %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(40) %0)
   br label %87
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
+87:                                               ; preds = %77, %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %82
+  %88 = phi i32 [ 0, %82 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ], [ -2147467262, %77 ]
   ret i32 %88
 }
 
@@ -4660,8 +4662,8 @@ define linkonce_odr dso_local noundef i32 @_ZN13CCrcOutStream14QueryInterfaceERK
   %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(16) %0)
   br label %87
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
+87:                                               ; preds = %77, %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %82
+  %88 = phi i32 [ 0, %82 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ], [ -2147467262, %77 ]
   ret i32 %88
 }
 
@@ -4820,8 +4822,8 @@ define linkonce_odr dso_local noundef i32 @_ZN18CBenchProgressInfo14QueryInterfa
   %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(96) %0)
   br label %87
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
+87:                                               ; preds = %77, %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %82
+  %88 = phi i32 [ 0, %82 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ], [ -2147467262, %77 ]
   ret i32 %88
 }
 
@@ -5146,9 +5148,6 @@ declare i64 @time(ptr noundef) local_unnamed_addr #15
 declare i32 @Thread_Create(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #18
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umin.i32(i32, i32) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -5156,6 +5155,9 @@ declare i64 @llvm.umin.i64(i64, i64) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umax.i64(i64, i64) #18
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umax.i32(i32, i32) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
 declare void @llvm.assume(i1 noundef) #19

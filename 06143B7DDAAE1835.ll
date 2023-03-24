@@ -273,9 +273,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP20btPersistentMan
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !22
   store ptr null, ptr %2, align 8, !tbaa !23
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !24
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !25
@@ -309,10 +309,10 @@ define dso_local void @_ZN21btCollisionDispatcherD2Ev(ptr noundef nonnull align 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btCollisionDispatcher, ptr %0, i64 0, i32 3, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !22
   store ptr null, ptr %2, align 8, !tbaa !23
+  %11 = getelementptr inbounds %class.btCollisionDispatcher, ptr %0, i64 0, i32 3, i32 2
   store i32 0, ptr %11, align 4, !tbaa !24
   %12 = getelementptr inbounds %class.btCollisionDispatcher, ptr %0, i64 0, i32 3, i32 3
   store i32 0, ptr %12, align 8, !tbaa !25
@@ -353,9 +353,9 @@ define dso_local void @_ZN21btCollisionDispatcherD0Ev(ptr noundef nonnull align 
           to label %10 unwind label %13
 
 10:                                               ; preds = %9, %1
-  %11 = getelementptr inbounds %class.btCollisionDispatcher, ptr %0, i64 0, i32 3, i32 2
   store i8 1, ptr %5, align 8, !tbaa !22
   store ptr null, ptr %2, align 8, !tbaa !23
+  %11 = getelementptr inbounds %class.btCollisionDispatcher, ptr %0, i64 0, i32 3, i32 2
   store i32 0, ptr %11, align 4, !tbaa !24
   %12 = getelementptr inbounds %class.btCollisionDispatcher, ptr %0, i64 0, i32 3, i32 3
   store i32 0, ptr %12, align 8, !tbaa !25
@@ -440,7 +440,7 @@ define dso_local noundef ptr @_ZN21btCollisionDispatcher14getNewManifoldEPvS0_(p
   %39 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 744, i32 noundef 16)
   br label %40
 
-40:                                               ; preds = %33, %38
+40:                                               ; preds = %38, %33
   %41 = phi ptr [ %35, %33 ], [ %39, %38 ]
   store i32 1, ptr %41, align 8, !tbaa !51
   %42 = getelementptr inbounds %class.btPersistentManifold, ptr %41, i64 0, i32 3
@@ -679,7 +679,7 @@ define dso_local void @_ZN21btCollisionDispatcher15releaseManifoldEP20btPersiste
   %29 = getelementptr inbounds %class.btPoolAllocator, ptr %28, i64 0, i32 4
   %30 = load ptr, ptr %29, align 8, !tbaa !66
   %31 = icmp ugt ptr %30, %1
-  br i1 %31, label %46, label %32
+  br i1 %31, label %40, label %32
 
 32:                                               ; preds = %2
   %33 = getelementptr inbounds %class.btPoolAllocator, ptr %28, i64 0, i32 1
@@ -689,24 +689,24 @@ define dso_local void @_ZN21btCollisionDispatcher15releaseManifoldEP20btPersiste
   %37 = sext i32 %36 to i64
   %38 = getelementptr inbounds i8, ptr %30, i64 %37
   %39 = icmp ugt ptr %38, %1
-  br i1 %39, label %40, label %46
+  br i1 %39, label %41, label %40
 
-40:                                               ; preds = %32
-  %41 = getelementptr inbounds %class.btPoolAllocator, ptr %28, i64 0, i32 3
-  %42 = load ptr, ptr %41, align 8, !tbaa !50
-  store ptr %42, ptr %1, align 8, !tbaa !32
-  store ptr %1, ptr %41, align 8, !tbaa !50
-  %43 = getelementptr inbounds %class.btPoolAllocator, ptr %28, i64 0, i32 2
-  %44 = load i32, ptr %43, align 8, !tbaa !48
-  %45 = add nsw i32 %44, 1
-  store i32 %45, ptr %43, align 8, !tbaa !48
-  br label %47
-
-46:                                               ; preds = %32, %2
+40:                                               ; preds = %32, %2
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1)
   br label %47
 
-47:                                               ; preds = %46, %40
+41:                                               ; preds = %32
+  %42 = getelementptr inbounds %class.btPoolAllocator, ptr %28, i64 0, i32 3
+  %43 = load ptr, ptr %42, align 8, !tbaa !50
+  store ptr %43, ptr %1, align 8, !tbaa !32
+  store ptr %1, ptr %42, align 8, !tbaa !50
+  %44 = getelementptr inbounds %class.btPoolAllocator, ptr %28, i64 0, i32 2
+  %45 = load i32, ptr %44, align 8, !tbaa !48
+  %46 = add nsw i32 %45, 1
+  store i32 %46, ptr %44, align 8, !tbaa !48
+  br label %47
+
+47:                                               ; preds = %41, %40
   ret void
 }
 
@@ -734,7 +734,7 @@ define dso_local noundef ptr @_ZN21btCollisionDispatcher13findAlgorithmEP17btCol
   %19 = load ptr, ptr %18, align 8, !tbaa !5
   %20 = getelementptr inbounds ptr, ptr %19, i64 2
   %21 = load ptr, ptr %20, align 8
-  %22 = call noundef ptr %21(ptr noundef nonnull align 8 dereferenceable(9) %18, ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef nonnull %1, ptr noundef nonnull %2)
+  %22 = call noundef ptr %21(ptr noundef nonnull align 8 dereferenceable(9) %18, ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef %1, ptr noundef %2)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #9
   ret ptr %22
 }
@@ -798,8 +798,8 @@ define dso_local noundef zeroext i1 @_ZN21btCollisionDispatcher14needsCollisionE
   %16 = tail call noundef zeroext i1 %15(ptr noundef nonnull align 8 dereferenceable(280) %1, ptr noundef %2)
   br label %17
 
-17:                                               ; preds = %6, %6, %13, %9
-  %18 = phi i1 [ false, %6 ], [ %16, %13 ], [ true, %9 ], [ false, %6 ]
+17:                                               ; preds = %13, %9, %6, %6
+  %18 = phi i1 [ false, %6 ], [ false, %6 ], [ %16, %13 ], [ true, %9 ]
   ret i1 %18
 }
 
@@ -855,13 +855,13 @@ define dso_local void @_ZN21btCollisionDispatcher22freeCollisionAlgorithmEPv(ptr
   %3 = getelementptr inbounds %class.btCollisionDispatcher, ptr %0, i64 0, i32 8
   %4 = load ptr, ptr %3, align 8, !tbaa !30
   %5 = icmp eq ptr %1, null
-  br i1 %5, label %24, label %6
+  br i1 %5, label %18, label %6
 
 6:                                                ; preds = %2
   %7 = getelementptr inbounds %class.btPoolAllocator, ptr %4, i64 0, i32 4
   %8 = load ptr, ptr %7, align 8, !tbaa !66
   %9 = icmp ugt ptr %8, %1
-  br i1 %9, label %24, label %10
+  br i1 %9, label %18, label %10
 
 10:                                               ; preds = %6
   %11 = getelementptr inbounds %class.btPoolAllocator, ptr %4, i64 0, i32 1
@@ -871,24 +871,24 @@ define dso_local void @_ZN21btCollisionDispatcher22freeCollisionAlgorithmEPv(ptr
   %15 = sext i32 %14 to i64
   %16 = getelementptr inbounds i8, ptr %8, i64 %15
   %17 = icmp ugt ptr %16, %1
-  br i1 %17, label %18, label %24
+  br i1 %17, label %19, label %18
 
-18:                                               ; preds = %10
-  %19 = getelementptr inbounds %class.btPoolAllocator, ptr %4, i64 0, i32 3
-  %20 = load ptr, ptr %19, align 8, !tbaa !50
-  store ptr %20, ptr %1, align 8, !tbaa !32
-  store ptr %1, ptr %19, align 8, !tbaa !50
-  %21 = getelementptr inbounds %class.btPoolAllocator, ptr %4, i64 0, i32 2
-  %22 = load i32, ptr %21, align 8, !tbaa !48
-  %23 = add nsw i32 %22, 1
-  store i32 %23, ptr %21, align 8, !tbaa !48
-  br label %25
-
-24:                                               ; preds = %10, %6, %2
+18:                                               ; preds = %10, %6, %2
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef %1)
   br label %25
 
-25:                                               ; preds = %24, %18
+19:                                               ; preds = %10
+  %20 = getelementptr inbounds %class.btPoolAllocator, ptr %4, i64 0, i32 3
+  %21 = load ptr, ptr %20, align 8, !tbaa !50
+  store ptr %21, ptr %1, align 8, !tbaa !32
+  store ptr %1, ptr %20, align 8, !tbaa !50
+  %22 = getelementptr inbounds %class.btPoolAllocator, ptr %4, i64 0, i32 2
+  %23 = load i32, ptr %22, align 8, !tbaa !48
+  %24 = add nsw i32 %23, 1
+  store i32 %24, ptr %22, align 8, !tbaa !48
+  br label %25
+
+25:                                               ; preds = %19, %18
   ret void
 }
 

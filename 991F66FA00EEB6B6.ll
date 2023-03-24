@@ -113,33 +113,34 @@ define internal noundef i32 @_ZL6MyReadPvS_Pm(ptr nocapture noundef %0, ptr noun
   %15 = load i32, ptr %4, align 4, !tbaa !24
   %16 = zext i32 %15 to i64
   store i64 %16, ptr %2, align 8, !tbaa !22
-  switch i32 %13, label %21 [
-    i32 0, label %22
-    i32 1, label %20
-    i32 -2147024882, label %17
-    i32 -2147024809, label %18
-    i32 -2147467260, label %19
+  switch i32 %13, label %20 [
+    i32 0, label %23
+    i32 1, label %19
+    i32 -2147024882, label %21
+    i32 -2147024809, label %17
+    i32 -2147467260, label %18
   ]
 
 17:                                               ; preds = %3
-  br label %22
+  br label %21
 
 18:                                               ; preds = %3
-  br label %22
+  br label %21
 
 19:                                               ; preds = %3
-  br label %22
+  br label %21
 
 20:                                               ; preds = %3
-  br label %22
+  br label %21
 
-21:                                               ; preds = %3
-  br label %22
+21:                                               ; preds = %3, %17, %18, %19, %20
+  %22 = phi i32 [ 8, %20 ], [ 1, %19 ], [ 10, %18 ], [ 5, %17 ], [ 2, %3 ]
+  br label %23
 
-22:                                               ; preds = %3, %21, %20, %19, %18, %17
-  %23 = phi i32 [ %13, %3 ], [ 8, %21 ], [ 1, %20 ], [ 10, %19 ], [ 5, %18 ], [ 2, %17 ]
+23:                                               ; preds = %3, %21
+  %24 = phi i32 [ %22, %21 ], [ %13, %3 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #6
-  ret i32 %23
+  ret i32 %24
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable

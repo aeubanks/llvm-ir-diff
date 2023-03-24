@@ -916,6 +916,7 @@ target triple = "x86_64-unknown-linux-gnu"
 %"class.boost::optional_detail::aligned_storage" = type { %"union.boost::optional_detail::aligned_storage<char>::dummy_u" }
 %"union.boost::optional_detail::aligned_storage<char>::dummy_u" = type { [1 x i8] }
 %"class.boost::details::compressed_pair_imp.113" = type <{ ptr, %"struct.boost::spirit::difference.114", [6 x i8] }>
+%"class.boost::details::compressed_pair_imp.126" = type { %"struct.boost::spirit::sequence.127", %"struct.boost::spirit::chlit", [7 x i8] }
 %"class.boost::details::compressed_pair_imp.228" = type { %"struct.boost::spirit::sequence.229", %"struct.boost::spirit::chlit", [3 x i8] }
 %"class.boost::details::compressed_pair_imp.387" = type <{ %"struct.boost::spirit::sequence.388", %"struct.boost::spirit::chlit", [7 x i8] }>
 %"class.boost::details::compressed_pair_imp.869" = type <{ ptr, %"struct.boost::spirit::chlit", [7 x i8] }>
@@ -1087,7 +1088,7 @@ $_ZNK5boost6spirit4impl15concrete_parserINS0_10contiguousINS0_8sequenceINS4_INS4
 
 $_ZNK5boost6spirit4impl15concrete_parserINS0_10contiguousINS0_8sequenceINS4_INS4_INS0_8optionalINS0_5chlitIcEEEES7_EENS0_11kleene_starINS0_11alternativeINS0_6strlitIPKcEENS0_10differenceINS0_14anychar_parserES7_EEEEEEEES7_EEEENS0_7scannerISE_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tEE5cloneEv = comdat any
 
-$_ZNK5boost6spirit8sequenceINS1_INS0_8optionalINS0_5chlitIcEEEES4_EENS0_11kleene_starINS0_11alternativeINS0_6strlitIPKcEENS0_10differenceINS0_14anychar_parserES4_EEEEEEE5parseINS0_7scannerISB_NS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultISI_T_E4typeERKSX_ = comdat any
+$_ZN5boost6spirit4impl23contiguous_parser_parseINS0_5matchINS0_5nil_tEEENS0_8sequenceINS6_INS6_INS0_8optionalINS0_5chlitIcEEEES9_EENS0_11kleene_starINS0_11alternativeINS0_6strlitIPKcEENS0_10differenceINS0_14anychar_parserES9_EEEEEEEES9_EENS0_7scannerISG_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEST_EET_RKT0_RKT1_RKNS0_24skipper_iteration_policyIT2_EE = comdat any
 
 $_ZN5boost6spirit4impl15concrete_parserINS0_8positiveINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEESG_SH_ED0Ev = comdat any
 
@@ -2807,81 +2808,69 @@ define linkonce_odr dso_local noundef i64 @_ZN5boost6spirit4impl19object_with_id
   %21 = getelementptr inbounds %"struct.boost::spirit::impl::object_with_id_base_supply", ptr %19, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
   %22 = load ptr, ptr %21, align 8, !tbaa !61
   %23 = load ptr, ptr %20, align 8, !tbaa !64
-  %24 = ptrtoint ptr %22 to i64
-  %25 = ptrtoint ptr %23 to i64
-  %26 = sub i64 %24, %25
-  %27 = ashr exact i64 %26, 3
-  %28 = icmp eq ptr %22, %23
-  br i1 %28, label %32, label %29
+  %24 = icmp eq ptr %22, %23
+  br i1 %24, label %28, label %25
 
-29:                                               ; preds = %15
-  %30 = getelementptr inbounds i64, ptr %22, i64 -1
-  %31 = load i64, ptr %30, align 8, !tbaa !63
-  store ptr %30, ptr %21, align 8, !tbaa !61
-  br label %64
+25:                                               ; preds = %15
+  %26 = getelementptr inbounds i64, ptr %22, i64 -1
+  %27 = load i64, ptr %26, align 8, !tbaa !63
+  store ptr %26, ptr %21, align 8, !tbaa !61
+  br label %57
 
-32:                                               ; preds = %15
-  %33 = getelementptr inbounds %"struct.boost::spirit::impl::object_with_id_base_supply", ptr %19, i64 0, i32 1, i32 0, i32 0, i32 0, i32 2
-  %34 = load ptr, ptr %33, align 8, !tbaa !62
-  %35 = ptrtoint ptr %34 to i64
-  %36 = sub i64 %35, %25
-  %37 = ashr exact i64 %36, 3
-  %38 = load i64, ptr %19, align 8, !tbaa !55
-  %39 = icmp ugt i64 %37, %38
-  br i1 %39, label %61, label %40
+28:                                               ; preds = %15
+  %29 = getelementptr inbounds %"struct.boost::spirit::impl::object_with_id_base_supply", ptr %19, i64 0, i32 1, i32 0, i32 0, i32 0, i32 2
+  %30 = load ptr, ptr %29, align 8, !tbaa !62
+  %31 = ptrtoint ptr %30 to i64
+  %32 = ptrtoint ptr %22 to i64
+  %33 = sub i64 %31, %32
+  %34 = ashr exact i64 %33, 3
+  %35 = load i64, ptr %19, align 8, !tbaa !55
+  %36 = icmp ugt i64 %34, %35
+  br i1 %36, label %54, label %37
 
-40:                                               ; preds = %32
-  %41 = mul i64 %38, 3
-  %42 = lshr i64 %41, 1
-  %43 = add nuw i64 %42, 1
-  %44 = icmp ugt i64 %41, 2305843009213693949
-  br i1 %44, label %45, label %46
+37:                                               ; preds = %28
+  %38 = mul i64 %35, 3
+  %39 = lshr i64 %38, 1
+  %40 = add nuw i64 %39, 1
+  %41 = icmp ugt i64 %38, 2305843009213693949
+  br i1 %41, label %42, label %43
 
-45:                                               ; preds = %40
+42:                                               ; preds = %37
   tail call void @_ZSt20__throw_length_errorPKc(ptr noundef nonnull @.str.32) #28
   unreachable
 
-46:                                               ; preds = %40
-  %47 = icmp ugt i64 %37, %42
-  br i1 %47, label %61, label %48
+43:                                               ; preds = %37
+  %44 = icmp ugt i64 %34, %39
+  br i1 %44, label %54, label %45
 
-48:                                               ; preds = %46
-  %49 = shl nuw nsw i64 %43, 3
-  %50 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %49) #29
-  %51 = icmp sgt i64 %26, 0
-  br i1 %51, label %52, label %53
+45:                                               ; preds = %43
+  %46 = shl nuw nsw i64 %40, 3
+  %47 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %46) #29
+  %48 = icmp eq ptr %22, null
+  br i1 %48, label %51, label %49
 
-52:                                               ; preds = %48
-  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %50, ptr align 8 %22, i64 %26, i1 false)
-  br label %53
-
-53:                                               ; preds = %52, %48
-  %54 = icmp eq ptr %22, null
-  br i1 %54, label %57, label %55
-
-55:                                               ; preds = %53
+49:                                               ; preds = %45
   tail call void @_ZdlPv(ptr noundef nonnull %22) #25
-  %56 = load i64, ptr %19, align 8, !tbaa !55
+  %50 = load i64, ptr %19, align 8, !tbaa !55
+  br label %51
+
+51:                                               ; preds = %49, %45
+  %52 = phi i64 [ %50, %49 ], [ %35, %45 ]
+  store ptr %47, ptr %20, align 8, !tbaa !64
+  store ptr %47, ptr %21, align 8, !tbaa !61
+  %53 = getelementptr inbounds i64, ptr %47, i64 %40
+  store ptr %53, ptr %29, align 8, !tbaa !62
+  br label %54
+
+54:                                               ; preds = %51, %43, %28
+  %55 = phi i64 [ %52, %51 ], [ %35, %43 ], [ %35, %28 ]
+  %56 = add i64 %55, 1
+  store i64 %56, ptr %19, align 8, !tbaa !55
   br label %57
 
-57:                                               ; preds = %55, %53
-  %58 = phi i64 [ %56, %55 ], [ %38, %53 ]
-  store ptr %50, ptr %20, align 8, !tbaa !64
-  %59 = getelementptr inbounds i64, ptr %50, i64 %27
-  store ptr %59, ptr %21, align 8, !tbaa !61
-  %60 = getelementptr inbounds i64, ptr %50, i64 %43
-  store ptr %60, ptr %33, align 8, !tbaa !62
-  br label %61
-
-61:                                               ; preds = %57, %46, %32
-  %62 = phi i64 [ %58, %57 ], [ %38, %46 ], [ %38, %32 ]
-  %63 = add i64 %62, 1
-  store i64 %63, ptr %19, align 8, !tbaa !55
-  br label %64
-
-64:                                               ; preds = %29, %61
-  %65 = phi i64 [ %31, %29 ], [ %63, %61 ]
-  ret i64 %65
+57:                                               ; preds = %25, %54
+  %58 = phi i64 [ %27, %25 ], [ %56, %54 ]
+  ret i64 %58
 }
 
 ; Function Attrs: nofree nounwind
@@ -3420,13 +3409,13 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl13phrase_parserI12skip_
   %65 = load ptr, ptr %2, align 8
   %66 = icmp eq ptr %64, %65
   %67 = select i1 %63, i1 %66, i1 false
-  %68 = zext i1 %63 to i8
-  %69 = zext i1 %67 to i8
+  %68 = zext i1 %67 to i8
+  %69 = zext i1 %63 to i8
   store ptr %64, ptr %0, align 8, !tbaa !99
   %70 = getelementptr inbounds %"struct.boost::spirit::parse_info", ptr %0, i64 0, i32 1
-  store i8 %68, ptr %70, align 8, !tbaa !100
+  store i8 %69, ptr %70, align 8, !tbaa !100
   %71 = getelementptr inbounds %"struct.boost::spirit::parse_info", ptr %0, i64 0, i32 2
-  store i8 %69, ptr %71, align 1, !tbaa !31
+  store i8 %68, ptr %71, align 1, !tbaa !31
   %72 = getelementptr inbounds %"struct.boost::spirit::parse_info", ptr %0, i64 0, i32 3
   store i64 %46, ptr %72, align 8, !tbaa !101
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %9) #24
@@ -3760,7 +3749,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl14grammar_helperINS0_7g
   invoke void %32(ptr noundef nonnull align 8 dereferenceable(64) %19)
           to label %33 unwind label %36
 
-33:                                               ; preds = %21, %18, %29
+33:                                               ; preds = %29, %18, %21
   store ptr %9, ptr %8, align 8, !tbaa !108
   ret void
 
@@ -3920,8 +3909,8 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(1408) ptr 
   store ptr %77, ptr %40, align 8, !tbaa !128
   br label %78
 
-78:                                               ; preds = %43, %76
-  %79 = phi ptr [ %46, %43 ], [ %36, %76 ]
+78:                                               ; preds = %76, %43
+  %79 = phi ptr [ %36, %76 ], [ %46, %43 ]
   %80 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper", ptr %0, i64 0, i32 2
   %81 = load i64, ptr %80, align 8, !tbaa !129
   %82 = add i64 %81, 1
@@ -9972,7 +9961,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2126(ptr noundef nonnull align 8 dereferenceable(8) %2121) #24
   br label %2127
 
-2127:                                             ; preds = %2115, %2123
+2127:                                             ; preds = %2123, %2115
   %2128 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #29
           to label %2129 unwind label %3528
 
@@ -10053,7 +10042,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2167(ptr noundef nonnull align 8 dereferenceable(8) %2162) #24
   br label %2168
 
-2168:                                             ; preds = %2160, %2164
+2168:                                             ; preds = %2164, %2160
   call void @llvm.lifetime.start.p0(i64 12, ptr nonnull %3)
   store i64 14128, ptr %3, align 8
   %2169 = getelementptr inbounds i8, ptr %3, i64 8
@@ -10087,7 +10076,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2184(ptr noundef nonnull align 8 dereferenceable(8) %2179) #24
   br label %2185
 
-2185:                                             ; preds = %2173, %2181
+2185:                                             ; preds = %2181, %2173
   call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %3)
   %2186 = invoke noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #29
           to label %2187 unwind label %3538
@@ -10224,7 +10213,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2252(ptr noundef nonnull align 8 dereferenceable(8) %2247) #24
   br label %2253
 
-2253:                                             ; preds = %2244, %2249
+2253:                                             ; preds = %2249, %2244
   %2254 = load i8, ptr %55, align 4
   %2255 = load i8, ptr %56, align 1, !noalias !154
   %2256 = invoke noalias noundef nonnull dereferenceable(56) ptr @_Znwm(i64 noundef 56) #29
@@ -10256,7 +10245,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2269(ptr noundef nonnull align 8 dereferenceable(8) %2264) #24
   br label %2270
 
-2270:                                             ; preds = %2257, %2266
+2270:                                             ; preds = %2266, %2257
   %2271 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2272 unwind label %3552
 
@@ -10325,7 +10314,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2305(ptr noundef nonnull align 8 dereferenceable(8) %2300) #24
   br label %2306
 
-2306:                                             ; preds = %2286, %2302
+2306:                                             ; preds = %2302, %2286
   %2307 = load i8, ptr %52, align 1
   %2308 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2309 unwind label %3556
@@ -10350,7 +10339,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2318(ptr noundef nonnull align 8 dereferenceable(8) %2313) #24
   br label %2319
 
-2319:                                             ; preds = %2309, %2315
+2319:                                             ; preds = %2315, %2309
   %2320 = load i8, ptr %55, align 4
   %2321 = load i8, ptr %56, align 1, !noalias !160
   %2322 = invoke noalias noundef nonnull dereferenceable(120) ptr @_Znwm(i64 noundef 120) #29
@@ -10394,35 +10383,35 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2341(ptr noundef nonnull align 8 dereferenceable(8) %2336) #24
   br label %2342
 
-2342:                                             ; preds = %2323, %2338
-  %2343 = load i8, ptr %58, align 1
-  %2344 = load i8, ptr %63, align 4
+2342:                                             ; preds = %2338, %2323
+  %2343 = load i8, ptr %60, align 1
+  %2344 = load i8, ptr %61, align 2
   %2345 = load i8, ptr %62, align 1
-  %2346 = load i8, ptr %61, align 2
-  %2347 = load i8, ptr %60, align 1
+  %2346 = load i8, ptr %63, align 4
+  %2347 = load i8, ptr %58, align 1
   %2348 = load i8, ptr %59, align 8
   %2349 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #29
           to label %2350 unwind label %3560
 
 2350:                                             ; preds = %2342
-  %2351 = zext i8 %2348 to i48
-  %2352 = shl nuw i48 %2351, 40
-  %2353 = zext i8 %2347 to i40
-  %2354 = shl nuw i40 %2353, 32
-  %2355 = zext i8 %2346 to i32
+  %2351 = zext i8 %2343 to i40
+  %2352 = shl nuw i40 %2351, 32
+  %2353 = zext i8 %2345 to i32
+  %2354 = shl nuw nsw i32 %2353, 16
+  %2355 = zext i8 %2344 to i32
   %2356 = shl nuw i32 %2355, 24
-  %2357 = zext i8 %2345 to i32
-  %2358 = shl nuw nsw i32 %2357, 16
-  %2359 = zext i8 %2344 to i32
-  %2360 = shl nuw nsw i32 %2359, 8
-  %2361 = zext i8 %2343 to i32
-  %2362 = or i32 %2360, %2361
-  %2363 = or i32 %2362, %2358
-  %2364 = or i32 %2363, %2356
-  %2365 = zext i32 %2364 to i40
-  %2366 = or i40 %2354, %2365
-  %2367 = zext i40 %2366 to i48
-  %2368 = or i48 %2352, %2367
+  %2357 = or i32 %2354, %2356
+  %2358 = zext i8 %2347 to i32
+  %2359 = or i32 %2357, %2358
+  %2360 = zext i8 %2346 to i32
+  %2361 = shl nuw nsw i32 %2360, 8
+  %2362 = or i32 %2359, %2361
+  %2363 = zext i32 %2362 to i40
+  %2364 = or i40 %2352, %2363
+  %2365 = zext i40 %2364 to i48
+  %2366 = zext i8 %2348 to i48
+  %2367 = shl nuw i48 %2366, 40
+  %2368 = or i48 %2367, %2365
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN5boost6spirit4impl15concrete_parserINS0_11alternativeINS3_INS3_INS3_INS3_INS0_5chlitIcEES5_EES5_EES5_EES5_EES5_EENS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tEEE, i64 0, inrange i32 0, i64 2), ptr %2349, align 8, !tbaa !23
   %2369 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1089", ptr %2349, i64 0, i32 1
   store i48 %2368, ptr %2369, align 8
@@ -10468,7 +10457,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2391(ptr noundef nonnull align 8 dereferenceable(8) %2386) #24
   br label %2392
 
-2392:                                             ; preds = %2380, %2388
+2392:                                             ; preds = %2388, %2380
   %2393 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2394 unwind label %3564
 
@@ -10490,7 +10479,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2402(ptr noundef nonnull align 8 dereferenceable(8) %2397) #24
   br label %2403
 
-2403:                                             ; preds = %2394, %2399
+2403:                                             ; preds = %2399, %2394
   %2404 = load i8, ptr %63, align 4
   %2405 = load i8, ptr %64, align 1
   %2406 = load i8, ptr %65, align 2
@@ -10525,7 +10514,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2421(ptr noundef nonnull align 8 dereferenceable(8) %2416) #24
   br label %2422
 
-2422:                                             ; preds = %2408, %2418
+2422:                                             ; preds = %2418, %2408
   %2423 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2424 unwind label %3568
 
@@ -10547,7 +10536,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2432(ptr noundef nonnull align 8 dereferenceable(8) %2427) #24
   br label %2433
 
-2433:                                             ; preds = %2424, %2429
+2433:                                             ; preds = %2429, %2424
   %2434 = load i8, ptr %62, align 1
   %2435 = load i8, ptr %61, align 2
   %2436 = invoke noalias noundef nonnull dereferenceable(48) ptr @_Znwm(i64 noundef 48) #29
@@ -10577,7 +10566,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2448(ptr noundef nonnull align 8 dereferenceable(8) %2443) #24
   br label %2449
 
-2449:                                             ; preds = %2437, %2445
+2449:                                             ; preds = %2445, %2437
   %2450 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2451 unwind label %3572
 
@@ -10599,7 +10588,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2459(ptr noundef nonnull align 8 dereferenceable(8) %2454) #24
   br label %2460
 
-2460:                                             ; preds = %2451, %2456
+2460:                                             ; preds = %2456, %2451
   %2461 = invoke noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #29
           to label %2462 unwind label %3574
 
@@ -10627,7 +10616,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2473(ptr noundef nonnull align 8 dereferenceable(8) %2468) #24
   br label %2474
 
-2474:                                             ; preds = %2462, %2470
+2474:                                             ; preds = %2470, %2462
   %2475 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2476 unwind label %3576
 
@@ -10649,7 +10638,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2484(ptr noundef nonnull align 8 dereferenceable(8) %2479) #24
   br label %2485
 
-2485:                                             ; preds = %2476, %2481
+2485:                                             ; preds = %2481, %2476
   %2486 = load i8, ptr %66, align 1
   %2487 = load i8, ptr %67, align 8
   %2488 = invoke noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #29
@@ -10687,7 +10676,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2504(ptr noundef nonnull align 8 dereferenceable(8) %2499) #24
   br label %2505
 
-2505:                                             ; preds = %2489, %2501
+2505:                                             ; preds = %2501, %2489
   %2506 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2507 unwind label %3580
 
@@ -10709,7 +10698,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2515(ptr noundef nonnull align 8 dereferenceable(8) %2510) #24
   br label %2516
 
-2516:                                             ; preds = %2507, %2512
+2516:                                             ; preds = %2512, %2507
   %2517 = invoke noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #29
           to label %2518 unwind label %3582
 
@@ -10737,7 +10726,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2529(ptr noundef nonnull align 8 dereferenceable(8) %2524) #24
   br label %2530
 
-2530:                                             ; preds = %2518, %2526
+2530:                                             ; preds = %2526, %2518
   %2531 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2532 unwind label %3584
 
@@ -10759,7 +10748,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2540(ptr noundef nonnull align 8 dereferenceable(8) %2535) #24
   br label %2541
 
-2541:                                             ; preds = %2532, %2537
+2541:                                             ; preds = %2537, %2532
   %2542 = load i8, ptr %58, align 1
   %2543 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2544 unwind label %3586
@@ -10784,7 +10773,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2553(ptr noundef nonnull align 8 dereferenceable(8) %2548) #24
   br label %2554
 
-2554:                                             ; preds = %2544, %2550
+2554:                                             ; preds = %2550, %2544
   %2555 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2556 unwind label %3588
 
@@ -10806,7 +10795,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2564(ptr noundef nonnull align 8 dereferenceable(8) %2559) #24
   br label %2565
 
-2565:                                             ; preds = %2556, %2561
+2565:                                             ; preds = %2561, %2556
   %2566 = load i8, ptr %68, align 1
   %2567 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2568 unwind label %3590
@@ -10831,7 +10820,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2577(ptr noundef nonnull align 8 dereferenceable(8) %2572) #24
   br label %2578
 
-2578:                                             ; preds = %2568, %2574
+2578:                                             ; preds = %2574, %2568
   %2579 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2580 unwind label %3592
 
@@ -10853,7 +10842,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2588(ptr noundef nonnull align 8 dereferenceable(8) %2583) #24
   br label %2589
 
-2589:                                             ; preds = %2580, %2585
+2589:                                             ; preds = %2585, %2580
   %2590 = load i8, ptr %69, align 2
   %2591 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2592 unwind label %3594
@@ -10878,7 +10867,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2601(ptr noundef nonnull align 8 dereferenceable(8) %2596) #24
   br label %2602
 
-2602:                                             ; preds = %2592, %2598
+2602:                                             ; preds = %2598, %2592
   %2603 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2604 unwind label %3596
 
@@ -10900,7 +10889,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2612(ptr noundef nonnull align 8 dereferenceable(8) %2607) #24
   br label %2613
 
-2613:                                             ; preds = %2604, %2609
+2613:                                             ; preds = %2609, %2604
   %2614 = invoke noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #29
           to label %2615 unwind label %3598
 
@@ -10924,7 +10913,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2624(ptr noundef nonnull align 8 dereferenceable(8) %2619) #24
   br label %2625
 
-2625:                                             ; preds = %2615, %2621
+2625:                                             ; preds = %2621, %2615
   %2626 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2627 unwind label %3600
 
@@ -10946,7 +10935,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2635(ptr noundef nonnull align 8 dereferenceable(8) %2630) #24
   br label %2636
 
-2636:                                             ; preds = %2627, %2632
+2636:                                             ; preds = %2632, %2627
   %2637 = invoke noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #29
           to label %2638 unwind label %3602
 
@@ -10970,7 +10959,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2647(ptr noundef nonnull align 8 dereferenceable(8) %2642) #24
   br label %2648
 
-2648:                                             ; preds = %2638, %2644
+2648:                                             ; preds = %2644, %2638
   %2649 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2650 unwind label %3604
 
@@ -10992,7 +10981,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2658(ptr noundef nonnull align 8 dereferenceable(8) %2653) #24
   br label %2659
 
-2659:                                             ; preds = %2650, %2655
+2659:                                             ; preds = %2655, %2650
   %2660 = load i8, ptr %70, align 1
   %2661 = load i8, ptr %53, align 2, !noalias !166
   %2662 = invoke noalias noundef nonnull dereferenceable(48) ptr @_Znwm(i64 noundef 48) #29
@@ -11022,7 +11011,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2674(ptr noundef nonnull align 8 dereferenceable(8) %2669) #24
   br label %2675
 
-2675:                                             ; preds = %2663, %2671
+2675:                                             ; preds = %2671, %2663
   %2676 = invoke noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #29
           to label %2677 unwind label %3608
 
@@ -11092,7 +11081,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2709(ptr noundef nonnull align 8 dereferenceable(8) %2704) #24
   br label %2710
 
-2710:                                             ; preds = %2692, %2706
+2710:                                             ; preds = %2706, %2692
   call void @llvm.lifetime.end.p0(i64 23, ptr nonnull %4)
   %2711 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2712 unwind label %3612
@@ -11115,7 +11104,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2720(ptr noundef nonnull align 8 dereferenceable(8) %2715) #24
   br label %2721
 
-2721:                                             ; preds = %2712, %2717
+2721:                                             ; preds = %2717, %2712
   %2722 = load i8, ptr %52, align 1
   %2723 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2724 unwind label %3614
@@ -11160,7 +11149,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2743(ptr noundef nonnull align 8 dereferenceable(8) %2738) #24
   br label %2744
 
-2744:                                             ; preds = %2736, %2740
+2744:                                             ; preds = %2740, %2736
   %2745 = load i8, ptr %51, align 8, !noalias !172
   %2746 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2747 unwind label %3616
@@ -11212,7 +11201,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2770(ptr noundef nonnull align 8 dereferenceable(8) %2765) #24
   br label %2771
 
-2771:                                             ; preds = %2759, %2767
+2771:                                             ; preds = %2767, %2759
   %2772 = load i8, ptr %52, align 1
   %2773 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2774 unwind label %3620
@@ -11237,7 +11226,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2783(ptr noundef nonnull align 8 dereferenceable(8) %2778) #24
   br label %2784
 
-2784:                                             ; preds = %2774, %2780
+2784:                                             ; preds = %2780, %2774
   %2785 = load i8, ptr %54, align 1
   %2786 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2787 unwind label %3622
@@ -11432,7 +11421,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2882(ptr noundef nonnull align 8 dereferenceable(8) %2877) #24
   br label %2883
 
-2883:                                             ; preds = %2873, %2879
+2883:                                             ; preds = %2879, %2873
   %2884 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2885 unwind label %3636
 
@@ -11457,7 +11446,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2895(ptr noundef nonnull align 8 dereferenceable(8) %2890) #24
   br label %2896
 
-2896:                                             ; preds = %2885, %2892
+2896:                                             ; preds = %2892, %2885
   %2897 = load i8, ptr %52, align 1
   %2898 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2899 unwind label %3638
@@ -11507,7 +11496,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2921(ptr noundef nonnull align 8 dereferenceable(8) %2916) #24
   br label %2922
 
-2922:                                             ; preds = %2912, %2918
+2922:                                             ; preds = %2918, %2912
   %2923 = invoke noalias noundef nonnull dereferenceable(48) ptr @_Znwm(i64 noundef 48) #29
           to label %2924 unwind label %3642
 
@@ -11535,7 +11524,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2935(ptr noundef nonnull align 8 dereferenceable(8) %2930) #24
   br label %2936
 
-2936:                                             ; preds = %2924, %2932
+2936:                                             ; preds = %2932, %2924
   %2937 = load i8, ptr %52, align 1
   %2938 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2939 unwind label %3644
@@ -11560,7 +11549,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2948(ptr noundef nonnull align 8 dereferenceable(8) %2943) #24
   br label %2949
 
-2949:                                             ; preds = %2939, %2945
+2949:                                             ; preds = %2945, %2939
   %2950 = load i8, ptr %54, align 1
   %2951 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %2952 unwind label %3646
@@ -11585,7 +11574,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %2961(ptr noundef nonnull align 8 dereferenceable(8) %2956) #24
   br label %2962
 
-2962:                                             ; preds = %2952, %2958
+2962:                                             ; preds = %2958, %2952
   %2963 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
           to label %2964 unwind label %3648
 
@@ -11697,7 +11686,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %3020(ptr noundef nonnull align 8 dereferenceable(8) %3015) #24
   br label %3021
 
-3021:                                             ; preds = %3006, %3017
+3021:                                             ; preds = %3017, %3006
   %3022 = load i8, ptr %63, align 4, !noalias !187
   %3023 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %3024 unwind label %3656
@@ -11722,7 +11711,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %3033(ptr noundef nonnull align 8 dereferenceable(8) %3028) #24
   br label %3034
 
-3034:                                             ; preds = %3024, %3030
+3034:                                             ; preds = %3030, %3024
   %3035 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #29
           to label %3036 unwind label %3658
 
@@ -11743,7 +11732,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %3044(ptr noundef nonnull align 8 dereferenceable(8) %3039) #24
   br label %3045
 
-3045:                                             ; preds = %3036, %3041
+3045:                                             ; preds = %3041, %3036
   call void @llvm.lifetime.start.p0(i64 23, ptr nonnull %5)
   %3046 = load i8, ptr %52, align 1, !noalias !190
   %3047 = getelementptr inbounds i8, ptr %5, i64 7
@@ -11772,8 +11761,8 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   %3059 = load i8, ptr %52, align 1
   br label %3060
 
-3060:                                             ; preds = %3049, %3055
-  %3061 = phi i8 [ %3046, %3049 ], [ %3059, %3055 ]
+3060:                                             ; preds = %3055, %3049
+  %3061 = phi i8 [ %3059, %3055 ], [ %3046, %3049 ]
   call void @llvm.lifetime.end.p0(i64 23, ptr nonnull %5)
   %3062 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %3063 unwind label %3662
@@ -11798,7 +11787,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %3072(ptr noundef nonnull align 8 dereferenceable(8) %3067) #24
   br label %3073
 
-3073:                                             ; preds = %3063, %3069
+3073:                                             ; preds = %3069, %3063
   %3074 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %3075 unwind label %3664
 
@@ -11822,7 +11811,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %3084(ptr noundef nonnull align 8 dereferenceable(8) %3079) #24
   br label %3085
 
-3085:                                             ; preds = %3075, %3081
+3085:                                             ; preds = %3081, %3075
   %3086 = load i8, ptr %52, align 1
   %3087 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %3088 unwind label %3666
@@ -11931,9 +11920,9 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   %3141 = load i8, ptr %56, align 1, !noalias !196
   br label %3142
 
-3142:                                             ; preds = %3124, %3136
-  %3143 = phi i8 [ %3121, %3124 ], [ %3141, %3136 ]
-  %3144 = phi i8 [ %3122, %3124 ], [ %3140, %3136 ]
+3142:                                             ; preds = %3136, %3124
+  %3143 = phi i8 [ %3141, %3136 ], [ %3121, %3124 ]
+  %3144 = phi i8 [ %3140, %3136 ], [ %3122, %3124 ]
   %3145 = invoke noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #29
           to label %3146 unwind label %3674
 
@@ -11965,7 +11954,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %3159(ptr noundef nonnull align 8 dereferenceable(8) %3154) #24
   br label %3160
 
-3160:                                             ; preds = %3146, %3156
+3160:                                             ; preds = %3156, %3146
   %3161 = load i8, ptr %52, align 1
   %3162 = invoke noalias noundef nonnull dereferenceable(48) ptr @_Znwm(i64 noundef 48) #29
           to label %3163 unwind label %3676
@@ -11995,8 +11984,8 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   %3175 = load i8, ptr %52, align 1
   br label %3176
 
-3176:                                             ; preds = %3163, %3171
-  %3177 = phi i8 [ %3161, %3163 ], [ %3175, %3171 ]
+3176:                                             ; preds = %3171, %3163
+  %3177 = phi i8 [ %3175, %3171 ], [ %3161, %3163 ]
   %3178 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #29
           to label %3179 unwind label %3678
 
@@ -12020,7 +12009,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %3188(ptr noundef nonnull align 8 dereferenceable(8) %3183) #24
   br label %3189
 
-3189:                                             ; preds = %3179, %3185
+3189:                                             ; preds = %3185, %3179
   %3190 = invoke noalias noundef nonnull dereferenceable(56) ptr @_Znwm(i64 noundef 56) #29
           to label %3191 unwind label %3680
 
@@ -12050,7 +12039,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %3203(ptr noundef nonnull align 8 dereferenceable(8) %3198) #24
   br label %3204
 
-3204:                                             ; preds = %3191, %3200
+3204:                                             ; preds = %3200, %3191
   %3205 = load i8, ptr %53, align 2
   %3206 = invoke noalias noundef nonnull dereferenceable(88) ptr @_Znwm(i64 noundef 88) #29
           to label %3207 unwind label %3682
@@ -12158,128 +12147,128 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   br label %3259
 
 3259:                                             ; preds = %3255, %3250
-  %3260 = ptrtoint ptr %151 to i64
-  %3261 = load i8, ptr %51, align 8
-  %3262 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
-          to label %3263 unwind label %3690
+  %3260 = load i8, ptr %51, align 8
+  %3261 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #29
+          to label %3262 unwind label %3690
 
-3263:                                             ; preds = %3259
-  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN5boost6spirit4impl15concrete_parserINS0_8sequenceINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEENS0_5chlitIcEEEESH_SI_EE, i64 0, inrange i32 0, i64 2), ptr %3262, align 8, !tbaa !23
-  %3264 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1127", ptr %3262, i64 0, i32 1
-  store ptr %151, ptr %3264, align 8
-  %3265 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1127", ptr %3262, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  store i8 %3261, ptr %3265, align 8
-  %3266 = load ptr, ptr %191, align 8, !tbaa !95
-  store ptr %3262, ptr %191, align 8, !tbaa !95
-  %3267 = icmp eq ptr %3266, null
-  br i1 %3267, label %3272, label %3268
+3262:                                             ; preds = %3259
+  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN5boost6spirit4impl15concrete_parserINS0_8sequenceINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEENS0_5chlitIcEEEESH_SI_EE, i64 0, inrange i32 0, i64 2), ptr %3261, align 8, !tbaa !23
+  %3263 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1127", ptr %3261, i64 0, i32 1
+  store ptr %151, ptr %3263, align 8
+  %3264 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1127", ptr %3261, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  store i8 %3260, ptr %3264, align 8
+  %3265 = load ptr, ptr %191, align 8, !tbaa !95
+  store ptr %3261, ptr %191, align 8, !tbaa !95
+  %3266 = icmp eq ptr %3265, null
+  br i1 %3266, label %3271, label %3267
 
-3268:                                             ; preds = %3263
-  %3269 = load ptr, ptr %3266, align 8, !tbaa !23
-  %3270 = getelementptr inbounds ptr, ptr %3269, i64 1
-  %3271 = load ptr, ptr %3270, align 8
-  tail call void %3271(ptr noundef nonnull align 8 dereferenceable(8) %3266) #24
-  br label %3272
+3267:                                             ; preds = %3262
+  %3268 = load ptr, ptr %3265, align 8, !tbaa !23
+  %3269 = getelementptr inbounds ptr, ptr %3268, i64 1
+  %3270 = load ptr, ptr %3269, align 8
+  tail call void %3270(ptr noundef nonnull align 8 dereferenceable(8) %3265) #24
+  br label %3271
 
-3272:                                             ; preds = %3268, %3263
-  %3273 = load i8, ptr %55, align 4
-  %3274 = load i8, ptr %56, align 1, !noalias !199
-  %3275 = invoke noalias noundef nonnull dereferenceable(104) ptr @_Znwm(i64 noundef 104) #29
-          to label %3276 unwind label %3692
+3271:                                             ; preds = %3267, %3262
+  %3272 = load i8, ptr %55, align 4
+  %3273 = load i8, ptr %56, align 1, !noalias !199
+  %3274 = invoke noalias noundef nonnull dereferenceable(104) ptr @_Znwm(i64 noundef 104) #29
+          to label %3275 unwind label %3692
 
-3276:                                             ; preds = %3272
-  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN5boost6spirit4impl15concrete_parserINS0_11alternativeINS0_8sequenceINS4_INS4_INS4_INS4_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EENS0_5chlitIcEEEESJ_EESL_EESJ_EENS0_8optionalINS4_ISJ_SJ_EEEEEESP_EESH_SI_EE, i64 0, inrange i32 0, i64 2), ptr %3275, align 8, !tbaa !23
-  %3277 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1
-  store ptr %90, ptr %3277, align 8
-  %3278 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3273, ptr %3278, align 8
-  %3279 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store ptr %151, ptr %3279, align 8
-  %3280 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3274, ptr %3280, align 8
-  %3281 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store ptr %186, ptr %3281, align 8
-  %3282 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store ptr %84, ptr %3282, align 8
-  %3283 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store ptr %186, ptr %3283, align 8
-  %3284 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  store ptr %100, ptr %3284, align 8
-  %3285 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3273, ptr %3285, align 8
-  %3286 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store ptr %151, ptr %3286, align 8
-  %3287 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3274, ptr %3287, align 8
-  %3288 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3275, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  store ptr %186, ptr %3288, align 8
-  %3289 = load ptr, ptr %192, align 8, !tbaa !95
-  store ptr %3275, ptr %192, align 8, !tbaa !95
-  %3290 = icmp eq ptr %3289, null
-  br i1 %3290, label %3297, label %3291
+3275:                                             ; preds = %3271
+  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN5boost6spirit4impl15concrete_parserINS0_11alternativeINS0_8sequenceINS4_INS4_INS4_INS4_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EENS0_5chlitIcEEEESJ_EESL_EESJ_EENS0_8optionalINS4_ISJ_SJ_EEEEEESP_EESH_SI_EE, i64 0, inrange i32 0, i64 2), ptr %3274, align 8, !tbaa !23
+  %3276 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1
+  store ptr %90, ptr %3276, align 8
+  %3277 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3272, ptr %3277, align 8
+  %3278 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store ptr %151, ptr %3278, align 8
+  %3279 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3273, ptr %3279, align 8
+  %3280 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store ptr %186, ptr %3280, align 8
+  %3281 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store ptr %84, ptr %3281, align 8
+  %3282 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store ptr %186, ptr %3282, align 8
+  %3283 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  store ptr %100, ptr %3283, align 8
+  %3284 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3272, ptr %3284, align 8
+  %3285 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store ptr %151, ptr %3285, align 8
+  %3286 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3273, ptr %3286, align 8
+  %3287 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %3274, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  store ptr %186, ptr %3287, align 8
+  %3288 = load ptr, ptr %192, align 8, !tbaa !95
+  store ptr %3274, ptr %192, align 8, !tbaa !95
+  %3289 = icmp eq ptr %3288, null
+  br i1 %3289, label %3296, label %3290
 
-3291:                                             ; preds = %3276
-  %3292 = load ptr, ptr %3289, align 8, !tbaa !23
-  %3293 = getelementptr inbounds ptr, ptr %3292, i64 1
-  %3294 = load ptr, ptr %3293, align 8
-  tail call void %3294(ptr noundef nonnull align 8 dereferenceable(8) %3289) #24
-  %3295 = load i8, ptr %55, align 4
-  %3296 = load i8, ptr %56, align 1, !noalias !202
-  br label %3297
+3290:                                             ; preds = %3275
+  %3291 = load ptr, ptr %3288, align 8, !tbaa !23
+  %3292 = getelementptr inbounds ptr, ptr %3291, i64 1
+  %3293 = load ptr, ptr %3292, align 8
+  tail call void %3293(ptr noundef nonnull align 8 dereferenceable(8) %3288) #24
+  %3294 = load i8, ptr %55, align 4
+  %3295 = load i8, ptr %56, align 1, !noalias !202
+  br label %3296
 
-3297:                                             ; preds = %3276, %3291
-  %3298 = phi i8 [ %3274, %3276 ], [ %3296, %3291 ]
-  %3299 = phi i8 [ %3273, %3276 ], [ %3295, %3291 ]
-  %3300 = load i8, ptr %51, align 8, !noalias !205
-  %3301 = invoke noalias noundef nonnull dereferenceable(160) ptr @_Znwm(i64 noundef 160) #29
-          to label %3302 unwind label %3694
+3296:                                             ; preds = %3290, %3275
+  %3297 = phi i8 [ %3295, %3290 ], [ %3273, %3275 ]
+  %3298 = phi i8 [ %3294, %3290 ], [ %3272, %3275 ]
+  %3299 = load i8, ptr %51, align 8, !noalias !205
+  %3300 = invoke noalias noundef nonnull dereferenceable(160) ptr @_Znwm(i64 noundef 160) #29
+          to label %3301 unwind label %3694
 
-3302:                                             ; preds = %3297
-  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN5boost6spirit4impl15concrete_parserINS0_11alternativeINS3_INS0_8sequenceINS4_INS4_INS4_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EENS0_5chlitIcEEEESJ_EESL_EESJ_EENS4_INS4_INS4_INS4_INS4_INS4_ISJ_SJ_EESJ_EESL_EESJ_EESL_EESL_EEEENS4_INS4_INS4_INS4_ISN_SJ_EENS0_8optionalISJ_EEEESL_EESJ_EEEESH_SI_EE, i64 0, inrange i32 0, i64 2), ptr %3301, align 8, !tbaa !23
-  %3303 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1
+3301:                                             ; preds = %3296
+  %3302 = ptrtoint ptr %151 to i64
+  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN5boost6spirit4impl15concrete_parserINS0_11alternativeINS3_INS0_8sequenceINS4_INS4_INS4_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EENS0_5chlitIcEEEESJ_EESL_EESJ_EENS4_INS4_INS4_INS4_INS4_INS4_ISJ_SJ_EESJ_EESL_EESJ_EESL_EESL_EEEENS4_INS4_INS4_INS4_ISN_SJ_EENS0_8optionalISJ_EEEESL_EESJ_EEEESH_SI_EE, i64 0, inrange i32 0, i64 2), ptr %3300, align 8, !tbaa !23
+  %3303 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1
   store ptr %106, ptr %3303, align 8
-  %3304 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3299, ptr %3304, align 8
-  %3305 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %3304 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3298, ptr %3304, align 8
+  %3305 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   store ptr %151, ptr %3305, align 8
-  %3306 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3298, ptr %3306, align 8
-  %3307 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %3306 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3297, ptr %3306, align 8
+  %3307 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   store ptr %186, ptr %3307, align 8
-  %3308 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %3308 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   store ptr %82, ptr %3308, align 8
-  %3309 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %3309 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   store ptr %186, ptr %3309, align 8
-  %3310 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %3310 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   store ptr %106, ptr %3310, align 8
-  %3311 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3299, ptr %3311, align 8
-  %3312 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %3311 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3298, ptr %3311, align 8
+  %3312 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   store ptr %151, ptr %3312, align 8
-  %3313 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3298, ptr %3313, align 8
-  %3314 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  store i8 %3300, ptr %3314, align 8
-  %3315 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %3313 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3297, ptr %3313, align 8
+  %3314 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  store i8 %3299, ptr %3314, align 8
+  %3315 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
   store ptr %87, ptr %3315, align 8
-  %3316 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3299, ptr %3316, align 8
-  %3317 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %3316 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3298, ptr %3316, align 8
+  %3317 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   store ptr %191, ptr %3317, align 8
-  %3318 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %3318 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   store ptr %191, ptr %3318, align 8
-  %3319 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i64 %3260, ptr %3319, align 8
-  %3320 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i8 %3298, ptr %3320, align 8
-  %3321 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3301, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %3319 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i64 %3302, ptr %3319, align 8
+  %3320 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  store i8 %3297, ptr %3320, align 8
+  %3321 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1129", ptr %3300, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
   store ptr %186, ptr %3321, align 8
   %3322 = load ptr, ptr %193, align 8, !tbaa !95
-  store ptr %3301, ptr %193, align 8, !tbaa !95
+  store ptr %3300, ptr %193, align 8, !tbaa !95
   %3323 = icmp eq ptr %3322, null
   br i1 %3323, label %3329, label %3324
 
-3324:                                             ; preds = %3302
+3324:                                             ; preds = %3301
   %3325 = load ptr, ptr %3322, align 8, !tbaa !23
   %3326 = getelementptr inbounds ptr, ptr %3325, i64 1
   %3327 = load ptr, ptr %3326, align 8
@@ -12287,8 +12276,8 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   %3328 = load i8, ptr %51, align 8, !noalias !208
   br label %3329
 
-3329:                                             ; preds = %3324, %3302
-  %3330 = phi i8 [ %3328, %3324 ], [ %3300, %3302 ]
+3329:                                             ; preds = %3324, %3301
+  %3330 = phi i8 [ %3328, %3324 ], [ %3299, %3301 ]
   %3331 = invoke noalias noundef nonnull dereferenceable(88) ptr @_Znwm(i64 noundef 88) #29
           to label %3332 unwind label %3696
 
@@ -12326,7 +12315,7 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
   tail call void %3348(ptr noundef nonnull align 8 dereferenceable(8) %3343) #24
   br label %3349
 
-3349:                                             ; preds = %3332, %3345
+3349:                                             ; preds = %3345, %3332
   %3350 = invoke noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #29
           to label %3351 unwind label %3698
 
@@ -13167,12 +13156,12 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
           cleanup
   br label %3704
 
-3692:                                             ; preds = %3272
+3692:                                             ; preds = %3271
   %3693 = landingpad { ptr, i32 }
           cleanup
   br label %3704
 
-3694:                                             ; preds = %3297
+3694:                                             ; preds = %3296
   %3695 = landingpad { ptr, i32 }
           cleanup
   br label %3704
@@ -13197,8 +13186,8 @@ define linkonce_odr dso_local void @_ZN9c_grammar10definitionIN5boost6spirit7sca
           cleanup
   br label %3704
 
-3704:                                             ; preds = %3386, %3390, %3394, %3398, %3402, %3406, %3410, %3414, %3418, %3422, %3426, %3430, %3434, %3438, %3442, %3446, %3450, %3448, %3444, %3440, %3436, %3432, %3428, %3424, %3420, %3416, %3412, %3408, %3404, %3400, %3396, %3392, %3388, %3698, %3636, %3628, %3618, %3544, %3542, %3540, %3534, %3532, %3530, %3524, %3702, %3700, %3696, %3694, %3692, %3690, %3688, %3686, %3684, %3682, %3680, %3678, %3676, %3674, %3672, %3670, %3668, %3666, %3664, %3662, %3660, %3658, %3656, %3654, %3652, %3650, %3648, %3646, %3644, %3642, %3640, %3638, %3634, %3632, %3630, %3626, %3624, %3622, %3620, %3616, %3614, %3612, %3610, %3608, %3606, %3604, %3602, %3600, %3598, %3596, %3594, %3592, %3590, %3588, %3586, %3584, %3582, %3580, %3578, %3576, %3574, %3572, %3570, %3568, %3566, %3564, %3562, %3560, %3558, %3556, %3554, %3552, %3550, %3548, %3546, %3538, %3536, %3528, %3526, %3522, %3520, %3518, %3516, %3514, %3512, %3510, %3508, %3506, %3504, %3502, %3500, %3498, %3496, %3494, %3492, %3490, %3488, %3486, %3484, %3482, %3480, %3478, %3476, %3474, %3472, %3470, %3468, %3466, %3464, %3462, %3460, %3458, %3456, %3454, %3452
-  %3705 = phi { ptr, i32 } [ %3703, %3702 ], [ %3701, %3700 ], [ %3697, %3696 ], [ %3695, %3694 ], [ %3693, %3692 ], [ %3691, %3690 ], [ %3689, %3688 ], [ %3687, %3686 ], [ %3685, %3684 ], [ %3683, %3682 ], [ %3681, %3680 ], [ %3679, %3678 ], [ %3677, %3676 ], [ %3675, %3674 ], [ %3673, %3672 ], [ %3671, %3670 ], [ %3669, %3668 ], [ %3667, %3666 ], [ %3665, %3664 ], [ %3663, %3662 ], [ %3661, %3660 ], [ %3659, %3658 ], [ %3657, %3656 ], [ %3655, %3654 ], [ %3653, %3652 ], [ %3651, %3650 ], [ %3649, %3648 ], [ %3647, %3646 ], [ %3645, %3644 ], [ %3643, %3642 ], [ %3641, %3640 ], [ %3639, %3638 ], [ %3635, %3634 ], [ %3633, %3632 ], [ %3631, %3630 ], [ %3627, %3626 ], [ %3625, %3624 ], [ %3623, %3622 ], [ %3621, %3620 ], [ %3617, %3616 ], [ %3615, %3614 ], [ %3613, %3612 ], [ %3611, %3610 ], [ %3609, %3608 ], [ %3607, %3606 ], [ %3605, %3604 ], [ %3603, %3602 ], [ %3601, %3600 ], [ %3599, %3598 ], [ %3597, %3596 ], [ %3595, %3594 ], [ %3593, %3592 ], [ %3591, %3590 ], [ %3589, %3588 ], [ %3587, %3586 ], [ %3585, %3584 ], [ %3583, %3582 ], [ %3581, %3580 ], [ %3579, %3578 ], [ %3577, %3576 ], [ %3575, %3574 ], [ %3573, %3572 ], [ %3571, %3570 ], [ %3569, %3568 ], [ %3567, %3566 ], [ %3565, %3564 ], [ %3563, %3562 ], [ %3561, %3560 ], [ %3559, %3558 ], [ %3557, %3556 ], [ %3555, %3554 ], [ %3553, %3552 ], [ %3551, %3550 ], [ %3549, %3548 ], [ %3547, %3546 ], [ %3539, %3538 ], [ %3537, %3536 ], [ %3529, %3528 ], [ %3527, %3526 ], [ %3523, %3522 ], [ %3521, %3520 ], [ %3519, %3518 ], [ %3517, %3516 ], [ %3515, %3514 ], [ %3513, %3512 ], [ %3511, %3510 ], [ %3509, %3508 ], [ %3507, %3506 ], [ %3505, %3504 ], [ %3503, %3502 ], [ %3501, %3500 ], [ %3499, %3498 ], [ %3497, %3496 ], [ %3495, %3494 ], [ %3493, %3492 ], [ %3491, %3490 ], [ %3489, %3488 ], [ %3487, %3486 ], [ %3485, %3484 ], [ %3483, %3482 ], [ %3481, %3480 ], [ %3479, %3478 ], [ %3477, %3476 ], [ %3475, %3474 ], [ %3473, %3472 ], [ %3471, %3470 ], [ %3469, %3468 ], [ %3467, %3466 ], [ %3465, %3464 ], [ %3463, %3462 ], [ %3461, %3460 ], [ %3459, %3458 ], [ %3457, %3456 ], [ %3455, %3454 ], [ %3453, %3452 ], [ %3525, %3524 ], [ %3531, %3530 ], [ %3533, %3532 ], [ %3535, %3534 ], [ %3541, %3540 ], [ %3543, %3542 ], [ %3545, %3544 ], [ %3619, %3618 ], [ %3629, %3628 ], [ %3637, %3636 ], [ %3699, %3698 ], [ %3387, %3386 ], [ %3389, %3388 ], [ %3391, %3390 ], [ %3393, %3392 ], [ %3395, %3394 ], [ %3397, %3396 ], [ %3399, %3398 ], [ %3401, %3400 ], [ %3403, %3402 ], [ %3405, %3404 ], [ %3407, %3406 ], [ %3409, %3408 ], [ %3411, %3410 ], [ %3413, %3412 ], [ %3415, %3414 ], [ %3417, %3416 ], [ %3419, %3418 ], [ %3421, %3420 ], [ %3423, %3422 ], [ %3425, %3424 ], [ %3427, %3426 ], [ %3429, %3428 ], [ %3431, %3430 ], [ %3433, %3432 ], [ %3435, %3434 ], [ %3437, %3436 ], [ %3439, %3438 ], [ %3441, %3440 ], [ %3443, %3442 ], [ %3445, %3444 ], [ %3447, %3446 ], [ %3449, %3448 ], [ %3451, %3450 ]
+3704:                                             ; preds = %3386, %3390, %3394, %3398, %3402, %3406, %3410, %3414, %3418, %3422, %3426, %3430, %3434, %3438, %3442, %3446, %3450, %3448, %3444, %3440, %3436, %3432, %3428, %3424, %3420, %3416, %3412, %3408, %3404, %3400, %3396, %3392, %3388, %3702, %3700, %3698, %3696, %3694, %3692, %3690, %3688, %3686, %3684, %3682, %3680, %3678, %3676, %3674, %3672, %3670, %3668, %3666, %3664, %3662, %3660, %3658, %3656, %3654, %3652, %3650, %3648, %3646, %3644, %3642, %3640, %3638, %3636, %3634, %3632, %3630, %3628, %3626, %3624, %3622, %3620, %3618, %3616, %3614, %3612, %3610, %3608, %3606, %3604, %3602, %3600, %3598, %3596, %3594, %3592, %3590, %3588, %3586, %3584, %3582, %3580, %3578, %3576, %3574, %3572, %3570, %3568, %3566, %3564, %3562, %3560, %3558, %3556, %3554, %3552, %3550, %3548, %3546, %3544, %3542, %3540, %3538, %3536, %3534, %3532, %3530, %3528, %3526, %3524, %3522, %3520, %3518, %3516, %3514, %3512, %3510, %3508, %3506, %3504, %3502, %3500, %3498, %3496, %3494, %3492, %3490, %3488, %3486, %3484, %3482, %3480, %3478, %3476, %3474, %3472, %3470, %3468, %3466, %3464, %3462, %3460, %3458, %3456, %3454, %3452
+  %3705 = phi { ptr, i32 } [ %3703, %3702 ], [ %3701, %3700 ], [ %3699, %3698 ], [ %3697, %3696 ], [ %3695, %3694 ], [ %3693, %3692 ], [ %3691, %3690 ], [ %3689, %3688 ], [ %3687, %3686 ], [ %3685, %3684 ], [ %3683, %3682 ], [ %3681, %3680 ], [ %3679, %3678 ], [ %3677, %3676 ], [ %3675, %3674 ], [ %3673, %3672 ], [ %3671, %3670 ], [ %3669, %3668 ], [ %3667, %3666 ], [ %3665, %3664 ], [ %3663, %3662 ], [ %3661, %3660 ], [ %3659, %3658 ], [ %3657, %3656 ], [ %3655, %3654 ], [ %3653, %3652 ], [ %3651, %3650 ], [ %3649, %3648 ], [ %3647, %3646 ], [ %3645, %3644 ], [ %3643, %3642 ], [ %3641, %3640 ], [ %3639, %3638 ], [ %3637, %3636 ], [ %3635, %3634 ], [ %3633, %3632 ], [ %3631, %3630 ], [ %3629, %3628 ], [ %3627, %3626 ], [ %3625, %3624 ], [ %3623, %3622 ], [ %3621, %3620 ], [ %3619, %3618 ], [ %3617, %3616 ], [ %3615, %3614 ], [ %3613, %3612 ], [ %3611, %3610 ], [ %3609, %3608 ], [ %3607, %3606 ], [ %3605, %3604 ], [ %3603, %3602 ], [ %3601, %3600 ], [ %3599, %3598 ], [ %3597, %3596 ], [ %3595, %3594 ], [ %3593, %3592 ], [ %3591, %3590 ], [ %3589, %3588 ], [ %3587, %3586 ], [ %3585, %3584 ], [ %3583, %3582 ], [ %3581, %3580 ], [ %3579, %3578 ], [ %3577, %3576 ], [ %3575, %3574 ], [ %3573, %3572 ], [ %3571, %3570 ], [ %3569, %3568 ], [ %3567, %3566 ], [ %3565, %3564 ], [ %3563, %3562 ], [ %3561, %3560 ], [ %3559, %3558 ], [ %3557, %3556 ], [ %3555, %3554 ], [ %3553, %3552 ], [ %3551, %3550 ], [ %3549, %3548 ], [ %3547, %3546 ], [ %3545, %3544 ], [ %3543, %3542 ], [ %3541, %3540 ], [ %3539, %3538 ], [ %3537, %3536 ], [ %3535, %3534 ], [ %3533, %3532 ], [ %3531, %3530 ], [ %3529, %3528 ], [ %3527, %3526 ], [ %3525, %3524 ], [ %3523, %3522 ], [ %3521, %3520 ], [ %3519, %3518 ], [ %3517, %3516 ], [ %3515, %3514 ], [ %3513, %3512 ], [ %3511, %3510 ], [ %3509, %3508 ], [ %3507, %3506 ], [ %3505, %3504 ], [ %3503, %3502 ], [ %3501, %3500 ], [ %3499, %3498 ], [ %3497, %3496 ], [ %3495, %3494 ], [ %3493, %3492 ], [ %3491, %3490 ], [ %3489, %3488 ], [ %3487, %3486 ], [ %3485, %3484 ], [ %3483, %3482 ], [ %3481, %3480 ], [ %3479, %3478 ], [ %3477, %3476 ], [ %3475, %3474 ], [ %3473, %3472 ], [ %3471, %3470 ], [ %3469, %3468 ], [ %3467, %3466 ], [ %3465, %3464 ], [ %3463, %3462 ], [ %3461, %3460 ], [ %3459, %3458 ], [ %3457, %3456 ], [ %3455, %3454 ], [ %3453, %3452 ], [ %3387, %3386 ], [ %3389, %3388 ], [ %3391, %3390 ], [ %3393, %3392 ], [ %3395, %3394 ], [ %3397, %3396 ], [ %3399, %3398 ], [ %3401, %3400 ], [ %3403, %3402 ], [ %3405, %3404 ], [ %3407, %3406 ], [ %3409, %3408 ], [ %3411, %3410 ], [ %3413, %3412 ], [ %3415, %3414 ], [ %3417, %3416 ], [ %3419, %3418 ], [ %3421, %3420 ], [ %3423, %3422 ], [ %3425, %3424 ], [ %3427, %3426 ], [ %3429, %3428 ], [ %3431, %3430 ], [ %3433, %3432 ], [ %3435, %3434 ], [ %3437, %3436 ], [ %3439, %3438 ], [ %3441, %3440 ], [ %3443, %3442 ], [ %3445, %3444 ], [ %3447, %3446 ], [ %3449, %3448 ], [ %3451, %3450 ]
   %3706 = load ptr, ptr %197, align 8, !tbaa !95
   %3707 = icmp eq ptr %3706, null
   br i1 %3707, label %3712, label %3708
@@ -14760,7 +14749,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorIPN9c_grammar10definitionIN5boos
   %14 = ptrtoint ptr %13 to i64
   %15 = sub i64 %14, %8
   %16 = ashr exact i64 %15, 3
-  %17 = icmp sgt i64 %10, -1
+  %17 = icmp ult i64 %10, 9223372036854775801
   tail call void @llvm.assume(i1 %17)
   %18 = xor i64 %11, 1152921504606846975
   %19 = icmp ule i64 %16, %18
@@ -14809,7 +14798,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorIPN9c_grammar10definitionIN5boos
   %43 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %42) #29
   br label %44
 
-44:                                               ; preds = %41, %33
+44:                                               ; preds = %33, %41
   %45 = phi ptr [ %43, %41 ], [ null, %33 ]
   %46 = getelementptr inbounds ptr, ptr %45, i64 %11
   store ptr null, ptr %46, align 8, !tbaa !14
@@ -14956,8 +14945,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_5chlitIcEE
   %54 = icmp eq ptr %52, %36
   br i1 %54, label %55, label %43, !llvm.loop !220
 
-55:                                               ; preds = %51, %47, %43, %30, %2
-  %56 = phi i64 [ %8, %2 ], [ %39, %30 ], [ %39, %51 ], [ -1, %43 ], [ -1, %47 ]
+55:                                               ; preds = %51, %47, %43, %2, %30
+  %56 = phi i64 [ %39, %30 ], [ %8, %2 ], [ %39, %51 ], [ -1, %43 ], [ -1, %47 ]
   ret i64 %56
 }
 
@@ -15219,7 +15208,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10differenceINS0_8sequenceIN
   %6 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 2
   %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !232
   %8 = icmp eq ptr %5, %7
-  br i1 %8, label %71, label %9
+  br i1 %8, label %68, label %9
 
 9:                                                ; preds = %2
   %10 = load i8, ptr %5, align 1, !tbaa !76, !noalias !232
@@ -15233,7 +15222,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10differenceINS0_8sequenceIN
   %18 = load i8, ptr %17, align 1
   %19 = icmp eq i8 %18, %10
   %20 = select i1 %16, i1 true, i1 %19
-  br i1 %20, label %21, label %71
+  br i1 %20, label %21, label %68
 
 21:                                               ; preds = %9
   %22 = getelementptr inbounds i8, ptr %5, i64 1
@@ -15243,7 +15232,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10differenceINS0_8sequenceIN
   %25 = load ptr, ptr %24, align 8, !tbaa !14
   %26 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !235
   %27 = icmp eq ptr %25, %26
-  br i1 %27, label %60, label %28
+  br i1 %27, label %57, label %28
 
 28:                                               ; preds = %21
   %29 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.85", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
@@ -15276,39 +15265,34 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10differenceINS0_8sequenceIN
   br i1 %50, label %51, label %31
 
 51:                                               ; preds = %31, %44
-  %52 = phi ptr [ %47, %44 ], [ %33, %31 ]
-  %53 = phi i64 [ %46, %44 ], [ %34, %31 ]
-  %54 = phi ptr [ %48, %44 ], [ %32, %31 ]
+  %52 = phi ptr [ %33, %31 ], [ %47, %44 ]
+  %53 = phi i64 [ %34, %31 ], [ %46, %44 ]
+  %54 = phi ptr [ %32, %31 ], [ %48, %44 ]
   store ptr %54, ptr %52, align 8, !tbaa !14
-  %55 = icmp sgt i64 %53, -2
-  br i1 %55, label %56, label %71
+  %55 = add nsw i64 %53, 1
+  %56 = icmp sgt i64 %53, -2
+  br i1 %56, label %57, label %68
 
-56:                                               ; preds = %51
-  %57 = add nsw i64 %53, 1
-  %58 = load ptr, ptr %3, align 8, !tbaa !231
-  %59 = load ptr, ptr %58, align 8, !tbaa !14
-  br label %60
+57:                                               ; preds = %21, %51
+  %58 = phi i64 [ %55, %51 ], [ 1, %21 ]
+  %59 = load ptr, ptr %3, align 8, !tbaa !231
+  %60 = load ptr, ptr %59, align 8, !tbaa !14
+  store ptr %5, ptr %59, align 8, !tbaa !14
+  %61 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.81", ptr %0, i64 0, i32 2
+  %62 = tail call i64 @_ZNK5boost6spirit8sequenceINS0_7symbolsIicNS0_4impl3tstIicEEEENS0_10differenceINS0_14anychar_parserENS0_11alternativeINS9_INS0_12alnum_parserENS0_5chlitIcEEEESC_EEEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultISG_T_E4typeERKSX_(ptr noundef nonnull align 8 dereferenceable(16) %61, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %63 = icmp slt i64 %62, 0
+  %64 = icmp slt i64 %62, %58
+  %65 = select i1 %63, i1 true, i1 %64
+  br i1 %65, label %66, label %68
 
-60:                                               ; preds = %56, %21
-  %61 = phi ptr [ %59, %56 ], [ %25, %21 ]
-  %62 = phi ptr [ %58, %56 ], [ %24, %21 ]
-  %63 = phi i64 [ %57, %56 ], [ 1, %21 ]
-  store ptr %5, ptr %62, align 8, !tbaa !14
-  %64 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.81", ptr %0, i64 0, i32 2
-  %65 = tail call i64 @_ZNK5boost6spirit8sequenceINS0_7symbolsIicNS0_4impl3tstIicEEEENS0_10differenceINS0_14anychar_parserENS0_11alternativeINS9_INS0_12alnum_parserENS0_5chlitIcEEEESC_EEEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultISG_T_E4typeERKSX_(ptr noundef nonnull align 8 dereferenceable(16) %64, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %66 = icmp slt i64 %65, 0
-  %67 = icmp slt i64 %65, %63
-  %68 = select i1 %66, i1 true, i1 %67
-  br i1 %68, label %69, label %71
+66:                                               ; preds = %57
+  %67 = load ptr, ptr %3, align 8, !tbaa !231
+  store ptr %60, ptr %67, align 8, !tbaa !14
+  br label %68
 
-69:                                               ; preds = %60
-  %70 = load ptr, ptr %3, align 8, !tbaa !231
-  store ptr %61, ptr %70, align 8, !tbaa !14
-  br label %71
-
-71:                                               ; preds = %60, %9, %2, %51, %69
-  %72 = phi i64 [ %63, %69 ], [ -1, %51 ], [ -1, %2 ], [ -1, %9 ], [ -1, %60 ]
-  ret i64 %72
+68:                                               ; preds = %9, %2, %51, %57, %66
+  %69 = phi i64 [ %58, %66 ], [ -1, %57 ], [ -1, %51 ], [ -1, %2 ], [ -1, %9 ]
+  ret i64 %69
 }
 
 ; Function Attrs: uwtable
@@ -15319,7 +15303,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_7symbolsIicNS0
   %6 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 2
   %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !238
   %8 = icmp eq ptr %5, %7
-  br i1 %8, label %129, label %9
+  br i1 %8, label %130, label %9
 
 9:                                                ; preds = %2
   %10 = load ptr, ptr %0, align 8, !tbaa !245
@@ -15445,7 +15429,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_7symbolsIicNS0
 91:                                               ; preds = %89, %47, %9
   %92 = phi ptr [ %17, %47 ], [ %77, %89 ], [ %4, %9 ]
   store ptr %5, ptr %92, align 8, !tbaa !14, !noalias !238
-  br label %129
+  br label %130
 
 93:                                               ; preds = %47, %89
   %94 = phi ptr [ %77, %89 ], [ %17, %47 ]
@@ -15453,7 +15437,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_7symbolsIicNS0
   %96 = phi ptr [ %85, %89 ], [ %18, %47 ]
   store ptr %96, ptr %94, align 8, !tbaa !14, !noalias !238
   %97 = icmp sgt i64 %95, -1
-  br i1 %97, label %98, label %129
+  br i1 %97, label %98, label %130
 
 98:                                               ; preds = %93
   %99 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.113", ptr %0, i64 0, i32 1
@@ -15461,7 +15445,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_7symbolsIicNS0
   %101 = load ptr, ptr %100, align 8, !tbaa !14
   %102 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !260
   %103 = icmp eq ptr %101, %102
-  br i1 %103, label %129, label %104
+  br i1 %103, label %130, label %104
 
 104:                                              ; preds = %98
   %105 = getelementptr inbounds i8, ptr %101, i64 1
@@ -15473,36 +15457,38 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_7symbolsIicNS0
   %109 = load ptr, ptr %108, align 8, !tbaa !14
   %110 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !263
   %111 = icmp eq ptr %109, %110
-  br i1 %111, label %112, label %113
+  br i1 %111, label %112, label %114
 
 112:                                              ; preds = %104
   store ptr %107, ptr %108, align 8, !tbaa !14
-  br label %127
+  %113 = add nuw nsw i64 %95, 1
+  br label %131
 
-113:                                              ; preds = %104
-  %114 = load i8, ptr %109, align 1, !tbaa !76, !noalias !263
-  %115 = zext i8 %114 to i32
-  %116 = tail call i32 @isalnum(i32 noundef %115) #27, !noalias !263
-  %117 = icmp ne i32 %116, 0
-  %118 = load i8, ptr %99, align 8
-  %119 = icmp eq i8 %118, %114
-  %120 = select i1 %117, i1 true, i1 %119
-  %121 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.113", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %122 = load i8, ptr %121, align 1
-  %123 = icmp eq i8 %122, %114
-  %124 = select i1 %120, i1 true, i1 %123
-  %125 = getelementptr inbounds i8, ptr %109, i64 1
-  %126 = select i1 %124, ptr %125, ptr %107
-  store ptr %126, ptr %108, align 8, !tbaa !14
-  br i1 %124, label %129, label %127
+114:                                              ; preds = %104
+  %115 = load i8, ptr %109, align 1, !tbaa !76, !noalias !263
+  %116 = zext i8 %115 to i32
+  %117 = tail call i32 @isalnum(i32 noundef %116) #27, !noalias !263
+  %118 = icmp ne i32 %117, 0
+  %119 = load i8, ptr %99, align 8
+  %120 = icmp eq i8 %119, %115
+  %121 = select i1 %118, i1 true, i1 %120
+  %122 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.113", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %123 = load i8, ptr %122, align 1
+  %124 = icmp eq i8 %123, %115
+  %125 = select i1 %121, i1 true, i1 %124
+  %126 = getelementptr inbounds i8, ptr %109, i64 1
+  %127 = select i1 %125, ptr %126, ptr %107
+  %128 = select i1 %125, i64 -1, i64 1
+  store ptr %127, ptr %108, align 8, !tbaa !14
+  %129 = add nsw i64 %128, %95
+  br i1 %125, label %130, label %131
 
-127:                                              ; preds = %113, %112
-  %128 = add nuw nsw i64 %95, 1
-  br label %129
+130:                                              ; preds = %98, %2, %91, %114, %93
+  br label %131
 
-129:                                              ; preds = %98, %113, %91, %2, %93, %127
-  %130 = phi i64 [ %128, %127 ], [ -1, %93 ], [ -1, %2 ], [ -1, %91 ], [ -1, %113 ], [ -1, %98 ]
-  ret i64 %130
+131:                                              ; preds = %112, %114, %130
+  %132 = phi i64 [ %129, %114 ], [ -1, %130 ], [ %113, %112 ]
+  ret i64 %132
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(read)
@@ -15517,78 +15503,11 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_1
   ret void
 }
 
-; Function Attrs: uwtable
-define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_10contiguousINS0_8sequenceINS4_INS4_INS0_8optionalINS0_5chlitIcEEEES7_EENS0_11kleene_starINS0_11alternativeINS0_6strlitIPKcEENS0_10differenceINS0_14anychar_parserES7_EEEEEEEES7_EEEENS0_7scannerISE_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tEE16do_parse_virtualERKSX_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %3 = alloca %"class.boost::spirit::scanner.1055", align 8
-  %4 = alloca %"class.boost::spirit::scanner.1055", align 8
-  %5 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1065", ptr %0, i64 0, i32 1
-  %6 = load ptr, ptr %1, align 8, !tbaa !97
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #24
-  %7 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
-  %8 = ptrtoint ptr %6 to i64
-  store i64 %8, ptr %3, align 8
-  %9 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %3, i64 0, i32 1
-  %10 = load <2 x ptr>, ptr %7, align 8, !tbaa !14
-  store <2 x ptr> %10, ptr %9, align 8, !tbaa !14
-  br label %11
-
-11:                                               ; preds = %17, %2
-  %12 = load ptr, ptr %7, align 8, !tbaa !98
-  %13 = load ptr, ptr %12, align 8, !tbaa !14
-  %14 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EE(ptr noundef nonnull %6)
-  %15 = load ptr, ptr %14, align 8, !tbaa !93
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %23, label %17
-
-17:                                               ; preds = %11
-  %18 = load ptr, ptr %15, align 8, !tbaa !23
-  %19 = getelementptr inbounds ptr, ptr %18, i64 2
-  %20 = load ptr, ptr %19, align 8
-  %21 = call i64 %20(ptr noundef nonnull align 8 dereferenceable(8) %15, ptr noundef nonnull align 8 dereferenceable(24) %3)
-  %22 = icmp slt i64 %21, 0
-  br i1 %22, label %23, label %11
-
-23:                                               ; preds = %17, %11
-  %24 = load ptr, ptr %7, align 8, !tbaa !98
-  store ptr %13, ptr %24, align 8, !tbaa !14
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #24
-  %25 = load ptr, ptr %1, align 8, !tbaa !97
-  call void @llvm.experimental.noalias.scope.decl(metadata !266)
-  %26 = ptrtoint ptr %25 to i64
-  store i64 %26, ptr %4, align 8, !alias.scope !266
-  %27 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %4, i64 0, i32 1
-  %28 = load <2 x ptr>, ptr %7, align 8, !tbaa !14, !noalias !266
-  store <2 x ptr> %28, ptr %27, align 8, !tbaa !14, !alias.scope !266
-  %29 = call i64 @_ZNK5boost6spirit8sequenceINS1_INS0_8optionalINS0_5chlitIcEEEES4_EENS0_11kleene_starINS0_11alternativeINS0_6strlitIPKcEENS0_10differenceINS0_14anychar_parserES4_EEEEEEE5parseINS0_7scannerISB_NS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultISI_T_E4typeERKSX_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(24) %4)
-  %30 = icmp sgt i64 %29, -1
-  br i1 %30, label %31, label %45
-
-31:                                               ; preds = %23
-  %32 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %4, i64 0, i32 2
-  %33 = load ptr, ptr %27, align 8, !tbaa !231, !noalias !269
-  %34 = load ptr, ptr %33, align 8, !tbaa !14, !noalias !269
-  %35 = load ptr, ptr %32, align 8, !tbaa !89, !noalias !269
-  %36 = icmp eq ptr %34, %35
-  br i1 %36, label %45, label %37
-
-37:                                               ; preds = %31
-  %38 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1065", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %39 = load i8, ptr %34, align 1, !tbaa !76, !noalias !269
-  %40 = load i8, ptr %38, align 8, !tbaa !147, !noalias !269
-  %41 = icmp eq i8 %40, %39
-  br i1 %41, label %42, label %45
-
-42:                                               ; preds = %37
-  %43 = getelementptr inbounds i8, ptr %34, i64 1
-  store ptr %43, ptr %33, align 8, !tbaa !14, !noalias !269
-  %44 = add nuw nsw i64 %29, 1
-  br label %45
-
-45:                                               ; preds = %23, %31, %37, %42
-  %46 = phi i64 [ %44, %42 ], [ -1, %23 ], [ -1, %31 ], [ -1, %37 ]
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #24
-  ret i64 %46
+; Function Attrs: mustprogress uwtable
+define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_10contiguousINS0_8sequenceINS4_INS4_INS0_8optionalINS0_5chlitIcEEEES7_EENS0_11kleene_starINS0_11alternativeINS0_6strlitIPKcEENS0_10differenceINS0_14anychar_parserES7_EEEEEEEES7_EEEENS0_7scannerISE_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tEE16do_parse_virtualERKSX_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #20 comdat align 2 {
+  %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1065", ptr %0, i64 0, i32 1
+  %4 = tail call i64 @_ZN5boost6spirit4impl23contiguous_parser_parseINS0_5matchINS0_5nil_tEEENS0_8sequenceINS6_INS6_INS0_8optionalINS0_5chlitIcEEEES9_EENS0_11kleene_starINS0_11alternativeINS0_6strlitIPKcEENS0_10differenceINS0_14anychar_parserES9_EEEEEEEES9_EENS0_7scannerISG_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEST_EET_RKT0_RKT1_RKNS0_24skipper_iteration_policyIT2_EE(ptr noundef nonnull align 8 dereferenceable(40) %3, ptr noundef nonnull align 8 dereferenceable(24) %1, ptr noundef nonnull align 1 dereferenceable(1) %1)
+  ret i64 %4
 }
 
 ; Function Attrs: uwtable
@@ -15601,148 +15520,160 @@ define linkonce_odr dso_local noundef ptr @_ZNK5boost6spirit4impl15concrete_pars
   ret ptr %2
 }
 
-; Function Attrs: uwtable
-define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_8optionalINS0_5chlitIcEEEES4_EENS0_11kleene_starINS0_11alternativeINS0_6strlitIPKcEENS0_10differenceINS0_14anychar_parserES4_EEEEEEE5parseINS0_7scannerISB_NS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultISI_T_E4typeERKSX_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) local_unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %3 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !231
-  %5 = load ptr, ptr %4, align 8, !tbaa !14
-  %6 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !272
-  %8 = icmp eq ptr %5, %7
-  br i1 %8, label %16, label %9
+; Function Attrs: inlinehint uwtable
+define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_parseINS0_5matchINS0_5nil_tEEENS0_8sequenceINS6_INS6_INS0_8optionalINS0_5chlitIcEEEES9_EENS0_11kleene_starINS0_11alternativeINS0_6strlitIPKcEENS0_10differenceINS0_14anychar_parserES9_EEEEEEEES9_EENS0_7scannerISG_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEST_EET_RKT0_RKT1_RKNS0_24skipper_iteration_policyIT2_EE(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(24) %1, ptr noundef nonnull align 1 dereferenceable(1) %2) local_unnamed_addr #8 comdat personality ptr @__gxx_personality_v0 {
+  %4 = alloca %"class.boost::spirit::scanner.1055", align 8
+  %5 = load ptr, ptr %1, align 8, !tbaa !97
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #24
+  %6 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
+  %7 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 2
+  %8 = ptrtoint ptr %5 to i64
+  store i64 %8, ptr %4, align 8
+  %9 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %4, i64 0, i32 1
+  %10 = load <2 x ptr>, ptr %6, align 8, !tbaa !14
+  store <2 x ptr> %10, ptr %9, align 8, !tbaa !14
+  br label %11
 
-9:                                                ; preds = %2
-  %10 = load i8, ptr %5, align 1, !tbaa !76, !noalias !272
-  %11 = load i8, ptr %0, align 8, !tbaa !147, !noalias !272
-  %12 = icmp eq i8 %11, %10
-  %13 = zext i1 %12 to i64
-  %14 = getelementptr i8, ptr %5, i64 %13
-  %15 = select i1 %12, i64 2, i64 1
-  br label %16
+11:                                               ; preds = %17, %3
+  %12 = load ptr, ptr %6, align 8, !tbaa !98
+  %13 = load ptr, ptr %12, align 8, !tbaa !14
+  %14 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EE(ptr noundef nonnull %5)
+  %15 = load ptr, ptr %14, align 8, !tbaa !93
+  %16 = icmp eq ptr %15, null
+  br i1 %16, label %23, label %17
 
-16:                                               ; preds = %9, %2
-  %17 = phi ptr [ %5, %2 ], [ %14, %9 ]
-  %18 = phi i64 [ 1, %2 ], [ %15, %9 ]
-  store ptr %17, ptr %4, align 8, !tbaa !14
-  %19 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !275
-  %20 = load ptr, ptr %19, align 8, !tbaa !14, !noalias !275
-  %21 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !275
-  %22 = icmp eq ptr %20, %21
-  br i1 %22, label %96, label %23
+17:                                               ; preds = %11
+  %18 = load ptr, ptr %15, align 8, !tbaa !23
+  %19 = getelementptr inbounds ptr, ptr %18, i64 2
+  %20 = load ptr, ptr %19, align 8
+  %21 = call i64 %20(ptr noundef nonnull align 8 dereferenceable(8) %15, ptr noundef nonnull align 8 dereferenceable(24) %4)
+  %22 = icmp slt i64 %21, 0
+  br i1 %22, label %23, label %11
 
-23:                                               ; preds = %16
-  %24 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.136", ptr %0, i64 0, i32 1
-  %25 = load i8, ptr %20, align 1, !tbaa !76, !noalias !275
-  %26 = load i8, ptr %24, align 1, !tbaa !147, !noalias !275
-  %27 = icmp eq i8 %26, %25
-  br i1 %27, label %28, label %96
+23:                                               ; preds = %11, %17
+  %24 = load ptr, ptr %6, align 8, !tbaa !98
+  store ptr %13, ptr %24, align 8, !tbaa !14
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #24
+  %25 = load ptr, ptr %6, align 8, !tbaa !98, !noalias !266
+  %26 = load ptr, ptr %7, align 8, !tbaa !85, !noalias !266
+  %27 = load ptr, ptr %25, align 8, !tbaa !14
+  %28 = icmp eq ptr %27, %26
+  br i1 %28, label %29, label %30
 
-28:                                               ; preds = %23
-  %29 = getelementptr inbounds i8, ptr %20, i64 1
-  store ptr %29, ptr %19, align 8, !tbaa !14, !noalias !275
-  %30 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.131", ptr %0, i64 0, i32 2
-  %31 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.131", ptr %0, i64 0, i32 2, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.131", ptr %0, i64 0, i32 2, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %33 = load i8, ptr %32, align 8
-  br label %34
+29:                                               ; preds = %23
+  store ptr %26, ptr %25, align 8, !tbaa !14
+  br label %100
 
-34:                                               ; preds = %85, %28
-  %35 = phi i64 [ 0, %28 ], [ %88, %85 ]
-  %36 = load ptr, ptr %3, align 8, !tbaa !231
-  %37 = load ptr, ptr %36, align 8, !tbaa !14
-  %38 = load ptr, ptr %30, align 8, !tbaa !144
-  %39 = load ptr, ptr %31, align 8, !tbaa !146
-  %40 = ptrtoint ptr %39 to i64
-  %41 = ptrtoint ptr %38 to i64
-  %42 = sub i64 %40, %41
-  %43 = icmp eq ptr %38, %39
-  br i1 %43, label %58, label %44
+30:                                               ; preds = %23
+  %31 = load i8, ptr %27, align 1, !tbaa !76, !noalias !269
+  %32 = load i8, ptr %0, align 8, !tbaa !147, !noalias !269
+  %33 = icmp eq i8 %32, %31
+  %34 = zext i1 %33 to i64
+  %35 = getelementptr i8, ptr %27, i64 %34
+  %36 = select i1 %33, i64 2, i64 1
+  store ptr %35, ptr %25, align 8, !tbaa !14
+  %37 = icmp eq ptr %35, %26
+  br i1 %37, label %100, label %38
 
-44:                                               ; preds = %34, %54
-  %45 = phi ptr [ %55, %54 ], [ %38, %34 ]
-  %46 = load ptr, ptr %3, align 8, !tbaa !231
-  %47 = load ptr, ptr %46, align 8, !tbaa !14
-  %48 = load ptr, ptr %6, align 8, !tbaa !89
-  %49 = icmp eq ptr %47, %48
-  br i1 %49, label %62, label %50
+38:                                               ; preds = %30
+  %39 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.136", ptr %0, i64 0, i32 1
+  %40 = load i8, ptr %35, align 1, !tbaa !76, !noalias !272
+  %41 = load i8, ptr %39, align 1, !tbaa !147, !noalias !272
+  %42 = icmp eq i8 %41, %40
+  br i1 %42, label %43, label %100
 
-50:                                               ; preds = %44
-  %51 = load i8, ptr %45, align 1, !tbaa !76
-  %52 = load i8, ptr %47, align 1, !tbaa !76
-  %53 = icmp eq i8 %51, %52
-  br i1 %53, label %54, label %62
+43:                                               ; preds = %38
+  %44 = getelementptr inbounds i8, ptr %35, i64 1
+  store ptr %44, ptr %25, align 8, !tbaa !14, !noalias !272
+  %45 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.131", ptr %0, i64 0, i32 2
+  %46 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.131", ptr %0, i64 0, i32 2, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.131", ptr %0, i64 0, i32 2, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %48 = load i8, ptr %47, align 8
+  br label %49
 
-54:                                               ; preds = %50
-  %55 = getelementptr inbounds i8, ptr %45, i64 1
-  %56 = getelementptr inbounds i8, ptr %47, i64 1
-  store ptr %56, ptr %46, align 8, !tbaa !14
-  %57 = icmp eq ptr %55, %39
-  br i1 %57, label %58, label %44, !llvm.loop !220
+49:                                               ; preds = %80, %43
+  %50 = phi ptr [ %44, %43 ], [ %81, %80 ]
+  %51 = phi i64 [ 0, %43 ], [ %83, %80 ]
+  %52 = load ptr, ptr %45, align 8, !tbaa !144
+  %53 = load ptr, ptr %46, align 8, !tbaa !146
+  %54 = ptrtoint ptr %53 to i64
+  %55 = ptrtoint ptr %52 to i64
+  %56 = sub i64 %54, %55
+  %57 = icmp eq ptr %52, %53
+  br i1 %57, label %70, label %58
 
-58:                                               ; preds = %54, %34
-  %59 = icmp sgt i64 %42, -1
-  br i1 %59, label %85, label %60
+58:                                               ; preds = %49, %66
+  %59 = phi ptr [ %68, %66 ], [ %50, %49 ]
+  %60 = phi ptr [ %67, %66 ], [ %52, %49 ]
+  %61 = icmp eq ptr %59, %26
+  br i1 %61, label %73, label %62
 
-60:                                               ; preds = %58
-  %61 = load ptr, ptr %3, align 8, !tbaa !231
-  br label %62
+62:                                               ; preds = %58
+  %63 = load i8, ptr %60, align 1, !tbaa !76
+  %64 = load i8, ptr %59, align 1, !tbaa !76
+  %65 = icmp eq i8 %63, %64
+  br i1 %65, label %66, label %73
 
-62:                                               ; preds = %50, %44, %60
-  %63 = phi ptr [ %61, %60 ], [ %46, %44 ], [ %46, %50 ]
-  store ptr %37, ptr %63, align 8, !tbaa !14
-  %64 = load ptr, ptr %3, align 8, !tbaa !231
-  %65 = load ptr, ptr %64, align 8, !tbaa !14
-  %66 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !278
-  %67 = icmp eq ptr %65, %66
-  br i1 %67, label %91, label %68
+66:                                               ; preds = %62
+  %67 = getelementptr inbounds i8, ptr %60, i64 1
+  %68 = getelementptr inbounds i8, ptr %59, i64 1
+  store ptr %68, ptr %25, align 8, !tbaa !14
+  %69 = icmp eq ptr %67, %53
+  br i1 %69, label %70, label %58, !llvm.loop !220
 
-68:                                               ; preds = %62
-  %69 = getelementptr inbounds i8, ptr %65, i64 1
-  store ptr %69, ptr %64, align 8, !tbaa !14, !noalias !278
-  %70 = load ptr, ptr %3, align 8, !tbaa !231
-  %71 = load ptr, ptr %70, align 8, !tbaa !14
-  store ptr %65, ptr %70, align 8, !tbaa !14
-  %72 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !281
-  %73 = load ptr, ptr %72, align 8, !tbaa !14, !noalias !281
-  %74 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !281
-  %75 = icmp eq ptr %73, %74
-  br i1 %75, label %82, label %76
+70:                                               ; preds = %66, %49
+  %71 = phi ptr [ %50, %49 ], [ %68, %66 ]
+  %72 = icmp sgt i64 %56, -1
+  br i1 %72, label %80, label %73
 
-76:                                               ; preds = %68
-  %77 = load i8, ptr %73, align 1, !tbaa !76, !noalias !281
-  %78 = icmp eq i8 %33, %77
-  %79 = getelementptr inbounds i8, ptr %73, i64 1
-  %80 = select i1 %78, ptr %79, ptr %71
-  %81 = select i1 %78, i64 -1, i64 1
-  br label %82
+73:                                               ; preds = %62, %58, %70
+  %74 = icmp eq ptr %50, %26
+  br i1 %74, label %84, label %75
 
-82:                                               ; preds = %76, %68
-  %83 = phi ptr [ %71, %68 ], [ %80, %76 ]
-  %84 = phi i64 [ 1, %68 ], [ %81, %76 ]
-  store ptr %83, ptr %72, align 8, !tbaa !14
-  br label %85
+75:                                               ; preds = %73
+  store ptr %50, ptr %25, align 8, !tbaa !14
+  %76 = load i8, ptr %50, align 1, !tbaa !76, !noalias !275
+  %77 = icmp eq i8 %48, %76
+  br i1 %77, label %84, label %78
 
-85:                                               ; preds = %82, %58
-  %86 = phi i64 [ %42, %58 ], [ %84, %82 ]
-  %87 = icmp sgt i64 %86, -1
-  %88 = add nsw i64 %86, %35
-  br i1 %87, label %34, label %89
+78:                                               ; preds = %75
+  %79 = getelementptr inbounds i8, ptr %50, i64 1
+  store ptr %79, ptr %25, align 8, !tbaa !14
+  br label %80
 
-89:                                               ; preds = %85
-  %90 = load ptr, ptr %3, align 8, !tbaa !231
-  br label %91
+80:                                               ; preds = %78, %70
+  %81 = phi ptr [ %79, %78 ], [ %71, %70 ]
+  %82 = phi i64 [ 1, %78 ], [ %56, %70 ]
+  %83 = add nsw i64 %82, %51
+  br label %49
 
-91:                                               ; preds = %62, %89
-  %92 = phi ptr [ %90, %89 ], [ %64, %62 ]
-  store ptr %37, ptr %92, align 8, !tbaa !14
-  %93 = icmp sgt i64 %35, -1
-  %94 = add nsw i64 %35, %18
-  %95 = select i1 %93, i64 %94, i64 -1
-  br label %96
+84:                                               ; preds = %73, %75
+  %85 = phi ptr [ %50, %75 ], [ %26, %73 ]
+  store ptr %85, ptr %25, align 8, !tbaa !14
+  %86 = icmp slt i64 %51, 0
+  %87 = add nsw i64 %51, %36
+  %88 = icmp slt i64 %87, 0
+  %89 = select i1 %86, i1 true, i1 %88
+  %90 = icmp eq ptr %85, %26
+  %91 = select i1 %89, i1 true, i1 %90
+  br i1 %91, label %100, label %92
 
-96:                                               ; preds = %91, %23, %16
-  %97 = phi i64 [ -1, %16 ], [ -1, %23 ], [ %95, %91 ]
-  ret i64 %97
+92:                                               ; preds = %84
+  %93 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.126", ptr %0, i64 0, i32 1
+  %94 = load i8, ptr %85, align 1, !tbaa !76, !noalias !278
+  %95 = load i8, ptr %93, align 8, !tbaa !147, !noalias !278
+  %96 = icmp eq i8 %95, %94
+  br i1 %96, label %97, label %100
+
+97:                                               ; preds = %92
+  %98 = getelementptr inbounds i8, ptr %85, i64 1
+  store ptr %98, ptr %25, align 8, !tbaa !14, !noalias !278
+  %99 = add nuw nsw i64 %87, 1
+  br label %100
+
+100:                                              ; preds = %29, %84, %38, %30, %92, %97
+  %101 = phi i64 [ %99, %97 ], [ -1, %92 ], [ -1, %30 ], [ -1, %38 ], [ -1, %84 ], [ -1, %29 ]
+  ret i64 %101
 }
 
 ; Function Attrs: nounwind uwtable
@@ -15754,7 +15685,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_8
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8positiveINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEESG_SH_E16do_parse_virtualERKSG_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 {
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1066", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !284
+  %4 = load ptr, ptr %3, align 8, !tbaa !281
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
   br i1 %6, label %49, label %7
@@ -15771,7 +15702,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %14 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %15 = load ptr, ptr %14, align 8, !tbaa !98
   %16 = load ptr, ptr %15, align 8, !tbaa !14
-  %17 = load ptr, ptr %3, align 8, !tbaa !284
+  %17 = load ptr, ptr %3, align 8, !tbaa !281
   %18 = load ptr, ptr %17, align 8, !tbaa !95
   %19 = icmp eq ptr %18, null
   br i1 %19, label %45, label %20
@@ -15790,7 +15721,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %29 = add nsw i64 %27, %28
   %30 = load ptr, ptr %14, align 8, !tbaa !98
   %31 = load ptr, ptr %30, align 8, !tbaa !14
-  %32 = load ptr, ptr %3, align 8, !tbaa !284
+  %32 = load ptr, ptr %3, align 8, !tbaa !281
   %33 = load ptr, ptr %32, align 8, !tbaa !95
   %34 = icmp eq ptr %33, null
   br i1 %34, label %45, label %35
@@ -15889,52 +15820,52 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
   %24 = load ptr, ptr %6, align 8, !tbaa !98
   store ptr %13, ptr %24, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #24
-  %25 = load ptr, ptr %6, align 8, !tbaa !98, !noalias !286
-  %26 = load ptr, ptr %7, align 8, !tbaa !85, !noalias !286
+  %25 = load ptr, ptr %6, align 8, !tbaa !98, !noalias !283
+  %26 = load ptr, ptr %7, align 8, !tbaa !85, !noalias !283
   %27 = ptrtoint ptr %26 to i64
-  %28 = load ptr, ptr %25, align 8, !tbaa !14, !noalias !289
+  %28 = load ptr, ptr %25, align 8, !tbaa !14, !noalias !286
   %29 = ptrtoint ptr %28 to i64
   %30 = icmp eq ptr %28, %26
   br i1 %30, label %97, label %31
 
 31:                                               ; preds = %23
-  %32 = load i8, ptr %28, align 1, !tbaa !76, !noalias !289
-  %33 = load i8, ptr %0, align 1, !tbaa !147, !noalias !289
+  %32 = load i8, ptr %28, align 1, !tbaa !76, !noalias !286
+  %33 = load i8, ptr %0, align 1, !tbaa !147, !noalias !286
   %34 = icmp eq i8 %33, %32
   br i1 %34, label %35, label %97
 
 35:                                               ; preds = %31
   %36 = getelementptr inbounds i8, ptr %28, i64 1
-  store ptr %36, ptr %25, align 8, !tbaa !14, !noalias !289
+  store ptr %36, ptr %25, align 8, !tbaa !14, !noalias !286
   %37 = icmp eq ptr %36, %26
   br i1 %37, label %97, label %38
 
 38:                                               ; preds = %35
   %39 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.175", ptr %0, i64 0, i32 1
-  %40 = load i8, ptr %36, align 1, !tbaa !76, !noalias !292
+  %40 = load i8, ptr %36, align 1, !tbaa !76, !noalias !289
   %41 = zext i8 %40 to i32
-  %42 = call i32 @tolower(i32 noundef %41) #27, !noalias !292
+  %42 = call i32 @tolower(i32 noundef %41) #27, !noalias !289
   %43 = trunc i32 %42 to i8
-  %44 = load i8, ptr %39, align 1, !tbaa !147, !noalias !292
+  %44 = load i8, ptr %39, align 1, !tbaa !147, !noalias !289
   %45 = icmp eq i8 %44, %43
   br i1 %45, label %46, label %97
 
 46:                                               ; preds = %38
   %47 = getelementptr inbounds i8, ptr %28, i64 2
-  store ptr %47, ptr %25, align 8, !tbaa !14, !noalias !292
+  store ptr %47, ptr %25, align 8, !tbaa !14, !noalias !289
   %48 = icmp eq ptr %47, %26
   br i1 %48, label %97, label %49
 
 49:                                               ; preds = %46
-  %50 = load i8, ptr %47, align 1, !tbaa !76, !noalias !299
+  %50 = load i8, ptr %47, align 1, !tbaa !76, !noalias !296
   %51 = zext i8 %50 to i32
-  %52 = call i32 @isxdigit(i32 noundef %51) #27, !noalias !299
+  %52 = call i32 @isxdigit(i32 noundef %51) #27, !noalias !296
   %53 = icmp eq i32 %52, 0
   br i1 %53, label %97, label %54
 
 54:                                               ; preds = %49
   %55 = getelementptr inbounds i8, ptr %28, i64 3
-  store ptr %55, ptr %25, align 8, !tbaa !14, !noalias !299
+  store ptr %55, ptr %25, align 8, !tbaa !14, !noalias !296
   %56 = icmp eq ptr %55, %26
   br i1 %56, label %92, label %57
 
@@ -15946,15 +15877,15 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
 60:                                               ; preds = %57, %67
   %61 = phi ptr [ %68, %67 ], [ %55, %57 ]
   %62 = phi i64 [ %69, %67 ], [ 1, %57 ]
-  %63 = load i8, ptr %61, align 1, !tbaa !76, !noalias !302
+  %63 = load i8, ptr %61, align 1, !tbaa !76, !noalias !299
   %64 = zext i8 %63 to i32
-  %65 = call i32 @isxdigit(i32 noundef %64) #27, !noalias !302
+  %65 = call i32 @isxdigit(i32 noundef %64) #27, !noalias !299
   %66 = icmp eq i32 %65, 0
   br i1 %66, label %71, label %67
 
 67:                                               ; preds = %60
   %68 = getelementptr inbounds i8, ptr %61, i64 1
-  store ptr %68, ptr %25, align 8, !tbaa !14, !noalias !302
+  store ptr %68, ptr %25, align 8, !tbaa !14, !noalias !299
   %69 = add nuw nsw i64 %62, 1
   %70 = icmp eq ptr %68, %26
   br i1 %70, label %71, label %60
@@ -15973,11 +15904,11 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
 
 78:                                               ; preds = %76
   %79 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.165", ptr %0, i64 0, i32 1
-  %80 = load i8, ptr %73, align 1, !tbaa !76, !noalias !305
+  %80 = load i8, ptr %73, align 1, !tbaa !76, !noalias !302
   %81 = zext i8 %80 to i32
-  %82 = call i32 @tolower(i32 noundef %81) #27, !noalias !305
+  %82 = call i32 @tolower(i32 noundef %81) #27, !noalias !302
   %83 = trunc i32 %82 to i8
-  %84 = load i8, ptr %79, align 1, !tbaa !147, !noalias !305
+  %84 = load i8, ptr %79, align 1, !tbaa !147, !noalias !302
   %85 = icmp eq i8 %84, %83
   %86 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.165", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %87 = load i8, ptr %86, align 1
@@ -15995,8 +15926,8 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
   %96 = add nuw nsw i64 %95, %93
   br label %97
 
-97:                                               ; preds = %49, %46, %38, %35, %31, %23, %71, %92
-  %98 = phi i64 [ %96, %92 ], [ -1, %71 ], [ -1, %23 ], [ -1, %31 ], [ -1, %35 ], [ -1, %38 ], [ -1, %46 ], [ -1, %49 ]
+97:                                               ; preds = %23, %31, %35, %38, %49, %46, %71, %92
+  %98 = phi i64 [ %96, %92 ], [ -1, %71 ], [ -1, %46 ], [ -1, %49 ], [ -1, %38 ], [ -1, %35 ], [ -1, %31 ], [ -1, %23 ]
   ret i64 %98
 }
 
@@ -16068,40 +15999,40 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
   %24 = load ptr, ptr %6, align 8, !tbaa !98
   store ptr %13, ptr %24, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #24
-  %25 = load ptr, ptr %6, align 8, !tbaa !98, !noalias !308
-  %26 = load ptr, ptr %7, align 8, !tbaa !85, !noalias !308
+  %25 = load ptr, ptr %6, align 8, !tbaa !98, !noalias !305
+  %26 = load ptr, ptr %7, align 8, !tbaa !85, !noalias !305
   %27 = ptrtoint ptr %26 to i64
-  %28 = load ptr, ptr %25, align 8, !tbaa !14, !noalias !311
+  %28 = load ptr, ptr %25, align 8, !tbaa !14, !noalias !308
   %29 = ptrtoint ptr %28 to i64
   %30 = icmp eq ptr %28, %26
   br i1 %30, label %91, label %31
 
 31:                                               ; preds = %23
-  %32 = load i8, ptr %28, align 1, !tbaa !76, !noalias !311
-  %33 = load i8, ptr %0, align 1, !tbaa !147, !noalias !311
+  %32 = load i8, ptr %28, align 1, !tbaa !76, !noalias !308
+  %33 = load i8, ptr %0, align 1, !tbaa !147, !noalias !308
   %34 = icmp eq i8 %33, %32
   br i1 %34, label %35, label %91
 
 35:                                               ; preds = %31
   %36 = getelementptr inbounds i8, ptr %28, i64 1
-  store ptr %36, ptr %25, align 8, !tbaa !14, !noalias !311
+  store ptr %36, ptr %25, align 8, !tbaa !14, !noalias !308
   %37 = icmp eq ptr %36, %26
   br i1 %37, label %91, label %38
 
 38:                                               ; preds = %35
   %39 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.204", ptr %0, i64 0, i32 1
-  %40 = load i8, ptr %36, align 1, !tbaa !76, !noalias !314
-  %41 = load i8, ptr %39, align 1, !tbaa !317, !noalias !314
+  %40 = load i8, ptr %36, align 1, !tbaa !76, !noalias !311
+  %41 = load i8, ptr %39, align 1, !tbaa !314, !noalias !311
   %42 = icmp sle i8 %41, %40
   %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.204", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 1
-  %44 = load i8, ptr %43, align 1, !noalias !314
+  %44 = load i8, ptr %43, align 1, !noalias !311
   %45 = icmp sge i8 %44, %40
   %46 = select i1 %42, i1 %45, i1 false
   br i1 %46, label %47, label %91
 
 47:                                               ; preds = %38
   %48 = getelementptr inbounds i8, ptr %28, i64 2
-  store ptr %48, ptr %25, align 8, !tbaa !14, !noalias !314
+  store ptr %48, ptr %25, align 8, !tbaa !14, !noalias !311
   %49 = icmp eq ptr %48, %26
   br i1 %49, label %86, label %50
 
@@ -16113,16 +16044,16 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
 53:                                               ; preds = %50, %61
   %54 = phi ptr [ %62, %61 ], [ %48, %50 ]
   %55 = phi i64 [ %63, %61 ], [ 1, %50 ]
-  %56 = load i8, ptr %54, align 1, !tbaa !76, !noalias !319
+  %56 = load i8, ptr %54, align 1, !tbaa !76, !noalias !316
   %57 = icmp sle i8 %41, %56
-  %58 = load i8, ptr %43, align 1, !noalias !319
+  %58 = load i8, ptr %43, align 1, !noalias !316
   %59 = icmp sge i8 %58, %56
   %60 = select i1 %57, i1 %59, i1 false
   br i1 %60, label %61, label %65
 
 61:                                               ; preds = %53
   %62 = getelementptr inbounds i8, ptr %54, i64 1
-  store ptr %62, ptr %25, align 8, !tbaa !14, !noalias !319
+  store ptr %62, ptr %25, align 8, !tbaa !14, !noalias !316
   %63 = add nuw nsw i64 %55, 1
   %64 = icmp eq ptr %62, %26
   br i1 %64, label %65, label %53
@@ -16141,11 +16072,11 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
 
 72:                                               ; preds = %69
   %73 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.199", ptr %0, i64 0, i32 1
-  %74 = load i8, ptr %67, align 1, !tbaa !76, !noalias !322
+  %74 = load i8, ptr %67, align 1, !tbaa !76, !noalias !319
   %75 = zext i8 %74 to i32
-  %76 = call i32 @tolower(i32 noundef %75) #27, !noalias !322
+  %76 = call i32 @tolower(i32 noundef %75) #27, !noalias !319
   %77 = trunc i32 %76 to i8
-  %78 = load i8, ptr %73, align 1, !tbaa !147, !noalias !322
+  %78 = load i8, ptr %73, align 1, !tbaa !147, !noalias !319
   %79 = icmp eq i8 %78, %77
   %80 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.199", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %81 = load i8, ptr %80, align 1
@@ -16164,7 +16095,7 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
   br label %91
 
 91:                                               ; preds = %23, %31, %35, %38, %65, %86
-  %92 = phi i64 [ %90, %86 ], [ -1, %65 ], [ -1, %23 ], [ -1, %31 ], [ -1, %35 ], [ -1, %38 ]
+  %92 = phi i64 [ %90, %86 ], [ -1, %65 ], [ -1, %35 ], [ -1, %38 ], [ -1, %23 ], [ -1, %31 ]
   ret i64 %92
 }
 
@@ -16225,26 +16156,26 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10contiguousINS0_8sequenceIN
   %23 = load ptr, ptr %5, align 8, !tbaa !98
   store ptr %12, ptr %23, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %24 = load ptr, ptr %5, align 8, !tbaa !98, !noalias !325
-  %25 = load ptr, ptr %6, align 8, !tbaa !85, !noalias !325
+  %24 = load ptr, ptr %5, align 8, !tbaa !98, !noalias !322
+  %25 = load ptr, ptr %6, align 8, !tbaa !85, !noalias !322
   %26 = ptrtoint ptr %25 to i64
-  %27 = load ptr, ptr %24, align 8, !tbaa !14, !noalias !328
+  %27 = load ptr, ptr %24, align 8, !tbaa !14, !noalias !325
   %28 = ptrtoint ptr %27 to i64
   %29 = icmp eq ptr %27, %25
-  br i1 %29, label %72, label %30
+  br i1 %29, label %76, label %30
 
 30:                                               ; preds = %22
-  %31 = load i8, ptr %27, align 1, !tbaa !76, !noalias !328
+  %31 = load i8, ptr %27, align 1, !tbaa !76, !noalias !325
   %32 = zext i8 %31 to i32
   %33 = add nsw i32 %32, -48
   %34 = icmp ult i32 %33, 10
-  br i1 %34, label %35, label %72
+  br i1 %34, label %35, label %76
 
 35:                                               ; preds = %30
   %36 = getelementptr inbounds i8, ptr %27, i64 1
-  store ptr %36, ptr %24, align 8, !tbaa !14, !noalias !328
+  store ptr %36, ptr %24, align 8, !tbaa !14, !noalias !325
   %37 = icmp eq ptr %36, %25
-  br i1 %37, label %67, label %38
+  br i1 %37, label %71, label %38
 
 38:                                               ; preds = %35
   %39 = sub i64 %26, %28
@@ -16253,7 +16184,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10contiguousINS0_8sequenceIN
 40:                                               ; preds = %47, %38
   %41 = phi ptr [ %48, %47 ], [ %36, %38 ]
   %42 = phi i64 [ %49, %47 ], [ 1, %38 ]
-  %43 = load i8, ptr %41, align 1, !tbaa !76, !noalias !331
+  %43 = load i8, ptr %41, align 1, !tbaa !76, !noalias !328
   %44 = zext i8 %43 to i32
   %45 = add nsw i32 %44, -48
   %46 = icmp ult i32 %45, 10
@@ -16261,43 +16192,49 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10contiguousINS0_8sequenceIN
 
 47:                                               ; preds = %40
   %48 = getelementptr inbounds i8, ptr %41, i64 1
-  store ptr %48, ptr %24, align 8, !tbaa !14, !noalias !331
+  store ptr %48, ptr %24, align 8, !tbaa !14, !noalias !328
   %49 = add nuw nsw i64 %42, 1
   %50 = icmp eq ptr %48, %25
-  br i1 %50, label %67, label %40
+  br i1 %50, label %51, label %40
 
-51:                                               ; preds = %40
-  store ptr %41, ptr %24, align 8, !tbaa !14
-  %52 = icmp eq ptr %41, %25
-  br i1 %52, label %67, label %53
+51:                                               ; preds = %47, %40
+  %52 = phi i64 [ %39, %47 ], [ %42, %40 ]
+  %53 = phi ptr [ %25, %47 ], [ %41, %40 ]
+  store ptr %53, ptr %24, align 8, !tbaa !14
+  %54 = icmp sgt i64 %52, -1
+  br i1 %54, label %55, label %76
 
-53:                                               ; preds = %51
-  %54 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.217", ptr %0, i64 0, i32 1
-  %55 = load i8, ptr %41, align 1, !tbaa !76, !noalias !334
-  %56 = zext i8 %55 to i32
-  %57 = call i32 @tolower(i32 noundef %56) #27, !noalias !334
-  %58 = trunc i32 %57 to i8
-  %59 = load i8, ptr %54, align 1, !tbaa !147, !noalias !334
-  %60 = icmp eq i8 %59, %58
-  %61 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.217", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %62 = load i8, ptr %61, align 1
-  %63 = icmp eq i8 %62, %58
-  %64 = select i1 %60, i1 true, i1 %63
-  %65 = zext i1 %64 to i64
-  %66 = getelementptr i8, ptr %41, i64 %65
-  br label %67
+55:                                               ; preds = %51
+  %56 = icmp eq ptr %53, %25
+  br i1 %56, label %71, label %57
 
-67:                                               ; preds = %47, %53, %51, %35
-  %68 = phi i64 [ %42, %51 ], [ %42, %53 ], [ 1, %35 ], [ %39, %47 ]
-  %69 = phi ptr [ %25, %51 ], [ %66, %53 ], [ %25, %35 ], [ %25, %47 ]
-  %70 = phi i64 [ 0, %51 ], [ %65, %53 ], [ 0, %35 ], [ 0, %47 ]
-  store ptr %69, ptr %24, align 8, !tbaa !14
-  %71 = add nsw i64 %70, %68
-  br label %72
+57:                                               ; preds = %55
+  %58 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.217", ptr %0, i64 0, i32 1
+  %59 = load i8, ptr %53, align 1, !tbaa !76, !noalias !331
+  %60 = zext i8 %59 to i32
+  %61 = call i32 @tolower(i32 noundef %60) #27, !noalias !331
+  %62 = trunc i32 %61 to i8
+  %63 = load i8, ptr %58, align 1, !tbaa !147, !noalias !331
+  %64 = icmp eq i8 %63, %62
+  %65 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.217", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %66 = load i8, ptr %65, align 1
+  %67 = icmp eq i8 %66, %62
+  %68 = select i1 %64, i1 true, i1 %67
+  %69 = zext i1 %68 to i64
+  %70 = getelementptr i8, ptr %53, i64 %69
+  br label %71
 
-72:                                               ; preds = %22, %30, %67
-  %73 = phi i64 [ %71, %67 ], [ -1, %22 ], [ -1, %30 ]
-  ret i64 %73
+71:                                               ; preds = %57, %55, %35
+  %72 = phi i64 [ %52, %55 ], [ %52, %57 ], [ 1, %35 ]
+  %73 = phi ptr [ %25, %55 ], [ %70, %57 ], [ %25, %35 ]
+  %74 = phi i64 [ 0, %55 ], [ %69, %57 ], [ 0, %35 ]
+  store ptr %73, ptr %24, align 8, !tbaa !14
+  %75 = add nuw nsw i64 %74, %72
+  br label %76
+
+76:                                               ; preds = %22, %30, %51, %71
+  %77 = phi i64 [ %75, %71 ], [ -1, %51 ], [ -1, %30 ], [ -1, %22 ]
+  ret i64 %77
 }
 
 ; Function Attrs: nounwind uwtable
@@ -16343,12 +16280,12 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #24
   %25 = load ptr, ptr %1, align 8, !tbaa !97
-  call void @llvm.experimental.noalias.scope.decl(metadata !337)
+  call void @llvm.experimental.noalias.scope.decl(metadata !334)
   %26 = ptrtoint ptr %25 to i64
-  store i64 %26, ptr %4, align 8, !alias.scope !337
+  store i64 %26, ptr %4, align 8, !alias.scope !334
   %27 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %4, i64 0, i32 1
-  %28 = load <2 x ptr>, ptr %6, align 8, !tbaa !14, !noalias !337
-  store <2 x ptr> %28, ptr %27, align 8, !tbaa !14, !alias.scope !337
+  %28 = load <2 x ptr>, ptr %6, align 8, !tbaa !14, !noalias !334
+  store <2 x ptr> %28, ptr %27, align 8, !tbaa !14, !alias.scope !334
   %29 = call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8optionalINS0_5chlitIcEEEES4_EENS0_19longest_alternativeINS7_INS0_14anychar_parserENS1_INS1_IS4_S4_EENS0_11finite_loopINS0_5rangeIcEEiiEEEEEENS1_IS4_S8_EEEEEES4_E5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultISJ_T_E4typeERKS10_(ptr noundef nonnull align 4 dereferenceable(28) %23, ptr noundef nonnull align 8 dereferenceable(24) %4)
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #24
   ret i64 %29
@@ -16370,13 +16307,13 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8opt
   %4 = load ptr, ptr %3, align 8, !tbaa !231
   %5 = load ptr, ptr %4, align 8, !tbaa !14
   %6 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !340
+  %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !337
   %8 = icmp eq ptr %5, %7
   br i1 %8, label %16, label %9
 
 9:                                                ; preds = %2
-  %10 = load i8, ptr %5, align 1, !tbaa !76, !noalias !340
-  %11 = load i8, ptr %0, align 4, !tbaa !147, !noalias !340
+  %10 = load i8, ptr %5, align 1, !tbaa !76, !noalias !337
+  %11 = load i8, ptr %0, align 4, !tbaa !147, !noalias !337
   %12 = icmp eq i8 %11, %10
   %13 = zext i1 %12 to i64
   %14 = getelementptr i8, ptr %5, i64 %13
@@ -16387,22 +16324,22 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8opt
   %17 = phi ptr [ %5, %2 ], [ %14, %9 ]
   %18 = phi i64 [ 2, %2 ], [ %15, %9 ]
   store ptr %17, ptr %4, align 8, !tbaa !14
-  %19 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !343
-  %20 = load ptr, ptr %19, align 8, !tbaa !14, !noalias !343
-  %21 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !343
+  %19 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !340
+  %20 = load ptr, ptr %19, align 8, !tbaa !14, !noalias !340
+  %21 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !340
   %22 = icmp eq ptr %20, %21
   br i1 %22, label %75, label %23
 
 23:                                               ; preds = %16
   %24 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.136", ptr %0, i64 0, i32 1
-  %25 = load i8, ptr %20, align 1, !tbaa !76, !noalias !343
-  %26 = load i8, ptr %24, align 1, !tbaa !147, !noalias !343
+  %25 = load i8, ptr %20, align 1, !tbaa !76, !noalias !340
+  %26 = load i8, ptr %24, align 1, !tbaa !147, !noalias !340
   %27 = icmp eq i8 %26, %25
   br i1 %27, label %28, label %75
 
 28:                                               ; preds = %23
   %29 = getelementptr inbounds i8, ptr %20, i64 1
-  store ptr %29, ptr %19, align 8, !tbaa !14, !noalias !343
+  store ptr %29, ptr %19, align 8, !tbaa !14, !noalias !340
   %30 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.233", ptr %0, i64 0, i32 2
   %31 = load ptr, ptr %3, align 8, !tbaa !231
   %32 = load ptr, ptr %31, align 8, !tbaa !14
@@ -16410,36 +16347,36 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8opt
   %34 = load ptr, ptr %3, align 8, !tbaa !231
   %35 = load ptr, ptr %34, align 8, !tbaa !14
   store ptr %32, ptr %34, align 8, !tbaa !14
-  %36 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !346
-  %37 = load ptr, ptr %36, align 8, !tbaa !14, !noalias !346
-  %38 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !346
+  %36 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !343
+  %37 = load ptr, ptr %36, align 8, !tbaa !14, !noalias !343
+  %38 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !343
   %39 = icmp eq ptr %37, %38
   br i1 %39, label %51, label %40
 
 40:                                               ; preds = %28
   %41 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.233", ptr %0, i64 0, i32 2, i32 0, i32 0, i32 0, i32 1
-  %42 = load i8, ptr %37, align 1, !tbaa !76, !noalias !346
-  %43 = load i8, ptr %41, align 4, !tbaa !147, !noalias !346
+  %42 = load i8, ptr %37, align 1, !tbaa !76, !noalias !343
+  %43 = load i8, ptr %41, align 4, !tbaa !147, !noalias !343
   %44 = icmp eq i8 %43, %42
   br i1 %44, label %45, label %51
 
 45:                                               ; preds = %40
   %46 = getelementptr inbounds i8, ptr %37, i64 1
-  store ptr %46, ptr %36, align 8, !tbaa !14, !noalias !346
-  %47 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !349
-  %48 = load ptr, ptr %47, align 8, !tbaa !14, !noalias !349
-  %49 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !349
+  store ptr %46, ptr %36, align 8, !tbaa !14, !noalias !343
+  %47 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !346
+  %48 = load ptr, ptr %47, align 8, !tbaa !14, !noalias !346
+  %49 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !346
   %50 = icmp eq ptr %48, %49
   br i1 %50, label %51, label %54
 
 51:                                               ; preds = %45, %40, %28
   %52 = phi ptr [ %47, %45 ], [ %36, %40 ], [ %36, %28 ]
-  %53 = icmp slt i64 %33, 0
-  br i1 %53, label %75, label %59
+  %53 = icmp sgt i64 %33, -1
+  br i1 %53, label %59, label %75
 
 54:                                               ; preds = %45
   %55 = getelementptr inbounds i8, ptr %48, i64 1
-  store ptr %55, ptr %47, align 8, !tbaa !14, !noalias !349
+  store ptr %55, ptr %47, align 8, !tbaa !14, !noalias !346
   %56 = icmp sgt i64 %33, 2
   br i1 %56, label %57, label %61
 
@@ -16453,28 +16390,28 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8opt
   br label %61
 
 61:                                               ; preds = %54, %59
-  %62 = phi i64 [ %33, %59 ], [ 2, %54 ]
-  %63 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !352
-  %64 = load ptr, ptr %63, align 8, !tbaa !14, !noalias !352
-  %65 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !352
+  %62 = phi i64 [ 2, %54 ], [ %33, %59 ]
+  %63 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !349
+  %64 = load ptr, ptr %63, align 8, !tbaa !14, !noalias !349
+  %65 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !349
   %66 = icmp eq ptr %64, %65
   br i1 %66, label %75, label %67
 
 67:                                               ; preds = %61
   %68 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.228", ptr %0, i64 0, i32 1
-  %69 = load i8, ptr %64, align 1, !tbaa !76, !noalias !352
-  %70 = load i8, ptr %68, align 4, !tbaa !147, !noalias !352
+  %69 = load i8, ptr %64, align 1, !tbaa !76, !noalias !349
+  %70 = load i8, ptr %68, align 4, !tbaa !147, !noalias !349
   %71 = icmp eq i8 %70, %69
   br i1 %71, label %72, label %75
 
 72:                                               ; preds = %67
   %73 = getelementptr inbounds i8, ptr %64, i64 1
-  store ptr %73, ptr %63, align 8, !tbaa !14, !noalias !352
+  store ptr %73, ptr %63, align 8, !tbaa !14, !noalias !349
   %74 = add nuw i64 %18, %62
   br label %75
 
-75:                                               ; preds = %67, %61, %51, %23, %16, %72
-  %76 = phi i64 [ %74, %72 ], [ -1, %16 ], [ -1, %23 ], [ -1, %51 ], [ -1, %61 ], [ -1, %67 ]
+75:                                               ; preds = %67, %61, %51, %16, %23, %72
+  %76 = phi i64 [ %74, %72 ], [ -1, %23 ], [ -1, %16 ], [ -1, %51 ], [ -1, %61 ], [ -1, %67 ]
   ret i64 %76
 }
 
@@ -16484,61 +16421,61 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit19longest_alternativeINS0_14
   %4 = load ptr, ptr %3, align 8, !tbaa !231
   %5 = load ptr, ptr %4, align 8, !tbaa !14
   %6 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !355
-  %8 = icmp eq ptr %5, %7
-  br i1 %8, label %13, label %9
+  %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !352
+  %8 = icmp ne ptr %5, %7
+  br i1 %8, label %9, label %13
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds i8, ptr %5, i64 1
-  store ptr %10, ptr %4, align 8, !tbaa !14, !noalias !355
+  store ptr %10, ptr %4, align 8, !tbaa !14, !noalias !352
   %11 = load ptr, ptr %3, align 8, !tbaa !231
   %12 = load ptr, ptr %11, align 8, !tbaa !14
   br label %13
 
-13:                                               ; preds = %2, %9
+13:                                               ; preds = %9, %2
   %14 = phi ptr [ %12, %9 ], [ %5, %2 ]
   %15 = phi ptr [ %11, %9 ], [ %4, %2 ]
   %16 = phi i64 [ 1, %9 ], [ -1, %2 ]
   store ptr %5, ptr %15, align 8, !tbaa !14
-  %17 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !358
-  %18 = load ptr, ptr %17, align 8, !tbaa !14, !noalias !358
-  %19 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !358
+  %17 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !355
+  %18 = load ptr, ptr %17, align 8, !tbaa !14, !noalias !355
+  %19 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !355
   %20 = icmp eq ptr %18, %19
   br i1 %20, label %73, label %21
 
 21:                                               ; preds = %13
-  %22 = load i8, ptr %18, align 1, !tbaa !76, !noalias !358
-  %23 = load i8, ptr %0, align 4, !tbaa !147, !noalias !358
+  %22 = load i8, ptr %18, align 1, !tbaa !76, !noalias !355
+  %23 = load i8, ptr %0, align 4, !tbaa !147, !noalias !355
   %24 = icmp eq i8 %23, %22
   br i1 %24, label %25, label %73
 
 25:                                               ; preds = %21
   %26 = getelementptr inbounds i8, ptr %18, i64 1
-  store ptr %26, ptr %17, align 8, !tbaa !14, !noalias !358
-  %27 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !361
-  %28 = load ptr, ptr %27, align 8, !tbaa !14, !noalias !361
-  %29 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !361
+  store ptr %26, ptr %17, align 8, !tbaa !14, !noalias !355
+  %27 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !358
+  %28 = load ptr, ptr %27, align 8, !tbaa !14, !noalias !358
+  %29 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !358
   %30 = icmp eq ptr %28, %29
   br i1 %30, label %73, label %31
 
 31:                                               ; preds = %25
   %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.191", ptr %0, i64 0, i32 1
-  %33 = load i8, ptr %28, align 1, !tbaa !76, !noalias !361
-  %34 = load i8, ptr %32, align 1, !tbaa !147, !noalias !361
+  %33 = load i8, ptr %28, align 1, !tbaa !76, !noalias !358
+  %34 = load i8, ptr %32, align 1, !tbaa !147, !noalias !358
   %35 = icmp eq i8 %34, %33
   br i1 %35, label %36, label %73
 
 36:                                               ; preds = %31
   %37 = getelementptr inbounds i8, ptr %28, i64 1
-  store ptr %37, ptr %27, align 8, !tbaa !14, !noalias !361
+  store ptr %37, ptr %27, align 8, !tbaa !14, !noalias !358
   %38 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.247", ptr %0, i64 0, i32 1, i32 1
-  %39 = load i32, ptr %38, align 4, !tbaa !364
+  %39 = load i32, ptr %38, align 4, !tbaa !361
   %40 = sext i32 %39 to i64
   %41 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.247", ptr %0, i64 0, i32 1, i32 2
-  %42 = load i32, ptr %41, align 4, !tbaa !367
+  %42 = load i32, ptr %41, align 4, !tbaa !364
   %43 = sext i32 %42 to i64
   %44 = icmp eq i32 %42, 0
-  br i1 %44, label %70, label %45
+  br i1 %44, label %74, label %45
 
 45:                                               ; preds = %36
   %46 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.247", ptr %0, i64 0, i32 1
@@ -16550,14 +16487,14 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit19longest_alternativeINS0_14
   %50 = phi i64 [ 0, %45 ], [ %65, %63 ]
   %51 = load ptr, ptr %3, align 8, !tbaa !231
   %52 = load ptr, ptr %51, align 8, !tbaa !14
-  %53 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !368
+  %53 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !365
   %54 = icmp eq ptr %52, %53
   br i1 %54, label %61, label %55
 
 55:                                               ; preds = %49
-  %56 = load i8, ptr %52, align 1, !tbaa !76, !noalias !368
+  %56 = load i8, ptr %52, align 1, !tbaa !76, !noalias !365
   %57 = icmp sle i8 %47, %56
-  %58 = load i8, ptr %48, align 1, !noalias !368
+  %58 = load i8, ptr %48, align 1, !noalias !365
   %59 = icmp sge i8 %58, %56
   %60 = select i1 %57, i1 %59, i1 false
   br i1 %60, label %63, label %61
@@ -16568,26 +16505,24 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit19longest_alternativeINS0_14
 
 63:                                               ; preds = %55
   %64 = getelementptr inbounds i8, ptr %52, i64 1
-  store ptr %64, ptr %51, align 8, !tbaa !14, !noalias !368
+  store ptr %64, ptr %51, align 8, !tbaa !14, !noalias !365
   %65 = add nuw i64 %50, 1
   %66 = icmp eq i64 %65, %43
-  br i1 %66, label %67, label %49, !llvm.loop !371
+  br i1 %66, label %67, label %49, !llvm.loop !368
 
 67:                                               ; preds = %63, %61
   %68 = phi i64 [ %50, %61 ], [ %43, %63 ]
   %69 = icmp sgt i64 %68, -1
-  br i1 %69, label %70, label %73
+  %70 = add nsw i64 %68, 2
+  %71 = or i1 %69, %8
+  %72 = select i1 %69, i64 %70, i64 -1
+  br i1 %71, label %74, label %79
 
-70:                                               ; preds = %36, %67
-  %71 = phi i64 [ %68, %67 ], [ 0, %36 ]
-  %72 = add nuw nsw i64 %71, 2
-  br label %74
+73:                                               ; preds = %13, %21, %25, %31, %61
+  br i1 %8, label %74, label %79
 
-73:                                               ; preds = %13, %21, %25, %31, %61, %67
-  br i1 %8, label %79, label %74
-
-74:                                               ; preds = %70, %73
-  %75 = phi i64 [ %72, %70 ], [ -1, %73 ]
+74:                                               ; preds = %67, %36, %73
+  %75 = phi i64 [ -1, %73 ], [ 2, %36 ], [ %72, %67 ]
   %76 = icmp sgt i64 %16, %75
   br i1 %76, label %77, label %79
 
@@ -16596,8 +16531,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit19longest_alternativeINS0_14
   store ptr %14, ptr %78, align 8, !tbaa !14
   br label %79
 
-79:                                               ; preds = %73, %74, %77
-  %80 = phi i64 [ %16, %77 ], [ %75, %74 ], [ -1, %73 ]
+79:                                               ; preds = %67, %73, %74, %77
+  %80 = phi i64 [ %16, %77 ], [ %75, %74 ], [ -1, %73 ], [ -1, %67 ]
   ret i64 %80
 }
 
@@ -16613,7 +16548,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !372
+  %7 = load ptr, ptr %3, align 8, !tbaa !369
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %18, label %10
@@ -16634,7 +16569,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %19 = phi ptr [ %17, %16 ], [ %5, %2 ]
   store ptr %6, ptr %19, align 8, !tbaa !14
   %20 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1076", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %21 = load ptr, ptr %20, align 8, !tbaa !374
+  %21 = load ptr, ptr %20, align 8, !tbaa !371
   %22 = load ptr, ptr %21, align 8, !tbaa !95
   %23 = icmp eq ptr %22, null
   br i1 %23, label %30, label %24
@@ -16651,7 +16586,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %31 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %6, ptr %31, align 8, !tbaa !14
   %32 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1076", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !375
+  %33 = load ptr, ptr %32, align 8, !tbaa !372
   %34 = load ptr, ptr %33, align 8, !tbaa !95
   %35 = icmp eq ptr %34, null
   br i1 %35, label %42, label %36
@@ -16668,7 +16603,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %43 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %6, ptr %43, align 8, !tbaa !14
   %44 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1076", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %45 = load ptr, ptr %44, align 8, !tbaa !380
+  %45 = load ptr, ptr %44, align 8, !tbaa !377
   %46 = load ptr, ptr %45, align 8, !tbaa !95
   %47 = icmp eq ptr %46, null
   br i1 %47, label %53, label %48
@@ -16681,7 +16616,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   br label %53
 
 53:                                               ; preds = %10, %24, %36, %42, %48
-  %54 = phi i64 [ %40, %36 ], [ %52, %48 ], [ -1, %42 ], [ %14, %10 ], [ %28, %24 ]
+  %54 = phi i64 [ %52, %48 ], [ -1, %42 ], [ %40, %36 ], [ %14, %10 ], [ %28, %24 ]
   ret i64 %54
 }
 
@@ -16755,12 +16690,12 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10contiguousINS0_8sequenceIN
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #24
   %24 = load ptr, ptr %1, align 8, !tbaa !97
-  call void @llvm.experimental.noalias.scope.decl(metadata !385)
+  call void @llvm.experimental.noalias.scope.decl(metadata !382)
   %25 = ptrtoint ptr %24 to i64
-  store i64 %25, ptr %4, align 8, !alias.scope !385
+  store i64 %25, ptr %4, align 8, !alias.scope !382
   %26 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %4, i64 0, i32 1
-  %27 = load <2 x ptr>, ptr %6, align 8, !tbaa !14, !noalias !385
-  store <2 x ptr> %27, ptr %26, align 8, !tbaa !14, !alias.scope !385
+  %27 = load <2 x ptr>, ptr %6, align 8, !tbaa !14, !noalias !382
+  store <2 x ptr> %27, ptr %26, align 8, !tbaa !14, !alias.scope !382
   %28 = call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8positiveINS0_12digit_parserEEENS0_11alternativeINS0_5chlitIcEES7_EEEENS0_8optionalIS8_EEEES4_E5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultISD_T_E4typeERKSU_(ptr noundef nonnull align 1 dereferenceable(6) %0, ptr noundef nonnull align 8 dereferenceable(24) %4)
   %29 = icmp sgt i64 %28, -1
   br i1 %29, label %30, label %54
@@ -16769,17 +16704,17 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10contiguousINS0_8sequenceIN
   %31 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %4, i64 0, i32 2
   %32 = load ptr, ptr %26, align 8, !tbaa !231
   %33 = load ptr, ptr %32, align 8, !tbaa !14
-  %34 = load ptr, ptr %31, align 8, !tbaa !89, !noalias !388
+  %34 = load ptr, ptr %31, align 8, !tbaa !89, !noalias !385
   %35 = icmp eq ptr %33, %34
   br i1 %35, label %50, label %36
 
 36:                                               ; preds = %30
   %37 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.294", ptr %0, i64 0, i32 1
-  %38 = load i8, ptr %33, align 1, !tbaa !76, !noalias !391
+  %38 = load i8, ptr %33, align 1, !tbaa !76, !noalias !388
   %39 = zext i8 %38 to i32
-  %40 = call i32 @tolower(i32 noundef %39) #27, !noalias !391
+  %40 = call i32 @tolower(i32 noundef %39) #27, !noalias !388
   %41 = trunc i32 %40 to i8
-  %42 = load i8, ptr %37, align 1, !tbaa !147, !noalias !391
+  %42 = load i8, ptr %37, align 1, !tbaa !147, !noalias !388
   %43 = icmp eq i8 %42, %41
   %44 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.294", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %45 = load i8, ptr %44, align 1
@@ -16805,15 +16740,15 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit10contiguousINS0_8sequenceIN
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8positiveINS0_12digit_parserEEENS0_11alternativeINS0_5chlitIcEES7_EEEENS0_8optionalIS8_EEEES4_E5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultISD_T_E4typeERKSU_(ptr noundef nonnull align 1 dereferenceable(6) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) local_unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !394
-  %5 = load ptr, ptr %4, align 8, !tbaa !14, !noalias !394
+  %4 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !391
+  %5 = load ptr, ptr %4, align 8, !tbaa !14, !noalias !391
   %6 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !394
+  %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !391
   %8 = icmp eq ptr %5, %7
   br i1 %8, label %113, label %9
 
 9:                                                ; preds = %2
-  %10 = load i8, ptr %5, align 1, !tbaa !76, !noalias !394
+  %10 = load i8, ptr %5, align 1, !tbaa !76, !noalias !391
   %11 = zext i8 %10 to i32
   %12 = add nsw i32 %11, -48
   %13 = icmp ult i32 %12, 10
@@ -16821,10 +16756,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8pos
 
 14:                                               ; preds = %9
   %15 = getelementptr inbounds i8, ptr %5, i64 1
-  store ptr %15, ptr %4, align 8, !tbaa !14, !noalias !394
+  store ptr %15, ptr %4, align 8, !tbaa !14, !noalias !391
   %16 = load ptr, ptr %3, align 8, !tbaa !231
   %17 = load ptr, ptr %16, align 8, !tbaa !14
-  %18 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !397
+  %18 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !394
   %19 = icmp eq ptr %17, %18
   br i1 %19, label %113, label %20
 
@@ -16832,7 +16767,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8pos
   %21 = phi ptr [ %32, %28 ], [ %17, %14 ]
   %22 = phi ptr [ %31, %28 ], [ %16, %14 ]
   %23 = phi i64 [ %30, %28 ], [ 1, %14 ]
-  %24 = load i8, ptr %21, align 1, !tbaa !76, !noalias !397
+  %24 = load i8, ptr %21, align 1, !tbaa !76, !noalias !394
   %25 = zext i8 %24 to i32
   %26 = add nsw i32 %25, -48
   %27 = icmp ult i32 %26, 10
@@ -16840,11 +16775,11 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8pos
 
 28:                                               ; preds = %20
   %29 = getelementptr inbounds i8, ptr %21, i64 1
-  store ptr %29, ptr %22, align 8, !tbaa !14, !noalias !397
+  store ptr %29, ptr %22, align 8, !tbaa !14, !noalias !394
   %30 = add nuw nsw i64 %23, 1
   %31 = load ptr, ptr %3, align 8, !tbaa !231
   %32 = load ptr, ptr %31, align 8, !tbaa !14
-  %33 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !397
+  %33 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !394
   %34 = icmp eq ptr %32, %33
   br i1 %34, label %35, label %20
 
@@ -16853,41 +16788,41 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8pos
   %37 = phi i64 [ %30, %28 ], [ %23, %20 ]
   %38 = phi ptr [ %32, %28 ], [ %21, %20 ]
   store ptr %38, ptr %36, align 8, !tbaa !14
-  %39 = load ptr, ptr %3, align 8, !tbaa !231
-  %40 = load ptr, ptr %39, align 8, !tbaa !14
-  %41 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !400
-  %42 = icmp eq ptr %40, %41
-  br i1 %42, label %113, label %43
+  %39 = icmp sgt i64 %37, -1
+  br i1 %39, label %40, label %113
 
-43:                                               ; preds = %35
-  %44 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.309", ptr %0, i64 0, i32 1
-  %45 = load i8, ptr %40, align 1, !tbaa !76, !noalias !400
-  %46 = load i8, ptr %44, align 1, !tbaa !147, !noalias !400
-  %47 = icmp eq i8 %46, %45
-  %48 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.309", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %49 = load i8, ptr %48, align 1
-  %50 = icmp eq i8 %49, %45
-  %51 = select i1 %47, i1 true, i1 %50
-  br i1 %51, label %52, label %113
+40:                                               ; preds = %35
+  %41 = load ptr, ptr %3, align 8, !tbaa !231
+  %42 = load ptr, ptr %41, align 8, !tbaa !14
+  %43 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !397
+  %44 = icmp eq ptr %42, %43
+  br i1 %44, label %113, label %45
 
-52:                                               ; preds = %43
-  %53 = getelementptr inbounds i8, ptr %40, i64 1
-  store ptr %53, ptr %39, align 8, !tbaa !14, !noalias !25
-  %54 = add nsw i64 %37, 1
-  %55 = icmp sgt i64 %37, -2
-  br i1 %55, label %56, label %113
+45:                                               ; preds = %40
+  %46 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.309", ptr %0, i64 0, i32 1
+  %47 = load i8, ptr %42, align 1, !tbaa !76, !noalias !397
+  %48 = load i8, ptr %46, align 1, !tbaa !147, !noalias !397
+  %49 = icmp eq i8 %48, %47
+  %50 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.309", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %51 = load i8, ptr %50, align 1
+  %52 = icmp eq i8 %51, %47
+  %53 = select i1 %49, i1 true, i1 %52
+  br i1 %53, label %54, label %113
 
-56:                                               ; preds = %52
+54:                                               ; preds = %45
+  %55 = getelementptr inbounds i8, ptr %42, i64 1
+  store ptr %55, ptr %41, align 8, !tbaa !14, !noalias !25
+  %56 = add nuw nsw i64 %37, 1
   %57 = load ptr, ptr %3, align 8, !tbaa !231
   %58 = load ptr, ptr %57, align 8, !tbaa !14
-  %59 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !403
+  %59 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !400
   %60 = icmp eq ptr %58, %59
   br i1 %60, label %72, label %61
 
-61:                                               ; preds = %56
+61:                                               ; preds = %54
   %62 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.304", ptr %0, i64 0, i32 1
-  %63 = load i8, ptr %58, align 1, !tbaa !76, !noalias !403
-  %64 = load i8, ptr %62, align 1, !tbaa !147, !noalias !403
+  %63 = load i8, ptr %58, align 1, !tbaa !76, !noalias !400
+  %64 = load i8, ptr %62, align 1, !tbaa !147, !noalias !400
   %65 = icmp eq i8 %64, %63
   %66 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.304", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %67 = load i8, ptr %66, align 1
@@ -16897,19 +16832,19 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8pos
   %71 = getelementptr i8, ptr %58, i64 %70
   br label %72
 
-72:                                               ; preds = %56, %61
-  %73 = phi ptr [ %58, %56 ], [ %71, %61 ]
-  %74 = phi i64 [ 0, %56 ], [ %70, %61 ]
+72:                                               ; preds = %54, %61
+  %73 = phi ptr [ %58, %54 ], [ %71, %61 ]
+  %74 = phi i64 [ 0, %54 ], [ %70, %61 ]
   store ptr %73, ptr %57, align 8, !tbaa !14
-  %75 = add nuw nsw i64 %54, %74
-  %76 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !406
-  %77 = load ptr, ptr %76, align 8, !tbaa !14, !noalias !406
-  %78 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !406
+  %75 = add nuw nsw i64 %56, %74
+  %76 = load ptr, ptr %3, align 8, !tbaa !231, !noalias !403
+  %77 = load ptr, ptr %76, align 8, !tbaa !14, !noalias !403
+  %78 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !403
   %79 = icmp eq ptr %77, %78
   br i1 %79, label %113, label %80
 
 80:                                               ; preds = %72
-  %81 = load i8, ptr %77, align 1, !tbaa !76, !noalias !406
+  %81 = load i8, ptr %77, align 1, !tbaa !76, !noalias !403
   %82 = zext i8 %81 to i32
   %83 = add nsw i32 %82, -48
   %84 = icmp ult i32 %83, 10
@@ -16917,47 +16852,47 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS0_8pos
 
 85:                                               ; preds = %80
   %86 = getelementptr inbounds i8, ptr %77, i64 1
-  store ptr %86, ptr %76, align 8, !tbaa !14, !noalias !406
+  store ptr %86, ptr %76, align 8, !tbaa !14, !noalias !403
   %87 = load ptr, ptr %3, align 8, !tbaa !231
   %88 = load ptr, ptr %87, align 8, !tbaa !14
-  %89 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !409
+  %89 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !406
   %90 = icmp eq ptr %88, %89
-  br i1 %90, label %110, label %91
+  br i1 %90, label %91, label %93
 
-91:                                               ; preds = %85, %99
-  %92 = phi ptr [ %103, %99 ], [ %88, %85 ]
-  %93 = phi ptr [ %102, %99 ], [ %87, %85 ]
-  %94 = phi i64 [ %101, %99 ], [ 1, %85 ]
-  %95 = load i8, ptr %92, align 1, !tbaa !76, !noalias !409
-  %96 = zext i8 %95 to i32
-  %97 = add nsw i32 %96, -48
-  %98 = icmp ult i32 %97, 10
-  br i1 %98, label %99, label %106
-
-99:                                               ; preds = %91
-  %100 = getelementptr inbounds i8, ptr %92, i64 1
-  store ptr %100, ptr %93, align 8, !tbaa !14, !noalias !409
-  %101 = add nuw nsw i64 %94, 1
-  %102 = load ptr, ptr %3, align 8, !tbaa !231
-  %103 = load ptr, ptr %102, align 8, !tbaa !14
-  %104 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !409
-  %105 = icmp eq ptr %103, %104
-  br i1 %105, label %106, label %91
-
-106:                                              ; preds = %91, %99
-  %107 = phi ptr [ %102, %99 ], [ %93, %91 ]
-  %108 = phi i64 [ %101, %99 ], [ %94, %91 ]
-  %109 = phi ptr [ %103, %99 ], [ %92, %91 ]
-  store ptr %109, ptr %107, align 8, !tbaa !14
-  br label %110
-
-110:                                              ; preds = %85, %106
-  %111 = phi i64 [ %108, %106 ], [ 1, %85 ]
-  %112 = add nsw i64 %75, %111
+91:                                               ; preds = %85
+  %92 = add nuw nsw i64 %75, 1
   br label %113
 
-113:                                              ; preds = %80, %72, %14, %43, %35, %9, %2, %52, %110
-  %114 = phi i64 [ %112, %110 ], [ -1, %52 ], [ -1, %2 ], [ -1, %9 ], [ -1, %35 ], [ -1, %43 ], [ -1, %14 ], [ -1, %72 ], [ -1, %80 ]
+93:                                               ; preds = %85, %101
+  %94 = phi ptr [ %105, %101 ], [ %88, %85 ]
+  %95 = phi ptr [ %104, %101 ], [ %87, %85 ]
+  %96 = phi i64 [ %103, %101 ], [ 1, %85 ]
+  %97 = load i8, ptr %94, align 1, !tbaa !76, !noalias !406
+  %98 = zext i8 %97 to i32
+  %99 = add nsw i32 %98, -48
+  %100 = icmp ult i32 %99, 10
+  br i1 %100, label %101, label %108
+
+101:                                              ; preds = %93
+  %102 = getelementptr inbounds i8, ptr %94, i64 1
+  store ptr %102, ptr %95, align 8, !tbaa !14, !noalias !406
+  %103 = add nuw nsw i64 %96, 1
+  %104 = load ptr, ptr %3, align 8, !tbaa !231
+  %105 = load ptr, ptr %104, align 8, !tbaa !14
+  %106 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !406
+  %107 = icmp eq ptr %105, %106
+  br i1 %107, label %108, label %93
+
+108:                                              ; preds = %93, %101
+  %109 = phi ptr [ %104, %101 ], [ %95, %93 ]
+  %110 = phi i64 [ %103, %101 ], [ %96, %93 ]
+  %111 = phi ptr [ %105, %101 ], [ %94, %93 ]
+  store ptr %111, ptr %109, align 8, !tbaa !14
+  %112 = add nsw i64 %110, %75
+  br label %113
+
+113:                                              ; preds = %35, %9, %2, %40, %45, %14, %80, %72, %108, %91
+  %114 = phi i64 [ %112, %108 ], [ %92, %91 ], [ -1, %72 ], [ -1, %80 ], [ -1, %14 ], [ -1, %45 ], [ -1, %40 ], [ -1, %2 ], [ -1, %9 ], [ -1, %35 ]
   ret i64 %114
 }
 
@@ -17018,17 +16953,17 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
   %24 = load ptr, ptr %6, align 8, !tbaa !98
   store ptr %13, ptr %24, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #24
-  %25 = load ptr, ptr %6, align 8, !tbaa !98, !noalias !412
-  %26 = load ptr, ptr %7, align 8, !tbaa !85, !noalias !412
+  %25 = load ptr, ptr %6, align 8, !tbaa !98, !noalias !409
+  %26 = load ptr, ptr %7, align 8, !tbaa !85, !noalias !409
   %27 = ptrtoint ptr %26 to i64
   %28 = load ptr, ptr %25, align 8, !tbaa !14
   %29 = icmp eq ptr %28, %26
-  br i1 %29, label %167, label %30
+  br i1 %29, label %41, label %30
 
 30:                                               ; preds = %23, %37
   %31 = phi ptr [ %38, %37 ], [ %28, %23 ]
   %32 = phi i64 [ %39, %37 ], [ 0, %23 ]
-  %33 = load i8, ptr %31, align 1, !tbaa !76, !noalias !415
+  %33 = load i8, ptr %31, align 1, !tbaa !76, !noalias !412
   %34 = zext i8 %33 to i32
   %35 = add nsw i32 %34, -48
   %36 = icmp ult i32 %35, 10
@@ -17036,207 +16971,205 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
 
 37:                                               ; preds = %30
   %38 = getelementptr inbounds i8, ptr %31, i64 1
-  store ptr %38, ptr %25, align 8, !tbaa !14, !noalias !415
+  store ptr %38, ptr %25, align 8, !tbaa !14, !noalias !412
   %39 = add nuw nsw i64 %32, 1
   %40 = icmp eq ptr %38, %26
   br i1 %40, label %41, label %30
 
-41:                                               ; preds = %37
+41:                                               ; preds = %37, %23
   store ptr %26, ptr %25, align 8, !tbaa !14
-  br label %167
+  br label %168
 
 42:                                               ; preds = %30
   %43 = ptrtoint ptr %31 to i64
   store ptr %31, ptr %25, align 8, !tbaa !14
   %44 = icmp eq ptr %31, %26
-  br i1 %44, label %167, label %45
+  br i1 %44, label %168, label %45
 
 45:                                               ; preds = %42
   %46 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.335", ptr %0, i64 0, i32 1
-  %47 = load i8, ptr %31, align 1, !tbaa !76, !noalias !418
-  %48 = load i8, ptr %46, align 1, !tbaa !147, !noalias !418
+  %47 = load i8, ptr %31, align 1, !tbaa !76, !noalias !415
+  %48 = load i8, ptr %46, align 1, !tbaa !147, !noalias !415
   %49 = icmp eq i8 %48, %47
-  br i1 %49, label %50, label %167
+  br i1 %49, label %50, label %168
 
 50:                                               ; preds = %45
   %51 = getelementptr inbounds i8, ptr %31, i64 1
-  store ptr %51, ptr %25, align 8, !tbaa !14, !noalias !418
+  store ptr %51, ptr %25, align 8, !tbaa !14, !noalias !415
   %52 = add nuw nsw i64 %32, 1
   %53 = icmp eq ptr %51, %26
-  br i1 %53, label %167, label %54
+  br i1 %53, label %168, label %54
 
 54:                                               ; preds = %50
-  %55 = load i8, ptr %51, align 1, !tbaa !76, !noalias !421
+  %55 = load i8, ptr %51, align 1, !tbaa !76, !noalias !418
   %56 = zext i8 %55 to i32
   %57 = add nsw i32 %56, -48
   %58 = icmp ult i32 %57, 10
-  br i1 %58, label %59, label %167
+  br i1 %58, label %59, label %168
 
 59:                                               ; preds = %54
   %60 = getelementptr inbounds i8, ptr %31, i64 2
-  store ptr %60, ptr %25, align 8, !tbaa !14, !noalias !421
+  store ptr %60, ptr %25, align 8, !tbaa !14, !noalias !418
   %61 = icmp eq ptr %60, %26
-  br i1 %61, label %79, label %62
+  br i1 %61, label %65, label %62
 
 62:                                               ; preds = %59
   %63 = xor i64 %43, -1
   %64 = add i64 %63, %27
-  br label %65
+  br label %67
 
-65:                                               ; preds = %62, %72
-  %66 = phi ptr [ %73, %72 ], [ %60, %62 ]
-  %67 = phi i64 [ %74, %72 ], [ 1, %62 ]
-  %68 = load i8, ptr %66, align 1, !tbaa !76, !noalias !424
-  %69 = zext i8 %68 to i32
-  %70 = add nsw i32 %69, -48
-  %71 = icmp ult i32 %70, 10
-  br i1 %71, label %72, label %76
+65:                                               ; preds = %59
+  %66 = add nuw nsw i64 %32, 2
+  br label %140
 
-72:                                               ; preds = %65
-  %73 = getelementptr inbounds i8, ptr %66, i64 1
-  store ptr %73, ptr %25, align 8, !tbaa !14, !noalias !424
-  %74 = add nuw nsw i64 %67, 1
-  %75 = icmp eq ptr %73, %26
-  br i1 %75, label %76, label %65
+67:                                               ; preds = %62, %74
+  %68 = phi ptr [ %75, %74 ], [ %60, %62 ]
+  %69 = phi i64 [ %76, %74 ], [ 1, %62 ]
+  %70 = load i8, ptr %68, align 1, !tbaa !76, !noalias !421
+  %71 = zext i8 %70 to i32
+  %72 = add nsw i32 %71, -48
+  %73 = icmp ult i32 %72, 10
+  br i1 %73, label %74, label %78
 
-76:                                               ; preds = %72, %65
-  %77 = phi i64 [ %64, %72 ], [ %67, %65 ]
-  %78 = phi ptr [ %26, %72 ], [ %66, %65 ]
-  store ptr %78, ptr %25, align 8, !tbaa !14
-  br label %79
+74:                                               ; preds = %67
+  %75 = getelementptr inbounds i8, ptr %68, i64 1
+  store ptr %75, ptr %25, align 8, !tbaa !14, !noalias !421
+  %76 = add nuw nsw i64 %69, 1
+  %77 = icmp eq ptr %75, %26
+  br i1 %77, label %78, label %67
 
-79:                                               ; preds = %59, %76
-  %80 = phi ptr [ %78, %76 ], [ %26, %59 ]
-  %81 = phi i64 [ %77, %76 ], [ 1, %59 ]
-  %82 = add nsw i64 %52, %81
-  %83 = icmp sgt i64 %82, -1
-  br i1 %83, label %84, label %167
-
-84:                                               ; preds = %79
-  %85 = icmp eq ptr %80, %26
-  br i1 %85, label %141, label %86
-
-86:                                               ; preds = %84
-  %87 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.325", ptr %0, i64 0, i32 1
-  %88 = load i8, ptr %80, align 1, !tbaa !76, !noalias !427
-  %89 = load i8, ptr %87, align 1, !tbaa !147, !noalias !427
-  %90 = icmp eq i8 %89, %88
-  %91 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.325", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %92 = load i8, ptr %91, align 1
-  %93 = icmp eq i8 %92, %88
-  %94 = select i1 %90, i1 true, i1 %93
-  br i1 %94, label %95, label %141
-
-95:                                               ; preds = %86
-  %96 = getelementptr inbounds i8, ptr %80, i64 1
-  store ptr %96, ptr %25, align 8, !tbaa !14, !noalias !25
-  %97 = icmp eq ptr %96, %26
-  br i1 %97, label %141, label %98
-
-98:                                               ; preds = %95
-  %99 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.325", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %100 = load i8, ptr %96, align 1, !tbaa !76, !noalias !430
-  %101 = load i8, ptr %99, align 1, !tbaa !147, !noalias !430
-  %102 = icmp eq i8 %101, %100
-  %103 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.325", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %104 = load i8, ptr %103, align 1
-  %105 = icmp eq i8 %104, %100
-  %106 = select i1 %102, i1 true, i1 %105
-  %107 = zext i1 %106 to i64
-  %108 = getelementptr i8, ptr %96, i64 %107
-  %109 = select i1 %106, i64 2, i64 1
-  %110 = ptrtoint ptr %108 to i64
-  store ptr %108, ptr %25, align 8, !tbaa !14
-  %111 = icmp eq ptr %108, %26
-  br i1 %111, label %141, label %112
-
-112:                                              ; preds = %98
-  %113 = load i8, ptr %108, align 1, !tbaa !76, !noalias !433
-  %114 = zext i8 %113 to i32
-  %115 = add nsw i32 %114, -48
-  %116 = icmp ult i32 %115, 10
-  br i1 %116, label %117, label %141
-
-117:                                              ; preds = %112
-  %118 = getelementptr inbounds i8, ptr %108, i64 1
-  store ptr %118, ptr %25, align 8, !tbaa !14, !noalias !433
-  %119 = icmp eq ptr %118, %26
-  br i1 %119, label %136, label %120
-
-120:                                              ; preds = %117
-  %121 = sub i64 %27, %110
-  br label %122
-
-122:                                              ; preds = %120, %129
-  %123 = phi ptr [ %130, %129 ], [ %118, %120 ]
-  %124 = phi i64 [ %131, %129 ], [ 1, %120 ]
-  %125 = load i8, ptr %123, align 1, !tbaa !76, !noalias !436
-  %126 = zext i8 %125 to i32
-  %127 = add nsw i32 %126, -48
-  %128 = icmp ult i32 %127, 10
-  br i1 %128, label %129, label %133
-
-129:                                              ; preds = %122
-  %130 = getelementptr inbounds i8, ptr %123, i64 1
-  store ptr %130, ptr %25, align 8, !tbaa !14, !noalias !436
-  %131 = add nuw nsw i64 %124, 1
-  %132 = icmp eq ptr %130, %26
-  br i1 %132, label %133, label %122
-
-133:                                              ; preds = %129, %122
-  %134 = phi i64 [ %121, %129 ], [ %124, %122 ]
-  %135 = phi ptr [ %26, %129 ], [ %123, %122 ]
-  store ptr %135, ptr %25, align 8, !tbaa !14
-  br label %136
-
-136:                                              ; preds = %133, %117
-  %137 = phi ptr [ %135, %133 ], [ %26, %117 ]
-  %138 = phi i64 [ %134, %133 ], [ 1, %117 ]
-  %139 = add nsw i64 %138, %109
-  %140 = icmp sgt i64 %139, -1
-  br i1 %140, label %142, label %141
-
-141:                                              ; preds = %95, %136, %112, %98, %86, %84
+78:                                               ; preds = %67, %74
+  %79 = phi i64 [ %64, %74 ], [ %69, %67 ]
+  %80 = phi ptr [ %26, %74 ], [ %68, %67 ]
   store ptr %80, ptr %25, align 8, !tbaa !14
-  br label %142
+  %81 = add nsw i64 %52, %79
+  %82 = icmp sgt i64 %81, -1
+  br i1 %82, label %83, label %168
 
-142:                                              ; preds = %136, %141
-  %143 = phi ptr [ %80, %141 ], [ %137, %136 ]
-  %144 = phi i64 [ 0, %141 ], [ %139, %136 ]
-  %145 = add nsw i64 %144, %82
-  %146 = icmp sgt i64 %145, -1
-  br i1 %146, label %147, label %167
+83:                                               ; preds = %78
+  %84 = icmp eq ptr %80, %26
+  br i1 %84, label %140, label %85
 
-147:                                              ; preds = %142
-  %148 = icmp eq ptr %143, %26
+85:                                               ; preds = %83
+  %86 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.325", ptr %0, i64 0, i32 1
+  %87 = load i8, ptr %80, align 1, !tbaa !76, !noalias !424
+  %88 = load i8, ptr %86, align 1, !tbaa !147, !noalias !424
+  %89 = icmp eq i8 %88, %87
+  %90 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.325", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %91 = load i8, ptr %90, align 1
+  %92 = icmp eq i8 %91, %87
+  %93 = select i1 %89, i1 true, i1 %92
+  br i1 %93, label %94, label %140
+
+94:                                               ; preds = %85
+  %95 = getelementptr inbounds i8, ptr %80, i64 1
+  store ptr %95, ptr %25, align 8, !tbaa !14, !noalias !25
+  %96 = icmp eq ptr %95, %26
+  br i1 %96, label %140, label %97
+
+97:                                               ; preds = %94
+  %98 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.325", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %99 = load i8, ptr %95, align 1, !tbaa !76, !noalias !427
+  %100 = load i8, ptr %98, align 1, !tbaa !147, !noalias !427
+  %101 = icmp eq i8 %100, %99
+  %102 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.325", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %103 = load i8, ptr %102, align 1
+  %104 = icmp eq i8 %103, %99
+  %105 = select i1 %101, i1 true, i1 %104
+  %106 = zext i1 %105 to i64
+  %107 = getelementptr i8, ptr %95, i64 %106
+  %108 = select i1 %105, i64 2, i64 1
+  %109 = ptrtoint ptr %107 to i64
+  store ptr %107, ptr %25, align 8, !tbaa !14
+  %110 = icmp eq ptr %107, %26
+  br i1 %110, label %140, label %111
+
+111:                                              ; preds = %97
+  %112 = load i8, ptr %107, align 1, !tbaa !76, !noalias !430
+  %113 = zext i8 %112 to i32
+  %114 = add nsw i32 %113, -48
+  %115 = icmp ult i32 %114, 10
+  br i1 %115, label %116, label %140
+
+116:                                              ; preds = %111
+  %117 = getelementptr inbounds i8, ptr %107, i64 1
+  store ptr %117, ptr %25, align 8, !tbaa !14, !noalias !430
+  %118 = icmp eq ptr %117, %26
+  br i1 %118, label %121, label %119
+
+119:                                              ; preds = %116
+  %120 = sub i64 %27, %109
+  br label %124
+
+121:                                              ; preds = %116
+  %122 = add nuw nsw i64 %108, 1
+  %123 = add nuw nsw i64 %122, %81
+  br label %163
+
+124:                                              ; preds = %119, %131
+  %125 = phi ptr [ %132, %131 ], [ %117, %119 ]
+  %126 = phi i64 [ %133, %131 ], [ 1, %119 ]
+  %127 = load i8, ptr %125, align 1, !tbaa !76, !noalias !433
+  %128 = zext i8 %127 to i32
+  %129 = add nsw i32 %128, -48
+  %130 = icmp ult i32 %129, 10
+  br i1 %130, label %131, label %135
+
+131:                                              ; preds = %124
+  %132 = getelementptr inbounds i8, ptr %125, i64 1
+  store ptr %132, ptr %25, align 8, !tbaa !14, !noalias !433
+  %133 = add nuw nsw i64 %126, 1
+  %134 = icmp eq ptr %132, %26
+  br i1 %134, label %135, label %124
+
+135:                                              ; preds = %131, %124
+  %136 = phi i64 [ %120, %131 ], [ %126, %124 ]
+  %137 = phi ptr [ %26, %131 ], [ %125, %124 ]
+  %138 = add nsw i64 %136, %108
+  %139 = icmp sgt i64 %138, -1
+  br i1 %139, label %143, label %140
+
+140:                                              ; preds = %94, %65, %135, %111, %97, %85, %83
+  %141 = phi i64 [ %66, %65 ], [ %81, %135 ], [ %81, %111 ], [ %81, %97 ], [ %81, %85 ], [ %81, %83 ], [ %81, %94 ]
+  %142 = phi ptr [ %26, %65 ], [ %80, %135 ], [ %80, %111 ], [ %80, %97 ], [ %80, %85 ], [ %80, %83 ], [ %80, %94 ]
+  br label %143
+
+143:                                              ; preds = %140, %135
+  %144 = phi i64 [ %141, %140 ], [ %81, %135 ]
+  %145 = phi ptr [ %142, %140 ], [ %137, %135 ]
+  %146 = phi i64 [ 0, %140 ], [ %138, %135 ]
+  store ptr %145, ptr %25, align 8, !tbaa !14
+  %147 = add nsw i64 %146, %144
+  %148 = icmp eq ptr %145, %26
   br i1 %148, label %163, label %149
 
-149:                                              ; preds = %147
+149:                                              ; preds = %143
   %150 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.320", ptr %0, i64 0, i32 1
-  %151 = load i8, ptr %143, align 1, !tbaa !76, !noalias !439
+  %151 = load i8, ptr %145, align 1, !tbaa !76, !noalias !436
   %152 = zext i8 %151 to i32
-  %153 = call i32 @tolower(i32 noundef %152) #27, !noalias !439
+  %153 = call i32 @tolower(i32 noundef %152) #27, !noalias !436
   %154 = trunc i32 %153 to i8
-  %155 = load i8, ptr %150, align 1, !tbaa !147, !noalias !439
+  %155 = load i8, ptr %150, align 1, !tbaa !147, !noalias !436
   %156 = icmp eq i8 %155, %154
   %157 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.320", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %158 = load i8, ptr %157, align 1
   %159 = icmp eq i8 %158, %154
   %160 = select i1 %156, i1 true, i1 %159
   %161 = zext i1 %160 to i64
-  %162 = getelementptr i8, ptr %143, i64 %161
+  %162 = getelementptr i8, ptr %145, i64 %161
   br label %163
 
-163:                                              ; preds = %149, %147
-  %164 = phi ptr [ %26, %147 ], [ %162, %149 ]
-  %165 = phi i64 [ 0, %147 ], [ %161, %149 ]
-  store ptr %164, ptr %25, align 8, !tbaa !14
-  %166 = add nuw nsw i64 %165, %145
-  br label %167
+163:                                              ; preds = %121, %149, %143
+  %164 = phi i64 [ %147, %143 ], [ %147, %149 ], [ %123, %121 ]
+  %165 = phi ptr [ %26, %143 ], [ %162, %149 ], [ %26, %121 ]
+  %166 = phi i64 [ 0, %143 ], [ %161, %149 ], [ 0, %121 ]
+  store ptr %165, ptr %25, align 8, !tbaa !14
+  %167 = add nuw nsw i64 %164, %166
+  br label %168
 
-167:                                              ; preds = %41, %23, %54, %45, %42, %50, %79, %142, %163
-  %168 = phi i64 [ %166, %163 ], [ -1, %142 ], [ -1, %79 ], [ -1, %50 ], [ -1, %42 ], [ -1, %45 ], [ -1, %54 ], [ -1, %23 ], [ -1, %41 ]
-  ret i64 %168
+168:                                              ; preds = %41, %50, %45, %42, %54, %78, %163
+  %169 = phi i64 [ %167, %163 ], [ -1, %78 ], [ -1, %54 ], [ -1, %42 ], [ -1, %45 ], [ -1, %50 ], [ -1, %41 ]
+  ret i64 %169
 }
 
 ; Function Attrs: nounwind uwtable
@@ -17296,30 +17229,30 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
   %24 = load ptr, ptr %6, align 8, !tbaa !98
   store ptr %13, ptr %24, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #24
-  %25 = load ptr, ptr %6, align 8, !tbaa !98, !noalias !442
-  %26 = load ptr, ptr %7, align 8, !tbaa !85, !noalias !442
+  %25 = load ptr, ptr %6, align 8, !tbaa !98, !noalias !439
+  %26 = load ptr, ptr %7, align 8, !tbaa !85, !noalias !439
   %27 = ptrtoint ptr %26 to i64
-  %28 = load ptr, ptr %25, align 8, !tbaa !14, !noalias !445
+  %28 = load ptr, ptr %25, align 8, !tbaa !14, !noalias !442
   %29 = icmp eq ptr %28, %26
-  br i1 %29, label %167, label %30
+  br i1 %29, label %162, label %30
 
 30:                                               ; preds = %23
-  %31 = load i8, ptr %28, align 1, !tbaa !76, !noalias !445
+  %31 = load i8, ptr %28, align 1, !tbaa !76, !noalias !442
   %32 = zext i8 %31 to i32
   %33 = add nsw i32 %32, -48
   %34 = icmp ult i32 %33, 10
-  br i1 %34, label %35, label %167
+  br i1 %34, label %35, label %162
 
 35:                                               ; preds = %30
   %36 = getelementptr inbounds i8, ptr %28, i64 1
-  store ptr %36, ptr %25, align 8, !tbaa !14, !noalias !445
+  store ptr %36, ptr %25, align 8, !tbaa !14, !noalias !442
   %37 = icmp eq ptr %36, %26
-  br i1 %37, label %167, label %38
+  br i1 %37, label %162, label %38
 
 38:                                               ; preds = %35, %45
   %39 = phi ptr [ %46, %45 ], [ %36, %35 ]
   %40 = phi i64 [ %47, %45 ], [ 1, %35 ]
-  %41 = load i8, ptr %39, align 1, !tbaa !76, !noalias !448
+  %41 = load i8, ptr %39, align 1, !tbaa !76, !noalias !445
   %42 = zext i8 %41 to i32
   %43 = add nsw i32 %42, -48
   %44 = icmp ult i32 %43, 10
@@ -17327,34 +17260,34 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
 
 45:                                               ; preds = %38
   %46 = getelementptr inbounds i8, ptr %39, i64 1
-  store ptr %46, ptr %25, align 8, !tbaa !14, !noalias !448
+  store ptr %46, ptr %25, align 8, !tbaa !14, !noalias !445
   %47 = add nuw nsw i64 %40, 1
   %48 = icmp eq ptr %46, %26
   br i1 %48, label %49, label %38
 
 49:                                               ; preds = %45
   store ptr %26, ptr %25, align 8, !tbaa !14
-  br label %167
+  br label %162
 
 50:                                               ; preds = %38
   %51 = ptrtoint ptr %39 to i64
   store ptr %39, ptr %25, align 8, !tbaa !14
   %52 = icmp eq ptr %39, %26
-  br i1 %52, label %167, label %53
+  br i1 %52, label %162, label %53
 
 53:                                               ; preds = %50
   %54 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.374", ptr %0, i64 0, i32 1
-  %55 = load i8, ptr %39, align 1, !tbaa !76, !noalias !451
-  %56 = load i8, ptr %54, align 1, !tbaa !147, !noalias !451
+  %55 = load i8, ptr %39, align 1, !tbaa !76, !noalias !448
+  %56 = load i8, ptr %54, align 1, !tbaa !147, !noalias !448
   %57 = icmp eq i8 %56, %55
-  br i1 %57, label %58, label %167
+  br i1 %57, label %58, label %162
 
 58:                                               ; preds = %53
   %59 = getelementptr inbounds i8, ptr %39, i64 1
-  store ptr %59, ptr %25, align 8, !tbaa !14, !noalias !451
+  store ptr %59, ptr %25, align 8, !tbaa !14, !noalias !448
   %60 = add nuw nsw i64 %40, 1
   %61 = icmp eq ptr %59, %26
-  br i1 %61, label %79, label %62
+  br i1 %61, label %76, label %62
 
 62:                                               ; preds = %58
   %63 = xor i64 %51, -1
@@ -17364,7 +17297,7 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
 65:                                               ; preds = %62, %72
   %66 = phi ptr [ %73, %72 ], [ %59, %62 ]
   %67 = phi i64 [ %74, %72 ], [ 0, %62 ]
-  %68 = load i8, ptr %66, align 1, !tbaa !76, !noalias !454
+  %68 = load i8, ptr %66, align 1, !tbaa !76, !noalias !451
   %69 = zext i8 %68 to i32
   %70 = add nsw i32 %69, -48
   %71 = icmp ult i32 %70, 10
@@ -17372,149 +17305,139 @@ define linkonce_odr dso_local i64 @_ZN5boost6spirit4impl23contiguous_parser_pars
 
 72:                                               ; preds = %65
   %73 = getelementptr inbounds i8, ptr %66, i64 1
-  store ptr %73, ptr %25, align 8, !tbaa !14, !noalias !454
+  store ptr %73, ptr %25, align 8, !tbaa !14, !noalias !451
   %74 = add nuw nsw i64 %67, 1
   %75 = icmp eq ptr %73, %26
   br i1 %75, label %76, label %65
 
-76:                                               ; preds = %72, %65
-  %77 = phi i64 [ %64, %72 ], [ %67, %65 ]
-  %78 = phi ptr [ %26, %72 ], [ %66, %65 ]
+76:                                               ; preds = %65, %72, %58
+  %77 = phi i64 [ 0, %58 ], [ %64, %72 ], [ %67, %65 ]
+  %78 = phi ptr [ %26, %58 ], [ %26, %72 ], [ %66, %65 ]
   store ptr %78, ptr %25, align 8, !tbaa !14
-  br label %79
+  %79 = add nsw i64 %60, %77
+  %80 = icmp sgt i64 %79, -1
+  br i1 %80, label %81, label %162
 
-79:                                               ; preds = %58, %76
-  %80 = phi ptr [ %78, %76 ], [ %26, %58 ]
-  %81 = phi i64 [ %77, %76 ], [ 0, %58 ]
-  %82 = add nsw i64 %60, %81
-  %83 = icmp sgt i64 %82, -1
-  br i1 %83, label %84, label %167
+81:                                               ; preds = %76
+  %82 = icmp eq ptr %78, %26
+  br i1 %82, label %137, label %83
 
-84:                                               ; preds = %79
-  %85 = icmp eq ptr %80, %26
-  br i1 %85, label %141, label %86
+83:                                               ; preds = %81
+  %84 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.364", ptr %0, i64 0, i32 1
+  %85 = load i8, ptr %78, align 1, !tbaa !76, !noalias !454
+  %86 = load i8, ptr %84, align 1, !tbaa !147, !noalias !454
+  %87 = icmp eq i8 %86, %85
+  %88 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.364", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %89 = load i8, ptr %88, align 1
+  %90 = icmp eq i8 %89, %85
+  %91 = select i1 %87, i1 true, i1 %90
+  br i1 %91, label %92, label %137
 
-86:                                               ; preds = %84
-  %87 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.364", ptr %0, i64 0, i32 1
-  %88 = load i8, ptr %80, align 1, !tbaa !76, !noalias !457
-  %89 = load i8, ptr %87, align 1, !tbaa !147, !noalias !457
-  %90 = icmp eq i8 %89, %88
-  %91 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.364", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %92 = load i8, ptr %91, align 1
-  %93 = icmp eq i8 %92, %88
-  %94 = select i1 %90, i1 true, i1 %93
-  br i1 %94, label %95, label %141
+92:                                               ; preds = %83
+  %93 = getelementptr inbounds i8, ptr %78, i64 1
+  store ptr %93, ptr %25, align 8, !tbaa !14, !noalias !25
+  %94 = icmp eq ptr %93, %26
+  br i1 %94, label %137, label %95
 
-95:                                               ; preds = %86
-  %96 = getelementptr inbounds i8, ptr %80, i64 1
-  store ptr %96, ptr %25, align 8, !tbaa !14, !noalias !25
-  %97 = icmp eq ptr %96, %26
-  br i1 %97, label %141, label %98
+95:                                               ; preds = %92
+  %96 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.364", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %97 = load i8, ptr %93, align 1, !tbaa !76, !noalias !457
+  %98 = load i8, ptr %96, align 1, !tbaa !147, !noalias !457
+  %99 = icmp eq i8 %98, %97
+  %100 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.364", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %101 = load i8, ptr %100, align 1
+  %102 = icmp eq i8 %101, %97
+  %103 = select i1 %99, i1 true, i1 %102
+  %104 = zext i1 %103 to i64
+  %105 = getelementptr i8, ptr %93, i64 %104
+  %106 = select i1 %103, i64 2, i64 1
+  %107 = ptrtoint ptr %105 to i64
+  store ptr %105, ptr %25, align 8, !tbaa !14
+  %108 = icmp eq ptr %105, %26
+  br i1 %108, label %137, label %109
 
-98:                                               ; preds = %95
-  %99 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.364", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %100 = load i8, ptr %96, align 1, !tbaa !76, !noalias !460
-  %101 = load i8, ptr %99, align 1, !tbaa !147, !noalias !460
-  %102 = icmp eq i8 %101, %100
-  %103 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.364", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %104 = load i8, ptr %103, align 1
-  %105 = icmp eq i8 %104, %100
-  %106 = select i1 %102, i1 true, i1 %105
-  %107 = zext i1 %106 to i64
-  %108 = getelementptr i8, ptr %96, i64 %107
-  %109 = select i1 %106, i64 2, i64 1
-  %110 = ptrtoint ptr %108 to i64
-  store ptr %108, ptr %25, align 8, !tbaa !14
-  %111 = icmp eq ptr %108, %26
-  br i1 %111, label %141, label %112
+109:                                              ; preds = %95
+  %110 = load i8, ptr %105, align 1, !tbaa !76, !noalias !460
+  %111 = zext i8 %110 to i32
+  %112 = add nsw i32 %111, -48
+  %113 = icmp ult i32 %112, 10
+  br i1 %113, label %114, label %137
 
-112:                                              ; preds = %98
-  %113 = load i8, ptr %108, align 1, !tbaa !76, !noalias !463
-  %114 = zext i8 %113 to i32
-  %115 = add nsw i32 %114, -48
-  %116 = icmp ult i32 %115, 10
-  br i1 %116, label %117, label %141
+114:                                              ; preds = %109
+  %115 = getelementptr inbounds i8, ptr %105, i64 1
+  store ptr %115, ptr %25, align 8, !tbaa !14, !noalias !460
+  %116 = icmp eq ptr %115, %26
+  br i1 %116, label %119, label %117
 
-117:                                              ; preds = %112
-  %118 = getelementptr inbounds i8, ptr %108, i64 1
-  store ptr %118, ptr %25, align 8, !tbaa !14, !noalias !463
-  %119 = icmp eq ptr %118, %26
-  br i1 %119, label %136, label %120
+117:                                              ; preds = %114
+  %118 = sub i64 %27, %107
+  br label %121
 
-120:                                              ; preds = %117
-  %121 = sub i64 %27, %110
-  br label %122
+119:                                              ; preds = %114
+  %120 = add nuw nsw i64 %106, 1
+  br label %156
 
-122:                                              ; preds = %120, %129
-  %123 = phi ptr [ %130, %129 ], [ %118, %120 ]
-  %124 = phi i64 [ %131, %129 ], [ 1, %120 ]
-  %125 = load i8, ptr %123, align 1, !tbaa !76, !noalias !466
-  %126 = zext i8 %125 to i32
-  %127 = add nsw i32 %126, -48
-  %128 = icmp ult i32 %127, 10
-  br i1 %128, label %129, label %133
+121:                                              ; preds = %117, %128
+  %122 = phi ptr [ %129, %128 ], [ %115, %117 ]
+  %123 = phi i64 [ %130, %128 ], [ 1, %117 ]
+  %124 = load i8, ptr %122, align 1, !tbaa !76, !noalias !463
+  %125 = zext i8 %124 to i32
+  %126 = add nsw i32 %125, -48
+  %127 = icmp ult i32 %126, 10
+  br i1 %127, label %128, label %132
 
-129:                                              ; preds = %122
-  %130 = getelementptr inbounds i8, ptr %123, i64 1
-  store ptr %130, ptr %25, align 8, !tbaa !14, !noalias !466
-  %131 = add nuw nsw i64 %124, 1
-  %132 = icmp eq ptr %130, %26
-  br i1 %132, label %133, label %122
+128:                                              ; preds = %121
+  %129 = getelementptr inbounds i8, ptr %122, i64 1
+  store ptr %129, ptr %25, align 8, !tbaa !14, !noalias !463
+  %130 = add nuw nsw i64 %123, 1
+  %131 = icmp eq ptr %129, %26
+  br i1 %131, label %132, label %121
 
-133:                                              ; preds = %129, %122
-  %134 = phi i64 [ %121, %129 ], [ %124, %122 ]
-  %135 = phi ptr [ %26, %129 ], [ %123, %122 ]
-  store ptr %135, ptr %25, align 8, !tbaa !14
-  br label %136
+132:                                              ; preds = %128, %121
+  %133 = phi i64 [ %118, %128 ], [ %123, %121 ]
+  %134 = phi ptr [ %26, %128 ], [ %122, %121 ]
+  %135 = add nsw i64 %133, %106
+  %136 = icmp sgt i64 %135, -1
+  br i1 %136, label %138, label %137
 
-136:                                              ; preds = %133, %117
-  %137 = phi ptr [ %135, %133 ], [ %26, %117 ]
-  %138 = phi i64 [ %134, %133 ], [ 1, %117 ]
-  %139 = add nsw i64 %138, %109
-  %140 = icmp sgt i64 %139, -1
-  br i1 %140, label %142, label %141
+137:                                              ; preds = %92, %132, %109, %95, %83, %81
+  br label %138
 
-141:                                              ; preds = %95, %136, %112, %98, %86, %84
-  store ptr %80, ptr %25, align 8, !tbaa !14
-  br label %142
+138:                                              ; preds = %137, %132
+  %139 = phi ptr [ %78, %137 ], [ %134, %132 ]
+  %140 = phi i64 [ 0, %137 ], [ %135, %132 ]
+  store ptr %139, ptr %25, align 8, !tbaa !14
+  %141 = icmp eq ptr %139, %26
+  br i1 %141, label %156, label %142
 
-142:                                              ; preds = %136, %141
-  %143 = phi ptr [ %80, %141 ], [ %137, %136 ]
-  %144 = phi i64 [ 0, %141 ], [ %139, %136 ]
-  %145 = add nsw i64 %144, %82
-  %146 = icmp sgt i64 %145, -1
-  br i1 %146, label %147, label %167
+142:                                              ; preds = %138
+  %143 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.359", ptr %0, i64 0, i32 1
+  %144 = load i8, ptr %139, align 1, !tbaa !76, !noalias !466
+  %145 = zext i8 %144 to i32
+  %146 = call i32 @tolower(i32 noundef %145) #27, !noalias !466
+  %147 = trunc i32 %146 to i8
+  %148 = load i8, ptr %143, align 1, !tbaa !147, !noalias !466
+  %149 = icmp eq i8 %148, %147
+  %150 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.359", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %151 = load i8, ptr %150, align 1
+  %152 = icmp eq i8 %151, %147
+  %153 = select i1 %149, i1 true, i1 %152
+  %154 = zext i1 %153 to i64
+  %155 = getelementptr i8, ptr %139, i64 %154
+  br label %156
 
-147:                                              ; preds = %142
-  %148 = icmp eq ptr %143, %26
-  br i1 %148, label %163, label %149
+156:                                              ; preds = %119, %142, %138
+  %157 = phi i64 [ %140, %138 ], [ %140, %142 ], [ %120, %119 ]
+  %158 = phi ptr [ %26, %138 ], [ %155, %142 ], [ %26, %119 ]
+  %159 = phi i64 [ 0, %138 ], [ %154, %142 ], [ 0, %119 ]
+  %160 = add nsw i64 %157, %79
+  store ptr %158, ptr %25, align 8, !tbaa !14
+  %161 = add nuw nsw i64 %160, %159
+  br label %162
 
-149:                                              ; preds = %147
-  %150 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.359", ptr %0, i64 0, i32 1
-  %151 = load i8, ptr %143, align 1, !tbaa !76, !noalias !469
-  %152 = zext i8 %151 to i32
-  %153 = call i32 @tolower(i32 noundef %152) #27, !noalias !469
-  %154 = trunc i32 %153 to i8
-  %155 = load i8, ptr %150, align 1, !tbaa !147, !noalias !469
-  %156 = icmp eq i8 %155, %154
-  %157 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.359", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %158 = load i8, ptr %157, align 1
-  %159 = icmp eq i8 %158, %154
-  %160 = select i1 %156, i1 true, i1 %159
-  %161 = zext i1 %160 to i64
-  %162 = getelementptr i8, ptr %143, i64 %161
-  br label %163
-
-163:                                              ; preds = %149, %147
-  %164 = phi ptr [ %26, %147 ], [ %162, %149 ]
-  %165 = phi i64 [ 0, %147 ], [ %161, %149 ]
-  store ptr %164, ptr %25, align 8, !tbaa !14
-  %166 = add nuw nsw i64 %165, %145
-  br label %167
-
-167:                                              ; preds = %49, %35, %53, %50, %30, %23, %79, %142, %163
-  %168 = phi i64 [ %166, %163 ], [ -1, %142 ], [ -1, %79 ], [ -1, %23 ], [ -1, %30 ], [ -1, %50 ], [ -1, %53 ], [ -1, %35 ], [ -1, %49 ]
-  ret i64 %168
+162:                                              ; preds = %49, %35, %53, %23, %30, %50, %76, %156
+  %163 = phi i64 [ %161, %156 ], [ -1, %76 ], [ -1, %50 ], [ -1, %30 ], [ -1, %23 ], [ -1, %53 ], [ -1, %35 ], [ -1, %49 ]
+  ret i64 %163
 }
 
 ; Function Attrs: nounwind uwtable
@@ -17529,7 +17452,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !372
+  %7 = load ptr, ptr %3, align 8, !tbaa !369
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %18, label %10
@@ -17550,7 +17473,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %19 = phi ptr [ %17, %16 ], [ %5, %2 ]
   store ptr %6, ptr %19, align 8, !tbaa !14
   %20 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1082", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %21 = load ptr, ptr %20, align 8, !tbaa !374
+  %21 = load ptr, ptr %20, align 8, !tbaa !371
   %22 = load ptr, ptr %21, align 8, !tbaa !95
   %23 = icmp eq ptr %22, null
   br i1 %23, label %30, label %24
@@ -17567,7 +17490,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %31 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %6, ptr %31, align 8, !tbaa !14
   %32 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1082", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !375
+  %33 = load ptr, ptr %32, align 8, !tbaa !372
   %34 = load ptr, ptr %33, align 8, !tbaa !95
   %35 = icmp eq ptr %34, null
   br i1 %35, label %41, label %36
@@ -17580,7 +17503,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   br label %41
 
 41:                                               ; preds = %10, %24, %30, %36
-  %42 = phi i64 [ %28, %24 ], [ %40, %36 ], [ -1, %30 ], [ %14, %10 ]
+  %42 = phi i64 [ %40, %36 ], [ -1, %30 ], [ %28, %24 ], [ %14, %10 ]
   ret i64 %42
 }
 
@@ -17606,7 +17529,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !372
+  %7 = load ptr, ptr %3, align 8, !tbaa !369
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %17, label %10
@@ -17626,7 +17549,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %20 = phi i64 [ %14, %10 ], [ -1, %2 ]
   store ptr %6, ptr %19, align 8, !tbaa !14
   %21 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1083", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %22 = load ptr, ptr %21, align 8, !tbaa !374
+  %22 = load ptr, ptr %21, align 8, !tbaa !371
   %23 = load ptr, ptr %22, align 8, !tbaa !95
   %24 = icmp eq ptr %23, null
   br i1 %24, label %30, label %25
@@ -17640,10 +17563,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
 
 30:                                               ; preds = %25, %17
   %31 = phi i64 [ %29, %25 ], [ -1, %17 ]
-  %32 = icmp slt i64 %20, 0
-  %33 = icmp slt i64 %31, 0
-  %34 = select i1 %32, i1 %33, i1 false
-  br i1 %34, label %39, label %35
+  %32 = icmp sgt i64 %20, -1
+  %33 = icmp sgt i64 %31, -1
+  %34 = select i1 %32, i1 true, i1 %33
+  br i1 %34, label %35, label %39
 
 35:                                               ; preds = %30
   %36 = icmp sgt i64 %20, %31
@@ -17699,7 +17622,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %0, align 8, !tbaa !372
+  %8 = load ptr, ptr %0, align 8, !tbaa !369
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
   br i1 %10, label %19, label %11
@@ -17710,7 +17633,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %14 = load ptr, ptr %13, align 8
   %15 = tail call i64 %14(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %16 = icmp sgt i64 %15, -1
-  br i1 %16, label %68, label %17
+  br i1 %16, label %66, label %17
 
 17:                                               ; preds = %11
   %18 = load ptr, ptr %5, align 8, !tbaa !98
@@ -17720,7 +17643,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %20 = phi ptr [ %18, %17 ], [ %6, %2 ]
   store ptr %7, ptr %20, align 8, !tbaa !14
   %21 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.286", ptr %0, i64 0, i32 1
-  %22 = load ptr, ptr %21, align 8, !tbaa !374
+  %22 = load ptr, ptr %21, align 8, !tbaa !371
   %23 = load ptr, ptr %22, align 8, !tbaa !95
   %24 = icmp eq ptr %23, null
   br i1 %24, label %31, label %25
@@ -17731,13 +17654,13 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %28 = load ptr, ptr %27, align 8
   %29 = tail call i64 %28(ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %30 = icmp sgt i64 %29, -1
-  br i1 %30, label %68, label %31
+  br i1 %30, label %66, label %31
 
 31:                                               ; preds = %25, %19
   %32 = load ptr, ptr %5, align 8, !tbaa !98
   store ptr %7, ptr %32, align 8, !tbaa !14
   %33 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.281", ptr %0, i64 0, i32 1
-  %34 = load ptr, ptr %33, align 8, !tbaa !375
+  %34 = load ptr, ptr %33, align 8, !tbaa !372
   %35 = load ptr, ptr %34, align 8, !tbaa !95
   %36 = icmp eq ptr %35, null
   br i1 %36, label %43, label %37
@@ -17748,7 +17671,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %40 = load ptr, ptr %39, align 8
   %41 = tail call i64 %40(ptr noundef nonnull align 8 dereferenceable(8) %35, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %42 = icmp sgt i64 %41, -1
-  br i1 %42, label %68, label %43
+  br i1 %42, label %66, label %43
 
 43:                                               ; preds = %31, %37
   %44 = load ptr, ptr %5, align 8, !tbaa !98
@@ -17759,40 +17682,40 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %46 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %47 = icmp sgt i64 %46, -1
-  br i1 %47, label %48, label %68
+  br i1 %47, label %48, label %65
 
 48:                                               ; preds = %43
   %49 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.382", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %50 = load ptr, ptr %49, align 8, !tbaa !472
+  %50 = load ptr, ptr %49, align 8, !tbaa !469
   %51 = load ptr, ptr %50, align 8, !tbaa !95
   %52 = icmp eq ptr %51, null
-  br i1 %52, label %68, label %53
+  br i1 %52, label %65, label %53
 
 53:                                               ; preds = %48
   %54 = load ptr, ptr %51, align 8, !tbaa !23
   %55 = getelementptr inbounds ptr, ptr %54, i64 2
   %56 = load ptr, ptr %55, align 8
   %57 = call i64 %56(ptr noundef nonnull align 8 dereferenceable(8) %51, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %58 = icmp sgt i64 %57, -1
-  %59 = add nsw i64 %57, %46
-  %60 = select i1 %58, i64 %59, i64 -1
-  %61 = icmp sgt i64 %60, -1
-  br i1 %61, label %62, label %68
+  %58 = icmp slt i64 %57, 0
+  br i1 %58, label %65, label %59
 
-62:                                               ; preds = %53
+59:                                               ; preds = %53
+  %60 = add nuw nsw i64 %57, %46
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
-  %63 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.382", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %63, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %64 = load i64, ptr %4, align 8, !tbaa !212
+  %61 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.382", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %61, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %62 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %65 = icmp sgt i64 %64, -1
-  %66 = add nsw i64 %64, %60
-  %67 = select i1 %65, i64 %66, i64 -1
-  br label %68
+  %63 = icmp slt i64 %62, 0
+  %64 = add nsw i64 %60, %62
+  br i1 %63, label %65, label %66
 
-68:                                               ; preds = %11, %25, %62, %53, %48, %43, %37
-  %69 = phi i64 [ %41, %37 ], [ -1, %53 ], [ -1, %43 ], [ -1, %48 ], [ %67, %62 ], [ %15, %11 ], [ %29, %25 ]
-  ret i64 %69
+65:                                               ; preds = %59, %53, %48, %43
+  br label %66
+
+66:                                               ; preds = %11, %25, %37, %65, %59
+  %67 = phi i64 [ %64, %59 ], [ -1, %65 ], [ %41, %37 ], [ %15, %11 ], [ %29, %25 ]
+  ret i64 %67
 }
 
 ; Function Attrs: nounwind uwtable
@@ -17804,10 +17727,10 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_8
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EESG_SH_E16do_parse_virtualERKSG_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 {
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1085", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !372
+  %4 = load ptr, ptr %3, align 8, !tbaa !369
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
-  br i1 %6, label %26, label %7
+  br i1 %6, label %25, label %7
 
 7:                                                ; preds = %2
   %8 = load ptr, ptr %5, align 8, !tbaa !23
@@ -17815,27 +17738,29 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %10 = load ptr, ptr %9, align 8
   %11 = tail call i64 %10(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %12 = icmp sgt i64 %11, -1
-  br i1 %12, label %13, label %26
+  br i1 %12, label %13, label %25
 
 13:                                               ; preds = %7
   %14 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1085", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !374
+  %15 = load ptr, ptr %14, align 8, !tbaa !371
   %16 = load ptr, ptr %15, align 8, !tbaa !95
   %17 = icmp eq ptr %16, null
-  br i1 %17, label %26, label %18
+  br i1 %17, label %25, label %18
 
 18:                                               ; preds = %13
   %19 = load ptr, ptr %16, align 8, !tbaa !23
   %20 = getelementptr inbounds ptr, ptr %19, i64 2
   %21 = load ptr, ptr %20, align 8
   %22 = tail call i64 %21(ptr noundef nonnull align 8 dereferenceable(8) %16, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %23 = icmp sgt i64 %22, -1
+  %23 = icmp slt i64 %22, 0
   %24 = add nsw i64 %22, %11
-  %25 = select i1 %23, i64 %24, i64 -1
+  br i1 %23, label %25, label %26
+
+25:                                               ; preds = %18, %13, %7, %2
   br label %26
 
-26:                                               ; preds = %2, %7, %13, %18
-  %27 = phi i64 [ -1, %7 ], [ -1, %2 ], [ -1, %13 ], [ %25, %18 ]
+26:                                               ; preds = %18, %25
+  %27 = phi i64 [ %24, %18 ], [ -1, %25 ]
   ret i64 %27
 }
 
@@ -17863,34 +17788,32 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %6 = load ptr, ptr %5, align 8, !tbaa !14
   %7 = tail call i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEENS2_ISL_SH_EEEENS2_INS0_6strlitIS6_EESH_EEEESU_EESU_E5parseISF_EENS0_13parser_resultISY_T_E4typeERKS11_(ptr noundef nonnull align 8 dereferenceable(120) %3, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %9, label %23
+  br i1 %8, label %9, label %21
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1086", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !474
+  %11 = load ptr, ptr %10, align 8, !tbaa !471
   %12 = load ptr, ptr %11, align 8, !tbaa !95
   %13 = icmp eq ptr %12, null
-  br i1 %13, label %23, label %14
+  br i1 %13, label %21, label %14
 
 14:                                               ; preds = %9
   %15 = load ptr, ptr %12, align 8, !tbaa !23
   %16 = getelementptr inbounds ptr, ptr %15, i64 2
   %17 = load ptr, ptr %16, align 8
   %18 = tail call i64 %17(ptr noundef nonnull align 8 dereferenceable(8) %12, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %19 = icmp sgt i64 %18, -1
+  %19 = icmp slt i64 %18, 0
   %20 = add nsw i64 %18, %7
-  %21 = icmp sgt i64 %20, -1
-  %22 = select i1 %19, i1 %21, i1 false
-  br i1 %22, label %25, label %23
+  br i1 %19, label %21, label %23
 
-23:                                               ; preds = %14, %9, %2
-  %24 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %24, align 8, !tbaa !14
-  br label %25
+21:                                               ; preds = %14, %9, %2
+  %22 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %22, align 8, !tbaa !14
+  br label %23
 
-25:                                               ; preds = %14, %23
-  %26 = phi i64 [ 0, %23 ], [ %20, %14 ]
-  ret i64 %26
+23:                                               ; preds = %14, %21
+  %24 = phi i64 [ 0, %21 ], [ %20, %14 ]
+  ret i64 %24
 }
 
 ; Function Attrs: uwtable
@@ -17947,8 +17870,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !520
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !520
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !517
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !517
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.412", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -17981,8 +17904,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -18006,35 +17929,37 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %13 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
   %14 = icmp sgt i64 %13, -1
-  br i1 %14, label %15, label %29
+  br i1 %14, label %15, label %27
 
 15:                                               ; preds = %10
   %16 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.427", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %17 = load ptr, ptr %16, align 8, !tbaa !472
+  %17 = load ptr, ptr %16, align 8, !tbaa !469
   %18 = load ptr, ptr %17, align 8, !tbaa !95
   %19 = icmp eq ptr %18, null
-  br i1 %19, label %29, label %20
+  br i1 %19, label %27, label %20
 
 20:                                               ; preds = %15
   %21 = load ptr, ptr %18, align 8, !tbaa !23
   %22 = getelementptr inbounds ptr, ptr %21, i64 2
   %23 = load ptr, ptr %22, align 8
   %24 = call i64 %23(ptr noundef nonnull align 8 dereferenceable(8) %18, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %25 = icmp sgt i64 %24, -1
+  %25 = icmp slt i64 %24, 0
   %26 = add nsw i64 %24, %13
-  %27 = icmp sgt i64 %26, -1
-  %28 = select i1 %25, i1 %27, i1 false
-  br i1 %28, label %79, label %29
+  br i1 %25, label %27, label %31
 
-29:                                               ; preds = %10, %15, %20
-  %30 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %30, align 8, !tbaa !14
-  %31 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.422", ptr %0, i64 0, i32 1
-  %32 = call i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEE5parseISG_EENS0_13parser_resultISJ_T_E4typeERKSM_(ptr noundef nonnull align 8 dereferenceable(24) %31, ptr noundef nonnull align 8 dereferenceable(24) %1)
+27:                                               ; preds = %20, %15, %10
+  %28 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %28, align 8, !tbaa !14
+  %29 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.422", ptr %0, i64 0, i32 1
+  %30 = call i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEE5parseISG_EENS0_13parser_resultISJ_T_E4typeERKSM_(ptr noundef nonnull align 8 dereferenceable(24) %29, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  br label %31
+
+31:                                               ; preds = %20, %27
+  %32 = phi i64 [ %30, %27 ], [ %26, %20 ]
   %33 = icmp sgt i64 %32, -1
   br i1 %33, label %79, label %34
 
-34:                                               ; preds = %29
+34:                                               ; preds = %31
   %35 = load ptr, ptr %5, align 8, !tbaa !98
   store ptr %7, ptr %35, align 8, !tbaa !14
   %36 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.417", ptr %0, i64 0, i32 1
@@ -18068,8 +17993,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %55 = load ptr, ptr %5, align 8, !tbaa !98
   store ptr %44, ptr %55, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %56 = load ptr, ptr %5, align 8, !tbaa !98, !noalias !523
-  %57 = load ptr, ptr %38, align 8, !tbaa !85, !noalias !523
+  %56 = load ptr, ptr %5, align 8, !tbaa !98, !noalias !520
+  %57 = load ptr, ptr %38, align 8, !tbaa !85, !noalias !520
   %58 = load ptr, ptr %36, align 8, !tbaa !144
   %59 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.417", ptr %0, i64 0, i32 1, i32 0, i32 1
   %60 = load ptr, ptr %59, align 8, !tbaa !146
@@ -18102,8 +18027,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %78 = icmp eq ptr %76, %60
   br i1 %78, label %79, label %67, !llvm.loop !220
 
-79:                                               ; preds = %75, %71, %67, %20, %2, %54, %29
-  %80 = phi i64 [ %32, %29 ], [ %63, %54 ], [ %26, %20 ], [ %8, %2 ], [ %63, %75 ], [ -1, %67 ], [ -1, %71 ]
+79:                                               ; preds = %75, %71, %67, %2, %31, %54
+  %80 = phi i64 [ %63, %54 ], [ %32, %31 ], [ %8, %2 ], [ %63, %75 ], [ -1, %67 ], [ -1, %71 ]
   ret i64 %80
 }
 
@@ -18141,8 +18066,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEEN
   %23 = load ptr, ptr %5, align 8, !tbaa !98
   store ptr %12, ptr %23, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %24 = load ptr, ptr %5, align 8, !tbaa !98, !noalias !526
-  %25 = load ptr, ptr %6, align 8, !tbaa !85, !noalias !526
+  %24 = load ptr, ptr %5, align 8, !tbaa !98, !noalias !523
+  %25 = load ptr, ptr %6, align 8, !tbaa !85, !noalias !523
   %26 = load ptr, ptr %0, align 8, !tbaa !144
   %27 = getelementptr inbounds %"class.boost::spirit::chseq", ptr %0, i64 0, i32 1
   %28 = load ptr, ptr %27, align 8, !tbaa !146
@@ -18160,13 +18085,13 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEEN
   %36 = phi ptr [ %45, %43 ], [ %34, %33 ]
   %37 = phi ptr [ %44, %43 ], [ %26, %33 ]
   %38 = icmp eq ptr %36, %25
-  br i1 %38, label %62, label %39
+  br i1 %38, label %61, label %39
 
 39:                                               ; preds = %35
   %40 = load i8, ptr %37, align 1, !tbaa !76
   %41 = load i8, ptr %36, align 1, !tbaa !76
   %42 = icmp eq i8 %40, %41
-  br i1 %42, label %43, label %62
+  br i1 %42, label %43, label %61
 
 43:                                               ; preds = %39
   %44 = getelementptr inbounds i8, ptr %37, i64 1
@@ -18177,27 +18102,29 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEEN
 
 47:                                               ; preds = %43, %22
   %48 = icmp sgt i64 %31, -1
-  br i1 %48, label %49, label %62
+  br i1 %48, label %49, label %61
 
 49:                                               ; preds = %47
   %50 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.457", ptr %0, i64 0, i32 1
-  %51 = load ptr, ptr %50, align 8, !tbaa !529
+  %51 = load ptr, ptr %50, align 8, !tbaa !526
   %52 = load ptr, ptr %51, align 8, !tbaa !95
   %53 = icmp eq ptr %52, null
-  br i1 %53, label %62, label %54
+  br i1 %53, label %61, label %54
 
 54:                                               ; preds = %49
   %55 = load ptr, ptr %52, align 8, !tbaa !23
   %56 = getelementptr inbounds ptr, ptr %55, i64 2
   %57 = load ptr, ptr %56, align 8
   %58 = call i64 %57(ptr noundef nonnull align 8 dereferenceable(8) %52, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %59 = icmp sgt i64 %58, -1
+  %59 = icmp slt i64 %58, 0
   %60 = add nsw i64 %58, %31
-  %61 = select i1 %59, i64 %60, i64 -1
+  br i1 %59, label %61, label %62
+
+61:                                               ; preds = %35, %39, %49, %54, %47
   br label %62
 
-62:                                               ; preds = %35, %39, %54, %49, %47
-  %63 = phi i64 [ -1, %47 ], [ -1, %49 ], [ %61, %54 ], [ -1, %39 ], [ -1, %35 ]
+62:                                               ; preds = %54, %61
+  %63 = phi i64 [ %60, %54 ], [ -1, %61 ]
   ret i64 %63
 }
 
@@ -18208,10 +18135,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %0, align 8, !tbaa !372
+  %8 = load ptr, ptr %0, align 8, !tbaa !369
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
-  br i1 %10, label %45, label %11
+  br i1 %10, label %41, label %11
 
 11:                                               ; preds = %2
   %12 = load ptr, ptr %9, align 8, !tbaa !23
@@ -18219,97 +18146,95 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %14 = load ptr, ptr %13, align 8
   %15 = tail call i64 %14(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %16 = icmp sgt i64 %15, -1
-  br i1 %16, label %17, label %45
+  br i1 %16, label %17, label %41
 
 17:                                               ; preds = %11
   %18 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.286", ptr %0, i64 0, i32 1
-  %19 = load ptr, ptr %18, align 8, !tbaa !374
+  %19 = load ptr, ptr %18, align 8, !tbaa !371
   %20 = load ptr, ptr %19, align 8, !tbaa !95
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %45, label %22
+  br i1 %21, label %41, label %22
 
 22:                                               ; preds = %17
   %23 = load ptr, ptr %20, align 8, !tbaa !23
   %24 = getelementptr inbounds ptr, ptr %23, i64 2
   %25 = load ptr, ptr %24, align 8
   %26 = tail call i64 %25(ptr noundef nonnull align 8 dereferenceable(8) %20, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %27 = icmp sgt i64 %26, -1
+  %27 = icmp slt i64 %26, 0
   %28 = add nsw i64 %26, %15
-  %29 = select i1 %27, i64 %28, i64 -1
-  %30 = icmp sgt i64 %29, -1
-  br i1 %30, label %31, label %45
+  br i1 %27, label %41, label %29
 
-31:                                               ; preds = %22
-  %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.437", ptr %0, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !530
-  %34 = load ptr, ptr %33, align 8, !tbaa !95
-  %35 = icmp eq ptr %34, null
-  br i1 %35, label %45, label %36
+29:                                               ; preds = %22
+  %30 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.437", ptr %0, i64 0, i32 1
+  %31 = load ptr, ptr %30, align 8, !tbaa !527
+  %32 = load ptr, ptr %31, align 8, !tbaa !95
+  %33 = icmp eq ptr %32, null
+  br i1 %33, label %41, label %34
 
-36:                                               ; preds = %31
-  %37 = load ptr, ptr %34, align 8, !tbaa !23
-  %38 = getelementptr inbounds ptr, ptr %37, i64 2
-  %39 = load ptr, ptr %38, align 8
-  %40 = tail call i64 %39(ptr noundef nonnull align 8 dereferenceable(8) %34, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %41 = icmp sgt i64 %40, -1
-  %42 = add nsw i64 %40, %29
-  %43 = icmp sgt i64 %42, -1
-  %44 = select i1 %41, i1 %43, i1 false
-  br i1 %44, label %75, label %45
+34:                                               ; preds = %29
+  %35 = load ptr, ptr %32, align 8, !tbaa !23
+  %36 = getelementptr inbounds ptr, ptr %35, i64 2
+  %37 = load ptr, ptr %36, align 8
+  %38 = tail call i64 %37(ptr noundef nonnull align 8 dereferenceable(8) %32, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %39 = icmp slt i64 %38, 0
+  %40 = add nsw i64 %28, %38
+  br i1 %39, label %41, label %71
 
-45:                                               ; preds = %31, %17, %2, %11, %22, %36
-  %46 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %46, align 8, !tbaa !14
-  %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.432", ptr %0, i64 0, i32 1
+41:                                               ; preds = %34, %29, %22, %17, %11, %2
+  %42 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %42, align 8, !tbaa !14
+  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.432", ptr %0, i64 0, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %47, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %48 = load i64, ptr %3, align 8, !tbaa !212
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %43, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %44 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %49 = icmp sgt i64 %48, -1
-  br i1 %49, label %50, label %75
+  %45 = icmp sgt i64 %44, -1
+  br i1 %45, label %46, label %70
 
-50:                                               ; preds = %45
-  %51 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.432", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %52 = load ptr, ptr %5, align 8, !tbaa !98
-  %53 = load ptr, ptr %52, align 8, !tbaa !14
-  %54 = load ptr, ptr %51, align 8, !tbaa !531
-  %55 = load ptr, ptr %54, align 8, !tbaa !95
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %65, label %57
+46:                                               ; preds = %41
+  %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.432", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %48 = load ptr, ptr %5, align 8, !tbaa !98
+  %49 = load ptr, ptr %48, align 8, !tbaa !14
+  %50 = load ptr, ptr %47, align 8, !tbaa !528
+  %51 = load ptr, ptr %50, align 8, !tbaa !95
+  %52 = icmp eq ptr %51, null
+  br i1 %52, label %61, label %53
 
-57:                                               ; preds = %50
-  %58 = load ptr, ptr %55, align 8, !tbaa !23
-  %59 = getelementptr inbounds ptr, ptr %58, i64 2
-  %60 = load ptr, ptr %59, align 8
-  %61 = call i64 %60(ptr noundef nonnull align 8 dereferenceable(8) %55, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %62 = icmp sgt i64 %61, -1
-  br i1 %62, label %67, label %63
+53:                                               ; preds = %46
+  %54 = load ptr, ptr %51, align 8, !tbaa !23
+  %55 = getelementptr inbounds ptr, ptr %54, i64 2
+  %56 = load ptr, ptr %55, align 8
+  %57 = call i64 %56(ptr noundef nonnull align 8 dereferenceable(8) %51, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %58 = icmp sgt i64 %57, -1
+  br i1 %58, label %63, label %59
 
-63:                                               ; preds = %57
-  %64 = load ptr, ptr %5, align 8, !tbaa !98
-  br label %65
+59:                                               ; preds = %53
+  %60 = load ptr, ptr %5, align 8, !tbaa !98
+  br label %61
 
-65:                                               ; preds = %63, %50
-  %66 = phi ptr [ %64, %63 ], [ %52, %50 ]
-  store ptr %53, ptr %66, align 8, !tbaa !14
-  br label %67
+61:                                               ; preds = %59, %46
+  %62 = phi ptr [ %60, %59 ], [ %48, %46 ]
+  store ptr %49, ptr %62, align 8, !tbaa !14
+  br label %63
 
-67:                                               ; preds = %65, %57
-  %68 = phi i64 [ 0, %65 ], [ %61, %57 ]
-  %69 = add nuw nsw i64 %68, %48
+63:                                               ; preds = %61, %53
+  %64 = phi i64 [ 0, %61 ], [ %57, %53 ]
+  %65 = add nuw nsw i64 %64, %44
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
-  %70 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.432", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %70, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %71 = load i64, ptr %4, align 8, !tbaa !212
+  %66 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.432", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %66, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %67 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %72 = icmp sgt i64 %71, -1
-  %73 = add nsw i64 %69, %71
-  %74 = select i1 %72, i64 %73, i64 -1
-  br label %75
+  %68 = icmp slt i64 %67, 0
+  %69 = add nsw i64 %65, %67
+  br i1 %68, label %70, label %71
 
-75:                                               ; preds = %67, %45, %36
-  %76 = phi i64 [ %42, %36 ], [ -1, %45 ], [ %74, %67 ]
-  ret i64 %76
+70:                                               ; preds = %63, %41
+  br label %71
+
+71:                                               ; preds = %34, %70, %63
+  %72 = phi i64 [ %69, %63 ], [ -1, %70 ], [ %40, %34 ]
+  ret i64 %72
 }
 
 ; Function Attrs: nounwind uwtable
@@ -18338,10 +18263,10 @@ define linkonce_odr dso_local noundef ptr @_ZNK5boost6spirit4impl15concrete_pars
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_11kleene_starINS1_INS0_5chlitIcEESG_EEEEE5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) local_unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = alloca %"class.boost::spirit::match.1052", align 8
-  %4 = load ptr, ptr %0, align 8, !tbaa !532
+  %4 = load ptr, ptr %0, align 8, !tbaa !529
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
-  br i1 %6, label %65, label %7
+  br i1 %6, label %61, label %7
 
 7:                                                ; preds = %2
   %8 = load ptr, ptr %5, align 8, !tbaa !23
@@ -18349,7 +18274,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_4ruleINS0_7sca
   %10 = load ptr, ptr %9, align 8
   %11 = tail call i64 %10(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %12 = icmp sgt i64 %11, -1
-  br i1 %12, label %13, label %65
+  br i1 %12, label %13, label %61
 
 13:                                               ; preds = %7
   %14 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.462", ptr %0, i64 0, i32 1
@@ -18362,76 +18287,76 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_4ruleINS0_7sca
   %19 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %20 = icmp sgt i64 %19, -1
-  br i1 %20, label %21, label %60
+  br i1 %20, label %21, label %33
 
 21:                                               ; preds = %13
-  %22 = load ptr, ptr %15, align 8, !tbaa !472
+  %22 = load ptr, ptr %15, align 8, !tbaa !469
   %23 = load ptr, ptr %22, align 8, !tbaa !95
   %24 = icmp eq ptr %23, null
-  br i1 %24, label %60, label %25
+  br i1 %24, label %31, label %25
 
 25:                                               ; preds = %21
   %26 = load ptr, ptr %23, align 8, !tbaa !23
   %27 = getelementptr inbounds ptr, ptr %26, i64 2
   %28 = load ptr, ptr %27, align 8
   %29 = call i64 %28(ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %30 = icmp sgt i64 %29, -1
-  %31 = add nsw i64 %29, %19
-  %32 = select i1 %30, i64 %31, i64 -1
-  %33 = icmp sgt i64 %32, -1
-  br i1 %33, label %34, label %55
+  %30 = icmp slt i64 %29, 0
+  br i1 %30, label %55, label %45
 
-34:                                               ; preds = %25, %46
-  %35 = phi i64 [ %53, %46 ], [ %32, %25 ]
-  %36 = phi i64 [ %37, %46 ], [ 0, %25 ]
-  %37 = add nsw i64 %35, %36
-  %38 = load ptr, ptr %16, align 8, !tbaa !98
-  %39 = load ptr, ptr %38, align 8, !tbaa !14
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %14, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %40 = load i64, ptr %3, align 8, !tbaa !212
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %41 = icmp sgt i64 %40, -1
-  br i1 %41, label %42, label %55
-
-42:                                               ; preds = %34
-  %43 = load ptr, ptr %15, align 8, !tbaa !472
-  %44 = load ptr, ptr %43, align 8, !tbaa !95
-  %45 = icmp eq ptr %44, null
-  br i1 %45, label %55, label %46
-
-46:                                               ; preds = %42
-  %47 = load ptr, ptr %44, align 8, !tbaa !23
-  %48 = getelementptr inbounds ptr, ptr %47, i64 2
-  %49 = load ptr, ptr %48, align 8
-  %50 = call i64 %49(ptr noundef nonnull align 8 dereferenceable(8) %44, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %51 = icmp sgt i64 %50, -1
-  %52 = add nsw i64 %50, %40
-  %53 = select i1 %51, i64 %52, i64 -1
-  %54 = icmp sgt i64 %53, -1
-  br i1 %54, label %34, label %55
-
-55:                                               ; preds = %34, %42, %46, %25
-  %56 = phi i64 [ 0, %25 ], [ %37, %46 ], [ %37, %42 ], [ %37, %34 ]
-  %57 = phi ptr [ %18, %25 ], [ %39, %46 ], [ %39, %42 ], [ %39, %34 ]
-  %58 = load ptr, ptr %16, align 8, !tbaa !98
-  store ptr %57, ptr %58, align 8, !tbaa !14
-  %59 = icmp sgt i64 %56, -1
-  br i1 %59, label %62, label %65
-
-60:                                               ; preds = %13, %21
-  %61 = load ptr, ptr %16, align 8, !tbaa !98
-  store ptr %18, ptr %61, align 8, !tbaa !14
+31:                                               ; preds = %21
+  %32 = load ptr, ptr %16, align 8, !tbaa !98
+  store ptr %18, ptr %32, align 8, !tbaa !14
   br label %62
 
-62:                                               ; preds = %60, %55
-  %63 = phi i64 [ %56, %55 ], [ 0, %60 ]
-  %64 = add nsw i64 %63, %11
-  br label %65
+33:                                               ; preds = %13
+  %34 = load ptr, ptr %16, align 8, !tbaa !98
+  store ptr %18, ptr %34, align 8, !tbaa !14
+  br label %62
 
-65:                                               ; preds = %55, %2, %7, %62
-  %66 = phi i64 [ %64, %62 ], [ -1, %7 ], [ -1, %2 ], [ -1, %55 ]
-  ret i64 %66
+35:                                               ; preds = %45
+  %36 = load ptr, ptr %15, align 8, !tbaa !469
+  %37 = load ptr, ptr %36, align 8, !tbaa !95
+  %38 = icmp eq ptr %37, null
+  br i1 %38, label %55, label %39
+
+39:                                               ; preds = %35
+  %40 = load ptr, ptr %37, align 8, !tbaa !23
+  %41 = getelementptr inbounds ptr, ptr %40, i64 2
+  %42 = load ptr, ptr %41, align 8
+  %43 = call i64 %42(ptr noundef nonnull align 8 dereferenceable(8) %37, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %44 = icmp slt i64 %43, 0
+  br i1 %44, label %55, label %45
+
+45:                                               ; preds = %25, %39
+  %46 = phi i64 [ %43, %39 ], [ %29, %25 ]
+  %47 = phi i64 [ %53, %39 ], [ %19, %25 ]
+  %48 = phi i64 [ %50, %39 ], [ 0, %25 ]
+  %49 = add i64 %48, %47
+  %50 = add i64 %49, %46
+  %51 = load ptr, ptr %16, align 8, !tbaa !98
+  %52 = load ptr, ptr %51, align 8, !tbaa !14
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %14, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %53 = load i64, ptr %3, align 8, !tbaa !212
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
+  %54 = icmp sgt i64 %53, -1
+  br i1 %54, label %35, label %55
+
+55:                                               ; preds = %35, %39, %45, %25
+  %56 = phi i64 [ 0, %25 ], [ %50, %45 ], [ %50, %39 ], [ %50, %35 ]
+  %57 = phi ptr [ %18, %25 ], [ %52, %45 ], [ %52, %39 ], [ %52, %35 ]
+  %58 = load ptr, ptr %16, align 8, !tbaa !98
+  store ptr %57, ptr %58, align 8, !tbaa !14
+  %59 = icmp slt i64 %56, 0
+  %60 = add nsw i64 %56, %11
+  br i1 %59, label %61, label %62
+
+61:                                               ; preds = %2, %55, %7
+  br label %62
+
+62:                                               ; preds = %31, %33, %55, %61
+  %63 = phi i64 [ %60, %55 ], [ -1, %61 ], [ %11, %33 ], [ %11, %31 ]
+  ret i64 %63
 }
 
 ; Function Attrs: nounwind uwtable
@@ -18477,7 +18402,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %3 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %4 = load ptr, ptr %3, align 8, !tbaa !98
   %5 = load ptr, ptr %4, align 8, !tbaa !14
-  %6 = load ptr, ptr %0, align 8, !tbaa !536
+  %6 = load ptr, ptr %0, align 8, !tbaa !533
   %7 = load ptr, ptr %6, align 8, !tbaa !95
   %8 = icmp eq ptr %7, null
   br i1 %8, label %17, label %9
@@ -18514,10 +18439,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %28 = load ptr, ptr %3, align 8, !tbaa !98
   store ptr %5, ptr %28, align 8, !tbaa !14
   %29 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.475", ptr %0, i64 0, i32 1
-  %30 = load ptr, ptr %29, align 8, !tbaa !372
+  %30 = load ptr, ptr %29, align 8, !tbaa !369
   %31 = load ptr, ptr %30, align 8, !tbaa !95
   %32 = icmp eq ptr %31, null
-  br i1 %32, label %52, label %33
+  br i1 %32, label %51, label %33
 
 33:                                               ; preds = %27
   %34 = load ptr, ptr %31, align 8, !tbaa !23
@@ -18525,27 +18450,29 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %36 = load ptr, ptr %35, align 8
   %37 = tail call i64 %36(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %38 = icmp sgt i64 %37, -1
-  br i1 %38, label %39, label %52
+  br i1 %38, label %39, label %51
 
 39:                                               ; preds = %33
   %40 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.475", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %41 = load ptr, ptr %40, align 8, !tbaa !374
+  %41 = load ptr, ptr %40, align 8, !tbaa !371
   %42 = load ptr, ptr %41, align 8, !tbaa !95
   %43 = icmp eq ptr %42, null
-  br i1 %43, label %52, label %44
+  br i1 %43, label %51, label %44
 
 44:                                               ; preds = %39
   %45 = load ptr, ptr %42, align 8, !tbaa !23
   %46 = getelementptr inbounds ptr, ptr %45, i64 2
   %47 = load ptr, ptr %46, align 8
   %48 = tail call i64 %47(ptr noundef nonnull align 8 dereferenceable(8) %42, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %49 = icmp sgt i64 %48, -1
+  %49 = icmp slt i64 %48, 0
   %50 = add nsw i64 %48, %37
-  %51 = select i1 %49, i64 %50, i64 -1
+  br i1 %49, label %51, label %52
+
+51:                                               ; preds = %44, %39, %33, %27
   br label %52
 
-52:                                               ; preds = %9, %17, %44, %39, %33, %27, %22
-  %53 = phi i64 [ %25, %22 ], [ -1, %33 ], [ -1, %27 ], [ -1, %39 ], [ %51, %44 ], [ %13, %9 ], [ %20, %17 ]
+52:                                               ; preds = %9, %17, %22, %51, %44
+  %53 = phi i64 [ %50, %44 ], [ -1, %51 ], [ %25, %22 ], [ %13, %9 ], [ %20, %17 ]
   ret i64 %53
 }
 
@@ -18553,10 +18480,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_11alternativeISG_NS1_INS1_INS0_5chlitIcEESG_EESJ_EEEEE5parseISE_EENS0_13parser_resultISN_T_E4typeERKSQ_(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) local_unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = alloca %"class.boost::spirit::match.1052", align 8
   %4 = alloca %"class.boost::spirit::match.1052", align 8
-  %5 = load ptr, ptr %0, align 8, !tbaa !538
+  %5 = load ptr, ptr %0, align 8, !tbaa !535
   %6 = load ptr, ptr %5, align 8, !tbaa !95
   %7 = icmp eq ptr %6, null
-  br i1 %7, label %60, label %8
+  br i1 %7, label %56, label %8
 
 8:                                                ; preds = %2
   %9 = load ptr, ptr %6, align 8, !tbaa !23
@@ -18564,17 +18491,17 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_4ruleINS0_7sca
   %11 = load ptr, ptr %10, align 8
   %12 = tail call i64 %11(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %13 = icmp sgt i64 %12, -1
-  br i1 %13, label %14, label %60
+  br i1 %13, label %14, label %56
 
 14:                                               ; preds = %8
   %15 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.490", ptr %0, i64 0, i32 1
   %16 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %17 = load ptr, ptr %16, align 8, !tbaa !98
   %18 = load ptr, ptr %17, align 8, !tbaa !14
-  %19 = load ptr, ptr %15, align 8, !tbaa !548
+  %19 = load ptr, ptr %15, align 8, !tbaa !545
   %20 = load ptr, ptr %19, align 8, !tbaa !95
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %30, label %22
+  br i1 %21, label %32, label %22
 
 22:                                               ; preds = %14
   %23 = load ptr, ptr %20, align 8, !tbaa !23
@@ -18582,62 +18509,58 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_4ruleINS0_7sca
   %25 = load ptr, ptr %24, align 8
   %26 = tail call i64 %25(ptr noundef nonnull align 8 dereferenceable(8) %20, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %27 = icmp sgt i64 %26, -1
-  br i1 %27, label %55, label %28
+  br i1 %27, label %28, label %30
 
 28:                                               ; preds = %22
-  %29 = load ptr, ptr %16, align 8, !tbaa !98
-  br label %30
+  %29 = add nuw nsw i64 %26, %12
+  br label %56
 
-30:                                               ; preds = %28, %14
-  %31 = phi ptr [ %29, %28 ], [ %17, %14 ]
-  store ptr %18, ptr %31, align 8, !tbaa !14
-  %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.490", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+30:                                               ; preds = %22
+  %31 = load ptr, ptr %16, align 8, !tbaa !98
+  br label %32
+
+32:                                               ; preds = %30, %14
+  %33 = phi ptr [ %31, %30 ], [ %17, %14 ]
+  store ptr %18, ptr %33, align 8, !tbaa !14
+  %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.490", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %32, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %33 = load i64, ptr %3, align 8, !tbaa !212
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %34, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %35 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %34 = icmp sgt i64 %33, -1
-  br i1 %34, label %35, label %60
+  %36 = icmp sgt i64 %35, -1
+  br i1 %36, label %37, label %56
 
-35:                                               ; preds = %30
-  %36 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.490", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %37 = load ptr, ptr %36, align 8, !tbaa !472
-  %38 = load ptr, ptr %37, align 8, !tbaa !95
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %60, label %40
+37:                                               ; preds = %32
+  %38 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.490", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %39 = load ptr, ptr %38, align 8, !tbaa !469
+  %40 = load ptr, ptr %39, align 8, !tbaa !95
+  %41 = icmp eq ptr %40, null
+  br i1 %41, label %56, label %42
 
-40:                                               ; preds = %35
-  %41 = load ptr, ptr %38, align 8, !tbaa !23
-  %42 = getelementptr inbounds ptr, ptr %41, i64 2
-  %43 = load ptr, ptr %42, align 8
-  %44 = call i64 %43(ptr noundef nonnull align 8 dereferenceable(8) %38, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %45 = icmp sgt i64 %44, -1
-  %46 = add nsw i64 %44, %33
-  %47 = select i1 %45, i64 %46, i64 -1
-  %48 = icmp sgt i64 %47, -1
-  br i1 %48, label %49, label %60
+42:                                               ; preds = %37
+  %43 = load ptr, ptr %40, align 8, !tbaa !23
+  %44 = getelementptr inbounds ptr, ptr %43, i64 2
+  %45 = load ptr, ptr %44, align 8
+  %46 = call i64 %45(ptr noundef nonnull align 8 dereferenceable(8) %40, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %47 = icmp slt i64 %46, 0
+  br i1 %47, label %56, label %48
 
-49:                                               ; preds = %40
+48:                                               ; preds = %42
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
-  %50 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.490", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %50, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %51 = load i64, ptr %4, align 8, !tbaa !212
+  %49 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.490", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %49, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %50 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %52 = icmp sgt i64 %51, -1
-  %53 = add nsw i64 %51, %47
-  %54 = select i1 %52, i64 %53, i64 -1
-  br label %55
+  %51 = add nuw i64 %35, %12
+  %52 = add i64 %51, %46
+  %53 = add i64 %52, %50
+  %54 = icmp sgt i64 %50, -1
+  %55 = select i1 %54, i64 %53, i64 -1
+  br label %56
 
-55:                                               ; preds = %22, %49
-  %56 = phi i64 [ %26, %22 ], [ %54, %49 ]
-  %57 = icmp sgt i64 %56, -1
-  %58 = add nsw i64 %56, %12
-  %59 = select i1 %57, i64 %58, i64 -1
-  br label %60
-
-60:                                               ; preds = %55, %35, %30, %40, %2, %8
-  %61 = phi i64 [ -1, %8 ], [ -1, %2 ], [ -1, %40 ], [ -1, %30 ], [ -1, %35 ], [ %59, %55 ]
-  ret i64 %61
+56:                                               ; preds = %48, %8, %2, %32, %37, %42, %28
+  %57 = phi i64 [ %29, %28 ], [ -1, %42 ], [ -1, %37 ], [ -1, %32 ], [ -1, %2 ], [ -1, %8 ], [ %55, %48 ]
+  ret i64 %57
 }
 
 ; Function Attrs: nounwind uwtable
@@ -18782,75 +18705,69 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %8 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %9 = icmp sgt i64 %8, -1
-  br i1 %9, label %10, label %45
+  br i1 %9, label %10, label %39
 
 10:                                               ; preds = %2
   %11 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.392", ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !472
+  %12 = load ptr, ptr %11, align 8, !tbaa !469
   %13 = load ptr, ptr %12, align 8, !tbaa !95
   %14 = icmp eq ptr %13, null
-  br i1 %14, label %45, label %15
+  br i1 %14, label %39, label %15
 
 15:                                               ; preds = %10
   %16 = load ptr, ptr %13, align 8, !tbaa !23
   %17 = getelementptr inbounds ptr, ptr %16, i64 2
   %18 = load ptr, ptr %17, align 8
   %19 = call i64 %18(ptr noundef nonnull align 8 dereferenceable(8) %13, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %20 = icmp sgt i64 %19, -1
-  %21 = add nsw i64 %19, %8
-  %22 = select i1 %20, i64 %21, i64 -1
-  %23 = icmp sgt i64 %22, -1
-  br i1 %23, label %24, label %45
+  %20 = icmp slt i64 %19, 0
+  br i1 %20, label %39, label %21
 
-24:                                               ; preds = %15
+21:                                               ; preds = %15
+  %22 = add nuw nsw i64 %19, %8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
-  %25 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.387", ptr %0, i64 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %25, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %26 = load i64, ptr %4, align 8, !tbaa !212
+  %23 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.387", ptr %0, i64 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %23, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %24 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %27 = icmp sgt i64 %26, -1
-  %28 = add nsw i64 %26, %22
-  %29 = select i1 %27, i64 %28, i64 -1
-  %30 = icmp sgt i64 %29, -1
-  br i1 %30, label %31, label %45
+  %25 = icmp slt i64 %24, 0
+  %26 = add nsw i64 %22, %24
+  br i1 %25, label %39, label %27
 
-31:                                               ; preds = %24
-  %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.525", ptr %0, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !549
-  %34 = load ptr, ptr %33, align 8, !tbaa !95
-  %35 = icmp eq ptr %34, null
-  br i1 %35, label %45, label %36
+27:                                               ; preds = %21
+  %28 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.525", ptr %0, i64 0, i32 1
+  %29 = load ptr, ptr %28, align 8, !tbaa !546
+  %30 = load ptr, ptr %29, align 8, !tbaa !95
+  %31 = icmp eq ptr %30, null
+  br i1 %31, label %39, label %32
 
-36:                                               ; preds = %31
-  %37 = load ptr, ptr %34, align 8, !tbaa !23
-  %38 = getelementptr inbounds ptr, ptr %37, i64 2
-  %39 = load ptr, ptr %38, align 8
-  %40 = call i64 %39(ptr noundef nonnull align 8 dereferenceable(8) %34, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %41 = icmp sgt i64 %40, -1
-  %42 = add nsw i64 %40, %29
-  %43 = icmp sgt i64 %42, -1
-  %44 = select i1 %41, i1 %43, i1 false
-  br i1 %44, label %56, label %45
+32:                                               ; preds = %27
+  %33 = load ptr, ptr %30, align 8, !tbaa !23
+  %34 = getelementptr inbounds ptr, ptr %33, i64 2
+  %35 = load ptr, ptr %34, align 8
+  %36 = call i64 %35(ptr noundef nonnull align 8 dereferenceable(8) %30, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %37 = icmp slt i64 %36, 0
+  %38 = add nsw i64 %26, %36
+  br i1 %37, label %39, label %50
 
-45:                                               ; preds = %31, %10, %2, %15, %24, %36
-  %46 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %46, align 8, !tbaa !14
-  %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.520", ptr %0, i64 0, i32 1
-  %48 = load ptr, ptr %47, align 8, !tbaa !551
-  %49 = load ptr, ptr %48, align 8, !tbaa !95
-  %50 = icmp eq ptr %49, null
-  br i1 %50, label %56, label %51
+39:                                               ; preds = %32, %27, %21, %15, %10, %2
+  %40 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %40, align 8, !tbaa !14
+  %41 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.520", ptr %0, i64 0, i32 1
+  %42 = load ptr, ptr %41, align 8, !tbaa !548
+  %43 = load ptr, ptr %42, align 8, !tbaa !95
+  %44 = icmp eq ptr %43, null
+  br i1 %44, label %50, label %45
 
-51:                                               ; preds = %45
-  %52 = load ptr, ptr %49, align 8, !tbaa !23
-  %53 = getelementptr inbounds ptr, ptr %52, i64 2
-  %54 = load ptr, ptr %53, align 8
-  %55 = call i64 %54(ptr noundef nonnull align 8 dereferenceable(8) %49, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  br label %56
+45:                                               ; preds = %39
+  %46 = load ptr, ptr %43, align 8, !tbaa !23
+  %47 = getelementptr inbounds ptr, ptr %46, i64 2
+  %48 = load ptr, ptr %47, align 8
+  %49 = call i64 %48(ptr noundef nonnull align 8 dereferenceable(8) %43, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  br label %50
 
-56:                                               ; preds = %51, %45, %36
-  %57 = phi i64 [ %42, %36 ], [ %55, %51 ], [ -1, %45 ]
-  ret i64 %57
+50:                                               ; preds = %32, %45, %39
+  %51 = phi i64 [ %49, %45 ], [ -1, %39 ], [ %38, %32 ]
+  ret i64 %51
 }
 
 ; Function Attrs: nounwind uwtable
@@ -18867,34 +18784,32 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %6 = load ptr, ptr %5, align 8, !tbaa !14
   %7 = tail call i64 @_ZNK5boost6spirit11alternativeINS1_INS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EESK_E5parseISH_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(48) %3, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %9, label %23
+  br i1 %8, label %9, label %21
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1092", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !556
+  %11 = load ptr, ptr %10, align 8, !tbaa !553
   %12 = load ptr, ptr %11, align 8, !tbaa !95
   %13 = icmp eq ptr %12, null
-  br i1 %13, label %23, label %14
+  br i1 %13, label %21, label %14
 
 14:                                               ; preds = %9
   %15 = load ptr, ptr %12, align 8, !tbaa !23
   %16 = getelementptr inbounds ptr, ptr %15, i64 2
   %17 = load ptr, ptr %16, align 8
   %18 = tail call i64 %17(ptr noundef nonnull align 8 dereferenceable(8) %12, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %19 = icmp sgt i64 %18, -1
+  %19 = icmp slt i64 %18, 0
   %20 = add nsw i64 %18, %7
-  %21 = icmp sgt i64 %20, -1
-  %22 = select i1 %19, i1 %21, i1 false
-  br i1 %22, label %25, label %23
+  br i1 %19, label %21, label %23
 
-23:                                               ; preds = %14, %9, %2
-  %24 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %24, align 8, !tbaa !14
-  br label %25
+21:                                               ; preds = %14, %9, %2
+  %22 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %22, align 8, !tbaa !14
+  br label %23
 
-25:                                               ; preds = %14, %23
-  %26 = phi i64 [ 0, %23 ], [ %20, %14 ]
-  ret i64 %26
+23:                                               ; preds = %14, %21
+  %24 = phi i64 [ 0, %21 ], [ %20, %14 ]
+  ret i64 %24
 }
 
 ; Function Attrs: uwtable
@@ -18920,86 +18835,89 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_8sequ
   %9 = load i64, ptr %5, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #24
   %10 = icmp sgt i64 %9, -1
-  br i1 %10, label %11, label %25
+  br i1 %10, label %11, label %23
 
 11:                                               ; preds = %2
   %12 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.392", ptr %0, i64 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !472
+  %13 = load ptr, ptr %12, align 8, !tbaa !469
   %14 = load ptr, ptr %13, align 8, !tbaa !95
   %15 = icmp eq ptr %14, null
-  br i1 %15, label %25, label %16
+  br i1 %15, label %23, label %16
 
 16:                                               ; preds = %11
   %17 = load ptr, ptr %14, align 8, !tbaa !23
   %18 = getelementptr inbounds ptr, ptr %17, i64 2
   %19 = load ptr, ptr %18, align 8
   %20 = call i64 %19(ptr noundef nonnull align 8 dereferenceable(8) %14, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %21 = icmp sgt i64 %20, -1
+  %21 = icmp slt i64 %20, 0
   %22 = add nsw i64 %20, %9
-  %23 = icmp sgt i64 %22, -1
-  %24 = select i1 %21, i1 %23, i1 false
-  br i1 %24, label %62, label %25
+  br i1 %21, label %23, label %40
 
-25:                                               ; preds = %16, %11, %2
-  %26 = load ptr, ptr %6, align 8, !tbaa !98
-  store ptr %8, ptr %26, align 8, !tbaa !14
-  %27 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1
+23:                                               ; preds = %16, %11, %2
+  %24 = load ptr, ptr %6, align 8, !tbaa !98
+  store ptr %8, ptr %24, align 8, !tbaa !14
+  %25 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %27, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %28 = load i64, ptr %4, align 8, !tbaa !212
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %25, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %26 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %29 = icmp sgt i64 %28, -1
-  br i1 %29, label %30, label %44
+  %27 = icmp sgt i64 %26, -1
+  br i1 %27, label %28, label %43
 
-30:                                               ; preds = %25
-  %31 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !472
-  %33 = load ptr, ptr %32, align 8, !tbaa !95
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %44, label %35
+28:                                               ; preds = %23
+  %29 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %30 = load ptr, ptr %29, align 8, !tbaa !469
+  %31 = load ptr, ptr %30, align 8, !tbaa !95
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %43, label %33
 
-35:                                               ; preds = %30
-  %36 = load ptr, ptr %33, align 8, !tbaa !23
-  %37 = getelementptr inbounds ptr, ptr %36, i64 2
-  %38 = load ptr, ptr %37, align 8
-  %39 = call i64 %38(ptr noundef nonnull align 8 dereferenceable(8) %33, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %40 = icmp sgt i64 %39, -1
-  %41 = add nsw i64 %39, %28
+33:                                               ; preds = %28
+  %34 = load ptr, ptr %31, align 8, !tbaa !23
+  %35 = getelementptr inbounds ptr, ptr %34, i64 2
+  %36 = load ptr, ptr %35, align 8
+  %37 = call i64 %36(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %38 = icmp slt i64 %37, 0
+  %39 = add nsw i64 %37, %26
+  br i1 %38, label %43, label %40
+
+40:                                               ; preds = %16, %33
+  %41 = phi i64 [ %39, %33 ], [ %22, %16 ]
   %42 = icmp sgt i64 %41, -1
-  %43 = select i1 %40, i1 %42, i1 false
-  br i1 %43, label %62, label %44
+  br i1 %42, label %61, label %43
 
-44:                                               ; preds = %35, %30, %25
-  %45 = load ptr, ptr %6, align 8, !tbaa !98
-  store ptr %8, ptr %45, align 8, !tbaa !14
-  %46 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.540", ptr %0, i64 0, i32 1
+43:                                               ; preds = %33, %28, %23, %40
+  %44 = load ptr, ptr %6, align 8, !tbaa !98
+  store ptr %8, ptr %44, align 8, !tbaa !14
+  %45 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.540", ptr %0, i64 0, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %46, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %47 = load i64, ptr %3, align 8, !tbaa !212
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %45, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %46 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %48 = icmp sgt i64 %47, -1
-  br i1 %48, label %49, label %62
+  %47 = icmp sgt i64 %46, -1
+  br i1 %47, label %48, label %60
 
-49:                                               ; preds = %44
-  %50 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.540", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %51 = load ptr, ptr %50, align 8, !tbaa !472
-  %52 = load ptr, ptr %51, align 8, !tbaa !95
-  %53 = icmp eq ptr %52, null
-  br i1 %53, label %62, label %54
+48:                                               ; preds = %43
+  %49 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.540", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %50 = load ptr, ptr %49, align 8, !tbaa !469
+  %51 = load ptr, ptr %50, align 8, !tbaa !95
+  %52 = icmp eq ptr %51, null
+  br i1 %52, label %60, label %53
 
-54:                                               ; preds = %49
-  %55 = load ptr, ptr %52, align 8, !tbaa !23
-  %56 = getelementptr inbounds ptr, ptr %55, i64 2
-  %57 = load ptr, ptr %56, align 8
-  %58 = call i64 %57(ptr noundef nonnull align 8 dereferenceable(8) %52, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %59 = icmp sgt i64 %58, -1
-  %60 = add nsw i64 %58, %47
-  %61 = select i1 %59, i64 %60, i64 -1
-  br label %62
+53:                                               ; preds = %48
+  %54 = load ptr, ptr %51, align 8, !tbaa !23
+  %55 = getelementptr inbounds ptr, ptr %54, i64 2
+  %56 = load ptr, ptr %55, align 8
+  %57 = call i64 %56(ptr noundef nonnull align 8 dereferenceable(8) %51, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %58 = icmp slt i64 %57, 0
+  %59 = add nsw i64 %57, %46
+  br i1 %58, label %60, label %61
 
-62:                                               ; preds = %35, %16, %54, %49, %44
-  %63 = phi i64 [ -1, %44 ], [ -1, %49 ], [ %61, %54 ], [ %22, %16 ], [ %41, %35 ]
-  ret i64 %63
+60:                                               ; preds = %53, %48, %43
+  br label %61
+
+61:                                               ; preds = %40, %60, %53
+  %62 = phi i64 [ %59, %53 ], [ -1, %60 ], [ %41, %40 ]
+  ret i64 %62
 }
 
 ; Function Attrs: nounwind uwtable
@@ -19015,8 +18933,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
   %7 = tail call i64 @_ZNK5boost6spirit8sequenceINS0_11alternativeINS1_INS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EESJ_E5parseISH_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %3, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %11, label %9
+  %8 = icmp slt i64 %7, 0
+  br i1 %8, label %9, label %11
 
 9:                                                ; preds = %2
   %10 = load ptr, ptr %4, align 8, !tbaa !98
@@ -19024,7 +18942,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   br label %11
 
 11:                                               ; preds = %2, %9
-  %12 = phi i64 [ 0, %9 ], [ %7, %2 ]
+  %12 = tail call i64 @llvm.smax.i64(i64 %7, i64 0)
   ret i64 %12
 }
 
@@ -19050,76 +18968,78 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_11alternativeI
   %8 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
   %9 = icmp sgt i64 %8, -1
-  br i1 %9, label %10, label %24
+  br i1 %9, label %10, label %22
 
 10:                                               ; preds = %2
   %11 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.392", ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !472
+  %12 = load ptr, ptr %11, align 8, !tbaa !469
   %13 = load ptr, ptr %12, align 8, !tbaa !95
   %14 = icmp eq ptr %13, null
-  br i1 %14, label %24, label %15
+  br i1 %14, label %22, label %15
 
 15:                                               ; preds = %10
   %16 = load ptr, ptr %13, align 8, !tbaa !23
   %17 = getelementptr inbounds ptr, ptr %16, i64 2
   %18 = load ptr, ptr %17, align 8
   %19 = call i64 %18(ptr noundef nonnull align 8 dereferenceable(8) %13, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %20 = icmp sgt i64 %19, -1
+  %20 = icmp slt i64 %19, 0
   %21 = add nsw i64 %19, %8
-  %22 = icmp sgt i64 %21, -1
-  %23 = select i1 %20, i1 %22, i1 false
-  br i1 %23, label %43, label %24
+  br i1 %20, label %22, label %39
 
-24:                                               ; preds = %15, %10, %2
-  %25 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %25, align 8, !tbaa !14
-  %26 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1
+22:                                               ; preds = %15, %10, %2
+  %23 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %23, align 8, !tbaa !14
+  %24 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %26, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %27 = load i64, ptr %3, align 8, !tbaa !212
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %24, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %25 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %28 = icmp sgt i64 %27, -1
-  br i1 %28, label %29, label %57
+  %26 = icmp sgt i64 %25, -1
+  br i1 %26, label %27, label %54
 
-29:                                               ; preds = %24
-  %30 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %31 = load ptr, ptr %30, align 8, !tbaa !472
-  %32 = load ptr, ptr %31, align 8, !tbaa !95
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %57, label %34
+27:                                               ; preds = %22
+  %28 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %29 = load ptr, ptr %28, align 8, !tbaa !469
+  %30 = load ptr, ptr %29, align 8, !tbaa !95
+  %31 = icmp eq ptr %30, null
+  br i1 %31, label %54, label %32
 
-34:                                               ; preds = %29
-  %35 = load ptr, ptr %32, align 8, !tbaa !23
-  %36 = getelementptr inbounds ptr, ptr %35, i64 2
-  %37 = load ptr, ptr %36, align 8
-  %38 = call i64 %37(ptr noundef nonnull align 8 dereferenceable(8) %32, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %39 = icmp sgt i64 %38, -1
-  %40 = add nsw i64 %38, %27
+32:                                               ; preds = %27
+  %33 = load ptr, ptr %30, align 8, !tbaa !23
+  %34 = getelementptr inbounds ptr, ptr %33, i64 2
+  %35 = load ptr, ptr %34, align 8
+  %36 = call i64 %35(ptr noundef nonnull align 8 dereferenceable(8) %30, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %37 = icmp slt i64 %36, 0
+  %38 = add nsw i64 %36, %25
+  br i1 %37, label %54, label %39
+
+39:                                               ; preds = %15, %32
+  %40 = phi i64 [ %38, %32 ], [ %21, %15 ]
   %41 = icmp sgt i64 %40, -1
-  %42 = select i1 %39, i1 %41, i1 false
-  br i1 %42, label %43, label %57
+  br i1 %41, label %42, label %54
 
-43:                                               ; preds = %34, %15
-  %44 = phi i64 [ %21, %15 ], [ %40, %34 ]
-  %45 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.555", ptr %0, i64 0, i32 1
-  %46 = load ptr, ptr %45, align 8, !tbaa !566
-  %47 = load ptr, ptr %46, align 8, !tbaa !95
-  %48 = icmp eq ptr %47, null
-  br i1 %48, label %57, label %49
+42:                                               ; preds = %39
+  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.555", ptr %0, i64 0, i32 1
+  %44 = load ptr, ptr %43, align 8, !tbaa !563
+  %45 = load ptr, ptr %44, align 8, !tbaa !95
+  %46 = icmp eq ptr %45, null
+  br i1 %46, label %54, label %47
 
-49:                                               ; preds = %43
-  %50 = load ptr, ptr %47, align 8, !tbaa !23
-  %51 = getelementptr inbounds ptr, ptr %50, i64 2
-  %52 = load ptr, ptr %51, align 8
-  %53 = call i64 %52(ptr noundef nonnull align 8 dereferenceable(8) %47, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %54 = icmp sgt i64 %53, -1
-  %55 = add nsw i64 %53, %44
-  %56 = select i1 %54, i64 %55, i64 -1
-  br label %57
+47:                                               ; preds = %42
+  %48 = load ptr, ptr %45, align 8, !tbaa !23
+  %49 = getelementptr inbounds ptr, ptr %48, i64 2
+  %50 = load ptr, ptr %49, align 8
+  %51 = call i64 %50(ptr noundef nonnull align 8 dereferenceable(8) %45, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %52 = icmp slt i64 %51, 0
+  %53 = add nsw i64 %51, %40
+  br i1 %52, label %54, label %55
 
-57:                                               ; preds = %34, %49, %43, %29, %24
-  %58 = phi i64 [ -1, %24 ], [ -1, %29 ], [ -1, %43 ], [ %56, %49 ], [ -1, %34 ]
-  ret i64 %58
+54:                                               ; preds = %42, %32, %27, %22, %47, %39
+  br label %55
+
+55:                                               ; preds = %47, %54
+  %56 = phi i64 [ %53, %47 ], [ -1, %54 ]
+  ret i64 %56
 }
 
 ; Function Attrs: nounwind uwtable
@@ -19144,35 +19064,36 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %11 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1094", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %12 = tail call i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEE5parseISG_EENS0_13parser_resultISJ_T_E4typeERKSM_(ptr noundef nonnull align 8 dereferenceable(24) %11, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %13 = icmp sgt i64 %12, -1
-  br i1 %13, label %14, label %29
+  br i1 %13, label %14, label %28
 
 14:                                               ; preds = %9, %2
   %15 = phi i64 [ %12, %9 ], [ %7, %2 ]
   %16 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1094", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %17 = load ptr, ptr %16, align 8, !tbaa !568
+  %17 = load ptr, ptr %16, align 8, !tbaa !565
   %18 = load ptr, ptr %17, align 8, !tbaa !95
   %19 = icmp eq ptr %18, null
-  br i1 %19, label %29, label %20
+  br i1 %19, label %28, label %20
 
 20:                                               ; preds = %14
   %21 = load ptr, ptr %18, align 8, !tbaa !23
   %22 = getelementptr inbounds ptr, ptr %21, i64 2
   %23 = load ptr, ptr %22, align 8
   %24 = tail call i64 %23(ptr noundef nonnull align 8 dereferenceable(8) %18, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %25 = icmp sgt i64 %24, -1
-  %26 = add nsw i64 %24, %15
-  %27 = icmp sgt i64 %26, -1
-  %28 = select i1 %25, i1 %27, i1 false
-  br i1 %28, label %31, label %29
+  %25 = icmp slt i64 %24, 0
+  br i1 %25, label %28, label %26
 
-29:                                               ; preds = %20, %14, %9
-  %30 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %30, align 8, !tbaa !14
-  br label %31
+26:                                               ; preds = %20
+  %27 = add nuw nsw i64 %24, %15
+  br label %30
 
-31:                                               ; preds = %20, %29
-  %32 = phi i64 [ 0, %29 ], [ %26, %20 ]
-  ret i64 %32
+28:                                               ; preds = %20, %14, %9
+  %29 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %29, align 8, !tbaa !14
+  br label %30
+
+30:                                               ; preds = %26, %28
+  %31 = phi i64 [ %27, %26 ], [ 0, %28 ]
+  ret i64 %31
 }
 
 ; Function Attrs: uwtable
@@ -19207,35 +19128,36 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %11 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1095", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %12 = tail call i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEE5parseISG_EENS0_13parser_resultISJ_T_E4typeERKSM_(ptr noundef nonnull align 8 dereferenceable(24) %11, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %13 = icmp sgt i64 %12, -1
-  br i1 %13, label %14, label %29
+  br i1 %13, label %14, label %28
 
 14:                                               ; preds = %9, %2
   %15 = phi i64 [ %12, %9 ], [ %7, %2 ]
   %16 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1095", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %17 = load ptr, ptr %16, align 8, !tbaa !574
+  %17 = load ptr, ptr %16, align 8, !tbaa !571
   %18 = load ptr, ptr %17, align 8, !tbaa !95
   %19 = icmp eq ptr %18, null
-  br i1 %19, label %29, label %20
+  br i1 %19, label %28, label %20
 
 20:                                               ; preds = %14
   %21 = load ptr, ptr %18, align 8, !tbaa !23
   %22 = getelementptr inbounds ptr, ptr %21, i64 2
   %23 = load ptr, ptr %22, align 8
   %24 = tail call i64 %23(ptr noundef nonnull align 8 dereferenceable(8) %18, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %25 = icmp sgt i64 %24, -1
-  %26 = add nsw i64 %24, %15
-  %27 = icmp sgt i64 %26, -1
-  %28 = select i1 %25, i1 %27, i1 false
-  br i1 %28, label %31, label %29
+  %25 = icmp slt i64 %24, 0
+  br i1 %25, label %28, label %26
 
-29:                                               ; preds = %20, %14, %9
-  %30 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %30, align 8, !tbaa !14
-  br label %31
+26:                                               ; preds = %20
+  %27 = add nuw nsw i64 %24, %15
+  br label %30
 
-31:                                               ; preds = %20, %29
-  %32 = phi i64 [ 0, %29 ], [ %26, %20 ]
-  ret i64 %32
+28:                                               ; preds = %20, %14, %9
+  %29 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %29, align 8, !tbaa !14
+  br label %30
+
+30:                                               ; preds = %26, %28
+  %31 = phi i64 [ %27, %26 ], [ 0, %28 ]
+  ret i64 %31
 }
 
 ; Function Attrs: uwtable
@@ -19260,65 +19182,66 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_8sequ
   %8 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
   %9 = icmp sgt i64 %8, -1
-  br i1 %9, label %10, label %24
+  br i1 %9, label %10, label %22
 
 10:                                               ; preds = %2
   %11 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.392", ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !472
+  %12 = load ptr, ptr %11, align 8, !tbaa !469
   %13 = load ptr, ptr %12, align 8, !tbaa !95
   %14 = icmp eq ptr %13, null
-  br i1 %14, label %24, label %15
+  br i1 %14, label %22, label %15
 
 15:                                               ; preds = %10
   %16 = load ptr, ptr %13, align 8, !tbaa !23
   %17 = getelementptr inbounds ptr, ptr %16, i64 2
   %18 = load ptr, ptr %17, align 8
   %19 = call i64 %18(ptr noundef nonnull align 8 dereferenceable(8) %13, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %20 = icmp sgt i64 %19, -1
+  %20 = icmp slt i64 %19, 0
   %21 = add nsw i64 %19, %8
-  %22 = icmp sgt i64 %21, -1
-  %23 = select i1 %20, i1 %22, i1 false
-  br i1 %23, label %47, label %24
+  br i1 %20, label %22, label %39
 
-24:                                               ; preds = %15, %10, %2
-  %25 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %25, align 8, !tbaa !14
-  %26 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1
+22:                                               ; preds = %15, %10, %2
+  %23 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %23, align 8, !tbaa !14
+  %24 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %26, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %27 = load i64, ptr %3, align 8, !tbaa !212
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %24, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %25 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %28 = icmp sgt i64 %27, -1
-  br i1 %28, label %29, label %43
+  %26 = icmp sgt i64 %25, -1
+  br i1 %26, label %27, label %42
 
-29:                                               ; preds = %24
-  %30 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %31 = load ptr, ptr %30, align 8, !tbaa !472
-  %32 = load ptr, ptr %31, align 8, !tbaa !95
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %43, label %34
+27:                                               ; preds = %22
+  %28 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.545", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %29 = load ptr, ptr %28, align 8, !tbaa !469
+  %30 = load ptr, ptr %29, align 8, !tbaa !95
+  %31 = icmp eq ptr %30, null
+  br i1 %31, label %42, label %32
 
-34:                                               ; preds = %29
-  %35 = load ptr, ptr %32, align 8, !tbaa !23
-  %36 = getelementptr inbounds ptr, ptr %35, i64 2
-  %37 = load ptr, ptr %36, align 8
-  %38 = call i64 %37(ptr noundef nonnull align 8 dereferenceable(8) %32, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %39 = icmp sgt i64 %38, -1
-  %40 = add nsw i64 %38, %27
+32:                                               ; preds = %27
+  %33 = load ptr, ptr %30, align 8, !tbaa !23
+  %34 = getelementptr inbounds ptr, ptr %33, i64 2
+  %35 = load ptr, ptr %34, align 8
+  %36 = call i64 %35(ptr noundef nonnull align 8 dereferenceable(8) %30, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %37 = icmp slt i64 %36, 0
+  %38 = add nsw i64 %36, %25
+  br i1 %37, label %42, label %39
+
+39:                                               ; preds = %15, %32
+  %40 = phi i64 [ %38, %32 ], [ %21, %15 ]
   %41 = icmp sgt i64 %40, -1
-  %42 = select i1 %39, i1 %41, i1 false
-  br i1 %42, label %47, label %43
+  br i1 %41, label %46, label %42
 
-43:                                               ; preds = %34, %29, %24
-  %44 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %44, align 8, !tbaa !14
-  %45 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.590", ptr %0, i64 0, i32 1
-  %46 = call i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEE5parseISG_EENS0_13parser_resultISJ_T_E4typeERKSM_(ptr noundef nonnull align 8 dereferenceable(24) %45, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  br label %47
+42:                                               ; preds = %32, %27, %22, %39
+  %43 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %43, align 8, !tbaa !14
+  %44 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.590", ptr %0, i64 0, i32 1
+  %45 = call i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEE5parseISG_EENS0_13parser_resultISJ_T_E4typeERKSM_(ptr noundef nonnull align 8 dereferenceable(24) %44, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  br label %46
 
-47:                                               ; preds = %34, %15, %43
-  %48 = phi i64 [ %46, %43 ], [ %21, %15 ], [ %40, %34 ]
-  ret i64 %48
+46:                                               ; preds = %39, %42
+  %47 = phi i64 [ %45, %42 ], [ %40, %39 ]
+  ret i64 %47
 }
 
 ; Function Attrs: nounwind uwtable
@@ -19339,52 +19262,48 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %8 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %9 = icmp sgt i64 %8, -1
-  br i1 %9, label %10, label %38
+  br i1 %9, label %10, label %34
 
 10:                                               ; preds = %2
   %11 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1096", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !472
+  %12 = load ptr, ptr %11, align 8, !tbaa !469
   %13 = load ptr, ptr %12, align 8, !tbaa !95
   %14 = icmp eq ptr %13, null
-  br i1 %14, label %38, label %15
+  br i1 %14, label %34, label %15
 
 15:                                               ; preds = %10
   %16 = load ptr, ptr %13, align 8, !tbaa !23
   %17 = getelementptr inbounds ptr, ptr %16, i64 2
   %18 = load ptr, ptr %17, align 8
   %19 = call i64 %18(ptr noundef nonnull align 8 dereferenceable(8) %13, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %20 = icmp sgt i64 %19, -1
+  %20 = icmp slt i64 %19, 0
   %21 = add nsw i64 %19, %8
-  %22 = select i1 %20, i64 %21, i64 -1
-  %23 = icmp sgt i64 %22, -1
-  br i1 %23, label %24, label %38
+  br i1 %20, label %34, label %22
 
-24:                                               ; preds = %15
-  %25 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1096", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !584
-  %27 = load ptr, ptr %26, align 8, !tbaa !95
-  %28 = icmp eq ptr %27, null
-  br i1 %28, label %38, label %29
+22:                                               ; preds = %15
+  %23 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1096", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %24 = load ptr, ptr %23, align 8, !tbaa !581
+  %25 = load ptr, ptr %24, align 8, !tbaa !95
+  %26 = icmp eq ptr %25, null
+  br i1 %26, label %34, label %27
 
-29:                                               ; preds = %24
-  %30 = load ptr, ptr %27, align 8, !tbaa !23
-  %31 = getelementptr inbounds ptr, ptr %30, i64 2
-  %32 = load ptr, ptr %31, align 8
-  %33 = call i64 %32(ptr noundef nonnull align 8 dereferenceable(8) %27, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %34 = icmp sgt i64 %33, -1
-  %35 = add nsw i64 %33, %22
-  %36 = icmp sgt i64 %35, -1
-  %37 = select i1 %34, i1 %36, i1 false
-  br i1 %37, label %40, label %38
+27:                                               ; preds = %22
+  %28 = load ptr, ptr %25, align 8, !tbaa !23
+  %29 = getelementptr inbounds ptr, ptr %28, i64 2
+  %30 = load ptr, ptr %29, align 8
+  %31 = call i64 %30(ptr noundef nonnull align 8 dereferenceable(8) %25, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %32 = icmp slt i64 %31, 0
+  %33 = add nsw i64 %21, %31
+  br i1 %32, label %34, label %36
 
-38:                                               ; preds = %29, %24, %15, %10, %2
-  %39 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %39, align 8, !tbaa !14
-  br label %40
+34:                                               ; preds = %27, %22, %15, %10, %2
+  %35 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %35, align 8, !tbaa !14
+  br label %36
 
-40:                                               ; preds = %29, %38
-  %41 = phi i64 [ 0, %38 ], [ %35, %29 ]
-  ret i64 %41
+36:                                               ; preds = %27, %34
+  %37 = phi i64 [ 0, %34 ], [ %33, %27 ]
+  ret i64 %37
 }
 
 ; Function Attrs: uwtable
@@ -19411,34 +19330,32 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %6 = load ptr, ptr %5, align 8, !tbaa !14
   %7 = tail call i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEE5parseISG_EENS0_13parser_resultISJ_T_E4typeERKSM_(ptr noundef nonnull align 8 dereferenceable(24) %3, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %9, label %23
+  br i1 %8, label %9, label %21
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1097", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !586
+  %11 = load ptr, ptr %10, align 8, !tbaa !583
   %12 = load ptr, ptr %11, align 8, !tbaa !95
   %13 = icmp eq ptr %12, null
-  br i1 %13, label %23, label %14
+  br i1 %13, label %21, label %14
 
 14:                                               ; preds = %9
   %15 = load ptr, ptr %12, align 8, !tbaa !23
   %16 = getelementptr inbounds ptr, ptr %15, i64 2
   %17 = load ptr, ptr %16, align 8
   %18 = tail call i64 %17(ptr noundef nonnull align 8 dereferenceable(8) %12, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %19 = icmp sgt i64 %18, -1
+  %19 = icmp slt i64 %18, 0
   %20 = add nsw i64 %18, %7
-  %21 = icmp sgt i64 %20, -1
-  %22 = select i1 %19, i1 %21, i1 false
-  br i1 %22, label %25, label %23
+  br i1 %19, label %21, label %23
 
-23:                                               ; preds = %14, %9, %2
-  %24 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %24, align 8, !tbaa !14
-  br label %25
+21:                                               ; preds = %14, %9, %2
+  %22 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %22, align 8, !tbaa !14
+  br label %23
 
-25:                                               ; preds = %14, %23
-  %26 = phi i64 [ 0, %23 ], [ %20, %14 ]
-  ret i64 %26
+23:                                               ; preds = %14, %21
+  %24 = phi i64 [ 0, %21 ], [ %20, %14 ]
+  ret i64 %24
 }
 
 ; Function Attrs: uwtable
@@ -19464,8 +19381,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
   %7 = tail call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEES3_EESI_EESI_E5parseISG_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %3, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %11, label %9
+  %8 = icmp slt i64 %7, 0
+  br i1 %8, label %9, label %11
 
 9:                                                ; preds = %2
   %10 = load ptr, ptr %4, align 8, !tbaa !98
@@ -19473,7 +19390,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   br label %11
 
 11:                                               ; preds = %2, %9
-  %12 = phi i64 [ 0, %9 ], [ %7, %2 ]
+  %12 = tail call i64 @llvm.smax.i64(i64 %7, i64 0)
   ret i64 %12
 }
 
@@ -19496,76 +19413,72 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0
   %5 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %6 = icmp sgt i64 %5, -1
-  br i1 %6, label %7, label %55
+  br i1 %6, label %7, label %48
 
 7:                                                ; preds = %2
   %8 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.392", ptr %0, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !472
+  %9 = load ptr, ptr %8, align 8, !tbaa !469
   %10 = load ptr, ptr %9, align 8, !tbaa !95
   %11 = icmp eq ptr %10, null
-  br i1 %11, label %55, label %12
+  br i1 %11, label %48, label %12
 
 12:                                               ; preds = %7
   %13 = load ptr, ptr %10, align 8, !tbaa !23
   %14 = getelementptr inbounds ptr, ptr %13, i64 2
   %15 = load ptr, ptr %14, align 8
   %16 = call i64 %15(ptr noundef nonnull align 8 dereferenceable(8) %10, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %17 = icmp sgt i64 %16, -1
-  %18 = add nsw i64 %16, %5
-  %19 = select i1 %17, i64 %18, i64 -1
-  %20 = icmp sgt i64 %19, -1
-  br i1 %20, label %21, label %55
+  %17 = icmp slt i64 %16, 0
+  br i1 %17, label %48, label %18
 
-21:                                               ; preds = %12
+18:                                               ; preds = %12
+  %19 = add nuw nsw i64 %16, %5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
-  %22 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.387", ptr %0, i64 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %22, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %23 = load i64, ptr %4, align 8, !tbaa !212
+  %20 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.387", ptr %0, i64 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %20, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %21 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %24 = icmp sgt i64 %23, -1
-  %25 = add nsw i64 %23, %19
-  %26 = select i1 %24, i64 %25, i64 -1
-  %27 = icmp sgt i64 %26, -1
-  br i1 %27, label %28, label %55
+  %22 = icmp slt i64 %21, 0
+  %23 = add nsw i64 %19, %21
+  br i1 %22, label %48, label %24
 
-28:                                               ; preds = %21
-  %29 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.525", ptr %0, i64 0, i32 1
-  %30 = load ptr, ptr %29, align 8, !tbaa !549
-  %31 = load ptr, ptr %30, align 8, !tbaa !95
-  %32 = icmp eq ptr %31, null
-  br i1 %32, label %55, label %33
+24:                                               ; preds = %18
+  %25 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.525", ptr %0, i64 0, i32 1
+  %26 = load ptr, ptr %25, align 8, !tbaa !546
+  %27 = load ptr, ptr %26, align 8, !tbaa !95
+  %28 = icmp eq ptr %27, null
+  br i1 %28, label %48, label %29
 
-33:                                               ; preds = %28
-  %34 = load ptr, ptr %31, align 8, !tbaa !23
-  %35 = getelementptr inbounds ptr, ptr %34, i64 2
-  %36 = load ptr, ptr %35, align 8
-  %37 = call i64 %36(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %38 = icmp sgt i64 %37, -1
-  %39 = add nsw i64 %37, %26
-  %40 = select i1 %38, i64 %39, i64 -1
-  %41 = icmp sgt i64 %40, -1
-  br i1 %41, label %42, label %55
+29:                                               ; preds = %24
+  %30 = load ptr, ptr %27, align 8, !tbaa !23
+  %31 = getelementptr inbounds ptr, ptr %30, i64 2
+  %32 = load ptr, ptr %31, align 8
+  %33 = call i64 %32(ptr noundef nonnull align 8 dereferenceable(8) %27, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %34 = icmp slt i64 %33, 0
+  %35 = add nsw i64 %23, %33
+  br i1 %34, label %48, label %36
 
-42:                                               ; preds = %33
-  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.520", ptr %0, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !551
-  %45 = load ptr, ptr %44, align 8, !tbaa !95
-  %46 = icmp eq ptr %45, null
-  br i1 %46, label %55, label %47
+36:                                               ; preds = %29
+  %37 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.520", ptr %0, i64 0, i32 1
+  %38 = load ptr, ptr %37, align 8, !tbaa !548
+  %39 = load ptr, ptr %38, align 8, !tbaa !95
+  %40 = icmp eq ptr %39, null
+  br i1 %40, label %48, label %41
 
-47:                                               ; preds = %42
-  %48 = load ptr, ptr %45, align 8, !tbaa !23
-  %49 = getelementptr inbounds ptr, ptr %48, i64 2
-  %50 = load ptr, ptr %49, align 8
-  %51 = call i64 %50(ptr noundef nonnull align 8 dereferenceable(8) %45, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %52 = icmp sgt i64 %51, -1
-  %53 = add nsw i64 %51, %40
-  %54 = select i1 %52, i64 %53, i64 -1
-  br label %55
+41:                                               ; preds = %36
+  %42 = load ptr, ptr %39, align 8, !tbaa !23
+  %43 = getelementptr inbounds ptr, ptr %42, i64 2
+  %44 = load ptr, ptr %43, align 8
+  %45 = call i64 %44(ptr noundef nonnull align 8 dereferenceable(8) %39, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %46 = icmp slt i64 %45, 0
+  %47 = add nsw i64 %45, %35
+  br i1 %46, label %48, label %49
 
-55:                                               ; preds = %47, %42, %28, %7, %2, %12, %21, %33
-  %56 = phi i64 [ -1, %33 ], [ -1, %21 ], [ -1, %12 ], [ -1, %2 ], [ -1, %7 ], [ -1, %28 ], [ -1, %42 ], [ %54, %47 ]
-  ret i64 %56
+48:                                               ; preds = %36, %29, %24, %18, %12, %7, %2, %41
+  br label %49
+
+49:                                               ; preds = %41, %48
+  %50 = phi i64 [ %47, %41 ], [ -1, %48 ]
+  ret i64 %50
 }
 
 ; Function Attrs: nounwind uwtable
@@ -19580,10 +19493,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !372
+  %7 = load ptr, ptr %3, align 8, !tbaa !369
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
-  br i1 %9, label %44, label %10
+  br i1 %9, label %40, label %10
 
 10:                                               ; preds = %2
   %11 = load ptr, ptr %8, align 8, !tbaa !23
@@ -19591,63 +19504,59 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %13 = load ptr, ptr %12, align 8
   %14 = tail call i64 %13(ptr noundef nonnull align 8 dereferenceable(8) %8, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %15 = icmp sgt i64 %14, -1
-  br i1 %15, label %16, label %44
+  br i1 %15, label %16, label %40
 
 16:                                               ; preds = %10
   %17 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1099", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !374
+  %18 = load ptr, ptr %17, align 8, !tbaa !371
   %19 = load ptr, ptr %18, align 8, !tbaa !95
   %20 = icmp eq ptr %19, null
-  br i1 %20, label %44, label %21
+  br i1 %20, label %40, label %21
 
 21:                                               ; preds = %16
   %22 = load ptr, ptr %19, align 8, !tbaa !23
   %23 = getelementptr inbounds ptr, ptr %22, i64 2
   %24 = load ptr, ptr %23, align 8
   %25 = tail call i64 %24(ptr noundef nonnull align 8 dereferenceable(8) %19, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %26 = icmp sgt i64 %25, -1
+  %26 = icmp slt i64 %25, 0
   %27 = add nsw i64 %25, %14
-  %28 = select i1 %26, i64 %27, i64 -1
-  %29 = icmp sgt i64 %28, -1
-  br i1 %29, label %30, label %44
+  br i1 %26, label %40, label %28
 
-30:                                               ; preds = %21
-  %31 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1099", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !530
-  %33 = load ptr, ptr %32, align 8, !tbaa !95
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %44, label %35
+28:                                               ; preds = %21
+  %29 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1099", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %30 = load ptr, ptr %29, align 8, !tbaa !527
+  %31 = load ptr, ptr %30, align 8, !tbaa !95
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %40, label %33
 
-35:                                               ; preds = %30
-  %36 = load ptr, ptr %33, align 8, !tbaa !23
-  %37 = getelementptr inbounds ptr, ptr %36, i64 2
-  %38 = load ptr, ptr %37, align 8
-  %39 = tail call i64 %38(ptr noundef nonnull align 8 dereferenceable(8) %33, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %40 = icmp sgt i64 %39, -1
-  %41 = add nsw i64 %39, %28
-  %42 = icmp sgt i64 %41, -1
-  %43 = select i1 %40, i1 %42, i1 false
-  br i1 %43, label %55, label %44
+33:                                               ; preds = %28
+  %34 = load ptr, ptr %31, align 8, !tbaa !23
+  %35 = getelementptr inbounds ptr, ptr %34, i64 2
+  %36 = load ptr, ptr %35, align 8
+  %37 = tail call i64 %36(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %38 = icmp slt i64 %37, 0
+  %39 = add nsw i64 %27, %37
+  br i1 %38, label %40, label %51
 
-44:                                               ; preds = %35, %30, %21, %16, %10, %2
-  %45 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %45, align 8, !tbaa !14
-  %46 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1099", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %47 = load ptr, ptr %46, align 8, !tbaa !588
-  %48 = load ptr, ptr %47, align 8, !tbaa !95
-  %49 = icmp eq ptr %48, null
-  br i1 %49, label %55, label %50
+40:                                               ; preds = %33, %28, %21, %16, %10, %2
+  %41 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %41, align 8, !tbaa !14
+  %42 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1099", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %43 = load ptr, ptr %42, align 8, !tbaa !585
+  %44 = load ptr, ptr %43, align 8, !tbaa !95
+  %45 = icmp eq ptr %44, null
+  br i1 %45, label %51, label %46
 
-50:                                               ; preds = %44
-  %51 = load ptr, ptr %48, align 8, !tbaa !23
-  %52 = getelementptr inbounds ptr, ptr %51, i64 2
-  %53 = load ptr, ptr %52, align 8
-  %54 = tail call i64 %53(ptr noundef nonnull align 8 dereferenceable(8) %48, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  br label %55
+46:                                               ; preds = %40
+  %47 = load ptr, ptr %44, align 8, !tbaa !23
+  %48 = getelementptr inbounds ptr, ptr %47, i64 2
+  %49 = load ptr, ptr %48, align 8
+  %50 = tail call i64 %49(ptr noundef nonnull align 8 dereferenceable(8) %44, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  br label %51
 
-55:                                               ; preds = %35, %44, %50
-  %56 = phi i64 [ %41, %35 ], [ %54, %50 ], [ -1, %44 ]
-  ret i64 %56
+51:                                               ; preds = %33, %40, %46
+  %52 = phi i64 [ %50, %46 ], [ -1, %40 ], [ %39, %33 ]
+  ret i64 %52
 }
 
 ; Function Attrs: uwtable
@@ -19727,8 +19636,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !590
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !590
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !587
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !587
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.628", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -19761,8 +19670,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -19810,8 +19719,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !593
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !593
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !590
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !590
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.633", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -19844,8 +19753,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -19893,8 +19802,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !596
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !596
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !593
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !593
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.638", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -19927,8 +19836,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -19976,8 +19885,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !599
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !599
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !596
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !596
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.643", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -20010,8 +19919,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -20059,8 +19968,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !602
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !602
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !599
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !599
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.648", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -20093,8 +20002,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -20142,8 +20051,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !605
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !605
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !602
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !602
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.653", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -20176,8 +20085,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -20225,8 +20134,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !608
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !608
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !605
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !605
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.658", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -20259,8 +20168,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -20308,8 +20217,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !611
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !611
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !608
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !608
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.663", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -20342,8 +20251,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -20391,8 +20300,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_5chli
   %30 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %19, ptr %30, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !614
-  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !614
+  %31 = load ptr, ptr %4, align 8, !tbaa !98, !noalias !611
+  %32 = load ptr, ptr %13, align 8, !tbaa !85, !noalias !611
   %33 = load ptr, ptr %11, align 8, !tbaa !144
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.668", ptr %0, i64 0, i32 1, i32 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !146
@@ -20425,8 +20334,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_5chli
   %53 = icmp eq ptr %51, %35
   br i1 %53, label %54, label %42, !llvm.loop !220
 
-54:                                               ; preds = %50, %46, %42, %29, %2
-  %55 = phi i64 [ %7, %2 ], [ %38, %29 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
+54:                                               ; preds = %50, %46, %42, %2, %29
+  %55 = phi i64 [ %38, %29 ], [ %7, %2 ], [ %38, %50 ], [ -1, %42 ], [ -1, %46 ]
   ret i64 %55
 }
 
@@ -20439,7 +20348,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_4
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESF_SG_E16do_parse_virtualERKSF_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 {
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1101", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !617
+  %4 = load ptr, ptr %3, align 8, !tbaa !614
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
   br i1 %6, label %12, label %7
@@ -20460,7 +20369,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_4
 define linkonce_odr dso_local noundef ptr @_ZNK5boost6spirit4impl15concrete_parserINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESF_SG_E5cloneEv(ptr noundef nonnull align 8 dereferenceable(16) %0) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #29
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1101", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !617
+  %4 = load ptr, ptr %3, align 8, !tbaa !614
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN5boost6spirit4impl15concrete_parserINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESF_SG_EE, i64 0, inrange i32 0, i64 2), ptr %2, align 8, !tbaa !23
   %5 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1101", ptr %2, i64 0, i32 1
   store ptr %4, ptr %5, align 8, !tbaa !14
@@ -20477,10 +20386,10 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_8
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_8optionalISI_EEEENS0_5chlitIcEEEESG_SH_E16do_parse_virtualERKSG_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = alloca %"class.boost::spirit::match.1052", align 8
   %4 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1102", ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !620
+  %5 = load ptr, ptr %4, align 8, !tbaa !617
   %6 = load ptr, ptr %5, align 8, !tbaa !95
   %7 = icmp eq ptr %6, null
-  br i1 %7, label %40, label %8
+  br i1 %7, label %39, label %8
 
 8:                                                ; preds = %2
   %9 = load ptr, ptr %6, align 8, !tbaa !23
@@ -20488,14 +20397,14 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %11 = load ptr, ptr %10, align 8
   %12 = tail call i64 %11(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %13 = icmp sgt i64 %12, -1
-  br i1 %13, label %14, label %40
+  br i1 %13, label %14, label %39
 
 14:                                               ; preds = %8
   %15 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1102", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %16 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %17 = load ptr, ptr %16, align 8, !tbaa !98
   %18 = load ptr, ptr %17, align 8, !tbaa !14
-  %19 = load ptr, ptr %15, align 8, !tbaa !531
+  %19 = load ptr, ptr %15, align 8, !tbaa !528
   %20 = load ptr, ptr %19, align 8, !tbaa !95
   %21 = icmp eq ptr %20, null
   br i1 %21, label %30, label %22
@@ -20525,13 +20434,15 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %35, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %36 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %37 = icmp sgt i64 %36, -1
+  %37 = icmp slt i64 %36, 0
   %38 = add nsw i64 %34, %36
-  %39 = select i1 %37, i64 %38, i64 -1
+  br i1 %37, label %39, label %40
+
+39:                                               ; preds = %32, %8, %2
   br label %40
 
-40:                                               ; preds = %2, %8, %32
-  %41 = phi i64 [ -1, %8 ], [ -1, %2 ], [ %39, %32 ]
+40:                                               ; preds = %32, %39
+  %41 = phi i64 [ %38, %32 ], [ -1, %39 ]
   ret i64 %41
 }
 
@@ -20557,7 +20468,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !372
+  %7 = load ptr, ptr %3, align 8, !tbaa !369
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %18, label %10
@@ -20578,7 +20489,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %19 = phi ptr [ %17, %16 ], [ %5, %2 ]
   store ptr %6, ptr %19, align 8, !tbaa !14
   %20 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1103", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %21 = load ptr, ptr %20, align 8, !tbaa !374
+  %21 = load ptr, ptr %20, align 8, !tbaa !371
   %22 = load ptr, ptr %21, align 8, !tbaa !95
   %23 = icmp eq ptr %22, null
   br i1 %23, label %30, label %24
@@ -20595,7 +20506,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %31 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %6, ptr %31, align 8, !tbaa !14
   %32 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1103", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !375
+  %33 = load ptr, ptr %32, align 8, !tbaa !372
   %34 = load ptr, ptr %33, align 8, !tbaa !95
   %35 = icmp eq ptr %34, null
   br i1 %35, label %63, label %36
@@ -20613,7 +20524,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %44 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1103", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
   %45 = load ptr, ptr %4, align 8, !tbaa !98
   %46 = load ptr, ptr %45, align 8, !tbaa !14
-  %47 = load ptr, ptr %44, align 8, !tbaa !531
+  %47 = load ptr, ptr %44, align 8, !tbaa !528
   %48 = load ptr, ptr %47, align 8, !tbaa !95
   %49 = icmp eq ptr %48, null
   br i1 %49, label %58, label %50
@@ -20665,10 +20576,10 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_8
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_8optionalINS3_INS0_5chlitIcEESI_EEEEEESG_SH_E16do_parse_virtualERKSG_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = alloca %"class.boost::spirit::match.1052", align 8
   %4 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1104", ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !622
+  %5 = load ptr, ptr %4, align 8, !tbaa !619
   %6 = load ptr, ptr %5, align 8, !tbaa !95
   %7 = icmp eq ptr %6, null
-  br i1 %7, label %40, label %8
+  br i1 %7, label %37, label %8
 
 8:                                                ; preds = %2
   %9 = load ptr, ptr %6, align 8, !tbaa !23
@@ -20676,7 +20587,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %11 = load ptr, ptr %10, align 8
   %12 = tail call i64 %11(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %13 = icmp sgt i64 %12, -1
-  br i1 %13, label %14, label %40
+  br i1 %13, label %14, label %37
 
 14:                                               ; preds = %8
   %15 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1104", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
@@ -20688,39 +20599,36 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %19 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %20 = icmp sgt i64 %19, -1
-  br i1 %20, label %21, label %35
+  br i1 %20, label %21, label %32
 
 21:                                               ; preds = %14
   %22 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1104", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %23 = load ptr, ptr %22, align 8, !tbaa !472
+  %23 = load ptr, ptr %22, align 8, !tbaa !469
   %24 = load ptr, ptr %23, align 8, !tbaa !95
   %25 = icmp eq ptr %24, null
-  br i1 %25, label %35, label %26
+  br i1 %25, label %32, label %26
 
 26:                                               ; preds = %21
   %27 = load ptr, ptr %24, align 8, !tbaa !23
   %28 = getelementptr inbounds ptr, ptr %27, i64 2
   %29 = load ptr, ptr %28, align 8
   %30 = call i64 %29(ptr noundef nonnull align 8 dereferenceable(8) %24, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %31 = icmp sgt i64 %30, -1
-  %32 = add nsw i64 %30, %19
-  %33 = icmp sgt i64 %32, -1
-  %34 = select i1 %31, i1 %33, i1 false
-  br i1 %34, label %37, label %35
+  %31 = icmp slt i64 %30, 0
+  br i1 %31, label %32, label %34
 
-35:                                               ; preds = %26, %21, %14
-  %36 = load ptr, ptr %16, align 8, !tbaa !98
-  store ptr %18, ptr %36, align 8, !tbaa !14
+32:                                               ; preds = %26, %21, %14
+  %33 = load ptr, ptr %16, align 8, !tbaa !98
+  store ptr %18, ptr %33, align 8, !tbaa !14
   br label %37
 
-37:                                               ; preds = %35, %26
-  %38 = phi i64 [ 0, %35 ], [ %32, %26 ]
-  %39 = add nuw nsw i64 %38, %12
-  br label %40
+34:                                               ; preds = %26
+  %35 = add nuw i64 %19, %12
+  %36 = add i64 %35, %30
+  br label %37
 
-40:                                               ; preds = %2, %8, %37
-  %41 = phi i64 [ %39, %37 ], [ -1, %8 ], [ -1, %2 ]
-  ret i64 %41
+37:                                               ; preds = %2, %8, %32, %34
+  %38 = phi i64 [ %36, %34 ], [ %12, %32 ], [ -1, %2 ], [ -1, %8 ]
+  ret i64 %38
 }
 
 ; Function Attrs: uwtable
@@ -20761,7 +20669,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %3 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %4 = load ptr, ptr %3, align 8, !tbaa !98
   %5 = load ptr, ptr %4, align 8, !tbaa !14
-  %6 = load ptr, ptr %0, align 8, !tbaa !372
+  %6 = load ptr, ptr %0, align 8, !tbaa !369
   %7 = load ptr, ptr %6, align 8, !tbaa !95
   %8 = icmp eq ptr %7, null
   br i1 %8, label %17, label %9
@@ -20782,7 +20690,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %18 = phi ptr [ %16, %15 ], [ %4, %2 ]
   store ptr %5, ptr %18, align 8, !tbaa !14
   %19 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.286", ptr %0, i64 0, i32 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !374
+  %20 = load ptr, ptr %19, align 8, !tbaa !371
   %21 = load ptr, ptr %20, align 8, !tbaa !95
   %22 = icmp eq ptr %21, null
   br i1 %22, label %29, label %23
@@ -20799,7 +20707,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %30 = load ptr, ptr %3, align 8, !tbaa !98
   store ptr %5, ptr %30, align 8, !tbaa !14
   %31 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.281", ptr %0, i64 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !375
+  %32 = load ptr, ptr %31, align 8, !tbaa !372
   %33 = load ptr, ptr %32, align 8, !tbaa !95
   %34 = icmp eq ptr %33, null
   br i1 %34, label %41, label %35
@@ -20816,7 +20724,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %42 = load ptr, ptr %3, align 8, !tbaa !98
   store ptr %5, ptr %42, align 8, !tbaa !14
   %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.276", ptr %0, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !380
+  %44 = load ptr, ptr %43, align 8, !tbaa !377
   %45 = load ptr, ptr %44, align 8, !tbaa !95
   %46 = icmp eq ptr %45, null
   br i1 %46, label %53, label %47
@@ -20833,7 +20741,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %54 = load ptr, ptr %3, align 8, !tbaa !98
   store ptr %5, ptr %54, align 8, !tbaa !14
   %55 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.698", ptr %0, i64 0, i32 1
-  %56 = load ptr, ptr %55, align 8, !tbaa !626
+  %56 = load ptr, ptr %55, align 8, !tbaa !623
   %57 = load ptr, ptr %56, align 8, !tbaa !95
   %58 = icmp eq ptr %57, null
   br i1 %58, label %64, label %59
@@ -20845,8 +20753,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %63 = tail call i64 %62(ptr noundef nonnull align 8 dereferenceable(8) %57, ptr noundef nonnull align 8 dereferenceable(24) %1)
   br label %64
 
-64:                                               ; preds = %23, %9, %35, %59, %53, %47
-  %65 = phi i64 [ %51, %47 ], [ %63, %59 ], [ -1, %53 ], [ %27, %23 ], [ %13, %9 ], [ %39, %35 ]
+64:                                               ; preds = %23, %9, %35, %47, %59, %53
+  %65 = phi i64 [ %63, %59 ], [ -1, %53 ], [ %51, %47 ], [ %27, %23 ], [ %13, %9 ], [ %39, %35 ]
   ret i64 %65
 }
 
@@ -20870,7 +20778,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %10 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %6, ptr %10, align 8, !tbaa !14
   %11 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1106", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !631
+  %12 = load ptr, ptr %11, align 8, !tbaa !628
   %13 = load ptr, ptr %12, align 8, !tbaa !95
   %14 = icmp eq ptr %13, null
   br i1 %14, label %21, label %15
@@ -20887,7 +20795,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %22 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %6, ptr %22, align 8, !tbaa !14
   %23 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1106", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !652
+  %24 = load ptr, ptr %23, align 8, !tbaa !649
   %25 = load ptr, ptr %24, align 8, !tbaa !95
   %26 = icmp eq ptr %25, null
   br i1 %26, label %32, label %27
@@ -20900,7 +20808,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   br label %32
 
 32:                                               ; preds = %2, %15, %21, %27
-  %33 = phi i64 [ %19, %15 ], [ %31, %27 ], [ -1, %21 ], [ %7, %2 ]
+  %33 = phi i64 [ %31, %27 ], [ -1, %21 ], [ %19, %15 ], [ %7, %2 ]
   ret i64 %33
 }
 
@@ -20927,7 +20835,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %9 = load ptr, ptr %3, align 8, !tbaa !98
   store ptr %5, ptr %9, align 8, !tbaa !14
   %10 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.728", ptr %0, i64 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !657
+  %11 = load ptr, ptr %10, align 8, !tbaa !654
   %12 = load ptr, ptr %11, align 8, !tbaa !95
   %13 = icmp eq ptr %12, null
   br i1 %13, label %20, label %14
@@ -20944,7 +20852,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %21 = load ptr, ptr %3, align 8, !tbaa !98
   store ptr %5, ptr %21, align 8, !tbaa !14
   %22 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.723", ptr %0, i64 0, i32 1
-  %23 = load ptr, ptr %22, align 8, !tbaa !658
+  %23 = load ptr, ptr %22, align 8, !tbaa !655
   %24 = load ptr, ptr %23, align 8, !tbaa !95
   %25 = icmp eq ptr %24, null
   br i1 %25, label %32, label %26
@@ -20961,7 +20869,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %33 = load ptr, ptr %3, align 8, !tbaa !98
   store ptr %5, ptr %33, align 8, !tbaa !14
   %34 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.718", ptr %0, i64 0, i32 1
-  %35 = load ptr, ptr %34, align 8, !tbaa !659
+  %35 = load ptr, ptr %34, align 8, !tbaa !656
   %36 = load ptr, ptr %35, align 8, !tbaa !95
   %37 = icmp eq ptr %36, null
   br i1 %37, label %44, label %38
@@ -20978,7 +20886,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %45 = load ptr, ptr %3, align 8, !tbaa !98
   store ptr %5, ptr %45, align 8, !tbaa !14
   %46 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.713", ptr %0, i64 0, i32 1
-  %47 = load ptr, ptr %46, align 8, !tbaa !660
+  %47 = load ptr, ptr %46, align 8, !tbaa !657
   %48 = load ptr, ptr %47, align 8, !tbaa !95
   %49 = icmp eq ptr %48, null
   br i1 %49, label %55, label %50
@@ -20990,8 +20898,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS1_
   %54 = tail call i64 %53(ptr noundef nonnull align 8 dereferenceable(8) %48, ptr noundef nonnull align 8 dereferenceable(24) %1)
   br label %55
 
-55:                                               ; preds = %14, %2, %26, %50, %44, %38
-  %56 = phi i64 [ %42, %38 ], [ %54, %50 ], [ -1, %44 ], [ %18, %14 ], [ %6, %2 ], [ %30, %26 ]
+55:                                               ; preds = %14, %2, %26, %38, %50, %44
+  %56 = phi i64 [ %54, %50 ], [ -1, %44 ], [ %42, %38 ], [ %18, %14 ], [ %6, %2 ], [ %30, %26 ]
   ret i64 %56
 }
 
@@ -21004,10 +20912,10 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_8
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_11alternativeINS3_ISI_NS0_8optionalINS3_INS3_ISI_SI_EESI_EEEEEESM_EEEESG_SH_E16do_parse_virtualERKSG_(ptr noundef nonnull align 8 dereferenceable(72) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 {
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1107", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !661
+  %4 = load ptr, ptr %3, align 8, !tbaa !658
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
-  br i1 %6, label %19, label %7
+  br i1 %6, label %18, label %7
 
 7:                                                ; preds = %2
   %8 = load ptr, ptr %5, align 8, !tbaa !23
@@ -21015,18 +20923,20 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %10 = load ptr, ptr %9, align 8
   %11 = tail call i64 %10(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %12 = icmp sgt i64 %11, -1
-  br i1 %12, label %13, label %19
+  br i1 %12, label %13, label %18
 
 13:                                               ; preds = %7
   %14 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1107", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
   %15 = tail call i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalINS2_INS2_ISH_SH_EESH_EEEEEESK_E5parseISF_EENS0_13parser_resultISN_T_E4typeERKSQ_(ptr noundef nonnull align 8 dereferenceable(56) %14, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %16 = icmp sgt i64 %15, -1
+  %16 = icmp slt i64 %15, 0
   %17 = add nsw i64 %15, %11
-  %18 = select i1 %16, i64 %17, i64 -1
+  br i1 %16, label %18, label %19
+
+18:                                               ; preds = %13, %7, %2
   br label %19
 
-19:                                               ; preds = %2, %7, %13
-  %20 = phi i64 [ -1, %7 ], [ -1, %2 ], [ %18, %13 ]
+19:                                               ; preds = %13, %18
+  %20 = phi i64 [ %17, %13 ], [ -1, %18 ]
   ret i64 %20
 }
 
@@ -21045,10 +20955,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %3 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %4 = load ptr, ptr %3, align 8, !tbaa !98
   %5 = load ptr, ptr %4, align 8, !tbaa !14
-  %6 = load ptr, ptr %0, align 8, !tbaa !673
+  %6 = load ptr, ptr %0, align 8, !tbaa !670
   %7 = load ptr, ptr %6, align 8, !tbaa !95
   %8 = icmp eq ptr %7, null
-  br i1 %8, label %63, label %9
+  br i1 %8, label %57, label %9
 
 9:                                                ; preds = %2
   %10 = load ptr, ptr %7, align 8, !tbaa !23
@@ -21056,130 +20966,122 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %12 = load ptr, ptr %11, align 8
   %13 = tail call i64 %12(ptr noundef nonnull align 8 dereferenceable(8) %7, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %14 = icmp sgt i64 %13, -1
-  br i1 %14, label %17, label %15
+  br i1 %14, label %15, label %57
 
 15:                                               ; preds = %9
-  %16 = load ptr, ptr %3, align 8, !tbaa !98
-  br label %63
+  %16 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.743", ptr %0, i64 0, i32 1
+  %17 = load ptr, ptr %3, align 8, !tbaa !98
+  %18 = load ptr, ptr %17, align 8, !tbaa !14
+  %19 = load ptr, ptr %16, align 8, !tbaa !369
+  %20 = load ptr, ptr %19, align 8, !tbaa !95
+  %21 = icmp eq ptr %20, null
+  br i1 %21, label %55, label %22
 
-17:                                               ; preds = %9
-  %18 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.743", ptr %0, i64 0, i32 1
-  %19 = load ptr, ptr %3, align 8, !tbaa !98
-  %20 = load ptr, ptr %19, align 8, !tbaa !14
-  %21 = load ptr, ptr %18, align 8, !tbaa !372
-  %22 = load ptr, ptr %21, align 8, !tbaa !95
-  %23 = icmp eq ptr %22, null
-  br i1 %23, label %58, label %24
+22:                                               ; preds = %15
+  %23 = load ptr, ptr %20, align 8, !tbaa !23
+  %24 = getelementptr inbounds ptr, ptr %23, i64 2
+  %25 = load ptr, ptr %24, align 8
+  %26 = tail call i64 %25(ptr noundef nonnull align 8 dereferenceable(8) %20, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %27 = icmp sgt i64 %26, -1
+  br i1 %27, label %28, label %55
 
-24:                                               ; preds = %17
-  %25 = load ptr, ptr %22, align 8, !tbaa !23
-  %26 = getelementptr inbounds ptr, ptr %25, i64 2
-  %27 = load ptr, ptr %26, align 8
-  %28 = tail call i64 %27(ptr noundef nonnull align 8 dereferenceable(8) %22, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %29 = icmp sgt i64 %28, -1
-  br i1 %29, label %30, label %58
+28:                                               ; preds = %22
+  %29 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.743", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %30 = load ptr, ptr %29, align 8, !tbaa !371
+  %31 = load ptr, ptr %30, align 8, !tbaa !95
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %55, label %33
 
-30:                                               ; preds = %24
-  %31 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.743", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !374
-  %33 = load ptr, ptr %32, align 8, !tbaa !95
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %58, label %35
+33:                                               ; preds = %28
+  %34 = load ptr, ptr %31, align 8, !tbaa !23
+  %35 = getelementptr inbounds ptr, ptr %34, i64 2
+  %36 = load ptr, ptr %35, align 8
+  %37 = tail call i64 %36(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %38 = icmp slt i64 %37, 0
+  br i1 %38, label %55, label %39
 
-35:                                               ; preds = %30
-  %36 = load ptr, ptr %33, align 8, !tbaa !23
-  %37 = getelementptr inbounds ptr, ptr %36, i64 2
-  %38 = load ptr, ptr %37, align 8
-  %39 = tail call i64 %38(ptr noundef nonnull align 8 dereferenceable(8) %33, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %40 = icmp sgt i64 %39, -1
-  %41 = add nsw i64 %39, %28
-  %42 = select i1 %40, i64 %41, i64 -1
-  %43 = icmp sgt i64 %42, -1
-  br i1 %43, label %44, label %58
+39:                                               ; preds = %33
+  %40 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.743", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %41 = load ptr, ptr %40, align 8, !tbaa !527
+  %42 = load ptr, ptr %41, align 8, !tbaa !95
+  %43 = icmp eq ptr %42, null
+  br i1 %43, label %55, label %44
 
-44:                                               ; preds = %35
-  %45 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.743", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %46 = load ptr, ptr %45, align 8, !tbaa !530
-  %47 = load ptr, ptr %46, align 8, !tbaa !95
-  %48 = icmp eq ptr %47, null
-  br i1 %48, label %58, label %49
+44:                                               ; preds = %39
+  %45 = load ptr, ptr %42, align 8, !tbaa !23
+  %46 = getelementptr inbounds ptr, ptr %45, i64 2
+  %47 = load ptr, ptr %46, align 8
+  %48 = tail call i64 %47(ptr noundef nonnull align 8 dereferenceable(8) %42, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %49 = icmp slt i64 %48, 0
+  br i1 %49, label %55, label %50
 
-49:                                               ; preds = %44
-  %50 = load ptr, ptr %47, align 8, !tbaa !23
-  %51 = getelementptr inbounds ptr, ptr %50, i64 2
-  %52 = load ptr, ptr %51, align 8
-  %53 = tail call i64 %52(ptr noundef nonnull align 8 dereferenceable(8) %47, ptr noundef nonnull align 8 dereferenceable(24) %1)
+50:                                               ; preds = %44
+  %51 = add nuw i64 %26, %13
+  %52 = add i64 %51, %37
+  %53 = add i64 %52, %48
   %54 = icmp sgt i64 %53, -1
-  %55 = add nsw i64 %53, %42
-  %56 = icmp sgt i64 %55, -1
-  %57 = select i1 %54, i1 %56, i1 false
-  br i1 %57, label %60, label %58
+  br i1 %54, label %94, label %57
 
-58:                                               ; preds = %49, %44, %35, %30, %24, %17
-  %59 = load ptr, ptr %3, align 8, !tbaa !98
-  store ptr %20, ptr %59, align 8, !tbaa !14
-  br label %60
+55:                                               ; preds = %15, %22, %28, %33, %39, %44
+  %56 = load ptr, ptr %3, align 8, !tbaa !98
+  store ptr %18, ptr %56, align 8, !tbaa !14
+  br label %94
 
-60:                                               ; preds = %49, %58
-  %61 = phi i64 [ 0, %58 ], [ %55, %49 ]
-  %62 = add nuw nsw i64 %61, %13
-  br label %102
+57:                                               ; preds = %9, %2, %50
+  %58 = load ptr, ptr %3, align 8, !tbaa !98
+  store ptr %5, ptr %58, align 8, !tbaa !14
+  %59 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.738", ptr %0, i64 0, i32 1
+  %60 = load ptr, ptr %59, align 8, !tbaa !369
+  %61 = load ptr, ptr %60, align 8, !tbaa !95
+  %62 = icmp eq ptr %61, null
+  br i1 %62, label %93, label %63
 
-63:                                               ; preds = %15, %2
-  %64 = phi ptr [ %16, %15 ], [ %4, %2 ]
-  store ptr %5, ptr %64, align 8, !tbaa !14
-  %65 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.738", ptr %0, i64 0, i32 1
-  %66 = load ptr, ptr %65, align 8, !tbaa !372
-  %67 = load ptr, ptr %66, align 8, !tbaa !95
-  %68 = icmp eq ptr %67, null
-  br i1 %68, label %102, label %69
+63:                                               ; preds = %57
+  %64 = load ptr, ptr %61, align 8, !tbaa !23
+  %65 = getelementptr inbounds ptr, ptr %64, i64 2
+  %66 = load ptr, ptr %65, align 8
+  %67 = tail call i64 %66(ptr noundef nonnull align 8 dereferenceable(8) %61, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %68 = icmp sgt i64 %67, -1
+  br i1 %68, label %69, label %93
 
 69:                                               ; preds = %63
-  %70 = load ptr, ptr %67, align 8, !tbaa !23
-  %71 = getelementptr inbounds ptr, ptr %70, i64 2
-  %72 = load ptr, ptr %71, align 8
-  %73 = tail call i64 %72(ptr noundef nonnull align 8 dereferenceable(8) %67, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %74 = icmp sgt i64 %73, -1
-  br i1 %74, label %75, label %102
+  %70 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.738", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %71 = load ptr, ptr %70, align 8, !tbaa !371
+  %72 = load ptr, ptr %71, align 8, !tbaa !95
+  %73 = icmp eq ptr %72, null
+  br i1 %73, label %93, label %74
 
-75:                                               ; preds = %69
-  %76 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.738", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %77 = load ptr, ptr %76, align 8, !tbaa !374
-  %78 = load ptr, ptr %77, align 8, !tbaa !95
-  %79 = icmp eq ptr %78, null
-  br i1 %79, label %102, label %80
+74:                                               ; preds = %69
+  %75 = load ptr, ptr %72, align 8, !tbaa !23
+  %76 = getelementptr inbounds ptr, ptr %75, i64 2
+  %77 = load ptr, ptr %76, align 8
+  %78 = tail call i64 %77(ptr noundef nonnull align 8 dereferenceable(8) %72, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %79 = icmp slt i64 %78, 0
+  %80 = add nsw i64 %78, %67
+  br i1 %79, label %93, label %81
 
-80:                                               ; preds = %75
-  %81 = load ptr, ptr %78, align 8, !tbaa !23
-  %82 = getelementptr inbounds ptr, ptr %81, i64 2
-  %83 = load ptr, ptr %82, align 8
-  %84 = tail call i64 %83(ptr noundef nonnull align 8 dereferenceable(8) %78, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %85 = icmp sgt i64 %84, -1
-  %86 = add nsw i64 %84, %73
-  %87 = select i1 %85, i64 %86, i64 -1
-  %88 = icmp sgt i64 %87, -1
-  br i1 %88, label %89, label %102
+81:                                               ; preds = %74
+  %82 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.738", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %83 = load ptr, ptr %82, align 8, !tbaa !527
+  %84 = load ptr, ptr %83, align 8, !tbaa !95
+  %85 = icmp eq ptr %84, null
+  br i1 %85, label %93, label %86
 
-89:                                               ; preds = %80
-  %90 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.738", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %91 = load ptr, ptr %90, align 8, !tbaa !530
-  %92 = load ptr, ptr %91, align 8, !tbaa !95
-  %93 = icmp eq ptr %92, null
-  br i1 %93, label %102, label %94
+86:                                               ; preds = %81
+  %87 = load ptr, ptr %84, align 8, !tbaa !23
+  %88 = getelementptr inbounds ptr, ptr %87, i64 2
+  %89 = load ptr, ptr %88, align 8
+  %90 = tail call i64 %89(ptr noundef nonnull align 8 dereferenceable(8) %84, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %91 = icmp slt i64 %90, 0
+  %92 = add nsw i64 %80, %90
+  br i1 %91, label %93, label %94
 
-94:                                               ; preds = %89
-  %95 = load ptr, ptr %92, align 8, !tbaa !23
-  %96 = getelementptr inbounds ptr, ptr %95, i64 2
-  %97 = load ptr, ptr %96, align 8
-  %98 = tail call i64 %97(ptr noundef nonnull align 8 dereferenceable(8) %92, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %99 = icmp sgt i64 %98, -1
-  %100 = add nsw i64 %98, %87
-  %101 = select i1 %99, i64 %100, i64 -1
-  br label %102
+93:                                               ; preds = %86, %81, %74, %69, %63, %57
+  br label %94
 
-102:                                              ; preds = %60, %94, %89, %80, %75, %69, %63
-  %103 = phi i64 [ %62, %60 ], [ -1, %80 ], [ -1, %69 ], [ -1, %63 ], [ -1, %75 ], [ -1, %89 ], [ %101, %94 ]
-  ret i64 %103
+94:                                               ; preds = %50, %55, %93, %86
+  %95 = phi i64 [ %13, %55 ], [ %92, %86 ], [ -1, %93 ], [ %53, %50 ]
+  ret i64 %95
 }
 
 ; Function Attrs: nounwind uwtable
@@ -21194,7 +21096,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !372
+  %7 = load ptr, ptr %3, align 8, !tbaa !369
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %18, label %10
@@ -21215,7 +21117,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %19 = phi ptr [ %17, %16 ], [ %5, %2 ]
   store ptr %6, ptr %19, align 8, !tbaa !14
   %20 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1108", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %21 = load ptr, ptr %20, align 8, !tbaa !374
+  %21 = load ptr, ptr %20, align 8, !tbaa !371
   %22 = load ptr, ptr %21, align 8, !tbaa !95
   %23 = icmp eq ptr %22, null
   br i1 %23, label %29, label %24
@@ -21228,7 +21130,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   br label %29
 
 29:                                               ; preds = %10, %18, %24
-  %30 = phi i64 [ %14, %10 ], [ %28, %24 ], [ -1, %18 ]
+  %30 = phi i64 [ %28, %24 ], [ -1, %18 ], [ %14, %10 ]
   ret i64 %30
 }
 
@@ -21252,10 +21154,10 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_8
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EENS0_5chlitIcEEEESG_SH_E16do_parse_virtualERKSG_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = alloca %"class.boost::spirit::match.1052", align 8
   %4 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1109", ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !372
+  %5 = load ptr, ptr %4, align 8, !tbaa !369
   %6 = load ptr, ptr %5, align 8, !tbaa !95
   %7 = icmp eq ptr %6, null
-  br i1 %7, label %34, label %8
+  br i1 %7, label %31, label %8
 
 8:                                                ; preds = %2
   %9 = load ptr, ptr %6, align 8, !tbaa !23
@@ -21263,40 +21165,40 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %11 = load ptr, ptr %10, align 8
   %12 = tail call i64 %11(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %13 = icmp sgt i64 %12, -1
-  br i1 %13, label %14, label %34
+  br i1 %13, label %14, label %31
 
 14:                                               ; preds = %8
   %15 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1109", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !374
+  %16 = load ptr, ptr %15, align 8, !tbaa !371
   %17 = load ptr, ptr %16, align 8, !tbaa !95
   %18 = icmp eq ptr %17, null
-  br i1 %18, label %34, label %19
+  br i1 %18, label %31, label %19
 
 19:                                               ; preds = %14
   %20 = load ptr, ptr %17, align 8, !tbaa !23
   %21 = getelementptr inbounds ptr, ptr %20, i64 2
   %22 = load ptr, ptr %21, align 8
   %23 = tail call i64 %22(ptr noundef nonnull align 8 dereferenceable(8) %17, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %24 = icmp sgt i64 %23, -1
-  %25 = add nsw i64 %23, %12
-  %26 = select i1 %24, i64 %25, i64 -1
-  %27 = icmp sgt i64 %26, -1
-  br i1 %27, label %28, label %34
+  %24 = icmp slt i64 %23, 0
+  br i1 %24, label %31, label %25
 
-28:                                               ; preds = %19
+25:                                               ; preds = %19
+  %26 = add nuw nsw i64 %23, %12
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  %29 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1109", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %29, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %30 = load i64, ptr %3, align 8, !tbaa !212
+  %27 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1109", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %27, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %28 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %31 = icmp sgt i64 %30, -1
-  %32 = add nsw i64 %30, %26
-  %33 = select i1 %31, i64 %32, i64 -1
-  br label %34
+  %29 = icmp slt i64 %28, 0
+  %30 = add nsw i64 %26, %28
+  br i1 %29, label %31, label %32
 
-34:                                               ; preds = %2, %8, %14, %19, %28
-  %35 = phi i64 [ -1, %19 ], [ -1, %8 ], [ -1, %2 ], [ -1, %14 ], [ %33, %28 ]
-  ret i64 %35
+31:                                               ; preds = %25, %19, %14, %8, %2
+  br label %32
+
+32:                                               ; preds = %25, %31
+  %33 = phi i64 [ %30, %25 ], [ -1, %31 ]
+  ret i64 %33
 }
 
 ; Function Attrs: uwtable
@@ -21321,7 +21223,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !372
+  %7 = load ptr, ptr %3, align 8, !tbaa !369
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %18, label %10
@@ -21342,7 +21244,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %19 = phi ptr [ %17, %16 ], [ %5, %2 ]
   store ptr %6, ptr %19, align 8, !tbaa !14
   %20 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1110", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %21 = load ptr, ptr %20, align 8, !tbaa !374
+  %21 = load ptr, ptr %20, align 8, !tbaa !371
   %22 = load ptr, ptr %21, align 8, !tbaa !95
   %23 = icmp eq ptr %22, null
   br i1 %23, label %51, label %24
@@ -21360,7 +21262,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %32 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1110", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
   %33 = load ptr, ptr %4, align 8, !tbaa !98
   %34 = load ptr, ptr %33, align 8, !tbaa !14
-  %35 = load ptr, ptr %32, align 8, !tbaa !531
+  %35 = load ptr, ptr %32, align 8, !tbaa !528
   %36 = load ptr, ptr %35, align 8, !tbaa !95
   %37 = icmp eq ptr %36, null
   br i1 %37, label %46, label %38
@@ -21432,10 +21334,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit13sequential_orINS0_4ruleINS
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %0, align 8, !tbaa !674
+  %8 = load ptr, ptr %0, align 8, !tbaa !671
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
-  br i1 %10, label %41, label %11
+  br i1 %10, label %39, label %11
 
 11:                                               ; preds = %2
   %12 = load ptr, ptr %9, align 8, !tbaa !23
@@ -21444,7 +21346,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit13sequential_orINS0_4ruleINS
   %15 = tail call i64 %14(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %16 = icmp sgt i64 %15, -1
   %17 = load ptr, ptr %5, align 8, !tbaa !98
-  br i1 %16, label %18, label %41
+  br i1 %16, label %18, label %39
 
 18:                                               ; preds = %11
   %19 = load ptr, ptr %17, align 8, !tbaa !14
@@ -21454,66 +21356,66 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit13sequential_orINS0_4ruleINS
   %21 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
   %22 = icmp sgt i64 %21, -1
-  br i1 %22, label %23, label %39
+  br i1 %22, label %23, label %37
 
 23:                                               ; preds = %18
   %24 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.762", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !472
+  %25 = load ptr, ptr %24, align 8, !tbaa !469
   %26 = load ptr, ptr %25, align 8, !tbaa !95
   %27 = icmp eq ptr %26, null
-  br i1 %27, label %39, label %28
+  br i1 %27, label %37, label %28
 
 28:                                               ; preds = %23
   %29 = load ptr, ptr %26, align 8, !tbaa !23
   %30 = getelementptr inbounds ptr, ptr %29, i64 2
   %31 = load ptr, ptr %30, align 8
   %32 = call i64 %31(ptr noundef nonnull align 8 dereferenceable(8) %26, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %33 = icmp sgt i64 %32, -1
-  %34 = add nsw i64 %32, %21
-  %35 = select i1 %33, i64 %34, i64 -1
-  %36 = icmp sgt i64 %35, -1
-  br i1 %36, label %37, label %39
+  %33 = icmp slt i64 %32, 0
+  br i1 %33, label %37, label %34
 
-37:                                               ; preds = %28
-  %38 = add nuw nsw i64 %35, %15
-  br label %59
+34:                                               ; preds = %28
+  %35 = add nuw i64 %21, %15
+  %36 = add i64 %35, %32
+  br label %57
 
-39:                                               ; preds = %23, %18, %28
-  %40 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %19, ptr %40, align 8, !tbaa !14
-  br label %59
+37:                                               ; preds = %28, %23, %18
+  %38 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %19, ptr %38, align 8, !tbaa !14
+  br label %57
 
-41:                                               ; preds = %11, %2
-  %42 = phi ptr [ %6, %2 ], [ %17, %11 ]
-  store ptr %7, ptr %42, align 8, !tbaa !14
-  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.762", ptr %0, i64 0, i32 1
+39:                                               ; preds = %11, %2
+  %40 = phi ptr [ %6, %2 ], [ %17, %11 ]
+  store ptr %7, ptr %40, align 8, !tbaa !14
+  %41 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.762", ptr %0, i64 0, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %43, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %44 = load i64, ptr %3, align 8, !tbaa !212
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %41, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %42 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %45 = icmp sgt i64 %44, -1
-  br i1 %45, label %46, label %59
+  %43 = icmp sgt i64 %42, -1
+  br i1 %43, label %44, label %56
 
-46:                                               ; preds = %41
-  %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.762", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %48 = load ptr, ptr %47, align 8, !tbaa !472
-  %49 = load ptr, ptr %48, align 8, !tbaa !95
-  %50 = icmp eq ptr %49, null
-  br i1 %50, label %59, label %51
+44:                                               ; preds = %39
+  %45 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.762", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %46 = load ptr, ptr %45, align 8, !tbaa !469
+  %47 = load ptr, ptr %46, align 8, !tbaa !95
+  %48 = icmp eq ptr %47, null
+  br i1 %48, label %56, label %49
 
-51:                                               ; preds = %46
-  %52 = load ptr, ptr %49, align 8, !tbaa !23
-  %53 = getelementptr inbounds ptr, ptr %52, i64 2
-  %54 = load ptr, ptr %53, align 8
-  %55 = call i64 %54(ptr noundef nonnull align 8 dereferenceable(8) %49, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %56 = icmp sgt i64 %55, -1
-  %57 = add nsw i64 %55, %44
-  %58 = select i1 %56, i64 %57, i64 -1
-  br label %59
+49:                                               ; preds = %44
+  %50 = load ptr, ptr %47, align 8, !tbaa !23
+  %51 = getelementptr inbounds ptr, ptr %50, i64 2
+  %52 = load ptr, ptr %51, align 8
+  %53 = call i64 %52(ptr noundef nonnull align 8 dereferenceable(8) %47, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %54 = icmp slt i64 %53, 0
+  %55 = add nsw i64 %53, %42
+  br i1 %54, label %56, label %57
 
-59:                                               ; preds = %37, %39, %51, %46, %41
-  %60 = phi i64 [ -1, %41 ], [ -1, %46 ], [ %58, %51 ], [ %38, %37 ], [ %15, %39 ]
-  ret i64 %60
+56:                                               ; preds = %49, %44, %39
+  br label %57
+
+57:                                               ; preds = %37, %34, %56, %49
+  %58 = phi i64 [ %55, %49 ], [ -1, %56 ], [ %15, %37 ], [ %36, %34 ]
+  ret i64 %58
 }
 
 ; Function Attrs: nounwind uwtable
@@ -21541,10 +21443,10 @@ define linkonce_odr dso_local noundef ptr @_ZNK5boost6spirit4impl15concrete_pars
 
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalISG_EEEESG_EESG_EESG_E5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) local_unnamed_addr #5 comdat align 2 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !620
+  %3 = load ptr, ptr %0, align 8, !tbaa !617
   %4 = load ptr, ptr %3, align 8, !tbaa !95
   %5 = icmp eq ptr %4, null
-  br i1 %5, label %73, label %6
+  br i1 %5, label %70, label %6
 
 6:                                                ; preds = %2
   %7 = load ptr, ptr %4, align 8, !tbaa !23
@@ -21552,14 +21454,14 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0
   %9 = load ptr, ptr %8, align 8
   %10 = tail call i64 %9(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %11 = icmp sgt i64 %10, -1
-  br i1 %11, label %12, label %73
+  br i1 %11, label %12, label %70
 
 12:                                               ; preds = %6
   %13 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.678", ptr %0, i64 0, i32 1
   %14 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %15 = load ptr, ptr %14, align 8, !tbaa !98
   %16 = load ptr, ptr %15, align 8, !tbaa !14
-  %17 = load ptr, ptr %13, align 8, !tbaa !531
+  %17 = load ptr, ptr %13, align 8, !tbaa !528
   %18 = load ptr, ptr %17, align 8, !tbaa !95
   %19 = icmp eq ptr %18, null
   br i1 %19, label %28, label %20
@@ -21584,10 +21486,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0
 30:                                               ; preds = %28, %20
   %31 = phi i64 [ 0, %28 ], [ %24, %20 ]
   %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.777", ptr %0, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !676
+  %33 = load ptr, ptr %32, align 8, !tbaa !673
   %34 = load ptr, ptr %33, align 8, !tbaa !95
   %35 = icmp eq ptr %34, null
-  br i1 %35, label %73, label %36
+  br i1 %35, label %70, label %36
 
 36:                                               ; preds = %30
   %37 = add nuw nsw i64 %31, %10
@@ -21597,48 +21499,48 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0
   %41 = tail call i64 %40(ptr noundef nonnull align 8 dereferenceable(8) %34, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %42 = icmp sgt i64 %41, -1
   %43 = add nsw i64 %37, %41
-  %44 = select i1 %42, i64 %43, i64 -1
-  %45 = icmp sgt i64 %44, -1
-  br i1 %45, label %46, label %73
+  %44 = icmp sgt i64 %43, -1
+  %45 = select i1 %42, i1 %44, i1 false
+  br i1 %45, label %46, label %70
 
 46:                                               ; preds = %36
   %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.772", ptr %0, i64 0, i32 1
-  %48 = load ptr, ptr %47, align 8, !tbaa !681
+  %48 = load ptr, ptr %47, align 8, !tbaa !678
   %49 = load ptr, ptr %48, align 8, !tbaa !95
   %50 = icmp eq ptr %49, null
-  br i1 %50, label %73, label %51
+  br i1 %50, label %70, label %51
 
 51:                                               ; preds = %46
   %52 = load ptr, ptr %49, align 8, !tbaa !23
   %53 = getelementptr inbounds ptr, ptr %52, i64 2
   %54 = load ptr, ptr %53, align 8
   %55 = tail call i64 %54(ptr noundef nonnull align 8 dereferenceable(8) %49, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %56 = icmp sgt i64 %55, -1
-  %57 = add nsw i64 %55, %44
-  %58 = select i1 %56, i64 %57, i64 -1
-  %59 = icmp sgt i64 %58, -1
-  br i1 %59, label %60, label %73
+  %56 = icmp slt i64 %55, 0
+  %57 = add nsw i64 %55, %43
+  br i1 %56, label %70, label %58
 
-60:                                               ; preds = %51
-  %61 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.767", ptr %0, i64 0, i32 1
-  %62 = load ptr, ptr %61, align 8, !tbaa !686
-  %63 = load ptr, ptr %62, align 8, !tbaa !95
-  %64 = icmp eq ptr %63, null
-  br i1 %64, label %73, label %65
+58:                                               ; preds = %51
+  %59 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.767", ptr %0, i64 0, i32 1
+  %60 = load ptr, ptr %59, align 8, !tbaa !683
+  %61 = load ptr, ptr %60, align 8, !tbaa !95
+  %62 = icmp eq ptr %61, null
+  br i1 %62, label %70, label %63
 
-65:                                               ; preds = %60
-  %66 = load ptr, ptr %63, align 8, !tbaa !23
-  %67 = getelementptr inbounds ptr, ptr %66, i64 2
-  %68 = load ptr, ptr %67, align 8
-  %69 = tail call i64 %68(ptr noundef nonnull align 8 dereferenceable(8) %63, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %70 = icmp sgt i64 %69, -1
-  %71 = add nsw i64 %69, %58
-  %72 = select i1 %70, i64 %71, i64 -1
-  br label %73
+63:                                               ; preds = %58
+  %64 = load ptr, ptr %61, align 8, !tbaa !23
+  %65 = getelementptr inbounds ptr, ptr %64, i64 2
+  %66 = load ptr, ptr %65, align 8
+  %67 = tail call i64 %66(ptr noundef nonnull align 8 dereferenceable(8) %61, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %68 = icmp slt i64 %67, 0
+  %69 = add nsw i64 %67, %57
+  br i1 %68, label %70, label %71
 
-73:                                               ; preds = %65, %60, %46, %30, %2, %6, %36, %51
-  %74 = phi i64 [ -1, %51 ], [ -1, %36 ], [ -1, %6 ], [ -1, %2 ], [ -1, %30 ], [ -1, %46 ], [ -1, %60 ], [ %72, %65 ]
-  ret i64 %74
+70:                                               ; preds = %58, %51, %46, %36, %30, %6, %2, %63
+  br label %71
+
+71:                                               ; preds = %63, %70
+  %72 = phi i64 [ %69, %63 ], [ -1, %70 ]
+  ret i64 %72
 }
 
 ; Function Attrs: nounwind uwtable
@@ -21653,7 +21555,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !531
+  %7 = load ptr, ptr %3, align 8, !tbaa !528
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %18, label %10
@@ -21678,23 +21580,25 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
 20:                                               ; preds = %18, %10
   %21 = phi i64 [ 0, %18 ], [ %14, %10 ]
   %22 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1113", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %23 = load ptr, ptr %22, align 8, !tbaa !691
+  %23 = load ptr, ptr %22, align 8, !tbaa !688
   %24 = load ptr, ptr %23, align 8, !tbaa !95
   %25 = icmp eq ptr %24, null
-  br i1 %25, label %34, label %26
+  br i1 %25, label %33, label %26
 
 26:                                               ; preds = %20
   %27 = load ptr, ptr %24, align 8, !tbaa !23
   %28 = getelementptr inbounds ptr, ptr %27, i64 2
   %29 = load ptr, ptr %28, align 8
   %30 = tail call i64 %29(ptr noundef nonnull align 8 dereferenceable(8) %24, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %31 = icmp sgt i64 %30, -1
+  %31 = icmp slt i64 %30, 0
   %32 = add nsw i64 %30, %21
-  %33 = select i1 %31, i64 %32, i64 -1
+  br i1 %31, label %33, label %34
+
+33:                                               ; preds = %26, %20
   br label %34
 
-34:                                               ; preds = %20, %26
-  %35 = phi i64 [ -1, %20 ], [ %33, %26 ]
+34:                                               ; preds = %26, %33
+  %35 = phi i64 [ %32, %26 ], [ -1, %33 ]
   ret i64 %35
 }
 
@@ -21738,7 +21642,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_11alternativeI
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %0, align 8, !tbaa !548
+  %8 = load ptr, ptr %0, align 8, !tbaa !545
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
   br i1 %10, label %19, label %11
@@ -21749,7 +21653,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_11alternativeI
   %14 = load ptr, ptr %13, align 8
   %15 = tail call i64 %14(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %16 = icmp sgt i64 %15, -1
-  br i1 %16, label %45, label %17
+  br i1 %16, label %41, label %17
 
 17:                                               ; preds = %11
   %18 = load ptr, ptr %5, align 8, !tbaa !98
@@ -21764,59 +21668,57 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_11alternativeI
   %22 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %23 = icmp sgt i64 %22, -1
-  br i1 %23, label %24, label %59
+  br i1 %23, label %24, label %54
 
 24:                                               ; preds = %19
   %25 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.495", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !472
+  %26 = load ptr, ptr %25, align 8, !tbaa !469
   %27 = load ptr, ptr %26, align 8, !tbaa !95
   %28 = icmp eq ptr %27, null
-  br i1 %28, label %59, label %29
+  br i1 %28, label %54, label %29
 
 29:                                               ; preds = %24
   %30 = load ptr, ptr %27, align 8, !tbaa !23
   %31 = getelementptr inbounds ptr, ptr %30, i64 2
   %32 = load ptr, ptr %31, align 8
   %33 = call i64 %32(ptr noundef nonnull align 8 dereferenceable(8) %27, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %34 = icmp sgt i64 %33, -1
-  %35 = add nsw i64 %33, %22
-  %36 = select i1 %34, i64 %35, i64 -1
-  %37 = icmp sgt i64 %36, -1
-  br i1 %37, label %38, label %59
+  %34 = icmp slt i64 %33, 0
+  br i1 %34, label %54, label %35
 
-38:                                               ; preds = %29
+35:                                               ; preds = %29
+  %36 = add nuw nsw i64 %33, %22
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
-  %39 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.495", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %39, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %40 = load i64, ptr %4, align 8, !tbaa !212
+  %37 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.495", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %37, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %38 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %41 = icmp sgt i64 %40, -1
-  %42 = add nsw i64 %40, %36
-  %43 = icmp sgt i64 %42, -1
-  %44 = select i1 %41, i1 %43, i1 false
-  br i1 %44, label %45, label %59
+  %39 = icmp slt i64 %38, 0
+  %40 = add nsw i64 %36, %38
+  br i1 %39, label %54, label %41
 
-45:                                               ; preds = %38, %11
-  %46 = phi i64 [ %15, %11 ], [ %42, %38 ]
-  %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.787", ptr %0, i64 0, i32 1
-  %48 = load ptr, ptr %47, align 8, !tbaa !693
-  %49 = load ptr, ptr %48, align 8, !tbaa !95
-  %50 = icmp eq ptr %49, null
-  br i1 %50, label %59, label %51
+41:                                               ; preds = %35, %11
+  %42 = phi i64 [ %15, %11 ], [ %40, %35 ]
+  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.787", ptr %0, i64 0, i32 1
+  %44 = load ptr, ptr %43, align 8, !tbaa !690
+  %45 = load ptr, ptr %44, align 8, !tbaa !95
+  %46 = icmp eq ptr %45, null
+  br i1 %46, label %54, label %47
 
-51:                                               ; preds = %45
-  %52 = load ptr, ptr %49, align 8, !tbaa !23
-  %53 = getelementptr inbounds ptr, ptr %52, i64 2
-  %54 = load ptr, ptr %53, align 8
-  %55 = call i64 %54(ptr noundef nonnull align 8 dereferenceable(8) %49, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %56 = icmp sgt i64 %55, -1
-  %57 = add nsw i64 %55, %46
-  %58 = select i1 %56, i64 %57, i64 -1
-  br label %59
+47:                                               ; preds = %41
+  %48 = load ptr, ptr %45, align 8, !tbaa !23
+  %49 = getelementptr inbounds ptr, ptr %48, i64 2
+  %50 = load ptr, ptr %49, align 8
+  %51 = call i64 %50(ptr noundef nonnull align 8 dereferenceable(8) %45, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %52 = icmp slt i64 %51, 0
+  %53 = add nsw i64 %51, %42
+  br i1 %52, label %54, label %55
 
-59:                                               ; preds = %38, %51, %45, %24, %19, %29
-  %60 = phi i64 [ -1, %29 ], [ -1, %19 ], [ -1, %24 ], [ -1, %45 ], [ %58, %51 ], [ -1, %38 ]
-  ret i64 %60
+54:                                               ; preds = %41, %35, %29, %24, %19, %47
+  br label %55
+
+55:                                               ; preds = %47, %54
+  %56 = phi i64 [ %53, %47 ], [ -1, %54 ]
+  ret i64 %56
 }
 
 ; Function Attrs: nounwind uwtable
@@ -21833,34 +21735,32 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %6 = load ptr, ptr %5, align 8, !tbaa !14
   %7 = tail call i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEENSI_INS1_ISH_SH_EEEEEESN_EEE5parseISF_EENS0_13parser_resultISS_T_E4typeERKSV_(ptr noundef nonnull align 8 dereferenceable(56) %3, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %9, label %23
+  br i1 %8, label %9, label %21
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1115", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !695
+  %11 = load ptr, ptr %10, align 8, !tbaa !692
   %12 = load ptr, ptr %11, align 8, !tbaa !95
   %13 = icmp eq ptr %12, null
-  br i1 %13, label %23, label %14
+  br i1 %13, label %21, label %14
 
 14:                                               ; preds = %9
   %15 = load ptr, ptr %12, align 8, !tbaa !23
   %16 = getelementptr inbounds ptr, ptr %15, i64 2
   %17 = load ptr, ptr %16, align 8
   %18 = tail call i64 %17(ptr noundef nonnull align 8 dereferenceable(8) %12, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %19 = icmp sgt i64 %18, -1
+  %19 = icmp slt i64 %18, 0
   %20 = add nsw i64 %18, %7
-  %21 = icmp sgt i64 %20, -1
-  %22 = select i1 %19, i1 %21, i1 false
-  br i1 %22, label %25, label %23
+  br i1 %19, label %21, label %23
 
-23:                                               ; preds = %14, %9, %2
-  %24 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %24, align 8, !tbaa !14
-  br label %25
+21:                                               ; preds = %14, %9, %2
+  %22 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %22, align 8, !tbaa !14
+  br label %23
 
-25:                                               ; preds = %14, %23
-  %26 = phi i64 [ 0, %23 ], [ %20, %14 ]
-  ret i64 %26
+23:                                               ; preds = %14, %21
+  %24 = phi i64 [ 0, %21 ], [ %20, %14 ]
+  ret i64 %24
 }
 
 ; Function Attrs: uwtable
@@ -21880,7 +21780,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %0, align 8, !tbaa !620
+  %8 = load ptr, ptr %0, align 8, !tbaa !617
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
   br i1 %10, label %50, label %11
@@ -21897,7 +21797,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %18 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.678", ptr %0, i64 0, i32 1
   %19 = load ptr, ptr %5, align 8, !tbaa !98
   %20 = load ptr, ptr %19, align 8, !tbaa !14
-  %21 = load ptr, ptr %18, align 8, !tbaa !531
+  %21 = load ptr, ptr %18, align 8, !tbaa !528
   %22 = load ptr, ptr %21, align 8, !tbaa !95
   %23 = icmp eq ptr %22, null
   br i1 %23, label %32, label %24
@@ -21922,7 +21822,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
 34:                                               ; preds = %32, %24
   %35 = phi i64 [ 0, %32 ], [ %28, %24 ]
   %36 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.777", ptr %0, i64 0, i32 1
-  %37 = load ptr, ptr %36, align 8, !tbaa !676
+  %37 = load ptr, ptr %36, align 8, !tbaa !673
   %38 = load ptr, ptr %37, align 8, !tbaa !95
   %39 = icmp eq ptr %38, null
   br i1 %39, label %50, label %40
@@ -21939,7 +21839,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %49 = select i1 %46, i1 %48, i1 false
   br i1 %49, label %92, label %50
 
-50:                                               ; preds = %34, %2, %11, %40
+50:                                               ; preds = %40, %34, %11, %2
   %51 = load ptr, ptr %5, align 8, !tbaa !98
   store ptr %7, ptr %51, align 8, !tbaa !14
   %52 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.802", ptr %0, i64 0, i32 1
@@ -21948,13 +21848,13 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %53 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %54 = icmp sgt i64 %53, -1
-  br i1 %54, label %55, label %92
+  br i1 %54, label %55, label %91
 
 55:                                               ; preds = %50
   %56 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.802", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %57 = load ptr, ptr %5, align 8, !tbaa !98
   %58 = load ptr, ptr %57, align 8, !tbaa !14
-  %59 = load ptr, ptr %56, align 8, !tbaa !372
+  %59 = load ptr, ptr %56, align 8, !tbaa !369
   %60 = load ptr, ptr %59, align 8, !tbaa !95
   %61 = icmp eq ptr %60, null
   br i1 %61, label %70, label %62
@@ -21975,7 +21875,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %71 = phi ptr [ %69, %68 ], [ %57, %55 ]
   store ptr %58, ptr %71, align 8, !tbaa !14
   %72 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.802", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %73 = load ptr, ptr %72, align 8, !tbaa !374
+  %73 = load ptr, ptr %72, align 8, !tbaa !371
   %74 = load ptr, ptr %73, align 8, !tbaa !95
   %75 = icmp eq ptr %74, null
   br i1 %75, label %82, label %76
@@ -22001,13 +21901,15 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %87, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %88 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %89 = icmp sgt i64 %88, -1
+  %89 = icmp slt i64 %88, 0
   %90 = add nsw i64 %86, %88
-  %91 = select i1 %89, i64 %90, i64 -1
+  br i1 %89, label %91, label %92
+
+91:                                               ; preds = %84, %50
   br label %92
 
-92:                                               ; preds = %84, %50, %40
-  %93 = phi i64 [ %47, %40 ], [ -1, %50 ], [ %91, %84 ]
+92:                                               ; preds = %40, %91, %84
+  %93 = phi i64 [ %90, %84 ], [ -1, %91 ], [ %47, %40 ]
   ret i64 %93
 }
 
@@ -22033,7 +21935,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %9 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %10 = load ptr, ptr %9, align 8, !tbaa !98
   %11 = load ptr, ptr %10, align 8, !tbaa !14
-  %12 = load ptr, ptr %8, align 8, !tbaa !372
+  %12 = load ptr, ptr %8, align 8, !tbaa !369
   %13 = load ptr, ptr %12, align 8, !tbaa !95
   %14 = icmp eq ptr %13, null
   br i1 %14, label %40, label %15
@@ -22050,7 +21952,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
 22:                                               ; preds = %15
   %23 = load ptr, ptr %21, align 8, !tbaa !14
   %24 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1116", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !374
+  %25 = load ptr, ptr %24, align 8, !tbaa !371
   %26 = load ptr, ptr %25, align 8, !tbaa !95
   %27 = icmp eq ptr %26, null
   br i1 %27, label %38, label %28
@@ -22080,7 +21982,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %41 = phi ptr [ %10, %7 ], [ %21, %15 ]
   store ptr %11, ptr %41, align 8, !tbaa !14
   %42 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1116", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %43 = load ptr, ptr %42, align 8, !tbaa !374
+  %43 = load ptr, ptr %42, align 8, !tbaa !371
   %44 = load ptr, ptr %43, align 8, !tbaa !95
   %45 = icmp eq ptr %44, null
   br i1 %45, label %52, label %46
@@ -22099,7 +22001,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   br label %54
 
 54:                                               ; preds = %52, %46, %38, %36
-  %55 = phi i64 [ 0, %52 ], [ %50, %46 ], [ %19, %38 ], [ %37, %36 ]
+  %55 = phi i64 [ 0, %52 ], [ %50, %46 ], [ %37, %36 ], [ %19, %38 ]
   %56 = add nuw nsw i64 %55, %5
   br label %57
 
@@ -22127,7 +22029,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_8
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_8optionalINS3_INS0_5chlitIcEENS0_6strlitIS7_EEEEEEEESG_SH_E16do_parse_virtualERKSG_(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 {
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1117", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !711
+  %4 = load ptr, ptr %3, align 8, !tbaa !708
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
   br i1 %6, label %25, label %7
@@ -22183,7 +22085,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_5chlitIcEENS0_
   %5 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
   %6 = icmp sgt i64 %5, -1
-  br i1 %6, label %7, label %56
+  br i1 %6, label %7, label %55
 
 7:                                                ; preds = %2
   %8 = getelementptr inbounds %"class.boost::details::compressed_pair_imp", ptr %0, i64 0, i32 1
@@ -22218,8 +22120,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_5chlitIcEENS0_
   %28 = load ptr, ptr %10, align 8, !tbaa !98
   store ptr %17, ptr %28, align 8, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #24
-  %29 = load ptr, ptr %10, align 8, !tbaa !98, !noalias !719
-  %30 = load ptr, ptr %11, align 8, !tbaa !85, !noalias !719
+  %29 = load ptr, ptr %10, align 8, !tbaa !98, !noalias !716
+  %30 = load ptr, ptr %11, align 8, !tbaa !85, !noalias !716
   %31 = load ptr, ptr %8, align 8, !tbaa !144
   %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp", ptr %0, i64 0, i32 1, i32 0, i32 1
   %33 = load ptr, ptr %32, align 8, !tbaa !146
@@ -22237,13 +22139,13 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_5chlitIcEENS0_
   %41 = phi ptr [ %50, %48 ], [ %39, %38 ]
   %42 = phi ptr [ %49, %48 ], [ %31, %38 ]
   %43 = icmp eq ptr %41, %30
-  br i1 %43, label %56, label %44
+  br i1 %43, label %55, label %44
 
 44:                                               ; preds = %40
   %45 = load i8, ptr %42, align 1, !tbaa !76
   %46 = load i8, ptr %41, align 1, !tbaa !76
   %47 = icmp eq i8 %45, %46
-  br i1 %47, label %48, label %56
+  br i1 %47, label %48, label %55
 
 48:                                               ; preds = %44
   %49 = getelementptr inbounds i8, ptr %42, i64 1
@@ -22253,13 +22155,15 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_5chlitIcEENS0_
   br i1 %51, label %52, label %40, !llvm.loop !220
 
 52:                                               ; preds = %48, %27
-  %53 = icmp sgt i64 %36, -1
+  %53 = icmp slt i64 %36, 0
   %54 = add nsw i64 %36, %5
-  %55 = select i1 %53, i64 %54, i64 -1
+  br i1 %53, label %55, label %56
+
+55:                                               ; preds = %40, %44, %52, %2
   br label %56
 
-56:                                               ; preds = %40, %44, %52, %2
-  %57 = phi i64 [ -1, %2 ], [ %55, %52 ], [ -1, %44 ], [ -1, %40 ]
+56:                                               ; preds = %52, %55
+  %57 = phi i64 [ %54, %52 ], [ -1, %55 ]
   ret i64 %57
 }
 
@@ -22272,7 +22176,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_8
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_8optionalINS0_11alternativeISI_SI_EEEEEESG_SH_E16do_parse_virtualERKSG_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 {
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1118", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !722
+  %4 = load ptr, ptr %3, align 8, !tbaa !719
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
   br i1 %6, label %46, label %7
@@ -22290,7 +22194,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %15 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %16 = load ptr, ptr %15, align 8, !tbaa !98
   %17 = load ptr, ptr %16, align 8, !tbaa !14
-  %18 = load ptr, ptr %14, align 8, !tbaa !372
+  %18 = load ptr, ptr %14, align 8, !tbaa !369
   %19 = load ptr, ptr %18, align 8, !tbaa !95
   %20 = icmp eq ptr %19, null
   br i1 %20, label %29, label %21
@@ -22311,7 +22215,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %30 = phi ptr [ %28, %27 ], [ %16, %13 ]
   store ptr %17, ptr %30, align 8, !tbaa !14
   %31 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1118", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !374
+  %32 = load ptr, ptr %31, align 8, !tbaa !371
   %33 = load ptr, ptr %32, align 8, !tbaa !95
   %34 = icmp eq ptr %33, null
   br i1 %34, label %41, label %35
@@ -22358,7 +22262,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl15concrete_parserINS0_8
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_8optionalISI_EEEESG_SH_E16do_parse_virtualERKSG_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #5 comdat align 2 {
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1119", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !620
+  %4 = load ptr, ptr %3, align 8, !tbaa !617
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
   br i1 %6, label %34, label %7
@@ -22376,7 +22280,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %15 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %16 = load ptr, ptr %15, align 8, !tbaa !98
   %17 = load ptr, ptr %16, align 8, !tbaa !14
-  %18 = load ptr, ptr %14, align 8, !tbaa !531
+  %18 = load ptr, ptr %14, align 8, !tbaa !528
   %19 = load ptr, ptr %18, align 8, !tbaa !95
   %20 = icmp eq ptr %19, null
   br i1 %20, label %29, label %21
@@ -22430,7 +22334,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !372
+  %7 = load ptr, ptr %3, align 8, !tbaa !369
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %35, label %10
@@ -22447,7 +22351,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
 17:                                               ; preds = %10
   %18 = load ptr, ptr %16, align 8, !tbaa !14
   %19 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1120", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !374
+  %20 = load ptr, ptr %19, align 8, !tbaa !371
   %21 = load ptr, ptr %20, align 8, !tbaa !95
   %22 = icmp eq ptr %21, null
   br i1 %22, label %33, label %23
@@ -22477,7 +22381,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %36 = phi ptr [ %5, %2 ], [ %16, %10 ]
   store ptr %6, ptr %36, align 8, !tbaa !14
   %37 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1120", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %38 = load ptr, ptr %37, align 8, !tbaa !374
+  %38 = load ptr, ptr %37, align 8, !tbaa !371
   %39 = load ptr, ptr %38, align 8, !tbaa !95
   %40 = icmp eq ptr %39, null
   br i1 %40, label %46, label %41
@@ -22490,7 +22394,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   br label %46
 
 46:                                               ; preds = %31, %33, %35, %41
-  %47 = phi i64 [ %45, %41 ], [ -1, %35 ], [ %32, %31 ], [ %14, %33 ]
+  %47 = phi i64 [ %45, %41 ], [ -1, %35 ], [ %14, %33 ], [ %32, %31 ]
   ret i64 %47
 }
 
@@ -22515,27 +22419,29 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1121", ptr %0, i64 0, i32 1
   %4 = tail call i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceINS0_5chlitIcEENS1_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EES4_EENS2_INS0_8optionalISJ_EES4_EEEEEENS2_INS2_ISJ_SM_EESJ_EEE5parseISH_EENS0_13parser_resultISS_T_E4typeERKSV_(ptr noundef nonnull align 8 dereferenceable(64) %3, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %5 = icmp sgt i64 %4, -1
-  br i1 %5, label %6, label %19
+  br i1 %5, label %6, label %18
 
 6:                                                ; preds = %2
   %7 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1121", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !724
+  %8 = load ptr, ptr %7, align 8, !tbaa !721
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
-  br i1 %10, label %19, label %11
+  br i1 %10, label %18, label %11
 
 11:                                               ; preds = %6
   %12 = load ptr, ptr %9, align 8, !tbaa !23
   %13 = getelementptr inbounds ptr, ptr %12, i64 2
   %14 = load ptr, ptr %13, align 8
   %15 = tail call i64 %14(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %16 = icmp sgt i64 %15, -1
+  %16 = icmp slt i64 %15, 0
   %17 = add nsw i64 %15, %4
-  %18 = select i1 %16, i64 %17, i64 -1
+  br i1 %16, label %18, label %19
+
+18:                                               ; preds = %11, %6, %2
   br label %19
 
-19:                                               ; preds = %2, %6, %11
-  %20 = phi i64 [ -1, %2 ], [ -1, %6 ], [ %18, %11 ]
+19:                                               ; preds = %11, %18
+  %20 = phi i64 [ %17, %11 ], [ -1, %18 ]
   ret i64 %20
 }
 
@@ -22560,82 +22466,82 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %7 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %9, label %16
+  br i1 %8, label %9, label %14
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.859", ptr %0, i64 0, i32 2
   %11 = call i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEENS2_INS0_8optionalISH_EESJ_EEE5parseISF_EENS0_13parser_resultISO_T_E4typeERKSR_(ptr noundef nonnull align 8 dereferenceable(32) %10, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %12 = icmp sgt i64 %11, -1
+  %12 = icmp slt i64 %11, 0
   %13 = add nsw i64 %11, %7
-  %14 = icmp sgt i64 %13, -1
-  %15 = select i1 %12, i1 %14, i1 false
-  br i1 %15, label %60, label %16
+  br i1 %12, label %14, label %58
 
-16:                                               ; preds = %2, %9
-  %17 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %17, align 8, !tbaa !14
-  %18 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.854", ptr %0, i64 0, i32 1
-  %19 = load ptr, ptr %18, align 8, !tbaa !620
-  %20 = load ptr, ptr %19, align 8, !tbaa !95
-  %21 = icmp eq ptr %20, null
-  br i1 %21, label %60, label %22
+14:                                               ; preds = %9, %2
+  %15 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %15, align 8, !tbaa !14
+  %16 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.854", ptr %0, i64 0, i32 1
+  %17 = load ptr, ptr %16, align 8, !tbaa !617
+  %18 = load ptr, ptr %17, align 8, !tbaa !95
+  %19 = icmp eq ptr %18, null
+  br i1 %19, label %57, label %20
 
-22:                                               ; preds = %16
-  %23 = load ptr, ptr %20, align 8, !tbaa !23
-  %24 = getelementptr inbounds ptr, ptr %23, i64 2
-  %25 = load ptr, ptr %24, align 8
-  %26 = call i64 %25(ptr noundef nonnull align 8 dereferenceable(8) %20, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %27 = icmp sgt i64 %26, -1
-  br i1 %27, label %28, label %60
+20:                                               ; preds = %14
+  %21 = load ptr, ptr %18, align 8, !tbaa !23
+  %22 = getelementptr inbounds ptr, ptr %21, i64 2
+  %23 = load ptr, ptr %22, align 8
+  %24 = call i64 %23(ptr noundef nonnull align 8 dereferenceable(8) %18, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %25 = icmp sgt i64 %24, -1
+  br i1 %25, label %26, label %57
 
-28:                                               ; preds = %22
-  %29 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.854", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %30 = load ptr, ptr %4, align 8, !tbaa !98
-  %31 = load ptr, ptr %30, align 8, !tbaa !14
-  %32 = load ptr, ptr %29, align 8, !tbaa !531
-  %33 = load ptr, ptr %32, align 8, !tbaa !95
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %43, label %35
+26:                                               ; preds = %20
+  %27 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.854", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %28 = load ptr, ptr %4, align 8, !tbaa !98
+  %29 = load ptr, ptr %28, align 8, !tbaa !14
+  %30 = load ptr, ptr %27, align 8, !tbaa !528
+  %31 = load ptr, ptr %30, align 8, !tbaa !95
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %41, label %33
 
-35:                                               ; preds = %28
-  %36 = load ptr, ptr %33, align 8, !tbaa !23
-  %37 = getelementptr inbounds ptr, ptr %36, i64 2
-  %38 = load ptr, ptr %37, align 8
-  %39 = call i64 %38(ptr noundef nonnull align 8 dereferenceable(8) %33, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %40 = icmp sgt i64 %39, -1
-  br i1 %40, label %45, label %41
+33:                                               ; preds = %26
+  %34 = load ptr, ptr %31, align 8, !tbaa !23
+  %35 = getelementptr inbounds ptr, ptr %34, i64 2
+  %36 = load ptr, ptr %35, align 8
+  %37 = call i64 %36(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %38 = icmp sgt i64 %37, -1
+  br i1 %38, label %43, label %39
 
-41:                                               ; preds = %35
-  %42 = load ptr, ptr %4, align 8, !tbaa !98
+39:                                               ; preds = %33
+  %40 = load ptr, ptr %4, align 8, !tbaa !98
+  br label %41
+
+41:                                               ; preds = %39, %26
+  %42 = phi ptr [ %40, %39 ], [ %28, %26 ]
+  store ptr %29, ptr %42, align 8, !tbaa !14
   br label %43
 
-43:                                               ; preds = %41, %28
-  %44 = phi ptr [ %42, %41 ], [ %30, %28 ]
-  store ptr %31, ptr %44, align 8, !tbaa !14
-  br label %45
+43:                                               ; preds = %41, %33
+  %44 = phi i64 [ 0, %41 ], [ %37, %33 ]
+  %45 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.854", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %46 = load ptr, ptr %45, align 8, !tbaa !673
+  %47 = load ptr, ptr %46, align 8, !tbaa !95
+  %48 = icmp eq ptr %47, null
+  br i1 %48, label %57, label %49
 
-45:                                               ; preds = %43, %35
-  %46 = phi i64 [ 0, %43 ], [ %39, %35 ]
-  %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.854", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %48 = load ptr, ptr %47, align 8, !tbaa !676
-  %49 = load ptr, ptr %48, align 8, !tbaa !95
-  %50 = icmp eq ptr %49, null
-  br i1 %50, label %60, label %51
+49:                                               ; preds = %43
+  %50 = add nuw nsw i64 %44, %24
+  %51 = load ptr, ptr %47, align 8, !tbaa !23
+  %52 = getelementptr inbounds ptr, ptr %51, i64 2
+  %53 = load ptr, ptr %52, align 8
+  %54 = call i64 %53(ptr noundef nonnull align 8 dereferenceable(8) %47, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %55 = icmp slt i64 %54, 0
+  %56 = add nsw i64 %50, %54
+  br i1 %55, label %57, label %58
 
-51:                                               ; preds = %45
-  %52 = add nuw nsw i64 %46, %26
-  %53 = load ptr, ptr %49, align 8, !tbaa !23
-  %54 = getelementptr inbounds ptr, ptr %53, i64 2
-  %55 = load ptr, ptr %54, align 8
-  %56 = call i64 %55(ptr noundef nonnull align 8 dereferenceable(8) %49, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %57 = icmp sgt i64 %56, -1
-  %58 = add nsw i64 %52, %56
-  %59 = select i1 %57, i64 %58, i64 -1
-  br label %60
+57:                                               ; preds = %49, %43, %20, %14
+  br label %58
 
-60:                                               ; preds = %51, %45, %22, %16, %9
-  %61 = phi i64 [ %13, %9 ], [ -1, %22 ], [ -1, %16 ], [ -1, %45 ], [ %59, %51 ]
-  ret i64 %61
+58:                                               ; preds = %9, %57, %49
+  %59 = phi i64 [ %56, %49 ], [ -1, %57 ], [ %13, %9 ]
+  ret i64 %59
 }
 
 ; Function Attrs: uwtable
@@ -22645,10 +22551,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %0, align 8, !tbaa !746
+  %8 = load ptr, ptr %0, align 8, !tbaa !743
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
-  br i1 %10, label %24, label %11
+  br i1 %10, label %22, label %11
 
 11:                                               ; preds = %2
   %12 = load ptr, ptr %9, align 8, !tbaa !23
@@ -22656,7 +22562,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %14 = load ptr, ptr %13, align 8
   %15 = tail call i64 %14(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %16 = icmp sgt i64 %15, -1
-  br i1 %16, label %17, label %24
+  br i1 %16, label %17, label %22
 
 17:                                               ; preds = %11
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
@@ -22664,55 +22570,53 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %18, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %19 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %20 = icmp sgt i64 %19, -1
+  %20 = icmp slt i64 %19, 0
   %21 = add nsw i64 %19, %15
-  %22 = icmp sgt i64 %21, -1
-  %23 = select i1 %20, i1 %22, i1 false
-  br i1 %23, label %49, label %24
+  br i1 %20, label %22, label %47
 
-24:                                               ; preds = %2, %11, %17
+22:                                               ; preds = %17, %11, %2
+  %23 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %23, align 8, !tbaa !14
+  %24 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.864", ptr %0, i64 0, i32 1
   %25 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %25, align 8, !tbaa !14
-  %26 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.864", ptr %0, i64 0, i32 1
-  %27 = load ptr, ptr %5, align 8, !tbaa !98
-  %28 = load ptr, ptr %27, align 8, !tbaa !14
-  %29 = load ptr, ptr %26, align 8, !tbaa !531
-  %30 = load ptr, ptr %29, align 8, !tbaa !95
-  %31 = icmp eq ptr %30, null
-  br i1 %31, label %40, label %32
+  %26 = load ptr, ptr %25, align 8, !tbaa !14
+  %27 = load ptr, ptr %24, align 8, !tbaa !528
+  %28 = load ptr, ptr %27, align 8, !tbaa !95
+  %29 = icmp eq ptr %28, null
+  br i1 %29, label %38, label %30
 
-32:                                               ; preds = %24
-  %33 = load ptr, ptr %30, align 8, !tbaa !23
-  %34 = getelementptr inbounds ptr, ptr %33, i64 2
-  %35 = load ptr, ptr %34, align 8
-  %36 = call i64 %35(ptr noundef nonnull align 8 dereferenceable(8) %30, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %37 = icmp sgt i64 %36, -1
-  br i1 %37, label %42, label %38
+30:                                               ; preds = %22
+  %31 = load ptr, ptr %28, align 8, !tbaa !23
+  %32 = getelementptr inbounds ptr, ptr %31, i64 2
+  %33 = load ptr, ptr %32, align 8
+  %34 = call i64 %33(ptr noundef nonnull align 8 dereferenceable(8) %28, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %35 = icmp sgt i64 %34, -1
+  br i1 %35, label %40, label %36
 
-38:                                               ; preds = %32
-  %39 = load ptr, ptr %5, align 8, !tbaa !98
+36:                                               ; preds = %30
+  %37 = load ptr, ptr %5, align 8, !tbaa !98
+  br label %38
+
+38:                                               ; preds = %36, %22
+  %39 = phi ptr [ %37, %36 ], [ %25, %22 ]
+  store ptr %26, ptr %39, align 8, !tbaa !14
   br label %40
 
-40:                                               ; preds = %38, %24
-  %41 = phi ptr [ %39, %38 ], [ %27, %24 ]
-  store ptr %28, ptr %41, align 8, !tbaa !14
-  br label %42
-
-42:                                               ; preds = %32, %40
-  %43 = phi i64 [ 0, %40 ], [ %36, %32 ]
+40:                                               ; preds = %30, %38
+  %41 = phi i64 [ 0, %38 ], [ %34, %30 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  %44 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.864", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %44, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %45 = load i64, ptr %3, align 8, !tbaa !212
+  %42 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.864", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %42, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %43 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %46 = icmp sgt i64 %45, -1
-  %47 = add nsw i64 %45, %43
-  %48 = select i1 %46, i64 %47, i64 -1
-  br label %49
+  %44 = add nsw i64 %43, %41
+  %45 = icmp sgt i64 %43, -1
+  %46 = select i1 %45, i64 %44, i64 -1
+  br label %47
 
-49:                                               ; preds = %17, %42
-  %50 = phi i64 [ %48, %42 ], [ %21, %17 ]
-  ret i64 %50
+47:                                               ; preds = %17, %40
+  %48 = phi i64 [ %46, %40 ], [ %21, %17 ]
+  ret i64 %48
 }
 
 ; Function Attrs: nounwind uwtable
@@ -22729,34 +22633,32 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %6 = load ptr, ptr %5, align 8, !tbaa !14
   %7 = tail call i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEESJ_EESN_EEE5parseISF_EENS0_13parser_resultISQ_T_E4typeERKST_(ptr noundef nonnull align 8 dereferenceable(48) %3, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %9, label %23
+  br i1 %8, label %9, label %21
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1122", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !747
+  %11 = load ptr, ptr %10, align 8, !tbaa !744
   %12 = load ptr, ptr %11, align 8, !tbaa !95
   %13 = icmp eq ptr %12, null
-  br i1 %13, label %23, label %14
+  br i1 %13, label %21, label %14
 
 14:                                               ; preds = %9
   %15 = load ptr, ptr %12, align 8, !tbaa !23
   %16 = getelementptr inbounds ptr, ptr %15, i64 2
   %17 = load ptr, ptr %16, align 8
   %18 = tail call i64 %17(ptr noundef nonnull align 8 dereferenceable(8) %12, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %19 = icmp sgt i64 %18, -1
+  %19 = icmp slt i64 %18, 0
   %20 = add nsw i64 %18, %7
-  %21 = icmp sgt i64 %20, -1
-  %22 = select i1 %19, i1 %21, i1 false
-  br i1 %22, label %25, label %23
+  br i1 %19, label %21, label %23
 
-23:                                               ; preds = %14, %9, %2
-  %24 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %24, align 8, !tbaa !14
-  br label %25
+21:                                               ; preds = %14, %9, %2
+  %22 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %22, align 8, !tbaa !14
+  br label %23
 
-25:                                               ; preds = %14, %23
-  %26 = phi i64 [ 0, %23 ], [ %20, %14 ]
-  ret i64 %26
+23:                                               ; preds = %14, %21
+  %24 = phi i64 [ 0, %21 ], [ %20, %14 ]
+  ret i64 %24
 }
 
 ; Function Attrs: uwtable
@@ -22776,7 +22678,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %0, align 8, !tbaa !620
+  %8 = load ptr, ptr %0, align 8, !tbaa !617
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
   br i1 %10, label %50, label %11
@@ -22793,7 +22695,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %18 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.678", ptr %0, i64 0, i32 1
   %19 = load ptr, ptr %5, align 8, !tbaa !98
   %20 = load ptr, ptr %19, align 8, !tbaa !14
-  %21 = load ptr, ptr %18, align 8, !tbaa !531
+  %21 = load ptr, ptr %18, align 8, !tbaa !528
   %22 = load ptr, ptr %21, align 8, !tbaa !95
   %23 = icmp eq ptr %22, null
   br i1 %23, label %32, label %24
@@ -22818,7 +22720,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
 34:                                               ; preds = %32, %24
   %35 = phi i64 [ 0, %32 ], [ %28, %24 ]
   %36 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.777", ptr %0, i64 0, i32 1
-  %37 = load ptr, ptr %36, align 8, !tbaa !676
+  %37 = load ptr, ptr %36, align 8, !tbaa !673
   %38 = load ptr, ptr %37, align 8, !tbaa !95
   %39 = icmp eq ptr %38, null
   br i1 %39, label %50, label %40
@@ -22835,7 +22737,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %49 = select i1 %46, i1 %48, i1 false
   br i1 %49, label %80, label %50
 
-50:                                               ; preds = %34, %2, %11, %40
+50:                                               ; preds = %40, %34, %11, %2
   %51 = load ptr, ptr %5, align 8, !tbaa !98
   store ptr %7, ptr %51, align 8, !tbaa !14
   %52 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.893", ptr %0, i64 0, i32 1
@@ -22844,13 +22746,13 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %53 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   %54 = icmp sgt i64 %53, -1
-  br i1 %54, label %55, label %80
+  br i1 %54, label %55, label %79
 
 55:                                               ; preds = %50
   %56 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.893", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %57 = load ptr, ptr %5, align 8, !tbaa !98
   %58 = load ptr, ptr %57, align 8, !tbaa !14
-  %59 = load ptr, ptr %56, align 8, !tbaa !531
+  %59 = load ptr, ptr %56, align 8, !tbaa !528
   %60 = load ptr, ptr %59, align 8, !tbaa !95
   %61 = icmp eq ptr %60, null
   br i1 %61, label %70, label %62
@@ -22880,13 +22782,15 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %75, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %76 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %77 = icmp sgt i64 %76, -1
+  %77 = icmp slt i64 %76, 0
   %78 = add nsw i64 %74, %76
-  %79 = select i1 %77, i64 %78, i64 -1
+  br i1 %77, label %79, label %80
+
+79:                                               ; preds = %72, %50
   br label %80
 
-80:                                               ; preds = %72, %50, %40
-  %81 = phi i64 [ %47, %40 ], [ -1, %50 ], [ %79, %72 ]
+80:                                               ; preds = %40, %79, %72
+  %81 = phi i64 [ %78, %72 ], [ -1, %79 ], [ %47, %40 ]
   ret i64 %81
 }
 
@@ -22919,7 +22823,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_4ruleINS0_
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %0, align 8, !tbaa !753
+  %7 = load ptr, ptr %0, align 8, !tbaa !750
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %18, label %10
@@ -22940,10 +22844,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_4ruleINS0_
   %19 = phi ptr [ %17, %16 ], [ %5, %2 ]
   store ptr %6, ptr %19, align 8, !tbaa !14
   %20 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.898", ptr %0, i64 0, i32 1
-  %21 = load ptr, ptr %20, align 8, !tbaa !372
+  %21 = load ptr, ptr %20, align 8, !tbaa !369
   %22 = load ptr, ptr %21, align 8, !tbaa !95
   %23 = icmp eq ptr %22, null
-  br i1 %23, label %67, label %24
+  br i1 %23, label %66, label %24
 
 24:                                               ; preds = %18
   %25 = load ptr, ptr %22, align 8, !tbaa !23
@@ -22951,63 +22855,67 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_4ruleINS0_
   %27 = load ptr, ptr %26, align 8
   %28 = tail call i64 %27(ptr noundef nonnull align 8 dereferenceable(8) %22, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %29 = icmp sgt i64 %28, -1
-  br i1 %29, label %30, label %67
+  br i1 %29, label %30, label %66
 
 30:                                               ; preds = %24
   %31 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.898", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !374
+  %32 = load ptr, ptr %31, align 8, !tbaa !371
   %33 = load ptr, ptr %32, align 8, !tbaa !95
   %34 = icmp eq ptr %33, null
-  br i1 %34, label %67, label %35
+  br i1 %34, label %66, label %35
 
 35:                                               ; preds = %30
   %36 = load ptr, ptr %33, align 8, !tbaa !23
   %37 = getelementptr inbounds ptr, ptr %36, i64 2
   %38 = load ptr, ptr %37, align 8
   %39 = tail call i64 %38(ptr noundef nonnull align 8 dereferenceable(8) %33, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %40 = icmp sgt i64 %39, -1
+  %40 = icmp slt i64 %39, 0
   %41 = add nsw i64 %39, %28
-  %42 = select i1 %40, i64 %41, i64 -1
-  %43 = icmp sgt i64 %42, -1
-  br i1 %43, label %44, label %67
+  br i1 %40, label %66, label %42
 
-44:                                               ; preds = %35
-  %45 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.898", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %46 = load ptr, ptr %4, align 8, !tbaa !98
-  %47 = load ptr, ptr %46, align 8, !tbaa !14
+42:                                               ; preds = %35
+  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.898", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %44 = load ptr, ptr %4, align 8, !tbaa !98
+  %45 = load ptr, ptr %44, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %45, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %48 = load i64, ptr %3, align 8, !tbaa !212
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %43, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %46 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %49 = icmp sgt i64 %48, -1
-  br i1 %49, label %52, label %50
+  %47 = icmp sgt i64 %46, -1
+  br i1 %47, label %50, label %48
 
-50:                                               ; preds = %44
-  %51 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %47, ptr %51, align 8, !tbaa !14
-  br label %52
+48:                                               ; preds = %42
+  %49 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %45, ptr %49, align 8, !tbaa !14
+  br label %50
 
-52:                                               ; preds = %50, %44
-  %53 = phi i64 [ 0, %50 ], [ %48, %44 ]
-  %54 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.898", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %55 = load ptr, ptr %54, align 8, !tbaa !765
-  %56 = load ptr, ptr %55, align 8, !tbaa !95
-  %57 = icmp eq ptr %56, null
-  br i1 %57, label %67, label %58
+50:                                               ; preds = %48, %42
+  %51 = phi i64 [ 0, %48 ], [ %46, %42 ]
+  %52 = add nuw nsw i64 %41, %51
+  %53 = icmp sgt i64 %52, -1
+  br i1 %53, label %54, label %66
 
-58:                                               ; preds = %52
-  %59 = add nuw nsw i64 %53, %42
-  %60 = load ptr, ptr %56, align 8, !tbaa !23
+54:                                               ; preds = %50
+  %55 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.898", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %56 = load ptr, ptr %55, align 8, !tbaa !762
+  %57 = load ptr, ptr %56, align 8, !tbaa !95
+  %58 = icmp eq ptr %57, null
+  br i1 %58, label %66, label %59
+
+59:                                               ; preds = %54
+  %60 = load ptr, ptr %57, align 8, !tbaa !23
   %61 = getelementptr inbounds ptr, ptr %60, i64 2
   %62 = load ptr, ptr %61, align 8
-  %63 = call i64 %62(ptr noundef nonnull align 8 dereferenceable(8) %56, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %64 = icmp sgt i64 %63, -1
-  %65 = add nsw i64 %59, %63
-  %66 = select i1 %64, i64 %65, i64 -1
+  %63 = call i64 %62(ptr noundef nonnull align 8 dereferenceable(8) %57, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %64 = icmp slt i64 %63, 0
+  %65 = add nsw i64 %63, %52
+  br i1 %64, label %66, label %67
+
+66:                                               ; preds = %59, %54, %50, %35, %30, %24, %18
   br label %67
 
-67:                                               ; preds = %58, %52, %35, %30, %24, %18, %10
-  %68 = phi i64 [ %14, %10 ], [ -1, %35 ], [ -1, %24 ], [ -1, %18 ], [ -1, %30 ], [ -1, %52 ], [ %66, %58 ]
+67:                                               ; preds = %10, %66, %59
+  %68 = phi i64 [ %65, %59 ], [ -1, %66 ], [ %14, %10 ]
   ret i64 %68
 }
 
@@ -23031,7 +22939,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %10 = load ptr, ptr %4, align 8, !tbaa !98
   store ptr %6, ptr %10, align 8, !tbaa !14
   %11 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1124", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !657
+  %12 = load ptr, ptr %11, align 8, !tbaa !654
   %13 = load ptr, ptr %12, align 8, !tbaa !95
   %14 = icmp eq ptr %13, null
   br i1 %14, label %20, label %15
@@ -23044,7 +22952,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   br label %20
 
 20:                                               ; preds = %2, %9, %15
-  %21 = phi i64 [ %7, %2 ], [ %19, %15 ], [ -1, %9 ]
+  %21 = phi i64 [ %19, %15 ], [ -1, %9 ], [ %7, %2 ]
   ret i64 %21
 }
 
@@ -23073,16 +22981,16 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %7 = load ptr, ptr %6, align 8, !tbaa !14
   %8 = tail call i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_EENS2_INS2_INS2_ISH_SH_EESJ_EESH_EEE5parseISF_EENS0_13parser_resultISP_T_E4typeERKSS_(ptr noundef nonnull align 8 dereferenceable(56) %4, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %9 = icmp sgt i64 %8, -1
-  br i1 %9, label %42, label %10
+  br i1 %9, label %40, label %10
 
 10:                                               ; preds = %2
   %11 = load ptr, ptr %5, align 8, !tbaa !98
   store ptr %7, ptr %11, align 8, !tbaa !14
   %12 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1125", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !746
+  %13 = load ptr, ptr %12, align 8, !tbaa !743
   %14 = load ptr, ptr %13, align 8, !tbaa !95
   %15 = icmp eq ptr %14, null
-  br i1 %15, label %42, label %16
+  br i1 %15, label %39, label %16
 
 16:                                               ; preds = %10
   %17 = load ptr, ptr %14, align 8, !tbaa !23
@@ -23090,7 +22998,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %19 = load ptr, ptr %18, align 8
   %20 = tail call i64 %19(ptr noundef nonnull align 8 dereferenceable(8) %14, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %21 = icmp sgt i64 %20, -1
-  br i1 %21, label %22, label %42
+  br i1 %21, label %22, label %39
 
 22:                                               ; preds = %16
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
@@ -23098,32 +23006,32 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %23, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %24 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %25 = icmp sgt i64 %24, -1
+  %25 = icmp slt i64 %24, 0
   %26 = add nsw i64 %24, %20
-  %27 = select i1 %25, i64 %26, i64 -1
-  %28 = icmp sgt i64 %27, -1
-  br i1 %28, label %29, label %42
+  br i1 %25, label %39, label %27
 
-29:                                               ; preds = %22
-  %30 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1125", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %31 = load ptr, ptr %30, align 8, !tbaa !766
-  %32 = load ptr, ptr %31, align 8, !tbaa !95
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %42, label %34
+27:                                               ; preds = %22
+  %28 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1125", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %29 = load ptr, ptr %28, align 8, !tbaa !763
+  %30 = load ptr, ptr %29, align 8, !tbaa !95
+  %31 = icmp eq ptr %30, null
+  br i1 %31, label %39, label %32
 
-34:                                               ; preds = %29
-  %35 = load ptr, ptr %32, align 8, !tbaa !23
-  %36 = getelementptr inbounds ptr, ptr %35, i64 2
-  %37 = load ptr, ptr %36, align 8
-  %38 = call i64 %37(ptr noundef nonnull align 8 dereferenceable(8) %32, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %39 = icmp sgt i64 %38, -1
-  %40 = add nsw i64 %38, %27
-  %41 = select i1 %39, i64 %40, i64 -1
-  br label %42
+32:                                               ; preds = %27
+  %33 = load ptr, ptr %30, align 8, !tbaa !23
+  %34 = getelementptr inbounds ptr, ptr %33, i64 2
+  %35 = load ptr, ptr %34, align 8
+  %36 = call i64 %35(ptr noundef nonnull align 8 dereferenceable(8) %30, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %37 = icmp slt i64 %36, 0
+  %38 = add nsw i64 %26, %36
+  br i1 %37, label %39, label %40
 
-42:                                               ; preds = %2, %10, %16, %22, %29, %34
-  %43 = phi i64 [ %8, %2 ], [ -1, %22 ], [ -1, %16 ], [ -1, %10 ], [ -1, %29 ], [ %41, %34 ]
-  ret i64 %43
+39:                                               ; preds = %32, %27, %22, %16, %10
+  br label %40
+
+40:                                               ; preds = %2, %32, %39
+  %41 = phi i64 [ %38, %32 ], [ -1, %39 ], [ %8, %2 ]
+  ret i64 %41
 }
 
 ; Function Attrs: uwtable
@@ -23143,10 +23051,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %0, align 8, !tbaa !746
+  %8 = load ptr, ptr %0, align 8, !tbaa !743
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
-  br i1 %10, label %38, label %11
+  br i1 %10, label %34, label %11
 
 11:                                               ; preds = %2
   %12 = load ptr, ptr %9, align 8, !tbaa !23
@@ -23154,7 +23062,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %14 = load ptr, ptr %13, align 8
   %15 = tail call i64 %14(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %16 = icmp sgt i64 %15, -1
-  br i1 %16, label %17, label %38
+  br i1 %16, label %17, label %34
 
 17:                                               ; preds = %11
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
@@ -23162,97 +23070,91 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %18, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %19 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %20 = icmp sgt i64 %19, -1
+  %20 = icmp slt i64 %19, 0
   %21 = add nsw i64 %19, %15
-  %22 = select i1 %20, i64 %21, i64 -1
-  %23 = icmp sgt i64 %22, -1
-  br i1 %23, label %24, label %38
+  br i1 %20, label %34, label %22
 
-24:                                               ; preds = %17
-  %25 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.925", ptr %0, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !766
-  %27 = load ptr, ptr %26, align 8, !tbaa !95
-  %28 = icmp eq ptr %27, null
-  br i1 %28, label %38, label %29
+22:                                               ; preds = %17
+  %23 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.925", ptr %0, i64 0, i32 1
+  %24 = load ptr, ptr %23, align 8, !tbaa !763
+  %25 = load ptr, ptr %24, align 8, !tbaa !95
+  %26 = icmp eq ptr %25, null
+  br i1 %26, label %34, label %27
 
-29:                                               ; preds = %24
-  %30 = load ptr, ptr %27, align 8, !tbaa !23
-  %31 = getelementptr inbounds ptr, ptr %30, i64 2
-  %32 = load ptr, ptr %31, align 8
-  %33 = call i64 %32(ptr noundef nonnull align 8 dereferenceable(8) %27, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %34 = icmp sgt i64 %33, -1
-  %35 = add nsw i64 %33, %22
-  %36 = icmp sgt i64 %35, -1
-  %37 = select i1 %34, i1 %36, i1 false
-  br i1 %37, label %84, label %38
+27:                                               ; preds = %22
+  %28 = load ptr, ptr %25, align 8, !tbaa !23
+  %29 = getelementptr inbounds ptr, ptr %28, i64 2
+  %30 = load ptr, ptr %29, align 8
+  %31 = call i64 %30(ptr noundef nonnull align 8 dereferenceable(8) %25, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %32 = icmp slt i64 %31, 0
+  %33 = add nsw i64 %21, %31
+  br i1 %32, label %34, label %76
 
-38:                                               ; preds = %24, %2, %11, %17, %29
-  %39 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %39, align 8, !tbaa !14
-  %40 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.920", ptr %0, i64 0, i32 1
-  %41 = load ptr, ptr %40, align 8, !tbaa !372
-  %42 = load ptr, ptr %41, align 8, !tbaa !95
-  %43 = icmp eq ptr %42, null
-  br i1 %43, label %84, label %44
+34:                                               ; preds = %27, %22, %17, %11, %2
+  %35 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %35, align 8, !tbaa !14
+  %36 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.920", ptr %0, i64 0, i32 1
+  %37 = load ptr, ptr %36, align 8, !tbaa !369
+  %38 = load ptr, ptr %37, align 8, !tbaa !95
+  %39 = icmp eq ptr %38, null
+  br i1 %39, label %75, label %40
 
-44:                                               ; preds = %38
-  %45 = load ptr, ptr %42, align 8, !tbaa !23
-  %46 = getelementptr inbounds ptr, ptr %45, i64 2
-  %47 = load ptr, ptr %46, align 8
-  %48 = call i64 %47(ptr noundef nonnull align 8 dereferenceable(8) %42, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %49 = icmp sgt i64 %48, -1
-  br i1 %49, label %50, label %84
+40:                                               ; preds = %34
+  %41 = load ptr, ptr %38, align 8, !tbaa !23
+  %42 = getelementptr inbounds ptr, ptr %41, i64 2
+  %43 = load ptr, ptr %42, align 8
+  %44 = call i64 %43(ptr noundef nonnull align 8 dereferenceable(8) %38, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %45 = icmp sgt i64 %44, -1
+  br i1 %45, label %46, label %75
 
-50:                                               ; preds = %44
-  %51 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.920", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %52 = load ptr, ptr %51, align 8, !tbaa !374
-  %53 = load ptr, ptr %52, align 8, !tbaa !95
-  %54 = icmp eq ptr %53, null
-  br i1 %54, label %84, label %55
+46:                                               ; preds = %40
+  %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.920", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %48 = load ptr, ptr %47, align 8, !tbaa !371
+  %49 = load ptr, ptr %48, align 8, !tbaa !95
+  %50 = icmp eq ptr %49, null
+  br i1 %50, label %75, label %51
 
-55:                                               ; preds = %50
-  %56 = load ptr, ptr %53, align 8, !tbaa !23
-  %57 = getelementptr inbounds ptr, ptr %56, i64 2
-  %58 = load ptr, ptr %57, align 8
-  %59 = call i64 %58(ptr noundef nonnull align 8 dereferenceable(8) %53, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %60 = icmp sgt i64 %59, -1
-  %61 = add nsw i64 %59, %48
-  %62 = select i1 %60, i64 %61, i64 -1
-  %63 = icmp sgt i64 %62, -1
-  br i1 %63, label %64, label %84
+51:                                               ; preds = %46
+  %52 = load ptr, ptr %49, align 8, !tbaa !23
+  %53 = getelementptr inbounds ptr, ptr %52, i64 2
+  %54 = load ptr, ptr %53, align 8
+  %55 = call i64 %54(ptr noundef nonnull align 8 dereferenceable(8) %49, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %56 = icmp slt i64 %55, 0
+  br i1 %56, label %75, label %57
 
-64:                                               ; preds = %55
+57:                                               ; preds = %51
+  %58 = add nuw nsw i64 %55, %44
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  %65 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.920", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %65, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %66 = load i64, ptr %3, align 8, !tbaa !212
+  %59 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.920", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %59, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %60 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %67 = icmp sgt i64 %66, -1
-  %68 = add nsw i64 %66, %62
-  %69 = select i1 %67, i64 %68, i64 -1
-  %70 = icmp sgt i64 %69, -1
-  br i1 %70, label %71, label %84
+  %61 = icmp slt i64 %60, 0
+  %62 = add nsw i64 %58, %60
+  br i1 %61, label %75, label %63
 
-71:                                               ; preds = %64
-  %72 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.920", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %73 = load ptr, ptr %72, align 8, !tbaa !768
-  %74 = load ptr, ptr %73, align 8, !tbaa !95
-  %75 = icmp eq ptr %74, null
-  br i1 %75, label %84, label %76
+63:                                               ; preds = %57
+  %64 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.920", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %65 = load ptr, ptr %64, align 8, !tbaa !765
+  %66 = load ptr, ptr %65, align 8, !tbaa !95
+  %67 = icmp eq ptr %66, null
+  br i1 %67, label %75, label %68
 
-76:                                               ; preds = %71
-  %77 = load ptr, ptr %74, align 8, !tbaa !23
-  %78 = getelementptr inbounds ptr, ptr %77, i64 2
-  %79 = load ptr, ptr %78, align 8
-  %80 = call i64 %79(ptr noundef nonnull align 8 dereferenceable(8) %74, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %81 = icmp sgt i64 %80, -1
-  %82 = add nsw i64 %80, %69
-  %83 = select i1 %81, i64 %82, i64 -1
-  br label %84
+68:                                               ; preds = %63
+  %69 = load ptr, ptr %66, align 8, !tbaa !23
+  %70 = getelementptr inbounds ptr, ptr %69, i64 2
+  %71 = load ptr, ptr %70, align 8
+  %72 = call i64 %71(ptr noundef nonnull align 8 dereferenceable(8) %66, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %73 = icmp slt i64 %72, 0
+  %74 = add nsw i64 %62, %72
+  br i1 %73, label %75, label %76
 
-84:                                               ; preds = %76, %71, %64, %55, %50, %44, %38, %29
-  %85 = phi i64 [ %35, %29 ], [ -1, %64 ], [ -1, %55 ], [ -1, %44 ], [ -1, %38 ], [ -1, %50 ], [ -1, %71 ], [ %83, %76 ]
-  ret i64 %85
+75:                                               ; preds = %68, %63, %57, %51, %46, %40, %34
+  br label %76
+
+76:                                               ; preds = %27, %75, %68
+  %77 = phi i64 [ %74, %68 ], [ -1, %75 ], [ %33, %27 ]
+  ret i64 %77
 }
 
 ; Function Attrs: nounwind uwtable
@@ -23280,10 +23182,10 @@ define linkonce_odr dso_local noundef ptr @_ZNK5boost6spirit4impl15concrete_pars
 
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalINS0_13sequential_orISG_SG_EEEEEESG_E5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) local_unnamed_addr #5 comdat align 2 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !774
+  %3 = load ptr, ptr %0, align 8, !tbaa !771
   %4 = load ptr, ptr %3, align 8, !tbaa !95
   %5 = icmp eq ptr %4, null
-  br i1 %5, label %74, label %6
+  br i1 %5, label %73, label %6
 
 6:                                                ; preds = %2
   %7 = load ptr, ptr %4, align 8, !tbaa !23
@@ -23291,14 +23193,14 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_4ruleINS0
   %9 = load ptr, ptr %8, align 8
   %10 = tail call i64 %9(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %11 = icmp sgt i64 %10, -1
-  br i1 %11, label %12, label %74
+  br i1 %11, label %12, label %73
 
 12:                                               ; preds = %6
   %13 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.940", ptr %0, i64 0, i32 1
   %14 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %15 = load ptr, ptr %14, align 8, !tbaa !98
   %16 = load ptr, ptr %15, align 8, !tbaa !14
-  %17 = load ptr, ptr %13, align 8, !tbaa !372
+  %17 = load ptr, ptr %13, align 8, !tbaa !369
   %18 = load ptr, ptr %17, align 8, !tbaa !95
   %19 = icmp eq ptr %18, null
   br i1 %19, label %45, label %20
@@ -23315,7 +23217,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_4ruleINS0
 27:                                               ; preds = %20
   %28 = load ptr, ptr %26, align 8, !tbaa !14
   %29 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.940", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %30 = load ptr, ptr %29, align 8, !tbaa !374
+  %30 = load ptr, ptr %29, align 8, !tbaa !371
   %31 = load ptr, ptr %30, align 8, !tbaa !95
   %32 = icmp eq ptr %31, null
   br i1 %32, label %43, label %33
@@ -23345,7 +23247,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_4ruleINS0
   %46 = phi ptr [ %15, %12 ], [ %26, %20 ]
   store ptr %16, ptr %46, align 8, !tbaa !14
   %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.940", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %48 = load ptr, ptr %47, align 8, !tbaa !374
+  %48 = load ptr, ptr %47, align 8, !tbaa !371
   %49 = load ptr, ptr %48, align 8, !tbaa !95
   %50 = icmp eq ptr %49, null
   br i1 %50, label %57, label %51
@@ -23364,12 +23266,12 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_4ruleINS0
   br label %59
 
 59:                                               ; preds = %41, %43, %51, %57
-  %60 = phi i64 [ 0, %57 ], [ %55, %51 ], [ %24, %43 ], [ %42, %41 ]
+  %60 = phi i64 [ 0, %57 ], [ %55, %51 ], [ %42, %41 ], [ %24, %43 ]
   %61 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.935", ptr %0, i64 0, i32 1
-  %62 = load ptr, ptr %61, align 8, !tbaa !780
+  %62 = load ptr, ptr %61, align 8, !tbaa !777
   %63 = load ptr, ptr %62, align 8, !tbaa !95
   %64 = icmp eq ptr %63, null
-  br i1 %64, label %74, label %65
+  br i1 %64, label %73, label %65
 
 65:                                               ; preds = %59
   %66 = add nuw nsw i64 %60, %10
@@ -23377,13 +23279,15 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_4ruleINS0
   %68 = getelementptr inbounds ptr, ptr %67, i64 2
   %69 = load ptr, ptr %68, align 8
   %70 = tail call i64 %69(ptr noundef nonnull align 8 dereferenceable(8) %63, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %71 = icmp sgt i64 %70, -1
-  %72 = add nsw i64 %66, %70
-  %73 = select i1 %71, i64 %72, i64 -1
+  %71 = icmp slt i64 %70, 0
+  %72 = add nsw i64 %70, %66
+  br i1 %71, label %73, label %74
+
+73:                                               ; preds = %59, %2, %6, %65
   br label %74
 
-74:                                               ; preds = %65, %59, %2, %6
-  %75 = phi i64 [ -1, %6 ], [ -1, %2 ], [ -1, %59 ], [ %73, %65 ]
+74:                                               ; preds = %65, %73
+  %75 = phi i64 [ %72, %65 ], [ -1, %73 ]
   ret i64 %75
 }
 
@@ -23400,7 +23304,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %4, align 8, !tbaa !531
+  %8 = load ptr, ptr %4, align 8, !tbaa !528
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
   br i1 %10, label %19, label %11
@@ -23429,9 +23333,9 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %23, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %24 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %25 = icmp sgt i64 %24, -1
-  %26 = add nsw i64 %24, %22
-  %27 = select i1 %25, i64 %26, i64 -1
+  %25 = add nsw i64 %24, %22
+  %26 = icmp sgt i64 %24, -1
+  %27 = select i1 %26, i64 %25, i64 -1
   ret i64 %27
 }
 
@@ -23459,16 +23363,16 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %6 = load ptr, ptr %5, align 8, !tbaa !14
   %7 = tail call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESI_EESG_E5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %3, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %9, label %41
+  br i1 %8, label %9, label %39
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %11 = load ptr, ptr %4, align 8, !tbaa !98
   %12 = load ptr, ptr %11, align 8, !tbaa !14
-  %13 = load ptr, ptr %10, align 8, !tbaa !372
+  %13 = load ptr, ptr %10, align 8, !tbaa !369
   %14 = load ptr, ptr %13, align 8, !tbaa !95
   %15 = icmp eq ptr %14, null
-  br i1 %15, label %36, label %16
+  br i1 %15, label %37, label %16
 
 16:                                               ; preds = %9
   %17 = load ptr, ptr %14, align 8, !tbaa !23
@@ -23476,46 +23380,44 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %19 = load ptr, ptr %18, align 8
   %20 = tail call i64 %19(ptr noundef nonnull align 8 dereferenceable(8) %14, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %21 = icmp sgt i64 %20, -1
-  br i1 %21, label %22, label %36
+  br i1 %21, label %22, label %37
 
 22:                                               ; preds = %16
   %23 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !374
+  %24 = load ptr, ptr %23, align 8, !tbaa !371
   %25 = load ptr, ptr %24, align 8, !tbaa !95
   %26 = icmp eq ptr %25, null
-  br i1 %26, label %36, label %27
+  br i1 %26, label %37, label %27
 
 27:                                               ; preds = %22
   %28 = load ptr, ptr %25, align 8, !tbaa !23
   %29 = getelementptr inbounds ptr, ptr %28, i64 2
   %30 = load ptr, ptr %29, align 8
   %31 = tail call i64 %30(ptr noundef nonnull align 8 dereferenceable(8) %25, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %32 = icmp sgt i64 %31, -1
-  %33 = add nsw i64 %31, %20
-  %34 = icmp sgt i64 %33, -1
-  %35 = select i1 %32, i1 %34, i1 false
-  br i1 %35, label %38, label %36
+  %32 = icmp slt i64 %31, 0
+  br i1 %32, label %37, label %33
 
-36:                                               ; preds = %27, %22, %16, %9
-  %37 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %12, ptr %37, align 8, !tbaa !14
-  br label %38
+33:                                               ; preds = %27
+  %34 = add nuw i64 %20, %7
+  %35 = add i64 %34, %31
+  %36 = icmp sgt i64 %35, -1
+  br i1 %36, label %43, label %39
 
-38:                                               ; preds = %36, %27
-  %39 = phi i64 [ 0, %36 ], [ %33, %27 ]
-  %40 = add nuw nsw i64 %39, %7
-  br label %45
+37:                                               ; preds = %27, %22, %16, %9
+  %38 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %12, ptr %38, align 8, !tbaa !14
+  br label %43
 
-41:                                               ; preds = %2
-  %42 = load ptr, ptr %4, align 8, !tbaa !98
-  store ptr %6, ptr %42, align 8, !tbaa !14
-  %43 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %44 = tail call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESI_EESG_E5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %43, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  br label %45
+39:                                               ; preds = %33, %2
+  %40 = load ptr, ptr %4, align 8, !tbaa !98
+  store ptr %6, ptr %40, align 8, !tbaa !14
+  %41 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1128", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %42 = tail call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESI_EESG_E5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %41, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  br label %43
 
-45:                                               ; preds = %38, %41
-  %46 = phi i64 [ %44, %41 ], [ %40, %38 ]
-  ret i64 %46
+43:                                               ; preds = %33, %37, %39
+  %44 = phi i64 [ %7, %37 ], [ %42, %39 ], [ %35, %33 ]
+  ret i64 %44
 }
 
 ; Function Attrs: uwtable
@@ -23532,10 +23434,10 @@ define linkonce_odr dso_local noundef ptr @_ZNK5boost6spirit4impl15concrete_pars
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESI_EESG_E5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) local_unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = alloca %"class.boost::spirit::match.1052", align 8
   %4 = alloca %"class.boost::spirit::match.1052", align 8
-  %5 = load ptr, ptr %0, align 8, !tbaa !746
+  %5 = load ptr, ptr %0, align 8, !tbaa !743
   %6 = load ptr, ptr %5, align 8, !tbaa !95
   %7 = icmp eq ptr %6, null
-  br i1 %7, label %55, label %8
+  br i1 %7, label %48, label %8
 
 8:                                                ; preds = %2
   %9 = load ptr, ptr %6, align 8, !tbaa !23
@@ -23543,7 +23445,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0
   %11 = load ptr, ptr %10, align 8
   %12 = tail call i64 %11(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %13 = icmp sgt i64 %12, -1
-  br i1 %13, label %14, label %55
+  br i1 %13, label %14, label %48
 
 14:                                               ; preds = %8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
@@ -23551,62 +23453,58 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %15, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %16 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %17 = icmp sgt i64 %16, -1
+  %17 = icmp slt i64 %16, 0
   %18 = add nsw i64 %16, %12
-  %19 = select i1 %17, i64 %18, i64 -1
-  %20 = icmp sgt i64 %19, -1
-  br i1 %20, label %21, label %55
+  br i1 %17, label %48, label %19
 
-21:                                               ; preds = %14
-  %22 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.925", ptr %0, i64 0, i32 1
-  %23 = load ptr, ptr %22, align 8, !tbaa !766
-  %24 = load ptr, ptr %23, align 8, !tbaa !95
-  %25 = icmp eq ptr %24, null
-  br i1 %25, label %55, label %26
+19:                                               ; preds = %14
+  %20 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.925", ptr %0, i64 0, i32 1
+  %21 = load ptr, ptr %20, align 8, !tbaa !763
+  %22 = load ptr, ptr %21, align 8, !tbaa !95
+  %23 = icmp eq ptr %22, null
+  br i1 %23, label %48, label %24
 
-26:                                               ; preds = %21
-  %27 = load ptr, ptr %24, align 8, !tbaa !23
-  %28 = getelementptr inbounds ptr, ptr %27, i64 2
-  %29 = load ptr, ptr %28, align 8
-  %30 = call i64 %29(ptr noundef nonnull align 8 dereferenceable(8) %24, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %31 = icmp sgt i64 %30, -1
-  %32 = add nsw i64 %30, %19
-  %33 = select i1 %31, i64 %32, i64 -1
-  %34 = icmp sgt i64 %33, -1
-  br i1 %34, label %35, label %55
+24:                                               ; preds = %19
+  %25 = load ptr, ptr %22, align 8, !tbaa !23
+  %26 = getelementptr inbounds ptr, ptr %25, i64 2
+  %27 = load ptr, ptr %26, align 8
+  %28 = call i64 %27(ptr noundef nonnull align 8 dereferenceable(8) %22, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %29 = icmp slt i64 %28, 0
+  br i1 %29, label %48, label %30
 
-35:                                               ; preds = %26
+30:                                               ; preds = %24
+  %31 = add nsw i64 %18, %28
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
-  %36 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.960", ptr %0, i64 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %36, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %37 = load i64, ptr %4, align 8, !tbaa !212
+  %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.960", ptr %0, i64 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %32, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %33 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %38 = icmp sgt i64 %37, -1
-  %39 = add nsw i64 %37, %33
-  %40 = select i1 %38, i64 %39, i64 -1
-  %41 = icmp sgt i64 %40, -1
-  br i1 %41, label %42, label %55
+  %34 = icmp slt i64 %33, 0
+  %35 = add nsw i64 %31, %33
+  br i1 %34, label %48, label %36
 
-42:                                               ; preds = %35
-  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.955", ptr %0, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !785
-  %45 = load ptr, ptr %44, align 8, !tbaa !95
-  %46 = icmp eq ptr %45, null
-  br i1 %46, label %55, label %47
+36:                                               ; preds = %30
+  %37 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.955", ptr %0, i64 0, i32 1
+  %38 = load ptr, ptr %37, align 8, !tbaa !782
+  %39 = load ptr, ptr %38, align 8, !tbaa !95
+  %40 = icmp eq ptr %39, null
+  br i1 %40, label %48, label %41
 
-47:                                               ; preds = %42
-  %48 = load ptr, ptr %45, align 8, !tbaa !23
-  %49 = getelementptr inbounds ptr, ptr %48, i64 2
-  %50 = load ptr, ptr %49, align 8
-  %51 = call i64 %50(ptr noundef nonnull align 8 dereferenceable(8) %45, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %52 = icmp sgt i64 %51, -1
-  %53 = add nsw i64 %51, %40
-  %54 = select i1 %52, i64 %53, i64 -1
-  br label %55
+41:                                               ; preds = %36
+  %42 = load ptr, ptr %39, align 8, !tbaa !23
+  %43 = getelementptr inbounds ptr, ptr %42, i64 2
+  %44 = load ptr, ptr %43, align 8
+  %45 = call i64 %44(ptr noundef nonnull align 8 dereferenceable(8) %39, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %46 = icmp slt i64 %45, 0
+  %47 = add nsw i64 %45, %35
+  br i1 %46, label %48, label %49
 
-55:                                               ; preds = %47, %42, %21, %2, %8, %14, %26, %35
-  %56 = phi i64 [ -1, %35 ], [ -1, %26 ], [ -1, %14 ], [ -1, %8 ], [ -1, %2 ], [ -1, %21 ], [ -1, %42 ], [ %54, %47 ]
-  ret i64 %56
+48:                                               ; preds = %36, %30, %24, %19, %14, %8, %2, %41
+  br label %49
+
+49:                                               ; preds = %41, %48
+  %50 = phi i64 [ %47, %41 ], [ -1, %48 ]
+  ret i64 %50
 }
 
 ; Function Attrs: nounwind uwtable
@@ -23642,7 +23540,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_8sequ
   %8 = load ptr, ptr %7, align 8, !tbaa !14
   %9 = tail call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESI_EESG_E5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %10 = icmp sgt i64 %9, -1
-  br i1 %10, label %55, label %11
+  br i1 %10, label %49, label %11
 
 11:                                               ; preds = %2
   %12 = load ptr, ptr %6, align 8, !tbaa !98
@@ -23650,7 +23548,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_8sequ
   %13 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.975", ptr %0, i64 0, i32 1
   %14 = tail call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EENS0_5chlitIcEEEESG_E5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %13, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %15 = icmp sgt i64 %14, -1
-  br i1 %15, label %16, label %30
+  br i1 %15, label %16, label %26
 
 16:                                               ; preds = %11
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
@@ -23658,73 +23556,69 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_8sequ
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %17, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %18 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %19 = icmp sgt i64 %18, -1
-  %20 = add nsw i64 %18, %14
-  %21 = select i1 %19, i64 %20, i64 -1
-  %22 = icmp sgt i64 %21, -1
-  br i1 %22, label %23, label %30
+  %19 = icmp slt i64 %18, 0
+  br i1 %19, label %26, label %20
 
-23:                                               ; preds = %16
+20:                                               ; preds = %16
+  %21 = add nuw nsw i64 %18, %14
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #24
-  %24 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.975", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %5, ptr noundef nonnull align 1 dereferenceable(1) %24, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %25 = load i64, ptr %5, align 8, !tbaa !212
+  %22 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.975", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %5, ptr noundef nonnull align 1 dereferenceable(1) %22, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %23 = load i64, ptr %5, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #24
-  %26 = icmp sgt i64 %25, -1
-  %27 = add nsw i64 %25, %21
-  %28 = icmp sgt i64 %27, -1
-  %29 = select i1 %26, i1 %28, i1 false
-  br i1 %29, label %55, label %30
+  %24 = icmp slt i64 %23, 0
+  %25 = add nsw i64 %21, %23
+  br i1 %24, label %26, label %49
 
-30:                                               ; preds = %23, %11, %16
-  %31 = load ptr, ptr %6, align 8, !tbaa !98
-  store ptr %8, ptr %31, align 8, !tbaa !14
-  %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.970", ptr %0, i64 0, i32 1
-  %33 = call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESG_EENS0_8optionalISG_EEE5parseISE_EENS0_13parser_resultISO_T_E4typeERKSR_(ptr noundef nonnull align 8 dereferenceable(40) %32, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %34 = icmp sgt i64 %33, -1
-  br i1 %34, label %35, label %55
+26:                                               ; preds = %20, %16, %11
+  %27 = load ptr, ptr %6, align 8, !tbaa !98
+  store ptr %8, ptr %27, align 8, !tbaa !14
+  %28 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.970", ptr %0, i64 0, i32 1
+  %29 = call i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESG_EENS0_8optionalISG_EEE5parseISE_EENS0_13parser_resultISO_T_E4typeERKSR_(ptr noundef nonnull align 8 dereferenceable(40) %28, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %30 = icmp sgt i64 %29, -1
+  br i1 %30, label %31, label %48
 
-35:                                               ; preds = %30
+31:                                               ; preds = %26
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  %36 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.970", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %36, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %37 = load i64, ptr %3, align 8, !tbaa !212
+  %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.970", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %32, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %33 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %38 = icmp sgt i64 %37, -1
-  %39 = add nsw i64 %37, %33
-  %40 = select i1 %38, i64 %39, i64 -1
-  %41 = icmp sgt i64 %40, -1
-  br i1 %41, label %42, label %55
+  %34 = icmp slt i64 %33, 0
+  %35 = add nsw i64 %33, %29
+  br i1 %34, label %48, label %36
 
-42:                                               ; preds = %35
-  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.970", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !794
-  %45 = load ptr, ptr %44, align 8, !tbaa !95
-  %46 = icmp eq ptr %45, null
-  br i1 %46, label %55, label %47
+36:                                               ; preds = %31
+  %37 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.970", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %38 = load ptr, ptr %37, align 8, !tbaa !791
+  %39 = load ptr, ptr %38, align 8, !tbaa !95
+  %40 = icmp eq ptr %39, null
+  br i1 %40, label %48, label %41
 
-47:                                               ; preds = %42
-  %48 = load ptr, ptr %45, align 8, !tbaa !23
-  %49 = getelementptr inbounds ptr, ptr %48, i64 2
-  %50 = load ptr, ptr %49, align 8
-  %51 = call i64 %50(ptr noundef nonnull align 8 dereferenceable(8) %45, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %52 = icmp sgt i64 %51, -1
-  %53 = add nsw i64 %51, %40
-  %54 = select i1 %52, i64 %53, i64 -1
-  br label %55
+41:                                               ; preds = %36
+  %42 = load ptr, ptr %39, align 8, !tbaa !23
+  %43 = getelementptr inbounds ptr, ptr %42, i64 2
+  %44 = load ptr, ptr %43, align 8
+  %45 = call i64 %44(ptr noundef nonnull align 8 dereferenceable(8) %39, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %46 = icmp slt i64 %45, 0
+  %47 = add nsw i64 %35, %45
+  br i1 %46, label %48, label %49
 
-55:                                               ; preds = %23, %2, %47, %42, %35, %30
-  %56 = phi i64 [ -1, %35 ], [ -1, %30 ], [ -1, %42 ], [ %54, %47 ], [ %9, %2 ], [ %27, %23 ]
-  ret i64 %56
+48:                                               ; preds = %41, %36, %31, %26
+  br label %49
+
+49:                                               ; preds = %20, %2, %48, %41
+  %50 = phi i64 [ %47, %41 ], [ -1, %48 ], [ %9, %2 ], [ %25, %20 ]
+  ret i64 %50
 }
 
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EENS0_5chlitIcEEEESG_E5parseISE_EENS0_13parser_resultISM_T_E4typeERKSP_(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) local_unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = alloca %"class.boost::spirit::match.1052", align 8
-  %4 = load ptr, ptr %0, align 8, !tbaa !372
+  %4 = load ptr, ptr %0, align 8, !tbaa !369
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
-  br i1 %6, label %61, label %7
+  br i1 %6, label %54, label %7
 
 7:                                                ; preds = %2
   %8 = load ptr, ptr %5, align 8, !tbaa !23
@@ -23732,85 +23626,81 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0
   %10 = load ptr, ptr %9, align 8
   %11 = tail call i64 %10(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %12 = icmp sgt i64 %11, -1
-  br i1 %12, label %13, label %61
+  br i1 %12, label %13, label %54
 
 13:                                               ; preds = %7
   %14 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.286", ptr %0, i64 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !374
+  %15 = load ptr, ptr %14, align 8, !tbaa !371
   %16 = load ptr, ptr %15, align 8, !tbaa !95
   %17 = icmp eq ptr %16, null
-  br i1 %17, label %61, label %18
+  br i1 %17, label %54, label %18
 
 18:                                               ; preds = %13
   %19 = load ptr, ptr %16, align 8, !tbaa !23
   %20 = getelementptr inbounds ptr, ptr %19, i64 2
   %21 = load ptr, ptr %20, align 8
   %22 = tail call i64 %21(ptr noundef nonnull align 8 dereferenceable(8) %16, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %23 = icmp sgt i64 %22, -1
+  %23 = icmp slt i64 %22, 0
   %24 = add nsw i64 %22, %11
-  %25 = select i1 %23, i64 %24, i64 -1
-  %26 = icmp sgt i64 %25, -1
-  br i1 %26, label %27, label %61
+  br i1 %23, label %54, label %25
 
-27:                                               ; preds = %18
-  %28 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.437", ptr %0, i64 0, i32 1
-  %29 = load ptr, ptr %28, align 8, !tbaa !530
-  %30 = load ptr, ptr %29, align 8, !tbaa !95
-  %31 = icmp eq ptr %30, null
-  br i1 %31, label %61, label %32
+25:                                               ; preds = %18
+  %26 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.437", ptr %0, i64 0, i32 1
+  %27 = load ptr, ptr %26, align 8, !tbaa !527
+  %28 = load ptr, ptr %27, align 8, !tbaa !95
+  %29 = icmp eq ptr %28, null
+  br i1 %29, label %54, label %30
 
-32:                                               ; preds = %27
-  %33 = load ptr, ptr %30, align 8, !tbaa !23
-  %34 = getelementptr inbounds ptr, ptr %33, i64 2
-  %35 = load ptr, ptr %34, align 8
-  %36 = tail call i64 %35(ptr noundef nonnull align 8 dereferenceable(8) %30, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %37 = icmp sgt i64 %36, -1
-  %38 = add nsw i64 %36, %25
-  %39 = select i1 %37, i64 %38, i64 -1
-  %40 = icmp sgt i64 %39, -1
-  br i1 %40, label %41, label %61
+30:                                               ; preds = %25
+  %31 = load ptr, ptr %28, align 8, !tbaa !23
+  %32 = getelementptr inbounds ptr, ptr %31, i64 2
+  %33 = load ptr, ptr %32, align 8
+  %34 = tail call i64 %33(ptr noundef nonnull align 8 dereferenceable(8) %28, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %35 = icmp slt i64 %34, 0
+  br i1 %35, label %54, label %36
 
-41:                                               ; preds = %32
+36:                                               ; preds = %30
+  %37 = add nsw i64 %24, %34
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  %42 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.995", ptr %0, i64 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %42, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %43 = load i64, ptr %3, align 8, !tbaa !212
+  %38 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.995", ptr %0, i64 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %38, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %39 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %44 = icmp sgt i64 %43, -1
-  %45 = add nsw i64 %43, %39
-  %46 = select i1 %44, i64 %45, i64 -1
-  %47 = icmp sgt i64 %46, -1
-  br i1 %47, label %48, label %61
+  %40 = icmp slt i64 %39, 0
+  %41 = add nsw i64 %37, %39
+  br i1 %40, label %54, label %42
 
-48:                                               ; preds = %41
-  %49 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.990", ptr %0, i64 0, i32 1
-  %50 = load ptr, ptr %49, align 8, !tbaa !808
-  %51 = load ptr, ptr %50, align 8, !tbaa !95
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %61, label %53
+42:                                               ; preds = %36
+  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.990", ptr %0, i64 0, i32 1
+  %44 = load ptr, ptr %43, align 8, !tbaa !805
+  %45 = load ptr, ptr %44, align 8, !tbaa !95
+  %46 = icmp eq ptr %45, null
+  br i1 %46, label %54, label %47
 
-53:                                               ; preds = %48
-  %54 = load ptr, ptr %51, align 8, !tbaa !23
-  %55 = getelementptr inbounds ptr, ptr %54, i64 2
-  %56 = load ptr, ptr %55, align 8
-  %57 = call i64 %56(ptr noundef nonnull align 8 dereferenceable(8) %51, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %58 = icmp sgt i64 %57, -1
-  %59 = add nsw i64 %57, %46
-  %60 = select i1 %58, i64 %59, i64 -1
-  br label %61
+47:                                               ; preds = %42
+  %48 = load ptr, ptr %45, align 8, !tbaa !23
+  %49 = getelementptr inbounds ptr, ptr %48, i64 2
+  %50 = load ptr, ptr %49, align 8
+  %51 = call i64 %50(ptr noundef nonnull align 8 dereferenceable(8) %45, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %52 = icmp slt i64 %51, 0
+  %53 = add nsw i64 %51, %41
+  br i1 %52, label %54, label %55
 
-61:                                               ; preds = %53, %48, %27, %13, %2, %7, %18, %32, %41
-  %62 = phi i64 [ -1, %41 ], [ -1, %32 ], [ -1, %18 ], [ -1, %7 ], [ -1, %2 ], [ -1, %13 ], [ -1, %27 ], [ -1, %48 ], [ %60, %53 ]
-  ret i64 %62
+54:                                               ; preds = %42, %36, %30, %25, %18, %13, %7, %2, %47
+  br label %55
+
+55:                                               ; preds = %47, %54
+  %56 = phi i64 [ %53, %47 ], [ -1, %54 ]
+  ret i64 %56
 }
 
 ; Function Attrs: uwtable
 define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESG_EENS0_8optionalISG_EEE5parseISE_EENS0_13parser_resultISO_T_E4typeERKSR_(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) local_unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = alloca %"class.boost::spirit::match.1052", align 8
-  %4 = load ptr, ptr %0, align 8, !tbaa !746
+  %4 = load ptr, ptr %0, align 8, !tbaa !743
   %5 = load ptr, ptr %4, align 8, !tbaa !95
   %6 = icmp eq ptr %5, null
-  br i1 %6, label %69, label %7
+  br i1 %6, label %63, label %7
 
 7:                                                ; preds = %2
   %8 = load ptr, ptr %5, align 8, !tbaa !23
@@ -23818,7 +23708,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0
   %10 = load ptr, ptr %9, align 8
   %11 = tail call i64 %10(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %12 = icmp sgt i64 %11, -1
-  br i1 %12, label %13, label %69
+  br i1 %12, label %13, label %63
 
 13:                                               ; preds = %7
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
@@ -23826,83 +23716,77 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS1_INS1_INS0
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %14, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %15 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %16 = icmp sgt i64 %15, -1
+  %16 = icmp slt i64 %15, 0
   %17 = add nsw i64 %15, %11
-  %18 = select i1 %16, i64 %17, i64 -1
-  %19 = icmp sgt i64 %18, -1
-  br i1 %19, label %20, label %69
+  br i1 %16, label %63, label %18
 
-20:                                               ; preds = %13
-  %21 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.925", ptr %0, i64 0, i32 1
-  %22 = load ptr, ptr %21, align 8, !tbaa !766
-  %23 = load ptr, ptr %22, align 8, !tbaa !95
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %69, label %25
+18:                                               ; preds = %13
+  %19 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.925", ptr %0, i64 0, i32 1
+  %20 = load ptr, ptr %19, align 8, !tbaa !763
+  %21 = load ptr, ptr %20, align 8, !tbaa !95
+  %22 = icmp eq ptr %21, null
+  br i1 %22, label %63, label %23
 
-25:                                               ; preds = %20
-  %26 = load ptr, ptr %23, align 8, !tbaa !23
-  %27 = getelementptr inbounds ptr, ptr %26, i64 2
-  %28 = load ptr, ptr %27, align 8
-  %29 = call i64 %28(ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %30 = icmp sgt i64 %29, -1
-  %31 = add nsw i64 %29, %18
-  %32 = select i1 %30, i64 %31, i64 -1
-  %33 = icmp sgt i64 %32, -1
-  br i1 %33, label %34, label %69
+23:                                               ; preds = %18
+  %24 = load ptr, ptr %21, align 8, !tbaa !23
+  %25 = getelementptr inbounds ptr, ptr %24, i64 2
+  %26 = load ptr, ptr %25, align 8
+  %27 = call i64 %26(ptr noundef nonnull align 8 dereferenceable(8) %21, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %28 = icmp slt i64 %27, 0
+  %29 = add nsw i64 %17, %27
+  br i1 %28, label %63, label %30
 
-34:                                               ; preds = %25
-  %35 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1021", ptr %0, i64 0, i32 1
-  %36 = load ptr, ptr %35, align 8, !tbaa !814
-  %37 = load ptr, ptr %36, align 8, !tbaa !95
-  %38 = icmp eq ptr %37, null
-  br i1 %38, label %69, label %39
+30:                                               ; preds = %23
+  %31 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1021", ptr %0, i64 0, i32 1
+  %32 = load ptr, ptr %31, align 8, !tbaa !811
+  %33 = load ptr, ptr %32, align 8, !tbaa !95
+  %34 = icmp eq ptr %33, null
+  br i1 %34, label %63, label %35
 
-39:                                               ; preds = %34
-  %40 = load ptr, ptr %37, align 8, !tbaa !23
-  %41 = getelementptr inbounds ptr, ptr %40, i64 2
-  %42 = load ptr, ptr %41, align 8
-  %43 = call i64 %42(ptr noundef nonnull align 8 dereferenceable(8) %37, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %44 = icmp sgt i64 %43, -1
-  %45 = add nsw i64 %43, %32
-  %46 = select i1 %44, i64 %45, i64 -1
-  %47 = icmp sgt i64 %46, -1
-  br i1 %47, label %48, label %69
+35:                                               ; preds = %30
+  %36 = load ptr, ptr %33, align 8, !tbaa !23
+  %37 = getelementptr inbounds ptr, ptr %36, i64 2
+  %38 = load ptr, ptr %37, align 8
+  %39 = call i64 %38(ptr noundef nonnull align 8 dereferenceable(8) %33, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %40 = icmp slt i64 %39, 0
+  %41 = add nsw i64 %29, %39
+  br i1 %40, label %63, label %42
 
-48:                                               ; preds = %39
-  %49 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1016", ptr %0, i64 0, i32 1
-  %50 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
-  %51 = load ptr, ptr %50, align 8, !tbaa !98
-  %52 = load ptr, ptr %51, align 8, !tbaa !14
-  %53 = load ptr, ptr %49, align 8, !tbaa !531
-  %54 = load ptr, ptr %53, align 8, !tbaa !95
-  %55 = icmp eq ptr %54, null
-  br i1 %55, label %64, label %56
+42:                                               ; preds = %35
+  %43 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1016", ptr %0, i64 0, i32 1
+  %44 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
+  %45 = load ptr, ptr %44, align 8, !tbaa !98
+  %46 = load ptr, ptr %45, align 8, !tbaa !14
+  %47 = load ptr, ptr %43, align 8, !tbaa !528
+  %48 = load ptr, ptr %47, align 8, !tbaa !95
+  %49 = icmp eq ptr %48, null
+  br i1 %49, label %58, label %50
 
-56:                                               ; preds = %48
-  %57 = load ptr, ptr %54, align 8, !tbaa !23
-  %58 = getelementptr inbounds ptr, ptr %57, i64 2
-  %59 = load ptr, ptr %58, align 8
-  %60 = call i64 %59(ptr noundef nonnull align 8 dereferenceable(8) %54, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %61 = icmp sgt i64 %60, -1
-  br i1 %61, label %66, label %62
+50:                                               ; preds = %42
+  %51 = load ptr, ptr %48, align 8, !tbaa !23
+  %52 = getelementptr inbounds ptr, ptr %51, i64 2
+  %53 = load ptr, ptr %52, align 8
+  %54 = call i64 %53(ptr noundef nonnull align 8 dereferenceable(8) %48, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %55 = icmp sgt i64 %54, -1
+  br i1 %55, label %60, label %56
 
-62:                                               ; preds = %56
-  %63 = load ptr, ptr %50, align 8, !tbaa !98
-  br label %64
+56:                                               ; preds = %50
+  %57 = load ptr, ptr %44, align 8, !tbaa !98
+  br label %58
 
-64:                                               ; preds = %48, %62
-  %65 = phi ptr [ %63, %62 ], [ %51, %48 ]
-  store ptr %52, ptr %65, align 8, !tbaa !14
-  br label %66
+58:                                               ; preds = %56, %42
+  %59 = phi ptr [ %57, %56 ], [ %45, %42 ]
+  store ptr %46, ptr %59, align 8, !tbaa !14
+  br label %60
 
-66:                                               ; preds = %56, %64
-  %67 = phi i64 [ 0, %64 ], [ %60, %56 ]
-  %68 = add nuw nsw i64 %67, %46
-  br label %69
+60:                                               ; preds = %50, %58
+  %61 = phi i64 [ 0, %58 ], [ %54, %50 ]
+  %62 = add nuw nsw i64 %41, %61
+  br label %63
 
-69:                                               ; preds = %34, %20, %2, %7, %13, %25, %39, %66
-  %70 = phi i64 [ %68, %66 ], [ -1, %39 ], [ -1, %25 ], [ -1, %13 ], [ -1, %7 ], [ -1, %2 ], [ -1, %20 ], [ -1, %34 ]
-  ret i64 %70
+63:                                               ; preds = %35, %30, %23, %18, %13, %7, %2, %60
+  %64 = phi i64 [ %62, %60 ], [ -1, %2 ], [ -1, %7 ], [ -1, %13 ], [ -1, %18 ], [ -1, %23 ], [ -1, %30 ], [ -1, %35 ]
+  ret i64 %64
 }
 
 ; Function Attrs: nounwind uwtable
@@ -23937,16 +23821,16 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %7 = load ptr, ptr %6, align 8, !tbaa !14
   %8 = tail call i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_5chlitIcEEEENS2_ISH_SK_EEE5parseISF_EENS0_13parser_resultISN_T_E4typeERKSQ_(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %9 = icmp sgt i64 %8, -1
-  br i1 %9, label %66, label %10
+  br i1 %9, label %64, label %10
 
 10:                                               ; preds = %2
   %11 = load ptr, ptr %5, align 8, !tbaa !98
   store ptr %7, ptr %11, align 8, !tbaa !14
   %12 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1033", ptr %0, i64 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !746
+  %13 = load ptr, ptr %12, align 8, !tbaa !743
   %14 = load ptr, ptr %13, align 8, !tbaa !95
   %15 = icmp eq ptr %14, null
-  br i1 %15, label %29, label %16
+  br i1 %15, label %27, label %16
 
 16:                                               ; preds = %10
   %17 = load ptr, ptr %14, align 8, !tbaa !23
@@ -23954,7 +23838,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   %19 = load ptr, ptr %18, align 8
   %20 = tail call i64 %19(ptr noundef nonnull align 8 dereferenceable(8) %14, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %21 = icmp sgt i64 %20, -1
-  br i1 %21, label %22, label %29
+  br i1 %21, label %22, label %27
 
 22:                                               ; preds = %16
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
@@ -23962,71 +23846,71 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS1_INS0_
   call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %23, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %24 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %25 = icmp sgt i64 %24, -1
+  %25 = icmp slt i64 %24, 0
   %26 = add nsw i64 %24, %20
-  %27 = icmp sgt i64 %26, -1
-  %28 = select i1 %25, i1 %27, i1 false
-  br i1 %28, label %66, label %29
+  br i1 %25, label %27, label %64
 
-29:                                               ; preds = %22, %10, %16
-  %30 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %30, align 8, !tbaa !14
-  %31 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1028", ptr %0, i64 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !620
-  %33 = load ptr, ptr %32, align 8, !tbaa !95
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %66, label %35
+27:                                               ; preds = %22, %16, %10
+  %28 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %28, align 8, !tbaa !14
+  %29 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1028", ptr %0, i64 0, i32 1
+  %30 = load ptr, ptr %29, align 8, !tbaa !617
+  %31 = load ptr, ptr %30, align 8, !tbaa !95
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %63, label %33
 
-35:                                               ; preds = %29
-  %36 = load ptr, ptr %33, align 8, !tbaa !23
-  %37 = getelementptr inbounds ptr, ptr %36, i64 2
-  %38 = load ptr, ptr %37, align 8
-  %39 = call i64 %38(ptr noundef nonnull align 8 dereferenceable(8) %33, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %40 = icmp sgt i64 %39, -1
-  br i1 %40, label %41, label %66
+33:                                               ; preds = %27
+  %34 = load ptr, ptr %31, align 8, !tbaa !23
+  %35 = getelementptr inbounds ptr, ptr %34, i64 2
+  %36 = load ptr, ptr %35, align 8
+  %37 = call i64 %36(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %38 = icmp sgt i64 %37, -1
+  br i1 %38, label %39, label %63
 
-41:                                               ; preds = %35
-  %42 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1028", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %43 = load ptr, ptr %5, align 8, !tbaa !98
-  %44 = load ptr, ptr %43, align 8, !tbaa !14
-  %45 = load ptr, ptr %42, align 8, !tbaa !531
-  %46 = load ptr, ptr %45, align 8, !tbaa !95
-  %47 = icmp eq ptr %46, null
-  br i1 %47, label %56, label %48
+39:                                               ; preds = %33
+  %40 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1028", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
+  %41 = load ptr, ptr %5, align 8, !tbaa !98
+  %42 = load ptr, ptr %41, align 8, !tbaa !14
+  %43 = load ptr, ptr %40, align 8, !tbaa !528
+  %44 = load ptr, ptr %43, align 8, !tbaa !95
+  %45 = icmp eq ptr %44, null
+  br i1 %45, label %54, label %46
 
-48:                                               ; preds = %41
-  %49 = load ptr, ptr %46, align 8, !tbaa !23
-  %50 = getelementptr inbounds ptr, ptr %49, i64 2
-  %51 = load ptr, ptr %50, align 8
-  %52 = call i64 %51(ptr noundef nonnull align 8 dereferenceable(8) %46, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %53 = icmp sgt i64 %52, -1
-  br i1 %53, label %58, label %54
+46:                                               ; preds = %39
+  %47 = load ptr, ptr %44, align 8, !tbaa !23
+  %48 = getelementptr inbounds ptr, ptr %47, i64 2
+  %49 = load ptr, ptr %48, align 8
+  %50 = call i64 %49(ptr noundef nonnull align 8 dereferenceable(8) %44, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %51 = icmp sgt i64 %50, -1
+  br i1 %51, label %56, label %52
 
-54:                                               ; preds = %48
-  %55 = load ptr, ptr %5, align 8, !tbaa !98
+52:                                               ; preds = %46
+  %53 = load ptr, ptr %5, align 8, !tbaa !98
+  br label %54
+
+54:                                               ; preds = %52, %39
+  %55 = phi ptr [ %53, %52 ], [ %41, %39 ]
+  store ptr %42, ptr %55, align 8, !tbaa !14
   br label %56
 
-56:                                               ; preds = %54, %41
-  %57 = phi ptr [ %55, %54 ], [ %43, %41 ]
-  store ptr %44, ptr %57, align 8, !tbaa !14
-  br label %58
-
-58:                                               ; preds = %56, %48
-  %59 = phi i64 [ 0, %56 ], [ %52, %48 ]
-  %60 = add nuw nsw i64 %59, %39
+56:                                               ; preds = %54, %46
+  %57 = phi i64 [ 0, %54 ], [ %50, %46 ]
+  %58 = add nuw nsw i64 %57, %37
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  %61 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1028", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %61, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %62 = load i64, ptr %3, align 8, !tbaa !212
+  %59 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1028", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %59, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %60 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %63 = icmp sgt i64 %62, -1
-  %64 = add nsw i64 %60, %62
-  %65 = select i1 %63, i64 %64, i64 -1
-  br label %66
+  %61 = icmp slt i64 %60, 0
+  %62 = add nsw i64 %58, %60
+  br i1 %61, label %63, label %64
 
-66:                                               ; preds = %22, %2, %58, %35, %29
-  %67 = phi i64 [ -1, %35 ], [ -1, %29 ], [ %65, %58 ], [ %8, %2 ], [ %26, %22 ]
-  ret i64 %67
+63:                                               ; preds = %56, %33, %27
+  br label %64
+
+64:                                               ; preds = %22, %2, %63, %56
+  %65 = phi i64 [ %62, %56 ], [ -1, %63 ], [ %8, %2 ], [ %26, %22 ]
+  ret i64 %65
 }
 
 ; Function Attrs: uwtable
@@ -24036,10 +23920,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %5 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %6 = load ptr, ptr %5, align 8, !tbaa !98
   %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %0, align 8, !tbaa !372
+  %8 = load ptr, ptr %0, align 8, !tbaa !369
   %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = icmp eq ptr %9, null
-  br i1 %10, label %38, label %11
+  br i1 %10, label %34, label %11
 
 11:                                               ; preds = %2
   %12 = load ptr, ptr %9, align 8, !tbaa !23
@@ -24047,69 +23931,67 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS0_8sequenceI
   %14 = load ptr, ptr %13, align 8
   %15 = tail call i64 %14(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %16 = icmp sgt i64 %15, -1
-  br i1 %16, label %17, label %38
+  br i1 %16, label %17, label %34
 
 17:                                               ; preds = %11
   %18 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.286", ptr %0, i64 0, i32 1
-  %19 = load ptr, ptr %18, align 8, !tbaa !374
+  %19 = load ptr, ptr %18, align 8, !tbaa !371
   %20 = load ptr, ptr %19, align 8, !tbaa !95
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %38, label %22
+  br i1 %21, label %34, label %22
 
 22:                                               ; preds = %17
   %23 = load ptr, ptr %20, align 8, !tbaa !23
   %24 = getelementptr inbounds ptr, ptr %23, i64 2
   %25 = load ptr, ptr %24, align 8
   %26 = tail call i64 %25(ptr noundef nonnull align 8 dereferenceable(8) %20, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %27 = icmp sgt i64 %26, -1
-  %28 = add nsw i64 %26, %15
-  %29 = select i1 %27, i64 %28, i64 -1
-  %30 = icmp sgt i64 %29, -1
-  br i1 %30, label %31, label %38
+  %27 = icmp slt i64 %26, 0
+  br i1 %27, label %34, label %28
 
-31:                                               ; preds = %22
+28:                                               ; preds = %22
+  %29 = add nuw nsw i64 %26, %15
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #24
-  %32 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.751", ptr %0, i64 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %32, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %33 = load i64, ptr %4, align 8, !tbaa !212
+  %30 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.751", ptr %0, i64 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %4, ptr noundef nonnull align 1 dereferenceable(1) %30, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %31 = load i64, ptr %4, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #24
-  %34 = icmp sgt i64 %33, -1
-  %35 = add nsw i64 %33, %29
-  %36 = icmp sgt i64 %35, -1
-  %37 = select i1 %34, i1 %36, i1 false
-  br i1 %37, label %56, label %38
+  %32 = icmp slt i64 %31, 0
+  %33 = add nsw i64 %29, %31
+  br i1 %32, label %34, label %52
 
-38:                                               ; preds = %17, %2, %11, %22, %31
-  %39 = load ptr, ptr %5, align 8, !tbaa !98
-  store ptr %7, ptr %39, align 8, !tbaa !14
-  %40 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1038", ptr %0, i64 0, i32 1
-  %41 = load ptr, ptr %40, align 8, !tbaa !746
-  %42 = load ptr, ptr %41, align 8, !tbaa !95
-  %43 = icmp eq ptr %42, null
-  br i1 %43, label %56, label %44
+34:                                               ; preds = %28, %22, %17, %11, %2
+  %35 = load ptr, ptr %5, align 8, !tbaa !98
+  store ptr %7, ptr %35, align 8, !tbaa !14
+  %36 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1038", ptr %0, i64 0, i32 1
+  %37 = load ptr, ptr %36, align 8, !tbaa !743
+  %38 = load ptr, ptr %37, align 8, !tbaa !95
+  %39 = icmp eq ptr %38, null
+  br i1 %39, label %51, label %40
 
-44:                                               ; preds = %38
-  %45 = load ptr, ptr %42, align 8, !tbaa !23
-  %46 = getelementptr inbounds ptr, ptr %45, i64 2
-  %47 = load ptr, ptr %46, align 8
-  %48 = call i64 %47(ptr noundef nonnull align 8 dereferenceable(8) %42, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %49 = icmp sgt i64 %48, -1
-  br i1 %49, label %50, label %56
+40:                                               ; preds = %34
+  %41 = load ptr, ptr %38, align 8, !tbaa !23
+  %42 = getelementptr inbounds ptr, ptr %41, i64 2
+  %43 = load ptr, ptr %42, align 8
+  %44 = call i64 %43(ptr noundef nonnull align 8 dereferenceable(8) %38, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %45 = icmp sgt i64 %44, -1
+  br i1 %45, label %46, label %51
 
-50:                                               ; preds = %44
+46:                                               ; preds = %40
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
-  %51 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1038", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %51, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %52 = load i64, ptr %3, align 8, !tbaa !212
+  %47 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1038", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  call void @_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSJ_(ptr nonnull sret(%"class.boost::spirit::match.1052") align 8 %3, ptr noundef nonnull align 1 dereferenceable(1) %47, ptr noundef nonnull align 8 dereferenceable(24) %1)
+  %48 = load i64, ptr %3, align 8, !tbaa !212
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
-  %53 = icmp sgt i64 %52, -1
-  %54 = add nsw i64 %52, %48
-  %55 = select i1 %53, i64 %54, i64 -1
-  br label %56
+  %49 = icmp slt i64 %48, 0
+  %50 = add nsw i64 %48, %44
+  br i1 %49, label %51, label %52
 
-56:                                               ; preds = %50, %44, %38, %31
-  %57 = phi i64 [ %35, %31 ], [ -1, %44 ], [ -1, %38 ], [ %55, %50 ]
-  ret i64 %57
+51:                                               ; preds = %46, %40, %34
+  br label %52
+
+52:                                               ; preds = %28, %51, %46
+  %53 = phi i64 [ %50, %46 ], [ -1, %51 ], [ %33, %28 ]
+  ret i64 %53
 }
 
 ; Function Attrs: nounwind uwtable
@@ -24124,7 +24006,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !531
+  %7 = load ptr, ptr %3, align 8, !tbaa !528
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %18, label %10
@@ -24149,10 +24031,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
 20:                                               ; preds = %18, %10
   %21 = phi i64 [ 0, %18 ], [ %14, %10 ]
   %22 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1131", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  %23 = load ptr, ptr %22, align 8, !tbaa !691
+  %23 = load ptr, ptr %22, align 8, !tbaa !688
   %24 = load ptr, ptr %23, align 8, !tbaa !95
   %25 = icmp eq ptr %24, null
-  br i1 %25, label %67, label %26
+  br i1 %25, label %66, label %26
 
 26:                                               ; preds = %20
   %27 = load ptr, ptr %24, align 8, !tbaa !23
@@ -24161,15 +24043,15 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
   %30 = tail call i64 %29(ptr noundef nonnull align 8 dereferenceable(8) %24, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %31 = icmp sgt i64 %30, -1
   %32 = add nsw i64 %30, %21
-  %33 = select i1 %31, i64 %32, i64 -1
-  %34 = icmp sgt i64 %33, -1
-  br i1 %34, label %35, label %67
+  %33 = icmp sgt i64 %32, -1
+  %34 = select i1 %31, i1 %33, i1 false
+  br i1 %34, label %35, label %66
 
 35:                                               ; preds = %26
   %36 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1131", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %37 = load ptr, ptr %4, align 8, !tbaa !98
   %38 = load ptr, ptr %37, align 8, !tbaa !14
-  %39 = load ptr, ptr %36, align 8, !tbaa !531
+  %39 = load ptr, ptr %36, align 8, !tbaa !528
   %40 = load ptr, ptr %39, align 8, !tbaa !95
   %41 = icmp eq ptr %40, null
   br i1 %41, label %50, label %42
@@ -24194,24 +24076,26 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_8
 52:                                               ; preds = %50, %42
   %53 = phi i64 [ 0, %50 ], [ %46, %42 ]
   %54 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1131", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %55 = load ptr, ptr %54, align 8, !tbaa !815
+  %55 = load ptr, ptr %54, align 8, !tbaa !812
   %56 = load ptr, ptr %55, align 8, !tbaa !95
   %57 = icmp eq ptr %56, null
-  br i1 %57, label %67, label %58
+  br i1 %57, label %66, label %58
 
 58:                                               ; preds = %52
-  %59 = add nuw nsw i64 %53, %33
+  %59 = add nuw nsw i64 %53, %32
   %60 = load ptr, ptr %56, align 8, !tbaa !23
   %61 = getelementptr inbounds ptr, ptr %60, i64 2
   %62 = load ptr, ptr %61, align 8
   %63 = tail call i64 %62(ptr noundef nonnull align 8 dereferenceable(8) %56, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %64 = icmp sgt i64 %63, -1
+  %64 = icmp slt i64 %63, 0
   %65 = add nsw i64 %59, %63
-  %66 = select i1 %64, i64 %65, i64 -1
+  br i1 %64, label %66, label %67
+
+66:                                               ; preds = %58, %52, %26, %20
   br label %67
 
-67:                                               ; preds = %20, %26, %52, %58
-  %68 = phi i64 [ -1, %26 ], [ -1, %20 ], [ -1, %52 ], [ %66, %58 ]
+67:                                               ; preds = %58, %66
+  %68 = phi i64 [ %65, %58 ], [ -1, %66 ]
   ret i64 %68
 }
 
@@ -24237,7 +24121,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %4 = getelementptr inbounds %"class.boost::spirit::scanner", ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !98
   %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %3, align 8, !tbaa !824
+  %7 = load ptr, ptr %3, align 8, !tbaa !821
   %8 = load ptr, ptr %7, align 8, !tbaa !95
   %9 = icmp eq ptr %8, null
   br i1 %9, label %35, label %10
@@ -24247,8 +24131,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %12 = getelementptr inbounds ptr, ptr %11, i64 2
   %13 = load ptr, ptr %12, align 8
   %14 = tail call i64 %13(ptr noundef nonnull align 8 dereferenceable(8) %8, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %15 = icmp sgt i64 %14, -1
-  br i1 %15, label %16, label %31
+  %15 = icmp slt i64 %14, 0
+  br i1 %15, label %31, label %16
 
 16:                                               ; preds = %10, %25
   %17 = phi i64 [ %29, %25 ], [ %14, %10 ]
@@ -24256,7 +24140,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %19 = add nsw i64 %17, %18
   %20 = load ptr, ptr %4, align 8, !tbaa !98
   %21 = load ptr, ptr %20, align 8, !tbaa !14
-  %22 = load ptr, ptr %3, align 8, !tbaa !824
+  %22 = load ptr, ptr %3, align 8, !tbaa !821
   %23 = load ptr, ptr %22, align 8, !tbaa !95
   %24 = icmp eq ptr %23, null
   br i1 %24, label %35, label %25
@@ -24266,8 +24150,8 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit4impl15concrete_parserINS0_1
   %27 = getelementptr inbounds ptr, ptr %26, i64 2
   %28 = load ptr, ptr %27, align 8
   %29 = tail call i64 %28(ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %30 = icmp sgt i64 %29, -1
-  br i1 %30, label %16, label %31
+  %30 = icmp slt i64 %29, 0
+  br i1 %30, label %31, label %16
 
 31:                                               ; preds = %25, %10
   %32 = phi ptr [ %6, %10 ], [ %21, %25 ]
@@ -24315,23 +24199,23 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
 
 11:                                               ; preds = %9, %6, %1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #24
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !823)
   tail call void @llvm.experimental.noalias.scope.decl(metadata !826)
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !829)
-  %12 = load ptr, ptr getelementptr inbounds (%"class.boost::weak_ptr.1141", ptr @_ZZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EEE6helper, i64 0, i32 1), align 8, !tbaa !108, !noalias !832
+  %12 = load ptr, ptr getelementptr inbounds (%"class.boost::weak_ptr.1141", ptr @_ZZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EEE6helper, i64 0, i32 1), align 8, !tbaa !108, !noalias !829
   %13 = icmp eq ptr %12, null
   br i1 %13, label %21, label %14
 
 14:                                               ; preds = %11
   %15 = getelementptr inbounds %"class.boost::detail::sp_counted_base", ptr %12, i64 0, i32 3
-  %16 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %15) #24, !noalias !832
+  %16 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %15) #24, !noalias !829
   %17 = getelementptr inbounds %"class.boost::detail::sp_counted_base", ptr %12, i64 0, i32 1
-  %18 = load i64, ptr %17, align 8, !tbaa !67, !noalias !832
-  %19 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %15) #24, !noalias !832
+  %18 = load i64, ptr %17, align 8, !tbaa !67, !noalias !829
+  %19 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %15) #24, !noalias !829
   %20 = icmp eq i64 %18, 0
   br i1 %20, label %21, label %22
 
 21:                                               ; preds = %14, %11
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2, i8 0, i64 16, i1 false), !alias.scope !832
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2, i8 0, i64 16, i1 false), !alias.scope !829
   br label %37
 
 22:                                               ; preds = %14
@@ -24340,8 +24224,8 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
           to label %24 unwind label %26
 
 24:                                               ; preds = %22
-  %25 = load ptr, ptr @_ZZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EEE6helper, align 8, !tbaa !833, !noalias !832
-  store ptr %25, ptr %2, align 8, !tbaa !835, !alias.scope !832
+  %25 = load ptr, ptr @_ZZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EEE6helper, align 8, !tbaa !830, !noalias !829
+  store ptr %25, ptr %2, align 8, !tbaa !832, !alias.scope !829
   br label %37
 
 26:                                               ; preds = %22
@@ -24355,9 +24239,9 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
 31:                                               ; preds = %26
   %32 = extractvalue { ptr, i32 } %27, 0
   %33 = call ptr @__cxa_begin_catch(ptr %32) #24
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2, i8 0, i64 16, i1 false), !alias.scope !832
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2, i8 0, i64 16, i1 false), !alias.scope !829
   call void @__cxa_end_catch()
-  %34 = load ptr, ptr %2, align 8, !tbaa !835
+  %34 = load ptr, ptr %2, align 8, !tbaa !832
   br label %37
 
 35:                                               ; preds = %72, %128, %85, %26
@@ -24431,14 +24315,14 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
 
 74:                                               ; preds = %70, %69
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #24
+  call void @llvm.experimental.noalias.scope.decl(metadata !834)
   call void @llvm.experimental.noalias.scope.decl(metadata !837)
-  call void @llvm.experimental.noalias.scope.decl(metadata !840)
-  %75 = load ptr, ptr getelementptr inbounds (%"class.boost::weak_ptr.1141", ptr @_ZZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EEE6helper, i64 0, i32 1), align 8, !tbaa !108, !noalias !843, !nonnull !25
+  %75 = load ptr, ptr getelementptr inbounds (%"class.boost::weak_ptr.1141", ptr @_ZZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EEE6helper, i64 0, i32 1), align 8, !tbaa !108, !noalias !840, !nonnull !25
   %76 = getelementptr inbounds %"class.boost::detail::sp_counted_base", ptr %75, i64 0, i32 3
-  %77 = call i32 @pthread_mutex_lock(ptr noundef nonnull %76) #24, !noalias !843
+  %77 = call i32 @pthread_mutex_lock(ptr noundef nonnull %76) #24, !noalias !840
   %78 = getelementptr inbounds %"class.boost::detail::sp_counted_base", ptr %75, i64 0, i32 1
-  %79 = load i64, ptr %78, align 8, !tbaa !67, !noalias !843
-  %80 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %76) #24, !noalias !843
+  %79 = load i64, ptr %78, align 8, !tbaa !67, !noalias !840
+  %80 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %76) #24, !noalias !840
   %81 = icmp ne i64 %79, 0
   call void @llvm.assume(i1 %81)
   %82 = getelementptr inbounds %"class.boost::shared_ptr.1148", ptr %3, i64 0, i32 1
@@ -24446,8 +24330,8 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
           to label %83 unwind label %85
 
 83:                                               ; preds = %74
-  %84 = load ptr, ptr @_ZZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EEE6helper, align 8, !tbaa !833, !noalias !843
-  store ptr %84, ptr %3, align 8, !tbaa !835, !alias.scope !843
+  %84 = load ptr, ptr @_ZZN5boost6spirit4impl14get_definitionI12skip_grammarNS0_14parser_contextINS0_5nil_tEEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS3_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEERNT_10definitionIT1_EEPKNS0_7grammarISK_T0_EEE6helper, align 8, !tbaa !830, !noalias !840
+  store ptr %84, ptr %3, align 8, !tbaa !832, !alias.scope !840
   br label %94
 
 85:                                               ; preds = %74
@@ -24461,9 +24345,9 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
 90:                                               ; preds = %85
   %91 = extractvalue { ptr, i32 } %86, 0
   %92 = call ptr @__cxa_begin_catch(ptr %91) #24
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %3, i8 0, i64 16, i1 false), !alias.scope !843
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %3, i8 0, i64 16, i1 false), !alias.scope !840
   call void @__cxa_end_catch()
-  %93 = load ptr, ptr %3, align 8, !tbaa !835
+  %93 = load ptr, ptr %3, align 8, !tbaa !832
   br label %94
 
 94:                                               ; preds = %83, %90
@@ -24574,14 +24458,14 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl14grammar_helperINS0_7g
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 1
   %4 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 3
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %3, i8 0, i64 32, i1 false)
-  store ptr %0, ptr %4, align 8, !tbaa !835
+  store ptr %0, ptr %4, align 8, !tbaa !832
   %5 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 3, i32 1
   invoke void @_ZN5boost6detail12shared_countC2IPNS_6spirit4impl14grammar_helperINS3_7grammarI12skip_grammarNS3_14parser_contextINS3_5nil_tEEEEES7_NS3_7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS7_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEENS_15checked_deleterISP_EEEET_T0_(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull %0)
           to label %6 unwind label %34
 
 6:                                                ; preds = %2
-  %7 = load ptr, ptr %4, align 8, !tbaa !835
-  store ptr %7, ptr %1, align 8, !tbaa !833
+  %7 = load ptr, ptr %4, align 8, !tbaa !832
+  store ptr %7, ptr %1, align 8, !tbaa !830
   %8 = getelementptr inbounds %"class.boost::weak_ptr.1141", ptr %1, i64 0, i32 1
   %9 = load ptr, ptr %5, align 8, !tbaa !66
   %10 = icmp eq ptr %9, null
@@ -24620,7 +24504,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl14grammar_helperINS0_7g
   invoke void %32(ptr noundef nonnull align 8 dereferenceable(64) %19)
           to label %33 unwind label %36
 
-33:                                               ; preds = %21, %18, %29
+33:                                               ; preds = %29, %18, %21
   store ptr %9, ptr %8, align 8, !tbaa !108
   ret void
 
@@ -24637,7 +24521,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl14grammar_helperINS0_7g
 
 38:                                               ; preds = %36, %34
   %39 = phi { ptr, i32 } [ %37, %36 ], [ %35, %34 ]
-  %40 = load ptr, ptr %3, align 8, !tbaa !844
+  %40 = load ptr, ptr %3, align 8, !tbaa !841
   %41 = icmp eq ptr %40, null
   br i1 %41, label %43, label %42
 
@@ -24657,8 +24541,8 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
   %6 = load i64, ptr %5, align 8, !tbaa !5
   %7 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 1
   %8 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !846
-  %10 = load ptr, ptr %7, align 8, !tbaa !844
+  %9 = load ptr, ptr %8, align 8, !tbaa !843
+  %10 = load ptr, ptr %7, align 8, !tbaa !841
   %11 = ptrtoint ptr %9 to i64
   %12 = ptrtoint ptr %10 to i64
   %13 = sub i64 %11, %12
@@ -24676,7 +24560,7 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
 21:                                               ; preds = %16
   %22 = sub i64 %19, %14
   tail call void @_ZNSt6vectorIPN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEESaISI_EE17_M_default_appendEm(ptr noundef nonnull align 8 dereferenceable(24) %7, i64 noundef %22)
-  %23 = load ptr, ptr %7, align 8, !tbaa !844
+  %23 = load ptr, ptr %7, align 8, !tbaa !841
   br label %30
 
 24:                                               ; preds = %16
@@ -24689,7 +24573,7 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
   br i1 %28, label %30, label %29
 
 29:                                               ; preds = %26
-  store ptr %27, ptr %8, align 8, !tbaa !846
+  store ptr %27, ptr %8, align 8, !tbaa !843
   br label %30
 
 30:                                               ; preds = %29, %26, %24, %21, %2
@@ -24745,20 +24629,20 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
   %56 = getelementptr inbounds %"struct.boost::spirit::impl::concrete_parser.1208", ptr %37, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1, i32 0, i32 0, i32 0, i32 1
   store i8 10, ptr %56, align 8
   store ptr %37, ptr %36, align 8, !tbaa !93
-  store ptr %36, ptr %3, align 8, !tbaa !847
+  store ptr %36, ptr %3, align 8, !tbaa !844
   %57 = getelementptr inbounds %"struct.boost::spirit::grammar.49", ptr %1, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 1
-  %58 = load ptr, ptr %57, align 8, !tbaa !849
+  %58 = load ptr, ptr %57, align 8, !tbaa !846
   %59 = getelementptr inbounds %"struct.boost::spirit::grammar.49", ptr %1, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 2
-  %60 = load ptr, ptr %59, align 8, !tbaa !850
+  %60 = load ptr, ptr %59, align 8, !tbaa !847
   %61 = icmp eq ptr %58, %60
   br i1 %61, label %66, label %62
 
 62:                                               ; preds = %38
   store ptr %0, ptr %58, align 8, !tbaa !14
-  %63 = load ptr, ptr %57, align 8, !tbaa !849
+  %63 = load ptr, ptr %57, align 8, !tbaa !846
   %64 = getelementptr inbounds ptr, ptr %63, i64 1
-  store ptr %64, ptr %57, align 8, !tbaa !849
-  %65 = load ptr, ptr %3, align 8, !tbaa !847
+  store ptr %64, ptr %57, align 8, !tbaa !846
+  %65 = load ptr, ptr %3, align 8, !tbaa !844
   br label %97
 
 66:                                               ; preds = %38
@@ -24814,21 +24698,21 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
 
 95:                                               ; preds = %94, %91
   store ptr %87, ptr %4, align 8, !tbaa !44
-  store ptr %92, ptr %57, align 8, !tbaa !849
+  store ptr %92, ptr %57, align 8, !tbaa !846
   %96 = getelementptr inbounds ptr, ptr %87, i64 %81
-  store ptr %96, ptr %59, align 8, !tbaa !850
+  store ptr %96, ptr %59, align 8, !tbaa !847
   br label %97
 
-97:                                               ; preds = %62, %95
-  %98 = phi ptr [ %65, %62 ], [ %36, %95 ]
+97:                                               ; preds = %95, %62
+  %98 = phi ptr [ %36, %95 ], [ %65, %62 ]
   %99 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 2
-  %100 = load i64, ptr %99, align 8, !tbaa !851
+  %100 = load i64, ptr %99, align 8, !tbaa !848
   %101 = add i64 %100, 1
-  store i64 %101, ptr %99, align 8, !tbaa !851
-  %102 = load ptr, ptr %7, align 8, !tbaa !844
+  store i64 %101, ptr %99, align 8, !tbaa !848
+  %102 = load ptr, ptr %7, align 8, !tbaa !841
   %103 = getelementptr inbounds ptr, ptr %102, i64 %6
   store ptr %98, ptr %103, align 8, !tbaa !14
-  %104 = load ptr, ptr %3, align 8, !tbaa !847
+  %104 = load ptr, ptr %3, align 8, !tbaa !844
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #24
   br label %111
 
@@ -24860,8 +24744,8 @@ define linkonce_odr dso_local noundef i32 @_ZN5boost6spirit4impl14grammar_helper
   %4 = load i64, ptr %3, align 8, !tbaa !5
   %5 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 1
   %6 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !846
-  %8 = load ptr, ptr %5, align 8, !tbaa !844
+  %7 = load ptr, ptr %6, align 8, !tbaa !843
+  %8 = load ptr, ptr %5, align 8, !tbaa !841
   %9 = ptrtoint ptr %7 to i64
   %10 = ptrtoint ptr %8 to i64
   %11 = sub i64 %9, %10
@@ -24889,7 +24773,7 @@ define linkonce_odr dso_local noundef i32 @_ZN5boost6spirit4impl14grammar_helper
 
 25:                                               ; preds = %18, %21
   tail call void @_ZdlPv(ptr noundef nonnull %16) #25
-  %26 = load ptr, ptr %5, align 8, !tbaa !844
+  %26 = load ptr, ptr %5, align 8, !tbaa !841
   br label %27
 
 27:                                               ; preds = %25, %14
@@ -24897,9 +24781,9 @@ define linkonce_odr dso_local noundef i32 @_ZN5boost6spirit4impl14grammar_helper
   %29 = getelementptr inbounds ptr, ptr %28, i64 %4
   store ptr null, ptr %29, align 8, !tbaa !14
   %30 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 2
-  %31 = load i64, ptr %30, align 8, !tbaa !851
+  %31 = load i64, ptr %30, align 8, !tbaa !848
   %32 = add i64 %31, -1
-  store i64 %32, ptr %30, align 8, !tbaa !851
+  store i64 %32, ptr %30, align 8, !tbaa !848
   %33 = icmp eq i64 %32, 0
   br i1 %33, label %34, label %36
 
@@ -24918,7 +24802,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl14grammar_helperINS0_7g
   %2 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 3, i32 1
   tail call void @_ZN5boost6detail12shared_countD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %2) #24
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !844
+  %4 = load ptr, ptr %3, align 8, !tbaa !841
   %5 = icmp eq ptr %4, null
   br i1 %5, label %7, label %6
 
@@ -24936,7 +24820,7 @@ define linkonce_odr dso_local void @_ZN5boost6spirit4impl14grammar_helperINS0_7g
   %2 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 3, i32 1
   tail call void @_ZN5boost6detail12shared_countD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %2) #24
   %3 = getelementptr inbounds %"struct.boost::spirit::impl::grammar_helper.1142", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !844
+  %4 = load ptr, ptr %3, align 8, !tbaa !841
   %5 = icmp eq ptr %4, null
   br i1 %5, label %7, label %6
 
@@ -24965,7 +24849,7 @@ define linkonce_odr dso_local void @_ZN5boost6detail12shared_countC2IPNS_6spirit
   %8 = tail call i32 @pthread_mutex_init(ptr noundef nonnull %7, ptr noundef null) #24
   store ptr getelementptr inbounds ({ [7 x ptr] }, ptr @_ZTVN5boost6detail20sp_counted_base_implIPNS_6spirit4impl14grammar_helperINS2_7grammarI12skip_grammarNS2_14parser_contextINS2_5nil_tEEEEES6_NS2_7scannerIPKcNS2_16scanner_policiesINS2_27no_skipper_iteration_policyINS2_28skip_parser_iteration_policyIS6_NS2_16iteration_policyEEEEENS2_12match_policyENS2_13action_policyEEEEEEENS_15checked_deleterISO_EEEE, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !23
   %9 = getelementptr inbounds %"class.boost::detail::sp_counted_base_impl.1150", ptr %3, i64 0, i32 1
-  store ptr %1, ptr %9, align 8, !tbaa !857
+  store ptr %1, ptr %9, align 8, !tbaa !854
   store ptr %3, ptr %0, align 8, !tbaa !66
   ret void
 
@@ -25028,7 +24912,7 @@ define linkonce_odr dso_local void @_ZN5boost6detail20sp_counted_base_implIPNS_6
 ; Function Attrs: mustprogress uwtable
 define linkonce_odr dso_local void @_ZN5boost6detail20sp_counted_base_implIPNS_6spirit4impl14grammar_helperINS2_7grammarI12skip_grammarNS2_14parser_contextINS2_5nil_tEEEEES6_NS2_7scannerIPKcNS2_16scanner_policiesINS2_27no_skipper_iteration_policyINS2_28skip_parser_iteration_policyIS6_NS2_16iteration_policyEEEEENS2_12match_policyENS2_13action_policyEEEEEEENS_15checked_deleterISO_EEE7disposeEv(ptr noundef nonnull align 8 dereferenceable(73) %0) unnamed_addr #20 comdat align 2 {
   %2 = getelementptr inbounds %"class.boost::detail::sp_counted_base_impl.1150", ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !857
+  %3 = load ptr, ptr %2, align 8, !tbaa !854
   %4 = icmp eq ptr %3, null
   br i1 %4, label %9, label %5
 
@@ -25127,7 +25011,7 @@ define linkonce_odr dso_local void @_ZN5boost10shared_ptrINS_6spirit4impl14gramm
 
 ; Function Attrs: nounwind uwtable
 define linkonce_odr dso_local void @_ZNSt8auto_ptrIN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEEED2Ev(ptr noundef nonnull align 8 dereferenceable(8) %0) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !847
+  %2 = load ptr, ptr %0, align 8, !tbaa !844
   %3 = icmp eq ptr %2, null
   br i1 %3, label %12, label %4
 
@@ -25158,18 +25042,18 @@ define linkonce_odr dso_local void @_ZNSt6vectorIPN12skip_grammar10definitionIN5
 
 4:                                                ; preds = %2
   %5 = getelementptr inbounds %"struct.std::_Vector_base<skip_grammar::definition<boost::spirit::scanner<const char *, boost::spirit::scanner_policies<boost::spirit::no_skipper_iteration_policy<boost::spirit::skip_parser_iteration_policy<skip_grammar>>>>> *, std::allocator<skip_grammar::definition<boost::spirit::scanner<const char *, boost::spirit::scanner_policies<boost::spirit::no_skipper_iteration_policy<boost::spirit::skip_parser_iteration_policy<skip_grammar>>>>> *>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !846
-  %7 = load ptr, ptr %0, align 8, !tbaa !844
+  %6 = load ptr, ptr %5, align 8, !tbaa !843
+  %7 = load ptr, ptr %0, align 8, !tbaa !841
   %8 = ptrtoint ptr %6 to i64
   %9 = ptrtoint ptr %7 to i64
   %10 = sub i64 %8, %9
   %11 = lshr exact i64 %10, 3
   %12 = getelementptr inbounds %"struct.std::_Vector_base<skip_grammar::definition<boost::spirit::scanner<const char *, boost::spirit::scanner_policies<boost::spirit::no_skipper_iteration_policy<boost::spirit::skip_parser_iteration_policy<skip_grammar>>>>> *, std::allocator<skip_grammar::definition<boost::spirit::scanner<const char *, boost::spirit::scanner_policies<boost::spirit::no_skipper_iteration_policy<boost::spirit::skip_parser_iteration_policy<skip_grammar>>>>> *>>::_Vector_impl_data", ptr %0, i64 0, i32 2
-  %13 = load ptr, ptr %12, align 8, !tbaa !860
+  %13 = load ptr, ptr %12, align 8, !tbaa !857
   %14 = ptrtoint ptr %13 to i64
   %15 = sub i64 %14, %8
   %16 = ashr exact i64 %15, 3
-  %17 = icmp sgt i64 %10, -1
+  %17 = icmp ult i64 %10, 9223372036854775801
   tail call void @llvm.assume(i1 %17)
   %18 = xor i64 %11, 1152921504606846975
   %19 = icmp ule i64 %16, %18
@@ -25192,7 +25076,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorIPN12skip_grammar10definitionIN5
 
 28:                                               ; preds = %21, %24
   %29 = phi ptr [ %22, %21 ], [ %27, %24 ]
-  store ptr %29, ptr %5, align 8, !tbaa !846
+  store ptr %29, ptr %5, align 8, !tbaa !843
   br label %61
 
 30:                                               ; preds = %4
@@ -25218,7 +25102,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorIPN12skip_grammar10definitionIN5
   %43 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %42) #29
   br label %44
 
-44:                                               ; preds = %41, %33
+44:                                               ; preds = %33, %41
   %45 = phi ptr [ %43, %41 ], [ null, %33 ]
   %46 = getelementptr inbounds ptr, ptr %45, i64 %11
   store ptr null, ptr %46, align 8, !tbaa !14
@@ -25249,11 +25133,11 @@ define linkonce_odr dso_local void @_ZNSt6vectorIPN12skip_grammar10definitionIN5
   br label %58
 
 58:                                               ; preds = %55, %57
-  store ptr %45, ptr %0, align 8, !tbaa !844
+  store ptr %45, ptr %0, align 8, !tbaa !841
   %59 = getelementptr inbounds ptr, ptr %46, i64 %1
-  store ptr %59, ptr %5, align 8, !tbaa !846
+  store ptr %59, ptr %5, align 8, !tbaa !843
   %60 = getelementptr inbounds ptr, ptr %45, i64 %39
-  store ptr %60, ptr %12, align 8, !tbaa !860
+  store ptr %60, ptr %12, align 8, !tbaa !857
   br label %61
 
 61:                                               ; preds = %28, %58, %2
@@ -25316,10 +25200,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_6strlitIP
   %3 = load ptr, ptr %0, align 8, !tbaa !144
   %4 = getelementptr inbounds %"class.boost::spirit::chseq", ptr %0, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !146
-  %6 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 1
-  %7 = ptrtoint ptr %5 to i64
-  %8 = ptrtoint ptr %3 to i64
-  %9 = sub i64 %7, %8
+  %6 = ptrtoint ptr %5 to i64
+  %7 = ptrtoint ptr %3 to i64
+  %8 = sub i64 %6, %7
+  %9 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 1
   %10 = icmp eq ptr %3, %5
   br i1 %10, label %27, label %11
 
@@ -25329,17 +25213,17 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_6strlitIP
 
 13:                                               ; preds = %23, %11
   %14 = phi ptr [ %3, %11 ], [ %24, %23 ]
-  %15 = load ptr, ptr %6, align 8, !tbaa !231
+  %15 = load ptr, ptr %9, align 8, !tbaa !231
   %16 = load ptr, ptr %15, align 8, !tbaa !14
   %17 = load ptr, ptr %12, align 8, !tbaa !89
   %18 = icmp eq ptr %16, %17
-  br i1 %18, label %84, label %19
+  br i1 %18, label %80, label %19
 
 19:                                               ; preds = %13
   %20 = load i8, ptr %14, align 1, !tbaa !76
   %21 = load i8, ptr %16, align 1, !tbaa !76
   %22 = icmp eq i8 %20, %21
-  br i1 %22, label %23, label %84
+  br i1 %22, label %23, label %80
 
 23:                                               ; preds = %19
   %24 = getelementptr inbounds i8, ptr %14, i64 1
@@ -25349,97 +25233,89 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS1_INS0_6strlitIP
   br i1 %26, label %27, label %13, !llvm.loop !220
 
 27:                                               ; preds = %23, %2
-  %28 = icmp sgt i64 %9, -1
-  br i1 %28, label %29, label %84
+  %28 = icmp sgt i64 %8, -1
+  br i1 %28, label %29, label %80
 
 29:                                               ; preds = %27
   %30 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 2
-  %31 = load ptr, ptr %6, align 8, !tbaa !231
+  %31 = load ptr, ptr %9, align 8, !tbaa !231
   %32 = load ptr, ptr %31, align 8, !tbaa !14
-  %33 = load ptr, ptr %30, align 8, !tbaa !89, !noalias !861
+  %33 = load ptr, ptr %30, align 8, !tbaa !89, !noalias !858
   %34 = icmp eq ptr %32, %33
-  br i1 %34, label %67, label %35
+  br i1 %34, label %61, label %35
 
 35:                                               ; preds = %29
   %36 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1182", ptr %0, i64 0, i32 1
   %37 = load i8, ptr %36, align 8
   br label %38
 
-38:                                               ; preds = %57, %35
-  %39 = phi ptr [ %32, %35 ], [ %60, %57 ]
-  %40 = phi ptr [ %31, %35 ], [ %59, %57 ]
-  %41 = phi i64 [ 0, %35 ], [ %58, %57 ]
+38:                                               ; preds = %55, %35
+  %39 = phi ptr [ %32, %35 ], [ %58, %55 ]
+  %40 = phi ptr [ %31, %35 ], [ %57, %55 ]
+  %41 = phi i64 [ 0, %35 ], [ %56, %55 ]
   %42 = getelementptr inbounds i8, ptr %39, i64 1
-  store ptr %42, ptr %40, align 8, !tbaa !14, !noalias !861
-  %43 = load ptr, ptr %6, align 8, !tbaa !231
+  store ptr %42, ptr %40, align 8, !tbaa !14, !noalias !858
+  %43 = load ptr, ptr %9, align 8, !tbaa !231
   %44 = load ptr, ptr %43, align 8, !tbaa !14
   store ptr %39, ptr %43, align 8, !tbaa !14
-  %45 = load ptr, ptr %6, align 8, !tbaa !231, !noalias !864
-  %46 = load ptr, ptr %45, align 8, !tbaa !14, !noalias !864
-  %47 = load ptr, ptr %30, align 8, !tbaa !89, !noalias !864
+  %45 = load ptr, ptr %9, align 8, !tbaa !231, !noalias !861
+  %46 = load ptr, ptr %45, align 8, !tbaa !14, !noalias !861
+  %47 = load ptr, ptr %30, align 8, !tbaa !89, !noalias !861
   %48 = icmp eq ptr %46, %47
-  br i1 %48, label %49, label %50
+  br i1 %48, label %55, label %49
 
 49:                                               ; preds = %38
-  store ptr %44, ptr %45, align 8, !tbaa !14
-  br label %57
+  %50 = load i8, ptr %46, align 1, !tbaa !76, !noalias !861
+  %51 = icmp eq i8 %37, %50
+  br i1 %51, label %52, label %55
 
-50:                                               ; preds = %38
-  %51 = load i8, ptr %46, align 1, !tbaa !76, !noalias !864
-  %52 = icmp eq i8 %37, %51
+52:                                               ; preds = %49
   %53 = getelementptr inbounds i8, ptr %46, i64 1
-  %54 = select i1 %52, ptr %53, ptr %44
-  store ptr %54, ptr %45, align 8, !tbaa !14
-  br i1 %52, label %55, label %57
+  store ptr %53, ptr %45, align 8, !tbaa !14
+  %54 = load ptr, ptr %9, align 8, !tbaa !231
+  br label %61
 
-55:                                               ; preds = %50
-  %56 = load ptr, ptr %6, align 8, !tbaa !231
-  br label %63
+55:                                               ; preds = %49, %38
+  store ptr %44, ptr %45, align 8, !tbaa !14
+  %56 = add nuw nsw i64 %41, 1
+  %57 = load ptr, ptr %9, align 8, !tbaa !231
+  %58 = load ptr, ptr %57, align 8, !tbaa !14
+  %59 = load ptr, ptr %30, align 8, !tbaa !89, !noalias !858
+  %60 = icmp eq ptr %58, %59
+  br i1 %60, label %61, label %38
 
-57:                                               ; preds = %50, %49
-  %58 = add nuw nsw i64 %41, 1
-  %59 = load ptr, ptr %6, align 8, !tbaa !231
-  %60 = load ptr, ptr %59, align 8, !tbaa !14
-  %61 = load ptr, ptr %30, align 8, !tbaa !89, !noalias !861
-  %62 = icmp eq ptr %60, %61
-  br i1 %62, label %63, label %38
+61:                                               ; preds = %55, %29, %52
+  %62 = phi ptr [ %54, %52 ], [ %31, %29 ], [ %57, %55 ]
+  %63 = phi i64 [ %41, %52 ], [ 0, %29 ], [ %56, %55 ]
+  %64 = phi ptr [ %39, %52 ], [ %32, %29 ], [ %58, %55 ]
+  store ptr %64, ptr %62, align 8, !tbaa !14
+  %65 = add nsw i64 %63, %8
+  %66 = icmp sgt i64 %65, -1
+  br i1 %66, label %67, label %80
 
-63:                                               ; preds = %57, %55
-  %64 = phi ptr [ %56, %55 ], [ %59, %57 ]
-  %65 = phi i64 [ %41, %55 ], [ %58, %57 ]
-  %66 = phi ptr [ %39, %55 ], [ %60, %57 ]
-  store ptr %66, ptr %64, align 8, !tbaa !14
-  br label %67
+67:                                               ; preds = %61
+  %68 = load ptr, ptr %9, align 8, !tbaa !231, !noalias !864
+  %69 = load ptr, ptr %68, align 8, !tbaa !14, !noalias !864
+  %70 = load ptr, ptr %30, align 8, !tbaa !89, !noalias !864
+  %71 = icmp eq ptr %69, %70
+  br i1 %71, label %80, label %72
 
-67:                                               ; preds = %29, %63
-  %68 = phi i64 [ %65, %63 ], [ 0, %29 ]
-  %69 = add nsw i64 %68, %9
-  %70 = icmp sgt i64 %69, -1
-  br i1 %70, label %71, label %84
+72:                                               ; preds = %67
+  %73 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1177", ptr %0, i64 0, i32 1
+  %74 = load i8, ptr %69, align 1, !tbaa !76, !noalias !864
+  %75 = load i8, ptr %73, align 8, !tbaa !147, !noalias !864
+  %76 = icmp eq i8 %75, %74
+  br i1 %76, label %77, label %80
 
-71:                                               ; preds = %67
-  %72 = load ptr, ptr %6, align 8, !tbaa !231, !noalias !867
-  %73 = load ptr, ptr %72, align 8, !tbaa !14, !noalias !867
-  %74 = load ptr, ptr %30, align 8, !tbaa !89, !noalias !867
-  %75 = icmp eq ptr %73, %74
-  br i1 %75, label %84, label %76
+77:                                               ; preds = %72
+  %78 = getelementptr inbounds i8, ptr %69, i64 1
+  store ptr %78, ptr %68, align 8, !tbaa !14, !noalias !864
+  %79 = add nuw nsw i64 %65, 1
+  br label %80
 
-76:                                               ; preds = %71
-  %77 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1177", ptr %0, i64 0, i32 1
-  %78 = load i8, ptr %73, align 1, !tbaa !76, !noalias !867
-  %79 = load i8, ptr %77, align 8, !tbaa !147, !noalias !867
-  %80 = icmp eq i8 %79, %78
-  br i1 %80, label %81, label %84
-
-81:                                               ; preds = %76
-  %82 = getelementptr inbounds i8, ptr %73, i64 1
-  store ptr %82, ptr %72, align 8, !tbaa !14, !noalias !867
-  %83 = add nuw nsw i64 %69, 1
-  br label %84
-
-84:                                               ; preds = %13, %19, %76, %71, %27, %67, %81
-  %85 = phi i64 [ %83, %81 ], [ -1, %67 ], [ -1, %27 ], [ -1, %71 ], [ -1, %76 ], [ -1, %19 ], [ -1, %13 ]
-  ret i64 %85
+80:                                               ; preds = %13, %19, %72, %67, %27, %61, %77
+  %81 = phi i64 [ %79, %77 ], [ -1, %61 ], [ -1, %27 ], [ -1, %67 ], [ -1, %72 ], [ -1, %19 ], [ -1, %13 ]
+  ret i64 %81
 }
 
 ; Function Attrs: uwtable
@@ -25448,20 +25324,20 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_12spa
   %4 = load ptr, ptr %3, align 8, !tbaa !231
   %5 = load ptr, ptr %4, align 8, !tbaa !14
   %6 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !870
+  %7 = load ptr, ptr %6, align 8, !tbaa !89, !noalias !867
   %8 = icmp eq ptr %5, %7
   br i1 %8, label %16, label %9
 
 9:                                                ; preds = %2
-  %10 = load i8, ptr %5, align 1, !tbaa !76, !noalias !870
+  %10 = load i8, ptr %5, align 1, !tbaa !76, !noalias !867
   %11 = zext i8 %10 to i32
-  %12 = tail call i32 @isspace(i32 noundef %11) #27, !noalias !870
+  %12 = tail call i32 @isspace(i32 noundef %11) #27, !noalias !867
   %13 = icmp eq i32 %12, 0
   br i1 %13, label %16, label %14
 
 14:                                               ; preds = %9
   %15 = getelementptr inbounds i8, ptr %5, i64 1
-  store ptr %15, ptr %4, align 8, !tbaa !14, !noalias !870
+  store ptr %15, ptr %4, align 8, !tbaa !14, !noalias !867
   br label %51
 
 16:                                               ; preds = %2, %9
@@ -25475,7 +25351,7 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_12spa
   %21 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1167", ptr %0, i64 0, i32 1
   %22 = tail call i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEENS0_11kleene_starINS0_10differenceINS0_14anychar_parserES5_EEEEE5parseINS0_7scannerIS4_NS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultISB_T_E4typeERKSQ_(ptr noundef nonnull align 8 dereferenceable(32) %21, ptr noundef nonnull align 8 dereferenceable(24) %1)
   %23 = icmp sgt i64 %22, -1
-  br i1 %23, label %24, label %51
+  br i1 %23, label %24, label %50
 
 24:                                               ; preds = %19
   %25 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1167", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
@@ -25494,13 +25370,13 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_12spa
   %36 = load ptr, ptr %35, align 8, !tbaa !14
   %37 = load ptr, ptr %6, align 8, !tbaa !89
   %38 = icmp eq ptr %36, %37
-  br i1 %38, label %51, label %39
+  br i1 %38, label %50, label %39
 
 39:                                               ; preds = %33
   %40 = load i8, ptr %34, align 1, !tbaa !76
   %41 = load i8, ptr %36, align 1, !tbaa !76
   %42 = icmp eq i8 %40, %41
-  br i1 %42, label %43, label %51
+  br i1 %42, label %43, label %50
 
 43:                                               ; preds = %39
   %44 = getelementptr inbounds i8, ptr %34, i64 1
@@ -25510,13 +25386,15 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit11alternativeINS1_INS0_12spa
   br i1 %46, label %47, label %33, !llvm.loop !220
 
 47:                                               ; preds = %43, %24
-  %48 = icmp sgt i64 %31, -1
+  %48 = icmp slt i64 %31, 0
   %49 = add nsw i64 %31, %22
-  %50 = select i1 %48, i64 %49, i64 -1
+  br i1 %48, label %50, label %51
+
+50:                                               ; preds = %39, %33, %47, %19
   br label %51
 
-51:                                               ; preds = %39, %33, %16, %14, %47, %19
-  %52 = phi i64 [ -1, %19 ], [ %50, %47 ], [ %17, %16 ], [ 1, %14 ], [ -1, %33 ], [ -1, %39 ]
+51:                                               ; preds = %16, %14, %50, %47
+  %52 = phi i64 [ %49, %47 ], [ -1, %50 ], [ %17, %16 ], [ 1, %14 ]
   ret i64 %52
 }
 
@@ -25528,10 +25406,10 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEEN
   %3 = load ptr, ptr %0, align 8, !tbaa !144
   %4 = getelementptr inbounds %"class.boost::spirit::chseq", ptr %0, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !146
-  %6 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 1
-  %7 = ptrtoint ptr %5 to i64
-  %8 = ptrtoint ptr %3 to i64
-  %9 = sub i64 %7, %8
+  %6 = ptrtoint ptr %5 to i64
+  %7 = ptrtoint ptr %3 to i64
+  %8 = sub i64 %6, %7
+  %9 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 1
   %10 = icmp eq ptr %3, %5
   br i1 %10, label %27, label %11
 
@@ -25541,17 +25419,17 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEEN
 
 13:                                               ; preds = %23, %11
   %14 = phi ptr [ %3, %11 ], [ %24, %23 ]
-  %15 = load ptr, ptr %6, align 8, !tbaa !231
+  %15 = load ptr, ptr %9, align 8, !tbaa !231
   %16 = load ptr, ptr %15, align 8, !tbaa !14
   %17 = load ptr, ptr %12, align 8, !tbaa !89
   %18 = icmp eq ptr %16, %17
-  br i1 %18, label %85, label %19
+  br i1 %18, label %80, label %19
 
 19:                                               ; preds = %13
   %20 = load i8, ptr %14, align 1, !tbaa !76
   %21 = load i8, ptr %16, align 1, !tbaa !76
   %22 = icmp eq i8 %20, %21
-  br i1 %22, label %23, label %85
+  br i1 %22, label %23, label %80
 
 23:                                               ; preds = %19
   %24 = getelementptr inbounds i8, ptr %14, i64 1
@@ -25561,29 +25439,29 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEEN
   br i1 %26, label %27, label %13, !llvm.loop !220
 
 27:                                               ; preds = %23, %2
-  %28 = icmp sgt i64 %9, -1
-  br i1 %28, label %29, label %85
+  %28 = icmp sgt i64 %8, -1
+  br i1 %28, label %29, label %80
 
 29:                                               ; preds = %27
   %30 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1199", ptr %0, i64 0, i32 1
   %31 = getelementptr inbounds %"class.boost::spirit::scanner.1055", ptr %1, i64 0, i32 2
-  %32 = load ptr, ptr %6, align 8, !tbaa !231
+  %32 = load ptr, ptr %9, align 8, !tbaa !231
   %33 = load ptr, ptr %32, align 8, !tbaa !14
-  %34 = load ptr, ptr %31, align 8, !tbaa !89, !noalias !873
+  %34 = load ptr, ptr %31, align 8, !tbaa !89, !noalias !870
   %35 = icmp eq ptr %33, %34
-  br i1 %35, label %82, label %36
+  br i1 %35, label %75, label %36
 
 36:                                               ; preds = %29
   %37 = getelementptr inbounds %"class.boost::details::compressed_pair_imp.1199", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   br label %38
 
-38:                                               ; preds = %71, %36
-  %39 = phi ptr [ %33, %36 ], [ %75, %71 ]
-  %40 = phi ptr [ %32, %36 ], [ %74, %71 ]
-  %41 = phi i64 [ 0, %36 ], [ %73, %71 ]
+38:                                               ; preds = %68, %36
+  %39 = phi ptr [ %33, %36 ], [ %72, %68 ]
+  %40 = phi ptr [ %32, %36 ], [ %71, %68 ]
+  %41 = phi i64 [ 0, %36 ], [ %70, %68 ]
   %42 = getelementptr inbounds i8, ptr %39, i64 1
-  store ptr %42, ptr %40, align 8, !tbaa !14, !noalias !873
-  %43 = load ptr, ptr %6, align 8, !tbaa !231
+  store ptr %42, ptr %40, align 8, !tbaa !14, !noalias !870
+  %43 = load ptr, ptr %9, align 8, !tbaa !231
   %44 = load ptr, ptr %43, align 8, !tbaa !14
   store ptr %39, ptr %43, align 8, !tbaa !14
   %45 = load ptr, ptr %30, align 8, !tbaa !144
@@ -25592,21 +25470,21 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEEN
   %48 = ptrtoint ptr %45 to i64
   %49 = sub i64 %47, %48
   %50 = icmp eq ptr %45, %46
-  br i1 %50, label %69, label %51
+  br i1 %50, label %65, label %51
 
 51:                                               ; preds = %38, %61
   %52 = phi ptr [ %62, %61 ], [ %45, %38 ]
-  %53 = load ptr, ptr %6, align 8, !tbaa !231
+  %53 = load ptr, ptr %9, align 8, !tbaa !231
   %54 = load ptr, ptr %53, align 8, !tbaa !14
   %55 = load ptr, ptr %31, align 8, !tbaa !89
   %56 = icmp eq ptr %54, %55
-  br i1 %56, label %71, label %57
+  br i1 %56, label %68, label %57
 
 57:                                               ; preds = %51
   %58 = load i8, ptr %52, align 1, !tbaa !76
   %59 = load i8, ptr %54, align 1, !tbaa !76
   %60 = icmp eq i8 %58, %59
-  br i1 %60, label %61, label %71
+  br i1 %60, label %61, label %68
 
 61:                                               ; preds = %57
   %62 = getelementptr inbounds i8, ptr %52, i64 1
@@ -25615,43 +25493,32 @@ define linkonce_odr dso_local i64 @_ZNK5boost6spirit8sequenceINS0_6strlitIPKcEEN
   %64 = icmp eq ptr %62, %46
   br i1 %64, label %65, label %51, !llvm.loop !220
 
-65:                                               ; preds = %61
-  %66 = icmp slt i64 %49, 0
-  br i1 %66, label %69, label %67
+65:                                               ; preds = %61, %38
+  %66 = icmp slt i64 %49, 1
+  %67 = load ptr, ptr %9, align 8, !tbaa !231
+  br i1 %66, label %68, label %75
 
-67:                                               ; preds = %65
-  %68 = load ptr, ptr %6, align 8, !tbaa !231
-  br label %78
+68:                                               ; preds = %57, %51, %65
+  %69 = phi ptr [ %67, %65 ], [ %53, %51 ], [ %53, %57 ]
+  store ptr %44, ptr %69, align 8, !tbaa !14
+  %70 = add nuw nsw i64 %41, 1
+  %71 = load ptr, ptr %9, align 8, !tbaa !231
+  %72 = load ptr, ptr %71, align 8, !tbaa !14
+  %73 = load ptr, ptr %31, align 8, !tbaa !89, !noalias !870
+  %74 = icmp eq ptr %72, %73
+  br i1 %74, label %75, label %38
 
-69:                                               ; preds = %65, %38
-  %70 = load ptr, ptr %6, align 8, !tbaa !231
-  br label %71
+75:                                               ; preds = %68, %65, %29
+  %76 = phi ptr [ %32, %29 ], [ %71, %68 ], [ %67, %65 ]
+  %77 = phi i64 [ 0, %29 ], [ %70, %68 ], [ %41, %65 ]
+  %78 = phi ptr [ %33, %29 ], [ %72, %68 ], [ %39, %65 ]
+  store ptr %78, ptr %76, align 8, !tbaa !14
+  %79 = add nsw i64 %77, %8
+  br label %80
 
-71:                                               ; preds = %57, %51, %69
-  %72 = phi ptr [ %70, %69 ], [ %53, %51 ], [ %53, %57 ]
-  store ptr %44, ptr %72, align 8, !tbaa !14
-  %73 = add nuw nsw i64 %41, 1
-  %74 = load ptr, ptr %6, align 8, !tbaa !231
-  %75 = load ptr, ptr %74, align 8, !tbaa !14
-  %76 = load ptr, ptr %31, align 8, !tbaa !89, !noalias !873
-  %77 = icmp eq ptr %75, %76
-  br i1 %77, label %78, label %38
-
-78:                                               ; preds = %71, %67
-  %79 = phi ptr [ %68, %67 ], [ %74, %71 ]
-  %80 = phi i64 [ %41, %67 ], [ %73, %71 ]
-  %81 = phi ptr [ %39, %67 ], [ %75, %71 ]
-  store ptr %81, ptr %79, align 8, !tbaa !14
-  br label %82
-
-82:                                               ; preds = %29, %78
-  %83 = phi i64 [ %80, %78 ], [ 0, %29 ]
-  %84 = add nsw i64 %83, %9
-  br label %85
-
-85:                                               ; preds = %13, %19, %27, %82
-  %86 = phi i64 [ %84, %82 ], [ -1, %27 ], [ -1, %19 ], [ -1, %13 ]
-  ret i64 %86
+80:                                               ; preds = %13, %19, %27, %75
+  %81 = phi i64 [ %79, %75 ], [ -1, %27 ], [ -1, %19 ], [ -1, %13 ]
+  ret i64 %81
 }
 
 declare noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8), ptr noundef, i64 noundef) local_unnamed_addr #0
@@ -25701,6 +25568,9 @@ declare void @llvm.experimental.noalias.scope.decl(metadata) #22
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umax.i64(i64, i64) #23
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.smax.i64(i64, i64) #23
 
 attributes #0 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -26015,67 +25885,67 @@ attributes #29 = { builtin allocsize(0) }
 !276 = distinct !{!276, !277, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
 !277 = distinct !{!277, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !278 = !{!279}
-!279 = distinct !{!279, !280, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!280 = distinct !{!280, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
-!281 = !{!282}
-!282 = distinct !{!282, !283, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!283 = distinct !{!283, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
-!284 = !{!285, !9, i64 0}
-!285 = !{!"_ZTSN5boost6spirit5unaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_6parserINS0_8positiveISG_EEEEEE", !9, i64 0}
+!279 = distinct !{!279, !280, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!280 = distinct !{!280, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!281 = !{!282, !9, i64 0}
+!282 = !{!"_ZTSN5boost6spirit5unaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_6parserINS0_8positiveISG_EEEEEE", !9, i64 0}
+!283 = !{!284}
+!284 = distinct !{!284, !285, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!285 = distinct !{!285, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !286 = !{!287}
-!287 = distinct !{!287, !288, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!288 = distinct !{!288, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
-!289 = !{!290}
-!290 = distinct !{!290, !291, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!291 = distinct !{!291, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
-!292 = !{!293, !295, !297}
-!293 = distinct !{!293, !294, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
-!294 = distinct !{!294, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
-!295 = distinct !{!295, !296, !"_ZN5boost6spirit4impl25inhibit_case_parser_parseINS0_5matchIcEENS0_5chlitIcEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEET_RKT0_RKT1_RKSE_: argument 0"}
-!296 = distinct !{!296, !"_ZN5boost6spirit4impl25inhibit_case_parser_parseINS0_5matchIcEENS0_5chlitIcEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEET_RKT0_RKT1_RKSE_"}
-!297 = distinct !{!297, !298, !"_ZNK5boost6spirit12inhibit_caseINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS4_T_E4typeERKSL_: argument 0"}
-!298 = distinct !{!298, !"_ZNK5boost6spirit12inhibit_caseINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS4_T_E4typeERKSL_"}
+!287 = distinct !{!287, !288, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!288 = distinct !{!288, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!289 = !{!290, !292, !294}
+!290 = distinct !{!290, !291, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
+!291 = distinct !{!291, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
+!292 = distinct !{!292, !293, !"_ZN5boost6spirit4impl25inhibit_case_parser_parseINS0_5matchIcEENS0_5chlitIcEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEET_RKT0_RKT1_RKSE_: argument 0"}
+!293 = distinct !{!293, !"_ZN5boost6spirit4impl25inhibit_case_parser_parseINS0_5matchIcEENS0_5chlitIcEENS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEET_RKT0_RKT1_RKSE_"}
+!294 = distinct !{!294, !295, !"_ZNK5boost6spirit12inhibit_caseINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS4_T_E4typeERKSL_: argument 0"}
+!295 = distinct !{!295, !"_ZNK5boost6spirit12inhibit_caseINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS4_T_E4typeERKSL_"}
+!296 = !{!297}
+!297 = distinct !{!297, !298, !"_ZNK5boost6spirit11char_parserINS0_13xdigit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!298 = distinct !{!298, !"_ZNK5boost6spirit11char_parserINS0_13xdigit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !299 = !{!300}
 !300 = distinct !{!300, !301, !"_ZNK5boost6spirit11char_parserINS0_13xdigit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
 !301 = distinct !{!301, !"_ZNK5boost6spirit11char_parserINS0_13xdigit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !302 = !{!303}
-!303 = distinct !{!303, !304, !"_ZNK5boost6spirit11char_parserINS0_13xdigit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!304 = distinct !{!304, !"_ZNK5boost6spirit11char_parserINS0_13xdigit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!303 = distinct !{!303, !304, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
+!304 = distinct !{!304, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
 !305 = !{!306}
-!306 = distinct !{!306, !307, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
-!307 = distinct !{!307, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
+!306 = distinct !{!306, !307, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!307 = distinct !{!307, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !308 = !{!309}
-!309 = distinct !{!309, !310, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!310 = distinct !{!310, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
+!309 = distinct !{!309, !310, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!310 = distinct !{!310, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !311 = !{!312}
-!312 = distinct !{!312, !313, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!313 = distinct !{!313, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
-!314 = !{!315}
-!315 = distinct !{!315, !316, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!316 = distinct !{!316, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
-!317 = !{!318, !10, i64 0}
-!318 = !{!"_ZTSN5boost6spirit5rangeIcEE", !10, i64 0, !10, i64 1}
+!312 = distinct !{!312, !313, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!313 = distinct !{!313, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!314 = !{!315, !10, i64 0}
+!315 = !{!"_ZTSN5boost6spirit5rangeIcEE", !10, i64 0, !10, i64 1}
+!316 = !{!317}
+!317 = distinct !{!317, !318, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!318 = distinct !{!318, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !319 = !{!320}
-!320 = distinct !{!320, !321, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!321 = distinct !{!321, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!320 = distinct !{!320, !321, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
+!321 = distinct !{!321, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
 !322 = !{!323}
-!323 = distinct !{!323, !324, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
-!324 = distinct !{!324, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
+!323 = distinct !{!323, !324, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!324 = distinct !{!324, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !325 = !{!326}
-!326 = distinct !{!326, !327, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!327 = distinct !{!327, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
+!326 = distinct !{!326, !327, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!327 = distinct !{!327, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !328 = !{!329}
 !329 = distinct !{!329, !330, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
 !330 = distinct !{!330, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !331 = !{!332}
-!332 = distinct !{!332, !333, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!333 = distinct !{!333, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!332 = distinct !{!332, !333, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
+!333 = distinct !{!333, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
 !334 = !{!335}
-!335 = distinct !{!335, !336, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
-!336 = distinct !{!336, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
+!335 = distinct !{!335, !336, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!336 = distinct !{!336, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !337 = !{!338}
-!338 = distinct !{!338, !339, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!339 = distinct !{!339, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
+!338 = distinct !{!338, !339, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!339 = distinct !{!339, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !340 = !{!341}
 !341 = distinct !{!341, !342, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
 !342 = distinct !{!342, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
@@ -26083,249 +25953,249 @@ attributes #29 = { builtin allocsize(0) }
 !344 = distinct !{!344, !345, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
 !345 = distinct !{!345, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !346 = !{!347}
-!347 = distinct !{!347, !348, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!348 = distinct !{!348, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!347 = distinct !{!347, !348, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!348 = distinct !{!348, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !349 = !{!350}
-!350 = distinct !{!350, !351, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!351 = distinct !{!351, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!350 = distinct !{!350, !351, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!351 = distinct !{!351, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !352 = !{!353}
-!353 = distinct !{!353, !354, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!354 = distinct !{!354, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!353 = distinct !{!353, !354, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!354 = distinct !{!354, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !355 = !{!356}
-!356 = distinct !{!356, !357, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!357 = distinct !{!357, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!356 = distinct !{!356, !357, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!357 = distinct !{!357, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !358 = !{!359}
 !359 = distinct !{!359, !360, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
 !360 = distinct !{!360, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
-!361 = !{!362}
-!362 = distinct !{!362, !363, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!363 = distinct !{!363, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
-!364 = !{!365, !152, i64 4}
-!365 = !{!"_ZTSN5boost6spirit11finite_loopINS0_5rangeIcEEiiEE", !366, i64 0, !152, i64 4, !152, i64 8}
-!366 = !{!"_ZTSN5boost6spirit5unaryINS0_5rangeIcEENS0_6parserINS0_11finite_loopIS3_iiEEEEEE", !318, i64 0}
-!367 = !{!365, !152, i64 8}
-!368 = !{!369}
-!369 = distinct !{!369, !370, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!370 = distinct !{!370, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
-!371 = distinct !{!371, !27}
-!372 = !{!373, !9, i64 0}
-!373 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EESJ_Li5EEE", !9, i64 0, !9, i64 8}
-!374 = !{!373, !9, i64 8}
-!375 = !{!376, !9, i64 16}
-!376 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EERKSI_Li0EEE", !377, i64 0, !9, i64 16}
-!377 = !{!"_ZTSN5boost6spirit11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EE", !378, i64 0}
-!378 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_NS0_6parserINS0_11alternativeISG_SG_EEEEEE", !379, i64 0}
-!379 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EESI_EE", !373, i64 0}
-!380 = !{!381, !9, i64 24}
-!381 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EERKSI_Li0EEE", !382, i64 0, !9, i64 24}
-!382 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EE", !383, i64 0}
-!383 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_NS0_6parserINS2_ISI_SH_EEEEEE", !384, i64 0}
-!384 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EERKSH_EE", !376, i64 0}
+!361 = !{!362, !152, i64 4}
+!362 = !{!"_ZTSN5boost6spirit11finite_loopINS0_5rangeIcEEiiEE", !363, i64 0, !152, i64 4, !152, i64 8}
+!363 = !{!"_ZTSN5boost6spirit5unaryINS0_5rangeIcEENS0_6parserINS0_11finite_loopIS3_iiEEEEEE", !315, i64 0}
+!364 = !{!362, !152, i64 8}
+!365 = !{!366}
+!366 = distinct !{!366, !367, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!367 = distinct !{!367, !"_ZNK5boost6spirit11char_parserINS0_5rangeIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!368 = distinct !{!368, !27}
+!369 = !{!370, !9, i64 0}
+!370 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EESJ_Li5EEE", !9, i64 0, !9, i64 8}
+!371 = !{!370, !9, i64 8}
+!372 = !{!373, !9, i64 16}
+!373 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EERKSI_Li0EEE", !374, i64 0, !9, i64 16}
+!374 = !{!"_ZTSN5boost6spirit11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EE", !375, i64 0}
+!375 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_NS0_6parserINS0_11alternativeISG_SG_EEEEEE", !376, i64 0}
+!376 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EESI_EE", !370, i64 0}
+!377 = !{!378, !9, i64 24}
+!378 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EERKSI_Li0EEE", !379, i64 0, !9, i64 24}
+!379 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EE", !380, i64 0}
+!380 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_NS0_6parserINS2_ISI_SH_EEEEEE", !381, i64 0}
+!381 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EERKSH_EE", !373, i64 0}
+!382 = !{!383}
+!383 = distinct !{!383, !384, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!384 = distinct !{!384, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !385 = !{!386}
-!386 = distinct !{!386, !387, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!387 = distinct !{!387, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
+!386 = distinct !{!386, !387, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_29inhibit_case_iteration_policyISA_EESB_SC_EEEENS1_IS3_T_EERKSJ_: argument 0"}
+!387 = distinct !{!387, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_29inhibit_case_iteration_policyISA_EESB_SC_EEEENS1_IS3_T_EERKSJ_"}
 !388 = !{!389}
-!389 = distinct !{!389, !390, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_29inhibit_case_iteration_policyISA_EESB_SC_EEEENS1_IS3_T_EERKSJ_: argument 0"}
-!390 = distinct !{!390, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_29inhibit_case_iteration_policyISA_EESB_SC_EEEENS1_IS3_T_EERKSJ_"}
+!389 = distinct !{!389, !390, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
+!390 = distinct !{!390, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
 !391 = !{!392}
-!392 = distinct !{!392, !393, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
-!393 = distinct !{!393, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
+!392 = distinct !{!392, !393, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!393 = distinct !{!393, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !394 = !{!395}
 !395 = distinct !{!395, !396, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
 !396 = distinct !{!396, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !397 = !{!398}
-!398 = distinct !{!398, !399, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!399 = distinct !{!399, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!398 = distinct !{!398, !399, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!399 = distinct !{!399, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !400 = !{!401}
 !401 = distinct !{!401, !402, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
 !402 = distinct !{!402, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !403 = !{!404}
-!404 = distinct !{!404, !405, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!405 = distinct !{!405, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!404 = distinct !{!404, !405, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!405 = distinct !{!405, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !406 = !{!407}
 !407 = distinct !{!407, !408, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
 !408 = distinct !{!408, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !409 = !{!410}
-!410 = distinct !{!410, !411, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!411 = distinct !{!411, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!410 = distinct !{!410, !411, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!411 = distinct !{!411, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !412 = !{!413}
-!413 = distinct !{!413, !414, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!414 = distinct !{!414, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
+!413 = distinct !{!413, !414, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!414 = distinct !{!414, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !415 = !{!416}
-!416 = distinct !{!416, !417, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!417 = distinct !{!417, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!416 = distinct !{!416, !417, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!417 = distinct !{!417, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !418 = !{!419}
-!419 = distinct !{!419, !420, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!420 = distinct !{!420, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!419 = distinct !{!419, !420, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!420 = distinct !{!420, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !421 = !{!422}
 !422 = distinct !{!422, !423, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
 !423 = distinct !{!423, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !424 = !{!425}
-!425 = distinct !{!425, !426, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!426 = distinct !{!426, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!425 = distinct !{!425, !426, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!426 = distinct !{!426, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !427 = !{!428}
 !428 = distinct !{!428, !429, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
 !429 = distinct !{!429, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !430 = !{!431}
-!431 = distinct !{!431, !432, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!432 = distinct !{!432, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!431 = distinct !{!431, !432, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!432 = distinct !{!432, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !433 = !{!434}
 !434 = distinct !{!434, !435, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
 !435 = distinct !{!435, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !436 = !{!437}
-!437 = distinct !{!437, !438, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!438 = distinct !{!438, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!437 = distinct !{!437, !438, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
+!438 = distinct !{!438, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
 !439 = !{!440}
-!440 = distinct !{!440, !441, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
-!441 = distinct !{!441, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
+!440 = distinct !{!440, !441, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!441 = distinct !{!441, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !442 = !{!443}
-!443 = distinct !{!443, !444, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!444 = distinct !{!444, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
+!443 = distinct !{!443, !444, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!444 = distinct !{!444, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !445 = !{!446}
 !446 = distinct !{!446, !447, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
 !447 = distinct !{!447, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !448 = !{!449}
-!449 = distinct !{!449, !450, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!450 = distinct !{!450, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!449 = distinct !{!449, !450, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!450 = distinct !{!450, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !451 = !{!452}
-!452 = distinct !{!452, !453, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!453 = distinct !{!453, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!452 = distinct !{!452, !453, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!453 = distinct !{!453, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !454 = !{!455}
-!455 = distinct !{!455, !456, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!456 = distinct !{!456, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!455 = distinct !{!455, !456, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!456 = distinct !{!456, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !457 = !{!458}
 !458 = distinct !{!458, !459, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
 !459 = distinct !{!459, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !460 = !{!461}
-!461 = distinct !{!461, !462, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!462 = distinct !{!462, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!461 = distinct !{!461, !462, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!462 = distinct !{!462, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !463 = !{!464}
 !464 = distinct !{!464, !465, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
 !465 = distinct !{!465, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !466 = !{!467}
-!467 = distinct !{!467, !468, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!468 = distinct !{!468, !"_ZNK5boost6spirit11char_parserINS0_12digit_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
-!469 = !{!470}
-!470 = distinct !{!470, !471, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
-!471 = distinct !{!471, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
-!472 = !{!473, !9, i64 8}
-!473 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEERKNS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EELi0EEE", !148, i64 0, !9, i64 8}
-!474 = !{!475, !9, i64 120}
-!475 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EEEENS4_INS2_6strlitIS8_EESJ_EEEESW_EESW_EERKSJ_Li0EEE", !476, i64 0, !9, i64 120}
-!476 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEENS2_ISL_SH_EEEENS2_INS0_6strlitIS6_EESH_EEEESU_EESU_EE", !477, i64 0}
-!477 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EESI_EENS3_INS3_INS0_5chlitIcEENS0_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS0_6strlitIS7_EESI_EEEESV_EESV_NS0_6parserINS2_ISY_SV_EEEEEE", !478, i64 0}
-!478 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS1_8sequenceINS3_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EESI_EESI_EENS3_INS3_INS1_5chlitIcEENS1_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS1_6strlitIS7_EESI_EEEESV_EESV_EE", !479, i64 0}
-!479 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EEEENS4_INS2_6strlitIS8_EESJ_EEEESW_EESW_Li0EEE", !480, i64 0, !519, i64 104}
-!480 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEENS2_ISL_SH_EEEENS2_INS0_6strlitIS6_EESH_EEEESU_EE", !481, i64 0}
-!481 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EESI_EENS3_INS3_INS0_5chlitIcEENS0_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS0_6strlitIS7_EESI_EEEESV_NS0_6parserINS2_ISX_SV_EEEEEE", !482, i64 0}
-!482 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS1_8sequenceINS3_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EESI_EESI_EENS3_INS3_INS1_5chlitIcEENS1_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS1_6strlitIS7_EESI_EEEESV_EE", !483, i64 0}
-!483 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EEEENS4_INS2_6strlitIS8_EESJ_EEEESW_Li0EEE", !484, i64 0, !519, i64 88}
-!484 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEENS2_ISL_SH_EEEENS2_INS0_6strlitIS6_EESH_EEEE", !485, i64 0}
-!485 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EESI_EENS3_INS3_INS0_5chlitIcEENS0_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS0_6strlitIS7_EESI_EENS0_6parserINS2_IST_SW_EEEEEE", !486, i64 0}
-!486 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS1_8sequenceINS3_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EESI_EESI_EENS3_INS3_INS1_5chlitIcEENS1_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS1_6strlitIS7_EESI_EEEE", !487, i64 0}
-!487 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EEEENS4_INS2_6strlitIS8_EESJ_EELi0EEE", !488, i64 0, !515, i64 64}
-!488 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEENS2_ISL_SH_EEEE", !489, i64 0}
-!489 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EESI_EENS3_INS3_INS0_5chlitIcEENS0_8optionalISI_EEEESM_EEEENS3_ISM_SI_EENS0_6parserINS2_ISR_SS_EEEEEE", !490, i64 0}
-!490 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS1_8sequenceINS3_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EESI_EESI_EENS3_INS3_INS1_5chlitIcEENS1_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEE", !491, i64 0}
-!491 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EELi0EEE", !492, i64 0, !512, i64 48}
-!492 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEE", !493, i64 0}
-!493 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EENS0_6parserINS0_11alternativeISJ_SP_EEEEEE", !494, i64 0}
-!494 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EENS2_INS2_INS1_5chlitIcEENS1_8optionalISH_EEEESL_EEEE", !495, i64 0}
-!495 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EENS3_INS3_INS2_5chlitIcEENS2_8optionalISI_EEEESM_EELi0EEE", !496, i64 0, !502, i64 24}
-!496 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EE", !497, i64 0}
-!497 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_NS0_6parserINS2_ISI_SH_EEEEEE", !498, i64 0}
-!498 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EERKSH_EE", !499, i64 0}
-!499 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EERKSI_Li0EEE", !500, i64 0, !9, i64 16}
-!500 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EE", !501, i64 0}
-!501 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_NS0_6parserINS0_8sequenceISG_SG_EEEEEE", !379, i64 0}
-!502 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_5chlitIcEENS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEEEES3_EE", !503, i64 0}
-!503 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EEEEEES4_NS0_6parserINS2_ISM_S4_EEEEEE", !504, i64 0}
-!504 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EEEEEES4_EE", !505, i64 0}
-!505 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEEEES5_Li0EEE", !506, i64 0, !148, i64 16}
-!506 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEEEE", !507, i64 0}
-!507 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEENS0_6parserINS0_8sequenceIS3_SK_EEEEEE", !508, i64 0}
-!508 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEENS1_8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEEEE", !509, i64 0}
-!509 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEENS2_8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEELi0EEE", !148, i64 0, !510, i64 8}
-!510 = !{!"_ZTSN5boost6spirit8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EEEE", !511, i64 0}
-!511 = !{!"_ZTSN5boost6spirit5unaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_6parserINS0_8optionalISG_EEEEEE", !9, i64 0}
-!512 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEE", !513, i64 0}
-!513 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_6parserINS0_8sequenceIS3_SI_EEEEEE", !514, i64 0}
-!514 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEERKNS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EEEE", !473, i64 0}
-!515 = !{!"_ZTSN5boost6spirit8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEE", !516, i64 0}
-!516 = !{!"_ZTSN5boost6spirit6binaryINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_6parserINS0_8sequenceIS5_SI_EEEEEE", !517, i64 0}
-!517 = !{!"_ZTSN5boost15compressed_pairINS_6spirit6strlitIPKcEERKNS1_4ruleINS1_7scannerIS4_NS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EEEE", !518, i64 0}
-!518 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit6strlitIPKcEERKNS2_4ruleINS2_7scannerIS5_NS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EELi0EEE", !519, i64 0, !9, i64 16}
-!519 = !{!"_ZTSN5boost6spirit6strlitIPKcEE", !145, i64 0}
+!467 = distinct !{!467, !468, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_: argument 0"}
+!468 = distinct !{!468, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_29inhibit_case_iteration_policyINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSN_"}
+!469 = !{!470, !9, i64 8}
+!470 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEERKNS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EELi0EEE", !148, i64 0, !9, i64 8}
+!471 = !{!472, !9, i64 120}
+!472 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EEEENS4_INS2_6strlitIS8_EESJ_EEEESW_EESW_EERKSJ_Li0EEE", !473, i64 0, !9, i64 120}
+!473 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEENS2_ISL_SH_EEEENS2_INS0_6strlitIS6_EESH_EEEESU_EESU_EE", !474, i64 0}
+!474 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EESI_EENS3_INS3_INS0_5chlitIcEENS0_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS0_6strlitIS7_EESI_EEEESV_EESV_NS0_6parserINS2_ISY_SV_EEEEEE", !475, i64 0}
+!475 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS1_8sequenceINS3_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EESI_EESI_EENS3_INS3_INS1_5chlitIcEENS1_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS1_6strlitIS7_EESI_EEEESV_EESV_EE", !476, i64 0}
+!476 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EEEENS4_INS2_6strlitIS8_EESJ_EEEESW_EESW_Li0EEE", !477, i64 0, !516, i64 104}
+!477 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEENS2_ISL_SH_EEEENS2_INS0_6strlitIS6_EESH_EEEESU_EE", !478, i64 0}
+!478 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EESI_EENS3_INS3_INS0_5chlitIcEENS0_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS0_6strlitIS7_EESI_EEEESV_NS0_6parserINS2_ISX_SV_EEEEEE", !479, i64 0}
+!479 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS1_8sequenceINS3_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EESI_EESI_EENS3_INS3_INS1_5chlitIcEENS1_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS1_6strlitIS7_EESI_EEEESV_EE", !480, i64 0}
+!480 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EEEENS4_INS2_6strlitIS8_EESJ_EEEESW_Li0EEE", !481, i64 0, !516, i64 88}
+!481 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEENS2_ISL_SH_EEEENS2_INS0_6strlitIS6_EESH_EEEE", !482, i64 0}
+!482 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EESI_EENS3_INS3_INS0_5chlitIcEENS0_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS0_6strlitIS7_EESI_EENS0_6parserINS2_IST_SW_EEEEEE", !483, i64 0}
+!483 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS1_8sequenceINS3_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EESI_EESI_EENS3_INS3_INS1_5chlitIcEENS1_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEENS3_INS1_6strlitIS7_EESI_EEEE", !484, i64 0}
+!484 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EEEENS4_INS2_6strlitIS8_EESJ_EELi0EEE", !485, i64 0, !512, i64 64}
+!485 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEENS2_ISL_SH_EEEE", !486, i64 0}
+!486 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS0_8sequenceINS3_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EESI_EESI_EENS3_INS3_INS0_5chlitIcEENS0_8optionalISI_EEEESM_EEEENS3_ISM_SI_EENS0_6parserINS2_ISR_SS_EEEEEE", !487, i64 0}
+!487 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS1_8sequenceINS3_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EESI_EESI_EENS3_INS3_INS1_5chlitIcEENS1_8optionalISI_EEEESM_EEEENS3_ISM_SI_EEEE", !488, i64 0}
+!488 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EESJ_EESJ_EENS4_INS4_INS2_5chlitIcEENS2_8optionalISJ_EEEESN_EEEENS4_ISN_SJ_EELi0EEE", !489, i64 0, !509, i64 48}
+!489 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EEEE", !490, i64 0}
+!490 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS2_INS2_INS0_5chlitIcEENS0_8optionalISH_EEEESL_EENS0_6parserINS0_11alternativeISJ_SP_EEEEEE", !491, i64 0}
+!491 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EENS2_INS2_INS1_5chlitIcEENS1_8optionalISH_EEEESL_EEEE", !492, i64 0}
+!492 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EENS3_INS3_INS2_5chlitIcEENS2_8optionalISI_EEEESM_EELi0EEE", !493, i64 0, !499, i64 24}
+!493 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EE", !494, i64 0}
+!494 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_NS0_6parserINS2_ISI_SH_EEEEEE", !495, i64 0}
+!495 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EERKSH_EE", !496, i64 0}
+!496 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EERKSI_Li0EEE", !497, i64 0, !9, i64 16}
+!497 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EE", !498, i64 0}
+!498 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_NS0_6parserINS0_8sequenceISG_SG_EEEEEE", !376, i64 0}
+!499 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_5chlitIcEENS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEEEES3_EE", !500, i64 0}
+!500 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EEEEEES4_NS0_6parserINS2_ISM_S4_EEEEEE", !501, i64 0}
+!501 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EEEEEES4_EE", !502, i64 0}
+!502 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEEEES5_Li0EEE", !503, i64 0, !148, i64 16}
+!503 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEEEE", !504, i64 0}
+!504 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEENS0_6parserINS0_8sequenceIS3_SK_EEEEEE", !505, i64 0}
+!505 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEENS1_8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEEEE", !506, i64 0}
+!506 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEENS2_8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEELi0EEE", !148, i64 0, !507, i64 8}
+!507 = !{!"_ZTSN5boost6spirit8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EEEE", !508, i64 0}
+!508 = !{!"_ZTSN5boost6spirit5unaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_6parserINS0_8optionalISG_EEEEEE", !9, i64 0}
+!509 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEE", !510, i64 0}
+!510 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_6parserINS0_8sequenceIS3_SI_EEEEEE", !511, i64 0}
+!511 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEERKNS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EEEE", !470, i64 0}
+!512 = !{!"_ZTSN5boost6spirit8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEE", !513, i64 0}
+!513 = !{!"_ZTSN5boost6spirit6binaryINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS4_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EENS0_6parserINS0_8sequenceIS5_SI_EEEEEE", !514, i64 0}
+!514 = !{!"_ZTSN5boost15compressed_pairINS_6spirit6strlitIPKcEERKNS1_4ruleINS1_7scannerIS4_NS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EEEE", !515, i64 0}
+!515 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit6strlitIPKcEERKNS2_4ruleINS2_7scannerIS5_NS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EELi0EEE", !516, i64 0, !9, i64 16}
+!516 = !{!"_ZTSN5boost6spirit6strlitIPKcEE", !145, i64 0}
+!517 = !{!518}
+!518 = distinct !{!518, !519, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!519 = distinct !{!519, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !520 = !{!521}
 !521 = distinct !{!521, !522, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
 !522 = distinct !{!522, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !523 = !{!524}
 !524 = distinct !{!524, !525, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
 !525 = distinct !{!525, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
-!526 = !{!527}
-!527 = distinct !{!527, !528, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!528 = distinct !{!528, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
-!529 = !{!518, !9, i64 16}
-!530 = !{!499, !9, i64 16}
-!531 = !{!511, !9, i64 0}
-!532 = !{!533, !9, i64 0}
-!533 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_11kleene_starINS2_8sequenceINS2_5chlitIcEESH_EEEELi0EEE", !9, i64 0, !534, i64 8}
-!534 = !{!"_ZTSN5boost6spirit11kleene_starINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEEEE", !535, i64 0}
-!535 = !{!"_ZTSN5boost6spirit5unaryINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEENS0_6parserINS0_11kleene_starISK_EEEEEE", !512, i64 0}
-!536 = !{!537, !9, i64 0}
-!537 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8sequenceINS2_6strlitIS6_EESH_EELi0EEE", !9, i64 0, !515, i64 8}
-!538 = !{!539, !9, i64 0}
-!539 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_11alternativeISH_NS2_8sequenceINSL_INS2_5chlitIcEESH_EESN_EEEELi0EEE", !9, i64 0, !540, i64 8}
-!540 = !{!"_ZTSN5boost6spirit11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8sequenceINSH_INS0_5chlitIcEESG_EESJ_EEEE", !541, i64 0}
-!541 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8sequenceINSH_INS0_5chlitIcEESG_EESJ_EENS0_6parserINS0_11alternativeISG_SL_EEEEEE", !542, i64 0}
-!542 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_8sequenceINSJ_INS1_5chlitIcEESG_EESL_EEEE", !543, i64 0}
-!543 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8sequenceINSK_INS2_5chlitIcEESH_EESM_EELi0EEE", !9, i64 0, !544, i64 8}
-!544 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEES3_EE", !545, i64 0}
-!545 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEES4_NS0_6parserINS2_ISK_S4_EEEEEE", !546, i64 0}
-!546 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEES4_EE", !547, i64 0}
-!547 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEES5_Li0EEE", !512, i64 0, !148, i64 16}
-!548 = !{!543, !9, i64 0}
-!549 = !{!550, !9, i64 24}
-!550 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEES5_EERKSK_Li0EEE", !544, i64 0, !9, i64 24}
-!551 = !{!552, !9, i64 32}
-!552 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEES5_EESK_EERKSK_Li0EEE", !553, i64 0, !9, i64 32}
-!553 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEES3_EESI_EE", !554, i64 0}
-!554 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEES4_EESJ_NS0_6parserINS2_ISL_SJ_EEEEEE", !555, i64 0}
-!555 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEES4_EERKSJ_EE", !550, i64 0}
-!556 = !{!557, !9, i64 48}
-!557 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EESM_EERKSL_Li0EEE", !558, i64 0, !9, i64 48}
-!558 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EESK_EE", !559, i64 0}
-!559 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EEEESL_EESL_NS0_6parserINS2_ISM_SL_EEEEEE", !560, i64 0}
-!560 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS1_8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EEEESL_EESL_EE", !561, i64 0}
-!561 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EESM_Li0EEE", !562, i64 0, !512, i64 32}
-!562 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EE", !563, i64 0}
-!563 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_NS0_6parserINS0_11alternativeISK_SK_EEEEEE", !564, i64 0}
-!564 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEESK_EE", !565, i64 0}
-!565 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEESL_Li5EEE", !512, i64 0, !512, i64 16}
-!566 = !{!567, !9, i64 32}
-!567 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EERKSL_Li0EEE", !562, i64 0, !9, i64 32}
-!568 = !{!569, !9, i64 48}
-!569 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_6strlitIPKcEENS2_4ruleINS2_7scannerIS7_NS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EERKSL_Li0EEE", !570, i64 0, !9, i64 48}
-!570 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS5_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EE", !571, i64 0}
-!571 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS5_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_NS0_6parserINS0_11alternativeISK_SK_EEEEEE", !572, i64 0}
-!572 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_6strlitIPKcEENS1_4ruleINS1_7scannerIS5_NS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEESK_EE", !573, i64 0}
-!573 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_6strlitIPKcEENS2_4ruleINS2_7scannerIS6_NS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEESL_Li5EEE", !515, i64 0, !515, i64 24}
-!574 = !{!575, !9, i64 80}
-!575 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EENS4_INS2_6strlitISA_EESL_EEEESQ_EERKSL_Li0EEE", !576, i64 0, !9, i64 80}
-!576 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EENS2_INS0_6strlitIS8_EESJ_EEEESO_EE", !577, i64 0}
-!577 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EEEESL_EENS3_INS0_6strlitIS9_EESK_EEEESP_NS0_6parserINS2_ISQ_SP_EEEEEE", !578, i64 0}
-!578 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS1_8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EEEESL_EENS3_INS1_6strlitIS9_EESK_EEEESP_EE", !579, i64 0}
-!579 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EENS4_INS2_6strlitISA_EESL_EEEESQ_Li0EEE", !580, i64 0, !515, i64 56}
-!580 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EENS2_INS0_6strlitIS8_EESJ_EEEE", !581, i64 0}
-!581 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EEEESL_EENS3_INS0_6strlitIS9_EESK_EENS0_6parserINS2_ISM_SP_EEEEEE", !582, i64 0}
-!582 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS1_8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EEEESL_EENS3_INS1_6strlitIS9_EESK_EEEE", !583, i64 0}
-!583 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EENS4_INS2_6strlitISA_EESL_EELi0EEE", !562, i64 0, !515, i64 32}
-!584 = !{!585, !9, i64 16}
-!585 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEERKSK_Li0EEE", !512, i64 0, !9, i64 16}
-!586 = !{!587, !9, i64 24}
-!587 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_6strlitIPKcEENS2_4ruleINS2_7scannerIS6_NS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEERKSK_Li0EEE", !515, i64 0, !9, i64 24}
-!588 = !{!589, !9, i64 24}
-!589 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EERKSI_Li0EEE", !496, i64 0, !9, i64 24}
+!526 = !{!515, !9, i64 16}
+!527 = !{!496, !9, i64 16}
+!528 = !{!508, !9, i64 0}
+!529 = !{!530, !9, i64 0}
+!530 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_11kleene_starINS2_8sequenceINS2_5chlitIcEESH_EEEELi0EEE", !9, i64 0, !531, i64 8}
+!531 = !{!"_ZTSN5boost6spirit11kleene_starINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEEEE", !532, i64 0}
+!532 = !{!"_ZTSN5boost6spirit5unaryINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEENS0_6parserINS0_11kleene_starISK_EEEEEE", !509, i64 0}
+!533 = !{!534, !9, i64 0}
+!534 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8sequenceINS2_6strlitIS6_EESH_EELi0EEE", !9, i64 0, !512, i64 8}
+!535 = !{!536, !9, i64 0}
+!536 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_11alternativeISH_NS2_8sequenceINSL_INS2_5chlitIcEESH_EESN_EEEELi0EEE", !9, i64 0, !537, i64 8}
+!537 = !{!"_ZTSN5boost6spirit11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8sequenceINSH_INS0_5chlitIcEESG_EESJ_EEEE", !538, i64 0}
+!538 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8sequenceINSH_INS0_5chlitIcEESG_EESJ_EENS0_6parserINS0_11alternativeISG_SL_EEEEEE", !539, i64 0}
+!539 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_8sequenceINSJ_INS1_5chlitIcEESG_EESL_EEEE", !540, i64 0}
+!540 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8sequenceINSK_INS2_5chlitIcEESH_EESM_EELi0EEE", !9, i64 0, !541, i64 8}
+!541 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEES3_EE", !542, i64 0}
+!542 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEES4_NS0_6parserINS2_ISK_S4_EEEEEE", !543, i64 0}
+!543 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEES4_EE", !544, i64 0}
+!544 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEES5_Li0EEE", !509, i64 0, !148, i64 16}
+!545 = !{!540, !9, i64 0}
+!546 = !{!547, !9, i64 24}
+!547 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEES5_EERKSK_Li0EEE", !541, i64 0, !9, i64 24}
+!548 = !{!549, !9, i64 32}
+!549 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEES5_EESK_EERKSK_Li0EEE", !550, i64 0, !9, i64 32}
+!550 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEES3_EESI_EE", !551, i64 0}
+!551 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEES4_EESJ_NS0_6parserINS2_ISL_SJ_EEEEEE", !552, i64 0}
+!552 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEES4_EERKSJ_EE", !547, i64 0}
+!553 = !{!554, !9, i64 48}
+!554 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EESM_EERKSL_Li0EEE", !555, i64 0, !9, i64 48}
+!555 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EESK_EE", !556, i64 0}
+!556 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EEEESL_EESL_NS0_6parserINS2_ISM_SL_EEEEEE", !557, i64 0}
+!557 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS1_8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EEEESL_EESL_EE", !558, i64 0}
+!558 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EESM_Li0EEE", !559, i64 0, !509, i64 32}
+!559 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EE", !560, i64 0}
+!560 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_NS0_6parserINS0_11alternativeISK_SK_EEEEEE", !561, i64 0}
+!561 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEESK_EE", !562, i64 0}
+!562 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEESL_Li5EEE", !509, i64 0, !509, i64 16}
+!563 = !{!564, !9, i64 32}
+!564 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EERKSL_Li0EEE", !559, i64 0, !9, i64 32}
+!565 = !{!566, !9, i64 48}
+!566 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_6strlitIPKcEENS2_4ruleINS2_7scannerIS7_NS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EERKSL_Li0EEE", !567, i64 0, !9, i64 48}
+!567 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS5_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EE", !568, i64 0}
+!568 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_6strlitIPKcEENS0_4ruleINS0_7scannerIS5_NS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_NS0_6parserINS0_11alternativeISK_SK_EEEEEE", !569, i64 0}
+!569 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_6strlitIPKcEENS1_4ruleINS1_7scannerIS5_NS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESI_EEEESK_EE", !570, i64 0}
+!570 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_6strlitIPKcEENS2_4ruleINS2_7scannerIS6_NS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEESL_Li5EEE", !512, i64 0, !512, i64 24}
+!571 = !{!572, !9, i64 80}
+!572 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EENS4_INS2_6strlitISA_EESL_EEEESQ_EERKSL_Li0EEE", !573, i64 0, !9, i64 80}
+!573 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EENS2_INS0_6strlitIS8_EESJ_EEEESO_EE", !574, i64 0}
+!574 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EEEESL_EENS3_INS0_6strlitIS9_EESK_EEEESP_NS0_6parserINS2_ISQ_SP_EEEEEE", !575, i64 0}
+!575 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS1_8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EEEESL_EENS3_INS1_6strlitIS9_EESK_EEEESP_EE", !576, i64 0}
+!576 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EENS4_INS2_6strlitISA_EESL_EEEESQ_Li0EEE", !577, i64 0, !512, i64 56}
+!577 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEESK_EENS2_INS0_6strlitIS8_EESJ_EEEE", !578, i64 0}
+!578 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EEEESL_EENS3_INS0_6strlitIS9_EESK_EENS0_6parserINS2_ISM_SP_EEEEEE", !579, i64 0}
+!579 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS1_8sequenceINS1_5chlitIcEENS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EEEESL_EENS3_INS1_6strlitIS9_EESK_EEEE", !580, i64 0}
+!580 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EEEESM_EENS4_INS2_6strlitISA_EESL_EELi0EEE", !559, i64 0, !512, i64 32}
+!581 = !{!582, !9, i64 16}
+!582 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEERKSK_Li0EEE", !509, i64 0, !9, i64 16}
+!583 = !{!584, !9, i64 24}
+!584 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_6strlitIPKcEENS2_4ruleINS2_7scannerIS6_NS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESJ_EEEERKSK_Li0EEE", !512, i64 0, !9, i64 24}
+!585 = !{!586, !9, i64 24}
+!586 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EERKSI_Li0EEE", !493, i64 0, !9, i64 24}
+!587 = !{!588}
+!588 = distinct !{!588, !589, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!589 = distinct !{!589, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
 !590 = !{!591}
 !591 = distinct !{!591, !592, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
 !592 = distinct !{!592, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
@@ -26350,265 +26220,262 @@ attributes #29 = { builtin allocsize(0) }
 !611 = !{!612}
 !612 = distinct !{!612, !613, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
 !613 = distinct !{!613, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
-!614 = !{!615}
-!615 = distinct !{!615, !616, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!616 = distinct !{!616, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
-!617 = !{!618, !9, i64 8}
-!618 = !{!"_ZTSN5boost6spirit4impl15concrete_parserINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESF_SG_EE", !619, i64 0, !9, i64 8}
-!619 = !{!"_ZTSN5boost6spirit4impl15abstract_parserINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tEEE"}
-!620 = !{!621, !9, i64 0}
-!621 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalISH_EELi0EEE", !9, i64 0, !510, i64 8}
-!622 = !{!623, !9, i64 0}
-!623 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_8sequenceINS2_5chlitIcEESH_EEEELi0EEE", !9, i64 0, !624, i64 8}
-!624 = !{!"_ZTSN5boost6spirit8optionalINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEEEE", !625, i64 0}
-!625 = !{!"_ZTSN5boost6spirit5unaryINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEENS0_6parserINS0_8optionalISK_EEEEEE", !512, i64 0}
-!626 = !{!627, !9, i64 32}
-!627 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EERKSI_Li0EEE", !628, i64 0, !9, i64 32}
-!628 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EE", !629, i64 0}
-!629 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_NS0_6parserINS2_ISJ_SH_EEEEEE", !630, i64 0}
-!630 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EERKSH_EE", !381, i64 0}
-!631 = !{!632, !9, i64 72}
-!632 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !633, i64 0, !9, i64 72}
-!633 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EE", !634, i64 0}
-!634 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISO_SH_EEEEEE", !635, i64 0}
-!635 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EERKSH_EE", !636, i64 0}
-!636 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !637, i64 0, !9, i64 64}
-!637 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EE", !638, i64 0}
-!638 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISN_SH_EEEEEE", !639, i64 0}
-!639 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EERKSH_EE", !640, i64 0}
-!640 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !641, i64 0, !9, i64 56}
-!641 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EESG_EE", !642, i64 0}
-!642 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISM_SH_EEEEEE", !643, i64 0}
-!643 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EERKSH_EE", !644, i64 0}
-!644 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !645, i64 0, !9, i64 48}
-!645 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EE", !646, i64 0}
-!646 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISL_SH_EEEEEE", !647, i64 0}
-!647 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EERKSH_EE", !648, i64 0}
-!648 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !649, i64 0, !9, i64 40}
-!649 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EE", !650, i64 0}
-!650 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISK_SH_EEEEEE", !651, i64 0}
-!651 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EERKSH_EE", !627, i64 0}
-!652 = !{!653, !9, i64 80}
-!653 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !654, i64 0, !9, i64 80}
-!654 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EE", !655, i64 0}
-!655 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS2_INS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISP_SH_EEEEEE", !656, i64 0}
-!656 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS2_INS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EERKSH_EE", !632, i64 0}
-!657 = !{!648, !9, i64 40}
-!658 = !{!644, !9, i64 48}
-!659 = !{!640, !9, i64 56}
-!660 = !{!636, !9, i64 64}
-!661 = !{!662, !9, i64 0}
-!662 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_11alternativeINS2_8sequenceISH_NS2_8optionalINSL_INSL_ISH_SH_EESH_EEEEEESO_EELi0EEE", !9, i64 0, !663, i64 8}
-!663 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalINS2_INS2_ISH_SH_EESH_EEEEEESK_EE", !664, i64 0}
-!664 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalINS2_INS2_ISH_SH_EESH_EEEEEESK_NS0_6parserINS0_11alternativeISM_SK_EEEEEE", !665, i64 0}
-!665 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalINS2_INS2_ISH_SH_EESH_EEEEEESK_EE", !666, i64 0}
-!666 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalINS3_INS3_ISI_SI_EESI_EEEEEESL_Li0EEE", !667, i64 0, !496, i64 32}
-!667 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalINS1_INS1_ISG_SG_EESG_EEEEEE", !668, i64 0}
-!668 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalINS0_8sequenceINSI_ISG_SG_EESG_EEEENS0_6parserINSI_ISG_SL_EEEEEE", !669, i64 0}
-!669 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_8optionalINS1_8sequenceINSK_ISG_SG_EESG_EEEEEE", !670, i64 0}
-!670 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_8sequenceINSL_ISH_SH_EESH_EEEELi0EEE", !9, i64 0, !671, i64 8}
-!671 = !{!"_ZTSN5boost6spirit8optionalINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EEEE", !672, i64 0}
-!672 = !{!"_ZTSN5boost6spirit5unaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS0_6parserINS0_8optionalISJ_EEEEEE", !496, i64 0}
-!673 = !{!670, !9, i64 0}
-!674 = !{!675, !9, i64 0}
-!675 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8sequenceINS2_5chlitIcEESH_EELi0EEE", !9, i64 0, !512, i64 8}
-!676 = !{!677, !9, i64 16}
-!677 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEERKSI_Li0EEE", !678, i64 0, !9, i64 16}
-!678 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalISG_EEEE", !679, i64 0}
-!679 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalISG_EENS0_6parserINS0_8sequenceISG_SI_EEEEEE", !680, i64 0}
-!680 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_8optionalISG_EEEE", !621, i64 0}
-!681 = !{!682, !9, i64 24}
-!682 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEESI_EERKSI_Li0EEE", !683, i64 0, !9, i64 24}
-!683 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalISG_EEEESG_EE", !684, i64 0}
-!684 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_NS0_6parserINS2_ISK_SH_EEEEEE", !685, i64 0}
-!685 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalISH_EEEERKSH_EE", !677, i64 0}
-!686 = !{!687, !9, i64 32}
-!687 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEESI_EESI_EERKSI_Li0EEE", !688, i64 0, !9, i64 32}
-!688 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalISG_EEEESG_EESG_EE", !689, i64 0}
-!689 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EESH_NS0_6parserINS2_ISL_SH_EEEEEE", !690, i64 0}
-!690 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalISH_EEEESH_EERKSH_EE", !682, i64 0}
-!691 = !{!692, !9, i64 8}
-!692 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EEEERKSI_Li0EEE", !510, i64 0, !9, i64 8}
-!693 = !{!694, !9, i64 32}
-!694 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8sequenceINSJ_INS2_5chlitIcEESI_EESL_EEEERKSI_Li0EEE", !540, i64 0, !9, i64 32}
-!695 = !{!696, !9, i64 56}
-!696 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EENS2_8optionalISJ_EEEESJ_EENS4_INS4_INS2_5chlitIcEENSK_INS3_ISJ_SJ_EEEEEESP_EEEERKSJ_Li0EEE", !697, i64 0, !9, i64 56}
-!697 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEENSI_INS1_ISH_SH_EEEEEESN_EEEE", !698, i64 0}
-!698 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEENSI_INS0_11alternativeISH_SH_EEEEEESN_EENS0_6parserINSO_ISL_SS_EEEEEE", !699, i64 0}
-!699 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalISH_EEEESH_EENS2_INS2_INS1_5chlitIcEENSI_INS1_11alternativeISH_SH_EEEEEESN_EEEE", !700, i64 0}
-!700 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEESI_EENS3_INS3_INS2_5chlitIcEENSJ_INS2_11alternativeISI_SI_EEEEEESO_EELi0EEE", !683, i64 0, !701, i64 24}
-!701 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_5chlitIcEENS0_8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EESK_EEEEEES3_EE", !702, i64 0}
-!702 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESK_EESL_EEEEEES4_NS0_6parserINS2_ISO_S4_EEEEEE", !703, i64 0}
-!703 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_8optionalINS1_11alternativeINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESK_EESL_EEEEEES4_EE", !704, i64 0}
-!704 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_8optionalINS2_11alternativeINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESL_EESM_EEEEEES5_Li0EEE", !705, i64 0, !148, i64 24}
-!705 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EESK_EEEEEE", !706, i64 0}
-!706 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EESK_EEEENS0_6parserINS0_8sequenceIS3_SM_EEEEEE", !707, i64 0}
-!707 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEENS1_8optionalINS1_11alternativeINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EESK_EEEEEE", !708, i64 0}
-!708 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEENS2_8optionalINS2_11alternativeINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EESL_EEEELi0EEE", !148, i64 0, !709, i64 8}
-!709 = !{!"_ZTSN5boost6spirit8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EEEE", !710, i64 0}
-!710 = !{!"_ZTSN5boost6spirit5unaryINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_6parserINS0_8optionalISI_EEEEEE", !377, i64 0}
-!711 = !{!712, !9, i64 0}
-!712 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_8sequenceINS2_5chlitIcEENS2_6strlitIS6_EEEEEELi0EEE", !9, i64 0, !713, i64 8}
-!713 = !{!"_ZTSN5boost6spirit8optionalINS0_8sequenceINS0_5chlitIcEENS0_6strlitIPKcEEEEEE", !714, i64 0}
-!714 = !{!"_ZTSN5boost6spirit5unaryINS0_8sequenceINS0_5chlitIcEENS0_6strlitIPKcEEEENS0_6parserINS0_8optionalIS9_EEEEEE", !715, i64 0}
-!715 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_6strlitIPKcEEEE", !716, i64 0}
-!716 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_6strlitIPKcEENS0_6parserINS0_8sequenceIS3_S7_EEEEEE", !717, i64 0}
-!717 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEENS1_6strlitIPKcEEEE", !718, i64 0}
-!718 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEENS2_6strlitIPKcEELi0EEE", !148, i64 0, !519, i64 8}
-!719 = !{!720}
-!720 = distinct !{!720, !721, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
-!721 = distinct !{!721, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
-!722 = !{!723, !9, i64 0}
-!723 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_11alternativeISH_SH_EEEELi0EEE", !9, i64 0, !709, i64 8}
-!724 = !{!725, !9, i64 64}
-!725 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_5chlitIcEENS3_INS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EES6_EENS4_INS2_8optionalISL_EES6_EEEEEENS4_INS4_ISL_SO_EESL_EEEERKSL_Li0EEE", !726, i64 0, !9, i64 64}
-!726 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_5chlitIcEENS1_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EES4_EENS2_INS0_8optionalISJ_EES4_EEEEEENS2_INS2_ISJ_SM_EESJ_EEEE", !727, i64 0}
-!727 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_11alternativeINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EES4_EENS2_INS0_8optionalISK_EES4_EEEEEENS2_INS2_ISK_SN_EESK_EENS0_6parserINS5_ISQ_SS_EEEEEE", !728, i64 0}
-!728 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_11alternativeINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EES4_EENS2_INS1_8optionalISK_EES4_EEEEEENS2_INS2_ISK_SN_EESK_EEEE", !729, i64 0}
-!729 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_11alternativeINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EES5_EENS3_INS2_8optionalISL_EES5_EEEEEENS3_INS3_ISL_SO_EESL_EELi0EEE", !730, i64 0, !683, i64 40}
-!730 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_11alternativeINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EES3_EENS1_INS0_8optionalISJ_EES3_EEEEEE", !731, i64 0}
-!731 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_11alternativeINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EES3_EENS5_INS0_8optionalISK_EES3_EEEENS0_6parserINS5_IS3_SP_EEEEEE", !732, i64 0}
-!732 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEENS1_11alternativeINS1_8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EES3_EENS5_INS1_8optionalISK_EES3_EEEEEE", !733, i64 0}
-!733 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEENS2_11alternativeINS2_8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EES4_EENS6_INS2_8optionalISL_EES4_EEEELi0EEE", !148, i64 0, !734, i64 8}
-!734 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEENS2_INS0_8optionalISH_EESJ_EEEE", !735, i64 0}
-!735 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEENS2_INS0_8optionalISH_EESJ_EENS0_6parserINS0_11alternativeISK_SN_EEEEEE", !736, i64 0}
-!736 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEENS2_INS1_8optionalISH_EESJ_EEEE", !737, i64 0}
-!737 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEENS3_INS2_8optionalISI_EESK_EELi0EEE", !738, i64 0, !742, i64 16}
-!738 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEE", !739, i64 0}
-!739 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEENS0_6parserINS0_8sequenceISG_SI_EEEEEE", !740, i64 0}
-!740 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_5chlitIcEEEE", !741, i64 0}
-!741 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_5chlitIcEELi0EEE", !9, i64 0, !148, i64 8}
-!742 = !{!"_ZTSN5boost6spirit8sequenceINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEENS0_5chlitIcEEEE", !743, i64 0}
-!743 = !{!"_ZTSN5boost6spirit6binaryINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEENS0_5chlitIcEENS0_6parserINS0_8sequenceISI_SK_EEEEEE", !744, i64 0}
-!744 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EEEENS1_5chlitIcEEEE", !745, i64 0}
-!745 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EEEENS2_5chlitIcEELi0EEE", !510, i64 0, !148, i64 8}
-!746 = !{!741, !9, i64 0}
-!747 = !{!748, !9, i64 48}
-!748 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EENS2_8optionalISJ_EEEESJ_EENS4_INS4_INS2_5chlitIcEESL_EESP_EEEERKSJ_Li0EEE", !749, i64 0, !9, i64 48}
-!749 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEESJ_EESN_EEEE", !750, i64 0}
-!750 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEESJ_EESN_EENS0_6parserINS0_11alternativeISL_SP_EEEEEE", !751, i64 0}
-!751 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalISH_EEEESH_EENS2_INS2_INS1_5chlitIcEESJ_EESN_EEEE", !752, i64 0}
-!752 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEESI_EENS3_INS3_INS2_5chlitIcEESK_EESO_EELi0EEE", !683, i64 0, !502, i64 24}
-!753 = !{!754, !9, i64 0}
-!754 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8sequenceINSK_INSK_ISH_SH_EENS2_8optionalINS2_5chlitIcEEEEEESH_EELi0EEE", !9, i64 0, !755, i64 8}
-!755 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EENS0_8optionalINS0_5chlitIcEEEEEESG_EE", !756, i64 0}
-!756 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_8optionalINS0_5chlitIcEEEEEESH_NS0_6parserINS2_ISN_SH_EEEEEE", !757, i64 0}
-!757 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EENS1_8optionalINS1_5chlitIcEEEEEERKSH_EE", !758, i64 0}
-!758 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EENS2_8optionalINS2_5chlitIcEEEEEERKSI_Li0EEE", !759, i64 0, !9, i64 24}
-!759 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EENS0_8optionalINS0_5chlitIcEEEEEE", !760, i64 0}
-!760 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_8optionalINS0_5chlitIcEEEENS0_6parserINS2_ISI_SM_EEEEEE", !761, i64 0}
-!761 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EENS1_8optionalINS1_5chlitIcEEEEEE", !762, i64 0}
-!762 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EENS2_8optionalINS2_5chlitIcEEEELi0EEE", !500, i64 0, !763, i64 16}
-!763 = !{!"_ZTSN5boost6spirit8optionalINS0_5chlitIcEEEE", !764, i64 0}
-!764 = !{!"_ZTSN5boost6spirit5unaryINS0_5chlitIcEENS0_6parserINS0_8optionalIS3_EEEEEE", !148, i64 0}
-!765 = !{!758, !9, i64 24}
-!766 = !{!767, !9, i64 16}
-!767 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEERKSI_Li0EEE", !738, i64 0, !9, i64 16}
-!768 = !{!769, !9, i64 24}
-!769 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EENS2_5chlitIcEEEERKSI_Li0EEE", !770, i64 0, !9, i64 24}
-!770 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EENS0_5chlitIcEEEE", !771, i64 0}
-!771 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_5chlitIcEENS0_6parserINS2_ISI_SK_EEEEEE", !772, i64 0}
-!772 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EENS1_5chlitIcEEEE", !773, i64 0}
-!773 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EENS2_5chlitIcEELi0EEE", !500, i64 0, !148, i64 16}
-!774 = !{!775, !9, i64 0}
-!775 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_13sequential_orISH_SH_EEEELi0EEE", !9, i64 0, !776, i64 8}
-!776 = !{!"_ZTSN5boost6spirit8optionalINS0_13sequential_orINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EEEE", !777, i64 0}
-!777 = !{!"_ZTSN5boost6spirit5unaryINS0_13sequential_orINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_6parserINS0_8optionalISI_EEEEEE", !778, i64 0}
-!778 = !{!"_ZTSN5boost6spirit13sequential_orINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EE", !779, i64 0}
-!779 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_NS0_6parserINS0_13sequential_orISG_SG_EEEEEE", !379, i64 0}
-!780 = !{!781, !9, i64 24}
-!781 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalINS2_13sequential_orISI_SI_EEEEEERKSI_Li0EEE", !782, i64 0, !9, i64 24}
-!782 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalINS0_13sequential_orISG_SG_EEEEEE", !783, i64 0}
-!783 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalINS0_13sequential_orISG_SG_EEEENS0_6parserINS0_8sequenceISG_SK_EEEEEE", !784, i64 0}
-!784 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_8optionalINS1_13sequential_orISG_SG_EEEEEE", !775, i64 0}
-!785 = !{!786, !9, i64 32}
-!786 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESK_EERKSI_Li0EEE", !787, i64 0, !9, i64 32}
-!787 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESI_EE", !788, i64 0}
-!788 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_EESJ_NS0_6parserINS2_ISL_SJ_EEEEEE", !789, i64 0}
-!789 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEESH_EESJ_EE", !790, i64 0}
-!790 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESK_Li0EEE", !791, i64 0, !148, i64 24}
-!791 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EE", !792, i64 0}
-!792 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_NS0_6parserINS2_ISK_SH_EEEEEE", !793, i64 0}
-!793 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEERKSH_EE", !767, i64 0}
-!794 = !{!795, !9, i64 48}
-!795 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESI_EENS2_8optionalISI_EEEESK_EERKSI_Li0EEE", !796, i64 0, !9, i64 48}
-!796 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESG_EENS0_8optionalISG_EEEESI_EE", !797, i64 0}
-!797 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_EESH_EENS0_8optionalISH_EEEESJ_NS0_6parserINS2_ISP_SJ_EEEEEE", !798, i64 0}
-!798 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEESH_EESH_EENS1_8optionalISH_EEEESJ_EE", !799, i64 0}
-!799 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESI_EENS2_8optionalISI_EEEESK_Li0EEE", !800, i64 0, !148, i64 40}
-!800 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESG_EENS0_8optionalISG_EEEE", !801, i64 0}
-!801 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_EESH_EENS0_8optionalISH_EENS0_6parserINS2_ISM_SO_EEEEEE", !802, i64 0}
-!802 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEESH_EESH_EENS1_8optionalISH_EEEE", !803, i64 0}
-!803 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESI_EENS2_8optionalISI_EELi0EEE", !804, i64 0, !510, i64 32}
-!804 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESG_EE", !805, i64 0}
-!805 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_EESH_NS0_6parserINS2_ISL_SH_EEEEEE", !806, i64 0}
-!806 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEESH_EERKSH_EE", !807, i64 0}
-!807 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EERKSI_Li0EEE", !791, i64 0, !9, i64 24}
-!808 = !{!809, !9, i64 32}
-!809 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EENS2_5chlitIcEEEERKSI_Li0EEE", !810, i64 0, !9, i64 32}
-!810 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EENS0_5chlitIcEEEE", !811, i64 0}
-!811 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS0_5chlitIcEENS0_6parserINS2_ISJ_SL_EEEEEE", !812, i64 0}
-!812 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EENS1_5chlitIcEEEE", !813, i64 0}
-!813 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EENS2_5chlitIcEELi0EEE", !496, i64 0, !148, i64 24}
-!814 = !{!807, !9, i64 24}
-!815 = !{!816, !9, i64 24}
-!816 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EEEESJ_EESK_EERKSJ_Li0EEE", !817, i64 0, !9, i64 24}
-!817 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEESH_EESI_EE", !818, i64 0}
-!818 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEESI_EESJ_NS0_6parserINS2_ISK_SJ_EEEEEE", !819, i64 0}
-!819 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EEEESI_EESJ_EE", !820, i64 0}
-!820 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EEEESJ_EESK_Li0EEE", !821, i64 0, !510, i64 16}
-!821 = !{!"_ZTSN5boost6spirit8sequenceINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEESH_EE", !822, i64 0}
-!822 = !{!"_ZTSN5boost6spirit6binaryINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEESH_NS0_6parserINS0_8sequenceISI_SH_EEEEEE", !823, i64 0}
-!823 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EEEERKSH_EE", !692, i64 0}
-!824 = !{!825, !9, i64 0}
-!825 = !{!"_ZTSN5boost6spirit5unaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_6parserINS0_11kleene_starISG_EEEEEE", !9, i64 0}
+!614 = !{!615, !9, i64 8}
+!615 = !{!"_ZTSN5boost6spirit4impl15concrete_parserINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESF_SG_EE", !616, i64 0, !9, i64 8}
+!616 = !{!"_ZTSN5boost6spirit4impl15abstract_parserINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tEEE"}
+!617 = !{!618, !9, i64 0}
+!618 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalISH_EELi0EEE", !9, i64 0, !507, i64 8}
+!619 = !{!620, !9, i64 0}
+!620 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_8sequenceINS2_5chlitIcEESH_EEEELi0EEE", !9, i64 0, !621, i64 8}
+!621 = !{!"_ZTSN5boost6spirit8optionalINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEEEE", !622, i64 0}
+!622 = !{!"_ZTSN5boost6spirit5unaryINS0_8sequenceINS0_5chlitIcEENS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EEEENS0_6parserINS0_8optionalISK_EEEEEE", !509, i64 0}
+!623 = !{!624, !9, i64 32}
+!624 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EERKSI_Li0EEE", !625, i64 0, !9, i64 32}
+!625 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EE", !626, i64 0}
+!626 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_NS0_6parserINS2_ISJ_SH_EEEEEE", !627, i64 0}
+!627 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EERKSH_EE", !378, i64 0}
+!628 = !{!629, !9, i64 72}
+!629 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !630, i64 0, !9, i64 72}
+!630 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EE", !631, i64 0}
+!631 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISO_SH_EEEEEE", !632, i64 0}
+!632 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EERKSH_EE", !633, i64 0}
+!633 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !634, i64 0, !9, i64 64}
+!634 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EE", !635, i64 0}
+!635 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISN_SH_EEEEEE", !636, i64 0}
+!636 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EERKSH_EE", !637, i64 0}
+!637 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !638, i64 0, !9, i64 56}
+!638 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EESG_EE", !639, i64 0}
+!639 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISM_SH_EEEEEE", !640, i64 0}
+!640 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EERKSH_EE", !641, i64 0}
+!641 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !642, i64 0, !9, i64 48}
+!642 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EE", !643, i64 0}
+!643 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISL_SH_EEEEEE", !644, i64 0}
+!644 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EERKSH_EE", !645, i64 0}
+!645 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !646, i64 0, !9, i64 40}
+!646 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EE", !647, i64 0}
+!647 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISK_SH_EEEEEE", !648, i64 0}
+!648 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EERKSH_EE", !624, i64 0}
+!649 = !{!650, !9, i64 80}
+!650 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS3_INS3_INS3_INS3_INS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EESI_EERKSI_Li0EEE", !651, i64 0, !9, i64 80}
+!651 = !{!"_ZTSN5boost6spirit11alternativeINS1_INS1_INS1_INS1_INS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EESG_EE", !652, i64 0}
+!652 = !{!"_ZTSN5boost6spirit6binaryINS0_11alternativeINS2_INS2_INS2_INS2_INS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EESH_NS0_6parserINS2_ISP_SH_EEEEEE", !653, i64 0}
+!653 = !{!"_ZTSN5boost15compressed_pairINS_6spirit11alternativeINS2_INS2_INS2_INS2_INS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EESH_EERKSH_EE", !629, i64 0}
+!654 = !{!645, !9, i64 40}
+!655 = !{!641, !9, i64 48}
+!656 = !{!637, !9, i64 56}
+!657 = !{!633, !9, i64 64}
+!658 = !{!659, !9, i64 0}
+!659 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_11alternativeINS2_8sequenceISH_NS2_8optionalINSL_INSL_ISH_SH_EESH_EEEEEESO_EELi0EEE", !9, i64 0, !660, i64 8}
+!660 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalINS2_INS2_ISH_SH_EESH_EEEEEESK_EE", !661, i64 0}
+!661 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalINS2_INS2_ISH_SH_EESH_EEEEEESK_NS0_6parserINS0_11alternativeISM_SK_EEEEEE", !662, i64 0}
+!662 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalINS2_INS2_ISH_SH_EESH_EEEEEESK_EE", !663, i64 0}
+!663 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalINS3_INS3_ISI_SI_EESI_EEEEEESL_Li0EEE", !664, i64 0, !493, i64 32}
+!664 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalINS1_INS1_ISG_SG_EESG_EEEEEE", !665, i64 0}
+!665 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalINS0_8sequenceINSI_ISG_SG_EESG_EEEENS0_6parserINSI_ISG_SL_EEEEEE", !666, i64 0}
+!666 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_8optionalINS1_8sequenceINSK_ISG_SG_EESG_EEEEEE", !667, i64 0}
+!667 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_8sequenceINSL_ISH_SH_EESH_EEEELi0EEE", !9, i64 0, !668, i64 8}
+!668 = !{!"_ZTSN5boost6spirit8optionalINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EEEE", !669, i64 0}
+!669 = !{!"_ZTSN5boost6spirit5unaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS0_6parserINS0_8optionalISJ_EEEEEE", !493, i64 0}
+!670 = !{!667, !9, i64 0}
+!671 = !{!672, !9, i64 0}
+!672 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8sequenceINS2_5chlitIcEESH_EELi0EEE", !9, i64 0, !509, i64 8}
+!673 = !{!674, !9, i64 16}
+!674 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEERKSI_Li0EEE", !675, i64 0, !9, i64 16}
+!675 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalISG_EEEE", !676, i64 0}
+!676 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalISG_EENS0_6parserINS0_8sequenceISG_SI_EEEEEE", !677, i64 0}
+!677 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_8optionalISG_EEEE", !618, i64 0}
+!678 = !{!679, !9, i64 24}
+!679 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEESI_EERKSI_Li0EEE", !680, i64 0, !9, i64 24}
+!680 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalISG_EEEESG_EE", !681, i64 0}
+!681 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_NS0_6parserINS2_ISK_SH_EEEEEE", !682, i64 0}
+!682 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalISH_EEEERKSH_EE", !674, i64 0}
+!683 = !{!684, !9, i64 32}
+!684 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEESI_EESI_EERKSI_Li0EEE", !685, i64 0, !9, i64 32}
+!685 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalISG_EEEESG_EESG_EE", !686, i64 0}
+!686 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EESH_NS0_6parserINS2_ISL_SH_EEEEEE", !687, i64 0}
+!687 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalISH_EEEESH_EERKSH_EE", !679, i64 0}
+!688 = !{!689, !9, i64 8}
+!689 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EEEERKSI_Li0EEE", !507, i64 0, !9, i64 8}
+!690 = !{!691, !9, i64 32}
+!691 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8sequenceINSJ_INS2_5chlitIcEESI_EESL_EEEERKSI_Li0EEE", !537, i64 0, !9, i64 32}
+!692 = !{!693, !9, i64 56}
+!693 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EENS2_8optionalISJ_EEEESJ_EENS4_INS4_INS2_5chlitIcEENSK_INS3_ISJ_SJ_EEEEEESP_EEEERKSJ_Li0EEE", !694, i64 0, !9, i64 56}
+!694 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEENSI_INS1_ISH_SH_EEEEEESN_EEEE", !695, i64 0}
+!695 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEENSI_INS0_11alternativeISH_SH_EEEEEESN_EENS0_6parserINSO_ISL_SS_EEEEEE", !696, i64 0}
+!696 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalISH_EEEESH_EENS2_INS2_INS1_5chlitIcEENSI_INS1_11alternativeISH_SH_EEEEEESN_EEEE", !697, i64 0}
+!697 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEESI_EENS3_INS3_INS2_5chlitIcEENSJ_INS2_11alternativeISI_SI_EEEEEESO_EELi0EEE", !680, i64 0, !698, i64 24}
+!698 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_5chlitIcEENS0_8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EESK_EEEEEES3_EE", !699, i64 0}
+!699 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESK_EESL_EEEEEES4_NS0_6parserINS2_ISO_S4_EEEEEE", !700, i64 0}
+!700 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_8optionalINS1_11alternativeINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESK_EESL_EEEEEES4_EE", !701, i64 0}
+!701 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_8optionalINS2_11alternativeINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESL_EESM_EEEEEES5_Li0EEE", !702, i64 0, !148, i64 24}
+!702 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EESK_EEEEEE", !703, i64 0}
+!703 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EESK_EEEENS0_6parserINS0_8sequenceIS3_SM_EEEEEE", !704, i64 0}
+!704 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEENS1_8optionalINS1_11alternativeINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EESK_EEEEEE", !705, i64 0}
+!705 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEENS2_8optionalINS2_11alternativeINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EESL_EEEELi0EEE", !148, i64 0, !706, i64 8}
+!706 = !{!"_ZTSN5boost6spirit8optionalINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EEEE", !707, i64 0}
+!707 = !{!"_ZTSN5boost6spirit5unaryINS0_11alternativeINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_6parserINS0_8optionalISI_EEEEEE", !374, i64 0}
+!708 = !{!709, !9, i64 0}
+!709 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_8sequenceINS2_5chlitIcEENS2_6strlitIS6_EEEEEELi0EEE", !9, i64 0, !710, i64 8}
+!710 = !{!"_ZTSN5boost6spirit8optionalINS0_8sequenceINS0_5chlitIcEENS0_6strlitIPKcEEEEEE", !711, i64 0}
+!711 = !{!"_ZTSN5boost6spirit5unaryINS0_8sequenceINS0_5chlitIcEENS0_6strlitIPKcEEEENS0_6parserINS0_8optionalIS9_EEEEEE", !712, i64 0}
+!712 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_6strlitIPKcEEEE", !713, i64 0}
+!713 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_6strlitIPKcEENS0_6parserINS0_8sequenceIS3_S7_EEEEEE", !714, i64 0}
+!714 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEENS1_6strlitIPKcEEEE", !715, i64 0}
+!715 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEENS2_6strlitIPKcEELi0EEE", !148, i64 0, !516, i64 8}
+!716 = !{!717}
+!717 = distinct !{!717, !718, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_: argument 0"}
+!718 = distinct !{!718, !"_ZNK5boost6spirit7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEE15change_policiesINS4_INS0_27no_skipper_iteration_policyIS8_EES9_SA_EEEENS1_IS3_T_EERKSH_"}
+!719 = !{!720, !9, i64 0}
+!720 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_11alternativeISH_SH_EEEELi0EEE", !9, i64 0, !706, i64 8}
+!721 = !{!722, !9, i64 64}
+!722 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS2_5chlitIcEENS3_INS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EES6_EENS4_INS2_8optionalISL_EES6_EEEEEENS4_INS4_ISL_SO_EESL_EEEERKSL_Li0EEE", !723, i64 0, !9, i64 64}
+!723 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_5chlitIcEENS1_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EES4_EENS2_INS0_8optionalISJ_EES4_EEEEEENS2_INS2_ISJ_SM_EESJ_EEEE", !724, i64 0}
+!724 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_5chlitIcEENS0_11alternativeINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EES4_EENS2_INS0_8optionalISK_EES4_EEEEEENS2_INS2_ISK_SN_EESK_EENS0_6parserINS5_ISQ_SS_EEEEEE", !725, i64 0}
+!725 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_5chlitIcEENS1_11alternativeINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EES4_EENS2_INS1_8optionalISK_EES4_EEEEEENS2_INS2_ISK_SN_EESK_EEEE", !726, i64 0}
+!726 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_5chlitIcEENS2_11alternativeINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EES5_EENS3_INS2_8optionalISL_EES5_EEEEEENS3_INS3_ISL_SO_EESL_EELi0EEE", !727, i64 0, !680, i64 40}
+!727 = !{!"_ZTSN5boost6spirit8sequenceINS0_5chlitIcEENS0_11alternativeINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESI_EES3_EENS1_INS0_8optionalISJ_EES3_EEEEEE", !728, i64 0}
+!728 = !{!"_ZTSN5boost6spirit6binaryINS0_5chlitIcEENS0_11alternativeINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESJ_EES3_EENS5_INS0_8optionalISK_EES3_EEEENS0_6parserINS5_IS3_SP_EEEEEE", !729, i64 0}
+!729 = !{!"_ZTSN5boost15compressed_pairINS_6spirit5chlitIcEENS1_11alternativeINS1_8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESJ_EES3_EENS5_INS1_8optionalISK_EES3_EEEEEE", !730, i64 0}
+!730 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit5chlitIcEENS2_11alternativeINS2_8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESK_EES4_EENS6_INS2_8optionalISL_EES4_EEEELi0EEE", !148, i64 0, !731, i64 8}
+!731 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEENS2_INS0_8optionalISH_EESJ_EEEE", !732, i64 0}
+!732 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEENS2_INS0_8optionalISH_EESJ_EENS0_6parserINS0_11alternativeISK_SN_EEEEEE", !733, i64 0}
+!733 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEENS2_INS1_8optionalISH_EESJ_EEEE", !734, i64 0}
+!734 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEENS3_INS2_8optionalISI_EESK_EELi0EEE", !735, i64 0, !739, i64 16}
+!735 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEE", !736, i64 0}
+!736 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEENS0_6parserINS0_8sequenceISG_SI_EEEEEE", !737, i64 0}
+!737 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_5chlitIcEEEE", !738, i64 0}
+!738 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_5chlitIcEELi0EEE", !9, i64 0, !148, i64 8}
+!739 = !{!"_ZTSN5boost6spirit8sequenceINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEENS0_5chlitIcEEEE", !740, i64 0}
+!740 = !{!"_ZTSN5boost6spirit6binaryINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEENS0_5chlitIcEENS0_6parserINS0_8sequenceISI_SK_EEEEEE", !741, i64 0}
+!741 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EEEENS1_5chlitIcEEEE", !742, i64 0}
+!742 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EEEENS2_5chlitIcEELi0EEE", !507, i64 0, !148, i64 8}
+!743 = !{!738, !9, i64 0}
+!744 = !{!745, !9, i64 48}
+!745 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit11alternativeINS2_8sequenceINS4_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EENS2_8optionalISJ_EEEESJ_EENS4_INS4_INS2_5chlitIcEESL_EESP_EEEERKSJ_Li0EEE", !746, i64 0, !9, i64 48}
+!746 = !{!"_ZTSN5boost6spirit11alternativeINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEESJ_EESN_EEEE", !747, i64 0}
+!747 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_8optionalISH_EEEESH_EENS2_INS2_INS0_5chlitIcEESJ_EESN_EENS0_6parserINS0_11alternativeISL_SP_EEEEEE", !748, i64 0}
+!748 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_8optionalISH_EEEESH_EENS2_INS2_INS1_5chlitIcEESJ_EESN_EEEE", !749, i64 0}
+!749 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalISI_EEEESI_EENS3_INS3_INS2_5chlitIcEESK_EESO_EELi0EEE", !680, i64 0, !499, i64 24}
+!750 = !{!751, !9, i64 0}
+!751 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8sequenceINSK_INSK_ISH_SH_EENS2_8optionalINS2_5chlitIcEEEEEESH_EELi0EEE", !9, i64 0, !752, i64 8}
+!752 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EENS0_8optionalINS0_5chlitIcEEEEEESG_EE", !753, i64 0}
+!753 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_8optionalINS0_5chlitIcEEEEEESH_NS0_6parserINS2_ISN_SH_EEEEEE", !754, i64 0}
+!754 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EENS1_8optionalINS1_5chlitIcEEEEEERKSH_EE", !755, i64 0}
+!755 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EENS2_8optionalINS2_5chlitIcEEEEEERKSI_Li0EEE", !756, i64 0, !9, i64 24}
+!756 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EENS0_8optionalINS0_5chlitIcEEEEEE", !757, i64 0}
+!757 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_8optionalINS0_5chlitIcEEEENS0_6parserINS2_ISI_SM_EEEEEE", !758, i64 0}
+!758 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EENS1_8optionalINS1_5chlitIcEEEEEE", !759, i64 0}
+!759 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EENS2_8optionalINS2_5chlitIcEEEELi0EEE", !497, i64 0, !760, i64 16}
+!760 = !{!"_ZTSN5boost6spirit8optionalINS0_5chlitIcEEEE", !761, i64 0}
+!761 = !{!"_ZTSN5boost6spirit5unaryINS0_5chlitIcEENS0_6parserINS0_8optionalIS3_EEEEEE", !148, i64 0}
+!762 = !{!755, !9, i64 24}
+!763 = !{!764, !9, i64 16}
+!764 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEERKSI_Li0EEE", !735, i64 0, !9, i64 16}
+!765 = !{!766, !9, i64 24}
+!766 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EENS2_5chlitIcEEEERKSI_Li0EEE", !767, i64 0, !9, i64 24}
+!767 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EENS0_5chlitIcEEEE", !768, i64 0}
+!768 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_5chlitIcEENS0_6parserINS2_ISI_SK_EEEEEE", !769, i64 0}
+!769 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EENS1_5chlitIcEEEE", !770, i64 0}
+!770 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EENS2_5chlitIcEELi0EEE", !497, i64 0, !148, i64 16}
+!771 = !{!772, !9, i64 0}
+!772 = !{!"_ZTSN5boost7details19compressed_pair_impIRKNS_6spirit4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESG_EENS2_8optionalINS2_13sequential_orISH_SH_EEEELi0EEE", !9, i64 0, !773, i64 8}
+!773 = !{!"_ZTSN5boost6spirit8optionalINS0_13sequential_orINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EEEE", !774, i64 0}
+!774 = !{!"_ZTSN5boost6spirit5unaryINS0_13sequential_orINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EENS0_6parserINS0_8optionalISI_EEEEEE", !775, i64 0}
+!775 = !{!"_ZTSN5boost6spirit13sequential_orINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EE", !776, i64 0}
+!776 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_NS0_6parserINS0_13sequential_orISG_SG_EEEEEE", !376, i64 0}
+!777 = !{!778, !9, i64 24}
+!778 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_8optionalINS2_13sequential_orISI_SI_EEEEEERKSI_Li0EEE", !779, i64 0, !9, i64 24}
+!779 = !{!"_ZTSN5boost6spirit8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalINS0_13sequential_orISG_SG_EEEEEE", !780, i64 0}
+!780 = !{!"_ZTSN5boost6spirit6binaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_8optionalINS0_13sequential_orISG_SG_EEEENS0_6parserINS0_8sequenceISG_SK_EEEEEE", !781, i64 0}
+!781 = !{!"_ZTSN5boost15compressed_pairIRKNS_6spirit4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESF_EENS1_8optionalINS1_13sequential_orISG_SG_EEEEEE", !772, i64 0}
+!782 = !{!783, !9, i64 32}
+!783 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESK_EERKSI_Li0EEE", !784, i64 0, !9, i64 32}
+!784 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESI_EE", !785, i64 0}
+!785 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_EESJ_NS0_6parserINS2_ISL_SJ_EEEEEE", !786, i64 0}
+!786 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEESH_EESJ_EE", !787, i64 0}
+!787 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESK_Li0EEE", !788, i64 0, !148, i64 24}
+!788 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EE", !789, i64 0}
+!789 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_NS0_6parserINS2_ISK_SH_EEEEEE", !790, i64 0}
+!790 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEERKSH_EE", !764, i64 0}
+!791 = !{!792, !9, i64 48}
+!792 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESI_EENS2_8optionalISI_EEEESK_EERKSI_Li0EEE", !793, i64 0, !9, i64 48}
+!793 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESG_EENS0_8optionalISG_EEEESI_EE", !794, i64 0}
+!794 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_EESH_EENS0_8optionalISH_EEEESJ_NS0_6parserINS2_ISP_SJ_EEEEEE", !795, i64 0}
+!795 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEESH_EESH_EENS1_8optionalISH_EEEESJ_EE", !796, i64 0}
+!796 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESI_EENS2_8optionalISI_EEEESK_Li0EEE", !797, i64 0, !148, i64 40}
+!797 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESG_EENS0_8optionalISG_EEEE", !798, i64 0}
+!798 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_EESH_EENS0_8optionalISH_EENS0_6parserINS2_ISM_SO_EEEEEE", !799, i64 0}
+!799 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEESH_EESH_EENS1_8optionalISH_EEEE", !800, i64 0}
+!800 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EESI_EENS2_8optionalISI_EELi0EEE", !801, i64 0, !507, i64 32}
+!801 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_5chlitIcEEEESG_EESG_EE", !802, i64 0}
+!802 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EENS0_5chlitIcEEEESH_EESH_NS0_6parserINS2_ISL_SH_EEEEEE", !803, i64 0}
+!803 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EENS1_5chlitIcEEEESH_EERKSH_EE", !804, i64 0}
+!804 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EENS2_5chlitIcEEEESI_EERKSI_Li0EEE", !788, i64 0, !9, i64 24}
+!805 = !{!806, !9, i64 32}
+!806 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EENS2_5chlitIcEEEERKSI_Li0EEE", !807, i64 0, !9, i64 32}
+!807 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS1_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EESG_EESG_EENS0_5chlitIcEEEE", !808, i64 0}
+!808 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS2_INS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EESH_EESH_EENS0_5chlitIcEENS0_6parserINS2_ISJ_SL_EEEEEE", !809, i64 0}
+!809 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS2_INS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EESH_EESH_EENS1_5chlitIcEEEE", !810, i64 0}
+!810 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESH_EESI_EESI_EENS2_5chlitIcEELi0EEE", !493, i64 0, !148, i64 24}
+!811 = !{!804, !9, i64 24}
+!812 = !{!813, !9, i64 24}
+!813 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS3_INS2_8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EEEESJ_EESK_EERKSJ_Li0EEE", !814, i64 0, !9, i64 24}
+!814 = !{!"_ZTSN5boost6spirit8sequenceINS1_INS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEESH_EESI_EE", !815, i64 0}
+!815 = !{!"_ZTSN5boost6spirit6binaryINS0_8sequenceINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESH_EEEESI_EESJ_NS0_6parserINS2_ISK_SJ_EEEEEE", !816, i64 0}
+!816 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8sequenceINS1_8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESH_EEEESI_EESJ_EE", !817, i64 0}
+!817 = !{!"_ZTSN5boost7details19compressed_pair_impINS_6spirit8sequenceINS2_8optionalINS2_4ruleINS2_7scannerIPKcNS2_16scanner_policiesINS2_28skip_parser_iteration_policyI12skip_grammarNS2_16iteration_policyEEENS2_12match_policyENS2_13action_policyEEEEENS2_5nil_tESI_EEEESJ_EESK_Li0EEE", !818, i64 0, !507, i64 16}
+!818 = !{!"_ZTSN5boost6spirit8sequenceINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEESH_EE", !819, i64 0}
+!819 = !{!"_ZTSN5boost6spirit6binaryINS0_8optionalINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESG_EEEESH_NS0_6parserINS0_8sequenceISI_SH_EEEEEE", !820, i64 0}
+!820 = !{!"_ZTSN5boost15compressed_pairINS_6spirit8optionalINS1_4ruleINS1_7scannerIPKcNS1_16scanner_policiesINS1_28skip_parser_iteration_policyI12skip_grammarNS1_16iteration_policyEEENS1_12match_policyENS1_13action_policyEEEEENS1_5nil_tESG_EEEERKSH_EE", !689, i64 0}
+!821 = !{!822, !9, i64 0}
+!822 = !{!"_ZTSN5boost6spirit5unaryINS0_4ruleINS0_7scannerIPKcNS0_16scanner_policiesINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEENS0_12match_policyENS0_13action_policyEEEEENS0_5nil_tESF_EENS0_6parserINS0_11kleene_starISG_EEEEEE", !9, i64 0}
+!823 = !{!824}
+!824 = distinct !{!824, !825, !"_ZN5boost11make_sharedINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEENS_10shared_ptrIT_EERKNS_8weak_ptrISP_EE: argument 0"}
+!825 = distinct !{!825, !"_ZN5boost11make_sharedINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEENS_10shared_ptrIT_EERKNS_8weak_ptrISP_EE"}
 !826 = !{!827}
-!827 = distinct !{!827, !828, !"_ZN5boost11make_sharedINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEENS_10shared_ptrIT_EERKNS_8weak_ptrISP_EE: argument 0"}
-!828 = distinct !{!828, !"_ZN5boost11make_sharedINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEENS_10shared_ptrIT_EERKNS_8weak_ptrISP_EE"}
-!829 = !{!830}
-!830 = distinct !{!830, !831, !"_ZNK5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEE4lockEv: argument 0"}
-!831 = distinct !{!831, !"_ZNK5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEE4lockEv"}
-!832 = !{!830, !827}
-!833 = !{!834, !9, i64 0}
-!834 = !{!"_ZTSN5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEE", !9, i64 0, !109, i64 8}
-!835 = !{!836, !9, i64 0}
-!836 = !{!"_ZTSN5boost10shared_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEE", !9, i64 0, !12, i64 8}
+!827 = distinct !{!827, !828, !"_ZNK5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEE4lockEv: argument 0"}
+!828 = distinct !{!828, !"_ZNK5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEE4lockEv"}
+!829 = !{!827, !824}
+!830 = !{!831, !9, i64 0}
+!831 = !{!"_ZTSN5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEE", !9, i64 0, !109, i64 8}
+!832 = !{!833, !9, i64 0}
+!833 = !{!"_ZTSN5boost10shared_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEE", !9, i64 0, !12, i64 8}
+!834 = !{!835}
+!835 = distinct !{!835, !836, !"_ZN5boost11make_sharedINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEENS_10shared_ptrIT_EERKNS_8weak_ptrISP_EE: argument 0"}
+!836 = distinct !{!836, !"_ZN5boost11make_sharedINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEENS_10shared_ptrIT_EERKNS_8weak_ptrISP_EE"}
 !837 = !{!838}
-!838 = distinct !{!838, !839, !"_ZN5boost11make_sharedINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEENS_10shared_ptrIT_EERKNS_8weak_ptrISP_EE: argument 0"}
-!839 = distinct !{!839, !"_ZN5boost11make_sharedINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEENS_10shared_ptrIT_EERKNS_8weak_ptrISP_EE"}
-!840 = !{!841}
-!841 = distinct !{!841, !842, !"_ZNK5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEE4lockEv: argument 0"}
-!842 = distinct !{!842, !"_ZNK5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEE4lockEv"}
-!843 = !{!841, !838}
+!838 = distinct !{!838, !839, !"_ZNK5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEE4lockEv: argument 0"}
+!839 = distinct !{!839, !"_ZNK5boost8weak_ptrINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEE4lockEv"}
+!840 = !{!838, !835}
+!841 = !{!842, !9, i64 0}
+!842 = !{!"_ZTSNSt12_Vector_baseIPN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEESaISI_EE17_Vector_impl_dataE", !9, i64 0, !9, i64 8, !9, i64 16}
+!843 = !{!842, !9, i64 8}
 !844 = !{!845, !9, i64 0}
-!845 = !{!"_ZTSNSt12_Vector_baseIPN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEESaISI_EE17_Vector_impl_dataE", !9, i64 0, !9, i64 8, !9, i64 16}
-!846 = !{!845, !9, i64 8}
-!847 = !{!848, !9, i64 0}
-!848 = !{!"_ZTSSt8auto_ptrIN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEEE", !9, i64 0}
-!849 = !{!45, !9, i64 8}
-!850 = !{!45, !9, i64 16}
-!851 = !{!852, !13, i64 32}
-!852 = !{!"_ZTSN5boost6spirit4impl14grammar_helperINS0_7grammarI12skip_grammarNS0_14parser_contextINS0_5nil_tEEEEES4_NS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS4_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEE", !853, i64 0, !854, i64 8, !13, i64 32, !836, i64 40}
-!853 = !{!"_ZTSN5boost6spirit4impl19grammar_helper_baseINS0_7grammarI12skip_grammarNS0_14parser_contextINS0_5nil_tEEEEEEE"}
-!854 = !{!"_ZTSSt6vectorIPN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEESaISI_EE", !855, i64 0}
-!855 = !{!"_ZTSSt12_Vector_baseIPN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEESaISI_EE", !856, i64 0}
-!856 = !{!"_ZTSNSt12_Vector_baseIPN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEESaISI_EE12_Vector_implE", !845, i64 0}
-!857 = !{!858, !9, i64 64}
-!858 = !{!"_ZTSN5boost6detail20sp_counted_base_implIPNS_6spirit4impl14grammar_helperINS2_7grammarI12skip_grammarNS2_14parser_contextINS2_5nil_tEEEEES6_NS2_7scannerIPKcNS2_16scanner_policiesINS2_27no_skipper_iteration_policyINS2_28skip_parser_iteration_policyIS6_NS2_16iteration_policyEEEEENS2_12match_policyENS2_13action_policyEEEEEEENS_15checked_deleterISO_EEEE", !68, i64 0, !9, i64 64, !859, i64 72}
-!859 = !{!"_ZTSN5boost15checked_deleterINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEE"}
-!860 = !{!845, !9, i64 16}
+!845 = !{!"_ZTSSt8auto_ptrIN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEEE", !9, i64 0}
+!846 = !{!45, !9, i64 8}
+!847 = !{!45, !9, i64 16}
+!848 = !{!849, !13, i64 32}
+!849 = !{!"_ZTSN5boost6spirit4impl14grammar_helperINS0_7grammarI12skip_grammarNS0_14parser_contextINS0_5nil_tEEEEES4_NS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyIS4_NS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEE", !850, i64 0, !851, i64 8, !13, i64 32, !833, i64 40}
+!850 = !{!"_ZTSN5boost6spirit4impl19grammar_helper_baseINS0_7grammarI12skip_grammarNS0_14parser_contextINS0_5nil_tEEEEEEE"}
+!851 = !{!"_ZTSSt6vectorIPN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEESaISI_EE", !852, i64 0}
+!852 = !{!"_ZTSSt12_Vector_baseIPN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEESaISI_EE", !853, i64 0}
+!853 = !{!"_ZTSNSt12_Vector_baseIPN12skip_grammar10definitionIN5boost6spirit7scannerIPKcNS3_16scanner_policiesINS3_27no_skipper_iteration_policyINS3_28skip_parser_iteration_policyIS0_NS3_16iteration_policyEEEEENS3_12match_policyENS3_13action_policyEEEEEEESaISI_EE12_Vector_implE", !842, i64 0}
+!854 = !{!855, !9, i64 64}
+!855 = !{!"_ZTSN5boost6detail20sp_counted_base_implIPNS_6spirit4impl14grammar_helperINS2_7grammarI12skip_grammarNS2_14parser_contextINS2_5nil_tEEEEES6_NS2_7scannerIPKcNS2_16scanner_policiesINS2_27no_skipper_iteration_policyINS2_28skip_parser_iteration_policyIS6_NS2_16iteration_policyEEEEENS2_12match_policyENS2_13action_policyEEEEEEENS_15checked_deleterISO_EEEE", !68, i64 0, !9, i64 64, !856, i64 72}
+!856 = !{!"_ZTSN5boost15checked_deleterINS_6spirit4impl14grammar_helperINS1_7grammarI12skip_grammarNS1_14parser_contextINS1_5nil_tEEEEES5_NS1_7scannerIPKcNS1_16scanner_policiesINS1_27no_skipper_iteration_policyINS1_28skip_parser_iteration_policyIS5_NS1_16iteration_policyEEEEENS1_12match_policyENS1_13action_policyEEEEEEEEE"}
+!857 = !{!842, !9, i64 16}
+!858 = !{!859}
+!859 = distinct !{!859, !860, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!860 = distinct !{!860, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !861 = !{!862}
-!862 = distinct !{!862, !863, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!863 = distinct !{!863, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!862 = distinct !{!862, !863, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
+!863 = distinct !{!863, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !864 = !{!865}
 !865 = distinct !{!865, !866, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
 !866 = distinct !{!866, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
 !867 = !{!868}
-!868 = distinct !{!868, !869, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_: argument 0"}
-!869 = distinct !{!869, !"_ZNK5boost6spirit11char_parserINS0_5chlitIcEEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS3_T_E4typeERKSL_"}
+!868 = distinct !{!868, !869, !"_ZNK5boost6spirit11char_parserINS0_12space_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!869 = distinct !{!869, !"_ZNK5boost6spirit11char_parserINS0_12space_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
 !870 = !{!871}
-!871 = distinct !{!871, !872, !"_ZNK5boost6spirit11char_parserINS0_12space_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!872 = distinct !{!872, !"_ZNK5boost6spirit11char_parserINS0_12space_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
-!873 = !{!874}
-!874 = distinct !{!874, !875, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
-!875 = distinct !{!875, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}
+!871 = distinct !{!871, !872, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_: argument 0"}
+!872 = distinct !{!872, !"_ZNK5boost6spirit11char_parserINS0_14anychar_parserEE5parseINS0_7scannerIPKcNS0_16scanner_policiesINS0_27no_skipper_iteration_policyINS0_28skip_parser_iteration_policyI12skip_grammarNS0_16iteration_policyEEEEENS0_12match_policyENS0_13action_policyEEEEEEENS0_13parser_resultIS2_T_E4typeERKSK_"}

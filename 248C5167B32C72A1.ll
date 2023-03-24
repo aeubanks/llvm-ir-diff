@@ -71,7 +71,7 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %42 = fsub double %39, %41
   %43 = fcmp oge double %42, 5.000000e-01
   %44 = zext i1 %43 to i32
-  %45 = add nsw i32 %44, %40
+  %45 = add nsw i32 %40, %44
   %46 = sdiv i32 %45, 2
   %47 = extractelement <2 x i32> %20, i64 0
   %48 = shufflevector <2 x i32> %20, <2 x i32> poison, <2 x i32> <i32 1, i32 undef>
@@ -84,7 +84,7 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %55 = fsub double %52, %54
   %56 = fcmp oge double %55, 5.000000e-01
   %57 = zext i1 %56 to i32
-  %58 = add nsw i32 %57, %53
+  %58 = add nsw i32 %53, %57
   %59 = sdiv i32 %58, 2
   %60 = load i32, ptr @penalty, align 4, !tbaa !17
   %61 = load ptr, ptr @overlap, align 8, !tbaa !5
@@ -150,8 +150,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %111 = fsub double %108, %110
   %112 = fcmp oge double %111, 5.000000e-01
   %113 = zext i1 %112 to i32
-  %114 = add i32 %87, %109
-  %115 = add i32 %114, %113
+  %114 = add nsw i32 %109, %113
+  %115 = add i32 %87, %114
   %116 = getelementptr inbounds %struct.termbox, ptr %103, i64 0, i32 4
   %117 = load i32, ptr %116, align 4, !tbaa !24
   %118 = sub nsw i32 %117, %34
@@ -162,8 +162,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %123 = fsub double %120, %122
   %124 = fcmp oge double %123, 5.000000e-01
   %125 = zext i1 %124 to i32
-  %126 = add i32 %88, %121
-  %127 = add i32 %126, %125
+  %126 = add nsw i32 %121, %125
+  %127 = add i32 %88, %126
   %128 = getelementptr inbounds %struct.termbox, ptr %103, i64 0, i32 5
   %129 = load i32, ptr %128, align 8, !tbaa !25
   %130 = sext i32 %129 to i64
@@ -203,8 +203,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %158 = fsub double %155, %157
   %159 = fcmp oge double %158, 5.000000e-01
   %160 = zext i1 %159 to i32
-  %161 = add i32 %96, %156
-  %162 = add i32 %161, %160
+  %161 = add nsw i32 %156, %160
+  %162 = add i32 %96, %161
   %163 = getelementptr inbounds %struct.locbox, ptr %26, i64 %150, i32 3
   %164 = load i32, ptr %163, align 4, !tbaa !42
   %165 = sub nsw i32 %164, %34
@@ -215,8 +215,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %170 = fsub double %167, %169
   %171 = fcmp oge double %170, 5.000000e-01
   %172 = zext i1 %171 to i32
-  %173 = add i32 %97, %168
-  %174 = add i32 %173, %172
+  %173 = add nsw i32 %168, %172
+  %174 = add i32 %97, %173
   %175 = load i32, ptr %147, align 4, !tbaa !43
   %176 = sext i32 %175 to i64
   %177 = getelementptr inbounds ptr, ptr %98, i64 %176
@@ -333,8 +333,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %259 = fsub <2 x double> %256, %258
   %260 = fcmp oge <2 x double> %259, <double 5.000000e-01, double 5.000000e-01>
   %261 = zext <2 x i1> %260 to <2 x i32>
-  %262 = sub <2 x i32> %257, %244
-  %263 = add <2 x i32> %262, %261
+  %262 = add nsw <2 x i32> %257, %261
+  %263 = sub nsw <2 x i32> %262, %244
   store <2 x i32> %263, ptr %252, align 8, !tbaa !17
   %264 = getelementptr inbounds %struct.tilebox, ptr %250, i64 0, i32 15
   %265 = getelementptr inbounds %struct.tilebox, ptr %250, i64 0, i32 11
@@ -347,8 +347,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %272 = fsub <2 x double> %269, %271
   %273 = fcmp oge <2 x double> %272, <double 5.000000e-01, double 5.000000e-01>
   %274 = zext <2 x i1> %273 to <2 x i32>
-  %275 = sub <2 x i32> %270, %247
-  %276 = add <2 x i32> %275, %274
+  %275 = add nsw <2 x i32> %270, %274
+  %276 = sub nsw <2 x i32> %275, %247
   store <2 x i32> %276, ptr %265, align 8, !tbaa !17
   %277 = load ptr, ptr %250, align 8, !tbaa !47
   %278 = icmp eq ptr %277, null
@@ -417,8 +417,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %331 = fsub <4 x double> %328, %330
   %332 = fcmp oge <4 x double> %331, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %333 = zext <4 x i1> %332 to <4 x i32>
-  %334 = sub <4 x i32> %329, %300
-  %335 = add <4 x i32> %334, %333
+  %334 = add nsw <4 x i32> %329, %333
+  %335 = sub nsw <4 x i32> %334, %300
   %336 = getelementptr inbounds %struct.locbox, ptr %26, i64 %306, i32 3
   %337 = getelementptr inbounds %struct.locbox, ptr %26, i64 %307, i32 3
   %338 = getelementptr inbounds %struct.locbox, ptr %26, i64 %308, i32 3
@@ -439,8 +439,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %353 = fsub <4 x double> %350, %352
   %354 = fcmp oge <4 x double> %353, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %355 = zext <4 x i1> %354 to <4 x i32>
-  %356 = sub <4 x i32> %351, %303
-  %357 = add <4 x i32> %356, %355
+  %356 = add nsw <4 x i32> %351, %355
+  %357 = sub nsw <4 x i32> %356, %303
   %358 = shufflevector <4 x i32> %335, <4 x i32> %357, <2 x i32> <i32 0, i32 4>
   store <2 x i32> %358, ptr %310, align 4, !tbaa !17
   %359 = shufflevector <4 x i32> %335, <4 x i32> %357, <2 x i32> <i32 1, i32 5>
@@ -465,8 +465,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %373 = fsub double %370, %372
   %374 = fcmp oge double %373, 5.000000e-01
   %375 = zext i1 %374 to i32
-  %376 = sub i32 %371, %59
-  %377 = add i32 %376, %375
+  %376 = add nsw i32 %371, %375
+  %377 = sub nsw i32 %376, %59
   %378 = getelementptr inbounds %struct.termbox, ptr %365, i64 0, i32 1
   store i32 %377, ptr %378, align 8, !tbaa !53
   %379 = getelementptr inbounds %struct.termbox, ptr %365, i64 0, i32 4
@@ -479,8 +479,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %386 = fsub double %383, %385
   %387 = fcmp oge double %386, 5.000000e-01
   %388 = zext i1 %387 to i32
-  %389 = sub i32 %384, %46
-  %390 = add i32 %389, %388
+  %389 = add nsw i32 %384, %388
+  %390 = sub nsw i32 %389, %46
   %391 = getelementptr inbounds %struct.termbox, ptr %365, i64 0, i32 2
   store i32 %390, ptr %391, align 4, !tbaa !54
   %392 = load ptr, ptr %365, align 8, !tbaa !35
@@ -500,8 +500,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %404 = fsub double %401, %403
   %405 = fcmp oge double %404, 5.000000e-01
   %406 = zext i1 %405 to i32
-  %407 = sub i32 %402, %59
-  %408 = add i32 %407, %406
+  %407 = add nsw i32 %402, %406
+  %408 = sub nsw i32 %407, %59
   store i32 %408, ptr %396, align 4, !tbaa !56
   %409 = getelementptr inbounds %struct.locbox, ptr %26, i64 %395, i32 3
   %410 = load i32, ptr %409, align 4, !tbaa !42
@@ -513,8 +513,8 @@ define dso_local i32 @uaspect(i32 noundef %0, double noundef %1) local_unnamed_a
   %416 = fsub double %413, %415
   %417 = fcmp oge double %416, 5.000000e-01
   %418 = zext i1 %417 to i32
-  %419 = sub i32 %414, %46
-  %420 = add i32 %419, %418
+  %419 = add nsw i32 %414, %418
+  %420 = sub nsw i32 %419, %46
   %421 = getelementptr inbounds %struct.locbox, ptr %26, i64 %395, i32 1
   store i32 %420, ptr %421, align 4, !tbaa !57
   %422 = add nuw nsw i64 %395, 1

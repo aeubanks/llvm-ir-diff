@@ -95,9 +95,9 @@ define dso_local void @tab_PathDelete(ptr noundef %0) local_unnamed_addr #3 {
   %9 = load i32, ptr @memory_ALIGN, align 4
   %10 = urem i32 %6, %9
   %11 = icmp eq i32 %10, 0
-  %12 = sub i32 %9, %10
-  %13 = select i1 %11, i32 0, i32 %12
-  %14 = add i32 %13, %6
+  %12 = add i32 %9, %6
+  %13 = sub i32 %12, %10
+  %14 = select i1 %11, i32 %6, i32 %13
   %15 = load i32, ptr @memory_OFFSET, align 4
   %16 = zext i32 %15 to i64
   %17 = sub nsw i64 0, %16
@@ -121,7 +121,7 @@ define dso_local void @tab_PathDelete(ptr noundef %0) local_unnamed_addr #3 {
 
 30:                                               ; preds = %28, %8
   %31 = load i32, ptr @memory_MARKSIZE, align 4
-  %32 = add i32 %14, %31
+  %32 = add i32 %31, %14
   %33 = zext i32 %32 to i64
   %34 = add nuw nsw i64 %33, 16
   %35 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -706,7 +706,7 @@ define internal fastcc void @tab_SetSplitLevelsRec(ptr noundef readonly %0, i32 
   br i1 %90, label %81, label %91, !llvm.loop !16
 
 91:                                               ; preds = %81
-  %92 = icmp ugt i32 %88, %17
+  %92 = icmp ult i32 %17, %88
   br i1 %92, label %102, label %93
 
 93:                                               ; preds = %75, %91
@@ -736,9 +736,9 @@ define internal fastcc void @tab_SetSplitLevelsRec(ptr noundef readonly %0, i32 
 110:                                              ; preds = %106
   %111 = urem i32 %108, %5
   %112 = icmp eq i32 %111, 0
-  %113 = sub i32 %5, %111
-  %114 = select i1 %112, i32 0, i32 %113
-  %115 = add i32 %114, %108
+  %113 = add i32 %5, %108
+  %114 = sub i32 %113, %111
+  %115 = select i1 %112, i32 %108, i32 %114
   %116 = load i32, ptr @memory_OFFSET, align 4
   %117 = zext i32 %116 to i64
   %118 = sub nsw i64 0, %117
@@ -762,7 +762,7 @@ define internal fastcc void @tab_SetSplitLevelsRec(ptr noundef readonly %0, i32 
 
 131:                                              ; preds = %129, %110
   %132 = load i32, ptr @memory_MARKSIZE, align 4
-  %133 = add i32 %115, %132
+  %133 = add i32 %132, %115
   %134 = zext i32 %133 to i64
   %135 = add nuw nsw i64 %134, 16
   %136 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -844,9 +844,9 @@ define internal fastcc void @tab_SetSplitLevelsRec(ptr noundef readonly %0, i32 
 182:                                              ; preds = %179
   %183 = urem i32 %180, %5
   %184 = icmp eq i32 %183, 0
-  %185 = sub i32 %5, %183
-  %186 = select i1 %184, i32 0, i32 %185
-  %187 = add i32 %186, %180
+  %185 = add i32 %5, %180
+  %186 = sub i32 %185, %183
+  %187 = select i1 %184, i32 %180, i32 %186
   %188 = load i32, ptr @memory_OFFSET, align 4
   %189 = zext i32 %188 to i64
   %190 = sub nsw i64 0, %189
@@ -870,7 +870,7 @@ define internal fastcc void @tab_SetSplitLevelsRec(ptr noundef readonly %0, i32 
 
 203:                                              ; preds = %201, %182
   %204 = load i32, ptr @memory_MARKSIZE, align 4
-  %205 = add i32 %187, %204
+  %205 = add i32 %204, %187
   %206 = zext i32 %205 to i64
   %207 = add nuw nsw i64 %206, 16
   %208 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -1041,8 +1041,8 @@ define dso_local ptr @tab_RemoveIncompleteSplits(ptr noundef returned %0, ptr no
 12:                                               ; preds = %4
   br i1 %10, label %19, label %15
 
-13:                                               ; preds = %11, %2, %54, %15
-  %14 = phi ptr [ %0, %15 ], [ %0, %54 ], [ %0, %2 ], [ %0, %11 ]
+13:                                               ; preds = %11, %2, %55, %15
+  %14 = phi ptr [ %0, %15 ], [ %0, %55 ], [ %0, %2 ], [ %0, %11 ]
   ret ptr %14
 
 15:                                               ; preds = %12
@@ -1054,60 +1054,61 @@ define dso_local ptr @tab_RemoveIncompleteSplits(ptr noundef returned %0, ptr no
   br label %13
 
 19:                                               ; preds = %11, %12
-  %20 = phi ptr [ %6, %12 ], [ %9, %11 ]
-  %21 = tail call ptr @tab_RemoveIncompleteSplits(ptr noundef nonnull %20, ptr noundef %1)
-  %22 = getelementptr i8, ptr %20, i64 32
-  %23 = load ptr, ptr %22, align 8
-  %24 = getelementptr inbounds %struct.TABLEAU_HELP, ptr %0, i64 0, i32 4
-  store ptr %23, ptr %24, align 8
-  %25 = getelementptr i8, ptr %20, i64 40
-  %26 = load ptr, ptr %25, align 8
-  store ptr %26, ptr %5, align 8
-  %27 = getelementptr i8, ptr %20, i64 8
-  %28 = load ptr, ptr %27, align 8
-  %29 = getelementptr inbounds %struct.TABLEAU_HELP, ptr %0, i64 0, i32 1
-  store ptr %28, ptr %29, align 8
-  %30 = getelementptr i8, ptr %20, i64 16
-  %31 = load ptr, ptr %30, align 8
-  %32 = getelementptr inbounds %struct.TABLEAU_HELP, ptr %0, i64 0, i32 2
-  store ptr %31, ptr %32, align 8
-  %33 = getelementptr i8, ptr %20, i64 24
-  %34 = load ptr, ptr %33, align 8
-  %35 = getelementptr inbounds %struct.TABLEAU_HELP, ptr %0, i64 0, i32 3
-  store ptr %34, ptr %35, align 8
-  %36 = load ptr, ptr %20, align 8
-  %37 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 56), align 8
-  %38 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %37, i64 0, i32 4
-  %39 = load i32, ptr %38, align 8
-  %40 = sext i32 %39 to i64
-  %41 = load i64, ptr @memory_FREEDBYTES, align 8
-  %42 = add i64 %41, %40
-  store i64 %42, ptr @memory_FREEDBYTES, align 8
-  %43 = load ptr, ptr %37, align 8
-  store ptr %43, ptr %20, align 8
-  %44 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 56), align 8
-  store ptr %20, ptr %44, align 8
-  %45 = load ptr, ptr %1, align 8
-  %46 = icmp eq ptr %36, null
-  br i1 %46, label %54, label %47
+  %20 = getelementptr i8, ptr %0, i64 32
+  %21 = select i1 %7, ptr %20, ptr %5
+  %22 = load ptr, ptr %21, align 8
+  %23 = tail call ptr @tab_RemoveIncompleteSplits(ptr noundef %22, ptr noundef %1)
+  %24 = getelementptr i8, ptr %22, i64 32
+  %25 = load ptr, ptr %24, align 8
+  store ptr %25, ptr %20, align 8
+  %26 = getelementptr i8, ptr %22, i64 40
+  %27 = load ptr, ptr %26, align 8
+  store ptr %27, ptr %5, align 8
+  %28 = getelementptr i8, ptr %22, i64 8
+  %29 = load ptr, ptr %28, align 8
+  %30 = getelementptr inbounds %struct.TABLEAU_HELP, ptr %0, i64 0, i32 1
+  store ptr %29, ptr %30, align 8
+  %31 = getelementptr i8, ptr %22, i64 16
+  %32 = load ptr, ptr %31, align 8
+  %33 = getelementptr inbounds %struct.TABLEAU_HELP, ptr %0, i64 0, i32 2
+  store ptr %32, ptr %33, align 8
+  %34 = getelementptr i8, ptr %22, i64 24
+  %35 = load ptr, ptr %34, align 8
+  %36 = getelementptr inbounds %struct.TABLEAU_HELP, ptr %0, i64 0, i32 3
+  store ptr %35, ptr %36, align 8
+  %37 = load ptr, ptr %22, align 8
+  %38 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 56), align 8
+  %39 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %38, i64 0, i32 4
+  %40 = load i32, ptr %39, align 8
+  %41 = sext i32 %40 to i64
+  %42 = load i64, ptr @memory_FREEDBYTES, align 8
+  %43 = add i64 %42, %41
+  store i64 %43, ptr @memory_FREEDBYTES, align 8
+  %44 = load ptr, ptr %38, align 8
+  store ptr %44, ptr %22, align 8
+  %45 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 56), align 8
+  store ptr %22, ptr %45, align 8
+  %46 = load ptr, ptr %1, align 8
+  %47 = icmp eq ptr %37, null
+  br i1 %47, label %55, label %48
 
-47:                                               ; preds = %19
-  %48 = icmp eq ptr %45, null
-  br i1 %48, label %54, label %49
+48:                                               ; preds = %19
+  %49 = icmp eq ptr %46, null
+  br i1 %49, label %55, label %50
 
-49:                                               ; preds = %47, %49
-  %50 = phi ptr [ %51, %49 ], [ %36, %47 ]
-  %51 = load ptr, ptr %50, align 8
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %53, label %49, !llvm.loop !12
+50:                                               ; preds = %48, %50
+  %51 = phi ptr [ %52, %50 ], [ %37, %48 ]
+  %52 = load ptr, ptr %51, align 8
+  %53 = icmp eq ptr %52, null
+  br i1 %53, label %54, label %50, !llvm.loop !12
 
-53:                                               ; preds = %49
-  store ptr %45, ptr %50, align 8
-  br label %54
+54:                                               ; preds = %50
+  store ptr %46, ptr %51, align 8
+  br label %55
 
-54:                                               ; preds = %19, %47, %53
-  %55 = phi ptr [ %36, %53 ], [ %45, %19 ], [ %36, %47 ]
-  store ptr %55, ptr %1, align 8
+55:                                               ; preds = %19, %48, %54
+  %56 = phi ptr [ %37, %54 ], [ %46, %19 ], [ %37, %48 ]
+  store ptr %56, ptr %1, align 8
   br label %13
 }
 

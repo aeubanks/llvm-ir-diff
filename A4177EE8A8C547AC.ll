@@ -2817,12 +2817,12 @@ define internal fastcc void @_ZL37checkOverlappingMemoryOneRuntimeCheckIhEvSt8fu
   call void @_ZdaPv(ptr noundef nonnull %29) #24
   br label %84
 
-84:                                               ; preds = %82, %39
+84:                                               ; preds = %39, %82
   %85 = phi { ptr, i32 } [ %83, %82 ], [ %40, %39 ]
   call void @_ZdaPv(ptr noundef nonnull %27) #24
   br label %86
 
-86:                                               ; preds = %84, %37
+86:                                               ; preds = %37, %84
   %87 = phi { ptr, i32 } [ %85, %84 ], [ %38, %37 ]
   call void @_ZdaPv(ptr noundef nonnull %26) #24
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %10) #21
@@ -3006,12 +3006,12 @@ define internal fastcc void @_ZL37checkOverlappingMemoryOneRuntimeCheckIjEvSt8fu
   call void @_ZdaPv(ptr noundef nonnull %29) #24
   br label %84
 
-84:                                               ; preds = %82, %39
+84:                                               ; preds = %39, %82
   %85 = phi { ptr, i32 } [ %83, %82 ], [ %40, %39 ]
   call void @_ZdaPv(ptr noundef nonnull %27) #24
   br label %86
 
-86:                                               ; preds = %84, %37
+86:                                               ; preds = %37, %84
   %87 = phi { ptr, i32 } [ %85, %84 ], [ %38, %37 ]
   call void @_ZdaPv(ptr noundef nonnull %26) #24
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %10) #21
@@ -3192,12 +3192,12 @@ define internal fastcc void @_ZL37checkOverlappingMemoryOneRuntimeCheckImEvSt8fu
   call void @_ZdaPv(ptr noundef nonnull %29) #24
   br label %83
 
-83:                                               ; preds = %81, %39
+83:                                               ; preds = %39, %81
   %84 = phi { ptr, i32 } [ %82, %81 ], [ %40, %39 ]
   call void @_ZdaPv(ptr noundef nonnull %27) #24
   br label %85
 
-85:                                               ; preds = %83, %37
+85:                                               ; preds = %37, %83
   %86 = phi { ptr, i32 } [ %84, %83 ], [ %38, %37 ]
   call void @_ZdaPv(ptr noundef nonnull %26) #24
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %10) #21
@@ -3424,17 +3424,17 @@ define internal fastcc void @_ZL38checkOverlappingMemoryTwoRuntimeChecksIjEvSt8f
   call void @_ZdaPv(ptr noundef nonnull %34) #24
   br label %103
 
-103:                                              ; preds = %101, %47
+103:                                              ; preds = %47, %101
   %104 = phi { ptr, i32 } [ %102, %101 ], [ %48, %47 ]
   call void @_ZdaPv(ptr noundef nonnull %32) #24
   br label %105
 
-105:                                              ; preds = %103, %45
+105:                                              ; preds = %45, %103
   %106 = phi { ptr, i32 } [ %104, %103 ], [ %46, %45 ]
   call void @_ZdaPv(ptr noundef nonnull %30) #24
   br label %107
 
-107:                                              ; preds = %105, %43
+107:                                              ; preds = %43, %105
   %108 = phi { ptr, i32 } [ %106, %105 ], [ %44, %43 ]
   call void @_ZdaPv(ptr noundef nonnull %29) #24
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %13) #21
@@ -3661,17 +3661,17 @@ define internal fastcc void @_ZL38checkOverlappingMemoryTwoRuntimeChecksIhEvSt8f
   call void @_ZdaPv(ptr noundef nonnull %34) #24
   br label %103
 
-103:                                              ; preds = %101, %47
+103:                                              ; preds = %47, %101
   %104 = phi { ptr, i32 } [ %102, %101 ], [ %48, %47 ]
   call void @_ZdaPv(ptr noundef nonnull %32) #24
   br label %105
 
-105:                                              ; preds = %103, %45
+105:                                              ; preds = %45, %103
   %106 = phi { ptr, i32 } [ %104, %103 ], [ %46, %45 ]
   call void @_ZdaPv(ptr noundef nonnull %30) #24
   br label %107
 
-107:                                              ; preds = %105, %43
+107:                                              ; preds = %43, %105
   %108 = phi { ptr, i32 } [ %106, %105 ], [ %44, %43 ]
   call void @_ZdaPv(ptr noundef nonnull %29) #24
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %13) #21
@@ -3896,17 +3896,17 @@ define internal fastcc void @_ZL38checkOverlappingMemoryTwoRuntimeChecksImEvSt8f
   call void @_ZdaPv(ptr noundef nonnull %34) #24
   br label %101
 
-101:                                              ; preds = %99, %47
+101:                                              ; preds = %47, %99
   %102 = phi { ptr, i32 } [ %100, %99 ], [ %48, %47 ]
   call void @_ZdaPv(ptr noundef nonnull %32) #24
   br label %103
 
-103:                                              ; preds = %101, %45
+103:                                              ; preds = %45, %101
   %104 = phi { ptr, i32 } [ %102, %101 ], [ %46, %45 ]
   call void @_ZdaPv(ptr noundef nonnull %30) #24
   br label %105
 
-105:                                              ; preds = %103, %43
+105:                                              ; preds = %43, %103
   %106 = phi { ptr, i32 } [ %104, %103 ], [ %44, %43 ]
   call void @_ZdaPv(ptr noundef nonnull %29) #24
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %13) #21

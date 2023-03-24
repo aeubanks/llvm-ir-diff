@@ -221,7 +221,7 @@ define dso_local i32 @DisposeObject(ptr noundef %0) local_unnamed_addr #0 {
   %75 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %74, ptr noundef nonnull @.str.20) #6
   br label %76
 
-76:                                               ; preds = %73, %72
+76:                                               ; preds = %72, %73
   store ptr %65, ptr @xx_link, align 8, !tbaa !8
   %77 = getelementptr inbounds [2 x %struct.LIST], ptr %65, i64 0, i64 1, i32 1
   %78 = load ptr, ptr %77, align 8, !tbaa !5
@@ -420,7 +420,7 @@ define dso_local i32 @DisposeObject(ptr noundef %0) local_unnamed_addr #0 {
   %201 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %200, ptr noundef nonnull @.str.21) #6
   br label %202
 
-202:                                              ; preds = %199, %198
+202:                                              ; preds = %198, %199
   store ptr %191, ptr @xx_link, align 8, !tbaa !8
   %203 = getelementptr inbounds [2 x %struct.LIST], ptr %191, i64 0, i64 1, i32 1
   %204 = load ptr, ptr %203, align 8, !tbaa !5
@@ -2685,13 +2685,13 @@ define dso_local ptr @Meld(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0
   br i1 %52, label %46, label %53, !llvm.loop !12
 
 53:                                               ; preds = %46
-  %54 = add i8 %42, -100
-  %55 = icmp ult i8 %54, -91
-  %56 = icmp ult i8 %51, 9
-  %57 = select i1 %55, i1 true, i1 %56
-  %58 = icmp ugt i8 %51, 99
-  %59 = select i1 %57, i1 true, i1 %58
-  br i1 %59, label %63, label %67
+  %54 = add i8 %42, -9
+  %55 = icmp ult i8 %54, 91
+  %56 = icmp ugt i8 %51, 8
+  %57 = select i1 %55, i1 %56, i1 false
+  %58 = icmp ult i8 %51, 100
+  %59 = select i1 %57, i1 %58, i1 false
+  br i1 %59, label %67, label %63
 
 60:                                               ; preds = %28
   %61 = add i8 %33, -9
@@ -2776,13 +2776,13 @@ define dso_local ptr @Meld(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0
   br i1 %111, label %105, label %112, !llvm.loop !12
 
 112:                                              ; preds = %105
-  %113 = add i8 %101, -100
-  %114 = icmp ult i8 %113, -91
-  %115 = icmp ult i8 %110, 9
-  %116 = select i1 %114, i1 true, i1 %115
-  %117 = icmp ugt i8 %110, 99
-  %118 = select i1 %116, i1 true, i1 %117
-  br i1 %118, label %127, label %122
+  %113 = add i8 %101, -9
+  %114 = icmp ult i8 %113, 91
+  %115 = icmp ugt i8 %110, 8
+  %116 = select i1 %114, i1 %115, i1 false
+  %117 = icmp ult i8 %110, 100
+  %118 = select i1 %116, i1 %117, i1 false
+  br i1 %118, label %122, label %127
 
 119:                                              ; preds = %87
   %120 = add i8 %92, -9
@@ -2865,13 +2865,13 @@ define dso_local ptr @Meld(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0
   br i1 %167, label %161, label %168, !llvm.loop !12
 
 168:                                              ; preds = %161
-  %169 = add i8 %157, -100
-  %170 = icmp ult i8 %169, -91
-  %171 = icmp ult i8 %166, 9
-  %172 = select i1 %170, i1 true, i1 %171
-  %173 = icmp ugt i8 %166, 99
-  %174 = select i1 %172, i1 true, i1 %173
-  br i1 %174, label %178, label %182
+  %169 = add i8 %157, -9
+  %170 = icmp ult i8 %169, 91
+  %171 = icmp ugt i8 %166, 8
+  %172 = select i1 %170, i1 %171, i1 false
+  %173 = icmp ult i8 %166, 100
+  %174 = select i1 %172, i1 %173, i1 false
+  br i1 %174, label %182, label %178
 
 175:                                              ; preds = %143
   %176 = add i8 %148, -9
@@ -2956,13 +2956,13 @@ define dso_local ptr @Meld(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0
   br i1 %226, label %220, label %227, !llvm.loop !12
 
 227:                                              ; preds = %220
-  %228 = add i8 %216, -100
-  %229 = icmp ult i8 %228, -91
-  %230 = icmp ult i8 %225, 9
-  %231 = select i1 %229, i1 true, i1 %230
-  %232 = icmp ugt i8 %225, 99
-  %233 = select i1 %231, i1 true, i1 %232
-  br i1 %233, label %242, label %237
+  %228 = add i8 %216, -9
+  %229 = icmp ult i8 %228, 91
+  %230 = icmp ugt i8 %225, 8
+  %231 = select i1 %229, i1 %230, i1 false
+  %232 = icmp ult i8 %225, 100
+  %233 = select i1 %231, i1 %232, i1 false
+  br i1 %233, label %237, label %242
 
 234:                                              ; preds = %202
   %235 = add i8 %207, -9

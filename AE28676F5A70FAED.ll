@@ -33,10 +33,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.9 = private unnamed_addr constant [31 x i8] c"MonteCarlo:     Mflops: %8.2f\0A\00", align 1
 @.str.10 = private unnamed_addr constant [48 x i8] c"Sparse matmult  Mflops: %8.2f    (N=%d, nz=%d)\0A\00", align 1
 @.str.11 = private unnamed_addr constant [47 x i8] c"LU              Mflops: %8.2f    (M=%d, N=%d)\0A\00", align 1
-@str = private unnamed_addr constant [59 x i8] c"NOTE!!! All Mflops disabled to prevent diffs from failing!\00", align 1
-@str.16 = private unnamed_addr constant [67 x i8] c"** SciMark2 Numeric Benchmark, see http://math.nist.gov/scimark **\00", align 1
-@str.17 = private unnamed_addr constant [67 x i8] c"** for details. (Results can be submitted to pozo@nist.gov)     **\00", align 1
-@str.18 = private unnamed_addr constant [67 x i8] c"**                                                              **\00", align 1
+@str.15 = private unnamed_addr constant [67 x i8] c"** SciMark2 Numeric Benchmark, see http://math.nist.gov/scimark **\00", align 1
+@str.16 = private unnamed_addr constant [67 x i8] c"** for details. (Results can be submitted to pozo@nist.gov)     **\00", align 1
+@str.17 = private unnamed_addr constant [67 x i8] c"**                                                              **\00", align 1
+@str.18 = private unnamed_addr constant [59 x i8] c"NOTE!!! All Mflops disabled to prevent diffs from failing!\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
@@ -92,10 +92,10 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %35 = phi i32 [ 100, %2 ], [ %23, %27 ], [ %23, %20 ]
   %36 = phi i32 [ 1024, %2 ], [ %24, %27 ], [ %24, %20 ]
   %37 = phi double [ 2.000000e+00, %2 ], [ %31, %27 ], [ 2.000000e+00, %20 ]
-  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
-  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
   %42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, double noundef %37)
   %43 = tail call double @kernel_measureFFT(i32 noundef %36, double noundef %37, ptr noundef %3) #8
   %44 = tail call double @kernel_measureSOR(i32 noundef %35, double noundef %37, ptr noundef %3) #8
@@ -107,7 +107,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %50 = fadd double %49, %46
   %51 = fadd double %50, %47
   %52 = fdiv double %51, 5.000000e+00
-  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
   %54 = fdiv double %52, 1.000000e+07
   %55 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %54)
   %56 = fdiv double %43, 1.000000e+07
@@ -134,10 +134,10 @@ declare void @exit(i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @print_banner() local_unnamed_addr #4 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
   ret void
 }
 

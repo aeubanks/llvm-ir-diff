@@ -103,7 +103,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.39 = private unnamed_addr constant [33 x i8] c"equal_elem_patternrepresentation\00", align 1
 @.str.40 = private unnamed_addr constant [12 x i8] c"equal_paths\00", align 1
 @.str.41 = private unnamed_addr constant [11 x i8] c"equal_path\00", align 1
-@str.43 = private unnamed_addr constant [37 x i8] c"Don't know how to compare these yet:\00", align 1
+@str.44 = private unnamed_addr constant [37 x i8] c"Don't know how to compare these yet:\00", align 1
 
 ; Function Attrs: mustprogress uwtable
 define dso_local noundef ptr @_ZN2kc17syn_patternchainsEPNS_18impl_patternchainsE(ptr noundef %0) local_unnamed_addr #0 {
@@ -801,22 +801,22 @@ define internal fastcc noundef ptr @_ZN2kcL14add_predicatesEPNS_26impl_patternre
   %19 = load ptr, ptr %18, align 8
   %20 = tail call noundef i32 %19(ptr noundef nonnull align 8 dereferenceable(8) %17)
   %21 = icmp eq i32 %20, 7
-  br i1 %21, label %23, label %22
+  br i1 %21, label %22, label %29
 
 22:                                               ; preds = %15
+  %23 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %17, i64 0, i32 1
+  %24 = load ptr, ptr %23, align 8, !tbaa !50
+  %25 = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %24)
+  %26 = getelementptr inbounds %"class.kc::impl_bindingidmark", ptr %25, i64 0, i32 1
+  %27 = load i8, ptr %26, align 8, !tbaa !58, !range !61, !noundef !62
+  %28 = icmp eq i8 %27, 0
+  br i1 %28, label %30, label %43
+
+29:                                               ; preds = %15
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
   br label %30
 
-23:                                               ; preds = %15
-  %24 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %17, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !50
-  %26 = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %25)
-  %27 = getelementptr inbounds %"class.kc::impl_bindingidmark", ptr %26, i64 0, i32 1
-  %28 = load i8, ptr %27, align 8, !tbaa !58, !range !61, !noundef !62
-  %29 = icmp eq i8 %28, 0
-  br i1 %29, label %30, label %43
-
-30:                                               ; preds = %23, %22
+30:                                               ; preds = %29, %22
   %31 = load ptr, ptr %17, align 8, !tbaa !5
   %32 = load ptr, ptr %31, align 8
   %33 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(8) %17)
@@ -839,7 +839,7 @@ define internal fastcc noundef ptr @_ZN2kcL14add_predicatesEPNS_26impl_patternre
   %42 = tail call fastcc noundef ptr @_ZN2kcL15make_predicatesEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE(ptr noundef nonnull %8, ptr noundef %10)
   br label %84
 
-43:                                               ; preds = %23
+43:                                               ; preds = %22
   %44 = tail call noundef ptr @_ZN2kc24NilpatternrepresentationEv()
   br label %84
 
@@ -857,22 +857,22 @@ define internal fastcc noundef ptr @_ZN2kcL14add_predicatesEPNS_26impl_patternre
   %54 = load ptr, ptr %53, align 8
   %55 = tail call noundef i32 %54(ptr noundef nonnull align 8 dereferenceable(8) %52)
   %56 = icmp eq i32 %55, 7
-  br i1 %56, label %58, label %57
+  br i1 %56, label %57, label %64
 
 57:                                               ; preds = %50
+  %58 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %52, i64 0, i32 1
+  %59 = load ptr, ptr %58, align 8, !tbaa !50
+  %60 = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %59)
+  %61 = getelementptr inbounds %"class.kc::impl_bindingidmark", ptr %60, i64 0, i32 1
+  %62 = load i8, ptr %61, align 8, !tbaa !58, !range !61, !noundef !62
+  %63 = icmp eq i8 %62, 0
+  br i1 %63, label %65, label %78
+
+64:                                               ; preds = %50
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
   br label %65
 
-58:                                               ; preds = %50
-  %59 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %52, i64 0, i32 1
-  %60 = load ptr, ptr %59, align 8, !tbaa !50
-  %61 = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %60)
-  %62 = getelementptr inbounds %"class.kc::impl_bindingidmark", ptr %61, i64 0, i32 1
-  %63 = load i8, ptr %62, align 8, !tbaa !58, !range !61, !noundef !62
-  %64 = icmp eq i8 %63, 0
-  br i1 %64, label %65, label %78
-
-65:                                               ; preds = %58, %57
+65:                                               ; preds = %64, %57
   %66 = load ptr, ptr %52, align 8, !tbaa !5
   %67 = load ptr, ptr %66, align 8
   %68 = tail call noundef i32 %67(ptr noundef nonnull align 8 dereferenceable(8) %52)
@@ -895,7 +895,7 @@ define internal fastcc noundef ptr @_ZN2kcL14add_predicatesEPNS_26impl_patternre
   %77 = tail call fastcc noundef ptr @_ZN2kcL15make_predicatesEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE(ptr noundef nonnull %8, ptr noundef %10)
   br label %84
 
-78:                                               ; preds = %58
+78:                                               ; preds = %57
   %79 = tail call noundef ptr @_ZN2kc24NilpatternrepresentationEv()
   br label %84
 
@@ -1072,37 +1072,37 @@ define internal fastcc noundef ptr @_ZN2kcL25insertin_rewriterulesinfoEPNS_20imp
   %13 = load ptr, ptr %12, align 8
   %14 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %9)
   %15 = icmp eq i32 %14, 219
-  br i1 %15, label %16, label %21
+  br i1 %15, label %16, label %27
 
 16:                                               ; preds = %7
   %17 = load ptr, ptr %0, align 8, !tbaa !5
   %18 = load ptr, ptr %17, align 8
   %19 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %0)
   %20 = icmp eq i32 %19, 219
-  br i1 %20, label %22, label %21
+  br i1 %20, label %21, label %27
 
-21:                                               ; preds = %7, %16
+21:                                               ; preds = %16
+  %22 = getelementptr inbounds %"class.kc::impl_rewriteruleinfo_Rewriteruleinfo", ptr %9, i64 0, i32 1
+  %23 = load ptr, ptr %22, align 8, !tbaa !88
+  %24 = getelementptr inbounds %"class.kc::impl_rewriteruleinfo_Rewriteruleinfo", ptr %0, i64 0, i32 1
+  %25 = load ptr, ptr %24, align 8, !tbaa !88
+  %26 = tail call fastcc noundef zeroext i1 @_ZN2kcL24lt_patternrepresentationEPNS_26impl_patternrepresentationES1_(ptr noundef %23, ptr noundef %25)
+  br i1 %26, label %30, label %33
+
+27:                                               ; preds = %16, %7
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.35, i32 noundef 948, ptr noundef nonnull @.str.1)
   br label %33
-
-22:                                               ; preds = %16
-  %23 = getelementptr inbounds %"class.kc::impl_rewriteruleinfo_Rewriteruleinfo", ptr %9, i64 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !88
-  %25 = getelementptr inbounds %"class.kc::impl_rewriteruleinfo_Rewriteruleinfo", ptr %0, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !88
-  %27 = tail call fastcc noundef zeroext i1 @_ZN2kcL24lt_patternrepresentationEPNS_26impl_patternrepresentationES1_(ptr noundef %24, ptr noundef %26)
-  br i1 %27, label %30, label %33
 
 28:                                               ; preds = %33, %42, %40, %30
   %29 = phi ptr [ %32, %30 ], [ %41, %40 ], [ null, %42 ], [ %34, %33 ]
   ret ptr %29
 
-30:                                               ; preds = %22
+30:                                               ; preds = %21
   %31 = tail call fastcc noundef ptr @_ZN2kcL25insertin_rewriterulesinfoEPNS_20impl_rewriteruleinfoEPNS_21impl_rewriterulesinfoE(ptr noundef nonnull %0, ptr noundef %11)
   %32 = tail call noundef ptr @_ZN2kc20ConsrewriterulesinfoEPNS_20impl_rewriteruleinfoEPNS_21impl_rewriterulesinfoE(ptr noundef nonnull %9, ptr noundef %31)
   br label %28
 
-33:                                               ; preds = %21, %22
+33:                                               ; preds = %27, %21
   %34 = tail call noundef ptr @_ZN2kc20ConsrewriterulesinfoEPNS_20impl_rewriteruleinfoEPNS_21impl_rewriterulesinfoE(ptr noundef %0, ptr noundef nonnull %1)
   br label %28
 
@@ -1308,37 +1308,37 @@ define dso_local noundef ptr @_ZN2kc22insertin_withcasesinfoEPNS_17impl_withcase
   %13 = load ptr, ptr %12, align 8
   %14 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %9)
   %15 = icmp eq i32 %14, 222
-  br i1 %15, label %16, label %21
+  br i1 %15, label %16, label %27
 
 16:                                               ; preds = %7
   %17 = load ptr, ptr %0, align 8, !tbaa !5
   %18 = load ptr, ptr %17, align 8
   %19 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %0)
   %20 = icmp eq i32 %19, 222
-  br i1 %20, label %22, label %21
+  br i1 %20, label %21, label %27
 
-21:                                               ; preds = %7, %16
+21:                                               ; preds = %16
+  %22 = getelementptr inbounds %"class.kc::impl_withcaseinfo_Withcaseinfo", ptr %9, i64 0, i32 1
+  %23 = load ptr, ptr %22, align 8, !tbaa !95
+  %24 = getelementptr inbounds %"class.kc::impl_withcaseinfo_Withcaseinfo", ptr %0, i64 0, i32 1
+  %25 = load ptr, ptr %24, align 8, !tbaa !95
+  %26 = tail call fastcc noundef zeroext i1 @_ZN2kcL24lt_patternrepresentationEPNS_26impl_patternrepresentationES1_(ptr noundef %23, ptr noundef %25)
+  br i1 %26, label %30, label %33
+
+27:                                               ; preds = %16, %7
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.11, i32 noundef 989, ptr noundef nonnull @.str.1)
   br label %33
-
-22:                                               ; preds = %16
-  %23 = getelementptr inbounds %"class.kc::impl_withcaseinfo_Withcaseinfo", ptr %9, i64 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !95
-  %25 = getelementptr inbounds %"class.kc::impl_withcaseinfo_Withcaseinfo", ptr %0, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !95
-  %27 = tail call fastcc noundef zeroext i1 @_ZN2kcL24lt_patternrepresentationEPNS_26impl_patternrepresentationES1_(ptr noundef %24, ptr noundef %26)
-  br i1 %27, label %30, label %33
 
 28:                                               ; preds = %33, %42, %40, %30
   %29 = phi ptr [ %32, %30 ], [ %41, %40 ], [ null, %42 ], [ %34, %33 ]
   ret ptr %29
 
-30:                                               ; preds = %22
+30:                                               ; preds = %21
   %31 = tail call noundef ptr @_ZN2kc22insertin_withcasesinfoEPNS_17impl_withcaseinfoEPNS_18impl_withcasesinfoE(ptr noundef nonnull %0, ptr noundef %11)
   %32 = tail call noundef ptr @_ZN2kc17ConswithcasesinfoEPNS_17impl_withcaseinfoEPNS_18impl_withcasesinfoE(ptr noundef nonnull %9, ptr noundef %31)
   br label %28
 
-33:                                               ; preds = %21, %22
+33:                                               ; preds = %27, %21
   %34 = tail call noundef ptr @_ZN2kc17ConswithcasesinfoEPNS_17impl_withcaseinfoEPNS_18impl_withcasesinfoE(ptr noundef %0, ptr noundef nonnull %1)
   br label %28
 
@@ -1493,37 +1493,37 @@ define internal fastcc noundef ptr @_ZN2kcL25insertin_unparsedeclsinfoEPNS_20imp
   %13 = load ptr, ptr %12, align 8
   %14 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %9)
   %15 = icmp eq i32 %14, 231
-  br i1 %15, label %16, label %21
+  br i1 %15, label %16, label %27
 
 16:                                               ; preds = %7
   %17 = load ptr, ptr %0, align 8, !tbaa !5
   %18 = load ptr, ptr %17, align 8
   %19 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %0)
   %20 = icmp eq i32 %19, 231
-  br i1 %20, label %22, label %21
+  br i1 %20, label %21, label %27
 
-21:                                               ; preds = %7, %16
+21:                                               ; preds = %16
+  %22 = getelementptr inbounds %"class.kc::impl_unparsedeclinfo_Unparsedeclinfo", ptr %9, i64 0, i32 1
+  %23 = load ptr, ptr %22, align 8, !tbaa !107
+  %24 = getelementptr inbounds %"class.kc::impl_unparsedeclinfo_Unparsedeclinfo", ptr %0, i64 0, i32 1
+  %25 = load ptr, ptr %24, align 8, !tbaa !107
+  %26 = tail call fastcc noundef zeroext i1 @_ZN2kcL24lt_patternrepresentationEPNS_26impl_patternrepresentationES1_(ptr noundef %23, ptr noundef %25)
+  br i1 %26, label %30, label %33
+
+27:                                               ; preds = %16, %7
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.37, i32 noundef 1030, ptr noundef nonnull @.str.1)
   br label %33
-
-22:                                               ; preds = %16
-  %23 = getelementptr inbounds %"class.kc::impl_unparsedeclinfo_Unparsedeclinfo", ptr %9, i64 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !107
-  %25 = getelementptr inbounds %"class.kc::impl_unparsedeclinfo_Unparsedeclinfo", ptr %0, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !107
-  %27 = tail call fastcc noundef zeroext i1 @_ZN2kcL24lt_patternrepresentationEPNS_26impl_patternrepresentationES1_(ptr noundef %24, ptr noundef %26)
-  br i1 %27, label %30, label %33
 
 28:                                               ; preds = %33, %42, %40, %30
   %29 = phi ptr [ %32, %30 ], [ %41, %40 ], [ null, %42 ], [ %34, %33 ]
   ret ptr %29
 
-30:                                               ; preds = %22
+30:                                               ; preds = %21
   %31 = tail call fastcc noundef ptr @_ZN2kcL25insertin_unparsedeclsinfoEPNS_20impl_unparsedeclinfoEPNS_21impl_unparsedeclsinfoE(ptr noundef nonnull %0, ptr noundef %11)
   %32 = tail call noundef ptr @_ZN2kc20ConsunparsedeclsinfoEPNS_20impl_unparsedeclinfoEPNS_21impl_unparsedeclsinfoE(ptr noundef nonnull %9, ptr noundef %31)
   br label %28
 
-33:                                               ; preds = %21, %22
+33:                                               ; preds = %27, %21
   %34 = tail call noundef ptr @_ZN2kc20ConsunparsedeclsinfoEPNS_20impl_unparsedeclinfoEPNS_21impl_unparsedeclsinfoE(ptr noundef %0, ptr noundef nonnull %1)
   br label %28
 
@@ -2886,7 +2886,7 @@ define dso_local void @_ZN2kc16compare_patternsEPNS_26impl_patternrepresentation
   br i1 %48, label %612, label %49
 
 49:                                               ; preds = %46
-  %50 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %50 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
   %51 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %5, i64 0, i32 2
   %52 = load ptr, ptr %51, align 8, !tbaa !122
   %53 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %52, i64 0, i32 1
@@ -2927,7 +2927,7 @@ define dso_local void @_ZN2kc16compare_patternsEPNS_26impl_patternrepresentation
   br i1 %79, label %612, label %80
 
 80:                                               ; preds = %77
-  %81 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %81 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
   %82 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %5, i64 0, i32 2
   %83 = load ptr, ptr %82, align 8, !tbaa !122
   %84 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %83, i64 0, i32 1
@@ -3502,7 +3502,7 @@ define dso_local void @_ZN2kc16compare_patternsEPNS_26impl_patternrepresentation
   br i1 %489, label %612, label %490
 
 490:                                              ; preds = %482
-  %491 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %491 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
   %492 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation", ptr %5, i64 0, i32 2
   %493 = load ptr, ptr %492, align 8, !tbaa !122
   %494 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %493, i64 0, i32 1
@@ -4226,8 +4226,8 @@ define internal fastcc noundef ptr @_ZN2kcL17f_do_get_bindingsEPNS_26impl_patter
   %5 = icmp eq i32 %4, 201
   br i1 %5, label %6, label %86
 
-6:                                                ; preds = %1, %31
-  %7 = phi ptr [ %11, %31 ], [ %0, %1 ]
+6:                                                ; preds = %1, %30
+  %7 = phi ptr [ %11, %30 ], [ %0, %1 ]
   %8 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %7, i64 0, i32 1
   %9 = load ptr, ptr %8, align 8, !tbaa !71
   %10 = getelementptr inbounds %"class.kc::impl_patternrepresentation", ptr %7, i64 0, i32 2
@@ -4245,29 +4245,29 @@ define internal fastcc noundef ptr @_ZN2kcL17f_do_get_bindingsEPNS_26impl_patter
   %20 = load ptr, ptr %19, align 8
   %21 = tail call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %18)
   %22 = icmp eq i32 %21, 7
-  br i1 %22, label %24, label %23
+  br i1 %22, label %23, label %35
 
 23:                                               ; preds = %16
+  %24 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %18, i64 0, i32 1
+  %25 = load ptr, ptr %24, align 8, !tbaa !50
+  %26 = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %25)
+  %27 = getelementptr inbounds %"class.kc::impl_bindingidmark", ptr %26, i64 0, i32 1
+  %28 = load i8, ptr %27, align 8, !tbaa !58, !range !61, !noundef !62
+  %29 = icmp eq i8 %28, 0
+  br i1 %29, label %36, label %30
+
+30:                                               ; preds = %23, %64, %52
+  %31 = load ptr, ptr %11, align 8, !tbaa !5
+  %32 = load ptr, ptr %31, align 8
+  %33 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(24) %11)
+  %34 = icmp eq i32 %33, 201
+  br i1 %34, label %6, label %86
+
+35:                                               ; preds = %16
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
   br label %36
 
-24:                                               ; preds = %16
-  %25 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %18, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !50
-  %27 = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %26)
-  %28 = getelementptr inbounds %"class.kc::impl_bindingidmark", ptr %27, i64 0, i32 1
-  %29 = load i8, ptr %28, align 8, !tbaa !58, !range !61, !noundef !62
-  %30 = icmp eq i8 %29, 0
-  br i1 %30, label %36, label %31
-
-31:                                               ; preds = %24, %65, %52
-  %32 = load ptr, ptr %11, align 8, !tbaa !5
-  %33 = load ptr, ptr %32, align 8
-  %34 = tail call noundef i32 %33(ptr noundef nonnull align 8 dereferenceable(24) %11)
-  %35 = icmp eq i32 %34, 201
-  br i1 %35, label %6, label %86
-
-36:                                               ; preds = %24, %23
+36:                                               ; preds = %23, %35
   %37 = load ptr, ptr %18, align 8, !tbaa !5
   %38 = load ptr, ptr %37, align 8
   %39 = tail call noundef i32 %38(ptr noundef nonnull align 8 dereferenceable(8) %18)
@@ -4300,7 +4300,7 @@ define internal fastcc noundef ptr @_ZN2kcL17f_do_get_bindingsEPNS_26impl_patter
   %54 = load ptr, ptr %53, align 8
   %55 = tail call noundef i32 %54(ptr noundef nonnull align 8 dereferenceable(8) %9)
   %56 = icmp eq i32 %55, 202
-  br i1 %56, label %57, label %31
+  br i1 %56, label %57, label %30
 
 57:                                               ; preds = %52
   %58 = getelementptr inbounds %"class.kc::impl_elem_patternrepresentation_PRBinding", ptr %9, i64 0, i32 2
@@ -4309,22 +4309,22 @@ define internal fastcc noundef ptr @_ZN2kcL17f_do_get_bindingsEPNS_26impl_patter
   %61 = load ptr, ptr %60, align 8
   %62 = tail call noundef i32 %61(ptr noundef nonnull align 8 dereferenceable(8) %59)
   %63 = icmp eq i32 %62, 7
-  br i1 %63, label %65, label %64
+  br i1 %63, label %64, label %71
 
 64:                                               ; preds = %57
+  %65 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %59, i64 0, i32 1
+  %66 = load ptr, ptr %65, align 8, !tbaa !50
+  %67 = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %66)
+  %68 = getelementptr inbounds %"class.kc::impl_bindingidmark", ptr %67, i64 0, i32 1
+  %69 = load i8, ptr %68, align 8, !tbaa !58, !range !61, !noundef !62
+  %70 = icmp eq i8 %69, 0
+  br i1 %70, label %72, label %30
+
+71:                                               ; preds = %57
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.6, i32 noundef 436, ptr noundef nonnull @.str.1)
   br label %72
 
-65:                                               ; preds = %57
-  %66 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %59, i64 0, i32 1
-  %67 = load ptr, ptr %66, align 8, !tbaa !50
-  %68 = tail call noundef ptr @_ZN2kc13BindingIdMarkEPNS_11impl_uniqIDE(ptr noundef %67)
-  %69 = getelementptr inbounds %"class.kc::impl_bindingidmark", ptr %68, i64 0, i32 1
-  %70 = load i8, ptr %69, align 8, !tbaa !58, !range !61, !noundef !62
-  %71 = icmp eq i8 %70, 0
-  br i1 %71, label %72, label %31
-
-72:                                               ; preds = %65, %64
+72:                                               ; preds = %64, %71
   %73 = load ptr, ptr %59, align 8, !tbaa !5
   %74 = load ptr, ptr %73, align 8
   %75 = tail call noundef i32 %74(ptr noundef nonnull align 8 dereferenceable(8) %59)
@@ -4348,8 +4348,8 @@ define internal fastcc noundef ptr @_ZN2kcL17f_do_get_bindingsEPNS_26impl_patter
   %85 = tail call noundef ptr @_ZN2kc25ConspatternrepresentationEPNS_31impl_elem_patternrepresentationEPNS_26impl_patternrepresentationE(ptr noundef nonnull %9, ptr noundef %84)
   br label %47
 
-86:                                               ; preds = %31, %1
-  %87 = phi ptr [ %0, %1 ], [ %11, %31 ]
+86:                                               ; preds = %30, %1
+  %87 = phi ptr [ %0, %1 ], [ %11, %30 ]
   %88 = load ptr, ptr %87, align 8, !tbaa !5
   %89 = load ptr, ptr %88, align 8
   %90 = tail call noundef i32 %89(ptr noundef nonnull align 8 dereferenceable(24) %87)

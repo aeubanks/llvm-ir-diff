@@ -106,7 +106,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
 22:                                               ; preds = %19, %13
   %23 = phi i32 [ %18, %13 ], [ %11, %19 ]
   %24 = phi ptr [ %17, %13 ], [ %20, %19 ]
-  %25 = load i8, ptr %24, align 1, !tbaa !9
+  %25 = load i8, ptr %24, align 1, !tbaa.struct !9
   %26 = sext i8 %25 to i32
   %27 = load i32, ptr @bar.lastn, align 4, !tbaa !5
   %28 = icmp eq i32 %27, 1
@@ -162,7 +162,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
 53:                                               ; preds = %44, %50
   %54 = phi i32 [ %49, %44 ], [ %23, %50 ]
   %55 = phi ptr [ %48, %44 ], [ %51, %50 ]
-  %56 = load i16, ptr %55, align 1, !tbaa !9
+  %56 = load i16, ptr %55, align 1, !tbaa !10
   %57 = icmp eq i32 %35, 0
   br i1 %57, label %59, label %58
 
@@ -210,11 +210,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
 77:                                               ; preds = %68, %74
   %78 = phi i32 [ %73, %68 ], [ %54, %74 ]
   %79 = phi ptr [ %72, %68 ], [ %75, %74 ]
-  %80 = load i8, ptr %79, align 1, !tbaa.struct !10
+  %80 = load i8, ptr %79, align 1, !tbaa.struct !11
   %81 = getelementptr inbounds i8, ptr %79, i64 1
-  %82 = load i8, ptr %81, align 1, !tbaa.struct !11
+  %82 = load i8, ptr %81, align 1, !tbaa.struct !12
   %83 = getelementptr inbounds i8, ptr %79, i64 2
-  %84 = load i8, ptr %83, align 1, !tbaa.struct !12
+  %84 = load i8, ptr %83, align 1, !tbaa.struct !9
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 3, ptr @bar.lastn, align 4, !tbaa !5
   %85 = icmp eq i8 %80, 24
@@ -257,7 +257,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
 102:                                              ; preds = %93, %99
   %103 = phi i32 [ %98, %93 ], [ %78, %99 ]
   %104 = phi ptr [ %97, %93 ], [ %100, %99 ]
-  %105 = load i32, ptr %104, align 1, !tbaa !9
+  %105 = load i32, ptr %104, align 1, !tbaa !10
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 4, ptr @bar.lastn, align 4, !tbaa !5
   %106 = and i32 %105, 255
@@ -313,11 +313,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %133 = getelementptr inbounds i8, ptr %131, i64 1
   %134 = load i8, ptr %133, align 1, !tbaa.struct !14
   %135 = getelementptr inbounds i8, ptr %131, i64 2
-  %136 = load i8, ptr %135, align 1, !tbaa.struct !10
+  %136 = load i8, ptr %135, align 1, !tbaa.struct !11
   %137 = getelementptr inbounds i8, ptr %131, i64 3
-  %138 = load i8, ptr %137, align 1, !tbaa.struct !11
+  %138 = load i8, ptr %137, align 1, !tbaa.struct !12
   %139 = getelementptr inbounds i8, ptr %131, i64 4
-  %140 = load i8, ptr %139, align 1, !tbaa.struct !12
+  %140 = load i8, ptr %139, align 1, !tbaa.struct !9
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 5, ptr @bar.lastn, align 4, !tbaa !5
   %141 = icmp eq i8 %132, 40
@@ -375,11 +375,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %167 = getelementptr inbounds i8, ptr %163, i64 2
   %168 = load i8, ptr %167, align 1, !tbaa.struct !14
   %169 = getelementptr inbounds i8, ptr %163, i64 3
-  %170 = load i8, ptr %169, align 1, !tbaa.struct !10
+  %170 = load i8, ptr %169, align 1, !tbaa.struct !11
   %171 = getelementptr inbounds i8, ptr %163, i64 4
-  %172 = load i8, ptr %171, align 1, !tbaa.struct !11
+  %172 = load i8, ptr %171, align 1, !tbaa.struct !12
   %173 = getelementptr inbounds i8, ptr %163, i64 5
-  %174 = load i8, ptr %173, align 1, !tbaa.struct !12
+  %174 = load i8, ptr %173, align 1, !tbaa.struct !9
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 6, ptr @bar.lastn, align 4, !tbaa !5
   %175 = icmp eq i8 %164, 48
@@ -427,11 +427,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %195 = getelementptr inbounds i8, ptr %188, i64 3
   %196 = load i8, ptr %195, align 1, !tbaa.struct !14
   %197 = getelementptr inbounds i8, ptr %188, i64 4
-  %198 = load i8, ptr %197, align 1, !tbaa.struct !10
+  %198 = load i8, ptr %197, align 1, !tbaa.struct !11
   %199 = getelementptr inbounds i8, ptr %188, i64 5
-  %200 = load i8, ptr %199, align 1, !tbaa.struct !11
+  %200 = load i8, ptr %199, align 1, !tbaa.struct !12
   %201 = getelementptr inbounds i8, ptr %188, i64 6
-  %202 = load i8, ptr %201, align 1, !tbaa.struct !12
+  %202 = load i8, ptr %201, align 1, !tbaa.struct !9
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 7, ptr @bar.lastn, align 4, !tbaa !5
   %203 = icmp eq i8 %190, 56
@@ -475,7 +475,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %218 = load ptr, ptr %10, align 8
   %219 = getelementptr i8, ptr %218, i64 8
   store ptr %219, ptr %10, align 8
-  %220 = load i64, ptr %218, align 1, !tbaa !9
+  %220 = load i64, ptr %218, align 1, !tbaa !10
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 8, ptr @bar.lastn, align 4, !tbaa !5
   %221 = and i64 %220, 255
@@ -545,11 +545,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %257 = getelementptr inbounds i8, ptr %246, i64 5
   %258 = load i8, ptr %257, align 1, !tbaa.struct !14
   %259 = getelementptr inbounds i8, ptr %246, i64 6
-  %260 = load i8, ptr %259, align 1, !tbaa.struct !10
+  %260 = load i8, ptr %259, align 1, !tbaa.struct !11
   %261 = getelementptr inbounds i8, ptr %246, i64 7
-  %262 = load i8, ptr %261, align 1, !tbaa.struct !11
+  %262 = load i8, ptr %261, align 1, !tbaa.struct !12
   %263 = getelementptr inbounds i8, ptr %246, i64 8
-  %264 = load i8, ptr %263, align 1, !tbaa.struct !12
+  %264 = load i8, ptr %263, align 1, !tbaa.struct !9
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 9, ptr @bar.lastn, align 4, !tbaa !5
   %265 = icmp eq i8 %248, 72
@@ -618,11 +618,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %297 = getelementptr inbounds i8, ptr %284, i64 6
   %298 = load i8, ptr %297, align 1, !tbaa.struct !14
   %299 = getelementptr inbounds i8, ptr %284, i64 7
-  %300 = load i8, ptr %299, align 1, !tbaa.struct !10
+  %300 = load i8, ptr %299, align 1, !tbaa.struct !11
   %301 = getelementptr inbounds i8, ptr %284, i64 8
-  %302 = load i8, ptr %301, align 1, !tbaa.struct !11
+  %302 = load i8, ptr %301, align 1, !tbaa.struct !12
   %303 = getelementptr inbounds i8, ptr %284, i64 9
-  %304 = load i8, ptr %303, align 1, !tbaa.struct !12
+  %304 = load i8, ptr %303, align 1, !tbaa.struct !9
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 10, ptr @bar.lastn, align 4, !tbaa !5
   %305 = icmp eq i8 %286, 80
@@ -717,11 +717,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %353 = getelementptr inbounds i8, ptr %339, i64 7
   %354 = load i8, ptr %353, align 1, !tbaa.struct !14
   %355 = getelementptr inbounds i8, ptr %339, i64 8
-  %356 = load i8, ptr %355, align 1, !tbaa.struct !10
+  %356 = load i8, ptr %355, align 1, !tbaa.struct !11
   %357 = getelementptr inbounds i8, ptr %339, i64 9
-  %358 = load i8, ptr %357, align 1, !tbaa.struct !11
+  %358 = load i8, ptr %357, align 1, !tbaa.struct !12
   %359 = getelementptr inbounds i8, ptr %339, i64 10
-  %360 = load i8, ptr %359, align 1, !tbaa.struct !12
+  %360 = load i8, ptr %359, align 1, !tbaa.struct !9
   %361 = load i32, ptr @bar.lastn, align 4, !tbaa !5
   %362 = sext i8 %340 to i32
   %363 = icmp eq i32 %361, 11
@@ -871,11 +871,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %452 = getelementptr inbounds i8, ptr %437, i64 8
   %453 = load i8, ptr %452, align 1, !tbaa.struct !14
   %454 = getelementptr inbounds i8, ptr %437, i64 9
-  %455 = load i8, ptr %454, align 1, !tbaa.struct !10
+  %455 = load i8, ptr %454, align 1, !tbaa.struct !11
   %456 = getelementptr inbounds i8, ptr %437, i64 10
-  %457 = load i8, ptr %456, align 1, !tbaa.struct !11
+  %457 = load i8, ptr %456, align 1, !tbaa.struct !12
   %458 = getelementptr inbounds i8, ptr %437, i64 11
-  %459 = load i8, ptr %458, align 1, !tbaa.struct !12
+  %459 = load i8, ptr %458, align 1, !tbaa.struct !9
   br i1 %363, label %460, label %461
 
 460:                                              ; preds = %435
@@ -990,11 +990,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %517 = getelementptr inbounds i8, ptr %499, i64 9
   %518 = load i8, ptr %517, align 1, !tbaa.struct !14
   %519 = getelementptr inbounds i8, ptr %499, i64 10
-  %520 = load i8, ptr %519, align 1, !tbaa.struct !10
+  %520 = load i8, ptr %519, align 1, !tbaa.struct !11
   %521 = getelementptr inbounds i8, ptr %499, i64 11
-  %522 = load i8, ptr %521, align 1, !tbaa.struct !11
+  %522 = load i8, ptr %521, align 1, !tbaa.struct !12
   %523 = getelementptr inbounds i8, ptr %499, i64 12
-  %524 = load i8, ptr %523, align 1, !tbaa.struct !12
+  %524 = load i8, ptr %523, align 1, !tbaa.struct !9
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 13, ptr @bar.lastn, align 4, !tbaa !5
   %525 = icmp eq i8 %500, 104
@@ -1091,11 +1091,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %573 = getelementptr inbounds i8, ptr %552, i64 10
   %574 = load i8, ptr %573, align 1, !tbaa.struct !14
   %575 = getelementptr inbounds i8, ptr %552, i64 11
-  %576 = load i8, ptr %575, align 1, !tbaa.struct !10
+  %576 = load i8, ptr %575, align 1, !tbaa.struct !11
   %577 = getelementptr inbounds i8, ptr %552, i64 12
-  %578 = load i8, ptr %577, align 1, !tbaa.struct !11
+  %578 = load i8, ptr %577, align 1, !tbaa.struct !12
   %579 = getelementptr inbounds i8, ptr %552, i64 13
-  %580 = load i8, ptr %579, align 1, !tbaa.struct !12
+  %580 = load i8, ptr %579, align 1, !tbaa.struct !9
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 14, ptr @bar.lastn, align 4, !tbaa !5
   %581 = icmp eq i8 %554, 112
@@ -1199,11 +1199,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %633 = getelementptr inbounds i8, ptr %610, i64 11
   %634 = load i8, ptr %633, align 1, !tbaa.struct !14
   %635 = getelementptr inbounds i8, ptr %610, i64 12
-  %636 = load i8, ptr %635, align 1, !tbaa.struct !10
+  %636 = load i8, ptr %635, align 1, !tbaa.struct !11
   %637 = getelementptr inbounds i8, ptr %610, i64 13
-  %638 = load i8, ptr %637, align 1, !tbaa.struct !11
+  %638 = load i8, ptr %637, align 1, !tbaa.struct !12
   %639 = getelementptr inbounds i8, ptr %610, i64 14
-  %640 = load i8, ptr %639, align 1, !tbaa.struct !12
+  %640 = load i8, ptr %639, align 1, !tbaa.struct !9
   store i32 0, ptr @bar.lastc, align 4, !tbaa !5
   store i32 15, ptr @bar.lastn, align 4, !tbaa !5
   %641 = icmp eq i8 %612, 120
@@ -1332,11 +1332,11 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %708 = getelementptr inbounds i8, ptr %684, i64 12
   %709 = load i8, ptr %708, align 1, !tbaa.struct !14
   %710 = getelementptr inbounds i8, ptr %684, i64 13
-  %711 = load i8, ptr %710, align 1, !tbaa.struct !10
+  %711 = load i8, ptr %710, align 1, !tbaa.struct !11
   %712 = getelementptr inbounds i8, ptr %684, i64 14
-  %713 = load i8, ptr %712, align 1, !tbaa.struct !11
+  %713 = load i8, ptr %712, align 1, !tbaa.struct !12
   %714 = getelementptr inbounds i8, ptr %684, i64 15
-  %715 = load i8, ptr %714, align 1, !tbaa.struct !12
+  %715 = load i8, ptr %714, align 1, !tbaa.struct !9
   %716 = load i32, ptr @bar.lastn, align 4, !tbaa !5
   %717 = sext i8 %685 to i32
   switch i32 %716, label %718 [
@@ -1490,7 +1490,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %803 = getelementptr i8, ptr %802, i64 32
   store ptr %803, ptr %10, align 8
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(31) %2, ptr noundef nonnull align 1 dereferenceable(31) %802, i64 31, i1 false), !tbaa.struct !26
-  %804 = load i8, ptr %2, align 1, !tbaa !9
+  %804 = load i8, ptr %2, align 1, !tbaa !10
   %805 = sext i8 %804 to i32
   %806 = icmp eq i32 %801, 16
   br i1 %806, label %807, label %822
@@ -1511,7 +1511,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %813 = phi i64 [ 1, %810 ], [ %826, %824 ]
   %814 = phi i32 [ %811, %810 ], [ %825, %824 ]
   %815 = getelementptr inbounds [31 x i8], ptr %2, i64 0, i64 %813
-  %816 = load i8, ptr %815, align 1, !tbaa !9
+  %816 = load i8, ptr %815, align 1, !tbaa !10
   %817 = sext i8 %816 to i32
   %818 = shl i32 %814, 24
   %819 = ashr exact i32 %818, 24
@@ -1538,7 +1538,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %829 = getelementptr i8, ptr %802, i64 64
   store ptr %829, ptr %10, align 8
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(32) %3, ptr noundef nonnull align 1 dereferenceable(32) %803, i64 32, i1 false), !tbaa.struct !30
-  %830 = load i8, ptr %3, align 1, !tbaa !9
+  %830 = load i8, ptr %3, align 1, !tbaa !10
   %831 = sext i8 %830 to i32
   %832 = icmp eq i32 %825, 31
   br i1 %832, label %833, label %849
@@ -1561,7 +1561,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %841 = phi i64 [ 1, %837 ], [ %853, %851 ]
   %842 = phi i32 [ %838, %837 ], [ %852, %851 ]
   %843 = getelementptr inbounds [32 x i8], ptr %3, i64 0, i64 %841
-  %844 = load i8, ptr %843, align 1, !tbaa !9
+  %844 = load i8, ptr %843, align 1, !tbaa !10
   %845 = sext i8 %844 to i32
   %846 = shl i32 %842, 24
   %847 = ashr exact i32 %846, 24
@@ -1587,7 +1587,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %856 = getelementptr i8, ptr %802, i64 104
   store ptr %856, ptr %10, align 8
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(35) %4, ptr noundef nonnull align 1 dereferenceable(35) %829, i64 35, i1 false), !tbaa.struct !32
-  %857 = load i8, ptr %4, align 1, !tbaa !9
+  %857 = load i8, ptr %4, align 1, !tbaa !10
   %858 = sext i8 %857 to i32
   %859 = icmp eq i32 %840, 35
   br i1 %859, label %863, label %860
@@ -1620,7 +1620,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %874 = phi i64 [ 1, %870 ], [ %887, %885 ]
   %875 = phi i32 [ %871, %870 ], [ %886, %885 ]
   %876 = getelementptr inbounds [35 x i8], ptr %4, i64 0, i64 %874
-  %877 = load i8, ptr %876, align 1, !tbaa !9
+  %877 = load i8, ptr %876, align 1, !tbaa !10
   %878 = sext i8 %877 to i32
   %879 = shl i32 %875, 24
   %880 = ashr exact i32 %879, 24
@@ -1647,7 +1647,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %890 = getelementptr i8, ptr %802, i64 176
   store ptr %890, ptr %10, align 8
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(72) %5, ptr noundef nonnull align 1 dereferenceable(72) %856, i64 72, i1 false), !tbaa.struct !34
-  %891 = load i8, ptr %5, align 1, !tbaa !9
+  %891 = load i8, ptr %5, align 1, !tbaa !10
   %892 = sext i8 %891 to i32
   %893 = icmp eq i32 %873, 72
   br i1 %893, label %897, label %894
@@ -1678,7 +1678,7 @@ define dso_local void @foo(i32 noundef %0, ...) local_unnamed_addr #0 {
   %906 = phi i64 [ 1, %903 ], [ %919, %917 ]
   %907 = phi i32 [ %904, %903 ], [ %918, %917 ]
   %908 = getelementptr inbounds [72 x i8], ptr %5, i64 0, i64 %906
-  %909 = load i8, ptr %908, align 1, !tbaa !9
+  %909 = load i8, ptr %908, align 1, !tbaa !10
   %910 = sext i8 %909 to i32
   %911 = shl i32 %907, 24
   %912 = ashr exact i32 %911, 24
@@ -1752,78 +1752,78 @@ define dso_local i32 @main() local_unnamed_addr #5 {
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %10) #7
   call void @llvm.lifetime.start.p0(i64 35, ptr nonnull %11) #7
   call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %12) #7
-  store <8 x i8> <i8 72, i8 73, i8 74, i8 75, i8 76, i8 77, i8 78, i8 79>, ptr %1, align 8, !tbaa !9
+  store <8 x i8> <i8 72, i8 73, i8 74, i8 75, i8 76, i8 77, i8 78, i8 79>, ptr %1, align 8, !tbaa !10
   %13 = getelementptr inbounds [9 x i8], ptr %1, i64 0, i64 8
-  store i8 64, ptr %13, align 8, !tbaa !9
-  store <8 x i8> <i8 80, i8 81, i8 82, i8 83, i8 84, i8 85, i8 86, i8 87>, ptr %2, align 8, !tbaa !9
+  store i8 64, ptr %13, align 8, !tbaa !10
+  store <8 x i8> <i8 80, i8 81, i8 82, i8 83, i8 84, i8 85, i8 86, i8 87>, ptr %2, align 8, !tbaa !10
   %14 = getelementptr inbounds [10 x i8], ptr %2, i64 0, i64 8
-  store i8 88, ptr %14, align 8, !tbaa !9
+  store i8 88, ptr %14, align 8, !tbaa !10
   %15 = getelementptr inbounds [10 x i8], ptr %2, i64 0, i64 9
-  store i8 89, ptr %15, align 1, !tbaa !9
-  store <8 x i8> <i8 88, i8 89, i8 90, i8 91, i8 92, i8 93, i8 94, i8 95>, ptr %3, align 8, !tbaa !9
+  store i8 89, ptr %15, align 1, !tbaa !10
+  store <8 x i8> <i8 88, i8 89, i8 90, i8 91, i8 92, i8 93, i8 94, i8 95>, ptr %3, align 8, !tbaa !10
   %16 = getelementptr inbounds [11 x i8], ptr %3, i64 0, i64 8
-  store i8 80, ptr %16, align 8, !tbaa !9
+  store i8 80, ptr %16, align 8, !tbaa !10
   %17 = getelementptr inbounds [11 x i8], ptr %3, i64 0, i64 9
-  store i8 81, ptr %17, align 1, !tbaa !9
+  store i8 81, ptr %17, align 1, !tbaa !10
   %18 = getelementptr inbounds [11 x i8], ptr %3, i64 0, i64 10
-  store i8 82, ptr %18, align 2, !tbaa !9
-  store <8 x i8> <i8 96, i8 97, i8 98, i8 99, i8 100, i8 101, i8 102, i8 103>, ptr %4, align 8, !tbaa !9
+  store i8 82, ptr %18, align 2, !tbaa !10
+  store <8 x i8> <i8 96, i8 97, i8 98, i8 99, i8 100, i8 101, i8 102, i8 103>, ptr %4, align 8, !tbaa !10
   %19 = getelementptr inbounds [12 x i8], ptr %4, i64 0, i64 8
-  store <4 x i8> <i8 104, i8 105, i8 106, i8 107>, ptr %19, align 8, !tbaa !9
-  store <8 x i8> <i8 104, i8 105, i8 106, i8 107, i8 108, i8 109, i8 110, i8 111>, ptr %5, align 8, !tbaa !9
+  store <4 x i8> <i8 104, i8 105, i8 106, i8 107>, ptr %19, align 8, !tbaa !10
+  store <8 x i8> <i8 104, i8 105, i8 106, i8 107, i8 108, i8 109, i8 110, i8 111>, ptr %5, align 8, !tbaa !10
   %20 = getelementptr inbounds [13 x i8], ptr %5, i64 0, i64 8
-  store <4 x i8> <i8 96, i8 97, i8 98, i8 99>, ptr %20, align 8, !tbaa !9
+  store <4 x i8> <i8 96, i8 97, i8 98, i8 99>, ptr %20, align 8, !tbaa !10
   %21 = getelementptr inbounds [13 x i8], ptr %5, i64 0, i64 12
-  store i8 100, ptr %21, align 4, !tbaa !9
-  store <8 x i8> <i8 112, i8 113, i8 114, i8 115, i8 116, i8 117, i8 118, i8 119>, ptr %6, align 8, !tbaa !9
+  store i8 100, ptr %21, align 4, !tbaa !10
+  store <8 x i8> <i8 112, i8 113, i8 114, i8 115, i8 116, i8 117, i8 118, i8 119>, ptr %6, align 8, !tbaa !10
   %22 = getelementptr inbounds [14 x i8], ptr %6, i64 0, i64 8
-  store <4 x i8> <i8 120, i8 121, i8 122, i8 123>, ptr %22, align 8, !tbaa !9
+  store <4 x i8> <i8 120, i8 121, i8 122, i8 123>, ptr %22, align 8, !tbaa !10
   %23 = getelementptr inbounds [14 x i8], ptr %6, i64 0, i64 12
-  store i8 124, ptr %23, align 4, !tbaa !9
+  store i8 124, ptr %23, align 4, !tbaa !10
   %24 = getelementptr inbounds [14 x i8], ptr %6, i64 0, i64 13
-  store i8 125, ptr %24, align 1, !tbaa !9
-  store <8 x i8> <i8 120, i8 121, i8 122, i8 123, i8 124, i8 125, i8 126, i8 127>, ptr %7, align 8, !tbaa !9
+  store i8 125, ptr %24, align 1, !tbaa !10
+  store <8 x i8> <i8 120, i8 121, i8 122, i8 123, i8 124, i8 125, i8 126, i8 127>, ptr %7, align 8, !tbaa !10
   %25 = getelementptr inbounds [15 x i8], ptr %7, i64 0, i64 8
-  store <4 x i8> <i8 112, i8 113, i8 114, i8 115>, ptr %25, align 8, !tbaa !9
+  store <4 x i8> <i8 112, i8 113, i8 114, i8 115>, ptr %25, align 8, !tbaa !10
   %26 = getelementptr inbounds [15 x i8], ptr %7, i64 0, i64 12
-  store i8 116, ptr %26, align 4, !tbaa !9
+  store i8 116, ptr %26, align 4, !tbaa !10
   %27 = getelementptr inbounds [15 x i8], ptr %7, i64 0, i64 13
-  store i8 117, ptr %27, align 1, !tbaa !9
+  store i8 117, ptr %27, align 1, !tbaa !10
   %28 = getelementptr inbounds [15 x i8], ptr %7, i64 0, i64 14
-  store i8 118, ptr %28, align 2, !tbaa !9
-  store <16 x i8> <i8 -128, i8 -127, i8 -126, i8 -125, i8 -124, i8 -123, i8 -122, i8 -121, i8 -120, i8 -119, i8 -118, i8 -117, i8 -116, i8 -115, i8 -114, i8 -113>, ptr %8, align 16, !tbaa !9
-  store <16 x i8> <i8 -8, i8 -7, i8 -6, i8 -5, i8 -4, i8 -3, i8 -2, i8 -1, i8 -16, i8 -15, i8 -14, i8 -13, i8 -12, i8 -11, i8 -10, i8 -9>, ptr %9, align 16, !tbaa !9
+  store i8 118, ptr %28, align 2, !tbaa !10
+  store <16 x i8> <i8 -128, i8 -127, i8 -126, i8 -125, i8 -124, i8 -123, i8 -122, i8 -121, i8 -120, i8 -119, i8 -118, i8 -117, i8 -116, i8 -115, i8 -114, i8 -113>, ptr %8, align 16, !tbaa !10
+  store <16 x i8> <i8 -8, i8 -7, i8 -6, i8 -5, i8 -4, i8 -3, i8 -2, i8 -1, i8 -16, i8 -15, i8 -14, i8 -13, i8 -12, i8 -11, i8 -10, i8 -9>, ptr %9, align 16, !tbaa !10
   %29 = getelementptr inbounds [31 x i8], ptr %9, i64 0, i64 16
-  store <8 x i8> <i8 -24, i8 -23, i8 -22, i8 -21, i8 -20, i8 -19, i8 -18, i8 -17>, ptr %29, align 16, !tbaa !9
+  store <8 x i8> <i8 -24, i8 -23, i8 -22, i8 -21, i8 -20, i8 -19, i8 -18, i8 -17>, ptr %29, align 16, !tbaa !10
   %30 = getelementptr inbounds [31 x i8], ptr %9, i64 0, i64 24
-  store <4 x i8> <i8 -32, i8 -31, i8 -30, i8 -29>, ptr %30, align 8, !tbaa !9
+  store <4 x i8> <i8 -32, i8 -31, i8 -30, i8 -29>, ptr %30, align 8, !tbaa !10
   %31 = getelementptr inbounds [31 x i8], ptr %9, i64 0, i64 28
-  store i8 -28, ptr %31, align 4, !tbaa !9
+  store i8 -28, ptr %31, align 4, !tbaa !10
   %32 = getelementptr inbounds [31 x i8], ptr %9, i64 0, i64 29
-  store i8 -27, ptr %32, align 1, !tbaa !9
+  store i8 -27, ptr %32, align 1, !tbaa !10
   %33 = getelementptr inbounds [31 x i8], ptr %9, i64 0, i64 30
-  store i8 -26, ptr %33, align 2, !tbaa !9
-  store <16 x i8> <i8 0, i8 1, i8 2, i8 3, i8 4, i8 5, i8 6, i8 7, i8 8, i8 9, i8 10, i8 11, i8 12, i8 13, i8 14, i8 15>, ptr %10, align 16, !tbaa !9
+  store i8 -26, ptr %33, align 2, !tbaa !10
+  store <16 x i8> <i8 0, i8 1, i8 2, i8 3, i8 4, i8 5, i8 6, i8 7, i8 8, i8 9, i8 10, i8 11, i8 12, i8 13, i8 14, i8 15>, ptr %10, align 16, !tbaa !10
   %34 = getelementptr inbounds [32 x i8], ptr %10, i64 0, i64 16
-  store <16 x i8> <i8 16, i8 17, i8 18, i8 19, i8 20, i8 21, i8 22, i8 23, i8 24, i8 25, i8 26, i8 27, i8 28, i8 29, i8 30, i8 31>, ptr %34, align 16, !tbaa !9
-  store <16 x i8> <i8 24, i8 25, i8 26, i8 27, i8 28, i8 29, i8 30, i8 31, i8 16, i8 17, i8 18, i8 19, i8 20, i8 21, i8 22, i8 23>, ptr %11, align 16, !tbaa !9
+  store <16 x i8> <i8 16, i8 17, i8 18, i8 19, i8 20, i8 21, i8 22, i8 23, i8 24, i8 25, i8 26, i8 27, i8 28, i8 29, i8 30, i8 31>, ptr %34, align 16, !tbaa !10
+  store <16 x i8> <i8 24, i8 25, i8 26, i8 27, i8 28, i8 29, i8 30, i8 31, i8 16, i8 17, i8 18, i8 19, i8 20, i8 21, i8 22, i8 23>, ptr %11, align 16, !tbaa !10
   %35 = getelementptr inbounds [35 x i8], ptr %11, i64 0, i64 16
-  store <16 x i8> <i8 8, i8 9, i8 10, i8 11, i8 12, i8 13, i8 14, i8 15, i8 0, i8 1, i8 2, i8 3, i8 4, i8 5, i8 6, i8 7>, ptr %35, align 16, !tbaa !9
+  store <16 x i8> <i8 8, i8 9, i8 10, i8 11, i8 12, i8 13, i8 14, i8 15, i8 0, i8 1, i8 2, i8 3, i8 4, i8 5, i8 6, i8 7>, ptr %35, align 16, !tbaa !10
   %36 = getelementptr inbounds [35 x i8], ptr %11, i64 0, i64 32
-  store i8 56, ptr %36, align 16, !tbaa !9
+  store i8 56, ptr %36, align 16, !tbaa !10
   %37 = getelementptr inbounds [35 x i8], ptr %11, i64 0, i64 33
-  store i8 57, ptr %37, align 1, !tbaa !9
+  store i8 57, ptr %37, align 1, !tbaa !10
   %38 = getelementptr inbounds [35 x i8], ptr %11, i64 0, i64 34
-  store i8 58, ptr %38, align 2, !tbaa !9
-  store <16 x i8> <i8 64, i8 65, i8 66, i8 67, i8 68, i8 69, i8 70, i8 71, i8 72, i8 73, i8 74, i8 75, i8 76, i8 77, i8 78, i8 79>, ptr %12, align 16, !tbaa !9
+  store i8 58, ptr %38, align 2, !tbaa !10
+  store <16 x i8> <i8 64, i8 65, i8 66, i8 67, i8 68, i8 69, i8 70, i8 71, i8 72, i8 73, i8 74, i8 75, i8 76, i8 77, i8 78, i8 79>, ptr %12, align 16, !tbaa !10
   %39 = getelementptr inbounds [72 x i8], ptr %12, i64 0, i64 16
-  store <16 x i8> <i8 80, i8 81, i8 82, i8 83, i8 84, i8 85, i8 86, i8 87, i8 88, i8 89, i8 90, i8 91, i8 92, i8 93, i8 94, i8 95>, ptr %39, align 16, !tbaa !9
+  store <16 x i8> <i8 80, i8 81, i8 82, i8 83, i8 84, i8 85, i8 86, i8 87, i8 88, i8 89, i8 90, i8 91, i8 92, i8 93, i8 94, i8 95>, ptr %39, align 16, !tbaa !10
   %40 = getelementptr inbounds [72 x i8], ptr %12, i64 0, i64 32
-  store <16 x i8> <i8 96, i8 97, i8 98, i8 99, i8 100, i8 101, i8 102, i8 103, i8 104, i8 105, i8 106, i8 107, i8 108, i8 109, i8 110, i8 111>, ptr %40, align 16, !tbaa !9
+  store <16 x i8> <i8 96, i8 97, i8 98, i8 99, i8 100, i8 101, i8 102, i8 103, i8 104, i8 105, i8 106, i8 107, i8 108, i8 109, i8 110, i8 111>, ptr %40, align 16, !tbaa !10
   %41 = getelementptr inbounds [72 x i8], ptr %12, i64 0, i64 48
-  store <16 x i8> <i8 112, i8 113, i8 114, i8 115, i8 116, i8 117, i8 118, i8 119, i8 120, i8 121, i8 122, i8 123, i8 124, i8 125, i8 126, i8 127>, ptr %41, align 16, !tbaa !9
+  store <16 x i8> <i8 112, i8 113, i8 114, i8 115, i8 116, i8 117, i8 118, i8 119, i8 120, i8 121, i8 122, i8 123, i8 124, i8 125, i8 126, i8 127>, ptr %41, align 16, !tbaa !10
   %42 = getelementptr inbounds [72 x i8], ptr %12, i64 0, i64 64
-  store <8 x i8> <i8 0, i8 1, i8 2, i8 3, i8 4, i8 5, i8 6, i8 7>, ptr %42, align 16, !tbaa !9
+  store <8 x i8> <i8 0, i8 1, i8 2, i8 3, i8 4, i8 5, i8 6, i8 7>, ptr %42, align 16, !tbaa !10
   tail call void (i32, ...) @foo(i32 noundef 21, i8 8, i16 4368, i24 1710360, i32 589439264, i40 189702744360, i48 58498313498928, i56 17518777457064248, i64 5135868584551137600, ptr noundef nonnull byval(%struct.A9) align 8 %1, ptr noundef nonnull byval(%struct.A10) align 8 %2, ptr noundef nonnull byval(%struct.A11) align 8 %3, ptr noundef nonnull byval(%struct.A12) align 8 %4, ptr noundef nonnull byval(%struct.A13) align 8 %5, ptr noundef nonnull byval(%struct.A14) align 8 %6, ptr noundef nonnull byval(%struct.A15) align 8 %7, ptr noundef nonnull byval(%struct.A16) align 8 %8, ptr noundef nonnull byval(%struct.A31) align 8 %9, ptr noundef nonnull byval(%struct.A32) align 8 %10, ptr noundef nonnull byval(%struct.A35) align 8 %11, ptr noundef nonnull byval(%struct.A72) align 8 %12)
   tail call void @exit(i32 noundef 0) #6
   unreachable
@@ -1853,30 +1853,30 @@ attributes #7 = { nounwind }
 !6 = !{!"int", !7, i64 0}
 !7 = !{!"omnipotent char", !8, i64 0}
 !8 = !{!"Simple C/C++ TBAA"}
-!9 = !{!7, !7, i64 0}
-!10 = !{i64 0, i64 3, !9}
-!11 = !{i64 0, i64 2, !9}
-!12 = !{i64 0, i64 1, !9}
-!13 = !{i64 0, i64 5, !9}
-!14 = !{i64 0, i64 4, !9}
-!15 = !{i64 0, i64 6, !9}
-!16 = !{i64 0, i64 7, !9}
-!17 = !{i64 0, i64 9, !9}
-!18 = !{i64 0, i64 8, !9}
-!19 = !{i64 0, i64 10, !9}
-!20 = !{i64 0, i64 11, !9}
-!21 = !{i64 0, i64 12, !9}
-!22 = !{i64 0, i64 13, !9}
-!23 = !{i64 0, i64 14, !9}
-!24 = !{i64 0, i64 15, !9}
-!25 = !{i64 0, i64 16, !9}
-!26 = !{i64 0, i64 31, !9}
+!9 = !{i64 0, i64 1, !10}
+!10 = !{!7, !7, i64 0}
+!11 = !{i64 0, i64 3, !10}
+!12 = !{i64 0, i64 2, !10}
+!13 = !{i64 0, i64 5, !10}
+!14 = !{i64 0, i64 4, !10}
+!15 = !{i64 0, i64 6, !10}
+!16 = !{i64 0, i64 7, !10}
+!17 = !{i64 0, i64 9, !10}
+!18 = !{i64 0, i64 8, !10}
+!19 = !{i64 0, i64 10, !10}
+!20 = !{i64 0, i64 11, !10}
+!21 = !{i64 0, i64 12, !10}
+!22 = !{i64 0, i64 13, !10}
+!23 = !{i64 0, i64 14, !10}
+!24 = !{i64 0, i64 15, !10}
+!25 = !{i64 0, i64 16, !10}
+!26 = !{i64 0, i64 31, !10}
 !27 = distinct !{!27, !28, !29}
 !28 = !{!"llvm.loop.mustprogress"}
 !29 = !{!"llvm.loop.peeled.count", i32 1}
-!30 = !{i64 0, i64 32, !9}
+!30 = !{i64 0, i64 32, !10}
 !31 = distinct !{!31, !28, !29}
-!32 = !{i64 0, i64 35, !9}
+!32 = !{i64 0, i64 35, !10}
 !33 = distinct !{!33, !28, !29}
-!34 = !{i64 0, i64 72, !9}
+!34 = !{i64 0, i64 72, !10}
 !35 = distinct !{!35, !28, !29}

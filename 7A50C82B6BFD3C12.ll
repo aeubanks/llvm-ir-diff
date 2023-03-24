@@ -898,45 +898,45 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 36:                                               ; preds = %24
   %37 = call i64 @strtol(ptr nocapture noundef nonnull %29, ptr noundef null, i32 noundef 0) #23
-  %38 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %39 = icmp sgt i32 %38, 0
-  br i1 %39, label %45, label %57
+  %38 = trunc i64 %37 to i32
+  %39 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
+  %40 = icmp sgt i32 %39, 0
+  br i1 %40, label %46, label %58
 
-40:                                               ; preds = %45
-  %41 = add nuw nsw i64 %46, 1
-  %42 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %43 = sext i32 %42 to i64
-  %44 = icmp slt i64 %41, %43
-  br i1 %44, label %45, label %57, !llvm.loop !39
+41:                                               ; preds = %46
+  %42 = add nuw nsw i64 %47, 1
+  %43 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
+  %44 = sext i32 %43 to i64
+  %45 = icmp slt i64 %42, %44
+  br i1 %45, label %46, label %58, !llvm.loop !39
 
-45:                                               ; preds = %36, %40
-  %46 = phi i64 [ %41, %40 ], [ 0, %36 ]
-  %47 = getelementptr inbounds [4 x ptr], ptr @_ZN9Benchmark4listE, i64 0, i64 %46
-  %48 = load ptr, ptr %47, align 8, !tbaa !40
-  %49 = load ptr, ptr %48, align 8, !tbaa !33
-  %50 = load ptr, ptr %49, align 8
-  %51 = call noundef ptr %50(ptr noundef nonnull align 8 dereferenceable(8) %48)
-  %52 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %28, ptr noundef nonnull dereferenceable(1) %51) #24
-  %53 = icmp eq i32 %52, 0
-  br i1 %53, label %54, label %40
+46:                                               ; preds = %36, %41
+  %47 = phi i64 [ %42, %41 ], [ 0, %36 ]
+  %48 = getelementptr inbounds [4 x ptr], ptr @_ZN9Benchmark4listE, i64 0, i64 %47
+  %49 = load ptr, ptr %48, align 8, !tbaa !40
+  %50 = load ptr, ptr %49, align 8, !tbaa !33
+  %51 = load ptr, ptr %50, align 8
+  %52 = call noundef ptr %51(ptr noundef nonnull align 8 dereferenceable(8) %49)
+  %53 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %28, ptr noundef nonnull dereferenceable(1) %52) #24
+  %54 = icmp eq i32 %53, 0
+  br i1 %54, label %55, label %41
 
-54:                                               ; preds = %45
-  %55 = load ptr, ptr %47, align 8, !tbaa !40
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %57, label %60
+55:                                               ; preds = %46
+  %56 = load ptr, ptr %48, align 8, !tbaa !40
+  %57 = icmp eq ptr %56, null
+  br i1 %57, label %58, label %61
 
-57:                                               ; preds = %40, %79, %108, %137, %36, %54, %66, %84, %95, %113, %124, %142
-  %58 = phi ptr [ %28, %54 ], [ %28, %36 ], [ %63, %66 ], [ %63, %84 ], [ %92, %95 ], [ %92, %113 ], [ %121, %124 ], [ %121, %142 ], [ %121, %137 ], [ %92, %108 ], [ %63, %79 ], [ %28, %40 ]
-  %59 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.26, ptr noundef %58)
+58:                                               ; preds = %41, %80, %109, %138, %36, %55, %66, %85, %95, %114, %124, %143
+  %59 = phi ptr [ %28, %55 ], [ %28, %36 ], [ %63, %66 ], [ %63, %85 ], [ %92, %95 ], [ %92, %114 ], [ %121, %124 ], [ %121, %143 ], [ %121, %138 ], [ %92, %109 ], [ %63, %80 ], [ %28, %41 ]
+  %60 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.26, ptr noundef %59)
   call void @abort() #25
   unreachable
 
-60:                                               ; preds = %54
-  %61 = trunc i64 %37 to i32
-  call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %55, i32 noundef %61)
+61:                                               ; preds = %55
+  call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %56, i32 noundef %38)
   br label %62
 
-62:                                               ; preds = %60, %34
+62:                                               ; preds = %61, %34
   %63 = call ptr @strtok(ptr noundef nonnull %5, ptr noundef nonnull @.str.24) #23
   %64 = call ptr @strtok(ptr noundef null, ptr noundef nonnull @.str.11) #23
   %65 = icmp eq ptr %64, null
@@ -944,43 +944,43 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 66:                                               ; preds = %62
   %67 = call i64 @strtol(ptr nocapture noundef nonnull %64, ptr noundef null, i32 noundef 0) #23
-  %68 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %69 = icmp sgt i32 %68, 0
-  br i1 %69, label %70, label %57
+  %68 = trunc i64 %67 to i32
+  %69 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
+  %70 = icmp sgt i32 %69, 0
+  br i1 %70, label %71, label %58
 
-70:                                               ; preds = %66, %79
-  %71 = phi i64 [ %80, %79 ], [ 0, %66 ]
-  %72 = getelementptr inbounds [4 x ptr], ptr @_ZN9Benchmark4listE, i64 0, i64 %71
-  %73 = load ptr, ptr %72, align 8, !tbaa !40
-  %74 = load ptr, ptr %73, align 8, !tbaa !33
-  %75 = load ptr, ptr %74, align 8
-  %76 = call noundef ptr %75(ptr noundef nonnull align 8 dereferenceable(8) %73)
-  %77 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %63, ptr noundef nonnull dereferenceable(1) %76) #24
-  %78 = icmp eq i32 %77, 0
-  br i1 %78, label %84, label %79
+71:                                               ; preds = %66, %80
+  %72 = phi i64 [ %81, %80 ], [ 0, %66 ]
+  %73 = getelementptr inbounds [4 x ptr], ptr @_ZN9Benchmark4listE, i64 0, i64 %72
+  %74 = load ptr, ptr %73, align 8, !tbaa !40
+  %75 = load ptr, ptr %74, align 8, !tbaa !33
+  %76 = load ptr, ptr %75, align 8
+  %77 = call noundef ptr %76(ptr noundef nonnull align 8 dereferenceable(8) %74)
+  %78 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %63, ptr noundef nonnull dereferenceable(1) %77) #24
+  %79 = icmp eq i32 %78, 0
+  br i1 %79, label %85, label %80
 
-79:                                               ; preds = %70
-  %80 = add nuw nsw i64 %71, 1
-  %81 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %82 = sext i32 %81 to i64
-  %83 = icmp slt i64 %80, %82
-  br i1 %83, label %70, label %57, !llvm.loop !39
+80:                                               ; preds = %71
+  %81 = add nuw nsw i64 %72, 1
+  %82 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
+  %83 = sext i32 %82 to i64
+  %84 = icmp slt i64 %81, %83
+  br i1 %84, label %71, label %58, !llvm.loop !39
 
-84:                                               ; preds = %70
-  %85 = load ptr, ptr %72, align 8, !tbaa !40
-  %86 = icmp eq ptr %85, null
-  br i1 %86, label %57, label %87
+85:                                               ; preds = %71
+  %86 = load ptr, ptr %73, align 8, !tbaa !40
+  %87 = icmp eq ptr %86, null
+  br i1 %87, label %58, label %88
 
-87:                                               ; preds = %84
-  %88 = trunc i64 %67 to i32
-  call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %85, i32 noundef %88)
+88:                                               ; preds = %85
+  call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %86, i32 noundef %68)
   br label %91
 
 89:                                               ; preds = %62
   %90 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.25, ptr noundef %63)
   br label %91
 
-91:                                               ; preds = %89, %87
+91:                                               ; preds = %89, %88
   %92 = call ptr @strtok(ptr noundef nonnull %6, ptr noundef nonnull @.str.24) #23
   %93 = call ptr @strtok(ptr noundef null, ptr noundef nonnull @.str.11) #23
   %94 = icmp eq ptr %93, null
@@ -988,43 +988,43 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 95:                                               ; preds = %91
   %96 = call i64 @strtol(ptr nocapture noundef nonnull %93, ptr noundef null, i32 noundef 0) #23
-  %97 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %98 = icmp sgt i32 %97, 0
-  br i1 %98, label %99, label %57
+  %97 = trunc i64 %96 to i32
+  %98 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
+  %99 = icmp sgt i32 %98, 0
+  br i1 %99, label %100, label %58
 
-99:                                               ; preds = %95, %108
-  %100 = phi i64 [ %109, %108 ], [ 0, %95 ]
-  %101 = getelementptr inbounds [4 x ptr], ptr @_ZN9Benchmark4listE, i64 0, i64 %100
-  %102 = load ptr, ptr %101, align 8, !tbaa !40
-  %103 = load ptr, ptr %102, align 8, !tbaa !33
-  %104 = load ptr, ptr %103, align 8
-  %105 = call noundef ptr %104(ptr noundef nonnull align 8 dereferenceable(8) %102)
-  %106 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %92, ptr noundef nonnull dereferenceable(1) %105) #24
-  %107 = icmp eq i32 %106, 0
-  br i1 %107, label %113, label %108
+100:                                              ; preds = %95, %109
+  %101 = phi i64 [ %110, %109 ], [ 0, %95 ]
+  %102 = getelementptr inbounds [4 x ptr], ptr @_ZN9Benchmark4listE, i64 0, i64 %101
+  %103 = load ptr, ptr %102, align 8, !tbaa !40
+  %104 = load ptr, ptr %103, align 8, !tbaa !33
+  %105 = load ptr, ptr %104, align 8
+  %106 = call noundef ptr %105(ptr noundef nonnull align 8 dereferenceable(8) %103)
+  %107 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %92, ptr noundef nonnull dereferenceable(1) %106) #24
+  %108 = icmp eq i32 %107, 0
+  br i1 %108, label %114, label %109
 
-108:                                              ; preds = %99
-  %109 = add nuw nsw i64 %100, 1
-  %110 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %111 = sext i32 %110 to i64
-  %112 = icmp slt i64 %109, %111
-  br i1 %112, label %99, label %57, !llvm.loop !39
+109:                                              ; preds = %100
+  %110 = add nuw nsw i64 %101, 1
+  %111 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
+  %112 = sext i32 %111 to i64
+  %113 = icmp slt i64 %110, %112
+  br i1 %113, label %100, label %58, !llvm.loop !39
 
-113:                                              ; preds = %99
-  %114 = load ptr, ptr %101, align 8, !tbaa !40
-  %115 = icmp eq ptr %114, null
-  br i1 %115, label %57, label %116
+114:                                              ; preds = %100
+  %115 = load ptr, ptr %102, align 8, !tbaa !40
+  %116 = icmp eq ptr %115, null
+  br i1 %116, label %58, label %117
 
-116:                                              ; preds = %113
-  %117 = trunc i64 %96 to i32
-  call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %114, i32 noundef %117)
+117:                                              ; preds = %114
+  call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %115, i32 noundef %97)
   br label %120
 
 118:                                              ; preds = %91
   %119 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.25, ptr noundef %92)
   br label %120
 
-120:                                              ; preds = %118, %116
+120:                                              ; preds = %118, %117
   %121 = call ptr @strtok(ptr noundef nonnull %7, ptr noundef nonnull @.str.24) #23
   %122 = call ptr @strtok(ptr noundef null, ptr noundef nonnull @.str.11) #23
   %123 = icmp eq ptr %122, null
@@ -1032,43 +1032,43 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 124:                                              ; preds = %120
   %125 = call i64 @strtol(ptr nocapture noundef nonnull %122, ptr noundef null, i32 noundef 0) #23
-  %126 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %127 = icmp sgt i32 %126, 0
-  br i1 %127, label %128, label %57
+  %126 = trunc i64 %125 to i32
+  %127 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
+  %128 = icmp sgt i32 %127, 0
+  br i1 %128, label %129, label %58
 
-128:                                              ; preds = %124, %137
-  %129 = phi i64 [ %138, %137 ], [ 0, %124 ]
-  %130 = getelementptr inbounds [4 x ptr], ptr @_ZN9Benchmark4listE, i64 0, i64 %129
-  %131 = load ptr, ptr %130, align 8, !tbaa !40
-  %132 = load ptr, ptr %131, align 8, !tbaa !33
-  %133 = load ptr, ptr %132, align 8
-  %134 = call noundef ptr %133(ptr noundef nonnull align 8 dereferenceable(8) %131)
-  %135 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %121, ptr noundef nonnull dereferenceable(1) %134) #24
-  %136 = icmp eq i32 %135, 0
-  br i1 %136, label %142, label %137
+129:                                              ; preds = %124, %138
+  %130 = phi i64 [ %139, %138 ], [ 0, %124 ]
+  %131 = getelementptr inbounds [4 x ptr], ptr @_ZN9Benchmark4listE, i64 0, i64 %130
+  %132 = load ptr, ptr %131, align 8, !tbaa !40
+  %133 = load ptr, ptr %132, align 8, !tbaa !33
+  %134 = load ptr, ptr %133, align 8
+  %135 = call noundef ptr %134(ptr noundef nonnull align 8 dereferenceable(8) %132)
+  %136 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %121, ptr noundef nonnull dereferenceable(1) %135) #24
+  %137 = icmp eq i32 %136, 0
+  br i1 %137, label %143, label %138
 
-137:                                              ; preds = %128
-  %138 = add nuw nsw i64 %129, 1
-  %139 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %140 = sext i32 %139 to i64
-  %141 = icmp slt i64 %138, %140
-  br i1 %141, label %128, label %57, !llvm.loop !39
+138:                                              ; preds = %129
+  %139 = add nuw nsw i64 %130, 1
+  %140 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
+  %141 = sext i32 %140 to i64
+  %142 = icmp slt i64 %139, %141
+  br i1 %142, label %129, label %58, !llvm.loop !39
 
-142:                                              ; preds = %128
-  %143 = load ptr, ptr %130, align 8, !tbaa !40
-  %144 = icmp eq ptr %143, null
-  br i1 %144, label %57, label %145
+143:                                              ; preds = %129
+  %144 = load ptr, ptr %131, align 8, !tbaa !40
+  %145 = icmp eq ptr %144, null
+  br i1 %145, label %58, label %146
 
-145:                                              ; preds = %142
-  %146 = trunc i64 %125 to i32
-  call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %143, i32 noundef %146)
+146:                                              ; preds = %143
+  call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %144, i32 noundef %126)
   br label %149
 
 147:                                              ; preds = %120
   %148 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.25, ptr noundef %121)
   br label %149
 
-149:                                              ; preds = %147, %145
+149:                                              ; preds = %147, %146
   %150 = call i32 @puts(ptr nonnull dereferenceable(1) @str.32)
   call void @llvm.lifetime.end.p0(i64 15, ptr nonnull %7) #23
   call void @llvm.lifetime.end.p0(i64 13, ptr nonnull %6) #23
@@ -1110,11 +1110,11 @@ define linkonce_odr dso_local noundef ptr @_ZNK16ComplexBenchmark4nameEv(ptr nou
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(none)
 declare ptr @__ctype_b_loc() local_unnamed_addr #19
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #20
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #21
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #20
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #21
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #22
@@ -1139,8 +1139,8 @@ attributes #16 = { mustprogress norecurse uwtable "min-legal-vector-width"="0" "
 attributes #17 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #18 = { mustprogress nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #19 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #20 = { nofree nounwind }
-attributes #21 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #20 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #21 = { nofree nounwind }
 attributes #22 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #23 = { nounwind }
 attributes #24 = { nounwind willreturn memory(read) }

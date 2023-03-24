@@ -93,7 +93,7 @@ define dso_local i32 @main() local_unnamed_addr #1 {
   %31 = icmp ugt i32 %29, %30
   br i1 %31, label %32, label %5
 
-32:                                               ; preds = %28, %22
+32:                                               ; preds = %22, %28
   %33 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 1, i32 1), align 4, !tbaa !5
   %34 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 2, i32 1), align 4, !tbaa !5
   %35 = icmp sgt i32 %33, %34
@@ -141,7 +141,7 @@ define dso_local i32 @main() local_unnamed_addr #1 {
   %61 = icmp ugt i32 %59, %60
   br i1 %61, label %62, label %5
 
-62:                                               ; preds = %58, %52
+62:                                               ; preds = %52, %58
   %63 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 3, i32 1), align 4, !tbaa !5
   %64 = load i32, ptr getelementptr inbounds ([4 x %struct.sreal], ptr @a, i64 0, i64 0, i32 1), align 4, !tbaa !5
   %65 = icmp sgt i32 %63, %64

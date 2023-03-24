@@ -564,7 +564,7 @@ define internal void @BuildTypeDecls(ptr noundef %0, ptr noundef %1) #0 {
   %70 = tail call fastcc i32 @CreateParams(ptr noundef %4, ptr noundef nonnull %1, i32 noundef %69)
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %4, ptr noundef nonnull @.str.54) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %4, ptr noundef nonnull @.str.9) #3
-  %71 = getelementptr inbounds %struct._tagTreeCCNode, ptr %1, i64 0, i32 10
+  %71 = getelementptr %struct._tagTreeCCNode, ptr %1, i64 0, i32 10
   %72 = load ptr, ptr %71, align 8, !tbaa !29
   %73 = icmp eq ptr %72, null
   br i1 %73, label %83, label %74
@@ -576,9 +576,9 @@ define internal void @BuildTypeDecls(ptr noundef %0, ptr noundef %1) #0 {
   %78 = load ptr, ptr %75, align 8, !tbaa !32
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %4, ptr noundef nonnull @.str.58, ptr noundef %77, ptr noundef %78) #3
   %79 = getelementptr inbounds %struct._tagTreeCCField, ptr %75, i64 0, i32 6
-  %80 = load ptr, ptr %79, align 8, !tbaa !5
+  %80 = load ptr, ptr %79, align 8, !tbaa !33
   %81 = icmp eq ptr %80, null
-  br i1 %81, label %82, label %74, !llvm.loop !33
+  br i1 %81, label %82, label %74, !llvm.loop !34
 
 82:                                               ; preds = %74
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %4, ptr noundef nonnull @.str) #3
@@ -604,16 +604,16 @@ declare void @TreeCCOperationVisitAll(ptr noundef, ptr noundef) local_unnamed_ad
 ; Function Attrs: nounwind uwtable
 define internal void @DeclareNonVirtuals(ptr nocapture readnone %0, ptr nocapture noundef readonly %1) #0 {
   %3 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %1, i64 0, i32 14
-  %4 = load ptr, ptr %3, align 8, !tbaa !34
+  %4 = load ptr, ptr %3, align 8, !tbaa !35
   %5 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %1, i64 0, i32 5
-  %6 = load i32, ptr %5, align 8, !tbaa !36
+  %6 = load i32, ptr %5, align 8, !tbaa !37
   %7 = and i32 %6, 1
   %8 = icmp eq i32 %7, 0
   br i1 %8, label %9, label %53
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %1, i64 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !37
+  %11 = load ptr, ptr %10, align 8, !tbaa !38
   %12 = icmp eq ptr %11, null
   br i1 %12, label %14, label %13
 
@@ -626,8 +626,8 @@ define internal void @DeclareNonVirtuals(ptr nocapture readnone %0, ptr nocaptur
 
 14:                                               ; preds = %13, %9
   %15 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %1, i64 0, i32 2
-  %16 = load ptr, ptr %15, align 8, !tbaa !38
-  %17 = load ptr, ptr %1, align 8, !tbaa !39
+  %16 = load ptr, ptr %15, align 8, !tbaa !39
+  %17 = load ptr, ptr %1, align 8, !tbaa !40
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %4, ptr noundef nonnull @.str.64, ptr noundef %16, ptr noundef %17) #3
   %18 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %1, i64 0, i32 4
   %19 = load ptr, ptr %18, align 8, !tbaa !5
@@ -635,10 +635,10 @@ define internal void @DeclareNonVirtuals(ptr nocapture readnone %0, ptr nocaptur
   br i1 %20, label %48, label %21
 
 21:                                               ; preds = %14
-  %22 = load ptr, ptr %19, align 8, !tbaa !40
+  %22 = load ptr, ptr %19, align 8, !tbaa !41
   %23 = icmp eq ptr %22, null
   %24 = getelementptr inbounds %struct._tagTreeCCParam, ptr %19, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !42
+  %25 = load ptr, ptr %24, align 8, !tbaa !43
   br i1 %23, label %27, label %26
 
 26:                                               ; preds = %21
@@ -660,10 +660,10 @@ define internal void @DeclareNonVirtuals(ptr nocapture readnone %0, ptr nocaptur
   %34 = phi ptr [ %46, %43 ], [ %31, %28 ]
   %35 = phi i32 [ %44, %43 ], [ %29, %28 ]
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %4, ptr noundef nonnull @.str.35) #3
-  %36 = load ptr, ptr %34, align 8, !tbaa !40
+  %36 = load ptr, ptr %34, align 8, !tbaa !41
   %37 = icmp eq ptr %36, null
   %38 = getelementptr inbounds %struct._tagTreeCCParam, ptr %34, i64 0, i32 1
-  %39 = load ptr, ptr %38, align 8, !tbaa !42
+  %39 = load ptr, ptr %38, align 8, !tbaa !43
   br i1 %37, label %41, label %40
 
 40:                                               ; preds = %33
@@ -680,7 +680,7 @@ define internal void @DeclareNonVirtuals(ptr nocapture readnone %0, ptr nocaptur
   %45 = getelementptr inbounds %struct._tagTreeCCParam, ptr %34, i64 0, i32 4
   %46 = load ptr, ptr %45, align 8, !tbaa !5
   %47 = icmp eq ptr %46, null
-  br i1 %47, label %49, label %33, !llvm.loop !43
+  br i1 %47, label %49, label %33, !llvm.loop !44
 
 48:                                               ; preds = %14
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %4, ptr noundef nonnull @.str.65) #3
@@ -688,7 +688,7 @@ define internal void @DeclareNonVirtuals(ptr nocapture readnone %0, ptr nocaptur
 
 49:                                               ; preds = %43, %28, %48
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %4, ptr noundef nonnull @.str.34) #3
-  %50 = load ptr, ptr %10, align 8, !tbaa !37
+  %50 = load ptr, ptr %10, align 8, !tbaa !38
   %51 = icmp eq ptr %50, null
   br i1 %51, label %53, label %52
 
@@ -703,7 +703,7 @@ define internal void @DeclareNonVirtuals(ptr nocapture readnone %0, ptr nocaptur
 ; Function Attrs: nounwind uwtable
 define internal fastcc void @ImplementStateType(ptr noundef %0, ptr noundef %1) unnamed_addr #0 {
   %3 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 14
-  %4 = load i32, ptr %3, align 8, !tbaa !45
+  %4 = load i32, ptr %3, align 8, !tbaa !46
   %5 = icmp eq i32 %4, 0
   br i1 %5, label %9, label %6
 
@@ -775,7 +775,7 @@ define internal fastcc void @ImplementStateType(ptr noundef %0, ptr noundef %1) 
 ; Function Attrs: nounwind uwtable
 define internal void @ImplementNodeTypes(ptr noundef %0, ptr noundef %1) #0 {
   %3 = getelementptr inbounds %struct._tagTreeCCNode, ptr %1, i64 0, i32 14
-  %4 = load ptr, ptr %3, align 8, !tbaa !46
+  %4 = load ptr, ptr %3, align 8, !tbaa !47
   %5 = getelementptr inbounds %struct._tagTreeCCNode, ptr %1, i64 0, i32 5
   %6 = load i32, ptr %5, align 8, !tbaa !19
   %7 = and i32 %6, 24
@@ -896,7 +896,7 @@ define internal void @ImplementNodeTypes(ptr noundef %0, ptr noundef %1) #0 {
 70:                                               ; preds = %66, %84
   %71 = phi ptr [ %86, %84 ], [ %68, %66 ]
   %72 = getelementptr inbounds %struct._tagTreeCCField, ptr %71, i64 0, i32 3
-  %73 = load i32, ptr %72, align 8, !tbaa !47
+  %73 = load i32, ptr %72, align 8, !tbaa !48
   %74 = and i32 %73, 1
   %75 = icmp eq i32 %74, 0
   br i1 %75, label %76, label %78
@@ -908,7 +908,7 @@ define internal void @ImplementNodeTypes(ptr noundef %0, ptr noundef %1) #0 {
 
 78:                                               ; preds = %70
   %79 = getelementptr inbounds %struct._tagTreeCCField, ptr %71, i64 0, i32 2
-  %80 = load ptr, ptr %79, align 8, !tbaa !48
+  %80 = load ptr, ptr %79, align 8, !tbaa !49
   %81 = icmp eq ptr %80, null
   br i1 %81, label %84, label %82
 
@@ -921,7 +921,7 @@ define internal void @ImplementNodeTypes(ptr noundef %0, ptr noundef %1) #0 {
   %85 = getelementptr inbounds %struct._tagTreeCCField, ptr %71, i64 0, i32 6
   %86 = load ptr, ptr %85, align 8, !tbaa !5
   %87 = icmp eq ptr %86, null
-  br i1 %87, label %88, label %70, !llvm.loop !49
+  br i1 %87, label %88, label %70, !llvm.loop !50
 
 88:                                               ; preds = %84, %66
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %4, ptr noundef nonnull @.str.77) #3
@@ -1036,7 +1036,7 @@ define internal fastcc i32 @FactoryCreateParams(ptr noundef %0, ptr nocapture no
   %13 = phi ptr [ %29, %26 ], [ %10, %7 ]
   %14 = phi i32 [ %27, %26 ], [ %8, %7 ]
   %15 = getelementptr inbounds %struct._tagTreeCCField, ptr %13, i64 0, i32 3
-  %16 = load i32, ptr %15, align 8, !tbaa !47
+  %16 = load i32, ptr %15, align 8, !tbaa !48
   %17 = and i32 %16, 1
   %18 = icmp eq i32 %17, 0
   br i1 %18, label %19, label %26
@@ -1061,7 +1061,7 @@ define internal fastcc i32 @FactoryCreateParams(ptr noundef %0, ptr nocapture no
   %28 = getelementptr inbounds %struct._tagTreeCCField, ptr %13, i64 0, i32 6
   %29 = load ptr, ptr %28, align 8, !tbaa !5
   %30 = icmp eq ptr %29, null
-  br i1 %30, label %31, label %12, !llvm.loop !50
+  br i1 %30, label %31, label %12, !llvm.loop !51
 
 31:                                               ; preds = %26, %7
   %32 = phi i32 [ %8, %7 ], [ %27, %26 ]
@@ -1089,7 +1089,7 @@ define internal fastcc i32 @CreateParams(ptr noundef %0, ptr nocapture noundef r
   %14 = phi ptr [ %30, %27 ], [ %11, %8 ]
   %15 = phi i32 [ %28, %27 ], [ %9, %8 ]
   %16 = getelementptr inbounds %struct._tagTreeCCField, ptr %14, i64 0, i32 3
-  %17 = load i32, ptr %16, align 8, !tbaa !47
+  %17 = load i32, ptr %16, align 8, !tbaa !48
   %18 = and i32 %17, 1
   %19 = icmp eq i32 %18, 0
   br i1 %19, label %20, label %27
@@ -1114,7 +1114,7 @@ define internal fastcc i32 @CreateParams(ptr noundef %0, ptr nocapture noundef r
   %29 = getelementptr inbounds %struct._tagTreeCCField, ptr %14, i64 0, i32 6
   %30 = load ptr, ptr %29, align 8, !tbaa !5
   %31 = icmp eq ptr %30, null
-  br i1 %31, label %32, label %13, !llvm.loop !51
+  br i1 %31, label %32, label %13, !llvm.loop !52
 
 32:                                               ; preds = %27, %8
   %33 = phi i32 [ %9, %8 ], [ %28, %27 ]
@@ -1139,7 +1139,7 @@ define internal fastcc void @DeclareVirtuals(ptr noundef %0, ptr noundef %1, ptr
 
 12:                                               ; preds = %8, %61
   %13 = phi ptr [ %63, %61 ], [ %10, %8 ]
-  %14 = load ptr, ptr %13, align 8, !tbaa !52
+  %14 = load ptr, ptr %13, align 8, !tbaa !53
   %15 = tail call ptr @TreeCCOperationFindCase(ptr noundef %0, ptr noundef %3, ptr noundef %14) #3
   %16 = icmp eq ptr %15, null
   br i1 %16, label %17, label %25
@@ -1151,15 +1151,15 @@ define internal fastcc void @DeclareVirtuals(ptr noundef %0, ptr noundef %1, ptr
   br i1 %20, label %25, label %21
 
 21:                                               ; preds = %17
-  %22 = load ptr, ptr %13, align 8, !tbaa !52
+  %22 = load ptr, ptr %13, align 8, !tbaa !53
   %23 = tail call ptr @TreeCCOperationFindCase(ptr noundef %0, ptr noundef nonnull %19, ptr noundef %22) #3
   %24 = icmp eq ptr %23, null
-  br i1 %24, label %17, label %61, !llvm.loop !54
+  br i1 %24, label %17, label %61, !llvm.loop !55
 
 25:                                               ; preds = %17, %12
   %26 = getelementptr inbounds %struct._tagTreeCCVirtual, ptr %13, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !55
-  %28 = load ptr, ptr %13, align 8, !tbaa !52
+  %27 = load ptr, ptr %26, align 8, !tbaa !56
+  %28 = load ptr, ptr %13, align 8, !tbaa !53
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.59, ptr noundef %27, ptr noundef %28) #3
   %29 = getelementptr inbounds %struct._tagTreeCCVirtual, ptr %13, i64 0, i32 2
   %30 = load ptr, ptr %29, align 8, !tbaa !5
@@ -1167,10 +1167,10 @@ define internal fastcc void @DeclareVirtuals(ptr noundef %0, ptr noundef %1, ptr
   br i1 %31, label %59, label %32
 
 32:                                               ; preds = %25
-  %33 = load ptr, ptr %30, align 8, !tbaa !40
+  %33 = load ptr, ptr %30, align 8, !tbaa !41
   %34 = icmp eq ptr %33, null
   %35 = getelementptr inbounds %struct._tagTreeCCParam, ptr %30, i64 0, i32 1
-  %36 = load ptr, ptr %35, align 8, !tbaa !42
+  %36 = load ptr, ptr %35, align 8, !tbaa !43
   br i1 %34, label %38, label %37
 
 37:                                               ; preds = %32
@@ -1192,10 +1192,10 @@ define internal fastcc void @DeclareVirtuals(ptr noundef %0, ptr noundef %1, ptr
   %45 = phi ptr [ %57, %54 ], [ %42, %39 ]
   %46 = phi i32 [ %55, %54 ], [ %40, %39 ]
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.35) #3
-  %47 = load ptr, ptr %45, align 8, !tbaa !40
+  %47 = load ptr, ptr %45, align 8, !tbaa !41
   %48 = icmp eq ptr %47, null
   %49 = getelementptr inbounds %struct._tagTreeCCParam, ptr %45, i64 0, i32 1
-  %50 = load ptr, ptr %49, align 8, !tbaa !42
+  %50 = load ptr, ptr %49, align 8, !tbaa !43
   br i1 %48, label %52, label %51
 
 51:                                               ; preds = %44
@@ -1212,7 +1212,7 @@ define internal fastcc void @DeclareVirtuals(ptr noundef %0, ptr noundef %1, ptr
   %56 = getelementptr inbounds %struct._tagTreeCCParam, ptr %45, i64 0, i32 4
   %57 = load ptr, ptr %56, align 8, !tbaa !5
   %58 = icmp eq ptr %57, null
-  br i1 %58, label %59, label %44, !llvm.loop !56
+  br i1 %58, label %59, label %44, !llvm.loop !57
 
 59:                                               ; preds = %54, %39, %25
   %60 = select i1 %16, ptr @.str.33, ptr @.str.34
@@ -1223,7 +1223,7 @@ define internal fastcc void @DeclareVirtuals(ptr noundef %0, ptr noundef %1, ptr
   %62 = getelementptr inbounds %struct._tagTreeCCVirtual, ptr %13, i64 0, i32 4
   %63 = load ptr, ptr %62, align 8, !tbaa !5
   %64 = icmp eq ptr %63, null
-  br i1 %64, label %65, label %12, !llvm.loop !57
+  br i1 %64, label %65, label %12, !llvm.loop !58
 
 65:                                               ; preds = %61, %8
   ret void
@@ -1293,7 +1293,7 @@ define internal fastcc void @FactoryInvokeParams(ptr noundef %0, ptr nocapture n
 10:                                               ; preds = %6, %18
   %11 = phi ptr [ %20, %18 ], [ %8, %6 ]
   %12 = getelementptr inbounds %struct._tagTreeCCField, ptr %11, i64 0, i32 3
-  %13 = load i32, ptr %12, align 8, !tbaa !47
+  %13 = load i32, ptr %12, align 8, !tbaa !48
   %14 = and i32 %13, 1
   %15 = icmp eq i32 %14, 0
   br i1 %15, label %16, label %18
@@ -1308,7 +1308,7 @@ define internal fastcc void @FactoryInvokeParams(ptr noundef %0, ptr nocapture n
   %19 = getelementptr inbounds %struct._tagTreeCCField, ptr %11, i64 0, i32 6
   %20 = load ptr, ptr %19, align 8, !tbaa !5
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %22, label %10, !llvm.loop !58
+  br i1 %21, label %22, label %10, !llvm.loop !59
 
 22:                                               ; preds = %18, %6
   ret void
@@ -1336,7 +1336,7 @@ define internal fastcc void @ImplementVirtuals(ptr noundef %0, ptr noundef %1, p
 
 14:                                               ; preds = %12, %19
   %15 = phi ptr [ %10, %12 ], [ %21, %19 ]
-  %16 = load ptr, ptr %15, align 8, !tbaa !52
+  %16 = load ptr, ptr %15, align 8, !tbaa !53
   %17 = tail call ptr @TreeCCOperationFindCase(ptr noundef %0, ptr noundef %3, ptr noundef %16) #3
   %18 = icmp eq ptr %17, null
   br i1 %18, label %19, label %23
@@ -1345,16 +1345,16 @@ define internal fastcc void @ImplementVirtuals(ptr noundef %0, ptr noundef %1, p
   %20 = getelementptr inbounds %struct._tagTreeCCVirtual, ptr %15, i64 0, i32 4
   %21 = load ptr, ptr %20, align 8, !tbaa !5
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %91, label %14, !llvm.loop !59
+  br i1 %22, label %91, label %14, !llvm.loop !60
 
 23:                                               ; preds = %14
   %24 = getelementptr inbounds %struct._tagTreeCCVirtual, ptr %15, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !55
+  %25 = load ptr, ptr %24, align 8, !tbaa !56
   %26 = load ptr, ptr %13, align 8, !tbaa !23
-  %27 = load ptr, ptr %15, align 8, !tbaa !52
+  %27 = load ptr, ptr %15, align 8, !tbaa !53
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.102, ptr noundef %25, ptr noundef %26, ptr noundef %27) #3
   %28 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %17, i64 0, i32 2
-  %29 = load ptr, ptr %28, align 8, !tbaa !60
+  %29 = load ptr, ptr %28, align 8, !tbaa !61
   %30 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %29, i64 0, i32 4
   %31 = load ptr, ptr %30, align 8, !tbaa !5
   %32 = icmp eq ptr %31, null
@@ -1367,13 +1367,13 @@ define internal fastcc void @ImplementVirtuals(ptr noundef %0, ptr noundef %1, p
   br i1 %36, label %68, label %37
 
 37:                                               ; preds = %33
-  %38 = load ptr, ptr %31, align 8, !tbaa !40
+  %38 = load ptr, ptr %31, align 8, !tbaa !41
   %39 = icmp eq ptr %38, null
   %40 = select i1 %39, i32 2, i32 1
-  %41 = load ptr, ptr %35, align 8, !tbaa !40
+  %41 = load ptr, ptr %35, align 8, !tbaa !41
   %42 = icmp eq ptr %41, null
   %43 = getelementptr inbounds %struct._tagTreeCCParam, ptr %35, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !42
+  %44 = load ptr, ptr %43, align 8, !tbaa !43
   br i1 %42, label %46, label %45
 
 45:                                               ; preds = %37
@@ -1396,10 +1396,10 @@ define internal fastcc void @ImplementVirtuals(ptr noundef %0, ptr noundef %1, p
   %54 = phi ptr [ %66, %63 ], [ %51, %48 ]
   %55 = phi i32 [ %64, %63 ], [ %49, %48 ]
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.35) #3
-  %56 = load ptr, ptr %54, align 8, !tbaa !40
+  %56 = load ptr, ptr %54, align 8, !tbaa !41
   %57 = icmp eq ptr %56, null
   %58 = getelementptr inbounds %struct._tagTreeCCParam, ptr %54, i64 0, i32 1
-  %59 = load ptr, ptr %58, align 8, !tbaa !42
+  %59 = load ptr, ptr %58, align 8, !tbaa !43
   br i1 %57, label %61, label %60
 
 60:                                               ; preds = %53
@@ -1416,12 +1416,12 @@ define internal fastcc void @ImplementVirtuals(ptr noundef %0, ptr noundef %1, p
   %65 = getelementptr inbounds %struct._tagTreeCCParam, ptr %54, i64 0, i32 4
   %66 = load ptr, ptr %65, align 8, !tbaa !5
   %67 = icmp eq ptr %66, null
-  br i1 %67, label %68, label %53, !llvm.loop !62
+  br i1 %67, label %68, label %53, !llvm.loop !63
 
 68:                                               ; preds = %48, %63, %33, %23
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.73) #3
-  %69 = load ptr, ptr %30, align 8, !tbaa !64
-  %70 = load ptr, ptr %69, align 8, !tbaa !40
+  %69 = load ptr, ptr %30, align 8, !tbaa !65
+  %70 = load ptr, ptr %69, align 8, !tbaa !41
   %71 = icmp eq ptr %70, null
   br i1 %71, label %75, label %72
 
@@ -1432,13 +1432,13 @@ define internal fastcc void @ImplementVirtuals(ptr noundef %0, ptr noundef %1, p
 
 75:                                               ; preds = %72, %68
   %76 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %17, i64 0, i32 7
-  %77 = load i64, ptr %76, align 8, !tbaa !65
+  %77 = load i64, ptr %76, align 8, !tbaa !66
   %78 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %17, i64 0, i32 6
-  %79 = load ptr, ptr %78, align 8, !tbaa !66
+  %79 = load ptr, ptr %78, align 8, !tbaa !67
   tail call void @TreeCCStreamLine(ptr noundef %1, i64 noundef %77, ptr noundef %79) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.104) #3
   %80 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %17, i64 0, i32 1
-  %81 = load ptr, ptr %80, align 8, !tbaa !67
+  %81 = load ptr, ptr %80, align 8, !tbaa !68
   tail call void @TreeCCStreamCode(ptr noundef %1, ptr noundef %81) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.105) #3
   tail call void @TreeCCStreamFixLine(ptr noundef %1) #3
@@ -1448,13 +1448,13 @@ define internal fastcc void @ImplementVirtuals(ptr noundef %0, ptr noundef %1, p
   %83 = load ptr, ptr %13, align 8, !tbaa !23
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.106, ptr noundef %83, ptr noundef nonnull %70) #3
   %84 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %17, i64 0, i32 7
-  %85 = load i64, ptr %84, align 8, !tbaa !65
+  %85 = load i64, ptr %84, align 8, !tbaa !66
   %86 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %17, i64 0, i32 6
-  %87 = load ptr, ptr %86, align 8, !tbaa !66
+  %87 = load ptr, ptr %86, align 8, !tbaa !67
   tail call void @TreeCCStreamLine(ptr noundef %1, i64 noundef %85, ptr noundef %87) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.107) #3
   %88 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %17, i64 0, i32 1
-  %89 = load ptr, ptr %88, align 8, !tbaa !67
+  %89 = load ptr, ptr %88, align 8, !tbaa !68
   tail call void @TreeCCStreamCodeIndent(ptr noundef %1, ptr noundef %89, i32 noundef 1) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.105) #3
   tail call void @TreeCCStreamFixLine(ptr noundef %1) #3
@@ -1490,7 +1490,7 @@ define internal fastcc i32 @CreateParamsSource(ptr noundef %0, ptr nocapture nou
   %14 = phi ptr [ %30, %27 ], [ %11, %8 ]
   %15 = phi i32 [ %28, %27 ], [ %9, %8 ]
   %16 = getelementptr inbounds %struct._tagTreeCCField, ptr %14, i64 0, i32 3
-  %17 = load i32, ptr %16, align 8, !tbaa !47
+  %17 = load i32, ptr %16, align 8, !tbaa !48
   %18 = and i32 %17, 1
   %19 = icmp eq i32 %18, 0
   br i1 %19, label %20, label %27
@@ -1515,7 +1515,7 @@ define internal fastcc i32 @CreateParamsSource(ptr noundef %0, ptr nocapture nou
   %29 = getelementptr inbounds %struct._tagTreeCCField, ptr %14, i64 0, i32 6
   %30 = load ptr, ptr %29, align 8, !tbaa !5
   %31 = icmp eq ptr %30, null
-  br i1 %31, label %32, label %13, !llvm.loop !68
+  br i1 %31, label %32, label %13, !llvm.loop !69
 
 32:                                               ; preds = %27, %8
   %33 = phi i32 [ %9, %8 ], [ %28, %27 ]
@@ -1543,7 +1543,7 @@ define internal fastcc i32 @InheritParamsSource(ptr noundef %0, ptr nocapture no
   %14 = phi ptr [ %28, %25 ], [ %11, %8 ]
   %15 = phi i32 [ %26, %25 ], [ %9, %8 ]
   %16 = getelementptr inbounds %struct._tagTreeCCField, ptr %14, i64 0, i32 3
-  %17 = load i32, ptr %16, align 8, !tbaa !47
+  %17 = load i32, ptr %16, align 8, !tbaa !48
   %18 = and i32 %17, 1
   %19 = icmp eq i32 %18, 0
   br i1 %19, label %20, label %25
@@ -1566,7 +1566,7 @@ define internal fastcc i32 @InheritParamsSource(ptr noundef %0, ptr nocapture no
   %27 = getelementptr inbounds %struct._tagTreeCCField, ptr %14, i64 0, i32 6
   %28 = load ptr, ptr %27, align 8, !tbaa !5
   %29 = icmp eq ptr %28, null
-  br i1 %29, label %30, label %13, !llvm.loop !69
+  br i1 %29, label %30, label %13, !llvm.loop !70
 
 30:                                               ; preds = %25, %8
   %31 = phi i32 [ %9, %8 ], [ %26, %25 ]
@@ -1632,40 +1632,41 @@ attributes #4 = { nounwind willreturn memory(read) }
 !30 = !{!31, !6, i64 8}
 !31 = !{!"_tagTreeCCField", !6, i64 0, !6, i64 8, !6, i64 16, !11, i64 24, !6, i64 32, !21, i64 40, !6, i64 48}
 !32 = !{!31, !6, i64 0}
-!33 = distinct !{!33, !13}
-!34 = !{!35, !6, i64 104}
-!35 = !{!"_tagTreeCCOperation", !6, i64 0, !6, i64 8, !6, i64 16, !6, i64 24, !6, i64 32, !11, i64 40, !11, i64 44, !6, i64 48, !21, i64 56, !6, i64 64, !6, i64 72, !6, i64 80, !6, i64 88, !11, i64 96, !6, i64 104, !6, i64 112}
-!36 = !{!35, !11, i64 40}
-!37 = !{!35, !6, i64 8}
-!38 = !{!35, !6, i64 16}
-!39 = !{!35, !6, i64 0}
-!40 = !{!41, !6, i64 0}
-!41 = !{!"_tagTreeCCParam", !6, i64 0, !6, i64 8, !11, i64 16, !11, i64 20, !6, i64 24}
-!42 = !{!41, !6, i64 8}
-!43 = distinct !{!43, !13, !44}
-!44 = !{!"llvm.loop.peeled.count", i32 1}
-!45 = !{!10, !11, i64 8280}
-!46 = !{!20, !6, i64 104}
-!47 = !{!31, !11, i64 24}
-!48 = !{!31, !6, i64 16}
-!49 = distinct !{!49, !13}
+!33 = !{!31, !6, i64 48}
+!34 = distinct !{!34, !13}
+!35 = !{!36, !6, i64 104}
+!36 = !{!"_tagTreeCCOperation", !6, i64 0, !6, i64 8, !6, i64 16, !6, i64 24, !6, i64 32, !11, i64 40, !11, i64 44, !6, i64 48, !21, i64 56, !6, i64 64, !6, i64 72, !6, i64 80, !6, i64 88, !11, i64 96, !6, i64 104, !6, i64 112}
+!37 = !{!36, !11, i64 40}
+!38 = !{!36, !6, i64 8}
+!39 = !{!36, !6, i64 16}
+!40 = !{!36, !6, i64 0}
+!41 = !{!42, !6, i64 0}
+!42 = !{!"_tagTreeCCParam", !6, i64 0, !6, i64 8, !11, i64 16, !11, i64 20, !6, i64 24}
+!43 = !{!42, !6, i64 8}
+!44 = distinct !{!44, !13, !45}
+!45 = !{!"llvm.loop.peeled.count", i32 1}
+!46 = !{!10, !11, i64 8280}
+!47 = !{!20, !6, i64 104}
+!48 = !{!31, !11, i64 24}
+!49 = !{!31, !6, i64 16}
 !50 = distinct !{!50, !13}
 !51 = distinct !{!51, !13}
-!52 = !{!53, !6, i64 0}
-!53 = !{!"_tagTreeCCVirtual", !6, i64 0, !6, i64 8, !6, i64 16, !6, i64 24, !6, i64 32}
-!54 = distinct !{!54, !13}
-!55 = !{!53, !6, i64 8}
-!56 = distinct !{!56, !13, !44}
-!57 = distinct !{!57, !13}
+!52 = distinct !{!52, !13}
+!53 = !{!54, !6, i64 0}
+!54 = !{!"_tagTreeCCVirtual", !6, i64 0, !6, i64 8, !6, i64 16, !6, i64 24, !6, i64 32}
+!55 = distinct !{!55, !13}
+!56 = !{!54, !6, i64 8}
+!57 = distinct !{!57, !13, !45}
 !58 = distinct !{!58, !13}
 !59 = distinct !{!59, !13}
-!60 = !{!61, !6, i64 16}
-!61 = !{!"_tagTreeCCOperationCase", !6, i64 0, !6, i64 8, !6, i64 16, !11, i64 24, !6, i64 32, !21, i64 40, !6, i64 48, !21, i64 56, !6, i64 64, !6, i64 72}
-!62 = distinct !{!62, !13, !63}
-!63 = !{!"llvm.loop.peeled.count", i32 2}
-!64 = !{!35, !6, i64 32}
-!65 = !{!61, !21, i64 56}
-!66 = !{!61, !6, i64 48}
-!67 = !{!61, !6, i64 8}
-!68 = distinct !{!68, !13}
+!60 = distinct !{!60, !13}
+!61 = !{!62, !6, i64 16}
+!62 = !{!"_tagTreeCCOperationCase", !6, i64 0, !6, i64 8, !6, i64 16, !11, i64 24, !6, i64 32, !21, i64 40, !6, i64 48, !21, i64 56, !6, i64 64, !6, i64 72}
+!63 = distinct !{!63, !13, !64}
+!64 = !{!"llvm.loop.peeled.count", i32 2}
+!65 = !{!36, !6, i64 32}
+!66 = !{!62, !21, i64 56}
+!67 = !{!62, !6, i64 48}
+!68 = !{!62, !6, i64 8}
 !69 = distinct !{!69, !13}
+!70 = distinct !{!70, !13}

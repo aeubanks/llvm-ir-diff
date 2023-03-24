@@ -176,21 +176,21 @@ define dso_local { <2 x float>, <2 x float> } @_ZN30btKinematicCharacterControll
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
 define dso_local void @_ZN30btKinematicCharacterControllerC2EP24btPairCachingGhostObjectP13btConvexShapefi(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(192) %0, ptr noundef %1, ptr noundef %2, float noundef %3, i32 noundef %4) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
   store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV30btKinematicCharacterController, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !9
-  %6 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 10
-  %7 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 6
-  store i8 1, ptr %7, align 8, !tbaa !11
-  %8 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 5
-  store ptr null, ptr %8, align 8, !tbaa !17
-  %9 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 2
-  store i32 0, ptr %9, align 4, !tbaa !18
-  %10 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 3
-  store i32 0, ptr %10, align 8, !tbaa !19
+  %6 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 6
+  store i8 1, ptr %6, align 8, !tbaa !11
+  %7 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 5
+  store ptr null, ptr %7, align 8, !tbaa !17
+  %8 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 2
+  store i32 0, ptr %8, align 4, !tbaa !18
+  %9 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 3
+  store i32 0, ptr %9, align 8, !tbaa !19
+  %10 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 10
   %11 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 22
   store i32 %4, ptr %11, align 4, !tbaa !20
   %12 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 9
   store float 0x3F947AE140000000, ptr %12, align 4, !tbaa !25
   %13 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 19
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %6, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %10, i8 0, i64 16, i1 false)
   store i8 1, ptr %13, align 4, !tbaa !26
   %14 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 2
   store ptr %1, ptr %14, align 8, !tbaa !27
@@ -226,9 +226,9 @@ define dso_local void @_ZN30btKinematicCharacterControllerD2Ev(ptr nocapture nou
   br label %10
 
 10:                                               ; preds = %9, %1
-  %11 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 2
   store i8 1, ptr %5, align 8, !tbaa !11
   store ptr null, ptr %2, align 8, !tbaa !17
+  %11 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 2
   store i32 0, ptr %11, align 4, !tbaa !18
   %12 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 16, i32 3
   store i32 0, ptr %12, align 8, !tbaa !19
@@ -251,7 +251,7 @@ define dso_local void @_ZN30btKinematicCharacterControllerD0Ev(ptr noundef nonnu
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %11
 
-10:                                               ; preds = %1, %9
+10:                                               ; preds = %9, %1
   tail call void @_ZdlPv(ptr noundef nonnull %0) #19
   ret void
 
@@ -877,9 +877,9 @@ define dso_local void @_ZN30btKinematicCharacterController20stepForwardAndStrafe
   %60 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 9
   %61 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 19
   %62 = getelementptr inbounds %class.btCollisionWorld, ptr %1, i64 0, i32 3, i32 9
-  %63 = getelementptr inbounds %"struct.btCollisionWorld::ClosestConvexResultCallback", ptr %6, i64 0, i32 4
-  %64 = getelementptr inbounds %"struct.btCollisionWorld::ClosestConvexResultCallback", ptr %6, i64 0, i32 4, i32 0, i64 1
-  %65 = getelementptr inbounds %"struct.btCollisionWorld::ClosestConvexResultCallback", ptr %6, i64 0, i32 4, i32 0, i64 2
+  %63 = getelementptr inbounds %"struct.btCollisionWorld::ClosestConvexResultCallback", ptr %6, i64 0, i32 4, i32 0, i64 2
+  %64 = getelementptr inbounds %"struct.btCollisionWorld::ClosestConvexResultCallback", ptr %6, i64 0, i32 4
+  %65 = getelementptr inbounds %"struct.btCollisionWorld::ClosestConvexResultCallback", ptr %6, i64 0, i32 4, i32 0, i64 1
   %66 = getelementptr inbounds %"struct.btCollisionWorld::ClosestConvexResultCallback", ptr %6, i64 0, i32 3
   %67 = getelementptr inbounds %"struct.btCollisionWorld::ClosestConvexResultCallback", ptr %6, i64 0, i32 3, i32 0, i64 2
   %68 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 11
@@ -887,9 +887,9 @@ define dso_local void @_ZN30btKinematicCharacterController20stepForwardAndStrafe
   %70 = getelementptr inbounds %class.btKinematicCharacterController, ptr %0, i64 0, i32 11, i32 0, i64 2
   br label %71
 
-71:                                               ; preds = %50, %236
-  %72 = phi float [ 1.000000e+00, %50 ], [ %108, %236 ]
-  %73 = phi i32 [ 10, %50 ], [ %74, %236 ]
+71:                                               ; preds = %50, %237
+  %72 = phi float [ 1.000000e+00, %50 ], [ %108, %237 ]
+  %73 = phi i32 [ 10, %50 ], [ %74, %237 ]
   %74 = add nsw i32 %73, -1
   %75 = icmp eq i32 %73, 0
   br i1 %75, label %239, label %76
@@ -947,22 +947,22 @@ define dso_local void @_ZN30btKinematicCharacterController20stepForwardAndStrafe
   %107 = load float, ptr %54, align 8, !tbaa !61
   %108 = fsub float %72, %107
   %109 = fcmp olt float %107, 1.000000e+00
-  br i1 %109, label %110, label %235
+  br i1 %109, label %110, label %236
 
 110:                                              ; preds = %102
   %111 = load float, ptr %63, align 8, !tbaa !5
-  %112 = load float, ptr %64, align 4, !tbaa !5
-  %113 = load <2 x float>, ptr %7, align 8, !tbaa !5
-  %114 = extractelement <2 x float> %113, i64 0
-  %115 = fsub float %111, %114
-  %116 = extractelement <2 x float> %113, i64 1
-  %117 = fsub float %112, %116
-  %118 = load float, ptr %65, align 8, !tbaa !5
-  %119 = load float, ptr %11, align 8, !tbaa !5
-  %120 = fsub float %118, %119
-  %121 = fmul float %117, %117
-  %122 = call float @llvm.fmuladd.f32(float %115, float %115, float %121)
-  %123 = call float @llvm.fmuladd.f32(float %120, float %120, float %122)
+  %112 = load float, ptr %11, align 8, !tbaa !5
+  %113 = fsub float %111, %112
+  %114 = load float, ptr %64, align 8, !tbaa !5
+  %115 = load float, ptr %65, align 4, !tbaa !5
+  %116 = load <2 x float>, ptr %7, align 8, !tbaa !5
+  %117 = extractelement <2 x float> %116, i64 0
+  %118 = fsub float %114, %117
+  %119 = extractelement <2 x float> %116, i64 1
+  %120 = fsub float %115, %119
+  %121 = fmul float %120, %120
+  %122 = call float @llvm.fmuladd.f32(float %118, float %118, float %121)
+  %123 = call float @llvm.fmuladd.f32(float %113, float %113, float %122)
   %124 = call float @llvm.sqrt.f32(float %123)
   %125 = load float, ptr %60, align 4, !tbaa !25
   %126 = fcmp ogt float %124, %125
@@ -981,19 +981,19 @@ define dso_local void @_ZN30btKinematicCharacterController20stepForwardAndStrafe
   %135 = fmul <2 x float> %134, %132
   %136 = insertelement <2 x float> poison, float %131, i64 0
   %137 = shufflevector <2 x float> %136, <2 x float> poison, <2 x i32> zeroinitializer
-  %138 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %137, <2 x float> %113, <2 x float> %135)
+  %138 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %137, <2 x float> %116, <2 x float> %135)
   store <2 x float> %138, ptr %7, align 8, !tbaa !5
   %139 = load float, ptr %18, align 4, !tbaa !5
   %140 = fmul float %107, %139
-  %141 = call float @llvm.fmuladd.f32(float %131, float %119, float %140)
+  %141 = call float @llvm.fmuladd.f32(float %131, float %112, float %140)
   store float %141, ptr %11, align 8, !tbaa !5
   br label %142
 
 142:                                              ; preds = %127, %130
-  %143 = phi float [ %119, %127 ], [ %141, %130 ]
+  %143 = phi float [ %112, %127 ], [ %141, %130 ]
   %144 = phi float [ %129, %127 ], [ %139, %130 ]
   %145 = phi <2 x float> [ %128, %127 ], [ %132, %130 ]
-  %146 = phi <2 x float> [ %113, %127 ], [ %138, %130 ]
+  %146 = phi <2 x float> [ %116, %127 ], [ %138, %130 ]
   %147 = fsub <2 x float> %145, %146
   %148 = fsub float %144, %143
   %149 = fmul <2 x float> %147, %147
@@ -1082,34 +1082,34 @@ define dso_local void @_ZN30btKinematicCharacterController20stepForwardAndStrafe
 220:                                              ; preds = %214
   %221 = call float @llvm.sqrt.f32(float %215)
   %222 = fdiv float 1.000000e+00, %221
-  %223 = extractelement <2 x float> %217, i64 0
-  %224 = fmul float %223, %222
-  %225 = extractelement <2 x float> %217, i64 1
-  %226 = fmul float %225, %222
-  %227 = fmul float %216, %222
+  %223 = fmul float %216, %222
+  %224 = extractelement <2 x float> %217, i64 1
+  %225 = fmul float %224, %222
+  %226 = extractelement <2 x float> %217, i64 0
+  %227 = fmul float %226, %222
   %228 = load float, ptr %68, align 8, !tbaa !5
   %229 = load float, ptr %69, align 4, !tbaa !5
-  %230 = fmul float %226, %229
-  %231 = call float @llvm.fmuladd.f32(float %224, float %228, float %230)
+  %230 = fmul float %225, %229
+  %231 = call float @llvm.fmuladd.f32(float %227, float %228, float %230)
   %232 = load float, ptr %70, align 8, !tbaa !5
-  %233 = call float @llvm.fmuladd.f32(float %227, float %232, float %231)
+  %233 = call float @llvm.fmuladd.f32(float %223, float %232, float %231)
   %234 = fcmp ugt float %233, 0.000000e+00
-  br i1 %234, label %236, label %238
+  br i1 %234, label %237, label %235
 
-235:                                              ; preds = %102
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %7, ptr noundef nonnull align 4 dereferenceable(16) %17, i64 16, i1 false), !tbaa.struct !44
-  br label %236
-
-236:                                              ; preds = %220, %235
-  call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %6) #20
-  %237 = fcmp ogt float %108, 0x3F847AE140000000
-  br i1 %237, label %71, label %239
-
-238:                                              ; preds = %220
+235:                                              ; preds = %220
   call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %6) #20
   br label %239
 
-239:                                              ; preds = %236, %71, %238, %219
+236:                                              ; preds = %102
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %7, ptr noundef nonnull align 4 dereferenceable(16) %17, i64 16, i1 false), !tbaa.struct !44
+  br label %237
+
+237:                                              ; preds = %236, %220
+  call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %6) #20
+  %238 = fcmp ogt float %108, 0x3F847AE140000000
+  br i1 %238, label %71, label %239
+
+239:                                              ; preds = %237, %71, %235, %219
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %5) #20
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %4) #20
   ret void

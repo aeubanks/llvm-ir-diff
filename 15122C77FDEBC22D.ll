@@ -67,7 +67,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %18 = getelementptr inbounds %"struct.std::_Vector_base<LoopVariantID, std::allocator<LoopVariantID>>::_Vector_impl_data", ptr %8, i64 0, i32 1
   %19 = getelementptr inbounds %"struct.std::_Vector_base<LoopVariantID, std::allocator<LoopVariantID>>::_Vector_impl_data", ptr %8, i64 0, i32 2
   %20 = invoke noalias noundef nonnull dereferenceable(4) ptr @_Znwm(i64 noundef 4) #12
-          to label %21 unwind label %49
+          to label %21 unwind label %40
 
 21:                                               ; preds = %2
   store i32 0, ptr %20, align 4, !tbaa !18
@@ -76,7 +76,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   store ptr %22, ptr %18, align 8, !tbaa !22
   store ptr %22, ptr %19, align 8, !tbaa !23
   %23 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #12
-          to label %24 unwind label %51
+          to label %24 unwind label %42
 
 24:                                               ; preds = %21
   %25 = getelementptr inbounds i32, ptr %23, i64 1
@@ -90,7 +90,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %28 = getelementptr inbounds i32, ptr %23, i64 2
   store ptr %28, ptr %19, align 8, !tbaa !23
   %29 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #12
-          to label %30 unwind label %53
+          to label %30 unwind label %44
 
 30:                                               ; preds = %24
   %31 = getelementptr inbounds i32, ptr %29, i64 2
@@ -115,50 +115,50 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #11
   store i64 %38, ptr %3, align 8, !tbaa !24
   %39 = icmp ugt i64 %38, 15
-  br i1 %39, label %40, label %44
+  br i1 %39, label %46, label %50
 
-40:                                               ; preds = %30
-  %41 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %10, ptr noundef nonnull align 8 dereferenceable(8) %3, i64 noundef 0)
-          to label %42 unwind label %62
-
-42:                                               ; preds = %40
-  store ptr %41, ptr %10, align 8, !tbaa !25
-  %43 = load i64, ptr %3, align 8, !tbaa !24
-  store i64 %43, ptr %37, align 8, !tbaa !15
-  br label %44
-
-44:                                               ; preds = %42, %30
-  %45 = phi ptr [ %41, %42 ], [ %37, %30 ]
-  switch i64 %38, label %48 [
-    i64 1, label %46
-    i64 0, label %55
-  ]
-
-46:                                               ; preds = %44
-  %47 = load i8, ptr %9, align 16, !tbaa !15
-  store i8 %47, ptr %45, align 1, !tbaa !15
-  br label %55
-
-48:                                               ; preds = %44
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %45, ptr nonnull align 16 %9, i64 %38, i1 false)
-  br label %55
-
-49:                                               ; preds = %2
-  %50 = landingpad { ptr, i32 }
+40:                                               ; preds = %2
+  %41 = landingpad { ptr, i32 }
           cleanup
   br label %120
 
-51:                                               ; preds = %21
-  %52 = landingpad { ptr, i32 }
+42:                                               ; preds = %21
+  %43 = landingpad { ptr, i32 }
           cleanup
   br label %117
 
-53:                                               ; preds = %24
-  %54 = landingpad { ptr, i32 }
+44:                                               ; preds = %24
+  %45 = landingpad { ptr, i32 }
           cleanup
   br label %117
 
-55:                                               ; preds = %48, %46, %44
+46:                                               ; preds = %30
+  %47 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %10, ptr noundef nonnull align 8 dereferenceable(8) %3, i64 noundef 0)
+          to label %48 unwind label %62
+
+48:                                               ; preds = %46
+  store ptr %47, ptr %10, align 8, !tbaa !25
+  %49 = load i64, ptr %3, align 8, !tbaa !24
+  store i64 %49, ptr %37, align 8, !tbaa !15
+  br label %50
+
+50:                                               ; preds = %48, %30
+  %51 = phi ptr [ %47, %48 ], [ %37, %30 ]
+  switch i64 %38, label %54 [
+    i64 1, label %52
+    i64 0, label %55
+  ]
+
+52:                                               ; preds = %50
+  %53 = load i8, ptr %9, align 16, !tbaa !15
+  store i8 %53, ptr %51, align 1, !tbaa !15
+  br label %55
+
+54:                                               ; preds = %50
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %51, ptr nonnull align 16 %9, i64 %38, i1 false)
+  br label %55
+
+55:                                               ; preds = %50, %52, %54
   %56 = load i64, ptr %3, align 8, !tbaa !24
   %57 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 0, i32 1
   store i64 %56, ptr %57, align 8, !tbaa !12
@@ -170,7 +170,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %61 = icmp eq i64 %60, -1
   br i1 %61, label %64, label %80
 
-62:                                               ; preds = %40
+62:                                               ; preds = %46
   %63 = landingpad { ptr, i32 }
           cleanup
   br label %113
@@ -300,14 +300,14 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %116 = icmp eq ptr %115, null
   br i1 %116, label %120, label %117
 
-117:                                              ; preds = %51, %53, %113
-  %118 = phi { ptr, i32 } [ %114, %113 ], [ %52, %51 ], [ %54, %53 ]
-  %119 = phi ptr [ %115, %113 ], [ %20, %51 ], [ %23, %53 ]
+117:                                              ; preds = %42, %44, %113
+  %118 = phi { ptr, i32 } [ %114, %113 ], [ %43, %42 ], [ %45, %44 ]
+  %119 = phi ptr [ %115, %113 ], [ %20, %42 ], [ %23, %44 ]
   call void @_ZdlPv(ptr noundef nonnull %119) #13
   br label %120
 
-120:                                              ; preds = %49, %113, %117
-  %121 = phi { ptr, i32 } [ %114, %113 ], [ %118, %117 ], [ %50, %49 ]
+120:                                              ; preds = %40, %113, %117
+  %121 = phi { ptr, i32 } [ %114, %113 ], [ %118, %117 ], [ %41, %40 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %8) #11
   call void @llvm.lifetime.end.p0(i64 33, ptr nonnull %7) #11
   call void @llvm.lifetime.end.p0(i64 3, ptr nonnull %6) #11

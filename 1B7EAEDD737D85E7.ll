@@ -157,31 +157,31 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.136 = private unnamed_addr constant [5 x i8] c"-fdr\00", align 1
 @.str.137 = private unnamed_addr constant [4 x i8] c"-fr\00", align 1
 @.str.138 = private unnamed_addr constant [3 x i8] c"-f\00", align 1
-@str.140 = private unnamed_addr constant [21 x i8] c"PLA's compared equal\00", align 1
-@str.141 = private unnamed_addr constant [52 x i8] c"PLA comparison failed; the PLA's are not equivalent\00", align 1
-@str.142 = private unnamed_addr constant [37 x i8] c"SYNOPSIS: espresso [options] [file]\0A\00", align 1
-@str.143 = private unnamed_addr constant [29 x i8] c"  -d        Enable debugging\00", align 1
-@str.144 = private unnamed_addr constant [36 x i8] c"  -e[opt]   Select espresso option:\00", align 1
-@str.145 = private unnamed_addr constant [63 x i8] c"                fast, ness, nirr, nunwrap, onset, pos, strong,\00", align 1
-@str.146 = private unnamed_addr constant [43 x i8] c"                eat, eatdots, kiss, random\00", align 1
-@str.147 = private unnamed_addr constant [34 x i8] c"  -o[type]  Select output format:\00", align 1
-@str.148 = private unnamed_addr constant [62 x i8] c"                f, fd, fr, fdr, pleasure, eqntott, kiss, cons\00", align 1
-@str.149 = private unnamed_addr constant [42 x i8] c"  -rn-m     Select range for subcommands:\00", align 1
-@str.150 = private unnamed_addr constant [62 x i8] c"                d1merge: first and last variables (0 ... m-1)\00", align 1
-@str.151 = private unnamed_addr constant [63 x i8] c"                minterms: first and last variables (0 ... m-1)\00", align 1
-@str.152 = private unnamed_addr constant [59 x i8] c"                opoall: first and last outputs (0 ... m-1)\00", align 1
-@str.153 = private unnamed_addr constant [44 x i8] c"  -s        Provide short execution summary\00", align 1
-@str.154 = private unnamed_addr constant [43 x i8] c"  -t        Provide longer execution trace\00", align 1
-@str.155 = private unnamed_addr constant [42 x i8] c"  -x        Suppress printing of solution\00", align 1
-@str.156 = private unnamed_addr constant [53 x i8] c"  -v[type]  Verbose debugging detail (-v '' for all)\00", align 1
-@str.157 = private unnamed_addr constant [38 x i8] c"  -D[cmd]   Execute subcommand 'cmd':\00", align 1
-@str.158 = private unnamed_addr constant [45 x i8] c"  -Sn       Select strategy for subcommands:\00", align 1
-@str.159 = private unnamed_addr constant [63 x i8] c"                opo: bit2=exact bit1=repeated bit0=skip sparse\00", align 1
-@str.160 = private unnamed_addr constant [44 x i8] c"                opoall: 0=minimize, 1=exact\00", align 1
-@str.161 = private unnamed_addr constant [66 x i8] c"                pair: 0=algebraic, 1=strongd, 2=espresso, 3=exact\00", align 1
-@str.162 = private unnamed_addr constant [52 x i8] c"                pairall: 0=minimize, 1=exact, 2=opo\00", align 1
-@str.163 = private unnamed_addr constant [49 x i8] c"                so_espresso: 0=minimize, 1=exact\00", align 1
-@str.164 = private unnamed_addr constant [45 x i8] c"                so_both: 0=minimize, 1=exact\00", align 1
+@str = private unnamed_addr constant [37 x i8] c"SYNOPSIS: espresso [options] [file]\0A\00", align 1
+@str.139 = private unnamed_addr constant [29 x i8] c"  -d        Enable debugging\00", align 1
+@str.140 = private unnamed_addr constant [36 x i8] c"  -e[opt]   Select espresso option:\00", align 1
+@str.141 = private unnamed_addr constant [63 x i8] c"                fast, ness, nirr, nunwrap, onset, pos, strong,\00", align 1
+@str.142 = private unnamed_addr constant [43 x i8] c"                eat, eatdots, kiss, random\00", align 1
+@str.143 = private unnamed_addr constant [34 x i8] c"  -o[type]  Select output format:\00", align 1
+@str.144 = private unnamed_addr constant [62 x i8] c"                f, fd, fr, fdr, pleasure, eqntott, kiss, cons\00", align 1
+@str.145 = private unnamed_addr constant [42 x i8] c"  -rn-m     Select range for subcommands:\00", align 1
+@str.146 = private unnamed_addr constant [62 x i8] c"                d1merge: first and last variables (0 ... m-1)\00", align 1
+@str.147 = private unnamed_addr constant [63 x i8] c"                minterms: first and last variables (0 ... m-1)\00", align 1
+@str.148 = private unnamed_addr constant [59 x i8] c"                opoall: first and last outputs (0 ... m-1)\00", align 1
+@str.149 = private unnamed_addr constant [44 x i8] c"  -s        Provide short execution summary\00", align 1
+@str.150 = private unnamed_addr constant [43 x i8] c"  -t        Provide longer execution trace\00", align 1
+@str.151 = private unnamed_addr constant [42 x i8] c"  -x        Suppress printing of solution\00", align 1
+@str.152 = private unnamed_addr constant [53 x i8] c"  -v[type]  Verbose debugging detail (-v '' for all)\00", align 1
+@str.153 = private unnamed_addr constant [38 x i8] c"  -D[cmd]   Execute subcommand 'cmd':\00", align 1
+@str.154 = private unnamed_addr constant [45 x i8] c"  -Sn       Select strategy for subcommands:\00", align 1
+@str.155 = private unnamed_addr constant [63 x i8] c"                opo: bit2=exact bit1=repeated bit0=skip sparse\00", align 1
+@str.156 = private unnamed_addr constant [44 x i8] c"                opoall: 0=minimize, 1=exact\00", align 1
+@str.157 = private unnamed_addr constant [66 x i8] c"                pair: 0=algebraic, 1=strongd, 2=espresso, 3=exact\00", align 1
+@str.158 = private unnamed_addr constant [52 x i8] c"                pairall: 0=minimize, 1=exact, 2=opo\00", align 1
+@str.159 = private unnamed_addr constant [49 x i8] c"                so_espresso: 0=minimize, 1=exact\00", align 1
+@str.160 = private unnamed_addr constant [45 x i8] c"                so_both: 0=minimize, 1=exact\00", align 1
+@str.163 = private unnamed_addr constant [21 x i8] c"PLA's compared equal\00", align 1
+@str.164 = private unnamed_addr constant [52 x i8] c"PLA comparison failed; the PLA's are not equivalent\00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0 {
@@ -1191,12 +1191,12 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   br i1 %585, label %588, label %586
 
 586:                                              ; preds = %578
-  %587 = call i32 @puts(ptr nonnull dereferenceable(1) @str.141)
+  %587 = call i32 @puts(ptr nonnull dereferenceable(1) @str.164)
   call void @exit(i32 noundef 1) #17
   unreachable
 
 588:                                              ; preds = %578
-  %589 = call i32 @puts(ptr nonnull dereferenceable(1) @str.140)
+  %589 = call i32 @puts(ptr nonnull dereferenceable(1) @str.163)
   call void @exit(i32 noundef 0) #17
   unreachable
 
@@ -1216,12 +1216,12 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   br i1 %601, label %604, label %602
 
 602:                                              ; preds = %590
-  %603 = call i32 @puts(ptr nonnull dereferenceable(1) @str.141)
+  %603 = call i32 @puts(ptr nonnull dereferenceable(1) @str.164)
   call void @exit(i32 noundef 1) #17
   unreachable
 
 604:                                              ; preds = %590
-  %605 = call i32 @puts(ptr nonnull dereferenceable(1) @str.140)
+  %605 = call i32 @puts(ptr nonnull dereferenceable(1) @str.163)
   call void @exit(i32 noundef 0) #17
   unreachable
 
@@ -1935,30 +1935,30 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #3
 ; Function Attrs: nofree nounwind uwtable
 define dso_local i32 @usage() local_unnamed_addr #9 {
   %1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.108, ptr noundef nonnull @.str.73)
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.142)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.143)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.144)
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.145)
-  %6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.146)
-  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.147)
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.148)
-  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.149)
-  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.150)
-  %11 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.151)
-  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.152)
-  %13 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.153)
-  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.154)
-  %15 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.155)
-  %16 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.156)
-  %17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.157)
+  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.139)
+  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.140)
+  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.141)
+  %6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.142)
+  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.143)
+  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.144)
+  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.145)
+  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.146)
+  %11 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.147)
+  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.148)
+  %13 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.149)
+  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.150)
+  %15 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.151)
+  %16 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.152)
+  %17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.153)
   %18 = tail call i32 @subcommands()
-  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.158)
-  %20 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.159)
-  %21 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.160)
-  %22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.161)
-  %23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.162)
-  %24 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.163)
-  %25 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.164)
+  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.154)
+  %20 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.155)
+  %21 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.156)
+  %22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.157)
+  %23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.158)
+  %24 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.159)
+  %25 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.160)
   ret i32 undef
 }
 
@@ -1985,108 +1985,108 @@ define dso_local i32 @backward_compatibility_hack(ptr nocapture noundef %0, ptr 
 
 17:                                               ; preds = %10
   %18 = trunc i64 %12 to i32
-  %19 = load ptr, ptr @option_table, align 16, !tbaa !15
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %21, label %24
+  %19 = and i64 %12, 4294967295
+  %20 = load ptr, ptr @option_table, align 16, !tbaa !15
+  %21 = icmp eq ptr %20, null
+  br i1 %21, label %22, label %25
 
-21:                                               ; preds = %17
-  %22 = add nuw i64 %12, 1
-  %23 = and i64 %22, 4294967295
+22:                                               ; preds = %17
+  %23 = add nuw i64 %12, 1
+  %24 = and i64 %23, 4294967295
   br label %119
 
-24:                                               ; preds = %17
-  %25 = add nuw nsw i32 %18, 1
-  %26 = zext i32 %25 to i64
-  %27 = getelementptr inbounds ptr, ptr %1, i64 %26
-  %28 = load ptr, ptr %27, align 8, !tbaa !9
-  %29 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %28, ptr noundef nonnull dereferenceable(1) %19) #15
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %34, label %108
+25:                                               ; preds = %17
+  %26 = add nuw nsw i32 %18, 1
+  %27 = zext i32 %26 to i64
+  %28 = getelementptr inbounds ptr, ptr %1, i64 %27
+  %29 = load ptr, ptr %28, align 8, !tbaa !9
+  %30 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %29, ptr noundef nonnull dereferenceable(1) %20) #15
+  %31 = icmp eq i32 %30, 0
+  br i1 %31, label %35, label %108
 
-31:                                               ; preds = %108
-  %32 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %28, ptr noundef nonnull dereferenceable(1) %112) #15
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %34, label %108
+32:                                               ; preds = %108
+  %33 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %29, ptr noundef nonnull dereferenceable(1) %112) #15
+  %34 = icmp eq i32 %33, 0
+  br i1 %34, label %35, label %108
 
-34:                                               ; preds = %31, %24
-  %35 = phi i64 [ 0, %24 ], [ %110, %31 ]
-  %36 = phi ptr [ @option_table, %24 ], [ %111, %31 ]
-  %37 = trunc i64 %35 to i32
-  store i32 %37, ptr %2, align 4, !tbaa !5
-  %38 = load i32, ptr %0, align 4, !tbaa !5
-  %39 = add nsw i32 %38, -1
-  %40 = icmp sgt i32 %39, %25
-  br i1 %40, label %41, label %73
+35:                                               ; preds = %32, %25
+  %36 = phi i64 [ 0, %25 ], [ %110, %32 ]
+  %37 = phi ptr [ @option_table, %25 ], [ %111, %32 ]
+  %38 = trunc i64 %36 to i32
+  store i32 %38, ptr %2, align 4, !tbaa !5
+  %39 = load i32, ptr %0, align 4, !tbaa !5
+  %40 = add nsw i32 %39, -1
+  %41 = icmp sgt i32 %40, %26
+  br i1 %41, label %42, label %74
 
-41:                                               ; preds = %34
-  %42 = sext i32 %39 to i64
-  %43 = sext i32 %38 to i64
-  %44 = sub i64 %43, %11
-  %45 = add i64 %44, -3
-  %46 = icmp ult i64 %45, 4
-  br i1 %46, label %64, label %47
+42:                                               ; preds = %35
+  %43 = sext i32 %40 to i64
+  %44 = sext i32 %39 to i64
+  %45 = sub i64 %44, %11
+  %46 = add i64 %45, -3
+  %47 = icmp ult i64 %46, 4
+  br i1 %47, label %65, label %48
 
-47:                                               ; preds = %41
-  %48 = and i64 %45, -4
-  %49 = add i64 %48, %26
-  br label %50
+48:                                               ; preds = %42
+  %49 = and i64 %46, -4
+  %50 = add i64 %49, %27
+  br label %51
 
-50:                                               ; preds = %50, %47
-  %51 = phi i64 [ 0, %47 ], [ %60, %50 ]
-  %52 = add i64 %51, %26
-  %53 = add nuw nsw i64 %52, 1
-  %54 = getelementptr inbounds ptr, ptr %1, i64 %53
-  %55 = load <2 x ptr>, ptr %54, align 8, !tbaa !9
-  %56 = getelementptr inbounds ptr, ptr %54, i64 2
-  %57 = load <2 x ptr>, ptr %56, align 8, !tbaa !9
-  %58 = getelementptr inbounds ptr, ptr %1, i64 %52
-  store <2 x ptr> %55, ptr %58, align 8, !tbaa !9
-  %59 = getelementptr inbounds ptr, ptr %58, i64 2
-  store <2 x ptr> %57, ptr %59, align 8, !tbaa !9
-  %60 = add nuw i64 %51, 4
-  %61 = icmp eq i64 %60, %48
-  br i1 %61, label %62, label %50, !llvm.loop !46
+51:                                               ; preds = %51, %48
+  %52 = phi i64 [ 0, %48 ], [ %61, %51 ]
+  %53 = add i64 %52, %27
+  %54 = add nuw nsw i64 %53, 1
+  %55 = getelementptr inbounds ptr, ptr %1, i64 %54
+  %56 = load <2 x ptr>, ptr %55, align 8, !tbaa !9
+  %57 = getelementptr inbounds ptr, ptr %55, i64 2
+  %58 = load <2 x ptr>, ptr %57, align 8, !tbaa !9
+  %59 = getelementptr inbounds ptr, ptr %1, i64 %53
+  store <2 x ptr> %56, ptr %59, align 8, !tbaa !9
+  %60 = getelementptr inbounds ptr, ptr %59, i64 2
+  store <2 x ptr> %58, ptr %60, align 8, !tbaa !9
+  %61 = add nuw i64 %52, 4
+  %62 = icmp eq i64 %61, %49
+  br i1 %62, label %63, label %51, !llvm.loop !46
 
-62:                                               ; preds = %50
-  %63 = icmp eq i64 %45, %48
-  br i1 %63, label %73, label %64
+63:                                               ; preds = %51
+  %64 = icmp eq i64 %46, %49
+  br i1 %64, label %74, label %65
 
-64:                                               ; preds = %41, %62
-  %65 = phi i64 [ %26, %41 ], [ %49, %62 ]
-  br label %66
+65:                                               ; preds = %42, %63
+  %66 = phi i64 [ %27, %42 ], [ %50, %63 ]
+  br label %67
 
-66:                                               ; preds = %64, %66
-  %67 = phi i64 [ %68, %66 ], [ %65, %64 ]
-  %68 = add nuw nsw i64 %67, 1
-  %69 = getelementptr inbounds ptr, ptr %1, i64 %68
-  %70 = load ptr, ptr %69, align 8, !tbaa !9
-  %71 = getelementptr inbounds ptr, ptr %1, i64 %67
-  store ptr %70, ptr %71, align 8, !tbaa !9
-  %72 = icmp eq i64 %68, %42
-  br i1 %72, label %73, label %66, !llvm.loop !49
+67:                                               ; preds = %65, %67
+  %68 = phi i64 [ %69, %67 ], [ %66, %65 ]
+  %69 = add nuw nsw i64 %68, 1
+  %70 = getelementptr inbounds ptr, ptr %1, i64 %69
+  %71 = load ptr, ptr %70, align 8, !tbaa !9
+  %72 = getelementptr inbounds ptr, ptr %1, i64 %68
+  store ptr %71, ptr %72, align 8, !tbaa !9
+  %73 = icmp eq i64 %69, %43
+  br i1 %73, label %74, label %67, !llvm.loop !49
 
-73:                                               ; preds = %66, %62, %34
-  %74 = add nsw i32 %38, -2
-  store i32 %74, ptr %0, align 4, !tbaa !5
-  %75 = icmp sgt i32 %74, %18
-  br i1 %75, label %76, label %114
+74:                                               ; preds = %67, %63, %35
+  %75 = add nsw i32 %39, -2
+  store i32 %75, ptr %0, align 4, !tbaa !5
+  %76 = icmp sgt i32 %75, %18
+  br i1 %76, label %77, label %114
 
-76:                                               ; preds = %73
-  %77 = and i64 %12, 4294967295
-  %78 = sext i32 %74 to i64
+77:                                               ; preds = %74
+  %78 = sext i32 %75 to i64
   %79 = xor i64 %11, -1
   %80 = add i64 %78, %79
   %81 = icmp ult i64 %80, 4
   br i1 %81, label %99, label %82
 
-82:                                               ; preds = %76
+82:                                               ; preds = %77
   %83 = and i64 %80, -4
-  %84 = add i64 %77, %83
+  %84 = add i64 %19, %83
   br label %85
 
 85:                                               ; preds = %85, %82
   %86 = phi i64 [ 0, %82 ], [ %95, %85 ]
-  %87 = add i64 %77, %86
+  %87 = add i64 %19, %86
   %88 = add nuw nsw i64 %87, 1
   %89 = getelementptr inbounds ptr, ptr %1, i64 %88
   %90 = load <2 x ptr>, ptr %89, align 8, !tbaa !9
@@ -2104,8 +2104,8 @@ define dso_local i32 @backward_compatibility_hack(ptr nocapture noundef %0, ptr 
   %98 = icmp eq i64 %80, %83
   br i1 %98, label %114, label %99
 
-99:                                               ; preds = %76, %97
-  %100 = phi i64 [ %77, %76 ], [ %84, %97 ]
+99:                                               ; preds = %77, %97
+  %100 = phi i64 [ %19, %77 ], [ %84, %97 ]
   br label %101
 
 101:                                              ; preds = %99, %101
@@ -2118,25 +2118,25 @@ define dso_local i32 @backward_compatibility_hack(ptr nocapture noundef %0, ptr 
   %107 = icmp eq i64 %103, %78
   br i1 %107, label %114, label %101, !llvm.loop !51
 
-108:                                              ; preds = %24, %31
-  %109 = phi i64 [ %110, %31 ], [ 0, %24 ]
+108:                                              ; preds = %25, %32
+  %109 = phi i64 [ %110, %32 ], [ 0, %25 ]
   %110 = add nuw i64 %109, 1
   %111 = getelementptr inbounds [44 x %struct.anon], ptr @option_table, i64 0, i64 %110
   %112 = load ptr, ptr %111, align 8, !tbaa !15
   %113 = icmp eq ptr %112, null
-  br i1 %113, label %119, label %31
+  br i1 %113, label %119, label %32
 
-114:                                              ; preds = %101, %97, %73
-  %115 = load ptr, ptr %36, align 8, !tbaa !15
+114:                                              ; preds = %101, %97, %74
+  %115 = load ptr, ptr %37, align 8, !tbaa !15
   %116 = icmp eq ptr %115, null
   br i1 %116, label %119, label %117
 
 117:                                              ; preds = %114
-  %118 = add i32 %38, -3
+  %118 = add i32 %39, -3
   br label %129
 
-119:                                              ; preds = %108, %21, %114
-  %120 = phi i64 [ %23, %21 ], [ %26, %114 ], [ %26, %108 ]
+119:                                              ; preds = %108, %22, %114
+  %120 = phi i64 [ %24, %22 ], [ %27, %114 ], [ %27, %108 ]
   %121 = load ptr, ptr @stderr, align 8, !tbaa !9
   %122 = getelementptr inbounds ptr, ptr %1, i64 %120
   %123 = load ptr, ptr %122, align 8, !tbaa !9
@@ -2152,7 +2152,7 @@ define dso_local i32 @backward_compatibility_hack(ptr nocapture noundef %0, ptr 
 
 129:                                              ; preds = %125, %117
   %130 = phi i32 [ %118, %117 ], [ %6, %125 ]
-  %131 = phi i32 [ %74, %117 ], [ %5, %125 ]
+  %131 = phi i32 [ %75, %117 ], [ %5, %125 ]
   %132 = icmp sgt i32 %131, 2
   br i1 %132, label %133, label %253
 
@@ -2170,111 +2170,111 @@ define dso_local i32 @backward_compatibility_hack(ptr nocapture noundef %0, ptr 
 
 141:                                              ; preds = %135
   %142 = trunc i64 %136 to i32
-  %143 = load ptr, ptr @pla_types, align 8, !tbaa !13
-  %144 = icmp eq ptr %143, null
-  br i1 %144, label %145, label %148
+  %143 = and i64 %136, 4294967295
+  %144 = load ptr, ptr @pla_types, align 8, !tbaa !13
+  %145 = icmp eq ptr %144, null
+  br i1 %145, label %146, label %149
 
-145:                                              ; preds = %141
-  %146 = add nuw i64 %136, 1
-  %147 = and i64 %146, 4294967295
+146:                                              ; preds = %141
+  %147 = add nuw i64 %136, 1
+  %148 = and i64 %147, 4294967295
   br label %244
 
-148:                                              ; preds = %141
-  %149 = add nuw nsw i32 %142, 1
-  %150 = zext i32 %149 to i64
-  %151 = getelementptr inbounds ptr, ptr %1, i64 %150
-  %152 = load ptr, ptr %151, align 8, !tbaa !9
-  %153 = getelementptr inbounds i8, ptr %143, i64 1
-  %154 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %153, ptr noundef nonnull dereferenceable(1) %152) #15
-  %155 = icmp eq i32 %154, 0
-  br i1 %155, label %160, label %235
+149:                                              ; preds = %141
+  %150 = add nuw nsw i32 %142, 1
+  %151 = zext i32 %150 to i64
+  %152 = getelementptr inbounds ptr, ptr %1, i64 %151
+  %153 = load ptr, ptr %152, align 8, !tbaa !9
+  %154 = getelementptr inbounds i8, ptr %144, i64 1
+  %155 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %154, ptr noundef nonnull dereferenceable(1) %153) #15
+  %156 = icmp eq i32 %155, 0
+  br i1 %156, label %161, label %235
 
-156:                                              ; preds = %235
-  %157 = getelementptr inbounds i8, ptr %239, i64 1
-  %158 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %157, ptr noundef nonnull dereferenceable(1) %152) #15
-  %159 = icmp eq i32 %158, 0
-  br i1 %159, label %160, label %235
+157:                                              ; preds = %235
+  %158 = getelementptr inbounds i8, ptr %239, i64 1
+  %159 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %158, ptr noundef nonnull dereferenceable(1) %153) #15
+  %160 = icmp eq i32 %159, 0
+  br i1 %160, label %161, label %235
 
-160:                                              ; preds = %156, %148
-  %161 = phi i64 [ 0, %148 ], [ %237, %156 ]
-  %162 = phi ptr [ @pla_types, %148 ], [ %238, %156 ]
-  %163 = and i64 %161, 4294967295
-  %164 = getelementptr inbounds [0 x %struct.pla_types_struct], ptr @pla_types, i64 0, i64 %163, i32 1
-  %165 = load i32, ptr %164, align 8, !tbaa !17
-  store i32 %165, ptr %3, align 4, !tbaa !5
-  %166 = load i32, ptr %0, align 4, !tbaa !5
-  %167 = add nsw i32 %166, -1
-  %168 = icmp sgt i32 %167, %149
-  br i1 %168, label %169, label %201
+161:                                              ; preds = %157, %149
+  %162 = phi i64 [ 0, %149 ], [ %237, %157 ]
+  %163 = phi ptr [ @pla_types, %149 ], [ %238, %157 ]
+  %164 = and i64 %162, 4294967295
+  %165 = getelementptr inbounds [0 x %struct.pla_types_struct], ptr @pla_types, i64 0, i64 %164, i32 1
+  %166 = load i32, ptr %165, align 8, !tbaa !17
+  store i32 %166, ptr %3, align 4, !tbaa !5
+  %167 = load i32, ptr %0, align 4, !tbaa !5
+  %168 = add nsw i32 %167, -1
+  %169 = icmp sgt i32 %168, %150
+  br i1 %169, label %170, label %202
 
-169:                                              ; preds = %160
-  %170 = sext i32 %167 to i64
-  %171 = sext i32 %166 to i64
-  %172 = xor i64 %150, -1
-  %173 = add nsw i64 %172, %171
-  %174 = icmp ult i64 %173, 4
-  br i1 %174, label %192, label %175
+170:                                              ; preds = %161
+  %171 = sext i32 %168 to i64
+  %172 = sext i32 %167 to i64
+  %173 = xor i64 %151, -1
+  %174 = add nsw i64 %173, %172
+  %175 = icmp ult i64 %174, 4
+  br i1 %175, label %193, label %176
 
-175:                                              ; preds = %169
-  %176 = and i64 %173, -4
-  %177 = add nsw i64 %176, %150
-  br label %178
+176:                                              ; preds = %170
+  %177 = and i64 %174, -4
+  %178 = add nsw i64 %177, %151
+  br label %179
 
-178:                                              ; preds = %178, %175
-  %179 = phi i64 [ 0, %175 ], [ %188, %178 ]
-  %180 = add i64 %179, %150
-  %181 = add nuw nsw i64 %180, 1
-  %182 = getelementptr inbounds ptr, ptr %1, i64 %181
-  %183 = load <2 x ptr>, ptr %182, align 8, !tbaa !9
-  %184 = getelementptr inbounds ptr, ptr %182, i64 2
-  %185 = load <2 x ptr>, ptr %184, align 8, !tbaa !9
-  %186 = getelementptr inbounds ptr, ptr %1, i64 %180
-  store <2 x ptr> %183, ptr %186, align 8, !tbaa !9
-  %187 = getelementptr inbounds ptr, ptr %186, i64 2
-  store <2 x ptr> %185, ptr %187, align 8, !tbaa !9
-  %188 = add nuw i64 %179, 4
-  %189 = icmp eq i64 %188, %176
-  br i1 %189, label %190, label %178, !llvm.loop !52
+179:                                              ; preds = %179, %176
+  %180 = phi i64 [ 0, %176 ], [ %189, %179 ]
+  %181 = add i64 %180, %151
+  %182 = add nuw nsw i64 %181, 1
+  %183 = getelementptr inbounds ptr, ptr %1, i64 %182
+  %184 = load <2 x ptr>, ptr %183, align 8, !tbaa !9
+  %185 = getelementptr inbounds ptr, ptr %183, i64 2
+  %186 = load <2 x ptr>, ptr %185, align 8, !tbaa !9
+  %187 = getelementptr inbounds ptr, ptr %1, i64 %181
+  store <2 x ptr> %184, ptr %187, align 8, !tbaa !9
+  %188 = getelementptr inbounds ptr, ptr %187, i64 2
+  store <2 x ptr> %186, ptr %188, align 8, !tbaa !9
+  %189 = add nuw i64 %180, 4
+  %190 = icmp eq i64 %189, %177
+  br i1 %190, label %191, label %179, !llvm.loop !52
 
-190:                                              ; preds = %178
-  %191 = icmp eq i64 %173, %176
-  br i1 %191, label %201, label %192
+191:                                              ; preds = %179
+  %192 = icmp eq i64 %174, %177
+  br i1 %192, label %202, label %193
 
-192:                                              ; preds = %169, %190
-  %193 = phi i64 [ %150, %169 ], [ %177, %190 ]
-  br label %194
+193:                                              ; preds = %170, %191
+  %194 = phi i64 [ %151, %170 ], [ %178, %191 ]
+  br label %195
 
-194:                                              ; preds = %192, %194
-  %195 = phi i64 [ %196, %194 ], [ %193, %192 ]
-  %196 = add nuw nsw i64 %195, 1
-  %197 = getelementptr inbounds ptr, ptr %1, i64 %196
-  %198 = load ptr, ptr %197, align 8, !tbaa !9
-  %199 = getelementptr inbounds ptr, ptr %1, i64 %195
-  store ptr %198, ptr %199, align 8, !tbaa !9
-  %200 = icmp eq i64 %196, %170
-  br i1 %200, label %201, label %194, !llvm.loop !53
+195:                                              ; preds = %193, %195
+  %196 = phi i64 [ %197, %195 ], [ %194, %193 ]
+  %197 = add nuw nsw i64 %196, 1
+  %198 = getelementptr inbounds ptr, ptr %1, i64 %197
+  %199 = load ptr, ptr %198, align 8, !tbaa !9
+  %200 = getelementptr inbounds ptr, ptr %1, i64 %196
+  store ptr %199, ptr %200, align 8, !tbaa !9
+  %201 = icmp eq i64 %197, %171
+  br i1 %201, label %202, label %195, !llvm.loop !53
 
-201:                                              ; preds = %194, %190, %160
-  %202 = add nsw i32 %166, -2
-  store i32 %202, ptr %0, align 4, !tbaa !5
-  %203 = icmp sgt i32 %202, %142
-  br i1 %203, label %204, label %241
+202:                                              ; preds = %195, %191, %161
+  %203 = add nsw i32 %167, -2
+  store i32 %203, ptr %0, align 4, !tbaa !5
+  %204 = icmp sgt i32 %203, %142
+  br i1 %204, label %205, label %241
 
-204:                                              ; preds = %201
-  %205 = and i64 %136, 4294967295
-  %206 = sext i32 %202 to i64
-  %207 = sub nsw i64 %206, %205
+205:                                              ; preds = %202
+  %206 = sext i32 %203 to i64
+  %207 = sub nsw i64 %206, %143
   %208 = icmp ult i64 %207, 4
   br i1 %208, label %226, label %209
 
-209:                                              ; preds = %204
+209:                                              ; preds = %205
   %210 = and i64 %207, -4
-  %211 = add nsw i64 %205, %210
+  %211 = add nsw i64 %143, %210
   br label %212
 
 212:                                              ; preds = %212, %209
   %213 = phi i64 [ 0, %209 ], [ %222, %212 ]
-  %214 = add i64 %205, %213
+  %214 = add i64 %143, %213
   %215 = add nuw nsw i64 %214, 1
   %216 = getelementptr inbounds ptr, ptr %1, i64 %215
   %217 = load <2 x ptr>, ptr %216, align 8, !tbaa !9
@@ -2292,8 +2292,8 @@ define dso_local i32 @backward_compatibility_hack(ptr nocapture noundef %0, ptr 
   %225 = icmp eq i64 %207, %210
   br i1 %225, label %241, label %226
 
-226:                                              ; preds = %204, %224
-  %227 = phi i64 [ %205, %204 ], [ %211, %224 ]
+226:                                              ; preds = %205, %224
+  %227 = phi i64 [ %143, %205 ], [ %211, %224 ]
   br label %228
 
 228:                                              ; preds = %226, %228
@@ -2306,21 +2306,21 @@ define dso_local i32 @backward_compatibility_hack(ptr nocapture noundef %0, ptr 
   %234 = icmp eq i64 %230, %206
   br i1 %234, label %241, label %228, !llvm.loop !55
 
-235:                                              ; preds = %148, %156
-  %236 = phi i64 [ %237, %156 ], [ 0, %148 ]
+235:                                              ; preds = %149, %157
+  %236 = phi i64 [ %237, %157 ], [ 0, %149 ]
   %237 = add nuw i64 %236, 1
   %238 = getelementptr inbounds [0 x %struct.pla_types_struct], ptr @pla_types, i64 0, i64 %237
   %239 = load ptr, ptr %238, align 8, !tbaa !13
   %240 = icmp eq ptr %239, null
-  br i1 %240, label %244, label %156
+  br i1 %240, label %244, label %157
 
-241:                                              ; preds = %228, %224, %201
-  %242 = load ptr, ptr %162, align 8, !tbaa !13
+241:                                              ; preds = %228, %224, %202
+  %242 = load ptr, ptr %163, align 8, !tbaa !13
   %243 = icmp eq ptr %242, null
   br i1 %243, label %244, label %253
 
-244:                                              ; preds = %235, %145, %241
-  %245 = phi i64 [ %147, %145 ], [ %150, %241 ], [ %150, %235 ]
+244:                                              ; preds = %235, %146, %241
+  %245 = phi i64 [ %148, %146 ], [ %151, %241 ], [ %151, %235 ]
   %246 = load ptr, ptr @stderr, align 8, !tbaa !9
   %247 = getelementptr inbounds ptr, ptr %1, i64 %245
   %248 = load ptr, ptr %247, align 8, !tbaa !9
@@ -2334,7 +2334,7 @@ define dso_local i32 @backward_compatibility_hack(ptr nocapture noundef %0, ptr 
   br i1 %252, label %253, label %135
 
 253:                                              ; preds = %250, %4, %129, %241
-  %254 = phi i32 [ %131, %129 ], [ %202, %241 ], [ %5, %4 ], [ %131, %250 ]
+  %254 = phi i32 [ %131, %129 ], [ %203, %241 ], [ %5, %4 ], [ %131, %250 ]
   %255 = icmp sgt i32 %254, 1
   br i1 %255, label %256, label %484
 
@@ -2841,10 +2841,10 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 declare ptr @strrchr(ptr noundef, i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #13
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #13
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
 
 attributes #0 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

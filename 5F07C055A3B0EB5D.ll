@@ -53,7 +53,7 @@ define dso_local i64 @sqrtllu(i64 noundef %0) local_unnamed_addr #2 {
   %12 = icmp eq i64 %11, 0
   %13 = lshr i64 %10, 1
   %14 = select i1 %12, i64 0, i64 %13
-  %15 = add nuw i64 %14, %10
+  %15 = add nuw i64 %10, %14
   br label %16
 
 16:                                               ; preds = %16, %8

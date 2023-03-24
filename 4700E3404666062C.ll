@@ -501,7 +501,7 @@ define dso_local noundef i32 @_ZN8NArchive2NZ8CHandler7ExtractEPKjjiP23IArchiveE
   %74 = invoke noundef i32 %73(ptr noundef nonnull align 8 dereferenceable(8) %68)
           to label %75 unwind label %110
 
-75:                                               ; preds = %67, %70
+75:                                               ; preds = %70, %67
   store ptr %60, ptr %56, align 8, !tbaa !33
   %76 = getelementptr inbounds %class.CDummyOutStream, ptr %53, i64 0, i32 3
   store i64 0, ptr %76, align 8, !tbaa !36
@@ -751,7 +751,7 @@ define dso_local noundef i32 @_ZN8NArchive2NZ8CHandler7ExtractEPKjjiP23IArchiveE
   call void @__clang_call_terminate(ptr %204) #15
   unreachable
 
-205:                                              ; preds = %118, %120, %173, %175
+205:                                              ; preds = %173, %118, %120, %175
   %206 = phi ptr [ %53, %120 ], [ %53, %118 ], [ %53, %173 ], [ %176, %175 ]
   %207 = phi { ptr, i32 } [ %121, %120 ], [ %119, %118 ], [ %174, %173 ], [ %177, %175 ]
   %208 = load ptr, ptr %86, align 8, !tbaa !26
@@ -771,7 +771,7 @@ define dso_local noundef i32 @_ZN8NArchive2NZ8CHandler7ExtractEPKjjiP23IArchiveE
   %216 = icmp eq ptr %206, null
   br i1 %216, label %241, label %217
 
-217:                                              ; preds = %116, %110, %112, %114, %215
+217:                                              ; preds = %116, %112, %114, %110, %215
   %218 = phi { ptr, i32 } [ %207, %215 ], [ %117, %116 ], [ %113, %112 ], [ %115, %114 ], [ %111, %110 ]
   %219 = phi ptr [ %206, %215 ], [ %53, %116 ], [ %53, %112 ], [ %53, %114 ], [ %53, %110 ]
   %220 = load ptr, ptr %219, align 8, !tbaa !26
@@ -1001,7 +1001,7 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive2NZ8CHandler14QueryInterf
   %81 = icmp eq i8 %79, %80
   br i1 %81, label %160, label %82
 
-82:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77
+82:                                               ; preds = %3, %7, %12, %17, %22, %27, %32, %37, %42, %47, %52, %57, %62, %67, %72, %77
   %83 = load i8, ptr @IID_IInArchive, align 4, !tbaa !28
   %84 = icmp eq i8 %4, %83
   br i1 %84, label %85, label %165
@@ -1119,8 +1119,8 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive2NZ8CHandler14QueryInterf
   %164 = tail call noundef i32 %163(ptr noundef nonnull align 8 dereferenceable(41) %0)
   br label %165
 
-165:                                              ; preds = %160, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
-  %166 = phi i32 [ -2147467262, %155 ], [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ 0, %160 ]
+165:                                              ; preds = %160, %155, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82
+  %166 = phi i32 [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ -2147467262, %155 ], [ 0, %160 ]
   ret i32 %166
 }
 

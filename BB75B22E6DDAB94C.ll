@@ -647,24 +647,24 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIN9benchmark8TimeUnit
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 5
   %11 = load ptr, ptr %10, align 8, !tbaa !45, !noalias !42
   %12 = icmp eq ptr %11, null
-  %13 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
-  %14 = load ptr, ptr %13, align 8, !noalias !42
-  %15 = icmp ugt ptr %11, %14
-  %16 = select i1 %15, ptr %11, ptr %14
-  %17 = icmp eq ptr %16, null
-  %18 = select i1 %12, i1 true, i1 %17
-  br i1 %18, label %31, label %19
+  br i1 %12, label %31, label %13
 
-19:                                               ; preds = %7
+13:                                               ; preds = %7
+  %14 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
+  %15 = load ptr, ptr %14, align 8, !tbaa !47, !noalias !42
+  %16 = icmp eq ptr %15, null
+  %17 = icmp ugt ptr %11, %15
+  %18 = select i1 %16, i1 true, i1 %17
+  %19 = select i1 %18, ptr %11, ptr %15
   %20 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 4
-  %21 = load ptr, ptr %20, align 8, !tbaa !47, !noalias !42
-  %22 = ptrtoint ptr %16 to i64
+  %21 = load ptr, ptr %20, align 8, !tbaa !48, !noalias !42
+  %22 = ptrtoint ptr %19 to i64
   %23 = ptrtoint ptr %21 to i64
   %24 = sub i64 %22, %23
   %25 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef 0, i64 noundef 0, ptr noundef %21, i64 noundef %24)
           to label %33 unwind label %26
 
-26:                                               ; preds = %31, %19
+26:                                               ; preds = %31, %13
   %27 = landingpad { ptr, i32 }
           cleanup
   %28 = load ptr, ptr %0, align 8, !tbaa !32, !alias.scope !42
@@ -680,7 +680,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIN9benchmark8TimeUnit
   invoke void @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERKS4_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %32)
           to label %33 unwind label %26
 
-33:                                               ; preds = %31, %19
+33:                                               ; preds = %31, %13
   %34 = load ptr, ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, align 8
   store ptr %34, ptr %3, align 8, !tbaa !5
   %35 = load ptr, ptr getelementptr inbounds ([10 x ptr], ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, i64 0, i64 8), align 8
@@ -714,7 +714,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIN9benchmark8TimeUnit
   %52 = getelementptr inbounds i8, ptr %3, i64 %51
   store ptr %49, ptr %52, align 8, !tbaa !5
   %53 = getelementptr inbounds %"class.std::basic_istream", ptr %3, i64 0, i32 1
-  store i64 0, ptr %53, align 8, !tbaa !48
+  store i64 0, ptr %53, align 8, !tbaa !49
   %54 = getelementptr inbounds i8, ptr %3, i64 128
   call void @_ZNSt8ios_baseD2Ev(ptr noundef nonnull align 8 dereferenceable(264) %54) #15
   call void @llvm.lifetime.end.p0(i64 392, ptr nonnull %3) #15
@@ -1371,10 +1371,10 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   %15 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %12, i64 0, i32 2
   store ptr %15, ptr %12, align 8, !tbaa !41
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #15
-  store i64 103, ptr %10, align 8, !tbaa !50
+  store i64 103, ptr %10, align 8, !tbaa !51
   %16 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %12, ptr noundef nonnull align 8 dereferenceable(8) %10, i64 noundef 0)
   store ptr %16, ptr %12, align 8, !tbaa !32
-  %17 = load i64, ptr %10, align 8, !tbaa !50
+  %17 = load i64, ptr %10, align 8, !tbaa !51
   store i64 %17, ptr %15, align 8, !tbaa !44
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(103) %16, ptr noundef nonnull align 1 dereferenceable(103) @.str.4, i64 103, i1 false)
   %18 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %12, i64 0, i32 1
@@ -1387,7 +1387,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   %21 = load ptr, ptr %12, align 8, !tbaa !32
   %22 = load i64, ptr %18, align 8, !tbaa !43
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #15
-  store i64 %22, ptr %9, align 8, !tbaa !50
+  store i64 %22, ptr %9, align 8, !tbaa !51
   %23 = icmp ugt i64 %22, 15
   br i1 %23, label %24, label %28
 
@@ -1397,7 +1397,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
 
 26:                                               ; preds = %24
   store ptr %25, ptr %11, align 8, !tbaa !32
-  %27 = load i64, ptr %9, align 8, !tbaa !50
+  %27 = load i64, ptr %9, align 8, !tbaa !51
   store i64 %27, ptr %20, align 8, !tbaa !44
   br label %28
 
@@ -1418,7 +1418,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   br label %33
 
 33:                                               ; preds = %32, %30, %28
-  %34 = load i64, ptr %9, align 8, !tbaa !50
+  %34 = load i64, ptr %9, align 8, !tbaa !51
   %35 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 0, i32 1
   store i64 %34, ptr %35, align 8, !tbaa !43
   %36 = load ptr, ptr %11, align 8, !tbaa !32
@@ -1426,7 +1426,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   store i8 0, ptr %37, align 1, !tbaa !44
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #15
   %38 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %11, i64 0, i32 1
-  store i32 15, ptr %38, align 8, !tbaa !51
+  store i32 15, ptr %38, align 8, !tbaa !52
   %39 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %40 unwind label %58
 
@@ -1509,10 +1509,10 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   %73 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %8, i64 0, i32 2
   store ptr %73, ptr %8, align 8, !tbaa !41
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #15
-  store i64 103, ptr %6, align 8, !tbaa !50
+  store i64 103, ptr %6, align 8, !tbaa !51
   %74 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %8, ptr noundef nonnull align 8 dereferenceable(8) %6, i64 noundef 0)
   store ptr %74, ptr %8, align 8, !tbaa !32
-  %75 = load i64, ptr %6, align 8, !tbaa !50
+  %75 = load i64, ptr %6, align 8, !tbaa !51
   store i64 %75, ptr %73, align 8, !tbaa !44
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(103) %74, ptr noundef nonnull align 1 dereferenceable(103) @.str.4, i64 103, i1 false)
   %76 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %8, i64 0, i32 1
@@ -1525,7 +1525,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   %79 = load ptr, ptr %8, align 8, !tbaa !32
   %80 = load i64, ptr %76, align 8, !tbaa !43
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #15
-  store i64 %80, ptr %5, align 8, !tbaa !50
+  store i64 %80, ptr %5, align 8, !tbaa !51
   %81 = icmp ugt i64 %80, 15
   br i1 %81, label %82, label %86
 
@@ -1535,7 +1535,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
 
 84:                                               ; preds = %82
   store ptr %83, ptr %7, align 8, !tbaa !32
-  %85 = load i64, ptr %5, align 8, !tbaa !50
+  %85 = load i64, ptr %5, align 8, !tbaa !51
   store i64 %85, ptr %78, align 8, !tbaa !44
   br label %86
 
@@ -1556,7 +1556,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   br label %91
 
 91:                                               ; preds = %90, %88, %86
-  %92 = load i64, ptr %5, align 8, !tbaa !50
+  %92 = load i64, ptr %5, align 8, !tbaa !51
   %93 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 1
   store i64 %92, ptr %93, align 8, !tbaa !43
   %94 = load ptr, ptr %7, align 8, !tbaa !32
@@ -1564,7 +1564,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   store i8 0, ptr %95, align 1, !tbaa !44
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #15
   %96 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %7, i64 0, i32 1
-  store i32 20, ptr %96, align 8, !tbaa !51
+  store i32 20, ptr %96, align 8, !tbaa !52
   %97 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %98 unwind label %116
 
@@ -1643,10 +1643,10 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   %129 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
   store ptr %129, ptr %4, align 8, !tbaa !41
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #15
-  store i64 103, ptr %2, align 8, !tbaa !50
+  store i64 103, ptr %2, align 8, !tbaa !51
   %130 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
   store ptr %130, ptr %4, align 8, !tbaa !32
-  %131 = load i64, ptr %2, align 8, !tbaa !50
+  %131 = load i64, ptr %2, align 8, !tbaa !51
   store i64 %131, ptr %129, align 8, !tbaa !44
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(103) %130, ptr noundef nonnull align 1 dereferenceable(103) @.str.4, i64 103, i1 false)
   %132 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
@@ -1659,7 +1659,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   %135 = load ptr, ptr %4, align 8, !tbaa !32
   %136 = load i64, ptr %132, align 8, !tbaa !43
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #15
-  store i64 %136, ptr %1, align 8, !tbaa !50
+  store i64 %136, ptr %1, align 8, !tbaa !51
   %137 = icmp ugt i64 %136, 15
   br i1 %137, label %138, label %142
 
@@ -1669,7 +1669,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
 
 140:                                              ; preds = %138
   store ptr %139, ptr %3, align 8, !tbaa !32
-  %141 = load i64, ptr %1, align 8, !tbaa !50
+  %141 = load i64, ptr %1, align 8, !tbaa !51
   store i64 %141, ptr %134, align 8, !tbaa !44
   br label %142
 
@@ -1690,7 +1690,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   br label %147
 
 147:                                              ; preds = %146, %144, %142
-  %148 = load i64, ptr %1, align 8, !tbaa !50
+  %148 = load i64, ptr %1, align 8, !tbaa !51
   %149 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 1
   store i64 %148, ptr %149, align 8, !tbaa !43
   %150 = load ptr, ptr %3, align 8, !tbaa !32
@@ -1698,7 +1698,7 @@ define internal void @_GLOBAL__sub_I_time_unit_gtest.cc() #10 section ".text.sta
   store i8 0, ptr %151, align 1, !tbaa !44
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #15
   %152 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %3, i64 0, i32 1
-  store i32 27, ptr %152, align 8, !tbaa !51
+  store i32 27, ptr %152, align 8, !tbaa !52
   %153 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %154 unwind label %172
 
@@ -1847,9 +1847,10 @@ attributes #17 = { builtin allocsize(0) }
 !44 = !{!11, !11, i64 0}
 !45 = !{!46, !14, i64 40}
 !46 = !{!"_ZTSSt15basic_streambufIcSt11char_traitsIcEE", !14, i64 8, !14, i64 16, !14, i64 24, !14, i64 32, !14, i64 40, !14, i64 48, !17, i64 56}
-!47 = !{!46, !14, i64 32}
-!48 = !{!49, !10, i64 8}
-!49 = !{!"_ZTSSi", !10, i64 8}
-!50 = !{!10, !10, i64 0}
-!51 = !{!52, !16, i64 32}
-!52 = !{!"_ZTSN7testing8internal12CodeLocationE", !33, i64 0, !16, i64 32}
+!47 = !{!46, !14, i64 24}
+!48 = !{!46, !14, i64 32}
+!49 = !{!50, !10, i64 8}
+!50 = !{!"_ZTSSi", !10, i64 8}
+!51 = !{!10, !10, i64 0}
+!52 = !{!53, !16, i64 32}
+!53 = !{!"_ZTSN7testing8internal12CodeLocationE", !33, i64 0, !16, i64 32}

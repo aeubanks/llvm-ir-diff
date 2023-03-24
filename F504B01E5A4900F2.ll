@@ -17,115 +17,116 @@ define dso_local ptr @MakeTree(i32 noundef %0, i32 noundef %1, i32 noundef %2, i
   %14 = mul nsw i32 %12, %12
   %15 = mul nsw i32 %13, %13
   %16 = add nuw nsw i32 %15, %14
-  %17 = icmp ugt i32 %16, 4194304
-  %18 = icmp ult i32 %16, 1048576
-  %19 = sext i1 %18 to i32
-  %20 = select i1 %17, i32 1, i32 %19
-  %21 = icmp eq i32 %20, 0
-  %22 = sub nsw i32 %2, %0
-  %23 = mul nsw i32 %22, %22
-  %24 = add nuw i32 %23, %14
-  %25 = add i32 %24, -1048576
-  %26 = icmp ult i32 %25, 3145729
-  %27 = select i1 %21, i1 %26, i1 false
-  br i1 %27, label %28, label %37
+  %17 = add nsw i32 %16, -1048576
+  %18 = icmp ult i32 %17, 3145729
+  %19 = sub nsw i32 %2, %0
+  %20 = mul nsw i32 %19, %19
+  %21 = add nuw i32 %20, %14
+  %22 = add i32 %21, -1048576
+  %23 = icmp ult i32 %22, 3145729
+  %24 = select i1 %18, i1 %23, i1 false
+  br i1 %24, label %25, label %34
 
-28:                                               ; preds = %8
-  %29 = sub nsw i32 %1, %0
-  %30 = mul nsw i32 %29, %29
-  %31 = add nsw i32 %30, -1048576
-  %32 = add i32 %31, %23
-  %33 = icmp ult i32 %32, 3145729
-  %34 = add i32 %31, %15
-  %35 = icmp ult i32 %34, 3145729
-  %36 = select i1 %33, i1 %35, i1 false
-  br i1 %36, label %64, label %37
+25:                                               ; preds = %8
+  %26 = sub nsw i32 %1, %0
+  %27 = mul nsw i32 %26, %26
+  %28 = add nsw i32 %27, -1048576
+  %29 = add i32 %28, %20
+  %30 = icmp ult i32 %29, 3145729
+  %31 = add i32 %28, %15
+  %32 = icmp ult i32 %31, 3145729
+  %33 = select i1 %30, i1 %32, i1 false
+  br i1 %33, label %65, label %34
 
-37:                                               ; preds = %8, %28
-  %38 = icmp ugt i32 %24, 4194304
-  %39 = icmp ult i32 %24, 1048576
-  %40 = select i1 %39, i32 3, i32 4
-  %41 = sub nsw i32 %1, %0
-  %42 = mul nsw i32 %41, %41
-  %43 = add nuw nsw i32 %23, %42
-  %44 = icmp ugt i32 %43, 4194304
-  %45 = icmp ult i32 %43, 1048576
-  %46 = sext i1 %45 to i32
-  %47 = select i1 %44, i32 1, i32 %46
-  %48 = add nuw nsw i32 %15, %42
-  %49 = icmp ugt i32 %48, 4194304
-  %50 = icmp ult i32 %48, 1048576
-  %51 = sext i1 %50 to i32
-  %52 = select i1 %49, i32 1, i32 %51
-  %53 = select i1 %38, i32 5, i32 %40
-  %54 = add nsw i32 %53, %20
-  %55 = add nsw i32 %54, %47
-  %56 = add nsw i32 %55, %52
-  %57 = and i32 %56, -9
-  %58 = icmp eq i32 %57, 0
-  %59 = sdiv i32 %0, 2
-  %60 = icmp slt i32 %0, 1024
-  %61 = and i1 %60, %58
-  br i1 %61, label %62, label %66
+34:                                               ; preds = %8, %25
+  %35 = icmp ugt i32 %16, 4194304
+  %36 = icmp ult i32 %16, 1048576
+  %37 = sext i1 %36 to i32
+  %38 = select i1 %35, i32 1, i32 %37
+  %39 = icmp ugt i32 %21, 4194304
+  %40 = icmp ult i32 %21, 1048576
+  %41 = select i1 %40, i32 3, i32 4
+  %42 = sub nsw i32 %1, %0
+  %43 = mul nsw i32 %42, %42
+  %44 = add nuw nsw i32 %20, %43
+  %45 = icmp ugt i32 %44, 4194304
+  %46 = icmp ult i32 %44, 1048576
+  %47 = sext i1 %46 to i32
+  %48 = select i1 %45, i32 1, i32 %47
+  %49 = add nuw nsw i32 %15, %43
+  %50 = icmp ugt i32 %49, 4194304
+  %51 = icmp ult i32 %49, 1048576
+  %52 = sext i1 %51 to i32
+  %53 = select i1 %50, i32 1, i32 %52
+  %54 = select i1 %39, i32 5, i32 %41
+  %55 = add nsw i32 %54, %38
+  %56 = add nsw i32 %55, %48
+  %57 = add nsw i32 %56, %53
+  %58 = and i32 %57, -9
+  %59 = icmp eq i32 %58, 0
+  %60 = sdiv i32 %0, 2
+  %61 = icmp slt i32 %0, 1024
+  %62 = and i1 %61, %59
+  br i1 %62, label %63, label %67
 
-62:                                               ; preds = %37
+63:                                               ; preds = %34
   store i32 1, ptr %9, align 8, !tbaa !11
-  %63 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 2
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %63, i8 0, i64 32, i1 false)
-  br label %70
+  %64 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 2
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %64, i8 0, i64 32, i1 false)
+  br label %71
 
-64:                                               ; preds = %28
+65:                                               ; preds = %25
   store i32 0, ptr %9, align 8, !tbaa !11
-  %65 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 2
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %65, i8 0, i64 32, i1 false)
-  br label %70
+  %66 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 2
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %66, i8 0, i64 32, i1 false)
+  br label %71
 
-66:                                               ; preds = %37
-  %67 = icmp eq i32 %7, 0
-  br i1 %67, label %68, label %72
+67:                                               ; preds = %34
+  %68 = icmp eq i32 %7, 0
+  br i1 %68, label %69, label %73
 
-68:                                               ; preds = %66
+69:                                               ; preds = %67
   store i32 0, ptr %9, align 8, !tbaa !11
-  %69 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 2
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %69, i8 0, i64 32, i1 false)
-  br label %70
+  %70 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 2
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %70, i8 0, i64 32, i1 false)
+  br label %71
 
-70:                                               ; preds = %64, %68, %62, %72
-  %71 = phi ptr [ %9, %72 ], [ %9, %62 ], [ %9, %68 ], [ %9, %64 ]
-  ret ptr %71
+71:                                               ; preds = %65, %69, %63, %73
+  %72 = phi ptr [ %9, %73 ], [ %9, %63 ], [ %9, %69 ], [ %9, %65 ]
+  ret ptr %72
 
-72:                                               ; preds = %66
-  %73 = add nsw i32 %4, %3
-  %74 = sdiv i32 %73, 2
-  %75 = add nsw i32 %73, 1
-  %76 = sdiv i32 %75, 2
-  %77 = sub nsw i32 %1, %59
-  %78 = sub nsw i32 %2, %59
-  %79 = add nsw i32 %76, %4
-  %80 = add nsw i32 %79, 1
-  %81 = sdiv i32 %80, 2
-  %82 = add nsw i32 %7, -1
-  %83 = tail call ptr @MakeTree(i32 noundef %59, i32 noundef %77, i32 noundef %78, i32 noundef %81, i32 noundef %4, ptr noundef nonnull %9, i32 noundef 2, i32 noundef %82)
-  %84 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 4
-  store ptr %83, ptr %84, align 8, !tbaa !12
-  %85 = add nsw i32 %59, %1
-  %86 = sdiv i32 %79, 2
-  %87 = tail call ptr @MakeTree(i32 noundef %59, i32 noundef %85, i32 noundef %78, i32 noundef %76, i32 noundef %86, ptr noundef nonnull %9, i32 noundef 3, i32 noundef %82)
-  %88 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 5
-  store ptr %87, ptr %88, align 8, !tbaa !13
-  %89 = add nsw i32 %59, %2
-  %90 = add nsw i32 %74, %3
-  %91 = add nsw i32 %90, 1
-  %92 = sdiv i32 %91, 2
-  %93 = tail call ptr @MakeTree(i32 noundef %59, i32 noundef %85, i32 noundef %89, i32 noundef %92, i32 noundef %74, ptr noundef nonnull %9, i32 noundef 1, i32 noundef %82)
-  %94 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 3
-  store ptr %93, ptr %94, align 8, !tbaa !14
-  %95 = sdiv i32 %90, 2
-  %96 = tail call ptr @MakeTree(i32 noundef %59, i32 noundef %77, i32 noundef %89, i32 noundef %3, i32 noundef %95, ptr noundef nonnull %9, i32 noundef 0, i32 noundef %82)
-  %97 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 2
-  store ptr %96, ptr %97, align 8, !tbaa !15
+73:                                               ; preds = %67
+  %74 = add nsw i32 %4, %3
+  %75 = sdiv i32 %74, 2
+  %76 = add nsw i32 %74, 1
+  %77 = sdiv i32 %76, 2
+  %78 = sub nsw i32 %1, %60
+  %79 = sub nsw i32 %2, %60
+  %80 = add nsw i32 %77, %4
+  %81 = add nsw i32 %80, 1
+  %82 = sdiv i32 %81, 2
+  %83 = add nsw i32 %7, -1
+  %84 = tail call ptr @MakeTree(i32 noundef %60, i32 noundef %78, i32 noundef %79, i32 noundef %82, i32 noundef %4, ptr noundef nonnull %9, i32 noundef 2, i32 noundef %83)
+  %85 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 4
+  store ptr %84, ptr %85, align 8, !tbaa !12
+  %86 = add nsw i32 %60, %1
+  %87 = sdiv i32 %80, 2
+  %88 = tail call ptr @MakeTree(i32 noundef %60, i32 noundef %86, i32 noundef %79, i32 noundef %77, i32 noundef %87, ptr noundef nonnull %9, i32 noundef 3, i32 noundef %83)
+  %89 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 5
+  store ptr %88, ptr %89, align 8, !tbaa !13
+  %90 = add nsw i32 %60, %2
+  %91 = add nsw i32 %75, %3
+  %92 = add nsw i32 %91, 1
+  %93 = sdiv i32 %92, 2
+  %94 = tail call ptr @MakeTree(i32 noundef %60, i32 noundef %86, i32 noundef %90, i32 noundef %93, i32 noundef %75, ptr noundef nonnull %9, i32 noundef 1, i32 noundef %83)
+  %95 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 3
+  store ptr %94, ptr %95, align 8, !tbaa !14
+  %96 = sdiv i32 %91, 2
+  %97 = tail call ptr @MakeTree(i32 noundef %60, i32 noundef %78, i32 noundef %90, i32 noundef %3, i32 noundef %96, ptr noundef nonnull %9, i32 noundef 0, i32 noundef %83)
+  %98 = getelementptr inbounds %struct.quad_struct, ptr %9, i64 0, i32 2
+  store ptr %97, ptr %98, align 8, !tbaa !15
   store i32 2, ptr %9, align 8, !tbaa !11
-  br label %70
+  br label %71
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite)

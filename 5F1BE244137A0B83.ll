@@ -716,7 +716,7 @@ define hidden void @_Z19BM_Counters_TabularRN9benchmark5StateE(ptr noundef nonnu
   call void @_ZdlPv(ptr noundef %174) #22
   br label %178
 
-178:                                              ; preds = %173, %177
+178:                                              ; preds = %177, %173
   %179 = load ptr, ptr %9, align 8, !tbaa !24
   %180 = icmp eq ptr %179, %61
   br i1 %180, label %182, label %181
@@ -775,7 +775,7 @@ define hidden void @_Z19BM_Counters_TabularRN9benchmark5StateE(ptr noundef nonnu
   call void @_ZdlPv(ptr noundef %199) #22
   br label %202
 
-202:                                              ; preds = %198, %201
+202:                                              ; preds = %201, %198
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #21
   call void @llvm.lifetime.end.p0(i64 288, ptr nonnull %3) #21
   resume { ptr, i32 } %143
@@ -2567,7 +2567,7 @@ define hidden void @_Z23BM_CounterRates_TabularRN9benchmark5StateE(ptr noundef n
   %29 = add i64 %27, %28
   br label %30
 
-30:                                               ; preds = %24, %20
+30:                                               ; preds = %20, %24
   %31 = phi i64 [ %29, %24 ], [ 0, %20 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %31) #21, !srcloc !66
   %32 = add i64 %21, -1
@@ -2932,7 +2932,7 @@ define hidden void @_Z23BM_CounterRates_TabularRN9benchmark5StateE(ptr noundef n
   call void @_ZdlPv(ptr noundef %199) #22
   br label %203
 
-203:                                              ; preds = %198, %202
+203:                                              ; preds = %202, %198
   %204 = load ptr, ptr %9, align 8, !tbaa !24
   %205 = icmp eq ptr %204, %86
   br i1 %205, label %207, label %206
@@ -2991,7 +2991,7 @@ define hidden void @_Z23BM_CounterRates_TabularRN9benchmark5StateE(ptr noundef n
   call void @_ZdlPv(ptr noundef %224) #22
   br label %227
 
-227:                                              ; preds = %223, %226
+227:                                              ; preds = %226, %223
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #21
   call void @llvm.lifetime.end.p0(i64 288, ptr nonnull %3) #21
   resume { ptr, i32 } %168
@@ -3348,12 +3348,12 @@ define hidden void @_Z16CheckTabularRateRK7Results(ptr noundef nonnull align 8 d
   br i1 %199, label %214, label %200
 
 200:                                              ; preds = %197
-  %201 = fsub double %196, %12
-  %202 = fcmp ogt double %12, 1.000000e-05
-  %203 = fcmp olt double %12, -1.000000e-05
-  %204 = or i1 %202, %203
-  %205 = select i1 %204, double %12, double 1.000000e-05
-  %206 = fdiv double %201, %205
+  %201 = fcmp ogt double %12, 1.000000e-05
+  %202 = fcmp olt double %12, -1.000000e-05
+  %203 = or i1 %201, %202
+  %204 = select i1 %203, double %12, double 1.000000e-05
+  %205 = fsub double %196, %12
+  %206 = fdiv double %205, %204
   %207 = fmul double %206, 1.000000e+02
   %208 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %198, double noundef %207)
           to label %209 unwind label %234
@@ -3765,12 +3765,12 @@ define hidden void @_Z16CheckTabularRateRK7Results(ptr noundef nonnull align 8 d
   br i1 %425, label %440, label %426
 
 426:                                              ; preds = %423
-  %427 = fsub double %422, %238
-  %428 = fcmp ogt double %238, 1.000000e-05
-  %429 = fcmp olt double %238, -1.000000e-05
-  %430 = or i1 %428, %429
-  %431 = select i1 %430, double %238, double 1.000000e-05
-  %432 = fdiv double %427, %431
+  %427 = fcmp ogt double %238, 1.000000e-05
+  %428 = fcmp olt double %238, -1.000000e-05
+  %429 = or i1 %427, %428
+  %430 = select i1 %429, double %238, double 1.000000e-05
+  %431 = fsub double %422, %238
+  %432 = fdiv double %431, %430
   %433 = fmul double %432, 1.000000e+02
   %434 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %424, double noundef %433)
           to label %435 unwind label %462
@@ -4186,12 +4186,12 @@ define hidden void @_Z16CheckTabularRateRK7Results(ptr noundef nonnull align 8 d
   br i1 %653, label %668, label %654
 
 654:                                              ; preds = %651
-  %655 = fsub double %650, %466
-  %656 = fcmp ogt double %466, 1.000000e-05
-  %657 = fcmp olt double %466, -1.000000e-05
-  %658 = or i1 %656, %657
-  %659 = select i1 %658, double %466, double 1.000000e-05
-  %660 = fdiv double %655, %659
+  %655 = fcmp ogt double %466, 1.000000e-05
+  %656 = fcmp olt double %466, -1.000000e-05
+  %657 = or i1 %655, %656
+  %658 = select i1 %657, double %466, double 1.000000e-05
+  %659 = fsub double %650, %466
+  %660 = fdiv double %659, %658
   %661 = fmul double %660, 1.000000e+02
   %662 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %652, double noundef %661)
           to label %663 unwind label %690
@@ -4607,12 +4607,12 @@ define hidden void @_Z16CheckTabularRateRK7Results(ptr noundef nonnull align 8 d
   br i1 %881, label %896, label %882
 
 882:                                              ; preds = %879
-  %883 = fsub double %878, %694
-  %884 = fcmp ogt double %694, 1.000000e-05
-  %885 = fcmp olt double %694, -1.000000e-05
-  %886 = or i1 %884, %885
-  %887 = select i1 %886, double %694, double 1.000000e-05
-  %888 = fdiv double %883, %887
+  %883 = fcmp ogt double %694, 1.000000e-05
+  %884 = fcmp olt double %694, -1.000000e-05
+  %885 = or i1 %883, %884
+  %886 = select i1 %885, double %694, double 1.000000e-05
+  %887 = fsub double %878, %694
+  %888 = fdiv double %887, %886
   %889 = fmul double %888, 1.000000e+02
   %890 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %880, double noundef %889)
           to label %891 unwind label %918
@@ -5028,12 +5028,12 @@ define hidden void @_Z16CheckTabularRateRK7Results(ptr noundef nonnull align 8 d
   br i1 %1109, label %1124, label %1110
 
 1110:                                             ; preds = %1107
-  %1111 = fsub double %1106, %922
-  %1112 = fcmp ogt double %922, 1.000000e-05
-  %1113 = fcmp olt double %922, -1.000000e-05
-  %1114 = or i1 %1112, %1113
-  %1115 = select i1 %1114, double %922, double 1.000000e-05
-  %1116 = fdiv double %1111, %1115
+  %1111 = fcmp ogt double %922, 1.000000e-05
+  %1112 = fcmp olt double %922, -1.000000e-05
+  %1113 = or i1 %1111, %1112
+  %1114 = select i1 %1113, double %922, double 1.000000e-05
+  %1115 = fsub double %1106, %922
+  %1116 = fdiv double %1115, %1114
   %1117 = fmul double %1116, 1.000000e+02
   %1118 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %1108, double noundef %1117)
           to label %1119 unwind label %1146
@@ -5449,12 +5449,12 @@ define hidden void @_Z16CheckTabularRateRK7Results(ptr noundef nonnull align 8 d
   br i1 %1337, label %1352, label %1338
 
 1338:                                             ; preds = %1335
-  %1339 = fsub double %1334, %1150
-  %1340 = fcmp ogt double %1150, 1.000000e-05
-  %1341 = fcmp olt double %1150, -1.000000e-05
-  %1342 = or i1 %1340, %1341
-  %1343 = select i1 %1342, double %1150, double 1.000000e-05
-  %1344 = fdiv double %1339, %1343
+  %1339 = fcmp ogt double %1150, 1.000000e-05
+  %1340 = fcmp olt double %1150, -1.000000e-05
+  %1341 = or i1 %1339, %1340
+  %1342 = select i1 %1341, double %1150, double 1.000000e-05
+  %1343 = fsub double %1334, %1150
+  %1344 = fdiv double %1343, %1342
   %1345 = fmul double %1344, 1.000000e+02
   %1346 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %1336, double noundef %1345)
           to label %1347 unwind label %1374
@@ -5750,7 +5750,7 @@ define hidden void @_Z22BM_CounterSet0_TabularRN9benchmark5StateE(ptr noundef no
   call void @_ZdlPv(ptr noundef %87) #22
   br label %91
 
-91:                                               ; preds = %86, %90
+91:                                               ; preds = %90, %86
   %92 = load ptr, ptr %6, align 8, !tbaa !24
   %93 = icmp eq ptr %92, %28
   br i1 %93, label %95, label %94
@@ -5779,7 +5779,7 @@ define hidden void @_Z22BM_CounterSet0_TabularRN9benchmark5StateE(ptr noundef no
   call void @_ZdlPv(ptr noundef %100) #22
   br label %103
 
-103:                                              ; preds = %99, %102
+103:                                              ; preds = %102, %99
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #21
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #21
   resume { ptr, i32 } %74
@@ -6759,7 +6759,7 @@ define hidden void @_Z22BM_CounterSet1_TabularRN9benchmark5StateE(ptr noundef no
   call void @_ZdlPv(ptr noundef %87) #22
   br label %91
 
-91:                                               ; preds = %86, %90
+91:                                               ; preds = %90, %86
   %92 = load ptr, ptr %6, align 8, !tbaa !24
   %93 = icmp eq ptr %92, %28
   br i1 %93, label %95, label %94
@@ -6788,7 +6788,7 @@ define hidden void @_Z22BM_CounterSet1_TabularRN9benchmark5StateE(ptr noundef no
   call void @_ZdlPv(ptr noundef %100) #22
   br label %103
 
-103:                                              ; preds = %99, %102
+103:                                              ; preds = %102, %99
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #21
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #21
   resume { ptr, i32 } %74
@@ -7768,7 +7768,7 @@ define hidden void @_Z22BM_CounterSet2_TabularRN9benchmark5StateE(ptr noundef no
   call void @_ZdlPv(ptr noundef %87) #22
   br label %91
 
-91:                                               ; preds = %86, %90
+91:                                               ; preds = %90, %86
   %92 = load ptr, ptr %6, align 8, !tbaa !24
   %93 = icmp eq ptr %92, %28
   br i1 %93, label %95, label %94
@@ -7797,7 +7797,7 @@ define hidden void @_Z22BM_CounterSet2_TabularRN9benchmark5StateE(ptr noundef no
   call void @_ZdlPv(ptr noundef %100) #22
   br label %103
 
-103:                                              ; preds = %99, %102
+103:                                              ; preds = %102, %99
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #21
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #21
   resume { ptr, i32 } %74
@@ -8947,9 +8947,9 @@ define linkonce_odr hidden { ptr, ptr } @_ZNSt8_Rb_treeINSt7__cxx1112basic_strin
   %142 = extractvalue { ptr, ptr } %140, 1
   br label %143
 
-143:                                              ; preds = %133, %88, %106, %139, %109, %94, %64, %30, %33
-  %144 = phi ptr [ %35, %33 ], [ null, %30 ], [ %96, %94 ], [ %1, %64 ], [ %141, %139 ], [ null, %109 ], [ %1, %106 ], [ %92, %88 ], [ %137, %133 ]
-  %145 = phi ptr [ %36, %33 ], [ %12, %30 ], [ %97, %94 ], [ %1, %64 ], [ %142, %139 ], [ %1, %109 ], [ null, %106 ], [ %93, %88 ], [ %138, %133 ]
+143:                                              ; preds = %109, %64, %30, %106, %139, %133, %94, %88, %33
+  %144 = phi ptr [ %35, %33 ], [ %96, %94 ], [ %92, %88 ], [ %141, %139 ], [ %137, %133 ], [ %1, %106 ], [ null, %30 ], [ %1, %64 ], [ null, %109 ]
+  %145 = phi ptr [ %36, %33 ], [ %97, %94 ], [ %93, %88 ], [ %142, %139 ], [ %138, %133 ], [ null, %106 ], [ %12, %30 ], [ %1, %64 ], [ %1, %109 ]
   %146 = insertvalue { ptr, ptr } poison, ptr %144, 0
   %147 = insertvalue { ptr, ptr } %146, ptr %145, 1
   ret { ptr, ptr } %147
@@ -9084,7 +9084,7 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
 
 11:                                               ; preds = %3
   %12 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef 0)
-          to label %13 unwind label %20
+          to label %13 unwind label %27
 
 13:                                               ; preds = %11
   store ptr %12, ptr %5, align 8, !tbaa !24
@@ -9096,57 +9096,57 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
   %16 = phi ptr [ %12, %13 ], [ %6, %3 ]
   switch i64 %9, label %19 [
     i64 1, label %17
-    i64 0, label %26
+    i64 0, label %20
   ]
 
 17:                                               ; preds = %15
   %18 = load i8, ptr %7, align 1, !tbaa !13
   store i8 %18, ptr %16, align 1, !tbaa !13
-  br label %26
+  br label %20
 
 19:                                               ; preds = %15
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %16, ptr align 1 %7, i64 %9, i1 false)
-  br label %26
+  br label %20
 
-20:                                               ; preds = %11
-  %21 = landingpad { ptr, i32 }
+20:                                               ; preds = %15, %17, %19
+  %21 = load i64, ptr %4, align 8, !tbaa !75
+  %22 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
+  store i64 %21, ptr %22, align 8, !tbaa !10
+  %23 = load ptr, ptr %5, align 8, !tbaa !24
+  %24 = getelementptr inbounds i8, ptr %23, i64 %21
+  store i8 0, ptr %24, align 1, !tbaa !13
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #21
+  %25 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
+  %26 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %25, ptr noundef nonnull align 8 dereferenceable(16) %26, i64 16, i1 false), !tbaa.struct !14
+  ret void
+
+27:                                               ; preds = %11
+  %28 = landingpad { ptr, i32 }
           catch ptr null
-  %22 = extractvalue { ptr, i32 } %21, 0
-  %23 = call ptr @__cxa_begin_catch(ptr %22) #21
+  %29 = extractvalue { ptr, i32 } %28, 0
+  %30 = call ptr @__cxa_begin_catch(ptr %29) #21
   call void @_ZdlPv(ptr noundef nonnull %1) #22
   invoke void @__cxa_rethrow() #23
-          to label %37 unwind label %24
+          to label %37 unwind label %31
 
-24:                                               ; preds = %20
-  %25 = landingpad { ptr, i32 }
+31:                                               ; preds = %27
+  %32 = landingpad { ptr, i32 }
           cleanup
   invoke void @__cxa_end_catch()
           to label %33 unwind label %34
 
-26:                                               ; preds = %19, %17, %15
-  %27 = load i64, ptr %4, align 8, !tbaa !75
-  %28 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
-  store i64 %27, ptr %28, align 8, !tbaa !10
-  %29 = load ptr, ptr %5, align 8, !tbaa !24
-  %30 = getelementptr inbounds i8, ptr %29, i64 %27
-  store i8 0, ptr %30, align 1, !tbaa !13
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #21
-  %31 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
-  %32 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %31, ptr noundef nonnull align 8 dereferenceable(16) %32, i64 16, i1 false), !tbaa.struct !14
-  ret void
+33:                                               ; preds = %31
+  resume { ptr, i32 } %32
 
-33:                                               ; preds = %24
-  resume { ptr, i32 } %25
-
-34:                                               ; preds = %24
+34:                                               ; preds = %31
   %35 = landingpad { ptr, i32 }
           catch ptr null
   %36 = extractvalue { ptr, i32 } %35, 0
   call void @__clang_call_terminate(ptr %36) #24
   unreachable
 
-37:                                               ; preds = %20
+37:                                               ; preds = %27
   unreachable
 }
 
@@ -9162,45 +9162,45 @@ define linkonce_odr hidden noundef double @_ZNK7Results5GetAsIdEET_PKc(ptr nound
   %6 = alloca %"class.benchmark::internal::CheckHandler", align 8
   %7 = tail call noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef nonnull align 8 dereferenceable(80) %0, ptr noundef %1)
   %8 = icmp eq ptr %7, null
-  br i1 %8, label %25, label %9
+  br i1 %8, label %20, label %9
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 1
   %11 = load i64, ptr %10, align 8, !tbaa !10
   %12 = icmp eq i64 %11, 0
-  br i1 %12, label %25, label %13
+  br i1 %12, label %20, label %13
 
 13:                                               ; preds = %9
   %14 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %15 = icmp eq i8 %14, 0
-  br i1 %15, label %16, label %20, !prof !25
+  br i1 %15, label %16, label %21, !prof !25
 
 16:                                               ; preds = %13
   %17 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #21
   %18 = icmp eq i32 %17, 0
-  br i1 %18, label %20, label %19
+  br i1 %18, label %21, label %19
 
 19:                                               ; preds = %16
   store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !26
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #21
-  br label %20
+  br label %21
 
-20:                                               ; preds = %13, %16, %19
-  call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %4) #21
-  call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %4)
-  %21 = getelementptr inbounds i8, ptr %4, i64 16
-  %22 = load ptr, ptr %7, align 8, !tbaa !24
-  %23 = load i64, ptr %10, align 8, !tbaa !10
-  %24 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %21, ptr noundef %22, i64 noundef %23)
-          to label %26 unwind label %47
-
-25:                                               ; preds = %9, %2
+20:                                               ; preds = %9, %2
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #21
   call void @_ZN9benchmark8internal12CheckHandlerC2EPKcS3_S3_i(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull @.str.185, ptr noundef nonnull @.str.186, ptr noundef nonnull @__func__._ZNK7Results5GetAsIdEET_PKc, i32 noundef 144)
   call void @_ZN9benchmark8internal12CheckHandlerD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %3) #23
   unreachable
 
-26:                                               ; preds = %20
+21:                                               ; preds = %13, %16, %19
+  call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %4) #21
+  call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %4)
+  %22 = getelementptr inbounds i8, ptr %4, i64 16
+  %23 = load ptr, ptr %7, align 8, !tbaa !24
+  %24 = load i64, ptr %10, align 8, !tbaa !10
+  %25 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %22, ptr noundef %23, i64 noundef %24)
+          to label %26 unwind label %47
+
+26:                                               ; preds = %21
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #21
   %27 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSi10_M_extractIdEERSiRT_(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull align 8 dereferenceable(8) %5)
           to label %28 unwind label %49
@@ -9243,7 +9243,7 @@ define linkonce_odr hidden noundef double @_ZNK7Results5GetAsIdEET_PKc(ptr nound
 46:                                               ; preds = %45
   unreachable
 
-47:                                               ; preds = %20
+47:                                               ; preds = %21
   %48 = landingpad { ptr, i32 }
           cleanup
   br label %78
@@ -9264,7 +9264,7 @@ define linkonce_odr hidden noundef double @_ZNK7Results5GetAsIdEET_PKc(ptr nound
   %57 = getelementptr inbounds i8, ptr %4, i64 %56
   store ptr %54, ptr %57, align 8, !tbaa !30
   %58 = load ptr, ptr getelementptr inbounds ([10 x ptr], ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, i64 0, i64 9), align 8
-  store ptr %58, ptr %21, align 8, !tbaa !30
+  store ptr %58, ptr %22, align 8, !tbaa !30
   %59 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %4, i64 0, i32 1
   store ptr getelementptr inbounds ({ [16 x ptr] }, ptr @_ZTVNSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEEE, i64 0, inrange i32 0, i64 2), ptr %59, align 8, !tbaa !30
   %60 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %4, i64 0, i32 1, i32 2
@@ -9357,7 +9357,7 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %15, ptr nonnull align 1 %1, i64 %9, i1 false)
   br label %19
 
-19:                                               ; preds = %18, %16, %14
+19:                                               ; preds = %14, %16, %18
   %20 = load i64, ptr %3, align 8, !tbaa !75
   %21 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
   store i64 %20, ptr %21, align 8, !tbaa !10
@@ -9373,7 +9373,7 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
 
 28:                                               ; preds = %19
   %29 = load ptr, ptr %4, align 8, !tbaa !24
-  br label %80
+  br label %79
 
 30:                                               ; preds = %19
   %31 = load i64, ptr %21, align 8, !tbaa !10
@@ -9416,7 +9416,7 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
 
 59:                                               ; preds = %50
   %60 = icmp eq ptr %55, %26
-  br i1 %60, label %80, label %61
+  br i1 %60, label %79, label %61
 
 61:                                               ; preds = %59
   %62 = getelementptr inbounds %"struct.std::_Rb_tree_node.59", ptr %55, i64 0, i32 1, i32 0, i64 8
@@ -9442,25 +9442,28 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
 76:                                               ; preds = %71, %66
   %77 = phi i32 [ %69, %66 ], [ %75, %71 ]
   %78 = icmp slt i32 %77, 0
-  %79 = select i1 %78, ptr %26, ptr %55
-  br label %80
+  br i1 %78, label %79, label %81
 
-80:                                               ; preds = %28, %76, %59
-  %81 = phi ptr [ %32, %59 ], [ %29, %28 ], [ %32, %76 ]
-  %82 = phi ptr [ %26, %59 ], [ %26, %28 ], [ %79, %76 ]
-  %83 = icmp eq ptr %81, %5
-  br i1 %83, label %85, label %84
+79:                                               ; preds = %28, %76, %59
+  %80 = phi ptr [ %29, %28 ], [ %32, %76 ], [ %32, %59 ]
+  br label %81
 
-84:                                               ; preds = %80
-  call void @_ZdlPv(ptr noundef %81) #22
-  br label %85
+81:                                               ; preds = %79, %76
+  %82 = phi ptr [ %80, %79 ], [ %32, %76 ]
+  %83 = phi ptr [ %26, %79 ], [ %55, %76 ]
+  %84 = icmp eq ptr %82, %5
+  br i1 %84, label %86, label %85
 
-85:                                               ; preds = %80, %84
+85:                                               ; preds = %81
+  call void @_ZdlPv(ptr noundef %82) #22
+  br label %86
+
+86:                                               ; preds = %81, %85
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #21
-  %86 = icmp eq ptr %82, %26
-  %87 = getelementptr inbounds %"struct.std::_Rb_tree_node.59", ptr %82, i64 0, i32 1, i32 0, i64 32
-  %88 = select i1 %86, ptr null, ptr %87
-  ret ptr %88
+  %87 = icmp eq ptr %83, %26
+  %88 = getelementptr inbounds %"struct.std::_Rb_tree_node.59", ptr %83, i64 0, i32 1, i32 0, i64 32
+  %89 = select i1 %87, ptr null, ptr %88
+  ret ptr %89
 }
 
 ; Function Attrs: uwtable
@@ -14832,9 +14835,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %2931
 
 2931:                                             ; preds = %2930, %2924, %1266
-  %2932 = phi ptr [ %875, %1266 ], [ %2925, %2924 ], [ %2925, %2930 ]
-  %2933 = phi { ptr, i32 } [ %1267, %1266 ], [ %2926, %2924 ], [ %2926, %2930 ]
-  %2934 = phi i1 [ true, %1266 ], [ %2927, %2924 ], [ %2927, %2930 ]
+  %2932 = phi ptr [ %875, %1266 ], [ %2925, %2930 ], [ %2925, %2924 ]
+  %2933 = phi { ptr, i32 } [ %1267, %1266 ], [ %2926, %2930 ], [ %2926, %2924 ]
+  %2934 = phi i1 [ true, %1266 ], [ %2927, %2930 ], [ %2927, %2924 ]
   %2935 = load ptr, ptr %610, align 8, !tbaa !24
   %2936 = icmp eq ptr %2935, %876
   br i1 %2936, label %2938, label %2937
@@ -14856,9 +14859,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %2945
 
 2945:                                             ; preds = %2944, %2938, %1260
-  %2946 = phi ptr [ %862, %1260 ], [ %2939, %2938 ], [ %2939, %2944 ]
-  %2947 = phi { ptr, i32 } [ %1261, %1260 ], [ %2940, %2938 ], [ %2940, %2944 ]
-  %2948 = phi i1 [ true, %1260 ], [ %2941, %2938 ], [ %2941, %2944 ]
+  %2946 = phi ptr [ %862, %1260 ], [ %2939, %2944 ], [ %2939, %2938 ]
+  %2947 = phi { ptr, i32 } [ %1261, %1260 ], [ %2940, %2944 ], [ %2940, %2938 ]
+  %2948 = phi i1 [ true, %1260 ], [ %2941, %2944 ], [ %2941, %2938 ]
   %2949 = load ptr, ptr %608, align 8, !tbaa !24
   %2950 = icmp eq ptr %2949, %863
   br i1 %2950, label %2952, label %2951
@@ -14988,9 +14991,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %3022
 
 3022:                                             ; preds = %3021, %3015, %1218
-  %3023 = phi ptr [ %777, %1218 ], [ %3016, %3015 ], [ %3016, %3021 ]
-  %3024 = phi { ptr, i32 } [ %1219, %1218 ], [ %3017, %3015 ], [ %3017, %3021 ]
-  %3025 = phi i1 [ true, %1218 ], [ %3018, %3015 ], [ %3018, %3021 ]
+  %3023 = phi ptr [ %777, %1218 ], [ %3016, %3021 ], [ %3016, %3015 ]
+  %3024 = phi { ptr, i32 } [ %1219, %1218 ], [ %3017, %3021 ], [ %3017, %3015 ]
+  %3025 = phi i1 [ true, %1218 ], [ %3018, %3021 ], [ %3018, %3015 ]
   %3026 = load ptr, ptr %597, align 8, !tbaa !24
   %3027 = icmp eq ptr %3026, %778
   br i1 %3027, label %3029, label %3028
@@ -15012,9 +15015,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %3036
 
 3036:                                             ; preds = %3035, %3029, %1212
-  %3037 = phi ptr [ %764, %1212 ], [ %3030, %3029 ], [ %3030, %3035 ]
-  %3038 = phi { ptr, i32 } [ %1213, %1212 ], [ %3031, %3029 ], [ %3031, %3035 ]
-  %3039 = phi i1 [ true, %1212 ], [ %3032, %3029 ], [ %3032, %3035 ]
+  %3037 = phi ptr [ %764, %1212 ], [ %3030, %3035 ], [ %3030, %3029 ]
+  %3038 = phi { ptr, i32 } [ %1213, %1212 ], [ %3031, %3035 ], [ %3031, %3029 ]
+  %3039 = phi i1 [ true, %1212 ], [ %3032, %3035 ], [ %3032, %3029 ]
   %3040 = load ptr, ptr %595, align 8, !tbaa !24
   %3041 = icmp eq ptr %3040, %765
   br i1 %3041, label %3043, label %3042
@@ -15228,9 +15231,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %3162
 
 3162:                                             ; preds = %3161, %3155, %1142
-  %3163 = phi ptr [ %623, %1142 ], [ %3156, %3155 ], [ %3156, %3161 ]
-  %3164 = phi { ptr, i32 } [ %1143, %1142 ], [ %3157, %3155 ], [ %3157, %3161 ]
-  %3165 = phi i1 [ true, %1142 ], [ %3158, %3155 ], [ %3158, %3161 ]
+  %3163 = phi ptr [ %623, %1142 ], [ %3156, %3161 ], [ %3156, %3155 ]
+  %3164 = phi { ptr, i32 } [ %1143, %1142 ], [ %3157, %3161 ], [ %3157, %3155 ]
+  %3165 = phi i1 [ true, %1142 ], [ %3158, %3161 ], [ %3158, %3155 ]
   %3166 = load ptr, ptr %577, align 8, !tbaa !24
   %3167 = icmp eq ptr %3166, %624
   br i1 %3167, label %3169, label %3168
@@ -17756,9 +17759,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %4409
 
 4409:                                             ; preds = %4408, %4402, %3648
-  %4410 = phi ptr [ %3453, %3648 ], [ %4403, %4402 ], [ %4403, %4408 ]
-  %4411 = phi { ptr, i32 } [ %3649, %3648 ], [ %4404, %4402 ], [ %4404, %4408 ]
-  %4412 = phi i1 [ true, %3648 ], [ %4405, %4402 ], [ %4405, %4408 ]
+  %4410 = phi ptr [ %3453, %3648 ], [ %4403, %4408 ], [ %4403, %4402 ]
+  %4411 = phi { ptr, i32 } [ %3649, %3648 ], [ %4404, %4408 ], [ %4404, %4402 ]
+  %4412 = phi i1 [ true, %3648 ], [ %4405, %4408 ], [ %4405, %4402 ]
   %4413 = load ptr, ptr %534, align 8, !tbaa !24
   %4414 = icmp eq ptr %4413, %3454
   br i1 %4414, label %4416, label %4415
@@ -17780,9 +17783,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %4423
 
 4423:                                             ; preds = %4422, %4416, %3642
-  %4424 = phi ptr [ %3443, %3642 ], [ %4417, %4416 ], [ %4417, %4422 ]
-  %4425 = phi { ptr, i32 } [ %3643, %3642 ], [ %4418, %4416 ], [ %4418, %4422 ]
-  %4426 = phi i1 [ true, %3642 ], [ %4419, %4416 ], [ %4419, %4422 ]
+  %4424 = phi ptr [ %3443, %3642 ], [ %4417, %4422 ], [ %4417, %4416 ]
+  %4425 = phi { ptr, i32 } [ %3643, %3642 ], [ %4418, %4422 ], [ %4418, %4416 ]
+  %4426 = phi i1 [ true, %3642 ], [ %4419, %4422 ], [ %4419, %4416 ]
   %4427 = load ptr, ptr %532, align 8, !tbaa !24
   %4428 = icmp eq ptr %4427, %3444
   br i1 %4428, label %4430, label %4429
@@ -17792,9 +17795,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %4430
 
 4430:                                             ; preds = %4429, %4423, %3640
-  %4431 = phi ptr [ %3438, %3640 ], [ %4424, %4423 ], [ %4424, %4429 ]
-  %4432 = phi { ptr, i32 } [ %3641, %3640 ], [ %4425, %4423 ], [ %4425, %4429 ]
-  %4433 = phi i1 [ true, %3640 ], [ %4426, %4423 ], [ %4426, %4429 ]
+  %4431 = phi ptr [ %3438, %3640 ], [ %4424, %4429 ], [ %4424, %4423 ]
+  %4432 = phi { ptr, i32 } [ %3641, %3640 ], [ %4425, %4429 ], [ %4425, %4423 ]
+  %4433 = phi i1 [ true, %3640 ], [ %4426, %4429 ], [ %4426, %4423 ]
   %4434 = load ptr, ptr %531, align 8, !tbaa !24
   %4435 = icmp eq ptr %4434, %3439
   br i1 %4435, label %4437, label %4436
@@ -17804,9 +17807,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %4437
 
 4437:                                             ; preds = %4436, %4430, %3638
-  %4438 = phi ptr [ %3433, %3638 ], [ %4431, %4430 ], [ %4431, %4436 ]
-  %4439 = phi { ptr, i32 } [ %3639, %3638 ], [ %4432, %4430 ], [ %4432, %4436 ]
-  %4440 = phi i1 [ true, %3638 ], [ %4433, %4430 ], [ %4433, %4436 ]
+  %4438 = phi ptr [ %3433, %3638 ], [ %4431, %4436 ], [ %4431, %4430 ]
+  %4439 = phi { ptr, i32 } [ %3639, %3638 ], [ %4432, %4436 ], [ %4432, %4430 ]
+  %4440 = phi i1 [ true, %3638 ], [ %4433, %4436 ], [ %4433, %4430 ]
   %4441 = load ptr, ptr %530, align 8, !tbaa !24
   %4442 = icmp eq ptr %4441, %3434
   br i1 %4442, label %4444, label %4443
@@ -17816,9 +17819,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %4444
 
 4444:                                             ; preds = %4443, %4437, %3636
-  %4445 = phi ptr [ %3424, %3636 ], [ %4438, %4437 ], [ %4438, %4443 ]
-  %4446 = phi { ptr, i32 } [ %3637, %3636 ], [ %4439, %4437 ], [ %4439, %4443 ]
-  %4447 = phi i1 [ true, %3636 ], [ %4440, %4437 ], [ %4440, %4443 ]
+  %4445 = phi ptr [ %3424, %3636 ], [ %4438, %4443 ], [ %4438, %4437 ]
+  %4446 = phi { ptr, i32 } [ %3637, %3636 ], [ %4439, %4443 ], [ %4439, %4437 ]
+  %4447 = phi i1 [ true, %3636 ], [ %4440, %4443 ], [ %4440, %4437 ]
   %4448 = load ptr, ptr %529, align 8, !tbaa !24
   %4449 = icmp eq ptr %4448, %3425
   br i1 %4449, label %4451, label %4450
@@ -17876,9 +17879,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %4479
 
 4479:                                             ; preds = %4478, %4472, %3618
-  %4480 = phi ptr [ %3383, %3618 ], [ %4473, %4472 ], [ %4473, %4478 ]
-  %4481 = phi { ptr, i32 } [ %3619, %3618 ], [ %4474, %4472 ], [ %4474, %4478 ]
-  %4482 = phi i1 [ true, %3618 ], [ %4475, %4472 ], [ %4475, %4478 ]
+  %4480 = phi ptr [ %3383, %3618 ], [ %4473, %4478 ], [ %4473, %4472 ]
+  %4481 = phi { ptr, i32 } [ %3619, %3618 ], [ %4474, %4478 ], [ %4474, %4472 ]
+  %4482 = phi i1 [ true, %3618 ], [ %4475, %4478 ], [ %4475, %4472 ]
   %4483 = load ptr, ptr %524, align 8, !tbaa !24
   %4484 = icmp eq ptr %4483, %3384
   br i1 %4484, label %4486, label %4485
@@ -20221,9 +20224,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %5652
 
 5652:                                             ; preds = %5651, %5645, %4891
-  %5653 = phi ptr [ %4696, %4891 ], [ %5646, %5645 ], [ %5646, %5651 ]
-  %5654 = phi { ptr, i32 } [ %4892, %4891 ], [ %5647, %5645 ], [ %5647, %5651 ]
-  %5655 = phi i1 [ true, %4891 ], [ %5648, %5645 ], [ %5648, %5651 ]
+  %5653 = phi ptr [ %4696, %4891 ], [ %5646, %5651 ], [ %5646, %5645 ]
+  %5654 = phi { ptr, i32 } [ %4892, %4891 ], [ %5647, %5651 ], [ %5647, %5645 ]
+  %5655 = phi i1 [ true, %4891 ], [ %5648, %5651 ], [ %5648, %5645 ]
   %5656 = load ptr, ptr %502, align 8, !tbaa !24
   %5657 = icmp eq ptr %5656, %4697
   br i1 %5657, label %5659, label %5658
@@ -20245,9 +20248,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %5666
 
 5666:                                             ; preds = %5665, %5659, %4885
-  %5667 = phi ptr [ %4686, %4885 ], [ %5660, %5659 ], [ %5660, %5665 ]
-  %5668 = phi { ptr, i32 } [ %4886, %4885 ], [ %5661, %5659 ], [ %5661, %5665 ]
-  %5669 = phi i1 [ true, %4885 ], [ %5662, %5659 ], [ %5662, %5665 ]
+  %5667 = phi ptr [ %4686, %4885 ], [ %5660, %5665 ], [ %5660, %5659 ]
+  %5668 = phi { ptr, i32 } [ %4886, %4885 ], [ %5661, %5665 ], [ %5661, %5659 ]
+  %5669 = phi i1 [ true, %4885 ], [ %5662, %5665 ], [ %5662, %5659 ]
   %5670 = load ptr, ptr %500, align 8, !tbaa !24
   %5671 = icmp eq ptr %5670, %4687
   br i1 %5671, label %5673, label %5672
@@ -20257,9 +20260,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %5673
 
 5673:                                             ; preds = %5672, %5666, %4883
-  %5674 = phi ptr [ %4681, %4883 ], [ %5667, %5666 ], [ %5667, %5672 ]
-  %5675 = phi { ptr, i32 } [ %4884, %4883 ], [ %5668, %5666 ], [ %5668, %5672 ]
-  %5676 = phi i1 [ true, %4883 ], [ %5669, %5666 ], [ %5669, %5672 ]
+  %5674 = phi ptr [ %4681, %4883 ], [ %5667, %5672 ], [ %5667, %5666 ]
+  %5675 = phi { ptr, i32 } [ %4884, %4883 ], [ %5668, %5672 ], [ %5668, %5666 ]
+  %5676 = phi i1 [ true, %4883 ], [ %5669, %5672 ], [ %5669, %5666 ]
   %5677 = load ptr, ptr %499, align 8, !tbaa !24
   %5678 = icmp eq ptr %5677, %4682
   br i1 %5678, label %5680, label %5679
@@ -20269,9 +20272,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %5680
 
 5680:                                             ; preds = %5679, %5673, %4881
-  %5681 = phi ptr [ %4676, %4881 ], [ %5674, %5673 ], [ %5674, %5679 ]
-  %5682 = phi { ptr, i32 } [ %4882, %4881 ], [ %5675, %5673 ], [ %5675, %5679 ]
-  %5683 = phi i1 [ true, %4881 ], [ %5676, %5673 ], [ %5676, %5679 ]
+  %5681 = phi ptr [ %4676, %4881 ], [ %5674, %5679 ], [ %5674, %5673 ]
+  %5682 = phi { ptr, i32 } [ %4882, %4881 ], [ %5675, %5679 ], [ %5675, %5673 ]
+  %5683 = phi i1 [ true, %4881 ], [ %5676, %5679 ], [ %5676, %5673 ]
   %5684 = load ptr, ptr %498, align 8, !tbaa !24
   %5685 = icmp eq ptr %5684, %4677
   br i1 %5685, label %5687, label %5686
@@ -20281,9 +20284,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %5687
 
 5687:                                             ; preds = %5686, %5680, %4879
-  %5688 = phi ptr [ %4667, %4879 ], [ %5681, %5680 ], [ %5681, %5686 ]
-  %5689 = phi { ptr, i32 } [ %4880, %4879 ], [ %5682, %5680 ], [ %5682, %5686 ]
-  %5690 = phi i1 [ true, %4879 ], [ %5683, %5680 ], [ %5683, %5686 ]
+  %5688 = phi ptr [ %4667, %4879 ], [ %5681, %5686 ], [ %5681, %5680 ]
+  %5689 = phi { ptr, i32 } [ %4880, %4879 ], [ %5682, %5686 ], [ %5682, %5680 ]
+  %5690 = phi i1 [ true, %4879 ], [ %5683, %5686 ], [ %5683, %5680 ]
   %5691 = load ptr, ptr %497, align 8, !tbaa !24
   %5692 = icmp eq ptr %5691, %4668
   br i1 %5692, label %5694, label %5693
@@ -20341,9 +20344,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %5722
 
 5722:                                             ; preds = %5721, %5715, %4861
-  %5723 = phi ptr [ %4626, %4861 ], [ %5716, %5715 ], [ %5716, %5721 ]
-  %5724 = phi { ptr, i32 } [ %4862, %4861 ], [ %5717, %5715 ], [ %5717, %5721 ]
-  %5725 = phi i1 [ true, %4861 ], [ %5718, %5715 ], [ %5718, %5721 ]
+  %5723 = phi ptr [ %4626, %4861 ], [ %5716, %5721 ], [ %5716, %5715 ]
+  %5724 = phi { ptr, i32 } [ %4862, %4861 ], [ %5717, %5721 ], [ %5717, %5715 ]
+  %5725 = phi i1 [ true, %4861 ], [ %5718, %5721 ], [ %5718, %5715 ]
   %5726 = load ptr, ptr %492, align 8, !tbaa !24
   %5727 = icmp eq ptr %5726, %4627
   br i1 %5727, label %5729, label %5728
@@ -22800,9 +22803,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %6951
 
 6951:                                             ; preds = %6950, %6944, %6151
-  %6952 = phi ptr [ %5948, %6151 ], [ %6945, %6944 ], [ %6945, %6950 ]
-  %6953 = phi { ptr, i32 } [ %6152, %6151 ], [ %6946, %6944 ], [ %6946, %6950 ]
-  %6954 = phi i1 [ true, %6151 ], [ %6947, %6944 ], [ %6947, %6950 ]
+  %6952 = phi ptr [ %5948, %6151 ], [ %6945, %6950 ], [ %6945, %6944 ]
+  %6953 = phi { ptr, i32 } [ %6152, %6151 ], [ %6946, %6950 ], [ %6946, %6944 ]
+  %6954 = phi i1 [ true, %6151 ], [ %6947, %6950 ], [ %6947, %6944 ]
   %6955 = load ptr, ptr %470, align 8, !tbaa !24
   %6956 = icmp eq ptr %6955, %5949
   br i1 %6956, label %6958, label %6957
@@ -22824,9 +22827,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %6965
 
 6965:                                             ; preds = %6964, %6958, %6145
-  %6966 = phi ptr [ %5938, %6145 ], [ %6959, %6958 ], [ %6959, %6964 ]
-  %6967 = phi { ptr, i32 } [ %6146, %6145 ], [ %6960, %6958 ], [ %6960, %6964 ]
-  %6968 = phi i1 [ true, %6145 ], [ %6961, %6958 ], [ %6961, %6964 ]
+  %6966 = phi ptr [ %5938, %6145 ], [ %6959, %6964 ], [ %6959, %6958 ]
+  %6967 = phi { ptr, i32 } [ %6146, %6145 ], [ %6960, %6964 ], [ %6960, %6958 ]
+  %6968 = phi i1 [ true, %6145 ], [ %6961, %6964 ], [ %6961, %6958 ]
   %6969 = load ptr, ptr %468, align 8, !tbaa !24
   %6970 = icmp eq ptr %6969, %5939
   br i1 %6970, label %6972, label %6971
@@ -22836,9 +22839,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %6972
 
 6972:                                             ; preds = %6971, %6965, %6143
-  %6973 = phi ptr [ %5933, %6143 ], [ %6966, %6965 ], [ %6966, %6971 ]
-  %6974 = phi { ptr, i32 } [ %6144, %6143 ], [ %6967, %6965 ], [ %6967, %6971 ]
-  %6975 = phi i1 [ true, %6143 ], [ %6968, %6965 ], [ %6968, %6971 ]
+  %6973 = phi ptr [ %5933, %6143 ], [ %6966, %6971 ], [ %6966, %6965 ]
+  %6974 = phi { ptr, i32 } [ %6144, %6143 ], [ %6967, %6971 ], [ %6967, %6965 ]
+  %6975 = phi i1 [ true, %6143 ], [ %6968, %6971 ], [ %6968, %6965 ]
   %6976 = load ptr, ptr %467, align 8, !tbaa !24
   %6977 = icmp eq ptr %6976, %5934
   br i1 %6977, label %6979, label %6978
@@ -22848,9 +22851,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %6979
 
 6979:                                             ; preds = %6978, %6972, %6141
-  %6980 = phi ptr [ %5928, %6141 ], [ %6973, %6972 ], [ %6973, %6978 ]
-  %6981 = phi { ptr, i32 } [ %6142, %6141 ], [ %6974, %6972 ], [ %6974, %6978 ]
-  %6982 = phi i1 [ true, %6141 ], [ %6975, %6972 ], [ %6975, %6978 ]
+  %6980 = phi ptr [ %5928, %6141 ], [ %6973, %6978 ], [ %6973, %6972 ]
+  %6981 = phi { ptr, i32 } [ %6142, %6141 ], [ %6974, %6978 ], [ %6974, %6972 ]
+  %6982 = phi i1 [ true, %6141 ], [ %6975, %6978 ], [ %6975, %6972 ]
   %6983 = load ptr, ptr %466, align 8, !tbaa !24
   %6984 = icmp eq ptr %6983, %5929
   br i1 %6984, label %6986, label %6985
@@ -22860,9 +22863,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %6986
 
 6986:                                             ; preds = %6985, %6979, %6139
-  %6987 = phi ptr [ %5919, %6139 ], [ %6980, %6979 ], [ %6980, %6985 ]
-  %6988 = phi { ptr, i32 } [ %6140, %6139 ], [ %6981, %6979 ], [ %6981, %6985 ]
-  %6989 = phi i1 [ true, %6139 ], [ %6982, %6979 ], [ %6982, %6985 ]
+  %6987 = phi ptr [ %5919, %6139 ], [ %6980, %6985 ], [ %6980, %6979 ]
+  %6988 = phi { ptr, i32 } [ %6140, %6139 ], [ %6981, %6985 ], [ %6981, %6979 ]
+  %6989 = phi i1 [ true, %6139 ], [ %6982, %6985 ], [ %6982, %6979 ]
   %6990 = load ptr, ptr %465, align 8, !tbaa !24
   %6991 = icmp eq ptr %6990, %5920
   br i1 %6991, label %6993, label %6992
@@ -22944,9 +22947,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %7035
 
 7035:                                             ; preds = %7034, %7028, %6113
-  %7036 = phi ptr [ %5860, %6113 ], [ %7029, %7028 ], [ %7029, %7034 ]
-  %7037 = phi { ptr, i32 } [ %6114, %6113 ], [ %7030, %7028 ], [ %7030, %7034 ]
-  %7038 = phi i1 [ true, %6113 ], [ %7031, %7028 ], [ %7031, %7034 ]
+  %7036 = phi ptr [ %5860, %6113 ], [ %7029, %7034 ], [ %7029, %7028 ]
+  %7037 = phi { ptr, i32 } [ %6114, %6113 ], [ %7030, %7034 ], [ %7030, %7028 ]
+  %7038 = phi i1 [ true, %6113 ], [ %7031, %7034 ], [ %7031, %7028 ]
   %7039 = load ptr, ptr %458, align 8, !tbaa !24
   %7040 = icmp eq ptr %7039, %5861
   br i1 %7040, label %7042, label %7041
@@ -25392,9 +25395,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %8257
 
 8257:                                             ; preds = %8256, %8250, %7457
-  %8258 = phi ptr [ %7254, %7457 ], [ %8251, %8250 ], [ %8251, %8256 ]
-  %8259 = phi { ptr, i32 } [ %7458, %7457 ], [ %8252, %8250 ], [ %8252, %8256 ]
-  %8260 = phi i1 [ true, %7457 ], [ %8253, %8250 ], [ %8253, %8256 ]
+  %8258 = phi ptr [ %7254, %7457 ], [ %8251, %8256 ], [ %8251, %8250 ]
+  %8259 = phi { ptr, i32 } [ %7458, %7457 ], [ %8252, %8256 ], [ %8252, %8250 ]
+  %8260 = phi i1 [ true, %7457 ], [ %8253, %8256 ], [ %8253, %8250 ]
   %8261 = load ptr, ptr %436, align 8, !tbaa !24
   %8262 = icmp eq ptr %8261, %7255
   br i1 %8262, label %8264, label %8263
@@ -25416,9 +25419,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %8271
 
 8271:                                             ; preds = %8270, %8264, %7451
-  %8272 = phi ptr [ %7244, %7451 ], [ %8265, %8264 ], [ %8265, %8270 ]
-  %8273 = phi { ptr, i32 } [ %7452, %7451 ], [ %8266, %8264 ], [ %8266, %8270 ]
-  %8274 = phi i1 [ true, %7451 ], [ %8267, %8264 ], [ %8267, %8270 ]
+  %8272 = phi ptr [ %7244, %7451 ], [ %8265, %8270 ], [ %8265, %8264 ]
+  %8273 = phi { ptr, i32 } [ %7452, %7451 ], [ %8266, %8270 ], [ %8266, %8264 ]
+  %8274 = phi i1 [ true, %7451 ], [ %8267, %8270 ], [ %8267, %8264 ]
   %8275 = load ptr, ptr %434, align 8, !tbaa !24
   %8276 = icmp eq ptr %8275, %7245
   br i1 %8276, label %8278, label %8277
@@ -25428,9 +25431,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %8278
 
 8278:                                             ; preds = %8277, %8271, %7449
-  %8279 = phi ptr [ %7239, %7449 ], [ %8272, %8271 ], [ %8272, %8277 ]
-  %8280 = phi { ptr, i32 } [ %7450, %7449 ], [ %8273, %8271 ], [ %8273, %8277 ]
-  %8281 = phi i1 [ true, %7449 ], [ %8274, %8271 ], [ %8274, %8277 ]
+  %8279 = phi ptr [ %7239, %7449 ], [ %8272, %8277 ], [ %8272, %8271 ]
+  %8280 = phi { ptr, i32 } [ %7450, %7449 ], [ %8273, %8277 ], [ %8273, %8271 ]
+  %8281 = phi i1 [ true, %7449 ], [ %8274, %8277 ], [ %8274, %8271 ]
   %8282 = load ptr, ptr %433, align 8, !tbaa !24
   %8283 = icmp eq ptr %8282, %7240
   br i1 %8283, label %8285, label %8284
@@ -25440,9 +25443,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %8285
 
 8285:                                             ; preds = %8284, %8278, %7447
-  %8286 = phi ptr [ %7234, %7447 ], [ %8279, %8278 ], [ %8279, %8284 ]
-  %8287 = phi { ptr, i32 } [ %7448, %7447 ], [ %8280, %8278 ], [ %8280, %8284 ]
-  %8288 = phi i1 [ true, %7447 ], [ %8281, %8278 ], [ %8281, %8284 ]
+  %8286 = phi ptr [ %7234, %7447 ], [ %8279, %8284 ], [ %8279, %8278 ]
+  %8287 = phi { ptr, i32 } [ %7448, %7447 ], [ %8280, %8284 ], [ %8280, %8278 ]
+  %8288 = phi i1 [ true, %7447 ], [ %8281, %8284 ], [ %8281, %8278 ]
   %8289 = load ptr, ptr %432, align 8, !tbaa !24
   %8290 = icmp eq ptr %8289, %7235
   br i1 %8290, label %8292, label %8291
@@ -25452,9 +25455,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %8292
 
 8292:                                             ; preds = %8291, %8285, %7445
-  %8293 = phi ptr [ %7225, %7445 ], [ %8286, %8285 ], [ %8286, %8291 ]
-  %8294 = phi { ptr, i32 } [ %7446, %7445 ], [ %8287, %8285 ], [ %8287, %8291 ]
-  %8295 = phi i1 [ true, %7445 ], [ %8288, %8285 ], [ %8288, %8291 ]
+  %8293 = phi ptr [ %7225, %7445 ], [ %8286, %8291 ], [ %8286, %8285 ]
+  %8294 = phi { ptr, i32 } [ %7446, %7445 ], [ %8287, %8291 ], [ %8287, %8285 ]
+  %8295 = phi i1 [ true, %7445 ], [ %8288, %8291 ], [ %8288, %8285 ]
   %8296 = load ptr, ptr %431, align 8, !tbaa !24
   %8297 = icmp eq ptr %8296, %7226
   br i1 %8297, label %8299, label %8298
@@ -25536,9 +25539,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %8341
 
 8341:                                             ; preds = %8340, %8334, %7419
-  %8342 = phi ptr [ %7166, %7419 ], [ %8335, %8334 ], [ %8335, %8340 ]
-  %8343 = phi { ptr, i32 } [ %7420, %7419 ], [ %8336, %8334 ], [ %8336, %8340 ]
-  %8344 = phi i1 [ true, %7419 ], [ %8337, %8334 ], [ %8337, %8340 ]
+  %8342 = phi ptr [ %7166, %7419 ], [ %8335, %8340 ], [ %8335, %8334 ]
+  %8343 = phi { ptr, i32 } [ %7420, %7419 ], [ %8336, %8340 ], [ %8336, %8334 ]
+  %8344 = phi i1 [ true, %7419 ], [ %8337, %8340 ], [ %8337, %8334 ]
   %8345 = load ptr, ptr %424, align 8, !tbaa !24
   %8346 = icmp eq ptr %8345, %7167
   br i1 %8346, label %8348, label %8347
@@ -27984,9 +27987,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %9563
 
 9563:                                             ; preds = %9562, %9556, %8763
-  %9564 = phi ptr [ %8560, %8763 ], [ %9557, %9556 ], [ %9557, %9562 ]
-  %9565 = phi { ptr, i32 } [ %8764, %8763 ], [ %9558, %9556 ], [ %9558, %9562 ]
-  %9566 = phi i1 [ true, %8763 ], [ %9559, %9556 ], [ %9559, %9562 ]
+  %9564 = phi ptr [ %8560, %8763 ], [ %9557, %9562 ], [ %9557, %9556 ]
+  %9565 = phi { ptr, i32 } [ %8764, %8763 ], [ %9558, %9562 ], [ %9558, %9556 ]
+  %9566 = phi i1 [ true, %8763 ], [ %9559, %9562 ], [ %9559, %9556 ]
   %9567 = load ptr, ptr %402, align 8, !tbaa !24
   %9568 = icmp eq ptr %9567, %8561
   br i1 %9568, label %9570, label %9569
@@ -28008,9 +28011,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %9577
 
 9577:                                             ; preds = %9576, %9570, %8757
-  %9578 = phi ptr [ %8550, %8757 ], [ %9571, %9570 ], [ %9571, %9576 ]
-  %9579 = phi { ptr, i32 } [ %8758, %8757 ], [ %9572, %9570 ], [ %9572, %9576 ]
-  %9580 = phi i1 [ true, %8757 ], [ %9573, %9570 ], [ %9573, %9576 ]
+  %9578 = phi ptr [ %8550, %8757 ], [ %9571, %9576 ], [ %9571, %9570 ]
+  %9579 = phi { ptr, i32 } [ %8758, %8757 ], [ %9572, %9576 ], [ %9572, %9570 ]
+  %9580 = phi i1 [ true, %8757 ], [ %9573, %9576 ], [ %9573, %9570 ]
   %9581 = load ptr, ptr %400, align 8, !tbaa !24
   %9582 = icmp eq ptr %9581, %8551
   br i1 %9582, label %9584, label %9583
@@ -28020,9 +28023,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %9584
 
 9584:                                             ; preds = %9583, %9577, %8755
-  %9585 = phi ptr [ %8545, %8755 ], [ %9578, %9577 ], [ %9578, %9583 ]
-  %9586 = phi { ptr, i32 } [ %8756, %8755 ], [ %9579, %9577 ], [ %9579, %9583 ]
-  %9587 = phi i1 [ true, %8755 ], [ %9580, %9577 ], [ %9580, %9583 ]
+  %9585 = phi ptr [ %8545, %8755 ], [ %9578, %9583 ], [ %9578, %9577 ]
+  %9586 = phi { ptr, i32 } [ %8756, %8755 ], [ %9579, %9583 ], [ %9579, %9577 ]
+  %9587 = phi i1 [ true, %8755 ], [ %9580, %9583 ], [ %9580, %9577 ]
   %9588 = load ptr, ptr %399, align 8, !tbaa !24
   %9589 = icmp eq ptr %9588, %8546
   br i1 %9589, label %9591, label %9590
@@ -28032,9 +28035,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %9591
 
 9591:                                             ; preds = %9590, %9584, %8753
-  %9592 = phi ptr [ %8540, %8753 ], [ %9585, %9584 ], [ %9585, %9590 ]
-  %9593 = phi { ptr, i32 } [ %8754, %8753 ], [ %9586, %9584 ], [ %9586, %9590 ]
-  %9594 = phi i1 [ true, %8753 ], [ %9587, %9584 ], [ %9587, %9590 ]
+  %9592 = phi ptr [ %8540, %8753 ], [ %9585, %9590 ], [ %9585, %9584 ]
+  %9593 = phi { ptr, i32 } [ %8754, %8753 ], [ %9586, %9590 ], [ %9586, %9584 ]
+  %9594 = phi i1 [ true, %8753 ], [ %9587, %9590 ], [ %9587, %9584 ]
   %9595 = load ptr, ptr %398, align 8, !tbaa !24
   %9596 = icmp eq ptr %9595, %8541
   br i1 %9596, label %9598, label %9597
@@ -28044,9 +28047,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %9598
 
 9598:                                             ; preds = %9597, %9591, %8751
-  %9599 = phi ptr [ %8531, %8751 ], [ %9592, %9591 ], [ %9592, %9597 ]
-  %9600 = phi { ptr, i32 } [ %8752, %8751 ], [ %9593, %9591 ], [ %9593, %9597 ]
-  %9601 = phi i1 [ true, %8751 ], [ %9594, %9591 ], [ %9594, %9597 ]
+  %9599 = phi ptr [ %8531, %8751 ], [ %9592, %9597 ], [ %9592, %9591 ]
+  %9600 = phi { ptr, i32 } [ %8752, %8751 ], [ %9593, %9597 ], [ %9593, %9591 ]
+  %9601 = phi i1 [ true, %8751 ], [ %9594, %9597 ], [ %9594, %9591 ]
   %9602 = load ptr, ptr %397, align 8, !tbaa !24
   %9603 = icmp eq ptr %9602, %8532
   br i1 %9603, label %9605, label %9604
@@ -28128,9 +28131,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %9647
 
 9647:                                             ; preds = %9646, %9640, %8725
-  %9648 = phi ptr [ %8472, %8725 ], [ %9641, %9640 ], [ %9641, %9646 ]
-  %9649 = phi { ptr, i32 } [ %8726, %8725 ], [ %9642, %9640 ], [ %9642, %9646 ]
-  %9650 = phi i1 [ true, %8725 ], [ %9643, %9640 ], [ %9643, %9646 ]
+  %9648 = phi ptr [ %8472, %8725 ], [ %9641, %9646 ], [ %9641, %9640 ]
+  %9649 = phi { ptr, i32 } [ %8726, %8725 ], [ %9642, %9646 ], [ %9642, %9640 ]
+  %9650 = phi i1 [ true, %8725 ], [ %9643, %9646 ], [ %9643, %9640 ]
   %9651 = load ptr, ptr %390, align 8, !tbaa !24
   %9652 = icmp eq ptr %9651, %8473
   br i1 %9652, label %9654, label %9653
@@ -30576,9 +30579,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %10869
 
 10869:                                            ; preds = %10868, %10862, %10069
-  %10870 = phi ptr [ %9866, %10069 ], [ %10863, %10862 ], [ %10863, %10868 ]
-  %10871 = phi { ptr, i32 } [ %10070, %10069 ], [ %10864, %10862 ], [ %10864, %10868 ]
-  %10872 = phi i1 [ true, %10069 ], [ %10865, %10862 ], [ %10865, %10868 ]
+  %10870 = phi ptr [ %9866, %10069 ], [ %10863, %10868 ], [ %10863, %10862 ]
+  %10871 = phi { ptr, i32 } [ %10070, %10069 ], [ %10864, %10868 ], [ %10864, %10862 ]
+  %10872 = phi i1 [ true, %10069 ], [ %10865, %10868 ], [ %10865, %10862 ]
   %10873 = load ptr, ptr %368, align 8, !tbaa !24
   %10874 = icmp eq ptr %10873, %9867
   br i1 %10874, label %10876, label %10875
@@ -30600,9 +30603,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %10883
 
 10883:                                            ; preds = %10882, %10876, %10063
-  %10884 = phi ptr [ %9856, %10063 ], [ %10877, %10876 ], [ %10877, %10882 ]
-  %10885 = phi { ptr, i32 } [ %10064, %10063 ], [ %10878, %10876 ], [ %10878, %10882 ]
-  %10886 = phi i1 [ true, %10063 ], [ %10879, %10876 ], [ %10879, %10882 ]
+  %10884 = phi ptr [ %9856, %10063 ], [ %10877, %10882 ], [ %10877, %10876 ]
+  %10885 = phi { ptr, i32 } [ %10064, %10063 ], [ %10878, %10882 ], [ %10878, %10876 ]
+  %10886 = phi i1 [ true, %10063 ], [ %10879, %10882 ], [ %10879, %10876 ]
   %10887 = load ptr, ptr %366, align 8, !tbaa !24
   %10888 = icmp eq ptr %10887, %9857
   br i1 %10888, label %10890, label %10889
@@ -30612,9 +30615,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %10890
 
 10890:                                            ; preds = %10889, %10883, %10061
-  %10891 = phi ptr [ %9851, %10061 ], [ %10884, %10883 ], [ %10884, %10889 ]
-  %10892 = phi { ptr, i32 } [ %10062, %10061 ], [ %10885, %10883 ], [ %10885, %10889 ]
-  %10893 = phi i1 [ true, %10061 ], [ %10886, %10883 ], [ %10886, %10889 ]
+  %10891 = phi ptr [ %9851, %10061 ], [ %10884, %10889 ], [ %10884, %10883 ]
+  %10892 = phi { ptr, i32 } [ %10062, %10061 ], [ %10885, %10889 ], [ %10885, %10883 ]
+  %10893 = phi i1 [ true, %10061 ], [ %10886, %10889 ], [ %10886, %10883 ]
   %10894 = load ptr, ptr %365, align 8, !tbaa !24
   %10895 = icmp eq ptr %10894, %9852
   br i1 %10895, label %10897, label %10896
@@ -30624,9 +30627,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %10897
 
 10897:                                            ; preds = %10896, %10890, %10059
-  %10898 = phi ptr [ %9846, %10059 ], [ %10891, %10890 ], [ %10891, %10896 ]
-  %10899 = phi { ptr, i32 } [ %10060, %10059 ], [ %10892, %10890 ], [ %10892, %10896 ]
-  %10900 = phi i1 [ true, %10059 ], [ %10893, %10890 ], [ %10893, %10896 ]
+  %10898 = phi ptr [ %9846, %10059 ], [ %10891, %10896 ], [ %10891, %10890 ]
+  %10899 = phi { ptr, i32 } [ %10060, %10059 ], [ %10892, %10896 ], [ %10892, %10890 ]
+  %10900 = phi i1 [ true, %10059 ], [ %10893, %10896 ], [ %10893, %10890 ]
   %10901 = load ptr, ptr %364, align 8, !tbaa !24
   %10902 = icmp eq ptr %10901, %9847
   br i1 %10902, label %10904, label %10903
@@ -30636,9 +30639,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %10904
 
 10904:                                            ; preds = %10903, %10897, %10057
-  %10905 = phi ptr [ %9837, %10057 ], [ %10898, %10897 ], [ %10898, %10903 ]
-  %10906 = phi { ptr, i32 } [ %10058, %10057 ], [ %10899, %10897 ], [ %10899, %10903 ]
-  %10907 = phi i1 [ true, %10057 ], [ %10900, %10897 ], [ %10900, %10903 ]
+  %10905 = phi ptr [ %9837, %10057 ], [ %10898, %10903 ], [ %10898, %10897 ]
+  %10906 = phi { ptr, i32 } [ %10058, %10057 ], [ %10899, %10903 ], [ %10899, %10897 ]
+  %10907 = phi i1 [ true, %10057 ], [ %10900, %10903 ], [ %10900, %10897 ]
   %10908 = load ptr, ptr %363, align 8, !tbaa !24
   %10909 = icmp eq ptr %10908, %9838
   br i1 %10909, label %10911, label %10910
@@ -30720,9 +30723,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %10953
 
 10953:                                            ; preds = %10952, %10946, %10031
-  %10954 = phi ptr [ %9778, %10031 ], [ %10947, %10946 ], [ %10947, %10952 ]
-  %10955 = phi { ptr, i32 } [ %10032, %10031 ], [ %10948, %10946 ], [ %10948, %10952 ]
-  %10956 = phi i1 [ true, %10031 ], [ %10949, %10946 ], [ %10949, %10952 ]
+  %10954 = phi ptr [ %9778, %10031 ], [ %10947, %10952 ], [ %10947, %10946 ]
+  %10955 = phi { ptr, i32 } [ %10032, %10031 ], [ %10948, %10952 ], [ %10948, %10946 ]
+  %10956 = phi i1 [ true, %10031 ], [ %10949, %10952 ], [ %10949, %10946 ]
   %10957 = load ptr, ptr %356, align 8, !tbaa !24
   %10958 = icmp eq ptr %10957, %9779
   br i1 %10958, label %10960, label %10959
@@ -33054,9 +33057,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %12119
 
 12119:                                            ; preds = %12118, %12112, %11358
-  %12120 = phi ptr [ %11163, %11358 ], [ %12113, %12112 ], [ %12113, %12118 ]
-  %12121 = phi { ptr, i32 } [ %11359, %11358 ], [ %12114, %12112 ], [ %12114, %12118 ]
-  %12122 = phi i1 [ true, %11358 ], [ %12115, %12112 ], [ %12115, %12118 ]
+  %12120 = phi ptr [ %11163, %11358 ], [ %12113, %12118 ], [ %12113, %12112 ]
+  %12121 = phi { ptr, i32 } [ %11359, %11358 ], [ %12114, %12118 ], [ %12114, %12112 ]
+  %12122 = phi i1 [ true, %11358 ], [ %12115, %12118 ], [ %12115, %12112 ]
   %12123 = load ptr, ptr %334, align 8, !tbaa !24
   %12124 = icmp eq ptr %12123, %11164
   br i1 %12124, label %12126, label %12125
@@ -33078,9 +33081,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %12133
 
 12133:                                            ; preds = %12132, %12126, %11352
-  %12134 = phi ptr [ %11153, %11352 ], [ %12127, %12126 ], [ %12127, %12132 ]
-  %12135 = phi { ptr, i32 } [ %11353, %11352 ], [ %12128, %12126 ], [ %12128, %12132 ]
-  %12136 = phi i1 [ true, %11352 ], [ %12129, %12126 ], [ %12129, %12132 ]
+  %12134 = phi ptr [ %11153, %11352 ], [ %12127, %12132 ], [ %12127, %12126 ]
+  %12135 = phi { ptr, i32 } [ %11353, %11352 ], [ %12128, %12132 ], [ %12128, %12126 ]
+  %12136 = phi i1 [ true, %11352 ], [ %12129, %12132 ], [ %12129, %12126 ]
   %12137 = load ptr, ptr %332, align 8, !tbaa !24
   %12138 = icmp eq ptr %12137, %11154
   br i1 %12138, label %12140, label %12139
@@ -33090,9 +33093,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %12140
 
 12140:                                            ; preds = %12139, %12133, %11350
-  %12141 = phi ptr [ %11148, %11350 ], [ %12134, %12133 ], [ %12134, %12139 ]
-  %12142 = phi { ptr, i32 } [ %11351, %11350 ], [ %12135, %12133 ], [ %12135, %12139 ]
-  %12143 = phi i1 [ true, %11350 ], [ %12136, %12133 ], [ %12136, %12139 ]
+  %12141 = phi ptr [ %11148, %11350 ], [ %12134, %12139 ], [ %12134, %12133 ]
+  %12142 = phi { ptr, i32 } [ %11351, %11350 ], [ %12135, %12139 ], [ %12135, %12133 ]
+  %12143 = phi i1 [ true, %11350 ], [ %12136, %12139 ], [ %12136, %12133 ]
   %12144 = load ptr, ptr %331, align 8, !tbaa !24
   %12145 = icmp eq ptr %12144, %11149
   br i1 %12145, label %12147, label %12146
@@ -33102,9 +33105,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %12147
 
 12147:                                            ; preds = %12146, %12140, %11348
-  %12148 = phi ptr [ %11143, %11348 ], [ %12141, %12140 ], [ %12141, %12146 ]
-  %12149 = phi { ptr, i32 } [ %11349, %11348 ], [ %12142, %12140 ], [ %12142, %12146 ]
-  %12150 = phi i1 [ true, %11348 ], [ %12143, %12140 ], [ %12143, %12146 ]
+  %12148 = phi ptr [ %11143, %11348 ], [ %12141, %12146 ], [ %12141, %12140 ]
+  %12149 = phi { ptr, i32 } [ %11349, %11348 ], [ %12142, %12146 ], [ %12142, %12140 ]
+  %12150 = phi i1 [ true, %11348 ], [ %12143, %12146 ], [ %12143, %12140 ]
   %12151 = load ptr, ptr %330, align 8, !tbaa !24
   %12152 = icmp eq ptr %12151, %11144
   br i1 %12152, label %12154, label %12153
@@ -33114,9 +33117,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %12154
 
 12154:                                            ; preds = %12153, %12147, %11346
-  %12155 = phi ptr [ %11134, %11346 ], [ %12148, %12147 ], [ %12148, %12153 ]
-  %12156 = phi { ptr, i32 } [ %11347, %11346 ], [ %12149, %12147 ], [ %12149, %12153 ]
-  %12157 = phi i1 [ true, %11346 ], [ %12150, %12147 ], [ %12150, %12153 ]
+  %12155 = phi ptr [ %11134, %11346 ], [ %12148, %12153 ], [ %12148, %12147 ]
+  %12156 = phi { ptr, i32 } [ %11347, %11346 ], [ %12149, %12153 ], [ %12149, %12147 ]
+  %12157 = phi i1 [ true, %11346 ], [ %12150, %12153 ], [ %12150, %12147 ]
   %12158 = load ptr, ptr %329, align 8, !tbaa !24
   %12159 = icmp eq ptr %12158, %11135
   br i1 %12159, label %12161, label %12160
@@ -33174,9 +33177,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %12189
 
 12189:                                            ; preds = %12188, %12182, %11328
-  %12190 = phi ptr [ %11093, %11328 ], [ %12183, %12182 ], [ %12183, %12188 ]
-  %12191 = phi { ptr, i32 } [ %11329, %11328 ], [ %12184, %12182 ], [ %12184, %12188 ]
-  %12192 = phi i1 [ true, %11328 ], [ %12185, %12182 ], [ %12185, %12188 ]
+  %12190 = phi ptr [ %11093, %11328 ], [ %12183, %12188 ], [ %12183, %12182 ]
+  %12191 = phi { ptr, i32 } [ %11329, %11328 ], [ %12184, %12188 ], [ %12184, %12182 ]
+  %12192 = phi i1 [ true, %11328 ], [ %12185, %12188 ], [ %12185, %12182 ]
   %12193 = load ptr, ptr %324, align 8, !tbaa !24
   %12194 = icmp eq ptr %12193, %11094
   br i1 %12194, label %12196, label %12195
@@ -35519,9 +35522,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %13362
 
 13362:                                            ; preds = %13361, %13355, %12601
-  %13363 = phi ptr [ %12406, %12601 ], [ %13356, %13355 ], [ %13356, %13361 ]
-  %13364 = phi { ptr, i32 } [ %12602, %12601 ], [ %13357, %13355 ], [ %13357, %13361 ]
-  %13365 = phi i1 [ true, %12601 ], [ %13358, %13355 ], [ %13358, %13361 ]
+  %13363 = phi ptr [ %12406, %12601 ], [ %13356, %13361 ], [ %13356, %13355 ]
+  %13364 = phi { ptr, i32 } [ %12602, %12601 ], [ %13357, %13361 ], [ %13357, %13355 ]
+  %13365 = phi i1 [ true, %12601 ], [ %13358, %13361 ], [ %13358, %13355 ]
   %13366 = load ptr, ptr %302, align 8, !tbaa !24
   %13367 = icmp eq ptr %13366, %12407
   br i1 %13367, label %13369, label %13368
@@ -35543,9 +35546,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %13376
 
 13376:                                            ; preds = %13375, %13369, %12595
-  %13377 = phi ptr [ %12396, %12595 ], [ %13370, %13369 ], [ %13370, %13375 ]
-  %13378 = phi { ptr, i32 } [ %12596, %12595 ], [ %13371, %13369 ], [ %13371, %13375 ]
-  %13379 = phi i1 [ true, %12595 ], [ %13372, %13369 ], [ %13372, %13375 ]
+  %13377 = phi ptr [ %12396, %12595 ], [ %13370, %13375 ], [ %13370, %13369 ]
+  %13378 = phi { ptr, i32 } [ %12596, %12595 ], [ %13371, %13375 ], [ %13371, %13369 ]
+  %13379 = phi i1 [ true, %12595 ], [ %13372, %13375 ], [ %13372, %13369 ]
   %13380 = load ptr, ptr %300, align 8, !tbaa !24
   %13381 = icmp eq ptr %13380, %12397
   br i1 %13381, label %13383, label %13382
@@ -35555,9 +35558,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %13383
 
 13383:                                            ; preds = %13382, %13376, %12593
-  %13384 = phi ptr [ %12391, %12593 ], [ %13377, %13376 ], [ %13377, %13382 ]
-  %13385 = phi { ptr, i32 } [ %12594, %12593 ], [ %13378, %13376 ], [ %13378, %13382 ]
-  %13386 = phi i1 [ true, %12593 ], [ %13379, %13376 ], [ %13379, %13382 ]
+  %13384 = phi ptr [ %12391, %12593 ], [ %13377, %13382 ], [ %13377, %13376 ]
+  %13385 = phi { ptr, i32 } [ %12594, %12593 ], [ %13378, %13382 ], [ %13378, %13376 ]
+  %13386 = phi i1 [ true, %12593 ], [ %13379, %13382 ], [ %13379, %13376 ]
   %13387 = load ptr, ptr %299, align 8, !tbaa !24
   %13388 = icmp eq ptr %13387, %12392
   br i1 %13388, label %13390, label %13389
@@ -35567,9 +35570,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %13390
 
 13390:                                            ; preds = %13389, %13383, %12591
-  %13391 = phi ptr [ %12386, %12591 ], [ %13384, %13383 ], [ %13384, %13389 ]
-  %13392 = phi { ptr, i32 } [ %12592, %12591 ], [ %13385, %13383 ], [ %13385, %13389 ]
-  %13393 = phi i1 [ true, %12591 ], [ %13386, %13383 ], [ %13386, %13389 ]
+  %13391 = phi ptr [ %12386, %12591 ], [ %13384, %13389 ], [ %13384, %13383 ]
+  %13392 = phi { ptr, i32 } [ %12592, %12591 ], [ %13385, %13389 ], [ %13385, %13383 ]
+  %13393 = phi i1 [ true, %12591 ], [ %13386, %13389 ], [ %13386, %13383 ]
   %13394 = load ptr, ptr %298, align 8, !tbaa !24
   %13395 = icmp eq ptr %13394, %12387
   br i1 %13395, label %13397, label %13396
@@ -35579,9 +35582,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %13397
 
 13397:                                            ; preds = %13396, %13390, %12589
-  %13398 = phi ptr [ %12377, %12589 ], [ %13391, %13390 ], [ %13391, %13396 ]
-  %13399 = phi { ptr, i32 } [ %12590, %12589 ], [ %13392, %13390 ], [ %13392, %13396 ]
-  %13400 = phi i1 [ true, %12589 ], [ %13393, %13390 ], [ %13393, %13396 ]
+  %13398 = phi ptr [ %12377, %12589 ], [ %13391, %13396 ], [ %13391, %13390 ]
+  %13399 = phi { ptr, i32 } [ %12590, %12589 ], [ %13392, %13396 ], [ %13392, %13390 ]
+  %13400 = phi i1 [ true, %12589 ], [ %13393, %13396 ], [ %13393, %13390 ]
   %13401 = load ptr, ptr %297, align 8, !tbaa !24
   %13402 = icmp eq ptr %13401, %12378
   br i1 %13402, label %13404, label %13403
@@ -35639,9 +35642,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %13432
 
 13432:                                            ; preds = %13431, %13425, %12571
-  %13433 = phi ptr [ %12336, %12571 ], [ %13426, %13425 ], [ %13426, %13431 ]
-  %13434 = phi { ptr, i32 } [ %12572, %12571 ], [ %13427, %13425 ], [ %13427, %13431 ]
-  %13435 = phi i1 [ true, %12571 ], [ %13428, %13425 ], [ %13428, %13431 ]
+  %13433 = phi ptr [ %12336, %12571 ], [ %13426, %13431 ], [ %13426, %13425 ]
+  %13434 = phi { ptr, i32 } [ %12572, %12571 ], [ %13427, %13431 ], [ %13427, %13425 ]
+  %13435 = phi i1 [ true, %12571 ], [ %13428, %13431 ], [ %13428, %13425 ]
   %13436 = load ptr, ptr %292, align 8, !tbaa !24
   %13437 = icmp eq ptr %13436, %12337
   br i1 %13437, label %13439, label %13438
@@ -38098,9 +38101,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %14661
 
 14661:                                            ; preds = %14660, %14654, %13861
-  %14662 = phi ptr [ %13658, %13861 ], [ %14655, %14654 ], [ %14655, %14660 ]
-  %14663 = phi { ptr, i32 } [ %13862, %13861 ], [ %14656, %14654 ], [ %14656, %14660 ]
-  %14664 = phi i1 [ true, %13861 ], [ %14657, %14654 ], [ %14657, %14660 ]
+  %14662 = phi ptr [ %13658, %13861 ], [ %14655, %14660 ], [ %14655, %14654 ]
+  %14663 = phi { ptr, i32 } [ %13862, %13861 ], [ %14656, %14660 ], [ %14656, %14654 ]
+  %14664 = phi i1 [ true, %13861 ], [ %14657, %14660 ], [ %14657, %14654 ]
   %14665 = load ptr, ptr %270, align 8, !tbaa !24
   %14666 = icmp eq ptr %14665, %13659
   br i1 %14666, label %14668, label %14667
@@ -38122,9 +38125,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %14675
 
 14675:                                            ; preds = %14674, %14668, %13855
-  %14676 = phi ptr [ %13648, %13855 ], [ %14669, %14668 ], [ %14669, %14674 ]
-  %14677 = phi { ptr, i32 } [ %13856, %13855 ], [ %14670, %14668 ], [ %14670, %14674 ]
-  %14678 = phi i1 [ true, %13855 ], [ %14671, %14668 ], [ %14671, %14674 ]
+  %14676 = phi ptr [ %13648, %13855 ], [ %14669, %14674 ], [ %14669, %14668 ]
+  %14677 = phi { ptr, i32 } [ %13856, %13855 ], [ %14670, %14674 ], [ %14670, %14668 ]
+  %14678 = phi i1 [ true, %13855 ], [ %14671, %14674 ], [ %14671, %14668 ]
   %14679 = load ptr, ptr %268, align 8, !tbaa !24
   %14680 = icmp eq ptr %14679, %13649
   br i1 %14680, label %14682, label %14681
@@ -38134,9 +38137,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %14682
 
 14682:                                            ; preds = %14681, %14675, %13853
-  %14683 = phi ptr [ %13643, %13853 ], [ %14676, %14675 ], [ %14676, %14681 ]
-  %14684 = phi { ptr, i32 } [ %13854, %13853 ], [ %14677, %14675 ], [ %14677, %14681 ]
-  %14685 = phi i1 [ true, %13853 ], [ %14678, %14675 ], [ %14678, %14681 ]
+  %14683 = phi ptr [ %13643, %13853 ], [ %14676, %14681 ], [ %14676, %14675 ]
+  %14684 = phi { ptr, i32 } [ %13854, %13853 ], [ %14677, %14681 ], [ %14677, %14675 ]
+  %14685 = phi i1 [ true, %13853 ], [ %14678, %14681 ], [ %14678, %14675 ]
   %14686 = load ptr, ptr %267, align 8, !tbaa !24
   %14687 = icmp eq ptr %14686, %13644
   br i1 %14687, label %14689, label %14688
@@ -38146,9 +38149,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %14689
 
 14689:                                            ; preds = %14688, %14682, %13851
-  %14690 = phi ptr [ %13638, %13851 ], [ %14683, %14682 ], [ %14683, %14688 ]
-  %14691 = phi { ptr, i32 } [ %13852, %13851 ], [ %14684, %14682 ], [ %14684, %14688 ]
-  %14692 = phi i1 [ true, %13851 ], [ %14685, %14682 ], [ %14685, %14688 ]
+  %14690 = phi ptr [ %13638, %13851 ], [ %14683, %14688 ], [ %14683, %14682 ]
+  %14691 = phi { ptr, i32 } [ %13852, %13851 ], [ %14684, %14688 ], [ %14684, %14682 ]
+  %14692 = phi i1 [ true, %13851 ], [ %14685, %14688 ], [ %14685, %14682 ]
   %14693 = load ptr, ptr %266, align 8, !tbaa !24
   %14694 = icmp eq ptr %14693, %13639
   br i1 %14694, label %14696, label %14695
@@ -38158,9 +38161,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %14696
 
 14696:                                            ; preds = %14695, %14689, %13849
-  %14697 = phi ptr [ %13629, %13849 ], [ %14690, %14689 ], [ %14690, %14695 ]
-  %14698 = phi { ptr, i32 } [ %13850, %13849 ], [ %14691, %14689 ], [ %14691, %14695 ]
-  %14699 = phi i1 [ true, %13849 ], [ %14692, %14689 ], [ %14692, %14695 ]
+  %14697 = phi ptr [ %13629, %13849 ], [ %14690, %14695 ], [ %14690, %14689 ]
+  %14698 = phi { ptr, i32 } [ %13850, %13849 ], [ %14691, %14695 ], [ %14691, %14689 ]
+  %14699 = phi i1 [ true, %13849 ], [ %14692, %14695 ], [ %14692, %14689 ]
   %14700 = load ptr, ptr %265, align 8, !tbaa !24
   %14701 = icmp eq ptr %14700, %13630
   br i1 %14701, label %14703, label %14702
@@ -38242,9 +38245,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %14745
 
 14745:                                            ; preds = %14744, %14738, %13823
-  %14746 = phi ptr [ %13570, %13823 ], [ %14739, %14738 ], [ %14739, %14744 ]
-  %14747 = phi { ptr, i32 } [ %13824, %13823 ], [ %14740, %14738 ], [ %14740, %14744 ]
-  %14748 = phi i1 [ true, %13823 ], [ %14741, %14738 ], [ %14741, %14744 ]
+  %14746 = phi ptr [ %13570, %13823 ], [ %14739, %14744 ], [ %14739, %14738 ]
+  %14747 = phi { ptr, i32 } [ %13824, %13823 ], [ %14740, %14744 ], [ %14740, %14738 ]
+  %14748 = phi i1 [ true, %13823 ], [ %14741, %14744 ], [ %14741, %14738 ]
   %14749 = load ptr, ptr %258, align 8, !tbaa !24
   %14750 = icmp eq ptr %14749, %13571
   br i1 %14750, label %14752, label %14751
@@ -40690,9 +40693,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %15967
 
 15967:                                            ; preds = %15966, %15960, %15167
-  %15968 = phi ptr [ %14964, %15167 ], [ %15961, %15960 ], [ %15961, %15966 ]
-  %15969 = phi { ptr, i32 } [ %15168, %15167 ], [ %15962, %15960 ], [ %15962, %15966 ]
-  %15970 = phi i1 [ true, %15167 ], [ %15963, %15960 ], [ %15963, %15966 ]
+  %15968 = phi ptr [ %14964, %15167 ], [ %15961, %15966 ], [ %15961, %15960 ]
+  %15969 = phi { ptr, i32 } [ %15168, %15167 ], [ %15962, %15966 ], [ %15962, %15960 ]
+  %15970 = phi i1 [ true, %15167 ], [ %15963, %15966 ], [ %15963, %15960 ]
   %15971 = load ptr, ptr %236, align 8, !tbaa !24
   %15972 = icmp eq ptr %15971, %14965
   br i1 %15972, label %15974, label %15973
@@ -40714,9 +40717,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %15981
 
 15981:                                            ; preds = %15980, %15974, %15161
-  %15982 = phi ptr [ %14954, %15161 ], [ %15975, %15974 ], [ %15975, %15980 ]
-  %15983 = phi { ptr, i32 } [ %15162, %15161 ], [ %15976, %15974 ], [ %15976, %15980 ]
-  %15984 = phi i1 [ true, %15161 ], [ %15977, %15974 ], [ %15977, %15980 ]
+  %15982 = phi ptr [ %14954, %15161 ], [ %15975, %15980 ], [ %15975, %15974 ]
+  %15983 = phi { ptr, i32 } [ %15162, %15161 ], [ %15976, %15980 ], [ %15976, %15974 ]
+  %15984 = phi i1 [ true, %15161 ], [ %15977, %15980 ], [ %15977, %15974 ]
   %15985 = load ptr, ptr %234, align 8, !tbaa !24
   %15986 = icmp eq ptr %15985, %14955
   br i1 %15986, label %15988, label %15987
@@ -40726,9 +40729,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %15988
 
 15988:                                            ; preds = %15987, %15981, %15159
-  %15989 = phi ptr [ %14949, %15159 ], [ %15982, %15981 ], [ %15982, %15987 ]
-  %15990 = phi { ptr, i32 } [ %15160, %15159 ], [ %15983, %15981 ], [ %15983, %15987 ]
-  %15991 = phi i1 [ true, %15159 ], [ %15984, %15981 ], [ %15984, %15987 ]
+  %15989 = phi ptr [ %14949, %15159 ], [ %15982, %15987 ], [ %15982, %15981 ]
+  %15990 = phi { ptr, i32 } [ %15160, %15159 ], [ %15983, %15987 ], [ %15983, %15981 ]
+  %15991 = phi i1 [ true, %15159 ], [ %15984, %15987 ], [ %15984, %15981 ]
   %15992 = load ptr, ptr %233, align 8, !tbaa !24
   %15993 = icmp eq ptr %15992, %14950
   br i1 %15993, label %15995, label %15994
@@ -40738,9 +40741,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %15995
 
 15995:                                            ; preds = %15994, %15988, %15157
-  %15996 = phi ptr [ %14944, %15157 ], [ %15989, %15988 ], [ %15989, %15994 ]
-  %15997 = phi { ptr, i32 } [ %15158, %15157 ], [ %15990, %15988 ], [ %15990, %15994 ]
-  %15998 = phi i1 [ true, %15157 ], [ %15991, %15988 ], [ %15991, %15994 ]
+  %15996 = phi ptr [ %14944, %15157 ], [ %15989, %15994 ], [ %15989, %15988 ]
+  %15997 = phi { ptr, i32 } [ %15158, %15157 ], [ %15990, %15994 ], [ %15990, %15988 ]
+  %15998 = phi i1 [ true, %15157 ], [ %15991, %15994 ], [ %15991, %15988 ]
   %15999 = load ptr, ptr %232, align 8, !tbaa !24
   %16000 = icmp eq ptr %15999, %14945
   br i1 %16000, label %16002, label %16001
@@ -40750,9 +40753,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %16002
 
 16002:                                            ; preds = %16001, %15995, %15155
-  %16003 = phi ptr [ %14935, %15155 ], [ %15996, %15995 ], [ %15996, %16001 ]
-  %16004 = phi { ptr, i32 } [ %15156, %15155 ], [ %15997, %15995 ], [ %15997, %16001 ]
-  %16005 = phi i1 [ true, %15155 ], [ %15998, %15995 ], [ %15998, %16001 ]
+  %16003 = phi ptr [ %14935, %15155 ], [ %15996, %16001 ], [ %15996, %15995 ]
+  %16004 = phi { ptr, i32 } [ %15156, %15155 ], [ %15997, %16001 ], [ %15997, %15995 ]
+  %16005 = phi i1 [ true, %15155 ], [ %15998, %16001 ], [ %15998, %15995 ]
   %16006 = load ptr, ptr %231, align 8, !tbaa !24
   %16007 = icmp eq ptr %16006, %14936
   br i1 %16007, label %16009, label %16008
@@ -40834,9 +40837,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %16051
 
 16051:                                            ; preds = %16050, %16044, %15129
-  %16052 = phi ptr [ %14876, %15129 ], [ %16045, %16044 ], [ %16045, %16050 ]
-  %16053 = phi { ptr, i32 } [ %15130, %15129 ], [ %16046, %16044 ], [ %16046, %16050 ]
-  %16054 = phi i1 [ true, %15129 ], [ %16047, %16044 ], [ %16047, %16050 ]
+  %16052 = phi ptr [ %14876, %15129 ], [ %16045, %16050 ], [ %16045, %16044 ]
+  %16053 = phi { ptr, i32 } [ %15130, %15129 ], [ %16046, %16050 ], [ %16046, %16044 ]
+  %16054 = phi i1 [ true, %15129 ], [ %16047, %16050 ], [ %16047, %16044 ]
   %16055 = load ptr, ptr %224, align 8, !tbaa !24
   %16056 = icmp eq ptr %16055, %14877
   br i1 %16056, label %16058, label %16057
@@ -43282,9 +43285,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %17273
 
 17273:                                            ; preds = %17272, %17266, %16473
-  %17274 = phi ptr [ %16270, %16473 ], [ %17267, %17266 ], [ %17267, %17272 ]
-  %17275 = phi { ptr, i32 } [ %16474, %16473 ], [ %17268, %17266 ], [ %17268, %17272 ]
-  %17276 = phi i1 [ true, %16473 ], [ %17269, %17266 ], [ %17269, %17272 ]
+  %17274 = phi ptr [ %16270, %16473 ], [ %17267, %17272 ], [ %17267, %17266 ]
+  %17275 = phi { ptr, i32 } [ %16474, %16473 ], [ %17268, %17272 ], [ %17268, %17266 ]
+  %17276 = phi i1 [ true, %16473 ], [ %17269, %17272 ], [ %17269, %17266 ]
   %17277 = load ptr, ptr %202, align 8, !tbaa !24
   %17278 = icmp eq ptr %17277, %16271
   br i1 %17278, label %17280, label %17279
@@ -43306,9 +43309,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %17287
 
 17287:                                            ; preds = %17286, %17280, %16467
-  %17288 = phi ptr [ %16260, %16467 ], [ %17281, %17280 ], [ %17281, %17286 ]
-  %17289 = phi { ptr, i32 } [ %16468, %16467 ], [ %17282, %17280 ], [ %17282, %17286 ]
-  %17290 = phi i1 [ true, %16467 ], [ %17283, %17280 ], [ %17283, %17286 ]
+  %17288 = phi ptr [ %16260, %16467 ], [ %17281, %17286 ], [ %17281, %17280 ]
+  %17289 = phi { ptr, i32 } [ %16468, %16467 ], [ %17282, %17286 ], [ %17282, %17280 ]
+  %17290 = phi i1 [ true, %16467 ], [ %17283, %17286 ], [ %17283, %17280 ]
   %17291 = load ptr, ptr %200, align 8, !tbaa !24
   %17292 = icmp eq ptr %17291, %16261
   br i1 %17292, label %17294, label %17293
@@ -43318,9 +43321,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %17294
 
 17294:                                            ; preds = %17293, %17287, %16465
-  %17295 = phi ptr [ %16255, %16465 ], [ %17288, %17287 ], [ %17288, %17293 ]
-  %17296 = phi { ptr, i32 } [ %16466, %16465 ], [ %17289, %17287 ], [ %17289, %17293 ]
-  %17297 = phi i1 [ true, %16465 ], [ %17290, %17287 ], [ %17290, %17293 ]
+  %17295 = phi ptr [ %16255, %16465 ], [ %17288, %17293 ], [ %17288, %17287 ]
+  %17296 = phi { ptr, i32 } [ %16466, %16465 ], [ %17289, %17293 ], [ %17289, %17287 ]
+  %17297 = phi i1 [ true, %16465 ], [ %17290, %17293 ], [ %17290, %17287 ]
   %17298 = load ptr, ptr %199, align 8, !tbaa !24
   %17299 = icmp eq ptr %17298, %16256
   br i1 %17299, label %17301, label %17300
@@ -43330,9 +43333,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %17301
 
 17301:                                            ; preds = %17300, %17294, %16463
-  %17302 = phi ptr [ %16250, %16463 ], [ %17295, %17294 ], [ %17295, %17300 ]
-  %17303 = phi { ptr, i32 } [ %16464, %16463 ], [ %17296, %17294 ], [ %17296, %17300 ]
-  %17304 = phi i1 [ true, %16463 ], [ %17297, %17294 ], [ %17297, %17300 ]
+  %17302 = phi ptr [ %16250, %16463 ], [ %17295, %17300 ], [ %17295, %17294 ]
+  %17303 = phi { ptr, i32 } [ %16464, %16463 ], [ %17296, %17300 ], [ %17296, %17294 ]
+  %17304 = phi i1 [ true, %16463 ], [ %17297, %17300 ], [ %17297, %17294 ]
   %17305 = load ptr, ptr %198, align 8, !tbaa !24
   %17306 = icmp eq ptr %17305, %16251
   br i1 %17306, label %17308, label %17307
@@ -43342,9 +43345,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %17308
 
 17308:                                            ; preds = %17307, %17301, %16461
-  %17309 = phi ptr [ %16241, %16461 ], [ %17302, %17301 ], [ %17302, %17307 ]
-  %17310 = phi { ptr, i32 } [ %16462, %16461 ], [ %17303, %17301 ], [ %17303, %17307 ]
-  %17311 = phi i1 [ true, %16461 ], [ %17304, %17301 ], [ %17304, %17307 ]
+  %17309 = phi ptr [ %16241, %16461 ], [ %17302, %17307 ], [ %17302, %17301 ]
+  %17310 = phi { ptr, i32 } [ %16462, %16461 ], [ %17303, %17307 ], [ %17303, %17301 ]
+  %17311 = phi i1 [ true, %16461 ], [ %17304, %17307 ], [ %17304, %17301 ]
   %17312 = load ptr, ptr %197, align 8, !tbaa !24
   %17313 = icmp eq ptr %17312, %16242
   br i1 %17313, label %17315, label %17314
@@ -43426,9 +43429,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %17357
 
 17357:                                            ; preds = %17356, %17350, %16435
-  %17358 = phi ptr [ %16182, %16435 ], [ %17351, %17350 ], [ %17351, %17356 ]
-  %17359 = phi { ptr, i32 } [ %16436, %16435 ], [ %17352, %17350 ], [ %17352, %17356 ]
-  %17360 = phi i1 [ true, %16435 ], [ %17353, %17350 ], [ %17353, %17356 ]
+  %17358 = phi ptr [ %16182, %16435 ], [ %17351, %17356 ], [ %17351, %17350 ]
+  %17359 = phi { ptr, i32 } [ %16436, %16435 ], [ %17352, %17356 ], [ %17352, %17350 ]
+  %17360 = phi i1 [ true, %16435 ], [ %17353, %17356 ], [ %17353, %17350 ]
   %17361 = load ptr, ptr %190, align 8, !tbaa !24
   %17362 = icmp eq ptr %17361, %16183
   br i1 %17362, label %17364, label %17363
@@ -48269,9 +48272,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %19764
 
 19764:                                            ; preds = %19763, %19757, %19003
-  %19765 = phi ptr [ %18808, %19003 ], [ %19758, %19757 ], [ %19758, %19763 ]
-  %19766 = phi { ptr, i32 } [ %19004, %19003 ], [ %19759, %19757 ], [ %19759, %19763 ]
-  %19767 = phi i1 [ true, %19003 ], [ %19760, %19757 ], [ %19760, %19763 ]
+  %19765 = phi ptr [ %18808, %19003 ], [ %19758, %19763 ], [ %19758, %19757 ]
+  %19766 = phi { ptr, i32 } [ %19004, %19003 ], [ %19759, %19763 ], [ %19759, %19757 ]
+  %19767 = phi i1 [ true, %19003 ], [ %19760, %19763 ], [ %19760, %19757 ]
   %19768 = load ptr, ptr %130, align 8, !tbaa !24
   %19769 = icmp eq ptr %19768, %18809
   br i1 %19769, label %19771, label %19770
@@ -48293,9 +48296,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %19778
 
 19778:                                            ; preds = %19777, %19771, %18997
-  %19779 = phi ptr [ %18798, %18997 ], [ %19772, %19771 ], [ %19772, %19777 ]
-  %19780 = phi { ptr, i32 } [ %18998, %18997 ], [ %19773, %19771 ], [ %19773, %19777 ]
-  %19781 = phi i1 [ true, %18997 ], [ %19774, %19771 ], [ %19774, %19777 ]
+  %19779 = phi ptr [ %18798, %18997 ], [ %19772, %19777 ], [ %19772, %19771 ]
+  %19780 = phi { ptr, i32 } [ %18998, %18997 ], [ %19773, %19777 ], [ %19773, %19771 ]
+  %19781 = phi i1 [ true, %18997 ], [ %19774, %19777 ], [ %19774, %19771 ]
   %19782 = load ptr, ptr %128, align 8, !tbaa !24
   %19783 = icmp eq ptr %19782, %18799
   br i1 %19783, label %19785, label %19784
@@ -48305,9 +48308,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %19785
 
 19785:                                            ; preds = %19784, %19778, %18995
-  %19786 = phi ptr [ %18793, %18995 ], [ %19779, %19778 ], [ %19779, %19784 ]
-  %19787 = phi { ptr, i32 } [ %18996, %18995 ], [ %19780, %19778 ], [ %19780, %19784 ]
-  %19788 = phi i1 [ true, %18995 ], [ %19781, %19778 ], [ %19781, %19784 ]
+  %19786 = phi ptr [ %18793, %18995 ], [ %19779, %19784 ], [ %19779, %19778 ]
+  %19787 = phi { ptr, i32 } [ %18996, %18995 ], [ %19780, %19784 ], [ %19780, %19778 ]
+  %19788 = phi i1 [ true, %18995 ], [ %19781, %19784 ], [ %19781, %19778 ]
   %19789 = load ptr, ptr %127, align 8, !tbaa !24
   %19790 = icmp eq ptr %19789, %18794
   br i1 %19790, label %19792, label %19791
@@ -48317,9 +48320,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %19792
 
 19792:                                            ; preds = %19791, %19785, %18993
-  %19793 = phi ptr [ %18788, %18993 ], [ %19786, %19785 ], [ %19786, %19791 ]
-  %19794 = phi { ptr, i32 } [ %18994, %18993 ], [ %19787, %19785 ], [ %19787, %19791 ]
-  %19795 = phi i1 [ true, %18993 ], [ %19788, %19785 ], [ %19788, %19791 ]
+  %19793 = phi ptr [ %18788, %18993 ], [ %19786, %19791 ], [ %19786, %19785 ]
+  %19794 = phi { ptr, i32 } [ %18994, %18993 ], [ %19787, %19791 ], [ %19787, %19785 ]
+  %19795 = phi i1 [ true, %18993 ], [ %19788, %19791 ], [ %19788, %19785 ]
   %19796 = load ptr, ptr %126, align 8, !tbaa !24
   %19797 = icmp eq ptr %19796, %18789
   br i1 %19797, label %19799, label %19798
@@ -48329,9 +48332,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %19799
 
 19799:                                            ; preds = %19798, %19792, %18991
-  %19800 = phi ptr [ %18779, %18991 ], [ %19793, %19792 ], [ %19793, %19798 ]
-  %19801 = phi { ptr, i32 } [ %18992, %18991 ], [ %19794, %19792 ], [ %19794, %19798 ]
-  %19802 = phi i1 [ true, %18991 ], [ %19795, %19792 ], [ %19795, %19798 ]
+  %19800 = phi ptr [ %18779, %18991 ], [ %19793, %19798 ], [ %19793, %19792 ]
+  %19801 = phi { ptr, i32 } [ %18992, %18991 ], [ %19794, %19798 ], [ %19794, %19792 ]
+  %19802 = phi i1 [ true, %18991 ], [ %19795, %19798 ], [ %19795, %19792 ]
   %19803 = load ptr, ptr %125, align 8, !tbaa !24
   %19804 = icmp eq ptr %19803, %18780
   br i1 %19804, label %19806, label %19805
@@ -48389,9 +48392,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %19834
 
 19834:                                            ; preds = %19833, %19827, %18973
-  %19835 = phi ptr [ %18738, %18973 ], [ %19828, %19827 ], [ %19828, %19833 ]
-  %19836 = phi { ptr, i32 } [ %18974, %18973 ], [ %19829, %19827 ], [ %19829, %19833 ]
-  %19837 = phi i1 [ true, %18973 ], [ %19830, %19827 ], [ %19830, %19833 ]
+  %19835 = phi ptr [ %18738, %18973 ], [ %19828, %19833 ], [ %19828, %19827 ]
+  %19836 = phi { ptr, i32 } [ %18974, %18973 ], [ %19829, %19833 ], [ %19829, %19827 ]
+  %19837 = phi i1 [ true, %18973 ], [ %19830, %19833 ], [ %19830, %19827 ]
   %19838 = load ptr, ptr %120, align 8, !tbaa !24
   %19839 = icmp eq ptr %19838, %18739
   br i1 %19839, label %19841, label %19840
@@ -50692,9 +50695,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %20980
 
 20980:                                            ; preds = %20979, %20973, %20336
-  %20981 = phi ptr [ %20165, %20336 ], [ %20974, %20973 ], [ %20974, %20979 ]
-  %20982 = phi { ptr, i32 } [ %20337, %20336 ], [ %20975, %20973 ], [ %20975, %20979 ]
-  %20983 = phi i1 [ true, %20336 ], [ %20976, %20973 ], [ %20976, %20979 ]
+  %20981 = phi ptr [ %20165, %20336 ], [ %20974, %20979 ], [ %20974, %20973 ]
+  %20982 = phi { ptr, i32 } [ %20337, %20336 ], [ %20975, %20979 ], [ %20975, %20973 ]
+  %20983 = phi i1 [ true, %20336 ], [ %20976, %20979 ], [ %20976, %20973 ]
   %20984 = load ptr, ptr %94, align 8, !tbaa !24
   %20985 = icmp eq ptr %20984, %20166
   br i1 %20985, label %20987, label %20986
@@ -50704,9 +50707,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %20987
 
 20987:                                            ; preds = %20986, %20980, %20334
-  %20988 = phi ptr [ %20160, %20334 ], [ %20981, %20980 ], [ %20981, %20986 ]
-  %20989 = phi { ptr, i32 } [ %20335, %20334 ], [ %20982, %20980 ], [ %20982, %20986 ]
-  %20990 = phi i1 [ true, %20334 ], [ %20983, %20980 ], [ %20983, %20986 ]
+  %20988 = phi ptr [ %20160, %20334 ], [ %20981, %20986 ], [ %20981, %20980 ]
+  %20989 = phi { ptr, i32 } [ %20335, %20334 ], [ %20982, %20986 ], [ %20982, %20980 ]
+  %20990 = phi i1 [ true, %20334 ], [ %20983, %20986 ], [ %20983, %20980 ]
   %20991 = load ptr, ptr %93, align 8, !tbaa !24
   %20992 = icmp eq ptr %20991, %20161
   br i1 %20992, label %20994, label %20993
@@ -50716,9 +50719,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %20994
 
 20994:                                            ; preds = %20993, %20987, %20332
-  %20995 = phi ptr [ %20151, %20332 ], [ %20988, %20987 ], [ %20988, %20993 ]
-  %20996 = phi { ptr, i32 } [ %20333, %20332 ], [ %20989, %20987 ], [ %20989, %20993 ]
-  %20997 = phi i1 [ true, %20332 ], [ %20990, %20987 ], [ %20990, %20993 ]
+  %20995 = phi ptr [ %20151, %20332 ], [ %20988, %20993 ], [ %20988, %20987 ]
+  %20996 = phi { ptr, i32 } [ %20333, %20332 ], [ %20989, %20993 ], [ %20989, %20987 ]
+  %20997 = phi i1 [ true, %20332 ], [ %20990, %20993 ], [ %20990, %20987 ]
   %20998 = load ptr, ptr %92, align 8, !tbaa !24
   %20999 = icmp eq ptr %20998, %20152
   br i1 %20999, label %21001, label %21000
@@ -50776,9 +50779,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %21029
 
 21029:                                            ; preds = %21028, %21022, %20314
-  %21030 = phi ptr [ %20110, %20314 ], [ %21023, %21022 ], [ %21023, %21028 ]
-  %21031 = phi { ptr, i32 } [ %20315, %20314 ], [ %21024, %21022 ], [ %21024, %21028 ]
-  %21032 = phi i1 [ true, %20314 ], [ %21025, %21022 ], [ %21025, %21028 ]
+  %21030 = phi ptr [ %20110, %20314 ], [ %21023, %21028 ], [ %21023, %21022 ]
+  %21031 = phi { ptr, i32 } [ %20315, %20314 ], [ %21024, %21028 ], [ %21024, %21022 ]
+  %21032 = phi i1 [ true, %20314 ], [ %21025, %21028 ], [ %21025, %21022 ]
   %21033 = load ptr, ptr %87, align 8, !tbaa !24
   %21034 = icmp eq ptr %21033, %20111
   br i1 %21034, label %21036, label %21035
@@ -53076,9 +53079,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %22175
 
 22175:                                            ; preds = %22174, %22168, %21531
-  %22176 = phi ptr [ %21360, %21531 ], [ %22169, %22168 ], [ %22169, %22174 ]
-  %22177 = phi { ptr, i32 } [ %21532, %21531 ], [ %22170, %22168 ], [ %22170, %22174 ]
-  %22178 = phi i1 [ true, %21531 ], [ %22171, %22168 ], [ %22171, %22174 ]
+  %22176 = phi ptr [ %21360, %21531 ], [ %22169, %22174 ], [ %22169, %22168 ]
+  %22177 = phi { ptr, i32 } [ %21532, %21531 ], [ %22170, %22174 ], [ %22170, %22168 ]
+  %22178 = phi i1 [ true, %21531 ], [ %22171, %22174 ], [ %22171, %22168 ]
   %22179 = load ptr, ptr %62, align 8, !tbaa !24
   %22180 = icmp eq ptr %22179, %21361
   br i1 %22180, label %22182, label %22181
@@ -53088,9 +53091,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %22182
 
 22182:                                            ; preds = %22181, %22175, %21529
-  %22183 = phi ptr [ %21355, %21529 ], [ %22176, %22175 ], [ %22176, %22181 ]
-  %22184 = phi { ptr, i32 } [ %21530, %21529 ], [ %22177, %22175 ], [ %22177, %22181 ]
-  %22185 = phi i1 [ true, %21529 ], [ %22178, %22175 ], [ %22178, %22181 ]
+  %22183 = phi ptr [ %21355, %21529 ], [ %22176, %22181 ], [ %22176, %22175 ]
+  %22184 = phi { ptr, i32 } [ %21530, %21529 ], [ %22177, %22181 ], [ %22177, %22175 ]
+  %22185 = phi i1 [ true, %21529 ], [ %22178, %22181 ], [ %22178, %22175 ]
   %22186 = load ptr, ptr %61, align 8, !tbaa !24
   %22187 = icmp eq ptr %22186, %21356
   br i1 %22187, label %22189, label %22188
@@ -53100,9 +53103,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %22189
 
 22189:                                            ; preds = %22188, %22182, %21527
-  %22190 = phi ptr [ %21346, %21527 ], [ %22183, %22182 ], [ %22183, %22188 ]
-  %22191 = phi { ptr, i32 } [ %21528, %21527 ], [ %22184, %22182 ], [ %22184, %22188 ]
-  %22192 = phi i1 [ true, %21527 ], [ %22185, %22182 ], [ %22185, %22188 ]
+  %22190 = phi ptr [ %21346, %21527 ], [ %22183, %22188 ], [ %22183, %22182 ]
+  %22191 = phi { ptr, i32 } [ %21528, %21527 ], [ %22184, %22188 ], [ %22184, %22182 ]
+  %22192 = phi i1 [ true, %21527 ], [ %22185, %22188 ], [ %22185, %22182 ]
   %22193 = load ptr, ptr %60, align 8, !tbaa !24
   %22194 = icmp eq ptr %22193, %21347
   br i1 %22194, label %22196, label %22195
@@ -53160,9 +53163,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %22224
 
 22224:                                            ; preds = %22223, %22217, %21509
-  %22225 = phi ptr [ %21305, %21509 ], [ %22218, %22217 ], [ %22218, %22223 ]
-  %22226 = phi { ptr, i32 } [ %21510, %21509 ], [ %22219, %22217 ], [ %22219, %22223 ]
-  %22227 = phi i1 [ true, %21509 ], [ %22220, %22217 ], [ %22220, %22223 ]
+  %22225 = phi ptr [ %21305, %21509 ], [ %22218, %22223 ], [ %22218, %22217 ]
+  %22226 = phi { ptr, i32 } [ %21510, %21509 ], [ %22219, %22223 ], [ %22219, %22217 ]
+  %22227 = phi i1 [ true, %21509 ], [ %22220, %22223 ], [ %22220, %22217 ]
   %22228 = load ptr, ptr %55, align 8, !tbaa !24
   %22229 = icmp eq ptr %22228, %21306
   br i1 %22229, label %22231, label %22230
@@ -55460,9 +55463,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %23370
 
 23370:                                            ; preds = %23369, %23363, %22726
-  %23371 = phi ptr [ %22555, %22726 ], [ %23364, %23363 ], [ %23364, %23369 ]
-  %23372 = phi { ptr, i32 } [ %22727, %22726 ], [ %23365, %23363 ], [ %23365, %23369 ]
-  %23373 = phi i1 [ true, %22726 ], [ %23366, %23363 ], [ %23366, %23369 ]
+  %23371 = phi ptr [ %22555, %22726 ], [ %23364, %23369 ], [ %23364, %23363 ]
+  %23372 = phi { ptr, i32 } [ %22727, %22726 ], [ %23365, %23369 ], [ %23365, %23363 ]
+  %23373 = phi i1 [ true, %22726 ], [ %23366, %23369 ], [ %23366, %23363 ]
   %23374 = load ptr, ptr %30, align 8, !tbaa !24
   %23375 = icmp eq ptr %23374, %22556
   br i1 %23375, label %23377, label %23376
@@ -55472,9 +55475,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %23377
 
 23377:                                            ; preds = %23376, %23370, %22724
-  %23378 = phi ptr [ %22550, %22724 ], [ %23371, %23370 ], [ %23371, %23376 ]
-  %23379 = phi { ptr, i32 } [ %22725, %22724 ], [ %23372, %23370 ], [ %23372, %23376 ]
-  %23380 = phi i1 [ true, %22724 ], [ %23373, %23370 ], [ %23373, %23376 ]
+  %23378 = phi ptr [ %22550, %22724 ], [ %23371, %23376 ], [ %23371, %23370 ]
+  %23379 = phi { ptr, i32 } [ %22725, %22724 ], [ %23372, %23376 ], [ %23372, %23370 ]
+  %23380 = phi i1 [ true, %22724 ], [ %23373, %23376 ], [ %23373, %23370 ]
   %23381 = load ptr, ptr %29, align 8, !tbaa !24
   %23382 = icmp eq ptr %23381, %22551
   br i1 %23382, label %23384, label %23383
@@ -55484,9 +55487,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %23384
 
 23384:                                            ; preds = %23383, %23377, %22722
-  %23385 = phi ptr [ %22541, %22722 ], [ %23378, %23377 ], [ %23378, %23383 ]
-  %23386 = phi { ptr, i32 } [ %22723, %22722 ], [ %23379, %23377 ], [ %23379, %23383 ]
-  %23387 = phi i1 [ true, %22722 ], [ %23380, %23377 ], [ %23380, %23383 ]
+  %23385 = phi ptr [ %22541, %22722 ], [ %23378, %23383 ], [ %23378, %23377 ]
+  %23386 = phi { ptr, i32 } [ %22723, %22722 ], [ %23379, %23383 ], [ %23379, %23377 ]
+  %23387 = phi i1 [ true, %22722 ], [ %23380, %23383 ], [ %23380, %23377 ]
   %23388 = load ptr, ptr %28, align 8, !tbaa !24
   %23389 = icmp eq ptr %23388, %22542
   br i1 %23389, label %23391, label %23390
@@ -55544,9 +55547,9 @@ define internal void @_GLOBAL__sub_I_user_counters_tabular_test.cc() #4 section 
   br label %23419
 
 23419:                                            ; preds = %23418, %23412, %22704
-  %23420 = phi ptr [ %22500, %22704 ], [ %23413, %23412 ], [ %23413, %23418 ]
-  %23421 = phi { ptr, i32 } [ %22705, %22704 ], [ %23414, %23412 ], [ %23414, %23418 ]
-  %23422 = phi i1 [ true, %22704 ], [ %23415, %23412 ], [ %23415, %23418 ]
+  %23420 = phi ptr [ %22500, %22704 ], [ %23413, %23418 ], [ %23413, %23412 ]
+  %23421 = phi { ptr, i32 } [ %22705, %22704 ], [ %23414, %23418 ], [ %23414, %23412 ]
+  %23422 = phi i1 [ true, %22704 ], [ %23415, %23418 ], [ %23415, %23412 ]
   %23423 = load ptr, ptr %23, align 8, !tbaa !24
   %23424 = icmp eq ptr %23423, %22501
   br i1 %23424, label %23426, label %23425

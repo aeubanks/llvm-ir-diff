@@ -111,8 +111,8 @@ define dso_local i32 @inflateResetKeep(ptr noundef %0) local_unnamed_addr #0 {
   store i32 -1, ptr %46, align 4, !tbaa !31
   br label %47
 
-47:                                               ; preds = %11, %15, %1, %3, %7, %18, %34
-  %48 = phi i32 [ 0, %34 ], [ -2, %18 ], [ -2, %7 ], [ -2, %3 ], [ -2, %1 ], [ -2, %15 ], [ -2, %11 ]
+47:                                               ; preds = %7, %3, %1, %15, %11, %18, %34
+  %48 = phi i32 [ 0, %34 ], [ -2, %18 ], [ -2, %11 ], [ -2, %15 ], [ -2, %1 ], [ -2, %3 ], [ -2, %7 ]
   ret i32 %48
 }
 
@@ -209,8 +209,8 @@ define dso_local i32 @inflateReset(ptr noundef %0) local_unnamed_addr #0 {
   store i32 -1, ptr %49, align 4, !tbaa !31
   br label %50
 
-50:                                               ; preds = %11, %15, %1, %3, %7, %37, %18
-  %51 = phi i32 [ -2, %18 ], [ 0, %37 ], [ -2, %7 ], [ -2, %3 ], [ -2, %1 ], [ -2, %15 ], [ -2, %11 ]
+50:                                               ; preds = %7, %3, %1, %15, %11, %37, %18
+  %51 = phi i32 [ -2, %18 ], [ 0, %37 ], [ -2, %11 ], [ -2, %15 ], [ -2, %1 ], [ -2, %3 ], [ -2, %7 ]
   ret i32 %51
 }
 
@@ -386,8 +386,8 @@ define dso_local i32 @inflateReset2(ptr noundef %0, i32 noundef %1) local_unname
   store i32 -1, ptr %95, align 4, !tbaa !31
   br label %96
 
-96:                                               ; preds = %12, %16, %2, %4, %8, %83, %64, %61, %58, %55, %48, %34, %19
-  %97 = phi i32 [ -2, %19 ], [ -2, %34 ], [ -2, %64 ], [ 0, %83 ], [ -2, %55 ], [ -2, %48 ], [ -2, %61 ], [ -2, %58 ], [ -2, %8 ], [ -2, %4 ], [ -2, %2 ], [ -2, %16 ], [ -2, %12 ]
+96:                                               ; preds = %34, %8, %4, %2, %16, %12, %83, %64, %61, %58, %55, %48, %19
+  %97 = phi i32 [ -2, %19 ], [ -2, %34 ], [ -2, %64 ], [ 0, %83 ], [ -2, %58 ], [ -2, %61 ], [ -2, %48 ], [ -2, %55 ], [ -2, %12 ], [ -2, %16 ], [ -2, %2 ], [ -2, %4 ], [ -2, %8 ]
   ret i32 %97
 }
 
@@ -611,8 +611,8 @@ define dso_local i32 @inflatePrime(ptr noundef readonly %0, i32 noundef %1, i32 
   store i32 %35, ptr %33, align 8, !tbaa !26
   br label %48
 
-48:                                               ; preds = %13, %17, %3, %5, %9, %30, %32, %20, %37, %27
-  %49 = phi i32 [ 0, %27 ], [ 0, %37 ], [ -2, %20 ], [ -2, %32 ], [ -2, %30 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ -2, %17 ], [ -2, %13 ]
+48:                                               ; preds = %9, %5, %3, %17, %13, %30, %32, %20, %37, %27
+  %49 = phi i32 [ 0, %27 ], [ 0, %37 ], [ -2, %20 ], [ -2, %32 ], [ -2, %30 ], [ -2, %13 ], [ -2, %17 ], [ -2, %3 ], [ -2, %5 ], [ -2, %9 ]
   ret i32 %49
 }
 
@@ -2835,16 +2835,16 @@ define dso_local i32 @inflate(ptr noundef %0, i32 noundef %1) local_unnamed_addr
   %1439 = phi i32 [ %1416, %1431 ], [ %1377, %1394 ]
   %1440 = phi i64 [ %1421, %1431 ], [ %1378, %1394 ]
   %1441 = phi i32 [ %1433, %1431 ], [ %1379, %1394 ]
-  %1442 = getelementptr inbounds i8, ptr %1436, i64 2
-  %1443 = load i16, ptr %1442, align 2, !tbaa.struct !86
-  %1444 = load i8, ptr %1436, align 2, !tbaa.struct !97
-  %1445 = add i8 %1444, -1
+  %1442 = load i8, ptr %1436, align 2, !tbaa.struct !97
+  %1443 = getelementptr inbounds i8, ptr %1436, i64 2
+  %1444 = load i16, ptr %1443, align 2, !tbaa.struct !86
+  %1445 = add i8 %1442, -1
   %1446 = icmp ult i8 %1445, 15
   br i1 %1446, label %1447, label %1509
 
 1447:                                             ; preds = %1434
-  %1448 = zext i8 %1444 to i32
-  %1449 = zext i16 %1443 to i32
+  %1448 = zext i8 %1442 to i32
+  %1449 = zext i16 %1444 to i32
   %1450 = add nuw nsw i32 %1435, %1448
   %1451 = shl nsw i32 -1, %1450
   %1452 = xor i32 %1451, -1
@@ -2923,9 +2923,9 @@ define dso_local i32 @inflate(ptr noundef %0, i32 noundef %1) local_unnamed_addr
   %1513 = phi i32 [ %1439, %1434 ], [ %1498, %1495 ]
   %1514 = phi i64 [ %1440, %1434 ], [ %1507, %1495 ]
   %1515 = phi i32 [ %1441, %1434 ], [ %1508, %1495 ]
-  %1516 = phi i16 [ %1443, %1434 ], [ %1504, %1495 ]
+  %1516 = phi i16 [ %1444, %1434 ], [ %1504, %1495 ]
   %1517 = phi i8 [ %1437, %1434 ], [ %1502, %1495 ]
-  %1518 = phi i8 [ %1444, %1434 ], [ %1505, %1495 ]
+  %1518 = phi i8 [ %1442, %1434 ], [ %1505, %1495 ]
   %1519 = zext i8 %1517 to i64
   %1520 = lshr i64 %1514, %1519
   %1521 = sub i32 %1515, %1510
@@ -4082,7 +4082,7 @@ define dso_local i32 @inflate(ptr noundef %0, i32 noundef %1) local_unnamed_addr
   store i32 16210, ptr %21, align 8, !tbaa !16
   br label %2379
 
-2322:                                             ; preds = %2283, %2310, %2319, %2302, %2250, %2247, %2245
+2322:                                             ; preds = %2319, %2310, %2302, %2283, %2250, %2247, %2245
   %2323 = load i32, ptr %43, align 8, !tbaa !43
   %2324 = sub i32 %44, %2323
   %2325 = load i32, ptr %41, align 8, !tbaa !44
@@ -4234,8 +4234,8 @@ define dso_local i32 @inflateEnd(ptr noundef %0) local_unnamed_addr #2 {
   store ptr null, ptr %12, align 8, !tbaa !13
   br label %37
 
-37:                                               ; preds = %11, %15, %1, %3, %7, %18, %32
-  %38 = phi i32 [ 0, %32 ], [ -2, %18 ], [ -2, %7 ], [ -2, %3 ], [ -2, %1 ], [ -2, %15 ], [ -2, %11 ]
+37:                                               ; preds = %7, %3, %1, %15, %11, %18, %32
+  %38 = phi i32 [ 0, %32 ], [ -2, %18 ], [ -2, %11 ], [ -2, %15 ], [ -2, %1 ], [ -2, %3 ], [ -2, %7 ]
   ret i32 %38
 }
 
@@ -4312,8 +4312,8 @@ define dso_local i32 @inflateGetDictionary(ptr noundef readonly %0, ptr noundef 
   store i32 %51, ptr %2, align 4, !tbaa !109
   br label %52
 
-52:                                               ; preds = %13, %17, %3, %5, %9, %48, %50, %20
-  %53 = phi i32 [ -2, %20 ], [ 0, %50 ], [ 0, %48 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ -2, %17 ], [ -2, %13 ]
+52:                                               ; preds = %9, %5, %3, %17, %13, %48, %50, %20
+  %53 = phi i32 [ -2, %20 ], [ 0, %50 ], [ 0, %48 ], [ -2, %13 ], [ -2, %17 ], [ -2, %3 ], [ -2, %5 ], [ -2, %9 ]
   ret i32 %53
 }
 
@@ -4479,13 +4479,13 @@ define dso_local i32 @inflateSetDictionary(ptr noundef readonly %0, ptr noundef 
   store i32 16210, ptr %21, align 8, !tbaa !16
   br label %108
 
-106:                                              ; preds = %86, %103, %94, %70
+106:                                              ; preds = %103, %94, %86, %70
   %107 = getelementptr inbounds %struct.inflate_state, ptr %15, i64 0, i32 4
   store i32 1, ptr %107, align 4, !tbaa !22
   br label %108
 
-108:                                              ; preds = %13, %17, %3, %5, %9, %32, %30, %20, %106, %105
-  %109 = phi i32 [ -4, %105 ], [ 0, %106 ], [ -2, %20 ], [ -2, %30 ], [ -3, %32 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ -2, %17 ], [ -2, %13 ]
+108:                                              ; preds = %9, %5, %3, %17, %13, %32, %30, %20, %106, %105
+  %109 = phi i32 [ -4, %105 ], [ 0, %106 ], [ -2, %20 ], [ -2, %30 ], [ -3, %32 ], [ -2, %13 ], [ -2, %17 ], [ -2, %3 ], [ -2, %5 ], [ -2, %9 ]
   ret i32 %109
 }
 
@@ -4538,8 +4538,8 @@ define dso_local i32 @inflateGetHeader(ptr noundef readonly %0, ptr noundef %1) 
   store i32 0, ptr %31, align 8, !tbaa !51
   br label %32
 
-32:                                               ; preds = %12, %16, %2, %4, %8, %24, %19, %29
-  %33 = phi i32 [ 0, %29 ], [ -2, %19 ], [ -2, %24 ], [ -2, %8 ], [ -2, %4 ], [ -2, %2 ], [ -2, %16 ], [ -2, %12 ]
+32:                                               ; preds = %8, %4, %2, %16, %12, %24, %19, %29
+  %33 = phi i32 [ 0, %29 ], [ -2, %19 ], [ -2, %24 ], [ -2, %12 ], [ -2, %16 ], [ -2, %2 ], [ -2, %4 ], [ -2, %8 ]
   ret i32 %33
 }
 
@@ -4827,8 +4827,8 @@ define dso_local i32 @inflateSync(ptr noundef %0) local_unnamed_addr #6 {
   store i32 16191, ptr %20, align 8, !tbaa !16
   br label %190
 
-190:                                              ; preds = %12, %16, %1, %4, %8, %152, %28, %19, %177
-  %191 = phi i32 [ 0, %177 ], [ -2, %19 ], [ -5, %28 ], [ -3, %152 ], [ -2, %8 ], [ -2, %4 ], [ -2, %1 ], [ -2, %16 ], [ -2, %12 ]
+190:                                              ; preds = %8, %4, %1, %16, %12, %152, %28, %19, %177
+  %191 = phi i32 [ 0, %177 ], [ -2, %19 ], [ -5, %28 ], [ -3, %152 ], [ -2, %12 ], [ -2, %16 ], [ -2, %1 ], [ -2, %4 ], [ -2, %8 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #10
   ret i32 %191
 }
@@ -4879,8 +4879,8 @@ define dso_local i32 @inflateSyncPoint(ptr noundef readonly %0) local_unnamed_ad
   %29 = zext i1 %28 to i32
   br label %30
 
-30:                                               ; preds = %11, %15, %1, %3, %7, %23, %25, %18
-  %31 = phi i32 [ -2, %18 ], [ 0, %23 ], [ %29, %25 ], [ -2, %7 ], [ -2, %3 ], [ -2, %1 ], [ -2, %15 ], [ -2, %11 ]
+30:                                               ; preds = %7, %3, %1, %15, %11, %23, %25, %18
+  %31 = phi i32 [ -2, %18 ], [ 0, %23 ], [ %29, %25 ], [ -2, %11 ], [ -2, %15 ], [ -2, %1 ], [ -2, %3 ], [ -2, %7 ]
   ret i32 %31
 }
 
@@ -5062,8 +5062,8 @@ define dso_local i32 @inflateUndermine(ptr noundef readonly %0, i32 noundef %1) 
   store i32 1, ptr %25, align 8, !tbaa !30
   br label %26
 
-26:                                               ; preds = %12, %16, %2, %4, %8, %19, %24
-  %27 = phi i32 [ -3, %24 ], [ -2, %19 ], [ -2, %8 ], [ -2, %4 ], [ -2, %2 ], [ -2, %16 ], [ -2, %12 ]
+26:                                               ; preds = %8, %4, %2, %16, %12, %19, %24
+  %27 = phi i32 [ -3, %24 ], [ -2, %19 ], [ -2, %12 ], [ -2, %16 ], [ -2, %2 ], [ -2, %4 ], [ -2, %8 ]
   ret i32 %27
 }
 
@@ -5112,8 +5112,8 @@ define dso_local i32 @inflateValidate(ptr noundef readonly %0, i32 noundef %1) l
   store i32 %30, ptr %26, align 8, !tbaa !19
   br label %31
 
-31:                                               ; preds = %24, %12, %16, %2, %4, %8, %19
-  %32 = phi i32 [ -2, %19 ], [ -2, %8 ], [ -2, %4 ], [ -2, %2 ], [ -2, %16 ], [ -2, %12 ], [ 0, %24 ]
+31:                                               ; preds = %24, %8, %4, %2, %16, %12, %19
+  %32 = phi i32 [ -2, %19 ], [ -2, %12 ], [ -2, %16 ], [ -2, %2 ], [ -2, %4 ], [ -2, %8 ], [ 0, %24 ]
   ret i32 %32
 }
 
@@ -5181,8 +5181,8 @@ define dso_local i64 @inflateMark(ptr noundef readonly %0) local_unnamed_addr #7
   %40 = add nsw i64 %27, %39
   br label %41
 
-41:                                               ; preds = %11, %15, %1, %3, %7, %18, %37
-  %42 = phi i64 [ %40, %37 ], [ -65536, %18 ], [ -65536, %7 ], [ -65536, %3 ], [ -65536, %1 ], [ -65536, %15 ], [ -65536, %11 ]
+41:                                               ; preds = %7, %3, %1, %15, %11, %18, %37
+  %42 = phi i64 [ %40, %37 ], [ -65536, %18 ], [ -65536, %11 ], [ -65536, %15 ], [ -65536, %1 ], [ -65536, %3 ], [ -65536, %7 ]
   ret i64 %42
 }
 
@@ -5231,19 +5231,19 @@ define dso_local i64 @inflateCodesUsed(ptr noundef readonly %0) local_unnamed_ad
   %30 = ashr exact i64 %29, 2
   br label %31
 
-31:                                               ; preds = %11, %15, %1, %3, %7, %18, %23
-  %32 = phi i64 [ %30, %23 ], [ -1, %18 ], [ -1, %7 ], [ -1, %3 ], [ -1, %1 ], [ -1, %15 ], [ -1, %11 ]
+31:                                               ; preds = %7, %3, %1, %15, %11, %18, %23
+  %32 = phi i64 [ %30, %23 ], [ -1, %18 ], [ -1, %11 ], [ -1, %15 ], [ -1, %1 ], [ -1, %3 ], [ -1, %7 ]
   ret i64 %32
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.bswap.i32(i32) #8
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #8
+declare i32 @llvm.umin.i32(i32, i32) #9
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.bswap.i32(i32) #9
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -5253,8 +5253,8 @@ attributes #4 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #5 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #6 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #10 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

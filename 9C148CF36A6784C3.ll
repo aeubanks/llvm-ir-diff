@@ -1295,41 +1295,41 @@ define internal fastcc void @suf_list_chk(ptr noundef %0, ptr nocapture noundef 
   %136 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %11, ptr noundef nonnull dereferenceable(1) %10) #6
   %137 = sext i32 %83 to i64
   %138 = getelementptr inbounds i8, ptr %11, i64 %137
-  br label %154
+  br label %155
 
 139:                                              ; preds = %128, %125
   %140 = phi i64 [ %134, %128 ], [ %24, %125 ]
   %141 = phi ptr [ %133, %128 ], [ %11, %125 ]
   %142 = sub i64 %140, %24
-  %143 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %141, ptr noundef nonnull dereferenceable(1) %10) #6
-  %144 = sext i32 %83 to i64
-  %145 = getelementptr inbounds i8, ptr %141, i64 %144
-  %146 = load i16, ptr %20, align 2, !tbaa !20
-  %147 = icmp eq i16 %146, 0
-  br i1 %147, label %154, label %148
+  %143 = trunc i64 %142 to i32
+  %144 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %141, ptr noundef nonnull dereferenceable(1) %10) #6
+  %145 = sext i32 %83 to i64
+  %146 = getelementptr inbounds i8, ptr %141, i64 %145
+  %147 = load i16, ptr %20, align 2, !tbaa !20
+  %148 = icmp eq i16 %147, 0
+  br i1 %148, label %155, label %149
 
-148:                                              ; preds = %139
-  %149 = getelementptr inbounds i8, ptr %145, i64 1
-  store i8 45, ptr %145, align 1, !tbaa !5
-  %150 = load ptr, ptr %6, align 8, !tbaa !22
-  %151 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %149, ptr noundef nonnull dereferenceable(1) %150) #6
-  %152 = sext i16 %146 to i64
-  %153 = getelementptr inbounds i8, ptr %149, i64 %152
-  br label %154
+149:                                              ; preds = %139
+  %150 = getelementptr inbounds i8, ptr %146, i64 1
+  store i8 45, ptr %146, align 1, !tbaa !5
+  %151 = load ptr, ptr %6, align 8, !tbaa !22
+  %152 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %150, ptr noundef nonnull dereferenceable(1) %151) #6
+  %153 = sext i16 %147 to i64
+  %154 = getelementptr inbounds i8, ptr %150, i64 %153
+  br label %155
 
-154:                                              ; preds = %135, %148, %139
-  %155 = phi i64 [ %144, %148 ], [ %144, %139 ], [ %137, %135 ]
-  %156 = phi i64 [ %142, %148 ], [ %142, %139 ], [ 0, %135 ]
-  %157 = phi i64 [ %140, %148 ], [ %140, %139 ], [ %24, %135 ]
-  %158 = phi ptr [ %153, %148 ], [ %145, %139 ], [ %138, %135 ]
-  %159 = trunc i64 %156 to i32
+155:                                              ; preds = %135, %149, %139
+  %156 = phi i64 [ %145, %149 ], [ %145, %139 ], [ %137, %135 ]
+  %157 = phi i32 [ %143, %149 ], [ %143, %139 ], [ 0, %135 ]
+  %158 = phi i64 [ %140, %149 ], [ %140, %139 ], [ %24, %135 ]
+  %159 = phi ptr [ %154, %149 ], [ %146, %139 ], [ %138, %135 ]
   %160 = load i16, ptr %62, align 2, !tbaa !20
   %161 = icmp eq i16 %160, 0
   br i1 %161, label %169, label %162
 
-162:                                              ; preds = %154
-  %163 = getelementptr inbounds i8, ptr %158, i64 1
-  store i8 45, ptr %158, align 1, !tbaa !5
+162:                                              ; preds = %155
+  %163 = getelementptr inbounds i8, ptr %159, i64 1
+  store i8 45, ptr %159, align 1, !tbaa !5
   %164 = load ptr, ptr %27, align 8, !tbaa !22
   %165 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %163, ptr noundef nonnull dereferenceable(1) %164) #6
   %166 = load i16, ptr %62, align 2, !tbaa !20
@@ -1337,8 +1337,8 @@ define internal fastcc void @suf_list_chk(ptr noundef %0, ptr nocapture noundef 
   %168 = getelementptr inbounds i8, ptr %163, i64 %167
   br label %169
 
-169:                                              ; preds = %162, %154
-  %170 = phi ptr [ %168, %162 ], [ %158, %154 ]
+169:                                              ; preds = %162, %155
+  %170 = phi ptr [ %168, %162 ], [ %159, %155 ]
   %171 = load i16, ptr %47, align 4, !tbaa !18
   %172 = icmp eq i16 %171, 0
   br i1 %172, label %181, label %173
@@ -1368,10 +1368,10 @@ define internal fastcc void @suf_list_chk(ptr noundef %0, ptr nocapture noundef 
   %188 = load i16, ptr %62, align 2, !tbaa !20
   %189 = sext i16 %188 to i32
   %190 = ptrtoint ptr %182 to i64
-  %191 = add i64 %157, %155
+  %191 = add i64 %158, %156
   %192 = sub i64 %190, %191
   %193 = trunc i64 %192 to i32
-  %194 = call i32 @ins_root_cap(ptr noundef nonnull %11, ptr noundef %0, i32 noundef %187, i32 noundef %159, i32 noundef %189, i32 noundef %193, ptr noundef nonnull %121, ptr noundef %6, ptr noundef nonnull %27) #6
+  %194 = call i32 @ins_root_cap(ptr noundef nonnull %11, ptr noundef %0, i32 noundef %187, i32 noundef %157, i32 noundef %189, i32 noundef %193, ptr noundef nonnull %121, ptr noundef %6, ptr noundef nonnull %27) #6
   br label %228
 
 195:                                              ; preds = %120

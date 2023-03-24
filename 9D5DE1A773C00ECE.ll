@@ -99,70 +99,70 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %18 = getelementptr inbounds %class.polynomial, ptr %4, i64 0, i32 2
   store i64 524288, ptr %18, align 8, !tbaa !11
   %19 = invoke noalias noundef nonnull dereferenceable(4194304) ptr @_Znam(i64 noundef 4194304) #17
-          to label %20 unwind label %25
+          to label %20 unwind label %27
 
 20:                                               ; preds = %12
   store ptr %19, ptr %17, align 8, !tbaa !14
   %21 = invoke noalias noundef nonnull dereferenceable(8388600) ptr @_Znam(i64 noundef 8388600) #17
-          to label %22 unwind label %27
+          to label %22 unwind label %29
 
 22:                                               ; preds = %20
   %23 = load i64, ptr @_ZZL13random_doublevE4seed, align 8, !tbaa !15
-  br label %29
+  %24 = xor i64 %23, 123459876
+  br label %31
 
-24:                                               ; preds = %29
-  store i64 %56, ptr @_ZZL13random_doublevE4seed, align 8, !tbaa !15
+25:                                               ; preds = %31
+  %26 = xor i64 %54, 123459876
+  store i64 %26, ptr @_ZZL13random_doublevE4seed, align 8, !tbaa !15
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #16
   invoke void @_ZNK10polynomialIdEmlERKS0_(ptr nonnull sret(%class.polynomial) align 8 %5, ptr noundef nonnull align 8 dereferenceable(24) %3, ptr noundef nonnull align 8 dereferenceable(24) %4)
           to label %60 unwind label %148
 
-25:                                               ; preds = %12
-  %26 = landingpad { ptr, i32 }
+27:                                               ; preds = %12
+  %28 = landingpad { ptr, i32 }
           cleanup
   br label %185
 
-27:                                               ; preds = %20
-  %28 = landingpad { ptr, i32 }
+29:                                               ; preds = %20
+  %30 = landingpad { ptr, i32 }
           cleanup
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV10polynomialIdE, i64 0, inrange i32 0, i64 2), ptr %4, align 8, !tbaa !9
   br label %182
 
-29:                                               ; preds = %22, %29
-  %30 = phi i64 [ 0, %22 ], [ %58, %29 ]
-  %31 = phi i64 [ %23, %22 ], [ %56, %29 ]
-  %32 = xor i64 %31, 123459876
-  %33 = sdiv i64 %32, 127773
-  %34 = mul nsw i64 %33, -127773
-  %35 = add i64 %34, %32
-  %36 = mul nsw i64 %35, 16807
-  %37 = mul nsw i64 %33, -2836
-  %38 = add i64 %36, %37
-  %39 = icmp slt i64 %38, 0
-  %40 = add nsw i64 %38, 2147483647
-  %41 = select i1 %39, i64 %40, i64 %38
-  %42 = sitofp i64 %41 to double
-  %43 = fmul double %42, 0x3E340000002813D9
-  %44 = getelementptr inbounds double, ptr %16, i64 %30
-  store double %43, ptr %44, align 8, !tbaa !16
-  %45 = sdiv i64 %41, 127773
-  %46 = mul nsw i64 %45, -127773
-  %47 = add i64 %46, %41
-  %48 = mul nsw i64 %47, 16807
-  %49 = mul nsw i64 %45, -2836
-  %50 = add i64 %48, %49
-  %51 = icmp slt i64 %50, 0
-  %52 = add nsw i64 %50, 2147483647
-  %53 = select i1 %51, i64 %52, i64 %50
-  %54 = sitofp i64 %53 to double
-  %55 = fmul double %54, 0x3E340000002813D9
-  %56 = xor i64 %53, 123459876
-  %57 = getelementptr inbounds double, ptr %19, i64 %30
-  store double %55, ptr %57, align 8, !tbaa !16
-  %58 = add nuw nsw i64 %30, 1
+31:                                               ; preds = %22, %31
+  %32 = phi i64 [ 0, %22 ], [ %58, %31 ]
+  %33 = phi i64 [ %24, %22 ], [ %54, %31 ]
+  %34 = sdiv i64 %33, 127773
+  %35 = mul nsw i64 %34, -127773
+  %36 = add i64 %35, %33
+  %37 = mul nsw i64 %36, 16807
+  %38 = mul nsw i64 %34, -2836
+  %39 = add i64 %37, %38
+  %40 = icmp slt i64 %39, 0
+  %41 = add nsw i64 %39, 2147483647
+  %42 = select i1 %40, i64 %41, i64 %39
+  %43 = sitofp i64 %42 to double
+  %44 = fmul double %43, 0x3E340000002813D9
+  %45 = getelementptr inbounds double, ptr %16, i64 %32
+  store double %44, ptr %45, align 8, !tbaa !16
+  %46 = sdiv i64 %42, 127773
+  %47 = mul nsw i64 %46, -127773
+  %48 = add i64 %47, %42
+  %49 = mul nsw i64 %48, 16807
+  %50 = mul nsw i64 %46, -2836
+  %51 = add i64 %49, %50
+  %52 = icmp slt i64 %51, 0
+  %53 = add nsw i64 %51, 2147483647
+  %54 = select i1 %52, i64 %53, i64 %51
+  %55 = sitofp i64 %54 to double
+  %56 = fmul double %55, 0x3E340000002813D9
+  %57 = getelementptr inbounds double, ptr %19, i64 %32
+  store double %56, ptr %57, align 8, !tbaa !16
+  %58 = add nuw nsw i64 %32, 1
   %59 = icmp eq i64 %58, 524288
-  br i1 %59, label %24, label %29, !llvm.loop !18
+  br i1 %59, label %25, label %31, !llvm.loop !18
 
-60:                                               ; preds = %24
+60:                                               ; preds = %25
   %61 = getelementptr inbounds %class.polynomial, ptr %5, i64 0, i32 2
   %62 = load i64, ptr %61, align 8, !tbaa !11
   %63 = icmp eq i64 %62, 1048575
@@ -282,13 +282,13 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %140, label %144, label %141
 
 141:                                              ; preds = %138, %139
-  %142 = phi ptr [ %80, %138 ], [ %72, %139 ]
-  %143 = phi ptr [ %78, %138 ], [ %75, %139 ]
-  call void @_ZdaPv(ptr noundef nonnull %143) #18
+  %142 = phi ptr [ %78, %138 ], [ %75, %139 ]
+  %143 = phi ptr [ %80, %138 ], [ %72, %139 ]
+  call void @_ZdaPv(ptr noundef nonnull %142) #18
   br label %144
 
 144:                                              ; preds = %139, %141
-  %145 = phi ptr [ %72, %139 ], [ %142, %141 ]
+  %145 = phi ptr [ %72, %139 ], [ %143, %141 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #16
   br i1 %13, label %146, label %160
 
@@ -296,7 +296,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %147 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 0.000000e+00)
           to label %166 unwind label %158
 
-148:                                              ; preds = %24
+148:                                              ; preds = %25
   %149 = landingpad { ptr, i32 }
           cleanup
   br label %156
@@ -366,7 +366,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #16
   ret i32 0
 
-177:                                              ; preds = %156, %158
+177:                                              ; preds = %158, %156
   %178 = phi ptr [ %145, %158 ], [ %21, %156 ]
   %179 = phi { ptr, i32 } [ %159, %158 ], [ %157, %156 ]
   call void @_ZdaPv(ptr noundef nonnull %178) #18
@@ -375,14 +375,14 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %181 = icmp eq ptr %180, null
   br i1 %181, label %185, label %182
 
-182:                                              ; preds = %27, %177
-  %183 = phi { ptr, i32 } [ %28, %27 ], [ %179, %177 ]
-  %184 = phi ptr [ %19, %27 ], [ %180, %177 ]
+182:                                              ; preds = %29, %177
+  %183 = phi { ptr, i32 } [ %30, %29 ], [ %179, %177 ]
+  %184 = phi ptr [ %19, %29 ], [ %180, %177 ]
   call void @_ZdaPv(ptr noundef nonnull %184) #18
   br label %185
 
-185:                                              ; preds = %182, %177, %25
-  %186 = phi { ptr, i32 } [ %26, %25 ], [ %179, %177 ], [ %183, %182 ]
+185:                                              ; preds = %182, %177, %27
+  %186 = phi { ptr, i32 } [ %28, %27 ], [ %179, %177 ], [ %183, %182 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #16
   store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV10polynomialIdE, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !9
   %187 = load ptr, ptr %14, align 8, !tbaa !14
@@ -1823,20 +1823,20 @@ define linkonce_odr dso_local void @_ZN10polynomialIdE3fftERKS0_(ptr noalias sre
   %86 = load i64, ptr %3, align 8, !tbaa !11
   br label %87
 
-87:                                               ; preds = %82, %80, %65
+87:                                               ; preds = %65, %80, %82
   %88 = phi i64 [ %66, %65 ], [ %66, %80 ], [ %86, %82 ]
   %89 = phi double [ %77, %65 ], [ %77, %80 ], [ %84, %82 ]
   %90 = phi double [ %78, %65 ], [ %78, %80 ], [ %85, %82 ]
   %91 = getelementptr inbounds %"class.std::complex", ptr %14, i64 %67
   %92 = load double, ptr %91, align 8, !tbaa.struct !43
-  %93 = getelementptr inbounds i8, ptr %91, i64 8
-  %94 = load double, ptr %93, align 8, !tbaa.struct !62
-  %95 = fadd double %89, %92
-  %96 = fadd double %90, %94
-  store double %95, ptr %91, align 8, !tbaa.struct !43
-  store double %96, ptr %93, align 8, !tbaa.struct !62
+  %93 = fadd double %89, %92
+  %94 = getelementptr inbounds i8, ptr %91, i64 8
+  %95 = load double, ptr %94, align 8, !tbaa.struct !62
+  %96 = fadd double %90, %95
+  store double %93, ptr %91, align 8, !tbaa.struct !43
+  store double %96, ptr %94, align 8, !tbaa.struct !62
   %97 = fsub double %92, %89
-  %98 = fsub double %94, %90
+  %98 = fsub double %95, %90
   store double %97, ptr %69, align 8, !tbaa.struct !43
   store double %98, ptr %71, align 8, !tbaa.struct !62
   %99 = add i64 %67, %47
@@ -2059,20 +2059,20 @@ define linkonce_odr dso_local void @_ZN10polynomialIdE11inverse_fftERKS_ISt7comp
   %128 = load i64, ptr %3, align 8, !tbaa !42
   br label %129
 
-129:                                              ; preds = %124, %122, %107
+129:                                              ; preds = %107, %122, %124
   %130 = phi i64 [ %108, %107 ], [ %108, %122 ], [ %128, %124 ]
   %131 = phi double [ %119, %107 ], [ %119, %122 ], [ %126, %124 ]
   %132 = phi double [ %120, %107 ], [ %120, %122 ], [ %127, %124 ]
   %133 = getelementptr inbounds %"class.std::complex", ptr %14, i64 %109
   %134 = load double, ptr %133, align 8, !tbaa.struct !43
-  %135 = getelementptr inbounds i8, ptr %133, i64 8
-  %136 = load double, ptr %135, align 8, !tbaa.struct !62
-  %137 = fadd double %131, %134
-  %138 = fadd double %132, %136
-  store double %137, ptr %133, align 8, !tbaa.struct !43
-  store double %138, ptr %135, align 8, !tbaa.struct !62
+  %135 = fadd double %131, %134
+  %136 = getelementptr inbounds i8, ptr %133, i64 8
+  %137 = load double, ptr %136, align 8, !tbaa.struct !62
+  %138 = fadd double %132, %137
+  store double %135, ptr %133, align 8, !tbaa.struct !43
+  store double %138, ptr %136, align 8, !tbaa.struct !62
   %139 = fsub double %134, %131
-  %140 = fsub double %136, %132
+  %140 = fsub double %137, %132
   store double %139, ptr %111, align 8, !tbaa.struct !43
   store double %140, ptr %113, align 8, !tbaa.struct !62
   %141 = add i64 %109, %89

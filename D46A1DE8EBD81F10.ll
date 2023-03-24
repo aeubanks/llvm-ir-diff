@@ -108,9 +108,9 @@ define dso_local void @table_Free(ptr noundef %0) local_unnamed_addr #1 {
   %38 = load i32, ptr @memory_ALIGN, align 4
   %39 = urem i32 %35, %38
   %40 = icmp eq i32 %39, 0
-  %41 = sub i32 %38, %39
-  %42 = select i1 %40, i32 0, i32 %41
-  %43 = add i32 %42, %35
+  %41 = add i32 %38, %35
+  %42 = sub i32 %41, %39
+  %43 = select i1 %40, i32 %35, i32 %42
   %44 = load i32, ptr @memory_OFFSET, align 4
   %45 = zext i32 %44 to i64
   %46 = sub nsw i64 0, %45
@@ -134,7 +134,7 @@ define dso_local void @table_Free(ptr noundef %0) local_unnamed_addr #1 {
 
 59:                                               ; preds = %57, %37
   %60 = load i32, ptr @memory_MARKSIZE, align 4
-  %61 = add i32 %43, %60
+  %61 = add i32 %60, %43
   %62 = zext i32 %61 to i64
   %63 = add nuw nsw i64 %62, 16
   %64 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -184,9 +184,9 @@ define dso_local void @table_Free(ptr noundef %0) local_unnamed_addr #1 {
   %92 = load i32, ptr @memory_ALIGN, align 4
   %93 = urem i32 %89, %92
   %94 = icmp eq i32 %93, 0
-  %95 = sub i32 %92, %93
-  %96 = select i1 %94, i32 0, i32 %95
-  %97 = add i32 %96, %89
+  %95 = add i32 %92, %89
+  %96 = sub i32 %95, %93
+  %97 = select i1 %94, i32 %89, i32 %96
   %98 = load i32, ptr @memory_OFFSET, align 4
   %99 = zext i32 %98 to i64
   %100 = sub nsw i64 0, %99
@@ -210,7 +210,7 @@ define dso_local void @table_Free(ptr noundef %0) local_unnamed_addr #1 {
 
 113:                                              ; preds = %111, %91
   %114 = load i32, ptr @memory_MARKSIZE, align 4
-  %115 = add i32 %97, %114
+  %115 = add i32 %114, %97
   %116 = zext i32 %115 to i64
   %117 = add nuw nsw i64 %116, 16
   %118 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -259,9 +259,9 @@ define dso_local void @table_Free(ptr noundef %0) local_unnamed_addr #1 {
   %145 = load i32, ptr @memory_ALIGN, align 4
   %146 = urem i32 %142, %145
   %147 = icmp eq i32 %146, 0
-  %148 = sub i32 %145, %146
-  %149 = select i1 %147, i32 0, i32 %148
-  %150 = add i32 %149, %142
+  %148 = add i32 %145, %142
+  %149 = sub i32 %148, %146
+  %150 = select i1 %147, i32 %142, i32 %149
   %151 = load i32, ptr @memory_OFFSET, align 4
   %152 = zext i32 %151 to i64
   %153 = sub nsw i64 0, %152
@@ -285,7 +285,7 @@ define dso_local void @table_Free(ptr noundef %0) local_unnamed_addr #1 {
 
 166:                                              ; preds = %164, %144
   %167 = load i32, ptr @memory_MARKSIZE, align 4
-  %168 = add i32 %150, %167
+  %168 = add i32 %167, %150
   %169 = zext i32 %168 to i64
   %170 = add nuw nsw i64 %169, 16
   %171 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -370,9 +370,9 @@ define internal fastcc void @table_FreeTermarray(ptr noundef %0, i32 noundef %1)
   %18 = load i32, ptr @memory_ALIGN, align 4
   %19 = urem i32 %15, %18
   %20 = icmp eq i32 %19, 0
-  %21 = sub i32 %18, %19
-  %22 = select i1 %20, i32 0, i32 %21
-  %23 = add i32 %22, %15
+  %21 = add i32 %18, %15
+  %22 = sub i32 %21, %19
+  %23 = select i1 %20, i32 %15, i32 %22
   %24 = load i32, ptr @memory_OFFSET, align 4
   %25 = zext i32 %24 to i64
   %26 = sub nsw i64 0, %25
@@ -396,7 +396,7 @@ define internal fastcc void @table_FreeTermarray(ptr noundef %0, i32 noundef %1)
 
 39:                                               ; preds = %37, %17
   %40 = load i32, ptr @memory_MARKSIZE, align 4
-  %41 = add i32 %23, %40
+  %41 = add i32 %40, %23
   %42 = zext i32 %41 to i64
   %43 = add nuw nsw i64 %42, 16
   %44 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -540,9 +540,9 @@ define dso_local ptr @table_Init(ptr noundef %0, i32 noundef %1, i32 noundef %2,
   %77 = load i32, ptr @memory_ALIGN, align 4
   %78 = urem i32 %74, %77
   %79 = icmp eq i32 %78, 0
-  %80 = sub i32 %77, %78
-  %81 = select i1 %79, i32 0, i32 %80
-  %82 = add i32 %81, %74
+  %80 = add i32 %77, %74
+  %81 = sub i32 %80, %78
+  %82 = select i1 %79, i32 %74, i32 %81
   %83 = load i32, ptr @memory_OFFSET, align 4
   %84 = zext i32 %83 to i64
   %85 = sub nsw i64 0, %84
@@ -566,7 +566,7 @@ define dso_local ptr @table_Init(ptr noundef %0, i32 noundef %1, i32 noundef %2,
 
 98:                                               ; preds = %96, %76
   %99 = load i32, ptr @memory_MARKSIZE, align 4
-  %100 = add i32 %82, %99
+  %100 = add i32 %99, %82
   %101 = zext i32 %100 to i64
   %102 = add nuw nsw i64 %101, 16
   %103 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -628,11 +628,11 @@ define dso_local ptr @table_Init(ptr noundef %0, i32 noundef %1, i32 noundef %2,
 define dso_local ptr @table_QueryAndEnter(ptr nocapture noundef readonly %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 {
   %4 = load ptr, ptr %0, align 8
   %5 = load i32, ptr %2, align 8
-  %6 = sub nsw i32 0, %5
-  %7 = load i32, ptr @symbol_TYPESTATBITS, align 4
-  %8 = icmp sgt i32 %5, 0
-  %9 = select i1 %8, i32 0, i32 %7
-  %10 = ashr i32 %6, %9
+  %6 = icmp sgt i32 %5, 0
+  %7 = sub nsw i32 0, %5
+  %8 = load i32, ptr @symbol_TYPESTATBITS, align 4
+  %9 = select i1 %6, i32 0, i32 %8
+  %10 = ashr i32 %7, %9
   %11 = sext i32 %10 to i64
   %12 = getelementptr inbounds %struct.termarray, ptr %4, i64 %11
   %13 = getelementptr i8, ptr %2, i64 16

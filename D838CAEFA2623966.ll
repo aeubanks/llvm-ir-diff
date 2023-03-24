@@ -105,7 +105,7 @@ define dso_local i32 @hypre_StructAxpy(double noundef %0, ptr nocapture noundef 
   %89 = sub i32 %78, %47
   %90 = mul i32 %89, %84
   %91 = sub i32 %62, %47
-  %92 = mul i32 %68, %91
+  %92 = mul i32 %91, %68
   %93 = icmp slt i32 %47, 1
   %94 = select i1 %85, i1 true, i1 %93
   %95 = select i1 %94, i1 true, i1 %86
@@ -278,8 +278,8 @@ define dso_local i32 @hypre_StructAxpy(double noundef %0, ptr nocapture noundef 
   br i1 %232, label %233, label %144, !llvm.loop !32
 
 233:                                              ; preds = %224
-  %234 = add nsw i32 %229, %90
-  %235 = add nsw i32 %230, %92
+  %234 = add i32 %90, %229
+  %235 = add i32 %92, %230
   %236 = add nuw nsw i32 %143, 1
   %237 = icmp eq i32 %236, %48
   br i1 %237, label %238, label %140, !llvm.loop !33

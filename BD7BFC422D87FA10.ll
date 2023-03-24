@@ -327,8 +327,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.239 = private unnamed_addr constant [15 x i8] c"*slib-version*\00", align 1
 @.str.240 = private unnamed_addr constant [5 x i8] c"$Id$\00", align 1
 @str = private unnamed_addr constant [49 x i8] c"(C) Copyright 1988-1994 Paradigm Associates Inc.\00", align 1
-@str.241 = private unnamed_addr constant [52 x i8] c"FATAL ERROR DURING STARTUP OR CRITICAL CODE SECTION\00", align 1
-@str.242 = private unnamed_addr constant [14 x i8] c"[starting GC]\00", align 1
+@str.241 = private unnamed_addr constant [14 x i8] c"[starting GC]\00", align 1
+@str.242 = private unnamed_addr constant [52 x i8] c"FATAL ERROR DURING STARTUP OR CRITICAL CODE SECTION\00", align 1
 @switch.table.lprin1g = private unnamed_addr constant [18 x ptr] [ptr @.str.99, ptr @.str.100, ptr @.str.101, ptr @.str.103, ptr @.str.106, ptr @.str.107, ptr @.str.108, ptr @.str.109, ptr @.str.109, ptr @.str.109, ptr @.str.109, ptr @.str.109, ptr @.str.109, ptr @.str.109, ptr @.str.109, ptr @.str.104, ptr @.str.105, ptr @.str.102], align 8
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
@@ -587,12 +587,14 @@ declare ptr @signal(i32 noundef, ptr noundef) local_unnamed_addr #7
 define dso_local ptr @err(ptr noundef %0, ptr noundef %1) local_unnamed_addr #6 {
   %3 = load i1, ptr @inside_err, align 8
   store i64 1, ptr @nointerrupt, align 8, !tbaa !10
-  %4 = icmp ne ptr %0, null
-  %5 = icmp eq ptr %1, null
-  %6 = or i1 %4, %5
-  br i1 %6, label %24, label %7
+  %4 = icmp eq ptr %0, null
+  br i1 %4, label %5, label %24
 
-7:                                                ; preds = %2
+5:                                                ; preds = %2
+  %6 = icmp eq ptr %1, null
+  br i1 %6, label %68, label %7
+
+7:                                                ; preds = %5
   %8 = getelementptr inbounds %struct.obj, ptr %1, i64 0, i32 1
   %9 = load i16, ptr %8, align 2, !tbaa !14
   %10 = icmp eq i16 %9, 1
@@ -690,11 +692,11 @@ define dso_local ptr @err(ptr noundef %0, ptr noundef %1) local_unnamed_addr #6 
   %67 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, ptr noundef nonnull %34)
   br label %68
 
-68:                                               ; preds = %11, %15, %55, %60, %66, %64, %49
-  %69 = phi i1 [ %58, %60 ], [ %53, %66 ], [ %53, %64 ], [ %53, %49 ], [ %58, %55 ], [ false, %15 ], [ false, %11 ]
-  %70 = phi ptr [ %27, %60 ], [ %34, %66 ], [ %34, %64 ], [ %34, %49 ], [ %27, %55 ], [ null, %15 ], [ null, %11 ]
-  %71 = phi ptr [ null, %60 ], [ %35, %66 ], [ %35, %64 ], [ %35, %49 ], [ null, %55 ], [ %1, %15 ], [ %1, %11 ]
-  %72 = phi ptr [ %25, %60 ], [ %36, %66 ], [ %36, %64 ], [ %36, %49 ], [ %25, %55 ], [ null, %15 ], [ null, %11 ]
+68:                                               ; preds = %15, %11, %55, %5, %60, %66, %64, %49
+  %69 = phi i1 [ true, %60 ], [ true, %66 ], [ true, %64 ], [ %53, %49 ], [ false, %5 ], [ %58, %55 ], [ false, %11 ], [ false, %15 ]
+  %70 = phi ptr [ %27, %60 ], [ %34, %66 ], [ %34, %64 ], [ %34, %49 ], [ null, %5 ], [ %27, %55 ], [ null, %11 ], [ null, %15 ]
+  %71 = phi ptr [ null, %60 ], [ %35, %66 ], [ %35, %64 ], [ %35, %49 ], [ null, %5 ], [ null, %55 ], [ %1, %11 ], [ %1, %15 ]
+  %72 = phi ptr [ %25, %60 ], [ %36, %66 ], [ %36, %64 ], [ %36, %49 ], [ null, %5 ], [ %25, %55 ], [ null, %11 ], [ null, %15 ]
   %73 = load i64, ptr @errjmp_ok, align 8, !tbaa !10
   %74 = icmp eq i64 %73, 1
   br i1 %74, label %75, label %107
@@ -760,7 +762,7 @@ define dso_local ptr @err(ptr noundef %0, ptr noundef %1) local_unnamed_addr #6 
   br i1 %109, label %110, label %112
 
 110:                                              ; preds = %107
-  %111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.241)
+  %111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.242)
   br label %112
 
 112:                                              ; preds = %110, %107
@@ -3348,7 +3350,7 @@ define dso_local ptr @leval(ptr noundef %0, ptr noundef %1) #6 {
   store i64 %696, ptr @gc_cells_allocated, align 8, !tbaa !10
   br label %745
 
-697:                                              ; preds = %593, %582
+697:                                              ; preds = %582, %593
   %698 = load i64, ptr @gc_kind_copying, align 8, !tbaa !10
   %699 = icmp eq i64 %698, 1
   br i1 %699, label %700, label %708
@@ -4740,7 +4742,7 @@ define dso_local noalias ptr @lerr(ptr noundef %0, ptr noundef %1) #6 {
   %22 = load ptr, ptr %21, align 8, !tbaa !9
   br label %25
 
-23:                                               ; preds = %4, %11, %7, %2
+23:                                               ; preds = %4, %7, %11, %2
   %24 = tail call ptr @err(ptr noundef nonnull @.str.25, ptr noundef %0)
   br label %25
 
@@ -5197,8 +5199,8 @@ define dso_local ptr @plus(ptr noundef %0, ptr noundef %1) #6 {
   store double %56, ptr %97, align 8, !tbaa !9
   br label %98
 
-98:                                               ; preds = %94, %68, %34, %9, %5
-  %99 = phi ptr [ %0, %5 ], [ %11, %9 ], [ %35, %34 ], [ %71, %68 ], [ %95, %94 ]
+98:                                               ; preds = %94, %68, %9, %34, %5
+  %99 = phi ptr [ %11, %9 ], [ %35, %34 ], [ %0, %5 ], [ %71, %68 ], [ %95, %94 ]
   ret ptr %99
 }
 
@@ -5213,8 +5215,8 @@ define dso_local ptr @ltimes(ptr noundef %0, ptr noundef %1) #6 {
 
 6:                                                ; preds = %5
   %7 = load i64, ptr @inums_dim, align 8, !tbaa !10
-  %8 = icmp sgt i64 %7, 1
-  br i1 %8, label %9, label %13
+  %8 = icmp slt i64 %7, 2
+  br i1 %8, label %13, label %9
 
 9:                                                ; preds = %6
   %10 = load ptr, ptr @inums, align 8, !tbaa !5
@@ -5370,8 +5372,8 @@ define dso_local ptr @ltimes(ptr noundef %0, ptr noundef %1) #6 {
   store double %57, ptr %98, align 8, !tbaa !9
   br label %99
 
-99:                                               ; preds = %95, %69, %35, %9, %5
-  %100 = phi ptr [ %0, %5 ], [ %12, %9 ], [ %36, %35 ], [ %72, %69 ], [ %96, %95 ]
+99:                                               ; preds = %95, %69, %9, %35, %5
+  %100 = phi ptr [ %12, %9 ], [ %36, %35 ], [ %0, %5 ], [ %72, %69 ], [ %96, %95 ]
   ret ptr %100
 }
 
@@ -5836,8 +5838,8 @@ define dso_local ptr @lllabs(ptr noundef %0) #6 {
   store double %14, ptr %55, align 8, !tbaa !9
   br label %56
 
-56:                                               ; preds = %52, %26, %9
-  %57 = phi ptr [ %0, %9 ], [ %29, %26 ], [ %53, %52 ]
+56:                                               ; preds = %9, %52, %26
+  %57 = phi ptr [ %29, %26 ], [ %53, %52 ], [ %0, %9 ]
   ret ptr %57
 }
 
@@ -6354,14 +6356,14 @@ define dso_local ptr @symbol_boundp(ptr noundef %0, ptr noundef %1) #6 {
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @envlookup(ptr noundef readnone %0, ptr noundef %1) #6 {
   %3 = icmp eq ptr %1, null
-  br i1 %3, label %84, label %4
+  br i1 %3, label %59, label %4
 
-4:                                                ; preds = %2, %78
-  %5 = phi ptr [ %80, %78 ], [ %1, %2 ]
+4:                                                ; preds = %2, %53
+  %5 = phi ptr [ %55, %53 ], [ %1, %2 ]
   %6 = getelementptr inbounds %struct.obj, ptr %5, i64 0, i32 1
   %7 = load i16, ptr %6, align 2, !tbaa !14
   %8 = icmp eq i16 %7, 1
-  br i1 %8, label %9, label %82
+  br i1 %8, label %9, label %57
 
 9:                                                ; preds = %4
   %10 = getelementptr inbounds %struct.obj, ptr %5, i64 0, i32 2
@@ -6383,7 +6385,7 @@ define dso_local ptr @envlookup(ptr noundef readnone %0, ptr noundef %1) #6 {
   %20 = getelementptr inbounds %struct.obj, ptr %11, i64 0, i32 2
   %21 = load ptr, ptr %20, align 8, !tbaa !9
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %78, label %23
+  br i1 %22, label %53, label %23
 
 23:                                               ; preds = %19, %43
   %24 = phi ptr [ %27, %43 ], [ %11, %19 ]
@@ -6413,84 +6415,37 @@ define dso_local ptr @envlookup(ptr noundef readnone %0, ptr noundef %1) #6 {
   %40 = getelementptr inbounds %struct.obj, ptr %25, i64 0, i32 2
   %41 = load ptr, ptr %40, align 8, !tbaa !9
   %42 = icmp eq ptr %41, %0
-  br i1 %42, label %84, label %43
+  br i1 %42, label %59, label %43
 
 43:                                               ; preds = %39
   %44 = getelementptr inbounds %struct.obj, ptr %25, i64 0, i32 2, i32 0, i32 1
   %45 = load ptr, ptr %44, align 8, !tbaa !9
   %46 = icmp eq ptr %45, null
-  br i1 %46, label %78, label %23, !llvm.loop !54
+  br i1 %46, label %53, label %23, !llvm.loop !54
 
 47:                                               ; preds = %23
   %48 = icmp eq i16 %29, 3
   %49 = icmp eq ptr %25, %0
   %50 = select i1 %48, i1 %49, i1 false
-  br i1 %50, label %51, label %78
+  br i1 %50, label %51, label %53
 
 51:                                               ; preds = %47
-  %52 = load i64, ptr @gc_kind_copying, align 8, !tbaa !10
-  %53 = icmp eq i64 %52, 1
-  br i1 %53, label %54, label %62
+  %52 = tail call ptr @cons(ptr noundef %27, ptr noundef null)
+  br label %59
 
-54:                                               ; preds = %51
-  %55 = load ptr, ptr @heap, align 8, !tbaa !5
-  %56 = load ptr, ptr @heap_end, align 8, !tbaa !5
-  %57 = icmp ult ptr %55, %56
-  br i1 %57, label %60, label %58
+53:                                               ; preds = %43, %19, %47
+  %54 = getelementptr inbounds %struct.obj, ptr %5, i64 0, i32 2, i32 0, i32 1
+  %55 = load ptr, ptr %54, align 8, !tbaa !9
+  %56 = icmp eq ptr %55, null
+  br i1 %56, label %59, label %4, !llvm.loop !55
 
-58:                                               ; preds = %54
-  %59 = tail call ptr @err(ptr noundef nonnull @.str.26, ptr noundef null)
-  br label %60
+57:                                               ; preds = %4
+  %58 = tail call ptr @err(ptr noundef nonnull @.str.87, ptr noundef nonnull %1)
+  br label %59
 
-60:                                               ; preds = %58, %54
-  %61 = getelementptr inbounds %struct.obj, ptr %55, i64 1
-  store ptr %61, ptr @heap, align 8, !tbaa !5
-  br label %73
-
-62:                                               ; preds = %51
-  %63 = load ptr, ptr @freelist, align 8, !tbaa !5
-  %64 = icmp eq ptr %63, null
-  br i1 %64, label %65, label %67
-
-65:                                               ; preds = %62
-  tail call void @gc_for_newcell()
-  %66 = load ptr, ptr @freelist, align 8, !tbaa !5
-  br label %67
-
-67:                                               ; preds = %65, %62
-  %68 = phi ptr [ %66, %65 ], [ %63, %62 ]
-  %69 = getelementptr inbounds %struct.obj, ptr %68, i64 0, i32 2, i32 0, i32 1
-  %70 = load ptr, ptr %69, align 8, !tbaa !9
-  store ptr %70, ptr @freelist, align 8, !tbaa !5
-  %71 = load i64, ptr @gc_cells_allocated, align 8, !tbaa !10
-  %72 = add nsw i64 %71, 1
-  store i64 %72, ptr @gc_cells_allocated, align 8, !tbaa !10
-  br label %73
-
-73:                                               ; preds = %60, %67
-  %74 = phi ptr [ %55, %60 ], [ %68, %67 ]
-  store i16 0, ptr %74, align 8, !tbaa !35
-  %75 = getelementptr inbounds %struct.obj, ptr %74, i64 0, i32 1
-  store i16 1, ptr %75, align 2, !tbaa !14
-  %76 = getelementptr inbounds %struct.obj, ptr %74, i64 0, i32 2
-  store ptr %27, ptr %76, align 8, !tbaa !9
-  %77 = getelementptr inbounds %struct.obj, ptr %74, i64 0, i32 2, i32 0, i32 1
-  store ptr null, ptr %77, align 8, !tbaa !9
-  br label %84
-
-78:                                               ; preds = %43, %19, %47
-  %79 = getelementptr inbounds %struct.obj, ptr %5, i64 0, i32 2, i32 0, i32 1
-  %80 = load ptr, ptr %79, align 8, !tbaa !9
-  %81 = icmp eq ptr %80, null
-  br i1 %81, label %84, label %4, !llvm.loop !55
-
-82:                                               ; preds = %4
-  %83 = tail call ptr @err(ptr noundef nonnull @.str.87, ptr noundef nonnull %1)
-  br label %84
-
-84:                                               ; preds = %78, %39, %2, %82, %73
-  %85 = phi ptr [ %74, %73 ], [ null, %82 ], [ null, %2 ], [ %27, %39 ], [ null, %78 ]
-  ret ptr %85
+59:                                               ; preds = %53, %39, %2, %57, %51
+  %60 = phi ptr [ %52, %51 ], [ null, %57 ], [ null, %2 ], [ %27, %39 ], [ null, %53 ]
+  ret ptr %60
 }
 
 ; Function Attrs: nounwind uwtable
@@ -6556,73 +6511,73 @@ declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #16
 define dso_local ptr @gen_intern(ptr noundef %0, i64 noundef %1) local_unnamed_addr #6 {
   %3 = load i64, ptr @nointerrupt, align 8, !tbaa !10
   store i64 1, ptr @nointerrupt, align 8, !tbaa !10
-  %4 = load i64, ptr @interrupt_differed, align 8
-  %5 = load i64, ptr @obarray_dim, align 8, !tbaa !10
-  %6 = icmp sgt i64 %5, 1
-  br i1 %6, label %7, label %25
+  %4 = load i64, ptr @obarray_dim, align 8, !tbaa !10
+  %5 = icmp sgt i64 %4, 1
+  br i1 %5, label %6, label %24
 
-7:                                                ; preds = %2
-  %8 = load i8, ptr %0, align 1, !tbaa !9
-  %9 = icmp eq i8 %8, 0
-  br i1 %9, label %21, label %10
+6:                                                ; preds = %2
+  %7 = load i8, ptr %0, align 1, !tbaa !9
+  %8 = icmp eq i8 %7, 0
+  br i1 %8, label %20, label %9
 
-10:                                               ; preds = %7, %10
-  %11 = phi i8 [ %19, %10 ], [ %8, %7 ]
-  %12 = phi i64 [ %18, %10 ], [ 0, %7 ]
-  %13 = phi ptr [ %15, %10 ], [ %0, %7 ]
-  %14 = sext i8 %11 to i64
-  %15 = getelementptr inbounds i8, ptr %13, i64 1
-  %16 = mul nsw i64 %12, 17
-  %17 = xor i64 %16, %14
-  %18 = srem i64 %17, %5
-  %19 = load i8, ptr %15, align 1, !tbaa !9
-  %20 = icmp eq i8 %19, 0
-  br i1 %20, label %21, label %10, !llvm.loop !56
+9:                                                ; preds = %6, %9
+  %10 = phi i8 [ %18, %9 ], [ %7, %6 ]
+  %11 = phi i64 [ %17, %9 ], [ 0, %6 ]
+  %12 = phi ptr [ %14, %9 ], [ %0, %6 ]
+  %13 = sext i8 %10 to i64
+  %14 = getelementptr inbounds i8, ptr %12, i64 1
+  %15 = mul nsw i64 %11, 17
+  %16 = xor i64 %15, %13
+  %17 = srem i64 %16, %4
+  %18 = load i8, ptr %14, align 1, !tbaa !9
+  %19 = icmp eq i8 %18, 0
+  br i1 %19, label %20, label %9, !llvm.loop !56
 
-21:                                               ; preds = %10, %7
-  %22 = phi i64 [ 0, %7 ], [ %18, %10 ]
-  %23 = load ptr, ptr @obarray, align 8, !tbaa !5
-  %24 = getelementptr inbounds ptr, ptr %23, i64 %22
-  br label %25
+20:                                               ; preds = %9, %6
+  %21 = phi i64 [ 0, %6 ], [ %17, %9 ]
+  %22 = load ptr, ptr @obarray, align 8, !tbaa !5
+  %23 = getelementptr inbounds ptr, ptr %22, i64 %21
+  br label %24
 
-25:                                               ; preds = %2, %21
-  %26 = phi i64 [ %22, %21 ], [ 0, %2 ]
-  %27 = phi ptr [ %24, %21 ], [ @oblistvar, %2 ]
-  %28 = load ptr, ptr %27, align 8, !tbaa !5
-  %29 = icmp eq ptr %28, null
-  br i1 %29, label %50, label %30
+24:                                               ; preds = %2, %20
+  %25 = phi i64 [ %21, %20 ], [ 0, %2 ]
+  %26 = phi ptr [ %23, %20 ], [ @oblistvar, %2 ]
+  %27 = load ptr, ptr %26, align 8, !tbaa !5
+  %28 = icmp eq ptr %27, null
+  br i1 %28, label %50, label %29
 
-30:                                               ; preds = %25, %46
-  %31 = phi ptr [ %48, %46 ], [ %28, %25 ]
-  %32 = getelementptr inbounds %struct.obj, ptr %31, i64 0, i32 2
-  %33 = load ptr, ptr %32, align 8, !tbaa !9
-  %34 = getelementptr inbounds %struct.obj, ptr %33, i64 0, i32 2
-  %35 = load ptr, ptr %34, align 8, !tbaa !9
-  %36 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %35) #34
-  %37 = icmp eq i32 %36, 0
-  br i1 %37, label %38, label %46
+29:                                               ; preds = %24, %46
+  %30 = phi ptr [ %48, %46 ], [ %27, %24 ]
+  %31 = getelementptr inbounds %struct.obj, ptr %30, i64 0, i32 2
+  %32 = load ptr, ptr %31, align 8, !tbaa !9
+  %33 = getelementptr inbounds %struct.obj, ptr %32, i64 0, i32 2
+  %34 = load ptr, ptr %33, align 8, !tbaa !9
+  %35 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %34) #34
+  %36 = icmp eq i32 %35, 0
+  br i1 %36, label %37, label %46
 
-38:                                               ; preds = %30
+37:                                               ; preds = %29
   store i64 %3, ptr @nointerrupt, align 8, !tbaa !10
-  %39 = icmp eq i64 %3, 0
-  %40 = icmp eq i64 %4, 1
-  %41 = select i1 %39, i1 %40, i1 false
+  %38 = icmp eq i64 %3, 0
+  %39 = load i64, ptr @interrupt_differed, align 8
+  %40 = icmp eq i64 %39, 1
+  %41 = select i1 %38, i1 %40, i1 false
   br i1 %41, label %42, label %156
 
-42:                                               ; preds = %38
-  %43 = getelementptr inbounds %struct.obj, ptr %31, i64 0, i32 2
+42:                                               ; preds = %37
+  %43 = getelementptr inbounds %struct.obj, ptr %30, i64 0, i32 2
   store i64 0, ptr @interrupt_differed, align 8, !tbaa !10
   %44 = tail call ptr @err(ptr noundef nonnull @.str.13, ptr noundef null)
   %45 = load ptr, ptr %43, align 8, !tbaa !9
   br label %156
 
-46:                                               ; preds = %30
-  %47 = getelementptr inbounds %struct.obj, ptr %31, i64 0, i32 2, i32 0, i32 1
+46:                                               ; preds = %29
+  %47 = getelementptr inbounds %struct.obj, ptr %30, i64 0, i32 2, i32 0, i32 1
   %48 = load ptr, ptr %47, align 8, !tbaa !9
   %49 = icmp eq ptr %48, null
-  br i1 %49, label %50, label %30, !llvm.loop !57
+  br i1 %49, label %50, label %29, !llvm.loop !57
 
-50:                                               ; preds = %46, %25
+50:                                               ; preds = %46, %24
   %51 = icmp eq i64 %1, 1
   br i1 %51, label %52, label %62
 
@@ -6745,9 +6700,9 @@ define dso_local ptr @gen_intern(ptr noundef %0, i64 noundef %1) local_unnamed_a
   %118 = getelementptr inbounds %struct.obj, ptr %116, i64 0, i32 2
   store ptr %87, ptr %118, align 8, !tbaa !9
   %119 = getelementptr inbounds %struct.obj, ptr %116, i64 0, i32 2, i32 0, i32 1
-  store ptr %28, ptr %119, align 8, !tbaa !9
+  store ptr %27, ptr %119, align 8, !tbaa !9
   %120 = load ptr, ptr @obarray, align 8, !tbaa !5
-  %121 = getelementptr inbounds ptr, ptr %120, i64 %26
+  %121 = getelementptr inbounds ptr, ptr %120, i64 %25
   store ptr %116, ptr %121, align 8, !tbaa !5
   br label %122
 
@@ -6814,8 +6769,8 @@ define dso_local ptr @gen_intern(ptr noundef %0, i64 noundef %1) local_unnamed_a
   %155 = tail call ptr @err(ptr noundef nonnull @.str.13, ptr noundef null)
   br label %156
 
-156:                                              ; preds = %42, %38, %154, %145
-  %157 = phi ptr [ %87, %145 ], [ %87, %154 ], [ %33, %38 ], [ %45, %42 ]
+156:                                              ; preds = %42, %37, %154, %145
+  %157 = phi ptr [ %87, %145 ], [ %87, %154 ], [ %32, %37 ], [ %45, %42 ]
   ret ptr %157
 }
 
@@ -7187,7 +7142,7 @@ define dso_local void @scan_registers() local_unnamed_addr #6 {
   br i1 %74, label %75, label %77
 
 75:                                               ; preds = %72
-  %76 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.241)
+  %76 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.242)
   br label %77
 
 77:                                               ; preds = %75, %72
@@ -9631,7 +9586,7 @@ define dso_local void @gc_mark_and_sweep() local_unnamed_addr #6 {
   br i1 %16, label %17, label %19
 
 17:                                               ; preds = %0
-  %18 = call i32 @puts(ptr nonnull dereferenceable(1) @str.242)
+  %18 = call i32 @puts(ptr nonnull dereferenceable(1) @str.241)
   br label %19
 
 19:                                               ; preds = %0, %17
@@ -10000,7 +9955,7 @@ define dso_local void @gc_ms_stats_start() local_unnamed_addr #1 {
   br i1 %14, label %15, label %17
 
 15:                                               ; preds = %0
-  %16 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.242)
+  %16 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.241)
   br label %17
 
 17:                                               ; preds = %15, %0
@@ -10516,24 +10471,24 @@ define dso_local noalias ptr @user_gc(ptr noundef %0) #6 {
   %11 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 1
   %12 = load i16, ptr %11, align 2, !tbaa !14
   %13 = sext i16 %12 to i32
-  switch i32 %13, label %14 [
+  switch i32 %13, label %19 [
     i32 0, label %21
-    i32 1, label %16
+    i32 1, label %14
   ]
 
 14:                                               ; preds = %10
-  %15 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %0)
+  %15 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2
+  %16 = load ptr, ptr %15, align 8, !tbaa !9
+  %17 = icmp ne ptr %16, null
+  %18 = zext i1 %17 to i64
   br label %21
 
-16:                                               ; preds = %10
-  %17 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2
-  %18 = load ptr, ptr %17, align 8, !tbaa !9
-  %19 = icmp ne ptr %18, null
-  %20 = zext i1 %19 to i64
+19:                                               ; preds = %10
+  %20 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %0)
   br label %21
 
-21:                                               ; preds = %16, %14, %10
-  %22 = phi i64 [ 0, %10 ], [ 0, %14 ], [ %20, %16 ]
+21:                                               ; preds = %14, %10, %19
+  %22 = phi i64 [ 0, %19 ], [ 0, %10 ], [ %18, %14 ]
   store i64 %22, ptr @gc_status_flag, align 8, !tbaa !10
   br label %23
 
@@ -10620,24 +10575,24 @@ define dso_local noalias ptr @gc_status(ptr noundef %0) #6 {
   %4 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 1
   %5 = load i16, ptr %4, align 2, !tbaa !14
   %6 = sext i16 %5 to i32
-  switch i32 %6, label %7 [
+  switch i32 %6, label %12 [
     i32 0, label %14
-    i32 1, label %9
+    i32 1, label %7
   ]
 
 7:                                                ; preds = %3
-  %8 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %0)
+  %8 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2
+  %9 = load ptr, ptr %8, align 8, !tbaa !9
+  %10 = icmp ne ptr %9, null
+  %11 = zext i1 %10 to i64
   br label %14
 
-9:                                                ; preds = %3
-  %10 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 8, !tbaa !9
-  %12 = icmp ne ptr %11, null
-  %13 = zext i1 %12 to i64
+12:                                               ; preds = %3
+  %13 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %0)
   br label %14
 
-14:                                               ; preds = %9, %7, %3
-  %15 = phi i64 [ 0, %3 ], [ 0, %7 ], [ %13, %9 ]
+14:                                               ; preds = %7, %3, %12
+  %15 = phi i64 [ 0, %12 ], [ 0, %3 ], [ %11, %7 ]
   store i64 %15, ptr @gc_status_flag, align 8, !tbaa !10
   br label %16
 
@@ -11167,8 +11122,8 @@ define dso_local ptr @gc_info(ptr noundef %0) #6 {
   store double %186, ptr %223, align 8, !tbaa !9
   br label %224
 
-224:                                              ; preds = %220, %198, %149, %123, %105, %79, %61, %35, %1, %3
-  %225 = phi ptr [ %7, %3 ], [ null, %1 ], [ %38, %35 ], [ %62, %61 ], [ %82, %79 ], [ %106, %105 ], [ %126, %123 ], [ %150, %149 ], [ %201, %198 ], [ %221, %220 ]
+224:                                              ; preds = %1, %220, %198, %149, %123, %105, %79, %61, %35, %3
+  %225 = phi ptr [ %7, %3 ], [ %38, %35 ], [ %62, %61 ], [ %82, %79 ], [ %106, %105 ], [ %126, %123 ], [ %150, %149 ], [ %201, %198 ], [ %221, %220 ], [ null, %1 ]
   ret ptr %225
 }
 
@@ -12837,17 +12792,17 @@ define dso_local ptr @syntax_define(ptr noundef %0) local_unnamed_addr #6 {
 
 16:                                               ; preds = %12
   %17 = icmp eq i16 %7, 1
-  br i1 %17, label %18, label %22
+  br i1 %17, label %20, label %18
 
 18:                                               ; preds = %16
-  %19 = getelementptr inbounds %struct.obj, ptr %14, i64 0, i32 1
-  %20 = load i16, ptr %19, align 2, !tbaa !14
-  %21 = icmp eq i16 %20, 3
-  br i1 %21, label %182, label %29
-
-22:                                               ; preds = %16
-  %23 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %3)
+  %19 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %3)
   unreachable
+
+20:                                               ; preds = %16
+  %21 = getelementptr inbounds %struct.obj, ptr %14, i64 0, i32 1
+  %22 = load i16, ptr %21, align 2, !tbaa !14
+  %23 = icmp eq i16 %22, 3
+  br i1 %23, label %182, label %29
 
 24:                                               ; preds = %5, %9, %12
   %25 = phi i16 [ %7, %5 ], [ %11, %9 ], [ %7, %12 ]
@@ -12861,7 +12816,7 @@ define dso_local ptr @syntax_define(ptr noundef %0) local_unnamed_addr #6 {
   %28 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %3)
   br label %42
 
-29:                                               ; preds = %18, %24
+29:                                               ; preds = %20, %24
   %30 = getelementptr inbounds %struct.obj, ptr %3, i64 0, i32 2
   %31 = load ptr, ptr %30, align 8, !tbaa !9
   %32 = icmp eq ptr %31, null
@@ -13144,7 +13099,7 @@ define dso_local ptr @syntax_define(ptr noundef %0) local_unnamed_addr #6 {
   store ptr %152, ptr %181, align 8, !tbaa !9
   br label %2
 
-182:                                              ; preds = %18
+182:                                              ; preds = %20
   ret ptr %3
 }
 
@@ -13152,298 +13107,305 @@ define dso_local ptr @syntax_define(ptr noundef %0) local_unnamed_addr #6 {
 define dso_local ptr @leval_define(ptr noundef %0, ptr noundef %1) #6 {
   %3 = tail call ptr @syntax_define(ptr noundef %0)
   %4 = icmp eq ptr %3, null
-  br i1 %4, label %19, label %5
+  br i1 %4, label %25, label %5
 
 5:                                                ; preds = %2
   %6 = getelementptr inbounds %struct.obj, ptr %3, i64 0, i32 1
   %7 = load i16, ptr %6, align 2, !tbaa !14
   %8 = sext i16 %7 to i32
   switch i32 %8, label %9 [
-    i32 0, label %21
+    i32 0, label %23
     i32 1, label %11
   ]
 
 9:                                                ; preds = %5
   %10 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %3)
-  br label %21
+  br label %23
 
 11:                                               ; preds = %5
   %12 = getelementptr inbounds %struct.obj, ptr %3, i64 0, i32 2
   %13 = load ptr, ptr %12, align 8, !tbaa !9
   %14 = icmp eq ptr %13, null
-  br i1 %14, label %21, label %15
+  br i1 %14, label %15, label %17
 
 15:                                               ; preds = %11
-  %16 = getelementptr inbounds %struct.obj, ptr %13, i64 0, i32 1
-  %17 = load i16, ptr %16, align 2, !tbaa !14
-  %18 = icmp eq i16 %17, 3
-  br i1 %18, label %24, label %21
+  %16 = tail call ptr @err(ptr noundef nonnull @.str.93, ptr noundef null)
+  br label %27
 
-19:                                               ; preds = %2
-  %20 = tail call ptr @err(ptr noundef nonnull @.str.93, ptr noundef null)
-  br label %43
+17:                                               ; preds = %11
+  %18 = getelementptr inbounds %struct.obj, ptr %13, i64 0, i32 1
+  %19 = load i16, ptr %18, align 2, !tbaa !14
+  %20 = icmp eq i16 %19, 3
+  br i1 %20, label %27, label %21
 
-21:                                               ; preds = %5, %9, %11, %15
-  %22 = phi ptr [ %13, %15 ], [ %13, %11 ], [ null, %9 ], [ null, %5 ]
-  %23 = tail call ptr @err(ptr noundef nonnull @.str.93, ptr noundef %22)
-  br label %24
+21:                                               ; preds = %17
+  %22 = tail call ptr @err(ptr noundef nonnull @.str.93, ptr noundef nonnull %13)
+  br label %27
 
-24:                                               ; preds = %21, %15
-  %25 = phi ptr [ %13, %15 ], [ %22, %21 ]
-  %26 = load i16, ptr %6, align 2, !tbaa !14
-  %27 = sext i16 %26 to i32
-  switch i32 %27, label %28 [
-    i32 0, label %43
-    i32 1, label %30
+23:                                               ; preds = %9, %5
+  %24 = tail call ptr @err(ptr noundef nonnull @.str.93, ptr noundef null)
+  br label %27
+
+25:                                               ; preds = %2
+  %26 = tail call ptr @err(ptr noundef nonnull @.str.93, ptr noundef null)
+  br label %46
+
+27:                                               ; preds = %17, %23, %15, %21
+  %28 = phi ptr [ %13, %21 ], [ null, %15 ], [ null, %23 ], [ %13, %17 ]
+  %29 = load i16, ptr %6, align 2, !tbaa !14
+  %30 = sext i16 %29 to i32
+  switch i32 %30, label %31 [
+    i32 0, label %46
+    i32 1, label %33
   ]
 
-28:                                               ; preds = %24
-  %29 = tail call ptr @err(ptr noundef nonnull @.str.28, ptr noundef nonnull %3)
-  br label %43
+31:                                               ; preds = %27
+  %32 = tail call ptr @err(ptr noundef nonnull @.str.28, ptr noundef nonnull %3)
+  br label %46
 
-30:                                               ; preds = %24
-  %31 = getelementptr inbounds %struct.obj, ptr %3, i64 0, i32 2, i32 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !9
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %43, label %34
+33:                                               ; preds = %27
+  %34 = getelementptr inbounds %struct.obj, ptr %3, i64 0, i32 2, i32 0, i32 1
+  %35 = load ptr, ptr %34, align 8, !tbaa !9
+  %36 = icmp eq ptr %35, null
+  br i1 %36, label %46, label %37
 
-34:                                               ; preds = %30
-  %35 = getelementptr inbounds %struct.obj, ptr %32, i64 0, i32 1
-  %36 = load i16, ptr %35, align 2, !tbaa !14
-  %37 = sext i16 %36 to i32
-  switch i32 %37, label %41 [
-    i32 0, label %43
-    i32 1, label %38
+37:                                               ; preds = %33
+  %38 = getelementptr inbounds %struct.obj, ptr %35, i64 0, i32 1
+  %39 = load i16, ptr %38, align 2, !tbaa !14
+  %40 = sext i16 %39 to i32
+  switch i32 %40, label %44 [
+    i32 0, label %46
+    i32 1, label %41
   ]
 
-38:                                               ; preds = %34
-  %39 = getelementptr inbounds %struct.obj, ptr %32, i64 0, i32 2
-  %40 = load ptr, ptr %39, align 8, !tbaa !9
-  br label %43
+41:                                               ; preds = %37
+  %42 = getelementptr inbounds %struct.obj, ptr %35, i64 0, i32 2
+  %43 = load ptr, ptr %42, align 8, !tbaa !9
+  br label %46
 
-41:                                               ; preds = %34
-  %42 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %32)
-  br label %43
+44:                                               ; preds = %37
+  %45 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %35)
+  br label %46
 
-43:                                               ; preds = %19, %24, %28, %30, %34, %38, %41
-  %44 = phi ptr [ %25, %41 ], [ %25, %38 ], [ %25, %34 ], [ %25, %30 ], [ null, %19 ], [ %25, %24 ], [ %25, %28 ]
-  %45 = phi ptr [ null, %41 ], [ %40, %38 ], [ null, %34 ], [ null, %30 ], [ null, %19 ], [ null, %24 ], [ null, %28 ]
-  %46 = tail call ptr @leval(ptr noundef %45, ptr noundef %1)
-  %47 = tail call ptr @envlookup(ptr noundef %44, ptr noundef %1)
-  %48 = icmp eq ptr %47, null
-  br i1 %48, label %51, label %49
+46:                                               ; preds = %25, %27, %31, %33, %37, %41, %44
+  %47 = phi ptr [ %28, %44 ], [ %28, %41 ], [ %28, %37 ], [ %28, %33 ], [ null, %25 ], [ %28, %27 ], [ %28, %31 ]
+  %48 = phi ptr [ null, %44 ], [ %43, %41 ], [ null, %37 ], [ null, %33 ], [ null, %25 ], [ null, %27 ], [ null, %31 ]
+  %49 = tail call ptr @leval(ptr noundef %48, ptr noundef %1)
+  %50 = tail call ptr @envlookup(ptr noundef %47, ptr noundef %1)
+  %51 = icmp eq ptr %50, null
+  br i1 %51, label %54, label %52
 
-49:                                               ; preds = %43
-  %50 = getelementptr inbounds %struct.obj, ptr %47, i64 0, i32 2
-  store ptr %46, ptr %50, align 8, !tbaa !9
-  br label %159
+52:                                               ; preds = %46
+  %53 = getelementptr inbounds %struct.obj, ptr %50, i64 0, i32 2
+  store ptr %49, ptr %53, align 8, !tbaa !9
+  br label %162
 
-51:                                               ; preds = %43
-  %52 = icmp eq ptr %1, null
-  br i1 %52, label %53, label %55
+54:                                               ; preds = %46
+  %55 = icmp eq ptr %1, null
+  br i1 %55, label %56, label %58
 
-53:                                               ; preds = %51
-  %54 = getelementptr inbounds %struct.obj, ptr %44, i64 0, i32 2, i32 0, i32 1
-  store ptr %46, ptr %54, align 8, !tbaa !9
-  br label %159
+56:                                               ; preds = %54
+  %57 = getelementptr inbounds %struct.obj, ptr %47, i64 0, i32 2, i32 0, i32 1
+  store ptr %49, ptr %57, align 8, !tbaa !9
+  br label %162
 
-55:                                               ; preds = %51
-  %56 = getelementptr inbounds %struct.obj, ptr %1, i64 0, i32 1
-  %57 = load i16, ptr %56, align 2, !tbaa !14
-  %58 = sext i16 %57 to i32
-  switch i32 %58, label %59 [
-    i32 0, label %74
-    i32 1, label %61
+58:                                               ; preds = %54
+  %59 = getelementptr inbounds %struct.obj, ptr %1, i64 0, i32 1
+  %60 = load i16, ptr %59, align 2, !tbaa !14
+  %61 = sext i16 %60 to i32
+  switch i32 %61, label %62 [
+    i32 0, label %77
+    i32 1, label %64
   ]
 
-59:                                               ; preds = %55
-  %60 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %1)
-  br label %74
+62:                                               ; preds = %58
+  %63 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %1)
+  br label %77
 
-61:                                               ; preds = %55
-  %62 = getelementptr inbounds %struct.obj, ptr %1, i64 0, i32 2
-  %63 = load ptr, ptr %62, align 8, !tbaa !9
-  %64 = icmp eq ptr %63, null
-  br i1 %64, label %74, label %65
+64:                                               ; preds = %58
+  %65 = getelementptr inbounds %struct.obj, ptr %1, i64 0, i32 2
+  %66 = load ptr, ptr %65, align 8, !tbaa !9
+  %67 = icmp eq ptr %66, null
+  br i1 %67, label %77, label %68
 
-65:                                               ; preds = %61
-  %66 = getelementptr inbounds %struct.obj, ptr %63, i64 0, i32 1
-  %67 = load i16, ptr %66, align 2, !tbaa !14
-  %68 = sext i16 %67 to i32
-  switch i32 %68, label %72 [
-    i32 0, label %74
-    i32 1, label %69
+68:                                               ; preds = %64
+  %69 = getelementptr inbounds %struct.obj, ptr %66, i64 0, i32 1
+  %70 = load i16, ptr %69, align 2, !tbaa !14
+  %71 = sext i16 %70 to i32
+  switch i32 %71, label %75 [
+    i32 0, label %77
+    i32 1, label %72
   ]
 
-69:                                               ; preds = %65
-  %70 = getelementptr inbounds %struct.obj, ptr %63, i64 0, i32 2
-  %71 = load ptr, ptr %70, align 8, !tbaa !9
-  br label %74
+72:                                               ; preds = %68
+  %73 = getelementptr inbounds %struct.obj, ptr %66, i64 0, i32 2
+  %74 = load ptr, ptr %73, align 8, !tbaa !9
+  br label %77
 
-72:                                               ; preds = %65
-  %73 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %63)
-  br label %74
+75:                                               ; preds = %68
+  %76 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %66)
+  br label %77
 
-74:                                               ; preds = %55, %59, %61, %65, %69, %72
-  %75 = phi i1 [ false, %72 ], [ false, %69 ], [ false, %65 ], [ true, %61 ], [ true, %59 ], [ true, %55 ]
-  %76 = phi ptr [ %63, %72 ], [ %63, %69 ], [ %63, %65 ], [ null, %61 ], [ null, %59 ], [ null, %55 ]
-  %77 = phi ptr [ null, %72 ], [ %71, %69 ], [ null, %65 ], [ null, %61 ], [ null, %59 ], [ null, %55 ]
-  %78 = load i64, ptr @gc_kind_copying, align 8, !tbaa !10
-  %79 = icmp eq i64 %78, 1
-  br i1 %79, label %80, label %88
+77:                                               ; preds = %58, %62, %64, %68, %72, %75
+  %78 = phi i1 [ false, %75 ], [ false, %72 ], [ false, %68 ], [ true, %64 ], [ true, %62 ], [ true, %58 ]
+  %79 = phi ptr [ %66, %75 ], [ %66, %72 ], [ %66, %68 ], [ null, %64 ], [ null, %62 ], [ null, %58 ]
+  %80 = phi ptr [ null, %75 ], [ %74, %72 ], [ null, %68 ], [ null, %64 ], [ null, %62 ], [ null, %58 ]
+  %81 = load i64, ptr @gc_kind_copying, align 8, !tbaa !10
+  %82 = icmp eq i64 %81, 1
+  br i1 %82, label %83, label %91
 
-80:                                               ; preds = %74
-  %81 = load ptr, ptr @heap, align 8, !tbaa !5
-  %82 = load ptr, ptr @heap_end, align 8, !tbaa !5
-  %83 = icmp ult ptr %81, %82
-  br i1 %83, label %86, label %84
+83:                                               ; preds = %77
+  %84 = load ptr, ptr @heap, align 8, !tbaa !5
+  %85 = load ptr, ptr @heap_end, align 8, !tbaa !5
+  %86 = icmp ult ptr %84, %85
+  br i1 %86, label %89, label %87
 
-84:                                               ; preds = %80
-  %85 = tail call ptr @err(ptr noundef nonnull @.str.26, ptr noundef null) #38
-  br label %86
+87:                                               ; preds = %83
+  %88 = tail call ptr @err(ptr noundef nonnull @.str.26, ptr noundef null) #38
+  br label %89
 
-86:                                               ; preds = %84, %80
-  %87 = getelementptr inbounds %struct.obj, ptr %81, i64 1
-  store ptr %87, ptr @heap, align 8, !tbaa !5
-  br label %99
+89:                                               ; preds = %87, %83
+  %90 = getelementptr inbounds %struct.obj, ptr %84, i64 1
+  store ptr %90, ptr @heap, align 8, !tbaa !5
+  br label %102
 
-88:                                               ; preds = %74
-  %89 = load ptr, ptr @freelist, align 8, !tbaa !5
-  %90 = icmp eq ptr %89, null
-  br i1 %90, label %91, label %93
-
-91:                                               ; preds = %88
-  tail call void @gc_for_newcell() #38
+91:                                               ; preds = %77
   %92 = load ptr, ptr @freelist, align 8, !tbaa !5
-  br label %93
+  %93 = icmp eq ptr %92, null
+  br i1 %93, label %94, label %96
 
-93:                                               ; preds = %91, %88
-  %94 = phi ptr [ %92, %91 ], [ %89, %88 ]
-  %95 = getelementptr inbounds %struct.obj, ptr %94, i64 0, i32 2, i32 0, i32 1
-  %96 = load ptr, ptr %95, align 8, !tbaa !9
-  store ptr %96, ptr @freelist, align 8, !tbaa !5
-  %97 = load i64, ptr @gc_cells_allocated, align 8, !tbaa !10
-  %98 = add nsw i64 %97, 1
-  store i64 %98, ptr @gc_cells_allocated, align 8, !tbaa !10
-  br label %99
+94:                                               ; preds = %91
+  tail call void @gc_for_newcell() #38
+  %95 = load ptr, ptr @freelist, align 8, !tbaa !5
+  br label %96
 
-99:                                               ; preds = %86, %93
-  %100 = phi ptr [ %81, %86 ], [ %94, %93 ]
-  store i16 0, ptr %100, align 8, !tbaa !35
-  %101 = getelementptr inbounds %struct.obj, ptr %100, i64 0, i32 1
-  store i16 1, ptr %101, align 2, !tbaa !14
-  %102 = getelementptr inbounds %struct.obj, ptr %100, i64 0, i32 2
-  store ptr %44, ptr %102, align 8, !tbaa !9
-  %103 = getelementptr inbounds %struct.obj, ptr %100, i64 0, i32 2, i32 0, i32 1
-  store ptr %77, ptr %103, align 8, !tbaa !9
-  br i1 %75, label %104, label %107
+96:                                               ; preds = %94, %91
+  %97 = phi ptr [ %95, %94 ], [ %92, %91 ]
+  %98 = getelementptr inbounds %struct.obj, ptr %97, i64 0, i32 2, i32 0, i32 1
+  %99 = load ptr, ptr %98, align 8, !tbaa !9
+  store ptr %99, ptr @freelist, align 8, !tbaa !5
+  %100 = load i64, ptr @gc_cells_allocated, align 8, !tbaa !10
+  %101 = add nsw i64 %100, 1
+  store i64 %101, ptr @gc_cells_allocated, align 8, !tbaa !10
+  br label %102
 
-104:                                              ; preds = %99
-  %105 = tail call ptr @err(ptr noundef nonnull @.str.29, ptr noundef %76)
-  %106 = getelementptr inbounds %struct.obj, ptr %76, i64 0, i32 2
-  store ptr %100, ptr %106, align 8, !tbaa !9
-  br label %123
+102:                                              ; preds = %89, %96
+  %103 = phi ptr [ %84, %89 ], [ %97, %96 ]
+  store i16 0, ptr %103, align 8, !tbaa !35
+  %104 = getelementptr inbounds %struct.obj, ptr %103, i64 0, i32 1
+  store i16 1, ptr %104, align 2, !tbaa !14
+  %105 = getelementptr inbounds %struct.obj, ptr %103, i64 0, i32 2
+  store ptr %47, ptr %105, align 8, !tbaa !9
+  %106 = getelementptr inbounds %struct.obj, ptr %103, i64 0, i32 2, i32 0, i32 1
+  store ptr %80, ptr %106, align 8, !tbaa !9
+  br i1 %78, label %107, label %110
 
-107:                                              ; preds = %99
-  %108 = getelementptr inbounds %struct.obj, ptr %76, i64 0, i32 1
-  %109 = load i16, ptr %108, align 2, !tbaa !14
-  %110 = icmp eq i16 %109, 1
-  br i1 %110, label %111, label %113
+107:                                              ; preds = %102
+  %108 = tail call ptr @err(ptr noundef nonnull @.str.29, ptr noundef %79)
+  %109 = getelementptr inbounds %struct.obj, ptr %79, i64 0, i32 2
+  store ptr %103, ptr %109, align 8, !tbaa !9
+  br label %126
 
-111:                                              ; preds = %107
-  %112 = getelementptr inbounds %struct.obj, ptr %76, i64 0, i32 2
-  store ptr %100, ptr %112, align 8
-  br label %118
+110:                                              ; preds = %102
+  %111 = getelementptr inbounds %struct.obj, ptr %79, i64 0, i32 1
+  %112 = load i16, ptr %111, align 2, !tbaa !14
+  %113 = icmp eq i16 %112, 1
+  br i1 %113, label %114, label %116
 
-113:                                              ; preds = %107
-  %114 = tail call ptr @err(ptr noundef nonnull @.str.29, ptr noundef nonnull %76)
-  %115 = load i16, ptr %108, align 2, !tbaa !14
-  %116 = sext i16 %115 to i32
-  %117 = getelementptr inbounds %struct.obj, ptr %76, i64 0, i32 2
-  store ptr %100, ptr %117, align 8
-  switch i32 %116, label %121 [
-    i32 0, label %123
-    i32 1, label %118
+114:                                              ; preds = %110
+  %115 = getelementptr inbounds %struct.obj, ptr %79, i64 0, i32 2
+  store ptr %103, ptr %115, align 8
+  br label %121
+
+116:                                              ; preds = %110
+  %117 = tail call ptr @err(ptr noundef nonnull @.str.29, ptr noundef nonnull %79)
+  %118 = load i16, ptr %111, align 2, !tbaa !14
+  %119 = sext i16 %118 to i32
+  %120 = getelementptr inbounds %struct.obj, ptr %79, i64 0, i32 2
+  store ptr %103, ptr %120, align 8
+  switch i32 %119, label %124 [
+    i32 0, label %126
+    i32 1, label %121
   ]
 
-118:                                              ; preds = %111, %113
-  %119 = getelementptr inbounds %struct.obj, ptr %76, i64 0, i32 2, i32 0, i32 1
-  %120 = load ptr, ptr %119, align 8, !tbaa !9
-  br label %123
+121:                                              ; preds = %114, %116
+  %122 = getelementptr inbounds %struct.obj, ptr %79, i64 0, i32 2, i32 0, i32 1
+  %123 = load ptr, ptr %122, align 8, !tbaa !9
+  br label %126
 
-121:                                              ; preds = %113
-  %122 = tail call ptr @err(ptr noundef nonnull @.str.28, ptr noundef nonnull %76)
-  br label %123
+124:                                              ; preds = %116
+  %125 = tail call ptr @err(ptr noundef nonnull @.str.28, ptr noundef nonnull %79)
+  br label %126
 
-123:                                              ; preds = %104, %113, %118, %121
-  %124 = phi ptr [ null, %121 ], [ %120, %118 ], [ null, %113 ], [ null, %104 ]
-  %125 = load i64, ptr @gc_kind_copying, align 8, !tbaa !10
-  %126 = icmp eq i64 %125, 1
-  br i1 %126, label %127, label %135
+126:                                              ; preds = %107, %116, %121, %124
+  %127 = phi ptr [ null, %124 ], [ %123, %121 ], [ null, %116 ], [ null, %107 ]
+  %128 = load i64, ptr @gc_kind_copying, align 8, !tbaa !10
+  %129 = icmp eq i64 %128, 1
+  br i1 %129, label %130, label %138
 
-127:                                              ; preds = %123
-  %128 = load ptr, ptr @heap, align 8, !tbaa !5
-  %129 = load ptr, ptr @heap_end, align 8, !tbaa !5
-  %130 = icmp ult ptr %128, %129
-  br i1 %130, label %133, label %131
+130:                                              ; preds = %126
+  %131 = load ptr, ptr @heap, align 8, !tbaa !5
+  %132 = load ptr, ptr @heap_end, align 8, !tbaa !5
+  %133 = icmp ult ptr %131, %132
+  br i1 %133, label %136, label %134
 
-131:                                              ; preds = %127
-  %132 = tail call ptr @err(ptr noundef nonnull @.str.26, ptr noundef null) #38
-  br label %133
+134:                                              ; preds = %130
+  %135 = tail call ptr @err(ptr noundef nonnull @.str.26, ptr noundef null) #38
+  br label %136
 
-133:                                              ; preds = %131, %127
-  %134 = getelementptr inbounds %struct.obj, ptr %128, i64 1
-  store ptr %134, ptr @heap, align 8, !tbaa !5
-  br label %146
+136:                                              ; preds = %134, %130
+  %137 = getelementptr inbounds %struct.obj, ptr %131, i64 1
+  store ptr %137, ptr @heap, align 8, !tbaa !5
+  br label %149
 
-135:                                              ; preds = %123
-  %136 = load ptr, ptr @freelist, align 8, !tbaa !5
-  %137 = icmp eq ptr %136, null
-  br i1 %137, label %138, label %140
-
-138:                                              ; preds = %135
-  tail call void @gc_for_newcell() #38
+138:                                              ; preds = %126
   %139 = load ptr, ptr @freelist, align 8, !tbaa !5
-  br label %140
+  %140 = icmp eq ptr %139, null
+  br i1 %140, label %141, label %143
 
-140:                                              ; preds = %138, %135
-  %141 = phi ptr [ %139, %138 ], [ %136, %135 ]
-  %142 = getelementptr inbounds %struct.obj, ptr %141, i64 0, i32 2, i32 0, i32 1
-  %143 = load ptr, ptr %142, align 8, !tbaa !9
-  store ptr %143, ptr @freelist, align 8, !tbaa !5
-  %144 = load i64, ptr @gc_cells_allocated, align 8, !tbaa !10
-  %145 = add nsw i64 %144, 1
-  store i64 %145, ptr @gc_cells_allocated, align 8, !tbaa !10
-  br label %146
+141:                                              ; preds = %138
+  tail call void @gc_for_newcell() #38
+  %142 = load ptr, ptr @freelist, align 8, !tbaa !5
+  br label %143
 
-146:                                              ; preds = %133, %140
-  %147 = phi ptr [ %128, %133 ], [ %141, %140 ]
-  store i16 0, ptr %147, align 8, !tbaa !35
-  %148 = getelementptr inbounds %struct.obj, ptr %147, i64 0, i32 1
-  store i16 1, ptr %148, align 2, !tbaa !14
-  %149 = getelementptr inbounds %struct.obj, ptr %147, i64 0, i32 2
-  store ptr %46, ptr %149, align 8, !tbaa !9
-  %150 = getelementptr inbounds %struct.obj, ptr %147, i64 0, i32 2, i32 0, i32 1
-  store ptr %124, ptr %150, align 8, !tbaa !9
-  br i1 %75, label %155, label %151
+143:                                              ; preds = %141, %138
+  %144 = phi ptr [ %142, %141 ], [ %139, %138 ]
+  %145 = getelementptr inbounds %struct.obj, ptr %144, i64 0, i32 2, i32 0, i32 1
+  %146 = load ptr, ptr %145, align 8, !tbaa !9
+  store ptr %146, ptr @freelist, align 8, !tbaa !5
+  %147 = load i64, ptr @gc_cells_allocated, align 8, !tbaa !10
+  %148 = add nsw i64 %147, 1
+  store i64 %148, ptr @gc_cells_allocated, align 8, !tbaa !10
+  br label %149
 
-151:                                              ; preds = %146
-  %152 = getelementptr inbounds %struct.obj, ptr %76, i64 0, i32 1
-  %153 = load i16, ptr %152, align 2, !tbaa !14
-  %154 = icmp eq i16 %153, 1
-  br i1 %154, label %157, label %155
+149:                                              ; preds = %136, %143
+  %150 = phi ptr [ %131, %136 ], [ %144, %143 ]
+  store i16 0, ptr %150, align 8, !tbaa !35
+  %151 = getelementptr inbounds %struct.obj, ptr %150, i64 0, i32 1
+  store i16 1, ptr %151, align 2, !tbaa !14
+  %152 = getelementptr inbounds %struct.obj, ptr %150, i64 0, i32 2
+  store ptr %49, ptr %152, align 8, !tbaa !9
+  %153 = getelementptr inbounds %struct.obj, ptr %150, i64 0, i32 2, i32 0, i32 1
+  store ptr %127, ptr %153, align 8, !tbaa !9
+  br i1 %78, label %158, label %154
 
-155:                                              ; preds = %151, %146
-  %156 = tail call ptr @err(ptr noundef nonnull @.str.30, ptr noundef nonnull %76)
-  br label %157
+154:                                              ; preds = %149
+  %155 = getelementptr inbounds %struct.obj, ptr %79, i64 0, i32 1
+  %156 = load i16, ptr %155, align 2, !tbaa !14
+  %157 = icmp eq i16 %156, 1
+  br i1 %157, label %160, label %158
 
-157:                                              ; preds = %151, %155
-  %158 = getelementptr inbounds %struct.obj, ptr %76, i64 0, i32 2, i32 0, i32 1
-  store ptr %147, ptr %158, align 8, !tbaa !9
-  br label %159
+158:                                              ; preds = %154, %149
+  %159 = tail call ptr @err(ptr noundef nonnull @.str.30, ptr noundef nonnull %79)
+  br label %160
 
-159:                                              ; preds = %157, %53, %49
-  ret ptr %46
+160:                                              ; preds = %154, %158
+  %161 = getelementptr inbounds %struct.obj, ptr %79, i64 0, i32 2, i32 0, i32 1
+  store ptr %150, ptr %161, align 8, !tbaa !9
+  br label %162
+
+162:                                              ; preds = %160, %56, %52
+  ret ptr %49
 }
 
 ; Function Attrs: nounwind uwtable
@@ -13925,7 +13887,7 @@ define dso_local ptr @leval_progn(ptr nocapture noundef %0, ptr nocapture nounde
   %34 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %26)
   br label %35
 
-35:                                               ; preds = %33, %30, %24
+35:                                               ; preds = %24, %30, %33
   %36 = phi ptr [ null, %33 ], [ %32, %30 ], [ null, %24 ]
   %37 = tail call ptr @leval(ptr noundef %36, ptr noundef %3)
   %38 = getelementptr inbounds %struct.obj, ptr %25, i64 0, i32 1
@@ -14244,7 +14206,7 @@ define dso_local ptr @leval_catch_1(ptr noundef %0, ptr noundef %1) local_unname
   %13 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %5)
   br label %14
 
-14:                                               ; preds = %12, %9, %4
+14:                                               ; preds = %4, %9, %12
   %15 = phi ptr [ null, %12 ], [ %11, %9 ], [ null, %4 ]
   %16 = tail call ptr @leval(ptr noundef %15, ptr noundef %1)
   %17 = load i16, ptr %6, align 2, !tbaa !14
@@ -14689,7 +14651,7 @@ define dso_local ptr @letstar_macro(ptr noundef returned %0) #6 {
   store i64 %56, ptr @gc_cells_allocated, align 8, !tbaa !10
   br label %57
 
-57:                                               ; preds = %51, %44
+57:                                               ; preds = %44, %51
   %58 = phi ptr [ %39, %44 ], [ %52, %51 ]
   store i16 0, ptr %58, align 8, !tbaa !35
   %59 = getelementptr inbounds %struct.obj, ptr %58, i64 0, i32 1
@@ -15281,7 +15243,7 @@ define dso_local ptr @letrec_macro(ptr noundef returned %0) #6 {
   store i64 %112, ptr @gc_cells_allocated, align 8, !tbaa !10
   br label %113
 
-113:                                              ; preds = %107, %100
+113:                                              ; preds = %100, %107
   %114 = phi ptr [ %95, %100 ], [ %108, %107 ]
   store i16 0, ptr %114, align 8, !tbaa !35
   %115 = getelementptr inbounds %struct.obj, ptr %114, i64 0, i32 1
@@ -15369,7 +15331,7 @@ define dso_local ptr @letrec_macro(ptr noundef returned %0) #6 {
   store i64 %160, ptr @gc_cells_allocated, align 8, !tbaa !10
   br label %161
 
-161:                                              ; preds = %155, %148
+161:                                              ; preds = %148, %155
   %162 = phi ptr [ %143, %148 ], [ %156, %155 ]
   store i16 0, ptr %162, align 8, !tbaa !35
   %163 = getelementptr inbounds %struct.obj, ptr %162, i64 0, i32 1
@@ -15594,7 +15556,7 @@ define dso_local ptr @reverse(ptr noundef %0) #6 {
   store i64 %36, ptr @gc_cells_allocated, align 8, !tbaa !10
   br label %37
 
-37:                                               ; preds = %31, %24
+37:                                               ; preds = %24, %31
   %38 = phi ptr [ %19, %24 ], [ %32, %31 ]
   store i16 0, ptr %38, align 8, !tbaa !35
   %39 = getelementptr inbounds %struct.obj, ptr %38, i64 0, i32 1
@@ -16381,7 +16343,7 @@ define dso_local noalias ptr @leval_while(ptr noundef %0, ptr noundef %1) #6 {
   %40 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %32)
   br label %41
 
-41:                                               ; preds = %39, %36, %31
+41:                                               ; preds = %31, %36, %39
   %42 = phi ptr [ null, %39 ], [ %38, %36 ], [ null, %31 ]
   %43 = tail call ptr @leval(ptr noundef %42, ptr noundef %1)
   %44 = load i16, ptr %33, align 2, !tbaa !14
@@ -16454,8 +16416,8 @@ define dso_local ptr @symbolconc(ptr noundef %0) #6 {
   %32 = load ptr, ptr %25, align 8, !tbaa !9
   br label %33
 
-33:                                               ; preds = %23, %30
-  %34 = phi ptr [ %26, %23 ], [ %32, %30 ]
+33:                                               ; preds = %30, %23
+  %34 = phi ptr [ %32, %30 ], [ %26, %23 ]
   %35 = load ptr, ptr @tkbuffer, align 8, !tbaa !5
   %36 = tail call ptr @strcat(ptr noundef nonnull dereferenceable(1) %35, ptr noundef nonnull dereferenceable(1) %34) #33
   %37 = load i16, ptr %7, align 2, !tbaa !14
@@ -18695,8 +18657,8 @@ define dso_local ptr @delq(ptr noundef %0, ptr noundef %1) #6 {
   %10 = load ptr, ptr %3, align 8, !tbaa !5
   br label %11
 
-11:                                               ; preds = %5, %8
-  %12 = phi ptr [ %0, %5 ], [ %10, %8 ]
+11:                                               ; preds = %8, %5
+  %12 = phi ptr [ %10, %8 ], [ %0, %5 ]
   %13 = getelementptr inbounds %struct.obj, ptr %1, i64 0, i32 1
   %14 = load i16, ptr %13, align 2, !tbaa !14
   %15 = sext i16 %14 to i32
@@ -18757,7 +18719,7 @@ define dso_local ptr @delq(ptr noundef %0, ptr noundef %1) #6 {
   %41 = call ptr @err(ptr noundef nonnull @.str.28, ptr noundef nonnull %1)
   br label %42
 
-42:                                               ; preds = %40, %37, %36
+42:                                               ; preds = %36, %37, %40
   %43 = phi ptr [ null, %40 ], [ %39, %37 ], [ null, %36 ]
   %44 = call ptr @delq(ptr noundef %24, ptr noundef %43)
   %45 = load i16, ptr %13, align 2, !tbaa !14
@@ -19030,7 +18992,7 @@ define dso_local ptr @require(ptr noundef %0) #6 {
   %104 = tail call ptr @err(ptr noundef nonnull @.str.50, ptr noundef %97)
   br label %105
 
-105:                                              ; preds = %103, %99
+105:                                              ; preds = %99, %103
   %106 = getelementptr inbounds %struct.obj, ptr %97, i64 0, i32 2, i32 0, i32 1
   %107 = load ptr, ptr %106, align 8, !tbaa !9
   %108 = load ptr, ptr @unbound_marker, align 8, !tbaa !5
@@ -19319,7 +19281,7 @@ define dso_local ptr @save_forms(ptr noundef %0, ptr noundef %1, ptr noundef %2)
   %94 = call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %86)
   br label %95
 
-95:                                               ; preds = %93, %90, %85
+95:                                               ; preds = %85, %90, %93
   %96 = phi ptr [ null, %93 ], [ %92, %90 ], [ null, %85 ]
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #33
   store ptr null, ptr %4, align 8, !tbaa !31
@@ -26295,7 +26257,7 @@ define dso_local noalias ptr @lwhile(ptr noundef %0, ptr noundef %1) #6 {
   %40 = tail call ptr @err(ptr noundef nonnull @.str.27, ptr noundef nonnull %32)
   br label %41
 
-41:                                               ; preds = %39, %36, %31
+41:                                               ; preds = %31, %36, %39
   %42 = phi ptr [ null, %39 ], [ %38, %36 ], [ null, %31 ]
   %43 = tail call ptr @leval(ptr noundef %42, ptr noundef %1)
   %44 = load i16, ptr %33, align 2, !tbaa !14
@@ -27281,14 +27243,8 @@ declare double @strtod(ptr noundef readonly, ptr nocapture noundef) local_unname
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #30
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #30
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umax.i64(i64, i64) #31
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smin.i64(i64, i64) #31
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #31
@@ -27297,10 +27253,16 @@ declare i64 @llvm.smax.i64(i64, i64) #31
 declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #32
 
 ; Function Attrs: nofree nounwind
+declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #30
+
+; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #30
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #30
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.smin.i64(i64, i64) #31
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

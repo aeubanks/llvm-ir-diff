@@ -203,7 +203,7 @@ define internal void @_ZL9BM_SimpleRN9benchmark5StateE(ptr noundef nonnull align
   %22 = add i64 %20, %21
   br label %23
 
-23:                                               ; preds = %17, %13
+23:                                               ; preds = %13, %17
   %24 = phi i64 [ %22, %17 ], [ 0, %13 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %24) #19, !srcloc !32
   %25 = add i64 %14, -1
@@ -1023,45 +1023,45 @@ define linkonce_odr hidden noundef double @_ZNK7Results5GetAsIdEET_PKc(ptr nound
   %6 = alloca %"class.benchmark::internal::CheckHandler", align 8
   %7 = tail call noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef nonnull align 8 dereferenceable(80) %0, ptr noundef %1)
   %8 = icmp eq ptr %7, null
-  br i1 %8, label %25, label %9
+  br i1 %8, label %20, label %9
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 1
   %11 = load i64, ptr %10, align 8, !tbaa !41
   %12 = icmp eq i64 %11, 0
-  br i1 %12, label %25, label %13
+  br i1 %12, label %20, label %13
 
 13:                                               ; preds = %9
   %14 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %15 = icmp eq i8 %14, 0
-  br i1 %15, label %16, label %20, !prof !33
+  br i1 %15, label %16, label %21, !prof !33
 
 16:                                               ; preds = %13
   %17 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #19
   %18 = icmp eq i32 %17, 0
-  br i1 %18, label %20, label %19
+  br i1 %18, label %21, label %19
 
 19:                                               ; preds = %16
   store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !34
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #19
-  br label %20
+  br label %21
 
-20:                                               ; preds = %13, %16, %19
-  call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %4) #19
-  call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %4)
-  %21 = getelementptr inbounds i8, ptr %4, i64 16
-  %22 = load ptr, ptr %7, align 8, !tbaa !38
-  %23 = load i64, ptr %10, align 8, !tbaa !41
-  %24 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %21, ptr noundef %22, i64 noundef %23)
-          to label %26 unwind label %47
-
-25:                                               ; preds = %9, %2
+20:                                               ; preds = %9, %2
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #19
   call void @_ZN9benchmark8internal12CheckHandlerC2EPKcS3_S3_i(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull @.str.23, ptr noundef nonnull @.str.24, ptr noundef nonnull @__func__._ZNK7Results5GetAsIdEET_PKc, i32 noundef 144)
   call void @_ZN9benchmark8internal12CheckHandlerD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %3) #20
   unreachable
 
-26:                                               ; preds = %20
+21:                                               ; preds = %13, %16, %19
+  call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %4) #19
+  call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %4)
+  %22 = getelementptr inbounds i8, ptr %4, i64 16
+  %23 = load ptr, ptr %7, align 8, !tbaa !38
+  %24 = load i64, ptr %10, align 8, !tbaa !41
+  %25 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %22, ptr noundef %23, i64 noundef %24)
+          to label %26 unwind label %47
+
+26:                                               ; preds = %21
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #19
   %27 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSi10_M_extractIdEERSiRT_(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull align 8 dereferenceable(8) %5)
           to label %28 unwind label %49
@@ -1104,7 +1104,7 @@ define linkonce_odr hidden noundef double @_ZNK7Results5GetAsIdEET_PKc(ptr nound
 46:                                               ; preds = %45
   unreachable
 
-47:                                               ; preds = %20
+47:                                               ; preds = %21
   %48 = landingpad { ptr, i32 }
           cleanup
   br label %78
@@ -1125,7 +1125,7 @@ define linkonce_odr hidden noundef double @_ZNK7Results5GetAsIdEET_PKc(ptr nound
   %57 = getelementptr inbounds i8, ptr %4, i64 %56
   store ptr %54, ptr %57, align 8, !tbaa !43
   %58 = load ptr, ptr getelementptr inbounds ([10 x ptr], ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, i64 0, i64 9), align 8
-  store ptr %58, ptr %21, align 8, !tbaa !43
+  store ptr %58, ptr %22, align 8, !tbaa !43
   %59 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %4, i64 0, i32 1
   store ptr getelementptr inbounds ({ [16 x ptr] }, ptr @_ZTVNSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEEE, i64 0, inrange i32 0, i64 2), ptr %59, align 8, !tbaa !43
   %60 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %4, i64 0, i32 1, i32 2
@@ -1218,7 +1218,7 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %15, ptr nonnull align 1 %1, i64 %9, i1 false)
   br label %19
 
-19:                                               ; preds = %18, %16, %14
+19:                                               ; preds = %14, %16, %18
   %20 = load i64, ptr %3, align 8, !tbaa !64
   %21 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
   store i64 %20, ptr %21, align 8, !tbaa !41
@@ -1234,7 +1234,7 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
 
 28:                                               ; preds = %19
   %29 = load ptr, ptr %4, align 8, !tbaa !38
-  br label %80
+  br label %79
 
 30:                                               ; preds = %19
   %31 = load i64, ptr %21, align 8, !tbaa !41
@@ -1277,7 +1277,7 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
 
 59:                                               ; preds = %50
   %60 = icmp eq ptr %55, %26
-  br i1 %60, label %80, label %61
+  br i1 %60, label %79, label %61
 
 61:                                               ; preds = %59
   %62 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %55, i64 0, i32 1, i32 0, i64 8
@@ -1303,25 +1303,28 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
 76:                                               ; preds = %71, %66
   %77 = phi i32 [ %69, %66 ], [ %75, %71 ]
   %78 = icmp slt i32 %77, 0
-  %79 = select i1 %78, ptr %26, ptr %55
-  br label %80
+  br i1 %78, label %79, label %81
 
-80:                                               ; preds = %28, %76, %59
-  %81 = phi ptr [ %32, %59 ], [ %29, %28 ], [ %32, %76 ]
-  %82 = phi ptr [ %26, %59 ], [ %26, %28 ], [ %79, %76 ]
-  %83 = icmp eq ptr %81, %5
-  br i1 %83, label %85, label %84
+79:                                               ; preds = %28, %76, %59
+  %80 = phi ptr [ %29, %28 ], [ %32, %76 ], [ %32, %59 ]
+  br label %81
 
-84:                                               ; preds = %80
-  call void @_ZdlPv(ptr noundef %81) #22
-  br label %85
+81:                                               ; preds = %79, %76
+  %82 = phi ptr [ %80, %79 ], [ %32, %76 ]
+  %83 = phi ptr [ %26, %79 ], [ %55, %76 ]
+  %84 = icmp eq ptr %82, %5
+  br i1 %84, label %86, label %85
 
-85:                                               ; preds = %80, %84
+85:                                               ; preds = %81
+  call void @_ZdlPv(ptr noundef %82) #22
+  br label %86
+
+86:                                               ; preds = %81, %85
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #19
-  %86 = icmp eq ptr %82, %26
-  %87 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %82, i64 0, i32 1, i32 0, i64 32
-  %88 = select i1 %86, ptr null, ptr %87
-  ret ptr %88
+  %87 = icmp eq ptr %83, %26
+  %88 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %83, i64 0, i32 1, i32 0, i64 32
+  %89 = select i1 %87, ptr null, ptr %88
+  ret ptr %89
 }
 
 ; Function Attrs: uwtable

@@ -52,33 +52,33 @@ define dso_local i32 @cli_unarj_open(i32 noundef %0, ptr nocapture noundef readn
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %7) #11
   %8 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %7, i32 noundef 2) #11
   %9 = icmp eq i32 %8, 2
-  br i1 %9, label %10, label %14
+  br i1 %9, label %10, label %17
 
 10:                                               ; preds = %2
   %11 = call i32 @bcmp(ptr noundef nonnull dereferenceable(2) %7, ptr noundef nonnull dereferenceable(2) @__const.is_arj_archive.header_id, i64 2)
   %12 = icmp eq i32 %11, 0
-  br i1 %12, label %15, label %13
+  br i1 %12, label %14, label %13
 
 13:                                               ; preds = %10
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.9) #11
-  br label %14
+  br label %17
 
-14:                                               ; preds = %13, %2
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %7) #11
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.1) #11
-  br label %142
-
-15:                                               ; preds = %10
+14:                                               ; preds = %10
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %7) #11
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %3) #11
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %4) #11
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #11
   call void @llvm.lifetime.start.p0(i64 30, ptr nonnull %6) #11
-  %16 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %3, i32 noundef 2) #11
-  %17 = icmp eq i32 %16, 2
-  br i1 %17, label %18, label %141
+  %15 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %3, i32 noundef 2) #11
+  %16 = icmp eq i32 %15, 2
+  br i1 %16, label %18, label %141
 
-18:                                               ; preds = %15
+17:                                               ; preds = %13, %2
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %7) #11
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.1) #11
+  br label %142
+
+18:                                               ; preds = %14
   %19 = call i64 @lseek(i32 noundef %0, i64 noundef 0, i32 noundef 1) #11
   %20 = load i16, ptr %3, align 2, !tbaa !5
   %21 = zext i16 %20 to i32
@@ -294,7 +294,7 @@ define dso_local i32 @cli_unarj_open(i32 noundef %0, ptr nocapture noundef readn
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #11
   br label %142
 
-141:                                              ; preds = %135, %127, %27, %55, %81, %92, %112, %123, %100, %15, %18, %28, %58, %63, %124
+141:                                              ; preds = %135, %127, %124, %123, %112, %100, %92, %81, %63, %58, %55, %28, %27, %18, %14
   call void @llvm.lifetime.end.p0(i64 30, ptr nonnull %6) #11
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #11
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %4) #11
@@ -302,8 +302,8 @@ define dso_local i32 @cli_unarj_open(i32 noundef %0, ptr nocapture noundef readn
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.2) #11
   br label %142
 
-142:                                              ; preds = %140, %141, %14
-  %143 = phi i32 [ -124, %141 ], [ -124, %14 ], [ 0, %140 ]
+142:                                              ; preds = %140, %141, %17
+  %143 = phi i32 [ 0, %140 ], [ -124, %141 ], [ -124, %17 ]
   ret i32 %143
 }
 
@@ -327,32 +327,32 @@ define dso_local i32 @cli_unarj_prepare_file(i32 noundef %0, ptr noundef readnon
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %7) #11
   %14 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %7, i32 noundef 2) #11
   %15 = icmp eq i32 %14, 2
-  br i1 %15, label %16, label %20
+  br i1 %15, label %16, label %23
 
 16:                                               ; preds = %13
   %17 = call i32 @bcmp(ptr noundef nonnull dereferenceable(2) %7, ptr noundef nonnull dereferenceable(2) @__const.is_arj_archive.header_id, i64 2)
   %18 = icmp eq i32 %17, 0
-  br i1 %18, label %21, label %19
+  br i1 %18, label %20, label %19
 
 19:                                               ; preds = %16
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.9) #11
-  br label %20
+  br label %23
 
-20:                                               ; preds = %19, %13
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %7) #11
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.1) #11
-  br label %168
-
-21:                                               ; preds = %16
+20:                                               ; preds = %16
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %7) #11
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %4) #11
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %5) #11
   call void @llvm.lifetime.start.p0(i64 30, ptr nonnull %6) #11
-  %22 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %4, i32 noundef 2) #11
-  %23 = icmp eq i32 %22, 2
-  br i1 %23, label %24, label %166
+  %21 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %4, i32 noundef 2) #11
+  %22 = icmp eq i32 %21, 2
+  br i1 %22, label %24, label %166
 
-24:                                               ; preds = %21
+23:                                               ; preds = %19, %13
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %7) #11
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.1) #11
+  br label %168
+
+24:                                               ; preds = %20
   %25 = load i16, ptr %4, align 2, !tbaa !5
   %26 = zext i16 %25 to i32
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.10, i32 noundef %26) #11
@@ -591,1091 +591,581 @@ define dso_local i32 @cli_unarj_prepare_file(i32 noundef %0, ptr noundef readnon
   %165 = select i1 %164, i32 -114, i32 0
   br label %166
 
-166:                                              ; preds = %141, %149, %21, %24, %32, %33, %67, %70, %75, %93, %104, %112, %124, %135, %136, %154
-  %167 = phi i32 [ -124, %32 ], [ -124, %67 ], [ -124, %93 ], [ -124, %104 ], [ -124, %124 ], [ -124, %135 ], [ -124, %112 ], [ -124, %21 ], [ 2, %24 ], [ -124, %33 ], [ -124, %70 ], [ -114, %75 ], [ -124, %136 ], [ %165, %154 ], [ -124, %149 ], [ -124, %141 ]
+166:                                              ; preds = %141, %149, %20, %24, %32, %33, %67, %70, %75, %93, %104, %112, %124, %135, %136, %154
+  %167 = phi i32 [ -124, %32 ], [ -124, %67 ], [ -124, %93 ], [ -124, %104 ], [ -124, %124 ], [ -124, %135 ], [ -124, %112 ], [ -124, %20 ], [ 2, %24 ], [ -124, %33 ], [ -124, %70 ], [ -114, %75 ], [ -124, %136 ], [ %165, %154 ], [ -124, %149 ], [ -124, %141 ]
   call void @llvm.lifetime.end.p0(i64 30, ptr nonnull %6) #11
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %5) #11
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %4) #11
   br label %168
 
-168:                                              ; preds = %3, %166, %20
-  %169 = phi i32 [ %167, %166 ], [ -124, %20 ], [ -111, %3 ]
+168:                                              ; preds = %3, %166, %23
+  %169 = phi i32 [ %167, %166 ], [ -124, %23 ], [ -111, %3 ]
   ret i32 %169
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @cli_unarj_extract_file(i32 noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 {
   %4 = alloca %struct.arj_decode_tag, align 8
-  %5 = alloca %struct.arj_decode_tag, align 8
-  %6 = alloca [8192 x i8], align 16
-  %7 = alloca [1024 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %7) #11
+  %5 = alloca [1024 x i8], align 16
+  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %5) #11
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.4) #11
-  %8 = icmp eq ptr %2, null
-  %9 = icmp eq ptr %1, null
+  %6 = icmp eq ptr %2, null
+  %7 = icmp eq ptr %1, null
+  %8 = or i1 %7, %6
+  %9 = icmp slt i32 %0, 0
   %10 = or i1 %9, %8
-  %11 = icmp slt i32 %0, 0
-  %12 = or i1 %11, %10
-  br i1 %12, label %713, label %13
+  br i1 %10, label %370, label %11
 
-13:                                               ; preds = %3
-  %14 = getelementptr inbounds %struct.arj_metadata_tag, ptr %2, i64 0, i32 4
-  %15 = load i32, ptr %14, align 8, !tbaa !40
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %25, label %17
+11:                                               ; preds = %3
+  %12 = getelementptr inbounds %struct.arj_metadata_tag, ptr %2, i64 0, i32 4
+  %13 = load i32, ptr %12, align 8, !tbaa !40
+  %14 = icmp eq i32 %13, 0
+  br i1 %14, label %23, label %15
 
-17:                                               ; preds = %13
+15:                                               ; preds = %11
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.5) #11
-  %18 = tail call i64 @lseek(i32 noundef %0, i64 noundef 0, i32 noundef 1) #11
-  %19 = load i32, ptr %2, align 8, !tbaa !42
-  %20 = zext i32 %19 to i64
-  %21 = add nsw i64 %18, %20
-  tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.6, i64 noundef %21) #11
-  %22 = tail call i64 @lseek(i32 noundef %0, i64 noundef %21, i32 noundef 0) #11
-  %23 = icmp eq i64 %22, %21
-  %24 = select i1 %23, i32 0, i32 -127
-  br label %713
+  %16 = tail call i64 @lseek(i32 noundef %0, i64 noundef 0, i32 noundef 1) #11
+  %17 = load i32, ptr %2, align 8, !tbaa !42
+  %18 = zext i32 %17 to i64
+  %19 = add nsw i64 %16, %18
+  tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.6, i64 noundef %19) #11
+  %20 = tail call i64 @lseek(i32 noundef %0, i64 noundef %19, i32 noundef 0) #11
+  %21 = icmp eq i64 %20, %19
+  %22 = select i1 %21, i32 0, i32 -127
+  br label %370
 
-25:                                               ; preds = %13
-  %26 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %7, i64 noundef 1024, ptr noundef nonnull @.str.7, ptr noundef nonnull %1) #11
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.8, ptr noundef nonnull %7) #11
-  %27 = call i32 (ptr, i32, ...) @open(ptr noundef nonnull %7, i32 noundef 578, i32 noundef 384) #11
-  %28 = getelementptr inbounds %struct.arj_metadata_tag, ptr %2, i64 0, i32 5
-  store i32 %27, ptr %28, align 4, !tbaa !41
-  %29 = icmp slt i32 %27, 0
-  br i1 %29, label %713, label %30
+23:                                               ; preds = %11
+  %24 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %5, i64 noundef 1024, ptr noundef nonnull @.str.7, ptr noundef nonnull %1) #11
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.8, ptr noundef nonnull %5) #11
+  %25 = call i32 (ptr, i32, ...) @open(ptr noundef nonnull %5, i32 noundef 578, i32 noundef 384) #11
+  %26 = getelementptr inbounds %struct.arj_metadata_tag, ptr %2, i64 0, i32 5
+  store i32 %25, ptr %26, align 4, !tbaa !41
+  %27 = icmp slt i32 %25, 0
+  br i1 %27, label %370, label %28
 
-30:                                               ; preds = %25
-  %31 = getelementptr inbounds %struct.arj_metadata_tag, ptr %2, i64 0, i32 2
-  %32 = load i8, ptr %31, align 8, !tbaa !39
-  switch i8 %32, label %713 [
-    i8 0, label %33
-    i8 1, label %57
-    i8 2, label %57
-    i8 3, label %57
-    i8 4, label %389
+28:                                               ; preds = %23
+  %29 = getelementptr inbounds %struct.arj_metadata_tag, ptr %2, i64 0, i32 2
+  %30 = load i8, ptr %29, align 8, !tbaa !39
+  switch i8 %30, label %370 [
+    i8 0, label %31
+    i8 1, label %37
+    i8 2, label %37
+    i8 3, label %37
+    i8 4, label %369
   ]
 
-33:                                               ; preds = %30
+31:                                               ; preds = %28
+  %32 = load i32, ptr %2, align 8, !tbaa !42
+  %33 = call fastcc i32 @arj_unstore(i32 noundef %0, i32 noundef %25, i32 noundef %32)
   %34 = load i32, ptr %2, align 8, !tbaa !42
-  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %6) #11
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.28) #11
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %52, label %36
+  %35 = icmp eq i32 %33, %34
+  %36 = select i1 %35, i32 0, i32 -123
+  br label %370
 
-36:                                               ; preds = %33, %49
-  %37 = phi i32 [ %50, %49 ], [ %34, %33 ]
-  %38 = call i32 @llvm.umin.i32(i32 %37, i32 8192)
-  %39 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %6, i32 noundef %38) #11
-  %40 = icmp eq i32 %39, %38
-  br i1 %40, label %43, label %41
+37:                                               ; preds = %28, %28, %28
+  call void @llvm.lifetime.start.p0(i64 13352, ptr nonnull %4) #11
+  %38 = call ptr @cli_malloc(i64 noundef 26624) #11
+  %39 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 1
+  store ptr %38, ptr %39, align 8, !tbaa !43
+  %40 = icmp eq ptr %38, null
+  br i1 %40, label %368, label %41
 
-41:                                               ; preds = %36
-  %42 = sub i32 %34, %37
-  br label %52
+41:                                               ; preds = %37
+  store i32 %0, ptr %4, align 8, !tbaa !45
+  %42 = load i32, ptr %2, align 8, !tbaa !42
+  %43 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 6
+  store i32 %42, ptr %43, align 4, !tbaa !46
+  %44 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 2
+  store i16 0, ptr %44, align 8, !tbaa !47
+  %45 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 3
+  store i16 0, ptr %45, align 2, !tbaa !48
+  %46 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 4
+  store i8 0, ptr %46, align 4, !tbaa !49
+  %47 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 5
+  store i32 0, ptr %47, align 8, !tbaa !50
+  %48 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !51
+  %49 = icmp eq i32 %48, 0
+  br i1 %49, label %50, label %368
 
-43:                                               ; preds = %36
-  %44 = call i32 @cli_writen(i32 noundef %27, ptr noundef nonnull %6, i32 noundef %38) #11
-  %45 = icmp eq i32 %44, %38
-  br i1 %45, label %49, label %46
+50:                                               ; preds = %41
+  %51 = getelementptr inbounds %struct.arj_metadata_tag, ptr %2, i64 0, i32 1
+  %52 = load i32, ptr %51, align 4, !tbaa !52
+  %53 = icmp eq i32 %52, 0
+  br i1 %53, label %366, label %54
 
-46:                                               ; preds = %43
-  %47 = add i32 %37, %38
-  %48 = sub i32 %34, %47
-  br label %52
+54:                                               ; preds = %50
+  %55 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 11
+  %56 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 12
+  br label %57
 
-49:                                               ; preds = %43
-  %50 = sub i32 %37, %38
-  %51 = icmp eq i32 %50, 0
-  br i1 %51, label %52, label %36, !llvm.loop !43
+57:                                               ; preds = %354, %54
+  %58 = phi i32 [ 0, %54 ], [ %356, %354 ]
+  %59 = phi i32 [ 0, %54 ], [ %355, %354 ]
+  %60 = load i16, ptr %44, align 8, !tbaa !47
+  %61 = icmp eq i16 %60, 0
+  br i1 %61, label %62, label %200
 
-52:                                               ; preds = %49, %33, %41, %46
-  %53 = phi i32 [ %42, %41 ], [ %48, %46 ], [ 0, %33 ], [ %34, %49 ]
-  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %6) #11
-  %54 = load i32, ptr %2, align 8, !tbaa !42
-  %55 = icmp eq i32 %53, %54
-  %56 = select i1 %55, i32 0, i32 -123
-  br label %713
+62:                                               ; preds = %57
+  %63 = load i16, ptr %45, align 2, !tbaa !48
+  %64 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !51
+  store i16 %63, ptr %44, align 8, !tbaa !47
+  call fastcc void @read_pt_len(ptr noundef nonnull %4, i32 noundef 3)
+  %65 = load i16, ptr %45, align 2, !tbaa !48
+  %66 = lshr i16 %65, 7
+  %67 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 9), !range !51
+  %68 = icmp ult i16 %65, 128
+  br i1 %68, label %69, label %101
 
-57:                                               ; preds = %30, %30, %30
-  call void @llvm.lifetime.start.p0(i64 13352, ptr nonnull %5) #11
-  %58 = call ptr @cli_malloc(i64 noundef 26624) #11
-  %59 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 1
-  store ptr %58, ptr %59, align 8, !tbaa !44
-  %60 = icmp eq ptr %58, null
-  br i1 %60, label %388, label %61
-
-61:                                               ; preds = %57
-  store i32 %0, ptr %5, align 8, !tbaa !46
-  %62 = load i32, ptr %2, align 8, !tbaa !42
-  %63 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 6
-  store i32 %62, ptr %63, align 4, !tbaa !47
-  %64 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 2
-  store i16 0, ptr %64, align 8, !tbaa !48
-  %65 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 3
-  store i16 0, ptr %65, align 2, !tbaa !49
-  %66 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 4
-  store i8 0, ptr %66, align 4, !tbaa !50
-  %67 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 5
-  store i32 0, ptr %67, align 8, !tbaa !51
-  %68 = call fastcc i32 @fill_buf(ptr noundef nonnull %5, i32 noundef 16), !range !52
-  %69 = icmp eq i32 %68, 0
-  br i1 %69, label %70, label %388
-
-70:                                               ; preds = %61
-  %71 = getelementptr inbounds %struct.arj_metadata_tag, ptr %2, i64 0, i32 1
-  %72 = load i32, ptr %71, align 4, !tbaa !53
-  %73 = icmp eq i32 %72, 0
-  br i1 %73, label %386, label %74
-
-74:                                               ; preds = %70
-  %75 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 11
-  %76 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 12
+69:                                               ; preds = %62
+  %70 = load i16, ptr %45, align 2, !tbaa !48
+  %71 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 9), !range !51
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(510) %55, i8 0, i64 510, i1 false), !tbaa !20
+  %72 = lshr i16 %70, 7
+  %73 = insertelement <8 x i16> poison, i16 %72, i64 0
+  %74 = shufflevector <8 x i16> %73, <8 x i16> poison, <8 x i32> zeroinitializer
+  %75 = insertelement <8 x i16> poison, i16 %72, i64 0
+  %76 = shufflevector <8 x i16> %75, <8 x i16> poison, <8 x i32> zeroinitializer
   br label %77
 
-77:                                               ; preds = %374, %74
-  %78 = phi i32 [ 0, %74 ], [ %376, %374 ]
-  %79 = phi i32 [ 0, %74 ], [ %375, %374 ]
-  %80 = load i16, ptr %64, align 8, !tbaa !48
-  %81 = icmp eq i16 %80, 0
-  br i1 %81, label %82, label %220
+77:                                               ; preds = %77, %69
+  %78 = phi i64 [ 0, %69 ], [ %90, %77 ]
+  %79 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 12, i64 %78
+  store <8 x i16> %74, ptr %79, align 2, !tbaa !5
+  %80 = getelementptr inbounds i16, ptr %79, i64 8
+  store <8 x i16> %76, ptr %80, align 2, !tbaa !5
+  %81 = or i64 %78, 16
+  %82 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 12, i64 %81
+  store <8 x i16> %74, ptr %82, align 2, !tbaa !5
+  %83 = getelementptr inbounds i16, ptr %82, i64 8
+  store <8 x i16> %76, ptr %83, align 2, !tbaa !5
+  %84 = or i64 %78, 32
+  %85 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 12, i64 %84
+  store <8 x i16> %74, ptr %85, align 2, !tbaa !5
+  %86 = getelementptr inbounds i16, ptr %85, i64 8
+  store <8 x i16> %76, ptr %86, align 2, !tbaa !5
+  %87 = or i64 %78, 48
+  %88 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 12, i64 %87
+  store <8 x i16> %74, ptr %88, align 2, !tbaa !5
+  %89 = getelementptr inbounds i16, ptr %88, i64 8
+  store <8 x i16> %76, ptr %89, align 2, !tbaa !5
+  %90 = add nuw nsw i64 %78, 64
+  %91 = icmp eq i64 %90, 4096
+  br i1 %91, label %198, label %77, !llvm.loop !53
 
-82:                                               ; preds = %77
-  %83 = load i16, ptr %65, align 2, !tbaa !49
-  %84 = call fastcc i32 @fill_buf(ptr noundef nonnull %5, i32 noundef 16), !range !52
-  store i16 %83, ptr %64, align 8, !tbaa !48
-  call fastcc void @read_pt_len(ptr noundef nonnull %5, i32 noundef 3)
-  %85 = load i16, ptr %65, align 2, !tbaa !49
-  %86 = lshr i16 %85, 7
-  %87 = call fastcc i32 @fill_buf(ptr noundef nonnull %5, i32 noundef 9), !range !52
-  %88 = icmp ult i16 %85, 128
-  br i1 %88, label %89, label %121
+92:                                               ; preds = %194
+  %93 = icmp slt i16 %195, 510
+  br i1 %93, label %94, label %197
 
-89:                                               ; preds = %82
-  %90 = load i16, ptr %65, align 2, !tbaa !49
-  %91 = call fastcc i32 @fill_buf(ptr noundef nonnull %5, i32 noundef 9), !range !52
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(510) %75, i8 0, i64 510, i1 false), !tbaa !20
-  %92 = lshr i16 %90, 7
-  %93 = insertelement <8 x i16> poison, i16 %92, i64 0
-  %94 = shufflevector <8 x i16> %93, <8 x i16> poison, <8 x i32> zeroinitializer
-  %95 = insertelement <8 x i16> poison, i16 %92, i64 0
-  %96 = shufflevector <8 x i16> %95, <8 x i16> poison, <8 x i32> zeroinitializer
-  br label %97
+94:                                               ; preds = %92
+  %95 = sext i16 %195 to i64
+  %96 = add nsw i64 %95, 4112
+  %97 = getelementptr i8, ptr %4, i64 %96
+  %98 = sub i16 509, %195
+  %99 = zext i16 %98 to i64
+  %100 = add nuw nsw i64 %99, 1
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(1) %97, i8 0, i64 %100, i1 false), !tbaa !20
+  br label %197
 
-97:                                               ; preds = %97, %89
-  %98 = phi i64 [ 0, %89 ], [ %110, %97 ]
-  %99 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 12, i64 %98
-  store <8 x i16> %94, ptr %99, align 2, !tbaa !5
-  %100 = getelementptr inbounds i16, ptr %99, i64 8
-  store <8 x i16> %96, ptr %100, align 2, !tbaa !5
-  %101 = or i64 %98, 16
-  %102 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 12, i64 %101
-  store <8 x i16> %94, ptr %102, align 2, !tbaa !5
-  %103 = getelementptr inbounds i16, ptr %102, i64 8
-  store <8 x i16> %96, ptr %103, align 2, !tbaa !5
-  %104 = or i64 %98, 32
-  %105 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 12, i64 %104
-  store <8 x i16> %94, ptr %105, align 2, !tbaa !5
-  %106 = getelementptr inbounds i16, ptr %105, i64 8
-  store <8 x i16> %96, ptr %106, align 2, !tbaa !5
-  %107 = or i64 %98, 48
-  %108 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 12, i64 %107
-  store <8 x i16> %94, ptr %108, align 2, !tbaa !5
-  %109 = getelementptr inbounds i16, ptr %108, i64 8
-  store <8 x i16> %96, ptr %109, align 2, !tbaa !5
-  %110 = add nuw nsw i64 %98, 64
-  %111 = icmp eq i64 %110, 4096
-  br i1 %111, label %218, label %97, !llvm.loop !54
+101:                                              ; preds = %62, %194
+  %102 = phi i16 [ %195, %194 ], [ 0, %62 ]
+  %103 = load i16, ptr %45, align 2, !tbaa !48
+  %104 = lshr i16 %103, 8
+  %105 = zext i16 %104 to i64
+  %106 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 14, i64 %105
+  %107 = load i16, ptr %106, align 2, !tbaa !5
+  %108 = icmp sgt i16 %107, 18
+  br i1 %108, label %109, label %126
 
-112:                                              ; preds = %214
-  %113 = icmp slt i16 %215, 510
-  br i1 %113, label %114, label %217
+109:                                              ; preds = %101
+  %110 = zext i16 %103 to i32
+  br label %111
 
-114:                                              ; preds = %112
-  %115 = sext i16 %215 to i64
-  %116 = add nsw i64 %115, 4112
-  %117 = getelementptr i8, ptr %5, i64 %116
-  %118 = sub i16 509, %215
-  %119 = zext i16 %118 to i64
-  %120 = add nuw nsw i64 %119, 1
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(1) %117, i8 0, i64 %120, i1 false), !tbaa !20
-  br label %217
+111:                                              ; preds = %116, %109
+  %112 = phi i16 [ %123, %116 ], [ %107, %109 ]
+  %113 = phi i32 [ %124, %116 ], [ 128, %109 ]
+  %114 = icmp ugt i16 %112, 1018
+  br i1 %114, label %115, label %116
 
-121:                                              ; preds = %82, %214
-  %122 = phi i16 [ %215, %214 ], [ 0, %82 ]
-  %123 = load i16, ptr %65, align 2, !tbaa !49
-  %124 = lshr i16 %123, 8
-  %125 = zext i16 %124 to i64
-  %126 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 14, i64 %125
-  %127 = load i16, ptr %126, align 2, !tbaa !5
-  %128 = icmp sgt i16 %127, 18
-  br i1 %128, label %129, label %146
-
-129:                                              ; preds = %121
-  %130 = zext i16 %123 to i32
-  br label %131
-
-131:                                              ; preds = %136, %129
-  %132 = phi i16 [ %143, %136 ], [ %127, %129 ]
-  %133 = phi i32 [ %144, %136 ], [ 128, %129 ]
-  %134 = icmp ugt i16 %132, 1018
-  br i1 %134, label %135, label %136
-
-135:                                              ; preds = %131
+115:                                              ; preds = %111
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.30) #11
-  br label %218
+  br label %198
 
-136:                                              ; preds = %131
-  %137 = and i32 %133, %130
-  %138 = icmp eq i32 %137, 0
-  %139 = zext i16 %132 to i64
-  %140 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 10, i64 %139
-  %141 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 9, i64 %139
-  %142 = select i1 %138, ptr %141, ptr %140
-  %143 = load i16, ptr %142, align 2, !tbaa !5
-  %144 = lshr i32 %133, 1
-  %145 = icmp sgt i16 %143, 18
-  br i1 %145, label %131, label %146, !llvm.loop !57
+116:                                              ; preds = %111
+  %117 = and i32 %113, %110
+  %118 = icmp eq i32 %117, 0
+  %119 = zext i16 %112 to i64
+  %120 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 10, i64 %119
+  %121 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 9, i64 %119
+  %122 = select i1 %118, ptr %121, ptr %120
+  %123 = load i16, ptr %122, align 2, !tbaa !5
+  %124 = lshr i32 %113, 1
+  %125 = icmp sgt i16 %123, 18
+  br i1 %125, label %111, label %126, !llvm.loop !56
 
-146:                                              ; preds = %136, %121
-  %147 = phi i16 [ %127, %121 ], [ %143, %136 ]
-  %148 = sext i16 %147 to i64
-  %149 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 13, i64 %148
-  %150 = load i8, ptr %149, align 1, !tbaa !20
-  %151 = zext i8 %150 to i32
-  %152 = call fastcc i32 @fill_buf(ptr noundef nonnull %5, i32 noundef %151), !range !52
-  %153 = icmp slt i16 %147, 3
-  br i1 %153, label %154, label %203
+126:                                              ; preds = %116, %101
+  %127 = phi i16 [ %107, %101 ], [ %123, %116 ]
+  %128 = sext i16 %127 to i64
+  %129 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 13, i64 %128
+  %130 = load i8, ptr %129, align 1, !tbaa !20
+  %131 = zext i8 %130 to i32
+  %132 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %131), !range !51
+  %133 = icmp slt i16 %127, 3
+  br i1 %133, label %134, label %183
 
-154:                                              ; preds = %146
-  switch i16 %147, label %155 [
-    i16 0, label %164
-    i16 1, label %156
+134:                                              ; preds = %126
+  switch i16 %127, label %135 [
+    i16 0, label %144
+    i16 1, label %136
   ]
 
-155:                                              ; preds = %154
-  br label %156
+135:                                              ; preds = %134
+  br label %136
 
-156:                                              ; preds = %155, %154
-  %157 = phi i16 [ 7, %155 ], [ 12, %154 ]
-  %158 = phi i32 [ 9, %155 ], [ 4, %154 ]
-  %159 = phi i16 [ 20, %155 ], [ 3, %154 ]
-  %160 = load i16, ptr %65, align 2, !tbaa !49
-  %161 = lshr i16 %160, %157
-  %162 = call fastcc i32 @fill_buf(ptr noundef nonnull %5, i32 noundef %158), !range !52
-  %163 = add nuw nsw i16 %161, %159
+136:                                              ; preds = %135, %134
+  %137 = phi i16 [ 7, %135 ], [ 12, %134 ]
+  %138 = phi i32 [ 9, %135 ], [ 4, %134 ]
+  %139 = phi i16 [ 20, %135 ], [ 3, %134 ]
+  %140 = load i16, ptr %45, align 2, !tbaa !48
+  %141 = lshr i16 %140, %137
+  %142 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %138), !range !51
+  %143 = add nuw nsw i16 %141, %139
+  br label %144
+
+144:                                              ; preds = %136, %134
+  %145 = phi i16 [ 1, %134 ], [ %143, %136 ]
+  %146 = freeze i16 %145
+  %147 = sext i16 %102 to i64
+  %148 = call i16 @llvm.smax.i16(i16 %102, i16 510)
+  %149 = zext i16 %148 to i64
+  %150 = add i16 %146, -1
+  %151 = zext i16 %150 to i64
+  %152 = sub nsw i64 %149, %147
+  %153 = call i64 @llvm.umin.i64(i64 %151, i64 %152)
+  %154 = icmp ult i64 %153, 16
+  br i1 %154, label %170, label %155
+
+155:                                              ; preds = %144
+  %156 = add nuw nsw i64 %153, 1
+  %157 = and i64 %156, 15
+  %158 = icmp eq i64 %157, 0
+  %159 = select i1 %158, i64 16, i64 %157
+  %160 = sub nsw i64 %156, %159
+  %161 = add nsw i64 %160, %147
+  %162 = trunc i64 %160 to i16
+  %163 = sub i16 %146, %162
   br label %164
 
-164:                                              ; preds = %156, %154
-  %165 = phi i16 [ 1, %154 ], [ %163, %156 ]
-  %166 = freeze i16 %165
-  %167 = sext i16 %122 to i64
-  %168 = call i16 @llvm.smax.i16(i16 %122, i16 510)
-  %169 = zext i16 %168 to i64
-  %170 = add i16 %166, -1
-  %171 = zext i16 %170 to i64
-  %172 = sub nsw i64 %169, %167
-  %173 = call i64 @llvm.umin.i64(i64 %171, i64 %172)
-  %174 = icmp ult i64 %173, 16
-  br i1 %174, label %190, label %175
+164:                                              ; preds = %164, %155
+  %165 = phi i64 [ 0, %155 ], [ %168, %164 ]
+  %166 = add i64 %165, %147
+  %167 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 11, i64 %166
+  store <16 x i8> zeroinitializer, ptr %167, align 1, !tbaa !20
+  %168 = add nuw i64 %165, 16
+  %169 = icmp eq i64 %168, %160
+  br i1 %169, label %170, label %164, !llvm.loop !57
 
-175:                                              ; preds = %164
-  %176 = add nuw nsw i64 %173, 1
-  %177 = and i64 %176, 15
-  %178 = icmp eq i64 %177, 0
-  %179 = select i1 %178, i64 16, i64 %177
-  %180 = sub nsw i64 %176, %179
-  %181 = add nsw i64 %180, %167
-  %182 = trunc i64 %180 to i16
-  %183 = sub i16 %166, %182
-  br label %184
+170:                                              ; preds = %164, %144
+  %171 = phi i64 [ %147, %144 ], [ %161, %164 ]
+  %172 = phi i16 [ %146, %144 ], [ %163, %164 ]
+  br label %173
 
-184:                                              ; preds = %184, %175
-  %185 = phi i64 [ 0, %175 ], [ %188, %184 ]
-  %186 = add i64 %185, %167
-  %187 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 11, i64 %186
-  store <16 x i8> zeroinitializer, ptr %187, align 1, !tbaa !20
-  %188 = add nuw i64 %185, 16
-  %189 = icmp eq i64 %188, %180
-  br i1 %189, label %190, label %184, !llvm.loop !58
+173:                                              ; preds = %170, %178
+  %174 = phi i64 [ %180, %178 ], [ %171, %170 ]
+  %175 = phi i16 [ %179, %178 ], [ %172, %170 ]
+  %176 = icmp eq i64 %174, %149
+  br i1 %176, label %177, label %178
 
-190:                                              ; preds = %184, %164
-  %191 = phi i64 [ %167, %164 ], [ %181, %184 ]
-  %192 = phi i16 [ %166, %164 ], [ %183, %184 ]
-  br label %193
-
-193:                                              ; preds = %190, %198
-  %194 = phi i64 [ %200, %198 ], [ %191, %190 ]
-  %195 = phi i16 [ %199, %198 ], [ %192, %190 ]
-  %196 = icmp eq i64 %194, %169
-  br i1 %196, label %197, label %198
-
-197:                                              ; preds = %193
+177:                                              ; preds = %173
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.30) #11
-  br label %218
+  br label %198
 
-198:                                              ; preds = %193
-  %199 = add nsw i16 %195, -1
-  %200 = add nsw i64 %194, 1
-  %201 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 11, i64 %194
-  store i8 0, ptr %201, align 1, !tbaa !20
-  %202 = icmp sgt i16 %195, 1
-  br i1 %202, label %193, label %212, !llvm.loop !59
+178:                                              ; preds = %173
+  %179 = add nsw i16 %175, -1
+  %180 = add nsw i64 %174, 1
+  %181 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 11, i64 %174
+  store i8 0, ptr %181, align 1, !tbaa !20
+  %182 = icmp sgt i16 %175, 1
+  br i1 %182, label %173, label %192, !llvm.loop !58
 
-203:                                              ; preds = %146
-  %204 = icmp sgt i16 %122, 509
-  br i1 %204, label %205, label %206
+183:                                              ; preds = %126
+  %184 = icmp sgt i16 %102, 509
+  br i1 %184, label %185, label %186
 
-205:                                              ; preds = %203
+185:                                              ; preds = %183
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.30) #11
-  br label %218
+  br label %198
 
-206:                                              ; preds = %203
-  %207 = trunc i16 %147 to i8
-  %208 = add nsw i8 %207, -2
-  %209 = add nsw i16 %122, 1
-  %210 = sext i16 %122 to i64
-  %211 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 11, i64 %210
-  store i8 %208, ptr %211, align 1, !tbaa !20
-  br label %214
+186:                                              ; preds = %183
+  %187 = trunc i16 %127 to i8
+  %188 = add nsw i8 %187, -2
+  %189 = add nsw i16 %102, 1
+  %190 = sext i16 %102 to i64
+  %191 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 11, i64 %190
+  store i8 %188, ptr %191, align 1, !tbaa !20
+  br label %194
 
-212:                                              ; preds = %198
-  %213 = trunc i64 %200 to i16
-  br label %214
+192:                                              ; preds = %178
+  %193 = trunc i64 %180 to i16
+  br label %194
 
-214:                                              ; preds = %212, %206
-  %215 = phi i16 [ %209, %206 ], [ %213, %212 ]
-  %216 = icmp slt i16 %215, %86
-  br i1 %216, label %121, label %112, !llvm.loop !60
+194:                                              ; preds = %192, %186
+  %195 = phi i16 [ %189, %186 ], [ %193, %192 ]
+  %196 = icmp slt i16 %195, %66
+  br i1 %196, label %101, label %92, !llvm.loop !59
 
-217:                                              ; preds = %114, %112
-  call fastcc void @make_table(ptr noundef nonnull %5, i32 noundef 510, ptr noundef nonnull %75, i32 noundef 12, ptr noundef nonnull %76, i32 noundef 4096)
-  br label %218
+197:                                              ; preds = %94, %92
+  call fastcc void @make_table(ptr noundef nonnull %4, i32 noundef 510, ptr noundef nonnull %55, i32 noundef 12, ptr noundef nonnull %56, i32 noundef 4096)
+  br label %198
 
-218:                                              ; preds = %97, %217, %205, %197, %135
-  call fastcc void @read_pt_len(ptr noundef nonnull %5, i32 noundef -1)
-  %219 = load i16, ptr %64, align 8, !tbaa !48
-  br label %220
+198:                                              ; preds = %77, %197, %185, %177, %115
+  call fastcc void @read_pt_len(ptr noundef nonnull %4, i32 noundef -1)
+  %199 = load i16, ptr %44, align 8, !tbaa !47
+  br label %200
 
-220:                                              ; preds = %218, %77
-  %221 = phi i16 [ %219, %218 ], [ %80, %77 ]
-  %222 = add i16 %221, -1
-  store i16 %222, ptr %64, align 8, !tbaa !48
-  %223 = load i16, ptr %65, align 2, !tbaa !49
-  %224 = lshr i16 %223, 4
-  %225 = zext i16 %224 to i64
-  %226 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 12, i64 %225
-  %227 = load i16, ptr %226, align 2, !tbaa !5
-  %228 = icmp ugt i16 %227, 509
-  br i1 %228, label %229, label %246
+200:                                              ; preds = %198, %57
+  %201 = phi i16 [ %199, %198 ], [ %60, %57 ]
+  %202 = add i16 %201, -1
+  store i16 %202, ptr %44, align 8, !tbaa !47
+  %203 = load i16, ptr %45, align 2, !tbaa !48
+  %204 = lshr i16 %203, 4
+  %205 = zext i16 %204 to i64
+  %206 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 12, i64 %205
+  %207 = load i16, ptr %206, align 2, !tbaa !5
+  %208 = icmp ugt i16 %207, 509
+  br i1 %208, label %209, label %226
 
-229:                                              ; preds = %220
-  %230 = zext i16 %223 to i32
-  br label %231
+209:                                              ; preds = %200
+  %210 = zext i16 %203 to i32
+  br label %211
 
-231:                                              ; preds = %236, %229
-  %232 = phi i16 [ %243, %236 ], [ %227, %229 ]
-  %233 = phi i32 [ %244, %236 ], [ 8, %229 ]
-  %234 = icmp ugt i16 %232, 1018
-  br i1 %234, label %235, label %236
+211:                                              ; preds = %216, %209
+  %212 = phi i16 [ %223, %216 ], [ %207, %209 ]
+  %213 = phi i32 [ %224, %216 ], [ 8, %209 ]
+  %214 = icmp ugt i16 %212, 1018
+  br i1 %214, label %215, label %216
 
-235:                                              ; preds = %231
+215:                                              ; preds = %211
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.30) #11
-  br label %254
+  br label %234
 
-236:                                              ; preds = %231
-  %237 = and i32 %233, %230
-  %238 = icmp eq i32 %237, 0
-  %239 = zext i16 %232 to i64
-  %240 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 10, i64 %239
-  %241 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 9, i64 %239
-  %242 = select i1 %238, ptr %241, ptr %240
-  %243 = load i16, ptr %242, align 2, !tbaa !5
-  %244 = lshr i32 %233, 1
-  %245 = icmp ugt i16 %243, 509
-  br i1 %245, label %231, label %246, !llvm.loop !61
+216:                                              ; preds = %211
+  %217 = and i32 %213, %210
+  %218 = icmp eq i32 %217, 0
+  %219 = zext i16 %212 to i64
+  %220 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 10, i64 %219
+  %221 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 9, i64 %219
+  %222 = select i1 %218, ptr %221, ptr %220
+  %223 = load i16, ptr %222, align 2, !tbaa !5
+  %224 = lshr i32 %213, 1
+  %225 = icmp ugt i16 %223, 509
+  br i1 %225, label %211, label %226, !llvm.loop !60
 
-246:                                              ; preds = %236, %220
-  %247 = phi i16 [ %227, %220 ], [ %243, %236 ]
-  %248 = zext i16 %247 to i64
-  %249 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 11, i64 %248
-  %250 = load i8, ptr %249, align 1, !tbaa !20
-  %251 = zext i8 %250 to i32
-  %252 = call fastcc i32 @fill_buf(ptr noundef nonnull %5, i32 noundef %251), !range !52
-  %253 = icmp ult i16 %247, 256
-  br i1 %253, label %254, label %267
+226:                                              ; preds = %216, %200
+  %227 = phi i16 [ %207, %200 ], [ %223, %216 ]
+  %228 = zext i16 %227 to i64
+  %229 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 11, i64 %228
+  %230 = load i8, ptr %229, align 1, !tbaa !20
+  %231 = zext i8 %230 to i32
+  %232 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %231), !range !51
+  %233 = icmp ult i16 %227, 256
+  br i1 %233, label %234, label %247
 
-254:                                              ; preds = %246, %235
-  %255 = phi i16 [ 0, %235 ], [ %247, %246 ]
-  %256 = trunc i16 %255 to i8
-  %257 = load ptr, ptr %59, align 8, !tbaa !44
-  %258 = zext i32 %78 to i64
-  %259 = getelementptr inbounds i8, ptr %257, i64 %258
-  store i8 %256, ptr %259, align 1, !tbaa !20
-  %260 = add i32 %79, 1
-  %261 = add i32 %78, 1
-  %262 = icmp ugt i32 %261, 26623
-  br i1 %262, label %263, label %374
+234:                                              ; preds = %226, %215
+  %235 = phi i16 [ 0, %215 ], [ %227, %226 ]
+  %236 = trunc i16 %235 to i8
+  %237 = load ptr, ptr %39, align 8, !tbaa !43
+  %238 = zext i32 %58 to i64
+  %239 = getelementptr inbounds i8, ptr %237, i64 %238
+  store i8 %236, ptr %239, align 1, !tbaa !20
+  %240 = add i32 %59, 1
+  %241 = add i32 %58, 1
+  %242 = icmp ugt i32 %241, 26623
+  br i1 %242, label %243, label %354
 
-263:                                              ; preds = %254
-  %264 = load i32, ptr %28, align 4, !tbaa !41
-  %265 = load ptr, ptr %59, align 8, !tbaa !44
-  %266 = call i32 @cli_writen(i32 noundef %264, ptr noundef %265, i32 noundef 26624) #11
-  br label %374
+243:                                              ; preds = %234
+  %244 = load i32, ptr %26, align 4, !tbaa !41
+  %245 = load ptr, ptr %39, align 8, !tbaa !43
+  %246 = call i32 @cli_writen(i32 noundef %244, ptr noundef %245, i32 noundef 26624) #11
+  br label %354
 
-267:                                              ; preds = %246
-  %268 = add nsw i16 %247, -253
-  %269 = zext i16 %268 to i32
-  %270 = add i32 %79, %269
-  %271 = load i16, ptr %65, align 2, !tbaa !49
-  %272 = lshr i16 %271, 8
-  %273 = zext i16 %272 to i64
-  %274 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 14, i64 %273
-  %275 = load i16, ptr %274, align 2, !tbaa !5
-  %276 = icmp ugt i16 %275, 16
-  br i1 %276, label %277, label %294
+247:                                              ; preds = %226
+  %248 = add nsw i16 %227, -253
+  %249 = zext i16 %248 to i32
+  %250 = add i32 %59, %249
+  %251 = load i16, ptr %45, align 2, !tbaa !48
+  %252 = lshr i16 %251, 8
+  %253 = zext i16 %252 to i64
+  %254 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 14, i64 %253
+  %255 = load i16, ptr %254, align 2, !tbaa !5
+  %256 = icmp ugt i16 %255, 16
+  br i1 %256, label %257, label %274
 
-277:                                              ; preds = %267
-  %278 = zext i16 %271 to i32
-  br label %279
+257:                                              ; preds = %247
+  %258 = zext i16 %251 to i32
+  br label %259
 
-279:                                              ; preds = %284, %277
-  %280 = phi i16 [ %291, %284 ], [ %275, %277 ]
-  %281 = phi i32 [ %292, %284 ], [ 128, %277 ]
-  %282 = icmp ugt i16 %280, 1018
-  br i1 %282, label %283, label %284
+259:                                              ; preds = %264, %257
+  %260 = phi i16 [ %271, %264 ], [ %255, %257 ]
+  %261 = phi i32 [ %272, %264 ], [ 128, %257 ]
+  %262 = icmp ugt i16 %260, 1018
+  br i1 %262, label %263, label %264
 
-283:                                              ; preds = %279
+263:                                              ; preds = %259
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.30) #11
-  br label %314
+  br label %292
 
-284:                                              ; preds = %279
-  %285 = and i32 %281, %278
-  %286 = icmp eq i32 %285, 0
-  %287 = zext i16 %280 to i64
-  %288 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 10, i64 %287
-  %289 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 9, i64 %287
-  %290 = select i1 %286, ptr %289, ptr %288
-  %291 = load i16, ptr %290, align 2, !tbaa !5
-  %292 = lshr i32 %281, 1
-  %293 = icmp ugt i16 %291, 16
-  br i1 %293, label %279, label %294, !llvm.loop !62
+264:                                              ; preds = %259
+  %265 = and i32 %261, %258
+  %266 = icmp eq i32 %265, 0
+  %267 = zext i16 %260 to i64
+  %268 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 10, i64 %267
+  %269 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 9, i64 %267
+  %270 = select i1 %266, ptr %269, ptr %268
+  %271 = load i16, ptr %270, align 2, !tbaa !5
+  %272 = lshr i32 %261, 1
+  %273 = icmp ugt i16 %271, 16
+  br i1 %273, label %259, label %274, !llvm.loop !61
 
-294:                                              ; preds = %284, %267
-  %295 = phi i16 [ %275, %267 ], [ %291, %284 ]
-  %296 = zext i16 %295 to i64
-  %297 = getelementptr inbounds %struct.arj_decode_tag, ptr %5, i64 0, i32 13, i64 %296
-  %298 = load i8, ptr %297, align 1, !tbaa !20
-  %299 = zext i8 %298 to i32
-  %300 = call fastcc i32 @fill_buf(ptr noundef nonnull %5, i32 noundef %299), !range !52
-  %301 = icmp eq i16 %295, 0
-  br i1 %301, label %314, label %302
+274:                                              ; preds = %264, %247
+  %275 = phi i16 [ %255, %247 ], [ %271, %264 ]
+  %276 = zext i16 %275 to i64
+  %277 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 13, i64 %276
+  %278 = load i8, ptr %277, align 1, !tbaa !20
+  %279 = zext i8 %278 to i32
+  %280 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %279), !range !51
+  %281 = icmp eq i16 %275, 0
+  br i1 %281, label %292, label %282
 
-302:                                              ; preds = %294
-  %303 = add nsw i16 %295, -1
-  %304 = zext i16 %303 to i32
-  %305 = shl nuw nsw i32 1, %304
-  %306 = load i16, ptr %65, align 2, !tbaa !49
-  %307 = zext i16 %306 to i32
-  %308 = sub nuw nsw i32 16, %304
-  %309 = lshr i32 %307, %308
-  %310 = trunc i32 %309 to i16
-  %311 = call fastcc i32 @fill_buf(ptr noundef nonnull %5, i32 noundef %304), !range !52
-  %312 = trunc i32 %305 to i16
-  %313 = add nuw i16 %310, %312
-  br label %314
+282:                                              ; preds = %274
+  %283 = add nsw i16 %275, -1
+  %284 = zext i16 %283 to i32
+  %285 = shl nuw nsw i32 1, %284
+  %286 = load i16, ptr %45, align 2, !tbaa !48
+  %287 = zext i16 %286 to i32
+  %288 = sub nuw nsw i32 16, %284
+  %289 = lshr i32 %287, %288
+  %290 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %284), !range !51
+  %291 = add nuw nsw i32 %289, %285
+  br label %292
 
-314:                                              ; preds = %302, %294, %283
-  %315 = phi i16 [ 0, %283 ], [ %313, %302 ], [ 0, %294 ]
-  %316 = xor i16 %315, -1
-  %317 = trunc i32 %78 to i16
-  %318 = add i16 %316, %317
-  %319 = icmp slt i16 %318, 0
-  %320 = add i16 %318, 26624
-  %321 = select i1 %319, i16 %320, i16 %318
-  %322 = icmp ugt i16 %321, 26623
-  br i1 %322, label %323, label %324
+292:                                              ; preds = %282, %274, %263
+  %293 = phi i32 [ 0, %263 ], [ %291, %282 ], [ 0, %274 ]
+  %294 = xor i32 %293, -1
+  %295 = add i32 %58, %294
+  %296 = shl i32 %295, 16
+  %297 = icmp slt i32 %296, 0
+  %298 = ashr exact i32 %296, 16
+  %299 = add nsw i32 %298, 26624
+  %300 = select i1 %297, i32 %299, i32 %295
+  %301 = trunc i32 %300 to i16
+  %302 = icmp ugt i16 %301, 26623
+  br i1 %302, label %303, label %304
 
-323:                                              ; preds = %314
+303:                                              ; preds = %292
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.29) #11
-  br label %379
-
-324:                                              ; preds = %314
-  %325 = zext i16 %321 to i32
-  %326 = icmp ugt i32 %78, %325
-  %327 = icmp ult i32 %78, 26367
-  %328 = and i1 %327, %326
-  %329 = add nsw i16 %247, -254
-  br i1 %328, label %330, label %349
-
-330:                                              ; preds = %324
-  %331 = zext i16 %321 to i64
-  %332 = zext i32 %78 to i64
-  br label %333
-
-333:                                              ; preds = %333, %330
-  %334 = phi i64 [ %332, %330 ], [ %341, %333 ]
-  %335 = phi i64 [ %331, %330 ], [ %338, %333 ]
-  %336 = phi i16 [ %329, %330 ], [ %343, %333 ]
-  %337 = load ptr, ptr %59, align 8, !tbaa !44
-  %338 = add nuw nsw i64 %335, 1
-  %339 = getelementptr inbounds i8, ptr %337, i64 %335
-  %340 = load i8, ptr %339, align 1, !tbaa !20
-  %341 = add nuw nsw i64 %334, 1
-  %342 = getelementptr inbounds i8, ptr %337, i64 %334
-  store i8 %340, ptr %342, align 1, !tbaa !20
-  %343 = add i16 %336, -1
-  %344 = icmp sgt i16 %343, -1
-  %345 = icmp ult i64 %335, 26623
-  %346 = select i1 %344, i1 %345, i1 false
-  %347 = icmp ult i64 %334, 26623
-  %348 = select i1 %346, i1 %347, i1 false
-  br i1 %348, label %333, label %372, !llvm.loop !63
-
-349:                                              ; preds = %324, %365
-  %350 = phi i16 [ %370, %365 ], [ %329, %324 ]
-  %351 = phi i16 [ %369, %365 ], [ %321, %324 ]
-  %352 = phi i32 [ %366, %365 ], [ %78, %324 ]
-  %353 = load ptr, ptr %59, align 8, !tbaa !44
-  %354 = sext i16 %351 to i64
-  %355 = getelementptr inbounds i8, ptr %353, i64 %354
-  %356 = load i8, ptr %355, align 1, !tbaa !20
-  %357 = zext i32 %352 to i64
-  %358 = getelementptr inbounds i8, ptr %353, i64 %357
-  store i8 %356, ptr %358, align 1, !tbaa !20
-  %359 = add i32 %352, 1
-  %360 = icmp ugt i32 %359, 26623
-  br i1 %360, label %361, label %365
-
-361:                                              ; preds = %349
-  %362 = load i32, ptr %28, align 4, !tbaa !41
-  %363 = load ptr, ptr %59, align 8, !tbaa !44
-  %364 = call i32 @cli_writen(i32 noundef %362, ptr noundef %363, i32 noundef 26624) #11
-  br label %365
-
-365:                                              ; preds = %361, %349
-  %366 = phi i32 [ 0, %361 ], [ %359, %349 ]
-  %367 = add i16 %351, 1
-  %368 = icmp sgt i16 %367, 26623
-  %369 = select i1 %368, i16 0, i16 %367
-  %370 = add i16 %350, -1
-  %371 = icmp sgt i16 %370, -1
-  br i1 %371, label %349, label %374, !llvm.loop !64
-
-372:                                              ; preds = %333
-  %373 = trunc i64 %341 to i32
-  br label %374
-
-374:                                              ; preds = %365, %372, %263, %254
-  %375 = phi i32 [ %260, %263 ], [ %260, %254 ], [ %270, %372 ], [ %270, %365 ]
-  %376 = phi i32 [ 0, %263 ], [ %261, %254 ], [ %373, %372 ], [ %366, %365 ]
-  %377 = load i32, ptr %71, align 4, !tbaa !53
-  %378 = icmp ult i32 %375, %377
-  br i1 %378, label %77, label %379, !llvm.loop !65
-
-379:                                              ; preds = %374, %323
-  %380 = phi i32 [ %78, %323 ], [ %376, %374 ]
-  %381 = icmp eq i32 %380, 0
-  br i1 %381, label %386, label %382
-
-382:                                              ; preds = %379
-  %383 = load i32, ptr %28, align 4, !tbaa !41
-  %384 = load ptr, ptr %59, align 8, !tbaa !44
-  %385 = call i32 @cli_writen(i32 noundef %383, ptr noundef %384, i32 noundef %380) #11
-  br label %386
-
-386:                                              ; preds = %382, %379, %70
-  %387 = load ptr, ptr %59, align 8, !tbaa !44
-  call void @free(ptr noundef %387) #11
-  br label %388
-
-388:                                              ; preds = %57, %61, %386
-  call void @llvm.lifetime.end.p0(i64 13352, ptr nonnull %5) #11
-  br label %713
-
-389:                                              ; preds = %30
-  call void @llvm.lifetime.start.p0(i64 13352, ptr nonnull %4) #11
-  %390 = call ptr @cli_malloc(i64 noundef 26624) #11
-  %391 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 1
-  store ptr %390, ptr %391, align 8, !tbaa !44
-  %392 = icmp eq ptr %390, null
-  br i1 %392, label %712, label %393
-
-393:                                              ; preds = %389
-  store i32 %0, ptr %4, align 8, !tbaa !46
-  %394 = load i32, ptr %2, align 8, !tbaa !42
-  %395 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 6
-  store i32 %394, ptr %395, align 4, !tbaa !47
-  %396 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 3
-  store i16 0, ptr %396, align 2, !tbaa !49
-  %397 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 4
-  store i8 0, ptr %397, align 4, !tbaa !50
-  %398 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 5
-  store i32 0, ptr %398, align 8, !tbaa !51
-  %399 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %400 = icmp eq i32 %399, 0
-  br i1 %400, label %401, label %712
-
-401:                                              ; preds = %393
-  %402 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 8
-  store i16 0, ptr %402, align 2, !tbaa !66
-  %403 = getelementptr inbounds %struct.arj_decode_tag, ptr %4, i64 0, i32 7
-  store i16 0, ptr %403, align 8, !tbaa !67
-  %404 = getelementptr inbounds %struct.arj_metadata_tag, ptr %2, i64 0, i32 1
-  %405 = load i32, ptr %404, align 4, !tbaa !53
-  %406 = icmp eq i32 %405, 0
-  br i1 %406, label %710, label %411
-
-407:                                              ; preds = %698, %693
-  %408 = phi i32 [ 0, %698 ], [ %695, %693 ]
-  %409 = phi i32 [ %572, %698 ], [ %694, %693 ]
-  %410 = load i16, ptr %403, align 8, !tbaa !67
-  br label %411
-
-411:                                              ; preds = %401, %407
-  %412 = phi i16 [ %410, %407 ], [ 0, %401 ]
-  %413 = phi i32 [ %408, %407 ], [ 0, %401 ]
-  %414 = phi i32 [ %409, %407 ], [ 0, %401 ]
-  %415 = icmp slt i16 %412, 1
-  br i1 %415, label %421, label %416
-
-416:                                              ; preds = %411
-  %417 = load i16, ptr %402, align 2, !tbaa !66
-  %418 = shl i16 %417, 1
-  %419 = add nsw i16 %412, -1
-  store i16 %419, ptr %403, align 8, !tbaa !67
-  %420 = icmp sgt i16 %417, -1
-  br i1 %420, label %550, label %435
-
-421:                                              ; preds = %411
-  %422 = load i16, ptr %396, align 2, !tbaa !49
-  %423 = zext i16 %422 to i32
-  %424 = zext i16 %412 to i32
-  %425 = lshr i32 %423, %424
-  %426 = load i16, ptr %402, align 2, !tbaa !66
-  %427 = trunc i32 %425 to i16
-  %428 = or i16 %426, %427
-  store i16 %428, ptr %402, align 2, !tbaa !66
-  %429 = sext i16 %412 to i32
-  %430 = sub nsw i32 16, %429
-  %431 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %430), !range !52
-  %432 = load i16, ptr %402, align 2, !tbaa !66
-  %433 = shl i16 %432, 1
-  %434 = icmp sgt i16 %432, -1
-  br i1 %434, label %562, label %442
-
-435:                                              ; preds = %416
-  %436 = icmp eq i16 %419, 0
-  br i1 %436, label %437, label %442
-
-437:                                              ; preds = %435
-  %438 = load i16, ptr %396, align 2, !tbaa !49
-  %439 = or i16 %438, %418
-  store i16 %439, ptr %402, align 2, !tbaa !66
-  %440 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %441 = load i16, ptr %402, align 2, !tbaa !66
-  br label %442
-
-442:                                              ; preds = %421, %437, %435
-  %443 = phi i16 [ 16, %437 ], [ %419, %435 ], [ 15, %421 ]
-  %444 = phi i16 [ %441, %437 ], [ %418, %435 ], [ %433, %421 ]
-  %445 = shl i16 %444, 1
-  %446 = add nsw i16 %443, -1
-  store i16 %446, ptr %403, align 8, !tbaa !67
-  %447 = icmp sgt i16 %444, -1
-  br i1 %447, label %513, label %448
-
-448:                                              ; preds = %442
-  %449 = icmp eq i16 %446, 0
-  br i1 %449, label %450, label %455
-
-450:                                              ; preds = %448
-  %451 = load i16, ptr %396, align 2, !tbaa !49
-  %452 = or i16 %451, %445
-  store i16 %452, ptr %402, align 2, !tbaa !66
-  %453 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %454 = load i16, ptr %402, align 2, !tbaa !66
-  br label %455
-
-455:                                              ; preds = %450, %448
-  %456 = phi i16 [ 16, %450 ], [ %446, %448 ]
-  %457 = phi i16 [ %454, %450 ], [ %445, %448 ]
-  %458 = shl i16 %457, 1
-  %459 = add nsw i16 %456, -1
-  store i16 %459, ptr %403, align 8, !tbaa !67
-  %460 = icmp sgt i16 %457, -1
-  br i1 %460, label %513, label %461
-
-461:                                              ; preds = %455
-  %462 = icmp eq i16 %459, 0
-  br i1 %462, label %463, label %468
-
-463:                                              ; preds = %461
-  %464 = load i16, ptr %396, align 2, !tbaa !49
-  %465 = or i16 %464, %458
-  store i16 %465, ptr %402, align 2, !tbaa !66
-  %466 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %467 = load i16, ptr %402, align 2, !tbaa !66
-  br label %468
-
-468:                                              ; preds = %463, %461
-  %469 = phi i16 [ 16, %463 ], [ %459, %461 ]
-  %470 = phi i16 [ %467, %463 ], [ %458, %461 ]
-  %471 = shl i16 %470, 1
-  %472 = add nsw i16 %469, -1
-  store i16 %472, ptr %403, align 8, !tbaa !67
-  %473 = icmp sgt i16 %470, -1
-  br i1 %473, label %513, label %474
-
-474:                                              ; preds = %468
-  %475 = icmp eq i16 %472, 0
-  br i1 %475, label %476, label %481
-
-476:                                              ; preds = %474
-  %477 = load i16, ptr %396, align 2, !tbaa !49
-  %478 = or i16 %477, %471
-  store i16 %478, ptr %402, align 2, !tbaa !66
-  %479 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %480 = load i16, ptr %402, align 2, !tbaa !66
-  br label %481
-
-481:                                              ; preds = %476, %474
-  %482 = phi i16 [ 16, %476 ], [ %472, %474 ]
-  %483 = phi i16 [ %480, %476 ], [ %471, %474 ]
-  %484 = shl i16 %483, 1
-  %485 = add nsw i16 %482, -1
-  store i16 %485, ptr %403, align 8, !tbaa !67
-  %486 = icmp sgt i16 %483, -1
-  br i1 %486, label %513, label %487
-
-487:                                              ; preds = %481
-  %488 = icmp eq i16 %485, 0
-  br i1 %488, label %489, label %494
-
-489:                                              ; preds = %487
-  %490 = load i16, ptr %396, align 2, !tbaa !49
-  %491 = or i16 %490, %484
-  store i16 %491, ptr %402, align 2, !tbaa !66
-  %492 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %493 = load i16, ptr %402, align 2, !tbaa !66
-  br label %494
-
-494:                                              ; preds = %489, %487
-  %495 = phi i16 [ 16, %489 ], [ %485, %487 ]
-  %496 = phi i16 [ %493, %489 ], [ %484, %487 ]
-  %497 = shl i16 %496, 1
-  %498 = add nsw i16 %495, -1
-  store i16 %498, ptr %403, align 8, !tbaa !67
-  %499 = icmp sgt i16 %496, -1
-  br i1 %499, label %513, label %500
-
-500:                                              ; preds = %494
-  %501 = icmp eq i16 %498, 0
-  br i1 %501, label %502, label %507
-
-502:                                              ; preds = %500
-  %503 = load i16, ptr %396, align 2, !tbaa !49
-  %504 = or i16 %503, %497
-  store i16 %504, ptr %402, align 2, !tbaa !66
-  %505 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %506 = load i16, ptr %402, align 2, !tbaa !66
-  br label %507
-
-507:                                              ; preds = %502, %500
-  %508 = phi i16 [ 16, %502 ], [ %498, %500 ]
-  %509 = phi i16 [ %506, %502 ], [ %497, %500 ]
-  %510 = shl i16 %509, 1
-  %511 = add nsw i16 %508, -1
-  store i16 %511, ptr %403, align 8, !tbaa !67
-  %512 = icmp sgt i16 %509, -1
-  br i1 %512, label %513, label %518
-
-513:                                              ; preds = %507, %494, %481, %468, %455, %442
-  %514 = phi i16 [ %510, %507 ], [ %497, %494 ], [ %484, %481 ], [ %471, %468 ], [ %458, %455 ], [ %445, %442 ]
-  %515 = phi i16 [ %511, %507 ], [ %498, %494 ], [ %485, %481 ], [ %472, %468 ], [ %459, %455 ], [ %446, %442 ]
-  %516 = phi i16 [ 63, %507 ], [ 31, %494 ], [ 15, %481 ], [ 7, %468 ], [ 3, %455 ], [ 1, %442 ]
-  %517 = phi i16 [ 6, %507 ], [ 5, %494 ], [ 4, %481 ], [ 3, %468 ], [ 2, %455 ], [ 1, %442 ]
-  br label %518
-
-518:                                              ; preds = %513, %507
-  %519 = phi i16 [ %510, %507 ], [ %514, %513 ]
-  %520 = phi i16 [ %511, %507 ], [ %515, %513 ]
-  %521 = phi i16 [ 7, %507 ], [ %517, %513 ]
-  %522 = phi i16 [ 127, %507 ], [ %516, %513 ]
-  %523 = zext i16 %521 to i32
-  %524 = icmp ult i16 %520, %521
-  br i1 %524, label %525, label %535
-
-525:                                              ; preds = %518
-  %526 = zext i16 %520 to i32
-  %527 = load i16, ptr %396, align 2, !tbaa !49
-  %528 = zext i16 %527 to i32
-  %529 = lshr i32 %528, %526
-  %530 = trunc i32 %529 to i16
-  %531 = or i16 %519, %530
-  store i16 %531, ptr %402, align 2, !tbaa !66
-  %532 = sub nsw i32 16, %526
-  %533 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %532), !range !52
-  %534 = load i16, ptr %402, align 2, !tbaa !66
-  br label %535
-
-535:                                              ; preds = %525, %518
-  %536 = phi i16 [ 16, %525 ], [ %520, %518 ]
-  %537 = phi i16 [ %534, %525 ], [ %519, %518 ]
-  %538 = zext i16 %537 to i32
-  %539 = sub nuw nsw i32 16, %523
-  %540 = lshr i32 %538, %539
-  %541 = shl nuw nsw i32 %538, %523
-  %542 = trunc i32 %541 to i16
-  %543 = sub nsw i16 %536, %521
-  store i16 %543, ptr %403, align 8, !tbaa !67
-  %544 = trunc i32 %540 to i16
-  %545 = add nuw nsw i16 %522, 2
-  %546 = add nuw nsw i16 %545, %544
-  %547 = zext i16 %546 to i32
-  %548 = add i32 %414, %547
-  %549 = icmp slt i16 %543, 1
-  br i1 %549, label %575, label %586
-
-550:                                              ; preds = %416
-  %551 = icmp ult i16 %412, 9
-  br i1 %551, label %552, label %562
-
-552:                                              ; preds = %550
-  %553 = load i16, ptr %396, align 2, !tbaa !49
-  %554 = zext i16 %553 to i32
-  %555 = zext i16 %419 to i32
-  %556 = lshr i32 %554, %555
-  %557 = trunc i32 %556 to i16
-  %558 = or i16 %418, %557
-  store i16 %558, ptr %402, align 2, !tbaa !66
-  %559 = sub nuw nsw i32 16, %555
-  %560 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %559), !range !52
-  %561 = load i16, ptr %402, align 2, !tbaa !66
-  br label %562
-
-562:                                              ; preds = %421, %552, %550
-  %563 = phi i16 [ 16, %552 ], [ %419, %550 ], [ 15, %421 ]
-  %564 = phi i16 [ %561, %552 ], [ %418, %550 ], [ %433, %421 ]
-  %565 = lshr i16 %564, 8
-  %566 = shl i16 %564, 8
-  store i16 %566, ptr %402, align 2, !tbaa !66
-  %567 = add nsw i16 %563, -8
-  store i16 %567, ptr %403, align 8, !tbaa !67
-  %568 = trunc i16 %565 to i8
-  %569 = load ptr, ptr %391, align 8, !tbaa !44
-  %570 = zext i32 %413 to i64
-  %571 = getelementptr inbounds i8, ptr %569, i64 %570
-  store i8 %568, ptr %571, align 1, !tbaa !20
-  %572 = add nuw i32 %414, 1
-  %573 = add i32 %413, 1
-  %574 = icmp ugt i32 %573, 26623
-  br i1 %574, label %698, label %693
-
-575:                                              ; preds = %535
-  %576 = load i16, ptr %396, align 2, !tbaa !49
-  %577 = zext i16 %576 to i32
-  %578 = zext i16 %543 to i32
-  %579 = lshr i32 %577, %578
-  %580 = or i32 %579, %541
-  %581 = trunc i32 %580 to i16
-  store i16 %581, ptr %402, align 2, !tbaa !66
-  %582 = sext i16 %543 to i32
-  %583 = sub nsw i32 16, %582
-  %584 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %583), !range !52
-  %585 = load i16, ptr %402, align 2, !tbaa !66
-  br label %586
-
-586:                                              ; preds = %575, %535
-  %587 = phi i16 [ %585, %575 ], [ %542, %535 ]
-  %588 = phi i16 [ 16, %575 ], [ %543, %535 ]
-  %589 = shl i16 %587, 1
-  %590 = add nsw i16 %588, -1
-  store i16 %590, ptr %403, align 8, !tbaa !67
-  %591 = icmp sgt i16 %587, -1
-  br i1 %591, label %631, label %592
-
-592:                                              ; preds = %586
-  %593 = icmp eq i16 %590, 0
-  br i1 %593, label %594, label %599
-
-594:                                              ; preds = %592
-  %595 = load i16, ptr %396, align 2, !tbaa !49
-  %596 = or i16 %595, %589
-  store i16 %596, ptr %402, align 2, !tbaa !66
-  %597 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %598 = load i16, ptr %402, align 2, !tbaa !66
-  br label %599
-
-599:                                              ; preds = %594, %592
-  %600 = phi i16 [ 16, %594 ], [ %590, %592 ]
-  %601 = phi i16 [ %598, %594 ], [ %589, %592 ]
-  %602 = shl i16 %601, 1
-  %603 = add nsw i16 %600, -1
-  store i16 %603, ptr %403, align 8, !tbaa !67
-  %604 = icmp sgt i16 %601, -1
-  br i1 %604, label %631, label %605
-
-605:                                              ; preds = %599
-  %606 = icmp eq i16 %603, 0
-  br i1 %606, label %607, label %612
-
-607:                                              ; preds = %605
-  %608 = load i16, ptr %396, align 2, !tbaa !49
-  %609 = or i16 %608, %602
-  store i16 %609, ptr %402, align 2, !tbaa !66
-  %610 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %611 = load i16, ptr %402, align 2, !tbaa !66
-  br label %612
-
-612:                                              ; preds = %607, %605
-  %613 = phi i16 [ 16, %607 ], [ %603, %605 ]
-  %614 = phi i16 [ %611, %607 ], [ %602, %605 ]
-  %615 = shl i16 %614, 1
-  %616 = add nsw i16 %613, -1
-  store i16 %616, ptr %403, align 8, !tbaa !67
-  %617 = icmp sgt i16 %614, -1
-  br i1 %617, label %631, label %618
-
-618:                                              ; preds = %612
-  %619 = icmp eq i16 %616, 0
-  br i1 %619, label %620, label %625
-
-620:                                              ; preds = %618
-  %621 = load i16, ptr %396, align 2, !tbaa !49
-  %622 = or i16 %621, %615
-  store i16 %622, ptr %402, align 2, !tbaa !66
-  %623 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef 16), !range !52
-  %624 = load i16, ptr %402, align 2, !tbaa !66
-  br label %625
-
-625:                                              ; preds = %620, %618
-  %626 = phi i16 [ 16, %620 ], [ %616, %618 ]
-  %627 = phi i16 [ %624, %620 ], [ %615, %618 ]
-  %628 = shl i16 %627, 1
-  %629 = add nsw i16 %626, -1
-  store i16 %629, ptr %403, align 8, !tbaa !67
-  %630 = icmp sgt i16 %627, -1
-  br i1 %630, label %631, label %636
-
-631:                                              ; preds = %625, %612, %599, %586
-  %632 = phi i16 [ %589, %586 ], [ %602, %599 ], [ %615, %612 ], [ %628, %625 ]
-  %633 = phi i16 [ %590, %586 ], [ %603, %599 ], [ %616, %612 ], [ %629, %625 ]
-  %634 = phi i16 [ 0, %586 ], [ 512, %599 ], [ 1536, %612 ], [ 3584, %625 ]
-  %635 = phi i16 [ 9, %586 ], [ 10, %599 ], [ 11, %612 ], [ 12, %625 ]
-  br label %636
-
-636:                                              ; preds = %631, %625
-  %637 = phi i16 [ %632, %631 ], [ %628, %625 ]
-  %638 = phi i16 [ %633, %631 ], [ %629, %625 ]
-  %639 = phi i16 [ %635, %631 ], [ 13, %625 ]
-  %640 = phi i16 [ %634, %631 ], [ 7680, %625 ]
-  %641 = icmp ult i16 %638, %639
-  br i1 %641, label %642, label %652
-
-642:                                              ; preds = %636
-  %643 = zext i16 %638 to i32
-  %644 = load i16, ptr %396, align 2, !tbaa !49
-  %645 = zext i16 %644 to i32
-  %646 = lshr i32 %645, %643
-  %647 = trunc i32 %646 to i16
-  %648 = or i16 %637, %647
-  store i16 %648, ptr %402, align 2, !tbaa !66
-  %649 = sub nsw i32 16, %643
-  %650 = call fastcc i32 @fill_buf(ptr noundef nonnull %4, i32 noundef %649), !range !52
-  %651 = load i16, ptr %402, align 2, !tbaa !66
-  br label %652
-
-652:                                              ; preds = %642, %636
-  %653 = phi i16 [ 16, %642 ], [ %638, %636 ]
-  %654 = phi i16 [ %651, %642 ], [ %637, %636 ]
-  %655 = zext i16 %639 to i32
-  %656 = zext i16 %654 to i32
-  %657 = sub nuw nsw i32 16, %655
-  %658 = lshr i32 %656, %657
-  %659 = shl nuw nsw i32 %656, %655
-  %660 = trunc i32 %659 to i16
-  store i16 %660, ptr %402, align 2, !tbaa !66
-  %661 = sub nsw i16 %653, %639
-  store i16 %661, ptr %403, align 8, !tbaa !67
-  %662 = trunc i32 %658 to i16
-  %663 = add nuw nsw i16 %640, %662
-  %664 = xor i16 %663, -1
-  %665 = trunc i32 %413 to i16
-  %666 = add nsw i16 %664, %665
-  %667 = icmp slt i16 %666, 0
-  %668 = add i16 %666, 26624
-  %669 = select i1 %667, i16 %668, i16 %666
-  br label %670
-
-670:                                              ; preds = %687, %652
-  %671 = phi i16 [ %674, %687 ], [ %546, %652 ]
-  %672 = phi i16 [ %691, %687 ], [ %669, %652 ]
-  %673 = phi i32 [ %688, %687 ], [ %413, %652 ]
-  %674 = add nsw i16 %671, -1
-  %675 = load ptr, ptr %391, align 8, !tbaa !44
-  %676 = sext i16 %672 to i64
-  %677 = getelementptr inbounds i8, ptr %675, i64 %676
-  %678 = load i8, ptr %677, align 1, !tbaa !20
-  %679 = zext i32 %673 to i64
-  %680 = getelementptr inbounds i8, ptr %675, i64 %679
-  store i8 %678, ptr %680, align 1, !tbaa !20
-  %681 = add i32 %673, 1
-  %682 = icmp ugt i32 %681, 26623
-  br i1 %682, label %683, label %687
-
-683:                                              ; preds = %670
-  %684 = load i32, ptr %28, align 4, !tbaa !41
-  %685 = load ptr, ptr %391, align 8, !tbaa !44
-  %686 = call i32 @cli_writen(i32 noundef %684, ptr noundef %685, i32 noundef 26624) #11
-  br label %687
-
-687:                                              ; preds = %683, %670
-  %688 = phi i32 [ 0, %683 ], [ %681, %670 ]
-  %689 = add i16 %672, 1
-  %690 = icmp sgt i16 %689, 26623
-  %691 = select i1 %690, i16 0, i16 %689
-  %692 = icmp ugt i16 %671, 1
-  br i1 %692, label %670, label %693, !llvm.loop !68
-
-693:                                              ; preds = %687, %562
-  %694 = phi i32 [ %572, %562 ], [ %548, %687 ]
-  %695 = phi i32 [ %573, %562 ], [ %688, %687 ]
-  %696 = load i32, ptr %404, align 4, !tbaa !53
-  %697 = icmp ult i32 %694, %696
-  br i1 %697, label %407, label %704, !llvm.loop !69
-
-698:                                              ; preds = %562
-  %699 = load i32, ptr %28, align 4, !tbaa !41
-  %700 = load ptr, ptr %391, align 8, !tbaa !44
-  %701 = call i32 @cli_writen(i32 noundef %699, ptr noundef %700, i32 noundef 26624) #11
-  %702 = load i32, ptr %404, align 4, !tbaa !53
-  %703 = icmp ult i32 %572, %702
-  br i1 %703, label %407, label %710, !llvm.loop !69
-
-704:                                              ; preds = %693
-  %705 = icmp eq i32 %695, 0
-  br i1 %705, label %710, label %706
-
-706:                                              ; preds = %704
-  %707 = load i32, ptr %28, align 4, !tbaa !41
-  %708 = load ptr, ptr %391, align 8, !tbaa !44
-  %709 = call i32 @cli_writen(i32 noundef %707, ptr noundef %708, i32 noundef %695) #11
-  br label %710
-
-710:                                              ; preds = %698, %706, %704, %401
-  %711 = load ptr, ptr %391, align 8, !tbaa !44
-  call void @free(ptr noundef %711) #11
-  br label %712
-
-712:                                              ; preds = %389, %393, %710
+  br label %359
+
+304:                                              ; preds = %292
+  %305 = and i32 %300, 65535
+  %306 = icmp ugt i32 %58, %305
+  %307 = icmp ult i32 %58, 26367
+  %308 = and i1 %307, %306
+  %309 = add nsw i16 %227, -254
+  br i1 %308, label %310, label %329
+
+310:                                              ; preds = %304
+  %311 = zext i32 %305 to i64
+  %312 = zext i32 %58 to i64
+  br label %313
+
+313:                                              ; preds = %313, %310
+  %314 = phi i64 [ %312, %310 ], [ %321, %313 ]
+  %315 = phi i64 [ %311, %310 ], [ %318, %313 ]
+  %316 = phi i16 [ %309, %310 ], [ %323, %313 ]
+  %317 = load ptr, ptr %39, align 8, !tbaa !43
+  %318 = add nuw nsw i64 %315, 1
+  %319 = getelementptr inbounds i8, ptr %317, i64 %315
+  %320 = load i8, ptr %319, align 1, !tbaa !20
+  %321 = add nuw nsw i64 %314, 1
+  %322 = getelementptr inbounds i8, ptr %317, i64 %314
+  store i8 %320, ptr %322, align 1, !tbaa !20
+  %323 = add i16 %316, -1
+  %324 = icmp sgt i16 %323, -1
+  %325 = icmp ult i64 %315, 26623
+  %326 = select i1 %324, i1 %325, i1 false
+  %327 = icmp ult i64 %314, 26623
+  %328 = select i1 %326, i1 %327, i1 false
+  br i1 %328, label %313, label %352, !llvm.loop !62
+
+329:                                              ; preds = %304, %345
+  %330 = phi i16 [ %350, %345 ], [ %309, %304 ]
+  %331 = phi i16 [ %349, %345 ], [ %301, %304 ]
+  %332 = phi i32 [ %346, %345 ], [ %58, %304 ]
+  %333 = load ptr, ptr %39, align 8, !tbaa !43
+  %334 = sext i16 %331 to i64
+  %335 = getelementptr inbounds i8, ptr %333, i64 %334
+  %336 = load i8, ptr %335, align 1, !tbaa !20
+  %337 = zext i32 %332 to i64
+  %338 = getelementptr inbounds i8, ptr %333, i64 %337
+  store i8 %336, ptr %338, align 1, !tbaa !20
+  %339 = add i32 %332, 1
+  %340 = icmp ugt i32 %339, 26623
+  br i1 %340, label %341, label %345
+
+341:                                              ; preds = %329
+  %342 = load i32, ptr %26, align 4, !tbaa !41
+  %343 = load ptr, ptr %39, align 8, !tbaa !43
+  %344 = call i32 @cli_writen(i32 noundef %342, ptr noundef %343, i32 noundef 26624) #11
+  br label %345
+
+345:                                              ; preds = %341, %329
+  %346 = phi i32 [ 0, %341 ], [ %339, %329 ]
+  %347 = add i16 %331, 1
+  %348 = icmp sgt i16 %347, 26623
+  %349 = select i1 %348, i16 0, i16 %347
+  %350 = add i16 %330, -1
+  %351 = icmp sgt i16 %350, -1
+  br i1 %351, label %329, label %354, !llvm.loop !63
+
+352:                                              ; preds = %313
+  %353 = trunc i64 %321 to i32
+  br label %354
+
+354:                                              ; preds = %345, %352, %243, %234
+  %355 = phi i32 [ %240, %243 ], [ %240, %234 ], [ %250, %352 ], [ %250, %345 ]
+  %356 = phi i32 [ 0, %243 ], [ %241, %234 ], [ %353, %352 ], [ %346, %345 ]
+  %357 = load i32, ptr %51, align 4, !tbaa !52
+  %358 = icmp ult i32 %355, %357
+  br i1 %358, label %57, label %359, !llvm.loop !64
+
+359:                                              ; preds = %354, %303
+  %360 = phi i32 [ %58, %303 ], [ %356, %354 ]
+  %361 = icmp eq i32 %360, 0
+  br i1 %361, label %366, label %362
+
+362:                                              ; preds = %359
+  %363 = load i32, ptr %26, align 4, !tbaa !41
+  %364 = load ptr, ptr %39, align 8, !tbaa !43
+  %365 = call i32 @cli_writen(i32 noundef %363, ptr noundef %364, i32 noundef %360) #11
+  br label %366
+
+366:                                              ; preds = %362, %359, %50
+  %367 = load ptr, ptr %39, align 8, !tbaa !43
+  call void @free(ptr noundef %367) #11
+  br label %368
+
+368:                                              ; preds = %37, %41, %366
   call void @llvm.lifetime.end.p0(i64 13352, ptr nonnull %4) #11
-  br label %713
+  br label %370
 
-713:                                              ; preds = %388, %712, %52, %30, %25, %17, %3
-  %714 = phi i32 [ -111, %3 ], [ %24, %17 ], [ -115, %25 ], [ 0, %712 ], [ 0, %388 ], [ %56, %52 ], [ -124, %30 ]
-  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %7) #11
-  ret i32 %714
+369:                                              ; preds = %28
+  call fastcc void @decode_f(i32 noundef %0, ptr noundef nonnull %2)
+  br label %370
+
+370:                                              ; preds = %368, %369, %31, %28, %23, %15, %3
+  %371 = phi i32 [ -111, %3 ], [ %22, %15 ], [ -115, %23 ], [ 0, %369 ], [ 0, %368 ], [ %36, %31 ], [ -124, %28 ]
+  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %5) #11
+  ret i32 %371
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -1689,6 +1179,533 @@ declare noundef i32 @snprintf(ptr noalias nocapture noundef writeonly, i64 nound
 
 ; Function Attrs: nofree
 declare noundef i32 @open(ptr nocapture noundef readonly, i32 noundef, ...) local_unnamed_addr #5
+
+; Function Attrs: nounwind uwtable
+define internal fastcc i32 @arj_unstore(i32 noundef %0, i32 noundef %1, i32 noundef %2) unnamed_addr #0 {
+  %4 = alloca [8192 x i8], align 16
+  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %4) #11
+  tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.28) #11
+  %5 = icmp eq i32 %2, 0
+  br i1 %5, label %22, label %6
+
+6:                                                ; preds = %3, %19
+  %7 = phi i32 [ %20, %19 ], [ %2, %3 ]
+  %8 = call i32 @llvm.umin.i32(i32 %7, i32 8192)
+  %9 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %4, i32 noundef %8) #11
+  %10 = icmp eq i32 %9, %8
+  br i1 %10, label %13, label %11
+
+11:                                               ; preds = %6
+  %12 = sub i32 %2, %7
+  br label %22
+
+13:                                               ; preds = %6
+  %14 = call i32 @cli_writen(i32 noundef %1, ptr noundef nonnull %4, i32 noundef %8) #11
+  %15 = icmp eq i32 %14, %8
+  br i1 %15, label %19, label %16
+
+16:                                               ; preds = %13
+  %17 = add i32 %7, %8
+  %18 = sub i32 %2, %17
+  br label %22
+
+19:                                               ; preds = %13
+  %20 = sub i32 %7, %8
+  %21 = icmp eq i32 %20, 0
+  br i1 %21, label %22, label %6, !llvm.loop !65
+
+22:                                               ; preds = %19, %3, %16, %11
+  %23 = phi i32 [ %12, %11 ], [ %18, %16 ], [ 0, %3 ], [ %2, %19 ]
+  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %4) #11
+  ret i32 %23
+}
+
+; Function Attrs: nounwind uwtable
+define internal fastcc void @decode_f(i32 noundef %0, ptr nocapture noundef readonly %1) unnamed_addr #0 {
+  %3 = alloca %struct.arj_decode_tag, align 8
+  call void @llvm.lifetime.start.p0(i64 13352, ptr nonnull %3) #11
+  %4 = tail call ptr @cli_malloc(i64 noundef 26624) #11
+  %5 = getelementptr inbounds %struct.arj_decode_tag, ptr %3, i64 0, i32 1
+  store ptr %4, ptr %5, align 8, !tbaa !43
+  %6 = icmp eq ptr %4, null
+  br i1 %6, label %326, label %7
+
+7:                                                ; preds = %2
+  store i32 %0, ptr %3, align 8, !tbaa !45
+  %8 = load i32, ptr %1, align 8, !tbaa !42
+  %9 = getelementptr inbounds %struct.arj_decode_tag, ptr %3, i64 0, i32 6
+  store i32 %8, ptr %9, align 4, !tbaa !46
+  %10 = getelementptr inbounds %struct.arj_decode_tag, ptr %3, i64 0, i32 3
+  store i16 0, ptr %10, align 2, !tbaa !48
+  %11 = getelementptr inbounds %struct.arj_decode_tag, ptr %3, i64 0, i32 4
+  store i8 0, ptr %11, align 4, !tbaa !49
+  %12 = getelementptr inbounds %struct.arj_decode_tag, ptr %3, i64 0, i32 5
+  store i32 0, ptr %12, align 8, !tbaa !50
+  %13 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %14 = icmp eq i32 %13, 0
+  br i1 %14, label %15, label %326
+
+15:                                               ; preds = %7
+  %16 = getelementptr inbounds %struct.arj_decode_tag, ptr %3, i64 0, i32 8
+  store i16 0, ptr %16, align 2, !tbaa !66
+  %17 = getelementptr inbounds %struct.arj_decode_tag, ptr %3, i64 0, i32 7
+  store i16 0, ptr %17, align 8, !tbaa !67
+  %18 = getelementptr inbounds %struct.arj_metadata_tag, ptr %1, i64 0, i32 1
+  %19 = load i32, ptr %18, align 4, !tbaa !52
+  %20 = icmp eq i32 %19, 0
+  br i1 %20, label %324, label %21
+
+21:                                               ; preds = %15
+  %22 = getelementptr inbounds %struct.arj_metadata_tag, ptr %1, i64 0, i32 5
+  br label %23
+
+23:                                               ; preds = %21, %311
+  %24 = phi i32 [ 0, %21 ], [ %313, %311 ]
+  %25 = phi i32 [ 0, %21 ], [ %312, %311 ]
+  %26 = load i16, ptr %17, align 8, !tbaa !67
+  %27 = icmp slt i16 %26, 1
+  br i1 %27, label %28, label %39
+
+28:                                               ; preds = %23
+  %29 = load i16, ptr %10, align 2, !tbaa !48
+  %30 = zext i16 %29 to i32
+  %31 = zext i16 %26 to i32
+  %32 = lshr i32 %30, %31
+  %33 = load i16, ptr %16, align 2, !tbaa !66
+  %34 = trunc i32 %32 to i16
+  %35 = or i16 %33, %34
+  store i16 %35, ptr %16, align 2, !tbaa !66
+  %36 = sext i16 %26 to i32
+  %37 = sub nsw i32 16, %36
+  %38 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef %37), !range !51
+  br label %39
+
+39:                                               ; preds = %28, %23
+  %40 = phi i16 [ 16, %28 ], [ %26, %23 ]
+  %41 = load i16, ptr %16, align 2, !tbaa !66
+  %42 = shl i16 %41, 1
+  %43 = add nsw i16 %40, -1
+  store i16 %43, ptr %17, align 8, !tbaa !67
+  %44 = icmp sgt i16 %41, -1
+  br i1 %44, label %159, label %45
+
+45:                                               ; preds = %39
+  %46 = icmp eq i16 %43, 0
+  br i1 %46, label %47, label %52
+
+47:                                               ; preds = %45
+  %48 = load i16, ptr %10, align 2, !tbaa !48
+  %49 = or i16 %42, %48
+  store i16 %49, ptr %16, align 2, !tbaa !66
+  %50 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %51 = load i16, ptr %16, align 2, !tbaa !66
+  br label %52
+
+52:                                               ; preds = %47, %45
+  %53 = phi i16 [ 16, %47 ], [ %43, %45 ]
+  %54 = phi i16 [ %51, %47 ], [ %42, %45 ]
+  %55 = shl i16 %54, 1
+  %56 = add nsw i16 %53, -1
+  store i16 %56, ptr %17, align 8, !tbaa !67
+  %57 = icmp sgt i16 %54, -1
+  br i1 %57, label %123, label %58
+
+58:                                               ; preds = %52
+  %59 = icmp eq i16 %56, 0
+  br i1 %59, label %60, label %65
+
+60:                                               ; preds = %58
+  %61 = load i16, ptr %10, align 2, !tbaa !48
+  %62 = or i16 %55, %61
+  store i16 %62, ptr %16, align 2, !tbaa !66
+  %63 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %64 = load i16, ptr %16, align 2, !tbaa !66
+  br label %65
+
+65:                                               ; preds = %60, %58
+  %66 = phi i16 [ 16, %60 ], [ %56, %58 ]
+  %67 = phi i16 [ %64, %60 ], [ %55, %58 ]
+  %68 = shl i16 %67, 1
+  %69 = add nsw i16 %66, -1
+  store i16 %69, ptr %17, align 8, !tbaa !67
+  %70 = icmp sgt i16 %67, -1
+  br i1 %70, label %123, label %71
+
+71:                                               ; preds = %65
+  %72 = icmp eq i16 %69, 0
+  br i1 %72, label %73, label %78
+
+73:                                               ; preds = %71
+  %74 = load i16, ptr %10, align 2, !tbaa !48
+  %75 = or i16 %68, %74
+  store i16 %75, ptr %16, align 2, !tbaa !66
+  %76 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %77 = load i16, ptr %16, align 2, !tbaa !66
+  br label %78
+
+78:                                               ; preds = %73, %71
+  %79 = phi i16 [ 16, %73 ], [ %69, %71 ]
+  %80 = phi i16 [ %77, %73 ], [ %68, %71 ]
+  %81 = shl i16 %80, 1
+  %82 = add nsw i16 %79, -1
+  store i16 %82, ptr %17, align 8, !tbaa !67
+  %83 = icmp sgt i16 %80, -1
+  br i1 %83, label %123, label %84
+
+84:                                               ; preds = %78
+  %85 = icmp eq i16 %82, 0
+  br i1 %85, label %86, label %91
+
+86:                                               ; preds = %84
+  %87 = load i16, ptr %10, align 2, !tbaa !48
+  %88 = or i16 %81, %87
+  store i16 %88, ptr %16, align 2, !tbaa !66
+  %89 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %90 = load i16, ptr %16, align 2, !tbaa !66
+  br label %91
+
+91:                                               ; preds = %86, %84
+  %92 = phi i16 [ 16, %86 ], [ %82, %84 ]
+  %93 = phi i16 [ %90, %86 ], [ %81, %84 ]
+  %94 = shl i16 %93, 1
+  %95 = add nsw i16 %92, -1
+  store i16 %95, ptr %17, align 8, !tbaa !67
+  %96 = icmp sgt i16 %93, -1
+  br i1 %96, label %123, label %97
+
+97:                                               ; preds = %91
+  %98 = icmp eq i16 %95, 0
+  br i1 %98, label %99, label %104
+
+99:                                               ; preds = %97
+  %100 = load i16, ptr %10, align 2, !tbaa !48
+  %101 = or i16 %94, %100
+  store i16 %101, ptr %16, align 2, !tbaa !66
+  %102 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %103 = load i16, ptr %16, align 2, !tbaa !66
+  br label %104
+
+104:                                              ; preds = %99, %97
+  %105 = phi i16 [ 16, %99 ], [ %95, %97 ]
+  %106 = phi i16 [ %103, %99 ], [ %94, %97 ]
+  %107 = shl i16 %106, 1
+  %108 = add nsw i16 %105, -1
+  store i16 %108, ptr %17, align 8, !tbaa !67
+  %109 = icmp sgt i16 %106, -1
+  br i1 %109, label %123, label %110
+
+110:                                              ; preds = %104
+  %111 = icmp eq i16 %108, 0
+  br i1 %111, label %112, label %117
+
+112:                                              ; preds = %110
+  %113 = load i16, ptr %10, align 2, !tbaa !48
+  %114 = or i16 %107, %113
+  store i16 %114, ptr %16, align 2, !tbaa !66
+  %115 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %116 = load i16, ptr %16, align 2, !tbaa !66
+  br label %117
+
+117:                                              ; preds = %112, %110
+  %118 = phi i16 [ 16, %112 ], [ %108, %110 ]
+  %119 = phi i16 [ %116, %112 ], [ %107, %110 ]
+  %120 = shl i16 %119, 1
+  %121 = add nsw i16 %118, -1
+  store i16 %121, ptr %17, align 8, !tbaa !67
+  %122 = icmp sgt i16 %119, -1
+  br i1 %122, label %123, label %128
+
+123:                                              ; preds = %117, %104, %91, %78, %65, %52
+  %124 = phi i16 [ %120, %117 ], [ %107, %104 ], [ %94, %91 ], [ %81, %78 ], [ %68, %65 ], [ %55, %52 ]
+  %125 = phi i16 [ %121, %117 ], [ %108, %104 ], [ %95, %91 ], [ %82, %78 ], [ %69, %65 ], [ %56, %52 ]
+  %126 = phi i32 [ 63, %117 ], [ 31, %104 ], [ 15, %91 ], [ 7, %78 ], [ 3, %65 ], [ 1, %52 ]
+  %127 = phi i16 [ 6, %117 ], [ 5, %104 ], [ 4, %91 ], [ 3, %78 ], [ 2, %65 ], [ 1, %52 ]
+  br label %128
+
+128:                                              ; preds = %123, %117
+  %129 = phi i16 [ %120, %117 ], [ %124, %123 ]
+  %130 = phi i16 [ %121, %117 ], [ %125, %123 ]
+  %131 = phi i16 [ 7, %117 ], [ %127, %123 ]
+  %132 = phi i32 [ 127, %117 ], [ %126, %123 ]
+  %133 = zext i16 %131 to i32
+  %134 = icmp ult i16 %130, %131
+  br i1 %134, label %135, label %145
+
+135:                                              ; preds = %128
+  %136 = zext i16 %130 to i32
+  %137 = load i16, ptr %10, align 2, !tbaa !48
+  %138 = zext i16 %137 to i32
+  %139 = lshr i32 %138, %136
+  %140 = trunc i32 %139 to i16
+  %141 = or i16 %129, %140
+  store i16 %141, ptr %16, align 2, !tbaa !66
+  %142 = sub nsw i32 16, %136
+  %143 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef %142), !range !51
+  %144 = load i16, ptr %16, align 2, !tbaa !66
+  br label %145
+
+145:                                              ; preds = %128, %135
+  %146 = phi i16 [ 16, %135 ], [ %130, %128 ]
+  %147 = phi i16 [ %144, %135 ], [ %129, %128 ]
+  %148 = zext i16 %147 to i32
+  %149 = sub nuw nsw i32 16, %133
+  %150 = lshr i32 %148, %149
+  %151 = shl nuw nsw i32 %148, %133
+  %152 = trunc i32 %151 to i16
+  %153 = sub nsw i16 %146, %131
+  store i16 %153, ptr %17, align 8, !tbaa !67
+  %154 = add nuw nsw i32 %150, %132
+  %155 = trunc i32 %154 to i16
+  %156 = add nuw nsw i32 %154, 2
+  %157 = add i32 %25, %156
+  %158 = icmp slt i16 %153, 1
+  br i1 %158, label %189, label %200
+
+159:                                              ; preds = %39
+  %160 = icmp ult i16 %40, 9
+  br i1 %160, label %161, label %172
+
+161:                                              ; preds = %159
+  %162 = load i16, ptr %10, align 2, !tbaa !48
+  %163 = zext i16 %162 to i32
+  %164 = zext i16 %43 to i32
+  %165 = lshr i32 %163, %164
+  %166 = trunc i32 %165 to i16
+  %167 = or i16 %42, %166
+  store i16 %167, ptr %16, align 2, !tbaa !66
+  %168 = zext i16 %43 to i32
+  %169 = sub nuw nsw i32 16, %168
+  %170 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef %169), !range !51
+  %171 = load i16, ptr %16, align 2, !tbaa !66
+  br label %172
+
+172:                                              ; preds = %161, %159
+  %173 = phi i16 [ 16, %161 ], [ %43, %159 ]
+  %174 = phi i16 [ %171, %161 ], [ %42, %159 ]
+  %175 = lshr i16 %174, 8
+  %176 = shl i16 %174, 8
+  store i16 %176, ptr %16, align 2, !tbaa !66
+  %177 = add nsw i16 %173, -8
+  store i16 %177, ptr %17, align 8, !tbaa !67
+  %178 = trunc i16 %175 to i8
+  %179 = load ptr, ptr %5, align 8, !tbaa !43
+  %180 = zext i32 %24 to i64
+  %181 = getelementptr inbounds i8, ptr %179, i64 %180
+  store i8 %178, ptr %181, align 1, !tbaa !20
+  %182 = add nuw i32 %25, 1
+  %183 = add i32 %24, 1
+  %184 = icmp ugt i32 %183, 26623
+  br i1 %184, label %185, label %311
+
+185:                                              ; preds = %172
+  %186 = load i32, ptr %22, align 4, !tbaa !41
+  %187 = load ptr, ptr %5, align 8, !tbaa !43
+  %188 = call i32 @cli_writen(i32 noundef %186, ptr noundef %187, i32 noundef 26624) #11
+  br label %311
+
+189:                                              ; preds = %145
+  %190 = load i16, ptr %10, align 2, !tbaa !48
+  %191 = zext i16 %190 to i32
+  %192 = zext i16 %153 to i32
+  %193 = lshr i32 %191, %192
+  %194 = or i32 %151, %193
+  %195 = trunc i32 %194 to i16
+  store i16 %195, ptr %16, align 2, !tbaa !66
+  %196 = sext i16 %153 to i32
+  %197 = sub nsw i32 16, %196
+  %198 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef %197), !range !51
+  %199 = load i16, ptr %16, align 2, !tbaa !66
+  br label %200
+
+200:                                              ; preds = %189, %145
+  %201 = phi i16 [ %199, %189 ], [ %152, %145 ]
+  %202 = phi i16 [ 16, %189 ], [ %153, %145 ]
+  %203 = shl i16 %201, 1
+  %204 = add nsw i16 %202, -1
+  store i16 %204, ptr %17, align 8, !tbaa !67
+  %205 = icmp sgt i16 %201, -1
+  br i1 %205, label %245, label %206
+
+206:                                              ; preds = %200
+  %207 = icmp eq i16 %204, 0
+  br i1 %207, label %208, label %213
+
+208:                                              ; preds = %206
+  %209 = load i16, ptr %10, align 2, !tbaa !48
+  %210 = or i16 %203, %209
+  store i16 %210, ptr %16, align 2, !tbaa !66
+  %211 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %212 = load i16, ptr %16, align 2, !tbaa !66
+  br label %213
+
+213:                                              ; preds = %208, %206
+  %214 = phi i16 [ 16, %208 ], [ %204, %206 ]
+  %215 = phi i16 [ %212, %208 ], [ %203, %206 ]
+  %216 = shl i16 %215, 1
+  %217 = add nsw i16 %214, -1
+  store i16 %217, ptr %17, align 8, !tbaa !67
+  %218 = icmp sgt i16 %215, -1
+  br i1 %218, label %245, label %219
+
+219:                                              ; preds = %213
+  %220 = icmp eq i16 %217, 0
+  br i1 %220, label %221, label %226
+
+221:                                              ; preds = %219
+  %222 = load i16, ptr %10, align 2, !tbaa !48
+  %223 = or i16 %216, %222
+  store i16 %223, ptr %16, align 2, !tbaa !66
+  %224 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %225 = load i16, ptr %16, align 2, !tbaa !66
+  br label %226
+
+226:                                              ; preds = %221, %219
+  %227 = phi i16 [ 16, %221 ], [ %217, %219 ]
+  %228 = phi i16 [ %225, %221 ], [ %216, %219 ]
+  %229 = shl i16 %228, 1
+  %230 = add nsw i16 %227, -1
+  store i16 %230, ptr %17, align 8, !tbaa !67
+  %231 = icmp sgt i16 %228, -1
+  br i1 %231, label %245, label %232
+
+232:                                              ; preds = %226
+  %233 = icmp eq i16 %230, 0
+  br i1 %233, label %234, label %239
+
+234:                                              ; preds = %232
+  %235 = load i16, ptr %10, align 2, !tbaa !48
+  %236 = or i16 %229, %235
+  store i16 %236, ptr %16, align 2, !tbaa !66
+  %237 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef 16), !range !51
+  %238 = load i16, ptr %16, align 2, !tbaa !66
+  br label %239
+
+239:                                              ; preds = %234, %232
+  %240 = phi i16 [ 16, %234 ], [ %230, %232 ]
+  %241 = phi i16 [ %238, %234 ], [ %229, %232 ]
+  %242 = shl i16 %241, 1
+  %243 = add nsw i16 %240, -1
+  store i16 %243, ptr %17, align 8, !tbaa !67
+  %244 = icmp sgt i16 %241, -1
+  br i1 %244, label %245, label %250
+
+245:                                              ; preds = %239, %226, %213, %200
+  %246 = phi i16 [ %203, %200 ], [ %216, %213 ], [ %229, %226 ], [ %242, %239 ]
+  %247 = phi i16 [ %204, %200 ], [ %217, %213 ], [ %230, %226 ], [ %243, %239 ]
+  %248 = phi i32 [ 0, %200 ], [ 512, %213 ], [ 1536, %226 ], [ 3584, %239 ]
+  %249 = phi i16 [ 9, %200 ], [ 10, %213 ], [ 11, %226 ], [ 12, %239 ]
+  br label %250
+
+250:                                              ; preds = %245, %239
+  %251 = phi i16 [ %246, %245 ], [ %242, %239 ]
+  %252 = phi i16 [ %247, %245 ], [ %243, %239 ]
+  %253 = phi i16 [ %249, %245 ], [ 13, %239 ]
+  %254 = phi i32 [ %248, %245 ], [ 7680, %239 ]
+  %255 = icmp ult i16 %252, %253
+  br i1 %255, label %256, label %266
+
+256:                                              ; preds = %250
+  %257 = zext i16 %252 to i32
+  %258 = load i16, ptr %10, align 2, !tbaa !48
+  %259 = zext i16 %258 to i32
+  %260 = lshr i32 %259, %257
+  %261 = trunc i32 %260 to i16
+  %262 = or i16 %251, %261
+  store i16 %262, ptr %16, align 2, !tbaa !66
+  %263 = sub nsw i32 16, %257
+  %264 = call fastcc i32 @fill_buf(ptr noundef nonnull %3, i32 noundef %263), !range !51
+  %265 = load i16, ptr %16, align 2, !tbaa !66
+  br label %266
+
+266:                                              ; preds = %250, %256
+  %267 = phi i16 [ 16, %256 ], [ %252, %250 ]
+  %268 = phi i16 [ %265, %256 ], [ %251, %250 ]
+  %269 = zext i16 %253 to i32
+  %270 = zext i16 %268 to i32
+  %271 = shl nuw nsw i32 %270, %269
+  %272 = trunc i32 %271 to i16
+  store i16 %272, ptr %16, align 2, !tbaa !66
+  %273 = sub nsw i16 %267, %253
+  store i16 %273, ptr %17, align 8, !tbaa !67
+  %274 = sub nuw nsw i32 16, %269
+  %275 = lshr i32 %270, %274
+  %276 = add nuw nsw i32 %275, %254
+  %277 = xor i32 %276, -1
+  %278 = add nsw i32 %24, %277
+  %279 = and i32 %278, 32768
+  %280 = icmp eq i32 %279, 0
+  %281 = add nsw i32 %278, 26624
+  %282 = select i1 %280, i32 %278, i32 %281
+  %283 = trunc i32 %282 to i16
+  %284 = icmp ugt i16 %283, 26623
+  br i1 %284, label %287, label %285
+
+285:                                              ; preds = %266
+  %286 = add nuw nsw i16 %155, 1
+  br label %288
+
+287:                                              ; preds = %266
+  call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.29) #11
+  br label %316
+
+288:                                              ; preds = %285, %304
+  %289 = phi i16 [ %309, %304 ], [ %286, %285 ]
+  %290 = phi i16 [ %308, %304 ], [ %283, %285 ]
+  %291 = phi i32 [ %305, %304 ], [ %24, %285 ]
+  %292 = load ptr, ptr %5, align 8, !tbaa !43
+  %293 = sext i16 %290 to i64
+  %294 = getelementptr inbounds i8, ptr %292, i64 %293
+  %295 = load i8, ptr %294, align 1, !tbaa !20
+  %296 = zext i32 %291 to i64
+  %297 = getelementptr inbounds i8, ptr %292, i64 %296
+  store i8 %295, ptr %297, align 1, !tbaa !20
+  %298 = add i32 %291, 1
+  %299 = icmp ugt i32 %298, 26623
+  br i1 %299, label %300, label %304
+
+300:                                              ; preds = %288
+  %301 = load i32, ptr %22, align 4, !tbaa !41
+  %302 = load ptr, ptr %5, align 8, !tbaa !43
+  %303 = call i32 @cli_writen(i32 noundef %301, ptr noundef %302, i32 noundef 26624) #11
+  br label %304
+
+304:                                              ; preds = %300, %288
+  %305 = phi i32 [ 0, %300 ], [ %298, %288 ]
+  %306 = add i16 %290, 1
+  %307 = icmp sgt i16 %306, 26623
+  %308 = select i1 %307, i16 0, i16 %306
+  %309 = add i16 %289, -1
+  %310 = icmp sgt i16 %289, 0
+  br i1 %310, label %288, label %311, !llvm.loop !68
+
+311:                                              ; preds = %304, %172, %185
+  %312 = phi i32 [ %182, %185 ], [ %182, %172 ], [ %157, %304 ]
+  %313 = phi i32 [ 0, %185 ], [ %183, %172 ], [ %305, %304 ]
+  %314 = load i32, ptr %18, align 4, !tbaa !52
+  %315 = icmp ult i32 %312, %314
+  br i1 %315, label %23, label %316, !llvm.loop !69
+
+316:                                              ; preds = %311, %287
+  %317 = phi i32 [ %24, %287 ], [ %313, %311 ]
+  %318 = icmp eq i32 %317, 0
+  br i1 %318, label %324, label %319
+
+319:                                              ; preds = %316
+  %320 = getelementptr inbounds %struct.arj_metadata_tag, ptr %1, i64 0, i32 5
+  %321 = load i32, ptr %320, align 4, !tbaa !41
+  %322 = load ptr, ptr %5, align 8, !tbaa !43
+  %323 = call i32 @cli_writen(i32 noundef %321, ptr noundef %322, i32 noundef %317) #11
+  br label %324
+
+324:                                              ; preds = %15, %319, %316
+  %325 = load ptr, ptr %5, align 8, !tbaa !43
+  call void @free(ptr noundef %325) #11
+  br label %326
+
+326:                                              ; preds = %7, %2, %324
+  call void @llvm.lifetime.end.p0(i64 13352, ptr nonnull %3) #11
+  ret void
+}
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
@@ -1709,21 +1726,21 @@ declare void @cli_warnmsg(ptr noundef, ...) local_unnamed_addr #1
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @fill_buf(ptr noundef %0, i32 noundef %1) unnamed_addr #0 {
   %3 = getelementptr inbounds %struct.arj_decode_tag, ptr %0, i64 0, i32 3
-  %4 = load i16, ptr %3, align 2, !tbaa !49
+  %4 = load i16, ptr %3, align 2, !tbaa !48
   %5 = zext i16 %4 to i32
   %6 = shl i32 %5, %1
   %7 = trunc i32 %6 to i16
   %8 = getelementptr inbounds %struct.arj_decode_tag, ptr %0, i64 0, i32 5
-  %9 = load i32, ptr %8, align 8, !tbaa !51
+  %9 = load i32, ptr %8, align 8, !tbaa !50
   %10 = icmp slt i32 %9, %1
   br i1 %10, label %11, label %59
 
 11:                                               ; preds = %2
   %12 = getelementptr inbounds %struct.arj_decode_tag, ptr %0, i64 0, i32 4
   %13 = getelementptr inbounds %struct.arj_decode_tag, ptr %0, i64 0, i32 6
-  %14 = load i32, ptr %13, align 4, !tbaa !47
+  %14 = load i32, ptr %13, align 4, !tbaa !46
   %15 = icmp eq i32 %14, 0
-  %16 = load i8, ptr %12, align 4, !tbaa !50
+  %16 = load i8, ptr %12, align 4, !tbaa !49
   %17 = zext i8 %16 to i32
   %18 = sub nsw i32 %1, %9
   %19 = shl i32 %17, %18
@@ -1732,16 +1749,16 @@ define internal fastcc i32 @fill_buf(ptr noundef %0, i32 noundef %1) unnamed_add
   br i1 %15, label %29, label %22
 
 22:                                               ; preds = %11
-  store i16 %21, ptr %3, align 2, !tbaa !49
+  store i16 %21, ptr %3, align 2, !tbaa !48
   %23 = add i32 %14, -1
-  store i32 %23, ptr %13, align 4, !tbaa !47
-  %24 = load i32, ptr %0, align 8, !tbaa !46
+  store i32 %23, ptr %13, align 4, !tbaa !46
+  %24 = load i32, ptr %0, align 8, !tbaa !45
   %25 = tail call i32 @cli_readn(i32 noundef %24, ptr noundef nonnull %12, i32 noundef 1) #11
   %26 = icmp eq i32 %25, 1
   br i1 %26, label %27, label %70
 
 27:                                               ; preds = %22
-  store i32 8, ptr %8, align 8, !tbaa !51
+  store i32 8, ptr %8, align 8, !tbaa !50
   %28 = icmp sgt i32 %18, 8
   br i1 %28, label %37, label %56
 
@@ -1757,43 +1774,43 @@ define internal fastcc i32 @fill_buf(ptr noundef %0, i32 noundef %1) unnamed_add
 
 35:                                               ; preds = %31, %29
   %36 = phi i32 [ %18, %29 ], [ %33, %31 ]
-  store i8 0, ptr %12, align 4, !tbaa !50
+  store i8 0, ptr %12, align 4, !tbaa !49
   br label %59
 
 37:                                               ; preds = %27, %54
   %38 = phi i32 [ %41, %54 ], [ %18, %27 ]
-  %39 = load i8, ptr %12, align 4, !tbaa !50
+  %39 = load i8, ptr %12, align 4, !tbaa !49
   %40 = zext i8 %39 to i32
   %41 = add nsw i32 %38, -8
   %42 = shl i32 %40, %41
-  %43 = load i16, ptr %3, align 2, !tbaa !49
+  %43 = load i16, ptr %3, align 2, !tbaa !48
   %44 = trunc i32 %42 to i16
   %45 = or i16 %43, %44
-  store i16 %45, ptr %3, align 2, !tbaa !49
-  %46 = load i32, ptr %13, align 4, !tbaa !47
+  store i16 %45, ptr %3, align 2, !tbaa !48
+  %46 = load i32, ptr %13, align 4, !tbaa !46
   %47 = icmp eq i32 %46, 0
   br i1 %47, label %53, label %48
 
 48:                                               ; preds = %37
   %49 = add i32 %46, -1
-  store i32 %49, ptr %13, align 4, !tbaa !47
-  %50 = load i32, ptr %0, align 8, !tbaa !46
+  store i32 %49, ptr %13, align 4, !tbaa !46
+  %50 = load i32, ptr %0, align 8, !tbaa !45
   %51 = tail call i32 @cli_readn(i32 noundef %50, ptr noundef nonnull %12, i32 noundef 1) #11
   %52 = icmp eq i32 %51, 1
   br i1 %52, label %54, label %70
 
 53:                                               ; preds = %37
-  store i8 0, ptr %12, align 4, !tbaa !50
+  store i8 0, ptr %12, align 4, !tbaa !49
   br label %54
 
 54:                                               ; preds = %48, %53
-  store i32 8, ptr %8, align 8, !tbaa !51
+  store i32 8, ptr %8, align 8, !tbaa !50
   %55 = icmp ugt i32 %38, 16
   br i1 %55, label %37, label %56, !llvm.loop !72
 
 56:                                               ; preds = %54, %27
   %57 = phi i32 [ %18, %27 ], [ %41, %54 ]
-  %58 = load i16, ptr %3, align 2, !tbaa !49
+  %58 = load i16, ptr %3, align 2, !tbaa !48
   br label %59
 
 59:                                               ; preds = %56, %35, %2
@@ -1801,14 +1818,14 @@ define internal fastcc i32 @fill_buf(ptr noundef %0, i32 noundef %1) unnamed_add
   %61 = phi i32 [ %1, %2 ], [ %36, %35 ], [ %57, %56 ]
   %62 = phi i32 [ %9, %2 ], [ 8, %35 ], [ 8, %56 ]
   %63 = getelementptr inbounds %struct.arj_decode_tag, ptr %0, i64 0, i32 4
-  %64 = load i8, ptr %63, align 4, !tbaa !50
+  %64 = load i8, ptr %63, align 4, !tbaa !49
   %65 = zext i8 %64 to i32
   %66 = sub nsw i32 %62, %61
-  store i32 %66, ptr %8, align 8, !tbaa !51
+  store i32 %66, ptr %8, align 8, !tbaa !50
   %67 = lshr i32 %65, %66
   %68 = trunc i32 %67 to i16
   %69 = or i16 %60, %68
-  store i16 %69, ptr %3, align 2, !tbaa !49
+  store i16 %69, ptr %3, align 2, !tbaa !48
   br label %70
 
 70:                                               ; preds = %48, %22, %59
@@ -1819,8 +1836,8 @@ define internal fastcc i32 @fill_buf(ptr noundef %0, i32 noundef %1) unnamed_add
 ; Function Attrs: nounwind uwtable
 define internal fastcc void @read_pt_len(ptr noundef %0, i32 noundef %1) unnamed_addr #0 {
   %3 = getelementptr inbounds %struct.arj_decode_tag, ptr %0, i64 0, i32 3
-  %4 = load i16, ptr %3, align 2, !tbaa !49
-  %5 = tail call fastcc i32 @fill_buf(ptr noundef %0, i32 noundef 5), !range !52
+  %4 = load i16, ptr %3, align 2, !tbaa !48
+  %5 = tail call fastcc i32 @fill_buf(ptr noundef %0, i32 noundef 5), !range !51
   %6 = icmp ult i16 %4, 2048
   br i1 %6, label %12, label %7
 
@@ -1832,8 +1849,8 @@ define internal fastcc void @read_pt_len(ptr noundef %0, i32 noundef %1) unnamed
   br label %62
 
 12:                                               ; preds = %2
-  %13 = load i16, ptr %3, align 2, !tbaa !49
-  %14 = tail call fastcc i32 @fill_buf(ptr noundef nonnull %0, i32 noundef 5), !range !52
+  %13 = load i16, ptr %3, align 2, !tbaa !48
+  %14 = tail call fastcc i32 @fill_buf(ptr noundef nonnull %0, i32 noundef 5), !range !51
   %15 = getelementptr i8, ptr %0, i64 12814
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(19) %15, i8 0, i64 19, i1 false), !tbaa !20
   %16 = lshr i16 %13, 11
@@ -1923,7 +1940,7 @@ define internal fastcc void @read_pt_len(ptr noundef %0, i32 noundef %1) unnamed
 
 62:                                               ; preds = %7, %122
   %63 = phi i32 [ %123, %122 ], [ 0, %7 ]
-  %64 = load i16, ptr %3, align 2, !tbaa !49
+  %64 = load i16, ptr %3, align 2, !tbaa !48
   %65 = lshr i16 %64, 13
   %66 = icmp eq i16 %65, 7
   br i1 %66, label %67, label %82
@@ -1956,7 +1973,7 @@ define internal fastcc void @read_pt_len(ptr noundef %0, i32 noundef %1) unnamed
 84:                                               ; preds = %67, %78, %82
   %85 = phi i16 [ %83, %82 ], [ %75, %78 ], [ 7, %67 ]
   %86 = phi i32 [ 3, %82 ], [ %81, %78 ], [ 4, %67 ]
-  %87 = tail call fastcc i32 @fill_buf(ptr noundef %0, i32 noundef %86), !range !52
+  %87 = tail call fastcc i32 @fill_buf(ptr noundef %0, i32 noundef %86), !range !51
   %88 = trunc i16 %85 to i8
   %89 = add nsw i32 %63, 1
   %90 = sext i32 %63 to i64
@@ -1966,8 +1983,8 @@ define internal fastcc void @read_pt_len(ptr noundef %0, i32 noundef %1) unnamed
   br i1 %92, label %93, label %122
 
 93:                                               ; preds = %84
-  %94 = load i16, ptr %3, align 2, !tbaa !49
-  %95 = tail call fastcc i32 @fill_buf(ptr noundef nonnull %0, i32 noundef 2), !range !52
+  %94 = load i16, ptr %3, align 2, !tbaa !48
+  %95 = tail call fastcc i32 @fill_buf(ptr noundef nonnull %0, i32 noundef 2), !range !51
   %96 = icmp ugt i16 %94, 16383
   %97 = icmp slt i32 %63, 18
   %98 = select i1 %96, i1 %97, i1 false
@@ -2663,31 +2680,31 @@ attributes #11 = { nounwind }
 !40 = !{!36, !11, i64 24}
 !41 = !{!36, !11, i64 28}
 !42 = !{!36, !11, i64 0}
-!43 = distinct !{!43, !19}
-!44 = !{!45, !37, i64 8}
-!45 = !{!"arj_decode_tag", !11, i64 0, !37, i64 8, !6, i64 16, !6, i64 18, !7, i64 20, !11, i64 24, !11, i64 28, !6, i64 32, !6, i64 34, !7, i64 36, !7, i64 2074, !7, i64 4112, !7, i64 4622, !7, i64 12814, !7, i64 12834}
-!46 = !{!45, !11, i64 0}
-!47 = !{!45, !11, i64 28}
-!48 = !{!45, !6, i64 16}
-!49 = !{!45, !6, i64 18}
-!50 = !{!45, !7, i64 20}
-!51 = !{!45, !11, i64 24}
-!52 = !{i32 -123, i32 1}
-!53 = !{!36, !11, i64 4}
-!54 = distinct !{!54, !19, !55, !56}
-!55 = !{!"llvm.loop.isvectorized", i32 1}
-!56 = !{!"llvm.loop.unroll.runtime.disable"}
-!57 = distinct !{!57, !19}
-!58 = distinct !{!58, !19, !55, !56}
-!59 = distinct !{!59, !19, !56, !55}
+!43 = !{!44, !37, i64 8}
+!44 = !{!"arj_decode_tag", !11, i64 0, !37, i64 8, !6, i64 16, !6, i64 18, !7, i64 20, !11, i64 24, !11, i64 28, !6, i64 32, !6, i64 34, !7, i64 36, !7, i64 2074, !7, i64 4112, !7, i64 4622, !7, i64 12814, !7, i64 12834}
+!45 = !{!44, !11, i64 0}
+!46 = !{!44, !11, i64 28}
+!47 = !{!44, !6, i64 16}
+!48 = !{!44, !6, i64 18}
+!49 = !{!44, !7, i64 20}
+!50 = !{!44, !11, i64 24}
+!51 = !{i32 -123, i32 1}
+!52 = !{!36, !11, i64 4}
+!53 = distinct !{!53, !19, !54, !55}
+!54 = !{!"llvm.loop.isvectorized", i32 1}
+!55 = !{!"llvm.loop.unroll.runtime.disable"}
+!56 = distinct !{!56, !19}
+!57 = distinct !{!57, !19, !54, !55}
+!58 = distinct !{!58, !19, !55, !54}
+!59 = distinct !{!59, !19}
 !60 = distinct !{!60, !19}
 !61 = distinct !{!61, !19}
 !62 = distinct !{!62, !19}
 !63 = distinct !{!63, !19}
 !64 = distinct !{!64, !19}
 !65 = distinct !{!65, !19}
-!66 = !{!45, !6, i64 34}
-!67 = !{!45, !6, i64 32}
+!66 = !{!44, !6, i64 34}
+!67 = !{!44, !6, i64 32}
 !68 = distinct !{!68, !19}
 !69 = distinct !{!69, !19}
 !70 = distinct !{!70, !19, !71}
@@ -2700,14 +2717,14 @@ attributes #11 = { nounwind }
 !77 = distinct !{!77, !19}
 !78 = distinct !{!78, !79}
 !79 = !{!"llvm.loop.unroll.disable"}
-!80 = distinct !{!80, !19, !55, !56}
+!80 = distinct !{!80, !19, !54, !55}
 !81 = distinct !{!81, !79}
-!82 = distinct !{!82, !19, !56, !55}
+!82 = distinct !{!82, !19, !55, !54}
 !83 = distinct !{!83, !19}
-!84 = distinct !{!84, !19, !55, !56}
+!84 = distinct !{!84, !19, !54, !55}
 !85 = distinct !{!85, !79}
-!86 = distinct !{!86, !19, !55}
-!87 = distinct !{!87, !19, !55, !56}
-!88 = distinct !{!88, !19, !56, !55}
+!86 = distinct !{!86, !19, !54}
+!87 = distinct !{!87, !19, !54, !55}
+!88 = distinct !{!88, !19, !55, !54}
 !89 = distinct !{!89, !19}
 !90 = distinct !{!90, !19}

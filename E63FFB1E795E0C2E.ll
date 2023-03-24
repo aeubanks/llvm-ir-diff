@@ -790,24 +790,24 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIbEENSt7__cxx1112basi
   %13 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 5
   %14 = load ptr, ptr %13, align 8, !tbaa !49, !noalias !46
   %15 = icmp eq ptr %14, null
-  %16 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !noalias !46
-  %18 = icmp ugt ptr %14, %17
-  %19 = select i1 %18, ptr %14, ptr %17
-  %20 = icmp eq ptr %19, null
-  %21 = select i1 %15, i1 true, i1 %20
-  br i1 %21, label %34, label %22
+  br i1 %15, label %34, label %16
 
-22:                                               ; preds = %10
+16:                                               ; preds = %10
+  %17 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
+  %18 = load ptr, ptr %17, align 8, !tbaa !51, !noalias !46
+  %19 = icmp eq ptr %18, null
+  %20 = icmp ugt ptr %14, %18
+  %21 = select i1 %19, i1 true, i1 %20
+  %22 = select i1 %21, ptr %14, ptr %18
   %23 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 4
-  %24 = load ptr, ptr %23, align 8, !tbaa !51, !noalias !46
-  %25 = ptrtoint ptr %19 to i64
+  %24 = load ptr, ptr %23, align 8, !tbaa !52, !noalias !46
+  %25 = ptrtoint ptr %22 to i64
   %26 = ptrtoint ptr %24 to i64
   %27 = sub i64 %25, %26
   %28 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef 0, i64 noundef 0, ptr noundef %24, i64 noundef %27)
           to label %36 unwind label %29
 
-29:                                               ; preds = %34, %22
+29:                                               ; preds = %34, %16
   %30 = landingpad { ptr, i32 }
           cleanup
   %31 = load ptr, ptr %0, align 8, !tbaa !36, !alias.scope !46
@@ -823,7 +823,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIbEENSt7__cxx1112basi
   invoke void @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERKS4_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %35)
           to label %36 unwind label %29
 
-36:                                               ; preds = %34, %22
+36:                                               ; preds = %34, %16
   %37 = load ptr, ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, align 8
   store ptr %37, ptr %3, align 8, !tbaa !5
   %38 = load ptr, ptr getelementptr inbounds ([10 x ptr], ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, i64 0, i64 8), align 8
@@ -857,7 +857,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIbEENSt7__cxx1112basi
   %55 = getelementptr inbounds i8, ptr %3, i64 %54
   store ptr %52, ptr %55, align 8, !tbaa !5
   %56 = getelementptr inbounds %"class.std::basic_istream", ptr %3, i64 0, i32 1
-  store i64 0, ptr %56, align 8, !tbaa !52
+  store i64 0, ptr %56, align 8, !tbaa !53
   %57 = getelementptr inbounds i8, ptr %3, i64 128
   call void @_ZNSt8ios_baseD2Ev(ptr noundef nonnull align 8 dereferenceable(264) %57) #23
   call void @llvm.lifetime.end.p0(i64 392, ptr nonnull %3) #23
@@ -1026,7 +1026,7 @@ define internal void @_ZN12_GLOBAL__N_132PerfCountersTest_OneCounter_Test8TestBo
   %50 = zext i1 %49 to i8
   store i8 %50, ptr %4, align 8, !tbaa !27
   %51 = getelementptr inbounds %"class.testing::AssertionResult", ptr %4, i64 0, i32 1
-  store ptr null, ptr %51, align 8, !tbaa !54
+  store ptr null, ptr %51, align 8, !tbaa !55
   br i1 %49, label %102, label %52
 
 52:                                               ; preds = %48
@@ -1167,17 +1167,17 @@ define internal void @_ZN12_GLOBAL__N_132PerfCountersTest_OneCounter_Test8TestBo
 
 107:                                              ; preds = %102
   %108 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 1
-  store ptr %106, ptr %10, align 8, !tbaa !55
+  store ptr %106, ptr %10, align 8, !tbaa !56
   %109 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %106, i64 1
   %110 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %10, i64 0, i32 2
-  store ptr %109, ptr %110, align 8, !tbaa !57
+  store ptr %109, ptr %110, align 8, !tbaa !58
   %111 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %11, ptr noundef nonnull %108, ptr noundef nonnull %106)
           to label %117 unwind label %112
 
 112:                                              ; preds = %107, %102
   %113 = landingpad { ptr, i32 }
           cleanup
-  %114 = load ptr, ptr %10, align 8, !tbaa !55
+  %114 = load ptr, ptr %10, align 8, !tbaa !56
   %115 = icmp eq ptr %114, null
   br i1 %115, label %180, label %116
 
@@ -1187,7 +1187,7 @@ define internal void @_ZN12_GLOBAL__N_132PerfCountersTest_OneCounter_Test8TestBo
 
 117:                                              ; preds = %107
   %118 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %10, i64 0, i32 1
-  store ptr %111, ptr %118, align 8, !tbaa !58
+  store ptr %111, ptr %118, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %9, ptr noundef nonnull align 8 dereferenceable(24) %10)
           to label %119 unwind label %178
 
@@ -1200,13 +1200,13 @@ define internal void @_ZN12_GLOBAL__N_132PerfCountersTest_OneCounter_Test8TestBo
   %125 = zext i1 %124 to i8
   store i8 %125, ptr %8, align 8, !tbaa !27
   %126 = getelementptr inbounds %"class.testing::AssertionResult", ptr %8, i64 0, i32 1
-  store ptr null, ptr %126, align 8, !tbaa !54
+  store ptr null, ptr %126, align 8, !tbaa !55
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %9)
           to label %127 unwind label %150
 
 127:                                              ; preds = %119
-  %128 = load ptr, ptr %120, align 8, !tbaa !55
-  %129 = load ptr, ptr %122, align 8, !tbaa !58
+  %128 = load ptr, ptr %120, align 8, !tbaa !56
+  %129 = load ptr, ptr %122, align 8, !tbaa !59
   %130 = icmp eq ptr %128, %129
   br i1 %130, label %142, label %131
 
@@ -1224,10 +1224,10 @@ define internal void @_ZN12_GLOBAL__N_132PerfCountersTest_OneCounter_Test8TestBo
 137:                                              ; preds = %136, %131
   %138 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %132, i64 1
   %139 = icmp eq ptr %138, %129
-  br i1 %139, label %140, label %131, !llvm.loop !59
+  br i1 %139, label %140, label %131, !llvm.loop !60
 
 140:                                              ; preds = %137
-  %141 = load ptr, ptr %120, align 8, !tbaa !55
+  %141 = load ptr, ptr %120, align 8, !tbaa !56
   br label %142
 
 142:                                              ; preds = %140, %127
@@ -1240,7 +1240,7 @@ define internal void @_ZN12_GLOBAL__N_132PerfCountersTest_OneCounter_Test8TestBo
   br label %146
 
 146:                                              ; preds = %145, %142
-  %147 = load ptr, ptr %9, align 8, !tbaa !61
+  %147 = load ptr, ptr %9, align 8, !tbaa !62
   %148 = icmp eq ptr %147, null
   br i1 %148, label %153, label %149
 
@@ -1256,8 +1256,8 @@ define internal void @_ZN12_GLOBAL__N_132PerfCountersTest_OneCounter_Test8TestBo
   unreachable
 
 153:                                              ; preds = %146, %149
-  %154 = load ptr, ptr %10, align 8, !tbaa !55
-  %155 = load ptr, ptr %118, align 8, !tbaa !58
+  %154 = load ptr, ptr %10, align 8, !tbaa !56
+  %155 = load ptr, ptr %118, align 8, !tbaa !59
   %156 = icmp eq ptr %154, %155
   br i1 %156, label %168, label %157
 
@@ -1275,10 +1275,10 @@ define internal void @_ZN12_GLOBAL__N_132PerfCountersTest_OneCounter_Test8TestBo
 163:                                              ; preds = %162, %157
   %164 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %158, i64 1
   %165 = icmp eq ptr %164, %155
-  br i1 %165, label %166, label %157, !llvm.loop !59
+  br i1 %165, label %166, label %157, !llvm.loop !60
 
 166:                                              ; preds = %163
-  %167 = load ptr, ptr %10, align 8, !tbaa !55
+  %167 = load ptr, ptr %10, align 8, !tbaa !56
   br label %168
 
 168:                                              ; preds = %166, %153
@@ -1313,7 +1313,7 @@ define internal void @_ZN12_GLOBAL__N_132PerfCountersTest_OneCounter_Test8TestBo
   br label %180
 
 180:                                              ; preds = %116, %112, %178
-  %181 = phi { ptr, i32 } [ %179, %178 ], [ %113, %116 ], [ %113, %112 ]
+  %181 = phi { ptr, i32 } [ %179, %178 ], [ %113, %112 ], [ %113, %116 ]
   %182 = load ptr, ptr %11, align 8, !tbaa !36
   %183 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 0, i32 2
   %184 = icmp eq ptr %182, %183
@@ -1475,9 +1475,9 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12PerfCountersD2Ev(ptr no
 
 2:                                                ; preds = %1
   %3 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !55
+  %4 = load ptr, ptr %3, align 8, !tbaa !56
   %5 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !58
+  %6 = load ptr, ptr %5, align 8, !tbaa !59
   %7 = icmp eq ptr %4, %6
   br i1 %7, label %19, label %8
 
@@ -1495,10 +1495,10 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12PerfCountersD2Ev(ptr no
 14:                                               ; preds = %13, %8
   %15 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %9, i64 1
   %16 = icmp eq ptr %15, %6
-  br i1 %16, label %17, label %8, !llvm.loop !59
+  br i1 %16, label %17, label %8, !llvm.loop !60
 
 17:                                               ; preds = %14
-  %18 = load ptr, ptr %3, align 8, !tbaa !55
+  %18 = load ptr, ptr %3, align 8, !tbaa !56
   br label %19
 
 19:                                               ; preds = %17, %2
@@ -1511,7 +1511,7 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12PerfCountersD2Ev(ptr no
   br label %23
 
 23:                                               ; preds = %19, %22
-  %24 = load ptr, ptr %0, align 8, !tbaa !61
+  %24 = load ptr, ptr %0, align 8, !tbaa !62
   %25 = icmp eq ptr %24, null
   br i1 %25, label %27, label %26
 
@@ -1532,9 +1532,9 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12PerfCountersD2Ev(ptr no
 
 ; Function Attrs: nounwind uwtable
 define linkonce_odr hidden void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #11 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !55
+  %2 = load ptr, ptr %0, align 8, !tbaa !56
   %3 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !58
+  %4 = load ptr, ptr %3, align 8, !tbaa !59
   %5 = icmp eq ptr %2, %4
   br i1 %5, label %17, label %6
 
@@ -1552,10 +1552,10 @@ define linkonce_odr hidden void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11cha
 12:                                               ; preds = %11, %6
   %13 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 1
   %14 = icmp eq ptr %13, %4
-  br i1 %14, label %15, label %6, !llvm.loop !59
+  br i1 %14, label %15, label %6, !llvm.loop !60
 
 15:                                               ; preds = %12
-  %16 = load ptr, ptr %0, align 8, !tbaa !55
+  %16 = load ptr, ptr %0, align 8, !tbaa !56
   br label %17
 
 17:                                               ; preds = %15, %1
@@ -1592,7 +1592,7 @@ define linkonce_odr dso_local noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx111
   %11 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %8, i64 0, i32 1
   %12 = load i64, ptr %11, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #23
-  store i64 %12, ptr %4, align 8, !tbaa !63
+  store i64 %12, ptr %4, align 8, !tbaa !64
   %13 = icmp ugt i64 %12, 15
   br i1 %13, label %14, label %18
 
@@ -1602,7 +1602,7 @@ define linkonce_odr dso_local noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx111
 
 16:                                               ; preds = %14
   store ptr %15, ptr %7, align 8, !tbaa !36
-  %17 = load i64, ptr %4, align 8, !tbaa !63
+  %17 = load i64, ptr %4, align 8, !tbaa !64
   store i64 %17, ptr %9, align 8, !tbaa !48
   br label %18
 
@@ -1622,8 +1622,8 @@ define linkonce_odr dso_local noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx111
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %19, ptr align 1 %10, i64 %12, i1 false)
   br label %23
 
-23:                                               ; preds = %22, %20, %18
-  %24 = load i64, ptr %4, align 8, !tbaa !63
+23:                                               ; preds = %18, %20, %22
+  %24 = load i64, ptr %4, align 8, !tbaa !64
   %25 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 1
   store i64 %24, ptr %25, align 8, !tbaa !47
   %26 = load ptr, ptr %7, align 8, !tbaa !36
@@ -1633,7 +1633,7 @@ define linkonce_odr dso_local noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx111
   %28 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %8, i64 1
   %29 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 1
   %30 = icmp eq ptr %28, %1
-  br i1 %30, label %46, label %6, !llvm.loop !64
+  br i1 %30, label %46, label %6, !llvm.loop !65
 
 31:                                               ; preds = %14
   %32 = landingpad { ptr, i32 }
@@ -1657,7 +1657,7 @@ define linkonce_odr dso_local noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx111
 42:                                               ; preds = %41, %36
   %43 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %37, i64 1
   %44 = icmp eq ptr %43, %7
-  br i1 %44, label %45, label %36, !llvm.loop !59
+  br i1 %44, label %45, label %36, !llvm.loop !60
 
 45:                                               ; preds = %42, %31
   invoke void @__cxa_rethrow() #27
@@ -1802,7 +1802,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %73 = zext i1 %72 to i8
   store i8 %73, ptr %5, align 8, !tbaa !27
   %74 = getelementptr inbounds %"class.testing::AssertionResult", ptr %5, i64 0, i32 1
-  store ptr null, ptr %74, align 8, !tbaa !54
+  store ptr null, ptr %74, align 8, !tbaa !55
   br i1 %71, label %75, label %125
 
 75:                                               ; preds = %70
@@ -1934,7 +1934,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %128 = zext i1 %127 to i8
   store i8 %128, ptr %9, align 8, !tbaa !27
   %129 = getelementptr inbounds %"class.testing::AssertionResult", ptr %9, i64 0, i32 1
-  store ptr null, ptr %129, align 8, !tbaa !54
+  store ptr null, ptr %129, align 8, !tbaa !55
   br i1 %127, label %180, label %130
 
 130:                                              ; preds = %126
@@ -2074,13 +2074,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %187 = zext i1 %186 to i8
   store i8 %187, ptr %13, align 8, !tbaa !27
   %188 = getelementptr inbounds %"class.testing::AssertionResult", ptr %13, i64 0, i32 1
-  store ptr null, ptr %188, align 8, !tbaa !54
+  store ptr null, ptr %188, align 8, !tbaa !55
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %14)
           to label %189 unwind label %212
 
 189:                                              ; preds = %181
-  %190 = load ptr, ptr %182, align 8, !tbaa !55
-  %191 = load ptr, ptr %184, align 8, !tbaa !58
+  %190 = load ptr, ptr %182, align 8, !tbaa !56
+  %191 = load ptr, ptr %184, align 8, !tbaa !59
   %192 = icmp eq ptr %190, %191
   br i1 %192, label %204, label %193
 
@@ -2098,10 +2098,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 199:                                              ; preds = %198, %193
   %200 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %194, i64 1
   %201 = icmp eq ptr %200, %191
-  br i1 %201, label %202, label %193, !llvm.loop !59
+  br i1 %201, label %202, label %193, !llvm.loop !60
 
 202:                                              ; preds = %199
-  %203 = load ptr, ptr %182, align 8, !tbaa !55
+  %203 = load ptr, ptr %182, align 8, !tbaa !56
   br label %204
 
 204:                                              ; preds = %202, %189
@@ -2114,7 +2114,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %208
 
 208:                                              ; preds = %207, %204
-  %209 = load ptr, ptr %14, align 8, !tbaa !61
+  %209 = load ptr, ptr %14, align 8, !tbaa !62
   %210 = icmp eq ptr %209, null
   br i1 %210, label %215, label %211
 
@@ -2130,9 +2130,9 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   unreachable
 
 215:                                              ; preds = %208, %211
-  %216 = load ptr, ptr %15, align 8, !tbaa !55
+  %216 = load ptr, ptr %15, align 8, !tbaa !56
   %217 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %15, i64 0, i32 1
-  %218 = load ptr, ptr %217, align 8, !tbaa !58
+  %218 = load ptr, ptr %217, align 8, !tbaa !59
   %219 = icmp eq ptr %216, %218
   br i1 %219, label %231, label %220
 
@@ -2150,10 +2150,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 226:                                              ; preds = %225, %220
   %227 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %221, i64 1
   %228 = icmp eq ptr %227, %218
-  br i1 %228, label %229, label %220, !llvm.loop !59
+  br i1 %228, label %229, label %220, !llvm.loop !60
 
 229:                                              ; preds = %226
-  %230 = load ptr, ptr %15, align 8, !tbaa !55
+  %230 = load ptr, ptr %15, align 8, !tbaa !56
   br label %231
 
 231:                                              ; preds = %229, %215
@@ -2318,17 +2318,17 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 295:                                              ; preds = %291
   %296 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %22, i64 1
-  store ptr %294, ptr %21, align 8, !tbaa !55
+  store ptr %294, ptr %21, align 8, !tbaa !56
   %297 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %294, i64 1
   %298 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %21, i64 0, i32 2
-  store ptr %297, ptr %298, align 8, !tbaa !57
+  store ptr %297, ptr %298, align 8, !tbaa !58
   %299 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %22, ptr noundef nonnull %296, ptr noundef nonnull %294)
           to label %305 unwind label %300
 
 300:                                              ; preds = %295, %291
   %301 = landingpad { ptr, i32 }
           cleanup
-  %302 = load ptr, ptr %21, align 8, !tbaa !55
+  %302 = load ptr, ptr %21, align 8, !tbaa !56
   %303 = icmp eq ptr %302, null
   br i1 %303, label %372, label %304
 
@@ -2338,7 +2338,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 305:                                              ; preds = %295
   %306 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %21, i64 0, i32 1
-  store ptr %299, ptr %306, align 8, !tbaa !58
+  store ptr %299, ptr %306, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %20, ptr noundef nonnull align 8 dereferenceable(24) %21)
           to label %307 unwind label %370
 
@@ -2351,13 +2351,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %313 = zext i1 %312 to i8
   store i8 %313, ptr %19, align 8, !tbaa !27
   %314 = getelementptr inbounds %"class.testing::AssertionResult", ptr %19, i64 0, i32 1
-  store ptr null, ptr %314, align 8, !tbaa !54
+  store ptr null, ptr %314, align 8, !tbaa !55
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %20)
           to label %315 unwind label %338
 
 315:                                              ; preds = %307
-  %316 = load ptr, ptr %308, align 8, !tbaa !55
-  %317 = load ptr, ptr %310, align 8, !tbaa !58
+  %316 = load ptr, ptr %308, align 8, !tbaa !56
+  %317 = load ptr, ptr %310, align 8, !tbaa !59
   %318 = icmp eq ptr %316, %317
   br i1 %318, label %330, label %319
 
@@ -2375,10 +2375,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 325:                                              ; preds = %324, %319
   %326 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %320, i64 1
   %327 = icmp eq ptr %326, %317
-  br i1 %327, label %328, label %319, !llvm.loop !59
+  br i1 %327, label %328, label %319, !llvm.loop !60
 
 328:                                              ; preds = %325
-  %329 = load ptr, ptr %308, align 8, !tbaa !55
+  %329 = load ptr, ptr %308, align 8, !tbaa !56
   br label %330
 
 330:                                              ; preds = %328, %315
@@ -2391,7 +2391,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %334
 
 334:                                              ; preds = %333, %330
-  %335 = load ptr, ptr %20, align 8, !tbaa !61
+  %335 = load ptr, ptr %20, align 8, !tbaa !62
   %336 = icmp eq ptr %335, null
   br i1 %336, label %341, label %337
 
@@ -2407,8 +2407,8 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   unreachable
 
 341:                                              ; preds = %334, %337
-  %342 = load ptr, ptr %21, align 8, !tbaa !55
-  %343 = load ptr, ptr %306, align 8, !tbaa !58
+  %342 = load ptr, ptr %21, align 8, !tbaa !56
+  %343 = load ptr, ptr %306, align 8, !tbaa !59
   %344 = icmp eq ptr %342, %343
   br i1 %344, label %356, label %345
 
@@ -2426,10 +2426,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 351:                                              ; preds = %350, %345
   %352 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %346, i64 1
   %353 = icmp eq ptr %352, %343
-  br i1 %353, label %354, label %345, !llvm.loop !59
+  br i1 %353, label %354, label %345, !llvm.loop !60
 
 354:                                              ; preds = %351
-  %355 = load ptr, ptr %21, align 8, !tbaa !55
+  %355 = load ptr, ptr %21, align 8, !tbaa !56
   br label %356
 
 356:                                              ; preds = %354, %341
@@ -2471,7 +2471,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %372
 
 372:                                              ; preds = %304, %300, %370
-  %373 = phi { ptr, i32 } [ %371, %370 ], [ %301, %304 ], [ %301, %300 ]
+  %373 = phi { ptr, i32 } [ %371, %370 ], [ %301, %300 ], [ %301, %304 ]
   %374 = load ptr, ptr %22, align 8, !tbaa !36
   %375 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %22, i64 0, i32 2
   %376 = icmp eq ptr %374, %375
@@ -2617,13 +2617,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %431 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %29, i64 0, i32 2
   store ptr %431, ptr %29, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #23
-  store i64 18, ptr %4, align 8, !tbaa !63
+  store i64 18, ptr %4, align 8, !tbaa !64
   %432 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %29, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef 0)
           to label %433 unwind label %514
 
 433:                                              ; preds = %430
   store ptr %432, ptr %29, align 8, !tbaa !36
-  %434 = load i64, ptr %4, align 8, !tbaa !63
+  %434 = load i64, ptr %4, align 8, !tbaa !64
   store i64 %434, ptr %431, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(18) %432, ptr noundef nonnull align 1 dereferenceable(18) @.str.32, i64 18, i1 false)
   %435 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %29, i64 0, i32 1
@@ -2638,17 +2638,17 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 439:                                              ; preds = %433
   %440 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %29, i64 1
-  store ptr %438, ptr %28, align 8, !tbaa !55
+  store ptr %438, ptr %28, align 8, !tbaa !56
   %441 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %438, i64 1
   %442 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %28, i64 0, i32 2
-  store ptr %441, ptr %442, align 8, !tbaa !57
+  store ptr %441, ptr %442, align 8, !tbaa !58
   %443 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %29, ptr noundef nonnull %440, ptr noundef nonnull %438)
           to label %449 unwind label %444
 
 444:                                              ; preds = %439, %433
   %445 = landingpad { ptr, i32 }
           cleanup
-  %446 = load ptr, ptr %28, align 8, !tbaa !55
+  %446 = load ptr, ptr %28, align 8, !tbaa !56
   %447 = icmp eq ptr %446, null
   br i1 %447, label %518, label %448
 
@@ -2658,7 +2658,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 449:                                              ; preds = %439
   %450 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %28, i64 0, i32 1
-  store ptr %443, ptr %450, align 8, !tbaa !58
+  store ptr %443, ptr %450, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %27, ptr noundef nonnull align 8 dereferenceable(24) %28)
           to label %451 unwind label %516
 
@@ -2671,13 +2671,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %457 = zext i1 %456 to i8
   store i8 %457, ptr %26, align 8, !tbaa !27
   %458 = getelementptr inbounds %"class.testing::AssertionResult", ptr %26, i64 0, i32 1
-  store ptr null, ptr %458, align 8, !tbaa !54
+  store ptr null, ptr %458, align 8, !tbaa !55
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %27)
           to label %459 unwind label %482
 
 459:                                              ; preds = %451
-  %460 = load ptr, ptr %452, align 8, !tbaa !55
-  %461 = load ptr, ptr %454, align 8, !tbaa !58
+  %460 = load ptr, ptr %452, align 8, !tbaa !56
+  %461 = load ptr, ptr %454, align 8, !tbaa !59
   %462 = icmp eq ptr %460, %461
   br i1 %462, label %474, label %463
 
@@ -2695,10 +2695,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 469:                                              ; preds = %468, %463
   %470 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %464, i64 1
   %471 = icmp eq ptr %470, %461
-  br i1 %471, label %472, label %463, !llvm.loop !59
+  br i1 %471, label %472, label %463, !llvm.loop !60
 
 472:                                              ; preds = %469
-  %473 = load ptr, ptr %452, align 8, !tbaa !55
+  %473 = load ptr, ptr %452, align 8, !tbaa !56
   br label %474
 
 474:                                              ; preds = %472, %459
@@ -2711,7 +2711,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %478
 
 478:                                              ; preds = %477, %474
-  %479 = load ptr, ptr %27, align 8, !tbaa !61
+  %479 = load ptr, ptr %27, align 8, !tbaa !62
   %480 = icmp eq ptr %479, null
   br i1 %480, label %485, label %481
 
@@ -2727,8 +2727,8 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   unreachable
 
 485:                                              ; preds = %478, %481
-  %486 = load ptr, ptr %28, align 8, !tbaa !55
-  %487 = load ptr, ptr %450, align 8, !tbaa !58
+  %486 = load ptr, ptr %28, align 8, !tbaa !56
+  %487 = load ptr, ptr %450, align 8, !tbaa !59
   %488 = icmp eq ptr %486, %487
   br i1 %488, label %500, label %489
 
@@ -2746,10 +2746,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 495:                                              ; preds = %494, %489
   %496 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %490, i64 1
   %497 = icmp eq ptr %496, %487
-  br i1 %497, label %498, label %489, !llvm.loop !59
+  br i1 %497, label %498, label %489, !llvm.loop !60
 
 498:                                              ; preds = %495
-  %499 = load ptr, ptr %28, align 8, !tbaa !55
+  %499 = load ptr, ptr %28, align 8, !tbaa !56
   br label %500
 
 500:                                              ; preds = %498, %485
@@ -2796,7 +2796,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %518
 
 518:                                              ; preds = %448, %444, %516
-  %519 = phi { ptr, i32 } [ %517, %516 ], [ %445, %448 ], [ %445, %444 ]
+  %519 = phi { ptr, i32 } [ %517, %516 ], [ %445, %444 ], [ %445, %448 ]
   %520 = load ptr, ptr %29, align 8, !tbaa !36
   %521 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %29, i64 0, i32 2
   %522 = icmp eq ptr %520, %521
@@ -2969,17 +2969,17 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 590:                                              ; preds = %577
   %591 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %36, i64 3
-  store ptr %589, ptr %35, align 8, !tbaa !55
+  store ptr %589, ptr %35, align 8, !tbaa !56
   %592 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %589, i64 3
   %593 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %35, i64 0, i32 2
-  store ptr %592, ptr %593, align 8, !tbaa !57
+  store ptr %592, ptr %593, align 8, !tbaa !58
   %594 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %36, ptr noundef nonnull %591, ptr noundef nonnull %589)
           to label %600 unwind label %595
 
 595:                                              ; preds = %590, %577
   %596 = landingpad { ptr, i32 }
           cleanup
-  %597 = load ptr, ptr %35, align 8, !tbaa !55
+  %597 = load ptr, ptr %35, align 8, !tbaa !56
   %598 = icmp eq ptr %597, null
   br i1 %598, label %679, label %599
 
@@ -2989,7 +2989,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 600:                                              ; preds = %590
   %601 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %35, i64 0, i32 1
-  store ptr %594, ptr %601, align 8, !tbaa !58
+  store ptr %594, ptr %601, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %34, ptr noundef nonnull align 8 dereferenceable(24) %35)
           to label %602 unwind label %677
 
@@ -3002,13 +3002,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %608 = zext i1 %607 to i8
   store i8 %608, ptr %33, align 8, !tbaa !27
   %609 = getelementptr inbounds %"class.testing::AssertionResult", ptr %33, i64 0, i32 1
-  store ptr null, ptr %609, align 8, !tbaa !54
+  store ptr null, ptr %609, align 8, !tbaa !55
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %34)
           to label %610 unwind label %633
 
 610:                                              ; preds = %602
-  %611 = load ptr, ptr %603, align 8, !tbaa !55
-  %612 = load ptr, ptr %605, align 8, !tbaa !58
+  %611 = load ptr, ptr %603, align 8, !tbaa !56
+  %612 = load ptr, ptr %605, align 8, !tbaa !59
   %613 = icmp eq ptr %611, %612
   br i1 %613, label %625, label %614
 
@@ -3026,10 +3026,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 620:                                              ; preds = %619, %614
   %621 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %615, i64 1
   %622 = icmp eq ptr %621, %612
-  br i1 %622, label %623, label %614, !llvm.loop !59
+  br i1 %622, label %623, label %614, !llvm.loop !60
 
 623:                                              ; preds = %620
-  %624 = load ptr, ptr %603, align 8, !tbaa !55
+  %624 = load ptr, ptr %603, align 8, !tbaa !56
   br label %625
 
 625:                                              ; preds = %623, %610
@@ -3042,7 +3042,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %629
 
 629:                                              ; preds = %628, %625
-  %630 = load ptr, ptr %34, align 8, !tbaa !61
+  %630 = load ptr, ptr %34, align 8, !tbaa !62
   %631 = icmp eq ptr %630, null
   br i1 %631, label %636, label %632
 
@@ -3058,8 +3058,8 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   unreachable
 
 636:                                              ; preds = %629, %632
-  %637 = load ptr, ptr %35, align 8, !tbaa !55
-  %638 = load ptr, ptr %601, align 8, !tbaa !58
+  %637 = load ptr, ptr %35, align 8, !tbaa !56
+  %638 = load ptr, ptr %601, align 8, !tbaa !59
   %639 = icmp eq ptr %637, %638
   br i1 %639, label %651, label %640
 
@@ -3077,10 +3077,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 646:                                              ; preds = %645, %640
   %647 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %641, i64 1
   %648 = icmp eq ptr %647, %638
-  br i1 %648, label %649, label %640, !llvm.loop !59
+  br i1 %648, label %649, label %640, !llvm.loop !60
 
 649:                                              ; preds = %646
-  %650 = load ptr, ptr %35, align 8, !tbaa !55
+  %650 = load ptr, ptr %35, align 8, !tbaa !56
   br label %651
 
 651:                                              ; preds = %649, %636
@@ -3144,7 +3144,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %679
 
 679:                                              ; preds = %599, %595, %677
-  %680 = phi { ptr, i32 } [ %678, %677 ], [ %596, %599 ], [ %596, %595 ]
+  %680 = phi { ptr, i32 } [ %678, %677 ], [ %596, %595 ], [ %596, %599 ]
   %681 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %36, i64 2
   %682 = load ptr, ptr %681, align 8, !tbaa !36
   %683 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %36, i64 2, i32 2
@@ -3336,17 +3336,17 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 761:                                              ; preds = %749
   %762 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %43, i64 3
-  store ptr %760, ptr %42, align 8, !tbaa !55
+  store ptr %760, ptr %42, align 8, !tbaa !56
   %763 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %760, i64 3
   %764 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %42, i64 0, i32 2
-  store ptr %763, ptr %764, align 8, !tbaa !57
+  store ptr %763, ptr %764, align 8, !tbaa !58
   %765 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %43, ptr noundef nonnull %762, ptr noundef nonnull %760)
           to label %771 unwind label %766
 
 766:                                              ; preds = %761, %749
   %767 = landingpad { ptr, i32 }
           cleanup
-  %768 = load ptr, ptr %42, align 8, !tbaa !55
+  %768 = load ptr, ptr %42, align 8, !tbaa !56
   %769 = icmp eq ptr %768, null
   br i1 %769, label %850, label %770
 
@@ -3356,7 +3356,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 771:                                              ; preds = %761
   %772 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %42, i64 0, i32 1
-  store ptr %765, ptr %772, align 8, !tbaa !58
+  store ptr %765, ptr %772, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %41, ptr noundef nonnull align 8 dereferenceable(24) %42)
           to label %773 unwind label %848
 
@@ -3369,13 +3369,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %779 = zext i1 %778 to i8
   store i8 %779, ptr %40, align 8, !tbaa !27
   %780 = getelementptr inbounds %"class.testing::AssertionResult", ptr %40, i64 0, i32 1
-  store ptr null, ptr %780, align 8, !tbaa !54
+  store ptr null, ptr %780, align 8, !tbaa !55
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %41)
           to label %781 unwind label %804
 
 781:                                              ; preds = %773
-  %782 = load ptr, ptr %774, align 8, !tbaa !55
-  %783 = load ptr, ptr %776, align 8, !tbaa !58
+  %782 = load ptr, ptr %774, align 8, !tbaa !56
+  %783 = load ptr, ptr %776, align 8, !tbaa !59
   %784 = icmp eq ptr %782, %783
   br i1 %784, label %796, label %785
 
@@ -3393,10 +3393,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 791:                                              ; preds = %790, %785
   %792 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %786, i64 1
   %793 = icmp eq ptr %792, %783
-  br i1 %793, label %794, label %785, !llvm.loop !59
+  br i1 %793, label %794, label %785, !llvm.loop !60
 
 794:                                              ; preds = %791
-  %795 = load ptr, ptr %774, align 8, !tbaa !55
+  %795 = load ptr, ptr %774, align 8, !tbaa !56
   br label %796
 
 796:                                              ; preds = %794, %781
@@ -3409,7 +3409,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %800
 
 800:                                              ; preds = %799, %796
-  %801 = load ptr, ptr %41, align 8, !tbaa !61
+  %801 = load ptr, ptr %41, align 8, !tbaa !62
   %802 = icmp eq ptr %801, null
   br i1 %802, label %807, label %803
 
@@ -3425,8 +3425,8 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   unreachable
 
 807:                                              ; preds = %800, %803
-  %808 = load ptr, ptr %42, align 8, !tbaa !55
-  %809 = load ptr, ptr %772, align 8, !tbaa !58
+  %808 = load ptr, ptr %42, align 8, !tbaa !56
+  %809 = load ptr, ptr %772, align 8, !tbaa !59
   %810 = icmp eq ptr %808, %809
   br i1 %810, label %822, label %811
 
@@ -3444,10 +3444,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 817:                                              ; preds = %816, %811
   %818 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %812, i64 1
   %819 = icmp eq ptr %818, %809
-  br i1 %819, label %820, label %811, !llvm.loop !59
+  br i1 %819, label %820, label %811, !llvm.loop !60
 
 820:                                              ; preds = %817
-  %821 = load ptr, ptr %42, align 8, !tbaa !55
+  %821 = load ptr, ptr %42, align 8, !tbaa !56
   br label %822
 
 822:                                              ; preds = %820, %807
@@ -3511,7 +3511,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %850
 
 850:                                              ; preds = %770, %766, %848
-  %851 = phi { ptr, i32 } [ %849, %848 ], [ %767, %770 ], [ %767, %766 ]
+  %851 = phi { ptr, i32 } [ %849, %848 ], [ %767, %766 ], [ %767, %770 ]
   %852 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %43, i64 2
   %853 = load ptr, ptr %852, align 8, !tbaa !36
   %854 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %43, i64 2, i32 2
@@ -3687,13 +3687,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %925 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 1, i32 2
   store ptr %925, ptr %924, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #23
-  store i64 18, ptr %3, align 8, !tbaa !63
+  store i64 18, ptr %3, align 8, !tbaa !64
   %926 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %924, ptr noundef nonnull align 8 dereferenceable(8) %3, i64 noundef 0)
-          to label %927 unwind label %1024
+          to label %927 unwind label %1043
 
 927:                                              ; preds = %920
   store ptr %926, ptr %924, align 8, !tbaa !36
-  %928 = load i64, ptr %3, align 8, !tbaa !63
+  %928 = load i64, ptr %3, align 8, !tbaa !64
   store i64 %928, ptr %925, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(18) %926, ptr noundef nonnull align 1 dereferenceable(18) @.str.32, i64 18, i1 false)
   %929 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 1, i32 1
@@ -3716,29 +3716,29 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 937:                                              ; preds = %927
   %938 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 3
-  store ptr %936, ptr %49, align 8, !tbaa !55
+  store ptr %936, ptr %49, align 8, !tbaa !56
   %939 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %936, i64 3
   %940 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %49, i64 0, i32 2
-  store ptr %939, ptr %940, align 8, !tbaa !57
+  store ptr %939, ptr %940, align 8, !tbaa !58
   %941 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %50, ptr noundef nonnull %938, ptr noundef nonnull %936)
           to label %947 unwind label %942
 
 942:                                              ; preds = %937, %927
   %943 = landingpad { ptr, i32 }
           cleanup
-  %944 = load ptr, ptr %49, align 8, !tbaa !55
+  %944 = load ptr, ptr %49, align 8, !tbaa !56
   %945 = icmp eq ptr %944, null
-  br i1 %945, label %1031, label %946
+  br i1 %945, label %1026, label %946
 
 946:                                              ; preds = %942
   call void @_ZdlPv(ptr noundef nonnull %944) #25
-  br label %1031
+  br label %1026
 
 947:                                              ; preds = %937
   %948 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %49, i64 0, i32 1
-  store ptr %941, ptr %948, align 8, !tbaa !58
+  store ptr %941, ptr %948, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %48, ptr noundef nonnull align 8 dereferenceable(24) %49)
-          to label %949 unwind label %1029
+          to label %949 unwind label %1024
 
 949:                                              ; preds = %947
   %950 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %48, i64 0, i32 1
@@ -3749,13 +3749,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %955 = zext i1 %954 to i8
   store i8 %955, ptr %47, align 8, !tbaa !27
   %956 = getelementptr inbounds %"class.testing::AssertionResult", ptr %47, i64 0, i32 1
-  store ptr null, ptr %956, align 8, !tbaa !54
+  store ptr null, ptr %956, align 8, !tbaa !55
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %48)
           to label %957 unwind label %980
 
 957:                                              ; preds = %949
-  %958 = load ptr, ptr %950, align 8, !tbaa !55
-  %959 = load ptr, ptr %952, align 8, !tbaa !58
+  %958 = load ptr, ptr %950, align 8, !tbaa !56
+  %959 = load ptr, ptr %952, align 8, !tbaa !59
   %960 = icmp eq ptr %958, %959
   br i1 %960, label %972, label %961
 
@@ -3773,10 +3773,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 967:                                              ; preds = %966, %961
   %968 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %962, i64 1
   %969 = icmp eq ptr %968, %959
-  br i1 %969, label %970, label %961, !llvm.loop !59
+  br i1 %969, label %970, label %961, !llvm.loop !60
 
 970:                                              ; preds = %967
-  %971 = load ptr, ptr %950, align 8, !tbaa !55
+  %971 = load ptr, ptr %950, align 8, !tbaa !56
   br label %972
 
 972:                                              ; preds = %970, %957
@@ -3789,7 +3789,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %976
 
 976:                                              ; preds = %975, %972
-  %977 = load ptr, ptr %48, align 8, !tbaa !61
+  %977 = load ptr, ptr %48, align 8, !tbaa !62
   %978 = icmp eq ptr %977, null
   br i1 %978, label %983, label %979
 
@@ -3805,8 +3805,8 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   unreachable
 
 983:                                              ; preds = %976, %979
-  %984 = load ptr, ptr %49, align 8, !tbaa !55
-  %985 = load ptr, ptr %948, align 8, !tbaa !58
+  %984 = load ptr, ptr %49, align 8, !tbaa !56
+  %985 = load ptr, ptr %948, align 8, !tbaa !59
   %986 = icmp eq ptr %984, %985
   br i1 %986, label %998, label %987
 
@@ -3824,10 +3824,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 993:                                              ; preds = %992, %987
   %994 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %988, i64 1
   %995 = icmp eq ptr %994, %985
-  br i1 %995, label %996, label %987, !llvm.loop !59
+  br i1 %995, label %996, label %987, !llvm.loop !60
 
 996:                                              ; preds = %993
-  %997 = load ptr, ptr %49, align 8, !tbaa !55
+  %997 = load ptr, ptr %49, align 8, !tbaa !56
   br label %998
 
 998:                                              ; preds = %996, %983
@@ -3884,57 +3884,57 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %40) #23
   br label %1489
 
-1024:                                             ; preds = %920
+1024:                                             ; preds = %947
   %1025 = landingpad { ptr, i32 }
           cleanup
-  %1026 = load ptr, ptr %50, align 8, !tbaa !36
-  %1027 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 0, i32 2
-  %1028 = icmp eq ptr %1026, %1027
-  br i1 %1028, label %1051, label %1048
-
-1029:                                             ; preds = %947
-  %1030 = landingpad { ptr, i32 }
-          cleanup
   call void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %49) #23
-  br label %1031
+  br label %1026
 
-1031:                                             ; preds = %946, %942, %1029
-  %1032 = phi { ptr, i32 } [ %1030, %1029 ], [ %943, %946 ], [ %943, %942 ]
-  %1033 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 2
-  %1034 = load ptr, ptr %1033, align 8, !tbaa !36
-  %1035 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 2, i32 2
-  %1036 = icmp eq ptr %1034, %1035
-  br i1 %1036, label %1038, label %1037
+1026:                                             ; preds = %946, %942, %1024
+  %1027 = phi { ptr, i32 } [ %1025, %1024 ], [ %943, %942 ], [ %943, %946 ]
+  %1028 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 2
+  %1029 = load ptr, ptr %1028, align 8, !tbaa !36
+  %1030 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 2, i32 2
+  %1031 = icmp eq ptr %1029, %1030
+  br i1 %1031, label %1033, label %1032
 
-1037:                                             ; preds = %1031
-  call void @_ZdlPv(ptr noundef %1034) #25
-  br label %1038
+1032:                                             ; preds = %1026
+  call void @_ZdlPv(ptr noundef %1029) #25
+  br label %1033
 
-1038:                                             ; preds = %1031, %1037
-  %1039 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 1
-  %1040 = load ptr, ptr %1039, align 8, !tbaa !36
-  %1041 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 1, i32 2
+1033:                                             ; preds = %1026, %1032
+  %1034 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 1
+  %1035 = load ptr, ptr %1034, align 8, !tbaa !36
+  %1036 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 1, i32 2
+  %1037 = icmp eq ptr %1035, %1036
+  br i1 %1037, label %1039, label %1038
+
+1038:                                             ; preds = %1033
+  call void @_ZdlPv(ptr noundef %1035) #25
+  br label %1039
+
+1039:                                             ; preds = %1038, %1033
+  %1040 = load ptr, ptr %50, align 8, !tbaa !36
+  %1041 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 0, i32 2
   %1042 = icmp eq ptr %1040, %1041
-  br i1 %1042, label %1044, label %1043
+  br i1 %1042, label %1051, label %1048
 
-1043:                                             ; preds = %1038
-  call void @_ZdlPv(ptr noundef %1040) #25
-  br label %1044
-
-1044:                                             ; preds = %1043, %1038
+1043:                                             ; preds = %920
+  %1044 = landingpad { ptr, i32 }
+          cleanup
   %1045 = load ptr, ptr %50, align 8, !tbaa !36
   %1046 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 0, i32 2
   %1047 = icmp eq ptr %1045, %1046
   br i1 %1047, label %1051, label %1048
 
-1048:                                             ; preds = %1024, %1044
-  %1049 = phi ptr [ %1045, %1044 ], [ %1026, %1024 ]
-  %1050 = phi { ptr, i32 } [ %1032, %1044 ], [ %1025, %1024 ]
+1048:                                             ; preds = %1043, %1039
+  %1049 = phi ptr [ %1040, %1039 ], [ %1045, %1043 ]
+  %1050 = phi { ptr, i32 } [ %1027, %1039 ], [ %1044, %1043 ]
   call void @_ZdlPv(ptr noundef %1049) #25
   br label %1051
 
-1051:                                             ; preds = %1048, %1024, %1044
-  %1052 = phi { ptr, i32 } [ %1032, %1044 ], [ %1025, %1024 ], [ %1050, %1048 ]
+1051:                                             ; preds = %1048, %1043, %1039
+  %1052 = phi { ptr, i32 } [ %1027, %1039 ], [ %1044, %1043 ], [ %1050, %1048 ]
   call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %50) #23
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %49) #23
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %48) #23
@@ -4096,17 +4096,17 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 1117:                                             ; preds = %1104
   %1118 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %57, i64 3
-  store ptr %1116, ptr %56, align 8, !tbaa !55
+  store ptr %1116, ptr %56, align 8, !tbaa !56
   %1119 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1116, i64 3
   %1120 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %56, i64 0, i32 2
-  store ptr %1119, ptr %1120, align 8, !tbaa !57
+  store ptr %1119, ptr %1120, align 8, !tbaa !58
   %1121 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %57, ptr noundef nonnull %1118, ptr noundef nonnull %1116)
           to label %1127 unwind label %1122
 
 1122:                                             ; preds = %1117, %1104
   %1123 = landingpad { ptr, i32 }
           cleanup
-  %1124 = load ptr, ptr %56, align 8, !tbaa !55
+  %1124 = load ptr, ptr %56, align 8, !tbaa !56
   %1125 = icmp eq ptr %1124, null
   br i1 %1125, label %1206, label %1126
 
@@ -4116,7 +4116,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 1127:                                             ; preds = %1117
   %1128 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %56, i64 0, i32 1
-  store ptr %1121, ptr %1128, align 8, !tbaa !58
+  store ptr %1121, ptr %1128, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %55, ptr noundef nonnull align 8 dereferenceable(24) %56)
           to label %1129 unwind label %1204
 
@@ -4129,13 +4129,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %1135 = zext i1 %1134 to i8
   store i8 %1135, ptr %54, align 8, !tbaa !27
   %1136 = getelementptr inbounds %"class.testing::AssertionResult", ptr %54, i64 0, i32 1
-  store ptr null, ptr %1136, align 8, !tbaa !54
+  store ptr null, ptr %1136, align 8, !tbaa !55
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %55)
           to label %1137 unwind label %1160
 
 1137:                                             ; preds = %1129
-  %1138 = load ptr, ptr %1130, align 8, !tbaa !55
-  %1139 = load ptr, ptr %1132, align 8, !tbaa !58
+  %1138 = load ptr, ptr %1130, align 8, !tbaa !56
+  %1139 = load ptr, ptr %1132, align 8, !tbaa !59
   %1140 = icmp eq ptr %1138, %1139
   br i1 %1140, label %1152, label %1141
 
@@ -4153,10 +4153,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 1147:                                             ; preds = %1146, %1141
   %1148 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1142, i64 1
   %1149 = icmp eq ptr %1148, %1139
-  br i1 %1149, label %1150, label %1141, !llvm.loop !59
+  br i1 %1149, label %1150, label %1141, !llvm.loop !60
 
 1150:                                             ; preds = %1147
-  %1151 = load ptr, ptr %1130, align 8, !tbaa !55
+  %1151 = load ptr, ptr %1130, align 8, !tbaa !56
   br label %1152
 
 1152:                                             ; preds = %1150, %1137
@@ -4169,7 +4169,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %1156
 
 1156:                                             ; preds = %1155, %1152
-  %1157 = load ptr, ptr %55, align 8, !tbaa !61
+  %1157 = load ptr, ptr %55, align 8, !tbaa !62
   %1158 = icmp eq ptr %1157, null
   br i1 %1158, label %1163, label %1159
 
@@ -4185,8 +4185,8 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   unreachable
 
 1163:                                             ; preds = %1156, %1159
-  %1164 = load ptr, ptr %56, align 8, !tbaa !55
-  %1165 = load ptr, ptr %1128, align 8, !tbaa !58
+  %1164 = load ptr, ptr %56, align 8, !tbaa !56
+  %1165 = load ptr, ptr %1128, align 8, !tbaa !59
   %1166 = icmp eq ptr %1164, %1165
   br i1 %1166, label %1178, label %1167
 
@@ -4204,10 +4204,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 1173:                                             ; preds = %1172, %1167
   %1174 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1168, i64 1
   %1175 = icmp eq ptr %1174, %1165
-  br i1 %1175, label %1176, label %1167, !llvm.loop !59
+  br i1 %1175, label %1176, label %1167, !llvm.loop !60
 
 1176:                                             ; preds = %1173
-  %1177 = load ptr, ptr %56, align 8, !tbaa !55
+  %1177 = load ptr, ptr %56, align 8, !tbaa !56
   br label %1178
 
 1178:                                             ; preds = %1176, %1163
@@ -4271,7 +4271,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %1206
 
 1206:                                             ; preds = %1126, %1122, %1204
-  %1207 = phi { ptr, i32 } [ %1205, %1204 ], [ %1123, %1126 ], [ %1123, %1122 ]
+  %1207 = phi { ptr, i32 } [ %1205, %1204 ], [ %1123, %1122 ], [ %1123, %1126 ]
   %1208 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %57, i64 2
   %1209 = load ptr, ptr %1208, align 8, !tbaa !36
   %1210 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %57, i64 2, i32 2
@@ -4463,13 +4463,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %1289 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 3, i32 2
   store ptr %1289, ptr %1288, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #23
-  store i64 27, ptr %2, align 8, !tbaa !63
+  store i64 27, ptr %2, align 8, !tbaa !64
   %1290 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %1288, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
-          to label %1291 unwind label %1388
+          to label %1291 unwind label %1413
 
 1291:                                             ; preds = %1276
   store ptr %1290, ptr %1288, align 8, !tbaa !36
-  %1292 = load i64, ptr %2, align 8, !tbaa !63
+  %1292 = load i64, ptr %2, align 8, !tbaa !64
   store i64 %1292, ptr %1289, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(27) %1290, ptr noundef nonnull align 1 dereferenceable(27) @.str.37, i64 27, i1 false)
   %1293 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 3, i32 1
@@ -4484,29 +4484,29 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 
 1297:                                             ; preds = %1291
   %1298 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 4
-  store ptr %1296, ptr %63, align 8, !tbaa !55
+  store ptr %1296, ptr %63, align 8, !tbaa !56
   %1299 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1296, i64 4
   %1300 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %63, i64 0, i32 2
-  store ptr %1299, ptr %1300, align 8, !tbaa !57
+  store ptr %1299, ptr %1300, align 8, !tbaa !58
   %1301 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %64, ptr noundef nonnull %1298, ptr noundef nonnull %1296)
           to label %1307 unwind label %1302
 
 1302:                                             ; preds = %1297, %1291
   %1303 = landingpad { ptr, i32 }
           cleanup
-  %1304 = load ptr, ptr %63, align 8, !tbaa !55
+  %1304 = load ptr, ptr %63, align 8, !tbaa !56
   %1305 = icmp eq ptr %1304, null
-  br i1 %1305, label %1396, label %1306
+  br i1 %1305, label %1390, label %1306
 
 1306:                                             ; preds = %1302
   call void @_ZdlPv(ptr noundef nonnull %1304) #25
-  br label %1396
+  br label %1390
 
 1307:                                             ; preds = %1297
   %1308 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %63, i64 0, i32 1
-  store ptr %1301, ptr %1308, align 8, !tbaa !58
+  store ptr %1301, ptr %1308, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %62, ptr noundef nonnull align 8 dereferenceable(24) %63)
-          to label %1309 unwind label %1394
+          to label %1309 unwind label %1388
 
 1309:                                             ; preds = %1307
   %1310 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %62, i64 0, i32 1
@@ -4517,13 +4517,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %1315 = zext i1 %1314 to i8
   store i8 %1315, ptr %61, align 8, !tbaa !27
   %1316 = getelementptr inbounds %"class.testing::AssertionResult", ptr %61, i64 0, i32 1
-  store ptr null, ptr %1316, align 8, !tbaa !54
+  store ptr null, ptr %1316, align 8, !tbaa !55
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %62)
           to label %1317 unwind label %1340
 
 1317:                                             ; preds = %1309
-  %1318 = load ptr, ptr %1310, align 8, !tbaa !55
-  %1319 = load ptr, ptr %1312, align 8, !tbaa !58
+  %1318 = load ptr, ptr %1310, align 8, !tbaa !56
+  %1319 = load ptr, ptr %1312, align 8, !tbaa !59
   %1320 = icmp eq ptr %1318, %1319
   br i1 %1320, label %1332, label %1321
 
@@ -4541,10 +4541,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 1327:                                             ; preds = %1326, %1321
   %1328 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1322, i64 1
   %1329 = icmp eq ptr %1328, %1319
-  br i1 %1329, label %1330, label %1321, !llvm.loop !59
+  br i1 %1329, label %1330, label %1321, !llvm.loop !60
 
 1330:                                             ; preds = %1327
-  %1331 = load ptr, ptr %1310, align 8, !tbaa !55
+  %1331 = load ptr, ptr %1310, align 8, !tbaa !56
   br label %1332
 
 1332:                                             ; preds = %1330, %1317
@@ -4557,7 +4557,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %1336
 
 1336:                                             ; preds = %1335, %1332
-  %1337 = load ptr, ptr %62, align 8, !tbaa !61
+  %1337 = load ptr, ptr %62, align 8, !tbaa !62
   %1338 = icmp eq ptr %1337, null
   br i1 %1338, label %1343, label %1339
 
@@ -4573,8 +4573,8 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   unreachable
 
 1343:                                             ; preds = %1336, %1339
-  %1344 = load ptr, ptr %63, align 8, !tbaa !55
-  %1345 = load ptr, ptr %1308, align 8, !tbaa !58
+  %1344 = load ptr, ptr %63, align 8, !tbaa !56
+  %1345 = load ptr, ptr %1308, align 8, !tbaa !59
   %1346 = icmp eq ptr %1344, %1345
   br i1 %1346, label %1358, label %1347
 
@@ -4592,10 +4592,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
 1353:                                             ; preds = %1352, %1347
   %1354 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1348, i64 1
   %1355 = icmp eq ptr %1354, %1345
-  br i1 %1355, label %1356, label %1347, !llvm.loop !59
+  br i1 %1355, label %1356, label %1347, !llvm.loop !60
 
 1356:                                             ; preds = %1353
-  %1357 = load ptr, ptr %63, align 8, !tbaa !55
+  %1357 = load ptr, ptr %63, align 8, !tbaa !56
   br label %1358
 
 1358:                                             ; preds = %1356, %1343
@@ -4661,37 +4661,39 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %54) #23
   br label %1489
 
-1388:                                             ; preds = %1276
+1388:                                             ; preds = %1307
   %1389 = landingpad { ptr, i32 }
           cleanup
-  %1390 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 2
-  %1391 = load ptr, ptr %1390, align 8, !tbaa !36
-  %1392 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 2, i32 2
-  %1393 = icmp eq ptr %1391, %1392
-  br i1 %1393, label %1420, label %1419
-
-1394:                                             ; preds = %1307
-  %1395 = landingpad { ptr, i32 }
-          cleanup
   call void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %63) #23
-  br label %1396
+  br label %1390
 
-1396:                                             ; preds = %1306, %1302, %1394
-  %1397 = phi { ptr, i32 } [ %1395, %1394 ], [ %1303, %1306 ], [ %1303, %1302 ]
-  %1398 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 3
+1390:                                             ; preds = %1306, %1302, %1388
+  %1391 = phi { ptr, i32 } [ %1389, %1388 ], [ %1303, %1302 ], [ %1303, %1306 ]
+  %1392 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 3
+  %1393 = load ptr, ptr %1392, align 8, !tbaa !36
+  %1394 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 3, i32 2
+  %1395 = icmp eq ptr %1393, %1394
+  br i1 %1395, label %1397, label %1396
+
+1396:                                             ; preds = %1390
+  call void @_ZdlPv(ptr noundef %1393) #25
+  br label %1397
+
+1397:                                             ; preds = %1390, %1396
+  %1398 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 2
   %1399 = load ptr, ptr %1398, align 8, !tbaa !36
-  %1400 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 3, i32 2
+  %1400 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 2, i32 2
   %1401 = icmp eq ptr %1399, %1400
   br i1 %1401, label %1403, label %1402
 
-1402:                                             ; preds = %1396
+1402:                                             ; preds = %1397
   call void @_ZdlPv(ptr noundef %1399) #25
   br label %1403
 
-1403:                                             ; preds = %1396, %1402
-  %1404 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 2
+1403:                                             ; preds = %1402, %1397
+  %1404 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 1
   %1405 = load ptr, ptr %1404, align 8, !tbaa !36
-  %1406 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 2, i32 2
+  %1406 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 1, i32 2
   %1407 = icmp eq ptr %1405, %1406
   br i1 %1407, label %1409, label %1408
 
@@ -4700,27 +4702,25 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   br label %1409
 
 1409:                                             ; preds = %1408, %1403
-  %1410 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 1
-  %1411 = load ptr, ptr %1410, align 8, !tbaa !36
-  %1412 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 1, i32 2
-  %1413 = icmp eq ptr %1411, %1412
-  br i1 %1413, label %1415, label %1414
+  %1410 = load ptr, ptr %64, align 8, !tbaa !36
+  %1411 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 0, i32 2
+  %1412 = icmp eq ptr %1410, %1411
+  br i1 %1412, label %1433, label %1430
 
-1414:                                             ; preds = %1409
-  call void @_ZdlPv(ptr noundef %1411) #25
-  br label %1415
-
-1415:                                             ; preds = %1414, %1409
-  %1416 = load ptr, ptr %64, align 8, !tbaa !36
-  %1417 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 0, i32 2
+1413:                                             ; preds = %1276
+  %1414 = landingpad { ptr, i32 }
+          cleanup
+  %1415 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 2
+  %1416 = load ptr, ptr %1415, align 8, !tbaa !36
+  %1417 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 2, i32 2
   %1418 = icmp eq ptr %1416, %1417
-  br i1 %1418, label %1433, label %1430
+  br i1 %1418, label %1420, label %1419
 
-1419:                                             ; preds = %1388
-  call void @_ZdlPv(ptr noundef %1391) #25
+1419:                                             ; preds = %1413
+  call void @_ZdlPv(ptr noundef %1416) #25
   br label %1420
 
-1420:                                             ; preds = %1388, %1419
+1420:                                             ; preds = %1413, %1419
   %1421 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 1
   %1422 = load ptr, ptr %1421, align 8, !tbaa !36
   %1423 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 1, i32 2
@@ -4737,14 +4737,14 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_NegativeTest_Test8Test
   %1429 = icmp eq ptr %1427, %1428
   br i1 %1429, label %1433, label %1430
 
-1430:                                             ; preds = %1426, %1415
-  %1431 = phi ptr [ %1416, %1415 ], [ %1427, %1426 ]
-  %1432 = phi { ptr, i32 } [ %1397, %1415 ], [ %1389, %1426 ]
+1430:                                             ; preds = %1426, %1409
+  %1431 = phi ptr [ %1410, %1409 ], [ %1427, %1426 ]
+  %1432 = phi { ptr, i32 } [ %1391, %1409 ], [ %1414, %1426 ]
   call void @_ZdlPv(ptr noundef %1431) #25
   br label %1433
 
-1433:                                             ; preds = %1430, %1426, %1415
-  %1434 = phi { ptr, i32 } [ %1397, %1415 ], [ %1389, %1426 ], [ %1432, %1430 ]
+1433:                                             ; preds = %1430, %1426, %1409
+  %1434 = phi { ptr, i32 } [ %1391, %1409 ], [ %1414, %1426 ], [ %1432, %1430 ]
   call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %64) #23
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %63) #23
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %62) #23
@@ -5038,7 +5038,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   %75 = zext i1 %74 to i8
   store i8 %75, ptr %4, align 8, !tbaa !27
   %76 = getelementptr inbounds %"class.testing::AssertionResult", ptr %4, i64 0, i32 1
-  store ptr null, ptr %76, align 8, !tbaa !54
+  store ptr null, ptr %76, align 8, !tbaa !55
   br i1 %74, label %127, label %77
 
 77:                                               ; preds = %73
@@ -5178,17 +5178,17 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
 
 132:                                              ; preds = %127
   %133 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 1
-  store ptr %131, ptr %9, align 8, !tbaa !55
+  store ptr %131, ptr %9, align 8, !tbaa !56
   %134 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %131, i64 1
   %135 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %9, i64 0, i32 2
-  store ptr %134, ptr %135, align 8, !tbaa !57
+  store ptr %134, ptr %135, align 8, !tbaa !58
   %136 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %10, ptr noundef nonnull %133, ptr noundef nonnull %131)
           to label %142 unwind label %137
 
 137:                                              ; preds = %132, %127
   %138 = landingpad { ptr, i32 }
           cleanup
-  %139 = load ptr, ptr %9, align 8, !tbaa !55
+  %139 = load ptr, ptr %9, align 8, !tbaa !56
   %140 = icmp eq ptr %139, null
   br i1 %140, label %178, label %141
 
@@ -5198,13 +5198,13 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
 
 142:                                              ; preds = %132
   %143 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %9, i64 0, i32 1
-  store ptr %136, ptr %143, align 8, !tbaa !58
+  store ptr %136, ptr %143, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %8, ptr noundef nonnull align 8 dereferenceable(24) %9)
           to label %144 unwind label %176
 
 144:                                              ; preds = %142
-  %145 = load ptr, ptr %9, align 8, !tbaa !55
-  %146 = load ptr, ptr %143, align 8, !tbaa !58
+  %145 = load ptr, ptr %9, align 8, !tbaa !56
+  %146 = load ptr, ptr %143, align 8, !tbaa !59
   %147 = icmp eq ptr %145, %146
   br i1 %147, label %159, label %148
 
@@ -5222,10 +5222,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
 154:                                              ; preds = %153, %148
   %155 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %149, i64 1
   %156 = icmp eq ptr %155, %146
-  br i1 %156, label %157, label %148, !llvm.loop !59
+  br i1 %156, label %157, label %148, !llvm.loop !60
 
 157:                                              ; preds = %154
-  %158 = load ptr, ptr %9, align 8, !tbaa !55
+  %158 = load ptr, ptr %9, align 8, !tbaa !56
   br label %159
 
 159:                                              ; preds = %157, %144
@@ -5259,7 +5259,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   %174 = zext i1 %173 to i8
   store i8 %174, ptr %11, align 8, !tbaa !27
   %175 = getelementptr inbounds %"class.testing::AssertionResult", ptr %11, i64 0, i32 1
-  store ptr null, ptr %175, align 8, !tbaa !54
+  store ptr null, ptr %175, align 8, !tbaa !55
   br i1 %173, label %235, label %185
 
 176:                                              ; preds = %142
@@ -5269,7 +5269,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   br label %178
 
 178:                                              ; preds = %141, %137, %176
-  %179 = phi { ptr, i32 } [ %177, %176 ], [ %138, %141 ], [ %138, %137 ]
+  %179 = phi { ptr, i32 } [ %177, %176 ], [ %138, %137 ], [ %138, %141 ]
   %180 = load ptr, ptr %10, align 8, !tbaa !36
   %181 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 0, i32 2
   %182 = icmp eq ptr %180, %181
@@ -5407,10 +5407,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %11) #23
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %15) #23
   %236 = getelementptr inbounds %"class.benchmark::internal::PerfCounterValues", ptr %15, i64 0, i32 1
-  store i64 1, ptr %236, align 8, !tbaa !65
+  store i64 1, ptr %236, align 8, !tbaa !66
   %237 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %238 = icmp eq i8 %237, 0
-  br i1 %238, label %239, label %243, !prof !68
+  br i1 %238, label %239, label %243, !prof !69
 
 239:                                              ; preds = %235
   %240 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -5418,7 +5418,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   br i1 %241, label %243, label %242
 
 242:                                              ; preds = %239
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %243
 
@@ -5434,11 +5434,11 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   unreachable
 
 248:                                              ; preds = %243
-  %249 = load i64, ptr %236, align 8, !tbaa !65
+  %249 = load i64, ptr %236, align 8, !tbaa !66
   %250 = shl i64 %249, 3
   %251 = add i64 %250, 8
-  %252 = load ptr, ptr %8, align 8, !tbaa !61
-  %253 = load i32, ptr %252, align 4, !tbaa !71
+  %252 = load ptr, ptr %8, align 8, !tbaa !62
+  %253 = load i32, ptr %252, align 4, !tbaa !72
   %254 = invoke i64 @read(i32 noundef %253, ptr noundef nonnull %15, i64 noundef %251)
           to label %255 unwind label %259
 
@@ -5447,7 +5447,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   %257 = zext i1 %256 to i8
   store i8 %257, ptr %16, align 8, !tbaa !27
   %258 = getelementptr inbounds %"class.testing::AssertionResult", ptr %16, i64 0, i32 1
-  store ptr null, ptr %258, align 8, !tbaa !54
+  store ptr null, ptr %258, align 8, !tbaa !55
   br i1 %256, label %311, label %261
 
 259:                                              ; preds = %248
@@ -5578,10 +5578,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %20) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %21) #23
   %312 = getelementptr inbounds [4 x i64], ptr %15, i64 0, i64 1
-  %313 = load i64, ptr %312, align 8, !tbaa !63
-  store i64 %313, ptr %21, align 8, !tbaa !63
+  %313 = load i64, ptr %312, align 8, !tbaa !64
+  store i64 %313, ptr %21, align 8, !tbaa !64
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %22) #23
-  store i32 0, ptr %22, align 4, !tbaa !71
+  store i32 0, ptr %22, align 4, !tbaa !72
   %314 = icmp eq i64 %313, 0
   br i1 %314, label %316, label %315
 
@@ -5715,10 +5715,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %20) #23
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %25) #23
   %369 = getelementptr inbounds %"class.benchmark::internal::PerfCounterValues", ptr %25, i64 0, i32 1
-  store i64 1, ptr %369, align 8, !tbaa !65
+  store i64 1, ptr %369, align 8, !tbaa !66
   %370 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %371 = icmp eq i8 %370, 0
-  br i1 %371, label %372, label %376, !prof !68
+  br i1 %371, label %372, label %376, !prof !69
 
 372:                                              ; preds = %368
   %373 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -5726,7 +5726,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   br i1 %374, label %376, label %375
 
 375:                                              ; preds = %372
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %376
 
@@ -5742,11 +5742,11 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   unreachable
 
 381:                                              ; preds = %376
-  %382 = load i64, ptr %369, align 8, !tbaa !65
+  %382 = load i64, ptr %369, align 8, !tbaa !66
   %383 = shl i64 %382, 3
   %384 = add i64 %383, 8
-  %385 = load ptr, ptr %8, align 8, !tbaa !61
-  %386 = load i32, ptr %385, align 4, !tbaa !71
+  %385 = load ptr, ptr %8, align 8, !tbaa !62
+  %386 = load i32, ptr %385, align 4, !tbaa !72
   %387 = invoke i64 @read(i32 noundef %386, ptr noundef nonnull %25, i64 noundef %384)
           to label %388 unwind label %394
 
@@ -5755,7 +5755,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   %390 = zext i1 %389 to i8
   store i8 %390, ptr %26, align 8, !tbaa !27
   %391 = getelementptr inbounds %"class.testing::AssertionResult", ptr %26, i64 0, i32 1
-  store ptr null, ptr %391, align 8, !tbaa !54
+  store ptr null, ptr %391, align 8, !tbaa !55
   br i1 %389, label %446, label %396
 
 392:                                              ; preds = %356, %322
@@ -5891,10 +5891,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %30) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %31) #23
   %447 = getelementptr inbounds [4 x i64], ptr %25, i64 0, i64 1
-  %448 = load i64, ptr %447, align 8, !tbaa !63
-  store i64 %448, ptr %31, align 8, !tbaa !63
+  %448 = load i64, ptr %447, align 8, !tbaa !64
+  store i64 %448, ptr %31, align 8, !tbaa !64
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %32) #23
-  store i32 0, ptr %32, align 4, !tbaa !71
+  store i32 0, ptr %32, align 4, !tbaa !72
   %449 = icmp eq i64 %448, 0
   br i1 %449, label %451, label %450
 
@@ -6028,10 +6028,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %30) #23
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %35) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %36) #23
-  store i64 %448, ptr %36, align 8, !tbaa !63
+  store i64 %448, ptr %36, align 8, !tbaa !64
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %37) #23
-  %504 = load i64, ptr %312, align 8, !tbaa !63
-  store i64 %504, ptr %37, align 8, !tbaa !63
+  %504 = load i64, ptr %312, align 8, !tbaa !64
+  store i64 %504, ptr %37, align 8, !tbaa !64
   %505 = icmp ugt i64 %448, %504
   br i1 %505, label %506, label %507
 
@@ -6169,8 +6169,8 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
           to label %560 unwind label %583
 
 560:                                              ; preds = %559
-  %561 = load ptr, ptr %169, align 8, !tbaa !55
-  %562 = load ptr, ptr %171, align 8, !tbaa !58
+  %561 = load ptr, ptr %169, align 8, !tbaa !56
+  %562 = load ptr, ptr %171, align 8, !tbaa !59
   %563 = icmp eq ptr %561, %562
   br i1 %563, label %575, label %564
 
@@ -6188,10 +6188,10 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
 570:                                              ; preds = %569, %564
   %571 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %565, i64 1
   %572 = icmp eq ptr %571, %562
-  br i1 %572, label %573, label %564, !llvm.loop !59
+  br i1 %572, label %573, label %564, !llvm.loop !60
 
 573:                                              ; preds = %570
-  %574 = load ptr, ptr %169, align 8, !tbaa !55
+  %574 = load ptr, ptr %169, align 8, !tbaa !56
   br label %575
 
 575:                                              ; preds = %573, %560
@@ -6204,7 +6204,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
   br label %579
 
 579:                                              ; preds = %578, %575
-  %580 = load ptr, ptr %8, align 8, !tbaa !61
+  %580 = load ptr, ptr %8, align 8, !tbaa !62
   %581 = icmp eq ptr %580, null
   br i1 %581, label %586, label %582
 
@@ -6260,7 +6260,7 @@ define internal void @_ZN12_GLOBAL__N_134PerfCountersTest_Read1Counter_Test8Test
 define linkonce_odr hidden void @_ZN9benchmark8internal12CheckHandlerC2EPKcS3_S3_i(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, i32 noundef %4) unnamed_addr #10 comdat align 2 personality ptr @__gxx_personality_v0 {
   %6 = load atomic i8, ptr @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log acquire, align 8
   %7 = icmp eq i8 %6, 0
-  br i1 %7, label %8, label %12, !prof !68
+  br i1 %7, label %8, label %12, !prof !69
 
 8:                                                ; preds = %5
   %9 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log) #23
@@ -6268,13 +6268,13 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12CheckHandlerC2EPKcS3_S3
   br i1 %10, label %12, label %11
 
 11:                                               ; preds = %8
-  store ptr @_ZSt4clog, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr @_ZSt4clog, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !70
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log) #23
   br label %12
 
 12:                                               ; preds = %5, %8, %11
   store ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, ptr %0, align 8, !tbaa !35
-  %13 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !69
+  %13 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !70
   %14 = icmp eq ptr %13, null
   br i1 %14, label %81, label %15
 
@@ -6299,25 +6299,25 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12CheckHandlerC2EPKcS3_S3
   br label %28
 
 28:                                               ; preds = %17, %25
-  %29 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !69
+  %29 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !70
   %30 = icmp eq ptr %29, null
   br i1 %30, label %81, label %31
 
 31:                                               ; preds = %28
   %32 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %29, ptr noundef nonnull @.str.48, i64 noundef 1)
-  %33 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !69
+  %33 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !70
   %34 = icmp eq ptr %33, null
   br i1 %34, label %81, label %35
 
 35:                                               ; preds = %31
   %36 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %33, i32 noundef %4)
-  %37 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !69
+  %37 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !70
   %38 = icmp eq ptr %37, null
   br i1 %38, label %81, label %39
 
 39:                                               ; preds = %35
   %40 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %37, ptr noundef nonnull @.str.49, i64 noundef 2)
-  %41 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !69
+  %41 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !70
   %42 = icmp eq ptr %41, null
   br i1 %42, label %81, label %43
 
@@ -6342,13 +6342,13 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12CheckHandlerC2EPKcS3_S3
   br label %56
 
 56:                                               ; preds = %45, %53
-  %57 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !69
+  %57 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !70
   %58 = icmp eq ptr %57, null
   br i1 %58, label %81, label %59
 
 59:                                               ; preds = %56
   %60 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %57, ptr noundef nonnull @.str.50, i64 noundef 9)
-  %61 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !69
+  %61 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !70
   %62 = icmp eq ptr %61, null
   br i1 %62, label %81, label %63
 
@@ -6373,7 +6373,7 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12CheckHandlerC2EPKcS3_S3
   br label %76
 
 76:                                               ; preds = %65, %73
-  %77 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !69
+  %77 = load ptr, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !70
   %78 = icmp eq ptr %77, null
   br i1 %78, label %81, label %79
 
@@ -6387,8 +6387,8 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12CheckHandlerC2EPKcS3_S3
 
 ; Function Attrs: noreturn uwtable
 define linkonce_odr hidden void @_ZN9benchmark8internal12CheckHandlerD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %0) unnamed_addr #16 comdat align 2 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !72
-  %3 = load ptr, ptr %2, align 8, !tbaa !69
+  %2 = load ptr, ptr %0, align 8, !tbaa !73
+  %3 = load ptr, ptr %2, align 8, !tbaa !70
   %4 = icmp eq ptr %3, null
   br i1 %4, label %30, label %5
 
@@ -6398,7 +6398,7 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12CheckHandlerD2Ev(ptr no
   %8 = load i64, ptr %7, align 8
   %9 = getelementptr inbounds i8, ptr %3, i64 %8
   %10 = getelementptr inbounds %"class.std::basic_ios", ptr %9, i64 0, i32 5
-  %11 = load ptr, ptr %10, align 8, !tbaa !74
+  %11 = load ptr, ptr %10, align 8, !tbaa !75
   %12 = icmp eq ptr %11, null
   br i1 %12, label %13, label %14
 
@@ -6408,7 +6408,7 @@ define linkonce_odr hidden void @_ZN9benchmark8internal12CheckHandlerD2Ev(ptr no
 
 14:                                               ; preds = %5
   %15 = getelementptr inbounds %"class.std::ctype", ptr %11, i64 0, i32 8
-  %16 = load i8, ptr %15, align 8, !tbaa !76
+  %16 = load i8, ptr %15, align 8, !tbaa !77
   %17 = icmp eq i8 %16, 0
   br i1 %17, label %21, label %18
 
@@ -6534,7 +6534,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %16) #23
   br label %313
 
-41:                                               ; preds = %28, %25
+41:                                               ; preds = %25, %28
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %16) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %15) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %15)
@@ -6590,7 +6590,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %15) #23
   br label %313
 
-69:                                               ; preds = %56, %53
+69:                                               ; preds = %53, %56
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %15) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %14) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %14)
@@ -6636,7 +6636,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %14) #23
   br label %313
 
-91:                                               ; preds = %78, %75
+91:                                               ; preds = %75, %78
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %14) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %13) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %13)
@@ -6692,7 +6692,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #23
   br label %313
 
-119:                                              ; preds = %106, %103
+119:                                              ; preds = %103, %106
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %12)
@@ -6738,7 +6738,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #23
   br label %313
 
-141:                                              ; preds = %128, %125
+141:                                              ; preds = %125, %128
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %11)
@@ -6794,7 +6794,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #23
   br label %313
 
-169:                                              ; preds = %156, %153
+169:                                              ; preds = %153, %156
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %10)
@@ -6840,7 +6840,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #23
   br label %313
 
-191:                                              ; preds = %178, %175
+191:                                              ; preds = %175, %178
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #23
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %18) #23
   invoke void @_ZN7testing13PrintToStringImEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %18, ptr noundef nonnull align 8 dereferenceable(8) %3)
@@ -6894,7 +6894,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #23
   br label %305
 
-217:                                              ; preds = %204, %201
+217:                                              ; preds = %201, %204
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %8)
@@ -6940,7 +6940,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #23
   br label %305
 
-239:                                              ; preds = %226, %223
+239:                                              ; preds = %223, %226
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #23
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %19) #23
   invoke void @_ZN7testing13PrintToStringIiEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %19, ptr noundef nonnull align 4 dereferenceable(4) %4)
@@ -6994,7 +6994,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImiEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #23
   br label %297
 
-265:                                              ; preds = %252, %249
+265:                                              ; preds = %249, %252
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #23
   invoke void @_ZN7testing15AssertionResultC1ERKS0_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(16) %17)
           to label %266 unwind label %295
@@ -7195,42 +7195,42 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringImEENSt7__cxx1112basi
   call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %3) #23
   call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %3)
   %4 = getelementptr inbounds i8, ptr %3, i64 16
-  %5 = load i64, ptr %1, align 8, !tbaa !63
+  %5 = load i64, ptr %1, align 8, !tbaa !64
   %6 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef %5)
           to label %7 unwind label %55
 
 7:                                                ; preds = %2
-  call void @llvm.experimental.noalias.scope.decl(metadata !79)
-  call void @llvm.experimental.noalias.scope.decl(metadata !82)
+  call void @llvm.experimental.noalias.scope.decl(metadata !80)
+  call void @llvm.experimental.noalias.scope.decl(metadata !83)
   %8 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
-  store ptr %8, ptr %0, align 8, !tbaa !45, !alias.scope !85
+  store ptr %8, ptr %0, align 8, !tbaa !45, !alias.scope !86
   %9 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
-  store i64 0, ptr %9, align 8, !tbaa !47, !alias.scope !85
-  store i8 0, ptr %8, align 8, !tbaa !48, !alias.scope !85
+  store i64 0, ptr %9, align 8, !tbaa !47, !alias.scope !86
+  store i8 0, ptr %8, align 8, !tbaa !48, !alias.scope !86
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 5
-  %11 = load ptr, ptr %10, align 8, !tbaa !49, !noalias !85
+  %11 = load ptr, ptr %10, align 8, !tbaa !49, !noalias !86
   %12 = icmp eq ptr %11, null
-  %13 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
-  %14 = load ptr, ptr %13, align 8, !noalias !85
-  %15 = icmp ugt ptr %11, %14
-  %16 = select i1 %15, ptr %11, ptr %14
-  %17 = icmp eq ptr %16, null
-  %18 = select i1 %12, i1 true, i1 %17
-  br i1 %18, label %31, label %19
+  br i1 %12, label %31, label %13
 
-19:                                               ; preds = %7
+13:                                               ; preds = %7
+  %14 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
+  %15 = load ptr, ptr %14, align 8, !tbaa !51, !noalias !86
+  %16 = icmp eq ptr %15, null
+  %17 = icmp ugt ptr %11, %15
+  %18 = select i1 %16, i1 true, i1 %17
+  %19 = select i1 %18, ptr %11, ptr %15
   %20 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 4
-  %21 = load ptr, ptr %20, align 8, !tbaa !51, !noalias !85
-  %22 = ptrtoint ptr %16 to i64
+  %21 = load ptr, ptr %20, align 8, !tbaa !52, !noalias !86
+  %22 = ptrtoint ptr %19 to i64
   %23 = ptrtoint ptr %21 to i64
   %24 = sub i64 %22, %23
   %25 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef 0, i64 noundef 0, ptr noundef %21, i64 noundef %24)
           to label %33 unwind label %26
 
-26:                                               ; preds = %31, %19
+26:                                               ; preds = %31, %13
   %27 = landingpad { ptr, i32 }
           cleanup
-  %28 = load ptr, ptr %0, align 8, !tbaa !36, !alias.scope !85
+  %28 = load ptr, ptr %0, align 8, !tbaa !36, !alias.scope !86
   %29 = icmp eq ptr %28, %8
   br i1 %29, label %57, label %30
 
@@ -7243,7 +7243,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringImEENSt7__cxx1112basi
   invoke void @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERKS4_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %32)
           to label %33 unwind label %26
 
-33:                                               ; preds = %31, %19
+33:                                               ; preds = %31, %13
   %34 = load ptr, ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, align 8
   store ptr %34, ptr %3, align 8, !tbaa !5
   %35 = load ptr, ptr getelementptr inbounds ([10 x ptr], ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, i64 0, i64 8), align 8
@@ -7277,7 +7277,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringImEENSt7__cxx1112basi
   %52 = getelementptr inbounds i8, ptr %3, i64 %51
   store ptr %49, ptr %52, align 8, !tbaa !5
   %53 = getelementptr inbounds %"class.std::basic_istream", ptr %3, i64 0, i32 1
-  store i64 0, ptr %53, align 8, !tbaa !52
+  store i64 0, ptr %53, align 8, !tbaa !53
   %54 = getelementptr inbounds i8, ptr %3, i64 128
   call void @_ZNSt8ios_baseD2Ev(ptr noundef nonnull align 8 dereferenceable(264) %54) #23
   call void @llvm.lifetime.end.p0(i64 392, ptr nonnull %3) #23
@@ -7303,42 +7303,42 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIiEENSt7__cxx1112basi
   call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %3) #23
   call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %3)
   %4 = getelementptr inbounds i8, ptr %3, i64 16
-  %5 = load i32, ptr %1, align 4, !tbaa !71
+  %5 = load i32, ptr %1, align 4, !tbaa !72
   %6 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef %5)
           to label %7 unwind label %55
 
 7:                                                ; preds = %2
-  call void @llvm.experimental.noalias.scope.decl(metadata !86)
-  call void @llvm.experimental.noalias.scope.decl(metadata !89)
+  call void @llvm.experimental.noalias.scope.decl(metadata !87)
+  call void @llvm.experimental.noalias.scope.decl(metadata !90)
   %8 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
-  store ptr %8, ptr %0, align 8, !tbaa !45, !alias.scope !92
+  store ptr %8, ptr %0, align 8, !tbaa !45, !alias.scope !93
   %9 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
-  store i64 0, ptr %9, align 8, !tbaa !47, !alias.scope !92
-  store i8 0, ptr %8, align 8, !tbaa !48, !alias.scope !92
+  store i64 0, ptr %9, align 8, !tbaa !47, !alias.scope !93
+  store i8 0, ptr %8, align 8, !tbaa !48, !alias.scope !93
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 5
-  %11 = load ptr, ptr %10, align 8, !tbaa !49, !noalias !92
+  %11 = load ptr, ptr %10, align 8, !tbaa !49, !noalias !93
   %12 = icmp eq ptr %11, null
-  %13 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
-  %14 = load ptr, ptr %13, align 8, !noalias !92
-  %15 = icmp ugt ptr %11, %14
-  %16 = select i1 %15, ptr %11, ptr %14
-  %17 = icmp eq ptr %16, null
-  %18 = select i1 %12, i1 true, i1 %17
-  br i1 %18, label %31, label %19
+  br i1 %12, label %31, label %13
 
-19:                                               ; preds = %7
+13:                                               ; preds = %7
+  %14 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
+  %15 = load ptr, ptr %14, align 8, !tbaa !51, !noalias !93
+  %16 = icmp eq ptr %15, null
+  %17 = icmp ugt ptr %11, %15
+  %18 = select i1 %16, i1 true, i1 %17
+  %19 = select i1 %18, ptr %11, ptr %15
   %20 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 4
-  %21 = load ptr, ptr %20, align 8, !tbaa !51, !noalias !92
-  %22 = ptrtoint ptr %16 to i64
+  %21 = load ptr, ptr %20, align 8, !tbaa !52, !noalias !93
+  %22 = ptrtoint ptr %19 to i64
   %23 = ptrtoint ptr %21 to i64
   %24 = sub i64 %22, %23
   %25 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef 0, i64 noundef 0, ptr noundef %21, i64 noundef %24)
           to label %33 unwind label %26
 
-26:                                               ; preds = %31, %19
+26:                                               ; preds = %31, %13
   %27 = landingpad { ptr, i32 }
           cleanup
-  %28 = load ptr, ptr %0, align 8, !tbaa !36, !alias.scope !92
+  %28 = load ptr, ptr %0, align 8, !tbaa !36, !alias.scope !93
   %29 = icmp eq ptr %28, %8
   br i1 %29, label %57, label %30
 
@@ -7351,7 +7351,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIiEENSt7__cxx1112basi
   invoke void @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERKS4_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %32)
           to label %33 unwind label %26
 
-33:                                               ; preds = %31, %19
+33:                                               ; preds = %31, %13
   %34 = load ptr, ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, align 8
   store ptr %34, ptr %3, align 8, !tbaa !5
   %35 = load ptr, ptr getelementptr inbounds ([10 x ptr], ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, i64 0, i64 8), align 8
@@ -7385,7 +7385,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIiEENSt7__cxx1112basi
   %52 = getelementptr inbounds i8, ptr %3, i64 %51
   store ptr %49, ptr %52, align 8, !tbaa !5
   %53 = getelementptr inbounds %"class.std::basic_istream", ptr %3, i64 0, i32 1
-  store i64 0, ptr %53, align 8, !tbaa !52
+  store i64 0, ptr %53, align 8, !tbaa !53
   %54 = getelementptr inbounds i8, ptr %3, i64 128
   call void @_ZNSt8ios_baseD2Ev(ptr noundef nonnull align 8 dereferenceable(264) %54) #23
   call void @llvm.lifetime.end.p0(i64 392, ptr nonnull %3) #23
@@ -7464,7 +7464,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %16) #23
   br label %313
 
-41:                                               ; preds = %28, %25
+41:                                               ; preds = %25, %28
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %16) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %15) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %15)
@@ -7520,7 +7520,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %15) #23
   br label %313
 
-69:                                               ; preds = %56, %53
+69:                                               ; preds = %53, %56
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %15) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %14) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %14)
@@ -7566,7 +7566,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %14) #23
   br label %313
 
-91:                                               ; preds = %78, %75
+91:                                               ; preds = %75, %78
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %14) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %13) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %13)
@@ -7622,7 +7622,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #23
   br label %313
 
-119:                                              ; preds = %106, %103
+119:                                              ; preds = %103, %106
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %12)
@@ -7668,7 +7668,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #23
   br label %313
 
-141:                                              ; preds = %128, %125
+141:                                              ; preds = %125, %128
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %11)
@@ -7724,7 +7724,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #23
   br label %313
 
-169:                                              ; preds = %156, %153
+169:                                              ; preds = %153, %156
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %10)
@@ -7770,7 +7770,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #23
   br label %313
 
-191:                                              ; preds = %178, %175
+191:                                              ; preds = %175, %178
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #23
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %18) #23
   invoke void @_ZN7testing13PrintToStringImEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %18, ptr noundef nonnull align 8 dereferenceable(8) %3)
@@ -7824,7 +7824,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #23
   br label %305
 
-217:                                              ; preds = %204, %201
+217:                                              ; preds = %201, %204
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %8)
@@ -7870,7 +7870,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #23
   br label %305
 
-239:                                              ; preds = %226, %223
+239:                                              ; preds = %223, %226
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #23
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %19) #23
   invoke void @_ZN7testing13PrintToStringImEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %19, ptr noundef nonnull align 8 dereferenceable(8) %4)
@@ -7924,7 +7924,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureImmEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #23
   br label %297
 
-265:                                              ; preds = %252, %249
+265:                                              ; preds = %249, %252
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #23
   invoke void @_ZN7testing15AssertionResultC1ERKS0_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(16) %17)
           to label %266 unwind label %295
@@ -8197,7 +8197,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   %80 = zext i1 %79 to i8
   store i8 %80, ptr %4, align 8, !tbaa !27
   %81 = getelementptr inbounds %"class.testing::AssertionResult", ptr %4, i64 0, i32 1
-  store ptr null, ptr %81, align 8, !tbaa !54
+  store ptr null, ptr %81, align 8, !tbaa !55
   br i1 %79, label %132, label %82
 
 82:                                               ; preds = %78
@@ -8345,17 +8345,17 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
 
 141:                                              ; preds = %132
   %142 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 2
-  store ptr %140, ptr %9, align 8, !tbaa !55
+  store ptr %140, ptr %9, align 8, !tbaa !56
   %143 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %140, i64 2
   %144 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %9, i64 0, i32 2
-  store ptr %143, ptr %144, align 8, !tbaa !57
+  store ptr %143, ptr %144, align 8, !tbaa !58
   %145 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %10, ptr noundef nonnull %142, ptr noundef nonnull %140)
           to label %151 unwind label %146
 
 146:                                              ; preds = %141, %132
   %147 = landingpad { ptr, i32 }
           cleanup
-  %148 = load ptr, ptr %9, align 8, !tbaa !55
+  %148 = load ptr, ptr %9, align 8, !tbaa !56
   %149 = icmp eq ptr %148, null
   br i1 %149, label %193, label %150
 
@@ -8365,13 +8365,13 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
 
 151:                                              ; preds = %141
   %152 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %9, i64 0, i32 1
-  store ptr %145, ptr %152, align 8, !tbaa !58
+  store ptr %145, ptr %152, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %8, ptr noundef nonnull align 8 dereferenceable(24) %9)
           to label %153 unwind label %191
 
 153:                                              ; preds = %151
-  %154 = load ptr, ptr %9, align 8, !tbaa !55
-  %155 = load ptr, ptr %152, align 8, !tbaa !58
+  %154 = load ptr, ptr %9, align 8, !tbaa !56
+  %155 = load ptr, ptr %152, align 8, !tbaa !59
   %156 = icmp eq ptr %154, %155
   br i1 %156, label %168, label %157
 
@@ -8389,10 +8389,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
 163:                                              ; preds = %162, %157
   %164 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %158, i64 1
   %165 = icmp eq ptr %164, %155
-  br i1 %165, label %166, label %157, !llvm.loop !59
+  br i1 %165, label %166, label %157, !llvm.loop !60
 
 166:                                              ; preds = %163
-  %167 = load ptr, ptr %9, align 8, !tbaa !55
+  %167 = load ptr, ptr %9, align 8, !tbaa !56
   br label %168
 
 168:                                              ; preds = %166, %153
@@ -8437,7 +8437,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   %189 = zext i1 %188 to i8
   store i8 %189, ptr %11, align 8, !tbaa !27
   %190 = getelementptr inbounds %"class.testing::AssertionResult", ptr %11, i64 0, i32 1
-  store ptr null, ptr %190, align 8, !tbaa !54
+  store ptr null, ptr %190, align 8, !tbaa !55
   br i1 %188, label %256, label %206
 
 191:                                              ; preds = %151
@@ -8447,7 +8447,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   br label %193
 
 193:                                              ; preds = %150, %146, %191
-  %194 = phi { ptr, i32 } [ %192, %191 ], [ %147, %150 ], [ %147, %146 ]
+  %194 = phi { ptr, i32 } [ %192, %191 ], [ %147, %146 ], [ %147, %150 ]
   %195 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 1
   %196 = load ptr, ptr %195, align 8, !tbaa !36
   %197 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 1, i32 2
@@ -8596,10 +8596,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %11) #23
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %15) #23
   %257 = getelementptr inbounds %"class.benchmark::internal::PerfCounterValues", ptr %15, i64 0, i32 1
-  store i64 2, ptr %257, align 8, !tbaa !65
+  store i64 2, ptr %257, align 8, !tbaa !66
   %258 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %259 = icmp eq i8 %258, 0
-  br i1 %259, label %260, label %264, !prof !68
+  br i1 %259, label %260, label %264, !prof !69
 
 260:                                              ; preds = %256
   %261 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -8607,7 +8607,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   br i1 %262, label %264, label %263
 
 263:                                              ; preds = %260
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %264
 
@@ -8623,11 +8623,11 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   unreachable
 
 269:                                              ; preds = %264
-  %270 = load i64, ptr %257, align 8, !tbaa !65
+  %270 = load i64, ptr %257, align 8, !tbaa !66
   %271 = shl i64 %270, 3
   %272 = add i64 %271, 8
-  %273 = load ptr, ptr %8, align 8, !tbaa !61
-  %274 = load i32, ptr %273, align 4, !tbaa !71
+  %273 = load ptr, ptr %8, align 8, !tbaa !62
+  %274 = load i32, ptr %273, align 4, !tbaa !72
   %275 = invoke i64 @read(i32 noundef %274, ptr noundef nonnull %15, i64 noundef %272)
           to label %276 unwind label %280
 
@@ -8636,7 +8636,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   %278 = zext i1 %277 to i8
   store i8 %278, ptr %16, align 8, !tbaa !27
   %279 = getelementptr inbounds %"class.testing::AssertionResult", ptr %16, i64 0, i32 1
-  store ptr null, ptr %279, align 8, !tbaa !54
+  store ptr null, ptr %279, align 8, !tbaa !55
   br i1 %277, label %332, label %282
 
 280:                                              ; preds = %269
@@ -8767,10 +8767,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %20) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %21) #23
   %333 = getelementptr inbounds [4 x i64], ptr %15, i64 0, i64 1
-  %334 = load i64, ptr %333, align 8, !tbaa !63
-  store i64 %334, ptr %21, align 8, !tbaa !63
+  %334 = load i64, ptr %333, align 8, !tbaa !64
+  store i64 %334, ptr %21, align 8, !tbaa !64
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %22) #23
-  store i32 0, ptr %22, align 4, !tbaa !71
+  store i32 0, ptr %22, align 4, !tbaa !72
   %335 = icmp eq i64 %334, 0
   br i1 %335, label %337, label %336
 
@@ -8905,10 +8905,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %25) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %26) #23
   %390 = getelementptr inbounds [4 x i64], ptr %15, i64 0, i64 2
-  %391 = load i64, ptr %390, align 8, !tbaa !63
-  store i64 %391, ptr %26, align 8, !tbaa !63
+  %391 = load i64, ptr %390, align 8, !tbaa !64
+  store i64 %391, ptr %26, align 8, !tbaa !64
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %27) #23
-  store i32 0, ptr %27, align 4, !tbaa !71
+  store i32 0, ptr %27, align 4, !tbaa !72
   %392 = icmp eq i64 %391, 0
   br i1 %392, label %394, label %393
 
@@ -9042,10 +9042,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %25) #23
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %30) #23
   %447 = getelementptr inbounds %"class.benchmark::internal::PerfCounterValues", ptr %30, i64 0, i32 1
-  store i64 2, ptr %447, align 8, !tbaa !65
+  store i64 2, ptr %447, align 8, !tbaa !66
   %448 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %449 = icmp eq i8 %448, 0
-  br i1 %449, label %450, label %454, !prof !68
+  br i1 %449, label %450, label %454, !prof !69
 
 450:                                              ; preds = %446
   %451 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -9053,7 +9053,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   br i1 %452, label %454, label %453
 
 453:                                              ; preds = %450
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %454
 
@@ -9069,11 +9069,11 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   unreachable
 
 459:                                              ; preds = %454
-  %460 = load i64, ptr %447, align 8, !tbaa !65
+  %460 = load i64, ptr %447, align 8, !tbaa !66
   %461 = shl i64 %460, 3
   %462 = add i64 %461, 8
-  %463 = load ptr, ptr %8, align 8, !tbaa !61
-  %464 = load i32, ptr %463, align 4, !tbaa !71
+  %463 = load ptr, ptr %8, align 8, !tbaa !62
+  %464 = load i32, ptr %463, align 4, !tbaa !72
   %465 = invoke i64 @read(i32 noundef %464, ptr noundef nonnull %30, i64 noundef %462)
           to label %466 unwind label %472
 
@@ -9082,7 +9082,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   %468 = zext i1 %467 to i8
   store i8 %468, ptr %31, align 8, !tbaa !27
   %469 = getelementptr inbounds %"class.testing::AssertionResult", ptr %31, i64 0, i32 1
-  store ptr null, ptr %469, align 8, !tbaa !54
+  store ptr null, ptr %469, align 8, !tbaa !55
   br i1 %467, label %524, label %474
 
 470:                                              ; preds = %434, %400
@@ -9218,10 +9218,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %35) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %36) #23
   %525 = getelementptr inbounds [4 x i64], ptr %30, i64 0, i64 1
-  %526 = load i64, ptr %525, align 8, !tbaa !63
-  store i64 %526, ptr %36, align 8, !tbaa !63
+  %526 = load i64, ptr %525, align 8, !tbaa !64
+  store i64 %526, ptr %36, align 8, !tbaa !64
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %37) #23
-  store i32 0, ptr %37, align 4, !tbaa !71
+  store i32 0, ptr %37, align 4, !tbaa !72
   %527 = icmp eq i64 %526, 0
   br i1 %527, label %529, label %528
 
@@ -9356,10 +9356,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %40) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %41) #23
   %582 = getelementptr inbounds [4 x i64], ptr %30, i64 0, i64 2
-  %583 = load i64, ptr %582, align 8, !tbaa !63
-  store i64 %583, ptr %41, align 8, !tbaa !63
+  %583 = load i64, ptr %582, align 8, !tbaa !64
+  store i64 %583, ptr %41, align 8, !tbaa !64
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %42) #23
-  store i32 0, ptr %42, align 4, !tbaa !71
+  store i32 0, ptr %42, align 4, !tbaa !72
   %584 = icmp eq i64 %583, 0
   br i1 %584, label %586, label %585
 
@@ -9497,8 +9497,8 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
           to label %639 unwind label %662
 
 639:                                              ; preds = %638
-  %640 = load ptr, ptr %184, align 8, !tbaa !55
-  %641 = load ptr, ptr %186, align 8, !tbaa !58
+  %640 = load ptr, ptr %184, align 8, !tbaa !56
+  %641 = load ptr, ptr %186, align 8, !tbaa !59
   %642 = icmp eq ptr %640, %641
   br i1 %642, label %654, label %643
 
@@ -9516,10 +9516,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
 649:                                              ; preds = %648, %643
   %650 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %644, i64 1
   %651 = icmp eq ptr %650, %641
-  br i1 %651, label %652, label %643, !llvm.loop !59
+  br i1 %651, label %652, label %643, !llvm.loop !60
 
 652:                                              ; preds = %649
-  %653 = load ptr, ptr %184, align 8, !tbaa !55
+  %653 = load ptr, ptr %184, align 8, !tbaa !56
   br label %654
 
 654:                                              ; preds = %652, %639
@@ -9532,7 +9532,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_Read2Counters_Test8Tes
   br label %658
 
 658:                                              ; preds = %657, %654
-  %659 = load ptr, ptr %8, align 8, !tbaa !61
+  %659 = load ptr, ptr %8, align 8, !tbaa !62
   %660 = icmp eq ptr %659, null
   br i1 %660, label %665, label %661
 
@@ -9722,7 +9722,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   %60 = zext i1 %59 to i8
   store i8 %60, ptr %4, align 8, !tbaa !27
   %61 = getelementptr inbounds %"class.testing::AssertionResult", ptr %4, i64 0, i32 1
-  store ptr null, ptr %61, align 8, !tbaa !54
+  store ptr null, ptr %61, align 8, !tbaa !55
   br i1 %59, label %112, label %62
 
 62:                                               ; preds = %58
@@ -9855,7 +9855,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
 
 116:                                              ; preds = %112
   %117 = call noundef ptr @_ZNSt6vectorIN9benchmark8internal12PerfCountersESaIS2_EE14_S_do_relocateEPS2_S5_S5_RS3_St17integral_constantIbLb1EE(ptr noundef null, ptr noundef null, ptr noundef nonnull %115, ptr noundef nonnull align 1 dereferenceable(1) %8) #23
-  %118 = load ptr, ptr %8, align 8, !tbaa !93
+  %118 = load ptr, ptr %8, align 8, !tbaa !94
   %119 = icmp eq ptr %118, null
   br i1 %119, label %121, label %120
 
@@ -9864,31 +9864,31 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   br label %121
 
 121:                                              ; preds = %116, %120
-  store ptr %115, ptr %8, align 8, !tbaa !93
-  store ptr %115, ptr %114, align 8, !tbaa !95
+  store ptr %115, ptr %8, align 8, !tbaa !94
+  store ptr %115, ptr %114, align 8, !tbaa !96
   %122 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %115, i64 6
-  store ptr %122, ptr %113, align 8, !tbaa !96
+  store ptr %122, ptr %113, align 8, !tbaa !97
   %123 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 0, i32 2
   %124 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 0, i32 1
-  %125 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 1
-  %126 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %10, i64 0, i32 2
-  %127 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %10, i64 0, i32 1
-  %128 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCounters, std::allocator<benchmark::internal::PerfCounters>>::_Vector_impl_data", ptr %8, i64 0, i32 1
-  %129 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %9, i64 0, i32 2
-  %130 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %9, i64 0, i32 1
-  %131 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %9, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %132 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %9, i64 0, i32 1, i32 0, i32 0, i32 0, i32 2
-  %133 = getelementptr inbounds i8, ptr %11, i64 22
+  %125 = getelementptr inbounds i8, ptr %11, i64 22
+  %126 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 1
+  %127 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %10, i64 0, i32 2
+  %128 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %10, i64 0, i32 1
+  %129 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCounters, std::allocator<benchmark::internal::PerfCounters>>::_Vector_impl_data", ptr %8, i64 0, i32 1
+  %130 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %9, i64 0, i32 2
+  %131 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %9, i64 0, i32 1
+  %132 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %9, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
+  %133 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %9, i64 0, i32 1, i32 0, i32 0, i32 0, i32 2
   %134 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 0, i32 2
   br label %145
 
 135:                                              ; preds = %221
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %12) #23
   %136 = getelementptr inbounds %"class.benchmark::internal::PerfCounterValues", ptr %12, i64 0, i32 1
-  store i64 1, ptr %136, align 8, !tbaa !65
+  store i64 1, ptr %136, align 8, !tbaa !66
   %137 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %138 = icmp eq i8 %137, 0
-  br i1 %138, label %139, label %237, !prof !68
+  br i1 %138, label %139, label %237, !prof !69
 
 139:                                              ; preds = %135
   %140 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -9896,7 +9896,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   br i1 %141, label %237, label %142
 
 142:                                              ; preds = %139
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %237
 
@@ -9913,22 +9913,22 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   store ptr %123, ptr %11, align 8, !tbaa !45
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(6) %123, ptr noundef nonnull align 1 dereferenceable(6) @_ZN12_GLOBAL__N_118kGenericPerfEvent1E, i64 6, i1 false)
   store i64 6, ptr %124, align 8, !tbaa !47
-  store i8 0, ptr %133, align 2, !tbaa !48
+  store i8 0, ptr %125, align 2, !tbaa !48
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %10, i8 0, i64 24, i1 false)
   %147 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #26
           to label %148 unwind label %151
 
 148:                                              ; preds = %145
-  store ptr %147, ptr %10, align 8, !tbaa !55
+  store ptr %147, ptr %10, align 8, !tbaa !56
   %149 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %147, i64 1
-  store ptr %149, ptr %126, align 8, !tbaa !57
-  %150 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %11, ptr noundef nonnull %125, ptr noundef nonnull %147)
+  store ptr %149, ptr %127, align 8, !tbaa !58
+  %150 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %11, ptr noundef nonnull %126, ptr noundef nonnull %147)
           to label %156 unwind label %151
 
 151:                                              ; preds = %148, %145
   %152 = landingpad { ptr, i32 }
           cleanup
-  %153 = load ptr, ptr %10, align 8, !tbaa !55
+  %153 = load ptr, ptr %10, align 8, !tbaa !56
   %154 = icmp eq ptr %153, null
   br i1 %154, label %230, label %155
 
@@ -9937,13 +9937,13 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   br label %230
 
 156:                                              ; preds = %148
-  store ptr %150, ptr %127, align 8, !tbaa !58
+  store ptr %150, ptr %128, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %9, ptr noundef nonnull align 8 dereferenceable(24) %10)
           to label %157 unwind label %224
 
 157:                                              ; preds = %156
-  %158 = load ptr, ptr %128, align 8, !tbaa !95
-  %159 = load ptr, ptr %113, align 8, !tbaa !96
+  %158 = load ptr, ptr %129, align 8, !tbaa !96
+  %159 = load ptr, ptr %113, align 8, !tbaa !97
   %160 = icmp eq ptr %158, %159
   br i1 %160, label %170, label %161
 
@@ -9951,18 +9951,18 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   %162 = load <2 x ptr>, ptr %9, align 16, !tbaa !35
   store <2 x ptr> %162, ptr %158, align 8, !tbaa !35
   %163 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %158, i64 0, i32 2
-  %164 = load ptr, ptr %129, align 16, !tbaa !97
-  store ptr %164, ptr %163, align 8, !tbaa !97
+  %164 = load ptr, ptr %130, align 16, !tbaa !98
+  store ptr %164, ptr %163, align 8, !tbaa !98
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(24) %9, i8 0, i64 24, i1 false)
   %165 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %158, i64 0, i32 1
-  %166 = load <2 x ptr>, ptr %130, align 8, !tbaa !35
+  %166 = load <2 x ptr>, ptr %131, align 8, !tbaa !35
   store <2 x ptr> %166, ptr %165, align 8, !tbaa !35
   %167 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %158, i64 0, i32 1, i32 0, i32 0, i32 0, i32 2
-  %168 = load ptr, ptr %132, align 8, !tbaa !57
-  store ptr %168, ptr %167, align 8, !tbaa !57
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %130, i8 0, i64 24, i1 false)
+  %168 = load ptr, ptr %133, align 8, !tbaa !58
+  store ptr %168, ptr %167, align 8, !tbaa !58
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %131, i8 0, i64 24, i1 false)
   %169 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %158, i64 1
-  store ptr %169, ptr %128, align 8, !tbaa !95
+  store ptr %169, ptr %129, align 8, !tbaa !96
   br label %171
 
 170:                                              ; preds = %157
@@ -9974,8 +9974,8 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
           to label %172 unwind label %195
 
 172:                                              ; preds = %171
-  %173 = load ptr, ptr %130, align 8, !tbaa !55
-  %174 = load ptr, ptr %131, align 16, !tbaa !58
+  %173 = load ptr, ptr %131, align 8, !tbaa !56
+  %174 = load ptr, ptr %132, align 16, !tbaa !59
   %175 = icmp eq ptr %173, %174
   br i1 %175, label %187, label %176
 
@@ -9993,10 +9993,10 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
 182:                                              ; preds = %181, %176
   %183 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %177, i64 1
   %184 = icmp eq ptr %183, %174
-  br i1 %184, label %185, label %176, !llvm.loop !59
+  br i1 %184, label %185, label %176, !llvm.loop !60
 
 185:                                              ; preds = %182
-  %186 = load ptr, ptr %130, align 8, !tbaa !55
+  %186 = load ptr, ptr %131, align 8, !tbaa !56
   br label %187
 
 187:                                              ; preds = %185, %172
@@ -10009,7 +10009,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   br label %191
 
 191:                                              ; preds = %190, %187
-  %192 = load ptr, ptr %9, align 16, !tbaa !61
+  %192 = load ptr, ptr %9, align 16, !tbaa !62
   %193 = icmp eq ptr %192, null
   br i1 %193, label %198, label %194
 
@@ -10025,8 +10025,8 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   unreachable
 
 198:                                              ; preds = %191, %194
-  %199 = load ptr, ptr %10, align 8, !tbaa !55
-  %200 = load ptr, ptr %127, align 8, !tbaa !58
+  %199 = load ptr, ptr %10, align 8, !tbaa !56
+  %200 = load ptr, ptr %128, align 8, !tbaa !59
   %201 = icmp eq ptr %199, %200
   br i1 %201, label %213, label %202
 
@@ -10044,10 +10044,10 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
 208:                                              ; preds = %207, %202
   %209 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %203, i64 1
   %210 = icmp eq ptr %209, %200
-  br i1 %210, label %211, label %202, !llvm.loop !59
+  br i1 %210, label %211, label %202, !llvm.loop !60
 
 211:                                              ; preds = %208
-  %212 = load ptr, ptr %10, align 8, !tbaa !55
+  %212 = load ptr, ptr %10, align 8, !tbaa !56
   br label %213
 
 213:                                              ; preds = %211, %198
@@ -10074,7 +10074,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %9) #23
   %222 = add nuw nsw i32 %146, 1
   %223 = icmp eq i32 %222, 6
-  br i1 %223, label %135, label %145, !llvm.loop !98
+  br i1 %223, label %135, label %145, !llvm.loop !99
 
 224:                                              ; preds = %156
   %225 = landingpad { ptr, i32 }
@@ -10093,7 +10093,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   br label %230
 
 230:                                              ; preds = %155, %151, %228
-  %231 = phi { ptr, i32 } [ %229, %228 ], [ %152, %155 ], [ %152, %151 ]
+  %231 = phi { ptr, i32 } [ %229, %228 ], [ %152, %151 ], [ %152, %155 ]
   %232 = load ptr, ptr %11, align 8, !tbaa !36
   %233 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 0, i32 2
   %234 = icmp eq ptr %232, %233
@@ -10111,7 +10111,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
 
 237:                                              ; preds = %142, %139, %135
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %13) #23
-  %238 = load ptr, ptr %8, align 8, !tbaa !93
+  %238 = load ptr, ptr %8, align 8, !tbaa !94
   %239 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %238, i64 0, i32 1
   %240 = load ptr, ptr %239, align 8, !tbaa !35
   %241 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %238, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
@@ -10124,11 +10124,11 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   unreachable
 
 245:                                              ; preds = %237
-  %246 = load i64, ptr %136, align 8, !tbaa !65
+  %246 = load i64, ptr %136, align 8, !tbaa !66
   %247 = shl i64 %246, 3
   %248 = add i64 %247, 8
-  %249 = load ptr, ptr %238, align 8, !tbaa !61
-  %250 = load i32, ptr %249, align 4, !tbaa !71
+  %249 = load ptr, ptr %238, align 8, !tbaa !62
+  %250 = load i32, ptr %249, align 4, !tbaa !72
   %251 = invoke i64 @read(i32 noundef %250, ptr noundef nonnull %12, i64 noundef %248)
           to label %252 unwind label %256
 
@@ -10137,7 +10137,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   %254 = zext i1 %253 to i8
   store i8 %254, ptr %13, align 8, !tbaa !27
   %255 = getelementptr inbounds %"class.testing::AssertionResult", ptr %13, i64 0, i32 1
-  store ptr null, ptr %255, align 8, !tbaa !54
+  store ptr null, ptr %255, align 8, !tbaa !55
   br i1 %253, label %308, label %258
 
 256:                                              ; preds = %245
@@ -10266,7 +10266,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
 308:                                              ; preds = %252, %299, %307
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %13) #23
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %17) #23
-  %309 = load ptr, ptr %8, align 8, !tbaa !93
+  %309 = load ptr, ptr %8, align 8, !tbaa !94
   %310 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %309, i64 4, i32 1
   %311 = load ptr, ptr %310, align 8, !tbaa !35
   %312 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %309, i64 4, i32 1, i32 0, i32 0, i32 0, i32 1
@@ -10280,11 +10280,11 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
 
 316:                                              ; preds = %308
   %317 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %309, i64 4
-  %318 = load i64, ptr %136, align 8, !tbaa !65
+  %318 = load i64, ptr %136, align 8, !tbaa !66
   %319 = shl i64 %318, 3
   %320 = add i64 %319, 8
-  %321 = load ptr, ptr %317, align 8, !tbaa !61
-  %322 = load i32, ptr %321, align 4, !tbaa !71
+  %321 = load ptr, ptr %317, align 8, !tbaa !62
+  %322 = load i32, ptr %321, align 4, !tbaa !72
   %323 = invoke i64 @read(i32 noundef %322, ptr noundef nonnull %12, i64 noundef %320)
           to label %324 unwind label %330
 
@@ -10293,7 +10293,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   %326 = zext i1 %325 to i8
   store i8 %326, ptr %17, align 8, !tbaa !27
   %327 = getelementptr inbounds %"class.testing::AssertionResult", ptr %17, i64 0, i32 1
-  store ptr null, ptr %327, align 8, !tbaa !54
+  store ptr null, ptr %327, align 8, !tbaa !55
   br i1 %325, label %382, label %332
 
 328:                                              ; preds = %297, %256
@@ -10427,7 +10427,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
 382:                                              ; preds = %324, %373, %381
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %17) #23
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %21) #23
-  %383 = load ptr, ptr %8, align 8, !tbaa !93
+  %383 = load ptr, ptr %8, align 8, !tbaa !94
   %384 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %383, i64 5, i32 1
   %385 = load ptr, ptr %384, align 8, !tbaa !35
   %386 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %383, i64 5, i32 1, i32 0, i32 0, i32 0, i32 1
@@ -10441,11 +10441,11 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
 
 390:                                              ; preds = %382
   %391 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %383, i64 5
-  %392 = load i64, ptr %136, align 8, !tbaa !65
+  %392 = load i64, ptr %136, align 8, !tbaa !66
   %393 = shl i64 %392, 3
   %394 = add i64 %393, 8
-  %395 = load ptr, ptr %391, align 8, !tbaa !61
-  %396 = load i32, ptr %395, align 4, !tbaa !71
+  %395 = load ptr, ptr %391, align 8, !tbaa !62
+  %396 = load i32, ptr %395, align 4, !tbaa !72
   %397 = invoke i64 @read(i32 noundef %396, ptr noundef nonnull %12, i64 noundef %394)
           to label %398 unwind label %404
 
@@ -10454,7 +10454,7 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
   %400 = zext i1 %399 to i8
   store i8 %400, ptr %21, align 8, !tbaa !27
   %401 = getelementptr inbounds %"class.testing::AssertionResult", ptr %21, i64 0, i32 1
-  store ptr null, ptr %401, align 8, !tbaa !54
+  store ptr null, ptr %401, align 8, !tbaa !55
   br i1 %399, label %456, label %406
 
 402:                                              ; preds = %371, %330
@@ -10618,9 +10618,9 @@ define internal void @_ZN12_GLOBAL__N_144PerfCountersTest_ReopenExistingCounters
 
 ; Function Attrs: nounwind uwtable
 define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal12PerfCountersESaIS2_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #11 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !93
+  %2 = load ptr, ptr %0, align 8, !tbaa !94
   %3 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCounters, std::allocator<benchmark::internal::PerfCounters>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !95
+  %4 = load ptr, ptr %3, align 8, !tbaa !96
   %5 = icmp eq ptr %2, %4
   br i1 %5, label %41, label %6
 
@@ -10631,9 +10631,9 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal12PerfCounters
 
 8:                                                ; preds = %6
   %9 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %7, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !55
+  %10 = load ptr, ptr %9, align 8, !tbaa !56
   %11 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %7, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !58
+  %12 = load ptr, ptr %11, align 8, !tbaa !59
   %13 = icmp eq ptr %10, %12
   br i1 %13, label %25, label %14
 
@@ -10651,10 +10651,10 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal12PerfCounters
 20:                                               ; preds = %19, %14
   %21 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %15, i64 1
   %22 = icmp eq ptr %21, %12
-  br i1 %22, label %23, label %14, !llvm.loop !59
+  br i1 %22, label %23, label %14, !llvm.loop !60
 
 23:                                               ; preds = %20
-  %24 = load ptr, ptr %9, align 8, !tbaa !55
+  %24 = load ptr, ptr %9, align 8, !tbaa !56
   br label %25
 
 25:                                               ; preds = %23, %8
@@ -10667,7 +10667,7 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal12PerfCounters
   br label %29
 
 29:                                               ; preds = %28, %25
-  %30 = load ptr, ptr %7, align 8, !tbaa !61
+  %30 = load ptr, ptr %7, align 8, !tbaa !62
   %31 = icmp eq ptr %30, null
   br i1 %31, label %36, label %32
 
@@ -10685,10 +10685,10 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal12PerfCounters
 36:                                               ; preds = %32, %29
   %37 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %7, i64 1
   %38 = icmp eq ptr %37, %4
-  br i1 %38, label %39, label %6, !llvm.loop !99
+  br i1 %38, label %39, label %6, !llvm.loop !100
 
 39:                                               ; preds = %36
-  %40 = load ptr, ptr %0, align 8, !tbaa !93
+  %40 = load ptr, ptr %0, align 8, !tbaa !94
   br label %41
 
 41:                                               ; preds = %39, %1
@@ -10712,52 +10712,52 @@ define linkonce_odr hidden noundef ptr @_ZNSt6vectorIN9benchmark8internal12PerfC
 6:                                                ; preds = %4, %46
   %7 = phi ptr [ %48, %46 ], [ %2, %4 ]
   %8 = phi ptr [ %47, %46 ], [ %0, %4 ]
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !100)
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !103)
-  %9 = load <2 x ptr>, ptr %8, align 8, !tbaa !35, !alias.scope !103, !noalias !100
-  store <2 x ptr> %9, ptr %7, align 8, !tbaa !35, !alias.scope !100, !noalias !103
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !101)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !104)
+  %9 = load <2 x ptr>, ptr %8, align 8, !tbaa !35, !alias.scope !104, !noalias !101
+  store <2 x ptr> %9, ptr %7, align 8, !tbaa !35, !alias.scope !101, !noalias !104
   %10 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %7, i64 0, i32 2
   %11 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %8, i64 0, i32 2
-  %12 = load ptr, ptr %11, align 8, !tbaa !97, !alias.scope !103, !noalias !100
-  store ptr %12, ptr %10, align 8, !tbaa !97, !alias.scope !100, !noalias !103
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %8, i8 0, i64 24, i1 false), !alias.scope !103, !noalias !100
+  %12 = load ptr, ptr %11, align 8, !tbaa !98, !alias.scope !104, !noalias !101
+  store ptr %12, ptr %10, align 8, !tbaa !98, !alias.scope !101, !noalias !104
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %8, i8 0, i64 24, i1 false), !alias.scope !104, !noalias !101
   %13 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %7, i64 0, i32 1
   %14 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %8, i64 0, i32 1
-  %15 = load <2 x ptr>, ptr %14, align 8, !tbaa !35, !alias.scope !103, !noalias !100
-  store <2 x ptr> %15, ptr %13, align 8, !tbaa !35, !alias.scope !100, !noalias !103
+  %15 = load <2 x ptr>, ptr %14, align 8, !tbaa !35, !alias.scope !104, !noalias !101
+  store <2 x ptr> %15, ptr %13, align 8, !tbaa !35, !alias.scope !101, !noalias !104
   %16 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %7, i64 0, i32 1, i32 0, i32 0, i32 0, i32 2
   %17 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %8, i64 0, i32 1, i32 0, i32 0, i32 0, i32 2
-  %18 = load ptr, ptr %17, align 8, !tbaa !57, !alias.scope !103, !noalias !100
-  store ptr %18, ptr %16, align 8, !tbaa !57, !alias.scope !100, !noalias !103
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %14, i8 0, i64 24, i1 false), !alias.scope !103, !noalias !100
+  %18 = load ptr, ptr %17, align 8, !tbaa !58, !alias.scope !104, !noalias !101
+  store ptr %18, ptr %16, align 8, !tbaa !58, !alias.scope !101, !noalias !104
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %14, i8 0, i64 24, i1 false), !alias.scope !104, !noalias !101
   invoke void @_ZNK9benchmark8internal12PerfCounters13CloseCountersEv(ptr noundef nonnull align 8 dereferenceable(48) %8)
-          to label %19 unwind label %43, !noalias !100
+          to label %19 unwind label %43, !noalias !101
 
 19:                                               ; preds = %6
   %20 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %8, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %21 = load ptr, ptr %14, align 8, !tbaa !55, !alias.scope !103, !noalias !100
-  %22 = load ptr, ptr %20, align 8, !tbaa !58, !alias.scope !103, !noalias !100
+  %21 = load ptr, ptr %14, align 8, !tbaa !56, !alias.scope !104, !noalias !101
+  %22 = load ptr, ptr %20, align 8, !tbaa !59, !alias.scope !104, !noalias !101
   %23 = icmp eq ptr %21, %22
   br i1 %23, label %35, label %24
 
 24:                                               ; preds = %19, %30
   %25 = phi ptr [ %31, %30 ], [ %21, %19 ]
-  %26 = load ptr, ptr %25, align 8, !tbaa !36, !noalias !100
+  %26 = load ptr, ptr %25, align 8, !tbaa !36, !noalias !101
   %27 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %25, i64 0, i32 2
   %28 = icmp eq ptr %26, %27
   br i1 %28, label %30, label %29
 
 29:                                               ; preds = %24
-  tail call void @_ZdlPv(ptr noundef %26) #25, !noalias !100
+  tail call void @_ZdlPv(ptr noundef %26) #25, !noalias !101
   br label %30
 
 30:                                               ; preds = %29, %24
   %31 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %25, i64 1
   %32 = icmp eq ptr %31, %22
-  br i1 %32, label %33, label %24, !llvm.loop !59
+  br i1 %32, label %33, label %24, !llvm.loop !60
 
 33:                                               ; preds = %30
-  %34 = load ptr, ptr %14, align 8, !tbaa !55, !alias.scope !103, !noalias !100
+  %34 = load ptr, ptr %14, align 8, !tbaa !56, !alias.scope !104, !noalias !101
   br label %35
 
 35:                                               ; preds = %33, %19
@@ -10766,16 +10766,16 @@ define linkonce_odr hidden noundef ptr @_ZNSt6vectorIN9benchmark8internal12PerfC
   br i1 %37, label %39, label %38
 
 38:                                               ; preds = %35
-  tail call void @_ZdlPv(ptr noundef nonnull %36) #25, !noalias !100
+  tail call void @_ZdlPv(ptr noundef nonnull %36) #25, !noalias !101
   br label %39
 
 39:                                               ; preds = %38, %35
-  %40 = load ptr, ptr %8, align 8, !tbaa !61, !alias.scope !103, !noalias !100
+  %40 = load ptr, ptr %8, align 8, !tbaa !62, !alias.scope !104, !noalias !101
   %41 = icmp eq ptr %40, null
   br i1 %41, label %46, label %42
 
 42:                                               ; preds = %39
-  tail call void @_ZdlPv(ptr noundef nonnull %40) #25, !noalias !100
+  tail call void @_ZdlPv(ptr noundef nonnull %40) #25, !noalias !101
   br label %46
 
 43:                                               ; preds = %6
@@ -10789,7 +10789,7 @@ define linkonce_odr hidden noundef ptr @_ZNSt6vectorIN9benchmark8internal12PerfC
   %47 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %8, i64 1
   %48 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %7, i64 1
   %49 = icmp eq ptr %47, %1
-  br i1 %49, label %50, label %6, !llvm.loop !105
+  br i1 %49, label %50, label %6, !llvm.loop !106
 
 50:                                               ; preds = %46, %4
   %51 = phi ptr [ %2, %4 ], [ %48, %46 ]
@@ -10799,8 +10799,8 @@ define linkonce_odr hidden noundef ptr @_ZNSt6vectorIN9benchmark8internal12PerfC
 ; Function Attrs: uwtable
 define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal12PerfCountersESaIS2_EE17_M_realloc_insertIJS2_EEEvN9__gnu_cxx17__normal_iteratorIPS2_S4_EEDpOT_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr %1, ptr noundef nonnull align 8 dereferenceable(48) %2) local_unnamed_addr #10 comdat align 2 {
   %4 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCounters, std::allocator<benchmark::internal::PerfCounters>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !95
-  %6 = load ptr, ptr %0, align 8, !tbaa !93
+  %5 = load ptr, ptr %4, align 8, !tbaa !96
+  %6 = load ptr, ptr %0, align 8, !tbaa !94
   %7 = ptrtoint ptr %5 to i64
   %8 = ptrtoint ptr %6 to i64
   %9 = sub i64 %7, %8
@@ -10831,8 +10831,8 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal12PerfCounters
   store <2 x ptr> %27, ptr %26, align 8, !tbaa !35
   %28 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %26, i64 0, i32 2
   %29 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %2, i64 0, i32 2
-  %30 = load ptr, ptr %29, align 8, !tbaa !97
-  store ptr %30, ptr %28, align 8, !tbaa !97
+  %30 = load ptr, ptr %29, align 8, !tbaa !98
+  store ptr %30, ptr %28, align 8, !tbaa !98
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %2, i8 0, i64 24, i1 false)
   %31 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %25, i64 %22, i32 1
   %32 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %2, i64 0, i32 1
@@ -10840,8 +10840,8 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal12PerfCounters
   store <2 x ptr> %33, ptr %31, align 8, !tbaa !35
   %34 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %25, i64 %22, i32 1, i32 0, i32 0, i32 0, i32 2
   %35 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %2, i64 0, i32 1, i32 0, i32 0, i32 0, i32 2
-  %36 = load ptr, ptr %35, align 8, !tbaa !57
-  store ptr %36, ptr %34, align 8, !tbaa !57
+  %36 = load ptr, ptr %35, align 8, !tbaa !58
+  store ptr %36, ptr %34, align 8, !tbaa !58
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %32, i8 0, i64 24, i1 false)
   %37 = tail call noundef ptr @_ZNSt6vectorIN9benchmark8internal12PerfCountersESaIS2_EE14_S_do_relocateEPS2_S5_S5_RS3_St17integral_constantIbLb1EE(ptr noundef %6, ptr noundef %1, ptr noundef nonnull %25, ptr noundef nonnull align 1 dereferenceable(1) %0) #23
   %38 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %37, i64 1
@@ -10855,10 +10855,10 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal12PerfCounters
 
 42:                                               ; preds = %12, %41
   %43 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCounters, std::allocator<benchmark::internal::PerfCounters>>::_Vector_impl_data", ptr %0, i64 0, i32 2
-  store ptr %25, ptr %0, align 8, !tbaa !93
-  store ptr %39, ptr %4, align 8, !tbaa !95
+  store ptr %25, ptr %0, align 8, !tbaa !94
+  store ptr %39, ptr %4, align 8, !tbaa !96
   %44 = getelementptr inbounds %"class.benchmark::internal::PerfCounters", ptr %25, i64 %19
-  store ptr %44, ptr %43, align 8, !tbaa !96
+  store ptr %44, ptr %43, align 8, !tbaa !97
   ret void
 }
 
@@ -11008,7 +11008,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %65 = zext i1 %64 to i8
   store i8 %65, ptr %10, align 8, !tbaa !27
   %66 = getelementptr inbounds %"class.testing::AssertionResult", ptr %10, i64 0, i32 1
-  store ptr null, ptr %66, align 8, !tbaa !54
+  store ptr null, ptr %66, align 8, !tbaa !55
   br i1 %64, label %117, label %67
 
 67:                                               ; preds = %63
@@ -11138,26 +11138,26 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %15, i8 0, i64 24, i1 false)
   %118 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCountersMeasurement, std::allocator<benchmark::internal::PerfCountersMeasurement>>::_Vector_impl_data", ptr %14, i64 0, i32 2
   %119 = invoke noalias noundef nonnull dereferenceable(880) ptr @_Znwm(i64 noundef 880) #26
-          to label %120 unwind label %161
+          to label %120 unwind label %171
 
 120:                                              ; preds = %117
   %121 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCountersMeasurement, std::allocator<benchmark::internal::PerfCountersMeasurement>>::_Vector_impl_data", ptr %14, i64 0, i32 1
-  store ptr %119, ptr %14, align 8, !tbaa !106
-  store ptr %119, ptr %121, align 8, !tbaa !108
+  store ptr %119, ptr %14, align 8, !tbaa !107
+  store ptr %119, ptr %121, align 8, !tbaa !109
   %122 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %119, i64 10
-  store ptr %122, ptr %118, align 8, !tbaa !109
+  store ptr %122, ptr %118, align 8, !tbaa !110
   %123 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %17, i64 0, i32 2
   %124 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %17, i64 0, i32 1
-  %125 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %17, i64 1
-  %126 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %16, i64 0, i32 2
-  %127 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %16, i64 0, i32 1
-  %128 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCountersMeasurement, std::allocator<benchmark::internal::PerfCountersMeasurement>>::_Vector_impl_data", ptr %14, i64 0, i32 1
-  %129 = getelementptr inbounds i8, ptr %17, i64 22
+  %125 = getelementptr inbounds i8, ptr %17, i64 22
+  %126 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %17, i64 1
+  %127 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %16, i64 0, i32 2
+  %128 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %16, i64 0, i32 1
+  %129 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCountersMeasurement, std::allocator<benchmark::internal::PerfCountersMeasurement>>::_Vector_impl_data", ptr %14, i64 0, i32 1
   %130 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %17, i64 0, i32 2
-  br label %163
+  br label %173
 
-131:                                              ; preds = %206
-  %132 = load ptr, ptr %14, align 8, !tbaa !106
+131:                                              ; preds = %216
+  %132 = load ptr, ptr %14, align 8, !tbaa !107
   %133 = call i32 @pthread_mutex_lock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
   %134 = icmp eq i32 %133, 0
   br i1 %134, label %135, label %667
@@ -11165,9 +11165,9 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 135:                                              ; preds = %131
   %136 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !35
   %137 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !35
-  %138 = icmp eq ptr %136, %137
-  %139 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  br i1 %138, label %140, label %141
+  %138 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %139 = icmp eq ptr %136, %137
+  br i1 %139, label %140, label %141
 
 140:                                              ; preds = %135
   call void @__assert_fail(ptr noundef nonnull @.str.53, ptr noundef nonnull @.str.47, i32 noundef 151, ptr noundef nonnull @__PRETTY_FUNCTION__._ZN9benchmark8internal23PerfCountersMeasurement5StartEv) #24
@@ -11192,13 +11192,13 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 149:                                              ; preds = %144
   %150 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %132, i64 0, i32 1
   %151 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %132, i64 0, i32 1, i32 1
-  %152 = load i64, ptr %151, align 8, !tbaa !65
+  %152 = load i64, ptr %151, align 8, !tbaa !66
   %153 = shl i64 %152, 3
   %154 = add i64 %153, 8
-  %155 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !61
-  %156 = load i32, ptr %155, align 4, !tbaa !71
+  %155 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !62
+  %156 = load i32, ptr %155, align 4, !tbaa !72
   %157 = invoke i64 @read(i32 noundef %156, ptr noundef nonnull %150, i64 noundef %154)
-          to label %218 unwind label %158
+          to label %161 unwind label %158
 
 158:                                              ; preds = %149
   %159 = landingpad { ptr, i32 }
@@ -11206,156 +11206,156 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %160 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
   br label %913
 
-161:                                              ; preds = %667, %117
-  %162 = landingpad { ptr, i32 }
+161:                                              ; preds = %149
+  %162 = icmp eq i64 %157, %154
+  %163 = load i8, ptr %132, align 8, !tbaa !111, !range !20, !noundef !26
+  %164 = icmp ne i8 %163, 0
+  %165 = and i1 %162, %164
+  %166 = zext i1 %165 to i8
+  store i8 %166, ptr %132, align 8, !tbaa !111
+  fence syncscope("singlethread") acq_rel
+  %167 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %18) #23
+  %168 = load ptr, ptr %14, align 8, !tbaa !107
+  %169 = call i32 @pthread_mutex_lock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %170 = icmp eq i32 %169, 0
+  br i1 %170, label %228, label %237
+
+171:                                              ; preds = %667, %117
+  %172 = landingpad { ptr, i32 }
           cleanup
   br label %913
 
-163:                                              ; preds = %120, %206
-  %164 = phi i32 [ 0, %120 ], [ %207, %206 ]
+173:                                              ; preds = %120, %216
+  %174 = phi i32 [ 0, %120 ], [ %217, %216 ]
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %16) #23
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %17) #23
   store ptr %123, ptr %17, align 8, !tbaa !45
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(6) %123, ptr noundef nonnull align 1 dereferenceable(6) @_ZN12_GLOBAL__N_118kGenericPerfEvent1E, i64 6, i1 false)
   store i64 6, ptr %124, align 8, !tbaa !47
-  store i8 0, ptr %129, align 2, !tbaa !48
+  store i8 0, ptr %125, align 2, !tbaa !48
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %16, i8 0, i64 24, i1 false)
-  %165 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #26
-          to label %166 unwind label %169
+  %175 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #26
+          to label %176 unwind label %179
 
-166:                                              ; preds = %163
-  store ptr %165, ptr %16, align 8, !tbaa !55
-  %167 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %165, i64 1
-  store ptr %167, ptr %126, align 8, !tbaa !57
-  %168 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %17, ptr noundef nonnull %125, ptr noundef nonnull %165)
-          to label %174 unwind label %169
+176:                                              ; preds = %173
+  store ptr %175, ptr %16, align 8, !tbaa !56
+  %177 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %175, i64 1
+  store ptr %177, ptr %127, align 8, !tbaa !58
+  %178 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %17, ptr noundef nonnull %126, ptr noundef nonnull %175)
+          to label %184 unwind label %179
 
-169:                                              ; preds = %166, %163
-  %170 = landingpad { ptr, i32 }
+179:                                              ; preds = %176, %173
+  %180 = landingpad { ptr, i32 }
           cleanup
-  %171 = load ptr, ptr %16, align 8, !tbaa !55
-  %172 = icmp eq ptr %171, null
-  br i1 %172, label %211, label %173
+  %181 = load ptr, ptr %16, align 8, !tbaa !56
+  %182 = icmp eq ptr %181, null
+  br i1 %182, label %221, label %183
 
-173:                                              ; preds = %169
-  call void @_ZdlPv(ptr noundef nonnull %171) #25
-  br label %211
+183:                                              ; preds = %179
+  call void @_ZdlPv(ptr noundef nonnull %181) #25
+  br label %221
 
-174:                                              ; preds = %166
-  store ptr %168, ptr %127, align 8, !tbaa !58
-  %175 = load ptr, ptr %128, align 8, !tbaa !108
-  %176 = load ptr, ptr %118, align 8, !tbaa !109
-  %177 = icmp eq ptr %175, %176
-  br i1 %177, label %182, label %178
+184:                                              ; preds = %176
+  store ptr %178, ptr %128, align 8, !tbaa !59
+  %185 = load ptr, ptr %129, align 8, !tbaa !109
+  %186 = load ptr, ptr %118, align 8, !tbaa !110
+  %187 = icmp eq ptr %185, %186
+  br i1 %187, label %192, label %188
 
-178:                                              ; preds = %174
-  invoke void @_ZN9benchmark8internal23PerfCountersMeasurementC1ERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr noundef nonnull align 8 dereferenceable(88) %175, ptr noundef nonnull align 8 dereferenceable(24) %16)
-          to label %179 unwind label %209
+188:                                              ; preds = %184
+  invoke void @_ZN9benchmark8internal23PerfCountersMeasurementC1ERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr noundef nonnull align 8 dereferenceable(88) %185, ptr noundef nonnull align 8 dereferenceable(24) %16)
+          to label %189 unwind label %219
 
-179:                                              ; preds = %178
-  %180 = load ptr, ptr %128, align 8, !tbaa !108
-  %181 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %180, i64 1
-  store ptr %181, ptr %128, align 8, !tbaa !108
-  br label %183
-
-182:                                              ; preds = %174
-  invoke void @_ZNSt6vectorIN9benchmark8internal23PerfCountersMeasurementESaIS2_EE17_M_realloc_insertIJS_INSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaISB_EEEEEvN9__gnu_cxx17__normal_iteratorIPS2_S4_EEDpOT_(ptr noundef nonnull align 8 dereferenceable(24) %14, ptr %175, ptr noundef nonnull align 8 dereferenceable(24) %16)
-          to label %183 unwind label %209
-
-183:                                              ; preds = %179, %182
-  %184 = load ptr, ptr %16, align 8, !tbaa !55
-  %185 = load ptr, ptr %127, align 8, !tbaa !58
-  %186 = icmp eq ptr %184, %185
-  br i1 %186, label %198, label %187
-
-187:                                              ; preds = %183, %193
-  %188 = phi ptr [ %194, %193 ], [ %184, %183 ]
-  %189 = load ptr, ptr %188, align 8, !tbaa !36
-  %190 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %188, i64 0, i32 2
-  %191 = icmp eq ptr %189, %190
-  br i1 %191, label %193, label %192
-
-192:                                              ; preds = %187
-  call void @_ZdlPv(ptr noundef %189) #25
+189:                                              ; preds = %188
+  %190 = load ptr, ptr %129, align 8, !tbaa !109
+  %191 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %190, i64 1
+  store ptr %191, ptr %129, align 8, !tbaa !109
   br label %193
 
-193:                                              ; preds = %192, %187
-  %194 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %188, i64 1
-  %195 = icmp eq ptr %194, %185
-  br i1 %195, label %196, label %187, !llvm.loop !59
+192:                                              ; preds = %184
+  invoke void @_ZNSt6vectorIN9benchmark8internal23PerfCountersMeasurementESaIS2_EE17_M_realloc_insertIJS_INSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaISB_EEEEEvN9__gnu_cxx17__normal_iteratorIPS2_S4_EEDpOT_(ptr noundef nonnull align 8 dereferenceable(24) %14, ptr %185, ptr noundef nonnull align 8 dereferenceable(24) %16)
+          to label %193 unwind label %219
 
-196:                                              ; preds = %193
-  %197 = load ptr, ptr %16, align 8, !tbaa !55
-  br label %198
+193:                                              ; preds = %189, %192
+  %194 = load ptr, ptr %16, align 8, !tbaa !56
+  %195 = load ptr, ptr %128, align 8, !tbaa !59
+  %196 = icmp eq ptr %194, %195
+  br i1 %196, label %208, label %197
 
-198:                                              ; preds = %196, %183
-  %199 = phi ptr [ %197, %196 ], [ %184, %183 ]
-  %200 = icmp eq ptr %199, null
-  br i1 %200, label %202, label %201
+197:                                              ; preds = %193, %203
+  %198 = phi ptr [ %204, %203 ], [ %194, %193 ]
+  %199 = load ptr, ptr %198, align 8, !tbaa !36
+  %200 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %198, i64 0, i32 2
+  %201 = icmp eq ptr %199, %200
+  br i1 %201, label %203, label %202
 
-201:                                              ; preds = %198
-  call void @_ZdlPv(ptr noundef nonnull %199) #25
-  br label %202
+202:                                              ; preds = %197
+  call void @_ZdlPv(ptr noundef %199) #25
+  br label %203
 
-202:                                              ; preds = %198, %201
-  %203 = load ptr, ptr %17, align 8, !tbaa !36
-  %204 = icmp eq ptr %203, %130
-  br i1 %204, label %206, label %205
+203:                                              ; preds = %202, %197
+  %204 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %198, i64 1
+  %205 = icmp eq ptr %204, %195
+  br i1 %205, label %206, label %197, !llvm.loop !60
 
-205:                                              ; preds = %202
-  call void @_ZdlPv(ptr noundef %203) #25
-  br label %206
+206:                                              ; preds = %203
+  %207 = load ptr, ptr %16, align 8, !tbaa !56
+  br label %208
 
-206:                                              ; preds = %202, %205
+208:                                              ; preds = %206, %193
+  %209 = phi ptr [ %207, %206 ], [ %194, %193 ]
+  %210 = icmp eq ptr %209, null
+  br i1 %210, label %212, label %211
+
+211:                                              ; preds = %208
+  call void @_ZdlPv(ptr noundef nonnull %209) #25
+  br label %212
+
+212:                                              ; preds = %208, %211
+  %213 = load ptr, ptr %17, align 8, !tbaa !36
+  %214 = icmp eq ptr %213, %130
+  br i1 %214, label %216, label %215
+
+215:                                              ; preds = %212
+  call void @_ZdlPv(ptr noundef %213) #25
+  br label %216
+
+216:                                              ; preds = %212, %215
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %17) #23
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %16) #23
-  %207 = add nuw nsw i32 %164, 1
-  %208 = icmp eq i32 %207, 10
-  br i1 %208, label %131, label %163, !llvm.loop !110
+  %217 = add nuw nsw i32 %174, 1
+  %218 = icmp eq i32 %217, 10
+  br i1 %218, label %131, label %173, !llvm.loop !113
 
-209:                                              ; preds = %182, %178
-  %210 = landingpad { ptr, i32 }
+219:                                              ; preds = %192, %188
+  %220 = landingpad { ptr, i32 }
           cleanup
   call void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %16) #23
-  br label %211
+  br label %221
 
-211:                                              ; preds = %173, %169, %209
-  %212 = phi { ptr, i32 } [ %210, %209 ], [ %170, %173 ], [ %170, %169 ]
-  %213 = load ptr, ptr %17, align 8, !tbaa !36
-  %214 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %17, i64 0, i32 2
-  %215 = icmp eq ptr %213, %214
-  br i1 %215, label %217, label %216
+221:                                              ; preds = %183, %179, %219
+  %222 = phi { ptr, i32 } [ %220, %219 ], [ %180, %179 ], [ %180, %183 ]
+  %223 = load ptr, ptr %17, align 8, !tbaa !36
+  %224 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %17, i64 0, i32 2
+  %225 = icmp eq ptr %223, %224
+  br i1 %225, label %227, label %226
 
-216:                                              ; preds = %211
-  call void @_ZdlPv(ptr noundef %213) #25
-  br label %217
+226:                                              ; preds = %221
+  call void @_ZdlPv(ptr noundef %223) #25
+  br label %227
 
-217:                                              ; preds = %211, %216
+227:                                              ; preds = %221, %226
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %17) #23
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %16) #23
   br label %913
 
-218:                                              ; preds = %149
-  %219 = icmp eq i64 %157, %154
-  %220 = load i8, ptr %132, align 8, !tbaa !111, !range !20, !noundef !26
-  %221 = icmp ne i8 %220, 0
-  %222 = and i1 %219, %221
-  %223 = zext i1 %222 to i8
-  store i8 %223, ptr %132, align 8, !tbaa !111
-  fence syncscope("singlethread") acq_rel
-  %224 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %18) #23
-  %225 = load ptr, ptr %14, align 8, !tbaa !106
-  %226 = call i32 @pthread_mutex_lock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  %227 = icmp eq i32 %226, 0
-  br i1 %227, label %228, label %237
-
-228:                                              ; preds = %218
+228:                                              ; preds = %161
   %229 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !35
   %230 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !35
-  %231 = icmp eq ptr %229, %230
-  %232 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  br i1 %231, label %233, label %234
+  %231 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %232 = icmp eq ptr %229, %230
+  br i1 %232, label %233, label %234
 
 233:                                              ; preds = %228
   call void @__assert_fail(ptr noundef nonnull @.str.53, ptr noundef nonnull @.str.47, i32 noundef 162, ptr noundef nonnull @__PRETTY_FUNCTION__._ZN9benchmark8internal23PerfCountersMeasurement4StopERSt6vectorISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdESaISA_EE) #24
@@ -11366,8 +11366,8 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %236 = icmp eq i32 %235, 0
   br i1 %236, label %240, label %237
 
-237:                                              ; preds = %234, %218
-  %238 = phi i32 [ %226, %218 ], [ %235, %234 ]
+237:                                              ; preds = %234, %161
+  %238 = phi i32 [ %169, %161 ], [ %235, %234 ]
   invoke void @_ZSt20__throw_system_errori(i32 noundef %238) #27
           to label %239 unwind label %352
 
@@ -11376,7 +11376,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 240:                                              ; preds = %234
   fence syncscope("singlethread") acq_rel
-  %241 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %225, i64 0, i32 2
+  %241 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %168, i64 0, i32 2
   %242 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !35
   %243 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !35
   %244 = icmp eq ptr %242, %243
@@ -11387,30 +11387,30 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   unreachable
 
 246:                                              ; preds = %240
-  %247 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %225, i64 0, i32 2, i32 1
-  %248 = load i64, ptr %247, align 8, !tbaa !65
+  %247 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %168, i64 0, i32 2, i32 1
+  %248 = load i64, ptr %247, align 8, !tbaa !66
   %249 = shl i64 %248, 3
   %250 = add i64 %249, 8
-  %251 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !61
-  %252 = load i32, ptr %251, align 4, !tbaa !71
+  %251 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !62
+  %252 = load i32, ptr %251, align 4, !tbaa !72
   %253 = invoke i64 @read(i32 noundef %252, ptr noundef nonnull %241, i64 noundef %250)
           to label %254 unwind label %270
 
 254:                                              ; preds = %246
   %255 = icmp eq i64 %253, %250
-  %256 = load i8, ptr %225, align 8, !tbaa !111, !range !20, !noundef !26
+  %256 = load i8, ptr %168, align 8, !tbaa !111, !range !20, !noundef !26
   %257 = icmp ne i8 %256, 0
   %258 = and i1 %255, %257
   %259 = zext i1 %258 to i8
-  store i8 %259, ptr %225, align 8, !tbaa !111
+  store i8 %259, ptr %168, align 8, !tbaa !111
   fence syncscope("singlethread") acq_rel
-  %260 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !58
-  %261 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !55
+  %260 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !59
+  %261 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !56
   %262 = icmp eq ptr %260, %261
   br i1 %262, label %347, label %263
 
 263:                                              ; preds = %254
-  %264 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %225, i64 0, i32 1
+  %264 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %168, i64 0, i32 1
   %265 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 2
   %266 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 1
   %267 = getelementptr inbounds %"struct.std::pair.71", ptr %7, i64 0, i32 1
@@ -11428,10 +11428,10 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %274 = phi i64 [ 0, %263 ], [ %275, %327 ]
   %275 = add nuw i64 %274, 1
   %276 = getelementptr inbounds [4 x i64], ptr %241, i64 0, i64 %275
-  %277 = load i64, ptr %276, align 8, !tbaa !63
+  %277 = load i64, ptr %276, align 8, !tbaa !64
   %278 = uitofp i64 %277 to double
   %279 = getelementptr inbounds [4 x i64], ptr %264, i64 0, i64 %275
-  %280 = load i64, ptr %279, align 8, !tbaa !63
+  %280 = load i64, ptr %279, align 8, !tbaa !64
   %281 = uitofp i64 %280 to double
   %282 = fsub double %278, %281
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %7) #23
@@ -11441,7 +11441,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %285 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %273, i64 %274, i32 1
   %286 = load i64, ptr %285, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #23
-  store i64 %286, ptr %6, align 8, !tbaa !63
+  store i64 %286, ptr %6, align 8, !tbaa !64
   %287 = icmp ugt i64 %286, 15
   br i1 %287, label %288, label %292
 
@@ -11451,7 +11451,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 290:                                              ; preds = %288
   store ptr %289, ptr %7, align 8, !tbaa !36
-  %291 = load i64, ptr %6, align 8, !tbaa !63
+  %291 = load i64, ptr %6, align 8, !tbaa !64
   store i64 %291, ptr %265, align 8, !tbaa !48
   br label %292
 
@@ -11472,15 +11472,15 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   br label %297
 
 297:                                              ; preds = %296, %294, %292
-  %298 = load i64, ptr %6, align 8, !tbaa !63
+  %298 = load i64, ptr %6, align 8, !tbaa !64
   store i64 %298, ptr %266, align 8, !tbaa !47
   %299 = load ptr, ptr %7, align 8, !tbaa !36
   %300 = getelementptr inbounds i8, ptr %299, i64 %298
   store i8 0, ptr %300, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #23
-  store double %282, ptr %267, align 8, !tbaa !113
-  %301 = load ptr, ptr %268, align 8, !tbaa !116
-  %302 = load ptr, ptr %269, align 8, !tbaa !118
+  store double %282, ptr %267, align 8, !tbaa !114
+  %301 = load ptr, ptr %268, align 8, !tbaa !117
+  %302 = load ptr, ptr %269, align 8, !tbaa !119
   %303 = icmp eq ptr %301, %302
   br i1 %303, label %322, label %304
 
@@ -11513,10 +11513,10 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %318 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %301, i64 0, i32 1
   store i64 %317, ptr %318, align 8, !tbaa !47
   %319 = getelementptr inbounds %"struct.std::pair.71", ptr %301, i64 0, i32 1
-  %320 = load double, ptr %267, align 8, !tbaa !113
-  store double %320, ptr %319, align 8, !tbaa !113
+  %320 = load double, ptr %267, align 8, !tbaa !114
+  store double %320, ptr %319, align 8, !tbaa !114
   %321 = getelementptr inbounds %"struct.std::pair.71", ptr %301, i64 1
-  store ptr %321, ptr %268, align 8, !tbaa !116
+  store ptr %321, ptr %268, align 8, !tbaa !117
   br label %327
 
 322:                                              ; preds = %297
@@ -11534,14 +11534,14 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 327:                                              ; preds = %326, %323, %316
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %7) #23
-  %328 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !58
-  %329 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !55
+  %328 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !59
+  %329 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !56
   %330 = ptrtoint ptr %328 to i64
   %331 = ptrtoint ptr %329 to i64
   %332 = sub i64 %330, %331
   %333 = ashr exact i64 %332, 5
   %334 = icmp ult i64 %275, %333
-  br i1 %334, label %272, label %347, !llvm.loop !119
+  br i1 %334, label %272, label %347, !llvm.loop !120
 
 335:                                              ; preds = %288
   %336 = landingpad { ptr, i32 }
@@ -11570,13 +11570,13 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   br label %585
 
 347:                                              ; preds = %327, %254
-  %348 = load i8, ptr %225, align 8, !tbaa !111, !range !20, !noundef !26
-  %349 = icmp eq i8 %348, 0
-  %350 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %348 = load i8, ptr %168, align 8, !tbaa !111, !range !20, !noundef !26
+  %349 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
   store i8 %348, ptr %18, align 8, !tbaa !27
-  %351 = getelementptr inbounds %"class.testing::AssertionResult", ptr %18, i64 0, i32 1
-  store ptr null, ptr %351, align 8, !tbaa !54
-  br i1 %349, label %354, label %404
+  %350 = getelementptr inbounds %"class.testing::AssertionResult", ptr %18, i64 0, i32 1
+  store ptr null, ptr %350, align 8, !tbaa !55
+  %351 = icmp eq i8 %348, 0
+  br i1 %351, label %354, label %404
 
 352:                                              ; preds = %237
   %353 = landingpad { ptr, i32 }
@@ -11683,7 +11683,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 395:                                              ; preds = %367, %364
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %19) #23
-  %396 = load ptr, ptr %351, align 8, !tbaa !35
+  %396 = load ptr, ptr %350, align 8, !tbaa !35
   %397 = icmp eq ptr %396, null
   br i1 %397, label %404, label %398
 
@@ -11703,9 +11703,9 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 404:                                              ; preds = %347, %395, %403
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %18) #23
-  %405 = load ptr, ptr %15, align 8, !tbaa !120
+  %405 = load ptr, ptr %15, align 8, !tbaa !121
   %406 = getelementptr inbounds %"struct.std::_Vector_base<std::pair<std::__cxx11::basic_string<char>, double>, std::allocator<std::pair<std::__cxx11::basic_string<char>, double>>>::_Vector_impl_data", ptr %15, i64 0, i32 1
-  %407 = load ptr, ptr %406, align 8, !tbaa !116
+  %407 = load ptr, ptr %406, align 8, !tbaa !117
   %408 = icmp eq ptr %407, %405
   br i1 %408, label %419, label %409
 
@@ -11723,14 +11723,14 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 415:                                              ; preds = %414, %409
   %416 = getelementptr inbounds %"struct.std::pair.71", ptr %410, i64 1
   %417 = icmp eq ptr %416, %407
-  br i1 %417, label %418, label %409, !llvm.loop !121
+  br i1 %417, label %418, label %409, !llvm.loop !122
 
 418:                                              ; preds = %415
-  store ptr %405, ptr %406, align 8, !tbaa !116
+  store ptr %405, ptr %406, align 8, !tbaa !117
   br label %419
 
 419:                                              ; preds = %404, %418
-  %420 = load ptr, ptr %14, align 8, !tbaa !106
+  %420 = load ptr, ptr %14, align 8, !tbaa !107
   %421 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %420, i64 8
   %422 = call i32 @pthread_mutex_lock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
   %423 = icmp eq i32 %422, 0
@@ -11739,9 +11739,9 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 424:                                              ; preds = %419
   %425 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !35
   %426 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !35
-  %427 = icmp eq ptr %425, %426
-  %428 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  br i1 %427, label %429, label %430
+  %427 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %428 = icmp eq ptr %425, %426
+  br i1 %428, label %429, label %430
 
 429:                                              ; preds = %424
   call void @__assert_fail(ptr noundef nonnull @.str.53, ptr noundef nonnull @.str.47, i32 noundef 151, ptr noundef nonnull @__PRETTY_FUNCTION__._ZN9benchmark8internal23PerfCountersMeasurement5StartEv) #24
@@ -11766,11 +11766,11 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 438:                                              ; preds = %433
   %439 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %420, i64 8, i32 1
   %440 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %420, i64 8, i32 1, i32 1
-  %441 = load i64, ptr %440, align 8, !tbaa !65
+  %441 = load i64, ptr %440, align 8, !tbaa !66
   %442 = shl i64 %441, 3
   %443 = add i64 %442, 8
-  %444 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !61
-  %445 = load i32, ptr %444, align 4, !tbaa !71
+  %444 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !62
+  %445 = load i32, ptr %444, align 4, !tbaa !72
   %446 = invoke i64 @read(i32 noundef %445, ptr noundef nonnull %439, i64 noundef %443)
           to label %450 unwind label %447
 
@@ -11790,7 +11790,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   fence syncscope("singlethread") acq_rel
   %456 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %22) #23
-  %457 = load ptr, ptr %14, align 8, !tbaa !106
+  %457 = load ptr, ptr %14, align 8, !tbaa !107
   %458 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %457, i64 8
   %459 = call i32 @pthread_mutex_lock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
   %460 = icmp eq i32 %459, 0
@@ -11799,9 +11799,9 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 461:                                              ; preds = %450
   %462 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !35
   %463 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !35
-  %464 = icmp eq ptr %462, %463
-  %465 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  br i1 %464, label %466, label %467
+  %464 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %465 = icmp eq ptr %462, %463
+  br i1 %465, label %466, label %467
 
 466:                                              ; preds = %461
   call void @__assert_fail(ptr noundef nonnull @.str.53, ptr noundef nonnull @.str.47, i32 noundef 162, ptr noundef nonnull @__PRETTY_FUNCTION__._ZN9benchmark8internal23PerfCountersMeasurement4StopERSt6vectorISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdESaISA_EE) #24
@@ -11834,11 +11834,11 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 479:                                              ; preds = %473
   %480 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %457, i64 8, i32 2, i32 1
-  %481 = load i64, ptr %480, align 8, !tbaa !65
+  %481 = load i64, ptr %480, align 8, !tbaa !66
   %482 = shl i64 %481, 3
   %483 = add i64 %482, 8
-  %484 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !61
-  %485 = load i32, ptr %484, align 4, !tbaa !71
+  %484 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !62
+  %485 = load i32, ptr %484, align 4, !tbaa !72
   %486 = invoke i64 @read(i32 noundef %485, ptr noundef nonnull %474, i64 noundef %483)
           to label %487 unwind label %502
 
@@ -11850,8 +11850,8 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %492 = zext i1 %491 to i8
   store i8 %492, ptr %458, align 8, !tbaa !111
   fence syncscope("singlethread") acq_rel
-  %493 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !58
-  %494 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !55
+  %493 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !59
+  %494 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !56
   %495 = icmp eq ptr %493, %494
   br i1 %495, label %579, label %496
 
@@ -11873,10 +11873,10 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %506 = phi i64 [ 0, %496 ], [ %507, %559 ]
   %507 = add nuw i64 %506, 1
   %508 = getelementptr inbounds [4 x i64], ptr %474, i64 0, i64 %507
-  %509 = load i64, ptr %508, align 8, !tbaa !63
+  %509 = load i64, ptr %508, align 8, !tbaa !64
   %510 = uitofp i64 %509 to double
   %511 = getelementptr inbounds [4 x i64], ptr %497, i64 0, i64 %507
-  %512 = load i64, ptr %511, align 8, !tbaa !63
+  %512 = load i64, ptr %511, align 8, !tbaa !64
   %513 = uitofp i64 %512 to double
   %514 = fsub double %510, %513
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %5) #23
@@ -11886,7 +11886,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %517 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %505, i64 %506, i32 1
   %518 = load i64, ptr %517, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #23
-  store i64 %518, ptr %4, align 8, !tbaa !63
+  store i64 %518, ptr %4, align 8, !tbaa !64
   %519 = icmp ugt i64 %518, 15
   br i1 %519, label %520, label %524
 
@@ -11896,7 +11896,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 522:                                              ; preds = %520
   store ptr %521, ptr %5, align 8, !tbaa !36
-  %523 = load i64, ptr %4, align 8, !tbaa !63
+  %523 = load i64, ptr %4, align 8, !tbaa !64
   store i64 %523, ptr %498, align 8, !tbaa !48
   br label %524
 
@@ -11917,15 +11917,15 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   br label %529
 
 529:                                              ; preds = %528, %526, %524
-  %530 = load i64, ptr %4, align 8, !tbaa !63
+  %530 = load i64, ptr %4, align 8, !tbaa !64
   store i64 %530, ptr %499, align 8, !tbaa !47
   %531 = load ptr, ptr %5, align 8, !tbaa !36
   %532 = getelementptr inbounds i8, ptr %531, i64 %530
   store i8 0, ptr %532, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #23
-  store double %514, ptr %500, align 8, !tbaa !113
-  %533 = load ptr, ptr %406, align 8, !tbaa !116
-  %534 = load ptr, ptr %501, align 8, !tbaa !118
+  store double %514, ptr %500, align 8, !tbaa !114
+  %533 = load ptr, ptr %406, align 8, !tbaa !117
+  %534 = load ptr, ptr %501, align 8, !tbaa !119
   %535 = icmp eq ptr %533, %534
   br i1 %535, label %554, label %536
 
@@ -11958,10 +11958,10 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %550 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %533, i64 0, i32 1
   store i64 %549, ptr %550, align 8, !tbaa !47
   %551 = getelementptr inbounds %"struct.std::pair.71", ptr %533, i64 0, i32 1
-  %552 = load double, ptr %500, align 8, !tbaa !113
-  store double %552, ptr %551, align 8, !tbaa !113
+  %552 = load double, ptr %500, align 8, !tbaa !114
+  store double %552, ptr %551, align 8, !tbaa !114
   %553 = getelementptr inbounds %"struct.std::pair.71", ptr %533, i64 1
-  store ptr %553, ptr %406, align 8, !tbaa !116
+  store ptr %553, ptr %406, align 8, !tbaa !117
   br label %559
 
 554:                                              ; preds = %529
@@ -11979,14 +11979,14 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 559:                                              ; preds = %558, %555, %548
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %5) #23
-  %560 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !58
-  %561 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !55
+  %560 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !59
+  %561 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !56
   %562 = ptrtoint ptr %560 to i64
   %563 = ptrtoint ptr %561 to i64
   %564 = sub i64 %562, %563
   %565 = ashr exact i64 %564, 5
   %566 = icmp ult i64 %507, %565
-  br i1 %566, label %504, label %579, !llvm.loop !119
+  br i1 %566, label %504, label %579, !llvm.loop !120
 
 567:                                              ; preds = %520
   %568 = landingpad { ptr, i32 }
@@ -12016,13 +12016,13 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 579:                                              ; preds = %559, %487
   %580 = load i8, ptr %458, align 8, !tbaa !111, !range !20, !noundef !26
-  %581 = icmp eq i8 %580, 0
-  %582 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  %583 = xor i8 %580, 1
-  store i8 %583, ptr %22, align 8, !tbaa !27
-  %584 = getelementptr inbounds %"class.testing::AssertionResult", ptr %22, i64 0, i32 1
-  store ptr null, ptr %584, align 8, !tbaa !54
-  br i1 %581, label %639, label %589
+  %581 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %582 = xor i8 %580, 1
+  store i8 %582, ptr %22, align 8, !tbaa !27
+  %583 = getelementptr inbounds %"class.testing::AssertionResult", ptr %22, i64 0, i32 1
+  store ptr null, ptr %583, align 8, !tbaa !55
+  %584 = icmp eq i8 %582, 0
+  br i1 %584, label %589, label %639
 
 585:                                              ; preds = %352, %344, %393
   %586 = phi { ptr, i32 } [ %394, %393 ], [ %353, %352 ], [ %345, %344 ]
@@ -12134,7 +12134,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 630:                                              ; preds = %602, %599
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %23) #23
-  %631 = load ptr, ptr %584, align 8, !tbaa !35
+  %631 = load ptr, ptr %583, align 8, !tbaa !35
   %632 = icmp eq ptr %631, null
   br i1 %632, label %639, label %633
 
@@ -12154,8 +12154,8 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 639:                                              ; preds = %579, %630, %638
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %22) #23
-  %640 = load ptr, ptr %15, align 8, !tbaa !120
-  %641 = load ptr, ptr %406, align 8, !tbaa !116
+  %640 = load ptr, ptr %15, align 8, !tbaa !121
+  %641 = load ptr, ptr %406, align 8, !tbaa !117
   %642 = icmp eq ptr %641, %640
   br i1 %642, label %653, label %643
 
@@ -12173,14 +12173,14 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 649:                                              ; preds = %648, %643
   %650 = getelementptr inbounds %"struct.std::pair.71", ptr %644, i64 1
   %651 = icmp eq ptr %650, %641
-  br i1 %651, label %652, label %643, !llvm.loop !121
+  br i1 %651, label %652, label %643, !llvm.loop !122
 
 652:                                              ; preds = %649
-  store ptr %640, ptr %406, align 8, !tbaa !116
+  store ptr %640, ptr %406, align 8, !tbaa !117
   br label %653
 
 653:                                              ; preds = %639, %652
-  %654 = load ptr, ptr %14, align 8, !tbaa !106
+  %654 = load ptr, ptr %14, align 8, !tbaa !107
   %655 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %654, i64 9
   %656 = call i32 @pthread_mutex_lock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
   %657 = icmp eq i32 %656, 0
@@ -12189,9 +12189,9 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 658:                                              ; preds = %653
   %659 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !35
   %660 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !35
-  %661 = icmp eq ptr %659, %660
-  %662 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  br i1 %661, label %663, label %664
+  %661 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %662 = icmp eq ptr %659, %660
+  br i1 %662, label %663, label %664
 
 663:                                              ; preds = %658
   call void @__assert_fail(ptr noundef nonnull @.str.53, ptr noundef nonnull @.str.47, i32 noundef 151, ptr noundef nonnull @__PRETTY_FUNCTION__._ZN9benchmark8internal23PerfCountersMeasurement5StartEv) #24
@@ -12205,7 +12205,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 667:                                              ; preds = %141, %131, %664, %653, %430, %419
   %668 = phi i32 [ %422, %419 ], [ %431, %430 ], [ %656, %653 ], [ %665, %664 ], [ %133, %131 ], [ %142, %141 ]
   invoke void @_ZSt20__throw_system_errori(i32 noundef %668) #27
-          to label %669 unwind label %161
+          to label %669 unwind label %171
 
 669:                                              ; preds = %667
   unreachable
@@ -12224,11 +12224,11 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 675:                                              ; preds = %670
   %676 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %654, i64 9, i32 1
   %677 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %654, i64 9, i32 1, i32 1
-  %678 = load i64, ptr %677, align 8, !tbaa !65
+  %678 = load i64, ptr %677, align 8, !tbaa !66
   %679 = shl i64 %678, 3
   %680 = add i64 %679, 8
-  %681 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !61
-  %682 = load i32, ptr %681, align 4, !tbaa !71
+  %681 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !62
+  %682 = load i32, ptr %681, align 4, !tbaa !72
   %683 = invoke i64 @read(i32 noundef %682, ptr noundef nonnull %676, i64 noundef %680)
           to label %687 unwind label %684
 
@@ -12248,7 +12248,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   fence syncscope("singlethread") acq_rel
   %693 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %26) #23
-  %694 = load ptr, ptr %14, align 8, !tbaa !106
+  %694 = load ptr, ptr %14, align 8, !tbaa !107
   %695 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %694, i64 9
   %696 = call i32 @pthread_mutex_lock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
   %697 = icmp eq i32 %696, 0
@@ -12257,9 +12257,9 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 698:                                              ; preds = %687
   %699 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !35
   %700 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !35
-  %701 = icmp eq ptr %699, %700
-  %702 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  br i1 %701, label %703, label %704
+  %701 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %702 = icmp eq ptr %699, %700
+  br i1 %702, label %703, label %704
 
 703:                                              ; preds = %698
   call void @__assert_fail(ptr noundef nonnull @.str.53, ptr noundef nonnull @.str.47, i32 noundef 162, ptr noundef nonnull @__PRETTY_FUNCTION__._ZN9benchmark8internal23PerfCountersMeasurement4StopERSt6vectorISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdESaISA_EE) #24
@@ -12292,11 +12292,11 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 716:                                              ; preds = %710
   %717 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %694, i64 9, i32 2, i32 1
-  %718 = load i64, ptr %717, align 8, !tbaa !65
+  %718 = load i64, ptr %717, align 8, !tbaa !66
   %719 = shl i64 %718, 3
   %720 = add i64 %719, 8
-  %721 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !61
-  %722 = load i32, ptr %721, align 4, !tbaa !71
+  %721 = load ptr, ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, align 8, !tbaa !62
+  %722 = load i32, ptr %721, align 4, !tbaa !72
   %723 = invoke i64 @read(i32 noundef %722, ptr noundef nonnull %711, i64 noundef %720)
           to label %724 unwind label %739
 
@@ -12308,8 +12308,8 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %729 = zext i1 %728 to i8
   store i8 %729, ptr %695, align 8, !tbaa !111
   fence syncscope("singlethread") acq_rel
-  %730 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !58
-  %731 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !55
+  %730 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !59
+  %731 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !56
   %732 = icmp eq ptr %730, %731
   br i1 %732, label %816, label %733
 
@@ -12331,10 +12331,10 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %743 = phi i64 [ 0, %733 ], [ %744, %796 ]
   %744 = add nuw i64 %743, 1
   %745 = getelementptr inbounds [4 x i64], ptr %711, i64 0, i64 %744
-  %746 = load i64, ptr %745, align 8, !tbaa !63
+  %746 = load i64, ptr %745, align 8, !tbaa !64
   %747 = uitofp i64 %746 to double
   %748 = getelementptr inbounds [4 x i64], ptr %734, i64 0, i64 %744
-  %749 = load i64, ptr %748, align 8, !tbaa !63
+  %749 = load i64, ptr %748, align 8, !tbaa !64
   %750 = uitofp i64 %749 to double
   %751 = fsub double %747, %750
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %3) #23
@@ -12344,7 +12344,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %754 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %742, i64 %743, i32 1
   %755 = load i64, ptr %754, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #23
-  store i64 %755, ptr %2, align 8, !tbaa !63
+  store i64 %755, ptr %2, align 8, !tbaa !64
   %756 = icmp ugt i64 %755, 15
   br i1 %756, label %757, label %761
 
@@ -12354,7 +12354,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 759:                                              ; preds = %757
   store ptr %758, ptr %3, align 8, !tbaa !36
-  %760 = load i64, ptr %2, align 8, !tbaa !63
+  %760 = load i64, ptr %2, align 8, !tbaa !64
   store i64 %760, ptr %735, align 8, !tbaa !48
   br label %761
 
@@ -12375,15 +12375,15 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   br label %766
 
 766:                                              ; preds = %765, %763, %761
-  %767 = load i64, ptr %2, align 8, !tbaa !63
+  %767 = load i64, ptr %2, align 8, !tbaa !64
   store i64 %767, ptr %736, align 8, !tbaa !47
   %768 = load ptr, ptr %3, align 8, !tbaa !36
   %769 = getelementptr inbounds i8, ptr %768, i64 %767
   store i8 0, ptr %769, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #23
-  store double %751, ptr %737, align 8, !tbaa !113
-  %770 = load ptr, ptr %406, align 8, !tbaa !116
-  %771 = load ptr, ptr %738, align 8, !tbaa !118
+  store double %751, ptr %737, align 8, !tbaa !114
+  %770 = load ptr, ptr %406, align 8, !tbaa !117
+  %771 = load ptr, ptr %738, align 8, !tbaa !119
   %772 = icmp eq ptr %770, %771
   br i1 %772, label %791, label %773
 
@@ -12416,10 +12416,10 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   %787 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %770, i64 0, i32 1
   store i64 %786, ptr %787, align 8, !tbaa !47
   %788 = getelementptr inbounds %"struct.std::pair.71", ptr %770, i64 0, i32 1
-  %789 = load double, ptr %737, align 8, !tbaa !113
-  store double %789, ptr %788, align 8, !tbaa !113
+  %789 = load double, ptr %737, align 8, !tbaa !114
+  store double %789, ptr %788, align 8, !tbaa !114
   %790 = getelementptr inbounds %"struct.std::pair.71", ptr %770, i64 1
-  store ptr %790, ptr %406, align 8, !tbaa !116
+  store ptr %790, ptr %406, align 8, !tbaa !117
   br label %796
 
 791:                                              ; preds = %766
@@ -12437,14 +12437,14 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 796:                                              ; preds = %795, %792, %785
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %3) #23
-  %797 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !58
-  %798 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !55
+  %797 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !59
+  %798 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !56
   %799 = ptrtoint ptr %797 to i64
   %800 = ptrtoint ptr %798 to i64
   %801 = sub i64 %799, %800
   %802 = ashr exact i64 %801, 5
   %803 = icmp ult i64 %744, %802
-  br i1 %803, label %741, label %816, !llvm.loop !119
+  br i1 %803, label %741, label %816, !llvm.loop !120
 
 804:                                              ; preds = %757
   %805 = landingpad { ptr, i32 }
@@ -12474,13 +12474,13 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 816:                                              ; preds = %796, %724
   %817 = load i8, ptr %695, align 8, !tbaa !111, !range !20, !noundef !26
-  %818 = icmp eq i8 %817, 0
-  %819 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
-  %820 = xor i8 %817, 1
-  store i8 %820, ptr %26, align 8, !tbaa !27
-  %821 = getelementptr inbounds %"class.testing::AssertionResult", ptr %26, i64 0, i32 1
-  store ptr null, ptr %821, align 8, !tbaa !54
-  br i1 %818, label %876, label %826
+  %818 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #23
+  %819 = xor i8 %817, 1
+  store i8 %819, ptr %26, align 8, !tbaa !27
+  %820 = getelementptr inbounds %"class.testing::AssertionResult", ptr %26, i64 0, i32 1
+  store ptr null, ptr %820, align 8, !tbaa !55
+  %821 = icmp eq i8 %819, 0
+  br i1 %821, label %826, label %876
 
 822:                                              ; preds = %587, %576, %628
   %823 = phi { ptr, i32 } [ %629, %628 ], [ %588, %587 ], [ %577, %576 ]
@@ -12592,7 +12592,7 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 867:                                              ; preds = %839, %836
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %27) #23
-  %868 = load ptr, ptr %821, align 8, !tbaa !35
+  %868 = load ptr, ptr %820, align 8, !tbaa !35
   %869 = icmp eq ptr %868, null
   br i1 %869, label %876, label %870
 
@@ -12612,8 +12612,8 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 876:                                              ; preds = %816, %867, %875
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %26) #23
-  %877 = load ptr, ptr %15, align 8, !tbaa !120
-  %878 = load ptr, ptr %406, align 8, !tbaa !116
+  %877 = load ptr, ptr %15, align 8, !tbaa !121
+  %878 = load ptr, ptr %406, align 8, !tbaa !117
   %879 = icmp eq ptr %877, %878
   br i1 %879, label %891, label %880
 
@@ -12631,10 +12631,10 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 886:                                              ; preds = %885, %880
   %887 = getelementptr inbounds %"struct.std::pair.71", ptr %881, i64 1
   %888 = icmp eq ptr %887, %878
-  br i1 %888, label %889, label %880, !llvm.loop !121
+  br i1 %888, label %889, label %880, !llvm.loop !122
 
 889:                                              ; preds = %886
-  %890 = load ptr, ptr %15, align 8, !tbaa !120
+  %890 = load ptr, ptr %15, align 8, !tbaa !121
   br label %891
 
 891:                                              ; preds = %889, %876
@@ -12648,8 +12648,8 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 895:                                              ; preds = %891, %894
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %15) #23
-  %896 = load ptr, ptr %14, align 8, !tbaa !106
-  %897 = load ptr, ptr %128, align 8, !tbaa !108
+  %896 = load ptr, ptr %14, align 8, !tbaa !107
+  %897 = load ptr, ptr %129, align 8, !tbaa !109
   %898 = icmp eq ptr %896, %897
   br i1 %898, label %905, label %899
 
@@ -12658,10 +12658,10 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   call void @_ZN9benchmark8internal23PerfCountersMeasurementD1Ev(ptr noundef nonnull align 8 dereferenceable(88) %900) #23
   %901 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %900, i64 1
   %902 = icmp eq ptr %901, %897
-  br i1 %902, label %903, label %899, !llvm.loop !122
+  br i1 %902, label %903, label %899, !llvm.loop !123
 
 903:                                              ; preds = %899
-  %904 = load ptr, ptr %14, align 8, !tbaa !106
+  %904 = load ptr, ptr %14, align 8, !tbaa !107
   br label %905
 
 905:                                              ; preds = %903, %895
@@ -12685,8 +12685,8 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %26) #23
   br label %913
 
-913:                                              ; preds = %158, %161, %684, %447, %911, %822, %585, %217
-  %914 = phi { ptr, i32 } [ %212, %217 ], [ %912, %911 ], [ %823, %822 ], [ %586, %585 ], [ %159, %158 ], [ %448, %447 ], [ %162, %161 ], [ %685, %684 ]
+913:                                              ; preds = %158, %171, %684, %447, %911, %822, %585, %227
+  %914 = phi { ptr, i32 } [ %222, %227 ], [ %912, %911 ], [ %823, %822 ], [ %586, %585 ], [ %159, %158 ], [ %448, %447 ], [ %172, %171 ], [ %685, %684 ]
   call void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdESaIS7_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %15) #23
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %15) #23
   call void @_ZNSt6vectorIN9benchmark8internal23PerfCountersMeasurementESaIS2_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %14) #23
@@ -12700,9 +12700,9 @@ define internal void @_ZN12_GLOBAL__N_148PerfCountersTest_CreateExistingMeasurem
 
 ; Function Attrs: nounwind uwtable
 define linkonce_odr hidden void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdESaIS7_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #11 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !120
+  %2 = load ptr, ptr %0, align 8, !tbaa !121
   %3 = getelementptr inbounds %"struct.std::_Vector_base<std::pair<std::__cxx11::basic_string<char>, double>, std::allocator<std::pair<std::__cxx11::basic_string<char>, double>>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !116
+  %4 = load ptr, ptr %3, align 8, !tbaa !117
   %5 = icmp eq ptr %2, %4
   br i1 %5, label %17, label %6
 
@@ -12720,10 +12720,10 @@ define linkonce_odr hidden void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stringI
 12:                                               ; preds = %11, %6
   %13 = getelementptr inbounds %"struct.std::pair.71", ptr %7, i64 1
   %14 = icmp eq ptr %13, %4
-  br i1 %14, label %15, label %6, !llvm.loop !121
+  br i1 %14, label %15, label %6, !llvm.loop !122
 
 15:                                               ; preds = %12
-  %16 = load ptr, ptr %0, align 8, !tbaa !120
+  %16 = load ptr, ptr %0, align 8, !tbaa !121
   br label %17
 
 17:                                               ; preds = %15, %1
@@ -12741,9 +12741,9 @@ define linkonce_odr hidden void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stringI
 
 ; Function Attrs: nounwind uwtable
 define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal23PerfCountersMeasurementESaIS2_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #11 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !106
+  %2 = load ptr, ptr %0, align 8, !tbaa !107
   %3 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCountersMeasurement, std::allocator<benchmark::internal::PerfCountersMeasurement>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !108
+  %4 = load ptr, ptr %3, align 8, !tbaa !109
   %5 = icmp eq ptr %2, %4
   br i1 %5, label %12, label %6
 
@@ -12752,10 +12752,10 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal23PerfCounters
   tail call void @_ZN9benchmark8internal23PerfCountersMeasurementD1Ev(ptr noundef nonnull align 8 dereferenceable(88) %7) #23
   %8 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %7, i64 1
   %9 = icmp eq ptr %8, %4
-  br i1 %9, label %10, label %6, !llvm.loop !122
+  br i1 %9, label %10, label %6, !llvm.loop !123
 
 10:                                               ; preds = %6
-  %11 = load ptr, ptr %0, align 8, !tbaa !106
+  %11 = load ptr, ptr %0, align 8, !tbaa !107
   br label %12
 
 12:                                               ; preds = %10, %1
@@ -12777,8 +12777,8 @@ declare void @_ZN9benchmark8internal23PerfCountersMeasurementD1Ev(ptr noundef no
 ; Function Attrs: uwtable
 define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal23PerfCountersMeasurementESaIS2_EE17_M_realloc_insertIJS_INSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaISB_EEEEEvN9__gnu_cxx17__normal_iteratorIPS2_S4_EEDpOT_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr %1, ptr noundef nonnull align 8 dereferenceable(24) %2) local_unnamed_addr #10 comdat align 2 personality ptr @__gxx_personality_v0 {
   %4 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCountersMeasurement, std::allocator<benchmark::internal::PerfCountersMeasurement>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !108
-  %6 = load ptr, ptr %0, align 8, !tbaa !106
+  %5 = load ptr, ptr %4, align 8, !tbaa !109
+  %6 = load ptr, ptr %0, align 8, !tbaa !107
   %7 = ptrtoint ptr %5 to i64
   %8 = ptrtoint ptr %6 to i64
   %9 = sub i64 %7, %8
@@ -12821,13 +12821,13 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal23PerfCounters
 32:                                               ; preds = %30, %32
   %33 = phi ptr [ %36, %32 ], [ %28, %30 ]
   %34 = phi ptr [ %35, %32 ], [ %6, %30 ]
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !123)
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %33, ptr noundef nonnull align 8 dereferenceable(88) %34, i64 88, i1 false), !tbaa.struct !126, !alias.scope !127
-  tail call void @_ZN9benchmark8internal23PerfCountersMeasurementD1Ev(ptr noundef nonnull align 8 dereferenceable(88) %34) #23, !noalias !123
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !124)
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %33, ptr noundef nonnull align 8 dereferenceable(88) %34, i64 88, i1 false), !tbaa.struct !127, !alias.scope !128
+  tail call void @_ZN9benchmark8internal23PerfCountersMeasurementD1Ev(ptr noundef nonnull align 8 dereferenceable(88) %34) #23, !noalias !124
   %35 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %34, i64 1
   %36 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %33, i64 1
   %37 = icmp eq ptr %35, %1
-  br i1 %37, label %38, label %32, !llvm.loop !129
+  br i1 %37, label %38, label %32, !llvm.loop !130
 
 38:                                               ; preds = %32, %30
   %39 = phi ptr [ %28, %30 ], [ %36, %32 ]
@@ -12838,13 +12838,13 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal23PerfCounters
 42:                                               ; preds = %38, %42
   %43 = phi ptr [ %46, %42 ], [ %40, %38 ]
   %44 = phi ptr [ %45, %42 ], [ %1, %38 ]
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !130)
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %43, ptr noundef nonnull align 8 dereferenceable(88) %44, i64 88, i1 false), !tbaa.struct !126, !alias.scope !133
-  tail call void @_ZN9benchmark8internal23PerfCountersMeasurementD1Ev(ptr noundef nonnull align 8 dereferenceable(88) %44) #23, !noalias !130
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !131)
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %43, ptr noundef nonnull align 8 dereferenceable(88) %44, i64 88, i1 false), !tbaa.struct !127, !alias.scope !134
+  tail call void @_ZN9benchmark8internal23PerfCountersMeasurementD1Ev(ptr noundef nonnull align 8 dereferenceable(88) %44) #23, !noalias !131
   %45 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %44, i64 1
   %46 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %43, i64 1
   %47 = icmp eq ptr %45, %5
-  br i1 %47, label %48, label %42, !llvm.loop !129
+  br i1 %47, label %48, label %42, !llvm.loop !130
 
 48:                                               ; preds = %42, %38
   %49 = phi ptr [ %40, %38 ], [ %46, %42 ]
@@ -12857,10 +12857,10 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal23PerfCounters
 
 52:                                               ; preds = %48, %51
   %53 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::internal::PerfCountersMeasurement, std::allocator<benchmark::internal::PerfCountersMeasurement>>::_Vector_impl_data", ptr %0, i64 0, i32 2
-  store ptr %28, ptr %0, align 8, !tbaa !106
-  store ptr %49, ptr %4, align 8, !tbaa !108
+  store ptr %28, ptr %0, align 8, !tbaa !107
+  store ptr %49, ptr %4, align 8, !tbaa !109
   %54 = getelementptr inbounds %"class.benchmark::internal::PerfCountersMeasurement", ptr %28, i64 %19
-  store ptr %54, ptr %53, align 8, !tbaa !109
+  store ptr %54, ptr %53, align 8, !tbaa !110
   ret void
 
 55:                                               ; preds = %27
@@ -12885,7 +12885,7 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark8internal23PerfCounters
   tail call void @_ZdlPv(ptr noundef nonnull %28) #25
   br label %64
 
-64:                                               ; preds = %63, %60
+64:                                               ; preds = %60, %63
   invoke void @__cxa_rethrow() #27
           to label %69 unwind label %61
 
@@ -12917,8 +12917,8 @@ declare i32 @pthread_mutex_unlock(ptr noundef) local_unnamed_addr #1
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdESaIS7_EE17_M_realloc_insertIJS7_EEEvN9__gnu_cxx17__normal_iteratorIPS7_S9_EEDpOT_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr %1, ptr noundef nonnull align 8 dereferenceable(40) %2) local_unnamed_addr #10 comdat align 2 personality ptr @__gxx_personality_v0 {
   %4 = getelementptr inbounds %"struct.std::_Vector_base<std::pair<std::__cxx11::basic_string<char>, double>, std::allocator<std::pair<std::__cxx11::basic_string<char>, double>>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !116
-  %6 = load ptr, ptr %0, align 8, !tbaa !120
+  %5 = load ptr, ptr %4, align 8, !tbaa !117
+  %6 = load ptr, ptr %0, align 8, !tbaa !121
   %7 = ptrtoint ptr %5 to i64
   %8 = ptrtoint ptr %6 to i64
   %9 = sub i64 %7, %8
@@ -12987,26 +12987,26 @@ define linkonce_odr dso_local void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stri
   store i8 0, ptr %32, align 8, !tbaa !48
   %48 = getelementptr inbounds %"struct.std::pair.71", ptr %28, i64 %22, i32 1
   %49 = getelementptr inbounds %"struct.std::pair.71", ptr %2, i64 0, i32 1
-  %50 = load double, ptr %49, align 8, !tbaa !113
-  store double %50, ptr %48, align 8, !tbaa !113
+  %50 = load double, ptr %49, align 8, !tbaa !114
+  store double %50, ptr %48, align 8, !tbaa !114
   %51 = icmp eq ptr %6, %1
   br i1 %51, label %79, label %52
 
 52:                                               ; preds = %44, %69
   %53 = phi ptr [ %77, %69 ], [ %28, %44 ]
   %54 = phi ptr [ %76, %69 ], [ %6, %44 ]
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !135)
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !138)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !136)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !139)
   %55 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %53, i64 0, i32 2
-  store ptr %55, ptr %53, align 8, !tbaa !45, !alias.scope !135, !noalias !138
-  %56 = load ptr, ptr %54, align 8, !tbaa !36, !alias.scope !138, !noalias !135
+  store ptr %55, ptr %53, align 8, !tbaa !45, !alias.scope !136, !noalias !139
+  %56 = load ptr, ptr %54, align 8, !tbaa !36, !alias.scope !139, !noalias !136
   %57 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %54, i64 0, i32 2
   %58 = icmp eq ptr %56, %57
   br i1 %58, label %59, label %65
 
 59:                                               ; preds = %52
   %60 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %54, i64 0, i32 1
-  %61 = load i64, ptr %60, align 8, !tbaa !47, !alias.scope !138, !noalias !135
+  %61 = load i64, ptr %60, align 8, !tbaa !47, !alias.scope !139, !noalias !136
   %62 = add i64 %61, 1
   %63 = icmp eq i64 %62, 0
   br i1 %63, label %69, label %64
@@ -13016,29 +13016,29 @@ define linkonce_odr dso_local void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stri
   br label %69
 
 65:                                               ; preds = %52
-  store ptr %56, ptr %53, align 8, !tbaa !36, !alias.scope !135, !noalias !138
-  %66 = load i64, ptr %57, align 8, !tbaa !48, !alias.scope !138, !noalias !135
-  store i64 %66, ptr %55, align 8, !tbaa !48, !alias.scope !135, !noalias !138
+  store ptr %56, ptr %53, align 8, !tbaa !36, !alias.scope !136, !noalias !139
+  %66 = load i64, ptr %57, align 8, !tbaa !48, !alias.scope !139, !noalias !136
+  store i64 %66, ptr %55, align 8, !tbaa !48, !alias.scope !136, !noalias !139
   %67 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %54, i64 0, i32 1
-  %68 = load i64, ptr %67, align 8, !tbaa !47, !alias.scope !138, !noalias !135
+  %68 = load i64, ptr %67, align 8, !tbaa !47, !alias.scope !139, !noalias !136
   br label %69
 
 69:                                               ; preds = %65, %64, %59
   %70 = phi i64 [ %68, %65 ], [ %61, %64 ], [ -1, %59 ]
   %71 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %54, i64 0, i32 1
   %72 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %53, i64 0, i32 1
-  store i64 %70, ptr %72, align 8, !tbaa !47, !alias.scope !135, !noalias !138
-  store ptr %57, ptr %54, align 8, !tbaa !36, !alias.scope !138, !noalias !135
-  store i64 0, ptr %71, align 8, !tbaa !47, !alias.scope !138, !noalias !135
-  store i8 0, ptr %57, align 8, !tbaa !48, !alias.scope !138, !noalias !135
+  store i64 %70, ptr %72, align 8, !tbaa !47, !alias.scope !136, !noalias !139
+  store ptr %57, ptr %54, align 8, !tbaa !36, !alias.scope !139, !noalias !136
+  store i64 0, ptr %71, align 8, !tbaa !47, !alias.scope !139, !noalias !136
+  store i8 0, ptr %57, align 8, !tbaa !48, !alias.scope !139, !noalias !136
   %73 = getelementptr inbounds %"struct.std::pair.71", ptr %53, i64 0, i32 1
   %74 = getelementptr inbounds %"struct.std::pair.71", ptr %54, i64 0, i32 1
-  %75 = load double, ptr %74, align 8, !tbaa !113, !alias.scope !138, !noalias !135
-  store double %75, ptr %73, align 8, !tbaa !113, !alias.scope !135, !noalias !138
+  %75 = load double, ptr %74, align 8, !tbaa !114, !alias.scope !139, !noalias !136
+  store double %75, ptr %73, align 8, !tbaa !114, !alias.scope !136, !noalias !139
   %76 = getelementptr inbounds %"struct.std::pair.71", ptr %54, i64 1
   %77 = getelementptr inbounds %"struct.std::pair.71", ptr %53, i64 1
   %78 = icmp eq ptr %76, %1
-  br i1 %78, label %79, label %52, !llvm.loop !140
+  br i1 %78, label %79, label %52, !llvm.loop !141
 
 79:                                               ; preds = %69, %44
   %80 = phi ptr [ %28, %44 ], [ %77, %69 ]
@@ -13049,18 +13049,18 @@ define linkonce_odr dso_local void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stri
 83:                                               ; preds = %79, %100
   %84 = phi ptr [ %108, %100 ], [ %81, %79 ]
   %85 = phi ptr [ %107, %100 ], [ %1, %79 ]
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !141)
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !144)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !142)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !145)
   %86 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %84, i64 0, i32 2
-  store ptr %86, ptr %84, align 8, !tbaa !45, !alias.scope !141, !noalias !144
-  %87 = load ptr, ptr %85, align 8, !tbaa !36, !alias.scope !144, !noalias !141
+  store ptr %86, ptr %84, align 8, !tbaa !45, !alias.scope !142, !noalias !145
+  %87 = load ptr, ptr %85, align 8, !tbaa !36, !alias.scope !145, !noalias !142
   %88 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %85, i64 0, i32 2
   %89 = icmp eq ptr %87, %88
   br i1 %89, label %90, label %96
 
 90:                                               ; preds = %83
   %91 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %85, i64 0, i32 1
-  %92 = load i64, ptr %91, align 8, !tbaa !47, !alias.scope !144, !noalias !141
+  %92 = load i64, ptr %91, align 8, !tbaa !47, !alias.scope !145, !noalias !142
   %93 = add i64 %92, 1
   %94 = icmp eq i64 %93, 0
   br i1 %94, label %100, label %95
@@ -13070,29 +13070,29 @@ define linkonce_odr dso_local void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stri
   br label %100
 
 96:                                               ; preds = %83
-  store ptr %87, ptr %84, align 8, !tbaa !36, !alias.scope !141, !noalias !144
-  %97 = load i64, ptr %88, align 8, !tbaa !48, !alias.scope !144, !noalias !141
-  store i64 %97, ptr %86, align 8, !tbaa !48, !alias.scope !141, !noalias !144
+  store ptr %87, ptr %84, align 8, !tbaa !36, !alias.scope !142, !noalias !145
+  %97 = load i64, ptr %88, align 8, !tbaa !48, !alias.scope !145, !noalias !142
+  store i64 %97, ptr %86, align 8, !tbaa !48, !alias.scope !142, !noalias !145
   %98 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %85, i64 0, i32 1
-  %99 = load i64, ptr %98, align 8, !tbaa !47, !alias.scope !144, !noalias !141
+  %99 = load i64, ptr %98, align 8, !tbaa !47, !alias.scope !145, !noalias !142
   br label %100
 
 100:                                              ; preds = %96, %95, %90
   %101 = phi i64 [ %99, %96 ], [ %92, %95 ], [ -1, %90 ]
   %102 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %85, i64 0, i32 1
   %103 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %84, i64 0, i32 1
-  store i64 %101, ptr %103, align 8, !tbaa !47, !alias.scope !141, !noalias !144
-  store ptr %88, ptr %85, align 8, !tbaa !36, !alias.scope !144, !noalias !141
-  store i64 0, ptr %102, align 8, !tbaa !47, !alias.scope !144, !noalias !141
-  store i8 0, ptr %88, align 8, !tbaa !48, !alias.scope !144, !noalias !141
+  store i64 %101, ptr %103, align 8, !tbaa !47, !alias.scope !142, !noalias !145
+  store ptr %88, ptr %85, align 8, !tbaa !36, !alias.scope !145, !noalias !142
+  store i64 0, ptr %102, align 8, !tbaa !47, !alias.scope !145, !noalias !142
+  store i8 0, ptr %88, align 8, !tbaa !48, !alias.scope !145, !noalias !142
   %104 = getelementptr inbounds %"struct.std::pair.71", ptr %84, i64 0, i32 1
   %105 = getelementptr inbounds %"struct.std::pair.71", ptr %85, i64 0, i32 1
-  %106 = load double, ptr %105, align 8, !tbaa !113, !alias.scope !144, !noalias !141
-  store double %106, ptr %104, align 8, !tbaa !113, !alias.scope !141, !noalias !144
+  %106 = load double, ptr %105, align 8, !tbaa !114, !alias.scope !145, !noalias !142
+  store double %106, ptr %104, align 8, !tbaa !114, !alias.scope !142, !noalias !145
   %107 = getelementptr inbounds %"struct.std::pair.71", ptr %85, i64 1
   %108 = getelementptr inbounds %"struct.std::pair.71", ptr %84, i64 1
   %109 = icmp eq ptr %107, %5
-  br i1 %109, label %110, label %83, !llvm.loop !140
+  br i1 %109, label %110, label %83, !llvm.loop !141
 
 110:                                              ; preds = %100, %79
   %111 = phi ptr [ %81, %79 ], [ %108, %100 ]
@@ -13105,10 +13105,10 @@ define linkonce_odr dso_local void @_ZNSt6vectorISt4pairINSt7__cxx1112basic_stri
 
 114:                                              ; preds = %110, %113
   %115 = getelementptr inbounds %"struct.std::_Vector_base<std::pair<std::__cxx11::basic_string<char>, double>, std::allocator<std::pair<std::__cxx11::basic_string<char>, double>>>::_Vector_impl_data", ptr %0, i64 0, i32 2
-  store ptr %28, ptr %0, align 8, !tbaa !120
-  store ptr %111, ptr %4, align 8, !tbaa !116
+  store ptr %28, ptr %0, align 8, !tbaa !121
+  store ptr %111, ptr %4, align 8, !tbaa !117
   %116 = getelementptr inbounds %"struct.std::pair.71", ptr %28, i64 %19
-  store ptr %116, ptr %115, align 8, !tbaa !118
+  store ptr %116, ptr %115, align 8, !tbaa !119
   ret void
 }
 
@@ -13248,7 +13248,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_MultiThreaded_Test8Tes
   %53 = zext i1 %52 to i8
   store i8 %53, ptr %4, align 8, !tbaa !27
   %54 = getelementptr inbounds %"class.testing::AssertionResult", ptr %4, i64 0, i32 1
-  store ptr null, ptr %54, align 8, !tbaa !54
+  store ptr null, ptr %54, align 8, !tbaa !55
   br i1 %52, label %105, label %55
 
 55:                                               ; preds = %51
@@ -13374,10 +13374,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_MultiThreaded_Test8Tes
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #23
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %8) #23
   %106 = getelementptr inbounds %"class.benchmark::internal::PerfCounterValues", ptr %8, i64 0, i32 1
-  store i64 2, ptr %106, align 8, !tbaa !65
+  store i64 2, ptr %106, align 8, !tbaa !66
   %107 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %108 = icmp eq i8 %107, 0
-  br i1 %108, label %109, label %113, !prof !68
+  br i1 %108, label %109, label %113, !prof !69
 
 109:                                              ; preds = %105
   %110 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -13385,17 +13385,17 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_MultiThreaded_Test8Tes
   br i1 %111, label %113, label %112
 
 112:                                              ; preds = %109
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %113
 
 113:                                              ; preds = %105, %109, %112
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %9) #23
   %114 = getelementptr inbounds %"class.benchmark::internal::PerfCounterValues", ptr %9, i64 0, i32 1
-  store i64 2, ptr %114, align 8, !tbaa !65
+  store i64 2, ptr %114, align 8, !tbaa !66
   %115 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %116 = icmp eq i8 %115, 0
-  br i1 %116, label %117, label %121, !prof !68
+  br i1 %116, label %117, label %121, !prof !69
 
 117:                                              ; preds = %113
   %118 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -13403,7 +13403,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_MultiThreaded_Test8Tes
   br i1 %119, label %121, label %120
 
 120:                                              ; preds = %117
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %121
 
@@ -13413,10 +13413,10 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_MultiThreaded_Test8Tes
   %123 = getelementptr inbounds [4 x i64], ptr %8, i64 0, i64 1
   %124 = getelementptr inbounds [4 x i64], ptr %9, i64 0, i64 2
   %125 = getelementptr inbounds [4 x i64], ptr %8, i64 0, i64 2
-  %126 = load i64, ptr %125, align 8, !tbaa !63
-  %127 = load i64, ptr %124, align 8, !tbaa !63
-  %128 = load i64, ptr %123, align 8, !tbaa !63
-  %129 = load i64, ptr %122, align 8, !tbaa !63
+  %126 = load i64, ptr %125, align 8, !tbaa !64
+  %127 = load i64, ptr %124, align 8, !tbaa !64
+  %128 = load i64, ptr %123, align 8, !tbaa !64
+  %129 = load i64, ptr %122, align 8, !tbaa !64
   %130 = sub i64 %127, %126
   %131 = uitofp i64 %130 to double
   %132 = sub i64 %129, %128
@@ -13425,8 +13425,8 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_MultiThreaded_Test8Tes
           to label %134 unwind label %152
 
 134:                                              ; preds = %121
-  %135 = load <2 x i64>, ptr %122, align 8, !tbaa !63
-  %136 = load <2 x i64>, ptr %123, align 8, !tbaa !63
+  %135 = load <2 x i64>, ptr %122, align 8, !tbaa !64
+  %136 = load <2 x i64>, ptr %123, align 8, !tbaa !64
   %137 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #26
           to label %140 unwind label %138
 
@@ -13443,7 +13443,7 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_MultiThreaded_Test8Tes
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %10) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #23
   %144 = fmul double %133, 1.900000e+00
-  store double %144, ptr %11, align 8, !tbaa !146
+  store double %144, ptr %11, align 8, !tbaa !147
   %145 = extractelement <2 x double> %143, i64 0
   %146 = fcmp ugt double %144, %145
   br i1 %146, label %148, label %147
@@ -13577,8 +13577,8 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_MultiThreaded_Test8Tes
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %14) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %15) #23
   %201 = fmul double %131, 1.900000e+00
-  store double %201, ptr %15, align 8, !tbaa !146
-  %202 = load double, ptr %142, align 8, !tbaa !146, !noalias !147
+  store double %201, ptr %15, align 8, !tbaa !147
+  %202 = load double, ptr %142, align 8, !tbaa !147, !noalias !148
   %203 = fcmp ult double %202, %201
   br i1 %203, label %205, label %204
 
@@ -13721,12 +13721,12 @@ define internal void @_ZN12_GLOBAL__N_135PerfCountersTest_MultiThreaded_Test8Tes
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %14) #23
   br label %261
 
-261:                                              ; preds = %259, %209
+261:                                              ; preds = %209, %259
   %262 = phi { ptr, i32 } [ %260, %259 ], [ %210, %209 ]
   call void @_ZdlPv(ptr noundef nonnull %137) #25
   br label %263
 
-263:                                              ; preds = %152, %138, %261
+263:                                              ; preds = %138, %261, %152
   %264 = phi { ptr, i32 } [ %153, %152 ], [ %262, %261 ], [ %139, %138 ]
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %9) #23
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %8) #23
@@ -13753,7 +13753,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 13:                                               ; preds = %3
   %14 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %15 = icmp eq i8 %14, 0
-  br i1 %15, label %16, label %21, !prof !68
+  br i1 %15, label %16, label %21, !prof !69
 
 16:                                               ; preds = %13
   %17 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -13761,7 +13761,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
   br i1 %18, label %21, label %19
 
 19:                                               ; preds = %16
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %21
 
@@ -13778,7 +13778,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 23:                                               ; preds = %21
   %24 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %25 = icmp eq i8 %24, 0
-  br i1 %25, label %26, label %31, !prof !68
+  br i1 %25, label %26, label %31, !prof !69
 
 26:                                               ; preds = %23
   %27 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -13786,7 +13786,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
   br i1 %28, label %31, label %29
 
 29:                                               ; preds = %26
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %31
 
@@ -13817,20 +13817,20 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 37:                                               ; preds = %34
   %38 = shl nuw nsw i64 %0, 3
   %39 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %38) #26
-  store ptr %39, ptr %7, align 8, !tbaa !150
+  store ptr %39, ptr %7, align 8, !tbaa !151
   %40 = getelementptr inbounds %"class.std::thread", ptr %39, i64 %0
-  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %39, i8 0, i64 %38, i1 false), !tbaa !152
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %39, i8 0, i64 %38, i1 false), !tbaa !153
   %41 = getelementptr i8, ptr %39, i64 %38
   br label %42
 
-42:                                               ; preds = %37, %36
+42:                                               ; preds = %36, %37
   %43 = phi ptr [ null, %36 ], [ %39, %37 ]
   %44 = phi ptr [ null, %36 ], [ %40, %37 ]
   %45 = phi ptr [ null, %36 ], [ %41, %37 ]
   %46 = getelementptr inbounds %"struct.std::_Vector_base<std::thread, std::allocator<std::thread>>::_Vector_impl_data", ptr %7, i64 0, i32 1
   %47 = getelementptr inbounds %"struct.std::_Vector_base<std::thread, std::allocator<std::thread>>::_Vector_impl_data", ptr %7, i64 0, i32 2
   store ptr %44, ptr %47, align 8
-  store ptr %45, ptr %46, align 8, !tbaa !154
+  store ptr %45, ptr %46, align 8, !tbaa !155
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %8) #23
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %9) #23
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %10) #23
@@ -13855,17 +13855,17 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 
 56:                                               ; preds = %42
   %57 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 2
-  store ptr %55, ptr %9, align 8, !tbaa !55
+  store ptr %55, ptr %9, align 8, !tbaa !56
   %58 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %55, i64 2
   %59 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %9, i64 0, i32 2
-  store ptr %58, ptr %59, align 8, !tbaa !57
+  store ptr %58, ptr %59, align 8, !tbaa !58
   %60 = invoke noundef ptr @_ZSt16__do_uninit_copyIPKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS5_ET0_T_SA_S9_(ptr noundef nonnull %10, ptr noundef nonnull %57, ptr noundef nonnull %55)
           to label %66 unwind label %61
 
 61:                                               ; preds = %56, %42
   %62 = landingpad { ptr, i32 }
           cleanup
-  %63 = load ptr, ptr %9, align 8, !tbaa !55
+  %63 = load ptr, ptr %9, align 8, !tbaa !56
   %64 = icmp eq ptr %63, null
   br i1 %64, label %117, label %65
 
@@ -13875,13 +13875,13 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 
 66:                                               ; preds = %56
   %67 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %9, i64 0, i32 1
-  store ptr %60, ptr %67, align 8, !tbaa !58
+  store ptr %60, ptr %67, align 8, !tbaa !59
   invoke void @_ZN9benchmark8internal12PerfCounters6CreateERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS8_EE(ptr nonnull sret(%"class.benchmark::internal::PerfCounters") align 8 %8, ptr noundef nonnull align 8 dereferenceable(24) %9)
           to label %68 unwind label %115
 
 68:                                               ; preds = %66
-  %69 = load ptr, ptr %9, align 8, !tbaa !55
-  %70 = load ptr, ptr %67, align 8, !tbaa !58
+  %69 = load ptr, ptr %9, align 8, !tbaa !56
+  %70 = load ptr, ptr %67, align 8, !tbaa !59
   %71 = icmp eq ptr %69, %70
   br i1 %71, label %83, label %72
 
@@ -13899,10 +13899,10 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 78:                                               ; preds = %77, %72
   %79 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %73, i64 1
   %80 = icmp eq ptr %79, %70
-  br i1 %80, label %81, label %72, !llvm.loop !59
+  br i1 %80, label %81, label %72, !llvm.loop !60
 
 81:                                               ; preds = %78
-  %82 = load ptr, ptr %9, align 8, !tbaa !55
+  %82 = load ptr, ptr %9, align 8, !tbaa !56
   br label %83
 
 83:                                               ; preds = %81, %68
@@ -13955,11 +13955,11 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 
 107:                                              ; preds = %100
   %108 = getelementptr inbounds %"class.benchmark::internal::PerfCounterValues", ptr %1, i64 0, i32 1
-  %109 = load i64, ptr %108, align 8, !tbaa !65
+  %109 = load i64, ptr %108, align 8, !tbaa !66
   %110 = shl i64 %109, 3
   %111 = add i64 %110, 8
-  %112 = load ptr, ptr %8, align 8, !tbaa !61
-  %113 = load i32, ptr %112, align 4, !tbaa !71
+  %112 = load ptr, ptr %8, align 8, !tbaa !62
+  %113 = load i32, ptr %112, align 4, !tbaa !72
   %114 = invoke i64 @read(i32 noundef %113, ptr noundef nonnull %1, i64 noundef %111)
           to label %161 unwind label %175
 
@@ -13970,7 +13970,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
   br label %117
 
 117:                                              ; preds = %65, %61, %115
-  %118 = phi { ptr, i32 } [ %116, %115 ], [ %62, %65 ], [ %62, %61 ]
+  %118 = phi { ptr, i32 } [ %116, %115 ], [ %62, %61 ], [ %62, %65 ]
   %119 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 1
   %120 = load ptr, ptr %119, align 8, !tbaa !36
   %121 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 1, i32 2
@@ -14000,7 +14000,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
   %131 = phi ptr [ %155, %153 ], [ %43, %98 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4)
-  store i64 0, ptr %11, align 8, !tbaa !152
+  store i64 0, ptr %11, align 8, !tbaa !153
   %132 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #26
           to label %133 unwind label %157
 
@@ -14036,9 +14036,9 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
   call void %148(ptr noundef nonnull align 8 dereferenceable(8) %143) #23
   br label %159
 
-149:                                              ; preds = %137, %134
+149:                                              ; preds = %134, %137
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4)
-  %150 = load i64, ptr %131, align 8, !tbaa.struct !155
+  %150 = load i64, ptr %131, align 8, !tbaa.struct !156
   %151 = icmp eq i64 %150, 0
   br i1 %151, label %153, label %152
 
@@ -14047,8 +14047,8 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
   unreachable
 
 153:                                              ; preds = %149
-  %154 = load i64, ptr %11, align 8, !tbaa !63
-  store i64 %154, ptr %131, align 8, !tbaa !63
+  %154 = load i64, ptr %11, align 8, !tbaa !64
+  store i64 %154, ptr %131, align 8, !tbaa !64
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #23
   %155 = getelementptr inbounds %"class.std::thread", ptr %131, i64 1
   %156 = icmp eq ptr %155, %45
@@ -14079,11 +14079,11 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 
 167:                                              ; preds = %162
   %168 = getelementptr inbounds %"class.benchmark::internal::PerfCounterValues", ptr %2, i64 0, i32 1
-  %169 = load i64, ptr %168, align 8, !tbaa !65
+  %169 = load i64, ptr %168, align 8, !tbaa !66
   %170 = shl i64 %169, 3
   %171 = add i64 %170, 8
-  %172 = load ptr, ptr %8, align 8, !tbaa !61
-  %173 = load i32, ptr %172, align 4, !tbaa !71
+  %172 = load ptr, ptr %8, align 8, !tbaa !62
+  %173 = load i32, ptr %172, align 4, !tbaa !72
   %174 = invoke i64 @read(i32 noundef %173, ptr noundef nonnull %2, i64 noundef %171)
           to label %184 unwind label %175
 
@@ -14112,8 +14112,8 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
           to label %185 unwind label %208
 
 185:                                              ; preds = %184
-  %186 = load ptr, ptr %101, align 8, !tbaa !55
-  %187 = load ptr, ptr %103, align 8, !tbaa !58
+  %186 = load ptr, ptr %101, align 8, !tbaa !56
+  %187 = load ptr, ptr %103, align 8, !tbaa !59
   %188 = icmp eq ptr %186, %187
   br i1 %188, label %200, label %189
 
@@ -14131,10 +14131,10 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 195:                                              ; preds = %194, %189
   %196 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %190, i64 1
   %197 = icmp eq ptr %196, %187
-  br i1 %197, label %198, label %189, !llvm.loop !59
+  br i1 %197, label %198, label %189, !llvm.loop !60
 
 198:                                              ; preds = %195
-  %199 = load ptr, ptr %101, align 8, !tbaa !55
+  %199 = load ptr, ptr %101, align 8, !tbaa !56
   br label %200
 
 200:                                              ; preds = %198, %185
@@ -14147,7 +14147,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
   br label %204
 
 204:                                              ; preds = %203, %200
-  %205 = load ptr, ptr %8, align 8, !tbaa !61
+  %205 = load ptr, ptr %8, align 8, !tbaa !62
   %206 = icmp eq ptr %205, null
   br i1 %206, label %211, label %207
 
@@ -14169,11 +14169,11 @@ define internal fastcc void @_ZN12_GLOBAL__N_17measureEmPN9benchmark8internal17P
 212:                                              ; preds = %215
   %213 = getelementptr inbounds %"class.std::thread", ptr %216, i64 1
   %214 = icmp eq ptr %213, %45
-  br i1 %214, label %220, label %215, !llvm.loop !156
+  br i1 %214, label %220, label %215, !llvm.loop !157
 
 215:                                              ; preds = %211, %212
   %216 = phi ptr [ %213, %212 ], [ %43, %211 ]
-  %217 = load i64, ptr %216, align 8, !tbaa.struct !155
+  %217 = load i64, ptr %216, align 8, !tbaa.struct !156
   %218 = icmp eq i64 %217, 0
   br i1 %218, label %212, label %219
 
@@ -14210,20 +14210,20 @@ declare void @_ZNSt6thread4joinEv(ptr noundef nonnull align 8 dereferenceable(8)
 
 ; Function Attrs: nounwind uwtable
 define linkonce_odr hidden void @_ZNSt6vectorISt6threadSaIS0_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #11 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !150
+  %2 = load ptr, ptr %0, align 8, !tbaa !151
   %3 = getelementptr inbounds %"struct.std::_Vector_base<std::thread, std::allocator<std::thread>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !154
+  %4 = load ptr, ptr %3, align 8, !tbaa !155
   %5 = icmp eq ptr %2, %4
   br i1 %5, label %14, label %9
 
 6:                                                ; preds = %9
   %7 = getelementptr inbounds %"class.std::thread", ptr %10, i64 1
   %8 = icmp eq ptr %7, %4
-  br i1 %8, label %14, label %9, !llvm.loop !156
+  br i1 %8, label %14, label %9, !llvm.loop !157
 
 9:                                                ; preds = %1, %6
   %10 = phi ptr [ %7, %6 ], [ %2, %1 ]
-  %11 = load i64, ptr %10, align 8, !tbaa.struct !155
+  %11 = load i64, ptr %10, align 8, !tbaa.struct !156
   %12 = icmp eq i64 %11, 0
   br i1 %12, label %6, label %13
 
@@ -14259,7 +14259,7 @@ define internal void @"_ZNSt6thread11_State_implINS_8_InvokerISt5tupleIJZN12_GLO
 define internal void @"_ZNSt6thread11_State_implINS_8_InvokerISt5tupleIJZN12_GLOBAL__N_17measureEmPN9benchmark8internal17PerfCounterValuesES7_E3$_0EEEEE6_M_runEv"(ptr nocapture nonnull readnone align 8 %0) unnamed_addr #20 align 2 personality ptr @__gxx_personality_v0 {
   %2 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %3 = icmp eq i8 %2, 0
-  br i1 %3, label %4, label %8, !prof !68
+  br i1 %3, label %4, label %8, !prof !69
 
 4:                                                ; preds = %1
   %5 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
@@ -14267,7 +14267,7 @@ define internal void @"_ZNSt6thread11_State_implINS_8_InvokerISt5tupleIJZN12_GLO
   br i1 %6, label %8, label %7
 
 7:                                                ; preds = %4
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !69
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !70
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #23
   br label %8
 
@@ -14336,7 +14336,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %16) #23
   br label %313
 
-41:                                               ; preds = %28, %25
+41:                                               ; preds = %25, %28
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %16) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %15) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %15)
@@ -14392,7 +14392,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %15) #23
   br label %313
 
-69:                                               ; preds = %56, %53
+69:                                               ; preds = %53, %56
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %15) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %14) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %14)
@@ -14438,7 +14438,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %14) #23
   br label %313
 
-91:                                               ; preds = %78, %75
+91:                                               ; preds = %75, %78
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %14) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %13) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %13)
@@ -14494,7 +14494,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #23
   br label %313
 
-119:                                              ; preds = %106, %103
+119:                                              ; preds = %103, %106
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %12)
@@ -14540,7 +14540,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #23
   br label %313
 
-141:                                              ; preds = %128, %125
+141:                                              ; preds = %125, %128
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %11)
@@ -14596,7 +14596,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #23
   br label %313
 
-169:                                              ; preds = %156, %153
+169:                                              ; preds = %153, %156
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %10)
@@ -14642,7 +14642,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #23
   br label %313
 
-191:                                              ; preds = %178, %175
+191:                                              ; preds = %175, %178
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #23
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %18) #23
   invoke void @_ZN7testing13PrintToStringIdEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %18, ptr noundef nonnull align 8 dereferenceable(8) %3)
@@ -14696,7 +14696,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #23
   br label %305
 
-217:                                              ; preds = %204, %201
+217:                                              ; preds = %201, %204
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #23
   invoke void @_ZN7testing7MessageC1Ev(ptr noundef nonnull align 8 dereferenceable(8) %8)
@@ -14742,7 +14742,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #23
   br label %305
 
-239:                                              ; preds = %226, %223
+239:                                              ; preds = %223, %226
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #23
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %19) #23
   invoke void @_ZN7testing13PrintToStringIdEENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKT_(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %19, ptr noundef nonnull align 8 dereferenceable(8) %4)
@@ -14796,7 +14796,7 @@ define linkonce_odr hidden void @_ZN7testing8internal18CmpHelperOpFailureIddEENS
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #23
   br label %297
 
-265:                                              ; preds = %252, %249
+265:                                              ; preds = %249, %252
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #23
   invoke void @_ZN7testing15AssertionResultC1ERKS0_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(16) %17)
           to label %266 unwind label %295
@@ -14917,42 +14917,42 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIdEENSt7__cxx1112basi
   call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %3) #23
   call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %3)
   %4 = getelementptr inbounds i8, ptr %3, i64 16
-  %5 = load double, ptr %1, align 8, !tbaa !146
+  %5 = load double, ptr %1, align 8, !tbaa !147
   %6 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %4, double noundef %5)
           to label %7 unwind label %55
 
 7:                                                ; preds = %2
-  call void @llvm.experimental.noalias.scope.decl(metadata !157)
-  call void @llvm.experimental.noalias.scope.decl(metadata !160)
+  call void @llvm.experimental.noalias.scope.decl(metadata !158)
+  call void @llvm.experimental.noalias.scope.decl(metadata !161)
   %8 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
-  store ptr %8, ptr %0, align 8, !tbaa !45, !alias.scope !163
+  store ptr %8, ptr %0, align 8, !tbaa !45, !alias.scope !164
   %9 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
-  store i64 0, ptr %9, align 8, !tbaa !47, !alias.scope !163
-  store i8 0, ptr %8, align 8, !tbaa !48, !alias.scope !163
+  store i64 0, ptr %9, align 8, !tbaa !47, !alias.scope !164
+  store i8 0, ptr %8, align 8, !tbaa !48, !alias.scope !164
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 5
-  %11 = load ptr, ptr %10, align 8, !tbaa !49, !noalias !163
+  %11 = load ptr, ptr %10, align 8, !tbaa !49, !noalias !164
   %12 = icmp eq ptr %11, null
-  %13 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
-  %14 = load ptr, ptr %13, align 8, !noalias !163
-  %15 = icmp ugt ptr %11, %14
-  %16 = select i1 %15, ptr %11, ptr %14
-  %17 = icmp eq ptr %16, null
-  %18 = select i1 %12, i1 true, i1 %17
-  br i1 %18, label %31, label %19
+  br i1 %12, label %31, label %13
 
-19:                                               ; preds = %7
+13:                                               ; preds = %7
+  %14 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 3
+  %15 = load ptr, ptr %14, align 8, !tbaa !51, !noalias !164
+  %16 = icmp eq ptr %15, null
+  %17 = icmp ugt ptr %11, %15
+  %18 = select i1 %16, i1 true, i1 %17
+  %19 = select i1 %18, ptr %11, ptr %15
   %20 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %3, i64 0, i32 1, i32 0, i32 4
-  %21 = load ptr, ptr %20, align 8, !tbaa !51, !noalias !163
-  %22 = ptrtoint ptr %16 to i64
+  %21 = load ptr, ptr %20, align 8, !tbaa !52, !noalias !164
+  %22 = ptrtoint ptr %19 to i64
   %23 = ptrtoint ptr %21 to i64
   %24 = sub i64 %22, %23
   %25 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef 0, i64 noundef 0, ptr noundef %21, i64 noundef %24)
           to label %33 unwind label %26
 
-26:                                               ; preds = %31, %19
+26:                                               ; preds = %31, %13
   %27 = landingpad { ptr, i32 }
           cleanup
-  %28 = load ptr, ptr %0, align 8, !tbaa !36, !alias.scope !163
+  %28 = load ptr, ptr %0, align 8, !tbaa !36, !alias.scope !164
   %29 = icmp eq ptr %28, %8
   br i1 %29, label %57, label %30
 
@@ -14965,7 +14965,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIdEENSt7__cxx1112basi
   invoke void @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERKS4_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %32)
           to label %33 unwind label %26
 
-33:                                               ; preds = %31, %19
+33:                                               ; preds = %31, %13
   %34 = load ptr, ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, align 8
   store ptr %34, ptr %3, align 8, !tbaa !5
   %35 = load ptr, ptr getelementptr inbounds ([10 x ptr], ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, i64 0, i64 8), align 8
@@ -14999,7 +14999,7 @@ define linkonce_odr hidden void @_ZN7testing13PrintToStringIdEENSt7__cxx1112basi
   %52 = getelementptr inbounds i8, ptr %3, i64 %51
   store ptr %49, ptr %52, align 8, !tbaa !5
   %53 = getelementptr inbounds %"class.std::basic_istream", ptr %3, i64 0, i32 1
-  store i64 0, ptr %53, align 8, !tbaa !52
+  store i64 0, ptr %53, align 8, !tbaa !53
   %54 = getelementptr inbounds i8, ptr %3, i64 128
   call void @_ZNSt8ios_baseD2Ev(ptr noundef nonnull align 8 dereferenceable(264) %54) #23
   call void @llvm.lifetime.end.p0(i64 392, ptr nonnull %3) #23
@@ -15069,10 +15069,10 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %36 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %32, i64 0, i32 2
   store ptr %36, ptr %32, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %30) #23
-  store i64 107, ptr %30, align 8, !tbaa !63
+  store i64 107, ptr %30, align 8, !tbaa !64
   %37 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %32, ptr noundef nonnull align 8 dereferenceable(8) %30, i64 noundef 0)
   store ptr %37, ptr %32, align 8, !tbaa !36
-  %38 = load i64, ptr %30, align 8, !tbaa !63
+  %38 = load i64, ptr %30, align 8, !tbaa !64
   store i64 %38, ptr %36, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(107) %37, ptr noundef nonnull align 1 dereferenceable(107) @.str.5, i64 107, i1 false)
   %39 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %32, i64 0, i32 1
@@ -15085,7 +15085,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %42 = load ptr, ptr %32, align 8, !tbaa !36
   %43 = load i64, ptr %39, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %29) #23
-  store i64 %43, ptr %29, align 8, !tbaa !63
+  store i64 %43, ptr %29, align 8, !tbaa !64
   %44 = icmp ugt i64 %43, 15
   br i1 %44, label %45, label %49
 
@@ -15095,7 +15095,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
 
 47:                                               ; preds = %45
   store ptr %46, ptr %31, align 8, !tbaa !36
-  %48 = load i64, ptr %29, align 8, !tbaa !63
+  %48 = load i64, ptr %29, align 8, !tbaa !64
   store i64 %48, ptr %41, align 8, !tbaa !48
   br label %49
 
@@ -15116,7 +15116,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   br label %54
 
 54:                                               ; preds = %53, %51, %49
-  %55 = load i64, ptr %29, align 8, !tbaa !63
+  %55 = load i64, ptr %29, align 8, !tbaa !64
   %56 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %31, i64 0, i32 1
   store i64 %55, ptr %56, align 8, !tbaa !47
   %57 = load ptr, ptr %31, align 8, !tbaa !36
@@ -15124,7 +15124,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   store i8 0, ptr %58, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %29) #23
   %59 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %31, i64 0, i32 1
-  store i32 22, ptr %59, align 8, !tbaa !164
+  store i32 22, ptr %59, align 8, !tbaa !165
   %60 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %61 unwind label %79
 
@@ -15207,10 +15207,10 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %94 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %28, i64 0, i32 2
   store ptr %94, ptr %28, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %26) #23
-  store i64 107, ptr %26, align 8, !tbaa !63
+  store i64 107, ptr %26, align 8, !tbaa !64
   %95 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %28, ptr noundef nonnull align 8 dereferenceable(8) %26, i64 noundef 0)
   store ptr %95, ptr %28, align 8, !tbaa !36
-  %96 = load i64, ptr %26, align 8, !tbaa !63
+  %96 = load i64, ptr %26, align 8, !tbaa !64
   store i64 %96, ptr %94, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(107) %95, ptr noundef nonnull align 1 dereferenceable(107) @.str.5, i64 107, i1 false)
   %97 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %28, i64 0, i32 1
@@ -15223,7 +15223,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %100 = load ptr, ptr %28, align 8, !tbaa !36
   %101 = load i64, ptr %97, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %25) #23
-  store i64 %101, ptr %25, align 8, !tbaa !63
+  store i64 %101, ptr %25, align 8, !tbaa !64
   %102 = icmp ugt i64 %101, 15
   br i1 %102, label %103, label %107
 
@@ -15233,7 +15233,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
 
 105:                                              ; preds = %103
   store ptr %104, ptr %27, align 8, !tbaa !36
-  %106 = load i64, ptr %25, align 8, !tbaa !63
+  %106 = load i64, ptr %25, align 8, !tbaa !64
   store i64 %106, ptr %99, align 8, !tbaa !48
   br label %107
 
@@ -15254,7 +15254,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   br label %112
 
 112:                                              ; preds = %111, %109, %107
-  %113 = load i64, ptr %25, align 8, !tbaa !63
+  %113 = load i64, ptr %25, align 8, !tbaa !64
   %114 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %27, i64 0, i32 1
   store i64 %113, ptr %114, align 8, !tbaa !47
   %115 = load ptr, ptr %27, align 8, !tbaa !36
@@ -15262,7 +15262,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   store i8 0, ptr %116, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %25) #23
   %117 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %27, i64 0, i32 1
-  store i32 26, ptr %117, align 8, !tbaa !164
+  store i32 26, ptr %117, align 8, !tbaa !165
   %118 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %119 unwind label %137
 
@@ -15341,10 +15341,10 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %150 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %24, i64 0, i32 2
   store ptr %150, ptr %24, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %22) #23
-  store i64 107, ptr %22, align 8, !tbaa !63
+  store i64 107, ptr %22, align 8, !tbaa !64
   %151 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %24, ptr noundef nonnull align 8 dereferenceable(8) %22, i64 noundef 0)
   store ptr %151, ptr %24, align 8, !tbaa !36
-  %152 = load i64, ptr %22, align 8, !tbaa !63
+  %152 = load i64, ptr %22, align 8, !tbaa !64
   store i64 %152, ptr %150, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(107) %151, ptr noundef nonnull align 1 dereferenceable(107) @.str.5, i64 107, i1 false)
   %153 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %24, i64 0, i32 1
@@ -15357,7 +15357,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %156 = load ptr, ptr %24, align 8, !tbaa !36
   %157 = load i64, ptr %153, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %21) #23
-  store i64 %157, ptr %21, align 8, !tbaa !63
+  store i64 %157, ptr %21, align 8, !tbaa !64
   %158 = icmp ugt i64 %157, 15
   br i1 %158, label %159, label %163
 
@@ -15367,7 +15367,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
 
 161:                                              ; preds = %159
   store ptr %160, ptr %23, align 8, !tbaa !36
-  %162 = load i64, ptr %21, align 8, !tbaa !63
+  %162 = load i64, ptr %21, align 8, !tbaa !64
   store i64 %162, ptr %155, align 8, !tbaa !48
   br label %163
 
@@ -15388,7 +15388,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   br label %168
 
 168:                                              ; preds = %167, %165, %163
-  %169 = load i64, ptr %21, align 8, !tbaa !63
+  %169 = load i64, ptr %21, align 8, !tbaa !64
   %170 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %23, i64 0, i32 1
   store i64 %169, ptr %170, align 8, !tbaa !47
   %171 = load ptr, ptr %23, align 8, !tbaa !36
@@ -15396,7 +15396,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   store i8 0, ptr %172, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %21) #23
   %173 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %23, i64 0, i32 1
-  store i32 34, ptr %173, align 8, !tbaa !164
+  store i32 34, ptr %173, align 8, !tbaa !165
   %174 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %175 unwind label %193
 
@@ -15475,10 +15475,10 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %206 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %20, i64 0, i32 2
   store ptr %206, ptr %20, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %18) #23
-  store i64 107, ptr %18, align 8, !tbaa !63
+  store i64 107, ptr %18, align 8, !tbaa !64
   %207 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %20, ptr noundef nonnull align 8 dereferenceable(8) %18, i64 noundef 0)
   store ptr %207, ptr %20, align 8, !tbaa !36
-  %208 = load i64, ptr %18, align 8, !tbaa !63
+  %208 = load i64, ptr %18, align 8, !tbaa !64
   store i64 %208, ptr %206, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(107) %207, ptr noundef nonnull align 1 dereferenceable(107) @.str.5, i64 107, i1 false)
   %209 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %20, i64 0, i32 1
@@ -15491,7 +15491,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %212 = load ptr, ptr %20, align 8, !tbaa !36
   %213 = load i64, ptr %209, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %17) #23
-  store i64 %213, ptr %17, align 8, !tbaa !63
+  store i64 %213, ptr %17, align 8, !tbaa !64
   %214 = icmp ugt i64 %213, 15
   br i1 %214, label %215, label %219
 
@@ -15501,7 +15501,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
 
 217:                                              ; preds = %215
   store ptr %216, ptr %19, align 8, !tbaa !36
-  %218 = load i64, ptr %17, align 8, !tbaa !63
+  %218 = load i64, ptr %17, align 8, !tbaa !64
   store i64 %218, ptr %211, align 8, !tbaa !48
   br label %219
 
@@ -15522,7 +15522,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   br label %224
 
 224:                                              ; preds = %223, %221, %219
-  %225 = load i64, ptr %17, align 8, !tbaa !63
+  %225 = load i64, ptr %17, align 8, !tbaa !64
   %226 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %19, i64 0, i32 1
   store i64 %225, ptr %226, align 8, !tbaa !47
   %227 = load ptr, ptr %19, align 8, !tbaa !36
@@ -15530,7 +15530,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   store i8 0, ptr %228, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %17) #23
   %229 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %19, i64 0, i32 1
-  store i32 65, ptr %229, align 8, !tbaa !164
+  store i32 65, ptr %229, align 8, !tbaa !165
   %230 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %231 unwind label %249
 
@@ -15609,10 +15609,10 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %262 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %16, i64 0, i32 2
   store ptr %262, ptr %16, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %14) #23
-  store i64 107, ptr %14, align 8, !tbaa !63
+  store i64 107, ptr %14, align 8, !tbaa !64
   %263 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %16, ptr noundef nonnull align 8 dereferenceable(8) %14, i64 noundef 0)
   store ptr %263, ptr %16, align 8, !tbaa !36
-  %264 = load i64, ptr %14, align 8, !tbaa !63
+  %264 = load i64, ptr %14, align 8, !tbaa !64
   store i64 %264, ptr %262, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(107) %263, ptr noundef nonnull align 1 dereferenceable(107) @.str.5, i64 107, i1 false)
   %265 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %16, i64 0, i32 1
@@ -15625,7 +15625,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %268 = load ptr, ptr %16, align 8, !tbaa !36
   %269 = load i64, ptr %265, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %13) #23
-  store i64 %269, ptr %13, align 8, !tbaa !63
+  store i64 %269, ptr %13, align 8, !tbaa !64
   %270 = icmp ugt i64 %269, 15
   br i1 %270, label %271, label %275
 
@@ -15635,7 +15635,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
 
 273:                                              ; preds = %271
   store ptr %272, ptr %15, align 8, !tbaa !36
-  %274 = load i64, ptr %13, align 8, !tbaa !63
+  %274 = load i64, ptr %13, align 8, !tbaa !64
   store i64 %274, ptr %267, align 8, !tbaa !48
   br label %275
 
@@ -15656,7 +15656,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   br label %280
 
 280:                                              ; preds = %279, %277, %275
-  %281 = load i64, ptr %13, align 8, !tbaa !63
+  %281 = load i64, ptr %13, align 8, !tbaa !64
   %282 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %15, i64 0, i32 1
   store i64 %281, ptr %282, align 8, !tbaa !47
   %283 = load ptr, ptr %15, align 8, !tbaa !36
@@ -15664,7 +15664,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   store i8 0, ptr %284, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #23
   %285 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %15, i64 0, i32 1
-  store i32 81, ptr %285, align 8, !tbaa !164
+  store i32 81, ptr %285, align 8, !tbaa !165
   %286 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %287 unwind label %305
 
@@ -15743,10 +15743,10 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %318 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %12, i64 0, i32 2
   store ptr %318, ptr %12, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #23
-  store i64 107, ptr %10, align 8, !tbaa !63
+  store i64 107, ptr %10, align 8, !tbaa !64
   %319 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %12, ptr noundef nonnull align 8 dereferenceable(8) %10, i64 noundef 0)
   store ptr %319, ptr %12, align 8, !tbaa !36
-  %320 = load i64, ptr %10, align 8, !tbaa !63
+  %320 = load i64, ptr %10, align 8, !tbaa !64
   store i64 %320, ptr %318, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(107) %319, ptr noundef nonnull align 1 dereferenceable(107) @.str.5, i64 107, i1 false)
   %321 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %12, i64 0, i32 1
@@ -15759,7 +15759,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %324 = load ptr, ptr %12, align 8, !tbaa !36
   %325 = load i64, ptr %321, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #23
-  store i64 %325, ptr %9, align 8, !tbaa !63
+  store i64 %325, ptr %9, align 8, !tbaa !64
   %326 = icmp ugt i64 %325, 15
   br i1 %326, label %327, label %331
 
@@ -15769,7 +15769,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
 
 329:                                              ; preds = %327
   store ptr %328, ptr %11, align 8, !tbaa !36
-  %330 = load i64, ptr %9, align 8, !tbaa !63
+  %330 = load i64, ptr %9, align 8, !tbaa !64
   store i64 %330, ptr %323, align 8, !tbaa !48
   br label %331
 
@@ -15790,7 +15790,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   br label %336
 
 336:                                              ; preds = %335, %333, %331
-  %337 = load i64, ptr %9, align 8, !tbaa !63
+  %337 = load i64, ptr %9, align 8, !tbaa !64
   %338 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %11, i64 0, i32 1
   store i64 %337, ptr %338, align 8, !tbaa !47
   %339 = load ptr, ptr %11, align 8, !tbaa !36
@@ -15798,7 +15798,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   store i8 0, ptr %340, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #23
   %341 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %11, i64 0, i32 1
-  store i32 99, ptr %341, align 8, !tbaa !164
+  store i32 99, ptr %341, align 8, !tbaa !165
   %342 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %343 unwind label %361
 
@@ -15877,10 +15877,10 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %374 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %8, i64 0, i32 2
   store ptr %374, ptr %8, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #23
-  store i64 107, ptr %6, align 8, !tbaa !63
+  store i64 107, ptr %6, align 8, !tbaa !64
   %375 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %8, ptr noundef nonnull align 8 dereferenceable(8) %6, i64 noundef 0)
   store ptr %375, ptr %8, align 8, !tbaa !36
-  %376 = load i64, ptr %6, align 8, !tbaa !63
+  %376 = load i64, ptr %6, align 8, !tbaa !64
   store i64 %376, ptr %374, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(107) %375, ptr noundef nonnull align 1 dereferenceable(107) @.str.5, i64 107, i1 false)
   %377 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %8, i64 0, i32 1
@@ -15893,7 +15893,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %380 = load ptr, ptr %8, align 8, !tbaa !36
   %381 = load i64, ptr %377, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #23
-  store i64 %381, ptr %5, align 8, !tbaa !63
+  store i64 %381, ptr %5, align 8, !tbaa !64
   %382 = icmp ugt i64 %381, 15
   br i1 %382, label %383, label %387
 
@@ -15903,7 +15903,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
 
 385:                                              ; preds = %383
   store ptr %384, ptr %7, align 8, !tbaa !36
-  %386 = load i64, ptr %5, align 8, !tbaa !63
+  %386 = load i64, ptr %5, align 8, !tbaa !64
   store i64 %386, ptr %379, align 8, !tbaa !48
   br label %387
 
@@ -15924,7 +15924,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   br label %392
 
 392:                                              ; preds = %391, %389, %387
-  %393 = load i64, ptr %5, align 8, !tbaa !63
+  %393 = load i64, ptr %5, align 8, !tbaa !64
   %394 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 1
   store i64 %393, ptr %394, align 8, !tbaa !47
   %395 = load ptr, ptr %7, align 8, !tbaa !36
@@ -15932,7 +15932,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   store i8 0, ptr %396, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #23
   %397 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %7, i64 0, i32 1
-  store i32 117, ptr %397, align 8, !tbaa !164
+  store i32 117, ptr %397, align 8, !tbaa !165
   %398 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %399 unwind label %417
 
@@ -16011,10 +16011,10 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %430 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
   store ptr %430, ptr %4, align 8, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #23
-  store i64 107, ptr %2, align 8, !tbaa !63
+  store i64 107, ptr %2, align 8, !tbaa !64
   %431 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
   store ptr %431, ptr %4, align 8, !tbaa !36
-  %432 = load i64, ptr %2, align 8, !tbaa !63
+  %432 = load i64, ptr %2, align 8, !tbaa !64
   store i64 %432, ptr %430, align 8, !tbaa !48
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(107) %431, ptr noundef nonnull align 1 dereferenceable(107) @.str.5, i64 107, i1 false)
   %433 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
@@ -16027,7 +16027,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   %436 = load ptr, ptr %4, align 8, !tbaa !36
   %437 = load i64, ptr %433, align 8, !tbaa !47
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #23
-  store i64 %437, ptr %1, align 8, !tbaa !63
+  store i64 %437, ptr %1, align 8, !tbaa !64
   %438 = icmp ugt i64 %437, 15
   br i1 %438, label %439, label %443
 
@@ -16037,7 +16037,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
 
 441:                                              ; preds = %439
   store ptr %440, ptr %3, align 8, !tbaa !36
-  %442 = load i64, ptr %1, align 8, !tbaa !63
+  %442 = load i64, ptr %1, align 8, !tbaa !64
   store i64 %442, ptr %435, align 8, !tbaa !48
   br label %443
 
@@ -16058,7 +16058,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   br label %448
 
 448:                                              ; preds = %447, %445, %443
-  %449 = load i64, ptr %1, align 8, !tbaa !63
+  %449 = load i64, ptr %1, align 8, !tbaa !64
   %450 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 1
   store i64 %449, ptr %450, align 8, !tbaa !47
   %451 = load ptr, ptr %3, align 8, !tbaa !36
@@ -16066,7 +16066,7 @@ define internal void @_GLOBAL__sub_I_perf_counters_gtest.cc() #10 section ".text
   store i8 0, ptr %452, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #23
   %453 = getelementptr inbounds %"struct.testing::internal::CodeLocation", ptr %3, i64 0, i32 1
-  store i32 172, ptr %453, align 8, !tbaa !164
+  store i32 172, ptr %453, align 8, !tbaa !165
   %454 = invoke noundef ptr @_ZN7testing8internal13GetTestTypeIdEv()
           to label %455 unwind label %473
 
@@ -16235,118 +16235,119 @@ attributes #27 = { noreturn }
 !48 = !{!11, !11, i64 0}
 !49 = !{!50, !14, i64 40}
 !50 = !{!"_ZTSSt15basic_streambufIcSt11char_traitsIcEE", !14, i64 8, !14, i64 16, !14, i64 24, !14, i64 32, !14, i64 40, !14, i64 48, !17, i64 56}
-!51 = !{!50, !14, i64 32}
-!52 = !{!53, !10, i64 8}
-!53 = !{!"_ZTSSi", !10, i64 8}
-!54 = !{!34, !14, i64 0}
-!55 = !{!56, !14, i64 0}
-!56 = !{!"_ZTSNSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
-!57 = !{!56, !14, i64 16}
-!58 = !{!56, !14, i64 8}
-!59 = distinct !{!59, !60}
-!60 = !{!"llvm.loop.mustprogress"}
-!61 = !{!62, !14, i64 0}
-!62 = !{!"_ZTSNSt12_Vector_baseIiSaIiEE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
-!63 = !{!10, !10, i64 0}
-!64 = distinct !{!64, !60}
-!65 = !{!66, !10, i64 32}
-!66 = !{!"_ZTSN9benchmark8internal17PerfCounterValuesE", !67, i64 0, !10, i64 32}
-!67 = !{!"_ZTSSt5arrayImLm4EE", !11, i64 0}
-!68 = !{!"branch_weights", i32 1, i32 1048575}
-!69 = !{!70, !14, i64 0}
-!70 = !{!"_ZTSN9benchmark8internal7LogTypeE", !14, i64 0}
-!71 = !{!16, !16, i64 0}
-!72 = !{!73, !14, i64 0}
-!73 = !{!"_ZTSN9benchmark8internal12CheckHandlerE", !14, i64 0}
-!74 = !{!75, !14, i64 240}
-!75 = !{!"_ZTSSt9basic_iosIcSt11char_traitsIcEE", !9, i64 0, !14, i64 216, !11, i64 224, !19, i64 225, !14, i64 232, !14, i64 240, !14, i64 248, !14, i64 256}
-!76 = !{!77, !11, i64 56}
-!77 = !{!"_ZTSSt5ctypeIcE", !78, i64 0, !14, i64 16, !19, i64 24, !14, i64 32, !14, i64 40, !14, i64 48, !11, i64 56, !11, i64 57, !11, i64 313, !11, i64 569}
-!78 = !{!"_ZTSNSt6locale5facetE", !16, i64 8}
-!79 = !{!80}
-!80 = distinct !{!80, !81, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
-!81 = distinct !{!81, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv"}
-!82 = !{!83}
-!83 = distinct !{!83, !84, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
-!84 = distinct !{!84, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv"}
-!85 = !{!83, !80}
-!86 = !{!87}
-!87 = distinct !{!87, !88, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
-!88 = distinct !{!88, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv"}
-!89 = !{!90}
-!90 = distinct !{!90, !91, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
-!91 = distinct !{!91, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv"}
-!92 = !{!90, !87}
-!93 = !{!94, !14, i64 0}
-!94 = !{!"_ZTSNSt12_Vector_baseIN9benchmark8internal12PerfCountersESaIS2_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
-!95 = !{!94, !14, i64 8}
-!96 = !{!94, !14, i64 16}
-!97 = !{!62, !14, i64 16}
-!98 = distinct !{!98, !60}
-!99 = distinct !{!99, !60}
-!100 = !{!101}
-!101 = distinct !{!101, !102, !"_ZSt19__relocate_object_aIN9benchmark8internal12PerfCountersES2_SaIS2_EEvPT_PT0_RT1_: argument 0"}
-!102 = distinct !{!102, !"_ZSt19__relocate_object_aIN9benchmark8internal12PerfCountersES2_SaIS2_EEvPT_PT0_RT1_"}
-!103 = !{!104}
-!104 = distinct !{!104, !102, !"_ZSt19__relocate_object_aIN9benchmark8internal12PerfCountersES2_SaIS2_EEvPT_PT0_RT1_: argument 1"}
-!105 = distinct !{!105, !60}
-!106 = !{!107, !14, i64 0}
-!107 = !{!"_ZTSNSt12_Vector_baseIN9benchmark8internal23PerfCountersMeasurementESaIS2_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
-!108 = !{!107, !14, i64 8}
-!109 = !{!107, !14, i64 16}
-!110 = distinct !{!110, !60}
+!51 = !{!50, !14, i64 24}
+!52 = !{!50, !14, i64 32}
+!53 = !{!54, !10, i64 8}
+!54 = !{!"_ZTSSi", !10, i64 8}
+!55 = !{!34, !14, i64 0}
+!56 = !{!57, !14, i64 0}
+!57 = !{!"_ZTSNSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
+!58 = !{!57, !14, i64 16}
+!59 = !{!57, !14, i64 8}
+!60 = distinct !{!60, !61}
+!61 = !{!"llvm.loop.mustprogress"}
+!62 = !{!63, !14, i64 0}
+!63 = !{!"_ZTSNSt12_Vector_baseIiSaIiEE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
+!64 = !{!10, !10, i64 0}
+!65 = distinct !{!65, !61}
+!66 = !{!67, !10, i64 32}
+!67 = !{!"_ZTSN9benchmark8internal17PerfCounterValuesE", !68, i64 0, !10, i64 32}
+!68 = !{!"_ZTSSt5arrayImLm4EE", !11, i64 0}
+!69 = !{!"branch_weights", i32 1, i32 1048575}
+!70 = !{!71, !14, i64 0}
+!71 = !{!"_ZTSN9benchmark8internal7LogTypeE", !14, i64 0}
+!72 = !{!16, !16, i64 0}
+!73 = !{!74, !14, i64 0}
+!74 = !{!"_ZTSN9benchmark8internal12CheckHandlerE", !14, i64 0}
+!75 = !{!76, !14, i64 240}
+!76 = !{!"_ZTSSt9basic_iosIcSt11char_traitsIcEE", !9, i64 0, !14, i64 216, !11, i64 224, !19, i64 225, !14, i64 232, !14, i64 240, !14, i64 248, !14, i64 256}
+!77 = !{!78, !11, i64 56}
+!78 = !{!"_ZTSSt5ctypeIcE", !79, i64 0, !14, i64 16, !19, i64 24, !14, i64 32, !14, i64 40, !14, i64 48, !11, i64 56, !11, i64 57, !11, i64 313, !11, i64 569}
+!79 = !{!"_ZTSNSt6locale5facetE", !16, i64 8}
+!80 = !{!81}
+!81 = distinct !{!81, !82, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
+!82 = distinct !{!82, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv"}
+!83 = !{!84}
+!84 = distinct !{!84, !85, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
+!85 = distinct !{!85, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv"}
+!86 = !{!84, !81}
+!87 = !{!88}
+!88 = distinct !{!88, !89, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
+!89 = distinct !{!89, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv"}
+!90 = !{!91}
+!91 = distinct !{!91, !92, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
+!92 = distinct !{!92, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv"}
+!93 = !{!91, !88}
+!94 = !{!95, !14, i64 0}
+!95 = !{!"_ZTSNSt12_Vector_baseIN9benchmark8internal12PerfCountersESaIS2_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
+!96 = !{!95, !14, i64 8}
+!97 = !{!95, !14, i64 16}
+!98 = !{!63, !14, i64 16}
+!99 = distinct !{!99, !61}
+!100 = distinct !{!100, !61}
+!101 = !{!102}
+!102 = distinct !{!102, !103, !"_ZSt19__relocate_object_aIN9benchmark8internal12PerfCountersES2_SaIS2_EEvPT_PT0_RT1_: argument 0"}
+!103 = distinct !{!103, !"_ZSt19__relocate_object_aIN9benchmark8internal12PerfCountersES2_SaIS2_EEvPT_PT0_RT1_"}
+!104 = !{!105}
+!105 = distinct !{!105, !103, !"_ZSt19__relocate_object_aIN9benchmark8internal12PerfCountersES2_SaIS2_EEvPT_PT0_RT1_: argument 1"}
+!106 = distinct !{!106, !61}
+!107 = !{!108, !14, i64 0}
+!108 = !{!"_ZTSNSt12_Vector_baseIN9benchmark8internal23PerfCountersMeasurementESaIS2_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
+!109 = !{!108, !14, i64 8}
+!110 = !{!108, !14, i64 16}
 !111 = !{!112, !19, i64 0}
-!112 = !{!"_ZTSN9benchmark8internal23PerfCountersMeasurementE", !19, i64 0, !66, i64 8, !66, i64 48}
-!113 = !{!114, !115, i64 32}
-!114 = !{!"_ZTSSt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdE", !37, i64 0, !115, i64 32}
-!115 = !{!"double", !11, i64 0}
-!116 = !{!117, !14, i64 8}
-!117 = !{!"_ZTSNSt12_Vector_baseISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdESaIS7_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
-!118 = !{!117, !14, i64 16}
-!119 = distinct !{!119, !60}
-!120 = !{!117, !14, i64 0}
-!121 = distinct !{!121, !60}
-!122 = distinct !{!122, !60}
-!123 = !{!124}
-!124 = distinct !{!124, !125, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_: argument 0"}
-!125 = distinct !{!125, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_"}
-!126 = !{i64 0, i64 1, !18, i64 8, i64 32, !48, i64 40, i64 8, !63, i64 48, i64 32, !48, i64 80, i64 8, !63}
-!127 = !{!124, !128}
-!128 = distinct !{!128, !125, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_: argument 1"}
-!129 = distinct !{!129, !60}
-!130 = !{!131}
-!131 = distinct !{!131, !132, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_: argument 0"}
-!132 = distinct !{!132, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_"}
-!133 = !{!131, !134}
-!134 = distinct !{!134, !132, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_: argument 1"}
-!135 = !{!136}
-!136 = distinct !{!136, !137, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_: argument 0"}
-!137 = distinct !{!137, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_"}
-!138 = !{!139}
-!139 = distinct !{!139, !137, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_: argument 1"}
-!140 = distinct !{!140, !60}
-!141 = !{!142}
-!142 = distinct !{!142, !143, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_: argument 0"}
-!143 = distinct !{!143, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_"}
-!144 = !{!145}
-!145 = distinct !{!145, !143, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_: argument 1"}
-!146 = !{!115, !115, i64 0}
-!147 = !{!148}
-!148 = distinct !{!148, !149, !"_ZN7testing8internal11CmpHelperGEIddEENS_15AssertionResultEPKcS4_RKT_RKT0_: argument 0"}
-!149 = distinct !{!149, !"_ZN7testing8internal11CmpHelperGEIddEENS_15AssertionResultEPKcS4_RKT_RKT0_"}
-!150 = !{!151, !14, i64 0}
-!151 = !{!"_ZTSNSt12_Vector_baseISt6threadSaIS0_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
-!152 = !{!153, !10, i64 0}
-!153 = !{!"_ZTSNSt6thread2idE", !10, i64 0}
-!154 = !{!151, !14, i64 8}
-!155 = !{i64 0, i64 8, !63}
-!156 = distinct !{!156, !60}
-!157 = !{!158}
-!158 = distinct !{!158, !159, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
-!159 = distinct !{!159, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv"}
-!160 = !{!161}
-!161 = distinct !{!161, !162, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
-!162 = distinct !{!162, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv"}
-!163 = !{!161, !158}
-!164 = !{!165, !16, i64 32}
-!165 = !{!"_ZTSN7testing8internal12CodeLocationE", !37, i64 0, !16, i64 32}
+!112 = !{!"_ZTSN9benchmark8internal23PerfCountersMeasurementE", !19, i64 0, !67, i64 8, !67, i64 48}
+!113 = distinct !{!113, !61}
+!114 = !{!115, !116, i64 32}
+!115 = !{!"_ZTSSt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdE", !37, i64 0, !116, i64 32}
+!116 = !{!"double", !11, i64 0}
+!117 = !{!118, !14, i64 8}
+!118 = !{!"_ZTSNSt12_Vector_baseISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdESaIS7_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
+!119 = !{!118, !14, i64 16}
+!120 = distinct !{!120, !61}
+!121 = !{!118, !14, i64 0}
+!122 = distinct !{!122, !61}
+!123 = distinct !{!123, !61}
+!124 = !{!125}
+!125 = distinct !{!125, !126, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_: argument 0"}
+!126 = distinct !{!126, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_"}
+!127 = !{i64 0, i64 1, !18, i64 8, i64 32, !48, i64 40, i64 8, !64, i64 48, i64 32, !48, i64 80, i64 8, !64}
+!128 = !{!125, !129}
+!129 = distinct !{!129, !126, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_: argument 1"}
+!130 = distinct !{!130, !61}
+!131 = !{!132}
+!132 = distinct !{!132, !133, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_: argument 0"}
+!133 = distinct !{!133, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_"}
+!134 = !{!132, !135}
+!135 = distinct !{!135, !133, !"_ZSt19__relocate_object_aIN9benchmark8internal23PerfCountersMeasurementES2_SaIS2_EEvPT_PT0_RT1_: argument 1"}
+!136 = !{!137}
+!137 = distinct !{!137, !138, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_: argument 0"}
+!138 = distinct !{!138, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_"}
+!139 = !{!140}
+!140 = distinct !{!140, !138, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_: argument 1"}
+!141 = distinct !{!141, !61}
+!142 = !{!143}
+!143 = distinct !{!143, !144, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_: argument 0"}
+!144 = distinct !{!144, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_"}
+!145 = !{!146}
+!146 = distinct !{!146, !144, !"_ZSt19__relocate_object_aISt4pairINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEdES7_SaIS7_EEvPT_PT0_RT1_: argument 1"}
+!147 = !{!116, !116, i64 0}
+!148 = !{!149}
+!149 = distinct !{!149, !150, !"_ZN7testing8internal11CmpHelperGEIddEENS_15AssertionResultEPKcS4_RKT_RKT0_: argument 0"}
+!150 = distinct !{!150, !"_ZN7testing8internal11CmpHelperGEIddEENS_15AssertionResultEPKcS4_RKT_RKT0_"}
+!151 = !{!152, !14, i64 0}
+!152 = !{!"_ZTSNSt12_Vector_baseISt6threadSaIS0_EE17_Vector_impl_dataE", !14, i64 0, !14, i64 8, !14, i64 16}
+!153 = !{!154, !10, i64 0}
+!154 = !{!"_ZTSNSt6thread2idE", !10, i64 0}
+!155 = !{!152, !14, i64 8}
+!156 = !{i64 0, i64 8, !64}
+!157 = distinct !{!157, !61}
+!158 = !{!159}
+!159 = distinct !{!159, !160, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
+!160 = distinct !{!160, !"_ZNKSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEE3strEv"}
+!161 = !{!162}
+!162 = distinct !{!162, !163, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv: argument 0"}
+!163 = distinct !{!163, !"_ZNKSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEE3strEv"}
+!164 = !{!162, !159}
+!165 = !{!166, !16, i64 32}
+!166 = !{!"_ZTSN7testing8internal12CodeLocationE", !37, i64 0, !16, i64 32}

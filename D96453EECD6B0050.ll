@@ -799,12 +799,12 @@ define dso_local i32 @continue_show_update(ptr noundef %0) #0 {
   store ptr @continue_show, ptr %74, align 8, !tbaa !29
   br label %77
 
-75:                                               ; preds = %68, %58
+75:                                               ; preds = %58, %68
   %76 = tail call i32 @show_proceed(ptr noundef nonnull %0)
   br label %77
 
 77:                                               ; preds = %1, %5, %73, %52, %75
-  %78 = phi i32 [ %76, %75 ], [ 2, %73 ], [ -14, %52 ], [ -23, %1 ], [ %15, %5 ]
+  %78 = phi i32 [ %76, %75 ], [ -14, %52 ], [ 2, %73 ], [ -23, %1 ], [ %15, %5 ]
   ret i32 %78
 }
 
@@ -957,8 +957,8 @@ define dso_local i32 @show_proceed(ptr noundef %0) local_unnamed_addr #0 {
   %28 = getelementptr inbounds %struct.gs_show_enum_s, ptr %0, i64 0, i32 22
   br label %29
 
-29:                                               ; preds = %237, %1
-  %30 = phi ptr [ null, %1 ], [ %132, %237 ]
+29:                                               ; preds = %233, %1
+  %30 = phi ptr [ null, %1 ], [ %132, %233 ]
   %31 = load i32, ptr %6, align 8, !tbaa !36
   %32 = icmp eq i32 %31, 0
   br i1 %32, label %121, label %33
@@ -1084,7 +1084,7 @@ define dso_local i32 @show_proceed(ptr noundef %0) local_unnamed_addr #0 {
   store i8 0, ptr %115, align 1, !tbaa !77
   br label %116
 
-116:                                              ; preds = %109, %100, %92
+116:                                              ; preds = %100, %92, %109
   %117 = load i32, ptr %7, align 4, !tbaa !28
   %118 = add i32 %117, 1
   store i32 %118, ptr %7, align 4, !tbaa !28
@@ -1251,23 +1251,23 @@ define dso_local i32 @show_proceed(ptr noundef %0) local_unnamed_addr #0 {
   store i8 0, ptr %230, align 1, !tbaa !77
   %231 = load i32, ptr %17, align 4, !tbaa !25
   %232 = icmp eq i32 %231, 0
-  br i1 %232, label %237, label %233
+  br i1 %232, label %233, label %234
 
-233:                                              ; preds = %225
-  %234 = load i32, ptr %7, align 4, !tbaa !28
-  %235 = load i32, ptr %8, align 8, !tbaa !5
-  %236 = icmp ult i32 %234, %235
-  br i1 %236, label %238, label %237
-
-237:                                              ; preds = %233, %225
+233:                                              ; preds = %225, %234
   br label %29
 
-238:                                              ; preds = %233, %100
+234:                                              ; preds = %225
+  %235 = load i32, ptr %7, align 4, !tbaa !28
+  %236 = load i32, ptr %8, align 8, !tbaa !5
+  %237 = icmp ult i32 %235, %236
+  br i1 %237, label %238, label %233
+
+238:                                              ; preds = %234, %100
   store ptr @continue_show, ptr %26, align 8, !tbaa !29
   br label %239
 
-239:                                              ; preds = %219, %179, %182, %155, %135, %177, %130, %121, %37, %116, %51, %86, %104, %238
-  %240 = phi i32 [ 2, %238 ], [ 0, %116 ], [ %52, %51 ], [ -14, %86 ], [ -14, %104 ], [ 0, %37 ], [ -14, %219 ], [ %190, %182 ], [ -23, %179 ], [ %175, %155 ], [ -14, %135 ], [ 1, %177 ], [ %133, %130 ], [ 0, %121 ]
+239:                                              ; preds = %179, %182, %219, %155, %135, %177, %130, %121, %37, %116, %51, %86, %104, %238
+  %240 = phi i32 [ 2, %238 ], [ -14, %86 ], [ -14, %104 ], [ 0, %116 ], [ %52, %51 ], [ 0, %37 ], [ %190, %182 ], [ -23, %179 ], [ %175, %155 ], [ -14, %219 ], [ -14, %135 ], [ 1, %177 ], [ %133, %130 ], [ 0, %121 ]
   ret i32 %240
 }
 
@@ -1339,8 +1339,8 @@ define dso_local i32 @continue_stringwidth_update(ptr noundef %0) #0 {
   %29 = tail call i32 @stringwidth_proceed(ptr noundef nonnull %0)
   br label %30
 
-30:                                               ; preds = %1, %14, %22
-  %31 = phi i32 [ %29, %22 ], [ -14, %14 ], [ -23, %1 ]
+30:                                               ; preds = %14, %1, %22
+  %31 = phi i32 [ %29, %22 ], [ -23, %1 ], [ -14, %14 ]
   ret i32 %31
 }
 
@@ -1428,7 +1428,7 @@ define dso_local i32 @stringwidth_proceed(ptr noundef %0) local_unnamed_addr #0 
   %21 = getelementptr inbounds %struct.gs_show_enum_s, ptr %0, i64 0, i32 22
   br label %34
 
-22:                                               ; preds = %59, %1
+22:                                               ; preds = %117, %59, %1
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #11
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #11
   %23 = call i32 (ptr, ptr, ...) @gs_currentpoint(ptr noundef %4, ptr noundef nonnull %2) #11
@@ -1445,17 +1445,17 @@ define dso_local i32 @stringwidth_proceed(ptr noundef %0) local_unnamed_addr #0 
   store <2 x float> %33, ptr %27, align 8, !tbaa !39
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #11
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #11
-  br label %116
+  br label %127
 
-34:                                               ; preds = %13, %59
-  %35 = phi i32 [ %9, %13 ], [ %67, %59 ]
-  %36 = phi ptr [ null, %13 ], [ %61, %59 ]
+34:                                               ; preds = %69, %13
+  %35 = phi i32 [ %9, %13 ], [ %70, %69 ]
+  %36 = phi ptr [ null, %13 ], [ %71, %69 ]
   %37 = zext i32 %35 to i64
   %38 = getelementptr inbounds i8, ptr %6, i64 %37
   %39 = load i8, ptr %38, align 1, !tbaa !61
   %40 = load i32, ptr %14, align 8, !tbaa !36
   %41 = icmp eq i32 %40, 0
-  br i1 %41, label %71, label %42
+  br i1 %41, label %72, label %42
 
 42:                                               ; preds = %34
   %43 = icmp eq ptr %36, null
@@ -1470,7 +1470,7 @@ define dso_local i32 @stringwidth_proceed(ptr noundef %0) local_unnamed_addr #0 
   %48 = zext i8 %39 to i32
   %49 = tail call ptr @gx_lookup_cached_char(ptr noundef %4, ptr noundef %47, i32 noundef %48) #11
   %50 = icmp eq ptr %49, null
-  br i1 %50, label %71, label %51
+  br i1 %50, label %72, label %51
 
 51:                                               ; preds = %46
   %52 = getelementptr inbounds %struct.cached_char_s, ptr %49, i64 0, i32 6
@@ -1482,93 +1482,111 @@ define dso_local i32 @stringwidth_proceed(ptr noundef %0) local_unnamed_addr #0 
   %56 = getelementptr inbounds %struct.gx_path_s, ptr %55, i64 0, i32 10
   %57 = load i8, ptr %56, align 8, !tbaa !74
   %58 = icmp eq i8 %57, 0
-  br i1 %58, label %116, label %59
+  br i1 %58, label %127, label %59
 
-59:                                               ; preds = %51, %108
-  %60 = phi ptr [ %112, %108 ], [ %55, %51 ]
-  %61 = phi ptr [ %72, %108 ], [ %47, %51 ]
-  %62 = getelementptr inbounds %struct.gx_path_s, ptr %60, i64 0, i32 9
-  %63 = load <2 x i64>, ptr %15, align 8, !tbaa !35
-  %64 = load <2 x i64>, ptr %62, align 8, !tbaa !35
-  %65 = add nsw <2 x i64> %64, %63
-  store <2 x i64> %65, ptr %62, align 8, !tbaa !35
-  %66 = getelementptr inbounds %struct.gx_path_s, ptr %60, i64 0, i32 11
-  store i8 0, ptr %66, align 1, !tbaa !77
-  %67 = load i32, ptr %7, align 4, !tbaa !28
-  %68 = add i32 %67, 1
-  store i32 %68, ptr %7, align 4, !tbaa !28
-  %69 = load i32, ptr %8, align 8, !tbaa !5
-  %70 = icmp eq i32 %67, %69
-  br i1 %70, label %22, label %34
+59:                                               ; preds = %51
+  %60 = getelementptr inbounds %struct.gx_path_s, ptr %55, i64 0, i32 9
+  %61 = load <2 x i64>, ptr %15, align 8, !tbaa !35
+  %62 = load <2 x i64>, ptr %60, align 8, !tbaa !35
+  %63 = add nsw <2 x i64> %62, %61
+  store <2 x i64> %63, ptr %60, align 8, !tbaa !35
+  %64 = getelementptr inbounds %struct.gx_path_s, ptr %55, i64 0, i32 11
+  store i8 0, ptr %64, align 1, !tbaa !77
+  %65 = load i32, ptr %7, align 4, !tbaa !28
+  %66 = add i32 %65, 1
+  store i32 %66, ptr %7, align 4, !tbaa !28
+  %67 = load i32, ptr %8, align 8, !tbaa !5
+  %68 = icmp eq i32 %65, %67
+  br i1 %68, label %22, label %69
 
-71:                                               ; preds = %46, %34
-  %72 = phi ptr [ %36, %34 ], [ %47, %46 ]
-  %73 = tail call i32 @gs_gsave(ptr noundef %4) #11
-  %74 = icmp slt i32 %73, 0
-  br i1 %74, label %116, label %75
+69:                                               ; preds = %59, %117
+  %70 = phi i32 [ %65, %59 ], [ %123, %117 ]
+  %71 = phi ptr [ %47, %59 ], [ %73, %117 ]
+  br label %34
 
-75:                                               ; preds = %71
-  %76 = load ptr, ptr %17, align 8, !tbaa !40
-  %77 = getelementptr inbounds %struct.gx_path_s, ptr %76, i64 0, i32 10
-  %78 = load i8, ptr %77, align 8, !tbaa !74
-  %79 = icmp eq i8 %78, 0
-  br i1 %79, label %116, label %80
+72:                                               ; preds = %46, %34
+  %73 = phi ptr [ %36, %34 ], [ %47, %46 ]
+  %74 = tail call i32 @gs_gsave(ptr noundef %4) #11
+  %75 = icmp slt i32 %74, 0
+  br i1 %75, label %127, label %76
 
-80:                                               ; preds = %75
-  %81 = getelementptr inbounds %struct.gx_path_s, ptr %76, i64 0, i32 9
-  %82 = load i64, ptr %81, align 8, !tbaa !79
-  %83 = getelementptr inbounds %struct.gx_path_s, ptr %76, i64 0, i32 9, i32 1
-  %84 = load i64, ptr %83, align 8, !tbaa !80
-  %85 = tail call i32 (ptr, ptr, ...) @gs_setmatrix(ptr noundef nonnull %4, ptr noundef nonnull %18) #11
-  %86 = tail call i32 (ptr, i64, i64, ...) @gs_translate_to_fixed(ptr noundef nonnull %4, i64 noundef %82, i64 noundef %84) #11
+76:                                               ; preds = %72
+  %77 = load ptr, ptr %17, align 8, !tbaa !40
+  %78 = getelementptr inbounds %struct.gx_path_s, ptr %77, i64 0, i32 10
+  %79 = load i8, ptr %78, align 8, !tbaa !74
+  %80 = icmp eq i8 %79, 0
+  br i1 %80, label %127, label %81
+
+81:                                               ; preds = %76
+  %82 = getelementptr inbounds %struct.gx_path_s, ptr %77, i64 0, i32 9
+  %83 = load i64, ptr %82, align 8, !tbaa !79
+  %84 = getelementptr inbounds %struct.gx_path_s, ptr %77, i64 0, i32 9, i32 1
+  %85 = load i64, ptr %84, align 8, !tbaa !80
+  %86 = tail call i32 (ptr, ptr, ...) @gs_setmatrix(ptr noundef nonnull %4, ptr noundef nonnull %18) #11
+  %87 = tail call i32 (ptr, i64, i64, ...) @gs_translate_to_fixed(ptr noundef nonnull %4, i64 noundef %83, i64 noundef %85) #11
   store i32 0, ptr %16, align 8, !tbaa !43
   store ptr @continue_stringwidth_update, ptr %19, align 8, !tbaa !29
-  %87 = load ptr, ptr %20, align 8, !tbaa !34
-  %88 = getelementptr inbounds %struct.gs_font_s, ptr %87, i64 0, i32 13
-  %89 = load ptr, ptr %88, align 8, !tbaa !83
-  %90 = zext i8 %39 to i32
-  %91 = getelementptr inbounds %struct.gs_font_s, ptr %87, i64 0, i32 14
-  %92 = load ptr, ptr %91, align 8, !tbaa !84
-  %93 = tail call i32 %89(ptr noundef nonnull %0, ptr noundef nonnull %4, ptr noundef %87, i32 noundef %90, ptr noundef %92) #11
-  %94 = icmp slt i32 %93, 0
-  br i1 %94, label %116, label %95
+  %88 = load ptr, ptr %20, align 8, !tbaa !34
+  %89 = getelementptr inbounds %struct.gs_font_s, ptr %88, i64 0, i32 13
+  %90 = load ptr, ptr %89, align 8, !tbaa !83
+  %91 = zext i8 %39 to i32
+  %92 = getelementptr inbounds %struct.gs_font_s, ptr %88, i64 0, i32 14
+  %93 = load ptr, ptr %92, align 8, !tbaa !84
+  %94 = tail call i32 %90(ptr noundef nonnull %0, ptr noundef nonnull %4, ptr noundef %88, i32 noundef %91, ptr noundef %93) #11
+  %95 = icmp slt i32 %94, 0
+  br i1 %95, label %127, label %96
 
-95:                                               ; preds = %80
-  %96 = icmp eq i32 %93, 0
-  br i1 %96, label %97, label %116
+96:                                               ; preds = %81
+  %97 = icmp eq i32 %94, 0
+  br i1 %97, label %98, label %127
 
-97:                                               ; preds = %95
-  %98 = load ptr, ptr %0, align 8, !tbaa !21
-  %99 = load i32, ptr %16, align 8, !tbaa !43
-  switch i32 %99, label %108 [
-    i32 0, label %116
-    i32 1, label %100
+98:                                               ; preds = %96
+  %99 = load ptr, ptr %0, align 8, !tbaa !21
+  %100 = load i32, ptr %16, align 8, !tbaa !43
+  switch i32 %100, label %109 [
+    i32 0, label %127
+    i32 1, label %101
   ]
 
-100:                                              ; preds = %97
-  %101 = getelementptr inbounds %struct.gs_state_s, ptr %98, i64 0, i32 16
-  %102 = load ptr, ptr %101, align 8, !tbaa !34
-  %103 = getelementptr inbounds %struct.gs_font_s, ptr %102, i64 0, i32 3
-  %104 = load ptr, ptr %103, align 8, !tbaa !45
-  %105 = load ptr, ptr %21, align 8, !tbaa !60
-  %106 = tail call ptr @gx_lookup_fm_pair(ptr noundef %98) #11
-  tail call void @gx_add_cached_char(ptr noundef %104, ptr noundef %105, ptr noundef %106) #11
-  %107 = tail call i32 @gs_grestore(ptr noundef %98) #11
-  br label %108
+101:                                              ; preds = %98
+  %102 = getelementptr inbounds %struct.gs_state_s, ptr %99, i64 0, i32 16
+  %103 = load ptr, ptr %102, align 8, !tbaa !34
+  %104 = getelementptr inbounds %struct.gs_font_s, ptr %103, i64 0, i32 3
+  %105 = load ptr, ptr %104, align 8, !tbaa !45
+  %106 = load ptr, ptr %21, align 8, !tbaa !60
+  %107 = tail call ptr @gx_lookup_fm_pair(ptr noundef %99) #11
+  tail call void @gx_add_cached_char(ptr noundef %105, ptr noundef %106, ptr noundef %107) #11
+  %108 = tail call i32 @gs_grestore(ptr noundef %99) #11
+  br label %109
 
-108:                                              ; preds = %100, %97
-  %109 = tail call i32 @gs_grestore(ptr noundef %98) #11
-  %110 = load ptr, ptr %0, align 8, !tbaa !21
-  %111 = getelementptr inbounds %struct.gs_state_s, ptr %110, i64 0, i32 7
-  %112 = load ptr, ptr %111, align 8, !tbaa !40
-  %113 = getelementptr inbounds %struct.gx_path_s, ptr %112, i64 0, i32 10
-  %114 = load i8, ptr %113, align 8, !tbaa !74
-  %115 = icmp eq i8 %114, 0
-  br i1 %115, label %116, label %59
+109:                                              ; preds = %101, %98
+  %110 = tail call i32 @gs_grestore(ptr noundef %99) #11
+  %111 = load ptr, ptr %0, align 8, !tbaa !21
+  %112 = getelementptr inbounds %struct.gs_state_s, ptr %111, i64 0, i32 7
+  %113 = load ptr, ptr %112, align 8, !tbaa !40
+  %114 = getelementptr inbounds %struct.gx_path_s, ptr %113, i64 0, i32 10
+  %115 = load i8, ptr %114, align 8, !tbaa !74
+  %116 = icmp eq i8 %115, 0
+  br i1 %116, label %127, label %117
 
-116:                                              ; preds = %108, %51, %97, %80, %75, %95, %71, %22
-  %117 = phi i32 [ 0, %22 ], [ -14, %108 ], [ -14, %51 ], [ -23, %97 ], [ %93, %80 ], [ -14, %75 ], [ 1, %95 ], [ %73, %71 ]
-  ret i32 %117
+117:                                              ; preds = %109
+  %118 = getelementptr inbounds %struct.gx_path_s, ptr %113, i64 0, i32 9
+  %119 = load <2 x i64>, ptr %15, align 8, !tbaa !35
+  %120 = load <2 x i64>, ptr %118, align 8, !tbaa !35
+  %121 = add nsw <2 x i64> %120, %119
+  store <2 x i64> %121, ptr %118, align 8, !tbaa !35
+  %122 = getelementptr inbounds %struct.gx_path_s, ptr %113, i64 0, i32 11
+  store i8 0, ptr %122, align 1, !tbaa !77
+  %123 = load i32, ptr %7, align 4, !tbaa !28
+  %124 = add i32 %123, 1
+  store i32 %124, ptr %7, align 4, !tbaa !28
+  %125 = load i32, ptr %8, align 8, !tbaa !5
+  %126 = icmp eq i32 %123, %125
+  br i1 %126, label %22, label %69
+
+127:                                              ; preds = %109, %98, %81, %76, %96, %72, %51, %22
+  %128 = phi i32 [ 0, %22 ], [ %74, %72 ], [ 1, %96 ], [ -14, %76 ], [ %94, %81 ], [ -23, %98 ], [ -14, %109 ], [ -14, %51 ]
+  ret i32 %128
 }
 
 declare i32 @gs_currentpoint(...) local_unnamed_addr #3

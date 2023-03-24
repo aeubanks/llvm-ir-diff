@@ -1054,28 +1054,28 @@ define dso_local void @print_scope(ptr noundef %0) local_unnamed_addr #3 {
   %19 = getelementptr inbounds %struct.D_Scope, ptr %3, i64 0, i32 2
   %20 = load ptr, ptr %19, align 8, !tbaa !20
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %22, label %25
+  br i1 %21, label %30, label %22
 
-22:                                               ; preds = %25, %18
-  %23 = load ptr, ptr %13, align 8, !tbaa !24
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %73, label %59
+22:                                               ; preds = %18
+  %23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.6)
+  %24 = load ptr, ptr %19, align 8, !tbaa !20
+  %25 = icmp eq ptr %24, null
+  br i1 %25, label %30, label %26
 
-25:                                               ; preds = %18
-  %26 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.6)
-  %27 = load ptr, ptr %19, align 8, !tbaa !20
-  %28 = icmp eq ptr %27, null
-  br i1 %28, label %22, label %29
+26:                                               ; preds = %22
+  %27 = getelementptr inbounds %struct.D_SymHash, ptr %24, i64 0, i32 2
+  %28 = load i32, ptr %27, align 8, !tbaa !18
+  %29 = icmp eq i32 %28, 0
+  br i1 %29, label %73, label %33
 
-29:                                               ; preds = %25
-  %30 = getelementptr inbounds %struct.D_SymHash, ptr %27, i64 0, i32 2
-  %31 = load i32, ptr %30, align 8, !tbaa !18
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %73, label %33
+30:                                               ; preds = %18, %22
+  %31 = load ptr, ptr %13, align 8, !tbaa !24
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %73, label %59
 
-33:                                               ; preds = %29, %52
-  %34 = phi ptr [ %53, %52 ], [ %27, %29 ]
-  %35 = phi i64 [ %54, %52 ], [ 0, %29 ]
+33:                                               ; preds = %26, %52
+  %34 = phi ptr [ %53, %52 ], [ %24, %26 ]
+  %35 = phi i64 [ %54, %52 ], [ 0, %26 ]
   %36 = getelementptr inbounds %struct.D_SymHash, ptr %34, i64 0, i32 2, i32 2
   %37 = load ptr, ptr %36, align 8, !tbaa !19
   %38 = getelementptr inbounds ptr, ptr %37, i64 %35
@@ -1108,8 +1108,8 @@ define dso_local void @print_scope(ptr noundef %0) local_unnamed_addr #3 {
   %58 = icmp ult i64 %54, %57
   br i1 %58, label %33, label %73, !llvm.loop !52
 
-59:                                               ; preds = %22, %59
-  %60 = phi ptr [ %71, %59 ], [ %23, %22 ]
+59:                                               ; preds = %30, %59
+  %60 = phi ptr [ %71, %59 ], [ %31, %30 ]
   %61 = getelementptr inbounds %struct.D_Sym, ptr %60, i64 0, i32 1
   %62 = load i32, ptr %61, align 8, !tbaa !40
   %63 = add nsw i32 %62, 1
@@ -1127,7 +1127,7 @@ define dso_local void @print_scope(ptr noundef %0) local_unnamed_addr #3 {
   %72 = icmp eq ptr %71, null
   br i1 %72, label %73, label %59, !llvm.loop !53
 
-73:                                               ; preds = %52, %59, %29, %22
+73:                                               ; preds = %52, %59, %26, %30
   %74 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %75 = getelementptr inbounds %struct.D_Scope, ptr %3, i64 0, i32 4
   %76 = load ptr, ptr %75, align 8, !tbaa !5
@@ -1140,11 +1140,11 @@ define dso_local void @print_scope(ptr noundef %0) local_unnamed_addr #3 {
 
 declare void @vec_add_internal(ptr noundef, ptr noundef) local_unnamed_addr #6
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
-
 ; Function Attrs: nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
-declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #14
+declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #13
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1159,8 +1159,8 @@ attributes #9 = { mustprogress nofree nounwind willreturn memory(argmem: read) "
 attributes #10 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #12 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #13 = { nofree nounwind }
-attributes #14 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #13 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
+attributes #14 = { nofree nounwind }
 attributes #15 = { nounwind }
 attributes #16 = { nounwind willreturn memory(read) }
 attributes #17 = { nounwind allocsize(0) }

@@ -89,9 +89,9 @@ define internal fastcc i32 @kbo_CompVarCondAndWeight(ptr noundef %0, ptr nocaptu
 
 14:                                               ; preds = %10, %4
   %15 = load i32, ptr %0, align 8
-  %16 = add i32 %15, -2001
-  %17 = icmp ult i32 %16, -2000
-  br i1 %17, label %23, label %18
+  %16 = add i32 %15, -1
+  %17 = icmp ult i32 %16, 2000
+  br i1 %17, label %18, label %23
 
 18:                                               ; preds = %14
   %19 = zext i32 %15 to i64
@@ -139,9 +139,9 @@ define internal fastcc i32 @kbo_CompVarCondAndWeight(ptr noundef %0, ptr nocaptu
   %52 = load ptr, ptr %49, align 8
   store ptr %52, ptr %48, align 8
   %53 = load i32, ptr %51, align 8
-  %54 = add i32 %53, -2001
-  %55 = icmp ult i32 %54, -2000
-  br i1 %55, label %62, label %56
+  %54 = add i32 %53, -1
+  %55 = icmp ult i32 %54, 2000
+  br i1 %55, label %56, label %62
 
 56:                                               ; preds = %42
   %57 = add nsw i32 %44, 1
@@ -219,9 +219,9 @@ define internal fastcc i32 @kbo_CompVarCondAndWeight(ptr noundef %0, ptr nocaptu
   %104 = phi i32 [ %7, %18 ], [ %7, %23 ], [ %7, %102 ], [ %79, %78 ]
   %105 = phi i32 [ 1, %18 ], [ %32, %23 ], [ %81, %102 ], [ %81, %78 ]
   %106 = load i32, ptr %2, align 8
-  %107 = add i32 %106, -2001
-  %108 = icmp ult i32 %107, -2000
-  br i1 %108, label %115, label %109
+  %107 = add i32 %106, -1
+  %108 = icmp ult i32 %107, 2000
+  br i1 %108, label %109, label %115
 
 109:                                              ; preds = %103
   %110 = add nsw i32 %105, -1
@@ -284,9 +284,9 @@ define internal fastcc i32 @kbo_CompVarCondAndWeight(ptr noundef %0, ptr nocaptu
   %152 = load ptr, ptr %149, align 8
   store ptr %152, ptr %148, align 8
   %153 = load i32, ptr %151, align 8
-  %154 = add i32 %153, -2001
-  %155 = icmp ult i32 %154, -2000
-  br i1 %155, label %162, label %156
+  %154 = add i32 %153, -1
+  %155 = icmp ult i32 %154, 2000
+  br i1 %155, label %156, label %162
 
 156:                                              ; preds = %143
   %157 = add nsw i32 %144, -1
@@ -404,18 +404,18 @@ define internal fastcc i32 @kbo_CompareStruc(ptr nocapture noundef readonly %0, 
   br i1 %10, label %11, label %95
 
 11:                                               ; preds = %9
-  %12 = add i32 %6, -2001
-  %13 = icmp ult i32 %12, -2000
-  %14 = add i32 %7, -2001
-  %15 = icmp ult i32 %14, -2000
-  br i1 %13, label %18, label %16
+  %12 = add i32 %6, -1
+  %13 = icmp ult i32 %12, 2000
+  %14 = add i32 %7, -1
+  %15 = icmp ult i32 %14, 2000
+  br i1 %13, label %16, label %18
 
 16:                                               ; preds = %11
-  %17 = select i1 %15, i32 0, i32 2
+  %17 = select i1 %15, i32 2, i32 0
   br label %95
 
 18:                                               ; preds = %11
-  br i1 %15, label %19, label %95
+  br i1 %15, label %95, label %19
 
 19:                                               ; preds = %18
   %20 = load ptr, ptr @ord_PRECEDENCE, align 8
@@ -709,8 +709,8 @@ define internal fastcc i32 @kbo_ContCompareStruc(ptr noundef %0, ptr nocapture n
   %6 = alloca i32, align 4
   %7 = alloca i32, align 4
   %8 = load i32, ptr %1, align 8
-  %9 = icmp slt i32 %8, 1
-  br i1 %9, label %33, label %10
+  %9 = icmp sgt i32 %8, 0
+  br i1 %9, label %10, label %33
 
 10:                                               ; preds = %5
   %11 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -748,8 +748,8 @@ define internal fastcc i32 @kbo_ContCompareStruc(ptr noundef %0, ptr nocapture n
   %35 = phi ptr [ %0, %5 ], [ %0, %10 ], [ %0, %13 ], [ %28, %23 ], [ %28, %18 ]
   %36 = phi ptr [ %1, %5 ], [ %1, %10 ], [ %1, %13 ], [ %24, %23 ], [ %24, %18 ]
   %37 = load i32, ptr %3, align 8
-  %38 = icmp slt i32 %37, 1
-  br i1 %38, label %62, label %39
+  %38 = icmp sgt i32 %37, 0
+  br i1 %38, label %39, label %62
 
 39:                                               ; preds = %33
   %40 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -794,18 +794,18 @@ define internal fastcc i32 @kbo_ContCompareStruc(ptr noundef %0, ptr nocapture n
   br i1 %68, label %69, label %261
 
 69:                                               ; preds = %67
-  %70 = add i32 %34, -2001
-  %71 = icmp ult i32 %70, -2000
-  %72 = add i32 %63, -2001
-  %73 = icmp ult i32 %72, -2000
-  br i1 %71, label %76, label %74
+  %70 = add i32 %34, -1
+  %71 = icmp ult i32 %70, 2000
+  %72 = add i32 %63, -1
+  %73 = icmp ult i32 %72, 2000
+  br i1 %71, label %74, label %76
 
 74:                                               ; preds = %69
-  %75 = select i1 %73, i32 0, i32 2
+  %75 = select i1 %73, i32 2, i32 0
   br label %261
 
 76:                                               ; preds = %69
-  br i1 %73, label %77, label %261
+  br i1 %73, label %261, label %77
 
 77:                                               ; preds = %76
   %78 = load ptr, ptr @ord_PRECEDENCE, align 8
@@ -869,8 +869,8 @@ define internal fastcc i32 @kbo_ContCompareStruc(ptr noundef %0, ptr nocapture n
 120:                                              ; preds = %111
   %121 = tail call ptr @list_NthElement(ptr noundef %95, i32 noundef %112) #6
   %122 = load i32, ptr %121, align 8
-  %123 = icmp slt i32 %122, 1
-  br i1 %123, label %147, label %124
+  %123 = icmp sgt i32 %122, 0
+  br i1 %123, label %124, label %147
 
 124:                                              ; preds = %120
   %125 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -908,8 +908,8 @@ define internal fastcc i32 @kbo_ContCompareStruc(ptr noundef %0, ptr nocapture n
   %149 = phi ptr [ %121, %120 ], [ %121, %124 ], [ %121, %127 ], [ %138, %137 ], [ %138, %132 ]
   %150 = tail call ptr @list_NthElement(ptr noundef %97, i32 noundef %112) #6
   %151 = load i32, ptr %150, align 8
-  %152 = icmp slt i32 %151, 1
-  br i1 %152, label %247, label %153
+  %152 = icmp sgt i32 %151, 0
+  br i1 %152, label %153, label %247
 
 153:                                              ; preds = %147
   %154 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -964,8 +964,8 @@ define internal fastcc i32 @kbo_ContCompareStruc(ptr noundef %0, ptr nocapture n
   %191 = getelementptr i8, ptr %177, i64 8
   %192 = load ptr, ptr %190, align 8
   %193 = load i32, ptr %192, align 8
-  %194 = icmp slt i32 %193, 1
-  br i1 %194, label %218, label %195
+  %194 = icmp sgt i32 %193, 0
+  br i1 %194, label %195, label %218
 
 195:                                              ; preds = %189
   %196 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1003,8 +1003,8 @@ define internal fastcc i32 @kbo_ContCompareStruc(ptr noundef %0, ptr nocapture n
   %220 = phi ptr [ %192, %189 ], [ %192, %195 ], [ %192, %198 ], [ %209, %208 ], [ %209, %203 ]
   %221 = load ptr, ptr %191, align 8
   %222 = load i32, ptr %221, align 8
-  %223 = icmp slt i32 %222, 1
-  br i1 %223, label %247, label %224
+  %223 = icmp sgt i32 %222, 0
+  br i1 %223, label %224, label %247
 
 224:                                              ; preds = %218
   %225 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1149,8 +1149,8 @@ define internal fastcc i32 @kbo_ContGreaterCompareStruc(ptr noundef %0, ptr noca
   %5 = alloca i32, align 4
   %6 = alloca i32, align 4
   %7 = load i32, ptr %1, align 8
-  %8 = icmp slt i32 %7, 1
-  br i1 %8, label %32, label %9
+  %8 = icmp sgt i32 %7, 0
+  br i1 %8, label %9, label %32
 
 9:                                                ; preds = %4
   %10 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1188,8 +1188,8 @@ define internal fastcc i32 @kbo_ContGreaterCompareStruc(ptr noundef %0, ptr noca
   %34 = phi ptr [ %0, %4 ], [ %0, %9 ], [ %0, %12 ], [ %27, %22 ], [ %27, %17 ]
   %35 = phi ptr [ %1, %4 ], [ %1, %9 ], [ %1, %12 ], [ %23, %22 ], [ %23, %17 ]
   %36 = load i32, ptr %3, align 8
-  %37 = icmp slt i32 %36, 1
-  br i1 %37, label %61, label %38
+  %37 = icmp sgt i32 %36, 0
+  br i1 %37, label %38, label %61
 
 38:                                               ; preds = %32
   %39 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1226,14 +1226,14 @@ define internal fastcc i32 @kbo_ContGreaterCompareStruc(ptr noundef %0, ptr noca
   %62 = phi i32 [ %36, %32 ], [ %36, %38 ], [ %36, %41 ], [ %57, %51 ], [ %57, %46 ]
   %63 = phi ptr [ %2, %32 ], [ %2, %38 ], [ %2, %41 ], [ %56, %51 ], [ %56, %46 ]
   %64 = phi ptr [ %3, %32 ], [ %3, %38 ], [ %3, %41 ], [ %52, %51 ], [ %52, %46 ]
-  %65 = add i32 %33, -2001
-  %66 = icmp ult i32 %65, -2000
-  br i1 %66, label %67, label %257
+  %65 = add i32 %33, -1
+  %66 = icmp ult i32 %65, 2000
+  br i1 %66, label %257, label %67
 
 67:                                               ; preds = %61
-  %68 = add i32 %62, -2001
-  %69 = icmp ult i32 %68, -2000
-  br i1 %69, label %70, label %257
+  %68 = add i32 %62, -1
+  %69 = icmp ult i32 %68, 2000
+  br i1 %69, label %257, label %70
 
 70:                                               ; preds = %67
   %71 = load ptr, ptr @ord_PRECEDENCE, align 8
@@ -1297,8 +1297,8 @@ define internal fastcc i32 @kbo_ContGreaterCompareStruc(ptr noundef %0, ptr noca
 113:                                              ; preds = %104
   %114 = tail call ptr @list_NthElement(ptr noundef %88, i32 noundef %105) #6
   %115 = load i32, ptr %114, align 8
-  %116 = icmp slt i32 %115, 1
-  br i1 %116, label %140, label %117
+  %116 = icmp sgt i32 %115, 0
+  br i1 %116, label %117, label %140
 
 117:                                              ; preds = %113
   %118 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1336,8 +1336,8 @@ define internal fastcc i32 @kbo_ContGreaterCompareStruc(ptr noundef %0, ptr noca
   %142 = phi ptr [ %114, %113 ], [ %114, %117 ], [ %114, %120 ], [ %131, %130 ], [ %131, %125 ]
   %143 = tail call ptr @list_NthElement(ptr noundef %90, i32 noundef %105) #6
   %144 = load i32, ptr %143, align 8
-  %145 = icmp slt i32 %144, 1
-  br i1 %145, label %240, label %146
+  %145 = icmp sgt i32 %144, 0
+  br i1 %145, label %146, label %240
 
 146:                                              ; preds = %140
   %147 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1392,8 +1392,8 @@ define internal fastcc i32 @kbo_ContGreaterCompareStruc(ptr noundef %0, ptr noca
   %184 = getelementptr i8, ptr %170, i64 8
   %185 = load ptr, ptr %183, align 8
   %186 = load i32, ptr %185, align 8
-  %187 = icmp slt i32 %186, 1
-  br i1 %187, label %211, label %188
+  %187 = icmp sgt i32 %186, 0
+  br i1 %187, label %188, label %211
 
 188:                                              ; preds = %182
   %189 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1431,8 +1431,8 @@ define internal fastcc i32 @kbo_ContGreaterCompareStruc(ptr noundef %0, ptr noca
   %213 = phi ptr [ %185, %182 ], [ %185, %188 ], [ %185, %191 ], [ %202, %201 ], [ %202, %196 ]
   %214 = load ptr, ptr %184, align 8
   %215 = load i32, ptr %214, align 8
-  %216 = icmp slt i32 %215, 1
-  br i1 %216, label %240, label %217
+  %216 = icmp sgt i32 %215, 0
+  br i1 %216, label %217, label %240
 
 217:                                              ; preds = %211
   %218 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1498,8 +1498,8 @@ define internal fastcc i32 @kbo_ContGreaterCompareStruc(ptr noundef %0, ptr noca
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #6
   br label %257
 
-257:                                              ; preds = %61, %84, %256, %254, %67, %70
-  %258 = phi i32 [ 1, %70 ], [ 1, %67 ], [ %255, %254 ], [ 0, %256 ], [ 0, %84 ], [ 0, %61 ]
+257:                                              ; preds = %84, %256, %254, %67, %70, %61
+  %258 = phi i32 [ 0, %61 ], [ 1, %70 ], [ 1, %67 ], [ %255, %254 ], [ 0, %256 ], [ 0, %84 ]
   ret i32 %258
 }
 
@@ -1514,8 +1514,8 @@ declare i32 @cont_TermMaxVar(ptr noundef, ptr noundef) local_unnamed_addr #2
 ; Function Attrs: nofree nosync nounwind memory(readwrite, argmem: read, inaccessiblemem: none) uwtable
 define internal fastcc i32 @kbo_ContCompVarCondAndWeightIntern(ptr noundef %0, ptr nocapture noundef readonly %1, i32 noundef %2) unnamed_addr #3 {
   %4 = load i32, ptr %1, align 8
-  %5 = icmp slt i32 %4, 1
-  br i1 %5, label %29, label %6
+  %5 = icmp sgt i32 %4, 0
+  br i1 %5, label %6, label %29
 
 6:                                                ; preds = %3
   %7 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1552,9 +1552,9 @@ define internal fastcc i32 @kbo_ContCompVarCondAndWeightIntern(ptr noundef %0, p
   %30 = phi i32 [ %4, %3 ], [ %4, %6 ], [ %4, %9 ], [ %25, %19 ], [ %25, %14 ]
   %31 = phi ptr [ %0, %3 ], [ %0, %6 ], [ %0, %9 ], [ %24, %19 ], [ %24, %14 ]
   %32 = phi ptr [ %1, %3 ], [ %1, %6 ], [ %1, %9 ], [ %20, %19 ], [ %20, %14 ]
-  %33 = add i32 %30, -2001
-  %34 = icmp ult i32 %33, -2000
-  br i1 %34, label %41, label %35
+  %33 = add i32 %30, -1
+  %34 = icmp ult i32 %33, 2000
+  br i1 %34, label %35, label %41
 
 35:                                               ; preds = %29
   %36 = zext i32 %30 to i64

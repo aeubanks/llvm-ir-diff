@@ -43,7 +43,7 @@ define dso_local void @_Z4blurN6Halide5Tools5ImageItEE(ptr noalias nocapture wri
   %13 = tail call i32 @llvm.umax.i32(i32 %12, i32 1)
   br label %14
 
-14:                                               ; preds = %10, %2
+14:                                               ; preds = %2, %10
   %15 = phi i32 [ 1, %2 ], [ %13, %10 ]
   %16 = mul nsw i32 %15, %8
   %17 = tail call i32 @llvm.umax.i32(i32 %8, i32 1)
@@ -115,11 +115,11 @@ define dso_local void @_Z4blurN6Halide5Tools5ImageItEE(ptr noalias nocapture wri
   %62 = mul i64 %61, %60
   %63 = add i64 %62, 40
   %64 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %63) #15
-          to label %65 unwind label %511
+          to label %65 unwind label %499
 
 65:                                               ; preds = %54
   %66 = invoke noalias noundef nonnull dereferenceable(88) ptr @_Znwm(i64 noundef 88) #15
-          to label %67 unwind label %511
+          to label %67 unwind label %499
 
 67:                                               ; preds = %65
   %68 = ptrtoint ptr %64 to i64
@@ -631,40 +631,40 @@ define dso_local void @_Z4blurN6Halide5Tools5ImageItEE(ptr noalias nocapture wri
   store double %493, ptr @t, align 8, !tbaa !56
   %497 = load ptr, ptr %3, align 8, !tbaa !5
   %498 = icmp eq ptr %497, null
-  br i1 %498, label %510, label %499
+  br i1 %498, label %512, label %501
 
-499:                                              ; preds = %496
-  %500 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %497, i64 0, i32 1
-  %501 = load i32, ptr %500, align 8, !tbaa !31
-  %502 = add nsw i32 %501, -1
-  store i32 %502, ptr %500, align 8, !tbaa !31
-  %503 = icmp eq i32 %502, 0
-  br i1 %503, label %504, label %510
-
-504:                                              ; preds = %499
-  %505 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %497, i64 0, i32 2
-  %506 = load ptr, ptr %505, align 8, !tbaa !34
-  %507 = icmp eq ptr %506, null
-  br i1 %507, label %509, label %508
-
-508:                                              ; preds = %504
-  tail call void @_ZdaPv(ptr noundef nonnull %506) #16
-  br label %509
-
-509:                                              ; preds = %508, %504
-  tail call void @_ZdlPv(ptr noundef nonnull %497) #16
-  br label %510
-
-510:                                              ; preds = %496, %499, %509
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #14
-  ret void
-
-511:                                              ; preds = %65, %54
-  %512 = landingpad { ptr, i32 }
+499:                                              ; preds = %65, %54
+  %500 = landingpad { ptr, i32 }
           cleanup
   call void @_ZN6Halide5Tools5ImageItED2Ev(ptr noundef nonnull align 8 dereferenceable(8) %3) #14
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #14
-  resume { ptr, i32 } %512
+  resume { ptr, i32 } %500
+
+501:                                              ; preds = %496
+  %502 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %497, i64 0, i32 1
+  %503 = load i32, ptr %502, align 8, !tbaa !31
+  %504 = add nsw i32 %503, -1
+  store i32 %504, ptr %502, align 8, !tbaa !31
+  %505 = icmp eq i32 %504, 0
+  br i1 %505, label %506, label %512
+
+506:                                              ; preds = %501
+  %507 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %497, i64 0, i32 2
+  %508 = load ptr, ptr %507, align 8, !tbaa !34
+  %509 = icmp eq ptr %508, null
+  br i1 %509, label %511, label %510
+
+510:                                              ; preds = %506
+  tail call void @_ZdaPv(ptr noundef nonnull %508) #16
+  br label %511
+
+511:                                              ; preds = %510, %506
+  tail call void @_ZdlPv(ptr noundef nonnull %497) #16
+  br label %512
+
+512:                                              ; preds = %496, %501, %511
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #14
+  ret void
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -1414,67 +1414,67 @@ define dso_local void @_Z11blur_halideN6Halide5Tools5ImageItEE(ptr noalias sret(
           to label %95 unwind label %157
 
 95:                                               ; preds = %90
-  %96 = sub nsw i64 %91, %87
-  %97 = sdiv i64 %96, 1000
-  %98 = sitofp i64 %97 to double
-  %99 = fdiv double %98, 1.000000e+06
-  %100 = sub nsw i64 %86, %82
-  %101 = sdiv i64 %100, 1000
-  %102 = sitofp i64 %101 to double
-  %103 = fdiv double %102, 1.000000e+06
-  %104 = sub nsw i64 %81, %77
-  %105 = sdiv i64 %104, 1000
-  %106 = sitofp i64 %105 to double
-  %107 = fdiv double %106, 1.000000e+06
-  %108 = sub nsw i64 %76, %72
-  %109 = sdiv i64 %108, 1000
-  %110 = sitofp i64 %109 to double
-  %111 = fdiv double %110, 1.000000e+06
-  %112 = sub nsw i64 %71, %67
-  %113 = sdiv i64 %112, 1000
-  %114 = sitofp i64 %113 to double
-  %115 = fdiv double %114, 1.000000e+06
-  %116 = sub nsw i64 %66, %62
-  %117 = sdiv i64 %116, 1000
-  %118 = sitofp i64 %117 to double
-  %119 = fdiv double %118, 1.000000e+06
-  %120 = sub nsw i64 %61, %57
-  %121 = sdiv i64 %120, 1000
-  %122 = sitofp i64 %121 to double
-  %123 = fdiv double %122, 1.000000e+06
-  %124 = sub nsw i64 %56, %52
-  %125 = sdiv i64 %124, 1000
-  %126 = sitofp i64 %125 to double
-  %127 = fdiv double %126, 1.000000e+06
-  %128 = sub nsw i64 %51, %47
-  %129 = sdiv i64 %128, 1000
-  %130 = sitofp i64 %129 to double
-  %131 = fdiv double %130, 1.000000e+06
-  %132 = fcmp olt double %131, 0x7FF0000000000000
-  %133 = select i1 %132, double %131, double 0x7FF0000000000000
-  %134 = fcmp olt double %127, %133
-  %135 = select i1 %134, double %127, double %133
-  %136 = fcmp olt double %123, %135
-  %137 = select i1 %136, double %123, double %135
-  %138 = fcmp olt double %119, %137
-  %139 = select i1 %138, double %119, double %137
-  %140 = fcmp olt double %115, %139
-  %141 = select i1 %140, double %115, double %139
-  %142 = fcmp olt double %111, %141
-  %143 = select i1 %142, double %111, double %141
-  %144 = fcmp olt double %107, %143
-  %145 = select i1 %144, double %107, double %143
-  %146 = fcmp olt double %103, %145
-  %147 = select i1 %146, double %103, double %145
-  %148 = fcmp olt double %99, %147
-  %149 = select i1 %148, double %99, double %147
-  %150 = tail call i64 @_ZNSt6chrono3_V212system_clock3nowEv() #14
-  %151 = sub nsw i64 %150, %92
-  %152 = sdiv i64 %151, 1000
-  %153 = sitofp i64 %152 to double
-  %154 = fdiv double %153, 1.000000e+06
-  %155 = fcmp olt double %154, %149
-  %156 = select i1 %155, double %154, double %149
+  %96 = tail call i64 @_ZNSt6chrono3_V212system_clock3nowEv() #14
+  %97 = sub nsw i64 %96, %92
+  %98 = sdiv i64 %97, 1000
+  %99 = sitofp i64 %98 to double
+  %100 = fdiv double %99, 1.000000e+06
+  %101 = sub nsw i64 %91, %87
+  %102 = sdiv i64 %101, 1000
+  %103 = sitofp i64 %102 to double
+  %104 = fdiv double %103, 1.000000e+06
+  %105 = sub nsw i64 %86, %82
+  %106 = sdiv i64 %105, 1000
+  %107 = sitofp i64 %106 to double
+  %108 = fdiv double %107, 1.000000e+06
+  %109 = sub nsw i64 %81, %77
+  %110 = sdiv i64 %109, 1000
+  %111 = sitofp i64 %110 to double
+  %112 = fdiv double %111, 1.000000e+06
+  %113 = sub nsw i64 %76, %72
+  %114 = sdiv i64 %113, 1000
+  %115 = sitofp i64 %114 to double
+  %116 = fdiv double %115, 1.000000e+06
+  %117 = sub nsw i64 %71, %67
+  %118 = sdiv i64 %117, 1000
+  %119 = sitofp i64 %118 to double
+  %120 = fdiv double %119, 1.000000e+06
+  %121 = sub nsw i64 %66, %62
+  %122 = sdiv i64 %121, 1000
+  %123 = sitofp i64 %122 to double
+  %124 = fdiv double %123, 1.000000e+06
+  %125 = sub nsw i64 %61, %57
+  %126 = sdiv i64 %125, 1000
+  %127 = sitofp i64 %126 to double
+  %128 = fdiv double %127, 1.000000e+06
+  %129 = sub nsw i64 %56, %52
+  %130 = sdiv i64 %129, 1000
+  %131 = sitofp i64 %130 to double
+  %132 = fdiv double %131, 1.000000e+06
+  %133 = sub nsw i64 %51, %47
+  %134 = sdiv i64 %133, 1000
+  %135 = sitofp i64 %134 to double
+  %136 = fdiv double %135, 1.000000e+06
+  %137 = fcmp olt double %136, 0x7FF0000000000000
+  %138 = select i1 %137, double %136, double 0x7FF0000000000000
+  %139 = fcmp olt double %132, %138
+  %140 = select i1 %139, double %132, double %138
+  %141 = fcmp olt double %128, %140
+  %142 = select i1 %141, double %128, double %140
+  %143 = fcmp olt double %124, %142
+  %144 = select i1 %143, double %124, double %142
+  %145 = fcmp olt double %120, %144
+  %146 = select i1 %145, double %120, double %144
+  %147 = fcmp olt double %116, %146
+  %148 = select i1 %147, double %116, double %146
+  %149 = fcmp olt double %112, %148
+  %150 = select i1 %149, double %112, double %148
+  %151 = fcmp olt double %108, %150
+  %152 = select i1 %151, double %108, double %150
+  %153 = fcmp olt double %104, %152
+  %154 = select i1 %153, double %104, double %152
+  %155 = fcmp olt double %100, %154
+  %156 = select i1 %155, double %100, double %154
   store double %156, ptr @t, align 8, !tbaa !56
   ret void
 

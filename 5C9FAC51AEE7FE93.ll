@@ -214,8 +214,8 @@ define dso_local ptr @textAddMessage(ptr noundef %0, ptr noundef %1) local_unnam
   store ptr null, ptr %92, align 8, !tbaa !5
   br label %95
 
-95:                                               ; preds = %32, %90, %82, %75, %71, %48, %46, %44, %22, %10, %73
-  %96 = phi ptr [ %74, %73 ], [ null, %10 ], [ %0, %71 ], [ %0, %48 ], [ null, %22 ], [ %20, %46 ], [ null, %44 ], [ %0, %90 ], [ %0, %75 ], [ null, %82 ], [ null, %32 ]
+95:                                               ; preds = %32, %75, %82, %90, %73, %71, %48, %46, %44, %22, %10
+  %96 = phi ptr [ null, %10 ], [ %0, %71 ], [ null, %22 ], [ %20, %46 ], [ null, %44 ], [ %0, %48 ], [ %0, %90 ], [ %0, %75 ], [ null, %82 ], [ %74, %73 ], [ null, %32 ]
   ret ptr %96
 }
 

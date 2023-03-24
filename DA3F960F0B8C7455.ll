@@ -1343,7 +1343,7 @@ define dso_local void @_tr_flush_block(ptr noundef %0, ptr noundef readonly %1, 
   %571 = add nsw i32 %539, 4
   br label %572
 
-572:                                              ; preds = %542, %567
+572:                                              ; preds = %567, %542
   %573 = phi i16 [ %570, %567 ], [ %565, %542 ]
   %574 = phi i32 [ %571, %567 ], [ %566, %542 ]
   store i32 %574, ptr %388, align 4, !tbaa !20
@@ -2350,74 +2350,74 @@ define internal fastcc void @build_tree(ptr noundef %0, ptr nocapture noundef %1
 
 546:                                              ; preds = %599, %543
   %547 = phi i64 [ 0, %543 ], [ %600, %599 ]
-  %548 = getelementptr inbounds %struct.ct_data_s, ptr %4, i64 %547, i32 1
-  %549 = load i16, ptr %548, align 2, !tbaa !21
-  %550 = icmp eq i16 %549, 0
-  br i1 %550, label %599, label %551
+  %548 = getelementptr inbounds %struct.ct_data_s, ptr %4, i64 %547
+  %549 = getelementptr inbounds %struct.ct_data_s, ptr %4, i64 %547, i32 1
+  %550 = load i16, ptr %549, align 2, !tbaa !21
+  %551 = icmp eq i16 %550, 0
+  br i1 %551, label %599, label %552
 
-551:                                              ; preds = %546
-  %552 = zext i16 %549 to i32
-  %553 = zext i16 %549 to i64
-  %554 = getelementptr inbounds [16 x i16], ptr %3, i64 0, i64 %553
-  %555 = load i16, ptr %554, align 2, !tbaa !56
-  %556 = add i16 %555, 1
-  store i16 %556, ptr %554, align 2, !tbaa !56
-  %557 = and i32 %552, 3
-  %558 = icmp ult i16 %549, 4
-  br i1 %558, label %581, label %559
+552:                                              ; preds = %546
+  %553 = zext i16 %550 to i32
+  %554 = zext i16 %550 to i64
+  %555 = getelementptr inbounds [16 x i16], ptr %3, i64 0, i64 %554
+  %556 = load i16, ptr %555, align 2, !tbaa !56
+  %557 = add i16 %556, 1
+  store i16 %557, ptr %555, align 2, !tbaa !56
+  %558 = and i32 %553, 3
+  %559 = icmp ult i16 %550, 4
+  br i1 %559, label %582, label %560
 
-559:                                              ; preds = %551
-  %560 = and i32 %552, 65532
-  br label %561
+560:                                              ; preds = %552
+  %561 = and i32 %553, 65532
+  br label %562
 
-561:                                              ; preds = %561, %559
-  %562 = phi i16 [ %555, %559 ], [ %577, %561 ]
-  %563 = phi i16 [ 0, %559 ], [ %578, %561 ]
-  %564 = phi i32 [ 0, %559 ], [ %579, %561 ]
-  %565 = and i16 %562, 1
-  %566 = or i16 %563, %565
-  %567 = shl i16 %566, 2
-  %568 = and i16 %562, 2
-  %569 = or i16 %567, %568
-  %570 = lshr i16 %562, 2
-  %571 = and i16 %570, 1
-  %572 = or i16 %569, %571
-  %573 = lshr i16 %562, 3
-  %574 = shl i16 %572, 1
-  %575 = and i16 %573, 1
-  %576 = or i16 %574, %575
-  %577 = lshr i16 %562, 4
-  %578 = shl i16 %576, 1
-  %579 = add i32 %564, 4
-  %580 = icmp eq i32 %579, %560
-  br i1 %580, label %581, label %561, !llvm.loop !62
+562:                                              ; preds = %562, %560
+  %563 = phi i16 [ %556, %560 ], [ %578, %562 ]
+  %564 = phi i16 [ 0, %560 ], [ %579, %562 ]
+  %565 = phi i32 [ 0, %560 ], [ %580, %562 ]
+  %566 = and i16 %563, 1
+  %567 = or i16 %564, %566
+  %568 = shl i16 %567, 2
+  %569 = and i16 %563, 2
+  %570 = or i16 %568, %569
+  %571 = lshr i16 %563, 2
+  %572 = and i16 %571, 1
+  %573 = or i16 %570, %572
+  %574 = lshr i16 %563, 3
+  %575 = shl i16 %573, 1
+  %576 = and i16 %574, 1
+  %577 = or i16 %575, %576
+  %578 = lshr i16 %563, 4
+  %579 = shl i16 %577, 1
+  %580 = add i32 %565, 4
+  %581 = icmp eq i32 %580, %561
+  br i1 %581, label %582, label %562, !llvm.loop !62
 
-581:                                              ; preds = %561, %551
-  %582 = phi i16 [ undef, %551 ], [ %576, %561 ]
-  %583 = phi i16 [ %555, %551 ], [ %577, %561 ]
-  %584 = phi i16 [ 0, %551 ], [ %578, %561 ]
-  %585 = icmp eq i32 %557, 0
-  br i1 %585, label %596, label %586
+582:                                              ; preds = %562, %552
+  %583 = phi i16 [ undef, %552 ], [ %577, %562 ]
+  %584 = phi i16 [ %556, %552 ], [ %578, %562 ]
+  %585 = phi i16 [ 0, %552 ], [ %579, %562 ]
+  %586 = icmp eq i32 %558, 0
+  br i1 %586, label %597, label %587
 
-586:                                              ; preds = %581, %586
-  %587 = phi i16 [ %592, %586 ], [ %583, %581 ]
-  %588 = phi i16 [ %593, %586 ], [ %584, %581 ]
-  %589 = phi i32 [ %594, %586 ], [ 0, %581 ]
-  %590 = and i16 %587, 1
-  %591 = or i16 %588, %590
-  %592 = lshr i16 %587, 1
-  %593 = shl i16 %591, 1
-  %594 = add i32 %589, 1
-  %595 = icmp eq i32 %594, %557
-  br i1 %595, label %596, label %586, !llvm.loop !63
+587:                                              ; preds = %582, %587
+  %588 = phi i16 [ %593, %587 ], [ %584, %582 ]
+  %589 = phi i16 [ %594, %587 ], [ %585, %582 ]
+  %590 = phi i32 [ %595, %587 ], [ 0, %582 ]
+  %591 = and i16 %588, 1
+  %592 = or i16 %589, %591
+  %593 = lshr i16 %588, 1
+  %594 = shl i16 %592, 1
+  %595 = add i32 %590, 1
+  %596 = icmp eq i32 %595, %558
+  br i1 %596, label %597, label %587, !llvm.loop !63
 
-596:                                              ; preds = %586, %581
-  %597 = phi i16 [ %582, %581 ], [ %591, %586 ]
-  %598 = getelementptr inbounds %struct.ct_data_s, ptr %4, i64 %547
-  store i16 %597, ptr %598, align 2, !tbaa !21
+597:                                              ; preds = %587, %582
+  %598 = phi i16 [ %583, %582 ], [ %592, %587 ]
+  store i16 %598, ptr %548, align 2, !tbaa !21
   br label %599
 
-599:                                              ; preds = %596, %546
+599:                                              ; preds = %597, %546
   %600 = add nuw nsw i64 %547, 1
   %601 = icmp eq i64 %600, %545
   br i1 %601, label %602, label %546, !llvm.loop !65

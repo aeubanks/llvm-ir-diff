@@ -121,280 +121,281 @@ define dso_local void @toggle_move(i64 %0, i32 %1, i32 noundef %2) local_unnamed
   store i32 %26, ptr %24, align 4, !tbaa !5
   %27 = add nsw i32 %4, -1
   %28 = icmp eq i32 %27, 0
-  br i1 %28, label %29, label %35
+  br i1 %28, label %29, label %33
 
 29:                                               ; preds = %3
-  %30 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 0
-  %31 = load i32, ptr %30, align 16, !tbaa !5
-  %32 = load i32, ptr %13, align 4, !tbaa !5
-  %33 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %10
-  %34 = load i32, ptr %33, align 4, !tbaa !9
-  br label %69
+  %30 = load i32, ptr %13, align 4, !tbaa !5
+  %31 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %10
+  %32 = load i32, ptr %31, align 4, !tbaa !9
+  br label %67
 
-35:                                               ; preds = %3
-  %36 = add i64 %11, -8589934592
-  %37 = ashr exact i64 %36, 32
-  %38 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 %37
-  %39 = load i32, ptr %38, align 4, !tbaa !5
-  %40 = load i32, ptr %13, align 4, !tbaa !5
-  %41 = and i32 %40, %39
-  %42 = sext i32 %27 to i64
-  %43 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 %42
-  %44 = load i32, ptr %43, align 4, !tbaa !5
-  %45 = shl i32 %44, 1
-  %46 = or i32 %45, %44
-  %47 = xor i32 %46, -1
-  %48 = shl i32 %41, 1
-  %49 = and i32 %48, %47
-  %50 = and i32 %49, %41
-  %51 = and i32 %50, 65534
-  %52 = zext i32 %51 to i64
-  %53 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %52
-  %54 = load i32, ptr %53, align 8, !tbaa !5
-  %55 = icmp ult i32 %54, 268435456
-  %56 = lshr i32 %50, 16
-  %57 = zext i32 %56 to i64
-  %58 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %57
-  %59 = load i32, ptr %58, align 4, !tbaa !5
-  %60 = add i32 %59, %54
-  %61 = select i1 %55, i32 65535, i32 65534
-  %62 = and i32 %60, %61
-  %63 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %10, i64 %42
-  %64 = load i32, ptr %63, align 4, !tbaa !9
-  %65 = sub i32 %62, %64
-  %66 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %10
-  %67 = load i32, ptr %66, align 4, !tbaa !9
-  %68 = add nsw i32 %65, %67
-  store i32 %62, ptr %63, align 4, !tbaa !9
-  br label %69
+33:                                               ; preds = %3
+  %34 = add i64 %11, -8589934592
+  %35 = ashr exact i64 %34, 32
+  %36 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 %35
+  %37 = load i32, ptr %36, align 4, !tbaa !5
+  %38 = load i32, ptr %13, align 4, !tbaa !5
+  %39 = and i32 %38, %37
+  %40 = sext i32 %27 to i64
+  %41 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 %40
+  %42 = load i32, ptr %41, align 4, !tbaa !5
+  %43 = shl i32 %42, 1
+  %44 = or i32 %43, %42
+  %45 = xor i32 %44, -1
+  %46 = shl i32 %39, 1
+  %47 = and i32 %46, %45
+  %48 = and i32 %47, %39
+  %49 = and i32 %48, 65534
+  %50 = zext i32 %49 to i64
+  %51 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %50
+  %52 = load i32, ptr %51, align 8, !tbaa !5
+  %53 = icmp ult i32 %52, 268435456
+  %54 = lshr i32 %48, 16
+  %55 = zext i32 %54 to i64
+  %56 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %55
+  %57 = load i32, ptr %56, align 4, !tbaa !5
+  %58 = add i32 %57, %52
+  %59 = select i1 %53, i32 65535, i32 65534
+  %60 = and i32 %58, %59
+  %61 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %10, i64 %40
+  %62 = load i32, ptr %61, align 4, !tbaa !9
+  %63 = sub i32 %60, %62
+  %64 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %10
+  %65 = load i32, ptr %64, align 4, !tbaa !9
+  %66 = add nsw i32 %63, %65
+  store i32 %60, ptr %61, align 4, !tbaa !9
+  br label %67
 
-69:                                               ; preds = %29, %35
-  %70 = phi i32 [ %34, %29 ], [ %68, %35 ]
-  %71 = phi i32 [ %32, %29 ], [ %40, %35 ]
-  %72 = phi i32 [ %31, %29 ], [ %44, %35 ]
-  %73 = add i64 %11, 4294967296
-  %74 = ashr exact i64 %73, 32
-  %75 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 %74
-  %76 = load i32, ptr %75, align 4, !tbaa !5
-  %77 = and i32 %76, %72
-  %78 = shl i32 %71, 1
-  %79 = or i32 %78, %71
-  %80 = xor i32 %79, -1
-  %81 = shl i32 %77, 1
-  %82 = and i32 %81, %77
-  %83 = and i32 %82, %80
-  %84 = and i32 %83, 65534
-  %85 = zext i32 %84 to i64
-  %86 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %85
-  %87 = load i32, ptr %86, align 8, !tbaa !5
-  %88 = icmp ult i32 %87, 268435456
-  %89 = lshr i32 %83, 16
-  %90 = zext i32 %89 to i64
-  %91 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %90
-  %92 = load i32, ptr %91, align 4, !tbaa !5
-  %93 = add i32 %92, %87
-  %94 = select i1 %88, i32 65535, i32 65534
-  %95 = and i32 %93, %94
-  %96 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %10, i64 %12
-  %97 = load i32, ptr %96, align 4, !tbaa !9
-  %98 = sub i32 %95, %97
-  %99 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %10
-  %100 = add nsw i32 %98, %70
-  store i32 %100, ptr %99, align 4, !tbaa !9
-  store i32 %95, ptr %96, align 4, !tbaa !9
-  %101 = getelementptr inbounds [2 x i32], ptr @g_board_size, i64 0, i64 %10
-  %102 = load i32, ptr %101, align 4, !tbaa !5
-  %103 = icmp eq i32 %102, %4
-  br i1 %103, label %132, label %104
+67:                                               ; preds = %29, %33
+  %68 = phi i32 [ %32, %29 ], [ %66, %33 ]
+  %69 = phi i32 [ %30, %29 ], [ %38, %33 ]
+  %70 = add i64 %11, -4294967296
+  %71 = ashr exact i64 %70, 32
+  %72 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 %71
+  %73 = load i32, ptr %72, align 4, !tbaa !5
+  %74 = add i64 %11, 4294967296
+  %75 = ashr exact i64 %74, 32
+  %76 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 %75
+  %77 = load i32, ptr %76, align 4, !tbaa !5
+  %78 = and i32 %77, %73
+  %79 = shl i32 %69, 1
+  %80 = or i32 %79, %69
+  %81 = xor i32 %80, -1
+  %82 = shl i32 %78, 1
+  %83 = and i32 %82, %78
+  %84 = and i32 %83, %81
+  %85 = and i32 %84, 65534
+  %86 = zext i32 %85 to i64
+  %87 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %86
+  %88 = load i32, ptr %87, align 8, !tbaa !5
+  %89 = icmp ult i32 %88, 268435456
+  %90 = lshr i32 %84, 16
+  %91 = zext i32 %90 to i64
+  %92 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %91
+  %93 = load i32, ptr %92, align 4, !tbaa !5
+  %94 = add i32 %93, %88
+  %95 = select i1 %89, i32 65535, i32 65534
+  %96 = and i32 %94, %95
+  %97 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %10, i64 %12
+  %98 = load i32, ptr %97, align 4, !tbaa !9
+  %99 = sub i32 %96, %98
+  %100 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %10
+  %101 = add nsw i32 %99, %68
+  store i32 %101, ptr %100, align 4, !tbaa !9
+  store i32 %96, ptr %97, align 4, !tbaa !9
+  %102 = getelementptr inbounds [2 x i32], ptr @g_board_size, i64 0, i64 %10
+  %103 = load i32, ptr %102, align 4, !tbaa !5
+  %104 = icmp eq i32 %103, %4
+  br i1 %104, label %133, label %105
 
-104:                                              ; preds = %69
-  %105 = add i64 %11, 8589934592
-  %106 = ashr exact i64 %105, 32
-  %107 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 %106
-  %108 = load i32, ptr %107, align 4, !tbaa !5
-  %109 = and i32 %108, %71
-  %110 = shl i32 %76, 1
-  %111 = or i32 %110, %76
-  %112 = xor i32 %111, -1
-  %113 = shl i32 %109, 1
-  %114 = and i32 %113, %112
-  %115 = and i32 %114, %109
-  %116 = and i32 %115, 65534
-  %117 = zext i32 %116 to i64
-  %118 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %117
-  %119 = load i32, ptr %118, align 8, !tbaa !5
-  %120 = icmp ult i32 %119, 268435456
-  %121 = lshr i32 %115, 16
-  %122 = zext i32 %121 to i64
-  %123 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %122
-  %124 = load i32, ptr %123, align 4, !tbaa !5
-  %125 = add i32 %124, %119
-  %126 = select i1 %120, i32 65535, i32 65534
-  %127 = and i32 %125, %126
-  %128 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %10, i64 %74
-  %129 = load i32, ptr %128, align 4, !tbaa !9
-  %130 = sub i32 %100, %129
-  %131 = add i32 %130, %127
-  store i32 %131, ptr %99, align 4, !tbaa !9
-  store i32 %127, ptr %128, align 4, !tbaa !9
-  br label %132
+105:                                              ; preds = %67
+  %106 = add i64 %11, 8589934592
+  %107 = ashr exact i64 %106, 32
+  %108 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %10, i64 %107
+  %109 = load i32, ptr %108, align 4, !tbaa !5
+  %110 = and i32 %109, %69
+  %111 = shl i32 %77, 1
+  %112 = or i32 %111, %77
+  %113 = xor i32 %112, -1
+  %114 = shl i32 %110, 1
+  %115 = and i32 %114, %113
+  %116 = and i32 %115, %110
+  %117 = and i32 %116, 65534
+  %118 = zext i32 %117 to i64
+  %119 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %118
+  %120 = load i32, ptr %119, align 8, !tbaa !5
+  %121 = icmp ult i32 %120, 268435456
+  %122 = lshr i32 %116, 16
+  %123 = zext i32 %122 to i64
+  %124 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %123
+  %125 = load i32, ptr %124, align 4, !tbaa !5
+  %126 = add i32 %125, %120
+  %127 = select i1 %121, i32 65535, i32 65534
+  %128 = and i32 %126, %127
+  %129 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %10, i64 %75
+  %130 = load i32, ptr %129, align 4, !tbaa !9
+  %131 = sub i32 %101, %130
+  %132 = add i32 %131, %128
+  store i32 %132, ptr %100, align 4, !tbaa !9
+  store i32 %128, ptr %129, align 4, !tbaa !9
+  br label %133
 
-132:                                              ; preds = %104, %69
-  %133 = add nsw i32 %6, -1
-  %134 = icmp eq i32 %133, 0
-  br i1 %134, label %169, label %135
+133:                                              ; preds = %105, %67
+  %134 = add nsw i32 %6, -1
+  %135 = icmp eq i32 %134, 0
+  br i1 %135, label %170, label %136
 
-135:                                              ; preds = %132
-  %136 = add i64 %0, -8589934592
-  %137 = ashr i64 %136, 32
-  %138 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %137
-  %139 = load i32, ptr %138, align 4, !tbaa !5
-  %140 = load i32, ptr %19, align 4, !tbaa !5
-  %141 = and i32 %140, %139
-  %142 = sext i32 %133 to i64
-  %143 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %142
-  %144 = load i32, ptr %143, align 4, !tbaa !5
-  %145 = shl i32 %144, 1
-  %146 = or i32 %145, %144
-  %147 = xor i32 %146, -1
-  %148 = shl i32 %141, 1
-  %149 = and i32 %148, %147
-  %150 = and i32 %149, %141
-  %151 = and i32 %150, 65534
-  %152 = zext i32 %151 to i64
-  %153 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %152
-  %154 = load i32, ptr %153, align 8, !tbaa !5
-  %155 = icmp ult i32 %154, 268435456
-  %156 = lshr i32 %150, 16
-  %157 = zext i32 %156 to i64
-  %158 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %157
-  %159 = load i32, ptr %158, align 4, !tbaa !5
-  %160 = add i32 %159, %154
-  %161 = select i1 %155, i32 65535, i32 65534
-  %162 = and i32 %160, %161
-  %163 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %17, i64 %142
-  %164 = load i32, ptr %163, align 4, !tbaa !9
-  %165 = sub i32 %162, %164
-  %166 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %17
-  %167 = load i32, ptr %166, align 4, !tbaa !9
-  %168 = add nsw i32 %165, %167
-  store i32 %168, ptr %166, align 4, !tbaa !9
-  store i32 %162, ptr %163, align 4, !tbaa !9
-  br label %169
+136:                                              ; preds = %133
+  %137 = add i64 %0, -8589934592
+  %138 = ashr i64 %137, 32
+  %139 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %138
+  %140 = load i32, ptr %139, align 4, !tbaa !5
+  %141 = load i32, ptr %19, align 4, !tbaa !5
+  %142 = and i32 %141, %140
+  %143 = sext i32 %134 to i64
+  %144 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %143
+  %145 = load i32, ptr %144, align 4, !tbaa !5
+  %146 = shl i32 %145, 1
+  %147 = or i32 %146, %145
+  %148 = xor i32 %147, -1
+  %149 = shl i32 %142, 1
+  %150 = and i32 %149, %148
+  %151 = and i32 %150, %142
+  %152 = and i32 %151, 65534
+  %153 = zext i32 %152 to i64
+  %154 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %153
+  %155 = load i32, ptr %154, align 8, !tbaa !5
+  %156 = icmp ult i32 %155, 268435456
+  %157 = lshr i32 %151, 16
+  %158 = zext i32 %157 to i64
+  %159 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %158
+  %160 = load i32, ptr %159, align 4, !tbaa !5
+  %161 = add i32 %160, %155
+  %162 = select i1 %156, i32 65535, i32 65534
+  %163 = and i32 %161, %162
+  %164 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %17, i64 %143
+  %165 = load i32, ptr %164, align 4, !tbaa !9
+  %166 = sub i32 %163, %165
+  %167 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %17
+  %168 = load i32, ptr %167, align 4, !tbaa !9
+  %169 = add nsw i32 %166, %168
+  store i32 %169, ptr %167, align 4, !tbaa !9
+  store i32 %163, ptr %164, align 4, !tbaa !9
+  br label %170
 
-169:                                              ; preds = %135, %132
-  %170 = getelementptr inbounds [2 x i32], ptr @g_board_size, i64 0, i64 %17
-  %171 = load i32, ptr %170, align 4, !tbaa !5
-  %172 = icmp eq i32 %22, %171
-  br i1 %172, label %211, label %173
+170:                                              ; preds = %136, %133
+  %171 = getelementptr inbounds [2 x i32], ptr @g_board_size, i64 0, i64 %17
+  %172 = load i32, ptr %171, align 4, !tbaa !5
+  %173 = icmp eq i32 %22, %172
+  br i1 %173, label %212, label %174
 
-173:                                              ; preds = %169
-  %174 = add i64 %0, 4294967296
-  %175 = ashr i64 %174, 32
-  %176 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %175
-  %177 = load i32, ptr %176, align 4, !tbaa !5
-  %178 = add i64 %0, 12884901888
-  %179 = ashr i64 %178, 32
-  %180 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %179
-  %181 = load i32, ptr %180, align 4, !tbaa !5
-  %182 = and i32 %181, %177
-  %183 = add i64 %0, 8589934592
-  %184 = ashr i64 %183, 32
-  %185 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %184
-  %186 = load i32, ptr %185, align 4, !tbaa !5
-  %187 = shl i32 %186, 1
-  %188 = or i32 %187, %186
-  %189 = xor i32 %188, -1
-  %190 = shl i32 %182, 1
-  %191 = and i32 %190, %189
-  %192 = and i32 %191, %182
-  %193 = and i32 %192, 65534
-  %194 = zext i32 %193 to i64
-  %195 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %194
-  %196 = load i32, ptr %195, align 8, !tbaa !5
-  %197 = icmp ult i32 %196, 268435456
-  %198 = lshr i32 %192, 16
-  %199 = zext i32 %198 to i64
-  %200 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %199
-  %201 = load i32, ptr %200, align 4, !tbaa !5
-  %202 = add i32 %201, %196
-  %203 = select i1 %197, i32 65535, i32 65534
-  %204 = and i32 %202, %203
-  %205 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %17, i64 %184
-  %206 = load i32, ptr %205, align 4, !tbaa !9
-  %207 = sub i32 %204, %206
-  %208 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %17
-  %209 = load i32, ptr %208, align 4, !tbaa !9
-  %210 = add nsw i32 %207, %209
-  store i32 %210, ptr %208, align 4, !tbaa !9
-  store i32 %204, ptr %205, align 4, !tbaa !9
-  br label %211
+174:                                              ; preds = %170
+  %175 = add i64 %0, 4294967296
+  %176 = ashr i64 %175, 32
+  %177 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %176
+  %178 = load i32, ptr %177, align 4, !tbaa !5
+  %179 = add i64 %0, 12884901888
+  %180 = ashr i64 %179, 32
+  %181 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %180
+  %182 = load i32, ptr %181, align 4, !tbaa !5
+  %183 = and i32 %182, %178
+  %184 = add i64 %0, 8589934592
+  %185 = ashr i64 %184, 32
+  %186 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %17, i64 %185
+  %187 = load i32, ptr %186, align 4, !tbaa !5
+  %188 = shl i32 %187, 1
+  %189 = or i32 %188, %187
+  %190 = xor i32 %189, -1
+  %191 = shl i32 %183, 1
+  %192 = and i32 %191, %190
+  %193 = and i32 %192, %183
+  %194 = and i32 %193, 65534
+  %195 = zext i32 %194 to i64
+  %196 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %195
+  %197 = load i32, ptr %196, align 8, !tbaa !5
+  %198 = icmp ult i32 %197, 268435456
+  %199 = lshr i32 %193, 16
+  %200 = zext i32 %199 to i64
+  %201 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %200
+  %202 = load i32, ptr %201, align 4, !tbaa !5
+  %203 = add i32 %202, %197
+  %204 = select i1 %198, i32 65535, i32 65534
+  %205 = and i32 %203, %204
+  %206 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %17, i64 %185
+  %207 = load i32, ptr %206, align 4, !tbaa !9
+  %208 = sub i32 %205, %207
+  %209 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %17
+  %210 = load i32, ptr %209, align 4, !tbaa !9
+  %211 = add nsw i32 %208, %210
+  store i32 %211, ptr %209, align 4, !tbaa !9
+  store i32 %205, ptr %206, align 4, !tbaa !9
+  br label %212
 
-211:                                              ; preds = %173, %169
-  %212 = and i32 %80, 65535
-  %213 = zext i32 %212 to i64
-  %214 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %213
-  %215 = load i32, ptr %214, align 4, !tbaa !5
-  %216 = icmp ult i32 %215, 268435456
-  %217 = lshr i32 %80, 16
-  %218 = zext i32 %217 to i64
-  %219 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %218
-  %220 = load i32, ptr %219, align 4, !tbaa !5
-  %221 = add i32 %220, %215
-  %222 = select i1 %216, i32 65535, i32 65534
-  %223 = and i32 %221, %222
-  %224 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %10, i64 %12, i32 1
-  %225 = load i32, ptr %224, align 4, !tbaa !11
-  %226 = sub i32 %223, %225
-  %227 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %10, i32 1
-  %228 = load i32, ptr %227, align 4, !tbaa !11
-  %229 = add nsw i32 %226, %228
-  store i32 %229, ptr %227, align 4, !tbaa !11
-  store i32 %223, ptr %224, align 4, !tbaa !11
-  %230 = load i32, ptr %19, align 4, !tbaa !5
-  %231 = shl i32 %230, 1
-  %232 = or i32 %231, %230
-  %233 = xor i32 %232, -1
-  %234 = and i32 %233, 65535
-  %235 = zext i32 %234 to i64
-  %236 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %235
-  %237 = load i32, ptr %236, align 4, !tbaa !5
-  %238 = icmp ult i32 %237, 268435456
-  %239 = lshr i32 %233, 16
-  %240 = zext i32 %239 to i64
-  %241 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %240
-  %242 = load i32, ptr %241, align 4, !tbaa !5
-  %243 = add i32 %242, %237
-  %244 = select i1 %238, i32 65535, i32 65534
-  %245 = and i32 %243, %244
-  %246 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %17, i64 %18, i32 1
-  %247 = load i32, ptr %246, align 4, !tbaa !11
-  %248 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %17, i32 1
-  %249 = load i32, ptr %248, align 4, !tbaa !11
-  store i32 %245, ptr %246, align 4, !tbaa !11
-  %250 = shl i32 %26, 1
-  %251 = or i32 %250, %26
-  %252 = xor i32 %251, -1
-  %253 = and i32 %252, 65535
-  %254 = zext i32 %253 to i64
-  %255 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %254
-  %256 = load i32, ptr %255, align 4, !tbaa !5
-  %257 = icmp ult i32 %256, 268435456
-  %258 = lshr i32 %252, 16
-  %259 = zext i32 %258 to i64
-  %260 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %259
-  %261 = load i32, ptr %260, align 4, !tbaa !5
-  %262 = add i32 %261, %256
-  %263 = select i1 %257, i32 65535, i32 65534
-  %264 = and i32 %262, %263
-  %265 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %17, i64 %23, i32 1
-  %266 = load i32, ptr %265, align 4, !tbaa !11
-  %267 = add i32 %245, %249
-  %268 = add i32 %247, %266
-  %269 = sub i32 %267, %268
-  %270 = add i32 %269, %264
-  store i32 %270, ptr %248, align 4, !tbaa !11
-  store i32 %264, ptr %265, align 4, !tbaa !11
+212:                                              ; preds = %174, %170
+  %213 = and i32 %81, 65535
+  %214 = zext i32 %213 to i64
+  %215 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %214
+  %216 = load i32, ptr %215, align 4, !tbaa !5
+  %217 = icmp ult i32 %216, 268435456
+  %218 = lshr i32 %81, 16
+  %219 = zext i32 %218 to i64
+  %220 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %219
+  %221 = load i32, ptr %220, align 4, !tbaa !5
+  %222 = add i32 %221, %216
+  %223 = select i1 %217, i32 65535, i32 65534
+  %224 = and i32 %222, %223
+  %225 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %10, i64 %12, i32 1
+  %226 = load i32, ptr %225, align 4, !tbaa !11
+  %227 = sub i32 %224, %226
+  %228 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %10, i32 1
+  %229 = load i32, ptr %228, align 4, !tbaa !11
+  %230 = add nsw i32 %227, %229
+  store i32 %230, ptr %228, align 4, !tbaa !11
+  store i32 %224, ptr %225, align 4, !tbaa !11
+  %231 = load i32, ptr %19, align 4, !tbaa !5
+  %232 = shl i32 %231, 1
+  %233 = or i32 %232, %231
+  %234 = xor i32 %233, -1
+  %235 = and i32 %234, 65535
+  %236 = zext i32 %235 to i64
+  %237 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %236
+  %238 = load i32, ptr %237, align 4, !tbaa !5
+  %239 = icmp ult i32 %238, 268435456
+  %240 = lshr i32 %234, 16
+  %241 = zext i32 %240 to i64
+  %242 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %241
+  %243 = load i32, ptr %242, align 4, !tbaa !5
+  %244 = add i32 %243, %238
+  %245 = select i1 %239, i32 65535, i32 65534
+  %246 = and i32 %244, %245
+  %247 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %17, i64 %18, i32 1
+  %248 = load i32, ptr %247, align 4, !tbaa !11
+  %249 = getelementptr inbounds [2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 %17, i32 1
+  %250 = load i32, ptr %249, align 4, !tbaa !11
+  store i32 %246, ptr %247, align 4, !tbaa !11
+  %251 = shl i32 %26, 1
+  %252 = or i32 %251, %26
+  %253 = xor i32 %252, -1
+  %254 = and i32 %253, 65535
+  %255 = zext i32 %254 to i64
+  %256 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %255
+  %257 = load i32, ptr %256, align 4, !tbaa !5
+  %258 = icmp ult i32 %257, 268435456
+  %259 = lshr i32 %253, 16
+  %260 = zext i32 %259 to i64
+  %261 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %260
+  %262 = load i32, ptr %261, align 4, !tbaa !5
+  %263 = add i32 %262, %257
+  %264 = select i1 %258, i32 65535, i32 65534
+  %265 = and i32 %263, %264
+  %266 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %17, i64 %23, i32 1
+  %267 = load i32, ptr %266, align 4, !tbaa !11
+  %268 = add i32 %246, %250
+  %269 = add i32 %248, %267
+  %270 = sub i32 %268, %269
+  %271 = add i32 %270, %265
+  store i32 %271, ptr %249, align 4, !tbaa !11
+  store i32 %265, ptr %266, align 4, !tbaa !11
   ret void
 }
 
@@ -635,54 +636,52 @@ define internal fastcc i32 @score_move(i64 %0, i32 noundef %1) unnamed_addr #4 {
   %84 = add i32 %83, %80
   %85 = add nsw i32 %3, -1
   %86 = icmp eq i32 %85, 0
-  br i1 %86, label %87, label %90
+  br i1 %86, label %118, label %87
 
 87:                                               ; preds = %2
-  %88 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %9, i64 0
-  %89 = load i32, ptr %88, align 16, !tbaa !5
-  br label %121
+  %88 = add i64 %10, -8589934592
+  %89 = ashr exact i64 %88, 32
+  %90 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %9, i64 %89
+  %91 = load i32, ptr %90, align 4, !tbaa !5
+  %92 = and i32 %91, %26
+  %93 = sext i32 %85 to i64
+  %94 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %9, i64 %93
+  %95 = load i32, ptr %94, align 4, !tbaa !5
+  %96 = shl i32 %95, 1
+  %97 = or i32 %96, %95
+  %98 = xor i32 %97, -1
+  %99 = shl i32 %92, 1
+  %100 = and i32 %99, %98
+  %101 = and i32 %100, %92
+  %102 = and i32 %101, 65534
+  %103 = zext i32 %102 to i64
+  %104 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %103
+  %105 = load i32, ptr %104, align 8, !tbaa !5
+  %106 = icmp ult i32 %105, 268435456
+  %107 = lshr i32 %101, 16
+  %108 = zext i32 %107 to i64
+  %109 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %108
+  %110 = load i32, ptr %109, align 4, !tbaa !5
+  %111 = add i32 %110, %105
+  %112 = select i1 %106, i32 65535, i32 65534
+  %113 = and i32 %111, %112
+  %114 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %9, i64 %93
+  %115 = load i32, ptr %114, align 4, !tbaa !9
+  %116 = sub i32 %84, %115
+  %117 = add i32 %116, %113
+  br label %118
 
-90:                                               ; preds = %2
-  %91 = add i64 %10, -8589934592
-  %92 = ashr exact i64 %91, 32
-  %93 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %9, i64 %92
-  %94 = load i32, ptr %93, align 4, !tbaa !5
-  %95 = and i32 %94, %26
-  %96 = sext i32 %85 to i64
-  %97 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %9, i64 %96
-  %98 = load i32, ptr %97, align 4, !tbaa !5
-  %99 = shl i32 %98, 1
-  %100 = or i32 %99, %98
-  %101 = xor i32 %100, -1
-  %102 = shl i32 %95, 1
-  %103 = and i32 %102, %101
-  %104 = and i32 %103, %95
-  %105 = and i32 %104, 65534
-  %106 = zext i32 %105 to i64
-  %107 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %106
-  %108 = load i32, ptr %107, align 8, !tbaa !5
-  %109 = icmp ult i32 %108, 268435456
-  %110 = lshr i32 %104, 16
-  %111 = zext i32 %110 to i64
-  %112 = getelementptr inbounds [65536 x i32], ptr @move_table16, i64 0, i64 %111
-  %113 = load i32, ptr %112, align 4, !tbaa !5
-  %114 = add i32 %113, %108
-  %115 = select i1 %109, i32 65535, i32 65534
-  %116 = and i32 %114, %115
-  %117 = getelementptr inbounds [2 x [32 x %struct.Basic_Info]], ptr @g_info, i64 0, i64 %9, i64 %96
-  %118 = load i32, ptr %117, align 4, !tbaa !9
-  %119 = sub i32 %84, %118
-  %120 = add i32 %119, %116
-  br label %121
-
-121:                                              ; preds = %87, %90
-  %122 = phi i32 [ %98, %90 ], [ %89, %87 ]
-  %123 = phi i32 [ %120, %90 ], [ %84, %87 ]
+118:                                              ; preds = %87, %2
+  %119 = phi i32 [ %117, %87 ], [ %84, %2 ]
+  %120 = add i64 %10, -4294967296
+  %121 = ashr exact i64 %120, 32
+  %122 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %9, i64 %121
+  %123 = load i32, ptr %122, align 4, !tbaa !5
   %124 = add i64 %10, 4294967296
   %125 = ashr exact i64 %124, 32
   %126 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %9, i64 %125
   %127 = load i32, ptr %126, align 4, !tbaa !5
-  %128 = and i32 %127, %122
+  %128 = and i32 %127, %123
   %129 = shl i32 %128, 1
   %130 = and i32 %129, %29
   %131 = and i32 %130, %128
@@ -700,13 +699,13 @@ define internal fastcc i32 @score_move(i64 %0, i32 noundef %1) unnamed_addr #4 {
   %143 = and i32 %141, %142
   %144 = load i32, ptr %42, align 4, !tbaa !9
   %145 = sub nsw i32 %143, %144
-  %146 = add nsw i32 %145, %123
+  %146 = add nsw i32 %145, %119
   %147 = getelementptr inbounds [2 x i32], ptr @g_board_size, i64 0, i64 %9
   %148 = load i32, ptr %147, align 4, !tbaa !5
   %149 = icmp eq i32 %148, %3
   br i1 %149, label %178, label %150
 
-150:                                              ; preds = %121
+150:                                              ; preds = %118
   %151 = add i64 %10, 8589934592
   %152 = ashr exact i64 %151, 32
   %153 = getelementptr inbounds [2 x [32 x i32]], ptr @g_board, i64 0, i64 %9, i64 %152
@@ -736,8 +735,8 @@ define internal fastcc i32 @score_move(i64 %0, i32 noundef %1) unnamed_addr #4 {
   %177 = add i32 %176, %173
   br label %178
 
-178:                                              ; preds = %150, %121
-  %179 = phi i32 [ %177, %150 ], [ %146, %121 ]
+178:                                              ; preds = %150, %118
+  %179 = phi i32 [ %177, %150 ], [ %146, %118 ]
   %180 = add nsw i32 %5, -1
   %181 = icmp eq i32 %180, 0
   br i1 %181, label %213, label %182

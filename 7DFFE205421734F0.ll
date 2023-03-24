@@ -51,13 +51,13 @@ define dso_local noundef i32 @_ZN9btBvhTree20_calc_splitting_axisER18GIM_BVH_DAT
   br i1 %17, label %34, label %18
 
 18:                                               ; preds = %9
-  %19 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %12
-  %20 = getelementptr inbounds %class.btAABB, ptr %19, i64 0, i32 1
-  %21 = load float, ptr %20, align 4, !tbaa !13
-  %22 = load float, ptr %19, align 4, !tbaa !13
+  %19 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %12, i32 0, i32 1
+  %20 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %12
+  %21 = load float, ptr %19, align 4, !tbaa !13
+  %22 = load float, ptr %20, align 4, !tbaa !13
   %23 = fadd float %21, %22
-  %24 = getelementptr inbounds [4 x float], ptr %20, i64 0, i64 1
-  %25 = getelementptr inbounds [4 x float], ptr %19, i64 0, i64 1
+  %24 = getelementptr inbounds [4 x float], ptr %19, i64 0, i64 1
+  %25 = getelementptr inbounds [4 x float], ptr %20, i64 0, i64 1
   %26 = fmul float %23, 5.000000e-01
   %27 = load <2 x float>, ptr %24, align 4, !tbaa !13
   %28 = load <2 x float>, ptr %25, align 4, !tbaa !13
@@ -82,13 +82,13 @@ define dso_local noundef i32 @_ZN9btBvhTree20_calc_splitting_axisER18GIM_BVH_DAT
   %43 = phi i64 [ %75, %42 ], [ %37, %34 ]
   %44 = phi float [ %73, %42 ], [ %38, %34 ]
   %45 = phi <2 x float> [ %74, %42 ], [ %39, %34 ]
-  %46 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %43
-  %47 = getelementptr inbounds %class.btAABB, ptr %46, i64 0, i32 1
-  %48 = load float, ptr %47, align 4, !tbaa !13
-  %49 = load float, ptr %46, align 4, !tbaa !13
+  %46 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %43, i32 0, i32 1
+  %47 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %43
+  %48 = load float, ptr %46, align 4, !tbaa !13
+  %49 = load float, ptr %47, align 4, !tbaa !13
   %50 = fadd float %48, %49
-  %51 = getelementptr inbounds [4 x float], ptr %47, i64 0, i64 1
-  %52 = getelementptr inbounds [4 x float], ptr %46, i64 0, i64 1
+  %51 = getelementptr inbounds [4 x float], ptr %46, i64 0, i64 1
+  %52 = getelementptr inbounds [4 x float], ptr %47, i64 0, i64 1
   %53 = fmul float %50, 5.000000e-01
   %54 = load <2 x float>, ptr %51, align 4, !tbaa !13
   %55 = load <2 x float>, ptr %52, align 4, !tbaa !13
@@ -97,13 +97,13 @@ define dso_local noundef i32 @_ZN9btBvhTree20_calc_splitting_axisER18GIM_BVH_DAT
   %58 = fadd float %44, %53
   %59 = fadd <2 x float> %45, %57
   %60 = add nsw i64 %43, 1
-  %61 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %60
-  %62 = getelementptr inbounds %class.btAABB, ptr %61, i64 0, i32 1
-  %63 = load float, ptr %62, align 4, !tbaa !13
-  %64 = load float, ptr %61, align 4, !tbaa !13
+  %61 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %60, i32 0, i32 1
+  %62 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %11, i64 %60
+  %63 = load float, ptr %61, align 4, !tbaa !13
+  %64 = load float, ptr %62, align 4, !tbaa !13
   %65 = fadd float %63, %64
-  %66 = getelementptr inbounds [4 x float], ptr %62, i64 0, i64 1
-  %67 = getelementptr inbounds [4 x float], ptr %61, i64 0, i64 1
+  %66 = getelementptr inbounds [4 x float], ptr %61, i64 0, i64 1
+  %67 = getelementptr inbounds [4 x float], ptr %62, i64 0, i64 1
   %68 = fmul float %65, 5.000000e-01
   %69 = load <2 x float>, ptr %66, align 4, !tbaa !13
   %70 = load <2 x float>, ptr %67, align 4, !tbaa !13
@@ -137,13 +137,13 @@ define dso_local noundef i32 @_ZN9btBvhTree20_calc_splitting_axisER18GIM_BVH_DAT
   %92 = phi i64 [ %89, %86 ], [ %113, %91 ]
   %93 = phi float [ 0.000000e+00, %86 ], [ %111, %91 ]
   %94 = phi <2 x float> [ zeroinitializer, %86 ], [ %112, %91 ]
-  %95 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %88, i64 %92
-  %96 = getelementptr inbounds %class.btAABB, ptr %95, i64 0, i32 1
-  %97 = load float, ptr %96, align 4, !tbaa !13
-  %98 = load float, ptr %95, align 4, !tbaa !13
+  %95 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %88, i64 %92, i32 0, i32 1
+  %96 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %88, i64 %92
+  %97 = load float, ptr %95, align 4, !tbaa !13
+  %98 = load float, ptr %96, align 4, !tbaa !13
   %99 = fadd float %97, %98
-  %100 = getelementptr inbounds [4 x float], ptr %96, i64 0, i64 1
-  %101 = getelementptr inbounds [4 x float], ptr %95, i64 0, i64 1
+  %100 = getelementptr inbounds [4 x float], ptr %95, i64 0, i64 1
+  %101 = getelementptr inbounds [4 x float], ptr %96, i64 0, i64 1
   %102 = fmul float %99, 5.000000e-01
   %103 = fsub float %102, %82
   %104 = fmul float %103, %103
@@ -212,15 +212,15 @@ define dso_local noundef i32 @_ZN9btBvhTree30_sort_and_calc_splitting_indexER18G
   br i1 %21, label %38, label %22
 
 22:                                               ; preds = %13
-  %23 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %16
-  %24 = getelementptr inbounds %class.btAABB, ptr %23, i64 0, i32 1
-  %25 = getelementptr inbounds [4 x float], ptr %24, i64 0, i64 2
+  %23 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %16, i32 0, i32 1
+  %24 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %16
+  %25 = getelementptr inbounds [4 x float], ptr %23, i64 0, i64 2
   %26 = load float, ptr %25, align 4, !tbaa !13
-  %27 = getelementptr inbounds [4 x float], ptr %23, i64 0, i64 2
+  %27 = getelementptr inbounds [4 x float], ptr %24, i64 0, i64 2
   %28 = load float, ptr %27, align 4, !tbaa !13
   %29 = fadd float %26, %28
-  %30 = load <2 x float>, ptr %24, align 4, !tbaa !13
-  %31 = load <2 x float>, ptr %23, align 4, !tbaa !13
+  %30 = load <2 x float>, ptr %23, align 4, !tbaa !13
+  %31 = load <2 x float>, ptr %24, align 4, !tbaa !13
   %32 = fadd <2 x float> %30, %31
   %33 = fmul <2 x float> %32, <float 5.000000e-01, float 5.000000e-01>
   %34 = fmul float %29, 5.000000e-01
@@ -243,30 +243,30 @@ define dso_local noundef i32 @_ZN9btBvhTree30_sort_and_calc_splitting_indexER18G
   %47 = phi i64 [ %79, %46 ], [ %41, %38 ]
   %48 = phi float [ %78, %46 ], [ %42, %38 ]
   %49 = phi <2 x float> [ %77, %46 ], [ %43, %38 ]
-  %50 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %47
-  %51 = getelementptr inbounds %class.btAABB, ptr %50, i64 0, i32 1
-  %52 = getelementptr inbounds [4 x float], ptr %51, i64 0, i64 2
+  %50 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %47, i32 0, i32 1
+  %51 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %47
+  %52 = getelementptr inbounds [4 x float], ptr %50, i64 0, i64 2
   %53 = load float, ptr %52, align 4, !tbaa !13
-  %54 = getelementptr inbounds [4 x float], ptr %50, i64 0, i64 2
+  %54 = getelementptr inbounds [4 x float], ptr %51, i64 0, i64 2
   %55 = load float, ptr %54, align 4, !tbaa !13
   %56 = fadd float %53, %55
-  %57 = load <2 x float>, ptr %51, align 4, !tbaa !13
-  %58 = load <2 x float>, ptr %50, align 4, !tbaa !13
+  %57 = load <2 x float>, ptr %50, align 4, !tbaa !13
+  %58 = load <2 x float>, ptr %51, align 4, !tbaa !13
   %59 = fadd <2 x float> %57, %58
   %60 = fmul <2 x float> %59, <float 5.000000e-01, float 5.000000e-01>
   %61 = fmul float %56, 5.000000e-01
   %62 = fadd <2 x float> %60, %49
   %63 = fadd float %61, %48
   %64 = add nsw i64 %47, 1
-  %65 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %64
-  %66 = getelementptr inbounds %class.btAABB, ptr %65, i64 0, i32 1
-  %67 = getelementptr inbounds [4 x float], ptr %66, i64 0, i64 2
+  %65 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %64, i32 0, i32 1
+  %66 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %15, i64 %64
+  %67 = getelementptr inbounds [4 x float], ptr %65, i64 0, i64 2
   %68 = load float, ptr %67, align 4, !tbaa !13
-  %69 = getelementptr inbounds [4 x float], ptr %65, i64 0, i64 2
+  %69 = getelementptr inbounds [4 x float], ptr %66, i64 0, i64 2
   %70 = load float, ptr %69, align 4, !tbaa !13
   %71 = fadd float %68, %70
-  %72 = load <2 x float>, ptr %66, align 4, !tbaa !13
-  %73 = load <2 x float>, ptr %65, align 4, !tbaa !13
+  %72 = load <2 x float>, ptr %65, align 4, !tbaa !13
+  %73 = load <2 x float>, ptr %66, align 4, !tbaa !13
   %74 = fadd <2 x float> %72, %73
   %75 = fmul <2 x float> %74, <float 5.000000e-01, float 5.000000e-01>
   %76 = fmul float %71, 5.000000e-01
@@ -290,7 +290,7 @@ define dso_local noundef i32 @_ZN9btBvhTree30_sort_and_calc_splitting_indexER18G
   %90 = sext i32 %4 to i64
   %91 = getelementptr inbounds float, ptr %7, i64 %90
   %92 = load float, ptr %91, align 4, !tbaa !13
-  br i1 %11, label %93, label %132
+  br i1 %11, label %93, label %133
 
 93:                                               ; preds = %81
   %94 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %1, i64 0, i32 5
@@ -301,20 +301,20 @@ define dso_local noundef i32 @_ZN9btBvhTree30_sort_and_calc_splitting_indexER18G
   %99 = sext i32 %3 to i64
   br label %100
 
-100:                                              ; preds = %93, %128
-  %101 = phi i64 [ %98, %93 ], [ %130, %128 ]
-  %102 = phi i32 [ %2, %93 ], [ %129, %128 ]
+100:                                              ; preds = %93, %129
+  %101 = phi i64 [ %98, %93 ], [ %131, %129 ]
+  %102 = phi i32 [ %2, %93 ], [ %130, %129 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %8) #13
   %103 = load ptr, ptr %94, align 8, !tbaa !5
-  %104 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101
-  %105 = getelementptr inbounds %class.btAABB, ptr %104, i64 0, i32 1
-  %106 = getelementptr inbounds [4 x float], ptr %105, i64 0, i64 2
+  %104 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101, i32 0, i32 1
+  %105 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101
+  %106 = getelementptr inbounds [4 x float], ptr %104, i64 0, i64 2
   %107 = load float, ptr %106, align 4, !tbaa !13
-  %108 = getelementptr inbounds [4 x float], ptr %104, i64 0, i64 2
+  %108 = getelementptr inbounds [4 x float], ptr %105, i64 0, i64 2
   %109 = load float, ptr %108, align 4, !tbaa !13
   %110 = fadd float %107, %109
-  %111 = load <2 x float>, ptr %105, align 4, !tbaa !13
-  %112 = load <2 x float>, ptr %104, align 4, !tbaa !13
+  %111 = load <2 x float>, ptr %104, align 4, !tbaa !13
+  %112 = load <2 x float>, ptr %105, align 4, !tbaa !13
   %113 = fadd <2 x float> %111, %112
   %114 = fmul <2 x float> %113, <float 5.000000e-01, float 5.000000e-01>
   %115 = fmul float %110, 5.000000e-01
@@ -323,47 +323,48 @@ define dso_local noundef i32 @_ZN9btBvhTree30_sort_and_calc_splitting_indexER18G
   store <2 x float> %116, ptr %95, align 8
   %117 = load float, ptr %96, align 4, !tbaa !13
   %118 = fcmp ogt float %117, %92
-  br i1 %118, label %119, label %128
+  br i1 %118, label %119, label %129
 
 119:                                              ; preds = %100
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6)
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %104, i64 16, i1 false), !tbaa.struct !15
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %97, ptr noundef nonnull align 4 dereferenceable(16) %105, i64 16, i1 false), !tbaa.struct !15
-  %120 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101, i32 1
-  %121 = load i32, ptr %120, align 4, !tbaa !17
-  %122 = sext i32 %102 to i64
-  %123 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %122
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(36) %104, ptr noundef nonnull align 4 dereferenceable(36) %123, i64 36, i1 false), !tbaa.struct !21
-  %124 = load ptr, ptr %94, align 8, !tbaa !5
-  %125 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %124, i64 %122
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(32) %125, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !21
-  %126 = getelementptr inbounds i8, ptr %125, i64 32
-  store i32 %121, ptr %126, align 4, !tbaa.struct !23
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %105, i64 16, i1 false), !tbaa.struct !15
+  %120 = getelementptr inbounds %class.btAABB, ptr %105, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %97, ptr noundef nonnull align 4 dereferenceable(16) %120, i64 16, i1 false), !tbaa.struct !15
+  %121 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %101, i32 1
+  %122 = load i32, ptr %121, align 4, !tbaa !17
+  %123 = sext i32 %102 to i64
+  %124 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %103, i64 %123
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(36) %105, ptr noundef nonnull align 4 dereferenceable(36) %124, i64 36, i1 false), !tbaa.struct !21
+  %125 = load ptr, ptr %94, align 8, !tbaa !5
+  %126 = getelementptr inbounds %struct.GIM_BVH_DATA, ptr %125, i64 %123
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(32) %126, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !21
+  %127 = getelementptr inbounds i8, ptr %126, i64 32
+  store i32 %122, ptr %127, align 4, !tbaa.struct !23
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6)
-  %127 = add nsw i32 %102, 1
-  br label %128
+  %128 = add nsw i32 %102, 1
+  br label %129
 
-128:                                              ; preds = %119, %100
-  %129 = phi i32 [ %127, %119 ], [ %102, %100 ]
+129:                                              ; preds = %119, %100
+  %130 = phi i32 [ %128, %119 ], [ %102, %100 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %8) #13
-  %130 = add nsw i64 %101, 1
-  %131 = icmp eq i64 %130, %99
-  br i1 %131, label %132, label %100
+  %131 = add nsw i64 %101, 1
+  %132 = icmp eq i64 %131, %99
+  br i1 %132, label %133, label %100
 
-132:                                              ; preds = %128, %81
-  %133 = phi i32 [ %2, %81 ], [ %129, %128 ]
-  %134 = sdiv i32 %9, 3
-  %135 = add nsw i32 %134, %2
-  %136 = icmp sle i32 %133, %135
-  %137 = xor i32 %134, -1
-  %138 = add i32 %137, %3
-  %139 = icmp sge i32 %133, %138
-  %140 = select i1 %136, i1 true, i1 %139
-  %141 = ashr i32 %9, 1
-  %142 = add nsw i32 %141, %2
-  %143 = select i1 %140, i32 %142, i32 %133
+133:                                              ; preds = %129, %81
+  %134 = phi i32 [ %2, %81 ], [ %130, %129 ]
+  %135 = sdiv i32 %9, 3
+  %136 = add nsw i32 %135, %2
+  %137 = icmp sle i32 %134, %136
+  %138 = xor i32 %135, -1
+  %139 = add i32 %138, %3
+  %140 = icmp sge i32 %134, %139
+  %141 = select i1 %137, i1 true, i1 %140
+  %142 = ashr i32 %9, 1
+  %143 = add nsw i32 %142, %2
+  %144 = select i1 %141, i32 %143, i32 %134
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #13
-  ret i32 %143
+  ret i32 %144
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
@@ -675,10 +676,10 @@ define dso_local void @_ZN12btGImpactBvh5refitEv(ptr nocapture noundef nonnull r
   br label %66
 
 66:                                               ; preds = %48, %23
-  %67 = phi float [ %39, %23 ], [ %65, %48 ]
-  %68 = phi float [ %34, %23 ], [ %60, %48 ]
-  %69 = phi <2 x float> [ %32, %23 ], [ %58, %48 ]
-  %70 = phi <2 x float> [ %37, %23 ], [ %63, %48 ]
+  %67 = phi float [ %65, %48 ], [ %39, %23 ]
+  %68 = phi float [ %60, %48 ], [ %34, %23 ]
+  %69 = phi <2 x float> [ %58, %48 ], [ %32, %23 ]
+  %70 = phi <2 x float> [ %63, %48 ], [ %37, %23 ]
   %71 = getelementptr inbounds %class.GIM_BVH_TREE_NODE, ptr %12, i64 %11
   store <2 x float> %69, ptr %71, align 4
   %72 = getelementptr inbounds i8, ptr %71, i64 8
@@ -857,7 +858,7 @@ define dso_local void @_ZN12btGImpactBvh8buildSetEv(ptr noundef nonnull align 8 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %81)
           to label %88 unwind label %89
 
-88:                                               ; preds = %80, %87
+88:                                               ; preds = %87, %80
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #13
   resume { ptr, i32 } %82
 
@@ -889,226 +890,235 @@ declare void @_ZSt9terminatev() local_unnamed_addr
 define dso_local noundef zeroext i1 @_ZNK12btGImpactBvh8boxQueryERK6btAABBR20btAlignedObjectArrayIiE(ptr nocapture noundef nonnull readonly align 8 dereferenceable(48) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(32) %1, ptr nocapture noundef nonnull align 8 dereferenceable(25) %2) local_unnamed_addr #5 align 2 {
   %4 = load i32, ptr %0, align 8, !tbaa !24
   %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %154
+  br i1 %5, label %6, label %161
 
 6:                                                ; preds = %3
   %7 = getelementptr inbounds %class.btBvhTree, ptr %0, i64 0, i32 2, i32 0, i32 5
   %8 = getelementptr inbounds %class.btAABB, ptr %1, i64 0, i32 1
-  %9 = getelementptr inbounds float, ptr %1, i64 1
-  %10 = getelementptr inbounds %class.btAABB, ptr %1, i64 0, i32 1, i32 0, i64 2
+  %9 = getelementptr inbounds %class.btAABB, ptr %1, i64 0, i32 1, i32 0, i64 1
+  %10 = getelementptr inbounds float, ptr %1, i64 1
   %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %2, i64 0, i32 2
   %12 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %2, i64 0, i32 3
   %13 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %2, i64 0, i32 5
   %14 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %2, i64 0, i32 6
   br label %15
 
-15:                                               ; preds = %6, %151
-  %16 = phi i32 [ 0, %6 ], [ %152, %151 ]
+15:                                               ; preds = %6, %158
+  %16 = phi i32 [ 0, %6 ], [ %159, %158 ]
   %17 = load ptr, ptr %7, align 8, !tbaa !29
   %18 = sext i32 %16 to i64
   %19 = getelementptr inbounds %class.GIM_BVH_TREE_NODE, ptr %17, i64 %18
-  %20 = getelementptr inbounds i8, ptr %19, i64 8
-  %21 = load float, ptr %20, align 4, !tbaa.struct !33
-  %22 = getelementptr inbounds i8, ptr %19, i64 16
-  %23 = load float, ptr %22, align 4, !tbaa.struct !15
-  %24 = getelementptr inbounds i8, ptr %19, i64 20
-  %25 = load float, ptr %1, align 4
-  %26 = fcmp olt float %23, %25
-  %27 = load float, ptr %10, align 4
-  %28 = fcmp ogt float %21, %27
-  %29 = load <2 x float>, ptr %19, align 4
-  %30 = load <2 x float>, ptr %24, align 4
-  %31 = load <4 x float>, ptr %8, align 4
-  %32 = load <4 x float>, ptr %9, align 4
-  %33 = shufflevector <2 x float> %30, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
-  %34 = shufflevector <4 x float> %33, <4 x float> %31, <4 x i32> <i32 0, i32 1, i32 4, i32 5>
-  %35 = shufflevector <2 x float> %29, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
-  %36 = shufflevector <4 x float> %32, <4 x float> %35, <4 x i32> <i32 0, i32 1, i32 4, i32 5>
-  %37 = fcmp olt <4 x float> %34, %36
-  %38 = freeze <4 x i1> %37
-  %39 = bitcast <4 x i1> %38 to i4
-  %40 = icmp ne i4 %39, 0
-  %41 = freeze i1 %26
-  %42 = or i1 %40, %41
-  %43 = select i1 %42, i1 true, i1 %28
-  %44 = getelementptr inbounds %class.GIM_BVH_TREE_NODE, ptr %17, i64 %18, i32 1
-  %45 = load i32, ptr %44, align 4, !tbaa !31
-  br i1 %43, label %145, label %46
+  %20 = load float, ptr %19, align 4, !tbaa.struct !30
+  %21 = load float, ptr %8, align 4, !tbaa !13
+  %22 = fcmp ogt float %20, %21
+  br i1 %22, label %23, label %27
 
-46:                                               ; preds = %15
-  %47 = icmp slt i32 %45, 0
-  br i1 %47, label %147, label %48
-
-48:                                               ; preds = %46
-  %49 = load i32, ptr %11, align 4, !tbaa !47
-  %50 = load i32, ptr %12, align 8, !tbaa !50
-  %51 = icmp eq i32 %49, %50
-  br i1 %51, label %52, label %138
-
-52:                                               ; preds = %48
-  %53 = icmp eq i32 %49, 0
-  %54 = shl nsw i32 %49, 1
-  %55 = select i1 %53, i32 1, i32 %54
-  %56 = icmp slt i32 %49, %55
-  br i1 %56, label %57, label %138
-
-57:                                               ; preds = %52
-  %58 = icmp eq i32 %55, 0
-  br i1 %58, label %64, label %59
-
-59:                                               ; preds = %57
-  %60 = sext i32 %55 to i64
-  %61 = shl nsw i64 %60, 2
-  %62 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %61, i32 noundef 16)
-  %63 = load i32, ptr %11, align 4, !tbaa !47
-  br label %64
-
-64:                                               ; preds = %59, %57
-  %65 = phi i32 [ %63, %59 ], [ %49, %57 ]
-  %66 = phi ptr [ %62, %59 ], [ null, %57 ]
-  %67 = icmp sgt i32 %65, 0
-  %68 = load ptr, ptr %13, align 8, !tbaa !51
-  br i1 %67, label %69, label %128
-
-69:                                               ; preds = %64
-  %70 = ptrtoint ptr %68 to i64
-  %71 = ptrtoint ptr %66 to i64
-  %72 = zext i32 %65 to i64
-  %73 = icmp ult i32 %65, 8
-  %74 = sub i64 %71, %70
-  %75 = icmp ult i64 %74, 32
-  %76 = select i1 %73, i1 true, i1 %75
-  br i1 %76, label %91, label %77
-
-77:                                               ; preds = %69
-  %78 = and i64 %72, 4294967288
-  br label %79
-
-79:                                               ; preds = %79, %77
-  %80 = phi i64 [ 0, %77 ], [ %87, %79 ]
-  %81 = getelementptr inbounds i32, ptr %66, i64 %80
-  %82 = getelementptr inbounds i32, ptr %68, i64 %80
-  %83 = load <4 x i32>, ptr %82, align 4, !tbaa !22
-  %84 = getelementptr inbounds i32, ptr %82, i64 4
-  %85 = load <4 x i32>, ptr %84, align 4, !tbaa !22
-  store <4 x i32> %83, ptr %81, align 4, !tbaa !22
-  %86 = getelementptr inbounds i32, ptr %81, i64 4
-  store <4 x i32> %85, ptr %86, align 4, !tbaa !22
-  %87 = add nuw i64 %80, 8
-  %88 = icmp eq i64 %87, %78
-  br i1 %88, label %89, label %79, !llvm.loop !52
-
-89:                                               ; preds = %79
-  %90 = icmp eq i64 %78, %72
-  br i1 %90, label %130, label %91
-
-91:                                               ; preds = %69, %89
-  %92 = phi i64 [ 0, %69 ], [ %78, %89 ]
-  %93 = xor i64 %92, -1
-  %94 = add nsw i64 %93, %72
-  %95 = and i64 %72, 3
-  %96 = icmp eq i64 %95, 0
-  br i1 %96, label %106, label %97
-
-97:                                               ; preds = %91, %97
-  %98 = phi i64 [ %103, %97 ], [ %92, %91 ]
-  %99 = phi i64 [ %104, %97 ], [ 0, %91 ]
-  %100 = getelementptr inbounds i32, ptr %66, i64 %98
-  %101 = getelementptr inbounds i32, ptr %68, i64 %98
-  %102 = load i32, ptr %101, align 4, !tbaa !22
-  store i32 %102, ptr %100, align 4, !tbaa !22
-  %103 = add nuw nsw i64 %98, 1
-  %104 = add i64 %99, 1
-  %105 = icmp eq i64 %104, %95
-  br i1 %105, label %106, label %97, !llvm.loop !55
-
-106:                                              ; preds = %97, %91
-  %107 = phi i64 [ %92, %91 ], [ %103, %97 ]
-  %108 = icmp ult i64 %94, 3
-  br i1 %108, label %130, label %109
-
-109:                                              ; preds = %106, %109
-  %110 = phi i64 [ %126, %109 ], [ %107, %106 ]
-  %111 = getelementptr inbounds i32, ptr %66, i64 %110
-  %112 = getelementptr inbounds i32, ptr %68, i64 %110
-  %113 = load i32, ptr %112, align 4, !tbaa !22
-  store i32 %113, ptr %111, align 4, !tbaa !22
-  %114 = add nuw nsw i64 %110, 1
-  %115 = getelementptr inbounds i32, ptr %66, i64 %114
-  %116 = getelementptr inbounds i32, ptr %68, i64 %114
-  %117 = load i32, ptr %116, align 4, !tbaa !22
-  store i32 %117, ptr %115, align 4, !tbaa !22
-  %118 = add nuw nsw i64 %110, 2
-  %119 = getelementptr inbounds i32, ptr %66, i64 %118
-  %120 = getelementptr inbounds i32, ptr %68, i64 %118
-  %121 = load i32, ptr %120, align 4, !tbaa !22
-  store i32 %121, ptr %119, align 4, !tbaa !22
-  %122 = add nuw nsw i64 %110, 3
-  %123 = getelementptr inbounds i32, ptr %66, i64 %122
-  %124 = getelementptr inbounds i32, ptr %68, i64 %122
-  %125 = load i32, ptr %124, align 4, !tbaa !22
-  store i32 %125, ptr %123, align 4, !tbaa !22
-  %126 = add nuw nsw i64 %110, 4
-  %127 = icmp eq i64 %126, %72
-  br i1 %127, label %130, label %109, !llvm.loop !56
-
-128:                                              ; preds = %64
-  %129 = icmp eq ptr %68, null
-  br i1 %129, label %136, label %130
-
-130:                                              ; preds = %106, %109, %89, %128
-  %131 = load i8, ptr %14, align 8, !tbaa !57, !range !58, !noundef !59
-  %132 = icmp eq i8 %131, 0
-  br i1 %132, label %134, label %133
-
-133:                                              ; preds = %130
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %68)
-  br label %134
-
-134:                                              ; preds = %133, %130
-  %135 = load i32, ptr %11, align 4, !tbaa !47
-  br label %136
-
-136:                                              ; preds = %134, %128
-  %137 = phi i32 [ %135, %134 ], [ %65, %128 ]
-  store i8 1, ptr %14, align 8, !tbaa !57
-  store ptr %66, ptr %13, align 8, !tbaa !51
-  store i32 %55, ptr %12, align 8, !tbaa !50
-  br label %138
-
-138:                                              ; preds = %48, %52, %136
-  %139 = phi i32 [ %137, %136 ], [ %49, %52 ], [ %49, %48 ]
-  %140 = load ptr, ptr %13, align 8, !tbaa !51
-  %141 = sext i32 %139 to i64
-  %142 = getelementptr inbounds i32, ptr %140, i64 %141
-  store i32 %45, ptr %142, align 4, !tbaa !22
-  %143 = load i32, ptr %11, align 4, !tbaa !47
-  %144 = add nsw i32 %143, 1
-  store i32 %144, ptr %11, align 4, !tbaa !47
+23:                                               ; preds = %15
+  %24 = getelementptr inbounds %class.GIM_BVH_TREE_NODE, ptr %17, i64 %18, i32 1
+  %25 = load i32, ptr %24, align 4, !tbaa !31
+  %26 = icmp sgt i32 %25, -1
   br label %147
 
-145:                                              ; preds = %15
-  %146 = icmp sgt i32 %45, -1
-  br i1 %146, label %147, label %149
+27:                                               ; preds = %15
+  %28 = getelementptr inbounds i8, ptr %19, i64 20
+  %29 = getelementptr inbounds i8, ptr %19, i64 4
+  %30 = getelementptr inbounds i8, ptr %19, i64 16
+  %31 = load float, ptr %30, align 4, !tbaa.struct !15
+  %32 = load float, ptr %1, align 4, !tbaa !13
+  %33 = fcmp uge float %31, %32
+  %34 = load <2 x float>, ptr %28, align 4
+  %35 = load <2 x float>, ptr %29, align 4
+  %36 = load <2 x float>, ptr %9, align 4
+  %37 = load <4 x float>, ptr %10, align 4
+  %38 = shufflevector <2 x float> %34, <2 x float> %36, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
+  %39 = shufflevector <2 x float> %35, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
+  %40 = shufflevector <4 x float> %37, <4 x float> %39, <4 x i32> <i32 0, i32 1, i32 4, i32 5>
+  %41 = fcmp uge <4 x float> %38, %40
+  %42 = freeze <4 x i1> %41
+  %43 = bitcast <4 x i1> %42 to i4
+  %44 = icmp eq i4 %43, -1
+  %45 = select i1 %44, i1 %33, i1 false
+  %46 = getelementptr inbounds %class.GIM_BVH_TREE_NODE, ptr %17, i64 %18, i32 1
+  %47 = load i32, ptr %46, align 4, !tbaa !31
+  %48 = icmp sgt i32 %47, -1
+  %49 = and i1 %48, %45
+  br i1 %49, label %50, label %147
 
-147:                                              ; preds = %138, %46, %145
-  %148 = add nsw i32 %16, 1
+50:                                               ; preds = %27
+  %51 = load i32, ptr %11, align 4, !tbaa !47
+  %52 = load i32, ptr %12, align 8, !tbaa !50
+  %53 = icmp eq i32 %51, %52
+  br i1 %53, label %54, label %140
+
+54:                                               ; preds = %50
+  %55 = icmp eq i32 %51, 0
+  %56 = shl nsw i32 %51, 1
+  %57 = select i1 %55, i32 1, i32 %56
+  %58 = icmp slt i32 %51, %57
+  br i1 %58, label %59, label %140
+
+59:                                               ; preds = %54
+  %60 = icmp eq i32 %57, 0
+  br i1 %60, label %66, label %61
+
+61:                                               ; preds = %59
+  %62 = sext i32 %57 to i64
+  %63 = shl nsw i64 %62, 2
+  %64 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %63, i32 noundef 16)
+  %65 = load i32, ptr %11, align 4, !tbaa !47
+  br label %66
+
+66:                                               ; preds = %61, %59
+  %67 = phi i32 [ %65, %61 ], [ %51, %59 ]
+  %68 = phi ptr [ %64, %61 ], [ null, %59 ]
+  %69 = icmp sgt i32 %67, 0
+  %70 = load ptr, ptr %13, align 8, !tbaa !51
+  br i1 %69, label %71, label %130
+
+71:                                               ; preds = %66
+  %72 = ptrtoint ptr %70 to i64
+  %73 = ptrtoint ptr %68 to i64
+  %74 = zext i32 %67 to i64
+  %75 = icmp ult i32 %67, 8
+  %76 = sub i64 %73, %72
+  %77 = icmp ult i64 %76, 32
+  %78 = select i1 %75, i1 true, i1 %77
+  br i1 %78, label %93, label %79
+
+79:                                               ; preds = %71
+  %80 = and i64 %74, 4294967288
+  br label %81
+
+81:                                               ; preds = %81, %79
+  %82 = phi i64 [ 0, %79 ], [ %89, %81 ]
+  %83 = getelementptr inbounds i32, ptr %68, i64 %82
+  %84 = getelementptr inbounds i32, ptr %70, i64 %82
+  %85 = load <4 x i32>, ptr %84, align 4, !tbaa !22
+  %86 = getelementptr inbounds i32, ptr %84, i64 4
+  %87 = load <4 x i32>, ptr %86, align 4, !tbaa !22
+  store <4 x i32> %85, ptr %83, align 4, !tbaa !22
+  %88 = getelementptr inbounds i32, ptr %83, i64 4
+  store <4 x i32> %87, ptr %88, align 4, !tbaa !22
+  %89 = add nuw i64 %82, 8
+  %90 = icmp eq i64 %89, %80
+  br i1 %90, label %91, label %81, !llvm.loop !52
+
+91:                                               ; preds = %81
+  %92 = icmp eq i64 %80, %74
+  br i1 %92, label %132, label %93
+
+93:                                               ; preds = %71, %91
+  %94 = phi i64 [ 0, %71 ], [ %80, %91 ]
+  %95 = xor i64 %94, -1
+  %96 = add nsw i64 %95, %74
+  %97 = and i64 %74, 3
+  %98 = icmp eq i64 %97, 0
+  br i1 %98, label %108, label %99
+
+99:                                               ; preds = %93, %99
+  %100 = phi i64 [ %105, %99 ], [ %94, %93 ]
+  %101 = phi i64 [ %106, %99 ], [ 0, %93 ]
+  %102 = getelementptr inbounds i32, ptr %68, i64 %100
+  %103 = getelementptr inbounds i32, ptr %70, i64 %100
+  %104 = load i32, ptr %103, align 4, !tbaa !22
+  store i32 %104, ptr %102, align 4, !tbaa !22
+  %105 = add nuw nsw i64 %100, 1
+  %106 = add i64 %101, 1
+  %107 = icmp eq i64 %106, %97
+  br i1 %107, label %108, label %99, !llvm.loop !55
+
+108:                                              ; preds = %99, %93
+  %109 = phi i64 [ %94, %93 ], [ %105, %99 ]
+  %110 = icmp ult i64 %96, 3
+  br i1 %110, label %132, label %111
+
+111:                                              ; preds = %108, %111
+  %112 = phi i64 [ %128, %111 ], [ %109, %108 ]
+  %113 = getelementptr inbounds i32, ptr %68, i64 %112
+  %114 = getelementptr inbounds i32, ptr %70, i64 %112
+  %115 = load i32, ptr %114, align 4, !tbaa !22
+  store i32 %115, ptr %113, align 4, !tbaa !22
+  %116 = add nuw nsw i64 %112, 1
+  %117 = getelementptr inbounds i32, ptr %68, i64 %116
+  %118 = getelementptr inbounds i32, ptr %70, i64 %116
+  %119 = load i32, ptr %118, align 4, !tbaa !22
+  store i32 %119, ptr %117, align 4, !tbaa !22
+  %120 = add nuw nsw i64 %112, 2
+  %121 = getelementptr inbounds i32, ptr %68, i64 %120
+  %122 = getelementptr inbounds i32, ptr %70, i64 %120
+  %123 = load i32, ptr %122, align 4, !tbaa !22
+  store i32 %123, ptr %121, align 4, !tbaa !22
+  %124 = add nuw nsw i64 %112, 3
+  %125 = getelementptr inbounds i32, ptr %68, i64 %124
+  %126 = getelementptr inbounds i32, ptr %70, i64 %124
+  %127 = load i32, ptr %126, align 4, !tbaa !22
+  store i32 %127, ptr %125, align 4, !tbaa !22
+  %128 = add nuw nsw i64 %112, 4
+  %129 = icmp eq i64 %128, %74
+  br i1 %129, label %132, label %111, !llvm.loop !56
+
+130:                                              ; preds = %66
+  %131 = icmp eq ptr %70, null
+  br i1 %131, label %138, label %132
+
+132:                                              ; preds = %108, %111, %91, %130
+  %133 = load i8, ptr %14, align 8, !tbaa !57, !range !58, !noundef !59
+  %134 = icmp eq i8 %133, 0
+  br i1 %134, label %136, label %135
+
+135:                                              ; preds = %132
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %70)
+  br label %136
+
+136:                                              ; preds = %135, %132
+  %137 = load i32, ptr %11, align 4, !tbaa !47
+  br label %138
+
+138:                                              ; preds = %136, %130
+  %139 = phi i32 [ %137, %136 ], [ %67, %130 ]
+  store i8 1, ptr %14, align 8, !tbaa !57
+  store ptr %68, ptr %13, align 8, !tbaa !51
+  store i32 %57, ptr %12, align 8, !tbaa !50
+  br label %140
+
+140:                                              ; preds = %138, %54, %50
+  %141 = phi i32 [ %139, %138 ], [ %51, %54 ], [ %51, %50 ]
+  %142 = load ptr, ptr %13, align 8, !tbaa !51
+  %143 = sext i32 %141 to i64
+  %144 = getelementptr inbounds i32, ptr %142, i64 %143
+  store i32 %47, ptr %144, align 4, !tbaa !22
+  %145 = load i32, ptr %11, align 4, !tbaa !47
+  %146 = add nsw i32 %145, 1
+  store i32 %146, ptr %11, align 4, !tbaa !47
   br label %151
 
-149:                                              ; preds = %145
-  %150 = sub i32 %16, %45
-  br label %151
+147:                                              ; preds = %23, %27
+  %148 = phi i1 [ %26, %23 ], [ %48, %27 ]
+  %149 = phi i1 [ false, %23 ], [ %45, %27 ]
+  %150 = select i1 %149, i1 true, i1 %148
+  br i1 %150, label %151, label %153
 
-151:                                              ; preds = %149, %147
-  %152 = phi i32 [ %148, %147 ], [ %150, %149 ]
-  %153 = icmp slt i32 %152, %4
-  br i1 %153, label %15, label %154
+151:                                              ; preds = %140, %147
+  %152 = add nsw i32 %16, 1
+  br label %158
 
-154:                                              ; preds = %151, %3
-  %155 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %2, i64 0, i32 2
-  %156 = load i32, ptr %155, align 4, !tbaa !47
-  %157 = icmp sgt i32 %156, 0
-  ret i1 %157
+153:                                              ; preds = %147
+  %154 = load ptr, ptr %7, align 8, !tbaa !29
+  %155 = getelementptr inbounds %class.GIM_BVH_TREE_NODE, ptr %154, i64 %18, i32 1
+  %156 = load i32, ptr %155, align 4, !tbaa !31
+  %157 = sub i32 %16, %156
+  br label %158
+
+158:                                              ; preds = %153, %151
+  %159 = phi i32 [ %152, %151 ], [ %157, %153 ]
+  %160 = icmp slt i32 %159, %4
+  br i1 %160, label %15, label %161
+
+161:                                              ; preds = %158, %3
+  %162 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %2, i64 0, i32 2
+  %163 = load i32, ptr %162, align 4, !tbaa !47
+  %164 = icmp sgt i32 %163, 0
+  ret i1 %164
 }
 
 ; Function Attrs: uwtable
@@ -1232,7 +1242,7 @@ define dso_local noundef zeroext i1 @_ZNK12btGImpactBvh8rayQueryERK9btVector3S2_
   %101 = getelementptr inbounds %class.GIM_BVH_TREE_NODE, ptr %19, i64 %20, i32 1
   %102 = load i32, ptr %101, align 4, !tbaa !31
   %103 = icmp sgt i32 %102, -1
-  %104 = and i1 %100, %103
+  %104 = select i1 %103, i1 %100, i1 false
   br i1 %104, label %105, label %202
 
 105:                                              ; preds = %93
@@ -1386,7 +1396,7 @@ define dso_local noundef zeroext i1 @_ZNK12btGImpactBvh8rayQueryERK9btVector3S2_
 202:                                              ; preds = %89, %93
   %203 = phi i1 [ %92, %89 ], [ %103, %93 ]
   %204 = phi i1 [ false, %89 ], [ %100, %93 ]
-  %205 = or i1 %203, %204
+  %205 = select i1 %204, i1 true, i1 %203
   br i1 %205, label %206, label %208
 
 206:                                              ; preds = %195, %202

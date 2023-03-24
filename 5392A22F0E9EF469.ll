@@ -68,41 +68,43 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %29 = getelementptr inbounds %struct.Proto, ptr %0, i64 0, i32 9
   %30 = load ptr, ptr %29, align 8, !tbaa !15
   %31 = icmp eq ptr %30, %1
-  br i1 %31, label %38, label %32
+  br i1 %31, label %39, label %32
 
 32:                                               ; preds = %3
   %33 = getelementptr inbounds %struct.DumpState, ptr %2, i64 0, i32 3
   %34 = load i32, ptr %33, align 8, !tbaa !13
-  %35 = icmp ne i32 %34, 0
-  %36 = icmp eq ptr %30, null
-  %37 = select i1 %35, i1 true, i1 %36
-  br i1 %37, label %38, label %51
+  %35 = icmp eq i32 %34, 0
+  br i1 %35, label %36, label %39
 
-38:                                               ; preds = %32, %3
+36:                                               ; preds = %32
+  %37 = icmp eq ptr %30, null
+  %38 = getelementptr inbounds %union.TString, ptr %30, i64 1
+  br i1 %37, label %39, label %52
+
+39:                                               ; preds = %32, %3, %36
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %27) #3
   store i64 0, ptr %27, align 8, !tbaa !17
-  %39 = getelementptr inbounds %struct.DumpState, ptr %2, i64 0, i32 4
-  %40 = load i32, ptr %39, align 4, !tbaa !14
-  %41 = icmp eq i32 %40, 0
-  br i1 %41, label %42, label %49
+  %40 = getelementptr inbounds %struct.DumpState, ptr %2, i64 0, i32 4
+  %41 = load i32, ptr %40, align 4, !tbaa !14
+  %42 = icmp eq i32 %41, 0
+  br i1 %42, label %43, label %50
 
-42:                                               ; preds = %38
-  %43 = getelementptr inbounds %struct.DumpState, ptr %2, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !11
-  %45 = load ptr, ptr %2, align 8, !tbaa !5
-  %46 = getelementptr inbounds %struct.DumpState, ptr %2, i64 0, i32 2
-  %47 = load ptr, ptr %46, align 8, !tbaa !12
-  %48 = call i32 %44(ptr noundef %45, ptr noundef nonnull %27, i64 noundef 8, ptr noundef %47) #3
-  store i32 %48, ptr %39, align 4, !tbaa !14
-  br label %49
+43:                                               ; preds = %39
+  %44 = getelementptr inbounds %struct.DumpState, ptr %2, i64 0, i32 1
+  %45 = load ptr, ptr %44, align 8, !tbaa !11
+  %46 = load ptr, ptr %2, align 8, !tbaa !5
+  %47 = getelementptr inbounds %struct.DumpState, ptr %2, i64 0, i32 2
+  %48 = load ptr, ptr %47, align 8, !tbaa !12
+  %49 = call i32 %45(ptr noundef %46, ptr noundef nonnull %27, i64 noundef 8, ptr noundef %48) #3
+  store i32 %49, ptr %40, align 4, !tbaa !14
+  br label %50
 
-49:                                               ; preds = %42, %38
-  %50 = phi i32 [ %48, %42 ], [ %40, %38 ]
+50:                                               ; preds = %43, %39
+  %51 = phi i32 [ %49, %43 ], [ %41, %39 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %27) #3
   br label %75
 
-51:                                               ; preds = %32
-  %52 = getelementptr inbounds %union.TString, ptr %30, i64 1
+52:                                               ; preds = %36
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %28) #3
   %53 = getelementptr inbounds %struct.anon.1, ptr %30, i64 0, i32 5
   %54 = load i64, ptr %53, align 8, !tbaa !19
@@ -113,7 +115,7 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %58 = icmp eq i32 %57, 0
   br i1 %58, label %59, label %73
 
-59:                                               ; preds = %51
+59:                                               ; preds = %52
   %60 = getelementptr inbounds %struct.DumpState, ptr %2, i64 0, i32 1
   %61 = load ptr, ptr %60, align 8, !tbaa !11
   %62 = load ptr, ptr %2, align 8, !tbaa !5
@@ -129,17 +131,17 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %69 = load ptr, ptr %60, align 8, !tbaa !11
   %70 = load ptr, ptr %2, align 8, !tbaa !5
   %71 = load ptr, ptr %63, align 8, !tbaa !12
-  %72 = call i32 %69(ptr noundef %70, ptr noundef nonnull %52, i64 noundef %68, ptr noundef %71) #3
+  %72 = call i32 %69(ptr noundef %70, ptr noundef nonnull %38, i64 noundef %68, ptr noundef %71) #3
   store i32 %72, ptr %56, align 4, !tbaa !14
   br label %73
 
-73:                                               ; preds = %67, %59, %51
-  %74 = phi i32 [ %72, %67 ], [ %65, %59 ], [ %57, %51 ]
+73:                                               ; preds = %67, %59, %52
+  %74 = phi i32 [ %72, %67 ], [ %65, %59 ], [ %57, %52 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %28) #3
   br label %75
 
-75:                                               ; preds = %49, %73
-  %76 = phi i32 [ %50, %49 ], [ %74, %73 ]
+75:                                               ; preds = %50, %73
+  %76 = phi i32 [ %51, %50 ], [ %74, %73 ]
   %77 = getelementptr inbounds %struct.Proto, ptr %0, i64 0, i32 16
   %78 = load i32, ptr %77, align 8, !tbaa !20
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %26)
@@ -429,29 +431,29 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
 242:                                              ; preds = %209
   %243 = load ptr, ptr %198, align 8, !tbaa !19
   %244 = icmp eq ptr %243, null
-  br i1 %244, label %245, label %254
+  %245 = getelementptr inbounds %union.TString, ptr %243, i64 1
+  br i1 %244, label %246, label %255
 
-245:                                              ; preds = %242
+246:                                              ; preds = %242
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #3
   store i64 0, ptr %8, align 8, !tbaa !17
-  %246 = icmp eq i32 %210, 0
-  br i1 %246, label %247, label %252
+  %247 = icmp eq i32 %210, 0
+  br i1 %247, label %248, label %253
 
-247:                                              ; preds = %245
-  %248 = load ptr, ptr %187, align 8, !tbaa !11
-  %249 = load ptr, ptr %2, align 8, !tbaa !5
-  %250 = load ptr, ptr %188, align 8, !tbaa !12
-  %251 = call i32 %248(ptr noundef %249, ptr noundef nonnull %8, i64 noundef 8, ptr noundef %250) #3
-  store i32 %251, ptr %79, align 4, !tbaa !14
-  br label %252
+248:                                              ; preds = %246
+  %249 = load ptr, ptr %187, align 8, !tbaa !11
+  %250 = load ptr, ptr %2, align 8, !tbaa !5
+  %251 = load ptr, ptr %188, align 8, !tbaa !12
+  %252 = call i32 %249(ptr noundef %250, ptr noundef nonnull %8, i64 noundef 8, ptr noundef %251) #3
+  store i32 %252, ptr %79, align 4, !tbaa !14
+  br label %253
 
-252:                                              ; preds = %247, %245
-  %253 = phi i32 [ %251, %247 ], [ %210, %245 ]
+253:                                              ; preds = %248, %246
+  %254 = phi i32 [ %252, %248 ], [ %210, %246 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #3
   br label %275
 
-254:                                              ; preds = %242
-  %255 = getelementptr inbounds %union.TString, ptr %243, i64 1
+255:                                              ; preds = %242
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #3
   %256 = getelementptr inbounds %struct.anon.1, ptr %243, i64 0, i32 5
   %257 = load i64, ptr %256, align 8, !tbaa !19
@@ -460,7 +462,7 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %259 = icmp eq i32 %211, 0
   br i1 %259, label %260, label %272
 
-260:                                              ; preds = %254
+260:                                              ; preds = %255
   %261 = load ptr, ptr %187, align 8, !tbaa !11
   %262 = load ptr, ptr %2, align 8, !tbaa !5
   %263 = load ptr, ptr %188, align 8, !tbaa !12
@@ -474,22 +476,22 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %268 = load ptr, ptr %187, align 8, !tbaa !11
   %269 = load ptr, ptr %2, align 8, !tbaa !5
   %270 = load ptr, ptr %188, align 8, !tbaa !12
-  %271 = call i32 %268(ptr noundef %269, ptr noundef nonnull %255, i64 noundef %267, ptr noundef %270) #3
+  %271 = call i32 %268(ptr noundef %269, ptr noundef nonnull %245, i64 noundef %267, ptr noundef %270) #3
   store i32 %271, ptr %79, align 4, !tbaa !14
   br label %272
 
-272:                                              ; preds = %266, %260, %254
-  %273 = phi i32 [ %271, %266 ], [ %264, %260 ], [ %210, %254 ]
-  %274 = phi i32 [ %271, %266 ], [ %264, %260 ], [ %211, %254 ]
+272:                                              ; preds = %266, %260, %255
+  %273 = phi i32 [ %271, %266 ], [ %264, %260 ], [ %210, %255 ]
+  %274 = phi i32 [ %271, %266 ], [ %264, %260 ], [ %211, %255 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #3
   br label %275
 
-275:                                              ; preds = %272, %252, %237, %225, %209
-  %276 = phi i32 [ %273, %272 ], [ %253, %252 ], [ %238, %237 ], [ %226, %225 ], [ %210, %209 ]
-  %277 = phi i32 [ %274, %272 ], [ %253, %252 ], [ %239, %237 ], [ %227, %225 ], [ %211, %209 ]
-  %278 = phi i32 [ %274, %272 ], [ %253, %252 ], [ %240, %237 ], [ %228, %225 ], [ %212, %209 ]
-  %279 = phi i32 [ %274, %272 ], [ %253, %252 ], [ %241, %237 ], [ %228, %225 ], [ %213, %209 ]
-  %280 = phi i32 [ %274, %272 ], [ %253, %252 ], [ %241, %237 ], [ %228, %225 ], [ %215, %209 ]
+275:                                              ; preds = %272, %253, %237, %225, %209
+  %276 = phi i32 [ %273, %272 ], [ %254, %253 ], [ %238, %237 ], [ %226, %225 ], [ %210, %209 ]
+  %277 = phi i32 [ %274, %272 ], [ %254, %253 ], [ %239, %237 ], [ %227, %225 ], [ %211, %209 ]
+  %278 = phi i32 [ %274, %272 ], [ %254, %253 ], [ %240, %237 ], [ %228, %225 ], [ %212, %209 ]
+  %279 = phi i32 [ %274, %272 ], [ %254, %253 ], [ %241, %237 ], [ %228, %225 ], [ %213, %209 ]
+  %280 = phi i32 [ %274, %272 ], [ %254, %253 ], [ %241, %237 ], [ %228, %225 ], [ %215, %209 ]
   %281 = add nuw nsw i64 %196, 1
   %282 = icmp eq i64 %281, %189
   br i1 %282, label %283, label %190, !llvm.loop !35
@@ -629,29 +631,29 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %366 = getelementptr inbounds %struct.LocVar, ptr %365, i64 %364
   %367 = load ptr, ptr %366, align 8, !tbaa !45
   %368 = icmp eq ptr %367, null
-  br i1 %368, label %369, label %378
+  %369 = getelementptr inbounds %union.TString, ptr %367, i64 1
+  br i1 %368, label %370, label %379
 
-369:                                              ; preds = %362
+370:                                              ; preds = %362
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %16) #3
   store i64 0, ptr %16, align 8, !tbaa !17
-  %370 = icmp eq i32 %363, 0
-  br i1 %370, label %371, label %376
+  %371 = icmp eq i32 %363, 0
+  br i1 %371, label %372, label %377
 
-371:                                              ; preds = %369
-  %372 = load ptr, ptr %359, align 8, !tbaa !11
-  %373 = load ptr, ptr %2, align 8, !tbaa !5
-  %374 = load ptr, ptr %360, align 8, !tbaa !12
-  %375 = call i32 %372(ptr noundef %373, ptr noundef nonnull %16, i64 noundef 8, ptr noundef %374) #3
-  store i32 %375, ptr %79, align 4, !tbaa !14
-  br label %376
+372:                                              ; preds = %370
+  %373 = load ptr, ptr %359, align 8, !tbaa !11
+  %374 = load ptr, ptr %2, align 8, !tbaa !5
+  %375 = load ptr, ptr %360, align 8, !tbaa !12
+  %376 = call i32 %373(ptr noundef %374, ptr noundef nonnull %16, i64 noundef 8, ptr noundef %375) #3
+  store i32 %376, ptr %79, align 4, !tbaa !14
+  br label %377
 
-376:                                              ; preds = %371, %369
-  %377 = phi i32 [ %375, %371 ], [ %363, %369 ]
+377:                                              ; preds = %372, %370
+  %378 = phi i32 [ %376, %372 ], [ %363, %370 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %16) #3
   br label %398
 
-378:                                              ; preds = %362
-  %379 = getelementptr inbounds %union.TString, ptr %367, i64 1
+379:                                              ; preds = %362
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %17) #3
   %380 = getelementptr inbounds %struct.anon.1, ptr %367, i64 0, i32 5
   %381 = load i64, ptr %380, align 8, !tbaa !19
@@ -660,7 +662,7 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %383 = icmp eq i32 %363, 0
   br i1 %383, label %384, label %396
 
-384:                                              ; preds = %378
+384:                                              ; preds = %379
   %385 = load ptr, ptr %359, align 8, !tbaa !11
   %386 = load ptr, ptr %2, align 8, !tbaa !5
   %387 = load ptr, ptr %360, align 8, !tbaa !12
@@ -674,17 +676,17 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %392 = load ptr, ptr %359, align 8, !tbaa !11
   %393 = load ptr, ptr %2, align 8, !tbaa !5
   %394 = load ptr, ptr %360, align 8, !tbaa !12
-  %395 = call i32 %392(ptr noundef %393, ptr noundef nonnull %379, i64 noundef %391, ptr noundef %394) #3
+  %395 = call i32 %392(ptr noundef %393, ptr noundef nonnull %369, i64 noundef %391, ptr noundef %394) #3
   store i32 %395, ptr %79, align 4, !tbaa !14
   br label %396
 
-396:                                              ; preds = %390, %384, %378
-  %397 = phi i32 [ %395, %390 ], [ %388, %384 ], [ %363, %378 ]
+396:                                              ; preds = %390, %384, %379
+  %397 = phi i32 [ %395, %390 ], [ %388, %384 ], [ %363, %379 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %17) #3
   br label %398
 
-398:                                              ; preds = %396, %376
-  %399 = phi i32 [ %377, %376 ], [ %397, %396 ]
+398:                                              ; preds = %396, %377
+  %399 = phi i32 [ %378, %377 ], [ %397, %396 ]
   %400 = load ptr, ptr %358, align 8, !tbaa !44
   %401 = getelementptr inbounds %struct.LocVar, ptr %400, i64 %364, i32 1
   %402 = load i32, ptr %401, align 8, !tbaa !47
@@ -777,29 +779,29 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %453 = getelementptr inbounds ptr, ptr %452, i64 %451
   %454 = load ptr, ptr %453, align 8, !tbaa !39
   %455 = icmp eq ptr %454, null
-  br i1 %455, label %456, label %465
+  %456 = getelementptr inbounds %union.TString, ptr %454, i64 1
+  br i1 %455, label %457, label %466
 
-456:                                              ; preds = %448
+457:                                              ; preds = %448
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #3
   store i64 0, ptr %11, align 8, !tbaa !17
-  %457 = icmp eq i32 %449, 0
-  br i1 %457, label %458, label %463
+  %458 = icmp eq i32 %449, 0
+  br i1 %458, label %459, label %464
 
-458:                                              ; preds = %456
-  %459 = load ptr, ptr %445, align 8, !tbaa !11
-  %460 = load ptr, ptr %2, align 8, !tbaa !5
-  %461 = load ptr, ptr %446, align 8, !tbaa !12
-  %462 = call i32 %459(ptr noundef %460, ptr noundef nonnull %11, i64 noundef 8, ptr noundef %461) #3
-  store i32 %462, ptr %79, align 4, !tbaa !14
-  br label %463
+459:                                              ; preds = %457
+  %460 = load ptr, ptr %445, align 8, !tbaa !11
+  %461 = load ptr, ptr %2, align 8, !tbaa !5
+  %462 = load ptr, ptr %446, align 8, !tbaa !12
+  %463 = call i32 %460(ptr noundef %461, ptr noundef nonnull %11, i64 noundef 8, ptr noundef %462) #3
+  store i32 %463, ptr %79, align 4, !tbaa !14
+  br label %464
 
-463:                                              ; preds = %458, %456
-  %464 = phi i32 [ %462, %458 ], [ %449, %456 ]
+464:                                              ; preds = %459, %457
+  %465 = phi i32 [ %463, %459 ], [ %449, %457 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #3
   br label %486
 
-465:                                              ; preds = %448
-  %466 = getelementptr inbounds %union.TString, ptr %454, i64 1
+466:                                              ; preds = %448
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #3
   %467 = getelementptr inbounds %struct.anon.1, ptr %454, i64 0, i32 5
   %468 = load i64, ptr %467, align 8, !tbaa !19
@@ -808,7 +810,7 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %470 = icmp eq i32 %450, 0
   br i1 %470, label %471, label %483
 
-471:                                              ; preds = %465
+471:                                              ; preds = %466
   %472 = load ptr, ptr %445, align 8, !tbaa !11
   %473 = load ptr, ptr %2, align 8, !tbaa !5
   %474 = load ptr, ptr %446, align 8, !tbaa !12
@@ -822,19 +824,19 @@ define internal fastcc void @DumpFunction(ptr nocapture noundef readonly %0, ptr
   %479 = load ptr, ptr %445, align 8, !tbaa !11
   %480 = load ptr, ptr %2, align 8, !tbaa !5
   %481 = load ptr, ptr %446, align 8, !tbaa !12
-  %482 = call i32 %479(ptr noundef %480, ptr noundef nonnull %466, i64 noundef %478, ptr noundef %481) #3
+  %482 = call i32 %479(ptr noundef %480, ptr noundef nonnull %456, i64 noundef %478, ptr noundef %481) #3
   store i32 %482, ptr %79, align 4, !tbaa !14
   br label %483
 
-483:                                              ; preds = %477, %471, %465
-  %484 = phi i32 [ %482, %477 ], [ %475, %471 ], [ %449, %465 ]
-  %485 = phi i32 [ %482, %477 ], [ %475, %471 ], [ %450, %465 ]
+483:                                              ; preds = %477, %471, %466
+  %484 = phi i32 [ %482, %477 ], [ %475, %471 ], [ %449, %466 ]
+  %485 = phi i32 [ %482, %477 ], [ %475, %471 ], [ %450, %466 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #3
   br label %486
 
-486:                                              ; preds = %483, %463
-  %487 = phi i32 [ %464, %463 ], [ %484, %483 ]
-  %488 = phi i32 [ %464, %463 ], [ %485, %483 ]
+486:                                              ; preds = %483, %464
+  %487 = phi i32 [ %465, %464 ], [ %484, %483 ]
+  %488 = phi i32 [ %465, %464 ], [ %485, %483 ]
   %489 = add nuw nsw i64 %451, 1
   %490 = icmp eq i64 %489, %447
   br i1 %490, label %491, label %448, !llvm.loop !52

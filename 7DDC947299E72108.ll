@@ -1599,7 +1599,7 @@ define internal fastcc i32 @Maze1Mech(i64 noundef %0, i64 noundef %1, i64 nounde
   %105 = icmp ugt i64 %102, %104
   br i1 %105, label %451, label %106
 
-106:                                              ; preds = %87, %92, %99
+106:                                              ; preds = %92, %87, %99
   %107 = getelementptr inbounds i8, ptr %8, i64 %12
   %108 = load i8, ptr %107, align 1, !tbaa !11
   %109 = or i8 %108, 8
@@ -2403,7 +2403,7 @@ define dso_local i32 @ExtendOK(i64 noundef %0, ptr nocapture noundef readonly %1
   %138 = icmp ugt i64 %136, %128
   br i1 %138, label %139, label %129, !llvm.loop !18
 
-139:                                              ; preds = %135, %129, %121, %115, %104, %98, %90, %84, %41, %27, %77, %71, %63, %57, %18
+139:                                              ; preds = %135, %129, %121, %115, %104, %98, %90, %84, %41, %27, %71, %77, %57, %63, %18
   %140 = phi i32 [ 1, %18 ], [ 0, %57 ], [ 1, %63 ], [ 0, %71 ], [ 1, %77 ], [ 0, %27 ], [ 0, %41 ], [ 0, %84 ], [ 1, %90 ], [ 0, %98 ], [ 1, %104 ], [ 0, %115 ], [ 1, %121 ], [ 0, %129 ], [ 1, %135 ]
   ret i32 %140
 }
@@ -3325,9 +3325,9 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %43 = mul i64 %26, %9
   br label %44
 
-44:                                               ; preds = %919, %32
-  %45 = phi i64 [ %30, %32 ], [ %920, %919 ]
-  %46 = phi i64 [ %26, %32 ], [ %45, %919 ]
+44:                                               ; preds = %933, %32
+  %45 = phi i64 [ %30, %32 ], [ %934, %933 ]
+  %46 = phi i64 [ %26, %32 ], [ %45, %933 ]
   %47 = mul i64 %45, %9
   br i1 %33, label %57, label %48
 
@@ -3367,12 +3367,12 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %71 = phi i64 [ %68, %67 ], [ %62, %61 ]
   %72 = add i64 %71, -1
   %73 = icmp ugt i64 %72, %60
-  br i1 %73, label %74, label %919
+  br i1 %73, label %74, label %933
 
 74:                                               ; preds = %70
   %75 = add i64 %46, 2
   %76 = icmp ult i64 %75, %21
-  br i1 %76, label %77, label %919
+  br i1 %76, label %77, label %933
 
 77:                                               ; preds = %74
   %78 = icmp ugt i64 %60, %72
@@ -3381,8 +3381,8 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %81 = tail call i64 @llvm.umax.i64(i64 %45, i64 %34)
   br label %82
 
-82:                                               ; preds = %916, %77
-  %83 = phi i64 [ %75, %77 ], [ %917, %916 ]
+82:                                               ; preds = %930, %77
+  %83 = phi i64 [ %75, %77 ], [ %931, %930 ]
   %84 = mul i64 %83, %9
   br i1 %33, label %94, label %85
 
@@ -3422,7 +3422,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %108 = add i64 %107, -1
   %109 = icmp ule i64 %108, %96
   %110 = select i1 %109, i1 true, i1 %78
-  br i1 %110, label %916, label %111
+  br i1 %110, label %930, label %111
 
 111:                                              ; preds = %106
   %112 = icmp eq i64 %45, %83
@@ -3434,10 +3434,10 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %118 = mul i64 %117, %9
   %119 = tail call i64 @llvm.umax.i64(i64 %83, i64 %40)
   %120 = freeze i1 %112
-  br i1 %120, label %916, label %121
+  br i1 %120, label %930, label %121
 
-121:                                              ; preds = %111, %913
-  %122 = phi i64 [ %914, %913 ], [ %60, %111 ]
+121:                                              ; preds = %111, %927
+  %122 = phi i64 [ %928, %927 ], [ %60, %111 ]
   %123 = icmp eq i64 %122, %10
   %124 = tail call i64 @llvm.umin.i64(i64 %10, i64 %122)
   %125 = add i64 %124, %47
@@ -3447,14 +3447,14 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %129 = getelementptr inbounds i64, ptr %22, i64 %122
   %130 = add i64 %126, %39
   %131 = add i64 %124, %39
-  br i1 %123, label %913, label %132
+  br i1 %123, label %927, label %132
 
-132:                                              ; preds = %121, %910
-  %133 = phi i64 [ %911, %910 ], [ %96, %121 ]
+132:                                              ; preds = %121, %924
+  %133 = phi i64 [ %925, %924 ], [ %96, %121 ]
   %134 = icmp eq i64 %133, %10
   %135 = icmp eq i64 %122, %133
   %136 = select i1 %134, i1 true, i1 %135
-  br i1 %136, label %910, label %137
+  br i1 %136, label %924, label %137
 
 137:                                              ; preds = %132, %143
   %138 = phi i64 [ %145, %143 ], [ %10, %132 ]
@@ -3462,7 +3462,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %140 = getelementptr inbounds i8, ptr %6, i64 %138
   %141 = load i8, ptr %140, align 1, !tbaa !11
   %142 = icmp eq i8 %141, 0
-  br i1 %142, label %143, label %910
+  br i1 %142, label %143, label %924
 
 143:                                              ; preds = %137
   %144 = add i64 %139, 1
@@ -3476,7 +3476,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %150 = getelementptr inbounds i8, ptr %5, i64 %148
   %151 = load i8, ptr %150, align 1, !tbaa !11
   %152 = icmp eq i8 %151, 0
-  br i1 %152, label %153, label %910
+  br i1 %152, label %153, label %924
 
 153:                                              ; preds = %147
   %154 = add i64 %149, 1
@@ -3490,7 +3490,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %160 = getelementptr inbounds i8, ptr %6, i64 %158
   %161 = load i8, ptr %160, align 1, !tbaa !11
   %162 = icmp eq i8 %161, 0
-  br i1 %162, label %163, label %910
+  br i1 %162, label %163, label %924
 
 163:                                              ; preds = %157
   %164 = add i64 %159, 1
@@ -3516,7 +3516,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %178 = getelementptr inbounds i64, ptr %16, i64 %171
   %179 = load i64, ptr %178, align 8, !tbaa !5
   %180 = icmp ugt i64 %177, %179
-  br i1 %180, label %910, label %181
+  br i1 %180, label %924, label %181
 
 181:                                              ; preds = %175, %170, %167
   %182 = load i64, ptr %36, align 8, !tbaa !5
@@ -3542,7 +3542,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %194 = getelementptr inbounds i8, ptr %5, i64 %192
   %195 = load i8, ptr %194, align 1, !tbaa !11
   %196 = icmp eq i8 %195, 0
-  br i1 %196, label %197, label %910
+  br i1 %196, label %197, label %924
 
 197:                                              ; preds = %191
   %198 = add i64 %193, 1
@@ -3562,7 +3562,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %208 = getelementptr inbounds i8, ptr %5, i64 %206
   %209 = load i8, ptr %208, align 1, !tbaa !11
   %210 = icmp eq i8 %209, 0
-  br i1 %210, label %211, label %910
+  br i1 %210, label %211, label %924
 
 211:                                              ; preds = %205
   %212 = add i64 %207, 1
@@ -3581,7 +3581,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %221 = getelementptr inbounds i8, ptr %5, i64 %219
   %222 = load i8, ptr %221, align 1, !tbaa !11
   %223 = icmp eq i8 %222, 0
-  br i1 %223, label %224, label %910
+  br i1 %223, label %224, label %924
 
 224:                                              ; preds = %218
   %225 = add i64 %220, 1
@@ -3601,7 +3601,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %235 = getelementptr inbounds i8, ptr %5, i64 %233
   %236 = load i8, ptr %235, align 1, !tbaa !11
   %237 = icmp eq i8 %236, 0
-  br i1 %237, label %238, label %910
+  br i1 %237, label %238, label %924
 
 238:                                              ; preds = %232
   %239 = add i64 %234, 1
@@ -3618,7 +3618,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %246 = getelementptr inbounds i8, ptr %5, i64 %244
   %247 = load i8, ptr %246, align 1, !tbaa !11
   %248 = icmp eq i8 %247, 0
-  br i1 %248, label %249, label %910
+  br i1 %248, label %249, label %924
 
 249:                                              ; preds = %243
   %250 = add i64 %245, 1
@@ -3638,7 +3638,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %260 = getelementptr inbounds i8, ptr %5, i64 %258
   %261 = load i8, ptr %260, align 1, !tbaa !11
   %262 = icmp eq i8 %261, 0
-  br i1 %262, label %263, label %910
+  br i1 %262, label %263, label %924
 
 263:                                              ; preds = %257
   %264 = add i64 %259, 1
@@ -3657,7 +3657,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %273 = getelementptr inbounds i8, ptr %5, i64 %271
   %274 = load i8, ptr %273, align 1, !tbaa !11
   %275 = icmp eq i8 %274, 0
-  br i1 %275, label %276, label %910
+  br i1 %275, label %276, label %924
 
 276:                                              ; preds = %270
   %277 = add i64 %272, 1
@@ -3677,7 +3677,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %287 = getelementptr inbounds i8, ptr %5, i64 %285
   %288 = load i8, ptr %287, align 1, !tbaa !11
   %289 = icmp eq i8 %288, 0
-  br i1 %289, label %290, label %910
+  br i1 %289, label %290, label %924
 
 290:                                              ; preds = %284
   %291 = add i64 %286, 1
@@ -3694,7 +3694,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %298 = getelementptr inbounds i8, ptr %6, i64 %296
   %299 = load i8, ptr %298, align 1, !tbaa !11
   %300 = icmp eq i8 %299, 0
-  br i1 %300, label %301, label %910
+  br i1 %300, label %301, label %924
 
 301:                                              ; preds = %295
   %302 = add i64 %297, 1
@@ -3714,7 +3714,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %312 = getelementptr inbounds i8, ptr %5, i64 %310
   %313 = load i8, ptr %312, align 1, !tbaa !11
   %314 = icmp eq i8 %313, 0
-  br i1 %314, label %315, label %910
+  br i1 %314, label %315, label %924
 
 315:                                              ; preds = %309
   %316 = add i64 %311, 1
@@ -3732,7 +3732,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %324 = getelementptr inbounds i8, ptr %6, i64 %322
   %325 = load i8, ptr %324, align 1, !tbaa !11
   %326 = icmp eq i8 %325, 0
-  br i1 %326, label %327, label %910
+  br i1 %326, label %327, label %924
 
 327:                                              ; preds = %321
   %328 = add i64 %323, 1
@@ -3760,7 +3760,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %344 = getelementptr inbounds i64, ptr %16, i64 %337
   %345 = load i64, ptr %344, align 8, !tbaa !5
   %346 = icmp ugt i64 %343, %345
-  br i1 %346, label %910, label %347
+  br i1 %346, label %924, label %347
 
 347:                                              ; preds = %341, %335, %331
   %348 = load i64, ptr %41, align 8, !tbaa !5
@@ -3790,7 +3790,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %362 = getelementptr inbounds i8, ptr %5, i64 %360
   %363 = load i8, ptr %362, align 1, !tbaa !11
   %364 = icmp eq i8 %363, 0
-  br i1 %364, label %365, label %910
+  br i1 %364, label %365, label %924
 
 365:                                              ; preds = %359
   %366 = add i64 %361, 1
@@ -3810,7 +3810,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %376 = getelementptr inbounds i8, ptr %5, i64 %374
   %377 = load i8, ptr %376, align 1, !tbaa !11
   %378 = icmp eq i8 %377, 0
-  br i1 %378, label %379, label %910
+  br i1 %378, label %379, label %924
 
 379:                                              ; preds = %373
   %380 = add i64 %375, 1
@@ -3833,7 +3833,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %391 = getelementptr inbounds i8, ptr %5, i64 %389
   %392 = load i8, ptr %391, align 1, !tbaa !11
   %393 = icmp eq i8 %392, 0
-  br i1 %393, label %394, label %910
+  br i1 %393, label %394, label %924
 
 394:                                              ; preds = %388
   %395 = add i64 %390, 1
@@ -3853,7 +3853,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %405 = getelementptr inbounds i8, ptr %5, i64 %403
   %406 = load i8, ptr %405, align 1, !tbaa !11
   %407 = icmp eq i8 %406, 0
-  br i1 %407, label %408, label %910
+  br i1 %407, label %408, label %924
 
 408:                                              ; preds = %402
   %409 = add i64 %404, 1
@@ -3874,7 +3874,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %418 = getelementptr inbounds i8, ptr %5, i64 %416
   %419 = load i8, ptr %418, align 1, !tbaa !11
   %420 = icmp eq i8 %419, 0
-  br i1 %420, label %421, label %910
+  br i1 %420, label %421, label %924
 
 421:                                              ; preds = %415
   %422 = add i64 %417, 1
@@ -3894,7 +3894,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %432 = getelementptr inbounds i8, ptr %5, i64 %430
   %433 = load i8, ptr %432, align 1, !tbaa !11
   %434 = icmp eq i8 %433, 0
-  br i1 %434, label %435, label %910
+  br i1 %434, label %435, label %924
 
 435:                                              ; preds = %429
   %436 = add i64 %431, 1
@@ -3917,7 +3917,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %447 = getelementptr inbounds i8, ptr %5, i64 %445
   %448 = load i8, ptr %447, align 1, !tbaa !11
   %449 = icmp eq i8 %448, 0
-  br i1 %449, label %450, label %910
+  br i1 %449, label %450, label %924
 
 450:                                              ; preds = %444
   %451 = add i64 %446, 1
@@ -3937,7 +3937,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %461 = getelementptr inbounds i8, ptr %5, i64 %459
   %462 = load i8, ptr %461, align 1, !tbaa !11
   %463 = icmp eq i8 %462, 0
-  br i1 %463, label %464, label %910
+  br i1 %463, label %464, label %924
 
 464:                                              ; preds = %458
   %465 = add i64 %460, 1
@@ -4464,7 +4464,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   %865 = load i8, ptr %864, align 1, !tbaa !11
   %866 = or i8 %865, 2
   store i8 %866, ptr %864, align 1, !tbaa !11
-  br i1 %751, label %867, label %922
+  br i1 %751, label %867, label %910
 
 867:                                              ; preds = %850
   %868 = xor i64 %306, -1
@@ -4491,7 +4491,7 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
 884:                                              ; preds = %874, %867
   %885 = phi i64 [ %750, %867 ], [ %881, %874 ]
   %886 = icmp ult i64 %871, 3
-  br i1 %886, label %922, label %887
+  br i1 %886, label %910, label %887
 
 887:                                              ; preds = %884, %887
   %888 = phi i64 [ %908, %887 ], [ %885, %884 ]
@@ -4520,55 +4520,55 @@ define dso_local i32 @Maze3() local_unnamed_addr #11 {
   store i8 3, ptr %907, align 1, !tbaa !11
   %908 = add nuw i64 %888, 4
   %909 = icmp eq i64 %908, %308
-  br i1 %909, label %922, label %887, !llvm.loop !16
+  br i1 %909, label %910, label %887, !llvm.loop !16
 
-910:                                              ; preds = %137, %147, %157, %284, %270, %257, %243, %205, %191, %232, %218, %295, %309, %321, %458, %444, %429, %415, %373, %359, %402, %388, %341, %175, %132
-  %911 = add i64 %133, 1
-  %912 = icmp ugt i64 %911, %108
-  br i1 %912, label %913, label %132, !llvm.loop !55
-
-913:                                              ; preds = %910, %121
-  %914 = add i64 %122, 1
-  %915 = icmp ugt i64 %914, %72
-  br i1 %915, label %916, label %121, !llvm.loop !56
-
-916:                                              ; preds = %913, %111, %106
-  %917 = add nuw i64 %83, 1
-  %918 = icmp ult i64 %917, %21
-  br i1 %918, label %82, label %919, !llvm.loop !57
-
-919:                                              ; preds = %916, %74, %70
-  %920 = add nuw i64 %45, 1
-  %921 = icmp eq i64 %920, %29
-  br i1 %921, label %936, label %44, !llvm.loop !58
-
-922:                                              ; preds = %884, %887, %850
-  %923 = load i64, ptr @channelColumns, align 8, !tbaa !5
-  %924 = mul i64 %923, %26
-  %925 = add i64 %924, %308
-  %926 = getelementptr inbounds i8, ptr %5, i64 %925
-  %927 = load i8, ptr %926, align 1, !tbaa !11
-  %928 = or i8 %927, 1
-  store i8 %928, ptr %926, align 1, !tbaa !11
+910:                                              ; preds = %884, %887, %850
+  %911 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  %912 = mul i64 %911, %26
+  %913 = add i64 %912, %308
+  %914 = getelementptr inbounds i8, ptr %5, i64 %913
+  %915 = load i8, ptr %914, align 1, !tbaa !11
+  %916 = or i8 %915, 1
+  store i8 %916, ptr %914, align 1, !tbaa !11
   store i8 0, ptr %12, align 1, !tbaa !11
-  %929 = load ptr, ptr @TOP, align 8, !tbaa !9
-  %930 = getelementptr inbounds i64, ptr %929, i64 %10
-  %931 = load i64, ptr %930, align 8, !tbaa !5
-  tail call fastcc void @CleanNet(i64 noundef %931)
-  %932 = load ptr, ptr @BOT, align 8, !tbaa !9
-  %933 = getelementptr inbounds i64, ptr %932, i64 %10
-  %934 = load i64, ptr %933, align 8, !tbaa !5
-  tail call fastcc void @CleanNet(i64 noundef %934)
-  %935 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  %917 = load ptr, ptr @TOP, align 8, !tbaa !9
+  %918 = getelementptr inbounds i64, ptr %917, i64 %10
+  %919 = load i64, ptr %918, align 8, !tbaa !5
+  tail call fastcc void @CleanNet(i64 noundef %919)
+  %920 = load ptr, ptr @BOT, align 8, !tbaa !9
+  %921 = getelementptr inbounds i64, ptr %920, i64 %10
+  %922 = load i64, ptr %921, align 8, !tbaa !5
+  tail call fastcc void @CleanNet(i64 noundef %922)
+  %923 = load i64, ptr @channelColumns, align 8, !tbaa !5
   br label %938
 
-936:                                              ; preds = %919, %15
+924:                                              ; preds = %137, %147, %157, %284, %270, %257, %243, %205, %191, %232, %218, %295, %309, %321, %458, %444, %429, %415, %373, %359, %402, %388, %341, %175, %132
+  %925 = add i64 %133, 1
+  %926 = icmp ugt i64 %925, %108
+  br i1 %926, label %927, label %132, !llvm.loop !55
+
+927:                                              ; preds = %924, %121
+  %928 = add i64 %122, 1
+  %929 = icmp ugt i64 %928, %72
+  br i1 %929, label %930, label %121, !llvm.loop !56
+
+930:                                              ; preds = %927, %111, %106
+  %931 = add nuw i64 %83, 1
+  %932 = icmp ult i64 %931, %21
+  br i1 %932, label %82, label %933, !llvm.loop !57
+
+933:                                              ; preds = %930, %74, %70
+  %934 = add nuw i64 %45, 1
+  %935 = icmp eq i64 %934, %29
+  br i1 %935, label %936, label %44, !llvm.loop !58
+
+936:                                              ; preds = %933, %15
   %937 = add nsw i32 %11, 1
   br label %938
 
-938:                                              ; preds = %8, %936, %922
-  %939 = phi i64 [ %935, %922 ], [ %9, %936 ], [ %9, %8 ]
-  %940 = phi i32 [ %11, %922 ], [ %937, %936 ], [ %11, %8 ]
+938:                                              ; preds = %8, %936, %910
+  %939 = phi i64 [ %923, %910 ], [ %9, %936 ], [ %9, %8 ]
+  %940 = phi i32 [ %11, %910 ], [ %937, %936 ], [ %11, %8 ]
   %941 = add i64 %10, 1
   %942 = icmp ugt i64 %941, %939
   br i1 %942, label %943, label %8, !llvm.loop !59

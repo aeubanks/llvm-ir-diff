@@ -226,13 +226,13 @@ define dso_local ptr @pcheck_ConvertParentsInSPASSProof(ptr nocapture noundef re
   %110 = getelementptr i8, ptr %105, i64 8
   %111 = load ptr, ptr %110, align 8
   %112 = ptrtoint ptr %111 to i64
-  %113 = getelementptr i8, ptr %109, i64 8
-  %114 = load ptr, ptr %113, align 8
-  %115 = ptrtoint ptr %114 to i64
-  %116 = shl i64 %112, 32
-  %117 = ashr exact i64 %116, 32
-  %118 = inttoptr i64 %117 to ptr
-  %119 = trunc i64 %112 to i32
+  %113 = trunc i64 %112 to i32
+  %114 = getelementptr i8, ptr %109, i64 8
+  %115 = load ptr, ptr %114, align 8
+  %116 = ptrtoint ptr %115 to i64
+  %117 = shl i64 %112, 32
+  %118 = ashr exact i64 %117, 32
+  %119 = inttoptr i64 %118 to ptr
   br label %120
 
 120:                                              ; preds = %134, %103
@@ -244,11 +244,11 @@ define dso_local ptr @pcheck_ConvertParentsInSPASSProof(ptr nocapture noundef re
   %126 = getelementptr inbounds i8, ptr %49, i64 %125
   %127 = load ptr, ptr %126, align 8
   %128 = load i32, ptr %127, align 8
-  %129 = icmp sgt i32 %128, %119
+  %129 = icmp sgt i32 %128, %113
   br i1 %129, label %134, label %130
 
 130:                                              ; preds = %120
-  %131 = icmp eq i32 %128, %119
+  %131 = icmp eq i32 %128, %113
   br i1 %131, label %143, label %132
 
 132:                                              ; preds = %130
@@ -264,7 +264,7 @@ define dso_local ptr @pcheck_ConvertParentsInSPASSProof(ptr nocapture noundef re
 138:                                              ; preds = %134
   %139 = tail call ptr @memory_Malloc(i32 noundef 16) #16
   %140 = getelementptr inbounds %struct.LIST_HELP, ptr %139, i64 0, i32 1
-  store ptr %118, ptr %140, align 8
+  store ptr %119, ptr %140, align 8
   store ptr %108, ptr %139, align 8
   %141 = load i32, ptr %93, align 8
   %142 = or i32 %141, 128
@@ -292,7 +292,7 @@ define dso_local ptr @pcheck_ConvertParentsInSPASSProof(ptr nocapture noundef re
   %156 = getelementptr inbounds %struct.LIST_HELP, ptr %155, i64 0, i32 1
   store ptr %154, ptr %156, align 8
   store ptr %106, ptr %155, align 8
-  %157 = shl i64 %115, 32
+  %157 = shl i64 %116, 32
   %158 = ashr exact i64 %157, 32
   %159 = inttoptr i64 %158 to ptr
   %160 = tail call ptr @memory_Malloc(i32 noundef 16) #16
@@ -378,9 +378,9 @@ define dso_local ptr @pcheck_ConvertParentsInSPASSProof(ptr nocapture noundef re
   %212 = load i32, ptr @memory_ALIGN, align 4
   %213 = urem i32 %48, %212
   %214 = icmp eq i32 %213, 0
-  %215 = sub i32 %212, %213
-  %216 = select i1 %214, i32 0, i32 %215
-  %217 = add i32 %216, %48
+  %215 = add i32 %212, %48
+  %216 = sub i32 %215, %213
+  %217 = select i1 %214, i32 %48, i32 %216
   %218 = load i32, ptr @memory_OFFSET, align 4
   %219 = zext i32 %218 to i64
   %220 = sub nsw i64 0, %219
@@ -404,7 +404,7 @@ define dso_local ptr @pcheck_ConvertParentsInSPASSProof(ptr nocapture noundef re
 
 233:                                              ; preds = %231, %211
   %234 = load i32, ptr @memory_MARKSIZE, align 4
-  %235 = add i32 %217, %234
+  %235 = add i32 %234, %217
   %236 = zext i32 %235 to i64
   %237 = add nuw nsw i64 %236, 16
   %238 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -769,7 +769,7 @@ define dso_local ptr @pcheck_ConvertTermListToClauseList(ptr noundef readonly %0
   br label %142
 
 131:                                              ; preds = %142
-  %132 = icmp ugt i32 %149, %118
+  %132 = icmp ult i32 %118, %149
   br i1 %132, label %152, label %133
 
 133:                                              ; preds = %123, %131
@@ -812,9 +812,9 @@ define dso_local ptr @pcheck_ConvertTermListToClauseList(ptr noundef readonly %0
 160:                                              ; preds = %156
   %161 = urem i32 %158, %7
   %162 = icmp eq i32 %161, 0
-  %163 = sub i32 %7, %161
-  %164 = select i1 %162, i32 0, i32 %163
-  %165 = add i32 %164, %158
+  %163 = add i32 %7, %158
+  %164 = sub i32 %163, %161
+  %165 = select i1 %162, i32 %158, i32 %164
   %166 = load i32, ptr @memory_OFFSET, align 4
   %167 = zext i32 %166 to i64
   %168 = sub nsw i64 0, %167
@@ -838,7 +838,7 @@ define dso_local ptr @pcheck_ConvertTermListToClauseList(ptr noundef readonly %0
 
 181:                                              ; preds = %179, %160
   %182 = load i32, ptr @memory_MARKSIZE, align 4
-  %183 = add i32 %165, %182
+  %183 = add i32 %182, %165
   %184 = zext i32 %183 to i64
   %185 = add nuw nsw i64 %184, 16
   %186 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -908,9 +908,9 @@ define dso_local ptr @pcheck_ConvertTermListToClauseList(ptr noundef readonly %0
 223:                                              ; preds = %220
   %224 = urem i32 %221, %7
   %225 = icmp eq i32 %224, 0
-  %226 = sub i32 %7, %224
-  %227 = select i1 %225, i32 0, i32 %226
-  %228 = add i32 %227, %221
+  %226 = add i32 %7, %221
+  %227 = sub i32 %226, %224
+  %228 = select i1 %225, i32 %221, i32 %227
   %229 = load i32, ptr @memory_OFFSET, align 4
   %230 = zext i32 %229 to i64
   %231 = sub nsw i64 0, %230
@@ -934,7 +934,7 @@ define dso_local ptr @pcheck_ConvertTermListToClauseList(ptr noundef readonly %0
 
 244:                                              ; preds = %242, %223
   %245 = load i32, ptr @memory_MARKSIZE, align 4
-  %246 = add i32 %228, %245
+  %246 = add i32 %245, %228
   %247 = zext i32 %246 to i64
   %248 = add nuw nsw i64 %247, 16
   %249 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -1134,9 +1134,9 @@ define dso_local ptr @pcheck_ConvertTermListToClauseList(ptr noundef readonly %0
   %373 = load i32, ptr @memory_ALIGN, align 4
   %374 = urem i32 %287, %373
   %375 = icmp eq i32 %374, 0
-  %376 = sub i32 %373, %374
-  %377 = select i1 %375, i32 0, i32 %376
-  %378 = add i32 %377, %287
+  %376 = add i32 %373, %287
+  %377 = sub i32 %376, %374
+  %378 = select i1 %375, i32 %287, i32 %377
   %379 = load i32, ptr @memory_OFFSET, align 4
   %380 = zext i32 %379 to i64
   %381 = sub nsw i64 0, %380
@@ -1160,7 +1160,7 @@ define dso_local ptr @pcheck_ConvertTermListToClauseList(ptr noundef readonly %0
 
 394:                                              ; preds = %392, %372
   %395 = load i32, ptr @memory_MARKSIZE, align 4
-  %396 = add i32 %378, %395
+  %396 = add i32 %395, %378
   %397 = zext i32 %396 to i64
   %398 = add nuw nsw i64 %397, 16
   %399 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -2031,7 +2031,7 @@ define dso_local void @pcheck_TableauToProofTask(ptr noundef readonly %0, ptr no
   br i1 %55, label %97, label %56
 
 56:                                               ; preds = %54, %49, %45, %41, %37, %33
-  %57 = phi i32 [ 0, %54 ], [ 0, %33 ], [ 0, %37 ], [ 0, %41 ], [ 0, %45 ], [ %53, %49 ]
+  %57 = phi i32 [ 0, %54 ], [ 0, %41 ], [ 0, %37 ], [ 0, %33 ], [ 0, %45 ], [ %53, %49 ]
   br label %58
 
 58:                                               ; preds = %58, %56
@@ -2097,7 +2097,7 @@ define dso_local void @pcheck_TableauToProofTask(ptr noundef readonly %0, ptr no
   br i1 %96, label %143, label %97
 
 97:                                               ; preds = %94, %54
-  %98 = phi ptr [ %22, %54 ], [ %95, %94 ]
+  %98 = phi ptr [ %95, %94 ], [ %22, %54 ]
   %99 = load ptr, ptr %18, align 8
   %100 = tail call fastcc ptr @pcheck_ClauseToTerm(ptr noundef %99)
   br label %101
@@ -3009,17 +3009,17 @@ declare void @misc_CloseFile(ptr noundef, ptr noundef) local_unnamed_addr #2
 
 declare void @list_DeleteWithElement(ptr noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #15
+declare i32 @llvm.smax.i32(i32, i32) #14
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #15
+declare i32 @llvm.umax.i32(i32, i32) #14
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -3034,9 +3034,9 @@ attributes #9 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #10 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #13 = { nofree nounwind }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #15 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #15 = { nofree nounwind }
 attributes #16 = { nounwind }
 attributes #17 = { noreturn nounwind }
 attributes #18 = { nounwind willreturn memory(read) }

@@ -2265,96 +2265,96 @@ define dso_local i32 @DbRetrieve(ptr noundef %0, i32 noundef %1, ptr noundef %2,
 124:                                              ; preds = %114
   %125 = load i16, ptr %14, align 8, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %11) #12
-  switch i16 %125, label %126 [
-    i16 0, label %182
-    i16 1, label %174
+  switch i16 %125, label %127 [
+    i16 0, label %126
+    i16 1, label %175
   ]
 
 126:                                              ; preds = %124
-  %127 = zext i16 %125 to i32
-  %128 = add nsw i32 %127, -2
-  %129 = load i32, ptr @UseCollate, align 4, !tbaa !18
-  %130 = icmp eq i32 %129, 0
-  br i1 %130, label %131, label %146
-
-131:                                              ; preds = %126, %131
-  %132 = phi i32 [ %144, %131 ], [ %128, %126 ]
-  %133 = phi i32 [ %143, %131 ], [ 0, %126 ]
-  %134 = add nsw i32 %133, %132
-  %135 = sdiv i32 %134, 2
-  %136 = sext i32 %135 to i64
-  %137 = getelementptr inbounds ptr, ptr %123, i64 %136
-  %138 = load ptr, ptr %137, align 8, !tbaa !8
-  %139 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %138) #14
-  %140 = icmp slt i32 %139, 1
-  %141 = add nsw i32 %135, -1
-  %142 = add nsw i32 %135, 1
-  %143 = select i1 %140, i32 %133, i32 %142
-  %144 = select i1 %140, i32 %141, i32 %132
-  %145 = icmp sgt i32 %143, %144
-  br i1 %145, label %174, label %131, !llvm.loop !39
-
-146:                                              ; preds = %126, %169
-  %147 = phi i32 [ %170, %169 ], [ 1, %126 ]
-  %148 = phi i32 [ %172, %169 ], [ %128, %126 ]
-  %149 = phi i32 [ %171, %169 ], [ 0, %126 ]
-  %150 = add nsw i32 %149, %148
-  %151 = sdiv i32 %150, 2
-  %152 = icmp eq i32 %147, 0
-  %153 = sext i32 %151 to i64
-  %154 = getelementptr inbounds ptr, ptr %123, i64 %153
-  %155 = load ptr, ptr %154, align 8, !tbaa !8
-  br i1 %152, label %160, label %156
-
-156:                                              ; preds = %146
-  %157 = call i32 @strcollcmp(ptr noundef nonnull %13, ptr noundef %155) #12
-  %158 = icmp slt i32 %157, 1
-  %159 = load i32, ptr @UseCollate, align 4, !tbaa !18
-  br i1 %158, label %163, label %166
-
-160:                                              ; preds = %146
-  %161 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %155) #14
-  %162 = icmp slt i32 %161, 1
-  br i1 %162, label %163, label %166
-
-163:                                              ; preds = %160, %156
-  %164 = phi i32 [ 0, %160 ], [ %159, %156 ]
-  %165 = add nsw i32 %151, -1
-  br label %169
-
-166:                                              ; preds = %160, %156
-  %167 = phi i32 [ 0, %160 ], [ %159, %156 ]
-  %168 = add nsw i32 %151, 1
-  br label %169
-
-169:                                              ; preds = %166, %163
-  %170 = phi i32 [ %164, %163 ], [ %167, %166 ]
-  %171 = phi i32 [ %149, %163 ], [ %168, %166 ]
-  %172 = phi i32 [ %165, %163 ], [ %148, %166 ]
-  %173 = icmp sgt i32 %171, %172
-  br i1 %173, label %174, label %146, !llvm.loop !40
-
-174:                                              ; preds = %169, %131, %124
-  %175 = phi i32 [ 0, %124 ], [ %143, %131 ], [ %171, %169 ]
-  %176 = sext i32 %175 to i64
-  %177 = getelementptr inbounds ptr, ptr %123, i64 %176
-  %178 = load ptr, ptr %177, align 8, !tbaa !8
-  %179 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %178, ptr noundef nonnull @.str.58, ptr noundef nonnull %11) #12
-  %180 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %11) #14
-  %181 = icmp eq i32 %180, 0
-  br i1 %181, label %183, label %182
-
-182:                                              ; preds = %124, %174
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %11) #12
   br label %279
 
-183:                                              ; preds = %174
+127:                                              ; preds = %124
+  %128 = zext i16 %125 to i32
+  %129 = add nsw i32 %128, -2
+  %130 = load i32, ptr @UseCollate, align 4, !tbaa !18
+  %131 = icmp eq i32 %130, 0
+  br i1 %131, label %132, label %147
+
+132:                                              ; preds = %127, %132
+  %133 = phi i32 [ %145, %132 ], [ %129, %127 ]
+  %134 = phi i32 [ %144, %132 ], [ 0, %127 ]
+  %135 = add nsw i32 %134, %133
+  %136 = sdiv i32 %135, 2
+  %137 = sext i32 %136 to i64
+  %138 = getelementptr inbounds ptr, ptr %123, i64 %137
+  %139 = load ptr, ptr %138, align 8, !tbaa !8
+  %140 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %139) #14
+  %141 = icmp slt i32 %140, 1
+  %142 = add nsw i32 %136, -1
+  %143 = add nsw i32 %136, 1
+  %144 = select i1 %141, i32 %134, i32 %143
+  %145 = select i1 %141, i32 %142, i32 %133
+  %146 = icmp sgt i32 %144, %145
+  br i1 %146, label %175, label %132, !llvm.loop !39
+
+147:                                              ; preds = %127, %170
+  %148 = phi i32 [ %171, %170 ], [ 1, %127 ]
+  %149 = phi i32 [ %173, %170 ], [ %129, %127 ]
+  %150 = phi i32 [ %172, %170 ], [ 0, %127 ]
+  %151 = add nsw i32 %150, %149
+  %152 = sdiv i32 %151, 2
+  %153 = icmp eq i32 %148, 0
+  %154 = sext i32 %152 to i64
+  %155 = getelementptr inbounds ptr, ptr %123, i64 %154
+  %156 = load ptr, ptr %155, align 8, !tbaa !8
+  br i1 %153, label %161, label %157
+
+157:                                              ; preds = %147
+  %158 = call i32 @strcollcmp(ptr noundef nonnull %13, ptr noundef %156) #12
+  %159 = icmp slt i32 %158, 1
+  %160 = load i32, ptr @UseCollate, align 4, !tbaa !18
+  br i1 %159, label %164, label %167
+
+161:                                              ; preds = %147
+  %162 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %156) #14
+  %163 = icmp slt i32 %162, 1
+  br i1 %163, label %164, label %167
+
+164:                                              ; preds = %161, %157
+  %165 = phi i32 [ 0, %161 ], [ %160, %157 ]
+  %166 = add nsw i32 %152, -1
+  br label %170
+
+167:                                              ; preds = %161, %157
+  %168 = phi i32 [ 0, %161 ], [ %160, %157 ]
+  %169 = add nsw i32 %152, 1
+  br label %170
+
+170:                                              ; preds = %167, %164
+  %171 = phi i32 [ %165, %164 ], [ %168, %167 ]
+  %172 = phi i32 [ %150, %164 ], [ %169, %167 ]
+  %173 = phi i32 [ %166, %164 ], [ %149, %167 ]
+  %174 = icmp sgt i32 %172, %173
+  br i1 %174, label %175, label %147, !llvm.loop !40
+
+175:                                              ; preds = %170, %132, %124
+  %176 = phi i32 [ 0, %124 ], [ %144, %132 ], [ %172, %170 ]
+  %177 = sext i32 %176 to i64
+  %178 = getelementptr inbounds ptr, ptr %123, i64 %177
+  %179 = load ptr, ptr %178, align 8, !tbaa !8
+  %180 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %179, ptr noundef nonnull @.str.58, ptr noundef nonnull %11) #12
+  %181 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %11) #14
+  %182 = icmp eq i32 %181, 0
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %11) #12
+  br i1 %182, label %183, label %279
+
+183:                                              ; preds = %175
   %184 = load ptr, ptr %19, align 8, !tbaa !5
-  %185 = getelementptr inbounds ptr, ptr %184, i64 %176
+  %185 = getelementptr inbounds ptr, ptr %184, i64 %177
   %186 = load ptr, ptr %185, align 8, !tbaa !8
   %187 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %186, ptr noundef nonnull @.str.50, ptr noundef %4, ptr noundef %6, ptr noundef %7, ptr noundef nonnull %13) #12
-  %188 = add nsw i32 %175, 1
+  %188 = add nsw i32 %176, 1
   %189 = sext i32 %188 to i64
   br label %266
 
@@ -2455,23 +2455,23 @@ define dso_local i32 @DbRetrieve(ptr noundef %0, i32 noundef %1, ptr noundef %2,
 251:                                              ; preds = %247, %190
   %252 = phi i32 [ %194, %190 ], [ %249, %247 ]
   %253 = icmp slt i32 %252, %197
-  br i1 %253, label %255, label %254
+  br i1 %253, label %254, label %261
 
 254:                                              ; preds = %251
+  %255 = sext i32 %252 to i64
+  %256 = call i32 @fseek(ptr noundef %192, i64 noundef %255, i32 noundef 0)
+  %257 = call ptr @fgets(ptr noundef nonnull %12, i32 noundef 512, ptr noundef %192)
+  %258 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %12, ptr noundef nonnull @.str.58, ptr noundef nonnull %10) #12
+  %259 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %10) #14
+  %260 = icmp eq i32 %259, 0
+  call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %10) #12
+  br i1 %260, label %262, label %279
+
+261:                                              ; preds = %251
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %10) #12
   br label %279
 
-255:                                              ; preds = %251
-  %256 = sext i32 %252 to i64
-  %257 = call i32 @fseek(ptr noundef %192, i64 noundef %256, i32 noundef 0)
-  %258 = call ptr @fgets(ptr noundef nonnull %12, i32 noundef 512, ptr noundef %192)
-  %259 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %12, ptr noundef nonnull @.str.58, ptr noundef nonnull %10) #12
-  %260 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %10) #14
-  %261 = icmp eq i32 %260, 0
-  call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %10) #12
-  br i1 %261, label %262, label %279
-
-262:                                              ; preds = %255
+262:                                              ; preds = %254
   %263 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %12, ptr noundef nonnull @.str.50, ptr noundef %4, ptr noundef %6, ptr noundef %7, ptr noundef nonnull %13) #12
   %264 = load ptr, ptr %19, align 8, !tbaa !5
   %265 = call i64 @ftell(ptr noundef %264)
@@ -2501,8 +2501,8 @@ define dso_local i32 @DbRetrieve(ptr noundef %0, i32 noundef %1, ptr noundef %2,
   store i16 %278, ptr %5, align 2, !tbaa !46
   br label %279
 
-279:                                              ; preds = %254, %182, %273, %276, %255, %9, %18
-  %280 = phi i32 [ 0, %18 ], [ 0, %9 ], [ 0, %255 ], [ 1, %276 ], [ 1, %273 ], [ 0, %182 ], [ 0, %254 ]
+279:                                              ; preds = %126, %273, %276, %254, %261, %175, %9, %18
+  %280 = phi i32 [ 0, %18 ], [ 0, %9 ], [ 0, %175 ], [ 0, %261 ], [ 0, %254 ], [ 1, %276 ], [ 1, %273 ], [ 0, %126 ]
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %13) #12
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %12) #12
   ret i32 %280
@@ -2699,11 +2699,11 @@ declare i32 @strcollcmp(ptr noundef, ptr noundef) local_unnamed_addr #2
 ; Function Attrs: nofree nounwind
 declare noundef i32 @getc(ptr nocapture noundef) local_unnamed_addr #5
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #11
@@ -2717,8 +2717,8 @@ attributes #5 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #6 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind allocsize(0) }

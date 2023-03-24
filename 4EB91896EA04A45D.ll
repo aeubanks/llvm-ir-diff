@@ -319,7 +319,7 @@ define dso_local ptr @five11(ptr nocapture noundef readonly %0) local_unnamed_ad
 81:                                               ; preds = %69, %33
   %82 = phi i32 [ %38, %33 ], [ %76, %69 ]
   %83 = phi ptr [ null, %33 ], [ %77, %69 ]
-  %84 = mul nsw i32 %37, 5
+  %84 = mul nuw nsw i32 %37, 5
   %85 = add nuw nsw i32 %84, 3
   %86 = and i32 %85, 7
   %87 = add nsw i32 %82, %86

@@ -146,7 +146,7 @@ define dso_local i32 @FORMAT3_4(i32 noundef %0, i32 noundef %1) local_unnamed_ad
   %82 = icmp eq i32 %81, 1
   %83 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 1), align 4
   %84 = select i1 %82, i32 %83, i32 0
-  %85 = add nsw i32 %84, %72
+  %85 = add nsw i32 %72, %84
   %86 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 3), align 4
   %87 = select i1 %75, i32 %86, i32 0
   %88 = add nsw i32 %85, %87

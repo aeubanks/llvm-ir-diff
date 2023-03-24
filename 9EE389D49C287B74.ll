@@ -1161,7 +1161,7 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler11GetPropertyEjjP14tagP
   store i32 %336, ptr %57, align 4, !tbaa !20
   br label %430
 
-430:                                              ; preds = %426, %325, %319
+430:                                              ; preds = %319, %325, %426
   %431 = phi i32 [ %321, %319 ], [ %321, %325 ], [ %427, %426 ]
   %432 = load ptr, ptr %11, align 8, !tbaa !22
   %433 = sext i32 %431 to i64
@@ -1600,8 +1600,8 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7OpenSeqEP19ISequential
   tail call void @__cxa_end_catch() #17
   resume { ptr, i32 } %51
 
-52:                                               ; preds = %33, %44, %43
-  %53 = phi i32 [ -2147024882, %43 ], [ %45, %44 ], [ 0, %33 ]
+52:                                               ; preds = %44, %33, %43
+  %53 = phi i32 [ -2147024882, %43 ], [ 0, %33 ], [ %45, %44 ]
   ret i32 %53
 
 54:                                               ; preds = %41
@@ -2272,8 +2272,8 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7ExtractEPKjjiP23IArchi
   %219 = icmp eq i32 %217, 0
   br i1 %219, label %220, label %235
 
-220:                                              ; preds = %88, %216, %93
-  %221 = phi i32 [ 1, %93 ], [ %218, %216 ], [ 1, %88 ]
+220:                                              ; preds = %216, %88, %93
+  %221 = phi i32 [ 1, %93 ], [ 1, %88 ], [ %218, %216 ]
   %222 = load ptr, ptr %7, align 8, !tbaa !94
   %223 = icmp eq ptr %222, null
   br i1 %223, label %230, label %224
@@ -2296,7 +2296,7 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7ExtractEPKjjiP23IArchi
   %234 = invoke noundef i32 %233(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef %221)
           to label %235 unwind label %138
 
-235:                                              ; preds = %195, %136, %216, %75, %230
+235:                                              ; preds = %195, %136, %216, %230, %75
   %236 = phi i32 [ -2147024882, %75 ], [ %234, %230 ], [ %217, %216 ], [ %194, %195 ], [ %135, %136 ]
   call void @_ZN8NArchive5NPpmd8CPpmdCppD2Ev(ptr noundef nonnull align 8 dereferenceable(26632) %9) #17
   call void @llvm.lifetime.end.p0(i64 26632, ptr nonnull %9) #17
@@ -2350,9 +2350,9 @@ define dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler7ExtractEPKjjiP23IArchi
   call void @__clang_call_terminate(ptr %261) #20
   unreachable
 
-262:                                              ; preds = %80, %248, %76, %78, %57
-  %263 = phi ptr [ %54, %78 ], [ %54, %76 ], [ null, %57 ], [ %54, %248 ], [ %54, %80 ]
-  %264 = phi { ptr, i32 } [ %79, %78 ], [ %77, %76 ], [ %58, %57 ], [ %249, %248 ], [ %81, %80 ]
+262:                                              ; preds = %76, %78, %248, %80, %57
+  %263 = phi ptr [ null, %57 ], [ %54, %80 ], [ %54, %248 ], [ %54, %78 ], [ %54, %76 ]
+  %264 = phi { ptr, i32 } [ %58, %57 ], [ %81, %80 ], [ %249, %248 ], [ %79, %78 ], [ %77, %76 ]
   invoke void @MidFree(ptr noundef %263)
           to label %274 unwind label %265
 
@@ -2807,7 +2807,7 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler14QueryInt
   %159 = icmp eq i8 %157, %158
   br i1 %159, label %240, label %160
 
-160:                                              ; preds = %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
+160:                                              ; preds = %82, %85, %90, %95, %100, %105, %110, %115, %120, %125, %130, %135, %140, %145, %150, %155
   %161 = load i8, ptr @IID_IArchiveOpenSeq, align 4, !tbaa !23
   %162 = icmp eq i8 %4, %161
   br i1 %162, label %163, label %246
@@ -2930,8 +2930,8 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive5NPpmd8CHandler14QueryInt
   %245 = tail call noundef i32 %244(ptr noundef nonnull align 8 dereferenceable(96) %0)
   br label %246
 
-246:                                              ; preds = %240, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
-  %247 = phi i32 [ -2147467262, %233 ], [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ 0, %240 ]
+246:                                              ; preds = %240, %233, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160
+  %247 = phi i32 [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ -2147467262, %233 ], [ 0, %240 ]
   ret i32 %247
 }
 

@@ -22,63 +22,63 @@ define dso_local void @check(i32 noundef %0, ...) local_unnamed_addr #0 {
   %8 = load float, ptr getelementptr inbounds ([5 x %struct.S], ptr @a, i64 0, i64 2, i32 0, i64 2), align 16
   %9 = load i32, ptr %4, align 4
   %10 = load ptr, ptr %5, align 8
-  %11 = and i32 %0, 268435455
-  %12 = icmp eq i32 %11, 1
-  br i1 %12, label %29, label %51
+  %11 = getelementptr inbounds i8, ptr %10, i64 8
+  %12 = and i32 %0, 268435455
+  %13 = icmp eq i32 %12, 1
+  br i1 %13, label %30, label %51
 
-13:                                               ; preds = %48
-  br i1 %12, label %14, label %54
+14:                                               ; preds = %48
+  br i1 %13, label %15, label %54
 
-14:                                               ; preds = %13
-  %15 = icmp ult i32 %43, 145
-  br i1 %15, label %20, label %16
+15:                                               ; preds = %14
+  %16 = icmp ult i32 %44, 145
+  br i1 %16, label %21, label %17
 
-16:                                               ; preds = %14
-  %17 = getelementptr inbounds i8, ptr %42, i64 8
-  %18 = getelementptr i8, ptr %42, i64 16
+17:                                               ; preds = %15
+  %18 = getelementptr i8, ptr %43, i64 16
   store ptr %18, ptr %5, align 8
-  %19 = load float, ptr %17, align 4, !tbaa.struct !9
-  br label %26
+  %19 = getelementptr inbounds i8, ptr %43, i64 8
+  %20 = load float, ptr %19, align 4, !tbaa.struct !9
+  br label %27
 
-20:                                               ; preds = %14
-  %21 = zext i32 %43 to i64
-  %22 = getelementptr i8, ptr %7, i64 %21
-  %23 = getelementptr inbounds i8, ptr %22, i64 16
-  %24 = load float, ptr %23, align 16
-  %25 = add nuw nsw i32 %43, 32
-  store i32 %25, ptr %4, align 4
-  br label %26
+21:                                               ; preds = %15
+  %22 = zext i32 %44 to i64
+  %23 = getelementptr i8, ptr %7, i64 %22
+  %24 = getelementptr inbounds i8, ptr %23, i64 16
+  %25 = load float, ptr %24, align 16
+  %26 = add nuw nsw i32 %44, 32
+  store i32 %26, ptr %4, align 4
+  br label %27
 
-26:                                               ; preds = %20, %16
-  %27 = phi float [ %19, %16 ], [ %24, %20 ]
-  %28 = fcmp une float %8, %27
-  br i1 %28, label %54, label %55
+27:                                               ; preds = %21, %17
+  %28 = phi float [ %25, %21 ], [ %20, %17 ]
+  %29 = fcmp une float %8, %28
+  br i1 %29, label %54, label %55
 
-29:                                               ; preds = %1
-  %30 = icmp ult i32 %9, 145
-  br i1 %30, label %31, label %37
+30:                                               ; preds = %1
+  %31 = icmp ult i32 %9, 145
+  br i1 %31, label %32, label %38
 
-31:                                               ; preds = %29
-  %32 = zext i32 %9 to i64
-  %33 = getelementptr i8, ptr %7, i64 %32
-  %34 = getelementptr inbounds i8, ptr %33, i64 16
-  %35 = load float, ptr %34, align 16
-  %36 = add nuw nsw i32 %9, 32
-  store i32 %36, ptr %4, align 4
+32:                                               ; preds = %30
+  %33 = zext i32 %9 to i64
+  %34 = getelementptr i8, ptr %7, i64 %33
+  %35 = getelementptr inbounds i8, ptr %34, i64 16
+  %36 = load float, ptr %35, align 16
+  %37 = add nuw nsw i32 %9, 32
+  store i32 %37, ptr %4, align 4
   br label %41
 
-37:                                               ; preds = %29
-  %38 = getelementptr inbounds i8, ptr %10, i64 8
+38:                                               ; preds = %30
   %39 = getelementptr i8, ptr %10, i64 16
   store ptr %39, ptr %5, align 8
-  %40 = load float, ptr %38, align 4, !tbaa.struct !9
+  %40 = load float, ptr %11, align 4, !tbaa.struct !9
   br label %41
 
-41:                                               ; preds = %37, %31
-  %42 = phi ptr [ %39, %37 ], [ %10, %31 ]
-  %43 = phi i32 [ %9, %37 ], [ %36, %31 ]
-  %44 = phi float [ %40, %37 ], [ %35, %31 ]
-  %45 = fcmp une float %8, %44
+41:                                               ; preds = %38, %32
+  %42 = phi float [ %36, %32 ], [ %40, %38 ]
+  %43 = phi ptr [ %10, %32 ], [ %39, %38 ]
+  %44 = phi i32 [ %37, %32 ], [ %9, %38 ]
+  %45 = fcmp une float %8, %42
   br i1 %45, label %46, label %48
 
 46:                                               ; preds = %41
@@ -89,7 +89,7 @@ define dso_local void @check(i32 noundef %0, ...) local_unnamed_addr #0 {
 48:                                               ; preds = %41, %46
   %49 = phi i32 [ %47, %46 ], [ %3, %41 ]
   %50 = icmp eq i32 %49, 0
-  br i1 %50, label %13, label %55
+  br i1 %50, label %14, label %55
 
 51:                                               ; preds = %1
   %52 = add nsw i32 %3, 1
@@ -97,11 +97,11 @@ define dso_local void @check(i32 noundef %0, ...) local_unnamed_addr #0 {
   %53 = icmp eq i32 %52, 0
   br i1 %53, label %54, label %55
 
-54:                                               ; preds = %26, %13, %51
+54:                                               ; preds = %27, %14, %51
   store i32 1, ptr @fails, align 4, !tbaa !5
   br label %55
 
-55:                                               ; preds = %54, %26, %51, %48
+55:                                               ; preds = %54, %27, %51, %48
   call void @llvm.va_end(ptr nonnull %2)
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #5
   ret void

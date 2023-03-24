@@ -185,7 +185,7 @@ define dso_local void @genmove(ptr nocapture noundef %0, ptr nocapture noundef %
   %98 = load i32, ptr %1, align 4, !tbaa !5
   %99 = icmp slt i32 %98, 8
   %100 = select i1 %99, i32 65, i32 66
-  %101 = add i32 %100, %98
+  %101 = add i32 %98, %100
   %102 = shl i32 %101, 24
   %103 = ashr exact i32 %102, 24
   %104 = call i32 @putchar(i32 %103)

@@ -56,7 +56,7 @@ define dso_local noundef zeroext i1 @_ZN22btSubsimplexConvexCast16calcTimeOfImpa
   %25 = getelementptr inbounds %class.btTransform, ptr %2, i64 0, i32 1, i32 0, i64 2
   %26 = load float, ptr %25, align 4, !tbaa !15
   %27 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 2
-  %28 = load <2 x float>, ptr %24, align 4
+  %28 = load <2 x float>, ptr %24, align 4, !tbaa !15
   %29 = extractelement <2 x float> %28, i64 0
   %30 = fsub float %23, %29
   %31 = extractelement <2 x float> %28, i64 1
@@ -74,7 +74,7 @@ define dso_local noundef zeroext i1 @_ZN22btSubsimplexConvexCast16calcTimeOfImpa
   %43 = fsub float %21, %42
   %44 = load float, ptr %34, align 4, !tbaa !15
   %45 = fsub float %35, %44
-  %46 = load <2 x float>, ptr %38, align 4
+  %46 = load <2 x float>, ptr %38, align 4, !tbaa !15
   %47 = extractelement <2 x float> %46, i64 0
   %48 = fsub float %37, %47
   %49 = extractelement <2 x float> %46, i64 1
@@ -85,14 +85,14 @@ define dso_local noundef zeroext i1 @_ZN22btSubsimplexConvexCast16calcTimeOfImpa
   %54 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 1, i32 0, i64 1
   %55 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 1, i32 0, i64 2
   %56 = load float, ptr %52, align 4
-  %57 = load float, ptr %55, align 4
+  %57 = load float, ptr %55, align 4, !tbaa.struct !17
   %58 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2
   %59 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2, i32 0, i64 1
   %60 = load <2 x float>, ptr %1, align 4
   %61 = load <2 x float>, ptr %53, align 4
   %62 = load <2 x float>, ptr %58, align 4
   %63 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2, i32 0, i64 2
-  %64 = load float, ptr %63, align 4
+  %64 = load float, ptr %63, align 4, !tbaa.struct !17
   %65 = getelementptr inbounds i8, ptr %3, i64 4
   %66 = getelementptr inbounds i8, ptr %3, i64 8
   %67 = getelementptr inbounds [3 x %class.btVector3], ptr %3, i64 0, i64 1

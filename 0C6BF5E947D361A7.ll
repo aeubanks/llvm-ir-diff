@@ -138,7 +138,7 @@ define dso_local i32 @Proc5() local_unnamed_addr #6 {
 define dso_local i32 @Proc6(i32 noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #7 {
   %3 = icmp eq i32 %0, 10001
   %4 = select i1 %3, i32 10001, i32 10002
-  store i32 %4, ptr %1, align 4
+  store i32 %4, ptr %1, align 4, !tbaa !18
   switch i32 %0, label %13 [
     i32 0, label %11
     i32 10000, label %5
@@ -225,12 +225,12 @@ define dso_local i32 @Func2(ptr nocapture noundef readonly %0, ptr nocapture nou
   %5 = getelementptr inbounds i8, ptr %1, i64 2
   %6 = load i8, ptr %5, align 1, !tbaa !18
   %7 = icmp eq i8 %6, %4
-  br i1 %7, label %8, label %9
-
-8:                                                ; preds = %2, %8
   br label %8
 
-9:                                                ; preds = %2
+8:                                                ; preds = %8, %2
+  br i1 %7, label %8, label %9, !llvm.loop !20
+
+9:                                                ; preds = %8
   %10 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %1) #15
   %11 = icmp sgt i32 %10, 0
   %12 = zext i1 %11 to i32
@@ -290,3 +290,5 @@ attributes #15 = { nounwind willreturn memory(read) }
 !17 = !{!"llvm.loop.mustprogress"}
 !18 = !{!7, !7, i64 0}
 !19 = !{}
+!20 = distinct !{!20, !21}
+!21 = !{!"llvm.loop.peeled.count", i32 1}

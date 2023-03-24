@@ -1036,7 +1036,7 @@ define dso_local void @PRINT_INSTRUCTION(i32 noundef %0, i32 noundef %1, ptr noc
 14:                                               ; preds = %3
   store i32 0, ptr %2, align 4, !tbaa !16
   %15 = icmp eq i32 %1, 0
-  br i1 %15, label %334, label %16
+  br i1 %15, label %331, label %16
 
 16:                                               ; preds = %14
   %17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
@@ -1203,7 +1203,7 @@ define dso_local void @PRINT_INSTRUCTION(i32 noundef %0, i32 noundef %1, ptr noc
   %161 = phi i32 [ undef, %23 ], [ undef, %136 ], [ %117, %104 ]
   %162 = phi i32 [ undef, %23 ], [ undef, %136 ], [ %114, %104 ]
   %163 = icmp eq i32 %1, 0
-  br i1 %163, label %334, label %164
+  br i1 %163, label %331, label %164
 
 164:                                              ; preds = %16, %137
   %165 = phi i32 [ undef, %16 ], [ %138, %137 ]
@@ -1246,212 +1246,211 @@ define dso_local void @PRINT_INSTRUCTION(i32 noundef %0, i32 noundef %1, ptr noc
 
 200:                                              ; preds = %164
   store i32 0, ptr @PRINT_INSTR, align 4, !tbaa !16
-  br label %334
+  br label %331
 
 201:                                              ; preds = %164
   %202 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
   store i32 %0, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
   %203 = load i32, ptr %2, align 4, !tbaa !16
   %204 = icmp eq i32 %203, 2
-  br i1 %204, label %205, label %254
+  br i1 %204, label %205, label %251
 
 205:                                              ; preds = %201
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #12
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #12
   call void @FORMAT2(ptr noundef nonnull %4, ptr noundef nonnull %5) #12
   store i32 %202, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
-  %206 = add nsw i32 %12, -45
-  %207 = icmp ult i32 %206, 2
-  br i1 %207, label %208, label %215
+  %206 = and i32 %11, -4
+  %207 = add i32 %206, -164
+  %208 = lshr exact i32 %207, 2
+  switch i32 %208, label %234 [
+    i32 5, label %209
+    i32 4, label %209
+    i32 3, label %216
+    i32 1, label %223
+    i32 0, label %223
+  ]
 
-208:                                              ; preds = %205
-  %209 = load i32, ptr %4, align 4, !tbaa !16
-  %210 = icmp sgt i32 %209, 9
-  %211 = sext i32 %209 to i64
-  %212 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %211
-  %213 = select i1 %210, ptr @str.89, ptr %212
-  %214 = call i32 @puts(ptr nonnull dereferenceable(1) %213)
-  br label %253
+209:                                              ; preds = %205, %205
+  %210 = load i32, ptr %4, align 4, !tbaa !16
+  %211 = icmp sgt i32 %210, 9
+  %212 = sext i32 %210 to i64
+  %213 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %212
+  %214 = select i1 %211, ptr @str.89, ptr %213
+  %215 = call i32 @puts(ptr nonnull dereferenceable(1) %214)
+  br label %250
 
-215:                                              ; preds = %205
-  %216 = and i32 %11, -4
-  %217 = icmp eq i32 %216, 176
-  br i1 %217, label %218, label %225
+216:                                              ; preds = %205
+  %217 = load i32, ptr %4, align 4, !tbaa !16
+  %218 = icmp sgt i32 %217, 4
+  br i1 %218, label %219, label %221
 
-218:                                              ; preds = %215
-  %219 = load i32, ptr %4, align 4, !tbaa !16
-  %220 = icmp sgt i32 %219, 4
-  br i1 %220, label %221, label %223
+219:                                              ; preds = %216
+  %220 = call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
+  br label %250
 
-221:                                              ; preds = %218
-  %222 = call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
-  br label %253
+221:                                              ; preds = %216
+  %222 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.76, i32 noundef %217)
+  br label %250
 
-223:                                              ; preds = %218
-  %224 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.76, i32 noundef %219)
-  br label %253
+223:                                              ; preds = %205, %205
+  %224 = load i32, ptr %4, align 4, !tbaa !16
+  %225 = icmp sgt i32 %224, 9
+  br i1 %225, label %226, label %228
 
-225:                                              ; preds = %215
-  %226 = add nsw i32 %12, -41
-  %227 = icmp ult i32 %226, 2
-  %228 = load i32, ptr %4, align 4, !tbaa !16
-  %229 = icmp sgt i32 %228, 9
-  br i1 %227, label %230, label %239
+226:                                              ; preds = %223
+  %227 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.77)
+  br label %232
 
-230:                                              ; preds = %225
-  br i1 %229, label %231, label %233
+228:                                              ; preds = %223
+  %229 = sext i32 %224 to i64
+  %230 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %229
+  %231 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.78, ptr noundef nonnull %230)
+  br label %232
 
-231:                                              ; preds = %230
-  %232 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.77)
-  br label %237
+232:                                              ; preds = %228, %226
+  %233 = load i32, ptr %5, align 4, !tbaa !16
+  call void @PRINT_CONSTANT(ptr noundef nonnull @.str.79, i32 noundef %233, ptr noundef nonnull @.str.80)
+  br label %250
 
-233:                                              ; preds = %230
-  %234 = sext i32 %228 to i64
-  %235 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %234
-  %236 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.78, ptr noundef nonnull %235)
-  br label %237
+234:                                              ; preds = %205
+  %235 = load i32, ptr %4, align 4, !tbaa !16
+  %236 = icmp sgt i32 %235, 9
+  br i1 %236, label %237, label %239
 
-237:                                              ; preds = %233, %231
-  %238 = load i32, ptr %5, align 4, !tbaa !16
-  call void @PRINT_CONSTANT(ptr noundef nonnull @.str.79, i32 noundef %238, ptr noundef nonnull @.str.80)
-  br label %253
+237:                                              ; preds = %234
+  %238 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.77)
+  br label %243
 
-239:                                              ; preds = %225
-  br i1 %229, label %240, label %242
+239:                                              ; preds = %234
+  %240 = sext i32 %235 to i64
+  %241 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %240
+  %242 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.78, ptr noundef nonnull %241)
+  br label %243
 
-240:                                              ; preds = %239
-  %241 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.77)
-  br label %246
+243:                                              ; preds = %239, %237
+  %244 = load i32, ptr %5, align 4, !tbaa !16
+  %245 = icmp sgt i32 %244, 9
+  %246 = sext i32 %244 to i64
+  %247 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %246
+  %248 = select i1 %245, ptr @str.89, ptr %247
+  %249 = call i32 @puts(ptr nonnull dereferenceable(1) %248)
+  br label %250
 
-242:                                              ; preds = %239
-  %243 = sext i32 %228 to i64
-  %244 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %243
-  %245 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.78, ptr noundef nonnull %244)
-  br label %246
-
-246:                                              ; preds = %242, %240
-  %247 = load i32, ptr %5, align 4, !tbaa !16
-  %248 = icmp sgt i32 %247, 9
-  %249 = sext i32 %247 to i64
-  %250 = getelementptr inbounds [10 x [3 x i8]], ptr @REG_NAMES, i64 0, i64 %249
-  %251 = select i1 %248, ptr @str.89, ptr %250
-  %252 = call i32 @puts(ptr nonnull dereferenceable(1) %251)
-  br label %253
-
-253:                                              ; preds = %221, %223, %246, %237, %208
+250:                                              ; preds = %219, %221, %243, %232, %209
   store i32 0, ptr @PRINT_INSTR, align 4, !tbaa !16
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #12
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #12
-  br label %334
+  br label %331
 
-254:                                              ; preds = %201
-  %255 = icmp eq i32 %183, 1
-  %256 = icmp eq i32 %182, 0
+251:                                              ; preds = %201
+  %252 = icmp eq i32 %183, 1
+  %253 = icmp eq i32 %182, 0
+  %254 = select i1 %252, i1 %253, i1 false
+  %255 = icmp eq i32 %183, 0
+  %256 = icmp eq i32 %182, 1
   %257 = select i1 %255, i1 %256, i1 false
-  %258 = icmp eq i32 %183, 0
-  %259 = icmp eq i32 %182, 1
-  %260 = select i1 %258, i1 %259, i1 false
-  %261 = select i1 %260, i32 35, i32 32
-  %262 = select i1 %257, i32 64, i32 %261
-  %263 = tail call i32 @putchar(i32 %262)
-  %264 = load i32, ptr %2, align 4, !tbaa !16
-  %265 = icmp eq i32 %264, 3
-  %266 = shl i32 %177, 2
-  %267 = shl i32 %176, 1
-  %268 = add i32 %266, %267
-  %269 = add nsw i32 %175, %268
-  %270 = shl i32 %269, 2
-  %271 = shl i32 %174, 1
-  %272 = add i32 %270, %271
-  %273 = add nsw i32 %173, %272
-  %274 = shl i32 %273, 2
-  %275 = shl i32 %172, 1
-  %276 = add i32 %274, %275
-  %277 = add nsw i32 %171, %276
-  %278 = shl i32 %277, 2
-  %279 = shl i32 %170, 1
-  %280 = add i32 %278, %279
-  %281 = add nsw i32 %169, %280
-  %282 = shl i32 %281, 2
-  %283 = shl i32 %168, 1
-  %284 = add i32 %282, %283
-  %285 = add nsw i32 %167, %284
-  br i1 %265, label %286, label %303
+  %258 = select i1 %257, i32 35, i32 32
+  %259 = select i1 %254, i32 64, i32 %258
+  %260 = tail call i32 @putchar(i32 %259)
+  %261 = load i32, ptr %2, align 4, !tbaa !16
+  %262 = icmp eq i32 %261, 3
+  %263 = shl i32 %177, 2
+  %264 = shl i32 %176, 1
+  %265 = add i32 %263, %264
+  %266 = add nsw i32 %175, %265
+  %267 = shl i32 %266, 2
+  %268 = shl i32 %174, 1
+  %269 = add i32 %267, %268
+  %270 = add nsw i32 %173, %269
+  %271 = shl i32 %270, 2
+  %272 = shl i32 %172, 1
+  %273 = add i32 %271, %272
+  %274 = add nsw i32 %171, %273
+  %275 = shl i32 %274, 2
+  %276 = shl i32 %170, 1
+  %277 = add i32 %275, %276
+  %278 = add nsw i32 %169, %277
+  %279 = shl i32 %278, 2
+  %280 = shl i32 %168, 1
+  %281 = add i32 %279, %280
+  %282 = add nsw i32 %167, %281
+  br i1 %262, label %283, label %300
 
-286:                                              ; preds = %254
-  %287 = shl nsw i32 %285, 1
-  %288 = add nsw i32 %166, %287
-  %289 = icmp eq i32 %180, 1
-  %290 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 3), align 4
-  %291 = select i1 %289, i32 %290, i32 0
-  %292 = add nsw i32 %291, %288
-  %293 = icmp eq i32 %179, 1
-  br i1 %293, label %294, label %322
+283:                                              ; preds = %251
+  %284 = shl nsw i32 %282, 1
+  %285 = add nsw i32 %166, %284
+  %286 = icmp eq i32 %180, 1
+  %287 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 3), align 4
+  %288 = select i1 %286, i32 %287, i32 0
+  %289 = add nsw i32 %285, %288
+  %290 = icmp eq i32 %179, 1
+  br i1 %290, label %291, label %319
 
-294:                                              ; preds = %286
-  %295 = icmp sgt i32 %292, 2047
-  %296 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
-  br i1 %295, label %297, label %300
+291:                                              ; preds = %283
+  %292 = icmp sgt i32 %289, 2047
+  %293 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
+  br i1 %292, label %294, label %297
 
-297:                                              ; preds = %294
-  %298 = add nsw i32 %292, -4093
-  %299 = add i32 %298, %296
-  br label %322
+294:                                              ; preds = %291
+  %295 = add nsw i32 %289, -4093
+  %296 = add i32 %295, %293
+  br label %319
 
-300:                                              ; preds = %294
-  %301 = add nsw i32 %292, 3
-  %302 = add i32 %301, %296
-  br label %322
+297:                                              ; preds = %291
+  %298 = add nsw i32 %289, 3
+  %299 = add i32 %298, %293
+  br label %319
 
-303:                                              ; preds = %254
-  %304 = shl i32 %285, 2
-  %305 = shl i32 %166, 1
-  %306 = add i32 %304, %305
-  %307 = add nsw i32 %165, %306
-  %308 = shl i32 %307, 2
-  %309 = shl i32 %178, 1
-  %310 = add i32 %308, %309
-  %311 = add nsw i32 %184, %310
-  %312 = shl i32 %311, 2
-  %313 = shl i32 %185, 1
-  %314 = add i32 %312, %313
-  %315 = add nsw i32 %186, %314
-  %316 = shl i32 %315, 2
-  %317 = shl i32 %187, 1
-  %318 = add i32 %316, %317
-  %319 = add nsw i32 %188, %318
-  %320 = shl nsw i32 %319, 1
-  %321 = add nsw i32 %189, %320
-  br label %322
+300:                                              ; preds = %251
+  %301 = shl i32 %282, 2
+  %302 = shl i32 %166, 1
+  %303 = add i32 %301, %302
+  %304 = add nsw i32 %165, %303
+  %305 = shl i32 %304, 2
+  %306 = shl i32 %178, 1
+  %307 = add i32 %305, %306
+  %308 = add nsw i32 %184, %307
+  %309 = shl i32 %308, 2
+  %310 = shl i32 %185, 1
+  %311 = add i32 %309, %310
+  %312 = add nsw i32 %186, %311
+  %313 = shl i32 %312, 2
+  %314 = shl i32 %187, 1
+  %315 = add i32 %313, %314
+  %316 = add nsw i32 %188, %315
+  %317 = shl nsw i32 %316, 1
+  %318 = add nsw i32 %189, %317
+  br label %319
 
-322:                                              ; preds = %303, %286, %300, %297
-  %323 = phi i32 [ %299, %297 ], [ %302, %300 ], [ %292, %286 ], [ %321, %303 ]
-  %324 = icmp slt i32 %323, 1048576
-  br i1 %324, label %325, label %326
+319:                                              ; preds = %300, %283, %297, %294
+  %320 = phi i32 [ %296, %294 ], [ %299, %297 ], [ %289, %283 ], [ %318, %300 ]
+  %321 = icmp slt i32 %320, 1048576
+  br i1 %321, label %322, label %323
 
-325:                                              ; preds = %322
-  tail call void @PRINT_ADDRESS(ptr noundef nonnull @.str.79, i32 noundef %323, ptr noundef nonnull @.str.79)
-  br label %328
+322:                                              ; preds = %319
+  tail call void @PRINT_ADDRESS(ptr noundef nonnull @.str.79, i32 noundef %320, ptr noundef nonnull @.str.79)
+  br label %325
 
-326:                                              ; preds = %322
-  %327 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.83)
-  br label %328
+323:                                              ; preds = %319
+  %324 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.83)
+  br label %325
 
-328:                                              ; preds = %326, %325
-  %329 = icmp eq i32 %181, 1
-  br i1 %329, label %330, label %332
+325:                                              ; preds = %323, %322
+  %326 = icmp eq i32 %181, 1
+  br i1 %326, label %327, label %329
 
-330:                                              ; preds = %328
-  %331 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.84)
-  br label %332
+327:                                              ; preds = %325
+  %328 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.84)
+  br label %329
 
-332:                                              ; preds = %330, %328
+329:                                              ; preds = %327, %325
   store i32 %202, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 8), align 16, !tbaa !16
-  %333 = tail call i32 @putchar(i32 10)
+  %330 = tail call i32 @putchar(i32 10)
   store i32 0, ptr @PRINT_INSTR, align 4, !tbaa !16
-  br label %334
+  br label %331
 
-334:                                              ; preds = %14, %137, %332, %253, %200
+331:                                              ; preds = %14, %137, %329, %250, %200
   ret void
 }
 
@@ -1577,14 +1576,14 @@ declare i32 @FORMAT3_4(i32 noundef, i32 noundef) local_unnamed_addr #1
 
 declare void @SIGNAL_INTERUPT(...) local_unnamed_addr #1
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #10
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #11
+declare i32 @llvm.smax.i32(i32, i32) #10
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #11
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1596,8 +1595,8 @@ attributes #6 = { nofree norecurse nosync nounwind memory(argmem: read) uwtable 
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nofree nounwind }
 attributes #12 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

@@ -401,99 +401,99 @@ define dso_local noundef float @_ZN27btConvex2dConvex2dAlgorithm21calculateTimeO
   %11 = alloca %"struct.btConvexCast::CastResult", align 8
   %12 = alloca %class.btVoronoiSimplexSolver, align 4
   %13 = alloca %class.btGjkConvexCast, align 8
-  %14 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 2
-  %15 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 2, i32 1
-  %16 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 1
-  %17 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 1, i32 1
-  %18 = load float, ptr %15, align 4, !tbaa !58
-  %19 = load float, ptr %17, align 4, !tbaa !58
-  %20 = fsub float %18, %19
-  %21 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 2, i32 1, i32 0, i64 1
+  %14 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 2, i32 1
+  %15 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 1, i32 1
+  %16 = load float, ptr %14, align 4, !tbaa !58
+  %17 = load float, ptr %15, align 4, !tbaa !58
+  %18 = fsub float %16, %17
+  %19 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 2, i32 1, i32 0, i64 1
+  %20 = load float, ptr %19, align 4, !tbaa !58
+  %21 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 1, i32 1, i32 0, i64 1
   %22 = load float, ptr %21, align 4, !tbaa !58
-  %23 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 1, i32 1, i32 0, i64 1
-  %24 = load float, ptr %23, align 4, !tbaa !58
-  %25 = fsub float %22, %24
-  %26 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 2, i32 1, i32 0, i64 2
+  %23 = fsub float %20, %22
+  %24 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 2, i32 1, i32 0, i64 2
+  %25 = load float, ptr %24, align 4, !tbaa !58
+  %26 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 1, i32 1, i32 0, i64 2
   %27 = load float, ptr %26, align 4, !tbaa !58
-  %28 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 1, i32 1, i32 0, i64 2
-  %29 = load float, ptr %28, align 4, !tbaa !58
-  %30 = fsub float %27, %29
-  %31 = fmul float %25, %25
-  %32 = tail call float @llvm.fmuladd.f32(float %20, float %20, float %31)
-  %33 = tail call float @llvm.fmuladd.f32(float %30, float %30, float %32)
-  %34 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 2
-  %35 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 1
-  %36 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 22
-  %37 = load float, ptr %36, align 4, !tbaa !59
-  %38 = fmul float %37, %37
-  %39 = fcmp olt float %33, %38
-  br i1 %39, label %40, label %63
+  %28 = fsub float %25, %27
+  %29 = fmul float %23, %23
+  %30 = tail call float @llvm.fmuladd.f32(float %18, float %18, float %29)
+  %31 = tail call float @llvm.fmuladd.f32(float %28, float %28, float %30)
+  %32 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 22
+  %33 = load float, ptr %32, align 4, !tbaa !59
+  %34 = fmul float %33, %33
+  %35 = fcmp olt float %31, %34
+  br i1 %35, label %36, label %59
 
-40:                                               ; preds = %5
-  %41 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 2, i32 1, i32 0, i64 2
-  %42 = load float, ptr %41, align 4, !tbaa !58
-  %43 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 1, i32 1, i32 0, i64 2
-  %44 = load float, ptr %43, align 4, !tbaa !58
-  %45 = fsub float %42, %44
-  %46 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 2, i32 1
-  %47 = load float, ptr %46, align 4, !tbaa !58
-  %48 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 1, i32 1
-  %49 = load float, ptr %48, align 4, !tbaa !58
-  %50 = fsub float %47, %49
-  %51 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 2, i32 1, i32 0, i64 1
-  %52 = load float, ptr %51, align 4, !tbaa !58
-  %53 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 1, i32 1, i32 0, i64 1
-  %54 = load float, ptr %53, align 4, !tbaa !58
-  %55 = fsub float %52, %54
-  %56 = fmul float %55, %55
-  %57 = tail call float @llvm.fmuladd.f32(float %50, float %50, float %56)
-  %58 = tail call float @llvm.fmuladd.f32(float %45, float %45, float %57)
-  %59 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 22
-  %60 = load float, ptr %59, align 4, !tbaa !59
-  %61 = fmul float %60, %60
-  %62 = fcmp olt float %58, %61
-  br i1 %62, label %140, label %63
+36:                                               ; preds = %5
+  %37 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 2, i32 1, i32 0, i64 2
+  %38 = load float, ptr %37, align 4, !tbaa !58
+  %39 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 1, i32 1, i32 0, i64 2
+  %40 = load float, ptr %39, align 4, !tbaa !58
+  %41 = fsub float %38, %40
+  %42 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 2, i32 1
+  %43 = load float, ptr %42, align 4, !tbaa !58
+  %44 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 1, i32 1
+  %45 = load float, ptr %44, align 4, !tbaa !58
+  %46 = fsub float %43, %45
+  %47 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 2, i32 1, i32 0, i64 1
+  %48 = load float, ptr %47, align 4, !tbaa !58
+  %49 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 1, i32 1, i32 0, i64 1
+  %50 = load float, ptr %49, align 4, !tbaa !58
+  %51 = fsub float %48, %50
+  %52 = fmul float %51, %51
+  %53 = tail call float @llvm.fmuladd.f32(float %46, float %46, float %52)
+  %54 = tail call float @llvm.fmuladd.f32(float %41, float %41, float %53)
+  %55 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 22
+  %56 = load float, ptr %55, align 4, !tbaa !59
+  %57 = fmul float %56, %56
+  %58 = fcmp olt float %54, %57
+  br i1 %58, label %140, label %59
 
-63:                                               ; preds = %40, %5
-  %64 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 9
-  %65 = load ptr, ptr %64, align 8, !tbaa !38
+59:                                               ; preds = %36, %5
+  %60 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 9
+  %61 = load ptr, ptr %60, align 8, !tbaa !38
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %6) #13
-  %66 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 21
-  %67 = load float, ptr %66, align 8, !tbaa !60
+  %62 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 21
+  %63 = load float, ptr %62, align 8, !tbaa !60
   call void @_ZN21btConvexInternalShapeC2Ev(ptr noundef nonnull align 8 dereferenceable(64) %6)
   store ptr getelementptr inbounds ({ [20 x ptr] }, ptr @_ZTV13btSphereShape, i64 0, inrange i32 0, i64 2), ptr %6, align 8, !tbaa !10
-  %68 = getelementptr inbounds %class.btCollisionShape, ptr %6, i64 0, i32 1
-  store i32 8, ptr %68, align 8, !tbaa !61
-  %69 = getelementptr inbounds %class.btConvexInternalShape, ptr %6, i64 0, i32 2
-  store float %67, ptr %69, align 8, !tbaa !58
-  %70 = getelementptr inbounds %class.btConvexInternalShape, ptr %6, i64 0, i32 3
-  store float %67, ptr %70, align 8, !tbaa !63
+  %64 = getelementptr inbounds %class.btCollisionShape, ptr %6, i64 0, i32 1
+  store i32 8, ptr %64, align 8, !tbaa !61
+  %65 = getelementptr inbounds %class.btConvexInternalShape, ptr %6, i64 0, i32 2
+  store float %63, ptr %65, align 8, !tbaa !58
+  %66 = getelementptr inbounds %class.btConvexInternalShape, ptr %6, i64 0, i32 3
+  store float %63, ptr %66, align 8, !tbaa !63
   call void @llvm.lifetime.start.p0(i64 192, ptr nonnull %7) #13
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN12btConvexCast10CastResultE, i64 0, inrange i32 0, i64 2), ptr %7, align 8, !tbaa !10
-  %71 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %7, i64 0, i32 5
-  store float 0x43ABC16D60000000, ptr %71, align 8, !tbaa !66
-  %72 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %7, i64 0, i32 7
-  store ptr null, ptr %72, align 8, !tbaa !68
-  %73 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %7, i64 0, i32 8
-  store float 0.000000e+00, ptr %73, align 8, !tbaa !69
+  %67 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %7, i64 0, i32 5
+  store float 0x43ABC16D60000000, ptr %67, align 8, !tbaa !66
+  %68 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %7, i64 0, i32 7
+  store ptr null, ptr %68, align 8, !tbaa !68
+  %69 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %7, i64 0, i32 8
+  store float 0.000000e+00, ptr %69, align 8, !tbaa !69
   call void @llvm.lifetime.start.p0(i64 356, ptr nonnull %8) #13
-  %74 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %8, i64 0, i32 10, i32 1
-  store i8 0, ptr %74, align 4
+  %70 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %8, i64 0, i32 10, i32 1
+  store i8 0, ptr %70, align 4
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %9) #13
-  invoke void @_ZN15btGjkConvexCastC1EPK13btConvexShapeS2_P22btVoronoiSimplexSolver(ptr noundef nonnull align 8 dereferenceable(32) %9, ptr noundef %65, ptr noundef nonnull %6, ptr noundef nonnull %8)
-          to label %75 unwind label %84
+  invoke void @_ZN15btGjkConvexCastC1EPK13btConvexShapeS2_P22btVoronoiSimplexSolver(ptr noundef nonnull align 8 dereferenceable(32) %9, ptr noundef %61, ptr noundef nonnull %6, ptr noundef nonnull %8)
+          to label %71 unwind label %84
 
-75:                                               ; preds = %63
-  %76 = invoke noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(32) %9, ptr noundef nonnull align 4 dereferenceable(64) %16, ptr noundef nonnull align 4 dereferenceable(64) %14, ptr noundef nonnull align 4 dereferenceable(64) %35, ptr noundef nonnull align 4 dereferenceable(64) %34, ptr noundef nonnull align 8 dereferenceable(188) %7)
+71:                                               ; preds = %59
+  %72 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 1
+  %73 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 2
+  %74 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 1
+  %75 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 2
+  %76 = invoke noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(32) %9, ptr noundef nonnull align 4 dereferenceable(64) %72, ptr noundef nonnull align 4 dereferenceable(64) %73, ptr noundef nonnull align 4 dereferenceable(64) %74, ptr noundef nonnull align 4 dereferenceable(64) %75, ptr noundef nonnull align 8 dereferenceable(188) %7)
           to label %77 unwind label %86
 
-77:                                               ; preds = %75
+77:                                               ; preds = %71
   br i1 %76, label %78, label %96
 
 78:                                               ; preds = %77
   %79 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 20
   %80 = load float, ptr %79, align 4, !tbaa !70
-  %81 = load float, ptr %71, align 8, !tbaa !66
+  %81 = load float, ptr %67, align 8, !tbaa !66
   %82 = fcmp ogt float %80, %81
   br i1 %82, label %83, label %88
 
@@ -501,12 +501,12 @@ define dso_local noundef float @_ZN27btConvex2dConvex2dAlgorithm21calculateTimeO
   store float %81, ptr %79, align 4, !tbaa !70
   br label %88
 
-84:                                               ; preds = %96, %63
+84:                                               ; preds = %96, %59
   %85 = landingpad { ptr, i32 }
           cleanup
   br label %119
 
-86:                                               ; preds = %75
+86:                                               ; preds = %71
   %87 = landingpad { ptr, i32 }
           cleanup
   invoke void @_ZN12btConvexCastD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %9)
@@ -569,7 +569,7 @@ define dso_local noundef float @_ZN27btConvex2dConvex2dAlgorithm21calculateTimeO
           to label %110 unwind label %122
 
 110:                                              ; preds = %98
-  %111 = invoke noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(32) %13, ptr noundef nonnull align 4 dereferenceable(64) %16, ptr noundef nonnull align 4 dereferenceable(64) %14, ptr noundef nonnull align 4 dereferenceable(64) %35, ptr noundef nonnull align 4 dereferenceable(64) %34, ptr noundef nonnull align 8 dereferenceable(188) %11)
+  %111 = invoke noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(32) %13, ptr noundef nonnull align 4 dereferenceable(64) %72, ptr noundef nonnull align 4 dereferenceable(64) %73, ptr noundef nonnull align 4 dereferenceable(64) %74, ptr noundef nonnull align 4 dereferenceable(64) %75, ptr noundef nonnull align 8 dereferenceable(188) %11)
           to label %112 unwind label %124
 
 112:                                              ; preds = %110
@@ -651,8 +651,8 @@ define dso_local noundef float @_ZN27btConvex2dConvex2dAlgorithm21calculateTimeO
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %10) #13
   br label %142
 
-140:                                              ; preds = %40, %136
-  %141 = phi float [ %135, %136 ], [ 1.000000e+00, %40 ]
+140:                                              ; preds = %36, %136
+  %141 = phi float [ %135, %136 ], [ 1.000000e+00, %36 ]
   ret float %141
 
 142:                                              ; preds = %139, %121

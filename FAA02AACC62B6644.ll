@@ -229,7 +229,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #6 personality ptr @__gx
   %45 = icmp ult ptr %25, %44
   br i1 %45, label %46, label %61
 
-46:                                               ; preds = %21, %38, %40
+46:                                               ; preds = %40, %38, %21
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #21
   %47 = add nuw nsw i32 %18, 1
   %48 = sext i32 %47 to i64
@@ -318,7 +318,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #6 personality ptr @__gx
   %92 = icmp eq ptr %90, %5
   br i1 %92, label %95, label %82, !llvm.loop !37
 
-93:                                               ; preds = %77, %79
+93:                                               ; preds = %79, %77
   %94 = landingpad { ptr, i32 }
           cleanup
   br label %128
@@ -379,11 +379,11 @@ define dso_local noundef i32 @main() local_unnamed_addr #6 personality ptr @__gx
 
 119:                                              ; preds = %100, %119
   %120 = phi i64 [ %126, %119 ], [ 0, %100 ]
-  %121 = getelementptr inbounds %"struct.std::pair.3", ptr %96, i64 %120
-  %122 = getelementptr inbounds %"struct.std::pair.3", ptr %96, i64 %120, i32 1
-  %123 = load i32, ptr %122, align 8, !tbaa !36
-  %124 = load ptr, ptr %121, align 8, !tbaa !34
-  %125 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %123, ptr noundef %124)
+  %121 = getelementptr inbounds %"struct.std::pair.3", ptr %96, i64 %120, i32 1
+  %122 = load i32, ptr %121, align 8, !tbaa !36
+  %123 = getelementptr inbounds %"struct.std::pair.3", ptr %96, i64 %120
+  %124 = load ptr, ptr %123, align 8, !tbaa !34
+  %125 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %122, ptr noundef %124)
   %126 = add nuw i64 %120, 1
   %127 = icmp eq i64 %126, %105
   br i1 %127, label %108, label %119, !llvm.loop !38
@@ -433,7 +433,7 @@ define linkonce_odr dso_local noundef nonnull align 4 dereferenceable(4) ptr @_Z
   br i1 %25, label %26, label %53
 
 26:                                               ; preds = %2, %20, %22
-  %27 = phi ptr [ %16, %22 ], [ %5, %20 ], [ %5, %2 ]
+  %27 = phi ptr [ %5, %20 ], [ %16, %22 ], [ %5, %2 ]
   %28 = tail call noalias noundef nonnull dereferenceable(48) ptr @_Znwm(i64 noundef 48) #19
   %29 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %28, i64 0, i32 1
   store ptr %7, ptr %29, align 8, !tbaa !33
@@ -754,9 +754,9 @@ define linkonce_odr dso_local { ptr, ptr } @_ZNSt8_Rb_treeIPKcSt4pairIKS1_iESt10
   %148 = select i1 %146, ptr %144, ptr null
   br label %149
 
-149:                                              ; preds = %142, %133, %94, %87, %44, %34, %112, %66, %101, %103, %57, %10
-  %150 = phi ptr [ null, %10 ], [ %1, %57 ], [ null, %103 ], [ %1, %101 ], [ %70, %66 ], [ %116, %112 ], [ null, %34 ], [ %50, %44 ], [ null, %87 ], [ %99, %94 ], [ null, %133 ], [ %147, %142 ]
-  %151 = phi ptr [ %12, %10 ], [ %1, %57 ], [ %1, %103 ], [ null, %101 ], [ %71, %66 ], [ %117, %112 ], [ %35, %34 ], [ %51, %44 ], [ %59, %87 ], [ %100, %94 ], [ %134, %133 ], [ %148, %142 ]
+149:                                              ; preds = %103, %57, %10, %101, %112, %133, %142, %66, %87, %94, %44, %34
+  %150 = phi ptr [ null, %34 ], [ %50, %44 ], [ %70, %66 ], [ null, %87 ], [ %99, %94 ], [ %116, %112 ], [ null, %133 ], [ %147, %142 ], [ %1, %101 ], [ null, %10 ], [ %1, %57 ], [ null, %103 ]
+  %151 = phi ptr [ %35, %34 ], [ %51, %44 ], [ %71, %66 ], [ %59, %87 ], [ %100, %94 ], [ %117, %112 ], [ %134, %133 ], [ %148, %142 ], [ null, %101 ], [ %12, %10 ], [ %1, %57 ], [ %1, %103 ]
   %152 = insertvalue { ptr, ptr } poison, ptr %150, 0
   %153 = insertvalue { ptr, ptr } %152, ptr %151, 1
   ret { ptr, ptr } %153
@@ -1007,17 +1007,17 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal
   %5 = ptrtoint ptr %1 to i64
   %6 = sub i64 %5, %4
   %7 = icmp sgt i64 %6, 256
-  br i1 %7, label %8, label %92
+  br i1 %7, label %8, label %91
 
 8:                                                ; preds = %3
   %9 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 1
   %10 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 0, i32 1
   br label %11
 
-11:                                               ; preds = %8, %87
-  %12 = phi i64 [ %6, %8 ], [ %90, %87 ]
-  %13 = phi i64 [ %2, %8 ], [ %88, %87 ]
-  %14 = phi ptr [ %1, %8 ], [ %49, %87 ]
+11:                                               ; preds = %8, %86
+  %12 = phi i64 [ %6, %8 ], [ %89, %86 ]
+  %13 = phi i64 [ %2, %8 ], [ %87, %86 ]
+  %14 = phi ptr [ %1, %8 ], [ %50, %86 ]
   %15 = icmp eq i64 %13, 0
   br i1 %15, label %16, label %40
 
@@ -1053,7 +1053,7 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal
   %38 = ashr exact i64 %37, 4
   tail call void @_ZSt13__adjust_heapIN9__gnu_cxx17__normal_iteratorIPSt4pairIPKciESt6vectorIS5_SaIS5_EEEElS5_NS0_5__ops15_Iter_less_iterEEvT_T0_SE_T1_T2_(ptr nonnull %0, i64 noundef 0, i64 noundef %38, ptr %31, i32 %33)
   %39 = icmp sgt i64 %37, 16
-  br i1 %39, label %28, label %92, !llvm.loop !51
+  br i1 %39, label %28, label %91, !llvm.loop !51
 
 40:                                               ; preds = %11
   %41 = lshr i64 %12, 5
@@ -1063,40 +1063,40 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal
   br label %44
 
 44:                                               ; preds = %82, %40
-  %45 = phi ptr [ %9, %40 ], [ %86, %82 ]
+  %45 = phi ptr [ %0, %40 ], [ %50, %82 ]
   %46 = phi ptr [ %14, %40 ], [ %67, %82 ]
   %47 = load i32, ptr %10, align 8, !tbaa !36
   br label %48
 
-48:                                               ; preds = %60, %44
-  %49 = phi ptr [ %45, %44 ], [ %61, %60 ]
-  %50 = getelementptr inbounds %"struct.std::pair.3", ptr %49, i64 0, i32 1
-  %51 = load i32, ptr %50, align 8, !tbaa !36
-  %52 = icmp eq i32 %51, %47
-  br i1 %52, label %55, label %53
+48:                                               ; preds = %64, %44
+  %49 = phi ptr [ %45, %44 ], [ %50, %64 ]
+  %50 = getelementptr inbounds %"struct.std::pair.3", ptr %49, i64 1
+  %51 = getelementptr inbounds %"struct.std::pair.3", ptr %49, i64 1, i32 1
+  %52 = load i32, ptr %51, align 8, !tbaa !36
+  %53 = icmp eq i32 %52, %47
+  br i1 %53, label %59, label %54
 
-53:                                               ; preds = %48
-  %54 = icmp sgt i32 %51, %47
-  br i1 %54, label %60, label %62
+54:                                               ; preds = %48
+  %55 = icmp sgt i32 %52, %47
+  br i1 %55, label %64, label %56
 
-55:                                               ; preds = %48
-  %56 = load ptr, ptr %49, align 8, !tbaa !34
-  %57 = load ptr, ptr %0, align 8, !tbaa !34
-  %58 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %56, ptr noundef nonnull dereferenceable(1) %57) #18
-  %59 = icmp sgt i32 %58, 0
-  br i1 %59, label %60, label %62
-
-60:                                               ; preds = %55, %53
-  %61 = getelementptr inbounds %"struct.std::pair.3", ptr %49, i64 1
-  br label %48, !llvm.loop !52
-
-62:                                               ; preds = %55, %53
-  %63 = phi i32 [ %51, %53 ], [ %47, %55 ]
-  %64 = getelementptr inbounds %"struct.std::pair.3", ptr %49, i64 0, i32 1
+56:                                               ; preds = %59, %54
+  %57 = phi i32 [ %47, %59 ], [ %52, %54 ]
+  %58 = getelementptr inbounds %"struct.std::pair.3", ptr %49, i64 1, i32 1
   br label %65
 
-65:                                               ; preds = %78, %62
-  %66 = phi ptr [ %46, %62 ], [ %67, %78 ]
+59:                                               ; preds = %48
+  %60 = load ptr, ptr %50, align 8, !tbaa !34
+  %61 = load ptr, ptr %0, align 8, !tbaa !34
+  %62 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %60, ptr noundef nonnull dereferenceable(1) %61) #18
+  %63 = icmp sgt i32 %62, 0
+  br i1 %63, label %64, label %56
+
+64:                                               ; preds = %59, %54
+  br label %48, !llvm.loop !52
+
+65:                                               ; preds = %78, %56
+  %66 = phi ptr [ %46, %56 ], [ %67, %78 ]
   %67 = getelementptr inbounds %"struct.std::pair.3", ptr %66, i64 -1
   %68 = getelementptr %"struct.std::pair.3", ptr %66, i64 -1, i32 1
   %69 = load i32, ptr %68, align 8, !tbaa !36
@@ -1119,29 +1119,28 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal
 
 79:                                               ; preds = %73, %71
   %80 = phi i32 [ %69, %71 ], [ %47, %73 ]
-  %81 = icmp ult ptr %49, %67
-  br i1 %81, label %82, label %87
+  %81 = icmp ult ptr %50, %67
+  br i1 %81, label %82, label %86
 
 82:                                               ; preds = %79
   %83 = getelementptr %"struct.std::pair.3", ptr %66, i64 -1, i32 1
-  %84 = load ptr, ptr %49, align 8, !tbaa !17
+  %84 = load ptr, ptr %50, align 8, !tbaa !17
   %85 = load ptr, ptr %67, align 8, !tbaa !17
-  store ptr %85, ptr %49, align 8, !tbaa !17
+  store ptr %85, ptr %50, align 8, !tbaa !17
   store ptr %84, ptr %67, align 8, !tbaa !17
-  store i32 %80, ptr %64, align 8, !tbaa !28
-  store i32 %63, ptr %83, align 8, !tbaa !28
-  %86 = getelementptr inbounds %"struct.std::pair.3", ptr %49, i64 1
+  store i32 %80, ptr %58, align 8, !tbaa !28
+  store i32 %57, ptr %83, align 8, !tbaa !28
   br label %44, !llvm.loop !54
 
-87:                                               ; preds = %79
-  %88 = add nsw i64 %13, -1
-  tail call void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIPKciESt6vectorIS5_SaIS5_EEEElNS0_5__ops15_Iter_less_iterEEvT_SD_T0_T1_(ptr %49, ptr %14, i64 noundef %88)
-  %89 = ptrtoint ptr %49 to i64
-  %90 = sub i64 %89, %4
-  %91 = icmp sgt i64 %90, 256
-  br i1 %91, label %11, label %92, !llvm.loop !55
+86:                                               ; preds = %79
+  %87 = add nsw i64 %13, -1
+  tail call void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPSt4pairIPKciESt6vectorIS5_SaIS5_EEEElNS0_5__ops15_Iter_less_iterEEvT_SD_T0_T1_(ptr nonnull %50, ptr %14, i64 noundef %87)
+  %88 = ptrtoint ptr %50 to i64
+  %89 = sub i64 %88, %4
+  %90 = icmp sgt i64 %89, 256
+  br i1 %90, label %11, label %91, !llvm.loop !55
 
-92:                                               ; preds = %87, %28, %3
+91:                                               ; preds = %86, %28, %3
   ret void
 }
 
@@ -1219,47 +1218,48 @@ define linkonce_odr dso_local void @_ZSt13__adjust_heapIN9__gnu_cxx17__normal_it
 55:                                               ; preds = %46, %42, %38
   %56 = phi i64 [ %48, %46 ], [ %39, %42 ], [ %39, %38 ]
   %57 = icmp sgt i64 %56, %1
-  br i1 %57, label %58, label %79
+  br i1 %57, label %58, label %80
 
-58:                                               ; preds = %55, %74
-  %59 = phi i64 [ %61, %74 ], [ %56, %55 ]
+58:                                               ; preds = %55, %75
+  %59 = phi i64 [ %61, %75 ], [ %56, %55 ]
   %60 = add nsw i64 %59, -1
   %61 = sdiv i64 %60, 2
-  %62 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %61
-  %63 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %61, i32 1
-  %64 = load i32, ptr %63, align 8, !tbaa !36
-  %65 = icmp eq i32 %64, %4
-  br i1 %65, label %70, label %66
+  %62 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %61, i32 1
+  %63 = load i32, ptr %62, align 8, !tbaa !36
+  %64 = icmp eq i32 %63, %4
+  br i1 %64, label %70, label %65
 
-66:                                               ; preds = %58
-  %67 = icmp sgt i32 %64, %4
-  br i1 %67, label %68, label %79
+65:                                               ; preds = %58
+  %66 = icmp sgt i32 %63, %4
+  br i1 %66, label %67, label %80
 
-68:                                               ; preds = %66
-  %69 = load ptr, ptr %62, align 8, !tbaa !17
-  br label %74
+67:                                               ; preds = %65
+  %68 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %61
+  %69 = load ptr, ptr %68, align 8, !tbaa !17
+  br label %75
 
 70:                                               ; preds = %58
-  %71 = load ptr, ptr %62, align 8, !tbaa !34
-  %72 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %71, ptr noundef nonnull dereferenceable(1) %3) #18
-  %73 = icmp sgt i32 %72, 0
-  br i1 %73, label %74, label %79
+  %71 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %61
+  %72 = load ptr, ptr %71, align 8, !tbaa !34
+  %73 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %72, ptr noundef nonnull dereferenceable(1) %3) #18
+  %74 = icmp sgt i32 %73, 0
+  br i1 %74, label %75, label %80
 
-74:                                               ; preds = %70, %68
-  %75 = phi ptr [ %69, %68 ], [ %71, %70 ]
-  %76 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %59
-  store ptr %75, ptr %76, align 8, !tbaa !34
-  %77 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %59, i32 1
-  store i32 %64, ptr %77, align 8, !tbaa !36
-  %78 = icmp sgt i64 %61, %1
-  br i1 %78, label %58, label %79, !llvm.loop !57
+75:                                               ; preds = %70, %67
+  %76 = phi ptr [ %69, %67 ], [ %72, %70 ]
+  %77 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %59
+  store ptr %76, ptr %77, align 8, !tbaa !34
+  %78 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %59, i32 1
+  store i32 %63, ptr %78, align 8, !tbaa !36
+  %79 = icmp sgt i64 %61, %1
+  br i1 %79, label %58, label %80, !llvm.loop !57
 
-79:                                               ; preds = %66, %70, %74, %55
-  %80 = phi i64 [ %56, %55 ], [ %59, %70 ], [ %61, %74 ], [ %59, %66 ]
-  %81 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %80
-  store ptr %3, ptr %81, align 8, !tbaa !34
-  %82 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %80, i32 1
-  store i32 %4, ptr %82, align 8, !tbaa !36
+80:                                               ; preds = %65, %70, %75, %55
+  %81 = phi i64 [ %56, %55 ], [ %59, %70 ], [ %61, %75 ], [ %59, %65 ]
+  %82 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %81
+  store ptr %3, ptr %82, align 8, !tbaa !34
+  %83 = getelementptr inbounds %"struct.std::pair.3", ptr %0, i64 %81, i32 1
+  store i32 %4, ptr %83, align 8, !tbaa !36
   ret void
 }
 

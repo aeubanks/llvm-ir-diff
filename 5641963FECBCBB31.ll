@@ -494,30 +494,30 @@ define dso_local i32 @cli_ac_buildtrie(ptr noundef readonly %0) local_unnamed_ad
   %38 = getelementptr inbounds %struct.bfs_list, ptr %37, i64 0, i32 1
   %39 = load ptr, ptr %38, align 8, !tbaa !48
   %40 = load ptr, ptr %37, align 8, !tbaa !50
+  %41 = icmp eq ptr %37, %36
+  %42 = select i1 %41, ptr null, ptr %36
   tail call void @free(ptr noundef nonnull %37) #11
-  %41 = icmp eq ptr %40, null
-  br i1 %41, label %110, label %42
+  %43 = icmp eq ptr %40, null
+  br i1 %43, label %110, label %44
 
-42:                                               ; preds = %35
-  %43 = icmp eq ptr %37, %36
-  %44 = select i1 %43, ptr null, ptr %36
+44:                                               ; preds = %35
   %45 = load i8, ptr %40, align 8, !tbaa !23
   %46 = icmp eq i8 %45, 0
   br i1 %46, label %51, label %47
 
-47:                                               ; preds = %104, %42
-  %48 = phi ptr [ %39, %42 ], [ %105, %104 ]
-  %49 = phi ptr [ %44, %42 ], [ %106, %104 ]
+47:                                               ; preds = %104, %44
+  %48 = phi ptr [ %39, %44 ], [ %105, %104 ]
+  %49 = phi ptr [ %42, %44 ], [ %106, %104 ]
   %50 = icmp eq ptr %48, null
   br i1 %50, label %110, label %35, !llvm.loop !52
 
-51:                                               ; preds = %42
+51:                                               ; preds = %44
   %52 = getelementptr inbounds %struct.cli_ac_node, ptr %40, i64 0, i32 3
   br label %53
 
 53:                                               ; preds = %104, %51
   %54 = phi i64 [ 0, %51 ], [ %107, %104 ]
-  %55 = phi ptr [ %44, %51 ], [ %106, %104 ]
+  %55 = phi ptr [ %42, %51 ], [ %106, %104 ]
   %56 = phi ptr [ %39, %51 ], [ %105, %104 ]
   %57 = load ptr, ptr %52, align 8, !tbaa !20
   %58 = getelementptr inbounds ptr, ptr %57, i64 %54
@@ -1669,7 +1669,7 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
   %511 = select i1 %509, i1 %510, i1 false
   br i1 %511, label %512, label %590
 
-512:                                              ; preds = %507, %503
+512:                                              ; preds = %503, %507
   %513 = getelementptr inbounds i32, ptr %482, i64 3
   %514 = load i32, ptr %513, align 4, !tbaa !79
   %515 = icmp eq i32 %514, -1
@@ -1688,7 +1688,7 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
   %524 = select i1 %522, i1 %523, i1 false
   br i1 %524, label %525, label %590
 
-525:                                              ; preds = %520, %516
+525:                                              ; preds = %516, %520
   %526 = getelementptr inbounds i32, ptr %482, i64 4
   %527 = load i32, ptr %526, align 4, !tbaa !79
   %528 = icmp eq i32 %527, -1
@@ -1707,7 +1707,7 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
   %537 = select i1 %535, i1 %536, i1 false
   br i1 %537, label %538, label %590
 
-538:                                              ; preds = %533, %529
+538:                                              ; preds = %529, %533
   %539 = getelementptr inbounds i32, ptr %482, i64 5
   %540 = load i32, ptr %539, align 4, !tbaa !79
   %541 = icmp eq i32 %540, -1
@@ -1726,7 +1726,7 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
   %550 = select i1 %548, i1 %549, i1 false
   br i1 %550, label %551, label %590
 
-551:                                              ; preds = %546, %542
+551:                                              ; preds = %542, %546
   %552 = getelementptr inbounds i32, ptr %482, i64 6
   %553 = load i32, ptr %552, align 4, !tbaa !79
   %554 = icmp eq i32 %553, -1
@@ -1745,7 +1745,7 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
   %563 = select i1 %561, i1 %562, i1 false
   br i1 %563, label %564, label %590
 
-564:                                              ; preds = %559, %555
+564:                                              ; preds = %555, %559
   %565 = getelementptr inbounds i32, ptr %482, i64 7
   %566 = load i32, ptr %565, align 4, !tbaa !79
   %567 = icmp eq i32 %566, -1
@@ -1764,7 +1764,7 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
   %576 = select i1 %574, i1 %575, i1 false
   br i1 %576, label %577, label %590
 
-577:                                              ; preds = %572, %568
+577:                                              ; preds = %568, %572
   %578 = getelementptr inbounds i32, ptr %482, i64 8
   %579 = load i32, ptr %578, align 4, !tbaa !79
   %580 = icmp eq i32 %579, -1
@@ -1896,57 +1896,57 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
 667:                                              ; preds = %663, %653
   %668 = call ptr @cli_calloc(i64 noundef 1, i64 noundef 32) #11
   %669 = icmp eq ptr %668, null
-  br i1 %669, label %689, label %670
+  br i1 %669, label %670, label %674
 
 670:                                              ; preds = %667
-  store i32 %627, ptr %668, align 8, !tbaa !88
-  %671 = getelementptr inbounds %struct.cli_matched_type, ptr %668, i64 0, i32 1
-  store i64 %661, ptr %671, align 8, !tbaa !89
-  %672 = load ptr, ptr %9, align 8, !tbaa !22
-  br label %673
+  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.25) #11
+  %671 = getelementptr inbounds %struct.cli_target_info, ptr %11, i64 0, i32 1, i32 3
+  %672 = load ptr, ptr %671, align 8, !tbaa !88
+  %673 = icmp eq ptr %672, null
+  br i1 %673, label %864, label %693
 
-673:                                              ; preds = %676, %670
-  %674 = phi ptr [ %672, %670 ], [ %678, %676 ]
-  %675 = icmp eq ptr %674, null
-  br i1 %675, label %683, label %676
+674:                                              ; preds = %667
+  store i32 %627, ptr %668, align 8, !tbaa !91
+  %675 = getelementptr inbounds %struct.cli_matched_type, ptr %668, i64 0, i32 1
+  store i64 %661, ptr %675, align 8, !tbaa !92
+  %676 = load ptr, ptr %9, align 8, !tbaa !22
+  br label %677
 
-676:                                              ; preds = %673
-  %677 = getelementptr inbounds %struct.cli_matched_type, ptr %674, i64 0, i32 3
-  %678 = load ptr, ptr %677, align 8, !tbaa !90
+677:                                              ; preds = %680, %674
+  %678 = phi ptr [ %676, %674 ], [ %682, %680 ]
   %679 = icmp eq ptr %678, null
-  br i1 %679, label %680, label %673, !llvm.loop !91
+  br i1 %679, label %687, label %680
 
-680:                                              ; preds = %676
-  %681 = getelementptr inbounds %struct.cli_matched_type, ptr %674, i64 0, i32 3
-  store ptr %668, ptr %681, align 8, !tbaa !90
-  %682 = load ptr, ptr %9, align 8, !tbaa !22
-  br label %684
+680:                                              ; preds = %677
+  %681 = getelementptr inbounds %struct.cli_matched_type, ptr %678, i64 0, i32 3
+  %682 = load ptr, ptr %681, align 8, !tbaa !93
+  %683 = icmp eq ptr %682, null
+  br i1 %683, label %684, label %677, !llvm.loop !94
 
-683:                                              ; preds = %673
+684:                                              ; preds = %680
+  %685 = getelementptr inbounds %struct.cli_matched_type, ptr %678, i64 0, i32 3
+  store ptr %668, ptr %685, align 8, !tbaa !93
+  %686 = load ptr, ptr %9, align 8, !tbaa !22
+  br label %688
+
+687:                                              ; preds = %677
   store ptr %668, ptr %9, align 8, !tbaa !22
-  br label %684
+  br label %688
 
-684:                                              ; preds = %683, %680
-  %685 = phi ptr [ %668, %683 ], [ %682, %680 ]
-  %686 = getelementptr inbounds %struct.cli_matched_type, ptr %685, i64 0, i32 2
-  %687 = load i16, ptr %686, align 8, !tbaa !85
-  %688 = add i16 %687, 1
-  store i16 %688, ptr %686, align 8, !tbaa !85
+688:                                              ; preds = %687, %684
+  %689 = phi ptr [ %668, %687 ], [ %686, %684 ]
+  %690 = getelementptr inbounds %struct.cli_matched_type, ptr %689, i64 0, i32 2
+  %691 = load i16, ptr %690, align 8, !tbaa !85
+  %692 = add i16 %691, 1
+  store i16 %692, ptr %690, align 8, !tbaa !85
   br label %694
 
-689:                                              ; preds = %667
-  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.25) #11
-  %690 = getelementptr inbounds %struct.cli_target_info, ptr %11, i64 0, i32 1, i32 3
-  %691 = load ptr, ptr %690, align 8, !tbaa !92
-  %692 = icmp eq ptr %691, null
-  br i1 %692, label %864, label %693
-
-693:                                              ; preds = %689
-  call void @free(ptr noundef nonnull %691) #11
+693:                                              ; preds = %670
+  call void @free(ptr noundef nonnull %672) #11
   br label %864
 
-694:                                              ; preds = %684, %663
-  %695 = phi ptr [ %685, %684 ], [ %646, %663 ]
+694:                                              ; preds = %663, %688
+  %695 = phi ptr [ %646, %663 ], [ %689, %688 ]
   %696 = add nuw nsw i16 %647, 1
   %697 = icmp eq i16 %696, 9
   br i1 %697, label %698, label %645, !llvm.loop !95
@@ -2026,7 +2026,7 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
 
 747:                                              ; preds = %744, %742
   %748 = getelementptr inbounds %struct.cli_target_info, ptr %11, i64 0, i32 1, i32 3
-  %749 = load ptr, ptr %748, align 8, !tbaa !92
+  %749 = load ptr, ptr %748, align 8, !tbaa !88
   %750 = icmp eq ptr %749, null
   br i1 %750, label %864, label %751
 
@@ -2096,54 +2096,54 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
 792:                                              ; preds = %776, %788
   %793 = call ptr @cli_calloc(i64 noundef 1, i64 noundef 32) #11
   %794 = icmp eq ptr %793, null
-  br i1 %794, label %815, label %795
+  br i1 %794, label %795, label %799
 
 795:                                              ; preds = %792
-  %796 = zext i32 %293 to i64
-  store i32 %768, ptr %793, align 8, !tbaa !88
-  %797 = getelementptr inbounds %struct.cli_matched_type, ptr %793, i64 0, i32 1
-  store i64 %796, ptr %797, align 8, !tbaa !89
-  %798 = load ptr, ptr %9, align 8, !tbaa !22
-  br label %799
+  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.25) #11
+  %796 = getelementptr inbounds %struct.cli_target_info, ptr %11, i64 0, i32 1, i32 3
+  %797 = load ptr, ptr %796, align 8, !tbaa !88
+  %798 = icmp eq ptr %797, null
+  br i1 %798, label %864, label %819
 
-799:                                              ; preds = %802, %795
-  %800 = phi ptr [ %798, %795 ], [ %804, %802 ]
-  %801 = icmp eq ptr %800, null
-  br i1 %801, label %809, label %802
+799:                                              ; preds = %792
+  %800 = zext i32 %293 to i64
+  store i32 %768, ptr %793, align 8, !tbaa !91
+  %801 = getelementptr inbounds %struct.cli_matched_type, ptr %793, i64 0, i32 1
+  store i64 %800, ptr %801, align 8, !tbaa !92
+  %802 = load ptr, ptr %9, align 8, !tbaa !22
+  br label %803
 
-802:                                              ; preds = %799
-  %803 = getelementptr inbounds %struct.cli_matched_type, ptr %800, i64 0, i32 3
-  %804 = load ptr, ptr %803, align 8, !tbaa !90
+803:                                              ; preds = %806, %799
+  %804 = phi ptr [ %802, %799 ], [ %808, %806 ]
   %805 = icmp eq ptr %804, null
-  br i1 %805, label %806, label %799, !llvm.loop !91
+  br i1 %805, label %813, label %806
 
-806:                                              ; preds = %802
-  %807 = getelementptr inbounds %struct.cli_matched_type, ptr %800, i64 0, i32 3
-  store ptr %793, ptr %807, align 8, !tbaa !90
-  %808 = load ptr, ptr %9, align 8, !tbaa !22
-  br label %810
+806:                                              ; preds = %803
+  %807 = getelementptr inbounds %struct.cli_matched_type, ptr %804, i64 0, i32 3
+  %808 = load ptr, ptr %807, align 8, !tbaa !93
+  %809 = icmp eq ptr %808, null
+  br i1 %809, label %810, label %803, !llvm.loop !94
 
-809:                                              ; preds = %799
+810:                                              ; preds = %806
+  %811 = getelementptr inbounds %struct.cli_matched_type, ptr %804, i64 0, i32 3
+  store ptr %793, ptr %811, align 8, !tbaa !93
+  %812 = load ptr, ptr %9, align 8, !tbaa !22
+  br label %814
+
+813:                                              ; preds = %803
   store ptr %793, ptr %9, align 8, !tbaa !22
-  br label %810
+  br label %814
 
-810:                                              ; preds = %809, %806
-  %811 = phi ptr [ %793, %809 ], [ %808, %806 ]
-  %812 = getelementptr inbounds %struct.cli_matched_type, ptr %811, i64 0, i32 2
-  %813 = load i16, ptr %812, align 8, !tbaa !85
-  %814 = add i16 %813, 1
-  store i16 %814, ptr %812, align 8, !tbaa !85
+814:                                              ; preds = %813, %810
+  %815 = phi ptr [ %793, %813 ], [ %812, %810 ]
+  %816 = getelementptr inbounds %struct.cli_matched_type, ptr %815, i64 0, i32 2
+  %817 = load i16, ptr %816, align 8, !tbaa !85
+  %818 = add i16 %817, 1
+  store i16 %818, ptr %816, align 8, !tbaa !85
   br label %841
 
-815:                                              ; preds = %792
-  call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.25) #11
-  %816 = getelementptr inbounds %struct.cli_target_info, ptr %11, i64 0, i32 1, i32 3
-  %817 = load ptr, ptr %816, align 8, !tbaa !92
-  %818 = icmp eq ptr %817, null
-  br i1 %818, label %864, label %819
-
-819:                                              ; preds = %815
-  call void @free(ptr noundef nonnull %817) #11
+819:                                              ; preds = %795
+  call void @free(ptr noundef nonnull %797) #11
   br label %864
 
 820:                                              ; preds = %752
@@ -2158,7 +2158,7 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
 
 825:                                              ; preds = %822, %820
   %826 = getelementptr inbounds %struct.cli_target_info, ptr %11, i64 0, i32 1, i32 3
-  %827 = load ptr, ptr %826, align 8, !tbaa !92
+  %827 = load ptr, ptr %826, align 8, !tbaa !88
   %828 = icmp eq ptr %827, null
   br i1 %828, label %864, label %829
 
@@ -2182,15 +2182,15 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
   %840 = icmp eq i64 %839, %709
   br i1 %840, label %841, label %833, !llvm.loop !97
 
-841:                                              ; preds = %830, %833, %782, %478, %499, %512, %525, %538, %551, %564, %577, %585, %581, %701, %776, %788, %810, %757, %626, %772, %764, %756, %610, %594, %625
-  %842 = phi i32 [ %286, %610 ], [ %286, %594 ], [ %286, %625 ], [ %768, %772 ], [ %768, %764 ], [ %286, %756 ], [ %286, %626 ], [ %286, %757 ], [ %768, %810 ], [ %768, %788 ], [ %768, %776 ], [ %627, %701 ], [ %286, %581 ], [ %286, %585 ], [ %286, %577 ], [ %286, %564 ], [ %286, %551 ], [ %286, %538 ], [ %286, %525 ], [ %286, %512 ], [ %286, %499 ], [ %286, %478 ], [ %768, %782 ], [ %627, %833 ], [ %627, %830 ]
+841:                                              ; preds = %830, %833, %581, %782, %478, %499, %512, %525, %538, %551, %564, %577, %585, %701, %776, %788, %814, %757, %626, %772, %764, %756, %610, %594, %625
+  %842 = phi i32 [ %286, %610 ], [ %286, %594 ], [ %286, %625 ], [ %768, %772 ], [ %768, %764 ], [ %286, %756 ], [ %286, %626 ], [ %286, %757 ], [ %768, %814 ], [ %768, %788 ], [ %768, %776 ], [ %627, %701 ], [ %286, %585 ], [ %286, %577 ], [ %286, %564 ], [ %286, %551 ], [ %286, %538 ], [ %286, %525 ], [ %286, %512 ], [ %286, %499 ], [ %286, %478 ], [ %768, %782 ], [ %286, %581 ], [ %627, %833 ], [ %627, %830 ]
   %843 = getelementptr inbounds %struct.cli_ac_patt, ptr %289, i64 0, i32 18
   %844 = load ptr, ptr %843, align 8, !tbaa !43
   %845 = icmp eq ptr %844, null
   br i1 %845, label %846, label %285, !llvm.loop !78
 
-846:                                              ; preds = %164, %156, %99, %112, %264, %256, %199, %212, %841, %126, %149, %226, %249, %316, %278, %63, %77
-  %847 = phi i32 [ %65, %278 ], [ %65, %77 ], [ %65, %63 ], [ %286, %316 ], [ %65, %249 ], [ %65, %226 ], [ %65, %149 ], [ %65, %126 ], [ %842, %841 ], [ %65, %212 ], [ %65, %199 ], [ %65, %256 ], [ %65, %264 ], [ %65, %112 ], [ %65, %99 ], [ %65, %156 ], [ %65, %164 ]
+846:                                              ; preds = %99, %112, %156, %164, %199, %212, %256, %264, %841, %126, %149, %226, %249, %316, %278, %77, %63
+  %847 = phi i32 [ %65, %278 ], [ %65, %77 ], [ %65, %63 ], [ %286, %316 ], [ %65, %249 ], [ %65, %226 ], [ %65, %149 ], [ %65, %126 ], [ %842, %841 ], [ %65, %264 ], [ %65, %256 ], [ %65, %212 ], [ %65, %199 ], [ %65, %164 ], [ %65, %156 ], [ %65, %112 ], [ %65, %99 ]
   %848 = getelementptr inbounds %struct.cli_ac_patt, ptr %64, i64 0, i32 17
   %849 = load ptr, ptr %848, align 8, !tbaa !22
   %850 = icmp eq ptr %849, null
@@ -2204,7 +2204,7 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
 
 855:                                              ; preds = %851
   %856 = getelementptr inbounds %struct.cli_target_info, ptr %11, i64 0, i32 1, i32 3
-  %857 = load ptr, ptr %856, align 8, !tbaa !92
+  %857 = load ptr, ptr %856, align 8, !tbaa !88
   %858 = icmp eq ptr %857, null
   br i1 %858, label %860, label %859
 
@@ -2218,8 +2218,8 @@ define dso_local i32 @cli_ac_scanbuff(ptr nocapture noundef readonly %0, i32 nou
   %863 = select i1 %862, i32 0, i32 %861
   br label %864
 
-864:                                              ; preds = %825, %829, %815, %819, %747, %751, %689, %693, %10, %860, %381, %364, %17
-  %865 = phi i32 [ -114, %381 ], [ -114, %364 ], [ %863, %860 ], [ -111, %17 ], [ 0, %10 ], [ -114, %693 ], [ -114, %689 ], [ 1, %751 ], [ 1, %747 ], [ -114, %819 ], [ -114, %815 ], [ 1, %829 ], [ 1, %825 ]
+864:                                              ; preds = %825, %829, %795, %819, %747, %751, %670, %693, %10, %860, %381, %364, %17
+  %865 = phi i32 [ -114, %381 ], [ -114, %364 ], [ %863, %860 ], [ -111, %17 ], [ 0, %10 ], [ -114, %693 ], [ -114, %670 ], [ 1, %751 ], [ 1, %747 ], [ -114, %819 ], [ -114, %795 ], [ 1, %829 ], [ 1, %825 ]
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %11) #11
   ret i32 %865
 }
@@ -3215,14 +3215,14 @@ define dso_local void @cli_ac_setdepth(i8 noundef zeroext %0, i8 noundef zeroext
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
 declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #8
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #9
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #9
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.umax.i16(i16, i16) #10
+declare i16 @llvm.umax.i16(i16, i16) #9
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -3233,8 +3233,8 @@ attributes #5 = { mustprogress nofree nounwind willreturn memory(argmem: read) "
 attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #11 = { nounwind }
 attributes #12 = { nounwind willreturn memory(read) }
 
@@ -3329,13 +3329,13 @@ attributes #12 = { nounwind willreturn memory(read) }
 !85 = !{!86, !7, i64 16}
 !86 = !{!"cli_matched_type", !8, i64 0, !87, i64 8, !7, i64 16, !10, i64 24}
 !87 = !{!"long", !8, i64 0}
-!88 = !{!86, !8, i64 0}
-!89 = !{!86, !87, i64 8}
-!90 = !{!86, !10, i64 24}
-!91 = distinct !{!91, !16}
-!92 = !{!93, !10, i64 24}
-!93 = !{!"cli_target_info", !87, i64 0, !94, i64 8, !8, i64 32}
-!94 = !{!"cli_exe_info", !11, i64 0, !7, i64 4, !87, i64 8, !10, i64 16}
+!88 = !{!89, !10, i64 24}
+!89 = !{!"cli_target_info", !87, i64 0, !90, i64 8, !8, i64 32}
+!90 = !{!"cli_exe_info", !11, i64 0, !7, i64 4, !87, i64 8, !10, i64 16}
+!91 = !{!86, !8, i64 0}
+!92 = !{!86, !87, i64 8}
+!93 = !{!86, !10, i64 24}
+!94 = distinct !{!94, !16}
 !95 = distinct !{!95, !16}
 !96 = distinct !{!96, !16}
 !97 = distinct !{!97, !98}

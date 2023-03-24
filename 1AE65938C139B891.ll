@@ -151,7 +151,7 @@ define dso_local i32 @Mode_Decision_for_new_Intra8x8Macroblock(double noundef %0
   %20 = call i32 @Mode_Decision_for_new_8x8IntraBlocks(i32 noundef 2, double noundef %0, ptr noundef nonnull %3)
   %21 = icmp eq i32 %20, 0
   %22 = select i1 %21, i32 0, i32 4
-  %23 = or i32 %22, %16
+  %23 = or i32 %16, %22
   %24 = load i32, ptr %3, align 4, !tbaa !5
   %25 = load i32, ptr %1, align 4, !tbaa !5
   %26 = add nsw i32 %25, %24
@@ -159,7 +159,7 @@ define dso_local i32 @Mode_Decision_for_new_Intra8x8Macroblock(double noundef %0
   %27 = call i32 @Mode_Decision_for_new_8x8IntraBlocks(i32 noundef 3, double noundef %0, ptr noundef nonnull %3)
   %28 = icmp eq i32 %27, 0
   %29 = select i1 %28, i32 0, i32 8
-  %30 = or i32 %29, %23
+  %30 = or i32 %23, %29
   %31 = load i32, ptr %3, align 4, !tbaa !5
   %32 = load i32, ptr %1, align 4, !tbaa !5
   %33 = add nsw i32 %32, %31
@@ -5364,16 +5364,16 @@ declare i32 @writeCoeff4x4_CAVLC(i32 noundef, i32 noundef, i32 noundef, i32 noun
 declare i32 @writeLumaCoeff8x8_CABAC(i32 noundef, i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #8
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i8 @llvm.smin.i8(i8, i8) #8
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #8
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #8
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i8 @llvm.smin.i8(i8, i8) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v16i32(<16 x i32>) #8

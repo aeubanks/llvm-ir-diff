@@ -1711,41 +1711,41 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
   %3 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 3
   %4 = load i32, ptr %3, align 4, !tbaa !33
   %5 = load i32, ptr %0, align 8, !tbaa !34
-  %6 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 3
-  %7 = load i32, ptr %6, align 4, !tbaa !33
-  %8 = load i32, ptr %1, align 8, !tbaa !34
-  %9 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 1
-  %10 = load i32, ptr %9, align 4, !tbaa !29
-  %11 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 1
-  %12 = load i32, ptr %11, align 4, !tbaa !29
-  %13 = icmp eq i32 %10, %12
-  br i1 %13, label %18, label %14
+  %6 = mul nsw i32 %5, %4
+  %7 = sext i32 %6 to i64
+  %8 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 3
+  %9 = load i32, ptr %8, align 4, !tbaa !33
+  %10 = load i32, ptr %1, align 8, !tbaa !34
+  %11 = mul nsw i32 %10, %9
+  %12 = sext i32 %11 to i64
+  %13 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 1
+  %14 = load i32, ptr %13, align 4, !tbaa !29
+  %15 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 1
+  %16 = load i32, ptr %15, align 4, !tbaa !29
+  %17 = icmp eq i32 %14, %16
+  br i1 %17, label %22, label %18
 
-14:                                               ; preds = %2
+18:                                               ; preds = %2
   tail call void (ptr, ...) @fatal(ptr noundef nonnull @.str) #23
-  %15 = load i32, ptr %3, align 4, !tbaa !33
-  %16 = load i32, ptr %6, align 4, !tbaa !33
-  %17 = load i32, ptr %9, align 4, !tbaa !29
-  br label %18
+  %19 = load i32, ptr %3, align 4, !tbaa !33
+  %20 = load i32, ptr %8, align 4, !tbaa !33
+  %21 = load i32, ptr %13, align 4, !tbaa !29
+  br label %22
 
-18:                                               ; preds = %14, %2
-  %19 = phi i32 [ %17, %14 ], [ %10, %2 ]
-  %20 = phi i32 [ %16, %14 ], [ %7, %2 ]
-  %21 = phi i32 [ %15, %14 ], [ %4, %2 ]
-  %22 = mul nsw i32 %8, %7
-  %23 = sext i32 %22 to i64
-  %24 = mul nsw i32 %5, %4
-  %25 = sext i32 %24 to i64
-  %26 = add nsw i32 %20, %21
+22:                                               ; preds = %18, %2
+  %23 = phi i32 [ %21, %18 ], [ %14, %2 ]
+  %24 = phi i32 [ %20, %18 ], [ %9, %2 ]
+  %25 = phi i32 [ %19, %18 ], [ %4, %2 ]
+  %26 = add nsw i32 %24, %25
   %27 = load ptr, ptr @set_family_garbage, align 8, !tbaa !46
   %28 = icmp eq ptr %27, null
   br i1 %28, label %29, label %31
 
-29:                                               ; preds = %18
+29:                                               ; preds = %22
   %30 = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #22
   br label %34
 
-31:                                               ; preds = %18
+31:                                               ; preds = %22
   %32 = getelementptr inbounds %struct.set_family, ptr %27, i64 0, i32 6
   %33 = load ptr, ptr %32, align 8, !tbaa !47
   store ptr %33, ptr @set_family_garbage, align 8, !tbaa !46
@@ -1754,9 +1754,9 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
 34:                                               ; preds = %29, %31
   %35 = phi ptr [ %30, %29 ], [ %27, %31 ]
   %36 = getelementptr inbounds %struct.set_family, ptr %35, i64 0, i32 1
-  store i32 %19, ptr %36, align 4, !tbaa !29
-  %37 = icmp slt i32 %19, 33
-  %38 = add nsw i32 %19, -1
+  store i32 %23, ptr %36, align 4, !tbaa !29
+  %37 = icmp slt i32 %23, 33
+  %38 = add nsw i32 %23, -1
   %39 = lshr i32 %38, 5
   %40 = add nuw nsw i32 %39, 2
   %41 = select i1 %37, i32 2, i32 %40
@@ -1776,16 +1776,16 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
   %51 = getelementptr inbounds %struct.set_family, ptr %35, i64 0, i32 4
   store i32 0, ptr %51, align 8, !tbaa !39
   %52 = load <2 x i32>, ptr %3, align 4, !tbaa !5
-  %53 = load <2 x i32>, ptr %6, align 4, !tbaa !5
+  %53 = load <2 x i32>, ptr %8, align 4, !tbaa !5
   %54 = add nsw <2 x i32> %53, %52
   store <2 x i32> %54, ptr %50, align 4, !tbaa !5
-  %55 = icmp sgt i32 %24, 0
+  %55 = icmp sgt i32 %6, 0
   br i1 %55, label %56, label %138
 
 56:                                               ; preds = %34
   %57 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 5
   %58 = load ptr, ptr %57, align 8, !tbaa !32
-  %59 = icmp ult i32 %24, 8
+  %59 = icmp ult i32 %6, 8
   %60 = ptrtoint ptr %58 to i64
   %61 = sub i64 %48, %60
   %62 = icmp ult i64 %61, 32
@@ -1793,7 +1793,7 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
   br i1 %63, label %84, label %64
 
 64:                                               ; preds = %56
-  %65 = and i64 %25, -8
+  %65 = and i64 %7, -8
   %66 = shl nsw i64 %65, 2
   %67 = getelementptr i8, ptr %47, i64 %66
   %68 = shl nsw i64 %65, 2
@@ -1817,7 +1817,7 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
   br i1 %81, label %82, label %70, !llvm.loop !49
 
 82:                                               ; preds = %70
-  %83 = icmp eq i64 %65, %25
+  %83 = icmp eq i64 %65, %7
   br i1 %83, label %138, label %84
 
 84:                                               ; preds = %56, %82
@@ -1825,8 +1825,8 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
   %86 = phi ptr [ %47, %56 ], [ %67, %82 ]
   %87 = phi ptr [ %58, %56 ], [ %69, %82 ]
   %88 = xor i64 %85, -1
-  %89 = add nsw i64 %88, %25
-  %90 = and i64 %25, 7
+  %89 = add nsw i64 %88, %7
+  %90 = and i64 %7, 7
   %91 = icmp eq i64 %90, 0
   br i1 %91, label %103, label %92
 
@@ -1888,30 +1888,30 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
   %135 = getelementptr inbounds i32, ptr %110, i64 8
   store i32 %134, ptr %132, align 4, !tbaa !5
   %136 = add nuw nsw i64 %109, 8
-  %137 = icmp eq i64 %136, %25
+  %137 = icmp eq i64 %136, %7
   br i1 %137, label %138, label %108, !llvm.loop !51
 
 138:                                              ; preds = %103, %108, %82, %34
-  %139 = icmp sgt i32 %22, 0
+  %139 = icmp sgt i32 %11, 0
   br i1 %139, label %140, label %225
 
 140:                                              ; preds = %138
   %141 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 5
   %142 = load ptr, ptr %141, align 8, !tbaa !32
-  %143 = getelementptr i32, ptr %47, i64 %25
-  %144 = icmp ult i32 %22, 12
+  %143 = getelementptr i32, ptr %47, i64 %7
+  %144 = icmp ult i32 %11, 12
   br i1 %144, label %171, label %145
 
 145:                                              ; preds = %140
   %146 = ptrtoint ptr %142 to i64
-  %147 = shl nsw i64 %25, 2
+  %147 = shl nsw i64 %7, 2
   %148 = add i64 %147, %48
   %149 = sub i64 %148, %146
   %150 = icmp ult i64 %149, 32
   br i1 %150, label %171, label %151
 
 151:                                              ; preds = %145
-  %152 = and i64 %23, -8
+  %152 = and i64 %12, -8
   %153 = shl nsw i64 %152, 2
   %154 = getelementptr i8, ptr %143, i64 %153
   %155 = shl nsw i64 %152, 2
@@ -1935,7 +1935,7 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
   br i1 %168, label %169, label %157, !llvm.loop !52
 
 169:                                              ; preds = %157
-  %170 = icmp eq i64 %152, %23
+  %170 = icmp eq i64 %152, %12
   br i1 %170, label %225, label %171
 
 171:                                              ; preds = %145, %140, %169
@@ -1943,8 +1943,8 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
   %173 = phi ptr [ %143, %145 ], [ %143, %140 ], [ %154, %169 ]
   %174 = phi ptr [ %142, %145 ], [ %142, %140 ], [ %156, %169 ]
   %175 = xor i64 %172, -1
-  %176 = add nsw i64 %175, %23
-  %177 = and i64 %23, 7
+  %176 = add nsw i64 %175, %12
+  %177 = and i64 %12, 7
   %178 = icmp eq i64 %177, 0
   br i1 %178, label %190, label %179
 
@@ -2006,7 +2006,7 @@ define dso_local ptr @sf_join(ptr nocapture noundef readonly %0, ptr nocapture n
   %222 = getelementptr inbounds i32, ptr %197, i64 8
   store i32 %221, ptr %219, align 4, !tbaa !5
   %223 = add nuw nsw i64 %196, 8
-  %224 = icmp eq i64 %223, %23
+  %224 = icmp eq i64 %223, %12
   br i1 %224, label %225, label %195, !llvm.loop !54
 
 225:                                              ; preds = %190, %195, %169, %138
@@ -2020,78 +2020,78 @@ define dso_local ptr @sf_append(ptr noundef returned %0, ptr noundef %1) local_u
   %3 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 3
   %4 = load i32, ptr %3, align 4, !tbaa !33
   %5 = load i32, ptr %0, align 8, !tbaa !34
-  %6 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 3
-  %7 = load i32, ptr %6, align 4, !tbaa !33
-  %8 = load i32, ptr %1, align 8, !tbaa !34
-  %9 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 1
-  %10 = load i32, ptr %9, align 4, !tbaa !29
-  %11 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 1
-  %12 = load i32, ptr %11, align 4, !tbaa !29
-  %13 = icmp eq i32 %10, %12
-  br i1 %13, label %17, label %14
+  %6 = mul nsw i32 %5, %4
+  %7 = sext i32 %6 to i64
+  %8 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 3
+  %9 = load i32, ptr %8, align 4, !tbaa !33
+  %10 = load i32, ptr %1, align 8, !tbaa !34
+  %11 = mul nsw i32 %10, %9
+  %12 = sext i32 %11 to i64
+  %13 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 1
+  %14 = load i32, ptr %13, align 4, !tbaa !29
+  %15 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 1
+  %16 = load i32, ptr %15, align 4, !tbaa !29
+  %17 = icmp eq i32 %14, %16
+  br i1 %17, label %21, label %18
 
-14:                                               ; preds = %2
+18:                                               ; preds = %2
   tail call void (ptr, ...) @fatal(ptr noundef nonnull @.str.1) #23
-  %15 = load i32, ptr %3, align 4, !tbaa !33
-  %16 = load i32, ptr %6, align 4, !tbaa !33
-  br label %17
+  %19 = load i32, ptr %3, align 4, !tbaa !33
+  %20 = load i32, ptr %8, align 4, !tbaa !33
+  br label %21
 
-17:                                               ; preds = %14, %2
-  %18 = phi i32 [ %16, %14 ], [ %7, %2 ]
-  %19 = phi i32 [ %15, %14 ], [ %4, %2 ]
-  %20 = add nsw i32 %18, %19
-  %21 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 2
-  store i32 %20, ptr %21, align 8, !tbaa !48
-  %22 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 5
-  %23 = load ptr, ptr %22, align 8, !tbaa !32
-  %24 = icmp eq ptr %23, null
-  %25 = sext i32 %20 to i64
-  %26 = load i32, ptr %0, align 8, !tbaa !34
-  %27 = sext i32 %26 to i64
-  %28 = shl nsw i64 %25, 2
-  %29 = mul i64 %28, %27
-  br i1 %24, label %32, label %30
+21:                                               ; preds = %18, %2
+  %22 = phi i32 [ %20, %18 ], [ %9, %2 ]
+  %23 = phi i32 [ %19, %18 ], [ %4, %2 ]
+  %24 = add nsw i32 %22, %23
+  %25 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 2
+  store i32 %24, ptr %25, align 8, !tbaa !48
+  %26 = getelementptr inbounds %struct.set_family, ptr %0, i64 0, i32 5
+  %27 = load ptr, ptr %26, align 8, !tbaa !32
+  %28 = icmp eq ptr %27, null
+  %29 = sext i32 %24 to i64
+  %30 = load i32, ptr %0, align 8, !tbaa !34
+  %31 = sext i32 %30 to i64
+  %32 = shl nsw i64 %29, 2
+  %33 = mul i64 %32, %31
+  br i1 %28, label %36, label %34
 
-30:                                               ; preds = %17
-  %31 = tail call ptr @realloc(ptr noundef nonnull %23, i64 noundef %29) #24
-  br label %34
+34:                                               ; preds = %21
+  %35 = tail call ptr @realloc(ptr noundef nonnull %27, i64 noundef %33) #24
+  br label %38
 
-32:                                               ; preds = %17
-  %33 = tail call noalias ptr @malloc(i64 noundef %29) #22
-  br label %34
+36:                                               ; preds = %21
+  %37 = tail call noalias ptr @malloc(i64 noundef %33) #22
+  br label %38
 
-34:                                               ; preds = %32, %30
-  %35 = phi ptr [ %31, %30 ], [ %33, %32 ]
-  %36 = ptrtoint ptr %35 to i64
-  %37 = mul nsw i32 %8, %7
-  %38 = sext i32 %37 to i64
-  store ptr %35, ptr %22, align 8, !tbaa !32
-  %39 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 5
-  %40 = load ptr, ptr %39, align 8, !tbaa !32
-  %41 = ptrtoint ptr %40 to i64
-  %42 = icmp sgt i32 %37, 0
-  br i1 %42, label %43, label %127
+38:                                               ; preds = %36, %34
+  %39 = phi ptr [ %35, %34 ], [ %37, %36 ]
+  %40 = ptrtoint ptr %39 to i64
+  store ptr %39, ptr %26, align 8, !tbaa !32
+  %41 = getelementptr inbounds %struct.set_family, ptr %1, i64 0, i32 5
+  %42 = load ptr, ptr %41, align 8, !tbaa !32
+  %43 = ptrtoint ptr %42 to i64
+  %44 = icmp sgt i32 %11, 0
+  br i1 %44, label %45, label %127
 
-43:                                               ; preds = %34
-  %44 = mul nsw i32 %5, %4
-  %45 = sext i32 %44 to i64
-  %46 = getelementptr i32, ptr %35, i64 %45
-  %47 = icmp ult i32 %37, 12
+45:                                               ; preds = %38
+  %46 = getelementptr i32, ptr %39, i64 %7
+  %47 = icmp ult i32 %11, 12
   br i1 %47, label %73, label %48
 
-48:                                               ; preds = %43
-  %49 = shl nsw i64 %45, 2
-  %50 = add i64 %49, %36
-  %51 = sub i64 %50, %41
+48:                                               ; preds = %45
+  %49 = shl nsw i64 %7, 2
+  %50 = add i64 %49, %40
+  %51 = sub i64 %50, %43
   %52 = icmp ult i64 %51, 32
   br i1 %52, label %73, label %53
 
 53:                                               ; preds = %48
-  %54 = and i64 %38, -8
+  %54 = and i64 %12, -8
   %55 = shl nsw i64 %54, 2
   %56 = getelementptr i8, ptr %46, i64 %55
   %57 = shl nsw i64 %54, 2
-  %58 = getelementptr i8, ptr %40, i64 %57
+  %58 = getelementptr i8, ptr %42, i64 %57
   br label %59
 
 59:                                               ; preds = %59, %53
@@ -2099,7 +2099,7 @@ define dso_local ptr @sf_append(ptr noundef returned %0, ptr noundef %1) local_u
   %61 = shl i64 %60, 2
   %62 = getelementptr i8, ptr %46, i64 %61
   %63 = shl i64 %60, 2
-  %64 = getelementptr i8, ptr %40, i64 %63
+  %64 = getelementptr i8, ptr %42, i64 %63
   %65 = load <4 x i32>, ptr %64, align 4, !tbaa !5
   %66 = getelementptr i32, ptr %64, i64 4
   %67 = load <4 x i32>, ptr %66, align 4, !tbaa !5
@@ -2111,16 +2111,16 @@ define dso_local ptr @sf_append(ptr noundef returned %0, ptr noundef %1) local_u
   br i1 %70, label %71, label %59, !llvm.loop !55
 
 71:                                               ; preds = %59
-  %72 = icmp eq i64 %54, %38
+  %72 = icmp eq i64 %54, %12
   br i1 %72, label %127, label %73
 
-73:                                               ; preds = %48, %43, %71
-  %74 = phi i64 [ 0, %48 ], [ 0, %43 ], [ %54, %71 ]
-  %75 = phi ptr [ %46, %48 ], [ %46, %43 ], [ %56, %71 ]
-  %76 = phi ptr [ %40, %48 ], [ %40, %43 ], [ %58, %71 ]
+73:                                               ; preds = %48, %45, %71
+  %74 = phi i64 [ 0, %48 ], [ 0, %45 ], [ %54, %71 ]
+  %75 = phi ptr [ %46, %48 ], [ %46, %45 ], [ %56, %71 ]
+  %76 = phi ptr [ %42, %48 ], [ %42, %45 ], [ %58, %71 ]
   %77 = xor i64 %74, -1
-  %78 = add nsw i64 %77, %38
-  %79 = and i64 %38, 7
+  %78 = add nsw i64 %77, %12
+  %79 = and i64 %12, 7
   %80 = icmp eq i64 %79, 0
   br i1 %80, label %92, label %81
 
@@ -2182,20 +2182,20 @@ define dso_local ptr @sf_append(ptr noundef returned %0, ptr noundef %1) local_u
   %124 = getelementptr inbounds i32, ptr %99, i64 8
   store i32 %123, ptr %121, align 4, !tbaa !5
   %125 = add nuw nsw i64 %98, 8
-  %126 = icmp eq i64 %125, %38
+  %126 = icmp eq i64 %125, %12
   br i1 %126, label %127, label %97, !llvm.loop !57
 
-127:                                              ; preds = %92, %97, %71, %34
-  %128 = load <2 x i32>, ptr %6, align 4, !tbaa !5
+127:                                              ; preds = %92, %97, %71, %38
+  %128 = load <2 x i32>, ptr %8, align 4, !tbaa !5
   %129 = load <2 x i32>, ptr %3, align 4, !tbaa !5
   %130 = add nsw <2 x i32> %129, %128
   store <2 x i32> %130, ptr %3, align 4, !tbaa !5
-  %131 = icmp eq ptr %40, null
+  %131 = icmp eq ptr %42, null
   br i1 %131, label %133, label %132
 
 132:                                              ; preds = %127
-  tail call void @free(ptr noundef nonnull %40) #23
-  store ptr null, ptr %39, align 8, !tbaa !32
+  tail call void @free(ptr noundef nonnull %42) #23
+  store ptr null, ptr %41, align 8, !tbaa !32
   br label %133
 
 133:                                              ; preds = %127, %132
@@ -4833,23 +4833,23 @@ define dso_local ptr @sf_permute(ptr noundef %0, ptr nocapture noundef readonly 
   ret ptr %15
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #19
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #19
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #20
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #21
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #19
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #20
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #20
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.or.v4i32(<4 x i32>) #20
+declare i32 @llvm.smax.i32(i32, i32) #21
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smax.i64(i64, i64) #20
+declare i32 @llvm.vector.reduce.or.v4i32(<4 x i32>) #21
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.smax.i64(i64, i64) #21
 
 attributes #0 = { nofree norecurse nosync nounwind memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -4870,9 +4870,9 @@ attributes #15 = { mustprogress nounwind willreturn allockind("free") memory(arg
 attributes #16 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #17 = { nofree nosync nounwind memory(write, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #18 = { nofree norecurse nosync nounwind memory(write, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #19 = { nofree nounwind }
-attributes #20 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #21 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #19 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #20 = { nofree nounwind }
+attributes #21 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #22 = { nounwind allocsize(0) }
 attributes #23 = { nounwind }
 attributes #24 = { nounwind allocsize(1) }

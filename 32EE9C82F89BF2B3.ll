@@ -184,40 +184,34 @@ define dso_local i32 @sort_ContainsSymbol(ptr noundef readonly %0, i32 noundef %
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local i32 @sort_IsSort(ptr noundef readonly %0) local_unnamed_addr #3 {
   %2 = icmp eq ptr %0, null
-  br i1 %2, label %22, label %3
+  br i1 %2, label %18, label %3
 
-3:                                                ; preds = %1
-  %4 = load ptr, ptr %0, align 8
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %22, label %9
+3:                                                ; preds = %1, %15
+  %4 = phi ptr [ %16, %15 ], [ %0, %1 ]
+  %5 = getelementptr i8, ptr %4, i64 8
+  br label %6
 
-6:                                                ; preds = %19
-  %7 = load ptr, ptr %10, align 8
-  %8 = icmp eq ptr %7, null
-  br i1 %8, label %22, label %9, !llvm.loop !11
+6:                                                ; preds = %3, %10
+  %7 = phi ptr [ %8, %10 ], [ %4, %3 ]
+  %8 = load ptr, ptr %7, align 8
+  %9 = icmp eq ptr %8, null
+  br i1 %9, label %15, label %10
 
-9:                                                ; preds = %3, %6
-  %10 = phi ptr [ %7, %6 ], [ %4, %3 ]
-  %11 = phi ptr [ %10, %6 ], [ %0, %3 ]
-  %12 = getelementptr i8, ptr %11, i64 8
+10:                                               ; preds = %6
+  %11 = load ptr, ptr %5, align 8
+  %12 = getelementptr i8, ptr %8, i64 8
   %13 = load ptr, ptr %12, align 8
-  br label %14
+  %14 = icmp eq ptr %11, %13
+  br i1 %14, label %18, label %6, !llvm.loop !11
 
-14:                                               ; preds = %9, %19
-  %15 = phi ptr [ %10, %9 ], [ %20, %19 ]
-  %16 = getelementptr i8, ptr %15, i64 8
-  %17 = load ptr, ptr %16, align 8
-  %18 = icmp eq ptr %13, %17
-  br i1 %18, label %22, label %19
+15:                                               ; preds = %6
+  %16 = load ptr, ptr %4, align 8
+  %17 = icmp eq ptr %16, null
+  br i1 %17, label %18, label %3, !llvm.loop !12
 
-19:                                               ; preds = %14
-  %20 = load ptr, ptr %15, align 8
-  %21 = icmp eq ptr %20, null
-  br i1 %21, label %6, label %14, !llvm.loop !11
-
-22:                                               ; preds = %6, %14, %3, %1
-  %23 = phi i32 [ 1, %1 ], [ 1, %3 ], [ 0, %14 ], [ 1, %6 ]
-  ret i32 %23
+18:                                               ; preds = %15, %10, %1
+  %19 = phi i32 [ 1, %1 ], [ 0, %10 ], [ 1, %15 ]
+  ret i32 %19
 }
 
 ; Function Attrs: nounwind uwtable
@@ -281,7 +275,7 @@ define dso_local i32 @sort_TheorySortEqual(ptr nocapture noundef %0, ptr noundef
   store i32 0, ptr %41, align 4
   %42 = add nuw nsw i64 %12, 5
   %43 = icmp eq i64 %42, 4000
-  br i1 %43, label %44, label %11, !llvm.loop !12
+  br i1 %43, label %44, label %11, !llvm.loop !13
 
 44:                                               ; preds = %11, %7
   %45 = phi i32 [ %9, %7 ], [ 0, %11 ]
@@ -307,7 +301,7 @@ define dso_local i32 @sort_TheorySortEqual(ptr nocapture noundef %0, ptr noundef
   store i32 %56, ptr %57, align 8
   %58 = load ptr, ptr %53, align 8
   %59 = icmp eq ptr %58, null
-  br i1 %59, label %48, label %52, !llvm.loop !13
+  br i1 %59, label %48, label %52, !llvm.loop !14
 
 60:                                               ; preds = %50, %67
   %61 = phi ptr [ %2, %50 ], [ %68, %67 ]
@@ -321,7 +315,7 @@ define dso_local i32 @sort_TheorySortEqual(ptr nocapture noundef %0, ptr noundef
 67:                                               ; preds = %60
   %68 = load ptr, ptr %61, align 8
   %69 = icmp eq ptr %68, null
-  br i1 %69, label %70, label %60, !llvm.loop !14
+  br i1 %69, label %70, label %60, !llvm.loop !15
 
 70:                                               ; preds = %60, %67, %48, %3
   %71 = phi i32 [ 0, %3 ], [ 1, %48 ], [ 0, %60 ], [ 1, %67 ]
@@ -527,7 +521,7 @@ define dso_local void @sort_PairPrint(ptr nocapture noundef readonly %0) local_u
   tail call void @term_PrintPrefix(ptr noundef %39) #12
   %40 = load ptr, ptr %35, align 8
   %41 = icmp eq ptr %40, null
-  br i1 %41, label %42, label %34, !llvm.loop !15
+  br i1 %41, label %42, label %34, !llvm.loop !16
 
 42:                                               ; preds = %34, %24
   %43 = getelementptr i8, ptr %29, i64 16
@@ -544,7 +538,7 @@ define dso_local void @sort_PairPrint(ptr nocapture noundef readonly %0) local_u
   tail call void @term_PrintPrefix(ptr noundef %51) #12
   %52 = load ptr, ptr %47, align 8
   %53 = icmp eq ptr %52, null
-  br i1 %53, label %54, label %46, !llvm.loop !16
+  br i1 %53, label %54, label %46, !llvm.loop !17
 
 54:                                               ; preds = %46, %42
   %55 = getelementptr i8, ptr %29, i64 24
@@ -561,7 +555,7 @@ define dso_local void @sort_PairPrint(ptr nocapture noundef readonly %0) local_u
   tail call void @term_PrintPrefix(ptr noundef %63) #12
   %64 = load ptr, ptr %59, align 8
   %65 = icmp eq ptr %64, null
-  br i1 %65, label %66, label %58, !llvm.loop !17
+  br i1 %65, label %66, label %58, !llvm.loop !18
 
 66:                                               ; preds = %58, %54
   %67 = getelementptr i8, ptr %29, i64 32
@@ -577,7 +571,7 @@ define dso_local void @sort_PairPrint(ptr nocapture noundef readonly %0) local_u
   %75 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %74)
   %76 = load ptr, ptr %71, align 8
   %77 = icmp eq ptr %76, null
-  br i1 %77, label %78, label %70, !llvm.loop !18
+  br i1 %77, label %78, label %70, !llvm.loop !19
 
 78:                                               ; preds = %70, %66
   %79 = load ptr, ptr @stdout, align 8
@@ -649,7 +643,7 @@ define dso_local i32 @sort_NodeIsTop(ptr nocapture noundef readonly %0, ptr noun
 20:                                               ; preds = %6, %16
   %21 = load ptr, ptr %7, align 8
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %23, label %6, !llvm.loop !19
+  br i1 %22, label %23, label %6, !llvm.loop !20
 
 23:                                               ; preds = %16, %20, %2
   %24 = phi i32 [ 0, %2 ], [ 0, %20 ], [ 1, %16 ]
@@ -722,7 +716,7 @@ define dso_local ptr @sort_TheoryCreate() local_unnamed_addr #1 {
   %31 = load i32, ptr @symbol_ACTINDEX, align 4
   %32 = sext i32 %31 to i64
   %33 = icmp slt i64 %30, %32
-  br i1 %33, label %6, label %34, !llvm.loop !20
+  br i1 %33, label %6, label %34, !llvm.loop !21
 
 34:                                               ; preds = %29, %0
   %35 = tail call ptr @st_IndexCreate() #12
@@ -792,7 +786,7 @@ define dso_local void @sort_TheoryPrint(ptr noundef readonly %0) local_unnamed_a
   %41 = tail call i32 @putc(i32 noundef 44, ptr noundef %40)
   %42 = load ptr, ptr %32, align 8
   %43 = icmp eq ptr %42, null
-  br i1 %43, label %44, label %31, !llvm.loop !21
+  br i1 %43, label %44, label %31, !llvm.loop !22
 
 44:                                               ; preds = %39, %31, %11
   %45 = load ptr, ptr @stdout, align 8
@@ -823,7 +817,7 @@ define dso_local void @sort_TheoryPrint(ptr noundef readonly %0) local_unnamed_a
   %64 = tail call i32 @putc(i32 noundef 44, ptr noundef %63)
   %65 = load ptr, ptr %57, align 8
   %66 = icmp eq ptr %65, null
-  br i1 %66, label %67, label %56, !llvm.loop !22
+  br i1 %66, label %67, label %56, !llvm.loop !23
 
 67:                                               ; preds = %62, %56, %44
   %68 = load ptr, ptr @stdout, align 8
@@ -847,7 +841,7 @@ define dso_local void @sort_TheoryPrint(ptr noundef readonly %0) local_unnamed_a
   %81 = tail call i32 @putc(i32 noundef 44, ptr noundef %80)
   %82 = load ptr, ptr %74, align 8
   %83 = icmp eq ptr %82, null
-  br i1 %83, label %84, label %73, !llvm.loop !23
+  br i1 %83, label %84, label %73, !llvm.loop !24
 
 84:                                               ; preds = %79, %73, %67
   %85 = load ptr, ptr @stdout, align 8
@@ -871,7 +865,7 @@ define dso_local void @sort_TheoryPrint(ptr noundef readonly %0) local_unnamed_a
   %98 = tail call i32 @putc(i32 noundef 44, ptr noundef %97)
   %99 = load ptr, ptr %91, align 8
   %100 = icmp eq ptr %99, null
-  br i1 %100, label %101, label %90, !llvm.loop !24
+  br i1 %100, label %101, label %90, !llvm.loop !25
 
 101:                                              ; preds = %90, %96, %84
   %102 = getelementptr i8, ptr %26, i64 56
@@ -887,7 +881,7 @@ define dso_local void @sort_TheoryPrint(ptr noundef readonly %0) local_unnamed_a
   tail call void @symbol_Print(i32 noundef %111) #12
   %112 = load ptr, ptr %12, align 8
   %113 = icmp eq ptr %112, null
-  br i1 %113, label %114, label %11, !llvm.loop !25
+  br i1 %113, label %114, label %11, !llvm.loop !26
 
 114:                                              ; preds = %101, %6
   %115 = load ptr, ptr @stdout, align 8
@@ -909,7 +903,7 @@ define dso_local void @sort_TheoryPrint(ptr noundef readonly %0) local_unnamed_a
   tail call void @clause_Print(ptr noundef %128) #12
   %129 = load ptr, ptr %121, align 8
   %130 = icmp eq ptr %129, null
-  br i1 %130, label %131, label %120, !llvm.loop !26
+  br i1 %130, label %131, label %120, !llvm.loop !27
 
 131:                                              ; preds = %120, %114, %4
   ret void
@@ -949,7 +943,7 @@ define dso_local void @sort_TheoryDelete(ptr noundef %0) local_unnamed_addr #1 {
   store ptr %22, ptr %20, align 8
   %23 = load ptr, ptr %18, align 8
   %24 = icmp eq ptr %23, null
-  br i1 %24, label %25, label %17, !llvm.loop !27
+  br i1 %24, label %25, label %17, !llvm.loop !28
 
 25:                                               ; preds = %17
   %26 = load ptr, ptr %14, align 8
@@ -1020,7 +1014,7 @@ define dso_local void @sort_TheoryDelete(ptr noundef %0) local_unnamed_addr #1 {
 70:                                               ; preds = %58
   %71 = load ptr, ptr %8, align 8
   %72 = icmp eq ptr %71, null
-  br i1 %72, label %73, label %7, !llvm.loop !28
+  br i1 %72, label %73, label %7, !llvm.loop !29
 
 73:                                               ; preds = %70
   %74 = load ptr, ptr %4, align 8
@@ -1141,7 +1135,7 @@ define dso_local void @sort_TheoryDelete(ptr noundef %0) local_unnamed_addr #1 {
 156:                                              ; preds = %144
   %157 = load ptr, ptr %93, align 8
   %158 = icmp eq ptr %157, null
-  br i1 %158, label %159, label %92, !llvm.loop !29
+  br i1 %158, label %159, label %92, !llvm.loop !30
 
 159:                                              ; preds = %156
   %160 = load ptr, ptr %89, align 8
@@ -1227,7 +1221,7 @@ define dso_local void @sort_TheoryDelete(ptr noundef %0) local_unnamed_addr #1 {
   %213 = add nuw nsw i64 %180, 1
   %214 = sext i32 %212 to i64
   %215 = icmp slt i64 %213, %214
-  br i1 %215, label %178, label %216, !llvm.loop !30
+  br i1 %215, label %178, label %216, !llvm.loop !31
 
 216:                                              ; preds = %211, %174
   %217 = load i32, ptr @memory_ALIGN, align 4
@@ -1298,8 +1292,8 @@ define dso_local void @sort_TheoryInsertClause(ptr nocapture noundef %0, ptr nou
   %9 = getelementptr i8, ptr %8, i64 8
   %10 = load ptr, ptr %9, align 8
   %11 = load i32, ptr %10, align 8
-  %12 = icmp slt i32 %11, 1
-  br i1 %12, label %196, label %13
+  %12 = icmp sgt i32 %11, 0
+  br i1 %12, label %13, label %196
 
 13:                                               ; preds = %4
   %14 = tail call ptr @memory_Malloc(i32 noundef 64) #12
@@ -1407,7 +1401,7 @@ define dso_local void @sort_TheoryInsertClause(ptr nocapture noundef %0, ptr nou
   %89 = load i32, ptr %26, align 8
   %90 = sext i32 %89 to i64
   %91 = icmp slt i64 %88, %90
-  br i1 %91, label %44, label %32, !llvm.loop !31
+  br i1 %91, label %44, label %32, !llvm.loop !32
 
 92:                                               ; preds = %92, %41
   %93 = phi i64 [ %43, %41 ], [ %103, %92 ]
@@ -1430,7 +1424,7 @@ define dso_local void @sort_TheoryInsertClause(ptr nocapture noundef %0, ptr nou
   %107 = add i32 %106, -1
   %108 = sext i32 %107 to i64
   %109 = icmp slt i64 %93, %108
-  br i1 %109, label %92, label %110, !llvm.loop !32
+  br i1 %109, label %92, label %110, !llvm.loop !33
 
 110:                                              ; preds = %92, %32
   %111 = phi i32 [ %38, %32 ], [ %106, %92 ]
@@ -1489,7 +1483,7 @@ define dso_local void @sort_TheoryInsertClause(ptr nocapture noundef %0, ptr nou
   %153 = add i32 %152, %148
   %154 = sext i32 %153 to i64
   %155 = icmp slt i64 %130, %154
-  br i1 %155, label %126, label %156, !llvm.loop !33
+  br i1 %155, label %126, label %156, !llvm.loop !34
 
 156:                                              ; preds = %145, %110
   %157 = phi ptr [ null, %110 ], [ %149, %145 ]
@@ -1532,7 +1526,7 @@ define dso_local void @sort_TheoryInsertClause(ptr nocapture noundef %0, ptr nou
   store ptr %179, ptr %177, align 8
   %181 = load ptr, ptr %175, align 8
   %182 = icmp eq ptr %181, null
-  br i1 %182, label %183, label %174, !llvm.loop !34
+  br i1 %182, label %183, label %174, !llvm.loop !35
 
 183:                                              ; preds = %174, %156
   %184 = tail call ptr @clause_Copy(ptr noundef %2) #12
@@ -1639,7 +1633,7 @@ define dso_local void @sort_TheoryDeleteClause(ptr nocapture noundef %0, ptr nou
   store ptr %25, ptr %23, align 8
   %26 = load ptr, ptr %21, align 8
   %27 = icmp eq ptr %26, null
-  br i1 %27, label %28, label %20, !llvm.loop !27
+  br i1 %27, label %28, label %20, !llvm.loop !28
 
 28:                                               ; preds = %20
   %29 = load ptr, ptr %17, align 8
@@ -1710,7 +1704,7 @@ define dso_local void @sort_TheoryDeleteClause(ptr nocapture noundef %0, ptr nou
 73:                                               ; preds = %61, %6
   %74 = load ptr, ptr %7, align 8
   %75 = icmp eq ptr %74, null
-  br i1 %75, label %76, label %6, !llvm.loop !35
+  br i1 %75, label %76, label %6, !llvm.loop !36
 
 76:                                               ; preds = %73
   %77 = load ptr, ptr %3, align 8
@@ -1823,7 +1817,7 @@ define dso_local void @sort_TheoryDeleteClause(ptr nocapture noundef %0, ptr nou
 152:                                              ; preds = %140, %84
   %153 = load ptr, ptr %85, align 8
   %154 = icmp eq ptr %153, null
-  br i1 %154, label %155, label %84, !llvm.loop !36
+  br i1 %154, label %155, label %84, !llvm.loop !37
 
 155:                                              ; preds = %152
   %156 = load ptr, ptr %81, align 8
@@ -1868,7 +1862,7 @@ define dso_local ptr @sort_ConditionNormalize(ptr noundef returned %0) local_unn
   %9 = tail call ptr @term_Rename(ptr noundef %8) #12
   %10 = load ptr, ptr %6, align 8
   %11 = icmp eq ptr %10, null
-  br i1 %11, label %12, label %5, !llvm.loop !37
+  br i1 %11, label %12, label %5, !llvm.loop !38
 
 12:                                               ; preds = %5, %1
   %13 = getelementptr i8, ptr %0, i64 16
@@ -1883,7 +1877,7 @@ define dso_local ptr @sort_ConditionNormalize(ptr noundef returned %0) local_unn
   %20 = tail call ptr @term_Rename(ptr noundef %19) #12
   %21 = load ptr, ptr %17, align 8
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %23, label %16, !llvm.loop !38
+  br i1 %22, label %23, label %16, !llvm.loop !39
 
 23:                                               ; preds = %16, %12
   %24 = getelementptr i8, ptr %0, i64 24
@@ -1898,7 +1892,7 @@ define dso_local ptr @sort_ConditionNormalize(ptr noundef returned %0) local_unn
   %31 = tail call ptr @term_Rename(ptr noundef %30) #12
   %32 = load ptr, ptr %28, align 8
   %33 = icmp eq ptr %32, null
-  br i1 %33, label %34, label %27, !llvm.loop !39
+  br i1 %33, label %34, label %27, !llvm.loop !40
 
 34:                                               ; preds = %27, %23
   %35 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
@@ -1922,7 +1916,7 @@ define dso_local ptr @sort_ConditionNormalize(ptr noundef returned %0) local_unn
   tail call void @term_ExchangeVariable(ptr noundef %47, i32 noundef %38, i32 noundef %36) #12
   %48 = load ptr, ptr %45, align 8
   %49 = icmp eq ptr %48, null
-  br i1 %49, label %41, label %44, !llvm.loop !40
+  br i1 %49, label %41, label %44, !llvm.loop !41
 
 50:                                               ; preds = %53, %41
   %51 = load ptr, ptr %24, align 8
@@ -1936,7 +1930,7 @@ define dso_local ptr @sort_ConditionNormalize(ptr noundef returned %0) local_unn
   tail call void @term_ExchangeVariable(ptr noundef %56, i32 noundef %38, i32 noundef %36) #12
   %57 = load ptr, ptr %54, align 8
   %58 = icmp eq ptr %57, null
-  br i1 %58, label %50, label %53, !llvm.loop !41
+  br i1 %58, label %50, label %53, !llvm.loop !42
 
 59:                                               ; preds = %50, %59
   %60 = phi ptr [ %63, %59 ], [ %51, %50 ]
@@ -1945,7 +1939,7 @@ define dso_local ptr @sort_ConditionNormalize(ptr noundef returned %0) local_unn
   tail call void @term_ExchangeVariable(ptr noundef %62, i32 noundef %38, i32 noundef %36) #12
   %63 = load ptr, ptr %60, align 8
   %64 = icmp eq ptr %63, null
-  br i1 %64, label %65, label %59, !llvm.loop !42
+  br i1 %64, label %65, label %59, !llvm.loop !43
 
 65:                                               ; preds = %59, %50
   store i32 %36, ptr %0, align 8
@@ -1998,7 +1992,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   %20 = tail call ptr @term_Rename(ptr noundef %19) #12
   %21 = load ptr, ptr %17, align 8
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %14, label %16, !llvm.loop !43
+  br i1 %22, label %14, label %16, !llvm.loop !44
 
 23:                                               ; preds = %25, %14
   %24 = icmp eq ptr %12, null
@@ -2011,7 +2005,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   %29 = tail call ptr @term_Rename(ptr noundef %28) #12
   %30 = load ptr, ptr %26, align 8
   %31 = icmp eq ptr %30, null
-  br i1 %31, label %23, label %25, !llvm.loop !44
+  br i1 %31, label %23, label %25, !llvm.loop !45
 
 32:                                               ; preds = %23, %32
   %33 = phi ptr [ %37, %32 ], [ %12, %23 ]
@@ -2020,7 +2014,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   %36 = tail call ptr @term_Rename(ptr noundef %35) #12
   %37 = load ptr, ptr %33, align 8
   %38 = icmp eq ptr %37, null
-  br i1 %38, label %39, label %32, !llvm.loop !45
+  br i1 %38, label %39, label %32, !llvm.loop !46
 
 39:                                               ; preds = %32, %23
   %40 = getelementptr i8, ptr %1, i64 48
@@ -2041,7 +2035,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   tail call void @term_ExchangeVariable(ptr noundef %49, i32 noundef %42, i32 noundef %44) #12
   %50 = load ptr, ptr %47, align 8
   %51 = icmp eq ptr %50, null
-  br i1 %51, label %45, label %46, !llvm.loop !46
+  br i1 %51, label %45, label %46, !llvm.loop !47
 
 52:                                               ; preds = %53, %45
   br i1 %24, label %65, label %59
@@ -2053,7 +2047,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   tail call void @term_ExchangeVariable(ptr noundef %56, i32 noundef %42, i32 noundef %44) #12
   %57 = load ptr, ptr %54, align 8
   %58 = icmp eq ptr %57, null
-  br i1 %58, label %52, label %53, !llvm.loop !47
+  br i1 %58, label %52, label %53, !llvm.loop !48
 
 59:                                               ; preds = %52, %59
   %60 = phi ptr [ %63, %59 ], [ %12, %52 ]
@@ -2062,7 +2056,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   tail call void @term_ExchangeVariable(ptr noundef %62, i32 noundef %42, i32 noundef %44) #12
   %63 = load ptr, ptr %60, align 8
   %64 = icmp eq ptr %63, null
-  br i1 %64, label %65, label %59, !llvm.loop !48
+  br i1 %64, label %65, label %59, !llvm.loop !49
 
 65:                                               ; preds = %59, %52
   %66 = load i32, ptr %0, align 8
@@ -2078,7 +2072,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   tail call void @term_ExchangeVariable(ptr noundef %73, i32 noundef %66, i32 noundef %44) #12
   %74 = load ptr, ptr %71, align 8
   %75 = icmp eq ptr %74, null
-  br i1 %75, label %76, label %70, !llvm.loop !49
+  br i1 %75, label %76, label %70, !llvm.loop !50
 
 76:                                               ; preds = %70, %65
   %77 = getelementptr i8, ptr %0, i64 16
@@ -2093,7 +2087,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   tail call void @term_ExchangeVariable(ptr noundef %83, i32 noundef %66, i32 noundef %44) #12
   %84 = load ptr, ptr %81, align 8
   %85 = icmp eq ptr %84, null
-  br i1 %85, label %86, label %80, !llvm.loop !50
+  br i1 %85, label %86, label %80, !llvm.loop !51
 
 86:                                               ; preds = %80, %76
   %87 = getelementptr i8, ptr %0, i64 24
@@ -2108,7 +2102,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   tail call void @term_ExchangeVariable(ptr noundef %93, i32 noundef %66, i32 noundef %44) #12
   %94 = load ptr, ptr %91, align 8
   %95 = icmp eq ptr %94, null
-  br i1 %95, label %96, label %90, !llvm.loop !51
+  br i1 %95, label %96, label %90, !llvm.loop !52
 
 96:                                               ; preds = %90, %86
   %97 = load ptr, ptr %67, align 8
@@ -2121,7 +2115,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   %102 = phi ptr [ %103, %101 ], [ %97, %96 ]
   %103 = load ptr, ptr %102, align 8
   %104 = icmp eq ptr %103, null
-  br i1 %104, label %105, label %101, !llvm.loop !52
+  br i1 %104, label %105, label %101, !llvm.loop !53
 
 105:                                              ; preds = %101
   store ptr %6, ptr %102, align 8
@@ -2140,7 +2134,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   %113 = phi ptr [ %114, %112 ], [ %108, %106 ]
   %114 = load ptr, ptr %113, align 8
   %115 = icmp eq ptr %114, null
-  br i1 %115, label %116, label %112, !llvm.loop !52
+  br i1 %115, label %116, label %112, !llvm.loop !53
 
 116:                                              ; preds = %112
   store ptr %9, ptr %113, align 8
@@ -2159,7 +2153,7 @@ define dso_local ptr @sort_ExtendConditionByLink(ptr noundef returned %0, ptr no
   %124 = phi ptr [ %125, %123 ], [ %119, %117 ]
   %125 = load ptr, ptr %124, align 8
   %126 = icmp eq ptr %125, null
-  br i1 %126, label %127, label %123, !llvm.loop !52
+  br i1 %126, label %127, label %123, !llvm.loop !53
 
 127:                                              ; preds = %123
   store ptr %12, ptr %124, align 8
@@ -2211,7 +2205,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   %20 = tail call ptr @term_Rename(ptr noundef %19) #12
   %21 = load ptr, ptr %17, align 8
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %14, label %16, !llvm.loop !53
+  br i1 %22, label %14, label %16, !llvm.loop !54
 
 23:                                               ; preds = %25, %14
   %24 = icmp eq ptr %12, null
@@ -2224,7 +2218,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   %29 = tail call ptr @term_Rename(ptr noundef %28) #12
   %30 = load ptr, ptr %26, align 8
   %31 = icmp eq ptr %30, null
-  br i1 %31, label %23, label %25, !llvm.loop !54
+  br i1 %31, label %23, label %25, !llvm.loop !55
 
 32:                                               ; preds = %23, %32
   %33 = phi ptr [ %37, %32 ], [ %12, %23 ]
@@ -2233,7 +2227,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   %36 = tail call ptr @term_Rename(ptr noundef %35) #12
   %37 = load ptr, ptr %33, align 8
   %38 = icmp eq ptr %37, null
-  br i1 %38, label %39, label %32, !llvm.loop !55
+  br i1 %38, label %39, label %32, !llvm.loop !56
 
 39:                                               ; preds = %32, %23
   %40 = load i32, ptr %1, align 8
@@ -2253,7 +2247,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   tail call void @term_ExchangeVariable(ptr noundef %48, i32 noundef %41, i32 noundef %43) #12
   %49 = load ptr, ptr %46, align 8
   %50 = icmp eq ptr %49, null
-  br i1 %50, label %44, label %45, !llvm.loop !56
+  br i1 %50, label %44, label %45, !llvm.loop !57
 
 51:                                               ; preds = %52, %44
   br i1 %24, label %64, label %58
@@ -2265,7 +2259,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   tail call void @term_ExchangeVariable(ptr noundef %55, i32 noundef %41, i32 noundef %43) #12
   %56 = load ptr, ptr %53, align 8
   %57 = icmp eq ptr %56, null
-  br i1 %57, label %51, label %52, !llvm.loop !57
+  br i1 %57, label %51, label %52, !llvm.loop !58
 
 58:                                               ; preds = %51, %58
   %59 = phi ptr [ %62, %58 ], [ %12, %51 ]
@@ -2274,7 +2268,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   tail call void @term_ExchangeVariable(ptr noundef %61, i32 noundef %41, i32 noundef %43) #12
   %62 = load ptr, ptr %59, align 8
   %63 = icmp eq ptr %62, null
-  br i1 %63, label %64, label %58, !llvm.loop !58
+  br i1 %63, label %64, label %58, !llvm.loop !59
 
 64:                                               ; preds = %58, %51
   %65 = load i32, ptr %0, align 8
@@ -2290,7 +2284,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   tail call void @term_ExchangeVariable(ptr noundef %72, i32 noundef %65, i32 noundef %43) #12
   %73 = load ptr, ptr %70, align 8
   %74 = icmp eq ptr %73, null
-  br i1 %74, label %75, label %69, !llvm.loop !59
+  br i1 %74, label %75, label %69, !llvm.loop !60
 
 75:                                               ; preds = %69, %64
   %76 = getelementptr i8, ptr %0, i64 16
@@ -2305,7 +2299,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   tail call void @term_ExchangeVariable(ptr noundef %82, i32 noundef %65, i32 noundef %43) #12
   %83 = load ptr, ptr %80, align 8
   %84 = icmp eq ptr %83, null
-  br i1 %84, label %85, label %79, !llvm.loop !60
+  br i1 %84, label %85, label %79, !llvm.loop !61
 
 85:                                               ; preds = %79, %75
   %86 = getelementptr i8, ptr %0, i64 24
@@ -2320,7 +2314,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   tail call void @term_ExchangeVariable(ptr noundef %92, i32 noundef %65, i32 noundef %43) #12
   %93 = load ptr, ptr %90, align 8
   %94 = icmp eq ptr %93, null
-  br i1 %94, label %95, label %89, !llvm.loop !61
+  br i1 %94, label %95, label %89, !llvm.loop !62
 
 95:                                               ; preds = %89, %85
   %96 = load ptr, ptr %66, align 8
@@ -2333,7 +2327,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   %101 = phi ptr [ %102, %100 ], [ %96, %95 ]
   %102 = load ptr, ptr %101, align 8
   %103 = icmp eq ptr %102, null
-  br i1 %103, label %104, label %100, !llvm.loop !52
+  br i1 %103, label %104, label %100, !llvm.loop !53
 
 104:                                              ; preds = %100
   store ptr %6, ptr %101, align 8
@@ -2352,7 +2346,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   %112 = phi ptr [ %113, %111 ], [ %107, %105 ]
   %113 = load ptr, ptr %112, align 8
   %114 = icmp eq ptr %113, null
-  br i1 %114, label %115, label %111, !llvm.loop !52
+  br i1 %114, label %115, label %111, !llvm.loop !53
 
 115:                                              ; preds = %111
   store ptr %9, ptr %112, align 8
@@ -2371,7 +2365,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   %123 = phi ptr [ %124, %122 ], [ %118, %116 ]
   %124 = load ptr, ptr %123, align 8
   %125 = icmp eq ptr %124, null
-  br i1 %125, label %126, label %122, !llvm.loop !52
+  br i1 %125, label %126, label %122, !llvm.loop !53
 
 126:                                              ; preds = %122
   store ptr %12, ptr %123, align 8
@@ -2396,7 +2390,7 @@ define dso_local ptr @sort_ExtendConditionByCondition(ptr noundef returned %0, p
   %138 = phi ptr [ %139, %137 ], [ %131, %135 ]
   %139 = load ptr, ptr %138, align 8
   %140 = icmp eq ptr %139, null
-  br i1 %140, label %141, label %137, !llvm.loop !52
+  br i1 %140, label %141, label %137, !llvm.loop !53
 
 141:                                              ; preds = %137
   store ptr %133, ptr %138, align 8
@@ -2421,8 +2415,8 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   %5 = getelementptr i8, ptr %1, i64 24
   %6 = getelementptr i8, ptr %1, i64 32
   %7 = getelementptr i8, ptr %1, i64 40
-  %8 = getelementptr i8, ptr %1, i64 48
-  %9 = getelementptr i8, ptr %1, i64 56
+  %8 = getelementptr i8, ptr %1, i64 56
+  %9 = getelementptr i8, ptr %1, i64 48
   br label %10
 
 10:                                               ; preds = %4, %169
@@ -2455,7 +2449,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
 
 32:                                               ; preds = %29
   %33 = load i32, ptr %14, align 8
-  %34 = load ptr, ptr %9, align 8
+  %34 = load ptr, ptr %8, align 8
   %35 = getelementptr i8, ptr %14, i64 32
   %36 = load ptr, ptr %35, align 8
   %37 = tail call ptr @list_Copy(ptr noundef %36) #12
@@ -2498,7 +2492,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   %60 = tail call ptr @term_Rename(ptr noundef %59) #12
   %61 = load ptr, ptr %57, align 8
   %62 = icmp eq ptr %61, null
-  br i1 %62, label %54, label %56, !llvm.loop !62
+  br i1 %62, label %54, label %56, !llvm.loop !63
 
 63:                                               ; preds = %65, %54
   %64 = icmp eq ptr %52, null
@@ -2511,7 +2505,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   %69 = tail call ptr @term_Rename(ptr noundef %68) #12
   %70 = load ptr, ptr %66, align 8
   %71 = icmp eq ptr %70, null
-  br i1 %71, label %63, label %65, !llvm.loop !63
+  br i1 %71, label %63, label %65, !llvm.loop !64
 
 72:                                               ; preds = %63, %72
   %73 = phi ptr [ %77, %72 ], [ %52, %63 ]
@@ -2520,10 +2514,10 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   %76 = tail call ptr @term_Rename(ptr noundef %75) #12
   %77 = load ptr, ptr %73, align 8
   %78 = icmp eq ptr %77, null
-  br i1 %78, label %79, label %72, !llvm.loop !64
+  br i1 %78, label %79, label %72, !llvm.loop !65
 
 79:                                               ; preds = %72, %63
-  %80 = load i32, ptr %8, align 8
+  %80 = load i32, ptr %9, align 8
   %81 = tail call i32 @term_GetRenamedVarSymbol(i32 noundef %80) #12
   %82 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
   %83 = add nsw i32 %82, 1
@@ -2540,7 +2534,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   tail call void @term_ExchangeVariable(ptr noundef %88, i32 noundef %81, i32 noundef %83) #12
   %89 = load ptr, ptr %86, align 8
   %90 = icmp eq ptr %89, null
-  br i1 %90, label %84, label %85, !llvm.loop !65
+  br i1 %90, label %84, label %85, !llvm.loop !66
 
 91:                                               ; preds = %92, %84
   br i1 %64, label %104, label %98
@@ -2552,7 +2546,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   tail call void @term_ExchangeVariable(ptr noundef %95, i32 noundef %81, i32 noundef %83) #12
   %96 = load ptr, ptr %93, align 8
   %97 = icmp eq ptr %96, null
-  br i1 %97, label %91, label %92, !llvm.loop !66
+  br i1 %97, label %91, label %92, !llvm.loop !67
 
 98:                                               ; preds = %91, %98
   %99 = phi ptr [ %102, %98 ], [ %52, %91 ]
@@ -2561,7 +2555,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   tail call void @term_ExchangeVariable(ptr noundef %101, i32 noundef %81, i32 noundef %83) #12
   %102 = load ptr, ptr %99, align 8
   %103 = icmp eq ptr %102, null
-  br i1 %103, label %104, label %98, !llvm.loop !67
+  br i1 %103, label %104, label %98, !llvm.loop !68
 
 104:                                              ; preds = %98, %91
   %105 = load i32, ptr %14, align 8
@@ -2579,7 +2573,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   tail call void @term_ExchangeVariable(ptr noundef %112, i32 noundef %105, i32 noundef %83) #12
   %113 = load ptr, ptr %110, align 8
   %114 = icmp eq ptr %113, null
-  br i1 %114, label %107, label %109, !llvm.loop !68
+  br i1 %114, label %107, label %109, !llvm.loop !69
 
 115:                                              ; preds = %117, %107
   %116 = icmp eq ptr %23, null
@@ -2592,7 +2586,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   tail call void @term_ExchangeVariable(ptr noundef %120, i32 noundef %105, i32 noundef %83) #12
   %121 = load ptr, ptr %118, align 8
   %122 = icmp eq ptr %121, null
-  br i1 %122, label %115, label %117, !llvm.loop !69
+  br i1 %122, label %115, label %117, !llvm.loop !70
 
 123:                                              ; preds = %115, %123
   %124 = phi ptr [ %127, %123 ], [ %23, %115 ]
@@ -2601,7 +2595,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   tail call void @term_ExchangeVariable(ptr noundef %126, i32 noundef %105, i32 noundef %83) #12
   %127 = load ptr, ptr %124, align 8
   %128 = icmp eq ptr %127, null
-  br i1 %128, label %129, label %123, !llvm.loop !70
+  br i1 %128, label %129, label %123, !llvm.loop !71
 
 129:                                              ; preds = %123, %115
   %130 = or i1 %106, %53
@@ -2612,7 +2606,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   %133 = phi ptr [ %134, %132 ], [ %17, %129 ]
   %134 = load ptr, ptr %133, align 8
   %135 = icmp eq ptr %134, null
-  br i1 %135, label %136, label %132, !llvm.loop !52
+  br i1 %135, label %136, label %132, !llvm.loop !53
 
 136:                                              ; preds = %132
   store ptr %48, ptr %133, align 8
@@ -2628,7 +2622,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   %142 = phi ptr [ %143, %141 ], [ %20, %137 ]
   %143 = load ptr, ptr %142, align 8
   %144 = icmp eq ptr %143, null
-  br i1 %144, label %145, label %141, !llvm.loop !52
+  br i1 %144, label %145, label %141, !llvm.loop !53
 
 145:                                              ; preds = %141
   store ptr %50, ptr %142, align 8
@@ -2644,7 +2638,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   %151 = phi ptr [ %152, %150 ], [ %23, %146 ]
   %152 = load ptr, ptr %151, align 8
   %153 = icmp eq ptr %152, null
-  br i1 %153, label %154, label %150, !llvm.loop !52
+  br i1 %153, label %154, label %150, !llvm.loop !53
 
 154:                                              ; preds = %150
   store ptr %52, ptr %151, align 8
@@ -2652,7 +2646,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
 
 155:                                              ; preds = %146, %154
   %156 = phi ptr [ %23, %154 ], [ %149, %146 ]
-  %157 = load ptr, ptr %9, align 8
+  %157 = load ptr, ptr %8, align 8
   %158 = getelementptr i8, ptr %14, i64 32
   %159 = load ptr, ptr %158, align 8
   %160 = tail call ptr @list_Copy(ptr noundef %159) #12
@@ -2681,7 +2675,7 @@ define dso_local ptr @sort_ExtendConditions(ptr noundef readonly %0, ptr nocaptu
   store ptr %11, ptr %171, align 8
   %173 = load ptr, ptr %12, align 8
   %174 = icmp eq ptr %173, null
-  br i1 %174, label %175, label %10, !llvm.loop !71
+  br i1 %174, label %175, label %10, !llvm.loop !72
 
 175:                                              ; preds = %169, %2
   %176 = phi ptr [ null, %2 ], [ %171, %169 ]
@@ -2769,7 +2763,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   %59 = tail call ptr @term_Rename(ptr noundef %58) #12
   %60 = load ptr, ptr %56, align 8
   %61 = icmp eq ptr %60, null
-  br i1 %61, label %53, label %55, !llvm.loop !72
+  br i1 %61, label %53, label %55, !llvm.loop !73
 
 62:                                               ; preds = %64, %53
   %63 = icmp eq ptr %51, null
@@ -2782,7 +2776,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   %68 = tail call ptr @term_Rename(ptr noundef %67) #12
   %69 = load ptr, ptr %65, align 8
   %70 = icmp eq ptr %69, null
-  br i1 %70, label %62, label %64, !llvm.loop !73
+  br i1 %70, label %62, label %64, !llvm.loop !74
 
 71:                                               ; preds = %62, %71
   %72 = phi ptr [ %76, %71 ], [ %51, %62 ]
@@ -2791,7 +2785,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   %75 = tail call ptr @term_Rename(ptr noundef %74) #12
   %76 = load ptr, ptr %72, align 8
   %77 = icmp eq ptr %76, null
-  br i1 %77, label %78, label %71, !llvm.loop !74
+  br i1 %77, label %78, label %71, !llvm.loop !75
 
 78:                                               ; preds = %71, %62
   %79 = load i32, ptr %32, align 8
@@ -2811,7 +2805,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   tail call void @term_ExchangeVariable(ptr noundef %87, i32 noundef %80, i32 noundef %82) #12
   %88 = load ptr, ptr %85, align 8
   %89 = icmp eq ptr %88, null
-  br i1 %89, label %83, label %84, !llvm.loop !75
+  br i1 %89, label %83, label %84, !llvm.loop !76
 
 90:                                               ; preds = %91, %83
   br i1 %63, label %97, label %99
@@ -2823,7 +2817,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   tail call void @term_ExchangeVariable(ptr noundef %94, i32 noundef %80, i32 noundef %82) #12
   %95 = load ptr, ptr %92, align 8
   %96 = icmp eq ptr %95, null
-  br i1 %96, label %90, label %91, !llvm.loop !76
+  br i1 %96, label %90, label %91, !llvm.loop !77
 
 97:                                               ; preds = %99, %90
   %98 = icmp eq ptr %26, null
@@ -2836,7 +2830,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   tail call void @term_ExchangeVariable(ptr noundef %102, i32 noundef %80, i32 noundef %82) #12
   %103 = load ptr, ptr %100, align 8
   %104 = icmp eq ptr %103, null
-  br i1 %104, label %97, label %99, !llvm.loop !77
+  br i1 %104, label %97, label %99, !llvm.loop !78
 
 105:                                              ; preds = %107, %97
   %106 = icmp eq ptr %28, null
@@ -2849,7 +2843,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   tail call void @term_ExchangeVariable(ptr noundef %110, i32 noundef %29, i32 noundef %82) #12
   %111 = load ptr, ptr %108, align 8
   %112 = icmp eq ptr %111, null
-  br i1 %112, label %105, label %107, !llvm.loop !78
+  br i1 %112, label %105, label %107, !llvm.loop !79
 
 113:                                              ; preds = %115, %105
   %114 = icmp eq ptr %27, null
@@ -2862,7 +2856,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   tail call void @term_ExchangeVariable(ptr noundef %118, i32 noundef %29, i32 noundef %82) #12
   %119 = load ptr, ptr %116, align 8
   %120 = icmp eq ptr %119, null
-  br i1 %120, label %113, label %115, !llvm.loop !79
+  br i1 %120, label %113, label %115, !llvm.loop !80
 
 121:                                              ; preds = %113, %121
   %122 = phi ptr [ %125, %121 ], [ %27, %113 ]
@@ -2871,7 +2865,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   tail call void @term_ExchangeVariable(ptr noundef %124, i32 noundef %29, i32 noundef %82) #12
   %125 = load ptr, ptr %122, align 8
   %126 = icmp eq ptr %125, null
-  br i1 %126, label %127, label %121, !llvm.loop !80
+  br i1 %126, label %127, label %121, !llvm.loop !81
 
 127:                                              ; preds = %121, %113
   %128 = or i1 %52, %98
@@ -2882,7 +2876,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   %131 = phi ptr [ %132, %130 ], [ %45, %127 ]
   %132 = load ptr, ptr %131, align 8
   %133 = icmp eq ptr %132, null
-  br i1 %133, label %134, label %130, !llvm.loop !52
+  br i1 %133, label %134, label %130, !llvm.loop !53
 
 134:                                              ; preds = %130
   store ptr %26, ptr %131, align 8
@@ -2898,7 +2892,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   %140 = phi ptr [ %141, %139 ], [ %48, %135 ]
   %141 = load ptr, ptr %140, align 8
   %142 = icmp eq ptr %141, null
-  br i1 %142, label %143, label %139, !llvm.loop !52
+  br i1 %142, label %143, label %139, !llvm.loop !53
 
 143:                                              ; preds = %139
   store ptr %28, ptr %140, align 8
@@ -2915,7 +2909,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   %148 = phi ptr [ %149, %147 ], [ %51, %146 ]
   %149 = load ptr, ptr %148, align 8
   %150 = icmp eq ptr %149, null
-  br i1 %150, label %151, label %147, !llvm.loop !52
+  br i1 %150, label %151, label %147, !llvm.loop !53
 
 151:                                              ; preds = %147
   store ptr %27, ptr %148, align 8
@@ -2940,7 +2934,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   %164 = phi ptr [ %165, %163 ], [ %159, %161 ]
   %165 = load ptr, ptr %164, align 8
   %166 = icmp eq ptr %165, null
-  br i1 %166, label %167, label %163, !llvm.loop !52
+  br i1 %166, label %167, label %163, !llvm.loop !53
 
 167:                                              ; preds = %163
   store ptr %25, ptr %164, align 8
@@ -2950,7 +2944,7 @@ define dso_local ptr @sort_ConditionsUnion(ptr noundef readonly %0) local_unname
   %169 = phi ptr [ %159, %167 ], [ %25, %152 ], [ %159, %161 ]
   %170 = load ptr, ptr %30, align 8
   %171 = icmp eq ptr %170, null
-  br i1 %171, label %172, label %24, !llvm.loop !81
+  br i1 %171, label %172, label %24, !llvm.loop !82
 
 172:                                              ; preds = %168, %6
   %173 = phi i32 [ %10, %6 ], [ %153, %168 ]
@@ -3007,20 +3001,18 @@ define dso_local ptr @sort_ConditionCopy(ptr nocapture noundef readonly %0) loca
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
 define dso_local i32 @sort_IsBaseSortSymbol(i32 noundef %0) local_unnamed_addr #5 {
   %2 = icmp sgt i32 %0, -1
-  br i1 %2, label %19, label %3
+  %3 = sub nsw i32 0, %0
+  %4 = load i32, ptr @symbol_TYPEMASK, align 4
+  %5 = and i32 %4, %3
+  %6 = icmp ne i32 %5, 2
+  %7 = select i1 %2, i1 true, i1 %6
+  br i1 %7, label %19, label %8
 
-3:                                                ; preds = %1
-  %4 = sub nsw i32 0, %0
-  %5 = load i32, ptr @symbol_TYPEMASK, align 4
-  %6 = and i32 %5, %4
-  %7 = icmp eq i32 %6, 2
-  br i1 %7, label %8, label %19
-
-8:                                                ; preds = %3
+8:                                                ; preds = %1
   %9 = load i32, ptr @symbol_TYPESTATBITS, align 4
-  %10 = lshr i32 %4, %9
+  %10 = ashr i32 %3, %9
   %11 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %12 = zext i32 %10 to i64
+  %12 = sext i32 %10 to i64
   %13 = getelementptr inbounds ptr, ptr %11, i64 %12
   %14 = load ptr, ptr %13, align 8
   %15 = getelementptr inbounds %struct.signature, ptr %14, i64 0, i32 3
@@ -3029,8 +3021,8 @@ define dso_local i32 @sort_IsBaseSortSymbol(i32 noundef %0) local_unnamed_addr #
   %18 = zext i1 %17 to i32
   br label %19
 
-19:                                               ; preds = %1, %8, %3
-  %20 = phi i32 [ 0, %3 ], [ %18, %8 ], [ 0, %1 ]
+19:                                               ; preds = %8, %1
+  %20 = phi i32 [ 0, %1 ], [ %18, %8 ]
   ret i32 %20
 }
 
@@ -3104,7 +3096,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   store i32 0, ptr %37, align 4
   %38 = add nuw nsw i64 %8, 5
   %39 = icmp eq i64 %38, 4000
-  br i1 %39, label %40, label %7, !llvm.loop !12
+  br i1 %39, label %40, label %7, !llvm.loop !13
 
 40:                                               ; preds = %7, %3
   %41 = phi i32 [ %5, %3 ], [ 0, %7 ]
@@ -3133,7 +3125,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   store i32 %57, ptr %58, align 4
   %59 = load ptr, ptr %49, align 8
   %60 = icmp eq ptr %59, null
-  br i1 %60, label %46, label %48, !llvm.loop !82
+  br i1 %60, label %46, label %48, !llvm.loop !83
 
 61:                                               ; preds = %66, %46
   %62 = load ptr, ptr %43, align 8
@@ -3165,7 +3157,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   store i32 %76, ptr %77, align 8
   %78 = load ptr, ptr %67, align 8
   %79 = icmp eq ptr %78, null
-  br i1 %79, label %61, label %66, !llvm.loop !83
+  br i1 %79, label %61, label %66, !llvm.loop !84
 
 80:                                               ; preds = %61, %121
   %81 = phi ptr [ %123, %121 ], [ %62, %61 ]
@@ -3234,7 +3226,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   %122 = phi ptr [ %106, %103 ], [ %82, %99 ], [ %82, %80 ], [ %82, %95 ], [ %82, %91 ]
   %123 = load ptr, ptr %81, align 8
   %124 = icmp eq ptr %123, null
-  br i1 %124, label %125, label %80, !llvm.loop !84
+  br i1 %124, label %125, label %80, !llvm.loop !85
 
 125:                                              ; preds = %121
   %126 = tail call ptr @list_Copy(ptr noundef %1) #12
@@ -3249,7 +3241,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   %131 = phi ptr [ %132, %130 ], [ %122, %128 ]
   %132 = load ptr, ptr %131, align 8
   %133 = icmp eq ptr %132, null
-  br i1 %133, label %134, label %130, !llvm.loop !52
+  br i1 %133, label %134, label %130, !llvm.loop !53
 
 134:                                              ; preds = %130
   store ptr %126, ptr %131, align 8
@@ -3267,7 +3259,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
 140:                                              ; preds = %231, %143
   %141 = phi ptr [ %147, %143 ], [ %232, %231 ]
   %142 = icmp eq ptr %141, null
-  br i1 %142, label %235, label %143, !llvm.loop !85
+  br i1 %142, label %235, label %143, !llvm.loop !86
 
 143:                                              ; preds = %138, %140
   %144 = phi ptr [ %141, %140 ], [ %139, %138 ]
@@ -3366,7 +3358,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   %211 = phi ptr [ %212, %210 ], [ %206, %208 ]
   %212 = load ptr, ptr %211, align 8
   %213 = icmp eq ptr %212, null
-  br i1 %213, label %214, label %210, !llvm.loop !52
+  br i1 %213, label %214, label %210, !llvm.loop !53
 
 214:                                              ; preds = %210
   store ptr %195, ptr %211, align 8
@@ -3376,7 +3368,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   %216 = phi ptr [ %195, %193 ], [ %206, %214 ], [ %195, %201 ], [ %206, %208 ]
   %217 = load ptr, ptr %194, align 8
   %218 = icmp eq ptr %217, null
-  br i1 %218, label %219, label %193, !llvm.loop !86
+  br i1 %218, label %219, label %193, !llvm.loop !87
 
 219:                                              ; preds = %215, %186
   %220 = phi ptr [ %189, %186 ], [ %216, %215 ]
@@ -3406,7 +3398,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   %232 = phi ptr [ %160, %179 ], [ %229, %219 ], [ %160, %174 ], [ %160, %170 ], [ %160, %166 ], [ %160, %158 ]
   %233 = load ptr, ptr %159, align 8
   %234 = icmp eq ptr %233, null
-  br i1 %234, label %140, label %158, !llvm.loop !87
+  br i1 %234, label %140, label %158, !llvm.loop !88
 
 235:                                              ; preds = %140, %135
   %236 = icmp eq ptr %2, null
@@ -3467,7 +3459,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   %274 = phi ptr [ %275, %273 ], [ %269, %271 ]
   %275 = load ptr, ptr %274, align 8
   %276 = icmp eq ptr %275, null
-  br i1 %276, label %277, label %273, !llvm.loop !52
+  br i1 %276, label %277, label %273, !llvm.loop !53
 
 277:                                              ; preds = %273
   store ptr %238, ptr %274, align 8
@@ -3477,7 +3469,7 @@ define dso_local ptr @sort_TheoryIsSubsortOfNoResidues(ptr nocapture noundef %0,
   %279 = phi ptr [ %238, %260 ], [ %269, %277 ], [ %238, %264 ], [ %269, %271 ]
   %280 = load ptr, ptr %239, align 8
   %281 = icmp eq ptr %280, null
-  br i1 %281, label %282, label %237, !llvm.loop !88
+  br i1 %281, label %282, label %237, !llvm.loop !89
 
 282:                                              ; preds = %278, %235
   %283 = phi ptr [ null, %235 ], [ %279, %278 ]
@@ -3549,7 +3541,7 @@ define dso_local i32 @sort_TheoryIsSubsortOf(ptr nocapture noundef %0, ptr nound
   store i32 0, ptr %37, align 4
   %38 = add nuw nsw i64 %8, 5
   %39 = icmp eq i64 %38, 4000
-  br i1 %39, label %40, label %7, !llvm.loop !12
+  br i1 %39, label %40, label %7, !llvm.loop !13
 
 40:                                               ; preds = %7, %3
   %41 = phi i32 [ %5, %3 ], [ 0, %7 ]
@@ -3578,7 +3570,7 @@ define dso_local i32 @sort_TheoryIsSubsortOf(ptr nocapture noundef %0, ptr nound
   store i32 %57, ptr %58, align 4
   %59 = load ptr, ptr %49, align 8
   %60 = icmp eq ptr %59, null
-  br i1 %60, label %46, label %48, !llvm.loop !89
+  br i1 %60, label %46, label %48, !llvm.loop !90
 
 61:                                               ; preds = %46, %61
   %62 = phi ptr [ %67, %61 ], [ %1, %46 ]
@@ -3589,7 +3581,7 @@ define dso_local i32 @sort_TheoryIsSubsortOf(ptr nocapture noundef %0, ptr nound
   store i32 %65, ptr %66, align 8
   %67 = load ptr, ptr %62, align 8
   %68 = icmp eq ptr %67, null
-  br i1 %68, label %69, label %61, !llvm.loop !90
+  br i1 %68, label %69, label %61, !llvm.loop !91
 
 69:                                               ; preds = %61, %46
   %70 = tail call ptr @list_Copy(ptr noundef %1) #12
@@ -3599,7 +3591,7 @@ define dso_local i32 @sort_TheoryIsSubsortOf(ptr nocapture noundef %0, ptr nound
 72:                                               ; preds = %109, %75
   %73 = phi ptr [ %79, %75 ], [ %110, %109 ]
   %74 = icmp eq ptr %73, null
-  br i1 %74, label %113, label %75, !llvm.loop !91
+  br i1 %74, label %113, label %75, !llvm.loop !92
 
 75:                                               ; preds = %69, %72
   %76 = phi ptr [ %73, %72 ], [ %70, %69 ]
@@ -3651,10 +3643,10 @@ define dso_local i32 @sort_TheoryIsSubsortOf(ptr nocapture noundef %0, ptr nound
   br label %109
 
 109:                                              ; preds = %106, %99, %90
-  %110 = phi ptr [ %107, %106 ], [ %92, %99 ], [ %92, %90 ]
+  %110 = phi ptr [ %92, %99 ], [ %107, %106 ], [ %92, %90 ]
   %111 = load ptr, ptr %91, align 8
   %112 = icmp eq ptr %111, null
-  br i1 %112, label %72, label %90, !llvm.loop !92
+  br i1 %112, label %72, label %90, !llvm.loop !93
 
 113:                                              ; preds = %72, %69
   %114 = icmp eq ptr %2, null
@@ -3676,7 +3668,7 @@ define dso_local i32 @sort_TheoryIsSubsortOf(ptr nocapture noundef %0, ptr nound
 124:                                              ; preds = %117
   %125 = load ptr, ptr %118, align 8
   %126 = icmp eq ptr %125, null
-  br i1 %126, label %127, label %117, !llvm.loop !93
+  br i1 %126, label %127, label %117, !llvm.loop !94
 
 127:                                              ; preds = %117, %124, %113
   %128 = phi i32 [ 1, %113 ], [ 1, %124 ], [ 0, %117 ]
@@ -3738,7 +3730,7 @@ define dso_local i32 @sort_TheoryIsSubsortOfExtra(ptr nocapture noundef %0, ptr 
   store i32 0, ptr %38, align 4
   %39 = add nuw nsw i64 %9, 5
   %40 = icmp eq i64 %39, 4000
-  br i1 %40, label %41, label %8, !llvm.loop !12
+  br i1 %40, label %41, label %8, !llvm.loop !13
 
 41:                                               ; preds = %8, %4
   %42 = phi i32 [ %6, %4 ], [ 0, %8 ]
@@ -3767,7 +3759,7 @@ define dso_local i32 @sort_TheoryIsSubsortOfExtra(ptr nocapture noundef %0, ptr 
   store i32 %58, ptr %59, align 4
   %60 = load ptr, ptr %50, align 8
   %61 = icmp eq ptr %60, null
-  br i1 %61, label %47, label %49, !llvm.loop !94
+  br i1 %61, label %47, label %49, !llvm.loop !95
 
 62:                                               ; preds = %47, %62
   %63 = phi ptr [ %68, %62 ], [ %2, %47 ]
@@ -3778,7 +3770,7 @@ define dso_local i32 @sort_TheoryIsSubsortOfExtra(ptr nocapture noundef %0, ptr 
   store i32 %66, ptr %67, align 8
   %68 = load ptr, ptr %63, align 8
   %69 = icmp eq ptr %68, null
-  br i1 %69, label %70, label %62, !llvm.loop !95
+  br i1 %69, label %70, label %62, !llvm.loop !96
 
 70:                                               ; preds = %62, %47
   %71 = tail call ptr @list_Copy(ptr noundef %2) #12
@@ -3788,7 +3780,7 @@ define dso_local i32 @sort_TheoryIsSubsortOfExtra(ptr nocapture noundef %0, ptr 
 73:                                               ; preds = %110, %76
   %74 = phi ptr [ %80, %76 ], [ %111, %110 ]
   %75 = icmp eq ptr %74, null
-  br i1 %75, label %114, label %76, !llvm.loop !91
+  br i1 %75, label %114, label %76, !llvm.loop !92
 
 76:                                               ; preds = %70, %73
   %77 = phi ptr [ %74, %73 ], [ %71, %70 ]
@@ -3840,10 +3832,10 @@ define dso_local i32 @sort_TheoryIsSubsortOfExtra(ptr nocapture noundef %0, ptr 
   br label %110
 
 110:                                              ; preds = %107, %100, %91
-  %111 = phi ptr [ %108, %107 ], [ %93, %100 ], [ %93, %91 ]
+  %111 = phi ptr [ %93, %100 ], [ %108, %107 ], [ %93, %91 ]
   %112 = load ptr, ptr %92, align 8
   %113 = icmp eq ptr %112, null
-  br i1 %113, label %73, label %91, !llvm.loop !92
+  br i1 %113, label %73, label %91, !llvm.loop !93
 
 114:                                              ; preds = %73, %70
   %115 = icmp eq ptr %3, null
@@ -3865,7 +3857,7 @@ define dso_local i32 @sort_TheoryIsSubsortOfExtra(ptr nocapture noundef %0, ptr 
 125:                                              ; preds = %118
   %126 = load ptr, ptr %119, align 8
   %127 = icmp eq ptr %126, null
-  br i1 %127, label %128, label %118, !llvm.loop !96
+  br i1 %127, label %128, label %118, !llvm.loop !97
 
 128:                                              ; preds = %125
   %129 = tail call ptr @list_Copy(ptr noundef %1) #12
@@ -3927,17 +3919,17 @@ define dso_local i32 @sort_TheoryIsSubsortOfExtra(ptr nocapture noundef %0, ptr 
   %166 = phi ptr [ %163, %160 ], [ %154, %152 ]
   %167 = load ptr, ptr %153, align 8
   %168 = icmp eq ptr %167, null
-  br i1 %168, label %169, label %152, !llvm.loop !97
+  br i1 %168, label %169, label %152, !llvm.loop !98
 
 169:                                              ; preds = %165, %137
   %170 = phi ptr [ %141, %137 ], [ %166, %165 ]
   %171 = icmp eq ptr %170, null
-  br i1 %171, label %230, label %137, !llvm.loop !98
+  br i1 %171, label %230, label %137, !llvm.loop !99
 
 172:                                              ; preds = %226, %210
   %173 = phi ptr [ %179, %210 ], [ %227, %226 ]
   %174 = icmp eq ptr %173, null
-  br i1 %174, label %230, label %175, !llvm.loop !98
+  br i1 %174, label %230, label %175, !llvm.loop !99
 
 175:                                              ; preds = %134, %172
   %176 = phi ptr [ %173, %172 ], [ %129, %134 ]
@@ -3967,7 +3959,7 @@ define dso_local i32 @sort_TheoryIsSubsortOfExtra(ptr nocapture noundef %0, ptr 
 193:                                              ; preds = %188
   %194 = load ptr, ptr %189, align 8
   %195 = icmp eq ptr %194, null
-  br i1 %195, label %210, label %188, !llvm.loop !99
+  br i1 %195, label %210, label %188, !llvm.loop !100
 
 196:                                              ; preds = %188
   %197 = icmp eq ptr %179, null
@@ -4018,7 +4010,7 @@ define dso_local i32 @sort_TheoryIsSubsortOfExtra(ptr nocapture noundef %0, ptr 
   %227 = phi ptr [ %224, %221 ], [ %215, %213 ]
   %228 = load ptr, ptr %214, align 8
   %229 = icmp eq ptr %228, null
-  br i1 %229, label %172, label %213, !llvm.loop !97
+  br i1 %229, label %172, label %213, !llvm.loop !98
 
 230:                                              ; preds = %118, %172, %198, %169, %131, %196, %128
   %231 = phi i32 [ 1, %196 ], [ 0, %128 ], [ 0, %131 ], [ 0, %169 ], [ 1, %198 ], [ 0, %172 ], [ 0, %118 ]
@@ -4080,7 +4072,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   store i32 0, ptr %37, align 4
   %38 = add nuw nsw i64 %8, 5
   %39 = icmp eq i64 %38, 4000
-  br i1 %39, label %40, label %7, !llvm.loop !12
+  br i1 %39, label %40, label %7, !llvm.loop !13
 
 40:                                               ; preds = %7, %3
   %41 = phi i32 [ %5, %3 ], [ 0, %7 ]
@@ -4109,7 +4101,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   store i32 %57, ptr %58, align 4
   %59 = load ptr, ptr %49, align 8
   %60 = icmp eq ptr %59, null
-  br i1 %60, label %46, label %48, !llvm.loop !100
+  br i1 %60, label %46, label %48, !llvm.loop !101
 
 61:                                               ; preds = %46, %61
   %62 = phi ptr [ %75, %61 ], [ %1, %46 ]
@@ -4135,7 +4127,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   store i32 %73, ptr %74, align 4
   %75 = load ptr, ptr %62, align 8
   %76 = icmp eq ptr %75, null
-  br i1 %76, label %77, label %61, !llvm.loop !101
+  br i1 %76, label %77, label %61, !llvm.loop !102
 
 77:                                               ; preds = %61, %46
   %78 = tail call ptr @list_Copy(ptr noundef %1) #12
@@ -4145,7 +4137,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
 80:                                               ; preds = %142, %83
   %81 = phi ptr [ %87, %83 ], [ %143, %142 ]
   %82 = icmp eq ptr %81, null
-  br i1 %82, label %146, label %83, !llvm.loop !102
+  br i1 %82, label %146, label %83, !llvm.loop !103
 
 83:                                               ; preds = %77, %80
   %84 = phi ptr [ %81, %80 ], [ %78, %77 ]
@@ -4215,7 +4207,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
 130:                                              ; preds = %126, %119
   %131 = load ptr, ptr %120, align 8
   %132 = icmp eq ptr %131, null
-  br i1 %132, label %133, label %119, !llvm.loop !103
+  br i1 %132, label %133, label %119, !llvm.loop !104
 
 133:                                              ; preds = %130, %114
   %134 = tail call ptr @sort_ExtendConditionByLink(ptr noundef nonnull %115, ptr noundef nonnull %102)
@@ -4239,7 +4231,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   %143 = phi ptr [ %100, %107 ], [ %140, %133 ], [ %100, %98 ]
   %144 = load ptr, ptr %99, align 8
   %145 = icmp eq ptr %144, null
-  br i1 %145, label %80, label %98, !llvm.loop !104
+  br i1 %145, label %80, label %98, !llvm.loop !105
 
 146:                                              ; preds = %80, %77
   %147 = icmp eq ptr %2, null
@@ -4261,7 +4253,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
 157:                                              ; preds = %150
   %158 = load ptr, ptr %151, align 8
   %159 = icmp eq ptr %158, null
-  br i1 %159, label %160, label %150, !llvm.loop !105
+  br i1 %159, label %160, label %150, !llvm.loop !106
 
 160:                                              ; preds = %157, %146
   %161 = tail call ptr @list_Copy(ptr noundef %2) #12
@@ -4373,7 +4365,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   store i32 0, ptr %232, align 4
   %233 = add nuw nsw i64 %203, 5
   %234 = icmp eq i64 %233, 4000
-  br i1 %234, label %235, label %202, !llvm.loop !12
+  br i1 %234, label %235, label %202, !llvm.loop !13
 
 235:                                              ; preds = %202, %199
   %236 = phi i32 [ %200, %199 ], [ 0, %202 ]
@@ -4391,12 +4383,12 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   store i32 %243, ptr %244, align 8
   %245 = load ptr, ptr %240, align 8
   %246 = icmp eq ptr %245, null
-  br i1 %246, label %465, label %239, !llvm.loop !13
+  br i1 %246, label %465, label %239, !llvm.loop !14
 
 247:                                              ; preds = %192
   %248 = load ptr, ptr %193, align 8
   %249 = icmp eq ptr %248, null
-  br i1 %249, label %322, label %192, !llvm.loop !106
+  br i1 %249, label %322, label %192, !llvm.loop !107
 
 250:                                              ; preds = %190, %319
   %251 = phi ptr [ %320, %319 ], [ %171, %190 ]
@@ -4460,7 +4452,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   store i32 0, ptr %290, align 4
   %291 = add nuw nsw i64 %261, 5
   %292 = icmp eq i64 %291, 4000
-  br i1 %292, label %293, label %260, !llvm.loop !12
+  br i1 %292, label %293, label %260, !llvm.loop !13
 
 293:                                              ; preds = %260, %257
   %294 = phi i32 [ %258, %257 ], [ 0, %260 ]
@@ -4486,7 +4478,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   store i32 %305, ptr %306, align 8
   %307 = load ptr, ptr %302, align 8
   %308 = icmp eq ptr %307, null
-  br i1 %308, label %297, label %301, !llvm.loop !13
+  br i1 %308, label %297, label %301, !llvm.loop !14
 
 309:                                              ; preds = %316, %299
   %310 = phi ptr [ %188, %299 ], [ %317, %316 ]
@@ -4500,12 +4492,12 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
 316:                                              ; preds = %309
   %317 = load ptr, ptr %310, align 8
   %318 = icmp eq ptr %317, null
-  br i1 %318, label %465, label %309, !llvm.loop !14
+  br i1 %318, label %465, label %309, !llvm.loop !15
 
 319:                                              ; preds = %309, %250
   %320 = load ptr, ptr %251, align 8
   %321 = icmp eq ptr %320, null
-  br i1 %321, label %322, label %250, !llvm.loop !106
+  br i1 %321, label %322, label %250, !llvm.loop !107
 
 322:                                              ; preds = %319, %247, %170
   %323 = load ptr, ptr %187, align 8
@@ -4519,16 +4511,16 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   br i1 %328, label %356, label %329
 
 329:                                              ; preds = %322, %347
-  %330 = phi i32 [ %349, %347 ], [ 1, %322 ]
-  %331 = phi i32 [ %348, %347 ], [ 1, %322 ]
-  %332 = phi ptr [ %350, %347 ], [ %327, %322 ]
-  %333 = icmp ne i32 %330, 0
-  %334 = icmp ne i32 %331, 0
+  %330 = phi ptr [ %350, %347 ], [ %327, %322 ]
+  %331 = phi i32 [ %349, %347 ], [ 1, %322 ]
+  %332 = phi i32 [ %348, %347 ], [ 1, %322 ]
+  %333 = icmp ne i32 %331, 0
+  %334 = icmp ne i32 %332, 0
   %335 = select i1 %333, i1 true, i1 %334
   br i1 %335, label %336, label %462
 
 336:                                              ; preds = %329
-  %337 = getelementptr i8, ptr %332, i64 8
+  %337 = getelementptr i8, ptr %330, i64 8
   %338 = load ptr, ptr %337, align 8
   %339 = getelementptr i8, ptr %338, i64 8
   %340 = load i32, ptr %339, align 8
@@ -4539,15 +4531,15 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   %343 = getelementptr i8, ptr %338, i64 12
   %344 = load i32, ptr %343, align 4
   %345 = icmp eq i32 %344, %42
-  %346 = select i1 %345, i32 %330, i32 0
+  %346 = select i1 %345, i32 %331, i32 0
   br label %347
 
 347:                                              ; preds = %342, %336
-  %348 = phi i32 [ 0, %336 ], [ %331, %342 ]
+  %348 = phi i32 [ 0, %336 ], [ %332, %342 ]
   %349 = phi i32 [ 0, %336 ], [ %346, %342 ]
-  %350 = load ptr, ptr %332, align 8
+  %350 = load ptr, ptr %330, align 8
   %351 = icmp eq ptr %350, null
-  br i1 %351, label %352, label %329, !llvm.loop !107
+  br i1 %351, label %352, label %329, !llvm.loop !108
 
 352:                                              ; preds = %347
   %353 = icmp eq i32 %348, 0
@@ -4609,7 +4601,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   %390 = phi ptr [ %398, %395 ], [ %459, %458 ]
   %391 = load ptr, ptr %397, align 8
   %392 = icmp eq ptr %391, null
-  br i1 %392, label %462, label %393, !llvm.loop !108
+  br i1 %392, label %462, label %393, !llvm.loop !109
 
 393:                                              ; preds = %389
   %394 = load ptr, ptr %43, align 8
@@ -4660,7 +4652,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   %427 = phi ptr [ %428, %426 ], [ %420, %424 ]
   %428 = load ptr, ptr %427, align 8
   %429 = icmp eq ptr %428, null
-  br i1 %429, label %430, label %426, !llvm.loop !52
+  br i1 %429, label %430, label %426, !llvm.loop !53
 
 430:                                              ; preds = %426
   store ptr %422, ptr %427, align 8
@@ -4708,7 +4700,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   %459 = phi ptr [ %404, %414 ], [ %456, %431 ], [ %404, %402 ]
   %460 = load ptr, ptr %403, align 8
   %461 = icmp eq ptr %460, null
-  br i1 %461, label %389, label %402, !llvm.loop !110
+  br i1 %461, label %389, label %402, !llvm.loop !111
 
 462:                                              ; preds = %329, %389, %386, %382, %352
   %463 = phi ptr [ %173, %352 ], [ %384, %382 ], [ %384, %386 ], [ %384, %389 ], [ %173, %329 ]
@@ -4721,7 +4713,7 @@ define dso_local ptr @sort_TheoryComputeAllSubsortHits(ptr nocapture noundef %0,
   %467 = phi ptr [ %464, %462 ], [ %176, %235 ], [ %176, %316 ], [ %176, %239 ]
   %468 = phi ptr [ %325, %462 ], [ %171, %235 ], [ %171, %316 ], [ %171, %239 ]
   %469 = icmp eq ptr %467, null
-  br i1 %469, label %470, label %170, !llvm.loop !111
+  br i1 %469, label %470, label %170, !llvm.loop !112
 
 470:                                              ; preds = %465
   tail call void @list_DeleteWithElement(ptr noundef nonnull %468, ptr noundef nonnull @sort_Delete) #12
@@ -4833,10 +4825,10 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %8 = load i32, ptr @stack_POINTER, align 4
   %9 = icmp ne i32 %8, %7
   tail call void @llvm.assume(i1 %9)
-  %10 = getelementptr i8, ptr %2, i64 64
-  %11 = getelementptr i8, ptr %2, i64 68
-  %12 = getelementptr i8, ptr %2, i64 56
-  %13 = load i32, ptr @symbol_TYPESTATBITS, align 4
+  %10 = load i32, ptr @symbol_TYPESTATBITS, align 4
+  %11 = getelementptr i8, ptr %2, i64 64
+  %12 = getelementptr i8, ptr %2, i64 68
+  %13 = getelementptr i8, ptr %2, i64 56
   %14 = zext i32 %3 to i64
   br label %15
 
@@ -4853,12 +4845,12 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
 
 23:                                               ; preds = %15
   %24 = load i32, ptr %20, align 8
-  %25 = icmp slt i32 %24, 1
-  br i1 %25, label %90, label %26
+  %25 = icmp sgt i32 %24, 0
+  br i1 %25, label %26, label %90
 
 26:                                               ; preds = %23
-  %27 = load i32, ptr %10, align 8
-  %28 = load i32, ptr %11, align 4
+  %27 = load i32, ptr %11, align 8
+  %28 = load i32, ptr %12, align 4
   %29 = add i32 %27, -1
   %30 = add i32 %29, %28
   %31 = icmp slt i32 %30, 0
@@ -4871,7 +4863,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   br i1 %35, label %81, label %36
 
 36:                                               ; preds = %32
-  %37 = load ptr, ptr %12, align 8
+  %37 = load ptr, ptr %13, align 8
   %38 = getelementptr inbounds ptr, ptr %37, i64 %33
   %39 = load ptr, ptr %38, align 8
   %40 = getelementptr i8, ptr %39, i64 24
@@ -4893,7 +4885,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %52 = phi i32 [ %50, %45 ], [ %42, %36 ]
   %53 = phi ptr [ %49, %45 ], [ %41, %36 ]
   %54 = sub nsw i32 0, %52
-  %55 = ashr i32 %54, %13
+  %55 = ashr i32 %54, %10
   %56 = load ptr, ptr @symbol_SIGNATURE, align 8
   %57 = sext i32 %55 to i64
   %58 = getelementptr inbounds ptr, ptr %56, i64 %57
@@ -4926,7 +4918,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %77 = phi ptr [ %78, %76 ], [ %34, %70 ]
   %78 = load ptr, ptr %77, align 8
   %79 = icmp eq ptr %78, null
-  br i1 %79, label %80, label %76, !llvm.loop !52
+  br i1 %79, label %80, label %76, !llvm.loop !53
 
 80:                                               ; preds = %76
   store ptr %73, ptr %77, align 8
@@ -4935,13 +4927,13 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
 81:                                               ; preds = %80, %70, %63, %51, %32
   %82 = phi ptr [ %34, %63 ], [ %34, %51 ], [ %34, %32 ], [ %34, %80 ], [ %73, %70 ]
   %83 = add nuw nsw i64 %33, 1
-  %84 = load i32, ptr %10, align 8
-  %85 = load i32, ptr %11, align 4
+  %84 = load i32, ptr %11, align 8
+  %85 = load i32, ptr %12, align 4
   %86 = add i32 %84, -1
   %87 = add i32 %86, %85
   %88 = sext i32 %87 to i64
   %89 = icmp slt i64 %33, %88
-  br i1 %89, label %32, label %423, !llvm.loop !112
+  br i1 %89, label %32, label %423, !llvm.loop !113
 
 90:                                               ; preds = %23
   %91 = load ptr, ptr @cont_LEFTCONTEXT, align 8
@@ -4957,8 +4949,8 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %99 = getelementptr i8, ptr %97, i64 8
   %100 = load ptr, ptr %99, align 8
   %101 = load i32, ptr %100, align 8
-  %102 = icmp slt i32 %101, 1
-  br i1 %102, label %103, label %406
+  %102 = icmp sgt i32 %101, 0
+  br i1 %102, label %406, label %103
 
 103:                                              ; preds = %95
   %104 = getelementptr i8, ptr %100, i64 8
@@ -5052,7 +5044,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %165 = add nsw i32 %151, -2
   store i32 %165, ptr @cont_BINDINGS, align 4
   %166 = icmp ugt i32 %158, 1
-  br i1 %166, label %150, label %167, !llvm.loop !113
+  br i1 %166, label %150, label %167, !llvm.loop !114
 
 167:                                              ; preds = %147, %150, %117
   %168 = load i32, ptr @cont_STACKPOINTER, align 4
@@ -5122,7 +5114,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %211 = phi i32 [ %209, %204 ], [ %201, %195 ]
   %212 = phi ptr [ %208, %204 ], [ %200, %195 ]
   %213 = sub nsw i32 0, %211
-  %214 = ashr i32 %213, %13
+  %214 = ashr i32 %213, %10
   %215 = load ptr, ptr @symbol_SIGNATURE, align 8
   %216 = sext i32 %214 to i64
   %217 = getelementptr inbounds ptr, ptr %215, i64 %216
@@ -5155,7 +5147,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %236 = phi ptr [ %237, %235 ], [ %193, %229 ]
   %237 = load ptr, ptr %236, align 8
   %238 = icmp eq ptr %237, null
-  br i1 %238, label %239, label %235, !llvm.loop !52
+  br i1 %238, label %239, label %235, !llvm.loop !53
 
 239:                                              ; preds = %235
   store ptr %232, ptr %236, align 8
@@ -5170,7 +5162,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %246 = add i32 %245, %244
   %247 = sext i32 %246 to i64
   %248 = icmp slt i64 %192, %247
-  br i1 %248, label %191, label %249, !llvm.loop !112
+  br i1 %248, label %191, label %249, !llvm.loop !113
 
 249:                                              ; preds = %240, %181
   %250 = phi ptr [ null, %181 ], [ %241, %240 ]
@@ -5246,7 +5238,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %298 = phi ptr [ %299, %297 ], [ %183, %292 ]
   %299 = load ptr, ptr %298, align 8
   %300 = icmp eq ptr %299, null
-  br i1 %300, label %301, label %297, !llvm.loop !52
+  br i1 %300, label %301, label %297, !llvm.loop !53
 
 301:                                              ; preds = %297
   store ptr %290, ptr %298, align 8
@@ -5270,7 +5262,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %313 = phi ptr [ %314, %312 ], [ %310, %307 ]
   %314 = load ptr, ptr %313, align 8
   %315 = icmp eq ptr %314, null
-  br i1 %315, label %316, label %312, !llvm.loop !52
+  br i1 %315, label %316, label %312, !llvm.loop !53
 
 316:                                              ; preds = %312
   store ptr %308, ptr %313, align 8
@@ -5346,7 +5338,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
 363:                                              ; preds = %351, %341
   %364 = load ptr, ptr %182, align 8
   %365 = icmp eq ptr %364, null
-  br i1 %365, label %366, label %181, !llvm.loop !114
+  br i1 %365, label %366, label %181, !llvm.loop !115
 
 366:                                              ; preds = %363
   tail call void @subst_Free(ptr noundef nonnull %133) #12
@@ -5361,7 +5353,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %371 = phi ptr [ %372, %370 ], [ %319, %368 ]
   %372 = load ptr, ptr %371, align 8
   %373 = icmp eq ptr %372, null
-  br i1 %373, label %374, label %370, !llvm.loop !52
+  br i1 %373, label %374, label %370, !llvm.loop !53
 
 374:                                              ; preds = %370
   store ptr %98, ptr %371, align 8
@@ -5392,7 +5384,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
 
 389:                                              ; preds = %386, %376
   %390 = sub nsw i32 0, %108
-  %391 = ashr i32 %390, %13
+  %391 = ashr i32 %390, %10
   %392 = sext i32 %391 to i64
   %393 = getelementptr inbounds %struct.SORTTHEORY_HELP, ptr %0, i64 0, i32 1, i64 %392
   %394 = load ptr, ptr %393, align 8
@@ -5406,7 +5398,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %398 = phi ptr [ %399, %397 ], [ %96, %389 ]
   %399 = load ptr, ptr %398, align 8
   %400 = icmp eq ptr %399, null
-  br i1 %400, label %401, label %397, !llvm.loop !52
+  br i1 %400, label %401, label %397, !llvm.loop !53
 
 401:                                              ; preds = %397
   store ptr %395, ptr %398, align 8
@@ -5421,11 +5413,11 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   br label %406
 
 406:                                              ; preds = %379, %402, %375, %103, %95
-  %407 = phi ptr [ %98, %103 ], [ %98, %375 ], [ %404, %402 ], [ %98, %95 ], [ %377, %379 ]
-  %408 = phi ptr [ %96, %103 ], [ %96, %375 ], [ %403, %402 ], [ %96, %95 ], [ %96, %379 ]
+  %407 = phi ptr [ %98, %95 ], [ %404, %402 ], [ %98, %375 ], [ %98, %103 ], [ %377, %379 ]
+  %408 = phi ptr [ %96, %95 ], [ %403, %402 ], [ %96, %375 ], [ %96, %103 ], [ %96, %379 ]
   %409 = load ptr, ptr %97, align 8
   %410 = icmp eq ptr %409, null
-  br i1 %410, label %411, label %95, !llvm.loop !115
+  br i1 %410, label %411, label %95, !llvm.loop !116
 
 411:                                              ; preds = %406, %411
   %412 = phi ptr [ %413, %411 ], [ %93, %406 ]
@@ -5444,9 +5436,9 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %422 = icmp eq ptr %413, null
   br i1 %422, label %423, label %411, !llvm.loop !5
 
-423:                                              ; preds = %81, %411, %26, %90
-  %424 = phi ptr [ null, %26 ], [ null, %90 ], [ %407, %411 ], [ null, %81 ]
-  %425 = phi ptr [ null, %26 ], [ null, %90 ], [ %408, %411 ], [ %82, %81 ]
+423:                                              ; preds = %411, %81, %26, %90
+  %424 = phi ptr [ null, %26 ], [ null, %90 ], [ null, %81 ], [ %407, %411 ]
+  %425 = phi ptr [ null, %26 ], [ null, %90 ], [ %82, %81 ], [ %408, %411 ]
   %426 = tail call ptr @memory_Malloc(i32 noundef 40) #12
   store i32 1, ptr %426, align 8
   %427 = getelementptr inbounds %struct.CONDITION_HELP, ptr %426, i64 0, i32 1
@@ -5478,7 +5470,7 @@ define dso_local ptr @sort_ComputeSortNoResidues(ptr nocapture noundef %0, ptr n
   %442 = phi ptr [ %21, %15 ], [ %429, %423 ]
   %443 = load i32, ptr @stack_POINTER, align 4
   %444 = icmp eq i32 %443, %7
-  br i1 %444, label %445, label %15, !llvm.loop !116
+  br i1 %444, label %445, label %15, !llvm.loop !117
 
 445:                                              ; preds = %441
   %446 = getelementptr i8, ptr %442, i64 8
@@ -5624,7 +5616,7 @@ define dso_local ptr @sort_ApproxMaxDeclClauses(ptr noundef %0, ptr noundef %1, 
   %77 = phi ptr [ %74, %71 ], [ %51, %49 ]
   %78 = add nuw nsw i64 %50, 1
   %79 = icmp eq i64 %78, %48
-  br i1 %79, label %80, label %49, !llvm.loop !117
+  br i1 %79, label %80, label %49, !llvm.loop !118
 
 80:                                               ; preds = %76
   %81 = icmp eq ptr %77, null
@@ -5712,7 +5704,7 @@ define dso_local ptr @sort_ApproxMaxDeclClauses(ptr noundef %0, ptr noundef %1, 
   %132 = phi ptr [ %129, %128 ], [ %21, %28 ], [ %21, %19 ]
   %133 = add nsw i64 %20, 1
   %134 = icmp slt i64 %133, %18
-  br i1 %134, label %19, label %135, !llvm.loop !118
+  br i1 %134, label %19, label %135, !llvm.loop !119
 
 135:                                              ; preds = %131, %3
   %136 = phi ptr [ null, %3 ], [ %132, %131 ]
@@ -5751,7 +5743,7 @@ define internal fastcc ptr @sort_ApproxPseudoLinear(ptr noundef %0, ptr noundef 
   store ptr %12, ptr %20, align 8
   %21 = load ptr, ptr %10, align 8
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %76, label %9, !llvm.loop !119
+  br i1 %22, label %76, label %9, !llvm.loop !120
 
 23:                                               ; preds = %6, %72
   %24 = phi ptr [ %74, %72 ], [ %4, %6 ]
@@ -5815,13 +5807,13 @@ define internal fastcc ptr @sort_ApproxPseudoLinear(ptr noundef %0, ptr noundef 
   %69 = phi ptr [ %66, %60 ], [ %52, %50 ]
   %70 = load ptr, ptr %51, align 8
   %71 = icmp eq ptr %70, null
-  br i1 %71, label %72, label %50, !llvm.loop !120
+  br i1 %71, label %72, label %50, !llvm.loop !121
 
 72:                                               ; preds = %68, %23
   %73 = phi ptr [ %25, %23 ], [ %69, %68 ]
   %74 = load ptr, ptr %24, align 8
   %75 = icmp eq ptr %74, null
-  br i1 %75, label %76, label %23, !llvm.loop !119
+  br i1 %75, label %76, label %23, !llvm.loop !120
 
 76:                                               ; preds = %72, %9
   %77 = phi ptr [ null, %9 ], [ %73, %72 ]
@@ -5856,7 +5848,7 @@ define internal fastcc ptr @sort_ApproxPseudoLinear(ptr noundef %0, ptr noundef 
   %95 = phi ptr [ %96, %94 ], [ %0, %92 ]
   %96 = load ptr, ptr %95, align 8
   %97 = icmp eq ptr %96, null
-  br i1 %97, label %98, label %94, !llvm.loop !52
+  br i1 %97, label %98, label %94, !llvm.loop !53
 
 98:                                               ; preds = %94
   store ptr %77, ptr %95, align 8
@@ -5902,7 +5894,7 @@ define dso_local ptr @sort_EliminateSubsumedClauses(ptr noundef %0) local_unname
 20:                                               ; preds = %15
   %21 = load ptr, ptr %16, align 8
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %23, label %15, !llvm.loop !99
+  br i1 %22, label %23, label %15, !llvm.loop !100
 
 23:                                               ; preds = %20, %14
   %24 = tail call i32 @subs_Subsumes(ptr noundef %11, ptr noundef %12, i32 noundef -1, i32 noundef -1) #12
@@ -5920,13 +5912,13 @@ define dso_local ptr @sort_EliminateSubsumedClauses(ptr noundef %0) local_unname
 30:                                               ; preds = %15, %23, %8
   %31 = load ptr, ptr %9, align 8
   %32 = icmp eq ptr %31, null
-  br i1 %32, label %33, label %8, !llvm.loop !121
+  br i1 %32, label %33, label %8, !llvm.loop !122
 
 33:                                               ; preds = %30, %26
   %34 = phi ptr [ %28, %26 ], [ %5, %30 ]
   %35 = load ptr, ptr %4, align 8
   %36 = icmp eq ptr %35, null
-  br i1 %36, label %37, label %3, !llvm.loop !122
+  br i1 %36, label %37, label %3, !llvm.loop !123
 
 37:                                               ; preds = %33, %1
   %38 = phi ptr [ null, %1 ], [ %34, %33 ]
@@ -5995,7 +5987,7 @@ define dso_local ptr @sort_ApproxStaticSortTheory(ptr noundef readonly %0, ptr n
   %34 = load i32, ptr @symbol_ACTINDEX, align 4
   %35 = sext i32 %34 to i64
   %36 = icmp slt i64 %33, %35
-  br i1 %36, label %9, label %37, !llvm.loop !20
+  br i1 %36, label %9, label %37, !llvm.loop !21
 
 37:                                               ; preds = %32, %3
   %38 = tail call ptr @st_IndexCreate() #12
@@ -6118,7 +6110,7 @@ define dso_local ptr @sort_ApproxStaticSortTheory(ptr noundef readonly %0, ptr n
   %123 = phi ptr [ %120, %117 ], [ %97, %95 ]
   %124 = add nuw nsw i64 %96, 1
   %125 = icmp eq i64 %124, %94
-  br i1 %125, label %126, label %95, !llvm.loop !123
+  br i1 %125, label %126, label %95, !llvm.loop !124
 
 126:                                              ; preds = %122
   %127 = icmp eq ptr %123, null
@@ -6211,7 +6203,7 @@ define dso_local ptr @sort_ApproxStaticSortTheory(ptr noundef readonly %0, ptr n
   %183 = phi ptr [ %178, %177 ], [ %72, %69 ]
   %184 = add nsw i64 %71, 1
   %185 = icmp slt i64 %184, %67
-  br i1 %185, label %69, label %186, !llvm.loop !124
+  br i1 %185, label %69, label %186, !llvm.loop !125
 
 186:                                              ; preds = %181
   %187 = icmp eq ptr %183, null
@@ -6225,7 +6217,7 @@ define dso_local ptr @sort_ApproxStaticSortTheory(ptr noundef readonly %0, ptr n
   %191 = phi ptr [ %192, %190 ], [ %183, %188 ]
   %192 = load ptr, ptr %191, align 8
   %193 = icmp eq ptr %192, null
-  br i1 %193, label %194, label %190, !llvm.loop !52
+  br i1 %193, label %194, label %190, !llvm.loop !53
 
 194:                                              ; preds = %190
   store ptr %45, ptr %191, align 8
@@ -6235,7 +6227,7 @@ define dso_local ptr @sort_ApproxStaticSortTheory(ptr noundef readonly %0, ptr n
   %196 = phi ptr [ %183, %194 ], [ %45, %186 ], [ %183, %188 ], [ %45, %50 ], [ %45, %43 ], [ %45, %53 ]
   %197 = load ptr, ptr %44, align 8
   %198 = icmp eq ptr %197, null
-  br i1 %198, label %199, label %43, !llvm.loop !125
+  br i1 %198, label %199, label %43, !llvm.loop !126
 
 199:                                              ; preds = %195, %37
   %200 = phi ptr [ null, %37 ], [ %196, %195 ]
@@ -6260,7 +6252,7 @@ define dso_local ptr @sort_ApproxStaticSortTheory(ptr noundef readonly %0, ptr n
   tail call void @sort_TheoryInsertClause(ptr noundef nonnull %4, ptr noundef %206, ptr noundef %206, ptr noundef %216)
   %217 = load ptr, ptr %204, align 8
   %218 = icmp eq ptr %217, null
-  br i1 %218, label %219, label %203, !llvm.loop !126
+  br i1 %218, label %219, label %203, !llvm.loop !127
 
 219:                                              ; preds = %203
   br i1 %202, label %286, label %224
@@ -6326,13 +6318,13 @@ define dso_local ptr @sort_ApproxStaticSortTheory(ptr noundef readonly %0, ptr n
   store ptr %244, ptr %263, align 8
   %265 = add nuw nsw i64 %243, 1
   %266 = icmp eq i64 %265, %241
-  br i1 %266, label %267, label %242, !llvm.loop !127
+  br i1 %266, label %267, label %242, !llvm.loop !128
 
 267:                                              ; preds = %259, %224
   %268 = phi ptr [ %226, %224 ], [ %263, %259 ]
   %269 = tail call ptr @list_PointerDeleteDuplicates(ptr noundef %268) #12
   %270 = icmp eq ptr %237, null
-  br i1 %270, label %220, label %224, !llvm.loop !128
+  br i1 %270, label %220, label %224, !llvm.loop !129
 
 271:                                              ; preds = %271, %222
   %272 = phi ptr [ %269, %222 ], [ %284, %271 ]
@@ -6352,7 +6344,7 @@ define dso_local ptr @sort_ApproxStaticSortTheory(ptr noundef readonly %0, ptr n
   store ptr %282, ptr %273, align 8
   %284 = load ptr, ptr %272, align 8
   %285 = icmp eq ptr %284, null
-  br i1 %285, label %288, label %271, !llvm.loop !129
+  br i1 %285, label %288, label %271, !llvm.loop !130
 
 286:                                              ; preds = %199, %220, %219
   %287 = tail call i32 @list_Length(ptr noundef null) #12
@@ -6444,7 +6436,7 @@ define dso_local ptr @sort_ApproxStaticSortTheory(ptr noundef readonly %0, ptr n
 345:                                              ; preds = %333, %329
   %346 = load ptr, ptr %291, align 8
   %347 = icmp eq ptr %346, null
-  br i1 %347, label %348, label %290, !llvm.loop !130
+  br i1 %347, label %348, label %290, !llvm.loop !131
 
 348:                                              ; preds = %345, %348
   %349 = phi ptr [ %350, %348 ], [ %269, %345 ]
@@ -6582,7 +6574,7 @@ define dso_local i32 @sort_AnalyzeSortStructure(ptr noundef readonly %0, ptr nou
   %34 = load i32, ptr @symbol_ACTINDEX, align 4
   %35 = sext i32 %34 to i64
   %36 = icmp slt i64 %33, %35
-  br i1 %36, label %9, label %37, !llvm.loop !20
+  br i1 %36, label %9, label %37, !llvm.loop !21
 
 37:                                               ; preds = %32, %3
   %38 = tail call ptr @st_IndexCreate() #12
@@ -6697,7 +6689,7 @@ define dso_local i32 @sort_AnalyzeSortStructure(ptr noundef readonly %0, ptr nou
 114:                                              ; preds = %44, %105
   %115 = load ptr, ptr %45, align 8
   %116 = icmp eq ptr %115, null
-  br i1 %116, label %117, label %44, !llvm.loop !131
+  br i1 %116, label %117, label %44, !llvm.loop !132
 
 117:                                              ; preds = %114, %392
   %118 = phi i32 [ %394, %392 ], [ 1, %114 ]
@@ -7084,7 +7076,7 @@ define dso_local i32 @sort_AnalyzeSortStructure(ptr noundef readonly %0, ptr nou
   %389 = icmp slt i64 %388, %135
   %390 = icmp ne i32 %387, 0
   %391 = and i1 %389, %390
-  br i1 %391, label %137, label %392, !llvm.loop !132
+  br i1 %391, label %137, label %392, !llvm.loop !133
 
 392:                                              ; preds = %384, %117
   %393 = phi i32 [ %119, %117 ], [ %386, %384 ]
@@ -7094,7 +7086,7 @@ define dso_local i32 @sort_AnalyzeSortStructure(ptr noundef readonly %0, ptr nou
   %397 = icmp ne ptr %396, null
   %398 = icmp ne i32 %394, 0
   %399 = select i1 %397, i1 %398, i1 false
-  br i1 %399, label %117, label %400, !llvm.loop !133
+  br i1 %399, label %117, label %400, !llvm.loop !134
 
 400:                                              ; preds = %392
   %401 = freeze i32 %393
@@ -7280,9 +7272,9 @@ attributes #12 = { nounwind }
 !105 = distinct !{!105, !6}
 !106 = distinct !{!106, !6}
 !107 = distinct !{!107, !6}
-!108 = distinct !{!108, !6, !109}
-!109 = !{!"llvm.loop.unswitch.partial.disable"}
-!110 = distinct !{!110, !6}
+!108 = distinct !{!108, !6}
+!109 = distinct !{!109, !6, !110}
+!110 = !{!"llvm.loop.unswitch.partial.disable"}
 !111 = distinct !{!111, !6}
 !112 = distinct !{!112, !6}
 !113 = distinct !{!113, !6}
@@ -7292,8 +7284,8 @@ attributes #12 = { nounwind }
 !117 = distinct !{!117, !6}
 !118 = distinct !{!118, !6}
 !119 = distinct !{!119, !6}
-!120 = distinct !{!120, !6, !109}
-!121 = distinct !{!121, !6}
+!120 = distinct !{!120, !6}
+!121 = distinct !{!121, !6, !110}
 !122 = distinct !{!122, !6}
 !123 = distinct !{!123, !6}
 !124 = distinct !{!124, !6}
@@ -7306,3 +7298,4 @@ attributes #12 = { nounwind }
 !131 = distinct !{!131, !6}
 !132 = distinct !{!132, !6}
 !133 = distinct !{!133, !6}
+!134 = distinct !{!134, !6}

@@ -90,10 +90,10 @@ define dso_local void @_ZN13btGhostObjectD2Ev(ptr noundef nonnull align 8 derefe
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btGhostObject, ptr %0, i64 0, i32 1, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
+  %11 = getelementptr inbounds %class.btGhostObject, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btGhostObject, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -134,9 +134,9 @@ define dso_local void @_ZN13btGhostObjectD0Ev(ptr noundef nonnull align 8 derefe
           to label %10 unwind label %13
 
 10:                                               ; preds = %9, %1
-  %11 = getelementptr inbounds %class.btGhostObject, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
+  %11 = getelementptr inbounds %class.btGhostObject, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btGhostObject, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -487,9 +487,9 @@ define dso_local void @_ZN24btPairCachingGhostObjectD2Ev(ptr noundef nonnull ali
   unreachable
 
 24:                                               ; preds = %8, %16
-  %25 = getelementptr inbounds %class.btGhostObject, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %12, align 8, !tbaa !8
   store ptr null, ptr %9, align 8, !tbaa !15
+  %25 = getelementptr inbounds %class.btGhostObject, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %25, align 4, !tbaa !16
   %26 = getelementptr inbounds %class.btGhostObject, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %26, align 8, !tbaa !17
@@ -1092,15 +1092,13 @@ define linkonce_odr dso_local noundef zeroext i1 @_Z9btRayAabbRK9btVector3S1_S1_
   %92 = fsub float %91, %12
   %93 = fdiv float %92, %80
   %94 = fcmp olt float %93, %79
-  br i1 %94, label %95, label %96
-
-95:                                               ; preds = %90
+  %95 = select i1 %94, float %93, float %79
   br label %96
 
-96:                                               ; preds = %95, %90, %83, %88, %89
-  %97 = phi float [ 0.000000e+00, %89 ], [ 0.000000e+00, %95 ], [ 0.000000e+00, %90 ], [ 0.000000e+00, %83 ], [ 1.000000e+00, %88 ]
-  %98 = phi float [ %79, %89 ], [ %93, %95 ], [ %79, %90 ], [ %79, %83 ], [ %79, %88 ]
-  %99 = phi float [ 0.000000e+00, %89 ], [ 0.000000e+00, %95 ], [ 0.000000e+00, %90 ], [ 0.000000e+00, %83 ], [ %86, %88 ]
+96:                                               ; preds = %83, %88, %89, %90
+  %97 = phi float [ 0.000000e+00, %89 ], [ 0.000000e+00, %90 ], [ 0.000000e+00, %83 ], [ 1.000000e+00, %88 ]
+  %98 = phi float [ %79, %89 ], [ %95, %90 ], [ %79, %83 ], [ %79, %88 ]
+  %99 = phi float [ 0.000000e+00, %89 ], [ 0.000000e+00, %90 ], [ 0.000000e+00, %83 ], [ %86, %88 ]
   br i1 %46, label %106, label %100
 
 100:                                              ; preds = %96
@@ -1121,16 +1119,14 @@ define linkonce_odr dso_local noundef zeroext i1 @_Z9btRayAabbRK9btVector3S1_S1_
   %109 = fsub float %108, %50
   %110 = fdiv float %109, %81
   %111 = fcmp olt float %110, %98
-  br i1 %111, label %112, label %113
-
-112:                                              ; preds = %107
+  %112 = select i1 %111, float %110, float %98
   br label %113
 
-113:                                              ; preds = %112, %107, %106, %105, %100
-  %114 = phi float [ 0.000000e+00, %106 ], [ 0.000000e+00, %112 ], [ 0.000000e+00, %107 ], [ 0.000000e+00, %100 ], [ 1.000000e+00, %105 ]
-  %115 = phi float [ %97, %106 ], [ %97, %112 ], [ %97, %107 ], [ %97, %100 ], [ 0.000000e+00, %105 ]
-  %116 = phi float [ %98, %106 ], [ %110, %112 ], [ %98, %107 ], [ %98, %100 ], [ %98, %105 ]
-  %117 = phi float [ %99, %106 ], [ %99, %112 ], [ %99, %107 ], [ %99, %100 ], [ %103, %105 ]
+113:                                              ; preds = %107, %106, %105, %100
+  %114 = phi float [ 0.000000e+00, %106 ], [ 0.000000e+00, %107 ], [ 0.000000e+00, %100 ], [ 1.000000e+00, %105 ]
+  %115 = phi float [ %97, %106 ], [ %97, %107 ], [ %97, %100 ], [ 0.000000e+00, %105 ]
+  %116 = phi float [ %98, %106 ], [ %112, %107 ], [ %98, %100 ], [ %98, %105 ]
+  %117 = phi float [ %99, %106 ], [ %99, %107 ], [ %99, %100 ], [ %103, %105 ]
   br i1 %54, label %124, label %118
 
 118:                                              ; preds = %113
@@ -1151,17 +1147,15 @@ define linkonce_odr dso_local noundef zeroext i1 @_Z9btRayAabbRK9btVector3S1_S1_
   %127 = fsub float %126, %58
   %128 = fdiv float %127, %82
   %129 = fcmp olt float %128, %116
-  br i1 %129, label %130, label %131
-
-130:                                              ; preds = %125
+  %130 = select i1 %129, float %128, float %116
   br label %131
 
-131:                                              ; preds = %130, %125, %124, %123, %118
-  %132 = phi float [ 0.000000e+00, %124 ], [ 0.000000e+00, %130 ], [ 0.000000e+00, %125 ], [ 0.000000e+00, %118 ], [ 1.000000e+00, %123 ]
-  %133 = phi float [ %114, %124 ], [ %114, %130 ], [ %114, %125 ], [ %114, %118 ], [ 0.000000e+00, %123 ]
-  %134 = phi float [ %115, %124 ], [ %115, %130 ], [ %115, %125 ], [ %115, %118 ], [ 0.000000e+00, %123 ]
-  %135 = phi float [ %116, %124 ], [ %128, %130 ], [ %116, %125 ], [ %116, %118 ], [ %116, %123 ]
-  %136 = phi float [ %117, %124 ], [ %117, %130 ], [ %117, %125 ], [ %117, %118 ], [ %121, %123 ]
+131:                                              ; preds = %125, %124, %123, %118
+  %132 = phi float [ 0.000000e+00, %124 ], [ 0.000000e+00, %125 ], [ 0.000000e+00, %118 ], [ 1.000000e+00, %123 ]
+  %133 = phi float [ %114, %124 ], [ %114, %125 ], [ %114, %118 ], [ 0.000000e+00, %123 ]
+  %134 = phi float [ %115, %124 ], [ %115, %125 ], [ %115, %118 ], [ 0.000000e+00, %123 ]
+  %135 = phi float [ %116, %124 ], [ %130, %125 ], [ %116, %118 ], [ %116, %123 ]
+  %136 = phi float [ %117, %124 ], [ %117, %125 ], [ %117, %118 ], [ %121, %123 ]
   br i1 %24, label %143, label %137
 
 137:                                              ; preds = %131
@@ -1182,17 +1176,15 @@ define linkonce_odr dso_local noundef zeroext i1 @_Z9btRayAabbRK9btVector3S1_S1_
   %146 = tail call float @llvm.fmuladd.f32(float %21, float -1.000000e+00, float %145)
   %147 = fdiv float %146, %80
   %148 = fcmp olt float %147, %135
-  br i1 %148, label %149, label %150
-
-149:                                              ; preds = %144
+  %149 = select i1 %148, float %147, float %135
   br label %150
 
-150:                                              ; preds = %149, %144, %143, %142, %137
-  %151 = phi float [ %132, %143 ], [ %132, %149 ], [ %132, %144 ], [ %132, %137 ], [ 0.000000e+00, %142 ]
-  %152 = phi float [ %133, %143 ], [ %133, %149 ], [ %133, %144 ], [ %133, %137 ], [ 0.000000e+00, %142 ]
-  %153 = phi float [ %134, %143 ], [ %134, %149 ], [ %134, %144 ], [ %134, %137 ], [ -1.000000e+00, %142 ]
-  %154 = phi float [ %135, %143 ], [ %147, %149 ], [ %135, %144 ], [ %135, %137 ], [ %135, %142 ]
-  %155 = phi float [ %136, %143 ], [ %136, %149 ], [ %136, %144 ], [ %136, %137 ], [ %140, %142 ]
+150:                                              ; preds = %144, %143, %142, %137
+  %151 = phi float [ %132, %143 ], [ %132, %144 ], [ %132, %137 ], [ 0.000000e+00, %142 ]
+  %152 = phi float [ %133, %143 ], [ %133, %144 ], [ %133, %137 ], [ 0.000000e+00, %142 ]
+  %153 = phi float [ %134, %143 ], [ %134, %144 ], [ %134, %137 ], [ -1.000000e+00, %142 ]
+  %154 = phi float [ %135, %143 ], [ %149, %144 ], [ %135, %137 ], [ %135, %142 ]
+  %155 = phi float [ %136, %143 ], [ %136, %144 ], [ %136, %137 ], [ %140, %142 ]
   br i1 %51, label %163, label %156
 
 156:                                              ; preds = %150
@@ -1215,17 +1207,15 @@ define linkonce_odr dso_local noundef zeroext i1 @_Z9btRayAabbRK9btVector3S1_S1_
   %167 = tail call float @llvm.fmuladd.f32(float %166, float -1.000000e+00, float %165)
   %168 = fdiv float %167, %81
   %169 = fcmp olt float %168, %154
-  br i1 %169, label %170, label %171
-
-170:                                              ; preds = %164
+  %170 = select i1 %169, float %168, float %154
   br label %171
 
-171:                                              ; preds = %170, %164, %163, %162, %156
-  %172 = phi float [ %151, %163 ], [ %151, %170 ], [ %151, %164 ], [ %151, %156 ], [ 0.000000e+00, %162 ]
-  %173 = phi float [ %152, %163 ], [ %152, %170 ], [ %152, %164 ], [ %152, %156 ], [ -1.000000e+00, %162 ]
-  %174 = phi float [ %153, %163 ], [ %153, %170 ], [ %153, %164 ], [ %153, %156 ], [ 0.000000e+00, %162 ]
-  %175 = phi float [ %154, %163 ], [ %168, %170 ], [ %154, %164 ], [ %154, %156 ], [ %154, %162 ]
-  %176 = phi float [ %155, %163 ], [ %155, %170 ], [ %155, %164 ], [ %155, %156 ], [ %160, %162 ]
+171:                                              ; preds = %164, %163, %162, %156
+  %172 = phi float [ %151, %163 ], [ %151, %164 ], [ %151, %156 ], [ 0.000000e+00, %162 ]
+  %173 = phi float [ %152, %163 ], [ %152, %164 ], [ %152, %156 ], [ -1.000000e+00, %162 ]
+  %174 = phi float [ %153, %163 ], [ %153, %164 ], [ %153, %156 ], [ 0.000000e+00, %162 ]
+  %175 = phi float [ %154, %163 ], [ %170, %164 ], [ %154, %156 ], [ %154, %162 ]
+  %176 = phi float [ %155, %163 ], [ %155, %164 ], [ %155, %156 ], [ %160, %162 ]
   %177 = icmp ult i32 %61, 32
   br i1 %177, label %185, label %178
 
@@ -1250,17 +1240,15 @@ define linkonce_odr dso_local noundef zeroext i1 @_Z9btRayAabbRK9btVector3S1_S1_
   %190 = tail call float @llvm.fmuladd.f32(float %189, float -1.000000e+00, float %188)
   %191 = fdiv float %190, %82
   %192 = fcmp olt float %191, %175
-  br i1 %192, label %193, label %194
-
-193:                                              ; preds = %187
+  %193 = select i1 %192, float %191, float %175
   br label %194
 
-194:                                              ; preds = %193, %187, %185, %184, %178
-  %195 = phi float [ %172, %185 ], [ %172, %193 ], [ %172, %187 ], [ %172, %178 ], [ -1.000000e+00, %184 ]
-  %196 = phi float [ %173, %185 ], [ %173, %193 ], [ %173, %187 ], [ %173, %178 ], [ 0.000000e+00, %184 ]
-  %197 = phi float [ %174, %185 ], [ %174, %193 ], [ %174, %187 ], [ %174, %178 ], [ 0.000000e+00, %184 ]
-  %198 = phi float [ %175, %185 ], [ %191, %193 ], [ %175, %187 ], [ %175, %178 ], [ %175, %184 ]
-  %199 = phi float [ %176, %185 ], [ %176, %193 ], [ %176, %187 ], [ %176, %178 ], [ %182, %184 ]
+194:                                              ; preds = %187, %185, %184, %178
+  %195 = phi float [ %172, %185 ], [ %172, %187 ], [ %172, %178 ], [ -1.000000e+00, %184 ]
+  %196 = phi float [ %173, %185 ], [ %173, %187 ], [ %173, %178 ], [ 0.000000e+00, %184 ]
+  %197 = phi float [ %174, %185 ], [ %174, %187 ], [ %174, %178 ], [ 0.000000e+00, %184 ]
+  %198 = phi float [ %175, %185 ], [ %193, %187 ], [ %175, %178 ], [ %175, %184 ]
+  %199 = phi float [ %176, %185 ], [ %176, %187 ], [ %176, %178 ], [ %182, %184 ]
   %200 = fcmp ugt float %199, %198
   br i1 %200, label %205, label %201
 
@@ -1380,12 +1368,12 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %5 = alloca %class.btMatrix3x3, align 8
   %6 = alloca %class.btQuaternion, align 8
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5) #14
-  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
-  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
-  %9 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
-  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
-  %11 = load float, ptr %10, align 4, !tbaa !36, !noalias !43
-  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
+  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
+  %9 = load float, ptr %8, align 4, !tbaa !36, !noalias !43
+  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %11 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
+  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
   %13 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 1
   %14 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 2
   tail call void @llvm.experimental.noalias.scope.decl(metadata !46)
@@ -1406,32 +1394,32 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %29 = load float, ptr %28, align 4, !tbaa !36, !noalias !46
   %30 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2, i32 0, i64 2
   %31 = load float, ptr %30, align 4, !tbaa !36, !noalias !46
-  %32 = load float, ptr %8, align 4, !tbaa !36, !noalias !43
-  %33 = load float, ptr %12, align 4, !tbaa !36, !noalias !43
-  %34 = load <2 x float>, ptr %9, align 4, !tbaa !36, !noalias !43
+  %32 = load float, ptr %7, align 4, !tbaa !36, !noalias !43
+  %33 = load float, ptr %10, align 4, !tbaa !36, !noalias !43
+  %34 = load <2 x float>, ptr %12, align 4, !tbaa !36, !noalias !43
   %35 = shufflevector <2 x float> %34, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %36 = load float, ptr %7, align 4, !tbaa !36, !noalias !43
+  %36 = load float, ptr %11, align 4, !tbaa !36, !noalias !43
   %37 = load float, ptr %0, align 4, !tbaa !36, !noalias !43
   %38 = load float, ptr %13, align 4, !tbaa !36, !noalias !43
   %39 = load float, ptr %14, align 4, !tbaa !36, !noalias !43
   %40 = insertelement <2 x float> poison, float %36, i64 0
   %41 = insertelement <2 x float> %40, float %39, i64 1
   %42 = fneg <2 x float> %41
-  %43 = insertelement <2 x float> %35, float %11, i64 0
+  %43 = insertelement <2 x float> %35, float %9, i64 0
   %44 = fmul <2 x float> %43, %42
   %45 = insertelement <2 x float> poison, float %33, i64 0
   %46 = insertelement <2 x float> %45, float %37, i64 1
-  %47 = insertelement <2 x float> %34, float %11, i64 1
+  %47 = insertelement <2 x float> %34, float %9, i64 1
   %48 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %46, <2 x float> %47, <2 x float> %44)
   %49 = extractelement <2 x float> %48, i64 0
   %50 = fmul float %38, %49
   %51 = insertelement <2 x float> %45, float %38, i64 1
   %52 = fneg <2 x float> %51
-  %53 = insertelement <2 x float> %35, float %11, i64 1
+  %53 = insertelement <2 x float> %35, float %9, i64 1
   %54 = fmul <2 x float> %53, %52
   %55 = insertelement <2 x float> poison, float %32, i64 0
   %56 = insertelement <2 x float> %55, float %39, i64 1
-  %57 = insertelement <2 x float> %34, float %11, i64 0
+  %57 = insertelement <2 x float> %34, float %9, i64 0
   %58 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %56, <2 x float> %57, <2 x float> %54)
   %59 = extractelement <2 x float> %58, i64 0
   %60 = tail call float @llvm.fmuladd.f32(float %37, float %59, float %50)

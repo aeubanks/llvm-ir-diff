@@ -2266,12 +2266,12 @@ define dso_local i32 @do_layer3(ptr nocapture noundef readonly %0, ptr noundef %
 
 53:                                               ; preds = %49, %35
   %54 = icmp eq i32 %25, 0
-  %55 = select i1 %54, i64 0, i64 2
-  %56 = icmp eq i32 %11, 8
-  %57 = getelementptr inbounds [9 x %struct.bandInfoStruct], ptr @bandInfo, i64 0, i64 %30
-  %58 = zext i32 %7 to i64
-  %59 = getelementptr double, ptr getelementptr inbounds ([378 x double], ptr @gainpow2, i64 0, i64 256), i64 %32
-  %60 = getelementptr double, ptr %59, i64 %55
+  %55 = icmp eq i32 %11, 8
+  %56 = getelementptr inbounds [9 x %struct.bandInfoStruct], ptr @bandInfo, i64 0, i64 %30
+  %57 = zext i32 %7 to i64
+  %58 = getelementptr double, ptr getelementptr inbounds ([378 x double], ptr @gainpow2, i64 0, i64 256), i64 %32
+  %59 = select i1 %54, i64 0, i64 2
+  %60 = getelementptr double, ptr %58, i64 %59
   br label %61
 
 61:                                               ; preds = %165, %53
@@ -2332,7 +2332,7 @@ define dso_local i32 @do_layer3(ptr nocapture noundef readonly %0, ptr noundef %
   %100 = tail call i32 @getbits_fast(i32 noundef 3) #12
   %101 = add nsw i32 %99, 1
   %102 = sext i32 %101 to i64
-  %103 = getelementptr inbounds [23 x i16], ptr %57, i64 0, i64 %102
+  %103 = getelementptr inbounds [23 x i16], ptr %56, i64 0, i64 %102
   %104 = load i16, ptr %103, align 2, !tbaa !19
   %105 = ashr i16 %104, 1
   %106 = sext i16 %105 to i32
@@ -2341,7 +2341,7 @@ define dso_local i32 @do_layer3(ptr nocapture noundef readonly %0, ptr noundef %
   %108 = add i32 %100, 1
   %109 = add i32 %108, %101
   %110 = sext i32 %109 to i64
-  %111 = getelementptr inbounds [23 x i16], ptr %57, i64 0, i64 %110
+  %111 = getelementptr inbounds [23 x i16], ptr %56, i64 0, i64 %110
   %112 = load i16, ptr %111, align 2, !tbaa !19
   %113 = ashr i16 %112, 1
   %114 = sext i16 %113 to i32
@@ -2417,7 +2417,7 @@ define dso_local i32 @do_layer3(ptr nocapture noundef readonly %0, ptr noundef %
 
 159:                                              ; preds = %118
   %160 = getelementptr inbounds %struct.gr_info_s, ptr %63, i64 0, i32 11
-  br i1 %56, label %161, label %162
+  br i1 %55, label %161, label %162
 
 161:                                              ; preds = %159
   store i32 54, ptr %160, align 4, !tbaa !41
@@ -2464,7 +2464,7 @@ define dso_local i32 @do_layer3(ptr nocapture noundef readonly %0, ptr noundef %
   %189 = getelementptr inbounds %struct.gr_info_s, ptr %63, i64 0, i32 15
   store i32 %188, ptr %189, align 4, !tbaa !46
   %190 = add nuw nsw i64 %62, 1
-  %191 = icmp eq i64 %190, %58
+  %191 = icmp eq i64 %190, %57
   br i1 %191, label %357, label %61, !llvm.loop !47
 
 192:                                              ; preds = %24
@@ -2490,10 +2490,10 @@ define dso_local i32 @do_layer3(ptr nocapture noundef readonly %0, ptr noundef %
 
 202:                                              ; preds = %347
   %203 = icmp eq i32 %25, 0
-  %204 = select i1 %203, i64 0, i64 2
-  %205 = getelementptr inbounds [9 x %struct.bandInfoStruct], ptr @bandInfo, i64 0, i64 %30
-  %206 = getelementptr double, ptr getelementptr inbounds ([378 x double], ptr @gainpow2, i64 0, i64 256), i64 %32
-  %207 = getelementptr double, ptr %206, i64 %204
+  %204 = getelementptr inbounds [9 x %struct.bandInfoStruct], ptr @bandInfo, i64 0, i64 %30
+  %205 = getelementptr double, ptr getelementptr inbounds ([378 x double], ptr @gainpow2, i64 0, i64 256), i64 %32
+  %206 = select i1 %203, i64 0, i64 2
+  %207 = getelementptr double, ptr %205, i64 %206
   br label %208
 
 208:                                              ; preds = %346, %202
@@ -2559,7 +2559,7 @@ define dso_local i32 @do_layer3(ptr nocapture noundef readonly %0, ptr noundef %
   %250 = tail call i32 @getbits_fast(i32 noundef 3) #12
   %251 = add nsw i32 %249, 1
   %252 = sext i32 %251 to i64
-  %253 = getelementptr inbounds [23 x i16], ptr %205, i64 0, i64 %252
+  %253 = getelementptr inbounds [23 x i16], ptr %204, i64 0, i64 %252
   %254 = load i16, ptr %253, align 2, !tbaa !19
   %255 = ashr i16 %254, 1
   %256 = sext i16 %255 to i32
@@ -2568,7 +2568,7 @@ define dso_local i32 @do_layer3(ptr nocapture noundef readonly %0, ptr noundef %
   %258 = add i32 %250, 1
   %259 = add i32 %258, %251
   %260 = sext i32 %259 to i64
-  %261 = getelementptr inbounds [23 x i16], ptr %205, i64 0, i64 %260
+  %261 = getelementptr inbounds [23 x i16], ptr %204, i64 0, i64 %260
   %262 = load i16, ptr %261, align 2, !tbaa !19
   %263 = ashr i16 %262, 1
   %264 = sext i16 %263 to i32
@@ -5083,13 +5083,13 @@ define internal fastcc i32 @III_dequantize_sample(ptr noundef %0, ptr nocapture 
   %318 = phi ptr [ %331, %323 ], [ %314, %303 ]
   %319 = phi i16 [ %340, %323 ], [ %69, %303 ]
   %320 = phi ptr [ %339, %323 ], [ %68, %303 ]
-  %321 = phi i32 [ %325, %323 ], [ %313, %303 ]
+  %321 = phi i32 [ %324, %323 ], [ %313, %303 ]
   %322 = icmp slt i32 %321, 1
   br i1 %322, label %342, label %323
 
 323:                                              ; preds = %316
-  %324 = getelementptr inbounds i16, ptr %320, i64 1
-  %325 = add nsw i32 %321, -1
+  %324 = add nsw i32 %321, -1
+  %325 = getelementptr inbounds i16, ptr %320, i64 1
   %326 = load i8, ptr %318, align 1, !tbaa !35
   %327 = zext i8 %326 to i32
   %328 = add nsw i32 %317, 1
@@ -5105,7 +5105,7 @@ define internal fastcc i32 @III_dequantize_sample(ptr noundef %0, ptr nocapture 
   %336 = sext i16 %319 to i64
   %337 = sub nsw i64 0, %336
   %338 = select i1 %335, i64 0, i64 %337
-  %339 = getelementptr i16, ptr %324, i64 %338
+  %339 = getelementptr i16, ptr %325, i64 %338
   %340 = load i16, ptr %339, align 2, !tbaa !19
   %341 = icmp slt i16 %340, 0
   br i1 %341, label %316, label %342, !llvm.loop !88
@@ -5113,7 +5113,7 @@ define internal fastcc i32 @III_dequantize_sample(ptr noundef %0, ptr nocapture 
 342:                                              ; preds = %316, %323, %303
   %343 = phi i32 [ %315, %303 ], [ %317, %316 ], [ %332, %323 ]
   %344 = phi ptr [ %314, %303 ], [ %318, %316 ], [ %331, %323 ]
-  %345 = phi i32 [ %313, %303 ], [ 0, %316 ], [ %325, %323 ]
+  %345 = phi i32 [ %313, %303 ], [ 0, %316 ], [ %324, %323 ]
   %346 = phi i16 [ %69, %303 ], [ 0, %316 ], [ %340, %323 ]
   %347 = zext i16 %346 to i32
   %348 = icmp eq i32 %307, 0
@@ -5732,13 +5732,13 @@ define internal fastcc i32 @III_dequantize_sample(ptr noundef %0, ptr nocapture 
   %819 = phi ptr [ %832, %824 ], [ %815, %804 ]
   %820 = phi i16 [ %841, %824 ], [ %593, %804 ]
   %821 = phi ptr [ %840, %824 ], [ %592, %804 ]
-  %822 = phi i32 [ %826, %824 ], [ %814, %804 ]
+  %822 = phi i32 [ %825, %824 ], [ %814, %804 ]
   %823 = icmp slt i32 %822, 1
   br i1 %823, label %843, label %824
 
 824:                                              ; preds = %817
-  %825 = getelementptr inbounds i16, ptr %821, i64 1
-  %826 = add nsw i32 %822, -1
+  %825 = add nsw i32 %822, -1
+  %826 = getelementptr inbounds i16, ptr %821, i64 1
   %827 = load i8, ptr %819, align 1, !tbaa !35
   %828 = zext i8 %827 to i32
   %829 = add nsw i32 %818, 1
@@ -5754,7 +5754,7 @@ define internal fastcc i32 @III_dequantize_sample(ptr noundef %0, ptr nocapture 
   %837 = sext i16 %820 to i64
   %838 = sub nsw i64 0, %837
   %839 = select i1 %836, i64 0, i64 %838
-  %840 = getelementptr i16, ptr %825, i64 %839
+  %840 = getelementptr i16, ptr %826, i64 %839
   %841 = load i16, ptr %840, align 2, !tbaa !19
   %842 = icmp slt i16 %841, 0
   br i1 %842, label %817, label %843, !llvm.loop !94
@@ -5762,7 +5762,7 @@ define internal fastcc i32 @III_dequantize_sample(ptr noundef %0, ptr nocapture 
 843:                                              ; preds = %817, %824, %804
   %844 = phi i32 [ %816, %804 ], [ %818, %817 ], [ %833, %824 ]
   %845 = phi ptr [ %815, %804 ], [ %819, %817 ], [ %832, %824 ]
-  %846 = phi i32 [ %814, %804 ], [ 0, %817 ], [ %826, %824 ]
+  %846 = phi i32 [ %814, %804 ], [ 0, %817 ], [ %825, %824 ]
   %847 = phi i16 [ %593, %804 ], [ 0, %817 ], [ %841, %824 ]
   %848 = zext i16 %847 to i32
   %849 = icmp eq i32 %806, 0
@@ -6871,23 +6871,23 @@ define internal fastcc void @dct12(ptr nocapture noundef readonly %0, ptr nocapt
 
 declare double @exp2(double) local_unnamed_addr
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i1 @llvm.is.fpclass.f64(double, i32 immarg) #8
+
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #8
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #9
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i1 @llvm.is.fpclass.f64(double, i32 immarg) #9
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #8
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memmove.p0.p0.i64(ptr nocapture writeonly, ptr nocapture readonly, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #9
+declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #8
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -6897,8 +6897,8 @@ attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #5 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nofree nounwind }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nofree nounwind }
 attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #12 = { nounwind }

@@ -560,7 +560,7 @@ define dso_local i32 @hypre_SMGSetupInterpOp(ptr noundef %0, ptr noundef %1, ptr
 
 412:                                              ; preds = %403
   %413 = add nsw i32 %296, %408
-  %414 = add nsw i32 %409, %298
+  %414 = add i32 %298, %409
   %415 = add nuw nsw i32 %317, 1
   %416 = icmp eq i32 %415, %280
   br i1 %416, label %417, label %314, !llvm.loop !43

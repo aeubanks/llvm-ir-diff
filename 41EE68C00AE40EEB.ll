@@ -81,624 +81,625 @@ define dso_local i32 @hypre_SMGSetup(ptr nocapture noundef %0, ptr noundef %1, p
   %59 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 12, i64 1
   %60 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 12, i64 2
   %61 = zext i32 %52 to i64
-  %62 = load <2 x i32>, ptr %13, align 4, !tbaa !22
-  store <2 x i32> %62, ptr %7, align 8, !tbaa !22
-  %63 = load i32, ptr %58, align 4, !tbaa !22
-  store i32 %63, ptr %54, align 8, !tbaa !22
-  %64 = load <2 x i32>, ptr %14, align 4, !tbaa !22
-  store <2 x i32> %64, ptr %9, align 8, !tbaa !22
-  %65 = load i32, ptr %60, align 4, !tbaa !22
-  store i32 %65, ptr %56, align 8, !tbaa !22
-  %66 = load i32, ptr %32, align 4, !tbaa !22
-  %67 = load i32, ptr %51, align 4, !tbaa !22
-  %68 = shl nsw i32 %67, 1
-  store i32 %68, ptr %51, align 4, !tbaa !22
-  %69 = load i32, ptr %34, align 4, !tbaa !22
-  %70 = icmp eq i32 %69, %66
-  %71 = icmp eq i32 %52, 0
-  %72 = select i1 %70, i1 true, i1 %71
-  br i1 %72, label %99, label %73
+  %62 = shl nsw i64 %31, 2
+  %63 = load <2 x i32>, ptr %13, align 4, !tbaa !22
+  store <2 x i32> %63, ptr %7, align 8, !tbaa !22
+  %64 = load i32, ptr %58, align 4, !tbaa !22
+  store i32 %64, ptr %54, align 8, !tbaa !22
+  %65 = load <2 x i32>, ptr %14, align 4, !tbaa !22
+  store <2 x i32> %65, ptr %9, align 8, !tbaa !22
+  %66 = load i32, ptr %60, align 4, !tbaa !22
+  store i32 %66, ptr %56, align 8, !tbaa !22
+  %67 = load i32, ptr %32, align 4, !tbaa !22
+  %68 = load i32, ptr %51, align 4, !tbaa !22
+  %69 = shl nsw i32 %68, 1
+  store i32 %69, ptr %51, align 4, !tbaa !22
+  %70 = load i32, ptr %34, align 4, !tbaa !22
+  %71 = icmp eq i32 %70, %67
+  %72 = icmp eq i32 %52, 0
+  %73 = select i1 %71, i1 true, i1 %72
+  br i1 %73, label %100, label %74
 
-73:                                               ; preds = %4
-  %74 = call i32 @hypre_ProjectBox(ptr noundef nonnull %29, ptr noundef nonnull %7, ptr noundef nonnull %9) #5
-  %75 = call i32 @hypre_StructMapFineToCoarse(ptr noundef nonnull %29, ptr noundef nonnull %7, ptr noundef nonnull %9, ptr noundef nonnull %29) #5
-  %76 = call i32 @hypre_StructMapFineToCoarse(ptr noundef nonnull %30, ptr noundef nonnull %7, ptr noundef nonnull %9, ptr noundef nonnull %30) #5
-  br label %77
+74:                                               ; preds = %4
+  %75 = call i32 @hypre_ProjectBox(ptr noundef nonnull %29, ptr noundef nonnull %7, ptr noundef nonnull %9) #5
+  %76 = call i32 @hypre_StructMapFineToCoarse(ptr noundef nonnull %29, ptr noundef nonnull %7, ptr noundef nonnull %9, ptr noundef nonnull %29) #5
+  %77 = call i32 @hypre_StructMapFineToCoarse(ptr noundef nonnull %30, ptr noundef nonnull %7, ptr noundef nonnull %9, ptr noundef nonnull %30) #5
+  br label %78
 
-77:                                               ; preds = %93, %73
-  %78 = phi i64 [ %98, %93 ], [ 1, %73 ]
-  %79 = phi ptr [ %97, %93 ], [ %48, %73 ]
-  %80 = load ptr, ptr %79, align 8, !tbaa !24
-  %81 = getelementptr inbounds ptr, ptr %49, i64 %78
-  %82 = call i32 @hypre_StructCoarsen(ptr noundef %80, ptr noundef nonnull %7, ptr noundef nonnull %9, i32 noundef 0, ptr noundef nonnull %81) #5
-  %83 = load ptr, ptr %79, align 8, !tbaa !24
-  %84 = getelementptr inbounds ptr, ptr %48, i64 %78
-  %85 = call i32 @hypre_StructCoarsen(ptr noundef %83, ptr noundef nonnull %7, ptr noundef nonnull %9, i32 noundef 1, ptr noundef nonnull %84) #5
+78:                                               ; preds = %94, %74
+  %79 = phi i64 [ %99, %94 ], [ 1, %74 ]
+  %80 = phi ptr [ %98, %94 ], [ %48, %74 ]
+  %81 = load ptr, ptr %80, align 8, !tbaa !24
+  %82 = getelementptr inbounds ptr, ptr %49, i64 %79
+  %83 = call i32 @hypre_StructCoarsen(ptr noundef %81, ptr noundef nonnull %7, ptr noundef nonnull %9, i32 noundef 0, ptr noundef nonnull %82) #5
+  %84 = load ptr, ptr %80, align 8, !tbaa !24
+  %85 = getelementptr inbounds ptr, ptr %48, i64 %79
+  %86 = call i32 @hypre_StructCoarsen(ptr noundef %84, ptr noundef nonnull %7, ptr noundef nonnull %9, i32 noundef 1, ptr noundef nonnull %85) #5
   store i32 0, ptr %7, align 8, !tbaa !22
   store i32 0, ptr %53, align 4, !tbaa !22
   store i32 0, ptr %54, align 8, !tbaa !22
   store i32 1, ptr %9, align 8, !tbaa !22
   store i32 1, ptr %55, align 4, !tbaa !22
   store i32 1, ptr %56, align 8, !tbaa !22
-  %86 = load i32, ptr %32, align 4, !tbaa !22
-  %87 = load i32, ptr %51, align 4, !tbaa !22
-  %88 = shl nsw i32 %87, 1
-  store i32 %88, ptr %51, align 4, !tbaa !22
-  %89 = load i32, ptr %34, align 4, !tbaa !22
-  %90 = icmp eq i32 %89, %86
-  %91 = icmp eq i64 %78, %61
-  %92 = select i1 %90, i1 true, i1 %91
-  br i1 %92, label %99, label %93
+  %87 = load i32, ptr %32, align 4, !tbaa !22
+  %88 = load i32, ptr %51, align 4, !tbaa !22
+  %89 = shl nsw i32 %88, 1
+  store i32 %89, ptr %51, align 4, !tbaa !22
+  %90 = load i32, ptr %34, align 4, !tbaa !22
+  %91 = icmp eq i32 %90, %87
+  %92 = icmp eq i64 %79, %61
+  %93 = select i1 %91, i1 true, i1 %92
+  br i1 %93, label %100, label %94
 
-93:                                               ; preds = %77
-  %94 = call i32 @hypre_ProjectBox(ptr noundef nonnull %29, ptr noundef nonnull %7, ptr noundef nonnull %9) #5
-  %95 = call i32 @hypre_StructMapFineToCoarse(ptr noundef nonnull %29, ptr noundef nonnull %7, ptr noundef nonnull %9, ptr noundef nonnull %29) #5
-  %96 = call i32 @hypre_StructMapFineToCoarse(ptr noundef nonnull %30, ptr noundef nonnull %7, ptr noundef nonnull %9, ptr noundef nonnull %30) #5
-  %97 = getelementptr inbounds ptr, ptr %48, i64 %78
-  %98 = add nuw nsw i64 %78, 1
-  br label %77, !llvm.loop !25
+94:                                               ; preds = %78
+  %95 = call i32 @hypre_ProjectBox(ptr noundef nonnull %29, ptr noundef nonnull %7, ptr noundef nonnull %9) #5
+  %96 = call i32 @hypre_StructMapFineToCoarse(ptr noundef nonnull %29, ptr noundef nonnull %7, ptr noundef nonnull %9, ptr noundef nonnull %29) #5
+  %97 = call i32 @hypre_StructMapFineToCoarse(ptr noundef nonnull %30, ptr noundef nonnull %7, ptr noundef nonnull %9, ptr noundef nonnull %30) #5
+  %98 = getelementptr inbounds ptr, ptr %48, i64 %79
+  %99 = add nuw nsw i64 %79, 1
+  br label %78, !llvm.loop !25
 
-99:                                               ; preds = %77, %4
-  %100 = phi i64 [ 0, %4 ], [ %78, %77 ]
-  %101 = trunc i64 %100 to i32
-  %102 = getelementptr inbounds [3 x i32], ptr %7, i64 0, i64 %31
-  %103 = add nuw nsw i32 %101, 1
-  %104 = call i32 @hypre_BoxDestroy(ptr noundef nonnull %29) #5
-  %105 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 7
-  store i32 %103, ptr %105, align 8, !tbaa !27
-  %106 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 13
-  store ptr %48, ptr %106, align 8, !tbaa !28
-  %107 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 14
-  store ptr %49, ptr %107, align 8, !tbaa !29
-  %108 = shl i32 %103, 3
-  %109 = call ptr @hypre_MAlloc(i32 noundef %108) #5
-  %110 = shl i32 %101, 3
-  %111 = call ptr @hypre_MAlloc(i32 noundef %110) #5
-  %112 = call ptr @hypre_MAlloc(i32 noundef %110) #5
-  %113 = call ptr @hypre_MAlloc(i32 noundef %108) #5
-  %114 = call ptr @hypre_MAlloc(i32 noundef %108) #5
-  %115 = call ptr @hypre_MAlloc(i32 noundef %108) #5
-  %116 = call ptr @hypre_MAlloc(i32 noundef %108) #5
-  %117 = call ptr @hypre_StructMatrixRef(ptr noundef %1) #5
-  store ptr %117, ptr %109, align 8, !tbaa !24
-  %118 = call ptr @hypre_StructVectorRef(ptr noundef %2) #5
-  store ptr %118, ptr %113, align 8, !tbaa !24
-  %119 = call ptr @hypre_StructVectorRef(ptr noundef %3) #5
+100:                                              ; preds = %78, %4
+  %101 = phi i64 [ 0, %4 ], [ %79, %78 ]
+  %102 = getelementptr i8, ptr %7, i64 %62
+  %103 = trunc i64 %101 to i32
+  %104 = add nuw nsw i32 %103, 1
+  %105 = call i32 @hypre_BoxDestroy(ptr noundef nonnull %29) #5
+  %106 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 7
+  store i32 %104, ptr %106, align 8, !tbaa !27
+  %107 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 13
+  store ptr %48, ptr %107, align 8, !tbaa !28
+  %108 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 14
+  store ptr %49, ptr %108, align 8, !tbaa !29
+  %109 = shl i32 %104, 3
+  %110 = call ptr @hypre_MAlloc(i32 noundef %109) #5
+  %111 = shl i32 %103, 3
+  %112 = call ptr @hypre_MAlloc(i32 noundef %111) #5
+  %113 = call ptr @hypre_MAlloc(i32 noundef %111) #5
+  %114 = call ptr @hypre_MAlloc(i32 noundef %109) #5
+  %115 = call ptr @hypre_MAlloc(i32 noundef %109) #5
+  %116 = call ptr @hypre_MAlloc(i32 noundef %109) #5
+  %117 = call ptr @hypre_MAlloc(i32 noundef %109) #5
+  %118 = call ptr @hypre_StructMatrixRef(ptr noundef %1) #5
+  store ptr %118, ptr %110, align 8, !tbaa !24
+  %119 = call ptr @hypre_StructVectorRef(ptr noundef %2) #5
   store ptr %119, ptr %114, align 8, !tbaa !24
-  %120 = icmp sgt i32 %22, 0
-  br i1 %120, label %121, label %150
+  %120 = call ptr @hypre_StructVectorRef(ptr noundef %3) #5
+  store ptr %120, ptr %115, align 8, !tbaa !24
+  %121 = icmp sgt i32 %22, 0
+  br i1 %121, label %122, label %151
 
-121:                                              ; preds = %99
-  %122 = zext i32 %22 to i64
-  %123 = icmp ult i32 %22, 4
-  br i1 %123, label %140, label %124
+122:                                              ; preds = %100
+  %123 = zext i32 %22 to i64
+  %124 = icmp ult i32 %22, 4
+  br i1 %124, label %141, label %125
 
-124:                                              ; preds = %121
-  %125 = and i64 %122, 4294967292
-  br label %126
+125:                                              ; preds = %122
+  %126 = and i64 %123, 4294967292
+  br label %127
 
-126:                                              ; preds = %126, %124
-  %127 = phi i64 [ 0, %124 ], [ %136, %126 ]
-  %128 = shl nuw nsw i64 %127, 1
-  %129 = shl i64 %127, 1
-  %130 = or i64 %128, 1
-  %131 = or i64 %129, 5
-  %132 = getelementptr inbounds [6 x i32], ptr %11, i64 0, i64 %130
+127:                                              ; preds = %127, %125
+  %128 = phi i64 [ 0, %125 ], [ %137, %127 ]
+  %129 = shl nuw nsw i64 %128, 1
+  %130 = shl i64 %128, 1
+  %131 = or i64 %129, 1
+  %132 = or i64 %130, 5
   %133 = getelementptr inbounds [6 x i32], ptr %11, i64 0, i64 %131
-  %134 = getelementptr inbounds i32, ptr %132, i64 -1
+  %134 = getelementptr inbounds [6 x i32], ptr %11, i64 0, i64 %132
   %135 = getelementptr inbounds i32, ptr %133, i64 -1
-  store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr %134, align 16, !tbaa !22
+  %136 = getelementptr inbounds i32, ptr %134, i64 -1
   store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr %135, align 16, !tbaa !22
-  %136 = add nuw i64 %127, 4
-  %137 = icmp eq i64 %136, %125
-  br i1 %137, label %138, label %126, !llvm.loop !30
+  store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr %136, align 16, !tbaa !22
+  %137 = add nuw i64 %128, 4
+  %138 = icmp eq i64 %137, %126
+  br i1 %138, label %139, label %127, !llvm.loop !30
 
-138:                                              ; preds = %126
-  %139 = icmp eq i64 %125, %122
-  br i1 %139, label %150, label %140
+139:                                              ; preds = %127
+  %140 = icmp eq i64 %126, %123
+  br i1 %140, label %151, label %141
 
-140:                                              ; preds = %121, %138
-  %141 = phi i64 [ 0, %121 ], [ %125, %138 ]
-  br label %142
+141:                                              ; preds = %122, %139
+  %142 = phi i64 [ 0, %122 ], [ %126, %139 ]
+  br label %143
 
-142:                                              ; preds = %140, %142
-  %143 = phi i64 [ %148, %142 ], [ %141, %140 ]
-  %144 = shl nuw nsw i64 %143, 1
-  %145 = getelementptr inbounds [6 x i32], ptr %11, i64 0, i64 %144
-  store i32 1, ptr %145, align 8, !tbaa !22
-  %146 = or i64 %144, 1
-  %147 = getelementptr inbounds [6 x i32], ptr %11, i64 0, i64 %146
-  store i32 1, ptr %147, align 4, !tbaa !22
-  %148 = add nuw nsw i64 %143, 1
-  %149 = icmp eq i64 %148, %122
-  br i1 %149, label %150, label %142, !llvm.loop !34
+143:                                              ; preds = %141, %143
+  %144 = phi i64 [ %149, %143 ], [ %142, %141 ]
+  %145 = shl nuw nsw i64 %144, 1
+  %146 = getelementptr inbounds [6 x i32], ptr %11, i64 0, i64 %145
+  store i32 1, ptr %146, align 8, !tbaa !22
+  %147 = or i64 %145, 1
+  %148 = getelementptr inbounds [6 x i32], ptr %11, i64 0, i64 %147
+  store i32 1, ptr %148, align 4, !tbaa !22
+  %149 = add nuw nsw i64 %144, 1
+  %150 = icmp eq i64 %149, %123
+  br i1 %150, label %151, label %143, !llvm.loop !34
 
-150:                                              ; preds = %142, %138, %99
-  %151 = load ptr, ptr %48, align 8, !tbaa !24
-  %152 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %151) #5
-  store ptr %152, ptr %115, align 8, !tbaa !24
-  %153 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %2, i64 0, i32 7
-  %154 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %152, ptr noundef nonnull %153) #5
-  %155 = load ptr, ptr %115, align 8, !tbaa !24
-  %156 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %155) #5
-  %157 = load ptr, ptr %115, align 8, !tbaa !24
-  %158 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %157, i64 0, i32 5
-  %159 = load i32, ptr %158, align 4, !tbaa !35
-  %160 = load ptr, ptr %48, align 8, !tbaa !24
-  %161 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %160) #5
-  store ptr %161, ptr %116, align 8, !tbaa !24
-  %162 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %3, i64 0, i32 7
-  %163 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %161, ptr noundef nonnull %162) #5
-  %164 = load ptr, ptr %116, align 8, !tbaa !24
-  %165 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %164) #5
-  %166 = load ptr, ptr %116, align 8, !tbaa !24
-  %167 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %166, i64 0, i32 5
-  %168 = load i32, ptr %167, align 4, !tbaa !35
-  %169 = add nsw i32 %168, %159
-  %170 = icmp eq i32 %101, 0
-  br i1 %170, label %233, label %171
+151:                                              ; preds = %143, %139, %100
+  %152 = load ptr, ptr %48, align 8, !tbaa !24
+  %153 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %152) #5
+  store ptr %153, ptr %116, align 8, !tbaa !24
+  %154 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %2, i64 0, i32 7
+  %155 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %153, ptr noundef nonnull %154) #5
+  %156 = load ptr, ptr %116, align 8, !tbaa !24
+  %157 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %156) #5
+  %158 = load ptr, ptr %116, align 8, !tbaa !24
+  %159 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %158, i64 0, i32 5
+  %160 = load i32, ptr %159, align 4, !tbaa !35
+  %161 = load ptr, ptr %48, align 8, !tbaa !24
+  %162 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %161) #5
+  store ptr %162, ptr %117, align 8, !tbaa !24
+  %163 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %3, i64 0, i32 7
+  %164 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %162, ptr noundef nonnull %163) #5
+  %165 = load ptr, ptr %117, align 8, !tbaa !24
+  %166 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %165) #5
+  %167 = load ptr, ptr %117, align 8, !tbaa !24
+  %168 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %167, i64 0, i32 5
+  %169 = load i32, ptr %168, align 4, !tbaa !35
+  %170 = add nsw i32 %169, %160
+  %171 = icmp eq i32 %103, 0
+  br i1 %171, label %234, label %172
 
-171:                                              ; preds = %150
-  %172 = and i64 %100, 4294967295
-  br label %173
+172:                                              ; preds = %151
+  %173 = and i64 %101, 4294967295
+  br label %174
 
-173:                                              ; preds = %171, %173
-  %174 = phi i64 [ 0, %171 ], [ %178, %173 ]
-  %175 = phi i32 [ %169, %171 ], [ %219, %173 ]
-  %176 = getelementptr inbounds ptr, ptr %109, i64 %174
-  %177 = load ptr, ptr %176, align 8, !tbaa !24
-  %178 = add nuw nsw i64 %174, 1
-  %179 = getelementptr inbounds ptr, ptr %49, i64 %178
-  %180 = load ptr, ptr %179, align 8, !tbaa !24
-  %181 = call ptr @hypre_SMGCreateInterpOp(ptr noundef %177, ptr noundef %180, i32 noundef %23) #5
-  %182 = getelementptr inbounds ptr, ptr %111, i64 %174
-  store ptr %181, ptr %182, align 8, !tbaa !24
-  %183 = call i32 @hypre_StructMatrixInitializeShell(ptr noundef %181) #5
-  %184 = load ptr, ptr %182, align 8, !tbaa !24
-  %185 = getelementptr inbounds %struct.hypre_StructMatrix_struct, ptr %184, i64 0, i32 8
-  %186 = load i32, ptr %185, align 4, !tbaa !37
-  %187 = add nsw i32 %186, %175
-  %188 = getelementptr inbounds ptr, ptr %112, i64 %174
-  store ptr %184, ptr %188, align 8
-  %189 = load ptr, ptr %176, align 8, !tbaa !24
-  %190 = load ptr, ptr %182, align 8, !tbaa !24
-  %191 = getelementptr inbounds ptr, ptr %48, i64 %178
-  %192 = load ptr, ptr %191, align 8, !tbaa !24
-  %193 = call ptr @hypre_SMGCreateRAPOp(ptr noundef nonnull %184, ptr noundef %189, ptr noundef %190, ptr noundef %192) #5
-  %194 = getelementptr inbounds ptr, ptr %109, i64 %178
-  store ptr %193, ptr %194, align 8, !tbaa !24
-  %195 = call i32 @hypre_StructMatrixInitializeShell(ptr noundef %193) #5
-  %196 = load ptr, ptr %194, align 8, !tbaa !24
-  %197 = getelementptr inbounds %struct.hypre_StructMatrix_struct, ptr %196, i64 0, i32 8
-  %198 = load i32, ptr %197, align 4, !tbaa !37
-  %199 = add nsw i32 %187, %198
-  %200 = load ptr, ptr %191, align 8, !tbaa !24
-  %201 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %200) #5
-  %202 = getelementptr inbounds ptr, ptr %113, i64 %178
-  store ptr %201, ptr %202, align 8, !tbaa !24
-  %203 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %201, ptr noundef nonnull %10) #5
-  %204 = load ptr, ptr %202, align 8, !tbaa !24
-  %205 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %204) #5
-  %206 = load ptr, ptr %202, align 8, !tbaa !24
-  %207 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %206, i64 0, i32 5
-  %208 = load i32, ptr %207, align 4, !tbaa !35
-  %209 = add nsw i32 %199, %208
-  %210 = load ptr, ptr %191, align 8, !tbaa !24
-  %211 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %210) #5
-  %212 = getelementptr inbounds ptr, ptr %114, i64 %178
-  store ptr %211, ptr %212, align 8, !tbaa !24
-  %213 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %211, ptr noundef nonnull %11) #5
-  %214 = load ptr, ptr %212, align 8, !tbaa !24
-  %215 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %214) #5
-  %216 = load ptr, ptr %212, align 8, !tbaa !24
-  %217 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %216, i64 0, i32 5
-  %218 = load i32, ptr %217, align 4, !tbaa !35
-  %219 = add nsw i32 %209, %218
-  %220 = load ptr, ptr %191, align 8, !tbaa !24
-  %221 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %220) #5
-  %222 = getelementptr inbounds ptr, ptr %115, i64 %178
-  store ptr %221, ptr %222, align 8, !tbaa !24
-  %223 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %221, ptr noundef nonnull %153) #5
-  %224 = load ptr, ptr %222, align 8, !tbaa !24
-  %225 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %224) #5
-  %226 = load ptr, ptr %191, align 8, !tbaa !24
-  %227 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %226) #5
-  %228 = getelementptr inbounds ptr, ptr %116, i64 %178
-  store ptr %227, ptr %228, align 8, !tbaa !24
-  %229 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %227, ptr noundef nonnull %162) #5
-  %230 = load ptr, ptr %228, align 8, !tbaa !24
-  %231 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %230) #5
-  %232 = icmp eq i64 %178, %172
-  br i1 %232, label %233, label %173, !llvm.loop !38
+174:                                              ; preds = %172, %174
+  %175 = phi i64 [ 0, %172 ], [ %179, %174 ]
+  %176 = phi i32 [ %170, %172 ], [ %220, %174 ]
+  %177 = getelementptr inbounds ptr, ptr %110, i64 %175
+  %178 = load ptr, ptr %177, align 8, !tbaa !24
+  %179 = add nuw nsw i64 %175, 1
+  %180 = getelementptr inbounds ptr, ptr %49, i64 %179
+  %181 = load ptr, ptr %180, align 8, !tbaa !24
+  %182 = call ptr @hypre_SMGCreateInterpOp(ptr noundef %178, ptr noundef %181, i32 noundef %23) #5
+  %183 = getelementptr inbounds ptr, ptr %112, i64 %175
+  store ptr %182, ptr %183, align 8, !tbaa !24
+  %184 = call i32 @hypre_StructMatrixInitializeShell(ptr noundef %182) #5
+  %185 = load ptr, ptr %183, align 8, !tbaa !24
+  %186 = getelementptr inbounds %struct.hypre_StructMatrix_struct, ptr %185, i64 0, i32 8
+  %187 = load i32, ptr %186, align 4, !tbaa !37
+  %188 = add nsw i32 %187, %176
+  %189 = getelementptr inbounds ptr, ptr %113, i64 %175
+  store ptr %185, ptr %189, align 8
+  %190 = load ptr, ptr %177, align 8, !tbaa !24
+  %191 = load ptr, ptr %183, align 8, !tbaa !24
+  %192 = getelementptr inbounds ptr, ptr %48, i64 %179
+  %193 = load ptr, ptr %192, align 8, !tbaa !24
+  %194 = call ptr @hypre_SMGCreateRAPOp(ptr noundef nonnull %185, ptr noundef %190, ptr noundef %191, ptr noundef %193) #5
+  %195 = getelementptr inbounds ptr, ptr %110, i64 %179
+  store ptr %194, ptr %195, align 8, !tbaa !24
+  %196 = call i32 @hypre_StructMatrixInitializeShell(ptr noundef %194) #5
+  %197 = load ptr, ptr %195, align 8, !tbaa !24
+  %198 = getelementptr inbounds %struct.hypre_StructMatrix_struct, ptr %197, i64 0, i32 8
+  %199 = load i32, ptr %198, align 4, !tbaa !37
+  %200 = add nsw i32 %188, %199
+  %201 = load ptr, ptr %192, align 8, !tbaa !24
+  %202 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %201) #5
+  %203 = getelementptr inbounds ptr, ptr %114, i64 %179
+  store ptr %202, ptr %203, align 8, !tbaa !24
+  %204 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %202, ptr noundef nonnull %10) #5
+  %205 = load ptr, ptr %203, align 8, !tbaa !24
+  %206 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %205) #5
+  %207 = load ptr, ptr %203, align 8, !tbaa !24
+  %208 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %207, i64 0, i32 5
+  %209 = load i32, ptr %208, align 4, !tbaa !35
+  %210 = add nsw i32 %200, %209
+  %211 = load ptr, ptr %192, align 8, !tbaa !24
+  %212 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %211) #5
+  %213 = getelementptr inbounds ptr, ptr %115, i64 %179
+  store ptr %212, ptr %213, align 8, !tbaa !24
+  %214 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %212, ptr noundef nonnull %11) #5
+  %215 = load ptr, ptr %213, align 8, !tbaa !24
+  %216 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %215) #5
+  %217 = load ptr, ptr %213, align 8, !tbaa !24
+  %218 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %217, i64 0, i32 5
+  %219 = load i32, ptr %218, align 4, !tbaa !35
+  %220 = add nsw i32 %210, %219
+  %221 = load ptr, ptr %192, align 8, !tbaa !24
+  %222 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %221) #5
+  %223 = getelementptr inbounds ptr, ptr %116, i64 %179
+  store ptr %222, ptr %223, align 8, !tbaa !24
+  %224 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %222, ptr noundef nonnull %154) #5
+  %225 = load ptr, ptr %223, align 8, !tbaa !24
+  %226 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %225) #5
+  %227 = load ptr, ptr %192, align 8, !tbaa !24
+  %228 = call ptr @hypre_StructVectorCreate(i32 noundef %12, ptr noundef %227) #5
+  %229 = getelementptr inbounds ptr, ptr %117, i64 %179
+  store ptr %228, ptr %229, align 8, !tbaa !24
+  %230 = call i32 @hypre_StructVectorSetNumGhost(ptr noundef %228, ptr noundef nonnull %163) #5
+  %231 = load ptr, ptr %229, align 8, !tbaa !24
+  %232 = call i32 @hypre_StructVectorInitializeShell(ptr noundef %231) #5
+  %233 = icmp eq i64 %179, %173
+  br i1 %233, label %234, label %174, !llvm.loop !38
 
-233:                                              ; preds = %173, %150
-  %234 = phi i32 [ %169, %150 ], [ %219, %173 ]
-  %235 = call ptr @hypre_CAlloc(i32 noundef %234, i32 noundef 8) #5
-  %236 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 15
-  store ptr %235, ptr %236, align 8, !tbaa !39
-  %237 = load ptr, ptr %115, align 8, !tbaa !24
-  %238 = call i32 @hypre_StructVectorInitializeData(ptr noundef %237, ptr noundef %235) #5
-  %239 = load ptr, ptr %115, align 8, !tbaa !24
-  %240 = call i32 @hypre_StructVectorAssemble(ptr noundef %239) #5
-  %241 = load ptr, ptr %115, align 8, !tbaa !24
-  %242 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %241, i64 0, i32 5
-  %243 = load i32, ptr %242, align 4, !tbaa !35
-  %244 = sext i32 %243 to i64
-  %245 = getelementptr inbounds double, ptr %235, i64 %244
-  %246 = load ptr, ptr %116, align 8, !tbaa !24
-  %247 = call i32 @hypre_StructVectorInitializeData(ptr noundef %246, ptr noundef %245) #5
-  %248 = load ptr, ptr %116, align 8, !tbaa !24
-  %249 = call i32 @hypre_StructVectorAssemble(ptr noundef %248) #5
-  br i1 %170, label %314, label %250
+234:                                              ; preds = %174, %151
+  %235 = phi i32 [ %170, %151 ], [ %220, %174 ]
+  %236 = call ptr @hypre_CAlloc(i32 noundef %235, i32 noundef 8) #5
+  %237 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 15
+  store ptr %236, ptr %237, align 8, !tbaa !39
+  %238 = load ptr, ptr %116, align 8, !tbaa !24
+  %239 = call i32 @hypre_StructVectorInitializeData(ptr noundef %238, ptr noundef %236) #5
+  %240 = load ptr, ptr %116, align 8, !tbaa !24
+  %241 = call i32 @hypre_StructVectorAssemble(ptr noundef %240) #5
+  %242 = load ptr, ptr %116, align 8, !tbaa !24
+  %243 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %242, i64 0, i32 5
+  %244 = load i32, ptr %243, align 4, !tbaa !35
+  %245 = sext i32 %244 to i64
+  %246 = getelementptr inbounds double, ptr %236, i64 %245
+  %247 = load ptr, ptr %117, align 8, !tbaa !24
+  %248 = call i32 @hypre_StructVectorInitializeData(ptr noundef %247, ptr noundef %246) #5
+  %249 = load ptr, ptr %117, align 8, !tbaa !24
+  %250 = call i32 @hypre_StructVectorAssemble(ptr noundef %249) #5
+  br i1 %171, label %315, label %251
 
-250:                                              ; preds = %233
-  %251 = load ptr, ptr %116, align 8, !tbaa !24
-  %252 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %251, i64 0, i32 5
-  %253 = load i32, ptr %252, align 4, !tbaa !35
-  %254 = sext i32 %253 to i64
-  %255 = getelementptr inbounds double, ptr %245, i64 %254
-  %256 = and i64 %100, 4294967295
-  br label %257
+251:                                              ; preds = %234
+  %252 = load ptr, ptr %117, align 8, !tbaa !24
+  %253 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %252, i64 0, i32 5
+  %254 = load i32, ptr %253, align 4, !tbaa !35
+  %255 = sext i32 %254 to i64
+  %256 = getelementptr inbounds double, ptr %246, i64 %255
+  %257 = and i64 %101, 4294967295
+  br label %258
 
-257:                                              ; preds = %250, %257
-  %258 = phi i64 [ 0, %250 ], [ %268, %257 ]
-  %259 = phi ptr [ %255, %250 ], [ %296, %257 ]
-  %260 = getelementptr inbounds ptr, ptr %111, i64 %258
-  %261 = load ptr, ptr %260, align 8, !tbaa !24
-  %262 = call i32 @hypre_StructMatrixInitializeData(ptr noundef %261, ptr noundef %259) #5
-  %263 = load ptr, ptr %260, align 8, !tbaa !24
-  %264 = getelementptr inbounds %struct.hypre_StructMatrix_struct, ptr %263, i64 0, i32 8
-  %265 = load i32, ptr %264, align 4, !tbaa !37
-  %266 = sext i32 %265 to i64
-  %267 = getelementptr inbounds double, ptr %259, i64 %266
-  %268 = add nuw nsw i64 %258, 1
-  %269 = getelementptr inbounds ptr, ptr %109, i64 %268
-  %270 = load ptr, ptr %269, align 8, !tbaa !24
-  %271 = call i32 @hypre_StructMatrixInitializeData(ptr noundef %270, ptr noundef %267) #5
-  %272 = load ptr, ptr %269, align 8, !tbaa !24
-  %273 = getelementptr inbounds %struct.hypre_StructMatrix_struct, ptr %272, i64 0, i32 8
-  %274 = load i32, ptr %273, align 4, !tbaa !37
-  %275 = sext i32 %274 to i64
-  %276 = getelementptr inbounds double, ptr %267, i64 %275
-  %277 = getelementptr inbounds ptr, ptr %113, i64 %268
-  %278 = load ptr, ptr %277, align 8, !tbaa !24
-  %279 = call i32 @hypre_StructVectorInitializeData(ptr noundef %278, ptr noundef %276) #5
-  %280 = load ptr, ptr %277, align 8, !tbaa !24
-  %281 = call i32 @hypre_StructVectorAssemble(ptr noundef %280) #5
-  %282 = load ptr, ptr %277, align 8, !tbaa !24
-  %283 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %282, i64 0, i32 5
-  %284 = load i32, ptr %283, align 4, !tbaa !35
-  %285 = sext i32 %284 to i64
-  %286 = getelementptr inbounds double, ptr %276, i64 %285
-  %287 = getelementptr inbounds ptr, ptr %114, i64 %268
-  %288 = load ptr, ptr %287, align 8, !tbaa !24
-  %289 = call i32 @hypre_StructVectorInitializeData(ptr noundef %288, ptr noundef %286) #5
-  %290 = load ptr, ptr %287, align 8, !tbaa !24
-  %291 = call i32 @hypre_StructVectorAssemble(ptr noundef %290) #5
-  %292 = load ptr, ptr %287, align 8, !tbaa !24
-  %293 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %292, i64 0, i32 5
-  %294 = load i32, ptr %293, align 4, !tbaa !35
-  %295 = sext i32 %294 to i64
-  %296 = getelementptr inbounds double, ptr %286, i64 %295
-  %297 = getelementptr inbounds ptr, ptr %115, i64 %268
-  %298 = load ptr, ptr %297, align 8, !tbaa !24
-  %299 = load ptr, ptr %115, align 8, !tbaa !24
-  %300 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %299, i64 0, i32 3
-  %301 = load ptr, ptr %300, align 8, !tbaa !40
-  %302 = call i32 @hypre_StructVectorInitializeData(ptr noundef %298, ptr noundef %301) #5
-  %303 = load ptr, ptr %297, align 8, !tbaa !24
-  %304 = call i32 @hypre_StructVectorAssemble(ptr noundef %303) #5
-  %305 = getelementptr inbounds ptr, ptr %116, i64 %268
-  %306 = load ptr, ptr %305, align 8, !tbaa !24
-  %307 = load ptr, ptr %116, align 8, !tbaa !24
-  %308 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %307, i64 0, i32 3
-  %309 = load ptr, ptr %308, align 8, !tbaa !40
-  %310 = call i32 @hypre_StructVectorInitializeData(ptr noundef %306, ptr noundef %309) #5
-  %311 = load ptr, ptr %305, align 8, !tbaa !24
-  %312 = call i32 @hypre_StructVectorAssemble(ptr noundef %311) #5
-  %313 = icmp eq i64 %268, %256
-  br i1 %313, label %314, label %257, !llvm.loop !41
+258:                                              ; preds = %251, %258
+  %259 = phi i64 [ 0, %251 ], [ %269, %258 ]
+  %260 = phi ptr [ %256, %251 ], [ %297, %258 ]
+  %261 = getelementptr inbounds ptr, ptr %112, i64 %259
+  %262 = load ptr, ptr %261, align 8, !tbaa !24
+  %263 = call i32 @hypre_StructMatrixInitializeData(ptr noundef %262, ptr noundef %260) #5
+  %264 = load ptr, ptr %261, align 8, !tbaa !24
+  %265 = getelementptr inbounds %struct.hypre_StructMatrix_struct, ptr %264, i64 0, i32 8
+  %266 = load i32, ptr %265, align 4, !tbaa !37
+  %267 = sext i32 %266 to i64
+  %268 = getelementptr inbounds double, ptr %260, i64 %267
+  %269 = add nuw nsw i64 %259, 1
+  %270 = getelementptr inbounds ptr, ptr %110, i64 %269
+  %271 = load ptr, ptr %270, align 8, !tbaa !24
+  %272 = call i32 @hypre_StructMatrixInitializeData(ptr noundef %271, ptr noundef %268) #5
+  %273 = load ptr, ptr %270, align 8, !tbaa !24
+  %274 = getelementptr inbounds %struct.hypre_StructMatrix_struct, ptr %273, i64 0, i32 8
+  %275 = load i32, ptr %274, align 4, !tbaa !37
+  %276 = sext i32 %275 to i64
+  %277 = getelementptr inbounds double, ptr %268, i64 %276
+  %278 = getelementptr inbounds ptr, ptr %114, i64 %269
+  %279 = load ptr, ptr %278, align 8, !tbaa !24
+  %280 = call i32 @hypre_StructVectorInitializeData(ptr noundef %279, ptr noundef %277) #5
+  %281 = load ptr, ptr %278, align 8, !tbaa !24
+  %282 = call i32 @hypre_StructVectorAssemble(ptr noundef %281) #5
+  %283 = load ptr, ptr %278, align 8, !tbaa !24
+  %284 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %283, i64 0, i32 5
+  %285 = load i32, ptr %284, align 4, !tbaa !35
+  %286 = sext i32 %285 to i64
+  %287 = getelementptr inbounds double, ptr %277, i64 %286
+  %288 = getelementptr inbounds ptr, ptr %115, i64 %269
+  %289 = load ptr, ptr %288, align 8, !tbaa !24
+  %290 = call i32 @hypre_StructVectorInitializeData(ptr noundef %289, ptr noundef %287) #5
+  %291 = load ptr, ptr %288, align 8, !tbaa !24
+  %292 = call i32 @hypre_StructVectorAssemble(ptr noundef %291) #5
+  %293 = load ptr, ptr %288, align 8, !tbaa !24
+  %294 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %293, i64 0, i32 5
+  %295 = load i32, ptr %294, align 4, !tbaa !35
+  %296 = sext i32 %295 to i64
+  %297 = getelementptr inbounds double, ptr %287, i64 %296
+  %298 = getelementptr inbounds ptr, ptr %116, i64 %269
+  %299 = load ptr, ptr %298, align 8, !tbaa !24
+  %300 = load ptr, ptr %116, align 8, !tbaa !24
+  %301 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %300, i64 0, i32 3
+  %302 = load ptr, ptr %301, align 8, !tbaa !40
+  %303 = call i32 @hypre_StructVectorInitializeData(ptr noundef %299, ptr noundef %302) #5
+  %304 = load ptr, ptr %298, align 8, !tbaa !24
+  %305 = call i32 @hypre_StructVectorAssemble(ptr noundef %304) #5
+  %306 = getelementptr inbounds ptr, ptr %117, i64 %269
+  %307 = load ptr, ptr %306, align 8, !tbaa !24
+  %308 = load ptr, ptr %117, align 8, !tbaa !24
+  %309 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %308, i64 0, i32 3
+  %310 = load ptr, ptr %309, align 8, !tbaa !40
+  %311 = call i32 @hypre_StructVectorInitializeData(ptr noundef %307, ptr noundef %310) #5
+  %312 = load ptr, ptr %306, align 8, !tbaa !24
+  %313 = call i32 @hypre_StructVectorAssemble(ptr noundef %312) #5
+  %314 = icmp eq i64 %269, %257
+  br i1 %314, label %315, label %258, !llvm.loop !41
 
-314:                                              ; preds = %257, %233
-  %315 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 16
-  store ptr %109, ptr %315, align 8, !tbaa !42
-  %316 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 17
-  store ptr %111, ptr %316, align 8, !tbaa !43
-  %317 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 18
-  store ptr %112, ptr %317, align 8, !tbaa !44
-  %318 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 19
-  store ptr %113, ptr %318, align 8, !tbaa !45
-  %319 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 20
-  store ptr %114, ptr %319, align 8, !tbaa !46
-  %320 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 21
-  store ptr %115, ptr %320, align 8, !tbaa !47
-  %321 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 22
-  store ptr %116, ptr %321, align 8, !tbaa !48
-  %322 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 23
-  store ptr %116, ptr %322, align 8, !tbaa !49
-  %323 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 24
-  store ptr %116, ptr %323, align 8, !tbaa !50
-  %324 = call ptr @hypre_MAlloc(i32 noundef %108) #5
-  %325 = call ptr @hypre_MAlloc(i32 noundef %108) #5
-  %326 = call ptr @hypre_MAlloc(i32 noundef %108) #5
-  %327 = call ptr @hypre_MAlloc(i32 noundef %108) #5
-  %328 = load ptr, ptr %113, align 8, !tbaa !24
-  %329 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %328, i64 0, i32 3
-  %330 = load ptr, ptr %329, align 8, !tbaa !40
-  %331 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %328, i64 0, i32 4
-  %332 = load i32, ptr %331, align 8, !tbaa !51
-  %333 = load ptr, ptr %114, align 8, !tbaa !24
-  %334 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %333, i64 0, i32 3
-  %335 = load ptr, ptr %334, align 8, !tbaa !40
-  %336 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %333, i64 0, i32 4
-  %337 = load i32, ptr %336, align 8, !tbaa !51
-  %338 = load ptr, ptr %115, align 8, !tbaa !24
-  %339 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %338, i64 0, i32 3
-  %340 = load ptr, ptr %339, align 8, !tbaa !40
-  %341 = call i32 @hypre_StructVectorInitializeData(ptr noundef %328, ptr noundef %340) #5
-  %342 = load ptr, ptr %114, align 8, !tbaa !24
-  %343 = load ptr, ptr %116, align 8, !tbaa !24
-  %344 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %343, i64 0, i32 3
-  %345 = load ptr, ptr %344, align 8, !tbaa !40
-  %346 = call i32 @hypre_StructVectorInitializeData(ptr noundef %342, ptr noundef %345) #5
-  %347 = load ptr, ptr %113, align 8, !tbaa !24
-  %348 = call i32 @hypre_StructVectorAssemble(ptr noundef %347) #5
-  %349 = load ptr, ptr %114, align 8, !tbaa !24
-  %350 = call i32 @hypre_StructVectorAssemble(ptr noundef %349) #5
-  br i1 %170, label %466, label %351
+315:                                              ; preds = %258, %234
+  %316 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 16
+  store ptr %110, ptr %316, align 8, !tbaa !42
+  %317 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 17
+  store ptr %112, ptr %317, align 8, !tbaa !43
+  %318 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 18
+  store ptr %113, ptr %318, align 8, !tbaa !44
+  %319 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 19
+  store ptr %114, ptr %319, align 8, !tbaa !45
+  %320 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 20
+  store ptr %115, ptr %320, align 8, !tbaa !46
+  %321 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 21
+  store ptr %116, ptr %321, align 8, !tbaa !47
+  %322 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 22
+  store ptr %117, ptr %322, align 8, !tbaa !48
+  %323 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 23
+  store ptr %117, ptr %323, align 8, !tbaa !49
+  %324 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 24
+  store ptr %117, ptr %324, align 8, !tbaa !50
+  %325 = call ptr @hypre_MAlloc(i32 noundef %109) #5
+  %326 = call ptr @hypre_MAlloc(i32 noundef %109) #5
+  %327 = call ptr @hypre_MAlloc(i32 noundef %109) #5
+  %328 = call ptr @hypre_MAlloc(i32 noundef %109) #5
+  %329 = load ptr, ptr %114, align 8, !tbaa !24
+  %330 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %329, i64 0, i32 3
+  %331 = load ptr, ptr %330, align 8, !tbaa !40
+  %332 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %329, i64 0, i32 4
+  %333 = load i32, ptr %332, align 8, !tbaa !51
+  %334 = load ptr, ptr %115, align 8, !tbaa !24
+  %335 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %334, i64 0, i32 3
+  %336 = load ptr, ptr %335, align 8, !tbaa !40
+  %337 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %334, i64 0, i32 4
+  %338 = load i32, ptr %337, align 8, !tbaa !51
+  %339 = load ptr, ptr %116, align 8, !tbaa !24
+  %340 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %339, i64 0, i32 3
+  %341 = load ptr, ptr %340, align 8, !tbaa !40
+  %342 = call i32 @hypre_StructVectorInitializeData(ptr noundef %329, ptr noundef %341) #5
+  %343 = load ptr, ptr %115, align 8, !tbaa !24
+  %344 = load ptr, ptr %117, align 8, !tbaa !24
+  %345 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %344, i64 0, i32 3
+  %346 = load ptr, ptr %345, align 8, !tbaa !40
+  %347 = call i32 @hypre_StructVectorInitializeData(ptr noundef %343, ptr noundef %346) #5
+  %348 = load ptr, ptr %114, align 8, !tbaa !24
+  %349 = call i32 @hypre_StructVectorAssemble(ptr noundef %348) #5
+  %350 = load ptr, ptr %115, align 8, !tbaa !24
+  %351 = call i32 @hypre_StructVectorAssemble(ptr noundef %350) #5
+  br i1 %171, label %467, label %352
 
-351:                                              ; preds = %314
-  %352 = getelementptr inbounds [3 x i32], ptr %5, i64 0, i64 1
-  %353 = getelementptr inbounds [3 x i32], ptr %5, i64 0, i64 2
-  %354 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 1
-  %355 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 2
-  %356 = getelementptr inbounds [3 x i32], ptr %8, i64 0, i64 1
-  %357 = getelementptr inbounds [3 x i32], ptr %8, i64 0, i64 2
-  %358 = getelementptr inbounds [3 x i32], ptr %8, i64 0, i64 %31
-  %359 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 1
-  %360 = and i64 %100, 4294967295
-  br label %361
+352:                                              ; preds = %315
+  %353 = getelementptr inbounds [3 x i32], ptr %5, i64 0, i64 1
+  %354 = getelementptr inbounds [3 x i32], ptr %5, i64 0, i64 2
+  %355 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 1
+  %356 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 2
+  %357 = getelementptr inbounds [3 x i32], ptr %8, i64 0, i64 1
+  %358 = getelementptr inbounds [3 x i32], ptr %8, i64 0, i64 2
+  %359 = getelementptr inbounds [3 x i32], ptr %8, i64 0, i64 %31
+  %360 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 1
+  %361 = and i64 %101, 4294967295
+  br label %362
 
-361:                                              ; preds = %351, %372
-  %362 = phi i64 [ 0, %351 ], [ %446, %372 ]
-  %363 = icmp eq i64 %362, 0
-  br i1 %363, label %365, label %364
+362:                                              ; preds = %352, %373
+  %363 = phi i64 [ 0, %352 ], [ %447, %373 ]
+  %364 = icmp eq i64 %363, 0
+  br i1 %364, label %366, label %365
 
-364:                                              ; preds = %361
+365:                                              ; preds = %362
   store i32 0, ptr %5, align 8, !tbaa !22
-  store i32 0, ptr %352, align 4, !tbaa !22
-  store i32 0, ptr %353, align 8, !tbaa !22
+  store i32 0, ptr %353, align 4, !tbaa !22
+  store i32 0, ptr %354, align 8, !tbaa !22
   store i32 1, ptr %6, align 8, !tbaa !22
-  store i32 1, ptr %354, align 4, !tbaa !22
-  br label %372
+  store i32 1, ptr %355, align 4, !tbaa !22
+  br label %373
 
-365:                                              ; preds = %361
-  %366 = load i32, ptr %13, align 4, !tbaa !22
-  store i32 %366, ptr %5, align 8, !tbaa !22
-  %367 = load i32, ptr %57, align 4, !tbaa !22
-  store i32 %367, ptr %352, align 4, !tbaa !22
-  %368 = load i32, ptr %58, align 4, !tbaa !22
-  store i32 %368, ptr %353, align 8, !tbaa !22
-  %369 = load i32, ptr %14, align 4, !tbaa !22
-  store i32 %369, ptr %6, align 8, !tbaa !22
-  %370 = load i32, ptr %59, align 4, !tbaa !22
-  store i32 %370, ptr %354, align 4, !tbaa !22
-  %371 = load i32, ptr %60, align 4, !tbaa !22
-  br label %372
+366:                                              ; preds = %362
+  %367 = load i32, ptr %13, align 4, !tbaa !22
+  store i32 %367, ptr %5, align 8, !tbaa !22
+  %368 = load i32, ptr %57, align 4, !tbaa !22
+  store i32 %368, ptr %353, align 4, !tbaa !22
+  %369 = load i32, ptr %58, align 4, !tbaa !22
+  store i32 %369, ptr %354, align 8, !tbaa !22
+  %370 = load i32, ptr %14, align 4, !tbaa !22
+  store i32 %370, ptr %6, align 8, !tbaa !22
+  %371 = load i32, ptr %59, align 4, !tbaa !22
+  store i32 %371, ptr %355, align 4, !tbaa !22
+  %372 = load i32, ptr %60, align 4, !tbaa !22
+  br label %373
 
-372:                                              ; preds = %365, %364
-  %373 = phi i32 [ 0, %364 ], [ %366, %365 ]
-  %374 = phi i32 [ 0, %364 ], [ %367, %365 ]
-  %375 = phi i32 [ 0, %364 ], [ %368, %365 ]
-  %376 = phi i32 [ 1, %364 ], [ %369, %365 ]
-  %377 = phi i32 [ 1, %364 ], [ %370, %365 ]
-  %378 = phi i32 [ 1, %364 ], [ %371, %365 ]
-  store i32 %378, ptr %355, align 8, !tbaa !22
-  store i32 %373, ptr %7, align 8, !tbaa !22
-  store i32 %374, ptr %53, align 4, !tbaa !22
-  store i32 %375, ptr %54, align 8, !tbaa !22
-  store i32 %373, ptr %8, align 4, !tbaa !22
-  store i32 %374, ptr %356, align 4, !tbaa !22
+373:                                              ; preds = %366, %365
+  %374 = phi i32 [ 0, %365 ], [ %367, %366 ]
+  %375 = phi i32 [ 0, %365 ], [ %368, %366 ]
+  %376 = phi i32 [ 0, %365 ], [ %369, %366 ]
+  %377 = phi i32 [ 1, %365 ], [ %370, %366 ]
+  %378 = phi i32 [ 1, %365 ], [ %371, %366 ]
+  %379 = phi i32 [ 1, %365 ], [ %372, %366 ]
+  store i32 %379, ptr %356, align 8, !tbaa !22
+  store i32 %374, ptr %7, align 8, !tbaa !22
+  store i32 %375, ptr %53, align 4, !tbaa !22
+  store i32 %376, ptr %54, align 8, !tbaa !22
+  store i32 %374, ptr %8, align 4, !tbaa !22
   store i32 %375, ptr %357, align 4, !tbaa !22
-  %379 = load i32, ptr %358, align 4, !tbaa !22
-  %380 = add nsw i32 %379, 1
-  store i32 %380, ptr %358, align 4, !tbaa !22
-  store i32 %376, ptr %9, align 8, !tbaa !22
-  store i32 %377, ptr %55, align 4, !tbaa !22
-  store i32 %378, ptr %56, align 8, !tbaa !22
-  %381 = load i32, ptr %51, align 4, !tbaa !22
-  %382 = shl nsw i32 %381, 1
-  store i32 %382, ptr %51, align 4, !tbaa !22
-  %383 = call ptr @hypre_SMGRelaxCreate(i32 noundef %12) #5
-  %384 = getelementptr inbounds ptr, ptr %324, i64 %362
-  store ptr %383, ptr %384, align 8, !tbaa !24
-  %385 = call i32 @hypre_SMGRelaxSetBase(ptr noundef %383, ptr noundef nonnull %5, ptr noundef nonnull %6) #5
-  %386 = load ptr, ptr %384, align 8, !tbaa !24
-  %387 = load i32, ptr %359, align 4, !tbaa !52
-  %388 = call i32 @hypre_SMGRelaxSetMemoryUse(ptr noundef %386, i32 noundef %387) #5
-  %389 = load ptr, ptr %384, align 8, !tbaa !24
-  %390 = call i32 @hypre_SMGRelaxSetTol(ptr noundef %389, double noundef 0.000000e+00) #5
-  %391 = load ptr, ptr %384, align 8, !tbaa !24
-  %392 = call i32 @hypre_SMGRelaxSetNumSpaces(ptr noundef %391, i32 noundef 2) #5
-  %393 = load ptr, ptr %384, align 8, !tbaa !24
-  %394 = load i32, ptr %102, align 4, !tbaa !22
-  %395 = load i32, ptr %51, align 4, !tbaa !22
-  %396 = call i32 @hypre_SMGRelaxSetSpace(ptr noundef %393, i32 noundef 0, i32 noundef %394, i32 noundef %395) #5
-  %397 = load ptr, ptr %384, align 8, !tbaa !24
-  %398 = load i32, ptr %358, align 4, !tbaa !22
-  %399 = load i32, ptr %51, align 4, !tbaa !22
-  %400 = call i32 @hypre_SMGRelaxSetSpace(ptr noundef %397, i32 noundef 1, i32 noundef %398, i32 noundef %399) #5
-  %401 = load ptr, ptr %384, align 8, !tbaa !24
-  %402 = getelementptr inbounds ptr, ptr %115, i64 %362
-  %403 = load ptr, ptr %402, align 8, !tbaa !24
-  %404 = call i32 @hypre_SMGRelaxSetTempVec(ptr noundef %401, ptr noundef %403) #5
-  %405 = load ptr, ptr %384, align 8, !tbaa !24
-  %406 = call i32 @hypre_SMGRelaxSetNumPreRelax(ptr noundef %405, i32 noundef %16) #5
-  %407 = load ptr, ptr %384, align 8, !tbaa !24
-  %408 = call i32 @hypre_SMGRelaxSetNumPostRelax(ptr noundef %407, i32 noundef %18) #5
-  %409 = load ptr, ptr %384, align 8, !tbaa !24
-  %410 = getelementptr inbounds ptr, ptr %109, i64 %362
-  %411 = load ptr, ptr %410, align 8, !tbaa !24
-  %412 = getelementptr inbounds ptr, ptr %113, i64 %362
-  %413 = load ptr, ptr %412, align 8, !tbaa !24
-  %414 = getelementptr inbounds ptr, ptr %114, i64 %362
-  %415 = load ptr, ptr %414, align 8, !tbaa !24
-  %416 = call i32 @hypre_SMGRelaxSetup(ptr noundef %409, ptr noundef %411, ptr noundef %413, ptr noundef %415) #5
-  %417 = load ptr, ptr %384, align 8, !tbaa !24
-  %418 = load ptr, ptr %410, align 8, !tbaa !24
-  %419 = load ptr, ptr %412, align 8, !tbaa !24
-  %420 = load ptr, ptr %414, align 8, !tbaa !24
-  %421 = getelementptr inbounds ptr, ptr %111, i64 %362
-  %422 = load ptr, ptr %421, align 8, !tbaa !24
-  %423 = call i32 @hypre_SMGSetupInterpOp(ptr noundef %417, ptr noundef %418, ptr noundef %419, ptr noundef %420, ptr noundef %422, i32 noundef %23, ptr noundef nonnull %7, ptr noundef nonnull %8, ptr noundef nonnull %9) #5
-  %424 = load ptr, ptr %384, align 8, !tbaa !24
-  %425 = call i32 @hypre_SMGRelaxSetNumPreSpaces(ptr noundef %424, i32 noundef 0) #5
-  %426 = load ptr, ptr %384, align 8, !tbaa !24
-  %427 = call i32 @hypre_SMGRelaxSetNumRegSpaces(ptr noundef %426, i32 noundef 2) #5
-  %428 = load ptr, ptr %384, align 8, !tbaa !24
-  %429 = load ptr, ptr %410, align 8, !tbaa !24
-  %430 = load ptr, ptr %412, align 8, !tbaa !24
-  %431 = load ptr, ptr %414, align 8, !tbaa !24
-  %432 = call i32 @hypre_SMGRelaxSetup(ptr noundef %428, ptr noundef %429, ptr noundef %430, ptr noundef %431) #5
-  %433 = call ptr @hypre_SMGResidualCreate() #5
-  %434 = getelementptr inbounds ptr, ptr %325, i64 %362
-  store ptr %433, ptr %434, align 8, !tbaa !24
-  %435 = call i32 @hypre_SMGResidualSetBase(ptr noundef %433, ptr noundef nonnull %5, ptr noundef nonnull %6) #5
-  %436 = load ptr, ptr %434, align 8, !tbaa !24
-  %437 = load ptr, ptr %410, align 8, !tbaa !24
-  %438 = load ptr, ptr %414, align 8, !tbaa !24
-  %439 = load ptr, ptr %412, align 8, !tbaa !24
-  %440 = getelementptr inbounds ptr, ptr %116, i64 %362
-  %441 = load ptr, ptr %440, align 8, !tbaa !24
-  %442 = call i32 @hypre_SMGResidualSetup(ptr noundef %436, ptr noundef %437, ptr noundef %438, ptr noundef %439, ptr noundef %441) #5
-  %443 = call ptr @hypre_SemiInterpCreate() #5
-  %444 = getelementptr inbounds ptr, ptr %327, i64 %362
-  store ptr %443, ptr %444, align 8, !tbaa !24
-  %445 = load ptr, ptr %421, align 8, !tbaa !24
-  %446 = add nuw nsw i64 %362, 1
-  %447 = getelementptr inbounds ptr, ptr %114, i64 %446
-  %448 = load ptr, ptr %447, align 8, !tbaa !24
-  %449 = load ptr, ptr %440, align 8, !tbaa !24
-  %450 = call i32 @hypre_SemiInterpSetup(ptr noundef %443, ptr noundef %445, i32 noundef 1, ptr noundef %448, ptr noundef %449, ptr noundef nonnull %7, ptr noundef nonnull %8, ptr noundef nonnull %9) #5
-  %451 = call ptr @hypre_SemiRestrictCreate() #5
-  %452 = getelementptr inbounds ptr, ptr %326, i64 %362
-  store ptr %451, ptr %452, align 8, !tbaa !24
-  %453 = getelementptr inbounds ptr, ptr %112, i64 %362
-  %454 = load ptr, ptr %453, align 8, !tbaa !24
-  %455 = load ptr, ptr %440, align 8, !tbaa !24
-  %456 = getelementptr inbounds ptr, ptr %113, i64 %446
-  %457 = load ptr, ptr %456, align 8, !tbaa !24
-  %458 = call i32 @hypre_SemiRestrictSetup(ptr noundef %451, ptr noundef %454, i32 noundef 0, ptr noundef %455, ptr noundef %457, ptr noundef nonnull %7, ptr noundef nonnull %8, ptr noundef nonnull %9) #5
-  %459 = load ptr, ptr %453, align 8, !tbaa !24
-  %460 = load ptr, ptr %410, align 8, !tbaa !24
-  %461 = load ptr, ptr %421, align 8, !tbaa !24
-  %462 = getelementptr inbounds ptr, ptr %109, i64 %446
-  %463 = load ptr, ptr %462, align 8, !tbaa !24
-  %464 = call i32 @hypre_SMGSetupRAPOp(ptr noundef %459, ptr noundef %460, ptr noundef %461, ptr noundef %463, ptr noundef nonnull %7, ptr noundef nonnull %9) #5
-  %465 = icmp eq i64 %446, %360
-  br i1 %465, label %471, label %361, !llvm.loop !53
+  store i32 %376, ptr %358, align 4, !tbaa !22
+  %380 = load i32, ptr %359, align 4, !tbaa !22
+  %381 = add nsw i32 %380, 1
+  store i32 %381, ptr %359, align 4, !tbaa !22
+  store i32 %377, ptr %9, align 8, !tbaa !22
+  store i32 %378, ptr %55, align 4, !tbaa !22
+  store i32 %379, ptr %56, align 8, !tbaa !22
+  %382 = load i32, ptr %51, align 4, !tbaa !22
+  %383 = shl nsw i32 %382, 1
+  store i32 %383, ptr %51, align 4, !tbaa !22
+  %384 = call ptr @hypre_SMGRelaxCreate(i32 noundef %12) #5
+  %385 = getelementptr inbounds ptr, ptr %325, i64 %363
+  store ptr %384, ptr %385, align 8, !tbaa !24
+  %386 = call i32 @hypre_SMGRelaxSetBase(ptr noundef %384, ptr noundef nonnull %5, ptr noundef nonnull %6) #5
+  %387 = load ptr, ptr %385, align 8, !tbaa !24
+  %388 = load i32, ptr %360, align 4, !tbaa !52
+  %389 = call i32 @hypre_SMGRelaxSetMemoryUse(ptr noundef %387, i32 noundef %388) #5
+  %390 = load ptr, ptr %385, align 8, !tbaa !24
+  %391 = call i32 @hypre_SMGRelaxSetTol(ptr noundef %390, double noundef 0.000000e+00) #5
+  %392 = load ptr, ptr %385, align 8, !tbaa !24
+  %393 = call i32 @hypre_SMGRelaxSetNumSpaces(ptr noundef %392, i32 noundef 2) #5
+  %394 = load ptr, ptr %385, align 8, !tbaa !24
+  %395 = load i32, ptr %102, align 4, !tbaa !22
+  %396 = load i32, ptr %51, align 4, !tbaa !22
+  %397 = call i32 @hypre_SMGRelaxSetSpace(ptr noundef %394, i32 noundef 0, i32 noundef %395, i32 noundef %396) #5
+  %398 = load ptr, ptr %385, align 8, !tbaa !24
+  %399 = load i32, ptr %359, align 4, !tbaa !22
+  %400 = load i32, ptr %51, align 4, !tbaa !22
+  %401 = call i32 @hypre_SMGRelaxSetSpace(ptr noundef %398, i32 noundef 1, i32 noundef %399, i32 noundef %400) #5
+  %402 = load ptr, ptr %385, align 8, !tbaa !24
+  %403 = getelementptr inbounds ptr, ptr %116, i64 %363
+  %404 = load ptr, ptr %403, align 8, !tbaa !24
+  %405 = call i32 @hypre_SMGRelaxSetTempVec(ptr noundef %402, ptr noundef %404) #5
+  %406 = load ptr, ptr %385, align 8, !tbaa !24
+  %407 = call i32 @hypre_SMGRelaxSetNumPreRelax(ptr noundef %406, i32 noundef %16) #5
+  %408 = load ptr, ptr %385, align 8, !tbaa !24
+  %409 = call i32 @hypre_SMGRelaxSetNumPostRelax(ptr noundef %408, i32 noundef %18) #5
+  %410 = load ptr, ptr %385, align 8, !tbaa !24
+  %411 = getelementptr inbounds ptr, ptr %110, i64 %363
+  %412 = load ptr, ptr %411, align 8, !tbaa !24
+  %413 = getelementptr inbounds ptr, ptr %114, i64 %363
+  %414 = load ptr, ptr %413, align 8, !tbaa !24
+  %415 = getelementptr inbounds ptr, ptr %115, i64 %363
+  %416 = load ptr, ptr %415, align 8, !tbaa !24
+  %417 = call i32 @hypre_SMGRelaxSetup(ptr noundef %410, ptr noundef %412, ptr noundef %414, ptr noundef %416) #5
+  %418 = load ptr, ptr %385, align 8, !tbaa !24
+  %419 = load ptr, ptr %411, align 8, !tbaa !24
+  %420 = load ptr, ptr %413, align 8, !tbaa !24
+  %421 = load ptr, ptr %415, align 8, !tbaa !24
+  %422 = getelementptr inbounds ptr, ptr %112, i64 %363
+  %423 = load ptr, ptr %422, align 8, !tbaa !24
+  %424 = call i32 @hypre_SMGSetupInterpOp(ptr noundef %418, ptr noundef %419, ptr noundef %420, ptr noundef %421, ptr noundef %423, i32 noundef %23, ptr noundef nonnull %7, ptr noundef nonnull %8, ptr noundef nonnull %9) #5
+  %425 = load ptr, ptr %385, align 8, !tbaa !24
+  %426 = call i32 @hypre_SMGRelaxSetNumPreSpaces(ptr noundef %425, i32 noundef 0) #5
+  %427 = load ptr, ptr %385, align 8, !tbaa !24
+  %428 = call i32 @hypre_SMGRelaxSetNumRegSpaces(ptr noundef %427, i32 noundef 2) #5
+  %429 = load ptr, ptr %385, align 8, !tbaa !24
+  %430 = load ptr, ptr %411, align 8, !tbaa !24
+  %431 = load ptr, ptr %413, align 8, !tbaa !24
+  %432 = load ptr, ptr %415, align 8, !tbaa !24
+  %433 = call i32 @hypre_SMGRelaxSetup(ptr noundef %429, ptr noundef %430, ptr noundef %431, ptr noundef %432) #5
+  %434 = call ptr @hypre_SMGResidualCreate() #5
+  %435 = getelementptr inbounds ptr, ptr %326, i64 %363
+  store ptr %434, ptr %435, align 8, !tbaa !24
+  %436 = call i32 @hypre_SMGResidualSetBase(ptr noundef %434, ptr noundef nonnull %5, ptr noundef nonnull %6) #5
+  %437 = load ptr, ptr %435, align 8, !tbaa !24
+  %438 = load ptr, ptr %411, align 8, !tbaa !24
+  %439 = load ptr, ptr %415, align 8, !tbaa !24
+  %440 = load ptr, ptr %413, align 8, !tbaa !24
+  %441 = getelementptr inbounds ptr, ptr %117, i64 %363
+  %442 = load ptr, ptr %441, align 8, !tbaa !24
+  %443 = call i32 @hypre_SMGResidualSetup(ptr noundef %437, ptr noundef %438, ptr noundef %439, ptr noundef %440, ptr noundef %442) #5
+  %444 = call ptr @hypre_SemiInterpCreate() #5
+  %445 = getelementptr inbounds ptr, ptr %328, i64 %363
+  store ptr %444, ptr %445, align 8, !tbaa !24
+  %446 = load ptr, ptr %422, align 8, !tbaa !24
+  %447 = add nuw nsw i64 %363, 1
+  %448 = getelementptr inbounds ptr, ptr %115, i64 %447
+  %449 = load ptr, ptr %448, align 8, !tbaa !24
+  %450 = load ptr, ptr %441, align 8, !tbaa !24
+  %451 = call i32 @hypre_SemiInterpSetup(ptr noundef %444, ptr noundef %446, i32 noundef 1, ptr noundef %449, ptr noundef %450, ptr noundef nonnull %7, ptr noundef nonnull %8, ptr noundef nonnull %9) #5
+  %452 = call ptr @hypre_SemiRestrictCreate() #5
+  %453 = getelementptr inbounds ptr, ptr %327, i64 %363
+  store ptr %452, ptr %453, align 8, !tbaa !24
+  %454 = getelementptr inbounds ptr, ptr %113, i64 %363
+  %455 = load ptr, ptr %454, align 8, !tbaa !24
+  %456 = load ptr, ptr %441, align 8, !tbaa !24
+  %457 = getelementptr inbounds ptr, ptr %114, i64 %447
+  %458 = load ptr, ptr %457, align 8, !tbaa !24
+  %459 = call i32 @hypre_SemiRestrictSetup(ptr noundef %452, ptr noundef %455, i32 noundef 0, ptr noundef %456, ptr noundef %458, ptr noundef nonnull %7, ptr noundef nonnull %8, ptr noundef nonnull %9) #5
+  %460 = load ptr, ptr %454, align 8, !tbaa !24
+  %461 = load ptr, ptr %411, align 8, !tbaa !24
+  %462 = load ptr, ptr %422, align 8, !tbaa !24
+  %463 = getelementptr inbounds ptr, ptr %110, i64 %447
+  %464 = load ptr, ptr %463, align 8, !tbaa !24
+  %465 = call i32 @hypre_SMGSetupRAPOp(ptr noundef %460, ptr noundef %461, ptr noundef %462, ptr noundef %464, ptr noundef nonnull %7, ptr noundef nonnull %9) #5
+  %466 = icmp eq i64 %447, %361
+  br i1 %466, label %472, label %362, !llvm.loop !53
 
-466:                                              ; preds = %314
-  %467 = load <2 x i32>, ptr %13, align 4, !tbaa !22
-  %468 = load i32, ptr %58, align 4, !tbaa !22
-  %469 = load <2 x i32>, ptr %14, align 4, !tbaa !22
-  %470 = load i32, ptr %60, align 4, !tbaa !22
-  br label %471
+467:                                              ; preds = %315
+  %468 = load <2 x i32>, ptr %13, align 4, !tbaa !22
+  %469 = load i32, ptr %58, align 4, !tbaa !22
+  %470 = load <2 x i32>, ptr %14, align 4, !tbaa !22
+  %471 = load i32, ptr %60, align 4, !tbaa !22
+  br label %472
 
-471:                                              ; preds = %372, %466
-  %472 = phi i64 [ 0, %466 ], [ %100, %372 ]
-  %473 = phi i32 [ %468, %466 ], [ 0, %372 ]
-  %474 = phi i32 [ %470, %466 ], [ 1, %372 ]
-  %475 = phi <2 x i32> [ %467, %466 ], [ zeroinitializer, %372 ]
-  %476 = phi <2 x i32> [ %469, %466 ], [ <i32 1, i32 1>, %372 ]
-  store <2 x i32> %475, ptr %5, align 8
-  %477 = getelementptr inbounds [3 x i32], ptr %5, i64 0, i64 2
-  store i32 %473, ptr %477, align 8
-  store <2 x i32> %476, ptr %6, align 8
-  %478 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 2
+472:                                              ; preds = %373, %467
+  %473 = phi i64 [ 0, %467 ], [ %101, %373 ]
+  %474 = phi i32 [ %469, %467 ], [ 0, %373 ]
+  %475 = phi i32 [ %471, %467 ], [ 1, %373 ]
+  %476 = phi <2 x i32> [ %468, %467 ], [ zeroinitializer, %373 ]
+  %477 = phi <2 x i32> [ %470, %467 ], [ <i32 1, i32 1>, %373 ]
+  store <2 x i32> %476, ptr %5, align 8
+  %478 = getelementptr inbounds [3 x i32], ptr %5, i64 0, i64 2
   store i32 %474, ptr %478, align 8
-  %479 = call ptr @hypre_SMGRelaxCreate(i32 noundef %12) #5
-  %480 = and i64 %472, 4294967295
-  %481 = getelementptr inbounds ptr, ptr %324, i64 %480
-  store ptr %479, ptr %481, align 8, !tbaa !24
-  %482 = call i32 @hypre_SMGRelaxSetBase(ptr noundef %479, ptr noundef nonnull %5, ptr noundef nonnull %6) #5
-  %483 = load ptr, ptr %481, align 8, !tbaa !24
-  %484 = call i32 @hypre_SMGRelaxSetTol(ptr noundef %483, double noundef 0.000000e+00) #5
-  %485 = load ptr, ptr %481, align 8, !tbaa !24
-  %486 = call i32 @hypre_SMGRelaxSetMaxIter(ptr noundef %485, i32 noundef 1) #5
-  %487 = load ptr, ptr %481, align 8, !tbaa !24
-  %488 = getelementptr inbounds ptr, ptr %115, i64 %480
-  %489 = load ptr, ptr %488, align 8, !tbaa !24
-  %490 = call i32 @hypre_SMGRelaxSetTempVec(ptr noundef %487, ptr noundef %489) #5
-  %491 = load ptr, ptr %481, align 8, !tbaa !24
-  %492 = call i32 @hypre_SMGRelaxSetNumPreRelax(ptr noundef %491, i32 noundef %16) #5
-  %493 = load ptr, ptr %481, align 8, !tbaa !24
-  %494 = call i32 @hypre_SMGRelaxSetNumPostRelax(ptr noundef %493, i32 noundef %18) #5
-  %495 = load ptr, ptr %481, align 8, !tbaa !24
-  %496 = getelementptr inbounds ptr, ptr %109, i64 %480
-  %497 = load ptr, ptr %496, align 8, !tbaa !24
-  %498 = getelementptr inbounds ptr, ptr %113, i64 %480
-  %499 = load ptr, ptr %498, align 8, !tbaa !24
-  %500 = getelementptr inbounds ptr, ptr %114, i64 %480
-  %501 = load ptr, ptr %500, align 8, !tbaa !24
-  %502 = call i32 @hypre_SMGRelaxSetup(ptr noundef %495, ptr noundef %497, ptr noundef %499, ptr noundef %501) #5
-  br i1 %170, label %503, label %514
+  store <2 x i32> %477, ptr %6, align 8
+  %479 = getelementptr inbounds [3 x i32], ptr %6, i64 0, i64 2
+  store i32 %475, ptr %479, align 8
+  %480 = call ptr @hypre_SMGRelaxCreate(i32 noundef %12) #5
+  %481 = and i64 %473, 4294967295
+  %482 = getelementptr inbounds ptr, ptr %325, i64 %481
+  store ptr %480, ptr %482, align 8, !tbaa !24
+  %483 = call i32 @hypre_SMGRelaxSetBase(ptr noundef %480, ptr noundef nonnull %5, ptr noundef nonnull %6) #5
+  %484 = load ptr, ptr %482, align 8, !tbaa !24
+  %485 = call i32 @hypre_SMGRelaxSetTol(ptr noundef %484, double noundef 0.000000e+00) #5
+  %486 = load ptr, ptr %482, align 8, !tbaa !24
+  %487 = call i32 @hypre_SMGRelaxSetMaxIter(ptr noundef %486, i32 noundef 1) #5
+  %488 = load ptr, ptr %482, align 8, !tbaa !24
+  %489 = getelementptr inbounds ptr, ptr %116, i64 %481
+  %490 = load ptr, ptr %489, align 8, !tbaa !24
+  %491 = call i32 @hypre_SMGRelaxSetTempVec(ptr noundef %488, ptr noundef %490) #5
+  %492 = load ptr, ptr %482, align 8, !tbaa !24
+  %493 = call i32 @hypre_SMGRelaxSetNumPreRelax(ptr noundef %492, i32 noundef %16) #5
+  %494 = load ptr, ptr %482, align 8, !tbaa !24
+  %495 = call i32 @hypre_SMGRelaxSetNumPostRelax(ptr noundef %494, i32 noundef %18) #5
+  %496 = load ptr, ptr %482, align 8, !tbaa !24
+  %497 = getelementptr inbounds ptr, ptr %110, i64 %481
+  %498 = load ptr, ptr %497, align 8, !tbaa !24
+  %499 = getelementptr inbounds ptr, ptr %114, i64 %481
+  %500 = load ptr, ptr %499, align 8, !tbaa !24
+  %501 = getelementptr inbounds ptr, ptr %115, i64 %481
+  %502 = load ptr, ptr %501, align 8, !tbaa !24
+  %503 = call i32 @hypre_SMGRelaxSetup(ptr noundef %496, ptr noundef %498, ptr noundef %500, ptr noundef %502) #5
+  br i1 %171, label %504, label %515
 
-503:                                              ; preds = %471
-  %504 = call ptr @hypre_SMGResidualCreate() #5
-  %505 = getelementptr inbounds ptr, ptr %325, i64 %480
-  store ptr %504, ptr %505, align 8, !tbaa !24
-  %506 = call i32 @hypre_SMGResidualSetBase(ptr noundef %504, ptr noundef nonnull %5, ptr noundef nonnull %6) #5
-  %507 = load ptr, ptr %505, align 8, !tbaa !24
-  %508 = load ptr, ptr %496, align 8, !tbaa !24
-  %509 = load ptr, ptr %500, align 8, !tbaa !24
-  %510 = load ptr, ptr %498, align 8, !tbaa !24
-  %511 = getelementptr inbounds ptr, ptr %116, i64 %480
-  %512 = load ptr, ptr %511, align 8, !tbaa !24
-  %513 = call i32 @hypre_SMGResidualSetup(ptr noundef %507, ptr noundef %508, ptr noundef %509, ptr noundef %510, ptr noundef %512) #5
-  br label %514
+504:                                              ; preds = %472
+  %505 = call ptr @hypre_SMGResidualCreate() #5
+  %506 = getelementptr inbounds ptr, ptr %326, i64 %481
+  store ptr %505, ptr %506, align 8, !tbaa !24
+  %507 = call i32 @hypre_SMGResidualSetBase(ptr noundef %505, ptr noundef nonnull %5, ptr noundef nonnull %6) #5
+  %508 = load ptr, ptr %506, align 8, !tbaa !24
+  %509 = load ptr, ptr %497, align 8, !tbaa !24
+  %510 = load ptr, ptr %501, align 8, !tbaa !24
+  %511 = load ptr, ptr %499, align 8, !tbaa !24
+  %512 = getelementptr inbounds ptr, ptr %117, i64 %481
+  %513 = load ptr, ptr %512, align 8, !tbaa !24
+  %514 = call i32 @hypre_SMGResidualSetup(ptr noundef %508, ptr noundef %509, ptr noundef %510, ptr noundef %511, ptr noundef %513) #5
+  br label %515
 
-514:                                              ; preds = %503, %471
-  %515 = load ptr, ptr %113, align 8, !tbaa !24
-  %516 = call i32 @hypre_StructVectorInitializeData(ptr noundef %515, ptr noundef %330) #5
-  %517 = load ptr, ptr %113, align 8, !tbaa !24
-  %518 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %517, i64 0, i32 4
-  store i32 %332, ptr %518, align 8, !tbaa !51
-  %519 = load ptr, ptr %114, align 8, !tbaa !24
-  %520 = call i32 @hypre_StructVectorInitializeData(ptr noundef %519, ptr noundef %335) #5
-  %521 = load ptr, ptr %114, align 8, !tbaa !24
-  %522 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %521, i64 0, i32 4
-  store i32 %337, ptr %522, align 8, !tbaa !51
-  %523 = load ptr, ptr %113, align 8, !tbaa !24
-  %524 = call i32 @hypre_StructVectorAssemble(ptr noundef %523) #5
-  %525 = load ptr, ptr %114, align 8, !tbaa !24
-  %526 = call i32 @hypre_StructVectorAssemble(ptr noundef %525) #5
-  %527 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 25
-  store ptr %324, ptr %527, align 8, !tbaa !54
-  %528 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 26
-  store ptr %325, ptr %528, align 8, !tbaa !55
-  %529 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 27
-  store ptr %326, ptr %529, align 8, !tbaa !56
-  %530 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 28
-  store ptr %327, ptr %530, align 8, !tbaa !57
-  %531 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 31
-  %532 = load i32, ptr %531, align 8, !tbaa !58
-  %533 = icmp sgt i32 %532, 0
-  br i1 %533, label %534, label %542
+515:                                              ; preds = %504, %472
+  %516 = load ptr, ptr %114, align 8, !tbaa !24
+  %517 = call i32 @hypre_StructVectorInitializeData(ptr noundef %516, ptr noundef %331) #5
+  %518 = load ptr, ptr %114, align 8, !tbaa !24
+  %519 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %518, i64 0, i32 4
+  store i32 %333, ptr %519, align 8, !tbaa !51
+  %520 = load ptr, ptr %115, align 8, !tbaa !24
+  %521 = call i32 @hypre_StructVectorInitializeData(ptr noundef %520, ptr noundef %336) #5
+  %522 = load ptr, ptr %115, align 8, !tbaa !24
+  %523 = getelementptr inbounds %struct.hypre_StructVector_struct, ptr %522, i64 0, i32 4
+  store i32 %338, ptr %523, align 8, !tbaa !51
+  %524 = load ptr, ptr %114, align 8, !tbaa !24
+  %525 = call i32 @hypre_StructVectorAssemble(ptr noundef %524) #5
+  %526 = load ptr, ptr %115, align 8, !tbaa !24
+  %527 = call i32 @hypre_StructVectorAssemble(ptr noundef %526) #5
+  %528 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 25
+  store ptr %325, ptr %528, align 8, !tbaa !54
+  %529 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 26
+  store ptr %326, ptr %529, align 8, !tbaa !55
+  %530 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 27
+  store ptr %327, ptr %530, align 8, !tbaa !56
+  %531 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 28
+  store ptr %328, ptr %531, align 8, !tbaa !57
+  %532 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 31
+  %533 = load i32, ptr %532, align 8, !tbaa !58
+  %534 = icmp sgt i32 %533, 0
+  br i1 %534, label %535, label %543
 
-534:                                              ; preds = %514
-  %535 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 3
-  %536 = load i32, ptr %535, align 8, !tbaa !59
-  %537 = shl i32 %536, 3
-  %538 = call ptr @hypre_MAlloc(i32 noundef %537) #5
-  %539 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 32
-  store ptr %538, ptr %539, align 8, !tbaa !60
-  %540 = call ptr @hypre_MAlloc(i32 noundef %537) #5
-  %541 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 33
-  store ptr %540, ptr %541, align 8, !tbaa !61
-  br label %542
+535:                                              ; preds = %515
+  %536 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 3
+  %537 = load i32, ptr %536, align 8, !tbaa !59
+  %538 = shl i32 %537, 3
+  %539 = call ptr @hypre_MAlloc(i32 noundef %538) #5
+  %540 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 32
+  store ptr %539, ptr %540, align 8, !tbaa !60
+  %541 = call ptr @hypre_MAlloc(i32 noundef %538) #5
+  %542 = getelementptr inbounds %struct.hypre_SMGData, ptr %0, i64 0, i32 33
+  store ptr %541, ptr %542, align 8, !tbaa !61
+  br label %543
 
-542:                                              ; preds = %534, %514
+543:                                              ; preds = %535, %515
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %11) #5
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %10) #5
   call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %9) #5

@@ -124,34 +124,34 @@ define internal fastcc void @tbldump(ptr nocapture noundef readonly %0, i32 noun
   br label %27
 
 27:                                               ; preds = %27, %24
-  %28 = phi i64 [ 128, %24 ], [ %41, %27 ]
-  %29 = phi i32 [ 0, %24 ], [ %50, %27 ]
-  %30 = phi i32 [ 0, %24 ], [ %48, %27 ]
-  %31 = add nsw i64 %28, -1
-  %32 = getelementptr inbounds i8, ptr %23, i64 %31
-  %33 = load i8, ptr %32, align 1, !tbaa !18
-  %34 = sext i8 %33 to i32
-  %35 = and i32 %26, %34
-  %36 = icmp ne i32 %35, 0
-  %37 = trunc i64 %31 to i32
-  %38 = select i1 %36, i32 %37, i32 %30
-  %39 = zext i1 %36 to i32
-  %40 = add nuw nsw i32 %29, %39
-  %41 = add nsw i64 %28, -2
-  %42 = getelementptr inbounds i8, ptr %23, i64 %41
-  %43 = load i8, ptr %42, align 1, !tbaa !18
-  %44 = sext i8 %43 to i32
-  %45 = and i32 %26, %44
-  %46 = icmp ne i32 %45, 0
-  %47 = trunc i64 %41 to i32
-  %48 = select i1 %46, i32 %47, i32 %38
-  %49 = zext i1 %46 to i32
-  %50 = add nuw nsw i32 %40, %49
-  %51 = icmp eq i64 %31, 1
+  %28 = phi i64 [ 127, %24 ], [ %50, %27 ]
+  %29 = phi i32 [ 0, %24 ], [ %49, %27 ]
+  %30 = phi i32 [ 0, %24 ], [ %47, %27 ]
+  %31 = getelementptr inbounds i8, ptr %23, i64 %28
+  %32 = load i8, ptr %31, align 1, !tbaa !18
+  %33 = sext i8 %32 to i32
+  %34 = and i32 %26, %33
+  %35 = icmp ne i32 %34, 0
+  %36 = trunc i64 %28 to i32
+  %37 = select i1 %35, i32 %36, i32 %30
+  %38 = zext i1 %35 to i32
+  %39 = add nuw nsw i32 %29, %38
+  %40 = add nsw i64 %28, -1
+  %41 = getelementptr inbounds i8, ptr %23, i64 %40
+  %42 = load i8, ptr %41, align 1, !tbaa !18
+  %43 = sext i8 %42 to i32
+  %44 = and i32 %26, %43
+  %45 = icmp ne i32 %44, 0
+  %46 = trunc i64 %40 to i32
+  %47 = select i1 %45, i32 %46, i32 %37
+  %48 = zext i1 %45 to i32
+  %49 = add nuw nsw i32 %39, %48
+  %50 = add nsw i64 %28, -2
+  %51 = icmp eq i64 %40, 0
   br i1 %51, label %52, label %27, !llvm.loop !19
 
 52:                                               ; preds = %27
-  switch i32 %50, label %54 [
+  switch i32 %49, label %54 [
     i32 1, label %165
     i32 128, label %53
   ]
@@ -160,7 +160,7 @@ define internal fastcc void @tbldump(ptr nocapture noundef readonly %0, i32 noun
   br label %165
 
 54:                                               ; preds = %52
-  %55 = icmp ugt i32 %50, 64
+  %55 = icmp ugt i32 %49, 64
   br i1 %55, label %56, label %109
 
 56:                                               ; preds = %54
@@ -321,7 +321,7 @@ define internal fastcc void @tbldump(ptr nocapture noundef readonly %0, i32 noun
   br i1 %164, label %112, label %165, !llvm.loop !23
 
 165:                                              ; preds = %159, %103, %53, %52
-  %166 = phi i32 [ 46, %53 ], [ %48, %52 ], [ 93, %103 ], [ 93, %159 ]
+  %166 = phi i32 [ 46, %53 ], [ %47, %52 ], [ 93, %103 ], [ 93, %159 ]
   %167 = load ptr, ptr @stdout, align 8, !tbaa !12
   %168 = tail call i32 @putc(i32 noundef %166, ptr noundef %167)
   %169 = load i16, ptr %19, align 2, !tbaa !17

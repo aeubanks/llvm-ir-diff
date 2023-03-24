@@ -662,8 +662,8 @@ define dso_local i32 @symbol_SignatureExists() local_unnamed_addr #8 {
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @symbol_Delete(i32 noundef %0) local_unnamed_addr #3 {
-  %2 = icmp slt i32 %0, 1
-  br i1 %2, label %3, label %47
+  %2 = icmp sgt i32 %0, 0
+  br i1 %2, label %47, label %3
 
 3:                                                ; preds = %1
   %4 = sub nsw i32 0, %0
@@ -810,10 +810,10 @@ define dso_local ptr @symbol_GetAllPredicates() local_unnamed_addr #3 {
   %18 = load i32, ptr %17, align 8
   %19 = sub nsw i32 0, %18
   %20 = and i32 %19, 3
-  %21 = icmp ne i32 %20, 2
-  %22 = icmp sgt i32 %18, -1
-  %23 = select i1 %22, i1 true, i1 %21
-  br i1 %23, label %31, label %24
+  %21 = icmp eq i32 %20, 2
+  %22 = icmp slt i32 %18, 0
+  %23 = select i1 %22, i1 %21, i1 false
+  br i1 %23, label %24, label %31
 
 24:                                               ; preds = %16
   %25 = sext i32 %18 to i64
@@ -1259,10 +1259,10 @@ define dso_local void @symbol_LowerSignature() local_unnamed_addr #3 {
   %14 = load i32, ptr %13, align 8
   %15 = sub nsw i32 0, %14
   %16 = and i32 %15, 3
-  %17 = icmp ne i32 %16, 2
-  %18 = icmp sgt i32 %14, -1
-  %19 = select i1 %18, i1 true, i1 %17
-  br i1 %19, label %20, label %24
+  %17 = icmp eq i32 %16, 2
+  %18 = icmp slt i32 %14, 0
+  %19 = select i1 %18, i1 %17, i1 false
+  br i1 %19, label %24, label %20
 
 20:                                               ; preds = %12
   %21 = icmp slt i32 %14, 0
@@ -1551,10 +1551,10 @@ define dso_local void @symbol_PrintPrecedence(ptr nocapture noundef readonly %0)
   %19 = load i32, ptr %18, align 8
   %20 = sub nsw i32 0, %19
   %21 = and i32 %20, 3
-  %22 = icmp ne i32 %21, 2
-  %23 = icmp sgt i32 %19, -1
-  %24 = select i1 %23, i1 true, i1 %22
-  br i1 %24, label %25, label %29
+  %22 = icmp eq i32 %21, 2
+  %23 = icmp slt i32 %19, 0
+  %24 = select i1 %23, i1 %22, i1 false
+  br i1 %24, label %29, label %25
 
 25:                                               ; preds = %17
   %26 = icmp slt i32 %19, 0
@@ -1722,10 +1722,10 @@ define dso_local void @symbol_FPrintPrecedence(ptr nocapture noundef %0, ptr noc
   %20 = load i32, ptr %19, align 8
   %21 = sub nsw i32 0, %20
   %22 = and i32 %21, 3
-  %23 = icmp ne i32 %22, 2
-  %24 = icmp sgt i32 %20, -1
-  %25 = select i1 %24, i1 true, i1 %23
-  br i1 %25, label %26, label %30
+  %23 = icmp eq i32 %22, 2
+  %24 = icmp slt i32 %20, 0
+  %25 = select i1 %24, i1 %23, i1 false
+  br i1 %25, label %30, label %26
 
 26:                                               ; preds = %18
   %27 = icmp slt i32 %20, 0
@@ -1919,73 +1919,72 @@ define dso_local void @symbol_FPrint(ptr nocapture noundef %0, i32 noundef %1) l
 
 4:                                                ; preds = %2
   %5 = tail call i64 @fwrite(ptr nonnull @.str.7, i64 4, i64 1, ptr %0)
-  br label %46
+  br label %45
 
 6:                                                ; preds = %2
-  %7 = icmp slt i32 %1, 1
-  br i1 %7, label %32, label %8
+  %7 = icmp sgt i32 %1, 0
+  br i1 %7, label %8, label %31
 
 8:                                                ; preds = %6
   %9 = icmp ult i32 %1, 2001
   %10 = add nsw i32 %1, -2000
   %11 = select i1 %9, i32 %1, i32 %10
-  %12 = icmp ugt i32 %1, 2000
-  br i1 %12, label %23, label %13
+  br i1 %9, label %12, label %22
 
-13:                                               ; preds = %8
-  %14 = icmp ult i32 %1, 7
-  %15 = load ptr, ptr @symbol_VARSTRING, align 8
-  br i1 %14, label %16, label %20
+12:                                               ; preds = %8
+  %13 = icmp ult i32 %1, 7
+  %14 = load ptr, ptr @symbol_VARSTRING, align 8
+  br i1 %13, label %15, label %19
 
-16:                                               ; preds = %13
-  %17 = trunc i32 %11 to i8
-  %18 = add i8 %17, 84
-  store i8 %18, ptr %15, align 1
-  %19 = getelementptr inbounds i8, ptr %15, i64 1
-  store i8 0, ptr %19, align 1
-  br label %29
+15:                                               ; preds = %12
+  %16 = trunc i32 %11 to i8
+  %17 = add i8 %16, 84
+  store i8 %17, ptr %14, align 1
+  %18 = getelementptr inbounds i8, ptr %14, i64 1
+  store i8 0, ptr %18, align 1
+  br label %28
 
-20:                                               ; preds = %13
-  %21 = add nsw i32 %11, -6
-  %22 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %15, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %21) #20
-  br label %29
+19:                                               ; preds = %12
+  %20 = add nsw i32 %11, -6
+  %21 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %20) #20
+  br label %28
 
-23:                                               ; preds = %8
-  %24 = add nsw i32 %1, -3001
-  %25 = icmp ult i32 %24, -1000
-  br i1 %25, label %29, label %26
+22:                                               ; preds = %8
+  %23 = add nsw i32 %1, -2001
+  %24 = icmp ult i32 %23, 1000
+  br i1 %24, label %25, label %28
 
-26:                                               ; preds = %23
-  %27 = load ptr, ptr @symbol_VARSTRING, align 8
-  %28 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %27, ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %11) #20
-  br label %29
+25:                                               ; preds = %22
+  %26 = load ptr, ptr @symbol_VARSTRING, align 8
+  %27 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %26, ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %11) #20
+  br label %28
 
-29:                                               ; preds = %23, %26, %16, %20
-  %30 = load ptr, ptr @symbol_VARSTRING, align 8
-  %31 = tail call i32 @fputs(ptr noundef %30, ptr noundef %0)
-  br label %46
+28:                                               ; preds = %22, %25, %15, %19
+  %29 = load ptr, ptr @symbol_VARSTRING, align 8
+  %30 = tail call i32 @fputs(ptr noundef %29, ptr noundef %0)
+  br label %45
 
-32:                                               ; preds = %6
-  %33 = load i32, ptr @symbol_HASSIGNATURE, align 4
-  %34 = icmp eq i32 %33, 0
-  br i1 %34, label %44, label %35
+31:                                               ; preds = %6
+  %32 = load i32, ptr @symbol_HASSIGNATURE, align 4
+  %33 = icmp eq i32 %32, 0
+  br i1 %33, label %43, label %34
 
-35:                                               ; preds = %32
-  %36 = sub nsw i32 0, %1
-  %37 = lshr i32 %36, 3
-  %38 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %39 = zext i32 %37 to i64
-  %40 = getelementptr inbounds ptr, ptr %38, i64 %39
+34:                                               ; preds = %31
+  %35 = sub nsw i32 0, %1
+  %36 = lshr i32 %35, 3
+  %37 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %38 = zext i32 %36 to i64
+  %39 = getelementptr inbounds ptr, ptr %37, i64 %38
+  %40 = load ptr, ptr %39, align 8
   %41 = load ptr, ptr %40, align 8
-  %42 = load ptr, ptr %41, align 8
-  %43 = tail call i32 @fputs(ptr noundef %42, ptr noundef %0)
-  br label %46
+  %42 = tail call i32 @fputs(ptr noundef %41, ptr noundef %0)
+  br label %45
 
-44:                                               ; preds = %32
-  %45 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.11, i32 noundef %1)
-  br label %46
+43:                                               ; preds = %31
+  %44 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.11, i32 noundef %1)
+  br label %45
 
-46:                                               ; preds = %29, %44, %35, %4
+45:                                               ; preds = %28, %43, %34, %4
   ret void
 }
 
@@ -1994,121 +1993,119 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @symbol_FPrintOtter(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #10 {
-  %3 = icmp slt i32 %1, 1
-  br i1 %3, label %28, label %4
+  %3 = icmp sgt i32 %1, 0
+  br i1 %3, label %4, label %27
 
 4:                                                ; preds = %2
   %5 = icmp ult i32 %1, 2001
   %6 = add nsw i32 %1, -2000
   %7 = select i1 %5, i32 %1, i32 %6
-  %8 = icmp ugt i32 %1, 2000
-  br i1 %8, label %19, label %9
+  br i1 %5, label %8, label %18
 
-9:                                                ; preds = %4
-  %10 = icmp ult i32 %1, 7
-  %11 = load ptr, ptr @symbol_VARSTRING, align 8
-  br i1 %10, label %12, label %16
+8:                                                ; preds = %4
+  %9 = icmp ult i32 %1, 7
+  %10 = load ptr, ptr @symbol_VARSTRING, align 8
+  br i1 %9, label %11, label %15
 
-12:                                               ; preds = %9
-  %13 = trunc i32 %7 to i8
-  %14 = add i8 %13, 116
-  store i8 %14, ptr %11, align 1
-  %15 = getelementptr inbounds i8, ptr %11, i64 1
-  store i8 0, ptr %15, align 1
-  br label %25
+11:                                               ; preds = %8
+  %12 = trunc i32 %7 to i8
+  %13 = add i8 %12, 116
+  store i8 %13, ptr %10, align 1
+  %14 = getelementptr inbounds i8, ptr %10, i64 1
+  store i8 0, ptr %14, align 1
+  br label %24
 
-16:                                               ; preds = %9
-  %17 = add nsw i32 %7, -6
-  %18 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %11, ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %17) #20
-  br label %25
+15:                                               ; preds = %8
+  %16 = add nsw i32 %7, -6
+  %17 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %10, ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %16) #20
+  br label %24
 
-19:                                               ; preds = %4
-  %20 = add nsw i32 %1, -3001
-  %21 = icmp ult i32 %20, -1000
-  br i1 %21, label %25, label %22
+18:                                               ; preds = %4
+  %19 = add nsw i32 %1, -2001
+  %20 = icmp ult i32 %19, 1000
+  br i1 %20, label %21, label %24
 
-22:                                               ; preds = %19
-  %23 = load ptr, ptr @symbol_VARSTRING, align 8
-  %24 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %23, ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %7) #20
-  br label %25
+21:                                               ; preds = %18
+  %22 = load ptr, ptr @symbol_VARSTRING, align 8
+  %23 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %22, ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %7) #20
+  br label %24
 
-25:                                               ; preds = %19, %22, %12, %16
-  %26 = load ptr, ptr @symbol_VARSTRING, align 8
-  %27 = tail call i32 @fputs(ptr noundef %26, ptr noundef %0)
-  br label %79
+24:                                               ; preds = %18, %21, %11, %15
+  %25 = load ptr, ptr @symbol_VARSTRING, align 8
+  %26 = tail call i32 @fputs(ptr noundef %25, ptr noundef %0)
+  br label %77
 
-28:                                               ; preds = %2
-  %29 = load i32, ptr @symbol_HASSIGNATURE, align 4
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %77, label %31
+27:                                               ; preds = %2
+  %28 = load i32, ptr @symbol_HASSIGNATURE, align 4
+  %29 = icmp eq i32 %28, 0
+  br i1 %29, label %75, label %30
 
-31:                                               ; preds = %28
-  %32 = sub nsw i32 0, %1
-  %33 = and i32 %32, 3
-  %34 = icmp eq i32 %33, 0
-  %35 = icmp slt i32 %1, 0
-  %36 = select i1 %35, i1 %34, i1 false
-  br i1 %36, label %37, label %45
+30:                                               ; preds = %27
+  %31 = sub nsw i32 0, %1
+  %32 = and i32 %31, 3
+  %33 = icmp eq i32 %32, 0
+  %34 = icmp slt i32 %1, 0
+  %35 = select i1 %34, i1 %33, i1 false
+  br i1 %35, label %36, label %44
 
-37:                                               ; preds = %31
-  %38 = lshr i32 %32, 3
-  %39 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %40 = zext i32 %38 to i64
-  %41 = getelementptr inbounds ptr, ptr %39, i64 %40
+36:                                               ; preds = %30
+  %37 = lshr i32 %31, 3
+  %38 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %39 = zext i32 %37 to i64
+  %40 = getelementptr inbounds ptr, ptr %38, i64 %39
+  %41 = load ptr, ptr %40, align 8
   %42 = load ptr, ptr %41, align 8
-  %43 = load ptr, ptr %42, align 8
-  %44 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.13, ptr noundef %43)
-  br label %79
+  %43 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.13, ptr noundef %42)
+  br label %77
 
-45:                                               ; preds = %31
-  %46 = icmp sgt i32 %1, -1
-  br i1 %46, label %69, label %47
+44:                                               ; preds = %30
+  %45 = icmp sgt i32 %1, -1
+  br i1 %45, label %67, label %46
 
-47:                                               ; preds = %45
-  %48 = icmp ne i32 %33, 1
-  %49 = xor i1 %34, %48
-  br i1 %49, label %58, label %50
+46:                                               ; preds = %44
+  %47 = icmp ugt i32 %32, 1
+  br i1 %47, label %56, label %48
 
-50:                                               ; preds = %47
-  %51 = lshr i32 %32, 3
-  %52 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %53 = zext i32 %51 to i64
-  %54 = getelementptr inbounds ptr, ptr %52, i64 %53
-  %55 = load ptr, ptr %54, align 8
-  %56 = load ptr, ptr %55, align 8
-  %57 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.14, ptr noundef %56)
-  br label %79
+48:                                               ; preds = %46
+  %49 = lshr i32 %31, 3
+  %50 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %51 = zext i32 %49 to i64
+  %52 = getelementptr inbounds ptr, ptr %50, i64 %51
+  %53 = load ptr, ptr %52, align 8
+  %54 = load ptr, ptr %53, align 8
+  %55 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.14, ptr noundef %54)
+  br label %77
 
-58:                                               ; preds = %47
-  %59 = icmp eq i32 %33, 2
-  %60 = select i1 %35, i1 %59, i1 false
-  br i1 %60, label %61, label %69
+56:                                               ; preds = %46
+  %57 = icmp eq i32 %32, 2
+  %58 = select i1 %34, i1 %57, i1 false
+  br i1 %58, label %59, label %67
 
-61:                                               ; preds = %58
-  %62 = lshr i32 %32, 3
-  %63 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %64 = zext i32 %62 to i64
-  %65 = getelementptr inbounds ptr, ptr %63, i64 %64
-  %66 = load ptr, ptr %65, align 8
-  %67 = load ptr, ptr %66, align 8
-  %68 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.15, ptr noundef %67)
-  br label %79
+59:                                               ; preds = %56
+  %60 = lshr i32 %31, 3
+  %61 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %62 = zext i32 %60 to i64
+  %63 = getelementptr inbounds ptr, ptr %61, i64 %62
+  %64 = load ptr, ptr %63, align 8
+  %65 = load ptr, ptr %64, align 8
+  %66 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.15, ptr noundef %65)
+  br label %77
 
-69:                                               ; preds = %45, %58
-  %70 = lshr i32 %32, 3
-  %71 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %72 = zext i32 %70 to i64
-  %73 = getelementptr inbounds ptr, ptr %71, i64 %72
-  %74 = load ptr, ptr %73, align 8
-  %75 = load ptr, ptr %74, align 8
-  %76 = tail call i32 @fputs(ptr noundef %75, ptr noundef %0)
-  br label %79
+67:                                               ; preds = %44, %56
+  %68 = lshr i32 %31, 3
+  %69 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %70 = zext i32 %68 to i64
+  %71 = getelementptr inbounds ptr, ptr %69, i64 %70
+  %72 = load ptr, ptr %71, align 8
+  %73 = load ptr, ptr %72, align 8
+  %74 = tail call i32 @fputs(ptr noundef %73, ptr noundef %0)
+  br label %77
 
-77:                                               ; preds = %28
-  %78 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.11, i32 noundef %1)
-  br label %79
+75:                                               ; preds = %27
+  %76 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.11, i32 noundef %1)
+  br label %77
 
-79:                                               ; preds = %77, %50, %69, %61, %37, %25
+77:                                               ; preds = %75, %48, %67, %59, %36, %24
   ret void
 }
 
@@ -2824,14 +2821,14 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #9
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #17
+declare i32 @llvm.umax.i32(i32, i32) #16
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #18
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #17
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #18
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #19
@@ -2852,9 +2849,9 @@ attributes #12 = { mustprogress nofree norecurse nosync nounwind willreturn memo
 attributes #13 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #14 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #15 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #16 = { nofree nounwind }
-attributes #17 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #18 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #17 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #18 = { nofree nounwind }
 attributes #19 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }
 attributes #20 = { nounwind }
 attributes #21 = { noreturn nounwind }

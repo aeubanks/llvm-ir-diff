@@ -80,11 +80,9 @@ define dso_local noundef ptr @_ZN4Cell20getNeighborWithImageEc(ptr noundef nonnu
   %6 = getelementptr inbounds %class.Coordinate, ptr %5, i64 0, i32 1
   %7 = load i32, ptr %6, align 4, !tbaa !5
   %8 = icmp eq i32 %7, 0
-  br i1 %8, label %9, label %21
-
-9:                                                ; preds = %2
-  %10 = load ptr, ptr @Ocean1, align 8, !tbaa !11
-  %11 = load i32, ptr %10, align 8, !tbaa !15
+  %9 = load ptr, ptr @Ocean1, align 8
+  %10 = select i1 %8, ptr %9, ptr %6
+  %11 = load i32, ptr %10, align 4, !tbaa !15
   %12 = add i32 %11, -1
   %13 = zext i32 %12 to i64
   %14 = load i32, ptr %5, align 4, !tbaa !10
@@ -92,127 +90,97 @@ define dso_local noundef ptr @_ZN4Cell20getNeighborWithImageEc(ptr noundef nonnu
   %16 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %13, i64 %15
   %17 = load ptr, ptr %16, align 8, !tbaa !11
   %18 = getelementptr inbounds %class.Cell, ptr %17, i64 0, i32 2
-  %19 = load i8, ptr %18, align 8, !tbaa !17
+  %19 = load i8, ptr %18, align 8, !tbaa !16
   %20 = icmp eq i8 %19, %1
-  br i1 %20, label %31, label %35
+  br i1 %20, label %21, label %22
 
 21:                                               ; preds = %2
-  %22 = add i32 %7, -1
-  %23 = zext i32 %22 to i64
-  %24 = load i32, ptr %5, align 4, !tbaa !10
-  %25 = zext i32 %24 to i64
-  %26 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %23, i64 %25
-  %27 = load ptr, ptr %26, align 8, !tbaa !11
-  %28 = getelementptr inbounds %class.Cell, ptr %27, i64 0, i32 2
-  %29 = load i8, ptr %28, align 8, !tbaa !17
-  %30 = icmp eq i8 %29, %1
-  br i1 %30, label %31, label %35
+  store ptr %17, ptr %3, align 16, !tbaa !11
+  br label %22
 
-31:                                               ; preds = %9, %21
-  %32 = phi ptr [ %27, %21 ], [ %17, %9 ]
-  %33 = phi i32 [ %24, %21 ], [ %14, %9 ]
-  %34 = phi i64 [ %25, %21 ], [ %15, %9 ]
-  store ptr %32, ptr %3, align 16, !tbaa !11
-  br label %35
+22:                                               ; preds = %21, %2
+  %23 = phi i32 [ 1, %21 ], [ 0, %2 ]
+  %24 = add i32 %7, 1
+  %25 = load i32, ptr %9, align 8, !tbaa !17
+  %26 = urem i32 %24, %25
+  %27 = zext i32 %26 to i64
+  %28 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %27, i64 %15
+  %29 = load ptr, ptr %28, align 8, !tbaa !11
+  %30 = getelementptr inbounds %class.Cell, ptr %29, i64 0, i32 2
+  %31 = load i8, ptr %30, align 8, !tbaa !16
+  %32 = icmp eq i8 %31, %1
+  br i1 %32, label %33, label %37
 
-35:                                               ; preds = %21, %31, %9
-  %36 = phi i64 [ %34, %31 ], [ %15, %9 ], [ %25, %21 ]
-  %37 = phi i32 [ %33, %31 ], [ %14, %9 ], [ %24, %21 ]
-  %38 = phi i32 [ 1, %31 ], [ 0, %9 ], [ 0, %21 ]
-  %39 = add i32 %7, 1
-  %40 = load ptr, ptr @Ocean1, align 8, !tbaa !11
-  %41 = load i32, ptr %40, align 8, !tbaa !15
+33:                                               ; preds = %22
+  %34 = add nuw nsw i32 %23, 1
+  %35 = zext i32 %23 to i64
+  %36 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %35
+  store ptr %29, ptr %36, align 8, !tbaa !11
+  br label %37
+
+37:                                               ; preds = %33, %22
+  %38 = phi i32 [ %34, %33 ], [ %23, %22 ]
+  %39 = add i32 %14, 1
+  %40 = getelementptr inbounds %class.Ocean, ptr %9, i64 0, i32 1
+  %41 = load i32, ptr %40, align 4, !tbaa !19
   %42 = urem i32 %39, %41
-  %43 = zext i32 %42 to i64
-  %44 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %43, i64 %36
-  %45 = load ptr, ptr %44, align 8, !tbaa !11
-  %46 = getelementptr inbounds %class.Cell, ptr %45, i64 0, i32 2
-  %47 = load i8, ptr %46, align 8, !tbaa !17
-  %48 = icmp eq i8 %47, %1
-  br i1 %48, label %49, label %53
+  %43 = zext i32 %7 to i64
+  %44 = zext i32 %42 to i64
+  %45 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %43, i64 %44
+  %46 = load ptr, ptr %45, align 8, !tbaa !11
+  %47 = getelementptr inbounds %class.Cell, ptr %46, i64 0, i32 2
+  %48 = load i8, ptr %47, align 8, !tbaa !16
+  %49 = icmp eq i8 %48, %1
+  br i1 %49, label %50, label %54
 
-49:                                               ; preds = %35
-  %50 = add nuw nsw i32 %38, 1
-  %51 = zext i32 %38 to i64
-  %52 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %51
-  store ptr %45, ptr %52, align 8, !tbaa !11
-  br label %53
+50:                                               ; preds = %37
+  %51 = add nuw nsw i32 %38, 1
+  %52 = zext i32 %38 to i64
+  %53 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %52
+  store ptr %46, ptr %53, align 8, !tbaa !11
+  br label %54
 
-53:                                               ; preds = %49, %35
-  %54 = phi i32 [ %50, %49 ], [ %38, %35 ]
-  %55 = add i32 %37, 1
-  %56 = getelementptr inbounds %class.Ocean, ptr %40, i64 0, i32 1
-  %57 = load i32, ptr %56, align 4, !tbaa !18
-  %58 = urem i32 %55, %57
-  %59 = zext i32 %7 to i64
-  %60 = zext i32 %58 to i64
-  %61 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %59, i64 %60
+54:                                               ; preds = %50, %37
+  %55 = phi i32 [ %51, %50 ], [ %38, %37 ]
+  %56 = icmp eq i32 %14, 0
+  %57 = select i1 %56, ptr %40, ptr %5
+  %58 = load i32, ptr %57, align 4, !tbaa !15
+  %59 = add i32 %58, -1
+  %60 = zext i32 %59 to i64
+  %61 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %43, i64 %60
   %62 = load ptr, ptr %61, align 8, !tbaa !11
   %63 = getelementptr inbounds %class.Cell, ptr %62, i64 0, i32 2
-  %64 = load i8, ptr %63, align 8, !tbaa !17
+  %64 = load i8, ptr %63, align 8, !tbaa !16
   %65 = icmp eq i8 %64, %1
   br i1 %65, label %66, label %70
 
-66:                                               ; preds = %53
-  %67 = add nuw nsw i32 %54, 1
-  %68 = zext i32 %54 to i64
+66:                                               ; preds = %54
+  %67 = add nuw nsw i32 %55, 1
+  %68 = zext i32 %55 to i64
   %69 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %68
   store ptr %62, ptr %69, align 8, !tbaa !11
-  br label %70
+  br label %72
 
-70:                                               ; preds = %66, %53
-  %71 = phi i32 [ %67, %66 ], [ %54, %53 ]
-  %72 = icmp eq i32 %37, 0
-  br i1 %72, label %73, label %81
+70:                                               ; preds = %54
+  %71 = icmp eq i32 %55, 0
+  br i1 %71, label %82, label %72
 
-73:                                               ; preds = %70
-  %74 = add i32 %57, -1
-  %75 = zext i32 %74 to i64
-  %76 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %59, i64 %75
-  %77 = load ptr, ptr %76, align 8, !tbaa !11
-  %78 = getelementptr inbounds %class.Cell, ptr %77, i64 0, i32 2
-  %79 = load i8, ptr %78, align 8, !tbaa !17
-  %80 = icmp eq i8 %79, %1
-  br i1 %80, label %89, label %94
+72:                                               ; preds = %66, %70
+  %73 = phi i32 [ %67, %66 ], [ %55, %70 ]
+  %74 = add nsw i32 %73, -1
+  %75 = tail call i64 @random() #13
+  %76 = zext i32 %74 to i64
+  %77 = mul nsw i64 %75, %76
+  %78 = sdiv i64 %77, 2147483647
+  %79 = and i64 %78, 4294967295
+  %80 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %79
+  %81 = load ptr, ptr %80, align 8, !tbaa !11
+  br label %82
 
-81:                                               ; preds = %70
-  %82 = add i32 %37, -1
-  %83 = zext i32 %82 to i64
-  %84 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %59, i64 %83
-  %85 = load ptr, ptr %84, align 8, !tbaa !11
-  %86 = getelementptr inbounds %class.Cell, ptr %85, i64 0, i32 2
-  %87 = load i8, ptr %86, align 8, !tbaa !17
-  %88 = icmp eq i8 %87, %1
-  br i1 %88, label %89, label %94
-
-89:                                               ; preds = %81, %73
-  %90 = phi ptr [ %85, %81 ], [ %77, %73 ]
-  %91 = add nuw nsw i32 %71, 1
-  %92 = zext i32 %71 to i64
-  %93 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %92
-  store ptr %90, ptr %93, align 8, !tbaa !11
-  br label %96
-
-94:                                               ; preds = %81, %73
-  %95 = icmp eq i32 %71, 0
-  br i1 %95, label %106, label %96
-
-96:                                               ; preds = %89, %94
-  %97 = phi i32 [ %91, %89 ], [ %71, %94 ]
-  %98 = add nsw i32 %97, -1
-  %99 = tail call i64 @random() #13
-  %100 = zext i32 %98 to i64
-  %101 = mul nsw i64 %99, %100
-  %102 = sdiv i64 %101, 2147483647
-  %103 = and i64 %102, 4294967295
-  %104 = getelementptr inbounds [4 x ptr], ptr %3, i64 0, i64 %103
-  %105 = load ptr, ptr %104, align 8, !tbaa !11
-  br label %106
-
-106:                                              ; preds = %94, %96
-  %107 = phi ptr [ %105, %96 ], [ %0, %94 ]
+82:                                               ; preds = %70, %72
+  %83 = phi ptr [ %81, %72 ], [ %0, %70 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #13
-  ret ptr %107
+  ret ptr %83
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -225,22 +193,16 @@ define dso_local noundef ptr @_ZN4Cell5northEv(ptr nocapture noundef nonnull rea
   %4 = getelementptr inbounds %class.Coordinate, ptr %3, i64 0, i32 1
   %5 = load i32, ptr %4, align 4, !tbaa !5
   %6 = icmp eq i32 %5, 0
-  br i1 %6, label %7, label %10
-
-7:                                                ; preds = %1
-  %8 = load ptr, ptr @Ocean1, align 8, !tbaa !11
-  %9 = load i32, ptr %8, align 8, !tbaa !15
-  br label %10
-
-10:                                               ; preds = %1, %7
-  %11 = phi i32 [ %9, %7 ], [ %5, %1 ]
-  %12 = add i32 %11, -1
+  %7 = load ptr, ptr @Ocean1, align 8
+  %8 = select i1 %6, ptr %7, ptr %4
+  %9 = load i32, ptr %8, align 4, !tbaa !15
+  %10 = add i32 %9, -1
+  %11 = zext i32 %10 to i64
+  %12 = load i32, ptr %3, align 4, !tbaa !10
   %13 = zext i32 %12 to i64
-  %14 = load i32, ptr %3, align 4, !tbaa !10
-  %15 = zext i32 %14 to i64
-  %16 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %13, i64 %15
-  %17 = load ptr, ptr %16, align 8, !tbaa !11
-  ret ptr %17
+  %14 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %11, i64 %13
+  %15 = load ptr, ptr %14, align 8, !tbaa !11
+  ret ptr %15
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
@@ -251,7 +213,7 @@ define dso_local noundef ptr @_ZN4Cell5southEv(ptr nocapture noundef nonnull rea
   %5 = load i32, ptr %4, align 4, !tbaa !5
   %6 = add i32 %5, 1
   %7 = load ptr, ptr @Ocean1, align 8, !tbaa !11
-  %8 = load i32, ptr %7, align 8, !tbaa !15
+  %8 = load i32, ptr %7, align 8, !tbaa !17
   %9 = urem i32 %6, %8
   %10 = zext i32 %9 to i64
   %11 = load i32, ptr %3, align 4, !tbaa !10
@@ -269,7 +231,7 @@ define dso_local noundef ptr @_ZN4Cell4eastEv(ptr nocapture noundef nonnull read
   %5 = add i32 %4, 1
   %6 = load ptr, ptr @Ocean1, align 8, !tbaa !11
   %7 = getelementptr inbounds %class.Ocean, ptr %6, i64 0, i32 1
-  %8 = load i32, ptr %7, align 4, !tbaa !18
+  %8 = load i32, ptr %7, align 4, !tbaa !19
   %9 = urem i32 %5, %8
   %10 = getelementptr inbounds %class.Coordinate, ptr %3, i64 0, i32 1
   %11 = load i32, ptr %10, align 4, !tbaa !5
@@ -286,24 +248,18 @@ define dso_local noundef ptr @_ZN4Cell4westEv(ptr nocapture noundef nonnull read
   %3 = load ptr, ptr %2, align 8, !tbaa !13
   %4 = load i32, ptr %3, align 4, !tbaa !10
   %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %10
-
-6:                                                ; preds = %1
-  %7 = load ptr, ptr @Ocean1, align 8, !tbaa !11
-  %8 = getelementptr inbounds %class.Ocean, ptr %7, i64 0, i32 1
-  %9 = load i32, ptr %8, align 4, !tbaa !18
-  br label %10
-
-10:                                               ; preds = %1, %6
-  %11 = phi i32 [ %9, %6 ], [ %4, %1 ]
-  %12 = add i32 %11, -1
-  %13 = getelementptr inbounds %class.Coordinate, ptr %3, i64 0, i32 1
-  %14 = load i32, ptr %13, align 4, !tbaa !5
-  %15 = zext i32 %14 to i64
-  %16 = zext i32 %12 to i64
-  %17 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %15, i64 %16
-  %18 = load ptr, ptr %17, align 8, !tbaa !11
-  ret ptr %18
+  %6 = load ptr, ptr @Ocean1, align 8
+  %7 = getelementptr inbounds %class.Ocean, ptr %6, i64 0, i32 1
+  %8 = select i1 %5, ptr %7, ptr %3
+  %9 = load i32, ptr %8, align 4, !tbaa !15
+  %10 = add i32 %9, -1
+  %11 = getelementptr inbounds %class.Coordinate, ptr %3, i64 0, i32 1
+  %12 = load i32, ptr %11, align 4, !tbaa !5
+  %13 = zext i32 %12 to i64
+  %14 = zext i32 %10 to i64
+  %15 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %13, i64 %14
+  %16 = load ptr, ptr %15, align 8, !tbaa !11
+  ret ptr %16
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
@@ -324,8 +280,8 @@ define dso_local void @_ZN4Cell21getEmptyNeighborCoordEv(ptr noalias nocapture w
   %3 = tail call noundef ptr @_ZN4Cell20getNeighborWithImageEc(ptr noundef nonnull align 8 dereferenceable(17) %1, i8 noundef signext 45)
   %4 = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !13
-  %6 = load <2 x i32>, ptr %5, align 4, !tbaa !19
-  store <2 x i32> %6, ptr %0, align 4, !tbaa !19
+  %6 = load <2 x i32>, ptr %5, align 4, !tbaa !15
+  store <2 x i32> %6, ptr %0, align 4, !tbaa !15
   ret void
 }
 
@@ -334,8 +290,8 @@ define dso_local void @_ZN4Cell20getPreyNeighborCoordEv(ptr noalias nocapture wr
   %3 = tail call noundef ptr @_ZN4Cell20getNeighborWithImageEc(ptr noundef nonnull align 8 dereferenceable(17) %1, i8 noundef signext 102)
   %4 = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !13
-  %6 = load <2 x i32>, ptr %5, align 4, !tbaa !19
-  store <2 x i32> %6, ptr %0, align 4, !tbaa !19
+  %6 = load <2 x i32>, ptr %5, align 4, !tbaa !15
+  store <2 x i32> %6, ptr %0, align 4, !tbaa !15
   ret void
 }
 
@@ -347,12 +303,12 @@ define dso_local noundef nonnull ptr @_ZN4Cell9reproduceE10Coordinate(ptr nocapt
           to label %5 unwind label %9
 
 5:                                                ; preds = %2
-  %6 = load <2 x i32>, ptr %1, align 4, !tbaa !19
-  store <2 x i32> %6, ptr %4, align 4, !tbaa !19
+  %6 = load <2 x i32>, ptr %1, align 4, !tbaa !15
+  store <2 x i32> %6, ptr %4, align 4, !tbaa !15
   %7 = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 1
   store ptr %4, ptr %7, align 8, !tbaa !13
   %8 = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 2
-  store i8 45, ptr %8, align 8, !tbaa !17
+  store i8 45, ptr %8, align 8, !tbaa !16
   ret ptr %3
 
 9:                                                ; preds = %2
@@ -384,14 +340,14 @@ define dso_local void @_ZN4Prey8moveFromE10CoordinateS0_(ptr noundef nonnull ali
   store i32 %7, ptr %5, align 4, !tbaa !22
   %8 = load i32, ptr %2, align 4, !tbaa !10
   %9 = load i32, ptr %1, align 4, !tbaa !10
-  %10 = icmp eq i32 %8, %9
+  %10 = icmp ne i32 %8, %9
   %11 = getelementptr inbounds %class.Coordinate, ptr %2, i64 0, i32 1
   %12 = load i32, ptr %11, align 4
   %13 = getelementptr inbounds %class.Coordinate, ptr %1, i64 0, i32 1
   %14 = load i32, ptr %13, align 4
-  %15 = icmp eq i32 %12, %14
-  %16 = select i1 %10, i1 true, i1 %15
-  br i1 %16, label %64, label %17
+  %15 = icmp ne i32 %12, %14
+  %16 = select i1 %10, i1 %15, i1 false
+  br i1 %16, label %17, label %64
 
 17:                                               ; preds = %3
   %18 = zext i32 %12 to i64
@@ -409,8 +365,8 @@ define dso_local void @_ZN4Prey8moveFromE10CoordinateS0_(ptr noundef nonnull ali
   %27 = load i32, ptr %5, align 4, !tbaa !22
   br label %28
 
-28:                                               ; preds = %17, %23
-  %29 = phi i32 [ %7, %17 ], [ %27, %23 ]
+28:                                               ; preds = %23, %17
+  %29 = phi i32 [ %27, %23 ], [ %7, %17 ]
   %30 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
   %31 = load i32, ptr %2, align 4, !tbaa !10
   store i32 %31, ptr %30, align 4, !tbaa !10
@@ -453,7 +409,7 @@ define dso_local void @_ZN4Prey8moveFromE10CoordinateS0_(ptr noundef nonnull ali
   %53 = getelementptr inbounds %class.Cell, ptr %49, i64 0, i32 1
   store ptr %50, ptr %53, align 8, !tbaa !13
   %54 = getelementptr inbounds %class.Cell, ptr %49, i64 0, i32 2
-  store i8 45, ptr %54, align 8, !tbaa !17
+  store i8 45, ptr %54, align 8, !tbaa !16
   br label %57
 
 55:                                               ; preds = %46
@@ -484,15 +440,15 @@ define dso_local noundef nonnull ptr @_ZN4Prey9reproduceE10Coordinate(ptr nocapt
           to label %5 unwind label %14
 
 5:                                                ; preds = %2
-  %6 = load <2 x i32>, ptr %1, align 4, !tbaa !19
-  store <2 x i32> %6, ptr %4, align 4, !tbaa !19
+  %6 = load <2 x i32>, ptr %1, align 4, !tbaa !15
+  store <2 x i32> %6, ptr %4, align 4, !tbaa !15
   %7 = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 1
   store ptr %4, ptr %7, align 8, !tbaa !13
   %8 = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 2
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Prey, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !20
   %9 = getelementptr inbounds %class.Prey, ptr %3, i64 0, i32 1
   store i32 6, ptr %9, align 4, !tbaa !22
-  store i8 102, ptr %8, align 8, !tbaa !17
+  store i8 102, ptr %8, align 8, !tbaa !16
   %10 = load ptr, ptr @Ocean1, align 8, !tbaa !11
   %11 = getelementptr inbounds %class.Ocean, ptr %10, i64 0, i32 2
   %12 = load i32, ptr %11, align 8, !tbaa !24
@@ -532,12 +488,12 @@ define dso_local void @_ZN8Predator7processEv(ptr noundef nonnull align 8 derefe
           to label %18 unwind label %32
 
 18:                                               ; preds = %10
-  %19 = load <2 x i32>, ptr %12, align 4, !tbaa !19
-  store <2 x i32> %19, ptr %17, align 4, !tbaa !19
+  %19 = load <2 x i32>, ptr %12, align 4, !tbaa !15
+  store <2 x i32> %19, ptr %17, align 4, !tbaa !15
   %20 = getelementptr inbounds %class.Cell, ptr %16, i64 0, i32 1
   store ptr %17, ptr %20, align 8, !tbaa !13
   %21 = getelementptr inbounds %class.Cell, ptr %16, i64 0, i32 2
-  store i8 45, ptr %21, align 8, !tbaa !17
+  store i8 45, ptr %21, align 8, !tbaa !16
   %22 = zext i32 %15 to i64
   %23 = zext i32 %13 to i64
   %24 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %22, i64 %23
@@ -569,12 +525,12 @@ define dso_local void @_ZN8Predator7processEv(ptr noundef nonnull align 8 derefe
   %41 = getelementptr inbounds %class.Cell, ptr %0, i64 0, i32 1
   %42 = load ptr, ptr %41, align 8, !tbaa !13
   %43 = load i32, ptr %42, align 4, !tbaa !10
-  %44 = icmp eq i32 %38, %43
+  %44 = icmp ne i32 %38, %43
   %45 = getelementptr inbounds %class.Coordinate, ptr %42, i64 0, i32 1
   %46 = load i32, ptr %45, align 4
-  %47 = icmp eq i32 %40, %46
-  %48 = select i1 %44, i1 true, i1 %47
-  br i1 %48, label %56, label %49
+  %47 = icmp ne i32 %40, %46
+  %48 = select i1 %44, i1 %47, i1 false
+  br i1 %48, label %49, label %56
 
 49:                                               ; preds = %34
   %50 = load ptr, ptr @Ocean1, align 8, !tbaa !11
@@ -599,10 +555,10 @@ define dso_local void @_ZN8Predator7processEv(ptr noundef nonnull align 8 derefe
   %58 = getelementptr inbounds %class.Cell, ptr %57, i64 0, i32 1
   %59 = load ptr, ptr %58, align 8, !tbaa !13, !noalias !31
   %60 = load ptr, ptr %41, align 8, !tbaa !13
-  %61 = load <2 x i32>, ptr %60, align 4, !tbaa !19
-  store <2 x i32> %61, ptr %2, align 8, !tbaa !19
-  %62 = load <2 x i32>, ptr %59, align 4, !tbaa !19, !noalias !31
-  store <2 x i32> %62, ptr %3, align 8, !tbaa !19
+  %61 = load <2 x i32>, ptr %60, align 4, !tbaa !15
+  store <2 x i32> %61, ptr %2, align 8, !tbaa !15
+  %62 = load <2 x i32>, ptr %59, align 4, !tbaa !15, !noalias !31
+  store <2 x i32> %62, ptr %3, align 8, !tbaa !15
   call void @_ZN4Prey8moveFromE10CoordinateS0_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull %2, ptr noundef nonnull %3)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3)
@@ -621,10 +577,10 @@ define linkonce_odr dso_local void @_ZN4Prey7processEv(ptr noundef nonnull align
   %6 = load ptr, ptr %5, align 8, !tbaa !13, !noalias !34
   %7 = getelementptr inbounds %class.Cell, ptr %0, i64 0, i32 1
   %8 = load ptr, ptr %7, align 8, !tbaa !13
-  %9 = load <2 x i32>, ptr %8, align 4, !tbaa !19
-  store <2 x i32> %9, ptr %2, align 8, !tbaa !19
-  %10 = load <2 x i32>, ptr %6, align 4, !tbaa !19, !noalias !34
-  store <2 x i32> %10, ptr %3, align 8, !tbaa !19
+  %9 = load <2 x i32>, ptr %8, align 4, !tbaa !15
+  store <2 x i32> %9, ptr %2, align 8, !tbaa !15
+  %10 = load <2 x i32>, ptr %6, align 4, !tbaa !15, !noalias !34
+  store <2 x i32> %10, ptr %3, align 8, !tbaa !15
   call void @_ZN4Prey8moveFromE10CoordinateS0_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull %2, ptr noundef nonnull %3)
   ret void
 }
@@ -632,13 +588,13 @@ define linkonce_odr dso_local void @_ZN4Prey7processEv(ptr noundef nonnull align
 ; Function Attrs: uwtable
 define dso_local noundef nonnull ptr @_ZN8Predator9reproduceE10Coordinate(ptr nocapture nonnull readnone align 8 %0, ptr nocapture noundef readonly %1) unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
   %3 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #14
-  %4 = load <2 x i32>, ptr %1, align 4, !tbaa !19
+  %4 = load <2 x i32>, ptr %1, align 4, !tbaa !15
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Cell, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !20
   %5 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #14
           to label %6 unwind label %15
 
 6:                                                ; preds = %2
-  store <2 x i32> %4, ptr %5, align 4, !tbaa !19
+  store <2 x i32> %4, ptr %5, align 4, !tbaa !15
   %7 = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 1
   store ptr %5, ptr %7, align 8, !tbaa !13
   %8 = getelementptr inbounds %class.Cell, ptr %3, i64 0, i32 2
@@ -647,7 +603,7 @@ define dso_local noundef nonnull ptr @_ZN8Predator9reproduceE10Coordinate(ptr no
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8Predator, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !20
   %10 = getelementptr inbounds %class.Predator, ptr %3, i64 0, i32 1
   store i32 6, ptr %10, align 8, !tbaa !25
-  store i8 83, ptr %8, align 8, !tbaa !17
+  store i8 83, ptr %8, align 8, !tbaa !16
   %11 = load ptr, ptr @Ocean1, align 8, !tbaa !11
   %12 = getelementptr inbounds %class.Ocean, ptr %11, i64 0, i32 3
   %13 = load i32, ptr %12, align 4, !tbaa !27
@@ -681,20 +637,20 @@ define dso_local void @_ZN5Ocean10initializeEv(ptr noundef nonnull align 8 deref
   store ptr %2, ptr %3, align 8, !tbaa !37
   %4 = getelementptr inbounds %class.Ocean, ptr %0, i64 0, i32 4
   store i32 750, ptr %4, align 8, !tbaa !38
-  store <4 x i32> <i32 500, i32 1000, i32 1000, i32 200>, ptr %0, align 8, !tbaa !19
+  store <4 x i32> <i32 500, i32 1000, i32 1000, i32 200>, ptr %0, align 8, !tbaa !15
   tail call void @_ZN5Ocean9initCellsEv(ptr noundef nonnull align 8 dereferenceable(32) %0)
   ret void
 }
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN5Ocean9initCellsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load i32, ptr %0, align 8, !tbaa !15
+  %2 = load i32, ptr %0, align 8, !tbaa !17
   %3 = icmp eq i32 %2, 0
   br i1 %3, label %31, label %4
 
 4:                                                ; preds = %1
   %5 = getelementptr inbounds %class.Ocean, ptr %0, i64 0, i32 1
-  %6 = load i32, ptr %5, align 4, !tbaa !18
+  %6 = load i32, ptr %5, align 4, !tbaa !19
   %7 = icmp eq i32 %6, 0
   br i1 %7, label %31, label %8
 
@@ -723,7 +679,7 @@ define dso_local void @_ZN5Ocean9initCellsEv(ptr noundef nonnull align 8 derefer
   %21 = getelementptr inbounds %class.Cell, ptr %16, i64 0, i32 1
   store ptr %17, ptr %21, align 8, !tbaa !13
   %22 = getelementptr inbounds %class.Cell, ptr %16, i64 0, i32 2
-  store i8 45, ptr %22, align 8, !tbaa !17
+  store i8 45, ptr %22, align 8, !tbaa !16
   %23 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %12, i64 %15
   store ptr %16, ptr %23, align 8, !tbaa !11
   %24 = add nuw nsw i64 %15, 1
@@ -751,13 +707,13 @@ define dso_local void @_ZN5Ocean9initCellsEv(ptr noundef nonnull align 8 derefer
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN5Ocean13addEmptyCellsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %0) local_unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load i32, ptr %0, align 8, !tbaa !15
+  %2 = load i32, ptr %0, align 8, !tbaa !17
   %3 = icmp eq i32 %2, 0
   br i1 %3, label %31, label %4
 
 4:                                                ; preds = %1
   %5 = getelementptr inbounds %class.Ocean, ptr %0, i64 0, i32 1
-  %6 = load i32, ptr %5, align 4, !tbaa !18
+  %6 = load i32, ptr %5, align 4, !tbaa !19
   %7 = icmp eq i32 %6, 0
   br i1 %7, label %31, label %8
 
@@ -786,7 +742,7 @@ define dso_local void @_ZN5Ocean13addEmptyCellsEv(ptr nocapture noundef nonnull 
   %21 = getelementptr inbounds %class.Cell, ptr %16, i64 0, i32 1
   store ptr %17, ptr %21, align 8, !tbaa !13
   %22 = getelementptr inbounds %class.Cell, ptr %16, i64 0, i32 2
-  store i8 45, ptr %22, align 8, !tbaa !17
+  store i8 45, ptr %22, align 8, !tbaa !16
   %23 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %12, i64 %15
   store ptr %16, ptr %23, align 8, !tbaa !11
   %24 = add nuw nsw i64 %15, 1
@@ -827,13 +783,13 @@ define dso_local void @_ZN5Ocean12addObstaclesEv(ptr nocapture noundef nonnull r
   br label %10
 
 10:                                               ; preds = %10, %8
-  %11 = load i32, ptr %6, align 4, !tbaa !18, !noalias !42
+  %11 = load i32, ptr %6, align 4, !tbaa !19, !noalias !42
   %12 = add i32 %11, -1
   %13 = tail call i64 @random() #13, !noalias !42
   %14 = sext i32 %12 to i64
   %15 = mul nsw i64 %13, %14
   %16 = sdiv i64 %15, 2147483647
-  %17 = load i32, ptr %0, align 8, !tbaa !15, !noalias !42
+  %17 = load i32, ptr %0, align 8, !tbaa !17, !noalias !42
   %18 = add i32 %17, -1
   %19 = tail call i64 @random() #13, !noalias !42
   %20 = sext i32 %18 to i64
@@ -844,7 +800,7 @@ define dso_local void @_ZN5Ocean12addObstaclesEv(ptr nocapture noundef nonnull r
   %25 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %23, i64 %24
   %26 = load ptr, ptr %25, align 8, !tbaa !11, !noalias !42
   %27 = getelementptr inbounds %class.Cell, ptr %26, i64 0, i32 2
-  %28 = load i8, ptr %27, align 8, !tbaa !17, !noalias !42
+  %28 = load i8, ptr %27, align 8, !tbaa !16, !noalias !42
   %29 = icmp eq i8 %28, 45
   br i1 %29, label %30, label %10, !llvm.loop !45
 
@@ -871,7 +827,7 @@ define dso_local void @_ZN5Ocean12addObstaclesEv(ptr nocapture noundef nonnull r
   store ptr %40, ptr %43, align 8, !tbaa !13
   %44 = getelementptr inbounds %class.Cell, ptr %39, i64 0, i32 2
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8Obstacle, i64 0, inrange i32 0, i64 2), ptr %39, align 8, !tbaa !20
-  store i8 35, ptr %44, align 8, !tbaa !17
+  store i8 35, ptr %44, align 8, !tbaa !16
   %45 = zext i32 %35 to i64
   %46 = zext i32 %33 to i64
   %47 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %45, i64 %46
@@ -907,13 +863,13 @@ define dso_local void @_ZN5Ocean12addPredatorsEv(ptr nocapture noundef nonnull r
   br label %10
 
 10:                                               ; preds = %10, %8
-  %11 = load i32, ptr %6, align 4, !tbaa !18, !noalias !47
+  %11 = load i32, ptr %6, align 4, !tbaa !19, !noalias !47
   %12 = add i32 %11, -1
   %13 = tail call i64 @random() #13, !noalias !47
   %14 = sext i32 %12 to i64
   %15 = mul nsw i64 %13, %14
   %16 = sdiv i64 %15, 2147483647
-  %17 = load i32, ptr %0, align 8, !tbaa !15, !noalias !47
+  %17 = load i32, ptr %0, align 8, !tbaa !17, !noalias !47
   %18 = add i32 %17, -1
   %19 = tail call i64 @random() #13, !noalias !47
   %20 = sext i32 %18 to i64
@@ -924,7 +880,7 @@ define dso_local void @_ZN5Ocean12addPredatorsEv(ptr nocapture noundef nonnull r
   %25 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %23, i64 %24
   %26 = load ptr, ptr %25, align 8, !tbaa !11, !noalias !47
   %27 = getelementptr inbounds %class.Cell, ptr %26, i64 0, i32 2
-  %28 = load i8, ptr %27, align 8, !tbaa !17, !noalias !47
+  %28 = load i8, ptr %27, align 8, !tbaa !16, !noalias !47
   %29 = icmp eq i8 %28, 45
   br i1 %29, label %30, label %10, !llvm.loop !45
 
@@ -955,7 +911,7 @@ define dso_local void @_ZN5Ocean12addPredatorsEv(ptr nocapture noundef nonnull r
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8Predator, i64 0, inrange i32 0, i64 2), ptr %39, align 8, !tbaa !20
   %46 = getelementptr inbounds %class.Predator, ptr %39, i64 0, i32 1
   store i32 6, ptr %46, align 8, !tbaa !25
-  store i8 83, ptr %44, align 8, !tbaa !17
+  store i8 83, ptr %44, align 8, !tbaa !16
   %47 = zext i32 %35 to i64
   %48 = zext i32 %33 to i64
   %49 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %47, i64 %48
@@ -991,13 +947,13 @@ define dso_local void @_ZN5Ocean7addPreyEv(ptr nocapture noundef nonnull readonl
   br label %10
 
 10:                                               ; preds = %10, %8
-  %11 = load i32, ptr %6, align 4, !tbaa !18, !noalias !51
+  %11 = load i32, ptr %6, align 4, !tbaa !19, !noalias !51
   %12 = add i32 %11, -1
   %13 = tail call i64 @random() #13, !noalias !51
   %14 = sext i32 %12 to i64
   %15 = mul nsw i64 %13, %14
   %16 = sdiv i64 %15, 2147483647
-  %17 = load i32, ptr %0, align 8, !tbaa !15, !noalias !51
+  %17 = load i32, ptr %0, align 8, !tbaa !17, !noalias !51
   %18 = add i32 %17, -1
   %19 = tail call i64 @random() #13, !noalias !51
   %20 = sext i32 %18 to i64
@@ -1008,7 +964,7 @@ define dso_local void @_ZN5Ocean7addPreyEv(ptr nocapture noundef nonnull readonl
   %25 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %23, i64 %24
   %26 = load ptr, ptr %25, align 8, !tbaa !11, !noalias !51
   %27 = getelementptr inbounds %class.Cell, ptr %26, i64 0, i32 2
-  %28 = load i8, ptr %27, align 8, !tbaa !17, !noalias !51
+  %28 = load i8, ptr %27, align 8, !tbaa !16, !noalias !51
   %29 = icmp eq i8 %28, 45
   br i1 %29, label %30, label %10, !llvm.loop !45
 
@@ -1037,7 +993,7 @@ define dso_local void @_ZN5Ocean7addPreyEv(ptr nocapture noundef nonnull readonl
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV4Prey, i64 0, inrange i32 0, i64 2), ptr %39, align 8, !tbaa !20
   %45 = getelementptr inbounds %class.Prey, ptr %39, i64 0, i32 1
   store i32 6, ptr %45, align 4, !tbaa !22
-  store i8 102, ptr %44, align 8, !tbaa !17
+  store i8 102, ptr %44, align 8, !tbaa !16
   %46 = zext i32 %35 to i64
   %47 = zext i32 %33 to i64
   %48 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %46, i64 %47
@@ -1070,13 +1026,13 @@ define dso_local void @_ZN5Ocean17getEmptyCellCoordEv(ptr noalias nocapture writ
   br label %4
 
 4:                                                ; preds = %4, %2
-  %5 = load i32, ptr %3, align 4, !tbaa !18
+  %5 = load i32, ptr %3, align 4, !tbaa !19
   %6 = add i32 %5, -1
   %7 = tail call i64 @random() #13
   %8 = sext i32 %6 to i64
   %9 = mul nsw i64 %7, %8
   %10 = sdiv i64 %9, 2147483647
-  %11 = load i32, ptr %1, align 8, !tbaa !15
+  %11 = load i32, ptr %1, align 8, !tbaa !17
   %12 = add i32 %11, -1
   %13 = tail call i64 @random() #13
   %14 = sext i32 %12 to i64
@@ -1087,15 +1043,15 @@ define dso_local void @_ZN5Ocean17getEmptyCellCoordEv(ptr noalias nocapture writ
   %19 = getelementptr inbounds [500 x [1000 x ptr]], ptr @cells, i64 0, i64 %17, i64 %18
   %20 = load ptr, ptr %19, align 8, !tbaa !11
   %21 = getelementptr inbounds %class.Cell, ptr %20, i64 0, i32 2
-  %22 = load i8, ptr %21, align 8, !tbaa !17
+  %22 = load i8, ptr %21, align 8, !tbaa !16
   %23 = icmp eq i8 %22, 45
   br i1 %23, label %24, label %4, !llvm.loop !45
 
 24:                                               ; preds = %4
   %25 = getelementptr inbounds %class.Cell, ptr %20, i64 0, i32 1
   %26 = load ptr, ptr %25, align 8, !tbaa !13
-  %27 = load <2 x i32>, ptr %26, align 4, !tbaa !19
-  store <2 x i32> %27, ptr %0, align 4, !tbaa !19
+  %27 = load <2 x i32>, ptr %26, align 4, !tbaa !15
+  store <2 x i32> %27, ptr %0, align 4, !tbaa !15
   %28 = load ptr, ptr %20, align 8, !tbaa !20
   %29 = getelementptr inbounds ptr, ptr %28, i64 2
   %30 = load ptr, ptr %29, align 8
@@ -1143,7 +1099,7 @@ define dso_local void @_ZN5Ocean3runEv(ptr nocapture noundef nonnull readonly al
   br i1 %25, label %28, label %34
 
 26:                                               ; preds = %34
-  %27 = load i32, ptr %0, align 8, !tbaa !15
+  %27 = load i32, ptr %0, align 8, !tbaa !17
   br label %28
 
 28:                                               ; preds = %26, %21
@@ -1163,7 +1119,7 @@ define dso_local void @_ZN5Ocean3runEv(ptr nocapture noundef nonnull readonly al
   %40 = load ptr, ptr %39, align 8
   tail call void %40(ptr noundef nonnull align 8 dereferenceable(17) %37)
   %41 = add nuw nsw i64 %35, 1
-  %42 = load i32, ptr %4, align 4, !tbaa !18
+  %42 = load i32, ptr %4, align 4, !tbaa !19
   %43 = zext i32 %42 to i64
   %44 = icmp ult i64 %41, %43
   br i1 %44, label %34, label %26, !llvm.loop !57
@@ -1188,7 +1144,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   store i32 750, ptr %5, align 8, !tbaa !38
   %6 = getelementptr inbounds %class.Ocean, ptr %1, i64 0, i32 3
   %7 = getelementptr inbounds %class.Ocean, ptr %1, i64 0, i32 2
-  store <4 x i32> <i32 500, i32 1000, i32 1000, i32 200>, ptr %1, align 8, !tbaa !19
+  store <4 x i32> <i32 500, i32 1000, i32 1000, i32 200>, ptr %1, align 8, !tbaa !15
   tail call void @_ZN5Ocean9initCellsEv(ptr noundef nonnull align 8 dereferenceable(32) %1)
   %8 = load i32, ptr %1, align 8
   %9 = load i32, ptr %4, align 4
@@ -1219,7 +1175,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   br i1 %29, label %32, label %39
 
 30:                                               ; preds = %39
-  %31 = load i32, ptr %1, align 8, !tbaa !15
+  %31 = load i32, ptr %1, align 8, !tbaa !17
   br label %32
 
 32:                                               ; preds = %30, %24
@@ -1240,7 +1196,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__g
   %45 = load ptr, ptr %44, align 8
   tail call void %45(ptr noundef nonnull align 8 dereferenceable(17) %42)
   %46 = add nuw nsw i64 %40, 1
-  %47 = load i32, ptr %4, align 4, !tbaa !18
+  %47 = load i32, ptr %4, align 4, !tbaa !19
   %48 = zext i32 %47 to i64
   %49 = icmp ult i64 %46, %48
   br i1 %49, label %39, label %30, !llvm.loop !57
@@ -1381,19 +1337,19 @@ attributes #15 = { builtin nounwind }
 !12 = !{!"any pointer", !8, i64 0}
 !13 = !{!14, !12, i64 8}
 !14 = !{!"_ZTS4Cell", !12, i64 8, !8, i64 16}
-!15 = !{!16, !7, i64 0}
-!16 = !{!"_ZTS5Ocean", !7, i64 0, !7, i64 4, !7, i64 8, !7, i64 12, !7, i64 16, !12, i64 24}
-!17 = !{!14, !8, i64 16}
-!18 = !{!16, !7, i64 4}
-!19 = !{!7, !7, i64 0}
+!15 = !{!7, !7, i64 0}
+!16 = !{!14, !8, i64 16}
+!17 = !{!18, !7, i64 0}
+!18 = !{!"_ZTS5Ocean", !7, i64 0, !7, i64 4, !7, i64 8, !7, i64 12, !7, i64 16, !12, i64 24}
+!19 = !{!18, !7, i64 4}
 !20 = !{!21, !21, i64 0}
 !21 = !{!"vtable pointer", !9, i64 0}
 !22 = !{!23, !7, i64 20}
 !23 = !{!"_ZTS4Prey", !14, i64 0, !7, i64 20}
-!24 = !{!16, !7, i64 8}
+!24 = !{!18, !7, i64 8}
 !25 = !{!26, !7, i64 24}
 !26 = !{!"_ZTS8Predator", !23, i64 0, !7, i64 24}
-!27 = !{!16, !7, i64 12}
+!27 = !{!18, !7, i64 12}
 !28 = !{!29}
 !29 = distinct !{!29, !30, !"_ZN4Cell20getPreyNeighborCoordEv: argument 0"}
 !30 = distinct !{!30, !"_ZN4Cell20getPreyNeighborCoordEv"}
@@ -1403,8 +1359,8 @@ attributes #15 = { builtin nounwind }
 !34 = !{!35}
 !35 = distinct !{!35, !36, !"_ZN4Cell21getEmptyNeighborCoordEv: argument 0"}
 !36 = distinct !{!36, !"_ZN4Cell21getEmptyNeighborCoordEv"}
-!37 = !{!16, !12, i64 24}
-!38 = !{!16, !7, i64 16}
+!37 = !{!18, !12, i64 24}
+!38 = !{!18, !7, i64 16}
 !39 = distinct !{!39, !40}
 !40 = !{!"llvm.loop.mustprogress"}
 !41 = distinct !{!41, !40}

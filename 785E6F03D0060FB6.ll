@@ -957,63 +957,63 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive16WriteLocalHeaderERKNS0_10
   %131 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 6
   %132 = load i64, ptr %131, align 8
   %133 = trunc i64 %132 to i32
-  %134 = select i1 %26, i64 20, i64 0
-  %135 = select i1 %26, i32 -1, i32 %133
-  tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %135)
-  %136 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 7
-  %137 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 7, i32 1
-  %138 = load i32, ptr %137, align 8, !tbaa !58
-  %139 = trunc i32 %138 to i8
-  %140 = load ptr, ptr %32, align 8, !tbaa !25
-  %141 = load i32, ptr %33, align 8, !tbaa !26
-  %142 = add i32 %141, 1
-  store i32 %142, ptr %33, align 8, !tbaa !26
-  %143 = zext i32 %141 to i64
-  %144 = getelementptr inbounds i8, ptr %140, i64 %143
-  store i8 %139, ptr %144, align 1, !tbaa !24
-  %145 = load i32, ptr %33, align 8, !tbaa !26
-  %146 = load i32, ptr %34, align 4, !tbaa !27
-  %147 = icmp eq i32 %145, %146
-  br i1 %147, label %148, label %150
+  %134 = select i1 %26, i32 -1, i32 %133
+  tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %134)
+  %135 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 7
+  %136 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 7, i32 1
+  %137 = load i32, ptr %136, align 8, !tbaa !58
+  %138 = trunc i32 %137 to i8
+  %139 = load ptr, ptr %32, align 8, !tbaa !25
+  %140 = load i32, ptr %33, align 8, !tbaa !26
+  %141 = add i32 %140, 1
+  store i32 %141, ptr %33, align 8, !tbaa !26
+  %142 = zext i32 %140 to i64
+  %143 = getelementptr inbounds i8, ptr %139, i64 %142
+  store i8 %138, ptr %143, align 1, !tbaa !24
+  %144 = load i32, ptr %33, align 8, !tbaa !26
+  %145 = load i32, ptr %34, align 4, !tbaa !27
+  %146 = icmp eq i32 %144, %145
+  br i1 %146, label %147, label %149
 
-148:                                              ; preds = %121
+147:                                              ; preds = %121
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %32)
-  %149 = load i32, ptr %33, align 8, !tbaa !26
-  br label %150
+  %148 = load i32, ptr %33, align 8, !tbaa !26
+  br label %149
 
-150:                                              ; preds = %148, %121
-  %151 = phi i32 [ %145, %121 ], [ %149, %148 ]
-  %152 = load i64, ptr %3, align 8, !tbaa !15
-  %153 = add i64 %152, 1
-  store i64 %153, ptr %3, align 8, !tbaa !15
-  %154 = lshr i32 %138, 8
-  %155 = trunc i32 %154 to i8
-  %156 = load ptr, ptr %32, align 8, !tbaa !25
-  %157 = add i32 %151, 1
-  store i32 %157, ptr %33, align 8, !tbaa !26
-  %158 = zext i32 %151 to i64
-  %159 = getelementptr inbounds i8, ptr %156, i64 %158
-  store i8 %155, ptr %159, align 1, !tbaa !24
-  %160 = load i32, ptr %33, align 8, !tbaa !26
-  %161 = load i32, ptr %34, align 4, !tbaa !27
-  %162 = icmp eq i32 %160, %161
-  br i1 %162, label %163, label %164
+149:                                              ; preds = %147, %121
+  %150 = phi i32 [ %144, %121 ], [ %148, %147 ]
+  %151 = load i64, ptr %3, align 8, !tbaa !15
+  %152 = add i64 %151, 1
+  store i64 %152, ptr %3, align 8, !tbaa !15
+  %153 = lshr i32 %137, 8
+  %154 = trunc i32 %153 to i8
+  %155 = load ptr, ptr %32, align 8, !tbaa !25
+  %156 = add i32 %150, 1
+  store i32 %156, ptr %33, align 8, !tbaa !26
+  %157 = zext i32 %150 to i64
+  %158 = getelementptr inbounds i8, ptr %155, i64 %157
+  store i8 %154, ptr %158, align 1, !tbaa !24
+  %159 = load i32, ptr %33, align 8, !tbaa !26
+  %160 = load i32, ptr %34, align 4, !tbaa !27
+  %161 = icmp eq i32 %159, %160
+  br i1 %161, label %162, label %163
 
-163:                                              ; preds = %150
+162:                                              ; preds = %149
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %32)
-  br label %164
+  br label %163
 
-164:                                              ; preds = %150, %163
-  %165 = load i64, ptr %3, align 8, !tbaa !15
-  %166 = add i64 %165, 1
-  store i64 %166, ptr %3, align 8, !tbaa !15
+163:                                              ; preds = %149, %162
+  %164 = load i64, ptr %3, align 8, !tbaa !15
+  %165 = add i64 %164, 1
+  store i64 %165, ptr %3, align 8, !tbaa !15
+  %166 = select i1 %26, i64 20, i64 0
   %167 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 8
   %168 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 0, i32 2
   %169 = load i32, ptr %168, align 4, !tbaa !40
   %170 = icmp sgt i32 %169, 0
   br i1 %170, label %171, label %231
 
-171:                                              ; preds = %164
+171:                                              ; preds = %163
   %172 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 0, i32 3
   %173 = load ptr, ptr %172, align 8, !tbaa !30
   %174 = zext i32 %169 to i64
@@ -1083,9 +1083,9 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive16WriteLocalHeaderERKNS0_10
   %230 = icmp eq i64 %229, %175
   br i1 %230, label %231, label %218, !llvm.loop !60
 
-231:                                              ; preds = %213, %218, %164
-  %232 = phi i64 [ 0, %164 ], [ %214, %213 ], [ %227, %218 ]
-  %233 = add i64 %232, %134
+231:                                              ; preds = %213, %218, %163
+  %232 = phi i64 [ 0, %163 ], [ %214, %213 ], [ %227, %218 ]
+  %233 = add i64 %232, %166
   %234 = trunc i64 %233 to i32
   %235 = and i32 %234, 65535
   %236 = getelementptr inbounds %"class.NArchive::NZip::COutArchive", ptr %0, i64 0, i32 4
@@ -1144,8 +1144,8 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive16WriteLocalHeaderERKNS0_10
   %268 = load i64, ptr %3, align 8, !tbaa !15
   %269 = add i64 %268, 1
   store i64 %269, ptr %3, align 8, !tbaa !15
-  %270 = load ptr, ptr %136, align 8, !tbaa !62
-  %271 = load i32, ptr %137, align 8, !tbaa !58
+  %270 = load ptr, ptr %135, align 8, !tbaa !62
+  %271 = load i32, ptr %136, align 8, !tbaa !58
   %272 = zext i32 %271 to i64
   %273 = icmp eq i32 %271, 0
   br i1 %273, label %292, label %274
@@ -1635,58 +1635,58 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive18WriteCentralHeaderERKNS0_
   tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %148)
   %149 = load i64, ptr %3, align 8
   %150 = trunc i64 %149 to i32
-  %151 = select i1 %5, i16 8, i16 0
-  %152 = select i1 %5, i32 -1, i32 %150
-  tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %152)
-  %153 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 7
-  %154 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 7, i32 1
-  %155 = load i32, ptr %154, align 8, !tbaa !58
-  %156 = trunc i32 %155 to i8
-  %157 = load ptr, ptr %17, align 8, !tbaa !25
-  %158 = load i32, ptr %18, align 8, !tbaa !26
-  %159 = add i32 %158, 1
-  store i32 %159, ptr %18, align 8, !tbaa !26
-  %160 = zext i32 %158 to i64
-  %161 = getelementptr inbounds i8, ptr %157, i64 %160
-  store i8 %156, ptr %161, align 1, !tbaa !24
-  %162 = load i32, ptr %18, align 8, !tbaa !26
-  %163 = load i32, ptr %19, align 4, !tbaa !27
-  %164 = icmp eq i32 %162, %163
-  br i1 %164, label %165, label %167
+  %151 = select i1 %5, i32 -1, i32 %150
+  tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %151)
+  %152 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 7
+  %153 = getelementptr inbounds %"class.NArchive::NZip::CLocalItem", ptr %1, i64 0, i32 7, i32 1
+  %154 = load i32, ptr %153, align 8, !tbaa !58
+  %155 = trunc i32 %154 to i8
+  %156 = load ptr, ptr %17, align 8, !tbaa !25
+  %157 = load i32, ptr %18, align 8, !tbaa !26
+  %158 = add i32 %157, 1
+  store i32 %158, ptr %18, align 8, !tbaa !26
+  %159 = zext i32 %157 to i64
+  %160 = getelementptr inbounds i8, ptr %156, i64 %159
+  store i8 %155, ptr %160, align 1, !tbaa !24
+  %161 = load i32, ptr %18, align 8, !tbaa !26
+  %162 = load i32, ptr %19, align 4, !tbaa !27
+  %163 = icmp eq i32 %161, %162
+  br i1 %163, label %164, label %166
 
-165:                                              ; preds = %139
+164:                                              ; preds = %139
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %17)
-  %166 = load i32, ptr %18, align 8, !tbaa !26
-  br label %167
+  %165 = load i32, ptr %18, align 8, !tbaa !26
+  br label %166
 
-167:                                              ; preds = %165, %139
-  %168 = phi i32 [ %162, %139 ], [ %166, %165 ]
-  %169 = load i64, ptr %32, align 8, !tbaa !15
-  %170 = add i64 %169, 1
-  store i64 %170, ptr %32, align 8, !tbaa !15
-  %171 = lshr i32 %155, 8
-  %172 = trunc i32 %171 to i8
-  %173 = load ptr, ptr %17, align 8, !tbaa !25
-  %174 = add i32 %168, 1
-  store i32 %174, ptr %18, align 8, !tbaa !26
-  %175 = zext i32 %168 to i64
-  %176 = getelementptr inbounds i8, ptr %173, i64 %175
-  store i8 %172, ptr %176, align 1, !tbaa !24
-  %177 = load i32, ptr %18, align 8, !tbaa !26
-  %178 = load i32, ptr %19, align 4, !tbaa !27
-  %179 = icmp eq i32 %177, %178
-  br i1 %179, label %180, label %181
+166:                                              ; preds = %164, %139
+  %167 = phi i32 [ %161, %139 ], [ %165, %164 ]
+  %168 = load i64, ptr %32, align 8, !tbaa !15
+  %169 = add i64 %168, 1
+  store i64 %169, ptr %32, align 8, !tbaa !15
+  %170 = lshr i32 %154, 8
+  %171 = trunc i32 %170 to i8
+  %172 = load ptr, ptr %17, align 8, !tbaa !25
+  %173 = add i32 %167, 1
+  store i32 %173, ptr %18, align 8, !tbaa !26
+  %174 = zext i32 %167 to i64
+  %175 = getelementptr inbounds i8, ptr %172, i64 %174
+  store i8 %171, ptr %175, align 1, !tbaa !24
+  %176 = load i32, ptr %18, align 8, !tbaa !26
+  %177 = load i32, ptr %19, align 4, !tbaa !27
+  %178 = icmp eq i32 %176, %177
+  br i1 %178, label %179, label %180
 
-180:                                              ; preds = %167
+179:                                              ; preds = %166
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %17)
-  br label %181
+  br label %180
 
-181:                                              ; preds = %167, %180
-  %182 = load i64, ptr %32, align 8, !tbaa !15
-  %183 = add i64 %182, 1
-  store i64 %183, ptr %32, align 8, !tbaa !15
+180:                                              ; preds = %166, %179
+  %181 = load i64, ptr %32, align 8, !tbaa !15
+  %182 = add i64 %181, 1
+  store i64 %182, ptr %32, align 8, !tbaa !15
+  %183 = select i1 %5, i16 8, i16 0
   %184 = select i1 %8, i16 8, i16 0
-  %185 = add nuw nsw i16 %184, %151
+  %185 = add nuw nsw i16 %184, %183
   %186 = select i1 %11, i16 8, i16 0
   %187 = add nuw nsw i16 %185, %186
   %188 = or i16 %187, 4
@@ -1702,7 +1702,7 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive18WriteCentralHeaderERKNS0_
   %198 = icmp sgt i32 %197, 0
   br i1 %198, label %199, label %259
 
-199:                                              ; preds = %181
+199:                                              ; preds = %180
   %200 = getelementptr inbounds %"class.NArchive::NZip::CItem", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 0, i32 3
   %201 = load ptr, ptr %200, align 8, !tbaa !30
   %202 = zext i32 %197 to i64
@@ -1772,8 +1772,8 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive18WriteCentralHeaderERKNS0_
   %258 = icmp eq i64 %257, %203
   br i1 %258, label %259, label %246, !llvm.loop !72
 
-259:                                              ; preds = %241, %246, %181
-  %260 = phi i64 [ 0, %181 ], [ %242, %241 ], [ %255, %246 ]
+259:                                              ; preds = %241, %246, %180
+  %260 = phi i64 [ 0, %180 ], [ %242, %241 ], [ %255, %246 ]
   %261 = trunc i64 %260 to i16
   %262 = add i16 %194, %261
   %263 = trunc i16 %262 to i8
@@ -1963,8 +1963,8 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive18WriteCentralHeaderERKNS0_
   %382 = trunc i64 %381 to i32
   %383 = select i1 %11, i32 -1, i32 %382
   tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %383)
-  %384 = load ptr, ptr %153, align 8, !tbaa !62
-  %385 = load i32, ptr %154, align 8, !tbaa !58
+  %384 = load ptr, ptr %152, align 8, !tbaa !62
+  %385 = load i32, ptr %153, align 8, !tbaa !58
   %386 = zext i32 %385 to i64
   %387 = icmp eq i32 %385, 0
   br i1 %387, label %404, label %388
@@ -2389,8 +2389,8 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive15WriteCentralDirERK13CObje
   %27 = icmp ugt i64 %15, 4294967294
   %28 = icmp ugt i64 %26, 4294967294
   %29 = icmp sgt i32 %25, 65534
-  %30 = select i1 %28, i1 true, i1 %29
-  %31 = or i1 %27, %30
+  %30 = select i1 %27, i1 true, i1 %28
+  %31 = select i1 %30, i1 true, i1 %29
   br i1 %31, label %41, label %102
 
 32:                                               ; preds = %19, %32
@@ -2591,260 +2591,214 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive15WriteCentralDirERK13CObje
   %151 = load i32, ptr %105, align 8, !tbaa !26
   %152 = load i32, ptr %106, align 4, !tbaa !27
   %153 = icmp eq i32 %151, %152
-  br i1 %153, label %154, label %155
+  br i1 %153, label %154, label %156
 
 154:                                              ; preds = %143
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
-  br label %155
+  %155 = load i32, ptr %105, align 8, !tbaa !26
+  br label %156
 
-155:                                              ; preds = %143, %154
-  %156 = load i64, ptr %4, align 8, !tbaa !15
-  %157 = add i64 %156, 1
-  store i64 %157, ptr %4, align 8, !tbaa !15
-  br i1 %29, label %190, label %158
+156:                                              ; preds = %143, %154
+  %157 = phi i32 [ %151, %143 ], [ %155, %154 ]
+  %158 = load i64, ptr %4, align 8, !tbaa !15
+  %159 = add i64 %158, 1
+  store i64 %159, ptr %4, align 8, !tbaa !15
+  %160 = load i32, ptr %16, align 4
+  %161 = trunc i32 %160 to i16
+  %162 = select i1 %29, i16 -1, i16 %161
+  %163 = trunc i16 %162 to i8
+  %164 = load ptr, ptr %104, align 8, !tbaa !25
+  %165 = add i32 %157, 1
+  store i32 %165, ptr %105, align 8, !tbaa !26
+  %166 = zext i32 %157 to i64
+  %167 = getelementptr inbounds i8, ptr %164, i64 %166
+  store i8 %163, ptr %167, align 1, !tbaa !24
+  %168 = load i32, ptr %105, align 8, !tbaa !26
+  %169 = load i32, ptr %106, align 4, !tbaa !27
+  %170 = icmp eq i32 %168, %169
+  br i1 %170, label %171, label %173
 
-158:                                              ; preds = %155
-  %159 = load i32, ptr %16, align 4, !tbaa !40
-  %160 = trunc i32 %159 to i8
-  %161 = load ptr, ptr %104, align 8, !tbaa !25
-  %162 = load i32, ptr %105, align 8, !tbaa !26
-  %163 = add i32 %162, 1
-  store i32 %163, ptr %105, align 8, !tbaa !26
-  %164 = zext i32 %162 to i64
-  %165 = getelementptr inbounds i8, ptr %161, i64 %164
-  store i8 %160, ptr %165, align 1, !tbaa !24
-  %166 = load i32, ptr %105, align 8, !tbaa !26
-  %167 = load i32, ptr %106, align 4, !tbaa !27
-  %168 = icmp eq i32 %166, %167
-  br i1 %168, label %169, label %171
-
-169:                                              ; preds = %158
+171:                                              ; preds = %156
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
-  %170 = load i32, ptr %105, align 8, !tbaa !26
-  br label %171
+  %172 = load i32, ptr %105, align 8, !tbaa !26
+  br label %173
 
-171:                                              ; preds = %169, %158
-  %172 = phi i32 [ %166, %158 ], [ %170, %169 ]
-  %173 = load i64, ptr %4, align 8, !tbaa !15
-  %174 = add i64 %173, 1
-  store i64 %174, ptr %4, align 8, !tbaa !15
-  %175 = lshr i32 %159, 8
-  %176 = trunc i32 %175 to i8
-  %177 = load ptr, ptr %104, align 8, !tbaa !25
-  %178 = add i32 %172, 1
-  store i32 %178, ptr %105, align 8, !tbaa !26
-  %179 = zext i32 %172 to i64
-  %180 = getelementptr inbounds i8, ptr %177, i64 %179
-  store i8 %176, ptr %180, align 1, !tbaa !24
-  %181 = load i32, ptr %105, align 8, !tbaa !26
-  %182 = load i32, ptr %106, align 4, !tbaa !27
-  %183 = icmp eq i32 %181, %182
-  br i1 %183, label %184, label %185
+173:                                              ; preds = %171, %156
+  %174 = phi i32 [ %168, %156 ], [ %172, %171 ]
+  %175 = load i64, ptr %4, align 8, !tbaa !15
+  %176 = add i64 %175, 1
+  store i64 %176, ptr %4, align 8, !tbaa !15
+  %177 = lshr i16 %162, 8
+  %178 = trunc i16 %177 to i8
+  %179 = load ptr, ptr %104, align 8, !tbaa !25
+  %180 = add i32 %174, 1
+  store i32 %180, ptr %105, align 8, !tbaa !26
+  %181 = zext i32 %174 to i64
+  %182 = getelementptr inbounds i8, ptr %179, i64 %181
+  store i8 %178, ptr %182, align 1, !tbaa !24
+  %183 = load i32, ptr %105, align 8, !tbaa !26
+  %184 = load i32, ptr %106, align 4, !tbaa !27
+  %185 = icmp eq i32 %183, %184
+  br i1 %185, label %186, label %188
 
-184:                                              ; preds = %171
+186:                                              ; preds = %173
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
-  br label %185
+  %187 = load i32, ptr %105, align 8, !tbaa !26
+  br label %188
 
-185:                                              ; preds = %171, %184
-  %186 = load i64, ptr %4, align 8, !tbaa !15
-  %187 = add i64 %186, 1
-  store i64 %187, ptr %4, align 8, !tbaa !15
-  %188 = load i32, ptr %16, align 4, !tbaa !40
-  %189 = trunc i32 %188 to i16
-  br label %216
-
-190:                                              ; preds = %155
-  %191 = load ptr, ptr %104, align 8, !tbaa !25
-  %192 = load i32, ptr %105, align 8, !tbaa !26
-  %193 = add i32 %192, 1
-  store i32 %193, ptr %105, align 8, !tbaa !26
-  %194 = zext i32 %192 to i64
-  %195 = getelementptr inbounds i8, ptr %191, i64 %194
-  store i8 -1, ptr %195, align 1, !tbaa !24
-  %196 = load i32, ptr %105, align 8, !tbaa !26
-  %197 = load i32, ptr %106, align 4, !tbaa !27
-  %198 = icmp eq i32 %196, %197
-  br i1 %198, label %199, label %201
-
-199:                                              ; preds = %190
-  tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
+188:                                              ; preds = %173, %186
+  %189 = phi i32 [ %183, %173 ], [ %187, %186 ]
+  %190 = load i64, ptr %4, align 8, !tbaa !15
+  %191 = add i64 %190, 1
+  store i64 %191, ptr %4, align 8, !tbaa !15
+  %192 = load i32, ptr %16, align 4
+  %193 = trunc i32 %192 to i16
+  %194 = select i1 %29, i16 -1, i16 %193
+  %195 = trunc i16 %194 to i8
+  %196 = load ptr, ptr %104, align 8, !tbaa !25
+  %197 = add i32 %189, 1
+  store i32 %197, ptr %105, align 8, !tbaa !26
+  %198 = zext i32 %189 to i64
+  %199 = getelementptr inbounds i8, ptr %196, i64 %198
+  store i8 %195, ptr %199, align 1, !tbaa !24
   %200 = load i32, ptr %105, align 8, !tbaa !26
-  br label %201
+  %201 = load i32, ptr %106, align 4, !tbaa !27
+  %202 = icmp eq i32 %200, %201
+  br i1 %202, label %203, label %205
 
-201:                                              ; preds = %199, %190
-  %202 = phi i32 [ %196, %190 ], [ %200, %199 ]
-  %203 = load i64, ptr %4, align 8, !tbaa !15
-  %204 = add i64 %203, 1
-  store i64 %204, ptr %4, align 8, !tbaa !15
-  %205 = load ptr, ptr %104, align 8, !tbaa !25
-  %206 = add i32 %202, 1
-  store i32 %206, ptr %105, align 8, !tbaa !26
-  %207 = zext i32 %202 to i64
-  %208 = getelementptr inbounds i8, ptr %205, i64 %207
-  store i8 -1, ptr %208, align 1, !tbaa !24
-  %209 = load i32, ptr %105, align 8, !tbaa !26
-  %210 = load i32, ptr %106, align 4, !tbaa !27
-  %211 = icmp eq i32 %209, %210
-  br i1 %211, label %212, label %213
-
-212:                                              ; preds = %201
+203:                                              ; preds = %188
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
-  br label %213
+  %204 = load i32, ptr %105, align 8, !tbaa !26
+  br label %205
 
-213:                                              ; preds = %201, %212
-  %214 = load i64, ptr %4, align 8, !tbaa !15
-  %215 = add i64 %214, 1
-  store i64 %215, ptr %4, align 8, !tbaa !15
-  br label %216
+205:                                              ; preds = %203, %188
+  %206 = phi i32 [ %200, %188 ], [ %204, %203 ]
+  %207 = load i64, ptr %4, align 8, !tbaa !15
+  %208 = add i64 %207, 1
+  store i64 %208, ptr %4, align 8, !tbaa !15
+  %209 = lshr i16 %194, 8
+  %210 = trunc i16 %209 to i8
+  %211 = load ptr, ptr %104, align 8, !tbaa !25
+  %212 = add i32 %206, 1
+  store i32 %212, ptr %105, align 8, !tbaa !26
+  %213 = zext i32 %206 to i64
+  %214 = getelementptr inbounds i8, ptr %211, i64 %213
+  store i8 %210, ptr %214, align 1, !tbaa !24
+  %215 = load i32, ptr %105, align 8, !tbaa !26
+  %216 = load i32, ptr %106, align 4, !tbaa !27
+  %217 = icmp eq i32 %215, %216
+  br i1 %217, label %218, label %219
 
-216:                                              ; preds = %213, %185
-  %217 = phi i16 [ %189, %185 ], [ -1, %213 ]
-  %218 = trunc i16 %217 to i8
-  %219 = load ptr, ptr %104, align 8, !tbaa !25
-  %220 = load i32, ptr %105, align 8, !tbaa !26
-  %221 = add i32 %220, 1
-  store i32 %221, ptr %105, align 8, !tbaa !26
-  %222 = zext i32 %220 to i64
-  %223 = getelementptr inbounds i8, ptr %219, i64 %222
-  store i8 %218, ptr %223, align 1, !tbaa !24
-  %224 = load i32, ptr %105, align 8, !tbaa !26
-  %225 = load i32, ptr %106, align 4, !tbaa !27
-  %226 = icmp eq i32 %224, %225
-  br i1 %226, label %227, label %229
-
-227:                                              ; preds = %216
+218:                                              ; preds = %205
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
-  %228 = load i32, ptr %105, align 8, !tbaa !26
-  br label %229
+  br label %219
 
-229:                                              ; preds = %227, %216
-  %230 = phi i32 [ %224, %216 ], [ %228, %227 ]
-  %231 = load i64, ptr %4, align 8, !tbaa !15
-  %232 = add i64 %231, 1
-  store i64 %232, ptr %4, align 8, !tbaa !15
-  %233 = lshr i16 %217, 8
-  %234 = trunc i16 %233 to i8
-  %235 = load ptr, ptr %104, align 8, !tbaa !25
-  %236 = add i32 %230, 1
+219:                                              ; preds = %205, %218
+  %220 = load i64, ptr %4, align 8, !tbaa !15
+  %221 = add i64 %220, 1
+  store i64 %221, ptr %4, align 8, !tbaa !15
+  %222 = trunc i64 %26 to i32
+  %223 = select i1 %28, i32 -1, i32 %222
+  tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %223)
+  %224 = trunc i64 %15 to i32
+  %225 = select i1 %27, i32 -1, i32 %224
+  tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %225)
+  %226 = icmp eq ptr %2, null
+  br i1 %226, label %231, label %227
+
+227:                                              ; preds = %219
+  %228 = getelementptr inbounds %class.CBuffer, ptr %2, i64 0, i32 1
+  %229 = load i64, ptr %228, align 8, !tbaa !38
+  %230 = trunc i64 %229 to i32
+  br label %231
+
+231:                                              ; preds = %219, %227
+  %232 = phi i32 [ %230, %227 ], [ 0, %219 ]
+  %233 = trunc i32 %232 to i8
+  %234 = load ptr, ptr %104, align 8, !tbaa !25
+  %235 = load i32, ptr %105, align 8, !tbaa !26
+  %236 = add i32 %235, 1
   store i32 %236, ptr %105, align 8, !tbaa !26
-  %237 = zext i32 %230 to i64
-  %238 = getelementptr inbounds i8, ptr %235, i64 %237
-  store i8 %234, ptr %238, align 1, !tbaa !24
+  %237 = zext i32 %235 to i64
+  %238 = getelementptr inbounds i8, ptr %234, i64 %237
+  store i8 %233, ptr %238, align 1, !tbaa !24
   %239 = load i32, ptr %105, align 8, !tbaa !26
   %240 = load i32, ptr %106, align 4, !tbaa !27
   %241 = icmp eq i32 %239, %240
-  br i1 %241, label %242, label %243
+  br i1 %241, label %242, label %244
 
-242:                                              ; preds = %229
+242:                                              ; preds = %231
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
-  br label %243
+  %243 = load i32, ptr %105, align 8, !tbaa !26
+  br label %244
 
-243:                                              ; preds = %229, %242
-  %244 = load i64, ptr %4, align 8, !tbaa !15
-  %245 = add i64 %244, 1
-  store i64 %245, ptr %4, align 8, !tbaa !15
-  %246 = trunc i64 %26 to i32
-  %247 = select i1 %28, i32 -1, i32 %246
-  tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %247)
-  %248 = trunc i64 %15 to i32
-  %249 = select i1 %27, i32 -1, i32 %248
-  tail call void @_ZN8NArchive4NZip11COutArchive11WriteUInt32Ej(ptr noundef nonnull align 8 dereferenceable(81) %0, i32 noundef %249)
-  %250 = icmp eq ptr %2, null
-  br i1 %250, label %255, label %251
+244:                                              ; preds = %242, %231
+  %245 = phi i32 [ %239, %231 ], [ %243, %242 ]
+  %246 = load i64, ptr %4, align 8, !tbaa !15
+  %247 = add i64 %246, 1
+  store i64 %247, ptr %4, align 8, !tbaa !15
+  %248 = lshr i32 %232, 8
+  %249 = trunc i32 %248 to i8
+  %250 = load ptr, ptr %104, align 8, !tbaa !25
+  %251 = add i32 %245, 1
+  store i32 %251, ptr %105, align 8, !tbaa !26
+  %252 = zext i32 %245 to i64
+  %253 = getelementptr inbounds i8, ptr %250, i64 %252
+  store i8 %249, ptr %253, align 1, !tbaa !24
+  %254 = load i32, ptr %105, align 8, !tbaa !26
+  %255 = load i32, ptr %106, align 4, !tbaa !27
+  %256 = icmp eq i32 %254, %255
+  br i1 %256, label %257, label %258
 
-251:                                              ; preds = %243
-  %252 = getelementptr inbounds %class.CBuffer, ptr %2, i64 0, i32 1
-  %253 = load i64, ptr %252, align 8, !tbaa !38
-  %254 = trunc i64 %253 to i32
-  br label %255
-
-255:                                              ; preds = %243, %251
-  %256 = phi i32 [ %254, %251 ], [ 0, %243 ]
-  %257 = trunc i32 %256 to i8
-  %258 = load ptr, ptr %104, align 8, !tbaa !25
-  %259 = load i32, ptr %105, align 8, !tbaa !26
-  %260 = add i32 %259, 1
-  store i32 %260, ptr %105, align 8, !tbaa !26
-  %261 = zext i32 %259 to i64
-  %262 = getelementptr inbounds i8, ptr %258, i64 %261
-  store i8 %257, ptr %262, align 1, !tbaa !24
-  %263 = load i32, ptr %105, align 8, !tbaa !26
-  %264 = load i32, ptr %106, align 4, !tbaa !27
-  %265 = icmp eq i32 %263, %264
-  br i1 %265, label %266, label %268
-
-266:                                              ; preds = %255
+257:                                              ; preds = %244
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
-  %267 = load i32, ptr %105, align 8, !tbaa !26
-  br label %268
+  br label %258
 
-268:                                              ; preds = %266, %255
-  %269 = phi i32 [ %263, %255 ], [ %267, %266 ]
-  %270 = load i64, ptr %4, align 8, !tbaa !15
-  %271 = add i64 %270, 1
-  store i64 %271, ptr %4, align 8, !tbaa !15
-  %272 = lshr i32 %256, 8
-  %273 = trunc i32 %272 to i8
-  %274 = load ptr, ptr %104, align 8, !tbaa !25
-  %275 = add i32 %269, 1
-  store i32 %275, ptr %105, align 8, !tbaa !26
-  %276 = zext i32 %269 to i64
-  %277 = getelementptr inbounds i8, ptr %274, i64 %276
-  store i8 %273, ptr %277, align 1, !tbaa !24
-  %278 = load i32, ptr %105, align 8, !tbaa !26
-  %279 = load i32, ptr %106, align 4, !tbaa !27
-  %280 = icmp eq i32 %278, %279
-  br i1 %280, label %281, label %282
+258:                                              ; preds = %244, %257
+  %259 = load i64, ptr %4, align 8, !tbaa !15
+  %260 = add i64 %259, 1
+  store i64 %260, ptr %4, align 8, !tbaa !15
+  %261 = icmp eq i32 %232, 0
+  br i1 %261, label %285, label %262
 
-281:                                              ; preds = %268
+262:                                              ; preds = %258
+  %263 = getelementptr inbounds %class.CBuffer, ptr %2, i64 0, i32 2
+  %264 = load ptr, ptr %263, align 8, !tbaa !39
+  %265 = zext i32 %232 to i64
+  br label %266
+
+266:                                              ; preds = %279, %262
+  %267 = phi i64 [ 0, %262 ], [ %280, %279 ]
+  %268 = getelementptr inbounds i8, ptr %264, i64 %267
+  %269 = load i8, ptr %268, align 1, !tbaa !24
+  %270 = load ptr, ptr %104, align 8, !tbaa !25
+  %271 = load i32, ptr %105, align 8, !tbaa !26
+  %272 = add i32 %271, 1
+  store i32 %272, ptr %105, align 8, !tbaa !26
+  %273 = zext i32 %271 to i64
+  %274 = getelementptr inbounds i8, ptr %270, i64 %273
+  store i8 %269, ptr %274, align 1, !tbaa !24
+  %275 = load i32, ptr %105, align 8, !tbaa !26
+  %276 = load i32, ptr %106, align 4, !tbaa !27
+  %277 = icmp eq i32 %275, %276
+  br i1 %277, label %278, label %279
+
+278:                                              ; preds = %266
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
-  br label %282
+  br label %279
 
-282:                                              ; preds = %268, %281
+279:                                              ; preds = %278, %266
+  %280 = add nuw nsw i64 %267, 1
+  %281 = icmp eq i64 %280, %265
+  br i1 %281, label %282, label %266, !llvm.loop !28
+
+282:                                              ; preds = %279
   %283 = load i64, ptr %4, align 8, !tbaa !15
-  %284 = add i64 %283, 1
+  %284 = add i64 %283, %265
   store i64 %284, ptr %4, align 8, !tbaa !15
-  %285 = icmp eq i32 %256, 0
-  br i1 %285, label %309, label %286
+  br label %285
 
-286:                                              ; preds = %282
-  %287 = getelementptr inbounds %class.CBuffer, ptr %2, i64 0, i32 2
-  %288 = load ptr, ptr %287, align 8, !tbaa !39
-  %289 = zext i32 %256 to i64
-  br label %290
-
-290:                                              ; preds = %303, %286
-  %291 = phi i64 [ 0, %286 ], [ %304, %303 ]
-  %292 = getelementptr inbounds i8, ptr %288, i64 %291
-  %293 = load i8, ptr %292, align 1, !tbaa !24
-  %294 = load ptr, ptr %104, align 8, !tbaa !25
-  %295 = load i32, ptr %105, align 8, !tbaa !26
-  %296 = add i32 %295, 1
-  store i32 %296, ptr %105, align 8, !tbaa !26
-  %297 = zext i32 %295 to i64
-  %298 = getelementptr inbounds i8, ptr %294, i64 %297
-  store i8 %293, ptr %298, align 1, !tbaa !24
-  %299 = load i32, ptr %105, align 8, !tbaa !26
-  %300 = load i32, ptr %106, align 4, !tbaa !27
-  %301 = icmp eq i32 %299, %300
-  br i1 %301, label %302, label %303
-
-302:                                              ; preds = %290
-  tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
-  br label %303
-
-303:                                              ; preds = %302, %290
-  %304 = add nuw nsw i64 %291, 1
-  %305 = icmp eq i64 %304, %289
-  br i1 %305, label %306, label %290, !llvm.loop !28
-
-306:                                              ; preds = %303
-  %307 = load i64, ptr %4, align 8, !tbaa !15
-  %308 = add i64 %307, %289
-  store i64 %308, ptr %4, align 8, !tbaa !15
-  br label %309
-
-309:                                              ; preds = %306, %282
+285:                                              ; preds = %282, %258
   tail call void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %104)
   ret void
 }
@@ -2937,7 +2891,7 @@ define dso_local void @_ZN8NArchive4NZip11COutArchive22CreateStreamForCopyingEPP
   %9 = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %3)
   br label %10
 
-10:                                               ; preds = %5, %2
+10:                                               ; preds = %2, %5
   store ptr %3, ptr %1, align 8, !tbaa !33
   ret void
 }

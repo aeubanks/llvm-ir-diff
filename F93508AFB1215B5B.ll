@@ -209,39 +209,39 @@ define dso_local i32 @Xz_WriteFooter(ptr nocapture noundef readonly %0, ptr noun
 
 17:                                               ; preds = %14
   %18 = getelementptr inbounds %struct.CXzStream, ptr %0, i64 0, i32 3
-  br label %19
+  br label %24
 
-19:                                               ; preds = %17, %38
-  %20 = phi i64 [ %9, %17 ], [ %39, %38 ]
-  %21 = phi i64 [ 0, %17 ], [ %40, %38 ]
-  %22 = phi i32 [ %10, %17 ], [ %34, %38 ]
-  %23 = load ptr, ptr %18, align 8, !tbaa !28
-  %24 = getelementptr inbounds %struct.CXzBlockSizes, ptr %23, i64 %21
-  %25 = getelementptr inbounds %struct.CXzBlockSizes, ptr %23, i64 %21, i32 1
-  %26 = load i64, ptr %25, align 8, !tbaa !29
-  %27 = call i32 @Xz_WriteVarInt(ptr noundef nonnull %3, i64 noundef %26) #5
-  %28 = zext i32 %27 to i64
-  %29 = getelementptr inbounds i8, ptr %3, i64 %28
-  %30 = load i64, ptr %24, align 8, !tbaa !31
-  %31 = call i32 @Xz_WriteVarInt(ptr noundef nonnull %29, i64 noundef %30) #5
-  %32 = add i32 %31, %27
+19:                                               ; preds = %24
+  %20 = add i64 %25, %38
+  %21 = add nuw i64 %26, 1
+  %22 = load i64, ptr %5, align 8, !tbaa !24
+  %23 = icmp ult i64 %21, %22
+  br i1 %23, label %24, label %43, !llvm.loop !28
+
+24:                                               ; preds = %17, %19
+  %25 = phi i64 [ %9, %17 ], [ %20, %19 ]
+  %26 = phi i64 [ 0, %17 ], [ %21, %19 ]
+  %27 = phi i32 [ %10, %17 ], [ %39, %19 ]
+  %28 = load ptr, ptr %18, align 8, !tbaa !29
+  %29 = getelementptr inbounds %struct.CXzBlockSizes, ptr %28, i64 %26
+  %30 = getelementptr inbounds %struct.CXzBlockSizes, ptr %28, i64 %26, i32 1
+  %31 = load i64, ptr %30, align 8, !tbaa !30
+  %32 = call i32 @Xz_WriteVarInt(ptr noundef nonnull %3, i64 noundef %31) #5
   %33 = zext i32 %32 to i64
-  %34 = call i32 @CrcUpdate(i32 noundef %22, ptr noundef nonnull %3, i64 noundef %33) #5
-  %35 = load ptr, ptr %1, align 8, !tbaa !10
-  %36 = call i64 %35(ptr noundef nonnull %1, ptr noundef nonnull %3, i64 noundef %33) #5
-  %37 = icmp eq i64 %36, %33
-  br i1 %37, label %38, label %85
+  %34 = getelementptr inbounds i8, ptr %3, i64 %33
+  %35 = load i64, ptr %29, align 8, !tbaa !32
+  %36 = call i32 @Xz_WriteVarInt(ptr noundef nonnull %34, i64 noundef %35) #5
+  %37 = add i32 %36, %32
+  %38 = zext i32 %37 to i64
+  %39 = call i32 @CrcUpdate(i32 noundef %27, ptr noundef nonnull %3, i64 noundef %38) #5
+  %40 = load ptr, ptr %1, align 8, !tbaa !10
+  %41 = call i64 %40(ptr noundef nonnull %1, ptr noundef nonnull %3, i64 noundef %38) #5
+  %42 = icmp eq i64 %41, %38
+  br i1 %42, label %19, label %85
 
-38:                                               ; preds = %19
-  %39 = add i64 %20, %33
-  %40 = add nuw i64 %21, 1
-  %41 = load i64, ptr %5, align 8, !tbaa !24
-  %42 = icmp ult i64 %40, %41
-  br i1 %42, label %19, label %43, !llvm.loop !32
-
-43:                                               ; preds = %38, %14
-  %44 = phi i32 [ %10, %14 ], [ %34, %38 ]
-  %45 = phi i64 [ %9, %14 ], [ %39, %38 ]
+43:                                               ; preds = %19, %14
+  %44 = phi i32 [ %10, %14 ], [ %39, %19 ]
+  %45 = phi i64 [ %9, %14 ], [ %20, %19 ]
   %46 = trunc i64 %45 to i32
   %47 = and i32 %46, 3
   %48 = icmp eq i32 %47, 0
@@ -265,8 +265,8 @@ define dso_local i32 @Xz_WriteFooter(ptr nocapture noundef readonly %0, ptr noun
   br label %59
 
 59:                                               ; preds = %43, %57
-  %60 = phi i32 [ %44, %43 ], [ %53, %57 ]
-  %61 = phi i64 [ %45, %43 ], [ %58, %57 ]
+  %60 = phi i32 [ %53, %57 ], [ %44, %43 ]
+  %61 = phi i64 [ %58, %57 ], [ %45, %43 ]
   %62 = xor i32 %60, -1
   store i32 %62, ptr %3, align 16, !tbaa !8
   %63 = load ptr, ptr %1, align 8, !tbaa !10
@@ -300,8 +300,8 @@ define dso_local i32 @Xz_WriteFooter(ptr nocapture noundef readonly %0, ptr noun
   %84 = select i1 %83, i32 0, i32 9
   br label %85
 
-85:                                               ; preds = %19, %2, %49, %59, %66
-  %86 = phi i32 [ %84, %66 ], [ 9, %59 ], [ 9, %2 ], [ 9, %49 ], [ 9, %19 ]
+85:                                               ; preds = %24, %2, %49, %59, %66
+  %86 = phi i32 [ %84, %66 ], [ 9, %59 ], [ 9, %2 ], [ 9, %49 ], [ 9, %24 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #5
   ret i32 %86
 }
@@ -309,7 +309,7 @@ define dso_local i32 @Xz_WriteFooter(ptr nocapture noundef readonly %0, ptr noun
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Xz_AddIndexRecord(ptr noundef %0, i64 noundef %1, i64 noundef %2, ptr noundef %3) local_unnamed_addr #0 {
   %5 = getelementptr inbounds %struct.CXzStream, ptr %0, i64 0, i32 3
-  %6 = load ptr, ptr %5, align 8, !tbaa !28
+  %6 = load ptr, ptr %5, align 8, !tbaa !29
   %7 = icmp eq ptr %6, null
   br i1 %7, label %8, label %11
 
@@ -347,7 +347,7 @@ define dso_local i32 @Xz_AddIndexRecord(ptr noundef %0, i64 noundef %1, i64 noun
   br i1 %30, label %35, label %31
 
 31:                                               ; preds = %28
-  %32 = load ptr, ptr %5, align 8, !tbaa !28
+  %32 = load ptr, ptr %5, align 8, !tbaa !29
   %33 = shl i64 %29, 4
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %26, ptr align 8 %32, i64 %33, i1 false)
   tail call void @Xz_Free(ptr noundef nonnull %0, ptr noundef nonnull %3) #5
@@ -356,7 +356,7 @@ define dso_local i32 @Xz_AddIndexRecord(ptr noundef %0, i64 noundef %1, i64 noun
 
 35:                                               ; preds = %28, %31
   %36 = phi i64 [ 0, %28 ], [ %34, %31 ]
-  store ptr %26, ptr %5, align 8, !tbaa !28
+  store ptr %26, ptr %5, align 8, !tbaa !29
   %37 = getelementptr inbounds %struct.CXzStream, ptr %0, i64 0, i32 2
   store i64 %21, ptr %37, align 8, !tbaa !34
   br label %38
@@ -369,8 +369,8 @@ define dso_local i32 @Xz_AddIndexRecord(ptr noundef %0, i64 noundef %1, i64 noun
   store i64 %42, ptr %41, align 8, !tbaa !24
   %43 = getelementptr inbounds %struct.CXzBlockSizes, ptr %40, i64 %39
   %44 = getelementptr inbounds %struct.CXzBlockSizes, ptr %40, i64 %39, i32 1
-  store i64 %2, ptr %44, align 8, !tbaa !29
-  store i64 %1, ptr %43, align 8, !tbaa !31
+  store i64 %2, ptr %44, align 8, !tbaa !30
+  store i64 %1, ptr %43, align 8, !tbaa !32
   br label %45
 
 45:                                               ; preds = %23, %17, %38
@@ -531,7 +531,7 @@ define dso_local i32 @Xz_Encode(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   %85 = load i64, ptr %43, align 8, !tbaa !44
   %86 = sub i64 %85, %74
   %87 = getelementptr inbounds %struct.CXzStream, ptr %11, i64 0, i32 3
-  %88 = load ptr, ptr %87, align 8, !tbaa !28
+  %88 = load ptr, ptr %87, align 8, !tbaa !29
   %89 = icmp eq ptr %88, null
   br i1 %89, label %90, label %93
 
@@ -569,7 +569,7 @@ define dso_local i32 @Xz_Encode(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   br i1 %112, label %117, label %113
 
 113:                                              ; preds = %110
-  %114 = load ptr, ptr %87, align 8, !tbaa !28
+  %114 = load ptr, ptr %87, align 8, !tbaa !29
   %115 = shl i64 %111, 4
   call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %108, ptr align 8 %114, i64 %115, i1 false)
   call void @Xz_Free(ptr noundef nonnull %11, ptr noundef nonnull @g_Alloc) #5
@@ -578,7 +578,7 @@ define dso_local i32 @Xz_Encode(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 
 117:                                              ; preds = %113, %110
   %118 = phi i64 [ 0, %110 ], [ %116, %113 ]
-  store ptr %108, ptr %87, align 8, !tbaa !28
+  store ptr %108, ptr %87, align 8, !tbaa !29
   %119 = getelementptr inbounds %struct.CXzStream, ptr %11, i64 0, i32 2
   store i64 %103, ptr %119, align 8, !tbaa !34
   br label %124
@@ -606,8 +606,8 @@ define dso_local i32 @Xz_Encode(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   store i64 %128, ptr %127, align 8, !tbaa !24
   %129 = getelementptr inbounds %struct.CXzBlockSizes, ptr %126, i64 %125
   %130 = getelementptr inbounds %struct.CXzBlockSizes, ptr %126, i64 %125, i32 1
-  store i64 %86, ptr %130, align 8, !tbaa !29
-  store i64 %57, ptr %129, align 8, !tbaa !31
+  store i64 %86, ptr %130, align 8, !tbaa !30
+  store i64 %57, ptr %129, align 8, !tbaa !32
   call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %10) #5
   call void @llvm.lifetime.end.p0(i64 152, ptr nonnull %9) #5
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %8) #5
@@ -615,8 +615,8 @@ define dso_local i32 @Xz_Encode(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   %131 = call i32 @Xz_WriteFooter(ptr noundef nonnull %11, ptr noundef nonnull %0), !range !45
   br label %132
 
-132:                                              ; preds = %124, %122, %120, %17, %14
-  %133 = phi i32 [ %123, %122 ], [ %121, %120 ], [ %131, %124 ], [ 9, %17 ], [ %15, %14 ]
+132:                                              ; preds = %122, %124, %14, %17, %120
+  %133 = phi i32 [ %121, %120 ], [ 9, %17 ], [ %15, %14 ], [ %131, %124 ], [ %123, %122 ]
   call void @Lzma2Enc_Destroy(ptr noundef nonnull %12) #5
   br label %134
 
@@ -784,11 +784,11 @@ attributes #5 = { nounwind }
 !25 = !{!"", !26, i64 0, !27, i64 8, !27, i64 16, !12, i64 24, !15, i64 32}
 !26 = !{!"short", !6, i64 0}
 !27 = !{!"long", !6, i64 0}
-!28 = !{!25, !12, i64 24}
-!29 = !{!30, !15, i64 8}
-!30 = !{!"", !15, i64 0, !15, i64 8}
-!31 = !{!30, !15, i64 0}
-!32 = distinct !{!32, !22}
+!28 = distinct !{!28, !22}
+!29 = !{!25, !12, i64 24}
+!30 = !{!31, !15, i64 8}
+!31 = !{!"", !15, i64 0, !15, i64 8}
+!32 = !{!31, !15, i64 0}
 !33 = !{!25, !26, i64 0}
 !34 = !{!25, !27, i64 16}
 !35 = !{!36, !12, i64 0}

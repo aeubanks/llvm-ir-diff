@@ -47,8 +47,8 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local void @PSEUDO_BYTE(ptr nocapture readnone %0, ptr noundef %1, ptr noundef %2, ptr nocapture readnone %3, ptr noundef %4) local_unnamed_addr #0 {
   %6 = load i32, ptr %2, align 4, !tbaa !5
   %7 = load i8, ptr %1, align 1, !tbaa !9
-  %8 = icmp ne i8 %7, 88
-  switch i8 %7, label %126 [
+  %8 = icmp eq i8 %7, 88
+  switch i8 %7, label %127 [
     i8 88, label %9
     i8 67, label %9
   ]
@@ -68,7 +68,7 @@ define dso_local void @PSEUDO_BYTE(ptr nocapture readnone %0, ptr noundef %1, pt
   br i1 %17, label %18, label %60
 
 18:                                               ; preds = %14
-  br i1 %8, label %46, label %19
+  br i1 %8, label %19, label %46
 
 19:                                               ; preds = %18, %32
   %20 = phi i64 [ %35, %32 ], [ 2, %18 ]
@@ -105,7 +105,7 @@ define dso_local void @PSEUDO_BYTE(ptr nocapture readnone %0, ptr noundef %1, pt
 
 44:                                               ; preds = %9
   %45 = tail call i64 @fwrite(ptr nonnull @.str, i64 49, i64 1, ptr %4)
-  br label %128
+  br label %129
 
 46:                                               ; preds = %18, %52
   %47 = phi i64 [ %53, %52 ], [ 2, %18 ]
@@ -154,87 +154,90 @@ define dso_local void @PSEUDO_BYTE(ptr nocapture readnone %0, ptr noundef %1, pt
 
 79:                                               ; preds = %72
   %80 = getelementptr inbounds i8, ptr %74, i64 1
-  br i1 %8, label %93, label %86
+  br i1 %8, label %83, label %95
 
 81:                                               ; preds = %72
   %82 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 73, i64 1, ptr %4)
-  %83 = and i32 %76, 2147483646
-  %84 = icmp eq i32 %83, %76
-  %85 = select i1 %8, i1 true, i1 %84
-  br i1 %85, label %111, label %89
+  br i1 %8, label %87, label %112
 
-86:                                               ; preds = %79
-  %87 = and i32 %76, 2147483646
-  %88 = icmp eq i32 %87, %76
-  br i1 %88, label %92, label %89
+83:                                               ; preds = %79
+  %84 = sdiv i32 %76, 2
+  %85 = shl nsw i32 %84, 1
+  %86 = icmp eq i32 %85, %76
+  br i1 %86, label %94, label %91
 
-89:                                               ; preds = %81, %86
-  %90 = phi ptr [ %80, %86 ], [ %74, %81 ]
-  %91 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 66, i64 1, ptr %4)
-  br label %111
+87:                                               ; preds = %81
+  %88 = sdiv i32 %76, 2
+  %89 = shl nsw i32 %88, 1
+  %90 = icmp eq i32 %89, %76
+  br i1 %90, label %112, label %91
 
-92:                                               ; preds = %86
-  br i1 %73, label %94, label %111
+91:                                               ; preds = %87, %83
+  %92 = phi ptr [ %74, %87 ], [ %80, %83 ]
+  %93 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 66, i64 1, ptr %4)
+  br label %112
 
-93:                                               ; preds = %79
-  br i1 %73, label %98, label %111
+94:                                               ; preds = %83
+  br i1 %73, label %96, label %112
 
-94:                                               ; preds = %92
-  %95 = lshr i32 %76, 1
-  tail call void (ptr, i32, ptr, ...) @CHANGE_LOCATION(ptr noundef nonnull %2, i32 noundef %95, ptr noundef %4) #7
-  %96 = load i8, ptr %74, align 1, !tbaa !9
+95:                                               ; preds = %79
+  br i1 %73, label %99, label %112
+
+96:                                               ; preds = %94
+  tail call void (ptr, i32, ptr, ...) @CHANGE_LOCATION(ptr noundef nonnull %2, i32 noundef %84, ptr noundef %4) #7
+  %97 = load i8, ptr %74, align 1, !tbaa !9
   store i8 0, ptr %74, align 1, !tbaa !9
-  %97 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.4, i32 noundef %6, ptr noundef nonnull %11)
-  store i8 %96, ptr %74, align 1, !tbaa !9
-  br label %111
+  %98 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.4, i32 noundef %6, ptr noundef nonnull %11)
+  store i8 %97, ptr %74, align 1, !tbaa !9
+  br label %112
 
-98:                                               ; preds = %93
+99:                                               ; preds = %95
   tail call void (ptr, i32, ptr, ...) @CHANGE_LOCATION(ptr noundef nonnull %2, i32 noundef %76, ptr noundef %4) #7
-  %99 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.5, i32 noundef %6)
-  %100 = add nsw i64 %75, -1
-  %101 = getelementptr inbounds i8, ptr %1, i64 %100
-  %102 = icmp slt i64 %75, 3
-  br i1 %102, label %109, label %103
+  %100 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.5, i32 noundef %6)
+  %101 = add nsw i64 %75, -1
+  %102 = getelementptr inbounds i8, ptr %1, i64 %101
+  %103 = icmp slt i64 %75, 3
+  br i1 %103, label %110, label %104
 
-103:                                              ; preds = %98, %103
-  %104 = phi ptr [ %107, %103 ], [ %11, %98 ]
-  %105 = load i8, ptr %104, align 1, !tbaa !9
-  %106 = sext i8 %105 to i32
-  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %106, i32 noundef 16, i32 noundef 2, ptr noundef %4) #7
-  %107 = getelementptr inbounds i8, ptr %104, i64 1
-  %108 = icmp ugt ptr %107, %101
-  br i1 %108, label %109, label %103, !llvm.loop !12
+104:                                              ; preds = %99, %104
+  %105 = phi ptr [ %108, %104 ], [ %11, %99 ]
+  %106 = load i8, ptr %105, align 1, !tbaa !9
+  %107 = sext i8 %106 to i32
+  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %107, i32 noundef 16, i32 noundef 2, ptr noundef %4) #7
+  %108 = getelementptr inbounds i8, ptr %105, i64 1
+  %109 = icmp ugt ptr %108, %102
+  br i1 %109, label %110, label %104, !llvm.loop !12
 
-109:                                              ; preds = %103, %98
-  %110 = tail call i32 @fputc(i32 10, ptr %4)
-  br label %111
+110:                                              ; preds = %104, %99
+  %111 = tail call i32 @fputc(i32 10, ptr %4)
+  br label %112
 
-111:                                              ; preds = %81, %93, %89, %94, %109, %92
-  %112 = phi ptr [ %80, %93 ], [ %90, %89 ], [ %80, %94 ], [ %80, %109 ], [ %80, %92 ], [ %74, %81 ]
-  %113 = load i8, ptr %112, align 1, !tbaa !9
-  %114 = sext i8 %113 to i32
-  %115 = tail call i32 (i32, ...) @IS_BLANK_OR_TAB(i32 noundef %114) #7
-  %116 = icmp eq i32 %115, 0
-  br i1 %116, label %117, label %128
+112:                                              ; preds = %87, %81, %95, %91, %96, %110, %94
+  %113 = phi ptr [ %80, %95 ], [ %92, %91 ], [ %80, %96 ], [ %80, %110 ], [ %80, %94 ], [ %74, %81 ], [ %74, %87 ]
+  %114 = load i8, ptr %113, align 1, !tbaa !9
+  %115 = sext i8 %114 to i32
+  %116 = tail call i32 (i32, ...) @IS_BLANK_OR_TAB(i32 noundef %115) #7
+  %117 = icmp eq i32 %116, 0
+  br i1 %117, label %118, label %129
 
-117:                                              ; preds = %111
-  %118 = load i8, ptr %112, align 1, !tbaa !9
-  %119 = sext i8 %118 to i32
-  %120 = tail call i32 (i32, ...) @eoln(i32 noundef %119) #7
-  %121 = icmp eq i32 %120, 0
-  br i1 %121, label %122, label %128
+118:                                              ; preds = %112
+  %119 = load i8, ptr %113, align 1, !tbaa !9
+  %120 = sext i8 %119 to i32
+  %121 = tail call i32 (i32, ...) @eoln(i32 noundef %120) #7
+  %122 = icmp eq i32 %121, 0
+  br i1 %122, label %123, label %129
 
-122:                                              ; preds = %117
-  %123 = load i8, ptr %112, align 1, !tbaa !9
-  %124 = sext i8 %123 to i32
-  %125 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.7, i32 noundef %124)
-  br label %128
+123:                                              ; preds = %118
+  %124 = load i8, ptr %113, align 1, !tbaa !9
+  %125 = sext i8 %124 to i32
+  %126 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.7, i32 noundef %125)
+  br label %129
 
-126:                                              ; preds = %5
-  %127 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 56, i64 1, ptr %4)
-  br label %128
+127:                                              ; preds = %5
+  %128 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 56, i64 1, ptr %4)
+  br label %129
 
-128:                                              ; preds = %44, %122, %117, %111, %126
+129:                                              ; preds = %44, %123, %118, %112, %127
   ret void
 }
 

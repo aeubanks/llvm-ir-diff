@@ -129,7 +129,7 @@ define hidden void @_Z18BM_diagnostic_testRN9benchmark5StateE(ptr noundef nonnul
   %22 = add i64 %20, %21
   br label %23
 
-23:                                               ; preds = %17, %13
+23:                                               ; preds = %13, %17
   %24 = phi i64 [ %22, %17 ], [ 0, %13 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %24) #10, !srcloc !32
   %25 = add i64 %14, -1
@@ -153,15 +153,15 @@ define hidden void @_Z31BM_diagnostic_test_keep_runningRN9benchmark5StateE(ptr n
   %5 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 1
   br label %6
 
-6:                                                ; preds = %18, %1
+6:                                                ; preds = %19, %1
   %7 = load i64, ptr %0, align 8, !tbaa !30
   %8 = icmp eq i64 %7, 0
-  br i1 %8, label %9, label %18, !prof !27
+  br i1 %8, label %9, label %19, !prof !27
 
 9:                                                ; preds = %6
   %10 = load i8, ptr %2, align 8, !tbaa !28, !range !25, !noundef !26
   %11 = icmp eq i8 %10, 0
-  br i1 %11, label %12, label %28
+  br i1 %11, label %12, label %18
 
 12:                                               ; preds = %9
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -170,25 +170,25 @@ define hidden void @_Z31BM_diagnostic_test_keep_runningRN9benchmark5StateE(ptr n
   %15 = load i64, ptr %0, align 8
   %16 = icmp eq i64 %15, 0
   %17 = select i1 %14, i1 true, i1 %16
-  br i1 %17, label %28, label %18
+  br i1 %17, label %18, label %19
 
-18:                                               ; preds = %12, %6
-  %19 = phi i64 [ %7, %6 ], [ %15, %12 ]
-  %20 = add i64 %19, -1
-  store i64 %20, ptr %0, align 8, !tbaa !30
-  %21 = load i8, ptr %2, align 8, !tbaa !28, !range !25, !noundef !26
-  %22 = icmp eq i8 %21, 0
-  %23 = load i64, ptr %4, align 8
-  %24 = sub i64 %23, %20
-  %25 = load i64, ptr %5, align 8
-  %26 = add i64 %24, %25
-  %27 = select i1 %22, i64 0, i64 %26, !prof !27
-  tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %27) #10, !srcloc !32
-  br label %6, !llvm.loop !33
-
-28:                                               ; preds = %12, %9
+18:                                               ; preds = %12, %9
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
   ret void
+
+19:                                               ; preds = %12, %6
+  %20 = phi i64 [ %7, %6 ], [ %15, %12 ]
+  %21 = add i64 %20, -1
+  store i64 %21, ptr %0, align 8, !tbaa !30
+  %22 = load i8, ptr %2, align 8, !tbaa !28, !range !25, !noundef !26
+  %23 = icmp eq i8 %22, 0
+  %24 = load i64, ptr %4, align 8
+  %25 = sub i64 %24, %21
+  %26 = load i64, ptr %5, align 8
+  %27 = add i64 %25, %26
+  %28 = select i1 %23, i64 0, i64 %27, !prof !27
+  tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %28) #10, !srcloc !32
+  br label %6, !llvm.loop !33
 }
 
 ; Function Attrs: mustprogress norecurse uwtable

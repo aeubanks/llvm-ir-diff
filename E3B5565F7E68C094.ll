@@ -1708,7 +1708,7 @@ define dso_local float @R__align(ptr noundef %0, ptr noundef %1, ptr noundef %2,
   %817 = load i32, ptr @outgap, align 4, !tbaa !11
   %818 = icmp ne i32 %817, 0
   %819 = zext i1 %818 to i32
-  %820 = add nsw i32 %819, %28
+  %820 = add nsw i32 %28, %819
   %821 = icmp sgt i32 %820, 1
   br i1 %821, label %822, label %1272
 

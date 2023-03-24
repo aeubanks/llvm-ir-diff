@@ -2282,9 +2282,9 @@ define dso_local i32 @mem_mapped_copy_color(ptr noundef %0, ptr noundef %1, i32 
   br i1 %57, label %111, label %58
 
 58:                                               ; preds = %53
-  %59 = sext i32 %2 to i64
-  %60 = getelementptr inbounds i8, ptr %1, i64 %59
-  %61 = zext i32 %4 to i64
+  %59 = zext i32 %4 to i64
+  %60 = sext i32 %2 to i64
+  %61 = getelementptr inbounds i8, ptr %1, i64 %60
   %62 = getelementptr inbounds %struct.gx_device_memory_s, ptr %0, i64 0, i32 14
   %63 = load ptr, ptr %62, align 8, !tbaa !19
   %64 = zext i32 %5 to i64
@@ -2299,11 +2299,11 @@ define dso_local i32 @mem_mapped_copy_color(ptr noundef %0, ptr noundef %1, i32 
 71:                                               ; preds = %58, %71
   %72 = phi ptr [ %80, %71 ], [ %65, %58 ]
   %73 = phi i32 [ %76, %71 ], [ %7, %58 ]
-  %74 = phi ptr [ %79, %71 ], [ %60, %58 ]
+  %74 = phi ptr [ %79, %71 ], [ %61, %58 ]
   %75 = phi i32 [ %81, %71 ], [ 0, %58 ]
   %76 = add nsw i32 %73, -1
   %77 = load ptr, ptr %72, align 8, !tbaa !20
-  %78 = getelementptr inbounds i8, ptr %77, i64 %61
+  %78 = getelementptr inbounds i8, ptr %77, i64 %59
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %78, ptr align 1 %74, i64 %66, i1 false)
   %79 = getelementptr inbounds i8, ptr %74, i64 %67
   %80 = getelementptr inbounds ptr, ptr %72, i64 1
@@ -2314,7 +2314,7 @@ define dso_local i32 @mem_mapped_copy_color(ptr noundef %0, ptr noundef %1, i32 
 83:                                               ; preds = %71, %58
   %84 = phi ptr [ %65, %58 ], [ %80, %71 ]
   %85 = phi i32 [ %7, %58 ], [ %76, %71 ]
-  %86 = phi ptr [ %60, %58 ], [ %79, %71 ]
+  %86 = phi ptr [ %61, %58 ], [ %79, %71 ]
   %87 = icmp ult i32 %68, 3
   br i1 %87, label %111, label %88
 
@@ -2323,23 +2323,23 @@ define dso_local i32 @mem_mapped_copy_color(ptr noundef %0, ptr noundef %1, i32 
   %90 = phi i32 [ %104, %88 ], [ %85, %83 ]
   %91 = phi ptr [ %107, %88 ], [ %86, %83 ]
   %92 = load ptr, ptr %89, align 8, !tbaa !20
-  %93 = getelementptr inbounds i8, ptr %92, i64 %61
+  %93 = getelementptr inbounds i8, ptr %92, i64 %59
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %93, ptr align 1 %91, i64 %66, i1 false)
   %94 = getelementptr inbounds i8, ptr %91, i64 %67
   %95 = getelementptr inbounds ptr, ptr %89, i64 1
   %96 = load ptr, ptr %95, align 8, !tbaa !20
-  %97 = getelementptr inbounds i8, ptr %96, i64 %61
+  %97 = getelementptr inbounds i8, ptr %96, i64 %59
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %97, ptr align 1 %94, i64 %66, i1 false)
   %98 = getelementptr inbounds i8, ptr %94, i64 %67
   %99 = getelementptr inbounds ptr, ptr %89, i64 2
   %100 = load ptr, ptr %99, align 8, !tbaa !20
-  %101 = getelementptr inbounds i8, ptr %100, i64 %61
+  %101 = getelementptr inbounds i8, ptr %100, i64 %59
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %101, ptr align 1 %98, i64 %66, i1 false)
   %102 = getelementptr inbounds i8, ptr %98, i64 %67
   %103 = getelementptr inbounds ptr, ptr %89, i64 3
   %104 = add nsw i32 %90, -4
   %105 = load ptr, ptr %103, align 8, !tbaa !20
-  %106 = getelementptr inbounds i8, ptr %105, i64 %61
+  %106 = getelementptr inbounds i8, ptr %105, i64 %59
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %106, ptr align 1 %102, i64 %66, i1 false)
   %107 = getelementptr inbounds i8, ptr %102, i64 %67
   %108 = getelementptr inbounds ptr, ptr %89, i64 4
@@ -2872,17 +2872,17 @@ define dso_local i32 @mem_true24_copy_color(ptr noundef %0, ptr noundef %1, i32 
   br i1 %59, label %116, label %60
 
 60:                                               ; preds = %55
-  %61 = mul nsw i32 %2, 3
+  %61 = mul nsw i32 %4, 3
   %62 = sext i32 %61 to i64
-  %63 = getelementptr inbounds i8, ptr %1, i64 %62
-  %64 = mul nsw i32 %4, 3
-  %65 = mul nsw i32 %6, 3
-  %66 = sext i32 %64 to i64
+  %63 = mul nsw i32 %6, 3
+  %64 = mul nsw i32 %2, 3
+  %65 = sext i32 %64 to i64
+  %66 = getelementptr inbounds i8, ptr %1, i64 %65
   %67 = getelementptr inbounds %struct.gx_device_memory_s, ptr %0, i64 0, i32 14
   %68 = load ptr, ptr %67, align 8, !tbaa !19
   %69 = zext i32 %5 to i64
   %70 = getelementptr inbounds ptr, ptr %68, i64 %69
-  %71 = sext i32 %65 to i64
+  %71 = sext i32 %63 to i64
   %72 = sext i32 %3 to i64
   %73 = add i32 %7, -1
   %74 = and i32 %7, 3
@@ -2892,11 +2892,11 @@ define dso_local i32 @mem_true24_copy_color(ptr noundef %0, ptr noundef %1, i32 
 76:                                               ; preds = %60, %76
   %77 = phi ptr [ %85, %76 ], [ %70, %60 ]
   %78 = phi i32 [ %81, %76 ], [ %7, %60 ]
-  %79 = phi ptr [ %84, %76 ], [ %63, %60 ]
+  %79 = phi ptr [ %84, %76 ], [ %66, %60 ]
   %80 = phi i32 [ %86, %76 ], [ 0, %60 ]
   %81 = add nsw i32 %78, -1
   %82 = load ptr, ptr %77, align 8, !tbaa !20
-  %83 = getelementptr inbounds i8, ptr %82, i64 %66
+  %83 = getelementptr inbounds i8, ptr %82, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %83, ptr align 1 %79, i64 %71, i1 false)
   %84 = getelementptr inbounds i8, ptr %79, i64 %72
   %85 = getelementptr inbounds ptr, ptr %77, i64 1
@@ -2907,7 +2907,7 @@ define dso_local i32 @mem_true24_copy_color(ptr noundef %0, ptr noundef %1, i32 
 88:                                               ; preds = %76, %60
   %89 = phi ptr [ %70, %60 ], [ %85, %76 ]
   %90 = phi i32 [ %7, %60 ], [ %81, %76 ]
-  %91 = phi ptr [ %63, %60 ], [ %84, %76 ]
+  %91 = phi ptr [ %66, %60 ], [ %84, %76 ]
   %92 = icmp ult i32 %73, 3
   br i1 %92, label %116, label %93
 
@@ -2916,23 +2916,23 @@ define dso_local i32 @mem_true24_copy_color(ptr noundef %0, ptr noundef %1, i32 
   %95 = phi i32 [ %109, %93 ], [ %90, %88 ]
   %96 = phi ptr [ %112, %93 ], [ %91, %88 ]
   %97 = load ptr, ptr %94, align 8, !tbaa !20
-  %98 = getelementptr inbounds i8, ptr %97, i64 %66
+  %98 = getelementptr inbounds i8, ptr %97, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %98, ptr align 1 %96, i64 %71, i1 false)
   %99 = getelementptr inbounds i8, ptr %96, i64 %72
   %100 = getelementptr inbounds ptr, ptr %94, i64 1
   %101 = load ptr, ptr %100, align 8, !tbaa !20
-  %102 = getelementptr inbounds i8, ptr %101, i64 %66
+  %102 = getelementptr inbounds i8, ptr %101, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %102, ptr align 1 %99, i64 %71, i1 false)
   %103 = getelementptr inbounds i8, ptr %99, i64 %72
   %104 = getelementptr inbounds ptr, ptr %94, i64 2
   %105 = load ptr, ptr %104, align 8, !tbaa !20
-  %106 = getelementptr inbounds i8, ptr %105, i64 %66
+  %106 = getelementptr inbounds i8, ptr %105, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %106, ptr align 1 %103, i64 %71, i1 false)
   %107 = getelementptr inbounds i8, ptr %103, i64 %72
   %108 = getelementptr inbounds ptr, ptr %94, i64 3
   %109 = add nsw i32 %95, -4
   %110 = load ptr, ptr %108, align 8, !tbaa !20
-  %111 = getelementptr inbounds i8, ptr %110, i64 %66
+  %111 = getelementptr inbounds i8, ptr %110, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %111, ptr align 1 %107, i64 %71, i1 false)
   %112 = getelementptr inbounds i8, ptr %107, i64 %72
   %113 = getelementptr inbounds ptr, ptr %94, i64 4
@@ -3381,17 +3381,17 @@ define dso_local i32 @mem_true32_copy_color(ptr noundef %0, ptr noundef %1, i32 
   br i1 %59, label %116, label %60
 
 60:                                               ; preds = %55
-  %61 = shl i32 %2, 2
+  %61 = shl i32 %4, 2
   %62 = sext i32 %61 to i64
-  %63 = getelementptr inbounds i8, ptr %1, i64 %62
-  %64 = shl i32 %4, 2
-  %65 = shl i32 %6, 2
-  %66 = sext i32 %64 to i64
+  %63 = shl i32 %6, 2
+  %64 = shl i32 %2, 2
+  %65 = sext i32 %64 to i64
+  %66 = getelementptr inbounds i8, ptr %1, i64 %65
   %67 = getelementptr inbounds %struct.gx_device_memory_s, ptr %0, i64 0, i32 14
   %68 = load ptr, ptr %67, align 8, !tbaa !19
   %69 = zext i32 %5 to i64
   %70 = getelementptr inbounds ptr, ptr %68, i64 %69
-  %71 = sext i32 %65 to i64
+  %71 = sext i32 %63 to i64
   %72 = sext i32 %3 to i64
   %73 = add i32 %7, -1
   %74 = and i32 %7, 3
@@ -3401,11 +3401,11 @@ define dso_local i32 @mem_true32_copy_color(ptr noundef %0, ptr noundef %1, i32 
 76:                                               ; preds = %60, %76
   %77 = phi ptr [ %85, %76 ], [ %70, %60 ]
   %78 = phi i32 [ %81, %76 ], [ %7, %60 ]
-  %79 = phi ptr [ %84, %76 ], [ %63, %60 ]
+  %79 = phi ptr [ %84, %76 ], [ %66, %60 ]
   %80 = phi i32 [ %86, %76 ], [ 0, %60 ]
   %81 = add nsw i32 %78, -1
   %82 = load ptr, ptr %77, align 8, !tbaa !20
-  %83 = getelementptr inbounds i8, ptr %82, i64 %66
+  %83 = getelementptr inbounds i8, ptr %82, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %83, ptr align 1 %79, i64 %71, i1 false)
   %84 = getelementptr inbounds i8, ptr %79, i64 %72
   %85 = getelementptr inbounds ptr, ptr %77, i64 1
@@ -3416,7 +3416,7 @@ define dso_local i32 @mem_true32_copy_color(ptr noundef %0, ptr noundef %1, i32 
 88:                                               ; preds = %76, %60
   %89 = phi ptr [ %70, %60 ], [ %85, %76 ]
   %90 = phi i32 [ %7, %60 ], [ %81, %76 ]
-  %91 = phi ptr [ %63, %60 ], [ %84, %76 ]
+  %91 = phi ptr [ %66, %60 ], [ %84, %76 ]
   %92 = icmp ult i32 %73, 3
   br i1 %92, label %116, label %93
 
@@ -3425,23 +3425,23 @@ define dso_local i32 @mem_true32_copy_color(ptr noundef %0, ptr noundef %1, i32 
   %95 = phi i32 [ %109, %93 ], [ %90, %88 ]
   %96 = phi ptr [ %112, %93 ], [ %91, %88 ]
   %97 = load ptr, ptr %94, align 8, !tbaa !20
-  %98 = getelementptr inbounds i8, ptr %97, i64 %66
+  %98 = getelementptr inbounds i8, ptr %97, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %98, ptr align 1 %96, i64 %71, i1 false)
   %99 = getelementptr inbounds i8, ptr %96, i64 %72
   %100 = getelementptr inbounds ptr, ptr %94, i64 1
   %101 = load ptr, ptr %100, align 8, !tbaa !20
-  %102 = getelementptr inbounds i8, ptr %101, i64 %66
+  %102 = getelementptr inbounds i8, ptr %101, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %102, ptr align 1 %99, i64 %71, i1 false)
   %103 = getelementptr inbounds i8, ptr %99, i64 %72
   %104 = getelementptr inbounds ptr, ptr %94, i64 2
   %105 = load ptr, ptr %104, align 8, !tbaa !20
-  %106 = getelementptr inbounds i8, ptr %105, i64 %66
+  %106 = getelementptr inbounds i8, ptr %105, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %106, ptr align 1 %103, i64 %71, i1 false)
   %107 = getelementptr inbounds i8, ptr %103, i64 %72
   %108 = getelementptr inbounds ptr, ptr %94, i64 3
   %109 = add nsw i32 %95, -4
   %110 = load ptr, ptr %108, align 8, !tbaa !20
-  %111 = getelementptr inbounds i8, ptr %110, i64 %66
+  %111 = getelementptr inbounds i8, ptr %110, i64 %62
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %111, ptr align 1 %107, i64 %71, i1 false)
   %112 = getelementptr inbounds i8, ptr %107, i64 %72
   %113 = getelementptr inbounds ptr, ptr %94, i64 4

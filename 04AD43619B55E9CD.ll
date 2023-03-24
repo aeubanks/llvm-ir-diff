@@ -141,7 +141,7 @@ define dso_local ptr @get_word(ptr nocapture noundef %0, ptr noundef returned wr
   br i1 %5, label %14, label %6
 
 6:                                                ; preds = %3
-  %7 = tail call ptr @__ctype_b_loc() #16
+  %7 = tail call ptr @__ctype_b_loc() #17
   %8 = load ptr, ptr %7, align 8, !tbaa !9
   %9 = sext i32 %4 to i64
   %10 = getelementptr inbounds i16, ptr %8, i64 %9
@@ -158,7 +158,7 @@ define dso_local ptr @get_word(ptr nocapture noundef %0, ptr noundef returned wr
   br i1 %17, label %38, label %18
 
 18:                                               ; preds = %14
-  %19 = tail call ptr @__ctype_b_loc() #16
+  %19 = tail call ptr @__ctype_b_loc() #17
   br label %20
 
 20:                                               ; preds = %18, %29
@@ -205,9 +205,9 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
   %7 = load ptr, ptr %6, align 8, !tbaa !9
   %8 = getelementptr inbounds ptr, ptr %4, i64 2
   %9 = load ptr, ptr %8, align 8, !tbaa !9
-  call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %3) #17
+  call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %3) #18
   %10 = load i32, ptr @cube, align 8, !tbaa !16
-  %11 = tail call ptr (ptr, i32, ...) @set_clear(ptr noundef %5, i32 noundef %10) #17
+  %11 = tail call ptr (ptr, i32, ...) @set_clear(ptr noundef %5, i32 noundef %10) #18
   %12 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2), align 8, !tbaa !17
   %13 = icmp sgt i32 %12, 0
   br i1 %13, label %22, label %14
@@ -253,7 +253,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
 
 33:                                               ; preds = %31
   %34 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %35 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %34, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1) #18
+  %35 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %34, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1) #19
   br label %36
 
 36:                                               ; preds = %33, %31
@@ -323,7 +323,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %82, label %83, label %176
 
 83:                                               ; preds = %76
-  %84 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.2, ptr noundef nonnull %3) #17
+  %84 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.2, ptr noundef nonnull %3) #18
   %85 = load i16, ptr %3, align 16
   %86 = icmp eq i16 %85, 45
   %87 = load i32, ptr %3, align 16
@@ -346,7 +346,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
   %98 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 10), align 8, !tbaa !20
   %99 = getelementptr inbounds ptr, ptr %98, i64 %77
   %100 = load ptr, ptr %99, align 8, !tbaa !9
-  %101 = call ptr (ptr, ptr, ptr, ...) @set_or(ptr noundef %5, ptr noundef %5, ptr noundef %100) #17
+  %101 = call ptr (ptr, ptr, ptr, ...) @set_or(ptr noundef %5, ptr noundef %5, ptr noundef %100) #18
   br label %214
 
 102:                                              ; preds = %83
@@ -403,7 +403,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
 
 140:                                              ; preds = %135
   %141 = trunc i64 %136 to i32
-  %142 = call ptr @util_strsav(ptr noundef nonnull %3) #17
+  %142 = call ptr @util_strsav(ptr noundef nonnull %3) #18
   %143 = load ptr, ptr %20, align 8, !tbaa !23
   %144 = getelementptr inbounds ptr, ptr %143, i64 %136
   store ptr %142, ptr %144, align 8, !tbaa !9
@@ -420,7 +420,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
   br label %214
 
 154:                                              ; preds = %135
-  %155 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %138, ptr noundef nonnull dereferenceable(1) %3) #19
+  %155 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %138, ptr noundef nonnull dereferenceable(1) %3) #20
   %156 = icmp eq i32 %155, 0
   br i1 %156, label %157, label %168
 
@@ -447,8 +447,8 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
 172:                                              ; preds = %119, %168
   %173 = trunc i64 %77 to i32
   %174 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %175 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %174, ptr noundef nonnull @.str.6, i32 noundef %173) #18
-  call void @exit(i32 noundef -1) #20
+  %175 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %174, ptr noundef nonnull @.str.6, i32 noundef %173) #19
+  call void @exit(i32 noundef -1) #21
   unreachable
 
 176:                                              ; preds = %76
@@ -479,7 +479,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
 
 189:                                              ; preds = %187
   %190 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %191 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %190, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1) #18
+  %191 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %190, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1) #19
   br label %192
 
 192:                                              ; preds = %189, %187
@@ -540,16 +540,16 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
   %230 = sext i32 %229 to i64
   %231 = getelementptr inbounds ptr, ptr %228, i64 %230
   %232 = load ptr, ptr %231, align 8, !tbaa !9
-  %233 = call ptr (ptr, ptr, ptr, ...) @set_xor(ptr noundef %7, ptr noundef %5, ptr noundef %232) #17
+  %233 = call ptr (ptr, ptr, ptr, ...) @set_xor(ptr noundef %7, ptr noundef %5, ptr noundef %232) #18
   br label %236
 
 234:                                              ; preds = %222
-  %235 = call ptr (ptr, ptr, ...) @set_copy(ptr noundef %7, ptr noundef %5) #17
+  %235 = call ptr (ptr, ptr, ...) @set_copy(ptr noundef %7, ptr noundef %5) #18
   br label %236
 
 236:                                              ; preds = %234, %227
   %237 = phi i32 [ 1, %227 ], [ 0, %234 ]
-  %238 = call ptr (ptr, ptr, ...) @set_copy(ptr noundef %9, ptr noundef %5) #17
+  %238 = call ptr (ptr, ptr, ...) @set_copy(ptr noundef %9, ptr noundef %5) #18
   %239 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 3), align 8, !tbaa !21
   %240 = sext i32 %223 to i64
   %241 = getelementptr inbounds i32, ptr %239, i64 %240
@@ -590,7 +590,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
 
 257:                                              ; preds = %255
   %258 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %259 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %258, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1) #18
+  %259 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %258, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1) #19
   br label %260
 
 260:                                              ; preds = %257, %255
@@ -680,7 +680,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
 
 320:                                              ; preds = %315
   %321 = load ptr, ptr %1, align 8, !tbaa !26
-  %322 = call ptr (ptr, ptr, ...) @sf_addset(ptr noundef %321, ptr noundef %5) #17
+  %322 = call ptr (ptr, ptr, ...) @sf_addset(ptr noundef %321, ptr noundef %5) #18
   store ptr %322, ptr %1, align 8, !tbaa !26
   br label %323
 
@@ -691,7 +691,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
 325:                                              ; preds = %323
   %326 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 1
   %327 = load ptr, ptr %326, align 8, !tbaa !27
-  %328 = call ptr (ptr, ptr, ...) @sf_addset(ptr noundef %327, ptr noundef %9) #17
+  %328 = call ptr (ptr, ptr, ...) @sf_addset(ptr noundef %327, ptr noundef %9) #18
   store ptr %328, ptr %326, align 8, !tbaa !27
   br label %329
 
@@ -702,14 +702,14 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
 331:                                              ; preds = %329
   %332 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 2
   %333 = load ptr, ptr %332, align 8, !tbaa !28
-  %334 = call ptr (ptr, ptr, ...) @sf_addset(ptr noundef %333, ptr noundef %7) #17
+  %334 = call ptr (ptr, ptr, ...) @sf_addset(ptr noundef %333, ptr noundef %7) #18
   store ptr %334, ptr %332, align 8, !tbaa !28
   br label %348
 
 335:                                              ; preds = %22, %184, %249
   %336 = load ptr, ptr @stderr, align 8, !tbaa !9
   %337 = load i32, ptr @lineno, align 4, !tbaa !5
-  %338 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %336, ptr noundef nonnull @.str.7, i32 noundef %337) #18
+  %338 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %336, ptr noundef nonnull @.str.7, i32 noundef %337) #19
   %339 = load ptr, ptr @stdout, align 8, !tbaa !9
   br label %340
 
@@ -732,7 +732,7 @@ define dso_local void @read_cube(ptr noundef %0, ptr nocapture noundef %1) local
   br label %348
 
 348:                                              ; preds = %329, %331, %344
-  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %3) #17
+  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %3) #18
   ret void
 }
 
@@ -766,14 +766,14 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %5 = alloca [256 x i8], align 16
   %6 = alloca ptr, align 8
   %7 = alloca ptr, align 8
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #17
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #17
-  call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %5) #17
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #18
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #18
+  call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %5) #18
   store i32 1, ptr @lineno, align 4, !tbaa !5
   store i1 false, ptr @line_length_error, align 4
-  %8 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 6
-  %9 = getelementptr inbounds i8, ptr %5, i64 1
-  %10 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 7
+  %8 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 7
+  %9 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 6
+  %10 = getelementptr inbounds i8, ptr %5, i64 1
   %11 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 5
   %12 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 9
   %13 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 8
@@ -790,7 +790,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 20:                                               ; preds = %17, %20
   %21 = phi i64 [ %25, %20 ], [ %18, %17 ]
   %22 = phi i64 [ %26, %20 ], [ 0, %17 ]
-  %23 = load ptr, ptr %10, align 8, !tbaa !23
+  %23 = load ptr, ptr %8, align 8, !tbaa !23
   %24 = getelementptr inbounds ptr, ptr %23, i64 %21
   store ptr null, ptr %24, align 8, !tbaa !9
   %25 = add nuw nsw i64 %21, 1
@@ -806,7 +806,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 31:                                               ; preds = %28, %31
   %32 = phi i64 [ %36, %31 ], [ %29, %28 ]
   %33 = phi i64 [ %37, %31 ], [ 0, %28 ]
-  %34 = load ptr, ptr %10, align 8, !tbaa !23
+  %34 = load ptr, ptr %8, align 8, !tbaa !23
   %35 = getelementptr inbounds ptr, ptr %34, i64 %32
   store ptr null, ptr %35, align 8, !tbaa !9
   %36 = add nuw nsw i64 %32, 1
@@ -877,7 +877,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %63, label %72, label %64
 
 64:                                               ; preds = %61
-  %65 = tail call ptr @__ctype_b_loc() #16
+  %65 = tail call ptr @__ctype_b_loc() #17
   %66 = load ptr, ptr %65, align 8, !tbaa !9
   %67 = sext i32 %62 to i64
   %68 = getelementptr inbounds i16, ptr %66, i64 %67
@@ -894,7 +894,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %75, label %96, label %76
 
 76:                                               ; preds = %72
-  %77 = tail call ptr @__ctype_b_loc() #16
+  %77 = tail call ptr @__ctype_b_loc() #17
   br label %78
 
 78:                                               ; preds = %87, %76
@@ -939,7 +939,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 
 103:                                              ; preds = %100
   %104 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %105 = call i64 @fwrite(ptr nonnull @.str.9, i64 17, i64 1, ptr %104) #18
+  %105 = call i64 @fwrite(ptr nonnull @.str.9, i64 17, i64 1, ptr %104) #19
   br label %106
 
 106:                                              ; preds = %106, %103
@@ -956,12 +956,12 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br label %805
 
 111:                                              ; preds = %100
-  %112 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef nonnull getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2)) #17
+  %112 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef nonnull getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2)) #18
   %113 = icmp eq i32 %112, 1
   br i1 %113, label %115, label %114
 
 114:                                              ; preds = %111
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.11) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.11) #18
   br label %115
 
 115:                                              ; preds = %114, %111
@@ -970,7 +970,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   store i32 %117, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !18
   %118 = sext i32 %117 to i64
   %119 = shl nsw i64 %118, 2
-  %120 = call noalias ptr @malloc(i64 noundef %119) #21
+  %120 = call noalias ptr @malloc(i64 noundef %119) #22
   store ptr %120, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8, !tbaa !19
   br label %805
 
@@ -981,7 +981,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 
 124:                                              ; preds = %121
   %125 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %126 = call i64 @fwrite(ptr nonnull @.str.13, i64 17, i64 1, ptr %125) #18
+  %126 = call i64 @fwrite(ptr nonnull @.str.13, i64 17, i64 1, ptr %125) #19
   br label %127
 
 127:                                              ; preds = %127, %124
@@ -1003,7 +1003,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %134, label %135, label %137
 
 135:                                              ; preds = %132
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.14) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.14) #18
   %136 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8, !tbaa !19
   br label %137
 
@@ -1013,21 +1013,21 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %140 = add nsw i32 %139, -1
   %141 = sext i32 %140 to i64
   %142 = getelementptr inbounds i32, ptr %138, i64 %141
-  %143 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef %142) #17
+  %143 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef %142) #18
   %144 = icmp eq i32 %143, 1
   br i1 %144, label %146, label %145
 
 145:                                              ; preds = %137
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.15) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.15) #18
   br label %146
 
 146:                                              ; preds = %145, %137
-  call void (...) @cube_setup() #17
+  call void (...) @cube_setup() #18
   %147 = load i32, ptr @cube, align 8, !tbaa !16
   %148 = sext i32 %147 to i64
   %149 = shl nsw i64 %148, 3
-  %150 = call noalias ptr @malloc(i64 noundef %149) #21
-  store ptr %150, ptr %10, align 8, !tbaa !23
+  %150 = call noalias ptr @malloc(i64 noundef %149) #22
+  store ptr %150, ptr %8, align 8, !tbaa !23
   %151 = icmp sgt i32 %147, 0
   br i1 %151, label %152, label %805
 
@@ -1044,19 +1044,19 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 158:                                              ; preds = %158, %156
   %159 = phi i64 [ 0, %156 ], [ %172, %158 ]
   %160 = phi i64 [ 0, %156 ], [ %173, %158 ]
-  %161 = load ptr, ptr %10, align 8, !tbaa !23
+  %161 = load ptr, ptr %8, align 8, !tbaa !23
   %162 = getelementptr inbounds ptr, ptr %161, i64 %159
   store ptr null, ptr %162, align 8, !tbaa !9
   %163 = or i64 %159, 1
-  %164 = load ptr, ptr %10, align 8, !tbaa !23
+  %164 = load ptr, ptr %8, align 8, !tbaa !23
   %165 = getelementptr inbounds ptr, ptr %164, i64 %163
   store ptr null, ptr %165, align 8, !tbaa !9
   %166 = or i64 %159, 2
-  %167 = load ptr, ptr %10, align 8, !tbaa !23
+  %167 = load ptr, ptr %8, align 8, !tbaa !23
   %168 = getelementptr inbounds ptr, ptr %167, i64 %166
   store ptr null, ptr %168, align 8, !tbaa !9
   %169 = or i64 %159, 3
-  %170 = load ptr, ptr %10, align 8, !tbaa !23
+  %170 = load ptr, ptr %8, align 8, !tbaa !23
   %171 = getelementptr inbounds ptr, ptr %170, i64 %169
   store ptr null, ptr %171, align 8, !tbaa !9
   %172 = add nuw nsw i64 %159, 4
@@ -1076,7 +1076,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 
 181:                                              ; preds = %178
   %182 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %183 = call i64 @fwrite(ptr nonnull @.str.17, i64 18, i64 1, ptr %182) #18
+  %183 = call i64 @fwrite(ptr nonnull @.str.17, i64 18, i64 1, ptr %182) #19
   br label %184
 
 184:                                              ; preds = %184, %181
@@ -1098,16 +1098,16 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %191, label %193, label %192
 
 192:                                              ; preds = %189
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.18) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.18) #18
   br label %193
 
 193:                                              ; preds = %192, %189
-  %194 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.19, ptr noundef nonnull getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), ptr noundef nonnull getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2)) #17
+  %194 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.19, ptr noundef nonnull getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), ptr noundef nonnull getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2)) #18
   %195 = icmp eq i32 %194, 2
   br i1 %195, label %197, label %196
 
 196:                                              ; preds = %193
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.20) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.20) #18
   br label %197
 
 197:                                              ; preds = %196, %193
@@ -1116,7 +1116,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %199, label %200, label %202
 
 200:                                              ; preds = %197
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.21) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.21) #18
   %201 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2), align 8, !tbaa !17
   br label %202
 
@@ -1127,7 +1127,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %205, label %206, label %209
 
 206:                                              ; preds = %202
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.22) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.22) #18
   %207 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !18
   %208 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2), align 8, !tbaa !17
   br label %209
@@ -1137,7 +1137,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %211 = phi i32 [ %207, %206 ], [ %204, %202 ]
   %212 = sext i32 %211 to i64
   %213 = shl nsw i64 %212, 2
-  %214 = call noalias ptr @malloc(i64 noundef %213) #21
+  %214 = call noalias ptr @malloc(i64 noundef %213) #22
   store ptr %214, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8, !tbaa !19
   store i32 %210, ptr %3, align 4, !tbaa !5
   %215 = icmp slt i32 %210, %211
@@ -1148,12 +1148,12 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %218 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8, !tbaa !19
   %219 = sext i32 %217 to i64
   %220 = getelementptr inbounds i32, ptr %218, i64 %219
-  %221 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef %220) #17
+  %221 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef %220) #18
   %222 = icmp eq i32 %221, 1
   br i1 %222, label %224, label %223
 
 223:                                              ; preds = %216
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.20) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.20) #18
   br label %224
 
 224:                                              ; preds = %216, %223
@@ -1165,12 +1165,12 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %228, label %216, label %229
 
 229:                                              ; preds = %224, %209
-  call void (...) @cube_setup() #17
+  call void (...) @cube_setup() #18
   %230 = load i32, ptr @cube, align 8, !tbaa !16
   %231 = sext i32 %230 to i64
   %232 = shl nsw i64 %231, 3
-  %233 = call noalias ptr @malloc(i64 noundef %232) #21
-  store ptr %233, ptr %10, align 8, !tbaa !23
+  %233 = call noalias ptr @malloc(i64 noundef %232) #22
+  store ptr %233, ptr %8, align 8, !tbaa !23
   %234 = icmp sgt i32 %230, 0
   br i1 %234, label %235, label %805
 
@@ -1187,19 +1187,19 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 241:                                              ; preds = %241, %239
   %242 = phi i64 [ 0, %239 ], [ %255, %241 ]
   %243 = phi i64 [ 0, %239 ], [ %256, %241 ]
-  %244 = load ptr, ptr %10, align 8, !tbaa !23
+  %244 = load ptr, ptr %8, align 8, !tbaa !23
   %245 = getelementptr inbounds ptr, ptr %244, i64 %242
   store ptr null, ptr %245, align 8, !tbaa !9
   %246 = or i64 %242, 1
-  %247 = load ptr, ptr %10, align 8, !tbaa !23
+  %247 = load ptr, ptr %8, align 8, !tbaa !23
   %248 = getelementptr inbounds ptr, ptr %247, i64 %246
   store ptr null, ptr %248, align 8, !tbaa !9
   %249 = or i64 %242, 2
-  %250 = load ptr, ptr %10, align 8, !tbaa !23
+  %250 = load ptr, ptr %8, align 8, !tbaa !23
   %251 = getelementptr inbounds ptr, ptr %250, i64 %249
   store ptr null, ptr %251, align 8, !tbaa !9
   %252 = or i64 %242, 3
-  %253 = load ptr, ptr %10, align 8, !tbaa !23
+  %253 = load ptr, ptr %8, align 8, !tbaa !23
   %254 = getelementptr inbounds ptr, ptr %253, i64 %252
   store ptr null, ptr %254, align 8, !tbaa !9
   %255 = add nuw nsw i64 %242, 4
@@ -1212,7 +1212,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %259, label %260, label %262
 
 260:                                              ; preds = %258
-  %261 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef nonnull %4) #17
+  %261 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef nonnull %4) #18
   br label %805
 
 262:                                              ; preds = %258
@@ -1242,7 +1242,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %276, label %285, label %277
 
 277:                                              ; preds = %274
-  %278 = tail call ptr @__ctype_b_loc() #16
+  %278 = tail call ptr @__ctype_b_loc() #17
   %279 = load ptr, ptr %278, align 8, !tbaa !9
   %280 = sext i32 %275 to i64
   %281 = getelementptr inbounds i16, ptr %279, i64 %280
@@ -1259,7 +1259,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %288, label %309, label %289
 
 289:                                              ; preds = %285
-  %290 = tail call ptr @__ctype_b_loc() #16
+  %290 = tail call ptr @__ctype_b_loc() #17
   br label %291
 
 291:                                              ; preds = %300, %289
@@ -1299,7 +1299,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %315 = phi i64 [ %321, %320 ], [ 0, %309 ]
   %316 = phi ptr [ %323, %320 ], [ %312, %309 ]
   %317 = getelementptr inbounds i8, ptr %316, i64 1
-  %318 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %317, ptr noundef nonnull dereferenceable(1) %5) #19
+  %318 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %317, ptr noundef nonnull dereferenceable(1) %5) #20
   %319 = icmp eq i32 %318, 0
   br i1 %319, label %325, label %320
 
@@ -1318,7 +1318,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br label %805
 
 329:                                              ; preds = %320, %309
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.28) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.28) #18
   br label %805
 
 330:                                              ; preds = %271
@@ -1331,11 +1331,11 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %334, label %335, label %336
 
 335:                                              ; preds = %332
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.30) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.30) #18
   br label %336
 
 336:                                              ; preds = %335, %332
-  %337 = load ptr, ptr %10, align 8, !tbaa !23
+  %337 = load ptr, ptr %8, align 8, !tbaa !23
   %338 = icmp eq ptr %337, null
   br i1 %338, label %339, label %379
 
@@ -1343,8 +1343,8 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %340 = load i32, ptr @cube, align 8, !tbaa !16
   %341 = sext i32 %340 to i64
   %342 = shl nsw i64 %341, 3
-  %343 = call noalias ptr @malloc(i64 noundef %342) #21
-  store ptr %343, ptr %10, align 8, !tbaa !23
+  %343 = call noalias ptr @malloc(i64 noundef %342) #22
+  store ptr %343, ptr %8, align 8, !tbaa !23
   %344 = icmp sgt i32 %340, 0
   br i1 %344, label %345, label %379
 
@@ -1361,19 +1361,19 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 351:                                              ; preds = %351, %349
   %352 = phi i64 [ 0, %349 ], [ %365, %351 ]
   %353 = phi i64 [ 0, %349 ], [ %366, %351 ]
-  %354 = load ptr, ptr %10, align 8, !tbaa !23
+  %354 = load ptr, ptr %8, align 8, !tbaa !23
   %355 = getelementptr inbounds ptr, ptr %354, i64 %352
   store ptr null, ptr %355, align 8, !tbaa !9
   %356 = or i64 %352, 1
-  %357 = load ptr, ptr %10, align 8, !tbaa !23
+  %357 = load ptr, ptr %8, align 8, !tbaa !23
   %358 = getelementptr inbounds ptr, ptr %357, i64 %356
   store ptr null, ptr %358, align 8, !tbaa !9
   %359 = or i64 %352, 2
-  %360 = load ptr, ptr %10, align 8, !tbaa !23
+  %360 = load ptr, ptr %8, align 8, !tbaa !23
   %361 = getelementptr inbounds ptr, ptr %360, i64 %359
   store ptr null, ptr %361, align 8, !tbaa !9
   %362 = or i64 %352, 3
-  %363 = load ptr, ptr %10, align 8, !tbaa !23
+  %363 = load ptr, ptr %8, align 8, !tbaa !23
   %364 = getelementptr inbounds ptr, ptr %363, i64 %362
   store ptr null, ptr %364, align 8, !tbaa !9
   %365 = add nuw nsw i64 %352, 4
@@ -1389,7 +1389,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 371:                                              ; preds = %368, %371
   %372 = phi i64 [ %376, %371 ], [ %369, %368 ]
   %373 = phi i64 [ %377, %371 ], [ 0, %368 ]
-  %374 = load ptr, ptr %10, align 8, !tbaa !23
+  %374 = load ptr, ptr %8, align 8, !tbaa !23
   %375 = getelementptr inbounds ptr, ptr %374, i64 %372
   store ptr null, ptr %375, align 8, !tbaa !9
   %376 = add nuw nsw i64 %372, 1
@@ -1409,7 +1409,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %384, label %394, label %385
 
 385:                                              ; preds = %382
-  %386 = tail call ptr @__ctype_b_loc() #16
+  %386 = tail call ptr @__ctype_b_loc() #17
   %387 = load ptr, ptr %386, align 8, !tbaa !9
   %388 = sext i32 %383 to i64
   %389 = getelementptr inbounds i16, ptr %387, i64 %388
@@ -1429,7 +1429,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %397, label %418, label %398
 
 398:                                              ; preds = %394
-  %399 = tail call ptr @__ctype_b_loc() #16
+  %399 = tail call ptr @__ctype_b_loc() #17
   br label %400
 
 400:                                              ; preds = %409, %398
@@ -1466,23 +1466,23 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %423 = sext i32 %422 to i64
   %424 = getelementptr inbounds i32, ptr %421, i64 %423
   %425 = load i32, ptr %424, align 4, !tbaa !5
-  %426 = call ptr @util_strsav(ptr noundef nonnull %5) #17
-  %427 = load ptr, ptr %10, align 8, !tbaa !23
+  %426 = call ptr @util_strsav(ptr noundef nonnull %5) #18
+  %427 = load ptr, ptr %8, align 8, !tbaa !23
   %428 = add nsw i32 %425, 1
   %429 = sext i32 %428 to i64
   %430 = getelementptr inbounds ptr, ptr %427, i64 %429
   store ptr %426, ptr %430, align 8, !tbaa !9
-  %431 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #19
+  %431 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #20
   %432 = add i64 %431, 6
-  %433 = call noalias ptr @malloc(i64 noundef %432) #21
-  %434 = load ptr, ptr %10, align 8, !tbaa !23
+  %433 = call noalias ptr @malloc(i64 noundef %432) #22
+  %434 = load ptr, ptr %8, align 8, !tbaa !23
   %435 = sext i32 %425 to i64
   %436 = getelementptr inbounds ptr, ptr %434, i64 %435
   store ptr %433, ptr %436, align 8, !tbaa !9
-  %437 = load ptr, ptr %10, align 8, !tbaa !23
+  %437 = load ptr, ptr %8, align 8, !tbaa !23
   %438 = getelementptr inbounds ptr, ptr %437, i64 %435
   %439 = load ptr, ptr %438, align 8, !tbaa !9
-  %440 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %439, ptr noundef nonnull dereferenceable(1) @.str.31, ptr noundef nonnull %5) #17
+  %440 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %439, ptr noundef nonnull dereferenceable(1) @.str.31, ptr noundef nonnull %5) #18
   %441 = load i32, ptr %3, align 4, !tbaa !5
   %442 = add nsw i32 %441, 1
   store i32 %442, ptr %3, align 4, !tbaa !5
@@ -1501,11 +1501,11 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %450, label %451, label %452
 
 451:                                              ; preds = %448
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.30) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.30) #18
   br label %452
 
 452:                                              ; preds = %451, %448
-  %453 = load ptr, ptr %10, align 8, !tbaa !23
+  %453 = load ptr, ptr %8, align 8, !tbaa !23
   %454 = icmp eq ptr %453, null
   br i1 %454, label %455, label %495
 
@@ -1513,8 +1513,8 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %456 = load i32, ptr @cube, align 8, !tbaa !16
   %457 = sext i32 %456 to i64
   %458 = shl nsw i64 %457, 3
-  %459 = call noalias ptr @malloc(i64 noundef %458) #21
-  store ptr %459, ptr %10, align 8, !tbaa !23
+  %459 = call noalias ptr @malloc(i64 noundef %458) #22
+  store ptr %459, ptr %8, align 8, !tbaa !23
   %460 = icmp sgt i32 %456, 0
   br i1 %460, label %461, label %495
 
@@ -1531,19 +1531,19 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 467:                                              ; preds = %467, %465
   %468 = phi i64 [ 0, %465 ], [ %481, %467 ]
   %469 = phi i64 [ 0, %465 ], [ %482, %467 ]
-  %470 = load ptr, ptr %10, align 8, !tbaa !23
+  %470 = load ptr, ptr %8, align 8, !tbaa !23
   %471 = getelementptr inbounds ptr, ptr %470, i64 %468
   store ptr null, ptr %471, align 8, !tbaa !9
   %472 = or i64 %468, 1
-  %473 = load ptr, ptr %10, align 8, !tbaa !23
+  %473 = load ptr, ptr %8, align 8, !tbaa !23
   %474 = getelementptr inbounds ptr, ptr %473, i64 %472
   store ptr null, ptr %474, align 8, !tbaa !9
   %475 = or i64 %468, 2
-  %476 = load ptr, ptr %10, align 8, !tbaa !23
+  %476 = load ptr, ptr %8, align 8, !tbaa !23
   %477 = getelementptr inbounds ptr, ptr %476, i64 %475
   store ptr null, ptr %477, align 8, !tbaa !9
   %478 = or i64 %468, 3
-  %479 = load ptr, ptr %10, align 8, !tbaa !23
+  %479 = load ptr, ptr %8, align 8, !tbaa !23
   %480 = getelementptr inbounds ptr, ptr %479, i64 %478
   store ptr null, ptr %480, align 8, !tbaa !9
   %481 = add nuw nsw i64 %468, 4
@@ -1559,7 +1559,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 487:                                              ; preds = %484, %487
   %488 = phi i64 [ %492, %487 ], [ %485, %484 ]
   %489 = phi i64 [ %493, %487 ], [ 0, %484 ]
-  %490 = load ptr, ptr %10, align 8, !tbaa !23
+  %490 = load ptr, ptr %8, align 8, !tbaa !23
   %491 = getelementptr inbounds ptr, ptr %490, i64 %488
   store ptr null, ptr %491, align 8, !tbaa !9
   %492 = add nuw nsw i64 %488, 1
@@ -1595,7 +1595,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %512, label %521, label %513
 
 513:                                              ; preds = %510
-  %514 = tail call ptr @__ctype_b_loc() #16
+  %514 = tail call ptr @__ctype_b_loc() #17
   %515 = load ptr, ptr %514, align 8, !tbaa !9
   %516 = sext i32 %511 to i64
   %517 = getelementptr inbounds i16, ptr %515, i64 %516
@@ -1612,7 +1612,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %524, label %545, label %525
 
 525:                                              ; preds = %521
-  %526 = tail call ptr @__ctype_b_loc() #16
+  %526 = tail call ptr @__ctype_b_loc() #17
   br label %527
 
 527:                                              ; preds = %536, %525
@@ -1644,8 +1644,8 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %546 = phi i64 [ 1, %521 ], [ %544, %542 ]
   %547 = getelementptr inbounds i8, ptr %5, i64 %546
   store i8 0, ptr %547, align 1, !tbaa !13
-  %548 = call ptr @util_strsav(ptr noundef nonnull %5) #17
-  %549 = load ptr, ptr %10, align 8, !tbaa !23
+  %548 = call ptr @util_strsav(ptr noundef nonnull %5) #18
+  %549 = load ptr, ptr %8, align 8, !tbaa !23
   %550 = getelementptr inbounds ptr, ptr %549, i64 %509
   store ptr %548, ptr %550, align 8, !tbaa !9
   %551 = add nsw i64 %509, 1
@@ -1669,11 +1669,11 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %564, label %565, label %566
 
 565:                                              ; preds = %562
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.34) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.34) #18
   br label %566
 
 566:                                              ; preds = %565, %562
-  %567 = load ptr, ptr %10, align 8, !tbaa !23
+  %567 = load ptr, ptr %8, align 8, !tbaa !23
   %568 = icmp eq ptr %567, null
   br i1 %568, label %569, label %609
 
@@ -1681,8 +1681,8 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %570 = load i32, ptr @cube, align 8, !tbaa !16
   %571 = sext i32 %570 to i64
   %572 = shl nsw i64 %571, 3
-  %573 = call noalias ptr @malloc(i64 noundef %572) #21
-  store ptr %573, ptr %10, align 8, !tbaa !23
+  %573 = call noalias ptr @malloc(i64 noundef %572) #22
+  store ptr %573, ptr %8, align 8, !tbaa !23
   %574 = icmp sgt i32 %570, 0
   br i1 %574, label %575, label %609
 
@@ -1699,19 +1699,19 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 581:                                              ; preds = %581, %579
   %582 = phi i64 [ 0, %579 ], [ %595, %581 ]
   %583 = phi i64 [ 0, %579 ], [ %596, %581 ]
-  %584 = load ptr, ptr %10, align 8, !tbaa !23
+  %584 = load ptr, ptr %8, align 8, !tbaa !23
   %585 = getelementptr inbounds ptr, ptr %584, i64 %582
   store ptr null, ptr %585, align 8, !tbaa !9
   %586 = or i64 %582, 1
-  %587 = load ptr, ptr %10, align 8, !tbaa !23
+  %587 = load ptr, ptr %8, align 8, !tbaa !23
   %588 = getelementptr inbounds ptr, ptr %587, i64 %586
   store ptr null, ptr %588, align 8, !tbaa !9
   %589 = or i64 %582, 2
-  %590 = load ptr, ptr %10, align 8, !tbaa !23
+  %590 = load ptr, ptr %8, align 8, !tbaa !23
   %591 = getelementptr inbounds ptr, ptr %590, i64 %589
   store ptr null, ptr %591, align 8, !tbaa !9
   %592 = or i64 %582, 3
-  %593 = load ptr, ptr %10, align 8, !tbaa !23
+  %593 = load ptr, ptr %8, align 8, !tbaa !23
   %594 = getelementptr inbounds ptr, ptr %593, i64 %592
   store ptr null, ptr %594, align 8, !tbaa !9
   %595 = add nuw nsw i64 %582, 4
@@ -1727,7 +1727,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 601:                                              ; preds = %598, %601
   %602 = phi i64 [ %606, %601 ], [ %599, %598 ]
   %603 = phi i64 [ %607, %601 ], [ 0, %598 ]
-  %604 = load ptr, ptr %10, align 8, !tbaa !23
+  %604 = load ptr, ptr %8, align 8, !tbaa !23
   %605 = getelementptr inbounds ptr, ptr %604, i64 %602
   store ptr null, ptr %605, align 8, !tbaa !9
   %606 = add nuw nsw i64 %602, 1
@@ -1736,12 +1736,12 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %608, label %609, label %601, !llvm.loop !38
 
 609:                                              ; preds = %598, %601, %569, %566
-  %610 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.35, ptr noundef nonnull %3) #17
+  %610 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.35, ptr noundef nonnull %3) #18
   %611 = icmp eq i32 %610, 1
   br i1 %611, label %613, label %612
 
 612:                                              ; preds = %609
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.36) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.36) #18
   br label %613
 
 613:                                              ; preds = %612, %609
@@ -1770,7 +1770,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %629, label %638, label %630
 
 630:                                              ; preds = %627
-  %631 = tail call ptr @__ctype_b_loc() #16
+  %631 = tail call ptr @__ctype_b_loc() #17
   %632 = load ptr, ptr %631, align 8, !tbaa !9
   %633 = sext i32 %628 to i64
   %634 = getelementptr inbounds i16, ptr %632, i64 %633
@@ -1787,7 +1787,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %641, label %662, label %642
 
 642:                                              ; preds = %638
-  %643 = tail call ptr @__ctype_b_loc() #16
+  %643 = tail call ptr @__ctype_b_loc() #17
   br label %644
 
 644:                                              ; preds = %653, %642
@@ -1819,8 +1819,8 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %663 = phi i64 [ 1, %638 ], [ %661, %659 ]
   %664 = getelementptr inbounds i8, ptr %5, i64 %663
   store i8 0, ptr %664, align 1, !tbaa !13
-  %665 = call ptr @util_strsav(ptr noundef nonnull %5) #17
-  %666 = load ptr, ptr %10, align 8, !tbaa !23
+  %665 = call ptr @util_strsav(ptr noundef nonnull %5) #18
+  %666 = load ptr, ptr %8, align 8, !tbaa !23
   %667 = getelementptr inbounds ptr, ptr %666, i64 %626
   store ptr %665, ptr %667, align 8, !tbaa !9
   %668 = add nsw i64 %626, 1
@@ -1839,7 +1839,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %678, label %679, label %697
 
 679:                                              ; preds = %676
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #18
   %680 = call i32 @read_symbolic(ptr noundef %0, ptr noundef %1, ptr noundef nonnull %5, ptr noundef nonnull %6), !range !39
   %681 = icmp eq i32 %680, 0
   br i1 %681, label %695, label %682
@@ -1868,11 +1868,11 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br label %696
 
 695:                                              ; preds = %679
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.38) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.38) #18
   br label %696
 
 696:                                              ; preds = %685, %692, %695
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #18
   br label %805
 
 697:                                              ; preds = %676
@@ -1881,7 +1881,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %699, label %700, label %718
 
 700:                                              ; preds = %697
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #18
   %701 = call i32 @read_symbolic(ptr noundef %0, ptr noundef %1, ptr noundef nonnull %5, ptr noundef nonnull %7), !range !39
   %702 = icmp eq i32 %701, 0
   br i1 %702, label %716, label %703
@@ -1910,11 +1910,11 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br label %717
 
 716:                                              ; preds = %700
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.40) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.40) #18
   br label %717
 
 717:                                              ; preds = %706, %713, %716
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #18
   br label %805
 
 718:                                              ; preds = %697
@@ -1928,7 +1928,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %723, label %724, label %725
 
 724:                                              ; preds = %721
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.42) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.42) #18
   br label %725
 
 725:                                              ; preds = %724, %721
@@ -1938,7 +1938,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 
 728:                                              ; preds = %725
   %729 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %730 = call i64 @fwrite(ptr nonnull @.str.43, i64 21, i64 1, ptr %729) #18
+  %730 = call i64 @fwrite(ptr nonnull @.str.43, i64 21, i64 1, ptr %729) #19
   br label %731
 
 731:                                              ; preds = %731, %728
@@ -1977,8 +1977,8 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %749 = add nuw nsw i32 %748, 8
   %750 = select i1 %745, i32 8, i32 %749
   %751 = zext i32 %750 to i64
-  %752 = call noalias ptr @malloc(i64 noundef %751) #21
-  %753 = call ptr (ptr, ptr, ...) @set_copy(ptr noundef %752, ptr noundef nonnull %741) #17
+  %752 = call noalias ptr @malloc(i64 noundef %751) #22
+  %753 = call ptr (ptr, ptr, ...) @set_copy(ptr noundef %752, ptr noundef nonnull %741) #18
   store ptr %753, ptr %11, align 8, !tbaa !44
   %754 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 4), align 8, !tbaa !22
   %755 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !18
@@ -2015,7 +2015,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br label %779
 
 778:                                              ; preds = %764
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.44) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.44) #18
   br label %779
 
 779:                                              ; preds = %764, %767, %778
@@ -2029,40 +2029,40 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %784, label %785, label %998
 
 785:                                              ; preds = %782
-  %786 = load ptr, ptr %8, align 8, !tbaa !45
+  %786 = load ptr, ptr %9, align 8, !tbaa !45
   %787 = icmp eq ptr %786, null
   br i1 %787, label %791, label %788
 
 788:                                              ; preds = %785
   %789 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %790 = call i64 @fwrite(ptr nonnull @.str.46, i64 20, i64 1, ptr %789) #18
+  %790 = call i64 @fwrite(ptr nonnull @.str.46, i64 20, i64 1, ptr %789) #19
   br label %805
 
 791:                                              ; preds = %785
-  %792 = call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #21
-  store ptr %792, ptr %8, align 8, !tbaa !45
-  %793 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef %792) #17
+  %792 = call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #22
+  store ptr %792, ptr %9, align 8, !tbaa !45
+  %793 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.10, ptr noundef %792) #18
   %794 = icmp eq i32 %793, 1
   br i1 %794, label %796, label %795
 
 795:                                              ; preds = %791
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.47) #17
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.47) #18
   br label %796
 
 796:                                              ; preds = %795, %791
   %797 = load i32, ptr %792, align 8, !tbaa !46
   %798 = sext i32 %797 to i64
   %799 = shl nsw i64 %798, 2
-  %800 = call noalias ptr @malloc(i64 noundef %799) #21
+  %800 = call noalias ptr @malloc(i64 noundef %799) #22
   %801 = getelementptr inbounds %struct.pair_struct, ptr %792, i64 0, i32 1
   store ptr %800, ptr %801, align 8, !tbaa !48
-  %802 = call noalias ptr @malloc(i64 noundef %799) #21
+  %802 = call noalias ptr @malloc(i64 noundef %799) #22
   %803 = getelementptr inbounds %struct.pair_struct, ptr %792, i64 0, i32 2
   store ptr %802, ptr %803, align 8, !tbaa !49
   %804 = icmp sgt i32 %797, 0
   br i1 %804, label %806, label %805
 
-805:                                              ; preds = %28, %31, %993, %779, %662, %545, %418, %17, %20, %796, %739, %613, %495, %379, %788, %325, %229, %146, %115, %108, %186, %329, %696, %733, %1021, %717, %270, %260, %129, %41, %39, %39, %39, %39, %1063, %1050, %58
+805:                                              ; preds = %28, %31, %993, %779, %662, %545, %418, %17, %20, %796, %739, %613, %495, %379, %325, %788, %229, %146, %115, %108, %186, %329, %696, %733, %1021, %717, %270, %260, %129, %41, %39, %39, %39, %39, %1063, %1050, %58
   br label %39
 
 806:                                              ; preds = %796, %993
@@ -2075,7 +2075,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %810, label %819, label %811
 
 811:                                              ; preds = %808
-  %812 = tail call ptr @__ctype_b_loc() #16
+  %812 = tail call ptr @__ctype_b_loc() #17
   %813 = load ptr, ptr %812, align 8, !tbaa !9
   %814 = sext i32 %809 to i64
   %815 = getelementptr inbounds i16, ptr %813, i64 %814
@@ -2092,7 +2092,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %822, label %843, label %823
 
 823:                                              ; preds = %819
-  %824 = tail call ptr @__ctype_b_loc() #16
+  %824 = tail call ptr @__ctype_b_loc() #17
   br label %825
 
 825:                                              ; preds = %834, %823
@@ -2129,11 +2129,11 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %847, label %848, label %850
 
 848:                                              ; preds = %843
-  %849 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(1) %9) #17
+  %849 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(1) %10) #18
   br label %850
 
 850:                                              ; preds = %848, %843
-  %851 = load ptr, ptr %10, align 8, !tbaa !23
+  %851 = load ptr, ptr %8, align 8, !tbaa !23
   %852 = icmp eq ptr %851, null
   br i1 %852, label %863, label %853
 
@@ -2154,7 +2154,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br label %868
 
 863:                                              ; preds = %853, %850
-  %864 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %5, ptr noundef nonnull @.str.10, ptr noundef nonnull %3) #17
+  %864 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %5, ptr noundef nonnull @.str.10, ptr noundef nonnull %3) #18
   %865 = icmp eq i32 %864, 1
   br i1 %865, label %866, label %898
 
@@ -2181,7 +2181,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %880 = add nsw i64 %879, %876
   %881 = getelementptr inbounds ptr, ptr %851, i64 %880
   %882 = load ptr, ptr %881, align 8, !tbaa !9
-  %883 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %882, ptr noundef nonnull dereferenceable(1) %5) #19
+  %883 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %882, ptr noundef nonnull dereferenceable(1) %5) #20
   %884 = icmp eq i32 %883, 0
   br i1 %884, label %885, label %887
 
@@ -2208,8 +2208,8 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   store i32 %895, ptr %897, align 4, !tbaa !5
   br label %899
 
-898:                                              ; preds = %890, %863, %856
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.47) #17
+898:                                              ; preds = %890, %856, %863
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.47) #18
   br label %899
 
 899:                                              ; preds = %898, %893
@@ -2221,7 +2221,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %902, label %911, label %903
 
 903:                                              ; preds = %900
-  %904 = tail call ptr @__ctype_b_loc() #16
+  %904 = tail call ptr @__ctype_b_loc() #17
   %905 = load ptr, ptr %904, align 8, !tbaa !9
   %906 = sext i32 %901 to i64
   %907 = getelementptr inbounds i16, ptr %905, i64 %906
@@ -2238,7 +2238,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br i1 %914, label %935, label %915
 
 915:                                              ; preds = %911
-  %916 = tail call ptr @__ctype_b_loc() #16
+  %916 = tail call ptr @__ctype_b_loc() #17
   br label %917
 
 917:                                              ; preds = %926, %915
@@ -2270,7 +2270,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %936 = phi i64 [ 1, %911 ], [ %934, %932 ]
   %937 = getelementptr inbounds i8, ptr %5, i64 %936
   store i8 0, ptr %937, align 1, !tbaa !13
-  %938 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #19
+  %938 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #20
   %939 = add i64 %938, -1
   %940 = getelementptr inbounds [256 x i8], ptr %5, i64 0, i64 %939
   %941 = load i8, ptr %940, align 1, !tbaa !13
@@ -2282,7 +2282,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br label %944
 
 944:                                              ; preds = %943, %935
-  %945 = load ptr, ptr %10, align 8, !tbaa !23
+  %945 = load ptr, ptr %8, align 8, !tbaa !23
   %946 = icmp eq ptr %945, null
   br i1 %946, label %957, label %947
 
@@ -2303,7 +2303,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br label %962
 
 957:                                              ; preds = %947, %944
-  %958 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %5, ptr noundef nonnull @.str.10, ptr noundef nonnull %3) #17
+  %958 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %5, ptr noundef nonnull @.str.10, ptr noundef nonnull %3) #18
   %959 = icmp eq i32 %958, 1
   br i1 %959, label %960, label %992
 
@@ -2330,7 +2330,7 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   %974 = add nsw i64 %973, %970
   %975 = getelementptr inbounds ptr, ptr %945, i64 %974
   %976 = load ptr, ptr %975, align 8, !tbaa !9
-  %977 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %976, ptr noundef nonnull dereferenceable(1) %5) #19
+  %977 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %976, ptr noundef nonnull dereferenceable(1) %5) #20
   %978 = icmp eq i32 %977, 0
   br i1 %978, label %979, label %981
 
@@ -2357,8 +2357,8 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   store i32 %989, ptr %991, align 4, !tbaa !5
   br label %993
 
-992:                                              ; preds = %984, %957, %950
-  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.47) #17
+992:                                              ; preds = %984, %950, %957
+  call void (ptr, ...) @fatal(ptr noundef nonnull @.str.47) #18
   br label %993
 
 993:                                              ; preds = %987, %992
@@ -2484,13 +2484,13 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
 
 1056:                                             ; preds = %1053
   %1057 = load i32, ptr @cube, align 8, !tbaa !16
-  %1058 = call ptr (i32, i32, ...) @sf_new(i32 noundef 10, i32 noundef %1057) #17
+  %1058 = call ptr (i32, i32, ...) @sf_new(i32 noundef 10, i32 noundef %1057) #18
   store ptr %1058, ptr %1, align 8, !tbaa !26
   %1059 = load i32, ptr @cube, align 8, !tbaa !16
-  %1060 = call ptr (i32, i32, ...) @sf_new(i32 noundef 10, i32 noundef %1059) #17
+  %1060 = call ptr (i32, i32, ...) @sf_new(i32 noundef 10, i32 noundef %1059) #18
   store ptr %1060, ptr %15, align 8, !tbaa !27
   %1061 = load i32, ptr @cube, align 8, !tbaa !16
-  %1062 = call ptr (i32, i32, ...) @sf_new(i32 noundef 10, i32 noundef %1061) #17
+  %1062 = call ptr (i32, i32, ...) @sf_new(i32 noundef 10, i32 noundef %1061) #18
   store ptr %1062, ptr %16, align 8, !tbaa !28
   br label %1063
 
@@ -2499,9 +2499,9 @@ define dso_local void @parse_pla(ptr noundef %0, ptr nocapture noundef %1) local
   br label %805
 
 1064:                                             ; preds = %262, %39
-  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %5) #17
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #17
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #17
+  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %5) #18
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #18
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #18
   ret void
 }
 
@@ -2527,20 +2527,23 @@ declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocaptur
 ; Function Attrs: nofree nounwind
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #2
 
+; Function Attrs: inlinehint nofree nounwind uwtable
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #10
+
 declare ptr @sf_new(...) local_unnamed_addr #5
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3, ptr nocapture noundef writeonly %4) local_unnamed_addr #4 {
   %6 = alloca %struct.cost_struct, align 4
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %6) #17
-  %7 = tail call noalias dereferenceable_or_null(80) ptr @malloc(i64 noundef 80) #21
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %6) #18
+  %7 = tail call noalias dereferenceable_or_null(80) ptr @malloc(i64 noundef 80) #22
   %8 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 5
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(36) %7, i8 0, i64 32, i1 false)
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %8, i8 0, i64 40, i1 false)
   store ptr %7, ptr %4, align 8, !tbaa !9
   %9 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 4
   store i32 %3, ptr %9, align 8, !tbaa !25
-  %10 = tail call i64 (...) @util_cpu_time() #17
+  %10 = tail call i64 (...) @util_cpu_time() #18
   tail call void @parse_pla(ptr noundef %0, ptr noundef %7)
   %11 = load ptr, ptr %7, align 8, !tbaa !26
   %12 = icmp eq ptr %11, null
@@ -2596,9 +2599,9 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
 
 46:                                               ; preds = %31
   %47 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %48 = tail call i64 @fwrite(ptr nonnull @.str.49, i64 45, i64 1, ptr %47) #18
+  %48 = tail call i64 @fwrite(ptr nonnull @.str.49, i64 45, i64 1, ptr %47) #19
   %49 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %50 = tail call i64 @fwrite(ptr nonnull @.str.50, i64 41, i64 1, ptr %49) #18
+  %50 = tail call i64 @fwrite(ptr nonnull @.str.50, i64 41, i64 1, ptr %49) #19
   br label %221
 
 51:                                               ; preds = %44, %51
@@ -2611,7 +2614,7 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
   %58 = sext i32 %57 to i64
   %59 = getelementptr inbounds ptr, ptr %53, i64 %58
   %60 = load ptr, ptr %59, align 8, !tbaa !9
-  %61 = tail call ptr @util_strsav(ptr noundef %60) #17
+  %61 = tail call ptr @util_strsav(ptr noundef %60) #18
   %62 = load ptr, ptr %45, align 8, !tbaa !23
   %63 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 3), align 8, !tbaa !21
   %64 = getelementptr inbounds i32, ptr %63, i64 %38
@@ -2645,8 +2648,8 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
   %86 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !18
   %87 = add nsw i32 %86, -1
   store i32 %87, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !18
-  tail call void (...) @setdown_cube() #17
-  tail call void (...) @cube_setup() #17
+  tail call void (...) @setdown_cube() #18
+  tail call void (...) @cube_setup() #18
   br label %88
 
 88:                                               ; preds = %76, %27
@@ -2656,11 +2659,11 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
 
 91:                                               ; preds = %88
   %92 = load ptr, ptr %7, align 8, !tbaa !26
-  call void (i64, i32, ptr, ptr, ...) @totals(i64 noundef %10, i32 noundef 0, ptr noundef %92, ptr noundef nonnull %6) #17
+  call void (i64, i32, ptr, ptr, ...) @totals(i64 noundef %10, i32 noundef 0, ptr noundef %92, ptr noundef nonnull %6) #18
   br label %93
 
 93:                                               ; preds = %91, %88
-  %94 = call i64 (...) @util_cpu_time() #17
+  %94 = call i64 (...) @util_cpu_time() #18
   %95 = load i32, ptr @pos, align 4, !tbaa !5
   %96 = icmp eq i32 %95, 0
   br i1 %96, label %97, label %106
@@ -2688,12 +2691,12 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
 108:                                              ; preds = %106, %106
   %109 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 2
   %110 = load ptr, ptr %109, align 8, !tbaa !28
-  call void (ptr, ...) @sf_free(ptr noundef %110) #17
+  call void (ptr, ...) @sf_free(ptr noundef %110) #18
   %111 = load ptr, ptr %7, align 8, !tbaa !26
   %112 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 1
   %113 = load ptr, ptr %112, align 8, !tbaa !27
-  %114 = call ptr (ptr, ptr, ...) @cube2list(ptr noundef %111, ptr noundef %113) #17
-  %115 = call ptr (ptr, ...) @complement(ptr noundef %114) #17
+  %114 = call ptr (ptr, ptr, ...) @cube2list(ptr noundef %111, ptr noundef %113) #18
+  %115 = call ptr (ptr, ...) @complement(ptr noundef %114) #18
   store ptr %115, ptr %109, align 8, !tbaa !28
   br label %143
 
@@ -2708,18 +2711,18 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
 122:                                              ; preds = %116
   %123 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 1
   %124 = load ptr, ptr %123, align 8, !tbaa !27
-  call void (ptr, ...) @sf_free(ptr noundef %124) #17
+  call void (ptr, ...) @sf_free(ptr noundef %124) #18
   %125 = load ptr, ptr %7, align 8, !tbaa !26
   %126 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 2
   %127 = load ptr, ptr %126, align 8, !tbaa !28
-  %128 = call ptr (ptr, ptr, ...) @sf_join(ptr noundef %125, ptr noundef %127) #17
+  %128 = call ptr (ptr, ptr, ...) @sf_join(ptr noundef %125, ptr noundef %127) #18
   %129 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !18
   %130 = add nsw i32 %129, -1
-  %131 = call ptr (ptr, i32, ...) @d1merge(ptr noundef %128, i32 noundef %130) #17
-  %132 = call ptr (ptr, ...) @cube1list(ptr noundef %131) #17
-  %133 = call ptr (ptr, ...) @complement(ptr noundef %132) #17
+  %131 = call ptr (ptr, i32, ...) @d1merge(ptr noundef %128, i32 noundef %130) #18
+  %132 = call ptr (ptr, ...) @cube1list(ptr noundef %131) #18
+  %133 = call ptr (ptr, ...) @complement(ptr noundef %132) #18
   store ptr %133, ptr %123, align 8, !tbaa !27
-  call void (ptr, ...) @sf_free(ptr noundef %131) #17
+  call void (ptr, ...) @sf_free(ptr noundef %131) #18
   br label %143
 
 134:                                              ; preds = %116
@@ -2730,13 +2733,13 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
 
 135:                                              ; preds = %134, %134
   %136 = load ptr, ptr %7, align 8, !tbaa !26
-  call void (ptr, ...) @sf_free(ptr noundef %136) #17
+  call void (ptr, ...) @sf_free(ptr noundef %136) #18
   %137 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 1
   %138 = load ptr, ptr %137, align 8, !tbaa !27
   %139 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 2
   %140 = load ptr, ptr %139, align 8, !tbaa !28
-  %141 = call ptr (ptr, ptr, ...) @cube2list(ptr noundef %138, ptr noundef %140) #17
-  %142 = call ptr (ptr, ...) @complement(ptr noundef %141) #17
+  %141 = call ptr (ptr, ptr, ...) @cube2list(ptr noundef %138, ptr noundef %140) #18
+  %142 = call ptr (ptr, ...) @complement(ptr noundef %141) #18
   store ptr %142, ptr %7, align 8, !tbaa !26
   br label %143
 
@@ -2749,7 +2752,7 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
 147:                                              ; preds = %143
   %148 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 2
   %149 = load ptr, ptr %148, align 8, !tbaa !28
-  call void (i64, i32, ptr, ptr, ...) @totals(i64 noundef %94, i32 noundef 1, ptr noundef %149, ptr noundef nonnull %6) #17
+  call void (i64, i32, ptr, ptr, ...) @totals(i64 noundef %94, i32 noundef 1, ptr noundef %149, ptr noundef nonnull %6) #18
   br label %150
 
 150:                                              ; preds = %147, %143
@@ -2771,8 +2774,8 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
   %162 = add nuw nsw i32 %161, 8
   %163 = select i1 %158, i32 8, i32 %162
   %164 = zext i32 %163 to i64
-  %165 = call noalias ptr @malloc(i64 noundef %164) #21
-  %166 = call ptr (ptr, i32, ...) @set_clear(ptr noundef %165, i32 noundef %157) #17
+  %165 = call noalias ptr @malloc(i64 noundef %164) #22
+  %166 = call ptr (ptr, i32, ...) @set_clear(ptr noundef %165, i32 noundef %157) #18
   store ptr %166, ptr %8, align 8, !tbaa !44
   %167 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 12), align 8, !tbaa !32
   %168 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 10), align 8, !tbaa !20
@@ -2781,7 +2784,7 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
   %171 = sext i32 %170 to i64
   %172 = getelementptr inbounds ptr, ptr %168, i64 %171
   %173 = load ptr, ptr %172, align 8, !tbaa !9
-  %174 = call ptr (ptr, ptr, ptr, ...) @set_diff(ptr noundef %166, ptr noundef %167, ptr noundef %173) #17
+  %174 = call ptr (ptr, ptr, ptr, ...) @set_diff(ptr noundef %166, ptr noundef %167, ptr noundef %173) #18
   br label %180
 
 175:                                              ; preds = %150
@@ -2790,7 +2793,7 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
   br i1 %177, label %180, label %178
 
 178:                                              ; preds = %175
-  %179 = call ptr (ptr, ...) @set_phase(ptr noundef nonnull %7) #17
+  %179 = call ptr (ptr, ...) @set_phase(ptr noundef nonnull %7) #18
   br label %180
 
 180:                                              ; preds = %175, %178, %153
@@ -2800,7 +2803,7 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
   br i1 %183, label %185, label %184
 
 184:                                              ; preds = %180
-  call void (ptr, ...) @set_pair(ptr noundef nonnull %7) #17
+  call void (ptr, ...) @set_pair(ptr noundef nonnull %7) #18
   br label %185
 
 185:                                              ; preds = %184, %180
@@ -2810,17 +2813,17 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
   br i1 %188, label %198, label %189
 
 189:                                              ; preds = %185
-  %190 = call i64 (...) @util_cpu_time() #17
-  %191 = call i32 (ptr, ...) @map_symbolic(ptr noundef nonnull %7) #17
+  %190 = call i64 (...) @util_cpu_time() #18
+  %191 = call i32 (ptr, ...) @map_symbolic(ptr noundef nonnull %7) #18
   %192 = load i32, ptr @trace, align 4, !tbaa !5
   %193 = icmp eq i32 %192, 0
   br i1 %193, label %198, label %194
 
 194:                                              ; preds = %189
   %195 = load ptr, ptr %7, align 8, !tbaa !26
-  %196 = call i64 (...) @util_cpu_time() #17
+  %196 = call i64 (...) @util_cpu_time() #18
   %197 = sub nsw i64 %196, %190
-  call void (ptr, ptr, i64, ...) @print_trace(ptr noundef %195, ptr noundef nonnull @.str.51, i64 noundef %197) #17
+  call void (ptr, ptr, i64, ...) @print_trace(ptr noundef %195, ptr noundef nonnull @.str.51, i64 noundef %197) #18
   br label %198
 
 198:                                              ; preds = %189, %194, %185
@@ -2830,17 +2833,17 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
   br i1 %201, label %221, label %202
 
 202:                                              ; preds = %198
-  %203 = call i64 (...) @util_cpu_time() #17
-  %204 = call i32 (ptr, ...) @map_output_symbolic(ptr noundef nonnull %7) #17
+  %203 = call i64 (...) @util_cpu_time() #18
+  %204 = call i32 (ptr, ...) @map_output_symbolic(ptr noundef nonnull %7) #18
   %205 = load i32, ptr @trace, align 4, !tbaa !5
   %206 = icmp eq i32 %205, 0
   br i1 %206, label %211, label %207
 
 207:                                              ; preds = %202
   %208 = load ptr, ptr %7, align 8, !tbaa !26
-  %209 = call i64 (...) @util_cpu_time() #17
+  %209 = call i64 (...) @util_cpu_time() #18
   %210 = sub nsw i64 %209, %203
-  call void (ptr, ptr, i64, ...) @print_trace(ptr noundef %208, ptr noundef nonnull @.str.52, i64 noundef %210) #17
+  call void (ptr, ptr, i64, ...) @print_trace(ptr noundef %208, ptr noundef nonnull @.str.52, i64 noundef %210) #18
   br label %211
 
 211:                                              ; preds = %207, %202
@@ -2849,20 +2852,20 @@ define dso_local i32 @read_pla(ptr noundef %0, i32 noundef %1, i32 noundef %2, i
 212:                                              ; preds = %211
   %213 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 2
   %214 = load ptr, ptr %213, align 8, !tbaa !28
-  call void (ptr, ...) @sf_free(ptr noundef %214) #17
-  %215 = call i64 (...) @util_cpu_time() #17
+  call void (ptr, ...) @sf_free(ptr noundef %214) #18
+  %215 = call i64 (...) @util_cpu_time() #18
   %216 = load ptr, ptr %7, align 8, !tbaa !26
   %217 = getelementptr inbounds %struct.PLA_t, ptr %7, i64 0, i32 1
   %218 = load ptr, ptr %217, align 8, !tbaa !27
-  %219 = call ptr (ptr, ptr, ...) @cube2list(ptr noundef %216, ptr noundef %218) #17
-  %220 = call ptr (ptr, ...) @complement(ptr noundef %219) #17
+  %219 = call ptr (ptr, ptr, ...) @cube2list(ptr noundef %216, ptr noundef %218) #18
+  %220 = call ptr (ptr, ...) @complement(ptr noundef %219) #18
   store ptr %220, ptr %213, align 8, !tbaa !28
-  call void (i64, i32, ptr, ptr, ...) @totals(i64 noundef %215, i32 noundef 1, ptr noundef %220, ptr noundef nonnull %6) #17
+  call void (i64, i32, ptr, ptr, ...) @totals(i64 noundef %215, i32 noundef 1, ptr noundef %220, ptr noundef nonnull %6) #18
   br label %221
 
 221:                                              ; preds = %198, %212, %211, %5, %46
   %222 = phi i32 [ -1, %46 ], [ -1, %5 ], [ 1, %211 ], [ 1, %212 ], [ 1, %198 ]
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %6) #17
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %6) #18
   ret i32 %222
 }
 
@@ -2900,7 +2903,7 @@ declare i32 @map_output_symbolic(...) local_unnamed_addr #5
 define dso_local void @PLA_summary(ptr nocapture noundef readonly %0) local_unnamed_addr #4 {
   %2 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 3
   %3 = load ptr, ptr %2, align 8, !tbaa !50
-  %4 = tail call ptr @strrchr(ptr noundef nonnull dereferenceable(1) %3, i32 noundef 47) #19
+  %4 = tail call ptr @strrchr(ptr noundef nonnull dereferenceable(1) %3, i32 noundef 47) #20
   %5 = icmp eq ptr %4, null
   %6 = getelementptr inbounds i8, ptr %4, i64 1
   %7 = select i1 %5, ptr %3, ptr %6
@@ -2948,15 +2951,15 @@ define dso_local void @PLA_summary(ptr nocapture noundef readonly %0) local_unna
 
 38:                                               ; preds = %36, %13
   %39 = load ptr, ptr %0, align 8, !tbaa !26
-  %40 = tail call ptr (ptr, ...) @print_cost(ptr noundef %39) #17
+  %40 = tail call ptr (ptr, ...) @print_cost(ptr noundef %39) #18
   %41 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.58, ptr noundef %40)
   %42 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 2
   %43 = load ptr, ptr %42, align 8, !tbaa !28
-  %44 = tail call ptr (ptr, ...) @print_cost(ptr noundef %43) #17
+  %44 = tail call ptr (ptr, ...) @print_cost(ptr noundef %43) #18
   %45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.59, ptr noundef %44)
   %46 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 1
   %47 = load ptr, ptr %46, align 8, !tbaa !27
-  %48 = tail call ptr (ptr, ...) @print_cost(ptr noundef %47) #17
+  %48 = tail call ptr (ptr, ...) @print_cost(ptr noundef %47) #18
   %49 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.60, ptr noundef %48)
   %50 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 5
   %51 = load ptr, ptr %50, align 8, !tbaa !44
@@ -2964,7 +2967,7 @@ define dso_local void @PLA_summary(ptr nocapture noundef readonly %0) local_unna
   br i1 %52, label %56, label %53
 
 53:                                               ; preds = %38
-  %54 = tail call ptr (ptr, ...) @pc1(ptr noundef nonnull %51) #17
+  %54 = tail call ptr (ptr, ...) @pc1(ptr noundef nonnull %51) #18
   %55 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.61, ptr noundef %54)
   br label %56
 
@@ -2972,7 +2975,7 @@ define dso_local void @PLA_summary(ptr nocapture noundef readonly %0) local_unna
   %57 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 6
   %58 = load ptr, ptr %57, align 8, !tbaa !45
   %59 = icmp eq ptr %58, null
-  br i1 %59, label %85, label %60
+  br i1 %59, label %84, label %60
 
 60:                                               ; preds = %56
   %61 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.62)
@@ -3001,74 +3004,71 @@ define dso_local void @PLA_summary(ptr nocapture noundef readonly %0) local_unna
   br i1 %81, label %65, label %82
 
 82:                                               ; preds = %65, %60
-  %83 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %84 = tail call i32 @putc(i32 noundef 10, ptr noundef %83)
-  br label %85
+  %83 = tail call i32 @putchar(i32 10)
+  br label %84
 
-85:                                               ; preds = %82, %56
-  %86 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 8
-  %87 = load ptr, ptr %86, align 8, !tbaa !40
-  %88 = icmp eq ptr %87, null
-  br i1 %88, label %107, label %89
+84:                                               ; preds = %82, %56
+  %85 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 8
+  %86 = load ptr, ptr %85, align 8, !tbaa !40
+  %87 = icmp eq ptr %86, null
+  br i1 %87, label %105, label %88
 
-89:                                               ; preds = %85, %101
-  %90 = phi ptr [ %105, %101 ], [ %87, %85 ]
-  %91 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.65)
-  %92 = load ptr, ptr %90, align 8, !tbaa !9
-  %93 = icmp eq ptr %92, null
-  br i1 %93, label %101, label %94
+88:                                               ; preds = %84, %100
+  %89 = phi ptr [ %103, %100 ], [ %86, %84 ]
+  %90 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.65)
+  %91 = load ptr, ptr %89, align 8, !tbaa !9
+  %92 = icmp eq ptr %91, null
+  br i1 %92, label %100, label %93
 
-94:                                               ; preds = %89, %94
-  %95 = phi ptr [ %99, %94 ], [ %92, %89 ]
-  %96 = load i32, ptr %95, align 8, !tbaa !51
-  %97 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.56, i32 noundef %96)
-  %98 = getelementptr inbounds %struct.symbolic_list_struct, ptr %95, i64 0, i32 2
-  %99 = load ptr, ptr %98, align 8, !tbaa !9
-  %100 = icmp eq ptr %99, null
-  br i1 %100, label %101, label %94
+93:                                               ; preds = %88, %93
+  %94 = phi ptr [ %98, %93 ], [ %91, %88 ]
+  %95 = load i32, ptr %94, align 8, !tbaa !51
+  %96 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.56, i32 noundef %95)
+  %97 = getelementptr inbounds %struct.symbolic_list_struct, ptr %94, i64 0, i32 2
+  %98 = load ptr, ptr %97, align 8, !tbaa !9
+  %99 = icmp eq ptr %98, null
+  br i1 %99, label %100, label %93
 
-101:                                              ; preds = %94, %89
-  %102 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %103 = tail call i32 @putc(i32 noundef 10, ptr noundef %102)
-  %104 = getelementptr inbounds %struct.symbolic_struct, ptr %90, i64 0, i32 4
-  %105 = load ptr, ptr %104, align 8, !tbaa !41
-  %106 = icmp eq ptr %105, null
-  br i1 %106, label %107, label %89
+100:                                              ; preds = %93, %88
+  %101 = tail call i32 @putchar(i32 10)
+  %102 = getelementptr inbounds %struct.symbolic_struct, ptr %89, i64 0, i32 4
+  %103 = load ptr, ptr %102, align 8, !tbaa !41
+  %104 = icmp eq ptr %103, null
+  br i1 %104, label %105, label %88
 
-107:                                              ; preds = %101, %85
-  %108 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 9
-  %109 = load ptr, ptr %108, align 8, !tbaa !43
-  %110 = icmp eq ptr %109, null
-  br i1 %110, label %130, label %111
+105:                                              ; preds = %100, %84
+  %106 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 9
+  %107 = load ptr, ptr %106, align 8, !tbaa !43
+  %108 = icmp eq ptr %107, null
+  br i1 %108, label %127, label %109
 
-111:                                              ; preds = %107, %124
-  %112 = phi ptr [ %128, %124 ], [ %109, %107 ]
-  %113 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.66)
-  %114 = load ptr, ptr %112, align 8, !tbaa !9
-  %115 = icmp eq ptr %114, null
-  br i1 %115, label %124, label %116
+109:                                              ; preds = %105, %122
+  %110 = phi ptr [ %125, %122 ], [ %107, %105 ]
+  %111 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.66)
+  %112 = load ptr, ptr %110, align 8, !tbaa !9
+  %113 = icmp eq ptr %112, null
+  br i1 %113, label %122, label %114
 
-116:                                              ; preds = %111, %116
-  %117 = phi ptr [ %122, %116 ], [ %114, %111 ]
-  %118 = getelementptr inbounds %struct.symbolic_list_struct, ptr %117, i64 0, i32 1
-  %119 = load i32, ptr %118, align 4, !tbaa !53
-  %120 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.56, i32 noundef %119)
-  %121 = getelementptr inbounds %struct.symbolic_list_struct, ptr %117, i64 0, i32 2
-  %122 = load ptr, ptr %121, align 8, !tbaa !9
-  %123 = icmp eq ptr %122, null
-  br i1 %123, label %124, label %116
+114:                                              ; preds = %109, %114
+  %115 = phi ptr [ %120, %114 ], [ %112, %109 ]
+  %116 = getelementptr inbounds %struct.symbolic_list_struct, ptr %115, i64 0, i32 1
+  %117 = load i32, ptr %116, align 4, !tbaa !53
+  %118 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.56, i32 noundef %117)
+  %119 = getelementptr inbounds %struct.symbolic_list_struct, ptr %115, i64 0, i32 2
+  %120 = load ptr, ptr %119, align 8, !tbaa !9
+  %121 = icmp eq ptr %120, null
+  br i1 %121, label %122, label %114
 
-124:                                              ; preds = %116, %111
-  %125 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %126 = tail call i32 @putc(i32 noundef 10, ptr noundef %125)
-  %127 = getelementptr inbounds %struct.symbolic_struct, ptr %112, i64 0, i32 4
-  %128 = load ptr, ptr %127, align 8, !tbaa !41
-  %129 = icmp eq ptr %128, null
-  br i1 %129, label %130, label %111
+122:                                              ; preds = %114, %109
+  %123 = tail call i32 @putchar(i32 10)
+  %124 = getelementptr inbounds %struct.symbolic_struct, ptr %110, i64 0, i32 4
+  %125 = load ptr, ptr %124, align 8, !tbaa !41
+  %126 = icmp eq ptr %125, null
+  br i1 %126, label %127, label %109
 
-130:                                              ; preds = %124, %107
-  %131 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %132 = tail call i32 @fflush(ptr noundef %131)
+127:                                              ; preds = %122, %105
+  %128 = load ptr, ptr @stdout, align 8, !tbaa !9
+  %129 = tail call i32 @fflush(ptr noundef %128)
   ret void
 }
 
@@ -3080,8 +3080,8 @@ declare ptr @pc1(...) local_unnamed_addr #5
 declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable
-define dso_local noalias ptr @new_PLA() local_unnamed_addr #10 {
-  %1 = tail call noalias dereferenceable_or_null(80) ptr @malloc(i64 noundef 80) #21
+define dso_local noalias ptr @new_PLA() local_unnamed_addr #11 {
+  %1 = tail call noalias dereferenceable_or_null(80) ptr @malloc(i64 noundef 80) #22
   %2 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 5
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(36) %1, i8 0, i64 36, i1 false)
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %2, i8 0, i64 40, i1 false)
@@ -3093,7 +3093,7 @@ define dso_local i32 @PLA_labels(ptr nocapture noundef %0) local_unnamed_addr #0
   %2 = load i32, ptr @cube, align 8, !tbaa !16
   %3 = sext i32 %2 to i64
   %4 = shl nsw i64 %3, 3
-  %5 = tail call noalias ptr @malloc(i64 noundef %4) #21
+  %5 = tail call noalias ptr @malloc(i64 noundef %4) #22
   %6 = getelementptr inbounds %struct.PLA_t, ptr %0, i64 0, i32 7
   store ptr %5, ptr %6, align 8, !tbaa !23
   %7 = icmp sgt i32 %2, 0
@@ -3159,7 +3159,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   br i1 %3, label %5, label %4
 
 4:                                                ; preds = %1
-  tail call void (ptr, ...) @sf_free(ptr noundef nonnull %2) #17
+  tail call void (ptr, ...) @sf_free(ptr noundef nonnull %2) #18
   br label %5
 
 5:                                                ; preds = %4, %1
@@ -3169,7 +3169,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   br i1 %8, label %10, label %9
 
 9:                                                ; preds = %5
-  tail call void (ptr, ...) @sf_free(ptr noundef nonnull %7) #17
+  tail call void (ptr, ...) @sf_free(ptr noundef nonnull %7) #18
   br label %10
 
 10:                                               ; preds = %9, %5
@@ -3179,7 +3179,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   br i1 %13, label %15, label %14
 
 14:                                               ; preds = %10
-  tail call void (ptr, ...) @sf_free(ptr noundef nonnull %12) #17
+  tail call void (ptr, ...) @sf_free(ptr noundef nonnull %12) #18
   br label %15
 
 15:                                               ; preds = %14, %10
@@ -3189,7 +3189,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   br i1 %18, label %20, label %19
 
 19:                                               ; preds = %15
-  tail call void @free(ptr noundef nonnull %17) #17
+  tail call void @free(ptr noundef nonnull %17) #18
   store ptr null, ptr %16, align 8, !tbaa !44
   br label %20
 
@@ -3206,7 +3206,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   br i1 %27, label %31, label %28
 
 28:                                               ; preds = %24
-  tail call void @free(ptr noundef nonnull %26) #17
+  tail call void @free(ptr noundef nonnull %26) #18
   %29 = load ptr, ptr %21, align 8, !tbaa !45
   %30 = getelementptr inbounds %struct.pair_struct, ptr %29, i64 0, i32 1
   store ptr null, ptr %30, align 8, !tbaa !48
@@ -3220,7 +3220,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   br i1 %35, label %39, label %36
 
 36:                                               ; preds = %31
-  tail call void @free(ptr noundef nonnull %34) #17
+  tail call void @free(ptr noundef nonnull %34) #18
   %37 = load ptr, ptr %21, align 8, !tbaa !45
   %38 = getelementptr inbounds %struct.pair_struct, ptr %37, i64 0, i32 2
   store ptr null, ptr %38, align 8, !tbaa !49
@@ -3228,7 +3228,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
 
 39:                                               ; preds = %31, %36
   %40 = phi ptr [ %37, %36 ], [ %32, %31 ]
-  tail call void @free(ptr noundef nonnull %40) #17
+  tail call void @free(ptr noundef nonnull %40) #18
   store ptr null, ptr %21, align 8, !tbaa !45
   br label %41
 
@@ -3253,7 +3253,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   br i1 %54, label %59, label %55
 
 55:                                               ; preds = %48
-  tail call void @free(ptr noundef nonnull %53) #17
+  tail call void @free(ptr noundef nonnull %53) #18
   %56 = load ptr, ptr %42, align 8, !tbaa !23
   %57 = getelementptr inbounds ptr, ptr %56, i64 %50
   store ptr null, ptr %57, align 8, !tbaa !9
@@ -3274,7 +3274,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
 
 67:                                               ; preds = %45, %64
   %68 = phi ptr [ %65, %64 ], [ %43, %45 ]
-  tail call void @free(ptr noundef nonnull %68) #17
+  tail call void @free(ptr noundef nonnull %68) #18
   store ptr null, ptr %42, align 8, !tbaa !23
   br label %69
 
@@ -3285,7 +3285,7 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   br i1 %72, label %74, label %73
 
 73:                                               ; preds = %69
-  tail call void @free(ptr noundef nonnull %71) #17
+  tail call void @free(ptr noundef nonnull %71) #18
   store ptr null, ptr %70, align 8, !tbaa !50
   br label %74
 
@@ -3305,14 +3305,14 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   %83 = phi ptr [ %85, %82 ], [ %80, %78 ]
   %84 = getelementptr inbounds %struct.symbolic_list_struct, ptr %83, i64 0, i32 2
   %85 = load ptr, ptr %84, align 8, !tbaa !56
-  tail call void @free(ptr noundef nonnull %83) #17
+  tail call void @free(ptr noundef nonnull %83) #18
   %86 = icmp eq ptr %85, null
   br i1 %86, label %87, label %82
 
 87:                                               ; preds = %82, %78
   %88 = getelementptr inbounds %struct.symbolic_struct, ptr %79, i64 0, i32 4
   %89 = load ptr, ptr %88, align 8, !tbaa !41
-  tail call void @free(ptr noundef %79) #17
+  tail call void @free(ptr noundef %79) #18
   %90 = icmp eq ptr %89, null
   br i1 %90, label %91, label %78
 
@@ -3333,30 +3333,30 @@ define dso_local void @free_PLA(ptr nocapture noundef %0) local_unnamed_addr #4 
   %100 = phi ptr [ %102, %99 ], [ %97, %95 ]
   %101 = getelementptr inbounds %struct.symbolic_list_struct, ptr %100, i64 0, i32 2
   %102 = load ptr, ptr %101, align 8, !tbaa !56
-  tail call void @free(ptr noundef nonnull %100) #17
+  tail call void @free(ptr noundef nonnull %100) #18
   %103 = icmp eq ptr %102, null
   br i1 %103, label %104, label %99
 
 104:                                              ; preds = %99, %95
   %105 = getelementptr inbounds %struct.symbolic_struct, ptr %96, i64 0, i32 4
   %106 = load ptr, ptr %105, align 8, !tbaa !41
-  tail call void @free(ptr noundef %96) #17
+  tail call void @free(ptr noundef %96) #18
   %107 = icmp eq ptr %106, null
   br i1 %107, label %108, label %95
 
 108:                                              ; preds = %104, %91
-  tail call void @free(ptr noundef %0) #17
+  tail call void @free(ptr noundef %0) #18
   ret void
 }
 
 ; Function Attrs: mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite)
-declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #11
+declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #12
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @read_symbolic(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #4 {
   %5 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #17
-  %6 = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #21
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #18
+  %6 = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #22
   %7 = getelementptr inbounds %struct.symbolic_struct, ptr %6, i64 0, i32 4
   store ptr null, ptr %7, align 8, !tbaa !41
   store ptr null, ptr %6, align 8, !tbaa !55
@@ -3369,9 +3369,9 @@ define dso_local i32 @read_symbolic(ptr nocapture noundef %0, ptr nocapture noun
   %11 = getelementptr inbounds %struct.PLA_t, ptr %1, i64 0, i32 7
   br label %12
 
-12:                                               ; preds = %99, %4
-  %13 = phi i32 [ 0, %4 ], [ %108, %99 ]
-  %14 = phi ptr [ null, %4 ], [ %102, %99 ]
+12:                                               ; preds = %98, %4
+  %13 = phi i32 [ 0, %4 ], [ %107, %98 ]
+  %14 = phi ptr [ null, %4 ], [ %101, %98 ]
   br label %15
 
 15:                                               ; preds = %18, %12
@@ -3380,7 +3380,7 @@ define dso_local i32 @read_symbolic(ptr nocapture noundef %0, ptr nocapture noun
   br i1 %17, label %26, label %18
 
 18:                                               ; preds = %15
-  %19 = tail call ptr @__ctype_b_loc() #16
+  %19 = tail call ptr @__ctype_b_loc() #17
   %20 = load ptr, ptr %19, align 8, !tbaa !9
   %21 = sext i32 %16 to i64
   %22 = getelementptr inbounds i16, ptr %20, i64 %21
@@ -3397,7 +3397,7 @@ define dso_local i32 @read_symbolic(ptr nocapture noundef %0, ptr nocapture noun
   br i1 %29, label %50, label %30
 
 30:                                               ; preds = %26
-  %31 = tail call ptr @__ctype_b_loc() #16
+  %31 = tail call ptr @__ctype_b_loc() #17
   br label %32
 
 32:                                               ; preds = %41, %30
@@ -3429,182 +3429,179 @@ define dso_local i32 @read_symbolic(ptr nocapture noundef %0, ptr nocapture noun
   %51 = phi i64 [ 1, %26 ], [ %49, %47 ]
   %52 = getelementptr inbounds i8, ptr %2, i64 %51
   store i8 0, ptr %52, align 1, !tbaa !13
-  %53 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(2) @.str.67) #19
+  %53 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(2) @.str.67) #20
   %54 = icmp eq i32 %53, 0
-  br i1 %54, label %109, label %55
+  br i1 %54, label %108, label %55
 
 55:                                               ; preds = %50
   %56 = load ptr, ptr %11, align 8, !tbaa !23
   %57 = icmp eq ptr %56, null
-  br i1 %57, label %68, label %58
+  br i1 %57, label %94, label %58
 
 58:                                               ; preds = %55
   %59 = load ptr, ptr %56, align 8, !tbaa !9
   %60 = icmp eq ptr %59, null
-  br i1 %60, label %68, label %61
+  br i1 %60, label %94, label %61
 
 61:                                               ; preds = %58
   %62 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !18
   %63 = icmp sgt i32 %62, 0
-  br i1 %63, label %64, label %161
+  br i1 %63, label %64, label %160
 
 64:                                               ; preds = %61
   %65 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8, !tbaa !19
   %66 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 3), align 8
   %67 = zext i32 %62 to i64
-  br label %73
+  br label %68
 
-68:                                               ; preds = %58, %55
-  %69 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %2, ptr noundef nonnull @.str.10, ptr noundef nonnull %5) #17
-  %70 = icmp eq i32 %69, 1
-  br i1 %70, label %71, label %161
+68:                                               ; preds = %91, %64
+  %69 = phi i64 [ 0, %64 ], [ %92, %91 ]
+  %70 = getelementptr inbounds i32, ptr %65, i64 %69
+  %71 = load i32, ptr %70, align 4, !tbaa !5
+  %72 = icmp sgt i32 %71, 0
+  br i1 %72, label %73, label %91
 
-71:                                               ; preds = %68
-  %72 = load i32, ptr %5, align 4, !tbaa !5
-  br label %99
+73:                                               ; preds = %68
+  %74 = getelementptr inbounds i32, ptr %66, i64 %69
+  %75 = load i32, ptr %74, align 4, !tbaa !5
+  %76 = sext i32 %75 to i64
+  %77 = zext i32 %71 to i64
+  br label %78
 
-73:                                               ; preds = %96, %64
-  %74 = phi i64 [ 0, %64 ], [ %97, %96 ]
-  %75 = getelementptr inbounds i32, ptr %65, i64 %74
-  %76 = load i32, ptr %75, align 4, !tbaa !5
-  %77 = icmp sgt i32 %76, 0
-  br i1 %77, label %78, label %96
+78:                                               ; preds = %88, %73
+  %79 = phi i64 [ 0, %73 ], [ %89, %88 ]
+  %80 = add nsw i64 %79, %76
+  %81 = getelementptr inbounds ptr, ptr %56, i64 %80
+  %82 = load ptr, ptr %81, align 8, !tbaa !9
+  %83 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %82, ptr noundef nonnull dereferenceable(1) %2) #20
+  %84 = icmp eq i32 %83, 0
+  br i1 %84, label %85, label %88
 
-78:                                               ; preds = %73
-  %79 = getelementptr inbounds i32, ptr %66, i64 %74
-  %80 = load i32, ptr %79, align 4, !tbaa !5
-  %81 = sext i32 %80 to i64
-  %82 = zext i32 %76 to i64
-  br label %83
+85:                                               ; preds = %78
+  %86 = trunc i64 %69 to i32
+  %87 = trunc i64 %79 to i32
+  store i32 %86, ptr %5, align 4, !tbaa !5
+  br label %98
 
-83:                                               ; preds = %93, %78
-  %84 = phi i64 [ 0, %78 ], [ %94, %93 ]
-  %85 = add nsw i64 %84, %81
-  %86 = getelementptr inbounds ptr, ptr %56, i64 %85
-  %87 = load ptr, ptr %86, align 8, !tbaa !9
-  %88 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %87, ptr noundef nonnull dereferenceable(1) %2) #19
-  %89 = icmp eq i32 %88, 0
-  br i1 %89, label %90, label %93
+88:                                               ; preds = %78
+  %89 = add nuw nsw i64 %79, 1
+  %90 = icmp eq i64 %89, %77
+  br i1 %90, label %91, label %78
 
-90:                                               ; preds = %83
-  %91 = trunc i64 %74 to i32
-  %92 = trunc i64 %84 to i32
-  store i32 %91, ptr %5, align 4, !tbaa !5
-  br label %99
+91:                                               ; preds = %88, %68
+  %92 = add nuw nsw i64 %69, 1
+  %93 = icmp eq i64 %92, %67
+  br i1 %93, label %160, label %68
 
-93:                                               ; preds = %83
-  %94 = add nuw nsw i64 %84, 1
-  %95 = icmp eq i64 %94, %82
-  br i1 %95, label %96, label %83
+94:                                               ; preds = %55, %58
+  %95 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %2, ptr noundef nonnull @.str.10, ptr noundef nonnull %5) #18
+  %96 = icmp eq i32 %95, 1
+  %97 = load i32, ptr %5, align 4
+  br i1 %96, label %98, label %160
 
-96:                                               ; preds = %93, %73
-  %97 = add nuw nsw i64 %74, 1
-  %98 = icmp eq i64 %97, %67
-  br i1 %98, label %161, label %73
-
-99:                                               ; preds = %90, %71
-  %100 = phi i32 [ %91, %90 ], [ %72, %71 ]
-  %101 = phi i32 [ %92, %90 ], [ %72, %71 ]
-  %102 = call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #21
-  store i32 %100, ptr %102, align 8, !tbaa !51
-  %103 = getelementptr inbounds %struct.symbolic_list_struct, ptr %102, i64 0, i32 1
-  store i32 %101, ptr %103, align 4, !tbaa !53
-  %104 = getelementptr inbounds %struct.symbolic_list_struct, ptr %102, i64 0, i32 2
-  store ptr null, ptr %104, align 8, !tbaa !56
-  %105 = icmp eq ptr %14, null
-  %106 = getelementptr inbounds %struct.symbolic_list_struct, ptr %14, i64 0, i32 2
-  %107 = select i1 %105, ptr %6, ptr %106
-  store ptr %102, ptr %107, align 8, !tbaa !9
-  %108 = add nuw nsw i32 %13, 1
-  store i32 %108, ptr %8, align 8, !tbaa !57
+98:                                               ; preds = %85, %94
+  %99 = phi i32 [ %86, %85 ], [ %97, %94 ]
+  %100 = phi i32 [ %87, %85 ], [ %97, %94 ]
+  %101 = call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #22
+  store i32 %99, ptr %101, align 8, !tbaa !51
+  %102 = getelementptr inbounds %struct.symbolic_list_struct, ptr %101, i64 0, i32 1
+  store i32 %100, ptr %102, align 4, !tbaa !53
+  %103 = getelementptr inbounds %struct.symbolic_list_struct, ptr %101, i64 0, i32 2
+  store ptr null, ptr %103, align 8, !tbaa !56
+  %104 = icmp eq ptr %14, null
+  %105 = getelementptr inbounds %struct.symbolic_list_struct, ptr %14, i64 0, i32 2
+  %106 = select i1 %104, ptr %6, ptr %105
+  store ptr %101, ptr %106, align 8, !tbaa !9
+  %107 = add nuw nsw i32 %13, 1
+  store i32 %107, ptr %8, align 8, !tbaa !57
   br label %12
 
-109:                                              ; preds = %50, %152
-  %110 = phi i32 [ %159, %152 ], [ 0, %50 ]
-  %111 = phi ptr [ %153, %152 ], [ null, %50 ]
-  br label %112
+108:                                              ; preds = %50, %151
+  %109 = phi i32 [ %158, %151 ], [ 0, %50 ]
+  %110 = phi ptr [ %152, %151 ], [ null, %50 ]
+  br label %111
 
-112:                                              ; preds = %115, %109
-  %113 = call i32 @getc(ptr noundef %0)
-  %114 = icmp eq i32 %113, -1
-  br i1 %114, label %123, label %115
+111:                                              ; preds = %114, %108
+  %112 = call i32 @getc(ptr noundef %0)
+  %113 = icmp eq i32 %112, -1
+  br i1 %113, label %122, label %114
 
-115:                                              ; preds = %112
-  %116 = tail call ptr @__ctype_b_loc() #16
-  %117 = load ptr, ptr %116, align 8, !tbaa !9
-  %118 = sext i32 %113 to i64
-  %119 = getelementptr inbounds i16, ptr %117, i64 %118
-  %120 = load i16, ptr %119, align 2, !tbaa !11
-  %121 = and i16 %120, 8192
-  %122 = icmp eq i16 %121, 0
-  br i1 %122, label %123, label %112
+114:                                              ; preds = %111
+  %115 = tail call ptr @__ctype_b_loc() #17
+  %116 = load ptr, ptr %115, align 8, !tbaa !9
+  %117 = sext i32 %112 to i64
+  %118 = getelementptr inbounds i16, ptr %116, i64 %117
+  %119 = load i16, ptr %118, align 2, !tbaa !11
+  %120 = and i16 %119, 8192
+  %121 = icmp eq i16 %120, 0
+  br i1 %121, label %122, label %111
 
-123:                                              ; preds = %115, %112
-  %124 = trunc i32 %113 to i8
-  store i8 %124, ptr %2, align 1, !tbaa !13
-  %125 = call i32 @getc(ptr noundef %0)
-  %126 = icmp eq i32 %125, -1
-  br i1 %126, label %147, label %127
+122:                                              ; preds = %114, %111
+  %123 = trunc i32 %112 to i8
+  store i8 %123, ptr %2, align 1, !tbaa !13
+  %124 = call i32 @getc(ptr noundef %0)
+  %125 = icmp eq i32 %124, -1
+  br i1 %125, label %146, label %126
 
-127:                                              ; preds = %123
-  %128 = tail call ptr @__ctype_b_loc() #16
-  br label %129
+126:                                              ; preds = %122
+  %127 = tail call ptr @__ctype_b_loc() #17
+  br label %128
 
-129:                                              ; preds = %138, %127
-  %130 = phi i64 [ 1, %127 ], [ %140, %138 ]
-  %131 = phi i32 [ %125, %127 ], [ %142, %138 ]
-  %132 = load ptr, ptr %128, align 8, !tbaa !9
-  %133 = sext i32 %131 to i64
-  %134 = getelementptr inbounds i16, ptr %132, i64 %133
-  %135 = load i16, ptr %134, align 2, !tbaa !11
-  %136 = and i16 %135, 8192
-  %137 = icmp eq i16 %136, 0
-  br i1 %137, label %138, label %144
+128:                                              ; preds = %137, %126
+  %129 = phi i64 [ 1, %126 ], [ %139, %137 ]
+  %130 = phi i32 [ %124, %126 ], [ %141, %137 ]
+  %131 = load ptr, ptr %127, align 8, !tbaa !9
+  %132 = sext i32 %130 to i64
+  %133 = getelementptr inbounds i16, ptr %131, i64 %132
+  %134 = load i16, ptr %133, align 2, !tbaa !11
+  %135 = and i16 %134, 8192
+  %136 = icmp eq i16 %135, 0
+  br i1 %136, label %137, label %143
 
-138:                                              ; preds = %129
-  %139 = trunc i32 %131 to i8
-  %140 = add nuw i64 %130, 1
-  %141 = getelementptr inbounds i8, ptr %2, i64 %130
-  store i8 %139, ptr %141, align 1, !tbaa !13
-  %142 = call i32 @getc(ptr noundef %0)
-  %143 = icmp eq i32 %142, -1
-  br i1 %143, label %144, label %129
+137:                                              ; preds = %128
+  %138 = trunc i32 %130 to i8
+  %139 = add nuw i64 %129, 1
+  %140 = getelementptr inbounds i8, ptr %2, i64 %129
+  store i8 %138, ptr %140, align 1, !tbaa !13
+  %141 = call i32 @getc(ptr noundef %0)
+  %142 = icmp eq i32 %141, -1
+  br i1 %142, label %143, label %128
 
-144:                                              ; preds = %138, %129
-  %145 = phi i64 [ %130, %129 ], [ %140, %138 ]
-  %146 = and i64 %145, 4294967295
-  br label %147
+143:                                              ; preds = %137, %128
+  %144 = phi i64 [ %129, %128 ], [ %139, %137 ]
+  %145 = and i64 %144, 4294967295
+  br label %146
 
-147:                                              ; preds = %123, %144
-  %148 = phi i64 [ 1, %123 ], [ %146, %144 ]
-  %149 = getelementptr inbounds i8, ptr %2, i64 %148
-  store i8 0, ptr %149, align 1, !tbaa !13
-  %150 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(2) @.str.67) #19
-  %151 = icmp eq i32 %150, 0
-  br i1 %151, label %160, label %152
+146:                                              ; preds = %122, %143
+  %147 = phi i64 [ 1, %122 ], [ %145, %143 ]
+  %148 = getelementptr inbounds i8, ptr %2, i64 %147
+  store i8 0, ptr %148, align 1, !tbaa !13
+  %149 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(2) @.str.67) #20
+  %150 = icmp eq i32 %149, 0
+  br i1 %150, label %159, label %151
 
-152:                                              ; preds = %147
-  %153 = call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #21
-  %154 = call ptr @util_strsav(ptr noundef nonnull %2) #17
-  store ptr %154, ptr %153, align 8, !tbaa !60
-  %155 = getelementptr inbounds %struct.symbolic_label_struct, ptr %153, i64 0, i32 1
-  store ptr null, ptr %155, align 8, !tbaa !62
-  %156 = icmp eq ptr %111, null
-  %157 = getelementptr inbounds %struct.symbolic_label_struct, ptr %111, i64 0, i32 1
-  %158 = select i1 %156, ptr %9, ptr %157
-  store ptr %153, ptr %158, align 8, !tbaa !9
-  %159 = add nuw nsw i32 %110, 1
-  store i32 %159, ptr %10, align 8, !tbaa !59
-  br label %109
+151:                                              ; preds = %146
+  %152 = call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #22
+  %153 = call ptr @util_strsav(ptr noundef nonnull %2) #18
+  store ptr %153, ptr %152, align 8, !tbaa !60
+  %154 = getelementptr inbounds %struct.symbolic_label_struct, ptr %152, i64 0, i32 1
+  store ptr null, ptr %154, align 8, !tbaa !62
+  %155 = icmp eq ptr %110, null
+  %156 = getelementptr inbounds %struct.symbolic_label_struct, ptr %110, i64 0, i32 1
+  %157 = select i1 %155, ptr %9, ptr %156
+  store ptr %152, ptr %157, align 8, !tbaa !9
+  %158 = add nuw nsw i32 %109, 1
+  store i32 %158, ptr %10, align 8, !tbaa !59
+  br label %108
 
-160:                                              ; preds = %147
+159:                                              ; preds = %146
   store ptr %6, ptr %3, align 8, !tbaa !9
-  br label %161
+  br label %160
 
-161:                                              ; preds = %61, %68, %96, %160
-  %162 = phi i32 [ 1, %160 ], [ 0, %96 ], [ 0, %68 ], [ 0, %61 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #17
-  ret i32 %162
+160:                                              ; preds = %61, %94, %91, %159
+  %161 = phi i32 [ 1, %159 ], [ 0, %91 ], [ 0, %94 ], [ 0, %61 ]
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #18
+  ret i32 %161
 }
 
 ; Function Attrs: nofree nounwind uwtable
@@ -3631,7 +3628,7 @@ define dso_local i32 @label_index(ptr nocapture noundef readonly %0, ptr nocaptu
   br label %23
 
 18:                                               ; preds = %8, %4
-  %19 = tail call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %1, ptr noundef nonnull @.str.10, ptr noundef %2) #17
+  %19 = tail call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef %1, ptr noundef nonnull @.str.10, ptr noundef %2) #18
   %20 = icmp eq i32 %19, 1
   br i1 %20, label %21, label %51
 
@@ -3658,7 +3655,7 @@ define dso_local i32 @label_index(ptr nocapture noundef readonly %0, ptr nocaptu
   %35 = add nsw i64 %34, %31
   %36 = getelementptr inbounds ptr, ptr %6, i64 %35
   %37 = load ptr, ptr %36, align 8, !tbaa !9
-  %38 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %37, ptr noundef nonnull dereferenceable(1) %1) #19
+  %38 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %37, ptr noundef nonnull dereferenceable(1) %1) #20
   %39 = icmp eq i32 %38, 0
   br i1 %39, label %40, label %43
 
@@ -3694,20 +3691,20 @@ declare noundef i32 @__isoc99_sscanf(ptr nocapture noundef readonly, ptr nocaptu
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare ptr @strrchr(ptr noundef, i32 noundef) local_unnamed_addr #6
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #12
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #14
+declare i32 @llvm.abs.i32(i32, i1 immarg) #13
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #15
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #15
 
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -3719,18 +3716,19 @@ attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "
 attributes #7 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #13 = { nofree nounwind }
-attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #16 = { nounwind willreturn memory(none) }
-attributes #17 = { nounwind }
-attributes #18 = { cold }
-attributes #19 = { nounwind willreturn memory(read) }
-attributes #20 = { noreturn nounwind }
-attributes #21 = { nounwind allocsize(0) }
+attributes #10 = { inlinehint nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #11 = { mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #12 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #14 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #15 = { nofree nounwind }
+attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #17 = { nounwind willreturn memory(none) }
+attributes #18 = { nounwind }
+attributes #19 = { cold }
+attributes #20 = { nounwind willreturn memory(read) }
+attributes #21 = { noreturn nounwind }
+attributes #22 = { nounwind allocsize(0) }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

@@ -308,412 +308,416 @@ define dso_local ptr @ren_Rename(ptr noundef %0, ptr noundef %1, ptr nocapture n
   br label %156
 
 156:                                              ; preds = %154, %136
-  br i1 %142, label %157, label %389
+  %157 = icmp eq ptr %141, null
+  br i1 %157, label %387, label %158
 
-157:                                              ; preds = %156
-  %158 = load i32, ptr @fol_AND, align 4
-  %159 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %160 = getelementptr inbounds %struct.LIST_HELP, ptr %159, i64 0, i32 1
-  store ptr %0, ptr %160, align 8
-  store ptr null, ptr %159, align 8
-  %161 = tail call ptr @term_Create(i32 noundef %158, ptr noundef nonnull %159) #10
-  %162 = getelementptr i8, ptr %161, i64 16
-  br label %163
+158:                                              ; preds = %156
+  %159 = load i32, ptr @fol_AND, align 4
+  %160 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %161 = getelementptr inbounds %struct.LIST_HELP, ptr %160, i64 0, i32 1
+  store ptr %0, ptr %161, align 8
+  store ptr null, ptr %160, align 8
+  %162 = tail call ptr @term_Create(i32 noundef %159, ptr noundef nonnull %160) #10
+  %163 = getelementptr i8, ptr %162, i64 16
+  br label %164
 
-163:                                              ; preds = %383, %157
-  %164 = phi ptr [ null, %157 ], [ %370, %383 ]
-  %165 = phi ptr [ %141, %157 ], [ %169, %383 ]
-  %166 = phi ptr [ null, %157 ], [ %236, %383 ]
-  %167 = getelementptr i8, ptr %165, i64 8
-  %168 = load ptr, ptr %167, align 8
-  %169 = load ptr, ptr %165, align 8
-  %170 = load ptr, ptr %168, align 8
-  %171 = getelementptr i8, ptr %170, i64 8
-  %172 = load ptr, ptr %171, align 8
-  %173 = tail call ptr @fol_FreeVariables(ptr noundef %170) #10
-  %174 = tail call i32 @list_Length(ptr noundef %173) #10
-  %175 = tail call i32 @symbol_CreateSkolemPredicate(i32 noundef %174, ptr noundef %1) #10
-  %176 = sext i32 %175 to i64
-  %177 = inttoptr i64 %176 to ptr
-  %178 = load ptr, ptr %2, align 8
-  %179 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %180 = getelementptr inbounds %struct.LIST_HELP, ptr %179, i64 0, i32 1
-  store ptr %177, ptr %180, align 8
-  store ptr %178, ptr %179, align 8
-  store ptr %179, ptr %2, align 8
-  %181 = getelementptr i8, ptr %168, i64 16
-  %182 = load i32, ptr %181, align 8
-  %183 = icmp eq i32 %182, 0
-  br i1 %183, label %186, label %184
+164:                                              ; preds = %384, %158
+  %165 = phi ptr [ null, %158 ], [ %371, %384 ]
+  %166 = phi ptr [ %141, %158 ], [ %170, %384 ]
+  %167 = phi ptr [ null, %158 ], [ %237, %384 ]
+  %168 = getelementptr i8, ptr %166, i64 8
+  %169 = load ptr, ptr %168, align 8
+  %170 = load ptr, ptr %166, align 8
+  %171 = load ptr, ptr %169, align 8
+  %172 = getelementptr i8, ptr %171, i64 8
+  %173 = load ptr, ptr %172, align 8
+  %174 = tail call ptr @fol_FreeVariables(ptr noundef %171) #10
+  %175 = tail call i32 @list_Length(ptr noundef %174) #10
+  %176 = tail call i32 @symbol_CreateSkolemPredicate(i32 noundef %175, ptr noundef %1) #10
+  %177 = sext i32 %176 to i64
+  %178 = inttoptr i64 %177 to ptr
+  %179 = load ptr, ptr %2, align 8
+  %180 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %181 = getelementptr inbounds %struct.LIST_HELP, ptr %180, i64 0, i32 1
+  store ptr %178, ptr %181, align 8
+  store ptr %179, ptr %180, align 8
+  store ptr %180, ptr %2, align 8
+  %182 = getelementptr i8, ptr %169, i64 16
+  %183 = load i32, ptr %182, align 8
+  %184 = icmp eq i32 %183, 0
+  br i1 %184, label %187, label %185
 
-184:                                              ; preds = %163
-  %185 = tail call ptr @term_Copy(ptr noundef nonnull %170) #10
-  br label %186
+185:                                              ; preds = %164
+  %186 = tail call ptr @term_Copy(ptr noundef nonnull %171) #10
+  br label %187
 
-186:                                              ; preds = %184, %163
-  %187 = phi ptr [ %185, %184 ], [ %170, %163 ]
-  %188 = tail call ptr @list_CopyWithElement(ptr noundef %173, ptr noundef nonnull @term_Copy) #10
-  %189 = tail call ptr @term_Create(i32 noundef %175, ptr noundef %188) #10
-  %190 = getelementptr i8, ptr %168, i64 20
-  %191 = load i32, ptr %190, align 4
-  switch i32 %191, label %216 [
-    i32 0, label %192
-    i32 1, label %200
-    i32 -1, label %208
+187:                                              ; preds = %185, %164
+  %188 = phi ptr [ %186, %185 ], [ %171, %164 ]
+  %189 = tail call ptr @list_CopyWithElement(ptr noundef %174, ptr noundef nonnull @term_Copy) #10
+  %190 = tail call ptr @term_Create(i32 noundef %176, ptr noundef %189) #10
+  %191 = getelementptr i8, ptr %169, i64 20
+  %192 = load i32, ptr %191, align 4
+  switch i32 %192, label %217 [
+    i32 0, label %193
+    i32 1, label %201
+    i32 -1, label %209
   ]
 
-192:                                              ; preds = %186
-  %193 = load i32, ptr @fol_EQUIV, align 4
-  %194 = tail call ptr @term_Copy(ptr noundef %189) #10
-  %195 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %196 = getelementptr inbounds %struct.LIST_HELP, ptr %195, i64 0, i32 1
-  store ptr %187, ptr %196, align 8
-  store ptr null, ptr %195, align 8
-  %197 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %198 = getelementptr inbounds %struct.LIST_HELP, ptr %197, i64 0, i32 1
-  store ptr %194, ptr %198, align 8
-  store ptr %195, ptr %197, align 8
-  %199 = tail call ptr @term_Create(i32 noundef %193, ptr noundef nonnull %197) #10
-  br label %216
+193:                                              ; preds = %187
+  %194 = load i32, ptr @fol_EQUIV, align 4
+  %195 = tail call ptr @term_Copy(ptr noundef %190) #10
+  %196 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %197 = getelementptr inbounds %struct.LIST_HELP, ptr %196, i64 0, i32 1
+  store ptr %188, ptr %197, align 8
+  store ptr null, ptr %196, align 8
+  %198 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %199 = getelementptr inbounds %struct.LIST_HELP, ptr %198, i64 0, i32 1
+  store ptr %195, ptr %199, align 8
+  store ptr %196, ptr %198, align 8
+  %200 = tail call ptr @term_Create(i32 noundef %194, ptr noundef nonnull %198) #10
+  br label %217
 
-200:                                              ; preds = %186
-  %201 = load i32, ptr @fol_IMPLIES, align 4
-  %202 = tail call ptr @term_Copy(ptr noundef %189) #10
-  %203 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %204 = getelementptr inbounds %struct.LIST_HELP, ptr %203, i64 0, i32 1
-  store ptr %187, ptr %204, align 8
-  store ptr null, ptr %203, align 8
-  %205 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %206 = getelementptr inbounds %struct.LIST_HELP, ptr %205, i64 0, i32 1
-  store ptr %202, ptr %206, align 8
-  store ptr %203, ptr %205, align 8
-  %207 = tail call ptr @term_Create(i32 noundef %201, ptr noundef nonnull %205) #10
-  br label %216
+201:                                              ; preds = %187
+  %202 = load i32, ptr @fol_IMPLIES, align 4
+  %203 = tail call ptr @term_Copy(ptr noundef %190) #10
+  %204 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %205 = getelementptr inbounds %struct.LIST_HELP, ptr %204, i64 0, i32 1
+  store ptr %188, ptr %205, align 8
+  store ptr null, ptr %204, align 8
+  %206 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %207 = getelementptr inbounds %struct.LIST_HELP, ptr %206, i64 0, i32 1
+  store ptr %203, ptr %207, align 8
+  store ptr %204, ptr %206, align 8
+  %208 = tail call ptr @term_Create(i32 noundef %202, ptr noundef nonnull %206) #10
+  br label %217
 
-208:                                              ; preds = %186
-  %209 = load i32, ptr @fol_IMPLIES, align 4
-  %210 = tail call ptr @term_Copy(ptr noundef %189) #10
-  %211 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %212 = getelementptr inbounds %struct.LIST_HELP, ptr %211, i64 0, i32 1
-  store ptr %210, ptr %212, align 8
-  store ptr null, ptr %211, align 8
-  %213 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %214 = getelementptr inbounds %struct.LIST_HELP, ptr %213, i64 0, i32 1
-  store ptr %187, ptr %214, align 8
+209:                                              ; preds = %187
+  %210 = load i32, ptr @fol_IMPLIES, align 4
+  %211 = tail call ptr @term_Copy(ptr noundef %190) #10
+  %212 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %213 = getelementptr inbounds %struct.LIST_HELP, ptr %212, i64 0, i32 1
   store ptr %211, ptr %213, align 8
-  %215 = tail call ptr @term_Create(i32 noundef %209, ptr noundef nonnull %213) #10
-  br label %216
+  store ptr null, ptr %212, align 8
+  %214 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %215 = getelementptr inbounds %struct.LIST_HELP, ptr %214, i64 0, i32 1
+  store ptr %188, ptr %215, align 8
+  store ptr %212, ptr %214, align 8
+  %216 = tail call ptr @term_Create(i32 noundef %210, ptr noundef nonnull %214) #10
+  br label %217
 
-216:                                              ; preds = %208, %200, %192, %186
-  %217 = phi ptr [ %166, %186 ], [ %215, %208 ], [ %207, %200 ], [ %199, %192 ]
-  %218 = getelementptr i8, ptr %217, i64 16
-  %219 = load ptr, ptr %218, align 8
-  %220 = getelementptr i8, ptr %219, i64 8
-  %221 = load ptr, ptr %220, align 8
-  %222 = getelementptr inbounds %struct.term, ptr %221, i64 0, i32 1
-  store ptr %217, ptr %222, align 8
-  %223 = load ptr, ptr %218, align 8
-  %224 = load ptr, ptr %223, align 8
-  %225 = getelementptr i8, ptr %224, i64 8
-  %226 = load ptr, ptr %225, align 8
-  %227 = getelementptr inbounds %struct.term, ptr %226, i64 0, i32 1
-  store ptr %217, ptr %227, align 8
-  %228 = icmp eq ptr %173, null
-  br i1 %228, label %235, label %229
+217:                                              ; preds = %209, %201, %193, %187
+  %218 = phi ptr [ %167, %187 ], [ %216, %209 ], [ %208, %201 ], [ %200, %193 ]
+  %219 = getelementptr i8, ptr %218, i64 16
+  %220 = load ptr, ptr %219, align 8
+  %221 = getelementptr i8, ptr %220, i64 8
+  %222 = load ptr, ptr %221, align 8
+  %223 = getelementptr inbounds %struct.term, ptr %222, i64 0, i32 1
+  store ptr %218, ptr %223, align 8
+  %224 = load ptr, ptr %219, align 8
+  %225 = load ptr, ptr %224, align 8
+  %226 = getelementptr i8, ptr %225, i64 8
+  %227 = load ptr, ptr %226, align 8
+  %228 = getelementptr inbounds %struct.term, ptr %227, i64 0, i32 1
+  store ptr %218, ptr %228, align 8
+  %229 = icmp eq ptr %174, null
+  br i1 %229, label %236, label %230
 
-229:                                              ; preds = %216
-  %230 = load i32, ptr @fol_ALL, align 4
-  %231 = tail call ptr @list_CopyWithElement(ptr noundef nonnull %173, ptr noundef nonnull @term_Copy) #10
-  %232 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %233 = getelementptr inbounds %struct.LIST_HELP, ptr %232, i64 0, i32 1
-  store ptr %217, ptr %233, align 8
-  store ptr null, ptr %232, align 8
-  %234 = tail call ptr @fol_CreateQuantifier(i32 noundef %230, ptr noundef %231, ptr noundef nonnull %232) #10
-  br label %235
+230:                                              ; preds = %217
+  %231 = load i32, ptr @fol_ALL, align 4
+  %232 = tail call ptr @list_CopyWithElement(ptr noundef nonnull %174, ptr noundef nonnull @term_Copy) #10
+  %233 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %234 = getelementptr inbounds %struct.LIST_HELP, ptr %233, i64 0, i32 1
+  store ptr %218, ptr %234, align 8
+  store ptr null, ptr %233, align 8
+  %235 = tail call ptr @fol_CreateQuantifier(i32 noundef %231, ptr noundef %232, ptr noundef nonnull %233) #10
+  br label %236
 
-235:                                              ; preds = %229, %216
-  %236 = phi ptr [ %217, %216 ], [ %234, %229 ]
-  %237 = load ptr, ptr %162, align 8
-  %238 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %239 = getelementptr inbounds %struct.LIST_HELP, ptr %238, i64 0, i32 1
-  store ptr %236, ptr %239, align 8
-  store ptr null, ptr %238, align 8
-  %240 = icmp eq ptr %237, null
-  br i1 %240, label %246, label %241
+236:                                              ; preds = %230, %217
+  %237 = phi ptr [ %218, %217 ], [ %235, %230 ]
+  %238 = load ptr, ptr %163, align 8
+  %239 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %240 = getelementptr inbounds %struct.LIST_HELP, ptr %239, i64 0, i32 1
+  store ptr %237, ptr %240, align 8
+  store ptr null, ptr %239, align 8
+  %241 = icmp eq ptr %238, null
+  br i1 %241, label %247, label %242
 
-241:                                              ; preds = %235, %241
-  %242 = phi ptr [ %243, %241 ], [ %237, %235 ]
-  %243 = load ptr, ptr %242, align 8
-  %244 = icmp eq ptr %243, null
-  br i1 %244, label %245, label %241, !llvm.loop !9
+242:                                              ; preds = %236, %242
+  %243 = phi ptr [ %244, %242 ], [ %238, %236 ]
+  %244 = load ptr, ptr %243, align 8
+  %245 = icmp eq ptr %244, null
+  br i1 %245, label %246, label %242, !llvm.loop !9
 
-245:                                              ; preds = %241
-  store ptr %238, ptr %242, align 8
-  br label %246
+246:                                              ; preds = %242
+  store ptr %239, ptr %243, align 8
+  br label %247
 
-246:                                              ; preds = %245, %235
-  %247 = phi ptr [ %237, %245 ], [ %238, %235 ]
-  store ptr %247, ptr %162, align 8
-  %248 = load i32, ptr %181, align 8
-  %249 = icmp eq i32 %248, 0
-  br i1 %249, label %250, label %263
+247:                                              ; preds = %246, %236
+  %248 = phi ptr [ %238, %246 ], [ %239, %236 ]
+  store ptr %248, ptr %163, align 8
+  %249 = load i32, ptr %182, align 8
+  %250 = icmp eq i32 %249, 0
+  br i1 %250, label %251, label %264
 
-250:                                              ; preds = %246
-  %251 = getelementptr inbounds %struct.term, ptr %189, i64 0, i32 1
-  store ptr %172, ptr %251, align 8
-  %252 = getelementptr i8, ptr %172, i64 16
-  br label %253
+251:                                              ; preds = %247
+  %252 = getelementptr inbounds %struct.term, ptr %190, i64 0, i32 1
+  store ptr %173, ptr %252, align 8
+  %253 = getelementptr i8, ptr %173, i64 16
+  br label %254
 
-253:                                              ; preds = %257, %250
-  %254 = phi ptr [ %252, %250 ], [ %255, %257 ]
-  %255 = load ptr, ptr %254, align 8
-  %256 = icmp eq ptr %255, null
-  br i1 %256, label %264, label %257
+254:                                              ; preds = %258, %251
+  %255 = phi ptr [ %253, %251 ], [ %256, %258 ]
+  %256 = load ptr, ptr %255, align 8
+  %257 = icmp eq ptr %256, null
+  br i1 %257, label %265, label %258
 
-257:                                              ; preds = %253
-  %258 = getelementptr i8, ptr %255, i64 8
-  %259 = load ptr, ptr %258, align 8
-  %260 = icmp eq ptr %259, %187
-  br i1 %260, label %261, label %253, !llvm.loop !13
+258:                                              ; preds = %254
+  %259 = getelementptr i8, ptr %256, i64 8
+  %260 = load ptr, ptr %259, align 8
+  %261 = icmp eq ptr %260, %188
+  br i1 %261, label %262, label %254, !llvm.loop !13
 
-261:                                              ; preds = %257
-  %262 = getelementptr i8, ptr %255, i64 8
-  store ptr %189, ptr %262, align 8
-  br label %264
+262:                                              ; preds = %258
+  %263 = getelementptr i8, ptr %256, i64 8
+  store ptr %190, ptr %263, align 8
+  br label %265
 
-263:                                              ; preds = %246
-  tail call void @term_Delete(ptr noundef %189) #10
-  br label %264
+264:                                              ; preds = %247
+  tail call void @term_Delete(ptr noundef %190) #10
+  br label %265
 
-264:                                              ; preds = %253, %263, %261
-  %265 = getelementptr i8, ptr %168, i64 8
-  %266 = load ptr, ptr %265, align 8
-  %267 = icmp eq ptr %266, null
-  br i1 %267, label %369, label %268
+265:                                              ; preds = %254, %264, %262
+  %266 = getelementptr i8, ptr %169, i64 8
+  %267 = load ptr, ptr %266, align 8
+  %268 = icmp eq ptr %267, null
+  br i1 %268, label %370, label %269
 
-268:                                              ; preds = %264, %356
-  %269 = phi ptr [ %357, %356 ], [ %266, %264 ]
-  %270 = getelementptr i8, ptr %269, i64 8
-  %271 = load ptr, ptr %270, align 8
-  %272 = getelementptr i8, ptr %271, i64 8
-  %273 = load ptr, ptr %272, align 8
-  %274 = tail call ptr @list_CopyWithElement(ptr noundef %173, ptr noundef nonnull @term_Copy) #10
-  %275 = tail call ptr @term_Create(i32 noundef %175, ptr noundef %274) #10
-  %276 = load i32, ptr @cont_BINDINGS, align 4
-  %277 = load i32, ptr @cont_STACKPOINTER, align 4
-  %278 = add nsw i32 %277, 1
-  store i32 %278, ptr @cont_STACKPOINTER, align 4
-  %279 = sext i32 %277 to i64
-  %280 = getelementptr inbounds [1000 x i32], ptr @cont_STACK, i64 0, i64 %279
-  store i32 %276, ptr %280, align 4
+269:                                              ; preds = %265, %357
+  %270 = phi ptr [ %358, %357 ], [ %267, %265 ]
+  %271 = getelementptr i8, ptr %270, i64 8
+  %272 = load ptr, ptr %271, align 8
+  %273 = getelementptr i8, ptr %272, i64 8
+  %274 = load ptr, ptr %273, align 8
+  %275 = tail call ptr @list_CopyWithElement(ptr noundef %174, ptr noundef nonnull @term_Copy) #10
+  %276 = tail call ptr @term_Create(i32 noundef %176, ptr noundef %275) #10
+  %277 = load i32, ptr @cont_BINDINGS, align 4
+  %278 = load i32, ptr @cont_STACKPOINTER, align 4
+  %279 = add nsw i32 %278, 1
+  store i32 %279, ptr @cont_STACKPOINTER, align 4
+  %280 = sext i32 %278 to i64
+  %281 = getelementptr inbounds [1000 x i32], ptr @cont_STACK, i64 0, i64 %280
+  store i32 %277, ptr %281, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
-  %281 = load ptr, ptr @cont_LEFTCONTEXT, align 8
-  %282 = tail call i32 @unify_MatchFlexible(ptr noundef %281, ptr noundef %187, ptr noundef %271) #10
-  %283 = icmp eq i32 %282, 0
-  br i1 %283, label %303, label %284
+  %282 = load ptr, ptr @cont_LEFTCONTEXT, align 8
+  %283 = tail call i32 @unify_MatchFlexible(ptr noundef %282, ptr noundef %188, ptr noundef %272) #10
+  %284 = icmp eq i32 %283, 0
+  br i1 %284, label %304, label %285
 
-284:                                              ; preds = %268
-  %285 = load ptr, ptr @cont_LEFTCONTEXT, align 8
-  %286 = tail call ptr @cont_ApplyBindingsModuloMatching(ptr noundef %285, ptr noundef %275, i32 noundef 1) #10
-  %287 = load i32, ptr @cont_BINDINGS, align 4
-  %288 = icmp sgt i32 %287, 0
-  br i1 %288, label %289, label %335
+285:                                              ; preds = %269
+  %286 = load ptr, ptr @cont_LEFTCONTEXT, align 8
+  %287 = tail call ptr @cont_ApplyBindingsModuloMatching(ptr noundef %286, ptr noundef %276, i32 noundef 1) #10
+  %288 = load i32, ptr @cont_BINDINGS, align 4
+  %289 = icmp sgt i32 %288, 0
+  br i1 %289, label %290, label %336
 
-289:                                              ; preds = %284
-  %290 = and i32 %287, 1
-  %291 = icmp eq i32 %290, 0
-  br i1 %291, label %300, label %292
+290:                                              ; preds = %285
+  %291 = and i32 %288, 1
+  %292 = icmp eq i32 %291, 0
+  br i1 %292, label %301, label %293
 
-292:                                              ; preds = %289
-  %293 = load ptr, ptr @cont_LASTBINDING, align 8
-  store ptr %293, ptr @cont_CURRENTBINDING, align 8
-  %294 = getelementptr i8, ptr %293, i64 24
-  %295 = load ptr, ptr %294, align 8
-  store ptr %295, ptr @cont_LASTBINDING, align 8
-  %296 = getelementptr inbounds %struct.binding, ptr %293, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %296, i8 0, i64 20, i1 false)
-  %297 = load ptr, ptr @cont_CURRENTBINDING, align 8
-  %298 = getelementptr inbounds %struct.binding, ptr %297, i64 0, i32 4
-  store ptr null, ptr %298, align 8
-  %299 = add nsw i32 %287, -1
-  store i32 %299, ptr @cont_BINDINGS, align 4
-  br label %300
+293:                                              ; preds = %290
+  %294 = load ptr, ptr @cont_LASTBINDING, align 8
+  store ptr %294, ptr @cont_CURRENTBINDING, align 8
+  %295 = getelementptr i8, ptr %294, i64 24
+  %296 = load ptr, ptr %295, align 8
+  store ptr %296, ptr @cont_LASTBINDING, align 8
+  %297 = getelementptr inbounds %struct.binding, ptr %294, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %297, i8 0, i64 20, i1 false)
+  %298 = load ptr, ptr @cont_CURRENTBINDING, align 8
+  %299 = getelementptr inbounds %struct.binding, ptr %298, i64 0, i32 4
+  store ptr null, ptr %299, align 8
+  %300 = add nsw i32 %288, -1
+  store i32 %300, ptr @cont_BINDINGS, align 4
+  br label %301
 
-300:                                              ; preds = %292, %289
-  %301 = phi i32 [ %287, %289 ], [ %299, %292 ]
-  %302 = icmp eq i32 %287, 1
-  br i1 %302, label %335, label %318
+301:                                              ; preds = %293, %290
+  %302 = phi i32 [ %288, %290 ], [ %300, %293 ]
+  %303 = icmp eq i32 %288, 1
+  br i1 %303, label %336, label %319
 
-303:                                              ; preds = %268
-  %304 = load ptr, ptr @stdout, align 8
-  %305 = tail call i32 @fflush(ptr noundef %304)
-  %306 = load ptr, ptr @stderr, align 8
-  %307 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %306, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 1298) #11
+304:                                              ; preds = %269
+  %305 = load ptr, ptr @stdout, align 8
+  %306 = tail call i32 @fflush(ptr noundef %305)
+  %307 = load ptr, ptr @stderr, align 8
+  %308 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %307, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 1298) #11
   tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.24) #10
-  %308 = load ptr, ptr @stderr, align 8
-  %309 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %308) #11
-  %310 = load ptr, ptr @stderr, align 8
-  %311 = tail call i64 @fwrite(ptr nonnull @.str.17, i64 2, i64 1, ptr %310) #11
-  %312 = load ptr, ptr @stderr, align 8
-  %313 = tail call i32 @fflush(ptr noundef %312)
-  %314 = load ptr, ptr @stdout, align 8
-  %315 = tail call i32 @fflush(ptr noundef %314)
-  %316 = load ptr, ptr @stderr, align 8
-  %317 = tail call i32 @fflush(ptr noundef %316)
+  %309 = load ptr, ptr @stderr, align 8
+  %310 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %309) #11
+  %311 = load ptr, ptr @stderr, align 8
+  %312 = tail call i64 @fwrite(ptr nonnull @.str.17, i64 2, i64 1, ptr %311) #11
+  %313 = load ptr, ptr @stderr, align 8
+  %314 = tail call i32 @fflush(ptr noundef %313)
+  %315 = load ptr, ptr @stdout, align 8
+  %316 = tail call i32 @fflush(ptr noundef %315)
+  %317 = load ptr, ptr @stderr, align 8
+  %318 = tail call i32 @fflush(ptr noundef %317)
   tail call void @abort() #12
   unreachable
 
-318:                                              ; preds = %300, %318
-  %319 = phi i32 [ %333, %318 ], [ %301, %300 ]
-  %320 = load ptr, ptr @cont_LASTBINDING, align 8
-  store ptr %320, ptr @cont_CURRENTBINDING, align 8
-  %321 = getelementptr i8, ptr %320, i64 24
-  %322 = load ptr, ptr %321, align 8
-  store ptr %322, ptr @cont_LASTBINDING, align 8
-  %323 = getelementptr inbounds %struct.binding, ptr %320, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %323, i8 0, i64 20, i1 false)
-  %324 = load ptr, ptr @cont_CURRENTBINDING, align 8
-  %325 = getelementptr inbounds %struct.binding, ptr %324, i64 0, i32 4
-  store ptr null, ptr %325, align 8
-  %326 = add nsw i32 %319, -1
-  store i32 %326, ptr @cont_BINDINGS, align 4
-  %327 = load ptr, ptr @cont_LASTBINDING, align 8
-  store ptr %327, ptr @cont_CURRENTBINDING, align 8
-  %328 = getelementptr i8, ptr %327, i64 24
-  %329 = load ptr, ptr %328, align 8
-  store ptr %329, ptr @cont_LASTBINDING, align 8
-  %330 = getelementptr inbounds %struct.binding, ptr %327, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %330, i8 0, i64 20, i1 false)
-  %331 = load ptr, ptr @cont_CURRENTBINDING, align 8
-  %332 = getelementptr inbounds %struct.binding, ptr %331, i64 0, i32 4
-  store ptr null, ptr %332, align 8
-  %333 = add nsw i32 %319, -2
-  store i32 %333, ptr @cont_BINDINGS, align 4
-  %334 = icmp ugt i32 %326, 1
-  br i1 %334, label %318, label %335, !llvm.loop !14
+319:                                              ; preds = %301, %319
+  %320 = phi i32 [ %334, %319 ], [ %302, %301 ]
+  %321 = load ptr, ptr @cont_LASTBINDING, align 8
+  store ptr %321, ptr @cont_CURRENTBINDING, align 8
+  %322 = getelementptr i8, ptr %321, i64 24
+  %323 = load ptr, ptr %322, align 8
+  store ptr %323, ptr @cont_LASTBINDING, align 8
+  %324 = getelementptr inbounds %struct.binding, ptr %321, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %324, i8 0, i64 20, i1 false)
+  %325 = load ptr, ptr @cont_CURRENTBINDING, align 8
+  %326 = getelementptr inbounds %struct.binding, ptr %325, i64 0, i32 4
+  store ptr null, ptr %326, align 8
+  %327 = add nsw i32 %320, -1
+  store i32 %327, ptr @cont_BINDINGS, align 4
+  %328 = load ptr, ptr @cont_LASTBINDING, align 8
+  store ptr %328, ptr @cont_CURRENTBINDING, align 8
+  %329 = getelementptr i8, ptr %328, i64 24
+  %330 = load ptr, ptr %329, align 8
+  store ptr %330, ptr @cont_LASTBINDING, align 8
+  %331 = getelementptr inbounds %struct.binding, ptr %328, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %331, i8 0, i64 20, i1 false)
+  %332 = load ptr, ptr @cont_CURRENTBINDING, align 8
+  %333 = getelementptr inbounds %struct.binding, ptr %332, i64 0, i32 4
+  store ptr null, ptr %333, align 8
+  %334 = add nsw i32 %320, -2
+  store i32 %334, ptr @cont_BINDINGS, align 4
+  %335 = icmp ugt i32 %327, 1
+  br i1 %335, label %319, label %336, !llvm.loop !14
 
-335:                                              ; preds = %300, %318, %284
-  %336 = load i32, ptr @cont_STACKPOINTER, align 4
-  %337 = icmp eq i32 %336, 0
-  br i1 %337, label %343, label %338
+336:                                              ; preds = %301, %319, %285
+  %337 = load i32, ptr @cont_STACKPOINTER, align 4
+  %338 = icmp eq i32 %337, 0
+  br i1 %338, label %344, label %339
 
-338:                                              ; preds = %335
-  %339 = add nsw i32 %336, -1
-  store i32 %339, ptr @cont_STACKPOINTER, align 4
-  %340 = sext i32 %339 to i64
-  %341 = getelementptr inbounds [1000 x i32], ptr @cont_STACK, i64 0, i64 %340
-  %342 = load i32, ptr %341, align 4
-  store i32 %342, ptr @cont_BINDINGS, align 4
-  br label %343
+339:                                              ; preds = %336
+  %340 = add nsw i32 %337, -1
+  store i32 %340, ptr @cont_STACKPOINTER, align 4
+  %341 = sext i32 %340 to i64
+  %342 = getelementptr inbounds [1000 x i32], ptr @cont_STACK, i64 0, i64 %341
+  %343 = load i32, ptr %342, align 4
+  store i32 %343, ptr @cont_BINDINGS, align 4
+  br label %344
 
-343:                                              ; preds = %338, %335
-  %344 = getelementptr inbounds %struct.term, ptr %275, i64 0, i32 1
-  store ptr %273, ptr %344, align 8
-  %345 = getelementptr i8, ptr %273, i64 16
-  br label %346
+344:                                              ; preds = %339, %336
+  %345 = getelementptr inbounds %struct.term, ptr %276, i64 0, i32 1
+  store ptr %274, ptr %345, align 8
+  %346 = getelementptr i8, ptr %274, i64 16
+  br label %347
 
-346:                                              ; preds = %350, %343
-  %347 = phi ptr [ %345, %343 ], [ %348, %350 ]
-  %348 = load ptr, ptr %347, align 8
-  %349 = icmp eq ptr %348, null
-  br i1 %349, label %356, label %350
+347:                                              ; preds = %351, %344
+  %348 = phi ptr [ %346, %344 ], [ %349, %351 ]
+  %349 = load ptr, ptr %348, align 8
+  %350 = icmp eq ptr %349, null
+  br i1 %350, label %357, label %351
 
-350:                                              ; preds = %346
-  %351 = getelementptr i8, ptr %348, i64 8
-  %352 = load ptr, ptr %351, align 8
-  %353 = icmp eq ptr %352, %271
-  br i1 %353, label %354, label %346, !llvm.loop !15
+351:                                              ; preds = %347
+  %352 = getelementptr i8, ptr %349, i64 8
+  %353 = load ptr, ptr %352, align 8
+  %354 = icmp eq ptr %353, %272
+  br i1 %354, label %355, label %347, !llvm.loop !15
 
-354:                                              ; preds = %350
-  %355 = getelementptr i8, ptr %348, i64 8
-  store ptr %275, ptr %355, align 8
-  br label %356
+355:                                              ; preds = %351
+  %356 = getelementptr i8, ptr %349, i64 8
+  store ptr %276, ptr %356, align 8
+  br label %357
 
-356:                                              ; preds = %346, %354
-  %357 = load ptr, ptr %269, align 8
-  %358 = icmp eq ptr %357, null
-  br i1 %358, label %359, label %268, !llvm.loop !16
+357:                                              ; preds = %347, %355
+  %358 = load ptr, ptr %270, align 8
+  %359 = icmp eq ptr %358, null
+  br i1 %359, label %360, label %269, !llvm.loop !16
 
-359:                                              ; preds = %356
-  %360 = load ptr, ptr %265, align 8
-  %361 = icmp eq ptr %360, null
-  br i1 %361, label %369, label %362
+360:                                              ; preds = %357
+  %361 = load ptr, ptr %266, align 8
+  %362 = icmp eq ptr %361, null
+  br i1 %362, label %370, label %363
 
-362:                                              ; preds = %359
-  %363 = icmp eq ptr %164, null
-  br i1 %363, label %369, label %364
+363:                                              ; preds = %360
+  %364 = icmp eq ptr %165, null
+  br i1 %364, label %370, label %365
 
-364:                                              ; preds = %362, %364
-  %365 = phi ptr [ %366, %364 ], [ %360, %362 ]
-  %366 = load ptr, ptr %365, align 8
-  %367 = icmp eq ptr %366, null
-  br i1 %367, label %368, label %364, !llvm.loop !9
+365:                                              ; preds = %363, %365
+  %366 = phi ptr [ %367, %365 ], [ %361, %363 ]
+  %367 = load ptr, ptr %366, align 8
+  %368 = icmp eq ptr %367, null
+  br i1 %368, label %369, label %365, !llvm.loop !9
 
-368:                                              ; preds = %364
-  store ptr %164, ptr %365, align 8
-  br label %369
+369:                                              ; preds = %365
+  store ptr %165, ptr %366, align 8
+  br label %370
 
-369:                                              ; preds = %368, %362, %359, %264
-  %370 = phi ptr [ %360, %368 ], [ %164, %359 ], [ %360, %362 ], [ %164, %264 ]
-  store ptr null, ptr %265, align 8
-  br i1 %228, label %383, label %371
+370:                                              ; preds = %369, %363, %360, %265
+  %371 = phi ptr [ %361, %369 ], [ %165, %360 ], [ %361, %363 ], [ %165, %265 ]
+  store ptr null, ptr %266, align 8
+  br i1 %229, label %384, label %372
 
-371:                                              ; preds = %369, %371
-  %372 = phi ptr [ %373, %371 ], [ %173, %369 ]
-  %373 = load ptr, ptr %372, align 8
-  %374 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %375 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %374, i64 0, i32 4
-  %376 = load i32, ptr %375, align 8
-  %377 = sext i32 %376 to i64
-  %378 = load i64, ptr @memory_FREEDBYTES, align 8
-  %379 = add i64 %378, %377
-  store i64 %379, ptr @memory_FREEDBYTES, align 8
-  %380 = load ptr, ptr %374, align 8
-  store ptr %380, ptr %372, align 8
-  %381 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %372, ptr %381, align 8
-  %382 = icmp eq ptr %373, null
-  br i1 %382, label %383, label %371, !llvm.loop !7
+372:                                              ; preds = %370, %372
+  %373 = phi ptr [ %374, %372 ], [ %174, %370 ]
+  %374 = load ptr, ptr %373, align 8
+  %375 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %376 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %375, i64 0, i32 4
+  %377 = load i32, ptr %376, align 8
+  %378 = sext i32 %377 to i64
+  %379 = load i64, ptr @memory_FREEDBYTES, align 8
+  %380 = add i64 %379, %378
+  store i64 %380, ptr @memory_FREEDBYTES, align 8
+  %381 = load ptr, ptr %375, align 8
+  store ptr %381, ptr %373, align 8
+  %382 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %373, ptr %382, align 8
+  %383 = icmp eq ptr %374, null
+  br i1 %383, label %384, label %372, !llvm.loop !7
 
-383:                                              ; preds = %371, %369
-  %384 = icmp eq ptr %169, null
-  br i1 %384, label %385, label %163, !llvm.loop !17
+384:                                              ; preds = %372, %370
+  %385 = icmp eq ptr %170, null
+  br i1 %385, label %386, label %164, !llvm.loop !17
 
-385:                                              ; preds = %383
-  tail call void @list_DeleteWithElement(ptr noundef %370, ptr noundef nonnull @term_Delete) #10
-  br i1 %144, label %386, label %389
+386:                                              ; preds = %384
+  tail call void @list_DeleteWithElement(ptr noundef %371, ptr noundef nonnull @term_Delete) #10
+  br label %387
 
-386:                                              ; preds = %385
-  %387 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.2)
-  tail call void @fol_PrettyPrintDFG(ptr noundef %161) #10
-  %388 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.1)
-  br label %389
+387:                                              ; preds = %156, %386
+  %388 = phi ptr [ %162, %386 ], [ %0, %156 ]
+  br i1 %144, label %389, label %392
 
-389:                                              ; preds = %156, %386, %385
-  %390 = phi ptr [ %161, %386 ], [ %161, %385 ], [ %0, %156 ]
+389:                                              ; preds = %387
+  %390 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.2)
+  tail call void @fol_PrettyPrintDFG(ptr noundef %388) #10
+  %391 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.1)
+  br label %392
+
+392:                                              ; preds = %389, %387
   tail call void @list_DeleteWithElement(ptr noundef %141, ptr noundef nonnull @ren_Delete) #10
-  %391 = icmp eq ptr %13, null
-  br i1 %391, label %404, label %392
+  %393 = icmp eq ptr %13, null
+  br i1 %393, label %406, label %394
 
-392:                                              ; preds = %389, %392
-  %393 = phi ptr [ %394, %392 ], [ %13, %389 ]
-  %394 = load ptr, ptr %393, align 8
-  %395 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %396 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %395, i64 0, i32 4
-  %397 = load i32, ptr %396, align 8
-  %398 = sext i32 %397 to i64
-  %399 = load i64, ptr @memory_FREEDBYTES, align 8
-  %400 = add i64 %399, %398
-  store i64 %400, ptr @memory_FREEDBYTES, align 8
-  %401 = load ptr, ptr %395, align 8
-  store ptr %401, ptr %393, align 8
-  %402 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %393, ptr %402, align 8
-  %403 = icmp eq ptr %394, null
-  br i1 %403, label %404, label %392, !llvm.loop !7
+394:                                              ; preds = %392, %394
+  %395 = phi ptr [ %396, %394 ], [ %13, %392 ]
+  %396 = load ptr, ptr %395, align 8
+  %397 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %398 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %397, i64 0, i32 4
+  %399 = load i32, ptr %398, align 8
+  %400 = sext i32 %399 to i64
+  %401 = load i64, ptr @memory_FREEDBYTES, align 8
+  %402 = add i64 %401, %400
+  store i64 %402, ptr @memory_FREEDBYTES, align 8
+  %403 = load ptr, ptr %397, align 8
+  store ptr %403, ptr %395, align 8
+  %404 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %395, ptr %404, align 8
+  %405 = icmp eq ptr %396, null
+  br i1 %405, label %406, label %394, !llvm.loop !7
 
-404:                                              ; preds = %392, %389
-  ret ptr %390
+406:                                              ; preds = %394, %392
+  ret ptr %388
 }
 
 declare i32 @term_StampOverflow(i32 noundef) local_unnamed_addr #1
@@ -721,52 +725,59 @@ declare i32 @term_StampOverflow(i32 noundef) local_unnamed_addr #1
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define internal fastcc void @ren_ResetTermStamp(ptr nocapture noundef %0) unnamed_addr #2 {
   %2 = load i32, ptr @symbol_TYPEMASK, align 4
-  %3 = load i32, ptr @fol_ALL, align 4
-  %4 = load i32, ptr @fol_EXIST, align 4
-  br label %5
+  %3 = getelementptr inbounds %struct.term, ptr %0, i64 0, i32 3
+  store i32 0, ptr %3, align 8
+  %4 = load i32, ptr %0, align 8
+  %5 = icmp sgt i32 %4, -1
+  %6 = sub nsw i32 0, %4
+  %7 = and i32 %2, %6
+  %8 = icmp ne i32 %7, 2
+  %9 = select i1 %5, i1 true, i1 %8
+  br i1 %9, label %10, label %40
 
-5:                                                ; preds = %20, %1
-  %6 = phi ptr [ %0, %1 ], [ %23, %20 ]
-  %7 = getelementptr inbounds %struct.term, ptr %6, i64 0, i32 3
-  store i32 0, ptr %7, align 8
-  %8 = load i32, ptr %6, align 8
-  %9 = icmp sgt i32 %8, -1
-  br i1 %9, label %14, label %10
+10:                                               ; preds = %1
+  %11 = load i32, ptr @fol_ALL, align 4
+  %12 = load i32, ptr @fol_EXIST, align 4
+  br label %13
 
-10:                                               ; preds = %5
-  %11 = sub nsw i32 0, %8
-  %12 = and i32 %2, %11
-  %13 = icmp eq i32 %12, 2
-  br i1 %13, label %32, label %14
+13:                                               ; preds = %10, %21
+  %14 = phi i32 [ %4, %10 ], [ %26, %21 ]
+  %15 = phi ptr [ %0, %10 ], [ %24, %21 ]
+  %16 = icmp eq i32 %11, %14
+  %17 = icmp eq i32 %12, %14
+  %18 = select i1 %16, i1 true, i1 %17
+  %19 = getelementptr i8, ptr %15, i64 16
+  %20 = load ptr, ptr %19, align 8
+  br i1 %18, label %21, label %32
 
-14:                                               ; preds = %5, %10
-  %15 = icmp ne i32 %3, %8
-  %16 = icmp ne i32 %4, %8
-  %17 = select i1 %15, i1 %16, i1 false
-  %18 = getelementptr i8, ptr %6, i64 16
-  %19 = load ptr, ptr %18, align 8
-  br i1 %17, label %24, label %20
+21:                                               ; preds = %13
+  %22 = load ptr, ptr %20, align 8
+  %23 = getelementptr i8, ptr %22, i64 8
+  %24 = load ptr, ptr %23, align 8
+  %25 = getelementptr inbounds %struct.term, ptr %24, i64 0, i32 3
+  store i32 0, ptr %25, align 8
+  %26 = load i32, ptr %24, align 8
+  %27 = icmp sgt i32 %26, -1
+  %28 = sub nsw i32 0, %26
+  %29 = and i32 %2, %28
+  %30 = icmp ne i32 %29, 2
+  %31 = select i1 %27, i1 true, i1 %30
+  br i1 %31, label %13, label %40
 
-20:                                               ; preds = %14
-  %21 = load ptr, ptr %19, align 8
-  %22 = getelementptr i8, ptr %21, i64 8
-  %23 = load ptr, ptr %22, align 8
-  br label %5
+32:                                               ; preds = %13
+  %33 = icmp eq ptr %20, null
+  br i1 %33, label %40, label %34
 
-24:                                               ; preds = %14
-  %25 = icmp eq ptr %19, null
-  br i1 %25, label %32, label %26
+34:                                               ; preds = %32, %34
+  %35 = phi ptr [ %38, %34 ], [ %20, %32 ]
+  %36 = getelementptr i8, ptr %35, i64 8
+  %37 = load ptr, ptr %36, align 8
+  tail call fastcc void @ren_ResetTermStamp(ptr noundef %37)
+  %38 = load ptr, ptr %35, align 8
+  %39 = icmp eq ptr %38, null
+  br i1 %39, label %40, label %34, !llvm.loop !18
 
-26:                                               ; preds = %24, %26
-  %27 = phi ptr [ %30, %26 ], [ %19, %24 ]
-  %28 = getelementptr i8, ptr %27, i64 8
-  %29 = load ptr, ptr %28, align 8
-  tail call fastcc void @ren_ResetTermStamp(ptr noundef %29)
-  %30 = load ptr, ptr %27, align 8
-  %31 = icmp eq ptr %30, null
-  br i1 %31, label %32, label %26, !llvm.loop !18
-
-32:                                               ; preds = %10, %26, %24
+40:                                               ; preds = %21, %34, %1, %32
   ret void
 }
 
@@ -812,11 +823,11 @@ define internal fastcc ptr @ren_GetRenamings(ptr noundef %0, ptr noundef %1, i32
 31:                                               ; preds = %27
   %32 = load i32, ptr %29, align 8
   %33 = load i32, ptr @fol_ALL, align 4
-  %34 = icmp ne i32 %33, %32
+  %34 = icmp eq i32 %33, %32
   %35 = load i32, ptr @fol_EXIST, align 4
-  %36 = icmp ne i32 %35, %32
-  %37 = select i1 %34, i1 %36, i1 false
-  br i1 %37, label %38, label %103
+  %36 = icmp eq i32 %35, %32
+  %37 = select i1 %34, i1 true, i1 %36
+  br i1 %37, label %103, label %38
 
 38:                                               ; preds = %31
   switch i32 %19, label %80 [
@@ -926,11 +937,11 @@ define internal fastcc ptr @ren_GetRenamings(ptr noundef %0, ptr noundef %1, i32
   %104 = phi ptr [ %0, %31 ], [ %18, %98 ], [ %0, %95 ], [ %0, %27 ], [ %0, %59 ], [ %0, %66 ], [ %0, %73 ]
   %105 = phi ptr [ null, %31 ], [ %99, %98 ], [ null, %95 ], [ null, %27 ], [ null, %59 ], [ null, %66 ], [ null, %73 ]
   %106 = load i32, ptr @fol_ALL, align 4
-  %107 = icmp ne i32 %106, %20
+  %107 = icmp eq i32 %106, %20
   %108 = load i32, ptr @fol_EXIST, align 4
-  %109 = icmp ne i32 %108, %20
-  %110 = select i1 %107, i1 %109, i1 false
-  br i1 %110, label %126, label %111
+  %109 = icmp eq i32 %108, %20
+  %110 = select i1 %107, i1 true, i1 %109
+  br i1 %110, label %111, label %126
 
 111:                                              ; preds = %103
   %112 = getelementptr i8, ptr %18, i64 16
@@ -1115,7 +1126,7 @@ define internal fastcc ptr @ren_GetRenamings(ptr noundef %0, ptr noundef %1, i32
   tail call fastcc void @misc_DumpCore()
   unreachable
 
-226:                                              ; preds = %150, %132, %218, %212, %204, %186, %180, %172, %125, %119, %111, %22
+226:                                              ; preds = %150, %132, %111, %119, %125, %172, %180, %186, %204, %212, %218, %22
   %227 = phi ptr [ null, %22 ], [ %105, %125 ], [ %117, %111 ], [ %105, %119 ], [ %173, %186 ], [ %178, %172 ], [ %173, %180 ], [ %205, %218 ], [ %210, %204 ], [ %205, %212 ], [ %105, %132 ], [ %151, %150 ]
   ret ptr %227
 }
@@ -1147,10 +1158,10 @@ define internal fastcc i32 @ren_Polarity(ptr noundef readonly %0) unnamed_addr #
   br i1 %19, label %24, label %20
 
 20:                                               ; preds = %13
-  %21 = icmp ne i32 %8, %16
-  %22 = icmp ne i32 %9, %16
-  %23 = select i1 %21, i1 %22, i1 false
-  br i1 %23, label %28, label %24
+  %21 = icmp eq i32 %8, %16
+  %22 = icmp eq i32 %9, %16
+  %23 = select i1 %21, i1 true, i1 %22
+  br i1 %23, label %24, label %28
 
 24:                                               ; preds = %13, %20, %39
   %25 = getelementptr i8, ptr %14, i64 8
@@ -1162,8 +1173,8 @@ define internal fastcc i32 @ren_Polarity(ptr noundef readonly %0) unnamed_addr #
   %29 = icmp eq i32 %16, %10
   br i1 %29, label %32, label %35
 
-30:                                               ; preds = %1, %24, %35, %32
-  %31 = phi i32 [ %34, %32 ], [ 1, %1 ], [ 0, %35 ], [ 1, %24 ]
+30:                                               ; preds = %1, %35, %24, %32
+  %31 = phi i32 [ %34, %32 ], [ 1, %1 ], [ 1, %24 ], [ 0, %35 ]
   ret i32 %31
 
 32:                                               ; preds = %39, %28
@@ -1215,16 +1226,16 @@ define internal fastcc ptr @ren_FreeRenaming(ptr noundef %0) unnamed_addr #0 {
 
 10:                                               ; preds = %3
   %11 = load ptr, ptr %6, align 8
-  %12 = getelementptr i8, ptr %11, i64 8
-  %13 = load ptr, ptr %12, align 8
-  %14 = load i32, ptr @term_STAMP, align 4
+  %12 = load i32, ptr @term_STAMP, align 4
+  %13 = getelementptr i8, ptr %11, i64 8
+  %14 = load ptr, ptr %13, align 8
   br label %15
 
 15:                                               ; preds = %20, %10
-  %16 = phi ptr [ %13, %10 ], [ %22, %20 ]
+  %16 = phi ptr [ %14, %10 ], [ %22, %20 ]
   %17 = getelementptr i8, ptr %16, i64 24
   %18 = load i32, ptr %17, align 8
-  %19 = icmp eq i32 %14, %18
+  %19 = icmp eq i32 %12, %18
   br i1 %19, label %24, label %20
 
 20:                                               ; preds = %15
@@ -1350,7 +1361,7 @@ define internal fastcc ptr @ren_FreeRenaming(ptr noundef %0) unnamed_addr #0 {
   br i1 %92, label %95, label %93
 
 93:                                               ; preds = %91
-  %94 = load ptr, ptr %12, align 8
+  %94 = load ptr, ptr %13, align 8
   br label %110
 
 95:                                               ; preds = %91
@@ -1360,7 +1371,7 @@ define internal fastcc ptr @ren_FreeRenaming(ptr noundef %0) unnamed_addr #0 {
   br i1 %98, label %193, label %99
 
 99:                                               ; preds = %95
-  %100 = load ptr, ptr %12, align 8
+  %100 = load ptr, ptr %13, align 8
   %101 = icmp eq ptr %100, %16
   br i1 %101, label %169, label %102
 
@@ -1508,7 +1519,7 @@ define internal fastcc ptr @ren_FreeRenaming(ptr noundef %0) unnamed_addr #0 {
   store ptr null, ptr %5, align 8
   br label %195
 
-193:                                              ; preds = %102, %120, %145, %132, %70, %62, %76, %80, %84, %88, %95, %166
+193:                                              ; preds = %102, %120, %70, %62, %76, %80, %84, %88, %95, %145, %132, %166
   %194 = load i32, ptr @term_STAMP, align 4
   store i32 %194, ptr %25, align 8
   br label %195
@@ -1696,15 +1707,13 @@ define internal fastcc i32 @ren_PFactorOk(ptr nocapture noundef readonly %0) unn
   %15 = phi ptr [ %0, %6 ], [ %45, %41 ]
   %16 = load i32, ptr %15, align 8
   %17 = icmp sgt i32 %16, -1
-  br i1 %17, label %22, label %18
+  %18 = sub nsw i32 0, %16
+  %19 = and i32 %7, %18
+  %20 = icmp ne i32 %19, 2
+  %21 = select i1 %17, i1 true, i1 %20
+  br i1 %21, label %22, label %72
 
-18:                                               ; preds = %14
-  %19 = sub nsw i32 0, %16
-  %20 = and i32 %7, %19
-  %21 = icmp eq i32 %20, 2
-  br i1 %21, label %72, label %22
-
-22:                                               ; preds = %14, %18
+22:                                               ; preds = %14
   %23 = icmp eq i32 %16, %8
   %24 = icmp eq i32 %16, %9
   %25 = select i1 %23, i1 true, i1 %24
@@ -1723,10 +1732,10 @@ define internal fastcc i32 @ren_PFactorOk(ptr nocapture noundef readonly %0) unn
   br label %72
 
 34:                                               ; preds = %26
-  %35 = icmp ne i32 %11, %16
-  %36 = icmp ne i32 %12, %16
-  %37 = select i1 %35, i1 %36, i1 false
-  br i1 %37, label %49, label %38
+  %35 = icmp eq i32 %11, %16
+  %36 = icmp eq i32 %12, %16
+  %37 = select i1 %35, i1 true, i1 %36
+  br i1 %37, label %38, label %49
 
 38:                                               ; preds = %34
   %39 = getelementptr i8, ptr %15, i64 16
@@ -1778,8 +1787,8 @@ define internal fastcc i32 @ren_PFactorOk(ptr nocapture noundef readonly %0) unn
   %71 = icmp eq i32 %70, 0
   br i1 %71, label %63, label %72, !llvm.loop !27
 
-72:                                               ; preds = %18, %41, %22, %51, %63, %67, %1, %58, %28
-  %73 = phi i32 [ %33, %28 ], [ 0, %58 ], [ 0, %1 ], [ 0, %63 ], [ 1, %67 ], [ 0, %18 ], [ 0, %41 ], [ 1, %22 ], [ 1, %51 ]
+72:                                               ; preds = %14, %41, %22, %51, %63, %67, %1, %58, %28
+  %73 = phi i32 [ %33, %28 ], [ 0, %58 ], [ 0, %1 ], [ 0, %63 ], [ 1, %67 ], [ 0, %14 ], [ 0, %41 ], [ 1, %22 ], [ 1, %51 ]
   ret i32 %73
 }
 
@@ -1805,15 +1814,13 @@ define internal fastcc i32 @ren_NotPFactorOk(ptr nocapture noundef readonly %0) 
   %15 = phi ptr [ %0, %6 ], [ %45, %40 ]
   %16 = load i32, ptr %15, align 8
   %17 = icmp sgt i32 %16, -1
-  br i1 %17, label %22, label %18
+  %18 = sub nsw i32 0, %16
+  %19 = and i32 %7, %18
+  %20 = icmp ne i32 %19, 2
+  %21 = select i1 %17, i1 true, i1 %20
+  br i1 %21, label %22, label %63
 
-18:                                               ; preds = %14
-  %19 = sub nsw i32 0, %16
-  %20 = and i32 %7, %19
-  %21 = icmp eq i32 %20, 2
-  br i1 %21, label %63, label %22
-
-22:                                               ; preds = %14, %18
+22:                                               ; preds = %14
   %23 = icmp eq i32 %16, %8
   %24 = icmp eq i32 %16, %9
   %25 = select i1 %23, i1 true, i1 %24
@@ -1834,10 +1841,10 @@ define internal fastcc i32 @ren_NotPFactorOk(ptr nocapture noundef readonly %0) 
   br label %63
 
 36:                                               ; preds = %28
-  %37 = icmp ne i32 %12, %16
-  %38 = icmp ne i32 %13, %16
-  %39 = select i1 %37, i1 %38, i1 false
-  br i1 %39, label %49, label %40
+  %37 = icmp eq i32 %12, %16
+  %38 = icmp eq i32 %13, %16
+  %39 = select i1 %37, i1 true, i1 %38
+  br i1 %39, label %40, label %49
 
 40:                                               ; preds = %36
   %41 = getelementptr i8, ptr %15, i64 16
@@ -1872,8 +1879,8 @@ define internal fastcc i32 @ren_NotPFactorOk(ptr nocapture noundef readonly %0) 
   %62 = icmp eq i32 %61, 0
   br i1 %62, label %54, label %63, !llvm.loop !28
 
-63:                                               ; preds = %18, %40, %22, %54, %58, %1, %49, %30
-  %64 = phi i32 [ %35, %30 ], [ 0, %49 ], [ 0, %1 ], [ 0, %54 ], [ 1, %58 ], [ 0, %18 ], [ 0, %40 ], [ 1, %22 ]
+63:                                               ; preds = %14, %40, %22, %54, %58, %1, %49, %30
+  %64 = phi i32 [ %35, %30 ], [ 0, %49 ], [ 0, %1 ], [ 0, %54 ], [ 1, %58 ], [ 0, %14 ], [ 0, %40 ], [ 1, %22 ]
   ret i32 %64
 }
 
@@ -1899,10 +1906,10 @@ define internal fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef readonly %
   br i1 %15, label %20, label %16
 
 16:                                               ; preds = %10
-  %17 = icmp ne i32 %6, %14
-  %18 = icmp ne i32 %7, %14
-  %19 = select i1 %17, i1 %18, i1 false
-  br i1 %19, label %22, label %20
+  %17 = icmp eq i32 %6, %14
+  %18 = icmp eq i32 %7, %14
+  %19 = select i1 %17, i1 true, i1 %18
+  br i1 %19, label %20, label %22
 
 20:                                               ; preds = %40, %10, %16, %28
   %21 = icmp eq ptr %13, %0
@@ -1965,8 +1972,8 @@ define internal fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef readonly %
   %56 = icmp eq i32 %55, 0
   br i1 %56, label %59, label %57
 
-57:                                               ; preds = %66, %82, %92, %89, %54, %52, %24, %2, %37, %20, %85, %59
-  %58 = phi i32 [ %62, %59 ], [ %88, %85 ], [ %25, %24 ], [ %53, %52 ], [ 1, %54 ], [ 1, %66 ], [ 1, %82 ], [ 1, %89 ], [ %95, %92 ], [ 0, %2 ], [ 1, %37 ], [ 0, %20 ]
+57:                                               ; preds = %66, %80, %90, %87, %54, %52, %24, %2, %37, %20, %83, %59
+  %58 = phi i32 [ %62, %59 ], [ %86, %83 ], [ %25, %24 ], [ %53, %52 ], [ 1, %54 ], [ 1, %66 ], [ 1, %80 ], [ 1, %87 ], [ %93, %90 ], [ 0, %2 ], [ 1, %37 ], [ 0, %20 ]
   ret i32 %58
 
 59:                                               ; preds = %54
@@ -1978,7 +1985,7 @@ define internal fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef readonly %
 63:                                               ; preds = %43
   %64 = load i32, ptr @fol_EQUIV, align 4
   %65 = icmp eq i32 %14, %64
-  br i1 %65, label %66, label %96
+  br i1 %65, label %66, label %94
 
 66:                                               ; preds = %63
   %67 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %13)
@@ -1991,49 +1998,43 @@ define internal fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef readonly %
   %72 = getelementptr i8, ptr %71, i64 8
   %73 = load ptr, ptr %72, align 8
   %74 = icmp eq ptr %73, %11
-  br i1 %74, label %75, label %79
-
-75:                                               ; preds = %69
-  %76 = load ptr, ptr %71, align 8
+  %75 = select i1 %74, ptr %71, ptr %70
+  %76 = load ptr, ptr %75, align 8
   %77 = getelementptr i8, ptr %76, i64 8
   %78 = load ptr, ptr %77, align 8
-  br label %79
+  %79 = icmp eq i32 %67, 1
+  br i1 %79, label %80, label %87
 
-79:                                               ; preds = %69, %75
-  %80 = phi ptr [ %78, %75 ], [ %73, %69 ]
-  %81 = icmp eq i32 %67, 1
-  br i1 %81, label %82, label %89
+80:                                               ; preds = %69
+  %81 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %78), !range !20
+  %82 = icmp eq i32 %81, 0
+  br i1 %82, label %83, label %57
 
-82:                                               ; preds = %79
-  %83 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %80), !range !20
-  %84 = icmp eq i32 %83, 0
-  br i1 %84, label %85, label %57
-
-85:                                               ; preds = %82
-  %86 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %13)
-  %87 = icmp ne i32 %86, 0
-  %88 = zext i1 %87 to i32
+83:                                               ; preds = %80
+  %84 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %13)
+  %85 = icmp ne i32 %84, 0
+  %86 = zext i1 %85 to i32
   br label %57
 
-89:                                               ; preds = %79
-  %90 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %80), !range !20
-  %91 = icmp eq i32 %90, 0
-  br i1 %91, label %92, label %57
+87:                                               ; preds = %69
+  %88 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %78), !range !20
+  %89 = icmp eq i32 %88, 0
+  br i1 %89, label %90, label %57
 
-92:                                               ; preds = %89
-  %93 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %13)
-  %94 = icmp ne i32 %93, 0
-  %95 = zext i1 %94 to i32
+90:                                               ; preds = %87
+  %91 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %13)
+  %92 = icmp ne i32 %91, 0
+  %93 = zext i1 %92 to i32
   br label %57
 
-96:                                               ; preds = %63
-  %97 = load ptr, ptr @stdout, align 8
-  %98 = tail call i32 @fflush(ptr noundef %97)
-  %99 = load ptr, ptr @stderr, align 8
-  %100 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %99, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 539) #11
+94:                                               ; preds = %63
+  %95 = load ptr, ptr @stdout, align 8
+  %96 = tail call i32 @fflush(ptr noundef %95)
+  %97 = load ptr, ptr @stderr, align 8
+  %98 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %97, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 539) #11
   tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.13) #10
-  %101 = load ptr, ptr @stderr, align 8
-  %102 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %101) #11
+  %99 = load ptr, ptr @stderr, align 8
+  %100 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %99) #11
   tail call fastcc void @misc_DumpCore()
   unreachable
 }
@@ -2041,7 +2042,7 @@ define internal fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef readonly %
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef readonly %1) unnamed_addr #0 {
   %3 = icmp eq ptr %0, %1
-  br i1 %3, label %91, label %4
+  br i1 %3, label %89, label %4
 
 4:                                                ; preds = %2
   %5 = load i32, ptr @fol_OR, align 4
@@ -2061,14 +2062,14 @@ define internal fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef readonly %
   br i1 %16, label %21, label %17
 
 17:                                               ; preds = %11
-  %18 = icmp ne i32 %6, %15
-  %19 = icmp ne i32 %7, %15
-  %20 = select i1 %18, i1 %19, i1 false
-  br i1 %20, label %23, label %21
+  %18 = icmp eq i32 %6, %15
+  %19 = icmp eq i32 %7, %15
+  %20 = select i1 %18, i1 true, i1 %19
+  br i1 %20, label %21, label %23
 
 21:                                               ; preds = %41, %11, %17, %29, %46
   %22 = icmp eq ptr %14, %0
-  br i1 %22, label %91, label %11
+  br i1 %22, label %89, label %11
 
 23:                                               ; preds = %17
   %24 = icmp eq i32 %15, %8
@@ -2076,7 +2077,7 @@ define internal fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef readonly %
 
 25:                                               ; preds = %23
   %26 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %14)
-  br label %91
+  br label %89
 
 27:                                               ; preds = %23
   %28 = icmp eq i32 %15, %9
@@ -2098,7 +2099,7 @@ define internal fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef readonly %
 38:                                               ; preds = %33
   %39 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %36), !range !20
   %40 = icmp eq i32 %39, 0
-  br i1 %40, label %41, label %91
+  br i1 %40, label %41, label %89
 
 41:                                               ; preds = %33, %38
   %42 = load ptr, ptr %34, align 8
@@ -2123,23 +2124,23 @@ define internal fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef readonly %
   %55 = load ptr, ptr %54, align 8
   %56 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %55), !range !20
   %57 = icmp eq i32 %56, 0
-  br i1 %57, label %58, label %91
+  br i1 %57, label %58, label %89
 
 58:                                               ; preds = %52
   %59 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %14)
   %60 = icmp ne i32 %59, 0
   %61 = zext i1 %60 to i32
-  br label %91
+  br label %89
 
 62:                                               ; preds = %44
   %63 = load i32, ptr @fol_EQUIV, align 4
   %64 = icmp eq i32 %15, %63
-  br i1 %64, label %65, label %97
+  br i1 %64, label %65, label %95
 
 65:                                               ; preds = %62
   %66 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %14)
   %67 = icmp eq i32 %66, 0
-  br i1 %67, label %91, label %68
+  br i1 %67, label %89, label %68
 
 68:                                               ; preds = %65
   %69 = getelementptr i8, ptr %14, i64 16
@@ -2147,53 +2148,47 @@ define internal fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef readonly %
   %71 = getelementptr i8, ptr %70, i64 8
   %72 = load ptr, ptr %71, align 8
   %73 = icmp eq ptr %72, %12
-  br i1 %73, label %74, label %78
-
-74:                                               ; preds = %68
-  %75 = load ptr, ptr %70, align 8
+  %74 = select i1 %73, ptr %70, ptr %69
+  %75 = load ptr, ptr %74, align 8
   %76 = getelementptr i8, ptr %75, i64 8
   %77 = load ptr, ptr %76, align 8
-  br label %78
+  %78 = icmp eq i32 %66, 1
+  br i1 %78, label %79, label %86
 
-78:                                               ; preds = %68, %74
-  %79 = phi ptr [ %77, %74 ], [ %72, %68 ]
-  %80 = icmp eq i32 %66, 1
-  br i1 %80, label %81, label %88
+79:                                               ; preds = %68
+  %80 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %77), !range !20
+  %81 = icmp eq i32 %80, 0
+  br i1 %81, label %82, label %89
 
-81:                                               ; preds = %78
-  %82 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %79), !range !20
-  %83 = icmp eq i32 %82, 0
-  br i1 %83, label %84, label %91
+82:                                               ; preds = %79
+  %83 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %14)
+  %84 = icmp ne i32 %83, 0
+  %85 = zext i1 %84 to i32
+  br label %89
 
-84:                                               ; preds = %81
-  %85 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %14)
-  %86 = icmp ne i32 %85, 0
-  %87 = zext i1 %86 to i32
-  br label %91
+86:                                               ; preds = %68
+  %87 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %77), !range !20
+  %88 = icmp eq i32 %87, 0
+  br i1 %88, label %91, label %89
 
-88:                                               ; preds = %78
-  %89 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %79), !range !20
-  %90 = icmp eq i32 %89, 0
-  br i1 %90, label %93, label %91
+89:                                               ; preds = %65, %82, %79, %86, %52, %58, %25, %2, %38, %21, %91
+  %90 = phi i32 [ %94, %91 ], [ %26, %25 ], [ 1, %52 ], [ %61, %58 ], [ 1, %65 ], [ 1, %79 ], [ %85, %82 ], [ 1, %86 ], [ 0, %2 ], [ 1, %38 ], [ 0, %21 ]
+  ret i32 %90
 
-91:                                               ; preds = %65, %84, %81, %88, %52, %58, %25, %2, %38, %21, %93
-  %92 = phi i32 [ %96, %93 ], [ %26, %25 ], [ 1, %52 ], [ %61, %58 ], [ 1, %65 ], [ 1, %81 ], [ %87, %84 ], [ 1, %88 ], [ 0, %2 ], [ 1, %38 ], [ 0, %21 ]
-  ret i32 %92
+91:                                               ; preds = %86
+  %92 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %14)
+  %93 = icmp ne i32 %92, 0
+  %94 = zext i1 %93 to i32
+  br label %89
 
-93:                                               ; preds = %88
-  %94 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %14)
-  %95 = icmp ne i32 %94, 0
-  %96 = zext i1 %95 to i32
-  br label %91
-
-97:                                               ; preds = %62
-  %98 = load ptr, ptr @stdout, align 8
-  %99 = tail call i32 @fflush(ptr noundef %98)
-  %100 = load ptr, ptr @stderr, align 8
-  %101 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %100, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 765) #11
+95:                                               ; preds = %62
+  %96 = load ptr, ptr @stdout, align 8
+  %97 = tail call i32 @fflush(ptr noundef %96)
+  %98 = load ptr, ptr @stderr, align 8
+  %99 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %98, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 765) #11
   tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.14) #10
-  %102 = load ptr, ptr @stderr, align 8
-  %103 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %102) #11
+  %100 = load ptr, ptr @stderr, align 8
+  %101 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %100) #11
   tail call fastcc void @misc_DumpCore()
   unreachable
 }
@@ -2229,10 +2224,10 @@ define internal fastcc i32 @ren_PExtraFactorOk(ptr nocapture noundef readonly %0
   br i1 %21, label %124, label %22
 
 22:                                               ; preds = %14, %18
-  %23 = icmp ne i32 %8, %16
-  %24 = icmp ne i32 %9, %16
-  %25 = select i1 %23, i1 %24, i1 false
-  br i1 %25, label %37, label %26
+  %23 = icmp eq i32 %8, %16
+  %24 = icmp eq i32 %9, %16
+  %25 = select i1 %23, i1 true, i1 %24
+  br i1 %25, label %26, label %37
 
 26:                                               ; preds = %22
   %27 = getelementptr i8, ptr %15, i64 16
@@ -2388,7 +2383,7 @@ define internal fastcc i32 @ren_PExtraFactorOk(ptr nocapture noundef readonly %0
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef readonly %1) unnamed_addr #0 {
   %3 = icmp eq ptr %0, %1
-  br i1 %3, label %140, label %4
+  br i1 %3, label %138, label %4
 
 4:                                                ; preds = %2, %57
   %5 = phi ptr [ %7, %57 ], [ %1, %2 ]
@@ -2401,15 +2396,15 @@ define internal fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef reado
 
 11:                                               ; preds = %4
   %12 = load i32, ptr @fol_ALL, align 4
-  %13 = icmp ne i32 %12, %8
+  %13 = icmp eq i32 %12, %8
   %14 = load i32, ptr @fol_EXIST, align 4
-  %15 = icmp ne i32 %14, %8
-  %16 = select i1 %13, i1 %15, i1 false
-  br i1 %16, label %19, label %17
+  %15 = icmp eq i32 %14, %8
+  %16 = select i1 %13, i1 true, i1 %15
+  br i1 %16, label %17, label %19
 
 17:                                               ; preds = %4, %11, %58
   %18 = icmp eq ptr %7, %0
-  br i1 %18, label %140, label %57
+  br i1 %18, label %138, label %57
 
 19:                                               ; preds = %11
   %20 = load i32, ptr @fol_NOT, align 4
@@ -2418,7 +2413,7 @@ define internal fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef reado
 
 22:                                               ; preds = %19
   %23 = tail call fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %140
+  br label %138
 
 24:                                               ; preds = %19
   %25 = load i32, ptr @fol_OR, align 4
@@ -2446,12 +2441,12 @@ define internal fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef reado
 
 40:                                               ; preds = %37
   %41 = icmp eq i32 %33, 0
-  br i1 %41, label %42, label %140
+  br i1 %41, label %42, label %138
 
 42:                                               ; preds = %40
   %43 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %35), !range !20
   %44 = icmp eq i32 %43, 0
-  br i1 %44, label %45, label %140
+  br i1 %44, label %45, label %138
 
 45:                                               ; preds = %42, %31, %37
   %46 = phi i32 [ %33, %37 ], [ %33, %31 ], [ 1, %42 ]
@@ -2462,21 +2457,21 @@ define internal fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef reado
 49:                                               ; preds = %45
   %50 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
   %51 = icmp eq i32 %50, 0
-  br i1 %51, label %140, label %58
+  br i1 %51, label %138, label %58
 
 52:                                               ; preds = %27
   %53 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
   %54 = icmp eq i32 %53, 0
   %55 = icmp eq ptr %7, %0
   %56 = or i1 %54, %55
-  br i1 %56, label %140, label %57
+  br i1 %56, label %138, label %57
 
-57:                                               ; preds = %52, %17, %79, %119
+57:                                               ; preds = %52, %17, %79, %117
   br label %4
 
 58:                                               ; preds = %49
   %59 = icmp eq i32 %46, 0
-  br i1 %59, label %17, label %140
+  br i1 %59, label %17, label %138
 
 60:                                               ; preds = %24
   %61 = load i32, ptr @fol_IMPLIES, align 4
@@ -2493,7 +2488,7 @@ define internal fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef reado
 
 69:                                               ; preds = %63
   %70 = tail call fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %140
+  br label %138
 
 71:                                               ; preds = %63
   %72 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
@@ -2503,21 +2498,21 @@ define internal fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef reado
   br i1 %74, label %79, label %76
 
 76:                                               ; preds = %71
-  br i1 %75, label %77, label %140
+  br i1 %75, label %77, label %138
 
 77:                                               ; preds = %76
   %78 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %67), !range !20
-  br label %140
+  br label %138
 
 79:                                               ; preds = %71
   %80 = icmp eq ptr %7, %0
   %81 = or i1 %75, %80
-  br i1 %81, label %140, label %57
+  br i1 %81, label %138, label %57
 
 82:                                               ; preds = %60
   %83 = load i32, ptr @fol_EQUIV, align 4
   %84 = icmp eq i32 %8, %83
-  br i1 %84, label %85, label %133
+  br i1 %84, label %85, label %131
 
 85:                                               ; preds = %82
   %86 = getelementptr i8, ptr %7, i64 16
@@ -2525,98 +2520,92 @@ define internal fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef reado
   %88 = getelementptr i8, ptr %87, i64 8
   %89 = load ptr, ptr %88, align 8
   %90 = icmp eq ptr %89, %5
-  br i1 %90, label %91, label %95
-
-91:                                               ; preds = %85
-  %92 = load ptr, ptr %87, align 8
+  %91 = select i1 %90, ptr %87, ptr %86
+  %92 = load ptr, ptr %91, align 8
   %93 = getelementptr i8, ptr %92, i64 8
   %94 = load ptr, ptr %93, align 8
-  br label %95
-
-95:                                               ; preds = %85, %91
-  %96 = phi ptr [ %94, %91 ], [ %89, %85 ]
-  %97 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %7)
-  switch i32 %97, label %133 [
-    i32 0, label %98
-    i32 1, label %111
-    i32 -1, label %122
+  %95 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %7)
+  switch i32 %95, label %131 [
+    i32 0, label %96
+    i32 1, label %109
+    i32 -1, label %120
   ]
 
-98:                                               ; preds = %95
-  %99 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %96), !range !20
-  %100 = icmp eq i32 %99, 0
-  br i1 %100, label %101, label %140
+96:                                               ; preds = %85
+  %97 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %94), !range !20
+  %98 = icmp eq i32 %97, 0
+  br i1 %98, label %99, label %138
 
-101:                                              ; preds = %98
-  %102 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %96), !range !20
-  %103 = icmp eq i32 %102, 0
-  br i1 %103, label %104, label %140
+99:                                               ; preds = %96
+  %100 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %94), !range !20
+  %101 = icmp eq i32 %100, 0
+  br i1 %101, label %102, label %138
 
-104:                                              ; preds = %101
-  %105 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %106 = icmp eq i32 %105, 0
-  br i1 %106, label %107, label %140
+102:                                              ; preds = %99
+  %103 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %104 = icmp eq i32 %103, 0
+  br i1 %104, label %105, label %138
 
-107:                                              ; preds = %104
-  %108 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %109 = icmp ne i32 %108, 0
-  %110 = zext i1 %109 to i32
-  br label %140
+105:                                              ; preds = %102
+  %106 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %107 = icmp ne i32 %106, 0
+  %108 = zext i1 %107 to i32
+  br label %138
 
-111:                                              ; preds = %95
-  %112 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %113 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %96), !range !20
-  %114 = icmp eq i32 %113, 0
-  %115 = icmp eq i32 %112, 0
-  br i1 %114, label %119, label %116
+109:                                              ; preds = %85
+  %110 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %111 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %94), !range !20
+  %112 = icmp eq i32 %111, 0
+  %113 = icmp eq i32 %110, 0
+  br i1 %112, label %117, label %114
 
-116:                                              ; preds = %111
-  br i1 %115, label %117, label %140
+114:                                              ; preds = %109
+  br i1 %113, label %115, label %138
 
-117:                                              ; preds = %116
-  %118 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %96), !range !20
-  br label %140
+115:                                              ; preds = %114
+  %116 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %94), !range !20
+  br label %138
 
-119:                                              ; preds = %111
-  %120 = icmp eq ptr %7, %0
-  %121 = or i1 %115, %120
-  br i1 %121, label %140, label %57
+117:                                              ; preds = %109
+  %118 = icmp eq ptr %7, %0
+  %119 = or i1 %113, %118
+  br i1 %119, label %138, label %57
 
-122:                                              ; preds = %95
-  %123 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %124 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %96), !range !20
-  %125 = icmp eq i32 %124, 0
-  %126 = icmp eq i32 %123, 0
-  br i1 %125, label %130, label %127
+120:                                              ; preds = %85
+  %121 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %122 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %94), !range !20
+  %123 = icmp eq i32 %122, 0
+  %124 = icmp eq i32 %121, 0
+  br i1 %123, label %128, label %125
 
-127:                                              ; preds = %122
-  br i1 %126, label %128, label %140
+125:                                              ; preds = %120
+  br i1 %124, label %126, label %138
 
-128:                                              ; preds = %127
-  %129 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %96), !range !20
-  br label %140
+126:                                              ; preds = %125
+  %127 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %94), !range !20
+  br label %138
 
-130:                                              ; preds = %122
-  br i1 %126, label %140, label %131
+128:                                              ; preds = %120
+  br i1 %124, label %138, label %129
 
-131:                                              ; preds = %130
-  %132 = tail call fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %140
+129:                                              ; preds = %128
+  %130 = tail call fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
+  br label %138
 
-133:                                              ; preds = %95, %82
-  %134 = load ptr, ptr @stdout, align 8
-  %135 = tail call i32 @fflush(ptr noundef %134)
-  %136 = load ptr, ptr @stderr, align 8
-  %137 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %136, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 616) #11
+131:                                              ; preds = %85, %82
+  %132 = load ptr, ptr @stdout, align 8
+  %133 = tail call i32 @fflush(ptr noundef %132)
+  %134 = load ptr, ptr @stderr, align 8
+  %135 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %134, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 616) #11
   tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.15) #10
-  %138 = load ptr, ptr @stderr, align 8
-  %139 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %138) #11
+  %136 = load ptr, ptr @stderr, align 8
+  %137 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %136) #11
   tail call fastcc void @misc_DumpCore()
   unreachable
 
-140:                                              ; preds = %17, %49, %58, %79, %119, %52, %42, %40, %2, %128, %117, %77, %127, %131, %130, %116, %98, %101, %104, %107, %76, %69, %22
-  %141 = phi i32 [ %23, %22 ], [ %70, %69 ], [ 1, %76 ], [ 1, %104 ], [ 1, %101 ], [ 1, %98 ], [ %110, %107 ], [ 1, %116 ], [ 1, %127 ], [ 0, %130 ], [ %132, %131 ], [ %78, %77 ], [ %118, %117 ], [ %129, %128 ], [ 0, %2 ], [ 1, %40 ], [ 1, %42 ], [ 0, %52 ], [ 0, %17 ], [ 0, %49 ], [ 1, %58 ], [ 0, %79 ], [ 0, %119 ]
-  ret i32 %141
+138:                                              ; preds = %17, %49, %58, %79, %117, %52, %42, %40, %2, %126, %115, %77, %125, %129, %128, %114, %96, %99, %102, %105, %76, %69, %22
+  %139 = phi i32 [ %23, %22 ], [ %70, %69 ], [ 1, %76 ], [ 1, %102 ], [ 1, %99 ], [ 1, %96 ], [ %108, %105 ], [ 1, %114 ], [ 1, %125 ], [ 0, %128 ], [ %130, %129 ], [ %78, %77 ], [ %116, %115 ], [ %127, %126 ], [ 0, %2 ], [ 1, %40 ], [ 1, %42 ], [ 0, %52 ], [ 0, %17 ], [ 0, %49 ], [ 1, %58 ], [ 0, %79 ], [ 0, %117 ]
+  ret i32 %139
 }
 
 ; Function Attrs: nounwind uwtable
@@ -2659,10 +2648,10 @@ define internal fastcc i32 @ren_NotPExtraFactorOk(ptr nocapture noundef readonly
   br label %118
 
 27:                                               ; preds = %19
-  %28 = icmp ne i32 %9, %13
-  %29 = icmp ne i32 %10, %13
-  %30 = select i1 %28, i1 %29, i1 false
-  br i1 %30, label %40, label %31
+  %28 = icmp eq i32 %9, %13
+  %29 = icmp eq i32 %10, %13
+  %30 = select i1 %28, i1 true, i1 %29
+  br i1 %30, label %31, label %40
 
 31:                                               ; preds = %27
   %32 = getelementptr i8, ptr %12, i64 16
@@ -2797,7 +2786,7 @@ define internal fastcc i32 @ren_NotPExtraFactorOk(ptr nocapture noundef readonly
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef readonly %1) unnamed_addr #0 {
   %3 = icmp eq ptr %0, %1
-  br i1 %3, label %141, label %4
+  br i1 %3, label %139, label %4
 
 4:                                                ; preds = %2, %57
   %5 = phi ptr [ %7, %57 ], [ %1, %2 ]
@@ -2810,15 +2799,15 @@ define internal fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef reado
 
 11:                                               ; preds = %4
   %12 = load i32, ptr @fol_ALL, align 4
-  %13 = icmp ne i32 %12, %8
+  %13 = icmp eq i32 %12, %8
   %14 = load i32, ptr @fol_EXIST, align 4
-  %15 = icmp ne i32 %14, %8
-  %16 = select i1 %13, i1 %15, i1 false
-  br i1 %16, label %19, label %17
+  %15 = icmp eq i32 %14, %8
+  %16 = select i1 %13, i1 true, i1 %15
+  br i1 %16, label %17, label %19
 
 17:                                               ; preds = %4, %11, %58, %63
   %18 = icmp eq ptr %7, %0
-  br i1 %18, label %141, label %57
+  br i1 %18, label %139, label %57
 
 19:                                               ; preds = %11
   %20 = load i32, ptr @fol_NOT, align 4
@@ -2827,7 +2816,7 @@ define internal fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef reado
 
 22:                                               ; preds = %19
   %23 = tail call fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %141
+  br label %139
 
 24:                                               ; preds = %19
   %25 = load i32, ptr @fol_AND, align 4
@@ -2855,12 +2844,12 @@ define internal fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef reado
 
 40:                                               ; preds = %37
   %41 = icmp eq i32 %33, 0
-  br i1 %41, label %42, label %141
+  br i1 %41, label %42, label %139
 
 42:                                               ; preds = %40
   %43 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %35), !range !20
   %44 = icmp eq i32 %43, 0
-  br i1 %44, label %45, label %141
+  br i1 %44, label %45, label %139
 
 45:                                               ; preds = %42, %31, %37
   %46 = phi i32 [ %33, %37 ], [ %33, %31 ], [ 1, %42 ]
@@ -2871,21 +2860,21 @@ define internal fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef reado
 49:                                               ; preds = %45
   %50 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
   %51 = icmp eq i32 %50, 0
-  br i1 %51, label %141, label %58
+  br i1 %51, label %139, label %58
 
 52:                                               ; preds = %27
   %53 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
   %54 = icmp eq i32 %53, 0
   %55 = icmp eq ptr %7, %0
   %56 = or i1 %54, %55
-  br i1 %56, label %141, label %57
+  br i1 %56, label %139, label %57
 
-57:                                               ; preds = %52, %17, %131
+57:                                               ; preds = %52, %17, %129
   br label %4
 
 58:                                               ; preds = %49
   %59 = icmp eq i32 %46, 0
-  br i1 %59, label %17, label %141
+  br i1 %59, label %17, label %139
 
 60:                                               ; preds = %24
   %61 = load i32, ptr @fol_IMPLIES, align 4
@@ -2911,23 +2900,23 @@ define internal fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef reado
   br i1 %75, label %80, label %77
 
 77:                                               ; preds = %69
-  br i1 %76, label %78, label %141
+  br i1 %76, label %78, label %139
 
 78:                                               ; preds = %77
   %79 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %72), !range !20
-  br label %141
+  br label %139
 
 80:                                               ; preds = %69
-  br i1 %76, label %141, label %81
+  br i1 %76, label %139, label %81
 
 81:                                               ; preds = %80
   %82 = tail call fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %141
+  br label %139
 
 83:                                               ; preds = %60
   %84 = load i32, ptr @fol_EQUIV, align 4
   %85 = icmp eq i32 %8, %84
-  br i1 %85, label %86, label %134
+  br i1 %85, label %86, label %132
 
 86:                                               ; preds = %83
   %87 = getelementptr i8, ptr %7, i64 16
@@ -2935,98 +2924,92 @@ define internal fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef reado
   %89 = getelementptr i8, ptr %88, i64 8
   %90 = load ptr, ptr %89, align 8
   %91 = icmp eq ptr %90, %5
-  br i1 %91, label %92, label %96
-
-92:                                               ; preds = %86
-  %93 = load ptr, ptr %88, align 8
+  %92 = select i1 %91, ptr %88, ptr %87
+  %93 = load ptr, ptr %92, align 8
   %94 = getelementptr i8, ptr %93, i64 8
   %95 = load ptr, ptr %94, align 8
-  br label %96
-
-96:                                               ; preds = %86, %92
-  %97 = phi ptr [ %95, %92 ], [ %90, %86 ]
-  %98 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %7)
-  switch i32 %98, label %134 [
-    i32 0, label %99
-    i32 1, label %112
-    i32 -1, label %123
+  %96 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %7)
+  switch i32 %96, label %132 [
+    i32 0, label %97
+    i32 1, label %110
+    i32 -1, label %121
   ]
 
-99:                                               ; preds = %96
-  %100 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %97), !range !20
-  %101 = icmp eq i32 %100, 0
-  br i1 %101, label %102, label %141
+97:                                               ; preds = %86
+  %98 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %95), !range !20
+  %99 = icmp eq i32 %98, 0
+  br i1 %99, label %100, label %139
 
-102:                                              ; preds = %99
-  %103 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %97), !range !20
-  %104 = icmp eq i32 %103, 0
-  br i1 %104, label %105, label %141
+100:                                              ; preds = %97
+  %101 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %95), !range !20
+  %102 = icmp eq i32 %101, 0
+  br i1 %102, label %103, label %139
 
-105:                                              ; preds = %102
-  %106 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %107 = icmp eq i32 %106, 0
-  br i1 %107, label %108, label %141
+103:                                              ; preds = %100
+  %104 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %105 = icmp eq i32 %104, 0
+  br i1 %105, label %106, label %139
 
-108:                                              ; preds = %105
-  %109 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %110 = icmp ne i32 %109, 0
-  %111 = zext i1 %110 to i32
-  br label %141
+106:                                              ; preds = %103
+  %107 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %108 = icmp ne i32 %107, 0
+  %109 = zext i1 %108 to i32
+  br label %139
 
-112:                                              ; preds = %96
-  %113 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %114 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %97), !range !20
-  %115 = icmp eq i32 %114, 0
-  %116 = icmp eq i32 %113, 0
-  br i1 %115, label %120, label %117
+110:                                              ; preds = %86
+  %111 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %112 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %95), !range !20
+  %113 = icmp eq i32 %112, 0
+  %114 = icmp eq i32 %111, 0
+  br i1 %113, label %118, label %115
 
-117:                                              ; preds = %112
-  br i1 %116, label %118, label %141
+115:                                              ; preds = %110
+  br i1 %114, label %116, label %139
 
-118:                                              ; preds = %117
-  %119 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %97), !range !20
-  br label %141
+116:                                              ; preds = %115
+  %117 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %95), !range !20
+  br label %139
 
-120:                                              ; preds = %112
-  br i1 %116, label %141, label %121
+118:                                              ; preds = %110
+  br i1 %114, label %139, label %119
 
-121:                                              ; preds = %120
-  %122 = tail call fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %141
+119:                                              ; preds = %118
+  %120 = tail call fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
+  br label %139
 
-123:                                              ; preds = %96
-  %124 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %125 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %97), !range !20
-  %126 = icmp eq i32 %125, 0
-  %127 = icmp eq i32 %124, 0
-  br i1 %126, label %131, label %128
+121:                                              ; preds = %86
+  %122 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %123 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %95), !range !20
+  %124 = icmp eq i32 %123, 0
+  %125 = icmp eq i32 %122, 0
+  br i1 %124, label %129, label %126
 
-128:                                              ; preds = %123
-  br i1 %127, label %129, label %141
+126:                                              ; preds = %121
+  br i1 %125, label %127, label %139
 
-129:                                              ; preds = %128
-  %130 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %97), !range !20
-  br label %141
+127:                                              ; preds = %126
+  %128 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %95), !range !20
+  br label %139
 
-131:                                              ; preds = %123
-  %132 = icmp eq ptr %7, %0
-  %133 = or i1 %127, %132
-  br i1 %133, label %141, label %57
+129:                                              ; preds = %121
+  %130 = icmp eq ptr %7, %0
+  %131 = or i1 %125, %130
+  br i1 %131, label %139, label %57
 
-134:                                              ; preds = %96, %83
-  %135 = load ptr, ptr @stdout, align 8
-  %136 = tail call i32 @fflush(ptr noundef %135)
-  %137 = load ptr, ptr @stderr, align 8
-  %138 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %137, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 842) #11
+132:                                              ; preds = %86, %83
+  %133 = load ptr, ptr @stdout, align 8
+  %134 = tail call i32 @fflush(ptr noundef %133)
+  %135 = load ptr, ptr @stderr, align 8
+  %136 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %135, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 842) #11
   tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.16) #10
-  %139 = load ptr, ptr @stderr, align 8
-  %140 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %139) #11
+  %137 = load ptr, ptr @stderr, align 8
+  %138 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %137) #11
   tail call fastcc void @misc_DumpCore()
   unreachable
 
-141:                                              ; preds = %17, %49, %58, %131, %52, %42, %40, %2, %129, %118, %78, %128, %117, %121, %120, %99, %102, %105, %108, %77, %81, %80, %22
-  %142 = phi i32 [ %23, %22 ], [ 1, %77 ], [ 0, %80 ], [ %82, %81 ], [ 1, %105 ], [ 1, %102 ], [ 1, %99 ], [ %111, %108 ], [ 1, %117 ], [ 0, %120 ], [ %122, %121 ], [ 1, %128 ], [ %79, %78 ], [ %119, %118 ], [ %130, %129 ], [ 0, %2 ], [ 1, %40 ], [ 1, %42 ], [ 0, %52 ], [ 0, %17 ], [ 0, %49 ], [ 1, %58 ], [ 0, %131 ]
-  ret i32 %142
+139:                                              ; preds = %17, %49, %58, %129, %52, %42, %40, %2, %127, %116, %78, %126, %115, %119, %118, %97, %100, %103, %106, %77, %81, %80, %22
+  %140 = phi i32 [ %23, %22 ], [ 1, %77 ], [ 0, %80 ], [ %82, %81 ], [ 1, %103 ], [ 1, %100 ], [ 1, %97 ], [ %109, %106 ], [ 1, %115 ], [ 0, %118 ], [ %120, %119 ], [ 1, %126 ], [ %79, %78 ], [ %117, %116 ], [ %128, %127 ], [ 0, %2 ], [ 1, %40 ], [ 1, %42 ], [ 0, %52 ], [ 0, %17 ], [ 0, %49 ], [ 1, %58 ], [ 0, %129 ]
+  ret i32 %140
 }
 
 declare i32 @list_Length(ptr noundef) local_unnamed_addr #1
@@ -3077,10 +3060,10 @@ define internal fastcc i32 @ren_PFactorBigger3(ptr nocapture noundef readonly %0
   br i1 %21, label %163, label %22
 
 22:                                               ; preds = %14, %18
-  %23 = icmp ne i32 %8, %16
-  %24 = icmp ne i32 %9, %16
-  %25 = select i1 %23, i1 %24, i1 false
-  br i1 %25, label %37, label %26
+  %23 = icmp eq i32 %8, %16
+  %24 = icmp eq i32 %9, %16
+  %25 = select i1 %23, i1 true, i1 %24
+  br i1 %25, label %26, label %37
 
 26:                                               ; preds = %22
   %27 = getelementptr i8, ptr %15, i64 16
@@ -3152,7 +3135,7 @@ define internal fastcc i32 @ren_PFactorBigger3(ptr nocapture noundef readonly %0
   %73 = tail call fastcc i32 @ren_PFactorBigger3(ptr noundef %72), !range !20
   %74 = icmp eq i32 %73, 0
   %75 = select i1 %74, i8 2, i8 3
-  %76 = add nuw nsw i8 %75, %58
+  %76 = add nuw nsw i8 %58, %75
   br label %77
 
 77:                                               ; preds = %71, %56, %65
@@ -3323,10 +3306,10 @@ define internal fastcc i32 @ren_NotPFactorBigger3(ptr nocapture noundef readonly
   br i1 %17, label %163, label %18
 
 18:                                               ; preds = %10, %14
-  %19 = icmp ne i32 %8, %12
-  %20 = icmp ne i32 %9, %12
-  %21 = select i1 %19, i1 %20, i1 false
-  br i1 %21, label %31, label %22
+  %19 = icmp eq i32 %8, %12
+  %20 = icmp eq i32 %9, %12
+  %21 = select i1 %19, i1 true, i1 %20
+  br i1 %21, label %22, label %31
 
 22:                                               ; preds = %18
   %23 = getelementptr i8, ptr %11, i64 16
@@ -3396,7 +3379,7 @@ define internal fastcc i32 @ren_NotPFactorBigger3(ptr nocapture noundef readonly
   %69 = tail call fastcc i32 @ren_NotPFactorBigger3(ptr noundef %68), !range !20
   %70 = icmp eq i32 %69, 0
   %71 = select i1 %70, i8 2, i8 3
-  %72 = add nuw nsw i8 %71, %54
+  %72 = add nuw nsw i8 %54, %71
   br label %73
 
 73:                                               ; preds = %67, %52, %61
@@ -3549,7 +3532,7 @@ define internal fastcc i32 @ren_NotPFactorBigger3(ptr nocapture noundef readonly
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef readonly %1) unnamed_addr #0 {
   %3 = icmp eq ptr %0, %1
-  br i1 %3, label %160, label %4
+  br i1 %3, label %158, label %4
 
 4:                                                ; preds = %2, %57
   %5 = phi ptr [ %7, %57 ], [ %1, %2 ]
@@ -3562,15 +3545,15 @@ define internal fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef reado
 
 11:                                               ; preds = %4
   %12 = load i32, ptr @fol_ALL, align 4
-  %13 = icmp ne i32 %12, %8
+  %13 = icmp eq i32 %12, %8
   %14 = load i32, ptr @fol_EXIST, align 4
-  %15 = icmp ne i32 %14, %8
-  %16 = select i1 %13, i1 %15, i1 false
-  br i1 %16, label %19, label %17
+  %15 = icmp eq i32 %14, %8
+  %16 = select i1 %13, i1 true, i1 %15
+  br i1 %16, label %17, label %19
 
 17:                                               ; preds = %4, %11, %58
   %18 = icmp eq ptr %7, %0
-  br i1 %18, label %160, label %57
+  br i1 %18, label %158, label %57
 
 19:                                               ; preds = %11
   %20 = load i32, ptr @fol_NOT, align 4
@@ -3579,7 +3562,7 @@ define internal fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef reado
 
 22:                                               ; preds = %19
   %23 = tail call fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %160
+  br label %158
 
 24:                                               ; preds = %19
   %25 = load i32, ptr @fol_OR, align 4
@@ -3607,12 +3590,12 @@ define internal fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef reado
 
 40:                                               ; preds = %37
   %41 = icmp eq i32 %33, 0
-  br i1 %41, label %42, label %160
+  br i1 %41, label %42, label %158
 
 42:                                               ; preds = %40
   %43 = tail call fastcc i32 @ren_PFactorBigger3(ptr noundef %35), !range !20
   %44 = icmp eq i32 %43, 0
-  br i1 %44, label %45, label %160
+  br i1 %44, label %45, label %158
 
 45:                                               ; preds = %42, %31, %37
   %46 = phi i32 [ %33, %37 ], [ %33, %31 ], [ 1, %42 ]
@@ -3623,21 +3606,21 @@ define internal fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef reado
 49:                                               ; preds = %45
   %50 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
   %51 = icmp eq i32 %50, 0
-  br i1 %51, label %160, label %58
+  br i1 %51, label %158, label %58
 
 52:                                               ; preds = %27
   %53 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
   %54 = icmp eq i32 %53, 0
   %55 = icmp eq ptr %7, %0
   %56 = or i1 %54, %55
-  br i1 %56, label %160, label %57
+  br i1 %56, label %158, label %57
 
-57:                                               ; preds = %52, %17, %79, %139
+57:                                               ; preds = %52, %17, %79, %137
   br label %4
 
 58:                                               ; preds = %49
   %59 = icmp eq i32 %46, 0
-  br i1 %59, label %17, label %160
+  br i1 %59, label %17, label %158
 
 60:                                               ; preds = %24
   %61 = load i32, ptr @fol_IMPLIES, align 4
@@ -3654,7 +3637,7 @@ define internal fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef reado
 
 69:                                               ; preds = %63
   %70 = tail call fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %160
+  br label %158
 
 71:                                               ; preds = %63
   %72 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
@@ -3664,21 +3647,21 @@ define internal fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef reado
   br i1 %74, label %79, label %76
 
 76:                                               ; preds = %71
-  br i1 %75, label %77, label %160
+  br i1 %75, label %77, label %158
 
 77:                                               ; preds = %76
   %78 = tail call fastcc i32 @ren_NotPFactorBigger3(ptr noundef %67), !range !20
-  br label %160
+  br label %158
 
 79:                                               ; preds = %71
   %80 = icmp eq ptr %7, %0
   %81 = or i1 %75, %80
-  br i1 %81, label %160, label %57
+  br i1 %81, label %158, label %57
 
 82:                                               ; preds = %60
   %83 = load i32, ptr @fol_EQUIV, align 4
   %84 = icmp eq i32 %8, %83
-  br i1 %84, label %85, label %153
+  br i1 %84, label %85, label %151
 
 85:                                               ; preds = %82
   %86 = getelementptr i8, ptr %7, i64 16
@@ -3686,134 +3669,128 @@ define internal fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef reado
   %88 = getelementptr i8, ptr %87, i64 8
   %89 = load ptr, ptr %88, align 8
   %90 = icmp eq ptr %89, %5
-  br i1 %90, label %91, label %95
-
-91:                                               ; preds = %85
-  %92 = load ptr, ptr %87, align 8
+  %91 = select i1 %90, ptr %87, ptr %86
+  %92 = load ptr, ptr %91, align 8
   %93 = getelementptr i8, ptr %92, i64 8
   %94 = load ptr, ptr %93, align 8
-  br label %95
-
-95:                                               ; preds = %85, %91
-  %96 = phi ptr [ %94, %91 ], [ %89, %85 ]
-  %97 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %7)
-  switch i32 %97, label %153 [
-    i32 0, label %98
-    i32 1, label %131
-    i32 -1, label %142
+  %95 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %7)
+  switch i32 %95, label %151 [
+    i32 0, label %96
+    i32 1, label %129
+    i32 -1, label %140
   ]
 
-98:                                               ; preds = %95
-  %99 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %100 = icmp ne i32 %99, 0
-  %101 = zext i1 %100 to i32
-  %102 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %103 = icmp ne i32 %102, 0
-  %104 = zext i1 %103 to i32
-  %105 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %96), !range !20
-  %106 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %96), !range !20
-  %107 = icmp eq i32 %106, 0
-  %108 = add nuw nsw i32 %105, %101
-  %109 = add nuw nsw i32 %108, %104
-  %110 = add nuw nsw i32 %109, %106
-  %111 = icmp ugt i32 %110, 1
-  br i1 %111, label %160, label %112
+96:                                               ; preds = %85
+  %97 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %98 = icmp ne i32 %97, 0
+  %99 = zext i1 %98 to i32
+  %100 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %101 = icmp ne i32 %100, 0
+  %102 = zext i1 %101 to i32
+  %103 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %94), !range !20
+  %104 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %94), !range !20
+  %105 = icmp eq i32 %104, 0
+  %106 = add nuw nsw i32 %103, %99
+  %107 = add nuw nsw i32 %106, %102
+  %108 = add nuw nsw i32 %107, %104
+  %109 = icmp ugt i32 %108, 1
+  br i1 %109, label %158, label %110
 
-112:                                              ; preds = %98
-  %113 = icmp eq i32 %105, 0
-  br i1 %113, label %117, label %114
+110:                                              ; preds = %96
+  %111 = icmp eq i32 %103, 0
+  br i1 %111, label %115, label %112
 
-114:                                              ; preds = %112
-  %115 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %96), !range !20
-  %116 = icmp eq i32 %115, 0
-  br i1 %116, label %117, label %160
+112:                                              ; preds = %110
+  %113 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %94), !range !20
+  %114 = icmp eq i32 %113, 0
+  br i1 %114, label %115, label %158
 
-117:                                              ; preds = %114, %112
-  br i1 %107, label %121, label %118
+115:                                              ; preds = %112, %110
+  br i1 %105, label %119, label %116
 
-118:                                              ; preds = %117
-  %119 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %96), !range !20
-  %120 = icmp eq i32 %119, 0
-  br i1 %120, label %121, label %160
+116:                                              ; preds = %115
+  %117 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %94), !range !20
+  %118 = icmp eq i32 %117, 0
+  br i1 %118, label %119, label %158
 
-121:                                              ; preds = %118, %117
-  br i1 %100, label %122, label %128
+119:                                              ; preds = %116, %115
+  br i1 %98, label %120, label %126
 
-122:                                              ; preds = %121
-  %123 = tail call fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  %124 = icmp eq i32 %123, 0
-  %125 = select i1 %124, i1 %103, i1 false
-  %126 = xor i1 %124, true
-  %127 = zext i1 %126 to i32
-  br i1 %125, label %129, label %160
+120:                                              ; preds = %119
+  %121 = tail call fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
+  %122 = icmp eq i32 %121, 0
+  %123 = select i1 %122, i1 %101, i1 false
+  %124 = xor i1 %122, true
+  %125 = zext i1 %124 to i32
+  br i1 %123, label %127, label %158
 
-128:                                              ; preds = %121
-  br i1 %103, label %129, label %160
+126:                                              ; preds = %119
+  br i1 %101, label %127, label %158
 
-129:                                              ; preds = %122, %128
-  %130 = tail call fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %160
+127:                                              ; preds = %120, %126
+  %128 = tail call fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
+  br label %158
 
-131:                                              ; preds = %95
-  %132 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %133 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %96), !range !20
-  %134 = icmp eq i32 %133, 0
-  %135 = icmp eq i32 %132, 0
-  br i1 %134, label %139, label %136
+129:                                              ; preds = %85
+  %130 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %131 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %94), !range !20
+  %132 = icmp eq i32 %131, 0
+  %133 = icmp eq i32 %130, 0
+  br i1 %132, label %137, label %134
 
-136:                                              ; preds = %131
-  br i1 %135, label %137, label %160
+134:                                              ; preds = %129
+  br i1 %133, label %135, label %158
 
-137:                                              ; preds = %136
-  %138 = tail call fastcc i32 @ren_NotPFactorBigger3(ptr noundef %96), !range !20
-  br label %160
+135:                                              ; preds = %134
+  %136 = tail call fastcc i32 @ren_NotPFactorBigger3(ptr noundef %94), !range !20
+  br label %158
 
-139:                                              ; preds = %131
-  %140 = icmp eq ptr %7, %0
-  %141 = or i1 %135, %140
-  br i1 %141, label %160, label %57
+137:                                              ; preds = %129
+  %138 = icmp eq ptr %7, %0
+  %139 = or i1 %133, %138
+  br i1 %139, label %158, label %57
 
-142:                                              ; preds = %95
-  %143 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %144 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %96), !range !20
-  %145 = icmp eq i32 %144, 0
-  %146 = icmp eq i32 %143, 0
-  br i1 %145, label %150, label %147
+140:                                              ; preds = %85
+  %141 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %142 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %94), !range !20
+  %143 = icmp eq i32 %142, 0
+  %144 = icmp eq i32 %141, 0
+  br i1 %143, label %148, label %145
 
-147:                                              ; preds = %142
-  br i1 %146, label %148, label %160
+145:                                              ; preds = %140
+  br i1 %144, label %146, label %158
 
-148:                                              ; preds = %147
-  %149 = tail call fastcc i32 @ren_PFactorBigger3(ptr noundef %96), !range !20
-  br label %160
+146:                                              ; preds = %145
+  %147 = tail call fastcc i32 @ren_PFactorBigger3(ptr noundef %94), !range !20
+  br label %158
 
-150:                                              ; preds = %142
-  br i1 %146, label %160, label %151
+148:                                              ; preds = %140
+  br i1 %144, label %158, label %149
 
-151:                                              ; preds = %150
-  %152 = tail call fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %160
+149:                                              ; preds = %148
+  %150 = tail call fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef nonnull %7), !range !20
+  br label %158
 
-153:                                              ; preds = %95, %82
-  %154 = load ptr, ptr @stdout, align 8
-  %155 = tail call i32 @fflush(ptr noundef %154)
-  %156 = load ptr, ptr @stderr, align 8
-  %157 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %156, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 705) #11
+151:                                              ; preds = %85, %82
+  %152 = load ptr, ptr @stdout, align 8
+  %153 = tail call i32 @fflush(ptr noundef %152)
+  %154 = load ptr, ptr @stderr, align 8
+  %155 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %154, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 705) #11
   tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.22) #10
-  %158 = load ptr, ptr @stderr, align 8
-  %159 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %158) #11
+  %156 = load ptr, ptr @stderr, align 8
+  %157 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %156) #11
   tail call fastcc void @misc_DumpCore()
   unreachable
 
-160:                                              ; preds = %17, %49, %58, %79, %139, %52, %42, %40, %2, %148, %137, %77, %147, %151, %150, %136, %98, %114, %118, %129, %128, %122, %76, %69, %22
-  %161 = phi i32 [ %23, %22 ], [ %70, %69 ], [ 1, %76 ], [ %127, %122 ], [ 1, %118 ], [ 1, %114 ], [ 1, %98 ], [ 0, %128 ], [ %130, %129 ], [ 1, %136 ], [ 1, %147 ], [ 0, %150 ], [ %152, %151 ], [ %78, %77 ], [ %138, %137 ], [ %149, %148 ], [ 0, %2 ], [ 1, %40 ], [ 1, %42 ], [ 0, %52 ], [ 0, %17 ], [ 0, %49 ], [ 1, %58 ], [ 0, %79 ], [ 0, %139 ]
-  ret i32 %161
+158:                                              ; preds = %17, %49, %58, %79, %137, %52, %42, %40, %2, %146, %135, %77, %145, %149, %148, %134, %96, %112, %116, %127, %126, %120, %76, %69, %22
+  %159 = phi i32 [ %23, %22 ], [ %70, %69 ], [ 1, %76 ], [ %125, %120 ], [ 1, %116 ], [ 1, %112 ], [ 1, %96 ], [ 0, %126 ], [ %128, %127 ], [ 1, %134 ], [ 1, %145 ], [ 0, %148 ], [ %150, %149 ], [ %78, %77 ], [ %136, %135 ], [ %147, %146 ], [ 0, %2 ], [ 1, %40 ], [ 1, %42 ], [ 0, %52 ], [ 0, %17 ], [ 0, %49 ], [ 1, %58 ], [ 0, %79 ], [ 0, %137 ]
+  ret i32 %159
 }
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef readonly %1) unnamed_addr #0 {
   %3 = icmp eq ptr %0, %1
-  br i1 %3, label %161, label %4
+  br i1 %3, label %159, label %4
 
 4:                                                ; preds = %2, %57
   %5 = phi ptr [ %7, %57 ], [ %1, %2 ]
@@ -3832,7 +3809,7 @@ define internal fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef reado
 
 17:                                               ; preds = %4, %58, %63
   %18 = icmp eq ptr %7, %0
-  br i1 %18, label %161, label %57
+  br i1 %18, label %159, label %57
 
 19:                                               ; preds = %4
   %20 = load i32, ptr @fol_NOT, align 4
@@ -3841,7 +3818,7 @@ define internal fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef reado
 
 22:                                               ; preds = %19
   %23 = tail call fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %161
+  br label %159
 
 24:                                               ; preds = %19
   %25 = load i32, ptr @fol_AND, align 4
@@ -3869,12 +3846,12 @@ define internal fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef reado
 
 40:                                               ; preds = %37
   %41 = icmp eq i32 %33, 0
-  br i1 %41, label %42, label %161
+  br i1 %41, label %42, label %159
 
 42:                                               ; preds = %40
   %43 = tail call fastcc i32 @ren_NotPFactorBigger3(ptr noundef %35), !range !20
   %44 = icmp eq i32 %43, 0
-  br i1 %44, label %45, label %161
+  br i1 %44, label %45, label %159
 
 45:                                               ; preds = %42, %31, %37
   %46 = phi i32 [ %33, %37 ], [ %33, %31 ], [ 1, %42 ]
@@ -3885,21 +3862,21 @@ define internal fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef reado
 49:                                               ; preds = %45
   %50 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
   %51 = icmp eq i32 %50, 0
-  br i1 %51, label %161, label %58
+  br i1 %51, label %159, label %58
 
 52:                                               ; preds = %27
   %53 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
   %54 = icmp eq i32 %53, 0
   %55 = icmp eq ptr %7, %0
   %56 = or i1 %54, %55
-  br i1 %56, label %161, label %57
+  br i1 %56, label %159, label %57
 
-57:                                               ; preds = %52, %17, %151
+57:                                               ; preds = %52, %17, %149
   br label %4
 
 58:                                               ; preds = %49
   %59 = icmp eq i32 %46, 0
-  br i1 %59, label %17, label %161
+  br i1 %59, label %17, label %159
 
 60:                                               ; preds = %24
   %61 = load i32, ptr @fol_IMPLIES, align 4
@@ -3925,23 +3902,23 @@ define internal fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef reado
   br i1 %75, label %80, label %77
 
 77:                                               ; preds = %69
-  br i1 %76, label %78, label %161
+  br i1 %76, label %78, label %159
 
 78:                                               ; preds = %77
   %79 = tail call fastcc i32 @ren_PFactorBigger3(ptr noundef %72), !range !20
-  br label %161
+  br label %159
 
 80:                                               ; preds = %69
-  br i1 %76, label %161, label %81
+  br i1 %76, label %159, label %81
 
 81:                                               ; preds = %80
   %82 = tail call fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %161
+  br label %159
 
 83:                                               ; preds = %60
   %84 = load i32, ptr @fol_EQUIV, align 4
   %85 = icmp eq i32 %8, %84
-  br i1 %85, label %86, label %154
+  br i1 %85, label %86, label %152
 
 86:                                               ; preds = %83
   %87 = getelementptr i8, ptr %7, i64 16
@@ -3949,128 +3926,122 @@ define internal fastcc i32 @ren_BFactorBigger3(ptr noundef %0, ptr noundef reado
   %89 = getelementptr i8, ptr %88, i64 8
   %90 = load ptr, ptr %89, align 8
   %91 = icmp eq ptr %90, %5
-  br i1 %91, label %92, label %96
-
-92:                                               ; preds = %86
-  %93 = load ptr, ptr %88, align 8
+  %92 = select i1 %91, ptr %88, ptr %87
+  %93 = load ptr, ptr %92, align 8
   %94 = getelementptr i8, ptr %93, i64 8
   %95 = load ptr, ptr %94, align 8
-  br label %96
-
-96:                                               ; preds = %86, %92
-  %97 = phi ptr [ %95, %92 ], [ %90, %86 ]
-  %98 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %7)
-  switch i32 %98, label %154 [
-    i32 0, label %99
-    i32 1, label %132
-    i32 -1, label %143
+  %96 = tail call fastcc i32 @ren_Polarity(ptr noundef nonnull %7)
+  switch i32 %96, label %152 [
+    i32 0, label %97
+    i32 1, label %130
+    i32 -1, label %141
   ]
 
-99:                                               ; preds = %96
-  %100 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %101 = icmp ne i32 %100, 0
-  %102 = zext i1 %101 to i32
-  %103 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %104 = icmp ne i32 %103, 0
-  %105 = zext i1 %104 to i32
-  %106 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %97), !range !20
-  %107 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %97), !range !20
-  %108 = icmp eq i32 %107, 0
-  %109 = add nuw nsw i32 %106, %102
-  %110 = add nuw nsw i32 %109, %105
-  %111 = add nuw nsw i32 %110, %107
-  %112 = icmp ugt i32 %111, 1
-  br i1 %112, label %161, label %113
+97:                                               ; preds = %86
+  %98 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %99 = icmp ne i32 %98, 0
+  %100 = zext i1 %99 to i32
+  %101 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %102 = icmp ne i32 %101, 0
+  %103 = zext i1 %102 to i32
+  %104 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %95), !range !20
+  %105 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %95), !range !20
+  %106 = icmp eq i32 %105, 0
+  %107 = add nuw nsw i32 %104, %100
+  %108 = add nuw nsw i32 %107, %103
+  %109 = add nuw nsw i32 %108, %105
+  %110 = icmp ugt i32 %109, 1
+  br i1 %110, label %159, label %111
 
-113:                                              ; preds = %99
-  %114 = icmp eq i32 %106, 0
-  br i1 %114, label %118, label %115
+111:                                              ; preds = %97
+  %112 = icmp eq i32 %104, 0
+  br i1 %112, label %116, label %113
 
-115:                                              ; preds = %113
-  %116 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %97), !range !20
-  %117 = icmp eq i32 %116, 0
-  br i1 %117, label %118, label %161
+113:                                              ; preds = %111
+  %114 = tail call fastcc i32 @ren_PExtraFactorOk(ptr noundef %95), !range !20
+  %115 = icmp eq i32 %114, 0
+  br i1 %115, label %116, label %159
 
-118:                                              ; preds = %115, %113
-  br i1 %108, label %122, label %119
+116:                                              ; preds = %113, %111
+  br i1 %106, label %120, label %117
 
-119:                                              ; preds = %118
-  %120 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %97), !range !20
-  %121 = icmp eq i32 %120, 0
-  br i1 %121, label %122, label %161
+117:                                              ; preds = %116
+  %118 = tail call fastcc i32 @ren_NotPExtraFactorOk(ptr noundef %95), !range !20
+  %119 = icmp eq i32 %118, 0
+  br i1 %119, label %120, label %159
 
-122:                                              ; preds = %119, %118
-  br i1 %101, label %123, label %129
+120:                                              ; preds = %117, %116
+  br i1 %99, label %121, label %127
 
-123:                                              ; preds = %122
-  %124 = tail call fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  %125 = icmp eq i32 %124, 0
-  %126 = select i1 %125, i1 %104, i1 false
-  %127 = xor i1 %125, true
-  %128 = zext i1 %127 to i32
-  br i1 %126, label %130, label %161
+121:                                              ; preds = %120
+  %122 = tail call fastcc i32 @ren_AExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
+  %123 = icmp eq i32 %122, 0
+  %124 = select i1 %123, i1 %102, i1 false
+  %125 = xor i1 %123, true
+  %126 = zext i1 %125 to i32
+  br i1 %124, label %128, label %159
 
-129:                                              ; preds = %122
-  br i1 %104, label %130, label %161
+127:                                              ; preds = %120
+  br i1 %102, label %128, label %159
 
-130:                                              ; preds = %123, %129
-  %131 = tail call fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %161
+128:                                              ; preds = %121, %127
+  %129 = tail call fastcc i32 @ren_BExtraFactorOk(ptr noundef %0, ptr noundef nonnull %7), !range !20
+  br label %159
 
-132:                                              ; preds = %96
-  %133 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %134 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %97), !range !20
-  %135 = icmp eq i32 %134, 0
-  %136 = icmp eq i32 %133, 0
-  br i1 %135, label %140, label %137
+130:                                              ; preds = %86
+  %131 = tail call fastcc i32 @ren_AFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %132 = tail call fastcc i32 @ren_PFactorOk(ptr noundef %95), !range !20
+  %133 = icmp eq i32 %132, 0
+  %134 = icmp eq i32 %131, 0
+  br i1 %133, label %138, label %135
 
-137:                                              ; preds = %132
-  br i1 %136, label %138, label %161
+135:                                              ; preds = %130
+  br i1 %134, label %136, label %159
 
-138:                                              ; preds = %137
-  %139 = tail call fastcc i32 @ren_PFactorBigger3(ptr noundef %97), !range !20
-  br label %161
+136:                                              ; preds = %135
+  %137 = tail call fastcc i32 @ren_PFactorBigger3(ptr noundef %95), !range !20
+  br label %159
 
-140:                                              ; preds = %132
-  br i1 %136, label %161, label %141
+138:                                              ; preds = %130
+  br i1 %134, label %159, label %139
 
-141:                                              ; preds = %140
-  %142 = tail call fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef nonnull %7), !range !20
-  br label %161
+139:                                              ; preds = %138
+  %140 = tail call fastcc i32 @ren_AFactorBigger3(ptr noundef %0, ptr noundef nonnull %7), !range !20
+  br label %159
 
-143:                                              ; preds = %96
-  %144 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
-  %145 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %97), !range !20
-  %146 = icmp eq i32 %145, 0
-  %147 = icmp eq i32 %144, 0
-  br i1 %146, label %151, label %148
+141:                                              ; preds = %86
+  %142 = tail call fastcc i32 @ren_BFactorOk(ptr noundef %0, ptr noundef nonnull %7)
+  %143 = tail call fastcc i32 @ren_NotPFactorOk(ptr noundef %95), !range !20
+  %144 = icmp eq i32 %143, 0
+  %145 = icmp eq i32 %142, 0
+  br i1 %144, label %149, label %146
 
-148:                                              ; preds = %143
-  br i1 %147, label %149, label %161
+146:                                              ; preds = %141
+  br i1 %145, label %147, label %159
 
-149:                                              ; preds = %148
-  %150 = tail call fastcc i32 @ren_NotPFactorBigger3(ptr noundef %97), !range !20
-  br label %161
+147:                                              ; preds = %146
+  %148 = tail call fastcc i32 @ren_NotPFactorBigger3(ptr noundef %95), !range !20
+  br label %159
 
-151:                                              ; preds = %143
-  %152 = icmp eq ptr %7, %0
-  %153 = or i1 %147, %152
-  br i1 %153, label %161, label %57
+149:                                              ; preds = %141
+  %150 = icmp eq ptr %7, %0
+  %151 = or i1 %145, %150
+  br i1 %151, label %159, label %57
 
-154:                                              ; preds = %96, %83
-  %155 = load ptr, ptr @stdout, align 8
-  %156 = tail call i32 @fflush(ptr noundef %155)
-  %157 = load ptr, ptr @stderr, align 8
-  %158 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %157, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 930) #11
+152:                                              ; preds = %86, %83
+  %153 = load ptr, ptr @stdout, align 8
+  %154 = tail call i32 @fflush(ptr noundef %153)
+  %155 = load ptr, ptr @stderr, align 8
+  %156 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %155, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 930) #11
   tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.23) #10
-  %159 = load ptr, ptr @stderr, align 8
-  %160 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %159) #11
+  %157 = load ptr, ptr @stderr, align 8
+  %158 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 132, i64 1, ptr %157) #11
   tail call fastcc void @misc_DumpCore()
   unreachable
 
-161:                                              ; preds = %17, %49, %58, %151, %52, %42, %40, %2, %149, %138, %78, %148, %137, %141, %140, %99, %115, %119, %130, %129, %123, %77, %81, %80, %22
-  %162 = phi i32 [ %23, %22 ], [ 1, %77 ], [ 0, %80 ], [ %82, %81 ], [ %128, %123 ], [ 1, %119 ], [ 1, %115 ], [ 1, %99 ], [ 0, %129 ], [ %131, %130 ], [ 1, %137 ], [ 0, %140 ], [ %142, %141 ], [ 1, %148 ], [ %79, %78 ], [ %139, %138 ], [ %150, %149 ], [ 0, %2 ], [ 1, %40 ], [ 1, %42 ], [ 0, %52 ], [ 0, %17 ], [ 0, %49 ], [ 1, %58 ], [ 0, %151 ]
-  ret i32 %162
+159:                                              ; preds = %17, %49, %58, %149, %52, %42, %40, %2, %147, %136, %78, %146, %135, %139, %138, %97, %113, %117, %128, %127, %121, %77, %81, %80, %22
+  %160 = phi i32 [ %23, %22 ], [ 1, %77 ], [ 0, %80 ], [ %82, %81 ], [ %126, %121 ], [ 1, %117 ], [ 1, %113 ], [ 1, %97 ], [ 0, %127 ], [ %129, %128 ], [ 1, %135 ], [ 0, %138 ], [ %140, %139 ], [ 1, %146 ], [ %79, %78 ], [ %137, %136 ], [ %148, %147 ], [ 0, %2 ], [ 1, %40 ], [ 1, %42 ], [ 0, %52 ], [ 0, %17 ], [ 0, %49 ], [ 1, %58 ], [ 0, %149 ]
+  ret i32 %160
 }
 
 declare i32 @term_RootDistanceSmaller(ptr noundef, ptr noundef) local_unnamed_addr #1
@@ -4134,23 +4105,21 @@ define internal fastcc ptr @ren_RemoveAllSubterms(ptr noundef %0, ptr noundef %1
   %35 = tail call ptr @list_PointerDeleteElement(ptr noundef %6, ptr noundef null) #10
   %36 = load i32, ptr %5, align 8
   %37 = icmp sgt i32 %36, -1
-  br i1 %37, label %42, label %38
+  %38 = sub nsw i32 0, %36
+  %39 = and i32 %3, %38
+  %40 = icmp ne i32 %39, 2
+  %41 = select i1 %37, i1 true, i1 %40
+  br i1 %41, label %42, label %64
 
-38:                                               ; preds = %34
-  %39 = sub nsw i32 0, %36
-  %40 = and i32 %3, %39
-  %41 = icmp eq i32 %40, 2
-  br i1 %41, label %64, label %42
-
-42:                                               ; preds = %34, %38
+42:                                               ; preds = %34
   %43 = load i32, ptr @fol_ALL, align 4
-  %44 = icmp ne i32 %43, %36
+  %44 = icmp eq i32 %43, %36
   %45 = load i32, ptr @fol_EXIST, align 4
-  %46 = icmp ne i32 %45, %36
-  %47 = select i1 %44, i1 %46, i1 false
+  %46 = icmp eq i32 %45, %36
+  %47 = select i1 %44, i1 true, i1 %46
   %48 = getelementptr i8, ptr %5, i64 16
   %49 = load ptr, ptr %48, align 8
-  br i1 %47, label %54, label %50
+  br i1 %47, label %50, label %54
 
 50:                                               ; preds = %42
   %51 = load ptr, ptr %49, align 8
@@ -4172,8 +4141,8 @@ define internal fastcc ptr @ren_RemoveAllSubterms(ptr noundef %0, ptr noundef %1
   %63 = icmp eq ptr %62, null
   br i1 %63, label %64, label %56, !llvm.loop !42
 
-64:                                               ; preds = %38, %56, %54
-  %65 = phi ptr [ %35, %54 ], [ %61, %56 ], [ %35, %38 ]
+64:                                               ; preds = %34, %56, %54
+  %65 = phi ptr [ %35, %54 ], [ %61, %56 ], [ %35, %34 ]
   ret ptr %65
 }
 

@@ -81,7 +81,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %40 = sext i32 %39 to i64
   %41 = shl nsw i64 %40, 3
   %42 = call noalias ptr @malloc(i64 noundef %41) #25
-  %43 = add nuw i32 %25, 4
+  %43 = add nuw nsw i32 %25, 4
   %44 = sext i32 %43 to i64
   %45 = shl nsw i64 %44, 2
   %46 = call noalias ptr @malloc(i64 noundef %45) #25
@@ -220,13 +220,13 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %135 = load i32, ptr %113, align 4, !tbaa !9
   %136 = sub nsw i32 %135, %134
   store i32 %136, ptr %113, align 4, !tbaa !9
-  %137 = sub nsw i32 %122, %134
+  %137 = sub nuw nsw i32 %122, %134
   %138 = icmp slt i32 %137, 2
   br i1 %138, label %231, label %139
 
 139:                                              ; preds = %128
   %140 = zext i1 %132 to i64
-  %141 = add i32 %43, %133
+  %141 = sub nuw nsw i32 %43, %134
   %142 = zext i32 %141 to i64
   %143 = add nsw i64 %142, -2
   %144 = icmp ult i64 %143, 8
@@ -382,7 +382,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
 
 257:                                              ; preds = %249
   %258 = zext i1 %251 to i64
-  %259 = add i32 %43, %252
+  %259 = sub nuw nsw i32 %43, %253
   %260 = zext i32 %259 to i64
   %261 = add nsw i64 %260, -2
   %262 = icmp ugt i64 %261, 7
@@ -525,7 +525,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
 
 365:                                              ; preds = %351
   %366 = zext i1 %358 to i64
-  %367 = add i32 %43, %359
+  %367 = sub nuw nsw i32 %43, %360
   %368 = zext i32 %367 to i64
   %369 = add nsw i64 %368, -2
   %370 = icmp ugt i64 %369, 7
@@ -1081,9 +1081,9 @@ define dso_local void @mp_sscanf(i32 noundef %0, i32 noundef %1, ptr nocapture n
   %73 = srem i32 %69, %1
   %74 = icmp slt i32 %73, 0
   %75 = ashr i32 %73, 31
-  %76 = add nsw i32 %75, %71
+  %76 = add nsw i32 %71, %75
   %77 = select i1 %74, i32 %1, i32 0
-  %78 = add nsw i32 %77, %73
+  %78 = add nsw i32 %73, %77
   %79 = getelementptr inbounds i32, ptr %3, i64 1
   store i32 %76, ptr %79, align 4, !tbaa !9
   %80 = add nsw i32 %0, 1
@@ -6342,7 +6342,7 @@ define dso_local void @mp_sqrt_init(i32 noundef %0, i32 noundef %1, ptr nocaptur
   %65 = sext i1 %64 to i32
   %66 = add nsw i32 %7, %65
   %67 = select i1 %64, double %9, double 1.000000e+00
-  %68 = fmul double %67, %62
+  %68 = fmul double %62, %67
   %69 = sdiv i32 %66, 2
   %70 = tail call double @sqrt(double noundef %68) #22
   %71 = fcmp olt double %70, 1.000000e+00
@@ -6984,7 +6984,7 @@ define dso_local i32 @mp_sqrt_newton(i32 noundef %0, i32 noundef %1, ptr nocaptu
 
 352:                                              ; preds = %345, %347
   %353 = icmp eq i32 %242, 0
-  %354 = sub i32 %235, %237
+  %354 = sub nsw i32 %235, %237
   %355 = icmp sgt i32 %239, %241
   %356 = zext i1 %355 to i32
   %357 = add nsw i32 %354, %356
@@ -7131,23 +7131,23 @@ declare noundef i32 @sprintf(ptr noalias nocapture noundef writeonly, ptr nocapt
 ; Function Attrs: nofree nounwind
 declare noundef i32 @__isoc99_sscanf(ptr nocapture noundef readonly, ptr nocapture noundef readonly, ...) local_unnamed_addr #2
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #19
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #19
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #20
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #21
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #20
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #20
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #20
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #21
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #21
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umax.i64(i64, i64) #20
@@ -7180,9 +7180,9 @@ attributes #15 = { nofree norecurse nosync nounwind memory(none) uwtable "min-le
 attributes #16 = { nofree nounwind memory(write, argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #17 = { nofree nosync nounwind memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #18 = { nofree norecurse nosync nounwind memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #19 = { nofree nounwind }
+attributes #19 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #20 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #21 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #21 = { nofree nounwind }
 attributes #22 = { nounwind }
 attributes #23 = { cold }
 attributes #24 = { noreturn nounwind }

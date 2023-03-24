@@ -82,20 +82,20 @@ define dso_local void @TreeCCGenerateNonVirtuals(ptr noundef %0, ptr nocapture n
   %13 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %1, i64 0, i32 13
   br label %14
 
-14:                                               ; preds = %2, %251
-  %15 = phi i64 [ 0, %2 ], [ %252, %251 ]
+14:                                               ; preds = %2, %249
+  %15 = phi i64 [ 0, %2 ], [ %250, %249 ]
   %16 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 1, i64 %15
   %17 = load ptr, ptr %16, align 8, !tbaa !11
   %18 = icmp eq ptr %17, null
-  br i1 %18, label %251, label %19
+  br i1 %18, label %249, label %19
 
-19:                                               ; preds = %14, %247
-  %20 = phi ptr [ %249, %247 ], [ %17, %14 ]
+19:                                               ; preds = %14, %245
+  %20 = phi ptr [ %247, %245 ], [ %17, %14 ]
   %21 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 5
   %22 = load i32, ptr %21, align 8, !tbaa !12
   %23 = and i32 %22, 1
   %24 = icmp eq i32 %23, 0
-  br i1 %24, label %25, label %247
+  br i1 %24, label %25, label %245
 
 25:                                               ; preds = %19
   %26 = load i32, ptr %5, align 4, !tbaa !5
@@ -154,36 +154,36 @@ define dso_local void @TreeCCGenerateNonVirtuals(ptr noundef %0, ptr nocapture n
   %60 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 6
   %61 = load i32, ptr %60, align 4, !tbaa !25
   %62 = icmp sgt i32 %61, 1
-  br i1 %62, label %63, label %149
+  br i1 %62, label %63, label %148
 
 63:                                               ; preds = %59
   %64 = load i32, ptr %21, align 8, !tbaa !12
   %65 = and i32 %64, 4
   %66 = icmp eq i32 %65, 0
-  br i1 %66, label %149, label %67
+  br i1 %66, label %148, label %67
 
 67:                                               ; preds = %63
-  %68 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 4
-  %69 = load ptr, ptr %68, align 8, !tbaa !11
+  %68 = getelementptr i8, ptr %20, i64 32
+  %69 = load ptr, ptr %68, align 8, !tbaa !26
   %70 = icmp eq ptr %69, null
   br i1 %70, label %71, label %74
 
 71:                                               ; preds = %67
   %72 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 12
-  %73 = load ptr, ptr %72, align 8, !tbaa !26
+  %73 = load ptr, ptr %72, align 8, !tbaa !27
   br label %106
 
 74:                                               ; preds = %67, %87
   %75 = phi ptr [ %89, %87 ], [ %69, %67 ]
   %76 = getelementptr inbounds %struct._tagTreeCCParam, ptr %75, i64 0, i32 2
-  %77 = load i32, ptr %76, align 8, !tbaa !27
+  %77 = load i32, ptr %76, align 8, !tbaa !28
   %78 = and i32 %77, 1
   %79 = icmp eq i32 %78, 0
   br i1 %79, label %87, label %80
 
 80:                                               ; preds = %74
   %81 = getelementptr inbounds %struct._tagTreeCCParam, ptr %75, i64 0, i32 1
-  %82 = load ptr, ptr %81, align 8, !tbaa !29
+  %82 = load ptr, ptr %81, align 8, !tbaa !30
   %83 = call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %82) #4
   %84 = icmp eq ptr %83, null
   br i1 %84, label %87, label %85
@@ -194,28 +194,28 @@ define dso_local void @TreeCCGenerateNonVirtuals(ptr noundef %0, ptr nocapture n
 
 87:                                               ; preds = %85, %80, %74
   %88 = getelementptr inbounds %struct._tagTreeCCParam, ptr %75, i64 0, i32 4
-  %89 = load ptr, ptr %88, align 8, !tbaa !11
+  %89 = load ptr, ptr %88, align 8, !tbaa !31
   %90 = icmp eq ptr %89, null
-  br i1 %90, label %91, label %74, !llvm.loop !30
+  br i1 %90, label %91, label %74, !llvm.loop !32
 
 91:                                               ; preds = %87
-  %92 = load ptr, ptr %68, align 8, !tbaa !31
+  %92 = load ptr, ptr %68, align 8, !tbaa !26
   %93 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 12
-  %94 = load ptr, ptr %93, align 8, !tbaa !26
+  %94 = load ptr, ptr %93, align 8, !tbaa !27
   %95 = icmp eq ptr %92, null
   br i1 %95, label %106, label %96
 
 96:                                               ; preds = %91, %102
   %97 = phi ptr [ %104, %102 ], [ %92, %91 ]
   %98 = getelementptr inbounds %struct._tagTreeCCParam, ptr %97, i64 0, i32 2
-  %99 = load i32, ptr %98, align 8, !tbaa !27
+  %99 = load i32, ptr %98, align 8, !tbaa !28
   %100 = and i32 %99, 1
   %101 = icmp eq i32 %100, 0
   br i1 %101, label %102, label %106
 
 102:                                              ; preds = %96
   %103 = getelementptr inbounds %struct._tagTreeCCParam, ptr %97, i64 0, i32 4
-  %104 = load ptr, ptr %103, align 8, !tbaa !32
+  %104 = load ptr, ptr %103, align 8, !tbaa !31
   %105 = icmp eq ptr %104, null
   br i1 %105, label %106, label %96, !llvm.loop !33
 
@@ -223,7 +223,7 @@ define dso_local void @TreeCCGenerateNonVirtuals(ptr noundef %0, ptr nocapture n
   %107 = phi ptr [ %94, %91 ], [ %73, %71 ], [ %94, %96 ], [ %94, %102 ]
   %108 = phi ptr [ null, %91 ], [ null, %71 ], [ null, %102 ], [ %97, %96 ]
   %109 = getelementptr inbounds %struct._tagTreeCCParam, ptr %108, i64 0, i32 1
-  %110 = load ptr, ptr %109, align 8, !tbaa !29
+  %110 = load ptr, ptr %109, align 8, !tbaa !30
   %111 = call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %110) #4
   %112 = load i32, ptr %60, align 4, !tbaa !25
   %113 = icmp eq i32 %112, 1
@@ -280,178 +280,173 @@ define dso_local void @TreeCCGenerateNonVirtuals(ptr noundef %0, ptr nocapture n
   br label %146
 
 146:                                              ; preds = %123, %142
-  call fastcc void @GenerateSplitMultiScan(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %1, ptr noundef %20, ptr noundef %107, i32 noundef 0, i32 noundef 1, i32 noundef 0, ptr noundef %111)
+  call fastcc void @GenerateSplitMultiScan(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %1, ptr noundef nonnull %20, ptr noundef %107, i32 noundef 0, i32 noundef 1, i32 noundef 0, ptr noundef %111)
   %147 = load ptr, ptr %9, align 8, !tbaa !40
   call void %147(ptr noundef %0, ptr noundef %41, i32 noundef 0) #4
-  %148 = load ptr, ptr %10, align 8, !tbaa !41
-  call void %148(ptr noundef %0, ptr noundef %41, ptr noundef %20) #4
-  br label %245
+  br label %242
 
-149:                                              ; preds = %63, %59
-  %150 = load ptr, ptr %7, align 8, !tbaa !34
-  call void %150(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %20) #4
-  %151 = load i32, ptr %60, align 4, !tbaa !25
-  %152 = icmp slt i32 %151, 2
-  br i1 %152, label %153, label %157
+148:                                              ; preds = %63, %59
+  %149 = load ptr, ptr %7, align 8, !tbaa !34
+  call void %149(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %20) #4
+  %150 = load i32, ptr %60, align 4, !tbaa !25
+  %151 = icmp slt i32 %150, 2
+  br i1 %151, label %152, label %156
 
-153:                                              ; preds = %149
-  %154 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 10
-  %155 = load ptr, ptr %154, align 8, !tbaa !42
-  %156 = call fastcc ptr @GenerateSwitch(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %1, ptr noundef nonnull %20, ptr noundef %155, i32 noundef 0)
-  br label %243
+152:                                              ; preds = %148
+  %153 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 10
+  %154 = load ptr, ptr %153, align 8, !tbaa !41
+  %155 = call fastcc ptr @GenerateSwitch(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %1, ptr noundef nonnull %20, ptr noundef %154, i32 noundef 0)
+  br label %242
 
-157:                                              ; preds = %149
-  %158 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 4
-  %159 = load ptr, ptr %158, align 8, !tbaa !11
-  %160 = icmp eq ptr %159, null
-  br i1 %160, label %161, label %164
+156:                                              ; preds = %148
+  %157 = getelementptr i8, ptr %20, i64 32
+  %158 = load ptr, ptr %157, align 8, !tbaa !26
+  %159 = icmp eq ptr %158, null
+  br i1 %159, label %160, label %163
 
-161:                                              ; preds = %157
-  %162 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 12
-  %163 = load ptr, ptr %162, align 8, !tbaa !26
-  br label %196
+160:                                              ; preds = %156
+  %161 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 12
+  %162 = load ptr, ptr %161, align 8, !tbaa !27
+  br label %195
 
-164:                                              ; preds = %157, %177
-  %165 = phi ptr [ %179, %177 ], [ %159, %157 ]
-  %166 = getelementptr inbounds %struct._tagTreeCCParam, ptr %165, i64 0, i32 2
-  %167 = load i32, ptr %166, align 8, !tbaa !27
-  %168 = and i32 %167, 1
-  %169 = icmp eq i32 %168, 0
-  br i1 %169, label %177, label %170
+163:                                              ; preds = %156, %176
+  %164 = phi ptr [ %178, %176 ], [ %158, %156 ]
+  %165 = getelementptr inbounds %struct._tagTreeCCParam, ptr %164, i64 0, i32 2
+  %166 = load i32, ptr %165, align 8, !tbaa !28
+  %167 = and i32 %166, 1
+  %168 = icmp eq i32 %167, 0
+  br i1 %168, label %176, label %169
 
-170:                                              ; preds = %164
-  %171 = getelementptr inbounds %struct._tagTreeCCParam, ptr %165, i64 0, i32 1
-  %172 = load ptr, ptr %171, align 8, !tbaa !29
-  %173 = call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %172) #4
-  %174 = icmp eq ptr %173, null
-  br i1 %174, label %177, label %175
+169:                                              ; preds = %163
+  %170 = getelementptr inbounds %struct._tagTreeCCParam, ptr %164, i64 0, i32 1
+  %171 = load ptr, ptr %170, align 8, !tbaa !30
+  %172 = call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %171) #4
+  %173 = icmp eq ptr %172, null
+  br i1 %173, label %176, label %174
 
-175:                                              ; preds = %170
-  %176 = call i32 @TreeCCNodeAssignPositions(ptr noundef nonnull %173) #4
-  br label %177
+174:                                              ; preds = %169
+  %175 = call i32 @TreeCCNodeAssignPositions(ptr noundef nonnull %172) #4
+  br label %176
 
-177:                                              ; preds = %175, %170, %164
-  %178 = getelementptr inbounds %struct._tagTreeCCParam, ptr %165, i64 0, i32 4
-  %179 = load ptr, ptr %178, align 8, !tbaa !11
-  %180 = icmp eq ptr %179, null
-  br i1 %180, label %181, label %164, !llvm.loop !30
+176:                                              ; preds = %174, %169, %163
+  %177 = getelementptr inbounds %struct._tagTreeCCParam, ptr %164, i64 0, i32 4
+  %178 = load ptr, ptr %177, align 8, !tbaa !31
+  %179 = icmp eq ptr %178, null
+  br i1 %179, label %180, label %163, !llvm.loop !32
 
-181:                                              ; preds = %177
-  %182 = load ptr, ptr %158, align 8, !tbaa !31
-  %183 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 12
-  %184 = load ptr, ptr %183, align 8, !tbaa !26
-  %185 = icmp eq ptr %182, null
-  br i1 %185, label %196, label %186
+180:                                              ; preds = %176
+  %181 = load ptr, ptr %157, align 8, !tbaa !26
+  %182 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 12
+  %183 = load ptr, ptr %182, align 8, !tbaa !27
+  %184 = icmp eq ptr %181, null
+  br i1 %184, label %195, label %185
 
-186:                                              ; preds = %181, %192
-  %187 = phi ptr [ %194, %192 ], [ %182, %181 ]
-  %188 = getelementptr inbounds %struct._tagTreeCCParam, ptr %187, i64 0, i32 2
-  %189 = load i32, ptr %188, align 8, !tbaa !27
-  %190 = and i32 %189, 1
-  %191 = icmp eq i32 %190, 0
-  br i1 %191, label %192, label %208
+185:                                              ; preds = %180, %191
+  %186 = phi ptr [ %193, %191 ], [ %181, %180 ]
+  %187 = getelementptr inbounds %struct._tagTreeCCParam, ptr %186, i64 0, i32 2
+  %188 = load i32, ptr %187, align 8, !tbaa !28
+  %189 = and i32 %188, 1
+  %190 = icmp eq i32 %189, 0
+  br i1 %190, label %191, label %207
 
-192:                                              ; preds = %186
-  %193 = getelementptr inbounds %struct._tagTreeCCParam, ptr %187, i64 0, i32 4
-  %194 = load ptr, ptr %193, align 8, !tbaa !32
-  %195 = icmp eq ptr %194, null
-  br i1 %195, label %196, label %186, !llvm.loop !43
+191:                                              ; preds = %185
+  %192 = getelementptr inbounds %struct._tagTreeCCParam, ptr %186, i64 0, i32 4
+  %193 = load ptr, ptr %192, align 8, !tbaa !31
+  %194 = icmp eq ptr %193, null
+  br i1 %194, label %195, label %185, !llvm.loop !42
 
-196:                                              ; preds = %192, %161, %181
-  %197 = phi ptr [ %163, %161 ], [ %184, %181 ], [ %184, %192 ]
-  %198 = load i32, ptr %21, align 8, !tbaa !12
-  %199 = and i32 %198, 2
-  %200 = icmp eq i32 %199, 0
-  %201 = load ptr, ptr %197, align 8, !tbaa !11
-  br i1 %200, label %204, label %202
+195:                                              ; preds = %191, %160, %180
+  %196 = phi ptr [ %162, %160 ], [ %183, %180 ], [ %183, %191 ]
+  %197 = load i32, ptr %21, align 8, !tbaa !12
+  %198 = and i32 %197, 2
+  %199 = icmp eq i32 %198, 0
+  %200 = load ptr, ptr %196, align 8, !tbaa !11
+  br i1 %199, label %203, label %201
 
-202:                                              ; preds = %196
-  %203 = load ptr, ptr %11, align 8, !tbaa !44
-  call void %203(ptr noundef %0, ptr noundef %41, ptr noundef %201, i32 noundef -1) #4
-  br label %243
+201:                                              ; preds = %195
+  %202 = load ptr, ptr %11, align 8, !tbaa !43
+  call void %202(ptr noundef %0, ptr noundef %41, ptr noundef %200, i32 noundef -1) #4
+  br label %242
 
-204:                                              ; preds = %196
-  %205 = load ptr, ptr %12, align 8, !tbaa !45
-  %206 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %201, i64 0, i32 3
-  %207 = load i32, ptr %206, align 8, !tbaa !21
-  call void %205(ptr noundef %0, ptr noundef %41, ptr noundef %201, i32 noundef %207, i32 noundef -1) #4
-  br label %243
+203:                                              ; preds = %195
+  %204 = load ptr, ptr %12, align 8, !tbaa !44
+  %205 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %200, i64 0, i32 3
+  %206 = load i32, ptr %205, align 8, !tbaa !21
+  call void %204(ptr noundef %0, ptr noundef %41, ptr noundef %200, i32 noundef %206, i32 noundef -1) #4
+  br label %242
 
-208:                                              ; preds = %186
-  %209 = getelementptr inbounds %struct._tagTreeCCParam, ptr %187, i64 0, i32 1
-  %210 = load ptr, ptr %209, align 8, !tbaa !29
-  %211 = call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %210) #4
-  %212 = getelementptr inbounds %struct._tagTreeCCNode, ptr %211, i64 0, i32 5
-  %213 = load i32, ptr %212, align 8, !tbaa !35
-  %214 = lshr i32 %213, 3
-  %215 = and i32 %214, 1
-  %216 = load ptr, ptr %187, align 8, !tbaa !37
-  %217 = icmp eq ptr %216, null
-  br i1 %217, label %220, label %218
+207:                                              ; preds = %185
+  %208 = getelementptr inbounds %struct._tagTreeCCParam, ptr %186, i64 0, i32 1
+  %209 = load ptr, ptr %208, align 8, !tbaa !30
+  %210 = call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %209) #4
+  %211 = getelementptr inbounds %struct._tagTreeCCNode, ptr %210, i64 0, i32 5
+  %212 = load i32, ptr %211, align 8, !tbaa !35
+  %213 = lshr i32 %212, 3
+  %214 = and i32 %213, 1
+  %215 = load ptr, ptr %186, align 8, !tbaa !37
+  %216 = icmp eq ptr %215, null
+  br i1 %216, label %219, label %217
 
-218:                                              ; preds = %208
-  %219 = load ptr, ptr %8, align 8, !tbaa !38
-  call void %219(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %216, i32 noundef 0, i32 noundef %215) #4
-  br label %241
+217:                                              ; preds = %207
+  %218 = load ptr, ptr %8, align 8, !tbaa !38
+  call void %218(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %215, i32 noundef 0, i32 noundef %214) #4
+  br label %240
 
-220:                                              ; preds = %208
+219:                                              ; preds = %207
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %4) #4
-  %221 = load ptr, ptr %158, align 8, !tbaa !11
-  %222 = icmp ne ptr %221, null
-  %223 = icmp ne ptr %221, %187
-  %224 = select i1 %222, i1 %223, i1 false
-  br i1 %224, label %225, label %237
+  %220 = load ptr, ptr %157, align 8, !tbaa !11
+  %221 = icmp ne ptr %220, null
+  %222 = icmp ne ptr %220, %186
+  %223 = select i1 %221, i1 %222, i1 false
+  br i1 %223, label %224, label %236
 
-225:                                              ; preds = %220, %225
-  %226 = phi ptr [ %233, %225 ], [ %221, %220 ]
-  %227 = phi i32 [ %231, %225 ], [ 0, %220 ]
-  %228 = load ptr, ptr %226, align 8, !tbaa !37
-  %229 = icmp eq ptr %228, null
-  %230 = zext i1 %229 to i32
-  %231 = add nuw nsw i32 %227, %230
-  %232 = getelementptr inbounds %struct._tagTreeCCParam, ptr %226, i64 0, i32 4
-  %233 = load ptr, ptr %232, align 8, !tbaa !11
-  %234 = icmp ne ptr %233, null
-  %235 = icmp ne ptr %233, %187
-  %236 = select i1 %234, i1 %235, i1 false
-  br i1 %236, label %225, label %237, !llvm.loop !46
+224:                                              ; preds = %219, %224
+  %225 = phi ptr [ %232, %224 ], [ %220, %219 ]
+  %226 = phi i32 [ %230, %224 ], [ 0, %219 ]
+  %227 = load ptr, ptr %225, align 8, !tbaa !37
+  %228 = icmp eq ptr %227, null
+  %229 = zext i1 %228 to i32
+  %230 = add nuw nsw i32 %226, %229
+  %231 = getelementptr inbounds %struct._tagTreeCCParam, ptr %225, i64 0, i32 4
+  %232 = load ptr, ptr %231, align 8, !tbaa !11
+  %233 = icmp ne ptr %232, null
+  %234 = icmp ne ptr %232, %186
+  %235 = select i1 %233, i1 %234, i1 false
+  br i1 %235, label %224, label %236, !llvm.loop !45
 
-237:                                              ; preds = %225, %220
-  %238 = phi i32 [ 0, %220 ], [ %231, %225 ]
-  %239 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %238) #4
-  %240 = load ptr, ptr %8, align 8, !tbaa !38
-  call void %240(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %4, i32 noundef 0, i32 noundef %215) #4
+236:                                              ; preds = %224, %219
+  %237 = phi i32 [ 0, %219 ], [ %230, %224 ]
+  %238 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %237) #4
+  %239 = load ptr, ptr %8, align 8, !tbaa !38
+  call void %239(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %4, i32 noundef 0, i32 noundef %214) #4
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %4) #4
-  br label %241
+  br label %240
 
-241:                                              ; preds = %237, %218
-  call fastcc void @GenerateMultiScan(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %1, ptr noundef %20, ptr noundef %184, i32 noundef 0, i32 noundef 1, ptr noundef nonnull %187, i32 noundef 0, ptr noundef %211) #5
-  %242 = load ptr, ptr %9, align 8, !tbaa !40
-  call void %242(ptr noundef %0, ptr noundef %41, i32 noundef 0) #4
-  br label %243
+240:                                              ; preds = %236, %217
+  call fastcc void @GenerateMultiScan(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %1, ptr noundef nonnull %20, ptr noundef %183, i32 noundef 0, i32 noundef 1, ptr noundef nonnull %186, i32 noundef 0, ptr noundef %210) #5
+  %241 = load ptr, ptr %9, align 8, !tbaa !40
+  call void %241(ptr noundef %0, ptr noundef %41, i32 noundef 0) #4
+  br label %242
 
-243:                                              ; preds = %241, %204, %202, %153
-  %244 = load ptr, ptr %10, align 8, !tbaa !41
+242:                                              ; preds = %152, %201, %203, %240, %146
+  %243 = load ptr, ptr %10, align 8, !tbaa !46
+  call void %243(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %20) #4
+  %244 = load ptr, ptr %13, align 8, !tbaa !47
   call void %244(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %20) #4
   br label %245
 
-245:                                              ; preds = %146, %243
-  %246 = load ptr, ptr %13, align 8, !tbaa !47
-  call void %246(ptr noundef %0, ptr noundef %41, ptr noundef nonnull %20) #4
-  br label %247
+245:                                              ; preds = %242, %19
+  %246 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 9
+  %247 = load ptr, ptr %246, align 8, !tbaa !11
+  %248 = icmp eq ptr %247, null
+  br i1 %248, label %249, label %19, !llvm.loop !48
 
-247:                                              ; preds = %245, %19
-  %248 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %20, i64 0, i32 9
-  %249 = load ptr, ptr %248, align 8, !tbaa !11
-  %250 = icmp eq ptr %249, null
-  br i1 %250, label %251, label %19, !llvm.loop !48
+249:                                              ; preds = %245, %14
+  %250 = add nuw nsw i64 %15, 1
+  %251 = icmp eq i64 %250, 512
+  br i1 %251, label %252, label %14, !llvm.loop !49
 
-251:                                              ; preds = %247, %14
-  %252 = add nuw nsw i64 %15, 1
-  %253 = icmp eq i64 %252, 512
-  br i1 %253, label %254, label %14, !llvm.loop !49
-
-254:                                              ; preds = %251
+252:                                              ; preds = %249
   ret void
 }
 
@@ -472,21 +467,21 @@ define internal fastcc void @GenerateSplitMultiSwitch(ptr noundef %0, ptr nounde
 12:                                               ; preds = %9, %18
   %13 = phi ptr [ %20, %18 ], [ %7, %9 ]
   %14 = getelementptr inbounds %struct._tagTreeCCParam, ptr %13, i64 0, i32 2
-  %15 = load i32, ptr %14, align 8, !tbaa !27
+  %15 = load i32, ptr %14, align 8, !tbaa !28
   %16 = and i32 %15, 1
   %17 = icmp eq i32 %16, 0
   br i1 %17, label %18, label %22
 
 18:                                               ; preds = %12
   %19 = getelementptr inbounds %struct._tagTreeCCParam, ptr %13, i64 0, i32 4
-  %20 = load ptr, ptr %19, align 8, !tbaa !32
+  %20 = load ptr, ptr %19, align 8, !tbaa !31
   %21 = icmp eq ptr %20, null
   br i1 %21, label %22, label %12, !llvm.loop !33
 
 22:                                               ; preds = %12, %18, %9
   %23 = phi ptr [ null, %9 ], [ null, %18 ], [ %13, %12 ]
   %24 = getelementptr inbounds %struct._tagTreeCCParam, ptr %23, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !29
+  %25 = load ptr, ptr %24, align 8, !tbaa !30
   %26 = tail call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %25) #4
   %27 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %3, i64 0, i32 6
   %28 = load i32, ptr %27, align 4, !tbaa !25
@@ -567,7 +562,7 @@ define internal fastcc void @GenerateSplitMultiSwitch(ptr noundef %0, ptr nounde
   %75 = load ptr, ptr %74, align 8, !tbaa !40
   call void %75(ptr noundef %0, ptr noundef %1, i32 noundef 0) #4
   %76 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 12
-  %77 = load ptr, ptr %76, align 8, !tbaa !41
+  %77 = load ptr, ptr %76, align 8, !tbaa !46
   call void %77(ptr noundef %0, ptr noundef %1, ptr noundef %3) #4
   ret void
 }
@@ -585,7 +580,7 @@ define internal fastcc ptr @GenerateSwitch(ptr noundef %0, ptr noundef %1, ptr n
   %13 = phi i32 [ %28, %23 ], [ 1, %6 ]
   %14 = phi i32 [ %24, %23 ], [ 0, %6 ]
   %15 = getelementptr inbounds %struct._tagTreeCCParam, ptr %12, i64 0, i32 2
-  %16 = load i32, ptr %15, align 8, !tbaa !27
+  %16 = load i32, ptr %15, align 8, !tbaa !28
   %17 = and i32 %16, 1
   %18 = icmp eq i32 %17, 0
   br i1 %18, label %23, label %19
@@ -618,14 +613,14 @@ define internal fastcc ptr @GenerateSwitch(ptr noundef %0, ptr noundef %1, ptr n
 
 37:                                               ; preds = %32
   %38 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 8
-  %39 = load ptr, ptr %38, align 8, !tbaa !44
+  %39 = load ptr, ptr %38, align 8, !tbaa !43
   %40 = add nsw i32 %5, -1
   tail call void %39(ptr noundef %0, ptr noundef %1, ptr noundef %4, i32 noundef %40) #4
   br label %47
 
 41:                                               ; preds = %32
   %42 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 7
-  %43 = load ptr, ptr %42, align 8, !tbaa !45
+  %43 = load ptr, ptr %42, align 8, !tbaa !44
   %44 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %4, i64 0, i32 3
   %45 = load i32, ptr %44, align 8, !tbaa !21
   %46 = add nsw i32 %5, -1
@@ -635,11 +630,11 @@ define internal fastcc ptr @GenerateSwitch(ptr noundef %0, ptr noundef %1, ptr n
 47:                                               ; preds = %41, %37
   %48 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %4, i64 0, i32 8
   %49 = load ptr, ptr %48, align 8, !tbaa !52
-  br label %141
+  br label %124
 
 50:                                               ; preds = %19
   %51 = getelementptr inbounds %struct._tagTreeCCParam, ptr %12, i64 0, i32 1
-  %52 = load ptr, ptr %51, align 8, !tbaa !29
+  %52 = load ptr, ptr %51, align 8, !tbaa !30
   %53 = tail call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %52) #4
   %54 = getelementptr inbounds %struct._tagTreeCCNode, ptr %53, i64 0, i32 5
   %55 = load i32, ptr %54, align 8, !tbaa !35
@@ -702,7 +697,7 @@ define internal fastcc ptr @GenerateSwitch(ptr noundef %0, ptr noundef %1, ptr n
   %91 = load ptr, ptr %73, align 8, !tbaa !60
   call void %91(ptr noundef %0, ptr noundef %1, i32 noundef %5) #4
   %92 = icmp eq ptr %90, null
-  br i1 %92, label %137, label %74
+  br i1 %92, label %120, label %74
 
 93:                                               ; preds = %67
   %94 = load ptr, ptr %4, align 8, !tbaa !11
@@ -744,39 +739,18 @@ define internal fastcc ptr @GenerateSwitch(ptr noundef %0, ptr noundef %1, ptr n
   %118 = call fastcc ptr @GenerateSwitch(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, ptr noundef nonnull %4, i32 noundef %72)
   %119 = load ptr, ptr %73, align 8, !tbaa !60
   call void %119(ptr noundef %0, ptr noundef %1, i32 noundef %5) #4
-  %120 = icmp eq ptr %118, null
-  br i1 %120, label %137, label %121
+  br label %120
 
-121:                                              ; preds = %116
-  %122 = load ptr, ptr %4, align 8, !tbaa !11
-  %123 = load ptr, ptr %118, align 8, !tbaa !11
-  %124 = load ptr, ptr %122, align 8, !tbaa !53
-  %125 = load ptr, ptr %123, align 8, !tbaa !53
-  %126 = icmp eq ptr %124, %125
-  br i1 %126, label %127, label %137
+120:                                              ; preds = %88, %116
+  %121 = phi ptr [ %118, %116 ], [ null, %88 ]
+  %122 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 11
+  %123 = load ptr, ptr %122, align 8, !tbaa !40
+  call void %123(ptr noundef %0, ptr noundef %1, i32 noundef %5) #4
+  br label %124
 
-127:                                              ; preds = %121, %127
-  %128 = phi ptr [ %132, %127 ], [ %123, %121 ]
-  %129 = phi ptr [ %133, %127 ], [ %122, %121 ]
-  %130 = getelementptr inbounds %struct._tagTreeCCTrigger, ptr %129, i64 0, i32 1
-  %131 = getelementptr inbounds %struct._tagTreeCCTrigger, ptr %128, i64 0, i32 1
-  %132 = load ptr, ptr %131, align 8, !tbaa !11
-  %133 = load ptr, ptr %130, align 8, !tbaa !11
-  %134 = load ptr, ptr %133, align 8, !tbaa !53
-  %135 = load ptr, ptr %132, align 8, !tbaa !53
-  %136 = icmp eq ptr %134, %135
-  br i1 %136, label %127, label %137
-
-137:                                              ; preds = %88, %127, %116, %121
-  %138 = phi ptr [ %118, %121 ], [ null, %116 ], [ %118, %127 ], [ null, %88 ]
-  %139 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 11
-  %140 = load ptr, ptr %139, align 8, !tbaa !40
-  call void %140(ptr noundef %0, ptr noundef %1, i32 noundef %5) #4
-  br label %141
-
-141:                                              ; preds = %137, %47
-  %142 = phi ptr [ %138, %137 ], [ %49, %47 ]
-  ret ptr %142
+124:                                              ; preds = %120, %47
+  %125 = phi ptr [ %121, %120 ], [ %49, %47 ]
+  ret ptr %125
 }
 
 ; Function Attrs: nounwind uwtable
@@ -788,16 +762,16 @@ define internal fastcc void @GenerateMultiSwitch(ptr noundef %0, ptr noundef %1,
 12:                                               ; preds = %9, %18
   %13 = phi ptr [ %20, %18 ], [ %7, %9 ]
   %14 = getelementptr inbounds %struct._tagTreeCCParam, ptr %13, i64 0, i32 2
-  %15 = load i32, ptr %14, align 8, !tbaa !27
+  %15 = load i32, ptr %14, align 8, !tbaa !28
   %16 = and i32 %15, 1
   %17 = icmp eq i32 %16, 0
   br i1 %17, label %18, label %40
 
 18:                                               ; preds = %12
   %19 = getelementptr inbounds %struct._tagTreeCCParam, ptr %13, i64 0, i32 4
-  %20 = load ptr, ptr %19, align 8, !tbaa !32
+  %20 = load ptr, ptr %19, align 8, !tbaa !31
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %22, label %12, !llvm.loop !43
+  br i1 %21, label %22, label %12, !llvm.loop !42
 
 22:                                               ; preds = %18, %9
   %23 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %3, i64 0, i32 5
@@ -811,14 +785,14 @@ define internal fastcc void @GenerateMultiSwitch(ptr noundef %0, ptr noundef %1,
 
 30:                                               ; preds = %22
   %31 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 8
-  %32 = load ptr, ptr %31, align 8, !tbaa !44
+  %32 = load ptr, ptr %31, align 8, !tbaa !43
   %33 = add nsw i32 %8, -1
   tail call void %32(ptr noundef %0, ptr noundef %1, ptr noundef %29, i32 noundef %33) #4
   br label %79
 
 34:                                               ; preds = %22
   %35 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 7
-  %36 = load ptr, ptr %35, align 8, !tbaa !45
+  %36 = load ptr, ptr %35, align 8, !tbaa !44
   %37 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %29, i64 0, i32 3
   %38 = load i32, ptr %37, align 8, !tbaa !21
   %39 = add nsw i32 %8, -1
@@ -827,7 +801,7 @@ define internal fastcc void @GenerateMultiSwitch(ptr noundef %0, ptr noundef %1,
 
 40:                                               ; preds = %12
   %41 = getelementptr inbounds %struct._tagTreeCCParam, ptr %13, i64 0, i32 1
-  %42 = load ptr, ptr %41, align 8, !tbaa !29
+  %42 = load ptr, ptr %41, align 8, !tbaa !30
   %43 = tail call ptr @TreeCCNodeFindByType(ptr noundef %0, ptr noundef %42) #4
   %44 = getelementptr inbounds %struct._tagTreeCCNode, ptr %43, i64 0, i32 5
   %45 = load i32, ptr %44, align 8, !tbaa !35
@@ -864,7 +838,7 @@ define internal fastcc void @GenerateMultiSwitch(ptr noundef %0, ptr noundef %1,
   %68 = icmp ne ptr %67, null
   %69 = icmp ne ptr %67, %13
   %70 = select i1 %68, i1 %69, i1 false
-  br i1 %70, label %59, label %71, !llvm.loop !46
+  br i1 %70, label %59, label %71, !llvm.loop !45
 
 71:                                               ; preds = %59, %53
   %72 = phi i32 [ 0, %53 ], [ %65, %59 ]
@@ -907,7 +881,7 @@ define internal fastcc void @GenerateSplitMultiScanFunc(ptr noundef %0, ptr noun
   %21 = load i32, ptr %20, align 4, !tbaa !63
   %22 = mul nsw i32 %21, %6
   %23 = getelementptr inbounds %struct._tagTreeCCParam, ptr %7, i64 0, i32 4
-  %24 = load ptr, ptr %23, align 8, !tbaa !32
+  %24 = load ptr, ptr %23, align 8, !tbaa !31
   %25 = add nsw i32 %8, 1
   tail call fastcc void @GenerateSplitMultiSwitch(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, ptr noundef %4, i32 noundef %19, i32 noundef %22, ptr noundef %24, i32 noundef %25)
   br label %26
@@ -970,13 +944,13 @@ define internal fastcc void @GenerateSplitMultiScan(ptr noundef %0, ptr noundef 
 
 35:                                               ; preds = %27
   %36 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 8
-  %37 = load ptr, ptr %36, align 8, !tbaa !44
+  %37 = load ptr, ptr %36, align 8, !tbaa !43
   tail call void %37(ptr noundef %0, ptr noundef %1, ptr noundef %34, i32 noundef 0) #4
   br label %49
 
 38:                                               ; preds = %27
   %39 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 7
-  %40 = load ptr, ptr %39, align 8, !tbaa !45
+  %40 = load ptr, ptr %39, align 8, !tbaa !44
   %41 = getelementptr inbounds %struct._tagTreeCCOperationCase, ptr %34, i64 0, i32 3
   %42 = load i32, ptr %41, align 8, !tbaa !21
   tail call void %40(ptr noundef %0, ptr noundef %1, ptr noundef %34, i32 noundef %42, i32 noundef 0) #4
@@ -1074,7 +1048,7 @@ define internal fastcc void @GenerateMultiScan(ptr noundef %0, ptr noundef %1, p
   %25 = load i32, ptr %24, align 4, !tbaa !63
   %26 = mul nsw i32 %25, %6
   %27 = getelementptr inbounds %struct._tagTreeCCParam, ptr %7, i64 0, i32 4
-  %28 = load ptr, ptr %27, align 8, !tbaa !32
+  %28 = load ptr, ptr %27, align 8, !tbaa !31
   %29 = add nsw i32 %8, 1
   tail call fastcc void @GenerateMultiSwitch(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, ptr noundef %4, i32 noundef %23, i32 noundef %26, ptr noundef %28, i32 noundef %29)
   %30 = getelementptr inbounds %struct.TreeCCNonVirtual, ptr %2, i64 0, i32 10
@@ -1136,27 +1110,27 @@ attributes #5 = { "function-inline-cost-multiplier"="2" }
 !23 = distinct !{!23, !24}
 !24 = !{!"llvm.loop.mustprogress"}
 !25 = !{!13, !10, i64 44}
-!26 = !{!13, !9, i64 88}
-!27 = !{!28, !10, i64 16}
-!28 = !{!"_tagTreeCCParam", !9, i64 0, !9, i64 8, !10, i64 16, !10, i64 20, !9, i64 24}
-!29 = !{!28, !9, i64 8}
-!30 = distinct !{!30, !24}
-!31 = !{!13, !9, i64 32}
-!32 = !{!28, !9, i64 24}
+!26 = !{!13, !9, i64 32}
+!27 = !{!13, !9, i64 88}
+!28 = !{!29, !10, i64 16}
+!29 = !{!"_tagTreeCCParam", !9, i64 0, !9, i64 8, !10, i64 16, !10, i64 20, !9, i64 24}
+!30 = !{!29, !9, i64 8}
+!31 = !{!29, !9, i64 24}
+!32 = distinct !{!32, !24}
 !33 = distinct !{!33, !24}
 !34 = !{!19, !9, i64 8}
 !35 = !{!36, !10, i64 40}
 !36 = !{!"_tagTreeCCNode", !9, i64 0, !9, i64 8, !9, i64 16, !9, i64 24, !9, i64 32, !10, i64 40, !10, i64 44, !10, i64 48, !9, i64 56, !14, i64 64, !9, i64 72, !9, i64 80, !9, i64 88, !9, i64 96, !9, i64 104}
-!37 = !{!28, !9, i64 0}
+!37 = !{!29, !9, i64 0}
 !38 = !{!19, !9, i64 24}
 !39 = distinct !{!39, !24}
 !40 = !{!19, !9, i64 88}
-!41 = !{!19, !9, i64 96}
-!42 = !{!13, !9, i64 72}
-!43 = distinct !{!43, !24}
-!44 = !{!19, !9, i64 64}
-!45 = !{!19, !9, i64 56}
-!46 = distinct !{!46, !24}
+!41 = !{!13, !9, i64 72}
+!42 = distinct !{!42, !24}
+!43 = !{!19, !9, i64 64}
+!44 = !{!19, !9, i64 56}
+!45 = distinct !{!45, !24}
+!46 = !{!19, !9, i64 96}
 !47 = !{!19, !9, i64 104}
 !48 = distinct !{!48, !24}
 !49 = distinct !{!49, !24}
@@ -1173,7 +1147,7 @@ attributes #5 = { "function-inline-cost-multiplier"="2" }
 !60 = !{!19, !9, i64 80}
 !61 = distinct !{!61, !24}
 !62 = !{!36, !10, i64 48}
-!63 = !{!28, !10, i64 20}
+!63 = !{!29, !10, i64 20}
 !64 = distinct !{!64, !24}
 !65 = !{!19, !9, i64 32}
 !66 = !{!19, !9, i64 72}

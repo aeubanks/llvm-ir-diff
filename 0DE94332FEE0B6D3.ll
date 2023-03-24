@@ -26,7 +26,7 @@ define dso_local { i64, i64 } @num_lshift(i64 %0, i64 %1, i32 noundef %2, i32 no
   %15 = select i1 %14, i64 0, i64 4294967296
   %16 = select i1 %12, i64 %15, i64 0
   %17 = or i64 %16, %11
-  br label %100
+  br label %96
 
 18:                                               ; preds = %4
   %19 = icmp ugt i32 %3, 31
@@ -63,85 +63,86 @@ define dso_local { i64, i64 } @num_lshift(i64 %0, i64 %1, i32 noundef %2, i32 no
   %42 = phi i32 [ %25, %27 ], [ %34, %30 ], [ %40, %35 ]
   %43 = phi i32 [ %25, %27 ], [ %34, %30 ], [ 0, %35 ]
   %44 = phi i32 [ %24, %27 ], [ %24, %30 ], [ %40, %35 ]
-  %45 = zext i32 %44 to i64
-  %46 = shl nuw i64 %45, 32
-  %47 = zext i32 %43 to i64
-  %48 = or i64 %46, %47
-  %49 = and i64 %1, 4294967295
-  %50 = icmp eq i64 %49, 0
-  br i1 %50, label %51, label %100
+  %45 = and i64 %1, 4294967295
+  %46 = icmp eq i64 %45, 0
+  br i1 %46, label %47, label %96
 
-51:                                               ; preds = %41
-  %52 = select i1 %26, i32 -33, i32 -1
-  %53 = add i32 %52, %2
-  %54 = shl nuw i32 1, %53
-  %55 = and i32 %42, %54
-  %56 = freeze i32 %55
-  %57 = icmp ne i32 %56, 0
-  %58 = sext i1 %57 to i32
-  %59 = icmp ult i32 %2, 32
-  br i1 %59, label %60, label %65
+47:                                               ; preds = %41
+  %48 = select i1 %26, i32 -33, i32 -1
+  %49 = add i32 %48, %2
+  %50 = shl nuw i32 1, %49
+  %51 = and i32 %42, %50
+  %52 = freeze i32 %51
+  %53 = icmp ne i32 %52, 0
+  %54 = sext i1 %53 to i32
+  %55 = icmp ult i32 %2, 32
+  br i1 %55, label %56, label %61
 
-60:                                               ; preds = %51
-  %61 = shl nsw i32 %58, %2
-  %62 = or i32 %61, %44
-  %63 = select i1 %19, i32 %58, i32 %62
-  %64 = tail call i32 @llvm.fshr.i32(i32 %58, i32 %63, i32 %21)
-  br label %86
+56:                                               ; preds = %47
+  %57 = shl nsw i32 %54, %2
+  %58 = or i32 %57, %44
+  %59 = select i1 %19, i32 %54, i32 %58
+  %60 = tail call i32 @llvm.fshr.i32(i32 %54, i32 %59, i32 %21)
+  br label %82
 
-65:                                               ; preds = %51
-  %66 = icmp ult i32 %2, 64
-  br i1 %66, label %67, label %75
+61:                                               ; preds = %47
+  %62 = icmp ult i32 %2, 64
+  br i1 %62, label %63, label %71
 
-67:                                               ; preds = %65
-  %68 = add nsw i32 %2, -32
-  %69 = shl nsw i32 %58, %68
-  %70 = or i32 %69, %43
-  %71 = freeze i32 %70
-  %72 = select i1 %19, i32 %58, i32 %71
-  %73 = select i1 %19, i32 %71, i32 %44
-  %74 = tail call i32 @llvm.fshr.i32(i32 %72, i32 %73, i32 %21)
-  br i1 %26, label %80, label %86
+63:                                               ; preds = %61
+  %64 = add nsw i32 %2, -32
+  %65 = shl nsw i32 %54, %64
+  %66 = or i32 %65, %43
+  %67 = freeze i32 %66
+  %68 = select i1 %19, i32 %54, i32 %67
+  %69 = select i1 %19, i32 %67, i32 %44
+  %70 = tail call i32 @llvm.fshr.i32(i32 %68, i32 %69, i32 %21)
+  br i1 %26, label %76, label %82
 
-75:                                               ; preds = %65
-  %76 = select i1 %19, i32 %58, i32 %43
-  %77 = select i1 %19, i32 %43, i32 %44
-  %78 = tail call i32 @llvm.fshr.i32(i32 %58, i32 %76, i32 %21)
-  %79 = tail call i32 @llvm.fshr.i32(i32 %76, i32 %77, i32 %21)
-  br label %93
+71:                                               ; preds = %61
+  %72 = select i1 %19, i32 %54, i32 %43
+  %73 = select i1 %19, i32 %43, i32 %44
+  %74 = tail call i32 @llvm.fshr.i32(i32 %54, i32 %72, i32 %21)
+  %75 = tail call i32 @llvm.fshr.i32(i32 %72, i32 %73, i32 %21)
+  br label %89
 
-80:                                               ; preds = %67
-  %81 = tail call i32 @llvm.fshr.i32(i32 %58, i32 %72, i32 %21)
-  %82 = add nsw i32 %2, -32
-  %83 = shl nsw i32 -1, %82
-  %84 = xor i32 %83, -1
-  %85 = and i32 %81, %84
-  br label %93
+76:                                               ; preds = %63
+  %77 = tail call i32 @llvm.fshr.i32(i32 %54, i32 %68, i32 %21)
+  %78 = add nsw i32 %2, -32
+  %79 = shl nsw i32 -1, %78
+  %80 = xor i32 %79, -1
+  %81 = and i32 %77, %80
+  br label %89
 
-86:                                               ; preds = %60, %67
-  %87 = phi i32 [ %64, %60 ], [ %74, %67 ]
-  %88 = icmp eq i32 %2, 32
-  %89 = shl nsw i32 -1, %2
-  %90 = xor i32 %89, -1
-  %91 = select i1 %88, i32 -1, i32 %90
-  %92 = and i32 %87, %91
-  br label %93
+82:                                               ; preds = %56, %63
+  %83 = phi i32 [ %60, %56 ], [ %70, %63 ]
+  %84 = icmp eq i32 %2, 32
+  %85 = shl nsw i32 -1, %2
+  %86 = xor i32 %85, -1
+  %87 = select i1 %84, i32 -1, i32 %86
+  %88 = and i32 %83, %87
+  br label %89
 
-93:                                               ; preds = %75, %80, %86
-  %94 = phi i32 [ %85, %80 ], [ %78, %75 ], [ 0, %86 ]
-  %95 = phi i32 [ %74, %80 ], [ %79, %75 ], [ %92, %86 ]
-  %96 = icmp ne i32 %95, %8
-  %97 = icmp ne i32 %94, %6
-  %98 = select i1 %96, i1 true, i1 %97
-  %99 = select i1 %98, i64 4294967296, i64 0
-  br label %100
+89:                                               ; preds = %71, %76, %82
+  %90 = phi i32 [ %81, %76 ], [ %74, %71 ], [ 0, %82 ]
+  %91 = phi i32 [ %70, %76 ], [ %75, %71 ], [ %88, %82 ]
+  %92 = icmp ne i32 %91, %8
+  %93 = icmp ne i32 %90, %6
+  %94 = select i1 %92, i1 true, i1 %93
+  %95 = select i1 %94, i64 4294967296, i64 0
+  br label %96
 
-100:                                              ; preds = %41, %93, %10
-  %101 = phi i64 [ %17, %10 ], [ %99, %93 ], [ %49, %41 ]
-  %102 = phi i64 [ 0, %10 ], [ %48, %93 ], [ %48, %41 ]
-  %103 = insertvalue { i64, i64 } poison, i64 %102, 0
-  %104 = insertvalue { i64, i64 } %103, i64 %101, 1
-  ret { i64, i64 } %104
+96:                                               ; preds = %41, %89, %10
+  %97 = phi i64 [ %17, %10 ], [ %95, %89 ], [ %45, %41 ]
+  %98 = phi i32 [ 0, %10 ], [ %43, %89 ], [ %43, %41 ]
+  %99 = phi i32 [ 0, %10 ], [ %44, %89 ], [ %44, %41 ]
+  %100 = zext i32 %99 to i64
+  %101 = shl nuw i64 %100, 32
+  %102 = zext i32 %98 to i64
+  %103 = or i64 %101, %102
+  %104 = insertvalue { i64, i64 } poison, i64 %103, 0
+  %105 = insertvalue { i64, i64 } %104, i64 %97, 1
+  ret { i64, i64 } %105
 }
 
 ; Function Attrs: noreturn nounwind uwtable

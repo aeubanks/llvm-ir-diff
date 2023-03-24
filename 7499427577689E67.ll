@@ -308,8 +308,8 @@ define dso_local void @TW_oldinput(ptr noundef %0) local_unnamed_addr #3 {
   %139 = fsub double %136, %138
   %140 = fcmp oge double %139, 5.000000e-01
   %141 = zext i1 %140 to i32
-  %142 = add nsw i32 %141, %137
-  %143 = sdiv i32 %142, -2
+  %142 = add nsw i32 %137, %141
+  %143 = sdiv i32 %142, 2
   %144 = sub nsw i32 %113, %111
   %145 = sitofp i32 %144 to double
   %146 = fdiv double %145, %133
@@ -318,17 +318,17 @@ define dso_local void @TW_oldinput(ptr noundef %0) local_unnamed_addr #3 {
   %149 = fsub double %146, %148
   %150 = fcmp oge double %149, 5.000000e-01
   %151 = zext i1 %150 to i32
-  %152 = add nsw i32 %151, %147
-  %153 = sdiv i32 %152, -2
-  %154 = insertelement <2 x i32> poison, i32 %153, i64 0
+  %152 = add nsw i32 %147, %151
+  %153 = sdiv i32 %152, 2
+  %154 = insertelement <2 x i32> poison, i32 %111, i64 0
   %155 = shufflevector <2 x i32> %154, <2 x i32> poison, <2 x i32> zeroinitializer
-  %156 = insertelement <2 x i32> poison, i32 %111, i64 0
-  %157 = shufflevector <2 x i32> %156, <2 x i32> poison, <2 x i32> zeroinitializer
-  %158 = insertelement <2 x double> poison, double %133, i64 0
-  %159 = shufflevector <2 x double> %158, <2 x double> poison, <2 x i32> zeroinitializer
-  %160 = insertelement <2 x i32> poison, i32 %143, i64 0
+  %156 = insertelement <2 x double> poison, double %133, i64 0
+  %157 = shufflevector <2 x double> %156, <2 x double> poison, <2 x i32> zeroinitializer
+  %158 = insertelement <2 x i32> poison, i32 %153, i64 0
+  %159 = shufflevector <2 x i32> %158, <2 x i32> poison, <2 x i32> zeroinitializer
+  %160 = insertelement <2 x i32> poison, i32 %115, i64 0
   %161 = shufflevector <2 x i32> %160, <2 x i32> poison, <2 x i32> zeroinitializer
-  %162 = insertelement <2 x i32> poison, i32 %115, i64 0
+  %162 = insertelement <2 x i32> poison, i32 %143, i64 0
   %163 = shufflevector <2 x i32> %162, <2 x i32> poison, <2 x i32> zeroinitializer
   br label %166
 
@@ -341,30 +341,30 @@ define dso_local void @TW_oldinput(ptr noundef %0) local_unnamed_addr #3 {
   %168 = getelementptr inbounds %struct.tilebox, ptr %167, i64 0, i32 13
   %169 = getelementptr inbounds %struct.tilebox, ptr %167, i64 0, i32 9
   %170 = load <2 x i32>, ptr %168, align 8, !tbaa !9
-  %171 = sub nsw <2 x i32> %170, %157
+  %171 = sub nsw <2 x i32> %170, %155
   %172 = sitofp <2 x i32> %171 to <2 x double>
-  %173 = fdiv <2 x double> %172, %159
+  %173 = fdiv <2 x double> %172, %157
   %174 = fptosi <2 x double> %173 to <2 x i32>
   %175 = sitofp <2 x i32> %174 to <2 x double>
   %176 = fsub <2 x double> %173, %175
   %177 = fcmp oge <2 x double> %176, <double 5.000000e-01, double 5.000000e-01>
   %178 = zext <2 x i1> %177 to <2 x i32>
-  %179 = add <2 x i32> %155, %174
-  %180 = add <2 x i32> %179, %178
+  %179 = add nsw <2 x i32> %174, %178
+  %180 = sub nsw <2 x i32> %179, %159
   store <2 x i32> %180, ptr %169, align 8, !tbaa !9
   %181 = getelementptr inbounds %struct.tilebox, ptr %167, i64 0, i32 15
   %182 = getelementptr inbounds %struct.tilebox, ptr %167, i64 0, i32 11
   %183 = load <2 x i32>, ptr %181, align 8, !tbaa !9
-  %184 = sub nsw <2 x i32> %183, %163
+  %184 = sub nsw <2 x i32> %183, %161
   %185 = sitofp <2 x i32> %184 to <2 x double>
-  %186 = fmul <2 x double> %159, %185
+  %186 = fmul <2 x double> %157, %185
   %187 = fptosi <2 x double> %186 to <2 x i32>
   %188 = sitofp <2 x i32> %187 to <2 x double>
   %189 = fsub <2 x double> %186, %188
   %190 = fcmp oge <2 x double> %189, <double 5.000000e-01, double 5.000000e-01>
   %191 = zext <2 x i1> %190 to <2 x i32>
-  %192 = add <2 x i32> %161, %187
-  %193 = add <2 x i32> %192, %191
+  %192 = add nsw <2 x i32> %187, %191
+  %193 = sub nsw <2 x i32> %192, %163
   store <2 x i32> %193, ptr %182, align 8, !tbaa !9
   %194 = load ptr, ptr %167, align 8, !tbaa !44
   %195 = icmp eq ptr %194, null
@@ -389,8 +389,8 @@ define dso_local void @TW_oldinput(ptr noundef %0) local_unnamed_addr #3 {
   %209 = fsub double %206, %208
   %210 = fcmp oge double %209, 5.000000e-01
   %211 = zext i1 %210 to i32
-  %212 = add i32 %153, %207
-  %213 = add i32 %212, %211
+  %212 = add nsw i32 %207, %211
+  %213 = sub nsw i32 %212, %153
   %214 = getelementptr inbounds %struct.termbox, ptr %201, i64 0, i32 1
   store i32 %213, ptr %214, align 8, !tbaa !48
   %215 = getelementptr inbounds %struct.termbox, ptr %201, i64 0, i32 4
@@ -403,8 +403,8 @@ define dso_local void @TW_oldinput(ptr noundef %0) local_unnamed_addr #3 {
   %222 = fsub double %219, %221
   %223 = fcmp oge double %222, 5.000000e-01
   %224 = zext i1 %223 to i32
-  %225 = add i32 %143, %220
-  %226 = add i32 %225, %224
+  %225 = add nsw i32 %220, %224
+  %226 = sub nsw i32 %225, %143
   %227 = getelementptr inbounds %struct.termbox, ptr %201, i64 0, i32 2
   store i32 %226, ptr %227, align 4, !tbaa !50
   %228 = load ptr, ptr %201, align 8, !tbaa !51
@@ -424,8 +424,8 @@ define dso_local void @TW_oldinput(ptr noundef %0) local_unnamed_addr #3 {
   %240 = fsub double %237, %239
   %241 = fcmp oge double %240, 5.000000e-01
   %242 = zext i1 %241 to i32
-  %243 = add i32 %153, %238
-  %244 = add i32 %243, %242
+  %243 = add nsw i32 %238, %242
+  %244 = sub nsw i32 %243, %153
   %245 = getelementptr inbounds %struct.locbox, ptr %119, i64 %232
   store i32 %244, ptr %245, align 4, !tbaa !55
   %246 = load i32, ptr %4, align 4, !tbaa !9
@@ -440,8 +440,8 @@ define dso_local void @TW_oldinput(ptr noundef %0) local_unnamed_addr #3 {
   %255 = fsub double %252, %254
   %256 = fcmp oge double %255, 5.000000e-01
   %257 = zext i1 %256 to i32
-  %258 = add i32 %143, %253
-  %259 = add i32 %258, %257
+  %258 = add nsw i32 %253, %257
+  %259 = sub nsw i32 %258, %143
   %260 = getelementptr inbounds %struct.locbox, ptr %119, i64 %247, i32 1
   store i32 %259, ptr %260, align 4, !tbaa !57
   %261 = load i32, ptr %4, align 4, !tbaa !9

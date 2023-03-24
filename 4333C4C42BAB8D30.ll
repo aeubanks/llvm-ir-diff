@@ -518,10 +518,10 @@ define hidden void @_ZN9benchmark14MinimalLeastSqERKSt6vectorIlSaIlEERKS0_IdSaId
   %160 = phi double [ 0.000000e+00, %26 ], [ %69, %155 ]
   %161 = phi double [ 0.000000e+00, %26 ], [ %156, %155 ]
   %162 = phi double [ 0.000000e+00, %26 ], [ %157, %155 ]
-  %163 = fdiv double %160, %162
-  %164 = fdiv double %161, %162
-  %165 = tail call double @sqrt(double noundef %164) #21, !noalias !33
-  %166 = fdiv double %165, %163
+  %163 = fdiv double %161, %162
+  %164 = tail call double @sqrt(double noundef %163) #21, !noalias !33
+  %165 = fdiv double %160, %162
+  %166 = fdiv double %164, %165
   store double %159, ptr %0, align 8, !tbaa.struct !39
   %167 = getelementptr inbounds i8, ptr %0, i64 8
   store double %166, ptr %167, align 8, !tbaa.struct !41
@@ -618,7 +618,7 @@ define hidden void @_ZN9benchmark14MinimalLeastSqERKSt6vectorIlSaIlEERKS0_IdSaId
   %238 = icmp ult i64 %231, %237
   br i1 %238, label %216, label %239, !llvm.loop !29
 
-239:                                              ; preds = %223, %186, %181
+239:                                              ; preds = %223, %181, %186
   %240 = phi double [ %189, %186 ], [ 0x7FF8000000000000, %181 ], [ %189, %223 ]
   %241 = phi double [ %203, %186 ], [ 0.000000e+00, %181 ], [ %203, %223 ]
   %242 = phi double [ 0.000000e+00, %186 ], [ 0.000000e+00, %181 ], [ %230, %223 ]
@@ -1240,10 +1240,10 @@ define hidden void @_ZN9benchmark11ComputeBigOERKSt6vectorINS_17BenchmarkReporte
   %298 = phi double [ 0.000000e+00, %239 ], [ %292, %286 ]
   %299 = phi i64 [ 0, %239 ], [ %257, %286 ]
   %300 = uitofp i64 %299 to double
-  %301 = fdiv double %297, %300
-  %302 = fdiv double %298, %300
-  %303 = tail call double @sqrt(double noundef %302) #21, !noalias !76
-  %304 = fdiv double %303, %301
+  %301 = fdiv double %298, %300
+  %302 = tail call double @sqrt(double noundef %301) #21, !noalias !76
+  %303 = fdiv double %297, %300
+  %304 = fdiv double %302, %303
   %305 = insertelement <2 x double> poison, double %304, i64 0
   %306 = insertelement <2 x double> %305, double %248, i64 1
   br label %331
@@ -1826,7 +1826,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %40, ptr align 1 %31, i64 %33, i1 false)
   br label %44
 
-44:                                               ; preds = %43, %41, %39
+44:                                               ; preds = %39, %41, %43
   %45 = load i64, ptr %8, align 8, !tbaa !22
   %46 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 1
   store i64 %45, ptr %46, align 8, !tbaa !11
@@ -1872,7 +1872,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %61, ptr align 1 %52, i64 %54, i1 false)
   br label %65
 
-65:                                               ; preds = %64, %62, %60
+65:                                               ; preds = %60, %62, %64
   %66 = load i64, ptr %7, align 8, !tbaa !22
   %67 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 1
   store i64 %66, ptr %67, align 8, !tbaa !11
@@ -1918,7 +1918,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %82, ptr align 1 %73, i64 %75, i1 false)
   br label %86
 
-86:                                               ; preds = %85, %83, %81
+86:                                               ; preds = %81, %83, %85
   %87 = load i64, ptr %6, align 8, !tbaa !22
   %88 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 1
   store i64 %87, ptr %88, align 8, !tbaa !11
@@ -1964,7 +1964,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %103, ptr align 1 %94, i64 %96, i1 false)
   br label %107
 
-107:                                              ; preds = %106, %104, %102
+107:                                              ; preds = %102, %104, %106
   %108 = load i64, ptr %5, align 8, !tbaa !22
   %109 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 1
   store i64 %108, ptr %109, align 8, !tbaa !11
@@ -2010,7 +2010,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %124, ptr align 1 %115, i64 %117, i1 false)
   br label %128
 
-128:                                              ; preds = %127, %125, %123
+128:                                              ; preds = %123, %125, %127
   %129 = load i64, ptr %4, align 8, !tbaa !22
   %130 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 1
   store i64 %129, ptr %130, align 8, !tbaa !11
@@ -2056,7 +2056,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %145, ptr align 1 %136, i64 %138, i1 false)
   br label %149
 
-149:                                              ; preds = %148, %146, %144
+149:                                              ; preds = %144, %146, %148
   %150 = load i64, ptr %3, align 8, !tbaa !22
   %151 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 1
   store i64 %150, ptr %151, align 8, !tbaa !11
@@ -2752,7 +2752,7 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark17BenchmarkReporter3Run
   tail call void @_ZdlPv(ptr noundef nonnull %28) #23
   br label %64
 
-64:                                               ; preds = %63, %60
+64:                                               ; preds = %60, %63
   invoke void @__cxa_rethrow() #24
           to label %69 unwind label %61
 
@@ -2818,7 +2818,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %21, ptr align 1 %12, i64 %14, i1 false)
   br label %25
 
-25:                                               ; preds = %24, %22, %20
+25:                                               ; preds = %20, %22, %24
   %26 = load i64, ptr %6, align 8, !tbaa !22
   %27 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4, i32 1
   store i64 %26, ptr %27, align 8, !tbaa !11
@@ -2868,7 +2868,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %45, ptr align 1 %36, i64 %38, i1 false)
   br label %49
 
-49:                                               ; preds = %48, %46, %44
+49:                                               ; preds = %44, %46, %48
   %50 = load i64, ptr %5, align 8, !tbaa !22
   %51 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6, i32 1
   store i64 %50, ptr %51, align 8, !tbaa !11
@@ -2918,7 +2918,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %69, ptr align 1 %60, i64 %62, i1 false)
   br label %73
 
-73:                                               ; preds = %72, %70, %68
+73:                                               ; preds = %68, %70, %72
   %74 = load i64, ptr %4, align 8, !tbaa !22
   %75 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8, i32 1
   store i64 %74, ptr %75, align 8, !tbaa !11
@@ -3173,7 +3173,7 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
 
 11:                                               ; preds = %3
   %12 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef 0)
-          to label %13 unwind label %20
+          to label %13 unwind label %27
 
 13:                                               ; preds = %11
   store ptr %12, ptr %5, align 8, !tbaa !80
@@ -3185,57 +3185,57 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
   %16 = phi ptr [ %12, %13 ], [ %6, %3 ]
   switch i64 %9, label %19 [
     i64 1, label %17
-    i64 0, label %26
+    i64 0, label %20
   ]
 
 17:                                               ; preds = %15
   %18 = load i8, ptr %7, align 1, !tbaa !10
   store i8 %18, ptr %16, align 1, !tbaa !10
-  br label %26
+  br label %20
 
 19:                                               ; preds = %15
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %16, ptr align 1 %7, i64 %9, i1 false)
-  br label %26
+  br label %20
 
-20:                                               ; preds = %11
-  %21 = landingpad { ptr, i32 }
+20:                                               ; preds = %15, %17, %19
+  %21 = load i64, ptr %4, align 8, !tbaa !22
+  %22 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
+  store i64 %21, ptr %22, align 8, !tbaa !11
+  %23 = load ptr, ptr %5, align 8, !tbaa !80
+  %24 = getelementptr inbounds i8, ptr %23, i64 %21
+  store i8 0, ptr %24, align 1, !tbaa !10
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #21
+  %25 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
+  %26 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %25, ptr noundef nonnull align 8 dereferenceable(16) %26, i64 16, i1 false), !tbaa.struct !111
+  ret void
+
+27:                                               ; preds = %11
+  %28 = landingpad { ptr, i32 }
           catch ptr null
-  %22 = extractvalue { ptr, i32 } %21, 0
-  %23 = call ptr @__cxa_begin_catch(ptr %22) #21
+  %29 = extractvalue { ptr, i32 } %28, 0
+  %30 = call ptr @__cxa_begin_catch(ptr %29) #21
   call void @_ZdlPv(ptr noundef nonnull %1) #23
   invoke void @__cxa_rethrow() #24
-          to label %37 unwind label %24
+          to label %37 unwind label %31
 
-24:                                               ; preds = %20
-  %25 = landingpad { ptr, i32 }
+31:                                               ; preds = %27
+  %32 = landingpad { ptr, i32 }
           cleanup
   invoke void @__cxa_end_catch()
           to label %33 unwind label %34
 
-26:                                               ; preds = %19, %17, %15
-  %27 = load i64, ptr %4, align 8, !tbaa !22
-  %28 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
-  store i64 %27, ptr %28, align 8, !tbaa !11
-  %29 = load ptr, ptr %5, align 8, !tbaa !80
-  %30 = getelementptr inbounds i8, ptr %29, i64 %27
-  store i8 0, ptr %30, align 1, !tbaa !10
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #21
-  %31 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
-  %32 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %31, ptr noundef nonnull align 8 dereferenceable(16) %32, i64 16, i1 false), !tbaa.struct !111
-  ret void
+33:                                               ; preds = %31
+  resume { ptr, i32 } %32
 
-33:                                               ; preds = %24
-  resume { ptr, i32 } %25
-
-34:                                               ; preds = %24
+34:                                               ; preds = %31
   %35 = landingpad { ptr, i32 }
           catch ptr null
   %36 = extractvalue { ptr, i32 } %35, 0
   call void @__clang_call_terminate(ptr %36) #25
   unreachable
 
-37:                                               ; preds = %20
+37:                                               ; preds = %27
   unreachable
 }
 

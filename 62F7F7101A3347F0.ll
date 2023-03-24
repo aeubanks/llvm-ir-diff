@@ -477,7 +477,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   tail call void %70(ptr noundef nonnull %0) #6
   br label %71
 
-71:                                               ; preds = %53, %63
+71:                                               ; preds = %63, %53
   store i32 %59, ptr %3, align 4, !tbaa !5
   store ptr %57, ptr %26, align 8, !tbaa !21
   store i64 %56, ptr %27, align 8, !tbaa !23
@@ -611,7 +611,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   store i32 %78, ptr %111, align 4, !tbaa !17
   %112 = load ptr, ptr %0, align 8, !tbaa !13
   %113 = load ptr, ptr %112, align 8, !tbaa !42
-  tail call void %113(ptr noundef nonnull %0) #6
+  tail call void %113(ptr noundef %0) #6
   br label %1318
 
 114:                                              ; preds = %77
@@ -960,7 +960,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   store i32 84, ptr %350, align 8, !tbaa !14
   %351 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %349, i64 0, i32 1
   %352 = load ptr, ptr %351, align 8, !tbaa !18
-  tail call void %352(ptr noundef nonnull %0, i32 noundef 1) #6
+  tail call void %352(ptr noundef %0, i32 noundef 1) #6
   store i32 0, ptr %3, align 4, !tbaa !5
   br label %1319
 
@@ -1150,7 +1150,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %474 = load ptr, ptr %473, align 8, !tbaa !24
   %475 = tail call i32 %474(ptr noundef nonnull %0) #6
   %476 = icmp eq i32 %475, 0
-  br i1 %476, label %890, label %477
+  br i1 %476, label %893, label %477
 
 477:                                              ; preds = %472
   %478 = load i64, ptr %469, align 8, !tbaa !23
@@ -1172,7 +1172,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %490 = load ptr, ptr %489, align 8, !tbaa !24
   %491 = tail call i32 %490(ptr noundef nonnull %0) #6
   %492 = icmp eq i32 %491, 0
-  br i1 %492, label %890, label %493
+  br i1 %492, label %893, label %493
 
 493:                                              ; preds = %488
   %494 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1188,7 +1188,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %502 = zext i8 %501 to i64
   %503 = or i64 %486, %502
   %504 = icmp ugt i64 %503, 2
-  br i1 %504, label %505, label %891
+  br i1 %504, label %505, label %890
 
 505:                                              ; preds = %496
   %506 = add nsw i64 %503, -2
@@ -1206,7 +1206,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %514 = load ptr, ptr %507, align 8, !tbaa !24
   %515 = tail call i32 %514(ptr noundef %0) #6
   %516 = icmp eq i32 %515, 0
-  br i1 %516, label %890, label %517
+  br i1 %516, label %893, label %517
 
 517:                                              ; preds = %513
   %518 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1236,7 +1236,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %535 = load ptr, ptr %507, align 8, !tbaa !24
   %536 = tail call i32 %535(ptr noundef nonnull %0) #6
   %537 = icmp eq i32 %536, 0
-  br i1 %537, label %890, label %538
+  br i1 %537, label %893, label %538
 
 538:                                              ; preds = %534
   %539 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1257,7 +1257,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %550 = load ptr, ptr %507, align 8, !tbaa !24
   %551 = tail call i32 %550(ptr noundef nonnull %0) #6
   %552 = icmp eq i32 %551, 0
-  br i1 %552, label %890, label %553
+  br i1 %552, label %893, label %553
 
 553:                                              ; preds = %549
   %554 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1279,7 +1279,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %566 = load ptr, ptr %507, align 8, !tbaa !24
   %567 = tail call i32 %566(ptr noundef nonnull %0) #6
   %568 = icmp eq i32 %567, 0
-  br i1 %568, label %890, label %569
+  br i1 %568, label %893, label %569
 
 569:                                              ; preds = %565
   %570 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1301,7 +1301,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %582 = load ptr, ptr %507, align 8, !tbaa !24
   %583 = tail call i32 %582(ptr noundef nonnull %0) #6
   %584 = icmp eq i32 %583, 0
-  br i1 %584, label %890, label %585
+  br i1 %584, label %893, label %585
 
 585:                                              ; preds = %581
   %586 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1323,7 +1323,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %598 = load ptr, ptr %507, align 8, !tbaa !24
   %599 = tail call i32 %598(ptr noundef nonnull %0) #6
   %600 = icmp eq i32 %599, 0
-  br i1 %600, label %890, label %601
+  br i1 %600, label %893, label %601
 
 601:                                              ; preds = %597
   %602 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1345,7 +1345,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %614 = load ptr, ptr %507, align 8, !tbaa !24
   %615 = tail call i32 %614(ptr noundef nonnull %0) #6
   %616 = icmp eq i32 %615, 0
-  br i1 %616, label %890, label %617
+  br i1 %616, label %893, label %617
 
 617:                                              ; preds = %613
   %618 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1367,7 +1367,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %630 = load ptr, ptr %507, align 8, !tbaa !24
   %631 = tail call i32 %630(ptr noundef nonnull %0) #6
   %632 = icmp eq i32 %631, 0
-  br i1 %632, label %890, label %633
+  br i1 %632, label %893, label %633
 
 633:                                              ; preds = %629
   %634 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1389,7 +1389,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %646 = load ptr, ptr %507, align 8, !tbaa !24
   %647 = tail call i32 %646(ptr noundef nonnull %0) #6
   %648 = icmp eq i32 %647, 0
-  br i1 %648, label %890, label %649
+  br i1 %648, label %893, label %649
 
 649:                                              ; preds = %645
   %650 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1411,7 +1411,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %662 = load ptr, ptr %507, align 8, !tbaa !24
   %663 = tail call i32 %662(ptr noundef nonnull %0) #6
   %664 = icmp eq i32 %663, 0
-  br i1 %664, label %890, label %665
+  br i1 %664, label %893, label %665
 
 665:                                              ; preds = %661
   %666 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1433,7 +1433,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %678 = load ptr, ptr %507, align 8, !tbaa !24
   %679 = tail call i32 %678(ptr noundef nonnull %0) #6
   %680 = icmp eq i32 %679, 0
-  br i1 %680, label %890, label %681
+  br i1 %680, label %893, label %681
 
 681:                                              ; preds = %677
   %682 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1455,7 +1455,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %694 = load ptr, ptr %507, align 8, !tbaa !24
   %695 = tail call i32 %694(ptr noundef nonnull %0) #6
   %696 = icmp eq i32 %695, 0
-  br i1 %696, label %890, label %697
+  br i1 %696, label %893, label %697
 
 697:                                              ; preds = %693
   %698 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1477,7 +1477,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %710 = load ptr, ptr %507, align 8, !tbaa !24
   %711 = tail call i32 %710(ptr noundef nonnull %0) #6
   %712 = icmp eq i32 %711, 0
-  br i1 %712, label %890, label %713
+  br i1 %712, label %893, label %713
 
 713:                                              ; preds = %709
   %714 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1499,7 +1499,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %726 = load ptr, ptr %507, align 8, !tbaa !24
   %727 = tail call i32 %726(ptr noundef nonnull %0) #6
   %728 = icmp eq i32 %727, 0
-  br i1 %728, label %890, label %729
+  br i1 %728, label %893, label %729
 
 729:                                              ; preds = %725
   %730 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1521,7 +1521,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %742 = load ptr, ptr %507, align 8, !tbaa !24
   %743 = tail call i32 %742(ptr noundef nonnull %0) #6
   %744 = icmp eq i32 %743, 0
-  br i1 %744, label %890, label %745
+  br i1 %744, label %893, label %745
 
 745:                                              ; preds = %741
   %746 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1543,7 +1543,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %758 = load ptr, ptr %507, align 8, !tbaa !24
   %759 = tail call i32 %758(ptr noundef nonnull %0) #6
   %760 = icmp eq i32 %759, 0
-  br i1 %760, label %890, label %761
+  br i1 %760, label %893, label %761
 
 761:                                              ; preds = %757
   %762 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1565,7 +1565,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %774 = load ptr, ptr %507, align 8, !tbaa !24
   %775 = tail call i32 %774(ptr noundef nonnull %0) #6
   %776 = icmp eq i32 %775, 0
-  br i1 %776, label %890, label %777
+  br i1 %776, label %893, label %777
 
 777:                                              ; preds = %773
   %778 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1654,7 +1654,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %829 = load ptr, ptr %507, align 8, !tbaa !24
   %830 = tail call i32 %829(ptr noundef nonnull %0) #6
   %831 = icmp eq i32 %830, 0
-  br i1 %831, label %890, label %832
+  br i1 %831, label %893, label %832
 
 832:                                              ; preds = %828
   %833 = load ptr, ptr %468, align 8, !tbaa !21
@@ -1749,19 +1749,19 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %888 = getelementptr inbounds %struct.JHUFF_TBL, ptr %887, i64 0, i32 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(256) %888, ptr noundef nonnull align 16 dereferenceable(256) %2, i64 256, i1 false)
   %889 = icmp sgt i64 %847, 0
-  br i1 %889, label %508, label %891, !llvm.loop !65
+  br i1 %889, label %508, label %890, !llvm.loop !65
 
-890:                                              ; preds = %472, %488, %773, %757, %741, %725, %709, %693, %677, %661, %645, %629, %613, %597, %581, %565, %549, %534, %513, %828
-  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %2) #6
-  br label %1319
-
-891:                                              ; preds = %869, %496
-  %892 = phi ptr [ %500, %496 ], [ %845, %869 ]
-  %893 = phi i64 [ %499, %496 ], [ %846, %869 ]
-  store ptr %892, ptr %468, align 8, !tbaa !21
-  store i64 %893, ptr %469, align 8, !tbaa !23
+890:                                              ; preds = %869, %496
+  %891 = phi ptr [ %500, %496 ], [ %845, %869 ]
+  %892 = phi i64 [ %499, %496 ], [ %846, %869 ]
+  store ptr %891, ptr %468, align 8, !tbaa !21
+  store i64 %892, ptr %469, align 8, !tbaa !23
   call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %2) #6
   br label %1318
+
+893:                                              ; preds = %488, %472, %773, %757, %741, %725, %709, %693, %677, %661, %645, %629, %613, %597, %581, %565, %549, %534, %513, %828
+  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %2) #6
+  br label %1319
 
 894:                                              ; preds = %77
   %895 = load ptr, ptr %5, align 8, !tbaa !20
@@ -2231,7 +2231,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %1225 = load i64, ptr %1159, align 8, !tbaa !23
   br label %1226
 
-1226:                                             ; preds = %1209, %1223
+1226:                                             ; preds = %1223, %1209
   %1227 = phi ptr [ %1224, %1223 ], [ %1213, %1209 ]
   %1228 = phi i64 [ %1225, %1223 ], [ %1212, %1209 ]
   %1229 = add i64 %1228, -1
@@ -2280,7 +2280,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %1258 = load ptr, ptr %0, align 8, !tbaa !13
   %1259 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1258, i64 0, i32 1
   %1260 = load ptr, ptr %1259, align 8, !tbaa !18
-  tail call void %1260(ptr noundef nonnull %0, i32 noundef 1) #6
+  tail call void %1260(ptr noundef %0, i32 noundef 1) #6
   br label %1318
 
 1261:                                             ; preds = %77
@@ -2324,7 +2324,7 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   %1289 = load i64, ptr %1263, align 8, !tbaa !23
   br label %1290
 
-1290:                                             ; preds = %1273, %1287
+1290:                                             ; preds = %1287, %1273
   %1291 = phi ptr [ %1288, %1287 ], [ %1277, %1273 ]
   %1292 = phi i64 [ %1289, %1287 ], [ %1276, %1273 ]
   %1293 = add i64 %1292, -1
@@ -2363,15 +2363,15 @@ define internal i32 @read_markers(ptr noundef %0) #0 {
   store i32 %78, ptr %1315, align 4, !tbaa !17
   %1316 = load ptr, ptr %0, align 8, !tbaa !13
   %1317 = load ptr, ptr %1316, align 8, !tbaa !42
-  tail call void %1317(ptr noundef nonnull %0) #6
+  tail call void %1317(ptr noundef %0) #6
   br label %1318
 
-1318:                                             ; preds = %1290, %1226, %1154, %891, %464, %93, %1248, %1240, %105, %102, %99, %96, %1312, %1254, %108
+1318:                                             ; preds = %1290, %1226, %1154, %890, %464, %93, %1248, %1240, %105, %102, %99, %96, %1312, %1254, %108
   store i32 0, ptr %3, align 4, !tbaa !5
   br label %17
 
-1319:                                             ; preds = %1282, %1266, %1218, %1201, %1178, %1162, %915, %899, %374, %358, %45, %30, %1248, %1240, %105, %102, %99, %96, %72, %940, %414, %399, %1011, %1027, %986, %223, %208, %312, %295, %278, %163, %146, %129, %890, %348, %320
-  %1320 = phi i32 [ 2, %348 ], [ 1, %320 ], [ 0, %890 ], [ 0, %129 ], [ 0, %146 ], [ 0, %163 ], [ 0, %278 ], [ 0, %295 ], [ 0, %312 ], [ 0, %208 ], [ 0, %223 ], [ 0, %986 ], [ 0, %1027 ], [ 0, %1011 ], [ 0, %399 ], [ 0, %414 ], [ 0, %940 ], [ 0, %72 ], [ 0, %96 ], [ 0, %99 ], [ 0, %102 ], [ 0, %105 ], [ 0, %1240 ], [ 0, %1248 ], [ 0, %30 ], [ 0, %45 ], [ 0, %358 ], [ 0, %374 ], [ 0, %899 ], [ 0, %915 ], [ 0, %1162 ], [ 0, %1178 ], [ 0, %1201 ], [ 0, %1218 ], [ 0, %1266 ], [ 0, %1282 ]
+1319:                                             ; preds = %1266, %1282, %1162, %1178, %1201, %1218, %899, %915, %358, %374, %30, %45, %1248, %1240, %105, %102, %99, %96, %72, %940, %399, %414, %1011, %1027, %986, %208, %223, %129, %146, %163, %278, %295, %312, %893, %348, %320
+  %1320 = phi i32 [ 0, %893 ], [ 2, %348 ], [ 1, %320 ], [ 0, %312 ], [ 0, %295 ], [ 0, %278 ], [ 0, %163 ], [ 0, %146 ], [ 0, %129 ], [ 0, %223 ], [ 0, %208 ], [ 0, %986 ], [ 0, %1027 ], [ 0, %1011 ], [ 0, %414 ], [ 0, %399 ], [ 0, %940 ], [ 0, %72 ], [ 0, %96 ], [ 0, %99 ], [ 0, %102 ], [ 0, %105 ], [ 0, %1240 ], [ 0, %1248 ], [ 0, %45 ], [ 0, %30 ], [ 0, %374 ], [ 0, %358 ], [ 0, %915 ], [ 0, %899 ], [ 0, %1218 ], [ 0, %1201 ], [ 0, %1178 ], [ 0, %1162 ], [ 0, %1282 ], [ 0, %1266 ]
   ret i32 %1320
 }
 

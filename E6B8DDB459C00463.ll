@@ -408,7 +408,7 @@ define dso_local i32 @GET_EXPRESSION(ptr noundef %0, i32 noundef %1, i32 noundef
 19:                                               ; preds = %18, %18, %14
   store i32 1, ptr %4, align 4, !tbaa !14
   %20 = tail call i32 @GET_NUM(ptr noundef nonnull %0, i32 noundef %1, i32 noundef 10)
-  br label %192
+  br label %118
 
 21:                                               ; preds = %18
   %22 = getelementptr inbounds i8, ptr %11, i64 1
@@ -457,7 +457,7 @@ define dso_local i32 @GET_EXPRESSION(ptr noundef %0, i32 noundef %1, i32 noundef
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(55) %6, ptr noundef nonnull align 1 dereferenceable(55) @.str.8, i64 55, i1 false)
   call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef nonnull %6) #16
   call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %6) #16
-  br label %192
+  br label %118
 
 49:                                               ; preds = %44
   %50 = load ptr, ptr %0, align 8, !tbaa !11
@@ -474,12 +474,12 @@ define dso_local i32 @GET_EXPRESSION(ptr noundef %0, i32 noundef %1, i32 noundef
   tail call void @free(ptr noundef %56) #16
   %58 = load ptr, ptr %0, align 8, !tbaa !11
   store i8 %52, ptr %58, align 1, !tbaa !5
-  br label %192
+  br label %118
 
 59:                                               ; preds = %25
   %60 = getelementptr inbounds i8, ptr %28, i64 1
   store ptr %60, ptr %0, align 8, !tbaa !11
-  br label %192
+  br label %118
 
 61:                                               ; preds = %18, %5, %21
   call void @llvm.lifetime.start.p0(i64 9, ptr nonnull %7) #16
@@ -497,7 +497,7 @@ define dso_local i32 @GET_EXPRESSION(ptr noundef %0, i32 noundef %1, i32 noundef
   %70 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %69, ptr noundef nonnull dereferenceable(1) @.str.11, ptr noundef %65) #16
   call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef %69) #16
   call void @free(ptr noundef %69) #16
-  br label %190
+  br label %116
 
 71:                                               ; preds = %61
   %72 = call ptr (ptr, ptr, ptr, ...) @LOOK_UP_SYMBOL(ptr noundef nonnull @MODULE_NAME, ptr noundef nonnull %7, ptr noundef %3) #16
@@ -515,7 +515,7 @@ define dso_local i32 @GET_EXPRESSION(ptr noundef %0, i32 noundef %1, i32 noundef
   %82 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %78, ptr noundef nonnull dereferenceable(1) %81, ptr noundef nonnull %7) #16
   call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef %78) #16
   call void @free(ptr noundef %78) #16
-  br label %190
+  br label %116
 
 83:                                               ; preds = %71
   %84 = load i32, ptr %4, align 4, !tbaa !14
@@ -532,15 +532,15 @@ define dso_local i32 @GET_EXPRESSION(ptr noundef %0, i32 noundef %1, i32 noundef
   store i32 1, ptr %4, align 4, !tbaa !14
   %91 = getelementptr inbounds %struct.SYMBOL_TABLE_ENTRY, ptr %72, i64 0, i32 2
   %92 = load i32, ptr %91, align 4, !tbaa !19
-  br label %190
+  br label %116
 
 93:                                               ; preds = %88
   %94 = icmp eq i32 %84, 1
-  br i1 %94, label %183, label %95
+  br i1 %94, label %109, label %95
 
 95:                                               ; preds = %83, %93
-  switch i32 %87, label %179 [
-    i32 1, label %183
+  switch i32 %87, label %105 [
+    i32 1, label %109
     i32 2, label %96
   ]
 
@@ -548,144 +548,54 @@ define dso_local i32 @GET_EXPRESSION(ptr noundef %0, i32 noundef %1, i32 noundef
   call void @llvm.lifetime.start.p0(i64 17, ptr nonnull %8) #16
   call void @llvm.lifetime.start.p0(i64 9, ptr nonnull %9) #16
   call void @llvm.lifetime.start.p0(i64 3, ptr nonnull %10) #16
-  %97 = getelementptr inbounds i8, ptr %8, i64 6
-  store i8 0, ptr %97, align 2, !tbaa !5
-  %98 = sdiv i32 %2, 16
-  %99 = shl nsw i32 %98, 4
-  %100 = sub nsw i32 %2, %99
-  %101 = icmp ult i32 %100, 10
-  %102 = trunc i32 %100 to i8
-  %103 = getelementptr inbounds i8, ptr %8, i64 5
-  %104 = select i1 %101, i8 48, i8 55
-  %105 = add i8 %104, %102
-  store i8 %105, ptr %103, align 1, !tbaa !5
-  %106 = sdiv i32 %2, 256
-  %107 = shl nsw i32 %106, 4
-  %108 = sub nsw i32 %98, %107
-  %109 = icmp ult i32 %108, 10
-  %110 = trunc i32 %108 to i8
-  %111 = getelementptr inbounds i8, ptr %8, i64 4
-  %112 = select i1 %109, i8 48, i8 55
-  %113 = add i8 %112, %110
-  store i8 %113, ptr %111, align 4, !tbaa !5
-  %114 = sdiv i32 %2, 4096
-  %115 = shl nsw i32 %114, 4
-  %116 = sub nsw i32 %106, %115
-  %117 = icmp ult i32 %116, 10
-  %118 = trunc i32 %116 to i8
-  %119 = getelementptr inbounds i8, ptr %8, i64 3
-  %120 = select i1 %117, i8 48, i8 55
-  %121 = add i8 %120, %118
-  store i8 %121, ptr %119, align 1, !tbaa !5
-  %122 = sdiv i32 %2, 65536
-  %123 = shl nsw i32 %122, 4
-  %124 = sub nsw i32 %114, %123
-  %125 = icmp ult i32 %124, 10
-  %126 = trunc i32 %124 to i8
-  %127 = getelementptr inbounds i8, ptr %8, i64 2
-  %128 = select i1 %125, i8 48, i8 55
-  %129 = add i8 %128, %126
-  store i8 %129, ptr %127, align 2, !tbaa !5
-  %130 = sdiv i32 %2, 1048576
-  %131 = shl nsw i32 %130, 4
-  %132 = sub nsw i32 %122, %131
-  %133 = icmp ult i32 %132, 10
-  %134 = trunc i32 %132 to i8
-  %135 = getelementptr inbounds i8, ptr %8, i64 1
-  %136 = select i1 %133, i8 48, i8 55
-  %137 = add i8 %136, %134
-  store i8 %137, ptr %135, align 1, !tbaa !5
-  %138 = sdiv i32 %2, -16777216
-  %139 = shl nsw i32 %138, 4
-  %140 = add i32 %139, %130
-  %141 = icmp ult i32 %140, 10
-  %142 = trunc i32 %140 to i8
-  %143 = select i1 %141, i8 48, i8 55
-  %144 = add i8 %143, %142
-  store i8 %144, ptr %8, align 16, !tbaa !5
-  %145 = add nsw i32 %130, 15
-  %146 = icmp ult i32 %145, 31
-  br i1 %146, label %149, label %147
-
-147:                                              ; preds = %96
-  %148 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %149
-
-149:                                              ; preds = %96, %147
-  %150 = sdiv i32 %1, 4
-  %151 = getelementptr inbounds i8, ptr %10, i64 2
-  store i8 0, ptr %151, align 1, !tbaa !5
-  %152 = sdiv i32 %1, 64
-  %153 = shl nsw i32 %152, 4
-  %154 = sub nsw i32 %150, %153
-  %155 = icmp ult i32 %154, 10
-  %156 = trunc i32 %154 to i8
-  %157 = getelementptr inbounds i8, ptr %10, i64 1
-  %158 = select i1 %155, i8 48, i8 55
-  %159 = add i8 %158, %156
-  store i8 %159, ptr %157, align 1, !tbaa !5
-  %160 = sdiv i32 %1, -1024
-  %161 = shl nsw i32 %160, 4
-  %162 = add i32 %161, %152
-  %163 = icmp ult i32 %162, 10
-  %164 = trunc i32 %162 to i8
-  %165 = select i1 %163, i8 48, i8 55
-  %166 = add i8 %165, %164
-  store i8 %166, ptr %10, align 1, !tbaa !5
-  %167 = add nsw i32 %152, 15
-  %168 = icmp ult i32 %167, 31
-  br i1 %168, label %171, label %169
-
-169:                                              ; preds = %149
-  %170 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %171
-
-171:                                              ; preds = %149, %169
-  %172 = call ptr @strcat(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) %10) #16
-  %173 = call i64 @strlen(ptr nonnull dereferenceable(1) %8)
-  %174 = getelementptr inbounds i8, ptr %8, i64 %173
-  store i16 43, ptr %174, align 1
+  call void @NUM_TO_STR(i32 noundef %2, i32 noundef 16, i32 noundef 6, ptr noundef nonnull %8)
+  %97 = sdiv i32 %1, 4
+  call void @NUM_TO_STR(i32 noundef %97, i32 noundef 16, i32 noundef 2, ptr noundef nonnull %10)
+  %98 = call ptr @strcat(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) %10) #16
+  %99 = call i64 @strlen(ptr nonnull dereferenceable(1) %8)
+  %100 = getelementptr inbounds i8, ptr %8, i64 %99
+  store i16 43, ptr %100, align 1
   store i64 2314885530818453536, ptr %9, align 8
-  %175 = getelementptr inbounds i8, ptr %9, i64 8
-  store i8 0, ptr %175, align 8, !tbaa !5
-  %176 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %7) #17
-  %177 = call ptr @strncpy(ptr noundef nonnull %9, ptr noundef nonnull %7, i64 noundef %176) #16
-  %178 = call ptr @strcat(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) %9) #16
+  %101 = getelementptr inbounds i8, ptr %9, i64 8
+  store i8 0, ptr %101, align 8, !tbaa !5
+  %102 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %7) #17
+  %103 = call ptr @strncpy(ptr noundef nonnull %9, ptr noundef nonnull %7, i64 noundef %102) #16
+  %104 = call ptr @strcat(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) %9) #16
   call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @MOD_REC_BUF, ptr noundef nonnull %8) #16
   store i32 3, ptr %4, align 4, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 3, ptr nonnull %10) #16
   call void @llvm.lifetime.end.p0(i64 9, ptr nonnull %9) #16
   call void @llvm.lifetime.end.p0(i64 17, ptr nonnull %8) #16
-  br label %180
+  br label %106
 
-179:                                              ; preds = %95
+105:                                              ; preds = %95
   store i32 2, ptr %4, align 4, !tbaa !14
-  br label %180
+  br label %106
 
-180:                                              ; preds = %179, %171
-  %181 = getelementptr inbounds %struct.SYMBOL_TABLE_ENTRY, ptr %72, i64 0, i32 2
-  %182 = load i32, ptr %181, align 4, !tbaa !19
-  br label %190
+106:                                              ; preds = %105, %96
+  %107 = getelementptr inbounds %struct.SYMBOL_TABLE_ENTRY, ptr %72, i64 0, i32 2
+  %108 = load i32, ptr %107, align 4, !tbaa !19
+  br label %116
 
-183:                                              ; preds = %95, %93
-  %184 = phi ptr [ @.str.16, %95 ], [ @.str.15, %93 ]
-  %185 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %7) #17
-  %186 = add i64 %185, 80
-  %187 = and i64 %186, 4294967295
-  %188 = call noalias ptr @malloc(i64 noundef %187) #18
-  %189 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %188, ptr noundef nonnull dereferenceable(1) %184, ptr noundef nonnull %7) #16
-  call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef %188) #16
-  call void @free(ptr noundef %188) #16
-  br label %190
+109:                                              ; preds = %95, %93
+  %110 = phi ptr [ @.str.16, %95 ], [ @.str.15, %93 ]
+  %111 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %7) #17
+  %112 = add i64 %111, 80
+  %113 = and i64 %112, 4294967295
+  %114 = call noalias ptr @malloc(i64 noundef %113) #18
+  %115 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %114, ptr noundef nonnull dereferenceable(1) %110, ptr noundef nonnull %7) #16
+  call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef %114) #16
+  call void @free(ptr noundef %114) #16
+  br label %116
 
-190:                                              ; preds = %64, %183, %74, %180, %90
-  %191 = phi i32 [ %92, %90 ], [ %182, %180 ], [ 0, %74 ], [ 0, %183 ], [ 0, %64 ]
+116:                                              ; preds = %64, %109, %74, %106, %90
+  %117 = phi i32 [ %92, %90 ], [ %108, %106 ], [ 0, %74 ], [ 0, %109 ], [ 0, %64 ]
   call void @llvm.lifetime.end.p0(i64 9, ptr nonnull %7) #16
-  br label %192
+  br label %118
 
-192:                                              ; preds = %59, %49, %48, %190, %19
-  %193 = phi i32 [ %20, %19 ], [ %191, %190 ], [ %27, %48 ], [ %27, %49 ], [ %27, %59 ]
-  ret i32 %193
+118:                                              ; preds = %59, %49, %48, %116, %19
+  %119 = phi i32 [ %20, %19 ], [ %117, %116 ], [ %27, %48 ], [ %27, %49 ], [ %27, %59 ]
+  ret i32 %119
 }
 
 declare void @GET_LABEL(...) local_unnamed_addr #5

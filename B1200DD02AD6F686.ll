@@ -958,13 +958,15 @@ define dso_local void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi
   %612 = load i32, ptr %611, align 4, !tbaa !19
   %613 = and i32 %612, 1
   %614 = icmp eq i32 %613, 0
-  %615 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %608, i64 %607, i32 6
-  %616 = load float, ptr %615, align 8
-  %617 = fcmp ugt float %616, 0.000000e+00
-  %618 = select i1 %614, i1 true, i1 %617
+  br i1 %614, label %657, label %615
+
+615:                                              ; preds = %605
+  %616 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %608, i64 %607, i32 6
+  %617 = load float, ptr %616, align 8, !tbaa !46
+  %618 = fcmp ugt float %617, 0.000000e+00
   br i1 %618, label %657, label %619
 
-619:                                              ; preds = %605
+619:                                              ; preds = %615
   %620 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %608, i64 %607, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %66) #18
   store <4 x float> <float 1.000000e+00, float 0.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %66, align 16, !tbaa !5
@@ -1034,8 +1036,8 @@ define dso_local void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi
   %656 = load i32, ptr %459, align 4, !tbaa !9
   br label %657
 
-657:                                              ; preds = %619, %605
-  %658 = phi i32 [ %656, %619 ], [ %606, %605 ]
+657:                                              ; preds = %615, %619, %605
+  %658 = phi i32 [ %606, %615 ], [ %656, %619 ], [ %606, %605 ]
   %659 = add nuw nsw i64 %607, 1
   %660 = sext i32 %658 to i64
   %661 = icmp slt i64 %659, %660
@@ -1050,7 +1052,7 @@ define dso_local void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %67) #18
   store <4 x float> <float 0.000000e+00, float 0x3FE6666660000000, float 0.000000e+00, float 0.000000e+00>, ptr %67, align 16, !tbaa !5
   %666 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 11, i32 2
-  %667 = load i32, ptr %666, align 4, !tbaa !46
+  %667 = load i32, ptr %666, align 4, !tbaa !48
   %668 = icmp sgt i32 %667, 0
   br i1 %668, label %669, label %756
 
@@ -1064,7 +1066,7 @@ define dso_local void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi
 674:                                              ; preds = %669, %751
   %675 = phi i32 [ %667, %669 ], [ %752, %751 ]
   %676 = phi i64 [ 0, %669 ], [ %753, %751 ]
-  %677 = load ptr, ptr %670, align 8, !tbaa !49
+  %677 = load ptr, ptr %670, align 8, !tbaa !51
   %678 = getelementptr inbounds %"struct.btSoftBody::Face", ptr %677, i64 %676, i32 0, i32 1
   %679 = load ptr, ptr %678, align 8, !tbaa !16
   %680 = getelementptr inbounds %"struct.btSoftBody::Material", ptr %679, i64 0, i32 4
@@ -1077,21 +1079,21 @@ define dso_local void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi
   %685 = getelementptr inbounds %"struct.btSoftBody::Face", ptr %677, i64 %676, i32 1
   %686 = load ptr, ptr %685, align 8, !tbaa !27
   %687 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %686, i64 0, i32 1
-  %688 = load float, ptr %687, align 8, !tbaa.struct !50
+  %688 = load float, ptr %687, align 8, !tbaa.struct !52
   %689 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %686, i64 0, i32 1, i32 0, i64 1
-  %690 = load float, ptr %689, align 4, !tbaa.struct !52
+  %690 = load float, ptr %689, align 4, !tbaa.struct !54
   %691 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %686, i64 0, i32 1, i32 0, i64 2
-  %692 = load float, ptr %691, align 8, !tbaa.struct !53
+  %692 = load float, ptr %691, align 8, !tbaa.struct !55
   %693 = getelementptr inbounds %"struct.btSoftBody::Face", ptr %677, i64 %676, i32 1, i64 1
   %694 = load ptr, ptr %693, align 8, !tbaa !27
   %695 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %694, i64 0, i32 1
   %696 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %694, i64 0, i32 1, i32 0, i64 2
-  %697 = load float, ptr %696, align 8, !tbaa.struct !53
+  %697 = load float, ptr %696, align 8, !tbaa.struct !55
   %698 = getelementptr inbounds %"struct.btSoftBody::Face", ptr %677, i64 %676, i32 1, i64 2
   %699 = load ptr, ptr %698, align 8, !tbaa !27
   %700 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %699, i64 0, i32 1
   %701 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %699, i64 0, i32 1, i32 0, i64 2
-  %702 = load float, ptr %701, align 8, !tbaa.struct !53
+  %702 = load float, ptr %701, align 8, !tbaa.struct !55
   %703 = fadd float %692, %697
   %704 = fadd float %703, %702
   %705 = fmul float %704, 0x3FD5555560000000
@@ -1152,7 +1154,7 @@ define dso_local void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %70) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %69) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %68) #18
-  %750 = load i32, ptr %666, align 4, !tbaa !46
+  %750 = load i32, ptr %666, align 4, !tbaa !48
   br label %751
 
 751:                                              ; preds = %674, %684
@@ -1169,14 +1171,14 @@ define dso_local void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi
 757:                                              ; preds = %756, %662
   %758 = and i32 %2, 256
   %759 = icmp eq i32 %758, 0
-  br i1 %759, label %1270, label %760
+  br i1 %759, label %1273, label %760
 
 760:                                              ; preds = %757
   call void @srand(i32 noundef 1806) #18
   %761 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 24, i32 2
-  %762 = load i32, ptr %761, align 4, !tbaa !54
+  %762 = load i32, ptr %761, align 4, !tbaa !56
   %763 = icmp sgt i32 %762, 0
-  br i1 %763, label %764, label %1270
+  br i1 %763, label %764, label %1273
 
 764:                                              ; preds = %760
   %765 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 24, i32 5
@@ -1210,15 +1212,15 @@ define dso_local void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi
   %793 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %79, i64 0, i32 1
   br label %794
 
-794:                                              ; preds = %764, %1165
-  %795 = phi i64 [ 0, %764 ], [ %1266, %1165 ]
-  %796 = load ptr, ptr %765, align 8, !tbaa !57
+794:                                              ; preds = %764, %1168
+  %795 = phi i64 [ 0, %764 ], [ %1269, %1168 ]
+  %796 = load ptr, ptr %765, align 8, !tbaa !59
   %797 = getelementptr inbounds ptr, ptr %796, i64 %795
   %798 = load ptr, ptr %797, align 8, !tbaa !27
   %799 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %798, i64 0, i32 23
-  %800 = load i8, ptr %799, align 1, !tbaa !58, !range !67, !noundef !68
+  %800 = load i8, ptr %799, align 1, !tbaa !60, !range !69, !noundef !70
   %801 = icmp eq i8 %800, 0
-  br i1 %801, label %1165, label %802
+  br i1 %801, label %1168, label %802
 
 802:                                              ; preds = %794
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %71) #18
@@ -1245,1829 +1247,1832 @@ define dso_local void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi
   %823 = fmul <2 x float> %821, <float 7.500000e-01, float 7.500000e-01>
   %824 = fmul float %822, 7.500000e-01
   %825 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %824, i64 0
-  store <2 x float> %823, ptr %71, align 8, !tbaa.struct !50
-  store <2 x float> %825, ptr %766, align 8, !tbaa.struct !53
-  %826 = load ptr, ptr %765, align 8, !tbaa !57
+  store <2 x float> %823, ptr %71, align 8, !tbaa.struct !52
+  store <2 x float> %825, ptr %766, align 8, !tbaa.struct !55
+  %826 = load ptr, ptr %765, align 8, !tbaa !59
   %827 = getelementptr inbounds ptr, ptr %826, i64 %795
   %828 = load ptr, ptr %827, align 8, !tbaa !27
   %829 = getelementptr inbounds %class.btAlignedObjectArray.59, ptr %828, i64 0, i32 2
-  %830 = load i32, ptr %829, align 4, !tbaa !69
-  %831 = icmp sgt i32 %830, 0
-  br i1 %831, label %832, label %883
+  %830 = load i32, ptr %829, align 4, !tbaa !71
+  %831 = icmp slt i32 %830, 1
+  br i1 %831, label %884, label %832
 
 832:                                              ; preds = %802
   %833 = zext i32 %830 to i64
   %834 = shl nuw nsw i64 %833, 4
   %835 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %834, i32 noundef 16)
-          to label %836 unwind label %868
+          to label %836 unwind label %869
 
 836:                                              ; preds = %832
-  br i1 %831, label %837, label %883
+  %837 = icmp sgt i32 %830, 0
+  br i1 %837, label %838, label %884
 
-837:                                              ; preds = %836
-  %838 = zext i32 %830 to i64
-  %839 = and i64 %838, 1
-  %840 = icmp eq i32 %830, 1
-  br i1 %840, label %870, label %841
+838:                                              ; preds = %836
+  %839 = zext i32 %830 to i64
+  %840 = and i64 %839, 1
+  %841 = icmp eq i32 %830, 1
+  br i1 %841, label %871, label %842
 
-841:                                              ; preds = %837
-  %842 = and i64 %838, 4294967294
-  br label %843
+842:                                              ; preds = %838
+  %843 = and i64 %839, 4294967294
+  br label %844
 
-843:                                              ; preds = %843, %841
-  %844 = phi i64 [ 0, %841 ], [ %865, %843 ]
-  %845 = phi i64 [ 0, %841 ], [ %866, %843 ]
-  %846 = load ptr, ptr %765, align 8, !tbaa !57
-  %847 = getelementptr inbounds ptr, ptr %846, i64 %795
-  %848 = load ptr, ptr %847, align 8, !tbaa !27
-  %849 = getelementptr inbounds %class.btAlignedObjectArray.59, ptr %848, i64 0, i32 5
-  %850 = load ptr, ptr %849, align 8, !tbaa !70
-  %851 = getelementptr inbounds ptr, ptr %850, i64 %844
-  %852 = load ptr, ptr %851, align 8, !tbaa !27
-  %853 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %852, i64 0, i32 1
-  %854 = getelementptr inbounds %class.btVector3, ptr %835, i64 %844
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %854, ptr noundef nonnull align 8 dereferenceable(16) %853, i64 16, i1 false), !tbaa.struct !50
-  %855 = or i64 %844, 1
-  %856 = load ptr, ptr %765, align 8, !tbaa !57
-  %857 = getelementptr inbounds ptr, ptr %856, i64 %795
-  %858 = load ptr, ptr %857, align 8, !tbaa !27
-  %859 = getelementptr inbounds %class.btAlignedObjectArray.59, ptr %858, i64 0, i32 5
-  %860 = load ptr, ptr %859, align 8, !tbaa !70
-  %861 = getelementptr inbounds ptr, ptr %860, i64 %855
-  %862 = load ptr, ptr %861, align 8, !tbaa !27
-  %863 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %862, i64 0, i32 1
-  %864 = getelementptr inbounds %class.btVector3, ptr %835, i64 %855
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %864, ptr noundef nonnull align 8 dereferenceable(16) %863, i64 16, i1 false), !tbaa.struct !50
-  %865 = add nuw nsw i64 %844, 2
-  %866 = add i64 %845, 2
-  %867 = icmp eq i64 %866, %842
-  br i1 %867, label %870, label %843
+844:                                              ; preds = %844, %842
+  %845 = phi i64 [ 0, %842 ], [ %866, %844 ]
+  %846 = phi i64 [ 0, %842 ], [ %867, %844 ]
+  %847 = load ptr, ptr %765, align 8, !tbaa !59
+  %848 = getelementptr inbounds ptr, ptr %847, i64 %795
+  %849 = load ptr, ptr %848, align 8, !tbaa !27
+  %850 = getelementptr inbounds %class.btAlignedObjectArray.59, ptr %849, i64 0, i32 5
+  %851 = load ptr, ptr %850, align 8, !tbaa !72
+  %852 = getelementptr inbounds ptr, ptr %851, i64 %845
+  %853 = load ptr, ptr %852, align 8, !tbaa !27
+  %854 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %853, i64 0, i32 1
+  %855 = getelementptr inbounds %class.btVector3, ptr %835, i64 %845
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %855, ptr noundef nonnull align 8 dereferenceable(16) %854, i64 16, i1 false), !tbaa.struct !52
+  %856 = or i64 %845, 1
+  %857 = load ptr, ptr %765, align 8, !tbaa !59
+  %858 = getelementptr inbounds ptr, ptr %857, i64 %795
+  %859 = load ptr, ptr %858, align 8, !tbaa !27
+  %860 = getelementptr inbounds %class.btAlignedObjectArray.59, ptr %859, i64 0, i32 5
+  %861 = load ptr, ptr %860, align 8, !tbaa !72
+  %862 = getelementptr inbounds ptr, ptr %861, i64 %856
+  %863 = load ptr, ptr %862, align 8, !tbaa !27
+  %864 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %863, i64 0, i32 1
+  %865 = getelementptr inbounds %class.btVector3, ptr %835, i64 %856
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %865, ptr noundef nonnull align 8 dereferenceable(16) %864, i64 16, i1 false), !tbaa.struct !52
+  %866 = add nuw nsw i64 %845, 2
+  %867 = add i64 %846, 2
+  %868 = icmp eq i64 %867, %843
+  br i1 %868, label %871, label %844
 
-868:                                              ; preds = %832
-  %869 = landingpad { ptr, i32 }
+869:                                              ; preds = %832
+  %870 = landingpad { ptr, i32 }
           cleanup
-  br label %1163
+  br label %1166
 
-870:                                              ; preds = %843, %837
-  %871 = phi i64 [ 0, %837 ], [ %865, %843 ]
-  %872 = icmp eq i64 %839, 0
-  br i1 %872, label %883, label %873
+871:                                              ; preds = %844, %838
+  %872 = phi i64 [ 0, %838 ], [ %866, %844 ]
+  %873 = icmp eq i64 %840, 0
+  br i1 %873, label %884, label %874
 
-873:                                              ; preds = %870
-  %874 = load ptr, ptr %765, align 8, !tbaa !57
-  %875 = getelementptr inbounds ptr, ptr %874, i64 %795
-  %876 = load ptr, ptr %875, align 8, !tbaa !27
-  %877 = getelementptr inbounds %class.btAlignedObjectArray.59, ptr %876, i64 0, i32 5
-  %878 = load ptr, ptr %877, align 8, !tbaa !70
-  %879 = getelementptr inbounds ptr, ptr %878, i64 %871
-  %880 = load ptr, ptr %879, align 8, !tbaa !27
-  %881 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %880, i64 0, i32 1
-  %882 = getelementptr inbounds %class.btVector3, ptr %835, i64 %871
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %882, ptr noundef nonnull align 8 dereferenceable(16) %881, i64 16, i1 false), !tbaa.struct !50
-  br label %883
+874:                                              ; preds = %871
+  %875 = load ptr, ptr %765, align 8, !tbaa !59
+  %876 = getelementptr inbounds ptr, ptr %875, i64 %795
+  %877 = load ptr, ptr %876, align 8, !tbaa !27
+  %878 = getelementptr inbounds %class.btAlignedObjectArray.59, ptr %877, i64 0, i32 5
+  %879 = load ptr, ptr %878, align 8, !tbaa !72
+  %880 = getelementptr inbounds ptr, ptr %879, i64 %872
+  %881 = load ptr, ptr %880, align 8, !tbaa !27
+  %882 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %881, i64 0, i32 1
+  %883 = getelementptr inbounds %class.btVector3, ptr %835, i64 %872
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %883, ptr noundef nonnull align 8 dereferenceable(16) %882, i64 16, i1 false), !tbaa.struct !52
+  br label %884
 
-883:                                              ; preds = %873, %870, %802, %836
-  %884 = phi ptr [ %835, %836 ], [ null, %802 ], [ %835, %870 ], [ %835, %873 ]
+884:                                              ; preds = %874, %871, %802, %836
+  %885 = phi ptr [ %835, %836 ], [ null, %802 ], [ %835, %871 ], [ %835, %874 ]
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %72) #18
-  store i32 1, ptr %72, align 8, !tbaa !71
-  store i32 %830, ptr %767, align 4, !tbaa !73
-  store ptr %884, ptr %768, align 8, !tbaa !74
-  store i32 16, ptr %769, align 8, !tbaa !75
-  store float 0x3F50624DE0000000, ptr %770, align 4, !tbaa !76
+  store i32 1, ptr %72, align 8, !tbaa !73
+  store i32 %830, ptr %767, align 4, !tbaa !75
+  store ptr %885, ptr %768, align 8, !tbaa !76
+  store i32 16, ptr %769, align 8, !tbaa !77
+  store float 0x3F50624DE0000000, ptr %770, align 4, !tbaa !78
   call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %73) #18
-  store i8 1, ptr %772, align 8, !tbaa !77
-  store ptr null, ptr %773, align 8, !tbaa !78
-  store i32 0, ptr %774, align 4, !tbaa !79
-  store i32 0, ptr %775, align 8, !tbaa !80
-  store i8 1, ptr %776, align 8, !tbaa !81
-  store ptr null, ptr %777, align 8, !tbaa !84
-  store i32 0, ptr %778, align 4, !tbaa !85
-  store i32 0, ptr %779, align 8, !tbaa !86
-  store i8 1, ptr %73, align 8, !tbaa !87
-  store i32 0, ptr %780, align 4, !tbaa !89
-  store i32 0, ptr %781, align 8, !tbaa !90
-  store i32 0, ptr %782, align 4, !tbaa !91
+  store i8 1, ptr %772, align 8, !tbaa !79
+  store ptr null, ptr %773, align 8, !tbaa !80
+  store i32 0, ptr %774, align 4, !tbaa !81
+  store i32 0, ptr %775, align 8, !tbaa !82
+  store i8 1, ptr %776, align 8, !tbaa !83
+  store ptr null, ptr %777, align 8, !tbaa !86
+  store i32 0, ptr %778, align 4, !tbaa !87
+  store i32 0, ptr %779, align 8, !tbaa !88
+  store i8 1, ptr %73, align 8, !tbaa !89
+  store i32 0, ptr %780, align 4, !tbaa !91
+  store i32 0, ptr %781, align 8, !tbaa !92
+  store i32 0, ptr %782, align 4, !tbaa !93
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %74) #18
-  store i8 1, ptr %783, align 8, !tbaa !92
-  store ptr null, ptr %784, align 8, !tbaa !95
-  store i32 0, ptr %785, align 4, !tbaa !96
-  store i32 0, ptr %786, align 8, !tbaa !97
-  store i8 1, ptr %787, align 8, !tbaa !98
-  store ptr null, ptr %788, align 8, !tbaa !101
-  store i32 0, ptr %789, align 4, !tbaa !102
-  store i32 0, ptr %790, align 8, !tbaa !103
-  store i32 %830, ptr %771, align 8, !tbaa !104
-  %885 = invoke noundef i32 @_ZN11HullLibrary16CreateConvexHullERK8HullDescR10HullResult(ptr noundef nonnull align 8 dereferenceable(64) %74, ptr noundef nonnull align 8 dereferenceable(32) %72, ptr noundef nonnull align 8 dereferenceable(80) %73)
-          to label %886 unwind label %1088
+  store i8 1, ptr %783, align 8, !tbaa !94
+  store ptr null, ptr %784, align 8, !tbaa !97
+  store i32 0, ptr %785, align 4, !tbaa !98
+  store i32 0, ptr %786, align 8, !tbaa !99
+  store i8 1, ptr %787, align 8, !tbaa !100
+  store ptr null, ptr %788, align 8, !tbaa !103
+  store i32 0, ptr %789, align 4, !tbaa !104
+  store i32 0, ptr %790, align 8, !tbaa !105
+  store i32 %830, ptr %771, align 8, !tbaa !106
+  %886 = invoke noundef i32 @_ZN11HullLibrary16CreateConvexHullERK8HullDescR10HullResult(ptr noundef nonnull align 8 dereferenceable(64) %74, ptr noundef nonnull align 8 dereferenceable(32) %72, ptr noundef nonnull align 8 dereferenceable(80) %73)
+          to label %887 unwind label %1091
 
-886:                                              ; preds = %883
-  %887 = load i32, ptr %774, align 4, !tbaa !79
-  %888 = load ptr, ptr %773, align 8
-  %889 = icmp sgt i32 %887, 0
-  br i1 %889, label %890, label %1054
+887:                                              ; preds = %884
+  %888 = load i32, ptr %774, align 4, !tbaa !81
+  %889 = load ptr, ptr %773, align 8
+  %890 = icmp eq i32 %888, 0
+  br i1 %890, label %974, label %891
 
-890:                                              ; preds = %886
-  %891 = sitofp i32 %887 to float
-  %892 = load <2 x float>, ptr %888, align 4, !tbaa.struct !50
-  %893 = getelementptr inbounds i8, ptr %888, i64 8
-  %894 = load <2 x float>, ptr %893, align 4, !tbaa.struct !53
-  %895 = icmp eq i32 %887, 1
-  br i1 %895, label %896, label %903
+891:                                              ; preds = %887
+  %892 = load <2 x float>, ptr %889, align 4, !tbaa.struct !52
+  %893 = getelementptr inbounds i8, ptr %889, i64 8
+  %894 = load <2 x float>, ptr %893, align 4, !tbaa.struct !55
+  %895 = icmp sgt i32 %888, 1
+  br i1 %895, label %896, label %974
 
-896:                                              ; preds = %890
-  %897 = fdiv float 1.000000e+00, %891
-  %898 = insertelement <2 x float> poison, float %897, i64 0
-  %899 = shufflevector <2 x float> %898, <2 x float> poison, <2 x i32> zeroinitializer
-  %900 = fmul <2 x float> %899, %892
-  %901 = extractelement <2 x float> %894, i64 0
-  %902 = fmul float %897, %901
-  br label %981
+896:                                              ; preds = %891
+  %897 = zext i32 %888 to i64
+  %898 = add nsw i64 %897, -1
+  %899 = add nsw i64 %897, -2
+  %900 = and i64 %898, 3
+  %901 = icmp ult i64 %899, 3
+  br i1 %901, label %945, label %902
 
-903:                                              ; preds = %890
-  %904 = zext i32 %887 to i64
-  %905 = add nsw i64 %904, -1
-  %906 = add nsw i64 %904, -2
-  %907 = and i64 %905, 3
-  %908 = icmp ult i64 %906, 3
-  br i1 %908, label %950, label %909
+902:                                              ; preds = %896
+  %903 = and i64 %898, -4
+  br label %904
 
-909:                                              ; preds = %903
-  %910 = and i64 %905, -4
-  br label %911
-
-911:                                              ; preds = %911, %909
-  %912 = phi i64 [ 1, %909 ], [ %945, %911 ]
-  %913 = phi <2 x float> [ %892, %909 ], [ %940, %911 ]
-  %914 = phi <2 x float> [ %894, %909 ], [ %944, %911 ]
-  %915 = phi i64 [ 0, %909 ], [ %946, %911 ]
-  %916 = getelementptr inbounds %class.btVector3, ptr %888, i64 %912
-  %917 = load <2 x float>, ptr %916, align 4, !tbaa !5
-  %918 = fadd <2 x float> %913, %917
-  %919 = getelementptr inbounds [4 x float], ptr %916, i64 0, i64 2
-  %920 = load float, ptr %919, align 4, !tbaa !5
-  %921 = extractelement <2 x float> %914, i64 0
-  %922 = fadd float %921, %920
-  %923 = add nuw nsw i64 %912, 1
-  %924 = getelementptr inbounds %class.btVector3, ptr %888, i64 %923
+904:                                              ; preds = %904, %902
+  %905 = phi i64 [ 1, %902 ], [ %939, %904 ]
+  %906 = phi <2 x float> [ %892, %902 ], [ %934, %904 ]
+  %907 = phi <2 x float> [ %894, %902 ], [ %938, %904 ]
+  %908 = phi i64 [ 0, %902 ], [ %940, %904 ]
+  %909 = getelementptr inbounds %class.btVector3, ptr %889, i64 %905
+  %910 = load <2 x float>, ptr %909, align 4, !tbaa !5
+  %911 = fadd <2 x float> %906, %910
+  %912 = getelementptr inbounds [4 x float], ptr %909, i64 0, i64 2
+  %913 = load float, ptr %912, align 4, !tbaa !5
+  %914 = extractelement <2 x float> %907, i64 0
+  %915 = fadd float %914, %913
+  %916 = add nuw nsw i64 %905, 1
+  %917 = getelementptr inbounds %class.btVector3, ptr %889, i64 %916
+  %918 = load <2 x float>, ptr %917, align 4, !tbaa !5
+  %919 = fadd <2 x float> %911, %918
+  %920 = getelementptr inbounds [4 x float], ptr %917, i64 0, i64 2
+  %921 = load float, ptr %920, align 4, !tbaa !5
+  %922 = fadd float %915, %921
+  %923 = add nuw nsw i64 %905, 2
+  %924 = getelementptr inbounds %class.btVector3, ptr %889, i64 %923
   %925 = load <2 x float>, ptr %924, align 4, !tbaa !5
-  %926 = fadd <2 x float> %918, %925
+  %926 = fadd <2 x float> %919, %925
   %927 = getelementptr inbounds [4 x float], ptr %924, i64 0, i64 2
   %928 = load float, ptr %927, align 4, !tbaa !5
   %929 = fadd float %922, %928
-  %930 = add nuw nsw i64 %912, 2
-  %931 = getelementptr inbounds %class.btVector3, ptr %888, i64 %930
-  %932 = load <2 x float>, ptr %931, align 4, !tbaa !5
-  %933 = fadd <2 x float> %926, %932
-  %934 = getelementptr inbounds [4 x float], ptr %931, i64 0, i64 2
-  %935 = load float, ptr %934, align 4, !tbaa !5
-  %936 = fadd float %929, %935
-  %937 = add nuw nsw i64 %912, 3
-  %938 = getelementptr inbounds %class.btVector3, ptr %888, i64 %937
-  %939 = load <2 x float>, ptr %938, align 4, !tbaa !5
-  %940 = fadd <2 x float> %933, %939
-  %941 = getelementptr inbounds [4 x float], ptr %938, i64 0, i64 2
-  %942 = load float, ptr %941, align 4, !tbaa !5
-  %943 = fadd float %936, %942
-  %944 = insertelement <2 x float> %914, float %943, i64 0
-  %945 = add nuw nsw i64 %912, 4
-  %946 = add i64 %915, 4
-  %947 = icmp eq i64 %946, %910
-  br i1 %947, label %948, label %911
+  %930 = insertelement <2 x float> %907, float %929, i64 0
+  %931 = add nuw nsw i64 %905, 3
+  %932 = getelementptr inbounds %class.btVector3, ptr %889, i64 %931
+  %933 = load <2 x float>, ptr %932, align 4, !tbaa !5
+  %934 = fadd <2 x float> %926, %933
+  %935 = getelementptr inbounds [4 x float], ptr %932, i64 0, i64 2
+  %936 = load float, ptr %935, align 4, !tbaa !5
+  %937 = fadd float %929, %936
+  %938 = insertelement <2 x float> %930, float %937, i64 0
+  %939 = add nuw nsw i64 %905, 4
+  %940 = add i64 %908, 4
+  %941 = icmp eq i64 %940, %903
+  br i1 %941, label %942, label %904
 
-948:                                              ; preds = %911
-  %949 = insertelement <2 x float> %914, float %943, i64 0
-  br label %950
+942:                                              ; preds = %904
+  %943 = insertelement <2 x float> %907, float %929, i64 0
+  %944 = insertelement <2 x float> %943, float %937, i64 0
+  br label %945
 
-950:                                              ; preds = %948, %903
-  %951 = phi <2 x float> [ undef, %903 ], [ %940, %948 ]
-  %952 = phi float [ undef, %903 ], [ %943, %948 ]
-  %953 = phi i64 [ 1, %903 ], [ %945, %948 ]
-  %954 = phi <2 x float> [ %892, %903 ], [ %940, %948 ]
-  %955 = phi <2 x float> [ %894, %903 ], [ %949, %948 ]
-  %956 = icmp eq i64 %907, 0
-  br i1 %956, label %973, label %957
+945:                                              ; preds = %942, %896
+  %946 = phi <2 x float> [ undef, %896 ], [ %943, %942 ]
+  %947 = phi <2 x float> [ undef, %896 ], [ %934, %942 ]
+  %948 = phi float [ undef, %896 ], [ %937, %942 ]
+  %949 = phi i64 [ 1, %896 ], [ %939, %942 ]
+  %950 = phi <2 x float> [ %892, %896 ], [ %934, %942 ]
+  %951 = phi <2 x float> [ %894, %896 ], [ %944, %942 ]
+  %952 = icmp eq i64 %900, 0
+  br i1 %952, label %969, label %953
 
-957:                                              ; preds = %950, %957
-  %958 = phi i64 [ %970, %957 ], [ %953, %950 ]
-  %959 = phi <2 x float> [ %964, %957 ], [ %954, %950 ]
-  %960 = phi <2 x float> [ %969, %957 ], [ %955, %950 ]
-  %961 = phi i64 [ %971, %957 ], [ 0, %950 ]
-  %962 = getelementptr inbounds %class.btVector3, ptr %888, i64 %958
-  %963 = load <2 x float>, ptr %962, align 4, !tbaa !5
-  %964 = fadd <2 x float> %959, %963
-  %965 = getelementptr inbounds [4 x float], ptr %962, i64 0, i64 2
-  %966 = load float, ptr %965, align 4, !tbaa !5
-  %967 = extractelement <2 x float> %960, i64 0
-  %968 = fadd float %967, %966
-  %969 = insertelement <2 x float> %960, float %968, i64 0
-  %970 = add nuw nsw i64 %958, 1
-  %971 = add i64 %961, 1
-  %972 = icmp eq i64 %971, %907
-  br i1 %972, label %973, label %957, !llvm.loop !105
+953:                                              ; preds = %945, %953
+  %954 = phi i64 [ %966, %953 ], [ %949, %945 ]
+  %955 = phi <2 x float> [ %960, %953 ], [ %950, %945 ]
+  %956 = phi <2 x float> [ %965, %953 ], [ %951, %945 ]
+  %957 = phi i64 [ %967, %953 ], [ 0, %945 ]
+  %958 = getelementptr inbounds %class.btVector3, ptr %889, i64 %954
+  %959 = load <2 x float>, ptr %958, align 4, !tbaa !5
+  %960 = fadd <2 x float> %955, %959
+  %961 = getelementptr inbounds [4 x float], ptr %958, i64 0, i64 2
+  %962 = load float, ptr %961, align 4, !tbaa !5
+  %963 = extractelement <2 x float> %956, i64 0
+  %964 = fadd float %963, %962
+  %965 = insertelement <2 x float> %956, float %964, i64 0
+  %966 = add nuw nsw i64 %954, 1
+  %967 = add i64 %957, 1
+  %968 = icmp eq i64 %967, %900
+  br i1 %968, label %969, label %953, !llvm.loop !107
 
-973:                                              ; preds = %957, %950
-  %974 = phi <2 x float> [ %951, %950 ], [ %964, %957 ]
-  %975 = phi float [ %952, %950 ], [ %968, %957 ]
-  %976 = fdiv float 1.000000e+00, %891
-  %977 = insertelement <2 x float> poison, float %976, i64 0
-  %978 = shufflevector <2 x float> %977, <2 x float> poison, <2 x i32> zeroinitializer
-  %979 = fmul <2 x float> %978, %974
-  %980 = fmul float %976, %975
-  br i1 %889, label %981, label %1054
+969:                                              ; preds = %953, %945
+  %970 = phi <2 x float> [ %946, %945 ], [ %956, %953 ]
+  %971 = phi <2 x float> [ %947, %945 ], [ %960, %953 ]
+  %972 = phi float [ %948, %945 ], [ %964, %953 ]
+  %973 = insertelement <2 x float> %970, float %972, i64 0
+  br label %974
 
-981:                                              ; preds = %896, %973
-  %982 = phi float [ %902, %896 ], [ %980, %973 ]
-  %983 = phi <2 x float> [ %900, %896 ], [ %979, %973 ]
-  %984 = zext i32 %887 to i64
-  %985 = add nsw i64 %984, -1
-  %986 = and i64 %984, 1
-  %987 = icmp eq i64 %985, 0
-  br i1 %987, label %1009, label %988
+974:                                              ; preds = %969, %891, %887
+  %975 = phi <2 x float> [ undef, %887 ], [ %894, %891 ], [ %973, %969 ]
+  %976 = phi <2 x float> [ undef, %887 ], [ %892, %891 ], [ %971, %969 ]
+  %977 = icmp sgt i32 %888, 0
+  %978 = sitofp i32 %888 to float
+  %979 = fdiv float 1.000000e+00, %978
+  %980 = select i1 %977, float %979, float 1.000000e+00
+  %981 = insertelement <2 x float> poison, float %980, i64 0
+  %982 = shufflevector <2 x float> %981, <2 x float> poison, <2 x i32> zeroinitializer
+  %983 = fmul <2 x float> %982, %976
+  %984 = extractelement <2 x float> %975, i64 0
+  %985 = fmul float %980, %984
+  br i1 %977, label %986, label %1057
 
-988:                                              ; preds = %981
-  %989 = and i64 %984, 4294967294
-  br label %990
+986:                                              ; preds = %974
+  %987 = zext i32 %888 to i64
+  %988 = add nsw i64 %987, -1
+  %989 = and i64 %987, 1
+  %990 = icmp eq i64 %988, 0
+  br i1 %990, label %1012, label %991
 
-990:                                              ; preds = %990, %988
-  %991 = phi i64 [ 0, %988 ], [ %1006, %990 ]
-  %992 = phi i64 [ 0, %988 ], [ %1007, %990 ]
-  %993 = getelementptr inbounds %class.btVector3, ptr %888, i64 %991
-  %994 = load <2 x float>, ptr %993, align 4, !tbaa !5
-  %995 = fsub <2 x float> %994, %983
-  store <2 x float> %995, ptr %993, align 4, !tbaa !5
-  %996 = getelementptr inbounds [4 x float], ptr %993, i64 0, i64 2
-  %997 = load float, ptr %996, align 4, !tbaa !5
-  %998 = fsub float %997, %982
-  store float %998, ptr %996, align 4, !tbaa !5
-  %999 = or i64 %991, 1
-  %1000 = getelementptr inbounds %class.btVector3, ptr %888, i64 %999
-  %1001 = load <2 x float>, ptr %1000, align 4, !tbaa !5
-  %1002 = fsub <2 x float> %1001, %983
-  store <2 x float> %1002, ptr %1000, align 4, !tbaa !5
-  %1003 = getelementptr inbounds [4 x float], ptr %1000, i64 0, i64 2
-  %1004 = load float, ptr %1003, align 4, !tbaa !5
-  %1005 = fsub float %1004, %982
-  store float %1005, ptr %1003, align 4, !tbaa !5
-  %1006 = add nuw nsw i64 %991, 2
-  %1007 = add i64 %992, 2
-  %1008 = icmp eq i64 %1007, %989
-  br i1 %1008, label %1009, label %990
+991:                                              ; preds = %986
+  %992 = and i64 %987, 4294967294
+  br label %993
 
-1009:                                             ; preds = %990, %981
-  %1010 = phi i64 [ 0, %981 ], [ %1006, %990 ]
-  %1011 = icmp eq i64 %986, 0
-  br i1 %1011, label %1019, label %1012
+993:                                              ; preds = %993, %991
+  %994 = phi i64 [ 0, %991 ], [ %1009, %993 ]
+  %995 = phi i64 [ 0, %991 ], [ %1010, %993 ]
+  %996 = getelementptr inbounds %class.btVector3, ptr %889, i64 %994
+  %997 = load <2 x float>, ptr %996, align 4, !tbaa !5
+  %998 = fsub <2 x float> %997, %983
+  store <2 x float> %998, ptr %996, align 4, !tbaa !5
+  %999 = getelementptr inbounds [4 x float], ptr %996, i64 0, i64 2
+  %1000 = load float, ptr %999, align 4, !tbaa !5
+  %1001 = fsub float %1000, %985
+  store float %1001, ptr %999, align 4, !tbaa !5
+  %1002 = or i64 %994, 1
+  %1003 = getelementptr inbounds %class.btVector3, ptr %889, i64 %1002
+  %1004 = load <2 x float>, ptr %1003, align 4, !tbaa !5
+  %1005 = fsub <2 x float> %1004, %983
+  store <2 x float> %1005, ptr %1003, align 4, !tbaa !5
+  %1006 = getelementptr inbounds [4 x float], ptr %1003, i64 0, i64 2
+  %1007 = load float, ptr %1006, align 4, !tbaa !5
+  %1008 = fsub float %1007, %985
+  store float %1008, ptr %1006, align 4, !tbaa !5
+  %1009 = add nuw nsw i64 %994, 2
+  %1010 = add i64 %995, 2
+  %1011 = icmp eq i64 %1010, %992
+  br i1 %1011, label %1012, label %993
 
-1012:                                             ; preds = %1009
-  %1013 = getelementptr inbounds %class.btVector3, ptr %888, i64 %1010
-  %1014 = load <2 x float>, ptr %1013, align 4, !tbaa !5
-  %1015 = fsub <2 x float> %1014, %983
-  store <2 x float> %1015, ptr %1013, align 4, !tbaa !5
-  %1016 = getelementptr inbounds [4 x float], ptr %1013, i64 0, i64 2
-  %1017 = load float, ptr %1016, align 4, !tbaa !5
-  %1018 = fsub float %1017, %982
-  store float %1018, ptr %1016, align 4, !tbaa !5
-  br label %1019
+1012:                                             ; preds = %993, %986
+  %1013 = phi i64 [ 0, %986 ], [ %1009, %993 ]
+  %1014 = icmp eq i64 %989, 0
+  br i1 %1014, label %1022, label %1015
 
-1019:                                             ; preds = %1009, %1012
-  %1020 = load ptr, ptr %773, align 8
-  %1021 = and i64 %984, 1
-  %1022 = icmp eq i64 %985, 0
-  br i1 %1022, label %1044, label %1023
+1015:                                             ; preds = %1012
+  %1016 = getelementptr inbounds %class.btVector3, ptr %889, i64 %1013
+  %1017 = load <2 x float>, ptr %1016, align 4, !tbaa !5
+  %1018 = fsub <2 x float> %1017, %983
+  store <2 x float> %1018, ptr %1016, align 4, !tbaa !5
+  %1019 = getelementptr inbounds [4 x float], ptr %1016, i64 0, i64 2
+  %1020 = load float, ptr %1019, align 4, !tbaa !5
+  %1021 = fsub float %1020, %985
+  store float %1021, ptr %1019, align 4, !tbaa !5
+  br label %1022
 
-1023:                                             ; preds = %1019
-  %1024 = and i64 %984, 4294967294
-  br label %1025
+1022:                                             ; preds = %1012, %1015
+  %1023 = load ptr, ptr %773, align 8
+  %1024 = and i64 %987, 1
+  %1025 = icmp eq i64 %988, 0
+  br i1 %1025, label %1047, label %1026
 
-1025:                                             ; preds = %1025, %1023
-  %1026 = phi i64 [ 0, %1023 ], [ %1041, %1025 ]
-  %1027 = phi i64 [ 0, %1023 ], [ %1042, %1025 ]
-  %1028 = getelementptr inbounds %class.btVector3, ptr %1020, i64 %1026
-  %1029 = load <2 x float>, ptr %1028, align 4, !tbaa !5
-  %1030 = fadd <2 x float> %983, %1029
-  store <2 x float> %1030, ptr %1028, align 4, !tbaa !5
-  %1031 = getelementptr inbounds [4 x float], ptr %1028, i64 0, i64 2
-  %1032 = load float, ptr %1031, align 4, !tbaa !5
-  %1033 = fadd float %982, %1032
-  store float %1033, ptr %1031, align 4, !tbaa !5
-  %1034 = or i64 %1026, 1
-  %1035 = getelementptr inbounds %class.btVector3, ptr %1020, i64 %1034
-  %1036 = load <2 x float>, ptr %1035, align 4, !tbaa !5
-  %1037 = fadd <2 x float> %983, %1036
-  store <2 x float> %1037, ptr %1035, align 4, !tbaa !5
-  %1038 = getelementptr inbounds [4 x float], ptr %1035, i64 0, i64 2
-  %1039 = load float, ptr %1038, align 4, !tbaa !5
-  %1040 = fadd float %982, %1039
-  store float %1040, ptr %1038, align 4, !tbaa !5
-  %1041 = add nuw nsw i64 %1026, 2
-  %1042 = add i64 %1027, 2
-  %1043 = icmp eq i64 %1042, %1024
-  br i1 %1043, label %1044, label %1025
+1026:                                             ; preds = %1022
+  %1027 = and i64 %987, 4294967294
+  br label %1028
 
-1044:                                             ; preds = %1025, %1019
-  %1045 = phi i64 [ 0, %1019 ], [ %1041, %1025 ]
-  %1046 = icmp eq i64 %1021, 0
-  br i1 %1046, label %1054, label %1047
+1028:                                             ; preds = %1028, %1026
+  %1029 = phi i64 [ 0, %1026 ], [ %1044, %1028 ]
+  %1030 = phi i64 [ 0, %1026 ], [ %1045, %1028 ]
+  %1031 = getelementptr inbounds %class.btVector3, ptr %1023, i64 %1029
+  %1032 = load <2 x float>, ptr %1031, align 4, !tbaa !5
+  %1033 = fadd <2 x float> %983, %1032
+  store <2 x float> %1033, ptr %1031, align 4, !tbaa !5
+  %1034 = getelementptr inbounds [4 x float], ptr %1031, i64 0, i64 2
+  %1035 = load float, ptr %1034, align 4, !tbaa !5
+  %1036 = fadd float %985, %1035
+  store float %1036, ptr %1034, align 4, !tbaa !5
+  %1037 = or i64 %1029, 1
+  %1038 = getelementptr inbounds %class.btVector3, ptr %1023, i64 %1037
+  %1039 = load <2 x float>, ptr %1038, align 4, !tbaa !5
+  %1040 = fadd <2 x float> %983, %1039
+  store <2 x float> %1040, ptr %1038, align 4, !tbaa !5
+  %1041 = getelementptr inbounds [4 x float], ptr %1038, i64 0, i64 2
+  %1042 = load float, ptr %1041, align 4, !tbaa !5
+  %1043 = fadd float %985, %1042
+  store float %1043, ptr %1041, align 4, !tbaa !5
+  %1044 = add nuw nsw i64 %1029, 2
+  %1045 = add i64 %1030, 2
+  %1046 = icmp eq i64 %1045, %1027
+  br i1 %1046, label %1047, label %1028
 
-1047:                                             ; preds = %1044
-  %1048 = getelementptr inbounds %class.btVector3, ptr %1020, i64 %1045
-  %1049 = load <2 x float>, ptr %1048, align 4, !tbaa !5
-  %1050 = fadd <2 x float> %983, %1049
-  store <2 x float> %1050, ptr %1048, align 4, !tbaa !5
-  %1051 = getelementptr inbounds [4 x float], ptr %1048, i64 0, i64 2
-  %1052 = load float, ptr %1051, align 4, !tbaa !5
-  %1053 = fadd float %982, %1052
-  store float %1053, ptr %1051, align 4, !tbaa !5
-  br label %1054
+1047:                                             ; preds = %1028, %1022
+  %1048 = phi i64 [ 0, %1022 ], [ %1044, %1028 ]
+  %1049 = icmp eq i64 %1024, 0
+  br i1 %1049, label %1057, label %1050
 
-1054:                                             ; preds = %1047, %1044, %886, %973
-  %1055 = load i32, ptr %781, align 8, !tbaa !90
-  %1056 = icmp sgt i32 %1055, 0
-  br i1 %1056, label %1057, label %1094
+1050:                                             ; preds = %1047
+  %1051 = getelementptr inbounds %class.btVector3, ptr %1023, i64 %1048
+  %1052 = load <2 x float>, ptr %1051, align 4, !tbaa !5
+  %1053 = fadd <2 x float> %983, %1052
+  store <2 x float> %1053, ptr %1051, align 4, !tbaa !5
+  %1054 = getelementptr inbounds [4 x float], ptr %1051, i64 0, i64 2
+  %1055 = load float, ptr %1054, align 4, !tbaa !5
+  %1056 = fadd float %985, %1055
+  store float %1056, ptr %1054, align 4, !tbaa !5
+  br label %1057
 
-1057:                                             ; preds = %1054, %1079
-  %1058 = phi i64 [ %1080, %1079 ], [ 0, %1054 ]
-  %1059 = mul nuw nsw i64 %1058, 3
-  %1060 = load ptr, ptr %777, align 8, !tbaa !84
-  %1061 = getelementptr inbounds i32, ptr %1060, i64 %1059
-  %1062 = load i32, ptr %1061, align 4, !tbaa !107
-  %1063 = add nuw nsw i64 %1059, 1
-  %1064 = getelementptr inbounds i32, ptr %1060, i64 %1063
-  %1065 = load i32, ptr %1064, align 4, !tbaa !107
-  %1066 = add nuw nsw i64 %1059, 2
-  %1067 = getelementptr inbounds i32, ptr %1060, i64 %1066
-  %1068 = load i32, ptr %1067, align 4, !tbaa !107
-  %1069 = load ptr, ptr %773, align 8, !tbaa !78
-  %1070 = sext i32 %1062 to i64
-  %1071 = getelementptr inbounds %class.btVector3, ptr %1069, i64 %1070
-  %1072 = sext i32 %1065 to i64
-  %1073 = getelementptr inbounds %class.btVector3, ptr %1069, i64 %1072
-  %1074 = sext i32 %1068 to i64
-  %1075 = getelementptr inbounds %class.btVector3, ptr %1069, i64 %1074
-  %1076 = load ptr, ptr %1, align 8, !tbaa !21
-  %1077 = getelementptr inbounds ptr, ptr %1076, i64 7
-  %1078 = load ptr, ptr %1077, align 8
-  invoke void %1078(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1071, ptr noundef nonnull align 4 dereferenceable(16) %1073, ptr noundef nonnull align 4 dereferenceable(16) %1075, ptr noundef nonnull align 4 dereferenceable(16) %71, float noundef 1.000000e+00)
-          to label %1079 unwind label %1092
+1057:                                             ; preds = %1050, %1047, %974
+  %1058 = load i32, ptr %781, align 8, !tbaa !92
+  %1059 = icmp sgt i32 %1058, 0
+  br i1 %1059, label %1060, label %1097
 
-1079:                                             ; preds = %1057
-  %1080 = add nuw nsw i64 %1058, 1
-  %1081 = load i32, ptr %781, align 8, !tbaa !90
-  %1082 = sext i32 %1081 to i64
-  %1083 = icmp slt i64 %1080, %1082
-  br i1 %1083, label %1057, label %1094
+1060:                                             ; preds = %1057, %1082
+  %1061 = phi i64 [ %1083, %1082 ], [ 0, %1057 ]
+  %1062 = mul nuw nsw i64 %1061, 3
+  %1063 = load ptr, ptr %777, align 8, !tbaa !86
+  %1064 = getelementptr inbounds i32, ptr %1063, i64 %1062
+  %1065 = load i32, ptr %1064, align 4, !tbaa !109
+  %1066 = add nuw nsw i64 %1062, 1
+  %1067 = getelementptr inbounds i32, ptr %1063, i64 %1066
+  %1068 = load i32, ptr %1067, align 4, !tbaa !109
+  %1069 = add nuw nsw i64 %1062, 2
+  %1070 = getelementptr inbounds i32, ptr %1063, i64 %1069
+  %1071 = load i32, ptr %1070, align 4, !tbaa !109
+  %1072 = load ptr, ptr %773, align 8, !tbaa !80
+  %1073 = sext i32 %1065 to i64
+  %1074 = getelementptr inbounds %class.btVector3, ptr %1072, i64 %1073
+  %1075 = sext i32 %1068 to i64
+  %1076 = getelementptr inbounds %class.btVector3, ptr %1072, i64 %1075
+  %1077 = sext i32 %1071 to i64
+  %1078 = getelementptr inbounds %class.btVector3, ptr %1072, i64 %1077
+  %1079 = load ptr, ptr %1, align 8, !tbaa !21
+  %1080 = getelementptr inbounds ptr, ptr %1079, i64 7
+  %1081 = load ptr, ptr %1080, align 8
+  invoke void %1081(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1074, ptr noundef nonnull align 4 dereferenceable(16) %1076, ptr noundef nonnull align 4 dereferenceable(16) %1078, ptr noundef nonnull align 4 dereferenceable(16) %71, float noundef 1.000000e+00)
+          to label %1082 unwind label %1095
 
-1084:                                             ; preds = %1134
-  %1085 = landingpad { ptr, i32 }
+1082:                                             ; preds = %1060
+  %1083 = add nuw nsw i64 %1061, 1
+  %1084 = load i32, ptr %781, align 8, !tbaa !92
+  %1085 = sext i32 %1084 to i64
+  %1086 = icmp slt i64 %1083, %1085
+  br i1 %1086, label %1060, label %1097
+
+1087:                                             ; preds = %1137
+  %1088 = landingpad { ptr, i32 }
           cleanup
-  br label %1157
+  br label %1160
 
-1086:                                             ; preds = %1109
-  %1087 = landingpad { ptr, i32 }
+1089:                                             ; preds = %1112
+  %1090 = landingpad { ptr, i32 }
           cleanup
-  br label %1155
+  br label %1158
 
-1088:                                             ; preds = %883
-  %1089 = landingpad { ptr, i32 }
+1091:                                             ; preds = %884
+  %1092 = landingpad { ptr, i32 }
           cleanup
-  br label %1153
+  br label %1156
 
-1090:                                             ; preds = %1094
-  %1091 = landingpad { ptr, i32 }
+1093:                                             ; preds = %1097
+  %1094 = landingpad { ptr, i32 }
           cleanup
-  br label %1153
+  br label %1156
 
-1092:                                             ; preds = %1057
-  %1093 = landingpad { ptr, i32 }
+1095:                                             ; preds = %1060
+  %1096 = landingpad { ptr, i32 }
           cleanup
-  br label %1153
+  br label %1156
 
-1094:                                             ; preds = %1079, %1054
-  %1095 = invoke noundef i32 @_ZN11HullLibrary13ReleaseResultER10HullResult(ptr noundef nonnull align 8 dereferenceable(64) %74, ptr noundef nonnull align 8 dereferenceable(80) %73)
-          to label %1096 unwind label %1090
+1097:                                             ; preds = %1082, %1057
+  %1098 = invoke noundef i32 @_ZN11HullLibrary13ReleaseResultER10HullResult(ptr noundef nonnull align 8 dereferenceable(64) %74, ptr noundef nonnull align 8 dereferenceable(80) %73)
+          to label %1099 unwind label %1093
 
-1096:                                             ; preds = %1094
-  %1097 = load ptr, ptr %788, align 8, !tbaa !101
-  %1098 = icmp eq ptr %1097, null
-  %1099 = load i8, ptr %787, align 8
-  %1100 = icmp eq i8 %1099, 0
-  %1101 = select i1 %1098, i1 true, i1 %1100
-  br i1 %1101, label %1103, label %1102
+1099:                                             ; preds = %1097
+  %1100 = load ptr, ptr %788, align 8, !tbaa !103
+  %1101 = icmp eq ptr %1100, null
+  %1102 = load i8, ptr %787, align 8
+  %1103 = icmp eq i8 %1102, 0
+  %1104 = select i1 %1101, i1 true, i1 %1103
+  br i1 %1104, label %1106, label %1105
 
-1102:                                             ; preds = %1096
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1097)
-          to label %1103 unwind label %1110
+1105:                                             ; preds = %1099
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1100)
+          to label %1106 unwind label %1113
 
-1103:                                             ; preds = %1102, %1096
-  store i8 1, ptr %787, align 8, !tbaa !98
-  store ptr null, ptr %788, align 8, !tbaa !101
-  store i32 0, ptr %789, align 4, !tbaa !102
-  store i32 0, ptr %790, align 8, !tbaa !103
-  %1104 = load ptr, ptr %784, align 8, !tbaa !95
-  %1105 = icmp eq ptr %1104, null
-  %1106 = load i8, ptr %783, align 8
-  %1107 = icmp eq i8 %1106, 0
-  %1108 = select i1 %1105, i1 true, i1 %1107
-  br i1 %1108, label %1121, label %1109
+1106:                                             ; preds = %1105, %1099
+  store i8 1, ptr %787, align 8, !tbaa !100
+  store ptr null, ptr %788, align 8, !tbaa !103
+  store i32 0, ptr %789, align 4, !tbaa !104
+  store i32 0, ptr %790, align 8, !tbaa !105
+  %1107 = load ptr, ptr %784, align 8, !tbaa !97
+  %1108 = icmp eq ptr %1107, null
+  %1109 = load i8, ptr %783, align 8
+  %1110 = icmp eq i8 %1109, 0
+  %1111 = select i1 %1108, i1 true, i1 %1110
+  br i1 %1111, label %1124, label %1112
 
-1109:                                             ; preds = %1103
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1104)
-          to label %1121 unwind label %1086
+1112:                                             ; preds = %1106
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1107)
+          to label %1124 unwind label %1089
 
-1110:                                             ; preds = %1102
-  %1111 = landingpad { ptr, i32 }
+1113:                                             ; preds = %1105
+  %1114 = landingpad { ptr, i32 }
           cleanup
-  %1112 = load ptr, ptr %784, align 8, !tbaa !95
-  %1113 = icmp eq ptr %1112, null
-  %1114 = load i8, ptr %783, align 8
-  %1115 = icmp eq i8 %1114, 0
-  %1116 = select i1 %1113, i1 true, i1 %1115
-  br i1 %1116, label %1155, label %1117
+  %1115 = load ptr, ptr %784, align 8, !tbaa !97
+  %1116 = icmp eq ptr %1115, null
+  %1117 = load i8, ptr %783, align 8
+  %1118 = icmp eq i8 %1117, 0
+  %1119 = select i1 %1116, i1 true, i1 %1118
+  br i1 %1119, label %1158, label %1120
 
-1117:                                             ; preds = %1110
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1112)
-          to label %1155 unwind label %1118
+1120:                                             ; preds = %1113
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1115)
+          to label %1158 unwind label %1121
 
-1118:                                             ; preds = %1117
-  %1119 = landingpad { ptr, i32 }
+1121:                                             ; preds = %1120
+  %1122 = landingpad { ptr, i32 }
           catch ptr null
-  %1120 = extractvalue { ptr, i32 } %1119, 0
-  call void @__clang_call_terminate(ptr %1120) #19
+  %1123 = extractvalue { ptr, i32 } %1122, 0
+  call void @__clang_call_terminate(ptr %1123) #19
   unreachable
 
-1121:                                             ; preds = %1103, %1109
+1124:                                             ; preds = %1112, %1106
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %74) #18
-  %1122 = load ptr, ptr %777, align 8, !tbaa !84
-  %1123 = icmp eq ptr %1122, null
-  %1124 = load i8, ptr %776, align 8
-  %1125 = icmp eq i8 %1124, 0
-  %1126 = select i1 %1123, i1 true, i1 %1125
-  br i1 %1126, label %1128, label %1127
+  %1125 = load ptr, ptr %777, align 8, !tbaa !86
+  %1126 = icmp eq ptr %1125, null
+  %1127 = load i8, ptr %776, align 8
+  %1128 = icmp eq i8 %1127, 0
+  %1129 = select i1 %1126, i1 true, i1 %1128
+  br i1 %1129, label %1131, label %1130
 
-1127:                                             ; preds = %1121
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1122)
-          to label %1128 unwind label %1135
+1130:                                             ; preds = %1124
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1125)
+          to label %1131 unwind label %1138
 
-1128:                                             ; preds = %1127, %1121
-  store i8 1, ptr %776, align 8, !tbaa !81
-  store ptr null, ptr %777, align 8, !tbaa !84
-  store i32 0, ptr %778, align 4, !tbaa !85
-  store i32 0, ptr %779, align 8, !tbaa !86
-  %1129 = load ptr, ptr %773, align 8, !tbaa !78
-  %1130 = icmp eq ptr %1129, null
-  %1131 = load i8, ptr %772, align 8
-  %1132 = icmp eq i8 %1131, 0
-  %1133 = select i1 %1130, i1 true, i1 %1132
-  br i1 %1133, label %1146, label %1134
+1131:                                             ; preds = %1130, %1124
+  store i8 1, ptr %776, align 8, !tbaa !83
+  store ptr null, ptr %777, align 8, !tbaa !86
+  store i32 0, ptr %778, align 4, !tbaa !87
+  store i32 0, ptr %779, align 8, !tbaa !88
+  %1132 = load ptr, ptr %773, align 8, !tbaa !80
+  %1133 = icmp eq ptr %1132, null
+  %1134 = load i8, ptr %772, align 8
+  %1135 = icmp eq i8 %1134, 0
+  %1136 = select i1 %1133, i1 true, i1 %1135
+  br i1 %1136, label %1149, label %1137
 
-1134:                                             ; preds = %1128
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1129)
-          to label %1146 unwind label %1084
+1137:                                             ; preds = %1131
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1132)
+          to label %1149 unwind label %1087
 
-1135:                                             ; preds = %1127
-  %1136 = landingpad { ptr, i32 }
+1138:                                             ; preds = %1130
+  %1139 = landingpad { ptr, i32 }
           cleanup
-  %1137 = load ptr, ptr %773, align 8, !tbaa !78
-  %1138 = icmp eq ptr %1137, null
-  %1139 = load i8, ptr %772, align 8
-  %1140 = icmp eq i8 %1139, 0
-  %1141 = select i1 %1138, i1 true, i1 %1140
-  br i1 %1141, label %1157, label %1142
+  %1140 = load ptr, ptr %773, align 8, !tbaa !80
+  %1141 = icmp eq ptr %1140, null
+  %1142 = load i8, ptr %772, align 8
+  %1143 = icmp eq i8 %1142, 0
+  %1144 = select i1 %1141, i1 true, i1 %1143
+  br i1 %1144, label %1160, label %1145
 
-1142:                                             ; preds = %1135
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1137)
-          to label %1157 unwind label %1143
+1145:                                             ; preds = %1138
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %1140)
+          to label %1160 unwind label %1146
 
-1143:                                             ; preds = %1142
-  %1144 = landingpad { ptr, i32 }
+1146:                                             ; preds = %1145
+  %1147 = landingpad { ptr, i32 }
           catch ptr null
-  %1145 = extractvalue { ptr, i32 } %1144, 0
-  call void @__clang_call_terminate(ptr %1145) #19
+  %1148 = extractvalue { ptr, i32 } %1147, 0
+  call void @__clang_call_terminate(ptr %1148) #19
   unreachable
 
-1146:                                             ; preds = %1128, %1134
+1149:                                             ; preds = %1137, %1131
   call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %73) #18
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %72) #18
-  %1147 = icmp eq ptr %884, null
-  br i1 %1147, label %1149, label %1148
+  %1150 = icmp eq ptr %885, null
+  br i1 %1150, label %1152, label %1151
 
-1148:                                             ; preds = %1146
-  call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %884)
-  br label %1149
+1151:                                             ; preds = %1149
+  call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %885)
+  br label %1152
 
-1149:                                             ; preds = %1146, %1148
+1152:                                             ; preds = %1149, %1151
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %71) #18
-  %1150 = load ptr, ptr %765, align 8, !tbaa !57
-  %1151 = getelementptr inbounds ptr, ptr %1150, i64 %795
-  %1152 = load ptr, ptr %1151, align 8, !tbaa !27
-  br label %1165
+  %1153 = load ptr, ptr %765, align 8, !tbaa !59
+  %1154 = getelementptr inbounds ptr, ptr %1153, i64 %795
+  %1155 = load ptr, ptr %1154, align 8, !tbaa !27
+  br label %1168
 
-1153:                                             ; preds = %1090, %1092, %1088
-  %1154 = phi { ptr, i32 } [ %1089, %1088 ], [ %1093, %1092 ], [ %1091, %1090 ]
+1156:                                             ; preds = %1093, %1095, %1091
+  %1157 = phi { ptr, i32 } [ %1092, %1091 ], [ %1096, %1095 ], [ %1094, %1093 ]
   invoke void @_ZN11HullLibraryD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %74)
-          to label %1155 unwind label %2012
+          to label %1158 unwind label %2015
 
-1155:                                             ; preds = %1117, %1110, %1086, %1153
-  %1156 = phi { ptr, i32 } [ %1154, %1153 ], [ %1087, %1086 ], [ %1111, %1110 ], [ %1111, %1117 ]
+1158:                                             ; preds = %1113, %1120, %1089, %1156
+  %1159 = phi { ptr, i32 } [ %1157, %1156 ], [ %1090, %1089 ], [ %1114, %1120 ], [ %1114, %1113 ]
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %74) #18
   invoke void @_ZN10HullResultD2Ev(ptr noundef nonnull align 8 dereferenceable(80) %73)
-          to label %1157 unwind label %2012
+          to label %1160 unwind label %2015
 
-1157:                                             ; preds = %1142, %1135, %1155, %1084
-  %1158 = phi { ptr, i32 } [ %1156, %1155 ], [ %1085, %1084 ], [ %1136, %1135 ], [ %1136, %1142 ]
+1160:                                             ; preds = %1138, %1145, %1087, %1158
+  %1161 = phi { ptr, i32 } [ %1159, %1158 ], [ %1088, %1087 ], [ %1139, %1145 ], [ %1139, %1138 ]
   call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %73) #18
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %72) #18
-  %1159 = icmp eq ptr %884, null
-  br i1 %1159, label %1163, label %1160
+  %1162 = icmp eq ptr %885, null
+  br i1 %1162, label %1166, label %1163
 
-1160:                                             ; preds = %1157
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %884)
-          to label %1163 unwind label %2012
+1163:                                             ; preds = %1160
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %885)
+          to label %1166 unwind label %2015
 
-1161:                                             ; preds = %1918, %1854, %1829, %1803, %1706, %1679, %1607, %1534, %1163
-  %1162 = phi { ptr, i32 } [ %1164, %1163 ], [ %1535, %1534 ], [ %1608, %1607 ], [ %1680, %1679 ], [ %1707, %1706 ], [ %1804, %1803 ], [ %1830, %1829 ], [ %1855, %1854 ], [ %1919, %1918 ]
-  resume { ptr, i32 } %1162
+1164:                                             ; preds = %1921, %1857, %1832, %1806, %1709, %1682, %1610, %1537, %1166
+  %1165 = phi { ptr, i32 } [ %1167, %1166 ], [ %1538, %1537 ], [ %1611, %1610 ], [ %1683, %1682 ], [ %1710, %1709 ], [ %1807, %1806 ], [ %1833, %1832 ], [ %1858, %1857 ], [ %1922, %1921 ]
+  resume { ptr, i32 } %1165
 
-1163:                                             ; preds = %1157, %868, %1160
-  %1164 = phi { ptr, i32 } [ %869, %868 ], [ %1158, %1157 ], [ %1158, %1160 ]
+1166:                                             ; preds = %869, %1160, %1163
+  %1167 = phi { ptr, i32 } [ %870, %869 ], [ %1161, %1160 ], [ %1161, %1163 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %71) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %42) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %41) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %40) #18
-  br label %1161
+  br label %1164
 
-1165:                                             ; preds = %1149, %794
-  %1166 = phi ptr [ %1152, %1149 ], [ %798, %794 ]
-  %1167 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 8
+1168:                                             ; preds = %1152, %794
+  %1169 = phi ptr [ %1155, %1152 ], [ %798, %794 ]
+  %1170 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %75) #18
-  %1168 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3
-  %1169 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 0, i32 0, i64 0, i32 0, i64 1
-  %1170 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 0, i32 0, i64 0, i32 0, i64 2
-  %1171 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 1
-  %1172 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 0, i32 0, i64 1
-  %1173 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 0, i32 0, i64 1, i32 0, i64 1
-  %1174 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 0, i32 0, i64 1, i32 0, i64 2
-  %1175 = load float, ptr %1168, align 4, !tbaa !5
-  %1176 = load float, ptr %1169, align 4, !tbaa !5
-  %1177 = load float, ptr %1170, align 4, !tbaa !5
-  %1178 = load float, ptr %1172, align 4, !tbaa !5
-  %1179 = load float, ptr %1173, align 4, !tbaa !5
-  %1180 = insertelement <2 x float> poison, float %1176, i64 0
-  %1181 = insertelement <2 x float> %1180, float %1179, i64 1
-  %1182 = fmul <2 x float> %1181, zeroinitializer
-  %1183 = insertelement <2 x float> poison, float %1175, i64 0
-  %1184 = insertelement <2 x float> %1183, float %1178, i64 1
-  %1185 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1184, <2 x float> <float 1.000000e+01, float 1.000000e+01>, <2 x float> %1182)
-  %1186 = load float, ptr %1174, align 4, !tbaa !5
-  %1187 = insertelement <2 x float> poison, float %1177, i64 0
-  %1188 = insertelement <2 x float> %1187, float %1186, i64 1
-  %1189 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1188, <2 x float> zeroinitializer, <2 x float> %1185)
-  %1190 = load <2 x float>, ptr %1171, align 4, !tbaa !5
-  %1191 = fadd <2 x float> %1190, %1189
-  %1192 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 0, i32 0, i64 2
-  %1193 = load float, ptr %1192, align 4, !tbaa !5
-  %1194 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 0, i32 0, i64 2, i32 0, i64 1
-  %1195 = load float, ptr %1194, align 4, !tbaa !5
-  %1196 = fmul float %1195, 0.000000e+00
-  %1197 = call float @llvm.fmuladd.f32(float %1193, float 1.000000e+01, float %1196)
-  %1198 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 0, i32 0, i64 2, i32 0, i64 2
-  %1199 = load float, ptr %1198, align 4, !tbaa !5
-  %1200 = call float @llvm.fmuladd.f32(float %1199, float 0.000000e+00, float %1197)
-  %1201 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1166, i64 0, i32 3, i32 1, i32 0, i64 2
+  %1171 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3
+  %1172 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 0, i32 0, i64 0, i32 0, i64 1
+  %1173 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 0, i32 0, i64 0, i32 0, i64 2
+  %1174 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 1
+  %1175 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 0, i32 0, i64 1
+  %1176 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 0, i32 0, i64 1, i32 0, i64 1
+  %1177 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 0, i32 0, i64 1, i32 0, i64 2
+  %1178 = load float, ptr %1171, align 4, !tbaa !5
+  %1179 = load float, ptr %1172, align 4, !tbaa !5
+  %1180 = load float, ptr %1173, align 4, !tbaa !5
+  %1181 = load float, ptr %1175, align 4, !tbaa !5
+  %1182 = load float, ptr %1176, align 4, !tbaa !5
+  %1183 = insertelement <2 x float> poison, float %1179, i64 0
+  %1184 = insertelement <2 x float> %1183, float %1182, i64 1
+  %1185 = fmul <2 x float> %1184, zeroinitializer
+  %1186 = insertelement <2 x float> poison, float %1178, i64 0
+  %1187 = insertelement <2 x float> %1186, float %1181, i64 1
+  %1188 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1187, <2 x float> <float 1.000000e+01, float 1.000000e+01>, <2 x float> %1185)
+  %1189 = load float, ptr %1177, align 4, !tbaa !5
+  %1190 = insertelement <2 x float> poison, float %1180, i64 0
+  %1191 = insertelement <2 x float> %1190, float %1189, i64 1
+  %1192 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1191, <2 x float> zeroinitializer, <2 x float> %1188)
+  %1193 = load <2 x float>, ptr %1174, align 4, !tbaa !5
+  %1194 = fadd <2 x float> %1193, %1192
+  %1195 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 0, i32 0, i64 2
+  %1196 = load float, ptr %1195, align 4, !tbaa !5
+  %1197 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 0, i32 0, i64 2, i32 0, i64 1
+  %1198 = load float, ptr %1197, align 4, !tbaa !5
+  %1199 = fmul float %1198, 0.000000e+00
+  %1200 = call float @llvm.fmuladd.f32(float %1196, float 1.000000e+01, float %1199)
+  %1201 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 0, i32 0, i64 2, i32 0, i64 2
   %1202 = load float, ptr %1201, align 4, !tbaa !5
-  %1203 = fadd float %1202, %1200
-  %1204 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1203, i64 0
-  store <2 x float> %1191, ptr %75, align 8
-  store <2 x float> %1204, ptr %791, align 8
+  %1203 = call float @llvm.fmuladd.f32(float %1202, float 0.000000e+00, float %1200)
+  %1204 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1169, i64 0, i32 3, i32 1, i32 0, i64 2
+  %1205 = load float, ptr %1204, align 4, !tbaa !5
+  %1206 = fadd float %1205, %1203
+  %1207 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1206, i64 0
+  store <2 x float> %1194, ptr %75, align 8
+  store <2 x float> %1207, ptr %791, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %76) #18
   store <4 x float> <float 1.000000e+00, float 0.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %76, align 16, !tbaa !5
-  %1205 = load ptr, ptr %1, align 8, !tbaa !21
-  %1206 = getelementptr inbounds ptr, ptr %1205, i64 5
-  %1207 = load ptr, ptr %1206, align 8
-  call void %1207(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1167, ptr noundef nonnull align 4 dereferenceable(16) %75, ptr noundef nonnull align 4 dereferenceable(16) %76)
+  %1208 = load ptr, ptr %1, align 8, !tbaa !21
+  %1209 = getelementptr inbounds ptr, ptr %1208, i64 5
+  %1210 = load ptr, ptr %1209, align 8
+  call void %1210(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1170, ptr noundef nonnull align 4 dereferenceable(16) %75, ptr noundef nonnull align 4 dereferenceable(16) %76)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %76) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %75) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %77) #18
-  %1208 = load float, ptr %1168, align 4, !tbaa !5
-  %1209 = load float, ptr %1169, align 4, !tbaa !5
-  %1210 = load float, ptr %1170, align 4, !tbaa !5
-  %1211 = load float, ptr %1172, align 4, !tbaa !5
-  %1212 = load float, ptr %1173, align 4, !tbaa !5
-  %1213 = insertelement <2 x float> poison, float %1209, i64 0
-  %1214 = insertelement <2 x float> %1213, float %1212, i64 1
-  %1215 = fmul <2 x float> %1214, <float 1.000000e+01, float 1.000000e+01>
-  %1216 = insertelement <2 x float> poison, float %1208, i64 0
-  %1217 = insertelement <2 x float> %1216, float %1211, i64 1
-  %1218 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1217, <2 x float> zeroinitializer, <2 x float> %1215)
-  %1219 = load float, ptr %1174, align 4, !tbaa !5
-  %1220 = insertelement <2 x float> poison, float %1210, i64 0
-  %1221 = insertelement <2 x float> %1220, float %1219, i64 1
-  %1222 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1221, <2 x float> zeroinitializer, <2 x float> %1218)
-  %1223 = load <2 x float>, ptr %1171, align 4, !tbaa !5
-  %1224 = fadd <2 x float> %1223, %1222
-  %1225 = load float, ptr %1192, align 4, !tbaa !5
-  %1226 = load float, ptr %1194, align 4, !tbaa !5
-  %1227 = fmul float %1226, 1.000000e+01
-  %1228 = call float @llvm.fmuladd.f32(float %1225, float 0.000000e+00, float %1227)
-  %1229 = load float, ptr %1198, align 4, !tbaa !5
-  %1230 = call float @llvm.fmuladd.f32(float %1229, float 0.000000e+00, float %1228)
-  %1231 = load float, ptr %1201, align 4, !tbaa !5
-  %1232 = fadd float %1231, %1230
-  %1233 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1232, i64 0
-  store <2 x float> %1224, ptr %77, align 8
-  store <2 x float> %1233, ptr %792, align 8
+  %1211 = load float, ptr %1171, align 4, !tbaa !5
+  %1212 = load float, ptr %1172, align 4, !tbaa !5
+  %1213 = load float, ptr %1173, align 4, !tbaa !5
+  %1214 = load float, ptr %1175, align 4, !tbaa !5
+  %1215 = load float, ptr %1176, align 4, !tbaa !5
+  %1216 = insertelement <2 x float> poison, float %1212, i64 0
+  %1217 = insertelement <2 x float> %1216, float %1215, i64 1
+  %1218 = fmul <2 x float> %1217, <float 1.000000e+01, float 1.000000e+01>
+  %1219 = insertelement <2 x float> poison, float %1211, i64 0
+  %1220 = insertelement <2 x float> %1219, float %1214, i64 1
+  %1221 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1220, <2 x float> zeroinitializer, <2 x float> %1218)
+  %1222 = load float, ptr %1177, align 4, !tbaa !5
+  %1223 = insertelement <2 x float> poison, float %1213, i64 0
+  %1224 = insertelement <2 x float> %1223, float %1222, i64 1
+  %1225 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1224, <2 x float> zeroinitializer, <2 x float> %1221)
+  %1226 = load <2 x float>, ptr %1174, align 4, !tbaa !5
+  %1227 = fadd <2 x float> %1226, %1225
+  %1228 = load float, ptr %1195, align 4, !tbaa !5
+  %1229 = load float, ptr %1197, align 4, !tbaa !5
+  %1230 = fmul float %1229, 1.000000e+01
+  %1231 = call float @llvm.fmuladd.f32(float %1228, float 0.000000e+00, float %1230)
+  %1232 = load float, ptr %1201, align 4, !tbaa !5
+  %1233 = call float @llvm.fmuladd.f32(float %1232, float 0.000000e+00, float %1231)
+  %1234 = load float, ptr %1204, align 4, !tbaa !5
+  %1235 = fadd float %1234, %1233
+  %1236 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1235, i64 0
+  store <2 x float> %1227, ptr %77, align 8
+  store <2 x float> %1236, ptr %792, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %78) #18
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %78, align 16, !tbaa !5
-  %1234 = load ptr, ptr %1, align 8, !tbaa !21
-  %1235 = getelementptr inbounds ptr, ptr %1234, i64 5
-  %1236 = load ptr, ptr %1235, align 8
-  call void %1236(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1167, ptr noundef nonnull align 4 dereferenceable(16) %77, ptr noundef nonnull align 4 dereferenceable(16) %78)
+  %1237 = load ptr, ptr %1, align 8, !tbaa !21
+  %1238 = getelementptr inbounds ptr, ptr %1237, i64 5
+  %1239 = load ptr, ptr %1238, align 8
+  call void %1239(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1170, ptr noundef nonnull align 4 dereferenceable(16) %77, ptr noundef nonnull align 4 dereferenceable(16) %78)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %78) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %77) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %79) #18
-  %1237 = load float, ptr %1168, align 4, !tbaa !5
-  %1238 = load float, ptr %1169, align 4, !tbaa !5
-  %1239 = load float, ptr %1170, align 4, !tbaa !5
-  %1240 = load float, ptr %1172, align 4, !tbaa !5
-  %1241 = load float, ptr %1173, align 4, !tbaa !5
-  %1242 = insertelement <2 x float> poison, float %1238, i64 0
-  %1243 = insertelement <2 x float> %1242, float %1241, i64 1
-  %1244 = fmul <2 x float> %1243, zeroinitializer
-  %1245 = insertelement <2 x float> poison, float %1237, i64 0
-  %1246 = insertelement <2 x float> %1245, float %1240, i64 1
-  %1247 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1246, <2 x float> zeroinitializer, <2 x float> %1244)
-  %1248 = load float, ptr %1174, align 4, !tbaa !5
-  %1249 = insertelement <2 x float> poison, float %1239, i64 0
-  %1250 = insertelement <2 x float> %1249, float %1248, i64 1
-  %1251 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1250, <2 x float> <float 1.000000e+01, float 1.000000e+01>, <2 x float> %1247)
-  %1252 = load <2 x float>, ptr %1171, align 4, !tbaa !5
-  %1253 = fadd <2 x float> %1252, %1251
-  %1254 = load float, ptr %1192, align 4, !tbaa !5
-  %1255 = load float, ptr %1194, align 4, !tbaa !5
-  %1256 = fmul float %1255, 0.000000e+00
-  %1257 = call float @llvm.fmuladd.f32(float %1254, float 0.000000e+00, float %1256)
-  %1258 = load float, ptr %1198, align 4, !tbaa !5
-  %1259 = call float @llvm.fmuladd.f32(float %1258, float 1.000000e+01, float %1257)
-  %1260 = load float, ptr %1201, align 4, !tbaa !5
-  %1261 = fadd float %1260, %1259
-  %1262 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1261, i64 0
-  store <2 x float> %1253, ptr %79, align 8
-  store <2 x float> %1262, ptr %793, align 8
+  %1240 = load float, ptr %1171, align 4, !tbaa !5
+  %1241 = load float, ptr %1172, align 4, !tbaa !5
+  %1242 = load float, ptr %1173, align 4, !tbaa !5
+  %1243 = load float, ptr %1175, align 4, !tbaa !5
+  %1244 = load float, ptr %1176, align 4, !tbaa !5
+  %1245 = insertelement <2 x float> poison, float %1241, i64 0
+  %1246 = insertelement <2 x float> %1245, float %1244, i64 1
+  %1247 = fmul <2 x float> %1246, zeroinitializer
+  %1248 = insertelement <2 x float> poison, float %1240, i64 0
+  %1249 = insertelement <2 x float> %1248, float %1243, i64 1
+  %1250 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1249, <2 x float> zeroinitializer, <2 x float> %1247)
+  %1251 = load float, ptr %1177, align 4, !tbaa !5
+  %1252 = insertelement <2 x float> poison, float %1242, i64 0
+  %1253 = insertelement <2 x float> %1252, float %1251, i64 1
+  %1254 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1253, <2 x float> <float 1.000000e+01, float 1.000000e+01>, <2 x float> %1250)
+  %1255 = load <2 x float>, ptr %1174, align 4, !tbaa !5
+  %1256 = fadd <2 x float> %1255, %1254
+  %1257 = load float, ptr %1195, align 4, !tbaa !5
+  %1258 = load float, ptr %1197, align 4, !tbaa !5
+  %1259 = fmul float %1258, 0.000000e+00
+  %1260 = call float @llvm.fmuladd.f32(float %1257, float 0.000000e+00, float %1259)
+  %1261 = load float, ptr %1201, align 4, !tbaa !5
+  %1262 = call float @llvm.fmuladd.f32(float %1261, float 1.000000e+01, float %1260)
+  %1263 = load float, ptr %1204, align 4, !tbaa !5
+  %1264 = fadd float %1263, %1262
+  %1265 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1264, i64 0
+  store <2 x float> %1256, ptr %79, align 8
+  store <2 x float> %1265, ptr %793, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %80) #18
   store <4 x float> <float 0.000000e+00, float 0.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %80, align 16, !tbaa !5
-  %1263 = load ptr, ptr %1, align 8, !tbaa !21
-  %1264 = getelementptr inbounds ptr, ptr %1263, i64 5
-  %1265 = load ptr, ptr %1264, align 8
-  call void %1265(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1167, ptr noundef nonnull align 4 dereferenceable(16) %79, ptr noundef nonnull align 4 dereferenceable(16) %80)
+  %1266 = load ptr, ptr %1, align 8, !tbaa !21
+  %1267 = getelementptr inbounds ptr, ptr %1266, i64 5
+  %1268 = load ptr, ptr %1267, align 8
+  call void %1268(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1170, ptr noundef nonnull align 4 dereferenceable(16) %79, ptr noundef nonnull align 4 dereferenceable(16) %80)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %80) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %79) #18
-  %1266 = add nuw nsw i64 %795, 1
-  %1267 = load i32, ptr %761, align 4, !tbaa !54
-  %1268 = sext i32 %1267 to i64
-  %1269 = icmp slt i64 %1266, %1268
-  br i1 %1269, label %794, label %1270
+  %1269 = add nuw nsw i64 %795, 1
+  %1270 = load i32, ptr %761, align 4, !tbaa !56
+  %1271 = sext i32 %1270 to i64
+  %1272 = icmp slt i64 %1269, %1271
+  br i1 %1272, label %794, label %1273
 
-1270:                                             ; preds = %1165, %760, %757
-  %1271 = and i32 %2, 8
-  %1272 = icmp eq i32 %1271, 0
-  br i1 %1272, label %1413, label %1273
+1273:                                             ; preds = %1168, %760, %757
+  %1274 = and i32 %2, 8
+  %1275 = icmp eq i32 %1274, 0
+  br i1 %1275, label %1416, label %1276
 
-1273:                                             ; preds = %1270
+1276:                                             ; preds = %1273
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %81) #18
   store <4 x float> <float 0x3FE6666660000000, float 0x3FE6666660000000, float 0x3FE6666660000000, float 0.000000e+00>, ptr %81, align 16, !tbaa !5
-  %1274 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 12, i32 2
-  %1275 = load i32, ptr %1274, align 4, !tbaa !108
-  %1276 = icmp sgt i32 %1275, 0
-  br i1 %1276, label %1277, label %1291
+  %1277 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 12, i32 2
+  %1278 = load i32, ptr %1277, align 4, !tbaa !110
+  %1279 = icmp sgt i32 %1278, 0
+  br i1 %1279, label %1280, label %1294
 
-1277:                                             ; preds = %1273
-  %1278 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 12, i32 5
-  %1279 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %82, i64 0, i32 1
-  %1280 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %83, i64 0, i32 1
-  %1281 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %84, i64 0, i32 1
-  %1282 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %85, i64 0, i32 1
-  %1283 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %86, i64 0, i32 1
-  %1284 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %87, i64 0, i32 1
-  %1285 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %88, i64 0, i32 1
-  %1286 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %89, i64 0, i32 1
-  %1287 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %90, i64 0, i32 1
-  %1288 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %91, i64 0, i32 1
-  %1289 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %92, i64 0, i32 1
-  %1290 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %93, i64 0, i32 1
-  br label %1292
+1280:                                             ; preds = %1276
+  %1281 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 12, i32 5
+  %1282 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %82, i64 0, i32 1
+  %1283 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %83, i64 0, i32 1
+  %1284 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %84, i64 0, i32 1
+  %1285 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %85, i64 0, i32 1
+  %1286 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %86, i64 0, i32 1
+  %1287 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %87, i64 0, i32 1
+  %1288 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %88, i64 0, i32 1
+  %1289 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %89, i64 0, i32 1
+  %1290 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %90, i64 0, i32 1
+  %1291 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %91, i64 0, i32 1
+  %1292 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %92, i64 0, i32 1
+  %1293 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %93, i64 0, i32 1
+  br label %1295
 
-1291:                                             ; preds = %1408, %1273
+1294:                                             ; preds = %1411, %1276
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %81) #18
-  br label %1413
+  br label %1416
 
-1292:                                             ; preds = %1277, %1408
-  %1293 = phi i32 [ %1275, %1277 ], [ %1409, %1408 ]
-  %1294 = phi i64 [ 0, %1277 ], [ %1410, %1408 ]
-  %1295 = load ptr, ptr %1278, align 8, !tbaa !111
-  %1296 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1295, i64 %1294, i32 0, i32 1
-  %1297 = load ptr, ptr %1296, align 8, !tbaa !16
-  %1298 = getelementptr inbounds %"struct.btSoftBody::Material", ptr %1297, i64 0, i32 4
-  %1299 = load i32, ptr %1298, align 4, !tbaa !19
-  %1300 = and i32 %1299, 1
-  %1301 = icmp eq i32 %1300, 0
-  br i1 %1301, label %1408, label %1302
+1295:                                             ; preds = %1280, %1411
+  %1296 = phi i32 [ %1278, %1280 ], [ %1412, %1411 ]
+  %1297 = phi i64 [ 0, %1280 ], [ %1413, %1411 ]
+  %1298 = load ptr, ptr %1281, align 8, !tbaa !113
+  %1299 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1298, i64 %1297, i32 0, i32 1
+  %1300 = load ptr, ptr %1299, align 8, !tbaa !16
+  %1301 = getelementptr inbounds %"struct.btSoftBody::Material", ptr %1300, i64 0, i32 4
+  %1302 = load i32, ptr %1301, align 4, !tbaa !19
+  %1303 = and i32 %1302, 1
+  %1304 = icmp eq i32 %1303, 0
+  br i1 %1304, label %1411, label %1305
 
-1302:                                             ; preds = %1292
-  %1303 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1295, i64 %1294, i32 1
-  %1304 = load ptr, ptr %1303, align 8, !tbaa !27
-  %1305 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1304, i64 0, i32 1
-  %1306 = load float, ptr %1305, align 8, !tbaa.struct !50
-  %1307 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1304, i64 0, i32 1, i32 0, i64 1
-  %1308 = load float, ptr %1307, align 4, !tbaa.struct !52
-  %1309 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1304, i64 0, i32 1, i32 0, i64 2
-  %1310 = load float, ptr %1309, align 8, !tbaa.struct !53
-  %1311 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1295, i64 %1294, i32 1, i64 1
-  %1312 = load ptr, ptr %1311, align 8, !tbaa !27
-  %1313 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1312, i64 0, i32 1
-  %1314 = load float, ptr %1313, align 8, !tbaa.struct !50
-  %1315 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1312, i64 0, i32 1, i32 0, i64 1
-  %1316 = load float, ptr %1315, align 4, !tbaa.struct !52
-  %1317 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1312, i64 0, i32 1, i32 0, i64 2
-  %1318 = load float, ptr %1317, align 8, !tbaa.struct !53
-  %1319 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1295, i64 %1294, i32 1, i64 2
-  %1320 = load ptr, ptr %1319, align 8, !tbaa !27
-  %1321 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1320, i64 0, i32 1
-  %1322 = load float, ptr %1321, align 8, !tbaa.struct !50
-  %1323 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1320, i64 0, i32 1, i32 0, i64 1
-  %1324 = load float, ptr %1323, align 4, !tbaa.struct !52
-  %1325 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1320, i64 0, i32 1, i32 0, i64 2
-  %1326 = load float, ptr %1325, align 8, !tbaa.struct !53
-  %1327 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1295, i64 %1294, i32 1, i64 3
-  %1328 = load ptr, ptr %1327, align 8, !tbaa !27
-  %1329 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1328, i64 0, i32 1
-  %1330 = load float, ptr %1329, align 8, !tbaa.struct !50
-  %1331 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1328, i64 0, i32 1, i32 0, i64 1
-  %1332 = load float, ptr %1331, align 4, !tbaa.struct !52
-  %1333 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1328, i64 0, i32 1, i32 0, i64 2
-  %1334 = load float, ptr %1333, align 8, !tbaa.struct !53
-  %1335 = fadd float %1306, %1314
-  %1336 = fadd float %1308, %1316
-  %1337 = fadd float %1310, %1318
-  %1338 = fadd float %1335, %1322
-  %1339 = fadd float %1336, %1324
-  %1340 = fadd float %1337, %1326
-  %1341 = fadd float %1338, %1330
-  %1342 = fadd float %1339, %1332
-  %1343 = fadd float %1340, %1334
-  %1344 = fmul float %1341, 2.500000e-01
-  %1345 = fmul float %1342, 2.500000e-01
-  %1346 = fmul float %1343, 2.500000e-01
+1305:                                             ; preds = %1295
+  %1306 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1298, i64 %1297, i32 1
+  %1307 = load ptr, ptr %1306, align 8, !tbaa !27
+  %1308 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1307, i64 0, i32 1
+  %1309 = load float, ptr %1308, align 8, !tbaa.struct !52
+  %1310 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1307, i64 0, i32 1, i32 0, i64 1
+  %1311 = load float, ptr %1310, align 4, !tbaa.struct !54
+  %1312 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1307, i64 0, i32 1, i32 0, i64 2
+  %1313 = load float, ptr %1312, align 8, !tbaa.struct !55
+  %1314 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1298, i64 %1297, i32 1, i64 1
+  %1315 = load ptr, ptr %1314, align 8, !tbaa !27
+  %1316 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1315, i64 0, i32 1
+  %1317 = load float, ptr %1316, align 8, !tbaa.struct !52
+  %1318 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1315, i64 0, i32 1, i32 0, i64 1
+  %1319 = load float, ptr %1318, align 4, !tbaa.struct !54
+  %1320 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1315, i64 0, i32 1, i32 0, i64 2
+  %1321 = load float, ptr %1320, align 8, !tbaa.struct !55
+  %1322 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1298, i64 %1297, i32 1, i64 2
+  %1323 = load ptr, ptr %1322, align 8, !tbaa !27
+  %1324 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1323, i64 0, i32 1
+  %1325 = load float, ptr %1324, align 8, !tbaa.struct !52
+  %1326 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1323, i64 0, i32 1, i32 0, i64 1
+  %1327 = load float, ptr %1326, align 4, !tbaa.struct !54
+  %1328 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1323, i64 0, i32 1, i32 0, i64 2
+  %1329 = load float, ptr %1328, align 8, !tbaa.struct !55
+  %1330 = getelementptr inbounds %"struct.btSoftBody::Tetra", ptr %1298, i64 %1297, i32 1, i64 3
+  %1331 = load ptr, ptr %1330, align 8, !tbaa !27
+  %1332 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1331, i64 0, i32 1
+  %1333 = load float, ptr %1332, align 8, !tbaa.struct !52
+  %1334 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1331, i64 0, i32 1, i32 0, i64 1
+  %1335 = load float, ptr %1334, align 4, !tbaa.struct !54
+  %1336 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1331, i64 0, i32 1, i32 0, i64 2
+  %1337 = load float, ptr %1336, align 8, !tbaa.struct !55
+  %1338 = fadd float %1309, %1317
+  %1339 = fadd float %1311, %1319
+  %1340 = fadd float %1313, %1321
+  %1341 = fadd float %1338, %1325
+  %1342 = fadd float %1339, %1327
+  %1343 = fadd float %1340, %1329
+  %1344 = fadd float %1341, %1333
+  %1345 = fadd float %1342, %1335
+  %1346 = fadd float %1343, %1337
+  %1347 = fmul float %1344, 2.500000e-01
+  %1348 = fmul float %1345, 2.500000e-01
+  %1349 = fmul float %1346, 2.500000e-01
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %82) #18
-  %1347 = fsub float %1306, %1344
-  %1348 = fsub float %1308, %1345
-  %1349 = fsub float %1310, %1346
-  %1350 = fmul float %1347, 0x3FE99999A0000000
-  %1351 = fmul float %1348, 0x3FE99999A0000000
-  %1352 = fmul float %1349, 0x3FE99999A0000000
-  %1353 = fadd float %1344, %1350
-  %1354 = fadd float %1345, %1351
-  %1355 = fadd float %1346, %1352
-  %1356 = insertelement <2 x float> undef, float %1353, i64 0
-  %1357 = insertelement <2 x float> %1356, float %1354, i64 1
-  %1358 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1355, i64 0
-  store <2 x float> %1357, ptr %82, align 8
-  store <2 x float> %1358, ptr %1279, align 8
+  %1350 = fsub float %1309, %1347
+  %1351 = fsub float %1311, %1348
+  %1352 = fsub float %1313, %1349
+  %1353 = fmul float %1350, 0x3FE99999A0000000
+  %1354 = fmul float %1351, 0x3FE99999A0000000
+  %1355 = fmul float %1352, 0x3FE99999A0000000
+  %1356 = fadd float %1347, %1353
+  %1357 = fadd float %1348, %1354
+  %1358 = fadd float %1349, %1355
+  %1359 = insertelement <2 x float> undef, float %1356, i64 0
+  %1360 = insertelement <2 x float> %1359, float %1357, i64 1
+  %1361 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1358, i64 0
+  store <2 x float> %1360, ptr %82, align 8
+  store <2 x float> %1361, ptr %1282, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %83) #18
-  %1359 = fsub float %1314, %1344
-  %1360 = fsub float %1316, %1345
-  %1361 = fsub float %1318, %1346
-  %1362 = fmul float %1359, 0x3FE99999A0000000
-  %1363 = fmul float %1360, 0x3FE99999A0000000
-  %1364 = fmul float %1361, 0x3FE99999A0000000
-  %1365 = fadd float %1344, %1362
-  %1366 = fadd float %1345, %1363
-  %1367 = fadd float %1346, %1364
-  %1368 = insertelement <2 x float> undef, float %1365, i64 0
-  %1369 = insertelement <2 x float> %1368, float %1366, i64 1
-  %1370 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1367, i64 0
-  store <2 x float> %1369, ptr %83, align 8
-  store <2 x float> %1370, ptr %1280, align 8
+  %1362 = fsub float %1317, %1347
+  %1363 = fsub float %1319, %1348
+  %1364 = fsub float %1321, %1349
+  %1365 = fmul float %1362, 0x3FE99999A0000000
+  %1366 = fmul float %1363, 0x3FE99999A0000000
+  %1367 = fmul float %1364, 0x3FE99999A0000000
+  %1368 = fadd float %1347, %1365
+  %1369 = fadd float %1348, %1366
+  %1370 = fadd float %1349, %1367
+  %1371 = insertelement <2 x float> undef, float %1368, i64 0
+  %1372 = insertelement <2 x float> %1371, float %1369, i64 1
+  %1373 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1370, i64 0
+  store <2 x float> %1372, ptr %83, align 8
+  store <2 x float> %1373, ptr %1283, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %84) #18
-  %1371 = fsub float %1322, %1344
-  %1372 = fsub float %1324, %1345
-  %1373 = fsub float %1326, %1346
-  %1374 = fmul float %1371, 0x3FE99999A0000000
-  %1375 = fmul float %1372, 0x3FE99999A0000000
-  %1376 = fmul float %1373, 0x3FE99999A0000000
-  %1377 = fadd float %1344, %1374
-  %1378 = fadd float %1345, %1375
-  %1379 = fadd float %1346, %1376
-  %1380 = insertelement <2 x float> undef, float %1377, i64 0
-  %1381 = insertelement <2 x float> %1380, float %1378, i64 1
-  %1382 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1379, i64 0
-  store <2 x float> %1381, ptr %84, align 8
-  store <2 x float> %1382, ptr %1281, align 8
-  %1383 = load ptr, ptr %1, align 8, !tbaa !21
-  %1384 = getelementptr inbounds ptr, ptr %1383, i64 7
-  %1385 = load ptr, ptr %1384, align 8
-  call void %1385(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %82, ptr noundef nonnull align 4 dereferenceable(16) %83, ptr noundef nonnull align 4 dereferenceable(16) %84, ptr noundef nonnull align 4 dereferenceable(16) %81, float noundef 1.000000e+00)
+  %1374 = fsub float %1325, %1347
+  %1375 = fsub float %1327, %1348
+  %1376 = fsub float %1329, %1349
+  %1377 = fmul float %1374, 0x3FE99999A0000000
+  %1378 = fmul float %1375, 0x3FE99999A0000000
+  %1379 = fmul float %1376, 0x3FE99999A0000000
+  %1380 = fadd float %1347, %1377
+  %1381 = fadd float %1348, %1378
+  %1382 = fadd float %1349, %1379
+  %1383 = insertelement <2 x float> undef, float %1380, i64 0
+  %1384 = insertelement <2 x float> %1383, float %1381, i64 1
+  %1385 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1382, i64 0
+  store <2 x float> %1384, ptr %84, align 8
+  store <2 x float> %1385, ptr %1284, align 8
+  %1386 = load ptr, ptr %1, align 8, !tbaa !21
+  %1387 = getelementptr inbounds ptr, ptr %1386, i64 7
+  %1388 = load ptr, ptr %1387, align 8
+  call void %1388(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %82, ptr noundef nonnull align 4 dereferenceable(16) %83, ptr noundef nonnull align 4 dereferenceable(16) %84, ptr noundef nonnull align 4 dereferenceable(16) %81, float noundef 1.000000e+00)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %84) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %83) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %82) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %85) #18
-  store <2 x float> %1357, ptr %85, align 8
-  store <2 x float> %1358, ptr %1282, align 8
+  store <2 x float> %1360, ptr %85, align 8
+  store <2 x float> %1361, ptr %1285, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %86) #18
-  store <2 x float> %1369, ptr %86, align 8
-  store <2 x float> %1370, ptr %1283, align 8
+  store <2 x float> %1372, ptr %86, align 8
+  store <2 x float> %1373, ptr %1286, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %87) #18
-  %1386 = fsub float %1330, %1344
-  %1387 = fsub float %1332, %1345
-  %1388 = fsub float %1334, %1346
-  %1389 = fmul float %1386, 0x3FE99999A0000000
-  %1390 = fmul float %1387, 0x3FE99999A0000000
-  %1391 = fmul float %1388, 0x3FE99999A0000000
-  %1392 = fadd float %1344, %1389
-  %1393 = fadd float %1345, %1390
-  %1394 = fadd float %1346, %1391
-  %1395 = insertelement <2 x float> undef, float %1392, i64 0
-  %1396 = insertelement <2 x float> %1395, float %1393, i64 1
-  %1397 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1394, i64 0
-  store <2 x float> %1396, ptr %87, align 8
-  store <2 x float> %1397, ptr %1284, align 8
-  %1398 = load ptr, ptr %1, align 8, !tbaa !21
-  %1399 = getelementptr inbounds ptr, ptr %1398, i64 7
-  %1400 = load ptr, ptr %1399, align 8
-  call void %1400(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %85, ptr noundef nonnull align 4 dereferenceable(16) %86, ptr noundef nonnull align 4 dereferenceable(16) %87, ptr noundef nonnull align 4 dereferenceable(16) %81, float noundef 1.000000e+00)
+  %1389 = fsub float %1333, %1347
+  %1390 = fsub float %1335, %1348
+  %1391 = fsub float %1337, %1349
+  %1392 = fmul float %1389, 0x3FE99999A0000000
+  %1393 = fmul float %1390, 0x3FE99999A0000000
+  %1394 = fmul float %1391, 0x3FE99999A0000000
+  %1395 = fadd float %1347, %1392
+  %1396 = fadd float %1348, %1393
+  %1397 = fadd float %1349, %1394
+  %1398 = insertelement <2 x float> undef, float %1395, i64 0
+  %1399 = insertelement <2 x float> %1398, float %1396, i64 1
+  %1400 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1397, i64 0
+  store <2 x float> %1399, ptr %87, align 8
+  store <2 x float> %1400, ptr %1287, align 8
+  %1401 = load ptr, ptr %1, align 8, !tbaa !21
+  %1402 = getelementptr inbounds ptr, ptr %1401, i64 7
+  %1403 = load ptr, ptr %1402, align 8
+  call void %1403(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %85, ptr noundef nonnull align 4 dereferenceable(16) %86, ptr noundef nonnull align 4 dereferenceable(16) %87, ptr noundef nonnull align 4 dereferenceable(16) %81, float noundef 1.000000e+00)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %87) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %86) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %85) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %88) #18
-  store <2 x float> %1369, ptr %88, align 8
-  store <2 x float> %1370, ptr %1285, align 8
+  store <2 x float> %1372, ptr %88, align 8
+  store <2 x float> %1373, ptr %1288, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %89) #18
-  store <2 x float> %1381, ptr %89, align 8
-  store <2 x float> %1382, ptr %1286, align 8
+  store <2 x float> %1384, ptr %89, align 8
+  store <2 x float> %1385, ptr %1289, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %90) #18
-  store <2 x float> %1396, ptr %90, align 8
-  store <2 x float> %1397, ptr %1287, align 8
-  %1401 = load ptr, ptr %1, align 8, !tbaa !21
-  %1402 = getelementptr inbounds ptr, ptr %1401, i64 7
-  %1403 = load ptr, ptr %1402, align 8
-  call void %1403(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %88, ptr noundef nonnull align 4 dereferenceable(16) %89, ptr noundef nonnull align 4 dereferenceable(16) %90, ptr noundef nonnull align 4 dereferenceable(16) %81, float noundef 1.000000e+00)
+  store <2 x float> %1399, ptr %90, align 8
+  store <2 x float> %1400, ptr %1290, align 8
+  %1404 = load ptr, ptr %1, align 8, !tbaa !21
+  %1405 = getelementptr inbounds ptr, ptr %1404, i64 7
+  %1406 = load ptr, ptr %1405, align 8
+  call void %1406(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %88, ptr noundef nonnull align 4 dereferenceable(16) %89, ptr noundef nonnull align 4 dereferenceable(16) %90, ptr noundef nonnull align 4 dereferenceable(16) %81, float noundef 1.000000e+00)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %90) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %89) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %88) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %91) #18
-  store <2 x float> %1381, ptr %91, align 8
-  store <2 x float> %1382, ptr %1288, align 8
+  store <2 x float> %1384, ptr %91, align 8
+  store <2 x float> %1385, ptr %1291, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %92) #18
-  store <2 x float> %1357, ptr %92, align 8
-  store <2 x float> %1358, ptr %1289, align 8
+  store <2 x float> %1360, ptr %92, align 8
+  store <2 x float> %1361, ptr %1292, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %93) #18
-  store <2 x float> %1396, ptr %93, align 8
-  store <2 x float> %1397, ptr %1290, align 8
-  %1404 = load ptr, ptr %1, align 8, !tbaa !21
-  %1405 = getelementptr inbounds ptr, ptr %1404, i64 7
-  %1406 = load ptr, ptr %1405, align 8
-  call void %1406(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %91, ptr noundef nonnull align 4 dereferenceable(16) %92, ptr noundef nonnull align 4 dereferenceable(16) %93, ptr noundef nonnull align 4 dereferenceable(16) %81, float noundef 1.000000e+00)
+  store <2 x float> %1399, ptr %93, align 8
+  store <2 x float> %1400, ptr %1293, align 8
+  %1407 = load ptr, ptr %1, align 8, !tbaa !21
+  %1408 = getelementptr inbounds ptr, ptr %1407, i64 7
+  %1409 = load ptr, ptr %1408, align 8
+  call void %1409(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %91, ptr noundef nonnull align 4 dereferenceable(16) %92, ptr noundef nonnull align 4 dereferenceable(16) %93, ptr noundef nonnull align 4 dereferenceable(16) %81, float noundef 1.000000e+00)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %93) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %92) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %91) #18
-  %1407 = load i32, ptr %1274, align 4, !tbaa !108
-  br label %1408
+  %1410 = load i32, ptr %1277, align 4, !tbaa !110
+  br label %1411
 
-1408:                                             ; preds = %1292, %1302
-  %1409 = phi i32 [ %1293, %1292 ], [ %1407, %1302 ]
-  %1410 = add nuw nsw i64 %1294, 1
-  %1411 = sext i32 %1409 to i64
-  %1412 = icmp slt i64 %1410, %1411
-  br i1 %1412, label %1292, label %1291
+1411:                                             ; preds = %1295, %1305
+  %1412 = phi i32 [ %1296, %1295 ], [ %1410, %1305 ]
+  %1413 = add nuw nsw i64 %1297, 1
+  %1414 = sext i32 %1412 to i64
+  %1415 = icmp slt i64 %1413, %1414
+  br i1 %1415, label %1295, label %1294
 
-1413:                                             ; preds = %1291, %1270
-  %1414 = and i32 %2, 128
-  %1415 = icmp eq i32 %1414, 0
-  br i1 %1415, label %1464, label %1416
+1416:                                             ; preds = %1294, %1273
+  %1417 = and i32 %2, 128
+  %1418 = icmp eq i32 %1417, 0
+  br i1 %1418, label %1467, label %1419
 
-1416:                                             ; preds = %1413
-  %1417 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 8, i32 2
-  %1418 = load i32, ptr %1417, align 4, !tbaa !112
-  %1419 = icmp sgt i32 %1418, 0
-  br i1 %1419, label %1420, label %1464
+1419:                                             ; preds = %1416
+  %1420 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 8, i32 2
+  %1421 = load i32, ptr %1420, align 4, !tbaa !114
+  %1422 = icmp sgt i32 %1421, 0
+  br i1 %1422, label %1423, label %1467
 
-1420:                                             ; preds = %1416
-  %1421 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 8, i32 5
-  %1422 = getelementptr inbounds [4 x float], ptr %94, i64 0, i64 2
-  br label %1423
+1423:                                             ; preds = %1419
+  %1424 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 8, i32 5
+  %1425 = getelementptr inbounds [4 x float], ptr %94, i64 0, i64 2
+  br label %1426
 
-1423:                                             ; preds = %1420, %1434
-  %1424 = phi i64 [ 0, %1420 ], [ %1440, %1434 ]
-  %1425 = load ptr, ptr %1421, align 8, !tbaa !115
+1426:                                             ; preds = %1423, %1437
+  %1427 = phi i64 [ 0, %1423 ], [ %1443, %1437 ]
+  %1428 = load ptr, ptr %1424, align 8, !tbaa !117
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %94) #18
-  %1426 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1425, i64 %1424, i32 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %94, ptr noundef nonnull align 8 dereferenceable(16) %1426, i64 16, i1 false), !tbaa.struct !50
-  %1427 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1425, i64 %1424, i32 3
-  %1428 = load i32, ptr %1427, align 8, !tbaa !116
-  %1429 = icmp sgt i32 %1428, 0
-  br i1 %1429, label %1430, label %1434
+  %1429 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1428, i64 %1427, i32 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %94, ptr noundef nonnull align 8 dereferenceable(16) %1429, i64 16, i1 false), !tbaa.struct !52
+  %1430 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1428, i64 %1427, i32 3
+  %1431 = load i32, ptr %1430, align 8, !tbaa !118
+  %1432 = icmp sgt i32 %1431, 0
+  br i1 %1432, label %1433, label %1437
 
-1430:                                             ; preds = %1423
-  %1431 = load <2 x float>, ptr %94, align 8, !tbaa !5
-  %1432 = load float, ptr %1422, align 8, !tbaa !5
-  %1433 = zext i32 %1428 to i64
-  br label %1444
+1433:                                             ; preds = %1426
+  %1434 = load <2 x float>, ptr %94, align 8, !tbaa !5
+  %1435 = load float, ptr %1425, align 8, !tbaa !5
+  %1436 = zext i32 %1431 to i64
+  br label %1447
 
-1434:                                             ; preds = %1444, %1423
-  %1435 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1425, i64 %1424, i32 1
-  %1436 = load ptr, ptr %1435, align 8, !tbaa !118
-  %1437 = load ptr, ptr %1, align 8, !tbaa !21
-  %1438 = getelementptr inbounds ptr, ptr %1437, i64 10
-  %1439 = load ptr, ptr %1438, align 8
-  call void %1439(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %94, ptr noundef %1436)
+1437:                                             ; preds = %1447, %1426
+  %1438 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1428, i64 %1427, i32 1
+  %1439 = load ptr, ptr %1438, align 8, !tbaa !120
+  %1440 = load ptr, ptr %1, align 8, !tbaa !21
+  %1441 = getelementptr inbounds ptr, ptr %1440, i64 10
+  %1442 = load ptr, ptr %1441, align 8
+  call void %1442(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %94, ptr noundef %1439)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %94) #18
-  %1440 = add nuw nsw i64 %1424, 1
-  %1441 = load i32, ptr %1417, align 4, !tbaa !112
-  %1442 = sext i32 %1441 to i64
-  %1443 = icmp slt i64 %1440, %1442
-  br i1 %1443, label %1423, label %1464
+  %1443 = add nuw nsw i64 %1427, 1
+  %1444 = load i32, ptr %1420, align 4, !tbaa !114
+  %1445 = sext i32 %1444 to i64
+  %1446 = icmp slt i64 %1443, %1445
+  br i1 %1446, label %1426, label %1467
 
-1444:                                             ; preds = %1430, %1444
-  %1445 = phi i64 [ 0, %1430 ], [ %1462, %1444 ]
-  %1446 = phi float [ %1432, %1430 ], [ %1461, %1444 ]
-  %1447 = phi <2 x float> [ %1431, %1430 ], [ %1460, %1444 ]
-  %1448 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1425, i64 %1424, i32 4, i64 %1445
-  %1449 = load ptr, ptr %1448, align 8, !tbaa !27
-  %1450 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1449, i64 0, i32 1
-  %1451 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1425, i64 %1424, i32 5, i64 %1445
-  %1452 = load float, ptr %1451, align 4, !tbaa !5
-  %1453 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1449, i64 0, i32 1, i32 0, i64 2
-  %1454 = load float, ptr %1453, align 4, !tbaa !5
-  %1455 = fmul float %1452, %1454
-  %1456 = load <2 x float>, ptr %1450, align 4, !tbaa !5
-  %1457 = insertelement <2 x float> poison, float %1452, i64 0
-  %1458 = shufflevector <2 x float> %1457, <2 x float> poison, <2 x i32> zeroinitializer
-  %1459 = fmul <2 x float> %1458, %1456
-  %1460 = fadd <2 x float> %1459, %1447
-  store <2 x float> %1460, ptr %94, align 8, !tbaa !5
-  %1461 = fadd float %1455, %1446
-  store float %1461, ptr %1422, align 8, !tbaa !5
-  %1462 = add nuw nsw i64 %1445, 1
-  %1463 = icmp eq i64 %1462, %1433
-  br i1 %1463, label %1434, label %1444
+1447:                                             ; preds = %1433, %1447
+  %1448 = phi i64 [ 0, %1433 ], [ %1465, %1447 ]
+  %1449 = phi float [ %1435, %1433 ], [ %1464, %1447 ]
+  %1450 = phi <2 x float> [ %1434, %1433 ], [ %1463, %1447 ]
+  %1451 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1428, i64 %1427, i32 4, i64 %1448
+  %1452 = load ptr, ptr %1451, align 8, !tbaa !27
+  %1453 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1452, i64 0, i32 1
+  %1454 = getelementptr inbounds %"struct.btSoftBody::Note", ptr %1428, i64 %1427, i32 5, i64 %1448
+  %1455 = load float, ptr %1454, align 4, !tbaa !5
+  %1456 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %1452, i64 0, i32 1, i32 0, i64 2
+  %1457 = load float, ptr %1456, align 4, !tbaa !5
+  %1458 = fmul float %1455, %1457
+  %1459 = load <2 x float>, ptr %1453, align 4, !tbaa !5
+  %1460 = insertelement <2 x float> poison, float %1455, i64 0
+  %1461 = shufflevector <2 x float> %1460, <2 x float> poison, <2 x i32> zeroinitializer
+  %1462 = fmul <2 x float> %1461, %1459
+  %1463 = fadd <2 x float> %1462, %1450
+  store <2 x float> %1463, ptr %94, align 8, !tbaa !5
+  %1464 = fadd float %1458, %1449
+  store float %1464, ptr %1425, align 8, !tbaa !5
+  %1465 = add nuw nsw i64 %1448, 1
+  %1466 = icmp eq i64 %1465, %1436
+  br i1 %1466, label %1437, label %1447
 
-1464:                                             ; preds = %1434, %1416, %1413
-  %1465 = and i32 %2, 512
-  %1466 = icmp eq i32 %1465, 0
-  br i1 %1466, label %1470, label %1467
+1467:                                             ; preds = %1437, %1419, %1416
+  %1468 = and i32 %2, 512
+  %1469 = icmp eq i32 %1468, 0
+  br i1 %1469, label %1473, label %1470
 
-1467:                                             ; preds = %1464
-  %1468 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 21
-  %1469 = load ptr, ptr %1468, align 8, !tbaa !119
+1470:                                             ; preds = %1467
+  %1471 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 21
+  %1472 = load ptr, ptr %1471, align 8, !tbaa !121
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %20) #18
   store <4 x float> <float 1.000000e+00, float 0.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %20, align 16, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %21) #18
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %21, align 16, !tbaa !5
-  call fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVector3S6_ii(ptr noundef %1, ptr noundef %1469, i32 noundef 0, ptr noundef nonnull align 4 dereferenceable(16) %20, ptr noundef nonnull align 4 dereferenceable(16) %21, i32 noundef 0, i32 noundef -1)
+  call fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVector3S6_ii(ptr noundef %1, ptr noundef %1472, i32 noundef 0, ptr noundef nonnull align 4 dereferenceable(16) %20, ptr noundef nonnull align 4 dereferenceable(16) %21, i32 noundef 0, i32 noundef -1)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %21) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %20) #18
-  br label %1470
+  br label %1473
 
-1470:                                             ; preds = %1467, %1464
-  %1471 = and i32 %2, 1024
-  %1472 = icmp eq i32 %1471, 0
-  br i1 %1472, label %1476, label %1473
+1473:                                             ; preds = %1470, %1467
+  %1474 = and i32 %2, 1024
+  %1475 = icmp eq i32 %1474, 0
+  br i1 %1475, label %1479, label %1476
 
-1473:                                             ; preds = %1470
-  %1474 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 22
-  %1475 = load ptr, ptr %1474, align 8, !tbaa !143
+1476:                                             ; preds = %1473
+  %1477 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 22
+  %1478 = load ptr, ptr %1477, align 8, !tbaa !145
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %18) #18
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %18, align 16, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %19) #18
   store <4 x float> <float 1.000000e+00, float 0.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %19, align 16, !tbaa !5
-  call fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVector3S6_ii(ptr noundef %1, ptr noundef %1475, i32 noundef 0, ptr noundef nonnull align 4 dereferenceable(16) %18, ptr noundef nonnull align 4 dereferenceable(16) %19, i32 noundef 0, i32 noundef -1)
+  call fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVector3S6_ii(ptr noundef %1, ptr noundef %1478, i32 noundef 0, ptr noundef nonnull align 4 dereferenceable(16) %18, ptr noundef nonnull align 4 dereferenceable(16) %19, i32 noundef 0, i32 noundef -1)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %19) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %18) #18
-  br label %1476
+  br label %1479
 
-1476:                                             ; preds = %1473, %1470
-  %1477 = and i32 %2, 2048
-  %1478 = icmp eq i32 %1477, 0
-  br i1 %1478, label %1482, label %1479
+1479:                                             ; preds = %1476, %1473
+  %1480 = and i32 %2, 2048
+  %1481 = icmp eq i32 %1480, 0
+  br i1 %1481, label %1485, label %1482
 
-1479:                                             ; preds = %1476
-  %1480 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 23
-  %1481 = load ptr, ptr %1480, align 8, !tbaa !144
+1482:                                             ; preds = %1479
+  %1483 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 23
+  %1484 = load ptr, ptr %1483, align 8, !tbaa !146
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %16) #18
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %16, align 16, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %17) #18
   store <4 x float> <float 1.000000e+00, float 0.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %17, align 16, !tbaa !5
-  call fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVector3S6_ii(ptr noundef %1, ptr noundef %1481, i32 noundef 0, ptr noundef nonnull align 4 dereferenceable(16) %16, ptr noundef nonnull align 4 dereferenceable(16) %17, i32 noundef 0, i32 noundef -1)
+  call fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVector3S6_ii(ptr noundef %1, ptr noundef %1484, i32 noundef 0, ptr noundef nonnull align 4 dereferenceable(16) %16, ptr noundef nonnull align 4 dereferenceable(16) %17, i32 noundef 0, i32 noundef -1)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %17) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %16) #18
-  br label %1482
+  br label %1485
 
-1482:                                             ; preds = %1479, %1476
-  %1483 = and i32 %2, 4096
-  %1484 = icmp eq i32 %1483, 0
-  br i1 %1484, label %2011, label %1485
+1485:                                             ; preds = %1482, %1479
+  %1486 = and i32 %2, 4096
+  %1487 = icmp eq i32 %1486, 0
+  br i1 %1487, label %2014, label %1488
 
-1485:                                             ; preds = %1482
-  %1486 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 16, i32 2
-  %1487 = load i32, ptr %1486, align 4, !tbaa !145
-  %1488 = icmp sgt i32 %1487, 0
-  br i1 %1488, label %1489, label %2011
+1488:                                             ; preds = %1485
+  %1489 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 16, i32 2
+  %1490 = load i32, ptr %1489, align 4, !tbaa !147
+  %1491 = icmp sgt i32 %1490, 0
+  br i1 %1491, label %1492, label %2014
 
-1489:                                             ; preds = %1485
-  %1490 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 16, i32 5
-  %1491 = getelementptr inbounds [4 x float], ptr %101, i64 0, i64 2
-  %1492 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %103, i64 0, i32 1
-  %1493 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %105, i64 0, i32 1
-  %1494 = getelementptr inbounds [4 x float], ptr %102, i64 0, i64 2
-  %1495 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %107, i64 0, i32 1
-  %1496 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %109, i64 0, i32 1
-  %1497 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %95, i64 0, i32 1
-  %1498 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %96, i64 0, i32 1
-  %1499 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %10, i64 0, i32 1
-  %1500 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %11, i64 0, i32 1
-  %1501 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %12, i64 0, i32 1
-  %1502 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %13, i64 0, i32 1
-  %1503 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %14, i64 0, i32 1
-  %1504 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %15, i64 0, i32 1
-  %1505 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %4, i64 0, i32 1
-  %1506 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %5, i64 0, i32 1
-  %1507 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %6, i64 0, i32 1
-  %1508 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %7, i64 0, i32 1
-  %1509 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %8, i64 0, i32 1
-  %1510 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %9, i64 0, i32 1
-  br label %1511
+1492:                                             ; preds = %1488
+  %1493 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 16, i32 5
+  %1494 = getelementptr inbounds [4 x float], ptr %101, i64 0, i64 2
+  %1495 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %103, i64 0, i32 1
+  %1496 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %105, i64 0, i32 1
+  %1497 = getelementptr inbounds [4 x float], ptr %102, i64 0, i64 2
+  %1498 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %107, i64 0, i32 1
+  %1499 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %109, i64 0, i32 1
+  %1500 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %95, i64 0, i32 1
+  %1501 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %96, i64 0, i32 1
+  %1502 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %10, i64 0, i32 1
+  %1503 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %11, i64 0, i32 1
+  %1504 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %12, i64 0, i32 1
+  %1505 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %13, i64 0, i32 1
+  %1506 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %14, i64 0, i32 1
+  %1507 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %15, i64 0, i32 1
+  %1508 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %4, i64 0, i32 1
+  %1509 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %5, i64 0, i32 1
+  %1510 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %6, i64 0, i32 1
+  %1511 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %7, i64 0, i32 1
+  %1512 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %8, i64 0, i32 1
+  %1513 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %9, i64 0, i32 1
+  br label %1514
 
-1511:                                             ; preds = %1489, %2006
-  %1512 = phi i64 [ 0, %1489 ], [ %2007, %2006 ]
-  %1513 = load ptr, ptr %1490, align 8, !tbaa !146
-  %1514 = getelementptr inbounds ptr, ptr %1513, i64 %1512
-  %1515 = load ptr, ptr %1514, align 8, !tbaa !27
-  %1516 = load ptr, ptr %1515, align 8, !tbaa !21
-  %1517 = getelementptr inbounds ptr, ptr %1516, i64 5
-  %1518 = load ptr, ptr %1517, align 8
-  %1519 = call noundef i32 %1518(ptr noundef nonnull align 8 dereferenceable(181) %1515)
-  switch i32 %1519, label %2006 [
-    i32 0, label %1520
-    i32 1, label %1789
+1514:                                             ; preds = %1492, %2009
+  %1515 = phi i64 [ 0, %1492 ], [ %2010, %2009 ]
+  %1516 = load ptr, ptr %1493, align 8, !tbaa !148
+  %1517 = getelementptr inbounds ptr, ptr %1516, i64 %1515
+  %1518 = load ptr, ptr %1517, align 8, !tbaa !27
+  %1519 = load ptr, ptr %1518, align 8, !tbaa !21
+  %1520 = getelementptr inbounds ptr, ptr %1519, i64 5
+  %1521 = load ptr, ptr %1520, align 8
+  %1522 = call noundef i32 %1521(ptr noundef nonnull align 8 dereferenceable(181) %1518)
+  switch i32 %1522, label %2009 [
+    i32 0, label %1523
+    i32 1, label %1792
   ]
 
-1520:                                             ; preds = %1511
+1523:                                             ; preds = %1514
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %95) #18
-  %1521 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 1
-  %1522 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
-  %1523 = icmp eq i8 %1522, 0
-  br i1 %1523, label %1524, label %1536, !prof !28
+  %1524 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 1
+  %1525 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
+  %1526 = icmp eq i8 %1525, 0
+  br i1 %1526, label %1527, label %1539, !prof !28
 
-1524:                                             ; preds = %1520
-  %1525 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  %1526 = icmp eq i32 %1525, 0
-  br i1 %1526, label %1536, label %1527
+1527:                                             ; preds = %1523
+  %1528 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
+  %1529 = icmp eq i32 %1528, 0
+  br i1 %1529, label %1539, label %1530
 
-1527:                                             ; preds = %1524
-  %1528 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
-          to label %1529 unwind label %1534
+1530:                                             ; preds = %1527
+  %1531 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
+          to label %1532 unwind label %1537
 
-1529:                                             ; preds = %1527
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1528, i64 16, i1 false), !tbaa.struct !50
-  %1530 = getelementptr inbounds [3 x %class.btVector3], ptr %1528, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1530, i64 16, i1 false), !tbaa.struct !50
-  %1531 = getelementptr inbounds [3 x %class.btVector3], ptr %1528, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1531, i64 16, i1 false), !tbaa.struct !50
-  %1532 = getelementptr inbounds %class.btTransform, ptr %1528, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1532, i64 16, i1 false), !tbaa.struct !50
-  %1533 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
+1532:                                             ; preds = %1530
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1531, i64 16, i1 false), !tbaa.struct !52
+  %1533 = getelementptr inbounds [3 x %class.btVector3], ptr %1531, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1533, i64 16, i1 false), !tbaa.struct !52
+  %1534 = getelementptr inbounds [3 x %class.btVector3], ptr %1531, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1534, i64 16, i1 false), !tbaa.struct !52
+  %1535 = getelementptr inbounds %class.btTransform, ptr %1531, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1535, i64 16, i1 false), !tbaa.struct !52
+  %1536 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
   call void @__cxa_guard_release(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1536
+  br label %1539
 
-1534:                                             ; preds = %1527
-  %1535 = landingpad { ptr, i32 }
+1537:                                             ; preds = %1530
+  %1538 = landingpad { ptr, i32 }
           cleanup
   call void @__cxa_guard_abort(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1161
+  br label %1164
 
-1536:                                             ; preds = %1520, %1524, %1529
-  %1537 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 1, i64 0, i32 2
-  %1538 = load ptr, ptr %1537, align 8, !tbaa !147
-  %1539 = icmp eq ptr %1538, null
-  %1540 = getelementptr inbounds %class.btCollisionObject, ptr %1538, i64 0, i32 2
-  %1541 = load ptr, ptr %1521, align 8
+1539:                                             ; preds = %1523, %1527, %1532
+  %1540 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 1, i64 0, i32 2
+  %1541 = load ptr, ptr %1540, align 8, !tbaa !149
   %1542 = icmp eq ptr %1541, null
-  %1543 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1541, i64 0, i32 3
-  %1544 = select i1 %1542, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1543
-  %1545 = select i1 %1539, ptr %1544, ptr %1540
-  %1546 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2
-  %1547 = load float, ptr %1546, align 4, !tbaa !5
-  %1548 = getelementptr inbounds [4 x float], ptr %1545, i64 0, i64 1
-  %1549 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 0, i32 0, i64 1
+  %1543 = getelementptr inbounds %class.btCollisionObject, ptr %1541, i64 0, i32 2
+  %1544 = load ptr, ptr %1524, align 8
+  %1545 = icmp eq ptr %1544, null
+  %1546 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1544, i64 0, i32 3
+  %1547 = select i1 %1545, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1546
+  %1548 = select i1 %1542, ptr %1547, ptr %1543
+  %1549 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2
   %1550 = load float, ptr %1549, align 4, !tbaa !5
-  %1551 = getelementptr inbounds [4 x float], ptr %1545, i64 0, i64 2
-  %1552 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 0, i32 0, i64 2
+  %1551 = getelementptr inbounds [4 x float], ptr %1548, i64 0, i64 1
+  %1552 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 0, i32 0, i64 1
   %1553 = load float, ptr %1552, align 4, !tbaa !5
-  %1554 = getelementptr inbounds %class.btTransform, ptr %1545, i64 0, i32 1
-  %1555 = getelementptr inbounds [3 x %class.btVector3], ptr %1545, i64 0, i64 1
-  %1556 = getelementptr inbounds [3 x %class.btVector3], ptr %1545, i64 0, i64 1, i32 0, i64 1
-  %1557 = getelementptr inbounds [3 x %class.btVector3], ptr %1545, i64 0, i64 1, i32 0, i64 2
-  %1558 = load float, ptr %1545, align 4, !tbaa !5
-  %1559 = load float, ptr %1548, align 4, !tbaa !5
-  %1560 = load float, ptr %1551, align 4, !tbaa !5
-  %1561 = load float, ptr %1555, align 4, !tbaa !5
-  %1562 = load float, ptr %1556, align 4, !tbaa !5
-  %1563 = insertelement <2 x float> poison, float %1550, i64 0
-  %1564 = shufflevector <2 x float> %1563, <2 x float> poison, <2 x i32> zeroinitializer
-  %1565 = insertelement <2 x float> poison, float %1559, i64 0
-  %1566 = insertelement <2 x float> %1565, float %1562, i64 1
-  %1567 = fmul <2 x float> %1564, %1566
-  %1568 = insertelement <2 x float> poison, float %1558, i64 0
-  %1569 = insertelement <2 x float> %1568, float %1561, i64 1
-  %1570 = insertelement <2 x float> poison, float %1547, i64 0
-  %1571 = shufflevector <2 x float> %1570, <2 x float> poison, <2 x i32> zeroinitializer
-  %1572 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1569, <2 x float> %1571, <2 x float> %1567)
-  %1573 = load float, ptr %1557, align 4, !tbaa !5
-  %1574 = insertelement <2 x float> poison, float %1560, i64 0
-  %1575 = insertelement <2 x float> %1574, float %1573, i64 1
-  %1576 = insertelement <2 x float> poison, float %1553, i64 0
-  %1577 = shufflevector <2 x float> %1576, <2 x float> poison, <2 x i32> zeroinitializer
-  %1578 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1575, <2 x float> %1577, <2 x float> %1572)
-  %1579 = load <2 x float>, ptr %1554, align 4, !tbaa !5
-  %1580 = fadd <2 x float> %1578, %1579
-  %1581 = getelementptr inbounds [3 x %class.btVector3], ptr %1545, i64 0, i64 2
-  %1582 = load float, ptr %1581, align 4, !tbaa !5
-  %1583 = getelementptr inbounds [3 x %class.btVector3], ptr %1545, i64 0, i64 2, i32 0, i64 1
-  %1584 = load float, ptr %1583, align 4, !tbaa !5
-  %1585 = fmul float %1550, %1584
-  %1586 = call float @llvm.fmuladd.f32(float %1582, float %1547, float %1585)
-  %1587 = getelementptr inbounds [3 x %class.btVector3], ptr %1545, i64 0, i64 2, i32 0, i64 2
-  %1588 = load float, ptr %1587, align 4, !tbaa !5
-  %1589 = call float @llvm.fmuladd.f32(float %1588, float %1553, float %1586)
-  %1590 = getelementptr inbounds %class.btTransform, ptr %1545, i64 0, i32 1, i32 0, i64 2
+  %1554 = getelementptr inbounds [4 x float], ptr %1548, i64 0, i64 2
+  %1555 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 0, i32 0, i64 2
+  %1556 = load float, ptr %1555, align 4, !tbaa !5
+  %1557 = getelementptr inbounds %class.btTransform, ptr %1548, i64 0, i32 1
+  %1558 = getelementptr inbounds [3 x %class.btVector3], ptr %1548, i64 0, i64 1
+  %1559 = getelementptr inbounds [3 x %class.btVector3], ptr %1548, i64 0, i64 1, i32 0, i64 1
+  %1560 = getelementptr inbounds [3 x %class.btVector3], ptr %1548, i64 0, i64 1, i32 0, i64 2
+  %1561 = load float, ptr %1548, align 4, !tbaa !5
+  %1562 = load float, ptr %1551, align 4, !tbaa !5
+  %1563 = load float, ptr %1554, align 4, !tbaa !5
+  %1564 = load float, ptr %1558, align 4, !tbaa !5
+  %1565 = load float, ptr %1559, align 4, !tbaa !5
+  %1566 = insertelement <2 x float> poison, float %1553, i64 0
+  %1567 = shufflevector <2 x float> %1566, <2 x float> poison, <2 x i32> zeroinitializer
+  %1568 = insertelement <2 x float> poison, float %1562, i64 0
+  %1569 = insertelement <2 x float> %1568, float %1565, i64 1
+  %1570 = fmul <2 x float> %1567, %1569
+  %1571 = insertelement <2 x float> poison, float %1561, i64 0
+  %1572 = insertelement <2 x float> %1571, float %1564, i64 1
+  %1573 = insertelement <2 x float> poison, float %1550, i64 0
+  %1574 = shufflevector <2 x float> %1573, <2 x float> poison, <2 x i32> zeroinitializer
+  %1575 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1572, <2 x float> %1574, <2 x float> %1570)
+  %1576 = load float, ptr %1560, align 4, !tbaa !5
+  %1577 = insertelement <2 x float> poison, float %1563, i64 0
+  %1578 = insertelement <2 x float> %1577, float %1576, i64 1
+  %1579 = insertelement <2 x float> poison, float %1556, i64 0
+  %1580 = shufflevector <2 x float> %1579, <2 x float> poison, <2 x i32> zeroinitializer
+  %1581 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1578, <2 x float> %1580, <2 x float> %1575)
+  %1582 = load <2 x float>, ptr %1557, align 4, !tbaa !5
+  %1583 = fadd <2 x float> %1581, %1582
+  %1584 = getelementptr inbounds [3 x %class.btVector3], ptr %1548, i64 0, i64 2
+  %1585 = load float, ptr %1584, align 4, !tbaa !5
+  %1586 = getelementptr inbounds [3 x %class.btVector3], ptr %1548, i64 0, i64 2, i32 0, i64 1
+  %1587 = load float, ptr %1586, align 4, !tbaa !5
+  %1588 = fmul float %1553, %1587
+  %1589 = call float @llvm.fmuladd.f32(float %1585, float %1550, float %1588)
+  %1590 = getelementptr inbounds [3 x %class.btVector3], ptr %1548, i64 0, i64 2, i32 0, i64 2
   %1591 = load float, ptr %1590, align 4, !tbaa !5
-  %1592 = fadd float %1591, %1589
-  %1593 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1592, i64 0
-  store <2 x float> %1580, ptr %95, align 8
-  store <2 x float> %1593, ptr %1497, align 8
+  %1592 = call float @llvm.fmuladd.f32(float %1591, float %1556, float %1589)
+  %1593 = getelementptr inbounds %class.btTransform, ptr %1548, i64 0, i32 1, i32 0, i64 2
+  %1594 = load float, ptr %1593, align 4, !tbaa !5
+  %1595 = fadd float %1594, %1592
+  %1596 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1595, i64 0
+  store <2 x float> %1583, ptr %95, align 8
+  store <2 x float> %1596, ptr %1500, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %96) #18
-  %1594 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 1, i64 1
-  %1595 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
-  %1596 = icmp eq i8 %1595, 0
-  br i1 %1596, label %1597, label %1609, !prof !28
+  %1597 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 1, i64 1
+  %1598 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
+  %1599 = icmp eq i8 %1598, 0
+  br i1 %1599, label %1600, label %1612, !prof !28
 
-1597:                                             ; preds = %1536
-  %1598 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  %1599 = icmp eq i32 %1598, 0
-  br i1 %1599, label %1609, label %1600
+1600:                                             ; preds = %1539
+  %1601 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
+  %1602 = icmp eq i32 %1601, 0
+  br i1 %1602, label %1612, label %1603
 
-1600:                                             ; preds = %1597
-  %1601 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
-          to label %1602 unwind label %1607
+1603:                                             ; preds = %1600
+  %1604 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
+          to label %1605 unwind label %1610
 
-1602:                                             ; preds = %1600
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1601, i64 16, i1 false), !tbaa.struct !50
-  %1603 = getelementptr inbounds [3 x %class.btVector3], ptr %1601, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1603, i64 16, i1 false), !tbaa.struct !50
-  %1604 = getelementptr inbounds [3 x %class.btVector3], ptr %1601, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1604, i64 16, i1 false), !tbaa.struct !50
-  %1605 = getelementptr inbounds %class.btTransform, ptr %1601, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1605, i64 16, i1 false), !tbaa.struct !50
-  %1606 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
+1605:                                             ; preds = %1603
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1604, i64 16, i1 false), !tbaa.struct !52
+  %1606 = getelementptr inbounds [3 x %class.btVector3], ptr %1604, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1606, i64 16, i1 false), !tbaa.struct !52
+  %1607 = getelementptr inbounds [3 x %class.btVector3], ptr %1604, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1607, i64 16, i1 false), !tbaa.struct !52
+  %1608 = getelementptr inbounds %class.btTransform, ptr %1604, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1608, i64 16, i1 false), !tbaa.struct !52
+  %1609 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
   call void @__cxa_guard_release(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1609
+  br label %1612
 
-1607:                                             ; preds = %1600
-  %1608 = landingpad { ptr, i32 }
+1610:                                             ; preds = %1603
+  %1611 = landingpad { ptr, i32 }
           cleanup
   call void @__cxa_guard_abort(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1161
+  br label %1164
 
-1609:                                             ; preds = %1536, %1597, %1602
-  %1610 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 1, i64 1, i32 2
-  %1611 = load ptr, ptr %1610, align 8, !tbaa !147
-  %1612 = icmp eq ptr %1611, null
-  %1613 = getelementptr inbounds %class.btCollisionObject, ptr %1611, i64 0, i32 2
-  %1614 = load ptr, ptr %1594, align 8
+1612:                                             ; preds = %1539, %1600, %1605
+  %1613 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 1, i64 1, i32 2
+  %1614 = load ptr, ptr %1613, align 8, !tbaa !149
   %1615 = icmp eq ptr %1614, null
-  %1616 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1614, i64 0, i32 3
-  %1617 = select i1 %1615, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1616
-  %1618 = select i1 %1612, ptr %1617, ptr %1613
-  %1619 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 1
-  %1620 = load float, ptr %1619, align 4, !tbaa !5
-  %1621 = getelementptr inbounds [4 x float], ptr %1618, i64 0, i64 1
-  %1622 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 1, i32 0, i64 1
+  %1616 = getelementptr inbounds %class.btCollisionObject, ptr %1614, i64 0, i32 2
+  %1617 = load ptr, ptr %1597, align 8
+  %1618 = icmp eq ptr %1617, null
+  %1619 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1617, i64 0, i32 3
+  %1620 = select i1 %1618, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1619
+  %1621 = select i1 %1615, ptr %1620, ptr %1616
+  %1622 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 1
   %1623 = load float, ptr %1622, align 4, !tbaa !5
-  %1624 = getelementptr inbounds [4 x float], ptr %1618, i64 0, i64 2
-  %1625 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 1, i32 0, i64 2
+  %1624 = getelementptr inbounds [4 x float], ptr %1621, i64 0, i64 1
+  %1625 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 1, i32 0, i64 1
   %1626 = load float, ptr %1625, align 4, !tbaa !5
-  %1627 = getelementptr inbounds %class.btTransform, ptr %1618, i64 0, i32 1
-  %1628 = getelementptr inbounds [3 x %class.btVector3], ptr %1618, i64 0, i64 1
-  %1629 = getelementptr inbounds [3 x %class.btVector3], ptr %1618, i64 0, i64 1, i32 0, i64 1
-  %1630 = getelementptr inbounds [3 x %class.btVector3], ptr %1618, i64 0, i64 1, i32 0, i64 2
-  %1631 = load float, ptr %1618, align 4, !tbaa !5
-  %1632 = load float, ptr %1621, align 4, !tbaa !5
-  %1633 = load float, ptr %1624, align 4, !tbaa !5
-  %1634 = load float, ptr %1628, align 4, !tbaa !5
-  %1635 = load float, ptr %1629, align 4, !tbaa !5
-  %1636 = insertelement <2 x float> poison, float %1623, i64 0
-  %1637 = shufflevector <2 x float> %1636, <2 x float> poison, <2 x i32> zeroinitializer
-  %1638 = insertelement <2 x float> poison, float %1632, i64 0
-  %1639 = insertelement <2 x float> %1638, float %1635, i64 1
-  %1640 = fmul <2 x float> %1637, %1639
-  %1641 = insertelement <2 x float> poison, float %1631, i64 0
-  %1642 = insertelement <2 x float> %1641, float %1634, i64 1
-  %1643 = insertelement <2 x float> poison, float %1620, i64 0
-  %1644 = shufflevector <2 x float> %1643, <2 x float> poison, <2 x i32> zeroinitializer
-  %1645 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1642, <2 x float> %1644, <2 x float> %1640)
-  %1646 = load float, ptr %1630, align 4, !tbaa !5
-  %1647 = insertelement <2 x float> poison, float %1633, i64 0
-  %1648 = insertelement <2 x float> %1647, float %1646, i64 1
-  %1649 = insertelement <2 x float> poison, float %1626, i64 0
-  %1650 = shufflevector <2 x float> %1649, <2 x float> poison, <2 x i32> zeroinitializer
-  %1651 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1648, <2 x float> %1650, <2 x float> %1645)
-  %1652 = load <2 x float>, ptr %1627, align 4, !tbaa !5
-  %1653 = fadd <2 x float> %1651, %1652
-  %1654 = getelementptr inbounds [3 x %class.btVector3], ptr %1618, i64 0, i64 2
-  %1655 = load float, ptr %1654, align 4, !tbaa !5
-  %1656 = getelementptr inbounds [3 x %class.btVector3], ptr %1618, i64 0, i64 2, i32 0, i64 1
-  %1657 = load float, ptr %1656, align 4, !tbaa !5
-  %1658 = fmul float %1623, %1657
-  %1659 = call float @llvm.fmuladd.f32(float %1655, float %1620, float %1658)
-  %1660 = getelementptr inbounds [3 x %class.btVector3], ptr %1618, i64 0, i64 2, i32 0, i64 2
-  %1661 = load float, ptr %1660, align 4, !tbaa !5
-  %1662 = call float @llvm.fmuladd.f32(float %1661, float %1626, float %1659)
-  %1663 = getelementptr inbounds %class.btTransform, ptr %1618, i64 0, i32 1, i32 0, i64 2
+  %1627 = getelementptr inbounds [4 x float], ptr %1621, i64 0, i64 2
+  %1628 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 1, i32 0, i64 2
+  %1629 = load float, ptr %1628, align 4, !tbaa !5
+  %1630 = getelementptr inbounds %class.btTransform, ptr %1621, i64 0, i32 1
+  %1631 = getelementptr inbounds [3 x %class.btVector3], ptr %1621, i64 0, i64 1
+  %1632 = getelementptr inbounds [3 x %class.btVector3], ptr %1621, i64 0, i64 1, i32 0, i64 1
+  %1633 = getelementptr inbounds [3 x %class.btVector3], ptr %1621, i64 0, i64 1, i32 0, i64 2
+  %1634 = load float, ptr %1621, align 4, !tbaa !5
+  %1635 = load float, ptr %1624, align 4, !tbaa !5
+  %1636 = load float, ptr %1627, align 4, !tbaa !5
+  %1637 = load float, ptr %1631, align 4, !tbaa !5
+  %1638 = load float, ptr %1632, align 4, !tbaa !5
+  %1639 = insertelement <2 x float> poison, float %1626, i64 0
+  %1640 = shufflevector <2 x float> %1639, <2 x float> poison, <2 x i32> zeroinitializer
+  %1641 = insertelement <2 x float> poison, float %1635, i64 0
+  %1642 = insertelement <2 x float> %1641, float %1638, i64 1
+  %1643 = fmul <2 x float> %1640, %1642
+  %1644 = insertelement <2 x float> poison, float %1634, i64 0
+  %1645 = insertelement <2 x float> %1644, float %1637, i64 1
+  %1646 = insertelement <2 x float> poison, float %1623, i64 0
+  %1647 = shufflevector <2 x float> %1646, <2 x float> poison, <2 x i32> zeroinitializer
+  %1648 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1645, <2 x float> %1647, <2 x float> %1643)
+  %1649 = load float, ptr %1633, align 4, !tbaa !5
+  %1650 = insertelement <2 x float> poison, float %1636, i64 0
+  %1651 = insertelement <2 x float> %1650, float %1649, i64 1
+  %1652 = insertelement <2 x float> poison, float %1629, i64 0
+  %1653 = shufflevector <2 x float> %1652, <2 x float> poison, <2 x i32> zeroinitializer
+  %1654 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1651, <2 x float> %1653, <2 x float> %1648)
+  %1655 = load <2 x float>, ptr %1630, align 4, !tbaa !5
+  %1656 = fadd <2 x float> %1654, %1655
+  %1657 = getelementptr inbounds [3 x %class.btVector3], ptr %1621, i64 0, i64 2
+  %1658 = load float, ptr %1657, align 4, !tbaa !5
+  %1659 = getelementptr inbounds [3 x %class.btVector3], ptr %1621, i64 0, i64 2, i32 0, i64 1
+  %1660 = load float, ptr %1659, align 4, !tbaa !5
+  %1661 = fmul float %1626, %1660
+  %1662 = call float @llvm.fmuladd.f32(float %1658, float %1623, float %1661)
+  %1663 = getelementptr inbounds [3 x %class.btVector3], ptr %1621, i64 0, i64 2, i32 0, i64 2
   %1664 = load float, ptr %1663, align 4, !tbaa !5
-  %1665 = fadd float %1664, %1662
-  %1666 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1665, i64 0
-  store <2 x float> %1653, ptr %96, align 8
-  store <2 x float> %1666, ptr %1498, align 8
-  %1667 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
-  %1668 = icmp eq i8 %1667, 0
-  br i1 %1668, label %1669, label %1681, !prof !28
+  %1665 = call float @llvm.fmuladd.f32(float %1664, float %1629, float %1662)
+  %1666 = getelementptr inbounds %class.btTransform, ptr %1621, i64 0, i32 1, i32 0, i64 2
+  %1667 = load float, ptr %1666, align 4, !tbaa !5
+  %1668 = fadd float %1667, %1665
+  %1669 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1668, i64 0
+  store <2 x float> %1656, ptr %96, align 8
+  store <2 x float> %1669, ptr %1501, align 8
+  %1670 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
+  %1671 = icmp eq i8 %1670, 0
+  br i1 %1671, label %1672, label %1684, !prof !28
 
-1669:                                             ; preds = %1609
-  %1670 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  %1671 = icmp eq i32 %1670, 0
-  br i1 %1671, label %1681, label %1672
+1672:                                             ; preds = %1612
+  %1673 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
+  %1674 = icmp eq i32 %1673, 0
+  br i1 %1674, label %1684, label %1675
 
-1672:                                             ; preds = %1669
-  %1673 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
-          to label %1674 unwind label %1679
+1675:                                             ; preds = %1672
+  %1676 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
+          to label %1677 unwind label %1682
 
-1674:                                             ; preds = %1672
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1673, i64 16, i1 false), !tbaa.struct !50
-  %1675 = getelementptr inbounds [3 x %class.btVector3], ptr %1673, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1675, i64 16, i1 false), !tbaa.struct !50
-  %1676 = getelementptr inbounds [3 x %class.btVector3], ptr %1673, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1676, i64 16, i1 false), !tbaa.struct !50
-  %1677 = getelementptr inbounds %class.btTransform, ptr %1673, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1677, i64 16, i1 false), !tbaa.struct !50
-  %1678 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
+1677:                                             ; preds = %1675
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1676, i64 16, i1 false), !tbaa.struct !52
+  %1678 = getelementptr inbounds [3 x %class.btVector3], ptr %1676, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1678, i64 16, i1 false), !tbaa.struct !52
+  %1679 = getelementptr inbounds [3 x %class.btVector3], ptr %1676, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1679, i64 16, i1 false), !tbaa.struct !52
+  %1680 = getelementptr inbounds %class.btTransform, ptr %1676, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1680, i64 16, i1 false), !tbaa.struct !52
+  %1681 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
   call void @__cxa_guard_release(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1681
+  br label %1684
 
-1679:                                             ; preds = %1672
-  %1680 = landingpad { ptr, i32 }
+1682:                                             ; preds = %1675
+  %1683 = landingpad { ptr, i32 }
           cleanup
   call void @__cxa_guard_abort(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1161
+  br label %1164
 
-1681:                                             ; preds = %1609, %1669, %1674
-  %1682 = load ptr, ptr %1537, align 8, !tbaa !147
-  %1683 = icmp eq ptr %1682, null
-  %1684 = getelementptr inbounds %class.btCollisionObject, ptr %1682, i64 0, i32 2
-  %1685 = load ptr, ptr %1521, align 8
+1684:                                             ; preds = %1612, %1672, %1677
+  %1685 = load ptr, ptr %1540, align 8, !tbaa !149
   %1686 = icmp eq ptr %1685, null
-  %1687 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1685, i64 0, i32 3
-  %1688 = select i1 %1686, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1687
-  %1689 = select i1 %1683, ptr %1688, ptr %1684
-  %1690 = getelementptr inbounds %class.btTransform, ptr %1689, i64 0, i32 1
+  %1687 = getelementptr inbounds %class.btCollisionObject, ptr %1685, i64 0, i32 2
+  %1688 = load ptr, ptr %1524, align 8
+  %1689 = icmp eq ptr %1688, null
+  %1690 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1688, i64 0, i32 3
+  %1691 = select i1 %1689, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1690
+  %1692 = select i1 %1686, ptr %1691, ptr %1687
+  %1693 = getelementptr inbounds %class.btTransform, ptr %1692, i64 0, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %97) #18
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %97, align 16, !tbaa !5
-  %1691 = load ptr, ptr %1, align 8, !tbaa !21
-  %1692 = getelementptr inbounds ptr, ptr %1691, i64 5
-  %1693 = load ptr, ptr %1692, align 8
-  call void %1693(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1690, ptr noundef nonnull align 4 dereferenceable(16) %95, ptr noundef nonnull align 4 dereferenceable(16) %97)
+  %1694 = load ptr, ptr %1, align 8, !tbaa !21
+  %1695 = getelementptr inbounds ptr, ptr %1694, i64 5
+  %1696 = load ptr, ptr %1695, align 8
+  call void %1696(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1693, ptr noundef nonnull align 4 dereferenceable(16) %95, ptr noundef nonnull align 4 dereferenceable(16) %97)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %97) #18
-  %1694 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
-  %1695 = icmp eq i8 %1694, 0
-  br i1 %1695, label %1696, label %1708, !prof !28
+  %1697 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
+  %1698 = icmp eq i8 %1697, 0
+  br i1 %1698, label %1699, label %1711, !prof !28
 
-1696:                                             ; preds = %1681
-  %1697 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  %1698 = icmp eq i32 %1697, 0
-  br i1 %1698, label %1708, label %1699
+1699:                                             ; preds = %1684
+  %1700 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
+  %1701 = icmp eq i32 %1700, 0
+  br i1 %1701, label %1711, label %1702
 
-1699:                                             ; preds = %1696
-  %1700 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
-          to label %1701 unwind label %1706
+1702:                                             ; preds = %1699
+  %1703 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
+          to label %1704 unwind label %1709
 
-1701:                                             ; preds = %1699
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1700, i64 16, i1 false), !tbaa.struct !50
-  %1702 = getelementptr inbounds [3 x %class.btVector3], ptr %1700, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1702, i64 16, i1 false), !tbaa.struct !50
-  %1703 = getelementptr inbounds [3 x %class.btVector3], ptr %1700, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1703, i64 16, i1 false), !tbaa.struct !50
-  %1704 = getelementptr inbounds %class.btTransform, ptr %1700, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1704, i64 16, i1 false), !tbaa.struct !50
-  %1705 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
+1704:                                             ; preds = %1702
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1703, i64 16, i1 false), !tbaa.struct !52
+  %1705 = getelementptr inbounds [3 x %class.btVector3], ptr %1703, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1705, i64 16, i1 false), !tbaa.struct !52
+  %1706 = getelementptr inbounds [3 x %class.btVector3], ptr %1703, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1706, i64 16, i1 false), !tbaa.struct !52
+  %1707 = getelementptr inbounds %class.btTransform, ptr %1703, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1707, i64 16, i1 false), !tbaa.struct !52
+  %1708 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
   call void @__cxa_guard_release(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1708
+  br label %1711
 
-1706:                                             ; preds = %1699
-  %1707 = landingpad { ptr, i32 }
+1709:                                             ; preds = %1702
+  %1710 = landingpad { ptr, i32 }
           cleanup
   call void @__cxa_guard_abort(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1161
+  br label %1164
 
-1708:                                             ; preds = %1681, %1696, %1701
-  %1709 = load ptr, ptr %1610, align 8, !tbaa !147
-  %1710 = icmp eq ptr %1709, null
-  %1711 = getelementptr inbounds %class.btCollisionObject, ptr %1709, i64 0, i32 2
-  %1712 = load ptr, ptr %1594, align 8
+1711:                                             ; preds = %1684, %1699, %1704
+  %1712 = load ptr, ptr %1613, align 8, !tbaa !149
   %1713 = icmp eq ptr %1712, null
-  %1714 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1712, i64 0, i32 3
-  %1715 = select i1 %1713, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1714
-  %1716 = select i1 %1710, ptr %1715, ptr %1711
-  %1717 = getelementptr inbounds %class.btTransform, ptr %1716, i64 0, i32 1
+  %1714 = getelementptr inbounds %class.btCollisionObject, ptr %1712, i64 0, i32 2
+  %1715 = load ptr, ptr %1597, align 8
+  %1716 = icmp eq ptr %1715, null
+  %1717 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1715, i64 0, i32 3
+  %1718 = select i1 %1716, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1717
+  %1719 = select i1 %1713, ptr %1718, ptr %1714
+  %1720 = getelementptr inbounds %class.btTransform, ptr %1719, i64 0, i32 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %98) #18
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %98, align 16, !tbaa !5
-  %1718 = load ptr, ptr %1, align 8, !tbaa !21
-  %1719 = getelementptr inbounds ptr, ptr %1718, i64 5
-  %1720 = load ptr, ptr %1719, align 8
-  call void %1720(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1717, ptr noundef nonnull align 4 dereferenceable(16) %96, ptr noundef nonnull align 4 dereferenceable(16) %98)
+  %1721 = load ptr, ptr %1, align 8, !tbaa !21
+  %1722 = getelementptr inbounds ptr, ptr %1721, i64 5
+  %1723 = load ptr, ptr %1722, align 8
+  call void %1723(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %1720, ptr noundef nonnull align 4 dereferenceable(16) %96, ptr noundef nonnull align 4 dereferenceable(16) %98)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %98) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %99) #18
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %99, align 16, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %10) #18
-  %1721 = load float, ptr %1497, align 8, !tbaa !5
-  %1722 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1721, i64 0
-  store <2 x float> %1722, ptr %1499, align 8
+  %1724 = load float, ptr %1500, align 8, !tbaa !5
+  %1725 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1724, i64 0
+  store <2 x float> %1725, ptr %1502, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %11) #18
-  %1723 = load <2 x float>, ptr %95, align 8, !tbaa !5
-  %1724 = extractelement <2 x float> %1723, i64 0
-  %1725 = fadd float %1724, -2.500000e-01
-  %1726 = insertelement <2 x float> %1723, float %1725, i64 0
-  store <2 x float> %1726, ptr %10, align 8
-  %1727 = fadd <2 x float> %1723, <float 2.500000e-01, float 0.000000e+00>
-  %1728 = fadd float %1721, 0.000000e+00
-  %1729 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1728, i64 0
-  store <2 x float> %1727, ptr %11, align 8
-  store <2 x float> %1729, ptr %1500, align 8
-  %1730 = load ptr, ptr %1, align 8, !tbaa !21
-  %1731 = getelementptr inbounds ptr, ptr %1730, i64 5
-  %1732 = load ptr, ptr %1731, align 8
-  call void %1732(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %10, ptr noundef nonnull align 4 dereferenceable(16) %11, ptr noundef nonnull align 4 dereferenceable(16) %99)
+  %1726 = load <2 x float>, ptr %95, align 8, !tbaa !5
+  %1727 = extractelement <2 x float> %1726, i64 0
+  %1728 = fadd float %1727, -2.500000e-01
+  %1729 = insertelement <2 x float> %1726, float %1728, i64 0
+  store <2 x float> %1729, ptr %10, align 8
+  %1730 = fadd <2 x float> %1726, <float 2.500000e-01, float 0.000000e+00>
+  %1731 = fadd float %1724, 0.000000e+00
+  %1732 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1731, i64 0
+  store <2 x float> %1730, ptr %11, align 8
+  store <2 x float> %1732, ptr %1503, align 8
+  %1733 = load ptr, ptr %1, align 8, !tbaa !21
+  %1734 = getelementptr inbounds ptr, ptr %1733, i64 5
+  %1735 = load ptr, ptr %1734, align 8
+  call void %1735(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %10, ptr noundef nonnull align 4 dereferenceable(16) %11, ptr noundef nonnull align 4 dereferenceable(16) %99)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %11) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %10) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %12) #18
-  %1733 = load float, ptr %1497, align 8, !tbaa !5
-  %1734 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1733, i64 0
-  store <2 x float> %1734, ptr %1501, align 8
+  %1736 = load float, ptr %1500, align 8, !tbaa !5
+  %1737 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1736, i64 0
+  store <2 x float> %1737, ptr %1504, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %13) #18
-  %1735 = load <2 x float>, ptr %95, align 8, !tbaa !5
-  %1736 = extractelement <2 x float> %1735, i64 1
-  %1737 = fadd float %1736, -2.500000e-01
-  %1738 = insertelement <2 x float> %1735, float %1737, i64 1
-  store <2 x float> %1738, ptr %12, align 8
-  %1739 = fadd <2 x float> %1735, <float 0.000000e+00, float 2.500000e-01>
-  %1740 = fadd float %1733, 0.000000e+00
-  %1741 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1740, i64 0
-  store <2 x float> %1739, ptr %13, align 8
-  store <2 x float> %1741, ptr %1502, align 8
-  %1742 = load ptr, ptr %1, align 8, !tbaa !21
-  %1743 = getelementptr inbounds ptr, ptr %1742, i64 5
-  %1744 = load ptr, ptr %1743, align 8
-  call void %1744(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %12, ptr noundef nonnull align 4 dereferenceable(16) %13, ptr noundef nonnull align 4 dereferenceable(16) %99)
+  %1738 = load <2 x float>, ptr %95, align 8, !tbaa !5
+  %1739 = extractelement <2 x float> %1738, i64 1
+  %1740 = fadd float %1739, -2.500000e-01
+  %1741 = insertelement <2 x float> %1738, float %1740, i64 1
+  store <2 x float> %1741, ptr %12, align 8
+  %1742 = fadd <2 x float> %1738, <float 0.000000e+00, float 2.500000e-01>
+  %1743 = fadd float %1736, 0.000000e+00
+  %1744 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1743, i64 0
+  store <2 x float> %1742, ptr %13, align 8
+  store <2 x float> %1744, ptr %1505, align 8
+  %1745 = load ptr, ptr %1, align 8, !tbaa !21
+  %1746 = getelementptr inbounds ptr, ptr %1745, i64 5
+  %1747 = load ptr, ptr %1746, align 8
+  call void %1747(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %12, ptr noundef nonnull align 4 dereferenceable(16) %13, ptr noundef nonnull align 4 dereferenceable(16) %99)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %13) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %12) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %14) #18
-  %1745 = load <2 x float>, ptr %95, align 8, !tbaa !5
-  %1746 = load float, ptr %1497, align 8, !tbaa !5
-  %1747 = fadd float %1746, -2.500000e-01
-  %1748 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1747, i64 0
-  store <2 x float> %1745, ptr %14, align 8
-  store <2 x float> %1748, ptr %1503, align 8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %15) #18
-  %1749 = fadd <2 x float> %1745, zeroinitializer
-  %1750 = fadd float %1746, 2.500000e-01
+  %1748 = load <2 x float>, ptr %95, align 8, !tbaa !5
+  %1749 = load float, ptr %1500, align 8, !tbaa !5
+  %1750 = fadd float %1749, -2.500000e-01
   %1751 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1750, i64 0
-  store <2 x float> %1749, ptr %15, align 8
-  store <2 x float> %1751, ptr %1504, align 8
-  %1752 = load ptr, ptr %1, align 8, !tbaa !21
-  %1753 = getelementptr inbounds ptr, ptr %1752, i64 5
-  %1754 = load ptr, ptr %1753, align 8
-  call void %1754(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %14, ptr noundef nonnull align 4 dereferenceable(16) %15, ptr noundef nonnull align 4 dereferenceable(16) %99)
+  store <2 x float> %1748, ptr %14, align 8
+  store <2 x float> %1751, ptr %1506, align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %15) #18
+  %1752 = fadd <2 x float> %1748, zeroinitializer
+  %1753 = fadd float %1749, 2.500000e-01
+  %1754 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1753, i64 0
+  store <2 x float> %1752, ptr %15, align 8
+  store <2 x float> %1754, ptr %1507, align 8
+  %1755 = load ptr, ptr %1, align 8, !tbaa !21
+  %1756 = getelementptr inbounds ptr, ptr %1755, i64 5
+  %1757 = load ptr, ptr %1756, align 8
+  call void %1757(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %14, ptr noundef nonnull align 4 dereferenceable(16) %15, ptr noundef nonnull align 4 dereferenceable(16) %99)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %15) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %14) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %99) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %100) #18
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %100, align 16, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #18
-  %1755 = load float, ptr %1498, align 8, !tbaa !5
-  %1756 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1755, i64 0
-  store <2 x float> %1756, ptr %1505, align 8
+  %1758 = load float, ptr %1501, align 8, !tbaa !5
+  %1759 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1758, i64 0
+  store <2 x float> %1759, ptr %1508, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #18
-  %1757 = load <2 x float>, ptr %96, align 8, !tbaa !5
-  %1758 = extractelement <2 x float> %1757, i64 0
-  %1759 = fadd float %1758, -2.500000e-01
-  %1760 = insertelement <2 x float> %1757, float %1759, i64 0
-  store <2 x float> %1760, ptr %4, align 8
-  %1761 = fadd <2 x float> %1757, <float 2.500000e-01, float 0.000000e+00>
-  %1762 = fadd float %1755, 0.000000e+00
-  %1763 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1762, i64 0
-  store <2 x float> %1761, ptr %5, align 8
-  store <2 x float> %1763, ptr %1506, align 8
-  %1764 = load ptr, ptr %1, align 8, !tbaa !21
-  %1765 = getelementptr inbounds ptr, ptr %1764, i64 5
-  %1766 = load ptr, ptr %1765, align 8
-  call void %1766(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(16) %100)
+  %1760 = load <2 x float>, ptr %96, align 8, !tbaa !5
+  %1761 = extractelement <2 x float> %1760, i64 0
+  %1762 = fadd float %1761, -2.500000e-01
+  %1763 = insertelement <2 x float> %1760, float %1762, i64 0
+  store <2 x float> %1763, ptr %4, align 8
+  %1764 = fadd <2 x float> %1760, <float 2.500000e-01, float 0.000000e+00>
+  %1765 = fadd float %1758, 0.000000e+00
+  %1766 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1765, i64 0
+  store <2 x float> %1764, ptr %5, align 8
+  store <2 x float> %1766, ptr %1509, align 8
+  %1767 = load ptr, ptr %1, align 8, !tbaa !21
+  %1768 = getelementptr inbounds ptr, ptr %1767, i64 5
+  %1769 = load ptr, ptr %1768, align 8
+  call void %1769(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(16) %100)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #18
-  %1767 = load float, ptr %1498, align 8, !tbaa !5
-  %1768 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1767, i64 0
-  store <2 x float> %1768, ptr %1507, align 8
+  %1770 = load float, ptr %1501, align 8, !tbaa !5
+  %1771 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1770, i64 0
+  store <2 x float> %1771, ptr %1510, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %7) #18
-  %1769 = load <2 x float>, ptr %96, align 8, !tbaa !5
-  %1770 = extractelement <2 x float> %1769, i64 1
-  %1771 = fadd float %1770, -2.500000e-01
-  %1772 = insertelement <2 x float> %1769, float %1771, i64 1
-  store <2 x float> %1772, ptr %6, align 8
-  %1773 = fadd <2 x float> %1769, <float 0.000000e+00, float 2.500000e-01>
-  %1774 = fadd float %1767, 0.000000e+00
-  %1775 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1774, i64 0
-  store <2 x float> %1773, ptr %7, align 8
-  store <2 x float> %1775, ptr %1508, align 8
-  %1776 = load ptr, ptr %1, align 8, !tbaa !21
-  %1777 = getelementptr inbounds ptr, ptr %1776, i64 5
-  %1778 = load ptr, ptr %1777, align 8
-  call void %1778(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %7, ptr noundef nonnull align 4 dereferenceable(16) %100)
+  %1772 = load <2 x float>, ptr %96, align 8, !tbaa !5
+  %1773 = extractelement <2 x float> %1772, i64 1
+  %1774 = fadd float %1773, -2.500000e-01
+  %1775 = insertelement <2 x float> %1772, float %1774, i64 1
+  store <2 x float> %1775, ptr %6, align 8
+  %1776 = fadd <2 x float> %1772, <float 0.000000e+00, float 2.500000e-01>
+  %1777 = fadd float %1770, 0.000000e+00
+  %1778 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1777, i64 0
+  store <2 x float> %1776, ptr %7, align 8
+  store <2 x float> %1778, ptr %1511, align 8
+  %1779 = load ptr, ptr %1, align 8, !tbaa !21
+  %1780 = getelementptr inbounds ptr, ptr %1779, i64 5
+  %1781 = load ptr, ptr %1780, align 8
+  call void %1781(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %7, ptr noundef nonnull align 4 dereferenceable(16) %100)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %8) #18
-  %1779 = load <2 x float>, ptr %96, align 8, !tbaa !5
-  %1780 = load float, ptr %1498, align 8, !tbaa !5
-  %1781 = fadd float %1780, -2.500000e-01
-  %1782 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1781, i64 0
-  store <2 x float> %1779, ptr %8, align 8
-  store <2 x float> %1782, ptr %1509, align 8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %9) #18
-  %1783 = fadd <2 x float> %1779, zeroinitializer
-  %1784 = fadd float %1780, 2.500000e-01
+  %1782 = load <2 x float>, ptr %96, align 8, !tbaa !5
+  %1783 = load float, ptr %1501, align 8, !tbaa !5
+  %1784 = fadd float %1783, -2.500000e-01
   %1785 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1784, i64 0
-  store <2 x float> %1783, ptr %9, align 8
-  store <2 x float> %1785, ptr %1510, align 8
-  %1786 = load ptr, ptr %1, align 8, !tbaa !21
-  %1787 = getelementptr inbounds ptr, ptr %1786, i64 5
-  %1788 = load ptr, ptr %1787, align 8
-  call void %1788(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %8, ptr noundef nonnull align 4 dereferenceable(16) %9, ptr noundef nonnull align 4 dereferenceable(16) %100)
+  store <2 x float> %1782, ptr %8, align 8
+  store <2 x float> %1785, ptr %1512, align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %9) #18
+  %1786 = fadd <2 x float> %1782, zeroinitializer
+  %1787 = fadd float %1783, 2.500000e-01
+  %1788 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1787, i64 0
+  store <2 x float> %1786, ptr %9, align 8
+  store <2 x float> %1788, ptr %1513, align 8
+  %1789 = load ptr, ptr %1, align 8, !tbaa !21
+  %1790 = getelementptr inbounds ptr, ptr %1789, i64 5
+  %1791 = load ptr, ptr %1790, align 8
+  call void %1791(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %8, ptr noundef nonnull align 4 dereferenceable(16) %9, ptr noundef nonnull align 4 dereferenceable(16) %100)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %9) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %8) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %100) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %96) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %95) #18
-  br label %2006
+  br label %2009
 
-1789:                                             ; preds = %1511
+1792:                                             ; preds = %1514
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %101) #18
-  %1790 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 1
-  %1791 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
-  %1792 = icmp eq i8 %1791, 0
-  br i1 %1792, label %1793, label %1805, !prof !28
+  %1793 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 1
+  %1794 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
+  %1795 = icmp eq i8 %1794, 0
+  br i1 %1795, label %1796, label %1808, !prof !28
 
-1793:                                             ; preds = %1789
-  %1794 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  %1795 = icmp eq i32 %1794, 0
-  br i1 %1795, label %1805, label %1796
+1796:                                             ; preds = %1792
+  %1797 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
+  %1798 = icmp eq i32 %1797, 0
+  br i1 %1798, label %1808, label %1799
 
-1796:                                             ; preds = %1793
-  %1797 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
-          to label %1798 unwind label %1803
+1799:                                             ; preds = %1796
+  %1800 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
+          to label %1801 unwind label %1806
 
-1798:                                             ; preds = %1796
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1797, i64 16, i1 false), !tbaa.struct !50
-  %1799 = getelementptr inbounds [3 x %class.btVector3], ptr %1797, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1799, i64 16, i1 false), !tbaa.struct !50
-  %1800 = getelementptr inbounds [3 x %class.btVector3], ptr %1797, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1800, i64 16, i1 false), !tbaa.struct !50
-  %1801 = getelementptr inbounds %class.btTransform, ptr %1797, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1801, i64 16, i1 false), !tbaa.struct !50
-  %1802 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
+1801:                                             ; preds = %1799
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1800, i64 16, i1 false), !tbaa.struct !52
+  %1802 = getelementptr inbounds [3 x %class.btVector3], ptr %1800, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1802, i64 16, i1 false), !tbaa.struct !52
+  %1803 = getelementptr inbounds [3 x %class.btVector3], ptr %1800, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1803, i64 16, i1 false), !tbaa.struct !52
+  %1804 = getelementptr inbounds %class.btTransform, ptr %1800, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1804, i64 16, i1 false), !tbaa.struct !52
+  %1805 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
   call void @__cxa_guard_release(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1805
+  br label %1808
 
-1803:                                             ; preds = %1796
-  %1804 = landingpad { ptr, i32 }
+1806:                                             ; preds = %1799
+  %1807 = landingpad { ptr, i32 }
           cleanup
   call void @__cxa_guard_abort(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1161
+  br label %1164
 
-1805:                                             ; preds = %1789, %1793, %1798
-  %1806 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 1, i64 0, i32 2
-  %1807 = load ptr, ptr %1806, align 8, !tbaa !147
-  %1808 = icmp eq ptr %1807, null
-  %1809 = getelementptr inbounds %class.btCollisionObject, ptr %1807, i64 0, i32 2
-  %1810 = load ptr, ptr %1790, align 8
+1808:                                             ; preds = %1792, %1796, %1801
+  %1809 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 1, i64 0, i32 2
+  %1810 = load ptr, ptr %1809, align 8, !tbaa !149
   %1811 = icmp eq ptr %1810, null
-  %1812 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1810, i64 0, i32 3
-  %1813 = select i1 %1811, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1812
-  %1814 = select i1 %1808, ptr %1813, ptr %1809
-  %1815 = getelementptr inbounds %class.btTransform, ptr %1814, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %101, ptr noundef nonnull align 4 dereferenceable(16) %1815, i64 16, i1 false), !tbaa.struct !50
+  %1812 = getelementptr inbounds %class.btCollisionObject, ptr %1810, i64 0, i32 2
+  %1813 = load ptr, ptr %1793, align 8
+  %1814 = icmp eq ptr %1813, null
+  %1815 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1813, i64 0, i32 3
+  %1816 = select i1 %1814, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1815
+  %1817 = select i1 %1811, ptr %1816, ptr %1812
+  %1818 = getelementptr inbounds %class.btTransform, ptr %1817, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %101, ptr noundef nonnull align 4 dereferenceable(16) %1818, i64 16, i1 false), !tbaa.struct !52
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %102) #18
-  %1816 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 1, i64 1
-  %1817 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
-  %1818 = icmp eq i8 %1817, 0
-  br i1 %1818, label %1819, label %1831, !prof !28
+  %1819 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 1, i64 1
+  %1820 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
+  %1821 = icmp eq i8 %1820, 0
+  br i1 %1821, label %1822, label %1834, !prof !28
 
-1819:                                             ; preds = %1805
-  %1820 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  %1821 = icmp eq i32 %1820, 0
-  br i1 %1821, label %1831, label %1822
+1822:                                             ; preds = %1808
+  %1823 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
+  %1824 = icmp eq i32 %1823, 0
+  br i1 %1824, label %1834, label %1825
 
-1822:                                             ; preds = %1819
-  %1823 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
-          to label %1824 unwind label %1829
+1825:                                             ; preds = %1822
+  %1826 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
+          to label %1827 unwind label %1832
 
-1824:                                             ; preds = %1822
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1823, i64 16, i1 false), !tbaa.struct !50
-  %1825 = getelementptr inbounds [3 x %class.btVector3], ptr %1823, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1825, i64 16, i1 false), !tbaa.struct !50
-  %1826 = getelementptr inbounds [3 x %class.btVector3], ptr %1823, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1826, i64 16, i1 false), !tbaa.struct !50
-  %1827 = getelementptr inbounds %class.btTransform, ptr %1823, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1827, i64 16, i1 false), !tbaa.struct !50
-  %1828 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
+1827:                                             ; preds = %1825
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1826, i64 16, i1 false), !tbaa.struct !52
+  %1828 = getelementptr inbounds [3 x %class.btVector3], ptr %1826, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1828, i64 16, i1 false), !tbaa.struct !52
+  %1829 = getelementptr inbounds [3 x %class.btVector3], ptr %1826, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1829, i64 16, i1 false), !tbaa.struct !52
+  %1830 = getelementptr inbounds %class.btTransform, ptr %1826, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1830, i64 16, i1 false), !tbaa.struct !52
+  %1831 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
   call void @__cxa_guard_release(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1831
+  br label %1834
 
-1829:                                             ; preds = %1822
-  %1830 = landingpad { ptr, i32 }
+1832:                                             ; preds = %1825
+  %1833 = landingpad { ptr, i32 }
           cleanup
   call void @__cxa_guard_abort(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1161
+  br label %1164
 
-1831:                                             ; preds = %1805, %1819, %1824
-  %1832 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 1, i64 1, i32 2
-  %1833 = load ptr, ptr %1832, align 8, !tbaa !147
-  %1834 = icmp eq ptr %1833, null
-  %1835 = getelementptr inbounds %class.btCollisionObject, ptr %1833, i64 0, i32 2
-  %1836 = load ptr, ptr %1816, align 8
+1834:                                             ; preds = %1808, %1822, %1827
+  %1835 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 1, i64 1, i32 2
+  %1836 = load ptr, ptr %1835, align 8, !tbaa !149
   %1837 = icmp eq ptr %1836, null
-  %1838 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1836, i64 0, i32 3
-  %1839 = select i1 %1837, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1838
-  %1840 = select i1 %1834, ptr %1839, ptr %1835
-  %1841 = getelementptr inbounds %class.btTransform, ptr %1840, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %102, ptr noundef nonnull align 4 dereferenceable(16) %1841, i64 16, i1 false), !tbaa.struct !50
-  %1842 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
-  %1843 = icmp eq i8 %1842, 0
-  br i1 %1843, label %1844, label %1856, !prof !28
+  %1838 = getelementptr inbounds %class.btCollisionObject, ptr %1836, i64 0, i32 2
+  %1839 = load ptr, ptr %1819, align 8
+  %1840 = icmp eq ptr %1839, null
+  %1841 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1839, i64 0, i32 3
+  %1842 = select i1 %1840, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1841
+  %1843 = select i1 %1837, ptr %1842, ptr %1838
+  %1844 = getelementptr inbounds %class.btTransform, ptr %1843, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %102, ptr noundef nonnull align 4 dereferenceable(16) %1844, i64 16, i1 false), !tbaa.struct !52
+  %1845 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
+  %1846 = icmp eq i8 %1845, 0
+  br i1 %1846, label %1847, label %1859, !prof !28
 
-1844:                                             ; preds = %1831
-  %1845 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  %1846 = icmp eq i32 %1845, 0
-  br i1 %1846, label %1856, label %1847
+1847:                                             ; preds = %1834
+  %1848 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
+  %1849 = icmp eq i32 %1848, 0
+  br i1 %1849, label %1859, label %1850
 
-1847:                                             ; preds = %1844
-  %1848 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
-          to label %1849 unwind label %1854
+1850:                                             ; preds = %1847
+  %1851 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
+          to label %1852 unwind label %1857
 
-1849:                                             ; preds = %1847
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1848, i64 16, i1 false), !tbaa.struct !50
-  %1850 = getelementptr inbounds [3 x %class.btVector3], ptr %1848, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1850, i64 16, i1 false), !tbaa.struct !50
-  %1851 = getelementptr inbounds [3 x %class.btVector3], ptr %1848, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1851, i64 16, i1 false), !tbaa.struct !50
-  %1852 = getelementptr inbounds %class.btTransform, ptr %1848, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1852, i64 16, i1 false), !tbaa.struct !50
-  %1853 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
+1852:                                             ; preds = %1850
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1851, i64 16, i1 false), !tbaa.struct !52
+  %1853 = getelementptr inbounds [3 x %class.btVector3], ptr %1851, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1853, i64 16, i1 false), !tbaa.struct !52
+  %1854 = getelementptr inbounds [3 x %class.btVector3], ptr %1851, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1854, i64 16, i1 false), !tbaa.struct !52
+  %1855 = getelementptr inbounds %class.btTransform, ptr %1851, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1855, i64 16, i1 false), !tbaa.struct !52
+  %1856 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
   call void @__cxa_guard_release(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1856
+  br label %1859
 
-1854:                                             ; preds = %1847
-  %1855 = landingpad { ptr, i32 }
+1857:                                             ; preds = %1850
+  %1858 = landingpad { ptr, i32 }
           cleanup
   call void @__cxa_guard_abort(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1161
+  br label %1164
 
-1856:                                             ; preds = %1831, %1844, %1849
-  %1857 = load ptr, ptr %1806, align 8, !tbaa !147
-  %1858 = icmp eq ptr %1857, null
-  %1859 = getelementptr inbounds %class.btCollisionObject, ptr %1857, i64 0, i32 2
-  %1860 = load ptr, ptr %1790, align 8
+1859:                                             ; preds = %1834, %1847, %1852
+  %1860 = load ptr, ptr %1809, align 8, !tbaa !149
   %1861 = icmp eq ptr %1860, null
-  %1862 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1860, i64 0, i32 3
-  %1863 = select i1 %1861, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1862
-  %1864 = select i1 %1858, ptr %1863, ptr %1859
-  %1865 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2
-  %1866 = load float, ptr %1865, align 4, !tbaa !5
-  %1867 = getelementptr inbounds [4 x float], ptr %1864, i64 0, i64 1
-  %1868 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 0, i32 0, i64 1
+  %1862 = getelementptr inbounds %class.btCollisionObject, ptr %1860, i64 0, i32 2
+  %1863 = load ptr, ptr %1793, align 8
+  %1864 = icmp eq ptr %1863, null
+  %1865 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1863, i64 0, i32 3
+  %1866 = select i1 %1864, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1865
+  %1867 = select i1 %1861, ptr %1866, ptr %1862
+  %1868 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2
   %1869 = load float, ptr %1868, align 4, !tbaa !5
-  %1870 = getelementptr inbounds [4 x float], ptr %1864, i64 0, i64 2
-  %1871 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 0, i32 0, i64 2
+  %1870 = getelementptr inbounds [4 x float], ptr %1867, i64 0, i64 1
+  %1871 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 0, i32 0, i64 1
   %1872 = load float, ptr %1871, align 4, !tbaa !5
-  %1873 = getelementptr inbounds [3 x %class.btVector3], ptr %1864, i64 0, i64 1
-  %1874 = getelementptr inbounds [3 x %class.btVector3], ptr %1864, i64 0, i64 1, i32 0, i64 1
-  %1875 = getelementptr inbounds [3 x %class.btVector3], ptr %1864, i64 0, i64 1, i32 0, i64 2
-  %1876 = load float, ptr %1864, align 4, !tbaa !5
-  %1877 = load float, ptr %1867, align 4, !tbaa !5
-  %1878 = load float, ptr %1870, align 4, !tbaa !5
-  %1879 = load float, ptr %1873, align 4, !tbaa !5
-  %1880 = load float, ptr %1874, align 4, !tbaa !5
-  %1881 = insertelement <2 x float> poison, float %1869, i64 0
-  %1882 = shufflevector <2 x float> %1881, <2 x float> poison, <2 x i32> zeroinitializer
-  %1883 = insertelement <2 x float> poison, float %1877, i64 0
-  %1884 = insertelement <2 x float> %1883, float %1880, i64 1
-  %1885 = fmul <2 x float> %1882, %1884
-  %1886 = insertelement <2 x float> poison, float %1876, i64 0
-  %1887 = insertelement <2 x float> %1886, float %1879, i64 1
-  %1888 = insertelement <2 x float> poison, float %1866, i64 0
-  %1889 = shufflevector <2 x float> %1888, <2 x float> poison, <2 x i32> zeroinitializer
-  %1890 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1887, <2 x float> %1889, <2 x float> %1885)
-  %1891 = load float, ptr %1875, align 4, !tbaa !5
-  %1892 = insertelement <2 x float> poison, float %1878, i64 0
-  %1893 = insertelement <2 x float> %1892, float %1891, i64 1
-  %1894 = insertelement <2 x float> poison, float %1872, i64 0
-  %1895 = shufflevector <2 x float> %1894, <2 x float> poison, <2 x i32> zeroinitializer
-  %1896 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1893, <2 x float> %1895, <2 x float> %1890)
-  %1897 = getelementptr inbounds [3 x %class.btVector3], ptr %1864, i64 0, i64 2
-  %1898 = load float, ptr %1897, align 4, !tbaa !5
-  %1899 = getelementptr inbounds [3 x %class.btVector3], ptr %1864, i64 0, i64 2, i32 0, i64 1
-  %1900 = load float, ptr %1899, align 4, !tbaa !5
-  %1901 = fmul float %1869, %1900
-  %1902 = call float @llvm.fmuladd.f32(float %1898, float %1866, float %1901)
-  %1903 = getelementptr inbounds [3 x %class.btVector3], ptr %1864, i64 0, i64 2, i32 0, i64 2
-  %1904 = load float, ptr %1903, align 4, !tbaa !5
-  %1905 = call float @llvm.fmuladd.f32(float %1904, float %1872, float %1902)
-  %1906 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
-  %1907 = icmp eq i8 %1906, 0
-  br i1 %1907, label %1908, label %1920, !prof !28
+  %1873 = getelementptr inbounds [4 x float], ptr %1867, i64 0, i64 2
+  %1874 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 0, i32 0, i64 2
+  %1875 = load float, ptr %1874, align 4, !tbaa !5
+  %1876 = getelementptr inbounds [3 x %class.btVector3], ptr %1867, i64 0, i64 1
+  %1877 = getelementptr inbounds [3 x %class.btVector3], ptr %1867, i64 0, i64 1, i32 0, i64 1
+  %1878 = getelementptr inbounds [3 x %class.btVector3], ptr %1867, i64 0, i64 1, i32 0, i64 2
+  %1879 = load float, ptr %1867, align 4, !tbaa !5
+  %1880 = load float, ptr %1870, align 4, !tbaa !5
+  %1881 = load float, ptr %1873, align 4, !tbaa !5
+  %1882 = load float, ptr %1876, align 4, !tbaa !5
+  %1883 = load float, ptr %1877, align 4, !tbaa !5
+  %1884 = insertelement <2 x float> poison, float %1872, i64 0
+  %1885 = shufflevector <2 x float> %1884, <2 x float> poison, <2 x i32> zeroinitializer
+  %1886 = insertelement <2 x float> poison, float %1880, i64 0
+  %1887 = insertelement <2 x float> %1886, float %1883, i64 1
+  %1888 = fmul <2 x float> %1885, %1887
+  %1889 = insertelement <2 x float> poison, float %1879, i64 0
+  %1890 = insertelement <2 x float> %1889, float %1882, i64 1
+  %1891 = insertelement <2 x float> poison, float %1869, i64 0
+  %1892 = shufflevector <2 x float> %1891, <2 x float> poison, <2 x i32> zeroinitializer
+  %1893 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1890, <2 x float> %1892, <2 x float> %1888)
+  %1894 = load float, ptr %1878, align 4, !tbaa !5
+  %1895 = insertelement <2 x float> poison, float %1881, i64 0
+  %1896 = insertelement <2 x float> %1895, float %1894, i64 1
+  %1897 = insertelement <2 x float> poison, float %1875, i64 0
+  %1898 = shufflevector <2 x float> %1897, <2 x float> poison, <2 x i32> zeroinitializer
+  %1899 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1896, <2 x float> %1898, <2 x float> %1893)
+  %1900 = getelementptr inbounds [3 x %class.btVector3], ptr %1867, i64 0, i64 2
+  %1901 = load float, ptr %1900, align 4, !tbaa !5
+  %1902 = getelementptr inbounds [3 x %class.btVector3], ptr %1867, i64 0, i64 2, i32 0, i64 1
+  %1903 = load float, ptr %1902, align 4, !tbaa !5
+  %1904 = fmul float %1872, %1903
+  %1905 = call float @llvm.fmuladd.f32(float %1901, float %1869, float %1904)
+  %1906 = getelementptr inbounds [3 x %class.btVector3], ptr %1867, i64 0, i64 2, i32 0, i64 2
+  %1907 = load float, ptr %1906, align 4, !tbaa !5
+  %1908 = call float @llvm.fmuladd.f32(float %1907, float %1875, float %1905)
+  %1909 = load atomic i8, ptr @_ZGVZNK10btSoftBody4Body5xformEvE8identity acquire, align 8
+  %1910 = icmp eq i8 %1909, 0
+  br i1 %1910, label %1911, label %1923, !prof !28
 
-1908:                                             ; preds = %1856
-  %1909 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  %1910 = icmp eq i32 %1909, 0
-  br i1 %1910, label %1920, label %1911
+1911:                                             ; preds = %1859
+  %1912 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
+  %1913 = icmp eq i32 %1912, 0
+  br i1 %1913, label %1923, label %1914
 
-1911:                                             ; preds = %1908
-  %1912 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
-          to label %1913 unwind label %1918
+1914:                                             ; preds = %1911
+  %1915 = invoke noundef nonnull align 4 dereferenceable(64) ptr @_ZN11btTransform11getIdentityEv()
+          to label %1916 unwind label %1921
 
-1913:                                             ; preds = %1911
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1912, i64 16, i1 false), !tbaa.struct !50
-  %1914 = getelementptr inbounds [3 x %class.btVector3], ptr %1912, i64 0, i64 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1914, i64 16, i1 false), !tbaa.struct !50
-  %1915 = getelementptr inbounds [3 x %class.btVector3], ptr %1912, i64 0, i64 2
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1915, i64 16, i1 false), !tbaa.struct !50
-  %1916 = getelementptr inbounds %class.btTransform, ptr %1912, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1916, i64 16, i1 false), !tbaa.struct !50
-  %1917 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
+1916:                                             ; preds = %1914
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr noundef nonnull align 4 dereferenceable(16) %1915, i64 16, i1 false), !tbaa.struct !52
+  %1917 = getelementptr inbounds [3 x %class.btVector3], ptr %1915, i64 0, i64 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %1917, i64 16, i1 false), !tbaa.struct !52
+  %1918 = getelementptr inbounds [3 x %class.btVector3], ptr %1915, i64 0, i64 2
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %1918, i64 16, i1 false), !tbaa.struct !52
+  %1919 = getelementptr inbounds %class.btTransform, ptr %1915, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, i64 0, i32 1), ptr noundef nonnull align 4 dereferenceable(16) %1919, i64 16, i1 false), !tbaa.struct !52
+  %1920 = call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZNK10btSoftBody4Body5xformEvE8identity)
   call void @__cxa_guard_release(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1920
+  br label %1923
 
-1918:                                             ; preds = %1911
-  %1919 = landingpad { ptr, i32 }
+1921:                                             ; preds = %1914
+  %1922 = landingpad { ptr, i32 }
           cleanup
   call void @__cxa_guard_abort(ptr nonnull @_ZGVZNK10btSoftBody4Body5xformEvE8identity) #18
-  br label %1161
+  br label %1164
 
-1920:                                             ; preds = %1856, %1908, %1913
-  %1921 = load ptr, ptr %1832, align 8, !tbaa !147
-  %1922 = icmp eq ptr %1921, null
-  %1923 = getelementptr inbounds %class.btCollisionObject, ptr %1921, i64 0, i32 2
-  %1924 = load ptr, ptr %1816, align 8
+1923:                                             ; preds = %1859, %1911, %1916
+  %1924 = load ptr, ptr %1835, align 8, !tbaa !149
   %1925 = icmp eq ptr %1924, null
-  %1926 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1924, i64 0, i32 3
-  %1927 = select i1 %1925, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1926
-  %1928 = select i1 %1922, ptr %1927, ptr %1923
-  %1929 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 1
-  %1930 = load float, ptr %1929, align 4, !tbaa !5
-  %1931 = getelementptr inbounds [4 x float], ptr %1928, i64 0, i64 1
-  %1932 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 1, i32 0, i64 1
+  %1926 = getelementptr inbounds %class.btCollisionObject, ptr %1924, i64 0, i32 2
+  %1927 = load ptr, ptr %1819, align 8
+  %1928 = icmp eq ptr %1927, null
+  %1929 = getelementptr inbounds %"struct.btSoftBody::Cluster", ptr %1927, i64 0, i32 3
+  %1930 = select i1 %1928, ptr @_ZZNK10btSoftBody4Body5xformEvE8identity, ptr %1929
+  %1931 = select i1 %1925, ptr %1930, ptr %1926
+  %1932 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 1
   %1933 = load float, ptr %1932, align 4, !tbaa !5
-  %1934 = getelementptr inbounds [4 x float], ptr %1928, i64 0, i64 2
-  %1935 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1515, i64 0, i32 2, i64 1, i32 0, i64 2
+  %1934 = getelementptr inbounds [4 x float], ptr %1931, i64 0, i64 1
+  %1935 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 1, i32 0, i64 1
   %1936 = load float, ptr %1935, align 4, !tbaa !5
-  %1937 = getelementptr inbounds [3 x %class.btVector3], ptr %1928, i64 0, i64 1
-  %1938 = getelementptr inbounds [3 x %class.btVector3], ptr %1928, i64 0, i64 1, i32 0, i64 1
-  %1939 = getelementptr inbounds [3 x %class.btVector3], ptr %1928, i64 0, i64 1, i32 0, i64 2
-  %1940 = getelementptr inbounds [3 x %class.btVector3], ptr %1928, i64 0, i64 2
-  %1941 = load float, ptr %1940, align 4, !tbaa !5
-  %1942 = getelementptr inbounds [3 x %class.btVector3], ptr %1928, i64 0, i64 2, i32 0, i64 1
-  %1943 = load float, ptr %1942, align 4, !tbaa !5
-  %1944 = fmul float %1933, %1943
-  %1945 = call float @llvm.fmuladd.f32(float %1941, float %1930, float %1944)
-  %1946 = getelementptr inbounds [3 x %class.btVector3], ptr %1928, i64 0, i64 2, i32 0, i64 2
-  %1947 = load float, ptr %1946, align 4, !tbaa !5
-  %1948 = call float @llvm.fmuladd.f32(float %1947, float %1936, float %1945)
-  %1949 = fmul <2 x float> %1896, <float 1.000000e+01, float 1.000000e+01>
-  %1950 = fmul float %1905, 1.000000e+01
-  %1951 = fmul float %1948, 1.000000e+01
-  %1952 = load float, ptr %1928, align 4, !tbaa !5
-  %1953 = load float, ptr %1931, align 4, !tbaa !5
-  %1954 = load float, ptr %1934, align 4, !tbaa !5
-  %1955 = load float, ptr %1937, align 4, !tbaa !5
-  %1956 = load float, ptr %1938, align 4, !tbaa !5
-  %1957 = insertelement <2 x float> poison, float %1933, i64 0
-  %1958 = shufflevector <2 x float> %1957, <2 x float> poison, <2 x i32> zeroinitializer
-  %1959 = insertelement <2 x float> poison, float %1953, i64 0
-  %1960 = insertelement <2 x float> %1959, float %1956, i64 1
-  %1961 = fmul <2 x float> %1958, %1960
-  %1962 = insertelement <2 x float> poison, float %1952, i64 0
-  %1963 = insertelement <2 x float> %1962, float %1955, i64 1
-  %1964 = insertelement <2 x float> poison, float %1930, i64 0
-  %1965 = shufflevector <2 x float> %1964, <2 x float> poison, <2 x i32> zeroinitializer
-  %1966 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1963, <2 x float> %1965, <2 x float> %1961)
-  %1967 = load float, ptr %1939, align 4, !tbaa !5
-  %1968 = insertelement <2 x float> poison, float %1954, i64 0
-  %1969 = insertelement <2 x float> %1968, float %1967, i64 1
-  %1970 = insertelement <2 x float> poison, float %1936, i64 0
-  %1971 = shufflevector <2 x float> %1970, <2 x float> poison, <2 x i32> zeroinitializer
-  %1972 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1969, <2 x float> %1971, <2 x float> %1966)
+  %1937 = getelementptr inbounds [4 x float], ptr %1931, i64 0, i64 2
+  %1938 = getelementptr inbounds %"struct.btSoftBody::Joint", ptr %1518, i64 0, i32 2, i64 1, i32 0, i64 2
+  %1939 = load float, ptr %1938, align 4, !tbaa !5
+  %1940 = getelementptr inbounds [3 x %class.btVector3], ptr %1931, i64 0, i64 1
+  %1941 = getelementptr inbounds [3 x %class.btVector3], ptr %1931, i64 0, i64 1, i32 0, i64 1
+  %1942 = getelementptr inbounds [3 x %class.btVector3], ptr %1931, i64 0, i64 1, i32 0, i64 2
+  %1943 = getelementptr inbounds [3 x %class.btVector3], ptr %1931, i64 0, i64 2
+  %1944 = load float, ptr %1943, align 4, !tbaa !5
+  %1945 = getelementptr inbounds [3 x %class.btVector3], ptr %1931, i64 0, i64 2, i32 0, i64 1
+  %1946 = load float, ptr %1945, align 4, !tbaa !5
+  %1947 = fmul float %1936, %1946
+  %1948 = call float @llvm.fmuladd.f32(float %1944, float %1933, float %1947)
+  %1949 = getelementptr inbounds [3 x %class.btVector3], ptr %1931, i64 0, i64 2, i32 0, i64 2
+  %1950 = load float, ptr %1949, align 4, !tbaa !5
+  %1951 = call float @llvm.fmuladd.f32(float %1950, float %1939, float %1948)
+  %1952 = fmul <2 x float> %1899, <float 1.000000e+01, float 1.000000e+01>
+  %1953 = fmul float %1908, 1.000000e+01
+  %1954 = fmul float %1951, 1.000000e+01
+  %1955 = load float, ptr %1931, align 4, !tbaa !5
+  %1956 = load float, ptr %1934, align 4, !tbaa !5
+  %1957 = load float, ptr %1937, align 4, !tbaa !5
+  %1958 = load float, ptr %1940, align 4, !tbaa !5
+  %1959 = load float, ptr %1941, align 4, !tbaa !5
+  %1960 = insertelement <2 x float> poison, float %1936, i64 0
+  %1961 = shufflevector <2 x float> %1960, <2 x float> poison, <2 x i32> zeroinitializer
+  %1962 = insertelement <2 x float> poison, float %1956, i64 0
+  %1963 = insertelement <2 x float> %1962, float %1959, i64 1
+  %1964 = fmul <2 x float> %1961, %1963
+  %1965 = insertelement <2 x float> poison, float %1955, i64 0
+  %1966 = insertelement <2 x float> %1965, float %1958, i64 1
+  %1967 = insertelement <2 x float> poison, float %1933, i64 0
+  %1968 = shufflevector <2 x float> %1967, <2 x float> poison, <2 x i32> zeroinitializer
+  %1969 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1966, <2 x float> %1968, <2 x float> %1964)
+  %1970 = load float, ptr %1942, align 4, !tbaa !5
+  %1971 = insertelement <2 x float> poison, float %1957, i64 0
+  %1972 = insertelement <2 x float> %1971, float %1970, i64 1
+  %1973 = insertelement <2 x float> poison, float %1939, i64 0
+  %1974 = shufflevector <2 x float> %1973, <2 x float> poison, <2 x i32> zeroinitializer
+  %1975 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %1972, <2 x float> %1974, <2 x float> %1969)
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %103) #18
-  %1973 = load <2 x float>, ptr %101, align 8, !tbaa !5
-  %1974 = fadd <2 x float> %1949, %1973
-  %1975 = load float, ptr %1491, align 8, !tbaa !5
-  %1976 = fadd float %1950, %1975
-  %1977 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1976, i64 0
-  store <2 x float> %1974, ptr %103, align 8
-  store <2 x float> %1977, ptr %1492, align 8
+  %1976 = load <2 x float>, ptr %101, align 8, !tbaa !5
+  %1977 = fadd <2 x float> %1952, %1976
+  %1978 = load float, ptr %1494, align 8, !tbaa !5
+  %1979 = fadd float %1953, %1978
+  %1980 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1979, i64 0
+  store <2 x float> %1977, ptr %103, align 8
+  store <2 x float> %1980, ptr %1495, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %104) #18
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %104, align 16, !tbaa !5
-  %1978 = load ptr, ptr %1, align 8, !tbaa !21
-  %1979 = getelementptr inbounds ptr, ptr %1978, i64 5
-  %1980 = load ptr, ptr %1979, align 8
-  call void %1980(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %101, ptr noundef nonnull align 4 dereferenceable(16) %103, ptr noundef nonnull align 4 dereferenceable(16) %104)
+  %1981 = load ptr, ptr %1, align 8, !tbaa !21
+  %1982 = getelementptr inbounds ptr, ptr %1981, i64 5
+  %1983 = load ptr, ptr %1982, align 8
+  call void %1983(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %101, ptr noundef nonnull align 4 dereferenceable(16) %103, ptr noundef nonnull align 4 dereferenceable(16) %104)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %104) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %103) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %105) #18
-  %1981 = fmul <2 x float> %1972, <float 1.000000e+01, float 1.000000e+01>
-  %1982 = load <2 x float>, ptr %101, align 8, !tbaa !5
-  %1983 = fadd <2 x float> %1981, %1982
-  %1984 = load float, ptr %1491, align 8, !tbaa !5
-  %1985 = fadd float %1951, %1984
-  %1986 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1985, i64 0
-  store <2 x float> %1983, ptr %105, align 8
-  store <2 x float> %1986, ptr %1493, align 8
+  %1984 = fmul <2 x float> %1975, <float 1.000000e+01, float 1.000000e+01>
+  %1985 = load <2 x float>, ptr %101, align 8, !tbaa !5
+  %1986 = fadd <2 x float> %1984, %1985
+  %1987 = load float, ptr %1494, align 8, !tbaa !5
+  %1988 = fadd float %1954, %1987
+  %1989 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1988, i64 0
+  store <2 x float> %1986, ptr %105, align 8
+  store <2 x float> %1989, ptr %1496, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %106) #18
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %106, align 16, !tbaa !5
-  %1987 = load ptr, ptr %1, align 8, !tbaa !21
-  %1988 = getelementptr inbounds ptr, ptr %1987, i64 5
-  %1989 = load ptr, ptr %1988, align 8
-  call void %1989(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %101, ptr noundef nonnull align 4 dereferenceable(16) %105, ptr noundef nonnull align 4 dereferenceable(16) %106)
+  %1990 = load ptr, ptr %1, align 8, !tbaa !21
+  %1991 = getelementptr inbounds ptr, ptr %1990, i64 5
+  %1992 = load ptr, ptr %1991, align 8
+  call void %1992(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %101, ptr noundef nonnull align 4 dereferenceable(16) %105, ptr noundef nonnull align 4 dereferenceable(16) %106)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %106) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %105) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %107) #18
-  %1990 = load <2 x float>, ptr %102, align 8, !tbaa !5
-  %1991 = fadd <2 x float> %1949, %1990
-  %1992 = load float, ptr %1494, align 8, !tbaa !5
-  %1993 = fadd float %1950, %1992
-  %1994 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1993, i64 0
-  store <2 x float> %1991, ptr %107, align 8
-  store <2 x float> %1994, ptr %1495, align 8
+  %1993 = load <2 x float>, ptr %102, align 8, !tbaa !5
+  %1994 = fadd <2 x float> %1952, %1993
+  %1995 = load float, ptr %1497, align 8, !tbaa !5
+  %1996 = fadd float %1953, %1995
+  %1997 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %1996, i64 0
+  store <2 x float> %1994, ptr %107, align 8
+  store <2 x float> %1997, ptr %1498, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %108) #18
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %108, align 16, !tbaa !5
-  %1995 = load ptr, ptr %1, align 8, !tbaa !21
-  %1996 = getelementptr inbounds ptr, ptr %1995, i64 5
-  %1997 = load ptr, ptr %1996, align 8
-  call void %1997(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %102, ptr noundef nonnull align 4 dereferenceable(16) %107, ptr noundef nonnull align 4 dereferenceable(16) %108)
+  %1998 = load ptr, ptr %1, align 8, !tbaa !21
+  %1999 = getelementptr inbounds ptr, ptr %1998, i64 5
+  %2000 = load ptr, ptr %1999, align 8
+  call void %2000(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %102, ptr noundef nonnull align 4 dereferenceable(16) %107, ptr noundef nonnull align 4 dereferenceable(16) %108)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %108) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %107) #18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %109) #18
-  %1998 = load <2 x float>, ptr %102, align 8, !tbaa !5
-  %1999 = fadd <2 x float> %1981, %1998
-  %2000 = load float, ptr %1494, align 8, !tbaa !5
-  %2001 = fadd float %1951, %2000
-  %2002 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %2001, i64 0
-  store <2 x float> %1999, ptr %109, align 8
-  store <2 x float> %2002, ptr %1496, align 8
+  %2001 = load <2 x float>, ptr %102, align 8, !tbaa !5
+  %2002 = fadd <2 x float> %1984, %2001
+  %2003 = load float, ptr %1497, align 8, !tbaa !5
+  %2004 = fadd float %1954, %2003
+  %2005 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %2004, i64 0
+  store <2 x float> %2002, ptr %109, align 8
+  store <2 x float> %2005, ptr %1499, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %110) #18
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %110, align 16, !tbaa !5
-  %2003 = load ptr, ptr %1, align 8, !tbaa !21
-  %2004 = getelementptr inbounds ptr, ptr %2003, i64 5
-  %2005 = load ptr, ptr %2004, align 8
-  call void %2005(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %102, ptr noundef nonnull align 4 dereferenceable(16) %109, ptr noundef nonnull align 4 dereferenceable(16) %110)
+  %2006 = load ptr, ptr %1, align 8, !tbaa !21
+  %2007 = getelementptr inbounds ptr, ptr %2006, i64 5
+  %2008 = load ptr, ptr %2007, align 8
+  call void %2008(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) %102, ptr noundef nonnull align 4 dereferenceable(16) %109, ptr noundef nonnull align 4 dereferenceable(16) %110)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %110) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %109) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %102) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %101) #18
-  br label %2006
+  br label %2009
 
-2006:                                             ; preds = %1920, %1511, %1708
-  %2007 = add nuw nsw i64 %1512, 1
-  %2008 = load i32, ptr %1486, align 4, !tbaa !145
-  %2009 = sext i32 %2008 to i64
-  %2010 = icmp slt i64 %2007, %2009
-  br i1 %2010, label %1511, label %2011
+2009:                                             ; preds = %1923, %1514, %1711
+  %2010 = add nuw nsw i64 %1515, 1
+  %2011 = load i32, ptr %1489, align 4, !tbaa !147
+  %2012 = sext i32 %2011 to i64
+  %2013 = icmp slt i64 %2010, %2012
+  br i1 %2013, label %1514, label %2014
 
-2011:                                             ; preds = %2006, %1485, %1482
+2014:                                             ; preds = %2009, %1488, %1485
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %42) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %41) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %40) #18
   ret void
 
-2012:                                             ; preds = %1160, %1155, %1153
-  %2013 = landingpad { ptr, i32 }
+2015:                                             ; preds = %1163, %1158, %1156
+  %2016 = landingpad { ptr, i32 }
           catch ptr null
-  %2014 = extractvalue { ptr, i32 } %2013, 0
-  call void @__clang_call_terminate(ptr %2014) #19
+  %2017 = extractvalue { ptr, i32 } %2016, 0
+  call void @__clang_call_terminate(ptr %2017) #19
   unreachable
 }
 
@@ -3107,7 +3112,7 @@ declare noundef i32 @_ZN11HullLibrary13ReleaseResultER10HullResult(ptr noundef n
 ; Function Attrs: inlinehint uwtable
 define linkonce_odr dso_local void @_ZN11HullLibraryD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %0) unnamed_addr #6 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = getelementptr inbounds %class.HullLibrary, ptr %0, i64 0, i32 1, i32 5
-  %3 = load ptr, ptr %2, align 8, !tbaa !101
+  %3 = load ptr, ptr %2, align 8, !tbaa !103
   %4 = icmp eq ptr %3, null
   %5 = getelementptr inbounds %class.HullLibrary, ptr %0, i64 0, i32 1, i32 6
   %6 = load i8, ptr %5, align 8
@@ -3119,15 +3124,15 @@ define linkonce_odr dso_local void @_ZN11HullLibraryD2Ev(ptr noundef nonnull ali
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %24
 
-10:                                               ; preds = %1, %9
+10:                                               ; preds = %9, %1
+  store i8 1, ptr %5, align 8, !tbaa !100
+  store ptr null, ptr %2, align 8, !tbaa !103
   %11 = getelementptr inbounds %class.HullLibrary, ptr %0, i64 0, i32 1, i32 2
-  store i8 1, ptr %5, align 8, !tbaa !98
-  store ptr null, ptr %2, align 8, !tbaa !101
-  store i32 0, ptr %11, align 4, !tbaa !102
+  store i32 0, ptr %11, align 4, !tbaa !104
   %12 = getelementptr inbounds %class.HullLibrary, ptr %0, i64 0, i32 1, i32 3
-  store i32 0, ptr %12, align 8, !tbaa !103
+  store i32 0, ptr %12, align 8, !tbaa !105
   %13 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %0, i64 0, i32 5
-  %14 = load ptr, ptr %13, align 8, !tbaa !95
+  %14 = load ptr, ptr %13, align 8, !tbaa !97
   %15 = icmp eq ptr %14, null
   %16 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %0, i64 0, i32 6
   %17 = load i8, ptr %16, align 8
@@ -3140,12 +3145,12 @@ define linkonce_odr dso_local void @_ZN11HullLibraryD2Ev(ptr noundef nonnull ali
   br label %21
 
 21:                                               ; preds = %10, %20
+  store i8 1, ptr %16, align 8, !tbaa !94
+  store ptr null, ptr %13, align 8, !tbaa !97
   %22 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %0, i64 0, i32 2
-  store i8 1, ptr %16, align 8, !tbaa !92
-  store ptr null, ptr %13, align 8, !tbaa !95
-  store i32 0, ptr %22, align 4, !tbaa !96
+  store i32 0, ptr %22, align 4, !tbaa !98
   %23 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %0, i64 0, i32 3
-  store i32 0, ptr %23, align 8, !tbaa !97
+  store i32 0, ptr %23, align 8, !tbaa !99
   ret void
 
 24:                                               ; preds = %9
@@ -3179,7 +3184,7 @@ declare void @_ZSt9terminatev() local_unnamed_addr
 ; Function Attrs: inlinehint uwtable
 define linkonce_odr dso_local void @_ZN10HullResultD2Ev(ptr noundef nonnull align 8 dereferenceable(80) %0) unnamed_addr #6 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 5, i32 5
-  %3 = load ptr, ptr %2, align 8, !tbaa !84
+  %3 = load ptr, ptr %2, align 8, !tbaa !86
   %4 = icmp eq ptr %3, null
   %5 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 5, i32 6
   %6 = load i8, ptr %5, align 8
@@ -3191,15 +3196,15 @@ define linkonce_odr dso_local void @_ZN10HullResultD2Ev(ptr noundef nonnull alig
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %24
 
-10:                                               ; preds = %1, %9
+10:                                               ; preds = %9, %1
+  store i8 1, ptr %5, align 8, !tbaa !83
+  store ptr null, ptr %2, align 8, !tbaa !86
   %11 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 5, i32 2
-  store i8 1, ptr %5, align 8, !tbaa !81
-  store ptr null, ptr %2, align 8, !tbaa !84
-  store i32 0, ptr %11, align 4, !tbaa !85
+  store i32 0, ptr %11, align 4, !tbaa !87
   %12 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 5, i32 3
-  store i32 0, ptr %12, align 8, !tbaa !86
+  store i32 0, ptr %12, align 8, !tbaa !88
   %13 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 2, i32 5
-  %14 = load ptr, ptr %13, align 8, !tbaa !78
+  %14 = load ptr, ptr %13, align 8, !tbaa !80
   %15 = icmp eq ptr %14, null
   %16 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 2, i32 6
   %17 = load i8, ptr %16, align 8
@@ -3212,12 +3217,12 @@ define linkonce_odr dso_local void @_ZN10HullResultD2Ev(ptr noundef nonnull alig
   br label %21
 
 21:                                               ; preds = %10, %20
+  store i8 1, ptr %16, align 8, !tbaa !79
+  store ptr null, ptr %13, align 8, !tbaa !80
   %22 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 2, i32 2
-  store i8 1, ptr %16, align 8, !tbaa !77
-  store ptr null, ptr %13, align 8, !tbaa !78
-  store i32 0, ptr %22, align 4, !tbaa !79
+  store i32 0, ptr %22, align 4, !tbaa !81
   %23 = getelementptr inbounds %class.HullResult, ptr %0, i64 0, i32 2, i32 3
-  store i32 0, ptr %23, align 8, !tbaa !80
+  store i32 0, ptr %23, align 8, !tbaa !82
   ret void
 
 24:                                               ; preds = %9
@@ -3241,7 +3246,7 @@ define linkonce_odr dso_local void @_ZN10HullResultD2Ev(ptr noundef nonnull alig
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI9btVector3ED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %0) unnamed_addr #8 comdat align 2 {
   %2 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 5
-  %3 = load ptr, ptr %2, align 8, !tbaa !78
+  %3 = load ptr, ptr %2, align 8, !tbaa !80
   %4 = icmp eq ptr %3, null
   %5 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 6
   %6 = load i8, ptr %5, align 8
@@ -3254,12 +3259,12 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI9btVector3ED2Ev(pt
   br label %10
 
 10:                                               ; preds = %1, %9
+  store i8 1, ptr %5, align 8, !tbaa !79
+  store ptr null, ptr %2, align 8, !tbaa !80
   %11 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 2
-  store i8 1, ptr %5, align 8, !tbaa !77
-  store ptr null, ptr %2, align 8, !tbaa !78
-  store i32 0, ptr %11, align 4, !tbaa !79
+  store i32 0, ptr %11, align 4, !tbaa !81
   %12 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 3
-  store i32 0, ptr %12, align 8, !tbaa !80
+  store i32 0, ptr %12, align 8, !tbaa !82
   ret void
 }
 
@@ -3268,7 +3273,7 @@ define dso_local void @_ZN17btSoftBodyHelpers12DrawNodeTreeEP10btSoftBodyP12btID
   %5 = alloca %class.btVector3, align 16
   %6 = alloca %class.btVector3, align 16
   %7 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 21
-  %8 = load ptr, ptr %7, align 8, !tbaa !119
+  %8 = load ptr, ptr %7, align 8, !tbaa !121
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #18
   store <4 x float> <float 1.000000e+00, float 0.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %5, align 16, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #18
@@ -3284,7 +3289,7 @@ define dso_local void @_ZN17btSoftBodyHelpers12DrawFaceTreeEP10btSoftBodyP12btID
   %5 = alloca %class.btVector3, align 16
   %6 = alloca %class.btVector3, align 16
   %7 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 22
-  %8 = load ptr, ptr %7, align 8, !tbaa !143
+  %8 = load ptr, ptr %7, align 8, !tbaa !145
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #18
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %5, align 16, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #18
@@ -3300,7 +3305,7 @@ define dso_local void @_ZN17btSoftBodyHelpers15DrawClusterTreeEP10btSoftBodyP12b
   %5 = alloca %class.btVector3, align 16
   %6 = alloca %class.btVector3, align 16
   %7 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 23
-  %8 = load ptr, ptr %7, align 8, !tbaa !144
+  %8 = load ptr, ptr %7, align 8, !tbaa !146
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #18
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %5, align 16, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #18
@@ -3334,7 +3339,7 @@ define dso_local void @_ZN17btSoftBodyHelpers9DrawInfosEP10btSoftBodyP12btIDebug
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(2048) %6, i8 0, i64 2048, i1 false)
   call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %7) #18
   %17 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %16, i64 %15, i32 6
-  %18 = load float, ptr %17, align 8, !tbaa !149
+  %18 = load float, ptr %17, align 8, !tbaa !46
   %19 = fdiv float 1.000000e+00, %18
   %20 = fpext float %19 to double
   %21 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str, double noundef %20) #18
@@ -3344,7 +3349,7 @@ define dso_local void @_ZN17btSoftBodyHelpers9DrawInfosEP10btSoftBodyP12btIDebug
   %25 = fpext float %24 to double
   %26 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %25) #18
   %27 = call ptr @strcat(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(1) %7) #18
-  %28 = load i8, ptr %6, align 16, !tbaa !51
+  %28 = load i8, ptr %6, align 16, !tbaa !53
   %29 = icmp eq i8 %28, 0
   br i1 %29, label %35, label %30
 
@@ -3372,12 +3377,12 @@ define dso_local void @_ZN17btSoftBodyHelpers9DrawInfosEP10btSoftBodyP12btIDebug
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(2048) %6, i8 0, i64 2048, i1 false)
   call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %7) #18
   %43 = getelementptr inbounds %"struct.btSoftBody::Node", ptr %42, i64 %41, i32 6
-  %44 = load float, ptr %43, align 8, !tbaa !149
+  %44 = load float, ptr %43, align 8, !tbaa !46
   %45 = fdiv float 1.000000e+00, %44
   %46 = fpext float %45 to double
   %47 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str, double noundef %46) #18
   %48 = call ptr @strcat(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(1) %7) #18
-  %49 = load i8, ptr %6, align 16, !tbaa !51
+  %49 = load i8, ptr %6, align 16, !tbaa !53
   %50 = icmp eq i8 %49, 0
   br i1 %50, label %56, label %51
 
@@ -3412,7 +3417,7 @@ define dso_local void @_ZN17btSoftBodyHelpers9DrawInfosEP10btSoftBodyP12btIDebug
   %67 = fpext float %66 to double
   %68 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %67) #18
   %69 = call ptr @strcat(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(1) %7) #18
-  %70 = load i8, ptr %6, align 16, !tbaa !51
+  %70 = load i8, ptr %6, align 16, !tbaa !53
   %71 = icmp eq i8 %70, 0
   br i1 %71, label %77, label %72
 
@@ -3454,7 +3459,7 @@ define internal fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVect
 
 10:                                               ; preds = %7
   %11 = getelementptr inbounds %struct.btDbvtNode, ptr %1, i64 0, i32 2, i32 0, i64 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !51
+  %12 = load ptr, ptr %11, align 8, !tbaa !53
   %13 = icmp eq ptr %12, null
   br i1 %13, label %23, label %14
 
@@ -3466,10 +3471,10 @@ define internal fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVect
 
 18:                                               ; preds = %14
   %19 = getelementptr inbounds %struct.btDbvtNode, ptr %1, i64 0, i32 2
-  %20 = load ptr, ptr %19, align 8, !tbaa !51
+  %20 = load ptr, ptr %19, align 8, !tbaa !53
   %21 = add nsw i32 %2, 1
   tail call fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVector3S6_ii(ptr noundef %0, ptr noundef %20, i32 noundef %21, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(16) %4, i32 noundef %5, i32 noundef %6)
-  %22 = load ptr, ptr %11, align 8, !tbaa !51
+  %22 = load ptr, ptr %11, align 8, !tbaa !53
   tail call fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVector3S6_ii(ptr noundef %0, ptr noundef %22, i32 noundef %21, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(16) %4, i32 noundef %5, i32 noundef %6)
   br label %23
 
@@ -3478,23 +3483,23 @@ define internal fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVect
   br i1 %24, label %115, label %25
 
 25:                                               ; preds = %23
-  %26 = load ptr, ptr %11, align 8, !tbaa !51
-  %27 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %1, i64 0, i32 1
-  %28 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %29 = load float, ptr %28, align 4, !tbaa !5
-  %30 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %1, i64 0, i32 1, i32 0, i64 2
-  %31 = load float, ptr %30, align 4, !tbaa !5
-  %32 = fadd float %29, %31
-  %33 = fmul float %32, 5.000000e-01
-  %34 = fsub float %31, %29
-  %35 = fmul float %34, 5.000000e-01
-  %36 = fsub float %33, %35
-  %37 = fadd float %33, %35
-  %38 = icmp eq ptr %26, null
+  %26 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %1, i64 0, i32 1
+  %27 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %28 = load float, ptr %27, align 4, !tbaa !5
+  %29 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %1, i64 0, i32 1, i32 0, i64 2
+  %30 = load float, ptr %29, align 4, !tbaa !5
+  %31 = fadd float %28, %30
+  %32 = fmul float %31, 5.000000e-01
+  %33 = fsub float %30, %28
+  %34 = fmul float %33, 5.000000e-01
+  %35 = fsub float %32, %34
+  %36 = fadd float %32, %34
+  %37 = load ptr, ptr %11, align 8, !tbaa !53
+  %38 = icmp eq ptr %37, null
   %39 = select i1 %38, ptr %4, ptr %3
   call void @llvm.lifetime.start.p0(i64 128, ptr nonnull %8) #18
   %40 = load <2 x float>, ptr %1, align 4, !tbaa !5
-  %41 = load <2 x float>, ptr %27, align 4, !tbaa !5
+  %41 = load <2 x float>, ptr %26, align 4, !tbaa !5
   %42 = fadd <2 x float> %40, %41
   %43 = fmul <2 x float> %42, <float 5.000000e-01, float 5.000000e-01>
   %44 = fsub <2 x float> %41, %40
@@ -3502,7 +3507,7 @@ define internal fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVect
   %46 = fsub <2 x float> %43, %45
   store <2 x float> %46, ptr %8, align 16, !tbaa !5
   %47 = getelementptr inbounds [4 x float], ptr %8, i64 0, i64 2
-  store float %36, ptr %47, align 8, !tbaa !5
+  store float %35, ptr %47, align 8, !tbaa !5
   %48 = getelementptr inbounds [4 x float], ptr %8, i64 0, i64 3
   store float 0.000000e+00, ptr %48, align 4, !tbaa !5
   %49 = getelementptr inbounds %class.btVector3, ptr %8, i64 1
@@ -3510,7 +3515,7 @@ define internal fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVect
   %51 = extractelement <2 x float> %46, i64 1
   store float %51, ptr %50, align 4, !tbaa !5
   %52 = getelementptr inbounds %class.btVector3, ptr %8, i64 1, i32 0, i64 2
-  store float %36, ptr %52, align 8, !tbaa !5
+  store float %35, ptr %52, align 8, !tbaa !5
   %53 = getelementptr inbounds %class.btVector3, ptr %8, i64 1, i32 0, i64 3
   store float 0.000000e+00, ptr %53, align 4, !tbaa !5
   %54 = getelementptr inbounds %class.btVector3, ptr %8, i64 2
@@ -3519,7 +3524,7 @@ define internal fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVect
   store float %56, ptr %49, align 16, !tbaa !5
   store <2 x float> %55, ptr %54, align 16, !tbaa !5
   %57 = getelementptr inbounds %class.btVector3, ptr %8, i64 2, i32 0, i64 2
-  store float %36, ptr %57, align 8, !tbaa !5
+  store float %35, ptr %57, align 8, !tbaa !5
   %58 = getelementptr inbounds %class.btVector3, ptr %8, i64 2, i32 0, i64 3
   store float 0.000000e+00, ptr %58, align 4, !tbaa !5
   %59 = getelementptr inbounds %class.btVector3, ptr %8, i64 3
@@ -3529,13 +3534,13 @@ define internal fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVect
   %62 = extractelement <2 x float> %55, i64 1
   store float %62, ptr %61, align 4, !tbaa !5
   %63 = getelementptr inbounds %class.btVector3, ptr %8, i64 3, i32 0, i64 2
-  store float %36, ptr %63, align 8, !tbaa !5
+  store float %35, ptr %63, align 8, !tbaa !5
   %64 = getelementptr inbounds %class.btVector3, ptr %8, i64 3, i32 0, i64 3
   store float 0.000000e+00, ptr %64, align 4, !tbaa !5
   %65 = getelementptr inbounds %class.btVector3, ptr %8, i64 4
   store <2 x float> %46, ptr %65, align 16, !tbaa !5
   %66 = getelementptr inbounds %class.btVector3, ptr %8, i64 4, i32 0, i64 2
-  store float %37, ptr %66, align 8, !tbaa !5
+  store float %36, ptr %66, align 8, !tbaa !5
   %67 = getelementptr inbounds %class.btVector3, ptr %8, i64 4, i32 0, i64 3
   store float 0.000000e+00, ptr %67, align 4, !tbaa !5
   %68 = getelementptr inbounds %class.btVector3, ptr %8, i64 5
@@ -3543,13 +3548,13 @@ define internal fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVect
   %69 = getelementptr inbounds %class.btVector3, ptr %8, i64 5, i32 0, i64 1
   store float %51, ptr %69, align 4, !tbaa !5
   %70 = getelementptr inbounds %class.btVector3, ptr %8, i64 5, i32 0, i64 2
-  store float %37, ptr %70, align 8, !tbaa !5
+  store float %36, ptr %70, align 8, !tbaa !5
   %71 = getelementptr inbounds %class.btVector3, ptr %8, i64 5, i32 0, i64 3
   store float 0.000000e+00, ptr %71, align 4, !tbaa !5
   %72 = getelementptr inbounds %class.btVector3, ptr %8, i64 6
   store <2 x float> %55, ptr %72, align 16, !tbaa !5
   %73 = getelementptr inbounds %class.btVector3, ptr %8, i64 6, i32 0, i64 2
-  store float %37, ptr %73, align 8, !tbaa !5
+  store float %36, ptr %73, align 8, !tbaa !5
   %74 = getelementptr inbounds %class.btVector3, ptr %8, i64 6, i32 0, i64 3
   store float 0.000000e+00, ptr %74, align 4, !tbaa !5
   %75 = getelementptr inbounds %class.btVector3, ptr %8, i64 7
@@ -3557,7 +3562,7 @@ define internal fastcc void @_ZL8drawTreeP12btIDebugDrawPK10btDbvtNodeiRK9btVect
   %76 = getelementptr inbounds %class.btVector3, ptr %8, i64 7, i32 0, i64 1
   store float %62, ptr %76, align 4, !tbaa !5
   %77 = getelementptr inbounds %class.btVector3, ptr %8, i64 7, i32 0, i64 2
-  store float %37, ptr %77, align 8, !tbaa !5
+  store float %36, ptr %77, align 8, !tbaa !5
   %78 = getelementptr inbounds %class.btVector3, ptr %8, i64 7, i32 0, i64 3
   store float 0.000000e+00, ptr %78, align 4, !tbaa !5
   %79 = load ptr, ptr %0, align 8, !tbaa !21
@@ -3632,14 +3637,14 @@ define dso_local void @_ZN17btSoftBodyHelpers9DrawFrameEP10btSoftBodyP12btIDebug
   %15 = alloca %class.btVector3, align 16
   %16 = alloca %class.btVector3, align 16
   %17 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 5, i32 1
-  %18 = load i8, ptr %17, align 1, !tbaa !152, !range !67, !noundef !68
+  %18 = load i8, ptr %17, align 1, !tbaa !152, !range !69, !noundef !70
   %19 = icmp eq i8 %18, 0
   br i1 %19, label %252, label %20
 
 20:                                               ; preds = %2
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %9) #18
   %21 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 5, i32 5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %9, ptr noundef nonnull align 8 dereferenceable(16) %21, i64 16, i1 false), !tbaa.struct !50
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %9, ptr noundef nonnull align 8 dereferenceable(16) %21, i64 16, i1 false), !tbaa.struct !52
   %22 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 5, i32 6
   %23 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 5, i32 7
   %24 = load float, ptr %23, align 4, !tbaa !5, !noalias !153
@@ -3826,7 +3831,7 @@ define dso_local void @_ZN17btSoftBodyHelpers9DrawFrameEP10btSoftBodyP12btIDebug
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %15) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %14) #18
   %183 = getelementptr inbounds %class.btSoftBody, ptr %0, i64 0, i32 5, i32 3, i32 2
-  %184 = load i32, ptr %183, align 4, !tbaa !79
+  %184 = load i32, ptr %183, align 4, !tbaa !81
   %185 = icmp sgt i32 %184, 0
   br i1 %185, label %186, label %194
 
@@ -3846,7 +3851,7 @@ define dso_local void @_ZN17btSoftBodyHelpers9DrawFrameEP10btSoftBodyP12btIDebug
 
 195:                                              ; preds = %186, %195
   %196 = phi i64 [ 0, %186 ], [ %248, %195 ]
-  %197 = load ptr, ptr %187, align 8, !tbaa !78
+  %197 = load ptr, ptr %187, align 8, !tbaa !80
   %198 = getelementptr inbounds %class.btVector3, ptr %197, i64 %196
   %199 = load float, ptr %198, align 4, !tbaa !5
   %200 = getelementptr inbounds [4 x float], ptr %198, i64 0, i64 1
@@ -3858,10 +3863,10 @@ define dso_local void @_ZN17btSoftBodyHelpers9DrawFrameEP10btSoftBodyP12btIDebug
   %206 = call float @llvm.fmuladd.f32(float %101, float %203, float %205)
   %207 = load float, ptr %127, align 8, !tbaa !5
   %208 = fadd float %206, %207
-  %209 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %208, i64 0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %16) #18
   store <4 x float> <float 1.000000e+00, float 0.000000e+00, float 1.000000e+00, float 0.000000e+00>, ptr %16, align 16, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #18
+  %209 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %208, i64 0
   store <2 x float> %209, ptr %188, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #18
   %210 = insertelement <2 x float> poison, float %201, i64 0
@@ -3928,7 +3933,7 @@ define dso_local void @_ZN17btSoftBodyHelpers9DrawFrameEP10btSoftBodyP12btIDebug
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #18
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %16) #18
   %248 = add nuw nsw i64 %196, 1
-  %249 = load i32, ptr %183, align 4, !tbaa !79
+  %249 = load i32, ptr %183, align 4, !tbaa !81
   %250 = sext i32 %249 to i64
   %251 = icmp slt i64 %248, %250
   br i1 %251, label %195, label %194
@@ -3977,9 +3982,9 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers10CreateRopeER19btSoftBodyWo
   %37 = tail call float @llvm.fmuladd.f32(float %26, float %33, float %23)
   %38 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %37, i64 0
   %39 = getelementptr inbounds %class.btVector3, ptr %11, i64 %30
-  store <2 x float> %36, ptr %39, align 4, !tbaa.struct !50
+  store <2 x float> %36, ptr %39, align 4, !tbaa.struct !52
   %40 = getelementptr inbounds i8, ptr %39, i64 8
-  store <2 x float> %38, ptr %40, align 4, !tbaa.struct !53
+  store <2 x float> %38, ptr %40, align 4, !tbaa.struct !55
   %41 = getelementptr inbounds float, ptr %14, i64 %30
   store float 1.000000e+00, ptr %41, align 4, !tbaa !5
   %42 = add nuw nsw i64 %30, 1
@@ -4065,7 +4070,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers11CreatePatchER19btSoftBodyW
   %10 = icmp slt i32 %5, 2
   %11 = icmp slt i32 %6, 2
   %12 = or i1 %10, %11
-  br i1 %12, label %147, label %13
+  br i1 %12, label %148, label %13
 
 13:                                               ; preds = %9
   %14 = mul nsw i32 %6, %5
@@ -4130,9 +4135,9 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers11CreatePatchER19btSoftBodyW
   %69 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %68, i64 0
   %70 = add nuw nsw i64 %61, %59
   %71 = getelementptr inbounds %class.btVector3, ptr %19, i64 %70
-  store <2 x float> %67, ptr %71, align 4, !tbaa.struct !50
+  store <2 x float> %67, ptr %71, align 4, !tbaa.struct !52
   %72 = getelementptr inbounds i8, ptr %71, i64 8
-  store <2 x float> %69, ptr %72, align 4, !tbaa.struct !53
+  store <2 x float> %69, ptr %72, align 4, !tbaa.struct !55
   %73 = getelementptr inbounds float, ptr %22, i64 %70
   store float 1.000000e+00, ptr %73, align 4, !tbaa !5
   %74 = add nuw nsw i64 %61, 1
@@ -4162,7 +4167,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers11CreatePatchER19btSoftBodyW
   %86 = landingpad { ptr, i32 }
           cleanup
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef %80)
-          to label %87 unwind label %149
+          to label %87 unwind label %150
 
 87:                                               ; preds = %85
   resume { ptr, i32 } %86
@@ -4205,91 +4210,92 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers11CreatePatchER19btSoftBodyW
   tail call void @_ZdaPv(ptr noundef nonnull %19) #21
   tail call void @_ZdaPv(ptr noundef nonnull %22) #21
   %108 = icmp sgt i32 %5, 0
-  br i1 %108, label %109, label %147
+  br i1 %108, label %109, label %148
 
-109:                                              ; preds = %107, %136
-  %110 = phi i32 [ %112, %136 ], [ 0, %107 ]
+109:                                              ; preds = %107, %124
+  %110 = phi i32 [ %112, %124 ], [ 0, %107 ]
   %111 = mul nsw i32 %110, %5
   %112 = add nuw nsw i32 %110, 1
   %113 = icmp slt i32 %112, %6
   %114 = mul nsw i32 %112, %5
-  br i1 %113, label %115, label %138
+  br i1 %113, label %126, label %115
 
-115:                                              ; preds = %109, %134
-  %116 = phi i32 [ %118, %134 ], [ 0, %109 ]
-  %117 = add nsw i32 %116, %111
-  %118 = add nuw nsw i32 %116, 1
-  %119 = icmp slt i32 %118, %5
-  br i1 %119, label %120, label %132
+115:                                              ; preds = %109, %122
+  %116 = phi i32 [ %117, %122 ], [ 0, %109 ]
+  %117 = add nuw nsw i32 %116, 1
+  %118 = icmp slt i32 %117, %5
+  br i1 %118, label %119, label %122
 
-120:                                              ; preds = %115
-  %121 = add nsw i32 %118, %111
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %117, i32 noundef %121, ptr noundef null, i1 noundef zeroext false)
-  %122 = add nsw i32 %116, %114
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %117, i32 noundef %122, ptr noundef null, i1 noundef zeroext false)
-  %123 = add nuw nsw i32 %116, %110
-  %124 = and i32 %123, 1
-  %125 = icmp eq i32 %124, 0
-  br i1 %125, label %129, label %126
+119:                                              ; preds = %115
+  %120 = add nsw i32 %116, %111
+  %121 = add nsw i32 %117, %111
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %120, i32 noundef %121, ptr noundef null, i1 noundef zeroext false)
+  br label %122
 
-126:                                              ; preds = %120
-  %127 = add nsw i32 %118, %114
-  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %117, i32 noundef %121, i32 noundef %127, ptr noundef null)
-  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %117, i32 noundef %127, i32 noundef %122, ptr noundef null)
-  br i1 %8, label %128, label %134
+122:                                              ; preds = %119, %115
+  %123 = icmp eq i32 %117, %5
+  br i1 %123, label %124, label %115
 
-128:                                              ; preds = %126
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %117, i32 noundef %127, ptr noundef null, i1 noundef zeroext false)
-  br label %134
+124:                                              ; preds = %122, %146
+  %125 = icmp eq i32 %112, %6
+  br i1 %125, label %148, label %109
 
-129:                                              ; preds = %120
-  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %122, i32 noundef %117, i32 noundef %121, ptr noundef null)
-  %130 = add nsw i32 %118, %114
-  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %122, i32 noundef %121, i32 noundef %130, ptr noundef null)
-  br i1 %8, label %131, label %134
+126:                                              ; preds = %109, %146
+  %127 = phi i32 [ %129, %146 ], [ 0, %109 ]
+  %128 = add nsw i32 %127, %111
+  %129 = add nuw nsw i32 %127, 1
+  %130 = icmp slt i32 %129, %5
+  br i1 %130, label %133, label %131
 
-131:                                              ; preds = %129
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %121, i32 noundef %122, ptr noundef null, i1 noundef zeroext false)
-  br label %134
+131:                                              ; preds = %126
+  %132 = add nsw i32 %127, %114
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %128, i32 noundef %132, ptr noundef null, i1 noundef zeroext false)
+  br label %146
 
-132:                                              ; preds = %115
-  %133 = add nsw i32 %116, %114
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %117, i32 noundef %133, ptr noundef null, i1 noundef zeroext false)
-  br label %134
+133:                                              ; preds = %126
+  %134 = add nsw i32 %129, %111
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %128, i32 noundef %134, ptr noundef null, i1 noundef zeroext false)
+  %135 = add nsw i32 %127, %114
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %128, i32 noundef %135, ptr noundef null, i1 noundef zeroext false)
+  %136 = add nuw nsw i32 %127, %110
+  %137 = and i32 %136, 1
+  %138 = icmp eq i32 %137, 0
+  %139 = add nsw i32 %129, %111
+  br i1 %138, label %143, label %140
 
-134:                                              ; preds = %132, %131, %129, %128, %126
-  %135 = icmp eq i32 %118, %5
-  br i1 %135, label %136, label %115
+140:                                              ; preds = %133
+  %141 = add nsw i32 %129, %114
+  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %128, i32 noundef %139, i32 noundef %141, ptr noundef null)
+  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %128, i32 noundef %141, i32 noundef %135, ptr noundef null)
+  br i1 %8, label %142, label %146
 
-136:                                              ; preds = %145, %134
-  %137 = icmp eq i32 %112, %6
-  br i1 %137, label %147, label %109
+142:                                              ; preds = %140
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %128, i32 noundef %141, ptr noundef null, i1 noundef zeroext false)
+  br label %146
 
-138:                                              ; preds = %109, %145
-  %139 = phi i32 [ %140, %145 ], [ 0, %109 ]
-  %140 = add nuw nsw i32 %139, 1
-  %141 = icmp slt i32 %140, %5
-  br i1 %141, label %142, label %145
+143:                                              ; preds = %133
+  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %135, i32 noundef %128, i32 noundef %139, ptr noundef null)
+  %144 = add nsw i32 %129, %114
+  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %135, i32 noundef %139, i32 noundef %144, ptr noundef null)
+  br i1 %8, label %145, label %146
 
-142:                                              ; preds = %138
-  %143 = add nsw i32 %139, %111
-  %144 = add nsw i32 %140, %111
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %143, i32 noundef %144, ptr noundef null, i1 noundef zeroext false)
-  br label %145
+145:                                              ; preds = %143
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %80, i32 noundef %139, i32 noundef %135, ptr noundef null, i1 noundef zeroext false)
+  br label %146
 
-145:                                              ; preds = %142, %138
-  %146 = icmp eq i32 %140, %5
-  br i1 %146, label %136, label %138
+146:                                              ; preds = %131, %145, %143, %142, %140
+  %147 = icmp eq i32 %129, %5
+  br i1 %147, label %124, label %126
 
-147:                                              ; preds = %136, %107, %9
-  %148 = phi ptr [ null, %9 ], [ %80, %107 ], [ %80, %136 ]
-  ret ptr %148
+148:                                              ; preds = %124, %107, %9
+  %149 = phi ptr [ null, %9 ], [ %80, %107 ], [ %80, %124 ]
+  ret ptr %149
 
-149:                                              ; preds = %85
-  %150 = landingpad { ptr, i32 }
+150:                                              ; preds = %85
+  %151 = landingpad { ptr, i32 }
           catch ptr null
-  %151 = extractvalue { ptr, i32 } %150, 0
-  tail call void @__clang_call_terminate(ptr %151) #19
+  %152 = extractvalue { ptr, i32 } %151, 0
+  tail call void @__clang_call_terminate(ptr %152) #19
   unreachable
 }
 
@@ -4365,9 +4371,9 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers13CreatePatchUVER19btSoftBod
   %70 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %69, i64 0
   %71 = add nuw nsw i64 %62, %60
   %72 = getelementptr inbounds %class.btVector3, ptr %20, i64 %71
-  store <2 x float> %68, ptr %72, align 4, !tbaa.struct !50
+  store <2 x float> %68, ptr %72, align 4, !tbaa.struct !52
   %73 = getelementptr inbounds i8, ptr %72, i64 8
-  store <2 x float> %70, ptr %73, align 4, !tbaa.struct !53
+  store <2 x float> %70, ptr %73, align 4, !tbaa.struct !55
   %74 = getelementptr inbounds float, ptr %23, i64 %71
   store float 1.000000e+00, ptr %74, align 4, !tbaa !5
   %75 = add nuw nsw i64 %62, 1
@@ -4515,9 +4521,9 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers13CreatePatchUVER19btSoftBod
   %157 = fdiv float 1.000000e+00, %156
   br i1 %150, label %158, label %243
 
-158:                                              ; preds = %149, %231
-  %159 = phi i32 [ %161, %231 ], [ 0, %149 ]
-  %160 = phi i32 [ %232, %231 ], [ 0, %149 ]
+158:                                              ; preds = %149, %181
+  %159 = phi i32 [ %161, %181 ], [ 0, %149 ]
+  %160 = phi i32 [ %182, %181 ], [ 0, %149 ]
   %161 = add nuw nsw i32 %159, 1
   %162 = icmp slt i32 %161, %6
   %163 = mul nsw i32 %159, %5
@@ -4529,127 +4535,127 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers13CreatePatchUVER19btSoftBod
   %169 = add i32 %155, %168
   %170 = sitofp i32 %169 to float
   %171 = fmul float %157, %170
-  br i1 %162, label %172, label %234
+  br i1 %162, label %184, label %172
 
-172:                                              ; preds = %158, %228
-  %173 = phi i32 [ %229, %228 ], [ %160, %158 ]
-  %174 = phi i32 [ %175, %228 ], [ 0, %158 ]
-  %175 = add nuw nsw i32 %174, 1
-  %176 = icmp slt i32 %175, %5
+172:                                              ; preds = %158, %179
+  %173 = phi i32 [ %174, %179 ], [ 0, %158 ]
+  %174 = add nuw nsw i32 %173, 1
+  %175 = icmp slt i32 %174, %5
+  br i1 %175, label %176, label %179
+
+176:                                              ; preds = %172
   %177 = add nsw i32 %174, %163
-  %178 = add nsw i32 %175, %163
-  %179 = add nsw i32 %174, %164
-  %180 = add nsw i32 %175, %164
-  br i1 %176, label %181, label %227
+  %178 = add nsw i32 %173, %163
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %178, i32 noundef %177, ptr noundef null, i1 noundef zeroext false)
+  br label %179
 
-181:                                              ; preds = %172
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %177, i32 noundef %178, ptr noundef null, i1 noundef zeroext false)
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %177, i32 noundef %179, ptr noundef null, i1 noundef zeroext false)
-  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %177, i32 noundef %179, i32 noundef %180, ptr noundef null)
-  br i1 %151, label %222, label %182
+179:                                              ; preds = %176, %172
+  %180 = icmp eq i32 %174, %5
+  br i1 %180, label %181, label %172
 
-182:                                              ; preds = %181
-  %183 = sitofp i32 %174 to float
-  %184 = fmul float %154, %183
-  %185 = sext i32 %173 to i64
-  %186 = getelementptr inbounds float, ptr %9, i64 %185
-  store float %184, ptr %186, align 4, !tbaa !5
-  %187 = add nsw i32 %173, 1
-  %188 = sext i32 %187 to i64
-  %189 = getelementptr inbounds float, ptr %9, i64 %188
-  store float %167, ptr %189, align 4, !tbaa !5
-  %190 = add nsw i32 %173, 2
-  %191 = sext i32 %190 to i64
-  %192 = getelementptr inbounds float, ptr %9, i64 %191
-  store float %184, ptr %192, align 4, !tbaa !5
-  %193 = add nsw i32 %173, 3
-  %194 = sext i32 %193 to i64
-  %195 = getelementptr inbounds float, ptr %9, i64 %194
-  store float %171, ptr %195, align 4, !tbaa !5
-  %196 = sitofp i32 %175 to float
+181:                                              ; preds = %179, %240
+  %182 = phi i32 [ %241, %240 ], [ %160, %179 ]
+  %183 = icmp eq i32 %161, %6
+  br i1 %183, label %243, label %158
+
+184:                                              ; preds = %158, %240
+  %185 = phi i32 [ %241, %240 ], [ %160, %158 ]
+  %186 = phi i32 [ %187, %240 ], [ 0, %158 ]
+  %187 = add nuw nsw i32 %186, 1
+  %188 = icmp slt i32 %187, %5
+  %189 = add nsw i32 %186, %163
+  %190 = add nsw i32 %187, %163
+  %191 = add nsw i32 %186, %164
+  %192 = add nsw i32 %187, %164
+  br i1 %188, label %194, label %193
+
+193:                                              ; preds = %184
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %189, i32 noundef %191, ptr noundef null, i1 noundef zeroext false)
+  br label %240
+
+194:                                              ; preds = %184
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %189, i32 noundef %190, ptr noundef null, i1 noundef zeroext false)
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %189, i32 noundef %191, ptr noundef null, i1 noundef zeroext false)
+  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %189, i32 noundef %191, i32 noundef %192, ptr noundef null)
+  br i1 %151, label %235, label %195
+
+195:                                              ; preds = %194
+  %196 = sitofp i32 %186 to float
   %197 = fmul float %154, %196
-  %198 = add nsw i32 %173, 4
-  %199 = sext i32 %198 to i64
-  %200 = getelementptr inbounds float, ptr %9, i64 %199
-  store float %197, ptr %200, align 4, !tbaa !5
-  %201 = add nsw i32 %173, 5
-  %202 = sext i32 %201 to i64
-  %203 = getelementptr inbounds float, ptr %9, i64 %202
-  store float %171, ptr %203, align 4, !tbaa !5
-  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %180, i32 noundef %178, i32 noundef %177, ptr noundef null)
-  %204 = add nsw i32 %173, 6
-  %205 = sext i32 %204 to i64
-  %206 = getelementptr inbounds float, ptr %9, i64 %205
-  store float %197, ptr %206, align 4, !tbaa !5
-  %207 = add nsw i32 %173, 7
-  %208 = sext i32 %207 to i64
-  %209 = getelementptr inbounds float, ptr %9, i64 %208
-  store float %171, ptr %209, align 4, !tbaa !5
-  %210 = add nsw i32 %173, 8
-  %211 = sext i32 %210 to i64
-  %212 = getelementptr inbounds float, ptr %9, i64 %211
-  store float %197, ptr %212, align 4, !tbaa !5
-  %213 = add nsw i32 %173, 9
-  %214 = sext i32 %213 to i64
-  %215 = getelementptr inbounds float, ptr %9, i64 %214
-  store float %167, ptr %215, align 4, !tbaa !5
-  %216 = add nsw i32 %173, 10
-  %217 = sext i32 %216 to i64
-  %218 = getelementptr inbounds float, ptr %9, i64 %217
-  store float %184, ptr %218, align 4, !tbaa !5
-  %219 = add nsw i32 %173, 11
-  %220 = sext i32 %219 to i64
-  %221 = getelementptr inbounds float, ptr %9, i64 %220
-  store float %167, ptr %221, align 4, !tbaa !5
-  br label %223
+  %198 = sext i32 %185 to i64
+  %199 = getelementptr inbounds float, ptr %9, i64 %198
+  store float %197, ptr %199, align 4, !tbaa !5
+  %200 = add nsw i32 %185, 1
+  %201 = sext i32 %200 to i64
+  %202 = getelementptr inbounds float, ptr %9, i64 %201
+  store float %167, ptr %202, align 4, !tbaa !5
+  %203 = add nsw i32 %185, 2
+  %204 = sext i32 %203 to i64
+  %205 = getelementptr inbounds float, ptr %9, i64 %204
+  store float %197, ptr %205, align 4, !tbaa !5
+  %206 = add nsw i32 %185, 3
+  %207 = sext i32 %206 to i64
+  %208 = getelementptr inbounds float, ptr %9, i64 %207
+  store float %171, ptr %208, align 4, !tbaa !5
+  %209 = sitofp i32 %187 to float
+  %210 = fmul float %154, %209
+  %211 = add nsw i32 %185, 4
+  %212 = sext i32 %211 to i64
+  %213 = getelementptr inbounds float, ptr %9, i64 %212
+  store float %210, ptr %213, align 4, !tbaa !5
+  %214 = add nsw i32 %185, 5
+  %215 = sext i32 %214 to i64
+  %216 = getelementptr inbounds float, ptr %9, i64 %215
+  store float %171, ptr %216, align 4, !tbaa !5
+  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %192, i32 noundef %190, i32 noundef %189, ptr noundef null)
+  %217 = add nsw i32 %185, 6
+  %218 = sext i32 %217 to i64
+  %219 = getelementptr inbounds float, ptr %9, i64 %218
+  store float %210, ptr %219, align 4, !tbaa !5
+  %220 = add nsw i32 %185, 7
+  %221 = sext i32 %220 to i64
+  %222 = getelementptr inbounds float, ptr %9, i64 %221
+  store float %171, ptr %222, align 4, !tbaa !5
+  %223 = add nsw i32 %185, 8
+  %224 = sext i32 %223 to i64
+  %225 = getelementptr inbounds float, ptr %9, i64 %224
+  store float %210, ptr %225, align 4, !tbaa !5
+  %226 = add nsw i32 %185, 9
+  %227 = sext i32 %226 to i64
+  %228 = getelementptr inbounds float, ptr %9, i64 %227
+  store float %167, ptr %228, align 4, !tbaa !5
+  %229 = add nsw i32 %185, 10
+  %230 = sext i32 %229 to i64
+  %231 = getelementptr inbounds float, ptr %9, i64 %230
+  store float %197, ptr %231, align 4, !tbaa !5
+  %232 = add nsw i32 %185, 11
+  %233 = sext i32 %232 to i64
+  %234 = getelementptr inbounds float, ptr %9, i64 %233
+  store float %167, ptr %234, align 4, !tbaa !5
+  br label %236
 
-222:                                              ; preds = %181
-  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %180, i32 noundef %178, i32 noundef %177, ptr noundef null)
-  br label %223
+235:                                              ; preds = %194
+  tail call void @_ZN10btSoftBody10appendFaceEiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %192, i32 noundef %190, i32 noundef %189, ptr noundef null)
+  br label %236
 
-223:                                              ; preds = %222, %182
-  br i1 %8, label %224, label %225
+236:                                              ; preds = %235, %195
+  br i1 %8, label %237, label %238
 
-224:                                              ; preds = %223
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %177, i32 noundef %180, ptr noundef null, i1 noundef zeroext false)
-  br label %225
+237:                                              ; preds = %236
+  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %189, i32 noundef %192, ptr noundef null, i1 noundef zeroext false)
+  br label %238
 
-225:                                              ; preds = %224, %223
-  %226 = add nsw i32 %173, 12
-  br label %228
+238:                                              ; preds = %237, %236
+  %239 = add nsw i32 %185, 12
+  br label %240
 
-227:                                              ; preds = %172
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %177, i32 noundef %179, ptr noundef null, i1 noundef zeroext false)
-  br label %228
+240:                                              ; preds = %193, %238
+  %241 = phi i32 [ %239, %238 ], [ %185, %193 ]
+  %242 = icmp eq i32 %187, %5
+  br i1 %242, label %181, label %184
 
-228:                                              ; preds = %227, %225
-  %229 = phi i32 [ %226, %225 ], [ %173, %227 ]
-  %230 = icmp eq i32 %175, %5
-  br i1 %230, label %231, label %172
-
-231:                                              ; preds = %241, %228
-  %232 = phi i32 [ %229, %228 ], [ %160, %241 ]
-  %233 = icmp eq i32 %161, %6
-  br i1 %233, label %243, label %158
-
-234:                                              ; preds = %158, %241
-  %235 = phi i32 [ %236, %241 ], [ 0, %158 ]
-  %236 = add nuw nsw i32 %235, 1
-  %237 = icmp slt i32 %236, %5
-  br i1 %237, label %238, label %241
-
-238:                                              ; preds = %234
-  %239 = add nsw i32 %236, %163
-  %240 = add nsw i32 %235, %163
-  tail call void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %81, i32 noundef %240, i32 noundef %239, ptr noundef null, i1 noundef zeroext false)
-  br label %241
-
-241:                                              ; preds = %238, %234
-  %242 = icmp eq i32 %236, %5
-  br i1 %242, label %231, label %234
-
-243:                                              ; preds = %231, %149, %10
-  %244 = phi ptr [ null, %10 ], [ %81, %149 ], [ %81, %231 ]
+243:                                              ; preds = %181, %149, %10
+  %244 = phi ptr [ null, %10 ], [ %81, %149 ], [ %81, %181 ]
   ret ptr %244
 
 245:                                              ; preds = %86
@@ -4713,8 +4719,8 @@ define dso_local noundef float @_ZN17btSoftBodyHelpers11CalculateUVEiiiii(i32 no
 ; Function Attrs: uwtable
 define dso_local noundef ptr @_ZN17btSoftBodyHelpers15CreateEllipsoidER19btSoftBodyWorldInfoRK9btVector3S4_i(ptr noundef nonnull align 8 dereferenceable(120) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %1, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %2, i32 noundef %3) local_unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
   %5 = add i32 %3, 3
-  %6 = icmp sgt i32 %3, -3
-  br i1 %6, label %7, label %55
+  %6 = icmp slt i32 %3, -2
+  br i1 %6, label %56, label %7
 
 7:                                                ; preds = %4
   %8 = zext i32 %5 to i64
@@ -4749,7 +4755,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers15CreateEllipsoidER19btSoftB
   %33 = fmul <2 x float> %30, %32
   store <2 x float> %33, ptr %13, align 4
   %34 = getelementptr inbounds i8, ptr %13, i64 8
-  store float %18, ptr %34, align 4, !tbaa.struct !53
+  store float %18, ptr %34, align 4, !tbaa.struct !55
   %35 = getelementptr inbounds i8, ptr %13, i64 12
   store float 0.000000e+00, ptr %35, align 4, !tbaa.struct !156
   %36 = add nuw nsw i32 %14, 1
@@ -4770,70 +4776,71 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers15CreateEllipsoidER19btSoftB
   br i1 %48, label %16, label %38
 
 49:                                               ; preds = %16
-  br i1 %6, label %50, label %55
+  %50 = icmp sgt i32 %3, -3
+  br i1 %50, label %51, label %56
 
-50:                                               ; preds = %49
-  %51 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 2
-  %52 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %53 = tail call i32 @llvm.smax.i32(i32 %5, i32 1)
-  %54 = zext i32 %53 to i64
-  br label %58
+51:                                               ; preds = %49
+  %52 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 2
+  %53 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %54 = tail call i32 @llvm.smax.i32(i32 %5, i32 1)
+  %55 = zext i32 %54 to i64
+  br label %59
 
-55:                                               ; preds = %58, %4, %49
-  %56 = phi ptr [ %10, %49 ], [ null, %4 ], [ %10, %58 ]
-  %57 = invoke noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19btSoftBodyWorldInfoPK9btVector3i(ptr noundef nonnull align 8 dereferenceable(120) %0, ptr noundef nonnull %56, i32 noundef %5)
-          to label %75 unwind label %79
+56:                                               ; preds = %59, %4, %49
+  %57 = phi ptr [ %10, %49 ], [ null, %4 ], [ %10, %59 ]
+  %58 = invoke noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19btSoftBodyWorldInfoPK9btVector3i(ptr noundef nonnull align 8 dereferenceable(120) %0, ptr noundef %57, i32 noundef %5)
+          to label %76 unwind label %80
 
-58:                                               ; preds = %50, %58
-  %59 = phi i64 [ 0, %50 ], [ %73, %58 ]
-  %60 = getelementptr inbounds %class.btVector3, ptr %10, i64 %59
-  %61 = getelementptr inbounds [4 x float], ptr %60, i64 0, i64 2
-  %62 = load float, ptr %61, align 4, !tbaa !5
-  %63 = load float, ptr %51, align 4, !tbaa !5
-  %64 = fmul float %62, %63
-  %65 = load <2 x float>, ptr %60, align 4, !tbaa !5
-  %66 = load <2 x float>, ptr %2, align 4, !tbaa !5
-  %67 = fmul <2 x float> %65, %66
-  %68 = load <2 x float>, ptr %1, align 4, !tbaa !5
-  %69 = fadd <2 x float> %67, %68
-  %70 = load float, ptr %52, align 4, !tbaa !5
-  %71 = fadd float %64, %70
-  %72 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %71, i64 0
-  store <2 x float> %69, ptr %60, align 4, !tbaa.struct !50
-  store <2 x float> %72, ptr %61, align 4, !tbaa.struct !53
-  %73 = add nuw nsw i64 %59, 1
-  %74 = icmp eq i64 %73, %54
-  br i1 %74, label %55, label %58
+59:                                               ; preds = %51, %59
+  %60 = phi i64 [ 0, %51 ], [ %74, %59 ]
+  %61 = getelementptr inbounds %class.btVector3, ptr %10, i64 %60
+  %62 = load <2 x float>, ptr %61, align 4, !tbaa !5
+  %63 = load <2 x float>, ptr %2, align 4, !tbaa !5
+  %64 = fmul <2 x float> %62, %63
+  %65 = load <2 x float>, ptr %1, align 4, !tbaa !5
+  %66 = fadd <2 x float> %64, %65
+  %67 = getelementptr inbounds [4 x float], ptr %61, i64 0, i64 2
+  %68 = load float, ptr %67, align 4, !tbaa !5
+  %69 = load float, ptr %52, align 4, !tbaa !5
+  %70 = fmul float %68, %69
+  %71 = load float, ptr %53, align 4, !tbaa !5
+  %72 = fadd float %70, %71
+  %73 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %72, i64 0
+  store <2 x float> %66, ptr %61, align 4, !tbaa.struct !52
+  store <2 x float> %73, ptr %67, align 4, !tbaa.struct !55
+  %74 = add nuw nsw i64 %60, 1
+  %75 = icmp eq i64 %74, %55
+  br i1 %75, label %56, label %59
 
-75:                                               ; preds = %55
-  %76 = icmp eq ptr %56, null
-  br i1 %76, label %78, label %77
+76:                                               ; preds = %56
+  %77 = icmp eq ptr %57, null
+  br i1 %77, label %79, label %78
 
-77:                                               ; preds = %75
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %56)
-  br label %78
+78:                                               ; preds = %76
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %57)
+  br label %79
 
-78:                                               ; preds = %75, %77
-  ret ptr %57
+79:                                               ; preds = %76, %78
+  ret ptr %58
 
-79:                                               ; preds = %55
-  %80 = landingpad { ptr, i32 }
+80:                                               ; preds = %56
+  %81 = landingpad { ptr, i32 }
           cleanup
-  %81 = icmp eq ptr %56, null
-  br i1 %81, label %83, label %82
+  %82 = icmp eq ptr %57, null
+  br i1 %82, label %84, label %83
 
-82:                                               ; preds = %79
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %56)
-          to label %83 unwind label %84
+83:                                               ; preds = %80
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %57)
+          to label %84 unwind label %85
 
-83:                                               ; preds = %79, %82
-  resume { ptr, i32 } %80
+84:                                               ; preds = %80, %83
+  resume { ptr, i32 } %81
 
-84:                                               ; preds = %82
-  %85 = landingpad { ptr, i32 }
+85:                                               ; preds = %83
+  %86 = landingpad { ptr, i32 }
           catch ptr null
-  %86 = extractvalue { ptr, i32 } %85, 0
-  tail call void @__clang_call_terminate(ptr %86) #19
+  %87 = extractvalue { ptr, i32 } %86, 0
+  tail call void @__clang_call_terminate(ptr %87) #19
   unreachable
 }
 
@@ -4843,58 +4850,58 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
   %5 = alloca %class.HullResult, align 8
   %6 = alloca %class.HullLibrary, align 8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #18
-  store i32 1, ptr %4, align 8, !tbaa !71
+  store i32 1, ptr %4, align 8, !tbaa !73
   %7 = getelementptr inbounds %class.HullDesc, ptr %4, i64 0, i32 1
-  store i32 %2, ptr %7, align 4, !tbaa !73
+  store i32 %2, ptr %7, align 4, !tbaa !75
   %8 = getelementptr inbounds %class.HullDesc, ptr %4, i64 0, i32 2
-  store ptr %1, ptr %8, align 8, !tbaa !74
+  store ptr %1, ptr %8, align 8, !tbaa !76
   %9 = getelementptr inbounds %class.HullDesc, ptr %4, i64 0, i32 3
-  store i32 16, ptr %9, align 8, !tbaa !75
+  store i32 16, ptr %9, align 8, !tbaa !77
   %10 = getelementptr inbounds %class.HullDesc, ptr %4, i64 0, i32 4
-  store float 0x3F50624DE0000000, ptr %10, align 4, !tbaa !76
+  store float 0x3F50624DE0000000, ptr %10, align 4, !tbaa !78
   %11 = getelementptr inbounds %class.HullDesc, ptr %4, i64 0, i32 5
   call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %5) #18
   %12 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 2, i32 6
-  store i8 1, ptr %12, align 8, !tbaa !77
+  store i8 1, ptr %12, align 8, !tbaa !79
   %13 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 2, i32 5
-  store ptr null, ptr %13, align 8, !tbaa !78
+  store ptr null, ptr %13, align 8, !tbaa !80
   %14 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 2, i32 2
-  store i32 0, ptr %14, align 4, !tbaa !79
+  store i32 0, ptr %14, align 4, !tbaa !81
   %15 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 2, i32 3
-  store i32 0, ptr %15, align 8, !tbaa !80
+  store i32 0, ptr %15, align 8, !tbaa !82
   %16 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 5, i32 6
-  store i8 1, ptr %16, align 8, !tbaa !81
+  store i8 1, ptr %16, align 8, !tbaa !83
   %17 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 5, i32 5
-  store ptr null, ptr %17, align 8, !tbaa !84
+  store ptr null, ptr %17, align 8, !tbaa !86
   %18 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 5, i32 2
-  store i32 0, ptr %18, align 4, !tbaa !85
+  store i32 0, ptr %18, align 4, !tbaa !87
   %19 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 5, i32 3
-  store i32 0, ptr %19, align 8, !tbaa !86
-  store i8 1, ptr %5, align 8, !tbaa !87
+  store i32 0, ptr %19, align 8, !tbaa !88
+  store i8 1, ptr %5, align 8, !tbaa !89
   %20 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 1
-  store i32 0, ptr %20, align 4, !tbaa !89
+  store i32 0, ptr %20, align 4, !tbaa !91
   %21 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 3
-  store i32 0, ptr %21, align 8, !tbaa !90
+  store i32 0, ptr %21, align 8, !tbaa !92
   %22 = getelementptr inbounds %class.HullResult, ptr %5, i64 0, i32 4
-  store i32 0, ptr %22, align 4, !tbaa !91
+  store i32 0, ptr %22, align 4, !tbaa !93
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %6) #18
   %23 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %6, i64 0, i32 6
-  store i8 1, ptr %23, align 8, !tbaa !92
+  store i8 1, ptr %23, align 8, !tbaa !94
   %24 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %6, i64 0, i32 5
-  store ptr null, ptr %24, align 8, !tbaa !95
+  store ptr null, ptr %24, align 8, !tbaa !97
   %25 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %6, i64 0, i32 2
-  store i32 0, ptr %25, align 4, !tbaa !96
+  store i32 0, ptr %25, align 4, !tbaa !98
   %26 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %6, i64 0, i32 3
-  store i32 0, ptr %26, align 8, !tbaa !97
+  store i32 0, ptr %26, align 8, !tbaa !99
   %27 = getelementptr inbounds %class.HullLibrary, ptr %6, i64 0, i32 1, i32 6
-  store i8 1, ptr %27, align 8, !tbaa !98
+  store i8 1, ptr %27, align 8, !tbaa !100
   %28 = getelementptr inbounds %class.HullLibrary, ptr %6, i64 0, i32 1, i32 5
-  store ptr null, ptr %28, align 8, !tbaa !101
+  store ptr null, ptr %28, align 8, !tbaa !103
   %29 = getelementptr inbounds %class.HullLibrary, ptr %6, i64 0, i32 1, i32 2
-  store i32 0, ptr %29, align 4, !tbaa !102
+  store i32 0, ptr %29, align 4, !tbaa !104
   %30 = getelementptr inbounds %class.HullLibrary, ptr %6, i64 0, i32 1, i32 3
-  store i32 0, ptr %30, align 8, !tbaa !103
-  store i32 %2, ptr %11, align 8, !tbaa !104
+  store i32 0, ptr %30, align 8, !tbaa !105
+  store i32 %2, ptr %11, align 8, !tbaa !106
   %31 = invoke noundef i32 @_ZN11HullLibrary16CreateConvexHullERK8HullDescR10HullResult(ptr noundef nonnull align 8 dereferenceable(64) %6, ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(80) %5)
           to label %32 unwind label %44
 
@@ -4903,13 +4910,13 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
           to label %34 unwind label %46
 
 34:                                               ; preds = %32
-  %35 = load i32, ptr %20, align 4, !tbaa !89
-  %36 = load ptr, ptr %13, align 8, !tbaa !78
-  invoke void @_ZN10btSoftBodyC1EP19btSoftBodyWorldInfoiPK9btVector3PKf(ptr noundef nonnull align 8 dereferenceable(1496) %33, ptr noundef nonnull %0, i32 noundef %35, ptr noundef nonnull %36, ptr noundef null)
+  %35 = load i32, ptr %20, align 4, !tbaa !91
+  %36 = load ptr, ptr %13, align 8, !tbaa !80
+  invoke void @_ZN10btSoftBodyC1EP19btSoftBodyWorldInfoiPK9btVector3PKf(ptr noundef nonnull align 8 dereferenceable(1496) %33, ptr noundef nonnull %0, i32 noundef %35, ptr noundef %36, ptr noundef null)
           to label %37 unwind label %48
 
 37:                                               ; preds = %34
-  %38 = load i32, ptr %21, align 8, !tbaa !90
+  %38 = load i32, ptr %21, align 8, !tbaa !92
   %39 = icmp sgt i32 %38, 0
   br i1 %39, label %50, label %40
 
@@ -4941,15 +4948,15 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
 50:                                               ; preds = %37, %73
   %51 = phi i64 [ %74, %73 ], [ 0, %37 ]
   %52 = mul nuw nsw i64 %51, 3
-  %53 = load ptr, ptr %17, align 8, !tbaa !84
+  %53 = load ptr, ptr %17, align 8, !tbaa !86
   %54 = getelementptr inbounds i32, ptr %53, i64 %52
-  %55 = load i32, ptr %54, align 4, !tbaa !107
+  %55 = load i32, ptr %54, align 4, !tbaa !109
   %56 = add nuw nsw i64 %52, 1
   %57 = getelementptr inbounds i32, ptr %53, i64 %56
-  %58 = load i32, ptr %57, align 4, !tbaa !107
+  %58 = load i32, ptr %57, align 4, !tbaa !109
   %59 = add nuw nsw i64 %52, 2
   %60 = getelementptr inbounds i32, ptr %53, i64 %59
-  %61 = load i32, ptr %60, align 4, !tbaa !107
+  %61 = load i32, ptr %60, align 4, !tbaa !109
   %62 = icmp slt i32 %55, %58
   br i1 %62, label %63, label %66
 
@@ -4984,7 +4991,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
 
 73:                                               ; preds = %72
   %74 = add nuw nsw i64 %51, 1
-  %75 = load i32, ptr %21, align 8, !tbaa !90
+  %75 = load i32, ptr %21, align 8, !tbaa !92
   %76 = sext i32 %75 to i64
   %77 = icmp slt i64 %74, %76
   br i1 %77, label %50, label %40
@@ -4994,7 +5001,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
           to label %79 unwind label %46
 
 79:                                               ; preds = %78
-  %80 = load ptr, ptr %28, align 8, !tbaa !101
+  %80 = load ptr, ptr %28, align 8, !tbaa !103
   %81 = icmp eq ptr %80, null
   %82 = load i8, ptr %27, align 8
   %83 = icmp eq i8 %82, 0
@@ -5006,11 +5013,11 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
           to label %86 unwind label %93
 
 86:                                               ; preds = %85, %79
-  store i8 1, ptr %27, align 8, !tbaa !98
-  store ptr null, ptr %28, align 8, !tbaa !101
-  store i32 0, ptr %29, align 4, !tbaa !102
-  store i32 0, ptr %30, align 8, !tbaa !103
-  %87 = load ptr, ptr %24, align 8, !tbaa !95
+  store i8 1, ptr %27, align 8, !tbaa !100
+  store ptr null, ptr %28, align 8, !tbaa !103
+  store i32 0, ptr %29, align 4, !tbaa !104
+  store i32 0, ptr %30, align 8, !tbaa !105
+  %87 = load ptr, ptr %24, align 8, !tbaa !97
   %88 = icmp eq ptr %87, null
   %89 = load i8, ptr %23, align 8
   %90 = icmp eq i8 %89, 0
@@ -5024,7 +5031,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
 93:                                               ; preds = %85
   %94 = landingpad { ptr, i32 }
           cleanup
-  %95 = load ptr, ptr %24, align 8, !tbaa !95
+  %95 = load ptr, ptr %24, align 8, !tbaa !97
   %96 = icmp eq ptr %95, null
   %97 = load i8, ptr %23, align 8
   %98 = icmp eq i8 %97, 0
@@ -5042,9 +5049,9 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
   call void @__clang_call_terminate(ptr %103) #19
   unreachable
 
-104:                                              ; preds = %86, %92
+104:                                              ; preds = %92, %86
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %6) #18
-  %105 = load ptr, ptr %17, align 8, !tbaa !84
+  %105 = load ptr, ptr %17, align 8, !tbaa !86
   %106 = icmp eq ptr %105, null
   %107 = load i8, ptr %16, align 8
   %108 = icmp eq i8 %107, 0
@@ -5056,11 +5063,11 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
           to label %111 unwind label %118
 
 111:                                              ; preds = %110, %104
-  store i8 1, ptr %16, align 8, !tbaa !81
-  store ptr null, ptr %17, align 8, !tbaa !84
-  store i32 0, ptr %18, align 4, !tbaa !85
-  store i32 0, ptr %19, align 8, !tbaa !86
-  %112 = load ptr, ptr %13, align 8, !tbaa !78
+  store i8 1, ptr %16, align 8, !tbaa !83
+  store ptr null, ptr %17, align 8, !tbaa !86
+  store i32 0, ptr %18, align 4, !tbaa !87
+  store i32 0, ptr %19, align 8, !tbaa !88
+  %112 = load ptr, ptr %13, align 8, !tbaa !80
   %113 = icmp eq ptr %112, null
   %114 = load i8, ptr %12, align 8
   %115 = icmp eq i8 %114, 0
@@ -5074,7 +5081,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
 118:                                              ; preds = %110
   %119 = landingpad { ptr, i32 }
           cleanup
-  %120 = load ptr, ptr %13, align 8, !tbaa !78
+  %120 = load ptr, ptr %13, align 8, !tbaa !80
   %121 = icmp eq ptr %120, null
   %122 = load i8, ptr %12, align 8
   %123 = icmp eq i8 %122, 0
@@ -5085,8 +5092,8 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %120)
           to label %126 unwind label %128
 
-126:                                              ; preds = %125, %118, %136
-  %127 = phi { ptr, i32 } [ %135, %136 ], [ %119, %118 ], [ %119, %125 ]
+126:                                              ; preds = %118, %125, %136
+  %127 = phi { ptr, i32 } [ %135, %136 ], [ %119, %125 ], [ %119, %118 ]
   resume { ptr, i32 } %127
 
 128:                                              ; preds = %125
@@ -5101,13 +5108,13 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromConvexHullER19bt
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #18
   ret ptr %33
 
-132:                                              ; preds = %48, %46, %64, %44
+132:                                              ; preds = %46, %64, %48, %44
   %133 = phi { ptr, i32 } [ %45, %44 ], [ %65, %64 ], [ %47, %46 ], [ %49, %48 ]
   invoke void @_ZN11HullLibraryD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %6)
           to label %134 unwind label %137
 
-134:                                              ; preds = %100, %93, %42, %132
-  %135 = phi { ptr, i32 } [ %133, %132 ], [ %43, %42 ], [ %94, %93 ], [ %94, %100 ]
+134:                                              ; preds = %93, %100, %42, %132
+  %135 = phi { ptr, i32 } [ %133, %132 ], [ %43, %42 ], [ %94, %100 ], [ %94, %93 ]
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %6) #18
   invoke void @_ZN10HullResultD2Ev(ptr noundef nonnull align 8 dereferenceable(80) %5)
           to label %136 unwind label %137
@@ -5146,9 +5153,9 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
   %15 = phi <4 x i32> [ zeroinitializer, %11 ], [ %21, %13 ]
   %16 = phi <4 x i32> [ zeroinitializer, %11 ], [ %22, %13 ]
   %17 = getelementptr inbounds i32, ptr %2, i64 %14
-  %18 = load <4 x i32>, ptr %17, align 4, !tbaa !107
+  %18 = load <4 x i32>, ptr %17, align 4, !tbaa !109
   %19 = getelementptr inbounds i32, ptr %17, i64 4
-  %20 = load <4 x i32>, ptr %19, align 4, !tbaa !107
+  %20 = load <4 x i32>, ptr %19, align 4, !tbaa !109
   %21 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %18, <4 x i32> %15)
   %22 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %20, <4 x i32> %16)
   %23 = add nuw i64 %14, 8
@@ -5170,7 +5177,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
   %33 = phi i64 [ %38, %32 ], [ %30, %29 ]
   %34 = phi i32 [ %37, %32 ], [ %31, %29 ]
   %35 = getelementptr inbounds i32, ptr %2, i64 %33
-  %36 = load i32, ptr %35, align 4, !tbaa !107
+  %36 = load i32, ptr %35, align 4, !tbaa !109
   %37 = tail call i32 @llvm.smax.i32(i32 %36, i32 %34)
   %38 = add nuw nsw i64 %33, 1
   %39 = icmp eq i64 %38, %9
@@ -5183,8 +5190,8 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
   %44 = zext i32 %43 to i64
   %45 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %44, i32 noundef 16)
   tail call void @llvm.memset.p0.i64(ptr align 1 %45, i8 0, i64 %44, i1 false), !tbaa !161
-  %46 = zext i32 %42 to i64
-  %47 = shl nuw nsw i64 %46, 4
+  %46 = sext i32 %42 to i64
+  %47 = shl nsw i64 %46, 4
   %48 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %47, i32 noundef 16)
           to label %49 unwind label %88
 
@@ -5215,7 +5222,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
   %69 = load <2 x float>, ptr %64, align 4, !tbaa !5
   store <2 x float> %69, ptr %68, align 4
   %70 = getelementptr inbounds i8, ptr %68, i64 8
-  store float %67, ptr %70, align 4, !tbaa.struct !53
+  store float %67, ptr %70, align 4, !tbaa.struct !55
   %71 = getelementptr inbounds i8, ptr %68, i64 12
   store float 0.000000e+00, ptr %71, align 4, !tbaa.struct !156
   %72 = or i64 %61, 1
@@ -5228,7 +5235,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
   %79 = load <2 x float>, ptr %74, align 4, !tbaa !5
   store <2 x float> %79, ptr %78, align 4
   %80 = getelementptr inbounds i8, ptr %78, i64 8
-  store float %77, ptr %80, align 4, !tbaa.struct !53
+  store float %77, ptr %80, align 4, !tbaa.struct !55
   %81 = getelementptr inbounds i8, ptr %78, i64 12
   store float 0.000000e+00, ptr %81, align 4, !tbaa.struct !156
   %82 = add nuw nsw i64 %61, 2
@@ -5245,7 +5252,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
 88:                                               ; preds = %40
   %89 = landingpad { ptr, i32 }
           cleanup
-  br label %176
+  br label %179
 
 90:                                               ; preds = %60, %49
   %91 = phi i64 [ 0, %49 ], [ %82, %60 ]
@@ -5262,7 +5269,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
   %100 = load <2 x float>, ptr %95, align 4, !tbaa !5
   store <2 x float> %100, ptr %99, align 4
   %101 = getelementptr inbounds i8, ptr %99, i64 8
-  store float %98, ptr %101, align 4, !tbaa.struct !53
+  store float %98, ptr %101, align 4, !tbaa.struct !55
   %102 = getelementptr inbounds i8, ptr %99, i64 12
   store float 0.000000e+00, ptr %102, align 4, !tbaa.struct !156
   br label %103
@@ -5281,18 +5288,18 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
 107:                                              ; preds = %106, %157
   %108 = phi i64 [ %158, %157 ], [ 0, %106 ]
   %109 = getelementptr inbounds i32, ptr %2, i64 %108
-  %110 = load i32, ptr %109, align 4, !tbaa !107
+  %110 = load i32, ptr %109, align 4, !tbaa !109
   %111 = add nuw nsw i64 %108, 1
   %112 = getelementptr inbounds i32, ptr %2, i64 %111
-  %113 = load i32, ptr %112, align 4, !tbaa !107
+  %113 = load i32, ptr %112, align 4, !tbaa !109
   %114 = add nuw nsw i64 %108, 2
   %115 = getelementptr inbounds i32, ptr %2, i64 %114
-  %116 = load i32, ptr %115, align 4, !tbaa !107
+  %116 = load i32, ptr %115, align 4, !tbaa !109
   %117 = mul nsw i32 %110, %42
   %118 = add nsw i32 %117, %116
   %119 = sext i32 %118 to i64
   %120 = getelementptr inbounds i8, ptr %45, i64 %119
-  %121 = load i8, ptr %120, align 1, !tbaa !161, !range !67, !noundef !68
+  %121 = load i8, ptr %120, align 1, !tbaa !161, !range !69, !noundef !70
   %122 = icmp eq i8 %121, 0
   br i1 %122, label %127, label %134
 
@@ -5305,7 +5312,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
   %126 = landingpad { ptr, i32 }
           cleanup
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef %104)
-          to label %174 unwind label %181
+          to label %174 unwind label %183
 
 127:                                              ; preds = %107
   store i8 1, ptr %120, align 1, !tbaa !161
@@ -5327,7 +5334,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
   %136 = add nsw i32 %135, %110
   %137 = sext i32 %136 to i64
   %138 = getelementptr inbounds i8, ptr %45, i64 %137
-  %139 = load i8, ptr %138, align 1, !tbaa !161, !range !67, !noundef !68
+  %139 = load i8, ptr %138, align 1, !tbaa !161, !range !69, !noundef !70
   %140 = icmp eq i8 %139, 0
   br i1 %140, label %141, label %145
 
@@ -5345,7 +5352,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
   %147 = add nsw i32 %146, %113
   %148 = sext i32 %147 to i64
   %149 = getelementptr inbounds i8, ptr %45, i64 %148
-  %150 = load i8, ptr %149, align 1, !tbaa !161, !range !67, !noundef !68
+  %150 = load i8, ptr %149, align 1, !tbaa !161, !range !69, !noundef !70
   %151 = icmp eq i8 %150, 0
   br i1 %151, label %152, label %156
 
@@ -5404,25 +5411,27 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers17CreateFromTriMeshER19btSof
 174:                                              ; preds = %125, %171
   %175 = phi { ptr, i32 } [ %172, %171 ], [ %126, %125 ]
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %48)
-          to label %176 unwind label %181
+          to label %176 unwind label %183
 
-176:                                              ; preds = %88, %171, %174, %86
-  %177 = phi { ptr, i32 } [ %87, %86 ], [ %172, %171 ], [ %175, %174 ], [ %89, %88 ]
+176:                                              ; preds = %171, %174, %86
+  %177 = phi { ptr, i32 } [ %87, %86 ], [ %175, %174 ], [ %172, %171 ]
   %178 = icmp eq ptr %45, null
-  br i1 %178, label %180, label %179
+  br i1 %178, label %181, label %179
 
-179:                                              ; preds = %176
+179:                                              ; preds = %88, %176
+  %180 = phi { ptr, i32 } [ %89, %88 ], [ %177, %176 ]
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %45)
-          to label %180 unwind label %181
+          to label %181 unwind label %183
 
-180:                                              ; preds = %176, %179
-  resume { ptr, i32 } %177
+181:                                              ; preds = %176, %179
+  %182 = phi { ptr, i32 } [ %177, %176 ], [ %180, %179 ]
+  resume { ptr, i32 } %182
 
-181:                                              ; preds = %179, %174, %125
-  %182 = landingpad { ptr, i32 }
+183:                                              ; preds = %179, %174, %125
+  %184 = landingpad { ptr, i32 }
           catch ptr null
-  %183 = extractvalue { ptr, i32 } %182, 0
-  tail call void @__clang_call_terminate(ptr %183) #19
+  %185 = extractvalue { ptr, i32 } %184, 0
+  tail call void @__clang_call_terminate(ptr %185) #19
   unreachable
 }
 
@@ -5444,16 +5453,16 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   %19 = alloca i32, align 4
   %20 = alloca [4 x i32], align 16
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #18
-  store i32 0, ptr %8, align 4, !tbaa !107
+  store i32 0, ptr %8, align 4, !tbaa !109
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %9) #18
-  store i32 0, ptr %9, align 4, !tbaa !107
+  store i32 0, ptr %9, align 4, !tbaa !109
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %10) #18
-  store i32 0, ptr %10, align 4, !tbaa !107
+  store i32 0, ptr %10, align 4, !tbaa !109
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %11) #18
-  store i32 0, ptr %11, align 4, !tbaa !107
+  store i32 0, ptr %11, align 4, !tbaa !109
   %21 = call i32 (ptr, ptr, ...) @sscanf(ptr noundef %3, ptr noundef nonnull @.str.2, ptr noundef nonnull %8, ptr noundef nonnull %9, ptr noundef nonnull %10, ptr noundef nonnull %11) #18
   %22 = call i32 (ptr, ptr, ...) @sscanf(ptr noundef %3, ptr noundef nonnull @.str.2, ptr noundef nonnull %8, ptr noundef nonnull %9, ptr noundef nonnull %10, ptr noundef nonnull %11) #18
-  %23 = load i8, ptr %3, align 1, !tbaa !51
+  %23 = load i8, ptr %3, align 1, !tbaa !53
   %24 = icmp eq i8 %23, 10
   br i1 %24, label %35, label %25
 
@@ -5462,7 +5471,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   %27 = phi ptr [ %28, %25 ], [ %3, %7 ]
   %28 = getelementptr inbounds i8, ptr %27, i64 1
   %29 = add nuw nsw i32 %26, 1
-  %30 = load i8, ptr %28, align 1, !tbaa !51
+  %30 = load i8, ptr %28, align 1, !tbaa !53
   %31 = icmp eq i8 %30, 10
   br i1 %31, label %32, label %25
 
@@ -5473,32 +5482,32 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
 
 35:                                               ; preds = %7, %32
   %36 = phi i64 [ 1, %7 ], [ %34, %32 ]
-  %37 = load i32, ptr %8, align 4, !tbaa !107
-  %38 = icmp sgt i32 %37, 0
-  br i1 %38, label %39, label %44
+  %37 = load i32, ptr %8, align 4, !tbaa !109
+  %38 = icmp slt i32 %37, 1
+  br i1 %38, label %44, label %39
 
 39:                                               ; preds = %35
-  %40 = zext i32 %37 to i64
-  %41 = shl nuw nsw i64 %40, 4
-  %42 = call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %41, i32 noundef 16)
-  %43 = getelementptr inbounds i8, ptr %3, i64 %36
+  %40 = getelementptr inbounds i8, ptr %3, i64 %36
+  %41 = zext i32 %37 to i64
+  %42 = shl nuw nsw i64 %41, 4
+  %43 = call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %42, i32 noundef 16)
   br label %47
 
 44:                                               ; preds = %62, %35
-  %45 = phi ptr [ null, %35 ], [ %42, %62 ]
+  %45 = phi ptr [ null, %35 ], [ %43, %62 ]
   %46 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 1496, i32 noundef 16)
           to label %76 unwind label %107
 
 47:                                               ; preds = %39, %62
   %48 = phi i32 [ %74, %62 ], [ 0, %39 ]
-  %49 = phi ptr [ %65, %62 ], [ %43, %39 ]
+  %49 = phi ptr [ %65, %62 ], [ %40, %39 ]
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %12) #18
-  store i32 0, ptr %12, align 4, !tbaa !107
+  store i32 0, ptr %12, align 4, !tbaa !109
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %13) #18
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %14) #18
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %15) #18
   %50 = call i32 (ptr, ptr, ...) @sscanf(ptr noundef %49, ptr noundef nonnull @.str.3, ptr noundef nonnull %12, ptr noundef nonnull %13, ptr noundef nonnull %14, ptr noundef nonnull %15) #18
-  %51 = load i8, ptr %49, align 1, !tbaa !51
+  %51 = load i8, ptr %49, align 1, !tbaa !53
   %52 = icmp eq i8 %51, 10
   br i1 %52, label %62, label %53
 
@@ -5507,7 +5516,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   %55 = phi ptr [ %56, %53 ], [ %49, %47 ]
   %56 = getelementptr inbounds i8, ptr %55, i64 1
   %57 = add nuw nsw i32 %54, 1
-  %58 = load i8, ptr %56, align 1, !tbaa !51
+  %58 = load i8, ptr %56, align 1, !tbaa !53
   %59 = icmp eq i8 %58, 10
   br i1 %59, label %60, label %53
 
@@ -5519,16 +5528,16 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   %63 = phi i32 [ 1, %47 ], [ %61, %60 ]
   %64 = sext i32 %63 to i64
   %65 = getelementptr inbounds i8, ptr %49, i64 %64
-  %66 = load i32, ptr %12, align 4, !tbaa !107
+  %66 = load i32, ptr %12, align 4, !tbaa !109
   %67 = sext i32 %66 to i64
-  %68 = getelementptr inbounds %class.btVector3, ptr %42, i64 %67
+  %68 = getelementptr inbounds %class.btVector3, ptr %43, i64 %67
   %69 = load float, ptr %13, align 4, !tbaa !5
   store float %69, ptr %68, align 4, !tbaa !5
   %70 = load float, ptr %14, align 4, !tbaa !5
-  %71 = getelementptr inbounds [4 x float], ptr %68, i64 0, i64 1
+  %71 = getelementptr inbounds %class.btVector3, ptr %43, i64 %67, i32 0, i64 1
   store float %70, ptr %71, align 4, !tbaa !5
   %72 = load float, ptr %15, align 4, !tbaa !5
-  %73 = getelementptr inbounds [4 x float], ptr %68, i64 0, i64 2
+  %73 = getelementptr inbounds %class.btVector3, ptr %43, i64 %67, i32 0, i64 2
   store float %72, ptr %73, align 4, !tbaa !5
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %15) #18
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %14) #18
@@ -5539,8 +5548,8 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   br i1 %75, label %44, label %47
 
 76:                                               ; preds = %44
-  %77 = load i32, ptr %8, align 4, !tbaa !107
-  invoke void @_ZN10btSoftBodyC1EP19btSoftBodyWorldInfoiPK9btVector3PKf(ptr noundef nonnull align 8 dereferenceable(1496) %46, ptr noundef nonnull %0, i32 noundef %77, ptr noundef nonnull %45, ptr noundef null)
+  %77 = load i32, ptr %8, align 4, !tbaa !109
+  invoke void @_ZN10btSoftBodyC1EP19btSoftBodyWorldInfoiPK9btVector3PKf(ptr noundef nonnull align 8 dereferenceable(1496) %46, ptr noundef nonnull %0, i32 noundef %77, ptr noundef %45, ptr noundef null)
           to label %78 unwind label %109
 
 78:                                               ; preds = %76
@@ -5548,19 +5557,19 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   br i1 %79, label %159, label %80
 
 80:                                               ; preds = %78
-  %81 = load i8, ptr %1, align 1, !tbaa !51
+  %81 = load i8, ptr %1, align 1, !tbaa !53
   %82 = icmp eq i8 %81, 0
   br i1 %82, label %159, label %83
 
 83:                                               ; preds = %80
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %16) #18
-  store i32 0, ptr %16, align 4, !tbaa !107
+  store i32 0, ptr %16, align 4, !tbaa !109
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %17) #18
-  store i32 0, ptr %17, align 4, !tbaa !107
+  store i32 0, ptr %17, align 4, !tbaa !109
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %18) #18
-  store i32 0, ptr %18, align 4, !tbaa !107
+  store i32 0, ptr %18, align 4, !tbaa !109
   %84 = call i32 (ptr, ptr, ...) @sscanf(ptr noundef nonnull %1, ptr noundef nonnull @.str.4, ptr noundef nonnull %16, ptr noundef nonnull %17, ptr noundef nonnull %18) #18
-  %85 = load i8, ptr %1, align 1, !tbaa !51
+  %85 = load i8, ptr %1, align 1, !tbaa !53
   %86 = icmp eq i8 %85, 10
   br i1 %86, label %97, label %87
 
@@ -5569,7 +5578,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   %89 = phi ptr [ %90, %87 ], [ %1, %83 ]
   %90 = getelementptr inbounds i8, ptr %89, i64 1
   %91 = add nuw nsw i32 %88, 1
-  %92 = load i8, ptr %90, align 1, !tbaa !51
+  %92 = load i8, ptr %90, align 1, !tbaa !53
   %93 = icmp eq i8 %92, 10
   br i1 %93, label %94, label %87
 
@@ -5580,7 +5589,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
 
 97:                                               ; preds = %83, %94
   %98 = phi i64 [ 1, %83 ], [ %96, %94 ]
-  %99 = load i32, ptr %16, align 4, !tbaa !107
+  %99 = load i32, ptr %16, align 4, !tbaa !109
   %100 = icmp sgt i32 %99, 0
   br i1 %100, label %101, label %106
 
@@ -5612,10 +5621,10 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   %112 = phi i32 [ 0, %101 ], [ %156, %155 ]
   %113 = phi ptr [ %102, %101 ], [ %129, %155 ]
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %19) #18
-  store i32 0, ptr %19, align 4, !tbaa !107
+  store i32 0, ptr %19, align 4, !tbaa !109
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %20) #18
   %114 = call i32 (ptr, ptr, ...) @sscanf(ptr noundef %113, ptr noundef nonnull @.str.5, ptr noundef nonnull %19, ptr noundef nonnull %20, ptr noundef nonnull %103, ptr noundef nonnull %104, ptr noundef nonnull %105) #18
-  %115 = load i8, ptr %113, align 1, !tbaa !51
+  %115 = load i8, ptr %113, align 1, !tbaa !53
   %116 = icmp eq i8 %115, 10
   br i1 %116, label %126, label %117
 
@@ -5624,7 +5633,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   %119 = phi ptr [ %120, %117 ], [ %113, %111 ]
   %120 = getelementptr inbounds i8, ptr %119, i64 1
   %121 = add nuw nsw i32 %118, 1
-  %122 = load i8, ptr %120, align 1, !tbaa !51
+  %122 = load i8, ptr %120, align 1, !tbaa !53
   %123 = icmp eq i8 %122, 10
   br i1 %123, label %124, label %117
 
@@ -5636,10 +5645,10 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   %127 = phi i32 [ 1, %111 ], [ %125, %124 ]
   %128 = sext i32 %127 to i64
   %129 = getelementptr inbounds i8, ptr %113, i64 %128
-  %130 = load i32, ptr %20, align 16, !tbaa !107
-  %131 = load i32, ptr %103, align 4, !tbaa !107
-  %132 = load i32, ptr %104, align 8, !tbaa !107
-  %133 = load i32, ptr %105, align 4, !tbaa !107
+  %130 = load i32, ptr %20, align 16, !tbaa !109
+  %131 = load i32, ptr %103, align 4, !tbaa !109
+  %132 = load i32, ptr %104, align 8, !tbaa !109
+  %133 = load i32, ptr %105, align 4, !tbaa !109
   invoke void @_ZN10btSoftBody11appendTetraEiiiiPNS_8MaterialE(ptr noundef nonnull align 8 dereferenceable(1496) %46, i32 noundef %130, i32 noundef %131, i32 noundef %132, i32 noundef %133, ptr noundef null)
           to label %134 unwind label %153
 
@@ -5647,38 +5656,38 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   br i1 %5, label %135, label %155
 
 135:                                              ; preds = %134
-  %136 = load i32, ptr %20, align 16, !tbaa !107
-  %137 = load i32, ptr %103, align 4, !tbaa !107
+  %136 = load i32, ptr %20, align 16, !tbaa !109
+  %137 = load i32, ptr %103, align 4, !tbaa !109
   invoke void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %46, i32 noundef %136, i32 noundef %137, ptr noundef null, i1 noundef zeroext true)
           to label %138 unwind label %153
 
 138:                                              ; preds = %135
-  %139 = load i32, ptr %103, align 4, !tbaa !107
-  %140 = load i32, ptr %104, align 8, !tbaa !107
+  %139 = load i32, ptr %103, align 4, !tbaa !109
+  %140 = load i32, ptr %104, align 8, !tbaa !109
   invoke void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %46, i32 noundef %139, i32 noundef %140, ptr noundef null, i1 noundef zeroext true)
           to label %141 unwind label %153
 
 141:                                              ; preds = %138
-  %142 = load i32, ptr %104, align 8, !tbaa !107
-  %143 = load i32, ptr %20, align 16, !tbaa !107
+  %142 = load i32, ptr %104, align 8, !tbaa !109
+  %143 = load i32, ptr %20, align 16, !tbaa !109
   invoke void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %46, i32 noundef %142, i32 noundef %143, ptr noundef null, i1 noundef zeroext true)
           to label %144 unwind label %153
 
 144:                                              ; preds = %141
-  %145 = load i32, ptr %20, align 16, !tbaa !107
-  %146 = load i32, ptr %105, align 4, !tbaa !107
+  %145 = load i32, ptr %20, align 16, !tbaa !109
+  %146 = load i32, ptr %105, align 4, !tbaa !109
   invoke void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %46, i32 noundef %145, i32 noundef %146, ptr noundef null, i1 noundef zeroext true)
           to label %147 unwind label %153
 
 147:                                              ; preds = %144
-  %148 = load i32, ptr %103, align 4, !tbaa !107
-  %149 = load i32, ptr %105, align 4, !tbaa !107
+  %148 = load i32, ptr %103, align 4, !tbaa !109
+  %149 = load i32, ptr %105, align 4, !tbaa !109
   invoke void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %46, i32 noundef %148, i32 noundef %149, ptr noundef null, i1 noundef zeroext true)
           to label %150 unwind label %153
 
 150:                                              ; preds = %147
-  %151 = load i32, ptr %104, align 8, !tbaa !107
-  %152 = load i32, ptr %105, align 4, !tbaa !107
+  %151 = load i32, ptr %104, align 8, !tbaa !109
+  %152 = load i32, ptr %105, align 4, !tbaa !109
   invoke void @_ZN10btSoftBody10appendLinkEiiPNS_8MaterialEb(ptr noundef nonnull align 8 dereferenceable(1496) %46, i32 noundef %151, i32 noundef %152, ptr noundef null, i1 noundef zeroext true)
           to label %155 unwind label %153
 
@@ -5696,7 +5705,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %20) #18
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %19) #18
   %156 = add nuw nsw i32 %112, 1
-  %157 = load i32, ptr %16, align 4, !tbaa !107
+  %157 = load i32, ptr %16, align 4, !tbaa !109
   %158 = icmp slt i32 %156, %157
   br i1 %158, label %111, label %106
 
@@ -5708,10 +5717,10 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
   %164 = load i32, ptr %163, align 4, !tbaa !23
   %165 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %164)
   %166 = getelementptr inbounds %class.btSoftBody, ptr %46, i64 0, i32 11, i32 2
-  %167 = load i32, ptr %166, align 4, !tbaa !46
+  %167 = load i32, ptr %166, align 4, !tbaa !48
   %168 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %167)
   %169 = getelementptr inbounds %class.btSoftBody, ptr %46, i64 0, i32 12, i32 2
-  %170 = load i32, ptr %169, align 4, !tbaa !108
+  %170 = load i32, ptr %169, align 4, !tbaa !110
   %171 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %170)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %11) #18
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %10) #18
@@ -5727,7 +5736,7 @@ define dso_local noundef ptr @_ZN17btSoftBodyHelpers20CreateFromTetGenDataER19bt
 174:                                              ; preds = %159, %173
   ret ptr %46
 
-175:                                              ; preds = %109, %107, %153
+175:                                              ; preds = %107, %153, %109
   %176 = phi { ptr, i32 } [ %154, %153 ], [ %108, %107 ], [ %110, %109 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %11) #18
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %10) #18
@@ -5768,7 +5777,7 @@ declare float @sqrtf(float noundef) local_unnamed_addr #16
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP14btHullTriangleED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %0) unnamed_addr #8 comdat align 2 {
   %2 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %0, i64 0, i32 5
-  %3 = load ptr, ptr %2, align 8, !tbaa !95
+  %3 = load ptr, ptr %2, align 8, !tbaa !97
   %4 = icmp eq ptr %3, null
   %5 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %0, i64 0, i32 6
   %6 = load i8, ptr %5, align 8
@@ -5781,12 +5790,12 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP14btHullTriangleE
   br label %10
 
 10:                                               ; preds = %1, %9
+  store i8 1, ptr %5, align 8, !tbaa !94
+  store ptr null, ptr %2, align 8, !tbaa !97
   %11 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %0, i64 0, i32 2
-  store i8 1, ptr %5, align 8, !tbaa !92
-  store ptr null, ptr %2, align 8, !tbaa !95
-  store i32 0, ptr %11, align 4, !tbaa !96
+  store i32 0, ptr %11, align 4, !tbaa !98
   %12 = getelementptr inbounds %class.btAlignedObjectArray.88, ptr %0, i64 0, i32 3
-  store i32 0, ptr %12, align 8, !tbaa !97
+  store i32 0, ptr %12, align 8, !tbaa !99
   ret void
 }
 
@@ -5808,11 +5817,11 @@ define linkonce_odr dso_local noundef nonnull align 4 dereferenceable(64) ptr @_
           to label %8 unwind label %13
 
 8:                                                ; preds = %6
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZN11btTransform11getIdentityEvE17identityTransform, ptr noundef nonnull align 4 dereferenceable(16) %7, i64 16, i1 false), !tbaa.struct !50
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) @_ZZN11btTransform11getIdentityEvE17identityTransform, ptr noundef nonnull align 4 dereferenceable(16) %7, i64 16, i1 false), !tbaa.struct !52
   %9 = getelementptr inbounds [3 x %class.btVector3], ptr %7, i64 0, i64 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZN11btTransform11getIdentityEvE17identityTransform, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %9, i64 16, i1 false), !tbaa.struct !50
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZN11btTransform11getIdentityEvE17identityTransform, i64 0, i32 0, i32 0, i64 1), ptr noundef nonnull align 4 dereferenceable(16) %9, i64 16, i1 false), !tbaa.struct !52
   %10 = getelementptr inbounds [3 x %class.btVector3], ptr %7, i64 0, i64 2
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZN11btTransform11getIdentityEvE17identityTransform, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %10, i64 16, i1 false), !tbaa.struct !50
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZN11btTransform11getIdentityEvE17identityTransform, i64 0, i32 0, i32 0, i64 2), ptr noundef nonnull align 4 dereferenceable(16) %10, i64 16, i1 false), !tbaa.struct !52
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) getelementptr inbounds (%class.btTransform, ptr @_ZZN11btTransform11getIdentityEvE17identityTransform, i64 0, i32 1), i8 0, i64 16, i1 false)
   %11 = tail call ptr @llvm.invariant.start.p0(i64 64, ptr nonnull @_ZZN11btTransform11getIdentityEvE17identityTransform)
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN11btTransform11getIdentityEvE17identityTransform) #18
@@ -5948,117 +5957,117 @@ attributes #21 = { builtin nounwind }
 !43 = !{!44, !13, i64 24}
 !44 = !{!"_ZTSN10btSoftBody6AnchorE", !13, i64 0, !36, i64 8, !13, i64 24, !37, i64 32, !36, i64 80, !6, i64 96}
 !45 = !{!44, !13, i64 0}
-!46 = !{!47, !12, i64 4}
-!47 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody4FaceEE", !48, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!48 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody4FaceELj16EE"}
-!49 = !{!47, !13, i64 16}
-!50 = !{i64 0, i64 16, !51}
-!51 = !{!7, !7, i64 0}
-!52 = !{i64 0, i64 12, !51}
-!53 = !{i64 0, i64 8, !51}
-!54 = !{!55, !12, i64 4}
-!55 = !{!"_ZTS20btAlignedObjectArrayIPN10btSoftBody7ClusterEE", !56, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!56 = !{!"_ZTS18btAlignedAllocatorIPN10btSoftBody7ClusterELj16EE"}
-!57 = !{!55, !13, i64 16}
-!58 = !{!59, !14, i64 417}
-!59 = !{!"_ZTSN10btSoftBody7ClusterE", !60, i64 0, !62, i64 32, !64, i64 64, !66, i64 96, !6, i64 160, !6, i64 164, !37, i64 168, !37, i64 216, !36, i64 264, !7, i64 280, !7, i64 312, !12, i64 344, !12, i64 348, !36, i64 352, !36, i64 368, !13, i64 384, !6, i64 392, !6, i64 396, !6, i64 400, !6, i64 404, !6, i64 408, !6, i64 412, !14, i64 416, !14, i64 417, !12, i64 420}
-!60 = !{!"_ZTS20btAlignedObjectArrayIPN10btSoftBody4NodeEE", !61, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!61 = !{!"_ZTS18btAlignedAllocatorIPN10btSoftBody4NodeELj16EE"}
-!62 = !{!"_ZTS20btAlignedObjectArrayIfE", !63, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!63 = !{!"_ZTS18btAlignedAllocatorIfLj16EE"}
-!64 = !{!"_ZTS20btAlignedObjectArrayI9btVector3E", !65, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!65 = !{!"_ZTS18btAlignedAllocatorI9btVector3Lj16EE"}
-!66 = !{!"_ZTS11btTransform", !37, i64 0, !36, i64 48}
-!67 = !{i8 0, i8 2}
-!68 = !{}
-!69 = !{!60, !12, i64 4}
-!70 = !{!60, !13, i64 16}
-!71 = !{!72, !12, i64 0}
-!72 = !{!"_ZTS8HullDesc", !12, i64 0, !12, i64 4, !13, i64 8, !12, i64 16, !6, i64 20, !12, i64 24, !12, i64 28}
-!73 = !{!72, !12, i64 4}
-!74 = !{!72, !13, i64 8}
-!75 = !{!72, !12, i64 16}
-!76 = !{!72, !6, i64 20}
-!77 = !{!64, !14, i64 24}
-!78 = !{!64, !13, i64 16}
-!79 = !{!64, !12, i64 4}
-!80 = !{!64, !12, i64 8}
-!81 = !{!82, !14, i64 24}
-!82 = !{!"_ZTS20btAlignedObjectArrayIjE", !83, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!83 = !{!"_ZTS18btAlignedAllocatorIjLj16EE"}
-!84 = !{!82, !13, i64 16}
-!85 = !{!82, !12, i64 4}
-!86 = !{!82, !12, i64 8}
-!87 = !{!88, !14, i64 0}
-!88 = !{!"_ZTS10HullResult", !14, i64 0, !12, i64 4, !64, i64 8, !12, i64 40, !12, i64 44, !82, i64 48}
-!89 = !{!88, !12, i64 4}
-!90 = !{!88, !12, i64 40}
-!91 = !{!88, !12, i64 44}
-!92 = !{!93, !14, i64 24}
-!93 = !{!"_ZTS20btAlignedObjectArrayIP14btHullTriangleE", !94, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!94 = !{!"_ZTS18btAlignedAllocatorIP14btHullTriangleLj16EE"}
-!95 = !{!93, !13, i64 16}
-!96 = !{!93, !12, i64 4}
-!97 = !{!93, !12, i64 8}
-!98 = !{!99, !14, i64 24}
-!99 = !{!"_ZTS20btAlignedObjectArrayIiE", !100, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!100 = !{!"_ZTS18btAlignedAllocatorIiLj16EE"}
-!101 = !{!99, !13, i64 16}
-!102 = !{!99, !12, i64 4}
-!103 = !{!99, !12, i64 8}
-!104 = !{!72, !12, i64 24}
-!105 = distinct !{!105, !106}
-!106 = !{!"llvm.loop.unroll.disable"}
-!107 = !{!12, !12, i64 0}
-!108 = !{!109, !12, i64 4}
-!109 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody5TetraEE", !110, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!110 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody5TetraELj16EE"}
-!111 = !{!109, !13, i64 16}
-!112 = !{!113, !12, i64 4}
-!113 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody4NoteEE", !114, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!114 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody4NoteELj16EE"}
-!115 = !{!113, !13, i64 16}
-!116 = !{!117, !12, i64 32}
-!117 = !{!"_ZTSN10btSoftBody4NoteE", !18, i64 0, !13, i64 8, !36, i64 16, !12, i64 32, !7, i64 40, !7, i64 72}
-!118 = !{!117, !13, i64 8}
-!119 = !{!120, !13, i64 1144}
-!120 = !{!"_ZTS10btSoftBody", !121, i64 0, !122, i64 280, !124, i64 312, !130, i64 512, !131, i64 536, !13, i64 768, !13, i64 776, !113, i64 784, !10, i64 816, !24, i64 848, !47, i64 880, !109, i64 912, !40, i64 944, !30, i64 976, !132, i64 1008, !134, i64 1040, !136, i64 1072, !6, i64 1104, !7, i64 1108, !14, i64 1140, !138, i64 1144, !138, i64 1208, !138, i64 1272, !55, i64 1336, !141, i64 1368, !66, i64 1400, !99, i64 1464}
-!121 = !{!"_ZTS17btCollisionObject", !66, i64 8, !66, i64 72, !36, i64 136, !36, i64 152, !36, i64 168, !14, i64 184, !6, i64 188, !13, i64 192, !13, i64 200, !13, i64 208, !12, i64 216, !12, i64 220, !12, i64 224, !12, i64 228, !6, i64 232, !6, i64 236, !6, i64 240, !13, i64 248, !12, i64 256, !6, i64 260, !6, i64 264, !6, i64 268, !14, i64 272, !7, i64 273}
-!122 = !{!"_ZTS20btAlignedObjectArrayIP17btCollisionObjectE", !123, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!123 = !{!"_ZTS18btAlignedAllocatorIP17btCollisionObjectLj16EE"}
-!124 = !{!"_ZTSN10btSoftBody6ConfigE", !125, i64 0, !6, i64 4, !6, i64 8, !6, i64 12, !6, i64 16, !6, i64 20, !6, i64 24, !6, i64 28, !6, i64 32, !6, i64 36, !6, i64 40, !6, i64 44, !6, i64 48, !6, i64 52, !6, i64 56, !6, i64 60, !6, i64 64, !6, i64 68, !6, i64 72, !6, i64 76, !6, i64 80, !12, i64 84, !12, i64 88, !12, i64 92, !12, i64 96, !12, i64 100, !126, i64 104, !128, i64 136, !128, i64 168}
-!125 = !{!"_ZTSN10btSoftBody10eAeroModel1_E", !7, i64 0}
-!126 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody8eVSolver1_EE", !127, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!127 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody8eVSolver1_ELj16EE"}
-!128 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody8ePSolver1_EE", !129, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!129 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody8ePSolver1_ELj16EE"}
-!130 = !{!"_ZTSN10btSoftBody11SolverStateE", !6, i64 0, !6, i64 4, !6, i64 8, !6, i64 12, !6, i64 16}
-!131 = !{!"_ZTSN10btSoftBody4PoseE", !14, i64 0, !14, i64 1, !6, i64 4, !64, i64 8, !62, i64 40, !36, i64 72, !37, i64 88, !37, i64 136, !37, i64 184}
-!132 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody8SContactEE", !133, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!133 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody8SContactELj16EE"}
-!134 = !{!"_ZTS20btAlignedObjectArrayIPN10btSoftBody5JointEE", !135, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!135 = !{!"_ZTS18btAlignedAllocatorIPN10btSoftBody5JointELj16EE"}
-!136 = !{!"_ZTS20btAlignedObjectArrayIPN10btSoftBody8MaterialEE", !137, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!137 = !{!"_ZTS18btAlignedAllocatorIPN10btSoftBody8MaterialELj16EE"}
-!138 = !{!"_ZTS6btDbvt", !13, i64 0, !13, i64 8, !12, i64 16, !12, i64 20, !12, i64 24, !139, i64 32}
-!139 = !{!"_ZTS20btAlignedObjectArrayIN6btDbvt6sStkNNEE", !140, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!140 = !{!"_ZTS18btAlignedAllocatorIN6btDbvt6sStkNNELj16EE"}
-!141 = !{!"_ZTS20btAlignedObjectArrayIbE", !142, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
-!142 = !{!"_ZTS18btAlignedAllocatorIbLj16EE"}
-!143 = !{!120, !13, i64 1208}
-!144 = !{!120, !13, i64 1272}
-!145 = !{!134, !12, i64 4}
-!146 = !{!134, !13, i64 16}
-!147 = !{!148, !13, i64 16}
-!148 = !{!"_ZTSN10btSoftBody4BodyE", !13, i64 0, !13, i64 8, !13, i64 16}
-!149 = !{!150, !6, i64 96}
-!150 = !{!"_ZTSN10btSoftBody4NodeE", !17, i64 0, !36, i64 16, !36, i64 32, !36, i64 48, !36, i64 64, !36, i64 80, !6, i64 96, !6, i64 100, !13, i64 104, !12, i64 112}
-!151 = !{!150, !6, i64 100}
-!152 = !{!120, !14, i64 537}
+!46 = !{!47, !6, i64 96}
+!47 = !{!"_ZTSN10btSoftBody4NodeE", !17, i64 0, !36, i64 16, !36, i64 32, !36, i64 48, !36, i64 64, !36, i64 80, !6, i64 96, !6, i64 100, !13, i64 104, !12, i64 112}
+!48 = !{!49, !12, i64 4}
+!49 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody4FaceEE", !50, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!50 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody4FaceELj16EE"}
+!51 = !{!49, !13, i64 16}
+!52 = !{i64 0, i64 16, !53}
+!53 = !{!7, !7, i64 0}
+!54 = !{i64 0, i64 12, !53}
+!55 = !{i64 0, i64 8, !53}
+!56 = !{!57, !12, i64 4}
+!57 = !{!"_ZTS20btAlignedObjectArrayIPN10btSoftBody7ClusterEE", !58, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!58 = !{!"_ZTS18btAlignedAllocatorIPN10btSoftBody7ClusterELj16EE"}
+!59 = !{!57, !13, i64 16}
+!60 = !{!61, !14, i64 417}
+!61 = !{!"_ZTSN10btSoftBody7ClusterE", !62, i64 0, !64, i64 32, !66, i64 64, !68, i64 96, !6, i64 160, !6, i64 164, !37, i64 168, !37, i64 216, !36, i64 264, !7, i64 280, !7, i64 312, !12, i64 344, !12, i64 348, !36, i64 352, !36, i64 368, !13, i64 384, !6, i64 392, !6, i64 396, !6, i64 400, !6, i64 404, !6, i64 408, !6, i64 412, !14, i64 416, !14, i64 417, !12, i64 420}
+!62 = !{!"_ZTS20btAlignedObjectArrayIPN10btSoftBody4NodeEE", !63, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!63 = !{!"_ZTS18btAlignedAllocatorIPN10btSoftBody4NodeELj16EE"}
+!64 = !{!"_ZTS20btAlignedObjectArrayIfE", !65, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!65 = !{!"_ZTS18btAlignedAllocatorIfLj16EE"}
+!66 = !{!"_ZTS20btAlignedObjectArrayI9btVector3E", !67, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!67 = !{!"_ZTS18btAlignedAllocatorI9btVector3Lj16EE"}
+!68 = !{!"_ZTS11btTransform", !37, i64 0, !36, i64 48}
+!69 = !{i8 0, i8 2}
+!70 = !{}
+!71 = !{!62, !12, i64 4}
+!72 = !{!62, !13, i64 16}
+!73 = !{!74, !12, i64 0}
+!74 = !{!"_ZTS8HullDesc", !12, i64 0, !12, i64 4, !13, i64 8, !12, i64 16, !6, i64 20, !12, i64 24, !12, i64 28}
+!75 = !{!74, !12, i64 4}
+!76 = !{!74, !13, i64 8}
+!77 = !{!74, !12, i64 16}
+!78 = !{!74, !6, i64 20}
+!79 = !{!66, !14, i64 24}
+!80 = !{!66, !13, i64 16}
+!81 = !{!66, !12, i64 4}
+!82 = !{!66, !12, i64 8}
+!83 = !{!84, !14, i64 24}
+!84 = !{!"_ZTS20btAlignedObjectArrayIjE", !85, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!85 = !{!"_ZTS18btAlignedAllocatorIjLj16EE"}
+!86 = !{!84, !13, i64 16}
+!87 = !{!84, !12, i64 4}
+!88 = !{!84, !12, i64 8}
+!89 = !{!90, !14, i64 0}
+!90 = !{!"_ZTS10HullResult", !14, i64 0, !12, i64 4, !66, i64 8, !12, i64 40, !12, i64 44, !84, i64 48}
+!91 = !{!90, !12, i64 4}
+!92 = !{!90, !12, i64 40}
+!93 = !{!90, !12, i64 44}
+!94 = !{!95, !14, i64 24}
+!95 = !{!"_ZTS20btAlignedObjectArrayIP14btHullTriangleE", !96, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!96 = !{!"_ZTS18btAlignedAllocatorIP14btHullTriangleLj16EE"}
+!97 = !{!95, !13, i64 16}
+!98 = !{!95, !12, i64 4}
+!99 = !{!95, !12, i64 8}
+!100 = !{!101, !14, i64 24}
+!101 = !{!"_ZTS20btAlignedObjectArrayIiE", !102, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!102 = !{!"_ZTS18btAlignedAllocatorIiLj16EE"}
+!103 = !{!101, !13, i64 16}
+!104 = !{!101, !12, i64 4}
+!105 = !{!101, !12, i64 8}
+!106 = !{!74, !12, i64 24}
+!107 = distinct !{!107, !108}
+!108 = !{!"llvm.loop.unroll.disable"}
+!109 = !{!12, !12, i64 0}
+!110 = !{!111, !12, i64 4}
+!111 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody5TetraEE", !112, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!112 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody5TetraELj16EE"}
+!113 = !{!111, !13, i64 16}
+!114 = !{!115, !12, i64 4}
+!115 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody4NoteEE", !116, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!116 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody4NoteELj16EE"}
+!117 = !{!115, !13, i64 16}
+!118 = !{!119, !12, i64 32}
+!119 = !{!"_ZTSN10btSoftBody4NoteE", !18, i64 0, !13, i64 8, !36, i64 16, !12, i64 32, !7, i64 40, !7, i64 72}
+!120 = !{!119, !13, i64 8}
+!121 = !{!122, !13, i64 1144}
+!122 = !{!"_ZTS10btSoftBody", !123, i64 0, !124, i64 280, !126, i64 312, !132, i64 512, !133, i64 536, !13, i64 768, !13, i64 776, !115, i64 784, !10, i64 816, !24, i64 848, !49, i64 880, !111, i64 912, !40, i64 944, !30, i64 976, !134, i64 1008, !136, i64 1040, !138, i64 1072, !6, i64 1104, !7, i64 1108, !14, i64 1140, !140, i64 1144, !140, i64 1208, !140, i64 1272, !57, i64 1336, !143, i64 1368, !68, i64 1400, !101, i64 1464}
+!123 = !{!"_ZTS17btCollisionObject", !68, i64 8, !68, i64 72, !36, i64 136, !36, i64 152, !36, i64 168, !14, i64 184, !6, i64 188, !13, i64 192, !13, i64 200, !13, i64 208, !12, i64 216, !12, i64 220, !12, i64 224, !12, i64 228, !6, i64 232, !6, i64 236, !6, i64 240, !13, i64 248, !12, i64 256, !6, i64 260, !6, i64 264, !6, i64 268, !14, i64 272, !7, i64 273}
+!124 = !{!"_ZTS20btAlignedObjectArrayIP17btCollisionObjectE", !125, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!125 = !{!"_ZTS18btAlignedAllocatorIP17btCollisionObjectLj16EE"}
+!126 = !{!"_ZTSN10btSoftBody6ConfigE", !127, i64 0, !6, i64 4, !6, i64 8, !6, i64 12, !6, i64 16, !6, i64 20, !6, i64 24, !6, i64 28, !6, i64 32, !6, i64 36, !6, i64 40, !6, i64 44, !6, i64 48, !6, i64 52, !6, i64 56, !6, i64 60, !6, i64 64, !6, i64 68, !6, i64 72, !6, i64 76, !6, i64 80, !12, i64 84, !12, i64 88, !12, i64 92, !12, i64 96, !12, i64 100, !128, i64 104, !130, i64 136, !130, i64 168}
+!127 = !{!"_ZTSN10btSoftBody10eAeroModel1_E", !7, i64 0}
+!128 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody8eVSolver1_EE", !129, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!129 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody8eVSolver1_ELj16EE"}
+!130 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody8ePSolver1_EE", !131, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!131 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody8ePSolver1_ELj16EE"}
+!132 = !{!"_ZTSN10btSoftBody11SolverStateE", !6, i64 0, !6, i64 4, !6, i64 8, !6, i64 12, !6, i64 16}
+!133 = !{!"_ZTSN10btSoftBody4PoseE", !14, i64 0, !14, i64 1, !6, i64 4, !66, i64 8, !64, i64 40, !36, i64 72, !37, i64 88, !37, i64 136, !37, i64 184}
+!134 = !{!"_ZTS20btAlignedObjectArrayIN10btSoftBody8SContactEE", !135, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!135 = !{!"_ZTS18btAlignedAllocatorIN10btSoftBody8SContactELj16EE"}
+!136 = !{!"_ZTS20btAlignedObjectArrayIPN10btSoftBody5JointEE", !137, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!137 = !{!"_ZTS18btAlignedAllocatorIPN10btSoftBody5JointELj16EE"}
+!138 = !{!"_ZTS20btAlignedObjectArrayIPN10btSoftBody8MaterialEE", !139, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!139 = !{!"_ZTS18btAlignedAllocatorIPN10btSoftBody8MaterialELj16EE"}
+!140 = !{!"_ZTS6btDbvt", !13, i64 0, !13, i64 8, !12, i64 16, !12, i64 20, !12, i64 24, !141, i64 32}
+!141 = !{!"_ZTS20btAlignedObjectArrayIN6btDbvt6sStkNNEE", !142, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!142 = !{!"_ZTS18btAlignedAllocatorIN6btDbvt6sStkNNELj16EE"}
+!143 = !{!"_ZTS20btAlignedObjectArrayIbE", !144, i64 0, !12, i64 4, !12, i64 8, !13, i64 16, !14, i64 24}
+!144 = !{!"_ZTS18btAlignedAllocatorIbLj16EE"}
+!145 = !{!122, !13, i64 1208}
+!146 = !{!122, !13, i64 1272}
+!147 = !{!136, !12, i64 4}
+!148 = !{!136, !13, i64 16}
+!149 = !{!150, !13, i64 16}
+!150 = !{!"_ZTSN10btSoftBody4BodyE", !13, i64 0, !13, i64 8, !13, i64 16}
+!151 = !{!47, !6, i64 100}
+!152 = !{!122, !14, i64 537}
 !153 = !{!154}
 !154 = distinct !{!154, !155, !"_ZmlRK11btMatrix3x3S1_: argument 0"}
 !155 = distinct !{!155, !"_ZmlRK11btMatrix3x3S1_"}
-!156 = !{i64 0, i64 4, !51}
+!156 = !{i64 0, i64 4, !53}
 !157 = distinct !{!157, !158, !159}
 !158 = !{!"llvm.loop.isvectorized", i32 1}
 !159 = !{!"llvm.loop.unroll.runtime.disable"}

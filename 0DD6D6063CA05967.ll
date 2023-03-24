@@ -275,11 +275,11 @@ define dso_local i32 @list_SortedInOrder(ptr noundef readonly %0, ptr nocapture 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_Merge(ptr noundef %0, ptr noundef %1, ptr nocapture noundef readonly %2) local_unnamed_addr #0 {
   %4 = icmp eq ptr %0, null
-  br i1 %4, label %49, label %5
+  br i1 %4, label %52, label %5
 
 5:                                                ; preds = %3
   %6 = icmp eq ptr %1, null
-  br i1 %6, label %49, label %7
+  br i1 %6, label %52, label %7
 
 7:                                                ; preds = %5
   %8 = getelementptr i8, ptr %0, i64 8
@@ -288,70 +288,68 @@ define dso_local ptr @list_Merge(ptr noundef %0, ptr noundef %1, ptr nocapture n
   %11 = load ptr, ptr %10, align 8
   %12 = tail call i32 %2(ptr noundef %9, ptr noundef %11) #8
   %13 = icmp eq i32 %12, 0
-  br i1 %13, label %14, label %16
+  br i1 %13, label %16, label %14
 
 14:                                               ; preds = %7
-  %15 = load ptr, ptr %1, align 8
-  br label %19
+  %15 = load ptr, ptr %0, align 8
+  br label %18
 
 16:                                               ; preds = %7
-  %17 = load ptr, ptr %0, align 8
-  %18 = icmp eq ptr %17, null
-  br i1 %18, label %44, label %19
+  %17 = load ptr, ptr %1, align 8
+  br label %18
 
-19:                                               ; preds = %14, %16
-  %20 = phi ptr [ %1, %14 ], [ %0, %16 ]
-  %21 = phi ptr [ %15, %14 ], [ %1, %16 ]
-  %22 = phi ptr [ %0, %14 ], [ %17, %16 ]
-  br label %23
+18:                                               ; preds = %16, %14
+  %19 = phi ptr [ %15, %14 ], [ %0, %16 ]
+  %20 = phi ptr [ %1, %14 ], [ %17, %16 ]
+  %21 = phi ptr [ %0, %14 ], [ %1, %16 ]
+  %22 = icmp eq ptr %19, null
+  %23 = icmp eq ptr %20, null
+  %24 = select i1 %22, i1 true, i1 %23
+  br i1 %24, label %46, label %25
 
-23:                                               ; preds = %19, %39
-  %24 = phi ptr [ %40, %39 ], [ %20, %19 ]
-  %25 = phi ptr [ %42, %39 ], [ %21, %19 ]
-  %26 = phi ptr [ %41, %39 ], [ %22, %19 ]
-  %27 = icmp eq ptr %25, null
-  br i1 %27, label %48, label %28
-
-28:                                               ; preds = %23
-  %29 = getelementptr i8, ptr %26, i64 8
+25:                                               ; preds = %18, %39
+  %26 = phi ptr [ %40, %39 ], [ %21, %18 ]
+  %27 = phi ptr [ %42, %39 ], [ %20, %18 ]
+  %28 = phi ptr [ %41, %39 ], [ %19, %18 ]
+  %29 = getelementptr i8, ptr %28, i64 8
   %30 = load ptr, ptr %29, align 8
-  %31 = getelementptr i8, ptr %25, i64 8
+  %31 = getelementptr i8, ptr %27, i64 8
   %32 = load ptr, ptr %31, align 8
   %33 = tail call i32 %2(ptr noundef %30, ptr noundef %32) #8
   %34 = icmp eq i32 %33, 0
   br i1 %34, label %37, label %35
 
-35:                                               ; preds = %28
-  store ptr %26, ptr %24, align 8
-  %36 = load ptr, ptr %26, align 8
+35:                                               ; preds = %25
+  store ptr %28, ptr %26, align 8
+  %36 = load ptr, ptr %28, align 8
   br label %39
 
-37:                                               ; preds = %28
-  store ptr %25, ptr %24, align 8
-  %38 = load ptr, ptr %25, align 8
+37:                                               ; preds = %25
+  store ptr %27, ptr %26, align 8
+  %38 = load ptr, ptr %27, align 8
   br label %39
 
 39:                                               ; preds = %37, %35
-  %40 = phi ptr [ %26, %35 ], [ %25, %37 ]
-  %41 = phi ptr [ %36, %35 ], [ %26, %37 ]
-  %42 = phi ptr [ %25, %35 ], [ %38, %37 ]
+  %40 = phi ptr [ %28, %35 ], [ %27, %37 ]
+  %41 = phi ptr [ %36, %35 ], [ %28, %37 ]
+  %42 = phi ptr [ %27, %35 ], [ %38, %37 ]
   %43 = icmp eq ptr %41, null
-  br i1 %43, label %44, label %23, !llvm.loop !15
+  %44 = icmp eq ptr %42, null
+  %45 = select i1 %43, i1 true, i1 %44
+  br i1 %45, label %46, label %25, !llvm.loop !15
 
-44:                                               ; preds = %39, %16
-  %45 = phi ptr [ %0, %16 ], [ %20, %39 ]
-  %46 = phi ptr [ %1, %16 ], [ %42, %39 ]
-  %47 = phi ptr [ %0, %16 ], [ %40, %39 ]
-  store ptr %46, ptr %47, align 8
-  br label %49
+46:                                               ; preds = %39, %18
+  %47 = phi ptr [ %19, %18 ], [ %41, %39 ]
+  %48 = phi ptr [ %20, %18 ], [ %42, %39 ]
+  %49 = phi ptr [ %21, %18 ], [ %40, %39 ]
+  %50 = phi i1 [ %22, %18 ], [ %43, %39 ]
+  %51 = select i1 %50, ptr %48, ptr %47
+  store ptr %51, ptr %49, align 8
+  br label %52
 
-48:                                               ; preds = %23
-  store ptr %26, ptr %24, align 8
-  br label %49
-
-49:                                               ; preds = %44, %48, %5, %3
-  %50 = phi ptr [ %1, %3 ], [ %0, %5 ], [ %20, %48 ], [ %45, %44 ]
-  ret ptr %50
+52:                                               ; preds = %5, %3, %46
+  %53 = phi ptr [ %21, %46 ], [ %1, %3 ], [ %0, %5 ]
+  ret ptr %53
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
@@ -407,12 +405,12 @@ define dso_local void @list_Split(ptr noundef %0, ptr nocapture noundef writeonl
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_MergeSort(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
   %3 = icmp eq ptr %0, null
-  br i1 %3, label %72, label %4
+  br i1 %3, label %75, label %4
 
 4:                                                ; preds = %2
   %5 = load ptr, ptr %0, align 8
   %6 = icmp eq ptr %5, null
-  br i1 %6, label %72, label %7
+  br i1 %6, label %75, label %7
 
 7:                                                ; preds = %4
   %8 = load ptr, ptr %5, align 8
@@ -437,18 +435,18 @@ define dso_local ptr @list_MergeSort(ptr noundef %0, ptr noundef %1) local_unnam
   %21 = icmp eq ptr %20, null
   br i1 %21, label %22, label %13, !llvm.loop !16
 
-22:                                               ; preds = %13, %16, %10, %7
-  %23 = phi ptr [ %5, %7 ], [ %5, %10 ], [ %19, %16 ], [ %19, %13 ]
-  %24 = phi ptr [ %0, %7 ], [ %0, %10 ], [ %18, %16 ], [ %18, %13 ]
+22:                                               ; preds = %16, %13, %10, %7
+  %23 = phi ptr [ %5, %7 ], [ %5, %10 ], [ %19, %13 ], [ %19, %16 ]
+  %24 = phi ptr [ %0, %7 ], [ %0, %10 ], [ %18, %13 ], [ %18, %16 ]
   store ptr null, ptr %24, align 8
   %25 = tail call ptr @list_MergeSort(ptr noundef nonnull %0, ptr noundef %1)
   %26 = tail call ptr @list_MergeSort(ptr noundef %23, ptr noundef %1)
   %27 = icmp eq ptr %25, null
-  br i1 %27, label %72, label %28
+  br i1 %27, label %75, label %28
 
 28:                                               ; preds = %22
   %29 = icmp eq ptr %26, null
-  br i1 %29, label %72, label %30
+  br i1 %29, label %75, label %30
 
 30:                                               ; preds = %28
   %31 = getelementptr i8, ptr %25, i64 8
@@ -457,70 +455,68 @@ define dso_local ptr @list_MergeSort(ptr noundef %0, ptr noundef %1) local_unnam
   %34 = load ptr, ptr %33, align 8
   %35 = tail call i32 %1(ptr noundef %32, ptr noundef %34) #8
   %36 = icmp eq i32 %35, 0
-  br i1 %36, label %37, label %39
+  br i1 %36, label %39, label %37
 
 37:                                               ; preds = %30
-  %38 = load ptr, ptr %26, align 8
-  br label %42
+  %38 = load ptr, ptr %25, align 8
+  br label %41
 
 39:                                               ; preds = %30
-  %40 = load ptr, ptr %25, align 8
-  %41 = icmp eq ptr %40, null
-  br i1 %41, label %67, label %42
+  %40 = load ptr, ptr %26, align 8
+  br label %41
 
-42:                                               ; preds = %39, %37
-  %43 = phi ptr [ %26, %37 ], [ %25, %39 ]
-  %44 = phi ptr [ %38, %37 ], [ %26, %39 ]
-  %45 = phi ptr [ %25, %37 ], [ %40, %39 ]
-  br label %46
+41:                                               ; preds = %39, %37
+  %42 = phi ptr [ %38, %37 ], [ %25, %39 ]
+  %43 = phi ptr [ %26, %37 ], [ %40, %39 ]
+  %44 = phi ptr [ %25, %37 ], [ %26, %39 ]
+  %45 = icmp eq ptr %42, null
+  %46 = icmp eq ptr %43, null
+  %47 = select i1 %45, i1 true, i1 %46
+  br i1 %47, label %69, label %48
 
-46:                                               ; preds = %62, %42
-  %47 = phi ptr [ %63, %62 ], [ %43, %42 ]
-  %48 = phi ptr [ %65, %62 ], [ %44, %42 ]
-  %49 = phi ptr [ %64, %62 ], [ %45, %42 ]
-  %50 = icmp eq ptr %48, null
-  br i1 %50, label %71, label %51
-
-51:                                               ; preds = %46
-  %52 = getelementptr i8, ptr %49, i64 8
+48:                                               ; preds = %41, %62
+  %49 = phi ptr [ %63, %62 ], [ %44, %41 ]
+  %50 = phi ptr [ %65, %62 ], [ %43, %41 ]
+  %51 = phi ptr [ %64, %62 ], [ %42, %41 ]
+  %52 = getelementptr i8, ptr %51, i64 8
   %53 = load ptr, ptr %52, align 8
-  %54 = getelementptr i8, ptr %48, i64 8
+  %54 = getelementptr i8, ptr %50, i64 8
   %55 = load ptr, ptr %54, align 8
   %56 = tail call i32 %1(ptr noundef %53, ptr noundef %55) #8
   %57 = icmp eq i32 %56, 0
   br i1 %57, label %60, label %58
 
-58:                                               ; preds = %51
-  store ptr %49, ptr %47, align 8
-  %59 = load ptr, ptr %49, align 8
+58:                                               ; preds = %48
+  store ptr %51, ptr %49, align 8
+  %59 = load ptr, ptr %51, align 8
   br label %62
 
-60:                                               ; preds = %51
-  store ptr %48, ptr %47, align 8
-  %61 = load ptr, ptr %48, align 8
+60:                                               ; preds = %48
+  store ptr %50, ptr %49, align 8
+  %61 = load ptr, ptr %50, align 8
   br label %62
 
 62:                                               ; preds = %60, %58
-  %63 = phi ptr [ %49, %58 ], [ %48, %60 ]
-  %64 = phi ptr [ %59, %58 ], [ %49, %60 ]
-  %65 = phi ptr [ %48, %58 ], [ %61, %60 ]
+  %63 = phi ptr [ %51, %58 ], [ %50, %60 ]
+  %64 = phi ptr [ %59, %58 ], [ %51, %60 ]
+  %65 = phi ptr [ %50, %58 ], [ %61, %60 ]
   %66 = icmp eq ptr %64, null
-  br i1 %66, label %67, label %46, !llvm.loop !15
+  %67 = icmp eq ptr %65, null
+  %68 = select i1 %66, i1 true, i1 %67
+  br i1 %68, label %69, label %48, !llvm.loop !15
 
-67:                                               ; preds = %62, %39
-  %68 = phi ptr [ %25, %39 ], [ %43, %62 ]
-  %69 = phi ptr [ %26, %39 ], [ %65, %62 ]
-  %70 = phi ptr [ %25, %39 ], [ %63, %62 ]
-  store ptr %69, ptr %70, align 8
-  br label %72
+69:                                               ; preds = %62, %41
+  %70 = phi ptr [ %42, %41 ], [ %64, %62 ]
+  %71 = phi ptr [ %43, %41 ], [ %65, %62 ]
+  %72 = phi ptr [ %44, %41 ], [ %63, %62 ]
+  %73 = phi i1 [ %45, %41 ], [ %66, %62 ]
+  %74 = select i1 %73, ptr %71, ptr %70
+  store ptr %74, ptr %72, align 8
+  br label %75
 
-71:                                               ; preds = %46
-  store ptr %49, ptr %47, align 8
-  br label %72
-
-72:                                               ; preds = %71, %67, %28, %22, %2, %4
-  %73 = phi ptr [ %0, %4 ], [ null, %2 ], [ %26, %22 ], [ %25, %28 ], [ %43, %71 ], [ %68, %67 ]
-  ret ptr %73
+75:                                               ; preds = %2, %4, %69, %28, %22
+  %76 = phi ptr [ %44, %69 ], [ %26, %22 ], [ %25, %28 ], [ %0, %4 ], [ null, %2 ]
+  ret ptr %76
 }
 
 ; Function Attrs: nounwind uwtable
@@ -608,11 +604,11 @@ define internal i32 @list_PointerNumberedGreater(ptr noundef %0, ptr noundef %1)
 define dso_local ptr @list_NNumberMerge(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 {
   store ptr %2, ptr @NumberFunction, align 8
   %4 = icmp eq ptr %0, null
-  br i1 %4, label %54, label %5
+  br i1 %4, label %57, label %5
 
 5:                                                ; preds = %3
   %6 = icmp eq ptr %1, null
-  br i1 %6, label %54, label %7
+  br i1 %6, label %57, label %7
 
 7:                                                ; preds = %5
   %8 = getelementptr i8, ptr %0, i64 8
@@ -623,34 +619,32 @@ define dso_local ptr @list_NNumberMerge(ptr noundef %0, ptr noundef %1, ptr noun
   %13 = load ptr, ptr @NumberFunction, align 8
   %14 = tail call i32 %13(ptr noundef %11) #8
   %15 = icmp ugt i32 %12, %14
-  br i1 %15, label %16, label %18
+  br i1 %15, label %18, label %16
 
 16:                                               ; preds = %7
-  %17 = load ptr, ptr %1, align 8
-  br label %21
+  %17 = load ptr, ptr %0, align 8
+  br label %20
 
 18:                                               ; preds = %7
-  %19 = load ptr, ptr %0, align 8
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %49, label %21
+  %19 = load ptr, ptr %1, align 8
+  br label %20
 
-21:                                               ; preds = %18, %16
-  %22 = phi ptr [ %1, %16 ], [ %0, %18 ]
-  %23 = phi ptr [ %17, %16 ], [ %1, %18 ]
-  %24 = phi ptr [ %0, %16 ], [ %19, %18 ]
-  br label %25
+20:                                               ; preds = %18, %16
+  %21 = phi ptr [ %17, %16 ], [ %0, %18 ]
+  %22 = phi ptr [ %1, %16 ], [ %19, %18 ]
+  %23 = phi ptr [ %0, %16 ], [ %1, %18 ]
+  %24 = icmp eq ptr %21, null
+  %25 = icmp eq ptr %22, null
+  %26 = select i1 %24, i1 true, i1 %25
+  br i1 %26, label %51, label %27
 
-25:                                               ; preds = %44, %21
-  %26 = phi ptr [ %45, %44 ], [ %22, %21 ]
-  %27 = phi ptr [ %47, %44 ], [ %23, %21 ]
-  %28 = phi ptr [ %46, %44 ], [ %24, %21 ]
-  %29 = icmp eq ptr %27, null
-  br i1 %29, label %53, label %30
-
-30:                                               ; preds = %25
-  %31 = getelementptr i8, ptr %28, i64 8
+27:                                               ; preds = %20, %44
+  %28 = phi ptr [ %45, %44 ], [ %23, %20 ]
+  %29 = phi ptr [ %47, %44 ], [ %22, %20 ]
+  %30 = phi ptr [ %46, %44 ], [ %21, %20 ]
+  %31 = getelementptr i8, ptr %30, i64 8
   %32 = load ptr, ptr %31, align 8
-  %33 = getelementptr i8, ptr %27, i64 8
+  %33 = getelementptr i8, ptr %29, i64 8
   %34 = load ptr, ptr %33, align 8
   %35 = load ptr, ptr @NumberFunction, align 8
   %36 = tail call i32 %35(ptr noundef %32) #8
@@ -659,37 +653,37 @@ define dso_local ptr @list_NNumberMerge(ptr noundef %0, ptr noundef %1, ptr noun
   %39 = icmp ugt i32 %36, %38
   br i1 %39, label %42, label %40
 
-40:                                               ; preds = %30
-  store ptr %28, ptr %26, align 8
-  %41 = load ptr, ptr %28, align 8
+40:                                               ; preds = %27
+  store ptr %30, ptr %28, align 8
+  %41 = load ptr, ptr %30, align 8
   br label %44
 
-42:                                               ; preds = %30
-  store ptr %27, ptr %26, align 8
-  %43 = load ptr, ptr %27, align 8
+42:                                               ; preds = %27
+  store ptr %29, ptr %28, align 8
+  %43 = load ptr, ptr %29, align 8
   br label %44
 
 44:                                               ; preds = %42, %40
-  %45 = phi ptr [ %28, %40 ], [ %27, %42 ]
-  %46 = phi ptr [ %41, %40 ], [ %28, %42 ]
-  %47 = phi ptr [ %27, %40 ], [ %43, %42 ]
+  %45 = phi ptr [ %30, %40 ], [ %29, %42 ]
+  %46 = phi ptr [ %41, %40 ], [ %30, %42 ]
+  %47 = phi ptr [ %29, %40 ], [ %43, %42 ]
   %48 = icmp eq ptr %46, null
-  br i1 %48, label %49, label %25, !llvm.loop !15
+  %49 = icmp eq ptr %47, null
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %51, label %27, !llvm.loop !15
 
-49:                                               ; preds = %44, %18
-  %50 = phi ptr [ %0, %18 ], [ %22, %44 ]
-  %51 = phi ptr [ %1, %18 ], [ %47, %44 ]
-  %52 = phi ptr [ %0, %18 ], [ %45, %44 ]
-  store ptr %51, ptr %52, align 8
-  br label %54
+51:                                               ; preds = %44, %20
+  %52 = phi ptr [ %21, %20 ], [ %46, %44 ]
+  %53 = phi ptr [ %22, %20 ], [ %47, %44 ]
+  %54 = phi ptr [ %23, %20 ], [ %45, %44 ]
+  %55 = phi i1 [ %24, %20 ], [ %48, %44 ]
+  %56 = select i1 %55, ptr %53, ptr %52
+  store ptr %56, ptr %54, align 8
+  br label %57
 
-53:                                               ; preds = %25
-  store ptr %28, ptr %26, align 8
-  br label %54
-
-54:                                               ; preds = %3, %5, %49, %53
-  %55 = phi ptr [ %1, %3 ], [ %0, %5 ], [ %22, %53 ], [ %50, %49 ]
-  ret ptr %55
+57:                                               ; preds = %3, %5, %51
+  %58 = phi ptr [ %23, %51 ], [ %1, %3 ], [ %0, %5 ]
+  ret ptr %58
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
@@ -1379,9 +1373,9 @@ define dso_local i32 @list_DeleteFromList(ptr nocapture noundef %0, ptr noundef 
   br i1 %24, label %30, label %25
 
 25:                                               ; preds = %20, %5
-  %26 = phi ptr [ %3, %5 ], [ %21, %20 ]
-  %27 = phi i32 [ 0, %5 ], [ 1, %20 ]
-  %28 = load ptr, ptr %26, align 8
+  %26 = phi i32 [ 0, %5 ], [ 1, %20 ]
+  %27 = phi ptr [ %3, %5 ], [ %21, %20 ]
+  %28 = load ptr, ptr %27, align 8
   %29 = icmp eq ptr %28, null
   br i1 %29, label %63, label %41
 
@@ -1404,8 +1398,8 @@ define dso_local i32 @list_DeleteFromList(ptr nocapture noundef %0, ptr noundef 
 
 41:                                               ; preds = %25, %58
   %42 = phi ptr [ %61, %58 ], [ %28, %25 ]
-  %43 = phi ptr [ %60, %58 ], [ %26, %25 ]
-  %44 = phi i32 [ %59, %58 ], [ %27, %25 ]
+  %43 = phi ptr [ %60, %58 ], [ %27, %25 ]
+  %44 = phi i32 [ %59, %58 ], [ %26, %25 ]
   %45 = getelementptr i8, ptr %42, i64 8
   %46 = load ptr, ptr %45, align 8
   %47 = icmp eq ptr %46, %1
@@ -1435,7 +1429,7 @@ define dso_local i32 @list_DeleteFromList(ptr nocapture noundef %0, ptr noundef 
   br i1 %62, label %63, label %41, !llvm.loop !38
 
 63:                                               ; preds = %30, %58, %9, %2, %25
-  %64 = phi i32 [ %27, %25 ], [ 0, %2 ], [ 1, %9 ], [ %59, %58 ], [ 1, %30 ]
+  %64 = phi i32 [ %26, %25 ], [ 0, %2 ], [ 1, %9 ], [ %59, %58 ], [ 1, %30 ]
   ret i32 %64
 }
 
@@ -2256,7 +2250,7 @@ define dso_local ptr @list_NListTimes(ptr noundef %0, ptr noundef %1) local_unna
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_NIntersect(ptr noundef %0, ptr noundef readonly %1, ptr nocapture noundef readonly %2) local_unnamed_addr #0 {
   %4 = icmp eq ptr %0, null
-  br i1 %4, label %77, label %5
+  br i1 %4, label %79, label %5
 
 5:                                                ; preds = %3
   %6 = icmp eq ptr %1, null
@@ -2277,7 +2271,7 @@ define dso_local ptr @list_NIntersect(ptr noundef %0, ptr noundef readonly %1, p
   %17 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %8, ptr %17, align 8
   %18 = icmp eq ptr %9, null
-  br i1 %18, label %77, label %7, !llvm.loop !48
+  br i1 %18, label %79, label %7, !llvm.loop !48
 
 19:                                               ; preds = %5, %32
   %20 = phi ptr [ %33, %32 ], [ %0, %5 ]
@@ -2312,69 +2306,73 @@ define dso_local ptr @list_NIntersect(ptr noundef %0, ptr noundef readonly %1, p
   %41 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %20, ptr %41, align 8
   %42 = icmp eq ptr %33, null
-  br i1 %42, label %77, label %19, !llvm.loop !48
+  br i1 %42, label %79, label %19, !llvm.loop !48
 
 43:                                               ; preds = %23
-  %44 = load ptr, ptr %20, align 8
-  %45 = icmp eq ptr %44, null
-  br i1 %45, label %77, label %46
+  %44 = icmp eq ptr %20, null
+  br i1 %44, label %79, label %45
 
-46:                                               ; preds = %43, %72
-  %47 = phi ptr [ %75, %72 ], [ %44, %43 ]
-  %48 = phi ptr [ %73, %72 ], [ %20, %43 ]
-  %49 = getelementptr i8, ptr %47, i64 8
-  %50 = load ptr, ptr %49, align 8
-  br label %51
+45:                                               ; preds = %43
+  %46 = load ptr, ptr %20, align 8
+  %47 = icmp eq ptr %46, null
+  br i1 %47, label %79, label %48
 
-51:                                               ; preds = %46, %57
-  %52 = phi ptr [ %58, %57 ], [ %1, %46 ]
-  %53 = getelementptr i8, ptr %52, i64 8
-  %54 = load ptr, ptr %53, align 8
-  %55 = tail call i32 %2(ptr noundef %50, ptr noundef %54) #8
-  %56 = icmp eq i32 %55, 0
-  br i1 %56, label %57, label %60
+48:                                               ; preds = %45, %74
+  %49 = phi ptr [ %77, %74 ], [ %46, %45 ]
+  %50 = phi ptr [ %75, %74 ], [ %20, %45 ]
+  %51 = getelementptr i8, ptr %49, i64 8
+  %52 = load ptr, ptr %51, align 8
+  br label %53
 
-57:                                               ; preds = %51
-  %58 = load ptr, ptr %52, align 8
-  %59 = icmp eq ptr %58, null
-  br i1 %59, label %62, label %51, !llvm.loop !49
+53:                                               ; preds = %48, %59
+  %54 = phi ptr [ %60, %59 ], [ %1, %48 ]
+  %55 = getelementptr i8, ptr %54, i64 8
+  %56 = load ptr, ptr %55, align 8
+  %57 = tail call i32 %2(ptr noundef %52, ptr noundef %56) #8
+  %58 = icmp eq i32 %57, 0
+  br i1 %58, label %59, label %62
 
-60:                                               ; preds = %51
-  %61 = load ptr, ptr %48, align 8
-  br label %72
+59:                                               ; preds = %53
+  %60 = load ptr, ptr %54, align 8
+  %61 = icmp eq ptr %60, null
+  br i1 %61, label %64, label %53, !llvm.loop !49
 
-62:                                               ; preds = %57
-  %63 = load ptr, ptr %47, align 8
-  store ptr %63, ptr %48, align 8
-  %64 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %65 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %64, i64 0, i32 4
-  %66 = load i32, ptr %65, align 8
-  %67 = sext i32 %66 to i64
-  %68 = load i64, ptr @memory_FREEDBYTES, align 8
-  %69 = add i64 %68, %67
-  store i64 %69, ptr @memory_FREEDBYTES, align 8
-  %70 = load ptr, ptr %64, align 8
-  store ptr %70, ptr %47, align 8
-  %71 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %47, ptr %71, align 8
-  br label %72
+62:                                               ; preds = %53
+  %63 = load ptr, ptr %50, align 8
+  br label %74
 
-72:                                               ; preds = %62, %60
-  %73 = phi ptr [ %61, %60 ], [ %48, %62 ]
-  %74 = phi ptr [ %47, %60 ], [ %48, %62 ]
-  %75 = load ptr, ptr %74, align 8
-  %76 = icmp eq ptr %75, null
-  br i1 %76, label %77, label %46, !llvm.loop !50
+64:                                               ; preds = %59
+  %65 = load ptr, ptr %49, align 8
+  store ptr %65, ptr %50, align 8
+  %66 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %67 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %66, i64 0, i32 4
+  %68 = load i32, ptr %67, align 8
+  %69 = sext i32 %68 to i64
+  %70 = load i64, ptr @memory_FREEDBYTES, align 8
+  %71 = add i64 %70, %69
+  store i64 %71, ptr @memory_FREEDBYTES, align 8
+  %72 = load ptr, ptr %66, align 8
+  store ptr %72, ptr %49, align 8
+  %73 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %49, ptr %73, align 8
+  br label %74
 
-77:                                               ; preds = %32, %72, %7, %3, %43
-  %78 = phi ptr [ %20, %43 ], [ null, %3 ], [ null, %7 ], [ %20, %72 ], [ null, %32 ]
-  ret ptr %78
+74:                                               ; preds = %64, %62
+  %75 = phi ptr [ %63, %62 ], [ %50, %64 ]
+  %76 = phi ptr [ %49, %62 ], [ %50, %64 ]
+  %77 = load ptr, ptr %76, align 8
+  %78 = icmp eq ptr %77, null
+  br i1 %78, label %79, label %48, !llvm.loop !50
+
+79:                                               ; preds = %32, %74, %7, %3, %45, %43
+  %80 = phi ptr [ null, %43 ], [ %20, %45 ], [ null, %3 ], [ null, %7 ], [ %20, %74 ], [ null, %32 ]
+  ret ptr %80
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local ptr @list_NPointerIntersect(ptr noundef %0, ptr noundef readonly %1) local_unnamed_addr #2 {
   %3 = icmp eq ptr %0, null
-  br i1 %3, label %74, label %4
+  br i1 %3, label %76, label %4
 
 4:                                                ; preds = %2
   %5 = icmp eq ptr %1, null
@@ -2395,7 +2393,7 @@ define dso_local ptr @list_NPointerIntersect(ptr noundef %0, ptr noundef readonl
   %16 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %7, ptr %16, align 8
   %17 = icmp eq ptr %8, null
-  br i1 %17, label %74, label %6, !llvm.loop !51
+  br i1 %17, label %76, label %6, !llvm.loop !51
 
 18:                                               ; preds = %4, %30
   %19 = phi ptr [ %31, %30 ], [ %0, %4 ]
@@ -2429,62 +2427,66 @@ define dso_local ptr @list_NPointerIntersect(ptr noundef %0, ptr noundef readonl
   %39 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %19, ptr %39, align 8
   %40 = icmp eq ptr %31, null
-  br i1 %40, label %74, label %18, !llvm.loop !51
+  br i1 %40, label %76, label %18, !llvm.loop !51
 
 41:                                               ; preds = %22
-  %42 = load ptr, ptr %19, align 8
-  %43 = icmp eq ptr %42, null
-  br i1 %43, label %74, label %44
+  %42 = icmp eq ptr %19, null
+  br i1 %42, label %76, label %43
 
-44:                                               ; preds = %41, %69
-  %45 = phi ptr [ %72, %69 ], [ %42, %41 ]
-  %46 = phi ptr [ %70, %69 ], [ %19, %41 ]
-  %47 = getelementptr i8, ptr %45, i64 8
-  %48 = load ptr, ptr %47, align 8
-  br label %49
+43:                                               ; preds = %41
+  %44 = load ptr, ptr %19, align 8
+  %45 = icmp eq ptr %44, null
+  br i1 %45, label %76, label %46
 
-49:                                               ; preds = %44, %54
-  %50 = phi ptr [ %55, %54 ], [ %1, %44 ]
-  %51 = getelementptr i8, ptr %50, i64 8
-  %52 = load ptr, ptr %51, align 8
-  %53 = icmp eq ptr %52, %48
-  br i1 %53, label %57, label %54
+46:                                               ; preds = %43, %71
+  %47 = phi ptr [ %74, %71 ], [ %44, %43 ]
+  %48 = phi ptr [ %72, %71 ], [ %19, %43 ]
+  %49 = getelementptr i8, ptr %47, i64 8
+  %50 = load ptr, ptr %49, align 8
+  br label %51
 
-54:                                               ; preds = %49
-  %55 = load ptr, ptr %50, align 8
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %59, label %49, !llvm.loop !40
+51:                                               ; preds = %46, %56
+  %52 = phi ptr [ %57, %56 ], [ %1, %46 ]
+  %53 = getelementptr i8, ptr %52, i64 8
+  %54 = load ptr, ptr %53, align 8
+  %55 = icmp eq ptr %54, %50
+  br i1 %55, label %59, label %56
 
-57:                                               ; preds = %49
-  %58 = load ptr, ptr %46, align 8
-  br label %69
+56:                                               ; preds = %51
+  %57 = load ptr, ptr %52, align 8
+  %58 = icmp eq ptr %57, null
+  br i1 %58, label %61, label %51, !llvm.loop !40
 
-59:                                               ; preds = %54
-  %60 = load ptr, ptr %45, align 8
-  store ptr %60, ptr %46, align 8
-  %61 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %62 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %61, i64 0, i32 4
-  %63 = load i32, ptr %62, align 8
-  %64 = sext i32 %63 to i64
-  %65 = load i64, ptr @memory_FREEDBYTES, align 8
-  %66 = add i64 %65, %64
-  store i64 %66, ptr @memory_FREEDBYTES, align 8
-  %67 = load ptr, ptr %61, align 8
-  store ptr %67, ptr %45, align 8
-  %68 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %45, ptr %68, align 8
-  br label %69
+59:                                               ; preds = %51
+  %60 = load ptr, ptr %48, align 8
+  br label %71
 
-69:                                               ; preds = %59, %57
-  %70 = phi ptr [ %58, %57 ], [ %46, %59 ]
-  %71 = phi ptr [ %45, %57 ], [ %46, %59 ]
-  %72 = load ptr, ptr %71, align 8
-  %73 = icmp eq ptr %72, null
-  br i1 %73, label %74, label %44, !llvm.loop !52
+61:                                               ; preds = %56
+  %62 = load ptr, ptr %47, align 8
+  store ptr %62, ptr %48, align 8
+  %63 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %64 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %63, i64 0, i32 4
+  %65 = load i32, ptr %64, align 8
+  %66 = sext i32 %65 to i64
+  %67 = load i64, ptr @memory_FREEDBYTES, align 8
+  %68 = add i64 %67, %66
+  store i64 %68, ptr @memory_FREEDBYTES, align 8
+  %69 = load ptr, ptr %63, align 8
+  store ptr %69, ptr %47, align 8
+  %70 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %47, ptr %70, align 8
+  br label %71
 
-74:                                               ; preds = %30, %69, %6, %2, %41
-  %75 = phi ptr [ %19, %41 ], [ null, %2 ], [ null, %6 ], [ %19, %69 ], [ null, %30 ]
-  ret ptr %75
+71:                                               ; preds = %61, %59
+  %72 = phi ptr [ %60, %59 ], [ %48, %61 ]
+  %73 = phi ptr [ %47, %59 ], [ %48, %61 ]
+  %74 = load ptr, ptr %73, align 8
+  %75 = icmp eq ptr %74, null
+  br i1 %75, label %76, label %46, !llvm.loop !52
+
+76:                                               ; preds = %30, %71, %6, %2, %43, %41
+  %77 = phi ptr [ null, %41 ], [ %19, %43 ], [ null, %2 ], [ null, %6 ], [ %19, %71 ], [ null, %30 ]
+  ret ptr %77
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
@@ -2492,7 +2494,7 @@ define dso_local void @list_NInsert(ptr nocapture noundef %0, ptr noundef %1) lo
   %3 = load ptr, ptr %0, align 8
   store ptr %1, ptr %0, align 8
   %4 = icmp eq ptr %1, null
-  br i1 %4, label %9, label %5, !llvm.loop !53
+  br i1 %4, label %9, label %5
 
 5:                                                ; preds = %2, %5
   %6 = phi ptr [ %7, %5 ], [ %1, %2 ]
@@ -2544,13 +2546,15 @@ define dso_local i32 @list_HasIntersection(ptr noundef readonly %0, ptr noundef 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local ptr @list_NPointerDifference(ptr noundef %0, ptr noundef readonly %1) local_unnamed_addr #2 {
   %3 = icmp eq ptr %0, null
-  %4 = icmp eq ptr %1, null
-  %5 = or i1 %3, %4
+  br i1 %3, label %54, label %4
+
+4:                                                ; preds = %2
+  %5 = icmp eq ptr %1, null
   br i1 %5, label %54, label %6
 
-6:                                                ; preds = %2, %50
-  %7 = phi ptr [ %52, %50 ], [ %1, %2 ]
-  %8 = phi ptr [ %51, %50 ], [ %0, %2 ]
+6:                                                ; preds = %4, %50
+  %7 = phi ptr [ %52, %50 ], [ %1, %4 ]
+  %8 = phi ptr [ %51, %50 ], [ %0, %4 ]
   %9 = getelementptr i8, ptr %7, i64 8
   %10 = load ptr, ptr %9, align 8
   %11 = icmp eq ptr %8, null
@@ -2619,21 +2623,23 @@ define dso_local ptr @list_NPointerDifference(ptr noundef %0, ptr noundef readon
   %53 = icmp eq ptr %52, null
   br i1 %53, label %54, label %6, !llvm.loop !55
 
-54:                                               ; preds = %50, %2
-  %55 = phi ptr [ %0, %2 ], [ %51, %50 ]
+54:                                               ; preds = %50, %4, %2
+  %55 = phi ptr [ null, %2 ], [ %0, %4 ], [ %51, %50 ]
   ret ptr %55
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_NDifference(ptr noundef %0, ptr noundef readonly %1, ptr nocapture noundef readonly %2) local_unnamed_addr #0 {
   %4 = icmp eq ptr %0, null
-  %5 = icmp eq ptr %1, null
-  %6 = or i1 %4, %5
+  br i1 %4, label %57, label %5
+
+5:                                                ; preds = %3
+  %6 = icmp eq ptr %1, null
   br i1 %6, label %57, label %7
 
-7:                                                ; preds = %3, %53
-  %8 = phi ptr [ %55, %53 ], [ %1, %3 ]
-  %9 = phi ptr [ %54, %53 ], [ %0, %3 ]
+7:                                                ; preds = %5, %53
+  %8 = phi ptr [ %55, %53 ], [ %1, %5 ]
+  %9 = phi ptr [ %54, %53 ], [ %0, %5 ]
   %10 = getelementptr i8, ptr %8, i64 8
   %11 = load ptr, ptr %10, align 8
   %12 = icmp eq ptr %9, null
@@ -2704,21 +2710,23 @@ define dso_local ptr @list_NDifference(ptr noundef %0, ptr noundef readonly %1, 
   %56 = icmp eq ptr %55, null
   br i1 %56, label %57, label %7, !llvm.loop !56
 
-57:                                               ; preds = %53, %3
-  %58 = phi ptr [ %0, %3 ], [ %54, %53 ]
+57:                                               ; preds = %53, %5, %3
+  %58 = phi ptr [ null, %3 ], [ %0, %5 ], [ %54, %53 ]
   ret ptr %58
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_NMultisetDifference(ptr noundef %0, ptr noundef readonly %1, ptr nocapture noundef readonly %2) local_unnamed_addr #0 {
   %4 = icmp eq ptr %0, null
-  %5 = icmp eq ptr %1, null
-  %6 = or i1 %4, %5
+  br i1 %4, label %46, label %5
+
+5:                                                ; preds = %3
+  %6 = icmp eq ptr %1, null
   br i1 %6, label %46, label %7
 
-7:                                                ; preds = %3, %42
-  %8 = phi ptr [ %44, %42 ], [ %1, %3 ]
-  %9 = phi ptr [ %43, %42 ], [ %0, %3 ]
+7:                                                ; preds = %5, %42
+  %8 = phi ptr [ %44, %42 ], [ %1, %5 ]
+  %9 = phi ptr [ %43, %42 ], [ %0, %5 ]
   %10 = getelementptr i8, ptr %8, i64 8
   %11 = load ptr, ptr %10, align 8
   %12 = icmp eq ptr %9, null
@@ -2775,8 +2783,8 @@ define dso_local ptr @list_NMultisetDifference(ptr noundef %0, ptr noundef reado
   %45 = icmp eq ptr %44, null
   br i1 %45, label %46, label %7, !llvm.loop !57
 
-46:                                               ; preds = %42, %3
-  %47 = phi ptr [ %0, %3 ], [ %43, %42 ]
+46:                                               ; preds = %42, %5, %3
+  %47 = phi ptr [ null, %3 ], [ %0, %5 ], [ %43, %42 ]
   ret ptr %47
 }
 
@@ -2902,8 +2910,8 @@ define dso_local ptr @list_AssocListPair(ptr noundef readonly %0, ptr noundef re
   %13 = icmp eq ptr %12, null
   br i1 %13, label %14, label %4, !llvm.loop !61
 
-14:                                               ; preds = %4, %11, %2
-  %15 = phi ptr [ null, %2 ], [ null, %11 ], [ %7, %4 ]
+14:                                               ; preds = %11, %4, %2
+  %15 = phi ptr [ null, %2 ], [ %7, %4 ], [ null, %11 ]
   ret ptr %15
 }
 
@@ -3107,18 +3115,16 @@ define dso_local i32 @list_CompareMultisetsByElementDistribution(ptr noundef rea
   %73 = tail call ptr @list_MergeSort(ptr noundef %37, ptr noundef nonnull @list_CompareElementDistributionLEQ)
   %74 = tail call ptr @list_MergeSort(ptr noundef %72, ptr noundef nonnull @list_CompareElementDistributionLEQ)
   %75 = icmp eq ptr %73, null
-  br i1 %75, label %100, label %76
+  %76 = icmp eq ptr %74, null
+  %77 = or i1 %75, %76
+  br i1 %77, label %102, label %78
 
-76:                                               ; preds = %71, %96
-  %77 = phi ptr [ %98, %96 ], [ %74, %71 ]
-  %78 = phi ptr [ %97, %96 ], [ %73, %71 ]
-  %79 = icmp eq ptr %77, null
-  br i1 %79, label %104, label %80
-
-80:                                               ; preds = %76
-  %81 = getelementptr i8, ptr %78, i64 8
+78:                                               ; preds = %71, %96
+  %79 = phi ptr [ %98, %96 ], [ %74, %71 ]
+  %80 = phi ptr [ %97, %96 ], [ %73, %71 ]
+  %81 = getelementptr i8, ptr %80, i64 8
   %82 = load ptr, ptr %81, align 8
-  %83 = getelementptr i8, ptr %77, i64 8
+  %83 = getelementptr i8, ptr %79, i64 8
   %84 = load ptr, ptr %83, align 8
   %85 = load ptr, ptr %82, align 8
   %86 = ptrtoint ptr %85 to i64
@@ -3131,90 +3137,97 @@ define dso_local i32 @list_CompareMultisetsByElementDistribution(ptr noundef rea
   %93 = zext i1 %92 to i32
   %94 = select i1 %91, i32 -1, i32 %93
   %95 = icmp eq i32 %94, 0
-  br i1 %95, label %96, label %104
+  br i1 %95, label %96, label %110
 
-96:                                               ; preds = %80
-  %97 = load ptr, ptr %78, align 8
-  %98 = load ptr, ptr %77, align 8
+96:                                               ; preds = %78
+  %97 = load ptr, ptr %80, align 8
+  %98 = load ptr, ptr %79, align 8
   %99 = icmp eq ptr %97, null
-  br i1 %99, label %100, label %76, !llvm.loop !63
+  %100 = icmp eq ptr %98, null
+  %101 = select i1 %99, i1 true, i1 %100
+  br i1 %101, label %102, label %78, !llvm.loop !63
 
-100:                                              ; preds = %96, %71
-  %101 = phi ptr [ %74, %71 ], [ %98, %96 ]
-  %102 = icmp ne ptr %101, null
-  %103 = sext i1 %102 to i32
-  br label %104
+102:                                              ; preds = %96, %71
+  %103 = phi ptr [ %73, %71 ], [ %97, %96 ]
+  %104 = phi i1 [ %76, %71 ], [ %100, %96 ]
+  %105 = icmp ne ptr %103, null
+  %106 = select i1 %105, i1 true, i1 %104
+  br i1 %106, label %107, label %110
 
-104:                                              ; preds = %76, %80, %100
-  %105 = phi i32 [ %103, %100 ], [ %94, %80 ], [ 1, %76 ]
-  br i1 %75, label %128, label %106
+107:                                              ; preds = %102
+  %108 = select i1 %105, i1 %104, i1 false
+  %109 = zext i1 %108 to i32
+  br label %110
 
-106:                                              ; preds = %104, %106
-  %107 = phi ptr [ %108, %106 ], [ %73, %104 ]
-  %108 = load ptr, ptr %107, align 8
-  %109 = getelementptr i8, ptr %107, i64 8
-  %110 = load ptr, ptr %109, align 8
-  %111 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %112 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %111, i64 0, i32 4
-  %113 = load i32, ptr %112, align 8
-  %114 = sext i32 %113 to i64
-  %115 = load i64, ptr @memory_FREEDBYTES, align 8
-  %116 = add i64 %115, %114
-  store i64 %116, ptr @memory_FREEDBYTES, align 8
-  %117 = load ptr, ptr %111, align 8
-  store ptr %117, ptr %110, align 8
-  %118 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %110, ptr %118, align 8
-  %119 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %120 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %119, i64 0, i32 4
-  %121 = load i32, ptr %120, align 8
-  %122 = sext i32 %121 to i64
-  %123 = load i64, ptr @memory_FREEDBYTES, align 8
-  %124 = add i64 %123, %122
-  store i64 %124, ptr @memory_FREEDBYTES, align 8
-  %125 = load ptr, ptr %119, align 8
-  store ptr %125, ptr %107, align 8
-  %126 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %107, ptr %126, align 8
-  %127 = icmp eq ptr %108, null
-  br i1 %127, label %128, label %106, !llvm.loop !20
+110:                                              ; preds = %78, %102, %107
+  %111 = phi i32 [ -1, %102 ], [ %109, %107 ], [ %94, %78 ]
+  br i1 %75, label %134, label %112
 
-128:                                              ; preds = %106, %104
-  %129 = icmp eq ptr %74, null
-  br i1 %129, label %152, label %130
+112:                                              ; preds = %110, %112
+  %113 = phi ptr [ %114, %112 ], [ %73, %110 ]
+  %114 = load ptr, ptr %113, align 8
+  %115 = getelementptr i8, ptr %113, i64 8
+  %116 = load ptr, ptr %115, align 8
+  %117 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %118 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %117, i64 0, i32 4
+  %119 = load i32, ptr %118, align 8
+  %120 = sext i32 %119 to i64
+  %121 = load i64, ptr @memory_FREEDBYTES, align 8
+  %122 = add i64 %121, %120
+  store i64 %122, ptr @memory_FREEDBYTES, align 8
+  %123 = load ptr, ptr %117, align 8
+  store ptr %123, ptr %116, align 8
+  %124 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %116, ptr %124, align 8
+  %125 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %126 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %125, i64 0, i32 4
+  %127 = load i32, ptr %126, align 8
+  %128 = sext i32 %127 to i64
+  %129 = load i64, ptr @memory_FREEDBYTES, align 8
+  %130 = add i64 %129, %128
+  store i64 %130, ptr @memory_FREEDBYTES, align 8
+  %131 = load ptr, ptr %125, align 8
+  store ptr %131, ptr %113, align 8
+  %132 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %113, ptr %132, align 8
+  %133 = icmp eq ptr %114, null
+  br i1 %133, label %134, label %112, !llvm.loop !20
 
-130:                                              ; preds = %128, %130
-  %131 = phi ptr [ %132, %130 ], [ %74, %128 ]
-  %132 = load ptr, ptr %131, align 8
-  %133 = getelementptr i8, ptr %131, i64 8
-  %134 = load ptr, ptr %133, align 8
-  %135 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %136 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %135, i64 0, i32 4
-  %137 = load i32, ptr %136, align 8
-  %138 = sext i32 %137 to i64
-  %139 = load i64, ptr @memory_FREEDBYTES, align 8
-  %140 = add i64 %139, %138
-  store i64 %140, ptr @memory_FREEDBYTES, align 8
-  %141 = load ptr, ptr %135, align 8
-  store ptr %141, ptr %134, align 8
-  %142 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %134, ptr %142, align 8
-  %143 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %144 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %143, i64 0, i32 4
-  %145 = load i32, ptr %144, align 8
-  %146 = sext i32 %145 to i64
-  %147 = load i64, ptr @memory_FREEDBYTES, align 8
-  %148 = add i64 %147, %146
-  store i64 %148, ptr @memory_FREEDBYTES, align 8
-  %149 = load ptr, ptr %143, align 8
-  store ptr %149, ptr %131, align 8
-  %150 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %131, ptr %150, align 8
-  %151 = icmp eq ptr %132, null
-  br i1 %151, label %152, label %130, !llvm.loop !20
+134:                                              ; preds = %112, %110
+  br i1 %76, label %157, label %135
 
-152:                                              ; preds = %130, %128
-  ret i32 %105
+135:                                              ; preds = %134, %135
+  %136 = phi ptr [ %137, %135 ], [ %74, %134 ]
+  %137 = load ptr, ptr %136, align 8
+  %138 = getelementptr i8, ptr %136, i64 8
+  %139 = load ptr, ptr %138, align 8
+  %140 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %141 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %140, i64 0, i32 4
+  %142 = load i32, ptr %141, align 8
+  %143 = sext i32 %142 to i64
+  %144 = load i64, ptr @memory_FREEDBYTES, align 8
+  %145 = add i64 %144, %143
+  store i64 %145, ptr @memory_FREEDBYTES, align 8
+  %146 = load ptr, ptr %140, align 8
+  store ptr %146, ptr %139, align 8
+  %147 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %139, ptr %147, align 8
+  %148 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %149 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %148, i64 0, i32 4
+  %150 = load i32, ptr %149, align 8
+  %151 = sext i32 %150 to i64
+  %152 = load i64, ptr @memory_FREEDBYTES, align 8
+  %153 = add i64 %152, %151
+  store i64 %153, ptr @memory_FREEDBYTES, align 8
+  %154 = load ptr, ptr %148, align 8
+  store ptr %154, ptr %136, align 8
+  %155 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %136, ptr %155, align 8
+  %156 = icmp eq ptr %137, null
+  br i1 %156, label %157, label %135, !llvm.loop !20
+
+157:                                              ; preds = %135, %134
+  ret i32 %111
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable

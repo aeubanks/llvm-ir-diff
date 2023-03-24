@@ -321,9 +321,9 @@ define internal fastcc void @RestartModel(ptr noundef %0) unnamed_addr #4 {
   store i8 %46, ptr %45, align 1, !tbaa !51
   %47 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %44, i32 1
   store i8 1, ptr %47, align 1, !tbaa !53
-  %48 = getelementptr inbounds %struct.CPpmd_State, ptr %45, i64 0, i32 2
+  %48 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %44, i32 2
   store i16 0, ptr %48, align 1, !tbaa !54
-  %49 = getelementptr inbounds %struct.CPpmd_State, ptr %45, i64 0, i32 3
+  %49 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %44, i32 3
   store i16 0, ptr %49, align 1, !tbaa !55
   %50 = or i64 %44, 1
   %51 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %50
@@ -331,9 +331,9 @@ define internal fastcc void @RestartModel(ptr noundef %0) unnamed_addr #4 {
   store i8 %52, ptr %51, align 1, !tbaa !51
   %53 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %50, i32 1
   store i8 1, ptr %53, align 1, !tbaa !53
-  %54 = getelementptr inbounds %struct.CPpmd_State, ptr %51, i64 0, i32 2
+  %54 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %50, i32 2
   store i16 0, ptr %54, align 1, !tbaa !54
-  %55 = getelementptr inbounds %struct.CPpmd_State, ptr %51, i64 0, i32 3
+  %55 = getelementptr inbounds %struct.CPpmd_State, ptr %19, i64 %50, i32 3
   store i16 0, ptr %55, align 1, !tbaa !55
   %56 = add nuw nsw i64 %44, 2
   %57 = icmp eq i64 %56, 256
@@ -3703,43 +3703,43 @@ define internal fastcc i32 @CutOff(ptr noundef %0, ptr noundef %1, i32 noundef %
 10:                                               ; preds = %3
   %11 = load i32, ptr %9, align 1
   %12 = zext i32 %11 to i64
-  %13 = getelementptr inbounds i8, ptr %8, i64 %12
-  %14 = getelementptr inbounds %struct.CPpmd8, ptr %0, i64 0, i32 15
-  %15 = load ptr, ptr %14, align 8, !tbaa !34
-  %16 = icmp ult ptr %13, %15
-  br i1 %16, label %43, label %17
+  %13 = getelementptr inbounds i8, ptr %1, i64 6
+  %14 = getelementptr inbounds i8, ptr %8, i64 %12
+  %15 = getelementptr inbounds %struct.CPpmd8, ptr %0, i64 0, i32 15
+  %16 = load ptr, ptr %15, align 8, !tbaa !34
+  %17 = icmp ult ptr %14, %16
+  br i1 %17, label %43, label %18
 
-17:                                               ; preds = %10
-  %18 = getelementptr inbounds %struct.CPpmd8, ptr %0, i64 0, i32 6
-  %19 = load i32, ptr %18, align 4, !tbaa !28
-  %20 = icmp ugt i32 %19, %2
-  br i1 %20, label %21, label %27
+18:                                               ; preds = %10
+  %19 = getelementptr inbounds %struct.CPpmd8, ptr %0, i64 0, i32 6
+  %20 = load i32, ptr %19, align 4, !tbaa !28
+  %21 = icmp ugt i32 %20, %2
+  br i1 %21, label %22, label %28
 
-21:                                               ; preds = %17
-  %22 = add nuw i32 %2, 1
-  %23 = tail call fastcc i32 @CutOff(ptr noundef nonnull %0, ptr noundef %13, i32 noundef %22)
-  %24 = trunc i32 %23 to i16
-  %25 = lshr i32 %23, 16
-  %26 = trunc i32 %25 to i16
-  br label %27
+22:                                               ; preds = %18
+  %23 = add nuw i32 %2, 1
+  %24 = tail call fastcc i32 @CutOff(ptr noundef nonnull %0, ptr noundef %14, i32 noundef %23)
+  %25 = trunc i32 %24 to i16
+  %26 = lshr i32 %24, 16
+  %27 = trunc i32 %26 to i16
+  br label %28
 
-27:                                               ; preds = %17, %21
-  %28 = phi i16 [ %24, %21 ], [ 0, %17 ]
-  %29 = phi i16 [ %26, %21 ], [ 0, %17 ]
-  store i16 %28, ptr %9, align 1
-  %30 = getelementptr inbounds i8, ptr %1, i64 6
-  store i16 %29, ptr %30, align 1
+28:                                               ; preds = %18, %22
+  %29 = phi i16 [ %25, %22 ], [ 0, %18 ]
+  %30 = phi i16 [ %27, %22 ], [ 0, %18 ]
+  store i16 %29, ptr %9, align 1
+  store i16 %30, ptr %13, align 1, !tbaa !55
   %31 = load i32, ptr %9, align 1
   %32 = icmp ne i32 %31, 0
   %33 = icmp ult i32 %2, 10
   %34 = or i1 %33, %32
   br i1 %34, label %37, label %35
 
-35:                                               ; preds = %27
-  %36 = load ptr, ptr %14, align 8, !tbaa !34
+35:                                               ; preds = %28
+  %36 = load ptr, ptr %15, align 8, !tbaa !34
   br label %43
 
-37:                                               ; preds = %27
+37:                                               ; preds = %28
   %38 = load ptr, ptr %7, align 8, !tbaa !5
   %39 = ptrtoint ptr %1 to i64
   %40 = ptrtoint ptr %38 to i64
@@ -3748,7 +3748,7 @@ define internal fastcc i32 @CutOff(ptr noundef %0, ptr noundef %1, i32 noundef %
   br label %386
 
 43:                                               ; preds = %35, %10
-  %44 = phi ptr [ %36, %35 ], [ %15, %10 ]
+  %44 = phi ptr [ %36, %35 ], [ %16, %10 ]
   %45 = icmp eq ptr %44, %1
   br i1 %45, label %61, label %46
 
@@ -3776,7 +3776,7 @@ define internal fastcc i32 @CutOff(ptr noundef %0, ptr noundef %1, i32 noundef %
 
 61:                                               ; preds = %43
   %62 = getelementptr inbounds i8, ptr %1, i64 12
-  store ptr %62, ptr %14, align 8, !tbaa !34
+  store ptr %62, ptr %15, align 8, !tbaa !34
   br label %386
 
 63:                                               ; preds = %3

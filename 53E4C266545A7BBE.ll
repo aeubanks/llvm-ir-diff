@@ -257,96 +257,96 @@ define dso_local void @gx_sort_ht_order(ptr nocapture noundef %0, i32 noundef %1
 4:                                                ; preds = %2
   %5 = add i32 %1, -1
   %6 = lshr i32 %1, 1
-  br label %7
+  br label %11
 
-7:                                                ; preds = %4, %57
-  %8 = phi i32 [ %30, %57 ], [ %5, %4 ]
-  %9 = phi i32 [ %33, %57 ], [ %6, %4 ]
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %18, label %11
+7:                                                ; preds = %53, %56
+  %8 = zext i32 %39 to i64
+  %9 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %8
+  store i16 %36, ptr %9, align 2, !tbaa.struct !16
+  %10 = getelementptr inbounds i8, ptr %9, i64 2
+  store i16 %35, ptr %10, align 2, !tbaa.struct !17
+  br label %11
 
-11:                                               ; preds = %7
-  %12 = add nsw i32 %9, -1
-  %13 = zext i32 %12 to i64
-  %14 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %13
-  %15 = load i16, ptr %14, align 2, !tbaa.struct !16
-  %16 = getelementptr inbounds i8, ptr %14, i64 2
-  %17 = load i16, ptr %16, align 2, !tbaa.struct !17
-  br label %29
+11:                                               ; preds = %4, %7
+  %12 = phi i32 [ %34, %7 ], [ %5, %4 ]
+  %13 = phi i32 [ %37, %7 ], [ %6, %4 ]
+  %14 = icmp eq i32 %13, 0
+  br i1 %14, label %22, label %15
 
-18:                                               ; preds = %7
-  %19 = zext i32 %8 to i64
-  %20 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %19
-  %21 = load i16, ptr %20, align 2, !tbaa.struct !16
-  %22 = getelementptr inbounds i8, ptr %20, i64 2
-  %23 = load i16, ptr %22, align 2, !tbaa.struct !17
-  %24 = load i32, ptr %0, align 2
-  store i32 %24, ptr %20, align 2
-  %25 = add i32 %8, -1
-  %26 = icmp eq i32 %25, 0
-  br i1 %26, label %27, label %29
+15:                                               ; preds = %11
+  %16 = add nsw i32 %13, -1
+  %17 = zext i32 %16 to i64
+  %18 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %17
+  %19 = load i16, ptr %18, align 2, !tbaa.struct !16
+  %20 = getelementptr inbounds i8, ptr %18, i64 2
+  %21 = load i16, ptr %20, align 2, !tbaa.struct !17
+  br label %33
 
-27:                                               ; preds = %18
-  store i16 %21, ptr %0, align 2, !tbaa.struct !16
-  %28 = getelementptr inbounds i8, ptr %0, i64 2
-  store i16 %23, ptr %28, align 2, !tbaa.struct !17
+22:                                               ; preds = %11
+  %23 = zext i32 %12 to i64
+  %24 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %23
+  %25 = load i16, ptr %24, align 2, !tbaa.struct !16
+  %26 = getelementptr inbounds i8, ptr %24, i64 2
+  %27 = load i16, ptr %26, align 2, !tbaa.struct !17
+  %28 = load i32, ptr %0, align 2
+  store i32 %28, ptr %24, align 2
+  %29 = add i32 %12, -1
+  %30 = icmp eq i32 %29, 0
+  br i1 %30, label %31, label %33
+
+31:                                               ; preds = %22
+  store i16 %25, ptr %0, align 2, !tbaa.struct !16
+  %32 = getelementptr inbounds i8, ptr %0, i64 2
+  store i16 %27, ptr %32, align 2, !tbaa.struct !17
   br label %66
 
-29:                                               ; preds = %18, %11
-  %30 = phi i32 [ %8, %11 ], [ %25, %18 ]
-  %31 = phi i16 [ %17, %11 ], [ %23, %18 ]
-  %32 = phi i16 [ %15, %11 ], [ %21, %18 ]
-  %33 = phi i32 [ %12, %11 ], [ 0, %18 ]
-  br label %34
+33:                                               ; preds = %22, %15
+  %34 = phi i32 [ %12, %15 ], [ %29, %22 ]
+  %35 = phi i16 [ %21, %15 ], [ %27, %22 ]
+  %36 = phi i16 [ %19, %15 ], [ %25, %22 ]
+  %37 = phi i32 [ %16, %15 ], [ 0, %22 ]
+  br label %38
 
-34:                                               ; preds = %61, %29
-  %35 = phi i32 [ %33, %29 ], [ %50, %61 ]
-  %36 = shl i32 %35, 1
-  %37 = or i32 %36, 1
-  %38 = icmp ult i32 %37, %30
-  br i1 %38, label %39, label %49
+38:                                               ; preds = %61, %33
+  %39 = phi i32 [ %37, %33 ], [ %54, %61 ]
+  %40 = shl i32 %39, 1
+  %41 = or i32 %40, 1
+  %42 = icmp ult i32 %41, %34
+  br i1 %42, label %43, label %53
 
-39:                                               ; preds = %34
-  %40 = zext i32 %37 to i64
-  %41 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %40, i32 1
-  %42 = load i16, ptr %41, align 2, !tbaa !18
-  %43 = add i32 %36, 2
-  %44 = zext i32 %43 to i64
+43:                                               ; preds = %38
+  %44 = zext i32 %41 to i64
   %45 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %44, i32 1
   %46 = load i16, ptr %45, align 2, !tbaa !18
-  %47 = icmp ult i16 %42, %46
-  %48 = select i1 %47, i32 %43, i32 %37
-  br label %49
+  %47 = add i32 %40, 2
+  %48 = zext i32 %47 to i64
+  %49 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %48, i32 1
+  %50 = load i16, ptr %49, align 2, !tbaa !18
+  %51 = icmp ult i16 %46, %50
+  %52 = select i1 %51, i32 %47, i32 %41
+  br label %53
 
-49:                                               ; preds = %39, %34
-  %50 = phi i32 [ %37, %34 ], [ %48, %39 ]
-  %51 = icmp ugt i32 %50, %30
-  br i1 %51, label %57, label %52
+53:                                               ; preds = %43, %38
+  %54 = phi i32 [ %41, %38 ], [ %52, %43 ]
+  %55 = icmp ugt i32 %54, %34
+  br i1 %55, label %7, label %56
 
-52:                                               ; preds = %49
-  %53 = zext i32 %50 to i64
-  %54 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %53, i32 1
-  %55 = load i16, ptr %54, align 2, !tbaa !18
-  %56 = icmp ult i16 %31, %55
-  br i1 %56, label %61, label %57
+56:                                               ; preds = %53
+  %57 = zext i32 %54 to i64
+  %58 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %57, i32 1
+  %59 = load i16, ptr %58, align 2, !tbaa !18
+  %60 = icmp ult i16 %35, %59
+  br i1 %60, label %61, label %7
 
-57:                                               ; preds = %52, %49
-  %58 = zext i32 %35 to i64
-  %59 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %58
-  store i16 %32, ptr %59, align 2, !tbaa.struct !16
-  %60 = getelementptr inbounds i8, ptr %59, i64 2
-  store i16 %31, ptr %60, align 2, !tbaa.struct !17
-  br label %7
-
-61:                                               ; preds = %52
-  %62 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %53
-  %63 = zext i32 %35 to i64
+61:                                               ; preds = %56
+  %62 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %57
+  %63 = zext i32 %39 to i64
   %64 = getelementptr inbounds %struct.ht_bit_s, ptr %0, i64 %63
   %65 = load i32, ptr %62, align 2
   store i32 %65, ptr %64, align 2
-  br label %34
+  br label %38
 
-66:                                               ; preds = %2, %27
+66:                                               ; preds = %2, %31
   ret void
 }
 

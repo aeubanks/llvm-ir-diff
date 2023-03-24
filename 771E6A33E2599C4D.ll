@@ -30,10 +30,10 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
   br i1 %6, label %7, label %156
 
 7:                                                ; preds = %1, %147
-  %8 = phi ptr [ %151, %147 ], [ %2, %1 ]
-  %9 = phi i32 [ %149, %147 ], [ 0, %1 ]
-  %10 = phi i32 [ %148, %147 ], [ 0, %1 ]
-  %11 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %8, i64 0, i32 1
+  %8 = phi i32 [ %149, %147 ], [ 0, %1 ]
+  %9 = phi i32 [ %148, %147 ], [ 0, %1 ]
+  %10 = phi ptr [ %151, %147 ], [ %2, %1 ]
+  %11 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %10, i64 0, i32 1
   %12 = load ptr, ptr %11, align 8, !tbaa !11
   %13 = load ptr, ptr %12, align 8, !tbaa !9
   %14 = load ptr, ptr %13, align 8
@@ -62,8 +62,8 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
 
 32:                                               ; preds = %24, %48
   %33 = phi ptr [ %52, %48 ], [ %27, %24 ]
-  %34 = phi i32 [ %50, %48 ], [ %9, %24 ]
-  %35 = phi i32 [ %49, %48 ], [ %10, %24 ]
+  %34 = phi i32 [ %50, %48 ], [ %8, %24 ]
+  %35 = phi i32 [ %49, %48 ], [ %9, %24 ]
   %36 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %33, i64 0, i32 1
   %37 = load ptr, ptr %36, align 8, !tbaa !19
   %38 = load ptr, ptr %37, align 8, !tbaa !9
@@ -119,8 +119,8 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
 
 77:                                               ; preds = %69, %93
   %78 = phi ptr [ %97, %93 ], [ %72, %69 ]
-  %79 = phi i32 [ %95, %93 ], [ %9, %69 ]
-  %80 = phi i32 [ %94, %93 ], [ %10, %69 ]
+  %79 = phi i32 [ %95, %93 ], [ %8, %69 ]
+  %80 = phi i32 [ %94, %93 ], [ %9, %69 ]
   %81 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %78, i64 0, i32 1
   %82 = load ptr, ptr %81, align 8, !tbaa !19
   %83 = load ptr, ptr %82, align 8, !tbaa !9
@@ -176,8 +176,8 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
 
 122:                                              ; preds = %114, %138
   %123 = phi ptr [ %142, %138 ], [ %117, %114 ]
-  %124 = phi i32 [ %140, %138 ], [ %9, %114 ]
-  %125 = phi i32 [ %139, %138 ], [ %10, %114 ]
+  %124 = phi i32 [ %140, %138 ], [ %8, %114 ]
+  %125 = phi i32 [ %139, %138 ], [ %9, %114 ]
   %126 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %123, i64 0, i32 1
   %127 = load ptr, ptr %126, align 8, !tbaa !19
   %128 = load ptr, ptr %127, align 8, !tbaa !9
@@ -206,15 +206,15 @@ define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef 
   br i1 %146, label %122, label %147, !llvm.loop !27
 
 147:                                              ; preds = %138, %93, %48, %114, %69, %24
-  %148 = phi i32 [ %10, %24 ], [ %10, %69 ], [ %10, %114 ], [ %49, %48 ], [ %94, %93 ], [ %139, %138 ]
-  %149 = phi i32 [ %9, %24 ], [ %9, %69 ], [ %9, %114 ], [ %50, %48 ], [ %95, %93 ], [ %140, %138 ]
-  %150 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %8, i64 0, i32 2
-  %151 = load ptr, ptr %150, align 8, !tbaa !5
+  %148 = phi i32 [ %9, %24 ], [ %9, %69 ], [ %9, %114 ], [ %49, %48 ], [ %94, %93 ], [ %139, %138 ]
+  %149 = phi i32 [ %8, %24 ], [ %8, %69 ], [ %8, %114 ], [ %50, %48 ], [ %95, %93 ], [ %140, %138 ]
+  %150 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %10, i64 0, i32 2
+  %151 = load ptr, ptr %150, align 8, !tbaa !28
   %152 = load ptr, ptr %151, align 8, !tbaa !9
   %153 = load ptr, ptr %152, align 8
   %154 = tail call noundef i32 %153(ptr noundef nonnull align 8 dereferenceable(24) %151)
   %155 = icmp eq i32 %154, 12
-  br i1 %155, label %7, label %156, !llvm.loop !28
+  br i1 %155, label %7, label %156, !llvm.loop !29
 
 156:                                              ; preds = %147, %1
   %157 = phi i32 [ 0, %1 ], [ %148, %147 ]
@@ -264,7 +264,7 @@ define dso_local void @_ZN2kc20freespineandelementsEPNS_21impl_unparseviewsinfoE
   %18 = load ptr, ptr %17, align 8
   %19 = tail call noundef ptr %18(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef 1)
   %20 = icmp eq ptr %19, null
-  br i1 %20, label %21, label %3, !llvm.loop !29
+  br i1 %20, label %21, label %3, !llvm.loop !30
 
 21:                                               ; preds = %15, %1
   tail call void @_ZN2kc18impl_abstract_list8freelistEv(ptr noundef nonnull align 8 dereferenceable(8) %0)
@@ -303,7 +303,7 @@ define dso_local void @_ZN2kc20freespineandelementsEPNS_21impl_rewriteviewsinfoE
   %18 = load ptr, ptr %17, align 8
   %19 = tail call noundef ptr %18(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef 1)
   %20 = icmp eq ptr %19, null
-  br i1 %20, label %21, label %3, !llvm.loop !30
+  br i1 %20, label %21, label %3, !llvm.loop !31
 
 21:                                               ; preds = %15, %1
   tail call void @_ZN2kc18impl_abstract_list8freelistEv(ptr noundef nonnull align 8 dereferenceable(8) %0)
@@ -344,6 +344,7 @@ attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 !25 = !{!"llvm.loop.mustprogress"}
 !26 = distinct !{!26, !25}
 !27 = distinct !{!27, !25}
-!28 = distinct !{!28, !25}
+!28 = !{!12, !6, i64 16}
 !29 = distinct !{!29, !25}
 !30 = distinct !{!30, !25}
+!31 = distinct !{!31, !25}

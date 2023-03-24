@@ -141,16 +141,16 @@ define dso_local void @testA() local_unnamed_addr #4 {
   %15 = mul i32 %13, 1103515245
   %16 = add i32 %15, 12345
   store i32 %16, ptr @myrnd.s, align 4, !tbaa !5
-  %17 = trunc i32 %14 to i16
-  %18 = shl i16 %17, 5
-  %19 = or i16 %18, %11
-  store i16 %19, ptr @sA, align 2
-  %20 = lshr i32 %16, 16
-  %21 = trunc i32 %20 to i16
-  %22 = add i16 %21, %17
+  %17 = lshr i32 %16, 16
+  %18 = trunc i32 %14 to i16
+  %19 = shl i16 %18, 5
+  %20 = or i16 %19, %11
+  store i16 %20, ptr @sA, align 2
+  %21 = trunc i32 %17 to i16
+  %22 = add i16 %21, %18
   %23 = and i16 %22, 2047
   %24 = urem i16 %23, 15
-  %25 = add nuw nsw i32 %20, %14
+  %25 = add nuw nsw i32 %17, %14
   %26 = trunc i32 %25 to i16
   %27 = and i16 %26, 2047
   %28 = urem i16 %27, 15
@@ -284,16 +284,16 @@ define dso_local void @testB() local_unnamed_addr #4 {
   %31 = mul i32 %29, 1103515245
   %32 = add i32 %31, 12345
   store i32 %32, ptr @myrnd.s, align 4, !tbaa !5
-  %33 = trunc i32 %30 to i16
-  %34 = shl i16 %33, 5
-  %35 = or i16 %34, %27
-  store i16 %35, ptr @sB, align 2
-  %36 = lshr i32 %32, 16
-  %37 = trunc i32 %36 to i16
-  %38 = add i16 %37, %33
+  %33 = lshr i32 %32, 16
+  %34 = trunc i32 %30 to i16
+  %35 = shl i16 %34, 5
+  %36 = or i16 %35, %27
+  store i16 %36, ptr @sB, align 2
+  %37 = trunc i32 %33 to i16
+  %38 = add i16 %37, %34
   %39 = and i16 %38, 2047
   %40 = urem i16 %39, 15
-  %41 = add nuw nsw i32 %36, %30
+  %41 = add nuw nsw i32 %33, %30
   %42 = trunc i32 %41 to i16
   %43 = and i16 %42, 2047
   %44 = urem i16 %43, 15
@@ -423,16 +423,16 @@ define dso_local void @testC() local_unnamed_addr #4 {
   %31 = mul i32 %29, 1103515245
   %32 = add i32 %31, 12345
   store i32 %32, ptr @myrnd.s, align 4, !tbaa !5
-  %33 = trunc i32 %30 to i16
-  %34 = shl i16 %33, 5
-  %35 = or i16 %34, %27
-  store i16 %35, ptr getelementptr inbounds (%struct.C, ptr @sC, i64 0, i32 1), align 4
-  %36 = lshr i32 %32, 16
-  %37 = trunc i32 %36 to i16
-  %38 = add i16 %37, %33
+  %33 = lshr i32 %32, 16
+  %34 = trunc i32 %30 to i16
+  %35 = shl i16 %34, 5
+  %36 = or i16 %35, %27
+  store i16 %36, ptr getelementptr inbounds (%struct.C, ptr @sC, i64 0, i32 1), align 4
+  %37 = trunc i32 %33 to i16
+  %38 = add i16 %37, %34
   %39 = and i16 %38, 2047
   %40 = urem i16 %39, 15
-  %41 = add nuw nsw i32 %36, %30
+  %41 = add nuw nsw i32 %33, %30
   %42 = trunc i32 %41 to i16
   %43 = and i16 %42, 2047
   %44 = urem i16 %43, 15
@@ -1837,121 +1837,81 @@ define dso_local void @testN() local_unnamed_addr #4 {
   %33 = trunc i32 %32 to i8
   store i8 %33, ptr getelementptr inbounds (i8, ptr @sN, i64 7), align 1, !tbaa !12
   %34 = load i64, ptr @sN, align 8
-  %35 = or i64 %34, 4032
-  %36 = mul i32 %31, 1103515245
-  %37 = add i32 %36, 12345
-  %38 = lshr i32 %37, 16
-  %39 = mul i32 %37, 1103515245
-  %40 = add i32 %39, 12345
-  store i32 %40, ptr @myrnd.s, align 4, !tbaa !5
-  %41 = lshr i32 %40, 16
-  %42 = shl nuw nsw i32 %38, 6
-  %43 = and i32 %42, 4032
-  %44 = zext i32 %43 to i64
-  %45 = and i64 %34, -4033
-  %46 = or i64 %45, %44
-  store i64 %46, ptr @sN, align 8
-  %47 = trunc i64 %46 to i32
-  %48 = lshr i32 %47, 6
-  %49 = add nuw nsw i32 %48, %41
-  %50 = xor i64 %46, %35
-  %51 = and i64 %50, 34359734272
-  %52 = icmp eq i64 %51, 0
-  br i1 %52, label %53, label %65
+  %35 = mul i32 %31, 1103515245
+  %36 = add i32 %35, 12345
+  %37 = lshr i32 %36, 10
+  %38 = and i32 %37, 4032
+  %39 = zext i32 %38 to i64
+  %40 = and i64 %34, -4033
+  %41 = or i64 %40, %39
+  %42 = mul i32 %36, -1029531031
+  %43 = add i32 %42, -740551042
+  %44 = lshr i32 %43, 16
+  %45 = mul i32 %43, 1103515245
+  %46 = add i32 %45, 12345
+  store i32 %46, ptr @myrnd.s, align 4, !tbaa !5
+  %47 = lshr i32 %46, 16
+  %48 = shl nuw nsw i32 %44, 6
+  %49 = and i32 %48, 4032
+  %50 = zext i32 %49 to i64
+  %51 = or i64 %40, %50
+  store i64 %51, ptr @sN, align 8
+  %52 = trunc i64 %51 to i32
+  %53 = lshr i32 %52, 6
+  %54 = add nuw nsw i32 %53, %47
+  %55 = trunc i32 %54 to i8
+  %56 = and i8 %55, 63
+  %57 = urem i8 %56, 15
+  %58 = xor i64 %51, %41
+  %59 = and i64 %58, 34359734272
+  %60 = icmp eq i64 %59, 0
+  br i1 %60, label %61, label %74
 
-53:                                               ; preds = %0
-  %54 = lshr exact i32 %43, 6
-  %55 = and i32 %48, 63
-  %56 = icmp eq i32 %54, %55
-  %57 = and i64 %50, 63
-  %58 = icmp eq i64 %57, 0
-  %59 = select i1 %56, i1 %58, i1 false
-  br i1 %59, label %60, label %65
+61:                                               ; preds = %0
+  %62 = lshr exact i32 %49, 6
+  %63 = and i32 %53, 63
+  %64 = icmp eq i32 %62, %63
+  %65 = and i64 %58, 63
+  %66 = icmp eq i64 %65, 0
+  %67 = select i1 %64, i1 %66, i1 false
+  br i1 %67, label %68, label %74
 
-60:                                               ; preds = %53
-  %61 = add nuw nsw i32 %41, %38
-  %62 = xor i32 %49, %61
-  %63 = and i32 %62, 63
-  %64 = icmp eq i32 %63, 0
-  br i1 %64, label %66, label %65
+68:                                               ; preds = %61
+  %69 = add nuw nsw i32 %47, %44
+  %70 = trunc i32 %69 to i8
+  %71 = and i8 %70, 63
+  %72 = urem i8 %71, 15
+  %73 = icmp eq i8 %72, %57
+  br i1 %73, label %75, label %74
 
-65:                                               ; preds = %60, %53, %0
+74:                                               ; preds = %68, %61, %0
   tail call void @abort() #8
   unreachable
 
-66:                                               ; preds = %60
-  %67 = mul i32 %40, 1103515245
-  %68 = add i32 %67, 12345
-  %69 = lshr i32 %68, 16
-  %70 = mul i32 %68, 1103515245
-  %71 = add i32 %70, 12345
-  store i32 %71, ptr @myrnd.s, align 4, !tbaa !5
-  %72 = lshr i32 %71, 16
-  %73 = shl nuw nsw i32 %69, 6
-  %74 = and i32 %73, 4032
-  %75 = zext i32 %74 to i64
-  %76 = or i64 %45, %75
-  store i64 %76, ptr @sN, align 8
-  %77 = trunc i64 %76 to i32
-  %78 = lshr i32 %77, 6
-  %79 = add nuw nsw i32 %78, %72
-  %80 = trunc i32 %79 to i8
-  %81 = and i8 %80, 63
-  %82 = urem i8 %81, 15
-  %83 = xor i64 %76, %46
-  %84 = and i64 %83, 34359734272
-  %85 = icmp eq i64 %84, 0
-  br i1 %85, label %86, label %99
+75:                                               ; preds = %68
+  %76 = mul i32 %46, 1103515245
+  %77 = add i32 %76, 12345
+  %78 = lshr i32 %77, 16
+  %79 = mul i32 %77, 1103515245
+  %80 = add i32 %79, 12345
+  store i32 %80, ptr @myrnd.s, align 4, !tbaa !5
+  %81 = lshr i32 %80, 16
+  %82 = add nuw nsw i32 %78, %81
+  %83 = shl nuw nsw i32 %82, 6
+  %84 = and i32 %83, 4032
+  %85 = zext i32 %84 to i64
+  %86 = or i64 %40, %85
+  store i64 %86, ptr @sN, align 8
+  %87 = lshr exact i32 %84, 6
+  %88 = and i32 %82, 63
+  %89 = icmp eq i32 %88, %87
+  br i1 %89, label %91, label %90
 
-86:                                               ; preds = %66
-  %87 = lshr exact i32 %74, 6
-  %88 = and i32 %78, 63
-  %89 = icmp eq i32 %87, %88
-  %90 = and i64 %83, 63
-  %91 = icmp eq i64 %90, 0
-  %92 = select i1 %89, i1 %91, i1 false
-  br i1 %92, label %93, label %99
-
-93:                                               ; preds = %86
-  %94 = add nuw nsw i32 %72, %69
-  %95 = trunc i32 %94 to i8
-  %96 = and i8 %95, 63
-  %97 = urem i8 %96, 15
-  %98 = icmp eq i8 %97, %82
-  br i1 %98, label %100, label %99
-
-99:                                               ; preds = %93, %86, %66
+90:                                               ; preds = %75
   tail call void @abort() #8
   unreachable
 
-100:                                              ; preds = %93
-  %101 = mul i32 %71, 1103515245
-  %102 = add i32 %101, 12345
-  %103 = lshr i32 %102, 16
-  %104 = mul i32 %102, 1103515245
-  %105 = add i32 %104, 12345
-  store i32 %105, ptr @myrnd.s, align 4, !tbaa !5
-  %106 = lshr i32 %105, 16
-  %107 = shl nuw nsw i32 %103, 6
-  %108 = trunc i64 %45 to i32
-  %109 = or i32 %107, %108
-  %110 = shl nuw nsw i32 %106, 6
-  %111 = add i32 %110, %109
-  %112 = and i32 %111, 4032
-  %113 = zext i32 %112 to i64
-  %114 = or i64 %45, %113
-  store i64 %114, ptr @sN, align 8
-  %115 = lshr exact i32 %112, 6
-  %116 = add nuw nsw i32 %106, %103
-  %117 = and i32 %116, 63
-  %118 = icmp eq i32 %117, %115
-  br i1 %118, label %120, label %119
-
-119:                                              ; preds = %100
-  tail call void @abort() #8
-  unreachable
-
-120:                                              ; preds = %100
+91:                                               ; preds = %75
   ret void
 }
 
@@ -2004,8 +1964,8 @@ define dso_local i32 @fn3O(i32 noundef %0) local_unnamed_addr #0 {
   ret i32 %5
 }
 
-; Function Attrs: nounwind uwtable
-define dso_local void @testO() local_unnamed_addr #4 {
+; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
+define dso_local void @testO() local_unnamed_addr #0 {
   %1 = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %2 = mul i32 %1, 1103515245
   %3 = add i32 %2, 12345
@@ -2088,80 +2048,20 @@ define dso_local void @testO() local_unnamed_addr #4 {
   %65 = trunc i32 %64 to i8
   store i8 %65, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), i64 7), align 1, !tbaa !12
   %66 = load i64, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), align 8
-  %67 = mul i32 %63, 1103515245
-  %68 = add i32 %67, 12345
-  %69 = lshr i32 %68, 16
-  %70 = and i32 %69, 2047
-  %71 = mul i32 %68, 1103515245
-  %72 = add i32 %71, 12345
-  store i32 %72, ptr @myrnd.s, align 4, !tbaa !5
-  %73 = zext i32 %70 to i64
-  %74 = and i64 %66, -4096
-  %75 = or i64 %74, %73
-  store i64 %75, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), align 8
-  %76 = lshr i32 %72, 16
-  %77 = and i32 %76, 2047
-  %78 = trunc i64 %75 to i32
-  %79 = add nuw nsw i32 %77, %78
-  %80 = and i32 %79, 4095
-  %81 = and i32 %78, 2047
-  %82 = icmp eq i32 %70, %81
-  %83 = add nuw nsw i32 %77, %70
-  %84 = icmp eq i32 %83, %80
-  %85 = select i1 %82, i1 %84, i1 false
-  br i1 %85, label %87, label %86
-
-86:                                               ; preds = %0
-  tail call void @abort() #8
-  unreachable
-
-87:                                               ; preds = %0
-  %88 = mul i32 %72, 1103515245
-  %89 = add i32 %88, 12345
-  %90 = lshr i32 %89, 16
-  %91 = and i32 %90, 2047
-  %92 = mul i32 %89, 1103515245
-  %93 = add i32 %92, 12345
-  store i32 %93, ptr @myrnd.s, align 4, !tbaa !5
-  %94 = zext i32 %91 to i64
-  %95 = or i64 %74, %94
-  store i64 %95, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), align 8
-  %96 = trunc i64 %95 to i32
-  %97 = and i32 %96, 2047
-  %98 = icmp eq i32 %91, %97
-  br i1 %98, label %99, label %110
-
-99:                                               ; preds = %87
-  %100 = lshr i32 %93, 16
-  %101 = and i32 %100, 2047
-  %102 = add nuw nsw i32 %101, %96
-  %103 = trunc i32 %102 to i16
-  %104 = and i16 %103, 4095
-  %105 = urem i16 %104, 15
-  %106 = add nuw nsw i32 %101, %91
-  %107 = trunc i32 %106 to i16
-  %108 = urem i16 %107, 15
-  %109 = icmp eq i16 %108, %105
-  br i1 %109, label %111, label %110
-
-110:                                              ; preds = %99, %87
-  tail call void @abort() #8
-  unreachable
-
-111:                                              ; preds = %99
-  %112 = mul i32 %93, 1103515245
-  %113 = add i32 %112, 12345
-  %114 = lshr i32 %113, 16
-  %115 = and i32 %114, 2047
-  %116 = mul i32 %113, 1103515245
-  %117 = add i32 %116, 12345
-  store i32 %117, ptr @myrnd.s, align 4, !tbaa !5
-  %118 = lshr i32 %117, 16
-  %119 = and i32 %118, 2047
-  %120 = add nuw nsw i32 %119, %115
-  %121 = zext i32 %120 to i64
-  %122 = or i64 %74, %121
-  store i64 %122, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), align 8
+  %67 = and i64 %66, -4096
+  %68 = mul i32 %63, -341751747
+  %69 = add i32 %68, 229283573
+  %70 = lshr i32 %69, 16
+  %71 = and i32 %70, 2047
+  %72 = mul i32 %69, 1103515245
+  %73 = add i32 %72, 12345
+  store i32 %73, ptr @myrnd.s, align 4, !tbaa !5
+  %74 = lshr i32 %73, 16
+  %75 = and i32 %74, 2047
+  %76 = add nuw nsw i32 %75, %71
+  %77 = zext i32 %76 to i64
+  %78 = or i64 %67, %77
+  store i64 %78, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), align 8
   ret void
 }
 
@@ -2214,8 +2114,8 @@ define dso_local i32 @fn3P(i32 noundef %0) local_unnamed_addr #0 {
   ret i32 %5
 }
 
-; Function Attrs: nounwind uwtable
-define dso_local void @testP() local_unnamed_addr #4 {
+; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
+define dso_local void @testP() local_unnamed_addr #0 {
   %1 = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %2 = mul i32 %1, 1103515245
   %3 = add i32 %2, 12345
@@ -2298,80 +2198,20 @@ define dso_local void @testP() local_unnamed_addr #4 {
   %65 = trunc i32 %64 to i8
   store i8 %65, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.P, ptr @sP, i64 0, i32 1), i64 7), align 1, !tbaa !12
   %66 = load i64, ptr @sP, align 8
-  %67 = mul i32 %63, 1103515245
-  %68 = add i32 %67, 12345
-  %69 = lshr i32 %68, 16
-  %70 = and i32 %69, 2047
-  %71 = mul i32 %68, 1103515245
-  %72 = add i32 %71, 12345
-  store i32 %72, ptr @myrnd.s, align 4, !tbaa !5
-  %73 = zext i32 %70 to i64
-  %74 = and i64 %66, -4096
-  %75 = or i64 %74, %73
-  store i64 %75, ptr @sP, align 8
-  %76 = lshr i32 %72, 16
-  %77 = and i32 %76, 2047
-  %78 = trunc i64 %75 to i32
-  %79 = add nuw nsw i32 %77, %78
-  %80 = and i32 %79, 4095
-  %81 = and i32 %78, 2047
-  %82 = icmp eq i32 %70, %81
-  %83 = add nuw nsw i32 %77, %70
-  %84 = icmp eq i32 %83, %80
-  %85 = select i1 %82, i1 %84, i1 false
-  br i1 %85, label %87, label %86
-
-86:                                               ; preds = %0
-  tail call void @abort() #8
-  unreachable
-
-87:                                               ; preds = %0
-  %88 = mul i32 %72, 1103515245
-  %89 = add i32 %88, 12345
-  %90 = lshr i32 %89, 16
-  %91 = and i32 %90, 2047
-  %92 = mul i32 %89, 1103515245
-  %93 = add i32 %92, 12345
-  store i32 %93, ptr @myrnd.s, align 4, !tbaa !5
-  %94 = zext i32 %91 to i64
-  %95 = or i64 %74, %94
-  store i64 %95, ptr @sP, align 8
-  %96 = trunc i64 %95 to i32
-  %97 = and i32 %96, 2047
-  %98 = icmp eq i32 %91, %97
-  br i1 %98, label %99, label %110
-
-99:                                               ; preds = %87
-  %100 = lshr i32 %93, 16
-  %101 = and i32 %100, 2047
-  %102 = add nuw nsw i32 %101, %96
-  %103 = trunc i32 %102 to i16
-  %104 = and i16 %103, 4095
-  %105 = urem i16 %104, 15
-  %106 = add nuw nsw i32 %101, %91
-  %107 = trunc i32 %106 to i16
-  %108 = urem i16 %107, 15
-  %109 = icmp eq i16 %108, %105
-  br i1 %109, label %111, label %110
-
-110:                                              ; preds = %99, %87
-  tail call void @abort() #8
-  unreachable
-
-111:                                              ; preds = %99
-  %112 = mul i32 %93, 1103515245
-  %113 = add i32 %112, 12345
-  %114 = lshr i32 %113, 16
-  %115 = and i32 %114, 2047
-  %116 = mul i32 %113, 1103515245
-  %117 = add i32 %116, 12345
-  store i32 %117, ptr @myrnd.s, align 4, !tbaa !5
-  %118 = lshr i32 %117, 16
-  %119 = and i32 %118, 2047
-  %120 = add nuw nsw i32 %119, %115
-  %121 = zext i32 %120 to i64
-  %122 = or i64 %74, %121
-  store i64 %122, ptr @sP, align 8
+  %67 = and i64 %66, -4096
+  %68 = mul i32 %63, -341751747
+  %69 = add i32 %68, 229283573
+  %70 = lshr i32 %69, 16
+  %71 = and i32 %70, 2047
+  %72 = mul i32 %69, 1103515245
+  %73 = add i32 %72, 12345
+  store i32 %73, ptr @myrnd.s, align 4, !tbaa !5
+  %74 = lshr i32 %73, 16
+  %75 = and i32 %74, 2047
+  %76 = add nuw nsw i32 %75, %71
+  %77 = zext i32 %76 to i64
+  %78 = or i64 %67, %77
+  store i64 %78, ptr @sP, align 8
   ret void
 }
 
@@ -2993,106 +2833,38 @@ define dso_local void @testU() local_unnamed_addr #4 {
   %41 = trunc i32 %40 to i8
   store i8 %41, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.U, ptr @sU, i64 0, i32 1), i64 7), align 1, !tbaa !12
   %42 = load i16, ptr @sU, align 2
-  %43 = mul i32 %39, 1103515245
-  %44 = add i32 %43, 12345
-  %45 = lshr i32 %44, 16
-  %46 = mul i32 %44, 1103515245
-  %47 = add i32 %46, 12345
-  store i32 %47, ptr @myrnd.s, align 4, !tbaa !5
-  %48 = trunc i32 %45 to i16
-  %49 = shl i16 %48, 6
-  %50 = and i16 %49, 64
-  %51 = and i16 %42, -65
-  %52 = or i16 %50, %51
-  store i16 %52, ptr @sU, align 2
-  %53 = lshr i16 %52, 6
-  %54 = and i32 %45, 1
-  %55 = and i16 %53, 1
-  %56 = zext i16 %55 to i32
-  %57 = icmp eq i32 %54, %56
-  br i1 %57, label %58, label %67
+  %43 = and i16 %42, -65
+  %44 = mul i32 %39, -341751747
+  %45 = add i32 %44, 229283573
+  %46 = lshr i32 %45, 16
+  %47 = mul i32 %45, 1103515245
+  %48 = add i32 %47, 12345
+  store i32 %48, ptr @myrnd.s, align 4, !tbaa !5
+  %49 = lshr i32 %48, 16
+  %50 = trunc i32 %46 to i16
+  %51 = trunc i32 %49 to i16
+  %52 = add i16 %51, %50
+  %53 = shl i16 %52, 6
+  %54 = and i16 %53, 64
+  %55 = or i16 %54, %43
+  store i16 %55, ptr @sU, align 2
+  %56 = lshr exact i16 %54, 6
+  %57 = and i16 %52, 1
+  %58 = icmp eq i16 %57, %56
+  br i1 %58, label %59, label %64
 
-58:                                               ; preds = %0
-  %59 = lshr i32 %47, 16
-  %60 = trunc i32 %59 to i16
-  %61 = add i16 %53, %60
-  %62 = and i16 %61, 1
-  %63 = zext i16 %62 to i32
-  %64 = add nuw nsw i32 %59, %45
-  %65 = and i32 %64, 1
-  %66 = icmp eq i32 %65, %63
-  br i1 %66, label %68, label %67
+59:                                               ; preds = %0
+  %60 = zext i16 %56 to i32
+  %61 = add nuw nsw i32 %49, %46
+  %62 = and i32 %61, 1
+  %63 = icmp eq i32 %62, %60
+  br i1 %63, label %65, label %64
 
-67:                                               ; preds = %58, %0
+64:                                               ; preds = %59, %0
   tail call void @abort() #8
   unreachable
 
-68:                                               ; preds = %58
-  %69 = mul i32 %47, 1103515245
-  %70 = add i32 %69, 12345
-  %71 = lshr i32 %70, 16
-  %72 = mul i32 %70, 1103515245
-  %73 = add i32 %72, 12345
-  store i32 %73, ptr @myrnd.s, align 4, !tbaa !5
-  %74 = trunc i32 %71 to i16
-  %75 = shl i16 %74, 6
-  %76 = and i16 %75, 64
-  %77 = or i16 %76, %51
-  store i16 %77, ptr @sU, align 2
-  %78 = lshr i16 %77, 6
-  %79 = and i32 %71, 1
-  %80 = and i16 %78, 1
-  %81 = zext i16 %80 to i32
-  %82 = icmp eq i32 %79, %81
-  br i1 %82, label %83, label %92
-
-83:                                               ; preds = %68
-  %84 = lshr i32 %73, 16
-  %85 = trunc i32 %84 to i16
-  %86 = add i16 %78, %85
-  %87 = and i16 %86, 1
-  %88 = zext i16 %87 to i32
-  %89 = add nuw nsw i32 %84, %71
-  %90 = and i32 %89, 1
-  %91 = icmp eq i32 %90, %88
-  br i1 %91, label %93, label %92
-
-92:                                               ; preds = %83, %68
-  tail call void @abort() #8
-  unreachable
-
-93:                                               ; preds = %83
-  %94 = mul i32 %73, 1103515245
-  %95 = add i32 %94, 12345
-  %96 = lshr i32 %95, 16
-  %97 = mul i32 %95, 1103515245
-  %98 = add i32 %97, 12345
-  store i32 %98, ptr @myrnd.s, align 4, !tbaa !5
-  %99 = lshr i32 %98, 16
-  %100 = trunc i32 %96 to i16
-  %101 = trunc i32 %99 to i16
-  %102 = add i16 %101, %100
-  %103 = shl i16 %102, 6
-  %104 = and i16 %103, 64
-  %105 = or i16 %104, %51
-  store i16 %105, ptr @sU, align 2
-  %106 = lshr exact i16 %104, 6
-  %107 = and i16 %102, 1
-  %108 = icmp eq i16 %106, %107
-  br i1 %108, label %109, label %114
-
-109:                                              ; preds = %93
-  %110 = zext i16 %106 to i32
-  %111 = add nuw nsw i32 %99, %96
-  %112 = and i32 %111, 1
-  %113 = icmp eq i32 %112, %110
-  br i1 %113, label %115, label %114
-
-114:                                              ; preds = %109, %93
-  tail call void @abort() #8
-  unreachable
-
-115:                                              ; preds = %109
+65:                                               ; preds = %59
   ret void
 }
 
@@ -3171,106 +2943,38 @@ define dso_local void @testV() local_unnamed_addr #4 {
   %17 = trunc i32 %16 to i8
   store i8 %17, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.V, ptr @sV, i64 0, i32 1), i64 1), align 1, !tbaa !12
   %18 = load i16, ptr @sV, align 2
-  %19 = mul i32 %15, 1103515245
-  %20 = add i32 %19, 12345
-  %21 = lshr i32 %20, 16
-  %22 = mul i32 %20, 1103515245
-  %23 = add i32 %22, 12345
-  store i32 %23, ptr @myrnd.s, align 4, !tbaa !5
-  %24 = trunc i32 %21 to i16
-  %25 = shl i16 %24, 8
-  %26 = and i16 %25, 256
-  %27 = and i16 %18, -257
-  %28 = or i16 %26, %27
-  store i16 %28, ptr @sV, align 2
-  %29 = lshr i16 %28, 8
-  %30 = and i32 %21, 1
-  %31 = and i16 %29, 1
-  %32 = zext i16 %31 to i32
-  %33 = icmp eq i32 %30, %32
-  br i1 %33, label %34, label %43
+  %19 = and i16 %18, -257
+  %20 = mul i32 %15, -341751747
+  %21 = add i32 %20, 229283573
+  %22 = lshr i32 %21, 16
+  %23 = mul i32 %21, 1103515245
+  %24 = add i32 %23, 12345
+  store i32 %24, ptr @myrnd.s, align 4, !tbaa !5
+  %25 = lshr i32 %24, 16
+  %26 = trunc i32 %22 to i16
+  %27 = trunc i32 %25 to i16
+  %28 = add i16 %27, %26
+  %29 = shl i16 %28, 8
+  %30 = and i16 %29, 256
+  %31 = or i16 %30, %19
+  store i16 %31, ptr @sV, align 2
+  %32 = lshr exact i16 %30, 8
+  %33 = and i16 %28, 1
+  %34 = icmp eq i16 %33, %32
+  br i1 %34, label %35, label %40
 
-34:                                               ; preds = %0
-  %35 = lshr i32 %23, 16
-  %36 = trunc i32 %35 to i16
-  %37 = add i16 %29, %36
-  %38 = and i16 %37, 1
-  %39 = zext i16 %38 to i32
-  %40 = add nuw nsw i32 %35, %21
-  %41 = and i32 %40, 1
-  %42 = icmp eq i32 %41, %39
-  br i1 %42, label %44, label %43
+35:                                               ; preds = %0
+  %36 = zext i16 %32 to i32
+  %37 = add nuw nsw i32 %25, %22
+  %38 = and i32 %37, 1
+  %39 = icmp eq i32 %38, %36
+  br i1 %39, label %41, label %40
 
-43:                                               ; preds = %34, %0
+40:                                               ; preds = %35, %0
   tail call void @abort() #8
   unreachable
 
-44:                                               ; preds = %34
-  %45 = mul i32 %23, 1103515245
-  %46 = add i32 %45, 12345
-  %47 = lshr i32 %46, 16
-  %48 = mul i32 %46, 1103515245
-  %49 = add i32 %48, 12345
-  store i32 %49, ptr @myrnd.s, align 4, !tbaa !5
-  %50 = trunc i32 %47 to i16
-  %51 = shl i16 %50, 8
-  %52 = and i16 %51, 256
-  %53 = or i16 %52, %27
-  store i16 %53, ptr @sV, align 2
-  %54 = lshr i16 %53, 8
-  %55 = and i32 %47, 1
-  %56 = and i16 %54, 1
-  %57 = zext i16 %56 to i32
-  %58 = icmp eq i32 %55, %57
-  br i1 %58, label %59, label %68
-
-59:                                               ; preds = %44
-  %60 = lshr i32 %49, 16
-  %61 = trunc i32 %60 to i16
-  %62 = add i16 %54, %61
-  %63 = and i16 %62, 1
-  %64 = zext i16 %63 to i32
-  %65 = add nuw nsw i32 %60, %47
-  %66 = and i32 %65, 1
-  %67 = icmp eq i32 %66, %64
-  br i1 %67, label %69, label %68
-
-68:                                               ; preds = %59, %44
-  tail call void @abort() #8
-  unreachable
-
-69:                                               ; preds = %59
-  %70 = mul i32 %49, 1103515245
-  %71 = add i32 %70, 12345
-  %72 = lshr i32 %71, 16
-  %73 = mul i32 %71, 1103515245
-  %74 = add i32 %73, 12345
-  store i32 %74, ptr @myrnd.s, align 4, !tbaa !5
-  %75 = lshr i32 %74, 16
-  %76 = trunc i32 %72 to i16
-  %77 = trunc i32 %75 to i16
-  %78 = add i16 %77, %76
-  %79 = shl i16 %78, 8
-  %80 = and i16 %79, 256
-  %81 = or i16 %80, %27
-  store i16 %81, ptr @sV, align 2
-  %82 = lshr exact i16 %80, 8
-  %83 = and i16 %78, 1
-  %84 = icmp eq i16 %82, %83
-  br i1 %84, label %85, label %90
-
-85:                                               ; preds = %69
-  %86 = zext i16 %82 to i32
-  %87 = add nuw nsw i32 %75, %72
-  %88 = and i32 %87, 1
-  %89 = icmp eq i32 %88, %86
-  br i1 %89, label %91, label %90
-
-90:                                               ; preds = %85, %69
-  tail call void @abort() #8
-  unreachable
-
-91:                                               ; preds = %85
+41:                                               ; preds = %35
   ret void
 }
 
@@ -3716,44 +3420,30 @@ define dso_local void @testZ() local_unnamed_addr #4 {
   store x86_fp80 0xK4001A800000000000000, ptr @sZ, align 16, !tbaa !43
   %42 = load i32, ptr getelementptr inbounds (%struct.Z, ptr @sZ, i64 0, i32 1), align 16
   %43 = and i32 %42, 1048575
-  %44 = mul i32 %39, -2139243339
-  %45 = add i32 %44, -1492899873
-  %46 = shl i32 %45, 4
-  %47 = and i32 %46, 2146435072
-  %48 = or i32 %47, %43
-  %49 = mul i32 %45, -1029531031
-  %50 = add i32 %49, -740551042
-  %51 = lshr i32 %50, 16
-  %52 = and i32 %51, 2047
-  %53 = mul i32 %50, 1103515245
-  %54 = add i32 %53, 12345
-  store i32 %54, ptr @myrnd.s, align 4, !tbaa !5
-  %55 = lshr i32 %54, 16
-  %56 = and i32 %55, 2047
-  %57 = shl nuw nsw i32 %52, 20
-  %58 = or i32 %57, %43
-  %59 = shl nuw nsw i32 %56, 20
-  %60 = add nuw i32 %58, %59
-  store i32 %60, ptr getelementptr inbounds (%struct.Z, ptr @sZ, i64 0, i32 1), align 16
-  %61 = xor i32 %60, %48
-  %62 = and i32 %61, 1040384
-  %63 = icmp eq i32 %62, 0
-  br i1 %63, label %64, label %71
+  %44 = mul i32 %39, -341751747
+  %45 = add i32 %44, 229283573
+  %46 = lshr i32 %45, 16
+  %47 = and i32 %46, 2047
+  %48 = mul i32 %45, 1103515245
+  %49 = add i32 %48, 12345
+  store i32 %49, ptr @myrnd.s, align 4, !tbaa !5
+  %50 = lshr i32 %49, 16
+  %51 = and i32 %50, 2047
+  %52 = shl nuw nsw i32 %47, 20
+  %53 = or i32 %52, %43
+  %54 = shl nuw nsw i32 %51, 20
+  %55 = add nuw i32 %53, %54
+  store i32 %55, ptr getelementptr inbounds (%struct.Z, ptr @sZ, i64 0, i32 1), align 16
+  %56 = lshr i32 %55, 20
+  %57 = add nuw nsw i32 %51, %47
+  %58 = icmp eq i32 %57, %56
+  br i1 %58, label %60, label %59
 
-64:                                               ; preds = %0
-  %65 = lshr i32 %60, 20
-  %66 = and i32 %61, 8191
-  %67 = icmp eq i32 %66, 0
-  %68 = add nuw nsw i32 %56, %52
-  %69 = icmp eq i32 %68, %65
-  %70 = select i1 %67, i1 %69, i1 false
-  br i1 %70, label %72, label %71
-
-71:                                               ; preds = %64, %0
+59:                                               ; preds = %0
   tail call void @abort() #8
   unreachable
 
-72:                                               ; preds = %64
+60:                                               ; preds = %0
   ret void
 }
 

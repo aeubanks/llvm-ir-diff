@@ -63,91 +63,91 @@ define dso_local i32 @dyn_comp(ptr nocapture noundef %0, ptr nocapture noundef r
   %51 = add i32 %49, %50
   %52 = add i32 %51, %37
   %53 = udiv i32 %52, %44
-  %54 = urem i32 %52, %44
-  %55 = icmp ult i32 %53, 9
-  br i1 %55, label %56, label %64
+  %54 = icmp ult i32 %53, 9
+  br i1 %54, label %55, label %63
 
-56:                                               ; preds = %31
-  %57 = mul i32 %53, %44
-  %58 = icmp eq i32 %52, %57
-  %59 = sext i1 %58 to i32
-  %60 = add i32 %42, 1
-  %61 = add i32 %60, %53
-  %62 = add i32 %61, %59
-  %63 = icmp ugt i32 %62, 25
-  br i1 %63, label %64, label %107
+55:                                               ; preds = %31
+  %56 = mul i32 %53, %44
+  %57 = icmp eq i32 %56, %52
+  %58 = sext i1 %57 to i32
+  %59 = add nuw nsw i32 %53, 1
+  %60 = add i32 %59, %42
+  %61 = add i32 %60, %58
+  %62 = icmp ugt i32 %61, 25
+  br i1 %62, label %63, label %106
 
-64:                                               ; preds = %56, %31
-  %65 = lshr i32 %33, 3
-  %66 = zext i32 %65 to i64
-  %67 = getelementptr inbounds i8, ptr %15, i64 %66
-  %68 = load i32, ptr %67, align 4, !tbaa !11
-  %69 = tail call i32 @Swap32NtoB(i32 noundef %68) #4
-  %70 = and i32 %33, 7
-  %71 = sub nuw nsw i32 23, %70
-  %72 = shl nuw i32 511, %71
-  %73 = or i32 %69, %72
-  %74 = tail call i32 @Swap32BtoN(i32 noundef %73) #4
-  store i32 %74, ptr %67, align 4, !tbaa !11
-  %75 = add i32 %33, 9
-  %76 = lshr i32 %75, 3
-  %77 = zext i32 %76 to i64
-  %78 = getelementptr inbounds i8, ptr %15, i64 %77
-  %79 = and i32 %75, 7
-  %80 = add i32 %79, %4
-  %81 = sub i32 32, %80
-  %82 = load i32, ptr %78, align 4, !tbaa !11
-  %83 = tail call i32 @Swap32NtoB(i32 noundef %82) #4
-  %84 = icmp slt i32 %81, 0
-  br i1 %84, label %85, label %96
+63:                                               ; preds = %55, %31
+  %64 = lshr i32 %33, 3
+  %65 = zext i32 %64 to i64
+  %66 = getelementptr inbounds i8, ptr %15, i64 %65
+  %67 = load i32, ptr %66, align 4, !tbaa !11
+  %68 = tail call i32 @Swap32NtoB(i32 noundef %67) #4
+  %69 = and i32 %33, 7
+  %70 = sub nuw nsw i32 23, %69
+  %71 = shl nuw i32 511, %70
+  %72 = or i32 %68, %71
+  %73 = tail call i32 @Swap32BtoN(i32 noundef %72) #4
+  store i32 %73, ptr %66, align 4, !tbaa !11
+  %74 = add i32 %33, 9
+  %75 = lshr i32 %74, 3
+  %76 = zext i32 %75 to i64
+  %77 = getelementptr inbounds i8, ptr %15, i64 %76
+  %78 = and i32 %74, 7
+  %79 = add i32 %78, %4
+  %80 = sub i32 32, %79
+  %81 = load i32, ptr %77, align 4, !tbaa !11
+  %82 = tail call i32 @Swap32NtoB(i32 noundef %81) #4
+  %83 = icmp slt i32 %80, 0
+  br i1 %83, label %84, label %95
 
-85:                                               ; preds = %64
-  %86 = add i32 %80, -32
-  %87 = lshr i32 %52, %86
-  %88 = lshr i32 -1, %86
-  %89 = xor i32 %88, -1
-  %90 = and i32 %83, %89
-  %91 = or i32 %90, %87
-  %92 = getelementptr inbounds i8, ptr %78, i64 4
-  %93 = sub i32 40, %80
-  %94 = shl i32 %52, %93
-  %95 = trunc i32 %94 to i8
-  store i8 %95, ptr %92, align 1, !tbaa !21
-  br label %103
+84:                                               ; preds = %63
+  %85 = add i32 %79, -32
+  %86 = lshr i32 %52, %85
+  %87 = lshr i32 -1, %85
+  %88 = xor i32 %87, -1
+  %89 = and i32 %82, %88
+  %90 = or i32 %89, %86
+  %91 = getelementptr inbounds i8, ptr %77, i64 4
+  %92 = sub i32 40, %79
+  %93 = shl i32 %52, %92
+  %94 = trunc i32 %93 to i8
+  store i8 %94, ptr %91, align 1, !tbaa !21
+  br label %102
 
-96:                                               ; preds = %64
-  %97 = shl i32 %29, %81
-  %98 = and i32 %52, %29
-  %99 = shl i32 %98, %81
-  %100 = xor i32 %97, -1
-  %101 = and i32 %83, %100
-  %102 = or i32 %101, %99
-  br label %103
+95:                                               ; preds = %63
+  %96 = shl i32 %29, %80
+  %97 = and i32 %52, %29
+  %98 = shl i32 %97, %80
+  %99 = xor i32 %96, -1
+  %100 = and i32 %82, %99
+  %101 = or i32 %100, %98
+  br label %102
 
-103:                                              ; preds = %85, %96
-  %104 = phi i32 [ %91, %85 ], [ %102, %96 ]
-  %105 = tail call i32 @Swap32BtoN(i32 noundef %104) #4
-  store i32 %105, ptr %78, align 4, !tbaa !11
-  %106 = add i32 %75, %4
+102:                                              ; preds = %84, %95
+  %103 = phi i32 [ %90, %84 ], [ %101, %95 ]
+  %104 = tail call i32 @Swap32BtoN(i32 noundef %103) #4
+  store i32 %104, ptr %77, align 4, !tbaa !11
+  %105 = add i32 %74, %4
   br label %133
 
-107:                                              ; preds = %56
-  %108 = shl nsw i32 -1, %53
-  %109 = xor i32 %108, -1
-  %110 = sub nsw i32 %62, %53
-  %111 = shl i32 %109, %110
-  %112 = add i32 %54, 1
-  %113 = add i32 %112, %59
-  %114 = add i32 %113, %111
+106:                                              ; preds = %55
+  %107 = add i32 %52, 1
+  %108 = sub i32 %107, %56
+  %109 = add i32 %108, %58
+  %110 = shl nsw i32 -1, %53
+  %111 = xor i32 %110, -1
+  %112 = sub nsw i32 %61, %53
+  %113 = shl i32 %111, %112
+  %114 = add i32 %109, %113
   %115 = lshr i32 %33, 3
   %116 = zext i32 %115 to i64
   %117 = getelementptr inbounds i8, ptr %15, i64 %116
   %118 = load i32, ptr %117, align 4, !tbaa !11
   %119 = tail call i32 @Swap32NtoB(i32 noundef %118) #4
   %120 = and i32 %33, 7
-  %121 = add nuw nsw i32 %120, %62
+  %121 = add nuw nsw i32 %120, %61
   %122 = sub nuw nsw i32 32, %121
-  %123 = sub nuw nsw i32 32, %62
+  %123 = sub nuw nsw i32 32, %61
   %124 = lshr i32 -1, %123
   %125 = shl i32 %124, %122
   %126 = and i32 %114, %124
@@ -157,26 +157,26 @@ define dso_local i32 @dyn_comp(ptr nocapture noundef %0, ptr nocapture noundef r
   %130 = or i32 %129, %127
   %131 = tail call i32 @Swap32BtoN(i32 noundef %130) #4
   store i32 %131, ptr %117, align 4, !tbaa !11
-  %132 = add i32 %62, %33
+  %132 = add i32 %61, %33
   br label %133
 
-133:                                              ; preds = %107, %103
-  %134 = phi i32 [ %106, %103 ], [ %132, %107 ]
-  %135 = mul i32 %51, %21
-  %136 = mul i32 %36, %21
-  %137 = lshr i32 %136, 9
-  %138 = sub i32 %36, %137
-  %139 = add i32 %138, %135
-  %140 = icmp ugt i32 %52, 65535
-  %141 = select i1 %140, i32 65535, i32 %139
-  %142 = add nuw i32 %35, 1
-  %143 = icmp slt i32 %47, %8
-  %144 = select i1 %143, i64 0, i64 %30
-  %145 = getelementptr i32, ptr %45, i64 %144
-  %146 = select i1 %143, i32 %47, i32 0
-  %147 = and i32 %141, 1073741696
+133:                                              ; preds = %106, %102
+  %134 = phi i32 [ %105, %102 ], [ %132, %106 ]
+  %135 = add nuw i32 %35, 1
+  %136 = icmp slt i32 %47, %8
+  %137 = select i1 %136, i32 %47, i32 0
+  %138 = select i1 %136, i64 0, i64 %30
+  %139 = getelementptr i32, ptr %45, i64 %138
+  %140 = mul i32 %51, %21
+  %141 = mul i32 %36, %21
+  %142 = lshr i32 %141, 9
+  %143 = sub i32 %36, %142
+  %144 = add i32 %143, %140
+  %145 = icmp ugt i32 %52, 65535
+  %146 = select i1 %145, i32 65535, i32 %144
+  %147 = and i32 %146, 1073741696
   %148 = icmp eq i32 %147, 0
-  %149 = icmp ult i32 %142, %3
+  %149 = icmp ult i32 %135, %3
   %150 = select i1 %148, i1 %149, i1 false
   br i1 %150, label %151, label %241
 
@@ -186,9 +186,9 @@ define dso_local i32 @dyn_comp(ptr nocapture noundef %0, ptr nocapture noundef r
 
 153:                                              ; preds = %177, %151
   %154 = phi i32 [ 0, %151 ], [ %179, %177 ]
-  %155 = phi i32 [ %142, %151 ], [ %180, %177 ]
-  %156 = phi i32 [ %146, %151 ], [ %183, %177 ]
-  %157 = phi ptr [ %145, %151 ], [ %185, %177 ]
+  %155 = phi i32 [ %135, %151 ], [ %180, %177 ]
+  %156 = phi i32 [ %137, %151 ], [ %183, %177 ]
+  %157 = phi ptr [ %139, %151 ], [ %185, %177 ]
   %158 = icmp ult i32 %155, %3
   br i1 %158, label %159, label %186
 
@@ -235,8 +235,8 @@ define dso_local i32 @dyn_comp(ptr nocapture noundef %0, ptr nocapture noundef r
   %189 = phi i32 [ %155, %159 ], [ %3, %153 ], [ %152, %162 ], [ %3, %172 ], [ %165, %174 ]
   %190 = phi i32 [ %156, %159 ], [ %156, %153 ], [ %168, %162 ], [ %168, %172 ], [ %168, %174 ]
   %191 = phi ptr [ %157, %159 ], [ %157, %153 ], [ %170, %162 ], [ %170, %172 ], [ %170, %174 ]
-  %192 = tail call fastcc i32 @lead(i32 noundef %141)
-  %193 = add i32 %141, 16
+  %192 = tail call fastcc i32 @lead(i32 noundef %146)
+  %193 = add i32 %146, 16
   %194 = lshr i32 %193, 6
   %195 = add nsw i32 %194, -24
   %196 = add i32 %195, %192
@@ -295,11 +295,11 @@ define dso_local i32 @dyn_comp(ptr nocapture noundef %0, ptr nocapture noundef r
 
 241:                                              ; preds = %220, %133
   %242 = phi i32 [ %188, %220 ], [ 0, %133 ]
-  %243 = phi i32 [ 0, %220 ], [ %141, %133 ]
-  %244 = phi i32 [ %189, %220 ], [ %142, %133 ]
-  %245 = phi i32 [ %190, %220 ], [ %146, %133 ]
+  %243 = phi i32 [ 0, %220 ], [ %146, %133 ]
+  %244 = phi i32 [ %189, %220 ], [ %135, %133 ]
+  %245 = phi i32 [ %190, %220 ], [ %137, %133 ]
   %246 = phi i32 [ %240, %220 ], [ %134, %133 ]
-  %247 = phi ptr [ %191, %220 ], [ %145, %133 ]
+  %247 = phi ptr [ %191, %220 ], [ %139, %133 ]
   %248 = icmp ult i32 %244, %3
   br i1 %248, label %31, label %249, !llvm.loop !24
 

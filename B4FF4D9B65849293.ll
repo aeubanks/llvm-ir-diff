@@ -361,35 +361,47 @@ define dso_local i32 @read_hash_linear(i64 noundef %0, ptr nocapture noundef rea
   %7 = urem i64 %6, 4294967291
   %8 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %9 = trunc i64 %7 to i32
-  %10 = trunc i64 %0 to i32
-  br label %11
+  %10 = urem i32 %9, %8
+  %11 = trunc i64 %0 to i32
+  %12 = shl i32 %10, 1
+  %13 = zext i32 %12 to i64
+  %14 = getelementptr inbounds i32, ptr %1, i64 %13
+  %15 = load i32, ptr %14, align 4, !tbaa !5
+  %16 = icmp eq i32 %15, %11
+  %17 = icmp eq i32 %15, -1
+  %18 = or i1 %16, %17
+  br i1 %18, label %32, label %19
 
-11:                                               ; preds = %11, %2
-  %12 = phi i32 [ %9, %2 ], [ %21, %11 ]
-  %13 = urem i32 %12, %8
-  %14 = shl i32 %13, 1
-  %15 = zext i32 %14 to i64
-  %16 = getelementptr inbounds i32, ptr %1, i64 %15
-  %17 = load i32, ptr %16, align 4, !tbaa !5
-  %18 = icmp eq i32 %17, %10
-  %19 = icmp eq i32 %17, -1
-  %20 = or i1 %18, %19
-  %21 = add nuw i32 %13, 1
-  br i1 %20, label %22, label %11, !llvm.loop !19
+19:                                               ; preds = %2, %19
+  %20 = phi i32 [ %24, %19 ], [ %10, %2 ]
+  %21 = freeze i32 %20
+  %22 = add i32 %21, 1
+  %23 = icmp eq i32 %22, %8
+  %24 = select i1 %23, i32 0, i32 %22
+  %25 = shl i32 %24, 1
+  %26 = zext i32 %25 to i64
+  %27 = getelementptr inbounds i32, ptr %1, i64 %26
+  %28 = load i32, ptr %27, align 4, !tbaa !5
+  %29 = icmp eq i32 %28, %11
+  %30 = icmp eq i32 %28, -1
+  %31 = or i1 %29, %30
+  br i1 %31, label %32, label %19, !llvm.loop !19
 
-22:                                               ; preds = %11
-  br i1 %19, label %28, label %23
+32:                                               ; preds = %19, %2
+  %33 = phi i32 [ %12, %2 ], [ %25, %19 ]
+  %34 = phi i1 [ %17, %2 ], [ %30, %19 ]
+  br i1 %34, label %40, label %35
 
-23:                                               ; preds = %22
-  %24 = or i32 %14, 1
-  %25 = zext i32 %24 to i64
-  %26 = getelementptr inbounds i32, ptr %1, i64 %25
-  %27 = load i32, ptr %26, align 4, !tbaa !5
-  br label %28
+35:                                               ; preds = %32
+  %36 = or i32 %33, 1
+  %37 = zext i32 %36 to i64
+  %38 = getelementptr inbounds i32, ptr %1, i64 %37
+  %39 = load i32, ptr %38, align 4, !tbaa !5
+  br label %40
 
-28:                                               ; preds = %23, %22
-  %29 = phi i32 [ %27, %23 ], [ -1, %22 ]
-  ret i32 %29
+40:                                               ; preds = %35, %32
+  %41 = phi i32 [ %39, %35 ], [ -1, %32 ]
+  ret i32 %41
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
@@ -401,30 +413,45 @@ define dso_local void @write_hash_linear(i32 noundef %0, i64 noundef %1, ptr noc
   %8 = urem i64 %7, 4294967291
   %9 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %10 = trunc i64 %8 to i32
-  %11 = trunc i64 %1 to i32
-  br label %12
+  %11 = urem i32 %10, %9
+  %12 = trunc i64 %1 to i32
+  %13 = shl i32 %11, 1
+  %14 = zext i32 %13 to i64
+  %15 = getelementptr inbounds i32, ptr %2, i64 %14
+  %16 = load i32, ptr %15, align 4, !tbaa !5
+  %17 = icmp eq i32 %16, -1
+  %18 = icmp eq i32 %16, %12
+  %19 = or i1 %17, %18
+  br i1 %19, label %35, label %20
 
-12:                                               ; preds = %12, %3
-  %13 = phi i32 [ %10, %3 ], [ %22, %12 ]
-  %14 = urem i32 %13, %9
-  %15 = shl i32 %14, 1
-  %16 = zext i32 %15 to i64
-  %17 = getelementptr inbounds i32, ptr %2, i64 %16
-  %18 = load i32, ptr %17, align 4, !tbaa !5
-  %19 = icmp eq i32 %18, -1
-  %20 = icmp eq i32 %18, %11
-  %21 = or i1 %19, %20
-  %22 = add nuw i32 %14, 1
-  br i1 %21, label %23, label %12, !llvm.loop !20
-
-23:                                               ; preds = %12
-  %24 = zext i32 %15 to i64
-  %25 = getelementptr inbounds i32, ptr %2, i64 %24
-  store i32 %11, ptr %25, align 4, !tbaa !5
-  %26 = or i32 %15, 1
+20:                                               ; preds = %3, %20
+  %21 = phi i32 [ %25, %20 ], [ %11, %3 ]
+  %22 = freeze i32 %21
+  %23 = add i32 %22, 1
+  %24 = icmp eq i32 %23, %9
+  %25 = select i1 %24, i32 0, i32 %23
+  %26 = shl i32 %25, 1
   %27 = zext i32 %26 to i64
   %28 = getelementptr inbounds i32, ptr %2, i64 %27
-  store i32 %0, ptr %28, align 4, !tbaa !5
+  %29 = load i32, ptr %28, align 4, !tbaa !5
+  %30 = icmp eq i32 %29, -1
+  %31 = icmp eq i32 %29, %12
+  %32 = or i1 %30, %31
+  br i1 %32, label %33, label %20, !llvm.loop !20
+
+33:                                               ; preds = %20
+  %34 = zext i32 %26 to i64
+  br label %35
+
+35:                                               ; preds = %33, %3
+  %36 = phi i64 [ %14, %3 ], [ %34, %33 ]
+  %37 = phi i32 [ %13, %3 ], [ %26, %33 ]
+  %38 = getelementptr inbounds i32, ptr %2, i64 %36
+  store i32 %12, ptr %38, align 4, !tbaa !5
+  %39 = or i32 %37, 1
+  %40 = zext i32 %39 to i64
+  %41 = getelementptr inbounds i32, ptr %2, i64 %40
+  store i32 %0, ptr %41, align 4, !tbaa !5
   ret void
 }
 
@@ -440,22 +467,22 @@ define dso_local i32 @read_hash_linear_report_level_1(i64 noundef %0, ptr nocapt
   %9 = urem i64 %8, 4294967291
   %10 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %11 = trunc i64 %9 to i32
-  %12 = trunc i64 %0 to i32
-  %13 = urem i32 %11, %10
-  %14 = shl i32 %13, 1
+  %12 = urem i32 %11, %10
+  %13 = trunc i64 %0 to i32
+  %14 = shl i32 %12, 1
   %15 = zext i32 %14 to i64
   %16 = getelementptr inbounds i32, ptr %1, i64 %15
   %17 = load i32, ptr %16, align 4, !tbaa !5
-  %18 = icmp eq i32 %17, %12
+  %18 = icmp eq i32 %17, %13
   %19 = icmp eq i32 %17, -1
   %20 = or i1 %18, %19
   br i1 %20, label %36, label %21
 
 21:                                               ; preds = %2, %21
-  %22 = phi i32 [ %28, %21 ], [ %13, %2 ]
-  %23 = phi i32 [ %24, %21 ], [ 0, %2 ]
-  %24 = add nuw nsw i32 %23, 1
-  %25 = freeze i32 %22
+  %22 = phi i32 [ %24, %21 ], [ 0, %2 ]
+  %23 = phi i32 [ %28, %21 ], [ %12, %2 ]
+  %24 = add nuw nsw i32 %22, 1
+  %25 = freeze i32 %23
   %26 = add i32 %25, 1
   %27 = icmp eq i32 %26, %10
   %28 = select i1 %27, i32 0, i32 %26
@@ -463,7 +490,7 @@ define dso_local i32 @read_hash_linear_report_level_1(i64 noundef %0, ptr nocapt
   %30 = zext i32 %29 to i64
   %31 = getelementptr inbounds i32, ptr %1, i64 %30
   %32 = load i32, ptr %31, align 4, !tbaa !5
-  %33 = icmp eq i32 %32, %12
+  %33 = icmp eq i32 %32, %13
   %34 = icmp eq i32 %32, -1
   %35 = or i1 %33, %34
   br i1 %35, label %36, label %21, !llvm.loop !21
@@ -501,14 +528,14 @@ define dso_local void @write_hash_linear_report_level_1(i32 noundef %0, i64 noun
   %10 = urem i64 %9, 4294967291
   %11 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %12 = trunc i64 %10 to i32
-  %13 = trunc i64 %1 to i32
-  %14 = urem i32 %12, %11
-  %15 = shl i32 %14, 1
+  %13 = urem i32 %12, %11
+  %14 = trunc i64 %1 to i32
+  %15 = shl i32 %13, 1
   %16 = zext i32 %15 to i64
   %17 = getelementptr inbounds i32, ptr %2, i64 %16
   %18 = load i32, ptr %17, align 4, !tbaa !5
   %19 = icmp eq i32 %18, -1
-  %20 = icmp eq i32 %18, %13
+  %20 = icmp eq i32 %18, %14
   %21 = or i1 %19, %20
   br i1 %21, label %41, label %22
 
@@ -517,7 +544,7 @@ define dso_local void @write_hash_linear_report_level_1(i32 noundef %0, i64 noun
   br label %24
 
 24:                                               ; preds = %22, %24
-  %25 = phi i32 [ %31, %24 ], [ %14, %22 ]
+  %25 = phi i32 [ %31, %24 ], [ %13, %22 ]
   %26 = phi i32 [ %27, %24 ], [ %23, %22 ]
   %27 = add i32 %26, 1
   %28 = freeze i32 %25
@@ -529,7 +556,7 @@ define dso_local void @write_hash_linear_report_level_1(i32 noundef %0, i64 noun
   %34 = getelementptr inbounds i32, ptr %2, i64 %33
   %35 = load i32, ptr %34, align 4, !tbaa !5
   %36 = icmp eq i32 %35, -1
-  %37 = icmp eq i32 %35, %13
+  %37 = icmp eq i32 %35, %14
   %38 = or i1 %36, %37
   br i1 %38, label %39, label %24, !llvm.loop !22
 
@@ -542,7 +569,7 @@ define dso_local void @write_hash_linear_report_level_1(i32 noundef %0, i64 noun
   %42 = phi i64 [ %40, %39 ], [ %16, %3 ]
   %43 = phi i32 [ %32, %39 ], [ %15, %3 ]
   %44 = getelementptr inbounds i32, ptr %2, i64 %42
-  store i32 %13, ptr %44, align 4, !tbaa !5
+  store i32 %14, ptr %44, align 4, !tbaa !5
   %45 = or i32 %43, 1
   %46 = zext i32 %45 to i64
   %47 = getelementptr inbounds i32, ptr %2, i64 %46
@@ -564,21 +591,21 @@ define dso_local i32 @read_hash_linear_report_level_2(i64 noundef %0, ptr nocapt
   %11 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %12 = freeze i32 %11
   %13 = trunc i64 %10 to i32
-  %14 = trunc i64 %0 to i32
-  %15 = urem i32 %13, %12
-  %16 = shl i32 %15, 1
+  %14 = urem i32 %13, %12
+  %15 = trunc i64 %0 to i32
+  %16 = shl i32 %14, 1
   %17 = zext i32 %16 to i64
   %18 = getelementptr inbounds i32, ptr %1, i64 %17
   %19 = load i32, ptr %18, align 4, !tbaa !5
-  %20 = icmp eq i32 %19, %14
+  %20 = icmp eq i32 %19, %15
   %21 = icmp eq i32 %19, -1
   %22 = or i1 %20, %21
   br i1 %22, label %54, label %23
 
 23:                                               ; preds = %2, %40
-  %24 = phi i32 [ %44, %40 ], [ %15, %2 ]
-  %25 = phi i32 [ %41, %40 ], [ 0, %2 ]
-  %26 = icmp eq i32 %25, 1000
+  %24 = phi i32 [ %41, %40 ], [ 0, %2 ]
+  %25 = phi i32 [ %44, %40 ], [ %14, %2 ]
+  %26 = icmp eq i32 %24, 1000
   br i1 %26, label %27, label %29
 
 27:                                               ; preds = %23
@@ -587,20 +614,20 @@ define dso_local i32 @read_hash_linear_report_level_2(i64 noundef %0, ptr nocapt
   unreachable
 
 29:                                               ; preds = %23
-  %30 = add i32 %24, 1
+  %30 = add i32 %25, 1
   %31 = icmp eq i32 %30, %12
   %32 = select i1 %31, i32 0, i32 %30
   %33 = shl i32 %32, 1
   %34 = zext i32 %33 to i64
   %35 = getelementptr inbounds i32, ptr %1, i64 %34
   %36 = load i32, ptr %35, align 4, !tbaa !5
-  %37 = icmp eq i32 %36, %14
+  %37 = icmp eq i32 %36, %15
   %38 = icmp eq i32 %36, -1
   %39 = or i1 %37, %38
   br i1 %39, label %52, label %40, !llvm.loop !23
 
 40:                                               ; preds = %29
-  %41 = add nuw nsw i32 %25, 2
+  %41 = add nuw nsw i32 %24, 2
   %42 = add i32 %32, 1
   %43 = icmp eq i32 %42, %12
   %44 = select i1 %43, i32 0, i32 %42
@@ -608,13 +635,13 @@ define dso_local i32 @read_hash_linear_report_level_2(i64 noundef %0, ptr nocapt
   %46 = zext i32 %45 to i64
   %47 = getelementptr inbounds i32, ptr %1, i64 %46
   %48 = load i32, ptr %47, align 4, !tbaa !5
-  %49 = icmp eq i32 %48, %14
+  %49 = icmp eq i32 %48, %15
   %50 = icmp eq i32 %48, -1
   %51 = or i1 %49, %50
   br i1 %51, label %54, label %23, !llvm.loop !23
 
 52:                                               ; preds = %29
-  %53 = or i32 %25, 1
+  %53 = or i32 %24, 1
   br label %54
 
 54:                                               ; preds = %52, %40, %2
@@ -650,14 +677,14 @@ define dso_local void @write_hash_linear_report_level_2(i32 noundef %0, i64 noun
   %10 = urem i64 %9, 4294967291
   %11 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %12 = trunc i64 %10 to i32
-  %13 = trunc i64 %1 to i32
-  %14 = urem i32 %12, %11
-  %15 = shl i32 %14, 1
+  %13 = urem i32 %12, %11
+  %14 = trunc i64 %1 to i32
+  %15 = shl i32 %13, 1
   %16 = zext i32 %15 to i64
   %17 = getelementptr inbounds i32, ptr %2, i64 %16
   %18 = load i32, ptr %17, align 4, !tbaa !5
   %19 = icmp eq i32 %18, -1
-  %20 = icmp eq i32 %18, %13
+  %20 = icmp eq i32 %18, %14
   %21 = or i1 %19, %20
   br i1 %21, label %41, label %22
 
@@ -666,7 +693,7 @@ define dso_local void @write_hash_linear_report_level_2(i32 noundef %0, i64 noun
   br label %24
 
 24:                                               ; preds = %22, %24
-  %25 = phi i32 [ %31, %24 ], [ %14, %22 ]
+  %25 = phi i32 [ %31, %24 ], [ %13, %22 ]
   %26 = phi i32 [ %27, %24 ], [ %23, %22 ]
   %27 = add i32 %26, 1
   %28 = freeze i32 %25
@@ -678,7 +705,7 @@ define dso_local void @write_hash_linear_report_level_2(i32 noundef %0, i64 noun
   %34 = getelementptr inbounds i32, ptr %2, i64 %33
   %35 = load i32, ptr %34, align 4, !tbaa !5
   %36 = icmp eq i32 %35, -1
-  %37 = icmp eq i32 %35, %13
+  %37 = icmp eq i32 %35, %14
   %38 = or i1 %36, %37
   br i1 %38, label %39, label %24, !llvm.loop !24
 
@@ -691,7 +718,7 @@ define dso_local void @write_hash_linear_report_level_2(i32 noundef %0, i64 noun
   %42 = phi i64 [ %40, %39 ], [ %16, %3 ]
   %43 = phi i32 [ %32, %39 ], [ %15, %3 ]
   %44 = getelementptr inbounds i32, ptr %2, i64 %42
-  store i32 %13, ptr %44, align 4, !tbaa !5
+  store i32 %14, ptr %44, align 4, !tbaa !5
   %45 = or i32 %43, 1
   %46 = zext i32 %45 to i64
   %47 = getelementptr inbounds i32, ptr %2, i64 %46
@@ -894,29 +921,29 @@ define dso_local i32 @read_hash_quadratic(i64 noundef %0, ptr nocapture noundef 
   %7 = urem i64 %6, 4294967291
   %8 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %9 = trunc i64 %7 to i32
-  %10 = trunc i64 %0 to i32
-  %11 = urem i32 %9, %8
-  %12 = shl i32 %11, 1
+  %10 = urem i32 %9, %8
+  %11 = trunc i64 %0 to i32
+  %12 = shl i32 %10, 1
   %13 = zext i32 %12 to i64
   %14 = getelementptr inbounds i32, ptr %1, i64 %13
   %15 = load i32, ptr %14, align 4, !tbaa !5
-  %16 = icmp eq i32 %15, %10
+  %16 = icmp eq i32 %15, %11
   %17 = icmp eq i32 %15, -1
   %18 = or i1 %16, %17
   br i1 %18, label %33, label %19
 
 19:                                               ; preds = %2, %19
-  %20 = phi i32 [ %25, %19 ], [ %11, %2 ]
-  %21 = phi i32 [ %22, %19 ], [ 0, %2 ]
-  %22 = add nuw nsw i32 %21, 1
+  %20 = phi i32 [ %22, %19 ], [ 0, %2 ]
+  %21 = phi i32 [ %25, %19 ], [ %10, %2 ]
+  %22 = add nuw nsw i32 %20, 1
   %23 = mul nsw i32 %22, %22
-  %24 = add i32 %23, %20
+  %24 = add i32 %23, %21
   %25 = urem i32 %24, %8
   %26 = shl i32 %25, 1
   %27 = zext i32 %26 to i64
   %28 = getelementptr inbounds i32, ptr %1, i64 %27
   %29 = load i32, ptr %28, align 4, !tbaa !5
-  %30 = icmp eq i32 %29, %10
+  %30 = icmp eq i32 %29, %11
   %31 = icmp eq i32 %29, -1
   %32 = or i1 %30, %31
   br i1 %32, label %33, label %19, !llvm.loop !27
@@ -947,30 +974,30 @@ define dso_local void @write_hash_quadratic(i32 noundef %0, i64 noundef %1, ptr 
   %8 = urem i64 %7, 4294967291
   %9 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %10 = trunc i64 %8 to i32
-  %11 = trunc i64 %1 to i32
-  %12 = urem i32 %10, %9
-  %13 = shl i32 %12, 1
+  %11 = urem i32 %10, %9
+  %12 = trunc i64 %1 to i32
+  %13 = shl i32 %11, 1
   %14 = zext i32 %13 to i64
   %15 = getelementptr inbounds i32, ptr %2, i64 %14
   %16 = load i32, ptr %15, align 4, !tbaa !5
   %17 = icmp eq i32 %16, -1
-  %18 = icmp eq i32 %16, %11
+  %18 = icmp eq i32 %16, %12
   %19 = or i1 %17, %18
   br i1 %19, label %36, label %20
 
 20:                                               ; preds = %3, %20
-  %21 = phi i32 [ %26, %20 ], [ %12, %3 ]
+  %21 = phi i32 [ %26, %20 ], [ %11, %3 ]
   %22 = phi i32 [ %23, %20 ], [ 0, %3 ]
   %23 = add nuw nsw i32 %22, 1
   %24 = mul nsw i32 %23, %23
-  %25 = add i32 %21, %24
+  %25 = add i32 %24, %21
   %26 = urem i32 %25, %9
   %27 = shl i32 %26, 1
   %28 = zext i32 %27 to i64
   %29 = getelementptr inbounds i32, ptr %2, i64 %28
   %30 = load i32, ptr %29, align 4, !tbaa !5
   %31 = icmp eq i32 %30, -1
-  %32 = icmp eq i32 %30, %11
+  %32 = icmp eq i32 %30, %12
   %33 = or i1 %31, %32
   br i1 %33, label %34, label %20, !llvm.loop !28
 
@@ -982,7 +1009,7 @@ define dso_local void @write_hash_quadratic(i32 noundef %0, i64 noundef %1, ptr 
   %37 = phi i64 [ %14, %3 ], [ %35, %34 ]
   %38 = phi i32 [ %13, %3 ], [ %27, %34 ]
   %39 = getelementptr inbounds i32, ptr %2, i64 %37
-  store i32 %11, ptr %39, align 4, !tbaa !5
+  store i32 %12, ptr %39, align 4, !tbaa !5
   %40 = or i32 %38, 1
   %41 = zext i32 %40 to i64
   %42 = getelementptr inbounds i32, ptr %2, i64 %41
@@ -1002,29 +1029,29 @@ define dso_local i32 @read_hash_quadratic_report_level_1(i64 noundef %0, ptr noc
   %9 = urem i64 %8, 4294967291
   %10 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %11 = trunc i64 %9 to i32
-  %12 = trunc i64 %0 to i32
-  %13 = urem i32 %11, %10
-  %14 = shl i32 %13, 1
+  %12 = urem i32 %11, %10
+  %13 = trunc i64 %0 to i32
+  %14 = shl i32 %12, 1
   %15 = zext i32 %14 to i64
   %16 = getelementptr inbounds i32, ptr %1, i64 %15
   %17 = load i32, ptr %16, align 4, !tbaa !5
-  %18 = icmp eq i32 %17, %12
+  %18 = icmp eq i32 %17, %13
   %19 = icmp eq i32 %17, -1
   %20 = or i1 %18, %19
   br i1 %20, label %35, label %21
 
 21:                                               ; preds = %2, %21
-  %22 = phi i32 [ %27, %21 ], [ %13, %2 ]
-  %23 = phi i32 [ %24, %21 ], [ 0, %2 ]
-  %24 = add nuw nsw i32 %23, 1
+  %22 = phi i32 [ %24, %21 ], [ 0, %2 ]
+  %23 = phi i32 [ %27, %21 ], [ %12, %2 ]
+  %24 = add nuw nsw i32 %22, 1
   %25 = mul nsw i32 %24, %24
-  %26 = add i32 %25, %22
+  %26 = add i32 %25, %23
   %27 = urem i32 %26, %10
   %28 = shl i32 %27, 1
   %29 = zext i32 %28 to i64
   %30 = getelementptr inbounds i32, ptr %1, i64 %29
   %31 = load i32, ptr %30, align 4, !tbaa !5
-  %32 = icmp eq i32 %31, %12
+  %32 = icmp eq i32 %31, %13
   %33 = icmp eq i32 %31, -1
   %34 = or i1 %32, %33
   br i1 %34, label %35, label %21, !llvm.loop !29
@@ -1062,30 +1089,30 @@ define dso_local void @write_hash_quadratic_report_level_1(i32 noundef %0, i64 n
   %10 = urem i64 %9, 4294967291
   %11 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %12 = trunc i64 %10 to i32
-  %13 = trunc i64 %1 to i32
-  %14 = urem i32 %12, %11
-  %15 = shl i32 %14, 1
+  %13 = urem i32 %12, %11
+  %14 = trunc i64 %1 to i32
+  %15 = shl i32 %13, 1
   %16 = zext i32 %15 to i64
   %17 = getelementptr inbounds i32, ptr %2, i64 %16
   %18 = load i32, ptr %17, align 4, !tbaa !5
   %19 = icmp eq i32 %18, -1
-  %20 = icmp eq i32 %18, %13
+  %20 = icmp eq i32 %18, %14
   %21 = or i1 %19, %20
   br i1 %21, label %38, label %22
 
 22:                                               ; preds = %3, %22
-  %23 = phi i32 [ %28, %22 ], [ %14, %3 ]
+  %23 = phi i32 [ %28, %22 ], [ %13, %3 ]
   %24 = phi i32 [ %25, %22 ], [ 0, %3 ]
   %25 = add nuw nsw i32 %24, 1
   %26 = mul nsw i32 %25, %25
-  %27 = add i32 %23, %26
+  %27 = add i32 %26, %23
   %28 = urem i32 %27, %11
   %29 = shl i32 %28, 1
   %30 = zext i32 %29 to i64
   %31 = getelementptr inbounds i32, ptr %2, i64 %30
   %32 = load i32, ptr %31, align 4, !tbaa !5
   %33 = icmp eq i32 %32, -1
-  %34 = icmp eq i32 %32, %13
+  %34 = icmp eq i32 %32, %14
   %35 = or i1 %33, %34
   br i1 %35, label %36, label %22, !llvm.loop !30
 
@@ -1101,7 +1128,7 @@ define dso_local void @write_hash_quadratic_report_level_1(i32 noundef %0, i64 n
   %43 = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   %44 = add i32 %43, %41
   store i32 %44, ptr @write_hash_collisions, align 4, !tbaa !5
-  store i32 %13, ptr %42, align 4, !tbaa !5
+  store i32 %14, ptr %42, align 4, !tbaa !5
   %45 = or i32 %40, 1
   %46 = zext i32 %45 to i64
   %47 = getelementptr inbounds i32, ptr %2, i64 %46
@@ -1121,21 +1148,21 @@ define dso_local i32 @read_hash_quadratic_report_level_2(i64 noundef %0, ptr noc
   %9 = urem i64 %8, 4294967291
   %10 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %11 = trunc i64 %9 to i32
-  %12 = trunc i64 %0 to i32
-  %13 = urem i32 %11, %10
-  %14 = shl i32 %13, 1
+  %12 = urem i32 %11, %10
+  %13 = trunc i64 %0 to i32
+  %14 = shl i32 %12, 1
   %15 = zext i32 %14 to i64
   %16 = getelementptr inbounds i32, ptr %1, i64 %15
   %17 = load i32, ptr %16, align 4, !tbaa !5
-  %18 = icmp eq i32 %17, %12
+  %18 = icmp eq i32 %17, %13
   %19 = icmp eq i32 %17, -1
   %20 = or i1 %18, %19
   br i1 %20, label %51, label %21
 
 21:                                               ; preds = %2, %39
-  %22 = phi i32 [ %43, %39 ], [ %13, %2 ]
-  %23 = phi i32 [ %40, %39 ], [ 0, %2 ]
-  %24 = icmp eq i32 %23, 1000
+  %22 = phi i32 [ %40, %39 ], [ 0, %2 ]
+  %23 = phi i32 [ %43, %39 ], [ %12, %2 ]
+  %24 = icmp eq i32 %22, 1000
   br i1 %24, label %25, label %27
 
 25:                                               ; preds = %21
@@ -1144,21 +1171,21 @@ define dso_local i32 @read_hash_quadratic_report_level_2(i64 noundef %0, ptr noc
   unreachable
 
 27:                                               ; preds = %21
-  %28 = or i32 %23, 1
+  %28 = or i32 %22, 1
   %29 = mul nuw nsw i32 %28, %28
-  %30 = add i32 %29, %22
+  %30 = add i32 %29, %23
   %31 = urem i32 %30, %10
   %32 = shl i32 %31, 1
   %33 = zext i32 %32 to i64
   %34 = getelementptr inbounds i32, ptr %1, i64 %33
   %35 = load i32, ptr %34, align 4, !tbaa !5
-  %36 = icmp eq i32 %35, %12
+  %36 = icmp eq i32 %35, %13
   %37 = icmp eq i32 %35, -1
   %38 = or i1 %36, %37
   br i1 %38, label %51, label %39, !llvm.loop !31
 
 39:                                               ; preds = %27
-  %40 = add nuw nsw i32 %23, 2
+  %40 = add nuw nsw i32 %22, 2
   %41 = mul nuw nsw i32 %40, %40
   %42 = add i32 %41, %31
   %43 = urem i32 %42, %10
@@ -1166,7 +1193,7 @@ define dso_local i32 @read_hash_quadratic_report_level_2(i64 noundef %0, ptr noc
   %45 = zext i32 %44 to i64
   %46 = getelementptr inbounds i32, ptr %1, i64 %45
   %47 = load i32, ptr %46, align 4, !tbaa !5
-  %48 = icmp eq i32 %47, %12
+  %48 = icmp eq i32 %47, %13
   %49 = icmp eq i32 %47, -1
   %50 = or i1 %48, %49
   br i1 %50, label %51, label %21, !llvm.loop !31
@@ -1204,30 +1231,30 @@ define dso_local void @write_hash_quadratic_report_level_2(i32 noundef %0, i64 n
   %10 = urem i64 %9, 4294967291
   %11 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %12 = trunc i64 %10 to i32
-  %13 = trunc i64 %1 to i32
-  %14 = urem i32 %12, %11
-  %15 = shl i32 %14, 1
+  %13 = urem i32 %12, %11
+  %14 = trunc i64 %1 to i32
+  %15 = shl i32 %13, 1
   %16 = zext i32 %15 to i64
   %17 = getelementptr inbounds i32, ptr %2, i64 %16
   %18 = load i32, ptr %17, align 4, !tbaa !5
   %19 = icmp eq i32 %18, -1
-  %20 = icmp eq i32 %18, %13
+  %20 = icmp eq i32 %18, %14
   %21 = or i1 %19, %20
   br i1 %21, label %38, label %22
 
 22:                                               ; preds = %3, %22
-  %23 = phi i32 [ %28, %22 ], [ %14, %3 ]
+  %23 = phi i32 [ %28, %22 ], [ %13, %3 ]
   %24 = phi i32 [ %25, %22 ], [ 0, %3 ]
   %25 = add nuw nsw i32 %24, 1
   %26 = mul nsw i32 %25, %25
-  %27 = add i32 %23, %26
+  %27 = add i32 %26, %23
   %28 = urem i32 %27, %11
   %29 = shl i32 %28, 1
   %30 = zext i32 %29 to i64
   %31 = getelementptr inbounds i32, ptr %2, i64 %30
   %32 = load i32, ptr %31, align 4, !tbaa !5
   %33 = icmp eq i32 %32, -1
-  %34 = icmp eq i32 %32, %13
+  %34 = icmp eq i32 %32, %14
   %35 = or i1 %33, %34
   br i1 %35, label %36, label %22, !llvm.loop !32
 
@@ -1243,7 +1270,7 @@ define dso_local void @write_hash_quadratic_report_level_2(i32 noundef %0, i64 n
   %43 = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   %44 = add i32 %43, %41
   store i32 %44, ptr @write_hash_collisions, align 4, !tbaa !5
-  store i32 %13, ptr %42, align 4, !tbaa !5
+  store i32 %14, ptr %42, align 4, !tbaa !5
   %45 = or i32 %40, 1
   %46 = zext i32 %45 to i64
   %47 = getelementptr inbounds i32, ptr %2, i64 %46
@@ -1452,29 +1479,29 @@ define dso_local i32 @read_hash_primejump(i64 noundef %0, ptr nocapture noundef 
   %10 = urem i64 %9, 4294967291
   %11 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %12 = trunc i64 %10 to i32
-  %13 = trunc i64 %0 to i32
-  %14 = urem i32 %12, %11
-  %15 = shl i32 %14, 1
+  %13 = urem i32 %12, %11
+  %14 = trunc i64 %0 to i32
+  %15 = shl i32 %13, 1
   %16 = zext i32 %15 to i64
   %17 = getelementptr inbounds i32, ptr %1, i64 %16
   %18 = load i32, ptr %17, align 4, !tbaa !5
-  %19 = icmp eq i32 %18, %13
+  %19 = icmp eq i32 %18, %14
   %20 = icmp eq i32 %18, -1
   %21 = or i1 %19, %20
   br i1 %21, label %36, label %22
 
 22:                                               ; preds = %2, %22
-  %23 = phi i32 [ %28, %22 ], [ %14, %2 ]
-  %24 = phi i32 [ %25, %22 ], [ 0, %2 ]
-  %25 = add nuw nsw i32 %24, 1
+  %23 = phi i32 [ %25, %22 ], [ 0, %2 ]
+  %24 = phi i32 [ %28, %22 ], [ %13, %2 ]
+  %25 = add nuw nsw i32 %23, 1
   %26 = mul i32 %25, %5
-  %27 = add i32 %26, %23
+  %27 = add i32 %26, %24
   %28 = urem i32 %27, %11
   %29 = shl i32 %28, 1
   %30 = zext i32 %29 to i64
   %31 = getelementptr inbounds i32, ptr %1, i64 %30
   %32 = load i32, ptr %31, align 4, !tbaa !5
-  %33 = icmp eq i32 %32, %13
+  %33 = icmp eq i32 %32, %14
   %34 = icmp eq i32 %32, -1
   %35 = or i1 %33, %34
   br i1 %35, label %36, label %22, !llvm.loop !35
@@ -1508,30 +1535,30 @@ define dso_local void @write_hash_primejump(i32 noundef %0, i64 noundef %1, ptr 
   %11 = urem i64 %10, 4294967291
   %12 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %13 = trunc i64 %11 to i32
-  %14 = trunc i64 %1 to i32
-  %15 = urem i32 %13, %12
-  %16 = shl i32 %15, 1
+  %14 = urem i32 %13, %12
+  %15 = trunc i64 %1 to i32
+  %16 = shl i32 %14, 1
   %17 = zext i32 %16 to i64
   %18 = getelementptr inbounds i32, ptr %2, i64 %17
   %19 = load i32, ptr %18, align 4, !tbaa !5
   %20 = icmp eq i32 %19, -1
-  %21 = icmp eq i32 %19, %14
+  %21 = icmp eq i32 %19, %15
   %22 = or i1 %20, %21
   br i1 %22, label %39, label %23
 
 23:                                               ; preds = %3, %23
-  %24 = phi i32 [ %29, %23 ], [ %15, %3 ]
-  %25 = phi i32 [ %26, %23 ], [ 0, %3 ]
-  %26 = add nuw nsw i32 %25, 1
+  %24 = phi i32 [ %26, %23 ], [ 0, %3 ]
+  %25 = phi i32 [ %29, %23 ], [ %14, %3 ]
+  %26 = add nuw nsw i32 %24, 1
   %27 = mul i32 %26, %6
-  %28 = add i32 %27, %24
+  %28 = add i32 %27, %25
   %29 = urem i32 %28, %12
   %30 = shl i32 %29, 1
   %31 = zext i32 %30 to i64
   %32 = getelementptr inbounds i32, ptr %2, i64 %31
   %33 = load i32, ptr %32, align 4, !tbaa !5
   %34 = icmp eq i32 %33, -1
-  %35 = icmp eq i32 %33, %14
+  %35 = icmp eq i32 %33, %15
   %36 = or i1 %34, %35
   br i1 %36, label %37, label %23, !llvm.loop !36
 
@@ -1543,7 +1570,7 @@ define dso_local void @write_hash_primejump(i32 noundef %0, i64 noundef %1, ptr 
   %40 = phi i64 [ %17, %3 ], [ %38, %37 ]
   %41 = phi i32 [ %16, %3 ], [ %30, %37 ]
   %42 = getelementptr inbounds i32, ptr %2, i64 %40
-  store i32 %14, ptr %42, align 4, !tbaa !5
+  store i32 %15, ptr %42, align 4, !tbaa !5
   %43 = or i32 %41, 1
   %44 = zext i32 %43 to i64
   %45 = getelementptr inbounds i32, ptr %2, i64 %44
@@ -1566,29 +1593,29 @@ define dso_local i32 @read_hash_primejump_report_level_1(i64 noundef %0, ptr noc
   %12 = urem i64 %11, 4294967291
   %13 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %14 = trunc i64 %12 to i32
-  %15 = trunc i64 %0 to i32
-  %16 = urem i32 %14, %13
-  %17 = shl i32 %16, 1
+  %15 = urem i32 %14, %13
+  %16 = trunc i64 %0 to i32
+  %17 = shl i32 %15, 1
   %18 = zext i32 %17 to i64
   %19 = getelementptr inbounds i32, ptr %1, i64 %18
   %20 = load i32, ptr %19, align 4, !tbaa !5
-  %21 = icmp eq i32 %20, %15
+  %21 = icmp eq i32 %20, %16
   %22 = icmp eq i32 %20, -1
   %23 = or i1 %21, %22
   br i1 %23, label %38, label %24
 
 24:                                               ; preds = %2, %24
-  %25 = phi i32 [ %30, %24 ], [ %16, %2 ]
-  %26 = phi i32 [ %27, %24 ], [ 0, %2 ]
-  %27 = add nuw nsw i32 %26, 1
+  %25 = phi i32 [ %27, %24 ], [ 0, %2 ]
+  %26 = phi i32 [ %30, %24 ], [ %15, %2 ]
+  %27 = add nuw nsw i32 %25, 1
   %28 = mul i32 %27, %5
-  %29 = add i32 %28, %25
+  %29 = add i32 %28, %26
   %30 = urem i32 %29, %13
   %31 = shl i32 %30, 1
   %32 = zext i32 %31 to i64
   %33 = getelementptr inbounds i32, ptr %1, i64 %32
   %34 = load i32, ptr %33, align 4, !tbaa !5
-  %35 = icmp eq i32 %34, %15
+  %35 = icmp eq i32 %34, %16
   %36 = icmp eq i32 %34, -1
   %37 = or i1 %35, %36
   br i1 %37, label %38, label %24, !llvm.loop !37
@@ -1629,30 +1656,30 @@ define dso_local void @write_hash_primejump_report_level_1(i32 noundef %0, i64 n
   %13 = urem i64 %12, 4294967291
   %14 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %15 = trunc i64 %13 to i32
-  %16 = trunc i64 %1 to i32
-  %17 = urem i32 %15, %14
-  %18 = shl i32 %17, 1
+  %16 = urem i32 %15, %14
+  %17 = trunc i64 %1 to i32
+  %18 = shl i32 %16, 1
   %19 = zext i32 %18 to i64
   %20 = getelementptr inbounds i32, ptr %2, i64 %19
   %21 = load i32, ptr %20, align 4, !tbaa !5
   %22 = icmp eq i32 %21, -1
-  %23 = icmp eq i32 %21, %16
+  %23 = icmp eq i32 %21, %17
   %24 = or i1 %22, %23
   br i1 %24, label %41, label %25
 
 25:                                               ; preds = %3, %25
-  %26 = phi i32 [ %31, %25 ], [ %17, %3 ]
-  %27 = phi i32 [ %28, %25 ], [ 0, %3 ]
-  %28 = add nuw nsw i32 %27, 1
+  %26 = phi i32 [ %28, %25 ], [ 0, %3 ]
+  %27 = phi i32 [ %31, %25 ], [ %16, %3 ]
+  %28 = add nuw nsw i32 %26, 1
   %29 = mul i32 %28, %6
-  %30 = add i32 %29, %26
+  %30 = add i32 %29, %27
   %31 = urem i32 %30, %14
   %32 = shl i32 %31, 1
   %33 = zext i32 %32 to i64
   %34 = getelementptr inbounds i32, ptr %2, i64 %33
   %35 = load i32, ptr %34, align 4, !tbaa !5
   %36 = icmp eq i32 %35, -1
-  %37 = icmp eq i32 %35, %16
+  %37 = icmp eq i32 %35, %17
   %38 = or i1 %36, %37
   br i1 %38, label %39, label %25, !llvm.loop !38
 
@@ -1668,7 +1695,7 @@ define dso_local void @write_hash_primejump_report_level_1(i32 noundef %0, i64 n
   %46 = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   %47 = add i32 %46, %44
   store i32 %47, ptr @write_hash_collisions, align 4, !tbaa !5
-  store i32 %16, ptr %45, align 4, !tbaa !5
+  store i32 %17, ptr %45, align 4, !tbaa !5
   %48 = or i32 %43, 1
   %49 = zext i32 %48 to i64
   %50 = getelementptr inbounds i32, ptr %2, i64 %49
@@ -1691,21 +1718,21 @@ define dso_local i32 @read_hash_primejump_report_level_2(i64 noundef %0, ptr noc
   %12 = urem i64 %11, 4294967291
   %13 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %14 = trunc i64 %12 to i32
-  %15 = trunc i64 %0 to i32
-  %16 = urem i32 %14, %13
-  %17 = shl i32 %16, 1
+  %15 = urem i32 %14, %13
+  %16 = trunc i64 %0 to i32
+  %17 = shl i32 %15, 1
   %18 = zext i32 %17 to i64
   %19 = getelementptr inbounds i32, ptr %1, i64 %18
   %20 = load i32, ptr %19, align 4, !tbaa !5
-  %21 = icmp eq i32 %20, %15
+  %21 = icmp eq i32 %20, %16
   %22 = icmp eq i32 %20, -1
   %23 = or i1 %21, %22
   br i1 %23, label %54, label %24
 
 24:                                               ; preds = %2, %42
-  %25 = phi i32 [ %46, %42 ], [ %16, %2 ]
-  %26 = phi i32 [ %43, %42 ], [ 0, %2 ]
-  %27 = icmp eq i32 %26, 1000
+  %25 = phi i32 [ %43, %42 ], [ 0, %2 ]
+  %26 = phi i32 [ %46, %42 ], [ %15, %2 ]
+  %27 = icmp eq i32 %25, 1000
   br i1 %27, label %28, label %30
 
 28:                                               ; preds = %24
@@ -1714,21 +1741,21 @@ define dso_local i32 @read_hash_primejump_report_level_2(i64 noundef %0, ptr noc
   unreachable
 
 30:                                               ; preds = %24
-  %31 = or i32 %26, 1
+  %31 = or i32 %25, 1
   %32 = mul i32 %31, %5
-  %33 = add i32 %32, %25
+  %33 = add i32 %32, %26
   %34 = urem i32 %33, %13
   %35 = shl i32 %34, 1
   %36 = zext i32 %35 to i64
   %37 = getelementptr inbounds i32, ptr %1, i64 %36
   %38 = load i32, ptr %37, align 4, !tbaa !5
-  %39 = icmp eq i32 %38, %15
+  %39 = icmp eq i32 %38, %16
   %40 = icmp eq i32 %38, -1
   %41 = or i1 %39, %40
   br i1 %41, label %54, label %42, !llvm.loop !39
 
 42:                                               ; preds = %30
-  %43 = add nuw nsw i32 %26, 2
+  %43 = add nuw nsw i32 %25, 2
   %44 = mul i32 %43, %5
   %45 = add i32 %44, %34
   %46 = urem i32 %45, %13
@@ -1736,7 +1763,7 @@ define dso_local i32 @read_hash_primejump_report_level_2(i64 noundef %0, ptr noc
   %48 = zext i32 %47 to i64
   %49 = getelementptr inbounds i32, ptr %1, i64 %48
   %50 = load i32, ptr %49, align 4, !tbaa !5
-  %51 = icmp eq i32 %50, %15
+  %51 = icmp eq i32 %50, %16
   %52 = icmp eq i32 %50, -1
   %53 = or i1 %51, %52
   br i1 %53, label %54, label %24, !llvm.loop !39
@@ -1777,30 +1804,30 @@ define dso_local void @write_hash_primejump_report_level_2(i32 noundef %0, i64 n
   %13 = urem i64 %12, 4294967291
   %14 = load i32, ptr @hashtablesize, align 4, !tbaa !5
   %15 = trunc i64 %13 to i32
-  %16 = trunc i64 %1 to i32
-  %17 = urem i32 %15, %14
-  %18 = shl i32 %17, 1
+  %16 = urem i32 %15, %14
+  %17 = trunc i64 %1 to i32
+  %18 = shl i32 %16, 1
   %19 = zext i32 %18 to i64
   %20 = getelementptr inbounds i32, ptr %2, i64 %19
   %21 = load i32, ptr %20, align 4, !tbaa !5
   %22 = icmp eq i32 %21, -1
-  %23 = icmp eq i32 %21, %16
+  %23 = icmp eq i32 %21, %17
   %24 = or i1 %22, %23
   br i1 %24, label %41, label %25
 
 25:                                               ; preds = %3, %25
-  %26 = phi i32 [ %31, %25 ], [ %17, %3 ]
-  %27 = phi i32 [ %28, %25 ], [ 0, %3 ]
-  %28 = add nuw nsw i32 %27, 1
+  %26 = phi i32 [ %28, %25 ], [ 0, %3 ]
+  %27 = phi i32 [ %31, %25 ], [ %16, %3 ]
+  %28 = add nuw nsw i32 %26, 1
   %29 = mul i32 %28, %6
-  %30 = add i32 %29, %26
+  %30 = add i32 %29, %27
   %31 = urem i32 %30, %14
   %32 = shl i32 %31, 1
   %33 = zext i32 %32 to i64
   %34 = getelementptr inbounds i32, ptr %2, i64 %33
   %35 = load i32, ptr %34, align 4, !tbaa !5
   %36 = icmp eq i32 %35, -1
-  %37 = icmp eq i32 %35, %16
+  %37 = icmp eq i32 %35, %17
   %38 = or i1 %36, %37
   br i1 %38, label %39, label %25, !llvm.loop !40
 
@@ -1816,7 +1843,7 @@ define dso_local void @write_hash_primejump_report_level_2(i32 noundef %0, i64 n
   %46 = load i32, ptr @write_hash_collisions, align 4, !tbaa !5
   %47 = add i32 %46, %44
   store i32 %47, ptr @write_hash_collisions, align 4, !tbaa !5
-  store i32 %16, ptr %45, align 4, !tbaa !5
+  store i32 %17, ptr %45, align 4, !tbaa !5
   %48 = or i32 %43, 1
   %49 = zext i32 %48 to i64
   %50 = getelementptr inbounds i32, ptr %2, i64 %49
@@ -2236,11 +2263,11 @@ define dso_local i32 @read_dev_hash(i32 noundef %0, i64 noundef %1, i64 noundef 
   br i1 %62, label %63, label %49, !llvm.loop !46
 
 63:                                               ; preds = %49, %34
-  %64 = phi i32 [ 0, %34 ], [ %52, %49 ]
-  %65 = phi i64 [ %41, %34 ], [ %55, %49 ]
-  %66 = trunc i64 %65 to i32
+  %64 = phi i64 [ %41, %34 ], [ %55, %49 ]
+  %65 = phi i32 [ 0, %34 ], [ %52, %49 ]
+  %66 = trunc i64 %64 to i32
   %67 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
-  %68 = add i32 %67, %64
+  %68 = add i32 %67, %65
   store i32 %68, ptr @read_hash_collisions, align 4, !tbaa !5
   br label %519
 
@@ -2288,11 +2315,11 @@ define dso_local i32 @read_dev_hash(i32 noundef %0, i64 noundef %1, i64 noundef 
   br i1 %101, label %102, label %84, !llvm.loop !47
 
 102:                                              ; preds = %90, %69
-  %103 = phi i32 [ 0, %69 ], [ %91, %90 ]
-  %104 = phi i64 [ %76, %69 ], [ %94, %90 ]
-  %105 = trunc i64 %104 to i32
+  %103 = phi i64 [ %76, %69 ], [ %94, %90 ]
+  %104 = phi i32 [ 0, %69 ], [ %91, %90 ]
+  %105 = trunc i64 %103 to i32
   %106 = load i32, ptr @read_hash_collisions, align 4, !tbaa !5
-  %107 = add i32 %106, %103
+  %107 = add i32 %106, %104
   store i32 %107, ptr @read_hash_collisions, align 4, !tbaa !5
   br label %519
 

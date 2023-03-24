@@ -754,177 +754,243 @@ define dso_local i32 @FmoStartPicture() local_unnamed_addr #3 {
 
 7:                                                ; preds = %0
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) @FirstMBInSlice, i8 -1, i64 32, i1 false), !tbaa !5
-  br label %104
+  br label %148
 
-8:                                                ; preds = %0, %13
-  %9 = phi i64 [ %14, %13 ], [ 0, %0 ]
-  %10 = getelementptr inbounds i8, ptr %5, i64 %9
-  %11 = load i8, ptr %10, align 1, !tbaa !23
-  %12 = icmp eq i8 %11, 0
-  br i1 %12, label %16, label %13
+8:                                                ; preds = %0
+  %9 = load i8, ptr %5, align 1, !tbaa !23
+  %10 = icmp eq i8 %9, 0
+  br i1 %10, label %19, label %15
 
-13:                                               ; preds = %8
-  %14 = add nuw nsw i64 %9, 1
-  %15 = icmp eq i64 %14, %6
-  br i1 %15, label %18, label %8, !llvm.loop !52
+11:                                               ; preds = %15
+  %12 = getelementptr inbounds i8, ptr %5, i64 %17
+  %13 = load i8, ptr %12, align 1, !tbaa !23
+  %14 = icmp eq i8 %13, 0
+  br i1 %14, label %145, label %15, !llvm.loop !52
 
-16:                                               ; preds = %8
-  %17 = trunc i64 %9 to i32
-  br label %18
+15:                                               ; preds = %8, %11
+  %16 = phi i64 [ %17, %11 ], [ 0, %8 ]
+  %17 = add nuw nsw i64 %16, 1
+  %18 = icmp eq i64 %17, %6
+  br i1 %18, label %19, label %11, !llvm.loop !52
 
-18:                                               ; preds = %13, %16
-  %19 = phi i32 [ %17, %16 ], [ -1, %13 ]
-  store i32 %19, ptr @FirstMBInSlice, align 16, !tbaa !5
-  br label %20
+19:                                               ; preds = %15, %8, %145
+  %20 = phi i32 [ %147, %145 ], [ 0, %8 ], [ %3, %15 ]
+  %21 = phi i1 [ %146, %145 ], [ true, %8 ], [ false, %15 ]
+  %22 = freeze i1 %21
+  %23 = select i1 %22, i32 %20, i32 -1
+  store i32 %23, ptr @FirstMBInSlice, align 16, !tbaa !5
+  %24 = icmp eq i8 %9, 1
+  br i1 %24, label %36, label %25
 
-20:                                               ; preds = %25, %18
-  %21 = phi i64 [ 0, %18 ], [ %26, %25 ]
-  %22 = getelementptr inbounds i8, ptr %5, i64 %21
-  %23 = load i8, ptr %22, align 1, !tbaa !23
-  %24 = icmp eq i8 %23, 1
-  br i1 %24, label %28, label %25
+25:                                               ; preds = %19, %29
+  %26 = phi i64 [ %27, %29 ], [ 0, %19 ]
+  %27 = add nuw nsw i64 %26, 1
+  %28 = icmp eq i64 %27, %6
+  br i1 %28, label %36, label %29, !llvm.loop !52
 
-25:                                               ; preds = %20
-  %26 = add nuw nsw i64 %21, 1
-  %27 = icmp eq i64 %26, %6
-  br i1 %27, label %30, label %20, !llvm.loop !52
+29:                                               ; preds = %25
+  %30 = getelementptr inbounds i8, ptr %5, i64 %27
+  %31 = load i8, ptr %30, align 1, !tbaa !23
+  %32 = icmp eq i8 %31, 1
+  br i1 %32, label %33, label %25, !llvm.loop !52
 
-28:                                               ; preds = %20
-  %29 = trunc i64 %21 to i32
-  br label %30
+33:                                               ; preds = %29
+  %34 = icmp ult i64 %27, %6
+  %35 = trunc i64 %27 to i32
+  br label %36
 
-30:                                               ; preds = %25, %28
-  %31 = phi i32 [ %29, %28 ], [ -1, %25 ]
-  store i32 %31, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 1), align 4, !tbaa !5
-  br label %32
+36:                                               ; preds = %25, %19, %33
+  %37 = phi i32 [ %35, %33 ], [ 0, %19 ], [ %3, %25 ]
+  %38 = phi i1 [ %34, %33 ], [ true, %19 ], [ false, %25 ]
+  %39 = freeze i1 %38
+  %40 = select i1 %39, i32 %37, i32 -1
+  store i32 %40, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 1), align 4, !tbaa !5
+  %41 = icmp eq i8 %9, 2
+  br i1 %41, label %55, label %42
 
-32:                                               ; preds = %37, %30
-  %33 = phi i64 [ 0, %30 ], [ %38, %37 ]
-  %34 = getelementptr inbounds i8, ptr %5, i64 %33
-  %35 = load i8, ptr %34, align 1, !tbaa !23
-  %36 = icmp eq i8 %35, 2
-  br i1 %36, label %40, label %37
+42:                                               ; preds = %36, %46
+  %43 = phi i64 [ %44, %46 ], [ 0, %36 ]
+  %44 = add nuw nsw i64 %43, 1
+  %45 = icmp eq i64 %44, %6
+  br i1 %45, label %55, label %46, !llvm.loop !52
 
-37:                                               ; preds = %32
-  %38 = add nuw nsw i64 %33, 1
-  %39 = icmp eq i64 %38, %6
-  br i1 %39, label %42, label %32, !llvm.loop !52
+46:                                               ; preds = %42
+  %47 = getelementptr inbounds i8, ptr %5, i64 %44
+  %48 = load i8, ptr %47, align 1, !tbaa !23
+  %49 = icmp eq i8 %48, 2
+  br i1 %49, label %50, label %42, !llvm.loop !52
 
-40:                                               ; preds = %32
-  %41 = trunc i64 %33 to i32
-  br label %42
+50:                                               ; preds = %46
+  %51 = icmp ult i64 %44, %6
+  %52 = trunc i64 %44 to i32
+  %53 = freeze i1 %51
+  %54 = select i1 %53, i32 %52, i32 -1
+  br label %55
 
-42:                                               ; preds = %37, %40
-  %43 = phi i32 [ %41, %40 ], [ -1, %37 ]
-  store i32 %43, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 2), align 8, !tbaa !5
-  br label %44
+55:                                               ; preds = %42, %36, %50
+  %56 = phi i32 [ %54, %50 ], [ 0, %36 ], [ -1, %42 ]
+  store i32 %56, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 2), align 8, !tbaa !5
+  %57 = icmp eq i8 %9, 3
+  br i1 %57, label %58, label %59
 
-44:                                               ; preds = %49, %42
-  %45 = phi i64 [ 0, %42 ], [ %50, %49 ]
-  %46 = getelementptr inbounds i8, ptr %5, i64 %45
-  %47 = load i8, ptr %46, align 1, !tbaa !23
-  %48 = icmp eq i8 %47, 3
-  br i1 %48, label %52, label %49
+58:                                               ; preds = %55
+  store i32 0, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 3), align 4, !tbaa !5
+  br label %75
 
-49:                                               ; preds = %44
-  %50 = add nuw nsw i64 %45, 1
-  %51 = icmp eq i64 %50, %6
-  br i1 %51, label %54, label %44, !llvm.loop !52
+59:                                               ; preds = %55, %63
+  %60 = phi i64 [ %61, %63 ], [ 0, %55 ]
+  %61 = add nuw nsw i64 %60, 1
+  %62 = icmp eq i64 %61, %6
+  br i1 %62, label %72, label %63, !llvm.loop !52
 
-52:                                               ; preds = %44
-  %53 = trunc i64 %45 to i32
-  br label %54
+63:                                               ; preds = %59
+  %64 = getelementptr inbounds i8, ptr %5, i64 %61
+  %65 = load i8, ptr %64, align 1, !tbaa !23
+  %66 = icmp eq i8 %65, 3
+  br i1 %66, label %67, label %59, !llvm.loop !52
 
-54:                                               ; preds = %49, %52
-  %55 = phi i32 [ %53, %52 ], [ -1, %49 ]
-  store i32 %55, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 3), align 4, !tbaa !5
-  br label %56
+67:                                               ; preds = %63
+  %68 = icmp ult i64 %61, %6
+  %69 = trunc i64 %61 to i32
+  %70 = freeze i1 %68
+  %71 = select i1 %70, i32 %69, i32 -1
+  br label %72
 
-56:                                               ; preds = %61, %54
-  %57 = phi i64 [ 0, %54 ], [ %62, %61 ]
-  %58 = getelementptr inbounds i8, ptr %5, i64 %57
-  %59 = load i8, ptr %58, align 1, !tbaa !23
-  %60 = icmp eq i8 %59, 4
-  br i1 %60, label %64, label %61
+72:                                               ; preds = %59, %67
+  %73 = phi i32 [ %71, %67 ], [ -1, %59 ]
+  store i32 %73, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 3), align 4, !tbaa !5
+  %74 = icmp eq i8 %9, 4
+  br i1 %74, label %76, label %75
 
-61:                                               ; preds = %56
-  %62 = add nuw nsw i64 %57, 1
-  %63 = icmp eq i64 %62, %6
-  br i1 %63, label %66, label %56, !llvm.loop !52
+75:                                               ; preds = %58, %72
+  br label %77
 
-64:                                               ; preds = %56
-  %65 = trunc i64 %57 to i32
-  br label %66
+76:                                               ; preds = %72
+  store i32 0, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 4), align 16, !tbaa !5
+  br label %93
 
-66:                                               ; preds = %61, %64
-  %67 = phi i32 [ %65, %64 ], [ -1, %61 ]
-  store i32 %67, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 4), align 16, !tbaa !5
-  br label %68
+77:                                               ; preds = %75, %81
+  %78 = phi i64 [ %79, %81 ], [ 0, %75 ]
+  %79 = add nuw nsw i64 %78, 1
+  %80 = icmp eq i64 %79, %6
+  br i1 %80, label %90, label %81, !llvm.loop !52
 
-68:                                               ; preds = %73, %66
-  %69 = phi i64 [ 0, %66 ], [ %74, %73 ]
-  %70 = getelementptr inbounds i8, ptr %5, i64 %69
-  %71 = load i8, ptr %70, align 1, !tbaa !23
-  %72 = icmp eq i8 %71, 5
-  br i1 %72, label %76, label %73
-
-73:                                               ; preds = %68
-  %74 = add nuw nsw i64 %69, 1
-  %75 = icmp eq i64 %74, %6
-  br i1 %75, label %78, label %68, !llvm.loop !52
-
-76:                                               ; preds = %68
-  %77 = trunc i64 %69 to i32
-  br label %78
-
-78:                                               ; preds = %73, %76
-  %79 = phi i32 [ %77, %76 ], [ -1, %73 ]
-  store i32 %79, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 5), align 4, !tbaa !5
-  br label %80
-
-80:                                               ; preds = %85, %78
-  %81 = phi i64 [ 0, %78 ], [ %86, %85 ]
-  %82 = getelementptr inbounds i8, ptr %5, i64 %81
+81:                                               ; preds = %77
+  %82 = getelementptr inbounds i8, ptr %5, i64 %79
   %83 = load i8, ptr %82, align 1, !tbaa !23
-  %84 = icmp eq i8 %83, 6
-  br i1 %84, label %88, label %85
+  %84 = icmp eq i8 %83, 4
+  br i1 %84, label %85, label %77, !llvm.loop !52
 
-85:                                               ; preds = %80
-  %86 = add nuw nsw i64 %81, 1
-  %87 = icmp eq i64 %86, %6
-  br i1 %87, label %90, label %80, !llvm.loop !52
-
-88:                                               ; preds = %80
-  %89 = trunc i64 %81 to i32
+85:                                               ; preds = %81
+  %86 = icmp ult i64 %79, %6
+  %87 = trunc i64 %79 to i32
+  %88 = freeze i1 %86
+  %89 = select i1 %88, i32 %87, i32 -1
   br label %90
 
-90:                                               ; preds = %85, %88
-  %91 = phi i32 [ %89, %88 ], [ -1, %85 ]
-  store i32 %91, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 6), align 8, !tbaa !5
-  br label %92
+90:                                               ; preds = %77, %85
+  %91 = phi i32 [ %89, %85 ], [ -1, %77 ]
+  store i32 %91, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 4), align 16, !tbaa !5
+  %92 = icmp eq i8 %9, 5
+  br i1 %92, label %94, label %93
 
-92:                                               ; preds = %97, %90
-  %93 = phi i64 [ 0, %90 ], [ %98, %97 ]
-  %94 = getelementptr inbounds i8, ptr %5, i64 %93
-  %95 = load i8, ptr %94, align 1, !tbaa !23
-  %96 = icmp eq i8 %95, 7
-  br i1 %96, label %100, label %97
+93:                                               ; preds = %76, %90
+  br label %95
 
-97:                                               ; preds = %92
-  %98 = add nuw nsw i64 %93, 1
-  %99 = icmp eq i64 %98, %6
-  br i1 %99, label %102, label %92, !llvm.loop !52
+94:                                               ; preds = %90
+  store i32 0, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 5), align 4, !tbaa !5
+  br label %111
 
-100:                                              ; preds = %92
-  %101 = trunc i64 %93 to i32
-  br label %102
+95:                                               ; preds = %93, %99
+  %96 = phi i64 [ %97, %99 ], [ 0, %93 ]
+  %97 = add nuw nsw i64 %96, 1
+  %98 = icmp eq i64 %97, %6
+  br i1 %98, label %108, label %99, !llvm.loop !52
 
-102:                                              ; preds = %97, %100
-  %103 = phi i32 [ %101, %100 ], [ -1, %97 ]
-  store i32 %103, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 7), align 4, !tbaa !5
-  br label %104
+99:                                               ; preds = %95
+  %100 = getelementptr inbounds i8, ptr %5, i64 %97
+  %101 = load i8, ptr %100, align 1, !tbaa !23
+  %102 = icmp eq i8 %101, 5
+  br i1 %102, label %103, label %95, !llvm.loop !52
 
-104:                                              ; preds = %7, %102
+103:                                              ; preds = %99
+  %104 = icmp ult i64 %97, %6
+  %105 = trunc i64 %97 to i32
+  %106 = freeze i1 %104
+  %107 = select i1 %106, i32 %105, i32 -1
+  br label %108
+
+108:                                              ; preds = %95, %103
+  %109 = phi i32 [ %107, %103 ], [ -1, %95 ]
+  store i32 %109, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 5), align 4, !tbaa !5
+  %110 = icmp eq i8 %9, 6
+  br i1 %110, label %112, label %111
+
+111:                                              ; preds = %94, %108
+  br label %113
+
+112:                                              ; preds = %108
+  store i32 0, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 6), align 8, !tbaa !5
+  br label %129
+
+113:                                              ; preds = %111, %117
+  %114 = phi i64 [ %115, %117 ], [ 0, %111 ]
+  %115 = add nuw nsw i64 %114, 1
+  %116 = icmp eq i64 %115, %6
+  br i1 %116, label %126, label %117, !llvm.loop !52
+
+117:                                              ; preds = %113
+  %118 = getelementptr inbounds i8, ptr %5, i64 %115
+  %119 = load i8, ptr %118, align 1, !tbaa !23
+  %120 = icmp eq i8 %119, 6
+  br i1 %120, label %121, label %113, !llvm.loop !52
+
+121:                                              ; preds = %117
+  %122 = icmp ult i64 %115, %6
+  %123 = trunc i64 %115 to i32
+  %124 = freeze i1 %122
+  %125 = select i1 %124, i32 %123, i32 -1
+  br label %126
+
+126:                                              ; preds = %113, %121
+  %127 = phi i32 [ %125, %121 ], [ -1, %113 ]
+  store i32 %127, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 6), align 8, !tbaa !5
+  %128 = icmp eq i8 %9, 7
+  br i1 %128, label %143, label %129
+
+129:                                              ; preds = %112, %126
+  br label %130
+
+130:                                              ; preds = %129, %134
+  %131 = phi i64 [ %132, %134 ], [ 0, %129 ]
+  %132 = add nuw nsw i64 %131, 1
+  %133 = icmp eq i64 %132, %6
+  br i1 %133, label %143, label %134, !llvm.loop !52
+
+134:                                              ; preds = %130
+  %135 = getelementptr inbounds i8, ptr %5, i64 %132
+  %136 = load i8, ptr %135, align 1, !tbaa !23
+  %137 = icmp eq i8 %136, 7
+  br i1 %137, label %138, label %130, !llvm.loop !52
+
+138:                                              ; preds = %134
+  %139 = icmp ult i64 %132, %6
+  %140 = trunc i64 %132 to i32
+  %141 = freeze i1 %139
+  %142 = select i1 %141, i32 %140, i32 -1
+  br label %143
+
+143:                                              ; preds = %130, %126, %138
+  %144 = phi i32 [ %142, %138 ], [ 0, %126 ], [ -1, %130 ]
+  store i32 %144, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 7), align 4, !tbaa !5
+  br label %148
+
+145:                                              ; preds = %11
+  %146 = icmp ult i64 %17, %6
+  %147 = trunc i64 %17 to i32
+  br label %19
+
+148:                                              ; preds = %7, %143
   ret i32 0
 }
 
@@ -934,33 +1000,49 @@ define dso_local i32 @FmoGetFirstMBOfSliceGroup(i32 noundef %0) local_unnamed_ad
   %3 = getelementptr inbounds %struct.ImageParameters, ptr %2, i64 0, i32 119
   %4 = load i32, ptr %3, align 4, !tbaa !42
   %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %20
+  br i1 %5, label %6, label %32
 
 6:                                                ; preds = %1
   %7 = load ptr, ptr @MBAmap, align 8, !tbaa !19
   %8 = zext i32 %4 to i64
-  br label %9
+  %9 = zext i32 %4 to i64
+  %10 = load i8, ptr %7, align 1, !tbaa !23
+  %11 = zext i8 %10 to i32
+  %12 = icmp eq i32 %11, %0
+  br i1 %12, label %27, label %18
 
-9:                                                ; preds = %6, %15
-  %10 = phi i64 [ 0, %6 ], [ %16, %15 ]
-  %11 = getelementptr inbounds i8, ptr %7, i64 %10
-  %12 = load i8, ptr %11, align 1, !tbaa !23
-  %13 = zext i8 %12 to i32
-  %14 = icmp eq i32 %13, %0
-  br i1 %14, label %18, label %15
+13:                                               ; preds = %18
+  %14 = getelementptr inbounds i8, ptr %7, i64 %20
+  %15 = load i8, ptr %14, align 1, !tbaa !23
+  %16 = zext i8 %15 to i32
+  %17 = icmp eq i32 %16, %0
+  br i1 %17, label %22, label %18, !llvm.loop !52
 
-15:                                               ; preds = %9
-  %16 = add nuw nsw i64 %10, 1
-  %17 = icmp eq i64 %16, %8
-  br i1 %17, label %20, label %9, !llvm.loop !52
+18:                                               ; preds = %6, %13
+  %19 = phi i64 [ %20, %13 ], [ 0, %6 ]
+  %20 = add nuw nsw i64 %19, 1
+  %21 = icmp eq i64 %20, %9
+  br i1 %21, label %25, label %13, !llvm.loop !52
 
-18:                                               ; preds = %9
-  %19 = trunc i64 %10 to i32
-  br label %20
+22:                                               ; preds = %13
+  %23 = icmp ult i64 %20, %8
+  %24 = trunc i64 %20 to i32
+  br label %27
 
-20:                                               ; preds = %15, %18, %1
-  %21 = phi i32 [ -1, %1 ], [ %19, %18 ], [ -1, %15 ]
-  ret i32 %21
+25:                                               ; preds = %18
+  %26 = icmp ult i64 %20, %8
+  br label %27
+
+27:                                               ; preds = %25, %6, %22
+  %28 = phi i32 [ %24, %22 ], [ 0, %6 ], [ %4, %25 ]
+  %29 = phi i1 [ %23, %22 ], [ true, %6 ], [ %26, %25 ]
+  %30 = freeze i1 %29
+  %31 = select i1 %30, i32 %28, i32 -1
+  br label %32
+
+32:                                               ; preds = %27, %1
+  %33 = phi i32 [ -1, %1 ], [ %31, %27 ]
+  ret i32 %33
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
@@ -999,7 +1081,7 @@ define dso_local i32 @FmoGetNextMBNr(i32 noundef %0) local_unnamed_addr #4 {
 14:                                               ; preds = %10
   %15 = getelementptr inbounds i8, ptr %2, i64 %12
   %16 = load i8, ptr %15, align 1, !tbaa !23
-  %17 = icmp eq i8 %5, %16
+  %17 = icmp eq i8 %16, %5
   br i1 %17, label %18, label %10, !llvm.loop !53
 
 18:                                               ; preds = %14
@@ -1031,7 +1113,7 @@ define dso_local i32 @FmoGetPreviousMBNr(i32 noundef %0) local_unnamed_addr #4 {
   %13 = and i64 %12, 4294967295
   %14 = getelementptr inbounds i8, ptr %2, i64 %13
   %15 = load i8, ptr %14, align 1, !tbaa !23
-  %16 = icmp eq i8 %5, %15
+  %16 = icmp eq i8 %15, %5
   br i1 %16, label %17, label %7, !llvm.loop !54
 
 17:                                               ; preds = %11
@@ -1146,7 +1228,7 @@ define dso_local void @FmoSetLastMacroblockInSlice(i32 noundef %0) local_unnamed
 14:                                               ; preds = %10
   %15 = getelementptr inbounds i8, ptr %2, i64 %12
   %16 = load i8, ptr %15, align 1, !tbaa !23
-  %17 = icmp eq i8 %5, %16
+  %17 = icmp eq i8 %16, %5
   br i1 %17, label %18, label %10, !llvm.loop !53
 
 18:                                               ; preds = %14

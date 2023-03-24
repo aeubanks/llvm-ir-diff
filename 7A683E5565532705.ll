@@ -9,11 +9,11 @@ target triple = "x86_64-unknown-linux-gnu"
 @NumNodes = external local_unnamed_addr global i32, align 4
 @.str.3 = private unnamed_addr constant [17 x i8] c"MST has cost %d\0A\00", align 1
 @MyVertexList = internal unnamed_addr global ptr null, align 8
-@str = private unnamed_addr constant [16 x i8] c"Graph completed\00", align 1
-@str.7 = private unnamed_addr constant [22 x i8] c"About to compute mst \00", align 1
+@str.7 = private unnamed_addr constant [10 x i8] c"Not found\00", align 1
 @str.8 = private unnamed_addr constant [16 x i8] c"Compute phase 1\00", align 1
 @str.9 = private unnamed_addr constant [16 x i8] c"Compute phase 2\00", align 1
-@str.11 = private unnamed_addr constant [10 x i8] c"Not found\00", align 1
+@str.10 = private unnamed_addr constant [16 x i8] c"Graph completed\00", align 1
+@str.11 = private unnamed_addr constant [22 x i8] c"About to compute mst \00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0 {
@@ -21,8 +21,8 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   %4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %3)
   %5 = load i32, ptr @NumNodes, align 4, !tbaa !5
   %6 = tail call ptr @MakeGraph(i32 noundef %3, i32 noundef %5) #7
-  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   %9 = load i32, ptr @NumNodes, align 4, !tbaa !5
   %10 = tail call fastcc i32 @ComputeMst(ptr noundef %6, i32 noundef %9, i32 noundef %3)
   %11 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %10)
@@ -73,7 +73,7 @@ declare void @exit(i32 noundef) local_unnamed_addr #4
 ; Function Attrs: nounwind uwtable
 define internal fastcc { ptr, i32 } @Do_all_BlueRule(ptr noundef %0, i32 noundef %1, i32 noundef %2) unnamed_addr #3 {
   %4 = icmp sgt i32 %1, 1
-  br i1 %4, label %5, label %15
+  br i1 %4, label %5, label %16
 
 5:                                                ; preds = %3
   %6 = lshr i32 %1, 1
@@ -85,121 +85,116 @@ define internal fastcc { ptr, i32 } @Do_all_BlueRule(ptr noundef %0, i32 noundef
   %12 = icmp slt i32 %9, %11
   %13 = select i1 %12, { ptr, i32 } %8, { ptr, i32 } %10
   %14 = tail call i32 @llvm.smin.i32(i32 %9, i32 %11)
-  br label %83
+  %15 = extractvalue { ptr, i32 } %13, 0
+  br label %79
 
-15:                                               ; preds = %3
-  %16 = load ptr, ptr @MyVertexList, align 8, !tbaa !9
-  %17 = icmp eq ptr %16, %0
-  br i1 %17, label %18, label %21
+16:                                               ; preds = %3
+  %17 = load ptr, ptr @MyVertexList, align 8, !tbaa !9
+  %18 = icmp eq ptr %17, %0
+  br i1 %18, label %19, label %22
 
-18:                                               ; preds = %15
-  %19 = getelementptr inbounds %struct.vert_st, ptr %0, i64 0, i32 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !11
-  store ptr %20, ptr @MyVertexList, align 8, !tbaa !9
-  br label %21
+19:                                               ; preds = %16
+  %20 = getelementptr inbounds %struct.vert_st, ptr %0, i64 0, i32 1
+  %21 = load ptr, ptr %20, align 8, !tbaa !11
+  store ptr %21, ptr @MyVertexList, align 8, !tbaa !9
+  br label %22
 
-21:                                               ; preds = %18, %15
-  %22 = phi ptr [ %20, %18 ], [ %16, %15 ]
-  %23 = icmp eq ptr %22, null
-  br i1 %23, label %78, label %24
+22:                                               ; preds = %19, %16
+  %23 = phi ptr [ %21, %19 ], [ %17, %16 ]
+  %24 = icmp eq ptr %23, null
+  br i1 %24, label %79, label %25
 
-24:                                               ; preds = %21
-  %25 = load i32, ptr %22, align 8, !tbaa !15
-  %26 = getelementptr inbounds %struct.vert_st, ptr %22, i64 0, i32 2
-  %27 = load ptr, ptr %26, align 8, !tbaa !16
-  %28 = ptrtoint ptr %0 to i64
-  %29 = trunc i64 %28 to i32
-  %30 = tail call ptr @HashLookup(i32 noundef %29, ptr noundef %27) #7
-  %31 = ptrtoint ptr %30 to i64
-  %32 = trunc i64 %31 to i32
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %37, label %34
+25:                                               ; preds = %22
+  %26 = load i32, ptr %23, align 8, !tbaa !15
+  %27 = getelementptr inbounds %struct.vert_st, ptr %23, i64 0, i32 2
+  %28 = load ptr, ptr %27, align 8, !tbaa !16
+  %29 = ptrtoint ptr %0 to i64
+  %30 = trunc i64 %29 to i32
+  %31 = tail call ptr @HashLookup(i32 noundef %30, ptr noundef %28) #7
+  %32 = ptrtoint ptr %31 to i64
+  %33 = trunc i64 %32 to i32
+  %34 = icmp eq i32 %33, 0
+  br i1 %34, label %38, label %35
 
-34:                                               ; preds = %24
-  %35 = icmp sgt i32 %25, %32
-  br i1 %35, label %36, label %39
+35:                                               ; preds = %25
+  %36 = icmp sgt i32 %26, %33
+  br i1 %36, label %37, label %40
 
-36:                                               ; preds = %34
-  store i32 %32, ptr %22, align 8, !tbaa !15
-  br label %39
+37:                                               ; preds = %35
+  store i32 %33, ptr %23, align 8, !tbaa !15
+  br label %40
 
-37:                                               ; preds = %24
-  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %39
+38:                                               ; preds = %25
+  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  br label %40
 
-39:                                               ; preds = %37, %36, %34
-  %40 = phi i32 [ %32, %36 ], [ %25, %34 ], [ %25, %37 ]
-  %41 = getelementptr inbounds %struct.vert_st, ptr %22, i64 0, i32 1
-  %42 = load ptr, ptr %41, align 8, !tbaa !11
-  %43 = icmp eq ptr %42, null
-  br i1 %43, label %78, label %44
+40:                                               ; preds = %38, %37, %35
+  %41 = phi i32 [ %33, %37 ], [ %26, %35 ], [ %26, %38 ]
+  %42 = getelementptr inbounds %struct.vert_st, ptr %23, i64 0, i32 1
+  %43 = load ptr, ptr %42, align 8, !tbaa !11
+  %44 = icmp eq ptr %43, null
+  br i1 %44, label %79, label %45
 
-44:                                               ; preds = %39
-  %45 = getelementptr inbounds %struct.vert_st, ptr %0, i64 0, i32 1
-  br label %46
+45:                                               ; preds = %40
+  %46 = getelementptr inbounds %struct.vert_st, ptr %0, i64 0, i32 1
+  br label %47
 
-46:                                               ; preds = %72, %44
-  %47 = phi ptr [ %76, %72 ], [ %42, %44 ]
-  %48 = phi ptr [ %75, %72 ], [ %41, %44 ]
-  %49 = phi i32 [ %74, %72 ], [ %40, %44 ]
-  %50 = phi ptr [ %73, %72 ], [ %22, %44 ]
-  %51 = icmp eq ptr %47, %0
-  br i1 %51, label %52, label %54
+47:                                               ; preds = %73, %45
+  %48 = phi ptr [ %77, %73 ], [ %43, %45 ]
+  %49 = phi ptr [ %76, %73 ], [ %42, %45 ]
+  %50 = phi i32 [ %75, %73 ], [ %41, %45 ]
+  %51 = phi ptr [ %74, %73 ], [ %23, %45 ]
+  %52 = icmp eq ptr %48, %0
+  br i1 %52, label %53, label %55
 
-52:                                               ; preds = %46
-  %53 = load ptr, ptr %45, align 8, !tbaa !11
-  store ptr %53, ptr %48, align 8, !tbaa !11
-  br label %72
+53:                                               ; preds = %47
+  %54 = load ptr, ptr %46, align 8, !tbaa !11
+  store ptr %54, ptr %49, align 8, !tbaa !11
+  br label %73
 
-54:                                               ; preds = %46
-  %55 = getelementptr inbounds %struct.vert_st, ptr %47, i64 0, i32 2
-  %56 = load ptr, ptr %55, align 8, !tbaa !16
-  %57 = load i32, ptr %47, align 8, !tbaa !15
-  %58 = tail call ptr @HashLookup(i32 noundef %29, ptr noundef %56) #7
-  %59 = ptrtoint ptr %58 to i64
-  %60 = trunc i64 %59 to i32
-  %61 = icmp eq i32 %60, 0
-  br i1 %61, label %65, label %62
+55:                                               ; preds = %47
+  %56 = getelementptr inbounds %struct.vert_st, ptr %48, i64 0, i32 2
+  %57 = load ptr, ptr %56, align 8, !tbaa !16
+  %58 = load i32, ptr %48, align 8, !tbaa !15
+  %59 = tail call ptr @HashLookup(i32 noundef %30, ptr noundef %57) #7
+  %60 = ptrtoint ptr %59 to i64
+  %61 = trunc i64 %60 to i32
+  %62 = icmp eq i32 %61, 0
+  br i1 %62, label %66, label %63
 
-62:                                               ; preds = %54
-  %63 = icmp sgt i32 %57, %60
-  br i1 %63, label %64, label %67
+63:                                               ; preds = %55
+  %64 = icmp sgt i32 %58, %61
+  br i1 %64, label %65, label %68
 
-64:                                               ; preds = %62
-  store i32 %60, ptr %47, align 8, !tbaa !15
-  br label %67
+65:                                               ; preds = %63
+  store i32 %61, ptr %48, align 8, !tbaa !15
+  br label %68
 
-65:                                               ; preds = %54
-  %66 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %67
+66:                                               ; preds = %55
+  %67 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  br label %68
 
-67:                                               ; preds = %65, %64, %62
-  %68 = phi i32 [ %60, %64 ], [ %57, %62 ], [ %57, %65 ]
-  %69 = icmp slt i32 %68, %49
-  %70 = select i1 %69, ptr %47, ptr %50
-  %71 = tail call i32 @llvm.smin.i32(i32 %68, i32 %49)
-  br label %72
+68:                                               ; preds = %66, %65, %63
+  %69 = phi i32 [ %61, %65 ], [ %58, %63 ], [ %58, %66 ]
+  %70 = icmp slt i32 %69, %50
+  %71 = select i1 %70, ptr %48, ptr %51
+  %72 = tail call i32 @llvm.smin.i32(i32 %69, i32 %50)
+  br label %73
 
-72:                                               ; preds = %67, %52
-  %73 = phi ptr [ %50, %52 ], [ %70, %67 ]
-  %74 = phi i32 [ %49, %52 ], [ %71, %67 ]
-  %75 = getelementptr inbounds %struct.vert_st, ptr %47, i64 0, i32 1
-  %76 = load ptr, ptr %75, align 8, !tbaa !11
-  %77 = icmp eq ptr %76, null
-  br i1 %77, label %78, label %46, !llvm.loop !17
+73:                                               ; preds = %68, %53
+  %74 = phi ptr [ %51, %53 ], [ %71, %68 ]
+  %75 = phi i32 [ %50, %53 ], [ %72, %68 ]
+  %76 = getelementptr inbounds %struct.vert_st, ptr %48, i64 0, i32 1
+  %77 = load ptr, ptr %76, align 8, !tbaa !11
+  %78 = icmp eq ptr %77, null
+  br i1 %78, label %79, label %47, !llvm.loop !17
 
-78:                                               ; preds = %72, %21, %39
-  %79 = phi ptr [ undef, %21 ], [ %22, %39 ], [ %73, %72 ]
-  %80 = phi i32 [ 999999, %21 ], [ %40, %39 ], [ %74, %72 ]
-  %81 = insertvalue { ptr, i32 } poison, ptr %79, 0
-  %82 = insertvalue { ptr, i32 } %81, i32 %80, 1
-  br label %83
-
-83:                                               ; preds = %78, %5
-  %84 = phi { ptr, i32 } [ %13, %5 ], [ %82, %78 ]
-  %85 = phi i32 [ %14, %5 ], [ %80, %78 ]
-  %86 = insertvalue { ptr, i32 } %84, i32 %85, 1
-  ret { ptr, i32 } %86
+79:                                               ; preds = %73, %40, %22, %5
+  %80 = phi ptr [ %15, %5 ], [ undef, %22 ], [ %23, %40 ], [ %74, %73 ]
+  %81 = phi i32 [ %14, %5 ], [ 999999, %22 ], [ %41, %40 ], [ %75, %73 ]
+  %82 = insertvalue { ptr, i32 } poison, ptr %80, 0
+  %83 = insertvalue { ptr, i32 } %82, i32 %81, 1
+  ret { ptr, i32 } %83
 }
 
 declare ptr @HashLookup(i32 noundef, ptr noundef) local_unnamed_addr #1

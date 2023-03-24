@@ -489,7 +489,7 @@ define dso_local i32 @hypre_SemiInterp(ptr noundef %0, ptr nocapture noundef rea
 
 309:                                              ; preds = %300
   %310 = add nsw i32 %189, %305
-  %311 = add nsw i32 %306, %191
+  %311 = add i32 %191, %306
   %312 = add nuw nsw i32 %214, 1
   %313 = icmp eq i32 %312, %173
   br i1 %313, label %314, label %211, !llvm.loop !42
@@ -917,7 +917,7 @@ define dso_local i32 @hypre_SemiInterp(ptr noundef %0, ptr nocapture noundef rea
   br i1 %679, label %680, label %545, !llvm.loop !52
 
 680:                                              ; preds = %671
-  %681 = add nsw i32 %676, %523
+  %681 = add i32 %523, %676
   %682 = add nsw i32 %525, %677
   %683 = add nuw nsw i32 %544, 1
   %684 = icmp eq i32 %683, %507

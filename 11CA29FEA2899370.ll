@@ -732,8 +732,8 @@ define dso_local i32 @EPZSInit() local_unnamed_addr #0 {
   %85 = load i32, ptr @mv_rescale, align 4, !tbaa !19
   br label %86
 
-86:                                               ; preds = %84, %24
-  %87 = phi i32 [ %85, %84 ], [ %33, %24 ]
+86:                                               ; preds = %24, %84
+  %87 = phi i32 [ %33, %24 ], [ %85, %84 ]
   store i32 4, ptr %82, align 8, !tbaa !16
   %88 = tail call noalias dereferenceable_or_null(64) ptr @calloc(i64 noundef 4, i64 noundef 16) #12
   %89 = getelementptr inbounds %struct.MEPatternNode, ptr %82, i64 0, i32 1
@@ -783,10 +783,10 @@ define dso_local i32 @EPZSInit() local_unnamed_addr #0 {
   %112 = ashr i32 -4, %110
   br label %113
 
-113:                                              ; preds = %109, %86
-  %114 = phi i32 [ %112, %109 ], [ %96, %86 ]
-  %115 = phi i32 [ %111, %109 ], [ %90, %86 ]
-  %116 = phi i32 [ %110, %109 ], [ %87, %86 ]
+113:                                              ; preds = %86, %109
+  %114 = phi i32 [ %96, %86 ], [ %112, %109 ]
+  %115 = phi i32 [ %90, %86 ], [ %111, %109 ]
+  %116 = phi i32 [ %87, %86 ], [ %110, %109 ]
   store i32 8, ptr %107, align 8, !tbaa !16
   %117 = tail call noalias dereferenceable_or_null(128) ptr @calloc(i64 noundef 8, i64 noundef 16) #12
   %118 = getelementptr inbounds %struct.MEPatternNode, ptr %107, i64 0, i32 1
@@ -872,10 +872,10 @@ define dso_local i32 @EPZSInit() local_unnamed_addr #0 {
   %158 = lshr i32 4, %156
   br label %159
 
-159:                                              ; preds = %155, %113
-  %160 = phi i32 [ %158, %155 ], [ %115, %113 ]
-  %161 = phi i32 [ %157, %155 ], [ %114, %113 ]
-  %162 = phi i32 [ %156, %155 ], [ %116, %113 ]
+159:                                              ; preds = %113, %155
+  %160 = phi i32 [ %115, %113 ], [ %158, %155 ]
+  %161 = phi i32 [ %114, %113 ], [ %157, %155 ]
+  %162 = phi i32 [ %116, %113 ], [ %156, %155 ]
   store i32 12, ptr %153, align 8, !tbaa !16
   %163 = tail call noalias dereferenceable_or_null(192) ptr @calloc(i64 noundef 12, i64 noundef 16) #12
   %164 = getelementptr inbounds %struct.MEPatternNode, ptr %153, i64 0, i32 1
@@ -992,7 +992,7 @@ define dso_local i32 @EPZSInit() local_unnamed_addr #0 {
   tail call void @no_mem_exit(ptr noundef nonnull @.str.1) #13
   br label %220
 
-220:                                              ; preds = %219, %159
+220:                                              ; preds = %159, %219
   store i32 8, ptr %217, align 8, !tbaa !16
   %221 = tail call noalias dereferenceable_or_null(128) ptr @calloc(i64 noundef 8, i64 noundef 16) #12
   %222 = getelementptr inbounds %struct.MEPatternNode, ptr %217, i64 0, i32 1
@@ -1085,12 +1085,12 @@ define dso_local i32 @EPZSInit() local_unnamed_addr #0 {
   %269 = ashr i32 -8, %265
   br label %270
 
-270:                                              ; preds = %264, %220
-  %271 = phi i32 [ %269, %264 ], [ %243, %220 ]
-  %272 = phi i32 [ %268, %264 ], [ %238, %220 ]
-  %273 = phi i32 [ %267, %264 ], [ %228, %220 ]
-  %274 = phi i32 [ %266, %264 ], [ %224, %220 ]
-  %275 = phi i32 [ %265, %264 ], [ %223, %220 ]
+270:                                              ; preds = %220, %264
+  %271 = phi i32 [ %243, %220 ], [ %269, %264 ]
+  %272 = phi i32 [ %238, %220 ], [ %268, %264 ]
+  %273 = phi i32 [ %228, %220 ], [ %267, %264 ]
+  %274 = phi i32 [ %224, %220 ], [ %266, %264 ]
+  %275 = phi i32 [ %223, %220 ], [ %265, %264 ]
   store i32 12, ptr %262, align 8, !tbaa !16
   %276 = tail call noalias dereferenceable_or_null(192) ptr @calloc(i64 noundef 12, i64 noundef 16) #12
   %277 = getelementptr inbounds %struct.MEPatternNode, ptr %262, i64 0, i32 1
@@ -1202,7 +1202,7 @@ define dso_local i32 @EPZSInit() local_unnamed_addr #0 {
   tail call void @no_mem_exit(ptr noundef nonnull @.str.1) #13
   br label %331
 
-331:                                              ; preds = %330, %270
+331:                                              ; preds = %270, %330
   store i32 8, ptr %328, align 8, !tbaa !16
   %332 = tail call noalias dereferenceable_or_null(128) ptr @calloc(i64 noundef 8, i64 noundef 16) #12
   %333 = getelementptr inbounds %struct.MEPatternNode, ptr %328, i64 0, i32 1
@@ -2636,7 +2636,7 @@ define dso_local void @EPZSSliceInit(ptr nocapture noundef readonly %0, ptr noca
   %748 = load i32, ptr %747, align 8, !tbaa !68
   %749 = freeze i32 %748
   %750 = icmp eq i32 %749, 0
-  %751 = or i32 %749, %9
+  %751 = or i32 %9, %749
   %752 = icmp eq i32 %751, 0
   br i1 %752, label %1178, label %753
 
@@ -4484,8 +4484,8 @@ define dso_local i32 @EPZSPelBlockMotionSearch(ptr noundef %0, i16 noundef signe
   br label %486
 
 486:                                              ; preds = %477, %357
-  %487 = phi ptr [ %382, %357 ], [ %485, %477 ]
-  %488 = phi i32 [ 5, %357 ], [ %484, %477 ]
+  %487 = phi ptr [ %485, %477 ], [ %382, %357 ]
+  %488 = phi i32 [ %484, %477 ], [ 5, %357 ]
   %489 = getelementptr inbounds %struct.InputParameters, ptr %487, i64 0, i32 96
   %490 = load i32, ptr %489, align 4, !tbaa !46
   %491 = icmp eq i32 %490, 0
@@ -4862,7 +4862,7 @@ define dso_local i32 @EPZSPelBlockMotionSearch(ptr noundef %0, i16 noundef signe
 
 788:                                              ; preds = %777, %783
   %789 = load ptr, ptr @predictor, align 8, !tbaa !25
-  %790 = icmp eq i16 %381, 3
+  %790 = icmp ugt i16 %381, 2
   %791 = select i1 %767, i1 %790, i1 false
   br i1 %791, label %794, label %792
 
@@ -4926,8 +4926,8 @@ define dso_local i32 @EPZSPelBlockMotionSearch(ptr noundef %0, i16 noundef signe
   %837 = trunc i64 %830 to i32
   br label %838
 
-838:                                              ; preds = %836, %806, %762, %769, %781, %783
-  %839 = phi i32 [ %763, %781 ], [ %763, %783 ], [ %763, %769 ], [ %763, %762 ], [ %763, %806 ], [ %837, %836 ]
+838:                                              ; preds = %836, %762, %769, %781, %806, %783
+  %839 = phi i32 [ %763, %783 ], [ %763, %806 ], [ %763, %781 ], [ %763, %769 ], [ %763, %762 ], [ %837, %836 ]
   %840 = icmp eq i16 %1, 0
   %841 = and i1 %224, %764
   %842 = or i1 %840, %841
@@ -9582,10 +9582,10 @@ define dso_local i32 @EPZSSubPelBlockSearchBiPred(ptr noundef %0, i16 noundef si
 declare i32 @llvm.smax.i32(i32, i32) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #11
+declare i32 @llvm.smin.i32(i32, i32) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #11
+declare i32 @llvm.abs.i32(i32, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i8 @llvm.abs.i8(i8, i1 immarg) #11

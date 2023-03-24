@@ -60,12 +60,12 @@ define dso_local void @_ZN24CMtCompressProgressMixer4InitEiP21ICompressProgressI
   %5 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %4) #9
   %6 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %0, i64 0, i32 1
   invoke void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 8 dereferenceable(32) %6)
-          to label %7 unwind label %32
+          to label %7 unwind label %34
 
 7:                                                ; preds = %3
   %8 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %0, i64 0, i32 2
   invoke void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 8 dereferenceable(32) %8)
-          to label %9 unwind label %32
+          to label %9 unwind label %34
 
 9:                                                ; preds = %7
   %10 = icmp sgt i32 %1, 0
@@ -76,9 +76,9 @@ define dso_local void @_ZN24CMtCompressProgressMixer4InitEiP21ICompressProgressI
   %13 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %0, i64 0, i32 1, i32 0, i32 2
   %14 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %0, i64 0, i32 2, i32 0, i32 3
   %15 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %0, i64 0, i32 2, i32 0, i32 2
-  br label %34
+  br label %36
 
-16:                                               ; preds = %42, %9
+16:                                               ; preds = %44, %9
   %17 = getelementptr inbounds %class.CMtCompressProgressMixer, ptr %0, i64 0, i32 3
   %18 = icmp eq ptr %2, null
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %17, i8 0, i64 16, i1 false)
@@ -89,65 +89,65 @@ define dso_local void @_ZN24CMtCompressProgressMixer4InitEiP21ICompressProgressI
   %21 = getelementptr inbounds ptr, ptr %20, i64 1
   %22 = load ptr, ptr %21, align 8
   %23 = invoke noundef i32 %22(ptr noundef nonnull align 8 dereferenceable(8) %2)
-          to label %24 unwind label %32
+          to label %24 unwind label %34
 
 24:                                               ; preds = %19, %16
   %25 = load ptr, ptr %0, align 8, !tbaa !8
   %26 = icmp eq ptr %25, null
-  br i1 %26, label %52, label %27
+  br i1 %26, label %32, label %27
 
 27:                                               ; preds = %24
   %28 = load ptr, ptr %25, align 8, !tbaa !5
   %29 = getelementptr inbounds ptr, ptr %28, i64 2
   %30 = load ptr, ptr %29, align 8
   %31 = invoke noundef i32 %30(ptr noundef nonnull align 8 dereferenceable(8) %25)
-          to label %52 unwind label %32
+          to label %32 unwind label %34
 
-32:                                               ; preds = %27, %19, %7, %3
-  %33 = landingpad { ptr, i32 }
-          cleanup
-  br label %54
-
-34:                                               ; preds = %11, %42
-  %35 = phi i32 [ 0, %11 ], [ %48, %42 ]
-  invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %6)
-          to label %36 unwind label %50
-
-36:                                               ; preds = %34
-  %37 = load ptr, ptr %12, align 8, !tbaa !12
-  %38 = load i32, ptr %13, align 4, !tbaa !16
-  %39 = sext i32 %38 to i64
-  %40 = getelementptr inbounds i64, ptr %37, i64 %39
-  store i64 0, ptr %40, align 8, !tbaa !17
-  %41 = add nsw i32 %38, 1
-  store i32 %41, ptr %13, align 4, !tbaa !16
-  invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %8)
-          to label %42 unwind label %50
-
-42:                                               ; preds = %36
-  %43 = load ptr, ptr %14, align 8, !tbaa !12
-  %44 = load i32, ptr %15, align 4, !tbaa !16
-  %45 = sext i32 %44 to i64
-  %46 = getelementptr inbounds i64, ptr %43, i64 %45
-  store i64 0, ptr %46, align 8, !tbaa !17
-  %47 = add nsw i32 %44, 1
-  store i32 %47, ptr %15, align 4, !tbaa !16
-  %48 = add nuw nsw i32 %35, 1
-  %49 = icmp eq i32 %48, %1
-  br i1 %49, label %16, label %34, !llvm.loop !19
-
-50:                                               ; preds = %36, %34
-  %51 = landingpad { ptr, i32 }
-          cleanup
-  br label %54
-
-52:                                               ; preds = %24, %27
+32:                                               ; preds = %27, %24
   store ptr %2, ptr %0, align 8, !tbaa !8
-  %53 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %4) #9
+  %33 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %4) #9
   ret void
 
-54:                                               ; preds = %50, %32
-  %55 = phi { ptr, i32 } [ %51, %50 ], [ %33, %32 ]
+34:                                               ; preds = %27, %19, %7, %3
+  %35 = landingpad { ptr, i32 }
+          cleanup
+  br label %54
+
+36:                                               ; preds = %11, %44
+  %37 = phi i32 [ 0, %11 ], [ %50, %44 ]
+  invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %6)
+          to label %38 unwind label %52
+
+38:                                               ; preds = %36
+  %39 = load ptr, ptr %12, align 8, !tbaa !12
+  %40 = load i32, ptr %13, align 4, !tbaa !16
+  %41 = sext i32 %40 to i64
+  %42 = getelementptr inbounds i64, ptr %39, i64 %41
+  store i64 0, ptr %42, align 8, !tbaa !17
+  %43 = add nsw i32 %40, 1
+  store i32 %43, ptr %13, align 4, !tbaa !16
+  invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %8)
+          to label %44 unwind label %52
+
+44:                                               ; preds = %38
+  %45 = load ptr, ptr %14, align 8, !tbaa !12
+  %46 = load i32, ptr %15, align 4, !tbaa !16
+  %47 = sext i32 %46 to i64
+  %48 = getelementptr inbounds i64, ptr %45, i64 %47
+  store i64 0, ptr %48, align 8, !tbaa !17
+  %49 = add nsw i32 %46, 1
+  store i32 %49, ptr %15, align 4, !tbaa !16
+  %50 = add nuw nsw i32 %37, 1
+  %51 = icmp eq i32 %50, %1
+  br i1 %51, label %16, label %36, !llvm.loop !19
+
+52:                                               ; preds = %38, %36
+  %53 = landingpad { ptr, i32 }
+          cleanup
+  br label %54
+
+54:                                               ; preds = %52, %34
+  %55 = phi { ptr, i32 } [ %53, %52 ], [ %35, %34 ]
   %56 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %4) #9
   resume { ptr, i32 } %55
 }
@@ -431,8 +431,8 @@ define linkonce_odr dso_local noundef i32 @_ZN19CMtCompressProgress14QueryInterf
   %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(28) %0)
   br label %87
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
+87:                                               ; preds = %77, %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %82
+  %88 = phi i32 [ 0, %82 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ], [ -2147467262, %77 ]
   ret i32 %88
 }
 

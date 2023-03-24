@@ -292,9 +292,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayItED2Ev(ptr noundef
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !42
   store ptr null, ptr %2, align 8, !tbaa !45
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !46
   %12 = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !47
@@ -328,9 +328,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIjED2Ev(ptr noundef
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !36
   store ptr null, ptr %2, align 8, !tbaa !39
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !40
   %12 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !41
@@ -353,9 +353,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIfED2Ev(ptr noundef
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !30
   store ptr null, ptr %2, align 8, !tbaa !33
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !34
   %12 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !35
@@ -378,9 +378,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI9btVector3ED2Ev(pt
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !24
   store ptr null, ptr %2, align 8, !tbaa !27
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !28
   %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !29
@@ -1419,10 +1419,10 @@ define dso_local noundef i32 @_ZNK14btTriangleMesh15getNumTrianglesEv(ptr nocapt
   %3 = load i8, ptr %2, align 8, !tbaa !48, !range !64, !noundef !65
   %4 = icmp eq i8 %3, 0
   %5 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 4, i32 2
-  %6 = load i32, ptr %5, align 4
-  %7 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 5, i32 2
-  %8 = load i32, ptr %7, align 4
-  %9 = select i1 %4, i32 %8, i32 %6
+  %6 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 5, i32 2
+  %7 = load i32, ptr %6, align 4
+  %8 = load i32, ptr %5, align 4
+  %9 = select i1 %4, i32 %7, i32 %8
   %10 = sdiv i32 %9, 3
   ret i32 %10
 }
@@ -1443,10 +1443,10 @@ define linkonce_odr dso_local void @_ZN14btTriangleMeshD2Ev(ptr noundef nonnull 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %46
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 5, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !42
   store ptr null, ptr %2, align 8, !tbaa !45
+  %11 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 5, i32 2
   store i32 0, ptr %11, align 4, !tbaa !46
   %12 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 5, i32 3
   store i32 0, ptr %12, align 8, !tbaa !47
@@ -1463,10 +1463,10 @@ define linkonce_odr dso_local void @_ZN14btTriangleMeshD2Ev(ptr noundef nonnull 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %14)
           to label %21 unwind label %49
 
-21:                                               ; preds = %10, %20
-  %22 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 4, i32 2
+21:                                               ; preds = %20, %10
   store i8 1, ptr %16, align 8, !tbaa !36
   store ptr null, ptr %13, align 8, !tbaa !39
+  %22 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 4, i32 2
   store i32 0, ptr %22, align 4, !tbaa !40
   %23 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 4, i32 3
   store i32 0, ptr %23, align 8, !tbaa !41
@@ -1483,10 +1483,10 @@ define linkonce_odr dso_local void @_ZN14btTriangleMeshD2Ev(ptr noundef nonnull 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %25)
           to label %32 unwind label %51
 
-32:                                               ; preds = %21, %31
-  %33 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 3, i32 2
+32:                                               ; preds = %31, %21
   store i8 1, ptr %27, align 8, !tbaa !30
   store ptr null, ptr %24, align 8, !tbaa !33
+  %33 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 3, i32 2
   store i32 0, ptr %33, align 4, !tbaa !34
   %34 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 3, i32 3
   store i32 0, ptr %34, align 8, !tbaa !35
@@ -1503,10 +1503,10 @@ define linkonce_odr dso_local void @_ZN14btTriangleMeshD2Ev(ptr noundef nonnull 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %36)
           to label %43 unwind label %56
 
-43:                                               ; preds = %32, %42
-  %44 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 2, i32 2
+43:                                               ; preds = %42, %32
   store i8 1, ptr %38, align 8, !tbaa !24
   store ptr null, ptr %35, align 8, !tbaa !27
+  %44 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 2, i32 2
   store i32 0, ptr %44, align 4, !tbaa !28
   %45 = getelementptr inbounds %class.btTriangleMesh, ptr %0, i64 0, i32 2, i32 3
   store i32 0, ptr %45, align 8, !tbaa !29

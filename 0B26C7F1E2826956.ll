@@ -766,57 +766,57 @@ define dso_local void @P_file_parse(i32 noundef %0, i32 noundef %1, i32 noundef 
   %454 = load ptr, ptr %453, align 8, !tbaa !10
   %455 = load ptr, ptr @_P_nextchr, align 8, !tbaa !10
   %456 = load i8, ptr %455, align 1, !tbaa !9
-  %457 = sext i8 %456 to i32
-  %458 = sext i8 %456 to i64
-  %459 = getelementptr inbounds i16, ptr %454, i64 %458
-  %460 = load i16, ptr %459, align 2, !tbaa !13
-  %461 = zext i16 %460 to i32
-  %462 = and i32 %461, 2048
-  %463 = icmp eq i32 %462, 0
-  br i1 %463, label %481, label %464
+  %457 = sext i8 %456 to i64
+  %458 = getelementptr inbounds i16, ptr %454, i64 %457
+  %459 = load i16, ptr %458, align 2, !tbaa !13
+  %460 = zext i16 %459 to i32
+  %461 = and i32 %460, 2048
+  %462 = icmp eq i32 %461, 0
+  br i1 %462, label %480, label %463
 
-464:                                              ; preds = %452, %464
-  %465 = phi ptr [ %473, %464 ], [ %455, %452 ]
-  store ptr %465, ptr %5, align 8, !tbaa !10
-  %466 = load ptr, ptr %453, align 8, !tbaa !10
-  %467 = load i8, ptr %465, align 1, !tbaa !9
-  %468 = sext i8 %467 to i64
-  %469 = getelementptr inbounds i16, ptr %466, i64 %468
-  %470 = load i16, ptr %469, align 2, !tbaa !13
-  %471 = and i16 %470, 2048
-  %472 = icmp eq i16 %471, 0
-  %473 = getelementptr inbounds i8, ptr %465, i64 1
-  br i1 %472, label %474, label %464, !llvm.loop !24
+463:                                              ; preds = %452, %463
+  %464 = phi ptr [ %472, %463 ], [ %455, %452 ]
+  store ptr %464, ptr %5, align 8, !tbaa !10
+  %465 = load ptr, ptr %453, align 8, !tbaa !10
+  %466 = load i8, ptr %464, align 1, !tbaa !9
+  %467 = sext i8 %466 to i64
+  %468 = getelementptr inbounds i16, ptr %465, i64 %467
+  %469 = load i16, ptr %468, align 2, !tbaa !13
+  %470 = and i16 %469, 2048
+  %471 = icmp eq i16 %470, 0
+  %472 = getelementptr inbounds i8, ptr %464, i64 1
+  br i1 %471, label %473, label %463, !llvm.loop !24
 
-474:                                              ; preds = %464
-  %475 = getelementptr inbounds %struct._K_str, ptr %272, i64 0, i32 3
-  %476 = ptrtoint ptr %465 to i64
-  %477 = ptrtoint ptr %455 to i64
-  %478 = sub i64 %476, %477
-  call void (ptr, ptr, i64, ...) @S_savenstr(ptr noundef nonnull %475, ptr noundef nonnull %455, i64 noundef %478) #9
-  %479 = getelementptr inbounds %struct._K_str, ptr %272, i64 0, i32 2
-  store i32 1, ptr %479, align 8, !tbaa !18
-  %480 = load ptr, ptr %5, align 8, !tbaa !10
-  store ptr %480, ptr @_P_nextchr, align 8, !tbaa !10
+473:                                              ; preds = %463
+  %474 = getelementptr inbounds %struct._K_str, ptr %272, i64 0, i32 3
+  %475 = ptrtoint ptr %464 to i64
+  %476 = ptrtoint ptr %455 to i64
+  %477 = sub i64 %475, %476
+  call void (ptr, ptr, i64, ...) @S_savenstr(ptr noundef nonnull %474, ptr noundef nonnull %455, i64 noundef %477) #9
+  %478 = getelementptr inbounds %struct._K_str, ptr %272, i64 0, i32 2
+  store i32 1, ptr %478, align 8, !tbaa !18
+  %479 = load ptr, ptr %5, align 8, !tbaa !10
+  store ptr %479, ptr @_P_nextchr, align 8, !tbaa !10
   br label %523
 
-481:                                              ; preds = %452
-  %482 = and i32 %461, 1024
-  %483 = icmp eq i32 %482, 0
-  br i1 %483, label %484, label %491
+480:                                              ; preds = %452
+  %481 = and i32 %460, 1024
+  %482 = icmp eq i32 %481, 0
+  br i1 %482, label %483, label %491
 
-484:                                              ; preds = %481
-  %485 = icmp eq i8 %456, 0
-  br i1 %485, label %518, label %486
+483:                                              ; preds = %480
+  %484 = icmp eq i8 %456, 0
+  br i1 %484, label %518, label %485
 
-486:                                              ; preds = %484
-  %487 = call ptr @index(ptr noundef nonnull @_P_alpha, i32 noundef %457) #10
+485:                                              ; preds = %483
+  %486 = sext i8 %456 to i32
+  %487 = call ptr @index(ptr noundef nonnull @_P_alpha, i32 noundef %486) #10
   %488 = ptrtoint ptr %487 to i64
   %489 = and i64 %488, 4294967295
   %490 = icmp eq i64 %489, 0
   br i1 %490, label %518, label %491
 
-491:                                              ; preds = %486, %481
+491:                                              ; preds = %485, %480
   br label %492
 
 492:                                              ; preds = %491, %509
@@ -859,7 +859,7 @@ define dso_local void @P_file_parse(i32 noundef %0, i32 noundef %1, i32 noundef 
   store ptr %517, ptr @_P_nextchr, align 8, !tbaa !10
   br label %523
 
-518:                                              ; preds = %486, %484
+518:                                              ; preds = %485, %483
   %519 = getelementptr inbounds %struct._K_str, ptr %272, i64 0, i32 3
   call void (ptr, ptr, i32, ...) @S_savenstr(ptr noundef nonnull %519, ptr noundef nonnull %455, i32 noundef 1) #9
   %520 = getelementptr inbounds %struct._K_str, ptr %272, i64 0, i32 2
@@ -869,8 +869,8 @@ define dso_local void @P_file_parse(i32 noundef %0, i32 noundef %1, i32 noundef 
   store ptr %522, ptr @_P_nextchr, align 8, !tbaa !10
   br label %523
 
-523:                                              ; preds = %518, %511, %474, %448, %417
-  %524 = phi i32 [ %350, %417 ], [ 0, %448 ], [ 0, %474 ], [ 0, %511 ], [ 0, %518 ]
+523:                                              ; preds = %518, %511, %473, %448, %417
+  %524 = phi i32 [ %350, %417 ], [ 0, %448 ], [ 0, %473 ], [ 0, %511 ], [ 0, %518 ]
   %525 = load i32, ptr @_P_fnumb, align 4, !tbaa !5
   %526 = icmp eq i32 %525, 0
   %527 = load i32, ptr @_K_btm, align 4

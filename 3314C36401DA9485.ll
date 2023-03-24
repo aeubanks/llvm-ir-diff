@@ -152,26 +152,26 @@ call_destructor.exit205:                          ; preds = %"assert failed191",
   br i1 %.not100191273, label %call_destructor.exit215, label %if.then.i209
 
 if.then.i209:                                     ; preds = %call_destructor.exit205
-  call void @halide_free(ptr null, ptr nonnull %1619) #7
+  call void @halide_free(ptr null, ptr nonnull %1641) #7
   br label %call_destructor.exit215
 
-call_destructor.exit210.thread374:                ; preds = %after_bb, %"assert failed", %"assert failed10", %"assert failed61", %"assert failed63", %"assert failed65", %"assert failed67", %"assert failed69", %"assert failed71", %"assert failed73", %"assert failed75", %"assert failed77", %"assert failed79", %"assert failed81", %"assert failed83", %"assert failed85", %"assert failed87", %"assert failed89", %"assert failed91", %"assert failed93", %"assert failed95", %"assert failed97", %"assert failed99", %"assert failed101", %"assert failed103", %"assert failed105", %"produce f2", %"assert failed109", %"assert failed111", %"produce f4", %"assert failed115", %"assert failed117", %"produce f5", %"assert failed121", %"assert failed123", %"produce f72", %"assert failed127", %"assert failed129", %"produce f6", %"assert failed133", %"assert failed135", %"produce f73", %"assert failed139", %"assert failed141", %"produce f7", %"assert failed145", %"assert failed147", %"produce f74", %"assert failed151", %"assert failed153", %"produce f8", %"assert failed157", %"assert failed159", %"produce f75", %"assert failed163", %"assert failed165", %"produce f9", %"assert failed169", %"assert failed171", %"assert failed173", %"assert failed175", %"produce f10", %"assert failed179", %"assert failed181", %"assert failed183", %"assert failed185", %if.then.i319, %after_bb44.thread
-  %.051.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %1210, %"assert failed185" ], [ %1210, %"assert failed183" ], [ null, %"assert failed181" ], [ null, %"assert failed179" ], [ null, %"produce f10" ], [ null, %"assert failed175" ], [ null, %"assert failed173" ], [ null, %"assert failed171" ], [ null, %"assert failed169" ], [ null, %"produce f9" ], [ null, %"assert failed165" ], [ null, %"assert failed163" ], [ null, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.050.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %1176, %"assert failed185" ], [ %1176, %"assert failed183" ], [ %1176, %"assert failed181" ], [ %1176, %"assert failed179" ], [ %1176, %"produce f10" ], [ null, %"assert failed175" ], [ null, %"assert failed173" ], [ null, %"assert failed171" ], [ null, %"assert failed169" ], [ null, %"produce f9" ], [ null, %"assert failed165" ], [ null, %"assert failed163" ], [ null, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.049.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %955, %"assert failed185" ], [ %955, %"assert failed183" ], [ %955, %"assert failed181" ], [ %955, %"assert failed179" ], [ %955, %"produce f10" ], [ %955, %"assert failed175" ], [ %955, %"assert failed173" ], [ null, %"assert failed171" ], [ null, %"assert failed169" ], [ null, %"produce f9" ], [ null, %"assert failed165" ], [ null, %"assert failed163" ], [ null, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.048.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %918, %"assert failed185" ], [ %918, %"assert failed183" ], [ %918, %"assert failed181" ], [ %918, %"assert failed179" ], [ %918, %"produce f10" ], [ %918, %"assert failed175" ], [ %918, %"assert failed173" ], [ %918, %"assert failed171" ], [ %918, %"assert failed169" ], [ %918, %"produce f9" ], [ null, %"assert failed165" ], [ null, %"assert failed163" ], [ null, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.047.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %876, %"assert failed185" ], [ %876, %"assert failed183" ], [ %876, %"assert failed181" ], [ %876, %"assert failed179" ], [ %876, %"produce f10" ], [ %876, %"assert failed175" ], [ %876, %"assert failed173" ], [ %876, %"assert failed171" ], [ %876, %"assert failed169" ], [ %876, %"produce f9" ], [ %876, %"assert failed165" ], [ %876, %"assert failed163" ], [ %876, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.046.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %836, %"assert failed185" ], [ %836, %"assert failed183" ], [ %836, %"assert failed181" ], [ %836, %"assert failed179" ], [ %836, %"produce f10" ], [ %836, %"assert failed175" ], [ %836, %"assert failed173" ], [ %836, %"assert failed171" ], [ %836, %"assert failed169" ], [ %836, %"produce f9" ], [ %836, %"assert failed165" ], [ %836, %"assert failed163" ], [ %836, %"produce f75" ], [ %836, %"assert failed159" ], [ %836, %"assert failed157" ], [ %836, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.045.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %790, %"assert failed185" ], [ %790, %"assert failed183" ], [ %790, %"assert failed181" ], [ %790, %"assert failed179" ], [ %790, %"produce f10" ], [ %790, %"assert failed175" ], [ %790, %"assert failed173" ], [ %790, %"assert failed171" ], [ %790, %"assert failed169" ], [ %790, %"produce f9" ], [ %790, %"assert failed165" ], [ %790, %"assert failed163" ], [ %790, %"produce f75" ], [ %790, %"assert failed159" ], [ %790, %"assert failed157" ], [ %790, %"produce f8" ], [ %790, %"assert failed153" ], [ %790, %"assert failed151" ], [ %790, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.044.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %734, %"assert failed185" ], [ %734, %"assert failed183" ], [ %734, %"assert failed181" ], [ %734, %"assert failed179" ], [ %734, %"produce f10" ], [ %734, %"assert failed175" ], [ %734, %"assert failed173" ], [ %734, %"assert failed171" ], [ %734, %"assert failed169" ], [ %734, %"produce f9" ], [ %734, %"assert failed165" ], [ %734, %"assert failed163" ], [ %734, %"produce f75" ], [ %734, %"assert failed159" ], [ %734, %"assert failed157" ], [ %734, %"produce f8" ], [ %734, %"assert failed153" ], [ %734, %"assert failed151" ], [ %734, %"produce f74" ], [ %734, %"assert failed147" ], [ %734, %"assert failed145" ], [ %734, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.043.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %681, %"assert failed185" ], [ %681, %"assert failed183" ], [ %681, %"assert failed181" ], [ %681, %"assert failed179" ], [ %681, %"produce f10" ], [ %681, %"assert failed175" ], [ %681, %"assert failed173" ], [ %681, %"assert failed171" ], [ %681, %"assert failed169" ], [ %681, %"produce f9" ], [ %681, %"assert failed165" ], [ %681, %"assert failed163" ], [ %681, %"produce f75" ], [ %681, %"assert failed159" ], [ %681, %"assert failed157" ], [ %681, %"produce f8" ], [ %681, %"assert failed153" ], [ %681, %"assert failed151" ], [ %681, %"produce f74" ], [ %681, %"assert failed147" ], [ %681, %"assert failed145" ], [ %681, %"produce f7" ], [ %681, %"assert failed141" ], [ %681, %"assert failed139" ], [ %681, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.042.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %625, %"assert failed185" ], [ %625, %"assert failed183" ], [ %625, %"assert failed181" ], [ %625, %"assert failed179" ], [ %625, %"produce f10" ], [ %625, %"assert failed175" ], [ %625, %"assert failed173" ], [ %625, %"assert failed171" ], [ %625, %"assert failed169" ], [ %625, %"produce f9" ], [ %625, %"assert failed165" ], [ %625, %"assert failed163" ], [ %625, %"produce f75" ], [ %625, %"assert failed159" ], [ %625, %"assert failed157" ], [ %625, %"produce f8" ], [ %625, %"assert failed153" ], [ %625, %"assert failed151" ], [ %625, %"produce f74" ], [ %625, %"assert failed147" ], [ %625, %"assert failed145" ], [ %625, %"produce f7" ], [ %625, %"assert failed141" ], [ %625, %"assert failed139" ], [ %625, %"produce f73" ], [ %625, %"assert failed135" ], [ %625, %"assert failed133" ], [ %625, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.041.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %556, %"assert failed185" ], [ %556, %"assert failed183" ], [ %556, %"assert failed181" ], [ %556, %"assert failed179" ], [ %556, %"produce f10" ], [ %556, %"assert failed175" ], [ %556, %"assert failed173" ], [ %556, %"assert failed171" ], [ %556, %"assert failed169" ], [ %556, %"produce f9" ], [ %556, %"assert failed165" ], [ %556, %"assert failed163" ], [ %556, %"produce f75" ], [ %556, %"assert failed159" ], [ %556, %"assert failed157" ], [ %556, %"produce f8" ], [ %556, %"assert failed153" ], [ %556, %"assert failed151" ], [ %556, %"produce f74" ], [ %556, %"assert failed147" ], [ %556, %"assert failed145" ], [ %556, %"produce f7" ], [ %556, %"assert failed141" ], [ %556, %"assert failed139" ], [ %556, %"produce f73" ], [ %556, %"assert failed135" ], [ %556, %"assert failed133" ], [ %556, %"produce f6" ], [ %556, %"assert failed129" ], [ %556, %"assert failed127" ], [ %556, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.040.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %500, %"assert failed185" ], [ %500, %"assert failed183" ], [ %500, %"assert failed181" ], [ %500, %"assert failed179" ], [ %500, %"produce f10" ], [ %500, %"assert failed175" ], [ %500, %"assert failed173" ], [ %500, %"assert failed171" ], [ %500, %"assert failed169" ], [ %500, %"produce f9" ], [ %500, %"assert failed165" ], [ %500, %"assert failed163" ], [ %500, %"produce f75" ], [ %500, %"assert failed159" ], [ %500, %"assert failed157" ], [ %500, %"produce f8" ], [ %500, %"assert failed153" ], [ %500, %"assert failed151" ], [ %500, %"produce f74" ], [ %500, %"assert failed147" ], [ %500, %"assert failed145" ], [ %500, %"produce f7" ], [ %500, %"assert failed141" ], [ %500, %"assert failed139" ], [ %500, %"produce f73" ], [ %500, %"assert failed135" ], [ %500, %"assert failed133" ], [ %500, %"produce f6" ], [ %500, %"assert failed129" ], [ %500, %"assert failed127" ], [ %500, %"produce f72" ], [ %500, %"assert failed123" ], [ %500, %"assert failed121" ], [ %500, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.039.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %421, %"assert failed185" ], [ %421, %"assert failed183" ], [ %421, %"assert failed181" ], [ %421, %"assert failed179" ], [ %421, %"produce f10" ], [ %421, %"assert failed175" ], [ %421, %"assert failed173" ], [ %421, %"assert failed171" ], [ %421, %"assert failed169" ], [ %421, %"produce f9" ], [ %421, %"assert failed165" ], [ %421, %"assert failed163" ], [ %421, %"produce f75" ], [ %421, %"assert failed159" ], [ %421, %"assert failed157" ], [ %421, %"produce f8" ], [ %421, %"assert failed153" ], [ %421, %"assert failed151" ], [ %421, %"produce f74" ], [ %421, %"assert failed147" ], [ %421, %"assert failed145" ], [ %421, %"produce f7" ], [ %421, %"assert failed141" ], [ %421, %"assert failed139" ], [ %421, %"produce f73" ], [ %421, %"assert failed135" ], [ %421, %"assert failed133" ], [ %421, %"produce f6" ], [ %421, %"assert failed129" ], [ %421, %"assert failed127" ], [ %421, %"produce f72" ], [ %421, %"assert failed123" ], [ %421, %"assert failed121" ], [ %421, %"produce f5" ], [ %421, %"assert failed117" ], [ %421, %"assert failed115" ], [ %421, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.038.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %338, %"assert failed185" ], [ %338, %"assert failed183" ], [ %338, %"assert failed181" ], [ %338, %"assert failed179" ], [ %338, %"produce f10" ], [ %338, %"assert failed175" ], [ %338, %"assert failed173" ], [ %338, %"assert failed171" ], [ %338, %"assert failed169" ], [ %338, %"produce f9" ], [ %338, %"assert failed165" ], [ %338, %"assert failed163" ], [ %338, %"produce f75" ], [ %338, %"assert failed159" ], [ %338, %"assert failed157" ], [ %338, %"produce f8" ], [ %338, %"assert failed153" ], [ %338, %"assert failed151" ], [ %338, %"produce f74" ], [ %338, %"assert failed147" ], [ %338, %"assert failed145" ], [ %338, %"produce f7" ], [ %338, %"assert failed141" ], [ %338, %"assert failed139" ], [ %338, %"produce f73" ], [ %338, %"assert failed135" ], [ %338, %"assert failed133" ], [ %338, %"produce f6" ], [ %338, %"assert failed129" ], [ %338, %"assert failed127" ], [ %338, %"produce f72" ], [ %338, %"assert failed123" ], [ %338, %"assert failed121" ], [ %338, %"produce f5" ], [ %338, %"assert failed117" ], [ %338, %"assert failed115" ], [ %338, %"produce f4" ], [ %338, %"assert failed111" ], [ %338, %"assert failed109" ], [ %338, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.0.ph.ph.ph.ph = phi ptr [ null, %if.then.i319 ], [ %209, %"assert failed185" ], [ %209, %"assert failed183" ], [ %209, %"assert failed181" ], [ %209, %"assert failed179" ], [ %209, %"produce f10" ], [ %209, %"assert failed175" ], [ %209, %"assert failed173" ], [ %209, %"assert failed171" ], [ %209, %"assert failed169" ], [ %209, %"produce f9" ], [ %209, %"assert failed165" ], [ %209, %"assert failed163" ], [ %209, %"produce f75" ], [ %209, %"assert failed159" ], [ %209, %"assert failed157" ], [ %209, %"produce f8" ], [ %209, %"assert failed153" ], [ %209, %"assert failed151" ], [ %209, %"produce f74" ], [ %209, %"assert failed147" ], [ %209, %"assert failed145" ], [ %209, %"produce f7" ], [ %209, %"assert failed141" ], [ %209, %"assert failed139" ], [ %209, %"produce f73" ], [ %209, %"assert failed135" ], [ %209, %"assert failed133" ], [ %209, %"produce f6" ], [ %209, %"assert failed129" ], [ %209, %"assert failed127" ], [ %209, %"produce f72" ], [ %209, %"assert failed123" ], [ %209, %"assert failed121" ], [ %209, %"produce f5" ], [ %209, %"assert failed117" ], [ %209, %"assert failed115" ], [ %209, %"produce f4" ], [ %209, %"assert failed111" ], [ %209, %"assert failed109" ], [ %209, %"produce f2" ], [ %209, %"assert failed105" ], [ %209, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
-  %.ph.ph.ph.ph = phi i32 [ 0, %if.then.i319 ], [ %1411, %"assert failed185" ], [ %1408, %"assert failed183" ], [ %1211, %"assert failed181" ], [ %1208, %"assert failed179" ], [ %1191, %"produce f10" ], [ %1177, %"assert failed175" ], [ %1174, %"assert failed173" ], [ %956, %"assert failed171" ], [ %953, %"assert failed169" ], [ %936, %"produce f9" ], [ %919, %"assert failed165" ], [ %916, %"assert failed163" ], [ %892, %"produce f75" ], [ %877, %"assert failed159" ], [ %874, %"assert failed157" ], [ %855, %"produce f8" ], [ %837, %"assert failed153" ], [ %834, %"assert failed151" ], [ %806, %"produce f74" ], [ %791, %"assert failed147" ], [ %788, %"assert failed145" ], [ %754, %"produce f7" ], [ %735, %"assert failed141" ], [ %732, %"assert failed139" ], [ %697, %"produce f73" ], [ %682, %"assert failed135" ], [ %679, %"assert failed133" ], [ %645, %"produce f6" ], [ %626, %"assert failed129" ], [ %623, %"assert failed127" ], [ %573, %"produce f72" ], [ %557, %"assert failed123" ], [ %554, %"assert failed121" ], [ %520, %"produce f5" ], [ %501, %"assert failed117" ], [ %498, %"assert failed115" ], [ %446, %"produce f4" ], [ %422, %"assert failed111" ], [ %419, %"assert failed109" ], [ %367, %"produce f2" ], [ %339, %"assert failed105" ], [ %336, %"assert failed103" ], [ %210, %"assert failed101" ], [ %207, %"assert failed99" ], [ %200, %"assert failed97" ], [ %197, %"assert failed95" ], [ %194, %"assert failed93" ], [ %192, %"assert failed91" ], [ %189, %"assert failed89" ], [ %186, %"assert failed87" ], [ %183, %"assert failed85" ], [ %180, %"assert failed83" ], [ %178, %"assert failed81" ], [ %175, %"assert failed79" ], [ %172, %"assert failed77" ], [ %170, %"assert failed75" ], [ %168, %"assert failed73" ], [ %164, %"assert failed71" ], [ %160, %"assert failed69" ], [ %158, %"assert failed67" ], [ %156, %"assert failed65" ], [ %154, %"assert failed63" ], [ %152, %"assert failed61" ], [ %27, %"assert failed10" ], [ %13, %"assert failed" ], [ 0, %after_bb44.thread ], [ 0, %after_bb ]
+call_destructor.exit210.thread374:                ; preds = %after_bb, %"assert failed", %"assert failed10", %"assert failed61", %"assert failed63", %"assert failed65", %"assert failed67", %"assert failed69", %"assert failed71", %"assert failed73", %"assert failed75", %"assert failed77", %"assert failed79", %"assert failed81", %"assert failed83", %"assert failed85", %"assert failed87", %"assert failed89", %"assert failed91", %"assert failed93", %"assert failed95", %"assert failed97", %"assert failed99", %"assert failed101", %"assert failed103", %"assert failed105", %"produce f2", %"assert failed109", %"assert failed111", %"produce f4", %"assert failed115", %"assert failed117", %"produce f5", %"assert failed121", %"assert failed123", %"produce f72", %"assert failed127", %"assert failed129", %"produce f6", %"assert failed133", %"assert failed135", %"produce f73", %"assert failed139", %"assert failed141", %"produce f7", %"assert failed145", %"assert failed147", %"produce f74", %"assert failed151", %"assert failed153", %"produce f8", %"assert failed157", %"assert failed159", %"produce f75", %"assert failed163", %"assert failed165", %"produce f9", %"assert failed169", %"assert failed171", %"assert failed173", %"assert failed175", %"produce f10", %"assert failed179", %"assert failed181", %"assert failed183", %"assert failed185", %if.then.i292, %after_bb44.thread
+  %.051.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %1210, %"assert failed185" ], [ %1210, %"assert failed183" ], [ null, %"assert failed181" ], [ null, %"assert failed179" ], [ null, %"produce f10" ], [ null, %"assert failed175" ], [ null, %"assert failed173" ], [ null, %"assert failed171" ], [ null, %"assert failed169" ], [ null, %"produce f9" ], [ null, %"assert failed165" ], [ null, %"assert failed163" ], [ null, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.050.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %1176, %"assert failed185" ], [ %1176, %"assert failed183" ], [ %1176, %"assert failed181" ], [ %1176, %"assert failed179" ], [ %1176, %"produce f10" ], [ null, %"assert failed175" ], [ null, %"assert failed173" ], [ null, %"assert failed171" ], [ null, %"assert failed169" ], [ null, %"produce f9" ], [ null, %"assert failed165" ], [ null, %"assert failed163" ], [ null, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.049.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %955, %"assert failed185" ], [ %955, %"assert failed183" ], [ %955, %"assert failed181" ], [ %955, %"assert failed179" ], [ %955, %"produce f10" ], [ %955, %"assert failed175" ], [ %955, %"assert failed173" ], [ null, %"assert failed171" ], [ null, %"assert failed169" ], [ null, %"produce f9" ], [ null, %"assert failed165" ], [ null, %"assert failed163" ], [ null, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.048.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %918, %"assert failed185" ], [ %918, %"assert failed183" ], [ %918, %"assert failed181" ], [ %918, %"assert failed179" ], [ %918, %"produce f10" ], [ %918, %"assert failed175" ], [ %918, %"assert failed173" ], [ %918, %"assert failed171" ], [ %918, %"assert failed169" ], [ %918, %"produce f9" ], [ null, %"assert failed165" ], [ null, %"assert failed163" ], [ null, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.047.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %876, %"assert failed185" ], [ %876, %"assert failed183" ], [ %876, %"assert failed181" ], [ %876, %"assert failed179" ], [ %876, %"produce f10" ], [ %876, %"assert failed175" ], [ %876, %"assert failed173" ], [ %876, %"assert failed171" ], [ %876, %"assert failed169" ], [ %876, %"produce f9" ], [ %876, %"assert failed165" ], [ %876, %"assert failed163" ], [ %876, %"produce f75" ], [ null, %"assert failed159" ], [ null, %"assert failed157" ], [ null, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.046.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %836, %"assert failed185" ], [ %836, %"assert failed183" ], [ %836, %"assert failed181" ], [ %836, %"assert failed179" ], [ %836, %"produce f10" ], [ %836, %"assert failed175" ], [ %836, %"assert failed173" ], [ %836, %"assert failed171" ], [ %836, %"assert failed169" ], [ %836, %"produce f9" ], [ %836, %"assert failed165" ], [ %836, %"assert failed163" ], [ %836, %"produce f75" ], [ %836, %"assert failed159" ], [ %836, %"assert failed157" ], [ %836, %"produce f8" ], [ null, %"assert failed153" ], [ null, %"assert failed151" ], [ null, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.045.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %790, %"assert failed185" ], [ %790, %"assert failed183" ], [ %790, %"assert failed181" ], [ %790, %"assert failed179" ], [ %790, %"produce f10" ], [ %790, %"assert failed175" ], [ %790, %"assert failed173" ], [ %790, %"assert failed171" ], [ %790, %"assert failed169" ], [ %790, %"produce f9" ], [ %790, %"assert failed165" ], [ %790, %"assert failed163" ], [ %790, %"produce f75" ], [ %790, %"assert failed159" ], [ %790, %"assert failed157" ], [ %790, %"produce f8" ], [ %790, %"assert failed153" ], [ %790, %"assert failed151" ], [ %790, %"produce f74" ], [ null, %"assert failed147" ], [ null, %"assert failed145" ], [ null, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.044.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %734, %"assert failed185" ], [ %734, %"assert failed183" ], [ %734, %"assert failed181" ], [ %734, %"assert failed179" ], [ %734, %"produce f10" ], [ %734, %"assert failed175" ], [ %734, %"assert failed173" ], [ %734, %"assert failed171" ], [ %734, %"assert failed169" ], [ %734, %"produce f9" ], [ %734, %"assert failed165" ], [ %734, %"assert failed163" ], [ %734, %"produce f75" ], [ %734, %"assert failed159" ], [ %734, %"assert failed157" ], [ %734, %"produce f8" ], [ %734, %"assert failed153" ], [ %734, %"assert failed151" ], [ %734, %"produce f74" ], [ %734, %"assert failed147" ], [ %734, %"assert failed145" ], [ %734, %"produce f7" ], [ null, %"assert failed141" ], [ null, %"assert failed139" ], [ null, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.043.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %681, %"assert failed185" ], [ %681, %"assert failed183" ], [ %681, %"assert failed181" ], [ %681, %"assert failed179" ], [ %681, %"produce f10" ], [ %681, %"assert failed175" ], [ %681, %"assert failed173" ], [ %681, %"assert failed171" ], [ %681, %"assert failed169" ], [ %681, %"produce f9" ], [ %681, %"assert failed165" ], [ %681, %"assert failed163" ], [ %681, %"produce f75" ], [ %681, %"assert failed159" ], [ %681, %"assert failed157" ], [ %681, %"produce f8" ], [ %681, %"assert failed153" ], [ %681, %"assert failed151" ], [ %681, %"produce f74" ], [ %681, %"assert failed147" ], [ %681, %"assert failed145" ], [ %681, %"produce f7" ], [ %681, %"assert failed141" ], [ %681, %"assert failed139" ], [ %681, %"produce f73" ], [ null, %"assert failed135" ], [ null, %"assert failed133" ], [ null, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.042.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %625, %"assert failed185" ], [ %625, %"assert failed183" ], [ %625, %"assert failed181" ], [ %625, %"assert failed179" ], [ %625, %"produce f10" ], [ %625, %"assert failed175" ], [ %625, %"assert failed173" ], [ %625, %"assert failed171" ], [ %625, %"assert failed169" ], [ %625, %"produce f9" ], [ %625, %"assert failed165" ], [ %625, %"assert failed163" ], [ %625, %"produce f75" ], [ %625, %"assert failed159" ], [ %625, %"assert failed157" ], [ %625, %"produce f8" ], [ %625, %"assert failed153" ], [ %625, %"assert failed151" ], [ %625, %"produce f74" ], [ %625, %"assert failed147" ], [ %625, %"assert failed145" ], [ %625, %"produce f7" ], [ %625, %"assert failed141" ], [ %625, %"assert failed139" ], [ %625, %"produce f73" ], [ %625, %"assert failed135" ], [ %625, %"assert failed133" ], [ %625, %"produce f6" ], [ null, %"assert failed129" ], [ null, %"assert failed127" ], [ null, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.041.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %556, %"assert failed185" ], [ %556, %"assert failed183" ], [ %556, %"assert failed181" ], [ %556, %"assert failed179" ], [ %556, %"produce f10" ], [ %556, %"assert failed175" ], [ %556, %"assert failed173" ], [ %556, %"assert failed171" ], [ %556, %"assert failed169" ], [ %556, %"produce f9" ], [ %556, %"assert failed165" ], [ %556, %"assert failed163" ], [ %556, %"produce f75" ], [ %556, %"assert failed159" ], [ %556, %"assert failed157" ], [ %556, %"produce f8" ], [ %556, %"assert failed153" ], [ %556, %"assert failed151" ], [ %556, %"produce f74" ], [ %556, %"assert failed147" ], [ %556, %"assert failed145" ], [ %556, %"produce f7" ], [ %556, %"assert failed141" ], [ %556, %"assert failed139" ], [ %556, %"produce f73" ], [ %556, %"assert failed135" ], [ %556, %"assert failed133" ], [ %556, %"produce f6" ], [ %556, %"assert failed129" ], [ %556, %"assert failed127" ], [ %556, %"produce f72" ], [ null, %"assert failed123" ], [ null, %"assert failed121" ], [ null, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.040.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %500, %"assert failed185" ], [ %500, %"assert failed183" ], [ %500, %"assert failed181" ], [ %500, %"assert failed179" ], [ %500, %"produce f10" ], [ %500, %"assert failed175" ], [ %500, %"assert failed173" ], [ %500, %"assert failed171" ], [ %500, %"assert failed169" ], [ %500, %"produce f9" ], [ %500, %"assert failed165" ], [ %500, %"assert failed163" ], [ %500, %"produce f75" ], [ %500, %"assert failed159" ], [ %500, %"assert failed157" ], [ %500, %"produce f8" ], [ %500, %"assert failed153" ], [ %500, %"assert failed151" ], [ %500, %"produce f74" ], [ %500, %"assert failed147" ], [ %500, %"assert failed145" ], [ %500, %"produce f7" ], [ %500, %"assert failed141" ], [ %500, %"assert failed139" ], [ %500, %"produce f73" ], [ %500, %"assert failed135" ], [ %500, %"assert failed133" ], [ %500, %"produce f6" ], [ %500, %"assert failed129" ], [ %500, %"assert failed127" ], [ %500, %"produce f72" ], [ %500, %"assert failed123" ], [ %500, %"assert failed121" ], [ %500, %"produce f5" ], [ null, %"assert failed117" ], [ null, %"assert failed115" ], [ null, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.039.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %421, %"assert failed185" ], [ %421, %"assert failed183" ], [ %421, %"assert failed181" ], [ %421, %"assert failed179" ], [ %421, %"produce f10" ], [ %421, %"assert failed175" ], [ %421, %"assert failed173" ], [ %421, %"assert failed171" ], [ %421, %"assert failed169" ], [ %421, %"produce f9" ], [ %421, %"assert failed165" ], [ %421, %"assert failed163" ], [ %421, %"produce f75" ], [ %421, %"assert failed159" ], [ %421, %"assert failed157" ], [ %421, %"produce f8" ], [ %421, %"assert failed153" ], [ %421, %"assert failed151" ], [ %421, %"produce f74" ], [ %421, %"assert failed147" ], [ %421, %"assert failed145" ], [ %421, %"produce f7" ], [ %421, %"assert failed141" ], [ %421, %"assert failed139" ], [ %421, %"produce f73" ], [ %421, %"assert failed135" ], [ %421, %"assert failed133" ], [ %421, %"produce f6" ], [ %421, %"assert failed129" ], [ %421, %"assert failed127" ], [ %421, %"produce f72" ], [ %421, %"assert failed123" ], [ %421, %"assert failed121" ], [ %421, %"produce f5" ], [ %421, %"assert failed117" ], [ %421, %"assert failed115" ], [ %421, %"produce f4" ], [ null, %"assert failed111" ], [ null, %"assert failed109" ], [ null, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.038.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %338, %"assert failed185" ], [ %338, %"assert failed183" ], [ %338, %"assert failed181" ], [ %338, %"assert failed179" ], [ %338, %"produce f10" ], [ %338, %"assert failed175" ], [ %338, %"assert failed173" ], [ %338, %"assert failed171" ], [ %338, %"assert failed169" ], [ %338, %"produce f9" ], [ %338, %"assert failed165" ], [ %338, %"assert failed163" ], [ %338, %"produce f75" ], [ %338, %"assert failed159" ], [ %338, %"assert failed157" ], [ %338, %"produce f8" ], [ %338, %"assert failed153" ], [ %338, %"assert failed151" ], [ %338, %"produce f74" ], [ %338, %"assert failed147" ], [ %338, %"assert failed145" ], [ %338, %"produce f7" ], [ %338, %"assert failed141" ], [ %338, %"assert failed139" ], [ %338, %"produce f73" ], [ %338, %"assert failed135" ], [ %338, %"assert failed133" ], [ %338, %"produce f6" ], [ %338, %"assert failed129" ], [ %338, %"assert failed127" ], [ %338, %"produce f72" ], [ %338, %"assert failed123" ], [ %338, %"assert failed121" ], [ %338, %"produce f5" ], [ %338, %"assert failed117" ], [ %338, %"assert failed115" ], [ %338, %"produce f4" ], [ %338, %"assert failed111" ], [ %338, %"assert failed109" ], [ %338, %"produce f2" ], [ null, %"assert failed105" ], [ null, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.0.ph.ph.ph.ph = phi ptr [ null, %if.then.i292 ], [ %209, %"assert failed185" ], [ %209, %"assert failed183" ], [ %209, %"assert failed181" ], [ %209, %"assert failed179" ], [ %209, %"produce f10" ], [ %209, %"assert failed175" ], [ %209, %"assert failed173" ], [ %209, %"assert failed171" ], [ %209, %"assert failed169" ], [ %209, %"produce f9" ], [ %209, %"assert failed165" ], [ %209, %"assert failed163" ], [ %209, %"produce f75" ], [ %209, %"assert failed159" ], [ %209, %"assert failed157" ], [ %209, %"produce f8" ], [ %209, %"assert failed153" ], [ %209, %"assert failed151" ], [ %209, %"produce f74" ], [ %209, %"assert failed147" ], [ %209, %"assert failed145" ], [ %209, %"produce f7" ], [ %209, %"assert failed141" ], [ %209, %"assert failed139" ], [ %209, %"produce f73" ], [ %209, %"assert failed135" ], [ %209, %"assert failed133" ], [ %209, %"produce f6" ], [ %209, %"assert failed129" ], [ %209, %"assert failed127" ], [ %209, %"produce f72" ], [ %209, %"assert failed123" ], [ %209, %"assert failed121" ], [ %209, %"produce f5" ], [ %209, %"assert failed117" ], [ %209, %"assert failed115" ], [ %209, %"produce f4" ], [ %209, %"assert failed111" ], [ %209, %"assert failed109" ], [ %209, %"produce f2" ], [ %209, %"assert failed105" ], [ %209, %"assert failed103" ], [ null, %"assert failed101" ], [ null, %"assert failed99" ], [ null, %"assert failed97" ], [ null, %"assert failed95" ], [ null, %"assert failed93" ], [ null, %"assert failed91" ], [ null, %"assert failed89" ], [ null, %"assert failed87" ], [ null, %"assert failed85" ], [ null, %"assert failed83" ], [ null, %"assert failed81" ], [ null, %"assert failed79" ], [ null, %"assert failed77" ], [ null, %"assert failed75" ], [ null, %"assert failed73" ], [ null, %"assert failed71" ], [ null, %"assert failed69" ], [ null, %"assert failed67" ], [ null, %"assert failed65" ], [ null, %"assert failed63" ], [ null, %"assert failed61" ], [ null, %"assert failed10" ], [ null, %"assert failed" ], [ null, %after_bb44.thread ], [ null, %after_bb ]
+  %.ph.ph.ph.ph = phi i32 [ 0, %if.then.i292 ], [ %1411, %"assert failed185" ], [ %1408, %"assert failed183" ], [ %1211, %"assert failed181" ], [ %1208, %"assert failed179" ], [ %1191, %"produce f10" ], [ %1177, %"assert failed175" ], [ %1174, %"assert failed173" ], [ %956, %"assert failed171" ], [ %953, %"assert failed169" ], [ %936, %"produce f9" ], [ %919, %"assert failed165" ], [ %916, %"assert failed163" ], [ %892, %"produce f75" ], [ %877, %"assert failed159" ], [ %874, %"assert failed157" ], [ %855, %"produce f8" ], [ %837, %"assert failed153" ], [ %834, %"assert failed151" ], [ %806, %"produce f74" ], [ %791, %"assert failed147" ], [ %788, %"assert failed145" ], [ %754, %"produce f7" ], [ %735, %"assert failed141" ], [ %732, %"assert failed139" ], [ %697, %"produce f73" ], [ %682, %"assert failed135" ], [ %679, %"assert failed133" ], [ %645, %"produce f6" ], [ %626, %"assert failed129" ], [ %623, %"assert failed127" ], [ %573, %"produce f72" ], [ %557, %"assert failed123" ], [ %554, %"assert failed121" ], [ %520, %"produce f5" ], [ %501, %"assert failed117" ], [ %498, %"assert failed115" ], [ %446, %"produce f4" ], [ %422, %"assert failed111" ], [ %419, %"assert failed109" ], [ %367, %"produce f2" ], [ %339, %"assert failed105" ], [ %336, %"assert failed103" ], [ %210, %"assert failed101" ], [ %207, %"assert failed99" ], [ %200, %"assert failed97" ], [ %197, %"assert failed95" ], [ %194, %"assert failed93" ], [ %192, %"assert failed91" ], [ %189, %"assert failed89" ], [ %186, %"assert failed87" ], [ %183, %"assert failed85" ], [ %180, %"assert failed83" ], [ %178, %"assert failed81" ], [ %175, %"assert failed79" ], [ %172, %"assert failed77" ], [ %170, %"assert failed75" ], [ %168, %"assert failed73" ], [ %164, %"assert failed71" ], [ %160, %"assert failed69" ], [ %158, %"assert failed67" ], [ %156, %"assert failed65" ], [ %154, %"assert failed63" ], [ %152, %"assert failed61" ], [ %27, %"assert failed10" ], [ %13, %"assert failed" ], [ 0, %after_bb44.thread ], [ 0, %after_bb ]
   %.not100191273334392 = icmp eq i32 %.ph.ph.ph.ph, 0
   br label %call_destructor.exit215
 
@@ -263,20 +263,20 @@ call_destructor.exit230:                          ; preds = %if.then.i229, %call
   %brmerge.i233 = or i1 %tobool.i231, %.not100212234313357428446
   br i1 %brmerge.i233, label %call_destructor.exit235, label %call_destructor.exit235.sink.split
 
-call_destructor.exit235.sink.split:               ; preds = %call_destructor.exit230, %"end for f130.s0.v4"
-  %.sink845 = phi ptr [ %1813, %"end for f130.s0.v4" ], [ %.048200246301369416458, %call_destructor.exit230 ]
-  %.047201245302368417457477515.ph = phi ptr [ %876, %"end for f130.s0.v4" ], [ %.047201245302368417457, %call_destructor.exit230 ]
-  %.046202244303367418456478514.ph = phi ptr [ %836, %"end for f130.s0.v4" ], [ %.046202244303367418456, %call_destructor.exit230 ]
-  %.045203243304366419455479513.ph = phi ptr [ %790, %"end for f130.s0.v4" ], [ %.045203243304366419455, %call_destructor.exit230 ]
-  %.044204242305365420454480512.ph = phi ptr [ %734, %"end for f130.s0.v4" ], [ %.044204242305365420454, %call_destructor.exit230 ]
-  %.043205241306364421453481511.ph = phi ptr [ %681, %"end for f130.s0.v4" ], [ %.043205241306364421453, %call_destructor.exit230 ]
-  %.042206240307363422452482510.ph = phi ptr [ %625, %"end for f130.s0.v4" ], [ %.042206240307363422452, %call_destructor.exit230 ]
-  %.041207239308362423451483509.ph = phi ptr [ %556, %"end for f130.s0.v4" ], [ %.041207239308362423451, %call_destructor.exit230 ]
-  %.040208238309361424450484508.ph = phi ptr [ %500, %"end for f130.s0.v4" ], [ %.040208238309361424450, %call_destructor.exit230 ]
-  %.039209237310360425449485507.ph = phi ptr [ %421, %"end for f130.s0.v4" ], [ %.039209237310360425449, %call_destructor.exit230 ]
-  %.038210236311359426448486506.ph = phi ptr [ %338, %"end for f130.s0.v4" ], [ %.038210236311359426448, %call_destructor.exit230 ]
-  %.0211235312358427447487505.ph = phi ptr [ %209, %"end for f130.s0.v4" ], [ %.0211235312358427447, %call_destructor.exit230 ]
-  %.ph844 = phi i32 [ %1951, %"end for f130.s0.v4" ], [ %24, %call_destructor.exit230 ]
+call_destructor.exit235.sink.split:               ; preds = %call_destructor.exit230, %"produce local_laplacian"
+  %.sink845 = phi ptr [ %1813, %"produce local_laplacian" ], [ %.048200246301369416458, %call_destructor.exit230 ]
+  %.047201245302368417457477515.ph = phi ptr [ %876, %"produce local_laplacian" ], [ %.047201245302368417457, %call_destructor.exit230 ]
+  %.046202244303367418456478514.ph = phi ptr [ %836, %"produce local_laplacian" ], [ %.046202244303367418456, %call_destructor.exit230 ]
+  %.045203243304366419455479513.ph = phi ptr [ %790, %"produce local_laplacian" ], [ %.045203243304366419455, %call_destructor.exit230 ]
+  %.044204242305365420454480512.ph = phi ptr [ %734, %"produce local_laplacian" ], [ %.044204242305365420454, %call_destructor.exit230 ]
+  %.043205241306364421453481511.ph = phi ptr [ %681, %"produce local_laplacian" ], [ %.043205241306364421453, %call_destructor.exit230 ]
+  %.042206240307363422452482510.ph = phi ptr [ %625, %"produce local_laplacian" ], [ %.042206240307363422452, %call_destructor.exit230 ]
+  %.041207239308362423451483509.ph = phi ptr [ %556, %"produce local_laplacian" ], [ %.041207239308362423451, %call_destructor.exit230 ]
+  %.040208238309361424450484508.ph = phi ptr [ %500, %"produce local_laplacian" ], [ %.040208238309361424450, %call_destructor.exit230 ]
+  %.039209237310360425449485507.ph = phi ptr [ %421, %"produce local_laplacian" ], [ %.039209237310360425449, %call_destructor.exit230 ]
+  %.038210236311359426448486506.ph = phi ptr [ %338, %"produce local_laplacian" ], [ %.038210236311359426448, %call_destructor.exit230 ]
+  %.0211235312358427447487505.ph = phi ptr [ %209, %"produce local_laplacian" ], [ %.0211235312358427447, %call_destructor.exit230 ]
+  %.ph844 = phi i32 [ %2056, %"produce local_laplacian" ], [ %24, %call_destructor.exit230 ]
   call void @halide_free(ptr null, ptr nonnull %.sink845) #7
   br label %call_destructor.exit235
 
@@ -1167,8 +1167,8 @@ middle.block:                                     ; preds = %vector.body
   %311 = add nsw i32 %f72.s0.v3.min.s, 6
   %a168 = add i32 %311, %310
   %t1943 = tail call i32 @llvm.smin.i32(i32 %b465, i32 %a168)
-  %reass.sub546 = sub i32 %b465, %f4.s0.v3.min.s
-  %312 = add i32 %reass.sub546, 1
+  %reass.sub527 = sub i32 %b465, %f4.s0.v3.min.s
+  %312 = add i32 %reass.sub527, 1
   %313 = and i32 %312, -8
   %314 = add nsw i32 %f4.s0.v3.min.s, 6
   %a191 = add i32 %314, %313
@@ -1193,8 +1193,8 @@ middle.block:                                     ; preds = %vector.body
   %b184 = tail call i32 @llvm.smax.i32(i32 %b79, i32 %b186)
   %320 = tail call i32 @llvm.smax.i32(i32 %a77, i32 %b184)
   %f2.v3.extent_realized.s = sub nsw i32 %320, %f2.v3.min_realized
-  %reass.sub547 = sub i32 %305, %f2.v4.min_realized
-  %321 = add i32 %reass.sub547, 1
+  %reass.sub528 = sub i32 %305, %f2.v4.min_realized
+  %321 = add i32 %reass.sub528, 1
   %322 = zext i32 %321 to i64
   %323 = add nsw i32 %f2.v3.extent_realized.s, 1
   %324 = zext i32 %323 to i64
@@ -1218,8 +1218,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded104":                            ; preds = %"consume f0"
   %337 = add nuw nsw i64 %326, 4
   %338 = tail call ptr @halide_malloc(ptr null, i64 %337)
-  %.not516 = icmp eq ptr %338, null
-  br i1 %.not516, label %"assert failed105", label %"produce f2", !prof !4
+  %.not529 = icmp eq ptr %338, null
+  br i1 %.not529, label %"assert failed105", label %"produce f2", !prof !4
 
 "assert failed105":                               ; preds = %"assert succeeded104"
   %339 = tail call i32 @halide_error_out_of_memory(ptr null) #4
@@ -1340,8 +1340,8 @@ middle.block:                                     ; preds = %vector.body
   %389 = call i32 @llvm.smin.i32(i32 %b556, i32 %a299)
   %390 = shl nsw i32 %389, 1
   %a298 = add nsw i32 %390, 2
-  %reass.sub548 = sub nsw i32 %384, %383
-  %391 = add i32 %reass.sub548, 2
+  %reass.sub530 = sub nsw i32 %384, %383
+  %391 = add i32 %reass.sub530, 2
   %392 = and i32 %391, -8
   %393 = add nsw i32 %392, %383
   %a300 = add nsw i32 %393, -1
@@ -1359,8 +1359,8 @@ middle.block:                                     ; preds = %vector.body
   %397 = add nsw i32 %f4.v6.extent_realized.s, 1
   %398 = add nsw i32 %f4.v3.extent_realized.s, 1
   %f4.stride.1 = mul nsw i32 %398, %397
-  %reass.sub549 = sub i32 %380, %f4.v4.min_realized
-  %399 = add i32 %reass.sub549, 1
+  %reass.sub531 = sub i32 %380, %f4.v4.min_realized
+  %399 = add i32 %reass.sub531, 1
   %400 = zext i32 %399 to i64
   %401 = zext i32 %398 to i64
   %402 = shl nuw nsw i64 %401, 2
@@ -1391,8 +1391,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded110":                            ; preds = %"consume f2"
   %420 = add nuw nsw i64 %409, 4
   %421 = call ptr @halide_malloc(ptr null, i64 %420)
-  %.not517 = icmp eq ptr %421, null
-  br i1 %.not517, label %"assert failed111", label %"produce f4", !prof !4
+  %.not532 = icmp eq ptr %421, null
+  br i1 %.not532, label %"assert failed111", label %"produce f4", !prof !4
 
 "assert failed111":                               ; preds = %"assert succeeded110"
   %422 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -1519,8 +1519,8 @@ middle.block:                                     ; preds = %vector.body
   %f5.v3.extent_realized.s = sub nsw i32 %477, %f5.v3.min_realized
   %478 = add nsw i32 %f5.v3.extent_realized.s, 1
   %f5.stride.1 = mul nsw i32 %478, %397
-  %reass.sub550 = sub i32 %460, %f5.v4.min_realized
-  %479 = add i32 %reass.sub550, 1
+  %reass.sub533 = sub i32 %460, %f5.v4.min_realized
+  %479 = add i32 %reass.sub533, 1
   %480 = zext i32 %479 to i64
   %481 = zext i32 %478 to i64
   %482 = shl nuw nsw i64 %481, 2
@@ -1550,8 +1550,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded116":                            ; preds = %"consume f4"
   %499 = add nuw nsw i64 %488, 4
   %500 = call ptr @halide_malloc(ptr null, i64 %499)
-  %.not518 = icmp eq ptr %500, null
-  br i1 %.not518, label %"assert failed117", label %"produce f5", !prof !4
+  %.not534 = icmp eq ptr %500, null
+  br i1 %.not534, label %"assert failed117", label %"produce f5", !prof !4
 
 "assert failed117":                               ; preds = %"assert succeeded116"
   %501 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -1631,8 +1631,8 @@ middle.block:                                     ; preds = %vector.body
   %b464 = call i32 @llvm.smax.i32(i32 %a464, i32 %b300)
   %538 = call i32 @llvm.smax.i32(i32 %t1943, i32 %b464)
   %f72.v3.extent_realized.s = sub nsw i32 %538, %f72.v3.min_realized
-  %reass.sub551 = sub i32 %530, %f72.v4.min_realized
-  %539 = add i32 %reass.sub551, 1
+  %reass.sub535 = sub i32 %530, %f72.v4.min_realized
+  %539 = add i32 %reass.sub535, 1
   %540 = zext i32 %539 to i64
   %541 = add nsw i32 %f72.v3.extent_realized.s, 1
   %542 = zext i32 %541 to i64
@@ -1656,8 +1656,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded122":                            ; preds = %"consume f5"
   %555 = add nuw nsw i64 %544, 4
   %556 = call ptr @halide_malloc(ptr null, i64 %555)
-  %.not519 = icmp eq ptr %556, null
-  br i1 %.not519, label %"assert failed123", label %"produce f72", !prof !4
+  %.not536 = icmp eq ptr %556, null
+  br i1 %.not536, label %"assert failed123", label %"produce f72", !prof !4
 
 "assert failed123":                               ; preds = %"assert succeeded122"
   %557 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -1764,8 +1764,8 @@ middle.block:                                     ; preds = %vector.body
   %f6.v3.extent_realized.s = sub nsw i32 %602, %f6.v3.min_realized
   %603 = add nsw i32 %f6.v3.extent_realized.s, 1
   %f6.stride.1 = mul nsw i32 %603, %397
-  %reass.sub552 = sub i32 %585, %f6.v4.min_realized
-  %604 = add i32 %reass.sub552, 1
+  %reass.sub537 = sub i32 %585, %f6.v4.min_realized
+  %604 = add i32 %reass.sub537, 1
   %605 = zext i32 %604 to i64
   %606 = zext i32 %603 to i64
   %607 = shl nuw nsw i64 %606, 2
@@ -1795,8 +1795,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded128":                            ; preds = %"consume f72"
   %624 = add nuw nsw i64 %613, 4
   %625 = call ptr @halide_malloc(ptr null, i64 %624)
-  %.not520 = icmp eq ptr %625, null
-  br i1 %.not520, label %"assert failed129", label %"produce f6", !prof !4
+  %.not538 = icmp eq ptr %625, null
+  br i1 %.not538, label %"assert failed129", label %"produce f6", !prof !4
 
 "assert failed129":                               ; preds = %"assert succeeded128"
   %626 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -1877,8 +1877,8 @@ middle.block:                                     ; preds = %vector.body
   %b555 = call i32 @llvm.smax.i32(i32 %a555, i32 %b423)
   %663 = call i32 @llvm.smax.i32(i32 %536, i32 %b555)
   %f73.v3.extent_realized.s = sub nsw i32 %663, %f73.v3.min_realized
-  %reass.sub553 = sub i32 %655, %f73.v4.min_realized
-  %664 = add i32 %reass.sub553, 1
+  %reass.sub539 = sub i32 %655, %f73.v4.min_realized
+  %664 = add i32 %reass.sub539, 1
   %665 = zext i32 %664 to i64
   %666 = add nsw i32 %f73.v3.extent_realized.s, 1
   %667 = zext i32 %666 to i64
@@ -1902,8 +1902,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded134":                            ; preds = %"consume f6"
   %680 = add nuw nsw i64 %669, 4
   %681 = call ptr @halide_malloc(ptr null, i64 %680)
-  %.not521 = icmp eq ptr %681, null
-  br i1 %.not521, label %"assert failed135", label %"produce f73", !prof !4
+  %.not540 = icmp eq ptr %681, null
+  br i1 %.not540, label %"assert failed135", label %"produce f73", !prof !4
 
 "assert failed135":                               ; preds = %"assert succeeded134"
   %682 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -1986,8 +1986,8 @@ middle.block:                                     ; preds = %vector.body
   %f7.v3.extent_realized.s = sub nsw i32 %711, %f7.v3.min_realized
   %712 = add nsw i32 %f7.v3.extent_realized.s, 1
   %f7.stride.1 = mul nsw i32 %712, %397
-  %reass.sub554 = sub i32 %701, %f7.v4.min_realized
-  %713 = add i32 %reass.sub554, 1
+  %reass.sub541 = sub i32 %701, %f7.v4.min_realized
+  %713 = add i32 %reass.sub541, 1
   %714 = zext i32 %713 to i64
   %715 = zext i32 %712 to i64
   %716 = shl nuw nsw i64 %715, 2
@@ -2017,8 +2017,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded140":                            ; preds = %"consume f73"
   %733 = add nuw nsw i64 %722, 4
   %734 = call ptr @halide_malloc(ptr null, i64 %733)
-  %.not522 = icmp eq ptr %734, null
-  br i1 %.not522, label %"assert failed141", label %"produce f7", !prof !4
+  %.not542 = icmp eq ptr %734, null
+  br i1 %.not542, label %"assert failed141", label %"produce f7", !prof !4
 
 "assert failed141":                               ; preds = %"assert succeeded140"
   %735 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -2099,8 +2099,8 @@ middle.block:                                     ; preds = %vector.body
   %b640 = call i32 @llvm.smax.i32(i32 %a640, i32 %b516)
   %772 = call i32 @llvm.smax.i32(i32 %661, i32 %b640)
   %f74.v3.extent_realized.s = sub nsw i32 %772, %f74.v3.min_realized
-  %reass.sub555 = sub i32 %764, %f74.v4.min_realized
-  %773 = add i32 %reass.sub555, 1
+  %reass.sub543 = sub i32 %764, %f74.v4.min_realized
+  %773 = add i32 %reass.sub543, 1
   %774 = zext i32 %773 to i64
   %775 = add nsw i32 %f74.v3.extent_realized.s, 1
   %776 = zext i32 %775 to i64
@@ -2124,8 +2124,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded146":                            ; preds = %"consume f7"
   %789 = add nuw nsw i64 %778, 4
   %790 = call ptr @halide_malloc(ptr null, i64 %789)
-  %.not523 = icmp eq ptr %790, null
-  br i1 %.not523, label %"assert failed147", label %"produce f74", !prof !4
+  %.not544 = icmp eq ptr %790, null
+  br i1 %.not544, label %"assert failed147", label %"produce f74", !prof !4
 
 "assert failed147":                               ; preds = %"assert succeeded146"
   %791 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -2226,8 +2226,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded152":                            ; preds = %"consume f74"
   %835 = add nuw nsw i64 %824, 4
   %836 = call ptr @halide_malloc(ptr null, i64 %835)
-  %.not524 = icmp eq ptr %836, null
-  br i1 %.not524, label %"assert failed153", label %"produce f8", !prof !4
+  %.not545 = icmp eq ptr %836, null
+  br i1 %.not545, label %"assert failed153", label %"produce f8", !prof !4
 
 "assert failed153":                               ; preds = %"assert succeeded152"
   %837 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -2282,8 +2282,8 @@ middle.block:                                     ; preds = %vector.body
   %f75.v3.min_realized = call i32 @llvm.smin.i32(i32 %765, i32 %a696)
   %858 = call i32 @llvm.smax.i32(i32 %770, i32 %a599)
   %f75.v3.extent_realized.s = sub i32 %858, %f75.v3.min_realized
-  %reass.sub556 = sub i32 %857, %f75.v4.min_realized
-  %859 = add i32 %reass.sub556, 1
+  %reass.sub546 = sub i32 %857, %f75.v4.min_realized
+  %859 = add i32 %reass.sub546, 1
   %860 = zext i32 %859 to i64
   %861 = add i32 %f75.v3.extent_realized.s, 1
   %862 = zext i32 %861 to i64
@@ -2307,8 +2307,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded158":                            ; preds = %"consume f8"
   %875 = add nuw nsw i64 %864, 4
   %876 = call ptr @halide_malloc(ptr null, i64 %875)
-  %.not525 = icmp eq ptr %876, null
-  br i1 %.not525, label %"assert failed159", label %"produce f75", !prof !4
+  %.not547 = icmp eq ptr %876, null
+  br i1 %.not547, label %"assert failed159", label %"produce f75", !prof !4
 
 "assert failed159":                               ; preds = %"assert succeeded158"
   %877 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -2394,8 +2394,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded164":                            ; preds = %"consume f75"
   %917 = add nuw nsw i64 %906, 4
   %918 = call ptr @halide_malloc(ptr null, i64 %917)
-  %.not526 = icmp eq ptr %918, null
-  br i1 %.not526, label %"assert failed165", label %"produce f9", !prof !4
+  %.not548 = icmp eq ptr %918, null
+  br i1 %.not548, label %"assert failed165", label %"produce f9", !prof !4
 
 "assert failed165":                               ; preds = %"assert succeeded164"
   %919 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -2440,8 +2440,8 @@ middle.block:                                     ; preds = %vector.body
   br i1 %937, label %"consume f9", label %call_destructor.exit210.thread374, !prof !5
 
 "consume f9":                                     ; preds = %"produce f9"
-  %reass.sub557 = sub i32 %b735, %b733
-  %938 = add i32 %reass.sub557, 1
+  %reass.sub549 = sub i32 %b735, %b733
+  %938 = add i32 %reass.sub549, 1
   %939 = zext i32 %938 to i64
   %t3081 = add i32 %b739, 1
   %940 = sub i32 %t3081, %b737
@@ -2466,8 +2466,8 @@ middle.block:                                     ; preds = %vector.body
 "assert succeeded170":                            ; preds = %"consume f9"
   %954 = add nuw nsw i64 %943, 4
   %955 = call ptr @halide_malloc(ptr null, i64 %954)
-  %.not527 = icmp eq ptr %955, null
-  br i1 %.not527, label %"assert failed171", label %"produce f76", !prof !4
+  %.not550 = icmp eq ptr %955, null
+  br i1 %.not550, label %"assert failed171", label %"produce f76", !prof !4
 
 "assert failed171":                               ; preds = %"assert succeeded170"
   %956 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -2828,8 +2828,8 @@ middle.block858:                                  ; preds = %vector.body882
 "assert succeeded174":                            ; preds = %"consume f76"
   %1175 = add nuw nsw i64 %1164, 4
   %1176 = call ptr @halide_malloc(ptr null, i64 %1175)
-  %.not528 = icmp eq ptr %1176, null
-  br i1 %.not528, label %"assert failed175", label %"produce f10", !prof !4
+  %.not551 = icmp eq ptr %1176, null
+  br i1 %.not551, label %"assert failed175", label %"produce f10", !prof !4
 
 "assert failed175":                               ; preds = %"assert succeeded174"
   %1177 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -2868,8 +2868,8 @@ middle.block858:                                  ; preds = %vector.body882
   br i1 %1192, label %"consume f10", label %call_destructor.exit210.thread374, !prof !5
 
 "consume f10":                                    ; preds = %"produce f10"
-  %reass.sub558 = sub i32 %b750, %b748
-  %1193 = add i32 %reass.sub558, 1
+  %reass.sub552 = sub i32 %b750, %b748
+  %1193 = add i32 %reass.sub552, 1
   %1194 = zext i32 %1193 to i64
   %t3085 = add i32 %b753, 1
   %1195 = sub i32 %t3085, %b751
@@ -2894,8 +2894,8 @@ middle.block858:                                  ; preds = %vector.body882
 "assert succeeded180":                            ; preds = %"consume f10"
   %1209 = add nuw nsw i64 %1198, 4
   %1210 = call ptr @halide_malloc(ptr null, i64 %1209)
-  %.not529 = icmp eq ptr %1210, null
-  br i1 %.not529, label %"assert failed181", label %"produce f77", !prof !4
+  %.not553 = icmp eq ptr %1210, null
+  br i1 %.not553, label %"assert failed181", label %"produce f77", !prof !4
 
 "assert failed181":                               ; preds = %"assert succeeded180"
   %1211 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -2908,8 +2908,8 @@ middle.block858:                                  ; preds = %vector.body882
 "for f77.s0.v4.preheader":                        ; preds = %"produce f77"
   %1212 = sext i32 %b753 to i64
   %1213 = sext i32 %b751 to i64
-  %reass.sub559 = sub nsw i64 %1212, %1213
-  %1214 = shl nsw i64 %reass.sub559, 2
+  %reass.sub554 = sub nsw i64 %1212, %1213
+  %1214 = shl nsw i64 %reass.sub554, 2
   %1215 = add nsw i64 %1214, 4
   %1216 = shl i32 %940, 1
   %.not127 = icmp slt i32 %b753, %b751
@@ -3232,8 +3232,8 @@ middle.block930:                                  ; preds = %vector.body954
 "assert succeeded184":                            ; preds = %"consume f77"
   %1409 = add nuw nsw i64 %t3084, 4
   %1410 = call ptr @halide_malloc(ptr null, i64 %1409)
-  %.not530 = icmp eq ptr %1410, null
-  br i1 %.not530, label %"assert failed185", label %"produce f78", !prof !4
+  %.not555 = icmp eq ptr %1410, null
+  br i1 %.not555, label %"assert failed185", label %"produce f78", !prof !4
 
 "assert failed185":                               ; preds = %"assert succeeded184"
   %1411 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -3561,22 +3561,22 @@ middle.block1005:                                 ; preds = %vector.body1029
 
 "assert succeeded188":                            ; preds = %"end for f78.s0.v3.loopexit"
   %1609 = call ptr @halide_malloc(ptr null, i64 %1409)
-  %.not531 = icmp eq ptr %1609, null
-  br i1 %.not531, label %call_destructor.exit210, label %"for f132.s0.v4.preheader", !prof !4
+  %.not556 = icmp eq ptr %1609, null
+  br i1 %.not556, label %call_destructor.exit210, label %"for f132.s0.v4.preheader", !prof !4
 
 "assert succeeded188.thread841":                  ; preds = %"for f78.s0.v4.preheader"
   %1610 = call ptr @halide_malloc(ptr null, i64 %1409)
-  %.not531842 = icmp eq ptr %1610, null
-  br i1 %.not531842, label %call_destructor.exit210, label %if.then.i298, !prof !4
+  %.not556842 = icmp eq ptr %1610, null
+  br i1 %.not556842, label %call_destructor.exit210, label %"consume f132", !prof !4
 
 "assert succeeded188.thread":                     ; preds = %"produce f78"
   %1611 = call ptr @halide_malloc(ptr null, i64 %1409)
-  %.not534 = icmp eq ptr %1611, null
-  br i1 %.not534, label %call_destructor.exit210, label %if.then.i298, !prof !4
+  %.not566 = icmp eq ptr %1611, null
+  br i1 %.not566, label %call_destructor.exit210, label %"consume f132", !prof !4
 
 "for f132.s0.v4.preheader":                       ; preds = %"assert succeeded188"
   %1612 = sext i32 %f10.stride.2 to i64
-  br i1 %.not124, label %if.then.i298, label %"for f132.s0.v4", !prof !27
+  br i1 %.not124, label %"consume f132", label %"for f132.s0.v4", !prof !27
 
 "for f132.s0.v4":                                 ; preds = %"for f132.s0.v4.preheader", %"end for f132.s0.v3.loopexit"
   %lsr.iv395 = phi i64 [ %lsr.iv.next396, %"end for f132.s0.v3.loopexit" ], [ %1416, %"for f132.s0.v4.preheader" ]
@@ -3589,60 +3589,38 @@ middle.block1005:                                 ; preds = %vector.body1029
   %1618 = sub i64 %1617, %1418
   br label %"for f132.s0.v3"
 
-if.then.i298:                                     ; preds = %"end for f132.s0.v3.loopexit", %"assert succeeded188.thread841", %"for f132.s0.v4.preheader", %"assert succeeded188.thread"
-  %1619 = phi ptr [ %1611, %"assert succeeded188.thread" ], [ %1609, %"for f132.s0.v4.preheader" ], [ %1610, %"assert succeeded188.thread841" ], [ %1609, %"end for f132.s0.v3.loopexit" ]
-  call void @halide_free(ptr null, ptr nonnull %1410) #7
-  %f131.v3.extent_realized.s = sub nsw i32 %a2, %a3
-  %reass.sub560 = sub nsw i32 %a0, %a1
-  %1620 = add nsw i32 %reass.sub560, 1
-  %1621 = zext i32 %1620 to i64
-  %1622 = add nsw i32 %f131.v3.extent_realized.s, 1
-  %1623 = zext i32 %1622 to i64
-  %1624 = shl nuw nsw i64 %1623, 2
-  %1625 = mul i64 %1624, %1621
-  %1626 = icmp ult i64 %1625, 2147483648
-  %1627 = and i64 %1624, 4294967292
-  %1628 = mul nuw i64 %1627, %1621
-  %1629 = lshr i64 %1628, 32
-  %1630 = lshr i64 %1623, 30
-  %1631 = mul nuw nsw i64 %1630, %1621
-  %1632 = add nuw nsw i64 %1629, %1631
-  %1633 = icmp ult i64 %1632, 4294967296
-  %1634 = and i1 %1626, %1633
-  br i1 %1634, label %"assert succeeded192", label %"assert failed191", !prof !5
-
 "for f132.s0.v3":                                 ; preds = %"for f132.s0.v3", %"for f132.s0.v4"
   %lsr.iv397 = phi i64 [ %1418, %"for f132.s0.v4" ], [ %lsr.iv.next398, %"for f132.s0.v3" ]
   %lsr.iv393 = phi i32 [ %1414, %"for f132.s0.v4" ], [ %lsr.iv.next394, %"for f132.s0.v3" ]
-  %1635 = trunc i64 %lsr.iv397 to i32
-  %tmp401 = add i32 %1615, %1635
-  %1636 = sext i32 %tmp401 to i64
-  %1637 = getelementptr inbounds float, ptr %1410, i64 %1636
-  %1638 = load float, ptr %1637, align 4, !tbaa !23
-  %t2188 = fmul float %1638, %55
+  %1619 = trunc i64 %lsr.iv397 to i32
+  %tmp401 = add i32 %1615, %1619
+  %1620 = sext i32 %tmp401 to i64
+  %1621 = getelementptr inbounds float, ptr %1410, i64 %1620
+  %1622 = load float, ptr %1621, align 4, !tbaa !23
+  %t2188 = fmul float %1622, %55
   %a752 = fptosi float %t2188 to i32
   %a755 = call i32 @llvm.smin.i32(i32 %b6, i32 %a752)
-  %1639 = call i32 @llvm.smax.i32(i32 %a755, i32 0)
-  %1640 = sitofp i32 %1639 to float
-  %t2190 = fsub float %t2188, %1640
-  %t2191 = sub nsw i32 %1639, %111
-  %1641 = sext i32 %t2191 to i64
-  %1642 = add nsw i64 %1641, 1
-  %1643 = mul nsw i64 %1642, %1612
-  %1644 = add nsw i64 %1643, %1636
-  %1645 = getelementptr inbounds float, ptr %1176, i64 %1644
-  %1646 = load float, ptr %1645, align 4, !tbaa !28
-  %1647 = fmul float %1646, %t2190
-  %1648 = mul nsw i64 %1641, %1612
-  %1649 = add nsw i64 %1648, %1636
-  %1650 = getelementptr inbounds float, ptr %1176, i64 %1649
-  %1651 = load float, ptr %1650, align 4, !tbaa !28
-  %1652 = fsub float 1.000000e+00, %t2190
-  %1653 = fmul float %1651, %1652
-  %1654 = fadd float %1647, %1653
-  %1655 = add i64 %1618, %lsr.iv397
-  %1656 = getelementptr inbounds float, ptr %1609, i64 %1655
-  store float %1654, ptr %1656, align 4, !tbaa !30
+  %1623 = call i32 @llvm.smax.i32(i32 %a755, i32 0)
+  %1624 = sitofp i32 %1623 to float
+  %t2190 = fsub float %t2188, %1624
+  %t2191 = sub nsw i32 %1623, %111
+  %1625 = sext i32 %t2191 to i64
+  %1626 = add nsw i64 %1625, 1
+  %1627 = mul nsw i64 %1626, %1612
+  %1628 = add nsw i64 %1627, %1620
+  %1629 = getelementptr inbounds float, ptr %1176, i64 %1628
+  %1630 = load float, ptr %1629, align 4, !tbaa !28
+  %1631 = fmul float %1630, %t2190
+  %1632 = mul nsw i64 %1625, %1612
+  %1633 = add nsw i64 %1632, %1620
+  %1634 = getelementptr inbounds float, ptr %1176, i64 %1633
+  %1635 = load float, ptr %1634, align 4, !tbaa !28
+  %1636 = fsub float 1.000000e+00, %t2190
+  %1637 = fmul float %1635, %1636
+  %1638 = fadd float %1631, %1637
+  %1639 = add i64 %1618, %lsr.iv397
+  %1640 = getelementptr inbounds float, ptr %1609, i64 %1639
+  store float %1638, ptr %1640, align 4, !tbaa !30
   %lsr.iv.next394 = add i32 %lsr.iv393, -1
   %lsr.iv.next398 = add nsw i64 %lsr.iv397, 1
   %.not122 = icmp eq i32 %lsr.iv.next394, 0
@@ -3652,17 +3630,39 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
   %lsr.iv.next396 = add nsw i64 %lsr.iv395, 1
   %lsr402 = trunc i64 %lsr.iv.next396 to i32
   %.not121 = icmp eq i32 %1412, %lsr402
-  br i1 %.not121, label %if.then.i298, label %"for f132.s0.v4"
+  br i1 %.not121, label %"consume f132", label %"for f132.s0.v4"
 
-"assert failed191":                               ; preds = %if.then.i298
-  %1657 = call i32 @halide_error_buffer_allocation_too_large(ptr null, ptr nonnull @str.26, i64 %1625, i64 2147483647) #4
+"consume f132":                                   ; preds = %"end for f132.s0.v3.loopexit", %"assert succeeded188.thread841", %"for f132.s0.v4.preheader", %"assert succeeded188.thread"
+  %1641 = phi ptr [ %1611, %"assert succeeded188.thread" ], [ %1609, %"for f132.s0.v4.preheader" ], [ %1610, %"assert succeeded188.thread841" ], [ %1609, %"end for f132.s0.v3.loopexit" ]
+  call void @halide_free(ptr null, ptr nonnull %1410) #7
+  %f131.v3.extent_realized.s = sub nsw i32 %a2, %a3
+  %reass.sub557 = sub nsw i32 %a0, %a1
+  %1642 = add nsw i32 %reass.sub557, 1
+  %1643 = zext i32 %1642 to i64
+  %1644 = add nsw i32 %f131.v3.extent_realized.s, 1
+  %1645 = zext i32 %1644 to i64
+  %1646 = shl nuw nsw i64 %1645, 2
+  %1647 = mul i64 %1646, %1643
+  %1648 = icmp ult i64 %1647, 2147483648
+  %1649 = and i64 %1646, 4294967292
+  %1650 = mul nuw i64 %1649, %1643
+  %1651 = lshr i64 %1650, 32
+  %1652 = lshr i64 %1645, 30
+  %1653 = mul nuw nsw i64 %1652, %1643
+  %1654 = add nuw nsw i64 %1651, %1653
+  %1655 = icmp ult i64 %1654, 4294967296
+  %1656 = and i1 %1648, %1655
+  br i1 %1656, label %"assert succeeded192", label %"assert failed191", !prof !5
+
+"assert failed191":                               ; preds = %"consume f132"
+  %1657 = call i32 @halide_error_buffer_allocation_too_large(ptr null, ptr nonnull @str.26, i64 %1647, i64 2147483647) #4
   br label %call_destructor.exit205
 
-"assert succeeded192":                            ; preds = %if.then.i298
-  %1658 = add nuw nsw i64 %1625, 4
+"assert succeeded192":                            ; preds = %"consume f132"
+  %1658 = add nuw nsw i64 %1647, 4
   %1659 = call ptr @halide_malloc(ptr null, i64 %1658)
-  %.not532 = icmp eq ptr %1659, null
-  br i1 %.not532, label %"assert failed193", label %"produce f131", !prof !4
+  %.not558 = icmp eq ptr %1659, null
+  br i1 %.not558, label %"assert failed193", label %"produce f131", !prof !4
 
 "assert failed193":                               ; preds = %"assert succeeded192"
   %1660 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -3674,14 +3674,14 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
   br i1 %.not110, label %"consume f131", label %"for f131.s0.v4.preheader", !prof !4
 
 "for f131.s0.v4.preheader":                       ; preds = %"produce f131"
-  %1662 = sext i32 %1622 to i64
+  %1662 = sext i32 %1644 to i64
   %1663 = sext i32 %a1 to i64
   %1664 = add i32 %f9.v3.extent_realized.s.s, 1
   %1665 = sub i32 %1664, %f9.v3.min_realized
   %1666 = sext i32 %b753 to i64
   %1667 = sext i32 %b751 to i64
-  %reass.sub562 = sub nsw i64 %1666, %1667
-  %1668 = add nsw i64 %reass.sub562, 1
+  %reass.sub560 = sub nsw i64 %1666, %1667
+  %1668 = add nsw i64 %reass.sub560, 1
   %.not116 = icmp slt i32 %a2, %a3
   %1669 = sext i32 %a3 to i64
   %1670 = xor i32 %43, -1
@@ -3727,7 +3727,7 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
   %lsr.iv388 = phi ptr [ %scevgep387, %"for f131.s0.v4" ], [ %scevgep389, %"for f131.s0.v3" ]
   %lsr.iv380 = phi i32 [ %1680, %"for f131.s0.v4" ], [ %lsr.iv.next381, %"for f131.s0.v3" ]
   %lsr.iv376 = phi i64 [ %1669, %"for f131.s0.v4" ], [ %lsr.iv.next377, %"for f131.s0.v3" ]
-  %lsr.iv372 = phi i32 [ %1622, %"for f131.s0.v4" ], [ %lsr.iv.next373, %"for f131.s0.v3" ]
+  %lsr.iv372 = phi i32 [ %1644, %"for f131.s0.v4" ], [ %lsr.iv.next373, %"for f131.s0.v3" ]
   %1694 = load float, ptr %lsr.iv388, align 4, !tbaa !19
   %t2192 = fmul float %1694, %55
   %a756 = fptosi float %t2192 to i32
@@ -3815,10 +3815,10 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
   %1769 = fsub float 1.000000e+00, %t2194
   %1770 = fmul float %1769, %1768
   %1771 = fadd float %1740, %1770
-  %1772 = getelementptr inbounds float, ptr %1619, i64 %1705
-  %1773 = getelementptr inbounds float, ptr %1619, i64 %1710
-  %1774 = getelementptr inbounds float, ptr %1619, i64 %1713
-  %1775 = getelementptr inbounds float, ptr %1619, i64 %1717
+  %1772 = getelementptr inbounds float, ptr %1641, i64 %1705
+  %1773 = getelementptr inbounds float, ptr %1641, i64 %1710
+  %1774 = getelementptr inbounds float, ptr %1641, i64 %1713
+  %1775 = getelementptr inbounds float, ptr %1641, i64 %1717
   %1776 = load float, ptr %1772, align 4, !tbaa !30
   %1777 = load float, ptr %1773, align 4, !tbaa !30
   %1778 = load float, ptr %1774, align 4, !tbaa !30
@@ -3856,15 +3856,15 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
 "consume f131":                                   ; preds = %"end for f131.s0.v3.loopexit", %"for f131.s0.v4.preheader", %"produce f131"
   call void @halide_free(ptr null, ptr nonnull %1176) #7
   call void @halide_free(ptr null, ptr nonnull %1210) #7
-  call void @halide_free(ptr null, ptr nonnull %1619) #7
+  call void @halide_free(ptr null, ptr nonnull %1641) #7
   %1793 = call i32 @llvm.smax.i32(i32 %809, i32 %59)
   %1794 = ashr i32 %1793, 5
   %.not170 = icmp slt i32 %a9, %811
   %f130.v3.min_realized = select i1 %.not170, i32 %a9, i32 %b670
   %1795 = call i32 @llvm.smax.i32(i32 %b681, i32 %a8)
   %f130.v3.extent_realized.s = sub nsw i32 %1795, %f130.v3.min_realized
-  %reass.sub563 = sub nsw i32 %1794, %b655
-  %1796 = add nsw i32 %reass.sub563, 1
+  %reass.sub561 = sub nsw i32 %1794, %b655
+  %1796 = add nsw i32 %reass.sub561, 1
   %1797 = zext i32 %1796 to i64
   %1798 = add nsw i32 %f130.v3.extent_realized.s, 1
   %1799 = zext i32 %1798 to i64
@@ -3888,8 +3888,8 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
 "assert succeeded196":                            ; preds = %"consume f131"
   %1812 = add nuw nsw i64 %1801, 4
   %1813 = call ptr @halide_malloc(ptr null, i64 %1812)
-  %.not533 = icmp eq ptr %1813, null
-  br i1 %.not533, label %"assert failed197", label %"produce f130", !prof !4
+  %.not562 = icmp eq ptr %1813, null
+  br i1 %.not562, label %"assert failed197", label %"produce f130", !prof !4
 
 "assert failed197":                               ; preds = %"assert succeeded196"
   %1814 = call i32 @halide_error_out_of_memory(ptr null) #4
@@ -3898,11 +3898,11 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
 "produce f130":                                   ; preds = %"assert succeeded196"
   %1815 = add nsw i32 %a6, 1
   %.not111 = icmp sgt i32 %a7, %a6
-  br i1 %.not111, label %"end for f130.s0.v4", label %"for f130.s0.v4.preheader", !prof !4
+  br i1 %.not111, label %"produce local_laplacian", label %"for f130.s0.v4.preheader", !prof !4
 
 "for f130.s0.v4.preheader":                       ; preds = %"produce f130"
-  %reass.sub564 = sub nsw i32 %a8, %a9
-  %1816 = add nsw i32 %reass.sub564, 1
+  %reass.sub563 = sub nsw i32 %a8, %a9
+  %1816 = add nsw i32 %reass.sub563, 1
   %narrow = mul nsw i32 %f130.v3.min_realized, -4
   %1817 = sext i32 %narrow to i64
   %scevgep = getelementptr i8, ptr %1813, i64 %1817
@@ -3911,8 +3911,8 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
   %1820 = add nsw i64 %1819, 4
   %1821 = sext i32 %b739 to i64
   %1822 = sext i32 %b737 to i64
-  %reass.sub566 = sub nsw i64 %1821, %1822
-  %1823 = add nsw i64 %reass.sub566, 1
+  %reass.sub565 = sub nsw i64 %1821, %1822
+  %1823 = add nsw i64 %reass.sub565, 1
   %.not112 = icmp slt i32 %a8, %a9
   %1824 = sext i32 %a9 to i64
   %1825 = xor i32 %a1, -1
@@ -3921,7 +3921,7 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
   %1828 = sext i32 %f9.v3.min_realized to i64
   %1829 = sext i32 %f8.stride.2 to i64
   %1830 = sext i32 %b655 to i64
-  br i1 %.not112, label %"end for f130.s0.v4", label %"for f130.s0.v4.preheader570", !prof !4
+  br i1 %.not112, label %"produce local_laplacian", label %"for f130.s0.v4.preheader570", !prof !4
 
 "for f130.s0.v4.preheader570":                    ; preds = %"for f130.s0.v4.preheader"
   %1831 = sext i32 %a7 to i64
@@ -3948,9 +3948,9 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
   %1844 = ashr i32 %lsr371, 1
   %t2210 = add nsw i32 %1843, %1844
   %1845 = add nsw i32 %t2210, %1825
-  %t2216 = mul nsw i32 %1845, %1622
+  %t2216 = mul nsw i32 %1845, %1644
   %1846 = sub nsw i32 %1844, %a1
-  %t2218 = mul nsw i32 %1846, %1622
+  %t2218 = mul nsw i32 %1846, %1644
   %1847 = add i32 %t2210, %1826
   %t2223 = mul nsw i32 %1847, %897
   %1848 = sub nsw i32 %1844, %f9.v4.min_realized
@@ -3964,329 +3964,130 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
   %scevgep350 = getelementptr i8, ptr %scevgep, i64 %1854
   br label %"for f130.s0.v3"
 
-"end for f130.s0.v4":                             ; preds = %"end for f130.s0.v3.loopexit", %"for f130.s0.v4.preheader", %"produce f130"
-  call void @halide_free(ptr null, ptr nonnull %918) #7
-  call void @halide_free(ptr null, ptr nonnull %955) #7
-  call void @halide_free(ptr null, ptr nonnull %1659) #7
-  %1855 = sub nsw i32 %129, %a114
-  %1856 = add nsw i32 %1855, 63
-  %a775 = lshr i32 %1856, 6
-  %1857 = icmp sgt i32 %1855, 0
-  %1858 = select i1 %1857, i32 %a775, i32 0
-  %1859 = add nsw i32 %local_laplacian.extent.1, 63
-  %b776 = ashr i32 %1859, 6
-  %local_laplacian.s0.v4.v264.prologue = call i32 @llvm.smin.i32(i32 %b776, i32 %1858)
-  %1860 = sub nsw i32 %130, %a114
-  %1861 = ashr i32 %1860, 6
-  %a780 = add nsw i32 %1861, -1
-  %1862 = call i32 @llvm.smin.i32(i32 %b88, i32 %b91)
-  %1863 = sub nsw i32 %1862, %a114
-  %b782 = ashr i32 %1863, 6
-  %.not171 = icmp slt i32 %b782, %1861
-  %a779 = select i1 %.not171, i32 %b782, i32 %a780
-  %1864 = call i32 @llvm.smin.i32(i32 %137, i32 %a779)
-  %b778 = add nsw i32 %1864, 1
-  %local_laplacian.s0.v4.v264.epilogue = call i32 @llvm.smax.i32(i32 %local_laplacian.s0.v4.v264.prologue, i32 %b778)
-  store float %beta, ptr %0, align 8
-  %1865 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 1
-  store i32 %b121, ptr %1865, align 4
-  %1866 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 2
-  store i32 %a772, ptr %1866, align 8
-  %1867 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 3
-  store i32 %f130.v3.extent_realized.s, ptr %1867, align 4
-  %1868 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 4
-  store i32 %f130.v3.min_realized, ptr %1868, align 8
-  %1869 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 5
-  store i32 %f2.v3.extent_realized.s, ptr %1869, align 4
-  %1870 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 6
-  store i32 %f2.v3.min_realized, ptr %1870, align 8
-  %1871 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 7
-  store i32 %f2.v4.min_realized, ptr %1871, align 4
-  %1872 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 8
-  store i32 %f4.stride.1, ptr %1872, align 8
-  %1873 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 9
-  store i32 %f4.v3.extent_realized.s, ptr %1873, align 4
-  %1874 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 10
-  store i32 %f4.v3.min_realized, ptr %1874, align 8
-  %1875 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 11
-  store i32 %f4.v4.min_realized, ptr %1875, align 4
-  %1876 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 12
-  store i32 %f5.stride.1, ptr %1876, align 8
-  %1877 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 13
-  store i32 %f5.v3.extent_realized.s, ptr %1877, align 4
-  %1878 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 14
-  store i32 %f5.v3.min_realized, ptr %1878, align 8
-  %1879 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 15
-  store i32 %f5.v4.min_realized, ptr %1879, align 4
-  %1880 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 16
-  store i32 %f6.stride.1, ptr %1880, align 8
-  %1881 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 17
-  store i32 %f6.v3.extent_realized.s, ptr %1881, align 4
-  %1882 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 18
-  store i32 %f6.v3.min_realized, ptr %1882, align 8
-  %1883 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 19
-  store i32 %f6.v4.min_realized, ptr %1883, align 4
-  %1884 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 20
-  store i32 %f7.stride.1, ptr %1884, align 8
-  %1885 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 21
-  store i32 %f7.v3.extent_realized.s, ptr %1885, align 4
-  %1886 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 22
-  store i32 %f7.v3.min_realized, ptr %1886, align 8
-  %1887 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 23
-  store i32 %f7.v4.min_realized, ptr %1887, align 4
-  %1888 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 24
-  store i32 %f72.v3.extent_realized.s, ptr %1888, align 8
-  %1889 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 25
-  store i32 %f72.v3.min_realized, ptr %1889, align 4
-  %1890 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 26
-  store i32 %f72.v4.min_realized, ptr %1890, align 8
-  %1891 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 27
-  store i32 %f73.v3.extent_realized.s, ptr %1891, align 4
-  %1892 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 28
-  store i32 %f73.v3.min_realized, ptr %1892, align 8
-  %1893 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 29
-  store i32 %f73.v4.min_realized, ptr %1893, align 4
-  %1894 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 30
-  store i32 %f74.v3.extent_realized.s, ptr %1894, align 8
-  %1895 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 31
-  store i32 %f74.v3.min_realized, ptr %1895, align 4
-  %1896 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 32
-  store i32 %f74.v4.min_realized, ptr %1896, align 8
-  %1897 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 33
-  store i32 %f75.v3.extent_realized.s, ptr %1897, align 4
-  %1898 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 34
-  store i32 %f75.v3.min_realized, ptr %1898, align 8
-  %1899 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 35
-  store i32 %f75.v4.min_realized, ptr %1899, align 4
-  %1900 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 36
-  store i32 %f8.stride.2, ptr %1900, align 8
-  %1901 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 37
-  store i32 %f8.v3.extent_realized.s, ptr %1901, align 4
-  %1902 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 38
-  store i32 %f8.v3.min_realized, ptr %1902, align 8
-  %1903 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 39
-  store i32 %f8.v4.min_realized, ptr %1903, align 4
-  %1904 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 40
-  store i32 %input.extent.0, ptr %1904, align 8
-  %1905 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 41
-  %1906 = shufflevector <2 x i32> %16, <2 x i32> %21, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
-  store <4 x i32> %1906, ptr %1905, align 4
-  %1907 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 45
-  store i32 %b108, ptr %1907, align 4
-  %1908 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 46
-  store i32 %input.stride.1, ptr %1908, align 8
-  %1909 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 47
-  store i32 %input.stride.2, ptr %1909, align 4
-  %1910 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 48
-  store i32 %levels, ptr %1910, align 8
-  %1911 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 49
-  store i32 %local_laplacian.extent.0, ptr %1911, align 4
-  %1912 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 50
-  store i32 %local_laplacian.extent.1, ptr %1912, align 8
-  %1913 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 51
-  store i32 %local_laplacian.extent.2, ptr %1913, align 4
-  %1914 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 52
-  store i32 %a286, ptr %1914, align 8
-  %1915 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 53
-  store i32 %b74, ptr %1915, align 4
-  %1916 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 54
-  store i32 %a114, ptr %1916, align 8
-  %1917 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 55
-  store i32 %b89, ptr %1917, align 4
-  %1918 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 56
-  store i32 %a108, ptr %1918, align 8
-  %1919 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 57
-  store i32 %local_laplacian.s0.v4.v264.epilogue, ptr %1919, align 4
-  %1920 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 58
-  store i32 %local_laplacian.s0.v4.v264.prologue, ptr %1920, align 8
-  %1921 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 59
-  store i32 %local_laplacian.stride.1, ptr %1921, align 4
-  %1922 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 60
-  store i32 %local_laplacian.stride.2, ptr %1922, align 8
-  %1923 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 61
-  store ptr %209, ptr %1923, align 8
-  %1924 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 62
-  store ptr null, ptr %1924, align 8
-  %1925 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 63
-  store ptr %1813, ptr %1925, align 8
-  %1926 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 64
-  store ptr null, ptr %1926, align 8
-  %1927 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 65
-  store ptr %338, ptr %1927, align 8
-  %1928 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 66
-  store ptr null, ptr %1928, align 8
-  %1929 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 67
-  store ptr %421, ptr %1929, align 8
-  %1930 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 68
-  store ptr null, ptr %1930, align 8
-  %1931 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 69
-  store ptr %500, ptr %1931, align 8
-  %1932 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 70
-  store ptr null, ptr %1932, align 8
-  %1933 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 71
-  store ptr %625, ptr %1933, align 8
-  %1934 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 72
-  store ptr null, ptr %1934, align 8
-  %1935 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 73
-  store ptr %734, ptr %1935, align 8
-  %1936 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 74
-  store ptr null, ptr %1936, align 8
-  %1937 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 75
-  store ptr %556, ptr %1937, align 8
-  %1938 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 76
-  store ptr null, ptr %1938, align 8
-  %1939 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 77
-  store ptr %681, ptr %1939, align 8
-  %1940 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 78
-  store ptr null, ptr %1940, align 8
-  %1941 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 79
-  store ptr %790, ptr %1941, align 8
-  %1942 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 80
-  store ptr null, ptr %1942, align 8
-  %1943 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 81
-  store ptr %876, ptr %1943, align 8
-  %1944 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 82
-  store ptr null, ptr %1944, align 8
-  %1945 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 83
-  store ptr %836, ptr %1945, align 8
-  %1946 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 84
-  store ptr null, ptr %1946, align 8
-  %1947 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 85
-  store ptr %input.host, ptr %1947, align 8
-  %1948 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 86
-  store ptr %input.buffer, ptr %1948, align 8
-  %1949 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 87
-  store ptr %local_laplacian.host, ptr %1949, align 8
-  %1950 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 88
-  store ptr %local_laplacian.buffer, ptr %1950, align 8
-  %1951 = call i32 @halide_do_par_for(ptr null, ptr nonnull @par_for___local_laplacian_local_laplacian.s0.v4.v264, i32 0, i32 %b776, ptr nonnull %0)
-  %1952 = icmp eq i32 %1951, 0
-  br i1 %1952, label %if.then.i319, label %call_destructor.exit235.sink.split, !prof !5
-
 "for f130.s0.v3":                                 ; preds = %"for f130.s0.v3", %"for f130.s0.v4"
   %lsr.iv366 = phi ptr [ %scevgep365, %"for f130.s0.v4" ], [ %scevgep367, %"for f130.s0.v3" ]
   %lsr.iv360 = phi i32 [ %1839, %"for f130.s0.v4" ], [ %lsr.iv.next361, %"for f130.s0.v3" ]
   %lsr.iv352 = phi i64 [ %1824, %"for f130.s0.v4" ], [ %lsr.iv.next353, %"for f130.s0.v3" ]
   %lsr.iv = phi i32 [ %1816, %"for f130.s0.v4" ], [ %lsr.iv.next, %"for f130.s0.v3" ]
   %tmp370 = trunc i64 %lsr.iv352 to i32
-  %1953 = shl i32 %tmp370, 1
-  %1954 = and i32 %1953, 2
-  %1955 = ashr i32 %tmp370, 1
-  %t2211 = add nsw i32 %1954, %1955
-  %1956 = load float, ptr %lsr.iv366, align 4, !tbaa !15
-  %t2212 = fmul float %1956, %55
+  %1855 = shl i32 %tmp370, 1
+  %1856 = and i32 %1855, 2
+  %1857 = ashr i32 %tmp370, 1
+  %t2211 = add nsw i32 %1856, %1857
+  %1858 = load float, ptr %lsr.iv366, align 4, !tbaa !15
+  %t2212 = fmul float %1858, %55
   %a770 = fptosi float %t2212 to i32
   %a773 = call i32 @llvm.smin.i32(i32 %b6, i32 %a770)
-  %1957 = call i32 @llvm.smax.i32(i32 %a773, i32 0)
-  %1958 = sitofp i32 %1957 to float
-  %t2214 = fsub float %t2212, %1958
+  %1859 = call i32 @llvm.smax.i32(i32 %a773, i32 0)
+  %1860 = sitofp i32 %1859 to float
+  %t2214 = fsub float %t2212, %1860
   %t2215 = sub nsw i32 %t2211, %a3
-  %t2217 = sub nsw i32 %1955, %a3
-  %t2220 = sub nsw i32 %1957, %111
-  %1959 = sext i32 %t2220 to i64
-  %1960 = add nsw i64 %1959, 1
-  %1961 = mul nsw i64 %1960, %1827
-  %1962 = sext i32 %1955 to i64
-  %1963 = sub nsw i64 %1962, %1828
-  %1964 = add nsw i64 %1963, %1849
-  %1965 = add nsw i64 %1961, %1964
-  %1966 = getelementptr inbounds float, ptr %918, i64 %1965
-  %1967 = sext i32 %t2211 to i64
-  %1968 = sub nsw i64 %1967, %1828
-  %1969 = add nsw i64 %1968, %1849
-  %1970 = add nsw i64 %1969, -1
-  %1971 = add nsw i64 %1970, %1961
-  %1972 = getelementptr inbounds float, ptr %918, i64 %1971
-  %1973 = add nsw i64 %1963, %1850
-  %1974 = add nsw i64 %1961, %1973
-  %1975 = getelementptr inbounds float, ptr %918, i64 %1974
-  %1976 = add nsw i64 %1968, %1850
-  %1977 = add nsw i64 %1976, -1
-  %1978 = add nsw i64 %1977, %1961
-  %1979 = getelementptr inbounds float, ptr %918, i64 %1978
-  %1980 = load float, ptr %1966, align 4, !tbaa !32
-  %1981 = load float, ptr %1972, align 4, !tbaa !32
-  %1982 = load float, ptr %1975, align 4, !tbaa !32
-  %1983 = insertelement <2 x float> poison, float %1981, i64 0
-  %1984 = insertelement <2 x float> %1983, float %1982, i64 1
-  %1985 = fmul <2 x float> %1984, <float 2.500000e-01, float 7.500000e-01>
-  %1986 = load float, ptr %1979, align 4, !tbaa !32
-  %1987 = insertelement <2 x float> poison, float %1980, i64 0
-  %1988 = insertelement <2 x float> %1987, float %1986, i64 1
-  %1989 = fmul <2 x float> %1988, <float 7.500000e-01, float 2.500000e-01>
-  %1990 = fadd <2 x float> %1985, %1989
-  %1991 = fmul <2 x float> %1990, <float 7.500000e-01, float 2.500000e-01>
-  %shift1067 = shufflevector <2 x float> %1991, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
-  %1992 = fadd <2 x float> %1991, %shift1067
-  %1993 = extractelement <2 x float> %1992, i64 0
-  %1994 = mul nsw i64 %1960, %1829
-  %1995 = sext i32 %lsr.iv360 to i64
-  %1996 = add nsw i64 %1994, %1995
-  %1997 = getelementptr inbounds float, ptr %836, i64 %1996
-  %1998 = load float, ptr %1997, align 4, !tbaa !36
-  %1999 = fsub float %1998, %1993
-  %2000 = fmul float %t2214, %1999
-  %2001 = mul nsw i64 %1959, %1827
-  %2002 = add nsw i64 %2001, %1964
-  %2003 = getelementptr inbounds float, ptr %918, i64 %2002
-  %2004 = add nsw i64 %1970, %2001
-  %2005 = getelementptr inbounds float, ptr %918, i64 %2004
-  %2006 = add nsw i64 %2001, %1973
-  %2007 = getelementptr inbounds float, ptr %918, i64 %2006
-  %2008 = add nsw i64 %1977, %2001
-  %2009 = getelementptr inbounds float, ptr %918, i64 %2008
-  %2010 = load float, ptr %2003, align 4, !tbaa !32
-  %2011 = load float, ptr %2005, align 4, !tbaa !32
-  %2012 = load float, ptr %2007, align 4, !tbaa !32
-  %2013 = insertelement <2 x float> poison, float %2011, i64 0
-  %2014 = insertelement <2 x float> %2013, float %2012, i64 1
-  %2015 = fmul <2 x float> %2014, <float 2.500000e-01, float 7.500000e-01>
-  %2016 = load float, ptr %2009, align 4, !tbaa !32
-  %2017 = insertelement <2 x float> poison, float %2010, i64 0
-  %2018 = insertelement <2 x float> %2017, float %2016, i64 1
-  %2019 = fmul <2 x float> %2018, <float 7.500000e-01, float 2.500000e-01>
-  %2020 = fadd <2 x float> %2015, %2019
-  %2021 = fmul <2 x float> %2020, <float 7.500000e-01, float 2.500000e-01>
-  %shift1068 = shufflevector <2 x float> %2021, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
-  %2022 = fadd <2 x float> %2021, %shift1068
-  %2023 = extractelement <2 x float> %2022, i64 0
-  %2024 = mul nsw i64 %1959, %1829
-  %2025 = add nsw i64 %2024, %1995
-  %2026 = getelementptr inbounds float, ptr %836, i64 %2025
-  %2027 = load float, ptr %2026, align 4, !tbaa !36
-  %2028 = fsub float %2027, %2023
-  %2029 = fsub float 1.000000e+00, %t2214
-  %2030 = fmul float %2029, %2028
-  %2031 = fadd float %2000, %2030
-  %2032 = sext i32 %t2217 to i64
-  %2033 = add nsw i64 %2032, %1851
-  %2034 = getelementptr inbounds float, ptr %1659, i64 %2033
-  %2035 = sext i32 %t2215 to i64
-  %2036 = add nsw i64 %2035, -1
-  %2037 = add nsw i64 %2036, %1851
-  %2038 = getelementptr inbounds float, ptr %1659, i64 %2037
-  %2039 = add nsw i64 %2032, %1852
-  %2040 = getelementptr inbounds float, ptr %1659, i64 %2039
-  %2041 = add nsw i64 %2036, %1852
-  %2042 = getelementptr inbounds float, ptr %1659, i64 %2041
-  %2043 = load float, ptr %2034, align 4, !tbaa !34
-  %2044 = load float, ptr %2038, align 4, !tbaa !34
-  %2045 = load float, ptr %2040, align 4, !tbaa !34
-  %2046 = insertelement <2 x float> poison, float %2044, i64 0
-  %2047 = insertelement <2 x float> %2046, float %2045, i64 1
-  %2048 = fmul <2 x float> %2047, <float 2.500000e-01, float 7.500000e-01>
-  %2049 = load float, ptr %2042, align 4, !tbaa !34
-  %2050 = insertelement <2 x float> poison, float %2043, i64 0
-  %2051 = insertelement <2 x float> %2050, float %2049, i64 1
-  %2052 = fmul <2 x float> %2051, <float 7.500000e-01, float 2.500000e-01>
-  %2053 = fadd <2 x float> %2048, %2052
-  %2054 = fmul <2 x float> %2053, <float 7.500000e-01, float 2.500000e-01>
-  %shift1069 = shufflevector <2 x float> %2054, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
-  %2055 = fadd <2 x float> %2054, %shift1069
-  %2056 = extractelement <2 x float> %2055, i64 0
-  %2057 = fadd float %2031, %2056
+  %t2217 = sub nsw i32 %1857, %a3
+  %t2220 = sub nsw i32 %1859, %111
+  %1861 = sext i32 %t2220 to i64
+  %1862 = add nsw i64 %1861, 1
+  %1863 = mul nsw i64 %1862, %1827
+  %1864 = sext i32 %1857 to i64
+  %1865 = sub nsw i64 %1864, %1828
+  %1866 = add nsw i64 %1865, %1849
+  %1867 = add nsw i64 %1863, %1866
+  %1868 = getelementptr inbounds float, ptr %918, i64 %1867
+  %1869 = sext i32 %t2211 to i64
+  %1870 = sub nsw i64 %1869, %1828
+  %1871 = add nsw i64 %1870, %1849
+  %1872 = add nsw i64 %1871, -1
+  %1873 = add nsw i64 %1872, %1863
+  %1874 = getelementptr inbounds float, ptr %918, i64 %1873
+  %1875 = add nsw i64 %1865, %1850
+  %1876 = add nsw i64 %1863, %1875
+  %1877 = getelementptr inbounds float, ptr %918, i64 %1876
+  %1878 = add nsw i64 %1870, %1850
+  %1879 = add nsw i64 %1878, -1
+  %1880 = add nsw i64 %1879, %1863
+  %1881 = getelementptr inbounds float, ptr %918, i64 %1880
+  %1882 = load float, ptr %1868, align 4, !tbaa !32
+  %1883 = load float, ptr %1874, align 4, !tbaa !32
+  %1884 = load float, ptr %1877, align 4, !tbaa !32
+  %1885 = insertelement <2 x float> poison, float %1883, i64 0
+  %1886 = insertelement <2 x float> %1885, float %1884, i64 1
+  %1887 = fmul <2 x float> %1886, <float 2.500000e-01, float 7.500000e-01>
+  %1888 = load float, ptr %1881, align 4, !tbaa !32
+  %1889 = insertelement <2 x float> poison, float %1882, i64 0
+  %1890 = insertelement <2 x float> %1889, float %1888, i64 1
+  %1891 = fmul <2 x float> %1890, <float 7.500000e-01, float 2.500000e-01>
+  %1892 = fadd <2 x float> %1887, %1891
+  %1893 = fmul <2 x float> %1892, <float 7.500000e-01, float 2.500000e-01>
+  %shift1067 = shufflevector <2 x float> %1893, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
+  %1894 = fadd <2 x float> %1893, %shift1067
+  %1895 = extractelement <2 x float> %1894, i64 0
+  %1896 = mul nsw i64 %1862, %1829
+  %1897 = sext i32 %lsr.iv360 to i64
+  %1898 = add nsw i64 %1896, %1897
+  %1899 = getelementptr inbounds float, ptr %836, i64 %1898
+  %1900 = load float, ptr %1899, align 4, !tbaa !36
+  %1901 = fsub float %1900, %1895
+  %1902 = fmul float %t2214, %1901
+  %1903 = mul nsw i64 %1861, %1827
+  %1904 = add nsw i64 %1903, %1866
+  %1905 = getelementptr inbounds float, ptr %918, i64 %1904
+  %1906 = add nsw i64 %1872, %1903
+  %1907 = getelementptr inbounds float, ptr %918, i64 %1906
+  %1908 = add nsw i64 %1903, %1875
+  %1909 = getelementptr inbounds float, ptr %918, i64 %1908
+  %1910 = add nsw i64 %1879, %1903
+  %1911 = getelementptr inbounds float, ptr %918, i64 %1910
+  %1912 = load float, ptr %1905, align 4, !tbaa !32
+  %1913 = load float, ptr %1907, align 4, !tbaa !32
+  %1914 = load float, ptr %1909, align 4, !tbaa !32
+  %1915 = insertelement <2 x float> poison, float %1913, i64 0
+  %1916 = insertelement <2 x float> %1915, float %1914, i64 1
+  %1917 = fmul <2 x float> %1916, <float 2.500000e-01, float 7.500000e-01>
+  %1918 = load float, ptr %1911, align 4, !tbaa !32
+  %1919 = insertelement <2 x float> poison, float %1912, i64 0
+  %1920 = insertelement <2 x float> %1919, float %1918, i64 1
+  %1921 = fmul <2 x float> %1920, <float 7.500000e-01, float 2.500000e-01>
+  %1922 = fadd <2 x float> %1917, %1921
+  %1923 = fmul <2 x float> %1922, <float 7.500000e-01, float 2.500000e-01>
+  %shift1068 = shufflevector <2 x float> %1923, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
+  %1924 = fadd <2 x float> %1923, %shift1068
+  %1925 = extractelement <2 x float> %1924, i64 0
+  %1926 = mul nsw i64 %1861, %1829
+  %1927 = add nsw i64 %1926, %1897
+  %1928 = getelementptr inbounds float, ptr %836, i64 %1927
+  %1929 = load float, ptr %1928, align 4, !tbaa !36
+  %1930 = fsub float %1929, %1925
+  %1931 = fsub float 1.000000e+00, %t2214
+  %1932 = fmul float %1931, %1930
+  %1933 = fadd float %1902, %1932
+  %1934 = sext i32 %t2217 to i64
+  %1935 = add nsw i64 %1934, %1851
+  %1936 = getelementptr inbounds float, ptr %1659, i64 %1935
+  %1937 = sext i32 %t2215 to i64
+  %1938 = add nsw i64 %1937, -1
+  %1939 = add nsw i64 %1938, %1851
+  %1940 = getelementptr inbounds float, ptr %1659, i64 %1939
+  %1941 = add nsw i64 %1934, %1852
+  %1942 = getelementptr inbounds float, ptr %1659, i64 %1941
+  %1943 = add nsw i64 %1938, %1852
+  %1944 = getelementptr inbounds float, ptr %1659, i64 %1943
+  %1945 = load float, ptr %1936, align 4, !tbaa !34
+  %1946 = load float, ptr %1940, align 4, !tbaa !34
+  %1947 = load float, ptr %1942, align 4, !tbaa !34
+  %1948 = insertelement <2 x float> poison, float %1946, i64 0
+  %1949 = insertelement <2 x float> %1948, float %1947, i64 1
+  %1950 = fmul <2 x float> %1949, <float 2.500000e-01, float 7.500000e-01>
+  %1951 = load float, ptr %1944, align 4, !tbaa !34
+  %1952 = insertelement <2 x float> poison, float %1945, i64 0
+  %1953 = insertelement <2 x float> %1952, float %1951, i64 1
+  %1954 = fmul <2 x float> %1953, <float 7.500000e-01, float 2.500000e-01>
+  %1955 = fadd <2 x float> %1950, %1954
+  %1956 = fmul <2 x float> %1955, <float 7.500000e-01, float 2.500000e-01>
+  %shift1069 = shufflevector <2 x float> %1956, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
+  %1957 = fadd <2 x float> %1956, %shift1069
+  %1958 = extractelement <2 x float> %1957, i64 0
+  %1959 = fadd float %1933, %1958
   %scevgep354 = getelementptr float, ptr %scevgep350, i64 %lsr.iv352
-  store float %2057, ptr %scevgep354, align 4, !tbaa !38
+  store float %1959, ptr %scevgep354, align 4, !tbaa !38
   %lsr.iv.next = add i32 %lsr.iv, -1
   %lsr.iv.next353 = add nsw i64 %lsr.iv352, 1
   %lsr.iv.next361 = add i32 %lsr.iv360, 1
@@ -4300,9 +4101,208 @@ if.then.i298:                                     ; preds = %"end for f132.s0.v3
   %lsr.iv.next359 = add i32 %lsr.iv358, %815
   %lsr.iv.next364 = add i64 %lsr.iv363, %1823
   %.not113 = icmp eq i32 %1815, %lsr
-  br i1 %.not113, label %"end for f130.s0.v4", label %"for f130.s0.v4"
+  br i1 %.not113, label %"produce local_laplacian", label %"for f130.s0.v4"
 
-if.then.i319:                                     ; preds = %"end for f130.s0.v4"
+"produce local_laplacian":                        ; preds = %"end for f130.s0.v3.loopexit", %"for f130.s0.v4.preheader", %"produce f130"
+  call void @halide_free(ptr null, ptr nonnull %918) #7
+  call void @halide_free(ptr null, ptr nonnull %955) #7
+  call void @halide_free(ptr null, ptr nonnull %1659) #7
+  %1960 = sub nsw i32 %129, %a114
+  %1961 = add nsw i32 %1960, 63
+  %a775 = lshr i32 %1961, 6
+  %1962 = icmp sgt i32 %1960, 0
+  %1963 = select i1 %1962, i32 %a775, i32 0
+  %1964 = add nsw i32 %local_laplacian.extent.1, 63
+  %b776 = ashr i32 %1964, 6
+  %local_laplacian.s0.v4.v264.prologue = call i32 @llvm.smin.i32(i32 %b776, i32 %1963)
+  %1965 = sub nsw i32 %130, %a114
+  %1966 = ashr i32 %1965, 6
+  %a780 = add nsw i32 %1966, -1
+  %1967 = call i32 @llvm.smin.i32(i32 %b88, i32 %b91)
+  %1968 = sub nsw i32 %1967, %a114
+  %b782 = ashr i32 %1968, 6
+  %.not171 = icmp slt i32 %b782, %1966
+  %a779 = select i1 %.not171, i32 %b782, i32 %a780
+  %1969 = call i32 @llvm.smin.i32(i32 %137, i32 %a779)
+  %b778 = add nsw i32 %1969, 1
+  %local_laplacian.s0.v4.v264.epilogue = call i32 @llvm.smax.i32(i32 %local_laplacian.s0.v4.v264.prologue, i32 %b778)
+  store float %beta, ptr %0, align 8
+  %1970 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 1
+  store i32 %b121, ptr %1970, align 4
+  %1971 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 2
+  store i32 %a772, ptr %1971, align 8
+  %1972 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 3
+  store i32 %f130.v3.extent_realized.s, ptr %1972, align 4
+  %1973 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 4
+  store i32 %f130.v3.min_realized, ptr %1973, align 8
+  %1974 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 5
+  store i32 %f2.v3.extent_realized.s, ptr %1974, align 4
+  %1975 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 6
+  store i32 %f2.v3.min_realized, ptr %1975, align 8
+  %1976 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 7
+  store i32 %f2.v4.min_realized, ptr %1976, align 4
+  %1977 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 8
+  store i32 %f4.stride.1, ptr %1977, align 8
+  %1978 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 9
+  store i32 %f4.v3.extent_realized.s, ptr %1978, align 4
+  %1979 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 10
+  store i32 %f4.v3.min_realized, ptr %1979, align 8
+  %1980 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 11
+  store i32 %f4.v4.min_realized, ptr %1980, align 4
+  %1981 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 12
+  store i32 %f5.stride.1, ptr %1981, align 8
+  %1982 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 13
+  store i32 %f5.v3.extent_realized.s, ptr %1982, align 4
+  %1983 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 14
+  store i32 %f5.v3.min_realized, ptr %1983, align 8
+  %1984 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 15
+  store i32 %f5.v4.min_realized, ptr %1984, align 4
+  %1985 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 16
+  store i32 %f6.stride.1, ptr %1985, align 8
+  %1986 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 17
+  store i32 %f6.v3.extent_realized.s, ptr %1986, align 4
+  %1987 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 18
+  store i32 %f6.v3.min_realized, ptr %1987, align 8
+  %1988 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 19
+  store i32 %f6.v4.min_realized, ptr %1988, align 4
+  %1989 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 20
+  store i32 %f7.stride.1, ptr %1989, align 8
+  %1990 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 21
+  store i32 %f7.v3.extent_realized.s, ptr %1990, align 4
+  %1991 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 22
+  store i32 %f7.v3.min_realized, ptr %1991, align 8
+  %1992 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 23
+  store i32 %f7.v4.min_realized, ptr %1992, align 4
+  %1993 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 24
+  store i32 %f72.v3.extent_realized.s, ptr %1993, align 8
+  %1994 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 25
+  store i32 %f72.v3.min_realized, ptr %1994, align 4
+  %1995 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 26
+  store i32 %f72.v4.min_realized, ptr %1995, align 8
+  %1996 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 27
+  store i32 %f73.v3.extent_realized.s, ptr %1996, align 4
+  %1997 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 28
+  store i32 %f73.v3.min_realized, ptr %1997, align 8
+  %1998 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 29
+  store i32 %f73.v4.min_realized, ptr %1998, align 4
+  %1999 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 30
+  store i32 %f74.v3.extent_realized.s, ptr %1999, align 8
+  %2000 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 31
+  store i32 %f74.v3.min_realized, ptr %2000, align 4
+  %2001 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 32
+  store i32 %f74.v4.min_realized, ptr %2001, align 8
+  %2002 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 33
+  store i32 %f75.v3.extent_realized.s, ptr %2002, align 4
+  %2003 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 34
+  store i32 %f75.v3.min_realized, ptr %2003, align 8
+  %2004 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 35
+  store i32 %f75.v4.min_realized, ptr %2004, align 4
+  %2005 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 36
+  store i32 %f8.stride.2, ptr %2005, align 8
+  %2006 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 37
+  store i32 %f8.v3.extent_realized.s, ptr %2006, align 4
+  %2007 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 38
+  store i32 %f8.v3.min_realized, ptr %2007, align 8
+  %2008 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 39
+  store i32 %f8.v4.min_realized, ptr %2008, align 4
+  %2009 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 40
+  store i32 %input.extent.0, ptr %2009, align 8
+  %2010 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 41
+  %2011 = shufflevector <2 x i32> %16, <2 x i32> %21, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
+  store <4 x i32> %2011, ptr %2010, align 4
+  %2012 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 45
+  store i32 %b108, ptr %2012, align 4
+  %2013 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 46
+  store i32 %input.stride.1, ptr %2013, align 8
+  %2014 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 47
+  store i32 %input.stride.2, ptr %2014, align 4
+  %2015 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 48
+  store i32 %levels, ptr %2015, align 8
+  %2016 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 49
+  store i32 %local_laplacian.extent.0, ptr %2016, align 4
+  %2017 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 50
+  store i32 %local_laplacian.extent.1, ptr %2017, align 8
+  %2018 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 51
+  store i32 %local_laplacian.extent.2, ptr %2018, align 4
+  %2019 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 52
+  store i32 %a286, ptr %2019, align 8
+  %2020 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 53
+  store i32 %b74, ptr %2020, align 4
+  %2021 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 54
+  store i32 %a114, ptr %2021, align 8
+  %2022 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 55
+  store i32 %b89, ptr %2022, align 4
+  %2023 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 56
+  store i32 %a108, ptr %2023, align 8
+  %2024 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 57
+  store i32 %local_laplacian.s0.v4.v264.epilogue, ptr %2024, align 4
+  %2025 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 58
+  store i32 %local_laplacian.s0.v4.v264.prologue, ptr %2025, align 8
+  %2026 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 59
+  store i32 %local_laplacian.stride.1, ptr %2026, align 4
+  %2027 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 60
+  store i32 %local_laplacian.stride.2, ptr %2027, align 8
+  %2028 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 61
+  store ptr %209, ptr %2028, align 8
+  %2029 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 62
+  store ptr null, ptr %2029, align 8
+  %2030 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 63
+  store ptr %1813, ptr %2030, align 8
+  %2031 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 64
+  store ptr null, ptr %2031, align 8
+  %2032 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 65
+  store ptr %338, ptr %2032, align 8
+  %2033 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 66
+  store ptr null, ptr %2033, align 8
+  %2034 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 67
+  store ptr %421, ptr %2034, align 8
+  %2035 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 68
+  store ptr null, ptr %2035, align 8
+  %2036 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 69
+  store ptr %500, ptr %2036, align 8
+  %2037 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 70
+  store ptr null, ptr %2037, align 8
+  %2038 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 71
+  store ptr %625, ptr %2038, align 8
+  %2039 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 72
+  store ptr null, ptr %2039, align 8
+  %2040 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 73
+  store ptr %734, ptr %2040, align 8
+  %2041 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 74
+  store ptr null, ptr %2041, align 8
+  %2042 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 75
+  store ptr %556, ptr %2042, align 8
+  %2043 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 76
+  store ptr null, ptr %2043, align 8
+  %2044 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 77
+  store ptr %681, ptr %2044, align 8
+  %2045 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 78
+  store ptr null, ptr %2045, align 8
+  %2046 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 79
+  store ptr %790, ptr %2046, align 8
+  %2047 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 80
+  store ptr null, ptr %2047, align 8
+  %2048 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 81
+  store ptr %876, ptr %2048, align 8
+  %2049 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 82
+  store ptr null, ptr %2049, align 8
+  %2050 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 83
+  store ptr %836, ptr %2050, align 8
+  %2051 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 84
+  store ptr null, ptr %2051, align 8
+  %2052 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 85
+  store ptr %input.host, ptr %2052, align 8
+  %2053 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 86
+  store ptr %input.buffer, ptr %2053, align 8
+  %2054 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 87
+  store ptr %local_laplacian.host, ptr %2054, align 8
+  %2055 = getelementptr inbounds %closure_t.11, ptr %0, i64 0, i32 88
+  store ptr %local_laplacian.buffer, ptr %2055, align 8
+  %2056 = call i32 @halide_do_par_for(ptr null, ptr nonnull @par_for___local_laplacian_local_laplacian.s0.v4.v264, i32 0, i32 %b776, ptr nonnull %0)
+  %2057 = icmp eq i32 %2056, 0
+  br i1 %2057, label %if.then.i292, label %call_destructor.exit235.sink.split, !prof !5
+
+if.then.i292:                                     ; preds = %"produce local_laplacian"
   call void @halide_free(ptr null, ptr nonnull %209) #7
   call void @halide_free(ptr null, ptr nonnull %338) #7
   call void @halide_free(ptr null, ptr nonnull %421) #7
@@ -5154,7 +5154,7 @@ define internal i32 @par_for___local_laplacian_f4.s0.v4.v4(ptr nocapture readnon
   %a305 = lshr i32 %38, 3
   %39 = icmp sgt i32 %37, 5
   %40 = select i1 %39, i32 %a305, i32 0
-  %.not9 = icmp eq i32 %40, 0
+  %.not11 = icmp eq i32 %40, 0
   %41 = add nsw i32 %37, 9
   %42 = ashr i32 %41, 3
   %43 = icmp sgt i32 %42, %40
@@ -5283,7 +5283,7 @@ define internal i32 @par_for___local_laplacian_f4.s0.v4.v4(ptr nocapture readnon
 "for f4.s0.v6.us":                                ; preds = %"for f4.s0.v4.v296.us", %"end for f4.s0.v3.v32.us"
   %indvars.iv = phi i64 [ %smax, %"for f4.s0.v4.v296.us" ], [ %indvars.iv.next, %"end for f4.s0.v3.v32.us" ]
   %lsr.iv8.us = phi ptr [ %lsr.iv4.us, %"for f4.s0.v4.v296.us" ], [ %scevgep10.us, %"end for f4.s0.v3.v32.us" ]
-  br i1 %.not9, label %"end for f4.s0.v3.v3.us", label %"for f4.s0.v3.v3.preheader.us", !prof !4
+  br i1 %.not11, label %"end for f4.s0.v3.v3.us", label %"for f4.s0.v3.v3.preheader.us", !prof !4
 
 "for f4.s0.v3.v3.us":                             ; preds = %"for f4.s0.v3.v3.preheader.us", %"for f4.s0.v3.v3.us"
   %lsr.iv28.us = phi i32 [ %lsr.iv.next29.us, %"for f4.s0.v3.v3.us" ], [ %lsr.iv26.us, %"for f4.s0.v3.v3.preheader.us" ]
@@ -7221,7 +7221,7 @@ define internal i32 @par_for___local_laplacian_f5.s0.v4.v4(ptr nocapture readnon
   %a428 = lshr i32 %31, 3
   %32 = icmp sgt i32 %30, 6
   %33 = select i1 %32, i32 %a428, i32 0
-  %.not9 = icmp eq i32 %33, 0
+  %.not12 = icmp eq i32 %33, 0
   %34 = ashr i32 %30, 3
   %.not5 = icmp slt i32 %34, %33
   %35 = shl nsw i32 %f5.s0.v3.max, 1
@@ -7294,7 +7294,7 @@ define internal i32 @par_for___local_laplacian_f5.s0.v4.v4(ptr nocapture readnon
 "for f5.s0.v6.us":                                ; preds = %"for f5.s0.v4.v316.us", %"end for f5.s0.v3.v32.us"
   %indvars.iv = phi i64 [ %smax, %"for f5.s0.v4.v316.us" ], [ %indvars.iv.next, %"end for f5.s0.v3.v32.us" ]
   %lsr.iv8.us = phi ptr [ %lsr.iv4.us, %"for f5.s0.v4.v316.us" ], [ %scevgep10.us, %"end for f5.s0.v3.v32.us" ]
-  br i1 %.not9, label %"end for f5.s0.v3.v3.us", label %"for f5.s0.v3.v3.preheader.us", !prof !4
+  br i1 %.not12, label %"end for f5.s0.v3.v3.us", label %"for f5.s0.v3.v3.preheader.us", !prof !4
 
 "for f5.s0.v3.v3.us":                             ; preds = %"for f5.s0.v3.v3.preheader.us", %"for f5.s0.v3.v3.us"
   %lsr.iv28.us = phi i32 [ %lsr.iv.next29.us, %"for f5.s0.v3.v3.us" ], [ %lsr.iv26.us, %"for f5.s0.v3.v3.preheader.us" ]
@@ -7655,7 +7655,7 @@ define internal i32 @par_for___local_laplacian_f72.s0.v4.v4(ptr nocapture readno
   %a468 = lshr i32 %45, 3
   %46 = icmp sgt i32 %44, 5
   %47 = select i1 %46, i32 %a468, i32 0
-  %.not5 = icmp eq i32 %47, 0
+  %.not7 = icmp eq i32 %47, 0
   %48 = add nsw i32 %44, 9
   %49 = ashr i32 %48, 3
   %50 = icmp sgt i32 %49, %47
@@ -7672,7 +7672,7 @@ define internal i32 @par_for___local_laplacian_f72.s0.v4.v4(ptr nocapture readno
   %lsr.iv14 = phi i32 [ %lsr.iv.next15, %"end for f72.s0.v3.v32" ], [ %37, %"for f72.s0.v4.v286.preheader" ]
   %lsr.iv10 = phi i32 [ %lsr.iv.next11, %"end for f72.s0.v3.v32" ], [ %32, %"for f72.s0.v4.v286.preheader" ]
   %lsr.iv4 = phi ptr [ %scevgep6, %"end for f72.s0.v3.v32" ], [ %scevgep, %"for f72.s0.v4.v286.preheader" ]
-  br i1 %.not5, label %"end for f72.s0.v3.v3", label %"for f72.s0.v3.v3", !prof !4
+  br i1 %.not7, label %"end for f72.s0.v3.v3", label %"for f72.s0.v3.v3", !prof !4
 
 "for f72.s0.v3.v3":                               ; preds = %"for f72.s0.v4.v286", %"for f72.s0.v3.v3"
   %lsr.iv24 = phi i32 [ %lsr.iv.next25, %"for f72.s0.v3.v3" ], [ %lsr.iv22, %"for f72.s0.v4.v286" ]
@@ -8018,7 +8018,7 @@ define internal i32 @par_for___local_laplacian_f6.s0.v4.v4(ptr nocapture readnon
   %a521 = lshr i32 %31, 3
   %32 = icmp sgt i32 %30, 6
   %33 = select i1 %32, i32 %a521, i32 0
-  %.not9 = icmp eq i32 %33, 0
+  %.not12 = icmp eq i32 %33, 0
   %34 = ashr i32 %30, 3
   %.not5 = icmp slt i32 %34, %33
   %35 = shl nsw i32 %f6.s0.v3.max, 1
@@ -8091,7 +8091,7 @@ define internal i32 @par_for___local_laplacian_f6.s0.v4.v4(ptr nocapture readnon
 "for f6.s0.v6.us":                                ; preds = %"for f6.s0.v4.v336.us", %"end for f6.s0.v3.v32.us"
   %indvars.iv = phi i64 [ %smax, %"for f6.s0.v4.v336.us" ], [ %indvars.iv.next, %"end for f6.s0.v3.v32.us" ]
   %lsr.iv8.us = phi ptr [ %lsr.iv4.us, %"for f6.s0.v4.v336.us" ], [ %scevgep10.us, %"end for f6.s0.v3.v32.us" ]
-  br i1 %.not9, label %"end for f6.s0.v3.v3.us", label %"for f6.s0.v3.v3.preheader.us", !prof !4
+  br i1 %.not12, label %"end for f6.s0.v3.v3.us", label %"for f6.s0.v3.v3.preheader.us", !prof !4
 
 "for f6.s0.v3.v3.us":                             ; preds = %"for f6.s0.v3.v3.preheader.us", %"for f6.s0.v3.v3.us"
   %lsr.iv28.us = phi i32 [ %lsr.iv.next29.us, %"for f6.s0.v3.v3.us" ], [ %lsr.iv26.us, %"for f6.s0.v3.v3.preheader.us" ]
@@ -8449,7 +8449,7 @@ define internal i32 @par_for___local_laplacian_f73.s0.v4.v4(ptr nocapture readno
   %a559 = lshr i32 %43, 3
   %44 = icmp sgt i32 %42, 6
   %45 = select i1 %44, i32 %a559, i32 0
-  %.not5 = icmp eq i32 %45, 0
+  %.not8 = icmp eq i32 %45, 0
   %46 = ashr i32 %42, 3
   %.not = icmp slt i32 %46, %45
   %47 = shl nsw i32 %f73.s0.v3.max, 1
@@ -8465,7 +8465,7 @@ define internal i32 @par_for___local_laplacian_f73.s0.v4.v4(ptr nocapture readno
   %lsr.iv14 = phi i32 [ %lsr.iv.next15, %"end for f73.s0.v3.v32" ], [ %35, %"for f73.s0.v4.v306.preheader" ]
   %lsr.iv10 = phi i32 [ %lsr.iv.next11, %"end for f73.s0.v3.v32" ], [ %30, %"for f73.s0.v4.v306.preheader" ]
   %lsr.iv4 = phi ptr [ %scevgep6, %"end for f73.s0.v3.v32" ], [ %scevgep, %"for f73.s0.v4.v306.preheader" ]
-  br i1 %.not5, label %"end for f73.s0.v3.v3", label %"for f73.s0.v3.v3", !prof !4
+  br i1 %.not8, label %"end for f73.s0.v3.v3", label %"for f73.s0.v3.v3", !prof !4
 
 "for f73.s0.v3.v3":                               ; preds = %"for f73.s0.v4.v306", %"for f73.s0.v3.v3"
   %lsr.iv24 = phi i32 [ %lsr.iv.next25, %"for f73.s0.v3.v3" ], [ %lsr.iv22, %"for f73.s0.v4.v306" ]
@@ -8811,7 +8811,7 @@ define internal i32 @par_for___local_laplacian_f7.s0.v4.v4(ptr nocapture readnon
   %a606 = lshr i32 %31, 3
   %32 = icmp sgt i32 %30, 6
   %33 = select i1 %32, i32 %a606, i32 0
-  %.not9 = icmp eq i32 %33, 0
+  %.not12 = icmp eq i32 %33, 0
   %34 = ashr i32 %30, 3
   %.not5 = icmp slt i32 %34, %33
   %35 = shl nsw i32 %f7.s0.v3.max, 1
@@ -8884,7 +8884,7 @@ define internal i32 @par_for___local_laplacian_f7.s0.v4.v4(ptr nocapture readnon
 "for f7.s0.v6.us":                                ; preds = %"for f7.s0.v4.v356.us", %"end for f7.s0.v3.v32.us"
   %indvars.iv = phi i64 [ %smax, %"for f7.s0.v4.v356.us" ], [ %indvars.iv.next, %"end for f7.s0.v3.v32.us" ]
   %lsr.iv8.us = phi ptr [ %lsr.iv4.us, %"for f7.s0.v4.v356.us" ], [ %scevgep10.us, %"end for f7.s0.v3.v32.us" ]
-  br i1 %.not9, label %"end for f7.s0.v3.v3.us", label %"for f7.s0.v3.v3.preheader.us", !prof !4
+  br i1 %.not12, label %"end for f7.s0.v3.v3.us", label %"for f7.s0.v3.v3.preheader.us", !prof !4
 
 "for f7.s0.v3.v3.us":                             ; preds = %"for f7.s0.v3.v3.preheader.us", %"for f7.s0.v3.v3.us"
   %lsr.iv28.us = phi i32 [ %lsr.iv.next29.us, %"for f7.s0.v3.v3.us" ], [ %lsr.iv26.us, %"for f7.s0.v3.v3.preheader.us" ]
@@ -9242,7 +9242,7 @@ define internal i32 @par_for___local_laplacian_f74.s0.v4.v4(ptr nocapture readno
   %a644 = lshr i32 %43, 3
   %44 = icmp sgt i32 %42, 6
   %45 = select i1 %44, i32 %a644, i32 0
-  %.not5 = icmp eq i32 %45, 0
+  %.not8 = icmp eq i32 %45, 0
   %46 = ashr i32 %42, 3
   %.not = icmp slt i32 %46, %45
   %47 = shl nsw i32 %f74.s0.v3.max, 1
@@ -9258,7 +9258,7 @@ define internal i32 @par_for___local_laplacian_f74.s0.v4.v4(ptr nocapture readno
   %lsr.iv14 = phi i32 [ %lsr.iv.next15, %"end for f74.s0.v3.v32" ], [ %35, %"for f74.s0.v4.v326.preheader" ]
   %lsr.iv10 = phi i32 [ %lsr.iv.next11, %"end for f74.s0.v3.v32" ], [ %30, %"for f74.s0.v4.v326.preheader" ]
   %lsr.iv4 = phi ptr [ %scevgep6, %"end for f74.s0.v3.v32" ], [ %scevgep, %"for f74.s0.v4.v326.preheader" ]
-  br i1 %.not5, label %"end for f74.s0.v3.v3", label %"for f74.s0.v3.v3", !prof !4
+  br i1 %.not8, label %"end for f74.s0.v3.v3", label %"for f74.s0.v3.v3", !prof !4
 
 "for f74.s0.v3.v3":                               ; preds = %"for f74.s0.v4.v326", %"for f74.s0.v3.v3"
   %lsr.iv24 = phi i32 [ %lsr.iv.next25, %"for f74.s0.v3.v3" ], [ %lsr.iv22, %"for f74.s0.v4.v326" ]
@@ -9563,11 +9563,11 @@ entry:
 "for f8.s0.v4.preheader":                         ; preds = %entry
   %5 = getelementptr inbounds %closure_t.7, ptr %closure, i64 0, i32 6
   %f8.s0.v3.min = load i32, ptr %5, align 4
-  %6 = getelementptr inbounds %closure_t.7, ptr %closure, i64 0, i32 2
-  %f7.v3.extent_realized.s = load i32, ptr %6, align 4
+  %6 = getelementptr inbounds %closure_t.7, ptr %closure, i64 0, i32 5
+  %f8.s0.v3.max = load i32, ptr %6, align 4
+  %7 = getelementptr inbounds %closure_t.7, ptr %closure, i64 0, i32 2
+  %f7.v3.extent_realized.s = load i32, ptr %7, align 4
   %promoted23 = sext i32 %f7.v3.extent_realized.s to i64
-  %7 = getelementptr inbounds %closure_t.7, ptr %closure, i64 0, i32 5
-  %f8.s0.v3.max = load i32, ptr %7, align 4
   %a684 = load i32, ptr %closure, align 4
   %8 = getelementptr inbounds %closure_t.7, ptr %closure, i64 0, i32 10
   %f8.v3.extent_realized.s = load i32, ptr %8, align 4
@@ -10041,7 +10041,7 @@ define internal i32 @par_for___local_laplacian_f75.s0.v4.v4(ptr nocapture readno
   %a711 = lshr i32 %43, 3
   %44 = icmp sgt i32 %42, 6
   %45 = select i1 %44, i32 %a711, i32 0
-  %.not5 = icmp eq i32 %45, 0
+  %.not8 = icmp eq i32 %45, 0
   %46 = ashr i32 %42, 3
   %.not = icmp slt i32 %46, %45
   %47 = shl nsw i32 %f75.s0.v3.max, 1
@@ -10057,7 +10057,7 @@ define internal i32 @par_for___local_laplacian_f75.s0.v4.v4(ptr nocapture readno
   %lsr.iv14 = phi i32 [ %lsr.iv.next15, %"end for f75.s0.v3.v32" ], [ %35, %"for f75.s0.v4.v346.preheader" ]
   %lsr.iv10 = phi i32 [ %lsr.iv.next11, %"end for f75.s0.v3.v32" ], [ %30, %"for f75.s0.v4.v346.preheader" ]
   %lsr.iv4 = phi ptr [ %scevgep6, %"end for f75.s0.v3.v32" ], [ %scevgep, %"for f75.s0.v4.v346.preheader" ]
-  br i1 %.not5, label %"end for f75.s0.v3.v3", label %"for f75.s0.v3.v3", !prof !4
+  br i1 %.not8, label %"end for f75.s0.v3.v3", label %"for f75.s0.v3.v3", !prof !4
 
 "for f75.s0.v3.v3":                               ; preds = %"for f75.s0.v4.v346", %"for f75.s0.v3.v3"
   %lsr.iv24 = phi i32 [ %lsr.iv.next25, %"for f75.s0.v3.v3" ], [ %lsr.iv22, %"for f75.s0.v4.v346" ]
@@ -10362,10 +10362,10 @@ entry:
 "for f9.s0.v4.preheader":                         ; preds = %entry
   %5 = getelementptr inbounds %closure_t.9, ptr %closure, i64 0, i32 6
   %f9.s0.v3.min = load i32, ptr %5, align 4
-  %6 = getelementptr inbounds %closure_t.9, ptr %closure, i64 0, i32 1
-  %f8.stride.2 = load i32, ptr %6, align 4
-  %7 = getelementptr inbounds %closure_t.9, ptr %closure, i64 0, i32 5
-  %f9.s0.v3.max = load i32, ptr %7, align 4
+  %6 = getelementptr inbounds %closure_t.9, ptr %closure, i64 0, i32 5
+  %f9.s0.v3.max = load i32, ptr %6, align 4
+  %7 = getelementptr inbounds %closure_t.9, ptr %closure, i64 0, i32 1
+  %f8.stride.2 = load i32, ptr %7, align 4
   %a729 = load i32, ptr %closure, align 4
   %8 = getelementptr inbounds %closure_t.9, ptr %closure, i64 0, i32 11
   %f9.v3.min_realized = load i32, ptr %8, align 4
@@ -10780,7 +10780,7 @@ entry:
   %31 = shl nsw i32 %28, 1
   %t2168.s = sub nsw i32 %f10.s0.v6, %21
   %32 = mul i32 %t2168.s, %f9.stride.2
-  %33 = add i32 %32, %31
+  %33 = add i32 %31, %32
   br i1 %26, label %"for f10.s0.v4.us.preheader", label %destructor_block, !prof !5
 
 "for f10.s0.v4.us.preheader":                     ; preds = %"for f10.s0.v4.preheader"
@@ -11339,15 +11339,15 @@ false_bb:                                         ; preds = %entry
   %.not97 = icmp eq ptr %128, null
   br i1 %.not97, label %"assert failed1", label %"assert succeeded2", !prof !4
 
-destructor_block.thread:                          ; preds = %if.then.i256, %"assert failed73", %"assert failed17", %"assert failed15", %"assert failed13", %"assert failed11", %"assert failed9", %"assert failed7", %"assert failed5", %"assert failed3", %"assert failed1", %"assert failed", %if.then.i271, %"assert failed137", %"assert failed135", %"assert failed129", %"assert failed127", %"assert failed121", %"assert failed119", %"assert failed114", %"assert failed112"
-  %.029.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ %10020, %"assert failed135" ], [ %10020, %"assert failed137" ], [ null, %if.then.i271 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ null, %"assert failed11" ], [ null, %"assert failed13" ], [ null, %"assert failed15" ], [ null, %"assert failed17" ], [ null, %"assert failed73" ], [ null, %if.then.i256 ]
-  %.028.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ %9981, %"assert failed127" ], [ %9981, %"assert failed129" ], [ %9981, %"assert failed135" ], [ %9981, %"assert failed137" ], [ null, %if.then.i271 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ null, %"assert failed11" ], [ null, %"assert failed13" ], [ null, %"assert failed15" ], [ null, %"assert failed17" ], [ null, %"assert failed73" ], [ null, %if.then.i256 ]
-  %.027.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ %9958, %"assert failed119" ], [ %9958, %"assert failed121" ], [ %9958, %"assert failed127" ], [ %9958, %"assert failed129" ], [ %9958, %"assert failed135" ], [ %9958, %"assert failed137" ], [ null, %if.then.i271 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ null, %"assert failed11" ], [ null, %"assert failed13" ], [ null, %"assert failed15" ], [ null, %"assert failed17" ], [ null, %"assert failed73" ], [ null, %if.then.i256 ]
-  %.024.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ null, %"assert failed135" ], [ null, %"assert failed137" ], [ null, %if.then.i271 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ null, %"assert failed11" ], [ null, %"assert failed13" ], [ %222, %"assert failed15" ], [ %222, %"assert failed17" ], [ %222, %"assert failed73" ], [ null, %if.then.i256 ]
-  %.023.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ null, %"assert failed135" ], [ null, %"assert failed137" ], [ null, %if.then.i271 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ %193, %"assert failed11" ], [ %193, %"assert failed13" ], [ %193, %"assert failed15" ], [ %193, %"assert failed17" ], [ %193, %"assert failed73" ], [ null, %if.then.i256 ]
-  %.022.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ null, %"assert failed135" ], [ null, %"assert failed137" ], [ null, %if.then.i271 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ %154, %"assert failed7" ], [ %154, %"assert failed9" ], [ %154, %"assert failed11" ], [ %154, %"assert failed13" ], [ %154, %"assert failed15" ], [ %154, %"assert failed17" ], [ %154, %"assert failed73" ], [ null, %if.then.i256 ]
-  %.0.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ null, %"assert failed135" ], [ null, %"assert failed137" ], [ null, %if.then.i271 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ %128, %"assert failed3" ], [ %128, %"assert failed5" ], [ %128, %"assert failed7" ], [ %128, %"assert failed9" ], [ %128, %"assert failed11" ], [ %128, %"assert failed13" ], [ %128, %"assert failed15" ], [ %128, %"assert failed17" ], [ %128, %"assert failed73" ], [ null, %if.then.i256 ]
-  %.ph = phi i32 [ %9956, %"assert failed112" ], [ %9959, %"assert failed114" ], [ %9979, %"assert failed119" ], [ %9982, %"assert failed121" ], [ %10018, %"assert failed127" ], [ %10021, %"assert failed129" ], [ %10047, %"assert failed135" ], [ %10050, %"assert failed137" ], [ 0, %if.then.i271 ], [ %126, %"assert failed" ], [ %132, %"assert failed1" ], [ %152, %"assert failed3" ], [ %155, %"assert failed5" ], [ %191, %"assert failed7" ], [ %194, %"assert failed9" ], [ %220, %"assert failed11" ], [ %223, %"assert failed13" ], [ %2764, %"assert failed15" ], [ %2767, %"assert failed17" ], [ %8526, %"assert failed73" ], [ 0, %if.then.i256 ]
+destructor_block.thread:                          ; preds = %if.then.i265, %"assert failed73", %"assert failed17", %"assert failed15", %"assert failed13", %"assert failed11", %"assert failed9", %"assert failed7", %"assert failed5", %"assert failed3", %"assert failed1", %"assert failed", %if.then.i280, %"assert failed137", %"assert failed135", %"assert failed129", %"assert failed127", %"assert failed121", %"assert failed119", %"assert failed114", %"assert failed112"
+  %.029.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ %10020, %"assert failed135" ], [ %10020, %"assert failed137" ], [ null, %if.then.i280 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ null, %"assert failed11" ], [ null, %"assert failed13" ], [ null, %"assert failed15" ], [ null, %"assert failed17" ], [ null, %"assert failed73" ], [ null, %if.then.i265 ]
+  %.028.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ %9981, %"assert failed127" ], [ %9981, %"assert failed129" ], [ %9981, %"assert failed135" ], [ %9981, %"assert failed137" ], [ null, %if.then.i280 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ null, %"assert failed11" ], [ null, %"assert failed13" ], [ null, %"assert failed15" ], [ null, %"assert failed17" ], [ null, %"assert failed73" ], [ null, %if.then.i265 ]
+  %.027.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ %9958, %"assert failed119" ], [ %9958, %"assert failed121" ], [ %9958, %"assert failed127" ], [ %9958, %"assert failed129" ], [ %9958, %"assert failed135" ], [ %9958, %"assert failed137" ], [ null, %if.then.i280 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ null, %"assert failed11" ], [ null, %"assert failed13" ], [ null, %"assert failed15" ], [ null, %"assert failed17" ], [ null, %"assert failed73" ], [ null, %if.then.i265 ]
+  %.024.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ null, %"assert failed135" ], [ null, %"assert failed137" ], [ null, %if.then.i280 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ null, %"assert failed11" ], [ null, %"assert failed13" ], [ %222, %"assert failed15" ], [ %222, %"assert failed17" ], [ %222, %"assert failed73" ], [ null, %if.then.i265 ]
+  %.023.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ null, %"assert failed135" ], [ null, %"assert failed137" ], [ null, %if.then.i280 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ null, %"assert failed7" ], [ null, %"assert failed9" ], [ %193, %"assert failed11" ], [ %193, %"assert failed13" ], [ %193, %"assert failed15" ], [ %193, %"assert failed17" ], [ %193, %"assert failed73" ], [ null, %if.then.i265 ]
+  %.022.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ null, %"assert failed135" ], [ null, %"assert failed137" ], [ null, %if.then.i280 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ null, %"assert failed3" ], [ null, %"assert failed5" ], [ %154, %"assert failed7" ], [ %154, %"assert failed9" ], [ %154, %"assert failed11" ], [ %154, %"assert failed13" ], [ %154, %"assert failed15" ], [ %154, %"assert failed17" ], [ %154, %"assert failed73" ], [ null, %if.then.i265 ]
+  %.0.ph = phi ptr [ null, %"assert failed112" ], [ null, %"assert failed114" ], [ null, %"assert failed119" ], [ null, %"assert failed121" ], [ null, %"assert failed127" ], [ null, %"assert failed129" ], [ null, %"assert failed135" ], [ null, %"assert failed137" ], [ null, %if.then.i280 ], [ null, %"assert failed" ], [ null, %"assert failed1" ], [ %128, %"assert failed3" ], [ %128, %"assert failed5" ], [ %128, %"assert failed7" ], [ %128, %"assert failed9" ], [ %128, %"assert failed11" ], [ %128, %"assert failed13" ], [ %128, %"assert failed15" ], [ %128, %"assert failed17" ], [ %128, %"assert failed73" ], [ null, %if.then.i265 ]
+  %.ph = phi i32 [ %9956, %"assert failed112" ], [ %9959, %"assert failed114" ], [ %9979, %"assert failed119" ], [ %9982, %"assert failed121" ], [ %10018, %"assert failed127" ], [ %10021, %"assert failed129" ], [ %10047, %"assert failed135" ], [ %10050, %"assert failed137" ], [ 0, %if.then.i280 ], [ %126, %"assert failed" ], [ %132, %"assert failed1" ], [ %152, %"assert failed3" ], [ %155, %"assert failed5" ], [ %191, %"assert failed7" ], [ %194, %"assert failed9" ], [ %220, %"assert failed11" ], [ %223, %"assert failed13" ], [ %2764, %"assert failed15" ], [ %2767, %"assert failed17" ], [ %8526, %"assert failed73" ], [ 0, %if.then.i265 ]
   %.not185 = icmp eq i32 %.ph, 0
   br label %call_destructor.exit206
 
@@ -11553,8 +11553,8 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
 "assert succeeded8":                              ; preds = %"assert succeeded6"
   %192 = add nuw nsw i64 %181, 4
   %193 = tail call ptr @halide_malloc(ptr %__user_context, i64 %192)
-  %.not198 = icmp eq ptr %193, null
-  br i1 %.not198, label %"assert failed9", label %"assert succeeded10", !prof !4
+  %.not271 = icmp eq ptr %193, null
+  br i1 %.not271, label %"assert failed9", label %"assert succeeded10", !prof !4
 
 "assert failed9":                                 ; preds = %"assert succeeded8"
   %194 = tail call i32 @halide_error_out_of_memory(ptr %__user_context) #4
@@ -11604,8 +11604,8 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
 "assert succeeded12":                             ; preds = %"assert succeeded10"
   %221 = add nuw nsw i64 %210, 4
   %222 = tail call ptr @halide_malloc(ptr %__user_context, i64 %221)
-  %.not199 = icmp eq ptr %222, null
-  br i1 %.not199, label %"assert failed13", label %"produce f129", !prof !4
+  %.not272 = icmp eq ptr %222, null
+  br i1 %.not272, label %"assert failed13", label %"produce f129", !prof !4
 
 "assert failed13":                                ; preds = %"assert succeeded12"
   %223 = tail call i32 @halide_error_out_of_memory(ptr %__user_context) #4
@@ -11641,8 +11641,8 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
   %249 = sext i32 %f129.v3.extent_realized.s to i64
   %250 = add nsw i64 %249, 1
   %251 = sext i32 %225 to i64
-  %narrow275 = sub nsw i32 0, %f129.v3.min_realized
-  %.neg218 = sext i32 %narrow275 to i64
+  %narrow273 = sub nsw i32 0, %f129.v3.min_realized
+  %.neg212 = sext i32 %narrow273 to i64
   br i1 %227, label %"for f129.s0.v4.us.preheader", label %"produce f128", !prof !5
 
 "for f129.s0.v4.us.preheader":                    ; preds = %"produce f129"
@@ -11677,7 +11677,7 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
   %269 = add nsw i64 %268, -1
   %270 = sub nsw i64 %indvars.iv309, %251
   %271 = mul nsw i64 %270, %250
-  %272 = add i64 %271, %.neg218
+  %272 = add i64 %271, %.neg212
   %273 = trunc i64 %indvars.iv309 to i32
   %274 = sub i32 %273, %f7.v4.min_realized
   %275 = mul i32 %274, %f7.stride.1
@@ -12329,8 +12329,8 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
   %886 = sext i32 %f128.v3.extent_realized.s to i64
   %887 = add nsw i64 %886, 1
   %888 = sext i32 %876 to i64
-  %narrow276 = sub nsw i32 0, %f128.v3.min_realized
-  %.neg219 = sext i32 %narrow276 to i64
+  %narrow274 = sub nsw i32 0, %f128.v3.min_realized
+  %.neg213 = sext i32 %narrow274 to i64
   br i1 %878, label %"for f128.s0.v4.us.preheader", label %"for f127.s0.v4.preheader", !prof !5
 
 "for f128.s0.v4.us.preheader":                    ; preds = %"produce f128"
@@ -12365,7 +12365,7 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
   %908 = add nsw i64 %907, -1
   %909 = sub nsw i64 %indvars.iv313, %888
   %910 = mul nsw i64 %909, %887
-  %911 = add i64 %910, %.neg219
+  %911 = add i64 %910, %.neg213
   %912 = trunc i64 %indvars.iv313 to i32
   %913 = sub i32 %912, %f6.v4.min_realized
   %914 = mul i32 %913, %f6.stride.1
@@ -14416,7 +14416,7 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
   %t2408 = mul nsw i32 %207, %2782
   %2783 = insertelement <4 x i32> undef, i32 %f0.v3.min_realized.s, i64 0
   %2784 = sub <4 x i32> <i32 0, i32 poison, i32 poison, i32 poison>, %2783
-  %.neg222 = shufflevector <4 x i32> %2784, <4 x i32> poison, <4 x i32> zeroinitializer
+  %.neg216 = shufflevector <4 x i32> %2784, <4 x i32> poison, <4 x i32> zeroinitializer
   %2785 = shl nsw i32 %levels, 8
   %2786 = add nsw i32 %2785, -256
   %2787 = insertelement <4 x i32> undef, i32 %2786, i64 0
@@ -14467,8 +14467,8 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
   %a867 = tail call <4 x i32> @llvm.smin.v4i32(<4 x i32> %b870, <4 x i32> %a868)
   %2813 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %a867, <4 x i32> zeroinitializer)
   %2814 = shl <4 x i32> %2809, <i32 8, i32 8, i32 8, i32 8>
-  %.neg224 = sub <4 x i32> %.neg222, %2814
-  %t2409 = add <4 x i32> %.neg224, %2813
+  %.neg218 = sub <4 x i32> %.neg216, %2814
+  %t2409 = add <4 x i32> %.neg218, %2813
   %2815 = sub nsw i32 %t2395, %f4.v3.min_realized
   %t2412 = add nsw i32 %2815, %2790
   %t2414 = sub nsw <4 x i32> %2809, %241
@@ -14497,8 +14497,8 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
   %a875 = tail call <4 x i32> @llvm.smin.v4i32(<4 x i32> %b870, <4 x i32> %a876)
   %2826 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %a875, <4 x i32> zeroinitializer)
   %2827 = shl <4 x i32> %2822, <i32 8, i32 8, i32 8, i32 8>
-  %.neg226 = sub <4 x i32> %.neg222, %2827
-  %t2429 = add <4 x i32> %.neg226, %2826
+  %.neg220 = sub <4 x i32> %.neg216, %2827
+  %t2429 = add <4 x i32> %.neg220, %2826
   %2828 = sub nsw i32 %t2422, %f4.v3.min_realized
   %t2431 = add nsw i32 %2828, %2790
   %t2432 = sub nsw <4 x i32> %2822, %241
@@ -15111,8 +15111,8 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
 
 "for local_laplacian.s0.v3.v3.preheader":         ; preds = %"consume f125"
   %3406 = icmp sgt i32 %local_laplacian.extent.2, 0
-  %reass.add229 = sub nsw i64 %3402, %66
-  %reass.mul230 = mul nsw i64 %reass.add229, %73
+  %reass.add223 = sub nsw i64 %3402, %66
+  %reass.mul224 = mul nsw i64 %reass.add223, %73
   %3407 = mul nsw i64 %3405, %3404
   %3408 = sub i64 %3407, %8
   %3409 = mul nsw i32 %input.stride.2, %b1146
@@ -15141,7 +15141,7 @@ call_destructor.exit251:                          ; preds = %destructor_block, %
   %local_laplacian.s0.v3.v277.base = tail call i32 @llvm.smin.i32(i32 %b816, i32 %a879)
   %3421 = sext i32 %local_laplacian.s0.v3.v277.base to i64
   %3422 = sub nsw i64 %3421, %62
-  %3423 = add i64 %3422, %reass.mul230
+  %3423 = add i64 %3422, %reass.mul224
   %scevgep399 = getelementptr i16, ptr %local_laplacian.host, i64 %3423
   %3424 = add i64 %3408, %3421
   %3425 = getelementptr inbounds float, ptr %f2.host, i64 %3424
@@ -15322,7 +15322,7 @@ if.then.i253:                                     ; preds = %"end for local_lapl
   %a947 = lshr i32 %3552, 3
   %3553 = icmp sgt i32 %f126.s0.v3.v3.epilogue.s, -2
   %3554 = select i1 %3553, i32 %a947, i32 0
-  %.not201 = icmp eq i32 %3554, 0
+  %.not277 = icmp eq i32 %3554, 0
   %3555 = sub i32 %161, %f72.v3.min_realized
   %3556 = sub i32 %161, %f4.v3.min_realized
   %3557 = and i32 %a1120, 2
@@ -15357,7 +15357,7 @@ if.then.i253:                                     ; preds = %"end for local_lapl
   %a970 = lshr i32 %197, 3
   %3584 = icmp sgt i32 %197, 7
   %3585 = select i1 %3584, i32 %a970, i32 0
-  %.not200 = icmp eq i32 %3585, 0
+  %.not278 = icmp eq i32 %3585, 0
   %3586 = mul nsw i64 %.pre-phi338, -4
   %3587 = fdiv float 1.000000e+00, %230
   %3588 = insertelement <4 x float> undef, float %3587, i64 0
@@ -15365,7 +15365,7 @@ if.then.i253:                                     ; preds = %"end for local_lapl
   %3590 = xor i32 %158, -1
   %3591 = insertelement <4 x i32> undef, i32 %f0.v3.min_realized.s, i64 0
   %3592 = sub <4 x i32> <i32 0, i32 poison, i32 poison, i32 poison>, %3591
-  %.neg251 = shufflevector <4 x i32> %3592, <4 x i32> poison, <4 x i32> zeroinitializer
+  %.neg245 = shufflevector <4 x i32> %3592, <4 x i32> poison, <4 x i32> zeroinitializer
   %3593 = shl nsw i32 %levels, 8
   %3594 = add nsw i32 %3593, -256
   %3595 = insertelement <4 x i32> undef, i32 %3594, i64 0
@@ -15523,7 +15523,7 @@ if.then.i253:                                     ; preds = %"end for local_lapl
   %.not148 = icmp eq i32 %3708, %3400
   br i1 %.not148, label %if.then.i253, label %"for local_laplacian.s0.v3.v3"
 
-if.then.i256:                                     ; preds = %if.then.i268
+if.then.i265:                                     ; preds = %if.then.i268
   tail call void @halide_free(ptr %__user_context, ptr nonnull %128) #7
   tail call void @halide_free(ptr %__user_context, ptr nonnull %154) #7
   tail call void @halide_free(ptr %__user_context, ptr nonnull %193) #7
@@ -15577,7 +15577,7 @@ true_bb21:                                        ; preds = %"produce f12919"
   %narrow146 = sub nsw i32 %3717, %225
   %3735 = sext i32 %narrow146 to i64
   %3736 = mul nsw i64 %250, %3735
-  %3737 = add nsw i64 %3736, %.neg218
+  %3737 = add nsw i64 %3736, %.neg212
   br label %"for f129.s0.v3.v324"
 
 "for f129.s0.v3.v324":                            ; preds = %"for f129.s0.v3.v324.preheader", %"for f129.s0.v3.v324"
@@ -16858,7 +16858,7 @@ true_bb34:                                        ; preds = %"produce f12832"
   %narrow139 = sub nsw i32 %4929, %876
   %4949 = sext i32 %narrow139 to i64
   %4950 = mul nsw i64 %887, %4949
-  %4951 = add nsw i64 %4950, %.neg219
+  %4951 = add nsw i64 %4950, %.neg213
   br label %"for f128.s0.v3.v337"
 
 "for f128.s0.v3.v337":                            ; preds = %"for f128.s0.v3.v337.preheader", %"for f128.s0.v3.v337"
@@ -19388,7 +19388,7 @@ true_bb47:                                        ; preds = %"produce f12745"
   br i1 %.not104.not, label %true_bb60, label %"assert succeeded72"
 
 true_bb60:                                        ; preds = %"produce f12658"
-  br i1 %.not201, label %"end for f126.s0.v3.v364", label %"for f126.s0.v3.v363.preheader", !prof !4
+  br i1 %.not277, label %"end for f126.s0.v3.v364", label %"for f126.s0.v3.v363.preheader", !prof !4
 
 "for f126.s0.v3.v363.preheader":                  ; preds = %true_bb60
   %7323 = trunc i64 %3710 to i32
@@ -20675,7 +20675,7 @@ true_bb60:                                        ; preds = %"produce f12658"
   br label %destructor_block.thread
 
 "produce f12576":                                 ; preds = %"assert succeeded72"
-  br i1 %.not200, label %"end for f125.s0.v3.v378", label %"for f125.s0.v3.v377.preheader", !prof !4
+  br i1 %.not278, label %"end for f125.s0.v3.v378", label %"for f125.s0.v3.v377.preheader", !prof !4
 
 "for f125.s0.v3.v377.preheader":                  ; preds = %"produce f12576"
   %scevgep = getelementptr i8, ptr %8525, i64 %3434
@@ -20725,8 +20725,8 @@ true_bb60:                                        ; preds = %"produce f12658"
   %a975 = tail call <4 x i32> @llvm.smin.v4i32(<4 x i32> %b978, <4 x i32> %a976)
   %8550 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %a975, <4 x i32> zeroinitializer)
   %8551 = shl <4 x i32> %8546, <i32 8, i32 8, i32 8, i32 8>
-  %.neg253 = sub <4 x i32> %.neg251, %8551
-  %t2766 = add <4 x i32> %.neg253, %8550
+  %.neg247 = sub <4 x i32> %.neg245, %8551
+  %t2766 = add <4 x i32> %.neg247, %8550
   %t2771 = sub nsw <4 x i32> %8546, %241
   %t2772 = mul nsw <4 x i32> %t2771, %2139
   %8552 = add nsw <4 x i32> %t2771, <i32 1, i32 1, i32 1, i32 1>
@@ -20744,8 +20744,8 @@ true_bb60:                                        ; preds = %"produce f12658"
   %a983 = tail call <4 x i32> @llvm.smin.v4i32(<4 x i32> %b978, <4 x i32> %a984)
   %8557 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %a983, <4 x i32> zeroinitializer)
   %8558 = shl <4 x i32> %8553, <i32 8, i32 8, i32 8, i32 8>
-  %.neg255 = sub <4 x i32> %.neg251, %8558
-  %t2787 = add <4 x i32> %.neg255, %8557
+  %.neg249 = sub <4 x i32> %.neg245, %8558
+  %t2787 = add <4 x i32> %.neg249, %8557
   %t2790 = sub nsw <4 x i32> %8553, %241
   %t2791 = mul nsw <4 x i32> %t2790, %2139
   %8559 = add nsw <4 x i32> %t2790, <i32 1, i32 1, i32 1, i32 1>
@@ -21381,8 +21381,8 @@ true_bb60:                                        ; preds = %"produce f12658"
   %a993 = tail call <4 x i32> @llvm.smin.v4i32(<4 x i32> %b978, <4 x i32> %a994)
   %9151 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %a993, <4 x i32> zeroinitializer)
   %9152 = shl <4 x i32> %9145, <i32 8, i32 8, i32 8, i32 8>
-  %.neg258 = sub <4 x i32> %.neg251, %9152
-  %t2815 = add <4 x i32> %.neg258, %9151
+  %.neg252 = sub <4 x i32> %.neg245, %9152
+  %t2815 = add <4 x i32> %.neg252, %9151
   %9153 = add i32 %t2799, %3436
   %9154 = mul nsw i32 %9153, %f4.stride.1
   %t2820 = sub nsw <4 x i32> %9145, %241
@@ -21404,8 +21404,8 @@ true_bb60:                                        ; preds = %"produce f12658"
   %a1001 = tail call <4 x i32> @llvm.smin.v4i32(<4 x i32> %b978, <4 x i32> %a1002)
   %9162 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %a1001, <4 x i32> zeroinitializer)
   %9163 = shl <4 x i32> %9158, <i32 8, i32 8, i32 8, i32 8>
-  %.neg260 = sub <4 x i32> %.neg251, %9163
-  %t2835 = add <4 x i32> %.neg260, %9162
+  %.neg254 = sub <4 x i32> %.neg245, %9163
+  %t2835 = add <4 x i32> %.neg254, %9162
   %t2837 = add nsw i32 %9154, %3612
   %t2838 = sub nsw <4 x i32> %9158, %241
   %t2839 = mul nsw <4 x i32> %t2838, %2139
@@ -22290,7 +22290,7 @@ if.then.i268:                                     ; preds = %"end for local_lapl
   %lsr.iv.next368 = add i64 %lsr.iv367, %73
   %lsr.iv.next375 = add i64 %lsr.iv374, %53
   %.not106 = icmp eq i64 %indvars.iv.next326, 64
-  br i1 %.not106, label %if.then.i256, label %"produce f12919"
+  br i1 %.not106, label %if.then.i265, label %"produce f12919"
 
 "for local_laplacian.s0.v5106":                   ; preds = %"for local_laplacian.s0.v5106", %"for local_laplacian.s0.v5106.preheader"
   %lsr.iv393 = phi ptr [ %scevgep392, %"for local_laplacian.s0.v5106.preheader" ], [ %scevgep395, %"for local_laplacian.s0.v5106" ]
@@ -22494,8 +22494,8 @@ if.then.i268:                                     ; preds = %"end for local_lapl
 "assert succeeded128":                            ; preds = %"assert succeeded122"
   %10019 = add nuw nsw i64 %10008, 4
   %10020 = tail call ptr @halide_malloc(ptr %__user_context, i64 %10019)
-  %.not196 = icmp eq ptr %10020, null
-  br i1 %.not196, label %"assert failed129", label %"assert succeeded130", !prof !4
+  %.not268 = icmp eq ptr %10020, null
+  br i1 %.not268, label %"assert failed129", label %"assert succeeded130", !prof !4
 
 "assert failed129":                               ; preds = %"assert succeeded128"
   %10021 = tail call i32 @halide_error_out_of_memory(ptr %__user_context) #4
@@ -22545,8 +22545,8 @@ if.then.i268:                                     ; preds = %"end for local_lapl
 "assert succeeded136":                            ; preds = %"assert succeeded130"
   %10048 = add nuw nsw i64 %10037, 4
   %10049 = tail call ptr @halide_malloc(ptr %__user_context, i64 %10048)
-  %.not197 = icmp eq ptr %10049, null
-  br i1 %.not197, label %"assert failed137", label %"for local_laplacian.s0.v4.v4140.preheader", !prof !4
+  %.not269 = icmp eq ptr %10049, null
+  br i1 %.not269, label %"assert failed137", label %"for local_laplacian.s0.v4.v4140.preheader", !prof !4
 
 "assert failed137":                               ; preds = %"assert succeeded136"
   %10050 = tail call i32 @halide_error_out_of_memory(ptr %__user_context) #4
@@ -22592,7 +22592,7 @@ if.then.i268:                                     ; preds = %"end for local_lapl
   %10083 = ashr i32 %10082, 4
   %10084 = sext i32 %10083 to i64
   %narrow = sub nsw i32 0, %f129.v3.min_realized
-  %.neg205 = sext i32 %narrow to i64
+  %.neg199 = sext i32 %narrow to i64
   %10085 = add nuw nsw i32 %124, 1
   %10086 = icmp slt i32 %102, 0
   %10087 = add nsw i32 %f74.v3.extent_realized.s, 1
@@ -22607,8 +22607,8 @@ if.then.i268:                                     ; preds = %"end for local_lapl
   %10096 = add nsw i32 %local_laplacian.s0.v4.v4.base, -14
   %10097 = ashr i32 %10096, 3
   %10098 = sext i32 %10097 to i64
-  %narrow274 = sub nsw i32 0, %f128.v3.min_realized117
-  %.neg206 = sext i32 %narrow274 to i64
+  %narrow270 = sub nsw i32 0, %f128.v3.min_realized117
+  %.neg200 = sext i32 %narrow270 to i64
   %10099 = add nuw nsw i32 %9966, 1
   %10100 = icmp slt i32 %9965, 0
   %10101 = add nsw i32 %f73.v3.extent_realized.s, 1
@@ -22646,7 +22646,7 @@ if.then.i268:                                     ; preds = %"end for local_lapl
   %10133 = xor i32 %9985, -1
   %10134 = insertelement <4 x i32> undef, i32 %f0.v3.min_realized.s, i64 0
   %10135 = sub <4 x i32> <i32 0, i32 poison, i32 poison, i32 poison>, %10134
-  %.neg209 = shufflevector <4 x i32> %10135, <4 x i32> poison, <4 x i32> zeroinitializer
+  %.neg203 = shufflevector <4 x i32> %10135, <4 x i32> poison, <4 x i32> zeroinitializer
   %10136 = shl nsw i32 %levels, 8
   %10137 = add nsw i32 %10136, -256
   %10138 = insertelement <4 x i32> undef, i32 %10137, i64 0
@@ -22677,7 +22677,7 @@ if.then.i268:                                     ; preds = %"end for local_lapl
   %b1150 = shufflevector <8 x i32> %10158, <8 x i32> undef, <8 x i32> zeroinitializer
   br label %"produce f129143"
 
-if.then.i271:                                     ; preds = %if.then.i283
+if.then.i280:                                     ; preds = %if.then.i283
   tail call void @halide_free(ptr %__user_context, ptr nonnull %9958) #7
   tail call void @halide_free(ptr %__user_context, ptr nonnull %9981) #7
   tail call void @halide_free(ptr %__user_context, ptr nonnull %10020) #7
@@ -22755,7 +22755,7 @@ if.then.i271:                                     ; preds = %if.then.i283
   %10205 = add nsw i64 %10204, -1
   %10206 = sub nsw i64 %indvars.iv, %10084
   %10207 = mul nsw i64 %10206, %10081
-  %10208 = add i64 %10207, %.neg205
+  %10208 = add i64 %10207, %.neg199
   %10209 = trunc i64 %indvars.iv to i32
   %10210 = sub i32 %10209, %f7.v4.min_realized
   %10211 = mul i32 %10210, %f7.stride.1
@@ -23429,7 +23429,7 @@ if.then.i271:                                     ; preds = %if.then.i283
   %10831 = add nsw i64 %10830, -1
   %10832 = sub nsw i64 %indvars.iv294, %10098
   %10833 = mul nsw i64 %10832, %10095
-  %10834 = add i64 %10833, %.neg206
+  %10834 = add i64 %10833, %.neg200
   %10835 = trunc i64 %indvars.iv294 to i32
   %10836 = sub i32 %10835, %f6.v4.min_realized
   %10837 = mul i32 %10836, %f6.stride.1
@@ -25485,8 +25485,8 @@ if.then.i271:                                     ; preds = %if.then.i283
   %a1129 = tail call <4 x i32> @llvm.smin.v4i32(<4 x i32> %b1132, <4 x i32> %a1130)
   %12692 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %a1129, <4 x i32> zeroinitializer)
   %12693 = shl <4 x i32> %12688, <i32 8, i32 8, i32 8, i32 8>
-  %.neg211 = sub <4 x i32> %.neg209, %12693
-  %t3031 = add <4 x i32> %.neg211, %12692
+  %.neg205 = sub <4 x i32> %.neg203, %12693
+  %t3031 = add <4 x i32> %.neg205, %12692
   %12694 = sub nsw i32 %t3017, %f4.v3.min_realized
   %t3034 = add nsw i32 %12694, %12672
   %t3036 = sub nsw <4 x i32> %12688, %10072
@@ -25515,8 +25515,8 @@ if.then.i271:                                     ; preds = %if.then.i283
   %a1137 = tail call <4 x i32> @llvm.smin.v4i32(<4 x i32> %b1132, <4 x i32> %a1138)
   %12705 = tail call <4 x i32> @llvm.smax.v4i32(<4 x i32> %a1137, <4 x i32> zeroinitializer)
   %12706 = shl <4 x i32> %12701, <i32 8, i32 8, i32 8, i32 8>
-  %.neg213 = sub <4 x i32> %.neg209, %12706
-  %t3051 = add <4 x i32> %.neg213, %12705
+  %.neg207 = sub <4 x i32> %.neg203, %12706
+  %t3051 = add <4 x i32> %.neg207, %12705
   %12707 = sub nsw i32 %t3044, %f4.v3.min_realized
   %t3053 = add nsw i32 %12707, %12672
   %t3054 = sub nsw <4 x i32> %12701, %10072
@@ -26143,7 +26143,7 @@ if.then.i283:                                     ; preds = %"end for local_lapl
   %indvars.iv.next307 = add nuw nsw i64 %indvars.iv306, 1
   %lsr.iv.next447 = add i64 %lsr.iv446, %73
   %.not82 = icmp eq i64 %indvars.iv.next307, 64
-  br i1 %.not82, label %if.then.i271, label %"produce f129143"
+  br i1 %.not82, label %if.then.i280, label %"produce f129143"
 
 "for local_laplacian.s0.v5199":                   ; preds = %"for local_laplacian.s0.v5199", %"for local_laplacian.s0.v5199.preheader"
   %lsr.iv449 = phi ptr [ %scevgep448, %"for local_laplacian.s0.v5199.preheader" ], [ %scevgep451, %"for local_laplacian.s0.v5199" ]
@@ -26274,22 +26274,10 @@ entry:
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #6
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #6
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.abs.i64(i64, i1 immarg) #6
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <8 x i32> @llvm.smin.v8i32(<8 x i32>, <8 x i32>) #6
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <8 x i32> @llvm.smax.v8i32(<8 x i32>, <8 x i32>) #6
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smax.i64(i64, i64) #6
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x i32> @llvm.smin.v4i32(<4 x i32>, <4 x i32>) #6
@@ -26298,7 +26286,19 @@ declare <4 x i32> @llvm.smin.v4i32(<4 x i32>, <4 x i32>) #6
 declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #6
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smin.i64(i64, i64) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.smax.i64(i64, i64) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.abs.i64(i64, i1 immarg) #6
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x float> @llvm.floor.v4f32(<4 x float>) #6

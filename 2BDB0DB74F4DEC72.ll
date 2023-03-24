@@ -865,7 +865,7 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
   %185 = invoke noundef i32 %184(ptr noundef nonnull align 8 dereferenceable(8) %179)
           to label %186 unwind label %268
 
-186:                                              ; preds = %178, %181
+186:                                              ; preds = %181, %178
   store ptr %0, ptr %126, align 8, !tbaa !5
   br label %187
 
@@ -878,47 +878,47 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
   br i1 %191, label %193, label %187, !llvm.loop !54
 
 193:                                              ; preds = %187
-  %194 = trunc i64 %188 to i32
-  %195 = add nsw i32 %194, 1
-  %196 = icmp ne i32 %195, 0
-  br i1 %196, label %197, label %204
+  %194 = getelementptr inbounds %class.COpenCallbackImp, ptr %0, i64 0, i32 9
+  %195 = trunc i64 %188 to i32
+  %196 = add nsw i32 %195, 1
+  %197 = icmp ne i32 %196, 0
+  br i1 %197, label %198, label %205
 
-197:                                              ; preds = %193
-  %198 = zext i32 %195 to i64
-  %199 = icmp slt i32 %194, -1
-  %200 = shl nuw nsw i64 %198, 2
-  %201 = select i1 %199, i64 -1, i64 %200
-  %202 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %201) #20
-          to label %203 unwind label %250
+198:                                              ; preds = %193
+  %199 = zext i32 %196 to i64
+  %200 = icmp slt i32 %195, -1
+  %201 = shl nuw nsw i64 %199, 2
+  %202 = select i1 %200, i64 -1, i64 %201
+  %203 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %202) #20
+          to label %204 unwind label %250
 
-203:                                              ; preds = %197
-  store i32 0, ptr %202, align 4, !tbaa !51
-  br label %204
+204:                                              ; preds = %198
+  store i32 0, ptr %203, align 4, !tbaa !51
+  br label %205
 
-204:                                              ; preds = %203, %193
-  %205 = phi ptr [ null, %193 ], [ %202, %203 ]
-  br label %206
+205:                                              ; preds = %204, %193
+  %206 = phi ptr [ null, %193 ], [ %203, %204 ]
+  br label %207
 
-206:                                              ; preds = %206, %204
-  %207 = phi ptr [ %1, %204 ], [ %209, %206 ]
-  %208 = phi ptr [ %205, %204 ], [ %211, %206 ]
-  %209 = getelementptr inbounds i32, ptr %207, i64 1
-  %210 = load i32, ptr %207, align 4, !tbaa !51
-  %211 = getelementptr inbounds i32, ptr %208, i64 1
-  store i32 %210, ptr %208, align 4, !tbaa !51
-  %212 = icmp eq i32 %210, 0
-  br i1 %212, label %213, label %206, !llvm.loop !53
+207:                                              ; preds = %207, %205
+  %208 = phi ptr [ %1, %205 ], [ %210, %207 ]
+  %209 = phi ptr [ %206, %205 ], [ %212, %207 ]
+  %210 = getelementptr inbounds i32, ptr %208, i64 1
+  %211 = load i32, ptr %208, align 4, !tbaa !51
+  %212 = getelementptr inbounds i32, ptr %209, i64 1
+  store i32 %211, ptr %209, align 4, !tbaa !51
+  %213 = icmp eq i32 %211, 0
+  br i1 %213, label %214, label %207, !llvm.loop !53
 
-213:                                              ; preds = %206
-  %214 = getelementptr inbounds %class.COpenCallbackImp, ptr %0, i64 0, i32 9
+214:                                              ; preds = %207
   %215 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #20
           to label %216 unwind label %252
 
-216:                                              ; preds = %213
+216:                                              ; preds = %214
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %215, i8 0, i64 16, i1 false)
-  tail call void @llvm.assume(i1 %196)
-  %217 = zext i32 %195 to i64
-  %218 = icmp slt i32 %194, -1
+  tail call void @llvm.assume(i1 %197)
+  %217 = zext i32 %196 to i64
+  %218 = icmp slt i32 %195, -1
   %219 = shl nuw nsw i64 %217, 2
   %220 = select i1 %218, i64 -1, i64 %219
   %221 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %220) #20
@@ -928,11 +928,11 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
   %223 = getelementptr inbounds %class.CStringBase, ptr %215, i64 0, i32 2
   store ptr %221, ptr %215, align 8, !tbaa !39
   store i32 0, ptr %221, align 4, !tbaa !51
-  store i32 %195, ptr %223, align 4, !tbaa !68
+  store i32 %196, ptr %223, align 4, !tbaa !68
   br label %224
 
 224:                                              ; preds = %222, %224
-  %225 = phi ptr [ %227, %224 ], [ %205, %222 ]
+  %225 = phi ptr [ %227, %224 ], [ %206, %222 ]
   %226 = phi ptr [ %229, %224 ], [ %221, %222 ]
   %227 = getelementptr inbounds i32, ptr %225, i64 1
   %228 = load i32, ptr %225, align 4, !tbaa !51
@@ -943,8 +943,8 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
 
 231:                                              ; preds = %224
   %232 = getelementptr inbounds %class.CStringBase, ptr %215, i64 0, i32 1
-  store i32 %194, ptr %232, align 8, !tbaa !47
-  invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %214)
+  store i32 %195, ptr %232, align 8, !tbaa !47
+  invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %194)
           to label %235 unwind label %252
 
 233:                                              ; preds = %216
@@ -964,11 +964,11 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
   store ptr %215, ptr %241, align 8, !tbaa !10
   %242 = add nsw i32 %239, 1
   store i32 %242, ptr %238, align 4, !tbaa !43
-  %243 = icmp eq ptr %205, null
+  %243 = icmp eq ptr %206, null
   br i1 %243, label %245, label %244
 
 244:                                              ; preds = %235
-  tail call void @_ZdaPv(ptr noundef nonnull %205) #21
+  tail call void @_ZdaPv(ptr noundef nonnull %206) #21
   br label %245
 
 245:                                              ; preds = %244, %235
@@ -979,13 +979,13 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
   store i64 %249, ptr %247, align 8, !tbaa !71
   br label %279
 
-250:                                              ; preds = %197
+250:                                              ; preds = %198
   %251 = landingpad { ptr, i32 }
           catch ptr @_ZTIPKc
           catch ptr null
   br label %283
 
-252:                                              ; preds = %231, %213
+252:                                              ; preds = %231, %214
   %253 = landingpad { ptr, i32 }
           catch ptr @_ZTIPKc
           catch ptr null
@@ -993,11 +993,11 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
 
 254:                                              ; preds = %233, %252
   %255 = phi { ptr, i32 } [ %253, %252 ], [ %234, %233 ]
-  %256 = icmp eq ptr %205, null
+  %256 = icmp eq ptr %206, null
   br i1 %256, label %283, label %257
 
 257:                                              ; preds = %254
-  tail call void @_ZdaPv(ptr noundef nonnull %205) #21
+  tail call void @_ZdaPv(ptr noundef nonnull %206) #21
   br label %283
 
 258:                                              ; preds = %128
@@ -1039,8 +1039,8 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
   tail call void @__clang_call_terminate(ptr %278) #19
   unreachable
 
-279:                                              ; preds = %258, %245, %103, %98
-  %280 = phi i32 [ 1, %98 ], [ 1, %103 ], [ 0, %245 ], [ %260, %258 ]
+279:                                              ; preds = %245, %258, %103, %98
+  %280 = phi i32 [ 1, %98 ], [ 1, %103 ], [ %260, %258 ], [ 0, %245 ]
   %281 = icmp eq ptr %81, null
   br i1 %281, label %299, label %282
 
@@ -1048,7 +1048,7 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
   tail call void @_ZdaPv(ptr noundef nonnull %81) #21
   br label %299
 
-283:                                              ; preds = %250, %254, %257, %268, %270, %129, %133, %101
+283:                                              ; preds = %250, %254, %257, %268, %129, %133, %270, %101
   %284 = phi { ptr, i32 } [ %102, %101 ], [ %134, %133 ], [ %130, %129 ], [ %271, %270 ], [ %269, %268 ], [ %255, %257 ], [ %255, %254 ], [ %251, %250 ]
   %285 = icmp eq ptr %81, null
   br i1 %285, label %287, label %286
@@ -1082,7 +1082,7 @@ define dso_local noundef i32 @_ZN16COpenCallbackImp9GetStreamEPKwPP9IInStream(pt
   tail call void @__cxa_end_catch() #17
   resume { ptr, i32 } %298
 
-299:                                              ; preds = %282, %279, %15, %3, %296
+299:                                              ; preds = %15, %282, %279, %3, %296
   %300 = phi i32 [ %14, %15 ], [ -2147024882, %296 ], [ 1, %3 ], [ %280, %279 ], [ %280, %282 ]
   ret i32 %300
 
@@ -1579,7 +1579,7 @@ define linkonce_odr dso_local noundef i32 @_ZN16COpenCallbackImp14QueryInterface
   %237 = icmp eq i8 %235, %236
   br i1 %237, label %316, label %238
 
-238:                                              ; preds = %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
+238:                                              ; preds = %160, %163, %168, %173, %178, %183, %188, %193, %198, %203, %208, %213, %218, %223, %228, %233
   %239 = load i8, ptr @IID_IArchiveOpenSetSubArchiveName, align 4, !tbaa !60
   %240 = icmp eq i8 %4, %239
   br i1 %240, label %241, label %323
@@ -1699,8 +1699,8 @@ define linkonce_odr dso_local noundef i32 @_ZN16COpenCallbackImp14QueryInterface
   %322 = tail call noundef i32 %321(ptr noundef nonnull align 8 dereferenceable(192) %0)
   br label %323
 
-323:                                              ; preds = %316, %306, %301, %296, %291, %286, %281, %276, %271, %266, %261, %256, %251, %246, %241, %238, %311
-  %324 = phi i32 [ -2147467262, %311 ], [ -2147467262, %238 ], [ -2147467262, %241 ], [ -2147467262, %246 ], [ -2147467262, %251 ], [ -2147467262, %256 ], [ -2147467262, %261 ], [ -2147467262, %266 ], [ -2147467262, %271 ], [ -2147467262, %276 ], [ -2147467262, %281 ], [ -2147467262, %286 ], [ -2147467262, %291 ], [ -2147467262, %296 ], [ -2147467262, %301 ], [ -2147467262, %306 ], [ 0, %316 ]
+323:                                              ; preds = %316, %311, %306, %301, %296, %291, %286, %281, %276, %271, %266, %261, %256, %251, %246, %241, %238
+  %324 = phi i32 [ -2147467262, %238 ], [ -2147467262, %241 ], [ -2147467262, %246 ], [ -2147467262, %251 ], [ -2147467262, %256 ], [ -2147467262, %261 ], [ -2147467262, %266 ], [ -2147467262, %271 ], [ -2147467262, %276 ], [ -2147467262, %281 ], [ -2147467262, %286 ], [ -2147467262, %291 ], [ -2147467262, %296 ], [ -2147467262, %301 ], [ -2147467262, %306 ], [ -2147467262, %311 ], [ 0, %316 ]
   ret i32 %324
 }
 
@@ -2347,7 +2347,7 @@ define linkonce_odr dso_local noundef i32 @_ZN13CInFileStream14QueryInterfaceERK
   %159 = icmp eq i8 %157, %158
   br i1 %159, label %240, label %160
 
-160:                                              ; preds = %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
+160:                                              ; preds = %82, %85, %90, %95, %100, %105, %110, %115, %120, %125, %130, %135, %140, %145, %150, %155
   %161 = load i8, ptr @IID_IStreamGetSize, align 4, !tbaa !60
   %162 = icmp eq i8 %4, %161
   br i1 %162, label %163, label %246
@@ -2470,8 +2470,8 @@ define linkonce_odr dso_local noundef i32 @_ZN13CInFileStream14QueryInterfaceERK
   %245 = tail call noundef i32 %244(ptr noundef nonnull align 8 dereferenceable(1112) %0)
   br label %246
 
-246:                                              ; preds = %240, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
-  %247 = phi i32 [ -2147467262, %233 ], [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ 0, %240 ]
+246:                                              ; preds = %240, %233, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160
+  %247 = phi i32 [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ -2147467262, %233 ], [ 0, %240 ]
   ret i32 %247
 }
 
@@ -2598,7 +2598,7 @@ define linkonce_odr dso_local void @_ZN16CInFileStreamVolD2Ev(ptr noundef nonnul
   %60 = icmp eq i64 %59, %44
   br i1 %60, label %45, label %46, !llvm.loop !75
 
-61:                                               ; preds = %24, %6, %45, %29
+61:                                               ; preds = %24, %6, %29, %45
   %62 = load ptr, ptr %3, align 8, !tbaa !5
   %63 = icmp eq ptr %62, null
   br i1 %63, label %72, label %64

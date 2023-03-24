@@ -151,120 +151,132 @@ define hidden noundef double @_ZN9benchmark16StatisticsMedianERKSt6vectorIdSaIdE
   %5 = ptrtoint ptr %3 to i64
   %6 = ptrtoint ptr %4 to i64
   %7 = sub i64 %5, %6
-  %8 = ashr exact i64 %7, 3
-  %9 = icmp ult i64 %7, 24
-  br i1 %9, label %10, label %23
+  %8 = icmp ult i64 %7, 24
+  br i1 %8, label %9, label %23
 
-10:                                               ; preds = %1
-  %11 = icmp eq ptr %4, %3
-  br i1 %11, label %71, label %12
+9:                                                ; preds = %1
+  %10 = icmp eq ptr %4, %3
+  br i1 %10, label %82, label %11
 
-12:                                               ; preds = %10, %12
-  %13 = phi double [ %16, %12 ], [ 0.000000e+00, %10 ]
-  %14 = phi ptr [ %17, %12 ], [ %4, %10 ]
-  %15 = load double, ptr %14, align 8, !tbaa !9
-  %16 = fadd double %13, %15
-  %17 = getelementptr inbounds double, ptr %14, i64 1
-  %18 = icmp eq ptr %17, %3
-  br i1 %18, label %19, label %12, !llvm.loop !11
+11:                                               ; preds = %9, %11
+  %12 = phi double [ %15, %11 ], [ 0.000000e+00, %9 ]
+  %13 = phi ptr [ %16, %11 ], [ %4, %9 ]
+  %14 = load double, ptr %13, align 8, !tbaa !9
+  %15 = fadd double %12, %14
+  %16 = getelementptr inbounds double, ptr %13, i64 1
+  %17 = icmp eq ptr %16, %3
+  br i1 %17, label %18, label %11, !llvm.loop !11
 
-19:                                               ; preds = %12
-  %20 = uitofp i64 %8 to double
+18:                                               ; preds = %11
+  %19 = ashr exact i64 %7, 3
+  %20 = uitofp i64 %19 to double
   %21 = fdiv double 1.000000e+00, %20
-  %22 = fmul double %21, %16
-  br label %71
+  %22 = fmul double %21, %15
+  br label %82
 
 23:                                               ; preds = %1
   %24 = icmp eq ptr %3, %4
-  br i1 %24, label %30, label %25
+  br i1 %24, label %48, label %25
 
 25:                                               ; preds = %23
   %26 = icmp ugt i64 %7, 9223372036854775800
-  br i1 %26, label %27, label %28, !prof !16
+  br i1 %26, label %27, label %31, !prof !16
 
 27:                                               ; preds = %25
+  %28 = icmp slt i64 %7, 0
+  br i1 %28, label %29, label %30
+
+29:                                               ; preds = %27
   tail call void @_ZSt28__throw_bad_array_new_lengthv() #24
   unreachable
 
-28:                                               ; preds = %25
-  %29 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %7) #25
-  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %29, ptr align 8 %4, i64 %7, i1 false)
-  br label %30
+30:                                               ; preds = %27
+  tail call void @_ZSt17__throw_bad_allocv() #24
+  unreachable
 
-30:                                               ; preds = %23, %28
-  %31 = phi ptr [ %29, %28 ], [ null, %23 ]
-  %32 = getelementptr inbounds double, ptr %31, i64 %8
-  %33 = lshr i64 %8, 1
-  %34 = getelementptr inbounds double, ptr %31, i64 %33
-  %35 = tail call i64 @llvm.ctlz.i64(i64 %8, i1 true), !range !17
-  %36 = shl nuw nsw i64 %35, 1
-  %37 = xor i64 %36, 126
-  invoke void @_ZSt13__introselectIN9__gnu_cxx17__normal_iteratorIPdSt6vectorIdSaIdEEEElNS0_5__ops15_Iter_less_iterEEvT_S9_S9_T0_T1_(ptr %31, ptr %34, ptr nonnull %32, i64 noundef %37)
-          to label %38 unwind label %48
+31:                                               ; preds = %25
+  %32 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %7) #25
+  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %32, ptr align 8 %4, i64 %7, i1 false)
+  %33 = lshr exact i64 %7, 3
+  %34 = getelementptr inbounds double, ptr %32, i64 %33
+  %35 = lshr i64 %7, 4
+  %36 = getelementptr inbounds double, ptr %32, i64 %35
+  %37 = tail call i64 @llvm.ctlz.i64(i64 %33, i1 true), !range !17
+  %38 = shl nuw nsw i64 %37, 1
+  %39 = xor i64 %38, 126
+  invoke void @_ZSt13__introselectIN9__gnu_cxx17__normal_iteratorIPdSt6vectorIdSaIdEEEElNS0_5__ops15_Iter_less_iterEEvT_S9_S9_T0_T1_(ptr nonnull %32, ptr nonnull %36, ptr nonnull %34, i64 noundef %39)
+          to label %40 unwind label %52
 
-38:                                               ; preds = %30
-  %39 = load ptr, ptr %2, align 8, !tbaa !13
-  %40 = load ptr, ptr %0, align 8, !tbaa !15
-  %41 = ptrtoint ptr %39 to i64
-  %42 = ptrtoint ptr %40 to i64
-  %43 = sub i64 %41, %42
-  %44 = and i64 %43, 8
-  %45 = icmp eq i64 %44, 0
-  br i1 %45, label %50, label %46
+40:                                               ; preds = %31
+  %41 = load ptr, ptr %2, align 8, !tbaa !13
+  %42 = load ptr, ptr %0, align 8, !tbaa !15
+  %43 = ptrtoint ptr %41 to i64
+  %44 = ptrtoint ptr %42 to i64
+  %45 = sub i64 %43, %44
+  %46 = and i64 %45, 8
+  %47 = icmp eq i64 %46, 0
+  br i1 %47, label %54, label %73
 
-46:                                               ; preds = %38
-  %47 = load double, ptr %34, align 8, !tbaa !9
-  br label %64
+48:                                               ; preds = %23
+  %49 = ashr exact i64 %7, 3
+  %50 = lshr i64 %49, 1
+  %51 = getelementptr inbounds double, ptr null, i64 %50
+  br label %65
 
-48:                                               ; preds = %30
-  %49 = landingpad { ptr, i32 }
+52:                                               ; preds = %31
+  %53 = landingpad { ptr, i32 }
           cleanup
-  br label %66
+  br label %80
 
-50:                                               ; preds = %38
-  %51 = ashr exact i64 %43, 3
-  %52 = lshr i64 %51, 1
-  %53 = getelementptr inbounds double, ptr %31, i64 %52
-  %54 = getelementptr inbounds double, ptr %53, i64 -1
-  %55 = icmp eq ptr %54, %32
-  br i1 %55, label %57, label %56
+54:                                               ; preds = %40
+  %55 = ashr exact i64 %45, 3
+  %56 = lshr i64 %55, 1
+  %57 = getelementptr inbounds double, ptr %32, i64 %56
+  %58 = getelementptr inbounds double, ptr %57, i64 -1
+  %59 = icmp eq ptr %58, %34
+  %60 = select i1 %24, i1 true, i1 %59
+  br i1 %60, label %65, label %61
 
-56:                                               ; preds = %50
-  invoke void @_ZSt13__introselectIN9__gnu_cxx17__normal_iteratorIPdSt6vectorIdSaIdEEEElNS0_5__ops15_Iter_less_iterEEvT_S9_S9_T0_T1_(ptr %31, ptr nonnull %54, ptr nonnull %32, i64 noundef %37)
-          to label %57 unwind label %62
+61:                                               ; preds = %54
+  %62 = tail call i64 @llvm.ctlz.i64(i64 %33, i1 true), !range !17
+  %63 = shl nuw nsw i64 %62, 1
+  %64 = xor i64 %63, 126
+  invoke void @_ZSt13__introselectIN9__gnu_cxx17__normal_iteratorIPdSt6vectorIdSaIdEEEElNS0_5__ops15_Iter_less_iterEEvT_S9_S9_T0_T1_(ptr nonnull %32, ptr nonnull %58, ptr nonnull %34, i64 noundef %64)
+          to label %65 unwind label %78
 
-57:                                               ; preds = %50, %56
-  %58 = load double, ptr %34, align 8, !tbaa !9
-  %59 = load double, ptr %54, align 8, !tbaa !9
-  %60 = fadd double %58, %59
-  %61 = fmul double %60, 5.000000e-01
-  br label %64
+65:                                               ; preds = %48, %61, %54
+  %66 = phi ptr [ inttoptr (i64 -8 to ptr), %48 ], [ %58, %61 ], [ %58, %54 ]
+  %67 = phi ptr [ %51, %48 ], [ %36, %61 ], [ %36, %54 ]
+  %68 = phi ptr [ null, %48 ], [ %32, %61 ], [ %32, %54 ]
+  %69 = load double, ptr %67, align 8, !tbaa !9
+  %70 = load double, ptr %66, align 8, !tbaa !9
+  %71 = fadd double %69, %70
+  %72 = fmul double %71, 5.000000e-01
+  br label %75
 
-62:                                               ; preds = %56
-  %63 = landingpad { ptr, i32 }
+73:                                               ; preds = %40
+  %74 = load double, ptr %36, align 8, !tbaa !9
+  br label %75
+
+75:                                               ; preds = %73, %65
+  %76 = phi ptr [ %68, %65 ], [ %32, %73 ]
+  %77 = phi double [ %72, %65 ], [ %74, %73 ]
+  tail call void @_ZdlPv(ptr noundef nonnull %76) #26
+  br label %82
+
+78:                                               ; preds = %61
+  %79 = landingpad { ptr, i32 }
           cleanup
-  br label %66
+  br label %80
 
-64:                                               ; preds = %57, %46
-  %65 = phi double [ %47, %46 ], [ %61, %57 ]
-  tail call void @_ZdlPv(ptr noundef nonnull %31) #26
-  br label %71
+80:                                               ; preds = %52, %78
+  %81 = phi { ptr, i32 } [ %53, %52 ], [ %79, %78 ]
+  tail call void @_ZdlPv(ptr noundef nonnull %32) #26
+  resume { ptr, i32 } %81
 
-66:                                               ; preds = %62, %48
-  %67 = phi { ptr, i32 } [ %63, %62 ], [ %49, %48 ]
-  %68 = icmp eq ptr %31, null
-  br i1 %68, label %70, label %69
-
-69:                                               ; preds = %66
-  tail call void @_ZdlPv(ptr noundef nonnull %31) #26
-  br label %70
-
-70:                                               ; preds = %66, %69
-  resume { ptr, i32 } %67
-
-71:                                               ; preds = %19, %10, %64
-  %72 = phi double [ %65, %64 ], [ %22, %19 ], [ 0.000000e+00, %10 ]
-  ret double %72
+82:                                               ; preds = %75, %18, %9
+  %83 = phi double [ %22, %18 ], [ 0.000000e+00, %9 ], [ %77, %75 ]
+  ret double %83
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -342,33 +354,33 @@ define hidden noundef double @_ZN9benchmark12StatisticsCVERKSt6vectorIdSaIdEE(pt
   %5 = ptrtoint ptr %3 to i64
   %6 = ptrtoint ptr %4 to i64
   %7 = sub i64 %5, %6
-  %8 = ashr exact i64 %7, 3
-  %9 = icmp ult i64 %7, 16
-  br i1 %9, label %67, label %10
+  %8 = icmp ult i64 %7, 16
+  br i1 %8, label %67, label %9
 
-10:                                               ; preds = %1
-  %11 = icmp eq ptr %4, %3
-  br i1 %11, label %63, label %12
+9:                                                ; preds = %1
+  %10 = icmp eq ptr %4, %3
+  br i1 %10, label %63, label %11
 
-12:                                               ; preds = %10, %12
-  %13 = phi double [ %16, %12 ], [ 0.000000e+00, %10 ]
-  %14 = phi ptr [ %17, %12 ], [ %4, %10 ]
-  %15 = load double, ptr %14, align 8, !tbaa !9
-  %16 = fadd double %13, %15
-  %17 = getelementptr inbounds double, ptr %14, i64 1
-  %18 = icmp eq ptr %17, %3
-  br i1 %18, label %19, label %12, !llvm.loop !11
+11:                                               ; preds = %9, %11
+  %12 = phi double [ %15, %11 ], [ 0.000000e+00, %9 ]
+  %13 = phi ptr [ %16, %11 ], [ %4, %9 ]
+  %14 = load double, ptr %13, align 8, !tbaa !9
+  %15 = fadd double %12, %14
+  %16 = getelementptr inbounds double, ptr %13, i64 1
+  %17 = icmp eq ptr %16, %3
+  br i1 %17, label %18, label %11, !llvm.loop !11
 
-19:                                               ; preds = %12
-  %20 = uitofp i64 %8 to double
+18:                                               ; preds = %11
+  %19 = ashr exact i64 %7, 3
+  %20 = uitofp i64 %19 to double
   %21 = fdiv double 1.000000e+00, %20
-  %22 = fmul double %21, %16
+  %22 = fmul double %21, %15
   %23 = icmp eq i64 %7, 8
   br i1 %23, label %43, label %24
 
-24:                                               ; preds = %19, %24
-  %25 = phi double [ %28, %24 ], [ 0.000000e+00, %19 ]
-  %26 = phi ptr [ %29, %24 ], [ %4, %19 ]
+24:                                               ; preds = %18, %24
+  %25 = phi double [ %28, %24 ], [ 0.000000e+00, %18 ]
+  %26 = phi ptr [ %29, %24 ], [ %4, %18 ]
   %27 = load double, ptr %26, align 8, !tbaa !9
   %28 = tail call double @llvm.fmuladd.f64(double %27, double %27, double %25)
   %29 = getelementptr double, ptr %26, i64 1
@@ -391,10 +403,10 @@ define hidden noundef double @_ZN9benchmark12StatisticsCVERKSt6vectorIdSaIdEE(pt
   %42 = load ptr, ptr %2, align 8, !tbaa !5
   br label %43
 
-43:                                               ; preds = %19, %31, %39
-  %44 = phi ptr [ %3, %19 ], [ %42, %39 ], [ %3, %31 ]
-  %45 = phi ptr [ %4, %19 ], [ %41, %39 ], [ %4, %31 ]
-  %46 = phi double [ 0.000000e+00, %19 ], [ %40, %39 ], [ 0.000000e+00, %31 ]
+43:                                               ; preds = %18, %31, %39
+  %44 = phi ptr [ %3, %18 ], [ %42, %39 ], [ %3, %31 ]
+  %45 = phi ptr [ %4, %18 ], [ %41, %39 ], [ %4, %31 ]
+  %46 = phi double [ 0.000000e+00, %18 ], [ %40, %39 ], [ 0.000000e+00, %31 ]
   %47 = icmp eq ptr %45, %44
   br i1 %47, label %63, label %48
 
@@ -417,9 +429,9 @@ define hidden noundef double @_ZN9benchmark12StatisticsCVERKSt6vectorIdSaIdEE(pt
   %62 = fmul double %61, %52
   br label %63
 
-63:                                               ; preds = %10, %43, %55
-  %64 = phi double [ %46, %55 ], [ %46, %43 ], [ 0.000000e+00, %10 ]
-  %65 = phi double [ %62, %55 ], [ 0.000000e+00, %43 ], [ 0.000000e+00, %10 ]
+63:                                               ; preds = %9, %43, %55
+  %64 = phi double [ %46, %55 ], [ %46, %43 ], [ 0.000000e+00, %9 ]
+  %65 = phi double [ %62, %55 ], [ 0.000000e+00, %43 ], [ 0.000000e+00, %9 ]
   %66 = fdiv double %64, %65
   br label %67
 
@@ -645,12 +657,12 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
   %144 = trunc i64 %143 to i32
   br label %145
 
-145:                                              ; preds = %133, %140
+145:                                              ; preds = %140, %133
   %146 = phi i32 [ %138, %133 ], [ %144, %140 ]
   %147 = icmp slt i32 %146, 0
   br i1 %147, label %148, label %391
 
-148:                                              ; preds = %91, %124, %145
+148:                                              ; preds = %145, %124, %91
   call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %12) #27
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %13)
   %149 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %92, i64 0, i32 1, i32 0, i64 32
@@ -687,7 +699,7 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %156, ptr align 1 %94, i64 %96, i1 false)
   br label %160
 
-160:                                              ; preds = %155, %157, %159
+160:                                              ; preds = %159, %157, %155
   %161 = load i64, ptr %8, align 8, !tbaa !57
   store i64 %161, ptr %69, align 8, !tbaa !48
   %162 = load ptr, ptr %12, align 8, !tbaa !49
@@ -917,7 +929,7 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
   %288 = load i64, ptr %95, align 8
   %289 = load ptr, ptr %63, align 8, !tbaa !44
   %290 = icmp eq ptr %289, null
-  br i1 %290, label %341, label %291
+  br i1 %290, label %340, label %291
 
 291:                                              ; preds = %286, %308
   %292 = phi ptr [ %314, %308 ], [ %289, %286 ]
@@ -954,7 +966,7 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
 
 316:                                              ; preds = %308
   %317 = icmp eq ptr %311, %62
-  br i1 %317, label %341, label %318
+  br i1 %317, label %340, label %318
 
 318:                                              ; preds = %316
   %319 = getelementptr inbounds %"struct.std::_Rb_tree_node.36", ptr %292, i64 0, i32 1, i32 0, i64 8
@@ -984,11 +996,13 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
 337:                                              ; preds = %332, %325
   %338 = phi i32 [ %330, %325 ], [ %336, %332 ]
   %339 = icmp slt i32 %338, 0
-  %340 = select i1 %339, ptr %62, ptr %311
+  br i1 %339, label %340, label %341
+
+340:                                              ; preds = %337, %316, %286
   br label %341
 
-341:                                              ; preds = %337, %316, %286
-  %342 = phi ptr [ %62, %316 ], [ %62, %286 ], [ %340, %337 ]
+341:                                              ; preds = %340, %337
+  %342 = phi ptr [ %62, %340 ], [ %311, %337 ]
   %343 = getelementptr inbounds %"struct.std::_Rb_tree_node.36", ptr %342, i64 0, i32 1, i32 0, i64 48
   %344 = load ptr, ptr %17, align 8, !tbaa !60
   %345 = load ptr, ptr %1, align 8, !tbaa !62
@@ -1076,7 +1090,7 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
   call fastcc void @_ZNSt4pairIKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEZN9benchmark12ComputeStatsERKSt6vectorINS7_17BenchmarkReporter3RunESaISA_EEE11CounterStatED2Ev(ptr noundef nonnull align 8 dereferenceable(72) %12) #27
   br label %389
 
-389:                                              ; preds = %383, %387
+389:                                              ; preds = %387, %383
   %390 = phi { ptr, i32 } [ %388, %387 ], [ %384, %383 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %13)
   call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %12) #27
@@ -1370,7 +1384,7 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
   %547 = load i64, ptr %546, align 8
   %548 = load ptr, ptr %63, align 8, !tbaa !44
   %549 = icmp eq ptr %548, null
-  br i1 %549, label %600, label %550
+  br i1 %549, label %599, label %550
 
 550:                                              ; preds = %542, %567
   %551 = phi ptr [ %573, %567 ], [ %548, %542 ]
@@ -1407,7 +1421,7 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
 
 575:                                              ; preds = %567
   %576 = icmp eq ptr %570, %62
-  br i1 %576, label %600, label %577
+  br i1 %576, label %599, label %577
 
 577:                                              ; preds = %575
   %578 = getelementptr inbounds %"struct.std::_Rb_tree_node.36", ptr %551, i64 0, i32 1, i32 0, i64 8
@@ -1437,11 +1451,13 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
 596:                                              ; preds = %591, %584
   %597 = phi i32 [ %589, %584 ], [ %595, %591 ]
   %598 = icmp slt i32 %597, 0
-  %599 = select i1 %598, ptr %62, ptr %570
+  br i1 %598, label %599, label %600
+
+599:                                              ; preds = %596, %575, %542
   br label %600
 
-600:                                              ; preds = %596, %575, %542
-  %601 = phi ptr [ %62, %575 ], [ %62, %542 ], [ %599, %596 ]
+600:                                              ; preds = %599, %596
+  %601 = phi ptr [ %62, %599 ], [ %570, %596 ]
   %602 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %603 = icmp eq i8 %602, 0
   br i1 %603, label %604, label %608, !prof !63
@@ -1912,7 +1928,7 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
   br i1 %878, label %879, label %929
 
 879:                                              ; preds = %876, %855, %820
-  %880 = phi ptr [ %851, %876 ], [ %721, %855 ], [ %721, %820 ]
+  %880 = phi ptr [ %721, %855 ], [ %851, %876 ], [ %721, %820 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #27
   store ptr %810, ptr %4, align 8, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %5) #27
@@ -2001,7 +2017,7 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
   call void @_ZdlPv(ptr noundef nonnull %881) #26
   br label %927
 
-927:                                              ; preds = %926, %915
+927:                                              ; preds = %915, %926
   %928 = phi ptr [ %881, %915 ], [ %887, %926 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #27
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %5) #27
@@ -2062,7 +2078,7 @@ define hidden void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReport
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %14) #27
   br label %954
 
-954:                                              ; preds = %654, %656, %455, %457, %379, %381, %389, %952
+954:                                              ; preds = %457, %455, %656, %654, %379, %381, %389, %952
   %955 = phi { ptr, i32 } [ %953, %952 ], [ %390, %389 ], [ %380, %379 ], [ %382, %381 ], [ %456, %455 ], [ %458, %457 ], [ %655, %654 ], [ %657, %656 ]
   %956 = load ptr, ptr %63, align 8, !tbaa !44
   call fastcc void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_ZN9benchmark12ComputeStatsERKSt6vectorINS8_17BenchmarkReporter3RunESaISB_EEE11CounterStatESt10_Select1stISH_ESt4lessIS5_ESaISH_EE8_M_eraseEPSt13_Rb_tree_nodeISH_E(ptr noundef %956)
@@ -2333,8 +2349,8 @@ define internal fastcc noundef nonnull align 8 dereferenceable(40) ptr @_ZNSt3ma
   br i1 %55, label %56, label %250
 
 56:                                               ; preds = %2, %36, %53
-  %57 = phi i1 [ false, %53 ], [ true, %36 ], [ true, %2 ]
-  %58 = phi ptr [ %31, %53 ], [ %9, %36 ], [ %9, %2 ]
+  %57 = phi i1 [ true, %36 ], [ false, %53 ], [ true, %2 ]
+  %58 = phi ptr [ %9, %36 ], [ %31, %53 ], [ %9, %2 ]
   %59 = tail call noalias noundef nonnull dereferenceable(104) ptr @_Znwm(i64 noundef 104) #25
   %60 = getelementptr inbounds %"struct.std::_Rb_tree_node.36", ptr %59, i64 0, i32 1
   %61 = getelementptr inbounds %"struct.std::_Rb_tree_node.36", ptr %59, i64 0, i32 1, i32 0, i64 16
@@ -2400,7 +2416,7 @@ define internal fastcc noundef nonnull align 8 dereferenceable(40) ptr @_ZNSt3ma
 
 83:                                               ; preds = %71, %69, %67
   %84 = load i64, ptr %3, align 8, !tbaa !57
-  %85 = getelementptr %"struct.std::_Rb_tree_node.36", ptr %59, i64 0, i32 1, i32 0, i64 8
+  %85 = getelementptr inbounds %"struct.std::_Rb_tree_node.36", ptr %59, i64 0, i32 1, i32 0, i64 8
   store i64 %84, ptr %85, align 8, !tbaa !48
   %86 = load ptr, ptr %60, align 8, !tbaa !49
   %87 = getelementptr inbounds i8, ptr %86, i64 %84
@@ -2591,8 +2607,8 @@ define internal fastcc noundef nonnull align 8 dereferenceable(40) ptr @_ZNSt3ma
   br i1 %214, label %245, label %215
 
 215:                                              ; preds = %210, %204, %181, %164, %114
-  %216 = phi ptr [ %212, %210 ], [ %209, %204 ], [ %169, %164 ], [ %58, %181 ], [ %99, %114 ]
-  %217 = phi ptr [ %213, %210 ], [ %208, %204 ], [ %168, %164 ], [ null, %181 ], [ null, %114 ]
+  %216 = phi ptr [ %212, %210 ], [ %58, %181 ], [ %99, %114 ], [ %209, %204 ], [ %169, %164 ]
+  %217 = phi ptr [ %213, %210 ], [ null, %181 ], [ null, %114 ], [ %208, %204 ], [ %168, %164 ]
   %218 = icmp ne ptr %217, null
   %219 = icmp eq ptr %9, %216
   %220 = select i1 %218, i1 true, i1 %219
@@ -2999,6 +3015,9 @@ declare noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_cr
 ; Function Attrs: noreturn
 declare void @_ZSt28__throw_bad_array_new_lengthv() local_unnamed_addr #15
 
+; Function Attrs: noreturn
+declare void @_ZSt17__throw_bad_allocv() local_unnamed_addr #15
+
 ; Function Attrs: nobuiltin allocsize(0)
 declare noundef nonnull ptr @_Znwm(i64 noundef) local_unnamed_addr #16
 
@@ -3015,7 +3034,7 @@ define linkonce_odr hidden void @_ZSt13__introselectIN9__gnu_cxx17__normal_itera
 
 9:                                                ; preds = %4, %65
   %10 = phi i64 [ %71, %65 ], [ %7, %4 ]
-  %11 = phi i64 [ %21, %65 ], [ %3, %4 ]
+  %11 = phi i64 [ %20, %65 ], [ %3, %4 ]
   %12 = phi ptr [ %68, %65 ], [ %0, %4 ]
   %13 = phi ptr [ %67, %65 ], [ %2, %4 ]
   %14 = icmp eq i64 %11, 0
@@ -3031,9 +3050,9 @@ define linkonce_odr hidden void @_ZSt13__introselectIN9__gnu_cxx17__normal_itera
   br label %112
 
 19:                                               ; preds = %9
-  %20 = lshr i64 %10, 4
-  %21 = add nsw i64 %11, -1
-  %22 = getelementptr inbounds double, ptr %12, i64 %20
+  %20 = add nsw i64 %11, -1
+  %21 = lshr i64 %10, 4
+  %22 = getelementptr inbounds double, ptr %12, i64 %21
   %23 = getelementptr inbounds double, ptr %12, i64 1
   %24 = getelementptr inbounds double, ptr %13, i64 -1
   %25 = load double, ptr %23, align 8, !tbaa !9
@@ -3267,7 +3286,7 @@ define linkonce_odr hidden void @_ZSt13__heap_selectIN9__gnu_cxx17__normal_itera
 50:                                               ; preds = %47, %57
   %51 = phi i64 [ %53, %57 ], [ %48, %47 ]
   %52 = add nsw i64 %51, -1
-  %53 = lshr i64 %52, 1
+  %53 = sdiv i64 %52, 2
   %54 = getelementptr inbounds double, ptr %0, i64 %53
   %55 = load double, ptr %54, align 8, !tbaa !9
   %56 = fcmp olt double %55, %26
@@ -3276,11 +3295,11 @@ define linkonce_odr hidden void @_ZSt13__heap_selectIN9__gnu_cxx17__normal_itera
 57:                                               ; preds = %50
   %58 = getelementptr inbounds double, ptr %0, i64 %51
   store double %55, ptr %58, align 8, !tbaa !9
-  %59 = icmp ult i64 %52, 2
-  br i1 %59, label %60, label %50, !llvm.loop !107
+  %59 = icmp sgt i64 %51, 2
+  br i1 %59, label %50, label %60, !llvm.loop !107
 
 60:                                               ; preds = %50, %57, %47
-  %61 = phi i64 [ %48, %47 ], [ %51, %50 ], [ 0, %57 ]
+  %61 = phi i64 [ %48, %47 ], [ %51, %50 ], [ %53, %57 ]
   %62 = getelementptr inbounds double, ptr %0, i64 %61
   store double %26, ptr %62, align 8, !tbaa !9
   br label %63
@@ -3836,9 +3855,9 @@ define linkonce_odr hidden { ptr, ptr } @_ZNSt8_Rb_treeINSt7__cxx1112basic_strin
   %142 = extractvalue { ptr, ptr } %140, 1
   br label %143
 
-143:                                              ; preds = %133, %88, %106, %139, %109, %94, %64, %30, %33
-  %144 = phi ptr [ %35, %33 ], [ null, %30 ], [ %96, %94 ], [ %1, %64 ], [ %141, %139 ], [ null, %109 ], [ %1, %106 ], [ %92, %88 ], [ %137, %133 ]
-  %145 = phi ptr [ %36, %33 ], [ %12, %30 ], [ %97, %94 ], [ %1, %64 ], [ %142, %139 ], [ %1, %109 ], [ null, %106 ], [ %93, %88 ], [ %138, %133 ]
+143:                                              ; preds = %109, %64, %30, %106, %139, %133, %94, %88, %33
+  %144 = phi ptr [ %35, %33 ], [ %96, %94 ], [ %92, %88 ], [ %141, %139 ], [ %137, %133 ], [ %1, %106 ], [ null, %30 ], [ %1, %64 ], [ null, %109 ]
+  %145 = phi ptr [ %36, %33 ], [ %97, %94 ], [ %93, %88 ], [ %142, %139 ], [ %138, %133 ], [ null, %106 ], [ %12, %30 ], [ %1, %64 ], [ %1, %109 ]
   %146 = insertvalue { ptr, ptr } poison, ptr %144, 0
   %147 = insertvalue { ptr, ptr } %146, ptr %145, 1
   ret { ptr, ptr } %147
@@ -3888,7 +3907,7 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
 
 15:                                               ; preds = %5
   %16 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %7, ptr noundef nonnull align 8 dereferenceable(8) %6, i64 noundef 0)
-          to label %17 unwind label %24
+          to label %17 unwind label %32
 
 17:                                               ; preds = %15
   store ptr %16, ptr %7, align 8, !tbaa !49
@@ -3900,60 +3919,60 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
   %20 = phi ptr [ %16, %17 ], [ %10, %5 ]
   switch i64 %13, label %23 [
     i64 1, label %21
-    i64 0, label %30
+    i64 0, label %24
   ]
 
 21:                                               ; preds = %19
   %22 = load i8, ptr %11, align 1, !tbaa !58
   store i8 %22, ptr %20, align 1, !tbaa !58
-  br label %30
+  br label %24
 
 23:                                               ; preds = %19
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %20, ptr align 1 %11, i64 %13, i1 false)
-  br label %30
+  br label %24
 
-24:                                               ; preds = %15
-  %25 = landingpad { ptr, i32 }
+24:                                               ; preds = %19, %21, %23
+  %25 = load i64, ptr %6, align 8, !tbaa !57
+  %26 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
+  store i64 %25, ptr %26, align 8, !tbaa !48
+  %27 = load ptr, ptr %7, align 8, !tbaa !49
+  %28 = getelementptr inbounds i8, ptr %27, i64 %25
+  store i8 0, ptr %28, align 1, !tbaa !58
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #27
+  %29 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
+  store double 0.000000e+00, ptr %29, align 8, !tbaa !110
+  %30 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 40
+  store i32 0, ptr %30, align 8, !tbaa !111
+  %31 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 44
+  store i32 1000, ptr %31, align 4, !tbaa !94
+  ret void
+
+32:                                               ; preds = %15
+  %33 = landingpad { ptr, i32 }
           catch ptr null
-  %26 = extractvalue { ptr, i32 } %25, 0
-  %27 = call ptr @__cxa_begin_catch(ptr %26) #27
+  %34 = extractvalue { ptr, i32 } %33, 0
+  %35 = call ptr @__cxa_begin_catch(ptr %34) #27
   call void @_ZdlPv(ptr noundef nonnull %1) #26
   invoke void @__cxa_rethrow() #24
-          to label %42 unwind label %28
+          to label %42 unwind label %36
 
-28:                                               ; preds = %24
-  %29 = landingpad { ptr, i32 }
+36:                                               ; preds = %32
+  %37 = landingpad { ptr, i32 }
           cleanup
   invoke void @__cxa_end_catch()
           to label %38 unwind label %39
 
-30:                                               ; preds = %23, %21, %19
-  %31 = load i64, ptr %6, align 8, !tbaa !57
-  %32 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
-  store i64 %31, ptr %32, align 8, !tbaa !48
-  %33 = load ptr, ptr %7, align 8, !tbaa !49
-  %34 = getelementptr inbounds i8, ptr %33, i64 %31
-  store i8 0, ptr %34, align 1, !tbaa !58
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #27
-  %35 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
-  store double 0.000000e+00, ptr %35, align 8, !tbaa !110
-  %36 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 40
-  store i32 0, ptr %36, align 8, !tbaa !111
-  %37 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 44
-  store i32 1000, ptr %37, align 4, !tbaa !94
-  ret void
+38:                                               ; preds = %36
+  resume { ptr, i32 } %37
 
-38:                                               ; preds = %28
-  resume { ptr, i32 } %29
-
-39:                                               ; preds = %28
+39:                                               ; preds = %36
   %40 = landingpad { ptr, i32 }
           catch ptr null
   %41 = extractvalue { ptr, i32 } %40, 0
   call void @__clang_call_terminate(ptr %41) #29
   unreachable
 
-42:                                               ; preds = %24
+42:                                               ; preds = %32
   unreachable
 }
 
@@ -4167,7 +4186,7 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark17BenchmarkReporter3Run
   tail call void @_ZdlPv(ptr noundef nonnull %28) #26
   br label %64
 
-64:                                               ; preds = %63, %60
+64:                                               ; preds = %60, %63
   invoke void @__cxa_rethrow() #24
           to label %69 unwind label %61
 
@@ -4233,7 +4252,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %21, ptr align 1 %12, i64 %14, i1 false)
   br label %25
 
-25:                                               ; preds = %24, %22, %20
+25:                                               ; preds = %20, %22, %24
   %26 = load i64, ptr %6, align 8, !tbaa !57
   %27 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4, i32 1
   store i64 %26, ptr %27, align 8, !tbaa !48
@@ -4283,7 +4302,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %45, ptr align 1 %36, i64 %38, i1 false)
   br label %49
 
-49:                                               ; preds = %48, %46, %44
+49:                                               ; preds = %44, %46, %48
   %50 = load i64, ptr %5, align 8, !tbaa !57
   %51 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6, i32 1
   store i64 %50, ptr %51, align 8, !tbaa !48
@@ -4333,7 +4352,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %69, ptr align 1 %60, i64 %62, i1 false)
   br label %73
 
-73:                                               ; preds = %72, %70, %68
+73:                                               ; preds = %68, %70, %72
   %74 = load i64, ptr %4, align 8, !tbaa !57
   %75 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8, i32 1
   store i64 %74, ptr %75, align 8, !tbaa !48
@@ -4539,7 +4558,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %40, ptr align 1 %31, i64 %33, i1 false)
   br label %44
 
-44:                                               ; preds = %43, %41, %39
+44:                                               ; preds = %39, %41, %43
   %45 = load i64, ptr %8, align 8, !tbaa !57
   %46 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 1
   store i64 %45, ptr %46, align 8, !tbaa !48
@@ -4585,7 +4604,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %61, ptr align 1 %52, i64 %54, i1 false)
   br label %65
 
-65:                                               ; preds = %64, %62, %60
+65:                                               ; preds = %60, %62, %64
   %66 = load i64, ptr %7, align 8, !tbaa !57
   %67 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 1
   store i64 %66, ptr %67, align 8, !tbaa !48
@@ -4631,7 +4650,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %82, ptr align 1 %73, i64 %75, i1 false)
   br label %86
 
-86:                                               ; preds = %85, %83, %81
+86:                                               ; preds = %81, %83, %85
   %87 = load i64, ptr %6, align 8, !tbaa !57
   %88 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 1
   store i64 %87, ptr %88, align 8, !tbaa !48
@@ -4677,7 +4696,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %103, ptr align 1 %94, i64 %96, i1 false)
   br label %107
 
-107:                                              ; preds = %106, %104, %102
+107:                                              ; preds = %102, %104, %106
   %108 = load i64, ptr %5, align 8, !tbaa !57
   %109 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 1
   store i64 %108, ptr %109, align 8, !tbaa !48
@@ -4723,7 +4742,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %124, ptr align 1 %115, i64 %117, i1 false)
   br label %128
 
-128:                                              ; preds = %127, %125, %123
+128:                                              ; preds = %123, %125, %127
   %129 = load i64, ptr %4, align 8, !tbaa !57
   %130 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 1
   store i64 %129, ptr %130, align 8, !tbaa !48
@@ -4769,7 +4788,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %145, ptr align 1 %136, i64 %138, i1 false)
   br label %149
 
-149:                                              ; preds = %148, %146, %144
+149:                                              ; preds = %144, %146, %148
   %150 = load i64, ptr %3, align 8, !tbaa !57
   %151 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 1
   store i64 %150, ptr %151, align 8, !tbaa !48
@@ -5002,7 +5021,7 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
 
 11:                                               ; preds = %3
   %12 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef 0)
-          to label %13 unwind label %20
+          to label %13 unwind label %27
 
 13:                                               ; preds = %11
   store ptr %12, ptr %5, align 8, !tbaa !49
@@ -5014,57 +5033,57 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
   %16 = phi ptr [ %12, %13 ], [ %6, %3 ]
   switch i64 %9, label %19 [
     i64 1, label %17
-    i64 0, label %26
+    i64 0, label %20
   ]
 
 17:                                               ; preds = %15
   %18 = load i8, ptr %7, align 1, !tbaa !58
   store i8 %18, ptr %16, align 1, !tbaa !58
-  br label %26
+  br label %20
 
 19:                                               ; preds = %15
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %16, ptr align 1 %7, i64 %9, i1 false)
-  br label %26
+  br label %20
 
-20:                                               ; preds = %11
-  %21 = landingpad { ptr, i32 }
+20:                                               ; preds = %15, %17, %19
+  %21 = load i64, ptr %4, align 8, !tbaa !57
+  %22 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
+  store i64 %21, ptr %22, align 8, !tbaa !48
+  %23 = load ptr, ptr %5, align 8, !tbaa !49
+  %24 = getelementptr inbounds i8, ptr %23, i64 %21
+  store i8 0, ptr %24, align 1, !tbaa !58
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #27
+  %25 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
+  %26 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %25, ptr noundef nonnull align 8 dereferenceable(16) %26, i64 16, i1 false), !tbaa.struct !51
+  ret void
+
+27:                                               ; preds = %11
+  %28 = landingpad { ptr, i32 }
           catch ptr null
-  %22 = extractvalue { ptr, i32 } %21, 0
-  %23 = call ptr @__cxa_begin_catch(ptr %22) #27
+  %29 = extractvalue { ptr, i32 } %28, 0
+  %30 = call ptr @__cxa_begin_catch(ptr %29) #27
   call void @_ZdlPv(ptr noundef nonnull %1) #26
   invoke void @__cxa_rethrow() #24
-          to label %37 unwind label %24
+          to label %37 unwind label %31
 
-24:                                               ; preds = %20
-  %25 = landingpad { ptr, i32 }
+31:                                               ; preds = %27
+  %32 = landingpad { ptr, i32 }
           cleanup
   invoke void @__cxa_end_catch()
           to label %33 unwind label %34
 
-26:                                               ; preds = %19, %17, %15
-  %27 = load i64, ptr %4, align 8, !tbaa !57
-  %28 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
-  store i64 %27, ptr %28, align 8, !tbaa !48
-  %29 = load ptr, ptr %5, align 8, !tbaa !49
-  %30 = getelementptr inbounds i8, ptr %29, i64 %27
-  store i8 0, ptr %30, align 1, !tbaa !58
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #27
-  %31 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
-  %32 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %31, ptr noundef nonnull align 8 dereferenceable(16) %32, i64 16, i1 false), !tbaa.struct !51
-  ret void
+33:                                               ; preds = %31
+  resume { ptr, i32 } %32
 
-33:                                               ; preds = %24
-  resume { ptr, i32 } %25
-
-34:                                               ; preds = %24
+34:                                               ; preds = %31
   %35 = landingpad { ptr, i32 }
           catch ptr null
   %36 = extractvalue { ptr, i32 } %35, 0
   call void @__clang_call_terminate(ptr %36) #29
   unreachable
 
-37:                                               ; preds = %20
+37:                                               ; preds = %27
   unreachable
 }
 

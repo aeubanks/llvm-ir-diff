@@ -803,17 +803,17 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %30, label %131, label %683
 
 131:                                              ; preds = %130
-  %132 = getelementptr inbounds double, ptr %29, i64 %20
-  %133 = ptrtoint ptr %29 to i64
+  %132 = icmp eq i32 %18, 0
+  %133 = getelementptr inbounds double, ptr %29, i64 %20
   %134 = tail call i64 @llvm.ctlz.i64(i64 %20, i1 true), !range !40
   %135 = shl nuw nsw i64 %134, 1
   %136 = xor i64 %135, 126
-  %137 = icmp sgt i32 %18, 16
-  %138 = getelementptr double, ptr %29, i64 1
-  %139 = icmp eq i32 %18, 1
-  %140 = getelementptr inbounds double, ptr %29, i64 16
-  %141 = icmp eq i32 %18, 16
-  %142 = icmp eq i32 %18, 0
+  %137 = ptrtoint ptr %29 to i64
+  %138 = icmp sgt i32 %18, 16
+  %139 = getelementptr double, ptr %29, i64 1
+  %140 = icmp eq i32 %18, 1
+  %141 = getelementptr inbounds double, ptr %29, i64 16
+  %142 = icmp eq i32 %18, 16
   %143 = getelementptr inbounds double, ptr %29, i64 2
   %144 = getelementptr inbounds double, ptr %29, i64 3
   %145 = getelementptr inbounds double, ptr %29, i64 4
@@ -914,26 +914,26 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 200:                                              ; preds = %131, %494
   %201 = phi i32 [ 0, %131 ], [ %495, %494 ]
-  br i1 %142, label %482, label %202
+  br i1 %132, label %482, label %202
 
 202:                                              ; preds = %200
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %29, ptr nonnull align 8 %24, i64 %22, i1 false)
-  tail call void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops15_Iter_comp_iterIPFbddEEEEvT_S7_T0_T1_(ptr noundef nonnull %29, ptr noundef nonnull %132, i64 noundef %136, ptr nonnull @_Z19less_than_function2dd)
-  br i1 %137, label %203, label %452
+  tail call void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops15_Iter_comp_iterIPFbddEEEEvT_S7_T0_T1_(ptr noundef nonnull %29, ptr noundef nonnull %133, i64 noundef %136, ptr nonnull @_Z19less_than_function2dd)
+  br i1 %138, label %203, label %452
 
 203:                                              ; preds = %202
-  %204 = load double, ptr %138, align 8, !tbaa !28
+  %204 = load double, ptr %139, align 8, !tbaa !28
   %205 = load double, ptr %29, align 8, !tbaa !28
   %206 = fcmp olt double %204, %205
   br i1 %206, label %207, label %209
 
 207:                                              ; preds = %203
   %208 = load i64, ptr %29, align 8
-  store i64 %208, ptr %138, align 8
+  store i64 %208, ptr %139, align 8
   br label %209
 
 209:                                              ; preds = %203, %207
-  %210 = phi ptr [ %29, %207 ], [ %138, %203 ]
+  %210 = phi ptr [ %29, %207 ], [ %139, %203 ]
   store double %204, ptr %210, align 8, !tbaa !28
   %211 = load double, ptr %143, align 8, !tbaa !28
   %212 = load double, ptr %29, align 8, !tbaa !28
@@ -941,13 +941,13 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %213, label %224, label %214
 
 214:                                              ; preds = %209
-  %215 = load double, ptr %138, align 8, !tbaa !28
+  %215 = load double, ptr %139, align 8, !tbaa !28
   %216 = fcmp olt double %211, %215
   br i1 %216, label %217, label %225
 
 217:                                              ; preds = %214, %217
   %218 = phi double [ %222, %217 ], [ %215, %214 ]
-  %219 = phi ptr [ %221, %217 ], [ %138, %214 ]
+  %219 = phi ptr [ %221, %217 ], [ %139, %214 ]
   %220 = phi ptr [ %219, %217 ], [ %143, %214 ]
   store double %218, ptr %220, align 8, !tbaa !28
   %221 = getelementptr inbounds double, ptr %219, i64 -1
@@ -956,7 +956,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %223, label %217, label %225, !llvm.loop !45
 
 224:                                              ; preds = %209
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %138, ptr noundef nonnull align 8 dereferenceable(16) %29, i64 16, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %139, ptr noundef nonnull align 8 dereferenceable(16) %29, i64 16, i1 false)
   br label %225
 
 225:                                              ; preds = %217, %224, %214
@@ -983,7 +983,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %239, label %233, label %241, !llvm.loop !45
 
 240:                                              ; preds = %225
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %138, ptr noundef nonnull align 8 dereferenceable(24) %29, i64 24, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %139, ptr noundef nonnull align 8 dereferenceable(24) %29, i64 24, i1 false)
   br label %241
 
 241:                                              ; preds = %233, %240, %230
@@ -1010,7 +1010,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %255, label %249, label %257, !llvm.loop !45
 
 256:                                              ; preds = %241
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %138, ptr noundef nonnull align 8 dereferenceable(32) %29, i64 32, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %139, ptr noundef nonnull align 8 dereferenceable(32) %29, i64 32, i1 false)
   br label %257
 
 257:                                              ; preds = %249, %256, %246
@@ -1037,7 +1037,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %271, label %265, label %273, !llvm.loop !45
 
 272:                                              ; preds = %257
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %138, ptr noundef nonnull align 8 dereferenceable(40) %29, i64 40, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %139, ptr noundef nonnull align 8 dereferenceable(40) %29, i64 40, i1 false)
   br label %273
 
 273:                                              ; preds = %265, %272, %262
@@ -1064,7 +1064,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %287, label %281, label %289, !llvm.loop !45
 
 288:                                              ; preds = %273
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %138, ptr noundef nonnull align 8 dereferenceable(48) %29, i64 48, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %139, ptr noundef nonnull align 8 dereferenceable(48) %29, i64 48, i1 false)
   br label %289
 
 289:                                              ; preds = %281, %288, %278
@@ -1091,7 +1091,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %303, label %297, label %305, !llvm.loop !45
 
 304:                                              ; preds = %289
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %138, ptr noundef nonnull align 8 dereferenceable(56) %29, i64 56, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %139, ptr noundef nonnull align 8 dereferenceable(56) %29, i64 56, i1 false)
   br label %305
 
 305:                                              ; preds = %297, %304, %294
@@ -1118,7 +1118,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %319, label %313, label %321, !llvm.loop !45
 
 320:                                              ; preds = %305
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(64) %138, ptr noundef nonnull align 8 dereferenceable(64) %29, i64 64, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(64) %139, ptr noundef nonnull align 8 dereferenceable(64) %29, i64 64, i1 false)
   br label %321
 
 321:                                              ; preds = %313, %320, %310
@@ -1145,7 +1145,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %335, label %329, label %337, !llvm.loop !45
 
 336:                                              ; preds = %321
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %138, ptr noundef nonnull align 8 dereferenceable(72) %29, i64 72, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %139, ptr noundef nonnull align 8 dereferenceable(72) %29, i64 72, i1 false)
   br label %337
 
 337:                                              ; preds = %329, %336, %326
@@ -1172,7 +1172,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %351, label %345, label %353, !llvm.loop !45
 
 352:                                              ; preds = %337
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(80) %138, ptr noundef nonnull align 8 dereferenceable(80) %29, i64 80, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(80) %139, ptr noundef nonnull align 8 dereferenceable(80) %29, i64 80, i1 false)
   br label %353
 
 353:                                              ; preds = %345, %352, %342
@@ -1199,7 +1199,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %367, label %361, label %369, !llvm.loop !45
 
 368:                                              ; preds = %353
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %138, ptr noundef nonnull align 8 dereferenceable(88) %29, i64 88, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %139, ptr noundef nonnull align 8 dereferenceable(88) %29, i64 88, i1 false)
   br label %369
 
 369:                                              ; preds = %361, %368, %358
@@ -1226,7 +1226,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %383, label %377, label %385, !llvm.loop !45
 
 384:                                              ; preds = %369
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %138, ptr noundef nonnull align 8 dereferenceable(96) %29, i64 96, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %139, ptr noundef nonnull align 8 dereferenceable(96) %29, i64 96, i1 false)
   br label %385
 
 385:                                              ; preds = %377, %384, %374
@@ -1253,7 +1253,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %399, label %393, label %401, !llvm.loop !45
 
 400:                                              ; preds = %385
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(104) %138, ptr noundef nonnull align 8 dereferenceable(104) %29, i64 104, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(104) %139, ptr noundef nonnull align 8 dereferenceable(104) %29, i64 104, i1 false)
   br label %401
 
 401:                                              ; preds = %393, %400, %390
@@ -1280,7 +1280,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %415, label %409, label %417, !llvm.loop !45
 
 416:                                              ; preds = %401
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(112) %138, ptr noundef nonnull align 8 dereferenceable(112) %29, i64 112, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(112) %139, ptr noundef nonnull align 8 dereferenceable(112) %29, i64 112, i1 false)
   br label %417
 
 417:                                              ; preds = %409, %416, %406
@@ -1307,16 +1307,16 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %431, label %425, label %433, !llvm.loop !45
 
 432:                                              ; preds = %417
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(120) %138, ptr noundef nonnull align 8 dereferenceable(120) %29, i64 120, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(120) %139, ptr noundef nonnull align 8 dereferenceable(120) %29, i64 120, i1 false)
   br label %433
 
 433:                                              ; preds = %425, %432, %422
   %434 = phi ptr [ %29, %432 ], [ %156, %422 ], [ %427, %425 ]
   store double %419, ptr %434, align 8, !tbaa !28
-  br i1 %141, label %482, label %435
+  br i1 %142, label %482, label %435
 
 435:                                              ; preds = %433, %448
-  %436 = phi ptr [ %450, %448 ], [ %140, %433 ]
+  %436 = phi ptr [ %450, %448 ], [ %141, %433 ]
   %437 = load double, ptr %436, align 8, !tbaa !28
   %438 = getelementptr inbounds double, ptr %436, i64 -1
   %439 = load double, ptr %438, align 8, !tbaa !28
@@ -1337,14 +1337,14 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %449 = phi ptr [ %436, %435 ], [ %443, %441 ]
   store double %437, ptr %449, align 8, !tbaa !28
   %450 = getelementptr inbounds double, ptr %436, i64 1
-  %451 = icmp eq ptr %450, %132
+  %451 = icmp eq ptr %450, %133
   br i1 %451, label %482, label %435, !llvm.loop !46
 
 452:                                              ; preds = %202
-  br i1 %139, label %482, label %453
+  br i1 %140, label %482, label %453
 
 453:                                              ; preds = %452, %478
-  %454 = phi ptr [ %480, %478 ], [ %138, %452 ]
+  %454 = phi ptr [ %480, %478 ], [ %139, %452 ]
   %455 = phi ptr [ %454, %478 ], [ %29, %452 ]
   %456 = load double, ptr %454, align 8, !tbaa !28
   %457 = load double, ptr %29, align 8, !tbaa !28
@@ -1357,7 +1357,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 461:                                              ; preds = %459
   %462 = ptrtoint ptr %454 to i64
-  %463 = sub i64 %462, %133
+  %463 = sub i64 %462, %137
   %464 = ashr exact i64 %463, 3
   %465 = sub nsw i64 0, %464
   %466 = getelementptr inbounds double, ptr %455, i64 2
@@ -1384,7 +1384,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %479 = phi ptr [ %29, %459 ], [ %29, %461 ], [ %454, %468 ], [ %473, %471 ]
   store double %456, ptr %479, align 8, !tbaa !28
   %480 = getelementptr inbounds double, ptr %454, i64 1
-  %481 = icmp eq ptr %480, %132
+  %481 = icmp eq ptr %480, %133
   br i1 %481, label %482, label %453, !llvm.loop !47
 
 482:                                              ; preds = %478, %448, %200, %452, %433
@@ -1393,7 +1393,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 483:                                              ; preds = %482, %487
   %484 = phi ptr [ %485, %487 ], [ %29, %482 ]
   %485 = getelementptr double, ptr %484, i64 1
-  %486 = icmp eq ptr %485, %132
+  %486 = icmp eq ptr %485, %133
   br i1 %486, label %494, label %487
 
 487:                                              ; preds = %483
@@ -1510,11 +1510,11 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %30, label %547, label %683
 
 547:                                              ; preds = %546
-  %548 = getelementptr inbounds double, ptr %29, i64 %20
-  %549 = tail call i64 @llvm.ctlz.i64(i64 %20, i1 true), !range !40
-  %550 = shl nuw nsw i64 %549, 1
-  %551 = xor i64 %550, 126
-  %552 = icmp eq i32 %18, 0
+  %548 = icmp eq i32 %18, 0
+  %549 = getelementptr inbounds double, ptr %29, i64 %20
+  %550 = tail call i64 @llvm.ctlz.i64(i64 %20, i1 true), !range !40
+  %551 = shl nuw nsw i64 %550, 1
+  %552 = xor i64 %551, 126
   br label %575
 
 553:                                              ; preds = %523, %568
@@ -1561,12 +1561,12 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 575:                                              ; preds = %547, %590
   %576 = phi i32 [ 0, %547 ], [ %591, %590 ]
-  br i1 %552, label %578, label %577
+  br i1 %548, label %578, label %577
 
 577:                                              ; preds = %575
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %29, ptr nonnull align 8 %24, i64 %22, i1 false)
-  tail call void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops15_Iter_comp_iterI24inline_less_than_functorEEEvT_S6_T0_T1_(ptr noundef nonnull %29, ptr noundef nonnull %548, i64 noundef %551)
-  tail call void @_ZSt22__final_insertion_sortIPdN9__gnu_cxx5__ops15_Iter_comp_iterI24inline_less_than_functorEEEvT_S6_T0_(ptr noundef nonnull %29, ptr noundef nonnull %548)
+  tail call void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops15_Iter_comp_iterI24inline_less_than_functorEEEvT_S6_T0_T1_(ptr noundef nonnull %29, ptr noundef nonnull %549, i64 noundef %552)
+  tail call void @_ZSt22__final_insertion_sortIPdN9__gnu_cxx5__ops15_Iter_comp_iterI24inline_less_than_functorEEEvT_S6_T0_(ptr noundef nonnull %29, ptr noundef nonnull %549)
   br label %578
 
 578:                                              ; preds = %575, %577
@@ -1575,7 +1575,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 579:                                              ; preds = %578, %583
   %580 = phi ptr [ %581, %583 ], [ %29, %578 ]
   %581 = getelementptr double, ptr %580, i64 1
-  %582 = icmp eq ptr %581, %548
+  %582 = icmp eq ptr %581, %549
   br i1 %582, label %590, label %583
 
 583:                                              ; preds = %579
@@ -1598,11 +1598,11 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %30, label %594, label %683
 
 594:                                              ; preds = %593
-  %595 = getelementptr inbounds double, ptr %29, i64 %20
-  %596 = tail call i64 @llvm.ctlz.i64(i64 %20, i1 true), !range !40
-  %597 = shl nuw nsw i64 %596, 1
-  %598 = xor i64 %597, 126
-  %599 = icmp eq i32 %18, 0
+  %595 = icmp eq i32 %18, 0
+  %596 = getelementptr inbounds double, ptr %29, i64 %20
+  %597 = tail call i64 @llvm.ctlz.i64(i64 %20, i1 true), !range !40
+  %598 = shl nuw nsw i64 %597, 1
+  %599 = xor i64 %598, 126
   br label %622
 
 600:                                              ; preds = %572, %615
@@ -1649,12 +1649,12 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 622:                                              ; preds = %594, %637
   %623 = phi i32 [ 0, %594 ], [ %638, %637 ]
-  br i1 %599, label %625, label %624
+  br i1 %595, label %625, label %624
 
 624:                                              ; preds = %622
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %29, ptr nonnull align 8 %24, i64 %22, i1 false)
-  tail call void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops15_Iter_comp_iterISt4lessIdEEEEvT_S7_T0_T1_(ptr noundef nonnull %29, ptr noundef nonnull %595, i64 noundef %598)
-  tail call void @_ZSt22__final_insertion_sortIPdN9__gnu_cxx5__ops15_Iter_comp_iterISt4lessIdEEEEvT_S7_T0_(ptr noundef nonnull %29, ptr noundef nonnull %595)
+  tail call void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops15_Iter_comp_iterISt4lessIdEEEEvT_S7_T0_T1_(ptr noundef nonnull %29, ptr noundef nonnull %596, i64 noundef %599)
+  tail call void @_ZSt22__final_insertion_sortIPdN9__gnu_cxx5__ops15_Iter_comp_iterISt4lessIdEEEEvT_S7_T0_(ptr noundef nonnull %29, ptr noundef nonnull %596)
   br label %625
 
 625:                                              ; preds = %622, %624
@@ -1663,7 +1663,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 626:                                              ; preds = %625, %630
   %627 = phi ptr [ %628, %630 ], [ %29, %625 ]
   %628 = getelementptr double, ptr %627, i64 1
-  %629 = icmp eq ptr %628, %595
+  %629 = icmp eq ptr %628, %596
   br i1 %629, label %637, label %630
 
 630:                                              ; preds = %626
@@ -1686,11 +1686,11 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   br i1 %30, label %641, label %683
 
 641:                                              ; preds = %640
-  %642 = getelementptr inbounds double, ptr %29, i64 %20
-  %643 = tail call i64 @llvm.ctlz.i64(i64 %20, i1 true), !range !40
-  %644 = shl nuw nsw i64 %643, 1
-  %645 = xor i64 %644, 126
-  %646 = icmp eq i32 %18, 0
+  %642 = icmp eq i32 %18, 0
+  %643 = getelementptr inbounds double, ptr %29, i64 %20
+  %644 = tail call i64 @llvm.ctlz.i64(i64 %20, i1 true), !range !40
+  %645 = shl nuw nsw i64 %644, 1
+  %646 = xor i64 %645, 126
   br label %665
 
 647:                                              ; preds = %619, %662
@@ -1729,12 +1729,12 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 665:                                              ; preds = %641, %680
   %666 = phi i32 [ 0, %641 ], [ %681, %680 ]
-  br i1 %646, label %668, label %667
+  br i1 %642, label %668, label %667
 
 667:                                              ; preds = %665
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %29, ptr nonnull align 8 %24, i64 %22, i1 false)
-  tail call void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops15_Iter_less_iterEEvT_S4_T0_T1_(ptr noundef nonnull %29, ptr noundef nonnull %642, i64 noundef %645)
-  tail call void @_ZSt22__final_insertion_sortIPdN9__gnu_cxx5__ops15_Iter_less_iterEEvT_S4_T0_(ptr noundef nonnull %29, ptr noundef nonnull %642)
+  tail call void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops15_Iter_less_iterEEvT_S4_T0_T1_(ptr noundef nonnull %29, ptr noundef nonnull %643, i64 noundef %646)
+  tail call void @_ZSt22__final_insertion_sortIPdN9__gnu_cxx5__ops15_Iter_less_iterEEvT_S4_T0_(ptr noundef nonnull %29, ptr noundef nonnull %643)
   br label %668
 
 668:                                              ; preds = %665, %667
@@ -1743,7 +1743,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 669:                                              ; preds = %668, %673
   %670 = phi ptr [ %671, %673 ], [ %29, %668 ]
   %671 = getelementptr double, ptr %670, i64 1
-  %672 = icmp eq ptr %671, %642
+  %672 = icmp eq ptr %671, %643
   br i1 %672, label %680, label %673
 
 673:                                              ; preds = %669
@@ -2101,7 +2101,7 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
 61:                                               ; preds = %58, %68
   %62 = phi i64 [ %64, %68 ], [ %59, %58 ]
   %63 = add nsw i64 %62, -1
-  %64 = lshr i64 %63, 1
+  %64 = sdiv i64 %63, 2
   %65 = getelementptr inbounds double, ptr %0, i64 %64
   %66 = load double, ptr %65, align 8, !tbaa !28
   %67 = call noundef zeroext i1 %3(double noundef %66, double noundef %21)
@@ -2111,11 +2111,11 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
   %69 = load double, ptr %65, align 8, !tbaa !28
   %70 = getelementptr inbounds double, ptr %0, i64 %62
   store double %69, ptr %70, align 8, !tbaa !28
-  %71 = icmp ult i64 %63, 2
-  br i1 %71, label %72, label %61, !llvm.loop !70
+  %71 = icmp sgt i64 %62, 2
+  br i1 %71, label %61, label %72, !llvm.loop !70
 
 72:                                               ; preds = %68, %61, %58
-  %73 = phi i64 [ %59, %58 ], [ %62, %61 ], [ 0, %68 ]
+  %73 = phi i64 [ %59, %58 ], [ %62, %61 ], [ %64, %68 ]
   %74 = getelementptr inbounds double, ptr %0, i64 %73
   store double %21, ptr %74, align 8, !tbaa !28
   %75 = icmp sgt i64 %24, 8
@@ -2477,7 +2477,7 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
 60:                                               ; preds = %57, %67
   %61 = phi i64 [ %63, %67 ], [ %58, %57 ]
   %62 = add nsw i64 %61, -1
-  %63 = lshr i64 %62, 1
+  %63 = sdiv i64 %62, 2
   %64 = getelementptr inbounds double, ptr %0, i64 %63
   %65 = load double, ptr %64, align 8, !tbaa !28
   %66 = fcmp olt double %65, %20
@@ -2486,11 +2486,11 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
 67:                                               ; preds = %60
   %68 = getelementptr inbounds double, ptr %0, i64 %61
   store double %65, ptr %68, align 8, !tbaa !28
-  %69 = icmp ult i64 %62, 2
-  br i1 %69, label %70, label %60, !llvm.loop !79
+  %69 = icmp sgt i64 %61, 2
+  br i1 %69, label %60, label %70, !llvm.loop !79
 
 70:                                               ; preds = %67, %60, %57
-  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ 0, %67 ]
+  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ %63, %67 ]
   %72 = getelementptr inbounds double, ptr %0, i64 %71
   store double %20, ptr %72, align 8, !tbaa !28
   %73 = icmp sgt i64 %23, 8
@@ -3330,7 +3330,7 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
 60:                                               ; preds = %57, %67
   %61 = phi i64 [ %63, %67 ], [ %58, %57 ]
   %62 = add nsw i64 %61, -1
-  %63 = lshr i64 %62, 1
+  %63 = sdiv i64 %62, 2
   %64 = getelementptr inbounds double, ptr %0, i64 %63
   %65 = load double, ptr %64, align 8, !tbaa !28
   %66 = fcmp olt double %65, %20
@@ -3339,11 +3339,11 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
 67:                                               ; preds = %60
   %68 = getelementptr inbounds double, ptr %0, i64 %61
   store double %65, ptr %68, align 8, !tbaa !28
-  %69 = icmp ult i64 %62, 2
-  br i1 %69, label %70, label %60, !llvm.loop !90
+  %69 = icmp sgt i64 %61, 2
+  br i1 %69, label %60, label %70, !llvm.loop !90
 
 70:                                               ; preds = %67, %60, %57
-  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ 0, %67 ]
+  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ %63, %67 ]
   %72 = getelementptr inbounds double, ptr %0, i64 %71
   store double %20, ptr %72, align 8, !tbaa !28
   %73 = icmp sgt i64 %23, 8
@@ -4183,7 +4183,7 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
 60:                                               ; preds = %57, %67
   %61 = phi i64 [ %63, %67 ], [ %58, %57 ]
   %62 = add nsw i64 %61, -1
-  %63 = lshr i64 %62, 1
+  %63 = sdiv i64 %62, 2
   %64 = getelementptr inbounds double, ptr %0, i64 %63
   %65 = load double, ptr %64, align 8, !tbaa !28
   %66 = fcmp olt double %65, %20
@@ -4192,11 +4192,11 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
 67:                                               ; preds = %60
   %68 = getelementptr inbounds double, ptr %0, i64 %61
   store double %65, ptr %68, align 8, !tbaa !28
-  %69 = icmp ult i64 %62, 2
-  br i1 %69, label %70, label %60, !llvm.loop !101
+  %69 = icmp sgt i64 %61, 2
+  br i1 %69, label %60, label %70, !llvm.loop !101
 
 70:                                               ; preds = %67, %60, %57
-  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ 0, %67 ]
+  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ %63, %67 ]
   %72 = getelementptr inbounds double, ptr %0, i64 %71
   store double %20, ptr %72, align 8, !tbaa !28
   %73 = icmp sgt i64 %23, 8
@@ -5036,7 +5036,7 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
 60:                                               ; preds = %57, %67
   %61 = phi i64 [ %63, %67 ], [ %58, %57 ]
   %62 = add nsw i64 %61, -1
-  %63 = lshr i64 %62, 1
+  %63 = sdiv i64 %62, 2
   %64 = getelementptr inbounds double, ptr %0, i64 %63
   %65 = load double, ptr %64, align 8, !tbaa !28
   %66 = fcmp olt double %65, %20
@@ -5045,11 +5045,11 @@ define linkonce_odr dso_local void @_ZSt16__introsort_loopIPdlN9__gnu_cxx5__ops1
 67:                                               ; preds = %60
   %68 = getelementptr inbounds double, ptr %0, i64 %61
   store double %65, ptr %68, align 8, !tbaa !28
-  %69 = icmp ult i64 %62, 2
-  br i1 %69, label %70, label %60, !llvm.loop !112
+  %69 = icmp sgt i64 %61, 2
+  br i1 %69, label %60, label %70, !llvm.loop !112
 
 70:                                               ; preds = %67, %60, %57
-  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ 0, %67 ]
+  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ %63, %67 ]
   %72 = getelementptr inbounds double, ptr %0, i64 %71
   store double %20, ptr %72, align 8, !tbaa !28
   %73 = icmp sgt i64 %23, 8

@@ -33,20 +33,20 @@ define dso_local void @_ZN9ConstPool4readEP9ClassfilePt(ptr nocapture noundef no
   %4 = load ptr, ptr %1, align 8, !tbaa !5
   %5 = getelementptr inbounds %struct.Classfile, ptr %1, i64 0, i32 2
   %6 = tail call i32 @getc(ptr noundef %4)
-  %7 = trunc i32 %6 to i16
-  %8 = tail call i32 @getc(ptr noundef %4)
-  %9 = trunc i32 %8 to i16
-  %10 = shl i16 %7, 8
-  %11 = and i16 %9, 255
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %0, align 8, !tbaa !16
-  %13 = zext i16 %12 to i64
-  %14 = shl nuw nsw i64 %13, 4
+  %7 = tail call i32 @getc(ptr noundef %4)
+  %8 = and i32 %7, 255
+  %9 = shl i32 %6, 8
+  %10 = or i32 %8, %9
+  %11 = trunc i32 %10 to i16
+  store i16 %11, ptr %0, align 8, !tbaa !16
+  %12 = shl i32 %10, 4
+  %13 = and i32 %12, 1048560
+  %14 = zext i32 %13 to i64
   %15 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %14) #5
   %16 = getelementptr inbounds %struct.ConstPool, ptr %0, i64 0, i32 1
   store ptr %15, ptr %16, align 8, !tbaa !17
   store i8 0, ptr %15, align 8, !tbaa !18
-  %17 = zext i16 %12 to i32
+  %17 = and i32 %10, 65535
   %18 = add nsw i32 %17, -1
   %19 = icmp eq i32 %18, 0
   br i1 %19, label %23, label %20
@@ -56,13 +56,13 @@ define dso_local void @_ZN9ConstPool4readEP9ClassfilePt(ptr nocapture noundef no
   %22 = getelementptr inbounds %struct.Classfile, ptr %1, i64 0, i32 1
   br label %24
 
-23:                                               ; preds = %353, %3
+23:                                               ; preds = %318, %3
   ret void
 
-24:                                               ; preds = %20, %353
-  %25 = phi i32 [ %21, %20 ], [ %356, %353 ]
-  %26 = phi i32 [ %18, %20 ], [ %355, %353 ]
-  %27 = phi i32 [ 1, %20 ], [ %354, %353 ]
+24:                                               ; preds = %20, %318
+  %25 = phi i32 [ %21, %20 ], [ %321, %318 ]
+  %26 = phi i32 [ %18, %20 ], [ %320, %318 ]
+  %27 = phi i32 [ 1, %20 ], [ %319, %318 ]
   %28 = load ptr, ptr %16, align 8, !tbaa !17
   %29 = add nsw i32 %27, 1
   %30 = sext i32 %27 to i64
@@ -84,406 +84,371 @@ define dso_local void @_ZN9ConstPool4readEP9ClassfilePt(ptr nocapture noundef no
 
 42:                                               ; preds = %24, %37
   %43 = phi i8 [ %34, %24 ], [ %41, %37 ]
-  switch i8 %43, label %347 [
+  switch i8 %43, label %312 [
     i8 1, label %44
-    i8 2, label %72
-    i8 3, label %78
-    i8 4, label %104
-    i8 5, label %133
-    i8 6, label %192
-    i8 7, label %247
-    i8 8, label %264
-    i8 9, label %281
-    i8 10, label %281
-    i8 11, label %281
-    i8 12, label %314
+    i8 2, label %70
+    i8 3, label %76
+    i8 4, label %98
+    i8 5, label %122
+    i8 6, label %173
+    i8 7, label %220
+    i8 8, label %235
+    i8 9, label %250
+    i8 10, label %250
+    i8 11, label %250
+    i8 12, label %281
   ]
 
 44:                                               ; preds = %42
   %45 = load ptr, ptr %1, align 8, !tbaa !5
   %46 = tail call i32 @getc(ptr noundef %45)
-  %47 = trunc i32 %46 to i16
-  %48 = tail call i32 @getc(ptr noundef %45)
-  %49 = trunc i32 %48 to i16
-  %50 = shl i16 %47, 8
-  %51 = and i16 %49, 255
-  %52 = or i16 %51, %50
-  %53 = zext i16 %52 to i32
-  %54 = add nuw nsw i32 %53, 1
-  %55 = zext i32 %54 to i64
-  %56 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %55) #5
-  %57 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
-  store ptr %56, ptr %57, align 8, !tbaa !23
-  %58 = load i32, ptr %5, align 8, !tbaa !22
-  %59 = add nsw i32 %58, %53
-  store i32 %59, ptr %5, align 8, !tbaa !22
-  %60 = load ptr, ptr %57, align 8, !tbaa !23
-  %61 = zext i16 %52 to i64
-  %62 = load ptr, ptr %1, align 8, !tbaa !5
-  %63 = tail call i64 @fread(ptr noundef %60, i64 noundef %61, i64 noundef 1, ptr noundef %62)
-  %64 = load ptr, ptr %57, align 8, !tbaa !23
-  %65 = getelementptr inbounds i8, ptr %64, i64 %61
-  store i8 0, ptr %65, align 1, !tbaa !23
-  %66 = load i32, ptr @debugon, align 4, !tbaa !20
-  %67 = icmp eq i32 %66, 0
-  br i1 %67, label %353, label %68
+  %47 = tail call i32 @getc(ptr noundef %45)
+  %48 = and i32 %47, 255
+  %49 = shl i32 %46, 8
+  %50 = and i32 %49, 65280
+  %51 = or i32 %48, %50
+  %52 = add nuw nsw i32 %51, 1
+  %53 = zext i32 %52 to i64
+  %54 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %53) #5
+  %55 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
+  store ptr %54, ptr %55, align 8, !tbaa !23
+  %56 = load i32, ptr %5, align 8, !tbaa !22
+  %57 = add nsw i32 %56, %51
+  store i32 %57, ptr %5, align 8, !tbaa !22
+  %58 = load ptr, ptr %55, align 8, !tbaa !23
+  %59 = zext i32 %51 to i64
+  %60 = load ptr, ptr %1, align 8, !tbaa !5
+  %61 = tail call i64 @fread(ptr noundef %58, i64 noundef %59, i64 noundef 1, ptr noundef %60)
+  %62 = load ptr, ptr %55, align 8, !tbaa !23
+  %63 = getelementptr inbounds i8, ptr %62, i64 %59
+  store i8 0, ptr %63, align 1, !tbaa !23
+  %64 = load i32, ptr @debugon, align 4, !tbaa !20
+  %65 = icmp eq i32 %64, 0
+  br i1 %65, label %318, label %66
 
-68:                                               ; preds = %44
-  %69 = load ptr, ptr %22, align 8, !tbaa !21
-  %70 = load ptr, ptr %57, align 8, !tbaa !23
-  %71 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %69, ptr noundef nonnull @.str.1, ptr noundef %70)
-  br label %353
+66:                                               ; preds = %44
+  %67 = load ptr, ptr %22, align 8, !tbaa !21
+  %68 = load ptr, ptr %55, align 8, !tbaa !23
+  %69 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %67, ptr noundef nonnull @.str.1, ptr noundef %68)
+  br label %318
 
-72:                                               ; preds = %42
-  %73 = load i32, ptr @debugon, align 4, !tbaa !20
-  %74 = icmp eq i32 %73, 0
-  br i1 %74, label %353, label %75
+70:                                               ; preds = %42
+  %71 = load i32, ptr @debugon, align 4, !tbaa !20
+  %72 = icmp eq i32 %71, 0
+  br i1 %72, label %318, label %73
 
-75:                                               ; preds = %72
-  %76 = load ptr, ptr %22, align 8, !tbaa !21
-  %77 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 8, i64 1, ptr %76)
-  br label %353
+73:                                               ; preds = %70
+  %74 = load ptr, ptr %22, align 8, !tbaa !21
+  %75 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 8, i64 1, ptr %74)
+  br label %318
 
-78:                                               ; preds = %42
-  %79 = load ptr, ptr %1, align 8, !tbaa !5
-  %80 = tail call i32 @getc(ptr noundef %79)
-  %81 = zext i32 %80 to i64
-  %82 = tail call i32 @getc(ptr noundef %79)
-  %83 = shl nuw nsw i64 %81, 8
-  %84 = and i32 %82, 255
-  %85 = zext i32 %84 to i64
-  %86 = and i64 %83, 65280
-  %87 = or i64 %86, %85
-  %88 = tail call i32 @getc(ptr noundef %79)
-  %89 = zext i32 %88 to i64
-  %90 = tail call i32 @getc(ptr noundef %79)
-  %91 = shl nuw nsw i64 %89, 8
-  %92 = and i32 %90, 255
-  %93 = zext i32 %92 to i64
-  %94 = and i64 %91, 65280
-  %95 = or i64 %94, %93
-  %96 = shl nuw nsw i64 %87, 16
-  %97 = or i64 %95, %96
-  %98 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
-  store i64 %97, ptr %98, align 8, !tbaa !23
-  %99 = load i32, ptr @debugon, align 4, !tbaa !20
-  %100 = icmp eq i32 %99, 0
-  br i1 %100, label %353, label %101
+76:                                               ; preds = %42
+  %77 = load ptr, ptr %1, align 8, !tbaa !5
+  %78 = tail call i32 @getc(ptr noundef %77)
+  %79 = tail call i32 @getc(ptr noundef %77)
+  %80 = tail call i32 @getc(ptr noundef %77)
+  %81 = tail call i32 @getc(ptr noundef %77)
+  %82 = and i32 %81, 255
+  %83 = shl i32 %80, 8
+  %84 = and i32 %83, 65280
+  %85 = or i32 %82, %84
+  %86 = shl i32 %78, 24
+  %87 = shl i32 %79, 16
+  %88 = and i32 %87, 16711680
+  %89 = or i32 %88, %86
+  %90 = or i32 %85, %89
+  %91 = zext i32 %90 to i64
+  %92 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
+  store i64 %91, ptr %92, align 8, !tbaa !23
+  %93 = load i32, ptr @debugon, align 4, !tbaa !20
+  %94 = icmp eq i32 %93, 0
+  br i1 %94, label %318, label %95
 
-101:                                              ; preds = %78
-  %102 = load ptr, ptr %22, align 8, !tbaa !21
-  %103 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %102, ptr noundef nonnull @.str.3, i64 noundef %97)
-  br label %353
+95:                                               ; preds = %76
+  %96 = load ptr, ptr %22, align 8, !tbaa !21
+  %97 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %96, ptr noundef nonnull @.str.3, i64 noundef %91)
+  br label %318
 
-104:                                              ; preds = %42
-  %105 = load ptr, ptr %1, align 8, !tbaa !5
-  %106 = tail call i32 @getc(ptr noundef %105)
-  %107 = zext i32 %106 to i64
-  %108 = tail call i32 @getc(ptr noundef %105)
-  %109 = shl nuw nsw i64 %107, 8
-  %110 = and i32 %108, 255
-  %111 = zext i32 %110 to i64
-  %112 = and i64 %109, 65280
-  %113 = or i64 %112, %111
-  %114 = tail call i32 @getc(ptr noundef %105)
-  %115 = zext i32 %114 to i64
-  %116 = tail call i32 @getc(ptr noundef %105)
-  %117 = shl nuw nsw i64 %115, 8
-  %118 = and i32 %116, 255
-  %119 = zext i32 %118 to i64
-  %120 = and i64 %117, 65280
-  %121 = or i64 %120, %119
-  %122 = shl nuw nsw i64 %113, 16
-  %123 = or i64 %121, %122
-  %124 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
-  store i64 %123, ptr %124, align 8, !tbaa !23
-  %125 = load i32, ptr @debugon, align 4, !tbaa !20
-  %126 = icmp eq i32 %125, 0
-  br i1 %126, label %353, label %127
+98:                                               ; preds = %42
+  %99 = load ptr, ptr %1, align 8, !tbaa !5
+  %100 = tail call i32 @getc(ptr noundef %99)
+  %101 = tail call i32 @getc(ptr noundef %99)
+  %102 = tail call i32 @getc(ptr noundef %99)
+  %103 = tail call i32 @getc(ptr noundef %99)
+  %104 = and i32 %103, 255
+  %105 = shl i32 %102, 8
+  %106 = and i32 %105, 65280
+  %107 = or i32 %104, %106
+  %108 = shl i32 %100, 24
+  %109 = shl i32 %101, 16
+  %110 = and i32 %109, 16711680
+  %111 = or i32 %110, %108
+  %112 = or i32 %107, %111
+  %113 = zext i32 %112 to i64
+  %114 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
+  store i64 %113, ptr %114, align 8, !tbaa !23
+  %115 = load i32, ptr @debugon, align 4, !tbaa !20
+  %116 = icmp eq i32 %115, 0
+  br i1 %116, label %318, label %117
 
-127:                                              ; preds = %104
-  %128 = trunc i64 %123 to i32
-  %129 = bitcast i32 %128 to float
-  %130 = load ptr, ptr %22, align 8, !tbaa !21
-  %131 = fpext float %129 to double
-  %132 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %130, ptr noundef nonnull @.str.4, double noundef %131)
-  br label %353
+117:                                              ; preds = %98
+  %118 = bitcast i32 %112 to float
+  %119 = load ptr, ptr %22, align 8, !tbaa !21
+  %120 = fpext float %118 to double
+  %121 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %119, ptr noundef nonnull @.str.4, double noundef %120)
+  br label %318
 
-133:                                              ; preds = %42
-  %134 = load ptr, ptr %1, align 8, !tbaa !5
-  %135 = tail call i32 @getc(ptr noundef %134)
-  %136 = zext i32 %135 to i64
-  %137 = tail call i32 @getc(ptr noundef %134)
-  %138 = shl nuw nsw i64 %136, 8
-  %139 = and i32 %137, 255
-  %140 = zext i32 %139 to i64
-  %141 = and i64 %138, 65280
-  %142 = or i64 %141, %140
-  %143 = tail call i32 @getc(ptr noundef %134)
-  %144 = zext i32 %143 to i64
-  %145 = tail call i32 @getc(ptr noundef %134)
-  %146 = shl nuw nsw i64 %144, 8
-  %147 = and i32 %145, 255
-  %148 = zext i32 %147 to i64
-  %149 = and i64 %146, 65280
-  %150 = or i64 %149, %148
-  %151 = shl nuw nsw i64 %142, 16
-  %152 = or i64 %150, %151
-  %153 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
-  store i64 %152, ptr %153, align 8, !tbaa !23
-  %154 = load ptr, ptr %16, align 8, !tbaa !17
-  %155 = add nsw i32 %27, 2
-  %156 = sext i32 %29 to i64
-  %157 = getelementptr inbounds %struct.cp_info, ptr %154, i64 %156
-  store i8 0, ptr %157, align 8, !tbaa !18
-  %158 = load ptr, ptr %1, align 8, !tbaa !5
-  %159 = tail call i32 @getc(ptr noundef %158)
-  %160 = zext i32 %159 to i64
-  %161 = tail call i32 @getc(ptr noundef %158)
-  %162 = shl nuw nsw i64 %160, 8
-  %163 = and i32 %161, 255
-  %164 = zext i32 %163 to i64
-  %165 = and i64 %162, 65280
-  %166 = or i64 %165, %164
-  %167 = tail call i32 @getc(ptr noundef %158)
-  %168 = zext i32 %167 to i64
-  %169 = tail call i32 @getc(ptr noundef %158)
-  %170 = shl nuw nsw i64 %168, 8
-  %171 = and i32 %169, 255
-  %172 = zext i32 %171 to i64
-  %173 = and i64 %170, 65280
-  %174 = or i64 %173, %172
-  %175 = shl nuw nsw i64 %166, 16
-  %176 = or i64 %174, %175
-  %177 = getelementptr inbounds %struct.cp_info, ptr %154, i64 %156, i32 1
-  store i64 %176, ptr %177, align 8, !tbaa !23
-  %178 = load i32, ptr @debugon, align 4, !tbaa !20
-  %179 = icmp eq i32 %178, 0
-  br i1 %179, label %190, label %180
+122:                                              ; preds = %42
+  %123 = load ptr, ptr %1, align 8, !tbaa !5
+  %124 = tail call i32 @getc(ptr noundef %123)
+  %125 = tail call i32 @getc(ptr noundef %123)
+  %126 = tail call i32 @getc(ptr noundef %123)
+  %127 = tail call i32 @getc(ptr noundef %123)
+  %128 = and i32 %127, 255
+  %129 = shl i32 %126, 8
+  %130 = and i32 %129, 65280
+  %131 = or i32 %128, %130
+  %132 = shl i32 %124, 24
+  %133 = shl i32 %125, 16
+  %134 = and i32 %133, 16711680
+  %135 = or i32 %134, %132
+  %136 = or i32 %131, %135
+  %137 = zext i32 %136 to i64
+  %138 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
+  store i64 %137, ptr %138, align 8, !tbaa !23
+  %139 = load ptr, ptr %16, align 8, !tbaa !17
+  %140 = add nsw i32 %27, 2
+  %141 = sext i32 %29 to i64
+  %142 = getelementptr inbounds %struct.cp_info, ptr %139, i64 %141
+  store i8 0, ptr %142, align 8, !tbaa !18
+  %143 = load ptr, ptr %1, align 8, !tbaa !5
+  %144 = tail call i32 @getc(ptr noundef %143)
+  %145 = tail call i32 @getc(ptr noundef %143)
+  %146 = tail call i32 @getc(ptr noundef %143)
+  %147 = tail call i32 @getc(ptr noundef %143)
+  %148 = and i32 %147, 255
+  %149 = shl i32 %146, 8
+  %150 = and i32 %149, 65280
+  %151 = or i32 %148, %150
+  %152 = shl i32 %144, 24
+  %153 = shl i32 %145, 16
+  %154 = and i32 %153, 16711680
+  %155 = or i32 %154, %152
+  %156 = or i32 %151, %155
+  %157 = zext i32 %156 to i64
+  %158 = getelementptr inbounds %struct.cp_info, ptr %139, i64 %141, i32 1
+  store i64 %157, ptr %158, align 8, !tbaa !23
+  %159 = load i32, ptr @debugon, align 4, !tbaa !20
+  %160 = icmp eq i32 %159, 0
+  br i1 %160, label %171, label %161
 
-180:                                              ; preds = %133
-  %181 = getelementptr inbounds %struct.cp_info, ptr %157, i64 -1
-  %182 = getelementptr inbounds %struct.cp_info, ptr %181, i64 0, i32 1
-  %183 = load i64, ptr %182, align 8, !tbaa !23
-  %184 = icmp eq i64 %183, 0
-  %185 = load ptr, ptr %22, align 8, !tbaa !21
-  br i1 %184, label %188, label %186
+161:                                              ; preds = %122
+  %162 = getelementptr inbounds %struct.cp_info, ptr %142, i64 -1
+  %163 = getelementptr inbounds %struct.cp_info, ptr %162, i64 0, i32 1
+  %164 = load i64, ptr %163, align 8, !tbaa !23
+  %165 = icmp eq i64 %164, 0
+  %166 = load ptr, ptr %22, align 8, !tbaa !21
+  br i1 %165, label %169, label %167
 
-186:                                              ; preds = %180
-  %187 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %185, ptr noundef nonnull @.str.5, i64 noundef %183, i64 noundef %176)
-  br label %190
+167:                                              ; preds = %161
+  %168 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %166, ptr noundef nonnull @.str.5, i64 noundef %164, i64 noundef %157)
+  br label %171
 
-188:                                              ; preds = %180
-  %189 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %185, ptr noundef nonnull @.str.6, i64 noundef %176)
-  br label %190
+169:                                              ; preds = %161
+  %170 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %166, ptr noundef nonnull @.str.6, i64 noundef %157)
+  br label %171
 
-190:                                              ; preds = %133, %186, %188
-  %191 = add nsw i32 %26, -2
-  br label %353, !llvm.loop !24
+171:                                              ; preds = %122, %167, %169
+  %172 = add nsw i32 %26, -2
+  br label %318, !llvm.loop !24
 
-192:                                              ; preds = %42
-  %193 = load ptr, ptr %1, align 8, !tbaa !5
-  %194 = tail call i32 @getc(ptr noundef %193)
-  %195 = zext i32 %194 to i64
-  %196 = tail call i32 @getc(ptr noundef %193)
-  %197 = shl nuw nsw i64 %195, 8
-  %198 = and i32 %196, 255
-  %199 = zext i32 %198 to i64
-  %200 = and i64 %197, 65280
-  %201 = or i64 %200, %199
-  %202 = tail call i32 @getc(ptr noundef %193)
-  %203 = zext i32 %202 to i64
-  %204 = tail call i32 @getc(ptr noundef %193)
-  %205 = shl nuw nsw i64 %203, 8
-  %206 = and i32 %204, 255
-  %207 = zext i32 %206 to i64
-  %208 = and i64 %205, 65280
-  %209 = or i64 %208, %207
-  %210 = shl nuw nsw i64 %201, 16
-  %211 = or i64 %209, %210
-  %212 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
-  %213 = getelementptr inbounds i64, ptr %212, i64 1
-  store i64 %211, ptr %213, align 8, !tbaa !26
-  %214 = load ptr, ptr %1, align 8, !tbaa !5
-  %215 = tail call i32 @getc(ptr noundef %214)
-  %216 = zext i32 %215 to i64
-  %217 = tail call i32 @getc(ptr noundef %214)
-  %218 = shl nuw nsw i64 %216, 8
-  %219 = and i32 %217, 255
-  %220 = zext i32 %219 to i64
-  %221 = and i64 %218, 65280
-  %222 = or i64 %221, %220
-  %223 = tail call i32 @getc(ptr noundef %214)
-  %224 = zext i32 %223 to i64
-  %225 = tail call i32 @getc(ptr noundef %214)
-  %226 = shl nuw nsw i64 %224, 8
-  %227 = and i32 %225, 255
+173:                                              ; preds = %42
+  %174 = load ptr, ptr %1, align 8, !tbaa !5
+  %175 = tail call i32 @getc(ptr noundef %174)
+  %176 = tail call i32 @getc(ptr noundef %174)
+  %177 = tail call i32 @getc(ptr noundef %174)
+  %178 = tail call i32 @getc(ptr noundef %174)
+  %179 = and i32 %178, 255
+  %180 = shl i32 %177, 8
+  %181 = and i32 %180, 65280
+  %182 = or i32 %179, %181
+  %183 = shl i32 %175, 24
+  %184 = shl i32 %176, 16
+  %185 = and i32 %184, 16711680
+  %186 = or i32 %185, %183
+  %187 = or i32 %182, %186
+  %188 = zext i32 %187 to i64
+  %189 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
+  %190 = getelementptr inbounds i64, ptr %189, i64 1
+  store i64 %188, ptr %190, align 8, !tbaa !26
+  %191 = load ptr, ptr %1, align 8, !tbaa !5
+  %192 = tail call i32 @getc(ptr noundef %191)
+  %193 = tail call i32 @getc(ptr noundef %191)
+  %194 = tail call i32 @getc(ptr noundef %191)
+  %195 = tail call i32 @getc(ptr noundef %191)
+  %196 = and i32 %195, 255
+  %197 = shl i32 %194, 8
+  %198 = and i32 %197, 65280
+  %199 = or i32 %196, %198
+  %200 = shl i32 %192, 24
+  %201 = shl i32 %193, 16
+  %202 = and i32 %201, 16711680
+  %203 = or i32 %202, %200
+  %204 = or i32 %199, %203
+  %205 = zext i32 %204 to i64
+  store i64 %205, ptr %189, align 8, !tbaa !23
+  %206 = load i32, ptr @debugon, align 4, !tbaa !20
+  %207 = icmp eq i32 %206, 0
+  br i1 %207, label %214, label %208
+
+208:                                              ; preds = %173
+  %209 = bitcast i64 %205 to double
+  %210 = load ptr, ptr %22, align 8, !tbaa !21
+  %211 = fptrunc double %209 to float
+  %212 = fpext float %211 to double
+  %213 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %210, ptr noundef nonnull @.str.7, double noundef %212)
+  br label %214
+
+214:                                              ; preds = %173, %208
+  %215 = load ptr, ptr %16, align 8, !tbaa !17
+  %216 = add nsw i32 %27, 2
+  %217 = sext i32 %29 to i64
+  %218 = getelementptr inbounds %struct.cp_info, ptr %215, i64 %217
+  store i8 0, ptr %218, align 8, !tbaa !18
+  %219 = add nsw i32 %26, -2
+  br label %318, !llvm.loop !24
+
+220:                                              ; preds = %42
+  %221 = load ptr, ptr %1, align 8, !tbaa !5
+  %222 = tail call i32 @getc(ptr noundef %221)
+  %223 = tail call i32 @getc(ptr noundef %221)
+  %224 = and i32 %223, 255
+  %225 = shl i32 %222, 8
+  %226 = and i32 %225, 65280
+  %227 = or i32 %224, %226
   %228 = zext i32 %227 to i64
-  %229 = and i64 %226, 65280
-  %230 = or i64 %229, %228
-  %231 = shl nuw nsw i64 %222, 16
-  %232 = or i64 %230, %231
-  store i64 %232, ptr %212, align 8, !tbaa !23
-  %233 = load i32, ptr @debugon, align 4, !tbaa !20
-  %234 = icmp eq i32 %233, 0
-  br i1 %234, label %241, label %235
+  %229 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
+  store i64 %228, ptr %229, align 8, !tbaa !23
+  %230 = load i32, ptr @debugon, align 4, !tbaa !20
+  %231 = icmp eq i32 %230, 0
+  br i1 %231, label %318, label %232
 
-235:                                              ; preds = %192
-  %236 = bitcast i64 %232 to double
-  %237 = load ptr, ptr %22, align 8, !tbaa !21
-  %238 = fptrunc double %236 to float
-  %239 = fpext float %238 to double
-  %240 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %237, ptr noundef nonnull @.str.7, double noundef %239)
-  br label %241
+232:                                              ; preds = %220
+  %233 = load ptr, ptr %22, align 8, !tbaa !21
+  %234 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %233, ptr noundef nonnull @.str.8, i32 noundef %227)
+  br label %318
 
-241:                                              ; preds = %192, %235
-  %242 = load ptr, ptr %16, align 8, !tbaa !17
-  %243 = add nsw i32 %27, 2
-  %244 = sext i32 %29 to i64
-  %245 = getelementptr inbounds %struct.cp_info, ptr %242, i64 %244
-  store i8 0, ptr %245, align 8, !tbaa !18
-  %246 = add nsw i32 %26, -2
-  br label %353, !llvm.loop !24
+235:                                              ; preds = %42
+  %236 = load ptr, ptr %1, align 8, !tbaa !5
+  %237 = tail call i32 @getc(ptr noundef %236)
+  %238 = tail call i32 @getc(ptr noundef %236)
+  %239 = and i32 %238, 255
+  %240 = shl i32 %237, 8
+  %241 = and i32 %240, 65280
+  %242 = or i32 %239, %241
+  %243 = zext i32 %242 to i64
+  %244 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
+  store i64 %243, ptr %244, align 8, !tbaa !23
+  %245 = load i32, ptr @debugon, align 4, !tbaa !20
+  %246 = icmp eq i32 %245, 0
+  br i1 %246, label %318, label %247
 
-247:                                              ; preds = %42
-  %248 = load ptr, ptr %1, align 8, !tbaa !5
-  %249 = tail call i32 @getc(ptr noundef %248)
-  %250 = trunc i32 %249 to i16
-  %251 = tail call i32 @getc(ptr noundef %248)
-  %252 = trunc i32 %251 to i16
-  %253 = shl i16 %250, 8
-  %254 = and i16 %252, 255
-  %255 = or i16 %254, %253
-  %256 = zext i16 %255 to i64
-  %257 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
-  store i64 %256, ptr %257, align 8, !tbaa !23
-  %258 = load i32, ptr @debugon, align 4, !tbaa !20
-  %259 = icmp eq i32 %258, 0
-  br i1 %259, label %353, label %260
+247:                                              ; preds = %235
+  %248 = load ptr, ptr %22, align 8, !tbaa !21
+  %249 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %248, ptr noundef nonnull @.str.9, i32 noundef %242)
+  br label %318
 
-260:                                              ; preds = %247
-  %261 = load ptr, ptr %22, align 8, !tbaa !21
-  %262 = zext i16 %255 to i32
-  %263 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %261, ptr noundef nonnull @.str.8, i32 noundef %262)
-  br label %353
-
-264:                                              ; preds = %42
-  %265 = load ptr, ptr %1, align 8, !tbaa !5
-  %266 = tail call i32 @getc(ptr noundef %265)
+250:                                              ; preds = %42, %42, %42
+  %251 = tail call noalias noundef nonnull dereferenceable(4) ptr @_Znwm(i64 noundef 4) #5
+  %252 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
+  store ptr %251, ptr %252, align 8, !tbaa !23
+  %253 = load ptr, ptr %1, align 8, !tbaa !5
+  %254 = tail call i32 @getc(ptr noundef %253)
+  %255 = tail call i32 @getc(ptr noundef %253)
+  %256 = and i32 %255, 255
+  %257 = shl i32 %254, 8
+  %258 = or i32 %256, %257
+  %259 = trunc i32 %258 to i16
+  %260 = load ptr, ptr %252, align 8, !tbaa !23
+  store i16 %259, ptr %260, align 2, !tbaa !28
+  %261 = load ptr, ptr %1, align 8, !tbaa !5
+  %262 = tail call i32 @getc(ptr noundef %261)
+  %263 = tail call i32 @getc(ptr noundef %261)
+  %264 = and i32 %263, 255
+  %265 = shl i32 %262, 8
+  %266 = or i32 %264, %265
   %267 = trunc i32 %266 to i16
-  %268 = tail call i32 @getc(ptr noundef %265)
-  %269 = trunc i32 %268 to i16
-  %270 = shl i16 %267, 8
-  %271 = and i16 %269, 255
-  %272 = or i16 %271, %270
-  %273 = zext i16 %272 to i64
-  %274 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
-  store i64 %273, ptr %274, align 8, !tbaa !23
-  %275 = load i32, ptr @debugon, align 4, !tbaa !20
-  %276 = icmp eq i32 %275, 0
-  br i1 %276, label %353, label %277
+  %268 = load ptr, ptr %252, align 8, !tbaa !23
+  %269 = getelementptr inbounds %struct.Ref, ptr %268, i64 0, i32 1
+  store i16 %267, ptr %269, align 2, !tbaa !30
+  %270 = load i32, ptr @debugon, align 4, !tbaa !20
+  %271 = icmp eq i32 %270, 0
+  br i1 %271, label %318, label %272
 
-277:                                              ; preds = %264
-  %278 = load ptr, ptr %22, align 8, !tbaa !21
-  %279 = zext i16 %272 to i32
-  %280 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %278, ptr noundef nonnull @.str.9, i32 noundef %279)
-  br label %353
+272:                                              ; preds = %250
+  %273 = load ptr, ptr %22, align 8, !tbaa !21
+  %274 = load ptr, ptr %252, align 8, !tbaa !23
+  %275 = load i16, ptr %274, align 2, !tbaa !28
+  %276 = zext i16 %275 to i32
+  %277 = getelementptr inbounds %struct.Ref, ptr %274, i64 0, i32 1
+  %278 = load i16, ptr %277, align 2, !tbaa !30
+  %279 = zext i16 %278 to i32
+  %280 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %273, ptr noundef nonnull @.str.10, i32 noundef %276, i32 noundef %279)
+  br label %318
 
-281:                                              ; preds = %42, %42, %42
+281:                                              ; preds = %42
   %282 = tail call noalias noundef nonnull dereferenceable(4) ptr @_Znwm(i64 noundef 4) #5
   %283 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
   store ptr %282, ptr %283, align 8, !tbaa !23
   %284 = load ptr, ptr %1, align 8, !tbaa !5
   %285 = tail call i32 @getc(ptr noundef %284)
-  %286 = trunc i32 %285 to i16
-  %287 = tail call i32 @getc(ptr noundef %284)
-  %288 = trunc i32 %287 to i16
-  %289 = shl i16 %286, 8
-  %290 = and i16 %288, 255
-  %291 = or i16 %290, %289
-  %292 = load ptr, ptr %283, align 8, !tbaa !23
-  store i16 %291, ptr %292, align 2, !tbaa !28
-  %293 = load ptr, ptr %1, align 8, !tbaa !5
-  %294 = tail call i32 @getc(ptr noundef %293)
-  %295 = trunc i32 %294 to i16
-  %296 = tail call i32 @getc(ptr noundef %293)
-  %297 = trunc i32 %296 to i16
-  %298 = shl i16 %295, 8
-  %299 = and i16 %297, 255
-  %300 = or i16 %299, %298
-  %301 = load ptr, ptr %283, align 8, !tbaa !23
-  %302 = getelementptr inbounds %struct.Ref, ptr %301, i64 0, i32 1
-  store i16 %300, ptr %302, align 2, !tbaa !30
-  %303 = load i32, ptr @debugon, align 4, !tbaa !20
-  %304 = icmp eq i32 %303, 0
-  br i1 %304, label %353, label %305
+  %286 = tail call i32 @getc(ptr noundef %284)
+  %287 = and i32 %286, 255
+  %288 = shl i32 %285, 8
+  %289 = or i32 %287, %288
+  %290 = trunc i32 %289 to i16
+  %291 = load ptr, ptr %283, align 8, !tbaa !23
+  store i16 %290, ptr %291, align 2, !tbaa !31
+  %292 = load ptr, ptr %1, align 8, !tbaa !5
+  %293 = tail call i32 @getc(ptr noundef %292)
+  %294 = tail call i32 @getc(ptr noundef %292)
+  %295 = and i32 %294, 255
+  %296 = shl i32 %293, 8
+  %297 = or i32 %295, %296
+  %298 = trunc i32 %297 to i16
+  %299 = load ptr, ptr %283, align 8, !tbaa !23
+  %300 = getelementptr inbounds %struct.NameAndType, ptr %299, i64 0, i32 1
+  store i16 %298, ptr %300, align 2, !tbaa !33
+  %301 = load i32, ptr @debugon, align 4, !tbaa !20
+  %302 = icmp eq i32 %301, 0
+  br i1 %302, label %318, label %303
 
-305:                                              ; preds = %281
-  %306 = load ptr, ptr %22, align 8, !tbaa !21
-  %307 = load ptr, ptr %283, align 8, !tbaa !23
-  %308 = load i16, ptr %307, align 2, !tbaa !28
-  %309 = zext i16 %308 to i32
-  %310 = getelementptr inbounds %struct.Ref, ptr %307, i64 0, i32 1
-  %311 = load i16, ptr %310, align 2, !tbaa !30
-  %312 = zext i16 %311 to i32
-  %313 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %306, ptr noundef nonnull @.str.10, i32 noundef %309, i32 noundef %312)
-  br label %353
+303:                                              ; preds = %281
+  %304 = load ptr, ptr %22, align 8, !tbaa !21
+  %305 = load ptr, ptr %283, align 8, !tbaa !23
+  %306 = load i16, ptr %305, align 2, !tbaa !31
+  %307 = zext i16 %306 to i32
+  %308 = getelementptr inbounds %struct.NameAndType, ptr %305, i64 0, i32 1
+  %309 = load i16, ptr %308, align 2, !tbaa !33
+  %310 = zext i16 %309 to i32
+  %311 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %304, ptr noundef nonnull @.str.11, i32 noundef %307, i32 noundef %310)
+  br label %318
 
-314:                                              ; preds = %42
-  %315 = tail call noalias noundef nonnull dereferenceable(4) ptr @_Znwm(i64 noundef 4) #5
-  %316 = getelementptr inbounds %struct.cp_info, ptr %28, i64 %30, i32 1
-  store ptr %315, ptr %316, align 8, !tbaa !23
-  %317 = load ptr, ptr %1, align 8, !tbaa !5
-  %318 = tail call i32 @getc(ptr noundef %317)
-  %319 = trunc i32 %318 to i16
-  %320 = tail call i32 @getc(ptr noundef %317)
-  %321 = trunc i32 %320 to i16
-  %322 = shl i16 %319, 8
-  %323 = and i16 %321, 255
-  %324 = or i16 %323, %322
-  %325 = load ptr, ptr %316, align 8, !tbaa !23
-  store i16 %324, ptr %325, align 2, !tbaa !31
-  %326 = load ptr, ptr %1, align 8, !tbaa !5
-  %327 = tail call i32 @getc(ptr noundef %326)
-  %328 = trunc i32 %327 to i16
-  %329 = tail call i32 @getc(ptr noundef %326)
-  %330 = trunc i32 %329 to i16
-  %331 = shl i16 %328, 8
-  %332 = and i16 %330, 255
-  %333 = or i16 %332, %331
-  %334 = load ptr, ptr %316, align 8, !tbaa !23
-  %335 = getelementptr inbounds %struct.NameAndType, ptr %334, i64 0, i32 1
-  store i16 %333, ptr %335, align 2, !tbaa !33
-  %336 = load i32, ptr @debugon, align 4, !tbaa !20
-  %337 = icmp eq i32 %336, 0
-  br i1 %337, label %353, label %338
-
-338:                                              ; preds = %314
-  %339 = load ptr, ptr %22, align 8, !tbaa !21
-  %340 = load ptr, ptr %316, align 8, !tbaa !23
-  %341 = load i16, ptr %340, align 2, !tbaa !31
-  %342 = zext i16 %341 to i32
-  %343 = getelementptr inbounds %struct.NameAndType, ptr %340, i64 0, i32 1
-  %344 = load i16, ptr %343, align 2, !tbaa !33
-  %345 = zext i16 %344 to i32
-  %346 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %339, ptr noundef nonnull @.str.11, i32 noundef %342, i32 noundef %345)
-  br label %353
-
-347:                                              ; preds = %42
-  %348 = load ptr, ptr @stderr, align 8, !tbaa !34
-  %349 = load i16, ptr %0, align 8, !tbaa !16
-  %350 = zext i16 %349 to i32
-  %351 = load i32, ptr %5, align 8, !tbaa !22
-  %352 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %348, ptr noundef nonnull @.str.12, i32 noundef %29, i32 noundef %350, i32 noundef %351) #6
+312:                                              ; preds = %42
+  %313 = load ptr, ptr @stderr, align 8, !tbaa !34
+  %314 = load i16, ptr %0, align 8, !tbaa !16
+  %315 = zext i16 %314 to i32
+  %316 = load i32, ptr %5, align 8, !tbaa !22
+  %317 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %313, ptr noundef nonnull @.str.12, i32 noundef %29, i32 noundef %315, i32 noundef %316) #6
   tail call void (i32, ...) @_Z10fatalerroriz(i32 noundef 6)
-  br label %353
+  br label %318
 
-353:                                              ; preds = %241, %190, %347, %44, %68, %72, %75, %78, %101, %104, %127, %247, %260, %264, %277, %281, %305, %314, %338
-  %354 = phi i32 [ %29, %347 ], [ %29, %338 ], [ %29, %314 ], [ %29, %305 ], [ %29, %281 ], [ %29, %277 ], [ %29, %264 ], [ %29, %260 ], [ %29, %247 ], [ %243, %241 ], [ %155, %190 ], [ %29, %127 ], [ %29, %104 ], [ %29, %101 ], [ %29, %78 ], [ %29, %75 ], [ %29, %72 ], [ %29, %68 ], [ %29, %44 ]
-  %355 = phi i32 [ %25, %347 ], [ %25, %338 ], [ %25, %314 ], [ %25, %305 ], [ %25, %281 ], [ %25, %277 ], [ %25, %264 ], [ %25, %260 ], [ %25, %247 ], [ %246, %241 ], [ %191, %190 ], [ %25, %127 ], [ %25, %104 ], [ %25, %101 ], [ %25, %78 ], [ %25, %75 ], [ %25, %72 ], [ %25, %68 ], [ %25, %44 ]
-  %356 = add nsw i32 %355, -1
-  %357 = icmp eq i32 %355, 0
-  br i1 %357, label %23, label %24
+318:                                              ; preds = %214, %171, %312, %44, %66, %70, %73, %76, %95, %98, %117, %220, %232, %235, %247, %250, %272, %281, %303
+  %319 = phi i32 [ %29, %312 ], [ %29, %303 ], [ %29, %281 ], [ %29, %272 ], [ %29, %250 ], [ %29, %247 ], [ %29, %235 ], [ %29, %232 ], [ %29, %220 ], [ %216, %214 ], [ %140, %171 ], [ %29, %117 ], [ %29, %98 ], [ %29, %95 ], [ %29, %76 ], [ %29, %73 ], [ %29, %70 ], [ %29, %66 ], [ %29, %44 ]
+  %320 = phi i32 [ %25, %312 ], [ %25, %303 ], [ %25, %281 ], [ %25, %272 ], [ %25, %250 ], [ %25, %247 ], [ %25, %235 ], [ %25, %232 ], [ %25, %220 ], [ %219, %214 ], [ %172, %171 ], [ %25, %117 ], [ %25, %98 ], [ %25, %95 ], [ %25, %76 ], [ %25, %73 ], [ %25, %70 ], [ %25, %66 ], [ %25, %44 ]
+  %321 = add nsw i32 %320, -1
+  %322 = icmp eq i32 %320, 0
+  br i1 %322, label %23, label %24
 }
 
 ; Function Attrs: nobuiltin allocsize(0)

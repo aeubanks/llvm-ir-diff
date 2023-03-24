@@ -407,8 +407,8 @@ define dso_local i32 @open_std_file(ptr nocapture noundef readonly %0, ptr nocap
   %101 = icmp eq i32 %100, 0
   br i1 %101, label %12, label %102
 
-102:                                              ; preds = %63, %94, %68, %12, %22
-  %103 = phi i32 [ -7, %12 ], [ 0, %22 ], [ 0, %68 ], [ -22, %94 ], [ -15, %63 ]
+102:                                              ; preds = %63, %94, %12, %68, %22
+  %103 = phi i32 [ -7, %12 ], [ 0, %68 ], [ 0, %22 ], [ -22, %94 ], [ -15, %63 ]
   ret i32 %103
 }
 
@@ -1099,69 +1099,139 @@ define dso_local i32 @write_string(ptr nocapture noundef readonly %0, ptr nounde
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @zreadline(ptr nocapture noundef %0) #0 {
-  %2 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #14
-  %3 = getelementptr inbounds %struct.ref_s, ptr %0, i64 -1
-  %4 = getelementptr %struct.ref_s, ptr %0, i64 -1, i32 1
-  %5 = load i16, ptr %4, align 8, !tbaa !15
-  %6 = and i16 %5, 252
-  %7 = icmp eq i16 %6, 12
-  br i1 %7, label %8, label %41
+  %2 = getelementptr inbounds %struct.ref_s, ptr %0, i64 -1
+  %3 = getelementptr %struct.ref_s, ptr %0, i64 -1, i32 1
+  %4 = load i16, ptr %3, align 8, !tbaa !15
+  %5 = and i16 %4, 252
+  %6 = icmp eq i16 %5, 12
+  br i1 %6, label %7, label %78
 
-8:                                                ; preds = %1
-  %9 = load ptr, ptr %3, align 8, !tbaa !14
-  %10 = load ptr, ptr %9, align 8, !tbaa !5
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %41, label %12
+7:                                                ; preds = %1
+  %8 = load ptr, ptr %2, align 8, !tbaa !14
+  %9 = load ptr, ptr %8, align 8, !tbaa !5
+  %10 = icmp eq ptr %9, null
+  br i1 %10, label %78, label %11
 
-12:                                               ; preds = %8
-  %13 = getelementptr inbounds %struct.stream_s, ptr %10, i64 0, i32 4
-  %14 = load i8, ptr %13, align 4, !tbaa !38
-  %15 = icmp ne i8 %14, 0
-  %16 = and i16 %5, 512
-  %17 = icmp eq i16 %16, 0
-  %18 = select i1 %15, i1 true, i1 %17
-  br i1 %18, label %41, label %19
+11:                                               ; preds = %7
+  %12 = getelementptr inbounds %struct.stream_s, ptr %9, i64 0, i32 4
+  %13 = load i8, ptr %12, align 4, !tbaa !38
+  %14 = icmp ne i8 %13, 0
+  %15 = and i16 %4, 512
+  %16 = icmp eq i16 %15, 0
+  %17 = select i1 %14, i1 true, i1 %16
+  br i1 %17, label %78, label %18
 
-19:                                               ; preds = %12
-  %20 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 1
-  %21 = load i16, ptr %20, align 8, !tbaa !15
-  %22 = zext i16 %21 to i32
-  %23 = and i32 %22, 252
-  %24 = icmp eq i32 %23, 52
-  br i1 %24, label %25, label %41
+18:                                               ; preds = %11
+  %19 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 1
+  %20 = load i16, ptr %19, align 8, !tbaa !15
+  %21 = zext i16 %20 to i32
+  %22 = and i32 %21, 252
+  %23 = icmp eq i32 %22, 52
+  br i1 %23, label %24, label %78
 
-25:                                               ; preds = %19
-  %26 = and i32 %22, 256
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %41, label %28
+24:                                               ; preds = %18
+  %25 = and i32 %21, 256
+  %26 = icmp eq i32 %25, 0
+  br i1 %26, label %78, label %27
 
-28:                                               ; preds = %25
-  %29 = load ptr, ptr %0, align 8, !tbaa !14
-  %30 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 2
-  %31 = load i16, ptr %30, align 2, !tbaa !24
-  %32 = zext i16 %31 to i32
-  %33 = call i32 @zreadline_from(ptr noundef %29, i32 noundef %32, ptr noundef nonnull %2, ptr noundef nonnull %10), !range !42
-  %34 = icmp slt i32 %33, 0
-  br i1 %34, label %41, label %35
+27:                                               ; preds = %24
+  %28 = getelementptr inbounds %struct.ref_s, ptr %0, i64 0, i32 2
+  %29 = load i16, ptr %28, align 2, !tbaa !24
+  %30 = zext i16 %29 to i32
+  %31 = icmp eq i16 %29, 0
+  br i1 %31, label %78, label %32
 
-35:                                               ; preds = %28
-  %36 = load i32, ptr %2, align 4, !tbaa !26
-  %37 = trunc i32 %36 to i16
-  store i16 %37, ptr %30, align 2, !tbaa !24
-  %38 = load i16, ptr %20, align 8, !tbaa !15
-  %39 = or i16 %38, -32768
-  store i16 %39, ptr %20, align 8, !tbaa !15
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %3, ptr noundef nonnull align 8 dereferenceable(16) %0, i64 16, i1 false), !tbaa.struct !16
-  %40 = trunc i32 %33 to i16
-  store i16 %40, ptr %0, align 8, !tbaa !14
-  store i16 4, ptr %20, align 8, !tbaa !15
-  br label %41
+32:                                               ; preds = %27
+  %33 = load ptr, ptr %0, align 8, !tbaa !14
+  %34 = getelementptr inbounds %struct.stream_s, ptr %9, i64 0, i32 1
+  %35 = getelementptr inbounds %struct.stream_s, ptr %9, i64 0, i32 7
+  br label %36
 
-41:                                               ; preds = %28, %25, %19, %12, %8, %1, %35
-  %42 = phi i32 [ 0, %35 ], [ -20, %1 ], [ -7, %8 ], [ -7, %12 ], [ -20, %19 ], [ -7, %25 ], [ %33, %28 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #14
-  ret i32 %42
+36:                                               ; preds = %67, %32
+  %37 = phi i32 [ 0, %32 ], [ %70, %67 ]
+  %38 = phi ptr [ %33, %32 ], [ %69, %67 ]
+  %39 = load ptr, ptr %9, align 8, !tbaa !27
+  %40 = load ptr, ptr %34, align 8, !tbaa !30
+  %41 = icmp ult ptr %39, %40
+  br i1 %41, label %42, label %46
+
+42:                                               ; preds = %36
+  %43 = getelementptr inbounds i8, ptr %39, i64 1
+  store ptr %43, ptr %9, align 8, !tbaa !27
+  %44 = load i8, ptr %43, align 1, !tbaa !14
+  %45 = zext i8 %44 to i32
+  br label %49
+
+46:                                               ; preds = %36
+  %47 = load ptr, ptr %35, align 8, !tbaa !31
+  %48 = tail call i32 %47(ptr noundef nonnull %9) #14
+  br label %49
+
+49:                                               ; preds = %46, %42
+  %50 = phi i32 [ %45, %42 ], [ %48, %46 ]
+  switch i32 %50, label %67 [
+    i32 13, label %51
+    i32 10, label %72
+    i32 -1, label %73
+  ]
+
+51:                                               ; preds = %49
+  %52 = load ptr, ptr %9, align 8, !tbaa !27
+  %53 = load ptr, ptr %34, align 8, !tbaa !30
+  %54 = icmp ult ptr %52, %53
+  br i1 %54, label %55, label %59
+
+55:                                               ; preds = %51
+  %56 = getelementptr inbounds i8, ptr %52, i64 1
+  store ptr %56, ptr %9, align 8, !tbaa !27
+  %57 = load i8, ptr %56, align 1, !tbaa !14
+  %58 = zext i8 %57 to i32
+  br label %62
+
+59:                                               ; preds = %51
+  %60 = load ptr, ptr %35, align 8, !tbaa !31
+  %61 = tail call i32 %60(ptr noundef nonnull %9) #14
+  br label %62
+
+62:                                               ; preds = %59, %55
+  %63 = phi i32 [ %58, %55 ], [ %61, %59 ]
+  switch i32 %63, label %64 [
+    i32 -1, label %73
+    i32 10, label %73
+  ]
+
+64:                                               ; preds = %62
+  %65 = load ptr, ptr %9, align 8, !tbaa !27
+  %66 = getelementptr inbounds i8, ptr %65, i64 -1
+  store ptr %66, ptr %9, align 8, !tbaa !27
+  br label %73
+
+67:                                               ; preds = %49
+  %68 = trunc i32 %50 to i8
+  %69 = getelementptr inbounds i8, ptr %38, i64 1
+  store i8 %68, ptr %38, align 1, !tbaa !14
+  %70 = add nuw nsw i32 %37, 1
+  %71 = icmp eq i32 %70, %30
+  br i1 %71, label %78, label %36, !llvm.loop !32
+
+72:                                               ; preds = %49
+  br label %73
+
+73:                                               ; preds = %49, %72, %62, %62, %64
+  %74 = phi i16 [ 1, %64 ], [ 1, %62 ], [ 1, %62 ], [ 1, %72 ], [ 0, %49 ]
+  %75 = trunc i32 %37 to i16
+  store i16 %75, ptr %28, align 2, !tbaa !24
+  %76 = load i16, ptr %19, align 8, !tbaa !15
+  %77 = or i16 %76, -32768
+  store i16 %77, ptr %19, align 8, !tbaa !15
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2, ptr noundef nonnull align 8 dereferenceable(16) %0, i64 16, i1 false), !tbaa.struct !16
+  store i16 %74, ptr %0, align 8, !tbaa !14
+  store i16 4, ptr %19, align 8, !tbaa !15
+  br label %78
+
+78:                                               ; preds = %67, %27, %24, %18, %11, %7, %1, %73
+  %79 = phi i32 [ 0, %73 ], [ -20, %1 ], [ -7, %7 ], [ -7, %11 ], [ -20, %18 ], [ -7, %24 ], [ -15, %27 ], [ -15, %67 ]
+  ret i32 %79
 }
 
 ; Function Attrs: nounwind uwtable
@@ -1432,7 +1502,7 @@ define dso_local i32 @zbytesavailable(ptr nocapture noundef %0) #0 {
 
 15:                                               ; preds = %11
   %16 = getelementptr inbounds %struct.stream_s, ptr %9, i64 0, i32 7, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !43
+  %17 = load ptr, ptr %16, align 8, !tbaa !42
   %18 = call i32 %17(ptr noundef nonnull %9, ptr noundef nonnull %2) #14
   %19 = icmp slt i32 %18, 0
   br i1 %19, label %22, label %20
@@ -1453,7 +1523,7 @@ define dso_local i32 @zbytesavailable(ptr nocapture noundef %0) #0 {
 define dso_local i32 @zflush(ptr nocapture readnone %0) #0 {
   %2 = load ptr, ptr getelementptr inbounds ([5 x %struct.file_entry_s], ptr @std_files, i64 0, i64 1), align 16, !tbaa !5
   %3 = getelementptr inbounds %struct.stream_s, ptr %2, i64 0, i32 7, i32 4
-  %4 = load ptr, ptr %3, align 8, !tbaa !44
+  %4 = load ptr, ptr %3, align 8, !tbaa !43
   %5 = tail call i32 %4(ptr noundef %2) #14
   ret i32 0
 }
@@ -1474,7 +1544,7 @@ define dso_local i32 @zflushfile(ptr nocapture noundef readonly %0) #0 {
 
 10:                                               ; preds = %6
   %11 = getelementptr inbounds %struct.stream_s, ptr %8, i64 0, i32 7, i32 4
-  %12 = load ptr, ptr %11, align 8, !tbaa !44
+  %12 = load ptr, ptr %11, align 8, !tbaa !43
   %13 = tail call i32 %12(ptr noundef nonnull %8) #14
   %14 = getelementptr inbounds %struct.stream_s, ptr %8, i64 0, i32 4
   %15 = load i8, ptr %14, align 4, !tbaa !38
@@ -1483,7 +1553,7 @@ define dso_local i32 @zflushfile(ptr nocapture noundef readonly %0) #0 {
 
 17:                                               ; preds = %10
   %18 = getelementptr inbounds %struct.stream_s, ptr %8, i64 0, i32 9
-  %19 = load ptr, ptr %18, align 8, !tbaa !45
+  %19 = load ptr, ptr %18, align 8, !tbaa !44
   %20 = tail call i32 @fseek(ptr noundef %19, i64 noundef 0, i32 noundef 2)
   br label %21
 
@@ -1663,7 +1733,7 @@ define dso_local i32 @zsetfileposition(ptr nocapture noundef readonly %0) #0 {
 
 16:                                               ; preds = %11
   %17 = getelementptr inbounds %struct.stream_s, ptr %9, i64 0, i32 7, i32 3
-  %18 = load ptr, ptr %17, align 8, !tbaa !46
+  %18 = load ptr, ptr %17, align 8, !tbaa !45
   %19 = load i64, ptr %0, align 8, !tbaa !14
   %20 = tail call i32 %18(ptr noundef nonnull %9, i64 noundef %19) #14
   %21 = icmp slt i32 %20, 0
@@ -1970,7 +2040,7 @@ define dso_local i32 @lib_file_open(ptr noundef %0, i32 noundef %1, ptr nocaptur
   %30 = icmp eq i8 %28, %25
   %31 = select i1 %29, i1 true, i1 %30
   %32 = getelementptr inbounds i8, ptr %27, i64 1
-  br i1 %31, label %33, label %26, !llvm.loop !47
+  br i1 %31, label %33, label %26, !llvm.loop !46
 
 33:                                               ; preds = %26
   %34 = ptrtoint ptr %27 to i64
@@ -2007,7 +2077,7 @@ define dso_local i32 @lib_file_open(ptr noundef %0, i32 noundef %1, ptr nocaptur
   %57 = getelementptr inbounds ptr, ptr %21, i64 1
   %58 = load ptr, ptr %57, align 8, !tbaa !13
   %59 = icmp eq ptr %58, null
-  br i1 %59, label %60, label %18, !llvm.loop !48
+  br i1 %59, label %60, label %18, !llvm.loop !47
 
 60:                                               ; preds = %56, %44, %10, %7, %3
   %61 = phi i32 [ 0, %3 ], [ -22, %7 ], [ %5, %10 ], [ 0, %44 ], [ %53, %56 ]
@@ -2054,11 +2124,11 @@ define dso_local i32 @zwriteppmfile(ptr nocapture noundef readonly %0) #0 {
 
 27:                                               ; preds = %23
   %28 = getelementptr inbounds %struct.stream_s, ptr %9, i64 0, i32 7, i32 4
-  %29 = load ptr, ptr %28, align 8, !tbaa !44
+  %29 = load ptr, ptr %28, align 8, !tbaa !43
   %30 = tail call i32 %29(ptr noundef nonnull %9) #14
   %31 = load ptr, ptr %0, align 8, !tbaa !14
   %32 = getelementptr inbounds %struct.stream_s, ptr %9, i64 0, i32 9
-  %33 = load ptr, ptr %32, align 8, !tbaa !45
+  %33 = load ptr, ptr %32, align 8, !tbaa !44
   %34 = tail call i32 (ptr, ptr, ...) @gs_writeppmfile(ptr noundef %31, ptr noundef %33) #14
   %35 = icmp sgt i32 %34, -1
   br i1 %35, label %36, label %39
@@ -2127,7 +2197,7 @@ define dso_local i32 @ztype1decryptfile(ptr nocapture noundef %0) #0 {
   %33 = getelementptr inbounds %struct.stream_s, ptr %30, i64 0, i32 2
   %34 = load ptr, ptr %33, align 8, !tbaa !34
   %35 = getelementptr inbounds %struct.stream_s, ptr %30, i64 0, i32 3
-  %36 = load i32, ptr %35, align 8, !tbaa !49
+  %36 = load i32, ptr %35, align 8, !tbaa !48
   tail call void @sread_decrypt(ptr noundef %30, ptr noundef %32, ptr noundef %34, i32 noundef %36, i16 noundef zeroext %10) #14
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %3, ptr noundef nonnull align 8 dereferenceable(16) %2, i64 16, i1 false), !tbaa.struct !16
   %37 = load ptr, ptr @osp, align 8, !tbaa !13
@@ -2233,7 +2303,7 @@ define dso_local i32 @file_open(ptr noundef readonly %0, i32 noundef %1, ptr noc
   %36 = getelementptr inbounds %struct.stream_s, ptr %14, i64 0, i32 2
   store ptr %10, ptr %36, align 8, !tbaa !34
   %37 = getelementptr inbounds %struct.stream_s, ptr %14, i64 0, i32 3
-  store i32 512, ptr %37, align 8, !tbaa !49
+  store i32 512, ptr %37, align 8, !tbaa !48
   br label %38
 
 38:                                               ; preds = %31, %32, %35
@@ -2413,11 +2483,10 @@ attributes #16 = { nounwind willreturn memory(read) }
 !39 = !{!28, !7, i64 48}
 !40 = !{!28, !18, i64 32}
 !41 = distinct !{!41, !33}
-!42 = !{i32 -15, i32 2}
-!43 = !{!28, !7, i64 56}
-!44 = !{!28, !7, i64 72}
-!45 = !{!28, !7, i64 96}
-!46 = !{!28, !7, i64 64}
+!42 = !{!28, !7, i64 56}
+!43 = !{!28, !7, i64 72}
+!44 = !{!28, !7, i64 96}
+!45 = !{!28, !7, i64 64}
+!46 = distinct !{!46, !33}
 !47 = distinct !{!47, !33}
-!48 = distinct !{!48, !33}
-!49 = !{!28, !10, i64 24}
+!48 = !{!28, !10, i64 24}

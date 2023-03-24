@@ -355,8 +355,8 @@ define dso_local i32 @MatchFinder_Create(ptr nocapture noundef %0, i32 noundef %
   store i32 %28, ptr %29, align 8, !tbaa !17
   %30 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 17
   store i32 %24, ptr %30, align 4, !tbaa !20
-  %31 = add i32 %28, 524288
-  %32 = add i32 %31, %23
+  %31 = add nuw nsw i32 %23, 524288
+  %32 = add i32 %31, %28
   %33 = add i32 %32, %24
   %34 = add i32 %33, %26
   %35 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 19
@@ -381,7 +381,7 @@ define dso_local i32 @MatchFinder_Create(ptr nocapture noundef %0, i32 noundef %
   %47 = icmp eq i32 %46, %34
   br i1 %47, label %59, label %48
 
-48:                                               ; preds = %40, %44
+48:                                               ; preds = %44, %40
   %49 = getelementptr inbounds %struct.ISzAlloc, ptr %5, i64 0, i32 1
   %50 = load ptr, ptr %49, align 8, !tbaa !37
   tail call void %50(ptr noundef %5, ptr noundef %42) #11
@@ -400,7 +400,7 @@ define dso_local i32 @MatchFinder_Create(ptr nocapture noundef %0, i32 noundef %
   %58 = load ptr, ptr %57, align 8, !tbaa !28
   br label %127
 
-59:                                               ; preds = %44, %38, %48
+59:                                               ; preds = %38, %44, %48
   %60 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 7
   store i32 %3, ptr %60, align 8, !tbaa !40
   %61 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 24
@@ -517,8 +517,8 @@ define dso_local i32 @MatchFinder_Create(ptr nocapture noundef %0, i32 noundef %
   store ptr null, ptr %136, align 8, !tbaa !16
   br label %138
 
-138:                                              ; preds = %134, %127, %16, %8, %122, %92
-  %139 = phi i32 [ 1, %92 ], [ 1, %122 ], [ 0, %8 ], [ 0, %16 ], [ 0, %127 ], [ 0, %134 ]
+138:                                              ; preds = %122, %92, %134, %127, %16, %8
+  %139 = phi i32 [ 0, %8 ], [ 0, %16 ], [ 0, %127 ], [ 0, %134 ], [ 1, %92 ], [ 1, %122 ]
   ret i32 %139
 }
 
@@ -745,6 +745,7 @@ define dso_local ptr @GetMatchesSpec1(i32 noundef %0, i32 noundef %1, i32 nounde
   %21 = phi ptr [ %14, %10 ], [ %98, %97 ]
   %22 = phi ptr [ %13, %10 ], [ %99, %97 ]
   store i32 0, ptr %22, align 4, !tbaa !15
+  store i32 0, ptr %21, align 4, !tbaa !15
   br label %108
 
 23:                                               ; preds = %10, %97
@@ -825,6 +826,7 @@ define dso_local ptr @GetMatchesSpec1(i32 noundef %0, i32 noundef %1, i32 nounde
   store i32 %81, ptr %29, align 4, !tbaa !15
   %82 = getelementptr inbounds i32, ptr %40, i64 1
   %83 = load i32, ptr %82, align 4, !tbaa !15
+  store i32 %83, ptr %30, align 4, !tbaa !15
   br label %108
 
 84:                                               ; preds = %72, %75, %23
@@ -862,11 +864,8 @@ define dso_local ptr @GetMatchesSpec1(i32 noundef %0, i32 noundef %1, i32 nounde
   br i1 %107, label %23, label %19
 
 108:                                              ; preds = %19, %80
-  %109 = phi ptr [ %21, %19 ], [ %30, %80 ]
-  %110 = phi i32 [ 0, %19 ], [ %83, %80 ]
-  %111 = phi ptr [ %20, %19 ], [ %78, %80 ]
-  store i32 %110, ptr %109, align 4, !tbaa !15
-  ret ptr %111
+  %109 = phi ptr [ %78, %80 ], [ %20, %19 ]
+  ret ptr %109
 }
 
 ; Function Attrs: nounwind uwtable
@@ -891,7 +890,7 @@ define dso_local i32 @Bt3Zip_MatchFinder_GetMatches(ptr nocapture noundef %0, pt
   %15 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
   %16 = load i32, ptr %15, align 4, !tbaa !51
   %17 = icmp eq i32 %14, %16
-  br i1 %17, label %163, label %165
+  br i1 %17, label %161, label %163
 
 18:                                               ; preds = %2
   %19 = load ptr, ptr %0, align 8, !tbaa !5
@@ -941,6 +940,7 @@ define dso_local i32 @Bt3Zip_MatchFinder_GetMatches(ptr nocapture noundef %0, pt
   %60 = phi ptr [ %53, %18 ], [ %137, %136 ]
   %61 = phi ptr [ %52, %18 ], [ %138, %136 ]
   store i32 0, ptr %61, align 4, !tbaa !15
+  store i32 0, ptr %60, align 4, !tbaa !15
   br label %147
 
 62:                                               ; preds = %18, %136
@@ -1021,6 +1021,7 @@ define dso_local i32 @Bt3Zip_MatchFinder_GetMatches(ptr nocapture noundef %0, pt
   store i32 %120, ptr %68, align 4, !tbaa !15
   %121 = getelementptr inbounds i32, ptr %79, i64 1
   %122 = load i32, ptr %121, align 4, !tbaa !15
+  store i32 %122, ptr %69, align 4, !tbaa !15
   br label %147
 
 123:                                              ; preds = %114, %111, %62
@@ -1058,35 +1059,32 @@ define dso_local i32 @Bt3Zip_MatchFinder_GetMatches(ptr nocapture noundef %0, pt
   br i1 %146, label %62, label %58
 
 147:                                              ; preds = %58, %119
-  %148 = phi ptr [ %60, %58 ], [ %69, %119 ]
-  %149 = phi i32 [ 0, %58 ], [ %122, %119 ]
-  %150 = phi ptr [ %59, %58 ], [ %117, %119 ]
-  store i32 %149, ptr %148, align 4, !tbaa !15
-  %151 = ptrtoint ptr %150 to i64
-  %152 = ptrtoint ptr %1 to i64
-  %153 = sub i64 %151, %152
-  %154 = lshr exact i64 %153, 2
-  %155 = trunc i64 %154 to i32
-  %156 = load i32, ptr %44, align 8, !tbaa !49
-  %157 = add i32 %156, 1
-  store i32 %157, ptr %44, align 8, !tbaa !49
+  %148 = phi ptr [ %117, %119 ], [ %59, %58 ]
+  %149 = ptrtoint ptr %148 to i64
+  %150 = ptrtoint ptr %1 to i64
+  %151 = sub i64 %149, %150
+  %152 = lshr exact i64 %151, 2
+  %153 = trunc i64 %152 to i32
+  %154 = load i32, ptr %44, align 8, !tbaa !49
+  %155 = add i32 %154, 1
+  store i32 %155, ptr %44, align 8, !tbaa !49
   store ptr %27, ptr %0, align 8, !tbaa !5
-  %158 = load i32, ptr %39, align 8, !tbaa !14
-  %159 = add i32 %158, 1
-  store i32 %159, ptr %39, align 8, !tbaa !14
-  %160 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
-  %161 = load i32, ptr %160, align 4, !tbaa !51
-  %162 = icmp eq i32 %159, %161
-  br i1 %162, label %163, label %165
+  %156 = load i32, ptr %39, align 8, !tbaa !14
+  %157 = add i32 %156, 1
+  store i32 %157, ptr %39, align 8, !tbaa !14
+  %158 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
+  %159 = load i32, ptr %158, align 4, !tbaa !51
+  %160 = icmp eq i32 %157, %159
+  br i1 %160, label %161, label %163
 
-163:                                              ; preds = %147, %6
-  %164 = phi i32 [ 0, %6 ], [ %155, %147 ]
+161:                                              ; preds = %147, %6
+  %162 = phi i32 [ 0, %6 ], [ %153, %147 ]
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
-  br label %165
+  br label %163
 
-165:                                              ; preds = %163, %6, %147
-  %166 = phi i32 [ %155, %147 ], [ 0, %6 ], [ %164, %163 ]
-  ret i32 %166
+163:                                              ; preds = %161, %147, %6
+  %164 = phi i32 [ 0, %6 ], [ %153, %147 ], [ %162, %161 ]
+  ret i32 %164
 }
 
 ; Function Attrs: nounwind uwtable
@@ -1534,8 +1532,8 @@ define dso_local i32 @Hc3Zip_MatchFinder_GetMatches(ptr nocapture noundef %0, pt
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
   br label %132
 
-132:                                              ; preds = %130, %6, %116
-  %133 = phi i32 [ %122, %116 ], [ 0, %6 ], [ %131, %130 ]
+132:                                              ; preds = %130, %116, %6
+  %133 = phi i32 [ 0, %6 ], [ %122, %116 ], [ %131, %130 ]
   ret i32 %133
 }
 
@@ -1551,8 +1549,8 @@ define dso_local void @Bt3Zip_MatchFinder_Skip(ptr nocapture noundef %0, i32 nou
   %10 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
   br label %11
 
-11:                                               ; preds = %131, %2
-  %12 = phi i32 [ %1, %2 ], [ %132, %131 ]
+11:                                               ; preds = %129, %2
+  %12 = phi i32 [ %1, %2 ], [ %130, %129 ]
   %13 = load i32, ptr %3, align 4, !tbaa !50
   %14 = icmp ult i32 %13, 3
   br i1 %14, label %15, label %24
@@ -1569,7 +1567,7 @@ define dso_local void @Bt3Zip_MatchFinder_Skip(ptr nocapture noundef %0, i32 nou
   store i32 %21, ptr %5, align 8, !tbaa !14
   %22 = load i32, ptr %10, align 4, !tbaa !51
   %23 = icmp eq i32 %21, %22
-  br i1 %23, label %130, label %131
+  br i1 %23, label %128, label %129
 
 24:                                               ; preds = %11
   %25 = load ptr, ptr %0, align 8, !tbaa !5
@@ -1612,6 +1610,7 @@ define dso_local void @Bt3Zip_MatchFinder_Skip(ptr nocapture noundef %0, i32 nou
   %59 = phi ptr [ %52, %24 ], [ %111, %110 ]
   %60 = phi ptr [ %53, %24 ], [ %114, %110 ]
   store i32 0, ptr %59, align 4, !tbaa !15
+  store i32 0, ptr %60, align 4, !tbaa !15
   br label %121
 
 61:                                               ; preds = %24, %110
@@ -1662,6 +1661,7 @@ define dso_local void @Bt3Zip_MatchFinder_Skip(ptr nocapture noundef %0, i32 nou
   store i32 %99, ptr %68, align 4, !tbaa !15
   %100 = getelementptr inbounds i32, ptr %76, i64 1
   %101 = load i32, ptr %100, align 4, !tbaa !15
+  store i32 %101, ptr %65, align 4, !tbaa !15
   br label %121
 
 102:                                              ; preds = %91, %61
@@ -1694,30 +1694,27 @@ define dso_local void @Bt3Zip_MatchFinder_Skip(ptr nocapture noundef %0, i32 nou
   br i1 %120, label %61, label %58
 
 121:                                              ; preds = %58, %98
-  %122 = phi ptr [ %60, %58 ], [ %65, %98 ]
-  %123 = phi i32 [ 0, %58 ], [ %101, %98 ]
-  store i32 %123, ptr %122, align 4, !tbaa !15
-  %124 = load i32, ptr %7, align 8, !tbaa !49
-  %125 = add i32 %124, 1
-  store i32 %125, ptr %7, align 8, !tbaa !49
+  %122 = load i32, ptr %7, align 8, !tbaa !49
+  %123 = add i32 %122, 1
+  store i32 %123, ptr %7, align 8, !tbaa !49
   store ptr %33, ptr %0, align 8, !tbaa !5
-  %126 = load i32, ptr %5, align 8, !tbaa !14
-  %127 = add i32 %126, 1
-  store i32 %127, ptr %5, align 8, !tbaa !14
-  %128 = load i32, ptr %10, align 4, !tbaa !51
-  %129 = icmp eq i32 %127, %128
-  br i1 %129, label %130, label %131
+  %124 = load i32, ptr %5, align 8, !tbaa !14
+  %125 = add i32 %124, 1
+  store i32 %125, ptr %5, align 8, !tbaa !14
+  %126 = load i32, ptr %10, align 4, !tbaa !51
+  %127 = icmp eq i32 %125, %126
+  br i1 %127, label %128, label %129
 
-130:                                              ; preds = %121, %15
+128:                                              ; preds = %121, %15
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
-  br label %131
+  br label %129
 
-131:                                              ; preds = %130, %15, %121
-  %132 = add i32 %12, -1
-  %133 = icmp eq i32 %132, 0
-  br i1 %133, label %134, label %11, !llvm.loop !59
+129:                                              ; preds = %128, %121, %15
+  %130 = add i32 %12, -1
+  %131 = icmp eq i32 %130, 0
+  br i1 %131, label %132, label %11, !llvm.loop !59
 
-134:                                              ; preds = %131
+132:                                              ; preds = %129
   ret void
 }
 
@@ -1793,7 +1790,7 @@ define dso_local void @Hc3Zip_MatchFinder_Skip(ptr nocapture noundef %0, i32 nou
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
   br label %54
 
-54:                                               ; preds = %53, %13, %22
+54:                                               ; preds = %53, %22, %13
   %55 = add i32 %10, -1
   %56 = icmp eq i32 %55, 0
   br i1 %56, label %57, label %9, !llvm.loop !60
@@ -2150,8 +2147,8 @@ define internal i32 @Hc4_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
   br label %231
 
-231:                                              ; preds = %229, %6, %215, %118
-  %232 = phi i32 [ %100, %118 ], [ %221, %215 ], [ 0, %6 ], [ %230, %229 ]
+231:                                              ; preds = %229, %215, %118, %6
+  %232 = phi i32 [ 0, %6 ], [ %100, %118 ], [ %221, %215 ], [ %230, %229 ]
   ret i32 %232
 }
 
@@ -2246,7 +2243,7 @@ define internal void @Hc4_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
   br label %71
 
-71:                                               ; preds = %70, %14, %23
+71:                                               ; preds = %70, %23, %14
   %72 = add i32 %11, -1
   %73 = icmp eq i32 %72, 0
   br i1 %73, label %74, label %10, !llvm.loop !69
@@ -2277,7 +2274,7 @@ define internal i32 @Bt2_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %15 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
   %16 = load i32, ptr %15, align 4, !tbaa !51
   %17 = icmp eq i32 %14, %16
-  br i1 %17, label %151, label %153
+  br i1 %17, label %149, label %151
 
 18:                                               ; preds = %2
   %19 = load ptr, ptr %0, align 8, !tbaa !5
@@ -2315,6 +2312,7 @@ define internal i32 @Bt2_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %48 = phi ptr [ %41, %18 ], [ %125, %124 ]
   %49 = phi ptr [ %40, %18 ], [ %126, %124 ]
   store i32 0, ptr %49, align 4, !tbaa !15
+  store i32 0, ptr %48, align 4, !tbaa !15
   br label %135
 
 50:                                               ; preds = %18, %124
@@ -2395,6 +2393,7 @@ define internal i32 @Bt2_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   store i32 %108, ptr %56, align 4, !tbaa !15
   %109 = getelementptr inbounds i32, ptr %67, i64 1
   %110 = load i32, ptr %109, align 4, !tbaa !15
+  store i32 %110, ptr %57, align 4, !tbaa !15
   br label %135
 
 111:                                              ; preds = %102, %99, %50
@@ -2432,35 +2431,32 @@ define internal i32 @Bt2_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   br i1 %134, label %50, label %46
 
 135:                                              ; preds = %46, %107
-  %136 = phi ptr [ %48, %46 ], [ %57, %107 ]
-  %137 = phi i32 [ 0, %46 ], [ %110, %107 ]
-  %138 = phi ptr [ %47, %46 ], [ %105, %107 ]
-  store i32 %137, ptr %136, align 4, !tbaa !15
-  %139 = ptrtoint ptr %138 to i64
-  %140 = ptrtoint ptr %1 to i64
-  %141 = sub i64 %139, %140
-  %142 = lshr exact i64 %141, 2
-  %143 = trunc i64 %142 to i32
-  %144 = load i32, ptr %32, align 8, !tbaa !49
-  %145 = add i32 %144, 1
-  store i32 %145, ptr %32, align 8, !tbaa !49
+  %136 = phi ptr [ %105, %107 ], [ %47, %46 ]
+  %137 = ptrtoint ptr %136 to i64
+  %138 = ptrtoint ptr %1 to i64
+  %139 = sub i64 %137, %138
+  %140 = lshr exact i64 %139, 2
+  %141 = trunc i64 %140 to i32
+  %142 = load i32, ptr %32, align 8, !tbaa !49
+  %143 = add i32 %142, 1
+  store i32 %143, ptr %32, align 8, !tbaa !49
   store ptr %22, ptr %0, align 8, !tbaa !5
-  %146 = load i32, ptr %27, align 8, !tbaa !14
-  %147 = add i32 %146, 1
-  store i32 %147, ptr %27, align 8, !tbaa !14
-  %148 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
-  %149 = load i32, ptr %148, align 4, !tbaa !51
-  %150 = icmp eq i32 %147, %149
-  br i1 %150, label %151, label %153
+  %144 = load i32, ptr %27, align 8, !tbaa !14
+  %145 = add i32 %144, 1
+  store i32 %145, ptr %27, align 8, !tbaa !14
+  %146 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
+  %147 = load i32, ptr %146, align 4, !tbaa !51
+  %148 = icmp eq i32 %145, %147
+  br i1 %148, label %149, label %151
 
-151:                                              ; preds = %135, %6
-  %152 = phi i32 [ 0, %6 ], [ %143, %135 ]
+149:                                              ; preds = %135, %6
+  %150 = phi i32 [ 0, %6 ], [ %141, %135 ]
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
-  br label %153
+  br label %151
 
-153:                                              ; preds = %151, %6, %135
-  %154 = phi i32 [ %143, %135 ], [ 0, %6 ], [ %152, %151 ]
-  ret i32 %154
+151:                                              ; preds = %149, %135, %6
+  %152 = phi i32 [ 0, %6 ], [ %141, %135 ], [ %150, %149 ]
+  ret i32 %152
 }
 
 ; Function Attrs: nounwind uwtable
@@ -2475,8 +2471,8 @@ define internal void @Bt2_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   %10 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
   br label %11
 
-11:                                               ; preds = %119, %2
-  %12 = phi i32 [ %1, %2 ], [ %120, %119 ]
+11:                                               ; preds = %117, %2
+  %12 = phi i32 [ %1, %2 ], [ %118, %117 ]
   %13 = load i32, ptr %3, align 4, !tbaa !50
   %14 = icmp ult i32 %13, 2
   br i1 %14, label %15, label %24
@@ -2493,7 +2489,7 @@ define internal void @Bt2_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   store i32 %21, ptr %5, align 8, !tbaa !14
   %22 = load i32, ptr %10, align 4, !tbaa !51
   %23 = icmp eq i32 %21, %22
-  br i1 %23, label %118, label %119
+  br i1 %23, label %116, label %117
 
 24:                                               ; preds = %11
   %25 = load ptr, ptr %0, align 8, !tbaa !5
@@ -2524,6 +2520,7 @@ define internal void @Bt2_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   %47 = phi ptr [ %40, %24 ], [ %99, %98 ]
   %48 = phi ptr [ %41, %24 ], [ %102, %98 ]
   store i32 0, ptr %47, align 4, !tbaa !15
+  store i32 0, ptr %48, align 4, !tbaa !15
   br label %109
 
 49:                                               ; preds = %24, %98
@@ -2574,6 +2571,7 @@ define internal void @Bt2_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   store i32 %87, ptr %56, align 4, !tbaa !15
   %88 = getelementptr inbounds i32, ptr %64, i64 1
   %89 = load i32, ptr %88, align 4, !tbaa !15
+  store i32 %89, ptr %53, align 4, !tbaa !15
   br label %109
 
 90:                                               ; preds = %79, %49
@@ -2606,30 +2604,27 @@ define internal void @Bt2_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   br i1 %108, label %49, label %46
 
 109:                                              ; preds = %46, %86
-  %110 = phi ptr [ %48, %46 ], [ %53, %86 ]
-  %111 = phi i32 [ 0, %46 ], [ %89, %86 ]
-  store i32 %111, ptr %110, align 4, !tbaa !15
-  %112 = load i32, ptr %7, align 8, !tbaa !49
-  %113 = add i32 %112, 1
-  store i32 %113, ptr %7, align 8, !tbaa !49
+  %110 = load i32, ptr %7, align 8, !tbaa !49
+  %111 = add i32 %110, 1
+  store i32 %111, ptr %7, align 8, !tbaa !49
   store ptr %28, ptr %0, align 8, !tbaa !5
-  %114 = load i32, ptr %5, align 8, !tbaa !14
-  %115 = add i32 %114, 1
-  store i32 %115, ptr %5, align 8, !tbaa !14
-  %116 = load i32, ptr %10, align 4, !tbaa !51
-  %117 = icmp eq i32 %115, %116
-  br i1 %117, label %118, label %119
+  %112 = load i32, ptr %5, align 8, !tbaa !14
+  %113 = add i32 %112, 1
+  store i32 %113, ptr %5, align 8, !tbaa !14
+  %114 = load i32, ptr %10, align 4, !tbaa !51
+  %115 = icmp eq i32 %113, %114
+  br i1 %115, label %116, label %117
 
-118:                                              ; preds = %109, %15
+116:                                              ; preds = %109, %15
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
-  br label %119
+  br label %117
 
-119:                                              ; preds = %118, %15, %109
-  %120 = add i32 %12, -1
-  %121 = icmp eq i32 %120, 0
-  br i1 %121, label %122, label %11, !llvm.loop !70
+117:                                              ; preds = %116, %109, %15
+  %118 = add i32 %12, -1
+  %119 = icmp eq i32 %118, 0
+  br i1 %119, label %120, label %11, !llvm.loop !70
 
-122:                                              ; preds = %119
+120:                                              ; preds = %117
   ret void
 }
 
@@ -2655,7 +2650,7 @@ define internal i32 @Bt3_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %15 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
   %16 = load i32, ptr %15, align 4, !tbaa !51
   %17 = icmp eq i32 %14, %16
-  br i1 %17, label %292, label %294
+  br i1 %17, label %288, label %290
 
 18:                                               ; preds = %2
   %19 = load ptr, ptr %0, align 8, !tbaa !5
@@ -2693,7 +2688,7 @@ define internal i32 @Bt3_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %49 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 6
   %50 = load i32, ptr %49, align 4, !tbaa !46
   %51 = icmp ult i32 %44, %50
-  br i1 %51, label %52, label %167
+  br i1 %51, label %52, label %165
 
 52:                                               ; preds = %18
   %53 = zext i32 %44 to i64
@@ -2702,7 +2697,7 @@ define internal i32 @Bt3_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %56 = load i8, ptr %55, align 1, !tbaa !12
   %57 = load i8, ptr %19, align 1, !tbaa !12
   %58 = icmp eq i8 %56, %57
-  br i1 %58, label %59, label %167
+  br i1 %58, label %59, label %165
 
 59:                                               ; preds = %52, %68
   %60 = phi i32 [ %69, %68 ], [ 2, %52 ]
@@ -2726,7 +2721,7 @@ define internal i32 @Bt3_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %73 = getelementptr inbounds i32, ptr %1, i64 1
   store i32 %72, ptr %73, align 4, !tbaa !15
   %74 = load i32, ptr %49, align 4, !tbaa !46
-  br label %167
+  br label %165
 
 75:                                               ; preds = %68
   store i32 %4, ptr %1, align 4, !tbaa !15
@@ -2755,6 +2750,7 @@ define internal i32 @Bt3_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %95 = phi ptr [ %88, %75 ], [ %147, %146 ]
   %96 = phi ptr [ %89, %75 ], [ %150, %146 ]
   store i32 0, ptr %95, align 4, !tbaa !15
+  store i32 0, ptr %96, align 4, !tbaa !15
   br label %157
 
 97:                                               ; preds = %75, %146
@@ -2805,6 +2801,7 @@ define internal i32 @Bt3_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   store i32 %135, ptr %104, align 4, !tbaa !15
   %136 = getelementptr inbounds i32, ptr %112, i64 1
   %137 = load i32, ptr %136, align 4, !tbaa !15
+  store i32 %137, ptr %101, align 4, !tbaa !15
   br label %157
 
 138:                                              ; preds = %127, %97
@@ -2837,194 +2834,190 @@ define internal i32 @Bt3_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   br i1 %156, label %97, label %94
 
 157:                                              ; preds = %94, %134
-  %158 = phi ptr [ %96, %94 ], [ %101, %134 ]
-  %159 = phi i32 [ 0, %94 ], [ %137, %134 ]
-  store i32 %159, ptr %158, align 4, !tbaa !15
-  %160 = load i32, ptr %81, align 8, !tbaa !49
+  %158 = load i32, ptr %81, align 8, !tbaa !49
+  %159 = add i32 %158, 1
+  store i32 %159, ptr %81, align 8, !tbaa !49
+  store ptr %24, ptr %0, align 8, !tbaa !5
+  %160 = load i32, ptr %37, align 8, !tbaa !14
   %161 = add i32 %160, 1
-  store i32 %161, ptr %81, align 8, !tbaa !49
-  store ptr %24, ptr %0, align 8, !tbaa !5
-  %162 = load i32, ptr %37, align 8, !tbaa !14
-  %163 = add i32 %162, 1
-  store i32 %163, ptr %37, align 8, !tbaa !14
-  %164 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
-  %165 = load i32, ptr %164, align 4, !tbaa !51
-  %166 = icmp eq i32 %163, %165
-  br i1 %166, label %292, label %294
+  store i32 %161, ptr %37, align 8, !tbaa !14
+  %162 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
+  %163 = load i32, ptr %162, align 4, !tbaa !51
+  %164 = icmp eq i32 %161, %163
+  br i1 %164, label %288, label %290
 
-167:                                              ; preds = %71, %52, %18
-  %168 = phi i32 [ %74, %71 ], [ %50, %52 ], [ %50, %18 ]
-  %169 = phi i64 [ 2, %71 ], [ 0, %52 ], [ 0, %18 ]
-  %170 = phi i32 [ %60, %71 ], [ 2, %52 ], [ 2, %18 ]
-  %171 = load i32, ptr %37, align 8, !tbaa !14
-  %172 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 9
-  %173 = load ptr, ptr %172, align 8, !tbaa !47
-  %174 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 5
-  %175 = load i32, ptr %174, align 8, !tbaa !49
-  %176 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 11
-  %177 = load i32, ptr %176, align 4, !tbaa !29
-  %178 = getelementptr inbounds i32, ptr %1, i64 %169
-  %179 = shl i32 %175, 1
-  %180 = zext i32 %179 to i64
-  %181 = getelementptr inbounds i32, ptr %173, i64 %180
-  %182 = getelementptr inbounds i32, ptr %181, i64 1
-  %183 = sub i32 %171, %48
-  %184 = icmp ne i32 %177, 0
-  %185 = icmp ult i32 %183, %168
-  %186 = and i1 %185, %184
-  br i1 %186, label %191, label %187
+165:                                              ; preds = %71, %52, %18
+  %166 = phi i32 [ %74, %71 ], [ %50, %52 ], [ %50, %18 ]
+  %167 = phi i64 [ 2, %71 ], [ 0, %52 ], [ 0, %18 ]
+  %168 = phi i32 [ %60, %71 ], [ 2, %52 ], [ 2, %18 ]
+  %169 = load i32, ptr %37, align 8, !tbaa !14
+  %170 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 9
+  %171 = load ptr, ptr %170, align 8, !tbaa !47
+  %172 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 5
+  %173 = load i32, ptr %172, align 8, !tbaa !49
+  %174 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 11
+  %175 = load i32, ptr %174, align 4, !tbaa !29
+  %176 = getelementptr inbounds i32, ptr %1, i64 %167
+  %177 = shl i32 %173, 1
+  %178 = zext i32 %177 to i64
+  %179 = getelementptr inbounds i32, ptr %171, i64 %178
+  %180 = getelementptr inbounds i32, ptr %179, i64 1
+  %181 = sub i32 %169, %48
+  %182 = icmp ne i32 %175, 0
+  %183 = icmp ult i32 %181, %166
+  %184 = and i1 %183, %182
+  br i1 %184, label %189, label %185
 
-187:                                              ; preds = %265, %167
-  %188 = phi ptr [ %178, %167 ], [ %253, %265 ]
-  %189 = phi ptr [ %182, %167 ], [ %266, %265 ]
-  %190 = phi ptr [ %181, %167 ], [ %267, %265 ]
-  store i32 0, ptr %190, align 4, !tbaa !15
-  br label %276
+185:                                              ; preds = %263, %165
+  %186 = phi ptr [ %176, %165 ], [ %251, %263 ]
+  %187 = phi ptr [ %180, %165 ], [ %264, %263 ]
+  %188 = phi ptr [ %179, %165 ], [ %265, %263 ]
+  store i32 0, ptr %188, align 4, !tbaa !15
+  store i32 0, ptr %187, align 4, !tbaa !15
+  br label %274
 
-191:                                              ; preds = %167, %265
-  %192 = phi i32 [ %201, %265 ], [ %177, %167 ]
-  %193 = phi i32 [ %272, %265 ], [ %183, %167 ]
-  %194 = phi i32 [ %271, %265 ], [ %48, %167 ]
-  %195 = phi i32 [ %269, %265 ], [ 0, %167 ]
-  %196 = phi i32 [ %268, %265 ], [ 0, %167 ]
-  %197 = phi ptr [ %267, %265 ], [ %181, %167 ]
-  %198 = phi ptr [ %266, %265 ], [ %182, %167 ]
-  %199 = phi i32 [ %254, %265 ], [ %170, %167 ]
-  %200 = phi ptr [ %253, %265 ], [ %178, %167 ]
-  %201 = add i32 %192, -1
-  %202 = sub i32 %175, %193
-  %203 = icmp ult i32 %175, %193
-  %204 = select i1 %203, i32 %168, i32 0
-  %205 = add i32 %202, %204
-  %206 = shl i32 %205, 1
-  %207 = zext i32 %206 to i64
-  %208 = getelementptr inbounds i32, ptr %173, i64 %207
-  %209 = zext i32 %193 to i64
-  %210 = sub nsw i64 0, %209
-  %211 = getelementptr inbounds i8, ptr %19, i64 %210
-  %212 = tail call i32 @llvm.umin.i32(i32 %196, i32 %195)
-  %213 = zext i32 %212 to i64
-  %214 = getelementptr inbounds i8, ptr %211, i64 %213
+189:                                              ; preds = %165, %263
+  %190 = phi i32 [ %199, %263 ], [ %175, %165 ]
+  %191 = phi i32 [ %270, %263 ], [ %181, %165 ]
+  %192 = phi i32 [ %269, %263 ], [ %48, %165 ]
+  %193 = phi i32 [ %267, %263 ], [ 0, %165 ]
+  %194 = phi i32 [ %266, %263 ], [ 0, %165 ]
+  %195 = phi ptr [ %265, %263 ], [ %179, %165 ]
+  %196 = phi ptr [ %264, %263 ], [ %180, %165 ]
+  %197 = phi i32 [ %252, %263 ], [ %168, %165 ]
+  %198 = phi ptr [ %251, %263 ], [ %176, %165 ]
+  %199 = add i32 %190, -1
+  %200 = sub i32 %173, %191
+  %201 = icmp ult i32 %173, %191
+  %202 = select i1 %201, i32 %166, i32 0
+  %203 = add i32 %200, %202
+  %204 = shl i32 %203, 1
+  %205 = zext i32 %204 to i64
+  %206 = getelementptr inbounds i32, ptr %171, i64 %205
+  %207 = zext i32 %191 to i64
+  %208 = sub nsw i64 0, %207
+  %209 = getelementptr inbounds i8, ptr %19, i64 %208
+  %210 = tail call i32 @llvm.umin.i32(i32 %194, i32 %193)
+  %211 = zext i32 %210 to i64
+  %212 = getelementptr inbounds i8, ptr %209, i64 %211
+  %213 = load i8, ptr %212, align 1, !tbaa !12
+  %214 = getelementptr inbounds i8, ptr %19, i64 %211
   %215 = load i8, ptr %214, align 1, !tbaa !12
-  %216 = getelementptr inbounds i8, ptr %19, i64 %213
-  %217 = load i8, ptr %216, align 1, !tbaa !12
-  %218 = icmp eq i8 %215, %217
-  br i1 %218, label %219, label %252
+  %216 = icmp eq i8 %213, %215
+  br i1 %216, label %217, label %250
 
-219:                                              ; preds = %191
-  %220 = add i32 %212, 1
-  %221 = icmp eq i32 %220, %4
-  br i1 %221, label %240, label %222
+217:                                              ; preds = %189
+  %218 = add i32 %210, 1
+  %219 = icmp eq i32 %218, %4
+  br i1 %219, label %238, label %220
 
-222:                                              ; preds = %219
-  %223 = zext i32 %220 to i64
-  %224 = getelementptr inbounds i8, ptr %211, i64 %223
+220:                                              ; preds = %217
+  %221 = zext i32 %218 to i64
+  %222 = getelementptr inbounds i8, ptr %209, i64 %221
+  %223 = load i8, ptr %222, align 1, !tbaa !12
+  %224 = getelementptr inbounds i8, ptr %19, i64 %221
   %225 = load i8, ptr %224, align 1, !tbaa !12
-  %226 = getelementptr inbounds i8, ptr %19, i64 %223
-  %227 = load i8, ptr %226, align 1, !tbaa !12
-  %228 = icmp eq i8 %225, %227
-  br i1 %228, label %229, label %240
+  %226 = icmp eq i8 %223, %225
+  br i1 %226, label %227, label %238
 
-229:                                              ; preds = %222, %233
-  %230 = phi i32 [ %231, %233 ], [ %220, %222 ]
-  %231 = add i32 %230, 1
-  %232 = icmp eq i32 %231, %4
-  br i1 %232, label %240, label %233
+227:                                              ; preds = %220, %231
+  %228 = phi i32 [ %229, %231 ], [ %218, %220 ]
+  %229 = add i32 %228, 1
+  %230 = icmp eq i32 %229, %4
+  br i1 %230, label %238, label %231
 
-233:                                              ; preds = %229
-  %234 = zext i32 %231 to i64
-  %235 = getelementptr inbounds i8, ptr %211, i64 %234
+231:                                              ; preds = %227
+  %232 = zext i32 %229 to i64
+  %233 = getelementptr inbounds i8, ptr %209, i64 %232
+  %234 = load i8, ptr %233, align 1, !tbaa !12
+  %235 = getelementptr inbounds i8, ptr %19, i64 %232
   %236 = load i8, ptr %235, align 1, !tbaa !12
-  %237 = getelementptr inbounds i8, ptr %19, i64 %234
-  %238 = load i8, ptr %237, align 1, !tbaa !12
-  %239 = icmp eq i8 %236, %238
-  br i1 %239, label %229, label %240, !llvm.loop !54
+  %237 = icmp eq i8 %234, %236
+  br i1 %237, label %227, label %238, !llvm.loop !54
 
-240:                                              ; preds = %233, %229, %222, %219
-  %241 = phi i32 [ %220, %222 ], [ %4, %219 ], [ %231, %233 ], [ %4, %229 ]
-  %242 = icmp ult i32 %199, %241
-  br i1 %242, label %243, label %252
+238:                                              ; preds = %231, %227, %220, %217
+  %239 = phi i32 [ %218, %220 ], [ %4, %217 ], [ %229, %231 ], [ %4, %227 ]
+  %240 = icmp ult i32 %197, %239
+  br i1 %240, label %241, label %250
 
-243:                                              ; preds = %240
-  %244 = getelementptr inbounds i32, ptr %200, i64 1
-  store i32 %241, ptr %200, align 4, !tbaa !15
-  %245 = add i32 %193, -1
-  %246 = getelementptr inbounds i32, ptr %200, i64 2
-  store i32 %245, ptr %244, align 4, !tbaa !15
-  %247 = icmp eq i32 %241, %4
-  br i1 %247, label %248, label %252
+241:                                              ; preds = %238
+  %242 = getelementptr inbounds i32, ptr %198, i64 1
+  store i32 %239, ptr %198, align 4, !tbaa !15
+  %243 = add i32 %191, -1
+  %244 = getelementptr inbounds i32, ptr %198, i64 2
+  store i32 %243, ptr %242, align 4, !tbaa !15
+  %245 = icmp eq i32 %239, %4
+  br i1 %245, label %246, label %250
 
-248:                                              ; preds = %243
-  %249 = load i32, ptr %208, align 4, !tbaa !15
-  store i32 %249, ptr %197, align 4, !tbaa !15
-  %250 = getelementptr inbounds i32, ptr %208, i64 1
-  %251 = load i32, ptr %250, align 4, !tbaa !15
-  br label %276
+246:                                              ; preds = %241
+  %247 = load i32, ptr %206, align 4, !tbaa !15
+  store i32 %247, ptr %195, align 4, !tbaa !15
+  %248 = getelementptr inbounds i32, ptr %206, i64 1
+  %249 = load i32, ptr %248, align 4, !tbaa !15
+  store i32 %249, ptr %196, align 4, !tbaa !15
+  br label %274
 
-252:                                              ; preds = %243, %240, %191
-  %253 = phi ptr [ %246, %243 ], [ %200, %240 ], [ %200, %191 ]
-  %254 = phi i32 [ %241, %243 ], [ %199, %240 ], [ %199, %191 ]
-  %255 = phi i32 [ %241, %243 ], [ %241, %240 ], [ %212, %191 ]
-  %256 = zext i32 %255 to i64
-  %257 = getelementptr inbounds i8, ptr %211, i64 %256
+250:                                              ; preds = %241, %238, %189
+  %251 = phi ptr [ %244, %241 ], [ %198, %238 ], [ %198, %189 ]
+  %252 = phi i32 [ %239, %241 ], [ %197, %238 ], [ %197, %189 ]
+  %253 = phi i32 [ %239, %241 ], [ %239, %238 ], [ %210, %189 ]
+  %254 = zext i32 %253 to i64
+  %255 = getelementptr inbounds i8, ptr %209, i64 %254
+  %256 = load i8, ptr %255, align 1, !tbaa !12
+  %257 = getelementptr inbounds i8, ptr %19, i64 %254
   %258 = load i8, ptr %257, align 1, !tbaa !12
-  %259 = getelementptr inbounds i8, ptr %19, i64 %256
-  %260 = load i8, ptr %259, align 1, !tbaa !12
-  %261 = icmp ult i8 %258, %260
-  br i1 %261, label %262, label %264
+  %259 = icmp ult i8 %256, %258
+  br i1 %259, label %260, label %262
 
-262:                                              ; preds = %252
-  store i32 %194, ptr %197, align 4, !tbaa !15
-  %263 = getelementptr inbounds i32, ptr %208, i64 1
-  br label %265
+260:                                              ; preds = %250
+  store i32 %192, ptr %195, align 4, !tbaa !15
+  %261 = getelementptr inbounds i32, ptr %206, i64 1
+  br label %263
 
-264:                                              ; preds = %252
-  store i32 %194, ptr %198, align 4, !tbaa !15
-  br label %265
+262:                                              ; preds = %250
+  store i32 %192, ptr %196, align 4, !tbaa !15
+  br label %263
 
-265:                                              ; preds = %264, %262
-  %266 = phi ptr [ %198, %262 ], [ %208, %264 ]
-  %267 = phi ptr [ %263, %262 ], [ %197, %264 ]
-  %268 = phi i32 [ %196, %262 ], [ %255, %264 ]
-  %269 = phi i32 [ %255, %262 ], [ %195, %264 ]
-  %270 = phi ptr [ %263, %262 ], [ %208, %264 ]
-  %271 = load i32, ptr %270, align 4, !tbaa !15
-  %272 = sub i32 %171, %271
-  %273 = icmp ne i32 %201, 0
-  %274 = icmp ult i32 %272, %168
-  %275 = select i1 %273, i1 %274, i1 false
-  br i1 %275, label %191, label %187
+263:                                              ; preds = %262, %260
+  %264 = phi ptr [ %196, %260 ], [ %206, %262 ]
+  %265 = phi ptr [ %261, %260 ], [ %195, %262 ]
+  %266 = phi i32 [ %194, %260 ], [ %253, %262 ]
+  %267 = phi i32 [ %253, %260 ], [ %193, %262 ]
+  %268 = phi ptr [ %261, %260 ], [ %206, %262 ]
+  %269 = load i32, ptr %268, align 4, !tbaa !15
+  %270 = sub i32 %169, %269
+  %271 = icmp ne i32 %199, 0
+  %272 = icmp ult i32 %270, %166
+  %273 = select i1 %271, i1 %272, i1 false
+  br i1 %273, label %189, label %185
 
-276:                                              ; preds = %187, %248
-  %277 = phi ptr [ %189, %187 ], [ %198, %248 ]
-  %278 = phi i32 [ 0, %187 ], [ %251, %248 ]
-  %279 = phi ptr [ %188, %187 ], [ %246, %248 ]
-  store i32 %278, ptr %277, align 4, !tbaa !15
-  %280 = ptrtoint ptr %279 to i64
-  %281 = ptrtoint ptr %1 to i64
-  %282 = sub i64 %280, %281
-  %283 = lshr exact i64 %282, 2
-  %284 = trunc i64 %283 to i32
-  %285 = load i32, ptr %174, align 8, !tbaa !49
-  %286 = add i32 %285, 1
-  store i32 %286, ptr %174, align 8, !tbaa !49
+274:                                              ; preds = %185, %246
+  %275 = phi ptr [ %244, %246 ], [ %186, %185 ]
+  %276 = ptrtoint ptr %275 to i64
+  %277 = ptrtoint ptr %1 to i64
+  %278 = sub i64 %276, %277
+  %279 = lshr exact i64 %278, 2
+  %280 = trunc i64 %279 to i32
+  %281 = load i32, ptr %172, align 8, !tbaa !49
+  %282 = add i32 %281, 1
+  store i32 %282, ptr %172, align 8, !tbaa !49
   store ptr %24, ptr %0, align 8, !tbaa !5
-  %287 = load i32, ptr %37, align 8, !tbaa !14
-  %288 = add i32 %287, 1
-  store i32 %288, ptr %37, align 8, !tbaa !14
-  %289 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
-  %290 = load i32, ptr %289, align 4, !tbaa !51
-  %291 = icmp eq i32 %288, %290
-  br i1 %291, label %292, label %294
+  %283 = load i32, ptr %37, align 8, !tbaa !14
+  %284 = add i32 %283, 1
+  store i32 %284, ptr %37, align 8, !tbaa !14
+  %285 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
+  %286 = load i32, ptr %285, align 4, !tbaa !51
+  %287 = icmp eq i32 %284, %286
+  br i1 %287, label %288, label %290
 
-292:                                              ; preds = %276, %157, %6
-  %293 = phi i32 [ 0, %6 ], [ 2, %157 ], [ %284, %276 ]
+288:                                              ; preds = %274, %157, %6
+  %289 = phi i32 [ 0, %6 ], [ 2, %157 ], [ %280, %274 ]
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
-  br label %294
+  br label %290
 
-294:                                              ; preds = %292, %6, %276, %157
-  %295 = phi i32 [ 2, %157 ], [ %284, %276 ], [ 0, %6 ], [ %293, %292 ]
-  ret i32 %295
+290:                                              ; preds = %288, %274, %157, %6
+  %291 = phi i32 [ 0, %6 ], [ 2, %157 ], [ %280, %274 ], [ %289, %288 ]
+  ret i32 %291
 }
 
 ; Function Attrs: nounwind uwtable
@@ -3040,8 +3033,8 @@ define internal void @Bt3_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   %11 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
   br label %12
 
-12:                                               ; preds = %137, %2
-  %13 = phi i32 [ %1, %2 ], [ %138, %137 ]
+12:                                               ; preds = %135, %2
+  %13 = phi i32 [ %1, %2 ], [ %136, %135 ]
   %14 = load i32, ptr %3, align 4, !tbaa !50
   %15 = icmp ult i32 %14, 3
   br i1 %15, label %16, label %25
@@ -3058,7 +3051,7 @@ define internal void @Bt3_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   store i32 %22, ptr %6, align 8, !tbaa !14
   %23 = load i32, ptr %11, align 4, !tbaa !51
   %24 = icmp eq i32 %22, %23
-  br i1 %24, label %136, label %137
+  br i1 %24, label %134, label %135
 
 25:                                               ; preds = %12
   %26 = load ptr, ptr %0, align 8, !tbaa !5
@@ -3107,6 +3100,7 @@ define internal void @Bt3_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   %65 = phi ptr [ %58, %25 ], [ %117, %116 ]
   %66 = phi ptr [ %59, %25 ], [ %120, %116 ]
   store i32 0, ptr %65, align 4, !tbaa !15
+  store i32 0, ptr %66, align 4, !tbaa !15
   br label %127
 
 67:                                               ; preds = %25, %116
@@ -3157,6 +3151,7 @@ define internal void @Bt3_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   store i32 %105, ptr %74, align 4, !tbaa !15
   %106 = getelementptr inbounds i32, ptr %82, i64 1
   %107 = load i32, ptr %106, align 4, !tbaa !15
+  store i32 %107, ptr %71, align 4, !tbaa !15
   br label %127
 
 108:                                              ; preds = %97, %67
@@ -3189,30 +3184,27 @@ define internal void @Bt3_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   br i1 %126, label %67, label %64
 
 127:                                              ; preds = %64, %104
-  %128 = phi ptr [ %66, %64 ], [ %71, %104 ]
-  %129 = phi i32 [ 0, %64 ], [ %107, %104 ]
-  store i32 %129, ptr %128, align 4, !tbaa !15
-  %130 = load i32, ptr %8, align 8, !tbaa !49
-  %131 = add i32 %130, 1
-  store i32 %131, ptr %8, align 8, !tbaa !49
+  %128 = load i32, ptr %8, align 8, !tbaa !49
+  %129 = add i32 %128, 1
+  store i32 %129, ptr %8, align 8, !tbaa !49
   store ptr %31, ptr %0, align 8, !tbaa !5
-  %132 = load i32, ptr %6, align 8, !tbaa !14
-  %133 = add i32 %132, 1
-  store i32 %133, ptr %6, align 8, !tbaa !14
-  %134 = load i32, ptr %11, align 4, !tbaa !51
-  %135 = icmp eq i32 %133, %134
-  br i1 %135, label %136, label %137
+  %130 = load i32, ptr %6, align 8, !tbaa !14
+  %131 = add i32 %130, 1
+  store i32 %131, ptr %6, align 8, !tbaa !14
+  %132 = load i32, ptr %11, align 4, !tbaa !51
+  %133 = icmp eq i32 %131, %132
+  br i1 %133, label %134, label %135
 
-136:                                              ; preds = %127, %16
+134:                                              ; preds = %127, %16
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
-  br label %137
+  br label %135
 
-137:                                              ; preds = %136, %16, %127
-  %138 = add i32 %13, -1
-  %139 = icmp eq i32 %138, 0
-  br i1 %139, label %140, label %12, !llvm.loop !72
+135:                                              ; preds = %134, %127, %16
+  %136 = add i32 %13, -1
+  %137 = icmp eq i32 %136, 0
+  br i1 %137, label %138, label %12, !llvm.loop !72
 
-140:                                              ; preds = %137
+138:                                              ; preds = %135
   ret void
 }
 
@@ -3238,7 +3230,7 @@ define internal i32 @Bt4_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %15 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
   %16 = load i32, ptr %15, align 4, !tbaa !51
   %17 = icmp eq i32 %14, %16
-  br i1 %17, label %339, label %341
+  br i1 %17, label %335, label %337
 
 18:                                               ; preds = %2
   %19 = load ptr, ptr %0, align 8, !tbaa !5
@@ -3339,7 +3331,7 @@ define internal i32 @Bt4_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   br label %97
 
 96:                                               ; preds = %83, %80, %75
-  br i1 %76, label %211, label %97
+  br i1 %76, label %209, label %97
 
 97:                                               ; preds = %96, %90
   %98 = phi i32 [ %57, %90 ], [ %52, %96 ]
@@ -3369,7 +3361,7 @@ define internal i32 @Bt4_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %116 = zext i32 %115 to i64
   %117 = getelementptr inbounds i32, ptr %1, i64 %116
   store i32 %103, ptr %117, align 4, !tbaa !15
-  br label %211
+  br label %209
 
 118:                                              ; preds = %111
   %119 = add nsw i32 %100, -2
@@ -3398,6 +3390,7 @@ define internal i32 @Bt4_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   %139 = phi ptr [ %132, %118 ], [ %191, %190 ]
   %140 = phi ptr [ %133, %118 ], [ %194, %190 ]
   store i32 0, ptr %139, align 4, !tbaa !15
+  store i32 0, ptr %140, align 4, !tbaa !15
   br label %201
 
 141:                                              ; preds = %118, %190
@@ -3448,6 +3441,7 @@ define internal i32 @Bt4_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   store i32 %179, ptr %148, align 4, !tbaa !15
   %180 = getelementptr inbounds i32, ptr %156, i64 1
   %181 = load i32, ptr %180, align 4, !tbaa !15
+  store i32 %181, ptr %145, align 4, !tbaa !15
   br label %201
 
 182:                                              ; preds = %171, %141
@@ -3480,199 +3474,195 @@ define internal i32 @Bt4_MatchFinder_GetMatches(ptr nocapture noundef %0, ptr no
   br i1 %200, label %141, label %138
 
 201:                                              ; preds = %138, %178
-  %202 = phi ptr [ %140, %138 ], [ %145, %178 ]
-  %203 = phi i32 [ 0, %138 ], [ %181, %178 ]
-  store i32 %203, ptr %202, align 4, !tbaa !15
-  %204 = load i32, ptr %125, align 8, !tbaa !49
+  %202 = load i32, ptr %125, align 8, !tbaa !49
+  %203 = add i32 %202, 1
+  store i32 %203, ptr %125, align 8, !tbaa !49
+  store ptr %24, ptr %0, align 8, !tbaa !5
+  %204 = load i32, ptr %45, align 8, !tbaa !14
   %205 = add i32 %204, 1
-  store i32 %205, ptr %125, align 8, !tbaa !49
-  store ptr %24, ptr %0, align 8, !tbaa !5
-  %206 = load i32, ptr %45, align 8, !tbaa !14
-  %207 = add i32 %206, 1
-  store i32 %207, ptr %45, align 8, !tbaa !14
-  %208 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
-  %209 = load i32, ptr %208, align 4, !tbaa !51
-  %210 = icmp eq i32 %207, %209
-  br i1 %210, label %339, label %341
+  store i32 %205, ptr %45, align 8, !tbaa !14
+  %206 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
+  %207 = load i32, ptr %206, align 4, !tbaa !51
+  %208 = icmp eq i32 %205, %207
+  br i1 %208, label %335, label %337
 
-211:                                              ; preds = %114, %96
-  %212 = phi i32 [ %100, %114 ], [ 0, %96 ]
-  %213 = phi i32 [ %103, %114 ], [ %78, %96 ]
-  %214 = load i32, ptr %45, align 8, !tbaa !14
-  %215 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 9
-  %216 = load ptr, ptr %215, align 8, !tbaa !47
-  %217 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 5
-  %218 = load i32, ptr %217, align 8, !tbaa !49
-  %219 = load i32, ptr %62, align 4, !tbaa !46
-  %220 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 11
-  %221 = load i32, ptr %220, align 4, !tbaa !29
-  %222 = zext i32 %212 to i64
-  %223 = getelementptr inbounds i32, ptr %1, i64 %222
-  %224 = shl i32 %218, 1
-  %225 = zext i32 %224 to i64
-  %226 = getelementptr inbounds i32, ptr %216, i64 %225
-  %227 = getelementptr inbounds i32, ptr %226, i64 1
-  %228 = sub i32 %214, %61
-  %229 = icmp ne i32 %221, 0
-  %230 = icmp ult i32 %228, %219
-  %231 = and i1 %230, %229
-  br i1 %231, label %232, label %234
+209:                                              ; preds = %114, %96
+  %210 = phi i32 [ %100, %114 ], [ 0, %96 ]
+  %211 = phi i32 [ %103, %114 ], [ %78, %96 ]
+  %212 = load i32, ptr %45, align 8, !tbaa !14
+  %213 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 9
+  %214 = load ptr, ptr %213, align 8, !tbaa !47
+  %215 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 5
+  %216 = load i32, ptr %215, align 8, !tbaa !49
+  %217 = load i32, ptr %62, align 4, !tbaa !46
+  %218 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 11
+  %219 = load i32, ptr %218, align 4, !tbaa !29
+  %220 = zext i32 %210 to i64
+  %221 = getelementptr inbounds i32, ptr %1, i64 %220
+  %222 = shl i32 %216, 1
+  %223 = zext i32 %222 to i64
+  %224 = getelementptr inbounds i32, ptr %214, i64 %223
+  %225 = getelementptr inbounds i32, ptr %224, i64 1
+  %226 = sub i32 %212, %61
+  %227 = icmp ne i32 %219, 0
+  %228 = icmp ult i32 %226, %217
+  %229 = and i1 %228, %227
+  br i1 %229, label %230, label %232
 
-232:                                              ; preds = %211
-  %233 = tail call i32 @llvm.umax.i32(i32 %213, i32 3)
-  br label %238
+230:                                              ; preds = %209
+  %231 = tail call i32 @llvm.umax.i32(i32 %211, i32 3)
+  br label %236
 
-234:                                              ; preds = %312, %211
-  %235 = phi ptr [ %223, %211 ], [ %300, %312 ]
-  %236 = phi ptr [ %227, %211 ], [ %313, %312 ]
-  %237 = phi ptr [ %226, %211 ], [ %314, %312 ]
-  store i32 0, ptr %237, align 4, !tbaa !15
-  br label %323
+232:                                              ; preds = %310, %209
+  %233 = phi ptr [ %221, %209 ], [ %298, %310 ]
+  %234 = phi ptr [ %225, %209 ], [ %311, %310 ]
+  %235 = phi ptr [ %224, %209 ], [ %312, %310 ]
+  store i32 0, ptr %235, align 4, !tbaa !15
+  store i32 0, ptr %234, align 4, !tbaa !15
+  br label %321
 
-238:                                              ; preds = %232, %312
-  %239 = phi i32 [ %248, %312 ], [ %221, %232 ]
-  %240 = phi i32 [ %319, %312 ], [ %228, %232 ]
-  %241 = phi i32 [ %318, %312 ], [ %61, %232 ]
-  %242 = phi i32 [ %316, %312 ], [ 0, %232 ]
-  %243 = phi i32 [ %315, %312 ], [ 0, %232 ]
-  %244 = phi ptr [ %314, %312 ], [ %226, %232 ]
-  %245 = phi ptr [ %313, %312 ], [ %227, %232 ]
-  %246 = phi i32 [ %301, %312 ], [ %233, %232 ]
-  %247 = phi ptr [ %300, %312 ], [ %223, %232 ]
-  %248 = add i32 %239, -1
-  %249 = sub i32 %218, %240
-  %250 = icmp ult i32 %218, %240
-  %251 = select i1 %250, i32 %219, i32 0
-  %252 = add i32 %249, %251
-  %253 = shl i32 %252, 1
-  %254 = zext i32 %253 to i64
-  %255 = getelementptr inbounds i32, ptr %216, i64 %254
-  %256 = zext i32 %240 to i64
-  %257 = sub nsw i64 0, %256
-  %258 = getelementptr inbounds i8, ptr %19, i64 %257
-  %259 = tail call i32 @llvm.umin.i32(i32 %243, i32 %242)
-  %260 = zext i32 %259 to i64
-  %261 = getelementptr inbounds i8, ptr %258, i64 %260
+236:                                              ; preds = %230, %310
+  %237 = phi i32 [ %246, %310 ], [ %219, %230 ]
+  %238 = phi i32 [ %317, %310 ], [ %226, %230 ]
+  %239 = phi i32 [ %316, %310 ], [ %61, %230 ]
+  %240 = phi i32 [ %314, %310 ], [ 0, %230 ]
+  %241 = phi i32 [ %313, %310 ], [ 0, %230 ]
+  %242 = phi ptr [ %312, %310 ], [ %224, %230 ]
+  %243 = phi ptr [ %311, %310 ], [ %225, %230 ]
+  %244 = phi i32 [ %299, %310 ], [ %231, %230 ]
+  %245 = phi ptr [ %298, %310 ], [ %221, %230 ]
+  %246 = add i32 %237, -1
+  %247 = sub i32 %216, %238
+  %248 = icmp ult i32 %216, %238
+  %249 = select i1 %248, i32 %217, i32 0
+  %250 = add i32 %247, %249
+  %251 = shl i32 %250, 1
+  %252 = zext i32 %251 to i64
+  %253 = getelementptr inbounds i32, ptr %214, i64 %252
+  %254 = zext i32 %238 to i64
+  %255 = sub nsw i64 0, %254
+  %256 = getelementptr inbounds i8, ptr %19, i64 %255
+  %257 = tail call i32 @llvm.umin.i32(i32 %241, i32 %240)
+  %258 = zext i32 %257 to i64
+  %259 = getelementptr inbounds i8, ptr %256, i64 %258
+  %260 = load i8, ptr %259, align 1, !tbaa !12
+  %261 = getelementptr inbounds i8, ptr %19, i64 %258
   %262 = load i8, ptr %261, align 1, !tbaa !12
-  %263 = getelementptr inbounds i8, ptr %19, i64 %260
-  %264 = load i8, ptr %263, align 1, !tbaa !12
-  %265 = icmp eq i8 %262, %264
-  br i1 %265, label %266, label %299
+  %263 = icmp eq i8 %260, %262
+  br i1 %263, label %264, label %297
 
-266:                                              ; preds = %238
-  %267 = add i32 %259, 1
-  %268 = icmp eq i32 %267, %4
-  br i1 %268, label %287, label %269
+264:                                              ; preds = %236
+  %265 = add i32 %257, 1
+  %266 = icmp eq i32 %265, %4
+  br i1 %266, label %285, label %267
 
-269:                                              ; preds = %266
-  %270 = zext i32 %267 to i64
-  %271 = getelementptr inbounds i8, ptr %258, i64 %270
+267:                                              ; preds = %264
+  %268 = zext i32 %265 to i64
+  %269 = getelementptr inbounds i8, ptr %256, i64 %268
+  %270 = load i8, ptr %269, align 1, !tbaa !12
+  %271 = getelementptr inbounds i8, ptr %19, i64 %268
   %272 = load i8, ptr %271, align 1, !tbaa !12
-  %273 = getelementptr inbounds i8, ptr %19, i64 %270
-  %274 = load i8, ptr %273, align 1, !tbaa !12
-  %275 = icmp eq i8 %272, %274
-  br i1 %275, label %276, label %287
+  %273 = icmp eq i8 %270, %272
+  br i1 %273, label %274, label %285
 
-276:                                              ; preds = %269, %280
-  %277 = phi i32 [ %278, %280 ], [ %267, %269 ]
-  %278 = add i32 %277, 1
-  %279 = icmp eq i32 %278, %4
-  br i1 %279, label %287, label %280
+274:                                              ; preds = %267, %278
+  %275 = phi i32 [ %276, %278 ], [ %265, %267 ]
+  %276 = add i32 %275, 1
+  %277 = icmp eq i32 %276, %4
+  br i1 %277, label %285, label %278
 
-280:                                              ; preds = %276
-  %281 = zext i32 %278 to i64
-  %282 = getelementptr inbounds i8, ptr %258, i64 %281
+278:                                              ; preds = %274
+  %279 = zext i32 %276 to i64
+  %280 = getelementptr inbounds i8, ptr %256, i64 %279
+  %281 = load i8, ptr %280, align 1, !tbaa !12
+  %282 = getelementptr inbounds i8, ptr %19, i64 %279
   %283 = load i8, ptr %282, align 1, !tbaa !12
-  %284 = getelementptr inbounds i8, ptr %19, i64 %281
-  %285 = load i8, ptr %284, align 1, !tbaa !12
-  %286 = icmp eq i8 %283, %285
-  br i1 %286, label %276, label %287, !llvm.loop !54
+  %284 = icmp eq i8 %281, %283
+  br i1 %284, label %274, label %285, !llvm.loop !54
 
-287:                                              ; preds = %280, %276, %269, %266
-  %288 = phi i32 [ %267, %269 ], [ %4, %266 ], [ %278, %280 ], [ %4, %276 ]
-  %289 = icmp ult i32 %246, %288
-  br i1 %289, label %290, label %299
+285:                                              ; preds = %278, %274, %267, %264
+  %286 = phi i32 [ %265, %267 ], [ %4, %264 ], [ %276, %278 ], [ %4, %274 ]
+  %287 = icmp ult i32 %244, %286
+  br i1 %287, label %288, label %297
 
-290:                                              ; preds = %287
-  %291 = getelementptr inbounds i32, ptr %247, i64 1
-  store i32 %288, ptr %247, align 4, !tbaa !15
-  %292 = add i32 %240, -1
-  %293 = getelementptr inbounds i32, ptr %247, i64 2
-  store i32 %292, ptr %291, align 4, !tbaa !15
-  %294 = icmp eq i32 %288, %4
-  br i1 %294, label %295, label %299
+288:                                              ; preds = %285
+  %289 = getelementptr inbounds i32, ptr %245, i64 1
+  store i32 %286, ptr %245, align 4, !tbaa !15
+  %290 = add i32 %238, -1
+  %291 = getelementptr inbounds i32, ptr %245, i64 2
+  store i32 %290, ptr %289, align 4, !tbaa !15
+  %292 = icmp eq i32 %286, %4
+  br i1 %292, label %293, label %297
 
-295:                                              ; preds = %290
-  %296 = load i32, ptr %255, align 4, !tbaa !15
-  store i32 %296, ptr %244, align 4, !tbaa !15
-  %297 = getelementptr inbounds i32, ptr %255, i64 1
-  %298 = load i32, ptr %297, align 4, !tbaa !15
-  br label %323
+293:                                              ; preds = %288
+  %294 = load i32, ptr %253, align 4, !tbaa !15
+  store i32 %294, ptr %242, align 4, !tbaa !15
+  %295 = getelementptr inbounds i32, ptr %253, i64 1
+  %296 = load i32, ptr %295, align 4, !tbaa !15
+  store i32 %296, ptr %243, align 4, !tbaa !15
+  br label %321
 
-299:                                              ; preds = %290, %287, %238
-  %300 = phi ptr [ %293, %290 ], [ %247, %287 ], [ %247, %238 ]
-  %301 = phi i32 [ %288, %290 ], [ %246, %287 ], [ %246, %238 ]
-  %302 = phi i32 [ %288, %290 ], [ %288, %287 ], [ %259, %238 ]
-  %303 = zext i32 %302 to i64
-  %304 = getelementptr inbounds i8, ptr %258, i64 %303
+297:                                              ; preds = %288, %285, %236
+  %298 = phi ptr [ %291, %288 ], [ %245, %285 ], [ %245, %236 ]
+  %299 = phi i32 [ %286, %288 ], [ %244, %285 ], [ %244, %236 ]
+  %300 = phi i32 [ %286, %288 ], [ %286, %285 ], [ %257, %236 ]
+  %301 = zext i32 %300 to i64
+  %302 = getelementptr inbounds i8, ptr %256, i64 %301
+  %303 = load i8, ptr %302, align 1, !tbaa !12
+  %304 = getelementptr inbounds i8, ptr %19, i64 %301
   %305 = load i8, ptr %304, align 1, !tbaa !12
-  %306 = getelementptr inbounds i8, ptr %19, i64 %303
-  %307 = load i8, ptr %306, align 1, !tbaa !12
-  %308 = icmp ult i8 %305, %307
-  br i1 %308, label %309, label %311
+  %306 = icmp ult i8 %303, %305
+  br i1 %306, label %307, label %309
 
-309:                                              ; preds = %299
-  store i32 %241, ptr %244, align 4, !tbaa !15
-  %310 = getelementptr inbounds i32, ptr %255, i64 1
-  br label %312
+307:                                              ; preds = %297
+  store i32 %239, ptr %242, align 4, !tbaa !15
+  %308 = getelementptr inbounds i32, ptr %253, i64 1
+  br label %310
 
-311:                                              ; preds = %299
-  store i32 %241, ptr %245, align 4, !tbaa !15
-  br label %312
+309:                                              ; preds = %297
+  store i32 %239, ptr %243, align 4, !tbaa !15
+  br label %310
 
-312:                                              ; preds = %311, %309
-  %313 = phi ptr [ %245, %309 ], [ %255, %311 ]
-  %314 = phi ptr [ %310, %309 ], [ %244, %311 ]
-  %315 = phi i32 [ %243, %309 ], [ %302, %311 ]
-  %316 = phi i32 [ %302, %309 ], [ %242, %311 ]
-  %317 = phi ptr [ %310, %309 ], [ %255, %311 ]
-  %318 = load i32, ptr %317, align 4, !tbaa !15
-  %319 = sub i32 %214, %318
-  %320 = icmp ne i32 %248, 0
-  %321 = icmp ult i32 %319, %219
-  %322 = select i1 %320, i1 %321, i1 false
-  br i1 %322, label %238, label %234
+310:                                              ; preds = %309, %307
+  %311 = phi ptr [ %243, %307 ], [ %253, %309 ]
+  %312 = phi ptr [ %308, %307 ], [ %242, %309 ]
+  %313 = phi i32 [ %241, %307 ], [ %300, %309 ]
+  %314 = phi i32 [ %300, %307 ], [ %240, %309 ]
+  %315 = phi ptr [ %308, %307 ], [ %253, %309 ]
+  %316 = load i32, ptr %315, align 4, !tbaa !15
+  %317 = sub i32 %212, %316
+  %318 = icmp ne i32 %246, 0
+  %319 = icmp ult i32 %317, %217
+  %320 = select i1 %318, i1 %319, i1 false
+  br i1 %320, label %236, label %232
 
-323:                                              ; preds = %234, %295
-  %324 = phi ptr [ %236, %234 ], [ %245, %295 ]
-  %325 = phi i32 [ 0, %234 ], [ %298, %295 ]
-  %326 = phi ptr [ %235, %234 ], [ %293, %295 ]
-  store i32 %325, ptr %324, align 4, !tbaa !15
-  %327 = ptrtoint ptr %326 to i64
-  %328 = ptrtoint ptr %1 to i64
-  %329 = sub i64 %327, %328
-  %330 = lshr exact i64 %329, 2
-  %331 = trunc i64 %330 to i32
-  %332 = load i32, ptr %217, align 8, !tbaa !49
-  %333 = add i32 %332, 1
-  store i32 %333, ptr %217, align 8, !tbaa !49
+321:                                              ; preds = %232, %293
+  %322 = phi ptr [ %291, %293 ], [ %233, %232 ]
+  %323 = ptrtoint ptr %322 to i64
+  %324 = ptrtoint ptr %1 to i64
+  %325 = sub i64 %323, %324
+  %326 = lshr exact i64 %325, 2
+  %327 = trunc i64 %326 to i32
+  %328 = load i32, ptr %215, align 8, !tbaa !49
+  %329 = add i32 %328, 1
+  store i32 %329, ptr %215, align 8, !tbaa !49
   store ptr %24, ptr %0, align 8, !tbaa !5
-  %334 = load i32, ptr %45, align 8, !tbaa !14
-  %335 = add i32 %334, 1
-  store i32 %335, ptr %45, align 8, !tbaa !14
-  %336 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
-  %337 = load i32, ptr %336, align 4, !tbaa !51
-  %338 = icmp eq i32 %335, %337
-  br i1 %338, label %339, label %341
+  %330 = load i32, ptr %45, align 8, !tbaa !14
+  %331 = add i32 %330, 1
+  store i32 %331, ptr %45, align 8, !tbaa !14
+  %332 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
+  %333 = load i32, ptr %332, align 4, !tbaa !51
+  %334 = icmp eq i32 %331, %333
+  br i1 %334, label %335, label %337
 
-339:                                              ; preds = %323, %201, %6
-  %340 = phi i32 [ 0, %6 ], [ %100, %201 ], [ %331, %323 ]
+335:                                              ; preds = %321, %201, %6
+  %336 = phi i32 [ 0, %6 ], [ %100, %201 ], [ %327, %321 ]
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
-  br label %341
+  br label %337
 
-341:                                              ; preds = %339, %6, %323, %201
-  %342 = phi i32 [ %100, %201 ], [ %331, %323 ], [ 0, %6 ], [ %340, %339 ]
-  ret i32 %342
+337:                                              ; preds = %335, %321, %201, %6
+  %338 = phi i32 [ 0, %6 ], [ %100, %201 ], [ %327, %321 ], [ %336, %335 ]
+  ret i32 %338
 }
 
 ; Function Attrs: nounwind uwtable
@@ -3688,8 +3678,8 @@ define internal void @Bt4_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   %11 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 2
   br label %12
 
-12:                                               ; preds = %149, %2
-  %13 = phi i32 [ %1, %2 ], [ %150, %149 ]
+12:                                               ; preds = %147, %2
+  %13 = phi i32 [ %1, %2 ], [ %148, %147 ]
   %14 = load i32, ptr %3, align 4, !tbaa !50
   %15 = icmp ult i32 %14, 4
   br i1 %15, label %16, label %25
@@ -3706,7 +3696,7 @@ define internal void @Bt4_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   store i32 %22, ptr %6, align 8, !tbaa !14
   %23 = load i32, ptr %11, align 4, !tbaa !51
   %24 = icmp eq i32 %22, %23
-  br i1 %24, label %148, label %149
+  br i1 %24, label %146, label %147
 
 25:                                               ; preds = %12
   %26 = load ptr, ptr %0, align 8, !tbaa !5
@@ -3768,6 +3758,7 @@ define internal void @Bt4_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   %77 = phi ptr [ %70, %25 ], [ %129, %128 ]
   %78 = phi ptr [ %71, %25 ], [ %132, %128 ]
   store i32 0, ptr %77, align 4, !tbaa !15
+  store i32 0, ptr %78, align 4, !tbaa !15
   br label %139
 
 79:                                               ; preds = %25, %128
@@ -3818,6 +3809,7 @@ define internal void @Bt4_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   store i32 %117, ptr %86, align 4, !tbaa !15
   %118 = getelementptr inbounds i32, ptr %94, i64 1
   %119 = load i32, ptr %118, align 4, !tbaa !15
+  store i32 %119, ptr %83, align 4, !tbaa !15
   br label %139
 
 120:                                              ; preds = %109, %79
@@ -3850,30 +3842,27 @@ define internal void @Bt4_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
   br i1 %138, label %79, label %76
 
 139:                                              ; preds = %76, %116
-  %140 = phi ptr [ %78, %76 ], [ %83, %116 ]
-  %141 = phi i32 [ 0, %76 ], [ %119, %116 ]
-  store i32 %141, ptr %140, align 4, !tbaa !15
-  %142 = load i32, ptr %8, align 8, !tbaa !49
-  %143 = add i32 %142, 1
-  store i32 %143, ptr %8, align 8, !tbaa !49
+  %140 = load i32, ptr %8, align 8, !tbaa !49
+  %141 = add i32 %140, 1
+  store i32 %141, ptr %8, align 8, !tbaa !49
   store ptr %31, ptr %0, align 8, !tbaa !5
-  %144 = load i32, ptr %6, align 8, !tbaa !14
-  %145 = add i32 %144, 1
-  store i32 %145, ptr %6, align 8, !tbaa !14
-  %146 = load i32, ptr %11, align 4, !tbaa !51
-  %147 = icmp eq i32 %145, %146
-  br i1 %147, label %148, label %149
+  %142 = load i32, ptr %6, align 8, !tbaa !14
+  %143 = add i32 %142, 1
+  store i32 %143, ptr %6, align 8, !tbaa !14
+  %144 = load i32, ptr %11, align 4, !tbaa !51
+  %145 = icmp eq i32 %143, %144
+  br i1 %145, label %146, label %147
 
-148:                                              ; preds = %139, %16
+146:                                              ; preds = %139, %16
   tail call fastcc void @MatchFinder_CheckLimits(ptr noundef nonnull %0)
-  br label %149
+  br label %147
 
-149:                                              ; preds = %148, %16, %139
-  %150 = add i32 %13, -1
-  %151 = icmp eq i32 %150, 0
-  br i1 %151, label %152, label %12, !llvm.loop !74
+147:                                              ; preds = %146, %139, %16
+  %148 = add i32 %13, -1
+  %149 = icmp eq i32 %148, 0
+  br i1 %149, label %150, label %12, !llvm.loop !74
 
-152:                                              ; preds = %149
+150:                                              ; preds = %147
   ret void
 }
 
@@ -3881,10 +3870,10 @@ define internal void @Bt4_MatchFinder_Skip(ptr nocapture noundef %0, i32 noundef
 declare i32 @llvm.umin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #10
+declare i32 @llvm.usub.sat.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.usub.sat.i32(i32, i32) #10
+declare i32 @llvm.umax.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x i32> @llvm.usub.sat.v4i32(<4 x i32>, <4 x i32>) #10

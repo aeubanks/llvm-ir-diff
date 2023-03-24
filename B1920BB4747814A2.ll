@@ -166,7 +166,7 @@ define dso_local void @_ZN8NArchive3N7z15CFolderInStreamC2Ev(ptr noundef nonnull
   %29 = invoke noundef i32 %28(ptr noundef nonnull align 8 dereferenceable(8) %23)
           to label %30 unwind label %31
 
-30:                                               ; preds = %22, %25
+30:                                               ; preds = %25, %22
   store ptr %15, ptr %4, align 8, !tbaa !16
   ret void
 
@@ -360,7 +360,7 @@ define dso_local noundef i32 @_ZN8NArchive3N7z15CFolderInStream10OpenStreamEv(pt
   %60 = invoke noundef i32 %59(ptr noundef nonnull align 8 dereferenceable(8) %54)
           to label %61 unwind label %39
 
-61:                                               ; preds = %53, %56
+61:                                               ; preds = %56, %53
   store ptr %45, ptr %46, align 8, !tbaa !16
   %62 = load ptr, ptr %9, align 8, !tbaa !18
   %63 = getelementptr inbounds %class.CSequentialInStreamWithCRC, ptr %62, i64 0, i32 4
@@ -520,9 +520,9 @@ define dso_local noundef i32 @_ZN8NArchive3N7z15CFolderInStream10OpenStreamEv(pt
   store i32 %148, ptr %21, align 4, !tbaa !44
   br label %149
 
-149:                                              ; preds = %141, %37, %119, %98
-  %150 = phi i1 [ false, %98 ], [ false, %119 ], [ false, %37 ], [ true, %141 ]
-  %151 = phi i32 [ %99, %98 ], [ %118, %119 ], [ %36, %37 ], [ %23, %141 ]
+149:                                              ; preds = %37, %119, %141, %98
+  %150 = phi i1 [ false, %98 ], [ true, %141 ], [ false, %119 ], [ false, %37 ]
+  %151 = phi i32 [ %99, %98 ], [ %23, %141 ], [ %118, %119 ], [ %36, %37 ]
   %152 = load ptr, ptr %2, align 8, !tbaa !16
   %153 = icmp eq ptr %152, null
   br i1 %153, label %162, label %154
@@ -772,45 +772,44 @@ define dso_local noundef i32 @_ZN8NArchive3N7z15CFolderInStream16GetSubStreamSiz
   store i64 0, ptr %2, align 8, !tbaa !45
   %4 = trunc i64 %1 to i32
   %5 = icmp slt i32 %4, 0
-  br i1 %5, label %27, label %6
+  %6 = getelementptr inbounds %"class.NArchive::N7z::CFolderInStream", ptr %0, i64 0, i32 15, i32 0, i32 2
+  %7 = load i32, ptr %6, align 4
+  %8 = sext i32 %7 to i64
+  %9 = icmp ult i64 %8, %1
+  %10 = select i1 %5, i1 true, i1 %9
+  br i1 %10, label %28, label %11
 
-6:                                                ; preds = %3
-  %7 = getelementptr inbounds %"class.NArchive::N7z::CFolderInStream", ptr %0, i64 0, i32 15, i32 0, i32 2
-  %8 = load i32, ptr %7, align 4, !tbaa !44
-  %9 = sext i32 %8 to i64
-  %10 = icmp ult i64 %9, %1
-  br i1 %10, label %27, label %11
-
-11:                                               ; preds = %6
-  %12 = icmp sgt i32 %8, %4
-  br i1 %12, label %13, label %18
+11:                                               ; preds = %3
+  %12 = icmp sgt i32 %7, %4
+  br i1 %12, label %13, label %19
 
 13:                                               ; preds = %11
   %14 = getelementptr inbounds %"class.NArchive::N7z::CFolderInStream", ptr %0, i64 0, i32 15, i32 0, i32 3
   %15 = load ptr, ptr %14, align 8, !tbaa !43
-  %16 = and i64 %1, 4294967295
-  %17 = getelementptr inbounds i64, ptr %15, i64 %16
-  br label %24
+  %16 = shl i64 %1, 32
+  %17 = ashr exact i64 %16, 32
+  %18 = getelementptr inbounds i64, ptr %15, i64 %17
+  br label %25
 
-18:                                               ; preds = %11
-  %19 = getelementptr inbounds %"class.NArchive::N7z::CFolderInStream", ptr %0, i64 0, i32 6
-  %20 = load i8, ptr %19, align 8, !tbaa !34, !range !47, !noundef !48
-  %21 = icmp eq i8 %20, 0
-  br i1 %21, label %27, label %22
+19:                                               ; preds = %11
+  %20 = getelementptr inbounds %"class.NArchive::N7z::CFolderInStream", ptr %0, i64 0, i32 6
+  %21 = load i8, ptr %20, align 8, !tbaa !34, !range !47, !noundef !48
+  %22 = icmp eq i8 %21, 0
+  br i1 %22, label %28, label %23
 
-22:                                               ; preds = %18
-  %23 = getelementptr inbounds %"class.NArchive::N7z::CFolderInStream", ptr %0, i64 0, i32 8
-  br label %24
+23:                                               ; preds = %19
+  %24 = getelementptr inbounds %"class.NArchive::N7z::CFolderInStream", ptr %0, i64 0, i32 8
+  br label %25
 
-24:                                               ; preds = %13, %22
-  %25 = phi ptr [ %23, %22 ], [ %17, %13 ]
-  %26 = load i64, ptr %25, align 8, !tbaa !45
-  store i64 %26, ptr %2, align 8, !tbaa !45
-  br label %27
+25:                                               ; preds = %13, %23
+  %26 = phi ptr [ %24, %23 ], [ %18, %13 ]
+  %27 = load i64, ptr %26, align 8, !tbaa !45
+  store i64 %27, ptr %2, align 8, !tbaa !45
+  br label %28
 
-27:                                               ; preds = %24, %18, %3, %6
-  %28 = phi i32 [ -2147467259, %6 ], [ -2147467259, %3 ], [ 1, %18 ], [ 0, %24 ]
-  ret i32 %28
+28:                                               ; preds = %25, %19, %3
+  %29 = phi i32 [ -2147467259, %3 ], [ 1, %19 ], [ 0, %25 ]
+  ret i32 %29
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
@@ -818,45 +817,44 @@ define dso_local noundef i32 @_ZThn8_N8NArchive3N7z15CFolderInStream16GetSubStre
   store i64 0, ptr %2, align 8, !tbaa !45
   %4 = trunc i64 %1 to i32
   %5 = icmp slt i32 %4, 0
-  br i1 %5, label %27, label %6
+  %6 = getelementptr inbounds i8, ptr %0, i64 156
+  %7 = load i32, ptr %6, align 4
+  %8 = sext i32 %7 to i64
+  %9 = icmp ult i64 %8, %1
+  %10 = select i1 %5, i1 true, i1 %9
+  br i1 %10, label %28, label %11
 
-6:                                                ; preds = %3
-  %7 = getelementptr inbounds i8, ptr %0, i64 156
-  %8 = load i32, ptr %7, align 4, !tbaa !44
-  %9 = sext i32 %8 to i64
-  %10 = icmp ult i64 %9, %1
-  br i1 %10, label %27, label %11
-
-11:                                               ; preds = %6
-  %12 = icmp sgt i32 %8, %4
-  br i1 %12, label %13, label %18
+11:                                               ; preds = %3
+  %12 = icmp sgt i32 %7, %4
+  br i1 %12, label %13, label %19
 
 13:                                               ; preds = %11
   %14 = getelementptr inbounds i8, ptr %0, i64 160
   %15 = load ptr, ptr %14, align 8, !tbaa !43
-  %16 = and i64 %1, 4294967295
-  %17 = getelementptr inbounds i64, ptr %15, i64 %16
-  br label %24
+  %16 = shl i64 %1, 32
+  %17 = ashr exact i64 %16, 32
+  %18 = getelementptr inbounds i64, ptr %15, i64 %17
+  br label %25
 
-18:                                               ; preds = %11
-  %19 = getelementptr inbounds i8, ptr %0, i64 40
-  %20 = load i8, ptr %19, align 8, !tbaa !34, !range !47, !noundef !48
-  %21 = icmp eq i8 %20, 0
-  br i1 %21, label %27, label %22
+19:                                               ; preds = %11
+  %20 = getelementptr inbounds i8, ptr %0, i64 40
+  %21 = load i8, ptr %20, align 8, !tbaa !34, !range !47, !noundef !48
+  %22 = icmp eq i8 %21, 0
+  br i1 %22, label %28, label %23
 
-22:                                               ; preds = %18
-  %23 = getelementptr inbounds i8, ptr %0, i64 48
-  br label %24
+23:                                               ; preds = %19
+  %24 = getelementptr inbounds i8, ptr %0, i64 48
+  br label %25
 
-24:                                               ; preds = %22, %13
-  %25 = phi ptr [ %23, %22 ], [ %17, %13 ]
-  %26 = load i64, ptr %25, align 8, !tbaa !45
-  store i64 %26, ptr %2, align 8, !tbaa !45
-  br label %27
+25:                                               ; preds = %23, %13
+  %26 = phi ptr [ %24, %23 ], [ %18, %13 ]
+  %27 = load i64, ptr %26, align 8, !tbaa !45
+  store i64 %27, ptr %2, align 8, !tbaa !45
+  br label %28
 
-27:                                               ; preds = %3, %6, %18, %24
-  %28 = phi i32 [ -2147467259, %6 ], [ -2147467259, %3 ], [ 1, %18 ], [ 0, %24 ]
-  ret i32 %28
+28:                                               ; preds = %3, %19, %25
+  %29 = phi i32 [ -2147467259, %3 ], [ 1, %19 ], [ 0, %25 ]
+  ret i32 %29
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -971,7 +969,7 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive3N7z15CFolderInStream14Qu
   %81 = icmp eq i8 %79, %80
   br i1 %81, label %160, label %82
 
-82:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77
+82:                                               ; preds = %3, %7, %12, %17, %22, %27, %32, %37, %42, %47, %52, %57, %62, %67, %72, %77
   %83 = load i8, ptr @IID_ICompressGetSubStreamSize, align 4, !tbaa !49
   %84 = icmp eq i8 %4, %83
   br i1 %84, label %85, label %166
@@ -1090,8 +1088,8 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive3N7z15CFolderInStream14Qu
   %165 = tail call noundef i32 %164(ptr noundef nonnull align 8 dereferenceable(184) %0)
   br label %166
 
-166:                                              ; preds = %160, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
-  %167 = phi i32 [ -2147467262, %155 ], [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ 0, %160 ]
+166:                                              ; preds = %160, %155, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82
+  %167 = phi i32 [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ -2147467262, %155 ], [ 0, %160 ]
   ret i32 %167
 }
 

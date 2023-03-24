@@ -112,19 +112,19 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   %31 = getelementptr inbounds %struct.LIST, ptr %0, i64 0, i32 1
   %32 = xor i32 %26, 1
   %33 = icmp eq i32 %32, 0
-  %34 = select i1 %30, i8 17, i8 19
-  %35 = zext i16 %25 to i64
-  %36 = zext i32 %32 to i64
-  %37 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 1
-  %38 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 2
-  %39 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 8
-  %40 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 15
-  %41 = getelementptr inbounds %struct.CONSTRAINT, ptr %5, i64 0, i32 1
-  %42 = getelementptr inbounds %struct.CONSTRAINT, ptr %5, i64 0, i32 2
-  %43 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 9
-  %44 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 10
-  %45 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 13
-  %46 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 7
+  %34 = zext i16 %25 to i64
+  %35 = zext i32 %32 to i64
+  %36 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 1
+  %37 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 2
+  %38 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 8
+  %39 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 15
+  %40 = getelementptr inbounds %struct.CONSTRAINT, ptr %5, i64 0, i32 1
+  %41 = getelementptr inbounds %struct.CONSTRAINT, ptr %5, i64 0, i32 2
+  %42 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 9
+  %43 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 10
+  %44 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 13
+  %45 = getelementptr inbounds %struct.head_type, ptr %0, i64 0, i32 7
+  %46 = select i1 %30, i8 17, i8 19
   %47 = select i1 %30, i16 8, i16 16
   br label %48
 
@@ -1172,13 +1172,13 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br label %1066
 
 660:                                              ; preds = %488
-  %661 = load ptr, ptr %39, align 8, !tbaa !5
+  %661 = load ptr, ptr %38, align 8, !tbaa !5
   %662 = icmp eq ptr %661, null
   br i1 %662, label %1176, label %663
 
 663:                                              ; preds = %660
   %664 = call i32 @DisposeObject(ptr noundef nonnull %661) #6
-  store ptr null, ptr %39, align 8, !tbaa !5
+  store ptr null, ptr %38, align 8, !tbaa !5
   br label %1176
 
 665:                                              ; preds = %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308, %308
@@ -1275,7 +1275,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br i1 %718, label %713, label %719, !llvm.loop !22
 
 719:                                              ; preds = %713
-  %720 = icmp eq i8 %717, %34
+  %720 = icmp eq i8 %717, %46
   br i1 %720, label %725, label %721
 
 721:                                              ; preds = %719
@@ -1334,23 +1334,23 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
 
 756:                                              ; preds = %747, %753, %744
   %757 = getelementptr inbounds %struct.word_type, ptr %715, i64 0, i32 3
-  %758 = getelementptr inbounds [2 x i32], ptr %757, i64 0, i64 %35
+  %758 = getelementptr inbounds [2 x i32], ptr %757, i64 0, i64 %34
   %759 = load i32, ptr %758, align 4, !tbaa !5
   %760 = getelementptr inbounds %struct.word_type, ptr %715, i64 0, i32 3, i32 1
-  %761 = getelementptr inbounds [2 x i32], ptr %760, i64 0, i64 %35
+  %761 = getelementptr inbounds [2 x i32], ptr %760, i64 0, i64 %34
   %762 = load i32, ptr %761, align 4, !tbaa !5
-  %763 = getelementptr inbounds [2 x i32], ptr %757, i64 0, i64 %36
+  %763 = getelementptr inbounds [2 x i32], ptr %757, i64 0, i64 %35
   %764 = load i32, ptr %763, align 4, !tbaa !5
-  %765 = getelementptr inbounds [2 x i32], ptr %760, i64 0, i64 %36
+  %765 = getelementptr inbounds [2 x i32], ptr %760, i64 0, i64 %35
   %766 = load i32, ptr %765, align 4, !tbaa !5
   call void @Constrained(ptr noundef nonnull %715, ptr noundef nonnull %4, i32 noundef %26, ptr noundef nonnull %11) #6
   call void @Constrained(ptr noundef nonnull %715, ptr noundef nonnull %5, i32 noundef %32, ptr noundef nonnull %11) #6
   %767 = load i32, ptr %4, align 8, !tbaa !23
   %768 = icmp ne i32 %767, 8388607
-  %769 = load i32, ptr %37, align 4
+  %769 = load i32, ptr %36, align 4
   %770 = icmp ne i32 %769, 8388607
   %771 = select i1 %768, i1 true, i1 %770
-  %772 = load i32, ptr %38, align 8
+  %772 = load i32, ptr %37, align 8
   %773 = icmp ne i32 %772, 8388607
   %774 = select i1 %771, i1 true, i1 %773
   %775 = select i1 %774, i32 %769, i32 0
@@ -1373,15 +1373,15 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
 788:                                              ; preds = %776
   %789 = getelementptr inbounds %struct.word_type, ptr %783, i64 0, i32 3
   %790 = getelementptr inbounds %struct.word_type, ptr %783, i64 0, i32 3, i32 1
-  %791 = getelementptr inbounds [2 x i32], ptr %790, i64 0, i64 %35
+  %791 = getelementptr inbounds [2 x i32], ptr %790, i64 0, i64 %34
   %792 = load i32, ptr %791, align 4, !tbaa !5
   %793 = add nsw i32 %792, %780
   %794 = load ptr, ptr %8, align 8, !tbaa !8
   %795 = getelementptr inbounds %struct.word_type, ptr %794, i64 0, i32 3, i32 1
-  %796 = getelementptr inbounds [2 x i32], ptr %795, i64 0, i64 %35
+  %796 = getelementptr inbounds [2 x i32], ptr %795, i64 0, i64 %34
   %797 = load i32, ptr %796, align 4, !tbaa !5
   %798 = sub i32 %793, %797
-  %799 = getelementptr inbounds [2 x i32], ptr %789, i64 0, i64 %35
+  %799 = getelementptr inbounds [2 x i32], ptr %789, i64 0, i64 %34
   %800 = load i32, ptr %799, align 4, !tbaa !5
   %801 = load ptr, ptr %7, align 8, !tbaa !8
   %802 = getelementptr inbounds %struct.gapobj_type, ptr %801, i64 0, i32 3
@@ -1412,25 +1412,25 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
 
 822:                                              ; preds = %812, %819
   %823 = add nsw i32 %806, %781
-  %824 = load i32, ptr %37, align 4, !tbaa !25
+  %824 = load i32, ptr %36, align 4, !tbaa !25
   %825 = icmp sgt i32 %823, %824
-  %826 = load i32, ptr %38, align 8
+  %826 = load i32, ptr %37, align 8
   %827 = icmp sgt i32 %806, %826
   %828 = select i1 %825, i1 true, i1 %827
   br i1 %828, label %835, label %829
 
 829:                                              ; preds = %822
-  %830 = load ptr, ptr %39, align 8, !tbaa !5
+  %830 = load ptr, ptr %38, align 8, !tbaa !5
   %831 = icmp eq ptr %830, null
   br i1 %831, label %971, label %832
 
 832:                                              ; preds = %829
-  %833 = load i32, ptr %40, align 8, !tbaa !5
+  %833 = load i32, ptr %39, align 8, !tbaa !5
   %834 = icmp slt i32 %833, 1
   br i1 %834, label %838, label %971
 
 835:                                              ; preds = %822, %819, %812
-  %836 = load ptr, ptr %39, align 8, !tbaa !5
+  %836 = load ptr, ptr %38, align 8, !tbaa !5
   %837 = icmp eq ptr %836, null
   br i1 %837, label %1176, label %838
 
@@ -1470,7 +1470,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   %856 = getelementptr inbounds %struct.closure_type, ptr %851, i64 0, i32 4
   %857 = load <2 x i32>, ptr %4, align 8, !tbaa !16
   store <2 x i32> %857, ptr %856, align 8, !tbaa !5
-  %858 = load i32, ptr %38, align 8, !tbaa !26
+  %858 = load i32, ptr %37, align 8, !tbaa !26
   %859 = getelementptr inbounds %struct.closure_type, ptr %851, i64 0, i32 4, i32 0, i32 2
   store i32 %858, ptr %859, align 8, !tbaa !5
   %860 = load i8, ptr @zz_lengths, align 1, !tbaa !5
@@ -1506,7 +1506,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   store ptr %872, ptr %872, align 8, !tbaa !5
   store ptr %872, ptr @xx_link, align 8, !tbaa !8
   store ptr %872, ptr @zz_res, align 8, !tbaa !8
-  %877 = load ptr, ptr %43, align 8, !tbaa !5
+  %877 = load ptr, ptr %42, align 8, !tbaa !5
   store ptr %877, ptr @zz_hold, align 8, !tbaa !8
   %878 = icmp eq ptr %877, null
   br i1 %878, label %879, label %880
@@ -1553,7 +1553,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br label %901
 
 901:                                              ; preds = %880, %893
-  %902 = load ptr, ptr %44, align 8, !tbaa !5
+  %902 = load ptr, ptr %43, align 8, !tbaa !5
   %903 = icmp eq ptr %902, null
   br i1 %903, label %970, label %904
 
@@ -1576,9 +1576,9 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   %916 = getelementptr inbounds %struct.word_type, ptr %911, i64 0, i32 3
   %917 = load i32, ptr %916, align 8, !tbaa !5
   %918 = add nsw i32 %917, -1
-  %919 = load i32, ptr %40, align 8, !tbaa !5
+  %919 = load i32, ptr %39, align 8, !tbaa !5
   %920 = add nsw i32 %918, %919
-  store i32 %920, ptr %40, align 8, !tbaa !5
+  store i32 %920, ptr %39, align 8, !tbaa !5
   %921 = getelementptr inbounds [2 x %struct.LIST], ptr %911, i64 0, i64 1, i32 1
   %922 = load ptr, ptr %921, align 8, !tbaa !5
   store ptr %922, ptr @xx_link, align 8, !tbaa !8
@@ -1658,7 +1658,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br label %1176
 
 970:                                              ; preds = %904, %901
-  store i32 65535, ptr %40, align 8, !tbaa !5
+  store i32 65535, ptr %39, align 8, !tbaa !5
   br label %1176
 
 971:                                              ; preds = %832, %829
@@ -1667,13 +1667,13 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   %974 = icmp eq i16 %973, 0
   %975 = load ptr, ptr %3, align 8, !tbaa !8
   %976 = getelementptr inbounds %struct.word_type, ptr %975, i64 0, i32 3
-  %977 = getelementptr inbounds [2 x i32], ptr %976, i64 0, i64 %36
+  %977 = getelementptr inbounds [2 x i32], ptr %976, i64 0, i64 %35
   %978 = load i32, ptr %977, align 4, !tbaa !5
   br i1 %974, label %984, label %979
 
 979:                                              ; preds = %971
   %980 = getelementptr inbounds %struct.word_type, ptr %975, i64 0, i32 3, i32 1
-  %981 = getelementptr inbounds [2 x i32], ptr %980, i64 0, i64 %36
+  %981 = getelementptr inbounds [2 x i32], ptr %980, i64 0, i64 %35
   %982 = load i32, ptr %981, align 4, !tbaa !5
   %983 = add nsw i32 %982, %978
   br label %989
@@ -1681,7 +1681,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
 984:                                              ; preds = %971
   %985 = call i32 @llvm.smax.i32(i32 %777, i32 %978)
   %986 = getelementptr inbounds %struct.word_type, ptr %975, i64 0, i32 3, i32 1
-  %987 = getelementptr inbounds [2 x i32], ptr %986, i64 0, i64 %36
+  %987 = getelementptr inbounds [2 x i32], ptr %986, i64 0, i64 %35
   %988 = load i32, ptr %987, align 4, !tbaa !5
   br label %989
 
@@ -1695,9 +1695,9 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
 
 995:                                              ; preds = %989
   %996 = add nsw i32 %991, %992
-  %997 = load i32, ptr %41, align 4, !tbaa !25
+  %997 = load i32, ptr %40, align 4, !tbaa !25
   %998 = icmp sgt i32 %996, %997
-  %999 = load i32, ptr %42, align 4
+  %999 = load i32, ptr %41, align 4
   %1000 = icmp sgt i32 %992, %999
   %1001 = select i1 %998, i1 true, i1 %1000
   br i1 %1001, label %1002, label %1010
@@ -1707,7 +1707,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
 
 1003:                                             ; preds = %1002
   %1004 = call i32 @DisposeObject(ptr noundef nonnull %830) #6
-  store ptr null, ptr %39, align 8, !tbaa !5
+  store ptr null, ptr %38, align 8, !tbaa !5
   br label %1005
 
 1005:                                             ; preds = %1003, %1002
@@ -1724,9 +1724,9 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br i1 %831, label %1014, label %1011
 
 1011:                                             ; preds = %1010
-  %1012 = load i32, ptr %40, align 8, !tbaa !5
+  %1012 = load i32, ptr %39, align 8, !tbaa !5
   %1013 = add nsw i32 %1012, -1
-  store i32 %1013, ptr %40, align 8, !tbaa !5
+  store i32 %1013, ptr %39, align 8, !tbaa !5
   br label %1014
 
 1014:                                             ; preds = %776, %1011, %1010, %701
@@ -1865,7 +1865,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br label %1103
 
 1103:                                             ; preds = %1100, %1102, %1090
-  %1104 = load ptr, ptr %39, align 8, !tbaa !5
+  %1104 = load ptr, ptr %38, align 8, !tbaa !5
   %1105 = icmp eq ptr %1104, null
   br i1 %1105, label %1175, label %1106
 
@@ -1904,8 +1904,8 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   store ptr %1119, ptr %1119, align 8, !tbaa !5
   %1124 = icmp eq ptr %1091, null
   %1125 = load i32, ptr %4, align 8
-  %1126 = load i32, ptr %37, align 4
-  %1127 = load i32, ptr %38, align 8
+  %1126 = load i32, ptr %36, align 4
+  %1127 = load i32, ptr %37, align 8
   %1128 = select i1 %1124, i32 8388607, i32 %1125
   %1129 = select i1 %1124, i32 8388607, i32 %1126
   %1130 = select i1 %1124, i32 8388607, i32 %1127
@@ -1948,7 +1948,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   store ptr %1146, ptr %1146, align 8, !tbaa !5
   store ptr %1146, ptr @xx_link, align 8, !tbaa !8
   store ptr %1146, ptr @zz_res, align 8, !tbaa !8
-  %1151 = load ptr, ptr %43, align 8, !tbaa !5
+  %1151 = load ptr, ptr %42, align 8, !tbaa !5
   store ptr %1151, ptr @zz_hold, align 8, !tbaa !8
   %1152 = icmp eq ptr %1151, null
   br i1 %1152, label %1153, label %1154
@@ -2110,7 +2110,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br i1 %1241, label %1242, label %1206, !llvm.loop !30
 
 1242:                                             ; preds = %1237, %1203, %1200
-  %1243 = load ptr, ptr %45, align 8, !tbaa !5
+  %1243 = load ptr, ptr %44, align 8, !tbaa !5
   %1244 = icmp eq ptr %1243, null
   br i1 %1244, label %1334, label %1245
 
@@ -2136,7 +2136,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br label %1258
 
 1258:                                             ; preds = %1255, %1252
-  %1259 = load ptr, ptr %45, align 8, !tbaa !5
+  %1259 = load ptr, ptr %44, align 8, !tbaa !5
   %1260 = getelementptr inbounds %struct.LIST, ptr %1259, i64 0, i32 1
   %1261 = load ptr, ptr %1260, align 8, !tbaa !5
   %1262 = icmp eq ptr %1261, %1259
@@ -2258,7 +2258,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   %1323 = add nuw nsw i32 %1267, 1
   %1324 = getelementptr inbounds %struct.LIST, ptr %1266, i64 0, i32 1
   %1325 = load ptr, ptr %1324, align 8, !tbaa !5
-  %1326 = load ptr, ptr %45, align 8, !tbaa !5
+  %1326 = load ptr, ptr %44, align 8, !tbaa !5
   %1327 = icmp eq ptr %1325, %1326
   br i1 %1327, label %1328, label %1265, !llvm.loop !31
 
@@ -2524,7 +2524,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br i1 %1497, label %1498, label %2492
 
 1498:                                             ; preds = %1493
-  %1499 = load ptr, ptr %46, align 8, !tbaa !5
+  %1499 = load ptr, ptr %45, align 8, !tbaa !5
   %1500 = icmp ne ptr %1499, null
   %1501 = load i32, ptr @AllowCrossDb, align 4
   %1502 = icmp ne i32 %1501, 0
@@ -3642,7 +3642,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br label %2159
 
 2159:                                             ; preds = %2157, %2134
-  %2160 = load ptr, ptr %46, align 8, !tbaa !5
+  %2160 = load ptr, ptr %45, align 8, !tbaa !5
   %2161 = getelementptr inbounds %struct.LIST, ptr %2160, i64 0, i32 1
   %2162 = load ptr, ptr %2161, align 8, !tbaa !5
   %2163 = icmp eq ptr %2162, %2160
@@ -3670,7 +3670,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   %2180 = sext i32 %2179 to i64
   %2181 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %2180
   store ptr %2178, ptr %2181, align 8, !tbaa !8
-  store ptr null, ptr %46, align 8, !tbaa !5
+  store ptr null, ptr %45, align 8, !tbaa !5
   br label %2182
 
 2182:                                             ; preds = %2081, %2159, %2164, %2101
@@ -3871,7 +3871,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   br i1 %2291, label %2474, label %2292
 
 2292:                                             ; preds = %2287
-  %2293 = load ptr, ptr %46, align 8, !tbaa !5
+  %2293 = load ptr, ptr %45, align 8, !tbaa !5
   %2294 = icmp eq ptr %2293, null
   br i1 %2294, label %2295, label %2313
 
@@ -3908,7 +3908,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   %2312 = getelementptr inbounds %struct.LIST, ptr %2308, i64 0, i32 1
   store ptr %2308, ptr %2312, align 8, !tbaa !5
   store ptr %2308, ptr %2308, align 8, !tbaa !5
-  store ptr %2308, ptr %46, align 8, !tbaa !5
+  store ptr %2308, ptr %45, align 8, !tbaa !5
   br label %2313
 
 2313:                                             ; preds = %2307, %2292
@@ -4147,7 +4147,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   store ptr %2442, ptr %2442, align 8, !tbaa !5
   store ptr %2442, ptr @xx_link, align 8, !tbaa !8
   store ptr %2442, ptr @zz_res, align 8, !tbaa !8
-  %2447 = load ptr, ptr %46, align 8, !tbaa !5
+  %2447 = load ptr, ptr %45, align 8, !tbaa !5
   store ptr %2447, ptr @zz_hold, align 8, !tbaa !8
   %2448 = icmp eq ptr %2447, null
   br i1 %2448, label %2449, label %2450
@@ -4214,7 +4214,7 @@ define dso_local void @FlushGalley(ptr noundef %0) local_unnamed_addr #0 {
   %2485 = load i16, ptr %2484, align 2
   %2486 = and i16 %2485, -65
   store i16 %2486, ptr %2484, align 2
-  %2487 = load ptr, ptr %46, align 8, !tbaa !5
+  %2487 = load ptr, ptr %45, align 8, !tbaa !5
   %2488 = icmp eq ptr %2487, null
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %21) #6
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %20) #6

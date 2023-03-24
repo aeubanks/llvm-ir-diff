@@ -156,10 +156,10 @@ define internal void @Plain_PrintBeforeFirstPage(i32 noundef %0, i32 noundef %1,
   %13 = sext i32 %12 to i64
   %14 = tail call noalias ptr @malloc(i64 noundef %13) #12
   store ptr %14, ptr @page, align 8, !tbaa !5
-  %15 = icmp slt i32 %10, 0
-  %16 = icmp slt i32 %6, 0
-  %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %24, label %18
+  %15 = icmp sgt i32 %10, -1
+  %16 = icmp sgt i32 %6, -1
+  %17 = select i1 %15, i1 %16, i1 false
+  br i1 %17, label %18, label %24
 
 18:                                               ; preds = %3
   %19 = zext i32 %6 to i64
@@ -473,58 +473,58 @@ define internal void @Plain_PrintPlainGraphic(ptr noundef %0, i32 noundef %1, i3
   %26 = sitofp i32 %2 to float
   %27 = load i32, ptr @PlainCharHeight, align 4, !tbaa !9
   %28 = sitofp i32 %27 to float
-  %29 = getelementptr inbounds %struct.word_type, ptr %3, i64 0, i32 3
-  %30 = load i32, ptr %29, align 8, !tbaa !11
-  %31 = getelementptr inbounds %struct.word_type, ptr %3, i64 0, i32 3, i32 1
+  %29 = fdiv float %26, %28
+  %30 = fptosi float %29 to i32
+  %31 = getelementptr inbounds %struct.word_type, ptr %3, i64 0, i32 3
   %32 = load i32, ptr %31, align 8, !tbaa !11
-  %33 = add nsw i32 %32, %30
-  %34 = sitofp i32 %33 to float
-  %35 = fadd float %19, %34
-  %36 = fdiv float %35, %21
-  %37 = fpext float %36 to double
-  %38 = fadd double %37, 5.000000e-01
-  %39 = fptosi double %38 to i32
-  %40 = getelementptr inbounds i8, ptr %3, i64 52
-  %41 = load i32, ptr %40, align 4, !tbaa !11
-  %42 = getelementptr inbounds %struct.word_type, ptr %3, i64 0, i32 3, i32 1, i64 4
+  %33 = getelementptr inbounds %struct.word_type, ptr %3, i64 0, i32 3, i32 1
+  %34 = load i32, ptr %33, align 8, !tbaa !11
+  %35 = add nsw i32 %34, %32
+  %36 = sitofp i32 %35 to float
+  %37 = fadd float %19, %36
+  %38 = fdiv float %37, %21
+  %39 = fpext float %38 to double
+  %40 = fadd double %39, 5.000000e-01
+  %41 = fptosi double %40 to i32
+  %42 = getelementptr inbounds i8, ptr %3, i64 52
   %43 = load i32, ptr %42, align 4, !tbaa !11
-  %44 = add nsw i32 %43, %41
-  %45 = sitofp i32 %44 to float
-  %46 = fsub float %26, %45
-  %47 = fdiv float %46, %28
-  %48 = fptosi float %47 to i32
+  %44 = getelementptr inbounds %struct.word_type, ptr %3, i64 0, i32 3, i32 1, i64 4
+  %45 = load i32, ptr %44, align 4, !tbaa !11
+  %46 = add nsw i32 %45, %43
+  %47 = sitofp i32 %46 to float
+  %48 = fsub float %26, %47
+  %49 = fdiv float %48, %28
+  %50 = fptosi float %49 to i32
   tail call void @SetLengthDim(i32 noundef 0) #11
   tail call void @SetLengthDim(i32 noundef 1) #11
-  %49 = icmp sgt i32 %25, -1
-  br i1 %49, label %50, label %121
+  %51 = icmp sgt i32 %25, -1
+  br i1 %51, label %52, label %121
 
-50:                                               ; preds = %18
-  %51 = fdiv float %26, %28
-  %52 = fptosi float %51 to i32
+52:                                               ; preds = %18
   %53 = load i32, ptr @hsize, align 4, !tbaa !9
-  %54 = icmp sgt i32 %53, %39
-  %55 = icmp sgt i32 %52, -1
+  %54 = icmp sgt i32 %53, %41
+  %55 = icmp sgt i32 %30, -1
   %56 = select i1 %54, i1 %55, i1 false
   %57 = load i32, ptr @vsize, align 4
-  %58 = icmp sgt i32 %57, %48
+  %58 = icmp sgt i32 %57, %50
   %59 = select i1 %56, i1 %58, i1 false
   br i1 %59, label %60, label %121
 
-60:                                               ; preds = %50
-  %61 = icmp sgt i32 %52, %48
+60:                                               ; preds = %52
+  %61 = icmp sgt i32 %30, %50
   br i1 %61, label %62, label %123
 
 62:                                               ; preds = %60
-  %63 = icmp slt i32 %25, %39
+  %63 = icmp slt i32 %25, %41
   %64 = load ptr, ptr @page, align 8
   br i1 %63, label %65, label %123
 
 65:                                               ; preds = %62
   %66 = zext i32 %25 to i64
-  %67 = zext i32 %52 to i64
-  %68 = sext i32 %48 to i64
+  %67 = zext i32 %30 to i64
+  %68 = sext i32 %50 to i64
   %69 = sext i32 %53 to i64
-  %70 = sext i32 %39 to i64
+  %70 = sext i32 %41 to i64
   %71 = sub nsw i64 %70, %66
   %72 = xor i64 %66, -1
   %73 = and i64 %71, 1
@@ -590,7 +590,7 @@ define internal void @Plain_PrintPlainGraphic(ptr noundef %0, i32 noundef %1, i3
   %120 = icmp sgt i64 %81, %68
   br i1 %120, label %78, label %123, !llvm.loop !21
 
-121:                                              ; preds = %50, %18
+121:                                              ; preds = %52, %18
   %122 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 51, i32 noundef 4, ptr noundef nonnull @.str.20, i32 noundef 2, ptr noundef nonnull %5, ptr noundef nonnull %12, i32 noundef undef, i32 noundef undef) #11
   br label %123
 

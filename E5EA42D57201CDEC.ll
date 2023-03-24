@@ -236,7 +236,7 @@ define dso_local void @ADD_INT_TO_LOC(i32 noundef %0, i32 noundef %1, i32 nounde
   %39 = shl nsw i32 %35, 8
   %40 = add nsw i32 %39, 65536
   %41 = select i1 %36, i32 %40, i32 %39
-  %42 = or i32 %38, %41
+  %42 = add i32 %38, %41
   %43 = add nsw i64 %37, %21
   %44 = getelementptr inbounds i8, ptr %3, i64 %43
   %45 = load i8, ptr %44, align 1, !tbaa !18
@@ -244,7 +244,7 @@ define dso_local void @ADD_INT_TO_LOC(i32 noundef %0, i32 noundef %1, i32 nounde
   %47 = icmp slt i8 %45, 0
   %48 = add nsw i32 %46, 256
   %49 = select i1 %47, i32 %48, i32 %46
-  %50 = or i32 %49, %42
+  %50 = add nsw i32 %49, %42
   %51 = add nuw nsw i64 %29, 2
   %52 = add i64 %31, 2
   %53 = icmp eq i64 %52, %27
@@ -269,7 +269,7 @@ define dso_local void @ADD_INT_TO_LOC(i32 noundef %0, i32 noundef %1, i32 nounde
   %66 = icmp slt i8 %64, 0
   %67 = add nsw i32 %65, 256
   %68 = select i1 %66, i32 %67, i32 %65
-  %69 = or i32 %68, %59
+  %69 = add nsw i32 %68, %59
   br label %70
 
 70:                                               ; preds = %56, %61
@@ -467,12 +467,12 @@ define dso_local void @PRINT_MEM(ptr nocapture noundef readonly %0, ptr nocaptur
 
 10:                                               ; preds = %2
   %11 = tail call i64 @fwrite(ptr nonnull @.str.9, i64 49, i64 1, ptr %1)
-  br label %206
+  br label %205
 
-12:                                               ; preds = %2, %201
-  %13 = phi ptr [ %203, %201 ], [ %8, %2 ]
-  %14 = phi i32 [ %191, %201 ], [ 0, %2 ]
-  %15 = phi ptr [ %181, %201 ], [ null, %2 ]
+12:                                               ; preds = %2, %200
+  %13 = phi ptr [ %202, %200 ], [ %8, %2 ]
+  %14 = phi i32 [ %190, %200 ], [ 0, %2 ]
+  %15 = phi ptr [ %181, %200 ], [ null, %2 ]
   call void @PRINT_ELIPSE(ptr noundef %15, ptr noundef nonnull %13, i32 noundef %14, ptr noundef %1)
   %16 = load i32, ptr %13, align 8, !tbaa !12
   %17 = sdiv i32 %16, 16
@@ -480,7 +480,7 @@ define dso_local void @PRINT_MEM(ptr nocapture noundef readonly %0, ptr nocaptur
   br label %19
 
 19:                                               ; preds = %186, %12
-  %20 = phi i32 [ %18, %12 ], [ %191, %186 ]
+  %20 = phi i32 [ %18, %12 ], [ %190, %186 ]
   %21 = phi ptr [ %13, %12 ], [ %181, %186 ]
   call void @llvm.lifetime.start.p0(i64 3, ptr nonnull %4) #11
   call void (i32, i32, i32, ptr, ...) @NUM_TO_STR(i32 noundef %20, i32 noundef 16, i32 noundef 5, ptr noundef nonnull %3) #11
@@ -716,31 +716,30 @@ define dso_local void @PRINT_MEM(ptr nocapture noundef readonly %0, ptr nocaptur
   %187 = call i32 @fputc(i32 10, ptr %1)
   %188 = sdiv i32 %20, 16
   %189 = shl nsw i32 %188, 4
-  %190 = or i32 %189, 15
-  %191 = add i32 %189, 16
+  %190 = add i32 %189, 16
   call void @llvm.lifetime.end.p0(i64 3, ptr nonnull %4) #11
-  %192 = load i32, ptr %181, align 8, !tbaa !12
-  %193 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %181, i64 0, i32 1
-  %194 = load i32, ptr %193, align 4, !tbaa !15
-  %195 = add i32 %192, -1
-  %196 = add i32 %195, %194
-  %197 = sdiv i32 %196, 16
-  %198 = shl nsw i32 %197, 4
-  %199 = or i32 %198, 15
-  %200 = icmp slt i32 %190, %199
-  br i1 %200, label %19, label %201, !llvm.loop !23
+  %191 = load i32, ptr %181, align 8, !tbaa !12
+  %192 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %181, i64 0, i32 1
+  %193 = load i32, ptr %192, align 4, !tbaa !15
+  %194 = add i32 %191, -1
+  %195 = add i32 %194, %193
+  %196 = sdiv i32 %195, 16
+  %197 = shl nsw i32 %196, 4
+  %198 = or i32 %197, 15
+  %199 = icmp sgt i32 %190, %198
+  br i1 %199, label %200, label %19, !llvm.loop !23
 
-201:                                              ; preds = %186
-  %202 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %181, i64 0, i32 2
-  %203 = load ptr, ptr %202, align 8, !tbaa !16
-  %204 = icmp eq ptr %203, null
-  br i1 %204, label %205, label %12, !llvm.loop !24
+200:                                              ; preds = %186
+  %201 = getelementptr inbounds %struct.BUFFER_ELEMENT, ptr %181, i64 0, i32 2
+  %202 = load ptr, ptr %201, align 8, !tbaa !16
+  %203 = icmp eq ptr %202, null
+  br i1 %203, label %204, label %12, !llvm.loop !24
 
-205:                                              ; preds = %201
-  call void @PRINT_ELIPSE(ptr noundef nonnull %181, ptr noundef null, i32 noundef %191, ptr noundef %1)
-  br label %206
+204:                                              ; preds = %200
+  call void @PRINT_ELIPSE(ptr noundef nonnull %181, ptr noundef null, i32 noundef %190, ptr noundef %1)
+  br label %205
 
-206:                                              ; preds = %205, %10
+205:                                              ; preds = %204, %10
   call void @llvm.lifetime.end.p0(i64 6, ptr nonnull %3) #11
   ret void
 }

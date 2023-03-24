@@ -33,170 +33,153 @@ define dso_local i32 @main() local_unnamed_addr #0 {
 ; Function Attrs: nounwind uwtable
 define internal void @va1(i32 %0, ...) unnamed_addr #1 {
   %2 = alloca [1 x %struct.__va_list_tag], align 16
-  %3 = alloca %struct.point, align 8
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %2) #6
   call void @llvm.va_start(ptr nonnull %2)
-  %4 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4
-  %6 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %7 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  %8 = load ptr, ptr %7, align 16
-  %9 = getelementptr inbounds { double, double }, ptr %3, i64 0, i32 1
-  %10 = load ptr, ptr %6, align 8
-  %11 = icmp ult i32 %5, 145
-  br i1 %11, label %83, label %90
+  %3 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 1
+  %4 = load i32, ptr %3, align 4
+  %5 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
+  %6 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
+  %7 = load ptr, ptr %6, align 16
+  %8 = load ptr, ptr %5, align 8
+  %9 = icmp ult i32 %4, 145
+  br i1 %9, label %81, label %88
 
-12:                                               ; preds = %100
-  %13 = icmp ult i32 %96, 145
-  br i1 %13, label %17, label %14
+10:                                               ; preds = %93
+  %11 = icmp ult i32 %95, 145
+  br i1 %11, label %17, label %12
 
-14:                                               ; preds = %12
-  %15 = getelementptr i8, ptr %95, i64 16
-  store ptr %15, ptr %6, align 8
-  %16 = load double, ptr %95, align 8, !tbaa.struct !5
+12:                                               ; preds = %10
+  %13 = getelementptr inbounds i8, ptr %94, i64 8
+  %14 = getelementptr i8, ptr %94, i64 16
+  store ptr %14, ptr %5, align 8
+  %15 = load double, ptr %13, align 8, !tbaa.struct !5
+  %16 = load double, ptr %94, align 8, !tbaa.struct !10
   br label %24
 
-17:                                               ; preds = %12
-  %18 = zext i32 %96 to i64
-  %19 = getelementptr i8, ptr %8, i64 %18
+17:                                               ; preds = %10
+  %18 = zext i32 %95 to i64
+  %19 = getelementptr i8, ptr %7, i64 %18
   %20 = getelementptr inbounds i8, ptr %19, i64 16
   %21 = load double, ptr %19, align 16
-  store double %21, ptr %3, align 8
   %22 = load double, ptr %20, align 16
-  store double %22, ptr %9, align 8
-  %23 = add nuw nsw i32 %96, 32
-  store i32 %23, ptr %4, align 4
+  %23 = add nuw nsw i32 %95, 32
+  store i32 %23, ptr %3, align 4
   br label %24
 
-24:                                               ; preds = %17, %14
-  %25 = phi double [ %21, %17 ], [ %16, %14 ]
-  %26 = phi ptr [ %95, %17 ], [ %15, %14 ]
-  %27 = phi i32 [ %23, %17 ], [ %96, %14 ]
-  %28 = phi ptr [ %3, %17 ], [ %95, %14 ]
-  %29 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 1), align 16, !tbaa !10
-  %30 = fcmp une double %29, %25
-  br i1 %30, label %105, label %31
+24:                                               ; preds = %17, %12
+  %25 = phi ptr [ %94, %17 ], [ %14, %12 ]
+  %26 = phi i32 [ %23, %17 ], [ %95, %12 ]
+  %27 = phi double [ %21, %17 ], [ %16, %12 ]
+  %28 = phi double [ %22, %17 ], [ %15, %12 ]
+  %29 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 1), align 16, !tbaa !11
+  %30 = fcmp une double %29, %27
+  %31 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 1, i32 1), align 8
+  %32 = fcmp une double %31, %28
+  %33 = select i1 %30, i1 true, i1 %32
+  br i1 %33, label %103, label %34
 
-31:                                               ; preds = %24
-  %32 = getelementptr inbounds i8, ptr %28, i64 8
-  %33 = load double, ptr %32, align 8, !tbaa.struct !12
-  %34 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 1, i32 1), align 8, !tbaa !13
-  %35 = fcmp une double %34, %33
-  br i1 %35, label %105, label %36
+34:                                               ; preds = %24
+  %35 = icmp ult i32 %26, 145
+  br i1 %35, label %41, label %36
 
-36:                                               ; preds = %31
-  %37 = icmp ult i32 %27, 145
-  br i1 %37, label %41, label %38
-
-38:                                               ; preds = %36
-  %39 = getelementptr i8, ptr %26, i64 16
-  store ptr %39, ptr %6, align 8
-  %40 = load double, ptr %26, align 8, !tbaa.struct !5
+36:                                               ; preds = %34
+  %37 = getelementptr inbounds i8, ptr %25, i64 8
+  %38 = getelementptr i8, ptr %25, i64 16
+  store ptr %38, ptr %5, align 8
+  %39 = load double, ptr %37, align 8, !tbaa.struct !5
+  %40 = load double, ptr %25, align 8, !tbaa.struct !10
   br label %48
 
-41:                                               ; preds = %36
-  %42 = zext i32 %27 to i64
-  %43 = getelementptr i8, ptr %8, i64 %42
+41:                                               ; preds = %34
+  %42 = zext i32 %26 to i64
+  %43 = getelementptr i8, ptr %7, i64 %42
   %44 = getelementptr inbounds i8, ptr %43, i64 16
   %45 = load double, ptr %43, align 16
-  store double %45, ptr %3, align 8
   %46 = load double, ptr %44, align 16
-  store double %46, ptr %9, align 8
-  %47 = add nuw nsw i32 %27, 32
-  store i32 %47, ptr %4, align 4
+  %47 = add nuw nsw i32 %26, 32
+  store i32 %47, ptr %3, align 4
   br label %48
 
-48:                                               ; preds = %41, %38
-  %49 = phi double [ %45, %41 ], [ %40, %38 ]
-  %50 = phi ptr [ %26, %41 ], [ %39, %38 ]
-  %51 = phi i32 [ %47, %41 ], [ %27, %38 ]
-  %52 = phi ptr [ %3, %41 ], [ %26, %38 ]
-  %53 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 2), align 16, !tbaa !10
-  %54 = fcmp une double %53, %49
-  br i1 %54, label %105, label %55
+48:                                               ; preds = %41, %36
+  %49 = phi ptr [ %25, %41 ], [ %38, %36 ]
+  %50 = phi i32 [ %47, %41 ], [ %26, %36 ]
+  %51 = phi double [ %45, %41 ], [ %40, %36 ]
+  %52 = phi double [ %46, %41 ], [ %39, %36 ]
+  %53 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 2), align 16, !tbaa !11
+  %54 = fcmp une double %53, %51
+  %55 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 2, i32 1), align 8
+  %56 = fcmp une double %55, %52
+  %57 = select i1 %54, i1 true, i1 %56
+  br i1 %57, label %103, label %58
 
-55:                                               ; preds = %48
-  %56 = getelementptr inbounds i8, ptr %52, i64 8
-  %57 = load double, ptr %56, align 8, !tbaa.struct !12
-  %58 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 2, i32 1), align 8, !tbaa !13
-  %59 = fcmp une double %58, %57
-  br i1 %59, label %105, label %60
+58:                                               ; preds = %48
+  %59 = icmp ult i32 %50, 145
+  br i1 %59, label %65, label %60
 
-60:                                               ; preds = %55
-  %61 = icmp ult i32 %51, 145
-  br i1 %61, label %65, label %62
-
-62:                                               ; preds = %60
-  %63 = getelementptr i8, ptr %50, i64 16
-  store ptr %63, ptr %6, align 8
-  %64 = load double, ptr %50, align 8, !tbaa.struct !5
+60:                                               ; preds = %58
+  %61 = getelementptr inbounds i8, ptr %49, i64 8
+  %62 = getelementptr i8, ptr %49, i64 16
+  store ptr %62, ptr %5, align 8
+  %63 = load double, ptr %61, align 8, !tbaa.struct !5
+  %64 = load double, ptr %49, align 8, !tbaa.struct !10
   br label %72
 
-65:                                               ; preds = %60
-  %66 = zext i32 %51 to i64
-  %67 = getelementptr i8, ptr %8, i64 %66
+65:                                               ; preds = %58
+  %66 = zext i32 %50 to i64
+  %67 = getelementptr i8, ptr %7, i64 %66
   %68 = getelementptr inbounds i8, ptr %67, i64 16
   %69 = load double, ptr %67, align 16
   %70 = load double, ptr %68, align 16
-  store double %70, ptr %9, align 8
-  %71 = add nuw nsw i32 %51, 32
-  store i32 %71, ptr %4, align 4
+  %71 = add nuw nsw i32 %50, 32
+  store i32 %71, ptr %3, align 4
   br label %72
 
-72:                                               ; preds = %65, %62
-  %73 = phi double [ %69, %65 ], [ %64, %62 ]
-  %74 = phi ptr [ %3, %65 ], [ %50, %62 ]
-  %75 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 3), align 16, !tbaa !10
+72:                                               ; preds = %65, %60
+  %73 = phi double [ %69, %65 ], [ %64, %60 ]
+  %74 = phi double [ %70, %65 ], [ %63, %60 ]
+  %75 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 3), align 16, !tbaa !11
   %76 = fcmp une double %75, %73
-  br i1 %76, label %105, label %77
+  %77 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 3, i32 1), align 8
+  %78 = fcmp une double %77, %74
+  %79 = select i1 %76, i1 true, i1 %78
+  br i1 %79, label %103, label %80
 
-77:                                               ; preds = %72
-  %78 = getelementptr inbounds i8, ptr %74, i64 8
-  %79 = load double, ptr %78, align 8, !tbaa.struct !12
-  %80 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 3, i32 1), align 8, !tbaa !13
-  %81 = fcmp une double %80, %79
-  br i1 %81, label %105, label %82
-
-82:                                               ; preds = %77
+80:                                               ; preds = %72
   call void @llvm.va_end(ptr nonnull %2)
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #6
   ret void
 
-83:                                               ; preds = %1
-  %84 = zext i32 %5 to i64
-  %85 = getelementptr i8, ptr %8, i64 %84
-  %86 = getelementptr inbounds i8, ptr %85, i64 16
-  %87 = load double, ptr %85, align 16
-  store double %87, ptr %3, align 8
-  %88 = load double, ptr %86, align 16
-  store double %88, ptr %9, align 8
-  %89 = add nuw nsw i32 %5, 32
-  store i32 %89, ptr %4, align 4
+81:                                               ; preds = %1
+  %82 = zext i32 %4 to i64
+  %83 = getelementptr i8, ptr %7, i64 %82
+  %84 = getelementptr inbounds i8, ptr %83, i64 16
+  %85 = load double, ptr %83, align 16
+  %86 = load double, ptr %84, align 16
+  %87 = add nuw nsw i32 %4, 32
+  store i32 %87, ptr %3, align 4
   br label %93
 
-90:                                               ; preds = %1
-  %91 = getelementptr i8, ptr %10, i64 16
-  store ptr %91, ptr %6, align 8
-  %92 = load double, ptr %10, align 8, !tbaa.struct !5
+88:                                               ; preds = %1
+  %89 = getelementptr inbounds i8, ptr %8, i64 8
+  %90 = getelementptr i8, ptr %8, i64 16
+  store ptr %90, ptr %5, align 8
+  %91 = load double, ptr %89, align 8, !tbaa.struct !5
+  %92 = load double, ptr %8, align 8, !tbaa.struct !10
   br label %93
 
-93:                                               ; preds = %90, %83
-  %94 = phi double [ %87, %83 ], [ %92, %90 ]
-  %95 = phi ptr [ %10, %83 ], [ %91, %90 ]
-  %96 = phi i32 [ %89, %83 ], [ %5, %90 ]
-  %97 = phi ptr [ %3, %83 ], [ %10, %90 ]
-  %98 = load double, ptr @pts, align 16, !tbaa !10
-  %99 = fcmp une double %98, %94
-  br i1 %99, label %105, label %100
+93:                                               ; preds = %88, %81
+  %94 = phi ptr [ %8, %81 ], [ %90, %88 ]
+  %95 = phi i32 [ %87, %81 ], [ %4, %88 ]
+  %96 = phi double [ %85, %81 ], [ %92, %88 ]
+  %97 = phi double [ %86, %81 ], [ %91, %88 ]
+  %98 = load double, ptr @pts, align 16, !tbaa !11
+  %99 = fcmp une double %98, %96
+  %100 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 0, i32 1), align 8
+  %101 = fcmp une double %100, %97
+  %102 = select i1 %99, i1 true, i1 %101
+  br i1 %102, label %103, label %10
 
-100:                                              ; preds = %93
-  %101 = getelementptr inbounds i8, ptr %97, i64 8
-  %102 = load double, ptr %101, align 8, !tbaa.struct !12
-  %103 = load double, ptr getelementptr inbounds ([4 x %struct.point], ptr @pts, i64 0, i64 0, i32 1), align 8, !tbaa !13
-  %104 = fcmp une double %103, %102
-  br i1 %104, label %105, label %12
-
-105:                                              ; preds = %77, %72, %55, %48, %31, %24, %100, %93
+103:                                              ; preds = %72, %48, %24, %93
   call void @abort() #5
   unreachable
 }
@@ -234,15 +217,15 @@ define internal void @va2(i32 %0, ...) unnamed_addr #1 {
   %18 = phi ptr [ %75, %13 ], [ %12, %11 ]
   %19 = phi i32 [ %16, %13 ], [ %76, %11 ]
   %20 = phi ptr [ %15, %13 ], [ %75, %11 ]
-  %21 = load i32, ptr %20, align 4, !tbaa.struct !14
-  %22 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 1), align 8, !tbaa !17
+  %21 = load i32, ptr %20, align 4, !tbaa.struct !13
+  %22 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 1), align 8, !tbaa !16
   %23 = icmp eq i32 %22, %21
   br i1 %23, label %24, label %86
 
 24:                                               ; preds = %17
   %25 = getelementptr inbounds i8, ptr %20, i64 4
-  %26 = load i32, ptr %25, align 4, !tbaa.struct !19
-  %27 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 1, i32 1), align 4, !tbaa !20
+  %26 = load i32, ptr %25, align 4, !tbaa.struct !18
+  %27 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 1, i32 1), align 4, !tbaa !19
   %28 = icmp eq i32 %27, %26
   br i1 %28, label %29, label %86
 
@@ -266,15 +249,15 @@ define internal void @va2(i32 %0, ...) unnamed_addr #1 {
   %38 = phi ptr [ %18, %33 ], [ %32, %31 ]
   %39 = phi i32 [ %36, %33 ], [ %19, %31 ]
   %40 = phi ptr [ %35, %33 ], [ %18, %31 ]
-  %41 = load i32, ptr %40, align 4, !tbaa.struct !14
-  %42 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 2), align 16, !tbaa !17
+  %41 = load i32, ptr %40, align 4, !tbaa.struct !13
+  %42 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 2), align 16, !tbaa !16
   %43 = icmp eq i32 %42, %41
   br i1 %43, label %44, label %86
 
 44:                                               ; preds = %37
   %45 = getelementptr inbounds i8, ptr %40, i64 4
-  %46 = load i32, ptr %45, align 4, !tbaa.struct !19
-  %47 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 2, i32 1), align 4, !tbaa !20
+  %46 = load i32, ptr %45, align 4, !tbaa.struct !18
+  %47 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 2, i32 1), align 4, !tbaa !19
   %48 = icmp eq i32 %47, %46
   br i1 %48, label %49, label %86
 
@@ -296,15 +279,15 @@ define internal void @va2(i32 %0, ...) unnamed_addr #1 {
 
 57:                                               ; preds = %53, %51
   %58 = phi ptr [ %55, %53 ], [ %38, %51 ]
-  %59 = load i32, ptr %58, align 4, !tbaa.struct !14
-  %60 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 3), align 8, !tbaa !17
+  %59 = load i32, ptr %58, align 4, !tbaa.struct !13
+  %60 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 3), align 8, !tbaa !16
   %61 = icmp eq i32 %60, %59
   br i1 %61, label %62, label %86
 
 62:                                               ; preds = %57
   %63 = getelementptr inbounds i8, ptr %58, i64 4
-  %64 = load i32, ptr %63, align 4, !tbaa.struct !19
-  %65 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 3, i32 1), align 4, !tbaa !20
+  %64 = load i32, ptr %63, align 4, !tbaa.struct !18
+  %65 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 3, i32 1), align 4, !tbaa !19
   %66 = icmp eq i32 %65, %64
   br i1 %66, label %67, label %86
 
@@ -329,15 +312,15 @@ define internal void @va2(i32 %0, ...) unnamed_addr #1 {
   %75 = phi ptr [ %7, %68 ], [ %73, %72 ]
   %76 = phi i32 [ %71, %68 ], [ %3, %72 ]
   %77 = phi ptr [ %70, %68 ], [ %7, %72 ]
-  %78 = load i32, ptr %77, align 4, !tbaa.struct !14
-  %79 = load i32, ptr @ipts, align 16, !tbaa !17
+  %78 = load i32, ptr %77, align 4, !tbaa.struct !13
+  %79 = load i32, ptr @ipts, align 16, !tbaa !16
   %80 = icmp eq i32 %79, %78
   br i1 %80, label %81, label %86
 
 81:                                               ; preds = %74
   %82 = getelementptr inbounds i8, ptr %77, i64 4
-  %83 = load i32, ptr %82, align 4, !tbaa.struct !19
-  %84 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 0, i32 1), align 4, !tbaa !20
+  %83 = load i32, ptr %82, align 4, !tbaa.struct !18
+  %84 = load i32, ptr getelementptr inbounds ([4 x %struct.ipoint], ptr @ipts, i64 0, i64 0, i32 1), align 4, !tbaa !19
   %85 = icmp eq i32 %84, %83
   br i1 %85, label %9, label %86
 
@@ -380,19 +363,18 @@ attributes #6 = { nounwind }
 !2 = !{i32 7, !"PIE Level", i32 2}
 !3 = !{i32 7, !"uwtable", i32 2}
 !4 = !{!"clang version 17.0.0"}
-!5 = !{i64 0, i64 8, !6, i64 8, i64 8, !6}
+!5 = !{i64 0, i64 8, !6}
 !6 = !{!7, !7, i64 0}
 !7 = !{!"double", !8, i64 0}
 !8 = !{!"omnipotent char", !9, i64 0}
 !9 = !{!"Simple C/C++ TBAA"}
-!10 = !{!11, !7, i64 0}
-!11 = !{!"", !7, i64 0, !7, i64 8}
-!12 = !{i64 0, i64 8, !6}
-!13 = !{!11, !7, i64 8}
-!14 = !{i64 0, i64 4, !15, i64 4, i64 4, !15}
-!15 = !{!16, !16, i64 0}
-!16 = !{!"int", !8, i64 0}
-!17 = !{!18, !16, i64 0}
-!18 = !{!"", !16, i64 0, !16, i64 4}
-!19 = !{i64 0, i64 4, !15}
-!20 = !{!18, !16, i64 4}
+!10 = !{i64 0, i64 8, !6, i64 8, i64 8, !6}
+!11 = !{!12, !7, i64 0}
+!12 = !{!"", !7, i64 0, !7, i64 8}
+!13 = !{i64 0, i64 4, !14, i64 4, i64 4, !14}
+!14 = !{!15, !15, i64 0}
+!15 = !{!"int", !8, i64 0}
+!16 = !{!17, !15, i64 0}
+!17 = !{!"", !15, i64 0, !15, i64 4}
+!18 = !{i64 0, i64 4, !14}
+!19 = !{!17, !15, i64 4}

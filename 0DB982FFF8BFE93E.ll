@@ -655,21 +655,21 @@ define dso_local i64 @DoEmFloatIteration(ptr nocapture noundef %0, ptr nocapture
   %7 = icmp eq i64 %4, 0
   %8 = icmp eq i64 %3, 0
   %9 = or i1 %7, %8
-  br i1 %9, label %317, label %10
+  br i1 %9, label %307, label %10
 
-10:                                               ; preds = %5, %315
-  %11 = phi i64 [ %12, %315 ], [ %4, %5 ]
+10:                                               ; preds = %5, %305
+  %11 = phi i64 [ %12, %305 ], [ %4, %5 ]
   %12 = add i64 %11, -1
   br label %13
 
-13:                                               ; preds = %10, %312
-  %14 = phi i64 [ 0, %10 ], [ %313, %312 ]
+13:                                               ; preds = %10, %302
+  %14 = phi i64 [ 0, %10 ], [ %303, %302 ]
   %15 = and i64 %14, 15
   %16 = getelementptr inbounds [16 x i8], ptr @DoEmFloatIteration.jtable, i64 0, i64 %15
   %17 = load i8, ptr %16, align 1, !tbaa !18
-  switch i8 %17, label %312 [
-    i8 0, label %308
-    i8 1, label %304
+  switch i8 %17, label %302 [
+    i8 0, label %298
+    i8 1, label %294
     i8 2, label %22
     i8 3, label %18
   ]
@@ -679,7 +679,7 @@ define dso_local i64 @DoEmFloatIteration(ptr nocapture noundef %0, ptr nocapture
   %20 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 %14
   %21 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14
   tail call fastcc void @DivideInternalFPF(ptr noundef %19, ptr noundef %20, ptr noundef %21)
-  br label %312
+  br label %302
 
 22:                                               ; preds = %13
   %23 = getelementptr inbounds %struct.InternalFPF, ptr %0, i64 %14
@@ -691,27 +691,27 @@ define dso_local i64 @DoEmFloatIteration(ptr nocapture noundef %0, ptr nocapture
   %29 = load i8, ptr %24, align 2, !tbaa !5
   %30 = zext i8 %29 to i32
   %31 = add nuw nsw i32 %28, %30
-  switch i32 %31, label %266 [
-    i32 16, label %260
-    i32 17, label %260
-    i32 18, label %260
-    i32 0, label %260
-    i32 1, label %260
-    i32 2, label %260
-    i32 8, label %254
-    i32 13, label %254
-    i32 5, label %254
-    i32 10, label %254
-    i32 3, label %249
-    i32 15, label %249
-    i32 20, label %248
-    i32 21, label %248
-    i32 22, label %248
-    i32 23, label %248
-    i32 4, label %247
-    i32 9, label %247
-    i32 14, label %247
-    i32 19, label %247
+  switch i32 %31, label %256 [
+    i32 16, label %250
+    i32 17, label %250
+    i32 18, label %250
+    i32 0, label %250
+    i32 1, label %250
+    i32 2, label %250
+    i32 8, label %244
+    i32 13, label %244
+    i32 5, label %244
+    i32 10, label %244
+    i32 3, label %239
+    i32 15, label %239
+    i32 20, label %238
+    i32 21, label %238
+    i32 22, label %238
+    i32 23, label %238
+    i32 4, label %237
+    i32 9, label %237
+    i32 14, label %237
+    i32 19, label %237
     i32 6, label %67
     i32 7, label %67
     i32 11, label %67
@@ -771,7 +771,7 @@ define dso_local i64 @DoEmFloatIteration(ptr nocapture noundef %0, ptr nocapture
 65:                                               ; preds = %62, %56, %54, %48, %46, %40, %38, %32
   %66 = phi ptr [ %23, %56 ], [ %23, %48 ], [ %23, %40 ], [ %23, %32 ], [ %24, %54 ], [ %24, %46 ], [ %24, %38 ], [ %64, %62 ]
   tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %66, ptr noundef nonnull align 1 dereferenceable(12) %25, i64 12, i1 false)
-  br label %266
+  br label %256
 
 67:                                               ; preds = %22, %22, %22, %22
   %68 = getelementptr inbounds i8, ptr %24, i64 4
@@ -839,299 +839,289 @@ define dso_local i64 @DoEmFloatIteration(ptr nocapture noundef %0, ptr nocapture
   store i16 %112, ptr %113, align 2, !tbaa !13
   %114 = getelementptr i8, ptr %25, i64 4
   store i64 0, ptr %114, align 2
-  %115 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 3
+  %115 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 1
   %116 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 2
-  %117 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 1
-  %118 = getelementptr i8, ptr %25, i64 6
-  %119 = getelementptr i8, ptr %25, i64 8
-  %120 = getelementptr i8, ptr %25, i64 10
-  br label %121
+  %117 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 3
+  br label %118
 
-121:                                              ; preds = %191, %100
-  %122 = phi i16 [ 0, %100 ], [ %196, %191 ]
-  %123 = phi i16 [ 0, %100 ], [ %202, %191 ]
-  %124 = phi i16 [ 0, %100 ], [ %201, %191 ]
-  %125 = phi i16 [ 0, %100 ], [ %200, %191 ]
-  %126 = phi i16 [ 0, %100 ], [ %203, %191 ]
-  %127 = phi i16 [ 0, %100 ], [ %204, %191 ]
-  %128 = phi i16 [ 0, %100 ], [ %205, %191 ]
-  %129 = phi i16 [ 0, %100 ], [ %206, %191 ]
-  %130 = phi i32 [ 0, %100 ], [ %207, %191 ]
-  %131 = phi i16 [ %69, %100 ], [ %135, %191 ]
-  %132 = phi i16 [ %71, %100 ], [ %136, %191 ]
-  %133 = phi i16 [ %73, %100 ], [ %137, %191 ]
-  %134 = phi i16 [ %75, %100 ], [ %139, %191 ]
-  %135 = lshr i16 %131, 1
-  %136 = tail call i16 @llvm.fshl.i16(i16 %131, i16 %132, i16 15)
-  %137 = tail call i16 @llvm.fshl.i16(i16 %132, i16 %133, i16 15)
-  %138 = and i16 %134, 1
-  %139 = tail call i16 @llvm.fshl.i16(i16 %133, i16 %134, i16 15)
-  %140 = icmp eq i16 %138, 0
-  br i1 %140, label %182, label %141
+118:                                              ; preds = %184, %100
+  %119 = phi i16 [ 0, %100 ], [ %189, %184 ]
+  %120 = phi i16 [ 0, %100 ], [ %190, %184 ]
+  %121 = phi i16 [ 0, %100 ], [ %191, %184 ]
+  %122 = phi i16 [ 0, %100 ], [ %192, %184 ]
+  %123 = phi i16 [ 0, %100 ], [ %193, %184 ]
+  %124 = phi i16 [ 0, %100 ], [ %194, %184 ]
+  %125 = phi i16 [ 0, %100 ], [ %195, %184 ]
+  %126 = phi i16 [ 0, %100 ], [ %196, %184 ]
+  %127 = phi i32 [ 0, %100 ], [ %197, %184 ]
+  %128 = phi i16 [ %69, %100 ], [ %132, %184 ]
+  %129 = phi i16 [ %71, %100 ], [ %133, %184 ]
+  %130 = phi i16 [ %73, %100 ], [ %134, %184 ]
+  %131 = phi i16 [ %75, %100 ], [ %136, %184 ]
+  %132 = lshr i16 %128, 1
+  %133 = tail call i16 @llvm.fshl.i16(i16 %128, i16 %129, i16 15)
+  %134 = tail call i16 @llvm.fshl.i16(i16 %129, i16 %130, i16 15)
+  %135 = and i16 %131, 1
+  %136 = tail call i16 @llvm.fshl.i16(i16 %130, i16 %131, i16 15)
+  %137 = icmp eq i16 %135, 0
+  br i1 %137, label %176, label %138
 
-141:                                              ; preds = %121
-  %142 = load i16, ptr %79, align 2, !tbaa !12
-  %143 = zext i16 %123 to i32
-  %144 = zext i16 %142 to i32
-  %145 = add nuw nsw i32 %144, %143
-  %146 = freeze i32 %145
-  %147 = lshr i32 %146, 16
-  %148 = and i32 %147, 1
-  %149 = trunc i32 %146 to i16
-  store i16 %149, ptr %115, align 2, !tbaa !12
-  %150 = load i16, ptr %116, align 2, !tbaa !12
-  %151 = load i16, ptr %78, align 2, !tbaa !12
-  %152 = zext i16 %150 to i32
-  %153 = zext i16 %151 to i32
-  %154 = add nuw nsw i32 %153, %152
-  %155 = freeze i32 %154
-  %156 = add i32 %155, %148
-  %157 = lshr i32 %156, 16
-  %158 = and i32 %157, 1
-  %159 = trunc i32 %156 to i16
-  store i16 %159, ptr %116, align 2, !tbaa !12
-  %160 = load i16, ptr %117, align 2, !tbaa !12
-  %161 = load i16, ptr %77, align 2, !tbaa !12
-  %162 = zext i16 %160 to i32
-  %163 = zext i16 %161 to i32
-  %164 = add nuw nsw i32 %163, %162
-  %165 = freeze i32 %164
-  %166 = add i32 %165, %158
-  %167 = lshr i32 %166, 16
-  %168 = and i32 %167, 1
-  %169 = trunc i32 %166 to i16
-  store i16 %169, ptr %117, align 2, !tbaa !12
-  %170 = load i16, ptr %76, align 2, !tbaa !12
-  %171 = zext i16 %122 to i32
-  %172 = zext i16 %170 to i32
-  %173 = add nuw nsw i32 %172, %171
-  %174 = add nuw nsw i32 %173, %168
-  %175 = freeze i32 %174
-  %176 = trunc i32 %175 to i16
-  %177 = and i16 %176, 1
-  %178 = lshr i16 %176, 1
-  %179 = and i32 %175, 65536
-  %180 = icmp eq i32 %179, 0
-  %181 = or i16 %178, -32768
-  br i1 %180, label %185, label %191
+138:                                              ; preds = %118
+  %139 = load i16, ptr %79, align 2, !tbaa !12
+  %140 = zext i16 %122 to i32
+  %141 = zext i16 %139 to i32
+  %142 = add nuw nsw i32 %141, %140
+  %143 = freeze i32 %142
+  %144 = lshr i32 %143, 16
+  %145 = and i32 %144, 1
+  %146 = trunc i32 %143 to i16
+  store i16 %146, ptr %117, align 2, !tbaa !12
+  %147 = load i16, ptr %78, align 2, !tbaa !12
+  %148 = zext i16 %121 to i32
+  %149 = zext i16 %147 to i32
+  %150 = add nuw nsw i32 %149, %148
+  %151 = freeze i32 %150
+  %152 = add i32 %151, %145
+  %153 = lshr i32 %152, 16
+  %154 = and i32 %153, 1
+  %155 = trunc i32 %152 to i16
+  store i16 %155, ptr %116, align 2, !tbaa !12
+  %156 = load i16, ptr %77, align 2, !tbaa !12
+  %157 = zext i16 %120 to i32
+  %158 = zext i16 %156 to i32
+  %159 = add nuw nsw i32 %158, %157
+  %160 = freeze i32 %159
+  %161 = add i32 %160, %154
+  %162 = lshr i32 %161, 16
+  %163 = and i32 %162, 1
+  %164 = trunc i32 %161 to i16
+  store i16 %164, ptr %115, align 2, !tbaa !12
+  %165 = load i16, ptr %76, align 2, !tbaa !12
+  %166 = zext i16 %119 to i32
+  %167 = zext i16 %165 to i32
+  %168 = add nuw nsw i32 %167, %166
+  %169 = add nuw nsw i32 %168, %163
+  %170 = freeze i32 %169
+  %171 = trunc i32 %170 to i16
+  %172 = lshr i16 %171, 1
+  %173 = and i32 %170, 65536
+  %174 = icmp eq i32 %173, 0
+  %175 = or i16 %172, -32768
+  br i1 %174, label %178, label %184
 
-182:                                              ; preds = %121
-  %183 = and i16 %122, 1
-  %184 = lshr i16 %122, 1
-  br label %185
+176:                                              ; preds = %118
+  %177 = lshr i16 %119, 1
+  br label %178
 
-185:                                              ; preds = %182, %141
-  %186 = phi i16 [ %123, %182 ], [ %149, %141 ]
-  %187 = phi i16 [ %124, %182 ], [ %159, %141 ]
-  %188 = phi i16 [ %125, %182 ], [ %169, %141 ]
-  %189 = phi i16 [ %184, %182 ], [ %178, %141 ]
-  %190 = phi i16 [ %183, %182 ], [ %177, %141 ]
-  br label %191
+178:                                              ; preds = %176, %138
+  %179 = phi i16 [ %122, %176 ], [ %146, %138 ]
+  %180 = phi i16 [ %121, %176 ], [ %155, %138 ]
+  %181 = phi i16 [ %120, %176 ], [ %164, %138 ]
+  %182 = phi i16 [ %177, %176 ], [ %172, %138 ]
+  %183 = phi i16 [ %119, %176 ], [ %171, %138 ]
+  br label %184
 
-191:                                              ; preds = %185, %141
-  %192 = phi i16 [ %186, %185 ], [ %149, %141 ]
-  %193 = phi i16 [ %187, %185 ], [ %159, %141 ]
-  %194 = phi i16 [ %188, %185 ], [ %169, %141 ]
-  %195 = phi i16 [ %190, %185 ], [ %177, %141 ]
-  %196 = phi i16 [ %189, %185 ], [ %181, %141 ]
-  store i16 %196, ptr %114, align 2, !tbaa !12
-  %197 = lshr i16 %194, 1
-  %198 = icmp eq i16 %195, 0
-  %199 = or i16 %197, -32768
-  %200 = select i1 %198, i16 %197, i16 %199
-  store i16 %200, ptr %118, align 2, !tbaa !12
-  %201 = tail call i16 @llvm.fshl.i16(i16 %194, i16 %193, i16 15)
-  store i16 %201, ptr %119, align 2, !tbaa !12
-  %202 = tail call i16 @llvm.fshl.i16(i16 %193, i16 %192, i16 15)
-  store i16 %202, ptr %120, align 2, !tbaa !12
-  %203 = tail call i16 @llvm.fshl.i16(i16 %192, i16 %126, i16 15)
-  %204 = tail call i16 @llvm.fshl.i16(i16 %126, i16 %127, i16 15)
-  %205 = tail call i16 @llvm.fshl.i16(i16 %127, i16 %128, i16 15)
-  %206 = tail call i16 @llvm.fshl.i16(i16 %128, i16 %129, i16 15)
-  %207 = add nuw nsw i32 %130, 1
-  %208 = icmp eq i32 %207, 64
-  br i1 %208, label %209, label %121, !llvm.loop !19
+184:                                              ; preds = %178, %138
+  %185 = phi i16 [ %179, %178 ], [ %146, %138 ]
+  %186 = phi i16 [ %180, %178 ], [ %155, %138 ]
+  %187 = phi i16 [ %181, %178 ], [ %164, %138 ]
+  %188 = phi i16 [ %183, %178 ], [ %171, %138 ]
+  %189 = phi i16 [ %182, %178 ], [ %175, %138 ]
+  store i16 %189, ptr %114, align 2, !tbaa !12
+  %190 = tail call i16 @llvm.fshl.i16(i16 %188, i16 %187, i16 15)
+  store i16 %190, ptr %115, align 2, !tbaa !12
+  %191 = tail call i16 @llvm.fshl.i16(i16 %187, i16 %186, i16 15)
+  store i16 %191, ptr %116, align 2, !tbaa !12
+  %192 = tail call i16 @llvm.fshl.i16(i16 %186, i16 %185, i16 15)
+  store i16 %192, ptr %117, align 2, !tbaa !12
+  %193 = tail call i16 @llvm.fshl.i16(i16 %185, i16 %123, i16 15)
+  %194 = tail call i16 @llvm.fshl.i16(i16 %123, i16 %124, i16 15)
+  %195 = tail call i16 @llvm.fshl.i16(i16 %124, i16 %125, i16 15)
+  %196 = tail call i16 @llvm.fshl.i16(i16 %125, i16 %126, i16 15)
+  %197 = add nuw nsw i32 %127, 1
+  %198 = icmp eq i32 %197, 64
+  br i1 %198, label %199, label %118, !llvm.loop !19
 
-209:                                              ; preds = %191
-  %210 = icmp sgt i16 %196, -1
-  br i1 %210, label %211, label %235
+199:                                              ; preds = %184
+  %200 = icmp sgt i16 %189, -1
+  br i1 %200, label %201, label %225
 
-211:                                              ; preds = %209
-  %212 = insertelement <4 x i16> poison, i16 %196, i64 0
-  %213 = insertelement <4 x i16> %212, i16 %200, i64 1
-  %214 = insertelement <4 x i16> %213, i16 %201, i64 2
-  %215 = insertelement <4 x i16> %214, i16 %202, i64 3
-  br label %216
+201:                                              ; preds = %199
+  %202 = insertelement <4 x i16> poison, i16 %189, i64 0
+  %203 = insertelement <4 x i16> %202, i16 %190, i64 1
+  %204 = insertelement <4 x i16> %203, i16 %191, i64 2
+  %205 = insertelement <4 x i16> %204, i16 %192, i64 3
+  br label %206
 
-216:                                              ; preds = %211, %216
-  %217 = phi i16 [ %230, %216 ], [ %112, %211 ]
-  %218 = phi i16 [ %225, %216 ], [ %204, %211 ]
-  %219 = phi i16 [ %224, %216 ], [ %205, %211 ]
-  %220 = phi i16 [ %223, %216 ], [ %206, %211 ]
-  %221 = phi i16 [ %226, %216 ], [ %203, %211 ]
-  %222 = phi <4 x i16> [ %229, %216 ], [ %215, %211 ]
-  %223 = shl i16 %220, 1
-  %224 = tail call i16 @llvm.fshl.i16(i16 %219, i16 %220, i16 1)
-  %225 = tail call i16 @llvm.fshl.i16(i16 %218, i16 %219, i16 1)
-  %226 = tail call i16 @llvm.fshl.i16(i16 %221, i16 %218, i16 1)
-  %227 = shufflevector <4 x i16> %222, <4 x i16> poison, <4 x i32> <i32 1, i32 2, i32 3, i32 undef>
-  %228 = insertelement <4 x i16> %227, i16 %221, i64 3
-  %229 = tail call <4 x i16> @llvm.fshl.v4i16(<4 x i16> %222, <4 x i16> %228, <4 x i16> <i16 1, i16 1, i16 1, i16 1>)
-  %230 = add i16 %217, -1
-  %231 = extractelement <4 x i16> %229, i64 0
-  %232 = icmp sgt i16 %231, -1
-  br i1 %232, label %216, label %233, !llvm.loop !20
+206:                                              ; preds = %201, %206
+  %207 = phi i16 [ %220, %206 ], [ %112, %201 ]
+  %208 = phi i16 [ %215, %206 ], [ %194, %201 ]
+  %209 = phi i16 [ %214, %206 ], [ %195, %201 ]
+  %210 = phi i16 [ %213, %206 ], [ %196, %201 ]
+  %211 = phi i16 [ %216, %206 ], [ %193, %201 ]
+  %212 = phi <4 x i16> [ %219, %206 ], [ %205, %201 ]
+  %213 = shl i16 %210, 1
+  %214 = tail call i16 @llvm.fshl.i16(i16 %209, i16 %210, i16 1)
+  %215 = tail call i16 @llvm.fshl.i16(i16 %208, i16 %209, i16 1)
+  %216 = tail call i16 @llvm.fshl.i16(i16 %211, i16 %208, i16 1)
+  %217 = shufflevector <4 x i16> %212, <4 x i16> poison, <4 x i32> <i32 1, i32 2, i32 3, i32 undef>
+  %218 = insertelement <4 x i16> %217, i16 %211, i64 3
+  %219 = tail call <4 x i16> @llvm.fshl.v4i16(<4 x i16> %212, <4 x i16> %218, <4 x i16> <i16 1, i16 1, i16 1, i16 1>)
+  %220 = add i16 %207, -1
+  %221 = extractelement <4 x i16> %219, i64 0
+  %222 = icmp sgt i16 %221, -1
+  br i1 %222, label %206, label %223, !llvm.loop !20
 
-233:                                              ; preds = %216
-  store <4 x i16> %229, ptr %114, align 2, !tbaa !12
-  store i16 %230, ptr %113, align 2, !tbaa !13
-  %234 = extractelement <4 x i16> %229, i64 3
-  br label %235
+223:                                              ; preds = %206
+  store <4 x i16> %219, ptr %114, align 2, !tbaa !12
+  store i16 %220, ptr %113, align 2, !tbaa !13
+  %224 = extractelement <4 x i16> %219, i64 3
+  br label %225
 
-235:                                              ; preds = %233, %209
-  %236 = phi i16 [ %234, %233 ], [ %202, %209 ]
-  %237 = phi i16 [ %225, %233 ], [ %204, %209 ]
-  %238 = phi i16 [ %224, %233 ], [ %205, %209 ]
-  %239 = phi i16 [ %223, %233 ], [ %206, %209 ]
-  %240 = phi i16 [ %226, %233 ], [ %203, %209 ]
-  %241 = or i16 %238, %237
-  %242 = or i16 %241, %239
-  %243 = or i16 %242, %240
-  %244 = icmp eq i16 %243, 0
-  br i1 %244, label %245, label %266
+225:                                              ; preds = %223, %199
+  %226 = phi i16 [ %224, %223 ], [ %192, %199 ]
+  %227 = phi i16 [ %215, %223 ], [ %194, %199 ]
+  %228 = phi i16 [ %214, %223 ], [ %195, %199 ]
+  %229 = phi i16 [ %213, %223 ], [ %196, %199 ]
+  %230 = phi i16 [ %216, %223 ], [ %193, %199 ]
+  %231 = or i16 %228, %227
+  %232 = or i16 %231, %229
+  %233 = or i16 %232, %230
+  %234 = icmp eq i16 %233, 0
+  br i1 %234, label %235, label %256
 
-245:                                              ; preds = %235
-  %246 = or i16 %236, 1
-  store i16 %246, ptr %115, align 2, !tbaa !12
-  br label %266
+235:                                              ; preds = %225
+  %236 = or i16 %226, 1
+  store i16 %236, ptr %117, align 2, !tbaa !12
+  br label %256
 
-247:                                              ; preds = %22, %22, %22, %22
+237:                                              ; preds = %22, %22, %22, %22
   tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %24, ptr noundef nonnull align 1 dereferenceable(12) %25, i64 12, i1 false)
-  br label %266
+  br label %256
 
-248:                                              ; preds = %22, %22, %22, %22
+238:                                              ; preds = %22, %22, %22, %22
   tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %23, ptr noundef nonnull align 1 dereferenceable(12) %25, i64 12, i1 false)
-  br label %266
+  br label %256
 
-249:                                              ; preds = %22, %22
+239:                                              ; preds = %22, %22
   store i8 4, ptr %25, align 2, !tbaa !5
-  %250 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 2
-  store i16 32767, ptr %250, align 2, !tbaa !13
-  %251 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 1
-  store i8 1, ptr %251, align 1, !tbaa !15
-  %252 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3
-  store i16 16384, ptr %252, align 2, !tbaa !12
-  %253 = getelementptr i8, ptr %25, i64 6
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 2 dereferenceable(6) %253, i8 0, i64 6, i1 false), !tbaa !12
-  br label %266
+  %240 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 2
+  store i16 32767, ptr %240, align 2, !tbaa !13
+  %241 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 1
+  store i8 1, ptr %241, align 1, !tbaa !15
+  %242 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3
+  store i16 16384, ptr %242, align 2, !tbaa !12
+  %243 = getelementptr i8, ptr %25, i64 6
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 2 dereferenceable(6) %243, i8 0, i64 6, i1 false), !tbaa !12
+  br label %256
 
-254:                                              ; preds = %22, %22, %22, %22
+244:                                              ; preds = %22, %22, %22, %22
   tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %24, ptr noundef nonnull align 1 dereferenceable(12) %25, i64 12, i1 false)
-  %255 = getelementptr inbounds %struct.InternalFPF, ptr %0, i64 %14, i32 1
-  %256 = load i8, ptr %255, align 1, !tbaa !15
-  %257 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 1
-  %258 = load i8, ptr %257, align 1, !tbaa !15
-  %259 = xor i8 %258, %256
-  store i8 %259, ptr %257, align 1, !tbaa !15
-  br label %266
+  %245 = getelementptr inbounds %struct.InternalFPF, ptr %0, i64 %14, i32 1
+  %246 = load i8, ptr %245, align 1, !tbaa !15
+  %247 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 1
+  %248 = load i8, ptr %247, align 1, !tbaa !15
+  %249 = xor i8 %248, %246
+  store i8 %249, ptr %247, align 1, !tbaa !15
+  br label %256
 
-260:                                              ; preds = %22, %22, %22, %22, %22, %22
+250:                                              ; preds = %22, %22, %22, %22, %22, %22
   tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %23, ptr noundef nonnull align 1 dereferenceable(12) %25, i64 12, i1 false)
-  %261 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 %14, i32 1
-  %262 = load i8, ptr %261, align 1, !tbaa !15
-  %263 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 1
-  %264 = load i8, ptr %263, align 1, !tbaa !15
-  %265 = xor i8 %264, %262
-  store i8 %265, ptr %263, align 1, !tbaa !15
-  br label %266
+  %251 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 %14, i32 1
+  %252 = load i8, ptr %251, align 1, !tbaa !15
+  %253 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 1
+  %254 = load i8, ptr %253, align 1, !tbaa !15
+  %255 = xor i8 %254, %252
+  store i8 %255, ptr %253, align 1, !tbaa !15
+  br label %256
 
-266:                                              ; preds = %260, %254, %249, %248, %247, %245, %235, %65, %22
-  %267 = load i8, ptr %25, align 2, !tbaa !5
-  %268 = add i8 %267, -1
-  %269 = icmp ult i8 %268, 2
-  br i1 %269, label %270, label %312
+256:                                              ; preds = %250, %244, %239, %238, %237, %235, %225, %65, %22
+  %257 = load i8, ptr %25, align 2, !tbaa !5
+  %258 = add i8 %257, -1
+  %259 = icmp ult i8 %258, 2
+  br i1 %259, label %260, label %302
 
-270:                                              ; preds = %266
-  %271 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3
-  %272 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 1
-  %273 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 2
-  %274 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 3
-  %275 = load <4 x i16>, ptr %271, align 2, !tbaa !12
-  %276 = tail call i16 @llvm.vector.reduce.or.v4i16(<4 x i16> %275)
-  %277 = icmp eq i16 %276, 0
-  br i1 %277, label %278, label %280
+260:                                              ; preds = %256
+  %261 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3
+  %262 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 1
+  %263 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 2
+  %264 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 3, i64 3
+  %265 = load <4 x i16>, ptr %261, align 2, !tbaa !12
+  %266 = tail call i16 @llvm.vector.reduce.or.v4i16(<4 x i16> %265)
+  %267 = icmp eq i16 %266, 0
+  br i1 %267, label %268, label %270
 
-278:                                              ; preds = %270
-  %279 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %280
+268:                                              ; preds = %260
+  %269 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %270
 
-280:                                              ; preds = %278, %270
-  %281 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 2
-  %282 = load i16, ptr %281, align 2, !tbaa !13
-  %283 = icmp eq i16 %282, -32768
-  br i1 %283, label %289, label %284
+270:                                              ; preds = %268, %260
+  %271 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14, i32 2
+  %272 = load i16, ptr %271, align 2, !tbaa !13
+  %273 = icmp eq i16 %272, -32768
+  br i1 %273, label %279, label %274
 
-284:                                              ; preds = %280
-  %285 = load i8, ptr %25, align 2, !tbaa !5
-  %286 = icmp eq i8 %285, 0
-  br i1 %286, label %312, label %287
+274:                                              ; preds = %270
+  %275 = load i8, ptr %25, align 2, !tbaa !5
+  %276 = icmp eq i8 %275, 0
+  br i1 %276, label %302, label %277
 
-287:                                              ; preds = %284
-  %288 = load i16, ptr %274, align 2, !tbaa !12
-  br label %301
+277:                                              ; preds = %274
+  %278 = load i16, ptr %264, align 2, !tbaa !12
+  br label %291
 
-289:                                              ; preds = %280
-  store i16 -32767, ptr %281, align 2, !tbaa !13
-  %290 = load i8, ptr %25, align 2, !tbaa !5
-  %291 = icmp eq i8 %290, 0
-  br i1 %291, label %312, label %292
+279:                                              ; preds = %270
+  store i16 -32767, ptr %271, align 2, !tbaa !13
+  %280 = load i8, ptr %25, align 2, !tbaa !5
+  %281 = icmp eq i8 %280, 0
+  br i1 %281, label %302, label %282
 
-292:                                              ; preds = %289
-  %293 = load i16, ptr %271, align 2, !tbaa !12
-  %294 = load i16, ptr %272, align 2, !tbaa !12
-  %295 = load i16, ptr %273, align 2, !tbaa !12
-  %296 = load i16, ptr %274, align 2, !tbaa !12
-  %297 = tail call i16 @llvm.fshl.i16(i16 %293, i16 %294, i16 15)
-  %298 = tail call i16 @llvm.fshl.i16(i16 %294, i16 %295, i16 15)
-  %299 = tail call i16 @llvm.fshl.i16(i16 %295, i16 %296, i16 15)
-  %300 = lshr i16 %293, 1
-  store i16 %300, ptr %271, align 2, !tbaa !12
-  store i16 %297, ptr %272, align 2, !tbaa !12
-  store i16 %298, ptr %273, align 2, !tbaa !12
-  br label %301
+282:                                              ; preds = %279
+  %283 = load i16, ptr %261, align 2, !tbaa !12
+  %284 = load i16, ptr %262, align 2, !tbaa !12
+  %285 = load i16, ptr %263, align 2, !tbaa !12
+  %286 = load i16, ptr %264, align 2, !tbaa !12
+  %287 = tail call i16 @llvm.fshl.i16(i16 %283, i16 %284, i16 15)
+  %288 = tail call i16 @llvm.fshl.i16(i16 %284, i16 %285, i16 15)
+  %289 = tail call i16 @llvm.fshl.i16(i16 %285, i16 %286, i16 15)
+  %290 = lshr i16 %283, 1
+  store i16 %290, ptr %261, align 2, !tbaa !12
+  store i16 %287, ptr %262, align 2, !tbaa !12
+  store i16 %288, ptr %263, align 2, !tbaa !12
+  br label %291
 
-301:                                              ; preds = %292, %287
-  %302 = phi i16 [ %288, %287 ], [ %299, %292 ]
-  %303 = and i16 %302, -8
-  store i16 %303, ptr %274, align 2, !tbaa !12
-  br label %312
+291:                                              ; preds = %282, %277
+  %292 = phi i16 [ %278, %277 ], [ %289, %282 ]
+  %293 = and i16 %292, -8
+  store i16 %293, ptr %264, align 2, !tbaa !12
+  br label %302
 
-304:                                              ; preds = %13
-  %305 = getelementptr inbounds %struct.InternalFPF, ptr %0, i64 %14
-  %306 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 %14
-  %307 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14
-  tail call fastcc void @AddSubInternalFPF(i8 noundef zeroext 1, ptr noundef %305, ptr noundef %306, ptr noundef %307)
-  br label %312
+294:                                              ; preds = %13
+  %295 = getelementptr inbounds %struct.InternalFPF, ptr %0, i64 %14
+  %296 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 %14
+  %297 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14
+  tail call fastcc void @AddSubInternalFPF(i8 noundef zeroext 1, ptr noundef %295, ptr noundef %296, ptr noundef %297)
+  br label %302
 
-308:                                              ; preds = %13
-  %309 = getelementptr inbounds %struct.InternalFPF, ptr %0, i64 %14
-  %310 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 %14
-  %311 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14
-  tail call fastcc void @AddSubInternalFPF(i8 noundef zeroext 0, ptr noundef %309, ptr noundef %310, ptr noundef %311)
-  br label %312
+298:                                              ; preds = %13
+  %299 = getelementptr inbounds %struct.InternalFPF, ptr %0, i64 %14
+  %300 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 %14
+  %301 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 %14
+  tail call fastcc void @AddSubInternalFPF(i8 noundef zeroext 0, ptr noundef %299, ptr noundef %300, ptr noundef %301)
+  br label %302
 
-312:                                              ; preds = %308, %304, %301, %289, %284, %266, %18, %13
-  %313 = add nuw i64 %14, 1
-  %314 = icmp eq i64 %313, %3
-  br i1 %314, label %315, label %13, !llvm.loop !21
+302:                                              ; preds = %298, %294, %291, %279, %274, %256, %18, %13
+  %303 = add nuw i64 %14, 1
+  %304 = icmp eq i64 %303, %3
+  br i1 %304, label %305, label %13, !llvm.loop !21
 
-315:                                              ; preds = %312
-  %316 = icmp eq i64 %12, 0
-  br i1 %316, label %317, label %10, !llvm.loop !22
+305:                                              ; preds = %302
+  %306 = icmp eq i64 %12, 0
+  br i1 %306, label %307, label %10, !llvm.loop !22
 
-317:                                              ; preds = %315, %5
-  %318 = tail call i64 @StopStopwatch(i64 noundef %6) #9
-  ret i64 %318
+307:                                              ; preds = %305, %5
+  %308 = tail call i64 @StopStopwatch(i64 noundef %6) #9
+  ret i64 %308
 }
 
 declare i64 @StartStopwatch(...) local_unnamed_addr #2
@@ -1144,7 +1134,7 @@ define internal fastcc void @AddSubInternalFPF(i8 noundef zeroext %0, ptr nocapt
   %8 = load i8, ptr %2, align 2, !tbaa !5
   %9 = zext i8 %8 to i32
   %10 = add nuw nsw i32 %7, %9
-  switch i32 %10, label %323 [
+  switch i32 %10, label %325 [
     i32 0, label %11
     i32 20, label %20
     i32 21, label %20
@@ -1168,8 +1158,8 @@ define internal fastcc void @AddSubInternalFPF(i8 noundef zeroext %0, ptr nocapt
     i32 7, label %26
     i32 11, label %26
     i32 12, label %26
-    i32 18, label %285
-    i32 24, label %290
+    i32 18, label %287
+    i32 24, label %292
   ]
 
 11:                                               ; preds = %4
@@ -1180,20 +1170,20 @@ define internal fastcc void @AddSubInternalFPF(i8 noundef zeroext %0, ptr nocapt
   %15 = load i8, ptr %14, align 1, !tbaa !15
   %16 = xor i8 %15, %13
   %17 = icmp eq i8 %16, %0
-  br i1 %17, label %323, label %18
+  br i1 %17, label %325, label %18
 
 18:                                               ; preds = %11
   %19 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 1
   store i8 0, ptr %19, align 1, !tbaa !15
-  br label %323
+  br label %325
 
 20:                                               ; preds = %4, %4, %4, %4, %4, %4, %4, %4, %4
   tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %1, ptr noundef nonnull align 1 dereferenceable(12) %3, i64 12, i1 false)
-  br label %323
+  br label %325
 
 21:                                               ; preds = %4, %4, %4, %4
   tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %2, ptr noundef nonnull align 1 dereferenceable(12) %3, i64 12, i1 false)
-  br label %323
+  br label %325
 
 22:                                               ; preds = %4, %4, %4, %4, %4
   tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %2, ptr noundef nonnull align 1 dereferenceable(12) %3, i64 12, i1 false)
@@ -1201,7 +1191,7 @@ define internal fastcc void @AddSubInternalFPF(i8 noundef zeroext %0, ptr nocapt
   %24 = load i8, ptr %23, align 1, !tbaa !15
   %25 = xor i8 %24, %0
   store i8 %25, ptr %23, align 1, !tbaa !15
-  br label %323
+  br label %325
 
 26:                                               ; preds = %4, %4, %4, %4
   %27 = getelementptr inbounds i8, ptr %1, i64 1
@@ -1240,7 +1230,7 @@ define internal fastcc void @AddSubInternalFPF(i8 noundef zeroext %0, ptr nocapt
   %58 = select i1 %56, i1 true, i1 %57
   %59 = select i1 %58, i8 1, i8 2
   store i8 %59, ptr %3, align 2, !tbaa !5
-  br label %168
+  br label %170
 
 60:                                               ; preds = %26
   %61 = icmp sgt i32 %53, 0
@@ -1313,369 +1303,373 @@ define internal fastcc void @AddSubInternalFPF(i8 noundef zeroext %0, ptr nocapt
   %112 = phi i16 [ %48, %62 ], [ 0, %64 ], [ %95, %92 ], [ %105, %102 ]
   %113 = phi i16 [ %50, %62 ], [ 1, %64 ], [ %96, %92 ], [ %108, %102 ]
   store i8 %5, ptr %3, align 2, !tbaa !5
-  br label %168
+  br label %170
 
 114:                                              ; preds = %60
   %115 = sub nsw i32 0, %53
   %116 = icmp eq i8 %5, 0
-  br i1 %116, label %162, label %117
+  br i1 %116, label %164, label %117
 
 117:                                              ; preds = %114
-  %118 = icmp ugt i32 %115, 63
-  br i1 %118, label %162, label %119
+  %118 = icmp slt i32 %53, -63
+  br i1 %118, label %164, label %119
 
 119:                                              ; preds = %117
-  %120 = xor i32 %51, -1
-  %121 = and i32 %115, 1
-  %122 = sub nsw i32 0, %52
-  %123 = icmp eq i32 %120, %122
-  br i1 %123, label %145, label %124
+  %120 = icmp slt i32 %53, 0
+  br i1 %120, label %121, label %164
 
-124:                                              ; preds = %119
-  %125 = and i32 %115, -2
-  br label %126
+121:                                              ; preds = %119
+  %122 = xor i32 %51, -1
+  %123 = and i32 %115, 1
+  %124 = sub nsw i32 0, %52
+  %125 = icmp eq i32 %122, %124
+  br i1 %125, label %147, label %126
 
-126:                                              ; preds = %126, %124
-  %127 = phi i16 [ %38, %124 ], [ %142, %126 ]
-  %128 = phi i16 [ %36, %124 ], [ %139, %126 ]
-  %129 = phi i16 [ %34, %124 ], [ %138, %126 ]
-  %130 = phi i16 [ %32, %124 ], [ %137, %126 ]
-  %131 = phi i32 [ 0, %124 ], [ %143, %126 ]
-  %132 = lshr i16 %130, 1
-  %133 = tail call i16 @llvm.fshl.i16(i16 %130, i16 %129, i16 15)
-  %134 = tail call i16 @llvm.fshl.i16(i16 %129, i16 %128, i16 15)
-  %135 = tail call i16 @llvm.fshl.i16(i16 %128, i16 %127, i16 15)
-  %136 = or i16 %135, %127
-  %137 = lshr i16 %130, 2
-  %138 = tail call i16 @llvm.fshl.i16(i16 %132, i16 %133, i16 15)
-  %139 = tail call i16 @llvm.fshl.i16(i16 %133, i16 %134, i16 15)
-  %140 = and i16 %136, 1
-  %141 = tail call i16 @llvm.fshl.i16(i16 %134, i16 %135, i16 15)
-  %142 = or i16 %141, %140
-  %143 = add i32 %131, 2
-  %144 = icmp eq i32 %143, %125
-  br i1 %144, label %145, label %126, !llvm.loop !23
+126:                                              ; preds = %121
+  %127 = and i32 %115, -2
+  br label %128
 
-145:                                              ; preds = %126, %119
-  %146 = phi i16 [ undef, %119 ], [ %137, %126 ]
-  %147 = phi i16 [ undef, %119 ], [ %138, %126 ]
-  %148 = phi i16 [ undef, %119 ], [ %139, %126 ]
-  %149 = phi i16 [ undef, %119 ], [ %142, %126 ]
-  %150 = phi i16 [ %38, %119 ], [ %142, %126 ]
-  %151 = phi i16 [ %36, %119 ], [ %139, %126 ]
-  %152 = phi i16 [ %34, %119 ], [ %138, %126 ]
-  %153 = phi i16 [ %32, %119 ], [ %137, %126 ]
-  %154 = icmp eq i32 %121, 0
-  br i1 %154, label %162, label %155
+128:                                              ; preds = %128, %126
+  %129 = phi i16 [ %38, %126 ], [ %144, %128 ]
+  %130 = phi i16 [ %36, %126 ], [ %141, %128 ]
+  %131 = phi i16 [ %34, %126 ], [ %140, %128 ]
+  %132 = phi i16 [ %32, %126 ], [ %139, %128 ]
+  %133 = phi i32 [ 0, %126 ], [ %145, %128 ]
+  %134 = lshr i16 %132, 1
+  %135 = tail call i16 @llvm.fshl.i16(i16 %132, i16 %131, i16 15)
+  %136 = tail call i16 @llvm.fshl.i16(i16 %131, i16 %130, i16 15)
+  %137 = tail call i16 @llvm.fshl.i16(i16 %130, i16 %129, i16 15)
+  %138 = or i16 %137, %129
+  %139 = lshr i16 %132, 2
+  %140 = tail call i16 @llvm.fshl.i16(i16 %134, i16 %135, i16 15)
+  %141 = tail call i16 @llvm.fshl.i16(i16 %135, i16 %136, i16 15)
+  %142 = and i16 %138, 1
+  %143 = tail call i16 @llvm.fshl.i16(i16 %136, i16 %137, i16 15)
+  %144 = or i16 %143, %142
+  %145 = add i32 %133, 2
+  %146 = icmp eq i32 %145, %127
+  br i1 %146, label %147, label %128, !llvm.loop !23
 
-155:                                              ; preds = %145
-  %156 = lshr i16 %153, 1
-  %157 = tail call i16 @llvm.fshl.i16(i16 %153, i16 %152, i16 15)
-  %158 = tail call i16 @llvm.fshl.i16(i16 %152, i16 %151, i16 15)
-  %159 = and i16 %150, 1
-  %160 = tail call i16 @llvm.fshl.i16(i16 %151, i16 %150, i16 15)
-  %161 = or i16 %160, %159
-  br label %162
+147:                                              ; preds = %128, %121
+  %148 = phi i16 [ undef, %121 ], [ %139, %128 ]
+  %149 = phi i16 [ undef, %121 ], [ %140, %128 ]
+  %150 = phi i16 [ undef, %121 ], [ %141, %128 ]
+  %151 = phi i16 [ undef, %121 ], [ %144, %128 ]
+  %152 = phi i16 [ %38, %121 ], [ %144, %128 ]
+  %153 = phi i16 [ %36, %121 ], [ %141, %128 ]
+  %154 = phi i16 [ %34, %121 ], [ %140, %128 ]
+  %155 = phi i16 [ %32, %121 ], [ %139, %128 ]
+  %156 = icmp eq i32 %123, 0
+  br i1 %156, label %164, label %157
 
-162:                                              ; preds = %155, %145, %117, %114
-  %163 = phi i16 [ %38, %114 ], [ 1, %117 ], [ %149, %145 ], [ %161, %155 ]
-  %164 = phi i16 [ %36, %114 ], [ 0, %117 ], [ %148, %145 ], [ %158, %155 ]
-  %165 = phi i16 [ %34, %114 ], [ 0, %117 ], [ %147, %145 ], [ %157, %155 ]
-  %166 = phi i16 [ %32, %114 ], [ 0, %117 ], [ %146, %145 ], [ %156, %155 ]
+157:                                              ; preds = %147
+  %158 = lshr i16 %155, 1
+  %159 = tail call i16 @llvm.fshl.i16(i16 %155, i16 %154, i16 15)
+  %160 = tail call i16 @llvm.fshl.i16(i16 %154, i16 %153, i16 15)
+  %161 = and i16 %152, 1
+  %162 = tail call i16 @llvm.fshl.i16(i16 %153, i16 %152, i16 15)
+  %163 = or i16 %162, %161
+  br label %164
+
+164:                                              ; preds = %157, %147, %117, %114, %119
+  %165 = phi i16 [ %38, %114 ], [ %38, %119 ], [ 1, %117 ], [ %151, %147 ], [ %163, %157 ]
+  %166 = phi i16 [ %36, %114 ], [ %36, %119 ], [ 0, %117 ], [ %150, %147 ], [ %160, %157 ]
+  %167 = phi i16 [ %34, %114 ], [ %34, %119 ], [ 0, %117 ], [ %149, %147 ], [ %159, %157 ]
+  %168 = phi i16 [ %32, %114 ], [ %32, %119 ], [ 0, %117 ], [ %148, %147 ], [ %158, %157 ]
   store i8 %8, ptr %3, align 2, !tbaa !5
-  %167 = xor i8 %40, %0
-  br label %168
+  %169 = xor i8 %40, %0
+  br label %170
 
-168:                                              ; preds = %109, %162, %55
-  %169 = phi i8 [ %28, %109 ], [ %167, %162 ], [ %28, %55 ]
-  %170 = phi i16 [ %30, %109 ], [ %42, %162 ], [ %30, %55 ]
-  %171 = phi i16 [ %38, %109 ], [ %163, %162 ], [ %38, %55 ]
-  %172 = phi i16 [ %110, %109 ], [ %44, %162 ], [ %44, %55 ]
-  %173 = phi i16 [ %111, %109 ], [ %46, %162 ], [ %46, %55 ]
-  %174 = phi i16 [ %112, %109 ], [ %48, %162 ], [ %48, %55 ]
-  %175 = phi i16 [ %113, %109 ], [ %50, %162 ], [ %50, %55 ]
-  %176 = phi i16 [ %36, %109 ], [ %164, %162 ], [ %36, %55 ]
-  %177 = phi i16 [ %34, %109 ], [ %165, %162 ], [ %34, %55 ]
-  %178 = phi i16 [ %32, %109 ], [ %166, %162 ], [ %32, %55 ]
-  %179 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 1
-  store i8 %169, ptr %179, align 1, !tbaa !15
-  %180 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 2
-  store i16 %170, ptr %180, align 2, !tbaa !13
-  %181 = xor i8 %40, %28
-  %182 = icmp eq i8 %181, %0
-  %183 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 3
-  br i1 %182, label %215, label %184
+170:                                              ; preds = %109, %164, %55
+  %171 = phi i8 [ %28, %109 ], [ %169, %164 ], [ %28, %55 ]
+  %172 = phi i16 [ %30, %109 ], [ %42, %164 ], [ %30, %55 ]
+  %173 = phi i16 [ %38, %109 ], [ %165, %164 ], [ %38, %55 ]
+  %174 = phi i16 [ %110, %109 ], [ %44, %164 ], [ %44, %55 ]
+  %175 = phi i16 [ %111, %109 ], [ %46, %164 ], [ %46, %55 ]
+  %176 = phi i16 [ %112, %109 ], [ %48, %164 ], [ %48, %55 ]
+  %177 = phi i16 [ %113, %109 ], [ %50, %164 ], [ %50, %55 ]
+  %178 = phi i16 [ %36, %109 ], [ %166, %164 ], [ %36, %55 ]
+  %179 = phi i16 [ %34, %109 ], [ %167, %164 ], [ %34, %55 ]
+  %180 = phi i16 [ %32, %109 ], [ %168, %164 ], [ %32, %55 ]
+  %181 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 1
+  store i8 %171, ptr %181, align 1, !tbaa !15
+  %182 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 2
+  store i16 %172, ptr %182, align 2, !tbaa !13
+  %183 = xor i8 %40, %28
+  %184 = icmp eq i8 %183, %0
+  %185 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 3
+  br i1 %184, label %217, label %186
 
-184:                                              ; preds = %168
-  %185 = zext i16 %171 to i32
-  %186 = zext i16 %175 to i32
-  %187 = sub nsw i32 %185, %186
-  %188 = lshr i32 %187, 16
-  %189 = and i32 %188, 1
-  %190 = trunc i32 %187 to i16
-  store i16 %190, ptr %183, align 2, !tbaa !12
-  %191 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 2
-  %192 = zext i16 %176 to i32
-  %193 = zext i16 %174 to i32
-  %194 = add nuw nsw i32 %189, %193
-  %195 = sub nsw i32 %192, %194
-  %196 = lshr i32 %195, 16
-  %197 = and i32 %196, 1
-  %198 = trunc i32 %195 to i16
-  store i16 %198, ptr %191, align 2, !tbaa !12
-  %199 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 1
-  %200 = zext i16 %177 to i32
-  %201 = zext i16 %173 to i32
-  %202 = add nuw nsw i32 %197, %201
-  %203 = sub nsw i32 %200, %202
-  %204 = lshr i32 %203, 16
-  %205 = and i32 %204, 1
-  %206 = trunc i32 %203 to i16
-  store i16 %206, ptr %199, align 2, !tbaa !12
-  %207 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 0
-  %208 = zext i16 %178 to i32
-  %209 = zext i16 %172 to i32
-  %210 = add nuw nsw i32 %205, %209
-  %211 = sub nsw i32 %208, %210
-  %212 = trunc i32 %211 to i16
-  store i16 %212, ptr %207, align 2, !tbaa !12
-  %213 = and i32 %211, 65536
-  %214 = icmp eq i32 %213, 0
-  br i1 %214, label %258, label %241
+186:                                              ; preds = %170
+  %187 = zext i16 %173 to i32
+  %188 = zext i16 %177 to i32
+  %189 = sub nsw i32 %187, %188
+  %190 = lshr i32 %189, 16
+  %191 = and i32 %190, 1
+  %192 = trunc i32 %189 to i16
+  store i16 %192, ptr %185, align 2, !tbaa !12
+  %193 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 2
+  %194 = zext i16 %178 to i32
+  %195 = zext i16 %176 to i32
+  %196 = add nuw nsw i32 %191, %195
+  %197 = sub nsw i32 %194, %196
+  %198 = lshr i32 %197, 16
+  %199 = and i32 %198, 1
+  %200 = trunc i32 %197 to i16
+  store i16 %200, ptr %193, align 2, !tbaa !12
+  %201 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 1
+  %202 = zext i16 %179 to i32
+  %203 = zext i16 %175 to i32
+  %204 = add nuw nsw i32 %199, %203
+  %205 = sub nsw i32 %202, %204
+  %206 = lshr i32 %205, 16
+  %207 = and i32 %206, 1
+  %208 = trunc i32 %205 to i16
+  store i16 %208, ptr %201, align 2, !tbaa !12
+  %209 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 0
+  %210 = zext i16 %180 to i32
+  %211 = zext i16 %174 to i32
+  %212 = add nuw nsw i32 %207, %211
+  %213 = sub nsw i32 %210, %212
+  %214 = trunc i32 %213 to i16
+  store i16 %214, ptr %209, align 2, !tbaa !12
+  %215 = and i32 %213, 65536
+  %216 = icmp eq i32 %215, 0
+  br i1 %216, label %260, label %243
 
-215:                                              ; preds = %168
-  %216 = add i16 %171, %175
-  %217 = icmp ult i16 %216, %171
-  store i16 %216, ptr %183, align 2, !tbaa !12
-  %218 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 2
-  %219 = zext i16 %176 to i32
-  %220 = zext i16 %174 to i32
-  %221 = zext i1 %217 to i32
-  %222 = add nuw nsw i32 %219, %221
-  %223 = add nuw nsw i32 %222, %220
-  %224 = lshr i32 %223, 16
-  %225 = trunc i32 %223 to i16
-  store i16 %225, ptr %218, align 2, !tbaa !12
-  %226 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 1
-  %227 = zext i16 %177 to i32
-  %228 = zext i16 %173 to i32
-  %229 = add nuw nsw i32 %224, %227
-  %230 = add nuw nsw i32 %229, %228
-  %231 = lshr i32 %230, 16
-  %232 = trunc i32 %230 to i16
-  store i16 %232, ptr %226, align 2, !tbaa !12
-  %233 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 0
-  %234 = zext i16 %178 to i32
-  %235 = zext i16 %172 to i32
-  %236 = add nuw nsw i32 %231, %234
-  %237 = add nuw nsw i32 %236, %235
-  %238 = trunc i32 %237 to i16
-  store i16 %238, ptr %233, align 2, !tbaa !12
-  %239 = and i32 %237, 65536
-  %240 = icmp eq i32 %239, 0
-  br i1 %240, label %282, label %274
+217:                                              ; preds = %170
+  %218 = add i16 %173, %177
+  %219 = icmp ult i16 %218, %173
+  store i16 %218, ptr %185, align 2, !tbaa !12
+  %220 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 2
+  %221 = zext i16 %178 to i32
+  %222 = zext i16 %176 to i32
+  %223 = zext i1 %219 to i32
+  %224 = add nuw nsw i32 %221, %223
+  %225 = add nuw nsw i32 %224, %222
+  %226 = lshr i32 %225, 16
+  %227 = trunc i32 %225 to i16
+  store i16 %227, ptr %220, align 2, !tbaa !12
+  %228 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 1
+  %229 = zext i16 %179 to i32
+  %230 = zext i16 %175 to i32
+  %231 = add nuw nsw i32 %226, %229
+  %232 = add nuw nsw i32 %231, %230
+  %233 = lshr i32 %232, 16
+  %234 = trunc i32 %232 to i16
+  store i16 %234, ptr %228, align 2, !tbaa !12
+  %235 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 0
+  %236 = zext i16 %180 to i32
+  %237 = zext i16 %174 to i32
+  %238 = add nuw nsw i32 %233, %236
+  %239 = add nuw nsw i32 %238, %237
+  %240 = trunc i32 %239 to i16
+  store i16 %240, ptr %235, align 2, !tbaa !12
+  %241 = and i32 %239, 65536
+  %242 = icmp eq i32 %241, 0
+  br i1 %242, label %284, label %276
 
-241:                                              ; preds = %184
-  %242 = xor i8 %40, %0
-  %243 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 1
-  store i8 %242, ptr %243, align 1, !tbaa !15
-  %244 = and i32 %187, 65535
-  %245 = sub nsw i32 0, %244
-  %246 = ashr i32 %245, 16
-  %247 = trunc i32 %245 to i16
-  store i16 %247, ptr %183, align 2, !tbaa !12
-  %248 = and i32 %195, 65535
-  %249 = sub nsw i32 %246, %248
-  %250 = ashr i32 %249, 16
-  %251 = trunc i32 %249 to i16
-  store i16 %251, ptr %191, align 2, !tbaa !12
-  %252 = and i32 %203, 65535
-  %253 = sub nsw i32 %250, %252
-  %254 = ashr i32 %253, 16
-  %255 = trunc i32 %253 to i16
-  store i16 %255, ptr %199, align 2, !tbaa !12
-  %256 = sub nsw i32 %254, %211
-  %257 = trunc i32 %256 to i16
-  store i16 %257, ptr %207, align 2, !tbaa !12
-  br label %258
+243:                                              ; preds = %186
+  %244 = xor i8 %40, %0
+  %245 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 1
+  store i8 %244, ptr %245, align 1, !tbaa !15
+  %246 = and i32 %189, 65535
+  %247 = sub nsw i32 0, %246
+  %248 = ashr i32 %247, 16
+  %249 = trunc i32 %247 to i16
+  store i16 %249, ptr %185, align 2, !tbaa !12
+  %250 = and i32 %197, 65535
+  %251 = sub nsw i32 %248, %250
+  %252 = ashr i32 %251, 16
+  %253 = trunc i32 %251 to i16
+  store i16 %253, ptr %193, align 2, !tbaa !12
+  %254 = and i32 %205, 65535
+  %255 = sub nsw i32 %252, %254
+  %256 = ashr i32 %255, 16
+  %257 = trunc i32 %255 to i16
+  store i16 %257, ptr %201, align 2, !tbaa !12
+  %258 = sub nsw i32 %256, %213
+  %259 = trunc i32 %258 to i16
+  store i16 %259, ptr %209, align 2, !tbaa !12
+  br label %260
 
-258:                                              ; preds = %241, %184
-  %259 = phi i16 [ %247, %241 ], [ %190, %184 ]
-  %260 = phi i16 [ %251, %241 ], [ %198, %184 ]
-  %261 = phi i16 [ %255, %241 ], [ %206, %184 ]
-  %262 = phi i16 [ %257, %241 ], [ %212, %184 ]
-  %263 = or i16 %261, %262
-  %264 = or i16 %263, %260
-  %265 = or i16 %264, %259
-  %266 = icmp eq i16 %265, 0
-  br i1 %266, label %267, label %269
+260:                                              ; preds = %243, %186
+  %261 = phi i16 [ %249, %243 ], [ %192, %186 ]
+  %262 = phi i16 [ %253, %243 ], [ %200, %186 ]
+  %263 = phi i16 [ %257, %243 ], [ %208, %186 ]
+  %264 = phi i16 [ %259, %243 ], [ %214, %186 ]
+  %265 = or i16 %263, %264
+  %266 = or i16 %265, %262
+  %267 = or i16 %266, %261
+  %268 = icmp eq i16 %267, 0
+  br i1 %268, label %269, label %271
 
-267:                                              ; preds = %258
+269:                                              ; preds = %260
   store i8 0, ptr %3, align 2, !tbaa !5
-  %268 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 1
-  store i8 0, ptr %268, align 1, !tbaa !15
-  br label %323
+  %270 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 1
+  store i8 0, ptr %270, align 1, !tbaa !15
+  br label %325
 
-269:                                              ; preds = %258
-  %270 = icmp eq i8 %5, 2
-  %271 = icmp eq i8 %8, 2
-  %272 = select i1 %270, i1 true, i1 %271
-  br i1 %272, label %273, label %323
+271:                                              ; preds = %260
+  %272 = icmp eq i8 %5, 2
+  %273 = icmp eq i8 %8, 2
+  %274 = select i1 %272, i1 true, i1 %273
+  br i1 %274, label %275, label %325
 
-273:                                              ; preds = %269
+275:                                              ; preds = %271
   tail call fastcc void @normalize(ptr noundef nonnull %3)
-  br label %323
+  br label %325
 
-274:                                              ; preds = %215
-  %275 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 2
-  %276 = add i16 %170, 1
-  store i16 %276, ptr %275, align 2, !tbaa !13
-  %277 = lshr i16 %238, 1
-  %278 = or i16 %277, -32768
-  %279 = tail call i16 @llvm.fshl.i16(i16 %238, i16 %232, i16 15)
-  store i16 %279, ptr %226, align 2, !tbaa !12
-  %280 = tail call i16 @llvm.fshl.i16(i16 %232, i16 %225, i16 15)
-  store i16 %280, ptr %218, align 2, !tbaa !12
-  %281 = tail call i16 @llvm.fshl.i16(i16 %225, i16 %216, i16 15)
-  store i16 %281, ptr %183, align 2, !tbaa !12
-  store i16 %278, ptr %233, align 2, !tbaa !12
+276:                                              ; preds = %217
+  %277 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 2
+  %278 = add i16 %172, 1
+  store i16 %278, ptr %277, align 2, !tbaa !13
+  %279 = lshr i16 %240, 1
+  %280 = tail call i16 @llvm.fshl.i16(i16 %240, i16 %234, i16 15)
+  store i16 %280, ptr %228, align 2, !tbaa !12
+  %281 = tail call i16 @llvm.fshl.i16(i16 %234, i16 %227, i16 15)
+  store i16 %281, ptr %220, align 2, !tbaa !12
+  %282 = tail call i16 @llvm.fshl.i16(i16 %227, i16 %218, i16 15)
+  store i16 %282, ptr %185, align 2, !tbaa !12
+  %283 = or i16 %279, -32768
+  store i16 %283, ptr %235, align 2, !tbaa !12
   store i8 2, ptr %3, align 2, !tbaa !5
-  br label %323
+  br label %325
 
-282:                                              ; preds = %215
-  %283 = icmp sgt i16 %238, -1
-  br i1 %283, label %323, label %284
+284:                                              ; preds = %217
+  %285 = icmp sgt i16 %240, -1
+  br i1 %285, label %325, label %286
 
-284:                                              ; preds = %282
+286:                                              ; preds = %284
   store i8 2, ptr %3, align 2, !tbaa !5
-  br label %323
+  br label %325
 
-285:                                              ; preds = %4
+287:                                              ; preds = %4
   store i8 4, ptr %3, align 2, !tbaa !5
-  %286 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 2
-  store i16 32767, ptr %286, align 2, !tbaa !13
-  %287 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 1
-  store i8 1, ptr %287, align 1, !tbaa !15
-  %288 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3
-  store i16 16384, ptr %288, align 2, !tbaa !12
-  %289 = getelementptr i8, ptr %3, i64 6
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 2 dereferenceable(6) %289, i8 0, i64 6, i1 false), !tbaa !12
-  br label %323
+  %288 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 2
+  store i16 32767, ptr %288, align 2, !tbaa !13
+  %289 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 1
+  store i8 1, ptr %289, align 1, !tbaa !15
+  %290 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3
+  store i16 16384, ptr %290, align 2, !tbaa !12
+  %291 = getelementptr i8, ptr %3, i64 6
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 2 dereferenceable(6) %291, i8 0, i64 6, i1 false), !tbaa !12
+  br label %325
 
-290:                                              ; preds = %4
-  %291 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 0, i32 3, i64 0
-  %292 = load i16, ptr %291, align 2, !tbaa !12
-  %293 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 0, i32 3, i64 0
+292:                                              ; preds = %4
+  %293 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 0, i32 3, i64 0
   %294 = load i16, ptr %293, align 2, !tbaa !12
-  %295 = icmp ugt i16 %292, %294
-  br i1 %295, label %321, label %319
+  %295 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 0, i32 3, i64 0
+  %296 = load i16, ptr %295, align 2, !tbaa !12
+  %297 = icmp ugt i16 %294, %296
+  br i1 %297, label %323, label %321
 
-296:                                              ; preds = %319
-  %297 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 0, i32 3, i64 1
-  %298 = load i16, ptr %297, align 2, !tbaa !12
-  %299 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 0, i32 3, i64 1
+298:                                              ; preds = %321
+  %299 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 0, i32 3, i64 1
   %300 = load i16, ptr %299, align 2, !tbaa !12
-  %301 = icmp ugt i16 %298, %300
-  br i1 %301, label %321, label %302
+  %301 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 0, i32 3, i64 1
+  %302 = load i16, ptr %301, align 2, !tbaa !12
+  %303 = icmp ugt i16 %300, %302
+  br i1 %303, label %323, label %304
 
-302:                                              ; preds = %296
-  %303 = icmp ult i16 %298, %300
-  br i1 %303, label %321, label %304
+304:                                              ; preds = %298
+  %305 = icmp ult i16 %300, %302
+  br i1 %305, label %323, label %306
 
-304:                                              ; preds = %302
-  %305 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 0, i32 3, i64 2
-  %306 = load i16, ptr %305, align 2, !tbaa !12
-  %307 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 0, i32 3, i64 2
+306:                                              ; preds = %304
+  %307 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 0, i32 3, i64 2
   %308 = load i16, ptr %307, align 2, !tbaa !12
-  %309 = icmp ugt i16 %306, %308
-  br i1 %309, label %321, label %310
+  %309 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 0, i32 3, i64 2
+  %310 = load i16, ptr %309, align 2, !tbaa !12
+  %311 = icmp ugt i16 %308, %310
+  br i1 %311, label %323, label %312
 
-310:                                              ; preds = %304
-  %311 = icmp ult i16 %306, %308
-  br i1 %311, label %321, label %312
+312:                                              ; preds = %306
+  %313 = icmp ult i16 %308, %310
+  br i1 %313, label %323, label %314
 
-312:                                              ; preds = %310
-  %313 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 0, i32 3, i64 3
-  %314 = load i16, ptr %313, align 2, !tbaa !12
-  %315 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 0, i32 3, i64 3
+314:                                              ; preds = %312
+  %315 = getelementptr inbounds %struct.InternalFPF, ptr %1, i64 0, i32 3, i64 3
   %316 = load i16, ptr %315, align 2, !tbaa !12
-  %317 = icmp ugt i16 %314, %316
-  %318 = select i1 %317, ptr %1, ptr %2
-  br label %321
-
-319:                                              ; preds = %290
-  %320 = icmp ult i16 %292, %294
-  br i1 %320, label %321, label %296
-
-321:                                              ; preds = %312, %290, %296, %302, %304, %310, %319
-  %322 = phi ptr [ %1, %304 ], [ %1, %296 ], [ %1, %290 ], [ %2, %310 ], [ %2, %302 ], [ %2, %319 ], [ %318, %312 ]
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %322, ptr noundef nonnull align 1 dereferenceable(12) %3, i64 12, i1 false)
+  %317 = getelementptr inbounds %struct.InternalFPF, ptr %2, i64 0, i32 3, i64 3
+  %318 = load i16, ptr %317, align 2, !tbaa !12
+  %319 = icmp ugt i16 %316, %318
+  %320 = select i1 %319, ptr %1, ptr %2
   br label %323
 
-323:                                              ; preds = %273, %269, %267, %282, %284, %274, %11, %18, %4, %321, %285, %22, %21, %20
-  %324 = load i8, ptr %3, align 2, !tbaa !5
-  %325 = add i8 %324, -1
-  %326 = icmp ult i8 %325, 2
-  br i1 %326, label %327, label %363
+321:                                              ; preds = %292
+  %322 = icmp ult i16 %294, %296
+  br i1 %322, label %323, label %298
 
-327:                                              ; preds = %323
-  %328 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3
-  %329 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 1
-  %330 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 2
-  %331 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 3
-  %332 = load <4 x i16>, ptr %328, align 2, !tbaa !12
-  %333 = tail call i16 @llvm.vector.reduce.or.v4i16(<4 x i16> %332)
-  %334 = icmp eq i16 %333, 0
-  br i1 %334, label %335, label %337
+323:                                              ; preds = %314, %292, %298, %304, %306, %312, %321
+  %324 = phi ptr [ %1, %306 ], [ %1, %298 ], [ %1, %292 ], [ %2, %312 ], [ %2, %304 ], [ %2, %321 ], [ %320, %314 ]
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %324, ptr noundef nonnull align 1 dereferenceable(12) %3, i64 12, i1 false)
+  br label %325
 
-335:                                              ; preds = %327
-  %336 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %337
+325:                                              ; preds = %275, %271, %269, %284, %286, %276, %11, %18, %4, %323, %287, %22, %21, %20
+  %326 = load i8, ptr %3, align 2, !tbaa !5
+  %327 = add i8 %326, -1
+  %328 = icmp ult i8 %327, 2
+  br i1 %328, label %329, label %365
 
-337:                                              ; preds = %335, %327
-  %338 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 2
-  %339 = load i16, ptr %338, align 2, !tbaa !13
-  %340 = icmp eq i16 %339, -32768
-  br i1 %340, label %341, label %355
+329:                                              ; preds = %325
+  %330 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3
+  %331 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 1
+  %332 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 2
+  %333 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 3, i64 3
+  %334 = load <4 x i16>, ptr %330, align 2, !tbaa !12
+  %335 = tail call i16 @llvm.vector.reduce.or.v4i16(<4 x i16> %334)
+  %336 = icmp eq i16 %335, 0
+  br i1 %336, label %337, label %339
 
-341:                                              ; preds = %337
-  store i16 -32767, ptr %338, align 2, !tbaa !13
-  %342 = load i8, ptr %3, align 2, !tbaa !5
-  %343 = icmp eq i8 %342, 0
-  br i1 %343, label %363, label %344
+337:                                              ; preds = %329
+  %338 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %339
 
-344:                                              ; preds = %341
-  %345 = load i16, ptr %328, align 2, !tbaa !12
-  %346 = load i16, ptr %329, align 2, !tbaa !12
+339:                                              ; preds = %337, %329
+  %340 = getelementptr inbounds %struct.InternalFPF, ptr %3, i64 0, i32 2
+  %341 = load i16, ptr %340, align 2, !tbaa !13
+  %342 = icmp eq i16 %341, -32768
+  br i1 %342, label %343, label %357
+
+343:                                              ; preds = %339
+  store i16 -32767, ptr %340, align 2, !tbaa !13
+  %344 = load i8, ptr %3, align 2, !tbaa !5
+  %345 = icmp eq i8 %344, 0
+  br i1 %345, label %365, label %346
+
+346:                                              ; preds = %343
   %347 = load i16, ptr %330, align 2, !tbaa !12
   %348 = load i16, ptr %331, align 2, !tbaa !12
-  %349 = tail call i16 @llvm.fshl.i16(i16 %345, i16 %346, i16 15)
-  %350 = tail call i16 @llvm.fshl.i16(i16 %346, i16 %347, i16 15)
+  %349 = load i16, ptr %332, align 2, !tbaa !12
+  %350 = load i16, ptr %333, align 2, !tbaa !12
   %351 = tail call i16 @llvm.fshl.i16(i16 %347, i16 %348, i16 15)
-  %352 = and i16 %348, 1
-  %353 = or i16 %351, %352
-  %354 = lshr i16 %345, 1
-  store i16 %354, ptr %328, align 2, !tbaa !12
-  store i16 %349, ptr %329, align 2, !tbaa !12
-  store i16 %350, ptr %330, align 2, !tbaa !12
-  br label %360
+  %352 = tail call i16 @llvm.fshl.i16(i16 %348, i16 %349, i16 15)
+  %353 = tail call i16 @llvm.fshl.i16(i16 %349, i16 %350, i16 15)
+  %354 = and i16 %350, 1
+  %355 = or i16 %353, %354
+  %356 = lshr i16 %347, 1
+  store i16 %356, ptr %330, align 2, !tbaa !12
+  store i16 %351, ptr %331, align 2, !tbaa !12
+  store i16 %352, ptr %332, align 2, !tbaa !12
+  br label %362
 
-355:                                              ; preds = %337
-  %356 = load i8, ptr %3, align 2, !tbaa !5
-  %357 = icmp eq i8 %356, 0
-  br i1 %357, label %363, label %358
+357:                                              ; preds = %339
+  %358 = load i8, ptr %3, align 2, !tbaa !5
+  %359 = icmp eq i8 %358, 0
+  br i1 %359, label %365, label %360
 
-358:                                              ; preds = %355
-  %359 = load i16, ptr %331, align 2, !tbaa !12
-  br label %360
+360:                                              ; preds = %357
+  %361 = load i16, ptr %333, align 2, !tbaa !12
+  br label %362
 
-360:                                              ; preds = %358, %344
-  %361 = phi i16 [ %359, %358 ], [ %353, %344 ]
-  %362 = and i16 %361, -8
-  store i16 %362, ptr %331, align 2, !tbaa !12
-  br label %363
+362:                                              ; preds = %360, %346
+  %363 = phi i16 [ %361, %360 ], [ %355, %346 ]
+  %364 = and i16 %363, -8
+  store i16 %364, ptr %333, align 2, !tbaa !12
+  br label %365
 
-363:                                              ; preds = %323, %341, %355, %360
+365:                                              ; preds = %325, %343, %357, %362
   ret void
 }
 
@@ -1793,20 +1787,20 @@ define internal fastcc void @normalize(ptr nocapture noundef %0) unnamed_addr #5
   ret void
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #6
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.fshl.i16(i16, i16, i16) #7
+declare i16 @llvm.fshl.i16(i16, i16, i16) #6
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.vector.reduce.or.v4i16(<4 x i16>) #7
+declare i16 @llvm.vector.reduce.or.v4i16(<4 x i16>) #6
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x i16> @llvm.fshl.v4i16(<4 x i16>, <4 x i16>, <4 x i16>) #7
+declare <4 x i16> @llvm.fshl.v4i16(<4 x i16>, <4 x i16>, <4 x i16>) #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1814,9 +1808,9 @@ attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #3 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #5 = { nofree nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nofree nounwind }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #8 = { nofree nounwind }
 attributes #9 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

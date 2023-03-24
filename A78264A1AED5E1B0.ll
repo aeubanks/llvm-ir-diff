@@ -97,12 +97,12 @@ define dso_local i32 @GetAnnexbNALU(ptr nocapture noundef %0) local_unnamed_addr
 
 30:                                               ; preds = %28
   tail call void @free(ptr noundef %5) #9
-  br label %182
+  br label %180
 
 31:                                               ; preds = %28
   %32 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   tail call void @free(ptr noundef %5) #9
-  br label %182
+  br label %180
 
 33:                                               ; preds = %22
   %34 = shl i64 %23, 32
@@ -116,7 +116,7 @@ define dso_local i32 @GetAnnexbNALU(ptr nocapture noundef %0) local_unnamed_addr
 40:                                               ; preds = %33
   %41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   tail call void @free(ptr noundef nonnull %5) #9
-  br label %182
+  br label %180
 
 42:                                               ; preds = %33
   %43 = icmp slt i32 %24, 3
@@ -125,7 +125,7 @@ define dso_local i32 @GetAnnexbNALU(ptr nocapture noundef %0) local_unnamed_addr
 44:                                               ; preds = %42
   %45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   tail call void @free(ptr noundef nonnull %5) #9
-  br label %182
+  br label %180
 
 46:                                               ; preds = %42
   %47 = icmp eq i32 %24, 3
@@ -142,7 +142,7 @@ define dso_local i32 @GetAnnexbNALU(ptr nocapture noundef %0) local_unnamed_addr
 55:                                               ; preds = %46
   %56 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   tail call void @free(ptr noundef nonnull %5) #9
-  br label %182
+  br label %180
 
 57:                                               ; preds = %46
   store i32 0, ptr @IsFirstByteStreamNALU, align 4, !tbaa !16
@@ -150,8 +150,8 @@ define dso_local i32 @GetAnnexbNALU(ptr nocapture noundef %0) local_unnamed_addr
   %59 = ashr exact i64 %58, 32
   br label %60
 
-60:                                               ; preds = %57, %125
-  %61 = phi i64 [ %59, %57 ], [ %119, %125 ]
+60:                                               ; preds = %57, %124
+  %61 = phi i64 [ %59, %57 ], [ %119, %124 ]
   %62 = load ptr, ptr @bits, align 8, !tbaa !11
   %63 = tail call i32 @feof(ptr noundef %62) #9
   %64 = icmp eq i32 %63, 0
@@ -206,7 +206,7 @@ define dso_local i32 @GetAnnexbNALU(ptr nocapture noundef %0) local_unnamed_addr
   %103 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 3
   store i32 %102, ptr %103, align 4, !tbaa !22
   tail call void @free(ptr noundef nonnull %5) #9
-  br label %182
+  br label %180
 
 104:                                              ; preds = %60
   %105 = load ptr, ptr @bits, align 8, !tbaa !11
@@ -217,7 +217,7 @@ define dso_local i32 @GetAnnexbNALU(ptr nocapture noundef %0) local_unnamed_addr
   %109 = add nsw i64 %61, -3
   %110 = getelementptr inbounds i8, ptr %5, i64 %109
   %111 = load i8, ptr %110, align 1, !tbaa !12
-  %112 = icmp ne i8 %111, 0
+  %112 = icmp eq i8 %111, 0
   %113 = getelementptr inbounds i8, ptr %110, i64 1
   %114 = load i8, ptr %113, align 1, !tbaa !12
   %115 = icmp eq i8 %114, 0
@@ -228,96 +228,94 @@ define dso_local i32 @GetAnnexbNALU(ptr nocapture noundef %0) local_unnamed_addr
   %120 = icmp eq i8 %107, 1
   %121 = select i1 %120, i1 %118, i1 false
   %122 = select i1 %121, i1 %115, i1 false
-  %123 = xor i1 %122, true
-  %124 = select i1 %123, i1 true, i1 %112
-  br i1 %124, label %125, label %130
+  %123 = select i1 %122, i1 %112, i1 false
+  br i1 %123, label %128, label %124
 
-125:                                              ; preds = %104
-  %126 = select i1 %120, i1 %118, i1 false
-  %127 = select i1 %126, i1 %115, i1 false
-  %128 = xor i1 %127, true
-  %129 = and i1 %124, %128
-  br i1 %129, label %60, label %143, !llvm.loop !23
+124:                                              ; preds = %104
+  %125 = select i1 %120, i1 %118, i1 false
+  %126 = select i1 %125, i1 %115, i1 false
+  %127 = or i1 %126, %123
+  br i1 %127, label %141, label %60, !llvm.loop !23
 
-130:                                              ; preds = %104
-  %131 = add i64 %61, 4294967292
-  br label %132
+128:                                              ; preds = %104
+  %129 = add i64 %61, 4294967292
+  br label %130
 
-132:                                              ; preds = %132, %130
-  %133 = phi i64 [ %140, %132 ], [ 0, %130 ]
-  %134 = sub i64 %131, %133
-  %135 = shl i64 %134, 32
-  %136 = ashr exact i64 %135, 32
-  %137 = getelementptr inbounds i8, ptr %5, i64 %136
-  %138 = load i8, ptr %137, align 1, !tbaa !12
-  %139 = icmp eq i8 %138, 0
-  %140 = add nuw i64 %133, 1
-  br i1 %139, label %132, label %141, !llvm.loop !24
+130:                                              ; preds = %130, %128
+  %131 = phi i64 [ %138, %130 ], [ 0, %128 ]
+  %132 = sub i64 %129, %131
+  %133 = shl i64 %132, 32
+  %134 = ashr exact i64 %133, 32
+  %135 = getelementptr inbounds i8, ptr %5, i64 %134
+  %136 = load i8, ptr %135, align 1, !tbaa !12
+  %137 = icmp eq i8 %136, 0
+  %138 = add nuw i64 %131, 1
+  br i1 %137, label %130, label %139, !llvm.loop !24
 
-141:                                              ; preds = %132
-  %142 = trunc i64 %133 to i32
-  br label %146
+139:                                              ; preds = %130
+  %140 = trunc i64 %131 to i32
+  br label %144
 
-143:                                              ; preds = %125
-  br i1 %127, label %146, label %144
+141:                                              ; preds = %124
+  br i1 %126, label %144, label %142
 
-144:                                              ; preds = %143
-  %145 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %146
+142:                                              ; preds = %141
+  %143 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %144
 
-146:                                              ; preds = %141, %143, %144
-  %147 = phi i32 [ 0, %144 ], [ %142, %141 ], [ 0, %143 ]
-  %148 = phi i32 [ 0, %144 ], [ -4, %141 ], [ -3, %143 ]
-  %149 = trunc i64 %119 to i32
-  %150 = load ptr, ptr @bits, align 8, !tbaa !11
-  %151 = sext i32 %148 to i64
-  %152 = tail call i32 @fseek(ptr noundef %150, i64 noundef %151, i32 noundef 1)
-  %153 = icmp eq i32 %152, 0
-  br i1 %153, label %156, label %154
+144:                                              ; preds = %139, %141, %142
+  %145 = phi i32 [ 0, %142 ], [ %140, %139 ], [ 0, %141 ]
+  %146 = phi i32 [ 0, %142 ], [ -4, %139 ], [ -3, %141 ]
+  %147 = trunc i64 %119 to i32
+  %148 = load ptr, ptr @bits, align 8, !tbaa !11
+  %149 = sext i32 %146 to i64
+  %150 = tail call i32 @fseek(ptr noundef %148, i64 noundef %149, i32 noundef 1)
+  %151 = icmp eq i32 %150, 0
+  br i1 %151, label %154, label %152
 
-154:                                              ; preds = %146
-  %155 = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.5, i32 noundef %148) #9
+152:                                              ; preds = %144
+  %153 = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.5, i32 noundef %146) #9
   tail call void @free(ptr noundef nonnull %5) #9
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 600) #9
-  br label %156
+  br label %154
 
-156:                                              ; preds = %154, %146
-  %157 = add nsw i32 %148, %149
-  %158 = load i32, ptr %0, align 8, !tbaa !15
-  %159 = add i32 %158, %50
-  %160 = add i32 %147, %159
-  %161 = sub i32 %157, %160
-  %162 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 1
-  store i32 %161, ptr %162, align 4, !tbaa !18
-  %163 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 6
-  %164 = load ptr, ptr %163, align 8, !tbaa !19
-  %165 = sext i32 %159 to i64
-  %166 = getelementptr inbounds i8, ptr %5, i64 %165
-  %167 = zext i32 %161 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %164, ptr align 1 %166, i64 %167, i1 false)
-  %168 = load ptr, ptr %163, align 8, !tbaa !19
-  %169 = load i8, ptr %168, align 1, !tbaa !12
-  %170 = lshr i8 %169, 7
-  %171 = zext i8 %170 to i32
-  %172 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 5
-  store i32 %171, ptr %172, align 4, !tbaa !20
-  %173 = load i8, ptr %168, align 1, !tbaa !12
-  %174 = lshr i8 %173, 5
-  %175 = and i8 %174, 3
-  %176 = zext i8 %175 to i32
-  %177 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 4
-  store i32 %176, ptr %177, align 8, !tbaa !21
-  %178 = load i8, ptr %168, align 1, !tbaa !12
-  %179 = and i8 %178, 31
-  %180 = zext i8 %179 to i32
-  %181 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 3
-  store i32 %180, ptr %181, align 4, !tbaa !22
+154:                                              ; preds = %152, %144
+  %155 = add nsw i32 %146, %147
+  %156 = load i32, ptr %0, align 8, !tbaa !15
+  %157 = add i32 %156, %50
+  %158 = add i32 %145, %157
+  %159 = sub i32 %155, %158
+  %160 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 1
+  store i32 %159, ptr %160, align 4, !tbaa !18
+  %161 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 6
+  %162 = load ptr, ptr %161, align 8, !tbaa !19
+  %163 = sext i32 %157 to i64
+  %164 = getelementptr inbounds i8, ptr %5, i64 %163
+  %165 = zext i32 %159 to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %162, ptr align 1 %164, i64 %165, i1 false)
+  %166 = load ptr, ptr %161, align 8, !tbaa !19
+  %167 = load i8, ptr %166, align 1, !tbaa !12
+  %168 = lshr i8 %167, 7
+  %169 = zext i8 %168 to i32
+  %170 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 5
+  store i32 %169, ptr %170, align 4, !tbaa !20
+  %171 = load i8, ptr %166, align 1, !tbaa !12
+  %172 = lshr i8 %171, 5
+  %173 = and i8 %172, 3
+  %174 = zext i8 %173 to i32
+  %175 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 4
+  store i32 %174, ptr %175, align 8, !tbaa !21
+  %176 = load i8, ptr %166, align 1, !tbaa !12
+  %177 = and i8 %176, 31
+  %178 = zext i8 %177 to i32
+  %179 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 3
+  store i32 %178, ptr %179, align 4, !tbaa !22
   tail call void @free(ptr noundef nonnull %5) #9
-  br label %182
+  br label %180
 
-182:                                              ; preds = %156, %77, %55, %44, %40, %31, %30
-  %183 = phi i32 [ 0, %30 ], [ -1, %31 ], [ -1, %40 ], [ -1, %44 ], [ -1, %55 ], [ %79, %77 ], [ %157, %156 ]
-  ret i32 %183
+180:                                              ; preds = %154, %77, %55, %44, %40, %31, %30
+  %181 = phi i32 [ 0, %30 ], [ -1, %31 ], [ -1, %40 ], [ -1, %44 ], [ -1, %55 ], [ %79, %77 ], [ %155, %154 ]
+  ret i32 %181
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)

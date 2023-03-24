@@ -226,7 +226,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %81 = sitofp i32 %80 to double
   %82 = getelementptr inbounds double, ptr %31, i64 %79
   store double %81, ptr %82, align 8, !tbaa !5
-  %83 = icmp eq i64 %79, 3999
+  %83 = icmp ugt i64 %79, 3998
   %84 = uitofp i1 %83 to double
   %85 = fmul double %84, 5.000000e-01
   %86 = getelementptr inbounds double, ptr %40, i64 %79
@@ -523,7 +523,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %305 = sitofp i32 %304 to double
   %306 = getelementptr inbounds double, ptr %31, i64 %303
   store double %305, ptr %306, align 8, !tbaa !5
-  %307 = icmp eq i64 %303, 3999
+  %307 = icmp ugt i64 %303, 3998
   %308 = uitofp i1 %307 to double
   %309 = fmul double %308, 5.000000e-01
   %310 = getelementptr inbounds double, ptr %40, i64 %303
@@ -823,8 +823,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %534 = load double, ptr %533, align 8, !tbaa !5
   %535 = fsub double %532, %534
   %536 = call double @llvm.fabs.f64(double %535)
-  %537 = fcmp ule double %536, 1.000000e-05
-  br i1 %537, label %545, label %538
+  %537 = fcmp ogt double %536, 1.000000e-05
+  br i1 %537, label %538, label %545
 
 538:                                              ; preds = %545, %529
   %539 = phi i64 [ %530, %529 ], [ %546, %545 ]
@@ -843,8 +843,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %550 = load double, ptr %549, align 8, !tbaa !5
   %551 = fsub double %548, %550
   %552 = call double @llvm.fabs.f64(double %551)
-  %553 = fcmp ule double %552, 1.000000e-05
-  br i1 %553, label %554, label %538
+  %553 = fcmp ogt double %552, 1.000000e-05
+  br i1 %553, label %538, label %554
 
 554:                                              ; preds = %545
   %555 = add nuw nsw i64 %530, 2

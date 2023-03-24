@@ -203,7 +203,7 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver28updateClosestV
 7:                                                ; preds = %1
   %8 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
   %9 = load i8, ptr %8, align 4, !tbaa !17, !range !19
-  br label %507
+  br label %447
 
 10:                                               ; preds = %1
   %11 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 10
@@ -215,18 +215,18 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver28updateClosestV
   store i8 %15, ptr %13, align 4
   store i8 0, ptr %4, align 4, !tbaa !18
   %16 = load i32, ptr %0, align 4, !tbaa !5
-  switch i32 %16, label %505 [
+  switch i32 %16, label %445 [
     i32 0, label %17
     i32 1, label %19
     i32 2, label %37
     i32 3, label %132
-    i32 4, label %299
+    i32 4, label %284
   ]
 
 17:                                               ; preds = %10
   %18 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
   store i8 0, ptr %18, align 4, !tbaa !17
-  br label %507
+  br label %447
 
 19:                                               ; preds = %10
   %20 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2
@@ -253,7 +253,7 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver28updateClosestV
   store <4 x float> <float 1.000000e+00, float 0.000000e+00, float 0.000000e+00, float 0.000000e+00>, ptr %12, align 4, !tbaa !21
   %36 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
   store i8 1, ptr %36, align 4, !tbaa !17
-  br label %507
+  br label %447
 
 37:                                               ; preds = %10
   %38 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1
@@ -380,7 +380,7 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver28updateClosestV
   %130 = zext i1 %129 to i8
   %131 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
   store i8 %130, ptr %131, align 4, !tbaa !17
-  br label %507
+  br label %447
 
 132:                                              ; preds = %10
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #12
@@ -392,507 +392,447 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver28updateClosestV
   %137 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2
   %138 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 0, i32 0, i64 1
   %139 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 0, i32 0, i64 2
-  %140 = load float, ptr %139, align 4, !tbaa !21
-  %141 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1
-  %142 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 10, i32 3, i64 1
-  %143 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1, i32 0, i64 1
-  %144 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1, i32 0, i64 2
-  %145 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2
-  %146 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2, i32 0, i64 1
-  %147 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2, i32 0, i64 2
-  %148 = load <4 x float>, ptr %137, align 4
-  %149 = shufflevector <4 x float> %148, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %150 = load float, ptr %138, align 4, !tbaa !21
-  %151 = load <4 x float>, ptr %141, align 4
-  %152 = shufflevector <4 x float> %151, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %153 = load float, ptr %143, align 4, !tbaa !21
-  %154 = load <4 x float>, ptr %145, align 4
-  %155 = shufflevector <4 x float> %154, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %156 = load float, ptr %146, align 4, !tbaa !21
-  %157 = load <4 x float>, ptr %144, align 4
-  %158 = shufflevector <4 x float> %157, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %159 = load float, ptr %147, align 4, !tbaa !21
-  %160 = load <2 x float>, ptr %142, align 4, !tbaa !21
-  %161 = shufflevector <2 x float> %152, <2 x float> %160, <2 x i32> <i32 0, i32 2>
-  %162 = insertelement <2 x float> %160, float %153, i64 1
-  %163 = fmul <2 x float> %161, %162
-  %164 = insertelement <2 x float> %158, float %159, i64 1
-  %165 = fmul <2 x float> %160, %164
-  %166 = extractelement <2 x float> %165, i64 0
-  %167 = shufflevector <2 x float> %155, <2 x float> %160, <2 x i32> <i32 0, i32 3>
-  %168 = shufflevector <2 x float> %160, <2 x float> poison, <2 x i32> <i32 1, i32 1>
-  %169 = insertelement <2 x float> %168, float %156, i64 1
-  %170 = fmul <2 x float> %167, %169
-  %171 = extractelement <2 x float> %165, i64 1
-  %172 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 4
-  %173 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 4, i32 0, i64 2
-  %174 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3
-  %175 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 0, i32 0, i64 1
-  %176 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 0, i32 0, i64 2
-  %177 = load float, ptr %176, align 4, !tbaa !21
-  %178 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 1
-  %179 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 1, i32 0, i64 2
-  %180 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 2
-  %181 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 2, i32 0, i64 2
-  %182 = load <4 x float>, ptr %179, align 4
-  %183 = shufflevector <4 x float> %182, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %184 = load float, ptr %181, align 4, !tbaa !21
-  %185 = insertelement <2 x float> %183, float %184, i64 1
-  %186 = fmul <2 x float> %160, %185
-  %187 = load float, ptr %12, align 4, !tbaa !21
-  %188 = insertelement <2 x float> %149, float %187, i64 1
-  %189 = insertelement <2 x float> poison, float %187, i64 0
-  %190 = insertelement <2 x float> %189, float %150, i64 1
-  %191 = fmul <2 x float> %188, %190
-  %192 = fmul float %187, %140
-  %193 = fadd <2 x float> %191, %163
-  %194 = fadd float %192, %166
-  %195 = fadd <2 x float> %193, %170
-  %196 = fadd float %194, %171
-  %197 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %196, i64 0
-  store <2 x float> %195, ptr %172, align 4, !tbaa.struct !15
-  store <2 x float> %197, ptr %173, align 4, !tbaa.struct !23
-  %198 = load <4 x float>, ptr %174, align 4
-  %199 = shufflevector <4 x float> %198, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %200 = load float, ptr %175, align 4, !tbaa !21
-  %201 = insertelement <2 x float> %199, float %187, i64 1
-  %202 = insertelement <2 x float> %189, float %200, i64 1
-  %203 = fmul <2 x float> %201, %202
-  %204 = fmul float %187, %177
-  %205 = load <2 x float>, ptr %178, align 4, !tbaa !21
-  %206 = shufflevector <2 x float> %160, <2 x float> poison, <2 x i32> zeroinitializer
-  %207 = fmul <2 x float> %206, %205
-  %208 = fadd <2 x float> %203, %207
-  %209 = extractelement <2 x float> %186, i64 0
-  %210 = fadd float %204, %209
-  %211 = load <2 x float>, ptr %180, align 4, !tbaa !21
-  %212 = fmul <2 x float> %168, %211
-  %213 = fadd <2 x float> %208, %212
-  %214 = extractelement <2 x float> %186, i64 1
-  %215 = fadd float %210, %214
-  %216 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %215, i64 0
-  %217 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 5
-  store <2 x float> %213, ptr %217, align 4, !tbaa.struct !15
-  %218 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 5, i32 0, i64 2
-  store <2 x float> %216, ptr %218, align 4, !tbaa.struct !23
-  %219 = fsub <2 x float> %195, %213
-  %220 = fsub float %196, %215
-  %221 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %220, i64 0
-  %222 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6
-  store <2 x float> %219, ptr %222, align 4, !tbaa.struct !15
-  %223 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6, i32 0, i64 2
-  store <2 x float> %221, ptr %223, align 4, !tbaa.struct !23
-  %224 = load i32, ptr %0, align 4, !tbaa !5
-  %225 = icmp sgt i32 %224, 3
-  br i1 %225, label %226, label %239
+  %140 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1
+  %141 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 10, i32 3, i64 1
+  %142 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1, i32 0, i64 2
+  %143 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2
+  %144 = load <2 x float>, ptr %141, align 4, !tbaa !21
+  %145 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2, i32 0, i64 2
+  %146 = load <4 x float>, ptr %137, align 4
+  %147 = shufflevector <4 x float> %146, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %148 = load float, ptr %138, align 4, !tbaa !21
+  %149 = load <2 x float>, ptr %140, align 4, !tbaa !21
+  %150 = shufflevector <2 x float> %144, <2 x float> poison, <2 x i32> zeroinitializer
+  %151 = fmul <2 x float> %149, %150
+  %152 = load <2 x float>, ptr %143, align 4, !tbaa !21
+  %153 = shufflevector <2 x float> %144, <2 x float> poison, <2 x i32> <i32 1, i32 1>
+  %154 = fmul <2 x float> %152, %153
+  %155 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 4
+  %156 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 4, i32 0, i64 2
+  %157 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3
+  %158 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 0, i32 0, i64 1
+  %159 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 0, i32 0, i64 2
+  %160 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 1
+  %161 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 1, i32 0, i64 2
+  %162 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 2
+  %163 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 2, i32 0, i64 2
+  %164 = load <4 x float>, ptr %157, align 4
+  %165 = shufflevector <4 x float> %164, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %166 = load float, ptr %158, align 4, !tbaa !21
+  %167 = load <2 x float>, ptr %160, align 4, !tbaa !21
+  %168 = fmul <2 x float> %150, %167
+  %169 = load <2 x float>, ptr %162, align 4, !tbaa !21
+  %170 = fmul <2 x float> %153, %169
+  %171 = load <4 x float>, ptr %139, align 4
+  %172 = shufflevector <4 x float> %171, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %173 = load <4 x float>, ptr %142, align 4
+  %174 = shufflevector <4 x float> %173, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %175 = load <4 x float>, ptr %145, align 4
+  %176 = shufflevector <4 x float> %175, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %177 = load float, ptr %159, align 4, !tbaa !21
+  %178 = load float, ptr %161, align 4, !tbaa !21
+  %179 = insertelement <2 x float> %174, float %178, i64 1
+  %180 = fmul <2 x float> %150, %179
+  %181 = load float, ptr %163, align 4, !tbaa !21
+  %182 = insertelement <2 x float> %176, float %181, i64 1
+  %183 = fmul <2 x float> %153, %182
+  %184 = load float, ptr %12, align 4, !tbaa !21
+  %185 = insertelement <2 x float> %147, float %184, i64 1
+  %186 = insertelement <2 x float> poison, float %184, i64 0
+  %187 = insertelement <2 x float> %186, float %148, i64 1
+  %188 = fmul <2 x float> %185, %187
+  %189 = fadd <2 x float> %188, %151
+  %190 = fadd <2 x float> %189, %154
+  %191 = insertelement <2 x float> %172, float %184, i64 1
+  %192 = insertelement <2 x float> %186, float %177, i64 1
+  %193 = fmul <2 x float> %191, %192
+  %194 = fadd <2 x float> %193, %180
+  %195 = fadd <2 x float> %194, %183
+  %196 = insertelement <2 x float> %195, float 0.000000e+00, i64 1
+  store <2 x float> %190, ptr %155, align 4, !tbaa.struct !15
+  store <2 x float> %196, ptr %156, align 4, !tbaa.struct !23
+  %197 = insertelement <2 x float> %165, float %184, i64 1
+  %198 = insertelement <2 x float> %186, float %166, i64 1
+  %199 = fmul <2 x float> %197, %198
+  %200 = fadd <2 x float> %199, %168
+  %201 = fadd <2 x float> %200, %170
+  %202 = shufflevector <2 x float> <float poison, float 0.000000e+00>, <2 x float> %195, <2 x i32> <i32 3, i32 1>
+  %203 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 5
+  store <2 x float> %201, ptr %203, align 4, !tbaa.struct !15
+  %204 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 5, i32 0, i64 2
+  store <2 x float> %202, ptr %204, align 4, !tbaa.struct !23
+  %205 = fsub <2 x float> %190, %201
+  %206 = shufflevector <2 x float> %195, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
+  %207 = fsub <2 x float> %195, %206
+  %208 = insertelement <2 x float> %207, float 0.000000e+00, i64 1
+  %209 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6
+  store <2 x float> %205, ptr %209, align 4, !tbaa.struct !15
+  %210 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6, i32 0, i64 2
+  store <2 x float> %208, ptr %210, align 4, !tbaa.struct !23
+  %211 = load i32, ptr %0, align 4, !tbaa !5
+  %212 = icmp sgt i32 %211, 3
+  br i1 %212, label %213, label %226
+
+213:                                              ; preds = %132
+  %214 = load i8, ptr %13, align 4
+  %215 = and i8 %214, 8
+  %216 = icmp eq i8 %215, 0
+  br i1 %216, label %217, label %230
+
+217:                                              ; preds = %213
+  %218 = add nsw i32 %211, -1
+  store i32 %218, ptr %0, align 4, !tbaa !5
+  %219 = zext i32 %218 to i64
+  %220 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %219
+  %221 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 3
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %221, ptr noundef nonnull align 4 dereferenceable(16) %220, i64 16, i1 false), !tbaa.struct !15
+  %222 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %219
+  %223 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 3
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %223, ptr noundef nonnull align 4 dereferenceable(16) %222, i64 16, i1 false), !tbaa.struct !15
+  %224 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %219
+  %225 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 3
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %225, ptr noundef nonnull align 4 dereferenceable(16) %224, i64 16, i1 false), !tbaa.struct !15
+  br label %230
 
 226:                                              ; preds = %132
-  %227 = load i8, ptr %13, align 4
-  %228 = and i8 %227, 8
-  %229 = icmp eq i8 %228, 0
-  br i1 %229, label %230, label %243
+  %227 = icmp eq i32 %211, 3
+  br i1 %227, label %228, label %241
 
-230:                                              ; preds = %226
-  %231 = add nsw i32 %224, -1
-  store i32 %231, ptr %0, align 4, !tbaa !5
-  %232 = zext i32 %231 to i64
-  %233 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %232
-  %234 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 3
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %234, ptr noundef nonnull align 4 dereferenceable(16) %233, i64 16, i1 false), !tbaa.struct !15
-  %235 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %232
-  %236 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 3
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %236, ptr noundef nonnull align 4 dereferenceable(16) %235, i64 16, i1 false), !tbaa.struct !15
-  %237 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %232
-  %238 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 3
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %238, ptr noundef nonnull align 4 dereferenceable(16) %237, i64 16, i1 false), !tbaa.struct !15
-  br label %243
+228:                                              ; preds = %226
+  %229 = load i8, ptr %13, align 4
+  br label %230
 
-239:                                              ; preds = %132
-  %240 = icmp eq i32 %224, 3
-  br i1 %240, label %241, label %254
+230:                                              ; preds = %228, %217, %213
+  %231 = phi i8 [ %229, %228 ], [ %214, %217 ], [ %214, %213 ]
+  %232 = phi i32 [ 3, %228 ], [ %218, %217 ], [ %211, %213 ]
+  %233 = and i8 %231, 4
+  %234 = icmp eq i8 %233, 0
+  br i1 %234, label %235, label %245
 
-241:                                              ; preds = %239
-  %242 = load i8, ptr %13, align 4
-  br label %243
+235:                                              ; preds = %230
+  %236 = add nsw i32 %232, -1
+  store i32 %236, ptr %0, align 4, !tbaa !5
+  %237 = zext i32 %236 to i64
+  %238 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %237
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %135, ptr noundef nonnull align 4 dereferenceable(16) %238, i64 16, i1 false), !tbaa.struct !15
+  %239 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %237
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %143, ptr noundef nonnull align 4 dereferenceable(16) %239, i64 16, i1 false), !tbaa.struct !15
+  %240 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %237
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %162, ptr noundef nonnull align 4 dereferenceable(16) %240, i64 16, i1 false), !tbaa.struct !15
+  br label %245
 
-243:                                              ; preds = %241, %230, %226
-  %244 = phi i8 [ %242, %241 ], [ %227, %230 ], [ %227, %226 ]
-  %245 = phi i32 [ 3, %241 ], [ %231, %230 ], [ %224, %226 ]
-  %246 = and i8 %244, 4
-  %247 = icmp eq i8 %246, 0
-  br i1 %247, label %248, label %258
+241:                                              ; preds = %226
+  %242 = icmp sgt i32 %211, 1
+  br i1 %242, label %243, label %256
 
-248:                                              ; preds = %243
-  %249 = add nsw i32 %245, -1
-  store i32 %249, ptr %0, align 4, !tbaa !5
-  %250 = zext i32 %249 to i64
-  %251 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %250
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %135, ptr noundef nonnull align 4 dereferenceable(16) %251, i64 16, i1 false), !tbaa.struct !15
-  %252 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %250
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %145, ptr noundef nonnull align 4 dereferenceable(16) %252, i64 16, i1 false), !tbaa.struct !15
-  %253 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %250
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %180, ptr noundef nonnull align 4 dereferenceable(16) %253, i64 16, i1 false), !tbaa.struct !15
-  br label %258
+243:                                              ; preds = %241
+  %244 = load i8, ptr %13, align 4
+  br label %245
 
-254:                                              ; preds = %239
-  %255 = icmp sgt i32 %224, 1
-  br i1 %255, label %256, label %269
+245:                                              ; preds = %243, %235, %230
+  %246 = phi i8 [ %244, %243 ], [ %231, %230 ], [ %231, %235 ]
+  %247 = phi i32 [ 2, %243 ], [ %232, %230 ], [ %236, %235 ]
+  %248 = and i8 %246, 2
+  %249 = icmp eq i8 %248, 0
+  br i1 %249, label %250, label %260
 
-256:                                              ; preds = %254
-  %257 = load i8, ptr %13, align 4
-  br label %258
+250:                                              ; preds = %245
+  %251 = add nsw i32 %247, -1
+  store i32 %251, ptr %0, align 4, !tbaa !5
+  %252 = zext i32 %251 to i64
+  %253 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %252
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %134, ptr noundef nonnull align 4 dereferenceable(16) %253, i64 16, i1 false), !tbaa.struct !15
+  %254 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %252
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %140, ptr noundef nonnull align 4 dereferenceable(16) %254, i64 16, i1 false), !tbaa.struct !15
+  %255 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %252
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %160, ptr noundef nonnull align 4 dereferenceable(16) %255, i64 16, i1 false), !tbaa.struct !15
+  br label %260
 
-258:                                              ; preds = %256, %248, %243
-  %259 = phi i8 [ %257, %256 ], [ %244, %243 ], [ %244, %248 ]
-  %260 = phi i32 [ 2, %256 ], [ %245, %243 ], [ %249, %248 ]
-  %261 = and i8 %259, 2
-  %262 = icmp eq i8 %261, 0
-  br i1 %262, label %263, label %273
+256:                                              ; preds = %241
+  %257 = icmp eq i32 %211, 1
+  br i1 %257, label %258, label %271
 
-263:                                              ; preds = %258
-  %264 = add nsw i32 %260, -1
-  store i32 %264, ptr %0, align 4, !tbaa !5
-  %265 = zext i32 %264 to i64
-  %266 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %265
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %134, ptr noundef nonnull align 4 dereferenceable(16) %266, i64 16, i1 false), !tbaa.struct !15
-  %267 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %265
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %141, ptr noundef nonnull align 4 dereferenceable(16) %267, i64 16, i1 false), !tbaa.struct !15
-  %268 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %265
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %178, ptr noundef nonnull align 4 dereferenceable(16) %268, i64 16, i1 false), !tbaa.struct !15
-  br label %273
+258:                                              ; preds = %256
+  %259 = load i8, ptr %13, align 4
+  br label %260
 
-269:                                              ; preds = %254
-  %270 = icmp eq i32 %224, 1
-  br i1 %270, label %271, label %284
+260:                                              ; preds = %258, %250, %245
+  %261 = phi i8 [ %259, %258 ], [ %246, %250 ], [ %246, %245 ]
+  %262 = phi i32 [ 1, %258 ], [ %251, %250 ], [ %247, %245 ]
+  %263 = and i8 %261, 1
+  %264 = icmp eq i8 %263, 0
+  br i1 %264, label %265, label %271
 
-271:                                              ; preds = %269
-  %272 = load i8, ptr %13, align 4
-  br label %273
+265:                                              ; preds = %260
+  %266 = add nsw i32 %262, -1
+  store i32 %266, ptr %0, align 4, !tbaa !5
+  %267 = zext i32 %266 to i64
+  %268 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %267
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %133, ptr noundef nonnull align 4 dereferenceable(16) %268, i64 16, i1 false), !tbaa.struct !15
+  %269 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %267
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %137, ptr noundef nonnull align 4 dereferenceable(16) %269, i64 16, i1 false), !tbaa.struct !15
+  %270 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %267
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %157, ptr noundef nonnull align 4 dereferenceable(16) %270, i64 16, i1 false), !tbaa.struct !15
+  br label %271
 
-273:                                              ; preds = %271, %263, %258
-  %274 = phi i8 [ %272, %271 ], [ %259, %263 ], [ %259, %258 ]
-  %275 = phi i32 [ 1, %271 ], [ %264, %263 ], [ %260, %258 ]
-  %276 = and i8 %274, 1
-  %277 = icmp eq i8 %276, 0
-  br i1 %277, label %278, label %284
-
-278:                                              ; preds = %273
-  %279 = add nsw i32 %275, -1
-  store i32 %279, ptr %0, align 4, !tbaa !5
-  %280 = zext i32 %279 to i64
-  %281 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %280
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %133, ptr noundef nonnull align 4 dereferenceable(16) %281, i64 16, i1 false), !tbaa.struct !15
-  %282 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %280
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %137, ptr noundef nonnull align 4 dereferenceable(16) %282, i64 16, i1 false), !tbaa.struct !15
-  %283 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %280
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %174, ptr noundef nonnull align 4 dereferenceable(16) %283, i64 16, i1 false), !tbaa.struct !15
-  br label %284
-
-284:                                              ; preds = %269, %273, %278
-  %285 = load float, ptr %12, align 4, !tbaa !21
-  %286 = load float, ptr %142, align 4
-  %287 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 10, i32 3, i64 3
-  %288 = load float, ptr %287, align 4
-  %289 = shufflevector <2 x float> %160, <2 x float> poison, <4 x i32> <i32 undef, i32 undef, i32 1, i32 undef>
-  %290 = insertelement <4 x float> %289, float %285, i64 0
-  %291 = insertelement <4 x float> %290, float %286, i64 1
-  %292 = insertelement <4 x float> %291, float %288, i64 3
-  %293 = freeze <4 x float> %292
-  %294 = fcmp ult <4 x float> %293, zeroinitializer
-  %295 = bitcast <4 x i1> %294 to i4
-  %296 = icmp eq i4 %295, 0
-  %297 = zext i1 %296 to i8
-  %298 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
-  store i8 %297, ptr %298, align 4, !tbaa !17
+271:                                              ; preds = %256, %260, %265
+  %272 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 10, i32 3, i64 3
+  %273 = load float, ptr %272, align 4
+  %274 = insertelement <4 x float> poison, float %184, i64 0
+  %275 = shufflevector <2 x float> %144, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
+  %276 = shufflevector <4 x float> %274, <4 x float> %275, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
+  %277 = insertelement <4 x float> %276, float %273, i64 3
+  %278 = freeze <4 x float> %277
+  %279 = fcmp ult <4 x float> %278, zeroinitializer
+  %280 = bitcast <4 x i1> %279 to i4
+  %281 = icmp eq i4 %280, 0
+  %282 = zext i1 %281 to i8
+  %283 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
+  store i8 %282, ptr %283, align 4, !tbaa !17
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #12
-  br label %507
+  br label %447
 
-299:                                              ; preds = %10
+284:                                              ; preds = %10
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #12
-  %300 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1
-  %301 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 1
-  %302 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 2
-  %303 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 3
+  %285 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1
+  %286 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 1
+  %287 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 2
+  %288 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 3
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %3, i8 0, i64 16, i1 false)
-  %304 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver25closestPtPointTetrahedronERK9btVector3S2_S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(16) %300, ptr noundef nonnull align 4 dereferenceable(16) %301, ptr noundef nonnull align 4 dereferenceable(16) %302, ptr noundef nonnull align 4 dereferenceable(16) %303, ptr noundef nonnull align 4 dereferenceable(37) %11)
-  br i1 %304, label %305, label %495
+  %289 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver25closestPtPointTetrahedronERK9btVector3S2_S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(16) %285, ptr noundef nonnull align 4 dereferenceable(16) %286, ptr noundef nonnull align 4 dereferenceable(16) %287, ptr noundef nonnull align 4 dereferenceable(16) %288, ptr noundef nonnull align 4 dereferenceable(37) %11)
+  br i1 %289, label %290, label %435
 
-305:                                              ; preds = %299
-  %306 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2
-  %307 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 0, i32 0, i64 1
-  %308 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 0, i32 0, i64 2
-  %309 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1
-  %310 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1, i32 0, i64 1
-  %311 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1, i32 0, i64 2
-  %312 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2
-  %313 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 10, i32 3, i64 2
-  %314 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2, i32 0, i64 1
-  %315 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2, i32 0, i64 2
-  %316 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 3
-  %317 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 10, i32 3, i64 3
-  %318 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 3, i32 0, i64 1
-  %319 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 3, i32 0, i64 2
-  %320 = load <4 x float>, ptr %306, align 4
-  %321 = shufflevector <4 x float> %320, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %322 = load float, ptr %307, align 4, !tbaa !21
-  %323 = load <4 x float>, ptr %309, align 4
-  %324 = shufflevector <4 x float> %323, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %325 = load float, ptr %310, align 4, !tbaa !21
-  %326 = load <4 x float>, ptr %312, align 4
-  %327 = shufflevector <4 x float> %326, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %328 = load float, ptr %314, align 4, !tbaa !21
-  %329 = load <4 x float>, ptr %316, align 4
-  %330 = shufflevector <4 x float> %329, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %331 = load float, ptr %318, align 4, !tbaa !21
-  %332 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 4
-  %333 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 4, i32 0, i64 2
-  %334 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3
-  %335 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 0, i32 0, i64 1
-  %336 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 0, i32 0, i64 2
-  %337 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 1
-  %338 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 1, i32 0, i64 1
-  %339 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 1, i32 0, i64 2
-  %340 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 2
-  %341 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 2, i32 0, i64 1
-  %342 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 2, i32 0, i64 2
-  %343 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 3
-  %344 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 3, i32 0, i64 1
-  %345 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 3, i32 0, i64 2
-  %346 = load <4 x float>, ptr %334, align 4
-  %347 = shufflevector <4 x float> %346, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %348 = load float, ptr %335, align 4, !tbaa !21
-  %349 = load <4 x float>, ptr %337, align 4
-  %350 = shufflevector <4 x float> %349, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %351 = load float, ptr %338, align 4, !tbaa !21
-  %352 = load <4 x float>, ptr %340, align 4
-  %353 = shufflevector <4 x float> %352, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %354 = load float, ptr %341, align 4, !tbaa !21
-  %355 = load <4 x float>, ptr %343, align 4
-  %356 = shufflevector <4 x float> %355, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %357 = load float, ptr %344, align 4, !tbaa !21
-  %358 = load <4 x float>, ptr %308, align 4
-  %359 = shufflevector <4 x float> %358, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %360 = load float, ptr %311, align 4, !tbaa !21
-  %361 = load <4 x float>, ptr %315, align 4
-  %362 = shufflevector <4 x float> %361, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %363 = load <4 x float>, ptr %319, align 4
-  %364 = shufflevector <4 x float> %363, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %365 = load <4 x float>, ptr %336, align 4
-  %366 = shufflevector <4 x float> %365, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %367 = load float, ptr %339, align 4, !tbaa !21
-  %368 = load float, ptr %342, align 4, !tbaa !21
-  %369 = load float, ptr %345, align 4, !tbaa !21
-  %370 = load <2 x float>, ptr %12, align 4, !tbaa !21
-  %371 = shufflevector <2 x float> %321, <2 x float> %370, <2 x i32> <i32 0, i32 2>
-  %372 = insertelement <2 x float> %370, float %322, i64 1
-  %373 = fmul <2 x float> %371, %372
-  %374 = shufflevector <2 x float> %324, <2 x float> %370, <2 x i32> <i32 0, i32 3>
-  %375 = shufflevector <2 x float> %370, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
-  %376 = insertelement <2 x float> %375, float %325, i64 1
-  %377 = fmul <2 x float> %374, %376
-  %378 = fadd <2 x float> %373, %377
-  %379 = load float, ptr %313, align 4, !tbaa !21
-  %380 = insertelement <2 x float> %327, float %379, i64 1
-  %381 = insertelement <2 x float> poison, float %379, i64 0
-  %382 = insertelement <2 x float> %381, float %328, i64 1
-  %383 = fmul <2 x float> %380, %382
-  %384 = fadd <2 x float> %378, %383
-  %385 = load float, ptr %317, align 4, !tbaa !21
-  %386 = insertelement <2 x float> %330, float %385, i64 1
-  %387 = insertelement <2 x float> poison, float %385, i64 0
-  %388 = insertelement <2 x float> %387, float %331, i64 1
-  %389 = fmul <2 x float> %386, %388
-  %390 = fadd <2 x float> %384, %389
-  %391 = insertelement <2 x float> %366, float %360, i64 1
-  %392 = fmul <2 x float> %370, %391
-  %393 = shufflevector <2 x float> %392, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %394 = insertelement <2 x float> %359, float %367, i64 1
-  %395 = fmul <2 x float> %370, %394
-  %396 = fadd <2 x float> %393, %395
-  %397 = insertelement <2 x float> %362, float %379, i64 1
-  %398 = insertelement <2 x float> %381, float %368, i64 1
-  %399 = fmul <2 x float> %397, %398
-  %400 = fadd <2 x float> %396, %399
-  %401 = insertelement <2 x float> %364, float %385, i64 1
-  %402 = insertelement <2 x float> %387, float %369, i64 1
-  %403 = fmul <2 x float> %401, %402
-  %404 = fadd <2 x float> %400, %403
-  %405 = insertelement <2 x float> %404, float 0.000000e+00, i64 1
-  store <2 x float> %390, ptr %332, align 4, !tbaa.struct !15
-  store <2 x float> %405, ptr %333, align 4, !tbaa.struct !23
-  %406 = shufflevector <2 x float> %347, <2 x float> %370, <2 x i32> <i32 0, i32 2>
-  %407 = insertelement <2 x float> %370, float %348, i64 1
-  %408 = fmul <2 x float> %406, %407
-  %409 = shufflevector <2 x float> %350, <2 x float> %370, <2 x i32> <i32 0, i32 3>
-  %410 = insertelement <2 x float> %375, float %351, i64 1
-  %411 = fmul <2 x float> %409, %410
-  %412 = fadd <2 x float> %408, %411
-  %413 = insertelement <2 x float> %353, float %379, i64 1
-  %414 = insertelement <2 x float> %381, float %354, i64 1
-  %415 = fmul <2 x float> %413, %414
-  %416 = fadd <2 x float> %412, %415
-  %417 = insertelement <2 x float> %356, float %385, i64 1
-  %418 = insertelement <2 x float> %387, float %357, i64 1
-  %419 = fmul <2 x float> %417, %418
-  %420 = fadd <2 x float> %416, %419
-  %421 = shufflevector <2 x float> <float poison, float 0.000000e+00>, <2 x float> %404, <2 x i32> <i32 3, i32 1>
-  %422 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 5
-  store <2 x float> %420, ptr %422, align 4, !tbaa.struct !15
-  %423 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 5, i32 0, i64 2
-  store <2 x float> %421, ptr %423, align 4, !tbaa.struct !23
-  %424 = fsub <2 x float> %390, %420
-  %425 = shufflevector <2 x float> %404, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
-  %426 = fsub <2 x float> %404, %425
-  %427 = insertelement <2 x float> %426, float 0.000000e+00, i64 1
-  %428 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6
-  store <2 x float> %424, ptr %428, align 4, !tbaa.struct !15
-  %429 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6, i32 0, i64 2
-  store <2 x float> %427, ptr %429, align 4, !tbaa.struct !23
-  %430 = load i32, ptr %0, align 4, !tbaa !5
-  %431 = icmp sgt i32 %430, 3
-  br i1 %431, label %432, label %442
+290:                                              ; preds = %284
+  %291 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2
+  %292 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 0, i32 0, i64 2
+  %293 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1
+  %294 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 1, i32 0, i64 2
+  %295 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2
+  %296 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 2, i32 0, i64 2
+  %297 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 3
+  %298 = load <4 x float>, ptr %12, align 4, !tbaa !21
+  %299 = freeze <4 x float> %298
+  %300 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 3, i32 0, i64 2
+  %301 = load <2 x float>, ptr %291, align 4, !tbaa !21
+  %302 = load <2 x float>, ptr %293, align 4, !tbaa !21
+  %303 = load <2 x float>, ptr %295, align 4, !tbaa !21
+  %304 = shufflevector <4 x float> %299, <4 x float> poison, <2 x i32> zeroinitializer
+  %305 = fmul <2 x float> %301, %304
+  %306 = shufflevector <4 x float> %299, <4 x float> poison, <2 x i32> <i32 1, i32 1>
+  %307 = fmul <2 x float> %302, %306
+  %308 = fadd <2 x float> %305, %307
+  %309 = shufflevector <4 x float> %299, <4 x float> poison, <2 x i32> <i32 2, i32 2>
+  %310 = fmul <2 x float> %303, %309
+  %311 = fadd <2 x float> %308, %310
+  %312 = load <2 x float>, ptr %297, align 4, !tbaa !21
+  %313 = shufflevector <4 x float> %299, <4 x float> poison, <2 x i32> <i32 3, i32 3>
+  %314 = fmul <2 x float> %312, %313
+  %315 = fadd <2 x float> %311, %314
+  %316 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 4
+  store <2 x float> %315, ptr %316, align 4, !tbaa.struct !15
+  %317 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 4, i32 0, i64 2
+  %318 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3
+  %319 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 0, i32 0, i64 2
+  %320 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 1
+  %321 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 1, i32 0, i64 2
+  %322 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 2
+  %323 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 2, i32 0, i64 2
+  %324 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 3
+  %325 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 3, i32 0, i64 2
+  %326 = load <2 x float>, ptr %318, align 4, !tbaa !21
+  %327 = fmul <2 x float> %304, %326
+  %328 = load <2 x float>, ptr %320, align 4, !tbaa !21
+  %329 = fmul <2 x float> %306, %328
+  %330 = fadd <2 x float> %327, %329
+  %331 = load <2 x float>, ptr %322, align 4, !tbaa !21
+  %332 = fmul <2 x float> %309, %331
+  %333 = fadd <2 x float> %330, %332
+  %334 = load <2 x float>, ptr %324, align 4, !tbaa !21
+  %335 = fmul <2 x float> %313, %334
+  %336 = fadd <2 x float> %333, %335
+  %337 = load <4 x float>, ptr %292, align 4
+  %338 = shufflevector <4 x float> %337, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %339 = load <4 x float>, ptr %294, align 4
+  %340 = shufflevector <4 x float> %339, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %341 = load <4 x float>, ptr %296, align 4
+  %342 = shufflevector <4 x float> %341, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %343 = load <4 x float>, ptr %300, align 4
+  %344 = shufflevector <4 x float> %343, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %345 = load float, ptr %319, align 4, !tbaa !21
+  %346 = shufflevector <4 x float> %299, <4 x float> poison, <2 x i32> <i32 1, i32 0>
+  %347 = insertelement <2 x float> %340, float %345, i64 1
+  %348 = fmul <2 x float> %346, %347
+  %349 = load float, ptr %321, align 4, !tbaa !21
+  %350 = shufflevector <4 x float> %299, <4 x float> poison, <2 x i32> <i32 0, i32 1>
+  %351 = insertelement <2 x float> %338, float %349, i64 1
+  %352 = fmul <2 x float> %350, %351
+  %353 = fadd <2 x float> %348, %352
+  %354 = load float, ptr %323, align 4, !tbaa !21
+  %355 = insertelement <2 x float> %342, float %354, i64 1
+  %356 = fmul <2 x float> %309, %355
+  %357 = fadd <2 x float> %353, %356
+  %358 = load float, ptr %325, align 4, !tbaa !21
+  %359 = insertelement <2 x float> %344, float %358, i64 1
+  %360 = fmul <2 x float> %313, %359
+  %361 = fadd <2 x float> %357, %360
+  %362 = insertelement <2 x float> %361, float 0.000000e+00, i64 1
+  store <2 x float> %362, ptr %317, align 4, !tbaa.struct !23
+  %363 = shufflevector <2 x float> <float poison, float 0.000000e+00>, <2 x float> %361, <2 x i32> <i32 3, i32 1>
+  %364 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 5
+  store <2 x float> %336, ptr %364, align 4, !tbaa.struct !15
+  %365 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 5, i32 0, i64 2
+  store <2 x float> %363, ptr %365, align 4, !tbaa.struct !23
+  %366 = fsub <2 x float> %315, %336
+  %367 = shufflevector <2 x float> %361, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
+  %368 = fsub <2 x float> %361, %367
+  %369 = insertelement <2 x float> %368, float 0.000000e+00, i64 1
+  %370 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6
+  store <2 x float> %366, ptr %370, align 4, !tbaa.struct !15
+  %371 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6, i32 0, i64 2
+  store <2 x float> %369, ptr %371, align 4, !tbaa.struct !23
+  %372 = load i32, ptr %0, align 4, !tbaa !5
+  %373 = icmp sgt i32 %372, 3
+  br i1 %373, label %374, label %384
 
-432:                                              ; preds = %305
-  %433 = load i8, ptr %13, align 4
-  %434 = and i8 %433, 8
-  %435 = icmp eq i8 %434, 0
-  br i1 %435, label %436, label %446
+374:                                              ; preds = %290
+  %375 = load i8, ptr %13, align 4
+  %376 = and i8 %375, 8
+  %377 = icmp eq i8 %376, 0
+  br i1 %377, label %378, label %388
 
-436:                                              ; preds = %432
-  %437 = add nsw i32 %430, -1
-  store i32 %437, ptr %0, align 4, !tbaa !5
-  %438 = zext i32 %437 to i64
-  %439 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %438
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %303, ptr noundef nonnull align 4 dereferenceable(16) %439, i64 16, i1 false), !tbaa.struct !15
-  %440 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %438
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %316, ptr noundef nonnull align 4 dereferenceable(16) %440, i64 16, i1 false), !tbaa.struct !15
-  %441 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %438
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %343, ptr noundef nonnull align 4 dereferenceable(16) %441, i64 16, i1 false), !tbaa.struct !15
-  br label %446
+378:                                              ; preds = %374
+  %379 = add nsw i32 %372, -1
+  store i32 %379, ptr %0, align 4, !tbaa !5
+  %380 = zext i32 %379 to i64
+  %381 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %380
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %288, ptr noundef nonnull align 4 dereferenceable(16) %381, i64 16, i1 false), !tbaa.struct !15
+  %382 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %380
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %297, ptr noundef nonnull align 4 dereferenceable(16) %382, i64 16, i1 false), !tbaa.struct !15
+  %383 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %380
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %324, ptr noundef nonnull align 4 dereferenceable(16) %383, i64 16, i1 false), !tbaa.struct !15
+  br label %388
 
-442:                                              ; preds = %305
-  %443 = icmp eq i32 %430, 3
-  br i1 %443, label %444, label %457
+384:                                              ; preds = %290
+  %385 = icmp eq i32 %372, 3
+  br i1 %385, label %386, label %399
 
-444:                                              ; preds = %442
-  %445 = load i8, ptr %13, align 4
-  br label %446
+386:                                              ; preds = %384
+  %387 = load i8, ptr %13, align 4
+  br label %388
 
-446:                                              ; preds = %444, %436, %432
-  %447 = phi i8 [ %445, %444 ], [ %433, %436 ], [ %433, %432 ]
-  %448 = phi i32 [ 3, %444 ], [ %437, %436 ], [ %430, %432 ]
-  %449 = and i8 %447, 4
-  %450 = icmp eq i8 %449, 0
-  br i1 %450, label %451, label %461
+388:                                              ; preds = %386, %378, %374
+  %389 = phi i8 [ %387, %386 ], [ %375, %378 ], [ %375, %374 ]
+  %390 = phi i32 [ 3, %386 ], [ %379, %378 ], [ %372, %374 ]
+  %391 = and i8 %389, 4
+  %392 = icmp eq i8 %391, 0
+  br i1 %392, label %393, label %403
 
-451:                                              ; preds = %446
-  %452 = add nsw i32 %448, -1
-  store i32 %452, ptr %0, align 4, !tbaa !5
-  %453 = zext i32 %452 to i64
-  %454 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %453
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %302, ptr noundef nonnull align 4 dereferenceable(16) %454, i64 16, i1 false), !tbaa.struct !15
-  %455 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %453
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %312, ptr noundef nonnull align 4 dereferenceable(16) %455, i64 16, i1 false), !tbaa.struct !15
-  %456 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %453
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %340, ptr noundef nonnull align 4 dereferenceable(16) %456, i64 16, i1 false), !tbaa.struct !15
-  br label %461
+393:                                              ; preds = %388
+  %394 = add nsw i32 %390, -1
+  store i32 %394, ptr %0, align 4, !tbaa !5
+  %395 = zext i32 %394 to i64
+  %396 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %395
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %287, ptr noundef nonnull align 4 dereferenceable(16) %396, i64 16, i1 false), !tbaa.struct !15
+  %397 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %395
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %295, ptr noundef nonnull align 4 dereferenceable(16) %397, i64 16, i1 false), !tbaa.struct !15
+  %398 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %395
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %322, ptr noundef nonnull align 4 dereferenceable(16) %398, i64 16, i1 false), !tbaa.struct !15
+  br label %403
 
-457:                                              ; preds = %442
-  %458 = icmp sgt i32 %430, 1
-  br i1 %458, label %459, label %472
+399:                                              ; preds = %384
+  %400 = icmp sgt i32 %372, 1
+  br i1 %400, label %401, label %414
 
-459:                                              ; preds = %457
-  %460 = load i8, ptr %13, align 4
-  br label %461
+401:                                              ; preds = %399
+  %402 = load i8, ptr %13, align 4
+  br label %403
 
-461:                                              ; preds = %459, %451, %446
-  %462 = phi i8 [ %460, %459 ], [ %447, %446 ], [ %447, %451 ]
-  %463 = phi i32 [ 2, %459 ], [ %448, %446 ], [ %452, %451 ]
-  %464 = and i8 %462, 2
-  %465 = icmp eq i8 %464, 0
-  br i1 %465, label %466, label %476
+403:                                              ; preds = %401, %393, %388
+  %404 = phi i8 [ %402, %401 ], [ %389, %388 ], [ %389, %393 ]
+  %405 = phi i32 [ 2, %401 ], [ %390, %388 ], [ %394, %393 ]
+  %406 = and i8 %404, 2
+  %407 = icmp eq i8 %406, 0
+  br i1 %407, label %408, label %418
 
-466:                                              ; preds = %461
-  %467 = add nsw i32 %463, -1
-  store i32 %467, ptr %0, align 4, !tbaa !5
-  %468 = zext i32 %467 to i64
-  %469 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %468
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %301, ptr noundef nonnull align 4 dereferenceable(16) %469, i64 16, i1 false), !tbaa.struct !15
-  %470 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %468
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %309, ptr noundef nonnull align 4 dereferenceable(16) %470, i64 16, i1 false), !tbaa.struct !15
-  %471 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %468
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %337, ptr noundef nonnull align 4 dereferenceable(16) %471, i64 16, i1 false), !tbaa.struct !15
-  br label %476
+408:                                              ; preds = %403
+  %409 = add nsw i32 %405, -1
+  store i32 %409, ptr %0, align 4, !tbaa !5
+  %410 = zext i32 %409 to i64
+  %411 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %410
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %286, ptr noundef nonnull align 4 dereferenceable(16) %411, i64 16, i1 false), !tbaa.struct !15
+  %412 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %410
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %293, ptr noundef nonnull align 4 dereferenceable(16) %412, i64 16, i1 false), !tbaa.struct !15
+  %413 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %410
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %320, ptr noundef nonnull align 4 dereferenceable(16) %413, i64 16, i1 false), !tbaa.struct !15
+  br label %418
 
-472:                                              ; preds = %457
-  %473 = icmp eq i32 %430, 1
-  br i1 %473, label %474, label %487
+414:                                              ; preds = %399
+  %415 = icmp eq i32 %372, 1
+  br i1 %415, label %416, label %429
 
-474:                                              ; preds = %472
-  %475 = load i8, ptr %13, align 4
-  br label %476
+416:                                              ; preds = %414
+  %417 = load i8, ptr %13, align 4
+  br label %418
 
-476:                                              ; preds = %474, %466, %461
-  %477 = phi i8 [ %475, %474 ], [ %462, %466 ], [ %462, %461 ]
-  %478 = phi i32 [ 1, %474 ], [ %467, %466 ], [ %463, %461 ]
-  %479 = and i8 %477, 1
-  %480 = icmp eq i8 %479, 0
-  br i1 %480, label %481, label %487
+418:                                              ; preds = %416, %408, %403
+  %419 = phi i8 [ %417, %416 ], [ %404, %408 ], [ %404, %403 ]
+  %420 = phi i32 [ 1, %416 ], [ %409, %408 ], [ %405, %403 ]
+  %421 = and i8 %419, 1
+  %422 = icmp eq i8 %421, 0
+  br i1 %422, label %423, label %429
 
-481:                                              ; preds = %476
-  %482 = add nsw i32 %478, -1
-  store i32 %482, ptr %0, align 4, !tbaa !5
-  %483 = zext i32 %482 to i64
-  %484 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %483
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %300, ptr noundef nonnull align 4 dereferenceable(16) %484, i64 16, i1 false), !tbaa.struct !15
-  %485 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %483
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %306, ptr noundef nonnull align 4 dereferenceable(16) %485, i64 16, i1 false), !tbaa.struct !15
-  %486 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %483
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %334, ptr noundef nonnull align 4 dereferenceable(16) %486, i64 16, i1 false), !tbaa.struct !15
-  br label %487
+423:                                              ; preds = %418
+  %424 = add nsw i32 %420, -1
+  store i32 %424, ptr %0, align 4, !tbaa !5
+  %425 = zext i32 %424 to i64
+  %426 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 1, i64 %425
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %285, ptr noundef nonnull align 4 dereferenceable(16) %426, i64 16, i1 false), !tbaa.struct !15
+  %427 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 2, i64 %425
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %291, ptr noundef nonnull align 4 dereferenceable(16) %427, i64 16, i1 false), !tbaa.struct !15
+  %428 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 3, i64 %425
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %318, ptr noundef nonnull align 4 dereferenceable(16) %428, i64 16, i1 false), !tbaa.struct !15
+  br label %429
 
-487:                                              ; preds = %472, %476, %481
-  %488 = load <4 x float>, ptr %12, align 4
-  %489 = freeze <4 x float> %488
-  %490 = fcmp ult <4 x float> %489, zeroinitializer
-  %491 = bitcast <4 x i1> %490 to i4
-  %492 = icmp eq i4 %491, 0
-  %493 = zext i1 %492 to i8
-  %494 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
-  store i8 %493, ptr %494, align 4, !tbaa !17
-  br label %503
+429:                                              ; preds = %414, %418, %423
+  %430 = fcmp ult <4 x float> %299, zeroinitializer
+  %431 = bitcast <4 x i1> %430 to i4
+  %432 = icmp eq i4 %431, 0
+  %433 = zext i1 %432 to i8
+  %434 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
+  store i8 %433, ptr %434, align 4, !tbaa !17
+  br label %443
 
-495:                                              ; preds = %299
-  %496 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 10, i32 4
-  %497 = load i8, ptr %496, align 4, !tbaa !24, !range !19, !noundef !20
-  %498 = icmp eq i8 %497, 0
-  %499 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
-  br i1 %498, label %501, label %500
+435:                                              ; preds = %284
+  %436 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 10, i32 4
+  %437 = load i8, ptr %436, align 4, !tbaa !24, !range !19, !noundef !20
+  %438 = icmp eq i8 %437, 0
+  %439 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
+  br i1 %438, label %441, label %440
 
-500:                                              ; preds = %495
-  store i8 0, ptr %499, align 4, !tbaa !17
-  br label %503
+440:                                              ; preds = %435
+  store i8 0, ptr %439, align 4, !tbaa !17
+  br label %443
 
-501:                                              ; preds = %495
-  store i8 1, ptr %499, align 4, !tbaa !17
-  %502 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %502, i8 0, i64 16, i1 false)
-  br label %503
+441:                                              ; preds = %435
+  store i8 1, ptr %439, align 4, !tbaa !17
+  %442 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 6
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %442, i8 0, i64 16, i1 false)
+  br label %443
 
-503:                                              ; preds = %500, %501, %487
-  %504 = phi i8 [ 0, %500 ], [ 1, %501 ], [ %493, %487 ]
+443:                                              ; preds = %440, %441, %429
+  %444 = phi i8 [ 0, %440 ], [ 1, %441 ], [ %433, %429 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #12
-  br label %507
+  br label %447
 
-505:                                              ; preds = %10
-  %506 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
-  store i8 0, ptr %506, align 4, !tbaa !17
-  br label %507
+445:                                              ; preds = %10
+  %446 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %0, i64 0, i32 8
+  store i8 0, ptr %446, align 4, !tbaa !17
+  br label %447
 
-507:                                              ; preds = %7, %17, %19, %126, %284, %503, %505
-  %508 = phi i8 [ %9, %7 ], [ 0, %17 ], [ 1, %19 ], [ %130, %126 ], [ %297, %284 ], [ %504, %503 ], [ 0, %505 ]
-  %509 = icmp ne i8 %508, 0
-  ret i1 %509
+447:                                              ; preds = %7, %17, %19, %126, %271, %443, %445
+  %448 = phi i8 [ %9, %7 ], [ 0, %17 ], [ 1, %19 ], [ %130, %126 ], [ %282, %271 ], [ %444, %443 ], [ 0, %445 ]
+  %449 = icmp ne i8 %448, 0
+  ret i1 %449
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
@@ -939,9 +879,9 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPoint
   %45 = shufflevector <2 x float> %44, <2 x float> poison, <2 x i32> zeroinitializer
   %46 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %25, <2 x float> %45, <2 x float> %43)
   %47 = fcmp ole <2 x float> %46, zeroinitializer
-  %48 = shufflevector <2 x i1> %47, <2 x i1> poison, <2 x i32> <i32 1, i32 undef>
-  %49 = and <2 x i1> %47, %48
-  %50 = extractelement <2 x i1> %49, i64 0
+  %48 = extractelement <2 x i1> %47, i64 0
+  %49 = extractelement <2 x i1> %47, i64 1
+  %50 = select i1 %48, i1 %49, i1 false
   br i1 %50, label %51, label %53
 
 51:                                               ; preds = %6
@@ -969,7 +909,7 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPoint
   %69 = fcmp ult float %68, 0.000000e+00
   %70 = extractelement <2 x float> %67, i64 1
   %71 = fcmp ugt float %70, %68
-  %72 = or i1 %69, %71
+  %72 = select i1 %69, i1 true, i1 %71
   br i1 %72, label %75, label %73
 
 73:                                               ; preds = %53
@@ -986,9 +926,9 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPoint
   %80 = tail call float @llvm.fmuladd.f32(float %79, float %70, float %78)
   %81 = fcmp ole float %80, 0.000000e+00
   %82 = fcmp oge float %79, 0.000000e+00
-  %83 = and i1 %82, %81
+  %83 = select i1 %81, i1 %82, i1 false
   %84 = fcmp ole float %68, 0.000000e+00
-  %85 = and i1 %84, %83
+  %85 = select i1 %83, i1 %84, i1 false
   br i1 %85, label %86, label %101
 
 86:                                               ; preds = %75
@@ -1030,7 +970,7 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPoint
   %117 = fcmp ult float %116, 0.000000e+00
   %118 = extractelement <2 x float> %115, i64 0
   %119 = fcmp ugt float %118, %116
-  %120 = or i1 %117, %119
+  %120 = select i1 %117, i1 true, i1 %119
   br i1 %120, label %123, label %121
 
 121:                                              ; preds = %101
@@ -1045,9 +985,9 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPoint
   %126 = tail call float @llvm.fmuladd.f32(float %118, float %77, float %125)
   %127 = fcmp ole float %126, 0.000000e+00
   %128 = fcmp oge float %77, 0.000000e+00
-  %129 = and i1 %128, %127
+  %129 = select i1 %127, i1 %128, i1 false
   %130 = fcmp ole float %116, 0.000000e+00
-  %131 = and i1 %130, %129
+  %131 = select i1 %129, i1 %130, i1 false
   br i1 %131, label %132, label %146
 
 132:                                              ; preds = %123
@@ -1136,10 +1076,10 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPoint
   %196 = fsub float %195, %177
   br label %197
 
-197:                                              ; preds = %73, %86, %132, %172, %157, %121, %51
-  %198 = phi float [ 0.000000e+00, %73 ], [ %100, %86 ], [ %145, %132 ], [ %196, %172 ], [ 0.000000e+00, %157 ], [ 0.000000e+00, %121 ], [ 1.000000e+00, %51 ]
-  %199 = phi float [ 1.000000e+00, %73 ], [ %89, %86 ], [ 0.000000e+00, %132 ], [ %176, %172 ], [ %171, %157 ], [ 0.000000e+00, %121 ], [ 0.000000e+00, %51 ]
-  %200 = phi float [ 0.000000e+00, %73 ], [ 0.000000e+00, %86 ], [ %134, %132 ], [ %177, %172 ], [ %159, %157 ], [ 1.000000e+00, %121 ], [ 0.000000e+00, %51 ]
+197:                                              ; preds = %73, %121, %157, %172, %132, %86, %51
+  %198 = phi float [ 0.000000e+00, %73 ], [ 0.000000e+00, %121 ], [ 0.000000e+00, %157 ], [ %196, %172 ], [ %145, %132 ], [ %100, %86 ], [ 1.000000e+00, %51 ]
+  %199 = phi float [ 1.000000e+00, %73 ], [ 0.000000e+00, %121 ], [ %171, %157 ], [ %176, %172 ], [ 0.000000e+00, %132 ], [ %89, %86 ], [ 0.000000e+00, %51 ]
+  %200 = phi float [ 0.000000e+00, %73 ], [ 1.000000e+00, %121 ], [ %159, %157 ], [ %177, %172 ], [ %134, %132 ], [ 0.000000e+00, %86 ], [ 0.000000e+00, %51 ]
   %201 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %5, i64 0, i32 3
   store float %198, ptr %201, align 4, !tbaa !21
   %202 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %5, i64 0, i32 3, i64 1
@@ -1160,404 +1100,436 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver25closestPtPoint
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %1, i64 16, i1 false), !tbaa.struct !15
   %10 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 1
   %11 = load i8, ptr %10, align 4
-  %12 = and i8 %11, -16
-  %13 = or i8 %11, 15
-  store i8 %13, ptr %10, align 4
-  %14 = load float, ptr %3, align 4, !tbaa !21
-  %15 = getelementptr inbounds [4 x float], ptr %3, i64 0, i64 1
-  %16 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 1
-  %17 = getelementptr inbounds [4 x float], ptr %3, i64 0, i64 2
-  %18 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 2
-  %19 = getelementptr inbounds [4 x float], ptr %4, i64 0, i64 1
-  %20 = load float, ptr %19, align 4, !tbaa !21
-  %21 = getelementptr inbounds [4 x float], ptr %4, i64 0, i64 2
-  %22 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
-  %23 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %24 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 1
-  %25 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 2
-  %26 = load float, ptr %15, align 4, !tbaa !21
-  %27 = load float, ptr %17, align 4, !tbaa !21
-  %28 = load float, ptr %4, align 4, !tbaa !21
-  %29 = load float, ptr %21, align 4, !tbaa !21
-  %30 = insertelement <2 x float> poison, float %29, i64 0
-  %31 = insertelement <2 x float> %30, float %27, i64 1
-  %32 = load float, ptr %24, align 4, !tbaa !21
-  %33 = insertelement <2 x float> poison, float %26, i64 0
-  %34 = insertelement <2 x float> %33, float %32, i64 1
-  %35 = load float, ptr %5, align 4, !tbaa !21
-  %36 = insertelement <2 x float> poison, float %35, i64 0
-  %37 = insertelement <2 x float> %36, float %28, i64 1
-  %38 = fsub float %35, %14
-  %39 = fsub float %32, %26
-  %40 = fsub float %28, %14
-  %41 = fsub float %20, %26
-  %42 = fsub float %29, %27
-  %43 = fneg float %38
-  %44 = fmul float %42, %43
-  %45 = fneg float %39
-  %46 = fmul float %40, %45
-  %47 = tail call float @llvm.fmuladd.f32(float %38, float %41, float %46)
-  %48 = load float, ptr %2, align 4, !tbaa !21
-  %49 = fsub float %14, %48
-  %50 = load float, ptr %16, align 4, !tbaa !21
-  %51 = load float, ptr %18, align 4, !tbaa !21
-  %52 = fsub float %20, %50
-  %53 = fneg float %49
-  %54 = load float, ptr %1, align 4, !tbaa !21
-  %55 = fsub float %54, %48
-  %56 = load float, ptr %22, align 4, !tbaa !21
-  %57 = fsub float %56, %50
-  %58 = insertelement <2 x float> poison, float %51, i64 0
-  %59 = shufflevector <2 x float> %58, <2 x float> poison, <2 x i32> zeroinitializer
-  %60 = fsub <2 x float> %31, %59
-  %61 = extractelement <2 x float> %60, i64 1
-  %62 = fneg float %61
-  %63 = fmul float %52, %62
-  %64 = insertelement <2 x float> poison, float %50, i64 0
-  %65 = shufflevector <2 x float> %64, <2 x float> poison, <2 x i32> zeroinitializer
-  %66 = fsub <2 x float> %34, %65
-  %67 = extractelement <2 x float> %60, i64 0
-  %68 = extractelement <2 x float> %66, i64 0
-  %69 = tail call float @llvm.fmuladd.f32(float %68, float %67, float %63)
-  %70 = fmul float %67, %53
-  %71 = insertelement <2 x float> poison, float %48, i64 0
-  %72 = shufflevector <2 x float> %71, <2 x float> poison, <2 x i32> zeroinitializer
-  %73 = fsub <2 x float> %37, %72
-  %74 = extractelement <2 x float> %73, i64 1
-  %75 = tail call float @llvm.fmuladd.f32(float %61, float %74, float %70)
-  %76 = fneg float %68
-  %77 = fmul float %74, %76
-  %78 = tail call float @llvm.fmuladd.f32(float %49, float %52, float %77)
-  %79 = load float, ptr %25, align 4, !tbaa !21
-  %80 = fsub float %79, %27
-  %81 = fneg float %80
-  %82 = fmul float %41, %81
-  %83 = tail call float @llvm.fmuladd.f32(float %39, float %42, float %82)
-  %84 = tail call float @llvm.fmuladd.f32(float %80, float %40, float %44)
-  %85 = load float, ptr %23, align 4, !tbaa !21
-  %86 = insertelement <2 x float> poison, float %85, i64 0
-  %87 = insertelement <2 x float> %86, float %79, i64 1
-  %88 = fsub <2 x float> %87, %59
-  %89 = insertelement <2 x float> %66, float %57, i64 0
-  %90 = insertelement <2 x float> poison, float %75, i64 0
-  %91 = shufflevector <2 x float> %90, <2 x float> poison, <2 x i32> zeroinitializer
-  %92 = fmul <2 x float> %89, %91
-  %93 = shufflevector <2 x float> %73, <2 x float> poison, <2 x i32> <i32 undef, i32 0>
-  %94 = insertelement <2 x float> %93, float %55, i64 0
-  %95 = insertelement <2 x float> poison, float %69, i64 0
-  %96 = shufflevector <2 x float> %95, <2 x float> poison, <2 x i32> zeroinitializer
-  %97 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %94, <2 x float> %96, <2 x float> %92)
-  %98 = insertelement <2 x float> poison, float %78, i64 0
-  %99 = shufflevector <2 x float> %98, <2 x float> poison, <2 x i32> zeroinitializer
-  %100 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %88, <2 x float> %99, <2 x float> %97)
-  %101 = extractelement <2 x float> %100, i64 1
-  %102 = fmul float %101, %101
-  %103 = fcmp olt float %102, 0x3E45798EC0000000
-  %104 = extractelement <2 x float> %100, i64 0
-  %105 = fmul float %104, %101
-  %106 = fcmp olt float %105, 0.000000e+00
-  %107 = zext i1 %106 to i32
-  %108 = select i1 %103, i32 -1, i32 %107
-  %109 = shufflevector <2 x float> %60, <2 x float> poison, <2 x i32> <i32 undef, i32 0>
-  %110 = shufflevector <2 x float> %109, <2 x float> %88, <2 x i32> <i32 3, i32 1>
-  %111 = fneg <2 x float> %110
-  %112 = fmul <2 x float> %66, %111
-  %113 = shufflevector <2 x float> %66, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
-  %114 = insertelement <2 x float> %113, float %52, i64 1
-  %115 = shufflevector <2 x float> %60, <2 x float> %110, <2 x i32> <i32 1, i32 2>
-  %116 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %114, <2 x float> %115, <2 x float> %112)
-  %117 = fneg <2 x float> %73
-  %118 = fmul <2 x float> %115, %117
-  %119 = insertelement <2 x float> %93, float %49, i64 0
-  %120 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %110, <2 x float> %119, <2 x float> %118)
-  %121 = fneg <2 x float> %114
-  %122 = fmul <2 x float> %119, %121
-  %123 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %73, <2 x float> %66, <2 x float> %122)
-  %124 = insertelement <2 x float> poison, float %57, i64 0
-  %125 = shufflevector <2 x float> %124, <2 x float> poison, <2 x i32> zeroinitializer
-  %126 = fmul <2 x float> %125, %120
-  %127 = insertelement <2 x float> poison, float %55, i64 0
-  %128 = shufflevector <2 x float> %127, <2 x float> poison, <2 x i32> zeroinitializer
-  %129 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %128, <2 x float> %116, <2 x float> %126)
-  %130 = shufflevector <2 x float> %88, <2 x float> poison, <2 x i32> zeroinitializer
-  %131 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %130, <2 x float> %123, <2 x float> %129)
-  %132 = shufflevector <2 x float> %114, <2 x float> %66, <2 x i32> <i32 1, i32 2>
-  %133 = fmul <2 x float> %132, %120
-  %134 = shufflevector <2 x float> %73, <2 x float> %119, <2 x i32> <i32 1, i32 2>
-  %135 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %134, <2 x float> %116, <2 x float> %133)
-  %136 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %60, <2 x float> %123, <2 x float> %135)
-  %137 = fmul <2 x float> %136, %136
-  %138 = fcmp olt <2 x float> %137, <float 0x3E45798EC0000000, float 0x3E45798EC0000000>
-  %139 = fmul <2 x float> %131, %136
-  %140 = fcmp olt <2 x float> %139, zeroinitializer
-  %141 = zext <2 x i1> %140 to <2 x i32>
-  %142 = select <2 x i1> %138, <2 x i32> <i32 -1, i32 -1>, <2 x i32> %141
-  %143 = insertelement <2 x float> poison, float %54, i64 0
-  %144 = insertelement <2 x float> %143, float %48, i64 1
-  %145 = insertelement <2 x float> poison, float %14, i64 0
-  %146 = shufflevector <2 x float> %145, <2 x float> poison, <2 x i32> zeroinitializer
-  %147 = fsub <2 x float> %144, %146
-  %148 = insertelement <2 x float> poison, float %56, i64 0
-  %149 = insertelement <2 x float> %148, float %50, i64 1
-  %150 = shufflevector <2 x float> %33, <2 x float> poison, <2 x i32> zeroinitializer
-  %151 = fsub <2 x float> %149, %150
-  %152 = insertelement <2 x float> %86, float %51, i64 1
-  %153 = insertelement <2 x float> poison, float %27, i64 0
-  %154 = shufflevector <2 x float> %153, <2 x float> poison, <2 x i32> zeroinitializer
-  %155 = fsub <2 x float> %152, %154
-  %156 = insertelement <2 x float> poison, float %84, i64 0
-  %157 = shufflevector <2 x float> %156, <2 x float> poison, <2 x i32> zeroinitializer
-  %158 = fmul <2 x float> %151, %157
-  %159 = insertelement <2 x float> poison, float %83, i64 0
-  %160 = shufflevector <2 x float> %159, <2 x float> poison, <2 x i32> zeroinitializer
-  %161 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %147, <2 x float> %160, <2 x float> %158)
-  %162 = insertelement <2 x float> poison, float %47, i64 0
-  %163 = shufflevector <2 x float> %162, <2 x float> poison, <2 x i32> zeroinitializer
-  %164 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %155, <2 x float> %163, <2 x float> %161)
-  %165 = extractelement <2 x float> %164, i64 1
-  %166 = fmul float %165, %165
-  %167 = fcmp olt float %166, 0x3E45798EC0000000
-  %168 = extractelement <2 x float> %164, i64 0
-  %169 = fmul float %168, %165
-  %170 = fcmp olt float %169, 0.000000e+00
-  %171 = zext i1 %170 to i32
-  %172 = select i1 %167, i32 -1, i32 %171
-  %173 = extractelement <2 x i32> %142, i64 0
-  %174 = extractelement <2 x i32> %142, i64 1
-  %175 = or i32 %173, %174
-  %176 = or i32 %175, %108
-  %177 = or i32 %176, %172
-  %178 = icmp sgt i32 %177, -1
-  br i1 %178, label %181, label %179
+  %12 = or i8 %11, 15
+  store i8 %12, ptr %10, align 4
+  %13 = load float, ptr %3, align 4, !tbaa !21
+  %14 = load float, ptr %2, align 4, !tbaa !21
+  %15 = fsub float %13, %14
+  %16 = getelementptr inbounds [4 x float], ptr %3, i64 0, i64 1
+  %17 = load float, ptr %16, align 4, !tbaa !21
+  %18 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 1
+  %19 = load float, ptr %18, align 4, !tbaa !21
+  %20 = fsub float %17, %19
+  %21 = getelementptr inbounds [4 x float], ptr %3, i64 0, i64 2
+  %22 = load float, ptr %21, align 4, !tbaa !21
+  %23 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 2
+  %24 = load float, ptr %23, align 4, !tbaa !21
+  %25 = fsub float %22, %24
+  %26 = load float, ptr %4, align 4, !tbaa !21
+  %27 = fsub float %26, %14
+  %28 = getelementptr inbounds [4 x float], ptr %4, i64 0, i64 1
+  %29 = load float, ptr %28, align 4, !tbaa !21
+  %30 = fsub float %29, %19
+  %31 = getelementptr inbounds [4 x float], ptr %4, i64 0, i64 2
+  %32 = load float, ptr %31, align 4, !tbaa !21
+  %33 = fsub float %32, %24
+  %34 = fneg float %25
+  %35 = fmul float %30, %34
+  %36 = tail call float @llvm.fmuladd.f32(float %20, float %33, float %35)
+  %37 = fneg float %15
+  %38 = fmul float %33, %37
+  %39 = tail call float @llvm.fmuladd.f32(float %25, float %27, float %38)
+  %40 = fneg float %20
+  %41 = fmul float %27, %40
+  %42 = tail call float @llvm.fmuladd.f32(float %15, float %30, float %41)
+  %43 = load float, ptr %5, align 4, !tbaa !21
+  %44 = fsub float %43, %14
+  %45 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 1
+  %46 = load float, ptr %45, align 4, !tbaa !21
+  %47 = fsub float %46, %19
+  %48 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 2
+  %49 = load float, ptr %48, align 4, !tbaa !21
+  %50 = fsub float %49, %24
+  %51 = fmul float %47, %39
+  %52 = tail call float @llvm.fmuladd.f32(float %44, float %36, float %51)
+  %53 = tail call float @llvm.fmuladd.f32(float %50, float %42, float %52)
+  %54 = fmul float %53, %53
+  %55 = fcmp olt float %54, 0x3E45798EC0000000
+  br i1 %55, label %71, label %56
 
-179:                                              ; preds = %7
-  %180 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 4
-  store i8 1, ptr %180, align 4, !tbaa !25
-  br label %345
+56:                                               ; preds = %7
+  %57 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %58 = load float, ptr %57, align 4, !tbaa !21
+  %59 = fsub float %58, %24
+  %60 = load float, ptr %1, align 4, !tbaa !21
+  %61 = fsub float %60, %14
+  %62 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %63 = load float, ptr %62, align 4, !tbaa !21
+  %64 = fsub float %63, %19
+  %65 = fmul float %39, %64
+  %66 = tail call float @llvm.fmuladd.f32(float %61, float %36, float %65)
+  %67 = tail call float @llvm.fmuladd.f32(float %59, float %42, float %66)
+  %68 = fmul float %53, %67
+  %69 = fcmp olt float %68, 0.000000e+00
+  %70 = zext i1 %69 to i32
+  br label %71
 
-181:                                              ; preds = %7
-  %182 = icmp eq <2 x i32> %142, zeroinitializer
-  %183 = icmp eq i32 %172, 0
-  %184 = icmp eq i32 %177, 0
-  br i1 %184, label %345, label %185
+71:                                               ; preds = %7, %56
+  %72 = phi i32 [ %70, %56 ], [ -1, %7 ]
+  %73 = fneg float %33
+  %74 = fmul float %47, %73
+  %75 = tail call float @llvm.fmuladd.f32(float %30, float %50, float %74)
+  %76 = fneg float %27
+  %77 = fmul float %50, %76
+  %78 = tail call float @llvm.fmuladd.f32(float %33, float %44, float %77)
+  %79 = fneg float %30
+  %80 = fmul float %44, %79
+  %81 = tail call float @llvm.fmuladd.f32(float %27, float %47, float %80)
+  %82 = fmul float %20, %78
+  %83 = tail call float @llvm.fmuladd.f32(float %15, float %75, float %82)
+  %84 = tail call float @llvm.fmuladd.f32(float %25, float %81, float %83)
+  %85 = fmul float %84, %84
+  %86 = fcmp olt float %85, 0x3E45798EC0000000
+  br i1 %86, label %102, label %87
 
-185:                                              ; preds = %181
-  %186 = icmp eq i32 %108, 0
-  br i1 %186, label %216, label %187
+87:                                               ; preds = %71
+  %88 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %89 = load float, ptr %88, align 4, !tbaa !21
+  %90 = fsub float %89, %24
+  %91 = load float, ptr %1, align 4, !tbaa !21
+  %92 = fsub float %91, %14
+  %93 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %94 = load float, ptr %93, align 4, !tbaa !21
+  %95 = fsub float %94, %19
+  %96 = fmul float %78, %95
+  %97 = tail call float @llvm.fmuladd.f32(float %92, float %75, float %96)
+  %98 = tail call float @llvm.fmuladd.f32(float %90, float %81, float %97)
+  %99 = fmul float %84, %98
+  %100 = fcmp olt float %99, 0.000000e+00
+  %101 = zext i1 %100 to i32
+  br label %102
 
-187:                                              ; preds = %185
-  %188 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPointTriangleERK9btVector3S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) %2, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(37) %8)
-  %189 = load <2 x float>, ptr %8, align 8
-  %190 = getelementptr inbounds i8, ptr %8, i64 8
-  %191 = load float, ptr %190, align 8, !tbaa.struct !23
-  %192 = extractelement <2 x float> %189, i64 0
-  %193 = fsub float %192, %54
-  %194 = extractelement <2 x float> %189, i64 1
-  %195 = fsub float %194, %56
-  %196 = fsub float %191, %85
-  %197 = fmul float %195, %195
-  %198 = tail call float @llvm.fmuladd.f32(float %193, float %193, float %197)
-  %199 = tail call float @llvm.fmuladd.f32(float %196, float %196, float %198)
-  %200 = fcmp olt float %199, 0x47EFFFFFE0000000
-  br i1 %200, label %201, label %216
+102:                                              ; preds = %71, %87
+  %103 = phi i32 [ %101, %87 ], [ -1, %71 ]
+  %104 = fneg float %50
+  %105 = fmul float %20, %104
+  %106 = tail call float @llvm.fmuladd.f32(float %47, float %25, float %105)
+  %107 = fneg float %44
+  %108 = fmul float %25, %107
+  %109 = tail call float @llvm.fmuladd.f32(float %50, float %15, float %108)
+  %110 = fneg float %47
+  %111 = fmul float %15, %110
+  %112 = tail call float @llvm.fmuladd.f32(float %44, float %20, float %111)
+  %113 = fmul float %30, %109
+  %114 = tail call float @llvm.fmuladd.f32(float %27, float %106, float %113)
+  %115 = tail call float @llvm.fmuladd.f32(float %33, float %112, float %114)
+  %116 = fmul float %115, %115
+  %117 = fcmp olt float %116, 0x3E45798EC0000000
+  br i1 %117, label %133, label %118
 
-201:                                              ; preds = %187
-  %202 = getelementptr inbounds i8, ptr %8, i64 12
-  %203 = load float, ptr %202, align 4, !tbaa.struct !26
-  store <2 x float> %189, ptr %6, align 4
-  %204 = getelementptr inbounds i8, ptr %6, i64 8
-  store float %191, ptr %204, align 4, !tbaa.struct !23
-  %205 = getelementptr inbounds i8, ptr %6, i64 12
-  store float %203, ptr %205, align 4, !tbaa.struct !26
-  %206 = load i8, ptr %9, align 8
-  %207 = and i8 %206, 7
-  %208 = or i8 %207, %12
-  store i8 %208, ptr %10, align 4
-  %209 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3
-  %210 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 2
-  %211 = load float, ptr %210, align 4, !tbaa !21
-  %212 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3
-  %213 = load <2 x float>, ptr %209, align 4, !tbaa !21
-  store <2 x float> %213, ptr %212, align 4, !tbaa !21
-  %214 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 2
-  store float %211, ptr %214, align 4, !tbaa !21
-  %215 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 3
-  store float 0.000000e+00, ptr %215, align 4, !tbaa !21
-  br label %216
+118:                                              ; preds = %102
+  %119 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %120 = load float, ptr %119, align 4, !tbaa !21
+  %121 = fsub float %120, %24
+  %122 = load float, ptr %1, align 4, !tbaa !21
+  %123 = fsub float %122, %14
+  %124 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %125 = load float, ptr %124, align 4, !tbaa !21
+  %126 = fsub float %125, %19
+  %127 = fmul float %109, %126
+  %128 = tail call float @llvm.fmuladd.f32(float %123, float %106, float %127)
+  %129 = tail call float @llvm.fmuladd.f32(float %121, float %112, float %128)
+  %130 = fmul float %115, %129
+  %131 = fcmp olt float %130, 0.000000e+00
+  %132 = zext i1 %131 to i32
+  br label %133
 
-216:                                              ; preds = %187, %201, %185
-  %217 = phi float [ 0x47EFFFFFE0000000, %185 ], [ %199, %201 ], [ 0x47EFFFFFE0000000, %187 ]
-  %218 = extractelement <2 x i1> %182, i64 1
-  br i1 %218, label %256, label %219
+133:                                              ; preds = %102, %118
+  %134 = phi i32 [ %132, %118 ], [ -1, %102 ]
+  %135 = fsub float %43, %13
+  %136 = fsub float %46, %17
+  %137 = fsub float %49, %22
+  %138 = fsub float %26, %13
+  %139 = fsub float %29, %17
+  %140 = fsub float %32, %22
+  %141 = fneg float %137
+  %142 = fmul float %139, %141
+  %143 = tail call float @llvm.fmuladd.f32(float %136, float %140, float %142)
+  %144 = fneg float %135
+  %145 = fmul float %140, %144
+  %146 = tail call float @llvm.fmuladd.f32(float %137, float %138, float %145)
+  %147 = fneg float %136
+  %148 = fmul float %138, %147
+  %149 = tail call float @llvm.fmuladd.f32(float %135, float %139, float %148)
+  %150 = fsub float %14, %13
+  %151 = fsub float %19, %17
+  %152 = fsub float %24, %22
+  %153 = fmul float %151, %146
+  %154 = tail call float @llvm.fmuladd.f32(float %150, float %143, float %153)
+  %155 = tail call float @llvm.fmuladd.f32(float %152, float %149, float %154)
+  %156 = fmul float %155, %155
+  %157 = fcmp olt float %156, 0x3E45798EC0000000
+  br i1 %157, label %173, label %158
 
-219:                                              ; preds = %216
-  %220 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPointTriangleERK9btVector3S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) %2, ptr noundef nonnull align 4 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(37) %8)
-  %221 = load <2 x float>, ptr %8, align 8
-  %222 = getelementptr inbounds i8, ptr %8, i64 8
-  %223 = load float, ptr %222, align 8, !tbaa.struct !23
-  %224 = load float, ptr %1, align 4, !tbaa !21
-  %225 = extractelement <2 x float> %221, i64 0
-  %226 = fsub float %225, %224
-  %227 = load float, ptr %22, align 4, !tbaa !21
-  %228 = extractelement <2 x float> %221, i64 1
-  %229 = fsub float %228, %227
-  %230 = load float, ptr %23, align 4, !tbaa !21
-  %231 = fsub float %223, %230
-  %232 = fmul float %229, %229
-  %233 = tail call float @llvm.fmuladd.f32(float %226, float %226, float %232)
-  %234 = tail call float @llvm.fmuladd.f32(float %231, float %231, float %233)
-  %235 = fcmp olt float %234, %217
-  br i1 %235, label %236, label %256
+158:                                              ; preds = %133
+  %159 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %160 = load float, ptr %159, align 4, !tbaa !21
+  %161 = fsub float %160, %22
+  %162 = load float, ptr %1, align 4, !tbaa !21
+  %163 = fsub float %162, %13
+  %164 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %165 = load float, ptr %164, align 4, !tbaa !21
+  %166 = fsub float %165, %17
+  %167 = fmul float %146, %166
+  %168 = tail call float @llvm.fmuladd.f32(float %163, float %143, float %167)
+  %169 = tail call float @llvm.fmuladd.f32(float %161, float %149, float %168)
+  %170 = fmul float %155, %169
+  %171 = fcmp olt float %170, 0.000000e+00
+  %172 = zext i1 %171 to i32
+  br label %173
 
-236:                                              ; preds = %219
-  %237 = getelementptr inbounds i8, ptr %8, i64 12
-  %238 = load float, ptr %237, align 4, !tbaa.struct !26
-  store <2 x float> %221, ptr %6, align 4
-  %239 = getelementptr inbounds i8, ptr %6, i64 8
-  store float %223, ptr %239, align 4, !tbaa.struct !23
-  %240 = getelementptr inbounds i8, ptr %6, i64 12
-  store float %238, ptr %240, align 4, !tbaa.struct !26
-  %241 = load i8, ptr %10, align 4
-  %242 = and i8 %241, -16
-  %243 = load i8, ptr %9, align 8
-  %244 = and i8 %243, 1
-  %245 = shl i8 %243, 1
-  %246 = and i8 %245, 12
-  %247 = or i8 %244, %246
-  %248 = or i8 %247, %242
-  store i8 %248, ptr %10, align 4
-  %249 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3
-  %250 = load float, ptr %249, align 4, !tbaa !21
-  %251 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 1
-  %252 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3
-  store float %250, ptr %252, align 4, !tbaa !21
-  %253 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 1
-  store float 0.000000e+00, ptr %253, align 4, !tbaa !21
-  %254 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 2
-  %255 = load <2 x float>, ptr %251, align 8, !tbaa !21
-  store <2 x float> %255, ptr %254, align 4, !tbaa !21
-  br label %256
+173:                                              ; preds = %133, %158
+  %174 = phi i32 [ %172, %158 ], [ -1, %133 ]
+  %175 = icmp slt i32 %72, 0
+  %176 = icmp slt i32 %103, 0
+  %177 = select i1 %175, i1 true, i1 %176
+  %178 = icmp slt i32 %134, 0
+  %179 = select i1 %177, i1 true, i1 %178
+  %180 = icmp slt i32 %174, 0
+  %181 = select i1 %179, i1 true, i1 %180
+  br i1 %181, label %182, label %184
 
-256:                                              ; preds = %219, %236, %216
-  %257 = phi float [ %217, %216 ], [ %234, %236 ], [ %217, %219 ]
-  %258 = extractelement <2 x i1> %182, i64 0
-  br i1 %258, label %302, label %259
+182:                                              ; preds = %173
+  %183 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 4
+  store i8 1, ptr %183, align 4, !tbaa !25
+  br label %361
 
-259:                                              ; preds = %256
-  %260 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPointTriangleERK9btVector3S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) %2, ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(37) %8)
-  %261 = load <2 x float>, ptr %8, align 8
-  %262 = getelementptr inbounds i8, ptr %8, i64 8
-  %263 = load float, ptr %262, align 8, !tbaa.struct !23
-  %264 = load float, ptr %1, align 4, !tbaa !21
-  %265 = extractelement <2 x float> %261, i64 0
-  %266 = fsub float %265, %264
-  %267 = load float, ptr %22, align 4, !tbaa !21
-  %268 = extractelement <2 x float> %261, i64 1
-  %269 = fsub float %268, %267
-  %270 = load float, ptr %23, align 4, !tbaa !21
-  %271 = fsub float %263, %270
-  %272 = fmul float %269, %269
-  %273 = tail call float @llvm.fmuladd.f32(float %266, float %266, float %272)
-  %274 = tail call float @llvm.fmuladd.f32(float %271, float %271, float %273)
-  %275 = fcmp olt float %274, %257
-  br i1 %275, label %276, label %302
+184:                                              ; preds = %173
+  %185 = icmp ne i32 %72, 0
+  %186 = icmp ne i32 %103, 0
+  %187 = select i1 %185, i1 true, i1 %186
+  %188 = icmp ne i32 %134, 0
+  %189 = select i1 %187, i1 true, i1 %188
+  %190 = icmp ne i32 %174, 0
+  %191 = select i1 %189, i1 true, i1 %190
+  br i1 %191, label %192, label %361
 
-276:                                              ; preds = %259
-  %277 = getelementptr inbounds i8, ptr %8, i64 12
-  %278 = load float, ptr %277, align 4, !tbaa.struct !26
-  store <2 x float> %261, ptr %6, align 4
-  %279 = getelementptr inbounds i8, ptr %6, i64 8
-  store float %263, ptr %279, align 4, !tbaa.struct !23
-  %280 = getelementptr inbounds i8, ptr %6, i64 12
-  store float %278, ptr %280, align 4, !tbaa.struct !26
-  %281 = load i8, ptr %10, align 4
-  %282 = and i8 %281, -16
-  %283 = load i8, ptr %9, align 8
-  %284 = and i8 %283, 1
-  %285 = lshr i8 %283, 1
-  %286 = and i8 %285, 2
-  %287 = shl i8 %283, 2
-  %288 = and i8 %287, 8
-  %289 = or i8 %284, %286
-  %290 = or i8 %289, %288
-  %291 = or i8 %290, %282
-  store i8 %291, ptr %10, align 4
-  %292 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3
-  %293 = load float, ptr %292, align 4, !tbaa !21
-  %294 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 2
-  %295 = load float, ptr %294, align 4, !tbaa !21
-  %296 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 1
-  %297 = load float, ptr %296, align 8, !tbaa !21
-  %298 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3
-  store float %293, ptr %298, align 4, !tbaa !21
-  %299 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 1
-  store float %295, ptr %299, align 4, !tbaa !21
-  %300 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 2
-  store float 0.000000e+00, ptr %300, align 4, !tbaa !21
-  %301 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 3
-  store float %297, ptr %301, align 4, !tbaa !21
-  br label %302
+192:                                              ; preds = %184
+  br i1 %185, label %193, label %228
 
-302:                                              ; preds = %259, %276, %256
-  %303 = phi float [ %257, %256 ], [ %274, %276 ], [ %257, %259 ]
-  br i1 %183, label %345, label %304
+193:                                              ; preds = %192
+  %194 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPointTriangleERK9btVector3S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) %2, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(37) %8)
+  %195 = load <2 x float>, ptr %8, align 8
+  %196 = getelementptr inbounds i8, ptr %8, i64 8
+  %197 = load float, ptr %196, align 8, !tbaa.struct !23
+  %198 = load float, ptr %1, align 4, !tbaa !21
+  %199 = extractelement <2 x float> %195, i64 0
+  %200 = fsub float %199, %198
+  %201 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %202 = load float, ptr %201, align 4, !tbaa !21
+  %203 = extractelement <2 x float> %195, i64 1
+  %204 = fsub float %203, %202
+  %205 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %206 = load float, ptr %205, align 4, !tbaa !21
+  %207 = fsub float %197, %206
+  %208 = fmul float %204, %204
+  %209 = tail call float @llvm.fmuladd.f32(float %200, float %200, float %208)
+  %210 = tail call float @llvm.fmuladd.f32(float %207, float %207, float %209)
+  %211 = fcmp olt float %210, 0x47EFFFFFE0000000
+  br i1 %211, label %212, label %228
 
-304:                                              ; preds = %302
-  %305 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPointTriangleERK9btVector3S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(37) %8)
-  %306 = load <2 x float>, ptr %8, align 8
-  %307 = getelementptr inbounds i8, ptr %8, i64 8
-  %308 = load float, ptr %307, align 8, !tbaa.struct !23
-  %309 = load float, ptr %1, align 4, !tbaa !21
-  %310 = extractelement <2 x float> %306, i64 0
-  %311 = fsub float %310, %309
-  %312 = load float, ptr %22, align 4, !tbaa !21
-  %313 = extractelement <2 x float> %306, i64 1
-  %314 = fsub float %313, %312
-  %315 = load float, ptr %23, align 4, !tbaa !21
-  %316 = fsub float %308, %315
-  %317 = fmul float %314, %314
-  %318 = tail call float @llvm.fmuladd.f32(float %311, float %311, float %317)
-  %319 = tail call float @llvm.fmuladd.f32(float %316, float %316, float %318)
-  %320 = fcmp olt float %319, %303
-  br i1 %320, label %321, label %345
+212:                                              ; preds = %193
+  %213 = getelementptr inbounds i8, ptr %8, i64 12
+  %214 = load float, ptr %213, align 4, !tbaa.struct !26
+  store <2 x float> %195, ptr %6, align 4
+  %215 = getelementptr inbounds i8, ptr %6, i64 8
+  store float %197, ptr %215, align 4, !tbaa.struct !23
+  %216 = getelementptr inbounds i8, ptr %6, i64 12
+  store float %214, ptr %216, align 4, !tbaa.struct !26
+  %217 = and i8 %11, -16
+  %218 = load i8, ptr %9, align 8
+  %219 = and i8 %218, 7
+  %220 = or i8 %219, %217
+  store i8 %220, ptr %10, align 4
+  %221 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3
+  %222 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 2
+  %223 = load float, ptr %222, align 4, !tbaa !21
+  %224 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3
+  %225 = load <2 x float>, ptr %221, align 4, !tbaa !21
+  store <2 x float> %225, ptr %224, align 4, !tbaa !21
+  %226 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 2
+  store float %223, ptr %226, align 4, !tbaa !21
+  %227 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 3
+  store float 0.000000e+00, ptr %227, align 4, !tbaa !21
+  br label %228
 
-321:                                              ; preds = %304
-  %322 = getelementptr inbounds i8, ptr %8, i64 12
-  %323 = load float, ptr %322, align 4, !tbaa.struct !26
-  store <2 x float> %306, ptr %6, align 4
-  %324 = getelementptr inbounds i8, ptr %6, i64 8
-  store float %308, ptr %324, align 4, !tbaa.struct !23
-  %325 = getelementptr inbounds i8, ptr %6, i64 12
-  store float %323, ptr %325, align 4, !tbaa.struct !26
-  %326 = load i8, ptr %10, align 4
-  %327 = and i8 %326, -16
-  %328 = load i8, ptr %9, align 8
-  %329 = shl i8 %328, 1
-  %330 = and i8 %329, 2
-  %331 = and i8 %328, 4
-  %332 = shl i8 %328, 2
-  %333 = and i8 %332, 8
-  %334 = or i8 %331, %330
-  %335 = or i8 %334, %333
-  %336 = or i8 %335, %327
-  store i8 %336, ptr %10, align 4
-  %337 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3
-  %338 = load float, ptr %337, align 4, !tbaa !21
-  %339 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 1
-  %340 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3
-  store float 0.000000e+00, ptr %340, align 4, !tbaa !21
-  %341 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 1
-  store float %338, ptr %341, align 4, !tbaa !21
-  %342 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 2
-  %343 = load <2 x float>, ptr %339, align 8, !tbaa !21
-  %344 = shufflevector <2 x float> %343, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  store <2 x float> %344, ptr %342, align 4, !tbaa !21
-  br label %345
+228:                                              ; preds = %193, %212, %192
+  %229 = phi i8 [ %12, %192 ], [ %220, %212 ], [ %12, %193 ]
+  %230 = phi float [ 0x47EFFFFFE0000000, %192 ], [ %210, %212 ], [ 0x47EFFFFFE0000000, %193 ]
+  br i1 %186, label %231, label %269
 
-345:                                              ; preds = %302, %321, %304, %181, %179
-  %346 = phi i1 [ false, %179 ], [ false, %181 ], [ true, %304 ], [ true, %321 ], [ true, %302 ]
+231:                                              ; preds = %228
+  %232 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPointTriangleERK9btVector3S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) %2, ptr noundef nonnull align 4 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(37) %8)
+  %233 = load <2 x float>, ptr %8, align 8
+  %234 = getelementptr inbounds i8, ptr %8, i64 8
+  %235 = load float, ptr %234, align 8, !tbaa.struct !23
+  %236 = load float, ptr %1, align 4, !tbaa !21
+  %237 = extractelement <2 x float> %233, i64 0
+  %238 = fsub float %237, %236
+  %239 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %240 = load float, ptr %239, align 4, !tbaa !21
+  %241 = extractelement <2 x float> %233, i64 1
+  %242 = fsub float %241, %240
+  %243 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %244 = load float, ptr %243, align 4, !tbaa !21
+  %245 = fsub float %235, %244
+  %246 = fmul float %242, %242
+  %247 = tail call float @llvm.fmuladd.f32(float %238, float %238, float %246)
+  %248 = tail call float @llvm.fmuladd.f32(float %245, float %245, float %247)
+  %249 = fcmp olt float %248, %230
+  br i1 %249, label %250, label %269
+
+250:                                              ; preds = %231
+  %251 = getelementptr inbounds i8, ptr %8, i64 12
+  %252 = load float, ptr %251, align 4, !tbaa.struct !26
+  store <2 x float> %233, ptr %6, align 4
+  %253 = getelementptr inbounds i8, ptr %6, i64 8
+  store float %235, ptr %253, align 4, !tbaa.struct !23
+  %254 = getelementptr inbounds i8, ptr %6, i64 12
+  store float %252, ptr %254, align 4, !tbaa.struct !26
+  %255 = and i8 %229, -16
+  %256 = load i8, ptr %9, align 8
+  %257 = and i8 %256, 1
+  %258 = shl i8 %256, 1
+  %259 = and i8 %258, 12
+  %260 = or i8 %257, %259
+  %261 = or i8 %260, %255
+  store i8 %261, ptr %10, align 4
+  %262 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3
+  %263 = load float, ptr %262, align 4, !tbaa !21
+  %264 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 1
+  %265 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3
+  store float %263, ptr %265, align 4, !tbaa !21
+  %266 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 1
+  store float 0.000000e+00, ptr %266, align 4, !tbaa !21
+  %267 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 2
+  %268 = load <2 x float>, ptr %264, align 8, !tbaa !21
+  store <2 x float> %268, ptr %267, align 4, !tbaa !21
+  br label %269
+
+269:                                              ; preds = %231, %250, %228
+  %270 = phi i8 [ %229, %228 ], [ %261, %250 ], [ %229, %231 ]
+  %271 = phi float [ %230, %228 ], [ %248, %250 ], [ %230, %231 ]
+  br i1 %188, label %272, label %316
+
+272:                                              ; preds = %269
+  %273 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPointTriangleERK9btVector3S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) %2, ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(37) %8)
+  %274 = load <2 x float>, ptr %8, align 8
+  %275 = getelementptr inbounds i8, ptr %8, i64 8
+  %276 = load float, ptr %275, align 8, !tbaa.struct !23
+  %277 = load float, ptr %1, align 4, !tbaa !21
+  %278 = extractelement <2 x float> %274, i64 0
+  %279 = fsub float %278, %277
+  %280 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %281 = load float, ptr %280, align 4, !tbaa !21
+  %282 = extractelement <2 x float> %274, i64 1
+  %283 = fsub float %282, %281
+  %284 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %285 = load float, ptr %284, align 4, !tbaa !21
+  %286 = fsub float %276, %285
+  %287 = fmul float %283, %283
+  %288 = tail call float @llvm.fmuladd.f32(float %279, float %279, float %287)
+  %289 = tail call float @llvm.fmuladd.f32(float %286, float %286, float %288)
+  %290 = fcmp olt float %289, %271
+  br i1 %290, label %291, label %316
+
+291:                                              ; preds = %272
+  %292 = getelementptr inbounds i8, ptr %8, i64 12
+  %293 = load float, ptr %292, align 4, !tbaa.struct !26
+  store <2 x float> %274, ptr %6, align 4
+  %294 = getelementptr inbounds i8, ptr %6, i64 8
+  store float %276, ptr %294, align 4, !tbaa.struct !23
+  %295 = getelementptr inbounds i8, ptr %6, i64 12
+  store float %293, ptr %295, align 4, !tbaa.struct !26
+  %296 = and i8 %270, -16
+  %297 = load i8, ptr %9, align 8
+  %298 = and i8 %297, 1
+  %299 = lshr i8 %297, 1
+  %300 = and i8 %299, 2
+  %301 = shl i8 %297, 2
+  %302 = and i8 %301, 8
+  %303 = or i8 %298, %300
+  %304 = or i8 %303, %302
+  %305 = or i8 %304, %296
+  store i8 %305, ptr %10, align 4
+  %306 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3
+  %307 = load float, ptr %306, align 4, !tbaa !21
+  %308 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 2
+  %309 = load float, ptr %308, align 4, !tbaa !21
+  %310 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 1
+  %311 = load float, ptr %310, align 8, !tbaa !21
+  %312 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3
+  store float %307, ptr %312, align 4, !tbaa !21
+  %313 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 1
+  store float %309, ptr %313, align 4, !tbaa !21
+  %314 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 2
+  store float 0.000000e+00, ptr %314, align 4, !tbaa !21
+  %315 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 3
+  store float %311, ptr %315, align 4, !tbaa !21
+  br label %316
+
+316:                                              ; preds = %272, %291, %269
+  %317 = phi i8 [ %270, %269 ], [ %305, %291 ], [ %270, %272 ]
+  %318 = phi float [ %271, %269 ], [ %289, %291 ], [ %271, %272 ]
+  br i1 %190, label %319, label %361
+
+319:                                              ; preds = %316
+  %320 = call noundef zeroext i1 @_ZN22btVoronoiSimplexSolver22closestPtPointTriangleERK9btVector3S2_S2_S2_R25btSubSimplexClosestResult(ptr nonnull align 4 poison, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) %3, ptr noundef nonnull align 4 dereferenceable(16) %5, ptr noundef nonnull align 4 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(37) %8)
+  %321 = load <2 x float>, ptr %8, align 8
+  %322 = getelementptr inbounds i8, ptr %8, i64 8
+  %323 = load float, ptr %322, align 8, !tbaa.struct !23
+  %324 = load float, ptr %1, align 4, !tbaa !21
+  %325 = extractelement <2 x float> %321, i64 0
+  %326 = fsub float %325, %324
+  %327 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %328 = load float, ptr %327, align 4, !tbaa !21
+  %329 = extractelement <2 x float> %321, i64 1
+  %330 = fsub float %329, %328
+  %331 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %332 = load float, ptr %331, align 4, !tbaa !21
+  %333 = fsub float %323, %332
+  %334 = fmul float %330, %330
+  %335 = tail call float @llvm.fmuladd.f32(float %326, float %326, float %334)
+  %336 = tail call float @llvm.fmuladd.f32(float %333, float %333, float %335)
+  %337 = fcmp olt float %336, %318
+  br i1 %337, label %338, label %361
+
+338:                                              ; preds = %319
+  %339 = getelementptr inbounds i8, ptr %8, i64 12
+  %340 = load float, ptr %339, align 4, !tbaa.struct !26
+  store <2 x float> %321, ptr %6, align 4
+  %341 = getelementptr inbounds i8, ptr %6, i64 8
+  store float %323, ptr %341, align 4, !tbaa.struct !23
+  %342 = getelementptr inbounds i8, ptr %6, i64 12
+  store float %340, ptr %342, align 4, !tbaa.struct !26
+  %343 = and i8 %317, -16
+  %344 = load i8, ptr %9, align 8
+  %345 = shl i8 %344, 1
+  %346 = and i8 %345, 2
+  %347 = and i8 %344, 4
+  %348 = shl i8 %344, 2
+  %349 = and i8 %348, 8
+  %350 = or i8 %347, %346
+  %351 = or i8 %350, %349
+  %352 = or i8 %351, %343
+  store i8 %352, ptr %10, align 4
+  %353 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3
+  %354 = load float, ptr %353, align 4, !tbaa !21
+  %355 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %8, i64 0, i32 3, i64 1
+  %356 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3
+  store float 0.000000e+00, ptr %356, align 4, !tbaa !21
+  %357 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 1
+  store float %354, ptr %357, align 4, !tbaa !21
+  %358 = getelementptr inbounds %struct.btSubSimplexClosestResult, ptr %6, i64 0, i32 3, i64 2
+  %359 = load <2 x float>, ptr %355, align 8, !tbaa !21
+  %360 = shufflevector <2 x float> %359, <2 x float> poison, <2 x i32> <i32 1, i32 0>
+  store <2 x float> %360, ptr %358, align 4, !tbaa !21
+  br label %361
+
+361:                                              ; preds = %316, %338, %319, %184, %182
+  %362 = phi i1 [ false, %182 ], [ false, %184 ], [ true, %319 ], [ true, %338 ], [ true, %316 ]
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %8) #12
-  ret i1 %346
+  ret i1 %362
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
@@ -1708,13 +1680,15 @@ define dso_local noundef zeroext i1 @_ZN22btVoronoiSimplexSolver9inSimplexERK9bt
   %57 = load float, ptr %1, align 4, !tbaa !21
   %58 = load float, ptr %40, align 4, !tbaa !21
   %59 = fcmp oeq float %57, %58
-  br label %60
+  br i1 %59, label %63, label %60
 
-60:                                               ; preds = %38, %44, %50, %56
-  %61 = phi i1 [ false, %50 ], [ false, %44 ], [ false, %38 ], [ %59, %56 ]
-  %62 = and i8 %39, 1
-  %63 = icmp ne i8 %62, 0
-  %64 = select i1 %61, i1 true, i1 %63
+60:                                               ; preds = %50, %44, %38, %56
+  %61 = and i8 %39, 1
+  %62 = icmp ne i8 %61, 0
+  br label %63
+
+63:                                               ; preds = %56, %60
+  %64 = phi i1 [ %62, %60 ], [ true, %56 ]
   ret i1 %64
 }
 
@@ -1777,45 +1751,41 @@ define dso_local noundef i32 @_ZN22btVoronoiSimplexSolver19pointOutsideOfPlaneER
   %34 = fneg float %14
   %35 = fmul float %21, %34
   %36 = tail call float @llvm.fmuladd.f32(float %9, float %24, float %35)
-  %37 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 1
-  %38 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 2
-  %39 = load <4 x float>, ptr %1, align 4
-  %40 = shufflevector <4 x float> %39, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %41 = shufflevector <4 x float> %39, <4 x float> poison, <2 x i32> <i32 1, i32 undef>
-  %42 = shufflevector <4 x float> %39, <4 x float> poison, <2 x i32> <i32 2, i32 undef>
-  %43 = load float, ptr %5, align 4, !tbaa !21
-  %44 = insertelement <2 x float> %40, float %43, i64 1
-  %45 = insertelement <2 x float> poison, float %8, i64 0
-  %46 = shufflevector <2 x float> %45, <2 x float> poison, <2 x i32> zeroinitializer
-  %47 = fsub <2 x float> %44, %46
-  %48 = load float, ptr %37, align 4, !tbaa !21
-  %49 = insertelement <2 x float> %41, float %48, i64 1
-  %50 = insertelement <2 x float> poison, float %13, i64 0
-  %51 = shufflevector <2 x float> %50, <2 x float> poison, <2 x i32> zeroinitializer
-  %52 = fsub <2 x float> %49, %51
-  %53 = load float, ptr %38, align 4, !tbaa !21
-  %54 = insertelement <2 x float> %42, float %53, i64 1
-  %55 = insertelement <2 x float> poison, float %18, i64 0
-  %56 = shufflevector <2 x float> %55, <2 x float> poison, <2 x i32> zeroinitializer
-  %57 = fsub <2 x float> %54, %56
-  %58 = insertelement <2 x float> poison, float %33, i64 0
-  %59 = shufflevector <2 x float> %58, <2 x float> poison, <2 x i32> zeroinitializer
-  %60 = fmul <2 x float> %52, %59
-  %61 = insertelement <2 x float> poison, float %30, i64 0
-  %62 = shufflevector <2 x float> %61, <2 x float> poison, <2 x i32> zeroinitializer
-  %63 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %47, <2 x float> %62, <2 x float> %60)
-  %64 = insertelement <2 x float> poison, float %36, i64 0
-  %65 = shufflevector <2 x float> %64, <2 x float> poison, <2 x i32> zeroinitializer
-  %66 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %57, <2 x float> %65, <2 x float> %63)
-  %67 = extractelement <2 x float> %66, i64 1
-  %68 = fmul float %67, %67
-  %69 = fcmp olt float %68, 0x3E45798EC0000000
-  %70 = extractelement <2 x float> %66, i64 0
-  %71 = fmul float %70, %67
-  %72 = fcmp olt float %71, 0.000000e+00
-  %73 = zext i1 %72 to i32
-  %74 = select i1 %69, i32 -1, i32 %73
-  ret i32 %74
+  %37 = load float, ptr %5, align 4, !tbaa !21
+  %38 = fsub float %37, %8
+  %39 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 1
+  %40 = load float, ptr %39, align 4, !tbaa !21
+  %41 = fsub float %40, %13
+  %42 = getelementptr inbounds [4 x float], ptr %5, i64 0, i64 2
+  %43 = load float, ptr %42, align 4, !tbaa !21
+  %44 = fsub float %43, %18
+  %45 = fmul float %41, %33
+  %46 = tail call float @llvm.fmuladd.f32(float %38, float %30, float %45)
+  %47 = tail call float @llvm.fmuladd.f32(float %44, float %36, float %46)
+  %48 = fmul float %47, %47
+  %49 = fcmp olt float %48, 0x3E45798EC0000000
+  br i1 %49, label %65, label %50
+
+50:                                               ; preds = %6
+  %51 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %52 = load float, ptr %51, align 4, !tbaa !21
+  %53 = fsub float %52, %18
+  %54 = load float, ptr %1, align 4, !tbaa !21
+  %55 = fsub float %54, %8
+  %56 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %57 = load float, ptr %56, align 4, !tbaa !21
+  %58 = fsub float %57, %13
+  %59 = fmul float %33, %58
+  %60 = tail call float @llvm.fmuladd.f32(float %55, float %30, float %59)
+  %61 = tail call float @llvm.fmuladd.f32(float %53, float %36, float %60)
+  %62 = fmul float %47, %61
+  %63 = fcmp olt float %62, 0.000000e+00
+  %64 = zext i1 %63 to i32
+  br label %65
+
+65:                                               ; preds = %6, %50
+  %66 = phi i32 [ %64, %50 ], [ -1, %6 ]
+  ret i32 %66
 }
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)

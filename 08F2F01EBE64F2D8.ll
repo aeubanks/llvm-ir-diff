@@ -17,7 +17,7 @@ $_ZTI13TestException = comdat any
 define dso_local void @_Z3thri(i32 %0) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
   store i8 1, ptr @thrown, align 1, !tbaa !5
   %2 = tail call ptr @__cxa_allocate_exception(i64 1) #5
-  tail call void @__cxa_throw(ptr nonnull %2, ptr nonnull @_ZTI13TestException, ptr null) #6
+  tail call void @__cxa_throw(ptr %2, ptr nonnull @_ZTI13TestException, ptr null) #6
   unreachable
 }
 

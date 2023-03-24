@@ -2598,7 +2598,7 @@ define dso_local void @_ZN5State11fill_circleEddd(ptr nocapture noundef nonnull 
   %66 = load ptr, ptr %10, align 8, !tbaa !62
   %67 = load ptr, ptr %11, align 8, !tbaa !62
   %68 = load ptr, ptr %12, align 8, !tbaa !62
-  invoke void @KDTree_QueryCircleInterior_Double(ptr noundef nonnull %62, ptr noundef nonnull %5, ptr noundef nonnull %59, double noundef %1, i32 noundef %64, ptr noundef nonnull %65, ptr noundef nonnull %66, ptr noundef nonnull %67, ptr noundef nonnull %68)
+  invoke void @KDTree_QueryCircleInterior_Double(ptr noundef nonnull %62, ptr noundef nonnull %5, ptr noundef %59, double noundef %1, i32 noundef %64, ptr noundef %65, ptr noundef %66, ptr noundef %67, ptr noundef %68)
           to label %69 unwind label %116
 
 69:                                               ; preds = %58
@@ -2645,7 +2645,7 @@ define dso_local void @_ZN5State11fill_circleEddd(ptr nocapture noundef nonnull 
   %99 = load ptr, ptr %10, align 8, !tbaa !62
   %100 = load ptr, ptr %11, align 8, !tbaa !62
   %101 = load ptr, ptr %12, align 8, !tbaa !62
-  invoke void @KDTree_QueryCircleIntersectWeighted_Double(ptr noundef nonnull %95, ptr noundef nonnull %5, ptr noundef nonnull %59, ptr noundef nonnull %60, double noundef %1, i32 noundef %97, ptr noundef nonnull %98, ptr noundef nonnull %99, ptr noundef nonnull %100, ptr noundef nonnull %101)
+  invoke void @KDTree_QueryCircleIntersectWeighted_Double(ptr noundef nonnull %95, ptr noundef nonnull %5, ptr noundef %59, ptr noundef %60, double noundef %1, i32 noundef %97, ptr noundef %98, ptr noundef %99, ptr noundef %100, ptr noundef %101)
           to label %102 unwind label %116
 
 102:                                              ; preds = %93
@@ -2793,7 +2793,7 @@ define dso_local void @_ZN5State11fill_circleEddd(ptr nocapture noundef nonnull 
   br label %195
 
 195:                                              ; preds = %192, %190
-  %196 = phi { ptr, i32 } [ %117, %190 ], [ %193, %192 ]
+  %196 = phi { ptr, i32 } [ %193, %192 ], [ %117, %190 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #24
   resume { ptr, i32 } %196
 }
@@ -2827,17 +2827,17 @@ define dso_local void @_ZN5State13state_reorderESt6vectorIiSaIiEE(ptr noundef no
   %3 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 3
   %4 = load ptr, ptr %3, align 8, !tbaa !47
   %5 = load ptr, ptr %1, align 8, !tbaa !59
-  %6 = tail call noundef ptr @_ZN10MallocPlus14memory_reorderEPdPi(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef %4, ptr noundef nonnull %5)
+  %6 = tail call noundef ptr @_ZN10MallocPlus14memory_reorderEPdPi(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef %4, ptr noundef %5)
   store ptr %6, ptr %3, align 8, !tbaa !47
   %7 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 4
   %8 = load ptr, ptr %7, align 8, !tbaa !48
   %9 = load ptr, ptr %1, align 8, !tbaa !59
-  %10 = tail call noundef ptr @_ZN10MallocPlus14memory_reorderEPdPi(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef %8, ptr noundef nonnull %9)
+  %10 = tail call noundef ptr @_ZN10MallocPlus14memory_reorderEPdPi(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef %8, ptr noundef %9)
   store ptr %10, ptr %7, align 8, !tbaa !48
   %11 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 5
   %12 = load ptr, ptr %11, align 8, !tbaa !49
   %13 = load ptr, ptr %1, align 8, !tbaa !59
-  %14 = tail call noundef ptr @_ZN10MallocPlus14memory_reorderEPdPi(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef %12, ptr noundef nonnull %13)
+  %14 = tail call noundef ptr @_ZN10MallocPlus14memory_reorderEPdPi(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef %12, ptr noundef %13)
   store ptr %14, ptr %11, align 8, !tbaa !49
   ret void
 }
@@ -2869,78 +2869,86 @@ define dso_local void @_ZN5State10rezone_allEiiSt6vectorIiSaIiEE(ptr noundef non
   %20 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %6, i64 0, i32 2
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %6, i8 0, i64 16, i1 false)
   store ptr %19, ptr %20, align 8, !tbaa !87
-  br label %29
+  br label %32
 
 21:                                               ; preds = %4
   %22 = icmp ugt i64 %14, 9223372036854775804
-  br i1 %22, label %23, label %24, !prof !88
+  br i1 %22, label %23, label %27, !prof !88
 
 23:                                               ; preds = %21
+  %24 = icmp slt i64 %14, 0
+  br i1 %24, label %25, label %26
+
+25:                                               ; preds = %23
   call void @_ZSt28__throw_bad_array_new_lengthv() #25
   unreachable
 
-24:                                               ; preds = %21
-  %25 = call noalias noundef nonnull ptr @_Znwm(i64 noundef %14) #26
-  store ptr %25, ptr %6, align 8, !tbaa !59
-  %26 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %6, i64 0, i32 1
-  store ptr %25, ptr %26, align 8, !tbaa !60
-  %27 = getelementptr inbounds i32, ptr %25, i64 %15
-  %28 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %6, i64 0, i32 2
-  store ptr %27, ptr %28, align 8, !tbaa !87
-  call void @llvm.memmove.p0.p0.i64(ptr nonnull align 4 %25, ptr align 4 %11, i64 %14, i1 false)
-  br label %29
+26:                                               ; preds = %23
+  call void @_ZSt17__throw_bad_allocv() #25
+  unreachable
 
-29:                                               ; preds = %17, %24
-  %30 = phi ptr [ %19, %17 ], [ %27, %24 ]
-  %31 = phi ptr [ %18, %17 ], [ %26, %24 ]
-  store ptr %30, ptr %31, align 8, !tbaa !60
+27:                                               ; preds = %21
+  %28 = call noalias noundef nonnull ptr @_Znwm(i64 noundef %14) #26
+  store ptr %28, ptr %6, align 8, !tbaa !59
+  %29 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %6, i64 0, i32 1
+  store ptr %28, ptr %29, align 8, !tbaa !60
+  %30 = getelementptr inbounds i32, ptr %28, i64 %15
+  %31 = getelementptr inbounds %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data", ptr %6, i64 0, i32 2
+  store ptr %30, ptr %31, align 8, !tbaa !87
+  call void @llvm.memmove.p0.p0.i64(ptr nonnull align 4 %28, ptr align 4 %11, i64 %14, i1 false)
+  br label %32
+
+32:                                               ; preds = %17, %27
+  %33 = phi ptr [ %19, %17 ], [ %30, %27 ]
+  %34 = phi ptr [ %18, %17 ], [ %29, %27 ]
+  store ptr %33, ptr %34, align 8, !tbaa !60
   invoke void @_ZN4Mesh10rezone_allEiiSt6vectorIiSaIiEEiR10MallocPlus(ptr noundef nonnull align 8 dereferenceable(2288) %8, i32 noundef %1, i32 noundef %2, ptr noundef nonnull %6, i32 noundef 1, ptr noundef nonnull align 8 dereferenceable(96) %0)
-          to label %32 unwind label %50
-
-32:                                               ; preds = %29
-  %33 = load ptr, ptr %6, align 8, !tbaa !59
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %36, label %35
+          to label %35 unwind label %53
 
 35:                                               ; preds = %32
-  call void @_ZdlPv(ptr noundef nonnull %33) #27
-  br label %36
+  %36 = load ptr, ptr %6, align 8, !tbaa !59
+  %37 = icmp eq ptr %36, null
+  br i1 %37, label %39, label %38
 
-36:                                               ; preds = %32, %35
-  %37 = call noundef ptr @_ZN10MallocPlus14get_memory_ptrEPKc(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef nonnull @.str)
-  %38 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 3
-  store ptr %37, ptr %38, align 8, !tbaa !47
-  %39 = call noundef ptr @_ZN10MallocPlus14get_memory_ptrEPKc(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef nonnull @.str.1)
-  %40 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 4
-  store ptr %39, ptr %40, align 8, !tbaa !48
-  %41 = call noundef ptr @_ZN10MallocPlus14get_memory_ptrEPKc(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef nonnull @.str.2)
-  %42 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 5
-  store ptr %41, ptr %42, align 8, !tbaa !49
-  %43 = load i64, ptr %5, align 8, !tbaa.struct !72
-  %44 = getelementptr inbounds i8, ptr %5, i64 8
-  %45 = load i64, ptr %44, align 8, !tbaa.struct !73
-  %46 = call double @cpu_timer_stop(i64 %43, i64 %45)
-  %47 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 6, i64 5
-  %48 = load double, ptr %47, align 8, !tbaa !70
-  %49 = fadd double %46, %48
-  store double %49, ptr %47, align 8, !tbaa !70
+38:                                               ; preds = %35
+  call void @_ZdlPv(ptr noundef nonnull %36) #27
+  br label %39
+
+39:                                               ; preds = %35, %38
+  %40 = call noundef ptr @_ZN10MallocPlus14get_memory_ptrEPKc(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef nonnull @.str)
+  %41 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 3
+  store ptr %40, ptr %41, align 8, !tbaa !47
+  %42 = call noundef ptr @_ZN10MallocPlus14get_memory_ptrEPKc(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef nonnull @.str.1)
+  %43 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 4
+  store ptr %42, ptr %43, align 8, !tbaa !48
+  %44 = call noundef ptr @_ZN10MallocPlus14get_memory_ptrEPKc(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef nonnull @.str.2)
+  %45 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 5
+  store ptr %44, ptr %45, align 8, !tbaa !49
+  %46 = load i64, ptr %5, align 8, !tbaa.struct !72
+  %47 = getelementptr inbounds i8, ptr %5, i64 8
+  %48 = load i64, ptr %47, align 8, !tbaa.struct !73
+  %49 = call double @cpu_timer_stop(i64 %46, i64 %48)
+  %50 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 6, i64 5
+  %51 = load double, ptr %50, align 8, !tbaa !70
+  %52 = fadd double %49, %51
+  store double %52, ptr %50, align 8, !tbaa !70
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #24
   ret void
 
-50:                                               ; preds = %29
-  %51 = landingpad { ptr, i32 }
+53:                                               ; preds = %32
+  %54 = landingpad { ptr, i32 }
           cleanup
-  %52 = load ptr, ptr %6, align 8, !tbaa !59
-  %53 = icmp eq ptr %52, null
-  br i1 %53, label %55, label %54
+  %55 = load ptr, ptr %6, align 8, !tbaa !59
+  %56 = icmp eq ptr %55, null
+  br i1 %56, label %58, label %57
 
-54:                                               ; preds = %50
-  call void @_ZdlPv(ptr noundef nonnull %52) #27
-  br label %55
+57:                                               ; preds = %53
+  call void @_ZdlPv(ptr noundef nonnull %55) #27
+  br label %58
 
-55:                                               ; preds = %50, %54
+58:                                               ; preds = %53, %57
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #24
-  resume { ptr, i32 } %51
+  resume { ptr, i32 } %54
 }
 
 declare void @_ZN4Mesh10rezone_allEiiSt6vectorIiSaIiEEiR10MallocPlus(ptr noundef nonnull align 8 dereferenceable(2288), i32 noundef, i32 noundef, ptr noundef, i32 noundef, ptr noundef nonnull align 8 dereferenceable(96)) local_unnamed_addr #3
@@ -3957,9 +3965,9 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %945 = fcmp olt double %941, %944
   %946 = select i1 %945, double %941, double %944
   %947 = fcmp olt double %946, 0.000000e+00
-  %948 = select i1 %947, double 0.000000e+00, double %946
-  %949 = fsub double 1.000000e+00, %948
-  %950 = fmul double %942, %949
+  %948 = fsub double 1.000000e+00, %946
+  %949 = select i1 %947, double 1.000000e+00, double %948
+  %950 = fmul double %949, %942
   %951 = fmul double %926, %950
   %952 = load i32, ptr %159, align 4, !tbaa !63
   %953 = icmp slt i32 %71, %952
@@ -4017,9 +4025,9 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %999 = fcmp olt double %995, %998
   %1000 = select i1 %999, double %995, double %998
   %1001 = fcmp olt double %1000, 0.000000e+00
-  %1002 = select i1 %1001, double 0.000000e+00, double %1000
-  %1003 = fsub double 1.000000e+00, %1002
-  %1004 = fmul double %996, %1003
+  %1002 = fsub double 1.000000e+00, %1000
+  %1003 = select i1 %1001, double 1.000000e+00, double %1002
+  %1004 = fmul double %1003, %996
   %1005 = fmul double %981, %1004
   %1006 = fadd double %951, %1005
   %1007 = fmul double %1006, 5.000000e-01
@@ -4091,8 +4099,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1067 = fcmp olt double %1063, %1066
   %1068 = select i1 %1067, double %1063, double %1066
   %1069 = fcmp olt double %1068, 0.000000e+00
-  %1070 = select i1 %1069, double 0.000000e+00, double %1068
-  %1071 = fsub double 1.000000e+00, %1070
+  %1070 = fsub double 1.000000e+00, %1068
+  %1071 = select i1 %1069, double 1.000000e+00, double %1070
   %1072 = fmul double %1064, %1071
   %1073 = fmul double %1048, %1072
   %1074 = load i32, ptr %164, align 4, !tbaa !63
@@ -4150,8 +4158,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1120 = fcmp olt double %1116, %1119
   %1121 = select i1 %1120, double %1116, double %1119
   %1122 = fcmp olt double %1121, 0.000000e+00
-  %1123 = select i1 %1122, double 0.000000e+00, double %1121
-  %1124 = fsub double 1.000000e+00, %1123
+  %1123 = fsub double 1.000000e+00, %1121
+  %1124 = select i1 %1122, double 1.000000e+00, double %1123
   %1125 = fmul double %1117, %1124
   %1126 = fmul double %1102, %1125
   %1127 = fadd double %1073, %1126
@@ -4185,8 +4193,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1153 = fcmp olt double %1149, %1152
   %1154 = select i1 %1153, double %1149, double %1152
   %1155 = fcmp olt double %1154, 0.000000e+00
-  %1156 = select i1 %1155, double 0.000000e+00, double %1154
-  %1157 = fsub double 1.000000e+00, %1156
+  %1156 = fsub double 1.000000e+00, %1154
+  %1157 = select i1 %1155, double 1.000000e+00, double %1156
   %1158 = fmul double %1157, %1150
   %1159 = fmul double %1134, %1158
   %1160 = load i32, ptr %159, align 4, !tbaa !63
@@ -4244,9 +4252,9 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1206 = fcmp olt double %1202, %1205
   %1207 = select i1 %1206, double %1202, double %1205
   %1208 = fcmp olt double %1207, 0.000000e+00
-  %1209 = select i1 %1208, double 0.000000e+00, double %1207
-  %1210 = fsub double 1.000000e+00, %1209
-  %1211 = fmul double %1203, %1210
+  %1209 = fsub double 1.000000e+00, %1207
+  %1210 = select i1 %1208, double 1.000000e+00, double %1209
+  %1211 = fmul double %1210, %1203
   %1212 = fmul double %1188, %1211
   %1213 = fadd double %1159, %1212
   %1214 = fmul double %1213, 5.000000e-01
@@ -4279,8 +4287,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1239 = fcmp olt double %1235, %1238
   %1240 = select i1 %1239, double %1235, double %1238
   %1241 = fcmp olt double %1240, 0.000000e+00
-  %1242 = select i1 %1241, double 0.000000e+00, double %1240
-  %1243 = fsub double 1.000000e+00, %1242
+  %1242 = fsub double 1.000000e+00, %1240
+  %1243 = select i1 %1241, double 1.000000e+00, double %1242
   %1244 = fmul double %1243, %1236
   %1245 = fmul double %1220, %1244
   %1246 = load i32, ptr %164, align 4, !tbaa !63
@@ -4338,8 +4346,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1292 = fcmp olt double %1288, %1291
   %1293 = select i1 %1292, double %1288, double %1291
   %1294 = fcmp olt double %1293, 0.000000e+00
-  %1295 = select i1 %1294, double 0.000000e+00, double %1293
-  %1296 = fsub double 1.000000e+00, %1295
+  %1295 = fsub double 1.000000e+00, %1293
+  %1296 = select i1 %1294, double 1.000000e+00, double %1295
   %1297 = fmul double %1289, %1296
   %1298 = fmul double %1274, %1297
   %1299 = fadd double %1245, %1298
@@ -4417,8 +4425,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1365 = fcmp olt double %1361, %1364
   %1366 = select i1 %1365, double %1361, double %1364
   %1367 = fcmp olt double %1366, 0.000000e+00
-  %1368 = select i1 %1367, double 0.000000e+00, double %1366
-  %1369 = fsub double 1.000000e+00, %1368
+  %1368 = fsub double 1.000000e+00, %1366
+  %1369 = select i1 %1367, double 1.000000e+00, double %1368
   %1370 = fmul double %1362, %1369
   %1371 = fmul double %1339, %1370
   %1372 = load i32, ptr %175, align 4, !tbaa !63
@@ -4477,9 +4485,9 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1419 = fcmp olt double %1415, %1418
   %1420 = select i1 %1419, double %1415, double %1418
   %1421 = fcmp olt double %1420, 0.000000e+00
-  %1422 = select i1 %1421, double 0.000000e+00, double %1420
-  %1423 = fsub double 1.000000e+00, %1422
-  %1424 = fmul double %1416, %1423
+  %1422 = fsub double 1.000000e+00, %1420
+  %1423 = select i1 %1421, double 1.000000e+00, double %1422
+  %1424 = fmul double %1423, %1416
   %1425 = fmul double %1401, %1424
   %1426 = fadd double %1371, %1425
   %1427 = fmul double %1426, 5.000000e-01
@@ -4556,8 +4564,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1492 = fcmp olt double %1488, %1491
   %1493 = select i1 %1492, double %1488, double %1491
   %1494 = fcmp olt double %1493, 0.000000e+00
-  %1495 = select i1 %1494, double 0.000000e+00, double %1493
-  %1496 = fsub double 1.000000e+00, %1495
+  %1495 = fsub double 1.000000e+00, %1493
+  %1496 = select i1 %1494, double 1.000000e+00, double %1495
   %1497 = fmul double %1489, %1496
   %1498 = fmul double %1466, %1497
   %1499 = load i32, ptr %169, align 4, !tbaa !63
@@ -4615,8 +4623,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1545 = fcmp olt double %1541, %1544
   %1546 = select i1 %1545, double %1541, double %1544
   %1547 = fcmp olt double %1546, 0.000000e+00
-  %1548 = select i1 %1547, double 0.000000e+00, double %1546
-  %1549 = fsub double 1.000000e+00, %1548
+  %1548 = fsub double 1.000000e+00, %1546
+  %1549 = select i1 %1547, double 1.000000e+00, double %1548
   %1550 = fmul double %1542, %1549
   %1551 = fmul double %1527, %1550
   %1552 = fadd double %1498, %1551
@@ -4650,8 +4658,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1578 = fcmp olt double %1574, %1577
   %1579 = select i1 %1578, double %1574, double %1577
   %1580 = fcmp olt double %1579, 0.000000e+00
-  %1581 = select i1 %1580, double 0.000000e+00, double %1579
-  %1582 = fsub double 1.000000e+00, %1581
+  %1581 = fsub double 1.000000e+00, %1579
+  %1582 = select i1 %1580, double 1.000000e+00, double %1581
   %1583 = fmul double %1582, %1575
   %1584 = fmul double %1559, %1583
   %1585 = load i32, ptr %175, align 4, !tbaa !63
@@ -4709,9 +4717,9 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1631 = fcmp olt double %1627, %1630
   %1632 = select i1 %1631, double %1627, double %1630
   %1633 = fcmp olt double %1632, 0.000000e+00
-  %1634 = select i1 %1633, double 0.000000e+00, double %1632
-  %1635 = fsub double 1.000000e+00, %1634
-  %1636 = fmul double %1628, %1635
+  %1634 = fsub double 1.000000e+00, %1632
+  %1635 = select i1 %1633, double 1.000000e+00, double %1634
+  %1636 = fmul double %1635, %1628
   %1637 = fmul double %1613, %1636
   %1638 = fadd double %1584, %1637
   %1639 = fmul double %1638, 5.000000e-01
@@ -4744,8 +4752,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1664 = fcmp olt double %1660, %1663
   %1665 = select i1 %1664, double %1660, double %1663
   %1666 = fcmp olt double %1665, 0.000000e+00
-  %1667 = select i1 %1666, double 0.000000e+00, double %1665
-  %1668 = fsub double 1.000000e+00, %1667
+  %1667 = fsub double 1.000000e+00, %1665
+  %1668 = select i1 %1666, double 1.000000e+00, double %1667
   %1669 = fmul double %1668, %1661
   %1670 = fmul double %1645, %1669
   %1671 = load i32, ptr %169, align 4, !tbaa !63
@@ -4803,8 +4811,8 @@ define dso_local void @_ZN5State22calc_finite_differenceEd(ptr noundef nonnull a
   %1717 = fcmp olt double %1713, %1716
   %1718 = select i1 %1717, double %1713, double %1716
   %1719 = fcmp olt double %1718, 0.000000e+00
-  %1720 = select i1 %1719, double 0.000000e+00, double %1718
-  %1721 = fsub double 1.000000e+00, %1720
+  %1720 = fsub double 1.000000e+00, %1718
+  %1721 = select i1 %1719, double 1.000000e+00, double %1720
   %1722 = fmul double %1714, %1721
   %1723 = fmul double %1699, %1722
   %1724 = fadd double %1670, %1723
@@ -5706,8 +5714,8 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %673 = icmp eq i64 %672, %452
   br i1 %673, label %455, label %478, !llvm.loop !95
 
-674:                                              ; preds = %1968, %471
-  %675 = phi ptr [ %472, %471 ], [ %1982, %1968 ]
+674:                                              ; preds = %1973, %471
+  %675 = phi ptr [ %472, %471 ], [ %1987, %1973 ]
   %676 = getelementptr inbounds %class.State, ptr %0, i64 0, i32 3
   %677 = load ptr, ptr %676, align 8, !tbaa !47
   %678 = call noundef ptr @_ZN10MallocPlus14memory_replaceEPvS0_(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef %677, ptr noundef %675)
@@ -5735,8 +5743,8 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #24
   ret void
 
-694:                                              ; preds = %473, %1968
-  %695 = phi i64 [ %477, %473 ], [ %2002, %1968 ]
+694:                                              ; preds = %473, %1973
+  %695 = phi i64 [ %477, %473 ], [ %2007, %1973 ]
   %696 = getelementptr inbounds i32, ptr %25, i64 %695
   %697 = load i32, ptr %696, align 4, !tbaa !63
   %698 = getelementptr inbounds i32, ptr %17, i64 %695
@@ -5945,19 +5953,19 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %883 = zext i32 %880 to i64
   %884 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hx, align 8, !tbaa !62
   %885 = getelementptr inbounds double, ptr %884, i64 %883
-  %886 = load double, ptr %885, align 8, !tbaa !70
-  %887 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Ux, align 8, !tbaa !62
-  %888 = getelementptr inbounds double, ptr %887, i64 %883
-  %889 = load double, ptr %888, align 8, !tbaa !70
-  %890 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vx, align 8, !tbaa !62
-  %891 = getelementptr inbounds double, ptr %890, i64 %883
-  %892 = load double, ptr %891, align 8, !tbaa !70
+  %886 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Ux, align 8, !tbaa !62
+  %887 = getelementptr inbounds double, ptr %886, i64 %883
+  %888 = load double, ptr %887, align 8, !tbaa !70
+  %889 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vx, align 8, !tbaa !62
+  %890 = getelementptr inbounds double, ptr %889, i64 %883
+  %891 = load double, ptr %890, align 8, !tbaa !70
+  %892 = load double, ptr %885, align 8, !tbaa !70
   br label %893
 
 893:                                              ; preds = %882, %870
-  %894 = phi double [ %886, %882 ], [ %708, %870 ]
-  %895 = phi double [ %889, %882 ], [ 0.000000e+00, %870 ]
-  %896 = phi double [ %892, %882 ], [ 0.000000e+00, %870 ]
+  %894 = phi double [ %892, %882 ], [ %708, %870 ]
+  %895 = phi double [ %888, %882 ], [ 0.000000e+00, %870 ]
+  %896 = phi double [ %891, %882 ], [ 0.000000e+00, %870 ]
   %897 = select i1 %796, double %708, double 0.000000e+00
   %898 = getelementptr inbounds %class.Mesh, ptr %876, i64 0, i32 89
   %899 = load ptr, ptr %898, align 8, !tbaa !59
@@ -5994,19 +6002,19 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %924 = zext i32 %921 to i64
   %925 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hx, align 8, !tbaa !62
   %926 = getelementptr inbounds double, ptr %925, i64 %924
-  %927 = load double, ptr %926, align 8, !tbaa !70
-  %928 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Ux, align 8, !tbaa !62
-  %929 = getelementptr inbounds double, ptr %928, i64 %924
-  %930 = load double, ptr %929, align 8, !tbaa !70
-  %931 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vx, align 8, !tbaa !62
-  %932 = getelementptr inbounds double, ptr %931, i64 %924
-  %933 = load double, ptr %932, align 8, !tbaa !70
+  %927 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Ux, align 8, !tbaa !62
+  %928 = getelementptr inbounds double, ptr %927, i64 %924
+  %929 = load double, ptr %928, align 8, !tbaa !70
+  %930 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vx, align 8, !tbaa !62
+  %931 = getelementptr inbounds double, ptr %930, i64 %924
+  %932 = load double, ptr %931, align 8, !tbaa !70
+  %933 = load double, ptr %926, align 8, !tbaa !70
   br label %934
 
 934:                                              ; preds = %923, %914
-  %935 = phi double [ %927, %923 ], [ %708, %914 ]
-  %936 = phi double [ %930, %923 ], [ 0.000000e+00, %914 ]
-  %937 = phi double [ %933, %923 ], [ 0.000000e+00, %914 ]
+  %935 = phi double [ %933, %923 ], [ %708, %914 ]
+  %936 = phi double [ %929, %923 ], [ 0.000000e+00, %914 ]
+  %937 = phi double [ %932, %923 ], [ 0.000000e+00, %914 ]
   %938 = select i1 %816, double %708, double 0.000000e+00
   %939 = getelementptr inbounds %class.Mesh, ptr %876, i64 0, i32 91
   %940 = load ptr, ptr %939, align 8, !tbaa !59
@@ -6093,9 +6101,9 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %1013 = fcmp olt double %1009, %1012
   %1014 = select i1 %1013, double %1009, double %1012
   %1015 = fcmp olt double %1014, 0.000000e+00
-  %1016 = select i1 %1015, double 0.000000e+00, double %1014
-  %1017 = fsub double 1.000000e+00, %1016
-  %1018 = fmul double %1010, %1017
+  %1016 = fsub double 1.000000e+00, %1014
+  %1017 = select i1 %1015, double 1.000000e+00, double %1016
+  %1018 = fmul double %1017, %1010
   %1019 = fmul double %987, %1018
   %1020 = load i32, ptr %775, align 4, !tbaa !63
   %1021 = icmp slt i32 %697, %1020
@@ -6150,9 +6158,9 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %1064 = fcmp olt double %1060, %1063
   %1065 = select i1 %1064, double %1060, double %1063
   %1066 = fcmp olt double %1065, 0.000000e+00
-  %1067 = select i1 %1066, double 0.000000e+00, double %1065
-  %1068 = fsub double 1.000000e+00, %1067
-  %1069 = fmul double %1061, %1068
+  %1067 = fsub double 1.000000e+00, %1065
+  %1068 = select i1 %1066, double 1.000000e+00, double %1067
+  %1069 = fmul double %1068, %1061
   %1070 = fmul double %1046, %1069
   %1071 = fadd double %1019, %1070
   %1072 = fmul double %1071, 5.000000e-01
@@ -6227,8 +6235,8 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %1135 = fcmp olt double %1131, %1134
   %1136 = select i1 %1135, double %1131, double %1134
   %1137 = fcmp olt double %1136, 0.000000e+00
-  %1138 = select i1 %1137, double 0.000000e+00, double %1136
-  %1139 = fsub double 1.000000e+00, %1138
+  %1138 = fsub double 1.000000e+00, %1136
+  %1139 = select i1 %1137, double 1.000000e+00, double %1138
   %1140 = fmul double %1132, %1139
   %1141 = fmul double %1109, %1140
   %1142 = load i32, ptr %780, align 4, !tbaa !63
@@ -6284,8 +6292,8 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %1186 = fcmp olt double %1182, %1185
   %1187 = select i1 %1186, double %1182, double %1185
   %1188 = fcmp olt double %1187, 0.000000e+00
-  %1189 = select i1 %1188, double 0.000000e+00, double %1187
-  %1190 = fsub double 1.000000e+00, %1189
+  %1189 = fsub double 1.000000e+00, %1187
+  %1190 = select i1 %1188, double 1.000000e+00, double %1189
   %1191 = fmul double %1183, %1190
   %1192 = fmul double %1168, %1191
   %1193 = fadd double %1141, %1192
@@ -6319,8 +6327,8 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %1219 = fcmp olt double %1215, %1218
   %1220 = select i1 %1219, double %1215, double %1218
   %1221 = fcmp olt double %1220, 0.000000e+00
-  %1222 = select i1 %1221, double 0.000000e+00, double %1220
-  %1223 = fsub double 1.000000e+00, %1222
+  %1222 = fsub double 1.000000e+00, %1220
+  %1223 = select i1 %1221, double 1.000000e+00, double %1222
   %1224 = fmul double %1223, %1216
   %1225 = fmul double %1200, %1224
   %1226 = load i32, ptr %775, align 4, !tbaa !63
@@ -6376,9 +6384,9 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %1270 = fcmp olt double %1266, %1269
   %1271 = select i1 %1270, double %1266, double %1269
   %1272 = fcmp olt double %1271, 0.000000e+00
-  %1273 = select i1 %1272, double 0.000000e+00, double %1271
-  %1274 = fsub double 1.000000e+00, %1273
-  %1275 = fmul double %1267, %1274
+  %1273 = fsub double 1.000000e+00, %1271
+  %1274 = select i1 %1272, double 1.000000e+00, double %1273
+  %1275 = fmul double %1274, %1267
   %1276 = fmul double %1252, %1275
   %1277 = fadd double %1225, %1276
   %1278 = fmul double %1277, 5.000000e-01
@@ -6411,8 +6419,8 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %1303 = fcmp olt double %1299, %1302
   %1304 = select i1 %1303, double %1299, double %1302
   %1305 = fcmp olt double %1304, 0.000000e+00
-  %1306 = select i1 %1305, double 0.000000e+00, double %1304
-  %1307 = fsub double 1.000000e+00, %1306
+  %1306 = fsub double 1.000000e+00, %1304
+  %1307 = select i1 %1305, double 1.000000e+00, double %1306
   %1308 = fmul double %1307, %1300
   %1309 = fmul double %1284, %1308
   %1310 = load i32, ptr %780, align 4, !tbaa !63
@@ -6468,8 +6476,8 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %1354 = fcmp olt double %1350, %1353
   %1355 = select i1 %1354, double %1350, double %1353
   %1356 = fcmp olt double %1355, 0.000000e+00
-  %1357 = select i1 %1356, double 0.000000e+00, double %1355
-  %1358 = fsub double 1.000000e+00, %1357
+  %1357 = fsub double 1.000000e+00, %1355
+  %1358 = select i1 %1356, double 1.000000e+00, double %1357
   %1359 = fmul double %1351, %1358
   %1360 = fmul double %1336, %1359
   %1361 = fadd double %1309, %1360
@@ -6513,688 +6521,701 @@ define dso_local void @_ZN5State32calc_finite_difference_via_facesEd(ptr noundef
   %1393 = select i1 %1388, double %1390, double %733
   %1394 = select i1 %1388, double %1392, double %735
   %1395 = getelementptr inbounds double, ptr %1370, i64 %695
-  %1396 = load double, ptr %1395, align 8, !tbaa !70
-  %1397 = load ptr, ptr %6, align 8, !tbaa !17
-  %1398 = getelementptr inbounds %class.Mesh, ptr %1397, i64 0, i32 103
-  %1399 = load ptr, ptr %1398, align 8, !tbaa !59
-  %1400 = getelementptr inbounds i32, ptr %1399, i64 %695
-  %1401 = load i32, ptr %1400, align 4, !tbaa !63
-  %1402 = icmp sgt i32 %1401, -1
-  br i1 %1402, label %1403, label %1414
+  %1396 = load ptr, ptr %6, align 8, !tbaa !17
+  %1397 = getelementptr inbounds %class.Mesh, ptr %1396, i64 0, i32 103
+  %1398 = load ptr, ptr %1397, align 8, !tbaa !59
+  %1399 = getelementptr inbounds i32, ptr %1398, i64 %695
+  %1400 = load i32, ptr %1399, align 4, !tbaa !63
+  %1401 = icmp sgt i32 %1400, -1
+  br i1 %1401, label %1402, label %1412
 
-1403:                                             ; preds = %1384
-  %1404 = zext i32 %1401 to i64
-  %1405 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hy, align 8, !tbaa !62
-  %1406 = getelementptr inbounds double, ptr %1405, i64 %1404
-  %1407 = load double, ptr %1406, align 8, !tbaa !70
-  %1408 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Uy, align 8, !tbaa !62
-  %1409 = getelementptr inbounds double, ptr %1408, i64 %1404
-  %1410 = load double, ptr %1409, align 8, !tbaa !70
-  %1411 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vy, align 8, !tbaa !62
-  %1412 = getelementptr inbounds double, ptr %1411, i64 %1404
-  %1413 = load double, ptr %1412, align 8, !tbaa !70
-  br label %1414
+1402:                                             ; preds = %1384
+  %1403 = zext i32 %1400 to i64
+  %1404 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hy, align 8, !tbaa !62
+  %1405 = getelementptr inbounds double, ptr %1404, i64 %1403
+  %1406 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Uy, align 8, !tbaa !62
+  %1407 = getelementptr inbounds double, ptr %1406, i64 %1403
+  %1408 = load double, ptr %1407, align 8, !tbaa !70
+  %1409 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vy, align 8, !tbaa !62
+  %1410 = getelementptr inbounds double, ptr %1409, i64 %1403
+  %1411 = load double, ptr %1410, align 8, !tbaa !70
+  br label %1412
 
-1414:                                             ; preds = %1403, %1384
-  %1415 = phi double [ %1407, %1403 ], [ %1396, %1384 ]
-  %1416 = phi double [ %1410, %1403 ], [ 0.000000e+00, %1384 ]
-  %1417 = phi double [ %1413, %1403 ], [ 0.000000e+00, %1384 ]
-  %1418 = icmp slt i32 %697, %1366
-  %1419 = select i1 %1418, double %1396, double 0.000000e+00
-  %1420 = getelementptr inbounds %class.Mesh, ptr %1397, i64 0, i32 104
-  %1421 = load ptr, ptr %1420, align 8, !tbaa !59
-  %1422 = getelementptr inbounds i32, ptr %1421, i64 %695
-  %1423 = load i32, ptr %1422, align 4, !tbaa !63
-  %1424 = icmp sgt i32 %1423, -1
-  br i1 %1424, label %1425, label %1436
+1412:                                             ; preds = %1402, %1384
+  %1413 = phi ptr [ %1405, %1402 ], [ %1395, %1384 ]
+  %1414 = phi double [ %1408, %1402 ], [ 0.000000e+00, %1384 ]
+  %1415 = phi double [ %1411, %1402 ], [ 0.000000e+00, %1384 ]
+  %1416 = load double, ptr %1413, align 8, !tbaa !70
+  %1417 = icmp slt i32 %697, %1366
+  br i1 %1417, label %1418, label %1420
 
-1425:                                             ; preds = %1414
-  %1426 = zext i32 %1423 to i64
-  %1427 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hy, align 8, !tbaa !62
-  %1428 = getelementptr inbounds double, ptr %1427, i64 %1426
-  %1429 = load double, ptr %1428, align 8, !tbaa !70
-  %1430 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Uy, align 8, !tbaa !62
-  %1431 = getelementptr inbounds double, ptr %1430, i64 %1426
-  %1432 = load double, ptr %1431, align 8, !tbaa !70
-  %1433 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vy, align 8, !tbaa !62
-  %1434 = getelementptr inbounds double, ptr %1433, i64 %1426
-  %1435 = load double, ptr %1434, align 8, !tbaa !70
-  br label %1436
+1418:                                             ; preds = %1412
+  %1419 = load double, ptr %1395, align 8, !tbaa !70
+  br label %1420
 
-1436:                                             ; preds = %1425, %1414
-  %1437 = phi double [ %1429, %1425 ], [ %1419, %1414 ]
-  %1438 = phi double [ %1432, %1425 ], [ 0.000000e+00, %1414 ]
-  %1439 = phi double [ %1435, %1425 ], [ 0.000000e+00, %1414 ]
-  %1440 = getelementptr inbounds %class.Mesh, ptr %1397, i64 0, i32 105
-  %1441 = load ptr, ptr %1440, align 8, !tbaa !59
-  %1442 = getelementptr inbounds i32, ptr %1441, i64 %695
-  %1443 = load i32, ptr %1442, align 4, !tbaa !63
-  %1444 = icmp sgt i32 %1443, -1
-  br i1 %1444, label %1445, label %1456
+1420:                                             ; preds = %1418, %1412
+  %1421 = phi double [ %1419, %1418 ], [ 0.000000e+00, %1412 ]
+  %1422 = getelementptr inbounds %class.Mesh, ptr %1396, i64 0, i32 104
+  %1423 = load ptr, ptr %1422, align 8, !tbaa !59
+  %1424 = getelementptr inbounds i32, ptr %1423, i64 %695
+  %1425 = load i32, ptr %1424, align 4, !tbaa !63
+  %1426 = icmp sgt i32 %1425, -1
+  br i1 %1426, label %1427, label %1438
 
-1445:                                             ; preds = %1436
-  %1446 = zext i32 %1443 to i64
-  %1447 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hy, align 8, !tbaa !62
-  %1448 = getelementptr inbounds double, ptr %1447, i64 %1446
-  %1449 = load double, ptr %1448, align 8, !tbaa !70
-  %1450 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Uy, align 8, !tbaa !62
-  %1451 = getelementptr inbounds double, ptr %1450, i64 %1446
-  %1452 = load double, ptr %1451, align 8, !tbaa !70
-  %1453 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vy, align 8, !tbaa !62
-  %1454 = getelementptr inbounds double, ptr %1453, i64 %1446
-  %1455 = load double, ptr %1454, align 8, !tbaa !70
-  br label %1456
+1427:                                             ; preds = %1420
+  %1428 = zext i32 %1425 to i64
+  %1429 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hy, align 8, !tbaa !62
+  %1430 = getelementptr inbounds double, ptr %1429, i64 %1428
+  %1431 = load double, ptr %1430, align 8, !tbaa !70
+  %1432 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Uy, align 8, !tbaa !62
+  %1433 = getelementptr inbounds double, ptr %1432, i64 %1428
+  %1434 = load double, ptr %1433, align 8, !tbaa !70
+  %1435 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vy, align 8, !tbaa !62
+  %1436 = getelementptr inbounds double, ptr %1435, i64 %1428
+  %1437 = load double, ptr %1436, align 8, !tbaa !70
+  br label %1438
 
-1456:                                             ; preds = %1445, %1436
-  %1457 = phi double [ %1449, %1445 ], [ %1396, %1436 ]
-  %1458 = phi double [ %1452, %1445 ], [ 0.000000e+00, %1436 ]
-  %1459 = phi double [ %1455, %1445 ], [ 0.000000e+00, %1436 ]
-  %1460 = select i1 %1388, double %1396, double 0.000000e+00
-  %1461 = getelementptr inbounds %class.Mesh, ptr %1397, i64 0, i32 106
-  %1462 = load ptr, ptr %1461, align 8, !tbaa !59
-  %1463 = getelementptr inbounds i32, ptr %1462, i64 %695
-  %1464 = load i32, ptr %1463, align 4, !tbaa !63
-  %1465 = icmp sgt i32 %1464, -1
-  br i1 %1465, label %1466, label %1477
+1438:                                             ; preds = %1427, %1420
+  %1439 = phi double [ %1431, %1427 ], [ %1421, %1420 ]
+  %1440 = phi double [ %1434, %1427 ], [ 0.000000e+00, %1420 ]
+  %1441 = phi double [ %1437, %1427 ], [ 0.000000e+00, %1420 ]
+  %1442 = getelementptr inbounds %class.Mesh, ptr %1396, i64 0, i32 105
+  %1443 = load ptr, ptr %1442, align 8, !tbaa !59
+  %1444 = getelementptr inbounds i32, ptr %1443, i64 %695
+  %1445 = load i32, ptr %1444, align 4, !tbaa !63
+  %1446 = icmp sgt i32 %1445, -1
+  br i1 %1446, label %1447, label %1457
 
-1466:                                             ; preds = %1456
-  %1467 = zext i32 %1464 to i64
-  %1468 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hy, align 8, !tbaa !62
-  %1469 = getelementptr inbounds double, ptr %1468, i64 %1467
-  %1470 = load double, ptr %1469, align 8, !tbaa !70
-  %1471 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Uy, align 8, !tbaa !62
-  %1472 = getelementptr inbounds double, ptr %1471, i64 %1467
-  %1473 = load double, ptr %1472, align 8, !tbaa !70
-  %1474 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vy, align 8, !tbaa !62
-  %1475 = getelementptr inbounds double, ptr %1474, i64 %1467
-  %1476 = load double, ptr %1475, align 8, !tbaa !70
-  br label %1477
+1447:                                             ; preds = %1438
+  %1448 = zext i32 %1445 to i64
+  %1449 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hy, align 8, !tbaa !62
+  %1450 = getelementptr inbounds double, ptr %1449, i64 %1448
+  %1451 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Uy, align 8, !tbaa !62
+  %1452 = getelementptr inbounds double, ptr %1451, i64 %1448
+  %1453 = load double, ptr %1452, align 8, !tbaa !70
+  %1454 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vy, align 8, !tbaa !62
+  %1455 = getelementptr inbounds double, ptr %1454, i64 %1448
+  %1456 = load double, ptr %1455, align 8, !tbaa !70
+  br label %1457
 
-1477:                                             ; preds = %1466, %1456
-  %1478 = phi double [ %1470, %1466 ], [ %1460, %1456 ]
-  %1479 = phi double [ %1473, %1466 ], [ 0.000000e+00, %1456 ]
-  %1480 = phi double [ %1476, %1466 ], [ 0.000000e+00, %1456 ]
-  %1481 = fdiv double %1417, %1415
-  %1482 = call double @llvm.fabs.f64(double %1481)
-  %1483 = fmul double %1415, 9.800000e+00
-  %1484 = call double @sqrt(double noundef %1483) #24
-  %1485 = fsub double %708, %740
-  %1486 = fsub double %740, %1385
-  %1487 = fsub double %1393, %708
-  %1488 = insertelement <2 x double> poison, double %1482, i64 0
-  %1489 = insertelement <2 x double> %1488, double %774, i64 1
-  %1490 = insertelement <2 x double> poison, double %1484, i64 0
-  %1491 = insertelement <2 x double> %1490, double %795, i64 1
-  %1492 = fadd <2 x double> %1489, %1491
-  %1493 = fmul <2 x double> %1492, <double 5.000000e-01, double 5.000000e-01>
-  %1494 = extractelement <2 x double> %1493, i64 0
-  %1495 = fmul double %1494, %1
-  %1496 = extractelement <2 x double> %1493, i64 1
-  %1497 = fdiv double %1495, %1496
-  %1498 = fsub double 1.000000e+00, %1497
-  %1499 = fmul double %1497, %1498
-  %1500 = fmul double %1485, %1485
-  %1501 = fcmp olt double %1500, 1.000000e-30
-  %1502 = select i1 %1501, double 1.000000e-30, double %1500
-  %1503 = fdiv double 1.000000e+00, %1502
-  %1504 = fmul double %1485, %1487
-  %1505 = fmul double %1503, %1504
-  %1506 = fmul double %1485, %1486
-  %1507 = fmul double %1503, %1506
-  %1508 = fmul double %1499, 5.000000e-01
-  %1509 = fcmp olt double %1505, 1.000000e+00
-  %1510 = select i1 %1509, double %1505, double 1.000000e+00
-  %1511 = fcmp olt double %1507, %1510
-  %1512 = select i1 %1511, double %1507, double %1510
-  %1513 = fcmp olt double %1512, 0.000000e+00
-  %1514 = select i1 %1513, double 0.000000e+00, double %1512
-  %1515 = fsub double 1.000000e+00, %1514
-  %1516 = fmul double %1515, %1508
-  %1517 = fmul double %1485, %1516
-  %1518 = load i32, ptr %791, align 4, !tbaa !63
-  %1519 = icmp slt i32 %697, %1518
-  br i1 %1519, label %1520, label %1572
+1457:                                             ; preds = %1447, %1438
+  %1458 = phi ptr [ %1450, %1447 ], [ %1395, %1438 ]
+  %1459 = phi double [ %1453, %1447 ], [ 0.000000e+00, %1438 ]
+  %1460 = phi double [ %1456, %1447 ], [ 0.000000e+00, %1438 ]
+  %1461 = load double, ptr %1458, align 8, !tbaa !70
+  br i1 %1388, label %1462, label %1464
 
-1520:                                             ; preds = %1477
-  %1521 = sext i32 %750 to i64
-  %1522 = getelementptr inbounds i32, ptr %25, i64 %1521
-  %1523 = load i32, ptr %1522, align 4, !tbaa !63
-  %1524 = sext i32 %851 to i64
-  %1525 = getelementptr inbounds i32, ptr %25, i64 %1524
-  %1526 = load i32, ptr %1525, align 4, !tbaa !63
-  %1527 = icmp slt i32 %1523, %1526
-  br i1 %1527, label %1528, label %1537
+1462:                                             ; preds = %1457
+  %1463 = load double, ptr %1395, align 8, !tbaa !70
+  br label %1464
 
-1528:                                             ; preds = %1520
-  %1529 = load ptr, ptr %474, align 8, !tbaa !47
-  %1530 = getelementptr inbounds i32, ptr %19, i64 %1524
+1464:                                             ; preds = %1462, %1457
+  %1465 = phi double [ %1463, %1462 ], [ 0.000000e+00, %1457 ]
+  %1466 = getelementptr inbounds %class.Mesh, ptr %1396, i64 0, i32 106
+  %1467 = load ptr, ptr %1466, align 8, !tbaa !59
+  %1468 = getelementptr inbounds i32, ptr %1467, i64 %695
+  %1469 = load i32, ptr %1468, align 4, !tbaa !63
+  %1470 = icmp sgt i32 %1469, -1
+  br i1 %1470, label %1471, label %1482
+
+1471:                                             ; preds = %1464
+  %1472 = zext i32 %1469 to i64
+  %1473 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Hy, align 8, !tbaa !62
+  %1474 = getelementptr inbounds double, ptr %1473, i64 %1472
+  %1475 = load double, ptr %1474, align 8, !tbaa !70
+  %1476 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Uy, align 8, !tbaa !62
+  %1477 = getelementptr inbounds double, ptr %1476, i64 %1472
+  %1478 = load double, ptr %1477, align 8, !tbaa !70
+  %1479 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE2Vy, align 8, !tbaa !62
+  %1480 = getelementptr inbounds double, ptr %1479, i64 %1472
+  %1481 = load double, ptr %1480, align 8, !tbaa !70
+  br label %1482
+
+1482:                                             ; preds = %1471, %1464
+  %1483 = phi double [ %1475, %1471 ], [ %1465, %1464 ]
+  %1484 = phi double [ %1478, %1471 ], [ 0.000000e+00, %1464 ]
+  %1485 = phi double [ %1481, %1471 ], [ 0.000000e+00, %1464 ]
+  %1486 = fdiv double %1415, %1416
+  %1487 = call double @llvm.fabs.f64(double %1486)
+  %1488 = fmul double %1416, 9.800000e+00
+  %1489 = call double @sqrt(double noundef %1488) #24
+  %1490 = fsub double %708, %740
+  %1491 = fsub double %740, %1385
+  %1492 = fsub double %1393, %708
+  %1493 = insertelement <2 x double> poison, double %1487, i64 0
+  %1494 = insertelement <2 x double> %1493, double %774, i64 1
+  %1495 = insertelement <2 x double> poison, double %1489, i64 0
+  %1496 = insertelement <2 x double> %1495, double %795, i64 1
+  %1497 = fadd <2 x double> %1494, %1496
+  %1498 = fmul <2 x double> %1497, <double 5.000000e-01, double 5.000000e-01>
+  %1499 = extractelement <2 x double> %1498, i64 0
+  %1500 = fmul double %1499, %1
+  %1501 = extractelement <2 x double> %1498, i64 1
+  %1502 = fdiv double %1500, %1501
+  %1503 = fsub double 1.000000e+00, %1502
+  %1504 = fmul double %1502, %1503
+  %1505 = fmul double %1490, %1490
+  %1506 = fcmp olt double %1505, 1.000000e-30
+  %1507 = select i1 %1506, double 1.000000e-30, double %1505
+  %1508 = fdiv double 1.000000e+00, %1507
+  %1509 = fmul double %1490, %1492
+  %1510 = fmul double %1508, %1509
+  %1511 = fmul double %1490, %1491
+  %1512 = fmul double %1508, %1511
+  %1513 = fmul double %1504, 5.000000e-01
+  %1514 = fcmp olt double %1510, 1.000000e+00
+  %1515 = select i1 %1514, double %1510, double 1.000000e+00
+  %1516 = fcmp olt double %1512, %1515
+  %1517 = select i1 %1516, double %1512, double %1515
+  %1518 = fcmp olt double %1517, 0.000000e+00
+  %1519 = fsub double 1.000000e+00, %1517
+  %1520 = select i1 %1518, double 1.000000e+00, double %1519
+  %1521 = fmul double %1520, %1513
+  %1522 = fmul double %1490, %1521
+  %1523 = load i32, ptr %791, align 4, !tbaa !63
+  %1524 = icmp slt i32 %697, %1523
+  br i1 %1524, label %1525, label %1577
+
+1525:                                             ; preds = %1482
+  %1526 = sext i32 %750 to i64
+  %1527 = getelementptr inbounds i32, ptr %25, i64 %1526
+  %1528 = load i32, ptr %1527, align 4, !tbaa !63
+  %1529 = sext i32 %851 to i64
+  %1530 = getelementptr inbounds i32, ptr %25, i64 %1529
   %1531 = load i32, ptr %1530, align 4, !tbaa !63
-  %1532 = sext i32 %1531 to i64
-  %1533 = getelementptr inbounds double, ptr %1529, i64 %1532
-  %1534 = load double, ptr %1533, align 8, !tbaa !70
-  %1535 = fadd double %854, %1534
-  %1536 = fmul double %1535, 5.000000e-01
-  br label %1537
+  %1532 = icmp slt i32 %1528, %1531
+  br i1 %1532, label %1533, label %1542
 
-1537:                                             ; preds = %1528, %1520
-  %1538 = phi double [ %1536, %1528 ], [ %854, %1520 ]
-  %1539 = fdiv double %1439, %1437
-  %1540 = call double @llvm.fabs.f64(double %1539)
-  %1541 = fmul double %1437, 9.800000e+00
-  %1542 = call double @sqrt(double noundef %1541) #24
-  %1543 = fadd double %1540, %1542
-  %1544 = fsub double %708, %852
-  %1545 = fsub double %852, %1538
-  %1546 = fmul double %1543, 5.000000e-01
-  %1547 = fmul double %1546, %1
-  %1548 = fdiv double %1547, %1496
-  %1549 = fsub double 1.000000e+00, %1548
-  %1550 = fmul double %1548, %1549
-  %1551 = fmul double %1544, %1544
-  %1552 = fcmp olt double %1551, 1.000000e-30
-  %1553 = select i1 %1552, double 1.000000e-30, double %1551
-  %1554 = fdiv double 1.000000e+00, %1553
-  %1555 = fmul double %1544, %1487
-  %1556 = fmul double %1554, %1555
-  %1557 = fmul double %1544, %1545
-  %1558 = fmul double %1554, %1557
-  %1559 = fmul double %1550, 5.000000e-01
-  %1560 = fcmp olt double %1556, 1.000000e+00
-  %1561 = select i1 %1560, double %1556, double 1.000000e+00
-  %1562 = fcmp olt double %1558, %1561
-  %1563 = select i1 %1562, double %1558, double %1561
-  %1564 = fcmp olt double %1563, 0.000000e+00
-  %1565 = select i1 %1564, double 0.000000e+00, double %1563
-  %1566 = fsub double 1.000000e+00, %1565
-  %1567 = fmul double %1559, %1566
-  %1568 = fmul double %1544, %1567
-  %1569 = fadd double %1517, %1568
-  %1570 = fmul double %1569, 5.000000e-01
-  %1571 = fmul double %1570, 5.000000e-01
-  br label %1572
+1533:                                             ; preds = %1525
+  %1534 = load ptr, ptr %474, align 8, !tbaa !47
+  %1535 = getelementptr inbounds i32, ptr %19, i64 %1529
+  %1536 = load i32, ptr %1535, align 4, !tbaa !63
+  %1537 = sext i32 %1536 to i64
+  %1538 = getelementptr inbounds double, ptr %1534, i64 %1537
+  %1539 = load double, ptr %1538, align 8, !tbaa !70
+  %1540 = fadd double %854, %1539
+  %1541 = fmul double %1540, 5.000000e-01
+  br label %1542
 
-1572:                                             ; preds = %1537, %1477
-  %1573 = phi double [ %1571, %1537 ], [ %1517, %1477 ]
-  %1574 = load i32, ptr %785, align 4, !tbaa !63
-  %1575 = getelementptr inbounds i32, ptr %25, i64 %761
-  %1576 = load i32, ptr %1575, align 4, !tbaa !63
-  %1577 = icmp slt i32 %1574, %1576
-  br i1 %1577, label %1578, label %1592
+1542:                                             ; preds = %1533, %1525
+  %1543 = phi double [ %1541, %1533 ], [ %854, %1525 ]
+  %1544 = fdiv double %1441, %1439
+  %1545 = call double @llvm.fabs.f64(double %1544)
+  %1546 = fmul double %1439, 9.800000e+00
+  %1547 = call double @sqrt(double noundef %1546) #24
+  %1548 = fadd double %1545, %1547
+  %1549 = fsub double %708, %852
+  %1550 = fsub double %852, %1543
+  %1551 = fmul double %1548, 5.000000e-01
+  %1552 = fmul double %1551, %1
+  %1553 = fdiv double %1552, %1501
+  %1554 = fsub double 1.000000e+00, %1553
+  %1555 = fmul double %1553, %1554
+  %1556 = fmul double %1549, %1549
+  %1557 = fcmp olt double %1556, 1.000000e-30
+  %1558 = select i1 %1557, double 1.000000e-30, double %1556
+  %1559 = fdiv double 1.000000e+00, %1558
+  %1560 = fmul double %1549, %1492
+  %1561 = fmul double %1559, %1560
+  %1562 = fmul double %1549, %1550
+  %1563 = fmul double %1559, %1562
+  %1564 = fmul double %1555, 5.000000e-01
+  %1565 = fcmp olt double %1561, 1.000000e+00
+  %1566 = select i1 %1565, double %1561, double 1.000000e+00
+  %1567 = fcmp olt double %1563, %1566
+  %1568 = select i1 %1567, double %1563, double %1566
+  %1569 = fcmp olt double %1568, 0.000000e+00
+  %1570 = fsub double 1.000000e+00, %1568
+  %1571 = select i1 %1569, double 1.000000e+00, double %1570
+  %1572 = fmul double %1571, %1564
+  %1573 = fmul double %1549, %1572
+  %1574 = fadd double %1522, %1573
+  %1575 = fmul double %1574, 5.000000e-01
+  %1576 = fmul double %1575, 5.000000e-01
+  br label %1577
 
-1578:                                             ; preds = %1572
-  %1579 = load ptr, ptr %474, align 8, !tbaa !47
-  %1580 = getelementptr inbounds i32, ptr %19, i64 %761
+1577:                                             ; preds = %1542, %1482
+  %1578 = phi double [ %1576, %1542 ], [ %1522, %1482 ]
+  %1579 = load i32, ptr %785, align 4, !tbaa !63
+  %1580 = getelementptr inbounds i32, ptr %25, i64 %761
   %1581 = load i32, ptr %1580, align 4, !tbaa !63
-  %1582 = sext i32 %1581 to i64
-  %1583 = getelementptr inbounds double, ptr %1579, i64 %1582
-  %1584 = load double, ptr %1583, align 8, !tbaa !70
-  %1585 = fadd double %763, %1584
-  %1586 = fmul double %1585, 5.000000e-01
-  %1587 = load ptr, ptr %476, align 8, !tbaa !49
-  %1588 = getelementptr inbounds double, ptr %1587, i64 %1582
+  %1582 = icmp slt i32 %1579, %1581
+  br i1 %1582, label %1583, label %1597
+
+1583:                                             ; preds = %1577
+  %1584 = load ptr, ptr %474, align 8, !tbaa !47
+  %1585 = getelementptr inbounds i32, ptr %19, i64 %761
+  %1586 = load i32, ptr %1585, align 4, !tbaa !63
+  %1587 = sext i32 %1586 to i64
+  %1588 = getelementptr inbounds double, ptr %1584, i64 %1587
   %1589 = load double, ptr %1588, align 8, !tbaa !70
-  %1590 = fadd double %765, %1589
+  %1590 = fadd double %763, %1589
   %1591 = fmul double %1590, 5.000000e-01
-  br label %1592
+  %1592 = load ptr, ptr %476, align 8, !tbaa !49
+  %1593 = getelementptr inbounds double, ptr %1592, i64 %1587
+  %1594 = load double, ptr %1593, align 8, !tbaa !70
+  %1595 = fadd double %765, %1594
+  %1596 = fmul double %1595, 5.000000e-01
+  br label %1597
 
-1592:                                             ; preds = %1578, %1572
-  %1593 = phi double [ %1586, %1578 ], [ %763, %1572 ]
-  %1594 = phi double [ %1591, %1578 ], [ %765, %1572 ]
-  %1595 = load i32, ptr %791, align 4, !tbaa !63
-  %1596 = icmp slt i32 %697, %1595
-  %1597 = fadd double %740, %852
-  %1598 = fmul double %1597, 5.000000e-01
-  %1599 = fadd double %742, %853
-  %1600 = fmul double %1599, 5.000000e-01
-  %1601 = select i1 %1596, double %1598, double %740
-  %1602 = select i1 %1596, double %1600, double %742
-  %1603 = fdiv double %1459, %1457
-  %1604 = call double @llvm.fabs.f64(double %1603)
-  %1605 = fmul double %1457, 9.800000e+00
-  %1606 = call double @sqrt(double noundef %1605) #24
-  %1607 = fsub double %733, %708
-  %1608 = fsub double %708, %1601
-  %1609 = fsub double %1593, %733
-  %1610 = insertelement <2 x double> poison, double %1604, i64 0
-  %1611 = insertelement <2 x double> %1610, double %774, i64 1
-  %1612 = insertelement <2 x double> poison, double %1606, i64 0
-  %1613 = insertelement <2 x double> %1612, double %790, i64 1
-  %1614 = fadd <2 x double> %1611, %1613
-  %1615 = fmul <2 x double> %1614, <double 5.000000e-01, double 5.000000e-01>
-  %1616 = extractelement <2 x double> %1615, i64 0
-  %1617 = fmul double %1616, %1
-  %1618 = extractelement <2 x double> %1615, i64 1
-  %1619 = fdiv double %1617, %1618
-  %1620 = fsub double 1.000000e+00, %1619
-  %1621 = fmul double %1619, %1620
-  %1622 = fmul double %1607, %1607
-  %1623 = fcmp olt double %1622, 1.000000e-30
-  %1624 = select i1 %1623, double 1.000000e-30, double %1622
-  %1625 = fdiv double 1.000000e+00, %1624
-  %1626 = fmul double %1607, %1609
-  %1627 = fmul double %1625, %1626
-  %1628 = fmul double %1607, %1608
-  %1629 = fmul double %1625, %1628
-  %1630 = fmul double %1621, 5.000000e-01
-  %1631 = fcmp olt double %1627, 1.000000e+00
-  %1632 = select i1 %1631, double %1627, double 1.000000e+00
-  %1633 = fcmp olt double %1629, %1632
-  %1634 = select i1 %1633, double %1629, double %1632
-  %1635 = fcmp olt double %1634, 0.000000e+00
-  %1636 = select i1 %1635, double 0.000000e+00, double %1634
-  %1637 = fsub double 1.000000e+00, %1636
-  %1638 = fmul double %1630, %1637
-  %1639 = fmul double %1607, %1638
-  %1640 = load i32, ptr %785, align 4, !tbaa !63
-  %1641 = icmp slt i32 %697, %1640
-  br i1 %1641, label %1642, label %1694
+1597:                                             ; preds = %1583, %1577
+  %1598 = phi double [ %1591, %1583 ], [ %763, %1577 ]
+  %1599 = phi double [ %1596, %1583 ], [ %765, %1577 ]
+  %1600 = load i32, ptr %791, align 4, !tbaa !63
+  %1601 = icmp slt i32 %697, %1600
+  %1602 = fadd double %740, %852
+  %1603 = fmul double %1602, 5.000000e-01
+  %1604 = fadd double %742, %853
+  %1605 = fmul double %1604, 5.000000e-01
+  %1606 = select i1 %1601, double %1603, double %740
+  %1607 = select i1 %1601, double %1605, double %742
+  %1608 = fdiv double %1460, %1461
+  %1609 = call double @llvm.fabs.f64(double %1608)
+  %1610 = fmul double %1461, 9.800000e+00
+  %1611 = call double @sqrt(double noundef %1610) #24
+  %1612 = fsub double %733, %708
+  %1613 = fsub double %708, %1606
+  %1614 = fsub double %1598, %733
+  %1615 = insertelement <2 x double> poison, double %1609, i64 0
+  %1616 = insertelement <2 x double> %1615, double %774, i64 1
+  %1617 = insertelement <2 x double> poison, double %1611, i64 0
+  %1618 = insertelement <2 x double> %1617, double %790, i64 1
+  %1619 = fadd <2 x double> %1616, %1618
+  %1620 = fmul <2 x double> %1619, <double 5.000000e-01, double 5.000000e-01>
+  %1621 = extractelement <2 x double> %1620, i64 0
+  %1622 = fmul double %1621, %1
+  %1623 = extractelement <2 x double> %1620, i64 1
+  %1624 = fdiv double %1622, %1623
+  %1625 = fsub double 1.000000e+00, %1624
+  %1626 = fmul double %1624, %1625
+  %1627 = fmul double %1612, %1612
+  %1628 = fcmp olt double %1627, 1.000000e-30
+  %1629 = select i1 %1628, double 1.000000e-30, double %1627
+  %1630 = fdiv double 1.000000e+00, %1629
+  %1631 = fmul double %1612, %1614
+  %1632 = fmul double %1630, %1631
+  %1633 = fmul double %1612, %1613
+  %1634 = fmul double %1630, %1633
+  %1635 = fmul double %1626, 5.000000e-01
+  %1636 = fcmp olt double %1632, 1.000000e+00
+  %1637 = select i1 %1636, double %1632, double 1.000000e+00
+  %1638 = fcmp olt double %1634, %1637
+  %1639 = select i1 %1638, double %1634, double %1637
+  %1640 = fcmp olt double %1639, 0.000000e+00
+  %1641 = fsub double 1.000000e+00, %1639
+  %1642 = select i1 %1640, double 1.000000e+00, double %1641
+  %1643 = fmul double %1635, %1642
+  %1644 = fmul double %1612, %1643
+  %1645 = load i32, ptr %785, align 4, !tbaa !63
+  %1646 = icmp slt i32 %697, %1645
+  br i1 %1646, label %1647, label %1699
 
-1642:                                             ; preds = %1592
-  %1643 = sext i32 %748 to i64
-  %1644 = getelementptr inbounds i32, ptr %25, i64 %1643
-  %1645 = load i32, ptr %1644, align 4, !tbaa !63
-  %1646 = sext i32 %871 to i64
-  %1647 = getelementptr inbounds i32, ptr %25, i64 %1646
-  %1648 = load i32, ptr %1647, align 4, !tbaa !63
-  %1649 = icmp slt i32 %1645, %1648
-  br i1 %1649, label %1650, label %1659
-
-1650:                                             ; preds = %1642
-  %1651 = load ptr, ptr %474, align 8, !tbaa !47
-  %1652 = getelementptr inbounds i32, ptr %19, i64 %1646
+1647:                                             ; preds = %1597
+  %1648 = sext i32 %748 to i64
+  %1649 = getelementptr inbounds i32, ptr %25, i64 %1648
+  %1650 = load i32, ptr %1649, align 4, !tbaa !63
+  %1651 = sext i32 %871 to i64
+  %1652 = getelementptr inbounds i32, ptr %25, i64 %1651
   %1653 = load i32, ptr %1652, align 4, !tbaa !63
-  %1654 = sext i32 %1653 to i64
-  %1655 = getelementptr inbounds double, ptr %1651, i64 %1654
-  %1656 = load double, ptr %1655, align 8, !tbaa !70
-  %1657 = fadd double %874, %1656
-  %1658 = fmul double %1657, 5.000000e-01
-  br label %1659
+  %1654 = icmp slt i32 %1650, %1653
+  br i1 %1654, label %1655, label %1664
 
-1659:                                             ; preds = %1650, %1642
-  %1660 = phi double [ %1658, %1650 ], [ %874, %1642 ]
-  %1661 = fdiv double %1480, %1478
-  %1662 = call double @llvm.fabs.f64(double %1661)
-  %1663 = fmul double %1478, 9.800000e+00
-  %1664 = call double @sqrt(double noundef %1663) #24
-  %1665 = fadd double %1662, %1664
-  %1666 = fsub double %872, %708
-  %1667 = fsub double %1660, %872
-  %1668 = fmul double %1665, 5.000000e-01
-  %1669 = fmul double %1668, %1
-  %1670 = fdiv double %1669, %1618
-  %1671 = fsub double 1.000000e+00, %1670
-  %1672 = fmul double %1670, %1671
-  %1673 = fmul double %1666, %1666
-  %1674 = fcmp olt double %1673, 1.000000e-30
-  %1675 = select i1 %1674, double 1.000000e-30, double %1673
-  %1676 = fdiv double 1.000000e+00, %1675
-  %1677 = fmul double %1666, %1667
-  %1678 = fmul double %1676, %1677
-  %1679 = fmul double %1666, %1608
-  %1680 = fmul double %1676, %1679
-  %1681 = fmul double %1672, 5.000000e-01
-  %1682 = fcmp olt double %1678, 1.000000e+00
-  %1683 = select i1 %1682, double %1678, double 1.000000e+00
-  %1684 = fcmp olt double %1680, %1683
-  %1685 = select i1 %1684, double %1680, double %1683
-  %1686 = fcmp olt double %1685, 0.000000e+00
-  %1687 = select i1 %1686, double 0.000000e+00, double %1685
-  %1688 = fsub double 1.000000e+00, %1687
-  %1689 = fmul double %1681, %1688
-  %1690 = fmul double %1666, %1689
-  %1691 = fadd double %1639, %1690
-  %1692 = fmul double %1691, 5.000000e-01
-  %1693 = fmul double %1692, 5.000000e-01
-  br label %1694
+1655:                                             ; preds = %1647
+  %1656 = load ptr, ptr %474, align 8, !tbaa !47
+  %1657 = getelementptr inbounds i32, ptr %19, i64 %1651
+  %1658 = load i32, ptr %1657, align 4, !tbaa !63
+  %1659 = sext i32 %1658 to i64
+  %1660 = getelementptr inbounds double, ptr %1656, i64 %1659
+  %1661 = load double, ptr %1660, align 8, !tbaa !70
+  %1662 = fadd double %874, %1661
+  %1663 = fmul double %1662, 5.000000e-01
+  br label %1664
 
-1694:                                             ; preds = %1659, %1592
-  %1695 = phi double [ %1693, %1659 ], [ %1639, %1592 ]
-  %1696 = call double @sqrt(double noundef %1483) #24
-  %1697 = fadd double %1482, %1696
-  %1698 = fsub double %714, %742
-  %1699 = fsub double %742, %1386
-  %1700 = fsub double %1394, %714
-  %1701 = fmul double %1697, 5.000000e-01
-  %1702 = fmul double %1701, %1
-  %1703 = fdiv double %1702, %1496
-  %1704 = fsub double 1.000000e+00, %1703
-  %1705 = fmul double %1703, %1704
-  %1706 = fmul double %1698, %1698
-  %1707 = fcmp olt double %1706, 1.000000e-30
-  %1708 = select i1 %1707, double 1.000000e-30, double %1706
-  %1709 = fdiv double 1.000000e+00, %1708
-  %1710 = fmul double %1698, %1700
-  %1711 = fmul double %1709, %1710
-  %1712 = fmul double %1698, %1699
-  %1713 = fmul double %1709, %1712
-  %1714 = fmul double %1705, 5.000000e-01
-  %1715 = fcmp olt double %1711, 1.000000e+00
-  %1716 = select i1 %1715, double %1711, double 1.000000e+00
-  %1717 = fcmp olt double %1713, %1716
-  %1718 = select i1 %1717, double %1713, double %1716
-  %1719 = fcmp olt double %1718, 0.000000e+00
-  %1720 = select i1 %1719, double 0.000000e+00, double %1718
-  %1721 = fsub double 1.000000e+00, %1720
-  %1722 = fmul double %1721, %1714
-  %1723 = fmul double %1698, %1722
-  %1724 = load i32, ptr %791, align 4, !tbaa !63
-  %1725 = icmp slt i32 %697, %1724
-  br i1 %1725, label %1726, label %1778
+1664:                                             ; preds = %1655, %1647
+  %1665 = phi double [ %1663, %1655 ], [ %874, %1647 ]
+  %1666 = fdiv double %1485, %1483
+  %1667 = call double @llvm.fabs.f64(double %1666)
+  %1668 = fmul double %1483, 9.800000e+00
+  %1669 = call double @sqrt(double noundef %1668) #24
+  %1670 = fadd double %1667, %1669
+  %1671 = fsub double %872, %708
+  %1672 = fsub double %1665, %872
+  %1673 = fmul double %1670, 5.000000e-01
+  %1674 = fmul double %1673, %1
+  %1675 = fdiv double %1674, %1623
+  %1676 = fsub double 1.000000e+00, %1675
+  %1677 = fmul double %1675, %1676
+  %1678 = fmul double %1671, %1671
+  %1679 = fcmp olt double %1678, 1.000000e-30
+  %1680 = select i1 %1679, double 1.000000e-30, double %1678
+  %1681 = fdiv double 1.000000e+00, %1680
+  %1682 = fmul double %1671, %1672
+  %1683 = fmul double %1681, %1682
+  %1684 = fmul double %1671, %1613
+  %1685 = fmul double %1681, %1684
+  %1686 = fmul double %1677, 5.000000e-01
+  %1687 = fcmp olt double %1683, 1.000000e+00
+  %1688 = select i1 %1687, double %1683, double 1.000000e+00
+  %1689 = fcmp olt double %1685, %1688
+  %1690 = select i1 %1689, double %1685, double %1688
+  %1691 = fcmp olt double %1690, 0.000000e+00
+  %1692 = fsub double 1.000000e+00, %1690
+  %1693 = select i1 %1691, double 1.000000e+00, double %1692
+  %1694 = fmul double %1686, %1693
+  %1695 = fmul double %1671, %1694
+  %1696 = fadd double %1644, %1695
+  %1697 = fmul double %1696, 5.000000e-01
+  %1698 = fmul double %1697, 5.000000e-01
+  br label %1699
 
-1726:                                             ; preds = %1694
-  %1727 = sext i32 %750 to i64
-  %1728 = getelementptr inbounds i32, ptr %25, i64 %1727
-  %1729 = load i32, ptr %1728, align 4, !tbaa !63
-  %1730 = sext i32 %851 to i64
-  %1731 = getelementptr inbounds i32, ptr %25, i64 %1730
-  %1732 = load i32, ptr %1731, align 4, !tbaa !63
-  %1733 = icmp slt i32 %1729, %1732
-  br i1 %1733, label %1734, label %1743
+1699:                                             ; preds = %1664, %1597
+  %1700 = phi double [ %1698, %1664 ], [ %1644, %1597 ]
+  %1701 = call double @sqrt(double noundef %1488) #24
+  %1702 = fadd double %1487, %1701
+  %1703 = fsub double %714, %742
+  %1704 = fsub double %742, %1386
+  %1705 = fsub double %1394, %714
+  %1706 = fmul double %1702, 5.000000e-01
+  %1707 = fmul double %1706, %1
+  %1708 = fdiv double %1707, %1501
+  %1709 = fsub double 1.000000e+00, %1708
+  %1710 = fmul double %1708, %1709
+  %1711 = fmul double %1703, %1703
+  %1712 = fcmp olt double %1711, 1.000000e-30
+  %1713 = select i1 %1712, double 1.000000e-30, double %1711
+  %1714 = fdiv double 1.000000e+00, %1713
+  %1715 = fmul double %1703, %1705
+  %1716 = fmul double %1714, %1715
+  %1717 = fmul double %1703, %1704
+  %1718 = fmul double %1714, %1717
+  %1719 = fmul double %1710, 5.000000e-01
+  %1720 = fcmp olt double %1716, 1.000000e+00
+  %1721 = select i1 %1720, double %1716, double 1.000000e+00
+  %1722 = fcmp olt double %1718, %1721
+  %1723 = select i1 %1722, double %1718, double %1721
+  %1724 = fcmp olt double %1723, 0.000000e+00
+  %1725 = fsub double 1.000000e+00, %1723
+  %1726 = select i1 %1724, double 1.000000e+00, double %1725
+  %1727 = fmul double %1726, %1719
+  %1728 = fmul double %1703, %1727
+  %1729 = load i32, ptr %791, align 4, !tbaa !63
+  %1730 = icmp slt i32 %697, %1729
+  br i1 %1730, label %1731, label %1783
 
-1734:                                             ; preds = %1726
-  %1735 = load ptr, ptr %476, align 8, !tbaa !49
-  %1736 = getelementptr inbounds i32, ptr %19, i64 %1730
+1731:                                             ; preds = %1699
+  %1732 = sext i32 %750 to i64
+  %1733 = getelementptr inbounds i32, ptr %25, i64 %1732
+  %1734 = load i32, ptr %1733, align 4, !tbaa !63
+  %1735 = sext i32 %851 to i64
+  %1736 = getelementptr inbounds i32, ptr %25, i64 %1735
   %1737 = load i32, ptr %1736, align 4, !tbaa !63
-  %1738 = sext i32 %1737 to i64
-  %1739 = getelementptr inbounds double, ptr %1735, i64 %1738
-  %1740 = load double, ptr %1739, align 8, !tbaa !70
-  %1741 = fadd double %855, %1740
-  %1742 = fmul double %1741, 5.000000e-01
-  br label %1743
+  %1738 = icmp slt i32 %1734, %1737
+  br i1 %1738, label %1739, label %1748
 
-1743:                                             ; preds = %1734, %1726
-  %1744 = phi double [ %1742, %1734 ], [ %855, %1726 ]
-  %1745 = fdiv double %1439, %1437
-  %1746 = call double @llvm.fabs.f64(double %1745)
-  %1747 = fmul double %1437, 9.800000e+00
-  %1748 = call double @sqrt(double noundef %1747) #24
-  %1749 = fadd double %1746, %1748
-  %1750 = fsub double %714, %853
-  %1751 = fsub double %853, %1744
-  %1752 = fmul double %1749, 5.000000e-01
-  %1753 = fmul double %1752, %1
-  %1754 = fdiv double %1753, %1496
-  %1755 = fsub double 1.000000e+00, %1754
-  %1756 = fmul double %1754, %1755
-  %1757 = fmul double %1750, %1750
-  %1758 = fcmp olt double %1757, 1.000000e-30
-  %1759 = select i1 %1758, double 1.000000e-30, double %1757
-  %1760 = fdiv double 1.000000e+00, %1759
-  %1761 = fmul double %1750, %1700
-  %1762 = fmul double %1760, %1761
-  %1763 = fmul double %1750, %1751
-  %1764 = fmul double %1760, %1763
-  %1765 = fmul double %1756, 5.000000e-01
-  %1766 = fcmp olt double %1762, 1.000000e+00
-  %1767 = select i1 %1766, double %1762, double 1.000000e+00
-  %1768 = fcmp olt double %1764, %1767
-  %1769 = select i1 %1768, double %1764, double %1767
-  %1770 = fcmp olt double %1769, 0.000000e+00
-  %1771 = select i1 %1770, double 0.000000e+00, double %1769
-  %1772 = fsub double 1.000000e+00, %1771
-  %1773 = fmul double %1765, %1772
-  %1774 = fmul double %1750, %1773
-  %1775 = fadd double %1723, %1774
-  %1776 = fmul double %1775, 5.000000e-01
-  %1777 = fmul double %1776, 5.000000e-01
-  br label %1778
+1739:                                             ; preds = %1731
+  %1740 = load ptr, ptr %476, align 8, !tbaa !49
+  %1741 = getelementptr inbounds i32, ptr %19, i64 %1735
+  %1742 = load i32, ptr %1741, align 4, !tbaa !63
+  %1743 = sext i32 %1742 to i64
+  %1744 = getelementptr inbounds double, ptr %1740, i64 %1743
+  %1745 = load double, ptr %1744, align 8, !tbaa !70
+  %1746 = fadd double %855, %1745
+  %1747 = fmul double %1746, 5.000000e-01
+  br label %1748
 
-1778:                                             ; preds = %1743, %1694
-  %1779 = phi double [ %1777, %1743 ], [ %1723, %1694 ]
-  %1780 = call double @sqrt(double noundef %1605) #24
-  %1781 = fadd double %1604, %1780
-  %1782 = fsub double %735, %714
-  %1783 = fsub double %714, %1602
-  %1784 = fsub double %1594, %735
-  %1785 = fmul double %1781, 5.000000e-01
-  %1786 = fmul double %1785, %1
-  %1787 = fdiv double %1786, %1618
-  %1788 = fsub double 1.000000e+00, %1787
-  %1789 = fmul double %1787, %1788
-  %1790 = fmul double %1782, %1782
-  %1791 = fcmp olt double %1790, 1.000000e-30
-  %1792 = select i1 %1791, double 1.000000e-30, double %1790
-  %1793 = fdiv double 1.000000e+00, %1792
-  %1794 = fmul double %1782, %1784
-  %1795 = fmul double %1793, %1794
-  %1796 = fmul double %1782, %1783
-  %1797 = fmul double %1793, %1796
-  %1798 = fmul double %1789, 5.000000e-01
-  %1799 = fcmp olt double %1795, 1.000000e+00
-  %1800 = select i1 %1799, double %1795, double 1.000000e+00
-  %1801 = fcmp olt double %1797, %1800
-  %1802 = select i1 %1801, double %1797, double %1800
-  %1803 = fcmp olt double %1802, 0.000000e+00
-  %1804 = select i1 %1803, double 0.000000e+00, double %1802
-  %1805 = fsub double 1.000000e+00, %1804
-  %1806 = fmul double %1805, %1798
-  %1807 = fmul double %1782, %1806
-  %1808 = load i32, ptr %785, align 4, !tbaa !63
-  %1809 = icmp slt i32 %697, %1808
-  br i1 %1809, label %1810, label %1862
+1748:                                             ; preds = %1739, %1731
+  %1749 = phi double [ %1747, %1739 ], [ %855, %1731 ]
+  %1750 = fdiv double %1441, %1439
+  %1751 = call double @llvm.fabs.f64(double %1750)
+  %1752 = fmul double %1439, 9.800000e+00
+  %1753 = call double @sqrt(double noundef %1752) #24
+  %1754 = fadd double %1751, %1753
+  %1755 = fsub double %714, %853
+  %1756 = fsub double %853, %1749
+  %1757 = fmul double %1754, 5.000000e-01
+  %1758 = fmul double %1757, %1
+  %1759 = fdiv double %1758, %1501
+  %1760 = fsub double 1.000000e+00, %1759
+  %1761 = fmul double %1759, %1760
+  %1762 = fmul double %1755, %1755
+  %1763 = fcmp olt double %1762, 1.000000e-30
+  %1764 = select i1 %1763, double 1.000000e-30, double %1762
+  %1765 = fdiv double 1.000000e+00, %1764
+  %1766 = fmul double %1755, %1705
+  %1767 = fmul double %1765, %1766
+  %1768 = fmul double %1755, %1756
+  %1769 = fmul double %1765, %1768
+  %1770 = fmul double %1761, 5.000000e-01
+  %1771 = fcmp olt double %1767, 1.000000e+00
+  %1772 = select i1 %1771, double %1767, double 1.000000e+00
+  %1773 = fcmp olt double %1769, %1772
+  %1774 = select i1 %1773, double %1769, double %1772
+  %1775 = fcmp olt double %1774, 0.000000e+00
+  %1776 = fsub double 1.000000e+00, %1774
+  %1777 = select i1 %1775, double 1.000000e+00, double %1776
+  %1778 = fmul double %1777, %1770
+  %1779 = fmul double %1755, %1778
+  %1780 = fadd double %1728, %1779
+  %1781 = fmul double %1780, 5.000000e-01
+  %1782 = fmul double %1781, 5.000000e-01
+  br label %1783
 
-1810:                                             ; preds = %1778
-  %1811 = sext i32 %748 to i64
-  %1812 = getelementptr inbounds i32, ptr %25, i64 %1811
-  %1813 = load i32, ptr %1812, align 4, !tbaa !63
-  %1814 = sext i32 %871 to i64
-  %1815 = getelementptr inbounds i32, ptr %25, i64 %1814
-  %1816 = load i32, ptr %1815, align 4, !tbaa !63
-  %1817 = icmp slt i32 %1813, %1816
-  br i1 %1817, label %1818, label %1827
+1783:                                             ; preds = %1748, %1699
+  %1784 = phi double [ %1782, %1748 ], [ %1728, %1699 ]
+  %1785 = call double @sqrt(double noundef %1610) #24
+  %1786 = fadd double %1609, %1785
+  %1787 = fsub double %735, %714
+  %1788 = fsub double %714, %1607
+  %1789 = fsub double %1599, %735
+  %1790 = fmul double %1786, 5.000000e-01
+  %1791 = fmul double %1790, %1
+  %1792 = fdiv double %1791, %1623
+  %1793 = fsub double 1.000000e+00, %1792
+  %1794 = fmul double %1792, %1793
+  %1795 = fmul double %1787, %1787
+  %1796 = fcmp olt double %1795, 1.000000e-30
+  %1797 = select i1 %1796, double 1.000000e-30, double %1795
+  %1798 = fdiv double 1.000000e+00, %1797
+  %1799 = fmul double %1787, %1789
+  %1800 = fmul double %1798, %1799
+  %1801 = fmul double %1787, %1788
+  %1802 = fmul double %1798, %1801
+  %1803 = fmul double %1794, 5.000000e-01
+  %1804 = fcmp olt double %1800, 1.000000e+00
+  %1805 = select i1 %1804, double %1800, double 1.000000e+00
+  %1806 = fcmp olt double %1802, %1805
+  %1807 = select i1 %1806, double %1802, double %1805
+  %1808 = fcmp olt double %1807, 0.000000e+00
+  %1809 = fsub double 1.000000e+00, %1807
+  %1810 = select i1 %1808, double 1.000000e+00, double %1809
+  %1811 = fmul double %1810, %1803
+  %1812 = fmul double %1787, %1811
+  %1813 = load i32, ptr %785, align 4, !tbaa !63
+  %1814 = icmp slt i32 %697, %1813
+  br i1 %1814, label %1815, label %1867
 
-1818:                                             ; preds = %1810
-  %1819 = load ptr, ptr %476, align 8, !tbaa !49
-  %1820 = getelementptr inbounds i32, ptr %19, i64 %1814
+1815:                                             ; preds = %1783
+  %1816 = sext i32 %748 to i64
+  %1817 = getelementptr inbounds i32, ptr %25, i64 %1816
+  %1818 = load i32, ptr %1817, align 4, !tbaa !63
+  %1819 = sext i32 %871 to i64
+  %1820 = getelementptr inbounds i32, ptr %25, i64 %1819
   %1821 = load i32, ptr %1820, align 4, !tbaa !63
-  %1822 = sext i32 %1821 to i64
-  %1823 = getelementptr inbounds double, ptr %1819, i64 %1822
-  %1824 = load double, ptr %1823, align 8, !tbaa !70
-  %1825 = fadd double %875, %1824
-  %1826 = fmul double %1825, 5.000000e-01
-  br label %1827
+  %1822 = icmp slt i32 %1818, %1821
+  br i1 %1822, label %1823, label %1832
 
-1827:                                             ; preds = %1818, %1810
-  %1828 = phi double [ %1826, %1818 ], [ %875, %1810 ]
-  %1829 = fdiv double %1480, %1478
-  %1830 = call double @llvm.fabs.f64(double %1829)
-  %1831 = fmul double %1478, 9.800000e+00
-  %1832 = call double @sqrt(double noundef %1831) #24
-  %1833 = fadd double %1830, %1832
-  %1834 = fsub double %873, %714
-  %1835 = fsub double %1828, %873
-  %1836 = fmul double %1833, 5.000000e-01
-  %1837 = fmul double %1836, %1
-  %1838 = fdiv double %1837, %1618
-  %1839 = fsub double 1.000000e+00, %1838
-  %1840 = fmul double %1838, %1839
-  %1841 = fmul double %1834, %1834
-  %1842 = fcmp olt double %1841, 1.000000e-30
-  %1843 = select i1 %1842, double 1.000000e-30, double %1841
-  %1844 = fdiv double 1.000000e+00, %1843
-  %1845 = fmul double %1834, %1835
-  %1846 = fmul double %1844, %1845
-  %1847 = fmul double %1834, %1783
-  %1848 = fmul double %1844, %1847
-  %1849 = fmul double %1840, 5.000000e-01
-  %1850 = fcmp olt double %1846, 1.000000e+00
-  %1851 = select i1 %1850, double %1846, double 1.000000e+00
-  %1852 = fcmp olt double %1848, %1851
-  %1853 = select i1 %1852, double %1848, double %1851
-  %1854 = fcmp olt double %1853, 0.000000e+00
-  %1855 = select i1 %1854, double 0.000000e+00, double %1853
-  %1856 = fsub double 1.000000e+00, %1855
-  %1857 = fmul double %1849, %1856
-  %1858 = fmul double %1834, %1857
-  %1859 = fadd double %1807, %1858
-  %1860 = fmul double %1859, 5.000000e-01
-  %1861 = fmul double %1860, 5.000000e-01
-  br label %1862
+1823:                                             ; preds = %1815
+  %1824 = load ptr, ptr %476, align 8, !tbaa !49
+  %1825 = getelementptr inbounds i32, ptr %19, i64 %1819
+  %1826 = load i32, ptr %1825, align 4, !tbaa !63
+  %1827 = sext i32 %1826 to i64
+  %1828 = getelementptr inbounds double, ptr %1824, i64 %1827
+  %1829 = load double, ptr %1828, align 8, !tbaa !70
+  %1830 = fadd double %875, %1829
+  %1831 = fmul double %1830, 5.000000e-01
+  br label %1832
 
-1862:                                             ; preds = %1827, %1778
-  %1863 = phi double [ %1861, %1827 ], [ %1807, %1778 ]
-  %1864 = fmul double %895, %895
-  %1865 = fdiv double %1864, %894
-  %1866 = fmul double %894, %894
-  %1867 = fmul double %1866, 4.900000e+00
-  %1868 = fadd double %1867, %1865
-  %1869 = fmul double %895, %896
+1832:                                             ; preds = %1823, %1815
+  %1833 = phi double [ %1831, %1823 ], [ %875, %1815 ]
+  %1834 = fdiv double %1485, %1483
+  %1835 = call double @llvm.fabs.f64(double %1834)
+  %1836 = fmul double %1483, 9.800000e+00
+  %1837 = call double @sqrt(double noundef %1836) #24
+  %1838 = fadd double %1835, %1837
+  %1839 = fsub double %873, %714
+  %1840 = fsub double %1833, %873
+  %1841 = fmul double %1838, 5.000000e-01
+  %1842 = fmul double %1841, %1
+  %1843 = fdiv double %1842, %1623
+  %1844 = fsub double 1.000000e+00, %1843
+  %1845 = fmul double %1843, %1844
+  %1846 = fmul double %1839, %1839
+  %1847 = fcmp olt double %1846, 1.000000e-30
+  %1848 = select i1 %1847, double 1.000000e-30, double %1846
+  %1849 = fdiv double 1.000000e+00, %1848
+  %1850 = fmul double %1839, %1840
+  %1851 = fmul double %1849, %1850
+  %1852 = fmul double %1839, %1788
+  %1853 = fmul double %1849, %1852
+  %1854 = fmul double %1845, 5.000000e-01
+  %1855 = fcmp olt double %1851, 1.000000e+00
+  %1856 = select i1 %1855, double %1851, double 1.000000e+00
+  %1857 = fcmp olt double %1853, %1856
+  %1858 = select i1 %1857, double %1853, double %1856
+  %1859 = fcmp olt double %1858, 0.000000e+00
+  %1860 = fsub double 1.000000e+00, %1858
+  %1861 = select i1 %1859, double 1.000000e+00, double %1860
+  %1862 = fmul double %1854, %1861
+  %1863 = fmul double %1839, %1862
+  %1864 = fadd double %1812, %1863
+  %1865 = fmul double %1864, 5.000000e-01
+  %1866 = fmul double %1865, 5.000000e-01
+  br label %1867
+
+1867:                                             ; preds = %1832, %1783
+  %1868 = phi double [ %1866, %1832 ], [ %1812, %1783 ]
+  %1869 = fmul double %895, %895
   %1870 = fdiv double %1869, %894
-  %1871 = fmul double %936, %936
-  %1872 = fdiv double %1871, %935
-  %1873 = fmul double %935, %935
-  %1874 = fmul double %1873, 4.900000e+00
-  %1875 = fadd double %1874, %1872
-  %1876 = fmul double %936, %937
+  %1871 = fmul double %894, %894
+  %1872 = fmul double %1871, 4.900000e+00
+  %1873 = fadd double %1870, %1872
+  %1874 = fmul double %895, %896
+  %1875 = fdiv double %1874, %894
+  %1876 = fmul double %936, %936
   %1877 = fdiv double %1876, %935
-  %1878 = fmul double %1416, %1417
-  %1879 = fdiv double %1878, %1415
-  %1880 = fmul double %1417, %1417
-  %1881 = fdiv double %1880, %1415
-  %1882 = fmul double %1415, %1415
-  %1883 = fmul double %1882, 4.900000e+00
-  %1884 = fadd double %1883, %1881
-  %1885 = fmul double %1458, %1459
-  %1886 = fdiv double %1885, %1457
-  %1887 = fmul double %1459, %1459
-  %1888 = fdiv double %1887, %1457
-  %1889 = fmul double %1457, %1457
-  %1890 = fmul double %1889, 4.900000e+00
-  %1891 = fadd double %1890, %1888
-  %1892 = load i32, ptr %775, align 4, !tbaa !63
-  %1893 = icmp slt i32 %697, %1892
-  br i1 %1893, label %1894, label %1908
+  %1878 = fmul double %935, %935
+  %1879 = fmul double %1878, 4.900000e+00
+  %1880 = fadd double %1877, %1879
+  %1881 = fmul double %936, %937
+  %1882 = fdiv double %1881, %935
+  %1883 = fmul double %1414, %1415
+  %1884 = fdiv double %1883, %1416
+  %1885 = fmul double %1415, %1415
+  %1886 = fdiv double %1885, %1416
+  %1887 = fmul double %1416, %1416
+  %1888 = fmul double %1887, 4.900000e+00
+  %1889 = fadd double %1886, %1888
+  %1890 = fmul double %1459, %1460
+  %1891 = fdiv double %1890, %1461
+  %1892 = fmul double %1460, %1460
+  %1893 = fdiv double %1892, %1461
+  %1894 = fmul double %1461, %1461
+  %1895 = fmul double %1894, 4.900000e+00
+  %1896 = fadd double %1893, %1895
+  %1897 = load i32, ptr %775, align 4, !tbaa !63
+  %1898 = icmp slt i32 %697, %1897
+  br i1 %1898, label %1899, label %1913
 
-1894:                                             ; preds = %1862
-  %1895 = fadd double %895, %916
-  %1896 = fmul double %1895, 5.000000e-01
-  %1897 = fmul double %916, %916
-  %1898 = fdiv double %1897, %915
-  %1899 = fmul double %915, %915
-  %1900 = fmul double %1899, 4.900000e+00
-  %1901 = fadd double %1900, %1898
-  %1902 = fadd double %1868, %1901
-  %1903 = fmul double %1902, 5.000000e-01
-  %1904 = fmul double %916, %917
-  %1905 = fdiv double %1904, %915
-  %1906 = fadd double %1870, %1905
-  %1907 = fmul double %1906, 5.000000e-01
-  br label %1908
+1899:                                             ; preds = %1867
+  %1900 = fadd double %895, %916
+  %1901 = fmul double %1900, 5.000000e-01
+  %1902 = fmul double %916, %916
+  %1903 = fdiv double %1902, %915
+  %1904 = fmul double %915, %915
+  %1905 = fmul double %1904, 4.900000e+00
+  %1906 = fadd double %1905, %1903
+  %1907 = fadd double %1873, %1906
+  %1908 = fmul double %1907, 5.000000e-01
+  %1909 = fmul double %916, %917
+  %1910 = fdiv double %1909, %915
+  %1911 = fadd double %1875, %1910
+  %1912 = fmul double %1911, 5.000000e-01
+  br label %1913
 
-1908:                                             ; preds = %1894, %1862
-  %1909 = phi double [ %1896, %1894 ], [ %895, %1862 ]
-  %1910 = phi double [ %1903, %1894 ], [ %1868, %1862 ]
-  %1911 = phi double [ %1907, %1894 ], [ %1870, %1862 ]
-  %1912 = load i32, ptr %780, align 4, !tbaa !63
-  %1913 = icmp slt i32 %697, %1912
-  br i1 %1913, label %1914, label %1928
+1913:                                             ; preds = %1899, %1867
+  %1914 = phi double [ %1901, %1899 ], [ %895, %1867 ]
+  %1915 = phi double [ %1908, %1899 ], [ %1873, %1867 ]
+  %1916 = phi double [ %1912, %1899 ], [ %1875, %1867 ]
+  %1917 = load i32, ptr %780, align 4, !tbaa !63
+  %1918 = icmp slt i32 %697, %1917
+  br i1 %1918, label %1919, label %1933
 
-1914:                                             ; preds = %1908
-  %1915 = fadd double %936, %957
-  %1916 = fmul double %1915, 5.000000e-01
-  %1917 = fmul double %957, %957
-  %1918 = fdiv double %1917, %956
-  %1919 = fmul double %956, %956
-  %1920 = fmul double %1919, 4.900000e+00
-  %1921 = fadd double %1920, %1918
-  %1922 = fadd double %1875, %1921
-  %1923 = fmul double %1922, 5.000000e-01
-  %1924 = fmul double %957, %958
-  %1925 = fdiv double %1924, %956
-  %1926 = fadd double %1877, %1925
-  %1927 = fmul double %1926, 5.000000e-01
-  br label %1928
+1919:                                             ; preds = %1913
+  %1920 = fadd double %936, %957
+  %1921 = fmul double %1920, 5.000000e-01
+  %1922 = fmul double %957, %957
+  %1923 = fdiv double %1922, %956
+  %1924 = fmul double %956, %956
+  %1925 = fmul double %1924, 4.900000e+00
+  %1926 = fadd double %1925, %1923
+  %1927 = fadd double %1880, %1926
+  %1928 = fmul double %1927, 5.000000e-01
+  %1929 = fmul double %957, %958
+  %1930 = fdiv double %1929, %956
+  %1931 = fadd double %1882, %1930
+  %1932 = fmul double %1931, 5.000000e-01
+  br label %1933
 
-1928:                                             ; preds = %1914, %1908
-  %1929 = phi double [ %1916, %1914 ], [ %936, %1908 ]
-  %1930 = phi double [ %1923, %1914 ], [ %1875, %1908 ]
-  %1931 = phi double [ %1927, %1914 ], [ %1877, %1908 ]
-  %1932 = load i32, ptr %791, align 4, !tbaa !63
-  %1933 = icmp slt i32 %697, %1932
-  br i1 %1933, label %1934, label %1948
+1933:                                             ; preds = %1919, %1913
+  %1934 = phi double [ %1921, %1919 ], [ %936, %1913 ]
+  %1935 = phi double [ %1928, %1919 ], [ %1880, %1913 ]
+  %1936 = phi double [ %1932, %1919 ], [ %1882, %1913 ]
+  %1937 = load i32, ptr %791, align 4, !tbaa !63
+  %1938 = icmp slt i32 %697, %1937
+  br i1 %1938, label %1939, label %1953
 
-1934:                                             ; preds = %1928
-  %1935 = fadd double %1417, %1439
-  %1936 = fmul double %1935, 5.000000e-01
-  %1937 = fmul double %1438, %1439
-  %1938 = fdiv double %1937, %1437
-  %1939 = fadd double %1879, %1938
-  %1940 = fmul double %1939, 5.000000e-01
-  %1941 = fmul double %1439, %1439
-  %1942 = fdiv double %1941, %1437
-  %1943 = fmul double %1437, %1437
-  %1944 = fmul double %1943, 4.900000e+00
-  %1945 = fadd double %1944, %1942
-  %1946 = fadd double %1884, %1945
-  %1947 = fmul double %1946, 5.000000e-01
-  br label %1948
+1939:                                             ; preds = %1933
+  %1940 = fadd double %1415, %1441
+  %1941 = fmul double %1940, 5.000000e-01
+  %1942 = fmul double %1440, %1441
+  %1943 = fdiv double %1942, %1439
+  %1944 = fadd double %1884, %1943
+  %1945 = fmul double %1944, 5.000000e-01
+  %1946 = fmul double %1441, %1441
+  %1947 = fdiv double %1946, %1439
+  %1948 = fmul double %1439, %1439
+  %1949 = fmul double %1948, 4.900000e+00
+  %1950 = fadd double %1949, %1947
+  %1951 = fadd double %1889, %1950
+  %1952 = fmul double %1951, 5.000000e-01
+  br label %1953
 
-1948:                                             ; preds = %1934, %1928
-  %1949 = phi double [ %1936, %1934 ], [ %1417, %1928 ]
-  %1950 = phi double [ %1940, %1934 ], [ %1879, %1928 ]
-  %1951 = phi double [ %1947, %1934 ], [ %1884, %1928 ]
-  %1952 = load i32, ptr %785, align 4, !tbaa !63
-  %1953 = icmp slt i32 %697, %1952
-  br i1 %1953, label %1954, label %1968
+1953:                                             ; preds = %1939, %1933
+  %1954 = phi double [ %1941, %1939 ], [ %1415, %1933 ]
+  %1955 = phi double [ %1945, %1939 ], [ %1884, %1933 ]
+  %1956 = phi double [ %1952, %1939 ], [ %1889, %1933 ]
+  %1957 = load i32, ptr %785, align 4, !tbaa !63
+  %1958 = icmp slt i32 %697, %1957
+  br i1 %1958, label %1959, label %1973
 
-1954:                                             ; preds = %1948
-  %1955 = fadd double %1459, %1480
-  %1956 = fmul double %1955, 5.000000e-01
-  %1957 = fmul double %1479, %1480
-  %1958 = fdiv double %1957, %1478
-  %1959 = fadd double %1886, %1958
-  %1960 = fmul double %1959, 5.000000e-01
-  %1961 = fmul double %1480, %1480
-  %1962 = fdiv double %1961, %1478
-  %1963 = fmul double %1478, %1478
-  %1964 = fmul double %1963, 4.900000e+00
-  %1965 = fadd double %1964, %1962
-  %1966 = fadd double %1891, %1965
-  %1967 = fmul double %1966, 5.000000e-01
-  br label %1968
+1959:                                             ; preds = %1953
+  %1960 = fadd double %1460, %1485
+  %1961 = fmul double %1960, 5.000000e-01
+  %1962 = fmul double %1484, %1485
+  %1963 = fdiv double %1962, %1483
+  %1964 = fadd double %1891, %1963
+  %1965 = fmul double %1964, 5.000000e-01
+  %1966 = fmul double %1485, %1485
+  %1967 = fdiv double %1966, %1483
+  %1968 = fmul double %1483, %1483
+  %1969 = fmul double %1968, 4.900000e+00
+  %1970 = fadd double %1969, %1967
+  %1971 = fadd double %1896, %1970
+  %1972 = fmul double %1971, 5.000000e-01
+  br label %1973
 
-1968:                                             ; preds = %1954, %1948
-  %1969 = phi double [ %1956, %1954 ], [ %1459, %1948 ]
-  %1970 = phi double [ %1960, %1954 ], [ %1886, %1948 ]
-  %1971 = phi double [ %1967, %1954 ], [ %1891, %1948 ]
-  %1972 = fdiv double %1, %774
-  %1973 = fsub double %1929, %1909
-  %1974 = fadd double %1973, %1969
-  %1975 = fsub double %1974, %1949
-  %1976 = fmul double %1972, %1975
-  %1977 = fsub double %708, %1976
-  %1978 = fsub double %1977, %1075
-  %1979 = fadd double %1197, %1978
-  %1980 = fsub double %1979, %1573
-  %1981 = fadd double %1695, %1980
-  %1982 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE5H_new, align 8, !tbaa !75
-  %1983 = getelementptr inbounds double, ptr %1982, i64 %695
-  store double %1981, ptr %1983, align 8, !tbaa !70
-  %1984 = fsub double %1930, %1910
-  %1985 = fadd double %1984, %1970
-  %1986 = fsub double %1985, %1950
-  %1987 = fmul double %1972, %1986
-  %1988 = fsub double %711, %1987
-  %1989 = fsub double %1988, %1281
-  %1990 = fadd double %1365, %1989
-  %1991 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE5U_new, align 8, !tbaa !75
-  %1992 = getelementptr inbounds double, ptr %1991, i64 %695
-  store double %1990, ptr %1992, align 8, !tbaa !70
-  %1993 = fsub double %1931, %1911
-  %1994 = fadd double %1993, %1971
-  %1995 = fsub double %1994, %1951
-  %1996 = fmul double %1972, %1995
-  %1997 = fsub double %714, %1996
-  %1998 = fsub double %1997, %1779
-  %1999 = fadd double %1863, %1998
-  %2000 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE5V_new, align 8, !tbaa !75
-  %2001 = getelementptr inbounds double, ptr %2000, i64 %695
-  store double %1999, ptr %2001, align 8, !tbaa !70
-  %2002 = add nsw i64 %695, 1
-  %2003 = load i32, ptr %5, align 4, !tbaa !63
-  %2004 = sext i32 %2003 to i64
-  %2005 = icmp slt i64 %2002, %2004
-  br i1 %2005, label %694, label %674, !llvm.loop !96
+1973:                                             ; preds = %1959, %1953
+  %1974 = phi double [ %1961, %1959 ], [ %1460, %1953 ]
+  %1975 = phi double [ %1965, %1959 ], [ %1891, %1953 ]
+  %1976 = phi double [ %1972, %1959 ], [ %1896, %1953 ]
+  %1977 = fdiv double %1, %774
+  %1978 = fsub double %1934, %1914
+  %1979 = fadd double %1978, %1974
+  %1980 = fsub double %1979, %1954
+  %1981 = fmul double %1977, %1980
+  %1982 = fsub double %708, %1981
+  %1983 = fsub double %1982, %1075
+  %1984 = fadd double %1197, %1983
+  %1985 = fsub double %1984, %1578
+  %1986 = fadd double %1700, %1985
+  %1987 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE5H_new, align 8, !tbaa !75
+  %1988 = getelementptr inbounds double, ptr %1987, i64 %695
+  store double %1986, ptr %1988, align 8, !tbaa !70
+  %1989 = fsub double %1935, %1915
+  %1990 = fadd double %1989, %1975
+  %1991 = fsub double %1990, %1955
+  %1992 = fmul double %1977, %1991
+  %1993 = fsub double %711, %1992
+  %1994 = fsub double %1993, %1281
+  %1995 = fadd double %1365, %1994
+  %1996 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE5U_new, align 8, !tbaa !75
+  %1997 = getelementptr inbounds double, ptr %1996, i64 %695
+  store double %1995, ptr %1997, align 8, !tbaa !70
+  %1998 = fsub double %1936, %1916
+  %1999 = fadd double %1998, %1976
+  %2000 = fsub double %1999, %1956
+  %2001 = fmul double %1977, %2000
+  %2002 = fsub double %714, %2001
+  %2003 = fsub double %2002, %1784
+  %2004 = fadd double %1868, %2003
+  %2005 = load ptr, ptr @_ZZN5State32calc_finite_difference_via_facesEdE5V_new, align 8, !tbaa !75
+  %2006 = getelementptr inbounds double, ptr %2005, i64 %695
+  store double %2004, ptr %2006, align 8, !tbaa !70
+  %2007 = add nsw i64 %695, 1
+  %2008 = load i32, ptr %5, align 4, !tbaa !63
+  %2009 = sext i32 %2008 to i64
+  %2010 = icmp slt i64 %2007, %2009
+  br i1 %2010, label %694, label %674, !llvm.loop !96
 }
 
 declare void @_ZN4Mesh24calc_face_list_wbidirmapEv(ptr noundef nonnull align 8 dereferenceable(2288)) local_unnamed_addr #3
@@ -7890,7 +7911,7 @@ define dso_local void @_ZN5State37compare_state_cpu_local_to_cpu_globalEPS_PKcij
   br i1 %79, label %37, label %43, !llvm.loop !105
 
 80:                                               ; preds = %41, %39
-  %81 = phi { ptr, i32 } [ %42, %41 ], [ %40, %39 ]
+  %81 = phi { ptr, i32 } [ %40, %39 ], [ %42, %41 ]
   tail call void @_ZdlPv(ptr noundef nonnull %19) #27
   resume { ptr, i32 } %81
 }
@@ -9680,7 +9701,7 @@ define linkonce_odr dso_local void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt
 
 11:                                               ; preds = %3
   %12 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef 0)
-          to label %13 unwind label %20
+          to label %13 unwind label %28
 
 13:                                               ; preds = %11
   store ptr %12, ptr %5, align 8, !tbaa !131
@@ -9692,63 +9713,66 @@ define linkonce_odr dso_local void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt
   %16 = phi ptr [ %12, %13 ], [ %6, %3 ]
   switch i64 %9, label %19 [
     i64 1, label %17
-    i64 0, label %26
+    i64 0, label %20
   ]
 
 17:                                               ; preds = %15
   %18 = load i8, ptr %7, align 1, !tbaa !137
   store i8 %18, ptr %16, align 1, !tbaa !137
-  br label %26
+  br label %20
 
 19:                                               ; preds = %15
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %16, ptr align 1 %7, i64 %9, i1 false)
-  br label %26
+  br label %20
 
-20:                                               ; preds = %11
-  %21 = landingpad { ptr, i32 }
+20:                                               ; preds = %15, %17, %19
+  %21 = load i64, ptr %4, align 8, !tbaa !58
+  %22 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
+  store i64 %21, ptr %22, align 8, !tbaa !136
+  %23 = load ptr, ptr %5, align 8, !tbaa !131
+  %24 = getelementptr inbounds i8, ptr %23, i64 %21
+  store i8 0, ptr %24, align 1, !tbaa !137
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #24
+  %25 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
+  %26 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
+  %27 = load ptr, ptr %26, align 8, !tbaa !138
+  store ptr %27, ptr %25, align 8, !tbaa !138
+  ret void
+
+28:                                               ; preds = %11
+  %29 = landingpad { ptr, i32 }
           catch ptr null
-  %22 = extractvalue { ptr, i32 } %21, 0
-  %23 = call ptr @__cxa_begin_catch(ptr %22) #24
+  %30 = extractvalue { ptr, i32 } %29, 0
+  %31 = call ptr @__cxa_begin_catch(ptr %30) #24
   call void @_ZdlPv(ptr noundef nonnull %1) #27
   invoke void @__cxa_rethrow() #25
-          to label %38 unwind label %24
+          to label %38 unwind label %32
 
-24:                                               ; preds = %20
-  %25 = landingpad { ptr, i32 }
+32:                                               ; preds = %28
+  %33 = landingpad { ptr, i32 }
           cleanup
   invoke void @__cxa_end_catch()
           to label %34 unwind label %35
 
-26:                                               ; preds = %19, %17, %15
-  %27 = load i64, ptr %4, align 8, !tbaa !58
-  %28 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
-  store i64 %27, ptr %28, align 8, !tbaa !136
-  %29 = load ptr, ptr %5, align 8, !tbaa !131
-  %30 = getelementptr inbounds i8, ptr %29, i64 %27
-  store i8 0, ptr %30, align 1, !tbaa !137
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #24
-  %31 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
-  %32 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !138
-  store ptr %33, ptr %31, align 8, !tbaa !138
-  ret void
+34:                                               ; preds = %32
+  resume { ptr, i32 } %33
 
-34:                                               ; preds = %24
-  resume { ptr, i32 } %25
-
-35:                                               ; preds = %24
+35:                                               ; preds = %32
   %36 = landingpad { ptr, i32 }
           catch ptr null
   %37 = extractvalue { ptr, i32 } %36, 0
   call void @__clang_call_terminate(ptr %37) #28
   unreachable
 
-38:                                               ; preds = %20
+38:                                               ; preds = %28
   unreachable
 }
 
 ; Function Attrs: noreturn
 declare void @_ZSt28__throw_bad_array_new_lengthv() local_unnamed_addr #18
+
+; Function Attrs: noreturn
+declare void @_ZSt17__throw_bad_allocv() local_unnamed_addr #18
 
 ; Function Attrs: nobuiltin allocsize(0)
 declare noundef nonnull ptr @_Znwm(i64 noundef) local_unnamed_addr #19
@@ -9910,7 +9934,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorIiSaIiEE17_M_default_appendEm(pt
   %14 = ptrtoint ptr %13 to i64
   %15 = sub i64 %14, %8
   %16 = ashr exact i64 %15, 2
-  %17 = icmp sgt i64 %10, -1
+  %17 = icmp ult i64 %10, 9223372036854775805
   tail call void @llvm.assume(i1 %17)
   %18 = xor i64 %11, 2305843009213693951
   %19 = icmp ule i64 %16, %18
@@ -9959,7 +9983,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorIiSaIiEE17_M_default_appendEm(pt
   %43 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %42) #26
   br label %44
 
-44:                                               ; preds = %41, %33
+44:                                               ; preds = %33, %41
   %45 = phi ptr [ %43, %41 ], [ null, %33 ]
   %46 = getelementptr inbounds i32, ptr %45, i64 %11
   store i32 0, ptr %46, align 4, !tbaa !63
@@ -10025,7 +10049,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorIdSaIdEE17_M_default_appendEm(pt
   %14 = ptrtoint ptr %13 to i64
   %15 = sub i64 %14, %8
   %16 = ashr exact i64 %15, 3
-  %17 = icmp sgt i64 %10, -1
+  %17 = icmp ult i64 %10, 9223372036854775801
   tail call void @llvm.assume(i1 %17)
   %18 = xor i64 %11, 1152921504606846975
   %19 = icmp ule i64 %16, %18
@@ -10074,7 +10098,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorIdSaIdEE17_M_default_appendEm(pt
   %43 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %42) #26
   br label %44
 
-44:                                               ; preds = %41, %33
+44:                                               ; preds = %33, %41
   %45 = phi ptr [ %43, %41 ], [ null, %33 ]
   %46 = getelementptr inbounds double, ptr %45, i64 %11
   store double 0.000000e+00, ptr %46, align 8, !tbaa !70
@@ -10119,6 +10143,9 @@ define linkonce_odr dso_local void @_ZNSt6vectorIdSaIdEE17_M_default_appendEm(pt
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
 declare void @llvm.assume(i1 noundef) #21
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umax.i64(i64, i64) #22
+
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
@@ -10127,9 +10154,6 @@ declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
 
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #22
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <2 x double> @llvm.fabs.v2f64(<2 x double>) #22

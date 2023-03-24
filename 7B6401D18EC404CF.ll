@@ -1381,9 +1381,9 @@ define dso_local void @makeNts() local_unnamed_addr #3 {
   br i1 %22, label %60, label %23
 
 23:                                               ; preds = %17
-  %24 = getelementptr i8, ptr %21, i64 8
-  %25 = load ptr, ptr %24, align 8, !tbaa !49
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(3) @cumBuf, ptr noundef nonnull align 1 dereferenceable(3) @.str.170, i64 3, i1 false)
+  %24 = getelementptr inbounds %struct.ruleAST, ptr %21, i64 0, i32 1
+  %25 = load ptr, ptr %24, align 8, !tbaa !49
   call fastcc void @layoutNts(ptr noundef %25)
   %26 = call i64 @strlen(ptr nonnull dereferenceable(1) @cumBuf)
   %27 = getelementptr inbounds i8, ptr @cumBuf, i64 %26

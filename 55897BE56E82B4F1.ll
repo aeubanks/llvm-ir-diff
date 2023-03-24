@@ -473,52 +473,52 @@ define dso_local void @_ZNK22btGImpactMeshShapePart21calculateLocalInertiaEfR9bt
   %10 = sitofp i32 %9 to float
   %11 = fdiv float %1, %10
   %12 = icmp eq i32 %9, 0
-  br i1 %12, label %104, label %13
+  br i1 %12, label %103, label %13
 
 13:                                               ; preds = %3
-  %14 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 9
-  %15 = load i32, ptr %14, align 4, !tbaa !35
-  %16 = icmp eq i32 %15, 1
-  %17 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 7
-  %18 = load ptr, ptr %17, align 8, !tbaa !36
-  %19 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 10
-  %20 = load i32, ptr %19, align 8, !tbaa !37
-  %21 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 4
-  %22 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 4, i32 0, i64 1
-  %23 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 4, i32 0, i64 2
-  %24 = sext i32 %9 to i64
-  %25 = sext i32 %20 to i64
-  br i1 %16, label %29, label %26
+  %14 = add i32 %9, -1
+  %15 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 9
+  %16 = load i32, ptr %15, align 4, !tbaa !35
+  %17 = icmp eq i32 %16, 1
+  %18 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 7
+  %19 = load ptr, ptr %18, align 8, !tbaa !36
+  %20 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 10
+  %21 = load i32, ptr %20, align 8, !tbaa !37
+  %22 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 4
+  %23 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 4, i32 0, i64 1
+  %24 = getelementptr inbounds %class.btGImpactMeshShapePart, ptr %0, i64 0, i32 1, i32 4, i32 0, i64 2
+  %25 = sext i32 %14 to i64
+  %26 = sext i32 %21 to i64
+  br i1 %17, label %30, label %27
 
-26:                                               ; preds = %13
-  %27 = insertelement <2 x float> poison, float %11, i64 0
-  %28 = shufflevector <2 x float> %27, <2 x float> poison, <2 x i32> zeroinitializer
+27:                                               ; preds = %13
+  %28 = insertelement <2 x float> poison, float %11, i64 0
+  %29 = shufflevector <2 x float> %28, <2 x float> poison, <2 x i32> zeroinitializer
   br label %70
 
-29:                                               ; preds = %13
-  %30 = insertelement <2 x float> poison, float %11, i64 0
-  %31 = shufflevector <2 x float> %30, <2 x float> poison, <2 x i32> zeroinitializer
-  br label %32
+30:                                               ; preds = %13
+  %31 = insertelement <2 x float> poison, float %11, i64 0
+  %32 = shufflevector <2 x float> %31, <2 x float> poison, <2 x i32> zeroinitializer
+  br label %33
 
-32:                                               ; preds = %29, %32
-  %33 = phi i64 [ %36, %32 ], [ %24, %29 ]
-  %34 = phi float [ %67, %32 ], [ 0.000000e+00, %29 ]
-  %35 = phi <2 x float> [ %66, %32 ], [ zeroinitializer, %29 ]
-  %36 = add nsw i64 %33, -1
-  %37 = mul nsw i64 %36, %25
-  %38 = getelementptr inbounds i8, ptr %18, i64 %37
+33:                                               ; preds = %30, %33
+  %34 = phi i64 [ %68, %33 ], [ %25, %30 ]
+  %35 = phi float [ %67, %33 ], [ 0.000000e+00, %30 ]
+  %36 = phi <2 x float> [ %66, %33 ], [ zeroinitializer, %30 ]
+  %37 = mul nsw i64 %34, %26
+  %38 = getelementptr inbounds i8, ptr %19, i64 %37
   %39 = getelementptr inbounds double, ptr %38, i64 1
   %40 = load double, ptr %39, align 8, !tbaa !38
-  %41 = load float, ptr %22, align 4, !tbaa !19
+  %41 = load float, ptr %23, align 4, !tbaa !19
   %42 = fpext float %41 to double
   %43 = fmul double %40, %42
   %44 = fptrunc double %43 to float
   %45 = getelementptr inbounds double, ptr %38, i64 2
   %46 = fmul float %44, %44
-  %47 = load float, ptr %21, align 8, !tbaa !19
+  %47 = load float, ptr %22, align 8, !tbaa !19
   %48 = load double, ptr %38, align 8, !tbaa !38
   %49 = load double, ptr %45, align 8, !tbaa !38
-  %50 = load <4 x float>, ptr %23, align 8
+  %50 = load <4 x float>, ptr %24, align 8
   %51 = shufflevector <4 x float> %50, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
   %52 = insertelement <2 x float> %51, float %47, i64 1
   %53 = fpext <2 x float> %52 to <2 x double>
@@ -530,61 +530,60 @@ define dso_local void @_ZNK22btGImpactMeshShapePart21calculateLocalInertiaEfR9bt
   %59 = shufflevector <2 x float> %58, <2 x float> poison, <2 x i32> <i32 undef, i32 0>
   %60 = insertelement <2 x float> %59, float %46, i64 0
   %61 = fadd <2 x float> %58, %60
-  %62 = fmul <2 x float> %31, %61
+  %62 = fmul <2 x float> %32, %61
   %63 = extractelement <2 x float> %58, i64 1
   %64 = fadd float %63, %46
   %65 = fmul float %11, %64
-  %66 = fadd <2 x float> %35, %62
+  %66 = fadd <2 x float> %36, %62
   store <2 x float> %66, ptr %2, align 4, !tbaa !19
-  %67 = fadd float %65, %34
+  %67 = fadd float %65, %35
   store float %67, ptr %7, align 4, !tbaa !19
-  %68 = and i64 %36, 4294967295
-  %69 = icmp eq i64 %68, 0
-  br i1 %69, label %104, label %32
+  %68 = add nsw i64 %34, -1
+  %69 = icmp eq i64 %34, 0
+  br i1 %69, label %103, label %33
 
-70:                                               ; preds = %26, %70
-  %71 = phi i64 [ %74, %70 ], [ %24, %26 ]
-  %72 = phi float [ %101, %70 ], [ 0.000000e+00, %26 ]
-  %73 = phi <2 x float> [ %100, %70 ], [ zeroinitializer, %26 ]
-  %74 = add nsw i64 %71, -1
-  %75 = mul nsw i64 %74, %25
-  %76 = getelementptr inbounds i8, ptr %18, i64 %75
-  %77 = getelementptr inbounds float, ptr %76, i64 1
-  %78 = load float, ptr %77, align 4, !tbaa !19
-  %79 = load float, ptr %22, align 4, !tbaa !19
-  %80 = fmul float %78, %79
-  %81 = getelementptr inbounds float, ptr %76, i64 2
-  %82 = fmul float %80, %80
-  %83 = load float, ptr %21, align 8, !tbaa !19
-  %84 = load float, ptr %76, align 4, !tbaa !19
-  %85 = load float, ptr %81, align 4, !tbaa !19
-  %86 = load <4 x float>, ptr %23, align 8
-  %87 = shufflevector <4 x float> %86, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %88 = insertelement <2 x float> %87, float %83, i64 1
-  %89 = insertelement <2 x float> poison, float %85, i64 0
-  %90 = insertelement <2 x float> %89, float %84, i64 1
-  %91 = fmul <2 x float> %88, %90
-  %92 = fmul <2 x float> %91, %91
-  %93 = shufflevector <2 x float> %92, <2 x float> poison, <2 x i32> <i32 undef, i32 0>
-  %94 = insertelement <2 x float> %93, float %82, i64 0
-  %95 = fadd <2 x float> %92, %94
-  %96 = fmul <2 x float> %28, %95
-  %97 = extractelement <2 x float> %92, i64 1
-  %98 = fadd float %97, %82
-  %99 = fmul float %11, %98
-  %100 = fadd <2 x float> %73, %96
-  store <2 x float> %100, ptr %2, align 4, !tbaa !19
-  %101 = fadd float %99, %72
-  store float %101, ptr %7, align 4, !tbaa !19
-  %102 = and i64 %74, 4294967295
-  %103 = icmp eq i64 %102, 0
-  br i1 %103, label %104, label %70
+70:                                               ; preds = %27, %70
+  %71 = phi i64 [ %101, %70 ], [ %25, %27 ]
+  %72 = phi float [ %100, %70 ], [ 0.000000e+00, %27 ]
+  %73 = phi <2 x float> [ %99, %70 ], [ zeroinitializer, %27 ]
+  %74 = mul nsw i64 %71, %26
+  %75 = getelementptr inbounds i8, ptr %19, i64 %74
+  %76 = getelementptr inbounds float, ptr %75, i64 1
+  %77 = load float, ptr %76, align 4, !tbaa !19
+  %78 = load float, ptr %23, align 4, !tbaa !19
+  %79 = fmul float %77, %78
+  %80 = getelementptr inbounds float, ptr %75, i64 2
+  %81 = fmul float %79, %79
+  %82 = load float, ptr %22, align 8, !tbaa !19
+  %83 = load float, ptr %75, align 4, !tbaa !19
+  %84 = load float, ptr %80, align 4, !tbaa !19
+  %85 = load <4 x float>, ptr %24, align 8
+  %86 = shufflevector <4 x float> %85, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %87 = insertelement <2 x float> %86, float %82, i64 1
+  %88 = insertelement <2 x float> poison, float %84, i64 0
+  %89 = insertelement <2 x float> %88, float %83, i64 1
+  %90 = fmul <2 x float> %87, %89
+  %91 = fmul <2 x float> %90, %90
+  %92 = shufflevector <2 x float> %91, <2 x float> poison, <2 x i32> <i32 undef, i32 0>
+  %93 = insertelement <2 x float> %92, float %81, i64 0
+  %94 = fadd <2 x float> %91, %93
+  %95 = fmul <2 x float> %29, %94
+  %96 = extractelement <2 x float> %91, i64 1
+  %97 = fadd float %96, %81
+  %98 = fmul float %11, %97
+  %99 = fadd <2 x float> %73, %95
+  store <2 x float> %99, ptr %2, align 4, !tbaa !19
+  %100 = fadd float %98, %72
+  store float %100, ptr %7, align 4, !tbaa !19
+  %101 = add nsw i64 %71, -1
+  %102 = icmp eq i64 %71, 0
+  br i1 %102, label %103, label %70
 
-104:                                              ; preds = %70, %32, %3
-  %105 = load ptr, ptr %0, align 8, !tbaa !5
-  %106 = getelementptr inbounds ptr, ptr %105, i64 25
-  %107 = load ptr, ptr %106, align 8
-  tail call void %107(ptr noundef nonnull align 8 dereferenceable(272) %0)
+103:                                              ; preds = %70, %33, %3
+  %104 = load ptr, ptr %0, align 8, !tbaa !5
+  %105 = getelementptr inbounds ptr, ptr %104, i64 25
+  %106 = load ptr, ptr %105, align 8
+  tail call void %106(ptr noundef nonnull align 8 dereferenceable(272) %0)
   ret void
 }
 
@@ -780,7 +779,7 @@ define dso_local void @_ZNK22btGImpactMeshShapePart19processAllTrianglesEP18btTr
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %76)
           to label %82 unwind label %83
 
-82:                                               ; preds = %74, %81
+82:                                               ; preds = %81, %74
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #17
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #17
   resume { ptr, i32 } %75
@@ -854,10 +853,10 @@ define linkonce_odr dso_local void @_ZN22btGImpactCompoundShapeD2Ev(ptr noundef 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %42
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %0, i64 0, i32 3, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !65
   store ptr null, ptr %2, align 8, !tbaa !8
+  %11 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %0, i64 0, i32 3, i32 2
   store i32 0, ptr %11, align 4, !tbaa !66
   %12 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %0, i64 0, i32 3, i32 3
   store i32 0, ptr %12, align 8, !tbaa !67
@@ -874,10 +873,10 @@ define linkonce_odr dso_local void @_ZN22btGImpactCompoundShapeD2Ev(ptr noundef 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %14)
           to label %21 unwind label %45
 
-21:                                               ; preds = %10, %20
-  %22 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %0, i64 0, i32 2, i32 2
+21:                                               ; preds = %20, %10
   store i8 1, ptr %16, align 8, !tbaa !68
   store ptr null, ptr %13, align 8, !tbaa !16
+  %22 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %0, i64 0, i32 2, i32 2
   store i32 0, ptr %22, align 4, !tbaa !69
   %23 = getelementptr inbounds %class.btGImpactCompoundShape, ptr %0, i64 0, i32 2, i32 3
   store i32 0, ptr %23, align 8, !tbaa !70
@@ -913,9 +912,9 @@ define linkonce_odr dso_local void @_ZN22btGImpactCompoundShapeD2Ev(ptr noundef 
   unreachable
 
 39:                                               ; preds = %21, %31
-  %40 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i8 1, ptr %27, align 8, !tbaa !72
   store ptr null, ptr %24, align 8, !tbaa !71
+  %40 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i32 0, ptr %40, align 4, !tbaa !73
   %41 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %41, align 8, !tbaa !74
@@ -1519,9 +1518,9 @@ define linkonce_odr dso_local void @_ZN22btGImpactMeshShapePartD2Ev(ptr noundef 
   unreachable
 
 16:                                               ; preds = %1, %9
-  %17 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !72
   store ptr null, ptr %2, align 8, !tbaa !71
+  %17 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i32 0, ptr %17, align 4, !tbaa !73
   %18 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %18, align 8, !tbaa !74
@@ -1559,9 +1558,9 @@ define linkonce_odr dso_local void @_ZN22btGImpactMeshShapePartD0Ev(ptr noundef 
   unreachable
 
 15:                                               ; preds = %9, %1
-  %16 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !72
   store ptr null, ptr %2, align 8, !tbaa !71
+  %16 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i32 0, ptr %16, align 4, !tbaa !73
   %17 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %17, align 8, !tbaa !74
@@ -1969,9 +1968,9 @@ define linkonce_odr dso_local void @_ZN18btGImpactMeshShapeD2Ev(ptr noundef nonn
   unreachable
 
 53:                                               ; preds = %36, %45
-  %54 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i8 1, ptr %41, align 8, !tbaa !72
   store ptr null, ptr %38, align 8, !tbaa !71
+  %54 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i32 0, ptr %54, align 4, !tbaa !73
   %55 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %55, align 8, !tbaa !74
@@ -2177,15 +2176,15 @@ define linkonce_odr dso_local void @_ZN18btGImpactMeshShape13calcLocalAABBEv(ptr
   %72 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %44, i64 0, i32 1, i32 1, i32 0, i64 1
   %73 = load float, ptr %72, align 4, !tbaa !19
   %74 = fcmp olt float %46, %73
-  %75 = select i1 %74, ptr %68, ptr %5
-  %76 = getelementptr inbounds float, ptr %75, i64 1
+  %75 = select i1 %74, ptr %52, ptr %2
+  %76 = getelementptr inbounds %class.btAABB, ptr %75, i64 0, i32 1, i32 0, i64 1
   %77 = load float, ptr %76, align 4, !tbaa !19
   store float %77, ptr %6, align 8, !tbaa !19
   %78 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %44, i64 0, i32 1, i32 1, i32 0, i64 2
   %79 = load float, ptr %78, align 4, !tbaa !19
   %80 = fcmp olt float %45, %79
-  %81 = select i1 %80, ptr %68, ptr %5
-  %82 = getelementptr inbounds float, ptr %81, i64 2
+  %81 = select i1 %80, ptr %52, ptr %2
+  %82 = getelementptr inbounds %class.btAABB, ptr %81, i64 0, i32 1, i32 0, i64 2
   %83 = load float, ptr %82, align 4, !tbaa !19
   store float %83, ptr %7, align 4, !tbaa !19
   %84 = and i64 %24, 4294967295
@@ -2331,9 +2330,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI11btTransformED2Ev
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !68
   store ptr null, ptr %2, align 8, !tbaa !16
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !69
   %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !70
@@ -2360,10 +2359,10 @@ define linkonce_odr dso_local void @_ZN23btGImpactShapeInterfaceD2Ev(ptr noundef
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !72
   store ptr null, ptr %2, align 8, !tbaa !71
+  %11 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !73
   %12 = getelementptr inbounds %class.btGImpactShapeInterface, ptr %0, i64 0, i32 4, i32 0, i32 2, i32 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !74
@@ -2645,9 +2644,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP22btGImpactMeshSh
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !99
   store ptr null, ptr %2, align 8, !tbaa !43
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !40
   %12 = getelementptr inbounds %class.btAlignedObjectArray.8, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !100

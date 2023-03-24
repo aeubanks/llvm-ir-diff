@@ -372,7 +372,7 @@ define internal fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef
   %9 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 9
   %10 = load i32, ptr %9, align 8, !tbaa !29
   %11 = icmp slt i32 %3, 0
-  br i1 %11, label %150, label %12
+  br i1 %11, label %152, label %12
 
 12:                                               ; preds = %7
   %13 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 21
@@ -380,12 +380,12 @@ define internal fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef
   %15 = icmp ult i32 %14, %3
   %16 = icmp ugt i32 %4, 100
   %17 = or i1 %16, %15
-  br i1 %17, label %150, label %18
+  br i1 %17, label %152, label %18
 
 18:                                               ; preds = %12
   %19 = load i32, ptr %5, align 4, !tbaa !5
   %20 = icmp ugt i32 %19, 100000
-  br i1 %20, label %150, label %21
+  br i1 %20, label %152, label %21
 
 21:                                               ; preds = %18
   %22 = icmp eq ptr %6, null
@@ -401,7 +401,7 @@ define internal fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef
 
 29:                                               ; preds = %23
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.25, i32 noundef %25) #12
-  br label %150
+  br label %152
 
 30:                                               ; preds = %23
   %31 = load i32, ptr %6, align 8, !tbaa !36
@@ -412,203 +412,207 @@ define internal fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef
 
 35:                                               ; preds = %30
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.26, i32 noundef %31) #12
-  br label %150
+  br label %152
 
 36:                                               ; preds = %21, %30
   %37 = icmp ult i32 %3, 4
-  br i1 %37, label %48, label %38
+  br i1 %37, label %50, label %38
 
 38:                                               ; preds = %36
   %39 = lshr i32 %3, 2
-  br label %43
+  br label %45
 
-40:                                               ; preds = %43
-  %41 = add nuw nsw i32 %44, 1
+40:                                               ; preds = %45
+  %41 = add nuw nsw i32 %46, 1
   %42 = icmp eq i32 %41, %39
-  br i1 %42, label %50, label %43, !llvm.loop !37
+  br i1 %42, label %43, label %45, !llvm.loop !37
 
-43:                                               ; preds = %38, %40
-  %44 = phi i32 [ %41, %40 ], [ 0, %38 ]
-  %45 = phi i32 [ %46, %40 ], [ %10, %38 ]
-  %46 = tail call fastcc i32 @ole2_get_next_block_number(i32 noundef %0, ptr noundef %1, i32 noundef %45)
-  %47 = icmp slt i32 %46, 0
-  br i1 %47, label %150, label %40
+43:                                               ; preds = %40
+  %44 = and i32 %3, 3
+  br label %52
 
-48:                                               ; preds = %36
-  %49 = icmp slt i32 %10, 0
-  br i1 %49, label %150, label %50
+45:                                               ; preds = %38, %40
+  %46 = phi i32 [ %41, %40 ], [ 0, %38 ]
+  %47 = phi i32 [ %48, %40 ], [ %10, %38 ]
+  %48 = tail call fastcc i32 @ole2_get_next_block_number(i32 noundef %0, ptr noundef %1, i32 noundef %47)
+  %49 = icmp slt i32 %48, 0
+  br i1 %49, label %152, label %40
 
-50:                                               ; preds = %40, %48
-  %51 = phi i32 [ %10, %48 ], [ %46, %40 ]
-  %52 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 5
-  %53 = load i16, ptr %52, align 2, !tbaa !20
-  %54 = zext i16 %53 to i32
-  %55 = shl i32 %51, %54
-  %56 = add nsw i32 %55, 512
-  %57 = sext i32 %56 to i64
-  %58 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 18
-  %59 = load ptr, ptr %58, align 8, !tbaa !9
-  %60 = icmp eq ptr %59, null
-  br i1 %60, label %61, label %73
+50:                                               ; preds = %36
+  %51 = icmp slt i32 %10, 0
+  br i1 %51, label %152, label %52
 
-61:                                               ; preds = %50
-  %62 = tail call i64 @lseek(i32 noundef %0, i64 noundef %57, i32 noundef 0) #12
-  %63 = icmp eq i64 %62, %57
-  br i1 %63, label %64, label %150
+52:                                               ; preds = %43, %50
+  %53 = phi i32 [ %44, %43 ], [ %3, %50 ]
+  %54 = phi i32 [ %48, %43 ], [ %10, %50 ]
+  %55 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 5
+  %56 = load i16, ptr %55, align 2, !tbaa !20
+  %57 = zext i16 %56 to i32
+  %58 = shl i32 %54, %57
+  %59 = add nsw i32 %58, 512
+  %60 = sext i32 %59 to i64
+  %61 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 18
+  %62 = load ptr, ptr %61, align 8, !tbaa !9
+  %63 = icmp eq ptr %62, null
+  br i1 %63, label %64, label %76
 
-64:                                               ; preds = %61
-  %65 = load i16, ptr %52, align 2, !tbaa !20
-  %66 = zext i16 %65 to i32
-  %67 = shl nuw i32 1, %66
-  %68 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %8, i32 noundef %67) #12
-  %69 = load i16, ptr %52, align 2, !tbaa !20
-  %70 = zext i16 %69 to i32
-  %71 = shl nuw i32 1, %70
-  %72 = icmp eq i32 %68, %71
-  br i1 %72, label %84, label %150
+64:                                               ; preds = %52
+  %65 = tail call i64 @lseek(i32 noundef %0, i64 noundef %60, i32 noundef 0) #12
+  %66 = icmp eq i64 %65, %60
+  br i1 %66, label %67, label %152
 
-73:                                               ; preds = %50
-  %74 = shl nuw i32 1, %54
-  %75 = sext i32 %74 to i64
-  %76 = add nsw i64 %57, %75
-  %77 = icmp slt i64 %76, 1
-  br i1 %77, label %150, label %78
+67:                                               ; preds = %64
+  %68 = load i16, ptr %55, align 2, !tbaa !20
+  %69 = zext i16 %68 to i32
+  %70 = shl nuw i32 1, %69
+  %71 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %8, i32 noundef %70) #12
+  %72 = load i16, ptr %55, align 2, !tbaa !20
+  %73 = zext i16 %72 to i32
+  %74 = shl nuw i32 1, %73
+  %75 = icmp eq i32 %71, %74
+  br i1 %75, label %87, label %152
 
-78:                                               ; preds = %73
-  %79 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 19
-  %80 = load i64, ptr %79, align 8, !tbaa !17
-  %81 = icmp sgt i64 %76, %80
-  br i1 %81, label %150, label %82
+76:                                               ; preds = %52
+  %77 = shl nuw i32 1, %57
+  %78 = sext i32 %77 to i64
+  %79 = add nsw i64 %60, %78
+  %80 = icmp slt i64 %79, 1
+  br i1 %80, label %152, label %81
 
-82:                                               ; preds = %78
-  %83 = getelementptr inbounds i8, ptr %59, i64 %57
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(1) %8, ptr noundef nonnull align 1 dereferenceable(1) %83, i64 %75, i1 false)
-  br label %84
+81:                                               ; preds = %76
+  %82 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 19
+  %83 = load i64, ptr %82, align 8, !tbaa !17
+  %84 = icmp sgt i64 %79, %83
+  br i1 %84, label %152, label %85
 
-84:                                               ; preds = %82, %64
-  %85 = and i32 %3, 3
-  %86 = zext i32 %85 to i64
-  %87 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %86
-  %88 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %86, i32 2
-  %89 = load i8, ptr %88, align 2, !tbaa !39
-  %90 = icmp eq i8 %89, 0
-  br i1 %90, label %150, label %91
+85:                                               ; preds = %81
+  %86 = getelementptr inbounds i8, ptr %62, i64 %60
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(1) %8, ptr noundef nonnull align 1 dereferenceable(1) %86, i64 %78, i1 false)
+  br label %87
 
-91:                                               ; preds = %84
-  %92 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %86, i32 4
-  %93 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %86, i32 5
-  %94 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %86, i32 6
-  %95 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %86, i32 13
-  call fastcc void @print_ole2_property(ptr noundef nonnull %87)
-  %96 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 20
-  %97 = load ptr, ptr %96, align 8, !tbaa !19
-  %98 = zext i32 %3 to i64
-  %99 = call i32 @cli_bitset_test(ptr noundef %97, i64 noundef %98) #12
-  %100 = icmp eq i32 %99, 0
-  br i1 %100, label %102, label %101
+87:                                               ; preds = %85, %67
+  %88 = zext i32 %53 to i64
+  %89 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %88
+  %90 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %88, i32 2
+  %91 = load i8, ptr %90, align 2, !tbaa !39
+  %92 = icmp eq i8 %91, 0
+  br i1 %92, label %152, label %93
 
-101:                                              ; preds = %91
+93:                                               ; preds = %87
+  %94 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %88, i32 4
+  %95 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %88, i32 5
+  %96 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %88, i32 6
+  %97 = getelementptr inbounds [4 x %struct.property_tag], ptr %8, i64 0, i64 %88, i32 13
+  call fastcc void @print_ole2_property(ptr noundef nonnull %89)
+  %98 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 20
+  %99 = load ptr, ptr %98, align 8, !tbaa !19
+  %100 = zext i32 %3 to i64
+  %101 = call i32 @cli_bitset_test(ptr noundef %99, i64 noundef %100) #12
+  %102 = icmp eq i32 %101, 0
+  br i1 %102, label %104, label %103
+
+103:                                              ; preds = %93
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.27, i32 noundef %3) #12
-  br label %150
+  br label %152
 
-102:                                              ; preds = %91
-  %103 = load ptr, ptr %96, align 8, !tbaa !19
-  %104 = call i32 @cli_bitset_set(ptr noundef %103, i64 noundef %98) #12
-  %105 = icmp eq i32 %104, 0
-  br i1 %105, label %150, label %106
+104:                                              ; preds = %93
+  %105 = load ptr, ptr %98, align 8, !tbaa !19
+  %106 = call i32 @cli_bitset_set(ptr noundef %105, i64 noundef %100) #12
+  %107 = icmp eq i32 %106, 0
+  br i1 %107, label %152, label %108
 
-106:                                              ; preds = %102
-  %107 = load i8, ptr %88, align 2, !tbaa !39
-  switch i8 %107, label %148 [
-    i8 5, label %108
-    i8 2, label %121
-    i8 1, label %131
+108:                                              ; preds = %104
+  %109 = load i8, ptr %90, align 2, !tbaa !39
+  switch i8 %109, label %150 [
+    i8 5, label %110
+    i8 2, label %123
+    i8 1, label %133
   ]
 
-108:                                              ; preds = %106
-  %109 = or i32 %4, %3
-  %110 = icmp eq i32 %109, 0
-  br i1 %110, label %111, label %114
+110:                                              ; preds = %108
+  %111 = or i32 %4, %3
+  %112 = icmp eq i32 %111, 0
+  br i1 %112, label %113, label %116
 
-111:                                              ; preds = %108
-  %112 = load i32, ptr %5, align 4, !tbaa !5
-  %113 = icmp eq i32 %112, 0
-  br i1 %113, label %115, label %114
+113:                                              ; preds = %110
+  %114 = load i32, ptr %5, align 4, !tbaa !5
+  %115 = icmp eq i32 %114, 0
+  br i1 %115, label %117, label %116
 
-114:                                              ; preds = %111, %108
+116:                                              ; preds = %113, %110
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.28) #12
-  br label %150
+  br label %152
 
-115:                                              ; preds = %111
-  %116 = load i32, ptr %95, align 4, !tbaa !41
-  %117 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 17
-  store i32 %116, ptr %117, align 8, !tbaa !18
-  %118 = load i32, ptr %92, align 4, !tbaa !42
-  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %118, i32 noundef 1, ptr noundef nonnull %5, ptr noundef %6)
-  %119 = load i32, ptr %93, align 8, !tbaa !43
-  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %119, i32 noundef 1, ptr noundef nonnull %5, ptr noundef %6)
-  %120 = load i32, ptr %94, align 4, !tbaa !44
+117:                                              ; preds = %113
+  %118 = load i32, ptr %97, align 4, !tbaa !41
+  %119 = getelementptr inbounds %struct.ole2_header_tag, ptr %1, i64 0, i32 17
+  store i32 %118, ptr %119, align 8, !tbaa !18
+  %120 = load i32, ptr %94, align 4, !tbaa !42
   call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %120, i32 noundef 1, ptr noundef nonnull %5, ptr noundef %6)
-  br label %150
+  %121 = load i32, ptr %95, align 8, !tbaa !43
+  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %121, i32 noundef 1, ptr noundef nonnull %5, ptr noundef %6)
+  %122 = load i32, ptr %96, align 4, !tbaa !44
+  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %122, i32 noundef 1, ptr noundef nonnull %5, ptr noundef %6)
+  br label %152
 
-121:                                              ; preds = %106
-  %122 = load i32, ptr %5, align 4, !tbaa !5
-  %123 = add i32 %122, 1
-  store i32 %123, ptr %5, align 4, !tbaa !5
-  %124 = call fastcc i32 @handler_writefile(i32 noundef %0, ptr noundef nonnull %1, ptr noundef nonnull %87, ptr noundef %2), !range !45
-  %125 = icmp eq i32 %124, 0
-  br i1 %125, label %126, label %127
+123:                                              ; preds = %108
+  %124 = load i32, ptr %5, align 4, !tbaa !5
+  %125 = add i32 %124, 1
+  store i32 %125, ptr %5, align 4, !tbaa !5
+  %126 = call fastcc i32 @handler_writefile(i32 noundef %0, ptr noundef nonnull %1, ptr noundef nonnull %89, ptr noundef %2), !range !45
+  %127 = icmp eq i32 %126, 0
+  br i1 %127, label %128, label %129
 
-126:                                              ; preds = %121
+128:                                              ; preds = %123
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.29) #12
-  br label %127
+  br label %129
 
-127:                                              ; preds = %126, %121
-  %128 = load i32, ptr %92, align 4, !tbaa !42
-  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %128, i32 noundef %4, ptr noundef nonnull %5, ptr noundef %6)
-  %129 = load i32, ptr %93, align 8, !tbaa !43
-  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %129, i32 noundef %4, ptr noundef nonnull %5, ptr noundef %6)
-  %130 = load i32, ptr %94, align 4, !tbaa !44
+129:                                              ; preds = %128, %123
+  %130 = load i32, ptr %94, align 4, !tbaa !42
   call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %130, i32 noundef %4, ptr noundef nonnull %5, ptr noundef %6)
-  br label %150
+  %131 = load i32, ptr %95, align 8, !tbaa !43
+  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %131, i32 noundef %4, ptr noundef nonnull %5, ptr noundef %6)
+  %132 = load i32, ptr %96, align 4, !tbaa !44
+  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %132, i32 noundef %4, ptr noundef nonnull %5, ptr noundef %6)
+  br label %152
 
-131:                                              ; preds = %106
-  %132 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #13
-  %133 = add i64 %132, 8
-  %134 = call ptr @cli_malloc(i64 noundef %133) #12
-  %135 = icmp eq ptr %134, null
-  br i1 %135, label %150, label %136
+133:                                              ; preds = %108
+  %134 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #13
+  %135 = add i64 %134, 8
+  %136 = call ptr @cli_malloc(i64 noundef %135) #12
+  %137 = icmp eq ptr %136, null
+  br i1 %137, label %152, label %138
 
-136:                                              ; preds = %131
-  %137 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #13
-  %138 = add i64 %137, 8
-  %139 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull %134, i64 noundef %138, ptr noundef nonnull @.str.30, ptr noundef %2, i32 noundef %3) #12
-  %140 = call i32 @mkdir(ptr noundef nonnull %134, i32 noundef 448) #12
-  %141 = icmp eq i32 %140, 0
-  br i1 %141, label %143, label %142
+138:                                              ; preds = %133
+  %139 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #13
+  %140 = add i64 %139, 8
+  %141 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull %136, i64 noundef %140, ptr noundef nonnull @.str.30, ptr noundef %2, i32 noundef %3) #12
+  %142 = call i32 @mkdir(ptr noundef nonnull %136, i32 noundef 448) #12
+  %143 = icmp eq i32 %142, 0
+  br i1 %143, label %145, label %144
 
-142:                                              ; preds = %136
-  call void @free(ptr noundef nonnull %134) #12
-  br label %150
+144:                                              ; preds = %138
+  call void @free(ptr noundef nonnull %136) #12
+  br label %152
 
-143:                                              ; preds = %136
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.31, ptr noundef nonnull %134) #12
-  %144 = load i32, ptr %92, align 4, !tbaa !42
-  %145 = add nuw nsw i32 %4, 1
-  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %144, i32 noundef %145, ptr noundef nonnull %5, ptr noundef %6)
-  %146 = load i32, ptr %93, align 8, !tbaa !43
-  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %146, i32 noundef %145, ptr noundef nonnull %5, ptr noundef %6)
-  %147 = load i32, ptr %94, align 4, !tbaa !44
-  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef nonnull %134, i32 noundef %147, i32 noundef %145, ptr noundef nonnull %5, ptr noundef %6)
-  call void @free(ptr noundef nonnull %134) #12
-  br label %150
+145:                                              ; preds = %138
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.31, ptr noundef nonnull %136) #12
+  %146 = load i32, ptr %94, align 4, !tbaa !42
+  %147 = add nuw nsw i32 %4, 1
+  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %146, i32 noundef %147, ptr noundef nonnull %5, ptr noundef %6)
+  %148 = load i32, ptr %95, align 8, !tbaa !43
+  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef %2, i32 noundef %148, i32 noundef %147, ptr noundef nonnull %5, ptr noundef %6)
+  %149 = load i32, ptr %96, align 4, !tbaa !44
+  call fastcc void @ole2_walk_property_tree(i32 noundef %0, ptr noundef nonnull %1, ptr noundef nonnull %136, i32 noundef %149, i32 noundef %147, ptr noundef nonnull %5, ptr noundef %6)
+  call void @free(ptr noundef nonnull %136) #12
+  br label %152
 
-148:                                              ; preds = %106
-  %149 = zext i8 %107 to i32
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.32, i32 noundef %149) #12
-  br label %150
+150:                                              ; preds = %108
+  %151 = zext i8 %109 to i32
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.32, i32 noundef %151) #12
+  br label %152
 
-150:                                              ; preds = %43, %73, %78, %64, %61, %48, %115, %127, %143, %148, %131, %102, %84, %7, %12, %18, %142, %114, %101, %35, %29
+152:                                              ; preds = %45, %50, %64, %67, %76, %81, %117, %129, %145, %150, %133, %104, %87, %7, %12, %18, %144, %116, %103, %35, %29
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %8) #12
   ret void
 }
@@ -774,7 +778,7 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
 
 96:                                               ; preds = %93
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.52) #12
-  br label %140
+  br label %148
 
 97:                                               ; preds = %93
   %98 = icmp ult i32 %72, 8
@@ -794,7 +798,7 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
 
 107:                                              ; preds = %101
   %108 = icmp slt i32 %104, 0
-  br i1 %108, label %140, label %109
+  br i1 %108, label %148, label %109
 
 109:                                              ; preds = %107, %97
   %110 = phi i32 [ %104, %107 ], [ %94, %97 ]
@@ -810,7 +814,7 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
 118:                                              ; preds = %109
   %119 = call i64 @lseek(i32 noundef %0, i64 noundef %115, i32 noundef 0) #12
   %120 = icmp eq i64 %119, %115
-  br i1 %120, label %121, label %140
+  br i1 %120, label %121, label %148
 
 121:                                              ; preds = %118
   %122 = load i16, ptr %46, align 2, !tbaa !20
@@ -821,49 +825,49 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
   %127 = zext i16 %126 to i32
   %128 = shl nuw i32 1, %127
   %129 = icmp eq i32 %125, %128
-  br i1 %129, label %142, label %140
+  br i1 %129, label %140, label %148
 
 130:                                              ; preds = %109
   %131 = shl nuw i32 1, %112
   %132 = sext i32 %131 to i64
   %133 = add nsw i64 %115, %132
   %134 = icmp slt i64 %133, 1
-  br i1 %134, label %140, label %135
+  br i1 %134, label %148, label %135
 
 135:                                              ; preds = %130
   %136 = load i64, ptr %66, align 8, !tbaa !17
   %137 = icmp sgt i64 %133, %136
-  br i1 %137, label %140, label %138
+  br i1 %137, label %148, label %138
 
 138:                                              ; preds = %135
   %139 = getelementptr inbounds i8, ptr %116, i64 %115
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(1) %51, ptr noundef nonnull align 1 dereferenceable(1) %139, i64 %132, i1 false)
-  br label %142
+  br label %140
 
-140:                                              ; preds = %107, %118, %121, %135, %130, %96
+140:                                              ; preds = %138, %121
+  %141 = shl i32 %72, 6
+  %142 = and i32 %141, 448
+  %143 = zext i32 %142 to i64
+  %144 = getelementptr inbounds i8, ptr %51, i64 %143
+  %145 = call i32 @llvm.smin.i32(i32 %73, i32 64)
+  %146 = call i32 @cli_writen(i32 noundef %38, ptr noundef nonnull %144, i32 noundef %145) #12
+  %147 = icmp eq i32 %146, %145
+  br i1 %147, label %152, label %150
+
+148:                                              ; preds = %135, %130, %121, %118, %107, %96
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.51) #12
-  %141 = call i32 @close(i32 noundef %38) #12
+  %149 = call i32 @close(i32 noundef %38) #12
   call void @free(ptr noundef %51) #12
   call void @cli_bitset_free(ptr noundef nonnull %56) #12
   br label %264
 
-142:                                              ; preds = %138, %121
-  %143 = shl i32 %72, 6
-  %144 = and i32 %143, 448
-  %145 = zext i32 %144 to i64
-  %146 = getelementptr inbounds i8, ptr %51, i64 %145
-  %147 = call i32 @llvm.smin.i32(i32 %73, i32 64)
-  %148 = call i32 @cli_writen(i32 noundef %38, ptr noundef nonnull %146, i32 noundef %147) #12
-  %149 = icmp eq i32 %148, %147
-  br i1 %149, label %152, label %150
-
-150:                                              ; preds = %142
+150:                                              ; preds = %140
   %151 = call i32 @close(i32 noundef %38) #12
   call void @free(ptr noundef %51) #12
   call void @cli_bitset_free(ptr noundef nonnull %56) #12
   br label %264
 
-152:                                              ; preds = %142
+152:                                              ; preds = %140
   call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %5) #12
   %153 = load i32, ptr %68, align 4, !tbaa !30
   %154 = icmp ult i32 %72, 128
@@ -937,7 +941,7 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
   br label %201
 
 201:                                              ; preds = %163, %174, %177, %186, %191, %196
-  %202 = phi i32 [ %200, %196 ], [ -1, %163 ], [ -1, %174 ], [ -1, %177 ], [ -1, %191 ], [ -1, %186 ]
+  %202 = phi i32 [ %200, %196 ], [ -1, %191 ], [ -1, %186 ], [ -1, %177 ], [ -1, %174 ], [ -1, %163 ]
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %5) #12
   br label %255
 
@@ -954,7 +958,7 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
 211:                                              ; preds = %203
   %212 = call i64 @lseek(i32 noundef %0, i64 noundef %208, i32 noundef 0) #12
   %213 = icmp eq i64 %212, %208
-  br i1 %213, label %214, label %236
+  br i1 %213, label %214, label %245
 
 214:                                              ; preds = %211
   %215 = load i16, ptr %46, align 2, !tbaa !20
@@ -965,19 +969,19 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
   %220 = zext i16 %219 to i32
   %221 = shl nuw i32 1, %220
   %222 = icmp eq i32 %218, %221
-  br i1 %222, label %238, label %236
+  br i1 %222, label %236, label %245
 
 223:                                              ; preds = %203
   %224 = shl nuw i32 1, %205
   %225 = sext i32 %224 to i64
   %226 = add nsw i64 %208, %225
   %227 = icmp slt i64 %226, 1
-  br i1 %227, label %236, label %228
+  br i1 %227, label %245, label %228
 
 228:                                              ; preds = %223
   %229 = load i64, ptr %66, align 8, !tbaa !17
   %230 = icmp sgt i64 %226, %229
-  br i1 %230, label %236, label %231
+  br i1 %230, label %245, label %231
 
 231:                                              ; preds = %228
   %232 = getelementptr inbounds i8, ptr %209, i64 %208
@@ -985,32 +989,32 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
   %233 = load i16, ptr %46, align 2, !tbaa !20
   %234 = zext i16 %233 to i32
   %235 = shl nuw i32 1, %234
-  br label %238
+  br label %236
 
-236:                                              ; preds = %211, %214, %228, %223
-  %237 = call i32 @close(i32 noundef %38) #12
+236:                                              ; preds = %231, %214
+  %237 = phi i32 [ %235, %231 ], [ %221, %214 ]
+  %238 = call i32 @llvm.smin.i32(i32 %73, i32 %237)
+  %239 = call i32 @cli_writen(i32 noundef %38, ptr noundef nonnull %51, i32 noundef %238) #12
+  %240 = load i16, ptr %46, align 2, !tbaa !20
+  %241 = zext i16 %240 to i32
+  %242 = shl nuw i32 1, %241
+  %243 = call i32 @llvm.smin.i32(i32 %73, i32 %242)
+  %244 = icmp eq i32 %239, %243
+  br i1 %244, label %249, label %247
+
+245:                                              ; preds = %228, %223, %214, %211
+  %246 = call i32 @close(i32 noundef %38) #12
   call void @free(ptr noundef %51) #12
   call void @cli_bitset_free(ptr noundef nonnull %56) #12
   br label %264
 
-238:                                              ; preds = %231, %214
-  %239 = phi i32 [ %235, %231 ], [ %221, %214 ]
-  %240 = call i32 @llvm.smin.i32(i32 %73, i32 %239)
-  %241 = call i32 @cli_writen(i32 noundef %38, ptr noundef nonnull %51, i32 noundef %240) #12
-  %242 = load i16, ptr %46, align 2, !tbaa !20
-  %243 = zext i16 %242 to i32
-  %244 = shl nuw i32 1, %243
-  %245 = call i32 @llvm.smin.i32(i32 %73, i32 %244)
-  %246 = icmp eq i32 %241, %245
-  br i1 %246, label %249, label %247
-
-247:                                              ; preds = %238
+247:                                              ; preds = %236
   %248 = call i32 @close(i32 noundef %38) #12
   call void @free(ptr noundef %51) #12
   call void @cli_bitset_free(ptr noundef nonnull %56) #12
   br label %264
 
-249:                                              ; preds = %238
+249:                                              ; preds = %236
   %250 = call fastcc i32 @ole2_get_next_block_number(i32 noundef %0, ptr noundef nonnull %1, i32 noundef %72)
   %251 = load i16, ptr %46, align 2, !tbaa !20
   %252 = zext i16 %251 to i32
@@ -1019,7 +1023,7 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
   br label %255
 
 255:                                              ; preds = %249, %201
-  %256 = phi i32 [ %147, %201 ], [ %254, %249 ]
+  %256 = phi i32 [ %145, %201 ], [ %254, %249 ]
   %257 = phi i32 [ %202, %201 ], [ %250, %249 ]
   %258 = sub nsw i32 %73, %256
   %259 = icmp sgt i32 %257, -1
@@ -1033,8 +1037,8 @@ define internal fastcc i32 @handler_writefile(i32 noundef %0, ptr nocapture noun
   call void @cli_bitset_free(ptr noundef nonnull %56) #12
   br label %264
 
-264:                                              ; preds = %18, %4, %262, %247, %236, %150, %140, %87, %82, %76, %69, %53, %40, %35, %14
-  %265 = phi i32 [ 0, %14 ], [ 0, %40 ], [ 0, %76 ], [ 0, %82 ], [ 0, %150 ], [ 0, %140 ], [ 0, %247 ], [ 0, %236 ], [ 0, %87 ], [ 1, %262 ], [ 0, %69 ], [ 0, %53 ], [ 0, %35 ], [ 1, %4 ], [ 0, %18 ]
+264:                                              ; preds = %18, %4, %262, %247, %245, %150, %148, %87, %82, %76, %69, %53, %40, %35, %14
+  %265 = phi i32 [ 0, %14 ], [ 0, %40 ], [ 0, %76 ], [ 0, %82 ], [ 0, %150 ], [ 0, %148 ], [ 0, %247 ], [ 0, %245 ], [ 0, %87 ], [ 1, %262 ], [ 0, %69 ], [ 0, %53 ], [ 0, %35 ], [ 1, %4 ], [ 0, %18 ]
   ret i32 %265
 }
 
@@ -1113,7 +1117,7 @@ define internal fastcc i32 @ole2_get_next_block_number(i32 noundef %0, ptr nocap
   br label %52
 
 52:                                               ; preds = %50, %32
-  %53 = phi i16 [ %37, %32 ], [ %21, %50 ]
+  %53 = phi i16 [ %21, %50 ], [ %37, %32 ]
   %54 = icmp ugt i32 %2, 30207
   br i1 %54, label %55, label %96
 
@@ -1235,7 +1239,7 @@ define internal fastcc i32 @ole2_get_next_block_number(i32 noundef %0, ptr nocap
   br label %136
 
 136:                                              ; preds = %58, %70, %73, %82, %87, %10, %29, %32, %41, %46, %96, %109, %112, %121, %126, %132
-  %137 = phi i32 [ %135, %132 ], [ -1, %10 ], [ -1, %29 ], [ -1, %32 ], [ -1, %46 ], [ -1, %41 ], [ -1, %96 ], [ -1, %109 ], [ -1, %112 ], [ -1, %126 ], [ -1, %121 ], [ -1, %87 ], [ -1, %82 ], [ -1, %73 ], [ -1, %70 ], [ -1, %58 ]
+  %137 = phi i32 [ %135, %132 ], [ -1, %46 ], [ -1, %41 ], [ -1, %32 ], [ -1, %29 ], [ -1, %10 ], [ -1, %126 ], [ -1, %121 ], [ -1, %112 ], [ -1, %109 ], [ -1, %96 ], [ -1, %87 ], [ -1, %82 ], [ -1, %73 ], [ -1, %70 ], [ -1, %58 ]
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %6) #12
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %5) #12
   br label %189
@@ -1313,7 +1317,7 @@ define internal fastcc i32 @ole2_get_next_block_number(i32 noundef %0, ptr nocap
   br label %187
 
 187:                                              ; preds = %143, %144, %159, %162, %171, %176, %182
-  %188 = phi i32 [ -10, %143 ], [ %186, %182 ], [ -1, %144 ], [ -1, %159 ], [ -1, %162 ], [ -1, %176 ], [ -1, %171 ]
+  %188 = phi i32 [ -10, %143 ], [ %186, %182 ], [ -1, %176 ], [ -1, %171 ], [ -1, %162 ], [ -1, %159 ], [ -1, %144 ]
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %4) #12
   br label %189
 
@@ -1561,11 +1565,11 @@ declare i32 @close(i32 noundef) local_unnamed_addr #2
 
 declare i32 @cli_writen(i32 noundef, ptr noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #10
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #11
+declare i32 @llvm.smin.i32(i32, i32) #10
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #11
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1577,8 +1581,8 @@ attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "
 attributes #7 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind willreturn memory(read) }
 attributes #14 = { nounwind willreturn memory(none) }

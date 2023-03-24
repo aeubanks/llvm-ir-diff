@@ -27,9 +27,9 @@ define hidden void @_ZNK9benchmark13BenchmarkName3strB5cxx11Ev(ptr noalias nonnu
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
   store i64 0, ptr %10, align 8, !tbaa !13, !alias.scope !5
   store i8 0, ptr %9, align 8, !tbaa !16, !alias.scope !5
-  %11 = getelementptr i8, ptr %1, i64 8
+  %11 = getelementptr %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 1, i32 1
   %12 = load i64, ptr %11, align 8, !tbaa !13, !noalias !5
-  %13 = getelementptr %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 1, i32 1
+  %13 = getelementptr i8, ptr %1, i64 8
   %14 = load i64, ptr %13, align 8, !tbaa !13, !noalias !5
   %15 = getelementptr %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 2, i32 1
   %16 = load i64, ptr %15, align 8, !tbaa !13, !noalias !5
@@ -54,7 +54,7 @@ define hidden void @_ZNK9benchmark13BenchmarkName3strB5cxx11Ev(ptr noalias nonnu
 32:                                               ; preds = %2
   %33 = load i64, ptr %10, align 8, !tbaa !13, !alias.scope !5
   %34 = icmp eq i64 %33, 0
-  %35 = load i64, ptr %11, align 8, !noalias !5
+  %35 = load i64, ptr %13, align 8, !noalias !5
   %36 = icmp eq i64 %35, 0
   %37 = select i1 %34, i1 true, i1 %36
   br i1 %37, label %55, label %38
@@ -84,7 +84,7 @@ define hidden void @_ZNK9benchmark13BenchmarkName3strB5cxx11Ev(ptr noalias nonnu
   %51 = load ptr, ptr %0, align 8, !tbaa !17, !alias.scope !5
   %52 = getelementptr inbounds i8, ptr %51, i64 %39
   store i8 0, ptr %52, align 1, !tbaa !16
-  %53 = load i64, ptr %11, align 8, !tbaa !13, !noalias !5
+  %53 = load i64, ptr %13, align 8, !tbaa !13, !noalias !5
   %54 = load i64, ptr %10, align 8, !tbaa !13, !alias.scope !5
   br label %55
 
@@ -103,7 +103,7 @@ define hidden void @_ZNK9benchmark13BenchmarkName3strB5cxx11Ev(ptr noalias nonnu
 63:                                               ; preds = %60
   %64 = load i64, ptr %10, align 8, !tbaa !13, !alias.scope !5
   %65 = icmp eq i64 %64, 0
-  %66 = load i64, ptr %13, align 8, !noalias !5
+  %66 = load i64, ptr %11, align 8, !noalias !5
   %67 = icmp eq i64 %66, 0
   %68 = select i1 %65, i1 true, i1 %67
   br i1 %68, label %86, label %69
@@ -133,7 +133,7 @@ define hidden void @_ZNK9benchmark13BenchmarkName3strB5cxx11Ev(ptr noalias nonnu
   %82 = load ptr, ptr %0, align 8, !tbaa !17, !alias.scope !5
   %83 = getelementptr inbounds i8, ptr %82, i64 %70
   store i8 0, ptr %83, align 1, !tbaa !16
-  %84 = load i64, ptr %13, align 8, !tbaa !13, !noalias !5
+  %84 = load i64, ptr %11, align 8, !tbaa !13, !noalias !5
   %85 = load i64, ptr %10, align 8, !tbaa !13, !alias.scope !5
   br label %86
 

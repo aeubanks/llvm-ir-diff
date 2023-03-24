@@ -232,7 +232,7 @@ define dso_local i32 @name_ref(ptr noundef %0, i32 noundef %1, ptr nocapture nou
   br label %100
 
 100:                                              ; preds = %97, %58, %50, %87, %22
-  %101 = phi i32 [ -21, %22 ], [ -25, %87 ], [ -25, %58 ], [ -21, %50 ], [ 0, %97 ]
+  %101 = phi i32 [ -21, %22 ], [ -25, %87 ], [ -21, %50 ], [ -25, %58 ], [ 0, %97 ]
   ret i32 %101
 }
 

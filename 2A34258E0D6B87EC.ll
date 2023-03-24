@@ -154,8 +154,8 @@ define hidden void @_Z14MyBusySpinwaitv() #3 {
   %7 = fdiv double %6, 1.000000e+09
   %8 = fsub double %7, %3
   %9 = fmul double %8, 1.000000e+03
-  %10 = fcmp uge double %9, 5.000000e+01
-  br i1 %10, label %11, label %4, !llvm.loop !5
+  %10 = fcmp olt double %9, 5.000000e+01
+  br i1 %10, label %4, label %11, !llvm.loop !5
 
 11:                                               ; preds = %4
   ret void
@@ -182,16 +182,16 @@ define hidden void @_Z13BM_MainThreadRN9benchmark5StateE(ptr noundef nonnull ali
 
 10:                                               ; preds = %28, %1
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %11 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %2) #16
-  %11 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %2, i64 0, i32 2
-  store ptr %11, ptr %2, align 8, !tbaa !30
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(7) %11, ptr noundef nonnull align 1 dereferenceable(7) @.str, i64 7, i1 false)
-  %12 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %2, i64 0, i32 1
-  store i64 7, ptr %12, align 8, !tbaa !32
-  %13 = getelementptr inbounds i8, ptr %2, i64 23
-  store i8 0, ptr %13, align 1, !tbaa !34
-  %14 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
-  %15 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %14, ptr noundef nonnull align 8 dereferenceable(32) %2)
+  %12 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %2, i64 0, i32 2
+  store ptr %12, ptr %2, align 8, !tbaa !30
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(7) %12, ptr noundef nonnull align 1 dereferenceable(7) @.str, i64 7, i1 false)
+  %13 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %2, i64 0, i32 1
+  store i64 7, ptr %13, align 8, !tbaa !32
+  %14 = getelementptr inbounds i8, ptr %2, i64 23
+  store i8 0, ptr %14, align 1, !tbaa !34
+  %15 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %11, ptr noundef nonnull align 8 dereferenceable(32) %2)
           to label %31 unwind label %38
 
 16:                                               ; preds = %1, %28
@@ -207,8 +207,8 @@ define hidden void @_Z13BM_MainThreadRN9benchmark5StateE(ptr noundef nonnull ali
   %24 = fdiv double %23, 1.000000e+09
   %25 = fsub double %24, %20
   %26 = fmul double %25, 1.000000e+03
-  %27 = fcmp uge double %26, 5.000000e+01
-  br i1 %27, label %28, label %21, !llvm.loop !5
+  %27 = fcmp olt double %26, 5.000000e+01
+  br i1 %27, label %21, label %28, !llvm.loop !5
 
 28:                                               ; preds = %21
   tail call void @_ZN9benchmark5State16SetIterationTimeEd(ptr noundef nonnull align 8 dereferenceable(144) %0, double noundef 5.000000e-02)
@@ -223,7 +223,7 @@ define hidden void @_Z13BM_MainThreadRN9benchmark5StateE(ptr noundef nonnull ali
   %33 = getelementptr inbounds i8, ptr %15, i64 12
   store i32 1000, ptr %33, align 4, !tbaa.struct !43
   %34 = load ptr, ptr %2, align 8, !tbaa !44
-  %35 = icmp eq ptr %34, %11
+  %35 = icmp eq ptr %34, %12
   br i1 %35, label %37, label %36
 
 36:                                               ; preds = %31
@@ -238,7 +238,7 @@ define hidden void @_Z13BM_MainThreadRN9benchmark5StateE(ptr noundef nonnull ali
   %39 = landingpad { ptr, i32 }
           cleanup
   %40 = load ptr, ptr %2, align 8, !tbaa !44
-  %41 = icmp eq ptr %40, %11
+  %41 = icmp eq ptr %40, %12
   br i1 %41, label %43, label %42
 
 42:                                               ; preds = %38
@@ -333,7 +333,7 @@ define linkonce_odr hidden noundef nonnull align 8 dereferenceable(16) ptr @_ZNS
   br i1 %58, label %59, label %62
 
 59:                                               ; preds = %2, %39, %56
-  %60 = phi ptr [ %35, %56 ], [ %7, %39 ], [ %7, %2 ]
+  %60 = phi ptr [ %7, %39 ], [ %35, %56 ], [ %7, %2 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #16
   store ptr %1, ptr %3, align 8, !tbaa !46, !alias.scope !48
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #16
@@ -388,16 +388,16 @@ define hidden void @_Z15BM_WorkerThreadRN9benchmark5StateE(ptr noundef nonnull a
 
 12:                                               ; preds = %45, %1
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %13 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #16
-  %13 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
-  store ptr %13, ptr %4, align 8, !tbaa !30
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(7) %13, ptr noundef nonnull align 1 dereferenceable(7) @.str, i64 7, i1 false)
-  %14 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
-  store i64 7, ptr %14, align 8, !tbaa !32
-  %15 = getelementptr inbounds i8, ptr %4, i64 23
-  store i8 0, ptr %15, align 1, !tbaa !34
-  %16 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
-  %17 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %16, ptr noundef nonnull align 8 dereferenceable(32) %4)
+  %14 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
+  store ptr %14, ptr %4, align 8, !tbaa !30
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(7) %14, ptr noundef nonnull align 1 dereferenceable(7) @.str, i64 7, i1 false)
+  %15 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
+  store i64 7, ptr %15, align 8, !tbaa !32
+  %16 = getelementptr inbounds i8, ptr %4, i64 23
+  store i8 0, ptr %16, align 1, !tbaa !34
+  %17 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %13, ptr noundef nonnull align 8 dereferenceable(32) %4)
           to label %54 unwind label %61
 
 18:                                               ; preds = %1, %45
@@ -489,7 +489,7 @@ define hidden void @_Z15BM_WorkerThreadRN9benchmark5StateE(ptr noundef nonnull a
   %56 = getelementptr inbounds i8, ptr %17, i64 12
   store i32 1000, ptr %56, align 4, !tbaa.struct !43
   %57 = load ptr, ptr %4, align 8, !tbaa !44
-  %58 = icmp eq ptr %57, %13
+  %58 = icmp eq ptr %57, %14
   br i1 %58, label %60, label %59
 
 59:                                               ; preds = %54
@@ -504,7 +504,7 @@ define hidden void @_Z15BM_WorkerThreadRN9benchmark5StateE(ptr noundef nonnull a
   %62 = landingpad { ptr, i32 }
           cleanup
   %63 = load ptr, ptr %4, align 8, !tbaa !44
-  %64 = icmp eq ptr %63, %13
+  %64 = icmp eq ptr %63, %14
   br i1 %64, label %66, label %65
 
 65:                                               ; preds = %61
@@ -535,16 +535,16 @@ define hidden void @_Z28BM_MainThreadAndWorkerThreadRN9benchmark5StateE(ptr noun
 
 12:                                               ; preds = %56, %1
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %13 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #16
-  %13 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
-  store ptr %13, ptr %4, align 8, !tbaa !30
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(7) %13, ptr noundef nonnull align 1 dereferenceable(7) @.str, i64 7, i1 false)
-  %14 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
-  store i64 7, ptr %14, align 8, !tbaa !32
-  %15 = getelementptr inbounds i8, ptr %4, i64 23
-  store i8 0, ptr %15, align 1, !tbaa !34
-  %16 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
-  %17 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %16, ptr noundef nonnull align 8 dereferenceable(32) %4)
+  %14 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
+  store ptr %14, ptr %4, align 8, !tbaa !30
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(7) %14, ptr noundef nonnull align 1 dereferenceable(7) @.str, i64 7, i1 false)
+  %15 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
+  store i64 7, ptr %15, align 8, !tbaa !32
+  %16 = getelementptr inbounds i8, ptr %4, i64 23
+  store i8 0, ptr %16, align 1, !tbaa !34
+  %17 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEEixEOS5_(ptr noundef nonnull align 8 dereferenceable(48) %13, ptr noundef nonnull align 8 dereferenceable(32) %4)
           to label %65 unwind label %72
 
 18:                                               ; preds = %1, %56
@@ -603,8 +603,8 @@ define hidden void @_Z28BM_MainThreadAndWorkerThreadRN9benchmark5StateE(ptr noun
   %46 = fdiv double %45, 1.000000e+09
   %47 = fsub double %46, %42
   %48 = fmul double %47, 1.000000e+03
-  %49 = fcmp uge double %48, 5.000000e+01
-  br i1 %49, label %50, label %43, !llvm.loop !5
+  %49 = fcmp olt double %48, 5.000000e+01
+  br i1 %49, label %43, label %50, !llvm.loop !5
 
 50:                                               ; preds = %43
   invoke void @_ZNSt6thread4joinEv(ptr noundef nonnull align 8 dereferenceable(8) %3)
@@ -651,7 +651,7 @@ define hidden void @_Z28BM_MainThreadAndWorkerThreadRN9benchmark5StateE(ptr noun
   %67 = getelementptr inbounds i8, ptr %17, i64 12
   store i32 1000, ptr %67, align 4, !tbaa.struct !43
   %68 = load ptr, ptr %4, align 8, !tbaa !44
-  %69 = icmp eq ptr %68, %13
+  %69 = icmp eq ptr %68, %14
   br i1 %69, label %71, label %70
 
 70:                                               ; preds = %65
@@ -666,7 +666,7 @@ define hidden void @_Z28BM_MainThreadAndWorkerThreadRN9benchmark5StateE(ptr noun
   %73 = landingpad { ptr, i32 }
           cleanup
   %74 = load ptr, ptr %4, align 8, !tbaa !44
-  %75 = icmp eq ptr %74, %13
+  %75 = icmp eq ptr %74, %14
   br i1 %75, label %77, label %76
 
 76:                                               ; preds = %72
@@ -731,7 +731,7 @@ define linkonce_odr hidden ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11ch
   store i64 %22, ptr %11, align 8, !tbaa !34
   br label %23
 
-23:                                               ; preds = %21, %20, %15
+23:                                               ; preds = %15, %20, %21
   %24 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Auto_node", ptr %6, i64 0, i32 1
   %25 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 0, i32 1
   %26 = load i64, ptr %25, align 8, !tbaa !32
@@ -791,7 +791,7 @@ define linkonce_odr hidden ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11ch
   %60 = icmp slt i32 %59, 0
   br label %61
 
-61:                                               ; preds = %36, %58
+61:                                               ; preds = %58, %36
   %62 = phi i1 [ true, %36 ], [ %60, %58 ]
   tail call void @_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_(i1 noundef zeroext %62, ptr noundef nonnull %7, ptr noundef nonnull %34, ptr noundef nonnull align 8 dereferenceable(32) %38) #16
   %63 = getelementptr inbounds i8, ptr %0, i64 40
@@ -1028,9 +1028,9 @@ define linkonce_odr hidden { ptr, ptr } @_ZNSt8_Rb_treeINSt7__cxx1112basic_strin
   %142 = extractvalue { ptr, ptr } %140, 1
   br label %143
 
-143:                                              ; preds = %133, %88, %106, %139, %109, %94, %64, %30, %33
-  %144 = phi ptr [ %35, %33 ], [ null, %30 ], [ %96, %94 ], [ %1, %64 ], [ %141, %139 ], [ null, %109 ], [ %1, %106 ], [ %92, %88 ], [ %137, %133 ]
-  %145 = phi ptr [ %36, %33 ], [ %12, %30 ], [ %97, %94 ], [ %1, %64 ], [ %142, %139 ], [ %1, %109 ], [ null, %106 ], [ %93, %88 ], [ %138, %133 ]
+143:                                              ; preds = %109, %64, %30, %106, %139, %133, %94, %88, %33
+  %144 = phi ptr [ %35, %33 ], [ %96, %94 ], [ %92, %88 ], [ %141, %139 ], [ %137, %133 ], [ %1, %106 ], [ null, %30 ], [ %1, %64 ], [ null, %109 ]
+  %145 = phi ptr [ %36, %33 ], [ %97, %94 ], [ %93, %88 ], [ %142, %139 ], [ %138, %133 ], [ null, %106 ], [ %12, %30 ], [ %1, %64 ], [ %1, %109 ]
   %146 = insertvalue { ptr, ptr } poison, ptr %144, 0
   %147 = insertvalue { ptr, ptr } %146, ptr %145, 1
   ret { ptr, ptr } %147

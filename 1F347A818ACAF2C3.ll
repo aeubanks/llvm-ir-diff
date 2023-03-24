@@ -47,69 +47,69 @@ define dso_local noundef i32 @_Z5dogetP9Classfile(ptr nocapture noundef readonly
   %13 = load i8, ptr %12, align 1, !tbaa !11
   %14 = zext i8 %13 to i16
   %15 = or i16 %11, %14
-  %16 = getelementptr inbounds %struct.Classfile, ptr %0, i64 0, i32 6, i32 1
-  %17 = load ptr, ptr %16, align 8, !tbaa !12
-  %18 = zext i16 %15 to i64
-  %19 = getelementptr inbounds %struct.cp_info, ptr %17, i64 %18, i32 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !11
-  %21 = getelementptr inbounds %struct.Ref, ptr %20, i64 0, i32 1
-  %22 = load i16, ptr %21, align 2, !tbaa !15
-  %23 = zext i16 %22 to i64
-  %24 = getelementptr inbounds %struct.cp_info, ptr %17, i64 %23, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !11
-  %26 = load i16, ptr %25, align 2, !tbaa !17
-  %27 = zext i16 %26 to i64
-  %28 = getelementptr inbounds %struct.cp_info, ptr %17, i64 %27, i32 1
-  %29 = load ptr, ptr %28, align 8, !tbaa !11
-  %30 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #6
-  %31 = getelementptr inbounds %struct.NameAndType, ptr %25, i64 0, i32 1
-  %32 = load i16, ptr %31, align 2, !tbaa !19
-  %33 = zext i16 %32 to i64
-  %34 = getelementptr inbounds %struct.cp_info, ptr %17, i64 %33, i32 1
-  %35 = load ptr, ptr %34, align 8, !tbaa !11
-  %36 = invoke noundef i32 @_Z8sig2typePc(ptr noundef %35)
-          to label %37 unwind label %91
+  %16 = sext i16 %15 to i32
+  %17 = getelementptr inbounds %struct.Classfile, ptr %0, i64 0, i32 6, i32 1
+  %18 = load ptr, ptr %17, align 8, !tbaa !12
+  %19 = zext i16 %15 to i64
+  %20 = getelementptr inbounds %struct.cp_info, ptr %18, i64 %19, i32 1
+  %21 = load ptr, ptr %20, align 8, !tbaa !11
+  %22 = getelementptr inbounds %struct.Ref, ptr %21, i64 0, i32 1
+  %23 = load i16, ptr %22, align 2, !tbaa !15
+  %24 = zext i16 %23 to i64
+  %25 = getelementptr inbounds %struct.cp_info, ptr %18, i64 %24, i32 1
+  %26 = load ptr, ptr %25, align 8, !tbaa !11
+  %27 = load i16, ptr %26, align 2, !tbaa !17
+  %28 = zext i16 %27 to i64
+  %29 = getelementptr inbounds %struct.cp_info, ptr %18, i64 %28, i32 1
+  %30 = load ptr, ptr %29, align 8, !tbaa !11
+  %31 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #6
+  %32 = getelementptr inbounds %struct.NameAndType, ptr %26, i64 0, i32 1
+  %33 = load i16, ptr %32, align 2, !tbaa !19
+  %34 = zext i16 %33 to i64
+  %35 = getelementptr inbounds %struct.cp_info, ptr %18, i64 %34, i32 1
+  %36 = load ptr, ptr %35, align 8, !tbaa !11
+  %37 = invoke noundef i32 @_Z8sig2typePc(ptr noundef %36)
+          to label %38 unwind label %91
 
-37:                                               ; preds = %1
-  %38 = invoke noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #6
-          to label %39 unwind label %91
+38:                                               ; preds = %1
+  %39 = invoke noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #6
+          to label %40 unwind label %91
 
-39:                                               ; preds = %37
-  %40 = sext i16 %15 to i32
-  store ptr %29, ptr %38, align 8, !tbaa !20
-  %41 = getelementptr inbounds %struct.Id, ptr %38, i64 0, i32 1
-  store i32 %36, ptr %41, align 8, !tbaa !24
-  %42 = getelementptr inbounds %struct.Id, ptr %38, i64 0, i32 2
+40:                                               ; preds = %38
+  store ptr %30, ptr %39, align 8, !tbaa !20
+  %41 = getelementptr inbounds %struct.Id, ptr %39, i64 0, i32 1
+  store i32 %37, ptr %41, align 8, !tbaa !24
+  %42 = getelementptr inbounds %struct.Id, ptr %39, i64 0, i32 2
   store i32 2, ptr %42, align 4, !tbaa !25
-  %43 = getelementptr inbounds %struct.Id, ptr %38, i64 0, i32 3
-  store i32 %40, ptr %43, align 8, !tbaa !26
-  %44 = getelementptr inbounds %struct.Exp, ptr %30, i64 0, i32 1
+  %43 = getelementptr inbounds %struct.Id, ptr %39, i64 0, i32 3
+  store i32 %16, ptr %43, align 8, !tbaa !26
+  %44 = getelementptr inbounds %struct.Exp, ptr %31, i64 0, i32 1
   store i32 1, ptr %44, align 8, !tbaa !27
-  %45 = getelementptr inbounds %struct.Exp, ptr %30, i64 0, i32 3
+  %45 = getelementptr inbounds %struct.Exp, ptr %31, i64 0, i32 3
   store i32 %3, ptr %45, align 8, !tbaa !29
-  %46 = getelementptr inbounds %struct.Exp, ptr %30, i64 0, i32 2
+  %46 = getelementptr inbounds %struct.Exp, ptr %31, i64 0, i32 2
   store i32 %3, ptr %46, align 4, !tbaa !30
   %47 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #6
           to label %48 unwind label %91
 
-48:                                               ; preds = %39
+48:                                               ; preds = %40
   store i32 0, ptr %47, align 8, !tbaa !31
   %49 = getelementptr inbounds %struct.Exp_, ptr %47, i64 0, i32 1
   store i32 1, ptr %49, align 4, !tbaa !35
   %50 = getelementptr inbounds %struct.Exp_, ptr %47, i64 0, i32 2
-  store i32 %36, ptr %50, align 8, !tbaa !36
+  store i32 %37, ptr %50, align 8, !tbaa !36
   %51 = getelementptr inbounds %struct.Exp_, ptr %47, i64 0, i32 3
   store i32 39, ptr %51, align 4, !tbaa !37
   %52 = getelementptr inbounds %struct.Exp_, ptr %47, i64 0, i32 4
-  store ptr %38, ptr %52, align 8, !tbaa !38
-  store ptr %47, ptr %30, align 8, !tbaa !39
+  store ptr %39, ptr %52, align 8, !tbaa !38
+  store ptr %47, ptr %31, align 8, !tbaa !39
   %53 = load i32, ptr @ch, align 4, !tbaa !5
   %54 = icmp eq i32 %53, 178
   br i1 %54, label %55, label %101
 
 55:                                               ; preds = %48
-  %56 = load i16, ptr %20, align 2, !tbaa !40
-  %57 = load ptr, ptr %16, align 8, !tbaa !12
+  %56 = load i16, ptr %21, align 2, !tbaa !40
+  %57 = load ptr, ptr %17, align 8, !tbaa !12
   %58 = zext i16 %56 to i64
   %59 = getelementptr inbounds %struct.cp_info, ptr %57, i64 %58, i32 1
   %60 = load i64, ptr %59, align 8, !tbaa !11
@@ -163,18 +163,18 @@ define dso_local noundef i32 @_Z5dogetP9Classfile(ptr nocapture noundef readonly
   %86 = getelementptr inbounds %struct.Exp_, ptr %84, i64 0, i32 1
   store i32 4, ptr %86, align 4, !tbaa !35
   %87 = getelementptr inbounds %struct.Exp_, ptr %84, i64 0, i32 2
-  store i32 %36, ptr %87, align 8, !tbaa !36
+  store i32 %37, ptr %87, align 8, !tbaa !36
   %88 = getelementptr inbounds %struct.Exp_, ptr %84, i64 0, i32 3
   store i32 5, ptr %88, align 4, !tbaa !37
   store ptr %84, ptr %80, align 8, !tbaa !39
   %89 = getelementptr inbounds %struct.Exp, ptr %80, i64 0, i32 4
   store ptr %68, ptr %89, align 8, !tbaa !46
   %90 = getelementptr inbounds %struct.Exp, ptr %80, i64 0, i32 5
-  store ptr %30, ptr %90, align 8, !tbaa !47
+  store ptr %31, ptr %90, align 8, !tbaa !47
   store i32 0, ptr %50, align 8, !tbaa !36
   br label %97
 
-91:                                               ; preds = %39, %37, %1
+91:                                               ; preds = %40, %38, %1
   %92 = landingpad { ptr, i32 }
           cleanup
   br label %140
@@ -190,7 +190,7 @@ define dso_local noundef i32 @_Z5dogetP9Classfile(ptr nocapture noundef readonly
   br label %140
 
 97:                                               ; preds = %55, %85
-  %98 = phi ptr [ %80, %85 ], [ %30, %55 ]
+  %98 = phi ptr [ %80, %85 ], [ %31, %55 ]
   %99 = load ptr, ptr @stkptr, align 8, !tbaa !9
   %100 = getelementptr inbounds ptr, ptr %99, i64 1
   store ptr %100, ptr @stkptr, align 8, !tbaa !9
@@ -220,7 +220,7 @@ define dso_local noundef i32 @_Z5dogetP9Classfile(ptr nocapture noundef readonly
   %117 = load i32, ptr %116, align 8, !tbaa !29
   %118 = tail call i32 @llvm.umin.i32(i32 %3, i32 %117)
   store i32 %118, ptr %45, align 8, !tbaa !29
-  store ptr %30, ptr %103, align 8, !tbaa !9
+  store ptr %31, ptr %103, align 8, !tbaa !9
   br label %139
 
 119:                                              ; preds = %109, %101
@@ -243,16 +243,16 @@ define dso_local noundef i32 @_Z5dogetP9Classfile(ptr nocapture noundef readonly
   %130 = getelementptr inbounds %struct.Exp_, ptr %128, i64 0, i32 1
   store i32 4, ptr %130, align 4, !tbaa !35
   %131 = getelementptr inbounds %struct.Exp_, ptr %128, i64 0, i32 2
-  store i32 %36, ptr %131, align 8, !tbaa !36
+  store i32 %37, ptr %131, align 8, !tbaa !36
   %132 = getelementptr inbounds %struct.Exp_, ptr %128, i64 0, i32 3
   store i32 5, ptr %132, align 4, !tbaa !37
   store ptr %128, ptr %120, align 8, !tbaa !39
   %133 = getelementptr inbounds %struct.Exp, ptr %120, i64 0, i32 4
   store ptr %121, ptr %133, align 8, !tbaa !46
   %134 = getelementptr inbounds %struct.Exp, ptr %120, i64 0, i32 5
-  store ptr %30, ptr %134, align 8, !tbaa !47
+  store ptr %31, ptr %134, align 8, !tbaa !47
   store ptr %120, ptr %103, align 8, !tbaa !9
-  %135 = load ptr, ptr %30, align 8, !tbaa !39
+  %135 = load ptr, ptr %31, align 8, !tbaa !39
   %136 = getelementptr inbounds %struct.Exp_, ptr %135, i64 0, i32 2
   store i32 0, ptr %136, align 8, !tbaa !36
   br label %139
@@ -266,7 +266,7 @@ define dso_local noundef i32 @_Z5dogetP9Classfile(ptr nocapture noundef readonly
   ret i32 0
 
 140:                                              ; preds = %93, %95, %137, %91
-  %141 = phi ptr [ %68, %93 ], [ %80, %95 ], [ %120, %137 ], [ %30, %91 ]
+  %141 = phi ptr [ %68, %93 ], [ %80, %95 ], [ %120, %137 ], [ %31, %91 ]
   %142 = phi { ptr, i32 } [ %94, %93 ], [ %96, %95 ], [ %138, %137 ], [ %92, %91 ]
   tail call void @_ZdlPv(ptr noundef nonnull %141) #8
   resume { ptr, i32 } %142

@@ -457,23 +457,23 @@ define dso_local i32 @scanmanager(ptr noundef %0) local_unnamed_addr #0 {
   %194 = icmp eq i32 %193, 0
   %195 = and i32 %192, -24629
   %196 = select i1 %194, i32 32, i32 0
-  %197 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.34) #18
-  %198 = icmp eq i32 %197, 0
-  %199 = select i1 %198, i32 8192, i32 0
-  %200 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.35) #18
-  %201 = icmp eq i32 %200, 0
-  %202 = select i1 %201, i32 4, i32 0
-  %203 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.36) #18
-  %204 = icmp eq i32 %203, 0
-  %205 = select i1 %204, i32 16384, i32 0
-  %206 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.37) #18
+  %197 = or i32 %195, %196
+  %198 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.34) #18
+  %199 = icmp eq i32 %198, 0
+  %200 = select i1 %199, i32 8192, i32 0
+  %201 = or i32 %197, %200
+  %202 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.35) #18
+  %203 = icmp eq i32 %202, 0
+  %204 = select i1 %203, i32 4, i32 0
+  %205 = or i32 %201, %204
+  %206 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.36) #18
   %207 = icmp eq i32 %206, 0
-  %208 = select i1 %207, i32 16, i32 0
-  %209 = or i32 %199, %196
-  %210 = or i32 %209, %195
-  %211 = or i32 %210, %202
-  %212 = or i32 %211, %205
-  %213 = or i32 %212, %208
+  %208 = select i1 %207, i32 16384, i32 0
+  %209 = or i32 %205, %208
+  %210 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.37) #18
+  %211 = icmp eq i32 %210, 0
+  %212 = select i1 %211, i32 16, i32 0
+  %213 = or i32 %209, %212
   %214 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.38) #18
   %215 = icmp eq i32 %214, 0
   br i1 %215, label %218, label %216
@@ -486,7 +486,7 @@ define dso_local i32 @scanmanager(ptr noundef %0) local_unnamed_addr #0 {
   %219 = call i32 @opt_check(ptr noundef %0, ptr noundef nonnull @.str.39) #18
   %220 = icmp eq i32 %219, 0
   %221 = select i1 %220, i32 2, i32 130
-  %222 = or i32 %221, %213
+  %222 = or i32 %213, %221
   br label %223
 
 223:                                              ; preds = %218, %216
@@ -495,7 +495,7 @@ define dso_local i32 @scanmanager(ptr noundef %0) local_unnamed_addr #0 {
   %226 = icmp eq i32 %225, 0
   %227 = and i32 %224, -513
   %228 = select i1 %226, i32 512, i32 0
-  %229 = or i32 %228, %227
+  %229 = or i32 %227, %228
   store i64 0, ptr @procdev, align 8, !tbaa !17
   %230 = call i32 @stat(ptr noundef nonnull @.str.41, ptr noundef nonnull %4) #18
   %231 = icmp eq i32 %230, -1

@@ -905,20 +905,20 @@ define dso_local void @part_imp_match_initQ(ptr nocapture noundef readnone %0, i
   br i1 %303, label %335, label %304
 
 304:                                              ; preds = %300, %331
-  %305 = phi i64 [ %333, %331 ], [ %430, %300 ]
+  %305 = phi i64 [ %333, %331 ], [ %429, %300 ]
   %306 = phi i32 [ %332, %331 ], [ %302, %300 ]
-  %307 = icmp slt i32 %306, %424
+  %307 = icmp slt i32 %306, %430
   br i1 %307, label %331, label %308
 
 308:                                              ; preds = %304
   %309 = zext i32 %306 to i64
-  %310 = getelementptr inbounds i8, ptr %425, i64 %309
+  %310 = getelementptr inbounds i8, ptr %424, i64 %309
   %311 = load i8, ptr %310, align 1, !tbaa !19
   %312 = icmp eq i8 %311, 0
   br i1 %312, label %313, label %331
 
 313:                                              ; preds = %308
-  %314 = getelementptr inbounds i8, ptr %426, i64 %305
+  %314 = getelementptr inbounds i8, ptr %425, i64 %305
   %315 = load i8, ptr %314, align 1, !tbaa !19
   %316 = icmp eq i8 %315, 0
   br i1 %316, label %317, label %331
@@ -931,10 +931,10 @@ define dso_local void @part_imp_match_initQ(ptr nocapture noundef readnone %0, i
   %322 = load double, ptr %321, align 8, !tbaa !44
   %323 = load double, ptr %172, align 8, !tbaa !17
   %324 = fmul double %322, %323
-  %325 = load double, ptr %427, align 8, !tbaa !17
+  %325 = load double, ptr %426, align 8, !tbaa !17
   %326 = fmul double %324, %325
   %327 = fptrunc double %326 to float
-  %328 = getelementptr inbounds ptr, ptr %428, i64 %309
+  %328 = getelementptr inbounds ptr, ptr %427, i64 %309
   %329 = load ptr, ptr %328, align 8, !tbaa !5
   %330 = getelementptr inbounds float, ptr %329, i64 %305
   store float %327, ptr %330, align 4, !tbaa !9
@@ -971,9 +971,9 @@ define dso_local void @part_imp_match_initQ(ptr nocapture noundef readnone %0, i
   br i1 %350, label %448, label %173, !llvm.loop !48
 
 351:                                              ; preds = %444, %378
-  %352 = phi i64 [ %420, %444 ], [ %379, %378 ]
+  %352 = phi i64 [ %419, %444 ], [ %379, %378 ]
   %353 = phi i32 [ %342, %444 ], [ %380, %378 ]
-  %354 = icmp slt i32 %353, %417
+  %354 = icmp slt i32 %353, %422
   br i1 %354, label %378, label %355
 
 355:                                              ; preds = %351
@@ -997,7 +997,7 @@ define dso_local void @part_imp_match_initQ(ptr nocapture noundef readnone %0, i
   %369 = load double, ptr %368, align 8, !tbaa !44
   %370 = load double, ptr %172, align 8, !tbaa !17
   %371 = fmul double %369, %370
-  %372 = load double, ptr %418, align 8, !tbaa !17
+  %372 = load double, ptr %417, align 8, !tbaa !17
   %373 = fmul double %371, %372
   %374 = fptrunc double %373 to float
   %375 = getelementptr inbounds ptr, ptr %447, i64 %352
@@ -1009,7 +1009,7 @@ define dso_local void @part_imp_match_initQ(ptr nocapture noundef readnone %0, i
 378:                                              ; preds = %364, %359, %355, %351
   %379 = add nsw i64 %352, 1
   %380 = add nsw i32 %353, 1
-  %381 = icmp slt i64 %352, %422
+  %381 = icmp slt i64 %352, %421
   %382 = icmp slt i32 %353, %287
   %383 = select i1 %381, i1 %382, i1 false
   br i1 %383, label %351, label %345, !llvm.loop !49
@@ -1056,22 +1056,22 @@ define dso_local void @part_imp_match_initQ(ptr nocapture noundef readnone %0, i
   br i1 %415, label %384, label %293, !llvm.loop !50
 
 416:                                              ; preds = %293
-  %417 = tail call i32 @llvm.smax.i32(i32 %266, i32 0)
-  %418 = getelementptr inbounds double, ptr %8, i64 %174
-  %419 = shl i64 %218, 32
-  %420 = ashr exact i64 %419, 32
-  %421 = shl i64 %239, 32
-  %422 = ashr exact i64 %421, 32
+  %417 = getelementptr inbounds double, ptr %8, i64 %174
+  %418 = shl i64 %218, 32
+  %419 = ashr exact i64 %418, 32
+  %420 = shl i64 %239, 32
+  %421 = ashr exact i64 %420, 32
+  %422 = tail call i32 @llvm.smax.i32(i32 %266, i32 0)
   br label %338
 
 423:                                              ; preds = %293
-  %424 = tail call i32 @llvm.smax.i32(i32 %219, i32 0)
-  %425 = load ptr, ptr @part_imp_match_initQ.nocount1, align 8
-  %426 = load ptr, ptr @part_imp_match_initQ.nocount2, align 8
-  %427 = getelementptr inbounds double, ptr %8, i64 %174
-  %428 = load ptr, ptr @impmtx, align 8
-  %429 = shl i64 %265, 32
-  %430 = ashr exact i64 %429, 32
+  %424 = load ptr, ptr @part_imp_match_initQ.nocount1, align 8
+  %425 = load ptr, ptr @part_imp_match_initQ.nocount2, align 8
+  %426 = getelementptr inbounds double, ptr %8, i64 %174
+  %427 = load ptr, ptr @impmtx, align 8
+  %428 = shl i64 %265, 32
+  %429 = ashr exact i64 %428, 32
+  %430 = tail call i32 @llvm.smax.i32(i32 %219, i32 0)
   br label %300
 
 431:                                              ; preds = %283
@@ -2354,7 +2354,7 @@ define dso_local float @partQ__align(ptr noundef %0, ptr noundef %1, ptr noundef
   store float %976, ptr %974, align 4, !tbaa !9
   br label %977
 
-977:                                              ; preds = %967, %964, %916, %959
+977:                                              ; preds = %967, %964, %959, %916
   %978 = load i32, ptr @outgap, align 4, !tbaa !11
   %979 = icmp eq i32 %978, 1
   br i1 %979, label %1012, label %980
@@ -2822,7 +2822,7 @@ define dso_local float @partQ__align(ptr noundef %0, ptr noundef %1, ptr noundef
   %1324 = load i32, ptr @outgap, align 4, !tbaa !11
   %1325 = icmp ne i32 %1324, 0
   %1326 = zext i1 %1325 to i32
-  %1327 = add nsw i32 %1326, %34
+  %1327 = add nsw i32 %34, %1326
   %1328 = icmp sgt i32 %1327, 1
   br i1 %1328, label %1329, label %1533
 
@@ -5531,11 +5531,11 @@ declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocaptur
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #10
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x float> @llvm.fmuladd.v4f32(<4 x float>, <4 x float>, <4 x float>) #10
@@ -5554,8 +5554,8 @@ attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: read) "
 attributes #8 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nofree nounwind }
 attributes #13 = { nounwind }
 attributes #14 = { cold }
 attributes #15 = { nounwind willreturn memory(read) }

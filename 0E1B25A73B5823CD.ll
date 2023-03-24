@@ -45,298 +45,310 @@ define dso_local void @treeinit(ptr noundef %0, ptr noundef %1) local_unnamed_ad
   %4 = alloca [8192 x i8], align 16
   %5 = alloca [8192 x i8], align 16
   %6 = alloca [8192 x i8], align 16
-  %7 = alloca [4096 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 4096, ptr nonnull %7) #17
-  %8 = icmp eq ptr %0, null
-  br i1 %8, label %9, label %11
+  %7 = alloca [8192 x i8], align 16
+  %8 = alloca [4096 x i8], align 16
+  call void @llvm.lifetime.start.p0(i64 4096, ptr nonnull %8) #17
+  %9 = icmp eq ptr %0, null
+  br i1 %9, label %10, label %12
 
-9:                                                ; preds = %2
-  %10 = tail call ptr @getenv(ptr noundef nonnull @.str) #17
-  br label %11
+10:                                               ; preds = %2
+  %11 = tail call ptr @getenv(ptr noundef nonnull @.str) #17
+  br label %12
 
-11:                                               ; preds = %9, %2
-  %12 = phi ptr [ %10, %9 ], [ %0, %2 ]
-  %13 = tail call ptr @getenv(ptr noundef nonnull @.str.1) #17
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %161, label %15
+12:                                               ; preds = %10, %2
+  %13 = phi ptr [ %11, %10 ], [ %0, %2 ]
+  %14 = tail call ptr @getenv(ptr noundef nonnull @.str.1) #17
+  %15 = icmp eq ptr %14, null
+  br i1 %15, label %166, label %16
 
-15:                                               ; preds = %11
-  %16 = icmp eq ptr %12, null
-  br i1 %16, label %17, label %96
+16:                                               ; preds = %12
+  %17 = icmp eq ptr %13, null
+  br i1 %17, label %18, label %97
 
-17:                                               ; preds = %15
-  %18 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef %1) #17
-  %19 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %21, label %22
+18:                                               ; preds = %16
+  %19 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef %1) #17
+  %20 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
+  %21 = icmp eq ptr %20, null
+  br i1 %21, label %22, label %23
 
-21:                                               ; preds = %17
+22:                                               ; preds = %18
   store i8 0, ptr @personaldict, align 16, !tbaa !5
-  br label %22
+  br label %23
 
-22:                                               ; preds = %17, %21
-  store ptr %19, ptr @dictf, align 8, !tbaa !8
-  %23 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %13, ptr noundef nonnull @.str.2, ptr noundef %1) #17
-  %24 = call noalias ptr @fopen(ptr noundef nonnull %7, ptr noundef nonnull @.str.7)
-  %25 = icmp eq ptr %24, null
-  br i1 %25, label %26, label %63
+23:                                               ; preds = %18, %22
+  store ptr %20, ptr @dictf, align 8, !tbaa !8
+  %24 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %14, ptr noundef nonnull @.str.2, ptr noundef %1) #17
+  %25 = call noalias ptr @fopen(ptr noundef nonnull %8, ptr noundef nonnull @.str.7)
+  %26 = icmp eq ptr %25, null
+  br i1 %26, label %27, label %64
 
-26:                                               ; preds = %22
-  store i8 0, ptr %7, align 16, !tbaa !5
-  %27 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %28 = icmp eq ptr %27, null
-  br i1 %28, label %29, label %63
+27:                                               ; preds = %23
+  store i8 0, ptr %8, align 16, !tbaa !5
+  %28 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %29 = icmp eq ptr %28, null
+  br i1 %29, label %30, label %64
 
-29:                                               ; preds = %26
-  %30 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
-  %31 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
-  %32 = icmp eq ptr %31, null
-  br i1 %32, label %33, label %34
+30:                                               ; preds = %27
+  %31 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
+  %32 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
+  %33 = icmp eq ptr %32, null
+  br i1 %33, label %34, label %35
 
-33:                                               ; preds = %29
+34:                                               ; preds = %30
   store i8 0, ptr @personaldict, align 16, !tbaa !5
-  br label %34
+  br label %35
 
-34:                                               ; preds = %29, %33
-  store ptr %31, ptr @dictf, align 8, !tbaa !8
-  %35 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %13, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
-  %36 = call noalias ptr @fopen(ptr noundef nonnull %7, ptr noundef nonnull @.str.7)
-  %37 = icmp eq ptr %36, null
-  br i1 %37, label %38, label %63
+35:                                               ; preds = %30, %34
+  store ptr %32, ptr @dictf, align 8, !tbaa !8
+  %36 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %14, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
+  %37 = call noalias ptr @fopen(ptr noundef nonnull %8, ptr noundef nonnull @.str.7)
+  %38 = icmp eq ptr %37, null
+  br i1 %38, label %39, label %64
 
-38:                                               ; preds = %34
-  store i8 0, ptr %7, align 16, !tbaa !5
-  %39 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %40 = icmp eq ptr %39, null
-  br i1 %40, label %41, label %63
+39:                                               ; preds = %35
+  store i8 0, ptr %8, align 16, !tbaa !5
+  %40 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %41 = icmp eq ptr %40, null
+  br i1 %41, label %42, label %64
 
-41:                                               ; preds = %38
-  %42 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef %1) #17
-  %43 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
-  %44 = icmp eq ptr %43, null
-  br i1 %44, label %45, label %46
+42:                                               ; preds = %39
+  %43 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef %1) #17
+  %44 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
+  %45 = icmp eq ptr %44, null
+  br i1 %45, label %46, label %47
 
-45:                                               ; preds = %41
+46:                                               ; preds = %42
   store i8 0, ptr @personaldict, align 16, !tbaa !5
-  br label %46
+  br label %47
 
-46:                                               ; preds = %41, %45
-  store ptr %43, ptr @dictf, align 8, !tbaa !8
-  %47 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %13, ptr noundef nonnull @.str.2, ptr noundef %1) #17
-  %48 = call noalias ptr @fopen(ptr noundef nonnull %7, ptr noundef nonnull @.str.7)
-  %49 = icmp eq ptr %48, null
-  br i1 %49, label %50, label %63
+47:                                               ; preds = %42, %46
+  store ptr %44, ptr @dictf, align 8, !tbaa !8
+  %48 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %14, ptr noundef nonnull @.str.2, ptr noundef %1) #17
+  %49 = call noalias ptr @fopen(ptr noundef nonnull %8, ptr noundef nonnull @.str.7)
+  %50 = icmp eq ptr %49, null
+  br i1 %50, label %51, label %64
 
-50:                                               ; preds = %46
-  store i8 0, ptr %7, align 16, !tbaa !5
-  %51 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %53, label %63
+51:                                               ; preds = %47
+  store i8 0, ptr %8, align 16, !tbaa !5
+  %52 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %53 = icmp eq ptr %52, null
+  br i1 %53, label %54, label %64
 
-53:                                               ; preds = %50
-  %54 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
-  %55 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %57, label %58
+54:                                               ; preds = %51
+  %55 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
+  %56 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
+  %57 = icmp eq ptr %56, null
+  br i1 %57, label %58, label %59
 
-57:                                               ; preds = %53
+58:                                               ; preds = %54
   store i8 0, ptr @personaldict, align 16, !tbaa !5
-  br label %58
+  br label %59
 
-58:                                               ; preds = %53, %57
-  store ptr %55, ptr @dictf, align 8, !tbaa !8
-  %59 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %13, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
-  %60 = call noalias ptr @fopen(ptr noundef nonnull %7, ptr noundef nonnull @.str.7)
-  %61 = icmp eq ptr %60, null
-  br i1 %61, label %62, label %63
+59:                                               ; preds = %54, %58
+  store ptr %56, ptr @dictf, align 8, !tbaa !8
+  %60 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %14, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3) #17
+  %61 = call noalias ptr @fopen(ptr noundef nonnull %8, ptr noundef nonnull @.str.7)
+  %62 = icmp eq ptr %61, null
+  br i1 %62, label %63, label %64
 
-62:                                               ; preds = %58
-  store i8 0, ptr %7, align 16, !tbaa !5
-  br label %63
+63:                                               ; preds = %59
+  store i8 0, ptr %8, align 16, !tbaa !5
+  br label %64
 
-63:                                               ; preds = %26, %38, %22, %34, %46, %62, %58, %50
-  %64 = phi ptr [ null, %50 ], [ %60, %58 ], [ null, %62 ], [ %48, %46 ], [ %36, %34 ], [ %24, %22 ], [ null, %38 ], [ null, %26 ]
-  %65 = load i8, ptr @personaldict, align 16, !tbaa !5
-  %66 = icmp eq i8 %65, 0
-  br i1 %66, label %67, label %74
+64:                                               ; preds = %27, %39, %23, %35, %47, %63, %59, %51
+  %65 = phi ptr [ null, %51 ], [ %61, %59 ], [ null, %63 ], [ %49, %47 ], [ %37, %35 ], [ %25, %23 ], [ null, %39 ], [ null, %27 ]
+  %66 = load i8, ptr @personaldict, align 16, !tbaa !5
+  %67 = icmp eq i8 %66, 0
+  br i1 %67, label %68, label %75
 
-67:                                               ; preds = %63
-  %68 = load i8, ptr %7, align 16, !tbaa !5
-  %69 = icmp eq i8 %68, 0
-  br i1 %69, label %72, label %70
+68:                                               ; preds = %64
+  %69 = load i8, ptr %8, align 16, !tbaa !5
+  %70 = icmp eq i8 %69, 0
+  br i1 %70, label %73, label %71
 
-70:                                               ; preds = %67
-  %71 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) %7) #17
-  br label %74
+71:                                               ; preds = %68
+  %72 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) %8) #17
+  br label %75
 
-72:                                               ; preds = %67
-  %73 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %13, ptr noundef nonnull @.str.2, ptr noundef %1) #17
-  br label %74
+73:                                               ; preds = %68
+  %74 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull %14, ptr noundef nonnull @.str.2, ptr noundef %1) #17
+  br label %75
 
-74:                                               ; preds = %70, %72, %63
-  %75 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %76 = icmp eq ptr %75, null
-  br i1 %76, label %86, label %77
+75:                                               ; preds = %71, %73, %64
+  %76 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %77 = icmp eq ptr %76, null
+  br i1 %77, label %87, label %78
 
-77:                                               ; preds = %74
+78:                                               ; preds = %75
+  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %7) #17
+  %79 = call ptr @fgets(ptr noundef nonnull %7, i32 noundef 8192, ptr noundef nonnull %76)
+  %80 = icmp eq ptr %79, null
+  br i1 %80, label %84, label %81
+
+81:                                               ; preds = %78, %81
+  call void @treeinsert(ptr noundef nonnull %7, i32 noundef 8192, i32 noundef 1)
+  %82 = call ptr @fgets(ptr noundef nonnull %7, i32 noundef 8192, ptr noundef nonnull %76)
+  %83 = icmp eq ptr %82, null
+  br i1 %83, label %84, label %81, !llvm.loop !10
+
+84:                                               ; preds = %81, %78
+  store i32 0, ptr @newwords, align 4, !tbaa !12
+  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %7) #17
+  %85 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %86 = call i32 @fclose(ptr noundef %85)
+  br label %87
+
+87:                                               ; preds = %84, %75
+  %88 = icmp eq ptr %65, null
+  br i1 %88, label %149, label %89
+
+89:                                               ; preds = %87
   call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %6) #17
-  %78 = call ptr @fgets(ptr noundef nonnull %6, i32 noundef 8192, ptr noundef nonnull %75)
-  %79 = icmp eq ptr %78, null
-  br i1 %79, label %83, label %80
+  %90 = call ptr @fgets(ptr noundef nonnull %6, i32 noundef 8192, ptr noundef nonnull %65)
+  %91 = icmp eq ptr %90, null
+  br i1 %91, label %95, label %92
 
-80:                                               ; preds = %77, %80
+92:                                               ; preds = %89, %92
   call void @treeinsert(ptr noundef nonnull %6, i32 noundef 8192, i32 noundef 1)
-  %81 = call ptr @fgets(ptr noundef nonnull %6, i32 noundef 8192, ptr noundef nonnull %75)
-  %82 = icmp eq ptr %81, null
-  br i1 %82, label %83, label %80, !llvm.loop !10
+  %93 = call ptr @fgets(ptr noundef nonnull %6, i32 noundef 8192, ptr noundef nonnull %65)
+  %94 = icmp eq ptr %93, null
+  br i1 %94, label %95, label %92, !llvm.loop !10
 
-83:                                               ; preds = %80, %77
+95:                                               ; preds = %92, %89
   store i32 0, ptr @newwords, align 4, !tbaa !12
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %6) #17
-  %84 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %85 = call i32 @fclose(ptr noundef %84)
-  br label %86
+  %96 = call i32 @fclose(ptr noundef nonnull %65)
+  br label %149
 
-86:                                               ; preds = %83, %74
-  %87 = icmp eq ptr %64, null
-  br i1 %87, label %144, label %88
+97:                                               ; preds = %16
+  %98 = load i8, ptr %13, align 1, !tbaa !5
+  %99 = icmp eq i8 %98, 47
+  br i1 %99, label %106, label %100
 
-88:                                               ; preds = %86
+100:                                              ; preds = %97
+  %101 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(3) @.str.5, i64 noundef 2) #18
+  %102 = icmp eq i32 %101, 0
+  br i1 %102, label %106, label %103
+
+103:                                              ; preds = %100
+  %104 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(4) @.str.6, i64 noundef 3) #18
+  %105 = icmp eq i32 %104, 0
+  br i1 %105, label %106, label %119
+
+106:                                              ; preds = %100, %97, %103
+  %107 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) %13) #17
+  %108 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
+  store ptr %108, ptr @dictf, align 8, !tbaa !8
+  %109 = icmp eq ptr %108, null
+  br i1 %109, label %149, label %110
+
+110:                                              ; preds = %106
   call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %5) #17
-  %89 = call ptr @fgets(ptr noundef nonnull %5, i32 noundef 8192, ptr noundef nonnull %64)
-  %90 = icmp eq ptr %89, null
-  br i1 %90, label %94, label %91
+  %111 = call ptr @fgets(ptr noundef nonnull %5, i32 noundef 8192, ptr noundef nonnull %108)
+  %112 = icmp eq ptr %111, null
+  br i1 %112, label %116, label %113
 
-91:                                               ; preds = %88, %91
+113:                                              ; preds = %110, %113
   call void @treeinsert(ptr noundef nonnull %5, i32 noundef 8192, i32 noundef 1)
-  %92 = call ptr @fgets(ptr noundef nonnull %5, i32 noundef 8192, ptr noundef nonnull %64)
-  %93 = icmp eq ptr %92, null
-  br i1 %93, label %94, label %91, !llvm.loop !10
+  %114 = call ptr @fgets(ptr noundef nonnull %5, i32 noundef 8192, ptr noundef nonnull %108)
+  %115 = icmp eq ptr %114, null
+  br i1 %115, label %116, label %113, !llvm.loop !10
 
-94:                                               ; preds = %91, %88
+116:                                              ; preds = %113, %110
   store i32 0, ptr @newwords, align 4, !tbaa !12
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %5) #17
-  %95 = call i32 @fclose(ptr noundef nonnull %64)
-  br label %144
+  %117 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %118 = call i32 @fclose(ptr noundef %117)
+  br label %149
 
-96:                                               ; preds = %15
-  %97 = load i8, ptr %12, align 1, !tbaa !5
-  %98 = icmp eq i8 %97, 47
-  br i1 %98, label %105, label %99
+119:                                              ; preds = %103
+  %120 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) %13) #17
+  %121 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
+  store ptr %121, ptr @dictf, align 8, !tbaa !8
+  %122 = icmp eq ptr %121, null
+  br i1 %122, label %130, label %123
 
-99:                                               ; preds = %96
-  %100 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %12, ptr noundef nonnull dereferenceable(3) @.str.5, i64 noundef 2) #18
-  %101 = icmp eq i32 %100, 0
-  br i1 %101, label %105, label %102
-
-102:                                              ; preds = %99
-  %103 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %12, ptr noundef nonnull dereferenceable(4) @.str.6, i64 noundef 3) #18
-  %104 = icmp eq i32 %103, 0
-  br i1 %104, label %105, label %118
-
-105:                                              ; preds = %99, %96, %102
-  %106 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) %12) #17
-  %107 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
-  store ptr %107, ptr @dictf, align 8, !tbaa !8
-  %108 = icmp eq ptr %107, null
-  br i1 %108, label %144, label %109
-
-109:                                              ; preds = %105
+123:                                              ; preds = %119
   call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %4) #17
-  %110 = call ptr @fgets(ptr noundef nonnull %4, i32 noundef 8192, ptr noundef nonnull %107)
-  %111 = icmp eq ptr %110, null
-  br i1 %111, label %115, label %112
+  %124 = call ptr @fgets(ptr noundef nonnull %4, i32 noundef 8192, ptr noundef nonnull %121)
+  %125 = icmp eq ptr %124, null
+  br i1 %125, label %129, label %126
 
-112:                                              ; preds = %109, %112
+126:                                              ; preds = %123, %126
   call void @treeinsert(ptr noundef nonnull %4, i32 noundef 8192, i32 noundef 1)
-  %113 = call ptr @fgets(ptr noundef nonnull %4, i32 noundef 8192, ptr noundef nonnull %107)
-  %114 = icmp eq ptr %113, null
-  br i1 %114, label %115, label %112, !llvm.loop !10
+  %127 = call ptr @fgets(ptr noundef nonnull %4, i32 noundef 8192, ptr noundef nonnull %121)
+  %128 = icmp eq ptr %127, null
+  br i1 %128, label %129, label %126, !llvm.loop !10
 
-115:                                              ; preds = %112, %109
+129:                                              ; preds = %126, %123
   store i32 0, ptr @newwords, align 4, !tbaa !12
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %4) #17
-  %116 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %117 = call i32 @fclose(ptr noundef %116)
-  br label %144
+  br label %141
 
-118:                                              ; preds = %102
-  %119 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) %12) #17
-  %120 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
-  store ptr %120, ptr @dictf, align 8, !tbaa !8
-  %121 = icmp eq ptr %120, null
-  br i1 %121, label %131, label %122
+130:                                              ; preds = %119
+  %131 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.8, ptr noundef nonnull %14, ptr noundef nonnull %13) #17
+  %132 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
+  store ptr %132, ptr @dictf, align 8, !tbaa !8
+  %133 = icmp eq ptr %132, null
+  br i1 %133, label %146, label %134
 
-122:                                              ; preds = %118
+134:                                              ; preds = %130
   call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %3) #17
-  %123 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 8192, ptr noundef nonnull %120)
-  %124 = icmp eq ptr %123, null
-  br i1 %124, label %128, label %125
+  %135 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 8192, ptr noundef nonnull %132)
+  %136 = icmp eq ptr %135, null
+  br i1 %136, label %140, label %137
 
-125:                                              ; preds = %122, %125
+137:                                              ; preds = %134, %137
   call void @treeinsert(ptr noundef nonnull %3, i32 noundef 8192, i32 noundef 1)
-  %126 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 8192, ptr noundef nonnull %120)
-  %127 = icmp eq ptr %126, null
-  br i1 %127, label %128, label %125, !llvm.loop !10
+  %138 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 8192, ptr noundef nonnull %132)
+  %139 = icmp eq ptr %138, null
+  br i1 %139, label %140, label %137, !llvm.loop !10
 
-128:                                              ; preds = %125, %122
+140:                                              ; preds = %137, %134
   store i32 0, ptr @newwords, align 4, !tbaa !12
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %3) #17
-  %129 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %130 = call i32 @fclose(ptr noundef %129)
-  br label %138
+  br label %141
 
-131:                                              ; preds = %118
-  %132 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) @personaldict, ptr noundef nonnull dereferenceable(1) @.str.8, ptr noundef nonnull %13, ptr noundef nonnull %12) #17
-  %133 = tail call noalias ptr @fopen(ptr noundef nonnull @personaldict, ptr noundef nonnull @.str.7)
-  store ptr %133, ptr @dictf, align 8, !tbaa !8
-  %134 = icmp eq ptr %133, null
-  br i1 %134, label %141, label %135
+141:                                              ; preds = %140, %129
+  %142 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %143 = call i32 @fclose(ptr noundef %142)
+  %144 = load ptr, ptr @dictf, align 8, !tbaa !8
+  %145 = icmp eq ptr %144, null
+  br i1 %145, label %146, label %149
 
-135:                                              ; preds = %131
-  tail call fastcc void @treeload(ptr noundef nonnull %133)
-  %136 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %137 = tail call i32 @fclose(ptr noundef %136)
-  br label %138
-
-138:                                              ; preds = %135, %128
-  %139 = load ptr, ptr @dictf, align 8, !tbaa !8
-  %140 = icmp eq ptr %139, null
-  br i1 %140, label %141, label %144
-
-141:                                              ; preds = %131, %138
-  %142 = load ptr, ptr @stderr, align 8, !tbaa !8
-  %143 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %142, ptr noundef nonnull @.str.9, ptr noundef nonnull %12) #19
+146:                                              ; preds = %130, %141
+  %147 = load ptr, ptr @stderr, align 8, !tbaa !8
+  %148 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %147, ptr noundef nonnull @.str.9, ptr noundef nonnull %13) #19
   call void @perror(ptr noundef nonnull @.str.10) #19
-  br label %161
+  br label %166
 
-144:                                              ; preds = %115, %105, %138, %86, %94
-  %145 = load i32, ptr @lflag, align 4, !tbaa !12
-  %146 = icmp ne i32 %145, 0
-  %147 = load i32, ptr @aflag, align 4
-  %148 = icmp ne i32 %147, 0
-  %149 = select i1 %146, i1 true, i1 %148
-  br i1 %149, label %161, label %150
+149:                                              ; preds = %116, %106, %141, %87, %95
+  %150 = load i32, ptr @lflag, align 4, !tbaa !12
+  %151 = icmp ne i32 %150, 0
+  %152 = load i32, ptr @aflag, align 4
+  %153 = icmp ne i32 %152, 0
+  %154 = select i1 %151, i1 true, i1 %153
+  br i1 %154, label %166, label %155
 
-150:                                              ; preds = %144
-  %151 = call i32 @access(ptr noundef nonnull @personaldict, i32 noundef 2) #17
-  %152 = icmp slt i32 %151, 0
-  br i1 %152, label %153, label %161
+155:                                              ; preds = %149
+  %156 = call i32 @access(ptr noundef nonnull @personaldict, i32 noundef 2) #17
+  %157 = icmp slt i32 %156, 0
+  br i1 %157, label %158, label %166
 
-153:                                              ; preds = %150
-  %154 = tail call ptr @__errno_location() #20
-  %155 = load i32, ptr %154, align 4, !tbaa !12
-  %156 = icmp eq i32 %155, 2
-  br i1 %156, label %161, label %157
+158:                                              ; preds = %155
+  %159 = tail call ptr @__errno_location() #20
+  %160 = load i32, ptr %159, align 4, !tbaa !12
+  %161 = icmp eq i32 %160, 2
+  br i1 %161, label %166, label %162
 
-157:                                              ; preds = %153
-  %158 = load ptr, ptr @stderr, align 8, !tbaa !8
-  %159 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %158, ptr noundef nonnull @.str.11, ptr noundef nonnull @personaldict) #19
-  %160 = call i32 @sleep(i32 noundef 2) #17
-  br label %161
+162:                                              ; preds = %158
+  %163 = load ptr, ptr @stderr, align 8, !tbaa !8
+  %164 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %163, ptr noundef nonnull @.str.11, ptr noundef nonnull @personaldict) #19
+  %165 = call i32 @sleep(i32 noundef 2) #17
+  br label %166
 
-161:                                              ; preds = %144, %150, %153, %157, %11, %141
-  call void @llvm.lifetime.end.p0(i64 4096, ptr nonnull %7) #17
+166:                                              ; preds = %149, %155, %158, %162, %12, %146
+  call void @llvm.lifetime.end.p0(i64 4096, ptr nonnull %8) #17
   ret void
 }
 
@@ -351,26 +363,6 @@ declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocaptur
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @sprintf(ptr noalias nocapture noundef writeonly, ptr nocapture noundef readonly, ...) local_unnamed_addr #4
-
-; Function Attrs: nounwind uwtable
-define internal fastcc void @treeload(ptr nocapture noundef %0) unnamed_addr #0 {
-  %2 = alloca [8192 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %2) #17
-  %3 = call ptr @fgets(ptr noundef nonnull %2, i32 noundef 8192, ptr noundef %0)
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %8, label %5
-
-5:                                                ; preds = %1, %5
-  call void @treeinsert(ptr noundef nonnull %2, i32 noundef 8192, i32 noundef 1)
-  %6 = call ptr @fgets(ptr noundef nonnull %2, i32 noundef 8192, ptr noundef %0)
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %8, label %5, !llvm.loop !10
-
-8:                                                ; preds = %5, %1
-  store i32 0, ptr @newwords, align 4, !tbaa !12
-  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %2) #17
-  ret void
-}
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #4

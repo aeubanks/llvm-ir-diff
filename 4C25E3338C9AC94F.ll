@@ -687,40 +687,40 @@ define dso_local noundef i32 @_ZN8NArchive5NLzma8CDecoder4CodeERKNS0_7CHeaderEP2
   %117 = getelementptr inbounds ptr, ptr %116, i64 6
   %118 = load ptr, ptr %117, align 8
   %119 = invoke noundef i32 %118(ptr noundef nonnull align 8 dereferenceable(8) %115)
-          to label %120 unwind label %134
+          to label %120 unwind label %125
 
 120:                                              ; preds = %113
   %121 = icmp eq i32 %114, 0
   %122 = select i1 %121, i32 %119, i32 %114
   %123 = load ptr, ptr %7, align 8, !tbaa !28
   %124 = icmp eq ptr %123, null
-  br i1 %124, label %133, label %125
+  br i1 %124, label %135, label %127
 
-125:                                              ; preds = %120
-  %126 = load ptr, ptr %123, align 8, !tbaa !21
-  %127 = getelementptr inbounds ptr, ptr %126, i64 2
-  %128 = load ptr, ptr %127, align 8
-  %129 = invoke noundef i32 %128(ptr noundef nonnull align 8 dereferenceable(8) %123)
-          to label %133 unwind label %130
-
-130:                                              ; preds = %125
-  %131 = landingpad { ptr, i32 }
-          catch ptr null
-  %132 = extractvalue { ptr, i32 } %131, 0
-  call void @__clang_call_terminate(ptr %132) #20
-  unreachable
-
-133:                                              ; preds = %120, %125
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #19
-  br label %149
-
-134:                                              ; preds = %113
-  %135 = landingpad { ptr, i32 }
+125:                                              ; preds = %113
+  %126 = landingpad { ptr, i32 }
           cleanup
   br label %136
 
-136:                                              ; preds = %134, %111, %109
-  %137 = phi { ptr, i32 } [ %135, %134 ], [ %112, %111 ], [ %110, %109 ]
+127:                                              ; preds = %120
+  %128 = load ptr, ptr %123, align 8, !tbaa !21
+  %129 = getelementptr inbounds ptr, ptr %128, i64 2
+  %130 = load ptr, ptr %129, align 8
+  %131 = invoke noundef i32 %130(ptr noundef nonnull align 8 dereferenceable(8) %123)
+          to label %135 unwind label %132
+
+132:                                              ; preds = %127
+  %133 = landingpad { ptr, i32 }
+          catch ptr null
+  %134 = extractvalue { ptr, i32 } %133, 0
+  call void @__clang_call_terminate(ptr %134) #20
+  unreachable
+
+135:                                              ; preds = %120, %127
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #19
+  br label %149
+
+136:                                              ; preds = %125, %111, %109
+  %137 = phi { ptr, i32 } [ %126, %125 ], [ %112, %111 ], [ %110, %109 ]
   %138 = load ptr, ptr %7, align 8, !tbaa !28
   %139 = icmp eq ptr %138, null
   br i1 %139, label %148, label %140
@@ -743,8 +743,8 @@ define dso_local noundef i32 @_ZN8NArchive5NLzma8CDecoder4CodeERKNS0_7CHeaderEP2
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #19
   br label %163
 
-149:                                              ; preds = %89, %133, %76
-  %150 = phi i32 [ %75, %76 ], [ %122, %133 ], [ %88, %89 ]
+149:                                              ; preds = %89, %135, %76
+  %150 = phi i32 [ %75, %76 ], [ %122, %135 ], [ %88, %89 ]
   %151 = load ptr, ptr %6, align 8, !tbaa !26
   %152 = icmp eq ptr %151, null
   br i1 %152, label %161, label %153
@@ -1571,7 +1571,7 @@ define dso_local noundef i32 @_ZN8NArchive5NLzma8CHandler7ExtractEPKjjiP23IArchi
   %72 = invoke noundef i32 %71(ptr noundef nonnull align 8 dereferenceable(8) %66)
           to label %73 unwind label %108
 
-73:                                               ; preds = %65, %68
+73:                                               ; preds = %68, %65
   store ptr %58, ptr %54, align 8, !tbaa !23
   %74 = getelementptr inbounds %class.CDummyOutStream, ptr %51, i64 0, i32 3
   store i64 0, ptr %74, align 8, !tbaa !59
@@ -1676,7 +1676,7 @@ define dso_local noundef i32 @_ZN8NArchive5NLzma8CHandler7ExtractEPKjjiP23IArchi
           catch ptr null
   br label %288
 
-120:                                              ; preds = %92, %102
+120:                                              ; preds = %102, %92
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %7) #19
   %121 = getelementptr inbounds %"class.NArchive::NLzma::CDecoder", ptr %7, i64 0, i32 1
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %121, i8 0, i64 16, i1 false)
@@ -1922,8 +1922,8 @@ define dso_local noundef i32 @_ZN8NArchive5NLzma8CHandler7ExtractEPKjjiP23IArchi
           to label %227 unwind label %171
 
 227:                                              ; preds = %169, %140, %215, %206, %186, %222, %128
-  %228 = phi ptr [ null, %222 ], [ %51, %215 ], [ %51, %128 ], [ %51, %186 ], [ %51, %206 ], [ %51, %140 ], [ %51, %169 ]
-  %229 = phi i32 [ %226, %222 ], [ -2147467259, %215 ], [ %127, %128 ], [ %187, %186 ], [ %207, %206 ], [ %139, %140 ], [ %168, %169 ]
+  %228 = phi ptr [ %51, %128 ], [ %51, %215 ], [ null, %222 ], [ %51, %186 ], [ %51, %206 ], [ %51, %140 ], [ %51, %169 ]
+  %229 = phi i32 [ %127, %128 ], [ -2147467259, %215 ], [ %226, %222 ], [ %187, %186 ], [ %207, %206 ], [ %139, %140 ], [ %168, %169 ]
   %230 = load ptr, ptr %121, align 8, !tbaa !15
   %231 = icmp eq ptr %230, null
   br i1 %231, label %238, label %232
@@ -1987,8 +1987,8 @@ define dso_local noundef i32 @_ZN8NArchive5NLzma8CHandler7ExtractEPKjjiP23IArchi
   br label %268
 
 265:                                              ; preds = %174, %176, %171, %209, %161
-  %266 = phi ptr [ %172, %171 ], [ %51, %209 ], [ %51, %161 ], [ %51, %176 ], [ %51, %174 ]
-  %267 = phi { ptr, i32 } [ %173, %171 ], [ %210, %209 ], [ %162, %161 ], [ %177, %176 ], [ %175, %174 ]
+  %266 = phi ptr [ %51, %161 ], [ %172, %171 ], [ %51, %209 ], [ %51, %176 ], [ %51, %174 ]
+  %267 = phi { ptr, i32 } [ %162, %161 ], [ %173, %171 ], [ %210, %209 ], [ %177, %176 ], [ %175, %174 ]
   call void @_ZN8NArchive5NLzma8CDecoderD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %7) #19
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %7) #19
   br label %288
@@ -2047,7 +2047,7 @@ define dso_local noundef i32 @_ZN8NArchive5NLzma8CHandler7ExtractEPKjjiP23IArchi
   %299 = icmp eq ptr %289, null
   br i1 %299, label %324, label %300
 
-300:                                              ; preds = %114, %108, %110, %112, %298
+300:                                              ; preds = %114, %110, %112, %108, %298
   %301 = phi { ptr, i32 } [ %290, %298 ], [ %115, %114 ], [ %111, %110 ], [ %113, %112 ], [ %109, %108 ]
   %302 = phi ptr [ %289, %298 ], [ %51, %114 ], [ %51, %110 ], [ %51, %112 ], [ %51, %108 ]
   %303 = load ptr, ptr %302, align 8, !tbaa !21
@@ -2382,7 +2382,7 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive5NLzma8CHandler14QueryInt
   %159 = icmp eq i8 %157, %158
   br i1 %159, label %240, label %160
 
-160:                                              ; preds = %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
+160:                                              ; preds = %82, %85, %90, %95, %100, %105, %110, %115, %120, %125, %130, %135, %140, %145, %150, %155
   %161 = load i8, ptr @IID_IArchiveOpenSeq, align 4, !tbaa !10
   %162 = icmp eq i8 %4, %161
   br i1 %162, label %163, label %246
@@ -2505,8 +2505,8 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive5NLzma8CHandler14QueryInt
   %245 = tail call noundef i32 %244(ptr noundef nonnull align 8 dereferenceable(88) %0)
   br label %246
 
-246:                                              ; preds = %240, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
-  %247 = phi i32 [ -2147467262, %233 ], [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ 0, %240 ]
+246:                                              ; preds = %240, %233, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160
+  %247 = phi i32 [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ -2147467262, %233 ], [ 0, %240 ]
   ret i32 %247
 }
 

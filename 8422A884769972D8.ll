@@ -417,8 +417,8 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
           cleanup
   br label %179
 
-176:                                              ; preds = %150, %169
-  %177 = phi ptr [ %160, %169 ], [ %141, %150 ]
+176:                                              ; preds = %169, %150
+  %177 = phi ptr [ %141, %150 ], [ %160, %169 ]
   call void @_Z7killexpP3Exp(ptr noundef nonnull %107)
   %178 = getelementptr inbounds %struct.Exp, ptr %109, i64 0, i32 4
   store ptr %177, ptr %178, align 8, !tbaa !46
@@ -566,12 +566,12 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
   br i1 %270, label %252, label %265, !llvm.loop !64
 
 271:                                              ; preds = %238, %258
-  %272 = phi ptr [ %255, %258 ], [ %236, %238 ]
-  %273 = phi ptr [ %259, %258 ], [ %229, %238 ]
-  %274 = phi ptr [ %263, %258 ], [ %228, %238 ]
+  %272 = phi ptr [ %259, %258 ], [ %229, %238 ]
+  %273 = phi ptr [ %263, %258 ], [ %228, %238 ]
+  %274 = phi ptr [ %255, %258 ], [ %236, %238 ]
   %275 = phi ptr [ %262, %258 ], [ %227, %238 ]
   %276 = phi ptr [ %259, %258 ], [ %223, %238 ]
-  %277 = load ptr, ptr %272, align 8, !tbaa !57
+  %277 = load ptr, ptr %274, align 8, !tbaa !57
   %278 = load ptr, ptr %233, align 8, !tbaa !38
   %279 = getelementptr inbounds %struct.Exp_, ptr %278, i64 0, i32 3
   %280 = load i32, ptr %279, align 4, !tbaa !40
@@ -608,11 +608,11 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
   br i1 %299, label %300, label %312
 
 300:                                              ; preds = %312, %296
-  %301 = load ptr, ptr %272, align 8, !tbaa !57
-  %302 = getelementptr inbounds %struct.loopnode, ptr %272, i64 0, i32 1
+  %301 = load ptr, ptr %274, align 8, !tbaa !57
+  %302 = getelementptr inbounds %struct.loopnode, ptr %274, i64 0, i32 1
   %303 = load ptr, ptr %302, align 8, !tbaa !59
   store ptr %303, ptr %99, align 8, !tbaa !63
-  call void @_ZdlPv(ptr noundef %272) #13
+  call void @_ZdlPv(ptr noundef %274) #13
   %304 = icmp eq ptr %303, null
   br i1 %304, label %305, label %306
 
@@ -624,7 +624,7 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
   %307 = call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #12
   store ptr %301, ptr %307, align 8, !tbaa !57
   %308 = getelementptr inbounds %struct.loopnode, ptr %307, i64 0, i32 1
-  store ptr %273, ptr %308, align 8, !tbaa !59
+  store ptr %272, ptr %308, align 8, !tbaa !59
   %309 = icmp eq ptr %275, null
   %310 = select i1 %309, ptr %307, ptr %275
   %311 = select i1 %309, ptr %307, ptr %275
@@ -638,11 +638,11 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
   %317 = icmp eq i32 %314, 0
   br i1 %317, label %300, label %312, !llvm.loop !66
 
-318:                                              ; preds = %235, %271, %282, %258
-  %319 = phi ptr [ %273, %271 ], [ %273, %282 ], [ %259, %258 ], [ %229, %235 ]
-  %320 = phi ptr [ %274, %271 ], [ %274, %282 ], [ %263, %258 ], [ %228, %235 ]
-  %321 = phi ptr [ %275, %271 ], [ %275, %282 ], [ %262, %258 ], [ %227, %235 ]
-  %322 = phi ptr [ %276, %271 ], [ %276, %282 ], [ %259, %258 ], [ %223, %235 ]
+318:                                              ; preds = %271, %282, %235, %258
+  %319 = phi ptr [ %276, %271 ], [ %276, %282 ], [ %223, %235 ], [ %259, %258 ]
+  %320 = phi ptr [ %275, %271 ], [ %275, %282 ], [ %227, %235 ], [ %262, %258 ]
+  %321 = phi ptr [ %273, %271 ], [ %273, %282 ], [ %228, %235 ], [ %263, %258 ]
+  %322 = phi ptr [ %272, %271 ], [ %272, %282 ], [ %229, %235 ], [ %259, %258 ]
   %323 = icmp eq ptr %226, null
   br i1 %323, label %343, label %324
 
@@ -690,11 +690,11 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
   br i1 %354, label %355, label %472
 
 355:                                              ; preds = %351, %343
-  %356 = icmp eq ptr %322, null
+  %356 = icmp eq ptr %319, null
   br i1 %356, label %425, label %357
 
 357:                                              ; preds = %355
-  %358 = load ptr, ptr %322, align 8, !tbaa !57
+  %358 = load ptr, ptr %319, align 8, !tbaa !57
   %359 = load i32, ptr %358, align 8, !tbaa !50
   %360 = getelementptr inbounds %struct.Exp, ptr %233, i64 0, i32 3
   %361 = load i32, ptr %360, align 8, !tbaa !45
@@ -735,12 +735,12 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
   br label %383
 
 383:                                              ; preds = %371, %379, %368, %380
-  %384 = getelementptr inbounds %struct.loopnode, ptr %322, i64 0, i32 1
+  %384 = getelementptr inbounds %struct.loopnode, ptr %319, i64 0, i32 1
   %385 = load ptr, ptr %384, align 8, !tbaa !59
-  call void @_ZdlPv(ptr noundef nonnull %322) #13
+  call void @_ZdlPv(ptr noundef nonnull %319) #13
   %386 = icmp eq ptr %385, null
-  %387 = select i1 %386, ptr null, ptr %321
-  %388 = select i1 %386, ptr null, ptr %320
+  %387 = select i1 %386, ptr null, ptr %320
+  %388 = select i1 %386, ptr null, ptr %321
   %389 = load i32, ptr @indentlevel, align 4, !tbaa !15
   %390 = add nsw i32 %389, -1
   store i32 %390, ptr @indentlevel, align 4, !tbaa !15
@@ -767,7 +767,7 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
   br i1 %404, label %425, label %405, !llvm.loop !69
 
 405:                                              ; preds = %398, %401
-  %406 = phi ptr [ %403, %401 ], [ %322, %398 ]
+  %406 = phi ptr [ %403, %401 ], [ %319, %398 ]
   %407 = load ptr, ptr %406, align 8, !tbaa !57
   %408 = getelementptr inbounds %struct.Loop, ptr %407, i64 0, i32 2
   %409 = load i32, ptr %408, align 8, !tbaa !54
@@ -972,7 +972,7 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
   %543 = phi ptr [ %528, %526 ], [ %224, %521 ], [ null, %518 ], [ %224, %457 ], [ %224, %461 ], [ %224, %467 ], [ %528, %534 ]
   %544 = phi ptr [ %345, %526 ], [ %345, %521 ], [ %345, %518 ], [ %344, %457 ], [ %344, %461 ], [ %468, %467 ], [ %345, %534 ]
   %545 = phi ptr [ %519, %526 ], [ %519, %521 ], [ %519, %518 ], [ %344, %457 ], [ %344, %461 ], [ %468, %467 ], [ %519, %534 ]
-  %546 = phi ptr [ %319, %526 ], [ %319, %521 ], [ %319, %518 ], [ %322, %457 ], [ %322, %461 ], [ %322, %467 ], [ %319, %534 ]
+  %546 = phi ptr [ %322, %526 ], [ %322, %521 ], [ %322, %518 ], [ %319, %457 ], [ %319, %461 ], [ %319, %467 ], [ %322, %534 ]
   %547 = call noundef ptr @_ZN3Exp8toStringEj(ptr noundef nonnull align 8 dereferenceable(64) %233, i32 noundef 0)
   %548 = icmp eq ptr %547, null
   br i1 %548, label %571, label %549
@@ -1009,13 +1009,13 @@ define dso_local noundef i32 @_Z14decompileblockP9ClassfileP11method_info(ptr no
 571:                                              ; preds = %512, %419, %392, %451, %306, %506, %411, %383, %437, %540, %220, %570
   %572 = phi ptr [ %541, %570 ], [ %221, %220 ], [ %541, %540 ], [ %440, %437 ], [ %221, %383 ], [ %221, %411 ], [ %221, %506 ], [ %221, %306 ], [ %440, %451 ], [ %221, %392 ], [ %221, %419 ], [ %221, %512 ]
   %573 = phi ptr [ %542, %570 ], [ %222, %220 ], [ %542, %540 ], [ %443, %437 ], [ %344, %383 ], [ %344, %411 ], [ %488, %506 ], [ %222, %306 ], [ %443, %451 ], [ %344, %392 ], [ %344, %419 ], [ %488, %512 ]
-  %574 = phi ptr [ %322, %570 ], [ %223, %220 ], [ %322, %540 ], [ %322, %437 ], [ %385, %383 ], [ %322, %411 ], [ %322, %506 ], [ %307, %306 ], [ %322, %451 ], [ %385, %392 ], [ %322, %419 ], [ %322, %512 ]
+  %574 = phi ptr [ %319, %570 ], [ %223, %220 ], [ %319, %540 ], [ %319, %437 ], [ %385, %383 ], [ %319, %411 ], [ %319, %506 ], [ %307, %306 ], [ %319, %451 ], [ %385, %392 ], [ %319, %419 ], [ %319, %512 ]
   %575 = phi ptr [ %543, %570 ], [ %224, %220 ], [ %543, %540 ], [ %440, %437 ], [ %224, %383 ], [ %224, %411 ], [ %224, %506 ], [ %224, %306 ], [ %440, %451 ], [ %224, %392 ], [ %224, %419 ], [ %224, %512 ]
   %576 = phi ptr [ %544, %570 ], [ %225, %220 ], [ %544, %540 ], [ %443, %437 ], [ %345, %383 ], [ %345, %411 ], [ %488, %506 ], [ %225, %306 ], [ %443, %451 ], [ %345, %392 ], [ %345, %419 ], [ %488, %512 ]
   %577 = phi ptr [ %545, %570 ], [ %226, %220 ], [ %545, %540 ], [ %443, %437 ], [ %346, %383 ], [ %346, %411 ], [ %488, %506 ], [ %226, %306 ], [ %443, %451 ], [ %346, %392 ], [ %346, %419 ], [ %488, %512 ]
-  %578 = phi ptr [ %321, %570 ], [ %227, %220 ], [ %321, %540 ], [ %321, %437 ], [ %387, %383 ], [ %321, %411 ], [ %321, %506 ], [ %310, %306 ], [ %321, %451 ], [ %387, %392 ], [ %321, %419 ], [ %321, %512 ]
-  %579 = phi ptr [ %320, %570 ], [ %228, %220 ], [ %320, %540 ], [ %320, %437 ], [ %388, %383 ], [ %320, %411 ], [ %320, %506 ], [ %311, %306 ], [ %320, %451 ], [ %388, %392 ], [ %320, %419 ], [ %320, %512 ]
-  %580 = phi ptr [ %546, %570 ], [ %229, %220 ], [ %546, %540 ], [ %322, %437 ], [ %385, %383 ], [ %322, %411 ], [ %319, %506 ], [ %307, %306 ], [ %322, %451 ], [ %385, %392 ], [ %322, %419 ], [ %319, %512 ]
+  %578 = phi ptr [ %320, %570 ], [ %227, %220 ], [ %320, %540 ], [ %320, %437 ], [ %387, %383 ], [ %320, %411 ], [ %320, %506 ], [ %310, %306 ], [ %320, %451 ], [ %387, %392 ], [ %320, %419 ], [ %320, %512 ]
+  %579 = phi ptr [ %321, %570 ], [ %228, %220 ], [ %321, %540 ], [ %321, %437 ], [ %388, %383 ], [ %321, %411 ], [ %321, %506 ], [ %311, %306 ], [ %321, %451 ], [ %388, %392 ], [ %321, %419 ], [ %321, %512 ]
+  %580 = phi ptr [ %546, %570 ], [ %229, %220 ], [ %546, %540 ], [ %319, %437 ], [ %385, %383 ], [ %319, %411 ], [ %322, %506 ], [ %307, %306 ], [ %319, %451 ], [ %385, %392 ], [ %319, %419 ], [ %322, %512 ]
   %581 = phi ptr [ %547, %570 ], [ %230, %220 ], [ null, %540 ], [ %230, %437 ], [ %230, %383 ], [ %230, %411 ], [ %489, %506 ], [ %291, %306 ], [ %230, %451 ], [ %230, %392 ], [ %230, %419 ], [ %489, %512 ]
   %582 = load ptr, ptr @donestkptr, align 8, !tbaa !5
   %583 = icmp eq ptr %232, %582

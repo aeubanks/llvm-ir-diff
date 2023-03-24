@@ -400,8 +400,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %212 = load double, ptr %211, align 8, !tbaa !5
   %213 = fsub double %210, %212
   %214 = call double @llvm.fabs.f64(double %213)
-  %215 = fcmp ule double %214, 1.000000e-05
-  br i1 %215, label %223, label %216
+  %215 = fcmp ogt double %214, 1.000000e-05
+  br i1 %215, label %216, label %223
 
 216:                                              ; preds = %223, %207
   %217 = phi i64 [ %208, %207 ], [ %224, %223 ]
@@ -420,8 +420,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %228 = load double, ptr %227, align 8, !tbaa !5
   %229 = fsub double %226, %228
   %230 = call double @llvm.fabs.f64(double %229)
-  %231 = fcmp ule double %230, 1.000000e-05
-  br i1 %231, label %232, label %216
+  %231 = fcmp ogt double %230, 1.000000e-05
+  br i1 %231, label %216, label %232
 
 232:                                              ; preds = %223
   %233 = add nuw nsw i64 %208, 2
@@ -436,8 +436,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %240 = load double, ptr %239, align 8, !tbaa !5
   %241 = fsub double %238, %240
   %242 = call double @llvm.fabs.f64(double %241)
-  %243 = fcmp ule double %242, 1.000000e-05
-  br i1 %243, label %251, label %244
+  %243 = fcmp ogt double %242, 1.000000e-05
+  br i1 %243, label %244, label %251
 
 244:                                              ; preds = %251, %235
   %245 = phi i64 [ %236, %235 ], [ %252, %251 ]
@@ -456,8 +456,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %256 = load double, ptr %255, align 8, !tbaa !5
   %257 = fsub double %254, %256
   %258 = call double @llvm.fabs.f64(double %257)
-  %259 = fcmp ule double %258, 1.000000e-05
-  br i1 %259, label %260, label %244
+  %259 = fcmp ogt double %258, 1.000000e-05
+  br i1 %259, label %244, label %260
 
 260:                                              ; preds = %251
   %261 = add nuw nsw i64 %236, 2

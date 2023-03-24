@@ -579,7 +579,7 @@ define linkonce_odr hidden noundef nonnull align 8 dereferenceable(16) ptr @_ZNS
   br i1 %58, label %59, label %62
 
 59:                                               ; preds = %2, %39, %56
-  %60 = phi ptr [ %35, %56 ], [ %7, %39 ], [ %7, %2 ]
+  %60 = phi ptr [ %7, %39 ], [ %35, %56 ], [ %7, %2 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #21
   store ptr %1, ptr %3, align 8, !tbaa !47, !alias.scope !50
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #21
@@ -1198,12 +1198,12 @@ define hidden void @_Z11CheckSimpleRK7Results(ptr noundef nonnull align 8 derefe
   br i1 %325, label %340, label %326
 
 326:                                              ; preds = %323
-  %327 = call double @llvm.fmuladd.f64(double %4, double -2.000000e+00, double %322)
-  %328 = fcmp ogt double %140, 1.000000e-05
-  %329 = fcmp olt double %140, -1.000000e-05
-  %330 = or i1 %328, %329
-  %331 = select i1 %330, double %140, double 1.000000e-05
-  %332 = fdiv double %327, %331
+  %327 = fcmp ogt double %140, 1.000000e-05
+  %328 = fcmp olt double %140, -1.000000e-05
+  %329 = or i1 %327, %328
+  %330 = select i1 %329, double %140, double 1.000000e-05
+  %331 = call double @llvm.fmuladd.f64(double %4, double -2.000000e+00, double %322)
+  %332 = fdiv double %331, %330
   %333 = fmul double %332, 1.000000e+02
   %334 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %324, double noundef %333)
           to label %335 unwind label %362
@@ -1557,7 +1557,7 @@ define hidden void @_Z33BM_Counters_WithBytesAndItemsPSecRN9benchmark5StateE(ptr
   %33 = add i64 %31, %32
   br label %34
 
-34:                                               ; preds = %28, %24
+34:                                               ; preds = %24, %28
   %35 = phi i64 [ %33, %28 ], [ 0, %24 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %35) #21, !srcloc !72
   %36 = add i64 %25, -1
@@ -2594,12 +2594,12 @@ define hidden void @_Z22CheckBytesAndItemsPSecRK7Results(ptr noundef nonnull ali
   br i1 %463, label %478, label %464
 
 464:                                              ; preds = %461
-  %465 = fsub double %460, %276
-  %466 = fcmp ogt double %276, 1.000000e-05
-  %467 = fcmp olt double %276, -1.000000e-05
-  %468 = or i1 %466, %467
-  %469 = select i1 %468, double %276, double 1.000000e-05
-  %470 = fdiv double %465, %469
+  %465 = fcmp ogt double %276, 1.000000e-05
+  %466 = fcmp olt double %276, -1.000000e-05
+  %467 = or i1 %465, %466
+  %468 = select i1 %467, double %276, double 1.000000e-05
+  %469 = fsub double %460, %276
+  %470 = fdiv double %469, %468
   %471 = fmul double %470, 1.000000e+02
   %472 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %462, double noundef %471)
           to label %473 unwind label %500
@@ -3015,12 +3015,12 @@ define hidden void @_Z22CheckBytesAndItemsPSecRK7Results(ptr noundef nonnull ali
   br i1 %691, label %706, label %692
 
 692:                                              ; preds = %689
-  %693 = fsub double %688, %504
-  %694 = fcmp ogt double %504, 1.000000e-05
-  %695 = fcmp olt double %504, -1.000000e-05
-  %696 = or i1 %694, %695
-  %697 = select i1 %696, double %504, double 1.000000e-05
-  %698 = fdiv double %693, %697
+  %693 = fcmp ogt double %504, 1.000000e-05
+  %694 = fcmp olt double %504, -1.000000e-05
+  %695 = or i1 %693, %694
+  %696 = select i1 %695, double %504, double 1.000000e-05
+  %697 = fsub double %688, %504
+  %698 = fdiv double %697, %696
   %699 = fmul double %698, 1.000000e+02
   %700 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %690, double noundef %699)
           to label %701 unwind label %728
@@ -3130,45 +3130,45 @@ define linkonce_odr hidden noundef double @_ZNK7Results5GetAsIdEET_PKc(ptr nound
   %6 = alloca %"class.benchmark::internal::CheckHandler", align 8
   %7 = tail call noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef nonnull align 8 dereferenceable(80) %0, ptr noundef %1)
   %8 = icmp eq ptr %7, null
-  br i1 %8, label %25, label %9
+  br i1 %8, label %20, label %9
 
 9:                                                ; preds = %2
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 1
   %11 = load i64, ptr %10, align 8, !tbaa !10
   %12 = icmp eq i64 %11, 0
-  br i1 %12, label %25, label %13
+  br i1 %12, label %20, label %13
 
 13:                                               ; preds = %9
   %14 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %15 = icmp eq i8 %14, 0
-  br i1 %15, label %16, label %20, !prof !53
+  br i1 %15, label %16, label %21, !prof !53
 
 16:                                               ; preds = %13
   %17 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #21
   %18 = icmp eq i32 %17, 0
-  br i1 %18, label %20, label %19
+  br i1 %18, label %21, label %19
 
 19:                                               ; preds = %16
   store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !54
   tail call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #21
-  br label %20
+  br label %21
 
-20:                                               ; preds = %13, %16, %19
-  call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %4) #21
-  call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %4)
-  %21 = getelementptr inbounds i8, ptr %4, i64 16
-  %22 = load ptr, ptr %7, align 8, !tbaa !23
-  %23 = load i64, ptr %10, align 8, !tbaa !10
-  %24 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %21, ptr noundef %22, i64 noundef %23)
-          to label %26 unwind label %47
-
-25:                                               ; preds = %9, %2
+20:                                               ; preds = %9, %2
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #21
   call void @_ZN9benchmark8internal12CheckHandlerC2EPKcS3_S3_i(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull @.str.204, ptr noundef nonnull @.str.205, ptr noundef nonnull @__func__._ZNK7Results5GetAsIdEET_PKc, i32 noundef 144)
   call void @_ZN9benchmark8internal12CheckHandlerD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %3) #23
   unreachable
 
-26:                                               ; preds = %20
+21:                                               ; preds = %13, %16, %19
+  call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %4) #21
+  call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %4)
+  %22 = getelementptr inbounds i8, ptr %4, i64 16
+  %23 = load ptr, ptr %7, align 8, !tbaa !23
+  %24 = load i64, ptr %10, align 8, !tbaa !10
+  %25 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %22, ptr noundef %23, i64 noundef %24)
+          to label %26 unwind label %47
+
+26:                                               ; preds = %21
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #21
   %27 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZNSi10_M_extractIdEERSiRT_(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull align 8 dereferenceable(8) %5)
           to label %28 unwind label %49
@@ -3211,7 +3211,7 @@ define linkonce_odr hidden noundef double @_ZNK7Results5GetAsIdEET_PKc(ptr nound
 46:                                               ; preds = %45
   unreachable
 
-47:                                               ; preds = %20
+47:                                               ; preds = %21
   %48 = landingpad { ptr, i32 }
           cleanup
   br label %78
@@ -3232,7 +3232,7 @@ define linkonce_odr hidden noundef double @_ZNK7Results5GetAsIdEET_PKc(ptr nound
   %57 = getelementptr inbounds i8, ptr %4, i64 %56
   store ptr %54, ptr %57, align 8, !tbaa !58
   %58 = load ptr, ptr getelementptr inbounds ([10 x ptr], ptr @_ZTTNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEE, i64 0, i64 9), align 8
-  store ptr %58, ptr %21, align 8, !tbaa !58
+  store ptr %58, ptr %22, align 8, !tbaa !58
   %59 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %4, i64 0, i32 1
   store ptr getelementptr inbounds ({ [16 x ptr] }, ptr @_ZTVNSt7__cxx1115basic_stringbufIcSt11char_traitsIcESaIcEEE, i64 0, inrange i32 0, i64 2), ptr %59, align 8, !tbaa !58
   %60 = getelementptr inbounds %"class.std::__cxx11::basic_stringstream", ptr %4, i64 0, i32 1, i32 2
@@ -3328,7 +3328,7 @@ define hidden void @_Z16BM_Counters_RateRN9benchmark5StateE(ptr noundef nonnull 
   %29 = add i64 %27, %28
   br label %30
 
-30:                                               ; preds = %24, %20
+30:                                               ; preds = %20, %24
   %31 = phi i64 [ %29, %24 ], [ 0, %20 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %31) #21, !srcloc !72
   %32 = add i64 %21, -1
@@ -3762,12 +3762,12 @@ define hidden void @_Z9CheckRateRK7Results(ptr noundef nonnull align 8 dereferen
   br i1 %195, label %210, label %196
 
 196:                                              ; preds = %193
-  %197 = fsub double %192, %8
-  %198 = fcmp ogt double %8, 1.000000e-05
-  %199 = fcmp olt double %8, -1.000000e-05
-  %200 = or i1 %198, %199
-  %201 = select i1 %200, double %8, double 1.000000e-05
-  %202 = fdiv double %197, %201
+  %197 = fcmp ogt double %8, 1.000000e-05
+  %198 = fcmp olt double %8, -1.000000e-05
+  %199 = or i1 %197, %198
+  %200 = select i1 %199, double %8, double 1.000000e-05
+  %201 = fsub double %192, %8
+  %202 = fdiv double %201, %200
   %203 = fmul double %202, 1.000000e+02
   %204 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %194, double noundef %203)
           to label %205 unwind label %230
@@ -4179,12 +4179,12 @@ define hidden void @_Z9CheckRateRK7Results(ptr noundef nonnull align 8 dereferen
   br i1 %421, label %436, label %422
 
 422:                                              ; preds = %419
-  %423 = fsub double %418, %234
-  %424 = fcmp ogt double %234, 1.000000e-05
-  %425 = fcmp olt double %234, -1.000000e-05
-  %426 = or i1 %424, %425
-  %427 = select i1 %426, double %234, double 1.000000e-05
-  %428 = fdiv double %423, %427
+  %423 = fcmp ogt double %234, 1.000000e-05
+  %424 = fcmp olt double %234, -1.000000e-05
+  %425 = or i1 %423, %424
+  %426 = select i1 %425, double %234, double 1.000000e-05
+  %427 = fsub double %418, %234
+  %428 = fdiv double %427, %426
   %429 = fmul double %428, 1.000000e+02
   %430 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %420, double noundef %429)
           to label %431 unwind label %458
@@ -4333,7 +4333,7 @@ define hidden void @_Z9BM_InvertRN9benchmark5StateE(ptr noundef nonnull align 8 
   %29 = add i64 %27, %28
   br label %30
 
-30:                                               ; preds = %24, %20
+30:                                               ; preds = %20, %24
   %31 = phi i64 [ %29, %24 ], [ 0, %20 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %31) #21, !srcloc !72
   %32 = add i64 %21, -1
@@ -5323,7 +5323,7 @@ define hidden void @_Z24BM_Counters_InvertedRateRN9benchmark5StateE(ptr noundef 
   %29 = add i64 %27, %28
   br label %30
 
-30:                                               ; preds = %24, %20
+30:                                               ; preds = %20, %24
   %31 = phi i64 [ %29, %24 ], [ 0, %20 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %31) #21, !srcloc !72
   %32 = add i64 %21, -1
@@ -6168,12 +6168,12 @@ define hidden void @_Z17CheckInvertedRateRK7Results(ptr noundef nonnull align 8 
   br i1 %418, label %433, label %419
 
 419:                                              ; preds = %416
-  %420 = fsub double %415, %231
-  %421 = fcmp ogt double %231, 1.000000e-05
-  %422 = fcmp olt double %231, -1.000000e-05
-  %423 = or i1 %421, %422
-  %424 = select i1 %423, double %231, double 1.000000e-05
-  %425 = fdiv double %420, %424
+  %420 = fcmp ogt double %231, 1.000000e-05
+  %421 = fcmp olt double %231, -1.000000e-05
+  %422 = or i1 %420, %421
+  %423 = select i1 %422, double %231, double 1.000000e-05
+  %424 = fsub double %415, %231
+  %425 = fdiv double %424, %423
   %426 = fmul double %425, 1.000000e+02
   %427 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %417, double noundef %426)
           to label %428 unwind label %455
@@ -7594,7 +7594,7 @@ define hidden void @_Z26BM_Counters_AvgThreadsRateRN9benchmark5StateE(ptr nounde
   %29 = add i64 %27, %28
   br label %30
 
-30:                                               ; preds = %24, %20
+30:                                               ; preds = %20, %24
   %31 = phi i64 [ %29, %24 ], [ 0, %20 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %31) #21, !srcloc !72
   %32 = add i64 %21, -1
@@ -9575,12 +9575,12 @@ define hidden void @_Z23CheckIterationInvariantRK7Results(ptr noundef nonnull al
   br i1 %416, label %431, label %417
 
 417:                                              ; preds = %414
-  %418 = call double @llvm.fmuladd.f64(double %4, double -2.000000e+00, double %413)
-  %419 = fcmp ogt double %231, 1.000000e-05
-  %420 = fcmp olt double %231, -1.000000e-05
-  %421 = or i1 %419, %420
-  %422 = select i1 %421, double %231, double 1.000000e-05
-  %423 = fdiv double %418, %422
+  %418 = fcmp ogt double %231, 1.000000e-05
+  %419 = fcmp olt double %231, -1.000000e-05
+  %420 = or i1 %418, %419
+  %421 = select i1 %420, double %231, double 1.000000e-05
+  %422 = call double @llvm.fmuladd.f64(double %4, double -2.000000e+00, double %413)
+  %423 = fdiv double %422, %421
   %424 = fmul double %423, 1.000000e+02
   %425 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %415, double noundef %424)
           to label %426 unwind label %453
@@ -9729,7 +9729,7 @@ define hidden void @_Z37BM_Counters_kIsIterationInvariantRateRN9benchmark5StateE
   %29 = add i64 %27, %28
   br label %30
 
-30:                                               ; preds = %24, %20
+30:                                               ; preds = %20, %24
   %31 = phi i64 [ %29, %24 ], [ 0, %20 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %31) #21, !srcloc !72
   %32 = add i64 %21, -1
@@ -10164,12 +10164,12 @@ define hidden void @_Z29CheckIsIterationInvariantRateRK7Results(ptr noundef nonn
   br i1 %196, label %211, label %197
 
 197:                                              ; preds = %194
-  %198 = fsub double %193, %9
-  %199 = fcmp ogt double %9, 1.000000e-05
-  %200 = fcmp olt double %9, -1.000000e-05
-  %201 = or i1 %199, %200
-  %202 = select i1 %201, double %9, double 1.000000e-05
-  %203 = fdiv double %198, %202
+  %198 = fcmp ogt double %9, 1.000000e-05
+  %199 = fcmp olt double %9, -1.000000e-05
+  %200 = or i1 %198, %199
+  %201 = select i1 %200, double %9, double 1.000000e-05
+  %202 = fsub double %193, %9
+  %203 = fdiv double %202, %201
   %204 = fmul double %203, 1.000000e+02
   %205 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %195, double noundef %204)
           to label %206 unwind label %231
@@ -10582,12 +10582,12 @@ define hidden void @_Z29CheckIsIterationInvariantRateRK7Results(ptr noundef nonn
   br i1 %423, label %438, label %424
 
 424:                                              ; preds = %421
-  %425 = fsub double %420, %236
-  %426 = fcmp ogt double %236, 1.000000e-05
-  %427 = fcmp olt double %236, -1.000000e-05
-  %428 = or i1 %426, %427
-  %429 = select i1 %428, double %236, double 1.000000e-05
-  %430 = fdiv double %425, %429
+  %425 = fcmp ogt double %236, 1.000000e-05
+  %426 = fcmp olt double %236, -1.000000e-05
+  %427 = or i1 %425, %426
+  %428 = select i1 %427, double %236, double 1.000000e-05
+  %429 = fsub double %420, %236
+  %430 = fdiv double %429, %428
   %431 = fmul double %430, 1.000000e+02
   %432 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %422, double noundef %431)
           to label %433 unwind label %460
@@ -11132,12 +11132,12 @@ define hidden void @_Z18CheckAvgIterationsRK7Results(ptr noundef nonnull align 8
   br i1 %193, label %208, label %194
 
 194:                                              ; preds = %191
-  %195 = fsub double %190, %6
-  %196 = fcmp ogt double %6, 1.000000e-05
-  %197 = fcmp olt double %6, -1.000000e-05
-  %198 = or i1 %196, %197
-  %199 = select i1 %198, double %6, double 1.000000e-05
-  %200 = fdiv double %195, %199
+  %195 = fcmp ogt double %6, 1.000000e-05
+  %196 = fcmp olt double %6, -1.000000e-05
+  %197 = or i1 %195, %196
+  %198 = select i1 %197, double %6, double 1.000000e-05
+  %199 = fsub double %190, %6
+  %200 = fdiv double %199, %198
   %201 = fmul double %200, 1.000000e+02
   %202 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %192, double noundef %201)
           to label %203 unwind label %228
@@ -11549,12 +11549,12 @@ define hidden void @_Z18CheckAvgIterationsRK7Results(ptr noundef nonnull align 8
   br i1 %419, label %434, label %420
 
 420:                                              ; preds = %417
-  %421 = fsub double %416, %232
-  %422 = fcmp ogt double %232, 1.000000e-05
-  %423 = fcmp olt double %232, -1.000000e-05
-  %424 = or i1 %422, %423
-  %425 = select i1 %424, double %232, double 1.000000e-05
-  %426 = fdiv double %421, %425
+  %421 = fcmp ogt double %232, 1.000000e-05
+  %422 = fcmp olt double %232, -1.000000e-05
+  %423 = or i1 %421, %422
+  %424 = select i1 %423, double %232, double 1.000000e-05
+  %425 = fsub double %416, %232
+  %426 = fdiv double %425, %424
   %427 = fmul double %426, 1.000000e+02
   %428 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %418, double noundef %427)
           to label %429 unwind label %456
@@ -11703,7 +11703,7 @@ define hidden void @_Z30BM_Counters_kAvgIterationsRateRN9benchmark5StateE(ptr no
   %29 = add i64 %27, %28
   br label %30
 
-30:                                               ; preds = %24, %20
+30:                                               ; preds = %20, %24
   %31 = phi i64 [ %29, %24 ], [ 0, %20 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %31) #21, !srcloc !72
   %32 = add i64 %21, -1
@@ -12139,12 +12139,12 @@ define hidden void @_Z22CheckAvgIterationsRateRK7Results(ptr noundef nonnull ali
   br i1 %197, label %212, label %198
 
 198:                                              ; preds = %195
-  %199 = fsub double %194, %10
-  %200 = fcmp ogt double %10, 1.000000e-05
-  %201 = fcmp olt double %10, -1.000000e-05
-  %202 = or i1 %200, %201
-  %203 = select i1 %202, double %10, double 1.000000e-05
-  %204 = fdiv double %199, %203
+  %199 = fcmp ogt double %10, 1.000000e-05
+  %200 = fcmp olt double %10, -1.000000e-05
+  %201 = or i1 %199, %200
+  %202 = select i1 %201, double %10, double 1.000000e-05
+  %203 = fsub double %194, %10
+  %204 = fdiv double %203, %202
   %205 = fmul double %204, 1.000000e+02
   %206 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %196, double noundef %205)
           to label %207 unwind label %232
@@ -12557,12 +12557,12 @@ define hidden void @_Z22CheckAvgIterationsRateRK7Results(ptr noundef nonnull ali
   br i1 %424, label %439, label %425
 
 425:                                              ; preds = %422
-  %426 = fsub double %421, %237
-  %427 = fcmp ogt double %237, 1.000000e-05
-  %428 = fcmp olt double %237, -1.000000e-05
-  %429 = or i1 %427, %428
-  %430 = select i1 %429, double %237, double 1.000000e-05
-  %431 = fdiv double %426, %430
+  %426 = fcmp ogt double %237, 1.000000e-05
+  %427 = fcmp olt double %237, -1.000000e-05
+  %428 = or i1 %426, %427
+  %429 = select i1 %428, double %237, double 1.000000e-05
+  %430 = fsub double %421, %237
+  %431 = fdiv double %430, %429
   %432 = fmul double %431, 1.000000e+02
   %433 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %423, double noundef %432)
           to label %434 unwind label %461
@@ -12791,7 +12791,7 @@ define linkonce_odr hidden ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11ch
   store i64 %22, ptr %11, align 8, !tbaa !13
   br label %23
 
-23:                                               ; preds = %21, %20, %15
+23:                                               ; preds = %15, %20, %21
   %24 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Auto_node", ptr %6, i64 0, i32 1
   %25 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 0, i32 1
   %26 = load i64, ptr %25, align 8, !tbaa !10
@@ -12851,7 +12851,7 @@ define linkonce_odr hidden ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11ch
   %60 = icmp slt i32 %59, 0
   br label %61
 
-61:                                               ; preds = %36, %58
+61:                                               ; preds = %58, %36
   %62 = phi i1 [ true, %36 ], [ %60, %58 ]
   tail call void @_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_(i1 noundef zeroext %62, ptr noundef nonnull %7, ptr noundef nonnull %34, ptr noundef nonnull align 8 dereferenceable(32) %38) #21
   %63 = getelementptr inbounds i8, ptr %0, i64 40
@@ -13088,9 +13088,9 @@ define linkonce_odr hidden { ptr, ptr } @_ZNSt8_Rb_treeINSt7__cxx1112basic_strin
   %142 = extractvalue { ptr, ptr } %140, 1
   br label %143
 
-143:                                              ; preds = %133, %88, %106, %139, %109, %94, %64, %30, %33
-  %144 = phi ptr [ %35, %33 ], [ null, %30 ], [ %96, %94 ], [ %1, %64 ], [ %141, %139 ], [ null, %109 ], [ %1, %106 ], [ %92, %88 ], [ %137, %133 ]
-  %145 = phi ptr [ %36, %33 ], [ %12, %30 ], [ %97, %94 ], [ %1, %64 ], [ %142, %139 ], [ %1, %109 ], [ null, %106 ], [ %93, %88 ], [ %138, %133 ]
+143:                                              ; preds = %109, %64, %30, %106, %139, %133, %94, %88, %33
+  %144 = phi ptr [ %35, %33 ], [ %96, %94 ], [ %92, %88 ], [ %141, %139 ], [ %137, %133 ], [ %1, %106 ], [ null, %30 ], [ %1, %64 ], [ null, %109 ]
+  %145 = phi ptr [ %36, %33 ], [ %97, %94 ], [ %93, %88 ], [ %142, %139 ], [ %138, %133 ], [ null, %106 ], [ %12, %30 ], [ %1, %64 ], [ %1, %109 ]
   %146 = insertvalue { ptr, ptr } poison, ptr %144, 0
   %147 = insertvalue { ptr, ptr } %146, ptr %145, 1
   ret { ptr, ptr } %147
@@ -13311,7 +13311,7 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %15, ptr nonnull align 1 %1, i64 %9, i1 false)
   br label %19
 
-19:                                               ; preds = %18, %16, %14
+19:                                               ; preds = %14, %16, %18
   %20 = load i64, ptr %3, align 8, !tbaa !74
   %21 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
   store i64 %20, ptr %21, align 8, !tbaa !10
@@ -13327,7 +13327,7 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
 
 28:                                               ; preds = %19
   %29 = load ptr, ptr %4, align 8, !tbaa !23
-  br label %80
+  br label %79
 
 30:                                               ; preds = %19
   %31 = load i64, ptr %21, align 8, !tbaa !10
@@ -13370,7 +13370,7 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
 
 59:                                               ; preds = %50
   %60 = icmp eq ptr %55, %26
-  br i1 %60, label %80, label %61
+  br i1 %60, label %79, label %61
 
 61:                                               ; preds = %59
   %62 = getelementptr inbounds %"struct.std::_Rb_tree_node.59", ptr %55, i64 0, i32 1, i32 0, i64 8
@@ -13396,25 +13396,28 @@ define linkonce_odr hidden noundef ptr @_ZNK7Results3GetB5cxx11EPKc(ptr noundef 
 76:                                               ; preds = %71, %66
   %77 = phi i32 [ %69, %66 ], [ %75, %71 ]
   %78 = icmp slt i32 %77, 0
-  %79 = select i1 %78, ptr %26, ptr %55
-  br label %80
+  br i1 %78, label %79, label %81
 
-80:                                               ; preds = %28, %76, %59
-  %81 = phi ptr [ %32, %59 ], [ %29, %28 ], [ %32, %76 ]
-  %82 = phi ptr [ %26, %59 ], [ %26, %28 ], [ %79, %76 ]
-  %83 = icmp eq ptr %81, %5
-  br i1 %83, label %85, label %84
+79:                                               ; preds = %28, %76, %59
+  %80 = phi ptr [ %29, %28 ], [ %32, %76 ], [ %32, %59 ]
+  br label %81
 
-84:                                               ; preds = %80
-  call void @_ZdlPv(ptr noundef %81) #22
-  br label %85
+81:                                               ; preds = %79, %76
+  %82 = phi ptr [ %80, %79 ], [ %32, %76 ]
+  %83 = phi ptr [ %26, %79 ], [ %55, %76 ]
+  %84 = icmp eq ptr %82, %5
+  br i1 %84, label %86, label %85
 
-85:                                               ; preds = %80, %84
+85:                                               ; preds = %81
+  call void @_ZdlPv(ptr noundef %82) #22
+  br label %86
+
+86:                                               ; preds = %81, %85
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #21
-  %86 = icmp eq ptr %82, %26
-  %87 = getelementptr inbounds %"struct.std::_Rb_tree_node.59", ptr %82, i64 0, i32 1, i32 0, i64 32
-  %88 = select i1 %86, ptr null, ptr %87
-  ret ptr %88
+  %87 = icmp eq ptr %83, %26
+  %88 = getelementptr inbounds %"struct.std::_Rb_tree_node.59", ptr %83, i64 0, i32 1, i32 0, i64 32
+  %89 = select i1 %87, ptr null, ptr %88
+  ret ptr %89
 }
 
 ; Function Attrs: uwtable
@@ -16676,9 +16679,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %1842
 
 1842:                                             ; preds = %1841, %1835, %1237
-  %1843 = phi ptr [ %1072, %1237 ], [ %1836, %1835 ], [ %1836, %1841 ]
-  %1844 = phi { ptr, i32 } [ %1238, %1237 ], [ %1837, %1835 ], [ %1837, %1841 ]
-  %1845 = phi i1 [ true, %1237 ], [ %1838, %1835 ], [ %1838, %1841 ]
+  %1843 = phi ptr [ %1072, %1237 ], [ %1836, %1841 ], [ %1836, %1835 ]
+  %1844 = phi { ptr, i32 } [ %1238, %1237 ], [ %1837, %1841 ], [ %1837, %1835 ]
+  %1845 = phi i1 [ true, %1237 ], [ %1838, %1841 ], [ %1838, %1835 ]
   %1846 = load ptr, ptr %407, align 8, !tbaa !23
   %1847 = icmp eq ptr %1846, %1073
   br i1 %1847, label %1849, label %1848
@@ -16688,9 +16691,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %1849
 
 1849:                                             ; preds = %1848, %1842, %1235
-  %1850 = phi ptr [ %1063, %1235 ], [ %1843, %1842 ], [ %1843, %1848 ]
-  %1851 = phi { ptr, i32 } [ %1236, %1235 ], [ %1844, %1842 ], [ %1844, %1848 ]
-  %1852 = phi i1 [ true, %1235 ], [ %1845, %1842 ], [ %1845, %1848 ]
+  %1850 = phi ptr [ %1063, %1235 ], [ %1843, %1848 ], [ %1843, %1842 ]
+  %1851 = phi { ptr, i32 } [ %1236, %1235 ], [ %1844, %1848 ], [ %1844, %1842 ]
+  %1852 = phi i1 [ true, %1235 ], [ %1845, %1848 ], [ %1845, %1842 ]
   %1853 = load ptr, ptr %406, align 8, !tbaa !23
   %1854 = icmp eq ptr %1853, %1064
   br i1 %1854, label %1856, label %1855
@@ -16748,9 +16751,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %1884
 
 1884:                                             ; preds = %1883, %1877, %1217
-  %1885 = phi ptr [ %1022, %1217 ], [ %1878, %1877 ], [ %1878, %1883 ]
-  %1886 = phi { ptr, i32 } [ %1218, %1217 ], [ %1879, %1877 ], [ %1879, %1883 ]
-  %1887 = phi i1 [ true, %1217 ], [ %1880, %1877 ], [ %1880, %1883 ]
+  %1885 = phi ptr [ %1022, %1217 ], [ %1878, %1883 ], [ %1878, %1877 ]
+  %1886 = phi { ptr, i32 } [ %1218, %1217 ], [ %1879, %1883 ], [ %1879, %1877 ]
+  %1887 = phi i1 [ true, %1217 ], [ %1880, %1883 ], [ %1880, %1877 ]
   %1888 = load ptr, ptr %401, align 8, !tbaa !23
   %1889 = icmp eq ptr %1888, %1023
   br i1 %1889, label %1891, label %1890
@@ -19387,9 +19390,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %3197
 
 3197:                                             ; preds = %3196, %3190, %2503
-  %3198 = phi ptr [ %2313, %2503 ], [ %3191, %3190 ], [ %3191, %3196 ]
-  %3199 = phi { ptr, i32 } [ %2504, %2503 ], [ %3192, %3190 ], [ %3192, %3196 ]
-  %3200 = phi i1 [ true, %2503 ], [ %3193, %3190 ], [ %3193, %3196 ]
+  %3198 = phi ptr [ %2313, %2503 ], [ %3191, %3196 ], [ %3191, %3190 ]
+  %3199 = phi { ptr, i32 } [ %2504, %2503 ], [ %3192, %3196 ], [ %3192, %3190 ]
+  %3200 = phi i1 [ true, %2503 ], [ %3193, %3196 ], [ %3193, %3190 ]
   %3201 = load ptr, ptr %372, align 8, !tbaa !23
   %3202 = icmp eq ptr %3201, %2314
   br i1 %3202, label %3204, label %3203
@@ -19411,9 +19414,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %3211
 
 3211:                                             ; preds = %3210, %3204, %2497
-  %3212 = phi ptr [ %2299, %2497 ], [ %3205, %3204 ], [ %3205, %3210 ]
-  %3213 = phi { ptr, i32 } [ %2498, %2497 ], [ %3206, %3204 ], [ %3206, %3210 ]
-  %3214 = phi i1 [ true, %2497 ], [ %3207, %3204 ], [ %3207, %3210 ]
+  %3212 = phi ptr [ %2299, %2497 ], [ %3205, %3210 ], [ %3205, %3204 ]
+  %3213 = phi { ptr, i32 } [ %2498, %2497 ], [ %3206, %3210 ], [ %3206, %3204 ]
+  %3214 = phi i1 [ true, %2497 ], [ %3207, %3210 ], [ %3207, %3204 ]
   %3215 = load ptr, ptr %370, align 8, !tbaa !23
   %3216 = icmp eq ptr %3215, %2300
   br i1 %3216, label %3218, label %3217
@@ -19471,9 +19474,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %3246
 
 3246:                                             ; preds = %3245, %3239, %2479
-  %3247 = phi ptr [ %2258, %2479 ], [ %3240, %3239 ], [ %3240, %3245 ]
-  %3248 = phi { ptr, i32 } [ %2480, %2479 ], [ %3241, %3239 ], [ %3241, %3245 ]
-  %3249 = phi i1 [ true, %2479 ], [ %3242, %3239 ], [ %3242, %3245 ]
+  %3247 = phi ptr [ %2258, %2479 ], [ %3240, %3245 ], [ %3240, %3239 ]
+  %3248 = phi { ptr, i32 } [ %2480, %2479 ], [ %3241, %3245 ], [ %3241, %3239 ]
+  %3249 = phi i1 [ true, %2479 ], [ %3242, %3245 ], [ %3242, %3239 ]
   %3250 = load ptr, ptr %365, align 8, !tbaa !23
   %3251 = icmp eq ptr %3250, %2259
   br i1 %3251, label %3253, label %3252
@@ -21874,9 +21877,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %4442
 
 4442:                                             ; preds = %4441, %4435, %3837
-  %4443 = phi ptr [ %3672, %3837 ], [ %4436, %4435 ], [ %4436, %4441 ]
-  %4444 = phi { ptr, i32 } [ %3838, %3837 ], [ %4437, %4435 ], [ %4437, %4441 ]
-  %4445 = phi i1 [ true, %3837 ], [ %4438, %4435 ], [ %4438, %4441 ]
+  %4443 = phi ptr [ %3672, %3837 ], [ %4436, %4441 ], [ %4436, %4435 ]
+  %4444 = phi { ptr, i32 } [ %3838, %3837 ], [ %4437, %4441 ], [ %4437, %4435 ]
+  %4445 = phi i1 [ true, %3837 ], [ %4438, %4441 ], [ %4438, %4435 ]
   %4446 = load ptr, ptr %335, align 8, !tbaa !23
   %4447 = icmp eq ptr %4446, %3673
   br i1 %4447, label %4449, label %4448
@@ -21886,9 +21889,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %4449
 
 4449:                                             ; preds = %4448, %4442, %3835
-  %4450 = phi ptr [ %3663, %3835 ], [ %4443, %4442 ], [ %4443, %4448 ]
-  %4451 = phi { ptr, i32 } [ %3836, %3835 ], [ %4444, %4442 ], [ %4444, %4448 ]
-  %4452 = phi i1 [ true, %3835 ], [ %4445, %4442 ], [ %4445, %4448 ]
+  %4450 = phi ptr [ %3663, %3835 ], [ %4443, %4448 ], [ %4443, %4442 ]
+  %4451 = phi { ptr, i32 } [ %3836, %3835 ], [ %4444, %4448 ], [ %4444, %4442 ]
+  %4452 = phi i1 [ true, %3835 ], [ %4445, %4448 ], [ %4445, %4442 ]
   %4453 = load ptr, ptr %334, align 8, !tbaa !23
   %4454 = icmp eq ptr %4453, %3664
   br i1 %4454, label %4456, label %4455
@@ -21946,9 +21949,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %4484
 
 4484:                                             ; preds = %4483, %4477, %3817
-  %4485 = phi ptr [ %3622, %3817 ], [ %4478, %4477 ], [ %4478, %4483 ]
-  %4486 = phi { ptr, i32 } [ %3818, %3817 ], [ %4479, %4477 ], [ %4479, %4483 ]
-  %4487 = phi i1 [ true, %3817 ], [ %4480, %4477 ], [ %4480, %4483 ]
+  %4485 = phi ptr [ %3622, %3817 ], [ %4478, %4483 ], [ %4478, %4477 ]
+  %4486 = phi { ptr, i32 } [ %3818, %3817 ], [ %4479, %4483 ], [ %4479, %4477 ]
+  %4487 = phi i1 [ true, %3817 ], [ %4480, %4483 ], [ %4480, %4477 ]
   %4488 = load ptr, ptr %329, align 8, !tbaa !23
   %4489 = icmp eq ptr %4488, %3623
   br i1 %4489, label %4491, label %4490
@@ -24347,9 +24350,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %5680
 
 5680:                                             ; preds = %5679, %5673, %5075
-  %5681 = phi ptr [ %4910, %5075 ], [ %5674, %5673 ], [ %5674, %5679 ]
-  %5682 = phi { ptr, i32 } [ %5076, %5075 ], [ %5675, %5673 ], [ %5675, %5679 ]
-  %5683 = phi i1 [ true, %5075 ], [ %5676, %5673 ], [ %5676, %5679 ]
+  %5681 = phi ptr [ %4910, %5075 ], [ %5674, %5679 ], [ %5674, %5673 ]
+  %5682 = phi { ptr, i32 } [ %5076, %5075 ], [ %5675, %5679 ], [ %5675, %5673 ]
+  %5683 = phi i1 [ true, %5075 ], [ %5676, %5679 ], [ %5676, %5673 ]
   %5684 = load ptr, ptr %301, align 8, !tbaa !23
   %5685 = icmp eq ptr %5684, %4911
   br i1 %5685, label %5687, label %5686
@@ -24359,9 +24362,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %5687
 
 5687:                                             ; preds = %5686, %5680, %5073
-  %5688 = phi ptr [ %4901, %5073 ], [ %5681, %5680 ], [ %5681, %5686 ]
-  %5689 = phi { ptr, i32 } [ %5074, %5073 ], [ %5682, %5680 ], [ %5682, %5686 ]
-  %5690 = phi i1 [ true, %5073 ], [ %5683, %5680 ], [ %5683, %5686 ]
+  %5688 = phi ptr [ %4901, %5073 ], [ %5681, %5686 ], [ %5681, %5680 ]
+  %5689 = phi { ptr, i32 } [ %5074, %5073 ], [ %5682, %5686 ], [ %5682, %5680 ]
+  %5690 = phi i1 [ true, %5073 ], [ %5683, %5686 ], [ %5683, %5680 ]
   %5691 = load ptr, ptr %300, align 8, !tbaa !23
   %5692 = icmp eq ptr %5691, %4902
   br i1 %5692, label %5694, label %5693
@@ -24419,9 +24422,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %5722
 
 5722:                                             ; preds = %5721, %5715, %5055
-  %5723 = phi ptr [ %4860, %5055 ], [ %5716, %5715 ], [ %5716, %5721 ]
-  %5724 = phi { ptr, i32 } [ %5056, %5055 ], [ %5717, %5715 ], [ %5717, %5721 ]
-  %5725 = phi i1 [ true, %5055 ], [ %5718, %5715 ], [ %5718, %5721 ]
+  %5723 = phi ptr [ %4860, %5055 ], [ %5716, %5721 ], [ %5716, %5715 ]
+  %5724 = phi { ptr, i32 } [ %5056, %5055 ], [ %5717, %5721 ], [ %5717, %5715 ]
+  %5725 = phi i1 [ true, %5055 ], [ %5718, %5721 ], [ %5718, %5715 ]
   %5726 = load ptr, ptr %295, align 8, !tbaa !23
   %5727 = icmp eq ptr %5726, %4861
   br i1 %5727, label %5729, label %5728
@@ -26818,9 +26821,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %6916
 
 6916:                                             ; preds = %6915, %6909, %6311
-  %6917 = phi ptr [ %6146, %6311 ], [ %6910, %6909 ], [ %6910, %6915 ]
-  %6918 = phi { ptr, i32 } [ %6312, %6311 ], [ %6911, %6909 ], [ %6911, %6915 ]
-  %6919 = phi i1 [ true, %6311 ], [ %6912, %6909 ], [ %6912, %6915 ]
+  %6917 = phi ptr [ %6146, %6311 ], [ %6910, %6915 ], [ %6910, %6909 ]
+  %6918 = phi { ptr, i32 } [ %6312, %6311 ], [ %6911, %6915 ], [ %6911, %6909 ]
+  %6919 = phi i1 [ true, %6311 ], [ %6912, %6915 ], [ %6912, %6909 ]
   %6920 = load ptr, ptr %267, align 8, !tbaa !23
   %6921 = icmp eq ptr %6920, %6147
   br i1 %6921, label %6923, label %6922
@@ -26830,9 +26833,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %6923
 
 6923:                                             ; preds = %6922, %6916, %6309
-  %6924 = phi ptr [ %6137, %6309 ], [ %6917, %6916 ], [ %6917, %6922 ]
-  %6925 = phi { ptr, i32 } [ %6310, %6309 ], [ %6918, %6916 ], [ %6918, %6922 ]
-  %6926 = phi i1 [ true, %6309 ], [ %6919, %6916 ], [ %6919, %6922 ]
+  %6924 = phi ptr [ %6137, %6309 ], [ %6917, %6922 ], [ %6917, %6916 ]
+  %6925 = phi { ptr, i32 } [ %6310, %6309 ], [ %6918, %6922 ], [ %6918, %6916 ]
+  %6926 = phi i1 [ true, %6309 ], [ %6919, %6922 ], [ %6919, %6916 ]
   %6927 = load ptr, ptr %266, align 8, !tbaa !23
   %6928 = icmp eq ptr %6927, %6138
   br i1 %6928, label %6930, label %6929
@@ -26890,9 +26893,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %6958
 
 6958:                                             ; preds = %6957, %6951, %6291
-  %6959 = phi ptr [ %6096, %6291 ], [ %6952, %6951 ], [ %6952, %6957 ]
-  %6960 = phi { ptr, i32 } [ %6292, %6291 ], [ %6953, %6951 ], [ %6953, %6957 ]
-  %6961 = phi i1 [ true, %6291 ], [ %6954, %6951 ], [ %6954, %6957 ]
+  %6959 = phi ptr [ %6096, %6291 ], [ %6952, %6957 ], [ %6952, %6951 ]
+  %6960 = phi { ptr, i32 } [ %6292, %6291 ], [ %6953, %6957 ], [ %6953, %6951 ]
+  %6961 = phi i1 [ true, %6291 ], [ %6954, %6957 ], [ %6954, %6951 ]
   %6962 = load ptr, ptr %261, align 8, !tbaa !23
   %6963 = icmp eq ptr %6962, %6097
   br i1 %6963, label %6965, label %6964
@@ -29290,9 +29293,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %8153
 
 8153:                                             ; preds = %8152, %8146, %7548
-  %8154 = phi ptr [ %7383, %7548 ], [ %8147, %8146 ], [ %8147, %8152 ]
-  %8155 = phi { ptr, i32 } [ %7549, %7548 ], [ %8148, %8146 ], [ %8148, %8152 ]
-  %8156 = phi i1 [ true, %7548 ], [ %8149, %8146 ], [ %8149, %8152 ]
+  %8154 = phi ptr [ %7383, %7548 ], [ %8147, %8152 ], [ %8147, %8146 ]
+  %8155 = phi { ptr, i32 } [ %7549, %7548 ], [ %8148, %8152 ], [ %8148, %8146 ]
+  %8156 = phi i1 [ true, %7548 ], [ %8149, %8152 ], [ %8149, %8146 ]
   %8157 = load ptr, ptr %233, align 8, !tbaa !23
   %8158 = icmp eq ptr %8157, %7384
   br i1 %8158, label %8160, label %8159
@@ -29302,9 +29305,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %8160
 
 8160:                                             ; preds = %8159, %8153, %7546
-  %8161 = phi ptr [ %7374, %7546 ], [ %8154, %8153 ], [ %8154, %8159 ]
-  %8162 = phi { ptr, i32 } [ %7547, %7546 ], [ %8155, %8153 ], [ %8155, %8159 ]
-  %8163 = phi i1 [ true, %7546 ], [ %8156, %8153 ], [ %8156, %8159 ]
+  %8161 = phi ptr [ %7374, %7546 ], [ %8154, %8159 ], [ %8154, %8153 ]
+  %8162 = phi { ptr, i32 } [ %7547, %7546 ], [ %8155, %8159 ], [ %8155, %8153 ]
+  %8163 = phi i1 [ true, %7546 ], [ %8156, %8159 ], [ %8156, %8153 ]
   %8164 = load ptr, ptr %232, align 8, !tbaa !23
   %8165 = icmp eq ptr %8164, %7375
   br i1 %8165, label %8167, label %8166
@@ -29362,9 +29365,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %8195
 
 8195:                                             ; preds = %8194, %8188, %7528
-  %8196 = phi ptr [ %7333, %7528 ], [ %8189, %8188 ], [ %8189, %8194 ]
-  %8197 = phi { ptr, i32 } [ %7529, %7528 ], [ %8190, %8188 ], [ %8190, %8194 ]
-  %8198 = phi i1 [ true, %7528 ], [ %8191, %8188 ], [ %8191, %8194 ]
+  %8196 = phi ptr [ %7333, %7528 ], [ %8189, %8194 ], [ %8189, %8188 ]
+  %8197 = phi { ptr, i32 } [ %7529, %7528 ], [ %8190, %8194 ], [ %8190, %8188 ]
+  %8198 = phi i1 [ true, %7528 ], [ %8191, %8194 ], [ %8191, %8188 ]
   %8199 = load ptr, ptr %227, align 8, !tbaa !23
   %8200 = icmp eq ptr %8199, %7334
   br i1 %8200, label %8202, label %8201
@@ -31762,9 +31765,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %9390
 
 9390:                                             ; preds = %9389, %9383, %8785
-  %9391 = phi ptr [ %8620, %8785 ], [ %9384, %9383 ], [ %9384, %9389 ]
-  %9392 = phi { ptr, i32 } [ %8786, %8785 ], [ %9385, %9383 ], [ %9385, %9389 ]
-  %9393 = phi i1 [ true, %8785 ], [ %9386, %9383 ], [ %9386, %9389 ]
+  %9391 = phi ptr [ %8620, %8785 ], [ %9384, %9389 ], [ %9384, %9383 ]
+  %9392 = phi { ptr, i32 } [ %8786, %8785 ], [ %9385, %9389 ], [ %9385, %9383 ]
+  %9393 = phi i1 [ true, %8785 ], [ %9386, %9389 ], [ %9386, %9383 ]
   %9394 = load ptr, ptr %199, align 8, !tbaa !23
   %9395 = icmp eq ptr %9394, %8621
   br i1 %9395, label %9397, label %9396
@@ -31774,9 +31777,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %9397
 
 9397:                                             ; preds = %9396, %9390, %8783
-  %9398 = phi ptr [ %8611, %8783 ], [ %9391, %9390 ], [ %9391, %9396 ]
-  %9399 = phi { ptr, i32 } [ %8784, %8783 ], [ %9392, %9390 ], [ %9392, %9396 ]
-  %9400 = phi i1 [ true, %8783 ], [ %9393, %9390 ], [ %9393, %9396 ]
+  %9398 = phi ptr [ %8611, %8783 ], [ %9391, %9396 ], [ %9391, %9390 ]
+  %9399 = phi { ptr, i32 } [ %8784, %8783 ], [ %9392, %9396 ], [ %9392, %9390 ]
+  %9400 = phi i1 [ true, %8783 ], [ %9393, %9396 ], [ %9393, %9390 ]
   %9401 = load ptr, ptr %198, align 8, !tbaa !23
   %9402 = icmp eq ptr %9401, %8612
   br i1 %9402, label %9404, label %9403
@@ -31834,9 +31837,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %9432
 
 9432:                                             ; preds = %9431, %9425, %8765
-  %9433 = phi ptr [ %8570, %8765 ], [ %9426, %9425 ], [ %9426, %9431 ]
-  %9434 = phi { ptr, i32 } [ %8766, %8765 ], [ %9427, %9425 ], [ %9427, %9431 ]
-  %9435 = phi i1 [ true, %8765 ], [ %9428, %9425 ], [ %9428, %9431 ]
+  %9433 = phi ptr [ %8570, %8765 ], [ %9426, %9431 ], [ %9426, %9425 ]
+  %9434 = phi { ptr, i32 } [ %8766, %8765 ], [ %9427, %9431 ], [ %9427, %9425 ]
+  %9435 = phi i1 [ true, %8765 ], [ %9428, %9431 ], [ %9428, %9425 ]
   %9436 = load ptr, ptr %193, align 8, !tbaa !23
   %9437 = icmp eq ptr %9436, %8571
   br i1 %9437, label %9439, label %9438
@@ -34234,9 +34237,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %10627
 
 10627:                                            ; preds = %10626, %10620, %10022
-  %10628 = phi ptr [ %9857, %10022 ], [ %10621, %10620 ], [ %10621, %10626 ]
-  %10629 = phi { ptr, i32 } [ %10023, %10022 ], [ %10622, %10620 ], [ %10622, %10626 ]
-  %10630 = phi i1 [ true, %10022 ], [ %10623, %10620 ], [ %10623, %10626 ]
+  %10628 = phi ptr [ %9857, %10022 ], [ %10621, %10626 ], [ %10621, %10620 ]
+  %10629 = phi { ptr, i32 } [ %10023, %10022 ], [ %10622, %10626 ], [ %10622, %10620 ]
+  %10630 = phi i1 [ true, %10022 ], [ %10623, %10626 ], [ %10623, %10620 ]
   %10631 = load ptr, ptr %165, align 8, !tbaa !23
   %10632 = icmp eq ptr %10631, %9858
   br i1 %10632, label %10634, label %10633
@@ -34246,9 +34249,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %10634
 
 10634:                                            ; preds = %10633, %10627, %10020
-  %10635 = phi ptr [ %9848, %10020 ], [ %10628, %10627 ], [ %10628, %10633 ]
-  %10636 = phi { ptr, i32 } [ %10021, %10020 ], [ %10629, %10627 ], [ %10629, %10633 ]
-  %10637 = phi i1 [ true, %10020 ], [ %10630, %10627 ], [ %10630, %10633 ]
+  %10635 = phi ptr [ %9848, %10020 ], [ %10628, %10633 ], [ %10628, %10627 ]
+  %10636 = phi { ptr, i32 } [ %10021, %10020 ], [ %10629, %10633 ], [ %10629, %10627 ]
+  %10637 = phi i1 [ true, %10020 ], [ %10630, %10633 ], [ %10630, %10627 ]
   %10638 = load ptr, ptr %164, align 8, !tbaa !23
   %10639 = icmp eq ptr %10638, %9849
   br i1 %10639, label %10641, label %10640
@@ -34306,9 +34309,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %10669
 
 10669:                                            ; preds = %10668, %10662, %10002
-  %10670 = phi ptr [ %9807, %10002 ], [ %10663, %10662 ], [ %10663, %10668 ]
-  %10671 = phi { ptr, i32 } [ %10003, %10002 ], [ %10664, %10662 ], [ %10664, %10668 ]
-  %10672 = phi i1 [ true, %10002 ], [ %10665, %10662 ], [ %10665, %10668 ]
+  %10670 = phi ptr [ %9807, %10002 ], [ %10663, %10668 ], [ %10663, %10662 ]
+  %10671 = phi { ptr, i32 } [ %10003, %10002 ], [ %10664, %10668 ], [ %10664, %10662 ]
+  %10672 = phi i1 [ true, %10002 ], [ %10665, %10668 ], [ %10665, %10662 ]
   %10673 = load ptr, ptr %159, align 8, !tbaa !23
   %10674 = icmp eq ptr %10673, %9808
   br i1 %10674, label %10676, label %10675
@@ -36705,9 +36708,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %11863
 
 11863:                                            ; preds = %11862, %11856, %11258
-  %11864 = phi ptr [ %11093, %11258 ], [ %11857, %11856 ], [ %11857, %11862 ]
-  %11865 = phi { ptr, i32 } [ %11259, %11258 ], [ %11858, %11856 ], [ %11858, %11862 ]
-  %11866 = phi i1 [ true, %11258 ], [ %11859, %11856 ], [ %11859, %11862 ]
+  %11864 = phi ptr [ %11093, %11258 ], [ %11857, %11862 ], [ %11857, %11856 ]
+  %11865 = phi { ptr, i32 } [ %11259, %11258 ], [ %11858, %11862 ], [ %11858, %11856 ]
+  %11866 = phi i1 [ true, %11258 ], [ %11859, %11862 ], [ %11859, %11856 ]
   %11867 = load ptr, ptr %131, align 8, !tbaa !23
   %11868 = icmp eq ptr %11867, %11094
   br i1 %11868, label %11870, label %11869
@@ -36717,9 +36720,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %11870
 
 11870:                                            ; preds = %11869, %11863, %11256
-  %11871 = phi ptr [ %11084, %11256 ], [ %11864, %11863 ], [ %11864, %11869 ]
-  %11872 = phi { ptr, i32 } [ %11257, %11256 ], [ %11865, %11863 ], [ %11865, %11869 ]
-  %11873 = phi i1 [ true, %11256 ], [ %11866, %11863 ], [ %11866, %11869 ]
+  %11871 = phi ptr [ %11084, %11256 ], [ %11864, %11869 ], [ %11864, %11863 ]
+  %11872 = phi { ptr, i32 } [ %11257, %11256 ], [ %11865, %11869 ], [ %11865, %11863 ]
+  %11873 = phi i1 [ true, %11256 ], [ %11866, %11869 ], [ %11866, %11863 ]
   %11874 = load ptr, ptr %130, align 8, !tbaa !23
   %11875 = icmp eq ptr %11874, %11085
   br i1 %11875, label %11877, label %11876
@@ -36777,9 +36780,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %11905
 
 11905:                                            ; preds = %11904, %11898, %11238
-  %11906 = phi ptr [ %11043, %11238 ], [ %11899, %11898 ], [ %11899, %11904 ]
-  %11907 = phi { ptr, i32 } [ %11239, %11238 ], [ %11900, %11898 ], [ %11900, %11904 ]
-  %11908 = phi i1 [ true, %11238 ], [ %11901, %11898 ], [ %11901, %11904 ]
+  %11906 = phi ptr [ %11043, %11238 ], [ %11899, %11904 ], [ %11899, %11898 ]
+  %11907 = phi { ptr, i32 } [ %11239, %11238 ], [ %11900, %11904 ], [ %11900, %11898 ]
+  %11908 = phi i1 [ true, %11238 ], [ %11901, %11904 ], [ %11901, %11898 ]
   %11909 = load ptr, ptr %125, align 8, !tbaa !23
   %11910 = icmp eq ptr %11909, %11044
   br i1 %11910, label %11912, label %11911
@@ -39176,9 +39179,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %13099
 
 13099:                                            ; preds = %13098, %13092, %12494
-  %13100 = phi ptr [ %12329, %12494 ], [ %13093, %13092 ], [ %13093, %13098 ]
-  %13101 = phi { ptr, i32 } [ %12495, %12494 ], [ %13094, %13092 ], [ %13094, %13098 ]
-  %13102 = phi i1 [ true, %12494 ], [ %13095, %13092 ], [ %13095, %13098 ]
+  %13100 = phi ptr [ %12329, %12494 ], [ %13093, %13098 ], [ %13093, %13092 ]
+  %13101 = phi { ptr, i32 } [ %12495, %12494 ], [ %13094, %13098 ], [ %13094, %13092 ]
+  %13102 = phi i1 [ true, %12494 ], [ %13095, %13098 ], [ %13095, %13092 ]
   %13103 = load ptr, ptr %97, align 8, !tbaa !23
   %13104 = icmp eq ptr %13103, %12330
   br i1 %13104, label %13106, label %13105
@@ -39188,9 +39191,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %13106
 
 13106:                                            ; preds = %13105, %13099, %12492
-  %13107 = phi ptr [ %12320, %12492 ], [ %13100, %13099 ], [ %13100, %13105 ]
-  %13108 = phi { ptr, i32 } [ %12493, %12492 ], [ %13101, %13099 ], [ %13101, %13105 ]
-  %13109 = phi i1 [ true, %12492 ], [ %13102, %13099 ], [ %13102, %13105 ]
+  %13107 = phi ptr [ %12320, %12492 ], [ %13100, %13105 ], [ %13100, %13099 ]
+  %13108 = phi { ptr, i32 } [ %12493, %12492 ], [ %13101, %13105 ], [ %13101, %13099 ]
+  %13109 = phi i1 [ true, %12492 ], [ %13102, %13105 ], [ %13102, %13099 ]
   %13110 = load ptr, ptr %96, align 8, !tbaa !23
   %13111 = icmp eq ptr %13110, %12321
   br i1 %13111, label %13113, label %13112
@@ -39248,9 +39251,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %13141
 
 13141:                                            ; preds = %13140, %13134, %12474
-  %13142 = phi ptr [ %12279, %12474 ], [ %13135, %13134 ], [ %13135, %13140 ]
-  %13143 = phi { ptr, i32 } [ %12475, %12474 ], [ %13136, %13134 ], [ %13136, %13140 ]
-  %13144 = phi i1 [ true, %12474 ], [ %13137, %13134 ], [ %13137, %13140 ]
+  %13142 = phi ptr [ %12279, %12474 ], [ %13135, %13140 ], [ %13135, %13134 ]
+  %13143 = phi { ptr, i32 } [ %12475, %12474 ], [ %13136, %13140 ], [ %13136, %13134 ]
+  %13144 = phi i1 [ true, %12474 ], [ %13137, %13140 ], [ %13137, %13134 ]
   %13145 = load ptr, ptr %91, align 8, !tbaa !23
   %13146 = icmp eq ptr %13145, %12280
   br i1 %13146, label %13148, label %13147
@@ -41647,9 +41650,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %14335
 
 14335:                                            ; preds = %14334, %14328, %13730
-  %14336 = phi ptr [ %13565, %13730 ], [ %14329, %14328 ], [ %14329, %14334 ]
-  %14337 = phi { ptr, i32 } [ %13731, %13730 ], [ %14330, %14328 ], [ %14330, %14334 ]
-  %14338 = phi i1 [ true, %13730 ], [ %14331, %14328 ], [ %14331, %14334 ]
+  %14336 = phi ptr [ %13565, %13730 ], [ %14329, %14334 ], [ %14329, %14328 ]
+  %14337 = phi { ptr, i32 } [ %13731, %13730 ], [ %14330, %14334 ], [ %14330, %14328 ]
+  %14338 = phi i1 [ true, %13730 ], [ %14331, %14334 ], [ %14331, %14328 ]
   %14339 = load ptr, ptr %63, align 8, !tbaa !23
   %14340 = icmp eq ptr %14339, %13566
   br i1 %14340, label %14342, label %14341
@@ -41659,9 +41662,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %14342
 
 14342:                                            ; preds = %14341, %14335, %13728
-  %14343 = phi ptr [ %13556, %13728 ], [ %14336, %14335 ], [ %14336, %14341 ]
-  %14344 = phi { ptr, i32 } [ %13729, %13728 ], [ %14337, %14335 ], [ %14337, %14341 ]
-  %14345 = phi i1 [ true, %13728 ], [ %14338, %14335 ], [ %14338, %14341 ]
+  %14343 = phi ptr [ %13556, %13728 ], [ %14336, %14341 ], [ %14336, %14335 ]
+  %14344 = phi { ptr, i32 } [ %13729, %13728 ], [ %14337, %14341 ], [ %14337, %14335 ]
+  %14345 = phi i1 [ true, %13728 ], [ %14338, %14341 ], [ %14338, %14335 ]
   %14346 = load ptr, ptr %62, align 8, !tbaa !23
   %14347 = icmp eq ptr %14346, %13557
   br i1 %14347, label %14349, label %14348
@@ -41719,9 +41722,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %14377
 
 14377:                                            ; preds = %14376, %14370, %13710
-  %14378 = phi ptr [ %13515, %13710 ], [ %14371, %14370 ], [ %14371, %14376 ]
-  %14379 = phi { ptr, i32 } [ %13711, %13710 ], [ %14372, %14370 ], [ %14372, %14376 ]
-  %14380 = phi i1 [ true, %13710 ], [ %14373, %14370 ], [ %14373, %14376 ]
+  %14378 = phi ptr [ %13515, %13710 ], [ %14371, %14376 ], [ %14371, %14370 ]
+  %14379 = phi { ptr, i32 } [ %13711, %13710 ], [ %14372, %14376 ], [ %14372, %14370 ]
+  %14380 = phi i1 [ true, %13710 ], [ %14373, %14376 ], [ %14373, %14370 ]
   %14381 = load ptr, ptr %57, align 8, !tbaa !23
   %14382 = icmp eq ptr %14381, %13516
   br i1 %14382, label %14384, label %14383
@@ -44118,9 +44121,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %15571
 
 15571:                                            ; preds = %15570, %15564, %14966
-  %15572 = phi ptr [ %14801, %14966 ], [ %15565, %15564 ], [ %15565, %15570 ]
-  %15573 = phi { ptr, i32 } [ %14967, %14966 ], [ %15566, %15564 ], [ %15566, %15570 ]
-  %15574 = phi i1 [ true, %14966 ], [ %15567, %15564 ], [ %15567, %15570 ]
+  %15572 = phi ptr [ %14801, %14966 ], [ %15565, %15570 ], [ %15565, %15564 ]
+  %15573 = phi { ptr, i32 } [ %14967, %14966 ], [ %15566, %15570 ], [ %15566, %15564 ]
+  %15574 = phi i1 [ true, %14966 ], [ %15567, %15570 ], [ %15567, %15564 ]
   %15575 = load ptr, ptr %29, align 8, !tbaa !23
   %15576 = icmp eq ptr %15575, %14802
   br i1 %15576, label %15578, label %15577
@@ -44130,9 +44133,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %15578
 
 15578:                                            ; preds = %15577, %15571, %14964
-  %15579 = phi ptr [ %14792, %14964 ], [ %15572, %15571 ], [ %15572, %15577 ]
-  %15580 = phi { ptr, i32 } [ %14965, %14964 ], [ %15573, %15571 ], [ %15573, %15577 ]
-  %15581 = phi i1 [ true, %14964 ], [ %15574, %15571 ], [ %15574, %15577 ]
+  %15579 = phi ptr [ %14792, %14964 ], [ %15572, %15577 ], [ %15572, %15571 ]
+  %15580 = phi { ptr, i32 } [ %14965, %14964 ], [ %15573, %15577 ], [ %15573, %15571 ]
+  %15581 = phi i1 [ true, %14964 ], [ %15574, %15577 ], [ %15574, %15571 ]
   %15582 = load ptr, ptr %28, align 8, !tbaa !23
   %15583 = icmp eq ptr %15582, %14793
   br i1 %15583, label %15585, label %15584
@@ -44190,9 +44193,9 @@ define internal void @_GLOBAL__sub_I_user_counters_test.cc() #4 section ".text.s
   br label %15613
 
 15613:                                            ; preds = %15612, %15606, %14946
-  %15614 = phi ptr [ %14751, %14946 ], [ %15607, %15606 ], [ %15607, %15612 ]
-  %15615 = phi { ptr, i32 } [ %14947, %14946 ], [ %15608, %15606 ], [ %15608, %15612 ]
-  %15616 = phi i1 [ true, %14946 ], [ %15609, %15606 ], [ %15609, %15612 ]
+  %15614 = phi ptr [ %14751, %14946 ], [ %15607, %15612 ], [ %15607, %15606 ]
+  %15615 = phi { ptr, i32 } [ %14947, %14946 ], [ %15608, %15612 ], [ %15608, %15606 ]
+  %15616 = phi i1 [ true, %14946 ], [ %15609, %15612 ], [ %15609, %15606 ]
   %15617 = load ptr, ptr %23, align 8, !tbaa !23
   %15618 = icmp eq ptr %15617, %14752
   br i1 %15618, label %15620, label %15619

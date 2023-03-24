@@ -498,7 +498,7 @@ define dso_local i32 @main() local_unnamed_addr #3 {
   %80 = sub i64 %72, %4
   %81 = add i64 %80, 1
   %82 = getelementptr inbounds i8, ptr %62, i64 %81
-  %83 = tail call i32 @strncmp(ptr noundef nonnull %3, ptr noundef %82, i64 noundef %4) #5
+  %83 = tail call i32 @strncmp(ptr noundef %3, ptr noundef %82, i64 noundef %4) #5
   %84 = icmp eq i32 %83, 0
   br i1 %84, label %92, label %85
 
@@ -512,11 +512,11 @@ define dso_local i32 @main() local_unnamed_addr #3 {
   br i1 %89, label %69, label %90
 
 90:                                               ; preds = %87, %60
-  %91 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.211, ptr noundef nonnull %3, ptr noundef nonnull @.str.213, ptr noundef %62)
+  %91 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.211, ptr noundef %3, ptr noundef nonnull @.str.213, ptr noundef %62)
   br label %95
 
 92:                                               ; preds = %79
-  %93 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.211, ptr noundef nonnull %3, ptr noundef nonnull @.str.212, ptr noundef nonnull %62)
+  %93 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.211, ptr noundef %3, ptr noundef nonnull @.str.212, ptr noundef nonnull %62)
   %94 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.214, ptr noundef nonnull %82)
   br label %95
 

@@ -2107,7 +2107,7 @@ define internal fastcc i32 @exhaustive_parse(ptr noundef %0, i32 noundef %1) unn
   %19 = getelementptr inbounds %struct.Parser, ptr %0, i64 0, i32 15
   %20 = load ptr, ptr %19, align 8, !tbaa !115
   %21 = load ptr, ptr %0, align 8, !tbaa !167
-  %22 = call fastcc ptr @add_SNode(ptr noundef nonnull %0, ptr noundef %18, ptr noundef nonnull %7, ptr noundef %20, ptr noundef %21)
+  %22 = call fastcc ptr @add_SNode(ptr noundef %0, ptr noundef %18, ptr noundef nonnull %7, ptr noundef %20, ptr noundef %21)
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(240) %6, i8 0, i64 240, i1 false)
   %23 = getelementptr inbounds %struct.PNode, ptr %6, i64 0, i32 19, i32 5
   %24 = load <2 x ptr>, ptr %0, align 8, !tbaa !16
@@ -4269,8 +4269,8 @@ define internal fastcc ptr @commit_tree(ptr noundef %0, ptr noundef %1) unnamed_
   call fastcc void @free_PNode(ptr noundef %0, ptr noundef nonnull %466)
   br label %469
 
-469:                                              ; preds = %468, %464, %425, %429, %2
-  %470 = phi ptr [ %1, %2 ], [ %157, %429 ], [ %157, %425 ], [ %157, %464 ], [ %157, %468 ]
+469:                                              ; preds = %425, %429, %464, %468, %2
+  %470 = phi ptr [ %1, %2 ], [ %157, %468 ], [ %157, %464 ], [ %157, %429 ], [ %157, %425 ]
   ret ptr %470
 }
 
@@ -7278,278 +7278,140 @@ define internal fastcc void @get_exp_all(ptr nocapture noundef readonly %0, ptr 
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc void @set_add_znode_hash(ptr noundef %0, ptr noundef %1) unnamed_addr #7 {
-  %3 = getelementptr inbounds %struct.VecZNode, ptr %0, i64 0, i32 2
-  %4 = getelementptr inbounds %struct.VecZNode, ptr %0, i64 0, i32 1
-  %5 = getelementptr inbounds %struct.VecZNode, ptr %0, i64 0, i32 3
-  br label %6
+  %3 = load i32, ptr %0, align 8, !tbaa !211
+  %4 = icmp eq i32 %3, 0
+  br i1 %4, label %55, label %5
 
-6:                                                ; preds = %155, %2
-  %7 = load i32, ptr %0, align 8, !tbaa !211
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %61, label %9
+5:                                                ; preds = %2
+  %6 = load ptr, ptr %1, align 8, !tbaa !160
+  %7 = ptrtoint ptr %6 to i64
+  %8 = trunc i64 %7 to i32
+  %9 = urem i32 %8, %3
+  %10 = getelementptr inbounds %struct.VecZNode, ptr %0, i64 0, i32 2
+  %11 = load ptr, ptr %10, align 8, !tbaa !212
+  %12 = sext i32 %9 to i64
+  %13 = getelementptr inbounds ptr, ptr %11, i64 %12
+  %14 = load ptr, ptr %13, align 8, !tbaa !16
+  %15 = icmp eq ptr %14, null
+  br i1 %15, label %16, label %19
 
-9:                                                ; preds = %6
-  %10 = load ptr, ptr %1, align 8, !tbaa !160
-  %11 = ptrtoint ptr %10 to i64
-  %12 = trunc i64 %11 to i32
-  %13 = urem i32 %12, %7
-  %14 = load ptr, ptr %3, align 8, !tbaa !212
-  %15 = sext i32 %13 to i64
-  %16 = getelementptr inbounds ptr, ptr %14, i64 %15
-  %17 = load ptr, ptr %16, align 8, !tbaa !16
-  %18 = icmp eq ptr %17, null
-  br i1 %18, label %19, label %22
+16:                                               ; preds = %50, %41, %32, %23, %5
+  %17 = phi i64 [ %12, %5 ], [ %24, %23 ], [ %33, %32 ], [ %42, %41 ], [ %51, %50 ]
+  %18 = getelementptr inbounds ptr, ptr %11, i64 %17
+  store ptr %1, ptr %18, align 8, !tbaa !16
+  br label %86
 
-19:                                               ; preds = %53, %44, %35, %26, %9
-  %20 = phi i64 [ %15, %9 ], [ %27, %26 ], [ %36, %35 ], [ %45, %44 ], [ %54, %53 ]
-  %21 = getelementptr inbounds ptr, ptr %14, i64 %20
-  store ptr %1, ptr %21, align 8, !tbaa !16
-  br label %156
+19:                                               ; preds = %5
+  %20 = add nuw nsw i32 %9, 1
+  %21 = srem i32 %20, %3
+  %22 = icmp ult i32 %21, %3
+  br i1 %22, label %23, label %57, !llvm.loop !311
 
-22:                                               ; preds = %9
-  %23 = add nuw nsw i32 %13, 1
-  %24 = srem i32 %23, %7
-  %25 = icmp ult i32 %24, %7
-  br i1 %25, label %26, label %58, !llvm.loop !311
+23:                                               ; preds = %19
+  %24 = sext i32 %21 to i64
+  %25 = getelementptr inbounds ptr, ptr %11, i64 %24
+  %26 = load ptr, ptr %25, align 8, !tbaa !16
+  %27 = icmp eq ptr %26, null
+  br i1 %27, label %16, label %28
 
-26:                                               ; preds = %22
-  %27 = sext i32 %24 to i64
-  %28 = getelementptr inbounds ptr, ptr %14, i64 %27
-  %29 = load ptr, ptr %28, align 8, !tbaa !16
-  %30 = icmp eq ptr %29, null
-  br i1 %30, label %19, label %31
+28:                                               ; preds = %23
+  %29 = add nuw nsw i32 %21, 1
+  %30 = srem i32 %29, %3
+  %31 = icmp ult i32 %30, %3
+  br i1 %31, label %32, label %57, !llvm.loop !311
 
-31:                                               ; preds = %26
-  %32 = add nuw nsw i32 %24, 1
-  %33 = srem i32 %32, %7
-  %34 = icmp ult i32 %33, %7
-  br i1 %34, label %35, label %58, !llvm.loop !311
+32:                                               ; preds = %28
+  %33 = sext i32 %30 to i64
+  %34 = getelementptr inbounds ptr, ptr %11, i64 %33
+  %35 = load ptr, ptr %34, align 8, !tbaa !16
+  %36 = icmp eq ptr %35, null
+  br i1 %36, label %16, label %37
 
-35:                                               ; preds = %31
-  %36 = sext i32 %33 to i64
-  %37 = getelementptr inbounds ptr, ptr %14, i64 %36
-  %38 = load ptr, ptr %37, align 8, !tbaa !16
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %19, label %40
+37:                                               ; preds = %32
+  %38 = add nuw nsw i32 %30, 1
+  %39 = srem i32 %38, %3
+  %40 = icmp ult i32 %39, %3
+  br i1 %40, label %41, label %57, !llvm.loop !311
 
-40:                                               ; preds = %35
-  %41 = add nuw nsw i32 %33, 1
-  %42 = srem i32 %41, %7
-  %43 = icmp ult i32 %42, %7
-  br i1 %43, label %44, label %58, !llvm.loop !311
+41:                                               ; preds = %37
+  %42 = sext i32 %39 to i64
+  %43 = getelementptr inbounds ptr, ptr %11, i64 %42
+  %44 = load ptr, ptr %43, align 8, !tbaa !16
+  %45 = icmp eq ptr %44, null
+  br i1 %45, label %16, label %46
 
-44:                                               ; preds = %40
-  %45 = sext i32 %42 to i64
-  %46 = getelementptr inbounds ptr, ptr %14, i64 %45
-  %47 = load ptr, ptr %46, align 8, !tbaa !16
-  %48 = icmp eq ptr %47, null
-  br i1 %48, label %19, label %49
+46:                                               ; preds = %41
+  %47 = add nuw nsw i32 %39, 1
+  %48 = srem i32 %47, %3
+  %49 = icmp ult i32 %48, %3
+  br i1 %49, label %50, label %57, !llvm.loop !311
 
-49:                                               ; preds = %44
-  %50 = add nuw nsw i32 %42, 1
-  %51 = srem i32 %50, %7
-  %52 = icmp ult i32 %51, %7
-  br i1 %52, label %53, label %58, !llvm.loop !311
+50:                                               ; preds = %46
+  %51 = sext i32 %48 to i64
+  %52 = getelementptr inbounds ptr, ptr %11, i64 %51
+  %53 = load ptr, ptr %52, align 8, !tbaa !16
+  %54 = icmp eq ptr %53, null
+  br i1 %54, label %16, label %57
 
-53:                                               ; preds = %49
-  %54 = sext i32 %51 to i64
-  %55 = getelementptr inbounds ptr, ptr %14, i64 %54
-  %56 = load ptr, ptr %55, align 8, !tbaa !16
-  %57 = icmp eq ptr %56, null
-  br i1 %57, label %19, label %58
+55:                                               ; preds = %2
+  %56 = getelementptr inbounds %struct.VecZNode, ptr %0, i64 0, i32 1
+  store i32 2, ptr %56, align 4, !tbaa !312
+  br label %62
 
-58:                                               ; preds = %53, %49, %40, %31, %22
-  %59 = load i32, ptr %4, align 4, !tbaa !312
+57:                                               ; preds = %50, %46, %37, %28, %19
+  %58 = getelementptr inbounds %struct.VecZNode, ptr %0, i64 0, i32 1
+  %59 = load i32, ptr %58, align 4, !tbaa !312
   %60 = add i32 %59, 2
-  br label %61
+  store i32 %60, ptr %58, align 4, !tbaa !312
+  %61 = zext i32 %60 to i64
+  br label %62
 
-61:                                               ; preds = %6, %58
-  %62 = phi i32 [ %60, %58 ], [ 2, %6 ]
-  %63 = phi ptr [ %14, %58 ], [ null, %6 ]
-  store i32 %62, ptr %4, align 4, !tbaa !312
-  %64 = zext i32 %62 to i64
-  %65 = getelementptr inbounds [0 x i32], ptr @prime2, i64 0, i64 %64
+62:                                               ; preds = %57, %55
+  %63 = phi i64 [ %61, %57 ], [ 2, %55 ]
+  %64 = phi ptr [ %11, %57 ], [ null, %55 ]
+  %65 = getelementptr inbounds [0 x i32], ptr @prime2, i64 0, i64 %63
   %66 = load i32, ptr %65, align 4, !tbaa !50
   store i32 %66, ptr %0, align 8, !tbaa !211
   %67 = zext i32 %66 to i64
   %68 = shl nuw nsw i64 %67, 3
   %69 = tail call ptr @calloc(i64 1, i64 %68)
-  store ptr %69, ptr %3, align 8, !tbaa !212
-  %70 = icmp eq ptr %63, null
-  br i1 %70, label %120, label %71
+  %70 = getelementptr inbounds %struct.VecZNode, ptr %0, i64 0, i32 2
+  store ptr %69, ptr %70, align 8, !tbaa !212
+  %71 = icmp eq ptr %64, null
+  br i1 %71, label %85, label %72
 
-71:                                               ; preds = %61
-  br i1 %8, label %118, label %72
+72:                                               ; preds = %62
+  br i1 %4, label %84, label %73
 
-72:                                               ; preds = %71
-  %73 = zext i32 %7 to i64
-  br label %74
+73:                                               ; preds = %72
+  %74 = zext i32 %3 to i64
+  br label %75
 
-74:                                               ; preds = %72, %115
-  %75 = phi i64 [ 0, %72 ], [ %116, %115 ]
-  %76 = getelementptr inbounds ptr, ptr %63, i64 %75
-  %77 = load ptr, ptr %76, align 8, !tbaa !16
-  %78 = icmp eq ptr %77, null
-  br i1 %78, label %115, label %79
+75:                                               ; preds = %73, %81
+  %76 = phi i64 [ 0, %73 ], [ %82, %81 ]
+  %77 = getelementptr inbounds ptr, ptr %64, i64 %76
+  %78 = load ptr, ptr %77, align 8, !tbaa !16
+  %79 = icmp eq ptr %78, null
+  br i1 %79, label %81, label %80
 
-79:                                               ; preds = %74
-  %80 = load i32, ptr %0, align 8, !tbaa !211
-  %81 = icmp slt i32 %80, 3
-  br i1 %81, label %82, label %105
+80:                                               ; preds = %75
+  tail call fastcc void @set_add_znode(ptr noundef nonnull %0, ptr noundef nonnull %78)
+  br label %81
 
-82:                                               ; preds = %79
-  %83 = load ptr, ptr %3, align 8, !tbaa !212
-  %84 = icmp eq ptr %83, null
-  br i1 %84, label %85, label %89
+81:                                               ; preds = %80, %75
+  %82 = add nuw nsw i64 %76, 1
+  %83 = icmp eq i64 %82, %74
+  br i1 %83, label %84, label %75, !llvm.loop !313
 
-85:                                               ; preds = %82
-  store ptr %5, ptr %3, align 8, !tbaa !212
-  %86 = add nsw i32 %80, 1
-  store i32 %86, ptr %0, align 8, !tbaa !211
-  %87 = zext i32 %80 to i64
-  %88 = getelementptr inbounds ptr, ptr %5, i64 %87
-  store ptr %77, ptr %88, align 8, !tbaa !16
-  br label %115
+84:                                               ; preds = %81, %72
+  tail call void @free(ptr noundef nonnull %64) #23
+  br label %85
 
-89:                                               ; preds = %82
-  %90 = icmp eq ptr %83, %5
-  br i1 %90, label %91, label %97
+85:                                               ; preds = %84, %62
+  tail call fastcc void @set_add_znode(ptr noundef nonnull %0, ptr noundef %1)
+  br label %86
 
-91:                                               ; preds = %89
-  %92 = icmp ult i32 %80, 3
-  br i1 %92, label %93, label %104
-
-93:                                               ; preds = %91
-  %94 = add nuw nsw i32 %80, 1
-  store i32 %94, ptr %0, align 8, !tbaa !211
-  %95 = zext i32 %80 to i64
-  %96 = getelementptr inbounds ptr, ptr %5, i64 %95
-  store ptr %77, ptr %96, align 8, !tbaa !16
-  br label %115
-
-97:                                               ; preds = %89
-  %98 = and i32 %80, 7
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %104, label %100
-
-100:                                              ; preds = %97
-  %101 = add nsw i32 %80, 1
-  store i32 %101, ptr %0, align 8, !tbaa !211
-  %102 = zext i32 %80 to i64
-  %103 = getelementptr inbounds ptr, ptr %83, i64 %102
-  store ptr %77, ptr %103, align 8, !tbaa !16
-  br label %115
-
-104:                                              ; preds = %97, %91
-  tail call void @vec_add_internal(ptr noundef nonnull %0, ptr noundef nonnull %77) #23
-  br label %115
-
-105:                                              ; preds = %79
-  %106 = icmp eq i32 %80, 3
-  br i1 %106, label %107, label %114
-
-107:                                              ; preds = %105
-  %108 = load ptr, ptr %3, align 8, !tbaa.struct !290
-  store i32 0, ptr %0, align 8, !tbaa !211
-  store ptr null, ptr %3, align 8, !tbaa !212
-  %109 = load ptr, ptr %108, align 8, !tbaa !16
-  tail call fastcc void @set_add_znode_hash(ptr noundef nonnull %0, ptr noundef %109)
-  %110 = getelementptr inbounds ptr, ptr %108, i64 1
-  %111 = load ptr, ptr %110, align 8, !tbaa !16
-  tail call fastcc void @set_add_znode_hash(ptr noundef nonnull %0, ptr noundef %111)
-  %112 = getelementptr inbounds ptr, ptr %108, i64 2
-  %113 = load ptr, ptr %112, align 8, !tbaa !16
-  tail call fastcc void @set_add_znode_hash(ptr noundef nonnull %0, ptr noundef %113)
-  br label %114
-
-114:                                              ; preds = %107, %105
-  tail call fastcc void @set_add_znode_hash(ptr noundef nonnull %0, ptr noundef nonnull %77)
-  br label %115
-
-115:                                              ; preds = %114, %104, %100, %93, %85, %74
-  %116 = add nuw nsw i64 %75, 1
-  %117 = icmp eq i64 %116, %73
-  br i1 %117, label %118, label %74, !llvm.loop !313
-
-118:                                              ; preds = %115, %71
-  tail call void @free(ptr noundef nonnull %63) #23
-  %119 = load i32, ptr %0, align 8, !tbaa !211
-  br label %120
-
-120:                                              ; preds = %118, %61
-  %121 = phi i32 [ %119, %118 ], [ %66, %61 ]
-  %122 = icmp slt i32 %121, 3
-  br i1 %122, label %123, label %146
-
-123:                                              ; preds = %120
-  %124 = load ptr, ptr %3, align 8, !tbaa !212
-  %125 = icmp eq ptr %124, null
-  br i1 %125, label %126, label %130
-
-126:                                              ; preds = %123
-  store ptr %5, ptr %3, align 8, !tbaa !212
-  %127 = add nsw i32 %121, 1
-  store i32 %127, ptr %0, align 8, !tbaa !211
-  %128 = zext i32 %121 to i64
-  %129 = getelementptr inbounds ptr, ptr %5, i64 %128
-  store ptr %1, ptr %129, align 8, !tbaa !16
-  br label %156
-
-130:                                              ; preds = %123
-  %131 = icmp eq ptr %124, %5
-  br i1 %131, label %132, label %138
-
-132:                                              ; preds = %130
-  %133 = icmp ult i32 %121, 3
-  br i1 %133, label %134, label %145
-
-134:                                              ; preds = %132
-  %135 = add nuw nsw i32 %121, 1
-  store i32 %135, ptr %0, align 8, !tbaa !211
-  %136 = zext i32 %121 to i64
-  %137 = getelementptr inbounds ptr, ptr %5, i64 %136
-  store ptr %1, ptr %137, align 8, !tbaa !16
-  br label %156
-
-138:                                              ; preds = %130
-  %139 = and i32 %121, 7
-  %140 = icmp eq i32 %139, 0
-  br i1 %140, label %145, label %141
-
-141:                                              ; preds = %138
-  %142 = add nsw i32 %121, 1
-  store i32 %142, ptr %0, align 8, !tbaa !211
-  %143 = zext i32 %121 to i64
-  %144 = getelementptr inbounds ptr, ptr %124, i64 %143
-  store ptr %1, ptr %144, align 8, !tbaa !16
-  br label %156
-
-145:                                              ; preds = %138, %132
-  tail call void @vec_add_internal(ptr noundef nonnull %0, ptr noundef %1) #23
-  br label %156
-
-146:                                              ; preds = %120
-  %147 = icmp eq i32 %121, 3
-  br i1 %147, label %148, label %155
-
-148:                                              ; preds = %146
-  %149 = load ptr, ptr %3, align 8, !tbaa.struct !290
-  store i32 0, ptr %0, align 8, !tbaa !211
-  store ptr null, ptr %3, align 8, !tbaa !212
-  %150 = load ptr, ptr %149, align 8, !tbaa !16
-  tail call fastcc void @set_add_znode_hash(ptr noundef nonnull %0, ptr noundef %150)
-  %151 = getelementptr inbounds ptr, ptr %149, i64 1
-  %152 = load ptr, ptr %151, align 8, !tbaa !16
-  tail call fastcc void @set_add_znode_hash(ptr noundef nonnull %0, ptr noundef %152)
-  %153 = getelementptr inbounds ptr, ptr %149, i64 2
-  %154 = load ptr, ptr %153, align 8, !tbaa !16
-  tail call fastcc void @set_add_znode_hash(ptr noundef nonnull %0, ptr noundef %154)
-  br label %155
-
-155:                                              ; preds = %148, %146
-  br label %6
-
-156:                                              ; preds = %145, %141, %134, %126, %19
+86:                                               ; preds = %16, %85
   ret void
 }
 
@@ -8194,162 +8056,269 @@ define internal fastcc void @build_paths_internal(ptr noundef %0, ptr noundef %1
 
 40:                                               ; preds = %39, %35, %28, %15
   %41 = icmp slt i32 %4, 2
-  br i1 %41, label %150, label %42
+  br i1 %41, label %221, label %42
 
 42:                                               ; preds = %40
   %43 = getelementptr inbounds %struct.ZNode, ptr %0, i64 0, i32 1
   %44 = load i32, ptr %43, align 8, !tbaa !171
   %45 = icmp eq i32 %44, 0
-  br i1 %45, label %150, label %46
+  br i1 %45, label %221, label %46
 
 46:                                               ; preds = %42
   %47 = getelementptr inbounds %struct.ZNode, ptr %0, i64 0, i32 1, i32 2
   %48 = getelementptr inbounds %struct.VecVecZNode, ptr %1, i64 0, i32 3
   %49 = add i32 %3, 1
   %50 = sub i32 %49, %4
-  %51 = add nsw i32 %4, -1
-  %52 = load ptr, ptr %47, align 8, !tbaa !172
-  br label %53
+  %51 = icmp sgt i32 %50, 0
+  %52 = zext i32 %50 to i64
+  %53 = add nsw i32 %4, -1
+  %54 = load ptr, ptr %47, align 8, !tbaa !172
+  br label %55
 
-53:                                               ; preds = %46, %142
-  %54 = phi i32 [ %44, %46 ], [ %143, %142 ]
-  %55 = phi ptr [ %52, %46 ], [ %144, %142 ]
-  %56 = phi ptr [ %52, %46 ], [ %145, %142 ]
-  %57 = phi i64 [ 0, %46 ], [ %147, %142 ]
-  %58 = phi i32 [ %2, %46 ], [ %146, %142 ]
-  %59 = getelementptr inbounds ptr, ptr %56, i64 %57
-  %60 = load ptr, ptr %59, align 8, !tbaa !16
-  %61 = getelementptr inbounds %struct.SNode, ptr %60, i64 0, i32 6
-  %62 = load i32, ptr %61, align 8, !tbaa !158
-  %63 = icmp eq i32 %62, 0
-  br i1 %63, label %142, label %64
+55:                                               ; preds = %46, %213
+  %56 = phi i32 [ %44, %46 ], [ %214, %213 ]
+  %57 = phi ptr [ %54, %46 ], [ %215, %213 ]
+  %58 = phi ptr [ %54, %46 ], [ %216, %213 ]
+  %59 = phi i64 [ 0, %46 ], [ %218, %213 ]
+  %60 = phi i32 [ %2, %46 ], [ %217, %213 ]
+  %61 = getelementptr inbounds ptr, ptr %58, i64 %59
+  %62 = load ptr, ptr %61, align 8, !tbaa !16
+  %63 = getelementptr inbounds %struct.SNode, ptr %62, i64 0, i32 6
+  %64 = load i32, ptr %63, align 8, !tbaa !158
+  %65 = icmp eq i32 %64, 0
+  br i1 %65, label %213, label %66
 
-64:                                               ; preds = %53, %129
-  %65 = phi ptr [ %130, %129 ], [ %55, %53 ]
-  %66 = phi ptr [ %130, %129 ], [ %56, %53 ]
-  %67 = phi i64 [ %133, %129 ], [ 0, %53 ]
-  %68 = phi ptr [ %135, %129 ], [ %60, %53 ]
-  %69 = phi i32 [ %132, %129 ], [ 0, %53 ]
-  %70 = phi i32 [ %131, %129 ], [ %58, %53 ]
-  %71 = getelementptr inbounds %struct.SNode, ptr %68, i64 0, i32 6, i32 2
-  %72 = load ptr, ptr %71, align 8, !tbaa !159
-  %73 = getelementptr inbounds ptr, ptr %72, i64 %67
-  %74 = load ptr, ptr %73, align 8, !tbaa !16
-  %75 = icmp eq ptr %74, null
-  br i1 %75, label %129, label %76
+66:                                               ; preds = %55, %200
+  %67 = phi ptr [ %201, %200 ], [ %57, %55 ]
+  %68 = phi ptr [ %201, %200 ], [ %58, %55 ]
+  %69 = phi i64 [ %204, %200 ], [ 0, %55 ]
+  %70 = phi ptr [ %206, %200 ], [ %62, %55 ]
+  %71 = phi i32 [ %203, %200 ], [ 0, %55 ]
+  %72 = phi i32 [ %202, %200 ], [ %60, %55 ]
+  %73 = getelementptr inbounds %struct.SNode, ptr %70, i64 0, i32 6, i32 2
+  %74 = load ptr, ptr %73, align 8, !tbaa !159
+  %75 = getelementptr inbounds ptr, ptr %74, i64 %69
+  %76 = load ptr, ptr %75, align 8, !tbaa !16
+  %77 = icmp eq ptr %76, null
+  br i1 %77, label %200, label %78
 
-76:                                               ; preds = %64
-  %77 = sub i32 0, %69
-  %78 = zext i32 %77 to i64
-  %79 = icmp eq i64 %57, %78
-  br i1 %79, label %118, label %80
+78:                                               ; preds = %66
+  %79 = sub i32 0, %71
+  %80 = zext i32 %79 to i64
+  %81 = icmp eq i64 %59, %80
+  br i1 %81, label %189, label %82
 
-80:                                               ; preds = %76
-  %81 = load ptr, ptr %6, align 8, !tbaa !212
-  %82 = icmp eq ptr %81, null
-  br i1 %82, label %83, label %89
+82:                                               ; preds = %78
+  %83 = load ptr, ptr %6, align 8, !tbaa !212
+  %84 = icmp eq ptr %83, null
+  br i1 %84, label %85, label %160
 
-83:                                               ; preds = %80
-  %84 = tail call fastcc ptr @new_VecZNode(ptr noundef nonnull %1, i32 noundef %50, i32 noundef %70)
-  store ptr %48, ptr %6, align 8, !tbaa !212
-  %85 = load i32, ptr %1, align 8, !tbaa !211
-  %86 = add i32 %85, 1
-  store i32 %86, ptr %1, align 8, !tbaa !211
-  %87 = zext i32 %85 to i64
-  %88 = getelementptr inbounds ptr, ptr %48, i64 %87
-  store ptr %84, ptr %88, align 8, !tbaa !16
-  br label %114
+85:                                               ; preds = %82
+  %86 = load i32, ptr %1, align 8, !tbaa !211
+  %87 = icmp eq i32 %86, 0
+  br i1 %87, label %90, label %88
 
-89:                                               ; preds = %80
-  %90 = icmp eq ptr %81, %48
-  %91 = load i32, ptr %1, align 8, !tbaa !211
-  br i1 %90, label %92, label %101
+88:                                               ; preds = %85
+  %89 = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #27
+  br label %90
 
-92:                                               ; preds = %89
-  %93 = icmp ult i32 %91, 3
-  br i1 %93, label %94, label %111
+90:                                               ; preds = %88, %85
+  %91 = phi ptr [ %89, %88 ], [ @path1, %85 ]
+  store i32 0, ptr %91, align 8, !tbaa !211
+  %92 = getelementptr inbounds %struct.VecZNode, ptr %91, i64 0, i32 2
+  store ptr null, ptr %92, align 8, !tbaa !212
+  %93 = icmp sgt i32 %72, -1
+  %94 = and i1 %51, %93
+  br i1 %94, label %95, label %155
 
-94:                                               ; preds = %92
-  %95 = tail call fastcc ptr @new_VecZNode(ptr noundef nonnull %1, i32 noundef %50, i32 noundef %70)
-  %96 = load ptr, ptr %6, align 8, !tbaa !212
-  %97 = load i32, ptr %1, align 8, !tbaa !211
-  %98 = add i32 %97, 1
-  store i32 %98, ptr %1, align 8, !tbaa !211
-  %99 = zext i32 %97 to i64
-  %100 = getelementptr inbounds ptr, ptr %96, i64 %99
-  store ptr %95, ptr %100, align 8, !tbaa !16
-  br label %114
+95:                                               ; preds = %90
+  %96 = getelementptr inbounds %struct.VecZNode, ptr %91, i64 0, i32 3
+  %97 = zext i32 %72 to i64
+  br label %98
 
-101:                                              ; preds = %89
-  %102 = and i32 %91, 7
-  %103 = icmp eq i32 %102, 0
-  br i1 %103, label %111, label %104
+98:                                               ; preds = %152, %95
+  %99 = phi i64 [ 0, %95 ], [ %153, %152 ]
+  %100 = load ptr, ptr %92, align 8, !tbaa !212
+  %101 = icmp eq ptr %100, null
+  br i1 %101, label %102, label %114
 
-104:                                              ; preds = %101
-  %105 = tail call fastcc ptr @new_VecZNode(ptr noundef nonnull %1, i32 noundef %50, i32 noundef %70)
-  %106 = load ptr, ptr %6, align 8, !tbaa !212
-  %107 = load i32, ptr %1, align 8, !tbaa !211
-  %108 = add i32 %107, 1
-  store i32 %108, ptr %1, align 8, !tbaa !211
-  %109 = zext i32 %107 to i64
-  %110 = getelementptr inbounds ptr, ptr %106, i64 %109
-  store ptr %105, ptr %110, align 8, !tbaa !16
-  br label %114
+102:                                              ; preds = %98
+  %103 = load ptr, ptr %6, align 8, !tbaa !212
+  %104 = getelementptr inbounds ptr, ptr %103, i64 %97
+  %105 = load ptr, ptr %104, align 8, !tbaa !16
+  %106 = getelementptr inbounds %struct.VecZNode, ptr %105, i64 0, i32 2
+  %107 = load ptr, ptr %106, align 8, !tbaa !212
+  %108 = getelementptr inbounds ptr, ptr %107, i64 %99
+  %109 = load ptr, ptr %108, align 8, !tbaa !16
+  store ptr %96, ptr %92, align 8, !tbaa !212
+  %110 = load i32, ptr %91, align 8, !tbaa !211
+  %111 = add i32 %110, 1
+  store i32 %111, ptr %91, align 8, !tbaa !211
+  %112 = zext i32 %110 to i64
+  %113 = getelementptr inbounds ptr, ptr %96, i64 %112
+  store ptr %109, ptr %113, align 8, !tbaa !16
+  br label %152
 
-111:                                              ; preds = %92, %101
-  %112 = tail call fastcc ptr @new_VecZNode(ptr noundef nonnull %1, i32 noundef %50, i32 noundef %70)
-  tail call void @vec_add_internal(ptr noundef nonnull %1, ptr noundef %112) #23
-  %113 = load i32, ptr %1, align 8, !tbaa !211
-  br label %114
+114:                                              ; preds = %98
+  %115 = icmp eq ptr %100, %96
+  %116 = load i32, ptr %91, align 8, !tbaa !211
+  br i1 %115, label %117, label %130
 
-114:                                              ; preds = %111, %104, %94, %83
-  %115 = phi i32 [ %113, %111 ], [ %108, %104 ], [ %98, %94 ], [ %86, %83 ]
-  %116 = add i32 %115, -1
-  %117 = load ptr, ptr %47, align 8, !tbaa !172
-  br label %118
+117:                                              ; preds = %114
+  %118 = icmp ult i32 %116, 3
+  br i1 %118, label %119, label %144
 
-118:                                              ; preds = %114, %76
-  %119 = phi ptr [ %117, %114 ], [ %66, %76 ]
-  %120 = phi i32 [ %116, %114 ], [ %70, %76 ]
-  %121 = getelementptr inbounds ptr, ptr %119, i64 %57
+119:                                              ; preds = %117
+  %120 = load ptr, ptr %6, align 8, !tbaa !212
+  %121 = getelementptr inbounds ptr, ptr %120, i64 %97
   %122 = load ptr, ptr %121, align 8, !tbaa !16
-  %123 = getelementptr inbounds %struct.SNode, ptr %122, i64 0, i32 6, i32 2
-  %124 = load ptr, ptr %123, align 8, !tbaa !159
-  %125 = getelementptr inbounds ptr, ptr %124, i64 %67
+  %123 = getelementptr inbounds %struct.VecZNode, ptr %122, i64 0, i32 2
+  %124 = load ptr, ptr %123, align 8, !tbaa !212
+  %125 = getelementptr inbounds ptr, ptr %124, i64 %99
   %126 = load ptr, ptr %125, align 8, !tbaa !16
-  tail call fastcc void @build_paths_internal(ptr noundef %126, ptr noundef %1, i32 noundef %120, i32 noundef %3, i32 noundef %51)
-  %127 = add nsw i32 %69, 1
-  %128 = load ptr, ptr %47, align 8, !tbaa !172
-  br label %129
+  %127 = add nuw nsw i32 %116, 1
+  store i32 %127, ptr %91, align 8, !tbaa !211
+  %128 = zext i32 %116 to i64
+  %129 = getelementptr inbounds ptr, ptr %96, i64 %128
+  store ptr %126, ptr %129, align 8, !tbaa !16
+  br label %152
 
-129:                                              ; preds = %64, %118
-  %130 = phi ptr [ %128, %118 ], [ %65, %64 ]
-  %131 = phi i32 [ %120, %118 ], [ %70, %64 ]
-  %132 = phi i32 [ %127, %118 ], [ %69, %64 ]
-  %133 = add nuw nsw i64 %67, 1
-  %134 = getelementptr inbounds ptr, ptr %130, i64 %57
-  %135 = load ptr, ptr %134, align 8, !tbaa !16
-  %136 = getelementptr inbounds %struct.SNode, ptr %135, i64 0, i32 6
-  %137 = load i32, ptr %136, align 8, !tbaa !158
-  %138 = zext i32 %137 to i64
-  %139 = icmp ult i64 %133, %138
-  br i1 %139, label %64, label %140, !llvm.loop !330
+130:                                              ; preds = %114
+  %131 = and i32 %116, 7
+  %132 = icmp eq i32 %131, 0
+  br i1 %132, label %144, label %133
 
-140:                                              ; preds = %129
-  %141 = load i32, ptr %43, align 8, !tbaa !171
-  br label %142
+133:                                              ; preds = %130
+  %134 = load ptr, ptr %6, align 8, !tbaa !212
+  %135 = getelementptr inbounds ptr, ptr %134, i64 %97
+  %136 = load ptr, ptr %135, align 8, !tbaa !16
+  %137 = getelementptr inbounds %struct.VecZNode, ptr %136, i64 0, i32 2
+  %138 = load ptr, ptr %137, align 8, !tbaa !212
+  %139 = getelementptr inbounds ptr, ptr %138, i64 %99
+  %140 = load ptr, ptr %139, align 8, !tbaa !16
+  %141 = add i32 %116, 1
+  store i32 %141, ptr %91, align 8, !tbaa !211
+  %142 = zext i32 %116 to i64
+  %143 = getelementptr inbounds ptr, ptr %100, i64 %142
+  store ptr %140, ptr %143, align 8, !tbaa !16
+  br label %152
 
-142:                                              ; preds = %140, %53
-  %143 = phi i32 [ %54, %53 ], [ %141, %140 ]
-  %144 = phi ptr [ %55, %53 ], [ %130, %140 ]
-  %145 = phi ptr [ %56, %53 ], [ %130, %140 ]
-  %146 = phi i32 [ %58, %53 ], [ %131, %140 ]
-  %147 = add nuw nsw i64 %57, 1
-  %148 = zext i32 %143 to i64
-  %149 = icmp ult i64 %147, %148
-  br i1 %149, label %53, label %150, !llvm.loop !331
+144:                                              ; preds = %130, %117
+  %145 = load ptr, ptr %6, align 8, !tbaa !212
+  %146 = getelementptr inbounds ptr, ptr %145, i64 %97
+  %147 = load ptr, ptr %146, align 8, !tbaa !16
+  %148 = getelementptr inbounds %struct.VecZNode, ptr %147, i64 0, i32 2
+  %149 = load ptr, ptr %148, align 8, !tbaa !212
+  %150 = getelementptr inbounds ptr, ptr %149, i64 %99
+  %151 = load ptr, ptr %150, align 8, !tbaa !16
+  tail call void @vec_add_internal(ptr noundef nonnull %91, ptr noundef %151) #23
+  br label %152
 
-150:                                              ; preds = %142, %42, %40
+152:                                              ; preds = %144, %133, %119, %102
+  %153 = add nuw nsw i64 %99, 1
+  %154 = icmp eq i64 %153, %52
+  br i1 %154, label %155, label %98, !llvm.loop !329
+
+155:                                              ; preds = %152, %90
+  store ptr %48, ptr %6, align 8, !tbaa !212
+  %156 = load i32, ptr %1, align 8, !tbaa !211
+  %157 = add i32 %156, 1
+  store i32 %157, ptr %1, align 8, !tbaa !211
+  %158 = zext i32 %156 to i64
+  %159 = getelementptr inbounds ptr, ptr %48, i64 %158
+  store ptr %91, ptr %159, align 8, !tbaa !16
+  br label %185
+
+160:                                              ; preds = %82
+  %161 = icmp eq ptr %83, %48
+  %162 = load i32, ptr %1, align 8, !tbaa !211
+  br i1 %161, label %163, label %172
+
+163:                                              ; preds = %160
+  %164 = icmp ult i32 %162, 3
+  br i1 %164, label %165, label %182
+
+165:                                              ; preds = %163
+  %166 = tail call fastcc ptr @new_VecZNode(ptr noundef nonnull %1, i32 noundef %50, i32 noundef %72)
+  %167 = load ptr, ptr %6, align 8, !tbaa !212
+  %168 = load i32, ptr %1, align 8, !tbaa !211
+  %169 = add i32 %168, 1
+  store i32 %169, ptr %1, align 8, !tbaa !211
+  %170 = zext i32 %168 to i64
+  %171 = getelementptr inbounds ptr, ptr %167, i64 %170
+  store ptr %166, ptr %171, align 8, !tbaa !16
+  br label %185
+
+172:                                              ; preds = %160
+  %173 = and i32 %162, 7
+  %174 = icmp eq i32 %173, 0
+  br i1 %174, label %182, label %175
+
+175:                                              ; preds = %172
+  %176 = tail call fastcc ptr @new_VecZNode(ptr noundef nonnull %1, i32 noundef %50, i32 noundef %72)
+  %177 = load ptr, ptr %6, align 8, !tbaa !212
+  %178 = load i32, ptr %1, align 8, !tbaa !211
+  %179 = add i32 %178, 1
+  store i32 %179, ptr %1, align 8, !tbaa !211
+  %180 = zext i32 %178 to i64
+  %181 = getelementptr inbounds ptr, ptr %177, i64 %180
+  store ptr %176, ptr %181, align 8, !tbaa !16
+  br label %185
+
+182:                                              ; preds = %163, %172
+  %183 = tail call fastcc ptr @new_VecZNode(ptr noundef nonnull %1, i32 noundef %50, i32 noundef %72)
+  tail call void @vec_add_internal(ptr noundef nonnull %1, ptr noundef %183) #23
+  %184 = load i32, ptr %1, align 8, !tbaa !211
+  br label %185
+
+185:                                              ; preds = %182, %175, %165, %155
+  %186 = phi i32 [ %184, %182 ], [ %179, %175 ], [ %169, %165 ], [ %157, %155 ]
+  %187 = add i32 %186, -1
+  %188 = load ptr, ptr %47, align 8, !tbaa !172
+  br label %189
+
+189:                                              ; preds = %185, %78
+  %190 = phi ptr [ %188, %185 ], [ %68, %78 ]
+  %191 = phi i32 [ %187, %185 ], [ %72, %78 ]
+  %192 = getelementptr inbounds ptr, ptr %190, i64 %59
+  %193 = load ptr, ptr %192, align 8, !tbaa !16
+  %194 = getelementptr inbounds %struct.SNode, ptr %193, i64 0, i32 6, i32 2
+  %195 = load ptr, ptr %194, align 8, !tbaa !159
+  %196 = getelementptr inbounds ptr, ptr %195, i64 %69
+  %197 = load ptr, ptr %196, align 8, !tbaa !16
+  tail call fastcc void @build_paths_internal(ptr noundef %197, ptr noundef %1, i32 noundef %191, i32 noundef %3, i32 noundef %53)
+  %198 = add nsw i32 %71, 1
+  %199 = load ptr, ptr %47, align 8, !tbaa !172
+  br label %200
+
+200:                                              ; preds = %66, %189
+  %201 = phi ptr [ %199, %189 ], [ %67, %66 ]
+  %202 = phi i32 [ %191, %189 ], [ %72, %66 ]
+  %203 = phi i32 [ %198, %189 ], [ %71, %66 ]
+  %204 = add nuw nsw i64 %69, 1
+  %205 = getelementptr inbounds ptr, ptr %201, i64 %59
+  %206 = load ptr, ptr %205, align 8, !tbaa !16
+  %207 = getelementptr inbounds %struct.SNode, ptr %206, i64 0, i32 6
+  %208 = load i32, ptr %207, align 8, !tbaa !158
+  %209 = zext i32 %208 to i64
+  %210 = icmp ult i64 %204, %209
+  br i1 %210, label %66, label %211, !llvm.loop !330
+
+211:                                              ; preds = %200
+  %212 = load i32, ptr %43, align 8, !tbaa !171
+  br label %213
+
+213:                                              ; preds = %211, %55
+  %214 = phi i32 [ %56, %55 ], [ %212, %211 ]
+  %215 = phi ptr [ %57, %55 ], [ %201, %211 ]
+  %216 = phi ptr [ %58, %55 ], [ %201, %211 ]
+  %217 = phi i32 [ %60, %55 ], [ %202, %211 ]
+  %218 = add nuw nsw i64 %59, 1
+  %219 = zext i32 %214 to i64
+  %220 = icmp ult i64 %218, %219
+  br i1 %220, label %55, label %221, !llvm.loop !331
+
+221:                                              ; preds = %213, %42, %40
   ret void
 }
 

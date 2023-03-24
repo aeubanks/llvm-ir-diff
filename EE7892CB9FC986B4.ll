@@ -447,7 +447,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile3NIO9CFileBase6CreateEPKc
   store i8 0, ptr %222, align 1, !tbaa !13
   br label %223
 
-223:                                              ; preds = %221, %126, %120
+223:                                              ; preds = %120, %126, %221
   %224 = phi ptr [ %114, %126 ], [ %141, %221 ], [ %114, %120 ]
   %225 = phi i32 [ %113, %126 ], [ %137, %221 ], [ %113, %120 ]
   %226 = getelementptr inbounds i8, ptr %224, i64 %112
@@ -490,14 +490,14 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile3NIO9CFileBase6CreateEPKc
   %244 = load i32, ptr %40, align 8, !tbaa !14
   br label %255
 
-245:                                              ; preds = %236, %109
+245:                                              ; preds = %109, %236
   %246 = phi ptr [ %233, %236 ], [ %114, %109 ]
   %247 = phi { ptr, i32 } [ %237, %236 ], [ %110, %109 ]
   call void @_ZdaPv(ptr noundef nonnull %246) #18
   br label %248
 
 248:                                              ; preds = %245, %107
-  %249 = phi { ptr, i32 } [ %247, %245 ], [ %108, %107 ]
+  %249 = phi { ptr, i32 } [ %108, %107 ], [ %247, %245 ]
   %250 = load ptr, ptr %8, align 8, !tbaa !27
   %251 = icmp eq ptr %250, null
   br i1 %251, label %253, label %252
@@ -1531,7 +1531,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile3NIO8COutFile9SetLengthEy
 5:                                                ; preds = %2
   %6 = tail call ptr @__errno_location() #22
   store i32 9, ptr %6, align 4, !tbaa !17
-  br label %36
+  br label %39
 
 7:                                                ; preds = %2
   %8 = icmp sgt i64 %1, -1
@@ -1540,7 +1540,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile3NIO8COutFile9SetLengthEy
 9:                                                ; preds = %7
   %10 = tail call ptr @__errno_location() #22
   store i32 22, ptr %10, align 4, !tbaa !17
-  br label %36
+  br label %39
 
 11:                                               ; preds = %7
   %12 = getelementptr inbounds %"class.NWindows::NFile::NIO::CFileBase", ptr %0, i64 0, i32 6
@@ -1550,42 +1550,45 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile3NIO8COutFile9SetLengthEy
   %16 = trunc i64 %15 to i32
   %17 = getelementptr inbounds %"class.NWindows::NFile::NIO::CFileBase", ptr %0, i64 0, i32 9
   store i32 %16, ptr %17, align 8, !tbaa !19
-  br label %21
+  br label %22
 
 18:                                               ; preds = %2
   %19 = tail call i64 @lseek64(i32 noundef %4, i64 noundef %1, i32 noundef 0) #20
-  %20 = icmp eq i64 %19, -1
-  br i1 %20, label %36, label %21
+  %20 = icmp ne i64 %19, -1
+  %21 = select i1 %20, i64 %19, i64 undef
+  br label %22
 
-21:                                               ; preds = %18, %11
-  %22 = phi i64 [ %15, %11 ], [ %19, %18 ]
-  %23 = icmp eq i64 %22, %1
-  br i1 %23, label %24, label %36
+22:                                               ; preds = %18, %11
+  %23 = phi i64 [ %15, %11 ], [ %21, %18 ]
+  %24 = phi i1 [ true, %11 ], [ %20, %18 ]
+  %25 = icmp eq i64 %23, %1
+  %26 = select i1 %24, i1 %25, i1 false
+  br i1 %26, label %27, label %39
 
-24:                                               ; preds = %21
-  %25 = load i32, ptr %3, align 8, !tbaa !14
-  %26 = icmp eq i32 %25, -1
-  br i1 %26, label %27, label %29
+27:                                               ; preds = %22
+  %28 = load i32, ptr %3, align 8, !tbaa !14
+  %29 = icmp eq i32 %28, -1
+  br i1 %29, label %30, label %32
 
-27:                                               ; preds = %24
-  %28 = tail call ptr @__errno_location() #22
-  store i32 9, ptr %28, align 4, !tbaa !17
-  br label %36
+30:                                               ; preds = %27
+  %31 = tail call ptr @__errno_location() #22
+  store i32 9, ptr %31, align 4, !tbaa !17
+  br label %39
 
-29:                                               ; preds = %24
-  %30 = tail call i64 @lseek64(i32 noundef %25, i64 noundef 0, i32 noundef 1) #20
-  %31 = icmp eq i64 %30, -1
-  br i1 %31, label %36, label %32
+32:                                               ; preds = %27
+  %33 = tail call i64 @lseek64(i32 noundef %28, i64 noundef 0, i32 noundef 1) #20
+  %34 = icmp eq i64 %33, -1
+  br i1 %34, label %39, label %35
 
-32:                                               ; preds = %29
-  %33 = load i32, ptr %3, align 8, !tbaa !14
-  %34 = tail call i32 @ftruncate64(i32 noundef %33, i64 noundef %30) #20
-  %35 = icmp eq i32 %34, 0
-  br label %36
+35:                                               ; preds = %32
+  %36 = load i32, ptr %3, align 8, !tbaa !14
+  %37 = tail call i32 @ftruncate64(i32 noundef %36, i64 noundef %33) #20
+  %38 = icmp eq i32 %37, 0
+  br label %39
 
-36:                                               ; preds = %18, %9, %5, %32, %29, %27, %21
-  %37 = phi i1 [ false, %21 ], [ false, %27 ], [ %35, %32 ], [ false, %29 ], [ false, %5 ], [ false, %9 ], [ false, %18 ]
-  ret i1 %37
+39:                                               ; preds = %5, %9, %35, %32, %30, %22
+  %40 = phi i1 [ false, %22 ], [ false, %30 ], [ %38, %35 ], [ false, %32 ], [ false, %9 ], [ false, %5 ]
+  ret i1 %40
 }
 
 ; Function Attrs: nobuiltin allocsize(0)

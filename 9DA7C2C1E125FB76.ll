@@ -305,70 +305,69 @@ define internal void @_ZL14BM_ICCG_LAMBDARN9benchmark5StateE(ptr noundef nonnull
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
   %12 = icmp eq i64 %11, 0
   %13 = select i1 %9, i1 true, i1 %12
-  br i1 %13, label %19, label %14, !prof !30
+  br i1 %13, label %20, label %14, !prof !30
 
 14:                                               ; preds = %1
   %15 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 6
   %16 = load ptr, ptr %15, align 8, !tbaa !31
   %17 = load i64, ptr %16, align 8, !tbaa !32
   %18 = trunc i64 %17 to i32
-  br label %20
+  %19 = icmp sgt i32 %18, 1
+  br label %21
 
-19:                                               ; preds = %56, %1
+20:                                               ; preds = %57, %1
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
   ret void
 
-20:                                               ; preds = %14, %56
-  %21 = phi i64 [ %11, %14 ], [ %57, %56 ]
-  br label %22
+21:                                               ; preds = %14, %57
+  %22 = phi i64 [ %11, %14 ], [ %58, %57 ]
+  br i1 %19, label %26, label %57
 
-22:                                               ; preds = %55, %20
-  %23 = phi i32 [ 0, %20 ], [ %25, %55 ]
-  %24 = phi i32 [ %18, %20 ], [ %26, %55 ]
-  %25 = add nsw i32 %24, %23
-  %26 = lshr i32 %24, 1
-  %27 = icmp sgt i32 %24, 1
-  br i1 %27, label %28, label %56
+23:                                               ; preds = %34
+  %24 = add nsw i32 %30, %28
+  %25 = icmp ugt i32 %27, 3
+  br i1 %25, label %26, label %57, !llvm.loop !46
 
-28:                                               ; preds = %22
-  %29 = add nsw i32 %23, 1
-  %30 = sext i32 %25 to i64
-  %31 = sext i32 %29 to i64
-  br label %32
+26:                                               ; preds = %21, %23
+  %27 = phi i32 [ %30, %23 ], [ %18, %21 ]
+  %28 = phi i32 [ %24, %23 ], [ %18, %21 ]
+  %29 = phi i32 [ %28, %23 ], [ 0, %21 ]
+  %30 = lshr i32 %27, 1
+  %31 = add nsw i32 %29, 1
+  %32 = sext i32 %28 to i64
+  %33 = sext i32 %31 to i64
+  br label %34
 
-32:                                               ; preds = %32, %28
-  %33 = phi i64 [ %31, %28 ], [ %53, %32 ]
-  %34 = phi i64 [ %30, %28 ], [ %35, %32 ]
-  %35 = add nsw i64 %34, 1
-  %36 = getelementptr inbounds double, ptr %4, i64 %33
-  %37 = load double, ptr %36, align 8, !tbaa !9
-  %38 = getelementptr inbounds double, ptr %6, i64 %33
+34:                                               ; preds = %34, %26
+  %35 = phi i64 [ %33, %26 ], [ %55, %34 ]
+  %36 = phi i64 [ %32, %26 ], [ %37, %34 ]
+  %37 = add nsw i64 %36, 1
+  %38 = getelementptr inbounds double, ptr %4, i64 %35
   %39 = load double, ptr %38, align 8, !tbaa !9
-  %40 = add nsw i64 %33, -1
-  %41 = getelementptr inbounds double, ptr %4, i64 %40
-  %42 = load double, ptr %41, align 8, !tbaa !9
-  %43 = fneg double %39
-  %44 = tail call double @llvm.fmuladd.f64(double %43, double %42, double %37)
-  %45 = add nsw i64 %33, 1
-  %46 = getelementptr inbounds double, ptr %6, i64 %45
-  %47 = load double, ptr %46, align 8, !tbaa !9
-  %48 = getelementptr inbounds double, ptr %4, i64 %45
+  %40 = getelementptr inbounds double, ptr %6, i64 %35
+  %41 = load double, ptr %40, align 8, !tbaa !9
+  %42 = add nsw i64 %35, -1
+  %43 = getelementptr inbounds double, ptr %4, i64 %42
+  %44 = load double, ptr %43, align 8, !tbaa !9
+  %45 = fneg double %41
+  %46 = tail call double @llvm.fmuladd.f64(double %45, double %44, double %39)
+  %47 = add nsw i64 %35, 1
+  %48 = getelementptr inbounds double, ptr %6, i64 %47
   %49 = load double, ptr %48, align 8, !tbaa !9
-  %50 = fneg double %47
-  %51 = tail call double @llvm.fmuladd.f64(double %50, double %49, double %44)
-  %52 = getelementptr inbounds double, ptr %4, i64 %35
-  store double %51, ptr %52, align 8, !tbaa !9
-  %53 = add nsw i64 %33, 2
-  %54 = icmp slt i64 %53, %30
-  br i1 %54, label %32, label %55, !llvm.loop !46
+  %50 = getelementptr inbounds double, ptr %4, i64 %47
+  %51 = load double, ptr %50, align 8, !tbaa !9
+  %52 = fneg double %49
+  %53 = tail call double @llvm.fmuladd.f64(double %52, double %51, double %46)
+  %54 = getelementptr inbounds double, ptr %4, i64 %37
+  store double %53, ptr %54, align 8, !tbaa !9
+  %55 = add nsw i64 %35, 2
+  %56 = icmp slt i64 %55, %32
+  br i1 %56, label %34, label %23, !llvm.loop !46
 
-55:                                               ; preds = %32
-  br i1 %27, label %22, label %56, !llvm.loop !47
-
-56:                                               ; preds = %22, %55
-  %57 = add i64 %21, -1
-  %58 = icmp eq i64 %57, 0
-  br i1 %58, label %19, label %20, !prof !30
+57:                                               ; preds = %23, %21
+  %58 = add i64 %22, -1
+  %59 = icmp eq i64 %58, 0
+  br i1 %59, label %20, label %21, !prof !30
 }
 
 ; Function Attrs: uwtable
@@ -423,10 +422,10 @@ define internal void @_ZL20BM_INNER_PROD_LAMBDARN9benchmark5StateE(ptr noundef n
   %32 = load double, ptr %2, align 8, !tbaa !9
   %33 = call double @llvm.fmuladd.f64(double %29, double %31, double %32)
   store double %33, ptr %2, align 8, !tbaa !9
-  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(double) %2, double %33) #10, !srcloc !48
+  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(double) %2, double %33) #10, !srcloc !47
   %34 = add nuw nsw i64 %27, 1
   %35 = icmp eq i64 %34, %25
-  br i1 %35, label %36, label %26, !llvm.loop !49
+  br i1 %35, label %36, label %26, !llvm.loop !48
 
 36:                                               ; preds = %26, %18
   %37 = add i64 %19, -1
@@ -516,7 +515,7 @@ define internal void @_ZL21BM_BAND_LIN_EQ_LAMBDARN9benchmark5StateE(ptr noundef 
   %60 = add nuw nsw i64 %52, 1
   %61 = add nuw nsw i64 %51, 5
   %62 = icmp ult i64 %61, %21
-  br i1 %62, label %50, label %63, !llvm.loop !50
+  br i1 %62, label %50, label %63, !llvm.loop !49
 
 63:                                               ; preds = %50
   %64 = load double, ptr %20, align 8, !tbaa !9
@@ -538,7 +537,7 @@ define internal void @_ZL21BM_BAND_LIN_EQ_LAMBDARN9benchmark5StateE(ptr noundef 
   %77 = add nuw nsw i64 %69, 1
   %78 = add nuw nsw i64 %68, 5
   %79 = icmp ult i64 %78, %21
-  br i1 %79, label %67, label %80, !llvm.loop !50
+  br i1 %79, label %67, label %80, !llvm.loop !49
 
 80:                                               ; preds = %67
   %81 = load double, ptr %20, align 8, !tbaa !9
@@ -560,7 +559,7 @@ define internal void @_ZL21BM_BAND_LIN_EQ_LAMBDARN9benchmark5StateE(ptr noundef 
   %94 = add nuw nsw i64 %86, 1
   %95 = add nuw nsw i64 %85, 5
   %96 = icmp ult i64 %95, %21
-  br i1 %96, label %84, label %97, !llvm.loop !50
+  br i1 %96, label %84, label %97, !llvm.loop !49
 
 97:                                               ; preds = %84
   %98 = load double, ptr %20, align 8, !tbaa !9
@@ -595,7 +594,7 @@ define internal void @_ZL21BM_BAND_LIN_EQ_LAMBDARN9benchmark5StateE(ptr noundef 
   store double %118, ptr %27, align 8, !tbaa !9
   %119 = add i64 %106, -2
   %120 = icmp eq i64 %119, 0
-  br i1 %120, label %121, label %102, !prof !51
+  br i1 %120, label %121, label %102, !prof !50
 
 121:                                              ; preds = %39, %102, %97, %1
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -668,7 +667,7 @@ define internal void @_ZL22BM_TRIDIAG_ELIM_LAMBDARN9benchmark5StateE(ptr noundef
   %51 = add nuw nsw i64 %34, 2
   %52 = add i64 %35, 2
   %53 = icmp eq i64 %52, %28
-  br i1 %53, label %54, label %32, !llvm.loop !52
+  br i1 %53, label %54, label %32, !llvm.loop !51
 
 54:                                               ; preds = %32, %30
   %55 = phi double [ %24, %30 ], [ %49, %32 ]
@@ -771,42 +770,42 @@ define internal void @_ZL13BM_EOS_LAMBDARN9benchmark5StateE(ptr noundef nonnull 
 62:                                               ; preds = %59, %62
   %63 = phi i64 [ %97, %62 ], [ 0, %59 ]
   %64 = getelementptr inbounds double, ptr %10, i64 %63
-  %65 = load <2 x double>, ptr %64, align 8, !tbaa !9, !alias.scope !53
+  %65 = load <2 x double>, ptr %64, align 8, !tbaa !9, !alias.scope !52
   %66 = getelementptr inbounds double, ptr %8, i64 %63
-  %67 = load <2 x double>, ptr %66, align 8, !tbaa !9, !alias.scope !56
+  %67 = load <2 x double>, ptr %66, align 8, !tbaa !9, !alias.scope !55
   %68 = getelementptr inbounds double, ptr %6, i64 %63
-  %69 = load <2 x double>, ptr %68, align 8, !tbaa !9, !alias.scope !58
+  %69 = load <2 x double>, ptr %68, align 8, !tbaa !9, !alias.scope !57
   %70 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %53, <2 x double> %69, <2 x double> %67)
   %71 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %53, <2 x double> %70, <2 x double> %65)
   %72 = add nuw nsw i64 %63, 3
   %73 = getelementptr inbounds double, ptr %10, i64 %72
-  %74 = load <2 x double>, ptr %73, align 8, !tbaa !9, !alias.scope !53
+  %74 = load <2 x double>, ptr %73, align 8, !tbaa !9, !alias.scope !52
   %75 = add nuw nsw i64 %63, 2
   %76 = getelementptr inbounds double, ptr %10, i64 %75
-  %77 = load <2 x double>, ptr %76, align 8, !tbaa !9, !alias.scope !53
+  %77 = load <2 x double>, ptr %76, align 8, !tbaa !9, !alias.scope !52
   %78 = or i64 %63, 1
   %79 = getelementptr inbounds double, ptr %10, i64 %78
-  %80 = load <2 x double>, ptr %79, align 8, !tbaa !9, !alias.scope !53
+  %80 = load <2 x double>, ptr %79, align 8, !tbaa !9, !alias.scope !52
   %81 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %53, <2 x double> %80, <2 x double> %77)
   %82 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %53, <2 x double> %81, <2 x double> %74)
   %83 = add nuw nsw i64 %63, 6
   %84 = getelementptr inbounds double, ptr %10, i64 %83
-  %85 = load <2 x double>, ptr %84, align 8, !tbaa !9, !alias.scope !53
+  %85 = load <2 x double>, ptr %84, align 8, !tbaa !9, !alias.scope !52
   %86 = add nuw nsw i64 %63, 5
   %87 = getelementptr inbounds double, ptr %10, i64 %86
-  %88 = load <2 x double>, ptr %87, align 8, !tbaa !9, !alias.scope !53
+  %88 = load <2 x double>, ptr %87, align 8, !tbaa !9, !alias.scope !52
   %89 = add nuw nsw i64 %63, 4
   %90 = getelementptr inbounds double, ptr %10, i64 %89
-  %91 = load <2 x double>, ptr %90, align 8, !tbaa !9, !alias.scope !53
+  %91 = load <2 x double>, ptr %90, align 8, !tbaa !9, !alias.scope !52
   %92 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %55, <2 x double> %91, <2 x double> %88)
   %93 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %55, <2 x double> %92, <2 x double> %85)
   %94 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %57, <2 x double> %93, <2 x double> %82)
   %95 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %57, <2 x double> %94, <2 x double> %71)
   %96 = getelementptr inbounds double, ptr %4, i64 %63
-  store <2 x double> %95, ptr %96, align 8, !tbaa !9, !alias.scope !60, !noalias !62
+  store <2 x double> %95, ptr %96, align 8, !tbaa !9, !alias.scope !59, !noalias !61
   %97 = add nuw i64 %63, 2
   %98 = icmp eq i64 %97, %51
-  br i1 %98, label %99, label %62, !llvm.loop !63
+  br i1 %98, label %99, label %62, !llvm.loop !62
 
 99:                                               ; preds = %62
   br i1 %58, label %138, label %100
@@ -852,7 +851,7 @@ define internal void @_ZL13BM_EOS_LAMBDARN9benchmark5StateE(ptr noundef nonnull 
   %136 = getelementptr inbounds double, ptr %4, i64 %103
   store double %135, ptr %136, align 8, !tbaa !9
   %137 = icmp eq i64 %118, %30
-  br i1 %137, label %138, label %102, !llvm.loop !64
+  br i1 %137, label %138, label %102, !llvm.loop !63
 
 138:                                              ; preds = %102, %99
   %139 = add i64 %60, -1
@@ -1034,7 +1033,7 @@ define internal void @_ZL13BM_ADI_LAMBDARN9benchmark5StateE(ptr noundef nonnull 
   %152 = getelementptr inbounds double, ptr %151, i64 1
   store double %149, ptr %152, align 8, !tbaa !9
   %153 = icmp eq i64 %78, %48
-  br i1 %153, label %154, label %70, !llvm.loop !65
+  br i1 %153, label %154, label %70, !llvm.loop !64
 
 154:                                              ; preds = %70, %154
   %155 = phi ptr [ %164, %154 ], [ %67, %70 ]
@@ -1129,7 +1128,7 @@ define internal void @_ZL13BM_ADI_LAMBDARN9benchmark5StateE(ptr noundef nonnull 
   %239 = getelementptr inbounds double, ptr %238, i64 2
   store double %236, ptr %239, align 8, !tbaa !9
   %240 = icmp eq i64 %162, %48
-  br i1 %240, label %241, label %154, !llvm.loop !65
+  br i1 %240, label %241, label %154, !llvm.loop !64
 
 241:                                              ; preds = %154
   %242 = add i64 %69, -1
@@ -1223,7 +1222,7 @@ define internal void @_ZL21BM_INT_PREDICT_LAMBDARN9benchmark5StateE(ptr noundef 
   store double %70, ptr %40, align 8, !tbaa !9
   %71 = add nuw nsw i64 %38, 1
   %72 = icmp eq i64 %71, %34
-  br i1 %72, label %73, label %37, !llvm.loop !66
+  br i1 %72, label %73, label %37, !llvm.loop !65
 
 73:                                               ; preds = %37
   %74 = add i64 %36, -1
@@ -1314,7 +1313,7 @@ define internal void @_ZL22BM_DIFF_PREDICT_LAMBDARN9benchmark5StateE(ptr noundef
   store double %54, ptr %55, align 8, !tbaa !9
   %59 = add nuw nsw i64 %24, 1
   %60 = icmp eq i64 %59, %20
-  br i1 %60, label %61, label %23, !llvm.loop !67
+  br i1 %60, label %61, label %23, !llvm.loop !66
 
 61:                                               ; preds = %23
   %62 = add i64 %22, -1
@@ -1366,7 +1365,7 @@ define internal void @_ZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateE(ptr noundef no
   %28 = add i64 %25, -1
   %29 = add i64 %26, 1
   %30 = icmp eq i64 %29, %22
-  br i1 %30, label %31, label %24, !prof !68, !llvm.loop !69
+  br i1 %30, label %31, label %24, !prof !67, !llvm.loop !68
 
 31:                                               ; preds = %24, %20
   %32 = phi i64 [ %11, %20 ], [ %28, %24 ]
@@ -1419,7 +1418,7 @@ define internal void @_ZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateE(ptr noundef no
   %68 = add nuw nsw i64 %47, 4
   %69 = add i64 %48, 4
   %70 = icmp eq i64 %69, %40
-  br i1 %70, label %71, label %45, !llvm.loop !71
+  br i1 %70, label %71, label %45, !llvm.loop !70
 
 71:                                               ; preds = %45, %42
   %72 = phi double [ %44, %42 ], [ %66, %45 ]
@@ -1438,7 +1437,7 @@ define internal void @_ZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateE(ptr noundef no
   %82 = add nuw nsw i64 %76, 1
   %83 = add i64 %77, 1
   %84 = icmp eq i64 %83, %38
-  br i1 %84, label %85, label %74, !llvm.loop !72
+  br i1 %84, label %85, label %74, !llvm.loop !71
 
 85:                                               ; preds = %74, %71
   %86 = add i64 %43, -1
@@ -1469,7 +1468,7 @@ define internal void @_ZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateE(ptr noundef no
   store double %98, ptr %4, align 8, !tbaa !9
   %99 = add i64 %90, -8
   %100 = icmp eq i64 %99, 0
-  br i1 %100, label %88, label %89, !prof !73
+  br i1 %100, label %88, label %89, !prof !72
 }
 
 ; Function Attrs: uwtable
@@ -1522,22 +1521,22 @@ define internal void @_ZL20BM_FIRST_DIFF_LAMBDARN9benchmark5StateE(ptr noundef n
   %37 = phi i64 [ %51, %36 ], [ 0, %33 ]
   %38 = or i64 %37, 1
   %39 = getelementptr inbounds double, ptr %6, i64 %38
-  %40 = load <2 x double>, ptr %39, align 8, !tbaa !9, !alias.scope !74
+  %40 = load <2 x double>, ptr %39, align 8, !tbaa !9, !alias.scope !73
   %41 = getelementptr inbounds double, ptr %39, i64 2
-  %42 = load <2 x double>, ptr %41, align 8, !tbaa !9, !alias.scope !74
+  %42 = load <2 x double>, ptr %41, align 8, !tbaa !9, !alias.scope !73
   %43 = getelementptr inbounds double, ptr %6, i64 %37
-  %44 = load <2 x double>, ptr %43, align 8, !tbaa !9, !alias.scope !74
+  %44 = load <2 x double>, ptr %43, align 8, !tbaa !9, !alias.scope !73
   %45 = getelementptr inbounds double, ptr %43, i64 2
-  %46 = load <2 x double>, ptr %45, align 8, !tbaa !9, !alias.scope !74
+  %46 = load <2 x double>, ptr %45, align 8, !tbaa !9, !alias.scope !73
   %47 = fsub <2 x double> %40, %44
   %48 = fsub <2 x double> %42, %46
   %49 = getelementptr inbounds double, ptr %4, i64 %37
-  store <2 x double> %47, ptr %49, align 8, !tbaa !9, !alias.scope !77, !noalias !74
+  store <2 x double> %47, ptr %49, align 8, !tbaa !9, !alias.scope !76, !noalias !73
   %50 = getelementptr inbounds double, ptr %49, i64 2
-  store <2 x double> %48, ptr %50, align 8, !tbaa !9, !alias.scope !77, !noalias !74
+  store <2 x double> %48, ptr %50, align 8, !tbaa !9, !alias.scope !76, !noalias !73
   %51 = add nuw i64 %37, 4
   %52 = icmp eq i64 %51, %31
-  br i1 %52, label %53, label %36, !llvm.loop !79
+  br i1 %52, label %53, label %36, !llvm.loop !78
 
 53:                                               ; preds = %36
   br i1 %32, label %107, label %54
@@ -1564,7 +1563,7 @@ define internal void @_ZL20BM_FIRST_DIFF_LAMBDARN9benchmark5StateE(ptr noundef n
   store double %69, ptr %70, align 8, !tbaa !9
   %71 = add i64 %63, 1
   %72 = icmp eq i64 %71, %59
-  br i1 %72, label %73, label %61, !llvm.loop !80
+  br i1 %72, label %73, label %61, !llvm.loop !79
 
 73:                                               ; preds = %61, %54
   %74 = phi i64 [ %55, %54 ], [ %64, %61 ]
@@ -1606,7 +1605,7 @@ define internal void @_ZL20BM_FIRST_DIFF_LAMBDARN9benchmark5StateE(ptr noundef n
   %105 = getelementptr inbounds double, ptr %4, i64 %92
   store double %104, ptr %105, align 8, !tbaa !9
   %106 = icmp eq i64 %99, %20
-  br i1 %106, label %107, label %76, !llvm.loop !81
+  br i1 %106, label %107, label %76, !llvm.loop !80
 
 107:                                              ; preds = %73, %76, %53
   %108 = add i64 %34, -1
@@ -1714,10 +1713,10 @@ define internal void @_ZL16BM_PIC_2D_LAMBDARN9benchmark5StateE(ptr noundef nonnu
   %81 = fadd double %68, %80
   store double %81, ptr %39, align 8, !tbaa !9
   %82 = getelementptr inbounds i32, ptr %14, i64 %73
-  %83 = load i32, ptr %82, align 4, !tbaa !82
+  %83 = load i32, ptr %82, align 4, !tbaa !81
   %84 = add nsw i32 %83, %70
   %85 = getelementptr inbounds i32, ptr %16, i64 %78
-  %86 = load i32, ptr %85, align 4, !tbaa !82
+  %86 = load i32, ptr %85, align 4, !tbaa !81
   %87 = add nsw i32 %86, %71
   %88 = sext i32 %87 to i64
   %89 = getelementptr inbounds ptr, ptr %18, i64 %88
@@ -1729,7 +1728,7 @@ define internal void @_ZL16BM_PIC_2D_LAMBDARN9benchmark5StateE(ptr noundef nonnu
   store double %94, ptr %92, align 8, !tbaa !9
   %95 = add nuw nsw i64 %36, 1
   %96 = icmp eq i64 %95, %32
-  br i1 %96, label %97, label %35, !llvm.loop !83
+  br i1 %96, label %97, label %35, !llvm.loop !82
 
 97:                                               ; preds = %35
   %98 = add i64 %34, -1
@@ -1866,9 +1865,9 @@ define internal void @_ZL16BM_PIC_1D_LAMBDARN9benchmark5StateE(ptr noundef nonnu
   %111 = getelementptr inbounds double, ptr %13, i64 %109
   store double 0.000000e+00, ptr %111, align 8, !tbaa !9
   %112 = getelementptr inbounds i32, ptr %28, i64 %109
-  %113 = load i32, ptr %112, align 4, !tbaa !82
+  %113 = load i32, ptr %112, align 4, !tbaa !81
   %114 = getelementptr inbounds i32, ptr %24, i64 %109
-  store i32 %113, ptr %114, align 4, !tbaa !82
+  store i32 %113, ptr %114, align 4, !tbaa !81
   %115 = sitofp i32 %113 to double
   %116 = getelementptr inbounds double, ptr %14, i64 %109
   store double %115, ptr %116, align 8, !tbaa !9
@@ -1884,7 +1883,7 @@ define internal void @_ZL16BM_PIC_1D_LAMBDARN9benchmark5StateE(ptr noundef nonnu
   store double %123, ptr %124, align 8, !tbaa !9
   %125 = add nuw nsw i64 %109, 1
   %126 = icmp eq i64 %125, %42
-  br i1 %126, label %127, label %108, !llvm.loop !84
+  br i1 %126, label %127, label %108, !llvm.loop !83
 
 127:                                              ; preds = %108
   %128 = select i1 %63, i1 true, i1 %100
@@ -1893,20 +1892,20 @@ define internal void @_ZL16BM_PIC_1D_LAMBDARN9benchmark5StateE(ptr noundef nonnu
 129:                                              ; preds = %127, %129
   %130 = phi i64 [ %156, %129 ], [ 0, %127 ]
   %131 = getelementptr inbounds double, ptr %4, i64 %130
-  %132 = load <2 x double>, ptr %131, align 8, !tbaa !9, !alias.scope !85, !noalias !88
+  %132 = load <2 x double>, ptr %131, align 8, !tbaa !9, !alias.scope !84, !noalias !87
   %133 = getelementptr inbounds double, ptr %15, i64 %130
-  %134 = load <2 x double>, ptr %133, align 8, !tbaa !9, !alias.scope !94
+  %134 = load <2 x double>, ptr %133, align 8, !tbaa !9, !alias.scope !93
   %135 = fadd <2 x double> %132, %134
   %136 = getelementptr inbounds double, ptr %13, i64 %130
-  %137 = load <2 x double>, ptr %136, align 8, !tbaa !9, !alias.scope !95, !noalias !96
+  %137 = load <2 x double>, ptr %136, align 8, !tbaa !9, !alias.scope !94, !noalias !95
   %138 = getelementptr inbounds double, ptr %14, i64 %130
-  %139 = load <2 x double>, ptr %138, align 8, !tbaa !9, !alias.scope !97
+  %139 = load <2 x double>, ptr %138, align 8, !tbaa !9, !alias.scope !96
   %140 = fsub <2 x double> %137, %139
   %141 = getelementptr inbounds double, ptr %16, i64 %130
-  %142 = load <2 x double>, ptr %141, align 8, !tbaa !9, !alias.scope !98
+  %142 = load <2 x double>, ptr %141, align 8, !tbaa !9, !alias.scope !97
   %143 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %140, <2 x double> %142, <2 x double> %135)
-  store <2 x double> %143, ptr %131, align 8, !tbaa !9, !alias.scope !85, !noalias !88
-  %144 = load <2 x double>, ptr %136, align 8, !tbaa !9, !alias.scope !95, !noalias !96
+  store <2 x double> %143, ptr %131, align 8, !tbaa !9, !alias.scope !84, !noalias !87
+  %144 = load <2 x double>, ptr %136, align 8, !tbaa !9, !alias.scope !94, !noalias !95
   %145 = fadd <2 x double> %143, %144
   %146 = fadd <2 x double> %104, %145
   %147 = fptosi <2 x double> %146 to <2 x i32>
@@ -1914,16 +1913,16 @@ define internal void @_ZL16BM_PIC_1D_LAMBDARN9benchmark5StateE(ptr noundef nonnu
   %149 = sitofp <2 x i32> %147 to <2 x double>
   %150 = fsub <2 x double> %146, %149
   %151 = getelementptr inbounds double, ptr %20, i64 %130
-  store <2 x double> %150, ptr %151, align 8, !tbaa !9, !alias.scope !99, !noalias !100
+  store <2 x double> %150, ptr %151, align 8, !tbaa !9, !alias.scope !98, !noalias !99
   %152 = and <2 x i32> %147, <i32 2047, i32 2047>
   %153 = add nuw nsw <2 x i32> %152, <i32 1, i32 1>
-  store <2 x i32> %153, ptr %148, align 4, !tbaa !82
+  store <2 x i32> %153, ptr %148, align 4, !tbaa !81
   %154 = sitofp <2 x i32> %153 to <2 x double>
   %155 = fadd <2 x double> %150, %154
-  store <2 x double> %155, ptr %136, align 8, !tbaa !9, !alias.scope !95, !noalias !96
+  store <2 x double> %155, ptr %136, align 8, !tbaa !9, !alias.scope !94, !noalias !95
   %156 = add nuw i64 %130, 2
   %157 = icmp eq i64 %156, %102
-  br i1 %157, label %158, label %129, !llvm.loop !101
+  br i1 %157, label %158, label %129, !llvm.loop !100
 
 158:                                              ; preds = %129
   br i1 %105, label %190, label %159
@@ -1959,13 +1958,13 @@ define internal void @_ZL16BM_PIC_1D_LAMBDARN9benchmark5StateE(ptr noundef nonnu
   store double %182, ptr %183, align 8, !tbaa !9
   %184 = and i32 %179, 2047
   %185 = add nuw nsw i32 %184, 1
-  store i32 %185, ptr %180, align 4, !tbaa !82
+  store i32 %185, ptr %180, align 4, !tbaa !81
   %186 = sitofp i32 %185 to double
   %187 = fadd double %182, %186
   store double %187, ptr %168, align 8, !tbaa !9
   %188 = add nuw nsw i64 %162, 1
   %189 = icmp eq i64 %188, %42
-  br i1 %189, label %190, label %161, !llvm.loop !102
+  br i1 %189, label %190, label %161, !llvm.loop !101
 
 190:                                              ; preds = %161, %158
   br label %191
@@ -1976,7 +1975,7 @@ define internal void @_ZL16BM_PIC_1D_LAMBDARN9benchmark5StateE(ptr noundef nonnu
   %194 = load double, ptr %193, align 8, !tbaa !9
   %195 = fsub double 1.000000e+00, %194
   %196 = getelementptr inbounds i32, ptr %26, i64 %192
-  %197 = load i32, ptr %196, align 4, !tbaa !82
+  %197 = load i32, ptr %196, align 4, !tbaa !81
   %198 = add nsw i32 %197, -1
   %199 = sext i32 %198 to i64
   %200 = getelementptr inbounds double, ptr %18, i64 %199
@@ -1991,7 +1990,7 @@ define internal void @_ZL16BM_PIC_1D_LAMBDARN9benchmark5StateE(ptr noundef nonnu
   store double %207, ptr %205, align 8, !tbaa !9
   %208 = add nuw nsw i64 %192, 1
   %209 = icmp eq i64 %208, %42
-  br i1 %209, label %210, label %191, !llvm.loop !103
+  br i1 %209, label %210, label %191, !llvm.loop !102
 
 210:                                              ; preds = %191
   %211 = add i64 %107, -1
@@ -2292,54 +2291,54 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   %274 = phi i64 [ %320, %273 ], [ 0, %196 ]
   %275 = or i64 %274, 1
   %276 = getelementptr inbounds double, ptr %186, i64 %274
-  %277 = load <2 x double>, ptr %276, align 8, !tbaa !9, !alias.scope !104
+  %277 = load <2 x double>, ptr %276, align 8, !tbaa !9, !alias.scope !103
   %278 = getelementptr inbounds double, ptr %187, i64 %274
-  %279 = load <2 x double>, ptr %278, align 8, !tbaa !9, !alias.scope !107
+  %279 = load <2 x double>, ptr %278, align 8, !tbaa !9, !alias.scope !106
   %280 = fadd <2 x double> %277, %279
   %281 = getelementptr inbounds double, ptr %188, i64 %274
-  %282 = load <2 x double>, ptr %281, align 8, !tbaa !9, !alias.scope !109
+  %282 = load <2 x double>, ptr %281, align 8, !tbaa !9, !alias.scope !108
   %283 = fsub <2 x double> %280, %282
   %284 = getelementptr inbounds double, ptr %189, i64 %274
-  %285 = load <2 x double>, ptr %284, align 8, !tbaa !9, !alias.scope !111
+  %285 = load <2 x double>, ptr %284, align 8, !tbaa !9, !alias.scope !110
   %286 = fsub <2 x double> %283, %285
   %287 = getelementptr inbounds double, ptr %190, i64 %275
-  %288 = load <2 x double>, ptr %287, align 8, !tbaa !9, !alias.scope !113
+  %288 = load <2 x double>, ptr %287, align 8, !tbaa !9, !alias.scope !112
   %289 = getelementptr inbounds double, ptr %190, i64 %274
-  %290 = load <2 x double>, ptr %289, align 8, !tbaa !9, !alias.scope !113
+  %290 = load <2 x double>, ptr %289, align 8, !tbaa !9, !alias.scope !112
   %291 = fadd <2 x double> %288, %290
   %292 = fmul <2 x double> %286, %291
   %293 = getelementptr inbounds double, ptr %191, i64 %274
-  %294 = load <2 x double>, ptr %293, align 8, !tbaa !9, !alias.scope !115
+  %294 = load <2 x double>, ptr %293, align 8, !tbaa !9, !alias.scope !114
   %295 = getelementptr inbounds double, ptr %192, i64 %274
-  %296 = load <2 x double>, ptr %295, align 8, !tbaa !9, !alias.scope !117
+  %296 = load <2 x double>, ptr %295, align 8, !tbaa !9, !alias.scope !116
   %297 = fadd <2 x double> %294, %296
   %298 = fdiv <2 x double> %292, %297
   %299 = getelementptr inbounds double, ptr %193, i64 %275
-  store <2 x double> %298, ptr %299, align 8, !tbaa !9, !alias.scope !119, !noalias !121
-  %300 = load <2 x double>, ptr %281, align 8, !tbaa !9, !alias.scope !109
-  %301 = load <2 x double>, ptr %284, align 8, !tbaa !9, !alias.scope !111
+  store <2 x double> %298, ptr %299, align 8, !tbaa !9, !alias.scope !118, !noalias !120
+  %300 = load <2 x double>, ptr %281, align 8, !tbaa !9, !alias.scope !108
+  %301 = load <2 x double>, ptr %284, align 8, !tbaa !9, !alias.scope !110
   %302 = fadd <2 x double> %300, %301
   %303 = getelementptr inbounds double, ptr %188, i64 %275
-  %304 = load <2 x double>, ptr %303, align 8, !tbaa !9, !alias.scope !109
+  %304 = load <2 x double>, ptr %303, align 8, !tbaa !9, !alias.scope !108
   %305 = fsub <2 x double> %302, %304
   %306 = getelementptr inbounds double, ptr %189, i64 %275
-  %307 = load <2 x double>, ptr %306, align 8, !tbaa !9, !alias.scope !111
+  %307 = load <2 x double>, ptr %306, align 8, !tbaa !9, !alias.scope !110
   %308 = fsub <2 x double> %305, %307
-  %309 = load <2 x double>, ptr %287, align 8, !tbaa !9, !alias.scope !113
+  %309 = load <2 x double>, ptr %287, align 8, !tbaa !9, !alias.scope !112
   %310 = getelementptr inbounds double, ptr %194, i64 %275
-  %311 = load <2 x double>, ptr %310, align 8, !tbaa !9, !alias.scope !124
+  %311 = load <2 x double>, ptr %310, align 8, !tbaa !9, !alias.scope !123
   %312 = fadd <2 x double> %309, %311
   %313 = fmul <2 x double> %308, %312
   %314 = getelementptr inbounds double, ptr %191, i64 %275
-  %315 = load <2 x double>, ptr %314, align 8, !tbaa !9, !alias.scope !115
-  %316 = load <2 x double>, ptr %293, align 8, !tbaa !9, !alias.scope !115
+  %315 = load <2 x double>, ptr %314, align 8, !tbaa !9, !alias.scope !114
+  %316 = load <2 x double>, ptr %293, align 8, !tbaa !9, !alias.scope !114
   %317 = fadd <2 x double> %315, %316
   %318 = fdiv <2 x double> %313, %317
   %319 = getelementptr inbounds double, ptr %195, i64 %275
-  store <2 x double> %318, ptr %319, align 8, !tbaa !9, !alias.scope !125, !noalias !126
+  store <2 x double> %318, ptr %319, align 8, !tbaa !9, !alias.scope !124, !noalias !125
   %320 = add nuw i64 %274, 2
   %321 = icmp eq i64 %320, %130
-  br i1 %321, label %322, label %273, !llvm.loop !127
+  br i1 %321, label %322, label %273, !llvm.loop !126
 
 322:                                              ; preds = %273
   br i1 %132, label %374, label %323
@@ -2399,7 +2398,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %370, ptr %371, align 8, !tbaa !9
   %372 = add nuw nsw i64 %326, 1
   %373 = icmp eq i64 %372, %38
-  br i1 %373, label %374, label %325, !llvm.loop !128
+  br i1 %373, label %374, label %325, !llvm.loop !127
 
 374:                                              ; preds = %325, %322
   %375 = load ptr, ptr %48, align 8, !tbaa !5
@@ -2491,54 +2490,54 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   %457 = phi i64 [ %503, %456 ], [ 0, %381 ]
   %458 = or i64 %457, 1
   %459 = getelementptr inbounds double, ptr %375, i64 %457
-  %460 = load <2 x double>, ptr %459, align 8, !tbaa !9, !alias.scope !129
+  %460 = load <2 x double>, ptr %459, align 8, !tbaa !9, !alias.scope !128
   %461 = getelementptr inbounds double, ptr %376, i64 %457
-  %462 = load <2 x double>, ptr %461, align 8, !tbaa !9, !alias.scope !132
+  %462 = load <2 x double>, ptr %461, align 8, !tbaa !9, !alias.scope !131
   %463 = fadd <2 x double> %460, %462
   %464 = getelementptr inbounds double, ptr %186, i64 %457
-  %465 = load <2 x double>, ptr %464, align 8, !tbaa !9, !alias.scope !134
+  %465 = load <2 x double>, ptr %464, align 8, !tbaa !9, !alias.scope !133
   %466 = fsub <2 x double> %463, %465
   %467 = getelementptr inbounds double, ptr %187, i64 %457
-  %468 = load <2 x double>, ptr %467, align 8, !tbaa !9, !alias.scope !136
+  %468 = load <2 x double>, ptr %467, align 8, !tbaa !9, !alias.scope !135
   %469 = fsub <2 x double> %466, %468
   %470 = getelementptr inbounds double, ptr %377, i64 %458
-  %471 = load <2 x double>, ptr %470, align 8, !tbaa !9, !alias.scope !138
+  %471 = load <2 x double>, ptr %470, align 8, !tbaa !9, !alias.scope !137
   %472 = getelementptr inbounds double, ptr %377, i64 %457
-  %473 = load <2 x double>, ptr %472, align 8, !tbaa !9, !alias.scope !138
+  %473 = load <2 x double>, ptr %472, align 8, !tbaa !9, !alias.scope !137
   %474 = fadd <2 x double> %471, %473
   %475 = fmul <2 x double> %469, %474
   %476 = getelementptr inbounds double, ptr %192, i64 %457
-  %477 = load <2 x double>, ptr %476, align 8, !tbaa !9, !alias.scope !140
+  %477 = load <2 x double>, ptr %476, align 8, !tbaa !9, !alias.scope !139
   %478 = getelementptr inbounds double, ptr %378, i64 %457
-  %479 = load <2 x double>, ptr %478, align 8, !tbaa !9, !alias.scope !142
+  %479 = load <2 x double>, ptr %478, align 8, !tbaa !9, !alias.scope !141
   %480 = fadd <2 x double> %477, %479
   %481 = fdiv <2 x double> %475, %480
   %482 = getelementptr inbounds double, ptr %379, i64 %458
-  store <2 x double> %481, ptr %482, align 8, !tbaa !9, !alias.scope !144, !noalias !146
-  %483 = load <2 x double>, ptr %464, align 8, !tbaa !9, !alias.scope !134
-  %484 = load <2 x double>, ptr %467, align 8, !tbaa !9, !alias.scope !136
+  store <2 x double> %481, ptr %482, align 8, !tbaa !9, !alias.scope !143, !noalias !145
+  %483 = load <2 x double>, ptr %464, align 8, !tbaa !9, !alias.scope !133
+  %484 = load <2 x double>, ptr %467, align 8, !tbaa !9, !alias.scope !135
   %485 = fadd <2 x double> %483, %484
   %486 = getelementptr inbounds double, ptr %186, i64 %458
-  %487 = load <2 x double>, ptr %486, align 8, !tbaa !9, !alias.scope !134
+  %487 = load <2 x double>, ptr %486, align 8, !tbaa !9, !alias.scope !133
   %488 = fsub <2 x double> %485, %487
   %489 = getelementptr inbounds double, ptr %187, i64 %458
-  %490 = load <2 x double>, ptr %489, align 8, !tbaa !9, !alias.scope !136
+  %490 = load <2 x double>, ptr %489, align 8, !tbaa !9, !alias.scope !135
   %491 = fsub <2 x double> %488, %490
-  %492 = load <2 x double>, ptr %470, align 8, !tbaa !9, !alias.scope !138
+  %492 = load <2 x double>, ptr %470, align 8, !tbaa !9, !alias.scope !137
   %493 = getelementptr inbounds double, ptr %190, i64 %458
-  %494 = load <2 x double>, ptr %493, align 8, !tbaa !9, !alias.scope !149
+  %494 = load <2 x double>, ptr %493, align 8, !tbaa !9, !alias.scope !148
   %495 = fadd <2 x double> %492, %494
   %496 = fmul <2 x double> %491, %495
   %497 = getelementptr inbounds double, ptr %192, i64 %458
-  %498 = load <2 x double>, ptr %497, align 8, !tbaa !9, !alias.scope !140
-  %499 = load <2 x double>, ptr %476, align 8, !tbaa !9, !alias.scope !140
+  %498 = load <2 x double>, ptr %497, align 8, !tbaa !9, !alias.scope !139
+  %499 = load <2 x double>, ptr %476, align 8, !tbaa !9, !alias.scope !139
   %500 = fadd <2 x double> %498, %499
   %501 = fdiv <2 x double> %496, %500
   %502 = getelementptr inbounds double, ptr %380, i64 %458
-  store <2 x double> %501, ptr %502, align 8, !tbaa !9, !alias.scope !150, !noalias !151
+  store <2 x double> %501, ptr %502, align 8, !tbaa !9, !alias.scope !149, !noalias !150
   %503 = add nuw i64 %457, 2
   %504 = icmp eq i64 %503, %134
-  br i1 %504, label %505, label %456, !llvm.loop !152
+  br i1 %504, label %505, label %456, !llvm.loop !151
 
 505:                                              ; preds = %456
   br i1 %136, label %557, label %506
@@ -2598,7 +2597,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %553, ptr %554, align 8, !tbaa !9
   %555 = add nuw nsw i64 %509, 1
   %556 = icmp eq i64 %555, %38
-  br i1 %556, label %557, label %508, !llvm.loop !153
+  br i1 %556, label %557, label %508, !llvm.loop !152
 
 557:                                              ; preds = %508, %505
   %558 = load ptr, ptr %54, align 8, !tbaa !5
@@ -2690,54 +2689,54 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   %640 = phi i64 [ %686, %639 ], [ 0, %564 ]
   %641 = or i64 %640, 1
   %642 = getelementptr inbounds double, ptr %558, i64 %640
-  %643 = load <2 x double>, ptr %642, align 8, !tbaa !9, !alias.scope !154
+  %643 = load <2 x double>, ptr %642, align 8, !tbaa !9, !alias.scope !153
   %644 = getelementptr inbounds double, ptr %559, i64 %640
-  %645 = load <2 x double>, ptr %644, align 8, !tbaa !9, !alias.scope !157
+  %645 = load <2 x double>, ptr %644, align 8, !tbaa !9, !alias.scope !156
   %646 = fadd <2 x double> %643, %645
   %647 = getelementptr inbounds double, ptr %375, i64 %640
-  %648 = load <2 x double>, ptr %647, align 8, !tbaa !9, !alias.scope !159
+  %648 = load <2 x double>, ptr %647, align 8, !tbaa !9, !alias.scope !158
   %649 = fsub <2 x double> %646, %648
   %650 = getelementptr inbounds double, ptr %376, i64 %640
-  %651 = load <2 x double>, ptr %650, align 8, !tbaa !9, !alias.scope !161
+  %651 = load <2 x double>, ptr %650, align 8, !tbaa !9, !alias.scope !160
   %652 = fsub <2 x double> %649, %651
   %653 = getelementptr inbounds double, ptr %560, i64 %641
-  %654 = load <2 x double>, ptr %653, align 8, !tbaa !9, !alias.scope !163
+  %654 = load <2 x double>, ptr %653, align 8, !tbaa !9, !alias.scope !162
   %655 = getelementptr inbounds double, ptr %560, i64 %640
-  %656 = load <2 x double>, ptr %655, align 8, !tbaa !9, !alias.scope !163
+  %656 = load <2 x double>, ptr %655, align 8, !tbaa !9, !alias.scope !162
   %657 = fadd <2 x double> %654, %656
   %658 = fmul <2 x double> %652, %657
   %659 = getelementptr inbounds double, ptr %378, i64 %640
-  %660 = load <2 x double>, ptr %659, align 8, !tbaa !9, !alias.scope !165
+  %660 = load <2 x double>, ptr %659, align 8, !tbaa !9, !alias.scope !164
   %661 = getelementptr inbounds double, ptr %561, i64 %640
-  %662 = load <2 x double>, ptr %661, align 8, !tbaa !9, !alias.scope !167
+  %662 = load <2 x double>, ptr %661, align 8, !tbaa !9, !alias.scope !166
   %663 = fadd <2 x double> %660, %662
   %664 = fdiv <2 x double> %658, %663
   %665 = getelementptr inbounds double, ptr %562, i64 %641
-  store <2 x double> %664, ptr %665, align 8, !tbaa !9, !alias.scope !169, !noalias !171
-  %666 = load <2 x double>, ptr %647, align 8, !tbaa !9, !alias.scope !159
-  %667 = load <2 x double>, ptr %650, align 8, !tbaa !9, !alias.scope !161
+  store <2 x double> %664, ptr %665, align 8, !tbaa !9, !alias.scope !168, !noalias !170
+  %666 = load <2 x double>, ptr %647, align 8, !tbaa !9, !alias.scope !158
+  %667 = load <2 x double>, ptr %650, align 8, !tbaa !9, !alias.scope !160
   %668 = fadd <2 x double> %666, %667
   %669 = getelementptr inbounds double, ptr %375, i64 %641
-  %670 = load <2 x double>, ptr %669, align 8, !tbaa !9, !alias.scope !159
+  %670 = load <2 x double>, ptr %669, align 8, !tbaa !9, !alias.scope !158
   %671 = fsub <2 x double> %668, %670
   %672 = getelementptr inbounds double, ptr %376, i64 %641
-  %673 = load <2 x double>, ptr %672, align 8, !tbaa !9, !alias.scope !161
+  %673 = load <2 x double>, ptr %672, align 8, !tbaa !9, !alias.scope !160
   %674 = fsub <2 x double> %671, %673
-  %675 = load <2 x double>, ptr %653, align 8, !tbaa !9, !alias.scope !163
+  %675 = load <2 x double>, ptr %653, align 8, !tbaa !9, !alias.scope !162
   %676 = getelementptr inbounds double, ptr %377, i64 %641
-  %677 = load <2 x double>, ptr %676, align 8, !tbaa !9, !alias.scope !174
+  %677 = load <2 x double>, ptr %676, align 8, !tbaa !9, !alias.scope !173
   %678 = fadd <2 x double> %675, %677
   %679 = fmul <2 x double> %674, %678
   %680 = getelementptr inbounds double, ptr %378, i64 %641
-  %681 = load <2 x double>, ptr %680, align 8, !tbaa !9, !alias.scope !165
-  %682 = load <2 x double>, ptr %659, align 8, !tbaa !9, !alias.scope !165
+  %681 = load <2 x double>, ptr %680, align 8, !tbaa !9, !alias.scope !164
+  %682 = load <2 x double>, ptr %659, align 8, !tbaa !9, !alias.scope !164
   %683 = fadd <2 x double> %681, %682
   %684 = fdiv <2 x double> %679, %683
   %685 = getelementptr inbounds double, ptr %563, i64 %641
-  store <2 x double> %684, ptr %685, align 8, !tbaa !9, !alias.scope !175, !noalias !176
+  store <2 x double> %684, ptr %685, align 8, !tbaa !9, !alias.scope !174, !noalias !175
   %686 = add nuw i64 %640, 2
   %687 = icmp eq i64 %686, %138
-  br i1 %687, label %688, label %639, !llvm.loop !177
+  br i1 %687, label %688, label %639, !llvm.loop !176
 
 688:                                              ; preds = %639
   br i1 %140, label %740, label %689
@@ -2797,7 +2796,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %736, ptr %737, align 8, !tbaa !9
   %738 = add nuw nsw i64 %692, 1
   %739 = icmp eq i64 %738, %38
-  br i1 %739, label %740, label %691, !llvm.loop !178
+  br i1 %739, label %740, label %691, !llvm.loop !177
 
 740:                                              ; preds = %691, %688
   %741 = load ptr, ptr %60, align 8, !tbaa !5
@@ -2889,54 +2888,54 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   %823 = phi i64 [ %869, %822 ], [ 0, %747 ]
   %824 = or i64 %823, 1
   %825 = getelementptr inbounds double, ptr %741, i64 %823
-  %826 = load <2 x double>, ptr %825, align 8, !tbaa !9, !alias.scope !179
+  %826 = load <2 x double>, ptr %825, align 8, !tbaa !9, !alias.scope !178
   %827 = getelementptr inbounds double, ptr %742, i64 %823
-  %828 = load <2 x double>, ptr %827, align 8, !tbaa !9, !alias.scope !182
+  %828 = load <2 x double>, ptr %827, align 8, !tbaa !9, !alias.scope !181
   %829 = fadd <2 x double> %826, %828
   %830 = getelementptr inbounds double, ptr %558, i64 %823
-  %831 = load <2 x double>, ptr %830, align 8, !tbaa !9, !alias.scope !184
+  %831 = load <2 x double>, ptr %830, align 8, !tbaa !9, !alias.scope !183
   %832 = fsub <2 x double> %829, %831
   %833 = getelementptr inbounds double, ptr %559, i64 %823
-  %834 = load <2 x double>, ptr %833, align 8, !tbaa !9, !alias.scope !186
+  %834 = load <2 x double>, ptr %833, align 8, !tbaa !9, !alias.scope !185
   %835 = fsub <2 x double> %832, %834
   %836 = getelementptr inbounds double, ptr %743, i64 %824
-  %837 = load <2 x double>, ptr %836, align 8, !tbaa !9, !alias.scope !188
+  %837 = load <2 x double>, ptr %836, align 8, !tbaa !9, !alias.scope !187
   %838 = getelementptr inbounds double, ptr %743, i64 %823
-  %839 = load <2 x double>, ptr %838, align 8, !tbaa !9, !alias.scope !188
+  %839 = load <2 x double>, ptr %838, align 8, !tbaa !9, !alias.scope !187
   %840 = fadd <2 x double> %837, %839
   %841 = fmul <2 x double> %835, %840
   %842 = getelementptr inbounds double, ptr %561, i64 %823
-  %843 = load <2 x double>, ptr %842, align 8, !tbaa !9, !alias.scope !190
+  %843 = load <2 x double>, ptr %842, align 8, !tbaa !9, !alias.scope !189
   %844 = getelementptr inbounds double, ptr %744, i64 %823
-  %845 = load <2 x double>, ptr %844, align 8, !tbaa !9, !alias.scope !192
+  %845 = load <2 x double>, ptr %844, align 8, !tbaa !9, !alias.scope !191
   %846 = fadd <2 x double> %843, %845
   %847 = fdiv <2 x double> %841, %846
   %848 = getelementptr inbounds double, ptr %745, i64 %824
-  store <2 x double> %847, ptr %848, align 8, !tbaa !9, !alias.scope !194, !noalias !196
-  %849 = load <2 x double>, ptr %830, align 8, !tbaa !9, !alias.scope !184
-  %850 = load <2 x double>, ptr %833, align 8, !tbaa !9, !alias.scope !186
+  store <2 x double> %847, ptr %848, align 8, !tbaa !9, !alias.scope !193, !noalias !195
+  %849 = load <2 x double>, ptr %830, align 8, !tbaa !9, !alias.scope !183
+  %850 = load <2 x double>, ptr %833, align 8, !tbaa !9, !alias.scope !185
   %851 = fadd <2 x double> %849, %850
   %852 = getelementptr inbounds double, ptr %558, i64 %824
-  %853 = load <2 x double>, ptr %852, align 8, !tbaa !9, !alias.scope !184
+  %853 = load <2 x double>, ptr %852, align 8, !tbaa !9, !alias.scope !183
   %854 = fsub <2 x double> %851, %853
   %855 = getelementptr inbounds double, ptr %559, i64 %824
-  %856 = load <2 x double>, ptr %855, align 8, !tbaa !9, !alias.scope !186
+  %856 = load <2 x double>, ptr %855, align 8, !tbaa !9, !alias.scope !185
   %857 = fsub <2 x double> %854, %856
-  %858 = load <2 x double>, ptr %836, align 8, !tbaa !9, !alias.scope !188
+  %858 = load <2 x double>, ptr %836, align 8, !tbaa !9, !alias.scope !187
   %859 = getelementptr inbounds double, ptr %560, i64 %824
-  %860 = load <2 x double>, ptr %859, align 8, !tbaa !9, !alias.scope !199
+  %860 = load <2 x double>, ptr %859, align 8, !tbaa !9, !alias.scope !198
   %861 = fadd <2 x double> %858, %860
   %862 = fmul <2 x double> %857, %861
   %863 = getelementptr inbounds double, ptr %561, i64 %824
-  %864 = load <2 x double>, ptr %863, align 8, !tbaa !9, !alias.scope !190
-  %865 = load <2 x double>, ptr %842, align 8, !tbaa !9, !alias.scope !190
+  %864 = load <2 x double>, ptr %863, align 8, !tbaa !9, !alias.scope !189
+  %865 = load <2 x double>, ptr %842, align 8, !tbaa !9, !alias.scope !189
   %866 = fadd <2 x double> %864, %865
   %867 = fdiv <2 x double> %862, %866
   %868 = getelementptr inbounds double, ptr %746, i64 %824
-  store <2 x double> %867, ptr %868, align 8, !tbaa !9, !alias.scope !200, !noalias !201
+  store <2 x double> %867, ptr %868, align 8, !tbaa !9, !alias.scope !199, !noalias !200
   %869 = add nuw i64 %823, 2
   %870 = icmp eq i64 %869, %142
-  br i1 %870, label %871, label %822, !llvm.loop !202
+  br i1 %870, label %871, label %822, !llvm.loop !201
 
 871:                                              ; preds = %822
   br i1 %144, label %923, label %872
@@ -2996,7 +2995,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %919, ptr %920, align 8, !tbaa !9
   %921 = add nuw nsw i64 %875, 1
   %922 = icmp eq i64 %921, %38
-  br i1 %922, label %923, label %874, !llvm.loop !203
+  br i1 %922, label %923, label %874, !llvm.loop !202
 
 923:                                              ; preds = %874, %871
   %924 = load ptr, ptr %66, align 8, !tbaa !5
@@ -3088,54 +3087,54 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   %1006 = phi i64 [ %1052, %1005 ], [ 0, %930 ]
   %1007 = or i64 %1006, 1
   %1008 = getelementptr inbounds double, ptr %924, i64 %1006
-  %1009 = load <2 x double>, ptr %1008, align 8, !tbaa !9, !alias.scope !204
+  %1009 = load <2 x double>, ptr %1008, align 8, !tbaa !9, !alias.scope !203
   %1010 = getelementptr inbounds double, ptr %925, i64 %1006
-  %1011 = load <2 x double>, ptr %1010, align 8, !tbaa !9, !alias.scope !207
+  %1011 = load <2 x double>, ptr %1010, align 8, !tbaa !9, !alias.scope !206
   %1012 = fadd <2 x double> %1009, %1011
   %1013 = getelementptr inbounds double, ptr %741, i64 %1006
-  %1014 = load <2 x double>, ptr %1013, align 8, !tbaa !9, !alias.scope !209
+  %1014 = load <2 x double>, ptr %1013, align 8, !tbaa !9, !alias.scope !208
   %1015 = fsub <2 x double> %1012, %1014
   %1016 = getelementptr inbounds double, ptr %742, i64 %1006
-  %1017 = load <2 x double>, ptr %1016, align 8, !tbaa !9, !alias.scope !211
+  %1017 = load <2 x double>, ptr %1016, align 8, !tbaa !9, !alias.scope !210
   %1018 = fsub <2 x double> %1015, %1017
   %1019 = getelementptr inbounds double, ptr %926, i64 %1007
-  %1020 = load <2 x double>, ptr %1019, align 8, !tbaa !9, !alias.scope !213
+  %1020 = load <2 x double>, ptr %1019, align 8, !tbaa !9, !alias.scope !212
   %1021 = getelementptr inbounds double, ptr %926, i64 %1006
-  %1022 = load <2 x double>, ptr %1021, align 8, !tbaa !9, !alias.scope !213
+  %1022 = load <2 x double>, ptr %1021, align 8, !tbaa !9, !alias.scope !212
   %1023 = fadd <2 x double> %1020, %1022
   %1024 = fmul <2 x double> %1018, %1023
   %1025 = getelementptr inbounds double, ptr %744, i64 %1006
-  %1026 = load <2 x double>, ptr %1025, align 8, !tbaa !9, !alias.scope !215
+  %1026 = load <2 x double>, ptr %1025, align 8, !tbaa !9, !alias.scope !214
   %1027 = getelementptr inbounds double, ptr %927, i64 %1006
-  %1028 = load <2 x double>, ptr %1027, align 8, !tbaa !9, !alias.scope !217
+  %1028 = load <2 x double>, ptr %1027, align 8, !tbaa !9, !alias.scope !216
   %1029 = fadd <2 x double> %1026, %1028
   %1030 = fdiv <2 x double> %1024, %1029
   %1031 = getelementptr inbounds double, ptr %928, i64 %1007
-  store <2 x double> %1030, ptr %1031, align 8, !tbaa !9, !alias.scope !219, !noalias !221
-  %1032 = load <2 x double>, ptr %1013, align 8, !tbaa !9, !alias.scope !209
-  %1033 = load <2 x double>, ptr %1016, align 8, !tbaa !9, !alias.scope !211
+  store <2 x double> %1030, ptr %1031, align 8, !tbaa !9, !alias.scope !218, !noalias !220
+  %1032 = load <2 x double>, ptr %1013, align 8, !tbaa !9, !alias.scope !208
+  %1033 = load <2 x double>, ptr %1016, align 8, !tbaa !9, !alias.scope !210
   %1034 = fadd <2 x double> %1032, %1033
   %1035 = getelementptr inbounds double, ptr %741, i64 %1007
-  %1036 = load <2 x double>, ptr %1035, align 8, !tbaa !9, !alias.scope !209
+  %1036 = load <2 x double>, ptr %1035, align 8, !tbaa !9, !alias.scope !208
   %1037 = fsub <2 x double> %1034, %1036
   %1038 = getelementptr inbounds double, ptr %742, i64 %1007
-  %1039 = load <2 x double>, ptr %1038, align 8, !tbaa !9, !alias.scope !211
+  %1039 = load <2 x double>, ptr %1038, align 8, !tbaa !9, !alias.scope !210
   %1040 = fsub <2 x double> %1037, %1039
-  %1041 = load <2 x double>, ptr %1019, align 8, !tbaa !9, !alias.scope !213
+  %1041 = load <2 x double>, ptr %1019, align 8, !tbaa !9, !alias.scope !212
   %1042 = getelementptr inbounds double, ptr %743, i64 %1007
-  %1043 = load <2 x double>, ptr %1042, align 8, !tbaa !9, !alias.scope !224
+  %1043 = load <2 x double>, ptr %1042, align 8, !tbaa !9, !alias.scope !223
   %1044 = fadd <2 x double> %1041, %1043
   %1045 = fmul <2 x double> %1040, %1044
   %1046 = getelementptr inbounds double, ptr %744, i64 %1007
-  %1047 = load <2 x double>, ptr %1046, align 8, !tbaa !9, !alias.scope !215
-  %1048 = load <2 x double>, ptr %1025, align 8, !tbaa !9, !alias.scope !215
+  %1047 = load <2 x double>, ptr %1046, align 8, !tbaa !9, !alias.scope !214
+  %1048 = load <2 x double>, ptr %1025, align 8, !tbaa !9, !alias.scope !214
   %1049 = fadd <2 x double> %1047, %1048
   %1050 = fdiv <2 x double> %1045, %1049
   %1051 = getelementptr inbounds double, ptr %929, i64 %1007
-  store <2 x double> %1050, ptr %1051, align 8, !tbaa !9, !alias.scope !225, !noalias !226
+  store <2 x double> %1050, ptr %1051, align 8, !tbaa !9, !alias.scope !224, !noalias !225
   %1052 = add nuw i64 %1006, 2
   %1053 = icmp eq i64 %1052, %146
-  br i1 %1053, label %1054, label %1005, !llvm.loop !227
+  br i1 %1053, label %1054, label %1005, !llvm.loop !226
 
 1054:                                             ; preds = %1005
   br i1 %148, label %1107, label %1055
@@ -3195,7 +3194,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %1102, ptr %1103, align 8, !tbaa !9
   %1104 = add nuw nsw i64 %1058, 1
   %1105 = icmp eq i64 %1104, %38
-  br i1 %1105, label %1107, label %1057, !llvm.loop !228
+  br i1 %1105, label %1107, label %1057, !llvm.loop !227
 
 1106:                                             ; preds = %1968, %1
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -3376,69 +3375,69 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   %1271 = phi i64 [ %1332, %1270 ], [ 0, %1135 ]
   %1272 = or i64 %1271, 1
   %1273 = getelementptr inbounds double, ptr %1118, i64 %1272
-  %1274 = load <2 x double>, ptr %1273, align 8, !tbaa !9, !alias.scope !229
+  %1274 = load <2 x double>, ptr %1273, align 8, !tbaa !9, !alias.scope !228
   %1275 = getelementptr inbounds double, ptr %1115, i64 %1272
-  %1276 = load <2 x double>, ptr %1275, align 8, !tbaa !9, !alias.scope !232
+  %1276 = load <2 x double>, ptr %1275, align 8, !tbaa !9, !alias.scope !231
   %1277 = add i64 %1271, 2
   %1278 = getelementptr inbounds double, ptr %1115, i64 %1277
-  %1279 = load <2 x double>, ptr %1278, align 8, !tbaa !9, !alias.scope !234
+  %1279 = load <2 x double>, ptr %1278, align 8, !tbaa !9, !alias.scope !233
   %1280 = fsub <2 x double> %1276, %1279
   %1281 = getelementptr inbounds double, ptr %1118, i64 %1271
-  %1282 = load <2 x double>, ptr %1281, align 8, !tbaa !9, !alias.scope !229
+  %1282 = load <2 x double>, ptr %1281, align 8, !tbaa !9, !alias.scope !228
   %1283 = getelementptr inbounds double, ptr %1115, i64 %1271
-  %1284 = load <2 x double>, ptr %1283, align 8, !tbaa !9, !alias.scope !236
+  %1284 = load <2 x double>, ptr %1283, align 8, !tbaa !9, !alias.scope !235
   %1285 = fsub <2 x double> %1276, %1284
   %1286 = fneg <2 x double> %1282
   %1287 = fmul <2 x double> %1285, %1286
   %1288 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1274, <2 x double> %1280, <2 x double> %1287)
   %1289 = getelementptr inbounds double, ptr %1114, i64 %1272
-  %1290 = load <2 x double>, ptr %1289, align 8, !tbaa !9, !alias.scope !238
+  %1290 = load <2 x double>, ptr %1289, align 8, !tbaa !9, !alias.scope !237
   %1291 = getelementptr inbounds double, ptr %1121, i64 %1272
-  %1292 = load <2 x double>, ptr %1291, align 8, !tbaa !9, !alias.scope !240
+  %1292 = load <2 x double>, ptr %1291, align 8, !tbaa !9, !alias.scope !239
   %1293 = fsub <2 x double> %1276, %1292
   %1294 = fneg <2 x double> %1290
   %1295 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1294, <2 x double> %1293, <2 x double> %1288)
   %1296 = getelementptr inbounds double, ptr %1124, i64 %1272
-  %1297 = load <2 x double>, ptr %1296, align 8, !tbaa !9, !alias.scope !242
+  %1297 = load <2 x double>, ptr %1296, align 8, !tbaa !9, !alias.scope !241
   %1298 = getelementptr inbounds double, ptr %1126, i64 %1272
-  %1299 = load <2 x double>, ptr %1298, align 8, !tbaa !9, !alias.scope !244
+  %1299 = load <2 x double>, ptr %1298, align 8, !tbaa !9, !alias.scope !243
   %1300 = fsub <2 x double> %1276, %1299
   %1301 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1297, <2 x double> %1300, <2 x double> %1295)
   %1302 = getelementptr inbounds double, ptr %1128, i64 %1272
-  %1303 = load <2 x double>, ptr %1302, align 8, !tbaa !9, !alias.scope !246, !noalias !248
+  %1303 = load <2 x double>, ptr %1302, align 8, !tbaa !9, !alias.scope !245, !noalias !247
   %1304 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1301, <2 x double> <double 4.100000e-03, double 4.100000e-03>, <2 x double> %1303)
-  store <2 x double> %1304, ptr %1302, align 8, !tbaa !9, !alias.scope !246, !noalias !248
-  %1305 = load <2 x double>, ptr %1273, align 8, !tbaa !9, !alias.scope !229
+  store <2 x double> %1304, ptr %1302, align 8, !tbaa !9, !alias.scope !245, !noalias !247
+  %1305 = load <2 x double>, ptr %1273, align 8, !tbaa !9, !alias.scope !228
   %1306 = getelementptr inbounds double, ptr %1113, i64 %1272
-  %1307 = load <2 x double>, ptr %1306, align 8, !tbaa !9, !alias.scope !255
+  %1307 = load <2 x double>, ptr %1306, align 8, !tbaa !9, !alias.scope !254
   %1308 = getelementptr inbounds double, ptr %1113, i64 %1277
-  %1309 = load <2 x double>, ptr %1308, align 8, !tbaa !9, !alias.scope !256
+  %1309 = load <2 x double>, ptr %1308, align 8, !tbaa !9, !alias.scope !255
   %1310 = fsub <2 x double> %1307, %1309
-  %1311 = load <2 x double>, ptr %1281, align 8, !tbaa !9, !alias.scope !229
+  %1311 = load <2 x double>, ptr %1281, align 8, !tbaa !9, !alias.scope !228
   %1312 = getelementptr inbounds double, ptr %1113, i64 %1271
-  %1313 = load <2 x double>, ptr %1312, align 8, !tbaa !9, !alias.scope !257
+  %1313 = load <2 x double>, ptr %1312, align 8, !tbaa !9, !alias.scope !256
   %1314 = fsub <2 x double> %1307, %1313
   %1315 = fneg <2 x double> %1311
   %1316 = fmul <2 x double> %1314, %1315
   %1317 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1305, <2 x double> %1310, <2 x double> %1316)
-  %1318 = load <2 x double>, ptr %1289, align 8, !tbaa !9, !alias.scope !238
+  %1318 = load <2 x double>, ptr %1289, align 8, !tbaa !9, !alias.scope !237
   %1319 = getelementptr inbounds double, ptr %1130, i64 %1272
-  %1320 = load <2 x double>, ptr %1319, align 8, !tbaa !9, !alias.scope !258
+  %1320 = load <2 x double>, ptr %1319, align 8, !tbaa !9, !alias.scope !257
   %1321 = fsub <2 x double> %1307, %1320
   %1322 = fneg <2 x double> %1318
   %1323 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1322, <2 x double> %1321, <2 x double> %1317)
-  %1324 = load <2 x double>, ptr %1296, align 8, !tbaa !9, !alias.scope !242
+  %1324 = load <2 x double>, ptr %1296, align 8, !tbaa !9, !alias.scope !241
   %1325 = getelementptr inbounds double, ptr %1132, i64 %1272
-  %1326 = load <2 x double>, ptr %1325, align 8, !tbaa !9, !alias.scope !259
+  %1326 = load <2 x double>, ptr %1325, align 8, !tbaa !9, !alias.scope !258
   %1327 = fsub <2 x double> %1307, %1326
   %1328 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1324, <2 x double> %1327, <2 x double> %1323)
   %1329 = getelementptr inbounds double, ptr %1134, i64 %1272
-  %1330 = load <2 x double>, ptr %1329, align 8, !tbaa !9, !alias.scope !260, !noalias !261
+  %1330 = load <2 x double>, ptr %1329, align 8, !tbaa !9, !alias.scope !259, !noalias !260
   %1331 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %1328, <2 x double> <double 4.100000e-03, double 4.100000e-03>, <2 x double> %1330)
-  store <2 x double> %1331, ptr %1329, align 8, !tbaa !9, !alias.scope !260, !noalias !261
+  store <2 x double> %1331, ptr %1329, align 8, !tbaa !9, !alias.scope !259, !noalias !260
   %1332 = add nuw i64 %1271, 2
   %1333 = icmp eq i64 %1332, %150
-  br i1 %1333, label %1334, label %1270, !llvm.loop !262
+  br i1 %1333, label %1334, label %1270, !llvm.loop !261
 
 1334:                                             ; preds = %1270
   br i1 %152, label %1400, label %1335
@@ -3512,11 +3511,11 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   %1398 = tail call double @llvm.fmuladd.f64(double %1395, double 4.100000e-03, double %1397)
   store double %1398, ptr %1396, align 8, !tbaa !9
   %1399 = icmp eq i64 %1343, %38
-  br i1 %1399, label %1400, label %1337, !llvm.loop !263
+  br i1 %1399, label %1400, label %1337, !llvm.loop !262
 
 1400:                                             ; preds = %1337, %1334
   %1401 = icmp eq i64 %1122, 6
-  br i1 %1401, label %1402, label %1112, !llvm.loop !264
+  br i1 %1401, label %1402, label %1112, !llvm.loop !263
 
 1402:                                             ; preds = %1400
   br i1 %37, label %1403, label %1968
@@ -3590,7 +3589,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store <2 x double> %1462, ptr %1463, align 8, !tbaa !9
   %1464 = add nuw i64 %1450, 2
   %1465 = icmp eq i64 %1464, %154
-  br i1 %1465, label %1466, label %1449, !llvm.loop !265
+  br i1 %1465, label %1466, label %1449, !llvm.loop !264
 
 1466:                                             ; preds = %1449
   br i1 %156, label %1516, label %1467
@@ -3656,7 +3655,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %1512, ptr %1513, align 8, !tbaa !9
   %1514 = add nuw nsw i64 %1488, 2
   %1515 = icmp eq i64 %1514, %38
-  br i1 %1515, label %1516, label %1487, !llvm.loop !266
+  br i1 %1515, label %1516, label %1487, !llvm.loop !265
 
 1516:                                             ; preds = %1484, %1487, %1466
   %1517 = load ptr, ptr %81, align 8, !tbaa !5
@@ -3727,7 +3726,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store <2 x double> %1575, ptr %1576, align 8, !tbaa !9
   %1577 = add nuw i64 %1563, 2
   %1578 = icmp eq i64 %1577, %160
-  br i1 %1578, label %1579, label %1562, !llvm.loop !267
+  br i1 %1578, label %1579, label %1562, !llvm.loop !266
 
 1579:                                             ; preds = %1562
   br i1 %162, label %1629, label %1580
@@ -3793,7 +3792,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %1625, ptr %1626, align 8, !tbaa !9
   %1627 = add nuw nsw i64 %1601, 2
   %1628 = icmp eq i64 %1627, %38
-  br i1 %1628, label %1629, label %1600, !llvm.loop !268
+  br i1 %1628, label %1629, label %1600, !llvm.loop !267
 
 1629:                                             ; preds = %1597, %1600, %1579
   %1630 = load ptr, ptr %87, align 8, !tbaa !5
@@ -3864,7 +3863,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store <2 x double> %1688, ptr %1689, align 8, !tbaa !9
   %1690 = add nuw i64 %1676, 2
   %1691 = icmp eq i64 %1690, %166
-  br i1 %1691, label %1692, label %1675, !llvm.loop !269
+  br i1 %1691, label %1692, label %1675, !llvm.loop !268
 
 1692:                                             ; preds = %1675
   br i1 %168, label %1742, label %1693
@@ -3930,7 +3929,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %1738, ptr %1739, align 8, !tbaa !9
   %1740 = add nuw nsw i64 %1714, 2
   %1741 = icmp eq i64 %1740, %38
-  br i1 %1741, label %1742, label %1713, !llvm.loop !270
+  br i1 %1741, label %1742, label %1713, !llvm.loop !269
 
 1742:                                             ; preds = %1710, %1713, %1692
   %1743 = load ptr, ptr %93, align 8, !tbaa !5
@@ -4001,7 +4000,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store <2 x double> %1801, ptr %1802, align 8, !tbaa !9
   %1803 = add nuw i64 %1789, 2
   %1804 = icmp eq i64 %1803, %172
-  br i1 %1804, label %1805, label %1788, !llvm.loop !271
+  br i1 %1804, label %1805, label %1788, !llvm.loop !270
 
 1805:                                             ; preds = %1788
   br i1 %174, label %1855, label %1806
@@ -4067,7 +4066,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %1851, ptr %1852, align 8, !tbaa !9
   %1853 = add nuw nsw i64 %1827, 2
   %1854 = icmp eq i64 %1853, %38
-  br i1 %1854, label %1855, label %1826, !llvm.loop !272
+  br i1 %1854, label %1855, label %1826, !llvm.loop !271
 
 1855:                                             ; preds = %1823, %1826, %1805
   %1856 = load ptr, ptr %99, align 8, !tbaa !5
@@ -4138,7 +4137,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store <2 x double> %1914, ptr %1915, align 8, !tbaa !9
   %1916 = add nuw i64 %1902, 2
   %1917 = icmp eq i64 %1916, %178
-  br i1 %1917, label %1918, label %1901, !llvm.loop !273
+  br i1 %1917, label %1918, label %1901, !llvm.loop !272
 
 1918:                                             ; preds = %1901
   br i1 %180, label %1968, label %1919
@@ -4204,7 +4203,7 @@ define internal void @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef non
   store double %1964, ptr %1965, align 8, !tbaa !9
   %1966 = add nuw nsw i64 %1940, 2
   %1967 = icmp eq i64 %1966, %38
-  br i1 %1967, label %1968, label %1939, !llvm.loop !274
+  br i1 %1967, label %1968, label %1939, !llvm.loop !273
 
 1968:                                             ; preds = %1936, %1939, %1918, %183, %1107, %1402
   %1969 = add i64 %184, -1
@@ -4297,7 +4296,7 @@ define internal void @_ZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateE(ptr nounde
   %66 = add nuw nsw i64 %49, 2
   %67 = add i64 %50, 2
   %68 = icmp eq i64 %67, %38
-  br i1 %68, label %69, label %47, !llvm.loop !275
+  br i1 %68, label %69, label %47, !llvm.loop !274
 
 69:                                               ; preds = %47, %44
   %70 = phi double [ undef, %44 ], [ %65, %47 ]
@@ -4348,9 +4347,9 @@ define internal void @_ZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateE(ptr nounde
   store double %105, ptr %106, align 8, !tbaa !9
   %107 = fsub double %105, %96
   %108 = add nuw nsw i64 %85, 2
-  %109 = add nuw i64 %86, 2
+  %109 = add i64 %86, 2
   %110 = icmp eq i64 %109, %42
-  br i1 %110, label %111, label %83, !llvm.loop !276
+  br i1 %110, label %111, label %83, !llvm.loop !275
 
 111:                                              ; preds = %83, %81
   %112 = phi double [ undef, %81 ], [ %107, %83 ]
@@ -4407,7 +4406,7 @@ define internal void @_ZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateE(ptr nounde
   %152 = add nuw nsw i64 %135, 2
   %153 = add i64 %136, 2
   %154 = icmp eq i64 %153, %32
-  br i1 %154, label %155, label %133, !llvm.loop !275
+  br i1 %154, label %155, label %133, !llvm.loop !274
 
 155:                                              ; preds = %133, %130
   %156 = phi double [ undef, %130 ], [ %151, %133 ]
@@ -4538,7 +4537,7 @@ define internal void @_ZL18BM_DISC_ORD_LAMBDARN9benchmark5StateE(ptr noundef non
   %83 = getelementptr inbounds double, ptr %18, i64 %82
   store double %81, ptr %83, align 8, !tbaa !9
   %84 = icmp eq i64 %82, %40
-  br i1 %84, label %85, label %44, !llvm.loop !277
+  br i1 %84, label %85, label %44, !llvm.loop !276
 
 85:                                               ; preds = %64
   %86 = add i64 %42, -1
@@ -4630,7 +4629,7 @@ define internal void @_ZL19BM_MAT_X_MAT_LAMBDARN9benchmark5StateE(ptr noundef no
   %61 = add nuw nsw i64 %38, 2
   %62 = add i64 %39, 2
   %63 = icmp eq i64 %62, %26
-  br i1 %63, label %64, label %37, !llvm.loop !278
+  br i1 %63, label %64, label %37, !llvm.loop !277
 
 64:                                               ; preds = %37, %34
   %65 = phi i64 [ 0, %34 ], [ %61, %37 ]
@@ -4653,12 +4652,12 @@ define internal void @_ZL19BM_MAT_X_MAT_LAMBDARN9benchmark5StateE(ptr noundef no
 77:                                               ; preds = %64, %66
   %78 = add nuw nsw i64 %35, 1
   %79 = icmp eq i64 %78, 25
-  br i1 %79, label %80, label %34, !llvm.loop !279
+  br i1 %79, label %80, label %34, !llvm.loop !278
 
 80:                                               ; preds = %77
   %81 = add nuw nsw i64 %31, 1
   %82 = icmp eq i64 %81, 25
-  br i1 %82, label %83, label %30, !llvm.loop !280
+  br i1 %82, label %83, label %30, !llvm.loop !279
 
 83:                                               ; preds = %80
   %84 = add i64 %29, -1
@@ -4737,7 +4736,7 @@ define internal void @_ZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateE(ptr noundef no
   store double %49, ptr %50, align 8, !tbaa !9
   %51 = add nuw nsw i64 %38, 1
   %52 = icmp eq i64 %51, %36
-  br i1 %52, label %53, label %37, !llvm.loop !281
+  br i1 %52, label %53, label %37, !llvm.loop !280
 
 53:                                               ; preds = %37, %29
   %54 = add i64 %30, -1
@@ -4888,7 +4887,7 @@ define internal void @_ZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef
   %130 = tail call double @llvm.fmuladd.f64(double %129, double 1.750000e-01, double %103)
   store double %130, ptr %128, align 8, !tbaa !9
   %131 = icmp eq i64 %116, %28
-  br i1 %131, label %132, label %102, !llvm.loop !282
+  br i1 %131, label %132, label %102, !llvm.loop !281
 
 132:                                              ; preds = %102
   %133 = load double, ptr %31, align 8, !tbaa !9
@@ -4926,7 +4925,7 @@ define internal void @_ZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef
   %163 = tail call double @llvm.fmuladd.f64(double %162, double 1.750000e-01, double %136)
   store double %163, ptr %161, align 8, !tbaa !9
   %164 = icmp eq i64 %149, %28
-  br i1 %164, label %165, label %135, !llvm.loop !282
+  br i1 %164, label %165, label %135, !llvm.loop !281
 
 165:                                              ; preds = %135
   %166 = load double, ptr %47, align 8, !tbaa !9
@@ -4964,7 +4963,7 @@ define internal void @_ZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef
   %196 = tail call double @llvm.fmuladd.f64(double %195, double 1.750000e-01, double %169)
   store double %196, ptr %194, align 8, !tbaa !9
   %197 = icmp eq i64 %182, %28
-  br i1 %197, label %198, label %168, !llvm.loop !282
+  br i1 %197, label %198, label %168, !llvm.loop !281
 
 198:                                              ; preds = %168
   %199 = load double, ptr %60, align 8, !tbaa !9
@@ -5002,7 +5001,7 @@ define internal void @_ZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef
   %229 = tail call double @llvm.fmuladd.f64(double %228, double 1.750000e-01, double %202)
   store double %229, ptr %227, align 8, !tbaa !9
   %230 = icmp eq i64 %215, %28
-  br i1 %230, label %231, label %201, !llvm.loop !282
+  br i1 %230, label %231, label %201, !llvm.loop !281
 
 231:                                              ; preds = %201
   %232 = load double, ptr %73, align 8, !tbaa !9
@@ -5040,7 +5039,7 @@ define internal void @_ZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateE(ptr noundef
   %262 = tail call double @llvm.fmuladd.f64(double %261, double 1.750000e-01, double %235)
   store double %262, ptr %260, align 8, !tbaa !9
   %263 = icmp eq i64 %248, %28
-  br i1 %263, label %264, label %234, !llvm.loop !282
+  br i1 %263, label %264, label %234, !llvm.loop !281
 
 264:                                              ; preds = %234
   %265 = add i64 %99, -1
@@ -5060,7 +5059,7 @@ define internal void @_ZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateE(ptr nound
   %4 = getelementptr inbounds %struct.LoopData, ptr %3, i64 0, i32 1
   %5 = load ptr, ptr %4, align 8, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #10
-  store i32 0, ptr %2, align 4, !tbaa !82
+  store i32 0, ptr %2, align 4, !tbaa !81
   %6 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
   %7 = load i8, ptr %6, align 2, !tbaa !11, !range !28, !noundef !29
   %8 = icmp ne i8 %7, 0
@@ -5082,7 +5081,7 @@ define internal void @_ZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateE(ptr nound
 
 16:                                               ; preds = %13, %38
   %17 = phi i64 [ %10, %13 ], [ %39, %38 ]
-  store i32 0, ptr %2, align 4, !tbaa !82
+  store i32 0, ptr %2, align 4, !tbaa !81
   %18 = load ptr, ptr %14, align 8, !tbaa !31
   %19 = load i64, ptr %18, align 8, !tbaa !32
   %20 = trunc i64 %19 to i32
@@ -5097,7 +5096,7 @@ define internal void @_ZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateE(ptr nound
   %25 = phi i64 [ 1, %22 ], [ %36, %35 ]
   %26 = getelementptr inbounds double, ptr %5, i64 %25
   %27 = load double, ptr %26, align 8, !tbaa !9
-  %28 = load i32, ptr %2, align 4, !tbaa !82
+  %28 = load i32, ptr %2, align 4, !tbaa !81
   %29 = sext i32 %28 to i64
   %30 = getelementptr inbounds double, ptr %5, i64 %29
   %31 = load double, ptr %30, align 8, !tbaa !9
@@ -5106,14 +5105,14 @@ define internal void @_ZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateE(ptr nound
 
 33:                                               ; preds = %24
   %34 = trunc i64 %25 to i32
-  store i32 %34, ptr %2, align 4, !tbaa !82
-  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %2, i32 %34) #10, !srcloc !48
+  store i32 %34, ptr %2, align 4, !tbaa !81
+  call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) %2, i32 %34) #10, !srcloc !47
   br label %35
 
 35:                                               ; preds = %33, %24
   %36 = add nuw nsw i64 %25, 1
   %37 = icmp eq i64 %36, %23
-  br i1 %37, label %38, label %24, !llvm.loop !283
+  br i1 %37, label %38, label %24, !llvm.loop !282
 
 38:                                               ; preds = %35, %16
   %39 = add i64 %17, -1
@@ -5164,9 +5163,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 9:                                                ; preds = %0
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !283
   %10 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %3, i64 0, i32 1
-  store ptr @_ZL18BM_HYDRO_1D_LAMBDARN9benchmark5StateE, ptr %10, align 8, !tbaa !286
+  store ptr @_ZL18BM_HYDRO_1D_LAMBDARN9benchmark5StateE, ptr %10, align 8, !tbaa !285
   %11 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %3)
   %12 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %11, i64 noundef 171)
   %13 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %12, i64 noundef 5001)
@@ -5183,9 +5182,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 19:                                               ; preds = %9
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %16, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %16, align 8, !tbaa !283
   %20 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %16, i64 0, i32 1
-  store ptr @_ZL14BM_ICCG_LAMBDARN9benchmark5StateE, ptr %20, align 8, !tbaa !286
+  store ptr @_ZL14BM_ICCG_LAMBDARN9benchmark5StateE, ptr %20, align 8, !tbaa !285
   %21 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %16)
   %22 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %21, i64 noundef 171)
   %23 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %22, i64 noundef 5001)
@@ -5202,9 +5201,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 29:                                               ; preds = %19
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %26, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %26, align 8, !tbaa !283
   %30 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %26, i64 0, i32 1
-  store ptr @_ZL20BM_INNER_PROD_LAMBDARN9benchmark5StateE, ptr %30, align 8, !tbaa !286
+  store ptr @_ZL20BM_INNER_PROD_LAMBDARN9benchmark5StateE, ptr %30, align 8, !tbaa !285
   %31 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %26)
   %32 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %31, i64 noundef 171)
   %33 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %32, i64 noundef 5001)
@@ -5221,9 +5220,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 39:                                               ; preds = %29
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %36, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %36, align 8, !tbaa !283
   %40 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %36, i64 0, i32 1
-  store ptr @_ZL21BM_BAND_LIN_EQ_LAMBDARN9benchmark5StateE, ptr %40, align 8, !tbaa !286
+  store ptr @_ZL21BM_BAND_LIN_EQ_LAMBDARN9benchmark5StateE, ptr %40, align 8, !tbaa !285
   %41 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %36)
   %42 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %41, i64 noundef 171)
   %43 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %42, i64 noundef 5001)
@@ -5240,9 +5239,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 49:                                               ; preds = %39
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %46, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %46, align 8, !tbaa !283
   %50 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %46, i64 0, i32 1
-  store ptr @_ZL22BM_TRIDIAG_ELIM_LAMBDARN9benchmark5StateE, ptr %50, align 8, !tbaa !286
+  store ptr @_ZL22BM_TRIDIAG_ELIM_LAMBDARN9benchmark5StateE, ptr %50, align 8, !tbaa !285
   %51 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %46)
   %52 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %51, i64 noundef 171)
   %53 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %52, i64 noundef 5001)
@@ -5259,9 +5258,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 59:                                               ; preds = %49
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %56, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %56, align 8, !tbaa !283
   %60 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %56, i64 0, i32 1
-  store ptr @_ZL13BM_EOS_LAMBDARN9benchmark5StateE, ptr %60, align 8, !tbaa !286
+  store ptr @_ZL13BM_EOS_LAMBDARN9benchmark5StateE, ptr %60, align 8, !tbaa !285
   %61 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %56)
   %62 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %61, i64 noundef 171)
   %63 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %62, i64 noundef 5001)
@@ -5278,9 +5277,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 69:                                               ; preds = %59
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %66, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %66, align 8, !tbaa !283
   %70 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %66, i64 0, i32 1
-  store ptr @_ZL13BM_ADI_LAMBDARN9benchmark5StateE, ptr %70, align 8, !tbaa !286
+  store ptr @_ZL13BM_ADI_LAMBDARN9benchmark5StateE, ptr %70, align 8, !tbaa !285
   %71 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %66)
   %72 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %71, i64 noundef 171)
   %73 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %72, i64 noundef 5001)
@@ -5297,9 +5296,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 79:                                               ; preds = %69
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %76, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %76, align 8, !tbaa !283
   %80 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %76, i64 0, i32 1
-  store ptr @_ZL21BM_INT_PREDICT_LAMBDARN9benchmark5StateE, ptr %80, align 8, !tbaa !286
+  store ptr @_ZL21BM_INT_PREDICT_LAMBDARN9benchmark5StateE, ptr %80, align 8, !tbaa !285
   %81 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %76)
   %82 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %81, i64 noundef 171)
   %83 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %82, i64 noundef 5001)
@@ -5316,9 +5315,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 89:                                               ; preds = %79
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %86, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %86, align 8, !tbaa !283
   %90 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %86, i64 0, i32 1
-  store ptr @_ZL22BM_DIFF_PREDICT_LAMBDARN9benchmark5StateE, ptr %90, align 8, !tbaa !286
+  store ptr @_ZL22BM_DIFF_PREDICT_LAMBDARN9benchmark5StateE, ptr %90, align 8, !tbaa !285
   %91 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %86)
   %92 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %91, i64 noundef 171)
   %93 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %92, i64 noundef 5001)
@@ -5335,9 +5334,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 99:                                               ; preds = %89
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %96, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %96, align 8, !tbaa !283
   %100 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %96, i64 0, i32 1
-  store ptr @_ZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateE, ptr %100, align 8, !tbaa !286
+  store ptr @_ZL19BM_FIRST_SUM_LAMBDARN9benchmark5StateE, ptr %100, align 8, !tbaa !285
   %101 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %96)
   %102 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %101, i64 noundef 171)
   %103 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %102, i64 noundef 5001)
@@ -5354,9 +5353,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 109:                                              ; preds = %99
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %106, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %106, align 8, !tbaa !283
   %110 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %106, i64 0, i32 1
-  store ptr @_ZL20BM_FIRST_DIFF_LAMBDARN9benchmark5StateE, ptr %110, align 8, !tbaa !286
+  store ptr @_ZL20BM_FIRST_DIFF_LAMBDARN9benchmark5StateE, ptr %110, align 8, !tbaa !285
   %111 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %106)
   %112 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %111, i64 noundef 171)
   %113 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %112, i64 noundef 5001)
@@ -5373,9 +5372,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 119:                                              ; preds = %109
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %116, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %116, align 8, !tbaa !283
   %120 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %116, i64 0, i32 1
-  store ptr @_ZL16BM_PIC_2D_LAMBDARN9benchmark5StateE, ptr %120, align 8, !tbaa !286
+  store ptr @_ZL16BM_PIC_2D_LAMBDARN9benchmark5StateE, ptr %120, align 8, !tbaa !285
   %121 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %116)
   %122 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %121, i64 noundef 171)
   %123 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %122, i64 noundef 5001)
@@ -5392,9 +5391,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 129:                                              ; preds = %119
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %126, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %126, align 8, !tbaa !283
   %130 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %126, i64 0, i32 1
-  store ptr @_ZL16BM_PIC_1D_LAMBDARN9benchmark5StateE, ptr %130, align 8, !tbaa !286
+  store ptr @_ZL16BM_PIC_1D_LAMBDARN9benchmark5StateE, ptr %130, align 8, !tbaa !285
   %131 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %126)
   %132 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %131, i64 noundef 171)
   %133 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %132, i64 noundef 5001)
@@ -5411,9 +5410,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 139:                                              ; preds = %129
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %136, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %136, align 8, !tbaa !283
   %140 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %136, i64 0, i32 1
-  store ptr @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE, ptr %140, align 8, !tbaa !286
+  store ptr @_ZL18BM_HYDRO_2D_LAMBDARN9benchmark5StateE, ptr %140, align 8, !tbaa !285
   %141 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %136)
   %142 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %141, i64 noundef 171)
   %143 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %142, i64 noundef 5001)
@@ -5430,9 +5429,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 149:                                              ; preds = %139
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %146, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %146, align 8, !tbaa !283
   %150 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %146, i64 0, i32 1
-  store ptr @_ZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateE, ptr %150, align 8, !tbaa !286
+  store ptr @_ZL23BM_GEN_LIN_RECUR_LAMBDARN9benchmark5StateE, ptr %150, align 8, !tbaa !285
   %151 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %146)
   %152 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %151, i64 noundef 171)
   %153 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %152, i64 noundef 5001)
@@ -5449,9 +5448,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 159:                                              ; preds = %149
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %156, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %156, align 8, !tbaa !283
   %160 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %156, i64 0, i32 1
-  store ptr @_ZL18BM_DISC_ORD_LAMBDARN9benchmark5StateE, ptr %160, align 8, !tbaa !286
+  store ptr @_ZL18BM_DISC_ORD_LAMBDARN9benchmark5StateE, ptr %160, align 8, !tbaa !285
   %161 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %156)
   %162 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %161, i64 noundef 171)
   %163 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %162, i64 noundef 5001)
@@ -5468,9 +5467,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 169:                                              ; preds = %159
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %166, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %166, align 8, !tbaa !283
   %170 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %166, i64 0, i32 1
-  store ptr @_ZL19BM_MAT_X_MAT_LAMBDARN9benchmark5StateE, ptr %170, align 8, !tbaa !286
+  store ptr @_ZL19BM_MAT_X_MAT_LAMBDARN9benchmark5StateE, ptr %170, align 8, !tbaa !285
   %171 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %166)
   %172 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %171, i64 noundef 171)
   %173 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %172, i64 noundef 5001)
@@ -5487,9 +5486,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 179:                                              ; preds = %169
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %176, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %176, align 8, !tbaa !283
   %180 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %176, i64 0, i32 1
-  store ptr @_ZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateE, ptr %180, align 8, !tbaa !286
+  store ptr @_ZL19BM_PLANCKIAN_LAMBDARN9benchmark5StateE, ptr %180, align 8, !tbaa !285
   %181 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %176)
   %182 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %181, i64 noundef 171)
   %183 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %182, i64 noundef 5001)
@@ -5506,9 +5505,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 189:                                              ; preds = %179
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %186, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %186, align 8, !tbaa !283
   %190 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %186, i64 0, i32 1
-  store ptr @_ZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateE, ptr %190, align 8, !tbaa !286
+  store ptr @_ZL22BM_IMP_HYDRO_2D_LAMBDARN9benchmark5StateE, ptr %190, align 8, !tbaa !285
   %191 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %186)
   %192 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %191, i64 noundef 171)
   %193 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %192, i64 noundef 5001)
@@ -5525,9 +5524,9 @@ define internal void @_GLOBAL__sub_I_LambdaSubsetCbenchmarks.cxx() #4 section ".
   br label %4
 
 199:                                              ; preds = %189
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %196, align 8, !tbaa !284
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %196, align 8, !tbaa !283
   %200 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %196, i64 0, i32 1
-  store ptr @_ZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateE, ptr %200, align 8, !tbaa !286
+  store ptr @_ZL24BM_FIND_FIRST_MIN_LAMBDARN9benchmark5StateE, ptr %200, align 8, !tbaa !285
   %201 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %196)
   %202 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %201, i64 noundef 171)
   %203 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %202, i64 noundef 5001)
@@ -5604,234 +5603,234 @@ attributes #12 = { builtin nounwind }
 !44 = !{!"llvm.loop.unroll.runtime.disable"}
 !45 = distinct !{!45, !42, !43}
 !46 = distinct !{!46, !42}
-!47 = distinct !{!47, !42}
-!48 = !{i64 49069}
+!47 = !{i64 49069}
+!48 = distinct !{!48, !42}
 !49 = distinct !{!49, !42}
-!50 = distinct !{!50, !42}
-!51 = !{!"branch_weights", i32 1, i32 999}
-!52 = distinct !{!52, !42}
-!53 = !{!54}
-!54 = distinct !{!54, !55}
-!55 = distinct !{!55, !"LVerDomain"}
-!56 = !{!57}
-!57 = distinct !{!57, !55}
-!58 = !{!59}
-!59 = distinct !{!59, !55}
-!60 = !{!61}
-!61 = distinct !{!61, !55}
-!62 = !{!54, !57, !59}
-!63 = distinct !{!63, !42, !43, !44}
-!64 = distinct !{!64, !42, !43}
+!50 = !{!"branch_weights", i32 1, i32 999}
+!51 = distinct !{!51, !42}
+!52 = !{!53}
+!53 = distinct !{!53, !54}
+!54 = distinct !{!54, !"LVerDomain"}
+!55 = !{!56}
+!56 = distinct !{!56, !54}
+!57 = !{!58}
+!58 = distinct !{!58, !54}
+!59 = !{!60}
+!60 = distinct !{!60, !54}
+!61 = !{!53, !56, !58}
+!62 = distinct !{!62, !42, !43, !44}
+!63 = distinct !{!63, !42, !43}
+!64 = distinct !{!64, !42}
 !65 = distinct !{!65, !42}
 !66 = distinct !{!66, !42}
-!67 = distinct !{!67, !42}
-!68 = !{!"branch_weights", i32 1, i32 7}
-!69 = distinct !{!69, !70}
-!70 = !{!"llvm.loop.unroll.disable"}
-!71 = distinct !{!71, !42}
-!72 = distinct !{!72, !70}
-!73 = !{!"branch_weights", i32 1, i32 249}
-!74 = !{!75}
-!75 = distinct !{!75, !76}
-!76 = distinct !{!76, !"LVerDomain"}
-!77 = !{!78}
-!78 = distinct !{!78, !76}
-!79 = distinct !{!79, !42, !43, !44}
-!80 = distinct !{!80, !70}
-!81 = distinct !{!81, !42, !43}
-!82 = !{!27, !27, i64 0}
+!67 = !{!"branch_weights", i32 1, i32 7}
+!68 = distinct !{!68, !69}
+!69 = !{!"llvm.loop.unroll.disable"}
+!70 = distinct !{!70, !42}
+!71 = distinct !{!71, !69}
+!72 = !{!"branch_weights", i32 1, i32 249}
+!73 = !{!74}
+!74 = distinct !{!74, !75}
+!75 = distinct !{!75, !"LVerDomain"}
+!76 = !{!77}
+!77 = distinct !{!77, !75}
+!78 = distinct !{!78, !42, !43, !44}
+!79 = distinct !{!79, !69}
+!80 = distinct !{!80, !42, !43}
+!81 = !{!27, !27, i64 0}
+!82 = distinct !{!82, !42}
 !83 = distinct !{!83, !42}
-!84 = distinct !{!84, !42}
-!85 = !{!86}
-!86 = distinct !{!86, !87}
-!87 = distinct !{!87, !"LVerDomain"}
-!88 = !{!89, !90, !91, !92, !93}
-!89 = distinct !{!89, !87}
-!90 = distinct !{!90, !87}
-!91 = distinct !{!91, !87}
-!92 = distinct !{!92, !87}
-!93 = distinct !{!93, !87}
-!94 = !{!91}
-!95 = !{!90}
-!96 = !{!91, !92, !93}
+!84 = !{!85}
+!85 = distinct !{!85, !86}
+!86 = distinct !{!86, !"LVerDomain"}
+!87 = !{!88, !89, !90, !91, !92}
+!88 = distinct !{!88, !86}
+!89 = distinct !{!89, !86}
+!90 = distinct !{!90, !86}
+!91 = distinct !{!91, !86}
+!92 = distinct !{!92, !86}
+!93 = !{!90}
+!94 = !{!89}
+!95 = !{!90, !91, !92}
+!96 = !{!91}
 !97 = !{!92}
-!98 = !{!93}
-!99 = !{!89}
-!100 = !{!90, !91, !92, !93}
-!101 = distinct !{!101, !42, !43, !44}
-!102 = distinct !{!102, !42, !43}
-!103 = distinct !{!103, !42}
-!104 = !{!105}
-!105 = distinct !{!105, !106}
-!106 = distinct !{!106, !"LVerDomain"}
-!107 = !{!108}
-!108 = distinct !{!108, !106}
-!109 = !{!110}
-!110 = distinct !{!110, !106}
-!111 = !{!112}
-!112 = distinct !{!112, !106}
-!113 = !{!114}
-!114 = distinct !{!114, !106}
-!115 = !{!116}
-!116 = distinct !{!116, !106}
-!117 = !{!118}
-!118 = distinct !{!118, !106}
-!119 = !{!120}
-!120 = distinct !{!120, !106}
-!121 = !{!122, !105, !108, !110, !112, !114, !116, !118, !123}
-!122 = distinct !{!122, !106}
-!123 = distinct !{!123, !106}
-!124 = !{!123}
-!125 = !{!122}
-!126 = !{!105, !108, !110, !112, !114, !116, !118, !123}
-!127 = distinct !{!127, !42, !43, !44}
-!128 = distinct !{!128, !42, !43}
-!129 = !{!130}
-!130 = distinct !{!130, !131}
-!131 = distinct !{!131, !"LVerDomain"}
-!132 = !{!133}
-!133 = distinct !{!133, !131}
-!134 = !{!135}
-!135 = distinct !{!135, !131}
-!136 = !{!137}
-!137 = distinct !{!137, !131}
-!138 = !{!139}
-!139 = distinct !{!139, !131}
-!140 = !{!141}
-!141 = distinct !{!141, !131}
-!142 = !{!143}
-!143 = distinct !{!143, !131}
-!144 = !{!145}
-!145 = distinct !{!145, !131}
-!146 = !{!147, !130, !133, !135, !137, !139, !141, !143, !148}
-!147 = distinct !{!147, !131}
-!148 = distinct !{!148, !131}
-!149 = !{!148}
-!150 = !{!147}
-!151 = !{!130, !133, !135, !137, !139, !141, !143, !148}
-!152 = distinct !{!152, !42, !43, !44}
-!153 = distinct !{!153, !42, !43}
-!154 = !{!155}
-!155 = distinct !{!155, !156}
-!156 = distinct !{!156, !"LVerDomain"}
-!157 = !{!158}
-!158 = distinct !{!158, !156}
-!159 = !{!160}
-!160 = distinct !{!160, !156}
-!161 = !{!162}
-!162 = distinct !{!162, !156}
-!163 = !{!164}
-!164 = distinct !{!164, !156}
-!165 = !{!166}
-!166 = distinct !{!166, !156}
-!167 = !{!168}
-!168 = distinct !{!168, !156}
-!169 = !{!170}
-!170 = distinct !{!170, !156}
-!171 = !{!172, !155, !158, !160, !162, !164, !166, !168, !173}
-!172 = distinct !{!172, !156}
-!173 = distinct !{!173, !156}
-!174 = !{!173}
-!175 = !{!172}
-!176 = !{!155, !158, !160, !162, !164, !166, !168, !173}
-!177 = distinct !{!177, !42, !43, !44}
-!178 = distinct !{!178, !42, !43}
-!179 = !{!180}
-!180 = distinct !{!180, !181}
-!181 = distinct !{!181, !"LVerDomain"}
-!182 = !{!183}
-!183 = distinct !{!183, !181}
-!184 = !{!185}
-!185 = distinct !{!185, !181}
-!186 = !{!187}
-!187 = distinct !{!187, !181}
-!188 = !{!189}
-!189 = distinct !{!189, !181}
-!190 = !{!191}
-!191 = distinct !{!191, !181}
-!192 = !{!193}
-!193 = distinct !{!193, !181}
-!194 = !{!195}
-!195 = distinct !{!195, !181}
-!196 = !{!197, !180, !183, !185, !187, !189, !191, !193, !198}
-!197 = distinct !{!197, !181}
-!198 = distinct !{!198, !181}
-!199 = !{!198}
-!200 = !{!197}
-!201 = !{!180, !183, !185, !187, !189, !191, !193, !198}
-!202 = distinct !{!202, !42, !43, !44}
-!203 = distinct !{!203, !42, !43}
-!204 = !{!205}
-!205 = distinct !{!205, !206}
-!206 = distinct !{!206, !"LVerDomain"}
-!207 = !{!208}
-!208 = distinct !{!208, !206}
-!209 = !{!210}
-!210 = distinct !{!210, !206}
-!211 = !{!212}
-!212 = distinct !{!212, !206}
-!213 = !{!214}
-!214 = distinct !{!214, !206}
-!215 = !{!216}
-!216 = distinct !{!216, !206}
-!217 = !{!218}
-!218 = distinct !{!218, !206}
-!219 = !{!220}
-!220 = distinct !{!220, !206}
-!221 = !{!222, !205, !208, !210, !212, !214, !216, !218, !223}
-!222 = distinct !{!222, !206}
-!223 = distinct !{!223, !206}
-!224 = !{!223}
-!225 = !{!222}
-!226 = !{!205, !208, !210, !212, !214, !216, !218, !223}
-!227 = distinct !{!227, !42, !43, !44}
-!228 = distinct !{!228, !42, !43}
-!229 = !{!230}
-!230 = distinct !{!230, !231}
-!231 = distinct !{!231, !"LVerDomain"}
-!232 = !{!233}
-!233 = distinct !{!233, !231}
-!234 = !{!235}
-!235 = distinct !{!235, !231}
-!236 = !{!237}
-!237 = distinct !{!237, !231}
-!238 = !{!239}
-!239 = distinct !{!239, !231}
-!240 = !{!241}
-!241 = distinct !{!241, !231}
-!242 = !{!243}
-!243 = distinct !{!243, !231}
-!244 = !{!245}
-!245 = distinct !{!245, !231}
-!246 = !{!247}
-!247 = distinct !{!247, !231}
-!248 = !{!249, !230, !233, !235, !237, !239, !241, !243, !245, !250, !251, !252, !253, !254}
-!249 = distinct !{!249, !231}
-!250 = distinct !{!250, !231}
-!251 = distinct !{!251, !231}
-!252 = distinct !{!252, !231}
-!253 = distinct !{!253, !231}
-!254 = distinct !{!254, !231}
+!98 = !{!88}
+!99 = !{!89, !90, !91, !92}
+!100 = distinct !{!100, !42, !43, !44}
+!101 = distinct !{!101, !42, !43}
+!102 = distinct !{!102, !42}
+!103 = !{!104}
+!104 = distinct !{!104, !105}
+!105 = distinct !{!105, !"LVerDomain"}
+!106 = !{!107}
+!107 = distinct !{!107, !105}
+!108 = !{!109}
+!109 = distinct !{!109, !105}
+!110 = !{!111}
+!111 = distinct !{!111, !105}
+!112 = !{!113}
+!113 = distinct !{!113, !105}
+!114 = !{!115}
+!115 = distinct !{!115, !105}
+!116 = !{!117}
+!117 = distinct !{!117, !105}
+!118 = !{!119}
+!119 = distinct !{!119, !105}
+!120 = !{!121, !104, !107, !109, !111, !113, !115, !117, !122}
+!121 = distinct !{!121, !105}
+!122 = distinct !{!122, !105}
+!123 = !{!122}
+!124 = !{!121}
+!125 = !{!104, !107, !109, !111, !113, !115, !117, !122}
+!126 = distinct !{!126, !42, !43, !44}
+!127 = distinct !{!127, !42, !43}
+!128 = !{!129}
+!129 = distinct !{!129, !130}
+!130 = distinct !{!130, !"LVerDomain"}
+!131 = !{!132}
+!132 = distinct !{!132, !130}
+!133 = !{!134}
+!134 = distinct !{!134, !130}
+!135 = !{!136}
+!136 = distinct !{!136, !130}
+!137 = !{!138}
+!138 = distinct !{!138, !130}
+!139 = !{!140}
+!140 = distinct !{!140, !130}
+!141 = !{!142}
+!142 = distinct !{!142, !130}
+!143 = !{!144}
+!144 = distinct !{!144, !130}
+!145 = !{!146, !129, !132, !134, !136, !138, !140, !142, !147}
+!146 = distinct !{!146, !130}
+!147 = distinct !{!147, !130}
+!148 = !{!147}
+!149 = !{!146}
+!150 = !{!129, !132, !134, !136, !138, !140, !142, !147}
+!151 = distinct !{!151, !42, !43, !44}
+!152 = distinct !{!152, !42, !43}
+!153 = !{!154}
+!154 = distinct !{!154, !155}
+!155 = distinct !{!155, !"LVerDomain"}
+!156 = !{!157}
+!157 = distinct !{!157, !155}
+!158 = !{!159}
+!159 = distinct !{!159, !155}
+!160 = !{!161}
+!161 = distinct !{!161, !155}
+!162 = !{!163}
+!163 = distinct !{!163, !155}
+!164 = !{!165}
+!165 = distinct !{!165, !155}
+!166 = !{!167}
+!167 = distinct !{!167, !155}
+!168 = !{!169}
+!169 = distinct !{!169, !155}
+!170 = !{!171, !154, !157, !159, !161, !163, !165, !167, !172}
+!171 = distinct !{!171, !155}
+!172 = distinct !{!172, !155}
+!173 = !{!172}
+!174 = !{!171}
+!175 = !{!154, !157, !159, !161, !163, !165, !167, !172}
+!176 = distinct !{!176, !42, !43, !44}
+!177 = distinct !{!177, !42, !43}
+!178 = !{!179}
+!179 = distinct !{!179, !180}
+!180 = distinct !{!180, !"LVerDomain"}
+!181 = !{!182}
+!182 = distinct !{!182, !180}
+!183 = !{!184}
+!184 = distinct !{!184, !180}
+!185 = !{!186}
+!186 = distinct !{!186, !180}
+!187 = !{!188}
+!188 = distinct !{!188, !180}
+!189 = !{!190}
+!190 = distinct !{!190, !180}
+!191 = !{!192}
+!192 = distinct !{!192, !180}
+!193 = !{!194}
+!194 = distinct !{!194, !180}
+!195 = !{!196, !179, !182, !184, !186, !188, !190, !192, !197}
+!196 = distinct !{!196, !180}
+!197 = distinct !{!197, !180}
+!198 = !{!197}
+!199 = !{!196}
+!200 = !{!179, !182, !184, !186, !188, !190, !192, !197}
+!201 = distinct !{!201, !42, !43, !44}
+!202 = distinct !{!202, !42, !43}
+!203 = !{!204}
+!204 = distinct !{!204, !205}
+!205 = distinct !{!205, !"LVerDomain"}
+!206 = !{!207}
+!207 = distinct !{!207, !205}
+!208 = !{!209}
+!209 = distinct !{!209, !205}
+!210 = !{!211}
+!211 = distinct !{!211, !205}
+!212 = !{!213}
+!213 = distinct !{!213, !205}
+!214 = !{!215}
+!215 = distinct !{!215, !205}
+!216 = !{!217}
+!217 = distinct !{!217, !205}
+!218 = !{!219}
+!219 = distinct !{!219, !205}
+!220 = !{!221, !204, !207, !209, !211, !213, !215, !217, !222}
+!221 = distinct !{!221, !205}
+!222 = distinct !{!222, !205}
+!223 = !{!222}
+!224 = !{!221}
+!225 = !{!204, !207, !209, !211, !213, !215, !217, !222}
+!226 = distinct !{!226, !42, !43, !44}
+!227 = distinct !{!227, !42, !43}
+!228 = !{!229}
+!229 = distinct !{!229, !230}
+!230 = distinct !{!230, !"LVerDomain"}
+!231 = !{!232}
+!232 = distinct !{!232, !230}
+!233 = !{!234}
+!234 = distinct !{!234, !230}
+!235 = !{!236}
+!236 = distinct !{!236, !230}
+!237 = !{!238}
+!238 = distinct !{!238, !230}
+!239 = !{!240}
+!240 = distinct !{!240, !230}
+!241 = !{!242}
+!242 = distinct !{!242, !230}
+!243 = !{!244}
+!244 = distinct !{!244, !230}
+!245 = !{!246}
+!246 = distinct !{!246, !230}
+!247 = !{!248, !229, !232, !234, !236, !238, !240, !242, !244, !249, !250, !251, !252, !253}
+!248 = distinct !{!248, !230}
+!249 = distinct !{!249, !230}
+!250 = distinct !{!250, !230}
+!251 = distinct !{!251, !230}
+!252 = distinct !{!252, !230}
+!253 = distinct !{!253, !230}
+!254 = !{!249}
 !255 = !{!250}
 !256 = !{!251}
 !257 = !{!252}
 !258 = !{!253}
-!259 = !{!254}
-!260 = !{!249}
-!261 = !{!230, !233, !235, !237, !239, !241, !243, !245, !250, !251, !252, !253, !254}
-!262 = distinct !{!262, !42, !43, !44}
-!263 = distinct !{!263, !42, !43}
-!264 = distinct !{!264, !42}
-!265 = distinct !{!265, !42, !43, !44}
-!266 = distinct !{!266, !42, !43}
-!267 = distinct !{!267, !42, !43, !44}
-!268 = distinct !{!268, !42, !43}
-!269 = distinct !{!269, !42, !43, !44}
-!270 = distinct !{!270, !42, !43}
-!271 = distinct !{!271, !42, !43, !44}
-!272 = distinct !{!272, !42, !43}
-!273 = distinct !{!273, !42, !43, !44}
-!274 = distinct !{!274, !42, !43}
+!259 = !{!248}
+!260 = !{!229, !232, !234, !236, !238, !240, !242, !244, !249, !250, !251, !252, !253}
+!261 = distinct !{!261, !42, !43, !44}
+!262 = distinct !{!262, !42, !43}
+!263 = distinct !{!263, !42}
+!264 = distinct !{!264, !42, !43, !44}
+!265 = distinct !{!265, !42, !43}
+!266 = distinct !{!266, !42, !43, !44}
+!267 = distinct !{!267, !42, !43}
+!268 = distinct !{!268, !42, !43, !44}
+!269 = distinct !{!269, !42, !43}
+!270 = distinct !{!270, !42, !43, !44}
+!271 = distinct !{!271, !42, !43}
+!272 = distinct !{!272, !42, !43, !44}
+!273 = distinct !{!273, !42, !43}
+!274 = distinct !{!274, !42}
 !275 = distinct !{!275, !42}
 !276 = distinct !{!276, !42}
 !277 = distinct !{!277, !42}
@@ -5840,30 +5839,29 @@ attributes #12 = { builtin nounwind }
 !280 = distinct !{!280, !42}
 !281 = distinct !{!281, !42}
 !282 = distinct !{!282, !42}
-!283 = distinct !{!283, !42}
-!284 = !{!285, !285, i64 0}
-!285 = !{!"vtable pointer", !8, i64 0}
-!286 = !{!287, !6, i64 216}
-!287 = !{!"_ZTSN9benchmark8internal17FunctionBenchmarkE", !288, i64 0, !6, i64 216}
-!288 = !{!"_ZTSN9benchmark8internal9BenchmarkE", !289, i64 8, !291, i64 40, !292, i64 48, !296, i64 72, !300, i64 96, !14, i64 100, !27, i64 104, !10, i64 112, !13, i64 120, !27, i64 128, !14, i64 132, !14, i64 133, !14, i64 134, !301, i64 136, !6, i64 144, !302, i64 152, !306, i64 176, !6, i64 200, !6, i64 208}
-!289 = !{!"_ZTSNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE", !290, i64 0, !13, i64 8, !7, i64 16}
-!290 = !{!"_ZTSNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderE", !6, i64 0}
-!291 = !{!"_ZTSN9benchmark8internal21AggregationReportModeE", !7, i64 0}
-!292 = !{!"_ZTSSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE", !293, i64 0}
-!293 = !{!"_ZTSSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE", !294, i64 0}
-!294 = !{!"_ZTSNSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE12_Vector_implE", !295, i64 0}
-!295 = !{!"_ZTSNSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
-!296 = !{!"_ZTSSt6vectorIS_IlSaIlEESaIS1_EE", !297, i64 0}
-!297 = !{!"_ZTSSt12_Vector_baseISt6vectorIlSaIlEESaIS2_EE", !298, i64 0}
-!298 = !{!"_ZTSNSt12_Vector_baseISt6vectorIlSaIlEESaIS2_EE12_Vector_implE", !299, i64 0}
-!299 = !{!"_ZTSNSt12_Vector_baseISt6vectorIlSaIlEESaIS2_EE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
-!300 = !{!"_ZTSN9benchmark8TimeUnitE", !7, i64 0}
-!301 = !{!"_ZTSN9benchmark4BigOE", !7, i64 0}
-!302 = !{!"_ZTSSt6vectorIN9benchmark8internal10StatisticsESaIS2_EE", !303, i64 0}
-!303 = !{!"_ZTSSt12_Vector_baseIN9benchmark8internal10StatisticsESaIS2_EE", !304, i64 0}
-!304 = !{!"_ZTSNSt12_Vector_baseIN9benchmark8internal10StatisticsESaIS2_EE12_Vector_implE", !305, i64 0}
-!305 = !{!"_ZTSNSt12_Vector_baseIN9benchmark8internal10StatisticsESaIS2_EE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
-!306 = !{!"_ZTSSt6vectorIiSaIiEE", !307, i64 0}
-!307 = !{!"_ZTSSt12_Vector_baseIiSaIiEE", !308, i64 0}
-!308 = !{!"_ZTSNSt12_Vector_baseIiSaIiEE12_Vector_implE", !309, i64 0}
-!309 = !{!"_ZTSNSt12_Vector_baseIiSaIiEE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
+!283 = !{!284, !284, i64 0}
+!284 = !{!"vtable pointer", !8, i64 0}
+!285 = !{!286, !6, i64 216}
+!286 = !{!"_ZTSN9benchmark8internal17FunctionBenchmarkE", !287, i64 0, !6, i64 216}
+!287 = !{!"_ZTSN9benchmark8internal9BenchmarkE", !288, i64 8, !290, i64 40, !291, i64 48, !295, i64 72, !299, i64 96, !14, i64 100, !27, i64 104, !10, i64 112, !13, i64 120, !27, i64 128, !14, i64 132, !14, i64 133, !14, i64 134, !300, i64 136, !6, i64 144, !301, i64 152, !305, i64 176, !6, i64 200, !6, i64 208}
+!288 = !{!"_ZTSNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE", !289, i64 0, !13, i64 8, !7, i64 16}
+!289 = !{!"_ZTSNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderE", !6, i64 0}
+!290 = !{!"_ZTSN9benchmark8internal21AggregationReportModeE", !7, i64 0}
+!291 = !{!"_ZTSSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE", !292, i64 0}
+!292 = !{!"_ZTSSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE", !293, i64 0}
+!293 = !{!"_ZTSNSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE12_Vector_implE", !294, i64 0}
+!294 = !{!"_ZTSNSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
+!295 = !{!"_ZTSSt6vectorIS_IlSaIlEESaIS1_EE", !296, i64 0}
+!296 = !{!"_ZTSSt12_Vector_baseISt6vectorIlSaIlEESaIS2_EE", !297, i64 0}
+!297 = !{!"_ZTSNSt12_Vector_baseISt6vectorIlSaIlEESaIS2_EE12_Vector_implE", !298, i64 0}
+!298 = !{!"_ZTSNSt12_Vector_baseISt6vectorIlSaIlEESaIS2_EE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
+!299 = !{!"_ZTSN9benchmark8TimeUnitE", !7, i64 0}
+!300 = !{!"_ZTSN9benchmark4BigOE", !7, i64 0}
+!301 = !{!"_ZTSSt6vectorIN9benchmark8internal10StatisticsESaIS2_EE", !302, i64 0}
+!302 = !{!"_ZTSSt12_Vector_baseIN9benchmark8internal10StatisticsESaIS2_EE", !303, i64 0}
+!303 = !{!"_ZTSNSt12_Vector_baseIN9benchmark8internal10StatisticsESaIS2_EE12_Vector_implE", !304, i64 0}
+!304 = !{!"_ZTSNSt12_Vector_baseIN9benchmark8internal10StatisticsESaIS2_EE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
+!305 = !{!"_ZTSSt6vectorIiSaIiEE", !306, i64 0}
+!306 = !{!"_ZTSSt12_Vector_baseIiSaIiEE", !307, i64 0}
+!307 = !{!"_ZTSNSt12_Vector_baseIiSaIiEE12_Vector_implE", !308, i64 0}
+!308 = !{!"_ZTSNSt12_Vector_baseIiSaIiEE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}

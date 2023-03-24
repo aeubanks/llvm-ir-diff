@@ -110,64 +110,78 @@ define dso_local void @_ZNK28btScaledBvhTriangleMeshShape19processAllTrianglesEP
   %13 = fdiv float 1.000000e+00, %12
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #14
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %7) #14
-  %14 = load <2 x float>, ptr %8, align 4, !tbaa !23
-  %15 = fdiv <2 x float> <float 1.000000e+00, float 1.000000e+00>, %14
-  %16 = fcmp ult <2 x float> %14, zeroinitializer
-  %17 = load <2 x float>, ptr %2, align 4
-  %18 = load <2 x float>, ptr %3, align 4
-  %19 = select <2 x i1> %16, <2 x float> %18, <2 x float> %17
-  %20 = fmul <2 x float> %15, %19
-  store <2 x float> %20, ptr %6, align 8, !tbaa !23
-  %21 = fcmp ult float %12, 0.000000e+00
-  %22 = getelementptr inbounds float, ptr %2, i64 2
-  %23 = load float, ptr %22, align 4
-  %24 = getelementptr inbounds float, ptr %3, i64 2
-  %25 = load float, ptr %24, align 4
-  %26 = select i1 %21, float %25, float %23
-  %27 = fmul float %13, %26
-  %28 = getelementptr inbounds float, ptr %6, i64 2
-  store float %27, ptr %28, align 8, !tbaa !23
-  %29 = fcmp ugt <2 x float> %14, zeroinitializer
-  %30 = select <2 x i1> %29, <2 x float> %18, <2 x float> %17
-  %31 = fmul <2 x float> %15, %30
-  store <2 x float> %31, ptr %7, align 8, !tbaa !23
-  %32 = fcmp ugt float %12, 0.000000e+00
-  %33 = select i1 %32, float %25, float %23
-  %34 = fmul float %13, %33
-  %35 = getelementptr inbounds float, ptr %7, i64 2
-  store float %34, ptr %35, align 8, !tbaa !23
-  %36 = getelementptr inbounds %class.btScaledBvhTriangleMeshShape, ptr %0, i64 0, i32 2
-  %37 = load ptr, ptr %36, align 8, !tbaa !11
-  %38 = load ptr, ptr %37, align 8, !tbaa !5
-  %39 = getelementptr inbounds ptr, ptr %38, i64 12
-  %40 = load ptr, ptr %39, align 8
-  invoke void %40(ptr noundef nonnull align 8 dereferenceable(93) %37, ptr noundef nonnull %5, ptr noundef nonnull align 4 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %7)
-          to label %41 unwind label %42
+  %14 = load float, ptr %3, align 4
+  %15 = load float, ptr %2, align 4
+  %16 = load <2 x float>, ptr %8, align 4, !tbaa !23
+  %17 = fdiv <2 x float> <float 1.000000e+00, float 1.000000e+00>, %16
+  %18 = extractelement <2 x float> %16, i64 0
+  %19 = fcmp ult float %18, 0.000000e+00
+  %20 = select i1 %19, float %14, float %15
+  %21 = extractelement <2 x float> %16, i64 1
+  %22 = fcmp ult float %21, 0.000000e+00
+  %23 = select i1 %22, ptr %3, ptr %2
+  %24 = getelementptr inbounds float, ptr %23, i64 1
+  %25 = load float, ptr %24, align 4, !tbaa !23
+  %26 = insertelement <2 x float> poison, float %20, i64 0
+  %27 = insertelement <2 x float> %26, float %25, i64 1
+  %28 = fmul <2 x float> %17, %27
+  store <2 x float> %28, ptr %6, align 8, !tbaa !23
+  %29 = fcmp ult float %12, 0.000000e+00
+  %30 = select i1 %29, ptr %3, ptr %2
+  %31 = getelementptr inbounds float, ptr %30, i64 2
+  %32 = load float, ptr %31, align 4, !tbaa !23
+  %33 = fmul float %13, %32
+  %34 = getelementptr inbounds float, ptr %6, i64 2
+  store float %33, ptr %34, align 8, !tbaa !23
+  %35 = fcmp ugt float %18, 0.000000e+00
+  %36 = select i1 %35, float %14, float %15
+  %37 = fcmp ugt float %21, 0.000000e+00
+  %38 = select i1 %37, ptr %3, ptr %2
+  %39 = getelementptr inbounds float, ptr %38, i64 1
+  %40 = load float, ptr %39, align 4, !tbaa !23
+  %41 = insertelement <2 x float> poison, float %36, i64 0
+  %42 = insertelement <2 x float> %41, float %40, i64 1
+  %43 = fmul <2 x float> %17, %42
+  store <2 x float> %43, ptr %7, align 8, !tbaa !23
+  %44 = fcmp ugt float %12, 0.000000e+00
+  %45 = select i1 %44, ptr %3, ptr %2
+  %46 = getelementptr inbounds float, ptr %45, i64 2
+  %47 = load float, ptr %46, align 4, !tbaa !23
+  %48 = fmul float %13, %47
+  %49 = getelementptr inbounds float, ptr %7, i64 2
+  store float %48, ptr %49, align 8, !tbaa !23
+  %50 = getelementptr inbounds %class.btScaledBvhTriangleMeshShape, ptr %0, i64 0, i32 2
+  %51 = load ptr, ptr %50, align 8, !tbaa !11
+  %52 = load ptr, ptr %51, align 8, !tbaa !5
+  %53 = getelementptr inbounds ptr, ptr %52, i64 12
+  %54 = load ptr, ptr %53, align 8
+  invoke void %54(ptr noundef nonnull align 8 dereferenceable(93) %51, ptr noundef nonnull %5, ptr noundef nonnull align 4 dereferenceable(16) %6, ptr noundef nonnull align 4 dereferenceable(16) %7)
+          to label %55 unwind label %56
 
-41:                                               ; preds = %4
+55:                                               ; preds = %4
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #14
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #14
   call void @_ZN18btTriangleCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5)
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #14
   ret void
 
-42:                                               ; preds = %4
-  %43 = landingpad { ptr, i32 }
+56:                                               ; preds = %4
+  %57 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #14
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #14
   invoke void @_ZN18btTriangleCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5)
-          to label %44 unwind label %45
+          to label %58 unwind label %59
 
-44:                                               ; preds = %42
+58:                                               ; preds = %56
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #14
-  resume { ptr, i32 } %43
+  resume { ptr, i32 } %57
 
-45:                                               ; preds = %42
-  %46 = landingpad { ptr, i32 }
+59:                                               ; preds = %56
+  %60 = landingpad { ptr, i32 }
           catch ptr null
-  %47 = extractvalue { ptr, i32 } %46, 0
-  call void @__clang_call_terminate(ptr %47) #15
+  %61 = extractvalue { ptr, i32 } %60, 0
+  call void @__clang_call_terminate(ptr %61) #15
   unreachable
 }
 

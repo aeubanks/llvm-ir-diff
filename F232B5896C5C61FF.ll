@@ -452,7 +452,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
 
 230:                                              ; preds = %29
   %231 = add nsw i32 %15, -1
-  %232 = icmp ult i32 %15, 3
+  %232 = icmp ult i32 %231, 2
   br i1 %232, label %233, label %234
 
 233:                                              ; preds = %217, %10, %230

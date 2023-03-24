@@ -511,48 +511,48 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 define dso_local void @_ZN2kc5leaveEi(i32 noundef %0) local_unnamed_addr #4 {
   %2 = load ptr, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 1), align 8, !tbaa !16
   %3 = icmp eq ptr %2, null
-  br i1 %3, label %4, label %5
+  br i1 %3, label %11, label %4
 
 4:                                                ; preds = %1
+  %5 = tail call i32 @fclose(ptr noundef nonnull %2)
+  %6 = icmp eq i32 %5, -1
+  store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 1), align 8, !tbaa !16
+  br i1 %6, label %7, label %12
+
+7:                                                ; preds = %4
+  %8 = tail call noundef ptr @_ZN2kc10NoFileLineEv()
+  %9 = tail call noundef ptr @_ZN2kc9Problem2SEPKcS1_(ptr noundef nonnull @.str.125, ptr noundef nonnull @.str.13)
+  %10 = tail call noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %8, ptr noundef %9)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %10)
+  br label %12
+
+11:                                               ; preds = %1
   store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 1), align 8, !tbaa !16
   br label %12
 
-5:                                                ; preds = %1
-  %6 = tail call i32 @fclose(ptr noundef nonnull %2)
-  store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 1), align 8, !tbaa !16
-  %7 = icmp eq i32 %6, -1
-  br i1 %7, label %8, label %12
-
-8:                                                ; preds = %5
-  %9 = tail call noundef ptr @_ZN2kc10NoFileLineEv()
-  %10 = tail call noundef ptr @_ZN2kc9Problem2SEPKcS1_(ptr noundef nonnull @.str.125, ptr noundef nonnull @.str.13)
-  %11 = tail call noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %9, ptr noundef %10)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %11)
-  br label %12
-
-12:                                               ; preds = %8, %5, %4
+12:                                               ; preds = %11, %7, %4
   %13 = load ptr, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 1), align 8, !tbaa !16
   %14 = icmp eq ptr %13, null
-  br i1 %14, label %15, label %16
+  br i1 %14, label %22, label %15
 
 15:                                               ; preds = %12
+  %16 = tail call i32 @fclose(ptr noundef nonnull %13)
+  %17 = icmp eq i32 %16, -1
+  store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 1), align 8, !tbaa !16
+  br i1 %17, label %18, label %23
+
+18:                                               ; preds = %15
+  %19 = tail call noundef ptr @_ZN2kc10NoFileLineEv()
+  %20 = tail call noundef ptr @_ZN2kc9Problem2SEPKcS1_(ptr noundef nonnull @.str.125, ptr noundef nonnull @.str.10)
+  %21 = tail call noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %19, ptr noundef %20)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %21)
+  br label %23
+
+22:                                               ; preds = %12
   store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 1), align 8, !tbaa !16
   br label %23
 
-16:                                               ; preds = %12
-  %17 = tail call i32 @fclose(ptr noundef nonnull %13)
-  store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 1), align 8, !tbaa !16
-  %18 = icmp eq i32 %17, -1
-  br i1 %18, label %19, label %23
-
-19:                                               ; preds = %16
-  %20 = tail call noundef ptr @_ZN2kc10NoFileLineEv()
-  %21 = tail call noundef ptr @_ZN2kc9Problem2SEPKcS1_(ptr noundef nonnull @.str.125, ptr noundef nonnull @.str.10)
-  %22 = tail call noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %20, ptr noundef %21)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %22)
-  br label %23
-
-23:                                               ; preds = %19, %16, %15
+23:                                               ; preds = %22, %18, %15
   %24 = tail call i32 @access(ptr noundef nonnull @.str.13, i32 noundef 4) #30
   %25 = icmp eq i32 %24, 0
   br i1 %25, label %26, label %63
@@ -1011,7 +1011,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %170 = invoke noalias noundef nonnull ptr @_Znwm(i64 noundef %169) #34
           to label %171 unwind label %219
 
-171:                                              ; preds = %168, %159
+171:                                              ; preds = %159, %168
   %172 = phi ptr [ null, %159 ], [ %170, %168 ]
   %173 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %172, i64 %160
   %174 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %172, i64 %160, i32 2
@@ -1057,7 +1057,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   br label %194
 
 194:                                              ; preds = %190, %189, %184
-  %195 = phi i64 [ %193, %190 ], [ %186, %189 ], [ -1, %184 ]
+  %195 = phi i64 [ -1, %184 ], [ %186, %189 ], [ %193, %190 ]
   %196 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %179, i64 0, i32 1
   %197 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %178, i64 0, i32 1
   store i64 %195, ptr %197, align 8, !tbaa !40, !alias.scope !50, !noalias !53
@@ -1079,7 +1079,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   call void @_ZdlPv(ptr noundef nonnull %152) #28
   br label %206
 
-206:                                              ; preds = %205, %201
+206:                                              ; preds = %201, %205
   store ptr %172, ptr %10, align 8, !tbaa !49
   store ptr %203, ptr %79, align 8, !tbaa !46
   %207 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %172, i64 %166
@@ -1128,7 +1128,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   call void @_ZdlPv(ptr noundef %223) #28
   br label %226
 
-226:                                              ; preds = %225, %221, %219
+226:                                              ; preds = %219, %225, %221
   %227 = phi { ptr, i32 } [ %220, %219 ], [ %222, %225 ], [ %222, %221 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %12) #30
   br label %327
@@ -3195,7 +3195,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1350:                                             ; preds = %1334, %1318
   %1351 = phi ptr [ %1343, %1334 ], [ %1332, %1318 ]
   call void @_Z9yyrestartP8_IO_FILE(ptr noundef %1351)
-  br label %1234, !llvm.loop !116
+  br label %1234
 
 1352:                                             ; preds = %1347, %1344
   %1353 = load i8, ptr @gp_no_fatal_problems, align 1, !tbaa !38, !range !23, !noundef !24
@@ -3266,7 +3266,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1390:                                             ; preds = %1366, %1390
   %1391 = phi ptr [ %1400, %1390 ], [ %1379, %1366 ]
   %1392 = getelementptr inbounds %"class.kc::impl_fnfiles", ptr %1391, i64 0, i32 1
-  %1393 = load ptr, ptr %1392, align 8, !tbaa !117
+  %1393 = load ptr, ptr %1392, align 8, !tbaa !116
   %1394 = getelementptr inbounds %"class.kc::impl_fnfile", ptr %1393, i64 0, i32 1
   %1395 = load ptr, ptr %1394, align 8, !tbaa !114
   %1396 = load ptr, ptr %1395, align 8, !tbaa !25
@@ -3279,12 +3279,12 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %1402 = load ptr, ptr %1401, align 8
   %1403 = call noundef i32 %1402(ptr noundef nonnull align 8 dereferenceable(24) %1400)
   %1404 = icmp eq i32 %1403, 105
-  br i1 %1404, label %1390, label %1384, !llvm.loop !120
+  br i1 %1404, label %1390, label %1384, !llvm.loop !119
 
 1405:                                             ; preds = %1384, %1405
   %1406 = phi ptr [ %1412, %1405 ], [ %1385, %1384 ]
   %1407 = getelementptr inbounds %"class.kc::impl_fnfiles", ptr %1406, i64 0, i32 1
-  %1408 = load ptr, ptr %1407, align 8, !tbaa !117
+  %1408 = load ptr, ptr %1407, align 8, !tbaa !116
   %1409 = getelementptr inbounds %"class.kc::impl_fnfile", ptr %1408, i64 0, i32 1
   %1410 = load ptr, ptr %1409, align 8, !tbaa !114
   call void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr noundef %1410)
@@ -3294,7 +3294,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %1414 = load ptr, ptr %1413, align 8
   %1415 = call noundef i32 %1414(ptr noundef nonnull align 8 dereferenceable(24) %1412)
   %1416 = icmp eq i32 %1415, 105
-  br i1 %1416, label %1405, label %1417, !llvm.loop !121
+  br i1 %1416, label %1405, label %1417, !llvm.loop !120
 
 1417:                                             ; preds = %1405, %1384
   %1418 = load ptr, ptr @Thebaseclasses, align 8, !tbaa !12
@@ -3339,7 +3339,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1448:                                             ; preds = %1417, %1448
   %1449 = phi ptr [ %1458, %1448 ], [ %1443, %1417 ]
   %1450 = getelementptr inbounds %"class.kc::impl_fnfiles", ptr %1449, i64 0, i32 1
-  %1451 = load ptr, ptr %1450, align 8, !tbaa !117
+  %1451 = load ptr, ptr %1450, align 8, !tbaa !116
   %1452 = getelementptr inbounds %"class.kc::impl_fnfile", ptr %1451, i64 0, i32 1
   %1453 = load ptr, ptr %1452, align 8, !tbaa !114
   %1454 = load ptr, ptr %1453, align 8, !tbaa !25
@@ -3352,7 +3352,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %1460 = load ptr, ptr %1459, align 8
   %1461 = call noundef i32 %1460(ptr noundef nonnull align 8 dereferenceable(24) %1458)
   %1462 = icmp eq i32 %1461, 105
-  br i1 %1462, label %1448, label %1463, !llvm.loop !122
+  br i1 %1462, label %1448, label %1463, !llvm.loop !121
 
 1463:                                             ; preds = %1448, %1417
   %1464 = load ptr, ptr @Theunparsedeclarations, align 8, !tbaa !12
@@ -3370,7 +3370,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1473:                                             ; preds = %1463, %1627
   %1474 = phi ptr [ %1629, %1627 ], [ %1468, %1463 ]
   %1475 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %1474, i64 0, i32 1
-  %1476 = load ptr, ptr %1475, align 8, !tbaa !123
+  %1476 = load ptr, ptr %1475, align 8, !tbaa !122
   %1477 = load ptr, ptr %1476, align 8, !tbaa !25
   %1478 = load ptr, ptr %1477, align 8
   %1479 = call noundef i32 %1478(ptr noundef nonnull align 8 dereferenceable(8) %1476)
@@ -3379,7 +3379,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 1481:                                             ; preds = %1473
   %1482 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %1476, i64 0, i32 3
-  %1483 = load ptr, ptr %1482, align 8, !tbaa !125
+  %1483 = load ptr, ptr %1482, align 8, !tbaa !124
   %1484 = load ptr, ptr %1483, align 8, !tbaa !25
   %1485 = load ptr, ptr %1484, align 8
   %1486 = call noundef i32 %1485(ptr noundef nonnull align 8 dereferenceable(8) %1483)
@@ -3398,7 +3398,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1495:                                             ; preds = %1488, %1548
   %1496 = phi ptr [ %1550, %1548 ], [ %1490, %1488 ]
   %1497 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %1496, i64 0, i32 1
-  %1498 = load ptr, ptr %1497, align 8, !tbaa !128
+  %1498 = load ptr, ptr %1497, align 8, !tbaa !127
   %1499 = load ptr, ptr @Theuviewnames, align 8, !tbaa !12
   %1500 = call noundef ptr @_ZN2kc33f_unparseviewsinfo_of_alternativeEPNS_16impl_alternativeEPNS_14impl_viewnamesE(ptr noundef %1498, ptr noundef %1499)
   %1501 = load ptr, ptr %1500, align 8, !tbaa !25
@@ -3410,7 +3410,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1505:                                             ; preds = %1495, %1516
   %1506 = phi ptr [ %1518, %1516 ], [ %1500, %1495 ]
   %1507 = getelementptr inbounds %"class.kc::impl_unparseviewsinfo", ptr %1506, i64 0, i32 1
-  %1508 = load ptr, ptr %1507, align 8, !tbaa !130
+  %1508 = load ptr, ptr %1507, align 8, !tbaa !129
   %1509 = load ptr, ptr %1508, align 8, !tbaa !25
   %1510 = load ptr, ptr %1509, align 8
   %1511 = call noundef i32 %1510(ptr noundef nonnull align 8 dereferenceable(8) %1508)
@@ -3419,18 +3419,18 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 1513:                                             ; preds = %1505
   %1514 = getelementptr inbounds %"class.kc::impl_unparseviewinfo_Unparseviewinfo", ptr %1508, i64 0, i32 2
-  %1515 = load ptr, ptr %1514, align 8, !tbaa !132
+  %1515 = load ptr, ptr %1514, align 8, !tbaa !131
   call void @_ZN2kc22check_unparse_patternsEPNS_21impl_unparsedeclsinfoE(ptr noundef %1515)
   br label %1516
 
 1516:                                             ; preds = %1505, %1513
   %1517 = getelementptr inbounds %"class.kc::impl_unparseviewsinfo", ptr %1506, i64 0, i32 2
-  %1518 = load ptr, ptr %1517, align 8, !tbaa !135
+  %1518 = load ptr, ptr %1517, align 8, !tbaa !134
   %1519 = load ptr, ptr %1518, align 8, !tbaa !25
   %1520 = load ptr, ptr %1519, align 8
   %1521 = call noundef i32 %1520(ptr noundef nonnull align 8 dereferenceable(24) %1518)
   %1522 = icmp eq i32 %1521, 227
-  br i1 %1522, label %1505, label %1523, !llvm.loop !136
+  br i1 %1522, label %1505, label %1523, !llvm.loop !135
 
 1523:                                             ; preds = %1516, %1495
   %1524 = load ptr, ptr @Therviewnames, align 8, !tbaa !12
@@ -3444,7 +3444,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1530:                                             ; preds = %1523, %1541
   %1531 = phi ptr [ %1543, %1541 ], [ %1525, %1523 ]
   %1532 = getelementptr inbounds %"class.kc::impl_rewriteviewsinfo", ptr %1531, i64 0, i32 1
-  %1533 = load ptr, ptr %1532, align 8, !tbaa !137
+  %1533 = load ptr, ptr %1532, align 8, !tbaa !136
   %1534 = load ptr, ptr %1533, align 8, !tbaa !25
   %1535 = load ptr, ptr %1534, align 8
   %1536 = call noundef i32 %1535(ptr noundef nonnull align 8 dereferenceable(8) %1533)
@@ -3453,18 +3453,18 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 1538:                                             ; preds = %1530
   %1539 = getelementptr inbounds %"class.kc::impl_rewriteviewinfo_Rewriteviewinfo", ptr %1533, i64 0, i32 2
-  %1540 = load ptr, ptr %1539, align 8, !tbaa !139
+  %1540 = load ptr, ptr %1539, align 8, !tbaa !138
   call void @_ZN2kc22check_rewrite_patternsEPNS_21impl_rewriterulesinfoE(ptr noundef %1540)
   br label %1541
 
 1541:                                             ; preds = %1530, %1538
   %1542 = getelementptr inbounds %"class.kc::impl_rewriteviewsinfo", ptr %1531, i64 0, i32 2
-  %1543 = load ptr, ptr %1542, align 8, !tbaa !142
+  %1543 = load ptr, ptr %1542, align 8, !tbaa !141
   %1544 = load ptr, ptr %1543, align 8, !tbaa !25
   %1545 = load ptr, ptr %1544, align 8
   %1546 = call noundef i32 %1545(ptr noundef nonnull align 8 dereferenceable(24) %1543)
   %1547 = icmp eq i32 %1546, 224
-  br i1 %1547, label %1530, label %1548, !llvm.loop !143
+  br i1 %1547, label %1530, label %1548, !llvm.loop !142
 
 1548:                                             ; preds = %1541, %1523
   %1549 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %1496, i64 0, i32 2
@@ -3473,7 +3473,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %1552 = load ptr, ptr %1551, align 8
   %1553 = call noundef i32 %1552(ptr noundef nonnull align 8 dereferenceable(24) %1550)
   %1554 = icmp eq i32 %1553, 26
-  br i1 %1554, label %1495, label %1627, !llvm.loop !144
+  br i1 %1554, label %1495, label %1627, !llvm.loop !143
 
 1555:                                             ; preds = %1481
   %1556 = load ptr, ptr %1483, align 8, !tbaa !25
@@ -3494,7 +3494,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1567:                                             ; preds = %1560, %1620
   %1568 = phi ptr [ %1622, %1620 ], [ %1562, %1560 ]
   %1569 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %1568, i64 0, i32 1
-  %1570 = load ptr, ptr %1569, align 8, !tbaa !128
+  %1570 = load ptr, ptr %1569, align 8, !tbaa !127
   %1571 = load ptr, ptr @Theuviewnames, align 8, !tbaa !12
   %1572 = call noundef ptr @_ZN2kc33f_unparseviewsinfo_of_alternativeEPNS_16impl_alternativeEPNS_14impl_viewnamesE(ptr noundef %1570, ptr noundef %1571)
   %1573 = load ptr, ptr %1572, align 8, !tbaa !25
@@ -3506,7 +3506,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1577:                                             ; preds = %1567, %1588
   %1578 = phi ptr [ %1590, %1588 ], [ %1572, %1567 ]
   %1579 = getelementptr inbounds %"class.kc::impl_unparseviewsinfo", ptr %1578, i64 0, i32 1
-  %1580 = load ptr, ptr %1579, align 8, !tbaa !130
+  %1580 = load ptr, ptr %1579, align 8, !tbaa !129
   %1581 = load ptr, ptr %1580, align 8, !tbaa !25
   %1582 = load ptr, ptr %1581, align 8
   %1583 = call noundef i32 %1582(ptr noundef nonnull align 8 dereferenceable(8) %1580)
@@ -3515,18 +3515,18 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 1585:                                             ; preds = %1577
   %1586 = getelementptr inbounds %"class.kc::impl_unparseviewinfo_Unparseviewinfo", ptr %1580, i64 0, i32 2
-  %1587 = load ptr, ptr %1586, align 8, !tbaa !132
+  %1587 = load ptr, ptr %1586, align 8, !tbaa !131
   call void @_ZN2kc22check_unparse_patternsEPNS_21impl_unparsedeclsinfoE(ptr noundef %1587)
   br label %1588
 
 1588:                                             ; preds = %1577, %1585
   %1589 = getelementptr inbounds %"class.kc::impl_unparseviewsinfo", ptr %1578, i64 0, i32 2
-  %1590 = load ptr, ptr %1589, align 8, !tbaa !135
+  %1590 = load ptr, ptr %1589, align 8, !tbaa !134
   %1591 = load ptr, ptr %1590, align 8, !tbaa !25
   %1592 = load ptr, ptr %1591, align 8
   %1593 = call noundef i32 %1592(ptr noundef nonnull align 8 dereferenceable(24) %1590)
   %1594 = icmp eq i32 %1593, 227
-  br i1 %1594, label %1577, label %1595, !llvm.loop !145
+  br i1 %1594, label %1577, label %1595, !llvm.loop !144
 
 1595:                                             ; preds = %1588, %1567
   %1596 = load ptr, ptr @Therviewnames, align 8, !tbaa !12
@@ -3540,7 +3540,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1602:                                             ; preds = %1595, %1613
   %1603 = phi ptr [ %1615, %1613 ], [ %1597, %1595 ]
   %1604 = getelementptr inbounds %"class.kc::impl_rewriteviewsinfo", ptr %1603, i64 0, i32 1
-  %1605 = load ptr, ptr %1604, align 8, !tbaa !137
+  %1605 = load ptr, ptr %1604, align 8, !tbaa !136
   %1606 = load ptr, ptr %1605, align 8, !tbaa !25
   %1607 = load ptr, ptr %1606, align 8
   %1608 = call noundef i32 %1607(ptr noundef nonnull align 8 dereferenceable(8) %1605)
@@ -3549,18 +3549,18 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 1610:                                             ; preds = %1602
   %1611 = getelementptr inbounds %"class.kc::impl_rewriteviewinfo_Rewriteviewinfo", ptr %1605, i64 0, i32 2
-  %1612 = load ptr, ptr %1611, align 8, !tbaa !139
+  %1612 = load ptr, ptr %1611, align 8, !tbaa !138
   call void @_ZN2kc22check_rewrite_patternsEPNS_21impl_rewriterulesinfoE(ptr noundef %1612)
   br label %1613
 
 1613:                                             ; preds = %1602, %1610
   %1614 = getelementptr inbounds %"class.kc::impl_rewriteviewsinfo", ptr %1603, i64 0, i32 2
-  %1615 = load ptr, ptr %1614, align 8, !tbaa !142
+  %1615 = load ptr, ptr %1614, align 8, !tbaa !141
   %1616 = load ptr, ptr %1615, align 8, !tbaa !25
   %1617 = load ptr, ptr %1616, align 8
   %1618 = call noundef i32 %1617(ptr noundef nonnull align 8 dereferenceable(24) %1615)
   %1619 = icmp eq i32 %1618, 224
-  br i1 %1619, label %1602, label %1620, !llvm.loop !146
+  br i1 %1619, label %1602, label %1620, !llvm.loop !145
 
 1620:                                             ; preds = %1613, %1595
   %1621 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %1568, i64 0, i32 2
@@ -3569,7 +3569,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %1624 = load ptr, ptr %1623, align 8
   %1625 = call noundef i32 %1624(ptr noundef nonnull align 8 dereferenceable(24) %1622)
   %1626 = icmp eq i32 %1625, 26
-  br i1 %1626, label %1567, label %1627, !llvm.loop !147
+  br i1 %1626, label %1567, label %1627, !llvm.loop !146
 
 1627:                                             ; preds = %1620, %1548, %1560, %1488, %1555, %1473
   %1628 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %1474, i64 0, i32 2
@@ -3578,7 +3578,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %1631 = load ptr, ptr %1630, align 8
   %1632 = call noundef i32 %1631(ptr noundef nonnull align 8 dereferenceable(24) %1629)
   %1633 = icmp eq i32 %1632, 12
-  br i1 %1633, label %1473, label %1634, !llvm.loop !148
+  br i1 %1633, label %1473, label %1634, !llvm.loop !147
 
 1634:                                             ; preds = %1627, %1463
   %1635 = load i8, ptr @pg_languageshavebeendefined, align 1, !tbaa !38, !range !23, !noundef !24
@@ -3625,21 +3625,21 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 1658:                                             ; preds = %1655, %1652
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %25) #30
-  call void @llvm.experimental.noalias.scope.decl(metadata !149)
+  call void @llvm.experimental.noalias.scope.decl(metadata !148)
   %1659 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %25, i64 0, i32 2
-  store ptr %1659, ptr %25, align 8, !tbaa !45, !alias.scope !149
-  %1660 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22), align 8, !tbaa !5, !noalias !149
-  %1661 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22, i32 1), align 8, !tbaa !40, !noalias !149
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #30, !noalias !149
-  store i64 %1661, ptr %5, align 8, !tbaa !77, !noalias !149
+  store ptr %1659, ptr %25, align 8, !tbaa !45, !alias.scope !148
+  %1660 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22), align 8, !tbaa !5, !noalias !148
+  %1661 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22, i32 1), align 8, !tbaa !40, !noalias !148
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #30, !noalias !148
+  store i64 %1661, ptr %5, align 8, !tbaa !77, !noalias !148
   %1662 = icmp ugt i64 %1661, 15
   br i1 %1662, label %1663, label %1666
 
 1663:                                             ; preds = %1658
   %1664 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %25, ptr noundef nonnull align 8 dereferenceable(8) %5, i64 noundef 0)
-  store ptr %1664, ptr %25, align 8, !tbaa !5, !alias.scope !149
-  %1665 = load i64, ptr %5, align 8, !tbaa !77, !noalias !149
-  store i64 %1665, ptr %1659, align 8, !tbaa !37, !alias.scope !149
+  store ptr %1664, ptr %25, align 8, !tbaa !5, !alias.scope !148
+  %1665 = load i64, ptr %5, align 8, !tbaa !77, !noalias !148
+  store i64 %1665, ptr %1659, align 8, !tbaa !37, !alias.scope !148
   br label %1666
 
 1666:                                             ; preds = %1663, %1658
@@ -3659,14 +3659,14 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   br label %1671
 
 1671:                                             ; preds = %1670, %1668, %1666
-  %1672 = load i64, ptr %5, align 8, !tbaa !77, !noalias !149
+  %1672 = load i64, ptr %5, align 8, !tbaa !77, !noalias !148
   %1673 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %25, i64 0, i32 1
-  store i64 %1672, ptr %1673, align 8, !tbaa !40, !alias.scope !149
-  %1674 = load ptr, ptr %25, align 8, !tbaa !5, !alias.scope !149
+  store i64 %1672, ptr %1673, align 8, !tbaa !40, !alias.scope !148
+  %1674 = load ptr, ptr %25, align 8, !tbaa !5, !alias.scope !148
   %1675 = getelementptr inbounds i8, ptr %1674, i64 %1672
   store i8 0, ptr %1675, align 1, !tbaa !37
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #30, !noalias !149
-  %1676 = load i64, ptr %1673, align 8, !tbaa !40, !alias.scope !149
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #30, !noalias !148
+  %1676 = load i64, ptr %1673, align 8, !tbaa !40, !alias.scope !148
   %1677 = add i64 %1676, -4611686018427387901
   %1678 = icmp ult i64 %1677, 3
   br i1 %1678, label %1679, label %1681
@@ -3685,7 +3685,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1683:                                             ; preds = %1681, %1679
   %1684 = landingpad { ptr, i32 }
           cleanup
-  %1685 = load ptr, ptr %25, align 8, !tbaa !5, !alias.scope !149
+  %1685 = load ptr, ptr %25, align 8, !tbaa !5, !alias.scope !148
   %1686 = icmp eq ptr %1685, %1659
   br i1 %1686, label %529, label %1687
 
@@ -3710,21 +3710,21 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %25) #30
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %26) #30
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %27) #30
-  call void @llvm.experimental.noalias.scope.decl(metadata !152)
+  call void @llvm.experimental.noalias.scope.decl(metadata !151)
   %1694 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %27, i64 0, i32 2
-  store ptr %1694, ptr %27, align 8, !tbaa !45, !alias.scope !152
-  %1695 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22), align 8, !tbaa !5, !noalias !152
-  %1696 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22, i32 1), align 8, !tbaa !40, !noalias !152
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #30, !noalias !152
-  store i64 %1696, ptr %4, align 8, !tbaa !77, !noalias !152
+  store ptr %1694, ptr %27, align 8, !tbaa !45, !alias.scope !151
+  %1695 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22), align 8, !tbaa !5, !noalias !151
+  %1696 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22, i32 1), align 8, !tbaa !40, !noalias !151
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #30, !noalias !151
+  store i64 %1696, ptr %4, align 8, !tbaa !77, !noalias !151
   %1697 = icmp ugt i64 %1696, 15
   br i1 %1697, label %1698, label %1701
 
 1698:                                             ; preds = %1693
   %1699 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %27, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef 0)
-  store ptr %1699, ptr %27, align 8, !tbaa !5, !alias.scope !152
-  %1700 = load i64, ptr %4, align 8, !tbaa !77, !noalias !152
-  store i64 %1700, ptr %1694, align 8, !tbaa !37, !alias.scope !152
+  store ptr %1699, ptr %27, align 8, !tbaa !5, !alias.scope !151
+  %1700 = load i64, ptr %4, align 8, !tbaa !77, !noalias !151
+  store i64 %1700, ptr %1694, align 8, !tbaa !37, !alias.scope !151
   br label %1701
 
 1701:                                             ; preds = %1698, %1693
@@ -3744,14 +3744,14 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   br label %1706
 
 1706:                                             ; preds = %1705, %1703, %1701
-  %1707 = load i64, ptr %4, align 8, !tbaa !77, !noalias !152
+  %1707 = load i64, ptr %4, align 8, !tbaa !77, !noalias !151
   %1708 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %27, i64 0, i32 1
-  store i64 %1707, ptr %1708, align 8, !tbaa !40, !alias.scope !152
-  %1709 = load ptr, ptr %27, align 8, !tbaa !5, !alias.scope !152
+  store i64 %1707, ptr %1708, align 8, !tbaa !40, !alias.scope !151
+  %1709 = load ptr, ptr %27, align 8, !tbaa !5, !alias.scope !151
   %1710 = getelementptr inbounds i8, ptr %1709, i64 %1707
   store i8 0, ptr %1710, align 1, !tbaa !37
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #30, !noalias !152
-  %1711 = load i64, ptr %1708, align 8, !tbaa !40, !alias.scope !152
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #30, !noalias !151
+  %1711 = load i64, ptr %1708, align 8, !tbaa !40, !alias.scope !151
   %1712 = and i64 %1711, -2
   %1713 = icmp eq i64 %1712, 4611686018427387902
   br i1 %1713, label %1714, label %1716
@@ -3770,7 +3770,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 1718:                                             ; preds = %1716, %1714
   %1719 = landingpad { ptr, i32 }
           cleanup
-  %1720 = load ptr, ptr %27, align 8, !tbaa !5, !alias.scope !152
+  %1720 = load ptr, ptr %27, align 8, !tbaa !5, !alias.scope !151
   %1721 = icmp eq ptr %1720, %1694
   br i1 %1721, label %529, label %1722
 
@@ -3779,9 +3779,9 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   br label %529
 
 1723:                                             ; preds = %1716
-  call void @llvm.experimental.noalias.scope.decl(metadata !155)
-  %1724 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 23, i32 1), align 8, !tbaa !40, !noalias !155
-  %1725 = load i64, ptr %1708, align 8, !tbaa !40, !noalias !155
+  call void @llvm.experimental.noalias.scope.decl(metadata !154)
+  %1724 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 23, i32 1), align 8, !tbaa !40, !noalias !154
+  %1725 = load i64, ptr %1708, align 8, !tbaa !40, !noalias !154
   %1726 = sub i64 4611686018427387903, %1725
   %1727 = icmp ult i64 %1726, %1724
   br i1 %1727, label %1728, label %1730
@@ -3794,13 +3794,13 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   unreachable
 
 1730:                                             ; preds = %1723
-  %1731 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 23), align 8, !tbaa !5, !noalias !155
+  %1731 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 23), align 8, !tbaa !5, !noalias !154
   %1732 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_appendEPKcm(ptr noundef nonnull align 8 dereferenceable(32) %27, ptr noundef %1731, i64 noundef %1724)
           to label %1733 unwind label %1807
 
 1733:                                             ; preds = %1730
   %1734 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %26, i64 0, i32 2
-  store ptr %1734, ptr %26, align 8, !tbaa !45, !alias.scope !155
+  store ptr %1734, ptr %26, align 8, !tbaa !45, !alias.scope !154
   %1735 = load ptr, ptr %1732, align 8, !tbaa !5
   %1736 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1732, i64 0, i32 2
   %1737 = icmp eq ptr %1735, %1736
@@ -3818,16 +3818,16 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   br label %1746
 
 1744:                                             ; preds = %1733
-  store ptr %1735, ptr %26, align 8, !tbaa !5, !alias.scope !155
+  store ptr %1735, ptr %26, align 8, !tbaa !5, !alias.scope !154
   %1745 = load i64, ptr %1736, align 8, !tbaa !37
-  store i64 %1745, ptr %1734, align 8, !tbaa !37, !alias.scope !155
+  store i64 %1745, ptr %1734, align 8, !tbaa !37, !alias.scope !154
   br label %1746
 
-1746:                                             ; preds = %1744, %1743, %1738
+1746:                                             ; preds = %1738, %1743, %1744
   %1747 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1732, i64 0, i32 1
   %1748 = load i64, ptr %1747, align 8, !tbaa !40
   %1749 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %26, i64 0, i32 1
-  store i64 %1748, ptr %1749, align 8, !tbaa !40, !alias.scope !155
+  store i64 %1748, ptr %1749, align 8, !tbaa !40, !alias.scope !154
   store ptr %1736, ptr %1732, align 8, !tbaa !5
   store i64 0, ptr %1747, align 8, !tbaa !40
   store i8 0, ptr %1736, align 8, !tbaa !37
@@ -3863,9 +3863,9 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %28) #30
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %29) #30
   call void @_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_RKS8_(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %29, ptr noundef nonnull @.str.15, ptr noundef nonnull align 8 dereferenceable(32) getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22))
-  call void @llvm.experimental.noalias.scope.decl(metadata !158)
+  call void @llvm.experimental.noalias.scope.decl(metadata !157)
   %1762 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %29, i64 0, i32 1
-  %1763 = load i64, ptr %1762, align 8, !tbaa !40, !noalias !158
+  %1763 = load i64, ptr %1762, align 8, !tbaa !40, !noalias !157
   %1764 = icmp eq i64 %1763, 4611686018427387903
   br i1 %1764, label %1765, label %1767
 
@@ -3882,7 +3882,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 1769:                                             ; preds = %1767
   %1770 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %28, i64 0, i32 2
-  store ptr %1770, ptr %28, align 8, !tbaa !45, !alias.scope !158
+  store ptr %1770, ptr %28, align 8, !tbaa !45, !alias.scope !157
   %1771 = load ptr, ptr %1768, align 8, !tbaa !5
   %1772 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1768, i64 0, i32 2
   %1773 = icmp eq ptr %1771, %1772
@@ -3900,16 +3900,16 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   br label %1782
 
 1780:                                             ; preds = %1769
-  store ptr %1771, ptr %28, align 8, !tbaa !5, !alias.scope !158
+  store ptr %1771, ptr %28, align 8, !tbaa !5, !alias.scope !157
   %1781 = load i64, ptr %1772, align 8, !tbaa !37
-  store i64 %1781, ptr %1770, align 8, !tbaa !37, !alias.scope !158
+  store i64 %1781, ptr %1770, align 8, !tbaa !37, !alias.scope !157
   br label %1782
 
-1782:                                             ; preds = %1780, %1779, %1774
+1782:                                             ; preds = %1774, %1779, %1780
   %1783 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1768, i64 0, i32 1
   %1784 = load i64, ptr %1783, align 8, !tbaa !40
   %1785 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %28, i64 0, i32 1
-  store i64 %1784, ptr %1785, align 8, !tbaa !40, !alias.scope !158
+  store i64 %1784, ptr %1785, align 8, !tbaa !40, !alias.scope !157
   store ptr %1772, ptr %1768, align 8, !tbaa !5
   store i64 0, ptr %1783, align 8, !tbaa !40
   store i8 0, ptr %1772, align 8, !tbaa !37
@@ -4258,21 +4258,21 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 2000:                                             ; preds = %1992, %1996, %1993
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %30) #30
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %31) #30
-  call void @llvm.experimental.noalias.scope.decl(metadata !161)
+  call void @llvm.experimental.noalias.scope.decl(metadata !160)
   %2001 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %31, i64 0, i32 2
-  store ptr %2001, ptr %31, align 8, !tbaa !45, !alias.scope !161
-  %2002 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22), align 8, !tbaa !5, !noalias !161
-  %2003 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22, i32 1), align 8, !tbaa !40, !noalias !161
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #30, !noalias !161
-  store i64 %2003, ptr %3, align 8, !tbaa !77, !noalias !161
+  store ptr %2001, ptr %31, align 8, !tbaa !45, !alias.scope !160
+  %2002 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22), align 8, !tbaa !5, !noalias !160
+  %2003 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22, i32 1), align 8, !tbaa !40, !noalias !160
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #30, !noalias !160
+  store i64 %2003, ptr %3, align 8, !tbaa !77, !noalias !160
   %2004 = icmp ugt i64 %2003, 15
   br i1 %2004, label %2005, label %2008
 
 2005:                                             ; preds = %2000
   %2006 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %31, ptr noundef nonnull align 8 dereferenceable(8) %3, i64 noundef 0)
-  store ptr %2006, ptr %31, align 8, !tbaa !5, !alias.scope !161
-  %2007 = load i64, ptr %3, align 8, !tbaa !77, !noalias !161
-  store i64 %2007, ptr %2001, align 8, !tbaa !37, !alias.scope !161
+  store ptr %2006, ptr %31, align 8, !tbaa !5, !alias.scope !160
+  %2007 = load i64, ptr %3, align 8, !tbaa !77, !noalias !160
+  store i64 %2007, ptr %2001, align 8, !tbaa !37, !alias.scope !160
   br label %2008
 
 2008:                                             ; preds = %2005, %2000
@@ -4292,14 +4292,14 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   br label %2013
 
 2013:                                             ; preds = %2012, %2010, %2008
-  %2014 = load i64, ptr %3, align 8, !tbaa !77, !noalias !161
+  %2014 = load i64, ptr %3, align 8, !tbaa !77, !noalias !160
   %2015 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %31, i64 0, i32 1
-  store i64 %2014, ptr %2015, align 8, !tbaa !40, !alias.scope !161
-  %2016 = load ptr, ptr %31, align 8, !tbaa !5, !alias.scope !161
+  store i64 %2014, ptr %2015, align 8, !tbaa !40, !alias.scope !160
+  %2016 = load ptr, ptr %31, align 8, !tbaa !5, !alias.scope !160
   %2017 = getelementptr inbounds i8, ptr %2016, i64 %2014
   store i8 0, ptr %2017, align 1, !tbaa !37
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #30, !noalias !161
-  %2018 = load i64, ptr %2015, align 8, !tbaa !40, !alias.scope !161
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #30, !noalias !160
+  %2018 = load i64, ptr %2015, align 8, !tbaa !40, !alias.scope !160
   %2019 = and i64 %2018, -2
   %2020 = icmp eq i64 %2019, 4611686018427387902
   br i1 %2020, label %2021, label %2023
@@ -4318,7 +4318,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 2025:                                             ; preds = %2023, %2021
   %2026 = landingpad { ptr, i32 }
           cleanup
-  %2027 = load ptr, ptr %31, align 8, !tbaa !5, !alias.scope !161
+  %2027 = load ptr, ptr %31, align 8, !tbaa !5, !alias.scope !160
   %2028 = icmp eq ptr %2027, %2001
   br i1 %2028, label %529, label %2029
 
@@ -4327,9 +4327,9 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   br label %529
 
 2030:                                             ; preds = %2023
-  call void @llvm.experimental.noalias.scope.decl(metadata !164)
-  %2031 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 23, i32 1), align 8, !tbaa !40, !noalias !164
-  %2032 = load i64, ptr %2015, align 8, !tbaa !40, !noalias !164
+  call void @llvm.experimental.noalias.scope.decl(metadata !163)
+  %2031 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 23, i32 1), align 8, !tbaa !40, !noalias !163
+  %2032 = load i64, ptr %2015, align 8, !tbaa !40, !noalias !163
   %2033 = sub i64 4611686018427387903, %2032
   %2034 = icmp ult i64 %2033, %2031
   br i1 %2034, label %2035, label %2037
@@ -4342,13 +4342,13 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   unreachable
 
 2037:                                             ; preds = %2030
-  %2038 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 23), align 8, !tbaa !5, !noalias !164
+  %2038 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 23), align 8, !tbaa !5, !noalias !163
   %2039 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_appendEPKcm(ptr noundef nonnull align 8 dereferenceable(32) %31, ptr noundef %2038, i64 noundef %2031)
           to label %2040 unwind label %2116
 
 2040:                                             ; preds = %2037
   %2041 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %30, i64 0, i32 2
-  store ptr %2041, ptr %30, align 8, !tbaa !45, !alias.scope !164
+  store ptr %2041, ptr %30, align 8, !tbaa !45, !alias.scope !163
   %2042 = load ptr, ptr %2039, align 8, !tbaa !5
   %2043 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %2039, i64 0, i32 2
   %2044 = icmp eq ptr %2042, %2043
@@ -4366,16 +4366,16 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   br label %2053
 
 2051:                                             ; preds = %2040
-  store ptr %2042, ptr %30, align 8, !tbaa !5, !alias.scope !164
+  store ptr %2042, ptr %30, align 8, !tbaa !5, !alias.scope !163
   %2052 = load i64, ptr %2043, align 8, !tbaa !37
-  store i64 %2052, ptr %2041, align 8, !tbaa !37, !alias.scope !164
+  store i64 %2052, ptr %2041, align 8, !tbaa !37, !alias.scope !163
   br label %2053
 
-2053:                                             ; preds = %2051, %2050, %2045
+2053:                                             ; preds = %2045, %2050, %2051
   %2054 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %2039, i64 0, i32 1
   %2055 = load i64, ptr %2054, align 8, !tbaa !40
   %2056 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %30, i64 0, i32 1
-  store i64 %2055, ptr %2056, align 8, !tbaa !40, !alias.scope !164
+  store i64 %2055, ptr %2056, align 8, !tbaa !40, !alias.scope !163
   store ptr %2043, ptr %2039, align 8, !tbaa !5
   store i64 0, ptr %2054, align 8, !tbaa !40
   store i8 0, ptr %2043, align 8, !tbaa !37
@@ -5705,7 +5705,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 2718:                                             ; preds = %2712, %2911
   %2719 = phi ptr [ %2913, %2911 ], [ %2713, %2712 ]
   %2720 = getelementptr inbounds %"class.kc::impl_fnfiles", ptr %2719, i64 0, i32 1
-  %2721 = load ptr, ptr %2720, align 8, !tbaa !117
+  %2721 = load ptr, ptr %2720, align 8, !tbaa !116
   %2722 = load ptr, ptr %2721, align 8, !tbaa !25
   %2723 = load ptr, ptr %2722, align 8
   %2724 = call noundef i32 %2723(ptr noundef nonnull align 8 dereferenceable(8) %2721)
@@ -5714,7 +5714,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
 
 2726:                                             ; preds = %2718
   %2727 = getelementptr inbounds %"class.kc::impl_fnfile_FnFile", ptr %2721, i64 0, i32 1
-  %2728 = load ptr, ptr %2727, align 8, !tbaa !167
+  %2728 = load ptr, ptr %2727, align 8, !tbaa !166
   %2729 = call noundef ptr @_ZN2kc13f_mk_filenameEPNS_20impl_casestring__StrEPKc(ptr noundef %2728, ptr noundef nonnull @.str.42)
   %2730 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 0, i32 1), align 8, !tbaa !40
   %2731 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2729) #30
@@ -5811,7 +5811,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %2794 = getelementptr inbounds i8, ptr %2786, i64 1
   %2795 = load i8, ptr %2794, align 1, !tbaa !37
   %2796 = icmp eq i8 %2795, 0
-  br i1 %2796, label %2797, label %2784, !llvm.loop !169
+  br i1 %2796, label %2797, label %2784, !llvm.loop !168
 
 2797:                                             ; preds = %2793, %2777
   %2798 = call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull %2780, i32 noundef -1)
@@ -5900,7 +5900,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %2859 = getelementptr inbounds i8, ptr %2851, i64 1
   %2860 = load i8, ptr %2859, align 1, !tbaa !37
   %2861 = icmp eq i8 %2860, 0
-  br i1 %2861, label %2862, label %2849, !llvm.loop !169
+  br i1 %2861, label %2862, label %2849, !llvm.loop !168
 
 2862:                                             ; preds = %2858, %2842
   %2863 = call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull %2845, i32 noundef -1)
@@ -5994,7 +5994,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   %2915 = load ptr, ptr %2914, align 8
   %2916 = call noundef i32 %2915(ptr noundef nonnull align 8 dereferenceable(24) %2913)
   %2917 = icmp eq i32 %2916, 105
-  br i1 %2917, label %2718, label %2918, !llvm.loop !170
+  br i1 %2917, label %2718, label %2918, !llvm.loop !169
 
 2918:                                             ; preds = %2911, %2712
   %2919 = load i8, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 9), align 1, !tbaa !66, !range !23, !noundef !24
@@ -6487,26 +6487,26 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed
   call void %3139(ptr noundef nonnull align 8 dereferenceable(8) %1644, ptr noundef nonnull align 8 dereferenceable(8) @v_hfile_printer, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc20view_gen_yxx_union_hE)
   %3140 = load ptr, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 1), align 8, !tbaa !16
   %3141 = icmp eq ptr %3140, null
-  br i1 %3141, label %3142, label %3143
+  br i1 %3141, label %3149, label %3142
 
 3142:                                             ; preds = %3136
+  %3143 = call i32 @fclose(ptr noundef nonnull %3140)
+  %3144 = icmp eq i32 %3143, -1
+  store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 1), align 8, !tbaa !16
+  br i1 %3144, label %3145, label %3150
+
+3145:                                             ; preds = %3142
+  %3146 = call noundef ptr @_ZN2kc10NoFileLineEv()
+  %3147 = call noundef ptr @_ZN2kc9Problem2SEPKcS1_(ptr noundef nonnull @.str.53, ptr noundef nonnull @.str.10)
+  %3148 = call noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %3146, ptr noundef %3147)
+  call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %3148)
+  br label %3150
+
+3149:                                             ; preds = %3136
   store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 1), align 8, !tbaa !16
   br label %3150
 
-3143:                                             ; preds = %3136
-  %3144 = call i32 @fclose(ptr noundef nonnull %3140)
-  store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 1), align 8, !tbaa !16
-  %3145 = icmp eq i32 %3144, -1
-  br i1 %3145, label %3146, label %3150
-
-3146:                                             ; preds = %3143
-  %3147 = call noundef ptr @_ZN2kc10NoFileLineEv()
-  %3148 = call noundef ptr @_ZN2kc9Problem2SEPKcS1_(ptr noundef nonnull @.str.53, ptr noundef nonnull @.str.10)
-  %3149 = call noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %3147, ptr noundef %3148)
-  call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %3149)
-  br label %3150
-
-3150:                                             ; preds = %3142, %3146, %3143
+3150:                                             ; preds = %3149, %3145, %3142
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %68) #30
   call void @_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %68, ptr noundef nonnull align 8 dereferenceable(32) getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 22), ptr noundef nonnull @.str.52)
   %3151 = load ptr, ptr %68, align 8, !tbaa !5
@@ -6574,7 +6574,7 @@ define internal fastcc noundef ptr @_ZN2kcL16make_pg_filenameEPKc(ptr nocapture 
   store i8 47, ptr %9, align 1, !tbaa !37
   %10 = tail call noundef ptr @strchr(ptr noundef nonnull dereferenceable(1) %9, i32 noundef 92) #33
   %11 = icmp eq ptr %10, null
-  br i1 %11, label %12, label %8, !llvm.loop !171
+  br i1 %11, label %12, label %8, !llvm.loop !170
 
 12:                                               ; preds = %8, %1
   %13 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull %4, i32 noundef -1)
@@ -6935,9 +6935,9 @@ define internal fastcc void @_ZN2kcL26compare_and_delete_or_moveEPKcRKNSt7__cxx1
 
 38:                                               ; preds = %34, %31
   %39 = getelementptr inbounds %struct.stat, ptr %6, i64 0, i32 8
-  %40 = load i64, ptr %39, align 8, !tbaa !172
+  %40 = load i64, ptr %39, align 8, !tbaa !171
   %41 = getelementptr inbounds %struct.stat, ptr %7, i64 0, i32 8
-  %42 = load i64, ptr %41, align 8, !tbaa !172
+  %42 = load i64, ptr %41, align 8, !tbaa !171
   %43 = icmp eq i64 %40, %42
   br i1 %43, label %44, label %68
 
@@ -6979,7 +6979,7 @@ define internal fastcc void @_ZN2kcL26compare_and_delete_or_moveEPKcRKNSt7__cxx1
 65:                                               ; preds = %60
   %66 = call i32 @bcmp(ptr nonnull %4, ptr nonnull %5, i64 %45)
   %67 = icmp eq i32 %66, 0
-  br i1 %67, label %44, label %68, !llvm.loop !175
+  br i1 %67, label %44, label %68, !llvm.loop !174
 
 68:                                               ; preds = %60, %65, %38
   %69 = phi i1 [ false, %38 ], [ %62, %65 ], [ %62, %60 ]
@@ -7078,7 +7078,7 @@ define internal fastcc void @_ZN2kcL26compare_and_delete_or_moveEPKcRKNSt7__cxx1
   %121 = load i64, ptr %120, align 8
   %122 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %121
   %123 = getelementptr inbounds %"class.std::ios_base", ptr %122, i64 0, i32 2
-  %124 = load i64, ptr %123, align 8, !tbaa !176
+  %124 = load i64, ptr %123, align 8, !tbaa !175
   %125 = icmp eq i64 %124, 0
   br i1 %125, label %128, label %126
 
@@ -7109,7 +7109,7 @@ define internal fastcc void @_ZN2kcL26compare_and_delete_or_moveEPKcRKNSt7__cxx1
   call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %139)
   br label %140
 
-140:                                              ; preds = %136, %133, %97, %94, %13, %10, %20
+140:                                              ; preds = %94, %97, %133, %136, %13, %10, %20
   ret void
 }
 
@@ -7172,7 +7172,7 @@ define internal fastcc noundef ptr @_ZN2kcL17mkfunctionincnameEPKc(ptr nocapture
   %34 = getelementptr inbounds i8, ptr %26, i64 1
   %35 = load i8, ptr %34, align 1, !tbaa !37
   %36 = icmp eq i8 %35, 0
-  br i1 %36, label %22, label %24, !llvm.loop !169
+  br i1 %36, label %22, label %24, !llvm.loop !168
 }
 
 declare noundef ptr @_ZN2kc9Problem4SEPKcS1_S1_S1_(ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #0
@@ -7359,21 +7359,21 @@ define internal fastcc noalias noundef ptr @_ZN2kcL8openfileEPKcS1_(ptr noundef 
 9:                                                ; preds = %1
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #30
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #30
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !177)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !176)
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
-  store ptr %10, ptr %4, align 8, !tbaa !45, !alias.scope !177
-  %11 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 24), align 8, !tbaa !5, !noalias !177
-  %12 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 24, i32 1), align 8, !tbaa !40, !noalias !177
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #30, !noalias !177
-  store i64 %12, ptr %2, align 8, !tbaa !77, !noalias !177
+  store ptr %10, ptr %4, align 8, !tbaa !45, !alias.scope !176
+  %11 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 24), align 8, !tbaa !5, !noalias !176
+  %12 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 24, i32 1), align 8, !tbaa !40, !noalias !176
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #30, !noalias !176
+  store i64 %12, ptr %2, align 8, !tbaa !77, !noalias !176
   %13 = icmp ugt i64 %12, 15
   br i1 %13, label %14, label %17
 
 14:                                               ; preds = %9
   %15 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
-  store ptr %15, ptr %4, align 8, !tbaa !5, !alias.scope !177
-  %16 = load i64, ptr %2, align 8, !tbaa !77, !noalias !177
-  store i64 %16, ptr %10, align 8, !tbaa !37, !alias.scope !177
+  store ptr %15, ptr %4, align 8, !tbaa !5, !alias.scope !176
+  %16 = load i64, ptr %2, align 8, !tbaa !77, !noalias !176
+  store i64 %16, ptr %10, align 8, !tbaa !37, !alias.scope !176
   br label %17
 
 17:                                               ; preds = %14, %9
@@ -7393,14 +7393,14 @@ define internal fastcc noalias noundef ptr @_ZN2kcL8openfileEPKcS1_(ptr noundef 
   br label %22
 
 22:                                               ; preds = %21, %19, %17
-  %23 = load i64, ptr %2, align 8, !tbaa !77, !noalias !177
+  %23 = load i64, ptr %2, align 8, !tbaa !77, !noalias !176
   %24 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
-  store i64 %23, ptr %24, align 8, !tbaa !40, !alias.scope !177
-  %25 = load ptr, ptr %4, align 8, !tbaa !5, !alias.scope !177
+  store i64 %23, ptr %24, align 8, !tbaa !40, !alias.scope !176
+  %25 = load ptr, ptr %4, align 8, !tbaa !5, !alias.scope !176
   %26 = getelementptr inbounds i8, ptr %25, i64 %23
   store i8 0, ptr %26, align 1, !tbaa !37
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #30, !noalias !177
-  %27 = load i64, ptr %24, align 8, !tbaa !40, !alias.scope !177
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #30, !noalias !176
+  %27 = load i64, ptr %24, align 8, !tbaa !40, !alias.scope !176
   %28 = icmp eq i64 %27, 4611686018427387903
   br i1 %28, label %29, label %31
 
@@ -7418,7 +7418,7 @@ define internal fastcc noalias noundef ptr @_ZN2kcL8openfileEPKcS1_(ptr noundef 
 33:                                               ; preds = %31, %29
   %34 = landingpad { ptr, i32 }
           cleanup
-  %35 = load ptr, ptr %4, align 8, !tbaa !5, !alias.scope !177
+  %35 = load ptr, ptr %4, align 8, !tbaa !5, !alias.scope !176
   %36 = icmp eq ptr %35, %10
   br i1 %36, label %38, label %37
 
@@ -7431,9 +7431,9 @@ define internal fastcc noalias noundef ptr @_ZN2kcL8openfileEPKcS1_(ptr noundef 
   resume { ptr, i32 } %39
 
 40:                                               ; preds = %31
-  call void @llvm.experimental.noalias.scope.decl(metadata !180)
-  %41 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #30, !noalias !180
-  %42 = load i64, ptr %24, align 8, !tbaa !40, !noalias !180
+  call void @llvm.experimental.noalias.scope.decl(metadata !179)
+  %41 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #30, !noalias !179
+  %42 = load i64, ptr %24, align 8, !tbaa !40, !noalias !179
   %43 = sub i64 4611686018427387903, %42
   %44 = icmp ult i64 %43, %41
   br i1 %44, label %45, label %47
@@ -7451,7 +7451,7 @@ define internal fastcc noalias noundef ptr @_ZN2kcL8openfileEPKcS1_(ptr noundef 
 
 49:                                               ; preds = %47
   %50 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 2
-  store ptr %50, ptr %3, align 8, !tbaa !45, !alias.scope !180
+  store ptr %50, ptr %3, align 8, !tbaa !45, !alias.scope !179
   %51 = load ptr, ptr %48, align 8, !tbaa !5
   %52 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %48, i64 0, i32 2
   %53 = icmp eq ptr %51, %52
@@ -7469,16 +7469,16 @@ define internal fastcc noalias noundef ptr @_ZN2kcL8openfileEPKcS1_(ptr noundef 
   br label %62
 
 60:                                               ; preds = %49
-  store ptr %51, ptr %3, align 8, !tbaa !5, !alias.scope !180
+  store ptr %51, ptr %3, align 8, !tbaa !5, !alias.scope !179
   %61 = load i64, ptr %52, align 8, !tbaa !37
-  store i64 %61, ptr %50, align 8, !tbaa !37, !alias.scope !180
+  store i64 %61, ptr %50, align 8, !tbaa !37, !alias.scope !179
   br label %62
 
-62:                                               ; preds = %60, %59, %54
+62:                                               ; preds = %54, %59, %60
   %63 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %48, i64 0, i32 1
   %64 = load i64, ptr %63, align 8, !tbaa !40
   %65 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 1
-  store i64 %64, ptr %65, align 8, !tbaa !40, !alias.scope !180
+  store i64 %64, ptr %65, align 8, !tbaa !40, !alias.scope !179
   store ptr %52, ptr %48, align 8, !tbaa !5
   store i64 0, ptr %63, align 8, !tbaa !40
   store i8 0, ptr %52, align 8, !tbaa !37
@@ -7610,18 +7610,18 @@ define linkonce_odr dso_local void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11
 49:                                               ; preds = %44, %66
   %50 = phi ptr [ %71, %66 ], [ %28, %44 ]
   %51 = phi ptr [ %70, %66 ], [ %6, %44 ]
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !183)
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !186)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !182)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !185)
   %52 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 0, i32 2
-  store ptr %52, ptr %50, align 8, !tbaa !45, !alias.scope !183, !noalias !186
-  %53 = load ptr, ptr %51, align 8, !tbaa !5, !alias.scope !186, !noalias !183
+  store ptr %52, ptr %50, align 8, !tbaa !45, !alias.scope !182, !noalias !185
+  %53 = load ptr, ptr %51, align 8, !tbaa !5, !alias.scope !185, !noalias !182
   %54 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %51, i64 0, i32 2
   %55 = icmp eq ptr %53, %54
   br i1 %55, label %56, label %62
 
 56:                                               ; preds = %49
   %57 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %51, i64 0, i32 1
-  %58 = load i64, ptr %57, align 8, !tbaa !40, !alias.scope !186, !noalias !183
+  %58 = load i64, ptr %57, align 8, !tbaa !40, !alias.scope !185, !noalias !182
   %59 = add i64 %58, 1
   %60 = icmp eq i64 %59, 0
   br i1 %60, label %66, label %61
@@ -7631,21 +7631,21 @@ define linkonce_odr dso_local void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11
   br label %66
 
 62:                                               ; preds = %49
-  store ptr %53, ptr %50, align 8, !tbaa !5, !alias.scope !183, !noalias !186
-  %63 = load i64, ptr %54, align 8, !tbaa !37, !alias.scope !186, !noalias !183
-  store i64 %63, ptr %52, align 8, !tbaa !37, !alias.scope !183, !noalias !186
+  store ptr %53, ptr %50, align 8, !tbaa !5, !alias.scope !182, !noalias !185
+  %63 = load i64, ptr %54, align 8, !tbaa !37, !alias.scope !185, !noalias !182
+  store i64 %63, ptr %52, align 8, !tbaa !37, !alias.scope !182, !noalias !185
   %64 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %51, i64 0, i32 1
-  %65 = load i64, ptr %64, align 8, !tbaa !40, !alias.scope !186, !noalias !183
+  %65 = load i64, ptr %64, align 8, !tbaa !40, !alias.scope !185, !noalias !182
   br label %66
 
 66:                                               ; preds = %62, %61, %56
-  %67 = phi i64 [ %65, %62 ], [ %58, %61 ], [ -1, %56 ]
+  %67 = phi i64 [ -1, %56 ], [ %58, %61 ], [ %65, %62 ]
   %68 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %51, i64 0, i32 1
   %69 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 0, i32 1
-  store i64 %67, ptr %69, align 8, !tbaa !40, !alias.scope !183, !noalias !186
-  store ptr %54, ptr %51, align 8, !tbaa !5, !alias.scope !186, !noalias !183
-  store i64 0, ptr %68, align 8, !tbaa !40, !alias.scope !186, !noalias !183
-  store i8 0, ptr %54, align 8, !tbaa !37, !alias.scope !186, !noalias !183
+  store i64 %67, ptr %69, align 8, !tbaa !40, !alias.scope !182, !noalias !185
+  store ptr %54, ptr %51, align 8, !tbaa !5, !alias.scope !185, !noalias !182
+  store i64 0, ptr %68, align 8, !tbaa !40, !alias.scope !185, !noalias !182
+  store i8 0, ptr %54, align 8, !tbaa !37, !alias.scope !185, !noalias !182
   %70 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %51, i64 1
   %71 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %50, i64 1
   %72 = icmp eq ptr %70, %1
@@ -7660,18 +7660,18 @@ define linkonce_odr dso_local void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11
 77:                                               ; preds = %73, %94
   %78 = phi ptr [ %99, %94 ], [ %75, %73 ]
   %79 = phi ptr [ %98, %94 ], [ %1, %73 ]
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !188)
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !191)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !187)
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !190)
   %80 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %78, i64 0, i32 2
-  store ptr %80, ptr %78, align 8, !tbaa !45, !alias.scope !188, !noalias !191
-  %81 = load ptr, ptr %79, align 8, !tbaa !5, !alias.scope !191, !noalias !188
+  store ptr %80, ptr %78, align 8, !tbaa !45, !alias.scope !187, !noalias !190
+  %81 = load ptr, ptr %79, align 8, !tbaa !5, !alias.scope !190, !noalias !187
   %82 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %79, i64 0, i32 2
   %83 = icmp eq ptr %81, %82
   br i1 %83, label %84, label %90
 
 84:                                               ; preds = %77
   %85 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %79, i64 0, i32 1
-  %86 = load i64, ptr %85, align 8, !tbaa !40, !alias.scope !191, !noalias !188
+  %86 = load i64, ptr %85, align 8, !tbaa !40, !alias.scope !190, !noalias !187
   %87 = add i64 %86, 1
   %88 = icmp eq i64 %87, 0
   br i1 %88, label %94, label %89
@@ -7681,21 +7681,21 @@ define linkonce_odr dso_local void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11
   br label %94
 
 90:                                               ; preds = %77
-  store ptr %81, ptr %78, align 8, !tbaa !5, !alias.scope !188, !noalias !191
-  %91 = load i64, ptr %82, align 8, !tbaa !37, !alias.scope !191, !noalias !188
-  store i64 %91, ptr %80, align 8, !tbaa !37, !alias.scope !188, !noalias !191
+  store ptr %81, ptr %78, align 8, !tbaa !5, !alias.scope !187, !noalias !190
+  %91 = load i64, ptr %82, align 8, !tbaa !37, !alias.scope !190, !noalias !187
+  store i64 %91, ptr %80, align 8, !tbaa !37, !alias.scope !187, !noalias !190
   %92 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %79, i64 0, i32 1
-  %93 = load i64, ptr %92, align 8, !tbaa !40, !alias.scope !191, !noalias !188
+  %93 = load i64, ptr %92, align 8, !tbaa !40, !alias.scope !190, !noalias !187
   br label %94
 
 94:                                               ; preds = %90, %89, %84
-  %95 = phi i64 [ %93, %90 ], [ %86, %89 ], [ -1, %84 ]
+  %95 = phi i64 [ -1, %84 ], [ %86, %89 ], [ %93, %90 ]
   %96 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %79, i64 0, i32 1
   %97 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %78, i64 0, i32 1
-  store i64 %95, ptr %97, align 8, !tbaa !40, !alias.scope !188, !noalias !191
-  store ptr %82, ptr %79, align 8, !tbaa !5, !alias.scope !191, !noalias !188
-  store i64 0, ptr %96, align 8, !tbaa !40, !alias.scope !191, !noalias !188
-  store i8 0, ptr %82, align 8, !tbaa !37, !alias.scope !191, !noalias !188
+  store i64 %95, ptr %97, align 8, !tbaa !40, !alias.scope !187, !noalias !190
+  store ptr %82, ptr %79, align 8, !tbaa !5, !alias.scope !190, !noalias !187
+  store i64 0, ptr %96, align 8, !tbaa !40, !alias.scope !190, !noalias !187
+  store i8 0, ptr %82, align 8, !tbaa !37, !alias.scope !190, !noalias !187
   %98 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %79, i64 1
   %99 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %78, i64 1
   %100 = icmp eq ptr %98, %5
@@ -7918,8 +7918,11 @@ define internal void @_GLOBAL__sub_I_main.cc() #10 section ".text.startup" perso
   ret void
 }
 
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #24
+
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #24
+declare i32 @llvm.umax.i32(i32, i32) #25
 
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #2
@@ -7927,17 +7930,14 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #2
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #25
-
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #26
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #24
+declare i64 @llvm.umax.i64(i64, i64) #25
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
-declare void @llvm.experimental.noalias.scope.decl(metadata) #27
+declare void @llvm.experimental.noalias.scope.decl(metadata) #26
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #27
 
 attributes #0 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -7963,10 +7963,10 @@ attributes #20 = { nofree nosync nounwind memory(none) }
 attributes #21 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #22 = { mustprogress nofree nounwind willreturn memory(read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #23 = { nofree nounwind memory(read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #24 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #25 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #26 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #27 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
+attributes #24 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #25 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #26 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
+attributes #27 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #28 = { builtin nounwind }
 attributes #29 = { cold }
 attributes #30 = { nounwind }
@@ -8094,80 +8094,79 @@ attributes #34 = { builtin allocsize(0) }
 !113 = !{!29, !31, i64 32}
 !114 = !{!115, !8, i64 8}
 !115 = !{!"_ZTSN2kc11impl_fnfileE", !15, i64 0, !8, i64 8}
-!116 = distinct !{!116, !56}
-!117 = !{!118, !8, i64 8}
-!118 = !{!"_ZTSN2kc12impl_fnfilesE", !119, i64 0, !8, i64 8, !8, i64 16}
-!119 = !{!"_ZTSN2kc18impl_abstract_listE", !15, i64 0}
+!116 = !{!117, !8, i64 8}
+!117 = !{!"_ZTSN2kc12impl_fnfilesE", !118, i64 0, !8, i64 8, !8, i64 16}
+!118 = !{!"_ZTSN2kc18impl_abstract_listE", !15, i64 0}
+!119 = distinct !{!119, !56}
 !120 = distinct !{!120, !56}
 !121 = distinct !{!121, !56}
-!122 = distinct !{!122, !56}
-!123 = !{!124, !8, i64 8}
-!124 = !{!"_ZTSN2kc23impl_phylumdeclarationsE", !119, i64 0, !8, i64 8, !8, i64 16}
-!125 = !{!126, !8, i64 48}
-!126 = !{!"_ZTSN2kc40impl_phylumdeclaration_PhylumDeclarationE", !127, i64 0, !8, i64 32, !8, i64 40, !8, i64 48, !8, i64 56}
-!127 = !{!"_ZTSN2kc22impl_phylumdeclarationE", !15, i64 0, !19, i64 8, !8, i64 16, !8, i64 24}
-!128 = !{!129, !8, i64 8}
-!129 = !{!"_ZTSN2kc17impl_alternativesE", !119, i64 0, !8, i64 8, !8, i64 16}
-!130 = !{!131, !8, i64 8}
-!131 = !{!"_ZTSN2kc21impl_unparseviewsinfoE", !119, i64 0, !8, i64 8, !8, i64 16}
-!132 = !{!133, !8, i64 16}
-!133 = !{!"_ZTSN2kc36impl_unparseviewinfo_UnparseviewinfoE", !134, i64 0, !8, i64 8, !8, i64 16}
-!134 = !{!"_ZTSN2kc20impl_unparseviewinfoE", !15, i64 0}
-!135 = !{!131, !8, i64 16}
-!136 = distinct !{!136, !56}
-!137 = !{!138, !8, i64 8}
-!138 = !{!"_ZTSN2kc21impl_rewriteviewsinfoE", !119, i64 0, !8, i64 8, !8, i64 16}
-!139 = !{!140, !8, i64 16}
-!140 = !{!"_ZTSN2kc36impl_rewriteviewinfo_RewriteviewinfoE", !141, i64 0, !8, i64 8, !8, i64 16}
-!141 = !{!"_ZTSN2kc20impl_rewriteviewinfoE", !15, i64 0}
-!142 = !{!138, !8, i64 16}
+!122 = !{!123, !8, i64 8}
+!123 = !{!"_ZTSN2kc23impl_phylumdeclarationsE", !118, i64 0, !8, i64 8, !8, i64 16}
+!124 = !{!125, !8, i64 48}
+!125 = !{!"_ZTSN2kc40impl_phylumdeclaration_PhylumDeclarationE", !126, i64 0, !8, i64 32, !8, i64 40, !8, i64 48, !8, i64 56}
+!126 = !{!"_ZTSN2kc22impl_phylumdeclarationE", !15, i64 0, !19, i64 8, !8, i64 16, !8, i64 24}
+!127 = !{!128, !8, i64 8}
+!128 = !{!"_ZTSN2kc17impl_alternativesE", !118, i64 0, !8, i64 8, !8, i64 16}
+!129 = !{!130, !8, i64 8}
+!130 = !{!"_ZTSN2kc21impl_unparseviewsinfoE", !118, i64 0, !8, i64 8, !8, i64 16}
+!131 = !{!132, !8, i64 16}
+!132 = !{!"_ZTSN2kc36impl_unparseviewinfo_UnparseviewinfoE", !133, i64 0, !8, i64 8, !8, i64 16}
+!133 = !{!"_ZTSN2kc20impl_unparseviewinfoE", !15, i64 0}
+!134 = !{!130, !8, i64 16}
+!135 = distinct !{!135, !56}
+!136 = !{!137, !8, i64 8}
+!137 = !{!"_ZTSN2kc21impl_rewriteviewsinfoE", !118, i64 0, !8, i64 8, !8, i64 16}
+!138 = !{!139, !8, i64 16}
+!139 = !{!"_ZTSN2kc36impl_rewriteviewinfo_RewriteviewinfoE", !140, i64 0, !8, i64 8, !8, i64 16}
+!140 = !{!"_ZTSN2kc20impl_rewriteviewinfoE", !15, i64 0}
+!141 = !{!137, !8, i64 16}
+!142 = distinct !{!142, !56}
 !143 = distinct !{!143, !56}
 !144 = distinct !{!144, !56}
 !145 = distinct !{!145, !56}
 !146 = distinct !{!146, !56}
 !147 = distinct !{!147, !56}
-!148 = distinct !{!148, !56}
-!149 = !{!150}
-!150 = distinct !{!150, !151, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_: argument 0"}
-!151 = distinct !{!151, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_"}
-!152 = !{!153}
-!153 = distinct !{!153, !154, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_: argument 0"}
-!154 = distinct !{!154, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_"}
-!155 = !{!156}
-!156 = distinct !{!156, !157, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_RKS8_: argument 0"}
-!157 = distinct !{!157, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_RKS8_"}
-!158 = !{!159}
-!159 = distinct !{!159, !160, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_: argument 0"}
-!160 = distinct !{!160, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_"}
-!161 = !{!162}
-!162 = distinct !{!162, !163, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_: argument 0"}
-!163 = distinct !{!163, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_"}
-!164 = !{!165}
-!165 = distinct !{!165, !166, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_RKS8_: argument 0"}
-!166 = distinct !{!166, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_RKS8_"}
-!167 = !{!168, !8, i64 16}
-!168 = !{!"_ZTSN2kc18impl_fnfile_FnFileE", !115, i64 0, !8, i64 16}
+!148 = !{!149}
+!149 = distinct !{!149, !150, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_: argument 0"}
+!150 = distinct !{!150, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_"}
+!151 = !{!152}
+!152 = distinct !{!152, !153, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_: argument 0"}
+!153 = distinct !{!153, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_"}
+!154 = !{!155}
+!155 = distinct !{!155, !156, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_RKS8_: argument 0"}
+!156 = distinct !{!156, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_RKS8_"}
+!157 = !{!158}
+!158 = distinct !{!158, !159, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_: argument 0"}
+!159 = distinct !{!159, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_"}
+!160 = !{!161}
+!161 = distinct !{!161, !162, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_: argument 0"}
+!162 = distinct !{!162, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_"}
+!163 = !{!164}
+!164 = distinct !{!164, !165, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_RKS8_: argument 0"}
+!165 = distinct !{!165, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_RKS8_"}
+!166 = !{!167, !8, i64 16}
+!167 = !{!"_ZTSN2kc18impl_fnfile_FnFileE", !115, i64 0, !8, i64 16}
+!168 = distinct !{!168, !56}
 !169 = distinct !{!169, !56}
 !170 = distinct !{!170, !56}
-!171 = distinct !{!171, !56}
-!172 = !{!173, !11, i64 48}
-!173 = !{!"_ZTS4stat", !11, i64 0, !11, i64 8, !11, i64 16, !19, i64 24, !19, i64 28, !19, i64 32, !19, i64 36, !11, i64 40, !11, i64 48, !11, i64 56, !11, i64 64, !174, i64 72, !174, i64 88, !174, i64 104, !9, i64 120}
-!174 = !{!"_ZTS8timespec", !11, i64 0, !11, i64 8}
-!175 = distinct !{!175, !56}
-!176 = !{!29, !11, i64 16}
-!177 = !{!178}
-!178 = distinct !{!178, !179, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_: argument 0"}
-!179 = distinct !{!179, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_"}
-!180 = !{!181}
-!181 = distinct !{!181, !182, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_: argument 0"}
-!182 = distinct !{!182, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_"}
-!183 = !{!184}
-!184 = distinct !{!184, !185, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_: argument 0"}
-!185 = distinct !{!185, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_"}
-!186 = !{!187}
-!187 = distinct !{!187, !185, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_: argument 1"}
-!188 = !{!189}
-!189 = distinct !{!189, !190, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_: argument 0"}
-!190 = distinct !{!190, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_"}
-!191 = !{!192}
-!192 = distinct !{!192, !190, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_: argument 1"}
+!171 = !{!172, !11, i64 48}
+!172 = !{!"_ZTS4stat", !11, i64 0, !11, i64 8, !11, i64 16, !19, i64 24, !19, i64 28, !19, i64 32, !19, i64 36, !11, i64 40, !11, i64 48, !11, i64 56, !11, i64 64, !173, i64 72, !173, i64 88, !173, i64 104, !9, i64 120}
+!173 = !{!"_ZTS8timespec", !11, i64 0, !11, i64 8}
+!174 = distinct !{!174, !56}
+!175 = !{!29, !11, i64 16}
+!176 = !{!177}
+!177 = distinct !{!177, !178, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_: argument 0"}
+!178 = distinct !{!178, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EERKS8_PKS5_"}
+!179 = !{!180}
+!180 = distinct !{!180, !181, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_: argument 0"}
+!181 = distinct !{!181, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_"}
+!182 = !{!183}
+!183 = distinct !{!183, !184, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_: argument 0"}
+!184 = distinct !{!184, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_"}
+!185 = !{!186}
+!186 = distinct !{!186, !184, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_: argument 1"}
+!187 = !{!188}
+!188 = distinct !{!188, !189, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_: argument 0"}
+!189 = distinct !{!189, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_"}
+!190 = !{!191}
+!191 = distinct !{!191, !189, !"_ZSt19__relocate_object_aINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES5_SaIS5_EEvPT_PT0_RT1_: argument 1"}

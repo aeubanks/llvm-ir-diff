@@ -485,24 +485,22 @@ define dso_local void @_ZN14btOptimizedBvh5buildEP23btStridingMeshInterfacebRK9b
   store i32 0, ptr %235, align 4, !tbaa !43
   call void @_ZN14btQuantizedBvh9buildTreeEii(ptr noundef nonnull align 8 dereferenceable(244) %0, i32 noundef 0, i32 noundef %234)
   %236 = load i8, ptr %11, align 8, !tbaa !8, !range !44, !noundef !45
-  %237 = icmp eq i8 %236, 0
-  br i1 %237, label %318, label %238
+  %237 = icmp ne i8 %236, 0
+  %238 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
+  %239 = load i32, ptr %238, align 4
+  %240 = icmp eq i32 %239, 0
+  %241 = select i1 %237, i1 %240, i1 false
+  br i1 %241, label %242, label %319
 
-238:                                              ; preds = %233
-  %239 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
-  %240 = load i32, ptr %239, align 4, !tbaa !46
-  %241 = icmp eq i32 %240, 0
-  br i1 %241, label %242, label %318
-
-242:                                              ; preds = %238
+242:                                              ; preds = %233
   %243 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 3
-  %244 = load i32, ptr %243, align 8, !tbaa !47
+  %244 = load i32, ptr %243, align 8, !tbaa !46
   %245 = icmp eq i32 %244, 0
   br i1 %245, label %246, label %289
 
 246:                                              ; preds = %242
   %247 = call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 32, i32 noundef 16)
-  %248 = load i32, ptr %239, align 4, !tbaa !46
+  %248 = load i32, ptr %238, align 4, !tbaa !47
   %249 = icmp sgt i32 %248, 0
   br i1 %249, label %250, label %277
 
@@ -563,14 +561,14 @@ define dso_local void @_ZN14btOptimizedBvh5buildEP23btStridingMeshInterfacebRK9b
 286:                                              ; preds = %285, %277
   store i8 1, ptr %281, align 8, !tbaa !50
   store ptr %247, ptr %278, align 8, !tbaa !48
-  store i32 1, ptr %243, align 8, !tbaa !47
-  %287 = load i32, ptr %239, align 4, !tbaa !46
+  store i32 1, ptr %243, align 8, !tbaa !46
+  %287 = load i32, ptr %238, align 4, !tbaa !47
   %288 = add nsw i32 %287, 1
   br label %289
 
 289:                                              ; preds = %242, %286
   %290 = phi i32 [ %288, %286 ], [ 1, %242 ]
-  store i32 %290, ptr %239, align 4, !tbaa !46
+  store i32 %290, ptr %238, align 4, !tbaa !47
   %291 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 5
   %292 = load ptr, ptr %291, align 8, !tbaa !48
   %293 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 11, i32 5
@@ -606,11 +604,11 @@ define dso_local void @_ZN14btOptimizedBvh5buildEP23btStridingMeshInterfacebRK9b
   %316 = select i1 %314, i32 1, i32 %315
   %317 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %292, i64 0, i32 3
   store i32 %316, ptr %317, align 4, !tbaa !57
-  br label %318
+  %318 = load i32, ptr %238, align 4, !tbaa !47
+  br label %319
 
-318:                                              ; preds = %289, %238, %233
-  %319 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
-  %320 = load i32, ptr %319, align 4, !tbaa !46
+319:                                              ; preds = %289, %233
+  %320 = phi i32 [ %318, %289 ], [ %239, %233 ]
   %321 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 15
   store i32 %320, ptr %321, align 8, !tbaa !58
   %322 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 5
@@ -622,14 +620,14 @@ define dso_local void @_ZN14btOptimizedBvh5buildEP23btStridingMeshInterfacebRK9b
   %328 = select i1 %324, i1 true, i1 %327
   br i1 %328, label %330, label %329
 
-329:                                              ; preds = %318
+329:                                              ; preds = %319
   call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %323)
   br label %330
 
-330:                                              ; preds = %318, %329
-  %331 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 2
+330:                                              ; preds = %319, %329
   store i8 1, ptr %325, align 8, !tbaa !32
   store ptr null, ptr %322, align 8, !tbaa !28
+  %331 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 2
   store i32 0, ptr %331, align 4, !tbaa !26
   %332 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 10, i32 3
   store i32 0, ptr %332, align 8, !tbaa !27
@@ -647,9 +645,9 @@ define dso_local void @_ZN14btOptimizedBvh5buildEP23btStridingMeshInterfacebRK9b
   br label %341
 
 341:                                              ; preds = %330, %340
-  %342 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 2
   store i8 1, ptr %336, align 8, !tbaa !41
   store ptr null, ptr %333, align 8, !tbaa !39
+  %342 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 2
   store i32 0, ptr %342, align 4, !tbaa !37
   %343 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 8, i32 3
   store i32 0, ptr %343, align 8, !tbaa !38
@@ -695,7 +693,7 @@ define dso_local void @_ZN14btOptimizedBvh5refitEP23btStridingMeshInterfaceRK9bt
   %10 = load i32, ptr %9, align 4, !tbaa !43
   tail call void @_ZN14btOptimizedBvh14updateBvhNodesEP23btStridingMeshInterfaceiii(ptr noundef nonnull align 8 dereferenceable(244) %0, ptr noundef %1, i32 noundef 0, i32 noundef %10, i32 poison)
   %11 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
-  %12 = load i32, ptr %11, align 4, !tbaa !46
+  %12 = load i32, ptr %11, align 4, !tbaa !47
   %13 = icmp sgt i32 %12, 0
   br i1 %13, label %14, label %45
 
@@ -1063,11 +1061,11 @@ define dso_local void @_ZN14btOptimizedBvh14updateBvhNodesEP23btStridingMeshInte
   %240 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %30, i64 %27
   %241 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %30, i64 %27, i32 2
   %242 = load i32, ptr %241, align 4, !tbaa !55
-  %243 = icmp slt i32 %242, 0
-  %244 = sub i32 0, %242
-  %245 = select i1 %243, i32 %244, i32 1
-  %246 = trunc i64 %27 to i32
-  %247 = add i32 %245, %246
+  %243 = trunc i64 %27 to i32
+  %244 = icmp slt i32 %242, 0
+  %245 = sub i32 0, %242
+  %246 = select i1 %244, i32 %245, i32 1
+  %247 = add i32 %246, %243
   %248 = sext i32 %247 to i64
   %249 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %30, i64 %248
   %250 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %30, i64 %29, i32 1, i64 0
@@ -1173,7 +1171,7 @@ define dso_local void @_ZN14btOptimizedBvh12refitPartialEP23btStridingMeshInterf
   %42 = and <4 x i16> %38, <i16 poison, i16 poison, i16 poison, i16 -2>
   %43 = shufflevector <4 x i16> %41, <4 x i16> %42, <4 x i32> <i32 0, i32 1, i32 2, i32 7>
   %44 = getelementptr inbounds %class.btQuantizedBvh, ptr %0, i64 0, i32 14, i32 2
-  %45 = load i32, ptr %44, align 4, !tbaa !46
+  %45 = load i32, ptr %44, align 4, !tbaa !47
   %46 = icmp sgt i32 %45, 0
   br i1 %46, label %47, label %100
 
@@ -1235,7 +1233,7 @@ define dso_local void @_ZN14btOptimizedBvh12refitPartialEP23btStridingMeshInterf
   %92 = load i16, ptr %91, align 2, !tbaa !51
   %93 = getelementptr inbounds %class.btBvhSubtreeInfo, ptr %53, i64 %52, i32 1, i64 2
   store i16 %92, ptr %93, align 2, !tbaa !51
-  %94 = load i32, ptr %44, align 4, !tbaa !46
+  %94 = load i32, ptr %44, align 4, !tbaa !47
   br label %95
 
 95:                                               ; preds = %69, %50
@@ -1403,38 +1401,38 @@ define internal void @_ZZN14btOptimizedBvh5buildEP23btStridingMeshInterfacebRK9b
 
 87:                                               ; preds = %4, %33, %85
   %88 = phi i32 [ %86, %85 ], [ %29, %33 ], [ %29, %4 ]
-  %89 = shl i32 %2, 21
-  %90 = or i32 %89, %3
-  %91 = fcmp olt <2 x float> %7, <float 0x43ABC16D60000000, float 0x43ABC16D60000000>
-  %92 = fcmp ogt <2 x float> %7, <float 0xC3ABC16D60000000, float 0xC3ABC16D60000000>
-  %93 = select <2 x i1> %92, <2 x float> %7, <2 x float> <float 0xC3ABC16D60000000, float 0xC3ABC16D60000000>
-  %94 = fcmp olt <2 x float> %93, %11
-  %95 = select <2 x i1> %91, <2 x float> %7, <2 x float> <float 0x43ABC16D60000000, float 0x43ABC16D60000000>
-  %96 = fcmp olt <2 x float> %11, %95
-  %97 = fcmp ogt float %5, 0xC3ABC16D60000000
-  %98 = select i1 %97, float %5, float 0xC3ABC16D60000000
-  %99 = fcmp olt float %98, %9
-  %100 = select i1 %99, float %9, float %98
-  %101 = fcmp olt float %100, %13
-  %102 = select i1 %101, float %13, float %100
-  %103 = fcmp olt float %5, 0x43ABC16D60000000
-  %104 = select i1 %103, float %5, float 0x43ABC16D60000000
-  %105 = fcmp olt float %9, %104
-  %106 = select i1 %105, float %9, float %104
-  %107 = fcmp olt float %13, %106
-  %108 = select i1 %107, float %13, float %106
-  %109 = fsub float %102, %108
-  %110 = fcmp olt float %109, 0x3F60624DE0000000
-  %111 = fadd float %102, 0x3F50624DE0000000
-  %112 = select i1 %110, float %111, float %102
-  %113 = fsub float %112, %20
-  %114 = fadd float %108, 0xBF50624DE0000000
-  %115 = select i1 %110, float %114, float %108
+  %89 = fcmp ogt <2 x float> %7, <float 0xC3ABC16D60000000, float 0xC3ABC16D60000000>
+  %90 = select <2 x i1> %89, <2 x float> %7, <2 x float> <float 0xC3ABC16D60000000, float 0xC3ABC16D60000000>
+  %91 = fcmp olt <2 x float> %90, %11
+  %92 = fcmp olt <2 x float> %7, <float 0x43ABC16D60000000, float 0x43ABC16D60000000>
+  %93 = select <2 x i1> %92, <2 x float> %7, <2 x float> <float 0x43ABC16D60000000, float 0x43ABC16D60000000>
+  %94 = fcmp olt <2 x float> %11, %93
+  %95 = fcmp ogt float %5, 0xC3ABC16D60000000
+  %96 = select i1 %95, float %5, float 0xC3ABC16D60000000
+  %97 = fcmp olt float %96, %9
+  %98 = select i1 %97, float %9, float %96
+  %99 = fcmp olt float %98, %13
+  %100 = select i1 %99, float %13, float %98
+  %101 = fcmp olt float %5, 0x43ABC16D60000000
+  %102 = select i1 %101, float %5, float 0x43ABC16D60000000
+  %103 = fcmp olt float %9, %102
+  %104 = select i1 %103, float %9, float %102
+  %105 = fcmp olt float %13, %104
+  %106 = select i1 %105, float %13, float %104
+  %107 = fsub float %100, %106
+  %108 = fcmp olt float %107, 0x3F60624DE0000000
+  %109 = fadd float %106, 0xBF50624DE0000000
+  %110 = select i1 %108, float %109, float %106
+  %111 = fadd float %100, 0x3F50624DE0000000
+  %112 = select i1 %108, float %111, float %100
+  %113 = shl i32 %2, 21
+  %114 = or i32 %113, %3
+  %115 = fsub float %112, %20
   %116 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %27, i64 0, i32 5
   %117 = load ptr, ptr %116, align 8, !tbaa !28
   %118 = sext i32 %88 to i64
   %119 = getelementptr inbounds %struct.btQuantizedBvhNode, ptr %117, i64 %118
-  %120 = insertelement <4 x float> poison, float %115, i64 0
+  %120 = insertelement <4 x float> poison, float %110, i64 0
   %121 = insertelement <4 x float> poison, float %20, i64 0
   %122 = shufflevector <2 x float> %24, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
   %123 = shufflevector <4 x float> %121, <4 x float> %122, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
@@ -1444,25 +1442,25 @@ define internal void @_ZZN14btOptimizedBvh5buildEP23btStridingMeshInterfacebRK9b
   %127 = shufflevector <4 x float> %125, <4 x float> %126, <4 x i32> <i32 0, i32 4, i32 5, i32 3>
   %128 = getelementptr inbounds i8, ptr %119, i64 8
   %129 = select <2 x i1> %94, <2 x float> %11, <2 x float> %93
-  %130 = fcmp olt <2 x float> %129, %23
+  %130 = fcmp olt <2 x float> %23, %129
   %131 = select <2 x i1> %130, <2 x float> %23, <2 x float> %129
-  %132 = select <2 x i1> %96, <2 x float> %11, <2 x float> %95
-  %133 = fcmp olt <2 x float> %23, %132
+  %132 = select <2 x i1> %91, <2 x float> %11, <2 x float> %90
+  %133 = fcmp olt <2 x float> %132, %23
   %134 = select <2 x i1> %133, <2 x float> %23, <2 x float> %132
-  %135 = fsub <2 x float> %131, %134
+  %135 = fsub <2 x float> %134, %131
   %136 = fcmp olt <2 x float> %135, <float 0x3F60624DE0000000, float 0x3F60624DE0000000>
-  %137 = fadd <2 x float> %131, <float 0x3F50624DE0000000, float 0x3F50624DE0000000>
+  %137 = fadd <2 x float> %131, <float 0xBF50624DE0000000, float 0xBF50624DE0000000>
   %138 = select <2 x i1> %136, <2 x float> %137, <2 x float> %131
-  %139 = fsub <2 x float> %138, %24
-  %140 = fmul <2 x float> %139, %25
-  %141 = fadd <2 x float> %140, <float 1.000000e+00, float 1.000000e+00>
-  %142 = fptoui <2 x float> %141 to <2 x i16>
-  %143 = or <2 x i16> %142, <i16 1, i16 1>
-  %144 = fadd <2 x float> %134, <float 0xBF50624DE0000000, float 0xBF50624DE0000000>
-  %145 = select <2 x i1> %136, <2 x float> %144, <2 x float> %134
-  %146 = shufflevector <2 x float> %145, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
+  %139 = fadd <2 x float> %134, <float 0x3F50624DE0000000, float 0x3F50624DE0000000>
+  %140 = select <2 x i1> %136, <2 x float> %139, <2 x float> %134
+  %141 = fsub <2 x float> %140, %24
+  %142 = fmul <2 x float> %141, %25
+  %143 = fadd <2 x float> %142, <float 1.000000e+00, float 1.000000e+00>
+  %144 = fptoui <2 x float> %143 to <2 x i16>
+  %145 = or <2 x i16> %144, <i16 1, i16 1>
+  %146 = shufflevector <2 x float> %138, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
   %147 = shufflevector <4 x float> %120, <4 x float> %146, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
-  %148 = insertelement <4 x float> %147, float %113, i64 3
+  %148 = insertelement <4 x float> %147, float %115, i64 3
   %149 = fsub <4 x float> %148, %124
   %150 = fmul <4 x float> %148, %124
   %151 = shufflevector <4 x float> %149, <4 x float> %150, <4 x i32> <i32 0, i32 1, i32 2, i32 7>
@@ -1474,9 +1472,9 @@ define internal void @_ZZN14btOptimizedBvh5buildEP23btStridingMeshInterfacebRK9b
   %157 = or <4 x i16> %155, <i16 poison, i16 poison, i16 poison, i16 1>
   %158 = shufflevector <4 x i16> %156, <4 x i16> %157, <4 x i32> <i32 0, i32 1, i32 2, i32 7>
   store <4 x i16> %158, ptr %119, align 4
-  store <2 x i16> %143, ptr %128, align 4
+  store <2 x i16> %145, ptr %128, align 4
   %159 = getelementptr inbounds i8, ptr %119, i64 12
-  store i32 %90, ptr %159, align 4, !tbaa.struct !64
+  store i32 %114, ptr %159, align 4, !tbaa.struct !64
   %160 = load i32, ptr %28, align 4, !tbaa !26
   %161 = add nsw i32 %160, 1
   store i32 %161, ptr %28, align 4, !tbaa !26
@@ -1715,8 +1713,8 @@ attributes #12 = { builtin nounwind }
 !43 = !{!9, !12, i64 60}
 !44 = !{i8 0, i8 2}
 !45 = !{}
-!46 = !{!20, !12, i64 4}
-!47 = !{!20, !12, i64 8}
+!46 = !{!20, !12, i64 8}
+!47 = !{!20, !12, i64 4}
 !48 = !{!20, !16, i64 16}
 !49 = !{i64 0, i64 6, !30, i64 6, i64 6, !30, i64 12, i64 4, !31, i64 16, i64 4, !31, i64 20, i64 12, !30}
 !50 = !{!20, !13, i64 24}

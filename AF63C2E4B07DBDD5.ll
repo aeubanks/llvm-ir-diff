@@ -529,73 +529,76 @@ define linkonce_odr dso_local void @_ZN9__gnu_cxx9hashtableISt4pairIKPKciES3_NS_
 
 17:                                               ; preds = %4
   %18 = icmp eq ptr %15, getelementptr inbounds ([29 x i64], ptr @_ZN9__gnu_cxx21_Hashtable_prime_listImE16__stl_prime_listE, i64 1, i64 0)
-  %19 = select i1 %18, ptr getelementptr inbounds ([29 x i64], ptr @_ZN9__gnu_cxx21_Hashtable_prime_listImE16__stl_prime_listE, i64 0, i64 28), ptr %15
-  %20 = load i64, ptr %19, align 8, !tbaa !48
-  %21 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4
-  %22 = icmp ugt i64 %20, 1152921504606846975
-  br i1 %22, label %23, label %24
+  br i1 %18, label %23, label %19
 
-23:                                               ; preds = %17
+19:                                               ; preds = %17
+  %20 = load i64, ptr %15, align 8, !tbaa !48
+  %21 = icmp ugt i64 %20, 1152921504606846975
+  br i1 %21, label %22, label %23
+
+22:                                               ; preds = %19
   tail call void @_ZSt20__throw_length_errorPKc(ptr noundef nonnull @.str.2) #21
   unreachable
 
-24:                                               ; preds = %17
-  %25 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4, i32 0, i32 0, i32 0, i32 2
-  %26 = load ptr, ptr %25, align 8, !tbaa !50
-  %27 = load ptr, ptr %21, align 8, !tbaa !9
-  %28 = ptrtoint ptr %26 to i64
+23:                                               ; preds = %17, %19
+  %24 = phi i64 [ %20, %19 ], [ 4294967291, %17 ]
+  %25 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4
+  %26 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4, i32 0, i32 0, i32 0, i32 2
+  %27 = load ptr, ptr %26, align 8, !tbaa !50
+  %28 = load ptr, ptr %25, align 8, !tbaa !9
   %29 = ptrtoint ptr %27 to i64
-  %30 = sub i64 %28, %29
-  %31 = ashr exact i64 %30, 3
-  %32 = icmp ult i64 %31, %20
-  %33 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4, i32 0, i32 0, i32 0, i32 1
-  %34 = load ptr, ptr %33, align 8, !tbaa !5
-  br i1 %32, label %35, label %50
+  %30 = ptrtoint ptr %28 to i64
+  %31 = sub i64 %29, %30
+  %32 = ashr exact i64 %31, 3
+  %33 = icmp ult i64 %32, %24
+  %34 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4, i32 0, i32 0, i32 0, i32 1
+  %35 = load ptr, ptr %34, align 8, !tbaa !5
+  br i1 %33, label %36, label %51
 
-35:                                               ; preds = %24
-  %36 = ptrtoint ptr %34 to i64
-  %37 = sub i64 %36, %29
-  %38 = ashr exact i64 %37, 3
-  %39 = shl nuw nsw i64 %20, 3
-  %40 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %39) #20
-  %41 = icmp sgt i64 %37, 0
-  br i1 %41, label %42, label %43
+36:                                               ; preds = %23
+  %37 = ptrtoint ptr %35 to i64
+  %38 = sub i64 %37, %30
+  %39 = ashr exact i64 %38, 3
+  %40 = shl nuw nsw i64 %24, 3
+  %41 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %40) #20
+  %42 = icmp sgt i64 %38, 0
+  br i1 %42, label %43, label %44
 
-42:                                               ; preds = %35
-  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %40, ptr align 8 %27, i64 %37, i1 false)
-  br label %43
+43:                                               ; preds = %36
+  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %41, ptr align 8 %28, i64 %38, i1 false)
+  br label %44
 
-43:                                               ; preds = %42, %35
-  %44 = icmp eq ptr %27, null
-  br i1 %44, label %46, label %45
+44:                                               ; preds = %43, %36
+  %45 = icmp eq ptr %28, null
+  br i1 %45, label %47, label %46
 
-45:                                               ; preds = %43
-  tail call void @_ZdlPv(ptr noundef nonnull %27) #18
-  br label %46
+46:                                               ; preds = %44
+  tail call void @_ZdlPv(ptr noundef nonnull %28) #18
+  br label %47
 
-46:                                               ; preds = %45, %43
-  store ptr %40, ptr %21, align 8, !tbaa !9
-  %47 = getelementptr inbounds ptr, ptr %40, i64 %38
-  store ptr %47, ptr %33, align 8, !tbaa !21
-  %48 = getelementptr inbounds ptr, ptr %40, i64 %20
-  store ptr %48, ptr %25, align 8, !tbaa !50
-  %49 = ptrtoint ptr %40 to i64
-  br label %50
+47:                                               ; preds = %46, %44
+  store ptr %41, ptr %25, align 8, !tbaa !9
+  %48 = getelementptr inbounds ptr, ptr %41, i64 %39
+  store ptr %48, ptr %34, align 8, !tbaa !21
+  %49 = getelementptr inbounds ptr, ptr %41, i64 %24
+  store ptr %49, ptr %26, align 8, !tbaa !50
+  %50 = ptrtoint ptr %41 to i64
+  br label %51
 
-50:                                               ; preds = %24, %46
-  %51 = phi i64 [ %49, %46 ], [ %29, %24 ]
-  %52 = phi ptr [ %40, %46 ], [ %27, %24 ]
-  %53 = phi ptr [ %47, %46 ], [ %34, %24 ]
+51:                                               ; preds = %23, %47
+  %52 = phi i64 [ %50, %47 ], [ %30, %23 ]
+  %53 = phi ptr [ %41, %47 ], [ %28, %23 ]
+  %54 = phi ptr [ %48, %47 ], [ %35, %23 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #17
   store ptr null, ptr %3, align 8, !tbaa !5
-  %54 = ptrtoint ptr %53 to i64
-  %55 = sub i64 %54, %51
-  %56 = ashr exact i64 %55, 3
-  %57 = getelementptr inbounds ptr, ptr %52, i64 %56
-  call void @_ZNSt6vectorIPN9__gnu_cxx15_Hashtable_nodeISt4pairIKPKciEEESaIS8_EE14_M_fill_insertENS0_17__normal_iteratorIPS8_SA_EEmRKS8_(ptr noundef nonnull align 8 dereferenceable(24) %21, ptr %57, i64 noundef %20, ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %55 = ptrtoint ptr %54 to i64
+  %56 = sub i64 %55, %52
+  %57 = ashr exact i64 %56, 3
+  %58 = getelementptr inbounds ptr, ptr %53, i64 %57
+  call void @_ZNSt6vectorIPN9__gnu_cxx15_Hashtable_nodeISt4pairIKPKciEEESaIS8_EE14_M_fill_insertENS0_17__normal_iteratorIPS8_SA_EEmRKS8_(ptr noundef nonnull align 8 dereferenceable(24) %25, ptr %58, i64 noundef %24, ptr noundef nonnull align 8 dereferenceable(8) %3)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #17
-  %58 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 5
-  store i64 0, ptr %58, align 8, !tbaa !11
+  %59 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 5
+  store i64 0, ptr %59, align 8, !tbaa !11
   ret void
 }
 
@@ -908,7 +911,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorIPN9__gnu_cxx15_Hashtable_nodeIS
   tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %197, ptr align 8 %1, i64 %198, i1 false)
   br label %201
 
-201:                                              ; preds = %200, %194
+201:                                              ; preds = %194, %200
   %202 = ashr exact i64 %198, 3
   %203 = getelementptr inbounds ptr, ptr %197, i64 %202
   %204 = icmp eq ptr %189, null
@@ -940,7 +943,7 @@ define linkonce_odr dso_local void @_ZN9__gnu_cxx9hashtableISt4pairIKPKciES3_NS_
   %9 = sub i64 %7, %8
   %10 = ashr exact i64 %9, 3
   %11 = icmp ult i64 %10, %1
-  br i1 %11, label %12, label %85
+  br i1 %11, label %12, label %87
 
 12:                                               ; preds = %2, %12
   %13 = phi ptr [ %23, %12 ], [ @_ZN9__gnu_cxx21_Hashtable_prime_listImE16__stl_prime_listE, %2 ]
@@ -959,103 +962,109 @@ define linkonce_odr dso_local void @_ZN9__gnu_cxx9hashtableISt4pairIKPKciES3_NS_
 
 25:                                               ; preds = %12
   %26 = icmp eq ptr %23, getelementptr inbounds ([29 x i64], ptr @_ZN9__gnu_cxx21_Hashtable_prime_listImE16__stl_prime_listE, i64 1, i64 0)
-  %27 = select i1 %26, ptr getelementptr inbounds ([29 x i64], ptr @_ZN9__gnu_cxx21_Hashtable_prime_listImE16__stl_prime_listE, i64 0, i64 28), ptr %23
-  %28 = load i64, ptr %27, align 8, !tbaa !48
+  br i1 %26, label %30, label %27
+
+27:                                               ; preds = %25
+  %28 = load i64, ptr %23, align 8, !tbaa !48
   %29 = icmp ugt i64 %28, %10
-  br i1 %29, label %30, label %85
+  br i1 %29, label %32, label %87
 
 30:                                               ; preds = %25
-  %31 = icmp ugt i64 %28, 1152921504606846975
-  br i1 %31, label %32, label %33
+  %31 = icmp ult i64 %9, 34359738328
+  br i1 %31, label %35, label %87
 
-32:                                               ; preds = %30
+32:                                               ; preds = %27
+  %33 = icmp ugt i64 %28, 1152921504606846975
+  br i1 %33, label %34, label %35
+
+34:                                               ; preds = %32
   tail call void @_ZSt20__throw_length_errorPKc(ptr noundef nonnull @.str.4) #21
   unreachable
 
-33:                                               ; preds = %30
-  %34 = shl nuw nsw i64 %28, 3
-  %35 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %34) #20
-  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %35, i8 0, i64 %34, i1 false), !tbaa !5
-  %36 = getelementptr inbounds ptr, ptr %35, i64 %28
-  %37 = icmp eq ptr %5, %6
-  br i1 %37, label %46, label %38
+35:                                               ; preds = %30, %32
+  %36 = phi i64 [ %28, %32 ], [ 4294967291, %30 ]
+  %37 = shl nuw nsw i64 %36, 3
+  %38 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %37) #20
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %38, i8 0, i64 %37, i1 false), !tbaa !5
+  %39 = getelementptr inbounds ptr, ptr %38, i64 %36
+  %40 = icmp eq ptr %5, %6
+  br i1 %40, label %49, label %41
 
-38:                                               ; preds = %33
-  %39 = tail call i64 @llvm.umax.i64(i64 %10, i64 1)
-  br label %40
+41:                                               ; preds = %35
+  %42 = tail call i64 @llvm.umax.i64(i64 %10, i64 1)
+  br label %43
 
-40:                                               ; preds = %38, %79
-  %41 = phi ptr [ %80, %79 ], [ %6, %38 ]
-  %42 = phi i64 [ %81, %79 ], [ 0, %38 ]
-  %43 = getelementptr inbounds ptr, ptr %41, i64 %42
-  %44 = load ptr, ptr %43, align 8, !tbaa !5
-  %45 = icmp eq ptr %44, null
-  br i1 %45, label %79, label %51
+43:                                               ; preds = %41, %81
+  %44 = phi ptr [ %82, %81 ], [ %6, %41 ]
+  %45 = phi i64 [ %83, %81 ], [ 0, %41 ]
+  %46 = getelementptr inbounds ptr, ptr %44, i64 %45
+  %47 = load ptr, ptr %46, align 8, !tbaa !5
+  %48 = icmp eq ptr %47, null
+  br i1 %48, label %81, label %54
 
-46:                                               ; preds = %33
-  %47 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4, i32 0, i32 0, i32 0, i32 2
-  store ptr %35, ptr %3, align 8, !tbaa !9
-  store ptr %36, ptr %4, align 8, !tbaa !21
-  store ptr %36, ptr %47, align 8, !tbaa !50
-  %48 = icmp eq ptr %5, null
-  br i1 %48, label %85, label %49
+49:                                               ; preds = %35
+  %50 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4, i32 0, i32 0, i32 0, i32 2
+  store ptr %38, ptr %3, align 8, !tbaa !9
+  store ptr %39, ptr %4, align 8, !tbaa !21
+  store ptr %39, ptr %50, align 8, !tbaa !50
+  %51 = icmp eq ptr %5, null
+  br i1 %51, label %87, label %52
 
-49:                                               ; preds = %83, %46
-  %50 = phi ptr [ %80, %83 ], [ %5, %46 ]
-  tail call void @_ZdlPv(ptr noundef nonnull %50) #18
-  br label %85
+52:                                               ; preds = %85, %49
+  %53 = phi ptr [ %82, %85 ], [ %5, %49 ]
+  tail call void @_ZdlPv(ptr noundef nonnull %53) #18
+  br label %87
 
-51:                                               ; preds = %40, %68
-  %52 = phi ptr [ %75, %68 ], [ %41, %40 ]
-  %53 = phi ptr [ %77, %68 ], [ %44, %40 ]
-  %54 = getelementptr inbounds %"struct.__gnu_cxx::_Hashtable_node", ptr %53, i64 0, i32 1
-  %55 = load ptr, ptr %54, align 8, !tbaa !5
-  %56 = load i8, ptr %55, align 1, !tbaa !22
-  %57 = icmp eq i8 %56, 0
-  br i1 %57, label %68, label %58
+54:                                               ; preds = %43, %71
+  %55 = phi ptr [ %79, %71 ], [ %47, %43 ]
+  %56 = phi ptr [ %78, %71 ], [ %46, %43 ]
+  %57 = getelementptr inbounds %"struct.__gnu_cxx::_Hashtable_node", ptr %55, i64 0, i32 1
+  %58 = load ptr, ptr %57, align 8, !tbaa !5
+  %59 = load i8, ptr %58, align 1, !tbaa !22
+  %60 = icmp eq i8 %59, 0
+  br i1 %60, label %71, label %61
 
-58:                                               ; preds = %51, %58
-  %59 = phi i8 [ %66, %58 ], [ %56, %51 ]
-  %60 = phi i64 [ %64, %58 ], [ 0, %51 ]
-  %61 = phi ptr [ %65, %58 ], [ %55, %51 ]
-  %62 = mul i64 %60, 5
-  %63 = sext i8 %59 to i64
-  %64 = add i64 %62, %63
-  %65 = getelementptr inbounds i8, ptr %61, i64 1
-  %66 = load i8, ptr %65, align 1, !tbaa !22
-  %67 = icmp eq i8 %66, 0
-  br i1 %67, label %68, label %58, !llvm.loop !23
+61:                                               ; preds = %54, %61
+  %62 = phi i8 [ %69, %61 ], [ %59, %54 ]
+  %63 = phi i64 [ %67, %61 ], [ 0, %54 ]
+  %64 = phi ptr [ %68, %61 ], [ %58, %54 ]
+  %65 = mul i64 %63, 5
+  %66 = sext i8 %62 to i64
+  %67 = add i64 %65, %66
+  %68 = getelementptr inbounds i8, ptr %64, i64 1
+  %69 = load i8, ptr %68, align 1, !tbaa !22
+  %70 = icmp eq i8 %69, 0
+  br i1 %70, label %71, label %61, !llvm.loop !23
 
-68:                                               ; preds = %58, %51
-  %69 = phi i64 [ 0, %51 ], [ %64, %58 ]
-  %70 = urem i64 %69, %28
-  %71 = load ptr, ptr %53, align 8, !tbaa !25
-  %72 = getelementptr inbounds ptr, ptr %52, i64 %42
-  store ptr %71, ptr %72, align 8, !tbaa !5
-  %73 = getelementptr inbounds ptr, ptr %35, i64 %70
-  %74 = load ptr, ptr %73, align 8, !tbaa !5
-  store ptr %74, ptr %53, align 8, !tbaa !25
-  store ptr %53, ptr %73, align 8, !tbaa !5
-  %75 = load ptr, ptr %3, align 8, !tbaa !9
-  %76 = getelementptr inbounds ptr, ptr %75, i64 %42
-  %77 = load ptr, ptr %76, align 8, !tbaa !5
-  %78 = icmp eq ptr %77, null
-  br i1 %78, label %79, label %51, !llvm.loop !61
+71:                                               ; preds = %61, %54
+  %72 = phi i64 [ 0, %54 ], [ %67, %61 ]
+  %73 = urem i64 %72, %36
+  %74 = load ptr, ptr %55, align 8, !tbaa !25
+  store ptr %74, ptr %56, align 8, !tbaa !5
+  %75 = getelementptr inbounds ptr, ptr %38, i64 %73
+  %76 = load ptr, ptr %75, align 8, !tbaa !5
+  store ptr %76, ptr %55, align 8, !tbaa !25
+  store ptr %55, ptr %75, align 8, !tbaa !5
+  %77 = load ptr, ptr %3, align 8, !tbaa !9
+  %78 = getelementptr inbounds ptr, ptr %77, i64 %45
+  %79 = load ptr, ptr %78, align 8, !tbaa !5
+  %80 = icmp eq ptr %79, null
+  br i1 %80, label %81, label %54, !llvm.loop !61
 
-79:                                               ; preds = %68, %40
-  %80 = phi ptr [ %41, %40 ], [ %75, %68 ]
-  %81 = add nuw i64 %42, 1
-  %82 = icmp eq i64 %81, %39
-  br i1 %82, label %83, label %40, !llvm.loop !62
+81:                                               ; preds = %71, %43
+  %82 = phi ptr [ %44, %43 ], [ %77, %71 ]
+  %83 = add nuw i64 %45, 1
+  %84 = icmp eq i64 %83, %42
+  br i1 %84, label %85, label %43, !llvm.loop !62
 
-83:                                               ; preds = %79
-  %84 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4, i32 0, i32 0, i32 0, i32 2
-  store ptr %35, ptr %3, align 8, !tbaa !9
-  store ptr %36, ptr %4, align 8, !tbaa !21
-  store ptr %36, ptr %84, align 8, !tbaa !50
-  br label %49
+85:                                               ; preds = %81
+  %86 = getelementptr inbounds %"class.__gnu_cxx::hashtable", ptr %0, i64 0, i32 4, i32 0, i32 0, i32 0, i32 2
+  store ptr %38, ptr %3, align 8, !tbaa !9
+  store ptr %39, ptr %4, align 8, !tbaa !21
+  store ptr %39, ptr %86, align 8, !tbaa !50
+  br label %52
 
-85:                                               ; preds = %49, %46, %25, %2
+87:                                               ; preds = %30, %27, %49, %52, %2
   ret void
 }
 

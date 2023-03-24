@@ -260,7 +260,7 @@ define dso_local i32 @Vside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %185 = fsub <4 x double> %182, %184
   %186 = fcmp oge <4 x double> %185, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %187 = zext <4 x i1> %186 to <4 x i32>
-  %188 = add nsw <4 x i32> %187, %183
+  %188 = add nsw <4 x i32> %183, %187
   %189 = sub nsw <4 x i32> %164, %188
   %190 = getelementptr inbounds %struct.kbox, ptr %154, i64 %169, i32 4
   %191 = getelementptr inbounds %struct.kbox, ptr %154, i64 %170, i32 4
@@ -279,8 +279,8 @@ define dso_local i32 @Vside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %200 = fsub <4 x double> %180, %199
   %201 = fcmp oge <4 x double> %200, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %202 = zext <4 x i1> %201 to <4 x i32>
-  %203 = add nsw <4 x i32> %202, %198
-  %204 = sub <4 x i32> %203, %188
+  %203 = add nsw <4 x i32> %198, %202
+  %204 = sub nsw <4 x i32> %203, %188
   %205 = getelementptr inbounds %struct.kbox, ptr %154, i64 %169, i32 2
   %206 = getelementptr inbounds %struct.kbox, ptr %154, i64 %170, i32 2
   %207 = getelementptr inbounds %struct.kbox, ptr %154, i64 %171, i32 2
@@ -365,7 +365,7 @@ define dso_local i32 @Vside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %262 = fsub <4 x double> %259, %261
   %263 = fcmp oge <4 x double> %262, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %264 = zext <4 x i1> %263 to <4 x i32>
-  %265 = add nsw <4 x i32> %264, %260
+  %265 = add nsw <4 x i32> %260, %264
   %266 = add nsw <4 x i32> %265, %241
   %267 = getelementptr inbounds %struct.kbox, ptr %231, i64 %246, i32 4
   %268 = getelementptr inbounds %struct.kbox, ptr %231, i64 %247, i32 4
@@ -384,8 +384,8 @@ define dso_local i32 @Vside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %277 = fsub <4 x double> %257, %276
   %278 = fcmp oge <4 x double> %277, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %279 = zext <4 x i1> %278 to <4 x i32>
-  %280 = add nsw <4 x i32> %279, %275
-  %281 = sub <4 x i32> %280, %265
+  %280 = add nsw <4 x i32> %275, %279
+  %281 = sub nsw <4 x i32> %280, %265
   %282 = getelementptr inbounds %struct.kbox, ptr %231, i64 %246, i32 2
   %283 = getelementptr inbounds %struct.kbox, ptr %231, i64 %247, i32 2
   %284 = getelementptr inbounds %struct.kbox, ptr %231, i64 %248, i32 2
@@ -449,7 +449,7 @@ define dso_local i32 @Vside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %326 = zext i1 %325 to i32
   %327 = extractelement <2 x i32> %316, i64 0
   %328 = add nsw i32 %327, %326
-  %329 = sub i32 %328, %323
+  %329 = sub nsw i32 %328, %323
   %330 = getelementptr inbounds %struct.kbox, ptr %231, i64 %307, i32 2
   store i32 %329, ptr %330, align 4, !tbaa !27
   %331 = getelementptr inbounds %struct.kbox, ptr %231, i64 %307, i32 1
@@ -482,7 +482,7 @@ define dso_local i32 @Vside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %353 = zext i1 %352 to i32
   %354 = extractelement <2 x i32> %343, i64 0
   %355 = add nsw i32 %354, %353
-  %356 = sub i32 %355, %350
+  %356 = sub nsw i32 %355, %350
   %357 = getelementptr inbounds %struct.kbox, ptr %154, i64 %334, i32 2
   store i32 %356, ptr %357, align 4, !tbaa !27
   %358 = getelementptr inbounds %struct.kbox, ptr %154, i64 %334, i32 1
@@ -770,15 +770,15 @@ define dso_local i32 @Hside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %185 = fsub <4 x double> %182, %184
   %186 = fcmp oge <4 x double> %185, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %187 = zext <4 x i1> %186 to <4 x i32>
-  %188 = add nsw <4 x i32> %187, %183
+  %188 = add nsw <4 x i32> %183, %187
   %189 = sub nsw <4 x i32> %164, %188
   %190 = fptosi <4 x double> %180 to <4 x i32>
   %191 = sitofp <4 x i32> %190 to <4 x double>
   %192 = fsub <4 x double> %180, %191
   %193 = fcmp oge <4 x double> %192, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %194 = zext <4 x i1> %193 to <4 x i32>
-  %195 = add nsw <4 x i32> %194, %190
-  %196 = sub <4 x i32> %195, %188
+  %195 = add nsw <4 x i32> %190, %194
+  %196 = sub nsw <4 x i32> %195, %188
   %197 = getelementptr inbounds %struct.kbox, ptr %154, i64 %169, i32 2
   %198 = getelementptr inbounds %struct.kbox, ptr %154, i64 %170, i32 2
   %199 = getelementptr inbounds %struct.kbox, ptr %154, i64 %171, i32 2
@@ -863,15 +863,15 @@ define dso_local i32 @Hside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %254 = fsub <4 x double> %251, %253
   %255 = fcmp oge <4 x double> %254, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %256 = zext <4 x i1> %255 to <4 x i32>
-  %257 = add nsw <4 x i32> %256, %252
+  %257 = add nsw <4 x i32> %252, %256
   %258 = add nsw <4 x i32> %257, %233
   %259 = fptosi <4 x double> %249 to <4 x i32>
   %260 = sitofp <4 x i32> %259 to <4 x double>
   %261 = fsub <4 x double> %249, %260
   %262 = fcmp oge <4 x double> %261, <double 5.000000e-01, double 5.000000e-01, double 5.000000e-01, double 5.000000e-01>
   %263 = zext <4 x i1> %262 to <4 x i32>
-  %264 = add nsw <4 x i32> %263, %259
-  %265 = sub <4 x i32> %264, %257
+  %264 = add nsw <4 x i32> %259, %263
+  %265 = sub nsw <4 x i32> %264, %257
   %266 = getelementptr inbounds %struct.kbox, ptr %223, i64 %238, i32 2
   %267 = getelementptr inbounds %struct.kbox, ptr %223, i64 %239, i32 2
   %268 = getelementptr inbounds %struct.kbox, ptr %223, i64 %240, i32 2
@@ -926,10 +926,10 @@ define dso_local i32 @Hside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %302 = fsub <2 x double> %299, %301
   %303 = fcmp oge <2 x double> %302, <double 5.000000e-01, double 5.000000e-01>
   %304 = zext <2 x i1> %303 to <2 x i32>
-  %305 = add nsw <2 x i32> %304, %300
+  %305 = add nsw <2 x i32> %300, %304
   %306 = shufflevector <2 x i32> %305, <2 x i32> poison, <2 x i32> <i32 1, i32 undef>
   %307 = insertelement <2 x i32> %306, i32 %1, i64 1
-  %308 = sub <2 x i32> %305, %307
+  %308 = sub nsw <2 x i32> %305, %307
   %309 = add nsw <2 x i32> %305, %307
   %310 = shufflevector <2 x i32> %308, <2 x i32> %309, <2 x i32> <i32 0, i32 3>
   store <2 x i32> %310, ptr %294, align 4, !tbaa !15
@@ -963,7 +963,7 @@ define dso_local i32 @Hside(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 
   %333 = zext i1 %332 to i32
   %334 = extractelement <2 x i32> %323, i64 0
   %335 = add nsw i32 %334, %333
-  %336 = sub i32 %335, %330
+  %336 = sub nsw i32 %335, %330
   %337 = getelementptr inbounds %struct.kbox, ptr %154, i64 %314, i32 2
   store i32 %336, ptr %337, align 4, !tbaa !27
   %338 = getelementptr inbounds %struct.kbox, ptr %154, i64 %314, i32 1

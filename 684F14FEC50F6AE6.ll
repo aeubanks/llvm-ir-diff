@@ -597,9 +597,9 @@ define dso_local i32 @hypre_SemiRestrict(ptr noundef %0, ptr nocapture noundef r
   br i1 %428, label %429, label %329, !llvm.loop !44
 
 429:                                              ; preds = %417
-  %430 = add nsw i32 %424, %304
+  %430 = add i32 %304, %424
   %431 = add nsw i32 %306, %425
-  %432 = add nsw i32 %426, %308
+  %432 = add i32 %308, %426
   %433 = add nuw nsw i32 %328, 1
   %434 = icmp eq i32 %433, %287
   br i1 %434, label %435, label %324, !llvm.loop !45

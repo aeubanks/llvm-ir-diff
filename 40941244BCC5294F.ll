@@ -341,8 +341,8 @@ define dso_local i32 @deflateEnd(ptr noundef %0) local_unnamed_addr #0 {
   %65 = select i1 %64, i32 -3, i32 0
   br label %66
 
-66:                                               ; preds = %11, %15, %18, %1, %3, %7, %59
-  %67 = phi i32 [ %65, %59 ], [ -2, %7 ], [ -2, %3 ], [ -2, %1 ], [ -2, %18 ], [ -2, %15 ], [ -2, %11 ]
+66:                                               ; preds = %1, %3, %7, %11, %15, %18, %59
+  %67 = phi i32 [ %65, %59 ], [ -2, %18 ], [ -2, %15 ], [ -2, %11 ], [ -2, %7 ], [ -2, %3 ], [ -2, %1 ]
   ret i32 %67
 }
 
@@ -632,8 +632,8 @@ define dso_local i32 @deflateSetDictionary(ptr noundef %0, ptr noundef %1, i32 n
   store i32 %27, ptr %26, align 8, !tbaa !23
   br label %135
 
-135:                                              ; preds = %25, %13, %17, %20, %3, %5, %9, %34, %28, %30, %23, %124
-  %136 = phi i32 [ 0, %124 ], [ -2, %23 ], [ -2, %30 ], [ -2, %28 ], [ -2, %25 ], [ -2, %34 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ -2, %20 ], [ -2, %17 ], [ -2, %13 ]
+135:                                              ; preds = %25, %20, %17, %13, %9, %5, %3, %34, %28, %30, %23, %124
+  %136 = phi i32 [ 0, %124 ], [ -2, %23 ], [ -2, %30 ], [ -2, %28 ], [ -2, %25 ], [ -2, %34 ], [ -2, %3 ], [ -2, %5 ], [ -2, %9 ], [ -2, %13 ], [ -2, %17 ], [ -2, %20 ]
   ret i32 %136
 }
 
@@ -1082,8 +1082,8 @@ define dso_local i32 @deflateGetDictionary(ptr noundef readonly %0, ptr noundef 
   store i32 %31, ptr %2, align 4, !tbaa !72
   br label %48
 
-48:                                               ; preds = %13, %17, %20, %3, %5, %9, %45, %47
-  %49 = phi i32 [ 0, %47 ], [ 0, %45 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ -2, %20 ], [ -2, %17 ], [ -2, %13 ]
+48:                                               ; preds = %3, %5, %9, %13, %17, %20, %45, %47
+  %49 = phi i32 [ 0, %47 ], [ 0, %45 ], [ -2, %20 ], [ -2, %17 ], [ -2, %13 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ]
   ret i32 %49
 }
 
@@ -1181,8 +1181,8 @@ define dso_local i32 @deflateResetKeep(ptr noundef %0) local_unnamed_addr #0 {
   tail call void @_tr_init(ptr noundef nonnull %13) #11
   br label %48
 
-48:                                               ; preds = %11, %15, %18, %1, %3, %7, %44
-  %49 = phi i32 [ 0, %44 ], [ -2, %7 ], [ -2, %3 ], [ -2, %1 ], [ -2, %18 ], [ -2, %15 ], [ -2, %11 ]
+48:                                               ; preds = %1, %3, %7, %11, %15, %18, %44
+  %49 = phi i32 [ 0, %44 ], [ -2, %18 ], [ -2, %15 ], [ -2, %11 ], [ -2, %7 ], [ -2, %3 ], [ -2, %1 ]
   ret i32 %49
 }
 
@@ -1243,8 +1243,8 @@ define dso_local i32 @deflateSetHeader(ptr noundef readonly %0, ptr noundef %1) 
   store ptr %1, ptr %27, align 8, !tbaa !24
   br label %28
 
-28:                                               ; preds = %12, %16, %19, %2, %4, %8, %22, %26
-  %29 = phi i32 [ 0, %26 ], [ -2, %22 ], [ -2, %8 ], [ -2, %4 ], [ -2, %2 ], [ -2, %19 ], [ -2, %16 ], [ -2, %12 ]
+28:                                               ; preds = %22, %19, %16, %12, %8, %4, %2, %26
+  %29 = phi i32 [ 0, %26 ], [ -2, %2 ], [ -2, %4 ], [ -2, %8 ], [ -2, %12 ], [ -2, %16 ], [ -2, %19 ], [ -2, %22 ]
   ret i32 %29
 }
 
@@ -1311,8 +1311,8 @@ define dso_local i32 @deflatePending(ptr noundef readonly %0, ptr noundef writeo
   store i32 %33, ptr %2, align 4, !tbaa !72
   br label %34
 
-34:                                               ; preds = %13, %17, %20, %3, %5, %9, %29, %31
-  %35 = phi i32 [ 0, %31 ], [ 0, %29 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ -2, %20 ], [ -2, %17 ], [ -2, %13 ]
+34:                                               ; preds = %3, %5, %9, %13, %17, %20, %29, %31
+  %35 = phi i32 [ 0, %31 ], [ 0, %29 ], [ -2, %20 ], [ -2, %17 ], [ -2, %13 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ]
   ret i32 %35
 }
 
@@ -1394,8 +1394,8 @@ define dso_local i32 @deflatePrime(ptr noundef readonly %0, i32 noundef %1, i32 
   %49 = icmp eq i32 %48, 0
   br i1 %49, label %50, label %33, !llvm.loop !88
 
-50:                                               ; preds = %33, %13, %17, %20, %3, %5, %9, %23
-  %51 = phi i32 [ -5, %23 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ -2, %20 ], [ -2, %17 ], [ -2, %13 ], [ 0, %33 ]
+50:                                               ; preds = %33, %3, %5, %9, %13, %17, %20, %23
+  %51 = phi i32 [ -5, %23 ], [ -2, %20 ], [ -2, %17 ], [ -2, %13 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ 0, %33 ]
   ret i32 %51
 }
 
@@ -1561,8 +1561,8 @@ define dso_local i32 @deflateParams(ptr noundef %0, i32 noundef %1, i32 noundef 
   store i32 %2, ptr %31, align 8, !tbaa !44
   br label %100
 
-100:                                              ; preds = %47, %13, %17, %20, %3, %5, %9, %23, %50, %99
-  %101 = phi i32 [ 0, %99 ], [ -5, %50 ], [ -2, %23 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ -2, %20 ], [ -2, %17 ], [ -2, %13 ], [ -2, %47 ]
+100:                                              ; preds = %47, %3, %5, %9, %13, %17, %20, %23, %50, %99
+  %101 = phi i32 [ 0, %99 ], [ -5, %50 ], [ -2, %23 ], [ -2, %20 ], [ -2, %17 ], [ -2, %13 ], [ -2, %9 ], [ -2, %5 ], [ -2, %3 ], [ -2, %47 ]
   ret i32 %101
 }
 
@@ -3006,8 +3006,8 @@ define dso_local i32 @deflate(ptr noundef %0, i32 noundef %1) local_unnamed_addr
   %948 = zext i1 %947 to i32
   br label %949
 
-949:                                              ; preds = %788, %12, %16, %19, %2, %4, %8, %516, %187, %848, %822, %819, %850, %849, %713, %619, %22, %945, %780, %759, %255, %109, %100, %87, %46, %39
-  %950 = phi i32 [ -2, %39 ], [ -5, %46 ], [ 0, %87 ], [ -5, %109 ], [ 0, %255 ], [ 0, %759 ], [ 0, %780 ], [ %948, %945 ], [ 0, %619 ], [ 0, %187 ], [ -5, %100 ], [ -2, %22 ], [ 0, %713 ], [ 0, %849 ], [ 1, %850 ], [ 0, %819 ], [ 0, %822 ], [ 0, %848 ], [ 0, %516 ], [ -2, %8 ], [ -2, %4 ], [ -2, %2 ], [ -2, %19 ], [ -2, %16 ], [ -2, %12 ], [ 0, %788 ]
+949:                                              ; preds = %788, %19, %16, %12, %8, %4, %2, %516, %187, %848, %822, %819, %850, %849, %713, %619, %22, %945, %780, %759, %255, %109, %100, %87, %46, %39
+  %950 = phi i32 [ -2, %39 ], [ -5, %46 ], [ 0, %87 ], [ -5, %109 ], [ 0, %255 ], [ 0, %759 ], [ 0, %780 ], [ %948, %945 ], [ 0, %619 ], [ 0, %187 ], [ -5, %100 ], [ -2, %22 ], [ 0, %713 ], [ 0, %849 ], [ 1, %850 ], [ 0, %819 ], [ 0, %822 ], [ 0, %848 ], [ 0, %516 ], [ -2, %2 ], [ -2, %4 ], [ -2, %8 ], [ -2, %12 ], [ -2, %16 ], [ -2, %19 ], [ 0, %788 ]
   ret i32 %950
 }
 
@@ -3193,8 +3193,8 @@ define dso_local i32 @deflateTune(ptr noundef readonly %0, i32 noundef %1, i32 n
   store i32 %4, ptr %29, align 4, !tbaa !57
   br label %30
 
-30:                                               ; preds = %15, %19, %22, %5, %7, %11, %25
-  %31 = phi i32 [ 0, %25 ], [ -2, %11 ], [ -2, %7 ], [ -2, %5 ], [ -2, %22 ], [ -2, %19 ], [ -2, %15 ]
+30:                                               ; preds = %5, %7, %11, %15, %19, %22, %25
+  %31 = phi i32 [ 0, %25 ], [ -2, %22 ], [ -2, %19 ], [ -2, %15 ], [ -2, %11 ], [ -2, %7 ], [ -2, %5 ]
   ret i32 %31
 }
 
@@ -3208,66 +3208,66 @@ define dso_local i64 @deflateBound(ptr noundef readonly %0, i64 noundef %1) loca
   %8 = add i64 %5, %7
   %9 = add i64 %8, 5
   %10 = icmp eq ptr %0, null
-  br i1 %10, label %29, label %11
+  br i1 %10, label %32, label %11
 
 11:                                               ; preds = %2
   %12 = getelementptr inbounds %struct.z_stream_s, ptr %0, i64 0, i32 8
   %13 = load ptr, ptr %12, align 8, !tbaa !14
   %14 = icmp eq ptr %13, null
-  br i1 %14, label %29, label %15
+  br i1 %14, label %32, label %15
 
 15:                                               ; preds = %11
   %16 = getelementptr inbounds %struct.z_stream_s, ptr %0, i64 0, i32 9
   %17 = load ptr, ptr %16, align 8, !tbaa !16
   %18 = icmp eq ptr %17, null
-  br i1 %18, label %29, label %19
+  br i1 %18, label %32, label %19
 
 19:                                               ; preds = %15
   %20 = getelementptr inbounds %struct.z_stream_s, ptr %0, i64 0, i32 7
   %21 = load ptr, ptr %20, align 8, !tbaa !17
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %29, label %23
+  br i1 %22, label %32, label %23
 
 23:                                               ; preds = %19
   %24 = load ptr, ptr %21, align 8, !tbaa !18
   %25 = icmp eq ptr %24, %0
-  br i1 %25, label %26, label %29
+  br i1 %25, label %26, label %32
 
 26:                                               ; preds = %23
   %27 = getelementptr inbounds %struct.internal_state, ptr %21, i64 0, i32 1
   %28 = load i32, ptr %27, align 8, !tbaa !22
-  switch i32 %28, label %29 [
-    i32 42, label %31
-    i32 57, label %31
-    i32 69, label %31
-    i32 73, label %31
-    i32 91, label %31
-    i32 103, label %31
-    i32 113, label %31
-    i32 666, label %31
+  switch i32 %28, label %32 [
+    i32 42, label %29
+    i32 57, label %29
+    i32 69, label %29
+    i32 73, label %29
+    i32 91, label %29
+    i32 103, label %29
+    i32 113, label %29
+    i32 666, label %29
   ]
 
-29:                                               ; preds = %15, %11, %2, %26, %23, %19
-  %30 = add i64 %8, 11
-  br label %104
-
-31:                                               ; preds = %26, %26, %26, %26, %26, %26, %26, %26
-  %32 = getelementptr inbounds %struct.internal_state, ptr %21, i64 0, i32 6
-  %33 = load i32, ptr %32, align 8, !tbaa !23
-  switch i32 %33, label %84 [
+29:                                               ; preds = %26, %26, %26, %26, %26, %26, %26, %26
+  %30 = getelementptr inbounds %struct.internal_state, ptr %21, i64 0, i32 6
+  %31 = load i32, ptr %30, align 8, !tbaa !23
+  switch i32 %31, label %84 [
     i32 0, label %85
     i32 1, label %34
     i32 2, label %39
   ]
 
-34:                                               ; preds = %31
+32:                                               ; preds = %26, %23, %19, %15, %11, %2
+  %33 = add i64 %8, 11
+  br label %104
+
+34:                                               ; preds = %29
   %35 = getelementptr inbounds %struct.internal_state, ptr %21, i64 0, i32 27
   %36 = load i32, ptr %35, align 4, !tbaa !58
   %37 = icmp eq i32 %36, 0
   %38 = select i1 %37, i64 6, i64 10
   br label %85
 
-39:                                               ; preds = %31
+39:                                               ; preds = %29
   %40 = getelementptr inbounds %struct.internal_state, ptr %21, i64 0, i32 7
   %41 = load ptr, ptr %40, align 8, !tbaa !24
   %42 = icmp eq ptr %41, null
@@ -3328,11 +3328,11 @@ define dso_local i64 @deflateBound(ptr noundef readonly %0, i64 noundef %1) loca
   %83 = select i1 %81, i64 %78, i64 %82
   br label %85
 
-84:                                               ; preds = %31
+84:                                               ; preds = %29
   br label %85
 
-85:                                               ; preds = %31, %39, %77, %84, %34
-  %86 = phi i64 [ 6, %84 ], [ %83, %77 ], [ 18, %39 ], [ %38, %34 ], [ 0, %31 ]
+85:                                               ; preds = %29, %39, %77, %84, %34
+  %86 = phi i64 [ 6, %84 ], [ %83, %77 ], [ 18, %39 ], [ %38, %34 ], [ 0, %29 ]
   %87 = getelementptr inbounds %struct.internal_state, ptr %21, i64 0, i32 12
   %88 = load i32, ptr %87, align 4, !tbaa !25
   %89 = icmp eq i32 %88, 15
@@ -3358,8 +3358,8 @@ define dso_local i64 @deflateBound(ptr noundef readonly %0, i64 noundef %1) loca
   %103 = add i64 %102, %86
   br label %104
 
-104:                                              ; preds = %96, %94, %29
-  %105 = phi i64 [ %30, %29 ], [ %95, %94 ], [ %103, %96 ]
+104:                                              ; preds = %96, %94, %32
+  %105 = phi i64 [ %33, %32 ], [ %95, %94 ], [ %103, %96 ]
   ret i64 %105
 }
 
@@ -4970,8 +4970,8 @@ define dso_local i32 @deflateCopy(ptr noundef %0, ptr noundef readonly %1) local
   store ptr %114, ptr %115, align 8, !tbaa !121
   br label %116
 
-116:                                              ; preds = %12, %16, %19, %2, %4, %8, %24, %22, %68, %66
-  %117 = phi i32 [ -4, %66 ], [ 0, %68 ], [ -2, %22 ], [ -4, %24 ], [ -2, %8 ], [ -2, %4 ], [ -2, %2 ], [ -2, %19 ], [ -2, %16 ], [ -2, %12 ]
+116:                                              ; preds = %19, %16, %12, %8, %4, %2, %24, %22, %68, %66
+  %117 = phi i32 [ -4, %66 ], [ 0, %68 ], [ -2, %22 ], [ -4, %24 ], [ -2, %2 ], [ -2, %4 ], [ -2, %8 ], [ -2, %12 ], [ -2, %16 ], [ -2, %19 ]
   ret i32 %117
 }
 
@@ -6142,8 +6142,8 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
   %37 = load i32, ptr %36, align 4, !tbaa !60
   %38 = tail call i32 @llvm.umin.i32(i32 %14, i32 %37)
   %39 = getelementptr inbounds %struct.internal_state, ptr %0, i64 0, i32 28
-  %40 = getelementptr inbounds i8, ptr %10, i64 1
-  %41 = ptrtoint ptr %23 to i64
+  %40 = ptrtoint ptr %23 to i64
+  %41 = getelementptr inbounds i8, ptr %10, i64 1
   br label %42
 
 42:                                               ; preds = %159, %2
@@ -6177,7 +6177,7 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
 64:                                               ; preds = %60
   %65 = getelementptr inbounds i8, ptr %49, i64 1
   %66 = load i8, ptr %65, align 1, !tbaa !6
-  %67 = load i8, ptr %40, align 1, !tbaa !6
+  %67 = load i8, ptr %41, align 1, !tbaa !6
   %68 = icmp eq i8 %66, %67
   br i1 %68, label %69, label %159
 
@@ -6194,7 +6194,7 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
   %77 = getelementptr inbounds i8, ptr %72, i64 1
   %78 = load i8, ptr %77, align 1, !tbaa !6
   %79 = icmp eq i8 %76, %78
-  br i1 %79, label %80, label %125
+  br i1 %79, label %80, label %127
 
 80:                                               ; preds = %71
   %81 = getelementptr inbounds i8, ptr %74, i64 2
@@ -6202,7 +6202,7 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
   %83 = getelementptr inbounds i8, ptr %72, i64 2
   %84 = load i8, ptr %83, align 1, !tbaa !6
   %85 = icmp eq i8 %82, %84
-  br i1 %85, label %86, label %127
+  br i1 %85, label %86, label %129
 
 86:                                               ; preds = %80
   %87 = getelementptr inbounds i8, ptr %74, i64 3
@@ -6210,7 +6210,7 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
   %89 = getelementptr inbounds i8, ptr %72, i64 3
   %90 = load i8, ptr %89, align 1, !tbaa !6
   %91 = icmp eq i8 %88, %90
-  br i1 %91, label %92, label %129
+  br i1 %91, label %92, label %131
 
 92:                                               ; preds = %86
   %93 = getelementptr inbounds i8, ptr %74, i64 4
@@ -6218,7 +6218,7 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
   %95 = getelementptr inbounds i8, ptr %72, i64 4
   %96 = load i8, ptr %95, align 1, !tbaa !6
   %97 = icmp eq i8 %94, %96
-  br i1 %97, label %98, label %131
+  br i1 %97, label %98, label %133
 
 98:                                               ; preds = %92
   %99 = getelementptr inbounds i8, ptr %74, i64 5
@@ -6226,7 +6226,7 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
   %101 = getelementptr inbounds i8, ptr %72, i64 5
   %102 = load i8, ptr %101, align 1, !tbaa !6
   %103 = icmp eq i8 %100, %102
-  br i1 %103, label %104, label %133
+  br i1 %103, label %104, label %135
 
 104:                                              ; preds = %98
   %105 = getelementptr inbounds i8, ptr %74, i64 6
@@ -6234,7 +6234,7 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
   %107 = getelementptr inbounds i8, ptr %72, i64 6
   %108 = load i8, ptr %107, align 1, !tbaa !6
   %109 = icmp eq i8 %106, %108
-  br i1 %109, label %110, label %135
+  br i1 %109, label %110, label %137
 
 110:                                              ; preds = %104
   %111 = getelementptr inbounds i8, ptr %74, i64 7
@@ -6242,7 +6242,7 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
   %113 = getelementptr inbounds i8, ptr %72, i64 7
   %114 = load i8, ptr %113, align 1, !tbaa !6
   %115 = icmp eq i8 %112, %114
-  br i1 %115, label %116, label %137
+  br i1 %115, label %116, label %139
 
 116:                                              ; preds = %110
   %117 = add nuw nsw i64 %73, 8
@@ -6253,44 +6253,44 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
   %122 = icmp eq i8 %119, %121
   %123 = icmp ult i64 %73, 250
   %124 = select i1 %122, i1 %123, i1 false
-  br i1 %124, label %71, label %139, !llvm.loop !126
+  br i1 %124, label %71, label %125, !llvm.loop !126
 
-125:                                              ; preds = %71
-  %126 = getelementptr inbounds i8, ptr %74, i64 1
+125:                                              ; preds = %116
+  %126 = getelementptr inbounds i8, ptr %10, i64 %117
   br label %141
 
-127:                                              ; preds = %80
-  %128 = getelementptr inbounds i8, ptr %74, i64 2
+127:                                              ; preds = %71
+  %128 = getelementptr inbounds i8, ptr %74, i64 1
   br label %141
 
-129:                                              ; preds = %86
-  %130 = getelementptr inbounds i8, ptr %74, i64 3
+129:                                              ; preds = %80
+  %130 = getelementptr inbounds i8, ptr %74, i64 2
   br label %141
 
-131:                                              ; preds = %92
-  %132 = getelementptr inbounds i8, ptr %74, i64 4
+131:                                              ; preds = %86
+  %132 = getelementptr inbounds i8, ptr %74, i64 3
   br label %141
 
-133:                                              ; preds = %98
-  %134 = getelementptr inbounds i8, ptr %74, i64 5
+133:                                              ; preds = %92
+  %134 = getelementptr inbounds i8, ptr %74, i64 4
   br label %141
 
-135:                                              ; preds = %104
-  %136 = getelementptr inbounds i8, ptr %74, i64 6
+135:                                              ; preds = %98
+  %136 = getelementptr inbounds i8, ptr %74, i64 5
   br label %141
 
-137:                                              ; preds = %110
-  %138 = getelementptr inbounds i8, ptr %74, i64 7
+137:                                              ; preds = %104
+  %138 = getelementptr inbounds i8, ptr %74, i64 6
   br label %141
 
-139:                                              ; preds = %116
-  %140 = getelementptr inbounds i8, ptr %10, i64 %117
+139:                                              ; preds = %110
+  %140 = getelementptr inbounds i8, ptr %74, i64 7
   br label %141
 
 141:                                              ; preds = %139, %137, %135, %133, %131, %129, %127, %125
   %142 = phi ptr [ %126, %125 ], [ %128, %127 ], [ %130, %129 ], [ %132, %131 ], [ %134, %133 ], [ %136, %135 ], [ %138, %137 ], [ %140, %139 ]
   %143 = ptrtoint ptr %142 to i64
-  %144 = sub i64 %143, %41
+  %144 = sub i64 %143, %40
   %145 = trunc i64 %144 to i32
   %146 = add i32 %145, 258
   %147 = icmp sgt i32 %146, %43
@@ -6336,13 +6336,13 @@ define internal fastcc i32 @longest_match(ptr nocapture noundef %0, i32 noundef 
 declare void @_tr_flush_block(ptr noundef, ptr noundef, i64 noundef, i32 noundef) local_unnamed_addr #1
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.usub.sat.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umin.i32(i32, i32) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umin.i64(i64, i64) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #10

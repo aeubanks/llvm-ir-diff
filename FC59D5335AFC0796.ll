@@ -13,109 +13,115 @@ target triple = "x86_64-unknown-linux-gnu"
 declare i32 @vector_widen(ptr noundef, ptr noundef) #0
 
 ; Function Attrs: mustprogress norecurse uwtable
-define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) local_unnamed_addr #1 {
+define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #1 {
   %3 = alloca [2 x %struct.buffer_t], align 16
   %4 = load i32, ptr getelementptr inbounds ({ i32, i32, i32, [1 x i32] }, ptr @__cpu_model, i64 0, i32 3, i64 0), align 4
   %5 = and i32 %4, 512
   %6 = icmp eq i32 %5, 0
-  br i1 %6, label %57, label %7
+  br i1 %6, label %61, label %7
 
 7:                                                ; preds = %2
   %8 = icmp sgt i32 %0, 1
-  br i1 %8, label %12, label %9
+  br i1 %8, label %9, label %13
 
 9:                                                ; preds = %7
-  %10 = tail call i64 @time(ptr noundef null) #8
-  %11 = trunc i64 %10 to i32
-  tail call void @srand(i32 noundef %11) #8
-  br label %12
+  %10 = getelementptr inbounds ptr, ptr %1, i64 1
+  %11 = load ptr, ptr %10, align 8, !tbaa !5
+  %12 = tail call i64 @strtol(ptr nocapture noundef nonnull %11, ptr noundef null, i32 noundef 10) #9
+  br label %16
 
-12:                                               ; preds = %7, %9
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %3) #8
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !5)
-  %13 = tail call noalias noundef nonnull dereferenceable(2097152) ptr @_Znam(i64 noundef 2097152) #9, !noalias !5
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(72) %3, i8 0, i64 72, i1 false), !alias.scope !5
-  %14 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 1
-  store ptr %13, ptr %14, align 8, !tbaa !8, !alias.scope !5
-  %15 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 2
-  store i32 4096, ptr %15, align 16, !tbaa !16, !alias.scope !5
-  %16 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 2, i64 1
-  store i32 512, ptr %16, align 4, !tbaa !16, !alias.scope !5
-  %17 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 5
-  store i32 1, ptr %17, align 16, !tbaa !17, !alias.scope !5
-  %18 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 3
-  store i32 1, ptr %18, align 16, !tbaa !16, !alias.scope !5
-  %19 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 3, i64 1
-  store i32 4096, ptr %19, align 4, !tbaa !16, !alias.scope !5
-  br label %20
+13:                                               ; preds = %7
+  %14 = tail call i64 @time(ptr noundef null) #9
+  %15 = trunc i64 %14 to i32
+  tail call void @srand(i32 noundef %15) #9
+  br label %16
 
-20:                                               ; preds = %20, %12
-  %21 = phi i64 [ 0, %12 ], [ %27, %20 ]
-  %22 = tail call i32 @rand() #8, !noalias !5
-  %23 = trunc i32 %22 to i8
-  %24 = lshr i8 %23, 3
-  %25 = add nuw nsw i8 %24, -100
-  %26 = getelementptr inbounds i8, ptr %13, i64 %21
-  store i8 %25, ptr %26, align 1, !tbaa !18, !noalias !5
-  %27 = add nuw nsw i64 %21, 1
-  %28 = icmp eq i64 %27, 2097152
-  br i1 %28, label %29, label %20, !llvm.loop !19
+16:                                               ; preds = %13, %9
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %3) #9
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !9)
+  %17 = tail call noalias noundef nonnull dereferenceable(2097152) ptr @_Znam(i64 noundef 2097152) #10, !noalias !9
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(72) %3, i8 0, i64 72, i1 false), !alias.scope !9
+  %18 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 1
+  store ptr %17, ptr %18, align 8, !tbaa !12, !alias.scope !9
+  %19 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 2
+  store i32 4096, ptr %19, align 16, !tbaa !17, !alias.scope !9
+  %20 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 2, i64 1
+  store i32 512, ptr %20, align 4, !tbaa !17, !alias.scope !9
+  %21 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 5
+  store i32 1, ptr %21, align 16, !tbaa !18, !alias.scope !9
+  %22 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 3
+  store i32 1, ptr %22, align 16, !tbaa !17, !alias.scope !9
+  %23 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 3, i64 1
+  store i32 4096, ptr %23, align 4, !tbaa !17, !alias.scope !9
+  br label %24
 
-29:                                               ; preds = %20
-  %30 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1
-  tail call void @llvm.experimental.noalias.scope.decl(metadata !21)
-  %31 = tail call noalias noundef nonnull dereferenceable(8388608) ptr @_Znam(i64 noundef 8388608) #9, !noalias !21
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %30, i8 0, i64 72, i1 false), !alias.scope !21
-  %32 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 1
-  store ptr %31, ptr %32, align 16, !tbaa !8, !alias.scope !21
-  %33 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 2
-  store i32 4096, ptr %33, align 8, !tbaa !16, !alias.scope !21
-  %34 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 2, i64 1
-  store i32 512, ptr %34, align 4, !tbaa !16, !alias.scope !21
-  %35 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 5
-  store i32 4, ptr %35, align 8, !tbaa !17, !alias.scope !21
-  %36 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 3
-  store i32 1, ptr %36, align 8, !tbaa !16, !alias.scope !21
-  %37 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 3, i64 1
-  store i32 4096, ptr %37, align 4, !tbaa !16, !alias.scope !21
-  br label %38
+24:                                               ; preds = %24, %16
+  %25 = phi i64 [ 0, %16 ], [ %31, %24 ]
+  %26 = tail call i32 @rand() #9, !noalias !9
+  %27 = trunc i32 %26 to i8
+  %28 = lshr i8 %27, 3
+  %29 = add nuw nsw i8 %28, -100
+  %30 = getelementptr inbounds i8, ptr %17, i64 %25
+  store i8 %29, ptr %30, align 1, !tbaa !19, !noalias !9
+  %31 = add nuw nsw i64 %25, 1
+  %32 = icmp eq i64 %31, 2097152
+  br i1 %32, label %33, label %24, !llvm.loop !20
 
-38:                                               ; preds = %38, %29
-  %39 = phi i64 [ %44, %38 ], [ 0, %29 ]
-  %40 = tail call i32 @rand() #8, !noalias !21
-  %41 = sdiv i32 %40, 8
-  %42 = add nsw i32 %41, -100
-  %43 = getelementptr inbounds i32, ptr %31, i64 %39
-  store i32 %42, ptr %43, align 4, !tbaa !16, !noalias !21
-  %44 = add nuw nsw i64 %39, 1
-  %45 = icmp eq i64 %44, 2097152
-  br i1 %45, label %46, label %38, !llvm.loop !24
+33:                                               ; preds = %24
+  %34 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1
+  tail call void @llvm.experimental.noalias.scope.decl(metadata !22)
+  %35 = tail call noalias noundef nonnull dereferenceable(8388608) ptr @_Znam(i64 noundef 8388608) #10, !noalias !22
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %34, i8 0, i64 72, i1 false), !alias.scope !22
+  %36 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 1
+  store ptr %35, ptr %36, align 16, !tbaa !12, !alias.scope !22
+  %37 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 2
+  store i32 4096, ptr %37, align 8, !tbaa !17, !alias.scope !22
+  %38 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 2, i64 1
+  store i32 512, ptr %38, align 4, !tbaa !17, !alias.scope !22
+  %39 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 5
+  store i32 4, ptr %39, align 8, !tbaa !18, !alias.scope !22
+  %40 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 3
+  store i32 1, ptr %40, align 8, !tbaa !17, !alias.scope !22
+  %41 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 1, i32 3, i64 1
+  store i32 4096, ptr %41, align 4, !tbaa !17, !alias.scope !22
+  br label %42
 
-46:                                               ; preds = %38
-  %47 = load ptr, ptr getelementptr inbounds ([2 x %struct.filter], ptr @filters, i64 0, i64 0, i32 1), align 8, !tbaa.struct !25
-  %48 = call noundef i32 %47(ptr noundef nonnull %3, ptr noundef nonnull %30)
-  %49 = load ptr, ptr %14, align 8, !tbaa !8
-  %50 = icmp eq ptr %49, null
-  br i1 %50, label %52, label %51
+42:                                               ; preds = %42, %33
+  %43 = phi i64 [ %48, %42 ], [ 0, %33 ]
+  %44 = tail call i32 @rand() #9, !noalias !22
+  %45 = sdiv i32 %44, 8
+  %46 = add nsw i32 %45, -100
+  %47 = getelementptr inbounds i32, ptr %35, i64 %43
+  store i32 %46, ptr %47, align 4, !tbaa !17, !noalias !22
+  %48 = add nuw nsw i64 %43, 1
+  %49 = icmp eq i64 %48, 2097152
+  br i1 %49, label %50, label %42, !llvm.loop !25
 
-51:                                               ; preds = %46
-  call void @_ZdaPv(ptr noundef nonnull %49) #10
-  br label %52
-
-52:                                               ; preds = %46, %51
-  %53 = load ptr, ptr %32, align 16, !tbaa !8
+50:                                               ; preds = %42
+  %51 = load ptr, ptr getelementptr inbounds ([2 x %struct.filter], ptr @filters, i64 0, i64 0, i32 1), align 8, !tbaa.struct !26
+  %52 = call noundef i32 %51(ptr noundef nonnull %3, ptr noundef nonnull %34)
+  %53 = load ptr, ptr %18, align 8, !tbaa !12
   %54 = icmp eq ptr %53, null
   br i1 %54, label %56, label %55
 
-55:                                               ; preds = %52
-  call void @_ZdaPv(ptr noundef nonnull %53) #10
+55:                                               ; preds = %50
+  call void @_ZdaPv(ptr noundef nonnull %53) #11
   br label %56
 
-56:                                               ; preds = %55, %52
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #8
-  br label %57
+56:                                               ; preds = %50, %55
+  %57 = load ptr, ptr %36, align 16, !tbaa !12
+  %58 = icmp eq ptr %57, null
+  br i1 %58, label %60, label %59
 
-57:                                               ; preds = %2, %56
+59:                                               ; preds = %56
+  call void @_ZdaPv(ptr noundef nonnull %57) #11
+  br label %60
+
+60:                                               ; preds = %59, %56
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #9
+  br label %61
+
+61:                                               ; preds = %2, %60
   ret i32 0
 }
 
@@ -134,29 +140,33 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 ; Function Attrs: nobuiltin nounwind
 declare void @_ZdaPv(ptr noundef) local_unnamed_addr #4
 
+; Function Attrs: mustprogress nofree nounwind willreturn
+declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) local_unnamed_addr #5
+
 ; Function Attrs: nobuiltin allocsize(0)
-declare noundef nonnull ptr @_Znam(i64 noundef) local_unnamed_addr #5
+declare noundef nonnull ptr @_Znam(i64 noundef) local_unnamed_addr #6
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
 
 ; Function Attrs: nounwind
 declare i32 @rand() local_unnamed_addr #3
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
-declare void @llvm.experimental.noalias.scope.decl(metadata) #7
+declare void @llvm.experimental.noalias.scope.decl(metadata) #8
 
 attributes #0 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress norecurse uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #3 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { nobuiltin nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nobuiltin allocsize(0) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #7 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
-attributes #8 = { nounwind }
-attributes #9 = { builtin allocsize(0) }
-attributes #10 = { builtin nounwind }
+attributes #5 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #6 = { nobuiltin allocsize(0) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #7 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #8 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
+attributes #9 = { nounwind }
+attributes #10 = { builtin allocsize(0) }
+attributes #11 = { builtin nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}
@@ -166,25 +176,25 @@ attributes #10 = { builtin nounwind }
 !2 = !{i32 7, !"PIE Level", i32 2}
 !3 = !{i32 7, !"uwtable", i32 2}
 !4 = !{!"clang version 17.0.0"}
-!5 = !{!6}
-!6 = distinct !{!6, !7, !"_Z11make_bufferIhE8buffer_tii: argument 0"}
-!7 = distinct !{!7, !"_Z11make_bufferIhE8buffer_tii"}
-!8 = !{!9, !13, i64 8}
-!9 = !{!"_ZTS8buffer_t", !10, i64 0, !13, i64 8, !11, i64 16, !11, i64 32, !11, i64 48, !14, i64 64, !15, i64 68, !15, i64 69, !11, i64 70}
-!10 = !{!"long", !11, i64 0}
-!11 = !{!"omnipotent char", !12, i64 0}
-!12 = !{!"Simple C++ TBAA"}
-!13 = !{!"any pointer", !11, i64 0}
-!14 = !{!"int", !11, i64 0}
-!15 = !{!"bool", !11, i64 0}
-!16 = !{!14, !14, i64 0}
-!17 = !{!9, !14, i64 64}
-!18 = !{!11, !11, i64 0}
-!19 = distinct !{!19, !20}
-!20 = !{!"llvm.loop.mustprogress"}
-!21 = !{!22}
-!22 = distinct !{!22, !23, !"_Z11make_bufferIiE8buffer_tii: argument 0"}
-!23 = distinct !{!23, !"_Z11make_bufferIiE8buffer_tii"}
-!24 = distinct !{!24, !20}
-!25 = !{i64 0, i64 8, !26}
-!26 = !{!13, !13, i64 0}
+!5 = !{!6, !6, i64 0}
+!6 = !{!"any pointer", !7, i64 0}
+!7 = !{!"omnipotent char", !8, i64 0}
+!8 = !{!"Simple C++ TBAA"}
+!9 = !{!10}
+!10 = distinct !{!10, !11, !"_Z11make_bufferIhE8buffer_tii: argument 0"}
+!11 = distinct !{!11, !"_Z11make_bufferIhE8buffer_tii"}
+!12 = !{!13, !6, i64 8}
+!13 = !{!"_ZTS8buffer_t", !14, i64 0, !6, i64 8, !7, i64 16, !7, i64 32, !7, i64 48, !15, i64 64, !16, i64 68, !16, i64 69, !7, i64 70}
+!14 = !{!"long", !7, i64 0}
+!15 = !{!"int", !7, i64 0}
+!16 = !{!"bool", !7, i64 0}
+!17 = !{!15, !15, i64 0}
+!18 = !{!13, !15, i64 64}
+!19 = !{!7, !7, i64 0}
+!20 = distinct !{!20, !21}
+!21 = !{!"llvm.loop.mustprogress"}
+!22 = !{!23}
+!23 = distinct !{!23, !24, !"_Z11make_bufferIiE8buffer_tii: argument 0"}
+!24 = distinct !{!24, !"_Z11make_bufferIiE8buffer_tii"}
+!25 = distinct !{!25, !21}
+!26 = !{i64 0, i64 8, !5}

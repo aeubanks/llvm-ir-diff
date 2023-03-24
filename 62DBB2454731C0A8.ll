@@ -180,15 +180,15 @@ define dso_local void @_Z16BENCHMARK_DILATERN9benchmark5StateE(ptr noundef nonnu
   %18 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
   br label %19
 
-19:                                               ; preds = %31, %15
+19:                                               ; preds = %35, %15
   %20 = load i64, ptr %0, align 8, !tbaa !17
   %21 = icmp eq i64 %20, 0
-  br i1 %21, label %22, label %31, !prof !31
+  br i1 %21, label %22, label %35, !prof !31
 
 22:                                               ; preds = %19
   %23 = load i8, ptr %17, align 8, !tbaa !32, !range !33, !noundef !34
   %24 = icmp eq i8 %23, 0
-  br i1 %24, label %25, label %35
+  br i1 %24, label %25, label %31
 
 25:                                               ; preds = %22
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -197,28 +197,28 @@ define dso_local void @_Z16BENCHMARK_DILATERN9benchmark5StateE(ptr noundef nonnu
   %28 = load i64, ptr %0, align 8
   %29 = icmp eq i64 %28, 0
   %30 = select i1 %27, i1 true, i1 %29
-  br i1 %30, label %35, label %31
+  br i1 %30, label %31, label %35
 
-31:                                               ; preds = %25, %19
-  %32 = phi i64 [ %20, %19 ], [ %28, %25 ]
-  %33 = add i64 %32, -1
-  store i64 %33, ptr %0, align 8, !tbaa !17
-  %34 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @dilateKernel(i32 noundef %5, i32 noundef %5, ptr noundef %34, ptr noundef nonnull %10, ptr noundef %11)
+31:                                               ; preds = %25, %22
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %32 = load ptr, ptr %2, align 8, !tbaa !13
+  %33 = load i64, ptr %32, align 8, !tbaa !15
+  %34 = icmp eq i64 %33, 20
+  br i1 %34, label %39, label %40
+
+35:                                               ; preds = %25, %19
+  %36 = phi i64 [ %20, %19 ], [ %28, %25 ]
+  %37 = add i64 %36, -1
+  store i64 %37, ptr %0, align 8, !tbaa !17
+  %38 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @dilateKernel(i32 noundef %5, i32 noundef %5, ptr noundef %38, ptr noundef nonnull %10, ptr noundef %11)
   br label %19, !llvm.loop !36
 
-35:                                               ; preds = %25, %22
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %36 = load ptr, ptr %2, align 8, !tbaa !13
-  %37 = load i64, ptr %36, align 8, !tbaa !15
-  %38 = icmp eq i64 %37, 20
-  br i1 %38, label %39, label %40
-
-39:                                               ; preds = %35
+39:                                               ; preds = %31
   tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %10, ptr noundef nonnull @.str.3, i32 noundef %5, i32 noundef %5)
   br label %40
 
-40:                                               ; preds = %39, %35
+40:                                               ; preds = %39, %31
   tail call void @free(ptr noundef %11) #15
   tail call void @free(ptr noundef %10) #15
   ret void

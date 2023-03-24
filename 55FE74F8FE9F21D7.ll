@@ -300,38 +300,38 @@ define dso_local i32 @hypre_CommPkgCreateInfo(ptr nocapture noundef readonly %0,
 32:                                               ; preds = %23
   %33 = load ptr, ptr %28, align 8, !tbaa !38
   %34 = getelementptr inbounds ptr, ptr %3, i64 %25
-  br label %35
+  %35 = load ptr, ptr %34, align 8, !tbaa !14
+  br label %36
 
-35:                                               ; preds = %32, %75
-  %36 = phi i32 [ %30, %32 ], [ %76, %75 ]
-  %37 = phi i64 [ 0, %32 ], [ %78, %75 ]
-  %38 = phi i32 [ %26, %32 ], [ %77, %75 ]
-  %39 = getelementptr inbounds %struct.hypre_Box_struct, ptr %33, i64 %37
-  %40 = getelementptr inbounds %struct.hypre_Box_struct, ptr %33, i64 %37, i32 1
-  %41 = load <2 x i32>, ptr %40, align 4, !tbaa !12
-  %42 = load <2 x i32>, ptr %39, align 4, !tbaa !12
-  %43 = sub nsw <2 x i32> %41, %42
-  %44 = add nsw <2 x i32> %43, <i32 1, i32 1>
-  %45 = icmp slt <2 x i32> %43, zeroinitializer
-  %46 = select <2 x i1> %45, <2 x i32> zeroinitializer, <2 x i32> %44
-  %47 = extractelement <2 x i32> %46, i64 0
-  %48 = extractelement <2 x i32> %46, i64 1
-  %49 = mul nsw i32 %48, %47
-  %50 = getelementptr inbounds %struct.hypre_Box_struct, ptr %33, i64 %37, i32 1, i64 2
-  %51 = load i32, ptr %50, align 4, !tbaa !12
-  %52 = getelementptr inbounds [3 x i32], ptr %39, i64 0, i64 2
-  %53 = load i32, ptr %52, align 4, !tbaa !12
-  %54 = sub nsw i32 %51, %53
-  %55 = add nsw i32 %54, 1
-  %56 = icmp slt i32 %54, 0
-  %57 = select i1 %56, i32 0, i32 %55
-  %58 = mul nsw i32 %49, %57
-  %59 = icmp eq i32 %58, 0
-  br i1 %59, label %75, label %60
+36:                                               ; preds = %32, %75
+  %37 = phi i32 [ %30, %32 ], [ %76, %75 ]
+  %38 = phi i64 [ 0, %32 ], [ %78, %75 ]
+  %39 = phi i32 [ %26, %32 ], [ %77, %75 ]
+  %40 = getelementptr inbounds %struct.hypre_Box_struct, ptr %33, i64 %38
+  %41 = getelementptr inbounds %struct.hypre_Box_struct, ptr %33, i64 %38, i32 1
+  %42 = load <2 x i32>, ptr %41, align 4, !tbaa !12
+  %43 = load <2 x i32>, ptr %40, align 4, !tbaa !12
+  %44 = sub nsw <2 x i32> %42, %43
+  %45 = add nsw <2 x i32> %44, <i32 1, i32 1>
+  %46 = icmp slt <2 x i32> %44, zeroinitializer
+  %47 = select <2 x i1> %46, <2 x i32> zeroinitializer, <2 x i32> %45
+  %48 = extractelement <2 x i32> %47, i64 0
+  %49 = extractelement <2 x i32> %47, i64 1
+  %50 = mul nsw i32 %49, %48
+  %51 = getelementptr inbounds %struct.hypre_Box_struct, ptr %33, i64 %38, i32 1, i64 2
+  %52 = load i32, ptr %51, align 4, !tbaa !12
+  %53 = getelementptr inbounds [3 x i32], ptr %40, i64 0, i64 2
+  %54 = load i32, ptr %53, align 4, !tbaa !12
+  %55 = sub nsw i32 %52, %54
+  %56 = add nsw i32 %55, 1
+  %57 = icmp slt i32 %55, 0
+  %58 = select i1 %57, i32 0, i32 %56
+  %59 = mul nsw i32 %50, %58
+  %60 = icmp eq i32 %59, 0
+  br i1 %60, label %75, label %61
 
-60:                                               ; preds = %35
-  %61 = load ptr, ptr %34, align 8, !tbaa !14
-  %62 = getelementptr inbounds i32, ptr %61, i64 %37
+61:                                               ; preds = %36
+  %62 = getelementptr inbounds i32, ptr %35, i64 %38
   %63 = load i32, ptr %62, align 4, !tbaa !12
   %64 = sext i32 %63 to i64
   %65 = getelementptr inbounds i32, ptr %17, i64 %64
@@ -343,17 +343,17 @@ define dso_local i32 @hypre_CommPkgCreateInfo(ptr nocapture noundef readonly %0,
   %70 = icmp ne i32 %63, %69
   %71 = select i1 %68, i1 %70, i1 false
   %72 = zext i1 %71 to i32
-  %73 = add nsw i32 %38, %72
+  %73 = add nsw i32 %39, %72
   %74 = load i32, ptr %29, align 8, !tbaa !36
   br label %75
 
-75:                                               ; preds = %60, %35
-  %76 = phi i32 [ %36, %35 ], [ %74, %60 ]
-  %77 = phi i32 [ %38, %35 ], [ %73, %60 ]
-  %78 = add nuw nsw i64 %37, 1
+75:                                               ; preds = %61, %36
+  %76 = phi i32 [ %37, %36 ], [ %74, %61 ]
+  %77 = phi i32 [ %39, %36 ], [ %73, %61 ]
+  %78 = add nuw nsw i64 %38, 1
   %79 = sext i32 %76 to i64
   %80 = icmp slt i64 %78, %79
-  br i1 %80, label %35, label %81, !llvm.loop !39
+  br i1 %80, label %36, label %81, !llvm.loop !39
 
 81:                                               ; preds = %75
   %82 = load i32, ptr %18, align 8, !tbaa !22

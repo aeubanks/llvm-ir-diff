@@ -309,10 +309,10 @@ define dso_local i32 @petite_inflate2x_1to9(ptr noundef %0, i32 noundef %1, i32 
   %208 = add i32 %207, %5
   %209 = icmp ult i32 %208, %206
   %210 = sext i1 %209 to i32
-  %211 = icmp ult i32 %206, %204
-  %212 = sext i1 %211 to i32
-  %213 = add i32 %188, %212
-  %214 = add i32 %213, %210
+  %211 = add i32 %188, %210
+  %212 = icmp ult i32 %206, %204
+  %213 = sext i1 %212 to i32
+  %214 = add i32 %211, %213
   %215 = tail call i32 @llvm.fshl.i32(i32 %214, i32 %214, i32 29)
   br i1 %183, label %259, label %184, !llvm.loop !16
 
@@ -321,11 +321,11 @@ define dso_local i32 @petite_inflate2x_1to9(ptr noundef %0, i32 noundef %1, i32 
 
 217:                                              ; preds = %157
   %218 = icmp ugt i32 %152, -1074785481
-  %219 = sext i1 %218 to i32
-  %220 = sub nsw i64 4, %12
-  %221 = getelementptr i8, ptr %0, i64 %220
-  %222 = getelementptr i8, ptr %221, i64 %153
-  %223 = icmp ult ptr %222, %0
+  %219 = sub nsw i64 4, %12
+  %220 = getelementptr i8, ptr %0, i64 %219
+  %221 = getelementptr i8, ptr %220, i64 %153
+  %222 = sext i1 %218 to i32
+  %223 = icmp ult ptr %221, %0
   br label %224
 
 224:                                              ; preds = %217, %255
@@ -347,7 +347,7 @@ define dso_local i32 @petite_inflate2x_1to9(ptr noundef %0, i32 noundef %1, i32 
   br i1 %235, label %259, label %236
 
 236:                                              ; preds = %232
-  %237 = getelementptr i8, ptr %221, i64 %233
+  %237 = getelementptr i8, ptr %220, i64 %233
   %238 = icmp ult ptr %237, %0
   br label %239
 
@@ -368,8 +368,8 @@ define dso_local i32 @petite_inflate2x_1to9(ptr noundef %0, i32 noundef %1, i32 
   %249 = add i32 %248, %5
   %250 = icmp ult i32 %249, -1074785481
   %251 = sext i1 %250 to i32
-  %252 = add i32 %241, %219
-  %253 = add i32 %252, %251
+  %252 = add i32 %241, %251
+  %253 = add i32 %252, %222
   %254 = tail call i32 @llvm.fshl.i32(i32 %253, i32 %253, i32 29)
   br i1 %238, label %259, label %239, !llvm.loop !16
 
@@ -1026,9 +1026,9 @@ define dso_local i32 @petite_inflate2x_1to9(ptr noundef %0, i32 noundef %1, i32 
   br label %677
 
 677:                                              ; preds = %675, %618
-  %678 = phi ptr [ %670, %675 ], [ %619, %618 ]
-  %679 = phi i8 [ %671, %675 ], [ %620, %618 ]
-  %680 = phi i32 [ %676, %675 ], [ %629, %618 ]
+  %678 = phi ptr [ %619, %618 ], [ %670, %675 ]
+  %679 = phi i8 [ %620, %618 ], [ %671, %675 ]
+  %680 = phi i32 [ %629, %618 ], [ %676, %675 ]
   %681 = add nsw i32 %680, %588
   %682 = sub i32 %461, %681
   %683 = icmp slt i32 %681, 1

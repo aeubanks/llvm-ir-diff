@@ -46,7 +46,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_IndexCreate() local_unnamed_addr #0 {
-  %1 = tail call ptr @memory_Malloc(i32 noundef 32) #9
+  %1 = tail call ptr @memory_Malloc(i32 noundef 32) #8
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(28) %1, i8 0, i64 28, i1 false)
   ret ptr %1
 }
@@ -61,8 +61,8 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 {
   %5 = alloca ptr, align 8
   %6 = alloca ptr, align 8
-  tail call void @cont_Check() #9
-  %7 = tail call i32 @term_ComputeSize(ptr noundef %2) #9
+  tail call void @cont_Check() #8
+  %7 = tail call i32 @term_ComputeSize(ptr noundef %2) #8
   %8 = trunc i32 %7 to i16
   %9 = load i32, ptr @cont_INDEXVARSCANNER, align 4
   %10 = load i32, ptr @symbol_INDEXVARCOUNTER, align 4
@@ -176,7 +176,7 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
   store i32 %68, ptr %75, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
   %76 = load ptr, ptr %72, align 8
-  %77 = tail call i32 @subst_Variation(ptr noundef %3, ptr noundef %76) #9
+  %77 = tail call i32 @subst_Variation(ptr noundef %3, ptr noundef %76) #8
   %78 = icmp eq i32 %77, 0
   br i1 %78, label %82, label %79
 
@@ -191,7 +191,7 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
 
 84:                                               ; preds = %82
   %85 = load ptr, ptr %72, align 8
-  %86 = tail call i32 @subst_MatchTops(ptr noundef %3, ptr noundef %85) #9
+  %86 = tail call i32 @subst_MatchTops(ptr noundef %3, ptr noundef %85) #8
   %87 = icmp eq i32 %86, 0
   %88 = select i1 %87, ptr null, ptr %72
   br label %89
@@ -273,7 +273,7 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
   br label %135
 
 134:                                              ; preds = %79
-  tail call void @subst_CloseVariables(ptr noundef %3, ptr noundef nonnull %80) #9
+  tail call void @subst_CloseVariables(ptr noundef %3, ptr noundef nonnull %80) #8
   br label %142
 
 135:                                              ; preds = %129, %125
@@ -327,7 +327,7 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
 
 166:                                              ; preds = %160
   %167 = getelementptr i8, ptr %163, i64 16
-  %168 = tail call ptr @memory_Malloc(i32 noundef 16) #9
+  %168 = tail call ptr @memory_Malloc(i32 noundef 16) #8
   %169 = getelementptr inbounds %struct.LIST_HELP, ptr %168, i64 0, i32 1
   store ptr %1, ptr %169, align 8
   store ptr %161, ptr %168, align 8
@@ -341,8 +341,8 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
   br i1 %173, label %219, label %174
 
 174:                                              ; preds = %170
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #9
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #9
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #8
   %175 = getelementptr i8, ptr %172, i64 16
   %176 = load ptr, ptr %175, align 8
   %177 = icmp eq ptr %176, null
@@ -356,11 +356,11 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
 
 181:                                              ; preds = %178, %174
   %182 = load ptr, ptr %172, align 8
-  %183 = call ptr @subst_ComGen(ptr noundef %3, ptr noundef %182, ptr noundef nonnull %5, ptr noundef nonnull %6) #9
+  %183 = call ptr @subst_ComGen(ptr noundef %3, ptr noundef %182, ptr noundef nonnull %5, ptr noundef nonnull %6) #8
   %184 = load ptr, ptr %5, align 8
   %185 = load ptr, ptr %6, align 8
-  %186 = call ptr @subst_CloseOpenVariables(ptr noundef %185) #9
-  %187 = call ptr @memory_Malloc(i32 noundef 32) #9
+  %186 = call ptr @subst_CloseOpenVariables(ptr noundef %185) #8
+  %187 = call ptr @memory_Malloc(i32 noundef 32) #8
   store ptr %184, ptr %187, align 8
   %188 = load ptr, ptr %175, align 8
   %189 = getelementptr inbounds %struct.st, ptr %187, i64 0, i32 2
@@ -378,13 +378,13 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
   %198 = getelementptr inbounds %struct.st, ptr %187, i64 0, i32 4
   store i16 %197, ptr %198, align 2
   %199 = load ptr, ptr %172, align 8
-  call void @subst_Delete(ptr noundef %199) #9
+  call void @subst_Delete(ptr noundef %199) #8
   store ptr %183, ptr %172, align 8
   store ptr null, ptr %175, align 8
-  %200 = call ptr @memory_Malloc(i32 noundef 32) #9
+  %200 = call ptr @memory_Malloc(i32 noundef 32) #8
   %201 = getelementptr inbounds %struct.st, ptr %200, i64 0, i32 1
   store ptr null, ptr %201, align 8
-  %202 = call ptr @memory_Malloc(i32 noundef 16) #9
+  %202 = call ptr @memory_Malloc(i32 noundef 16) #8
   %203 = getelementptr inbounds %struct.LIST_HELP, ptr %202, i64 0, i32 1
   store ptr %1, ptr %203, align 8
   store ptr null, ptr %202, align 8
@@ -395,11 +395,11 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
   store i16 %8, ptr %205, align 8
   %206 = getelementptr inbounds %struct.st, ptr %200, i64 0, i32 4
   store i16 %8, ptr %206, align 2
-  %207 = call ptr @memory_Malloc(i32 noundef 16) #9
+  %207 = call ptr @memory_Malloc(i32 noundef 16) #8
   %208 = getelementptr inbounds %struct.LIST_HELP, ptr %207, i64 0, i32 1
   store ptr %187, ptr %208, align 8
   store ptr null, ptr %207, align 8
-  %209 = call ptr @memory_Malloc(i32 noundef 16) #9
+  %209 = call ptr @memory_Malloc(i32 noundef 16) #8
   %210 = getelementptr inbounds %struct.LIST_HELP, ptr %209, i64 0, i32 1
   store ptr %200, ptr %210, align 8
   store ptr %207, ptr %209, align 8
@@ -422,17 +422,17 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
   br label %218
 
 218:                                              ; preds = %213, %214, %217
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #9
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #9
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #8
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #8
   br label %233
 
 219:                                              ; preds = %57, %170
   %220 = phi ptr [ %171, %170 ], [ %58, %57 ]
-  %221 = tail call ptr @subst_CloseOpenVariables(ptr noundef null) #9
-  %222 = tail call ptr @memory_Malloc(i32 noundef 32) #9
+  %221 = tail call ptr @subst_CloseOpenVariables(ptr noundef null) #8
+  %222 = tail call ptr @memory_Malloc(i32 noundef 32) #8
   %223 = getelementptr inbounds %struct.st, ptr %222, i64 0, i32 1
   store ptr null, ptr %223, align 8
-  %224 = tail call ptr @memory_Malloc(i32 noundef 16) #9
+  %224 = tail call ptr @memory_Malloc(i32 noundef 16) #8
   %225 = getelementptr inbounds %struct.LIST_HELP, ptr %224, i64 0, i32 1
   store ptr %1, ptr %225, align 8
   store ptr null, ptr %224, align 8
@@ -445,7 +445,7 @@ define dso_local void @st_EntryCreate(ptr nocapture noundef %0, ptr noundef %1, 
   store i16 %8, ptr %228, align 2
   %229 = getelementptr inbounds %struct.st, ptr %220, i64 0, i32 1
   %230 = load ptr, ptr %229, align 8
-  %231 = tail call ptr @memory_Malloc(i32 noundef 16) #9
+  %231 = tail call ptr @memory_Malloc(i32 noundef 16) #8
   %232 = getelementptr inbounds %struct.LIST_HELP, ptr %231, i64 0, i32 1
   store ptr %222, ptr %232, align 8
   store ptr %230, ptr %231, align 8
@@ -596,12 +596,12 @@ define dso_local void @st_IndexDelete(ptr noundef %0) #0 {
 19:                                               ; preds = %3
   %20 = getelementptr inbounds %struct.st, ptr %0, i64 0, i32 1
   %21 = load ptr, ptr %20, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %21, ptr noundef nonnull @st_IndexDelete) #9
+  tail call void @list_DeleteWithElement(ptr noundef %21, ptr noundef nonnull @st_IndexDelete) #8
   br label %22
 
 22:                                               ; preds = %7, %19
   %23 = load ptr, ptr %0, align 8
-  tail call void @subst_Delete(ptr noundef %23) #9
+  tail call void @subst_Delete(ptr noundef %23) #8
   %24 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
   %25 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %24, i64 0, i32 4
   %26 = load i32, ptr %25, align 8
@@ -626,8 +626,8 @@ declare void @subst_Delete(ptr noundef) local_unnamed_addr #2
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @st_EntryDelete(ptr nocapture noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 {
   %5 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #9
-  tail call void @cont_Check() #9
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #8
+  tail call void @cont_Check() #8
   %6 = getelementptr inbounds %struct.binding, ptr %3, i64 2001
   store ptr %6, ptr @cont_CURRENTBINDING, align 8
   %7 = getelementptr inbounds %struct.binding, ptr %3, i64 2001, i32 2
@@ -664,7 +664,7 @@ define dso_local i32 @st_EntryDelete(ptr nocapture noundef %0, ptr noundef %1, p
   store i32 %20, ptr %26, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
   %27 = load ptr, ptr %23, align 8
-  %28 = tail call i32 @subst_Variation(ptr noundef %3, ptr noundef %27) #9
+  %28 = tail call i32 @subst_Variation(ptr noundef %3, ptr noundef %27) #8
   %29 = icmp eq i32 %28, 0
   br i1 %29, label %72, label %30
 
@@ -677,7 +677,7 @@ define dso_local i32 @st_EntryDelete(ptr nocapture noundef %0, ptr noundef %1, p
 
 34:                                               ; preds = %30
   %35 = load ptr, ptr %13, align 8
-  %36 = tail call ptr @list_PointerDeleteElement(ptr noundef %35, ptr noundef null) #9
+  %36 = tail call ptr @list_PointerDeleteElement(ptr noundef %35, ptr noundef null) #8
   store ptr %36, ptr %13, align 8
   %37 = icmp eq ptr %36, null
   br i1 %37, label %69, label %38
@@ -810,9 +810,9 @@ define dso_local i32 @st_EntryDelete(ptr nocapture noundef %0, ptr noundef %1, p
   store i32 %114, ptr @cont_BINDINGS, align 4
   br label %115
 
-115:                                              ; preds = %106, %110
-  %116 = phi i32 [ 0, %106 ], [ %111, %110 ]
-  %117 = phi i32 [ %107, %106 ], [ %114, %110 ]
+115:                                              ; preds = %110, %106
+  %116 = phi i32 [ %111, %110 ], [ 0, %106 ]
+  %117 = phi i32 [ %114, %110 ], [ %107, %106 ]
   %118 = load ptr, ptr %21, align 8
   %119 = icmp eq ptr %118, null
   br i1 %119, label %120, label %18, !llvm.loop !14
@@ -849,7 +849,7 @@ define dso_local i32 @st_EntryDelete(ptr nocapture noundef %0, ptr noundef %1, p
   store i32 0, ptr @cont_BINDINGS, align 4
   store i32 1, ptr @cont_STACKPOINTER, align 4
   store i32 2000, ptr @cont_INDEXVARSCANNER, align 4
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #9
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #8
   ret i32 %121
 }
 
@@ -863,7 +863,7 @@ define internal fastcc ptr @st_EntryDeleteHelp(ptr noundef %0, ptr noundef %1, p
   br i1 %7, label %12, label %8
 
 8:                                                ; preds = %4
-  %9 = tail call i32 @list_DeleteFromList(ptr noundef nonnull %5, ptr noundef %2) #9
+  %9 = tail call i32 @list_DeleteFromList(ptr noundef nonnull %5, ptr noundef %2) #8
   store i32 %9, ptr %3, align 4
   %10 = load ptr, ptr %5, align 8
   %11 = icmp eq ptr %10, null
@@ -893,7 +893,7 @@ define internal fastcc ptr @st_EntryDeleteHelp(ptr noundef %0, ptr noundef %1, p
   store i32 %21, ptr %27, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
   %28 = load ptr, ptr %24, align 8
-  %29 = tail call i32 @subst_Variation(ptr noundef %0, ptr noundef %28) #9
+  %29 = tail call i32 @subst_Variation(ptr noundef %0, ptr noundef %28) #8
   %30 = icmp eq i32 %29, 0
   br i1 %30, label %97, label %31
 
@@ -905,7 +905,7 @@ define internal fastcc ptr @st_EntryDeleteHelp(ptr noundef %0, ptr noundef %1, p
   br i1 %34, label %97, label %35
 
 35:                                               ; preds = %31
-  %36 = tail call i32 @list_DeleteFromList(ptr noundef nonnull %13, ptr noundef null) #9
+  %36 = tail call i32 @list_DeleteFromList(ptr noundef nonnull %13, ptr noundef null) #8
   %37 = icmp eq i32 %36, 0
   %38 = load ptr, ptr %13, align 8
   br i1 %37, label %66, label %39
@@ -931,7 +931,7 @@ define internal fastcc ptr @st_EntryDeleteHelp(ptr noundef %0, ptr noundef %1, p
   store ptr %38, ptr %52, align 8
   %53 = load ptr, ptr %44, align 8
   %54 = load ptr, ptr %1, align 8
-  %55 = tail call ptr @subst_Merge(ptr noundef %53, ptr noundef %54) #9
+  %55 = tail call ptr @subst_Merge(ptr noundef %53, ptr noundef %54) #8
   store ptr %55, ptr %1, align 8
   %56 = getelementptr inbounds %struct.st, ptr %44, i64 0, i32 2
   %57 = load ptr, ptr %56, align 8
@@ -1070,9 +1070,9 @@ define internal fastcc ptr @st_EntryDeleteHelp(ptr noundef %0, ptr noundef %1, p
   store i32 %139, ptr @cont_BINDINGS, align 4
   br label %140
 
-140:                                              ; preds = %131, %135
-  %141 = phi i32 [ 0, %131 ], [ %136, %135 ]
-  %142 = phi i32 [ %132, %131 ], [ %139, %135 ]
+140:                                              ; preds = %135, %131
+  %141 = phi i32 [ %136, %135 ], [ 0, %131 ]
+  %142 = phi i32 [ %139, %135 ], [ %132, %131 ]
   %143 = load ptr, ptr %22, align 8
   %144 = icmp eq ptr %143, null
   br i1 %144, label %157, label %19, !llvm.loop !16
@@ -1081,7 +1081,7 @@ define internal fastcc ptr @st_EntryDeleteHelp(ptr noundef %0, ptr noundef %1, p
   %146 = phi ptr [ %44, %42 ], [ %1, %8 ]
   %147 = phi ptr [ %1, %42 ], [ null, %8 ]
   %148 = load ptr, ptr %146, align 8
-  tail call void @subst_Delete(ptr noundef %148) #9
+  tail call void @subst_Delete(ptr noundef %148) #8
   %149 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
   %150 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %149, i64 0, i32 4
   %151 = load i32, ptr %150, align 8
@@ -1104,7 +1104,7 @@ declare ptr @list_PointerDeleteElement(ptr noundef, ptr noundef) local_unnamed_a
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_GetUnifier(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %5 = getelementptr inbounds %struct.binding, ptr %0, i64 2001
   store ptr %5, ptr @cont_CURRENTBINDING, align 8
   %6 = getelementptr inbounds %struct.binding, ptr %0, i64 2001, i32 2
@@ -1220,7 +1220,7 @@ define dso_local ptr @st_GetUnifier(ptr noundef %0, ptr nocapture noundef readon
   %72 = getelementptr i8, ptr %71, i64 8
   %73 = load ptr, ptr %72, align 8
   %74 = load ptr, ptr %73, align 8
-  %75 = tail call i32 @subst_Unify(ptr noundef %0, ptr noundef %74) #9
+  %75 = tail call i32 @subst_Unify(ptr noundef %0, ptr noundef %74) #8
   %76 = icmp eq i32 %75, 0
   br i1 %76, label %120, label %77
 
@@ -1234,7 +1234,7 @@ define dso_local ptr @st_GetUnifier(ptr noundef %0, ptr nocapture noundef readon
 
 83:                                               ; preds = %77
   %84 = icmp eq ptr %20, null
-  %85 = tail call ptr @list_Copy(ptr noundef nonnull %81) #9
+  %85 = tail call ptr @list_Copy(ptr noundef nonnull %81) #8
   br i1 %84, label %120, label %86
 
 86:                                               ; preds = %83, %86
@@ -1286,7 +1286,7 @@ define dso_local ptr @st_GetUnifier(ptr noundef %0, ptr nocapture noundef readon
   %115 = getelementptr i8, ptr %114, i64 8
   %116 = load ptr, ptr %115, align 8
   %117 = load ptr, ptr %116, align 8
-  %118 = tail call i32 @subst_Unify(ptr noundef %0, ptr noundef %117) #9
+  %118 = tail call i32 @subst_Unify(ptr noundef %0, ptr noundef %117) #8
   %119 = icmp eq i32 %118, 0
   br i1 %119, label %120, label %77, !llvm.loop !19
 
@@ -1387,7 +1387,7 @@ define dso_local ptr @st_GetUnifier(ptr noundef %0, ptr nocapture noundef readon
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_GetGen(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %4 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
   %5 = getelementptr inbounds %struct.binding, ptr %0, i64 2001
   store ptr %5, ptr @cont_CURRENTBINDING, align 8
@@ -1504,7 +1504,7 @@ define dso_local ptr @st_GetGen(ptr noundef %0, ptr nocapture noundef readonly %
   %72 = getelementptr i8, ptr %71, i64 8
   %73 = load ptr, ptr %72, align 8
   %74 = load ptr, ptr %73, align 8
-  %75 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %74) #9
+  %75 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %74) #8
   %76 = icmp eq i32 %75, 0
   br i1 %76, label %120, label %77
 
@@ -1518,7 +1518,7 @@ define dso_local ptr @st_GetGen(ptr noundef %0, ptr nocapture noundef readonly %
 
 83:                                               ; preds = %77
   %84 = icmp eq ptr %20, null
-  %85 = tail call ptr @list_Copy(ptr noundef nonnull %81) #9
+  %85 = tail call ptr @list_Copy(ptr noundef nonnull %81) #8
   br i1 %84, label %120, label %86
 
 86:                                               ; preds = %83, %86
@@ -1570,7 +1570,7 @@ define dso_local ptr @st_GetGen(ptr noundef %0, ptr nocapture noundef readonly %
   %115 = getelementptr i8, ptr %114, i64 8
   %116 = load ptr, ptr %115, align 8
   %117 = load ptr, ptr %116, align 8
-  %118 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %117) #9
+  %118 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %117) #8
   %119 = icmp eq i32 %118, 0
   br i1 %119, label %120, label %77, !llvm.loop !21
 
@@ -1671,7 +1671,7 @@ define dso_local ptr @st_GetGen(ptr noundef %0, ptr nocapture noundef readonly %
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_GetGenPreTest(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %4 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
   %5 = getelementptr inbounds %struct.binding, ptr %0, i64 2001
   store ptr %5, ptr @cont_CURRENTBINDING, align 8
@@ -1686,7 +1686,7 @@ define dso_local ptr @st_GetGenPreTest(ptr noundef %0, ptr nocapture noundef rea
   %10 = load i32, ptr @cont_BINDINGS, align 4
   %11 = add nsw i32 %10, 1
   store i32 %11, ptr @cont_BINDINGS, align 4
-  %12 = tail call i32 @term_ComputeSize(ptr noundef %2) #9
+  %12 = tail call i32 @term_ComputeSize(ptr noundef %2) #8
   %13 = trunc i32 %12 to i16
   %14 = getelementptr i8, ptr %1, i64 8
   %15 = load ptr, ptr %14, align 8
@@ -1799,7 +1799,7 @@ define dso_local ptr @st_GetGenPreTest(ptr noundef %0, ptr nocapture noundef rea
   %81 = phi ptr [ %123, %119 ], [ %76, %73 ]
   %82 = phi ptr [ %121, %119 ], [ %74, %73 ]
   %83 = load ptr, ptr %81, align 8
-  %84 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %83) #9
+  %84 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %83) #8
   %85 = icmp eq i32 %84, 0
   br i1 %85, label %127, label %86
 
@@ -1811,7 +1811,7 @@ define dso_local ptr @st_GetGenPreTest(ptr noundef %0, ptr nocapture noundef rea
 
 90:                                               ; preds = %86
   %91 = icmp eq ptr %23, null
-  %92 = tail call ptr @list_Copy(ptr noundef nonnull %88) #9
+  %92 = tail call ptr @list_Copy(ptr noundef nonnull %88) #8
   br i1 %91, label %127, label %93
 
 93:                                               ; preds = %90, %93
@@ -1964,7 +1964,7 @@ define dso_local ptr @st_GetGenPreTest(ptr noundef %0, ptr nocapture noundef rea
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_GetInstance(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %4 = getelementptr inbounds %struct.binding, ptr %0, i64 2001
   store ptr %4, ptr @cont_CURRENTBINDING, align 8
   %5 = getelementptr inbounds %struct.binding, ptr %0, i64 2001, i32 2
@@ -2080,7 +2080,7 @@ define dso_local ptr @st_GetInstance(ptr noundef %0, ptr nocapture noundef reado
   %71 = getelementptr i8, ptr %70, i64 8
   %72 = load ptr, ptr %71, align 8
   %73 = load ptr, ptr %72, align 8
-  %74 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %73) #9
+  %74 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %73) #8
   %75 = icmp eq i32 %74, 0
   br i1 %75, label %119, label %76
 
@@ -2094,7 +2094,7 @@ define dso_local ptr @st_GetInstance(ptr noundef %0, ptr nocapture noundef reado
 
 82:                                               ; preds = %76
   %83 = icmp eq ptr %19, null
-  %84 = tail call ptr @list_Copy(ptr noundef nonnull %80) #9
+  %84 = tail call ptr @list_Copy(ptr noundef nonnull %80) #8
   br i1 %83, label %119, label %85
 
 85:                                               ; preds = %82, %85
@@ -2146,7 +2146,7 @@ define dso_local ptr @st_GetInstance(ptr noundef %0, ptr nocapture noundef reado
   %114 = getelementptr i8, ptr %113, i64 8
   %115 = load ptr, ptr %114, align 8
   %116 = load ptr, ptr %115, align 8
-  %117 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %116) #9
+  %117 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %116) #8
   %118 = icmp eq i32 %117, 0
   br i1 %118, label %119, label %76, !llvm.loop !23
 
@@ -2247,7 +2247,7 @@ define dso_local ptr @st_GetInstance(ptr noundef %0, ptr nocapture noundef reado
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_GetInstancePreTest(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %4 = getelementptr inbounds %struct.binding, ptr %0, i64 2001
   store ptr %4, ptr @cont_CURRENTBINDING, align 8
   %5 = getelementptr inbounds %struct.binding, ptr %0, i64 2001, i32 2
@@ -2261,7 +2261,7 @@ define dso_local ptr @st_GetInstancePreTest(ptr noundef %0, ptr nocapture nounde
   %9 = load i32, ptr @cont_BINDINGS, align 4
   %10 = add nsw i32 %9, 1
   store i32 %10, ptr @cont_BINDINGS, align 4
-  %11 = tail call i32 @term_ComputeSize(ptr noundef %2) #9
+  %11 = tail call i32 @term_ComputeSize(ptr noundef %2) #8
   %12 = trunc i32 %11 to i16
   %13 = getelementptr i8, ptr %1, i64 8
   %14 = load ptr, ptr %13, align 8
@@ -2374,7 +2374,7 @@ define dso_local ptr @st_GetInstancePreTest(ptr noundef %0, ptr nocapture nounde
   %80 = phi ptr [ %122, %118 ], [ %75, %72 ]
   %81 = phi ptr [ %120, %118 ], [ %73, %72 ]
   %82 = load ptr, ptr %80, align 8
-  %83 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %82) #9
+  %83 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %82) #8
   %84 = icmp eq i32 %83, 0
   br i1 %84, label %126, label %85
 
@@ -2386,7 +2386,7 @@ define dso_local ptr @st_GetInstancePreTest(ptr noundef %0, ptr nocapture nounde
 
 89:                                               ; preds = %85
   %90 = icmp eq ptr %22, null
-  %91 = tail call ptr @list_Copy(ptr noundef nonnull %87) #9
+  %91 = tail call ptr @list_Copy(ptr noundef nonnull %87) #8
   br i1 %90, label %126, label %92
 
 92:                                               ; preds = %89, %92
@@ -2601,23 +2601,9 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 
 declare void @misc_ErrorReport(ptr noundef, ...) local_unnamed_addr #2
 
-; Function Attrs: inlinehint noreturn nounwind uwtable
-define internal fastcc void @misc_DumpCore() unnamed_addr #5 {
-  %1 = load ptr, ptr @stderr, align 8
-  %2 = tail call i64 @fwrite(ptr nonnull @.str.12, i64 2, i64 1, ptr %1) #10
-  %3 = load ptr, ptr @stderr, align 8
-  %4 = tail call i32 @fflush(ptr noundef %3)
-  %5 = load ptr, ptr @stdout, align 8
-  %6 = tail call i32 @fflush(ptr noundef %5)
-  %7 = load ptr, ptr @stderr, align 8
-  %8 = tail call i32 @fflush(ptr noundef %7)
-  tail call void @abort() #11
-  unreachable
-}
-
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_ExistUnifier(ptr noundef %0, ptr noundef readonly %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %5 = icmp eq ptr %1, null
   br i1 %5, label %61, label %6
 
@@ -2670,15 +2656,13 @@ define dso_local ptr @st_ExistUnifier(ptr noundef %0, ptr noundef readonly %1, p
   store i32 0, ptr %34, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
   %35 = tail call fastcc ptr @st_TraverseForExistUnifier(ptr noundef %0)
-  %36 = icmp eq ptr %35, null
-  br i1 %36, label %37, label %61
-
-37:                                               ; preds = %14
-  %38 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
-  %39 = icmp eq i32 %38, 0
+  %36 = icmp ne ptr %35, null
+  %37 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
+  %38 = icmp eq i32 %37, 0
+  %39 = select i1 %36, i1 true, i1 %38
   br i1 %39, label %61, label %40
 
-40:                                               ; preds = %37
+40:                                               ; preds = %14
   %41 = load i32, ptr @st_STACKSAVE, align 4
   store i32 %41, ptr @st_STACKPOINTER, align 4
   %42 = load i1, ptr @st_WHICH_CONTEXTS, align 4
@@ -2724,8 +2708,8 @@ define dso_local ptr @st_ExistUnifier(ptr noundef %0, ptr noundef readonly %1, p
   store i16 0, ptr @st_EXIST_MINMAX, align 2
   br label %61
 
-61:                                               ; preds = %4, %60, %37, %10, %14
-  %62 = phi ptr [ %35, %14 ], [ null, %10 ], [ null, %37 ], [ null, %60 ], [ null, %4 ]
+61:                                               ; preds = %10, %4, %14, %60
+  %62 = phi ptr [ null, %60 ], [ %35, %14 ], [ null, %4 ], [ null, %10 ]
   ret ptr %62
 }
 
@@ -2822,7 +2806,7 @@ define internal fastcc ptr @st_TraverseForExistUnifier(ptr noundef %0) unnamed_a
   %54 = getelementptr i8, ptr %53, i64 8
   %55 = load ptr, ptr %54, align 8
   %56 = load ptr, ptr %55, align 8
-  %57 = tail call i32 @subst_Unify(ptr noundef %0, ptr noundef %56) #9
+  %57 = tail call i32 @subst_Unify(ptr noundef %0, ptr noundef %56) #8
   %58 = icmp eq i32 %57, 0
   br i1 %58, label %104, label %59
 
@@ -2887,7 +2871,7 @@ define internal fastcc ptr @st_TraverseForExistUnifier(ptr noundef %0) unnamed_a
   %99 = getelementptr i8, ptr %98, i64 8
   %100 = load ptr, ptr %99, align 8
   %101 = load ptr, ptr %100, align 8
-  %102 = tail call i32 @subst_Unify(ptr noundef %0, ptr noundef %101) #9
+  %102 = tail call i32 @subst_Unify(ptr noundef %0, ptr noundef %101) #8
   %103 = icmp eq i32 %102, 0
   br i1 %103, label %104, label %59, !llvm.loop !25
 
@@ -2962,7 +2946,7 @@ define internal fastcc ptr @st_TraverseForExistUnifier(ptr noundef %0) unnamed_a
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_ExistGen(ptr noundef %0, ptr noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %4 = icmp eq ptr %1, null
   br i1 %4, label %61, label %5
 
@@ -3016,15 +3000,13 @@ define dso_local ptr @st_ExistGen(ptr noundef %0, ptr noundef readonly %1, ptr n
   store i32 0, ptr %34, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
   %35 = tail call fastcc ptr @st_TraverseForExistGen(ptr noundef %0)
-  %36 = icmp eq ptr %35, null
-  br i1 %36, label %37, label %61
-
-37:                                               ; preds = %13
-  %38 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
-  %39 = icmp eq i32 %38, 0
+  %36 = icmp ne ptr %35, null
+  %37 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
+  %38 = icmp eq i32 %37, 0
+  %39 = select i1 %36, i1 true, i1 %38
   br i1 %39, label %61, label %40
 
-40:                                               ; preds = %37
+40:                                               ; preds = %13
   %41 = load i32, ptr @st_STACKSAVE, align 4
   store i32 %41, ptr @st_STACKPOINTER, align 4
   %42 = load i1, ptr @st_WHICH_CONTEXTS, align 4
@@ -3070,8 +3052,8 @@ define dso_local ptr @st_ExistGen(ptr noundef %0, ptr noundef readonly %1, ptr n
   store i16 0, ptr @st_EXIST_MINMAX, align 2
   br label %61
 
-61:                                               ; preds = %3, %60, %37, %9, %13
-  %62 = phi ptr [ %35, %13 ], [ null, %9 ], [ null, %37 ], [ null, %60 ], [ null, %3 ]
+61:                                               ; preds = %9, %3, %13, %60
+  %62 = phi ptr [ null, %60 ], [ %35, %13 ], [ null, %3 ], [ null, %9 ]
   ret ptr %62
 }
 
@@ -3168,7 +3150,7 @@ define internal fastcc ptr @st_TraverseForExistGen(ptr noundef %0) unnamed_addr 
   %54 = getelementptr i8, ptr %53, i64 8
   %55 = load ptr, ptr %54, align 8
   %56 = load ptr, ptr %55, align 8
-  %57 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %56) #9
+  %57 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %56) #8
   %58 = icmp eq i32 %57, 0
   br i1 %58, label %104, label %59
 
@@ -3233,7 +3215,7 @@ define internal fastcc ptr @st_TraverseForExistGen(ptr noundef %0) unnamed_addr 
   %99 = getelementptr i8, ptr %98, i64 8
   %100 = load ptr, ptr %99, align 8
   %101 = load ptr, ptr %100, align 8
-  %102 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %101) #9
+  %102 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %101) #8
   %103 = icmp eq i32 %102, 0
   br i1 %103, label %104, label %59, !llvm.loop !26
 
@@ -3308,7 +3290,7 @@ define internal fastcc ptr @st_TraverseForExistGen(ptr noundef %0) unnamed_addr 
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_ExistGenPreTest(ptr noundef %0, ptr noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %4 = icmp eq ptr %1, null
   br i1 %4, label %63, label %5
 
@@ -3330,7 +3312,7 @@ define dso_local ptr @st_ExistGenPreTest(ptr noundef %0, ptr noundef readonly %1
   store ptr %0, ptr @st_INDEX_CONTEXT, align 8
   %14 = load i32, ptr @st_STACKPOINTER, align 4
   store i32 %14, ptr @st_STACKSAVE, align 4
-  %15 = tail call i32 @term_ComputeSize(ptr noundef %2) #9
+  %15 = tail call i32 @term_ComputeSize(ptr noundef %2) #8
   %16 = trunc i32 %15 to i16
   store i16 %16, ptr @st_EXIST_MINMAX, align 2
   %17 = getelementptr inbounds %struct.binding, ptr %0, i64 2001
@@ -3365,15 +3347,13 @@ define dso_local ptr @st_ExistGenPreTest(ptr noundef %0, ptr noundef readonly %1
   store i32 0, ptr %36, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
   %37 = tail call fastcc ptr @st_TraverseForExistGenPreTest(ptr noundef %0)
-  %38 = icmp eq ptr %37, null
-  br i1 %38, label %39, label %63
-
-39:                                               ; preds = %13
-  %40 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
-  %41 = icmp eq i32 %40, 0
+  %38 = icmp ne ptr %37, null
+  %39 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
+  %40 = icmp eq i32 %39, 0
+  %41 = select i1 %38, i1 true, i1 %40
   br i1 %41, label %63, label %42
 
-42:                                               ; preds = %39
+42:                                               ; preds = %13
   %43 = load i32, ptr @st_STACKSAVE, align 4
   store i32 %43, ptr @st_STACKPOINTER, align 4
   %44 = load i1, ptr @st_WHICH_CONTEXTS, align 4
@@ -3419,8 +3399,8 @@ define dso_local ptr @st_ExistGenPreTest(ptr noundef %0, ptr noundef readonly %1
   store i16 0, ptr @st_EXIST_MINMAX, align 2
   br label %63
 
-63:                                               ; preds = %3, %62, %39, %9, %13
-  %64 = phi ptr [ %37, %13 ], [ null, %9 ], [ null, %39 ], [ null, %62 ], [ null, %3 ]
+63:                                               ; preds = %9, %3, %13, %62
+  %64 = phi ptr [ null, %62 ], [ %37, %13 ], [ null, %3 ], [ null, %9 ]
   ret ptr %64
 }
 
@@ -3526,7 +3506,7 @@ define internal fastcc ptr @st_TraverseForExistGenPreTest(ptr noundef %0) unname
   %61 = phi ptr [ %105, %101 ], [ %55, %52 ]
   %62 = phi ptr [ %103, %101 ], [ %53, %52 ]
   %63 = load ptr, ptr %61, align 8
-  %64 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %63) #9
+  %64 = tail call i32 @subst_Match(ptr noundef %0, ptr noundef %63) #8
   %65 = icmp eq i32 %64, 0
   br i1 %65, label %110, label %66
 
@@ -3665,7 +3645,7 @@ define internal fastcc ptr @st_TraverseForExistGenPreTest(ptr noundef %0) unname
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_ExistInstance(ptr noundef %0, ptr noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %4 = icmp eq ptr %1, null
   br i1 %4, label %60, label %5
 
@@ -3718,15 +3698,13 @@ define dso_local ptr @st_ExistInstance(ptr noundef %0, ptr noundef readonly %1, 
   store i32 0, ptr %33, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
   %34 = tail call fastcc ptr @st_TraverseForExistInstance(ptr noundef %0)
-  %35 = icmp eq ptr %34, null
-  br i1 %35, label %36, label %60
-
-36:                                               ; preds = %13
-  %37 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
-  %38 = icmp eq i32 %37, 0
+  %35 = icmp ne ptr %34, null
+  %36 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
+  %37 = icmp eq i32 %36, 0
+  %38 = select i1 %35, i1 true, i1 %37
   br i1 %38, label %60, label %39
 
-39:                                               ; preds = %36
+39:                                               ; preds = %13
   %40 = load i32, ptr @st_STACKSAVE, align 4
   store i32 %40, ptr @st_STACKPOINTER, align 4
   %41 = load i1, ptr @st_WHICH_CONTEXTS, align 4
@@ -3772,8 +3750,8 @@ define dso_local ptr @st_ExistInstance(ptr noundef %0, ptr noundef readonly %1, 
   store i16 0, ptr @st_EXIST_MINMAX, align 2
   br label %60
 
-60:                                               ; preds = %3, %59, %36, %9, %13
-  %61 = phi ptr [ %34, %13 ], [ null, %9 ], [ null, %36 ], [ null, %59 ], [ null, %3 ]
+60:                                               ; preds = %9, %3, %13, %59
+  %61 = phi ptr [ null, %59 ], [ %34, %13 ], [ null, %3 ], [ null, %9 ]
   ret ptr %61
 }
 
@@ -3870,7 +3848,7 @@ define internal fastcc ptr @st_TraverseForExistInstance(ptr noundef %0) unnamed_
   %54 = getelementptr i8, ptr %53, i64 8
   %55 = load ptr, ptr %54, align 8
   %56 = load ptr, ptr %55, align 8
-  %57 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %56) #9
+  %57 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %56) #8
   %58 = icmp eq i32 %57, 0
   br i1 %58, label %104, label %59
 
@@ -3935,7 +3913,7 @@ define internal fastcc ptr @st_TraverseForExistInstance(ptr noundef %0) unnamed_
   %99 = getelementptr i8, ptr %98, i64 8
   %100 = load ptr, ptr %99, align 8
   %101 = load ptr, ptr %100, align 8
-  %102 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %101) #9
+  %102 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %101) #8
   %103 = icmp eq i32 %102, 0
   br i1 %103, label %104, label %59, !llvm.loop !28
 
@@ -4010,7 +3988,7 @@ define internal fastcc ptr @st_TraverseForExistInstance(ptr noundef %0) unnamed_
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @st_ExistInstancePreTest(ptr noundef %0, ptr noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  tail call void @cont_Check() #9
+  tail call void @cont_Check() #8
   %4 = icmp eq ptr %1, null
   br i1 %4, label %63, label %5
 
@@ -4032,7 +4010,7 @@ define dso_local ptr @st_ExistInstancePreTest(ptr noundef %0, ptr noundef readon
   store ptr %0, ptr @st_INDEX_CONTEXT, align 8
   %14 = load i32, ptr @st_STACKPOINTER, align 4
   store i32 %14, ptr @st_STACKSAVE, align 4
-  %15 = tail call i32 @term_ComputeSize(ptr noundef %2) #9
+  %15 = tail call i32 @term_ComputeSize(ptr noundef %2) #8
   %16 = trunc i32 %15 to i16
   store i16 %16, ptr @st_EXIST_MINMAX, align 2
   %17 = getelementptr inbounds %struct.binding, ptr %0, i64 2001
@@ -4067,15 +4045,13 @@ define dso_local ptr @st_ExistInstancePreTest(ptr noundef %0, ptr noundef readon
   store i32 0, ptr %36, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
   %37 = tail call fastcc ptr @st_TraverseForExistInstancePreTest(ptr noundef %0)
-  %38 = icmp eq ptr %37, null
-  br i1 %38, label %39, label %63
-
-39:                                               ; preds = %13
-  %40 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
-  %41 = icmp eq i32 %40, 0
+  %38 = icmp ne ptr %37, null
+  %39 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
+  %40 = icmp eq i32 %39, 0
+  %41 = select i1 %38, i1 true, i1 %40
   br i1 %41, label %63, label %42
 
-42:                                               ; preds = %39
+42:                                               ; preds = %13
   %43 = load i32, ptr @st_STACKSAVE, align 4
   store i32 %43, ptr @st_STACKPOINTER, align 4
   %44 = load i1, ptr @st_WHICH_CONTEXTS, align 4
@@ -4121,8 +4097,8 @@ define dso_local ptr @st_ExistInstancePreTest(ptr noundef %0, ptr noundef readon
   store i16 0, ptr @st_EXIST_MINMAX, align 2
   br label %63
 
-63:                                               ; preds = %3, %62, %39, %9, %13
-  %64 = phi ptr [ %37, %13 ], [ null, %9 ], [ null, %39 ], [ null, %62 ], [ null, %3 ]
+63:                                               ; preds = %9, %3, %13, %62
+  %64 = phi ptr [ null, %62 ], [ %37, %13 ], [ null, %3 ], [ null, %9 ]
   ret ptr %64
 }
 
@@ -4228,7 +4204,7 @@ define internal fastcc ptr @st_TraverseForExistInstancePreTest(ptr noundef %0) u
   %61 = phi ptr [ %105, %101 ], [ %55, %52 ]
   %62 = phi ptr [ %103, %101 ], [ %53, %52 ]
   %63 = load ptr, ptr %61, align 8
-  %64 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %63) #9
+  %64 = tail call i32 @subst_MatchReverse(ptr noundef %0, ptr noundef %63) #8
   %65 = icmp eq i32 %64, 0
   br i1 %65, label %110, label %66
 
@@ -4382,11 +4358,11 @@ define dso_local ptr @st_NextCandidate() local_unnamed_addr #0 {
   store ptr %8, ptr %4, align 8
   %9 = getelementptr i8, ptr %5, i64 8
   %10 = load ptr, ptr %9, align 8
-  br label %79
+  br label %87
 
 11:                                               ; preds = %0
   %12 = load i1, ptr @st_WHICH_CONTEXTS, align 4
-  br i1 %12, label %37, label %13
+  br i1 %12, label %45, label %13
 
 13:                                               ; preds = %11
   %14 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
@@ -4401,22 +4377,22 @@ define dso_local ptr @st_NextCandidate() local_unnamed_addr #0 {
 15:                                               ; preds = %13
   %16 = load ptr, ptr @st_INDEX_CONTEXT, align 8
   %17 = tail call fastcc ptr @st_TraverseForExistUnifier(ptr noundef %16)
-  br label %52
+  br label %60
 
 18:                                               ; preds = %13
   %19 = load ptr, ptr @st_INDEX_CONTEXT, align 8
   %20 = tail call fastcc ptr @st_TraverseForExistGen(ptr noundef %19)
-  br label %52
+  br label %60
 
 21:                                               ; preds = %13
   %22 = load ptr, ptr @st_INDEX_CONTEXT, align 8
   %23 = tail call fastcc ptr @st_TraverseForExistGenPreTest(ptr noundef %22)
-  br label %52
+  br label %60
 
 24:                                               ; preds = %13
   %25 = load ptr, ptr @st_INDEX_CONTEXT, align 8
   %26 = tail call fastcc ptr @st_TraverseForExistInstance(ptr noundef %25)
-  br label %52
+  br label %60
 
 27:                                               ; preds = %13
   %28 = load ptr, ptr @st_INDEX_CONTEXT, align 8
@@ -4427,91 +4403,97 @@ define dso_local ptr @st_NextCandidate() local_unnamed_addr #0 {
   %31 = load ptr, ptr @stdout, align 8
   %32 = tail call i32 @fflush(ptr noundef %31)
   %33 = load ptr, ptr @stderr, align 8
-  %34 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %33, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 1577) #10
-  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.4) #9
+  %34 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %33, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 1577) #9
+  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.4) #8
   %35 = load ptr, ptr @stderr, align 8
-  %36 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 132, i64 1, ptr %35) #10
-  tail call fastcc void @misc_DumpCore()
+  %36 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 132, i64 1, ptr %35) #9
+  %37 = load ptr, ptr @stderr, align 8
+  %38 = tail call i64 @fwrite(ptr nonnull @.str.12, i64 2, i64 1, ptr %37) #9
+  %39 = load ptr, ptr @stderr, align 8
+  %40 = tail call i32 @fflush(ptr noundef %39)
+  %41 = load ptr, ptr @stdout, align 8
+  %42 = tail call i32 @fflush(ptr noundef %41)
+  %43 = load ptr, ptr @stderr, align 8
+  %44 = tail call i32 @fflush(ptr noundef %43)
+  tail call void @abort() #10
   unreachable
 
-37:                                               ; preds = %11
-  %38 = load ptr, ptr @stdout, align 8
-  %39 = tail call i32 @fflush(ptr noundef %38)
-  %40 = load ptr, ptr @stderr, align 8
-  %41 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %40, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 1582) #10
-  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.5) #9
-  %42 = load ptr, ptr @stderr, align 8
-  %43 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 132, i64 1, ptr %42) #10
-  %44 = load ptr, ptr @stderr, align 8
-  %45 = tail call i64 @fwrite(ptr nonnull @.str.12, i64 2, i64 1, ptr %44) #10
-  %46 = load ptr, ptr @stderr, align 8
+45:                                               ; preds = %11
+  %46 = load ptr, ptr @stdout, align 8
   %47 = tail call i32 @fflush(ptr noundef %46)
-  %48 = load ptr, ptr @stdout, align 8
-  %49 = tail call i32 @fflush(ptr noundef %48)
+  %48 = load ptr, ptr @stderr, align 8
+  %49 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %48, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 1582) #9
+  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.5) #8
   %50 = load ptr, ptr @stderr, align 8
-  %51 = tail call i32 @fflush(ptr noundef %50)
-  tail call void @abort() #11
+  %51 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 132, i64 1, ptr %50) #9
+  %52 = load ptr, ptr @stderr, align 8
+  %53 = tail call i64 @fwrite(ptr nonnull @.str.12, i64 2, i64 1, ptr %52) #9
+  %54 = load ptr, ptr @stderr, align 8
+  %55 = tail call i32 @fflush(ptr noundef %54)
+  %56 = load ptr, ptr @stdout, align 8
+  %57 = tail call i32 @fflush(ptr noundef %56)
+  %58 = load ptr, ptr @stderr, align 8
+  %59 = tail call i32 @fflush(ptr noundef %58)
+  tail call void @abort() #10
   unreachable
 
-52:                                               ; preds = %15, %18, %21, %24
-  %53 = phi ptr [ %26, %24 ], [ %23, %21 ], [ %20, %18 ], [ %17, %15 ]
-  %54 = icmp eq ptr %53, null
-  br i1 %54, label %55, label %79
+60:                                               ; preds = %15, %18, %21, %24
+  %61 = phi ptr [ %26, %24 ], [ %23, %21 ], [ %20, %18 ], [ %17, %15 ]
+  %62 = icmp ne ptr %61, null
+  %63 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
+  %64 = icmp eq i32 %63, 0
+  %65 = select i1 %62, i1 true, i1 %64
+  br i1 %65, label %87, label %66
 
-55:                                               ; preds = %52
-  %56 = load i32, ptr @st_CURRENT_RETRIEVAL, align 4
-  %57 = icmp eq i32 %56, 0
-  br i1 %57, label %79, label %58
+66:                                               ; preds = %60
+  %67 = load i32, ptr @st_STACKSAVE, align 4
+  store i32 %67, ptr @st_STACKPOINTER, align 4
+  %68 = load i1, ptr @st_WHICH_CONTEXTS, align 4
+  br i1 %68, label %86, label %69
 
-58:                                               ; preds = %55
-  %59 = load i32, ptr @st_STACKSAVE, align 4
-  store i32 %59, ptr @st_STACKPOINTER, align 4
-  %60 = load i1, ptr @st_WHICH_CONTEXTS, align 4
-  br i1 %60, label %78, label %61
+69:                                               ; preds = %66
+  %70 = load ptr, ptr @cont_LASTBINDING, align 8
+  %71 = icmp eq ptr %70, null
+  br i1 %71, label %85, label %72
 
-61:                                               ; preds = %58
-  %62 = load ptr, ptr @cont_LASTBINDING, align 8
-  %63 = icmp eq ptr %62, null
-  br i1 %63, label %77, label %64
+72:                                               ; preds = %69
+  %73 = load i32, ptr @cont_BINDINGS, align 4
+  br label %74
 
-64:                                               ; preds = %61
-  %65 = load i32, ptr @cont_BINDINGS, align 4
-  br label %66
+74:                                               ; preds = %74, %72
+  %75 = phi ptr [ %83, %74 ], [ %70, %72 ]
+  %76 = phi i32 [ %82, %74 ], [ %73, %72 ]
+  store ptr %75, ptr @cont_CURRENTBINDING, align 8
+  %77 = getelementptr i8, ptr %75, i64 24
+  %78 = load ptr, ptr %77, align 8
+  store ptr %78, ptr @cont_LASTBINDING, align 8
+  %79 = getelementptr inbounds %struct.binding, ptr %75, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %79, i8 0, i64 20, i1 false)
+  %80 = load ptr, ptr @cont_CURRENTBINDING, align 8
+  %81 = getelementptr inbounds %struct.binding, ptr %80, i64 0, i32 4
+  store ptr null, ptr %81, align 8
+  %82 = add nsw i32 %76, -1
+  store i32 %82, ptr @cont_BINDINGS, align 4
+  %83 = load ptr, ptr @cont_LASTBINDING, align 8
+  %84 = icmp eq ptr %83, null
+  br i1 %84, label %85, label %74, !llvm.loop !9
 
-66:                                               ; preds = %66, %64
-  %67 = phi ptr [ %75, %66 ], [ %62, %64 ]
-  %68 = phi i32 [ %74, %66 ], [ %65, %64 ]
-  store ptr %67, ptr @cont_CURRENTBINDING, align 8
-  %69 = getelementptr i8, ptr %67, i64 24
-  %70 = load ptr, ptr %69, align 8
-  store ptr %70, ptr @cont_LASTBINDING, align 8
-  %71 = getelementptr inbounds %struct.binding, ptr %67, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %71, i8 0, i64 20, i1 false)
-  %72 = load ptr, ptr @cont_CURRENTBINDING, align 8
-  %73 = getelementptr inbounds %struct.binding, ptr %72, i64 0, i32 4
-  store ptr null, ptr %73, align 8
-  %74 = add nsw i32 %68, -1
-  store i32 %74, ptr @cont_BINDINGS, align 4
-  %75 = load ptr, ptr @cont_LASTBINDING, align 8
-  %76 = icmp eq ptr %75, null
-  br i1 %76, label %77, label %66, !llvm.loop !9
-
-77:                                               ; preds = %66, %61
+85:                                               ; preds = %74, %69
   store i32 0, ptr @cont_BINDINGS, align 4
   store i32 1, ptr @cont_STACKPOINTER, align 4
   store i32 2000, ptr @cont_INDEXVARSCANNER, align 4
-  br label %78
+  br label %86
 
-78:                                               ; preds = %77, %58
+86:                                               ; preds = %85, %66
   store i32 0, ptr @st_CURRENT_RETRIEVAL, align 4
   store i1 true, ptr @st_WHICH_CONTEXTS, align 4
   store ptr null, ptr @st_INDEX_CONTEXT, align 8
   store i16 0, ptr @st_EXIST_MINMAX, align 2
-  br label %79
+  br label %87
 
-79:                                               ; preds = %78, %55, %52, %7
-  %80 = phi ptr [ %10, %7 ], [ %53, %52 ], [ null, %55 ], [ null, %78 ]
-  ret ptr %80
+87:                                               ; preds = %60, %86, %7
+  %88 = phi ptr [ %10, %7 ], [ null, %86 ], [ %61, %60 ]
+  ret ptr %88
 }
 
 ; Function Attrs: nounwind uwtable
@@ -4542,7 +4524,7 @@ define dso_local void @st_Print(ptr noundef readonly %0, ptr noundef %1) local_u
   %20 = zext i16 %19 to i32
   %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %17, i32 noundef %20)
   %22 = load ptr, ptr %0, align 8
-  tail call void @subst_Print(ptr noundef %22) #9
+  tail call void @subst_Print(ptr noundef %22) #8
   %23 = load ptr, ptr @stdout, align 8
   %24 = tail call i32 @putc(i32 noundef 10, ptr noundef %23)
   %25 = load ptr, ptr %5, align 8
@@ -4566,13 +4548,13 @@ define dso_local void @st_Print(ptr noundef readonly %0, ptr noundef %1) local_u
   %37 = tail call i32 @putc(i32 noundef 32, ptr noundef %36)
   %38 = getelementptr i8, ptr %35, i64 8
   %39 = load ptr, ptr %38, align 8
-  tail call void %1(ptr noundef %39) #9
+  tail call void %1(ptr noundef %39) #8
   %40 = load ptr, ptr %35, align 8
   %41 = icmp eq ptr %40, null
   br i1 %41, label %55, label %34, !llvm.loop !30
 
 42:                                               ; preds = %27
-  %43 = tail call i32 @list_Length(ptr noundef %31) #9
+  %43 = tail call i32 @list_Length(ptr noundef %31) #8
   %44 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %43)
   br label %55
 
@@ -4651,7 +4633,7 @@ define internal fastcc void @st_PrintHelp(ptr noundef readonly %0, i32 noundef %
   %31 = zext i16 %30 to i32
   %32 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %28, i32 noundef %31)
   %33 = load ptr, ptr %0, align 8
-  tail call void @subst_Print(ptr noundef %33) #9
+  tail call void @subst_Print(ptr noundef %33) #8
   %34 = load ptr, ptr @stdout, align 8
   %35 = tail call i32 @putc(i32 noundef 10, ptr noundef %34)
   %36 = getelementptr i8, ptr %0, i64 16
@@ -4687,13 +4669,13 @@ define internal fastcc void @st_PrintHelp(ptr noundef readonly %0, i32 noundef %
   %56 = tail call i32 @putc(i32 noundef 32, ptr noundef %55)
   %57 = getelementptr i8, ptr %54, i64 8
   %58 = load ptr, ptr %57, align 8
-  tail call void %2(ptr noundef %58) #9
+  tail call void %2(ptr noundef %58) #8
   %59 = load ptr, ptr %54, align 8
   %60 = icmp eq ptr %59, null
   br i1 %60, label %64, label %53, !llvm.loop !35
 
 61:                                               ; preds = %46
-  %62 = tail call i32 @list_Length(ptr noundef %50) #9
+  %62 = tail call i32 @list_Length(ptr noundef %50) #8
   %63 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %62)
   br label %64
 
@@ -4744,29 +4726,28 @@ declare i32 @subst_Match(ptr noundef, ptr noundef) local_unnamed_addr #2
 declare i32 @subst_MatchReverse(ptr noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: noreturn nounwind
-declare void @abort() local_unnamed_addr #6
+declare void @abort() local_unnamed_addr #5
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #4
 
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #7
-
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { inlinehint noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #5 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #7 = { nofree nounwind }
-attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #9 = { nounwind }
-attributes #10 = { cold }
-attributes #11 = { noreturn nounwind }
+attributes #8 = { nounwind }
+attributes #9 = { cold }
+attributes #10 = { noreturn nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

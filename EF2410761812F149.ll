@@ -42,8 +42,8 @@ define dso_local i32 @unify_OccurCheckCom(i32 noundef %0, ptr nocapture noundef 
 12:                                               ; preds = %50, %5
   %13 = phi ptr [ %7, %5 ], [ %51, %50 ]
   %14 = load i32, ptr %13, align 8
-  %15 = icmp slt i32 %14, 1
-  br i1 %15, label %24, label %16
+  %15 = icmp sgt i32 %14, 0
+  br i1 %15, label %16, label %24
 
 16:                                               ; preds = %12
   %17 = icmp eq i32 %14, %0
@@ -126,8 +126,8 @@ define dso_local i32 @unify_OccurCheck(ptr noundef readnone %0, i32 noundef %1, 
   %8 = phi ptr [ %3, %4 ], [ %72, %70 ]
   %9 = phi ptr [ %2, %4 ], [ %73, %70 ]
   %10 = load i32, ptr %8, align 8
-  %11 = icmp slt i32 %10, 1
-  br i1 %11, label %27, label %12
+  %11 = icmp sgt i32 %10, 0
+  br i1 %11, label %12, label %27
 
 12:                                               ; preds = %45, %6
   %13 = phi i32 [ %7, %6 ], [ %46, %45 ]
@@ -187,8 +187,8 @@ define dso_local i32 @unify_OccurCheck(ptr noundef readnone %0, i32 noundef %1, 
   %48 = getelementptr i8, ptr %32, i64 8
   %49 = load ptr, ptr %48, align 8
   %50 = load i32, ptr %49, align 8
-  %51 = icmp slt i32 %50, 1
-  br i1 %51, label %27, label %12
+  %51 = icmp sgt i32 %50, 0
+  br i1 %51, label %12, label %27
 
 52:                                               ; preds = %27, %19
   %53 = phi i32 [ %13, %19 ], [ %28, %27 ]
@@ -249,11 +249,11 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   %14 = phi i32 [ %263, %262 ], [ %7, %6 ]
   %15 = phi ptr [ %40, %262 ], [ %8, %6 ]
   %16 = phi ptr [ %265, %262 ], [ %9, %6 ]
-  %17 = phi ptr [ %65, %262 ], [ %10, %6 ]
+  %17 = phi ptr [ %69, %262 ], [ %10, %6 ]
   %18 = phi ptr [ %267, %262 ], [ %11, %6 ]
   %19 = load i32, ptr %16, align 8
-  %20 = icmp slt i32 %19, 1
-  br i1 %20, label %39, label %21
+  %20 = icmp sgt i32 %19, 0
+  br i1 %20, label %21, label %39
 
 21:                                               ; preds = %13
   %22 = zext i32 %19 to i64
@@ -276,31 +276,31 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   %35 = getelementptr inbounds %struct.binding, ptr %34, i64 %33, i32 3
   %36 = load ptr, ptr %35, align 8
   %37 = load i32, ptr %32, align 8
-  %38 = icmp slt i32 %37, 1
-  br i1 %38, label %39, label %26, !llvm.loop !5
+  %38 = icmp sgt i32 %37, 0
+  br i1 %38, label %26, label %39, !llvm.loop !5
 
 39:                                               ; preds = %31, %26, %21, %13
   %40 = phi ptr [ %15, %13 ], [ %15, %21 ], [ %36, %26 ], [ %36, %31 ]
   %41 = phi ptr [ %16, %13 ], [ %16, %21 ], [ %32, %26 ], [ %32, %31 ]
   %42 = phi i32 [ %19, %13 ], [ %19, %21 ], [ %37, %26 ], [ %37, %31 ]
-  %43 = phi i1 [ true, %13 ], [ false, %21 ], [ %38, %26 ], [ %38, %31 ]
+  %43 = phi i1 [ false, %13 ], [ true, %21 ], [ %38, %26 ], [ %38, %31 ]
   %44 = load i32, ptr %18, align 8
-  %45 = icmp slt i32 %44, 1
-  br i1 %45, label %64, label %46
+  %45 = icmp sgt i32 %44, 0
+  br i1 %45, label %46, label %68
 
 46:                                               ; preds = %39
   %47 = zext i32 %44 to i64
   %48 = getelementptr inbounds %struct.binding, ptr %17, i64 %47, i32 2
   %49 = load ptr, ptr %48, align 8
   %50 = icmp eq ptr %49, null
-  br i1 %50, label %68, label %56
+  br i1 %50, label %64, label %56
 
 51:                                               ; preds = %56
   %52 = zext i32 %62 to i64
   %53 = getelementptr inbounds %struct.binding, ptr %61, i64 %52, i32 2
   %54 = load ptr, ptr %53, align 8
   %55 = icmp eq ptr %54, null
-  br i1 %55, label %68, label %56, !llvm.loop !7
+  br i1 %55, label %64, label %56, !llvm.loop !7
 
 56:                                               ; preds = %46, %51
   %57 = phi ptr [ %54, %51 ], [ %49, %46 ]
@@ -309,46 +309,46 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   %60 = getelementptr inbounds %struct.binding, ptr %59, i64 %58, i32 3
   %61 = load ptr, ptr %60, align 8
   %62 = load i32, ptr %57, align 8
-  %63 = icmp slt i32 %62, 1
-  br i1 %63, label %64, label %51, !llvm.loop !7
+  %63 = icmp sgt i32 %62, 0
+  br i1 %63, label %51, label %68, !llvm.loop !7
 
-64:                                               ; preds = %56, %39
-  %65 = phi ptr [ %17, %39 ], [ %61, %56 ]
-  %66 = phi ptr [ %18, %39 ], [ %57, %56 ]
-  %67 = phi i32 [ %44, %39 ], [ %62, %56 ]
-  br i1 %43, label %234, label %80
+64:                                               ; preds = %46, %51
+  %65 = phi i32 [ %62, %51 ], [ %44, %46 ]
+  %66 = phi ptr [ %57, %51 ], [ %18, %46 ]
+  %67 = phi ptr [ %61, %51 ], [ %17, %46 ]
+  br i1 %43, label %72, label %157
 
-68:                                               ; preds = %46, %51
-  %69 = phi i32 [ %62, %51 ], [ %44, %46 ]
-  %70 = phi ptr [ %57, %51 ], [ %18, %46 ]
-  %71 = phi ptr [ %61, %51 ], [ %17, %46 ]
-  %72 = phi ptr [ %53, %51 ], [ %48, %46 ]
-  %73 = zext i32 %69 to i64
-  br i1 %43, label %157, label %74
+68:                                               ; preds = %56, %39
+  %69 = phi ptr [ %17, %39 ], [ %61, %56 ]
+  %70 = phi ptr [ %18, %39 ], [ %57, %56 ]
+  %71 = phi i32 [ %44, %39 ], [ %62, %56 ]
+  br i1 %43, label %80, label %234
 
-74:                                               ; preds = %68
-  %75 = icmp eq ptr %40, %71
-  %76 = icmp eq i32 %42, %69
-  %77 = select i1 %75, i1 %76, i1 false
-  br i1 %77, label %276, label %78
+72:                                               ; preds = %64
+  %73 = icmp eq ptr %40, %67
+  %74 = icmp eq i32 %42, %65
+  %75 = select i1 %73, i1 %74, i1 false
+  br i1 %75, label %276, label %76
 
-78:                                               ; preds = %74
-  %79 = getelementptr inbounds %struct.binding, ptr %71, i64 %73
-  store ptr %79, ptr @cont_CURRENTBINDING, align 8
-  store ptr %41, ptr %72, align 8
+76:                                               ; preds = %72
+  %77 = zext i32 %65 to i64
+  %78 = getelementptr inbounds %struct.binding, ptr %67, i64 %77
+  store ptr %78, ptr @cont_CURRENTBINDING, align 8
+  %79 = getelementptr inbounds %struct.binding, ptr %67, i64 %77, i32 2
+  store ptr %41, ptr %79, align 8
   br label %268
 
-80:                                               ; preds = %64
+80:                                               ; preds = %68
   %81 = icmp eq i32 %12, 0
   br i1 %81, label %152, label %82
 
 82:                                               ; preds = %80, %102
-  %83 = phi i32 [ %106, %102 ], [ %67, %80 ]
+  %83 = phi i32 [ %106, %102 ], [ %71, %80 ]
   %84 = phi i32 [ %103, %102 ], [ %14, %80 ]
-  %85 = phi ptr [ %104, %102 ], [ %66, %80 ]
-  %86 = phi ptr [ %105, %102 ], [ %65, %80 ]
-  %87 = icmp slt i32 %83, 1
-  br i1 %87, label %107, label %88
+  %85 = phi ptr [ %104, %102 ], [ %70, %80 ]
+  %86 = phi ptr [ %105, %102 ], [ %69, %80 ]
+  %87 = icmp sgt i32 %83, 0
+  br i1 %87, label %88, label %107
 
 88:                                               ; preds = %125, %82
   %89 = phi i32 [ %84, %82 ], [ %126, %125 ]
@@ -411,8 +411,8 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   %128 = getelementptr i8, ptr %112, i64 8
   %129 = load ptr, ptr %128, align 8
   %130 = load i32, ptr %129, align 8
-  %131 = icmp slt i32 %130, 1
-  br i1 %131, label %107, label %88
+  %131 = icmp sgt i32 %130, 0
+  br i1 %131, label %88, label %107
 
 132:                                              ; preds = %107, %94
   %133 = phi i32 [ %89, %94 ], [ %108, %107 ]
@@ -454,26 +454,26 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   %155 = getelementptr inbounds %struct.binding, ptr %40, i64 %154
   store ptr %155, ptr @cont_CURRENTBINDING, align 8
   %156 = getelementptr inbounds %struct.binding, ptr %40, i64 %154, i32 2
-  store ptr %66, ptr %156, align 8
+  store ptr %70, ptr %156, align 8
   br label %268
 
-157:                                              ; preds = %68
+157:                                              ; preds = %64
   %158 = icmp eq i32 %12, 0
-  br i1 %158, label %230, label %159
+  br i1 %158, label %229, label %159
 
 159:                                              ; preds = %157, %179
   %160 = phi i32 [ %183, %179 ], [ %42, %157 ]
   %161 = phi i32 [ %180, %179 ], [ %14, %157 ]
   %162 = phi ptr [ %181, %179 ], [ %41, %157 ]
   %163 = phi ptr [ %182, %179 ], [ %40, %157 ]
-  %164 = icmp slt i32 %160, 1
-  br i1 %164, label %184, label %165
+  %164 = icmp sgt i32 %160, 0
+  br i1 %164, label %165, label %184
 
 165:                                              ; preds = %202, %159
   %166 = phi i32 [ %161, %159 ], [ %203, %202 ]
   %167 = phi i32 [ %160, %159 ], [ %207, %202 ]
-  %168 = icmp eq ptr %163, %71
-  %169 = icmp eq i32 %167, %69
+  %168 = icmp eq ptr %163, %67
+  %169 = icmp eq i32 %167, %65
   %170 = select i1 %168, i1 %169, i1 false
   br i1 %170, label %307, label %171
 
@@ -530,8 +530,8 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   %205 = getelementptr i8, ptr %189, i64 8
   %206 = load ptr, ptr %205, align 8
   %207 = load i32, ptr %206, align 8
-  %208 = icmp slt i32 %207, 1
-  br i1 %208, label %184, label %165
+  %208 = icmp sgt i32 %207, 0
+  br i1 %208, label %165, label %184
 
 209:                                              ; preds = %184, %171
   %210 = phi i32 [ %166, %171 ], [ %185, %184 ]
@@ -564,32 +564,32 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   br label %179
 
 227:                                              ; preds = %209
-  %228 = load i32, ptr %70, align 8
-  %229 = sext i32 %228 to i64
-  br label %230
+  %228 = load i32, ptr %66, align 8
+  br label %229
 
-230:                                              ; preds = %227, %157
-  %231 = phi i64 [ %229, %227 ], [ %73, %157 ]
-  %232 = getelementptr inbounds %struct.binding, ptr %71, i64 %231
+229:                                              ; preds = %227, %157
+  %230 = phi i32 [ %228, %227 ], [ %65, %157 ]
+  %231 = sext i32 %230 to i64
+  %232 = getelementptr inbounds %struct.binding, ptr %67, i64 %231
   store ptr %232, ptr @cont_CURRENTBINDING, align 8
-  %233 = getelementptr inbounds %struct.binding, ptr %71, i64 %231, i32 2
+  %233 = getelementptr inbounds %struct.binding, ptr %67, i64 %231, i32 2
   store ptr %41, ptr %233, align 8
   br label %268
 
-234:                                              ; preds = %64
-  %235 = icmp eq i32 %42, %67
+234:                                              ; preds = %68
+  %235 = icmp eq i32 %42, %71
   br i1 %235, label %236, label %307
 
 236:                                              ; preds = %234
   %237 = getelementptr i8, ptr %41, i64 16
   %238 = load ptr, ptr %237, align 8
   %239 = icmp eq ptr %238, null
-  %240 = icmp eq ptr %41, %66
+  %240 = icmp eq ptr %41, %70
   %241 = or i1 %240, %239
   br i1 %241, label %276, label %242
 
 242:                                              ; preds = %236
-  %243 = getelementptr i8, ptr %66, i64 16
+  %243 = getelementptr i8, ptr %70, i64 16
   %244 = load ptr, ptr %243, align 8
   %245 = load ptr, ptr %238, align 8
   %246 = icmp eq ptr %245, null
@@ -604,7 +604,7 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   store i32 %251, ptr @stack_POINTER, align 4
   %252 = zext i32 %248 to i64
   %253 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %252
-  store ptr %65, ptr %253, align 8
+  store ptr %69, ptr %253, align 8
   %254 = load ptr, ptr %238, align 8
   %255 = add i32 %14, 3
   store i32 %255, ptr @stack_POINTER, align 4
@@ -627,8 +627,8 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   %267 = load ptr, ptr %266, align 8
   br label %13
 
-268:                                              ; preds = %78, %152, %230
-  %269 = phi ptr [ %40, %78 ], [ %65, %152 ], [ %40, %230 ]
+268:                                              ; preds = %76, %152, %229
+  %269 = phi ptr [ %40, %76 ], [ %69, %152 ], [ %40, %229 ]
   %270 = load ptr, ptr @cont_CURRENTBINDING, align 8
   %271 = getelementptr inbounds %struct.binding, ptr %270, i64 0, i32 3
   store ptr %269, ptr %271, align 8
@@ -641,8 +641,8 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   store i32 %275, ptr @cont_BINDINGS, align 4
   br label %276
 
-276:                                              ; preds = %236, %268, %74
-  %277 = phi i32 [ %12, %74 ], [ %275, %268 ], [ %12, %236 ]
+276:                                              ; preds = %236, %268, %72
+  %277 = phi i32 [ %12, %72 ], [ %275, %268 ], [ %12, %236 ]
   %278 = load i32, ptr @stack_POINTER, align 4
   %279 = icmp eq i32 %278, %5
   br i1 %279, label %308, label %280
@@ -685,7 +685,7 @@ define dso_local i32 @unify_Unify(ptr noundef %0, ptr noundef %1, ptr noundef %2
   store i32 %306, ptr @stack_POINTER, align 4
   br label %6
 
-307:                                              ; preds = %234, %165, %88
+307:                                              ; preds = %234, %88, %165
   store i32 %5, ptr @stack_POINTER, align 4
   br label %308
 
@@ -708,8 +708,8 @@ define dso_local i32 @unify_UnifyCom(ptr noundef %0, ptr noundef %1, ptr noundef
 9:                                                ; preds = %13, %5
   %10 = phi ptr [ %7, %5 ], [ %16, %13 ]
   %11 = load i32, ptr %10, align 8
-  %12 = icmp slt i32 %11, 1
-  br i1 %12, label %18, label %13
+  %12 = icmp sgt i32 %11, 0
+  br i1 %12, label %13, label %18
 
 13:                                               ; preds = %9
   %14 = zext i32 %11 to i64
@@ -724,8 +724,8 @@ define dso_local i32 @unify_UnifyCom(ptr noundef %0, ptr noundef %1, ptr noundef
 19:                                               ; preds = %18, %23
   %20 = phi ptr [ %26, %23 ], [ %8, %18 ]
   %21 = load i32, ptr %20, align 8
-  %22 = icmp slt i32 %21, 1
-  br i1 %22, label %28, label %23
+  %22 = icmp sgt i32 %21, 0
+  br i1 %22, label %23, label %28
 
 23:                                               ; preds = %19
   %24 = zext i32 %21 to i64
@@ -776,10 +776,10 @@ define dso_local i32 @unify_UnifyCom(ptr noundef %0, ptr noundef %1, ptr noundef
   br label %183
 
 55:                                               ; preds = %28
-  br i1 %12, label %105, label %56
+  br i1 %12, label %56, label %105
 
 56:                                               ; preds = %55
-  br i1 %22, label %59, label %57
+  br i1 %22, label %57, label %59
 
 57:                                               ; preds = %56
   %58 = zext i32 %11 to i64
@@ -789,8 +789,8 @@ define dso_local i32 @unify_UnifyCom(ptr noundef %0, ptr noundef %1, ptr noundef
   %60 = phi i32 [ %89, %86 ], [ %21, %56 ]
   %61 = phi i32 [ %87, %86 ], [ %6, %56 ]
   %62 = phi ptr [ %88, %86 ], [ %20, %56 ]
-  %63 = icmp slt i32 %60, 1
-  br i1 %63, label %71, label %64
+  %63 = icmp sgt i32 %60, 0
+  br i1 %63, label %64, label %71
 
 64:                                               ; preds = %59
   %65 = icmp eq i32 %60, %11
@@ -861,14 +861,14 @@ define dso_local i32 @unify_UnifyCom(ptr noundef %0, ptr noundef %1, ptr noundef
   br label %152
 
 105:                                              ; preds = %55
-  br i1 %22, label %187, label %106
+  br i1 %22, label %106, label %187
 
 106:                                              ; preds = %105, %133
   %107 = phi i32 [ %136, %133 ], [ %11, %105 ]
   %108 = phi i32 [ %134, %133 ], [ %6, %105 ]
   %109 = phi ptr [ %135, %133 ], [ %10, %105 ]
-  %110 = icmp slt i32 %107, 1
-  br i1 %110, label %118, label %111
+  %110 = icmp sgt i32 %107, 0
+  br i1 %110, label %111, label %118
 
 111:                                              ; preds = %106
   %112 = icmp eq i32 %107, %21
@@ -994,7 +994,7 @@ define dso_local i32 @unify_UnifyCom(ptr noundef %0, ptr noundef %1, ptr noundef
   %186 = phi ptr [ %54, %49 ], [ %176, %166 ], [ %176, %181 ]
   br label %5
 
-187:                                              ; preds = %105, %64, %111
+187:                                              ; preds = %105, %111, %64
   store i32 %4, ptr @stack_POINTER, align 4
   br label %188
 
@@ -1008,15 +1008,15 @@ define dso_local i32 @unify_UnifyNoOC(ptr noundef %0, ptr noundef %1, ptr nounde
   %5 = load i32, ptr @stack_POINTER, align 4
   br label %6
 
-6:                                                ; preds = %141, %4
-  %7 = phi i32 [ %5, %4 ], [ %142, %141 ]
-  %8 = phi ptr [ %0, %4 ], [ %143, %141 ]
-  %9 = phi ptr [ %1, %4 ], [ %144, %141 ]
-  %10 = phi ptr [ %2, %4 ], [ %145, %141 ]
-  %11 = phi ptr [ %3, %4 ], [ %146, %141 ]
+6:                                                ; preds = %144, %4
+  %7 = phi i32 [ %5, %4 ], [ %145, %144 ]
+  %8 = phi ptr [ %0, %4 ], [ %146, %144 ]
+  %9 = phi ptr [ %1, %4 ], [ %147, %144 ]
+  %10 = phi ptr [ %2, %4 ], [ %148, %144 ]
+  %11 = phi ptr [ %3, %4 ], [ %149, %144 ]
   %12 = load i32, ptr %9, align 8
-  %13 = icmp slt i32 %12, 1
-  br i1 %13, label %32, label %14
+  %13 = icmp sgt i32 %12, 0
+  br i1 %13, label %14, label %32
 
 14:                                               ; preds = %6
   %15 = zext i32 %12 to i64
@@ -1039,17 +1039,17 @@ define dso_local i32 @unify_UnifyNoOC(ptr noundef %0, ptr noundef %1, ptr nounde
   %28 = getelementptr inbounds %struct.binding, ptr %27, i64 %26, i32 3
   %29 = load ptr, ptr %28, align 8
   %30 = load i32, ptr %25, align 8
-  %31 = icmp slt i32 %30, 1
-  br i1 %31, label %32, label %19, !llvm.loop !10
+  %31 = icmp sgt i32 %30, 0
+  br i1 %31, label %19, label %32, !llvm.loop !10
 
 32:                                               ; preds = %24, %19, %14, %6
   %33 = phi ptr [ %8, %6 ], [ %8, %14 ], [ %29, %19 ], [ %29, %24 ]
   %34 = phi ptr [ %9, %6 ], [ %9, %14 ], [ %25, %19 ], [ %25, %24 ]
   %35 = phi i32 [ %12, %6 ], [ %12, %14 ], [ %30, %19 ], [ %30, %24 ]
-  %36 = phi i1 [ true, %6 ], [ false, %14 ], [ %31, %19 ], [ %31, %24 ]
+  %36 = phi i1 [ false, %6 ], [ true, %14 ], [ %31, %19 ], [ %31, %24 ]
   %37 = load i32, ptr %11, align 8
-  %38 = icmp slt i32 %37, 1
-  br i1 %38, label %51, label %39
+  %38 = icmp sgt i32 %37, 0
+  br i1 %38, label %39, label %52
 
 39:                                               ; preds = %32, %46
   %40 = phi i32 [ %49, %46 ], [ %37, %32 ]
@@ -1058,181 +1058,184 @@ define dso_local i32 @unify_UnifyNoOC(ptr noundef %0, ptr noundef %1, ptr nounde
   %43 = getelementptr inbounds %struct.binding, ptr %41, i64 %42, i32 2
   %44 = load ptr, ptr %43, align 8
   %45 = icmp eq ptr %44, null
-  br i1 %45, label %55, label %46
+  br i1 %45, label %51, label %46
 
 46:                                               ; preds = %39
   %47 = getelementptr inbounds %struct.binding, ptr %41, i64 %42, i32 3
   %48 = load ptr, ptr %47, align 8
   %49 = load i32, ptr %44, align 8
-  %50 = icmp slt i32 %49, 1
-  br i1 %50, label %51, label %39, !llvm.loop !11
+  %50 = icmp sgt i32 %49, 0
+  br i1 %50, label %39, label %52, !llvm.loop !11
 
-51:                                               ; preds = %46, %32
-  %52 = phi ptr [ %10, %32 ], [ %48, %46 ]
-  %53 = phi ptr [ %11, %32 ], [ %44, %46 ]
-  %54 = phi i32 [ %37, %32 ], [ %49, %46 ]
-  br i1 %36, label %69, label %63
+51:                                               ; preds = %39
+  br i1 %36, label %56, label %68
 
-55:                                               ; preds = %39
-  %56 = zext i32 %40 to i64
-  br i1 %36, label %67, label %57
+52:                                               ; preds = %46, %32
+  %53 = phi ptr [ %10, %32 ], [ %48, %46 ]
+  %54 = phi ptr [ %11, %32 ], [ %44, %46 ]
+  %55 = phi i32 [ %37, %32 ], [ %49, %46 ]
+  br i1 %36, label %64, label %72
 
-57:                                               ; preds = %55
-  %58 = icmp eq ptr %33, %41
-  %59 = icmp eq i32 %35, %40
-  %60 = select i1 %58, i1 %59, i1 false
-  br i1 %60, label %112, label %61
+56:                                               ; preds = %51
+  %57 = icmp eq ptr %33, %41
+  %58 = icmp eq i32 %35, %40
+  %59 = select i1 %57, i1 %58, i1 false
+  br i1 %59, label %115, label %60
 
-61:                                               ; preds = %57
-  %62 = getelementptr inbounds %struct.binding, ptr %41, i64 %56
+60:                                               ; preds = %56
+  %61 = zext i32 %40 to i64
+  %62 = getelementptr inbounds %struct.binding, ptr %41, i64 %61
   store ptr %62, ptr @cont_CURRENTBINDING, align 8
-  store ptr %34, ptr %43, align 8
-  br label %104
+  %63 = getelementptr inbounds %struct.binding, ptr %41, i64 %61, i32 2
+  store ptr %34, ptr %63, align 8
+  br label %107
 
-63:                                               ; preds = %51
-  %64 = sext i32 %35 to i64
-  %65 = getelementptr inbounds %struct.binding, ptr %33, i64 %64
-  store ptr %65, ptr @cont_CURRENTBINDING, align 8
-  %66 = getelementptr inbounds %struct.binding, ptr %33, i64 %64, i32 2
-  store ptr %53, ptr %66, align 8
-  br label %104
+64:                                               ; preds = %52
+  %65 = zext i32 %35 to i64
+  %66 = getelementptr inbounds %struct.binding, ptr %33, i64 %65
+  store ptr %66, ptr @cont_CURRENTBINDING, align 8
+  %67 = getelementptr inbounds %struct.binding, ptr %33, i64 %65, i32 2
+  store ptr %54, ptr %67, align 8
+  br label %107
 
-67:                                               ; preds = %55
-  %68 = getelementptr inbounds %struct.binding, ptr %41, i64 %56
-  store ptr %68, ptr @cont_CURRENTBINDING, align 8
-  store ptr %34, ptr %43, align 8
-  br label %104
+68:                                               ; preds = %51
+  %69 = zext i32 %40 to i64
+  %70 = getelementptr inbounds %struct.binding, ptr %41, i64 %69
+  store ptr %70, ptr @cont_CURRENTBINDING, align 8
+  %71 = getelementptr inbounds %struct.binding, ptr %41, i64 %69, i32 2
+  store ptr %34, ptr %71, align 8
+  br label %107
 
-69:                                               ; preds = %51
-  %70 = icmp eq i32 %35, %54
-  br i1 %70, label %71, label %103
+72:                                               ; preds = %52
+  %73 = icmp eq i32 %35, %55
+  br i1 %73, label %74, label %106
 
-71:                                               ; preds = %69
-  %72 = getelementptr i8, ptr %34, i64 16
-  %73 = load ptr, ptr %72, align 8
-  %74 = icmp eq ptr %73, null
-  %75 = icmp eq ptr %34, %53
-  %76 = or i1 %75, %74
-  br i1 %76, label %112, label %77
+74:                                               ; preds = %72
+  %75 = getelementptr i8, ptr %34, i64 16
+  %76 = load ptr, ptr %75, align 8
+  %77 = icmp eq ptr %76, null
+  %78 = icmp eq ptr %34, %54
+  %79 = or i1 %78, %77
+  br i1 %79, label %115, label %80
 
-77:                                               ; preds = %71
-  %78 = getelementptr i8, ptr %53, i64 16
-  %79 = load ptr, ptr %78, align 8
-  %80 = load ptr, ptr %73, align 8
-  %81 = icmp eq ptr %80, null
-  br i1 %81, label %97, label %82
+80:                                               ; preds = %74
+  %81 = getelementptr i8, ptr %54, i64 16
+  %82 = load ptr, ptr %81, align 8
+  %83 = load ptr, ptr %76, align 8
+  %84 = icmp eq ptr %83, null
+  br i1 %84, label %100, label %85
 
-82:                                               ; preds = %77
-  %83 = add i32 %7, 1
-  %84 = zext i32 %7 to i64
-  %85 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %84
-  store ptr %33, ptr %85, align 8
-  %86 = add i32 %7, 2
-  store i32 %86, ptr @stack_POINTER, align 4
-  %87 = zext i32 %83 to i64
+85:                                               ; preds = %80
+  %86 = add i32 %7, 1
+  %87 = zext i32 %7 to i64
   %88 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %87
-  store ptr %52, ptr %88, align 8
-  %89 = load ptr, ptr %73, align 8
-  %90 = add i32 %7, 3
-  store i32 %90, ptr @stack_POINTER, align 4
-  %91 = zext i32 %86 to i64
-  %92 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %91
-  store ptr %89, ptr %92, align 8
-  %93 = load ptr, ptr %79, align 8
-  %94 = add i32 %7, 4
-  store i32 %94, ptr @stack_POINTER, align 4
-  %95 = zext i32 %90 to i64
-  %96 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %95
-  store ptr %93, ptr %96, align 8
-  br label %97
+  store ptr %33, ptr %88, align 8
+  %89 = add i32 %7, 2
+  store i32 %89, ptr @stack_POINTER, align 4
+  %90 = zext i32 %86 to i64
+  %91 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %90
+  store ptr %53, ptr %91, align 8
+  %92 = load ptr, ptr %76, align 8
+  %93 = add i32 %7, 3
+  store i32 %93, ptr @stack_POINTER, align 4
+  %94 = zext i32 %89 to i64
+  %95 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %94
+  store ptr %92, ptr %95, align 8
+  %96 = load ptr, ptr %82, align 8
+  %97 = add i32 %7, 4
+  store i32 %97, ptr @stack_POINTER, align 4
+  %98 = zext i32 %93 to i64
+  %99 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %98
+  store ptr %96, ptr %99, align 8
+  br label %100
 
-97:                                               ; preds = %82, %77
-  %98 = phi i32 [ %94, %82 ], [ %7, %77 ]
-  %99 = getelementptr i8, ptr %73, i64 8
-  %100 = load ptr, ptr %99, align 8
-  %101 = getelementptr i8, ptr %79, i64 8
-  %102 = load ptr, ptr %101, align 8
-  br label %141
+100:                                              ; preds = %85, %80
+  %101 = phi i32 [ %97, %85 ], [ %7, %80 ]
+  %102 = getelementptr i8, ptr %76, i64 8
+  %103 = load ptr, ptr %102, align 8
+  %104 = getelementptr i8, ptr %82, i64 8
+  %105 = load ptr, ptr %104, align 8
+  br label %144
 
-103:                                              ; preds = %69
+106:                                              ; preds = %72
   store i32 %5, ptr @stack_POINTER, align 4
-  br label %147
+  br label %150
 
-104:                                              ; preds = %61, %63, %67
-  %105 = phi ptr [ %33, %67 ], [ %52, %63 ], [ %33, %61 ]
-  %106 = load ptr, ptr @cont_CURRENTBINDING, align 8
-  %107 = getelementptr inbounds %struct.binding, ptr %106, i64 0, i32 3
-  store ptr %105, ptr %107, align 8
-  %108 = load ptr, ptr @cont_LASTBINDING, align 8
-  %109 = getelementptr inbounds %struct.binding, ptr %106, i64 0, i32 4
-  store ptr %108, ptr %109, align 8
-  store ptr %106, ptr @cont_LASTBINDING, align 8
-  %110 = load i32, ptr @cont_BINDINGS, align 4
-  %111 = add nsw i32 %110, 1
-  store i32 %111, ptr @cont_BINDINGS, align 4
-  br label %112
+107:                                              ; preds = %60, %64, %68
+  %108 = phi ptr [ %33, %68 ], [ %53, %64 ], [ %33, %60 ]
+  %109 = load ptr, ptr @cont_CURRENTBINDING, align 8
+  %110 = getelementptr inbounds %struct.binding, ptr %109, i64 0, i32 3
+  store ptr %108, ptr %110, align 8
+  %111 = load ptr, ptr @cont_LASTBINDING, align 8
+  %112 = getelementptr inbounds %struct.binding, ptr %109, i64 0, i32 4
+  store ptr %111, ptr %112, align 8
+  store ptr %109, ptr @cont_LASTBINDING, align 8
+  %113 = load i32, ptr @cont_BINDINGS, align 4
+  %114 = add nsw i32 %113, 1
+  store i32 %114, ptr @cont_BINDINGS, align 4
+  br label %115
 
-112:                                              ; preds = %104, %57, %71
-  %113 = load i32, ptr @stack_POINTER, align 4
-  %114 = icmp eq i32 %113, %5
-  br i1 %114, label %147, label %115
+115:                                              ; preds = %107, %56, %74
+  %116 = load i32, ptr @stack_POINTER, align 4
+  %117 = icmp eq i32 %116, %5
+  br i1 %117, label %150, label %118
 
-115:                                              ; preds = %112
-  %116 = add i32 %113, -1
-  %117 = zext i32 %116 to i64
-  %118 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %117
-  %119 = load ptr, ptr %118, align 8
-  %120 = add i32 %113, -2
-  store i32 %120, ptr @stack_POINTER, align 4
-  %121 = zext i32 %120 to i64
-  %122 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %121
-  %123 = load ptr, ptr %122, align 8
-  %124 = getelementptr i8, ptr %119, i64 8
-  %125 = load ptr, ptr %124, align 8
-  %126 = getelementptr i8, ptr %123, i64 8
-  %127 = load ptr, ptr %126, align 8
-  %128 = add i32 %113, -3
-  %129 = zext i32 %128 to i64
-  %130 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %129
-  %131 = load ptr, ptr %130, align 8
-  %132 = add i32 %113, -4
-  %133 = zext i32 %132 to i64
-  %134 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %133
-  %135 = load ptr, ptr %134, align 8
-  %136 = load ptr, ptr %123, align 8
-  %137 = icmp eq ptr %136, null
-  br i1 %137, label %138, label %139
+118:                                              ; preds = %115
+  %119 = add i32 %116, -1
+  %120 = zext i32 %119 to i64
+  %121 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %120
+  %122 = load ptr, ptr %121, align 8
+  %123 = add i32 %116, -2
+  store i32 %123, ptr @stack_POINTER, align 4
+  %124 = zext i32 %123 to i64
+  %125 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %124
+  %126 = load ptr, ptr %125, align 8
+  %127 = getelementptr i8, ptr %122, i64 8
+  %128 = load ptr, ptr %127, align 8
+  %129 = getelementptr i8, ptr %126, i64 8
+  %130 = load ptr, ptr %129, align 8
+  %131 = add i32 %116, -3
+  %132 = zext i32 %131 to i64
+  %133 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %132
+  %134 = load ptr, ptr %133, align 8
+  %135 = add i32 %116, -4
+  %136 = zext i32 %135 to i64
+  %137 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %136
+  %138 = load ptr, ptr %137, align 8
+  %139 = load ptr, ptr %126, align 8
+  %140 = icmp eq ptr %139, null
+  br i1 %140, label %141, label %142
 
-138:                                              ; preds = %115
-  store i32 %132, ptr @stack_POINTER, align 4
-  br label %141
+141:                                              ; preds = %118
+  store i32 %135, ptr @stack_POINTER, align 4
+  br label %144
 
-139:                                              ; preds = %115
+142:                                              ; preds = %118
+  store i32 %119, ptr @stack_POINTER, align 4
+  store ptr %139, ptr %125, align 8
+  %143 = load ptr, ptr %122, align 8
   store i32 %116, ptr @stack_POINTER, align 4
-  store ptr %136, ptr %122, align 8
-  %140 = load ptr, ptr %119, align 8
-  store i32 %113, ptr @stack_POINTER, align 4
-  store ptr %140, ptr %118, align 8
-  br label %141
+  store ptr %143, ptr %121, align 8
+  br label %144
 
-141:                                              ; preds = %139, %138, %97
-  %142 = phi i32 [ %98, %97 ], [ %132, %138 ], [ %113, %139 ]
-  %143 = phi ptr [ %33, %97 ], [ %135, %138 ], [ %135, %139 ]
-  %144 = phi ptr [ %100, %97 ], [ %127, %138 ], [ %127, %139 ]
-  %145 = phi ptr [ %52, %97 ], [ %131, %138 ], [ %131, %139 ]
-  %146 = phi ptr [ %102, %97 ], [ %125, %138 ], [ %125, %139 ]
+144:                                              ; preds = %142, %141, %100
+  %145 = phi i32 [ %101, %100 ], [ %135, %141 ], [ %116, %142 ]
+  %146 = phi ptr [ %33, %100 ], [ %138, %141 ], [ %138, %142 ]
+  %147 = phi ptr [ %103, %100 ], [ %130, %141 ], [ %130, %142 ]
+  %148 = phi ptr [ %53, %100 ], [ %134, %141 ], [ %134, %142 ]
+  %149 = phi ptr [ %105, %100 ], [ %128, %141 ], [ %128, %142 ]
   br label %6
 
-147:                                              ; preds = %112, %103
-  %148 = phi i32 [ 0, %103 ], [ 1, %112 ]
-  ret i32 %148
+150:                                              ; preds = %115, %106
+  %151 = phi i32 [ 0, %106 ], [ 1, %115 ]
+  ret i32 %151
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local i32 @unify_UnifyAllOC(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, ptr noundef %4) local_unnamed_addr #3 {
   %6 = load i32, ptr %2, align 8
-  %7 = icmp slt i32 %6, 1
-  br i1 %7, label %26, label %8
+  %7 = icmp sgt i32 %6, 0
+  br i1 %7, label %8, label %26
 
 8:                                                ; preds = %5
   %9 = zext i32 %6 to i64
@@ -1255,16 +1258,16 @@ define dso_local i32 @unify_UnifyAllOC(ptr noundef %0, ptr noundef %1, ptr nound
   %22 = getelementptr inbounds %struct.binding, ptr %21, i64 %20, i32 3
   %23 = load ptr, ptr %22, align 8
   %24 = load i32, ptr %19, align 8
-  %25 = icmp slt i32 %24, 1
-  br i1 %25, label %26, label %13
+  %25 = icmp sgt i32 %24, 0
+  br i1 %25, label %13, label %26
 
 26:                                               ; preds = %13, %18, %8, %5
   %27 = phi i32 [ %6, %5 ], [ %6, %8 ], [ %24, %18 ], [ %24, %13 ]
   %28 = phi ptr [ %2, %5 ], [ %2, %8 ], [ %19, %18 ], [ %19, %13 ]
   %29 = phi ptr [ %1, %5 ], [ %1, %8 ], [ %23, %18 ], [ %23, %13 ]
   %30 = load i32, ptr %4, align 8
-  %31 = icmp slt i32 %30, 1
-  br i1 %31, label %50, label %32
+  %31 = icmp sgt i32 %30, 0
+  br i1 %31, label %32, label %50
 
 32:                                               ; preds = %26
   %33 = zext i32 %30 to i64
@@ -1287,19 +1290,19 @@ define dso_local i32 @unify_UnifyAllOC(ptr noundef %0, ptr noundef %1, ptr nound
   %46 = getelementptr inbounds %struct.binding, ptr %45, i64 %44, i32 3
   %47 = load ptr, ptr %46, align 8
   %48 = load i32, ptr %43, align 8
-  %49 = icmp slt i32 %48, 1
-  br i1 %49, label %50, label %37
+  %49 = icmp sgt i32 %48, 0
+  br i1 %49, label %37, label %50
 
 50:                                               ; preds = %37, %42, %32, %26
   %51 = phi i32 [ %30, %26 ], [ %30, %32 ], [ %48, %42 ], [ %48, %37 ]
   %52 = phi ptr [ %4, %26 ], [ %4, %32 ], [ %43, %42 ], [ %43, %37 ]
   %53 = phi ptr [ %3, %26 ], [ %3, %32 ], [ %47, %42 ], [ %47, %37 ]
-  %54 = icmp slt i32 %27, 1
-  %55 = icmp slt i32 %51, 1
-  br i1 %54, label %181, label %56
+  %54 = icmp sgt i32 %27, 0
+  %55 = icmp sgt i32 %51, 0
+  br i1 %54, label %56, label %181
 
 56:                                               ; preds = %50
-  br i1 %55, label %99, label %57
+  br i1 %55, label %57, label %99
 
 57:                                               ; preds = %56
   %58 = icmp eq ptr %29, %53
@@ -1308,9 +1311,9 @@ define dso_local i32 @unify_UnifyAllOC(ptr noundef %0, ptr noundef %1, ptr nound
   br i1 %60, label %285, label %61
 
 61:                                               ; preds = %57
-  %62 = add nsw i32 %27, -3001
-  %63 = icmp ult i32 %62, -1000
-  br i1 %63, label %74, label %64
+  %62 = add nsw i32 %27, -2001
+  %63 = icmp ult i32 %62, 1000
+  br i1 %63, label %64, label %74
 
 64:                                               ; preds = %61
   %65 = zext i32 %27 to i64
@@ -1377,113 +1380,113 @@ define dso_local i32 @unify_UnifyAllOC(ptr noundef %0, ptr noundef %1, ptr nound
   %100 = load i32, ptr @stack_POINTER, align 4
   br label %101
 
-101:                                              ; preds = %121, %99
-  %102 = phi i32 [ %51, %99 ], [ %125, %121 ]
-  %103 = phi i32 [ %100, %99 ], [ %122, %121 ]
-  %104 = phi ptr [ %52, %99 ], [ %123, %121 ]
-  %105 = phi ptr [ %53, %99 ], [ %124, %121 ]
-  %106 = icmp slt i32 %102, 1
-  br i1 %106, label %126, label %107
+101:                                              ; preds = %122, %99
+  %102 = phi i32 [ %126, %122 ], [ %51, %99 ]
+  %103 = phi i32 [ %123, %122 ], [ %100, %99 ]
+  %104 = phi ptr [ %124, %122 ], [ %52, %99 ]
+  %105 = phi ptr [ %125, %122 ], [ %53, %99 ]
+  %106 = icmp sgt i32 %102, 0
+  br i1 %106, label %107, label %127
 
-107:                                              ; preds = %144, %101
-  %108 = phi i32 [ %103, %101 ], [ %145, %144 ]
-  %109 = phi i32 [ %102, %101 ], [ %149, %144 ]
+107:                                              ; preds = %145, %101
+  %108 = phi i32 [ %103, %101 ], [ %146, %145 ]
+  %109 = phi i32 [ %102, %101 ], [ %150, %145 ]
   %110 = icmp eq ptr %105, %29
   %111 = icmp eq i32 %109, %27
   %112 = select i1 %110, i1 %111, i1 false
-  br i1 %112, label %169, label %113
+  br i1 %112, label %113, label %114
 
 113:                                              ; preds = %107
-  %114 = zext i32 %109 to i64
-  %115 = getelementptr inbounds %struct.binding, ptr %105, i64 %114, i32 2
-  %116 = load ptr, ptr %115, align 8
-  %117 = icmp eq ptr %116, null
-  br i1 %117, label %151, label %118
-
-118:                                              ; preds = %113
-  %119 = getelementptr inbounds %struct.binding, ptr %105, i64 %114, i32 3
-  %120 = load ptr, ptr %119, align 8
-  br label %121
-
-121:                                              ; preds = %168, %167, %118
-  %122 = phi i32 [ %108, %118 ], [ %161, %167 ], [ %152, %168 ]
-  %123 = phi ptr [ %116, %118 ], [ %160, %167 ], [ %160, %168 ]
-  %124 = phi ptr [ %120, %118 ], [ %164, %167 ], [ %164, %168 ]
-  %125 = load i32, ptr %123, align 8
-  br label %101
-
-126:                                              ; preds = %101, %144
-  %127 = phi i32 [ %145, %144 ], [ %103, %101 ]
-  %128 = phi ptr [ %148, %144 ], [ %104, %101 ]
-  %129 = phi i32 [ %146, %144 ], [ %103, %101 ]
-  %130 = getelementptr i8, ptr %128, i64 16
-  %131 = load ptr, ptr %130, align 8
-  %132 = icmp eq ptr %131, null
-  br i1 %132, label %151, label %133
-
-133:                                              ; preds = %126
-  %134 = load ptr, ptr %131, align 8
-  %135 = icmp eq ptr %134, null
-  br i1 %135, label %144, label %136
-
-136:                                              ; preds = %133
-  %137 = add i32 %129, 1
-  store i32 %137, ptr @stack_POINTER, align 4
-  %138 = zext i32 %129 to i64
-  %139 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %138
-  store ptr %105, ptr %139, align 8
-  %140 = load ptr, ptr %131, align 8
-  %141 = add i32 %129, 2
-  store i32 %141, ptr @stack_POINTER, align 4
-  %142 = zext i32 %137 to i64
-  %143 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %142
-  store ptr %140, ptr %143, align 8
-  br label %144
-
-144:                                              ; preds = %136, %133
-  %145 = phi i32 [ %141, %136 ], [ %127, %133 ]
-  %146 = phi i32 [ %141, %136 ], [ %129, %133 ]
-  %147 = getelementptr i8, ptr %131, i64 8
-  %148 = load ptr, ptr %147, align 8
-  %149 = load i32, ptr %148, align 8
-  %150 = icmp slt i32 %149, 1
-  br i1 %150, label %126, label %107
-
-151:                                              ; preds = %126, %113
-  %152 = phi i32 [ %108, %113 ], [ %127, %126 ]
-  %153 = icmp eq i32 %152, %100
-  br i1 %153, label %170, label %154
-
-154:                                              ; preds = %151
-  %155 = add i32 %152, -1
-  store i32 %155, ptr @stack_POINTER, align 4
-  %156 = zext i32 %155 to i64
-  %157 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %156
-  %158 = load ptr, ptr %157, align 8
-  %159 = getelementptr i8, ptr %158, i64 8
-  %160 = load ptr, ptr %159, align 8
-  %161 = add i32 %152, -2
-  %162 = zext i32 %161 to i64
-  %163 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %162
-  %164 = load ptr, ptr %163, align 8
-  %165 = load ptr, ptr %158, align 8
-  %166 = icmp eq ptr %165, null
-  br i1 %166, label %167, label %168
-
-167:                                              ; preds = %154
-  store i32 %161, ptr @stack_POINTER, align 4
-  br label %121
-
-168:                                              ; preds = %154
-  store i32 %152, ptr @stack_POINTER, align 4
-  store ptr %165, ptr %157, align 8
-  br label %121
-
-169:                                              ; preds = %107
   store i32 %100, ptr @stack_POINTER, align 4
   br label %285
 
-170:                                              ; preds = %151
+114:                                              ; preds = %107
+  %115 = zext i32 %109 to i64
+  %116 = getelementptr inbounds %struct.binding, ptr %105, i64 %115, i32 2
+  %117 = load ptr, ptr %116, align 8
+  %118 = icmp eq ptr %117, null
+  br i1 %118, label %152, label %119
+
+119:                                              ; preds = %114
+  %120 = getelementptr inbounds %struct.binding, ptr %105, i64 %115, i32 3
+  %121 = load ptr, ptr %120, align 8
+  br label %122
+
+122:                                              ; preds = %169, %168, %119
+  %123 = phi i32 [ %108, %119 ], [ %162, %168 ], [ %153, %169 ]
+  %124 = phi ptr [ %117, %119 ], [ %161, %168 ], [ %161, %169 ]
+  %125 = phi ptr [ %121, %119 ], [ %165, %168 ], [ %165, %169 ]
+  %126 = load i32, ptr %124, align 8
+  br label %101
+
+127:                                              ; preds = %101, %145
+  %128 = phi i32 [ %146, %145 ], [ %103, %101 ]
+  %129 = phi ptr [ %149, %145 ], [ %104, %101 ]
+  %130 = phi i32 [ %147, %145 ], [ %103, %101 ]
+  %131 = getelementptr i8, ptr %129, i64 16
+  %132 = load ptr, ptr %131, align 8
+  %133 = icmp eq ptr %132, null
+  br i1 %133, label %152, label %134
+
+134:                                              ; preds = %127
+  %135 = load ptr, ptr %132, align 8
+  %136 = icmp eq ptr %135, null
+  br i1 %136, label %145, label %137
+
+137:                                              ; preds = %134
+  %138 = add i32 %130, 1
+  store i32 %138, ptr @stack_POINTER, align 4
+  %139 = zext i32 %130 to i64
+  %140 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %139
+  store ptr %105, ptr %140, align 8
+  %141 = load ptr, ptr %132, align 8
+  %142 = add i32 %130, 2
+  store i32 %142, ptr @stack_POINTER, align 4
+  %143 = zext i32 %138 to i64
+  %144 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %143
+  store ptr %141, ptr %144, align 8
+  br label %145
+
+145:                                              ; preds = %137, %134
+  %146 = phi i32 [ %142, %137 ], [ %128, %134 ]
+  %147 = phi i32 [ %142, %137 ], [ %130, %134 ]
+  %148 = getelementptr i8, ptr %132, i64 8
+  %149 = load ptr, ptr %148, align 8
+  %150 = load i32, ptr %149, align 8
+  %151 = icmp sgt i32 %150, 0
+  br i1 %151, label %107, label %127
+
+152:                                              ; preds = %127, %114
+  %153 = phi i32 [ %108, %114 ], [ %128, %127 ]
+  %154 = icmp eq i32 %153, %100
+  br i1 %154, label %170, label %155
+
+155:                                              ; preds = %152
+  %156 = add i32 %153, -1
+  store i32 %156, ptr @stack_POINTER, align 4
+  %157 = zext i32 %156 to i64
+  %158 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %157
+  %159 = load ptr, ptr %158, align 8
+  %160 = getelementptr i8, ptr %159, i64 8
+  %161 = load ptr, ptr %160, align 8
+  %162 = add i32 %153, -2
+  %163 = zext i32 %162 to i64
+  %164 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %163
+  %165 = load ptr, ptr %164, align 8
+  %166 = load ptr, ptr %159, align 8
+  %167 = icmp eq ptr %166, null
+  br i1 %167, label %168, label %169
+
+168:                                              ; preds = %155
+  store i32 %162, ptr @stack_POINTER, align 4
+  br label %122
+
+169:                                              ; preds = %155
+  store i32 %153, ptr @stack_POINTER, align 4
+  store ptr %166, ptr %158, align 8
+  br label %122
+
+170:                                              ; preds = %152
   %171 = load i32, ptr %28, align 8
   %172 = sext i32 %171 to i64
   %173 = getelementptr inbounds %struct.binding, ptr %29, i64 %172
@@ -1503,119 +1506,119 @@ define dso_local i32 @unify_UnifyAllOC(ptr noundef %0, ptr noundef %1, ptr nound
   br label %285
 
 181:                                              ; preds = %50
-  br i1 %55, label %264, label %182
+  br i1 %55, label %182, label %264
 
 182:                                              ; preds = %181
   %183 = load i32, ptr @stack_POINTER, align 4
   br label %184
 
-184:                                              ; preds = %204, %182
-  %185 = phi i32 [ %27, %182 ], [ %208, %204 ]
-  %186 = phi i32 [ %183, %182 ], [ %205, %204 ]
-  %187 = phi ptr [ %28, %182 ], [ %206, %204 ]
-  %188 = phi ptr [ %29, %182 ], [ %207, %204 ]
-  %189 = icmp slt i32 %185, 1
-  br i1 %189, label %209, label %190
+184:                                              ; preds = %205, %182
+  %185 = phi i32 [ %27, %182 ], [ %209, %205 ]
+  %186 = phi i32 [ %183, %182 ], [ %206, %205 ]
+  %187 = phi ptr [ %28, %182 ], [ %207, %205 ]
+  %188 = phi ptr [ %29, %182 ], [ %208, %205 ]
+  %189 = icmp sgt i32 %185, 0
+  br i1 %189, label %190, label %210
 
-190:                                              ; preds = %227, %184
-  %191 = phi i32 [ %186, %184 ], [ %228, %227 ]
-  %192 = phi i32 [ %185, %184 ], [ %232, %227 ]
+190:                                              ; preds = %228, %184
+  %191 = phi i32 [ %186, %184 ], [ %229, %228 ]
+  %192 = phi i32 [ %185, %184 ], [ %233, %228 ]
   %193 = icmp eq ptr %188, %53
   %194 = icmp eq i32 %192, %51
   %195 = select i1 %193, i1 %194, i1 false
-  br i1 %195, label %252, label %196
+  br i1 %195, label %196, label %197
 
 196:                                              ; preds = %190
-  %197 = zext i32 %192 to i64
-  %198 = getelementptr inbounds %struct.binding, ptr %188, i64 %197, i32 2
-  %199 = load ptr, ptr %198, align 8
-  %200 = icmp eq ptr %199, null
-  br i1 %200, label %234, label %201
-
-201:                                              ; preds = %196
-  %202 = getelementptr inbounds %struct.binding, ptr %188, i64 %197, i32 3
-  %203 = load ptr, ptr %202, align 8
-  br label %204
-
-204:                                              ; preds = %251, %250, %201
-  %205 = phi i32 [ %191, %201 ], [ %244, %250 ], [ %235, %251 ]
-  %206 = phi ptr [ %199, %201 ], [ %243, %250 ], [ %243, %251 ]
-  %207 = phi ptr [ %203, %201 ], [ %247, %250 ], [ %247, %251 ]
-  %208 = load i32, ptr %206, align 8
-  br label %184
-
-209:                                              ; preds = %184, %227
-  %210 = phi i32 [ %228, %227 ], [ %186, %184 ]
-  %211 = phi ptr [ %231, %227 ], [ %187, %184 ]
-  %212 = phi i32 [ %229, %227 ], [ %186, %184 ]
-  %213 = getelementptr i8, ptr %211, i64 16
-  %214 = load ptr, ptr %213, align 8
-  %215 = icmp eq ptr %214, null
-  br i1 %215, label %234, label %216
-
-216:                                              ; preds = %209
-  %217 = load ptr, ptr %214, align 8
-  %218 = icmp eq ptr %217, null
-  br i1 %218, label %227, label %219
-
-219:                                              ; preds = %216
-  %220 = add i32 %212, 1
-  store i32 %220, ptr @stack_POINTER, align 4
-  %221 = zext i32 %212 to i64
-  %222 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %221
-  store ptr %188, ptr %222, align 8
-  %223 = load ptr, ptr %214, align 8
-  %224 = add i32 %212, 2
-  store i32 %224, ptr @stack_POINTER, align 4
-  %225 = zext i32 %220 to i64
-  %226 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %225
-  store ptr %223, ptr %226, align 8
-  br label %227
-
-227:                                              ; preds = %219, %216
-  %228 = phi i32 [ %224, %219 ], [ %210, %216 ]
-  %229 = phi i32 [ %224, %219 ], [ %212, %216 ]
-  %230 = getelementptr i8, ptr %214, i64 8
-  %231 = load ptr, ptr %230, align 8
-  %232 = load i32, ptr %231, align 8
-  %233 = icmp slt i32 %232, 1
-  br i1 %233, label %209, label %190
-
-234:                                              ; preds = %209, %196
-  %235 = phi i32 [ %191, %196 ], [ %210, %209 ]
-  %236 = icmp eq i32 %235, %183
-  br i1 %236, label %253, label %237
-
-237:                                              ; preds = %234
-  %238 = add i32 %235, -1
-  store i32 %238, ptr @stack_POINTER, align 4
-  %239 = zext i32 %238 to i64
-  %240 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %239
-  %241 = load ptr, ptr %240, align 8
-  %242 = getelementptr i8, ptr %241, i64 8
-  %243 = load ptr, ptr %242, align 8
-  %244 = add i32 %235, -2
-  %245 = zext i32 %244 to i64
-  %246 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %245
-  %247 = load ptr, ptr %246, align 8
-  %248 = load ptr, ptr %241, align 8
-  %249 = icmp eq ptr %248, null
-  br i1 %249, label %250, label %251
-
-250:                                              ; preds = %237
-  store i32 %244, ptr @stack_POINTER, align 4
-  br label %204
-
-251:                                              ; preds = %237
-  store i32 %235, ptr @stack_POINTER, align 4
-  store ptr %248, ptr %240, align 8
-  br label %204
-
-252:                                              ; preds = %190
   store i32 %183, ptr @stack_POINTER, align 4
   br label %285
 
-253:                                              ; preds = %234
+197:                                              ; preds = %190
+  %198 = zext i32 %192 to i64
+  %199 = getelementptr inbounds %struct.binding, ptr %188, i64 %198, i32 2
+  %200 = load ptr, ptr %199, align 8
+  %201 = icmp eq ptr %200, null
+  br i1 %201, label %235, label %202
+
+202:                                              ; preds = %197
+  %203 = getelementptr inbounds %struct.binding, ptr %188, i64 %198, i32 3
+  %204 = load ptr, ptr %203, align 8
+  br label %205
+
+205:                                              ; preds = %252, %251, %202
+  %206 = phi i32 [ %191, %202 ], [ %245, %251 ], [ %236, %252 ]
+  %207 = phi ptr [ %200, %202 ], [ %244, %251 ], [ %244, %252 ]
+  %208 = phi ptr [ %204, %202 ], [ %248, %251 ], [ %248, %252 ]
+  %209 = load i32, ptr %207, align 8
+  br label %184
+
+210:                                              ; preds = %184, %228
+  %211 = phi i32 [ %229, %228 ], [ %186, %184 ]
+  %212 = phi ptr [ %232, %228 ], [ %187, %184 ]
+  %213 = phi i32 [ %230, %228 ], [ %186, %184 ]
+  %214 = getelementptr i8, ptr %212, i64 16
+  %215 = load ptr, ptr %214, align 8
+  %216 = icmp eq ptr %215, null
+  br i1 %216, label %235, label %217
+
+217:                                              ; preds = %210
+  %218 = load ptr, ptr %215, align 8
+  %219 = icmp eq ptr %218, null
+  br i1 %219, label %228, label %220
+
+220:                                              ; preds = %217
+  %221 = add i32 %213, 1
+  store i32 %221, ptr @stack_POINTER, align 4
+  %222 = zext i32 %213 to i64
+  %223 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %222
+  store ptr %188, ptr %223, align 8
+  %224 = load ptr, ptr %215, align 8
+  %225 = add i32 %213, 2
+  store i32 %225, ptr @stack_POINTER, align 4
+  %226 = zext i32 %221 to i64
+  %227 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %226
+  store ptr %224, ptr %227, align 8
+  br label %228
+
+228:                                              ; preds = %220, %217
+  %229 = phi i32 [ %225, %220 ], [ %211, %217 ]
+  %230 = phi i32 [ %225, %220 ], [ %213, %217 ]
+  %231 = getelementptr i8, ptr %215, i64 8
+  %232 = load ptr, ptr %231, align 8
+  %233 = load i32, ptr %232, align 8
+  %234 = icmp sgt i32 %233, 0
+  br i1 %234, label %190, label %210
+
+235:                                              ; preds = %210, %197
+  %236 = phi i32 [ %191, %197 ], [ %211, %210 ]
+  %237 = icmp eq i32 %236, %183
+  br i1 %237, label %253, label %238
+
+238:                                              ; preds = %235
+  %239 = add i32 %236, -1
+  store i32 %239, ptr @stack_POINTER, align 4
+  %240 = zext i32 %239 to i64
+  %241 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %240
+  %242 = load ptr, ptr %241, align 8
+  %243 = getelementptr i8, ptr %242, i64 8
+  %244 = load ptr, ptr %243, align 8
+  %245 = add i32 %236, -2
+  %246 = zext i32 %245 to i64
+  %247 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %246
+  %248 = load ptr, ptr %247, align 8
+  %249 = load ptr, ptr %242, align 8
+  %250 = icmp eq ptr %249, null
+  br i1 %250, label %251, label %252
+
+251:                                              ; preds = %238
+  store i32 %245, ptr @stack_POINTER, align 4
+  br label %205
+
+252:                                              ; preds = %238
+  store i32 %236, ptr @stack_POINTER, align 4
+  store ptr %249, ptr %241, align 8
+  br label %205
+
+253:                                              ; preds = %235
   %254 = load i32, ptr %52, align 8
   %255 = sext i32 %254 to i64
   %256 = getelementptr inbounds %struct.binding, ptr %53, i64 %255
@@ -1646,35 +1649,35 @@ define dso_local i32 @unify_UnifyAllOC(ptr noundef %0, ptr noundef %1, ptr nound
 
 270:                                              ; preds = %266
   %271 = getelementptr i8, ptr %52, i64 16
-  br label %272
+  br label %275
 
-272:                                              ; preds = %270, %282
-  %273 = phi ptr [ %271, %270 ], [ %275, %282 ]
-  %274 = phi ptr [ %268, %270 ], [ %283, %282 ]
-  %275 = load ptr, ptr %273, align 8
-  %276 = getelementptr i8, ptr %274, i64 8
-  %277 = load ptr, ptr %276, align 8
-  %278 = getelementptr i8, ptr %275, i64 8
-  %279 = load ptr, ptr %278, align 8
-  %280 = tail call i32 @unify_UnifyAllOC(ptr noundef %0, ptr noundef %29, ptr noundef %277, ptr noundef %53, ptr noundef %279), !range !12
-  %281 = icmp eq i32 %280, 0
-  br i1 %281, label %285, label %282
+272:                                              ; preds = %275
+  %273 = load ptr, ptr %277, align 8
+  %274 = icmp eq ptr %273, null
+  br i1 %274, label %285, label %275
 
-282:                                              ; preds = %272
-  %283 = load ptr, ptr %274, align 8
-  %284 = icmp eq ptr %283, null
+275:                                              ; preds = %270, %272
+  %276 = phi ptr [ %271, %270 ], [ %278, %272 ]
+  %277 = phi ptr [ %268, %270 ], [ %273, %272 ]
+  %278 = load ptr, ptr %276, align 8
+  %279 = getelementptr i8, ptr %277, i64 8
+  %280 = load ptr, ptr %279, align 8
+  %281 = getelementptr i8, ptr %278, i64 8
+  %282 = load ptr, ptr %281, align 8
+  %283 = tail call i32 @unify_UnifyAllOC(ptr noundef %0, ptr noundef %29, ptr noundef %280, ptr noundef %53, ptr noundef %282), !range !12
+  %284 = icmp eq i32 %283, 0
   br i1 %284, label %285, label %272, !llvm.loop !13
 
-285:                                              ; preds = %272, %282, %57, %266, %252, %169, %264, %79, %89, %64, %253, %170
-  %286 = phi i32 [ 1, %170 ], [ 1, %253 ], [ 1, %64 ], [ 1, %89 ], [ 1, %79 ], [ 0, %169 ], [ 0, %252 ], [ 0, %264 ], [ 1, %266 ], [ 1, %57 ], [ 0, %272 ], [ 1, %282 ]
+285:                                              ; preds = %275, %272, %57, %266, %264, %79, %89, %64, %253, %196, %170, %113
+  %286 = phi i32 [ 0, %113 ], [ 1, %170 ], [ 0, %196 ], [ 1, %253 ], [ 1, %64 ], [ 1, %89 ], [ 1, %79 ], [ 0, %264 ], [ 1, %266 ], [ 1, %57 ], [ 0, %275 ], [ 1, %272 ]
   ret i32 %286
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @unify_Match(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #4 {
   %4 = load i32, ptr %1, align 8
-  %5 = icmp slt i32 %4, 1
-  br i1 %5, label %22, label %6
+  %5 = icmp sgt i32 %4, 0
+  br i1 %5, label %6, label %22
 
 6:                                                ; preds = %3
   %7 = zext i32 %4 to i64
@@ -1717,27 +1720,27 @@ define dso_local i32 @unify_Match(ptr noundef %0, ptr nocapture noundef readonly
 
 29:                                               ; preds = %25
   %30 = getelementptr i8, ptr %2, i64 16
-  br label %31
+  br label %34
 
-31:                                               ; preds = %29, %41
-  %32 = phi ptr [ %30, %29 ], [ %34, %41 ]
-  %33 = phi ptr [ %27, %29 ], [ %42, %41 ]
-  %34 = load ptr, ptr %32, align 8
-  %35 = getelementptr i8, ptr %33, i64 8
-  %36 = load ptr, ptr %35, align 8
-  %37 = getelementptr i8, ptr %34, i64 8
-  %38 = load ptr, ptr %37, align 8
-  %39 = tail call i32 @unify_Match(ptr noundef %0, ptr noundef %36, ptr noundef %38)
-  %40 = icmp eq i32 %39, 0
-  br i1 %40, label %44, label %41
+31:                                               ; preds = %34
+  %32 = load ptr, ptr %36, align 8
+  %33 = icmp eq ptr %32, null
+  br i1 %33, label %44, label %34
 
-41:                                               ; preds = %31
-  %42 = load ptr, ptr %33, align 8
-  %43 = icmp eq ptr %42, null
+34:                                               ; preds = %29, %31
+  %35 = phi ptr [ %30, %29 ], [ %37, %31 ]
+  %36 = phi ptr [ %27, %29 ], [ %32, %31 ]
+  %37 = load ptr, ptr %35, align 8
+  %38 = getelementptr i8, ptr %36, i64 8
+  %39 = load ptr, ptr %38, align 8
+  %40 = getelementptr i8, ptr %37, i64 8
+  %41 = load ptr, ptr %40, align 8
+  %42 = tail call i32 @unify_Match(ptr noundef %0, ptr noundef %39, ptr noundef %41)
+  %43 = icmp eq i32 %42, 0
   br i1 %43, label %44, label %31, !llvm.loop !14
 
-44:                                               ; preds = %31, %41, %25, %22, %13, %11
-  %45 = phi i32 [ %12, %11 ], [ 1, %13 ], [ 0, %22 ], [ 1, %25 ], [ 0, %31 ], [ 1, %41 ]
+44:                                               ; preds = %34, %31, %25, %22, %13, %11
+  %45 = phi i32 [ %12, %11 ], [ 1, %13 ], [ 0, %22 ], [ 1, %25 ], [ 0, %34 ], [ 1, %31 ]
   ret i32 %45
 }
 
@@ -1746,8 +1749,8 @@ declare i32 @term_Equal(ptr noundef, ptr noundef) local_unnamed_addr #5
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @unify_MatchFlexible(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #4 {
   %4 = load i32, ptr %1, align 8
-  %5 = icmp slt i32 %4, 1
-  br i1 %5, label %22, label %6
+  %5 = icmp sgt i32 %4, 0
+  br i1 %5, label %6, label %22
 
 6:                                                ; preds = %3
   %7 = zext i32 %4 to i64
@@ -1795,27 +1798,27 @@ define dso_local i32 @unify_MatchFlexible(ptr noundef %0, ptr nocapture noundef 
 33:                                               ; preds = %25
   %34 = load ptr, ptr %26, align 8
   %35 = icmp eq ptr %34, null
-  br i1 %35, label %49, label %36
+  br i1 %35, label %49, label %39
 
-36:                                               ; preds = %33, %46
-  %37 = phi ptr [ %39, %46 ], [ %29, %33 ]
-  %38 = phi ptr [ %47, %46 ], [ %34, %33 ]
-  %39 = load ptr, ptr %37, align 8
-  %40 = getelementptr i8, ptr %38, i64 8
-  %41 = load ptr, ptr %40, align 8
-  %42 = getelementptr i8, ptr %39, i64 8
-  %43 = load ptr, ptr %42, align 8
-  %44 = tail call i32 @unify_MatchFlexible(ptr noundef %0, ptr noundef %41, ptr noundef %43)
-  %45 = icmp eq i32 %44, 0
-  br i1 %45, label %49, label %46
+36:                                               ; preds = %39
+  %37 = load ptr, ptr %41, align 8
+  %38 = icmp eq ptr %37, null
+  br i1 %38, label %49, label %39
 
-46:                                               ; preds = %36
-  %47 = load ptr, ptr %38, align 8
-  %48 = icmp eq ptr %47, null
+39:                                               ; preds = %33, %36
+  %40 = phi ptr [ %42, %36 ], [ %29, %33 ]
+  %41 = phi ptr [ %37, %36 ], [ %34, %33 ]
+  %42 = load ptr, ptr %40, align 8
+  %43 = getelementptr i8, ptr %41, i64 8
+  %44 = load ptr, ptr %43, align 8
+  %45 = getelementptr i8, ptr %42, i64 8
+  %46 = load ptr, ptr %45, align 8
+  %47 = tail call i32 @unify_MatchFlexible(ptr noundef %0, ptr noundef %44, ptr noundef %46)
+  %48 = icmp eq i32 %47, 0
   br i1 %48, label %49, label %36, !llvm.loop !15
 
-49:                                               ; preds = %36, %46, %33, %22, %25, %13, %11
-  %50 = phi i32 [ %12, %11 ], [ 1, %13 ], [ 0, %25 ], [ 0, %22 ], [ 1, %33 ], [ 0, %36 ], [ 1, %46 ]
+49:                                               ; preds = %39, %36, %33, %22, %25, %13, %11
+  %50 = phi i32 [ %12, %11 ], [ 1, %13 ], [ 0, %25 ], [ 0, %22 ], [ 1, %33 ], [ 0, %39 ], [ 1, %36 ]
   ret i32 %50
 }
 
@@ -1859,8 +1862,8 @@ define dso_local void @unify_EstablishMatcher(ptr noundef %0, ptr noundef readon
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @unify_MatchBindingsHelp(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #4 {
   %5 = load i32, ptr %3, align 8
-  %6 = icmp slt i32 %5, 1
-  br i1 %6, label %28, label %7
+  %6 = icmp sgt i32 %5, 0
+  br i1 %6, label %7, label %28
 
 7:                                                ; preds = %4
   %8 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1870,9 +1873,9 @@ define dso_local i32 @unify_MatchBindingsHelp(ptr noundef %0, ptr nocapture noun
   %10 = phi i32 [ %5, %7 ], [ %26, %23 ]
   %11 = phi ptr [ %2, %7 ], [ %25, %23 ]
   %12 = phi ptr [ %3, %7 ], [ %21, %23 ]
-  %13 = add nsw i32 %10, -3001
-  %14 = icmp ult i32 %13, -1000
-  br i1 %14, label %15, label %17
+  %13 = add nsw i32 %10, -2001
+  %14 = icmp ult i32 %13, 1000
+  br i1 %14, label %17, label %15
 
 15:                                               ; preds = %9
   %16 = icmp eq ptr %11, %8
@@ -1890,16 +1893,16 @@ define dso_local i32 @unify_MatchBindingsHelp(ptr noundef %0, ptr nocapture noun
   %24 = getelementptr inbounds %struct.binding, ptr %18, i64 %19, i32 3
   %25 = load ptr, ptr %24, align 8
   %26 = load i32, ptr %21, align 8
-  %27 = icmp slt i32 %26, 1
-  br i1 %27, label %28, label %9
+  %27 = icmp sgt i32 %26, 0
+  br i1 %27, label %9, label %28
 
 28:                                               ; preds = %23, %15, %17, %4
   %29 = phi i32 [ %5, %4 ], [ %10, %17 ], [ %10, %15 ], [ %26, %23 ]
   %30 = phi ptr [ %3, %4 ], [ %12, %17 ], [ %12, %15 ], [ %21, %23 ]
   %31 = phi ptr [ %2, %4 ], [ %18, %17 ], [ %8, %15 ], [ %25, %23 ]
   %32 = load i32, ptr %1, align 8
-  %33 = icmp slt i32 %32, 1
-  br i1 %33, label %51, label %34
+  %33 = icmp sgt i32 %32, 0
+  br i1 %33, label %34, label %51
 
 34:                                               ; preds = %28
   %35 = zext i32 %32 to i64
@@ -1942,27 +1945,27 @@ define dso_local i32 @unify_MatchBindingsHelp(ptr noundef %0, ptr nocapture noun
 
 57:                                               ; preds = %53
   %58 = getelementptr i8, ptr %30, i64 16
-  br label %59
+  br label %62
 
-59:                                               ; preds = %57, %69
-  %60 = phi ptr [ %58, %57 ], [ %62, %69 ]
-  %61 = phi ptr [ %55, %57 ], [ %70, %69 ]
-  %62 = load ptr, ptr %60, align 8
-  %63 = getelementptr i8, ptr %61, i64 8
-  %64 = load ptr, ptr %63, align 8
-  %65 = getelementptr i8, ptr %62, i64 8
-  %66 = load ptr, ptr %65, align 8
-  %67 = tail call i32 @unify_MatchBindingsHelp(ptr noundef %0, ptr noundef %64, ptr noundef %31, ptr noundef %66)
-  %68 = icmp eq i32 %67, 0
-  br i1 %68, label %72, label %69
+59:                                               ; preds = %62
+  %60 = load ptr, ptr %64, align 8
+  %61 = icmp eq ptr %60, null
+  br i1 %61, label %72, label %62
 
-69:                                               ; preds = %59
-  %70 = load ptr, ptr %61, align 8
-  %71 = icmp eq ptr %70, null
+62:                                               ; preds = %57, %59
+  %63 = phi ptr [ %58, %57 ], [ %65, %59 ]
+  %64 = phi ptr [ %55, %57 ], [ %60, %59 ]
+  %65 = load ptr, ptr %63, align 8
+  %66 = getelementptr i8, ptr %64, i64 8
+  %67 = load ptr, ptr %66, align 8
+  %68 = getelementptr i8, ptr %65, i64 8
+  %69 = load ptr, ptr %68, align 8
+  %70 = tail call i32 @unify_MatchBindingsHelp(ptr noundef %0, ptr noundef %67, ptr noundef %31, ptr noundef %69)
+  %71 = icmp eq i32 %70, 0
   br i1 %71, label %72, label %59, !llvm.loop !17
 
-72:                                               ; preds = %59, %69, %53, %51, %43, %39
-  %73 = phi i32 [ %42, %39 ], [ 1, %43 ], [ 0, %51 ], [ 1, %53 ], [ 0, %59 ], [ 1, %69 ]
+72:                                               ; preds = %62, %59, %53, %51, %43, %39
+  %73 = phi i32 [ %42, %39 ], [ 1, %43 ], [ 0, %51 ], [ 1, %53 ], [ 0, %62 ], [ 1, %59 ]
   ret i32 %73
 }
 
@@ -1978,8 +1981,8 @@ define dso_local i32 @unify_MatchBindings(ptr noundef %0, ptr nocapture noundef 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local i32 @unify_MatchReverse(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #3 {
   %5 = load i32, ptr %3, align 8
-  %6 = icmp slt i32 %5, 1
-  br i1 %6, label %28, label %7
+  %6 = icmp sgt i32 %5, 0
+  br i1 %6, label %7, label %28
 
 7:                                                ; preds = %4
   %8 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1989,9 +1992,9 @@ define dso_local i32 @unify_MatchReverse(ptr noundef %0, ptr noundef %1, ptr nou
   %10 = phi i32 [ %5, %7 ], [ %26, %23 ]
   %11 = phi ptr [ %2, %7 ], [ %25, %23 ]
   %12 = phi ptr [ %3, %7 ], [ %21, %23 ]
-  %13 = add nsw i32 %10, -3001
-  %14 = icmp ult i32 %13, -1000
-  br i1 %14, label %15, label %17
+  %13 = add nsw i32 %10, -2001
+  %14 = icmp ult i32 %13, 1000
+  br i1 %14, label %17, label %15
 
 15:                                               ; preds = %9
   %16 = icmp eq ptr %11, %8
@@ -2009,16 +2012,16 @@ define dso_local i32 @unify_MatchReverse(ptr noundef %0, ptr noundef %1, ptr nou
   %24 = getelementptr inbounds %struct.binding, ptr %18, i64 %19, i32 3
   %25 = load ptr, ptr %24, align 8
   %26 = load i32, ptr %21, align 8
-  %27 = icmp slt i32 %26, 1
-  br i1 %27, label %28, label %9
+  %27 = icmp sgt i32 %26, 0
+  br i1 %27, label %9, label %28
 
 28:                                               ; preds = %23, %15, %17, %4
   %29 = phi i32 [ %5, %4 ], [ %10, %17 ], [ %10, %15 ], [ %26, %23 ]
   %30 = phi ptr [ %3, %4 ], [ %12, %17 ], [ %12, %15 ], [ %21, %23 ]
   %31 = phi ptr [ %2, %4 ], [ %18, %17 ], [ %8, %15 ], [ %25, %23 ]
   %32 = load i32, ptr %1, align 8
-  %33 = icmp slt i32 %32, 1
-  br i1 %33, label %49, label %34
+  %33 = icmp sgt i32 %32, 0
+  br i1 %33, label %34, label %49
 
 34:                                               ; preds = %28
   %35 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -2028,13 +2031,13 @@ define dso_local i32 @unify_MatchReverse(ptr noundef %0, ptr noundef %1, ptr nou
   br i1 %38, label %92, label %39
 
 39:                                               ; preds = %34
-  %40 = add nsw i32 %32, -3001
-  %41 = icmp ult i32 %40, -1000
-  br i1 %41, label %42, label %79
+  %40 = add nsw i32 %32, -2001
+  %41 = icmp ult i32 %40, 1000
+  br i1 %41, label %79, label %42
 
 42:                                               ; preds = %39
-  %43 = icmp slt i32 %29, 1
-  br i1 %43, label %92, label %44
+  %43 = icmp sgt i32 %29, 0
+  br i1 %43, label %44, label %92
 
 44:                                               ; preds = %42
   %45 = add nsw i32 %29, -2001
@@ -2044,8 +2047,8 @@ define dso_local i32 @unify_MatchReverse(ptr noundef %0, ptr noundef %1, ptr nou
   br i1 %48, label %79, label %92
 
 49:                                               ; preds = %28
-  %50 = icmp slt i32 %29, 1
-  br i1 %50, label %58, label %51
+  %50 = icmp sgt i32 %29, 0
+  br i1 %50, label %51, label %58
 
 51:                                               ; preds = %49
   %52 = add nsw i32 %29, -2001
@@ -2070,23 +2073,23 @@ define dso_local i32 @unify_MatchReverse(ptr noundef %0, ptr noundef %1, ptr nou
 
 64:                                               ; preds = %60
   %65 = getelementptr i8, ptr %30, i64 16
-  br label %66
+  br label %69
 
-66:                                               ; preds = %64, %76
-  %67 = phi ptr [ %65, %64 ], [ %69, %76 ]
-  %68 = phi ptr [ %62, %64 ], [ %77, %76 ]
-  %69 = load ptr, ptr %67, align 8
-  %70 = getelementptr i8, ptr %68, i64 8
-  %71 = load ptr, ptr %70, align 8
-  %72 = getelementptr i8, ptr %69, i64 8
-  %73 = load ptr, ptr %72, align 8
-  %74 = tail call i32 @unify_MatchReverse(ptr noundef %0, ptr noundef %71, ptr noundef %31, ptr noundef %73), !range !12
-  %75 = icmp eq i32 %74, 0
-  br i1 %75, label %92, label %76
+66:                                               ; preds = %69
+  %67 = load ptr, ptr %71, align 8
+  %68 = icmp eq ptr %67, null
+  br i1 %68, label %92, label %69
 
-76:                                               ; preds = %66
-  %77 = load ptr, ptr %68, align 8
-  %78 = icmp eq ptr %77, null
+69:                                               ; preds = %64, %66
+  %70 = phi ptr [ %65, %64 ], [ %72, %66 ]
+  %71 = phi ptr [ %62, %64 ], [ %67, %66 ]
+  %72 = load ptr, ptr %70, align 8
+  %73 = getelementptr i8, ptr %71, i64 8
+  %74 = load ptr, ptr %73, align 8
+  %75 = getelementptr i8, ptr %72, i64 8
+  %76 = load ptr, ptr %75, align 8
+  %77 = tail call i32 @unify_MatchReverse(ptr noundef %0, ptr noundef %74, ptr noundef %31, ptr noundef %76), !range !12
+  %78 = icmp eq i32 %77, 0
   br i1 %78, label %92, label %66, !llvm.loop !18
 
 79:                                               ; preds = %44, %39, %56
@@ -2110,26 +2113,26 @@ define dso_local i32 @unify_MatchReverse(ptr noundef %0, ptr noundef %1, ptr nou
   store i32 %91, ptr @cont_BINDINGS, align 4
   br label %92
 
-92:                                               ; preds = %66, %76, %79, %34, %60, %58, %51, %42, %44
-  %93 = phi i32 [ 0, %44 ], [ 0, %42 ], [ 0, %51 ], [ 0, %58 ], [ 1, %60 ], [ 1, %34 ], [ 1, %79 ], [ 0, %66 ], [ 1, %76 ]
+92:                                               ; preds = %69, %66, %79, %34, %60, %58, %51, %42, %44
+  %93 = phi i32 [ 0, %44 ], [ 0, %42 ], [ 0, %51 ], [ 0, %58 ], [ 1, %60 ], [ 1, %34 ], [ 1, %79 ], [ 0, %69 ], [ 1, %66 ]
   ret i32 %93
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @unify_Variation(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #4 {
   %4 = load i32, ptr %1, align 8
-  %5 = icmp slt i32 %4, 1
+  %5 = icmp sgt i32 %4, 0
   %6 = load i32, ptr %2, align 8
   %7 = icmp eq i32 %4, %6
-  br i1 %5, label %27, label %8
+  br i1 %5, label %8, label %27
 
 8:                                                ; preds = %3
   br i1 %7, label %47, label %9
 
 9:                                                ; preds = %8
-  %10 = add nsw i32 %4, -3001
-  %11 = icmp ult i32 %10, -1000
-  br i1 %11, label %47, label %12
+  %10 = add nsw i32 %4, -2001
+  %11 = icmp ult i32 %10, 1000
+  br i1 %11, label %12, label %47
 
 12:                                               ; preds = %9
   %13 = zext i32 %4 to i64
@@ -2169,36 +2172,36 @@ define dso_local i32 @unify_Variation(ptr noundef %0, ptr nocapture noundef read
 
 32:                                               ; preds = %28
   %33 = getelementptr i8, ptr %2, i64 16
-  br label %34
+  br label %37
 
-34:                                               ; preds = %32, %44
-  %35 = phi ptr [ %33, %32 ], [ %37, %44 ]
-  %36 = phi ptr [ %30, %32 ], [ %45, %44 ]
-  %37 = load ptr, ptr %35, align 8
-  %38 = getelementptr i8, ptr %36, i64 8
-  %39 = load ptr, ptr %38, align 8
-  %40 = getelementptr i8, ptr %37, i64 8
-  %41 = load ptr, ptr %40, align 8
-  %42 = tail call i32 @unify_Variation(ptr noundef %0, ptr noundef %39, ptr noundef %41)
-  %43 = icmp eq i32 %42, 0
-  br i1 %43, label %47, label %44
+34:                                               ; preds = %37
+  %35 = load ptr, ptr %39, align 8
+  %36 = icmp eq ptr %35, null
+  br i1 %36, label %47, label %37
 
-44:                                               ; preds = %34
-  %45 = load ptr, ptr %36, align 8
-  %46 = icmp eq ptr %45, null
+37:                                               ; preds = %32, %34
+  %38 = phi ptr [ %33, %32 ], [ %40, %34 ]
+  %39 = phi ptr [ %30, %32 ], [ %35, %34 ]
+  %40 = load ptr, ptr %38, align 8
+  %41 = getelementptr i8, ptr %39, i64 8
+  %42 = load ptr, ptr %41, align 8
+  %43 = getelementptr i8, ptr %40, i64 8
+  %44 = load ptr, ptr %43, align 8
+  %45 = tail call i32 @unify_Variation(ptr noundef %0, ptr noundef %42, ptr noundef %44)
+  %46 = icmp eq i32 %45, 0
   br i1 %46, label %47, label %34, !llvm.loop !19
 
-47:                                               ; preds = %34, %44, %28, %27, %9, %8, %19, %17
-  %48 = phi i32 [ %18, %17 ], [ 1, %19 ], [ 1, %8 ], [ 0, %9 ], [ 0, %27 ], [ 1, %28 ], [ 0, %34 ], [ 1, %44 ]
+47:                                               ; preds = %37, %34, %28, %27, %9, %8, %19, %17
+  %48 = phi i32 [ %18, %17 ], [ 1, %19 ], [ 1, %8 ], [ 0, %9 ], [ 0, %27 ], [ 1, %28 ], [ 0, %37 ], [ 1, %34 ]
   ret i32 %48
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @unify_ComGenLinear(ptr nocapture noundef readonly %0, ptr nocapture noundef %1, ptr noundef %2, ptr nocapture noundef %3, ptr noundef %4) local_unnamed_addr #4 {
   %6 = load i32, ptr %4, align 8
-  %7 = add i32 %6, -3001
-  %8 = icmp ult i32 %7, -1000
-  br i1 %8, label %14, label %9
+  %7 = add i32 %6, -2001
+  %8 = icmp ult i32 %7, 1000
+  br i1 %8, label %9, label %14
 
 9:                                                ; preds = %5
   %10 = tail call ptr @term_Copy(ptr noundef %2) #6

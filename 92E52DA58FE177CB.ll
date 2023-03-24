@@ -95,7 +95,7 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
   call void @llvm.lifetime.start.p0(i64 84, ptr nonnull %7) #12
   %8 = tail call ptr @cli_malloc(i64 noundef 40) #12
   %9 = icmp eq ptr %8, null
-  br i1 %9, label %682, label %10
+  br i1 %9, label %683, label %10
 
 10:                                               ; preds = %2
   %11 = getelementptr inbounds %struct.file_list_tag, ptr %8, i64 0, i32 4
@@ -107,7 +107,7 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
 
 14:                                               ; preds = %10
   tail call void @free(ptr noundef nonnull %8) #12
-  br label %682
+  br label %683
 
 15:                                               ; preds = %10
   %16 = getelementptr inbounds %struct.file_list_tag, ptr %12, i64 0, i32 4
@@ -121,7 +121,7 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
   %20 = getelementptr inbounds %struct.stat, ptr %5, i64 0, i32 8
   %21 = load i64, ptr %20, align 8, !tbaa !12
   %22 = icmp slt i64 %21, 96
-  br i1 %22, label %656, label %23
+  br i1 %22, label %657, label %23
 
 23:                                               ; preds = %19
   %24 = tail call ptr @mmap(ptr noundef null, i64 noundef %21, i32 noundef 1, i32 noundef 2, i32 noundef %0, i64 noundef 0) #12
@@ -139,12 +139,12 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
   %28 = phi i64 [ 0, %15 ], [ %21, %23 ], [ %21, %23 ]
   %29 = tail call i64 @lseek(i32 noundef %0, i64 noundef 0, i32 noundef 0) #12
   %30 = icmp eq i64 %29, 0
-  br i1 %30, label %31, label %656
+  br i1 %30, label %31, label %657
 
 31:                                               ; preds = %27
   %32 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %6, i32 noundef 96) #12
   %33 = icmp eq i32 %32, 96
-  br i1 %33, label %34, label %656
+  br i1 %33, label %34, label %657
 
 34:                                               ; preds = %31, %26
   %35 = phi i1 [ true, %31 ], [ false, %26 ]
@@ -156,7 +156,7 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
 
 40:                                               ; preds = %34
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.1) #12
-  br label %656
+  br label %657
 
 41:                                               ; preds = %34
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.2) #12
@@ -206,7 +206,7 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
 72:                                               ; preds = %41, %69
   %73 = load i64, ptr %63, align 1, !tbaa !23
   %74 = icmp slt i64 %73, 0
-  br i1 %74, label %656, label %75
+  br i1 %74, label %657, label %75
 
 75:                                               ; preds = %72
   br i1 %35, label %81, label %76
@@ -214,7 +214,7 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
 76:                                               ; preds = %75
   %77 = add nuw nsw i64 %73, 84
   %78 = icmp ugt i64 %77, %36
-  br i1 %78, label %656, label %79
+  br i1 %78, label %657, label %79
 
 79:                                               ; preds = %76
   %80 = getelementptr inbounds i8, ptr %37, i64 %73
@@ -224,12 +224,12 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
 81:                                               ; preds = %75
   %82 = call i64 @lseek(i32 noundef %0, i64 noundef %73, i32 noundef 0) #12
   %83 = icmp eq i64 %82, %73
-  br i1 %83, label %84, label %656
+  br i1 %83, label %84, label %657
 
 84:                                               ; preds = %81
   %85 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %7, i32 noundef 84) #12
   %86 = icmp eq i32 %85, 84
-  br i1 %86, label %87, label %656
+  br i1 %86, label %87, label %657
 
 87:                                               ; preds = %84, %79
   %88 = call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %7, ptr noundef nonnull dereferenceable(4) @.str.12, i64 4)
@@ -249,7 +249,7 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
 98:                                               ; preds = %90, %87
   %99 = phi ptr [ @.str.13, %87 ], [ @.str.14, %90 ]
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %99) #12
-  br label %656
+  br label %657
 
 100:                                              ; preds = %90
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.15) #12
@@ -318,20 +318,20 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
 
 149:                                              ; preds = %143, %100
   %150 = icmp eq i32 %140, 0
-  br i1 %150, label %381, label %151
+  br i1 %150, label %380, label %151
 
-151:                                              ; preds = %149, %374
-  %152 = phi i32 [ %377, %374 ], [ %133, %149 ]
-  %153 = phi i32 [ %376, %374 ], [ %140, %149 ]
-  %154 = phi i64 [ %379, %374 ], [ %137, %149 ]
+151:                                              ; preds = %149, %373
+  %152 = phi i32 [ %376, %373 ], [ %133, %149 ]
+  %153 = phi i32 [ %375, %373 ], [ %140, %149 ]
+  %154 = phi i64 [ %378, %373 ], [ %137, %149 ]
   %155 = add i32 %152, -33554433
   %156 = icmp ult i32 %155, -33554425
-  br i1 %156, label %656, label %157
+  br i1 %156, label %657, label %157
 
 157:                                              ; preds = %151
   %158 = call ptr @cli_malloc(i64 noundef 40) #12
   %159 = icmp eq ptr %158, null
-  br i1 %159, label %656, label %160
+  br i1 %159, label %657, label %160
 
 160:                                              ; preds = %157
   %161 = zext i32 %152 to i64
@@ -343,906 +343,909 @@ define dso_local i32 @chm_unpack(i32 noundef %0, ptr noundef %1) local_unnamed_a
 
 165:                                              ; preds = %160
   call void @free(ptr noundef nonnull %158) #12
-  br label %656
+  br label %657
 
 166:                                              ; preds = %160
   %167 = icmp slt i64 %154, 0
-  br i1 %167, label %654, label %168
+  br i1 %167, label %655, label %168
 
 168:                                              ; preds = %166
-  br i1 %35, label %172, label %169
+  %169 = add nuw nsw i64 %154, 8
+  br i1 %35, label %172, label %170
 
-169:                                              ; preds = %168
-  %170 = add nuw nsw i64 %154, 8
-  %171 = icmp sgt i64 %170, %36
-  br i1 %171, label %654, label %178
+170:                                              ; preds = %168
+  %171 = icmp sgt i64 %169, %36
+  br i1 %171, label %655, label %178
 
 172:                                              ; preds = %168
   %173 = call i64 @lseek(i32 noundef %0, i64 noundef %154, i32 noundef 0) #12
   %174 = icmp eq i64 %173, %154
-  br i1 %174, label %175, label %654
+  br i1 %174, label %175, label %655
 
 175:                                              ; preds = %172
   %176 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %158, i32 noundef 8) #12
   %177 = icmp eq i32 %176, 8
-  br i1 %177, label %183, label %654
+  br i1 %177, label %183, label %655
 
-178:                                              ; preds = %169
+178:                                              ; preds = %170
   %179 = getelementptr inbounds i8, ptr %37, i64 %154
   %180 = load i64, ptr %179, align 1
   store i64 %180, ptr %158, align 1
   %181 = add nuw nsw i64 %154, %161
   %182 = icmp sgt i64 %181, %36
-  br i1 %182, label %654, label %194
+  br i1 %182, label %655, label %194
 
 183:                                              ; preds = %175
   %184 = load ptr, ptr %163, align 8, !tbaa !36
   %185 = call i64 @lseek(i32 noundef %0, i64 noundef %154, i32 noundef 0) #12
   %186 = icmp eq i64 %185, %154
-  br i1 %186, label %187, label %654
+  br i1 %186, label %187, label %655
 
 187:                                              ; preds = %183
   %188 = call i32 @cli_readn(i32 noundef %0, ptr noundef %184, i32 noundef %152) #12
   %189 = sext i32 %188 to i64
   %190 = icmp eq i64 %189, %161
-  br i1 %190, label %191, label %654
+  br i1 %190, label %191, label %655
 
 191:                                              ; preds = %187
   %192 = call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %158, ptr noundef nonnull dereferenceable(4) @.str.24, i64 4)
   %193 = icmp eq i32 %192, 0
-  br i1 %193, label %203, label %347
+  br i1 %193, label %203, label %346
 
 194:                                              ; preds = %178
   call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %162, ptr nonnull align 1 %179, i64 %161, i1 false)
   %195 = call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %158, ptr noundef nonnull dereferenceable(4) @.str.24, i64 4)
   %196 = icmp eq i32 %195, 0
-  br i1 %196, label %197, label %347
+  br i1 %196, label %197, label %346
 
 197:                                              ; preds = %194
   %198 = add nuw nsw i64 %154, 20
   %199 = icmp sgt i64 %198, %36
-  br i1 %199, label %654, label %200
+  br i1 %199, label %655, label %200
 
 200:                                              ; preds = %197
   %201 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 2
-  %202 = getelementptr inbounds i8, ptr %37, i64 %170
+  %202 = getelementptr inbounds i8, ptr %37, i64 %169
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(12) %201, ptr noundef nonnull align 1 dereferenceable(12) %202, i64 12, i1 false)
-  br label %211
+  br label %210
 
 203:                                              ; preds = %191
-  %204 = add nuw nsw i64 %154, 8
-  %205 = call i64 @lseek(i32 noundef %0, i64 noundef %204, i32 noundef 0) #12
-  %206 = icmp eq i64 %205, %204
-  br i1 %206, label %207, label %654
+  %204 = call i64 @lseek(i32 noundef %0, i64 noundef %169, i32 noundef 0) #12
+  %205 = icmp eq i64 %204, %169
+  br i1 %205, label %206, label %655
 
-207:                                              ; preds = %203
-  %208 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 2
-  %209 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %208, i32 noundef 12) #12
-  %210 = icmp eq i32 %209, 12
-  br i1 %210, label %211, label %654
+206:                                              ; preds = %203
+  %207 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 2
+  %208 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %207, i32 noundef 12) #12
+  %209 = icmp eq i32 %208, 12
+  br i1 %209, label %210, label %655
 
-211:                                              ; preds = %207, %200
-  %212 = load ptr, ptr %163, align 8, !tbaa !36
-  %213 = add nsw i32 %152, -2
-  %214 = zext i32 %213 to i64
-  %215 = getelementptr inbounds i8, ptr %212, i64 %214
-  %216 = load i8, ptr %215, align 1, !tbaa !16
-  %217 = zext i8 %216 to i16
-  %218 = add nsw i32 %152, -1
-  %219 = zext i32 %218 to i64
-  %220 = getelementptr inbounds i8, ptr %212, i64 %219
-  %221 = load i8, ptr %220, align 1, !tbaa !16
-  %222 = zext i8 %221 to i16
-  %223 = shl nuw i16 %222, 8
-  %224 = or i16 %223, %217
-  %225 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 6
-  store i16 %224, ptr %225, align 8, !tbaa !39
-  %226 = getelementptr inbounds i8, ptr %212, i64 %161
-  %227 = icmp eq i16 %224, 0
-  br i1 %227, label %350, label %228
+210:                                              ; preds = %206, %200
+  %211 = load ptr, ptr %163, align 8, !tbaa !36
+  %212 = add nsw i32 %152, -2
+  %213 = zext i32 %212 to i64
+  %214 = getelementptr inbounds i8, ptr %211, i64 %213
+  %215 = load i8, ptr %214, align 1, !tbaa !16
+  %216 = zext i8 %215 to i16
+  %217 = add nsw i32 %152, -1
+  %218 = zext i32 %217 to i64
+  %219 = getelementptr inbounds i8, ptr %211, i64 %218
+  %220 = load i8, ptr %219, align 1, !tbaa !16
+  %221 = zext i8 %220 to i16
+  %222 = shl nuw i16 %221, 8
+  %223 = or i16 %222, %216
+  %224 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 6
+  store i16 %223, ptr %224, align 8, !tbaa !39
+  %225 = getelementptr inbounds i8, ptr %211, i64 %161
+  %226 = icmp eq i16 %223, 0
+  br i1 %226, label %349, label %227
 
-228:                                              ; preds = %211
-  %229 = getelementptr inbounds i8, ptr %212, i64 20
-  br label %230
+227:                                              ; preds = %210
+  %228 = getelementptr inbounds i8, ptr %211, i64 20
+  br label %229
 
-230:                                              ; preds = %342, %228
-  %231 = phi i16 [ %224, %228 ], [ %233, %342 ]
-  %232 = phi ptr [ %229, %228 ], [ %329, %342 ]
-  %233 = add i16 %231, -1
-  %234 = icmp ugt ptr %232, %226
-  br i1 %234, label %235, label %236
+229:                                              ; preds = %341, %227
+  %230 = phi i16 [ %223, %227 ], [ %232, %341 ]
+  %231 = phi ptr [ %228, %227 ], [ %328, %341 ]
+  %232 = add i16 %230, -1
+  %233 = icmp ugt ptr %231, %225
+  br i1 %233, label %234, label %235
 
-235:                                              ; preds = %230
+234:                                              ; preds = %229
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.26) #12
-  br label %350
+  br label %349
 
-236:                                              ; preds = %230
-  %237 = call ptr @cli_malloc(i64 noundef 40) #12
-  %238 = icmp eq ptr %237, null
-  br i1 %238, label %350, label %239
+235:                                              ; preds = %229
+  %236 = call ptr @cli_malloc(i64 noundef 40) #12
+  %237 = icmp eq ptr %236, null
+  br i1 %237, label %349, label %238
 
-239:                                              ; preds = %236
-  %240 = getelementptr inbounds %struct.file_list_tag, ptr %237, i64 0, i32 4
-  store ptr null, ptr %240, align 8, !tbaa !5
-  br label %241
+238:                                              ; preds = %235
+  %239 = getelementptr inbounds %struct.file_list_tag, ptr %236, i64 0, i32 4
+  store ptr null, ptr %239, align 8, !tbaa !5
+  br label %240
 
-241:                                              ; preds = %245, %239
-  %242 = phi i64 [ %250, %245 ], [ 0, %239 ]
-  %243 = phi ptr [ %251, %245 ], [ %232, %239 ]
-  %244 = icmp ugt ptr %243, %226
-  br i1 %244, label %258, label %245
+240:                                              ; preds = %244, %238
+  %241 = phi i64 [ %249, %244 ], [ 0, %238 ]
+  %242 = phi ptr [ %250, %244 ], [ %231, %238 ]
+  %243 = icmp ugt ptr %242, %225
+  br i1 %243, label %257, label %244
 
-245:                                              ; preds = %241
-  %246 = shl i64 %242, 7
-  %247 = load i8, ptr %243, align 1, !tbaa !16
-  %248 = and i8 %247, 127
-  %249 = zext i8 %248 to i64
-  %250 = or i64 %246, %249
-  %251 = getelementptr inbounds i8, ptr %243, i64 1
-  %252 = icmp sgt i8 %247, -1
-  br i1 %252, label %253, label %241, !llvm.loop !40
+244:                                              ; preds = %240
+  %245 = shl i64 %241, 7
+  %246 = load i8, ptr %242, align 1, !tbaa !16
+  %247 = and i8 %246, 127
+  %248 = zext i8 %247 to i64
+  %249 = or i64 %245, %248
+  %250 = getelementptr inbounds i8, ptr %242, i64 1
+  %251 = icmp sgt i8 %246, -1
+  br i1 %251, label %252, label %240, !llvm.loop !40
 
-253:                                              ; preds = %245
-  %254 = getelementptr inbounds i8, ptr %251, i64 %250
-  %255 = icmp ugt ptr %254, %226
-  %256 = icmp ult ptr %254, %212
-  %257 = or i1 %255, %256
-  br i1 %257, label %260, label %261
+252:                                              ; preds = %244
+  %253 = getelementptr inbounds i8, ptr %250, i64 %249
+  %254 = icmp ugt ptr %253, %225
+  %255 = icmp ult ptr %253, %211
+  %256 = or i1 %254, %255
+  br i1 %256, label %259, label %260
 
-258:                                              ; preds = %241
-  %259 = icmp ult ptr %232, %212
-  br i1 %259, label %260, label %267
+257:                                              ; preds = %240
+  %258 = icmp ult ptr %231, %211
+  br i1 %258, label %259, label %266
 
-260:                                              ; preds = %258, %253
+259:                                              ; preds = %257, %252
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.27) #12
-  call void @free(ptr noundef %237) #12
-  br label %350
+  call void @free(ptr noundef %236) #12
+  br label %349
 
-261:                                              ; preds = %253
-  %262 = icmp ugt i64 %250, 16777215
-  br i1 %262, label %263, label %267
+260:                                              ; preds = %252
+  %261 = icmp ugt i64 %249, 16777215
+  br i1 %261, label %262, label %266
 
-263:                                              ; preds = %261
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.28, i64 noundef %250) #12
-  %264 = call ptr @cli_strdup(ptr noundef nonnull @.str.29) #12
-  store ptr %264, ptr %237, align 8, !tbaa !11
-  %265 = icmp eq ptr %264, null
-  br i1 %265, label %266, label %279
+262:                                              ; preds = %260
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.28, i64 noundef %249) #12
+  %263 = call ptr @cli_strdup(ptr noundef nonnull @.str.29) #12
+  store ptr %263, ptr %236, align 8, !tbaa !11
+  %264 = icmp eq ptr %263, null
+  br i1 %264, label %265, label %278
 
-266:                                              ; preds = %263
-  call void @free(ptr noundef nonnull %237) #12
-  br label %350
+265:                                              ; preds = %262
+  call void @free(ptr noundef nonnull %236) #12
+  br label %349
 
-267:                                              ; preds = %261, %258
-  %268 = phi ptr [ %251, %261 ], [ %232, %258 ]
-  %269 = phi i64 [ %250, %261 ], [ 0, %258 ]
-  %270 = phi ptr [ %254, %261 ], [ %232, %258 ]
-  %271 = add nuw nsw i64 %269, 1
-  %272 = call ptr @cli_malloc(i64 noundef %271) #12
-  store ptr %272, ptr %237, align 8, !tbaa !11
-  %273 = icmp eq ptr %272, null
-  br i1 %273, label %274, label %275
+266:                                              ; preds = %260, %257
+  %267 = phi ptr [ %250, %260 ], [ %231, %257 ]
+  %268 = phi i64 [ %249, %260 ], [ 0, %257 ]
+  %269 = phi ptr [ %253, %260 ], [ %231, %257 ]
+  %270 = add nuw nsw i64 %268, 1
+  %271 = call ptr @cli_malloc(i64 noundef %270) #12
+  store ptr %271, ptr %236, align 8, !tbaa !11
+  %272 = icmp eq ptr %271, null
+  br i1 %272, label %273, label %274
 
-274:                                              ; preds = %267
-  call void @free(ptr noundef nonnull %237) #12
-  br label %350
+273:                                              ; preds = %266
+  call void @free(ptr noundef nonnull %236) #12
+  br label %349
 
-275:                                              ; preds = %267
-  %276 = call ptr @strncpy(ptr noundef nonnull %272, ptr noundef %268, i64 noundef %269) #12
-  %277 = load ptr, ptr %237, align 8, !tbaa !11
-  %278 = getelementptr inbounds i8, ptr %277, i64 %269
-  store i8 0, ptr %278, align 1, !tbaa !16
-  br label %279
+274:                                              ; preds = %266
+  %275 = call ptr @strncpy(ptr noundef nonnull %271, ptr noundef %267, i64 noundef %268) #12
+  %276 = load ptr, ptr %236, align 8, !tbaa !11
+  %277 = getelementptr inbounds i8, ptr %276, i64 %268
+  store i8 0, ptr %277, align 1, !tbaa !16
+  br label %278
 
-279:                                              ; preds = %275, %263
-  %280 = phi i64 [ %250, %263 ], [ %269, %275 ]
-  %281 = phi ptr [ %254, %263 ], [ %270, %275 ]
-  br label %282
+278:                                              ; preds = %274, %262
+  %279 = phi i64 [ %249, %262 ], [ %268, %274 ]
+  %280 = phi ptr [ %253, %262 ], [ %269, %274 ]
+  br label %281
 
-282:                                              ; preds = %286, %279
-  %283 = phi i64 [ %291, %286 ], [ 0, %279 ]
-  %284 = phi ptr [ %292, %286 ], [ %281, %279 ]
-  %285 = icmp ugt ptr %284, %226
-  br i1 %285, label %294, label %286
+281:                                              ; preds = %285, %278
+  %282 = phi i64 [ %290, %285 ], [ 0, %278 ]
+  %283 = phi ptr [ %291, %285 ], [ %280, %278 ]
+  %284 = icmp ugt ptr %283, %225
+  br i1 %284, label %293, label %285
 
-286:                                              ; preds = %282
-  %287 = shl i64 %283, 7
-  %288 = load i8, ptr %284, align 1, !tbaa !16
-  %289 = and i8 %288, 127
-  %290 = zext i8 %289 to i64
-  %291 = or i64 %287, %290
-  %292 = getelementptr inbounds i8, ptr %284, i64 1
-  %293 = icmp sgt i8 %288, -1
-  br i1 %293, label %294, label %282, !llvm.loop !40
+285:                                              ; preds = %281
+  %286 = shl i64 %282, 7
+  %287 = load i8, ptr %283, align 1, !tbaa !16
+  %288 = and i8 %287, 127
+  %289 = zext i8 %288 to i64
+  %290 = or i64 %286, %289
+  %291 = getelementptr inbounds i8, ptr %283, i64 1
+  %292 = icmp sgt i8 %287, -1
+  br i1 %292, label %293, label %281, !llvm.loop !40
 
-294:                                              ; preds = %286, %282
-  %295 = phi ptr [ %281, %282 ], [ %292, %286 ]
-  %296 = phi i64 [ 0, %282 ], [ %291, %286 ]
-  %297 = getelementptr inbounds %struct.file_list_tag, ptr %237, i64 0, i32 1
-  store i64 %296, ptr %297, align 8, !tbaa !42
-  %298 = icmp ugt ptr %295, %226
-  br i1 %298, label %311, label %299
+293:                                              ; preds = %285, %281
+  %294 = phi ptr [ %280, %281 ], [ %291, %285 ]
+  %295 = phi i64 [ 0, %281 ], [ %290, %285 ]
+  %296 = getelementptr inbounds %struct.file_list_tag, ptr %236, i64 0, i32 1
+  store i64 %295, ptr %296, align 8, !tbaa !42
+  %297 = icmp ugt ptr %294, %225
+  br i1 %297, label %310, label %298
 
-299:                                              ; preds = %294, %303
-  %300 = phi i64 [ %308, %303 ], [ 0, %294 ]
-  %301 = phi ptr [ %309, %303 ], [ %295, %294 ]
-  %302 = icmp ugt ptr %301, %226
-  br i1 %302, label %311, label %303
+298:                                              ; preds = %293, %302
+  %299 = phi i64 [ %307, %302 ], [ 0, %293 ]
+  %300 = phi ptr [ %308, %302 ], [ %294, %293 ]
+  %301 = icmp ugt ptr %300, %225
+  br i1 %301, label %310, label %302
 
-303:                                              ; preds = %299
-  %304 = shl i64 %300, 7
-  %305 = load i8, ptr %301, align 1, !tbaa !16
-  %306 = and i8 %305, 127
-  %307 = zext i8 %306 to i64
-  %308 = or i64 %304, %307
-  %309 = getelementptr inbounds i8, ptr %301, i64 1
-  %310 = icmp sgt i8 %305, -1
-  br i1 %310, label %311, label %299, !llvm.loop !40
+302:                                              ; preds = %298
+  %303 = shl i64 %299, 7
+  %304 = load i8, ptr %300, align 1, !tbaa !16
+  %305 = and i8 %304, 127
+  %306 = zext i8 %305 to i64
+  %307 = or i64 %303, %306
+  %308 = getelementptr inbounds i8, ptr %300, i64 1
+  %309 = icmp sgt i8 %304, -1
+  br i1 %309, label %310, label %298, !llvm.loop !40
 
-311:                                              ; preds = %303, %299, %294
-  %312 = phi ptr [ %295, %294 ], [ %309, %303 ], [ %295, %299 ]
-  %313 = phi i64 [ 0, %294 ], [ %308, %303 ], [ 0, %299 ]
-  %314 = getelementptr inbounds %struct.file_list_tag, ptr %237, i64 0, i32 2
-  store i64 %313, ptr %314, align 8, !tbaa !43
-  %315 = icmp ugt ptr %312, %226
-  br i1 %315, label %328, label %316
+310:                                              ; preds = %302, %298, %293
+  %311 = phi ptr [ %294, %293 ], [ %308, %302 ], [ %294, %298 ]
+  %312 = phi i64 [ 0, %293 ], [ %307, %302 ], [ 0, %298 ]
+  %313 = getelementptr inbounds %struct.file_list_tag, ptr %236, i64 0, i32 2
+  store i64 %312, ptr %313, align 8, !tbaa !43
+  %314 = icmp ugt ptr %311, %225
+  br i1 %314, label %327, label %315
 
-316:                                              ; preds = %311, %320
-  %317 = phi i64 [ %325, %320 ], [ 0, %311 ]
-  %318 = phi ptr [ %326, %320 ], [ %312, %311 ]
-  %319 = icmp ugt ptr %318, %226
-  br i1 %319, label %328, label %320
+315:                                              ; preds = %310, %319
+  %316 = phi i64 [ %324, %319 ], [ 0, %310 ]
+  %317 = phi ptr [ %325, %319 ], [ %311, %310 ]
+  %318 = icmp ugt ptr %317, %225
+  br i1 %318, label %327, label %319
 
-320:                                              ; preds = %316
-  %321 = shl i64 %317, 7
-  %322 = load i8, ptr %318, align 1, !tbaa !16
-  %323 = and i8 %322, 127
-  %324 = zext i8 %323 to i64
-  %325 = or i64 %321, %324
-  %326 = getelementptr inbounds i8, ptr %318, i64 1
-  %327 = icmp sgt i8 %322, -1
-  br i1 %327, label %328, label %316, !llvm.loop !40
+319:                                              ; preds = %315
+  %320 = shl i64 %316, 7
+  %321 = load i8, ptr %317, align 1, !tbaa !16
+  %322 = and i8 %321, 127
+  %323 = zext i8 %322 to i64
+  %324 = or i64 %320, %323
+  %325 = getelementptr inbounds i8, ptr %317, i64 1
+  %326 = icmp sgt i8 %321, -1
+  br i1 %326, label %327, label %315, !llvm.loop !40
 
-328:                                              ; preds = %320, %316, %311
-  %329 = phi ptr [ %312, %311 ], [ %326, %320 ], [ %312, %316 ]
-  %330 = phi i64 [ 0, %311 ], [ %325, %320 ], [ 0, %316 ]
-  %331 = getelementptr inbounds %struct.file_list_tag, ptr %237, i64 0, i32 3
-  store i64 %330, ptr %331, align 8, !tbaa !44
-  %332 = icmp ugt i64 %280, 1
-  %333 = load ptr, ptr %237, align 8, !tbaa !11
-  br i1 %332, label %334, label %341
+327:                                              ; preds = %319, %315, %310
+  %328 = phi ptr [ %311, %310 ], [ %325, %319 ], [ %311, %315 ]
+  %329 = phi i64 [ 0, %310 ], [ %324, %319 ], [ 0, %315 ]
+  %330 = getelementptr inbounds %struct.file_list_tag, ptr %236, i64 0, i32 3
+  store i64 %329, ptr %330, align 8, !tbaa !44
+  %331 = icmp ugt i64 %279, 1
+  %332 = load ptr, ptr %236, align 8, !tbaa !11
+  br i1 %331, label %333, label %340
 
-334:                                              ; preds = %328
-  %335 = load i8, ptr %333, align 1, !tbaa !16
-  %336 = icmp eq i8 %335, 58
-  br i1 %336, label %337, label %341
+333:                                              ; preds = %327
+  %334 = load i8, ptr %332, align 1, !tbaa !16
+  %335 = icmp eq i8 %334, 58
+  br i1 %335, label %336, label %340
 
-337:                                              ; preds = %334
-  %338 = getelementptr inbounds i8, ptr %333, i64 1
-  %339 = load i8, ptr %338, align 1, !tbaa !16
-  %340 = icmp eq i8 %339, 58
-  br i1 %340, label %342, label %341
+336:                                              ; preds = %333
+  %337 = getelementptr inbounds i8, ptr %332, i64 1
+  %338 = load i8, ptr %337, align 1, !tbaa !16
+  %339 = icmp eq i8 %338, 58
+  br i1 %339, label %341, label %340
 
-341:                                              ; preds = %337, %334, %328
-  br label %342
+340:                                              ; preds = %336, %333, %327
+  br label %341
 
-342:                                              ; preds = %341, %337
-  %343 = phi ptr [ %8, %341 ], [ %12, %337 ]
-  %344 = getelementptr inbounds %struct.file_list_tag, ptr %343, i64 0, i32 4
-  %345 = load ptr, ptr %344, align 8, !tbaa !5
-  store ptr %345, ptr %240, align 8, !tbaa !5
-  store ptr %237, ptr %344, align 8, !tbaa !5
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.30, i64 noundef %296, i64 noundef %313, i64 noundef %330, ptr noundef %333) #12
-  %346 = icmp eq i16 %233, 0
-  br i1 %346, label %350, label %230, !llvm.loop !45
+341:                                              ; preds = %340, %336
+  %342 = phi ptr [ %8, %340 ], [ %12, %336 ]
+  %343 = getelementptr inbounds %struct.file_list_tag, ptr %342, i64 0, i32 4
+  %344 = load ptr, ptr %343, align 8, !tbaa !5
+  store ptr %344, ptr %239, align 8, !tbaa !5
+  store ptr %236, ptr %343, align 8, !tbaa !5
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.30, i64 noundef %295, i64 noundef %312, i64 noundef %329, ptr noundef %332) #12
+  %345 = icmp eq i16 %232, 0
+  br i1 %345, label %349, label %229, !llvm.loop !45
 
-347:                                              ; preds = %194, %191
-  %348 = call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %158, ptr noundef nonnull dereferenceable(4) @.str.25, i64 4)
-  %349 = icmp eq i32 %348, 0
-  br i1 %349, label %350, label %654
+346:                                              ; preds = %194, %191
+  %347 = call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %158, ptr noundef nonnull dereferenceable(4) @.str.25, i64 4)
+  %348 = icmp eq i32 %347, 0
+  br i1 %348, label %349, label %655
 
-350:                                              ; preds = %342, %236, %347, %274, %266, %260, %235, %211
+349:                                              ; preds = %341, %235, %346, %273, %265, %259, %234, %210
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.31) #12
-  %351 = load i8, ptr %158, align 8, !tbaa !16
-  %352 = zext i8 %351 to i32
-  %353 = getelementptr inbounds [4 x i8], ptr %158, i64 0, i64 1
-  %354 = load i8, ptr %353, align 1, !tbaa !16
-  %355 = zext i8 %354 to i32
-  %356 = getelementptr inbounds [4 x i8], ptr %158, i64 0, i64 2
-  %357 = load i8, ptr %356, align 2, !tbaa !16
-  %358 = zext i8 %357 to i32
-  %359 = getelementptr inbounds [4 x i8], ptr %158, i64 0, i64 3
-  %360 = load i8, ptr %359, align 1, !tbaa !16
-  %361 = zext i8 %360 to i32
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.3, i32 noundef %352, i32 noundef %355, i32 noundef %358, i32 noundef %361) #12
-  %362 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 1
-  %363 = load i32, ptr %362, align 4, !tbaa !46
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.32, i32 noundef %363) #12
-  %364 = call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %158, ptr noundef nonnull dereferenceable(4) @.str.24, i64 4)
-  %365 = icmp eq i32 %364, 0
-  br i1 %365, label %366, label %374
+  %350 = load i8, ptr %158, align 8, !tbaa !16
+  %351 = zext i8 %350 to i32
+  %352 = getelementptr inbounds [4 x i8], ptr %158, i64 0, i64 1
+  %353 = load i8, ptr %352, align 1, !tbaa !16
+  %354 = zext i8 %353 to i32
+  %355 = getelementptr inbounds [4 x i8], ptr %158, i64 0, i64 2
+  %356 = load i8, ptr %355, align 2, !tbaa !16
+  %357 = zext i8 %356 to i32
+  %358 = getelementptr inbounds [4 x i8], ptr %158, i64 0, i64 3
+  %359 = load i8, ptr %358, align 1, !tbaa !16
+  %360 = zext i8 %359 to i32
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.3, i32 noundef %351, i32 noundef %354, i32 noundef %357, i32 noundef %360) #12
+  %361 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 1
+  %362 = load i32, ptr %361, align 4, !tbaa !46
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.32, i32 noundef %362) #12
+  %363 = call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %158, ptr noundef nonnull dereferenceable(4) @.str.24, i64 4)
+  %364 = icmp eq i32 %363, 0
+  br i1 %364, label %365, label %373
 
-366:                                              ; preds = %350
-  %367 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 3
-  %368 = load i32, ptr %367, align 4, !tbaa !47
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.33, i32 noundef %368) #12
-  %369 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 4
-  %370 = load i32, ptr %369, align 8, !tbaa !48
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.34, i32 noundef %370) #12
-  %371 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 6
-  %372 = load i16, ptr %371, align 8, !tbaa !39
-  %373 = zext i16 %372 to i32
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.35, i32 noundef %373) #12
-  br label %374
+365:                                              ; preds = %349
+  %366 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 3
+  %367 = load i32, ptr %366, align 4, !tbaa !47
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.33, i32 noundef %367) #12
+  %368 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 4
+  %369 = load i32, ptr %368, align 8, !tbaa !48
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.34, i32 noundef %369) #12
+  %370 = getelementptr inbounds %struct.chunk_header_tag, ptr %158, i64 0, i32 6
+  %371 = load i16, ptr %370, align 8, !tbaa !39
+  %372 = zext i16 %371 to i32
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.35, i32 noundef %372) #12
+  br label %373
 
-374:                                              ; preds = %350, %366
-  %375 = load ptr, ptr %163, align 8, !tbaa !36
-  call void @free(ptr noundef %375) #12
+373:                                              ; preds = %349, %365
+  %374 = load ptr, ptr %163, align 8, !tbaa !36
+  call void @free(ptr noundef %374) #12
   call void @free(ptr noundef nonnull %158) #12
-  %376 = add i32 %153, -1
-  %377 = load i32, ptr %113, align 1, !tbaa !28
-  %378 = zext i32 %377 to i64
-  %379 = add nsw i64 %154, %378
-  %380 = icmp eq i32 %376, 0
-  br i1 %380, label %381, label %151, !llvm.loop !49
+  %375 = add i32 %153, -1
+  %376 = load i32, ptr %113, align 1, !tbaa !28
+  %377 = zext i32 %376 to i64
+  %378 = add nsw i64 %154, %377
+  %379 = icmp eq i32 %375, 0
+  br i1 %379, label %380, label %151, !llvm.loop !49
 
-381:                                              ; preds = %374, %149
+380:                                              ; preds = %373, %149
   call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %4) #12
-  %382 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %4, i64 noundef 1024, ptr noundef nonnull @.str.36, ptr noundef %1) #12
-  %383 = call i32 (ptr, i32, ...) @open(ptr noundef nonnull %4, i32 noundef 577, i32 noundef 448) #12
-  %384 = icmp slt i32 %383, 0
-  br i1 %384, label %392, label %385
+  %381 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %4, i64 noundef 1024, ptr noundef nonnull @.str.36, ptr noundef %1) #12
+  %382 = call i32 (ptr, i32, ...) @open(ptr noundef nonnull %4, i32 noundef 577, i32 noundef 448) #12
+  %383 = icmp slt i32 %382, 0
+  br i1 %383, label %391, label %384
 
-385:                                              ; preds = %381
-  %386 = load ptr, ptr %16, align 8, !tbaa !5
-  %387 = icmp eq ptr %386, null
-  br i1 %387, label %388, label %390
+384:                                              ; preds = %380
+  %385 = load ptr, ptr %16, align 8, !tbaa !5
+  %386 = icmp eq ptr %385, null
+  br i1 %386, label %387, label %389
 
-388:                                              ; preds = %385
-  %389 = call i32 @close(i32 noundef %383) #12
-  br label %653
+387:                                              ; preds = %384
+  %388 = call i32 @close(i32 noundef %382) #12
+  br label %654
 
-390:                                              ; preds = %385
-  %391 = getelementptr inbounds %struct.itsf_header_tag, ptr %6, i64 0, i32 12
-  br label %393
+389:                                              ; preds = %384
+  %390 = getelementptr inbounds %struct.itsf_header_tag, ptr %6, i64 0, i32 12
+  br label %392
 
-392:                                              ; preds = %381
+391:                                              ; preds = %380
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.37, ptr noundef nonnull %4) #12
-  br label %653
+  br label %654
 
-393:                                              ; preds = %527, %390
-  %394 = phi ptr [ %386, %390 ], [ %532, %527 ]
-  %395 = phi ptr [ null, %390 ], [ %530, %527 ]
-  %396 = phi ptr [ null, %390 ], [ %529, %527 ]
-  %397 = phi ptr [ null, %390 ], [ %528, %527 ]
-  %398 = load ptr, ptr %394, align 8, !tbaa !11
-  %399 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %398, ptr noundef nonnull dereferenceable(45) @.str.38) #13
-  %400 = icmp eq i32 %399, 0
-  br i1 %400, label %401, label %461
+392:                                              ; preds = %528, %389
+  %393 = phi ptr [ %385, %389 ], [ %533, %528 ]
+  %394 = phi ptr [ null, %389 ], [ %531, %528 ]
+  %395 = phi ptr [ null, %389 ], [ %530, %528 ]
+  %396 = phi ptr [ null, %389 ], [ %529, %528 ]
+  %397 = load ptr, ptr %393, align 8, !tbaa !11
+  %398 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %397, ptr noundef nonnull dereferenceable(45) @.str.38) #13
+  %399 = icmp eq i32 %398, 0
+  br i1 %399, label %400, label %460
 
-401:                                              ; preds = %393
-  %402 = getelementptr inbounds %struct.file_list_tag, ptr %394, i64 0, i32 3
-  %403 = load i64, ptr %402, align 8, !tbaa !44
-  %404 = icmp eq i64 %403, 28
-  br i1 %404, label %405, label %527
+400:                                              ; preds = %392
+  %401 = getelementptr inbounds %struct.file_list_tag, ptr %393, i64 0, i32 3
+  %402 = load i64, ptr %401, align 8, !tbaa !44
+  %403 = icmp eq i64 %402, 28
+  br i1 %403, label %404, label %528
 
-405:                                              ; preds = %401
-  %406 = load i64, ptr %391, align 1, !tbaa !25
-  %407 = getelementptr inbounds %struct.file_list_tag, ptr %394, i64 0, i32 2
-  %408 = load i64, ptr %407, align 8, !tbaa !43
-  %409 = add i64 %408, %406
-  %410 = icmp slt i64 %409, 0
-  br i1 %410, label %527, label %411
+404:                                              ; preds = %400
+  %405 = load i64, ptr %390, align 1, !tbaa !25
+  %406 = getelementptr inbounds %struct.file_list_tag, ptr %393, i64 0, i32 2
+  %407 = load i64, ptr %406, align 8, !tbaa !43
+  %408 = add i64 %407, %405
+  %409 = icmp slt i64 %408, 0
+  br i1 %409, label %528, label %410
 
-411:                                              ; preds = %405
-  %412 = call ptr @cli_malloc(i64 noundef 24) #12
-  %413 = icmp eq ptr %412, null
-  br i1 %413, label %527, label %414
+410:                                              ; preds = %404
+  %411 = call ptr @cli_malloc(i64 noundef 24) #12
+  %412 = icmp eq ptr %411, null
+  br i1 %412, label %528, label %413
 
-414:                                              ; preds = %411
-  br i1 %35, label %420, label %415
+413:                                              ; preds = %410
+  br i1 %35, label %419, label %414
 
-415:                                              ; preds = %414
-  %416 = add nuw nsw i64 %409, 24
-  %417 = icmp sgt i64 %416, %36
-  br i1 %417, label %460, label %418
+414:                                              ; preds = %413
+  %415 = add nuw nsw i64 %408, 24
+  %416 = icmp sgt i64 %415, %36
+  br i1 %416, label %459, label %417
 
-418:                                              ; preds = %415
-  %419 = getelementptr inbounds i8, ptr %37, i64 %409
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(24) %412, ptr noundef nonnull align 1 dereferenceable(24) %419, i64 24, i1 false)
-  br label %426
+417:                                              ; preds = %414
+  %418 = getelementptr inbounds i8, ptr %37, i64 %408
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(24) %411, ptr noundef nonnull align 1 dereferenceable(24) %418, i64 24, i1 false)
+  br label %425
 
-420:                                              ; preds = %414
-  %421 = call i64 @lseek(i32 noundef %0, i64 noundef %409, i32 noundef 0) #12
-  %422 = icmp eq i64 %421, %409
-  br i1 %422, label %423, label %460
+419:                                              ; preds = %413
+  %420 = call i64 @lseek(i32 noundef %0, i64 noundef %408, i32 noundef 0) #12
+  %421 = icmp eq i64 %420, %408
+  br i1 %421, label %422, label %459
 
-423:                                              ; preds = %420
-  %424 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %412, i32 noundef 24) #12
-  %425 = icmp eq i32 %424, 24
-  br i1 %425, label %426, label %460
+422:                                              ; preds = %419
+  %423 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %411, i32 noundef 24) #12
+  %424 = icmp eq i32 %423, 24
+  br i1 %424, label %425, label %459
 
-426:                                              ; preds = %423, %418
-  %427 = getelementptr inbounds %struct.lzx_control_tag, ptr %412, i64 0, i32 2
-  %428 = load i32, ptr %427, align 1, !tbaa !50
-  %429 = getelementptr inbounds %struct.lzx_control_tag, ptr %412, i64 0, i32 3
-  %430 = load i32, ptr %429, align 1, !tbaa !52
-  %431 = getelementptr inbounds %struct.lzx_control_tag, ptr %412, i64 0, i32 4
-  %432 = getelementptr inbounds %struct.lzx_control_tag, ptr %412, i64 0, i32 1
-  %433 = call i32 @strncmp(ptr noundef nonnull dereferenceable(5) @.str.49, ptr noundef nonnull dereferenceable(1) %432, i64 noundef 4) #13
-  %434 = icmp eq i32 %433, 0
-  br i1 %434, label %436, label %435
+425:                                              ; preds = %422, %417
+  %426 = getelementptr inbounds %struct.lzx_control_tag, ptr %411, i64 0, i32 2
+  %427 = load i32, ptr %426, align 1, !tbaa !50
+  %428 = getelementptr inbounds %struct.lzx_control_tag, ptr %411, i64 0, i32 3
+  %429 = load i32, ptr %428, align 1, !tbaa !52
+  %430 = getelementptr inbounds %struct.lzx_control_tag, ptr %411, i64 0, i32 4
+  %431 = getelementptr inbounds %struct.lzx_control_tag, ptr %411, i64 0, i32 1
+  %432 = call i32 @strncmp(ptr noundef nonnull dereferenceable(5) @.str.49, ptr noundef nonnull dereferenceable(1) %431, i64 noundef 4) #13
+  %433 = icmp eq i32 %432, 0
+  br i1 %433, label %435, label %434
 
-435:                                              ; preds = %426
+434:                                              ; preds = %425
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.50) #12
-  br label %460
+  br label %459
 
-436:                                              ; preds = %426
-  switch i32 %428, label %441 [
-    i32 1, label %442
-    i32 2, label %437
+435:                                              ; preds = %425
+  switch i32 %427, label %440 [
+    i32 1, label %441
+    i32 2, label %436
   ]
 
-437:                                              ; preds = %436
-  %438 = shl i32 %430, 15
-  store i32 %438, ptr %429, align 1, !tbaa !52
-  %439 = load i32, ptr %431, align 1, !tbaa !53
-  %440 = shl i32 %439, 15
-  store i32 %440, ptr %431, align 1, !tbaa !53
-  br label %442
+436:                                              ; preds = %435
+  %437 = shl i32 %429, 15
+  store i32 %437, ptr %428, align 1, !tbaa !52
+  %438 = load i32, ptr %430, align 1, !tbaa !53
+  %439 = shl i32 %438, 15
+  store i32 %439, ptr %430, align 1, !tbaa !53
+  br label %441
 
-441:                                              ; preds = %436
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.51, i32 noundef %428) #12
-  br label %460
+440:                                              ; preds = %435
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.51, i32 noundef %427) #12
+  br label %459
 
-442:                                              ; preds = %437, %436
+441:                                              ; preds = %436, %435
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.52) #12
-  %443 = load i32, ptr %412, align 1, !tbaa !54
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.53, i32 noundef %443) #12
-  %444 = load i8, ptr %432, align 1, !tbaa !16
-  %445 = zext i8 %444 to i32
-  %446 = getelementptr inbounds %struct.lzx_control_tag, ptr %412, i64 0, i32 1, i64 1
-  %447 = load i8, ptr %446, align 1, !tbaa !16
-  %448 = zext i8 %447 to i32
-  %449 = getelementptr inbounds %struct.lzx_control_tag, ptr %412, i64 0, i32 1, i64 2
-  %450 = load i8, ptr %449, align 1, !tbaa !16
-  %451 = zext i8 %450 to i32
-  %452 = getelementptr inbounds %struct.lzx_control_tag, ptr %412, i64 0, i32 1, i64 3
-  %453 = load i8, ptr %452, align 1, !tbaa !16
-  %454 = zext i8 %453 to i32
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.3, i32 noundef %445, i32 noundef %448, i32 noundef %451, i32 noundef %454) #12
-  %455 = load i32, ptr %427, align 1, !tbaa !50
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.4, i32 noundef %455) #12
-  %456 = load i32, ptr %429, align 1, !tbaa !52
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.54, i32 noundef %456) #12
-  %457 = load i32, ptr %431, align 1, !tbaa !53
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.55, i32 noundef %457) #12
-  %458 = getelementptr inbounds %struct.lzx_control_tag, ptr %412, i64 0, i32 5
-  %459 = load i32, ptr %458, align 1, !tbaa !55
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.56, i32 noundef %459) #12
-  br label %527
+  %442 = load i32, ptr %411, align 1, !tbaa !54
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.53, i32 noundef %442) #12
+  %443 = load i8, ptr %431, align 1, !tbaa !16
+  %444 = zext i8 %443 to i32
+  %445 = getelementptr inbounds %struct.lzx_control_tag, ptr %411, i64 0, i32 1, i64 1
+  %446 = load i8, ptr %445, align 1, !tbaa !16
+  %447 = zext i8 %446 to i32
+  %448 = getelementptr inbounds %struct.lzx_control_tag, ptr %411, i64 0, i32 1, i64 2
+  %449 = load i8, ptr %448, align 1, !tbaa !16
+  %450 = zext i8 %449 to i32
+  %451 = getelementptr inbounds %struct.lzx_control_tag, ptr %411, i64 0, i32 1, i64 3
+  %452 = load i8, ptr %451, align 1, !tbaa !16
+  %453 = zext i8 %452 to i32
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.3, i32 noundef %444, i32 noundef %447, i32 noundef %450, i32 noundef %453) #12
+  %454 = load i32, ptr %426, align 1, !tbaa !50
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.4, i32 noundef %454) #12
+  %455 = load i32, ptr %428, align 1, !tbaa !52
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.54, i32 noundef %455) #12
+  %456 = load i32, ptr %430, align 1, !tbaa !53
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.55, i32 noundef %456) #12
+  %457 = getelementptr inbounds %struct.lzx_control_tag, ptr %411, i64 0, i32 5
+  %458 = load i32, ptr %457, align 1, !tbaa !55
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.56, i32 noundef %458) #12
+  br label %528
 
-460:                                              ; preds = %441, %435, %423, %420, %415
-  call void @free(ptr noundef nonnull %412) #12
-  br label %527
+459:                                              ; preds = %440, %434, %422, %419, %414
+  call void @free(ptr noundef nonnull %411) #12
+  br label %528
 
-461:                                              ; preds = %393
-  %462 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %398, ptr noundef nonnull dereferenceable(41) @.str.39) #13
-  %463 = icmp eq i32 %462, 0
-  br i1 %463, label %464, label %477
+460:                                              ; preds = %392
+  %461 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %397, ptr noundef nonnull dereferenceable(41) @.str.39) #13
+  %462 = icmp eq i32 %461, 0
+  br i1 %462, label %463, label %476
 
-464:                                              ; preds = %461
-  %465 = call ptr @cli_malloc(i64 noundef 16) #12
-  %466 = icmp eq ptr %465, null
-  br i1 %466, label %527, label %467
+463:                                              ; preds = %460
+  %464 = call ptr @cli_malloc(i64 noundef 16) #12
+  %465 = icmp eq ptr %464, null
+  br i1 %465, label %528, label %466
 
-467:                                              ; preds = %464
-  %468 = load i64, ptr %391, align 1, !tbaa !25
-  %469 = getelementptr inbounds %struct.file_list_tag, ptr %394, i64 0, i32 2
-  %470 = load i64, ptr %469, align 8, !tbaa !43
-  %471 = add i64 %470, %468
-  store i64 %471, ptr %465, align 8, !tbaa !56
-  %472 = getelementptr inbounds %struct.file_list_tag, ptr %394, i64 0, i32 3
-  %473 = load i64, ptr %472, align 8, !tbaa !44
-  %474 = getelementptr inbounds %struct.lzx_content_tag, ptr %465, i64 0, i32 1
-  store i64 %473, ptr %474, align 8, !tbaa !58
+466:                                              ; preds = %463
+  %467 = load i64, ptr %390, align 1, !tbaa !25
+  %468 = getelementptr inbounds %struct.file_list_tag, ptr %393, i64 0, i32 2
+  %469 = load i64, ptr %468, align 8, !tbaa !43
+  %470 = add i64 %469, %467
+  store i64 %470, ptr %464, align 8, !tbaa !56
+  %471 = getelementptr inbounds %struct.file_list_tag, ptr %393, i64 0, i32 3
+  %472 = load i64, ptr %471, align 8, !tbaa !44
+  %473 = getelementptr inbounds %struct.lzx_content_tag, ptr %464, i64 0, i32 1
+  store i64 %472, ptr %473, align 8, !tbaa !58
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.57) #12
-  %475 = load i64, ptr %465, align 8, !tbaa !56
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.58, i64 noundef %475) #12
-  %476 = load i64, ptr %474, align 8, !tbaa !58
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.59, i64 noundef %476) #12
+  %474 = load i64, ptr %464, align 8, !tbaa !56
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.58, i64 noundef %474) #12
+  %475 = load i64, ptr %473, align 8, !tbaa !58
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.59, i64 noundef %475) #12
+  br label %528
+
+476:                                              ; preds = %460
+  %477 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %397, ptr noundef nonnull dereferenceable(106) @.str.40) #13
+  %478 = icmp eq i32 %477, 0
+  br i1 %478, label %479, label %528
+
+479:                                              ; preds = %476
+  %480 = getelementptr inbounds %struct.file_list_tag, ptr %393, i64 0, i32 3
+  %481 = load i64, ptr %480, align 8, !tbaa !44
+  %482 = icmp ult i64 %481, 40
+  br i1 %482, label %528, label %483
+
+483:                                              ; preds = %479
+  %484 = load i64, ptr %390, align 1, !tbaa !25
+  %485 = getelementptr inbounds %struct.file_list_tag, ptr %393, i64 0, i32 2
+  %486 = load i64, ptr %485, align 8, !tbaa !43
+  %487 = add i64 %486, %484
+  %488 = add i64 %487, 4
+  %489 = icmp slt i64 %488, 0
+  br i1 %489, label %528, label %490
+
+490:                                              ; preds = %483
+  %491 = call ptr @cli_malloc(i64 noundef 44) #12
+  %492 = icmp eq ptr %491, null
+  br i1 %492, label %528, label %493
+
+493:                                              ; preds = %490
+  %494 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %491, i64 0, i32 6
+  store i64 %487, ptr %494, align 1, !tbaa !59
+  %495 = add i64 %487, 40
+  %496 = icmp slt i64 %495, 0
+  br i1 %496, label %527, label %497
+
+497:                                              ; preds = %493
+  br i1 %35, label %502, label %498
+
+498:                                              ; preds = %497
+  %499 = icmp sgt i64 %495, %36
+  br i1 %499, label %527, label %500
+
+500:                                              ; preds = %498
+  %501 = getelementptr inbounds i8, ptr %37, i64 %488
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(36) %491, ptr noundef nonnull align 1 dereferenceable(36) %501, i64 36, i1 false)
+  br label %508
+
+502:                                              ; preds = %497
+  %503 = call i64 @lseek(i32 noundef %0, i64 noundef %488, i32 noundef 0) #12
+  %504 = icmp eq i64 %503, %488
+  br i1 %504, label %505, label %527
+
+505:                                              ; preds = %502
+  %506 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %491, i32 noundef 36) #12
+  %507 = icmp eq i32 %506, 36
+  br i1 %507, label %508, label %527
+
+508:                                              ; preds = %505, %500
+  %509 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %491, i64 0, i32 1
+  %510 = load i32, ptr %509, align 1, !tbaa !61
+  %511 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %491, i64 0, i32 5
+  %512 = load i64, ptr %511, align 1, !tbaa !62
+  %513 = icmp eq i64 %512, 32768
+  br i1 %513, label %515, label %514
+
+514:                                              ; preds = %508
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.60, i64 noundef %512) #12
   br label %527
 
-477:                                              ; preds = %461
-  %478 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %398, ptr noundef nonnull dereferenceable(106) @.str.40) #13
-  %479 = icmp eq i32 %478, 0
-  br i1 %479, label %480, label %527
-
-480:                                              ; preds = %477
-  %481 = getelementptr inbounds %struct.file_list_tag, ptr %394, i64 0, i32 3
-  %482 = load i64, ptr %481, align 8, !tbaa !44
-  %483 = icmp ult i64 %482, 40
-  br i1 %483, label %527, label %484
-
-484:                                              ; preds = %480
-  %485 = load i64, ptr %391, align 1, !tbaa !25
-  %486 = getelementptr inbounds %struct.file_list_tag, ptr %394, i64 0, i32 2
-  %487 = load i64, ptr %486, align 8, !tbaa !43
-  %488 = add i64 %487, %485
-  %489 = add i64 %488, 4
-  %490 = icmp slt i64 %489, 0
-  br i1 %490, label %527, label %491
-
-491:                                              ; preds = %484
-  %492 = call ptr @cli_malloc(i64 noundef 44) #12
-  %493 = icmp eq ptr %492, null
-  br i1 %493, label %527, label %494
-
-494:                                              ; preds = %491
-  %495 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %492, i64 0, i32 6
-  store i64 %488, ptr %495, align 1, !tbaa !59
-  br i1 %35, label %501, label %496
-
-496:                                              ; preds = %494
-  %497 = add i64 %488, 40
-  %498 = icmp sgt i64 %497, %36
-  br i1 %498, label %526, label %499
-
-499:                                              ; preds = %496
-  %500 = getelementptr inbounds i8, ptr %37, i64 %489
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(36) %492, ptr noundef nonnull align 1 dereferenceable(36) %500, i64 36, i1 false)
-  br label %507
-
-501:                                              ; preds = %494
-  %502 = call i64 @lseek(i32 noundef %0, i64 noundef %489, i32 noundef 0) #12
-  %503 = icmp eq i64 %502, %489
-  br i1 %503, label %504, label %526
-
-504:                                              ; preds = %501
-  %505 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %492, i32 noundef 36) #12
-  %506 = icmp eq i32 %505, 36
-  br i1 %506, label %507, label %526
-
-507:                                              ; preds = %504, %499
-  %508 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %492, i64 0, i32 1
-  %509 = load i32, ptr %508, align 1, !tbaa !61
-  %510 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %492, i64 0, i32 5
-  %511 = load i64, ptr %510, align 1, !tbaa !62
-  %512 = icmp eq i64 %511, 32768
-  br i1 %512, label %514, label %513
-
-513:                                              ; preds = %507
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.60, i64 noundef %511) #12
-  br label %526
-
-514:                                              ; preds = %507
-  switch i32 %509, label %515 [
-    i32 4, label %516
-    i32 8, label %516
+515:                                              ; preds = %508
+  switch i32 %510, label %516 [
+    i32 4, label %517
+    i32 8, label %517
   ]
 
-515:                                              ; preds = %514
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.61, i32 noundef %509) #12
-  br label %526
+516:                                              ; preds = %515
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.61, i32 noundef %510) #12
+  br label %527
 
-516:                                              ; preds = %514, %514
+517:                                              ; preds = %515, %515
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.62) #12
-  %517 = load i32, ptr %492, align 1, !tbaa !63
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.63, i32 noundef %517) #12
-  %518 = load i32, ptr %508, align 1, !tbaa !61
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.64, i32 noundef %518) #12
-  %519 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %492, i64 0, i32 2
-  %520 = load i32, ptr %519, align 1, !tbaa !64
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.65, i32 noundef %520) #12
-  %521 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %492, i64 0, i32 3
-  %522 = load i64, ptr %521, align 1, !tbaa !65
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.66, i64 noundef %522) #12
-  %523 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %492, i64 0, i32 4
-  %524 = load i64, ptr %523, align 1, !tbaa !66
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.67, i64 noundef %524) #12
-  %525 = load i64, ptr %510, align 1, !tbaa !62
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.68, i64 noundef %525) #12
-  br label %527
+  %518 = load i32, ptr %491, align 1, !tbaa !63
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.63, i32 noundef %518) #12
+  %519 = load i32, ptr %509, align 1, !tbaa !61
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.64, i32 noundef %519) #12
+  %520 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %491, i64 0, i32 2
+  %521 = load i32, ptr %520, align 1, !tbaa !64
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.65, i32 noundef %521) #12
+  %522 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %491, i64 0, i32 3
+  %523 = load i64, ptr %522, align 1, !tbaa !65
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.66, i64 noundef %523) #12
+  %524 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %491, i64 0, i32 4
+  %525 = load i64, ptr %524, align 1, !tbaa !66
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.67, i64 noundef %525) #12
+  %526 = load i64, ptr %511, align 1, !tbaa !62
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.68, i64 noundef %526) #12
+  br label %528
 
-526:                                              ; preds = %515, %513, %504, %501, %496
-  call void @free(ptr noundef nonnull %492) #12
-  br label %527
+527:                                              ; preds = %516, %514, %505, %502, %498, %493
+  call void @free(ptr noundef nonnull %491) #12
+  br label %528
 
-527:                                              ; preds = %526, %516, %491, %484, %480, %477, %467, %464, %460, %442, %411, %405, %401
-  %528 = phi ptr [ %397, %477 ], [ %397, %401 ], [ %397, %405 ], [ %397, %411 ], [ %397, %442 ], [ %397, %460 ], [ %397, %464 ], [ %397, %467 ], [ null, %526 ], [ %492, %516 ], [ null, %480 ], [ null, %484 ], [ null, %491 ]
-  %529 = phi ptr [ %396, %477 ], [ null, %401 ], [ null, %405 ], [ null, %411 ], [ %412, %442 ], [ null, %460 ], [ %396, %464 ], [ %396, %467 ], [ %396, %526 ], [ %396, %516 ], [ %396, %480 ], [ %396, %484 ], [ %396, %491 ]
-  %530 = phi ptr [ %395, %477 ], [ %395, %401 ], [ %395, %405 ], [ %395, %411 ], [ %395, %442 ], [ %395, %460 ], [ null, %464 ], [ %465, %467 ], [ %395, %526 ], [ %395, %516 ], [ %395, %480 ], [ %395, %484 ], [ %395, %491 ]
-  %531 = getelementptr inbounds %struct.file_list_tag, ptr %394, i64 0, i32 4
-  %532 = load ptr, ptr %531, align 8, !tbaa !5
-  %533 = icmp eq ptr %532, null
-  br i1 %533, label %534, label %393, !llvm.loop !67
+528:                                              ; preds = %527, %517, %490, %483, %479, %476, %466, %463, %459, %441, %410, %404, %400
+  %529 = phi ptr [ %396, %476 ], [ %396, %400 ], [ %396, %404 ], [ %396, %410 ], [ %396, %441 ], [ %396, %459 ], [ %396, %463 ], [ %396, %466 ], [ null, %527 ], [ %491, %517 ], [ null, %479 ], [ null, %483 ], [ null, %490 ]
+  %530 = phi ptr [ %395, %476 ], [ null, %400 ], [ null, %404 ], [ null, %410 ], [ %411, %441 ], [ null, %459 ], [ %395, %463 ], [ %395, %466 ], [ %395, %527 ], [ %395, %517 ], [ %395, %479 ], [ %395, %483 ], [ %395, %490 ]
+  %531 = phi ptr [ %394, %476 ], [ %394, %400 ], [ %394, %404 ], [ %394, %410 ], [ %394, %441 ], [ %394, %459 ], [ null, %463 ], [ %464, %466 ], [ %394, %527 ], [ %394, %517 ], [ %394, %479 ], [ %394, %483 ], [ %394, %490 ]
+  %532 = getelementptr inbounds %struct.file_list_tag, ptr %393, i64 0, i32 4
+  %533 = load ptr, ptr %532, align 8, !tbaa !5
+  %534 = icmp eq ptr %533, null
+  br i1 %534, label %535, label %392, !llvm.loop !67
 
-534:                                              ; preds = %527
-  %535 = icmp ne ptr %530, null
-  %536 = icmp ne ptr %528, null
-  %537 = select i1 %535, i1 %536, i1 false
-  %538 = icmp ne ptr %529, null
-  %539 = select i1 %537, i1 %538, i1 false
-  br i1 %539, label %540, label %643
+535:                                              ; preds = %528
+  %536 = icmp ne ptr %531, null
+  %537 = icmp ne ptr %529, null
+  %538 = select i1 %536, i1 %537, i1 false
+  %539 = icmp ne ptr %530, null
+  %540 = select i1 %538, i1 %539, i1 false
+  br i1 %540, label %541, label %644
 
-540:                                              ; preds = %534
-  %541 = getelementptr inbounds %struct.lzx_control_tag, ptr %529, i64 0, i32 4
-  %542 = load i32, ptr %541, align 1, !tbaa !53
-  switch i32 %542, label %549 [
-    i32 32768, label %551
-    i32 65536, label %543
-    i32 131072, label %544
-    i32 262144, label %545
-    i32 524288, label %546
-    i32 1048576, label %547
-    i32 2097152, label %548
+541:                                              ; preds = %535
+  %542 = getelementptr inbounds %struct.lzx_control_tag, ptr %530, i64 0, i32 4
+  %543 = load i32, ptr %542, align 1, !tbaa !53
+  switch i32 %543, label %550 [
+    i32 32768, label %552
+    i32 65536, label %544
+    i32 131072, label %545
+    i32 262144, label %546
+    i32 524288, label %547
+    i32 1048576, label %548
+    i32 2097152, label %549
   ]
 
-543:                                              ; preds = %540
-  br label %551
+544:                                              ; preds = %541
+  br label %552
 
-544:                                              ; preds = %540
-  br label %551
+545:                                              ; preds = %541
+  br label %552
 
-545:                                              ; preds = %540
-  br label %551
+546:                                              ; preds = %541
+  br label %552
 
-546:                                              ; preds = %540
-  br label %551
+547:                                              ; preds = %541
+  br label %552
 
-547:                                              ; preds = %540
-  br label %551
+548:                                              ; preds = %541
+  br label %552
 
-548:                                              ; preds = %540
-  br label %551
+549:                                              ; preds = %541
+  br label %552
 
-549:                                              ; preds = %540
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.41, i32 noundef %542) #12
-  %550 = call i32 @close(i32 noundef %383) #12
-  br label %651
-
-551:                                              ; preds = %548, %547, %546, %545, %544, %543, %540
-  %552 = phi i32 [ 21, %548 ], [ 20, %547 ], [ 19, %546 ], [ 18, %545 ], [ 17, %544 ], [ 16, %543 ], [ 15, %540 ]
-  %553 = getelementptr inbounds %struct.lzx_control_tag, ptr %529, i64 0, i32 3
-  %554 = load i32, ptr %553, align 1, !tbaa !52
-  %555 = and i32 %554, 32767
-  %556 = icmp eq i32 %555, 0
-  br i1 %556, label %559, label %557
-
-557:                                              ; preds = %551
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.42, i32 noundef %542) #12
-  %558 = call i32 @close(i32 noundef %383) #12
-  br label %651
-
-559:                                              ; preds = %551
-  %560 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %528, i64 0, i32 3
-  %561 = load i64, ptr %560, align 1, !tbaa !65
-  %562 = trunc i64 %561 to i32
-  %563 = add i32 %554, %562
-  %564 = sub i32 0, %554
-  %565 = and i32 %563, %564
-  %566 = load i64, ptr %530, align 8, !tbaa !56
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.43, i64 noundef %566) #12
-  %567 = load i32, ptr %553, align 1, !tbaa !52
-  %568 = lshr i32 %567, 15
-  %569 = sext i32 %565 to i64
-  %570 = call ptr @lzx_init(i32 noundef %0, i32 noundef %383, i32 noundef %552, i32 noundef %568, i32 noundef 4096, i64 noundef %569, ptr noundef null, ptr noundef null) #12
-  %571 = call i64 @lseek(i32 noundef %0, i64 noundef %566, i32 noundef 0) #12
-  %572 = icmp eq ptr %570, null
-  br i1 %572, label %573, label %575
-
-573:                                              ; preds = %559
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.44) #12
-  %574 = call i32 @close(i32 noundef %383) #12
-  br label %651
-
-575:                                              ; preds = %559
-  %576 = call i32 @lzx_decompress(ptr noundef nonnull %570, i64 noundef %569) #12
-  call void @lzx_free(ptr noundef nonnull %570) #12
-  %577 = load ptr, ptr %11, align 8, !tbaa !5
-  %578 = call i32 @close(i32 noundef %383) #12
-  %579 = call i32 (ptr, i32, ...) @open(ptr noundef nonnull %4, i32 noundef 0) #12
-  %580 = icmp slt i32 %579, 0
-  br i1 %580, label %581, label %582
-
-581:                                              ; preds = %575
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.45) #12
-  br label %651
-
-582:                                              ; preds = %575
-  %583 = call i32 @unlink(ptr noundef nonnull %4) #12
-  %584 = icmp eq ptr %577, null
-  br i1 %584, label %585, label %587
-
-585:                                              ; preds = %582
-  %586 = call i32 @close(i32 noundef %579) #12
-  br label %651
-
-587:                                              ; preds = %582, %637
-  %588 = phi ptr [ %640, %637 ], [ %577, %582 ]
-  %589 = phi i32 [ %641, %637 ], [ 0, %582 ]
-  br label %590
-
-590:                                              ; preds = %595, %587
-  %591 = phi ptr [ %588, %587 ], [ %597, %595 ]
-  %592 = getelementptr inbounds %struct.file_list_tag, ptr %591, i64 0, i32 1
-  %593 = load i64, ptr %592, align 8, !tbaa !42
-  %594 = icmp eq i64 %593, 1
-  br i1 %594, label %599, label %595
-
-595:                                              ; preds = %606, %605, %590
-  %596 = getelementptr inbounds %struct.file_list_tag, ptr %591, i64 0, i32 4
-  %597 = load ptr, ptr %596, align 8, !tbaa !5
-  %598 = icmp eq ptr %597, null
-  br i1 %598, label %645, label %590, !llvm.loop !68
-
-599:                                              ; preds = %590
-  %600 = getelementptr inbounds %struct.file_list_tag, ptr %591, i64 0, i32 2
-  %601 = load i64, ptr %600, align 8, !tbaa !43
-  %602 = call i64 @lseek(i32 noundef %579, i64 noundef %601, i32 noundef 0) #12
-  %603 = load i64, ptr %600, align 8, !tbaa !43
-  %604 = icmp eq i64 %602, %603
-  br i1 %604, label %606, label %605
-
-605:                                              ; preds = %599
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.46) #12
-  br label %595
-
-606:                                              ; preds = %599
-  %607 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %4, i64 noundef 1024, ptr noundef nonnull @.str.47, ptr noundef %1, i32 noundef %589, i64 noundef %602) #12
-  %608 = call i32 (ptr, i32, ...) @open(ptr noundef nonnull %4, i32 noundef 577, i32 noundef 448) #12
-  %609 = icmp slt i32 %608, 0
-  br i1 %609, label %595, label %610
-
-610:                                              ; preds = %606
-  %611 = getelementptr inbounds %struct.file_list_tag, ptr %591, i64 0, i32 3
-  %612 = load i64, ptr %611, align 8, !tbaa !44
-  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %3) #12
-  %613 = icmp eq i64 %612, 0
-  br i1 %613, label %632, label %614
-
-614:                                              ; preds = %610, %629
-  %615 = phi i64 [ %630, %629 ], [ %612, %610 ]
-  %616 = call i64 @llvm.umin.i64(i64 %615, i64 8192)
-  %617 = trunc i64 %616 to i32
-  %618 = call i32 @cli_readn(i32 noundef %579, ptr noundef nonnull %3, i32 noundef %617) #12
-  %619 = sext i32 %618 to i64
-  %620 = icmp eq i64 %616, %619
-  br i1 %620, label %623, label %621
-
-621:                                              ; preds = %614
-  %622 = sub i64 %612, %615
-  br label %632
-
-623:                                              ; preds = %614
-  %624 = call i32 @cli_writen(i32 noundef %608, ptr noundef nonnull %3, i32 noundef %618) #12
-  %625 = icmp eq i32 %624, %618
-  br i1 %625, label %629, label %626
-
-626:                                              ; preds = %623
-  %627 = add i64 %615, %616
-  %628 = sub i64 %612, %627
-  br label %632
-
-629:                                              ; preds = %623
-  %630 = sub i64 %615, %616
-  %631 = icmp eq i64 %630, 0
-  br i1 %631, label %632, label %614, !llvm.loop !69
-
-632:                                              ; preds = %629, %626, %621, %610
-  %633 = phi i64 [ %622, %621 ], [ %628, %626 ], [ 0, %610 ], [ %612, %629 ]
-  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %3) #12
-  %634 = load i64, ptr %611, align 8, !tbaa !44
-  %635 = icmp eq i64 %633, %634
-  br i1 %635, label %637, label %636
-
-636:                                              ; preds = %632
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.48, i64 noundef %634) #12
-  br label %637
-
-637:                                              ; preds = %636, %632
-  %638 = call i32 @close(i32 noundef %608) #12
-  %639 = getelementptr inbounds %struct.file_list_tag, ptr %591, i64 0, i32 4
-  %640 = load ptr, ptr %639, align 8, !tbaa !5
-  %641 = add nuw nsw i32 %589, 1
-  %642 = icmp eq ptr %640, null
-  br i1 %642, label %645, label %587, !llvm.loop !68
-
-643:                                              ; preds = %534
-  %644 = call i32 @close(i32 noundef %383) #12
-  br i1 %535, label %647, label %648
-
-645:                                              ; preds = %637, %595
-  %646 = call i32 @close(i32 noundef %579) #12
-  br label %647
-
-647:                                              ; preds = %645, %643
-  call void @free(ptr noundef nonnull %530) #12
-  br i1 %536, label %649, label %650
-
-648:                                              ; preds = %643
-  br i1 %536, label %649, label %650
-
-649:                                              ; preds = %648, %647
-  call void @free(ptr noundef nonnull %528) #12
-  br i1 %538, label %652, label %653
-
-650:                                              ; preds = %648, %647
-  br i1 %538, label %652, label %653
-
-651:                                              ; preds = %585, %581, %573, %557, %549
-  call void @free(ptr noundef nonnull %530) #12
-  call void @free(ptr noundef nonnull %528) #12
+550:                                              ; preds = %541
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.41, i32 noundef %543) #12
+  %551 = call i32 @close(i32 noundef %382) #12
   br label %652
 
-652:                                              ; preds = %651, %650, %649
+552:                                              ; preds = %549, %548, %547, %546, %545, %544, %541
+  %553 = phi i32 [ 21, %549 ], [ 20, %548 ], [ 19, %547 ], [ 18, %546 ], [ 17, %545 ], [ 16, %544 ], [ 15, %541 ]
+  %554 = getelementptr inbounds %struct.lzx_control_tag, ptr %530, i64 0, i32 3
+  %555 = load i32, ptr %554, align 1, !tbaa !52
+  %556 = and i32 %555, 32767
+  %557 = icmp eq i32 %556, 0
+  br i1 %557, label %560, label %558
+
+558:                                              ; preds = %552
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.42, i32 noundef %543) #12
+  %559 = call i32 @close(i32 noundef %382) #12
+  br label %652
+
+560:                                              ; preds = %552
+  %561 = getelementptr inbounds %struct.lzx_reset_table_tag, ptr %529, i64 0, i32 3
+  %562 = load i64, ptr %561, align 1, !tbaa !65
+  %563 = trunc i64 %562 to i32
+  %564 = add i32 %555, %563
+  %565 = sub i32 0, %555
+  %566 = and i32 %564, %565
+  %567 = load i64, ptr %531, align 8, !tbaa !56
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.43, i64 noundef %567) #12
+  %568 = load i32, ptr %554, align 1, !tbaa !52
+  %569 = lshr i32 %568, 15
+  %570 = sext i32 %566 to i64
+  %571 = call ptr @lzx_init(i32 noundef %0, i32 noundef %382, i32 noundef %553, i32 noundef %569, i32 noundef 4096, i64 noundef %570, ptr noundef null, ptr noundef null) #12
+  %572 = call i64 @lseek(i32 noundef %0, i64 noundef %567, i32 noundef 0) #12
+  %573 = icmp eq ptr %571, null
+  br i1 %573, label %574, label %576
+
+574:                                              ; preds = %560
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.44) #12
+  %575 = call i32 @close(i32 noundef %382) #12
+  br label %652
+
+576:                                              ; preds = %560
+  %577 = call i32 @lzx_decompress(ptr noundef nonnull %571, i64 noundef %570) #12
+  call void @lzx_free(ptr noundef nonnull %571) #12
+  %578 = load ptr, ptr %11, align 8, !tbaa !5
+  %579 = call i32 @close(i32 noundef %382) #12
+  %580 = call i32 (ptr, i32, ...) @open(ptr noundef nonnull %4, i32 noundef 0) #12
+  %581 = icmp slt i32 %580, 0
+  br i1 %581, label %582, label %583
+
+582:                                              ; preds = %576
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.45) #12
+  br label %652
+
+583:                                              ; preds = %576
+  %584 = call i32 @unlink(ptr noundef nonnull %4) #12
+  %585 = icmp eq ptr %578, null
+  br i1 %585, label %586, label %588
+
+586:                                              ; preds = %583
+  %587 = call i32 @close(i32 noundef %580) #12
+  br label %652
+
+588:                                              ; preds = %583, %638
+  %589 = phi ptr [ %641, %638 ], [ %578, %583 ]
+  %590 = phi i32 [ %642, %638 ], [ 0, %583 ]
+  br label %591
+
+591:                                              ; preds = %596, %588
+  %592 = phi ptr [ %589, %588 ], [ %598, %596 ]
+  %593 = getelementptr inbounds %struct.file_list_tag, ptr %592, i64 0, i32 1
+  %594 = load i64, ptr %593, align 8, !tbaa !42
+  %595 = icmp eq i64 %594, 1
+  br i1 %595, label %600, label %596
+
+596:                                              ; preds = %607, %606, %591
+  %597 = getelementptr inbounds %struct.file_list_tag, ptr %592, i64 0, i32 4
+  %598 = load ptr, ptr %597, align 8, !tbaa !5
+  %599 = icmp eq ptr %598, null
+  br i1 %599, label %646, label %591, !llvm.loop !68
+
+600:                                              ; preds = %591
+  %601 = getelementptr inbounds %struct.file_list_tag, ptr %592, i64 0, i32 2
+  %602 = load i64, ptr %601, align 8, !tbaa !43
+  %603 = call i64 @lseek(i32 noundef %580, i64 noundef %602, i32 noundef 0) #12
+  %604 = load i64, ptr %601, align 8, !tbaa !43
+  %605 = icmp eq i64 %603, %604
+  br i1 %605, label %607, label %606
+
+606:                                              ; preds = %600
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.46) #12
+  br label %596
+
+607:                                              ; preds = %600
+  %608 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %4, i64 noundef 1024, ptr noundef nonnull @.str.47, ptr noundef %1, i32 noundef %590, i64 noundef %603) #12
+  %609 = call i32 (ptr, i32, ...) @open(ptr noundef nonnull %4, i32 noundef 577, i32 noundef 448) #12
+  %610 = icmp slt i32 %609, 0
+  br i1 %610, label %596, label %611
+
+611:                                              ; preds = %607
+  %612 = getelementptr inbounds %struct.file_list_tag, ptr %592, i64 0, i32 3
+  %613 = load i64, ptr %612, align 8, !tbaa !44
+  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %3) #12
+  %614 = icmp eq i64 %613, 0
+  br i1 %614, label %633, label %615
+
+615:                                              ; preds = %611, %630
+  %616 = phi i64 [ %631, %630 ], [ %613, %611 ]
+  %617 = call i64 @llvm.umin.i64(i64 %616, i64 8192)
+  %618 = trunc i64 %617 to i32
+  %619 = call i32 @cli_readn(i32 noundef %580, ptr noundef nonnull %3, i32 noundef %618) #12
+  %620 = sext i32 %619 to i64
+  %621 = icmp eq i64 %617, %620
+  br i1 %621, label %624, label %622
+
+622:                                              ; preds = %615
+  %623 = sub i64 %613, %616
+  br label %633
+
+624:                                              ; preds = %615
+  %625 = call i32 @cli_writen(i32 noundef %609, ptr noundef nonnull %3, i32 noundef %619) #12
+  %626 = icmp eq i32 %625, %619
+  br i1 %626, label %630, label %627
+
+627:                                              ; preds = %624
+  %628 = add i64 %616, %617
+  %629 = sub i64 %613, %628
+  br label %633
+
+630:                                              ; preds = %624
+  %631 = sub i64 %616, %617
+  %632 = icmp eq i64 %631, 0
+  br i1 %632, label %633, label %615, !llvm.loop !69
+
+633:                                              ; preds = %630, %627, %622, %611
+  %634 = phi i64 [ %623, %622 ], [ %629, %627 ], [ 0, %611 ], [ %613, %630 ]
+  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %3) #12
+  %635 = load i64, ptr %612, align 8, !tbaa !44
+  %636 = icmp eq i64 %634, %635
+  br i1 %636, label %638, label %637
+
+637:                                              ; preds = %633
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.48, i64 noundef %635) #12
+  br label %638
+
+638:                                              ; preds = %637, %633
+  %639 = call i32 @close(i32 noundef %609) #12
+  %640 = getelementptr inbounds %struct.file_list_tag, ptr %592, i64 0, i32 4
+  %641 = load ptr, ptr %640, align 8, !tbaa !5
+  %642 = add nuw nsw i32 %590, 1
+  %643 = icmp eq ptr %641, null
+  br i1 %643, label %646, label %588, !llvm.loop !68
+
+644:                                              ; preds = %535
+  %645 = call i32 @close(i32 noundef %382) #12
+  br i1 %536, label %648, label %649
+
+646:                                              ; preds = %638, %596
+  %647 = call i32 @close(i32 noundef %580) #12
+  br label %648
+
+648:                                              ; preds = %646, %644
+  call void @free(ptr noundef nonnull %531) #12
+  br i1 %537, label %650, label %651
+
+649:                                              ; preds = %644
+  br i1 %537, label %650, label %651
+
+650:                                              ; preds = %649, %648
+  call void @free(ptr noundef nonnull %529) #12
+  br i1 %539, label %653, label %654
+
+651:                                              ; preds = %649, %648
+  br i1 %539, label %653, label %654
+
+652:                                              ; preds = %586, %582, %574, %558, %550
+  call void @free(ptr noundef nonnull %531) #12
   call void @free(ptr noundef nonnull %529) #12
   br label %653
 
-653:                                              ; preds = %388, %392, %649, %650, %652
+653:                                              ; preds = %652, %651, %650
+  call void @free(ptr noundef nonnull %530) #12
+  br label %654
+
+654:                                              ; preds = %387, %391, %650, %651, %653
   call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %4) #12
-  br label %656
+  br label %657
 
-654:                                              ; preds = %347, %207, %203, %197, %187, %183, %178, %175, %172, %169, %166
-  %655 = load ptr, ptr %163, align 8, !tbaa !36
-  call void @free(ptr noundef %655) #12
+655:                                              ; preds = %197, %203, %206, %178, %183, %187, %166, %170, %172, %175, %346
+  %656 = load ptr, ptr %163, align 8, !tbaa !36
+  call void @free(ptr noundef %656) #12
   call void @free(ptr noundef nonnull %158) #12
-  br label %656
+  br label %657
 
-656:                                              ; preds = %157, %151, %654, %98, %84, %81, %76, %72, %31, %27, %40, %165, %19, %653
-  %657 = phi ptr [ null, %19 ], [ %37, %653 ], [ %37, %165 ], [ null, %31 ], [ null, %27 ], [ %37, %40 ], [ %37, %72 ], [ %37, %76 ], [ %37, %81 ], [ %37, %84 ], [ %37, %98 ], [ %37, %654 ], [ %37, %151 ], [ %37, %157 ]
-  %658 = phi i64 [ 0, %19 ], [ %36, %653 ], [ %36, %165 ], [ %28, %31 ], [ %28, %27 ], [ %36, %40 ], [ %36, %72 ], [ %36, %76 ], [ %36, %81 ], [ %36, %84 ], [ %36, %98 ], [ %36, %654 ], [ %36, %151 ], [ %36, %157 ]
-  %659 = phi i32 [ 0, %19 ], [ 1, %653 ], [ 0, %165 ], [ 0, %31 ], [ 0, %27 ], [ 0, %40 ], [ 0, %72 ], [ 0, %76 ], [ 0, %81 ], [ 0, %84 ], [ 0, %98 ], [ 0, %654 ], [ 0, %151 ], [ 0, %157 ]
-  br label %660
+657:                                              ; preds = %157, %151, %655, %165, %72, %76, %81, %84, %98, %27, %31, %40, %19, %654
+  %658 = phi ptr [ null, %19 ], [ %37, %654 ], [ %37, %40 ], [ null, %31 ], [ null, %27 ], [ %37, %98 ], [ %37, %84 ], [ %37, %81 ], [ %37, %76 ], [ %37, %72 ], [ %37, %165 ], [ %37, %655 ], [ %37, %151 ], [ %37, %157 ]
+  %659 = phi i64 [ 0, %19 ], [ %36, %654 ], [ %36, %40 ], [ %28, %31 ], [ %28, %27 ], [ %36, %98 ], [ %36, %84 ], [ %36, %81 ], [ %36, %76 ], [ %36, %72 ], [ %36, %165 ], [ %36, %655 ], [ %36, %151 ], [ %36, %157 ]
+  %660 = phi i32 [ 0, %19 ], [ 1, %654 ], [ 0, %40 ], [ 0, %31 ], [ 0, %27 ], [ 0, %98 ], [ 0, %84 ], [ 0, %81 ], [ 0, %76 ], [ 0, %72 ], [ 0, %165 ], [ 0, %655 ], [ 0, %151 ], [ 0, %157 ]
+  br label %661
 
-660:                                              ; preds = %656, %667
-  %661 = phi ptr [ %663, %667 ], [ %8, %656 ]
-  %662 = getelementptr inbounds %struct.file_list_tag, ptr %661, i64 0, i32 4
-  %663 = load ptr, ptr %662, align 8, !tbaa !5
-  %664 = load ptr, ptr %661, align 8, !tbaa !11
-  %665 = icmp eq ptr %664, null
-  br i1 %665, label %667, label %666
+661:                                              ; preds = %657, %668
+  %662 = phi ptr [ %664, %668 ], [ %8, %657 ]
+  %663 = getelementptr inbounds %struct.file_list_tag, ptr %662, i64 0, i32 4
+  %664 = load ptr, ptr %663, align 8, !tbaa !5
+  %665 = load ptr, ptr %662, align 8, !tbaa !11
+  %666 = icmp eq ptr %665, null
+  br i1 %666, label %668, label %667
 
-666:                                              ; preds = %660
-  call void @free(ptr noundef nonnull %664) #12
-  br label %667
+667:                                              ; preds = %661
+  call void @free(ptr noundef nonnull %665) #12
+  br label %668
 
-667:                                              ; preds = %666, %660
-  call void @free(ptr noundef nonnull %661) #12
-  %668 = icmp eq ptr %663, null
-  br i1 %668, label %669, label %660, !llvm.loop !70
+668:                                              ; preds = %667, %661
+  call void @free(ptr noundef nonnull %662) #12
+  %669 = icmp eq ptr %664, null
+  br i1 %669, label %670, label %661, !llvm.loop !70
 
-669:                                              ; preds = %667, %676
-  %670 = phi ptr [ %672, %676 ], [ %12, %667 ]
-  %671 = getelementptr inbounds %struct.file_list_tag, ptr %670, i64 0, i32 4
-  %672 = load ptr, ptr %671, align 8, !tbaa !5
-  %673 = load ptr, ptr %670, align 8, !tbaa !11
-  %674 = icmp eq ptr %673, null
-  br i1 %674, label %676, label %675
+670:                                              ; preds = %668, %677
+  %671 = phi ptr [ %673, %677 ], [ %12, %668 ]
+  %672 = getelementptr inbounds %struct.file_list_tag, ptr %671, i64 0, i32 4
+  %673 = load ptr, ptr %672, align 8, !tbaa !5
+  %674 = load ptr, ptr %671, align 8, !tbaa !11
+  %675 = icmp eq ptr %674, null
+  br i1 %675, label %677, label %676
 
-675:                                              ; preds = %669
-  call void @free(ptr noundef nonnull %673) #12
-  br label %676
+676:                                              ; preds = %670
+  call void @free(ptr noundef nonnull %674) #12
+  br label %677
 
-676:                                              ; preds = %675, %669
-  call void @free(ptr noundef nonnull %670) #12
-  %677 = icmp eq ptr %672, null
-  br i1 %677, label %678, label %669, !llvm.loop !70
+677:                                              ; preds = %676, %670
+  call void @free(ptr noundef nonnull %671) #12
+  %678 = icmp eq ptr %673, null
+  br i1 %678, label %679, label %670, !llvm.loop !70
 
-678:                                              ; preds = %676
-  %679 = icmp eq ptr %657, null
-  br i1 %679, label %682, label %680
+679:                                              ; preds = %677
+  %680 = icmp eq ptr %658, null
+  br i1 %680, label %683, label %681
 
-680:                                              ; preds = %678
-  %681 = call i32 @munmap(ptr noundef nonnull %657, i64 noundef %658) #12
-  br label %682
+681:                                              ; preds = %679
+  %682 = call i32 @munmap(ptr noundef nonnull %658, i64 noundef %659) #12
+  br label %683
 
-682:                                              ; preds = %678, %680, %2, %14
-  %683 = phi i32 [ 0, %14 ], [ 0, %2 ], [ %659, %680 ], [ %659, %678 ]
+683:                                              ; preds = %679, %681, %2, %14
+  %684 = phi i32 [ 0, %14 ], [ 0, %2 ], [ %660, %681 ], [ %660, %679 ]
   call void @llvm.lifetime.end.p0(i64 84, ptr nonnull %7) #12
   call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %6) #12
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %5) #12
-  ret i32 %683
+  ret i32 %684
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

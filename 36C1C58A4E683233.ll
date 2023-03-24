@@ -707,7 +707,7 @@ define dso_local noundef ptr @_ZN31btDefaultCollisionConfiguration31getCollision
 
 7:                                                ; preds = %3
   %8 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 16
-  br label %61
+  br label %62
 
 9:                                                ; preds = %3
   %10 = icmp eq i32 %2, 1
@@ -716,7 +716,7 @@ define dso_local noundef ptr @_ZN31btDefaultCollisionConfiguration31getCollision
 
 12:                                               ; preds = %9
   %13 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 18
-  br label %61
+  br label %62
 
 14:                                               ; preds = %9
   %15 = icmp eq i32 %1, 1
@@ -725,7 +725,7 @@ define dso_local noundef ptr @_ZN31btDefaultCollisionConfiguration31getCollision
 
 17:                                               ; preds = %14
   %18 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 19
-  br label %61
+  br label %62
 
 19:                                               ; preds = %14
   %20 = or i32 %2, %1
@@ -734,7 +734,7 @@ define dso_local noundef ptr @_ZN31btDefaultCollisionConfiguration31getCollision
 
 22:                                               ; preds = %19
   %23 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 17
-  br label %61
+  br label %62
 
 24:                                               ; preds = %19
   %25 = icmp slt i32 %1, 20
@@ -744,7 +744,7 @@ define dso_local noundef ptr @_ZN31btDefaultCollisionConfiguration31getCollision
 
 28:                                               ; preds = %24
   %29 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 21
-  br label %61
+  br label %62
 
 30:                                               ; preds = %24
   %31 = icmp slt i32 %2, 20
@@ -754,61 +754,60 @@ define dso_local noundef ptr @_ZN31btDefaultCollisionConfiguration31getCollision
 
 34:                                               ; preds = %30
   %35 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 20
-  br label %61
+  br label %62
 
 36:                                               ; preds = %30
-  br i1 %25, label %37, label %45
+  %37 = and i1 %25, %31
+  br i1 %37, label %38, label %40
 
-37:                                               ; preds = %36
-  br i1 %31, label %38, label %40
-
-38:                                               ; preds = %37
+38:                                               ; preds = %36
   %39 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 10
-  br label %61
+  br label %62
 
-40:                                               ; preds = %37
-  %41 = add nsw i32 %2, -21
+40:                                               ; preds = %36
+  %41 = add i32 %2, -21
   %42 = icmp ult i32 %41, 9
-  br i1 %42, label %43, label %55
+  %43 = and i1 %25, %42
+  br i1 %43, label %44, label %46
 
-43:                                               ; preds = %40
-  %44 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 11
-  br label %61
+44:                                               ; preds = %40
+  %45 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 11
+  br label %62
 
-45:                                               ; preds = %36
-  %46 = add nsw i32 %1, -21
-  %47 = icmp ult i32 %46, 9
-  %48 = select i1 %31, i1 %47, i1 false
-  br i1 %48, label %49, label %51
+46:                                               ; preds = %40
+  %47 = add i32 %1, -21
+  %48 = icmp ult i32 %47, 9
+  %49 = and i1 %31, %48
+  br i1 %49, label %50, label %52
 
-49:                                               ; preds = %45
-  %50 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 12
-  br label %61
+50:                                               ; preds = %46
+  %51 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 12
+  br label %62
 
-51:                                               ; preds = %45
-  %52 = icmp eq i32 %1, 31
-  br i1 %52, label %53, label %55
+52:                                               ; preds = %46
+  %53 = icmp eq i32 %1, 31
+  br i1 %53, label %54, label %56
 
-53:                                               ; preds = %51
-  %54 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 13
-  br label %61
+54:                                               ; preds = %52
+  %55 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 13
+  br label %62
 
-55:                                               ; preds = %40, %51
-  %56 = icmp eq i32 %2, 31
-  br i1 %56, label %57, label %59
+56:                                               ; preds = %52
+  %57 = icmp eq i32 %2, 31
+  br i1 %57, label %58, label %60
 
-57:                                               ; preds = %55
-  %58 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 14
-  br label %61
+58:                                               ; preds = %56
+  %59 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 14
+  br label %62
 
-59:                                               ; preds = %55
-  %60 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 15
-  br label %61
+60:                                               ; preds = %56
+  %61 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %0, i64 0, i32 15
+  br label %62
 
-61:                                               ; preds = %59, %57, %53, %49, %43, %38, %34, %28, %22, %17, %12, %7
-  %62 = phi ptr [ %8, %7 ], [ %13, %12 ], [ %18, %17 ], [ %23, %22 ], [ %29, %28 ], [ %35, %34 ], [ %39, %38 ], [ %44, %43 ], [ %50, %49 ], [ %54, %53 ], [ %58, %57 ], [ %60, %59 ]
-  %63 = load ptr, ptr %62, align 8, !tbaa !51
-  ret ptr %63
+62:                                               ; preds = %60, %58, %54, %50, %44, %38, %34, %28, %22, %17, %12, %7
+  %63 = phi ptr [ %8, %7 ], [ %13, %12 ], [ %18, %17 ], [ %23, %22 ], [ %29, %28 ], [ %35, %34 ], [ %39, %38 ], [ %45, %44 ], [ %51, %50 ], [ %55, %54 ], [ %59, %58 ], [ %61, %60 ]
+  %64 = load ptr, ptr %63, align 8, !tbaa !51
+  ret ptr %64
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable

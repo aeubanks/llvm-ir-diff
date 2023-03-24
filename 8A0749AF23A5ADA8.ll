@@ -793,10 +793,10 @@ define internal fastcc i32 @simil(ptr noundef %0, ptr noundef %1) unnamed_addr #
   br label %234
 
 221:                                              ; preds = %55, %218, %201, %163
-  %222 = phi ptr [ %165, %163 ], [ %165, %218 ], [ %165, %201 ], [ %40, %55 ]
-  %223 = phi ptr [ %164, %163 ], [ %164, %218 ], [ %164, %201 ], [ %41, %55 ]
-  %224 = phi ptr [ %56, %163 ], [ %213, %218 ], [ %195, %201 ], [ %56, %55 ]
-  %225 = phi i32 [ %39, %163 ], [ %168, %218 ], [ %168, %201 ], [ %39, %55 ]
+  %222 = phi ptr [ %165, %218 ], [ %165, %201 ], [ %165, %163 ], [ %40, %55 ]
+  %223 = phi ptr [ %164, %218 ], [ %164, %201 ], [ %164, %163 ], [ %41, %55 ]
+  %224 = phi ptr [ %213, %218 ], [ %195, %201 ], [ %56, %163 ], [ %56, %55 ]
+  %225 = phi i32 [ %168, %218 ], [ %168, %201 ], [ %39, %163 ], [ %39, %55 ]
   %226 = icmp eq ptr %224, null
   br i1 %226, label %227, label %38, !llvm.loop !30
 
@@ -1906,8 +1906,8 @@ define dso_local i32 @messageHasFilename(ptr nocapture noundef readonly %0) loca
   %75 = icmp eq i64 %74, %45
   br i1 %75, label %76, label %46, !llvm.loop !49
 
-76:                                               ; preds = %73, %72, %70, %40, %1, %33
-  %77 = phi i32 [ 1, %33 ], [ 0, %1 ], [ 0, %40 ], [ 1, %70 ], [ 0, %72 ], [ 0, %73 ]
+76:                                               ; preds = %73, %1, %72, %70, %40, %33
+  %77 = phi i32 [ 1, %33 ], [ 0, %40 ], [ 1, %70 ], [ 0, %72 ], [ 0, %1 ], [ 0, %73 ]
   ret i32 %77
 }
 
@@ -2243,197 +2243,201 @@ define internal fastcc void @messageIsEncoding(ptr nocapture noundef %0) unnamed
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @messageAddStr(ptr nocapture noundef %0, ptr noundef %1) local_unnamed_addr #0 {
   %3 = icmp eq ptr %1, null
-  br i1 %3, label %28, label %4
+  br i1 %3, label %32, label %4
 
 4:                                                ; preds = %2
   %5 = load i8, ptr %1, align 1, !tbaa !20
   %6 = icmp eq i8 %5, 0
-  br i1 %6, label %28, label %7
+  br i1 %6, label %32, label %7
 
 7:                                                ; preds = %4
-  %8 = icmp sgt i8 %5, 0
-  br i1 %8, label %9, label %28
+  %8 = icmp sgt i8 %5, -1
+  br i1 %8, label %9, label %32
 
 9:                                                ; preds = %7
   %10 = tail call ptr @__ctype_b_loc() #19
   %11 = load ptr, ptr %10, align 8, !tbaa !15
-  br label %17
+  %12 = zext i8 %5 to i64
+  %13 = getelementptr inbounds i16, ptr %11, i64 %12
+  %14 = load i16, ptr %13, align 2, !tbaa !21
+  %15 = and i16 %14, 8192
+  %16 = icmp eq i16 %15, 0
+  br i1 %16, label %32, label %17
 
-12:                                               ; preds = %17
-  %13 = getelementptr inbounds i8, ptr %19, i64 1
-  %14 = load i8, ptr %13, align 1, !tbaa !20
-  %15 = freeze i8 %14
-  %16 = icmp sgt i8 %15, 0
-  br i1 %16, label %17, label %25, !llvm.loop !66
+17:                                               ; preds = %9, %25
+  %18 = phi ptr [ %19, %25 ], [ %1, %9 ]
+  %19 = getelementptr inbounds i8, ptr %18, i64 1
+  %20 = load i8, ptr %19, align 1, !tbaa !20
+  %21 = freeze i8 %20
+  %22 = icmp eq i8 %21, 0
+  %23 = icmp sgt i8 %21, -1
+  %24 = xor i1 %22, %23
+  br i1 %24, label %25, label %31, !llvm.loop !66
 
-17:                                               ; preds = %9, %12
-  %18 = phi i8 [ %5, %9 ], [ %15, %12 ]
-  %19 = phi ptr [ %1, %9 ], [ %13, %12 ]
-  %20 = zext i8 %18 to i64
-  %21 = getelementptr inbounds i16, ptr %11, i64 %20
-  %22 = load i16, ptr %21, align 2, !tbaa !21
-  %23 = and i16 %22, 8192
-  %24 = icmp eq i16 %23, 0
-  br i1 %24, label %28, label %12
+25:                                               ; preds = %17
+  %26 = zext i8 %21 to i64
+  %27 = getelementptr inbounds i16, ptr %11, i64 %26
+  %28 = load i16, ptr %27, align 2, !tbaa !21
+  %29 = and i16 %28, 8192
+  %30 = icmp eq i16 %29, 0
+  br i1 %30, label %31, label %17, !llvm.loop !66
 
-25:                                               ; preds = %12
-  %26 = freeze i8 %14
-  %27 = icmp eq i8 %26, 0
-  br i1 %27, label %33, label %28
+31:                                               ; preds = %25, %17
+  br i1 %22, label %37, label %32
 
-28:                                               ; preds = %17, %7, %25, %4, %2
-  %29 = phi ptr [ null, %2 ], [ null, %4 ], [ %1, %25 ], [ %1, %7 ], [ %1, %17 ]
-  %30 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 7
-  %31 = load ptr, ptr %30, align 8, !tbaa !18
-  %32 = icmp eq ptr %31, null
-  br i1 %32, label %37, label %42
-
-33:                                               ; preds = %25
+32:                                               ; preds = %9, %7, %31, %4, %2
+  %33 = phi ptr [ null, %2 ], [ null, %4 ], [ %1, %31 ], [ %1, %7 ], [ %1, %9 ]
   %34 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 7
   %35 = load ptr, ptr %34, align 8, !tbaa !18
   %36 = icmp eq ptr %35, null
-  br i1 %36, label %37, label %52
+  br i1 %36, label %41, label %46
 
-37:                                               ; preds = %33, %28
-  %38 = phi ptr [ %34, %33 ], [ %30, %28 ]
-  %39 = phi ptr [ @.str.36, %33 ], [ %29, %28 ]
-  %40 = tail call ptr @cli_malloc(i64 noundef 16) #18
-  store ptr %40, ptr %38, align 8, !tbaa !18
-  %41 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 8
-  store ptr %40, ptr %41, align 8, !tbaa !58
-  br label %83
+37:                                               ; preds = %31
+  %38 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 7
+  %39 = load ptr, ptr %38, align 8, !tbaa !18
+  %40 = icmp eq ptr %39, null
+  br i1 %40, label %41, label %56
 
-42:                                               ; preds = %28
-  %43 = icmp eq ptr %29, null
-  br i1 %43, label %44, label %52
-
-44:                                               ; preds = %42
+41:                                               ; preds = %37, %32
+  %42 = phi ptr [ %38, %37 ], [ %34, %32 ]
+  %43 = phi ptr [ @.str.36, %37 ], [ %33, %32 ]
+  %44 = tail call ptr @cli_malloc(i64 noundef 16) #18
+  store ptr %44, ptr %42, align 8, !tbaa !18
   %45 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 8
-  %46 = load ptr, ptr %45, align 8, !tbaa !58
-  %47 = load ptr, ptr %46, align 8, !tbaa !61
-  %48 = icmp eq ptr %47, null
-  br i1 %48, label %49, label %52
+  store ptr %44, ptr %45, align 8, !tbaa !58
+  br label %87
 
-49:                                               ; preds = %44
-  %50 = load i32, ptr %0, align 8, !tbaa !5
-  %51 = icmp eq i32 %50, 6
-  br i1 %51, label %52, label %112
+46:                                               ; preds = %32
+  %47 = icmp eq ptr %33, null
+  br i1 %47, label %48, label %56
 
-52:                                               ; preds = %33, %49, %44, %42
-  %53 = phi i1 [ true, %49 ], [ true, %44 ], [ false, %42 ], [ false, %33 ]
-  %54 = phi ptr [ null, %49 ], [ null, %44 ], [ %29, %42 ], [ @.str.36, %33 ]
-  %55 = tail call ptr @cli_malloc(i64 noundef 16) #18
-  %56 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 8
-  %57 = load ptr, ptr %56, align 8, !tbaa !58
-  %58 = getelementptr inbounds %struct.text, ptr %57, i64 0, i32 1
-  store ptr %55, ptr %58, align 8, !tbaa !59
-  %59 = icmp eq ptr %55, null
-  br i1 %59, label %60, label %66
+48:                                               ; preds = %46
+  %49 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 8
+  %50 = load ptr, ptr %49, align 8, !tbaa !58
+  %51 = load ptr, ptr %50, align 8, !tbaa !61
+  %52 = icmp eq ptr %51, null
+  br i1 %52, label %53, label %56
 
-60:                                               ; preds = %52
+53:                                               ; preds = %48
+  %54 = load i32, ptr %0, align 8, !tbaa !5
+  %55 = icmp eq i32 %54, 6
+  br i1 %55, label %56, label %116
+
+56:                                               ; preds = %37, %53, %48, %46
+  %57 = phi i1 [ true, %53 ], [ true, %48 ], [ false, %46 ], [ false, %37 ]
+  %58 = phi ptr [ null, %53 ], [ null, %48 ], [ %33, %46 ], [ @.str.36, %37 ]
+  %59 = tail call ptr @cli_malloc(i64 noundef 16) #18
+  %60 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 8
+  %61 = load ptr, ptr %60, align 8, !tbaa !58
+  %62 = getelementptr inbounds %struct.text, ptr %61, i64 0, i32 1
+  store ptr %59, ptr %62, align 8, !tbaa !59
+  %63 = icmp eq ptr %59, null
+  br i1 %63, label %64, label %70
+
+64:                                               ; preds = %56
   tail call fastcc void @messageDedup(ptr noundef nonnull %0)
-  %61 = tail call ptr @cli_malloc(i64 noundef 16) #18
-  %62 = load ptr, ptr %56, align 8, !tbaa !58
-  %63 = getelementptr inbounds %struct.text, ptr %62, i64 0, i32 1
-  store ptr %61, ptr %63, align 8, !tbaa !59
-  %64 = icmp eq ptr %61, null
-  br i1 %64, label %65, label %66
+  %65 = tail call ptr @cli_malloc(i64 noundef 16) #18
+  %66 = load ptr, ptr %60, align 8, !tbaa !58
+  %67 = getelementptr inbounds %struct.text, ptr %66, i64 0, i32 1
+  store ptr %65, ptr %67, align 8, !tbaa !59
+  %68 = icmp eq ptr %65, null
+  br i1 %68, label %69, label %70
 
-65:                                               ; preds = %60
+69:                                               ; preds = %64
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.37) #18
-  br label %112
+  br label %116
 
-66:                                               ; preds = %60, %52
-  %67 = phi ptr [ %62, %60 ], [ %57, %52 ]
-  br i1 %53, label %78, label %68
+70:                                               ; preds = %64, %56
+  %71 = phi ptr [ %66, %64 ], [ %61, %56 ]
+  br i1 %57, label %82, label %72
 
-68:                                               ; preds = %66
-  %69 = load ptr, ptr %67, align 8, !tbaa !61
-  %70 = icmp eq ptr %69, null
-  br i1 %70, label %78, label %71
+72:                                               ; preds = %70
+  %73 = load ptr, ptr %71, align 8, !tbaa !61
+  %74 = icmp eq ptr %73, null
+  br i1 %74, label %82, label %75
 
-71:                                               ; preds = %68
-  %72 = tail call ptr @lineGetData(ptr noundef nonnull %69) #18
-  %73 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %54, ptr noundef nonnull dereferenceable(1) %72) #20
-  %74 = icmp eq i32 %73, 0
-  %75 = load ptr, ptr %56, align 8, !tbaa !58
-  br i1 %74, label %76, label %78
+75:                                               ; preds = %72
+  %76 = tail call ptr @lineGetData(ptr noundef nonnull %73) #18
+  %77 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %58, ptr noundef nonnull dereferenceable(1) %76) #20
+  %78 = icmp eq i32 %77, 0
+  %79 = load ptr, ptr %60, align 8, !tbaa !58
+  br i1 %78, label %80, label %82
 
-76:                                               ; preds = %71
-  %77 = load ptr, ptr %75, align 8, !tbaa !61
-  br label %78
+80:                                               ; preds = %75
+  %81 = load ptr, ptr %79, align 8, !tbaa !61
+  br label %82
 
-78:                                               ; preds = %71, %76, %68, %66
-  %79 = phi ptr [ %75, %76 ], [ %67, %68 ], [ %67, %66 ], [ %75, %71 ]
-  %80 = phi ptr [ %77, %76 ], [ null, %68 ], [ null, %66 ], [ null, %71 ]
-  %81 = getelementptr inbounds %struct.text, ptr %79, i64 0, i32 1
-  %82 = load ptr, ptr %81, align 8, !tbaa !59
-  store ptr %82, ptr %56, align 8, !tbaa !58
-  br label %83
+82:                                               ; preds = %75, %80, %72, %70
+  %83 = phi ptr [ %79, %80 ], [ %71, %72 ], [ %71, %70 ], [ %79, %75 ]
+  %84 = phi ptr [ %81, %80 ], [ null, %72 ], [ null, %70 ], [ null, %75 ]
+  %85 = getelementptr inbounds %struct.text, ptr %83, i64 0, i32 1
+  %86 = load ptr, ptr %85, align 8, !tbaa !59
+  store ptr %86, ptr %60, align 8, !tbaa !58
+  br label %87
 
-83:                                               ; preds = %78, %37
-  %84 = phi ptr [ %39, %37 ], [ %54, %78 ]
-  %85 = phi ptr [ %40, %37 ], [ %82, %78 ]
-  %86 = phi ptr [ null, %37 ], [ %80, %78 ]
-  %87 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 8
-  %88 = icmp eq ptr %85, null
-  br i1 %88, label %89, label %90
+87:                                               ; preds = %82, %41
+  %88 = phi ptr [ %43, %41 ], [ %58, %82 ]
+  %89 = phi ptr [ %44, %41 ], [ %86, %82 ]
+  %90 = phi ptr [ null, %41 ], [ %84, %82 ]
+  %91 = getelementptr inbounds %struct.message, ptr %0, i64 0, i32 8
+  %92 = icmp eq ptr %89, null
+  br i1 %92, label %93, label %94
 
-89:                                               ; preds = %83
+93:                                               ; preds = %87
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.37) #18
-  br label %112
+  br label %116
 
-90:                                               ; preds = %83
-  %91 = getelementptr inbounds %struct.text, ptr %85, i64 0, i32 1
-  store ptr null, ptr %91, align 8, !tbaa !59
-  %92 = icmp eq ptr %84, null
-  br i1 %92, label %111, label %93
+94:                                               ; preds = %87
+  %95 = getelementptr inbounds %struct.text, ptr %89, i64 0, i32 1
+  store ptr null, ptr %95, align 8, !tbaa !59
+  %96 = icmp eq ptr %88, null
+  br i1 %96, label %115, label %97
 
-93:                                               ; preds = %90
-  %94 = load i8, ptr %84, align 1, !tbaa !20
-  %95 = icmp eq i8 %94, 0
-  br i1 %95, label %111, label %96
+97:                                               ; preds = %94
+  %98 = load i8, ptr %88, align 1, !tbaa !20
+  %99 = icmp eq i8 %98, 0
+  br i1 %99, label %115, label %100
 
-96:                                               ; preds = %93
-  %97 = icmp eq ptr %86, null
-  br i1 %97, label %101, label %98
+100:                                              ; preds = %97
+  %101 = icmp eq ptr %90, null
+  br i1 %101, label %105, label %102
 
-98:                                               ; preds = %96
-  %99 = tail call ptr @lineLink(ptr noundef nonnull %86) #18
-  %100 = load ptr, ptr %87, align 8, !tbaa !58
-  store ptr %99, ptr %100, align 8, !tbaa !61
-  br label %112
+102:                                              ; preds = %100
+  %103 = tail call ptr @lineLink(ptr noundef nonnull %90) #18
+  %104 = load ptr, ptr %91, align 8, !tbaa !58
+  store ptr %103, ptr %104, align 8, !tbaa !61
+  br label %116
 
-101:                                              ; preds = %96
-  %102 = tail call ptr @lineCreate(ptr noundef nonnull %84) #18
-  %103 = load ptr, ptr %87, align 8, !tbaa !58
-  store ptr %102, ptr %103, align 8, !tbaa !61
-  %104 = icmp eq ptr %102, null
-  br i1 %104, label %105, label %110
-
-105:                                              ; preds = %101
-  tail call fastcc void @messageDedup(ptr noundef nonnull %0)
-  %106 = tail call ptr @lineCreate(ptr noundef nonnull %84) #18
-  %107 = load ptr, ptr %87, align 8, !tbaa !58
+105:                                              ; preds = %100
+  %106 = tail call ptr @lineCreate(ptr noundef nonnull %88) #18
+  %107 = load ptr, ptr %91, align 8, !tbaa !58
   store ptr %106, ptr %107, align 8, !tbaa !61
   %108 = icmp eq ptr %106, null
-  br i1 %108, label %109, label %110
+  br i1 %108, label %109, label %114
 
 109:                                              ; preds = %105
+  tail call fastcc void @messageDedup(ptr noundef nonnull %0)
+  %110 = tail call ptr @lineCreate(ptr noundef nonnull %88) #18
+  %111 = load ptr, ptr %91, align 8, !tbaa !58
+  store ptr %110, ptr %111, align 8, !tbaa !61
+  %112 = icmp eq ptr %110, null
+  br i1 %112, label %113, label %114
+
+113:                                              ; preds = %109
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.37) #18
-  br label %112
+  br label %116
 
-110:                                              ; preds = %105, %101
+114:                                              ; preds = %109, %105
   tail call fastcc void @messageIsEncoding(ptr noundef nonnull %0)
-  br label %112
+  br label %116
 
-111:                                              ; preds = %93, %90
-  store ptr null, ptr %85, align 8, !tbaa !61
-  br label %112
+115:                                              ; preds = %97, %94
+  store ptr null, ptr %89, align 8, !tbaa !61
+  br label %116
 
-112:                                              ; preds = %111, %110, %98, %49, %109, %89, %65
-  %113 = phi i32 [ -1, %89 ], [ -1, %109 ], [ -1, %65 ], [ 1, %49 ], [ 1, %98 ], [ 1, %110 ], [ 1, %111 ]
-  ret i32 %113
+116:                                              ; preds = %115, %114, %102, %53, %113, %93, %69
+  %117 = phi i32 [ -1, %93 ], [ -1, %113 ], [ -1, %69 ], [ 1, %53 ], [ 1, %102 ], [ 1, %114 ], [ 1, %115 ]
+  ret i32 %117
 }
 
 ; Function Attrs: nounwind uwtable
@@ -2659,8 +2663,8 @@ define dso_local i32 @messageAddStrAtTop(ptr nocapture noundef %0, ptr noundef %
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.38) #18
   br label %46
 
-46:                                               ; preds = %32, %29, %17, %38, %45, %37
-  %47 = phi i32 [ -1, %37 ], [ -1, %45 ], [ 1, %38 ], [ -1, %17 ], [ 1, %32 ], [ 1, %29 ]
+46:                                               ; preds = %38, %32, %29, %17, %45, %37
+  %47 = phi i32 [ -1, %37 ], [ -1, %45 ], [ -1, %17 ], [ 1, %32 ], [ 1, %29 ], [ 1, %38 ]
   ret i32 %47
 }
 
@@ -3008,7 +3012,7 @@ define dso_local ptr @messageToFileblob(ptr noundef %0, ptr noundef %1, i32 noun
   br i1 %103, label %104, label %56, !llvm.loop !74
 
 104:                                              ; preds = %99, %56, %69, %54
-  %105 = phi i64 [ %58, %69 ], [ 0, %54 ], [ %58, %56 ], [ %100, %99 ]
+  %105 = phi i64 [ %58, %69 ], [ 0, %54 ], [ %100, %99 ], [ %58, %56 ]
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.75, i64 noundef %105) #18
   tail call void @free(ptr noundef nonnull %51) #18
   br label %107
@@ -3546,7 +3550,7 @@ define dso_local ptr @messageToFileblob(ptr noundef %0, ptr noundef %1, i32 noun
   store i8 0, ptr %385, align 1, !tbaa !20
   br label %419
 
-412:                                              ; preds = %396, %392
+412:                                              ; preds = %392, %396
   store i8 0, ptr %394, align 1, !tbaa !20
   %413 = icmp eq ptr %394, %385
   br i1 %413, label %419, label %414
@@ -3943,7 +3947,7 @@ define dso_local ptr @messageToBlob(ptr noundef %0, i32 noundef %1) local_unname
   br i1 %102, label %103, label %55, !llvm.loop !74
 
 103:                                              ; preds = %98, %55, %68, %53
-  %104 = phi i64 [ %57, %68 ], [ 0, %53 ], [ %57, %55 ], [ %99, %98 ]
+  %104 = phi i64 [ %57, %68 ], [ 0, %53 ], [ %99, %98 ], [ %57, %55 ]
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.75, i64 noundef %104) #18
   tail call void @free(ptr noundef nonnull %50) #18
   br label %106
@@ -4459,7 +4463,7 @@ define dso_local ptr @messageToBlob(ptr noundef %0, i32 noundef %1) local_unname
   store i8 0, ptr %372, align 1, !tbaa !20
   br label %406
 
-399:                                              ; preds = %383, %379
+399:                                              ; preds = %379, %383
   store i8 0, ptr %381, align 1, !tbaa !20
   %400 = icmp eq ptr %381, %372
   br i1 %400, label %406, label %401
@@ -5186,8 +5190,8 @@ define dso_local ptr @decodeLine(ptr nocapture noundef %0, i32 noundef %1, ptr n
   %89 = icmp eq i64 %88, 0
   br i1 %89, label %90, label %20, !llvm.loop !87
 
-90:                                               ; preds = %20, %83, %16, %54
-  %91 = phi ptr [ %55, %54 ], [ %3, %16 ], [ %22, %20 ], [ %86, %83 ]
+90:                                               ; preds = %20, %83, %54, %16
+  %91 = phi ptr [ %55, %54 ], [ %3, %16 ], [ %86, %83 ], [ %22, %20 ]
   %92 = getelementptr inbounds i8, ptr %91, i64 1
   store i8 10, ptr %91, align 1, !tbaa !20
   br label %358

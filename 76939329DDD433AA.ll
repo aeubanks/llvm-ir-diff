@@ -256,22 +256,22 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunnerC2ERKNS0_17BenchmarkI
   store double %15, ptr %11, align 8, !tbaa !48
   %16 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 4
   %17 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %12, i64 0, i32 14
-  %18 = load i32, ptr %17, align 8, !tbaa !49
+  %18 = load i32, ptr %17, align 8
   %19 = icmp eq i32 %18, 0
   %20 = load i32, ptr @_ZN9benchmark27FLAGS_benchmark_repetitionsE, align 4
   %21 = select i1 %19, i32 %20, i32 %18
-  store i32 %21, ptr %16, align 8, !tbaa !50
+  store i32 %21, ptr %16, align 8, !tbaa !49
   %22 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 5
   %23 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %12, i64 0, i32 16
-  %24 = load i64, ptr %23, align 8, !tbaa !51
+  %24 = load i64, ptr %23, align 8, !tbaa !50
   %25 = icmp ne i64 %24, 0
   %26 = zext i1 %25 to i8
-  store i8 %26, ptr %22, align 4, !tbaa !52
+  store i8 %26, ptr %22, align 4, !tbaa !51
   %27 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 6
-  store i32 0, ptr %27, align 8, !tbaa !53
+  store i32 0, ptr %27, align 8, !tbaa !52
   %28 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 7
   %29 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %12, i64 0, i32 17
-  %30 = load i32, ptr %29, align 8, !tbaa !54
+  %30 = load i32, ptr %29, align 8, !tbaa !53
   %31 = add nsw i32 %30, -1
   %32 = sext i32 %31 to i64
   %33 = icmp slt i32 %30, 1
@@ -299,31 +299,31 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunnerC2ERKNS0_17BenchmarkI
           to label %42 unwind label %122
 
 42:                                               ; preds = %39
-  store ptr %41, ptr %28, align 8, !tbaa !55
+  store ptr %41, ptr %28, align 8, !tbaa !54
   %43 = getelementptr inbounds %"class.std::thread", ptr %41, i64 %32
-  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %41, i8 0, i64 %40, i1 false), !tbaa !56
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %41, i8 0, i64 %40, i1 false), !tbaa !55
   %44 = getelementptr i8, ptr %41, i64 %40
   br label %45
 
-45:                                               ; preds = %42, %38
+45:                                               ; preds = %38, %42
   %46 = phi ptr [ null, %38 ], [ %43, %42 ]
   %47 = phi ptr [ null, %38 ], [ %44, %42 ]
   %48 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 7, i32 0, i32 0, i32 0, i32 1
   %49 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 7, i32 0, i32 0, i32 0, i32 2
   store ptr %46, ptr %49, align 8
-  store ptr %47, ptr %48, align 8, !tbaa !58
+  store ptr %47, ptr %48, align 8, !tbaa !57
   %50 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 8
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %50, i8 0, i64 24, i1 false)
   %51 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 9
   br i1 %25, label %52, label %54
 
 52:                                               ; preds = %45
-  %53 = load i64, ptr %23, align 8, !tbaa !51
+  %53 = load i64, ptr %23, align 8, !tbaa !50
   br label %54
 
 54:                                               ; preds = %45, %52
   %55 = phi i64 [ %53, %52 ], [ 1, %45 ]
-  store i64 %55, ptr %51, align 8, !tbaa !59
+  store i64 %55, ptr %51, align 8, !tbaa !58
   %56 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 10
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #20
   invoke void @_ZN9benchmark8StrSplitERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEc(ptr nonnull sret(%"class.std::vector.16") align 8 %4, ptr noundef nonnull align 8 dereferenceable(32) @_ZN9benchmark29FLAGS_benchmark_perf_countersB5cxx11E, i8 noundef signext 44)
@@ -334,15 +334,15 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunnerC2ERKNS0_17BenchmarkI
           to label %58 unwind label %126
 
 58:                                               ; preds = %57
-  %59 = load ptr, ptr %4, align 8, !tbaa !60
+  %59 = load ptr, ptr %4, align 8, !tbaa !59
   %60 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %4, i64 0, i32 1
-  %61 = load ptr, ptr %60, align 8, !tbaa !62
+  %61 = load ptr, ptr %60, align 8, !tbaa !61
   %62 = icmp eq ptr %59, %61
   br i1 %62, label %74, label %63
 
 63:                                               ; preds = %58, %69
   %64 = phi ptr [ %70, %69 ], [ %59, %58 ]
-  %65 = load ptr, ptr %64, align 8, !tbaa !63
+  %65 = load ptr, ptr %64, align 8, !tbaa !62
   %66 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 0, i32 2
   %67 = icmp eq ptr %65, %66
   br i1 %67, label %69, label %68
@@ -354,10 +354,10 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunnerC2ERKNS0_17BenchmarkI
 69:                                               ; preds = %68, %63
   %70 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %64, i64 1
   %71 = icmp eq ptr %70, %61
-  br i1 %71, label %72, label %63, !llvm.loop !64
+  br i1 %71, label %72, label %63, !llvm.loop !63
 
 72:                                               ; preds = %69
-  %73 = load ptr, ptr %4, align 8, !tbaa !60
+  %73 = load ptr, ptr %4, align 8, !tbaa !59
   br label %74
 
 74:                                               ; preds = %72, %58
@@ -383,14 +383,14 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunnerC2ERKNS0_17BenchmarkI
   unreachable
 
 83:                                               ; preds = %78
-  %84 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !5
-  %85 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !5
-  %86 = icmp eq ptr %84, %85
+  %84 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 11
+  %85 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1), align 8, !tbaa !5
+  %86 = load ptr, ptr getelementptr inbounds (%"class.benchmark::internal::PerfCounters", ptr @_ZN9benchmark8internal23PerfCountersMeasurement9counters_E, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1), align 8, !tbaa !5
   %87 = call i32 @pthread_mutex_unlock(ptr noundef nonnull @_ZN9benchmark8internal23PerfCountersMeasurement6mutex_E) #20
-  %88 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 11
-  %89 = select i1 %86, ptr null, ptr %56
-  store ptr %89, ptr %88, align 8, !tbaa !66
-  %90 = load i8, ptr @_ZN9benchmark38FLAGS_benchmark_report_aggregates_onlyE, align 1, !tbaa !67, !range !68, !noundef !69
+  %88 = icmp eq ptr %85, %86
+  %89 = select i1 %88, ptr null, ptr %56
+  store ptr %89, ptr %84, align 8, !tbaa !65
+  %90 = load i8, ptr @_ZN9benchmark38FLAGS_benchmark_report_aggregates_onlyE, align 1, !tbaa !66, !range !67, !noundef !68
   %91 = icmp ne i8 %90, 0
   %92 = load i8, ptr @_ZN9benchmark39FLAGS_benchmark_display_aggregates_onlyE, align 1
   %93 = and i8 %92, 1
@@ -398,12 +398,12 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunnerC2ERKNS0_17BenchmarkI
   %95 = select i1 %91, i1 true, i1 %94
   %96 = getelementptr inbounds %"struct.benchmark::internal::RunResults", ptr %0, i64 0, i32 2
   %97 = zext i1 %95 to i8
-  store i8 %97, ptr %96, align 8, !tbaa !70
+  store i8 %97, ptr %96, align 8, !tbaa !69
   %98 = getelementptr inbounds %"struct.benchmark::internal::RunResults", ptr %0, i64 0, i32 3
-  store i8 %90, ptr %98, align 1, !tbaa !71
-  %99 = load ptr, ptr %5, align 8, !tbaa !72
+  store i8 %90, ptr %98, align 1, !tbaa !70
+  %99 = load ptr, ptr %5, align 8, !tbaa !71
   %100 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %99, i64 0, i32 4
-  %101 = load i32, ptr %100, align 8, !tbaa !73
+  %101 = load i32, ptr %100, align 8, !tbaa !72
   %102 = icmp eq i32 %101, 0
   br i1 %102, label %132, label %103
 
@@ -411,13 +411,13 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunnerC2ERKNS0_17BenchmarkI
   %104 = trunc i32 %101 to i8
   %105 = lshr i8 %104, 2
   %106 = and i8 %105, 1
-  store i8 %106, ptr %96, align 8, !tbaa !70
+  store i8 %106, ptr %96, align 8, !tbaa !69
   %107 = lshr i8 %104, 1
   %108 = and i8 %107, 1
-  store i8 %108, ptr %98, align 1, !tbaa !71
+  store i8 %108, ptr %98, align 1, !tbaa !70
   %109 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %110 = icmp eq i8 %109, 0
-  br i1 %110, label %111, label %115, !prof !74
+  br i1 %110, label %111, label %115, !prof !73
 
 111:                                              ; preds = %103
   %112 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
@@ -425,12 +425,12 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunnerC2ERKNS0_17BenchmarkI
   br i1 %113, label %115, label %114
 
 114:                                              ; preds = %111
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
   br label %115
 
 115:                                              ; preds = %114, %111, %103
-  %116 = load ptr, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  %116 = load ptr, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   %117 = icmp eq ptr %116, null
   br i1 %117, label %132, label %118
 
@@ -475,7 +475,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunnerC2ERKNS0_17BenchmarkI
 
 133:                                              ; preds = %130, %128
   %134 = phi { ptr, i32 } [ %131, %130 ], [ %129, %128 ]
-  %135 = load ptr, ptr %50, align 8, !tbaa !77
+  %135 = load ptr, ptr %50, align 8, !tbaa !76
   %136 = icmp eq ptr %135, null
   br i1 %136, label %138, label %137
 
@@ -509,15 +509,15 @@ declare void @_ZN9benchmark8internal23PerfCountersMeasurementC1ERKSt6vectorINSt7
 
 ; Function Attrs: nounwind uwtable
 define linkonce_odr hidden void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !60
+  %2 = load ptr, ptr %0, align 8, !tbaa !59
   %3 = getelementptr inbounds %"struct.std::_Vector_base<std::__cxx11::basic_string<char>, std::allocator<std::__cxx11::basic_string<char>>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !62
+  %4 = load ptr, ptr %3, align 8, !tbaa !61
   %5 = icmp eq ptr %2, %4
   br i1 %5, label %17, label %6
 
 6:                                                ; preds = %1, %12
   %7 = phi ptr [ %13, %12 ], [ %2, %1 ]
-  %8 = load ptr, ptr %7, align 8, !tbaa !63
+  %8 = load ptr, ptr %7, align 8, !tbaa !62
   %9 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 2
   %10 = icmp eq ptr %8, %9
   br i1 %10, label %12, label %11
@@ -529,10 +529,10 @@ define linkonce_odr hidden void @_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11cha
 12:                                               ; preds = %11, %6
   %13 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 1
   %14 = icmp eq ptr %13, %4
-  br i1 %14, label %15, label %6, !llvm.loop !64
+  br i1 %14, label %15, label %6, !llvm.loop !63
 
 15:                                               ; preds = %12
-  %16 = load ptr, ptr %0, align 8, !tbaa !60
+  %16 = load ptr, ptr %0, align 8, !tbaa !59
   br label %17
 
 17:                                               ; preds = %15, %1
@@ -553,20 +553,20 @@ declare void @_ZN9benchmark8internal23PerfCountersMeasurementD1Ev(ptr noundef no
 
 ; Function Attrs: nounwind uwtable
 define linkonce_odr hidden void @_ZNSt6vectorISt6threadSaIS0_EED2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !55
+  %2 = load ptr, ptr %0, align 8, !tbaa !54
   %3 = getelementptr inbounds %"struct.std::_Vector_base<std::thread, std::allocator<std::thread>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !58
+  %4 = load ptr, ptr %3, align 8, !tbaa !57
   %5 = icmp eq ptr %2, %4
   br i1 %5, label %14, label %9
 
 6:                                                ; preds = %9
   %7 = getelementptr inbounds %"class.std::thread", ptr %10, i64 1
   %8 = icmp eq ptr %7, %4
-  br i1 %8, label %14, label %9, !llvm.loop !78
+  br i1 %8, label %14, label %9, !llvm.loop !77
 
 9:                                                ; preds = %1, %6
   %10 = phi ptr [ %7, %6 ], [ %2, %1 ]
-  %11 = load i64, ptr %10, align 8, !tbaa.struct !79
+  %11 = load i64, ptr %10, align 8, !tbaa.struct !78
   %12 = icmp eq i64 %11, 0
   br i1 %12, label %6, label %13
 
@@ -589,9 +589,9 @@ define linkonce_odr hidden void @_ZNSt6vectorISt6threadSaIS0_EED2Ev(ptr noundef 
 ; Function Attrs: inlinehint nounwind uwtable
 define linkonce_odr hidden void @_ZN9benchmark8internal10RunResultsD2Ev(ptr noundef nonnull align 8 dereferenceable(50) %0) unnamed_addr #6 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = getelementptr inbounds %"struct.benchmark::internal::RunResults", ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !81
+  %3 = load ptr, ptr %2, align 8, !tbaa !80
   %4 = getelementptr inbounds %"struct.benchmark::internal::RunResults", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !82
+  %5 = load ptr, ptr %4, align 8, !tbaa !81
   %6 = icmp eq ptr %3, %5
   br i1 %6, label %13, label %7
 
@@ -600,10 +600,10 @@ define linkonce_odr hidden void @_ZN9benchmark8internal10RunResultsD2Ev(ptr noun
   tail call void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr noundef nonnull align 8 dereferenceable(528) %8) #20
   %9 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %8, i64 1
   %10 = icmp eq ptr %9, %5
-  br i1 %10, label %11, label %7, !llvm.loop !83
+  br i1 %10, label %11, label %7, !llvm.loop !82
 
 11:                                               ; preds = %7
-  %12 = load ptr, ptr %2, align 8, !tbaa !81
+  %12 = load ptr, ptr %2, align 8, !tbaa !80
   br label %13
 
 13:                                               ; preds = %11, %1
@@ -616,9 +616,9 @@ define linkonce_odr hidden void @_ZN9benchmark8internal10RunResultsD2Ev(ptr noun
   br label %17
 
 17:                                               ; preds = %13, %16
-  %18 = load ptr, ptr %0, align 8, !tbaa !81
+  %18 = load ptr, ptr %0, align 8, !tbaa !80
   %19 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::BenchmarkReporter::Run, std::allocator<benchmark::BenchmarkReporter::Run>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !82
+  %20 = load ptr, ptr %19, align 8, !tbaa !81
   %21 = icmp eq ptr %18, %20
   br i1 %21, label %28, label %22
 
@@ -627,10 +627,10 @@ define linkonce_odr hidden void @_ZN9benchmark8internal10RunResultsD2Ev(ptr noun
   tail call void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr noundef nonnull align 8 dereferenceable(528) %23) #20
   %24 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %23, i64 1
   %25 = icmp eq ptr %24, %20
-  br i1 %25, label %26, label %22, !llvm.loop !83
+  br i1 %25, label %26, label %22, !llvm.loop !82
 
 26:                                               ; preds = %22
-  %27 = load ptr, ptr %0, align 8, !tbaa !81
+  %27 = load ptr, ptr %0, align 8, !tbaa !80
   br label %28
 
 28:                                               ; preds = %26, %17
@@ -652,14 +652,14 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   %4 = alloca %"class.std::__cxx11::basic_string", align 8
   %5 = alloca %"class.std::unique_ptr", align 8
   %6 = alloca %"class.std::thread", align 8
-  %7 = load i32, ptr @_ZZN9benchmark8internal8LogLevelEvE9log_level, align 4, !tbaa !84
+  %7 = load i32, ptr @_ZZN9benchmark8internal8LogLevelEvE9log_level, align 4, !tbaa !83
   %8 = icmp slt i32 %7, 2
   br i1 %8, label %16, label %9
 
 9:                                                ; preds = %2
   %10 = load atomic i8, ptr @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log acquire, align 8
   %11 = icmp eq i8 %10, 0
-  br i1 %11, label %12, label %26, !prof !74
+  br i1 %11, label %12, label %26, !prof !73
 
 12:                                               ; preds = %9
   %13 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log) #20
@@ -667,13 +667,13 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br i1 %14, label %26, label %15
 
 15:                                               ; preds = %12
-  store ptr @_ZSt4clog, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr @_ZSt4clog, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !74
   br label %23
 
 16:                                               ; preds = %2
   %17 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %18 = icmp eq i8 %17, 0
-  br i1 %18, label %19, label %26, !prof !74
+  br i1 %18, label %19, label %26, !prof !73
 
 19:                                               ; preds = %16
   %20 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
@@ -681,7 +681,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br i1 %21, label %26, label %22
 
 22:                                               ; preds = %19
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   br label %23
 
 23:                                               ; preds = %22, %15
@@ -692,25 +692,25 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 
 26:                                               ; preds = %9, %12, %16, %19, %23
   %27 = phi ptr [ @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, %9 ], [ @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, %12 ], [ @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, %16 ], [ @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, %19 ], [ %25, %23 ]
-  %28 = load ptr, ptr %27, align 8, !tbaa !75
+  %28 = load ptr, ptr %27, align 8, !tbaa !74
   %29 = icmp eq ptr %28, null
   br i1 %29, label %44, label %30
 
 30:                                               ; preds = %26
   %31 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %28, ptr noundef nonnull @.str.3, i64 noundef 7)
-  %32 = load ptr, ptr %27, align 8, !tbaa !75
+  %32 = load ptr, ptr %27, align 8, !tbaa !74
   %33 = icmp eq ptr %32, null
   br i1 %33, label %44, label %34
 
 34:                                               ; preds = %30
   %35 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %32, i32 noundef 2)
-  %36 = load ptr, ptr %27, align 8, !tbaa !75
+  %36 = load ptr, ptr %27, align 8, !tbaa !74
   %37 = icmp eq ptr %36, null
   br i1 %37, label %44, label %38
 
 38:                                               ; preds = %34
   %39 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %36, ptr noundef nonnull @.str.4, i64 noundef 3)
-  %40 = load ptr, ptr %27, align 8, !tbaa !75
+  %40 = load ptr, ptr %27, align 8, !tbaa !74
   %41 = icmp eq ptr %40, null
   br i1 %41, label %44, label %42
 
@@ -721,21 +721,21 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 44:                                               ; preds = %30, %26, %34, %38, %42
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #20
   %45 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %1, i64 0, i32 1
-  %46 = load ptr, ptr %45, align 8, !tbaa !72
+  %46 = load ptr, ptr %45, align 8, !tbaa !71
   call void @_ZNK9benchmark13BenchmarkName3strB5cxx11Ev(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %4, ptr noundef nonnull align 8 dereferenceable(224) %46)
-  %47 = load ptr, ptr %27, align 8, !tbaa !75
+  %47 = load ptr, ptr %27, align 8, !tbaa !74
   %48 = icmp eq ptr %47, null
   br i1 %48, label %59, label %49
 
 49:                                               ; preds = %44
-  %50 = load ptr, ptr %4, align 8, !tbaa !63
+  %50 = load ptr, ptr %4, align 8, !tbaa !62
   %51 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
-  %52 = load i64, ptr %51, align 8, !tbaa !85
+  %52 = load i64, ptr %51, align 8, !tbaa !84
   %53 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %47, ptr noundef %50, i64 noundef %52)
           to label %54 unwind label %122
 
 54:                                               ; preds = %49
-  %55 = load ptr, ptr %27, align 8, !tbaa !75
+  %55 = load ptr, ptr %27, align 8, !tbaa !74
   %56 = icmp eq ptr %55, null
   br i1 %56, label %59, label %57
 
@@ -748,18 +748,18 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br label %73
 
 61:                                               ; preds = %57
-  %62 = load ptr, ptr %27, align 8, !tbaa !75
+  %62 = load ptr, ptr %27, align 8, !tbaa !74
   %63 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %1, i64 0, i32 9
   %64 = icmp eq ptr %62, null
   br i1 %64, label %73, label %65
 
 65:                                               ; preds = %61
-  %66 = load i64, ptr %63, align 8, !tbaa !80
+  %66 = load i64, ptr %63, align 8, !tbaa !79
   %67 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %62, i64 noundef %66)
           to label %68 unwind label %122
 
 68:                                               ; preds = %65
-  %69 = load ptr, ptr %27, align 8, !tbaa !75
+  %69 = load ptr, ptr %27, align 8, !tbaa !74
   %70 = icmp eq ptr %69, null
   br i1 %70, label %73, label %71
 
@@ -769,7 +769,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 
 73:                                               ; preds = %59, %61, %68, %71
   %74 = phi ptr [ %63, %68 ], [ %63, %71 ], [ %63, %61 ], [ %60, %59 ]
-  %75 = load ptr, ptr %4, align 8, !tbaa !63
+  %75 = load ptr, ptr %4, align 8, !tbaa !62
   %76 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
   %77 = icmp eq ptr %75, %76
   br i1 %77, label %79, label %78
@@ -781,51 +781,51 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 79:                                               ; preds = %73, %78
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #20
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #20
-  store ptr null, ptr %5, align 8, !tbaa !86
+  store ptr null, ptr %5, align 8, !tbaa !85
   %80 = invoke noalias noundef nonnull dereferenceable(400) ptr @_Znwm(i64 noundef 400) #19
           to label %81 unwind label %129
 
 81:                                               ; preds = %79
-  %82 = load ptr, ptr %45, align 8, !tbaa !72
+  %82 = load ptr, ptr %45, align 8, !tbaa !71
   %83 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %82, i64 0, i32 17
-  %84 = load i32, ptr %83, align 8, !tbaa !54
+  %84 = load i32, ptr %83, align 8, !tbaa !53
   %85 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 5
   %86 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 5, i32 2
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %80, i8 0, i64 40, i1 false)
-  store ptr %86, ptr %85, align 8, !tbaa !88
+  store ptr %86, ptr %85, align 8, !tbaa !87
   %87 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 5, i32 1
-  store i64 0, ptr %87, align 8, !tbaa !85
-  store i8 0, ptr %86, align 8, !tbaa !89
+  store i64 0, ptr %87, align 8, !tbaa !84
+  store i8 0, ptr %86, align 8, !tbaa !88
   %88 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 6
   %89 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 6, i32 2
-  store ptr %89, ptr %88, align 8, !tbaa !88
+  store ptr %89, ptr %88, align 8, !tbaa !87
   %90 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 6, i32 1
-  store i64 0, ptr %90, align 8, !tbaa !85
-  store i8 0, ptr %89, align 8, !tbaa !89
+  store i64 0, ptr %90, align 8, !tbaa !84
+  store i8 0, ptr %89, align 8, !tbaa !88
   %91 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 7
-  store i8 0, ptr %91, align 8, !tbaa !90
+  store i8 0, ptr %91, align 8, !tbaa !89
   %92 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 8, i32 0, i32 0, i32 1
-  store i32 0, ptr %92, align 8, !tbaa !92
+  store i32 0, ptr %92, align 8, !tbaa !91
   %93 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  store ptr null, ptr %93, align 8, !tbaa !93
+  store ptr null, ptr %93, align 8, !tbaa !92
   %94 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 2
-  store ptr %92, ptr %94, align 8, !tbaa !94
+  store ptr %92, ptr %94, align 8, !tbaa !93
   %95 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 3
-  store ptr %92, ptr %95, align 8, !tbaa !95
+  store ptr %92, ptr %95, align 8, !tbaa !94
   %96 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %80, i64 0, i32 8, i32 0, i32 0, i32 1, i32 1
   %97 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %80, i64 0, i32 2
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %96, i8 0, i64 48, i1 false)
-  store i32 %84, ptr %97, align 8, !tbaa !96
+  store i32 %84, ptr %97, align 8, !tbaa !95
   %98 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %80, i64 0, i32 4
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %98, i8 0, i64 40, i1 false)
   %99 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %80, i64 0, i32 4, i32 1
   call void @_ZNSt18condition_variableC1Ev(ptr noundef nonnull align 8 dereferenceable(48) %99) #20
   %100 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %80, i64 0, i32 4, i32 2
-  store i32 %84, ptr %100, align 8, !tbaa !98
+  store i32 %84, ptr %100, align 8, !tbaa !97
   %101 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %80, i64 0, i32 4, i32 3
-  store i32 0, ptr %101, align 4, !tbaa !105
+  store i32 0, ptr %101, align 4, !tbaa !104
   %102 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %80, i64 0, i32 4, i32 4
-  store i32 0, ptr %102, align 8, !tbaa !106
+  store i32 0, ptr %102, align 8, !tbaa !105
   %103 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %80, i64 0, i32 5
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %103, i8 0, i64 40, i1 false)
   %104 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %80, i64 0, i32 6
@@ -842,8 +842,8 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 108:                                              ; preds = %81, %107
   %109 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %1, i64 0, i32 7
   %110 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %1, i64 0, i32 7, i32 0, i32 0, i32 0, i32 1
-  %111 = load ptr, ptr %110, align 8, !tbaa !58
-  %112 = load ptr, ptr %109, align 8, !tbaa !55
+  %111 = load ptr, ptr %110, align 8, !tbaa !57
+  %112 = load ptr, ptr %109, align 8, !tbaa !54
   %113 = icmp eq ptr %111, %112
   br i1 %113, label %116, label %114
 
@@ -852,18 +852,18 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br label %131
 
 116:                                              ; preds = %168, %108
-  %117 = load ptr, ptr %45, align 8, !tbaa !72
-  %118 = load i64, ptr %74, align 8, !tbaa !59
+  %117 = load ptr, ptr %45, align 8, !tbaa !71
+  %118 = load i64, ptr %74, align 8, !tbaa !58
   %119 = load ptr, ptr %5, align 8, !tbaa !5
   %120 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %1, i64 0, i32 11
-  %121 = load ptr, ptr %120, align 8, !tbaa !66
+  %121 = load ptr, ptr %120, align 8, !tbaa !65
   invoke void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17BenchmarkInstanceEmiPNS0_13ThreadManagerEPNS0_23PerfCountersMeasurementE(ptr noundef %117, i64 noundef %118, i32 noundef 0, ptr noundef %119, ptr noundef %121)
           to label %180 unwind label %129
 
 122:                                              ; preds = %71, %65, %57, %49
   %123 = landingpad { ptr, i32 }
           cleanup
-  %124 = load ptr, ptr %4, align 8, !tbaa !63
+  %124 = load ptr, ptr %4, align 8, !tbaa !62
   %125 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
   %126 = icmp eq ptr %124, %125
   br i1 %126, label %128, label %127
@@ -884,31 +884,31 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 131:                                              ; preds = %114, %168
   %132 = phi i64 [ 0, %114 ], [ %134, %168 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #20
-  %133 = load ptr, ptr %45, align 8, !tbaa !72
+  %133 = load ptr, ptr %45, align 8, !tbaa !71
   %134 = add nuw i64 %132, 1
   %135 = load ptr, ptr %5, align 8, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3)
-  store i64 0, ptr %6, align 8, !tbaa !56
+  store i64 0, ptr %6, align 8, !tbaa !55
   %136 = invoke noalias noundef nonnull dereferenceable(56) ptr @_Znwm(i64 noundef 56) #19
           to label %137 unwind label %176
 
 137:                                              ; preds = %131
   %138 = trunc i64 %134 to i32
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVNSt6thread11_State_implINS_8_InvokerISt5tupleIJPFvPKN9benchmark8internal17BenchmarkInstanceEmiPNS4_13ThreadManagerEPNS4_23PerfCountersMeasurementEES7_miS9_SB_EEEEEE, i64 0, inrange i32 0, i64 2), ptr %136, align 8, !tbaa !107
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVNSt6thread11_State_implINS_8_InvokerISt5tupleIJPFvPKN9benchmark8internal17BenchmarkInstanceEmiPNS4_13ThreadManagerEPNS4_23PerfCountersMeasurementEES7_miS9_SB_EEEEEE, i64 0, inrange i32 0, i64 2), ptr %136, align 8, !tbaa !106
   %139 = getelementptr inbounds %"struct.std::thread::_State_impl", ptr %136, i64 0, i32 1
   %140 = load ptr, ptr %115, align 8, !tbaa !5
-  store ptr %140, ptr %139, align 8, !tbaa !109
+  store ptr %140, ptr %139, align 8, !tbaa !108
   %141 = getelementptr inbounds %"struct.std::thread::_State_impl", ptr %136, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store ptr %135, ptr %141, align 8, !tbaa !111
+  store ptr %135, ptr %141, align 8, !tbaa !110
   %142 = getelementptr inbounds %"struct.std::thread::_State_impl", ptr %136, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
-  store i32 %138, ptr %142, align 8, !tbaa !113
+  store i32 %138, ptr %142, align 8, !tbaa !112
   %143 = getelementptr inbounds %"struct.std::thread::_State_impl", ptr %136, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 1
-  %144 = load i64, ptr %74, align 8, !tbaa !80
-  store i64 %144, ptr %143, align 8, !tbaa !115
+  %144 = load i64, ptr %74, align 8, !tbaa !79
+  store i64 %144, ptr %143, align 8, !tbaa !114
   %145 = getelementptr inbounds %"struct.std::thread::_State_impl", ptr %136, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  store ptr %133, ptr %145, align 8, !tbaa !117
+  store ptr %133, ptr %145, align 8, !tbaa !116
   %146 = getelementptr inbounds %"struct.std::thread::_State_impl", ptr %136, i64 0, i32 1, i32 0, i32 0, i32 1
-  store ptr @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17BenchmarkInstanceEmiPNS0_13ThreadManagerEPNS0_23PerfCountersMeasurementE, ptr %146, align 8, !tbaa !119
+  store ptr @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17BenchmarkInstanceEmiPNS0_13ThreadManagerEPNS0_23PerfCountersMeasurementE, ptr %146, align 8, !tbaa !118
   store ptr %136, ptr %3, align 8, !tbaa !5
   invoke void @_ZNSt6thread15_M_start_threadESt10unique_ptrINS_6_StateESt14default_deleteIS1_EEPFvvE(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef nonnull %3, ptr noundef null)
           to label %147 unwind label %154
@@ -919,7 +919,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br i1 %149, label %162, label %150
 
 150:                                              ; preds = %147
-  %151 = load ptr, ptr %148, align 8, !tbaa !107
+  %151 = load ptr, ptr %148, align 8, !tbaa !106
   %152 = getelementptr inbounds ptr, ptr %151, i64 1
   %153 = load ptr, ptr %152, align 8
   call void %153(ptr noundef nonnull align 8 dereferenceable(8) %148) #20
@@ -933,17 +933,17 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br i1 %157, label %178, label %158
 
 158:                                              ; preds = %154
-  %159 = load ptr, ptr %156, align 8, !tbaa !107
+  %159 = load ptr, ptr %156, align 8, !tbaa !106
   %160 = getelementptr inbounds ptr, ptr %159, i64 1
   %161 = load ptr, ptr %160, align 8
   call void %161(ptr noundef nonnull align 8 dereferenceable(8) %156) #20
   br label %178
 
-162:                                              ; preds = %150, %147
+162:                                              ; preds = %147, %150
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3)
-  %163 = load ptr, ptr %109, align 8, !tbaa !55
+  %163 = load ptr, ptr %109, align 8, !tbaa !54
   %164 = getelementptr inbounds %"class.std::thread", ptr %163, i64 %132
-  %165 = load i64, ptr %164, align 8, !tbaa.struct !79
+  %165 = load i64, ptr %164, align 8, !tbaa.struct !78
   %166 = icmp eq i64 %165, 0
   br i1 %166, label %168, label %167
 
@@ -952,16 +952,16 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   unreachable
 
 168:                                              ; preds = %162
-  %169 = load i64, ptr %6, align 8, !tbaa !80
-  store i64 %169, ptr %164, align 8, !tbaa !80
+  %169 = load i64, ptr %6, align 8, !tbaa !79
+  store i64 %169, ptr %164, align 8, !tbaa !79
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #20
-  %170 = load ptr, ptr %110, align 8, !tbaa !58
+  %170 = load ptr, ptr %110, align 8, !tbaa !57
   %171 = ptrtoint ptr %170 to i64
   %172 = ptrtoint ptr %163 to i64
   %173 = sub i64 %171, %172
   %174 = ashr exact i64 %173, 3
   %175 = icmp ult i64 %134, %174
-  br i1 %175, label %131, label %116, !llvm.loop !121
+  br i1 %175, label %131, label %116, !llvm.loop !120
 
 176:                                              ; preds = %131
   %177 = landingpad { ptr, i32 }
@@ -988,28 +988,28 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   %187 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5
   %188 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 2
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %0, i8 0, i64 40, i1 false)
-  store ptr %188, ptr %187, align 8, !tbaa !88
+  store ptr %188, ptr %187, align 8, !tbaa !87
   %189 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 1
-  store i64 0, ptr %189, align 8, !tbaa !85
-  store i8 0, ptr %188, align 8, !tbaa !89
+  store i64 0, ptr %189, align 8, !tbaa !84
+  store i8 0, ptr %188, align 8, !tbaa !88
   %190 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6
   %191 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 2
-  store ptr %191, ptr %190, align 8, !tbaa !88
+  store ptr %191, ptr %190, align 8, !tbaa !87
   %192 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 1
-  store i64 0, ptr %192, align 8, !tbaa !85
-  store i8 0, ptr %191, align 8, !tbaa !89
+  store i64 0, ptr %192, align 8, !tbaa !84
+  store i8 0, ptr %191, align 8, !tbaa !88
   %193 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 7
-  store i8 0, ptr %193, align 8, !tbaa !90
+  store i8 0, ptr %193, align 8, !tbaa !89
   %194 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1
-  store i32 0, ptr %194, align 8, !tbaa !92
+  store i32 0, ptr %194, align 8, !tbaa !91
   %195 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  store ptr null, ptr %195, align 8, !tbaa !93
+  store ptr null, ptr %195, align 8, !tbaa !92
   %196 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 2
-  store ptr %194, ptr %196, align 8, !tbaa !94
+  store ptr %194, ptr %196, align 8, !tbaa !93
   %197 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 3
-  store ptr %194, ptr %197, align 8, !tbaa !95
+  store ptr %194, ptr %197, align 8, !tbaa !94
   %198 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 1
-  store i64 0, ptr %198, align 8, !tbaa !122
+  store i64 0, ptr %198, align 8, !tbaa !121
   %199 = load ptr, ptr %5, align 8, !tbaa !5
   %200 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %199, i64 0, i32 1
   %201 = call i32 @pthread_mutex_lock(ptr noundef nonnull %200) #20
@@ -1052,8 +1052,8 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 
 217:                                              ; preds = %215
   %218 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %213, i64 0, i32 7
-  %219 = load i8, ptr %218, align 8, !tbaa !90, !range !68, !noundef !69
-  store i8 %219, ptr %193, align 8, !tbaa !90
+  %219 = load i8, ptr %218, align 8, !tbaa !89, !range !67, !noundef !68
+  store i8 %219, ptr %193, align 8, !tbaa !89
   %220 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8
   %221 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %213, i64 0, i32 8
   %222 = invoke noundef nonnull align 8 dereferenceable(48) ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EEaSERKSG_(ptr noundef nonnull align 8 dereferenceable(48) %220, ptr noundef nonnull align 8 dereferenceable(48) %221)
@@ -1071,28 +1071,28 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br label %228
 
 228:                                              ; preds = %223, %227
-  %229 = load ptr, ptr %45, align 8, !tbaa !72
+  %229 = load ptr, ptr %45, align 8, !tbaa !71
   %230 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %229, i64 0, i32 17
-  %231 = load i32, ptr %230, align 8, !tbaa !54
+  %231 = load i32, ptr %230, align 8, !tbaa !53
   %232 = sitofp i32 %231 to double
   %233 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 1
-  %234 = load double, ptr %233, align 8, !tbaa !123
+  %234 = load double, ptr %233, align 8, !tbaa !122
   %235 = fdiv double %234, %232
-  store double %235, ptr %233, align 8, !tbaa !123
+  store double %235, ptr %233, align 8, !tbaa !122
   %236 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 3
-  %237 = load double, ptr %236, align 8, !tbaa !125
+  %237 = load double, ptr %236, align 8, !tbaa !124
   %238 = fdiv double %237, %232
-  store double %238, ptr %236, align 8, !tbaa !125
+  store double %238, ptr %236, align 8, !tbaa !124
   %239 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %229, i64 0, i32 7
-  %240 = load i8, ptr %239, align 4, !tbaa !126, !range !68, !noundef !69
+  %240 = load i8, ptr %239, align 4, !tbaa !125, !range !67, !noundef !68
   %241 = icmp eq i8 %240, 0
   br i1 %241, label %253, label %242
 
 242:                                              ; preds = %228
   %243 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 2
-  %244 = load double, ptr %243, align 8, !tbaa !127
+  %244 = load double, ptr %243, align 8, !tbaa !126
   %245 = fdiv double %244, %232
-  store double %245, ptr %243, align 8, !tbaa !127
+  store double %245, ptr %243, align 8, !tbaa !126
   br label %253
 
 246:                                              ; preds = %203
@@ -1100,7 +1100,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
           cleanup
   br label %347
 
-248:                                              ; preds = %212, %215, %217
+248:                                              ; preds = %217, %215, %212
   %249 = landingpad { ptr, i32 }
           cleanup
   %250 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %200) #20
@@ -1112,14 +1112,14 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br label %347
 
 253:                                              ; preds = %242, %228
-  %254 = load i32, ptr @_ZZN9benchmark8internal8LogLevelEvE9log_level, align 4, !tbaa !84
+  %254 = load i32, ptr @_ZZN9benchmark8internal8LogLevelEvE9log_level, align 4, !tbaa !83
   %255 = icmp slt i32 %254, 2
   br i1 %255, label %263, label %256
 
 256:                                              ; preds = %253
   %257 = load atomic i8, ptr @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log acquire, align 8
   %258 = icmp eq i8 %257, 0
-  br i1 %258, label %259, label %273, !prof !74
+  br i1 %258, label %259, label %273, !prof !73
 
 259:                                              ; preds = %256
   %260 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log) #20
@@ -1127,13 +1127,13 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br i1 %261, label %273, label %262
 
 262:                                              ; preds = %259
-  store ptr @_ZSt4clog, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr @_ZSt4clog, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !74
   br label %270
 
 263:                                              ; preds = %253
   %264 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %265 = icmp eq i8 %264, 0
-  br i1 %265, label %266, label %273, !prof !74
+  br i1 %265, label %266, label %273, !prof !73
 
 266:                                              ; preds = %263
   %267 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
@@ -1141,7 +1141,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br i1 %268, label %273, label %269
 
 269:                                              ; preds = %266
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   br label %270
 
 270:                                              ; preds = %269, %262
@@ -1152,7 +1152,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 
 273:                                              ; preds = %270, %266, %263, %259, %256
   %274 = phi ptr [ @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, %256 ], [ @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, %259 ], [ @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, %263 ], [ @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, %266 ], [ %272, %270 ]
-  %275 = load ptr, ptr %274, align 8, !tbaa !75
+  %275 = load ptr, ptr %274, align 8, !tbaa !74
   %276 = icmp eq ptr %275, null
   br i1 %276, label %294, label %277
 
@@ -1161,7 +1161,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
           to label %279 unwind label %251
 
 279:                                              ; preds = %277
-  %280 = load ptr, ptr %274, align 8, !tbaa !75
+  %280 = load ptr, ptr %274, align 8, !tbaa !74
   %281 = icmp eq ptr %280, null
   br i1 %281, label %294, label %282
 
@@ -1170,7 +1170,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
           to label %284 unwind label %333
 
 284:                                              ; preds = %282
-  %285 = load ptr, ptr %274, align 8, !tbaa !75
+  %285 = load ptr, ptr %274, align 8, !tbaa !74
   %286 = icmp eq ptr %285, null
   br i1 %286, label %294, label %287
 
@@ -1179,7 +1179,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
           to label %289 unwind label %333
 
 289:                                              ; preds = %287
-  %290 = load ptr, ptr %274, align 8, !tbaa !75
+  %290 = load ptr, ptr %274, align 8, !tbaa !74
   %291 = icmp eq ptr %290, null
   br i1 %291, label %294, label %292
 
@@ -1192,7 +1192,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
   br label %319
 
 296:                                              ; preds = %292
-  %297 = load ptr, ptr %274, align 8, !tbaa !75
+  %297 = load ptr, ptr %274, align 8, !tbaa !74
   %298 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 2
   %299 = icmp eq ptr %297, null
   br i1 %299, label %319, label %300
@@ -1203,7 +1203,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
           to label %303 unwind label %333
 
 303:                                              ; preds = %300
-  %304 = load ptr, ptr %274, align 8, !tbaa !75
+  %304 = load ptr, ptr %274, align 8, !tbaa !74
   %305 = icmp eq ptr %304, null
   br i1 %305, label %319, label %306
 
@@ -1212,7 +1212,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
           to label %308 unwind label %333
 
 308:                                              ; preds = %306
-  %309 = load ptr, ptr %274, align 8, !tbaa !75
+  %309 = load ptr, ptr %274, align 8, !tbaa !74
   %310 = icmp eq ptr %309, null
   br i1 %310, label %319, label %311
 
@@ -1222,7 +1222,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
           to label %314 unwind label %333
 
 314:                                              ; preds = %311
-  %315 = load ptr, ptr %274, align 8, !tbaa !75
+  %315 = load ptr, ptr %274, align 8, !tbaa !74
   %316 = icmp eq ptr %315, null
   br i1 %316, label %319, label %317
 
@@ -1232,19 +1232,19 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 
 319:                                              ; preds = %294, %303, %296, %308, %314, %317
   %320 = phi ptr [ %298, %314 ], [ %298, %317 ], [ %298, %308 ], [ %298, %296 ], [ %298, %303 ], [ %295, %294 ]
-  %321 = load i64, ptr %0, align 8, !tbaa !128
-  %322 = load ptr, ptr %45, align 8, !tbaa !72
+  %321 = load i64, ptr %0, align 8, !tbaa !127
+  %322 = load ptr, ptr %45, align 8, !tbaa !71
   %323 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %322, i64 0, i32 17
-  %324 = load i32, ptr %323, align 8, !tbaa !54
+  %324 = load i32, ptr %323, align 8, !tbaa !53
   %325 = sext i32 %324 to i64
   %326 = udiv i64 %321, %325
   %327 = getelementptr inbounds %"struct.benchmark::internal::BenchmarkRunner::IterationResults", ptr %0, i64 0, i32 1
-  store i64 %326, ptr %327, align 8, !tbaa !129
-  %328 = load double, ptr %320, align 8, !tbaa !127
+  store i64 %326, ptr %327, align 8, !tbaa !128
+  %328 = load double, ptr %320, align 8, !tbaa !126
   %329 = getelementptr inbounds %"struct.benchmark::internal::BenchmarkRunner::IterationResults", ptr %0, i64 0, i32 2
-  store double %328, ptr %329, align 8, !tbaa !130
+  store double %328, ptr %329, align 8, !tbaa !129
   %330 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %322, i64 0, i32 9
-  %331 = load i8, ptr %330, align 2, !tbaa !131, !range !68, !noundef !69
+  %331 = load i8, ptr %330, align 2, !tbaa !130, !range !67, !noundef !68
   %332 = icmp eq i8 %331, 0
   br i1 %332, label %335, label %339
 
@@ -1255,14 +1255,14 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner13DoNIterationsEv(ptr
 
 335:                                              ; preds = %319
   %336 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %322, i64 0, i32 8
-  %337 = load i8, ptr %336, align 1, !tbaa !132, !range !68, !noundef !69
+  %337 = load i8, ptr %336, align 1, !tbaa !131, !range !67, !noundef !68
   %338 = icmp eq i8 %337, 0
   br i1 %338, label %342, label %339
 
 339:                                              ; preds = %335, %319
   %340 = phi ptr [ %236, %319 ], [ %233, %335 ]
   %341 = load double, ptr %340, align 8, !tbaa !47
-  store double %341, ptr %329, align 8, !tbaa !130
+  store double %341, ptr %329, align 8, !tbaa !129
   br label %342
 
 342:                                              ; preds = %339, %335
@@ -1316,7 +1316,7 @@ define internal void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17
   %7 = alloca %"class.benchmark::State", align 8
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %6) #20
   %8 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %0, i64 0, i32 7
-  %9 = load i8, ptr %8, align 4, !tbaa !126, !range !68, !noundef !69
+  %9 = load i8, ptr %8, align 4, !tbaa !125, !range !67, !noundef !68
   %10 = getelementptr inbounds %"class.benchmark::internal::ThreadTimer", ptr %6, i64 0, i32 2
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %10, i8 0, i64 40, i1 false)
   store i8 %9, ptr %6, align 8
@@ -1326,7 +1326,7 @@ define internal void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17
   call void @_ZNK9benchmark8internal17BenchmarkInstance3RunEmiPNS0_11ThreadTimerEPNS0_13ThreadManagerEPNS0_23PerfCountersMeasurementE(ptr nonnull sret(%"class.benchmark::State") align 8 %7, ptr noundef nonnull align 8 dereferenceable(384) %0, i64 noundef %1, i32 noundef %2, ptr noundef nonnull %6, ptr noundef %3, ptr noundef %4)
   %12 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %13 = icmp eq i8 %12, 0
-  br i1 %13, label %14, label %18, !prof !74
+  br i1 %13, label %14, label %18, !prof !73
 
 14:                                               ; preds = %5
   %15 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
@@ -1334,12 +1334,12 @@ define internal void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17
   br i1 %16, label %18, label %17
 
 17:                                               ; preds = %14
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
   br label %18
 
 18:                                               ; preds = %17, %14, %5
-  %19 = load ptr, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  %19 = load ptr, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   %20 = icmp eq ptr %19, null
   br i1 %20, label %23, label %21
 
@@ -1362,28 +1362,28 @@ define internal void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17
 
 29:                                               ; preds = %23
   %30 = getelementptr inbounds %"class.benchmark::State", ptr %7, i64 0, i32 3
-  %31 = load i8, ptr %30, align 8, !tbaa !133, !range !68, !noundef !69
+  %31 = load i8, ptr %30, align 8, !tbaa !132, !range !67, !noundef !68
   %32 = icmp eq i8 %31, 0
-  br i1 %32, label %41, label %33, !prof !139
+  br i1 %32, label %41, label %33, !prof !138
 
 33:                                               ; preds = %29
   %34 = getelementptr inbounds %"class.benchmark::State", ptr %7, i64 0, i32 2
-  %35 = load i64, ptr %34, align 8, !tbaa !140
-  %36 = load i64, ptr %7, align 8, !tbaa !141
+  %35 = load i64, ptr %34, align 8, !tbaa !139
+  %36 = load i64, ptr %7, align 8, !tbaa !140
   %37 = sub i64 %35, %36
   %38 = getelementptr inbounds %"class.benchmark::State", ptr %7, i64 0, i32 1
-  %39 = load i64, ptr %38, align 8, !tbaa !142
+  %39 = load i64, ptr %38, align 8, !tbaa !141
   %40 = add i64 %37, %39
   br label %41
 
 41:                                               ; preds = %29, %33
   %42 = phi i64 [ %40, %33 ], [ 0, %29 ]
-  %43 = load i64, ptr %3, align 8, !tbaa !143
+  %43 = load i64, ptr %3, align 8, !tbaa !142
   %44 = add i64 %43, %42
-  store i64 %44, ptr %3, align 8, !tbaa !143
+  store i64 %44, ptr %3, align 8, !tbaa !142
   %45 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %46 = icmp eq i8 %45, 0
-  br i1 %46, label %47, label %51, !prof !74
+  br i1 %46, label %47, label %51, !prof !73
 
 47:                                               ; preds = %41
   %48 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
@@ -1391,20 +1391,20 @@ define internal void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17
   br i1 %49, label %51, label %50
 
 50:                                               ; preds = %47
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
   br label %51
 
 51:                                               ; preds = %50, %47, %41
   %52 = getelementptr inbounds %"class.benchmark::internal::ThreadTimer", ptr %6, i64 0, i32 5
-  %53 = load double, ptr %52, align 8, !tbaa !144
+  %53 = load double, ptr %52, align 8, !tbaa !143
   %54 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %3, i64 0, i32 2
-  %55 = load double, ptr %54, align 8, !tbaa !146
+  %55 = load double, ptr %54, align 8, !tbaa !145
   %56 = fadd double %53, %55
-  store double %56, ptr %54, align 8, !tbaa !146
+  store double %56, ptr %54, align 8, !tbaa !145
   %57 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %58 = icmp eq i8 %57, 0
-  br i1 %58, label %59, label %63, !prof !74
+  br i1 %58, label %59, label %63, !prof !73
 
 59:                                               ; preds = %51
   %60 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
@@ -1412,20 +1412,20 @@ define internal void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17
   br i1 %61, label %63, label %62
 
 62:                                               ; preds = %59
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
   br label %63
 
 63:                                               ; preds = %62, %59, %51
   %64 = getelementptr inbounds %"class.benchmark::internal::ThreadTimer", ptr %6, i64 0, i32 4
-  %65 = load double, ptr %64, align 8, !tbaa !147
+  %65 = load double, ptr %64, align 8, !tbaa !146
   %66 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %3, i64 0, i32 1
-  %67 = load double, ptr %66, align 8, !tbaa !148
+  %67 = load double, ptr %66, align 8, !tbaa !147
   %68 = fadd double %65, %67
-  store double %68, ptr %66, align 8, !tbaa !148
+  store double %68, ptr %66, align 8, !tbaa !147
   %69 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %70 = icmp eq i8 %69, 0
-  br i1 %70, label %71, label %75, !prof !74
+  br i1 %70, label %71, label %75, !prof !73
 
 71:                                               ; preds = %63
   %72 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
@@ -1433,23 +1433,23 @@ define internal void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17
   br i1 %73, label %75, label %74
 
 74:                                               ; preds = %71
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
   br label %75
 
 75:                                               ; preds = %74, %71, %63
   %76 = getelementptr inbounds %"class.benchmark::internal::ThreadTimer", ptr %6, i64 0, i32 6
-  %77 = load double, ptr %76, align 8, !tbaa !149
+  %77 = load double, ptr %76, align 8, !tbaa !148
   %78 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %3, i64 0, i32 3
-  %79 = load double, ptr %78, align 8, !tbaa !150
+  %79 = load double, ptr %78, align 8, !tbaa !149
   %80 = fadd double %77, %79
-  store double %80, ptr %78, align 8, !tbaa !150
+  store double %80, ptr %78, align 8, !tbaa !149
   %81 = getelementptr inbounds %"class.benchmark::State", ptr %7, i64 0, i32 7
-  %82 = load i64, ptr %81, align 8, !tbaa !151
+  %82 = load i64, ptr %81, align 8, !tbaa !150
   %83 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %3, i64 0, i32 4
-  %84 = load i64, ptr %83, align 8, !tbaa !152
+  %84 = load i64, ptr %83, align 8, !tbaa !151
   %85 = add nsw i64 %84, %82
-  store i64 %85, ptr %83, align 8, !tbaa !152
+  store i64 %85, ptr %83, align 8, !tbaa !151
   %86 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %3, i64 0, i32 8
   %87 = getelementptr inbounds %"class.benchmark::State", ptr %7, i64 0, i32 8
   invoke void @_ZN9benchmark8internal9IncrementEPSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEENS_7CounterESt4lessIS7_ESaISt4pairIKS7_S8_EEERKSF_(ptr noundef nonnull %86, ptr noundef nonnull align 8 dereferenceable(48) %87)
@@ -1462,7 +1462,7 @@ define internal void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17
 
 90:                                               ; preds = %88
   %91 = getelementptr inbounds %"class.benchmark::State", ptr %7, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  %92 = load ptr, ptr %91, align 8, !tbaa !93
+  %92 = load ptr, ptr %91, align 8, !tbaa !92
   invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %87, ptr noundef %92)
           to label %96 unwind label %93
 
@@ -1475,7 +1475,7 @@ define internal void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17
 
 96:                                               ; preds = %90
   %97 = getelementptr inbounds %"class.benchmark::State", ptr %7, i64 0, i32 6
-  %98 = load ptr, ptr %97, align 8, !tbaa !153
+  %98 = load ptr, ptr %97, align 8, !tbaa !152
   %99 = icmp eq ptr %98, null
   br i1 %99, label %101, label %100
 
@@ -1517,7 +1517,7 @@ define linkonce_odr hidden void @_ZN9benchmark8internal13ThreadManager17WaitForA
   %2 = alloca %"class.benchmark::MutexLock", align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #20
   %3 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %0, i64 0, i32 5
-  store ptr %3, ptr %2, align 8, !tbaa !154
+  store ptr %3, ptr %2, align 8, !tbaa !153
   %4 = getelementptr inbounds %"class.std::unique_lock", ptr %2, i64 0, i32 1
   %5 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %3) #20
   %6 = icmp eq i32 %5, 0
@@ -1528,7 +1528,7 @@ define linkonce_odr hidden void @_ZN9benchmark8internal13ThreadManager17WaitForA
   unreachable
 
 8:                                                ; preds = %1
-  store i8 1, ptr %4, align 8, !tbaa !156
+  store i8 1, ptr %4, align 8, !tbaa !155
   %9 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %0, i64 0, i32 6
   %10 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %0, i64 0, i32 2
   %11 = load atomic i32, ptr %10 seq_cst, align 8
@@ -1542,15 +1542,15 @@ define linkonce_odr hidden void @_ZN9benchmark8internal13ThreadManager17WaitForA
 14:                                               ; preds = %13
   %15 = load atomic i32, ptr %10 seq_cst, align 8
   %16 = icmp eq i32 %15, 0
-  br i1 %16, label %17, label %13, !llvm.loop !157
+  br i1 %16, label %17, label %13, !llvm.loop !156
 
 17:                                               ; preds = %14, %8
-  %18 = load i8, ptr %4, align 8, !tbaa !156, !range !68, !noundef !69
+  %18 = load i8, ptr %4, align 8, !tbaa !155, !range !67, !noundef !68
   %19 = icmp eq i8 %18, 0
   br i1 %19, label %25, label %20
 
 20:                                               ; preds = %17
-  %21 = load ptr, ptr %2, align 8, !tbaa !154
+  %21 = load ptr, ptr %2, align 8, !tbaa !153
   %22 = icmp eq ptr %21, null
   br i1 %22, label %25, label %23
 
@@ -1565,12 +1565,12 @@ define linkonce_odr hidden void @_ZN9benchmark8internal13ThreadManager17WaitForA
 26:                                               ; preds = %13
   %27 = landingpad { ptr, i32 }
           cleanup
-  %28 = load i8, ptr %4, align 8, !tbaa !156, !range !68, !noundef !69
+  %28 = load i8, ptr %4, align 8, !tbaa !155, !range !67, !noundef !68
   %29 = icmp eq i8 %28, 0
   br i1 %29, label %35, label %30
 
 30:                                               ; preds = %26
-  %31 = load ptr, ptr %2, align 8, !tbaa !154
+  %31 = load ptr, ptr %2, align 8, !tbaa !153
   %32 = icmp eq ptr %31, null
   br i1 %32, label %35, label %33
 
@@ -1589,7 +1589,7 @@ declare void @_ZNSt6thread4joinEv(ptr noundef nonnull align 8 dereferenceable(8)
 define linkonce_odr hidden void @_ZN9benchmark8internal15BenchmarkRunner16IterationResultsD2Ev(ptr noundef nonnull align 8 dereferenceable(176) %0) unnamed_addr #6 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8
   %3 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !93
+  %4 = load ptr, ptr %3, align 8, !tbaa !92
   invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %2, ptr noundef %4)
           to label %8 unwind label %5
 
@@ -1602,7 +1602,7 @@ define linkonce_odr hidden void @_ZN9benchmark8internal15BenchmarkRunner16Iterat
 
 8:                                                ; preds = %1
   %9 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6
-  %10 = load ptr, ptr %9, align 8, !tbaa !63
+  %10 = load ptr, ptr %9, align 8, !tbaa !62
   %11 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 2
   %12 = icmp eq ptr %10, %11
   br i1 %12, label %14, label %13
@@ -1613,7 +1613,7 @@ define linkonce_odr hidden void @_ZN9benchmark8internal15BenchmarkRunner16Iterat
 
 14:                                               ; preds = %13, %8
   %15 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5
-  %16 = load ptr, ptr %15, align 8, !tbaa !63
+  %16 = load ptr, ptr %15, align 8, !tbaa !62
   %17 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 2
   %18 = icmp eq ptr %16, %17
   br i1 %18, label %20, label %19
@@ -1640,7 +1640,7 @@ define hidden noundef i64 @_ZNK9benchmark8internal15BenchmarkRunner21PredictNumI
   %12 = fcmp ogt double %11, 1.000000e-01
   %13 = select i1 %12, double %10, double 1.000000e+01
   %14 = getelementptr inbounds %"struct.benchmark::internal::BenchmarkRunner::IterationResults", ptr %1, i64 0, i32 1
-  %15 = load i64, ptr %14, align 8, !tbaa !129
+  %15 = load i64, ptr %14, align 8, !tbaa !128
   %16 = uitofp i64 %15 to double
   %17 = fmul double %13, %16
   %18 = fadd double %16, 1.000000e+00
@@ -1648,14 +1648,14 @@ define hidden noundef i64 @_ZNK9benchmark8internal15BenchmarkRunner21PredictNumI
   %20 = select i1 %19, double %18, double %17
   %21 = tail call i64 @lround(double noundef %20) #20
   %22 = tail call i64 @llvm.umin.i64(i64 %21, i64 1000000000)
-  %23 = load i32, ptr @_ZZN9benchmark8internal8LogLevelEvE9log_level, align 4, !tbaa !84
+  %23 = load i32, ptr @_ZZN9benchmark8internal8LogLevelEvE9log_level, align 4, !tbaa !83
   %24 = icmp slt i32 %23, 3
   br i1 %24, label %32, label %25
 
 25:                                               ; preds = %2
   %26 = load atomic i8, ptr @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log acquire, align 8
   %27 = icmp eq i8 %26, 0
-  br i1 %27, label %28, label %42, !prof !74
+  br i1 %27, label %28, label %42, !prof !73
 
 28:                                               ; preds = %25
   %29 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal19GetErrorLogInstanceEvE3log) #20
@@ -1663,13 +1663,13 @@ define hidden noundef i64 @_ZNK9benchmark8internal15BenchmarkRunner21PredictNumI
   br i1 %30, label %42, label %31
 
 31:                                               ; preds = %28
-  store ptr @_ZSt4clog, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr @_ZSt4clog, ptr @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, align 8, !tbaa !74
   br label %39
 
 32:                                               ; preds = %2
   %33 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
   %34 = icmp eq i8 %33, 0
-  br i1 %34, label %35, label %42, !prof !74
+  br i1 %34, label %35, label %42, !prof !73
 
 35:                                               ; preds = %32
   %36 = tail call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #20
@@ -1677,7 +1677,7 @@ define hidden noundef i64 @_ZNK9benchmark8internal15BenchmarkRunner21PredictNumI
   br i1 %37, label %42, label %38
 
 38:                                               ; preds = %35
-  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !75
+  store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !74
   br label %39
 
 39:                                               ; preds = %38, %31
@@ -1688,49 +1688,49 @@ define hidden noundef i64 @_ZNK9benchmark8internal15BenchmarkRunner21PredictNumI
 
 42:                                               ; preds = %25, %28, %32, %35, %39
   %43 = phi ptr [ @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, %25 ], [ @_ZZN9benchmark8internal19GetErrorLogInstanceEvE3log, %28 ], [ @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, %32 ], [ @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, %35 ], [ %41, %39 ]
-  %44 = load ptr, ptr %43, align 8, !tbaa !75
+  %44 = load ptr, ptr %43, align 8, !tbaa !74
   %45 = icmp eq ptr %44, null
   br i1 %45, label %76, label %46
 
 46:                                               ; preds = %42
   %47 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %44, ptr noundef nonnull @.str.3, i64 noundef 7)
-  %48 = load ptr, ptr %43, align 8, !tbaa !75
+  %48 = load ptr, ptr %43, align 8, !tbaa !74
   %49 = icmp eq ptr %48, null
   br i1 %49, label %76, label %50
 
 50:                                               ; preds = %46
   %51 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %48, i32 noundef 3)
-  %52 = load ptr, ptr %43, align 8, !tbaa !75
+  %52 = load ptr, ptr %43, align 8, !tbaa !74
   %53 = icmp eq ptr %52, null
   br i1 %53, label %76, label %54
 
 54:                                               ; preds = %50
   %55 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %52, ptr noundef nonnull @.str.4, i64 noundef 3)
-  %56 = load ptr, ptr %43, align 8, !tbaa !75
+  %56 = load ptr, ptr %43, align 8, !tbaa !74
   %57 = icmp eq ptr %56, null
   br i1 %57, label %76, label %58
 
 58:                                               ; preds = %54
   %59 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %56, ptr noundef nonnull @.str.10, i64 noundef 12)
-  %60 = load ptr, ptr %43, align 8, !tbaa !75
+  %60 = load ptr, ptr %43, align 8, !tbaa !74
   %61 = icmp eq ptr %60, null
   br i1 %61, label %76, label %62
 
 62:                                               ; preds = %58
   %63 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %60, i64 noundef %22)
-  %64 = load ptr, ptr %43, align 8, !tbaa !75
+  %64 = load ptr, ptr %43, align 8, !tbaa !74
   %65 = icmp eq ptr %64, null
   br i1 %65, label %76, label %66
 
 66:                                               ; preds = %62
   %67 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %64, ptr noundef nonnull @.str.11, i64 noundef 2)
-  %68 = load ptr, ptr %43, align 8, !tbaa !75
+  %68 = load ptr, ptr %43, align 8, !tbaa !74
   %69 = icmp eq ptr %68, null
   br i1 %69, label %76, label %70
 
 70:                                               ; preds = %66
   %71 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %68, double noundef %13)
-  %72 = load ptr, ptr %43, align 8, !tbaa !75
+  %72 = load ptr, ptr %43, align 8, !tbaa !74
   %73 = icmp eq ptr %72, null
   br i1 %73, label %76, label %74
 
@@ -1748,7 +1748,7 @@ declare i64 @lround(double noundef) local_unnamed_addr #1
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
 define hidden noundef zeroext i1 @_ZNK9benchmark8internal15BenchmarkRunner28ShouldReportIterationResultsERKNS1_16IterationResultsE(ptr nocapture noundef nonnull readonly align 8 dereferenceable(248) %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(176) %1) local_unnamed_addr #9 align 2 {
   %3 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 7
-  %4 = load i8, ptr %3, align 8, !tbaa !158, !range !68, !noundef !69
+  %4 = load i8, ptr %3, align 8, !tbaa !157, !range !67, !noundef !68
   %5 = icmp ne i8 %4, 0
   %6 = getelementptr inbounds %"struct.benchmark::internal::BenchmarkRunner::IterationResults", ptr %1, i64 0, i32 1
   %7 = load i64, ptr %6, align 8
@@ -1758,7 +1758,7 @@ define hidden noundef zeroext i1 @_ZNK9benchmark8internal15BenchmarkRunner28Shou
 
 10:                                               ; preds = %2
   %11 = getelementptr inbounds %"struct.benchmark::internal::BenchmarkRunner::IterationResults", ptr %1, i64 0, i32 2
-  %12 = load double, ptr %11, align 8, !tbaa !130
+  %12 = load double, ptr %11, align 8, !tbaa !129
   %13 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 3
   %14 = load double, ptr %13, align 8, !tbaa !48
   %15 = fcmp ult double %12, %14
@@ -1766,16 +1766,16 @@ define hidden noundef zeroext i1 @_ZNK9benchmark8internal15BenchmarkRunner28Shou
 
 16:                                               ; preds = %10
   %17 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 1
-  %18 = load double, ptr %17, align 8, !tbaa !123
+  %18 = load double, ptr %17, align 8, !tbaa !122
   %19 = fmul double %14, 5.000000e+00
   %20 = fcmp ult double %18, %19
   br i1 %20, label %27, label %21
 
 21:                                               ; preds = %16
   %22 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 1
-  %23 = load ptr, ptr %22, align 8, !tbaa !72
+  %23 = load ptr, ptr %22, align 8, !tbaa !71
   %24 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %23, i64 0, i32 9
-  %25 = load i8, ptr %24, align 2, !tbaa !131, !range !68, !noundef !69
+  %25 = load i8, ptr %24, align 2, !tbaa !130, !range !67, !noundef !68
   %26 = icmp eq i8 %25, 0
   br label %27
 
@@ -1791,35 +1791,35 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   %4 = alloca %"class.std::unique_ptr", align 8
   %5 = alloca %"struct.benchmark::BenchmarkReporter::Run", align 8
   %6 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 6
-  %7 = load i32, ptr %6, align 8, !tbaa !53
+  %7 = load i32, ptr %6, align 8, !tbaa !52
   %8 = freeze i32 %7
   %9 = icmp eq i32 %8, 0
   call void @llvm.lifetime.start.p0(i64 176, ptr nonnull %2) #20
   %10 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 5
   %11 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 5, i32 2
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %2, i8 0, i64 40, i1 false)
-  store ptr %11, ptr %10, align 8, !tbaa !88
+  store ptr %11, ptr %10, align 8, !tbaa !87
   %12 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 5, i32 1
-  store i64 0, ptr %12, align 8, !tbaa !85
-  store i8 0, ptr %11, align 8, !tbaa !89
+  store i64 0, ptr %12, align 8, !tbaa !84
+  store i8 0, ptr %11, align 8, !tbaa !88
   %13 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 6
   %14 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 6, i32 2
-  store ptr %14, ptr %13, align 8, !tbaa !88
+  store ptr %14, ptr %13, align 8, !tbaa !87
   %15 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 6, i32 1
-  store i64 0, ptr %15, align 8, !tbaa !85
-  store i8 0, ptr %14, align 8, !tbaa !89
+  store i64 0, ptr %15, align 8, !tbaa !84
+  store i8 0, ptr %14, align 8, !tbaa !88
   %16 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 7
-  store i8 0, ptr %16, align 8, !tbaa !90
+  store i8 0, ptr %16, align 8, !tbaa !89
   %17 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 8, i32 0, i32 0, i32 1
-  store i32 0, ptr %17, align 8, !tbaa !92
+  store i32 0, ptr %17, align 8, !tbaa !91
   %18 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  store ptr null, ptr %18, align 8, !tbaa !93
+  store ptr null, ptr %18, align 8, !tbaa !92
   %19 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 2
-  store ptr %17, ptr %19, align 8, !tbaa !94
+  store ptr %17, ptr %19, align 8, !tbaa !93
   %20 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 3
-  store ptr %17, ptr %20, align 8, !tbaa !95
+  store ptr %17, ptr %20, align 8, !tbaa !94
   %21 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 8, i32 0, i32 0, i32 1, i32 1
-  store i64 0, ptr %21, align 8, !tbaa !122
+  store i64 0, ptr %21, align 8, !tbaa !121
   %22 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 1
   %23 = getelementptr inbounds %"struct.benchmark::internal::BenchmarkRunner::IterationResults", ptr %2, i64 0, i32 1
   %24 = getelementptr inbounds %"struct.benchmark::internal::BenchmarkRunner::IterationResults", ptr %3, i64 0, i32 1
@@ -1837,7 +1837,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   br i1 %9, label %58, label %36
 
 36:                                               ; preds = %1
-  %37 = load ptr, ptr %22, align 8, !tbaa !72
+  %37 = load ptr, ptr %22, align 8, !tbaa !71
   invoke void @_ZNK9benchmark8internal17BenchmarkInstance5SetupEv(ptr noundef nonnull align 8 dereferenceable(384) %37)
           to label %38 unwind label %52
 
@@ -1849,12 +1849,12 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 39:                                               ; preds = %38
   %40 = call noundef nonnull align 8 dereferenceable(160) ptr @_ZN9benchmark8internal13ThreadManager6ResultaSEOS2_(ptr noundef nonnull align 8 dereferenceable(160) %2, ptr noundef nonnull align 8 dereferenceable(160) %3) #20
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %23, ptr noundef nonnull align 8 dereferenceable(16) %24, i64 16, i1 false)
-  %41 = load ptr, ptr %26, align 8, !tbaa !93
+  %41 = load ptr, ptr %26, align 8, !tbaa !92
   invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %25, ptr noundef %41)
           to label %42 unwind label %56
 
 42:                                               ; preds = %39
-  %43 = load ptr, ptr %27, align 8, !tbaa !63
+  %43 = load ptr, ptr %27, align 8, !tbaa !62
   %44 = icmp eq ptr %43, %28
   br i1 %44, label %46, label %45
 
@@ -1863,7 +1863,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   br label %46
 
 46:                                               ; preds = %45, %42
-  %47 = load ptr, ptr %29, align 8, !tbaa !63
+  %47 = load ptr, ptr %29, align 8, !tbaa !62
   %48 = icmp eq ptr %47, %30
   br i1 %48, label %50, label %49
 
@@ -1873,7 +1873,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 
 50:                                               ; preds = %49, %46
   call void @llvm.lifetime.end.p0(i64 176, ptr nonnull %3) #20
-  %51 = load ptr, ptr %22, align 8, !tbaa !72
+  %51 = load ptr, ptr %22, align 8, !tbaa !71
   invoke void @_ZNK9benchmark8internal17BenchmarkInstance8TeardownEv(ptr noundef nonnull align 8 dereferenceable(384) %51)
           to label %112 unwind label %52
 
@@ -1893,7 +1893,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   br label %66
 
 58:                                               ; preds = %1, %111
-  %59 = load ptr, ptr %22, align 8, !tbaa !72
+  %59 = load ptr, ptr %22, align 8, !tbaa !71
   invoke void @_ZNK9benchmark8internal17BenchmarkInstance5SetupEv(ptr noundef nonnull align 8 dereferenceable(384) %59)
           to label %60 unwind label %101
 
@@ -1905,7 +1905,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 61:                                               ; preds = %60
   %62 = call noundef nonnull align 8 dereferenceable(160) ptr @_ZN9benchmark8internal13ThreadManager6ResultaSEOS2_(ptr noundef nonnull align 8 dereferenceable(160) %2, ptr noundef nonnull align 8 dereferenceable(160) %3) #20
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %23, ptr noundef nonnull align 8 dereferenceable(16) %24, i64 16, i1 false)
-  %63 = load ptr, ptr %26, align 8, !tbaa !93
+  %63 = load ptr, ptr %26, align 8, !tbaa !92
   invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %25, ptr noundef %63)
           to label %69 unwind label %64
 
@@ -1921,7 +1921,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   unreachable
 
 69:                                               ; preds = %61
-  %70 = load ptr, ptr %27, align 8, !tbaa !63
+  %70 = load ptr, ptr %27, align 8, !tbaa !62
   %71 = icmp eq ptr %70, %28
   br i1 %71, label %73, label %72
 
@@ -1930,7 +1930,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   br label %73
 
 73:                                               ; preds = %72, %69
-  %74 = load ptr, ptr %29, align 8, !tbaa !63
+  %74 = load ptr, ptr %29, align 8, !tbaa !62
   %75 = icmp eq ptr %74, %30
   br i1 %75, label %77, label %76
 
@@ -1940,7 +1940,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 
 77:                                               ; preds = %73, %76
   call void @llvm.lifetime.end.p0(i64 176, ptr nonnull %3) #20
-  %78 = load ptr, ptr %22, align 8, !tbaa !72
+  %78 = load ptr, ptr %22, align 8, !tbaa !71
   invoke void @_ZNK9benchmark8internal17BenchmarkInstance8TeardownEv(ptr noundef nonnull align 8 dereferenceable(384) %78)
           to label %79 unwind label %101
 
@@ -1950,7 +1950,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   br i1 %81, label %82, label %112
 
 82:                                               ; preds = %79
-  %83 = load i8, ptr %16, align 8, !tbaa !158, !range !68, !noundef !69
+  %83 = load i8, ptr %16, align 8, !tbaa !157, !range !67, !noundef !68
   %84 = icmp ne i8 %83, 0
   %85 = load i64, ptr %23, align 8
   %86 = icmp ugt i64 %85, 999999999
@@ -1958,21 +1958,21 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   br i1 %87, label %112, label %88
 
 88:                                               ; preds = %82
-  %89 = load double, ptr %32, align 8, !tbaa !130
+  %89 = load double, ptr %32, align 8, !tbaa !129
   %90 = load double, ptr %33, align 8, !tbaa !48
   %91 = fcmp ult double %89, %90
   br i1 %91, label %92, label %112
 
 92:                                               ; preds = %88
-  %93 = load double, ptr %34, align 8, !tbaa !123
+  %93 = load double, ptr %34, align 8, !tbaa !122
   %94 = fmul double %90, 5.000000e+00
   %95 = fcmp ult double %93, %94
   br i1 %95, label %109, label %96
 
 96:                                               ; preds = %92
-  %97 = load ptr, ptr %22, align 8, !tbaa !72
+  %97 = load ptr, ptr %22, align 8, !tbaa !71
   %98 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %97, i64 0, i32 9
-  %99 = load i8, ptr %98, align 2, !tbaa !131, !range !68, !noundef !69
+  %99 = load i8, ptr %98, align 2, !tbaa !130, !range !67, !noundef !68
   %100 = icmp eq i8 %99, 0
   br i1 %100, label %112, label %109
 
@@ -2001,37 +2001,37 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
           to label %111 unwind label %107
 
 111:                                              ; preds = %109
-  store i64 %110, ptr %35, align 8, !tbaa !59
+  store i64 %110, ptr %35, align 8, !tbaa !58
   br label %58
 
-112:                                              ; preds = %79, %96, %88, %82, %50
+112:                                              ; preds = %79, %88, %82, %96, %50
   %113 = load ptr, ptr @_ZN9benchmark8internal14memory_managerE, align 8, !tbaa !5
   %114 = icmp eq ptr %113, null
   br i1 %114, label %238, label %115
 
 115:                                              ; preds = %112
   %116 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 8
-  %117 = load i64, ptr @_ZN9benchmark13MemoryManager14TombstoneValueE, align 8, !tbaa !80
+  %117 = load i64, ptr @_ZN9benchmark13MemoryManager14TombstoneValueE, align 8, !tbaa !79
   %118 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 0, i32 1
-  %119 = load ptr, ptr %118, align 8, !tbaa !159
+  %119 = load ptr, ptr %118, align 8, !tbaa !158
   %120 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 0, i32 2
-  %121 = load ptr, ptr %120, align 8, !tbaa !160
+  %121 = load ptr, ptr %120, align 8, !tbaa !159
   %122 = icmp eq ptr %119, %121
   br i1 %122, label %128, label %123
 
 123:                                              ; preds = %115
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %119, i8 0, i64 16, i1 false)
   %124 = getelementptr inbounds i8, ptr %119, i64 16
-  store i64 %117, ptr %124, align 8, !tbaa.struct !161
+  store i64 %117, ptr %124, align 8, !tbaa.struct !160
   %125 = getelementptr inbounds i8, ptr %119, i64 24
-  store i64 %117, ptr %125, align 8, !tbaa.struct !79
-  %126 = load ptr, ptr %118, align 8, !tbaa !159
+  store i64 %117, ptr %125, align 8, !tbaa.struct !78
+  %126 = load ptr, ptr %118, align 8, !tbaa !158
   %127 = getelementptr inbounds %"struct.benchmark::MemoryManager::Result", ptr %126, i64 1
-  store ptr %127, ptr %118, align 8, !tbaa !159
+  store ptr %127, ptr %118, align 8, !tbaa !158
   br label %169
 
 128:                                              ; preds = %115
-  %129 = load ptr, ptr %116, align 8, !tbaa !77
+  %129 = load ptr, ptr %116, align 8, !tbaa !76
   %130 = ptrtoint ptr %119 to i64
   %131 = ptrtoint ptr %129 to i64
   %132 = sub i64 %130, %131
@@ -2066,20 +2066,20 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   %150 = getelementptr inbounds %"struct.benchmark::MemoryManager::Result", ptr %149, i64 %137
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %150, i8 0, i64 16, i1 false)
   %151 = getelementptr inbounds i8, ptr %150, i64 16
-  store i64 %117, ptr %151, align 8, !tbaa.struct !161
+  store i64 %117, ptr %151, align 8, !tbaa.struct !160
   %152 = getelementptr inbounds i8, ptr %150, i64 24
-  store i64 %117, ptr %152, align 8, !tbaa.struct !79
+  store i64 %117, ptr %152, align 8, !tbaa.struct !78
   %153 = icmp eq ptr %129, %119
   br i1 %153, label %160, label %154
 
 154:                                              ; preds = %148, %154
   %155 = phi ptr [ %158, %154 ], [ %149, %148 ]
   %156 = phi ptr [ %157, %154 ], [ %129, %148 ]
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %155, ptr noundef nonnull align 8 dereferenceable(32) %156, i64 32, i1 false), !tbaa.struct !162, !alias.scope !163
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %155, ptr noundef nonnull align 8 dereferenceable(32) %156, i64 32, i1 false), !tbaa.struct !161, !alias.scope !162
   %157 = getelementptr inbounds %"struct.benchmark::MemoryManager::Result", ptr %156, i64 1
   %158 = getelementptr inbounds %"struct.benchmark::MemoryManager::Result", ptr %155, i64 1
   %159 = icmp eq ptr %157, %119
-  br i1 %159, label %160, label %154, !llvm.loop !167
+  br i1 %159, label %160, label %154, !llvm.loop !166
 
 160:                                              ; preds = %154, %148
   %161 = phi ptr [ %149, %148 ], [ %158, %154 ]
@@ -2094,18 +2094,18 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 
 166:                                              ; preds = %164, %160
   %167 = phi ptr [ %165, %164 ], [ %113, %160 ]
-  store ptr %149, ptr %116, align 8, !tbaa !77
-  store ptr %162, ptr %118, align 8, !tbaa !159
+  store ptr %149, ptr %116, align 8, !tbaa !76
+  store ptr %162, ptr %118, align 8, !tbaa !158
   %168 = getelementptr inbounds %"struct.benchmark::MemoryManager::Result", ptr %149, i64 %143
-  store ptr %168, ptr %120, align 8, !tbaa !160
+  store ptr %168, ptr %120, align 8, !tbaa !159
   br label %169
 
 169:                                              ; preds = %166, %123
   %170 = phi ptr [ %167, %166 ], [ %113, %123 ]
   %171 = phi ptr [ %161, %166 ], [ %126, %123 ]
-  %172 = load i64, ptr %35, align 8, !tbaa !80
+  %172 = load i64, ptr %35, align 8, !tbaa !79
   %173 = call i64 @llvm.umin.i64(i64 %172, i64 16)
-  %174 = load ptr, ptr %170, align 8, !tbaa !107
+  %174 = load ptr, ptr %170, align 8, !tbaa !106
   %175 = getelementptr inbounds ptr, ptr %174, i64 2
   %176 = load ptr, ptr %175, align 8
   invoke void %176(ptr noundef nonnull align 8 dereferenceable(8) %170)
@@ -2113,7 +2113,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 
 177:                                              ; preds = %169
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #20
-  store ptr null, ptr %4, align 8, !tbaa !86
+  store ptr null, ptr %4, align 8, !tbaa !85
   %178 = invoke noalias noundef nonnull dereferenceable(400) ptr @_Znwm(i64 noundef 400) #19
           to label %179 unwind label %232
 
@@ -2121,40 +2121,40 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   %180 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 5
   %181 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 5, i32 2
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %178, i8 0, i64 40, i1 false)
-  store ptr %181, ptr %180, align 8, !tbaa !88
+  store ptr %181, ptr %180, align 8, !tbaa !87
   %182 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 5, i32 1
-  store i64 0, ptr %182, align 8, !tbaa !85
-  store i8 0, ptr %181, align 8, !tbaa !89
+  store i64 0, ptr %182, align 8, !tbaa !84
+  store i8 0, ptr %181, align 8, !tbaa !88
   %183 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 6
   %184 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 6, i32 2
-  store ptr %184, ptr %183, align 8, !tbaa !88
+  store ptr %184, ptr %183, align 8, !tbaa !87
   %185 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 6, i32 1
-  store i64 0, ptr %185, align 8, !tbaa !85
-  store i8 0, ptr %184, align 8, !tbaa !89
+  store i64 0, ptr %185, align 8, !tbaa !84
+  store i8 0, ptr %184, align 8, !tbaa !88
   %186 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 7
-  store i8 0, ptr %186, align 8, !tbaa !90
+  store i8 0, ptr %186, align 8, !tbaa !89
   %187 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 8, i32 0, i32 0, i32 1
-  store i32 0, ptr %187, align 8, !tbaa !92
+  store i32 0, ptr %187, align 8, !tbaa !91
   %188 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  store ptr null, ptr %188, align 8, !tbaa !93
+  store ptr null, ptr %188, align 8, !tbaa !92
   %189 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 2
-  store ptr %187, ptr %189, align 8, !tbaa !94
+  store ptr %187, ptr %189, align 8, !tbaa !93
   %190 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 3
-  store ptr %187, ptr %190, align 8, !tbaa !95
+  store ptr %187, ptr %190, align 8, !tbaa !94
   %191 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %178, i64 0, i32 8, i32 0, i32 0, i32 1, i32 1
   %192 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %178, i64 0, i32 2
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %191, i8 0, i64 48, i1 false)
-  store i32 1, ptr %192, align 8, !tbaa !96
+  store i32 1, ptr %192, align 8, !tbaa !95
   %193 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %178, i64 0, i32 4
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %193, i8 0, i64 40, i1 false)
   %194 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %178, i64 0, i32 4, i32 1
   call void @_ZNSt18condition_variableC1Ev(ptr noundef nonnull align 8 dereferenceable(48) %194) #20
   %195 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %178, i64 0, i32 4, i32 2
-  store i32 1, ptr %195, align 8, !tbaa !98
+  store i32 1, ptr %195, align 8, !tbaa !97
   %196 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %178, i64 0, i32 4, i32 3
-  store i32 0, ptr %196, align 4, !tbaa !105
+  store i32 0, ptr %196, align 4, !tbaa !104
   %197 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %178, i64 0, i32 4, i32 4
-  store i32 0, ptr %197, align 8, !tbaa !106
+  store i32 0, ptr %197, align 8, !tbaa !105
   %198 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %178, i64 0, i32 5
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %198, i8 0, i64 40, i1 false)
   %199 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %178, i64 0, i32 6
@@ -2169,15 +2169,15 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   br label %203
 
 203:                                              ; preds = %179, %202
-  %204 = load ptr, ptr %22, align 8, !tbaa !72
+  %204 = load ptr, ptr %22, align 8, !tbaa !71
   invoke void @_ZNK9benchmark8internal17BenchmarkInstance5SetupEv(ptr noundef nonnull align 8 dereferenceable(384) %204)
           to label %205 unwind label %232
 
 205:                                              ; preds = %203
-  %206 = load ptr, ptr %22, align 8, !tbaa !72
+  %206 = load ptr, ptr %22, align 8, !tbaa !71
   %207 = load ptr, ptr %4, align 8, !tbaa !5
   %208 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 11
-  %209 = load ptr, ptr %208, align 8, !tbaa !66
+  %209 = load ptr, ptr %208, align 8, !tbaa !65
   invoke void @_ZN9benchmark8internal12_GLOBAL__N_111RunInThreadEPKNS0_17BenchmarkInstanceEmiPNS0_13ThreadManagerEPNS0_23PerfCountersMeasurementE(ptr noundef %206, i64 noundef %173, i32 noundef 0, ptr noundef %207, ptr noundef %209)
           to label %210 unwind label %232
 
@@ -2197,13 +2197,13 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   br label %216
 
 216:                                              ; preds = %212, %215
-  %217 = load ptr, ptr %22, align 8, !tbaa !72
+  %217 = load ptr, ptr %22, align 8, !tbaa !71
   invoke void @_ZNK9benchmark8internal17BenchmarkInstance8TeardownEv(ptr noundef nonnull align 8 dereferenceable(384) %217)
           to label %218 unwind label %232
 
 218:                                              ; preds = %216
   %219 = load ptr, ptr @_ZN9benchmark8internal14memory_managerE, align 8, !tbaa !5
-  %220 = load ptr, ptr %219, align 8, !tbaa !107
+  %220 = load ptr, ptr %219, align 8, !tbaa !106
   %221 = getelementptr inbounds ptr, ptr %220, i64 3
   %222 = load ptr, ptr %221, align 8
   invoke void %222(ptr noundef nonnull align 8 dereferenceable(8) %219, ptr noundef nonnull %171)
@@ -2251,14 +2251,14 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   %239 = phi ptr [ %171, %227 ], [ null, %112 ]
   %240 = phi i64 [ %173, %227 ], [ 0, %112 ]
   call void @llvm.lifetime.start.p0(i64 528, ptr nonnull %5) #20
-  %241 = load ptr, ptr %22, align 8, !tbaa !72
-  %242 = load double, ptr %32, align 8, !tbaa !130
-  %243 = load i32, ptr %6, align 8, !tbaa !53
+  %241 = load ptr, ptr %22, align 8, !tbaa !71
+  %242 = load double, ptr %32, align 8, !tbaa !129
+  %243 = load i32, ptr %6, align 8, !tbaa !52
   %244 = sext i32 %243 to i64
   %245 = getelementptr inbounds %"class.benchmark::internal::BenchmarkRunner", ptr %0, i64 0, i32 4
-  %246 = load i32, ptr %245, align 8, !tbaa !50
+  %246 = load i32, ptr %245, align 8, !tbaa !49
   %247 = sext i32 %246 to i64
-  call void @llvm.experimental.noalias.scope.decl(metadata !168)
+  call void @llvm.experimental.noalias.scope.decl(metadata !167)
   invoke void @_ZN9benchmark17BenchmarkReporter3RunC2Ev(ptr noundef nonnull align 8 dereferenceable(528) %5)
           to label %248 unwind label %359
 
@@ -2304,18 +2304,18 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 
 267:                                              ; preds = %264
   %268 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %241, i64 0, i32 2
-  %269 = load i32, ptr %268, align 8, !tbaa !171, !noalias !168
+  %269 = load i32, ptr %268, align 8, !tbaa !170, !noalias !167
   %270 = sext i32 %269 to i64
   %271 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 1
-  store i64 %270, ptr %271, align 8, !tbaa !172, !alias.scope !168
+  store i64 %270, ptr %271, align 8, !tbaa !171, !alias.scope !167
   %272 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %241, i64 0, i32 3
-  %273 = load i32, ptr %272, align 4, !tbaa !176, !noalias !168
+  %273 = load i32, ptr %272, align 4, !tbaa !175, !noalias !167
   %274 = sext i32 %273 to i64
   %275 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 2
-  store i64 %274, ptr %275, align 8, !tbaa !177, !alias.scope !168
-  %276 = load i8, ptr %16, align 8, !tbaa !90, !range !68, !noalias !168, !noundef !69
+  store i64 %274, ptr %275, align 8, !tbaa !176, !alias.scope !167
+  %276 = load i8, ptr %16, align 8, !tbaa !89, !range !67, !noalias !167, !noundef !68
   %277 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 7
-  store i8 %276, ptr %277, align 8, !tbaa !178, !alias.scope !168
+  store i8 %276, ptr %277, align 8, !tbaa !177, !alias.scope !167
   %278 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 8
   invoke void @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERKS4_(ptr noundef nonnull align 8 dereferenceable(32) %278, ptr noundef nonnull align 8 dereferenceable(32) %13)
           to label %279 unwind label %322
@@ -2326,56 +2326,56 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
           to label %281 unwind label %322
 
 281:                                              ; preds = %279
-  %282 = load i64, ptr %2, align 8, !tbaa !143, !noalias !168
+  %282 = load i64, ptr %2, align 8, !tbaa !142, !noalias !167
   %283 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 9
-  store i64 %282, ptr %283, align 8, !tbaa !179, !alias.scope !168
+  store i64 %282, ptr %283, align 8, !tbaa !178, !alias.scope !167
   %284 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %241, i64 0, i32 6
-  %285 = load i32, ptr %284, align 8, !tbaa !180, !noalias !168
+  %285 = load i32, ptr %284, align 8, !tbaa !179, !noalias !167
   %286 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 13
-  store i32 %285, ptr %286, align 8, !tbaa !181, !alias.scope !168
+  store i32 %285, ptr %286, align 8, !tbaa !180, !alias.scope !167
   %287 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %241, i64 0, i32 17
-  %288 = load i32, ptr %287, align 8, !tbaa !54, !noalias !168
+  %288 = load i32, ptr %287, align 8, !tbaa !53, !noalias !167
   %289 = sext i32 %288 to i64
   %290 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 10
-  store i64 %289, ptr %290, align 8, !tbaa !182, !alias.scope !168
+  store i64 %289, ptr %290, align 8, !tbaa !181, !alias.scope !167
   %291 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 11
-  store i64 %244, ptr %291, align 8, !tbaa !183, !alias.scope !168
+  store i64 %244, ptr %291, align 8, !tbaa !182, !alias.scope !167
   %292 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 12
-  store i64 %247, ptr %292, align 8, !tbaa !184, !alias.scope !168
-  %293 = load i8, ptr %277, align 8, !tbaa !178, !range !68, !alias.scope !168, !noundef !69
+  store i64 %247, ptr %292, align 8, !tbaa !183, !alias.scope !167
+  %293 = load i8, ptr %277, align 8, !tbaa !177, !range !67, !alias.scope !167, !noundef !68
   %294 = icmp eq i8 %293, 0
   br i1 %294, label %295, label %337
 
 295:                                              ; preds = %281
   %296 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %241, i64 0, i32 9
-  %297 = load i8, ptr %296, align 2, !tbaa !131, !range !68, !noalias !168, !noundef !69
+  %297 = load i8, ptr %296, align 2, !tbaa !130, !range !67, !noalias !167, !noundef !68
   %298 = icmp eq i8 %297, 0
   %299 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 3
-  %300 = load double, ptr %34, align 8, !noalias !168
-  %301 = load double, ptr %299, align 8, !noalias !168
+  %300 = load double, ptr %34, align 8, !noalias !167
+  %301 = load double, ptr %299, align 8, !noalias !167
   %302 = select i1 %298, double %300, double %301
   %303 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 14
-  store double %302, ptr %303, align 8, !alias.scope !168
+  store double %302, ptr %303, align 8, !alias.scope !167
   %304 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 2
-  %305 = load double, ptr %304, align 8, !tbaa !146, !noalias !168
+  %305 = load double, ptr %304, align 8, !tbaa !145, !noalias !167
   %306 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 15
-  store double %305, ptr %306, align 8, !tbaa !185, !alias.scope !168
+  store double %305, ptr %306, align 8, !tbaa !184, !alias.scope !167
   %307 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 4
-  %308 = load i64, ptr %307, align 8, !tbaa !152, !noalias !168
+  %308 = load i64, ptr %307, align 8, !tbaa !151, !noalias !167
   %309 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 19
-  store i64 %308, ptr %309, align 8, !tbaa !186, !alias.scope !168
+  store i64 %308, ptr %309, align 8, !tbaa !185, !alias.scope !167
   %310 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %241, i64 0, i32 10
-  %311 = load i32, ptr %310, align 8, !tbaa !187, !noalias !168
+  %311 = load i32, ptr %310, align 8, !tbaa !186, !noalias !167
   %312 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 17
-  store i32 %311, ptr %312, align 8, !tbaa !188, !alias.scope !168
+  store i32 %311, ptr %312, align 8, !tbaa !187, !alias.scope !167
   %313 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %241, i64 0, i32 11
-  %314 = load ptr, ptr %313, align 8, !tbaa !189, !noalias !168
+  %314 = load ptr, ptr %313, align 8, !tbaa !188, !noalias !167
   %315 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 18
-  store ptr %314, ptr %315, align 8, !tbaa !190, !alias.scope !168
+  store ptr %314, ptr %315, align 8, !tbaa !189, !alias.scope !167
   %316 = getelementptr inbounds %"class.benchmark::internal::BenchmarkInstance", ptr %241, i64 0, i32 13
-  %317 = load ptr, ptr %316, align 8, !tbaa !191, !noalias !168
+  %317 = load ptr, ptr %316, align 8, !tbaa !190, !noalias !167
   %318 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 20
-  store ptr %317, ptr %318, align 8, !tbaa !192, !alias.scope !168
+  store ptr %317, ptr %318, align 8, !tbaa !191, !alias.scope !167
   %319 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 8
   %320 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 23
   %321 = invoke noundef nonnull align 8 dereferenceable(48) ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EEaSERKSG_(ptr noundef nonnull align 8 dereferenceable(48) %320, ptr noundef nonnull align 8 dereferenceable(48) %319)
@@ -2393,18 +2393,18 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 
 326:                                              ; preds = %324
   %327 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 24
-  store ptr %239, ptr %327, align 8, !tbaa !193, !alias.scope !168
-  %328 = load i64, ptr %239, align 8, !tbaa !194, !noalias !168
+  store ptr %239, ptr %327, align 8, !tbaa !192, !alias.scope !167
+  %328 = load i64, ptr %239, align 8, !tbaa !193, !noalias !167
   %329 = sitofp i64 %328 to double
   %330 = uitofp i64 %240 to double
   %331 = fdiv double %329, %330
   %332 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %5, i64 0, i32 25
-  store double %331, ptr %332, align 8, !tbaa !196, !alias.scope !168
+  store double %331, ptr %332, align 8, !tbaa !195, !alias.scope !167
   br label %333
 
 333:                                              ; preds = %326, %324
-  %334 = load i64, ptr %2, align 8, !tbaa !143, !noalias !168
-  %335 = load i32, ptr %287, align 8, !tbaa !54, !noalias !168
+  %334 = load i64, ptr %2, align 8, !tbaa !142, !noalias !167
+  %335 = load i32, ptr %287, align 8, !tbaa !53, !noalias !167
   %336 = sitofp i32 %335 to double
   invoke void @_ZN9benchmark8internal6FinishEPSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEENS_7CounterESt4lessIS7_ESaISt4pairIKS7_S8_EEEmdd(ptr noundef nonnull %320, i64 noundef %334, double noundef %242, double noundef %336)
           to label %337 unwind label %322
@@ -2417,18 +2417,18 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 
 341:                                              ; preds = %337
   %342 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::PerFamilyRunReports", ptr %339, i64 0, i32 1
-  %343 = load i32, ptr %342, align 4, !tbaa !197
+  %343 = load i32, ptr %342, align 4, !tbaa !196
   %344 = add nsw i32 %343, 1
-  store i32 %344, ptr %342, align 4, !tbaa !197
-  %345 = load i8, ptr %277, align 8, !tbaa !178, !range !68, !noundef !69
+  store i32 %344, ptr %342, align 4, !tbaa !196
+  %345 = load i8, ptr %277, align 8, !tbaa !177, !range !67, !noundef !68
   %346 = icmp eq i8 %345, 0
   br i1 %346, label %347, label %363
 
 347:                                              ; preds = %341
   %348 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::PerFamilyRunReports", ptr %339, i64 0, i32 2, i32 0, i32 0, i32 0, i32 1
-  %349 = load ptr, ptr %348, align 8, !tbaa !82
+  %349 = load ptr, ptr %348, align 8, !tbaa !81
   %350 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::PerFamilyRunReports", ptr %339, i64 0, i32 2, i32 0, i32 0, i32 0, i32 2
-  %351 = load ptr, ptr %350, align 8, !tbaa !199
+  %351 = load ptr, ptr %350, align 8, !tbaa !198
   %352 = icmp eq ptr %349, %351
   br i1 %352, label %357, label %353
 
@@ -2437,9 +2437,9 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
           to label %354 unwind label %361
 
 354:                                              ; preds = %353
-  %355 = load ptr, ptr %348, align 8, !tbaa !82
+  %355 = load ptr, ptr %348, align 8, !tbaa !81
   %356 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %355, i64 1
-  store ptr %356, ptr %348, align 8, !tbaa !82
+  store ptr %356, ptr %348, align 8, !tbaa !81
   br label %363
 
 357:                                              ; preds = %347
@@ -2460,9 +2460,9 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
 
 363:                                              ; preds = %354, %357, %341, %337
   %364 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::BenchmarkReporter::Run, std::allocator<benchmark::BenchmarkReporter::Run>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %365 = load ptr, ptr %364, align 8, !tbaa !82
+  %365 = load ptr, ptr %364, align 8, !tbaa !81
   %366 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::BenchmarkReporter::Run, std::allocator<benchmark::BenchmarkReporter::Run>>::_Vector_impl_data", ptr %0, i64 0, i32 2
-  %367 = load ptr, ptr %366, align 8, !tbaa !199
+  %367 = load ptr, ptr %366, align 8, !tbaa !198
   %368 = icmp eq ptr %365, %367
   br i1 %368, label %373, label %369
 
@@ -2471,9 +2471,9 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
           to label %370 unwind label %361
 
 370:                                              ; preds = %369
-  %371 = load ptr, ptr %364, align 8, !tbaa !82
+  %371 = load ptr, ptr %364, align 8, !tbaa !81
   %372 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %371, i64 1
-  store ptr %372, ptr %364, align 8, !tbaa !82
+  store ptr %372, ptr %364, align 8, !tbaa !81
   br label %374
 
 373:                                              ; preds = %363
@@ -2481,13 +2481,13 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
           to label %374 unwind label %361
 
 374:                                              ; preds = %370, %373
-  %375 = load i32, ptr %6, align 8, !tbaa !53
+  %375 = load i32, ptr %6, align 8, !tbaa !52
   %376 = add nsw i32 %375, 1
-  store i32 %376, ptr %6, align 8, !tbaa !53
+  store i32 %376, ptr %6, align 8, !tbaa !52
   call void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr noundef nonnull align 8 dereferenceable(528) %5) #20
   call void @llvm.lifetime.end.p0(i64 528, ptr nonnull %5) #20
   %377 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %2, i64 0, i32 8
-  %378 = load ptr, ptr %18, align 8, !tbaa !93
+  %378 = load ptr, ptr %18, align 8, !tbaa !92
   invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %377, ptr noundef %378)
           to label %382 unwind label %379
 
@@ -2499,7 +2499,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   unreachable
 
 382:                                              ; preds = %374
-  %383 = load ptr, ptr %13, align 8, !tbaa !63
+  %383 = load ptr, ptr %13, align 8, !tbaa !62
   %384 = icmp eq ptr %383, %14
   br i1 %384, label %386, label %385
 
@@ -2508,7 +2508,7 @@ define hidden void @_ZN9benchmark8internal15BenchmarkRunner15DoOneRepetitionEv(p
   br label %386
 
 386:                                              ; preds = %385, %382
-  %387 = load ptr, ptr %10, align 8, !tbaa !63
+  %387 = load ptr, ptr %10, align 8, !tbaa !62
   %388 = icmp eq ptr %387, %11
   br i1 %388, label %390, label %389
 
@@ -2540,7 +2540,7 @@ declare void @_ZNK9benchmark8internal17BenchmarkInstance8TeardownEv(ptr noundef 
 define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr noundef nonnull align 8 dereferenceable(528) %0) unnamed_addr #6 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23
   %3 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !93
+  %4 = load ptr, ptr %3, align 8, !tbaa !92
   invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %2, ptr noundef %4)
           to label %8 unwind label %5
 
@@ -2553,7 +2553,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
 
 8:                                                ; preds = %1
   %9 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8
-  %10 = load ptr, ptr %9, align 8, !tbaa !63
+  %10 = load ptr, ptr %9, align 8, !tbaa !62
   %11 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8, i32 2
   %12 = icmp eq ptr %10, %11
   br i1 %12, label %14, label %13
@@ -2564,7 +2564,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
 
 14:                                               ; preds = %8, %13
   %15 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6
-  %16 = load ptr, ptr %15, align 8, !tbaa !63
+  %16 = load ptr, ptr %15, align 8, !tbaa !62
   %17 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6, i32 2
   %18 = icmp eq ptr %16, %17
   br i1 %18, label %20, label %19
@@ -2575,7 +2575,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
 
 20:                                               ; preds = %14, %19
   %21 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4
-  %22 = load ptr, ptr %21, align 8, !tbaa !63
+  %22 = load ptr, ptr %21, align 8, !tbaa !62
   %23 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4, i32 2
   %24 = icmp eq ptr %22, %23
   br i1 %24, label %26, label %25
@@ -2586,7 +2586,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
 
 26:                                               ; preds = %20, %25
   %27 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6
-  %28 = load ptr, ptr %27, align 8, !tbaa !63
+  %28 = load ptr, ptr %27, align 8, !tbaa !62
   %29 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 2
   %30 = icmp eq ptr %28, %29
   br i1 %30, label %32, label %31
@@ -2597,7 +2597,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
 
 32:                                               ; preds = %31, %26
   %33 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5
-  %34 = load ptr, ptr %33, align 8, !tbaa !63
+  %34 = load ptr, ptr %33, align 8, !tbaa !62
   %35 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 2
   %36 = icmp eq ptr %34, %35
   br i1 %36, label %38, label %37
@@ -2608,7 +2608,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
 
 38:                                               ; preds = %37, %32
   %39 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4
-  %40 = load ptr, ptr %39, align 8, !tbaa !63
+  %40 = load ptr, ptr %39, align 8, !tbaa !62
   %41 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 2
   %42 = icmp eq ptr %40, %41
   br i1 %42, label %44, label %43
@@ -2619,7 +2619,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
 
 44:                                               ; preds = %43, %38
   %45 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3
-  %46 = load ptr, ptr %45, align 8, !tbaa !63
+  %46 = load ptr, ptr %45, align 8, !tbaa !62
   %47 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 2
   %48 = icmp eq ptr %46, %47
   br i1 %48, label %50, label %49
@@ -2630,7 +2630,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
 
 50:                                               ; preds = %49, %44
   %51 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2
-  %52 = load ptr, ptr %51, align 8, !tbaa !63
+  %52 = load ptr, ptr %51, align 8, !tbaa !62
   %53 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 2
   %54 = icmp eq ptr %52, %53
   br i1 %54, label %56, label %55
@@ -2641,7 +2641,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
 
 56:                                               ; preds = %55, %50
   %57 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1
-  %58 = load ptr, ptr %57, align 8, !tbaa !63
+  %58 = load ptr, ptr %57, align 8, !tbaa !62
   %59 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 2
   %60 = icmp eq ptr %58, %59
   br i1 %60, label %62, label %61
@@ -2651,7 +2651,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr no
   br label %62
 
 62:                                               ; preds = %61, %56
-  %63 = load ptr, ptr %0, align 8, !tbaa !63
+  %63 = load ptr, ptr %0, align 8, !tbaa !62
   %64 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
   %65 = icmp eq ptr %63, %64
   br i1 %65, label %67, label %66
@@ -2670,16 +2670,16 @@ define hidden noundef nonnull align 8 dereferenceable(50) ptr @_ZN9benchmark8int
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %2) #20
   call void @_ZN9benchmark12ComputeStatsERKSt6vectorINS_17BenchmarkReporter3RunESaIS2_EE(ptr nonnull sret(%"class.std::vector") align 8 %2, ptr noundef nonnull align 8 dereferenceable(24) %0)
   %3 = getelementptr inbounds %"struct.benchmark::internal::RunResults", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !81
+  %4 = load ptr, ptr %3, align 8, !tbaa !80
   %5 = getelementptr inbounds %"struct.benchmark::internal::RunResults", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !82
+  %6 = load ptr, ptr %5, align 8, !tbaa !81
   %7 = getelementptr inbounds %"struct.benchmark::internal::RunResults", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 2
   %8 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::BenchmarkReporter::Run, std::allocator<benchmark::BenchmarkReporter::Run>>::_Vector_impl_data", ptr %2, i64 0, i32 1
   %9 = load <2 x ptr>, ptr %2, align 16, !tbaa !5
   store <2 x ptr> %9, ptr %3, align 8, !tbaa !5
   %10 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::BenchmarkReporter::Run, std::allocator<benchmark::BenchmarkReporter::Run>>::_Vector_impl_data", ptr %2, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 16, !tbaa !199
-  store ptr %11, ptr %7, align 8, !tbaa !199
+  %11 = load ptr, ptr %10, align 16, !tbaa !198
+  store ptr %11, ptr %7, align 8, !tbaa !198
   %12 = icmp eq ptr %4, %6
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(24) %2, i8 0, i64 24, i1 false)
   br i1 %12, label %17, label %13
@@ -2689,7 +2689,7 @@ define hidden noundef nonnull align 8 dereferenceable(50) ptr @_ZN9benchmark8int
   call void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr noundef nonnull align 8 dereferenceable(528) %14) #20
   %15 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %14, i64 1
   %16 = icmp eq ptr %15, %6
-  br i1 %16, label %17, label %13, !llvm.loop !83
+  br i1 %16, label %17, label %13, !llvm.loop !82
 
 17:                                               ; preds = %13, %1
   %18 = icmp eq ptr %4, null
@@ -2700,8 +2700,8 @@ define hidden noundef nonnull align 8 dereferenceable(50) ptr @_ZN9benchmark8int
   br label %20
 
 20:                                               ; preds = %17, %19
-  %21 = load ptr, ptr %2, align 16, !tbaa !81
-  %22 = load ptr, ptr %8, align 8, !tbaa !82
+  %21 = load ptr, ptr %2, align 16, !tbaa !80
+  %22 = load ptr, ptr %8, align 8, !tbaa !81
   %23 = icmp eq ptr %21, %22
   br i1 %23, label %30, label %24
 
@@ -2710,10 +2710,10 @@ define hidden noundef nonnull align 8 dereferenceable(50) ptr @_ZN9benchmark8int
   call void @_ZN9benchmark17BenchmarkReporter3RunD2Ev(ptr noundef nonnull align 8 dereferenceable(528) %25) #20
   %26 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %25, i64 1
   %27 = icmp eq ptr %26, %22
-  br i1 %27, label %28, label %24, !llvm.loop !83
+  br i1 %27, label %28, label %24, !llvm.loop !82
 
 28:                                               ; preds = %24
-  %29 = load ptr, ptr %2, align 16, !tbaa !81
+  %29 = load ptr, ptr %2, align 16, !tbaa !80
   br label %30
 
 30:                                               ; preds = %28, %20
@@ -2766,12 +2766,12 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
 4:                                                ; preds = %2, %15
   %5 = phi ptr [ %9, %15 ], [ %1, %2 ]
   %6 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %5, i64 0, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !200
+  %7 = load ptr, ptr %6, align 8, !tbaa !199
   tail call void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef %7)
   %8 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %5, i64 0, i32 2
-  %9 = load ptr, ptr %8, align 8, !tbaa !201
+  %9 = load ptr, ptr %8, align 8, !tbaa !200
   %10 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %5, i64 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !63
+  %11 = load ptr, ptr %10, align 8, !tbaa !62
   %12 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %5, i64 0, i32 1, i32 0, i64 16
   %13 = icmp eq ptr %11, %12
   br i1 %13, label %15, label %14
@@ -2783,7 +2783,7 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
 15:                                               ; preds = %4, %14
   tail call void @_ZdlPv(ptr noundef nonnull %5) #21
   %16 = icmp eq ptr %9, null
-  br i1 %16, label %17, label %4, !llvm.loop !202
+  br i1 %16, label %17, label %4, !llvm.loop !201
 
 17:                                               ; preds = %15, %2
   ret void
@@ -2806,11 +2806,11 @@ define linkonce_odr hidden void @_ZN9benchmark8internal13ThreadManager20NotifyTh
 
 6:                                                ; preds = %1
   %7 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %0, i64 0, i32 4, i32 2
-  %8 = load i32, ptr %7, align 8, !tbaa !98
+  %8 = load i32, ptr %7, align 8, !tbaa !97
   %9 = add nsw i32 %8, -1
-  store i32 %9, ptr %7, align 8, !tbaa !98
+  store i32 %9, ptr %7, align 8, !tbaa !97
   %10 = getelementptr inbounds %"class.benchmark::internal::ThreadManager", ptr %0, i64 0, i32 4, i32 4
-  %11 = load i32, ptr %10, align 8, !tbaa !106
+  %11 = load i32, ptr %10, align 8, !tbaa !105
   %12 = icmp eq i32 %11, 0
   br i1 %12, label %15, label %13
 
@@ -2850,7 +2850,7 @@ define linkonce_odr hidden void @_ZN9benchmark8internal13ThreadManager20NotifyTh
 define linkonce_odr hidden void @_ZN9benchmark5StateD2Ev(ptr noundef nonnull align 8 dereferenceable(144) %0) unnamed_addr #6 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8
   %3 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !93
+  %4 = load ptr, ptr %3, align 8, !tbaa !92
   invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %2, ptr noundef %4)
           to label %8 unwind label %5
 
@@ -2863,7 +2863,7 @@ define linkonce_odr hidden void @_ZN9benchmark5StateD2Ev(ptr noundef nonnull ali
 
 8:                                                ; preds = %1
   %9 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 6
-  %10 = load ptr, ptr %9, align 8, !tbaa !153
+  %10 = load ptr, ptr %9, align 8, !tbaa !152
   %11 = icmp eq ptr %10, null
   br i1 %11, label %13, label %12
 
@@ -2903,11 +2903,11 @@ define linkonce_odr hidden noundef nonnull align 8 dereferenceable(48) ptr @_ZNS
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #20
   %6 = getelementptr inbounds i8, ptr %0, i64 16
   %7 = load ptr, ptr %6, align 8, !tbaa !5
-  store ptr %7, ptr %3, align 8, !tbaa !203
+  store ptr %7, ptr %3, align 8, !tbaa !202
   %8 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Reuse_or_alloc_node", ptr %3, i64 0, i32 1
   %9 = getelementptr inbounds i8, ptr %0, i64 32
   %10 = load ptr, ptr %9, align 8, !tbaa !5
-  store ptr %10, ptr %8, align 8, !tbaa !205
+  store ptr %10, ptr %8, align 8, !tbaa !204
   %11 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Reuse_or_alloc_node", ptr %3, i64 0, i32 2
   store ptr %0, ptr %11, align 8, !tbaa !5
   %12 = icmp eq ptr %7, null
@@ -2915,27 +2915,27 @@ define linkonce_odr hidden noundef nonnull align 8 dereferenceable(48) ptr @_ZNS
 
 13:                                               ; preds = %5
   %14 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %7, i64 0, i32 1
-  store ptr null, ptr %14, align 8, !tbaa !206
+  store ptr null, ptr %14, align 8, !tbaa !205
   %15 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %10, i64 0, i32 2
-  %16 = load ptr, ptr %15, align 8, !tbaa !201
+  %16 = load ptr, ptr %15, align 8, !tbaa !200
   %17 = icmp eq ptr %16, null
   br i1 %17, label %20, label %18
 
 18:                                               ; preds = %13, %5
   %19 = phi ptr [ %16, %13 ], [ null, %5 ]
-  store ptr %19, ptr %8, align 8, !tbaa !205
+  store ptr %19, ptr %8, align 8, !tbaa !204
   br label %20
 
 20:                                               ; preds = %13, %18
   %21 = getelementptr inbounds i8, ptr %0, i64 8
-  store ptr null, ptr %6, align 8, !tbaa !93
+  store ptr null, ptr %6, align 8, !tbaa !92
   %22 = getelementptr inbounds i8, ptr %0, i64 24
-  store ptr %21, ptr %22, align 8, !tbaa !94
-  store ptr %21, ptr %9, align 8, !tbaa !95
+  store ptr %21, ptr %22, align 8, !tbaa !93
+  store ptr %21, ptr %9, align 8, !tbaa !94
   %23 = getelementptr inbounds i8, ptr %0, i64 40
-  store i64 0, ptr %23, align 8, !tbaa !122
+  store i64 0, ptr %23, align 8, !tbaa !121
   %24 = getelementptr inbounds i8, ptr %1, i64 16
-  %25 = load ptr, ptr %24, align 8, !tbaa !93
+  %25 = load ptr, ptr %24, align 8, !tbaa !92
   %26 = icmp eq ptr %25, null
   br i1 %26, label %47, label %27
 
@@ -2946,9 +2946,9 @@ define linkonce_odr hidden noundef nonnull align 8 dereferenceable(48) ptr @_ZNS
 29:                                               ; preds = %27, %29
   %30 = phi ptr [ %32, %29 ], [ %28, %27 ]
   %31 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %30, i64 0, i32 2
-  %32 = load ptr, ptr %31, align 8, !tbaa !201
+  %32 = load ptr, ptr %31, align 8, !tbaa !200
   %33 = icmp eq ptr %32, null
-  br i1 %33, label %34, label %29, !llvm.loop !207
+  br i1 %33, label %34, label %29, !llvm.loop !206
 
 34:                                               ; preds = %29
   store ptr %30, ptr %22, align 8, !tbaa !5
@@ -2957,18 +2957,18 @@ define linkonce_odr hidden noundef nonnull align 8 dereferenceable(48) ptr @_ZNS
 35:                                               ; preds = %35, %34
   %36 = phi ptr [ %28, %34 ], [ %38, %35 ]
   %37 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %36, i64 0, i32 3
-  %38 = load ptr, ptr %37, align 8, !tbaa !200
+  %38 = load ptr, ptr %37, align 8, !tbaa !199
   %39 = icmp eq ptr %38, null
-  br i1 %39, label %40, label %35, !llvm.loop !208
+  br i1 %39, label %40, label %35, !llvm.loop !207
 
 40:                                               ; preds = %35
   store ptr %36, ptr %9, align 8, !tbaa !5
   %41 = getelementptr inbounds i8, ptr %1, i64 40
-  %42 = load i64, ptr %41, align 8, !tbaa !122
-  store i64 %42, ptr %23, align 8, !tbaa !122
+  %42 = load i64, ptr %41, align 8, !tbaa !121
+  store i64 %42, ptr %23, align 8, !tbaa !121
   store ptr %28, ptr %6, align 8, !tbaa !5
-  %43 = load ptr, ptr %11, align 8, !tbaa !209
-  %44 = load ptr, ptr %3, align 8, !tbaa !203
+  %43 = load ptr, ptr %11, align 8, !tbaa !208
+  %44 = load ptr, ptr %3, align 8, !tbaa !202
   br label %47
 
 45:                                               ; preds = %27
@@ -3002,8 +3002,8 @@ define linkonce_odr hidden noundef nonnull align 8 dereferenceable(48) ptr @_ZNS
 ; Function Attrs: nounwind uwtable
 define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE20_Reuse_or_alloc_nodeD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Reuse_or_alloc_node", ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !209
-  %4 = load ptr, ptr %0, align 8, !tbaa !203
+  %3 = load ptr, ptr %2, align 8, !tbaa !208
+  %4 = load ptr, ptr %0, align 8, !tbaa !202
   invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %3, ptr noundef %4)
           to label %5 unwind label %6
 
@@ -3022,14 +3022,14 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
 define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE7_M_copyILb0ENSG_20_Reuse_or_alloc_nodeEEEPSt13_Rb_tree_nodeISA_ESL_PSt18_Rb_tree_node_baseRT0_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef %1, ptr noundef %2, ptr noundef nonnull align 8 dereferenceable(24) %3) local_unnamed_addr #14 comdat align 2 personality ptr @__gxx_personality_v0 {
   %5 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1
   %6 = tail call noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE20_Reuse_or_alloc_nodeclIRKSA_EEPSt13_Rb_tree_nodeISA_EOT_(ptr noundef nonnull align 8 dereferenceable(24) %3, ptr noundef nonnull align 8 dereferenceable(48) %5)
-  %7 = load i32, ptr %1, align 8, !tbaa !210
-  store i32 %7, ptr %6, align 8, !tbaa !210
+  %7 = load i32, ptr %1, align 8, !tbaa !209
+  store i32 %7, ptr %6, align 8, !tbaa !209
   %8 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %6, i64 0, i32 2
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %8, i8 0, i64 16, i1 false)
   %9 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %6, i64 0, i32 1
-  store ptr %2, ptr %9, align 8, !tbaa !206
+  store ptr %2, ptr %9, align 8, !tbaa !205
   %10 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %1, i64 0, i32 3
-  %11 = load ptr, ptr %10, align 8, !tbaa !200
+  %11 = load ptr, ptr %10, align 8, !tbaa !199
   %12 = icmp eq ptr %11, null
   br i1 %12, label %19, label %13
 
@@ -3039,7 +3039,7 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
 
 15:                                               ; preds = %13
   %16 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %6, i64 0, i32 3
-  store ptr %14, ptr %16, align 8, !tbaa !200
+  store ptr %14, ptr %16, align 8, !tbaa !199
   br label %19
 
 17:                                               ; preds = %13
@@ -3049,7 +3049,7 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
 
 19:                                               ; preds = %15, %4
   %20 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %1, i64 0, i32 2
-  %21 = load ptr, ptr %20, align 8, !tbaa !201
+  %21 = load ptr, ptr %20, align 8, !tbaa !200
   %22 = icmp eq ptr %21, null
   br i1 %22, label %54, label %23
 
@@ -3061,16 +3061,16 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
           to label %28 unwind label %40
 
 28:                                               ; preds = %23
-  %29 = load i32, ptr %24, align 8, !tbaa !210
-  store i32 %29, ptr %27, align 8, !tbaa !210
+  %29 = load i32, ptr %24, align 8, !tbaa !209
+  store i32 %29, ptr %27, align 8, !tbaa !209
   %30 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %27, i64 0, i32 2
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %30, i8 0, i64 16, i1 false)
   %31 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %25, i64 0, i32 2
-  store ptr %27, ptr %31, align 8, !tbaa !201
+  store ptr %27, ptr %31, align 8, !tbaa !200
   %32 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %27, i64 0, i32 1
-  store ptr %25, ptr %32, align 8, !tbaa !206
+  store ptr %25, ptr %32, align 8, !tbaa !205
   %33 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %24, i64 0, i32 3
-  %34 = load ptr, ptr %33, align 8, !tbaa !200
+  %34 = load ptr, ptr %33, align 8, !tbaa !199
   %35 = icmp eq ptr %34, null
   br i1 %35, label %47, label %36
 
@@ -3080,7 +3080,7 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
 
 38:                                               ; preds = %36
   %39 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %27, i64 0, i32 3
-  store ptr %37, ptr %39, align 8, !tbaa !200
+  store ptr %37, ptr %39, align 8, !tbaa !199
   br label %47
 
 40:                                               ; preds = %23, %36
@@ -3101,9 +3101,9 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
 
 47:                                               ; preds = %38, %28
   %48 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %24, i64 0, i32 2
-  %49 = load ptr, ptr %48, align 8, !tbaa !201
+  %49 = load ptr, ptr %48, align 8, !tbaa !200
   %50 = icmp eq ptr %49, null
-  br i1 %50, label %54, label %23, !llvm.loop !211
+  br i1 %50, label %54, label %23, !llvm.loop !210
 
 51:                                               ; preds = %46, %42
   %52 = landingpad { ptr, i32 }
@@ -3135,49 +3135,49 @@ declare void @__cxa_end_catch() local_unnamed_addr
 ; Function Attrs: uwtable
 define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE20_Reuse_or_alloc_nodeclIRKSA_EEPSt13_Rb_tree_nodeISA_EOT_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull align 8 dereferenceable(48) %1) local_unnamed_addr #3 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Reuse_or_alloc_node", ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !205
+  %4 = load ptr, ptr %3, align 8, !tbaa !204
   %5 = icmp eq ptr %4, null
   br i1 %5, label %40, label %6
 
 6:                                                ; preds = %2
   %7 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %4, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !206
-  store ptr %8, ptr %3, align 8, !tbaa !205
+  %8 = load ptr, ptr %7, align 8, !tbaa !205
+  store ptr %8, ptr %3, align 8, !tbaa !204
   %9 = icmp eq ptr %8, null
   br i1 %9, label %25, label %10
 
 10:                                               ; preds = %6
   %11 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %8, i64 0, i32 3
-  %12 = load ptr, ptr %11, align 8, !tbaa !200
+  %12 = load ptr, ptr %11, align 8, !tbaa !199
   %13 = icmp eq ptr %12, %4
   br i1 %13, label %14, label %23
 
 14:                                               ; preds = %10
-  store ptr null, ptr %11, align 8, !tbaa !200
+  store ptr null, ptr %11, align 8, !tbaa !199
   %15 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %8, i64 0, i32 2
-  %16 = load ptr, ptr %15, align 8, !tbaa !201
+  %16 = load ptr, ptr %15, align 8, !tbaa !200
   %17 = icmp eq ptr %16, null
   br i1 %17, label %31, label %18
 
 18:                                               ; preds = %14, %18
   %19 = phi ptr [ %21, %18 ], [ %16, %14 ]
   %20 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %19, i64 0, i32 3
-  %21 = load ptr, ptr %20, align 8, !tbaa !200
+  %21 = load ptr, ptr %20, align 8, !tbaa !199
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %26, label %18, !llvm.loop !212
+  br i1 %22, label %26, label %18, !llvm.loop !211
 
 23:                                               ; preds = %10
   %24 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %8, i64 0, i32 2
-  store ptr null, ptr %24, align 8, !tbaa !201
+  store ptr null, ptr %24, align 8, !tbaa !200
   br label %31
 
 25:                                               ; preds = %6
-  store ptr null, ptr %0, align 8, !tbaa !203
+  store ptr null, ptr %0, align 8, !tbaa !202
   br label %31
 
 26:                                               ; preds = %18
   %27 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %19, i64 0, i32 2
-  %28 = load ptr, ptr %27, align 8, !tbaa !201
+  %28 = load ptr, ptr %27, align 8, !tbaa !200
   %29 = icmp eq ptr %28, null
   %30 = select i1 %29, ptr %19, ptr %28
   store ptr %30, ptr %3, align 8
@@ -3186,7 +3186,7 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
 31:                                               ; preds = %26, %25, %23, %14
   %32 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Reuse_or_alloc_node", ptr %0, i64 0, i32 2
   %33 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %4, i64 0, i32 1
-  %34 = load ptr, ptr %33, align 8, !tbaa !63
+  %34 = load ptr, ptr %33, align 8, !tbaa !62
   %35 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %4, i64 0, i32 1, i32 0, i64 16
   %36 = icmp eq ptr %34, %35
   br i1 %36, label %38, label %37
@@ -3196,13 +3196,13 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
   br label %38
 
 38:                                               ; preds = %31, %37
-  %39 = load ptr, ptr %32, align 8, !tbaa !209
+  %39 = load ptr, ptr %32, align 8, !tbaa !208
   tail call void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE17_M_construct_nodeIJRKSA_EEEvPSt13_Rb_tree_nodeISA_EDpOT_(ptr noundef nonnull align 8 dereferenceable(48) %39, ptr noundef nonnull %4, ptr noundef nonnull align 8 dereferenceable(48) %1)
   br label %44
 
 40:                                               ; preds = %2
   %41 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, benchmark::Counter>>, std::less<std::__cxx11::basic_string<char>>>::_Reuse_or_alloc_node", ptr %0, i64 0, i32 2
-  %42 = load ptr, ptr %41, align 8, !tbaa !209
+  %42 = load ptr, ptr %41, align 8, !tbaa !208
   %43 = tail call noalias noundef nonnull dereferenceable(80) ptr @_Znwm(i64 noundef 80) #19
   tail call void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE17_M_construct_nodeIJRKSA_EEEvPSt13_Rb_tree_nodeISA_EDpOT_(ptr noundef nonnull align 8 dereferenceable(48) %42, ptr noundef nonnull %43, ptr noundef nonnull align 8 dereferenceable(48) %1)
   br label %44
@@ -3217,80 +3217,80 @@ define linkonce_odr hidden void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11c
   %4 = alloca i64, align 8
   %5 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1
   %6 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 16
-  store ptr %6, ptr %5, align 8, !tbaa !88
-  %7 = load ptr, ptr %2, align 8, !tbaa !63
+  store ptr %6, ptr %5, align 8, !tbaa !87
+  %7 = load ptr, ptr %2, align 8, !tbaa !62
   %8 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %2, i64 0, i32 1
-  %9 = load i64, ptr %8, align 8, !tbaa !85
+  %9 = load i64, ptr %8, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #20
-  store i64 %9, ptr %4, align 8, !tbaa !80
+  store i64 %9, ptr %4, align 8, !tbaa !79
   %10 = icmp ugt i64 %9, 15
   br i1 %10, label %11, label %15
 
 11:                                               ; preds = %3
   %12 = invoke noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef 0)
-          to label %13 unwind label %20
+          to label %13 unwind label %27
 
 13:                                               ; preds = %11
-  store ptr %12, ptr %5, align 8, !tbaa !63
-  %14 = load i64, ptr %4, align 8, !tbaa !80
-  store i64 %14, ptr %6, align 8, !tbaa !89
+  store ptr %12, ptr %5, align 8, !tbaa !62
+  %14 = load i64, ptr %4, align 8, !tbaa !79
+  store i64 %14, ptr %6, align 8, !tbaa !88
   br label %15
 
 15:                                               ; preds = %13, %3
   %16 = phi ptr [ %12, %13 ], [ %6, %3 ]
   switch i64 %9, label %19 [
     i64 1, label %17
-    i64 0, label %26
+    i64 0, label %20
   ]
 
 17:                                               ; preds = %15
-  %18 = load i8, ptr %7, align 1, !tbaa !89
-  store i8 %18, ptr %16, align 1, !tbaa !89
-  br label %26
+  %18 = load i8, ptr %7, align 1, !tbaa !88
+  store i8 %18, ptr %16, align 1, !tbaa !88
+  br label %20
 
 19:                                               ; preds = %15
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %16, ptr align 1 %7, i64 %9, i1 false)
-  br label %26
+  br label %20
 
-20:                                               ; preds = %11
-  %21 = landingpad { ptr, i32 }
+20:                                               ; preds = %15, %17, %19
+  %21 = load i64, ptr %4, align 8, !tbaa !79
+  %22 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
+  store i64 %21, ptr %22, align 8, !tbaa !84
+  %23 = load ptr, ptr %5, align 8, !tbaa !62
+  %24 = getelementptr inbounds i8, ptr %23, i64 %21
+  store i8 0, ptr %24, align 1, !tbaa !88
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #20
+  %25 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
+  %26 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %25, ptr noundef nonnull align 8 dereferenceable(16) %26, i64 16, i1 false), !tbaa.struct !212
+  ret void
+
+27:                                               ; preds = %11
+  %28 = landingpad { ptr, i32 }
           catch ptr null
-  %22 = extractvalue { ptr, i32 } %21, 0
-  %23 = call ptr @__cxa_begin_catch(ptr %22) #20
+  %29 = extractvalue { ptr, i32 } %28, 0
+  %30 = call ptr @__cxa_begin_catch(ptr %29) #20
   call void @_ZdlPv(ptr noundef nonnull %1) #21
   invoke void @__cxa_rethrow() #18
-          to label %37 unwind label %24
+          to label %37 unwind label %31
 
-24:                                               ; preds = %20
-  %25 = landingpad { ptr, i32 }
+31:                                               ; preds = %27
+  %32 = landingpad { ptr, i32 }
           cleanup
   invoke void @__cxa_end_catch()
           to label %33 unwind label %34
 
-26:                                               ; preds = %19, %17, %15
-  %27 = load i64, ptr %4, align 8, !tbaa !80
-  %28 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 8
-  store i64 %27, ptr %28, align 8, !tbaa !85
-  %29 = load ptr, ptr %5, align 8, !tbaa !63
-  %30 = getelementptr inbounds i8, ptr %29, i64 %27
-  store i8 0, ptr %30, align 1, !tbaa !89
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #20
-  %31 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1, i32 0, i64 32
-  %32 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %31, ptr noundef nonnull align 8 dereferenceable(16) %32, i64 16, i1 false), !tbaa.struct !213
-  ret void
+33:                                               ; preds = %31
+  resume { ptr, i32 } %32
 
-33:                                               ; preds = %24
-  resume { ptr, i32 } %25
-
-34:                                               ; preds = %24
+34:                                               ; preds = %31
   %35 = landingpad { ptr, i32 }
           catch ptr null
   %36 = extractvalue { ptr, i32 } %35, 0
   call void @__clang_call_terminate(ptr %36) #22
   unreachable
 
-37:                                               ; preds = %20
+37:                                               ; preds = %27
   unreachable
 }
 
@@ -3304,318 +3304,288 @@ define linkonce_odr hidden noundef nonnull align 8 dereferenceable(160) ptr @_ZN
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %0, ptr noundef nonnull align 8 dereferenceable(40) %1, i64 40, i1 false)
   %3 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5
   %4 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 5
-  %5 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 2
-  %6 = load ptr, ptr %4, align 8, !tbaa !63
+  %5 = load ptr, ptr %3, align 8, !tbaa !62
+  %6 = load ptr, ptr %4, align 8, !tbaa !62
   %7 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 5, i32 2
   %8 = icmp eq ptr %6, %7
-  br i1 %8, label %9, label %27
+  br i1 %8, label %9, label %23
 
 9:                                                ; preds = %2
   %10 = icmp eq ptr %1, %0
-  br i1 %10, label %44, label %11, !prof !139
+  br i1 %10, label %35, label %11, !prof !138
 
 11:                                               ; preds = %9
   %12 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 5, i32 1
-  %13 = load i64, ptr %12, align 8, !tbaa !85
-  %14 = icmp eq i64 %13, 0
-  br i1 %14, label %21, label %15
+  %13 = load i64, ptr %12, align 8, !tbaa !84
+  switch i64 %13, label %16 [
+    i64 0, label %17
+    i64 1, label %14
+  ]
 
-15:                                               ; preds = %11
-  %16 = load ptr, ptr %3, align 8, !tbaa !63
-  %17 = icmp eq i64 %13, 1
-  br i1 %17, label %18, label %20
+14:                                               ; preds = %11
+  %15 = load i8, ptr %6, align 1, !tbaa !88
+  store i8 %15, ptr %5, align 1, !tbaa !88
+  br label %17
 
-18:                                               ; preds = %15
-  %19 = load i8, ptr %6, align 1, !tbaa !89
-  store i8 %19, ptr %16, align 1, !tbaa !89
-  br label %21
+16:                                               ; preds = %11
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %5, ptr align 1 %6, i64 %13, i1 false)
+  br label %17
 
-20:                                               ; preds = %15
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %16, ptr align 1 %6, i64 %13, i1 false)
-  br label %21
+17:                                               ; preds = %16, %14, %11
+  %18 = load i64, ptr %12, align 8, !tbaa !84
+  %19 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 1
+  store i64 %18, ptr %19, align 8, !tbaa !84
+  %20 = load ptr, ptr %3, align 8, !tbaa !62
+  %21 = getelementptr inbounds i8, ptr %20, i64 %18
+  store i8 0, ptr %21, align 1, !tbaa !88
+  %22 = load ptr, ptr %4, align 8, !tbaa !62
+  br label %35
 
-21:                                               ; preds = %20, %18, %11
-  %22 = load i64, ptr %12, align 8, !tbaa !85
-  %23 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 1
-  store i64 %22, ptr %23, align 8, !tbaa !85
-  %24 = load ptr, ptr %3, align 8, !tbaa !63
-  %25 = getelementptr inbounds i8, ptr %24, i64 %22
-  store i8 0, ptr %25, align 1, !tbaa !89
-  %26 = load ptr, ptr %4, align 8, !tbaa !63
-  br label %44
+23:                                               ; preds = %2
+  %24 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 2
+  %25 = icmp eq ptr %5, %24
+  %26 = load i64, ptr %24, align 8
+  store ptr %6, ptr %3, align 8, !tbaa !62
+  %27 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 5, i32 1
+  %28 = load i64, ptr %27, align 8, !tbaa !84
+  %29 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 1
+  store i64 %28, ptr %29, align 8, !tbaa !84
+  %30 = load i64, ptr %7, align 8, !tbaa !88
+  store i64 %30, ptr %24, align 8, !tbaa !88
+  %31 = icmp eq ptr %5, null
+  %32 = or i1 %25, %31
+  br i1 %32, label %34, label %33
 
-27:                                               ; preds = %2
-  %28 = load ptr, ptr %3, align 8, !tbaa !63
-  %29 = icmp eq ptr %28, %5
-  br i1 %29, label %30, label %35
+33:                                               ; preds = %23
+  store ptr %5, ptr %4, align 8, !tbaa !62
+  store i64 %26, ptr %7, align 8, !tbaa !88
+  br label %35
 
-30:                                               ; preds = %27
-  store ptr %6, ptr %3, align 8, !tbaa !63
-  %31 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 5, i32 1
-  %32 = load i64, ptr %31, align 8, !tbaa !85
-  %33 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 1
-  store i64 %32, ptr %33, align 8, !tbaa !85
-  %34 = load i64, ptr %7, align 8, !tbaa !89
-  store i64 %34, ptr %5, align 8, !tbaa !89
-  br label %43
+34:                                               ; preds = %23
+  store ptr %7, ptr %4, align 8, !tbaa !62
+  br label %35
 
-35:                                               ; preds = %27
-  %36 = load i64, ptr %5, align 8, !tbaa !89
-  store ptr %6, ptr %3, align 8, !tbaa !63
+35:                                               ; preds = %9, %17, %33, %34
+  %36 = phi ptr [ %5, %33 ], [ %7, %34 ], [ %22, %17 ], [ %6, %9 ]
   %37 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 5, i32 1
-  %38 = load i64, ptr %37, align 8, !tbaa !85
-  %39 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 5, i32 1
-  store i64 %38, ptr %39, align 8, !tbaa !85
-  %40 = load i64, ptr %7, align 8, !tbaa !89
-  store i64 %40, ptr %5, align 8, !tbaa !89
-  %41 = icmp eq ptr %28, null
-  br i1 %41, label %43, label %42
+  store i64 0, ptr %37, align 8, !tbaa !84
+  store i8 0, ptr %36, align 1, !tbaa !88
+  %38 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6
+  %39 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6
+  %40 = load ptr, ptr %38, align 8, !tbaa !62
+  %41 = load ptr, ptr %39, align 8, !tbaa !62
+  %42 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 2
+  %43 = icmp eq ptr %41, %42
+  br i1 %43, label %44, label %58
 
-42:                                               ; preds = %35
-  store ptr %28, ptr %4, align 8, !tbaa !63
-  store i64 %36, ptr %7, align 8, !tbaa !89
-  br label %44
+44:                                               ; preds = %35
+  %45 = icmp eq ptr %1, %0
+  br i1 %45, label %70, label %46, !prof !138
 
-43:                                               ; preds = %35, %30
-  store ptr %7, ptr %4, align 8, !tbaa !63
-  br label %44
+46:                                               ; preds = %44
+  %47 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 1
+  %48 = load i64, ptr %47, align 8, !tbaa !84
+  switch i64 %48, label %51 [
+    i64 0, label %52
+    i64 1, label %49
+  ]
 
-44:                                               ; preds = %9, %21, %42, %43
-  %45 = phi ptr [ %26, %21 ], [ %28, %42 ], [ %7, %43 ], [ %6, %9 ]
-  %46 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 5, i32 1
-  store i64 0, ptr %46, align 8, !tbaa !85
-  store i8 0, ptr %45, align 1, !tbaa !89
-  %47 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6
-  %48 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6
-  %49 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 2
-  %50 = load ptr, ptr %48, align 8, !tbaa !63
-  %51 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 2
-  %52 = icmp eq ptr %50, %51
-  br i1 %52, label %53, label %71
+49:                                               ; preds = %46
+  %50 = load i8, ptr %41, align 1, !tbaa !88
+  store i8 %50, ptr %40, align 1, !tbaa !88
+  br label %52
 
-53:                                               ; preds = %44
-  %54 = icmp eq ptr %1, %0
-  br i1 %54, label %88, label %55, !prof !139
+51:                                               ; preds = %46
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %40, ptr align 1 %41, i64 %48, i1 false)
+  br label %52
 
-55:                                               ; preds = %53
-  %56 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 1
-  %57 = load i64, ptr %56, align 8, !tbaa !85
-  %58 = icmp eq i64 %57, 0
-  br i1 %58, label %65, label %59
+52:                                               ; preds = %51, %49, %46
+  %53 = load i64, ptr %47, align 8, !tbaa !84
+  %54 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 1
+  store i64 %53, ptr %54, align 8, !tbaa !84
+  %55 = load ptr, ptr %38, align 8, !tbaa !62
+  %56 = getelementptr inbounds i8, ptr %55, i64 %53
+  store i8 0, ptr %56, align 1, !tbaa !88
+  %57 = load ptr, ptr %39, align 8, !tbaa !62
+  br label %70
 
-59:                                               ; preds = %55
-  %60 = load ptr, ptr %47, align 8, !tbaa !63
-  %61 = icmp eq i64 %57, 1
-  br i1 %61, label %62, label %64
+58:                                               ; preds = %35
+  %59 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 2
+  %60 = icmp eq ptr %40, %59
+  %61 = load i64, ptr %59, align 8
+  store ptr %41, ptr %38, align 8, !tbaa !62
+  %62 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 1
+  %63 = load i64, ptr %62, align 8, !tbaa !84
+  %64 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 1
+  store i64 %63, ptr %64, align 8, !tbaa !84
+  %65 = load i64, ptr %42, align 8, !tbaa !88
+  store i64 %65, ptr %59, align 8, !tbaa !88
+  %66 = icmp eq ptr %40, null
+  %67 = or i1 %60, %66
+  br i1 %67, label %69, label %68
 
-62:                                               ; preds = %59
-  %63 = load i8, ptr %50, align 1, !tbaa !89
-  store i8 %63, ptr %60, align 1, !tbaa !89
-  br label %65
+68:                                               ; preds = %58
+  store ptr %40, ptr %39, align 8, !tbaa !62
+  store i64 %61, ptr %42, align 8, !tbaa !88
+  br label %70
 
-64:                                               ; preds = %59
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %60, ptr align 1 %50, i64 %57, i1 false)
-  br label %65
+69:                                               ; preds = %58
+  store ptr %42, ptr %39, align 8, !tbaa !62
+  br label %70
 
-65:                                               ; preds = %64, %62, %55
-  %66 = load i64, ptr %56, align 8, !tbaa !85
-  %67 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 1
-  store i64 %66, ptr %67, align 8, !tbaa !85
-  %68 = load ptr, ptr %47, align 8, !tbaa !63
-  %69 = getelementptr inbounds i8, ptr %68, i64 %66
-  store i8 0, ptr %69, align 1, !tbaa !89
-  %70 = load ptr, ptr %48, align 8, !tbaa !63
-  br label %88
+70:                                               ; preds = %44, %52, %68, %69
+  %71 = phi ptr [ %40, %68 ], [ %42, %69 ], [ %57, %52 ], [ %41, %44 ]
+  %72 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 1
+  store i64 0, ptr %72, align 8, !tbaa !84
+  store i8 0, ptr %71, align 1, !tbaa !88
+  %73 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 7
+  %74 = load i8, ptr %73, align 8, !tbaa !89, !range !67, !noundef !68
+  %75 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 7
+  store i8 %74, ptr %75, align 8, !tbaa !89
+  %76 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8
+  %77 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
+  %78 = load ptr, ptr %77, align 8, !tbaa !92
+  invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %76, ptr noundef %78)
+          to label %82 unwind label %79
 
-71:                                               ; preds = %44
-  %72 = load ptr, ptr %47, align 8, !tbaa !63
-  %73 = icmp eq ptr %72, %49
-  br i1 %73, label %74, label %79
-
-74:                                               ; preds = %71
-  store ptr %50, ptr %47, align 8, !tbaa !63
-  %75 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 1
-  %76 = load i64, ptr %75, align 8, !tbaa !85
-  %77 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 1
-  store i64 %76, ptr %77, align 8, !tbaa !85
-  %78 = load i64, ptr %51, align 8, !tbaa !89
-  store i64 %78, ptr %49, align 8, !tbaa !89
-  br label %87
-
-79:                                               ; preds = %71
-  %80 = load i64, ptr %49, align 8, !tbaa !89
-  store ptr %50, ptr %47, align 8, !tbaa !63
-  %81 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 1
-  %82 = load i64, ptr %81, align 8, !tbaa !85
-  %83 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 6, i32 1
-  store i64 %82, ptr %83, align 8, !tbaa !85
-  %84 = load i64, ptr %51, align 8, !tbaa !89
-  store i64 %84, ptr %49, align 8, !tbaa !89
-  %85 = icmp eq ptr %72, null
-  br i1 %85, label %87, label %86
-
-86:                                               ; preds = %79
-  store ptr %72, ptr %48, align 8, !tbaa !63
-  store i64 %80, ptr %51, align 8, !tbaa !89
-  br label %88
-
-87:                                               ; preds = %79, %74
-  store ptr %51, ptr %48, align 8, !tbaa !63
-  br label %88
-
-88:                                               ; preds = %53, %65, %86, %87
-  %89 = phi ptr [ %70, %65 ], [ %72, %86 ], [ %51, %87 ], [ %50, %53 ]
-  %90 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 1
-  store i64 0, ptr %90, align 8, !tbaa !85
-  store i8 0, ptr %89, align 1, !tbaa !89
-  %91 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 7
-  %92 = load i8, ptr %91, align 8, !tbaa !90, !range !68, !noundef !69
-  %93 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 7
-  store i8 %92, ptr %93, align 8, !tbaa !90
-  %94 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8
-  %95 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  %96 = load ptr, ptr %95, align 8, !tbaa !93
-  invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %94, ptr noundef %96)
-          to label %100 unwind label %97
-
-97:                                               ; preds = %88
-  %98 = landingpad { ptr, i32 }
+79:                                               ; preds = %70
+  %80 = landingpad { ptr, i32 }
           catch ptr null
-  %99 = extractvalue { ptr, i32 } %98, 0
-  tail call void @__clang_call_terminate(ptr %99) #22
+  %81 = extractvalue { ptr, i32 } %80, 0
+  tail call void @__clang_call_terminate(ptr %81) #22
   unreachable
 
-100:                                              ; preds = %88
-  %101 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1
-  store ptr null, ptr %95, align 8, !tbaa !93
-  %102 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 2
-  store ptr %101, ptr %102, align 8, !tbaa !94
-  %103 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 3
-  store ptr %101, ptr %103, align 8, !tbaa !95
-  %104 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 1
-  store i64 0, ptr %104, align 8, !tbaa !122
-  %105 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  %106 = load ptr, ptr %105, align 8, !tbaa !5
-  %107 = icmp eq ptr %106, null
-  br i1 %107, label %117, label %108
+82:                                               ; preds = %70
+  %83 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1
+  store ptr null, ptr %77, align 8, !tbaa !92
+  %84 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 2
+  store ptr %83, ptr %84, align 8, !tbaa !93
+  %85 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 3
+  store ptr %83, ptr %85, align 8, !tbaa !94
+  %86 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %0, i64 0, i32 8, i32 0, i32 0, i32 1, i32 1
+  store i64 0, ptr %86, align 8, !tbaa !121
+  %87 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
+  %88 = load ptr, ptr %87, align 8, !tbaa !5
+  %89 = icmp eq ptr %88, null
+  br i1 %89, label %99, label %90
 
-108:                                              ; preds = %100
-  %109 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1
-  %110 = load i32, ptr %109, align 8, !tbaa !92
-  store i32 %110, ptr %101, align 8, !tbaa !92
-  store ptr %106, ptr %95, align 8, !tbaa !93
-  %111 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 2
-  %112 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 3
-  %113 = load <2 x ptr>, ptr %111, align 8, !tbaa !5
-  store <2 x ptr> %113, ptr %102, align 8, !tbaa !5
-  %114 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %106, i64 0, i32 1
-  store ptr %101, ptr %114, align 8, !tbaa !206
-  %115 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1, i32 1
-  %116 = load i64, ptr %115, align 8, !tbaa !122
-  store i64 %116, ptr %104, align 8, !tbaa !122
-  store ptr null, ptr %105, align 8, !tbaa !93
-  store ptr %109, ptr %111, align 8, !tbaa !94
-  store ptr %109, ptr %112, align 8, !tbaa !95
-  store i64 0, ptr %115, align 8, !tbaa !122
-  br label %117
+90:                                               ; preds = %82
+  %91 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1
+  %92 = load i32, ptr %91, align 8, !tbaa !91
+  store i32 %92, ptr %83, align 8, !tbaa !91
+  store ptr %88, ptr %77, align 8, !tbaa !92
+  %93 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 2
+  %94 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 3
+  %95 = load <2 x ptr>, ptr %93, align 8, !tbaa !5
+  store <2 x ptr> %95, ptr %84, align 8, !tbaa !5
+  %96 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %88, i64 0, i32 1
+  store ptr %83, ptr %96, align 8, !tbaa !205
+  %97 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1, i32 1
+  %98 = load i64, ptr %97, align 8, !tbaa !121
+  store i64 %98, ptr %86, align 8, !tbaa !121
+  store ptr null, ptr %87, align 8, !tbaa !92
+  store ptr %91, ptr %93, align 8, !tbaa !93
+  store ptr %91, ptr %94, align 8, !tbaa !94
+  store i64 0, ptr %97, align 8, !tbaa !121
+  br label %99
 
-117:                                              ; preds = %100, %108
+99:                                               ; preds = %82, %90
   ret ptr %0
 }
 
 ; Function Attrs: uwtable
 define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2Ev(ptr noundef nonnull align 8 dereferenceable(528) %0) unnamed_addr #3 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
-  store ptr %2, ptr %0, align 8, !tbaa !88
+  store ptr %2, ptr %0, align 8, !tbaa !87
   %3 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
-  store i64 0, ptr %3, align 8, !tbaa !85
-  store i8 0, ptr %2, align 8, !tbaa !89
+  store i64 0, ptr %3, align 8, !tbaa !84
+  store i8 0, ptr %2, align 8, !tbaa !88
   %4 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1
   %5 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 2
-  store ptr %5, ptr %4, align 8, !tbaa !88
+  store ptr %5, ptr %4, align 8, !tbaa !87
   %6 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 1
-  store i64 0, ptr %6, align 8, !tbaa !85
-  store i8 0, ptr %5, align 8, !tbaa !89
+  store i64 0, ptr %6, align 8, !tbaa !84
+  store i8 0, ptr %5, align 8, !tbaa !88
   %7 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2
   %8 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 2
-  store ptr %8, ptr %7, align 8, !tbaa !88
+  store ptr %8, ptr %7, align 8, !tbaa !87
   %9 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 1
-  store i64 0, ptr %9, align 8, !tbaa !85
-  store i8 0, ptr %8, align 8, !tbaa !89
+  store i64 0, ptr %9, align 8, !tbaa !84
+  store i8 0, ptr %8, align 8, !tbaa !88
   %10 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3
   %11 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 2
-  store ptr %11, ptr %10, align 8, !tbaa !88
+  store ptr %11, ptr %10, align 8, !tbaa !87
   %12 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 1
-  store i64 0, ptr %12, align 8, !tbaa !85
-  store i8 0, ptr %11, align 8, !tbaa !89
+  store i64 0, ptr %12, align 8, !tbaa !84
+  store i8 0, ptr %11, align 8, !tbaa !88
   %13 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4
   %14 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 2
-  store ptr %14, ptr %13, align 8, !tbaa !88
+  store ptr %14, ptr %13, align 8, !tbaa !87
   %15 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 1
-  store i64 0, ptr %15, align 8, !tbaa !85
-  store i8 0, ptr %14, align 8, !tbaa !89
+  store i64 0, ptr %15, align 8, !tbaa !84
+  store i8 0, ptr %14, align 8, !tbaa !88
   %16 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5
   %17 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 2
-  store ptr %17, ptr %16, align 8, !tbaa !88
+  store ptr %17, ptr %16, align 8, !tbaa !87
   %18 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 1
-  store i64 0, ptr %18, align 8, !tbaa !85
-  store i8 0, ptr %17, align 8, !tbaa !89
+  store i64 0, ptr %18, align 8, !tbaa !84
+  store i8 0, ptr %17, align 8, !tbaa !88
   %19 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6
   %20 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 2
-  store ptr %20, ptr %19, align 8, !tbaa !88
+  store ptr %20, ptr %19, align 8, !tbaa !87
   %21 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 1
-  store i64 0, ptr %21, align 8, !tbaa !85
-  store i8 0, ptr %20, align 8, !tbaa !89
+  store i64 0, ptr %21, align 8, !tbaa !84
+  store i8 0, ptr %20, align 8, !tbaa !88
   %22 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 3
-  store i32 0, ptr %22, align 8, !tbaa !218
+  store i32 0, ptr %22, align 8, !tbaa !217
   %23 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4
   %24 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4, i32 2
-  store ptr %24, ptr %23, align 8, !tbaa !88
+  store ptr %24, ptr %23, align 8, !tbaa !87
   %25 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4, i32 1
-  store i64 0, ptr %25, align 8, !tbaa !85
-  store i8 0, ptr %24, align 8, !tbaa !89
+  store i64 0, ptr %25, align 8, !tbaa !84
+  store i8 0, ptr %24, align 8, !tbaa !88
   %26 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 5
-  store i32 0, ptr %26, align 8, !tbaa !219
+  store i32 0, ptr %26, align 8, !tbaa !218
   %27 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6
   %28 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6, i32 2
-  store ptr %28, ptr %27, align 8, !tbaa !88
+  store ptr %28, ptr %27, align 8, !tbaa !87
   %29 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6, i32 1
-  store i64 0, ptr %29, align 8, !tbaa !85
-  store i8 0, ptr %28, align 8, !tbaa !89
+  store i64 0, ptr %29, align 8, !tbaa !84
+  store i8 0, ptr %28, align 8, !tbaa !88
   %30 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 7
-  store i8 0, ptr %30, align 8, !tbaa !178
+  store i8 0, ptr %30, align 8, !tbaa !177
   %31 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8
   %32 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8, i32 2
-  store ptr %32, ptr %31, align 8, !tbaa !88
+  store ptr %32, ptr %31, align 8, !tbaa !87
   %33 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8, i32 1
-  store i64 0, ptr %33, align 8, !tbaa !85
-  store i8 0, ptr %32, align 8, !tbaa !89
+  store i64 0, ptr %33, align 8, !tbaa !84
+  store i8 0, ptr %32, align 8, !tbaa !88
   %34 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 9
-  store i64 1, ptr %34, align 8, !tbaa !179
+  store i64 1, ptr %34, align 8, !tbaa !178
   %35 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 10
-  store i64 1, ptr %35, align 8, !tbaa !182
+  store i64 1, ptr %35, align 8, !tbaa !181
   %36 = invoke noundef i32 @_ZN9benchmark18GetDefaultTimeUnitEv()
           to label %37 unwind label %48
 
 37:                                               ; preds = %1
   %38 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 13
-  store i32 %36, ptr %38, align 8, !tbaa !181
+  store i32 %36, ptr %38, align 8, !tbaa !180
   %39 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 14
   %40 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 18
   %41 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 21
-  store i8 0, ptr %41, align 8, !tbaa !220
+  store i8 0, ptr %41, align 8, !tbaa !219
   %42 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 22
-  store i8 0, ptr %42, align 1, !tbaa !221
+  store i8 0, ptr %42, align 1, !tbaa !220
   %43 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1
-  store i32 0, ptr %43, align 8, !tbaa !92
+  store i32 0, ptr %43, align 8, !tbaa !91
   %44 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 1
-  store ptr null, ptr %44, align 8, !tbaa !93
+  store ptr null, ptr %44, align 8, !tbaa !92
   %45 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 2
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(28) %39, i8 0, i64 28, i1 false)
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %40, i8 0, i64 16, i1 false)
-  store ptr %43, ptr %45, align 8, !tbaa !94
+  store ptr %43, ptr %45, align 8, !tbaa !93
   %46 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 3
-  store ptr %43, ptr %46, align 8, !tbaa !95
+  store ptr %43, ptr %46, align 8, !tbaa !94
   %47 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %47, i8 0, i64 24, i1 false)
   ret void
@@ -3623,7 +3593,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2Ev(ptr no
 48:                                               ; preds = %1
   %49 = landingpad { ptr, i32 }
           cleanup
-  %50 = load ptr, ptr %31, align 8, !tbaa !63
+  %50 = load ptr, ptr %31, align 8, !tbaa !62
   %51 = icmp eq ptr %50, %32
   br i1 %51, label %53, label %52
 
@@ -3632,7 +3602,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2Ev(ptr no
   br label %53
 
 53:                                               ; preds = %48, %52
-  %54 = load ptr, ptr %27, align 8, !tbaa !63
+  %54 = load ptr, ptr %27, align 8, !tbaa !62
   %55 = icmp eq ptr %54, %28
   br i1 %55, label %57, label %56
 
@@ -3641,7 +3611,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2Ev(ptr no
   br label %57
 
 57:                                               ; preds = %53, %56
-  %58 = load ptr, ptr %23, align 8, !tbaa !63
+  %58 = load ptr, ptr %23, align 8, !tbaa !62
   %59 = icmp eq ptr %58, %24
   br i1 %59, label %61, label %60
 
@@ -3661,7 +3631,7 @@ declare noundef i32 @_ZN9benchmark18GetDefaultTimeUnitEv() local_unnamed_addr #0
 ; Function Attrs: inlinehint nounwind uwtable
 define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameD2Ev(ptr noundef nonnull align 8 dereferenceable(224) %0) unnamed_addr #6 comdat align 2 personality ptr @__gxx_personality_v0 {
   %2 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6
-  %3 = load ptr, ptr %2, align 8, !tbaa !63
+  %3 = load ptr, ptr %2, align 8, !tbaa !62
   %4 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 2
   %5 = icmp eq ptr %3, %4
   br i1 %5, label %7, label %6
@@ -3672,7 +3642,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameD2Ev(ptr noundef no
 
 7:                                                ; preds = %1, %6
   %8 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5
-  %9 = load ptr, ptr %8, align 8, !tbaa !63
+  %9 = load ptr, ptr %8, align 8, !tbaa !62
   %10 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 2
   %11 = icmp eq ptr %9, %10
   br i1 %11, label %13, label %12
@@ -3683,7 +3653,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameD2Ev(ptr noundef no
 
 13:                                               ; preds = %7, %12
   %14 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4
-  %15 = load ptr, ptr %14, align 8, !tbaa !63
+  %15 = load ptr, ptr %14, align 8, !tbaa !62
   %16 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 2
   %17 = icmp eq ptr %15, %16
   br i1 %17, label %19, label %18
@@ -3694,7 +3664,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameD2Ev(ptr noundef no
 
 19:                                               ; preds = %13, %18
   %20 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3
-  %21 = load ptr, ptr %20, align 8, !tbaa !63
+  %21 = load ptr, ptr %20, align 8, !tbaa !62
   %22 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 2
   %23 = icmp eq ptr %21, %22
   br i1 %23, label %25, label %24
@@ -3705,7 +3675,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameD2Ev(ptr noundef no
 
 25:                                               ; preds = %19, %24
   %26 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2
-  %27 = load ptr, ptr %26, align 8, !tbaa !63
+  %27 = load ptr, ptr %26, align 8, !tbaa !62
   %28 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 2
   %29 = icmp eq ptr %27, %28
   br i1 %29, label %31, label %30
@@ -3716,7 +3686,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameD2Ev(ptr noundef no
 
 31:                                               ; preds = %25, %30
   %32 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !63
+  %33 = load ptr, ptr %32, align 8, !tbaa !62
   %34 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 2
   %35 = icmp eq ptr %33, %34
   br i1 %35, label %37, label %36
@@ -3726,7 +3696,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameD2Ev(ptr noundef no
   br label %37
 
 37:                                               ; preds = %31, %36
-  %38 = load ptr, ptr %0, align 8, !tbaa !63
+  %38 = load ptr, ptr %0, align 8, !tbaa !62
   %39 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
   %40 = icmp eq ptr %38, %39
   br i1 %40, label %42, label %41
@@ -3758,7 +3728,7 @@ define linkonce_odr hidden void @_ZNKSt14default_deleteIN9benchmark8internal13Th
   tail call void @_ZNSt18condition_variableD1Ev(ptr noundef nonnull align 8 dereferenceable(48) %6) #20
   %7 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8
   %8 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 8, i32 0, i32 0, i32 1, i32 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !93
+  %9 = load ptr, ptr %8, align 8, !tbaa !92
   invoke void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE8_M_eraseEPSt13_Rb_tree_nodeISA_E(ptr noundef nonnull align 8 dereferenceable(48) %7, ptr noundef %9)
           to label %13 unwind label %10
 
@@ -3771,7 +3741,7 @@ define linkonce_odr hidden void @_ZNKSt14default_deleteIN9benchmark8internal13Th
 
 13:                                               ; preds = %4
   %14 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6
-  %15 = load ptr, ptr %14, align 8, !tbaa !63
+  %15 = load ptr, ptr %14, align 8, !tbaa !62
   %16 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 6, i32 2
   %17 = icmp eq ptr %15, %16
   br i1 %17, label %19, label %18
@@ -3782,7 +3752,7 @@ define linkonce_odr hidden void @_ZNKSt14default_deleteIN9benchmark8internal13Th
 
 19:                                               ; preds = %18, %13
   %20 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 5
-  %21 = load ptr, ptr %20, align 8, !tbaa !63
+  %21 = load ptr, ptr %20, align 8, !tbaa !62
   %22 = getelementptr inbounds %"struct.benchmark::internal::ThreadManager::Result", ptr %1, i64 0, i32 5, i32 2
   %23 = icmp eq ptr %21, %22
   br i1 %23, label %25, label %24
@@ -3821,8 +3791,8 @@ define linkonce_odr hidden void @_ZNSt6thread11_State_implINS_8_InvokerISt5tuple
   %7 = getelementptr inbounds %"struct.std::thread::_State_impl", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1
   %8 = load ptr, ptr %3, align 8, !tbaa !5
   %9 = load ptr, ptr %4, align 8, !tbaa !5
-  %10 = load i64, ptr %5, align 8, !tbaa !80
-  %11 = load i32, ptr %6, align 8, !tbaa !84
+  %10 = load i64, ptr %5, align 8, !tbaa !79
+  %11 = load i32, ptr %6, align 8, !tbaa !83
   %12 = load ptr, ptr %7, align 8, !tbaa !5
   %13 = load ptr, ptr %2, align 8, !tbaa !5
   tail call void %8(ptr noundef %9, i64 noundef %10, i32 noundef %11, ptr noundef %12, ptr noundef %13)
@@ -3834,8 +3804,8 @@ declare noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_
 ; Function Attrs: uwtable
 define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark17BenchmarkReporter3RunESaIS2_EE17_M_realloc_insertIJRKS2_EEEvN9__gnu_cxx17__normal_iteratorIPS2_S4_EEDpOT_(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr %1, ptr noundef nonnull align 8 dereferenceable(528) %2) local_unnamed_addr #3 comdat align 2 personality ptr @__gxx_personality_v0 {
   %4 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::BenchmarkReporter::Run, std::allocator<benchmark::BenchmarkReporter::Run>>::_Vector_impl_data", ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !82
-  %6 = load ptr, ptr %0, align 8, !tbaa !81
+  %5 = load ptr, ptr %4, align 8, !tbaa !81
+  %6 = load ptr, ptr %0, align 8, !tbaa !80
   %7 = ptrtoint ptr %5 to i64
   %8 = ptrtoint ptr %6 to i64
   %9 = sub i64 %7, %8
@@ -3883,7 +3853,7 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark17BenchmarkReporter3Run
   %35 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %34, i64 1
   %36 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %33, i64 1
   %37 = icmp eq ptr %35, %1
-  br i1 %37, label %38, label %32, !llvm.loop !222
+  br i1 %37, label %38, label %32, !llvm.loop !221
 
 38:                                               ; preds = %32, %30
   %39 = phi ptr [ %28, %30 ], [ %36, %32 ]
@@ -3899,7 +3869,7 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark17BenchmarkReporter3Run
   %45 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %44, i64 1
   %46 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %43, i64 1
   %47 = icmp eq ptr %45, %5
-  br i1 %47, label %48, label %42, !llvm.loop !222
+  br i1 %47, label %48, label %42, !llvm.loop !221
 
 48:                                               ; preds = %42, %38
   %49 = phi ptr [ %40, %38 ], [ %46, %42 ]
@@ -3912,10 +3882,10 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark17BenchmarkReporter3Run
 
 52:                                               ; preds = %48, %51
   %53 = getelementptr inbounds %"struct.std::_Vector_base<benchmark::BenchmarkReporter::Run, std::allocator<benchmark::BenchmarkReporter::Run>>::_Vector_impl_data", ptr %0, i64 0, i32 2
-  store ptr %28, ptr %0, align 8, !tbaa !81
-  store ptr %49, ptr %4, align 8, !tbaa !82
+  store ptr %28, ptr %0, align 8, !tbaa !80
+  store ptr %49, ptr %4, align 8, !tbaa !81
   %54 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %28, i64 %19
-  store ptr %54, ptr %53, align 8, !tbaa !199
+  store ptr %54, ptr %53, align 8, !tbaa !198
   ret void
 
 55:                                               ; preds = %27
@@ -3940,7 +3910,7 @@ define linkonce_odr hidden void @_ZNSt6vectorIN9benchmark17BenchmarkReporter3Run
   tail call void @_ZdlPv(ptr noundef nonnull %28) #21
   br label %64
 
-64:                                               ; preds = %63, %60
+64:                                               ; preds = %60, %63
   invoke void @__cxa_rethrow() #18
           to label %69 unwind label %61
 
@@ -3971,12 +3941,12 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   %9 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4
   %10 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 4
   %11 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4, i32 2
-  store ptr %11, ptr %9, align 8, !tbaa !88
-  %12 = load ptr, ptr %10, align 8, !tbaa !63
+  store ptr %11, ptr %9, align 8, !tbaa !87
+  %12 = load ptr, ptr %10, align 8, !tbaa !62
   %13 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 4, i32 1
-  %14 = load i64, ptr %13, align 8, !tbaa !85
+  %14 = load i64, ptr %13, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #20
-  store i64 %14, ptr %6, align 8, !tbaa !80
+  store i64 %14, ptr %6, align 8, !tbaa !79
   %15 = icmp ugt i64 %14, 15
   br i1 %15, label %16, label %20
 
@@ -3985,9 +3955,9 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
           to label %18 unwind label %108
 
 18:                                               ; preds = %16
-  store ptr %17, ptr %9, align 8, !tbaa !63
-  %19 = load i64, ptr %6, align 8, !tbaa !80
-  store i64 %19, ptr %11, align 8, !tbaa !89
+  store ptr %17, ptr %9, align 8, !tbaa !62
+  %19 = load i64, ptr %6, align 8, !tbaa !79
+  store i64 %19, ptr %11, align 8, !tbaa !88
   br label %20
 
 20:                                               ; preds = %18, %2
@@ -3998,35 +3968,35 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   ]
 
 22:                                               ; preds = %20
-  %23 = load i8, ptr %12, align 1, !tbaa !89
-  store i8 %23, ptr %21, align 1, !tbaa !89
+  %23 = load i8, ptr %12, align 1, !tbaa !88
+  store i8 %23, ptr %21, align 1, !tbaa !88
   br label %25
 
 24:                                               ; preds = %20
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %21, ptr align 1 %12, i64 %14, i1 false)
   br label %25
 
-25:                                               ; preds = %24, %22, %20
-  %26 = load i64, ptr %6, align 8, !tbaa !80
+25:                                               ; preds = %20, %22, %24
+  %26 = load i64, ptr %6, align 8, !tbaa !79
   %27 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4, i32 1
-  store i64 %26, ptr %27, align 8, !tbaa !85
-  %28 = load ptr, ptr %9, align 8, !tbaa !63
+  store i64 %26, ptr %27, align 8, !tbaa !84
+  %28 = load ptr, ptr %9, align 8, !tbaa !62
   %29 = getelementptr inbounds i8, ptr %28, i64 %26
-  store i8 0, ptr %29, align 1, !tbaa !89
+  store i8 0, ptr %29, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #20
   %30 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 5
   %31 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 5
-  %32 = load i32, ptr %31, align 8, !tbaa !219
-  store i32 %32, ptr %30, align 8, !tbaa !219
+  %32 = load i32, ptr %31, align 8, !tbaa !218
+  store i32 %32, ptr %30, align 8, !tbaa !218
   %33 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6
   %34 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 6
   %35 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6, i32 2
-  store ptr %35, ptr %33, align 8, !tbaa !88
-  %36 = load ptr, ptr %34, align 8, !tbaa !63
+  store ptr %35, ptr %33, align 8, !tbaa !87
+  %36 = load ptr, ptr %34, align 8, !tbaa !62
   %37 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 6, i32 1
-  %38 = load i64, ptr %37, align 8, !tbaa !85
+  %38 = load i64, ptr %37, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #20
-  store i64 %38, ptr %5, align 8, !tbaa !80
+  store i64 %38, ptr %5, align 8, !tbaa !79
   %39 = icmp ugt i64 %38, 15
   br i1 %39, label %40, label %44
 
@@ -4035,9 +4005,9 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
           to label %42 unwind label %110
 
 42:                                               ; preds = %40
-  store ptr %41, ptr %33, align 8, !tbaa !63
-  %43 = load i64, ptr %5, align 8, !tbaa !80
-  store i64 %43, ptr %35, align 8, !tbaa !89
+  store ptr %41, ptr %33, align 8, !tbaa !62
+  %43 = load i64, ptr %5, align 8, !tbaa !79
+  store i64 %43, ptr %35, align 8, !tbaa !88
   br label %44
 
 44:                                               ; preds = %42, %25
@@ -4048,35 +4018,35 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   ]
 
 46:                                               ; preds = %44
-  %47 = load i8, ptr %36, align 1, !tbaa !89
-  store i8 %47, ptr %45, align 1, !tbaa !89
+  %47 = load i8, ptr %36, align 1, !tbaa !88
+  store i8 %47, ptr %45, align 1, !tbaa !88
   br label %49
 
 48:                                               ; preds = %44
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %45, ptr align 1 %36, i64 %38, i1 false)
   br label %49
 
-49:                                               ; preds = %48, %46, %44
-  %50 = load i64, ptr %5, align 8, !tbaa !80
+49:                                               ; preds = %44, %46, %48
+  %50 = load i64, ptr %5, align 8, !tbaa !79
   %51 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6, i32 1
-  store i64 %50, ptr %51, align 8, !tbaa !85
-  %52 = load ptr, ptr %33, align 8, !tbaa !63
+  store i64 %50, ptr %51, align 8, !tbaa !84
+  %52 = load ptr, ptr %33, align 8, !tbaa !62
   %53 = getelementptr inbounds i8, ptr %52, i64 %50
-  store i8 0, ptr %53, align 1, !tbaa !89
+  store i8 0, ptr %53, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #20
   %54 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 7
   %55 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 7
-  %56 = load i8, ptr %55, align 8, !tbaa !178, !range !68, !noundef !69
-  store i8 %56, ptr %54, align 8, !tbaa !178
+  %56 = load i8, ptr %55, align 8, !tbaa !177, !range !67, !noundef !68
+  store i8 %56, ptr %54, align 8, !tbaa !177
   %57 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8
   %58 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 8
   %59 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8, i32 2
-  store ptr %59, ptr %57, align 8, !tbaa !88
-  %60 = load ptr, ptr %58, align 8, !tbaa !63
+  store ptr %59, ptr %57, align 8, !tbaa !87
+  %60 = load ptr, ptr %58, align 8, !tbaa !62
   %61 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 8, i32 1
-  %62 = load i64, ptr %61, align 8, !tbaa !85
+  %62 = load i64, ptr %61, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #20
-  store i64 %62, ptr %4, align 8, !tbaa !80
+  store i64 %62, ptr %4, align 8, !tbaa !79
   %63 = icmp ugt i64 %62, 15
   br i1 %63, label %64, label %68
 
@@ -4085,9 +4055,9 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
           to label %66 unwind label %112
 
 66:                                               ; preds = %64
-  store ptr %65, ptr %57, align 8, !tbaa !63
-  %67 = load i64, ptr %4, align 8, !tbaa !80
-  store i64 %67, ptr %59, align 8, !tbaa !89
+  store ptr %65, ptr %57, align 8, !tbaa !62
+  %67 = load i64, ptr %4, align 8, !tbaa !79
+  store i64 %67, ptr %59, align 8, !tbaa !88
   br label %68
 
 68:                                               ; preds = %66, %49
@@ -4098,37 +4068,37 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
   ]
 
 70:                                               ; preds = %68
-  %71 = load i8, ptr %60, align 1, !tbaa !89
-  store i8 %71, ptr %69, align 1, !tbaa !89
+  %71 = load i8, ptr %60, align 1, !tbaa !88
+  store i8 %71, ptr %69, align 1, !tbaa !88
   br label %73
 
 72:                                               ; preds = %68
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %69, ptr align 1 %60, i64 %62, i1 false)
   br label %73
 
-73:                                               ; preds = %72, %70, %68
-  %74 = load i64, ptr %4, align 8, !tbaa !80
+73:                                               ; preds = %68, %70, %72
+  %74 = load i64, ptr %4, align 8, !tbaa !79
   %75 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8, i32 1
-  store i64 %74, ptr %75, align 8, !tbaa !85
-  %76 = load ptr, ptr %57, align 8, !tbaa !63
+  store i64 %74, ptr %75, align 8, !tbaa !84
+  %76 = load ptr, ptr %57, align 8, !tbaa !62
   %77 = getelementptr inbounds i8, ptr %76, i64 %74
-  store i8 0, ptr %77, align 1, !tbaa !89
+  store i8 0, ptr %77, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #20
   %78 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 9
   %79 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 9
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(98) %78, ptr noundef nonnull align 8 dereferenceable(98) %79, i64 98, i1 false)
   %80 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1
-  store i32 0, ptr %80, align 8, !tbaa !92
+  store i32 0, ptr %80, align 8, !tbaa !91
   %81 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 1
-  store ptr null, ptr %81, align 8, !tbaa !93
+  store ptr null, ptr %81, align 8, !tbaa !92
   %82 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 2
-  store ptr %80, ptr %82, align 8, !tbaa !94
+  store ptr %80, ptr %82, align 8, !tbaa !93
   %83 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 3
-  store ptr %80, ptr %83, align 8, !tbaa !95
+  store ptr %80, ptr %83, align 8, !tbaa !94
   %84 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 1
-  store i64 0, ptr %84, align 8, !tbaa !122
+  store i64 0, ptr %84, align 8, !tbaa !121
   %85 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 1
-  %86 = load ptr, ptr %85, align 8, !tbaa !93
+  %86 = load ptr, ptr %85, align 8, !tbaa !92
   %87 = icmp eq ptr %86, null
   br i1 %87, label %105, label %88
 
@@ -4142,9 +4112,9 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
 91:                                               ; preds = %88, %91
   %92 = phi ptr [ %94, %91 ], [ %90, %88 ]
   %93 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %92, i64 0, i32 2
-  %94 = load ptr, ptr %93, align 8, !tbaa !201
+  %94 = load ptr, ptr %93, align 8, !tbaa !200
   %95 = icmp eq ptr %94, null
-  br i1 %95, label %96, label %91, !llvm.loop !207
+  br i1 %95, label %96, label %91, !llvm.loop !206
 
 96:                                               ; preds = %91
   store ptr %92, ptr %82, align 8, !tbaa !5
@@ -4153,15 +4123,15 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
 97:                                               ; preds = %97, %96
   %98 = phi ptr [ %90, %96 ], [ %100, %97 ]
   %99 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %98, i64 0, i32 3
-  %100 = load ptr, ptr %99, align 8, !tbaa !200
+  %100 = load ptr, ptr %99, align 8, !tbaa !199
   %101 = icmp eq ptr %100, null
-  br i1 %101, label %102, label %97, !llvm.loop !208
+  br i1 %101, label %102, label %97, !llvm.loop !207
 
 102:                                              ; preds = %97
   store ptr %98, ptr %83, align 8, !tbaa !5
   %103 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 23, i32 0, i32 0, i32 1, i32 1
-  %104 = load i64, ptr %103, align 8, !tbaa !122
-  store i64 %104, ptr %84, align 8, !tbaa !122
+  %104 = load i64, ptr %103, align 8, !tbaa !121
+  store i64 %104, ptr %84, align 8, !tbaa !121
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #20
   store ptr %90, ptr %81, align 8, !tbaa !5
   br label %105
@@ -4190,7 +4160,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
 114:                                              ; preds = %88
   %115 = landingpad { ptr, i32 }
           cleanup
-  %116 = load ptr, ptr %57, align 8, !tbaa !63
+  %116 = load ptr, ptr %57, align 8, !tbaa !62
   %117 = icmp eq ptr %116, %59
   br i1 %117, label %119, label %118
 
@@ -4200,7 +4170,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
 
 119:                                              ; preds = %118, %114, %112
   %120 = phi { ptr, i32 } [ %113, %112 ], [ %115, %114 ], [ %115, %118 ]
-  %121 = load ptr, ptr %33, align 8, !tbaa !63
+  %121 = load ptr, ptr %33, align 8, !tbaa !62
   %122 = icmp eq ptr %121, %35
   br i1 %122, label %124, label %123
 
@@ -4210,7 +4180,7 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2ERKS1_(pt
 
 124:                                              ; preds = %123, %119, %110
   %125 = phi { ptr, i32 } [ %111, %110 ], [ %120, %119 ], [ %120, %123 ]
-  %126 = load ptr, ptr %9, align 8, !tbaa !63
+  %126 = load ptr, ptr %9, align 8, !tbaa !62
   %127 = icmp eq ptr %126, %11
   br i1 %127, label %129, label %128
 
@@ -4234,20 +4204,20 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   %8 = alloca i64, align 8
   %9 = alloca i64, align 8
   %10 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
-  store ptr %10, ptr %0, align 8, !tbaa !88
-  %11 = load ptr, ptr %1, align 8, !tbaa !63
+  store ptr %10, ptr %0, align 8, !tbaa !87
+  %11 = load ptr, ptr %1, align 8, !tbaa !62
   %12 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1, i64 0, i32 1
-  %13 = load i64, ptr %12, align 8, !tbaa !85
+  %13 = load i64, ptr %12, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #20
-  store i64 %13, ptr %9, align 8, !tbaa !80
+  store i64 %13, ptr %9, align 8, !tbaa !79
   %14 = icmp ugt i64 %13, 15
   br i1 %14, label %15, label %18
 
 15:                                               ; preds = %2
   %16 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %9, i64 noundef 0)
-  store ptr %16, ptr %0, align 8, !tbaa !63
-  %17 = load i64, ptr %9, align 8, !tbaa !80
-  store i64 %17, ptr %10, align 8, !tbaa !89
+  store ptr %16, ptr %0, align 8, !tbaa !62
+  %17 = load i64, ptr %9, align 8, !tbaa !79
+  store i64 %17, ptr %10, align 8, !tbaa !88
   br label %18
 
 18:                                               ; preds = %15, %2
@@ -4258,8 +4228,8 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   ]
 
 20:                                               ; preds = %18
-  %21 = load i8, ptr %11, align 1, !tbaa !89
-  store i8 %21, ptr %19, align 1, !tbaa !89
+  %21 = load i8, ptr %11, align 1, !tbaa !88
+  store i8 %21, ptr %19, align 1, !tbaa !88
   br label %23
 
 22:                                               ; preds = %18
@@ -4267,22 +4237,22 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   br label %23
 
 23:                                               ; preds = %18, %20, %22
-  %24 = load i64, ptr %9, align 8, !tbaa !80
+  %24 = load i64, ptr %9, align 8, !tbaa !79
   %25 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
-  store i64 %24, ptr %25, align 8, !tbaa !85
-  %26 = load ptr, ptr %0, align 8, !tbaa !63
+  store i64 %24, ptr %25, align 8, !tbaa !84
+  %26 = load ptr, ptr %0, align 8, !tbaa !62
   %27 = getelementptr inbounds i8, ptr %26, i64 %24
-  store i8 0, ptr %27, align 1, !tbaa !89
+  store i8 0, ptr %27, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #20
   %28 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1
   %29 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 1
   %30 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 2
-  store ptr %30, ptr %28, align 8, !tbaa !88
-  %31 = load ptr, ptr %29, align 8, !tbaa !63
+  store ptr %30, ptr %28, align 8, !tbaa !87
+  %31 = load ptr, ptr %29, align 8, !tbaa !62
   %32 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 1, i32 1
-  %33 = load i64, ptr %32, align 8, !tbaa !85
+  %33 = load i64, ptr %32, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #20
-  store i64 %33, ptr %8, align 8, !tbaa !80
+  store i64 %33, ptr %8, align 8, !tbaa !79
   %34 = icmp ugt i64 %33, 15
   br i1 %34, label %35, label %39
 
@@ -4291,9 +4261,9 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
           to label %37 unwind label %154
 
 37:                                               ; preds = %35
-  store ptr %36, ptr %28, align 8, !tbaa !63
-  %38 = load i64, ptr %8, align 8, !tbaa !80
-  store i64 %38, ptr %30, align 8, !tbaa !89
+  store ptr %36, ptr %28, align 8, !tbaa !62
+  %38 = load i64, ptr %8, align 8, !tbaa !79
+  store i64 %38, ptr %30, align 8, !tbaa !88
   br label %39
 
 39:                                               ; preds = %37, %23
@@ -4304,31 +4274,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   ]
 
 41:                                               ; preds = %39
-  %42 = load i8, ptr %31, align 1, !tbaa !89
-  store i8 %42, ptr %40, align 1, !tbaa !89
+  %42 = load i8, ptr %31, align 1, !tbaa !88
+  store i8 %42, ptr %40, align 1, !tbaa !88
   br label %44
 
 43:                                               ; preds = %39
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %40, ptr align 1 %31, i64 %33, i1 false)
   br label %44
 
-44:                                               ; preds = %43, %41, %39
-  %45 = load i64, ptr %8, align 8, !tbaa !80
+44:                                               ; preds = %39, %41, %43
+  %45 = load i64, ptr %8, align 8, !tbaa !79
   %46 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 1
-  store i64 %45, ptr %46, align 8, !tbaa !85
-  %47 = load ptr, ptr %28, align 8, !tbaa !63
+  store i64 %45, ptr %46, align 8, !tbaa !84
+  %47 = load ptr, ptr %28, align 8, !tbaa !62
   %48 = getelementptr inbounds i8, ptr %47, i64 %45
-  store i8 0, ptr %48, align 1, !tbaa !89
+  store i8 0, ptr %48, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #20
   %49 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2
   %50 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 2
   %51 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 2
-  store ptr %51, ptr %49, align 8, !tbaa !88
-  %52 = load ptr, ptr %50, align 8, !tbaa !63
+  store ptr %51, ptr %49, align 8, !tbaa !87
+  %52 = load ptr, ptr %50, align 8, !tbaa !62
   %53 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 2, i32 1
-  %54 = load i64, ptr %53, align 8, !tbaa !85
+  %54 = load i64, ptr %53, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #20
-  store i64 %54, ptr %7, align 8, !tbaa !80
+  store i64 %54, ptr %7, align 8, !tbaa !79
   %55 = icmp ugt i64 %54, 15
   br i1 %55, label %56, label %60
 
@@ -4337,9 +4307,9 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
           to label %58 unwind label %156
 
 58:                                               ; preds = %56
-  store ptr %57, ptr %49, align 8, !tbaa !63
-  %59 = load i64, ptr %7, align 8, !tbaa !80
-  store i64 %59, ptr %51, align 8, !tbaa !89
+  store ptr %57, ptr %49, align 8, !tbaa !62
+  %59 = load i64, ptr %7, align 8, !tbaa !79
+  store i64 %59, ptr %51, align 8, !tbaa !88
   br label %60
 
 60:                                               ; preds = %58, %44
@@ -4350,31 +4320,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   ]
 
 62:                                               ; preds = %60
-  %63 = load i8, ptr %52, align 1, !tbaa !89
-  store i8 %63, ptr %61, align 1, !tbaa !89
+  %63 = load i8, ptr %52, align 1, !tbaa !88
+  store i8 %63, ptr %61, align 1, !tbaa !88
   br label %65
 
 64:                                               ; preds = %60
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %61, ptr align 1 %52, i64 %54, i1 false)
   br label %65
 
-65:                                               ; preds = %64, %62, %60
-  %66 = load i64, ptr %7, align 8, !tbaa !80
+65:                                               ; preds = %60, %62, %64
+  %66 = load i64, ptr %7, align 8, !tbaa !79
   %67 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 1
-  store i64 %66, ptr %67, align 8, !tbaa !85
-  %68 = load ptr, ptr %49, align 8, !tbaa !63
+  store i64 %66, ptr %67, align 8, !tbaa !84
+  %68 = load ptr, ptr %49, align 8, !tbaa !62
   %69 = getelementptr inbounds i8, ptr %68, i64 %66
-  store i8 0, ptr %69, align 1, !tbaa !89
+  store i8 0, ptr %69, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #20
   %70 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3
   %71 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 3
   %72 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 2
-  store ptr %72, ptr %70, align 8, !tbaa !88
-  %73 = load ptr, ptr %71, align 8, !tbaa !63
+  store ptr %72, ptr %70, align 8, !tbaa !87
+  %73 = load ptr, ptr %71, align 8, !tbaa !62
   %74 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 3, i32 1
-  %75 = load i64, ptr %74, align 8, !tbaa !85
+  %75 = load i64, ptr %74, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #20
-  store i64 %75, ptr %6, align 8, !tbaa !80
+  store i64 %75, ptr %6, align 8, !tbaa !79
   %76 = icmp ugt i64 %75, 15
   br i1 %76, label %77, label %81
 
@@ -4383,9 +4353,9 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
           to label %79 unwind label %158
 
 79:                                               ; preds = %77
-  store ptr %78, ptr %70, align 8, !tbaa !63
-  %80 = load i64, ptr %6, align 8, !tbaa !80
-  store i64 %80, ptr %72, align 8, !tbaa !89
+  store ptr %78, ptr %70, align 8, !tbaa !62
+  %80 = load i64, ptr %6, align 8, !tbaa !79
+  store i64 %80, ptr %72, align 8, !tbaa !88
   br label %81
 
 81:                                               ; preds = %79, %65
@@ -4396,31 +4366,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   ]
 
 83:                                               ; preds = %81
-  %84 = load i8, ptr %73, align 1, !tbaa !89
-  store i8 %84, ptr %82, align 1, !tbaa !89
+  %84 = load i8, ptr %73, align 1, !tbaa !88
+  store i8 %84, ptr %82, align 1, !tbaa !88
   br label %86
 
 85:                                               ; preds = %81
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %82, ptr align 1 %73, i64 %75, i1 false)
   br label %86
 
-86:                                               ; preds = %85, %83, %81
-  %87 = load i64, ptr %6, align 8, !tbaa !80
+86:                                               ; preds = %81, %83, %85
+  %87 = load i64, ptr %6, align 8, !tbaa !79
   %88 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 1
-  store i64 %87, ptr %88, align 8, !tbaa !85
-  %89 = load ptr, ptr %70, align 8, !tbaa !63
+  store i64 %87, ptr %88, align 8, !tbaa !84
+  %89 = load ptr, ptr %70, align 8, !tbaa !62
   %90 = getelementptr inbounds i8, ptr %89, i64 %87
-  store i8 0, ptr %90, align 1, !tbaa !89
+  store i8 0, ptr %90, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #20
   %91 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4
   %92 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 4
   %93 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 2
-  store ptr %93, ptr %91, align 8, !tbaa !88
-  %94 = load ptr, ptr %92, align 8, !tbaa !63
+  store ptr %93, ptr %91, align 8, !tbaa !87
+  %94 = load ptr, ptr %92, align 8, !tbaa !62
   %95 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 4, i32 1
-  %96 = load i64, ptr %95, align 8, !tbaa !85
+  %96 = load i64, ptr %95, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #20
-  store i64 %96, ptr %5, align 8, !tbaa !80
+  store i64 %96, ptr %5, align 8, !tbaa !79
   %97 = icmp ugt i64 %96, 15
   br i1 %97, label %98, label %102
 
@@ -4429,9 +4399,9 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
           to label %100 unwind label %160
 
 100:                                              ; preds = %98
-  store ptr %99, ptr %91, align 8, !tbaa !63
-  %101 = load i64, ptr %5, align 8, !tbaa !80
-  store i64 %101, ptr %93, align 8, !tbaa !89
+  store ptr %99, ptr %91, align 8, !tbaa !62
+  %101 = load i64, ptr %5, align 8, !tbaa !79
+  store i64 %101, ptr %93, align 8, !tbaa !88
   br label %102
 
 102:                                              ; preds = %100, %86
@@ -4442,31 +4412,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   ]
 
 104:                                              ; preds = %102
-  %105 = load i8, ptr %94, align 1, !tbaa !89
-  store i8 %105, ptr %103, align 1, !tbaa !89
+  %105 = load i8, ptr %94, align 1, !tbaa !88
+  store i8 %105, ptr %103, align 1, !tbaa !88
   br label %107
 
 106:                                              ; preds = %102
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %103, ptr align 1 %94, i64 %96, i1 false)
   br label %107
 
-107:                                              ; preds = %106, %104, %102
-  %108 = load i64, ptr %5, align 8, !tbaa !80
+107:                                              ; preds = %102, %104, %106
+  %108 = load i64, ptr %5, align 8, !tbaa !79
   %109 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 1
-  store i64 %108, ptr %109, align 8, !tbaa !85
-  %110 = load ptr, ptr %91, align 8, !tbaa !63
+  store i64 %108, ptr %109, align 8, !tbaa !84
+  %110 = load ptr, ptr %91, align 8, !tbaa !62
   %111 = getelementptr inbounds i8, ptr %110, i64 %108
-  store i8 0, ptr %111, align 1, !tbaa !89
+  store i8 0, ptr %111, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #20
   %112 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5
   %113 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 5
   %114 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 2
-  store ptr %114, ptr %112, align 8, !tbaa !88
-  %115 = load ptr, ptr %113, align 8, !tbaa !63
+  store ptr %114, ptr %112, align 8, !tbaa !87
+  %115 = load ptr, ptr %113, align 8, !tbaa !62
   %116 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 5, i32 1
-  %117 = load i64, ptr %116, align 8, !tbaa !85
+  %117 = load i64, ptr %116, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #20
-  store i64 %117, ptr %4, align 8, !tbaa !80
+  store i64 %117, ptr %4, align 8, !tbaa !79
   %118 = icmp ugt i64 %117, 15
   br i1 %118, label %119, label %123
 
@@ -4475,9 +4445,9 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
           to label %121 unwind label %162
 
 121:                                              ; preds = %119
-  store ptr %120, ptr %112, align 8, !tbaa !63
-  %122 = load i64, ptr %4, align 8, !tbaa !80
-  store i64 %122, ptr %114, align 8, !tbaa !89
+  store ptr %120, ptr %112, align 8, !tbaa !62
+  %122 = load i64, ptr %4, align 8, !tbaa !79
+  store i64 %122, ptr %114, align 8, !tbaa !88
   br label %123
 
 123:                                              ; preds = %121, %107
@@ -4488,31 +4458,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   ]
 
 125:                                              ; preds = %123
-  %126 = load i8, ptr %115, align 1, !tbaa !89
-  store i8 %126, ptr %124, align 1, !tbaa !89
+  %126 = load i8, ptr %115, align 1, !tbaa !88
+  store i8 %126, ptr %124, align 1, !tbaa !88
   br label %128
 
 127:                                              ; preds = %123
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %124, ptr align 1 %115, i64 %117, i1 false)
   br label %128
 
-128:                                              ; preds = %127, %125, %123
-  %129 = load i64, ptr %4, align 8, !tbaa !80
+128:                                              ; preds = %123, %125, %127
+  %129 = load i64, ptr %4, align 8, !tbaa !79
   %130 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 1
-  store i64 %129, ptr %130, align 8, !tbaa !85
-  %131 = load ptr, ptr %112, align 8, !tbaa !63
+  store i64 %129, ptr %130, align 8, !tbaa !84
+  %131 = load ptr, ptr %112, align 8, !tbaa !62
   %132 = getelementptr inbounds i8, ptr %131, i64 %129
-  store i8 0, ptr %132, align 1, !tbaa !89
+  store i8 0, ptr %132, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #20
   %133 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6
   %134 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 6
   %135 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 2
-  store ptr %135, ptr %133, align 8, !tbaa !88
-  %136 = load ptr, ptr %134, align 8, !tbaa !63
+  store ptr %135, ptr %133, align 8, !tbaa !87
+  %136 = load ptr, ptr %134, align 8, !tbaa !62
   %137 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 6, i32 1
-  %138 = load i64, ptr %137, align 8, !tbaa !85
+  %138 = load i64, ptr %137, align 8, !tbaa !84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #20
-  store i64 %138, ptr %3, align 8, !tbaa !80
+  store i64 %138, ptr %3, align 8, !tbaa !79
   %139 = icmp ugt i64 %138, 15
   br i1 %139, label %140, label %144
 
@@ -4521,9 +4491,9 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
           to label %142 unwind label %164
 
 142:                                              ; preds = %140
-  store ptr %141, ptr %133, align 8, !tbaa !63
-  %143 = load i64, ptr %3, align 8, !tbaa !80
-  store i64 %143, ptr %135, align 8, !tbaa !89
+  store ptr %141, ptr %133, align 8, !tbaa !62
+  %143 = load i64, ptr %3, align 8, !tbaa !79
+  store i64 %143, ptr %135, align 8, !tbaa !88
   br label %144
 
 144:                                              ; preds = %142, %128
@@ -4534,21 +4504,21 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
   ]
 
 146:                                              ; preds = %144
-  %147 = load i8, ptr %136, align 1, !tbaa !89
-  store i8 %147, ptr %145, align 1, !tbaa !89
+  %147 = load i8, ptr %136, align 1, !tbaa !88
+  store i8 %147, ptr %145, align 1, !tbaa !88
   br label %149
 
 148:                                              ; preds = %144
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %145, ptr align 1 %136, i64 %138, i1 false)
   br label %149
 
-149:                                              ; preds = %148, %146, %144
-  %150 = load i64, ptr %3, align 8, !tbaa !80
+149:                                              ; preds = %144, %146, %148
+  %150 = load i64, ptr %3, align 8, !tbaa !79
   %151 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 1
-  store i64 %150, ptr %151, align 8, !tbaa !85
-  %152 = load ptr, ptr %133, align 8, !tbaa !63
+  store i64 %150, ptr %151, align 8, !tbaa !84
+  %152 = load ptr, ptr %133, align 8, !tbaa !62
   %153 = getelementptr inbounds i8, ptr %152, i64 %150
-  store i8 0, ptr %153, align 1, !tbaa !89
+  store i8 0, ptr %153, align 1, !tbaa !88
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #20
   ret void
 
@@ -4580,7 +4550,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
 164:                                              ; preds = %140
   %165 = landingpad { ptr, i32 }
           cleanup
-  %166 = load ptr, ptr %112, align 8, !tbaa !63
+  %166 = load ptr, ptr %112, align 8, !tbaa !62
   %167 = icmp eq ptr %166, %114
   br i1 %167, label %169, label %168
 
@@ -4590,7 +4560,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
 
 169:                                              ; preds = %168, %164, %162
   %170 = phi { ptr, i32 } [ %163, %162 ], [ %165, %164 ], [ %165, %168 ]
-  %171 = load ptr, ptr %91, align 8, !tbaa !63
+  %171 = load ptr, ptr %91, align 8, !tbaa !62
   %172 = icmp eq ptr %171, %93
   br i1 %172, label %174, label %173
 
@@ -4600,7 +4570,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
 
 174:                                              ; preds = %173, %169, %160
   %175 = phi { ptr, i32 } [ %161, %160 ], [ %170, %169 ], [ %170, %173 ]
-  %176 = load ptr, ptr %70, align 8, !tbaa !63
+  %176 = load ptr, ptr %70, align 8, !tbaa !62
   %177 = icmp eq ptr %176, %72
   br i1 %177, label %179, label %178
 
@@ -4610,7 +4580,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
 
 179:                                              ; preds = %178, %174, %158
   %180 = phi { ptr, i32 } [ %159, %158 ], [ %175, %174 ], [ %175, %178 ]
-  %181 = load ptr, ptr %49, align 8, !tbaa !63
+  %181 = load ptr, ptr %49, align 8, !tbaa !62
   %182 = icmp eq ptr %181, %51
   br i1 %182, label %184, label %183
 
@@ -4620,7 +4590,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
 
 184:                                              ; preds = %183, %179, %156
   %185 = phi { ptr, i32 } [ %157, %156 ], [ %180, %179 ], [ %180, %183 ]
-  %186 = load ptr, ptr %28, align 8, !tbaa !63
+  %186 = load ptr, ptr %28, align 8, !tbaa !62
   %187 = icmp eq ptr %186, %30
   br i1 %187, label %189, label %188
 
@@ -4630,7 +4600,7 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
 
 189:                                              ; preds = %188, %184, %154
   %190 = phi { ptr, i32 } [ %155, %154 ], [ %185, %184 ], [ %185, %188 ]
-  %191 = load ptr, ptr %0, align 8, !tbaa !63
+  %191 = load ptr, ptr %0, align 8, !tbaa !62
   %192 = icmp eq ptr %191, %10
   br i1 %192, label %194, label %193
 
@@ -4645,17 +4615,17 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2ERKS0_(ptr nounde
 ; Function Attrs: mustprogress uwtable
 define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE7_M_copyILb0ENSG_11_Alloc_nodeEEEPSt13_Rb_tree_nodeISA_ESL_PSt18_Rb_tree_node_baseRT0_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef %1, ptr noundef %2, ptr noundef nonnull align 8 dereferenceable(8) %3) local_unnamed_addr #14 comdat align 2 personality ptr @__gxx_personality_v0 {
   %5 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1
-  %6 = load ptr, ptr %3, align 8, !tbaa !223
+  %6 = load ptr, ptr %3, align 8, !tbaa !222
   %7 = tail call noalias noundef nonnull dereferenceable(80) ptr @_Znwm(i64 noundef 80) #19
   tail call void @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE17_M_construct_nodeIJRKSA_EEEvPSt13_Rb_tree_nodeISA_EDpOT_(ptr noundef nonnull align 8 dereferenceable(48) %6, ptr noundef nonnull %7, ptr noundef nonnull align 8 dereferenceable(48) %5)
-  %8 = load i32, ptr %1, align 8, !tbaa !210
-  store i32 %8, ptr %7, align 8, !tbaa !210
+  %8 = load i32, ptr %1, align 8, !tbaa !209
+  store i32 %8, ptr %7, align 8, !tbaa !209
   %9 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %7, i64 0, i32 2
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %9, i8 0, i64 16, i1 false)
   %10 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %7, i64 0, i32 1
-  store ptr %2, ptr %10, align 8, !tbaa !206
+  store ptr %2, ptr %10, align 8, !tbaa !205
   %11 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %1, i64 0, i32 3
-  %12 = load ptr, ptr %11, align 8, !tbaa !200
+  %12 = load ptr, ptr %11, align 8, !tbaa !199
   %13 = icmp eq ptr %12, null
   br i1 %13, label %20, label %14
 
@@ -4665,7 +4635,7 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
 
 16:                                               ; preds = %14
   %17 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %7, i64 0, i32 3
-  store ptr %15, ptr %17, align 8, !tbaa !200
+  store ptr %15, ptr %17, align 8, !tbaa !199
   br label %20
 
 18:                                               ; preds = %14
@@ -4675,14 +4645,14 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
 
 20:                                               ; preds = %16, %4
   %21 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %1, i64 0, i32 2
-  %22 = load ptr, ptr %21, align 8, !tbaa !201
+  %22 = load ptr, ptr %21, align 8, !tbaa !200
   %23 = icmp eq ptr %22, null
   br i1 %23, label %57, label %24
 
 24:                                               ; preds = %20, %50
   %25 = phi ptr [ %52, %50 ], [ %22, %20 ]
   %26 = phi ptr [ %28, %50 ], [ %7, %20 ]
-  %27 = load ptr, ptr %3, align 8, !tbaa !223
+  %27 = load ptr, ptr %3, align 8, !tbaa !222
   %28 = invoke noalias noundef nonnull dereferenceable(80) ptr @_Znwm(i64 noundef 80) #19
           to label %29 unwind label %43
 
@@ -4692,16 +4662,16 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
           to label %31 unwind label %43
 
 31:                                               ; preds = %29
-  %32 = load i32, ptr %25, align 8, !tbaa !210
-  store i32 %32, ptr %28, align 8, !tbaa !210
+  %32 = load i32, ptr %25, align 8, !tbaa !209
+  store i32 %32, ptr %28, align 8, !tbaa !209
   %33 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %28, i64 0, i32 2
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %33, i8 0, i64 16, i1 false)
   %34 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %26, i64 0, i32 2
-  store ptr %28, ptr %34, align 8, !tbaa !201
+  store ptr %28, ptr %34, align 8, !tbaa !200
   %35 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %28, i64 0, i32 1
-  store ptr %26, ptr %35, align 8, !tbaa !206
+  store ptr %26, ptr %35, align 8, !tbaa !205
   %36 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %25, i64 0, i32 3
-  %37 = load ptr, ptr %36, align 8, !tbaa !200
+  %37 = load ptr, ptr %36, align 8, !tbaa !199
   %38 = icmp eq ptr %37, null
   br i1 %38, label %50, label %39
 
@@ -4711,7 +4681,7 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
 
 41:                                               ; preds = %39
   %42 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %28, i64 0, i32 3
-  store ptr %40, ptr %42, align 8, !tbaa !200
+  store ptr %40, ptr %42, align 8, !tbaa !199
   br label %50
 
 43:                                               ; preds = %29, %24, %39
@@ -4732,9 +4702,9 @@ define linkonce_odr hidden noundef ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_string
 
 50:                                               ; preds = %41, %31
   %51 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %25, i64 0, i32 2
-  %52 = load ptr, ptr %51, align 8, !tbaa !201
+  %52 = load ptr, ptr %51, align 8, !tbaa !200
   %53 = icmp eq ptr %52, null
-  br i1 %53, label %57, label %24, !llvm.loop !225
+  br i1 %53, label %57, label %24, !llvm.loop !224
 
 54:                                               ; preds = %49, %45
   %55 = landingpad { ptr, i32 }
@@ -4768,15 +4738,15 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2EOS1_(ptr
   %5 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4
   %6 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 4
   %7 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4, i32 2
-  store ptr %7, ptr %5, align 8, !tbaa !88
-  %8 = load ptr, ptr %6, align 8, !tbaa !63
+  store ptr %7, ptr %5, align 8, !tbaa !87
+  %8 = load ptr, ptr %6, align 8, !tbaa !62
   %9 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 4, i32 2
   %10 = icmp eq ptr %8, %9
   br i1 %10, label %11, label %17
 
 11:                                               ; preds = %2
   %12 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 4, i32 1
-  %13 = load i64, ptr %12, align 8, !tbaa !85
+  %13 = load i64, ptr %12, align 8, !tbaa !84
   %14 = add i64 %13, 1
   %15 = icmp eq i64 %14, 0
   br i1 %15, label %19, label %16
@@ -4786,35 +4756,35 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2EOS1_(ptr
   br label %19
 
 17:                                               ; preds = %2
-  store ptr %8, ptr %5, align 8, !tbaa !63
-  %18 = load i64, ptr %9, align 8, !tbaa !89
-  store i64 %18, ptr %7, align 8, !tbaa !89
+  store ptr %8, ptr %5, align 8, !tbaa !62
+  %18 = load i64, ptr %9, align 8, !tbaa !88
+  store i64 %18, ptr %7, align 8, !tbaa !88
   br label %19
 
 19:                                               ; preds = %11, %16, %17
   %20 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 4, i32 1
-  %21 = load i64, ptr %20, align 8, !tbaa !85
+  %21 = load i64, ptr %20, align 8, !tbaa !84
   %22 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 4, i32 1
-  store i64 %21, ptr %22, align 8, !tbaa !85
-  store ptr %9, ptr %6, align 8, !tbaa !63
-  store i64 0, ptr %20, align 8, !tbaa !85
-  store i8 0, ptr %9, align 8, !tbaa !89
+  store i64 %21, ptr %22, align 8, !tbaa !84
+  store ptr %9, ptr %6, align 8, !tbaa !62
+  store i64 0, ptr %20, align 8, !tbaa !84
+  store i8 0, ptr %9, align 8, !tbaa !88
   %23 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 5
   %24 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 5
-  %25 = load i32, ptr %24, align 8, !tbaa !219
-  store i32 %25, ptr %23, align 8, !tbaa !219
+  %25 = load i32, ptr %24, align 8, !tbaa !218
+  store i32 %25, ptr %23, align 8, !tbaa !218
   %26 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6
   %27 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 6
   %28 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6, i32 2
-  store ptr %28, ptr %26, align 8, !tbaa !88
-  %29 = load ptr, ptr %27, align 8, !tbaa !63
+  store ptr %28, ptr %26, align 8, !tbaa !87
+  %29 = load ptr, ptr %27, align 8, !tbaa !62
   %30 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 6, i32 2
   %31 = icmp eq ptr %29, %30
   br i1 %31, label %32, label %38
 
 32:                                               ; preds = %19
   %33 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 6, i32 1
-  %34 = load i64, ptr %33, align 8, !tbaa !85
+  %34 = load i64, ptr %33, align 8, !tbaa !84
   %35 = add i64 %34, 1
   %36 = icmp eq i64 %35, 0
   br i1 %36, label %40, label %37
@@ -4824,35 +4794,35 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2EOS1_(ptr
   br label %40
 
 38:                                               ; preds = %19
-  store ptr %29, ptr %26, align 8, !tbaa !63
-  %39 = load i64, ptr %30, align 8, !tbaa !89
-  store i64 %39, ptr %28, align 8, !tbaa !89
+  store ptr %29, ptr %26, align 8, !tbaa !62
+  %39 = load i64, ptr %30, align 8, !tbaa !88
+  store i64 %39, ptr %28, align 8, !tbaa !88
   br label %40
 
 40:                                               ; preds = %32, %37, %38
   %41 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 6, i32 1
-  %42 = load i64, ptr %41, align 8, !tbaa !85
+  %42 = load i64, ptr %41, align 8, !tbaa !84
   %43 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 6, i32 1
-  store i64 %42, ptr %43, align 8, !tbaa !85
-  store ptr %30, ptr %27, align 8, !tbaa !63
-  store i64 0, ptr %41, align 8, !tbaa !85
-  store i8 0, ptr %30, align 8, !tbaa !89
+  store i64 %42, ptr %43, align 8, !tbaa !84
+  store ptr %30, ptr %27, align 8, !tbaa !62
+  store i64 0, ptr %41, align 8, !tbaa !84
+  store i8 0, ptr %30, align 8, !tbaa !88
   %44 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 7
   %45 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 7
-  %46 = load i8, ptr %45, align 8, !tbaa !178, !range !68, !noundef !69
-  store i8 %46, ptr %44, align 8, !tbaa !178
+  %46 = load i8, ptr %45, align 8, !tbaa !177, !range !67, !noundef !68
+  store i8 %46, ptr %44, align 8, !tbaa !177
   %47 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8
   %48 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 8
   %49 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8, i32 2
-  store ptr %49, ptr %47, align 8, !tbaa !88
-  %50 = load ptr, ptr %48, align 8, !tbaa !63
+  store ptr %49, ptr %47, align 8, !tbaa !87
+  %50 = load ptr, ptr %48, align 8, !tbaa !62
   %51 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 8, i32 2
   %52 = icmp eq ptr %50, %51
   br i1 %52, label %53, label %59
 
 53:                                               ; preds = %40
   %54 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 8, i32 1
-  %55 = load i64, ptr %54, align 8, !tbaa !85
+  %55 = load i64, ptr %54, align 8, !tbaa !84
   %56 = add i64 %55, 1
   %57 = icmp eq i64 %56, 0
   br i1 %57, label %61, label %58
@@ -4862,63 +4832,63 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2EOS1_(ptr
   br label %61
 
 59:                                               ; preds = %40
-  store ptr %50, ptr %47, align 8, !tbaa !63
-  %60 = load i64, ptr %51, align 8, !tbaa !89
-  store i64 %60, ptr %49, align 8, !tbaa !89
+  store ptr %50, ptr %47, align 8, !tbaa !62
+  %60 = load i64, ptr %51, align 8, !tbaa !88
+  store i64 %60, ptr %49, align 8, !tbaa !88
   br label %61
 
 61:                                               ; preds = %53, %58, %59
   %62 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 8, i32 1
-  %63 = load i64, ptr %62, align 8, !tbaa !85
+  %63 = load i64, ptr %62, align 8, !tbaa !84
   %64 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 8, i32 1
-  store i64 %63, ptr %64, align 8, !tbaa !85
-  store ptr %51, ptr %48, align 8, !tbaa !63
-  store i64 0, ptr %62, align 8, !tbaa !85
-  store i8 0, ptr %51, align 8, !tbaa !89
+  store i64 %63, ptr %64, align 8, !tbaa !84
+  store ptr %51, ptr %48, align 8, !tbaa !62
+  store i64 0, ptr %62, align 8, !tbaa !84
+  store i8 0, ptr %51, align 8, !tbaa !88
   %65 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 9
   %66 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 9
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(98) %65, ptr noundef nonnull align 8 dereferenceable(98) %66, i64 98, i1 false)
   %67 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1
   %68 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 1
-  %69 = load ptr, ptr %68, align 8, !tbaa !93
+  %69 = load ptr, ptr %68, align 8, !tbaa !92
   %70 = icmp eq ptr %69, null
   br i1 %70, label %83, label %71
 
 71:                                               ; preds = %61
   %72 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 23, i32 0, i32 0, i32 1
-  %73 = load i32, ptr %72, align 8, !tbaa !92
+  %73 = load i32, ptr %72, align 8, !tbaa !91
   %74 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 1
-  store ptr %69, ptr %74, align 8, !tbaa !93
+  store ptr %69, ptr %74, align 8, !tbaa !92
   %75 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 2
   %76 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 2
   %77 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 3
   %78 = load <2 x ptr>, ptr %75, align 8, !tbaa !5
   store <2 x ptr> %78, ptr %76, align 8, !tbaa !5
   %79 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %69, i64 0, i32 1
-  store ptr %67, ptr %79, align 8, !tbaa !206
+  store ptr %67, ptr %79, align 8, !tbaa !205
   %80 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 23, i32 0, i32 0, i32 1, i32 1
-  %81 = load i64, ptr %80, align 8, !tbaa !122
+  %81 = load i64, ptr %80, align 8, !tbaa !121
   %82 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 1
-  store i64 %81, ptr %82, align 8, !tbaa !122
-  store ptr null, ptr %68, align 8, !tbaa !93
-  store ptr %72, ptr %75, align 8, !tbaa !94
-  store ptr %72, ptr %77, align 8, !tbaa !95
+  store i64 %81, ptr %82, align 8, !tbaa !121
+  store ptr null, ptr %68, align 8, !tbaa !92
+  store ptr %72, ptr %75, align 8, !tbaa !93
+  store ptr %72, ptr %77, align 8, !tbaa !94
   br label %88
 
 83:                                               ; preds = %61
   %84 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 1
-  store ptr null, ptr %84, align 8, !tbaa !93
+  store ptr null, ptr %84, align 8, !tbaa !92
   %85 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 2
-  store ptr %67, ptr %85, align 8, !tbaa !94
+  store ptr %67, ptr %85, align 8, !tbaa !93
   %86 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 0, i32 3
-  store ptr %67, ptr %86, align 8, !tbaa !95
+  store ptr %67, ptr %86, align 8, !tbaa !94
   %87 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 23, i32 0, i32 0, i32 1, i32 1
   br label %88
 
 88:                                               ; preds = %71, %83
   %89 = phi ptr [ %87, %83 ], [ %80, %71 ]
   %90 = phi i32 [ 0, %83 ], [ %73, %71 ]
-  store i64 0, ptr %89, align 8, !tbaa !122
+  store i64 0, ptr %89, align 8, !tbaa !121
   store i32 %90, ptr %67, align 8
   %91 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %0, i64 0, i32 24
   %92 = getelementptr inbounds %"struct.benchmark::BenchmarkReporter::Run", ptr %1, i64 0, i32 24
@@ -4929,15 +4899,15 @@ define linkonce_odr hidden void @_ZN9benchmark17BenchmarkReporter3RunC2EOS1_(ptr
 ; Function Attrs: inlinehint nounwind uwtable
 define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2EOS0_(ptr noundef nonnull align 8 dereferenceable(224) %0, ptr noundef nonnull align 8 dereferenceable(224) %1) unnamed_addr #6 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
-  store ptr %3, ptr %0, align 8, !tbaa !88
-  %4 = load ptr, ptr %1, align 8, !tbaa !63
+  store ptr %3, ptr %0, align 8, !tbaa !87
+  %4 = load ptr, ptr %1, align 8, !tbaa !62
   %5 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1, i64 0, i32 2
   %6 = icmp eq ptr %4, %5
   br i1 %6, label %7, label %13
 
 7:                                                ; preds = %2
   %8 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1, i64 0, i32 1
-  %9 = load i64, ptr %8, align 8, !tbaa !85
+  %9 = load i64, ptr %8, align 8, !tbaa !84
   %10 = add i64 %9, 1
   %11 = icmp eq i64 %10, 0
   br i1 %11, label %15, label %12
@@ -4947,31 +4917,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2EOS0_(ptr noundef
   br label %15
 
 13:                                               ; preds = %2
-  store ptr %4, ptr %0, align 8, !tbaa !63
-  %14 = load i64, ptr %5, align 8, !tbaa !89
-  store i64 %14, ptr %3, align 8, !tbaa !89
+  store ptr %4, ptr %0, align 8, !tbaa !62
+  %14 = load i64, ptr %5, align 8, !tbaa !88
+  store i64 %14, ptr %3, align 8, !tbaa !88
   br label %15
 
 15:                                               ; preds = %7, %12, %13
   %16 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %1, i64 0, i32 1
-  %17 = load i64, ptr %16, align 8, !tbaa !85
+  %17 = load i64, ptr %16, align 8, !tbaa !84
   %18 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
-  store i64 %17, ptr %18, align 8, !tbaa !85
-  store ptr %5, ptr %1, align 8, !tbaa !63
-  store i64 0, ptr %16, align 8, !tbaa !85
-  store i8 0, ptr %5, align 8, !tbaa !89
+  store i64 %17, ptr %18, align 8, !tbaa !84
+  store ptr %5, ptr %1, align 8, !tbaa !62
+  store i64 0, ptr %16, align 8, !tbaa !84
+  store i8 0, ptr %5, align 8, !tbaa !88
   %19 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1
   %20 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 1
   %21 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 2
-  store ptr %21, ptr %19, align 8, !tbaa !88
-  %22 = load ptr, ptr %20, align 8, !tbaa !63
+  store ptr %21, ptr %19, align 8, !tbaa !87
+  %22 = load ptr, ptr %20, align 8, !tbaa !62
   %23 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 1, i32 2
   %24 = icmp eq ptr %22, %23
   br i1 %24, label %25, label %31
 
 25:                                               ; preds = %15
   %26 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 1, i32 1
-  %27 = load i64, ptr %26, align 8, !tbaa !85
+  %27 = load i64, ptr %26, align 8, !tbaa !84
   %28 = add i64 %27, 1
   %29 = icmp eq i64 %28, 0
   br i1 %29, label %33, label %30
@@ -4981,31 +4951,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2EOS0_(ptr noundef
   br label %33
 
 31:                                               ; preds = %15
-  store ptr %22, ptr %19, align 8, !tbaa !63
-  %32 = load i64, ptr %23, align 8, !tbaa !89
-  store i64 %32, ptr %21, align 8, !tbaa !89
+  store ptr %22, ptr %19, align 8, !tbaa !62
+  %32 = load i64, ptr %23, align 8, !tbaa !88
+  store i64 %32, ptr %21, align 8, !tbaa !88
   br label %33
 
 33:                                               ; preds = %25, %30, %31
   %34 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 1, i32 1
-  %35 = load i64, ptr %34, align 8, !tbaa !85
+  %35 = load i64, ptr %34, align 8, !tbaa !84
   %36 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 1, i32 1
-  store i64 %35, ptr %36, align 8, !tbaa !85
-  store ptr %23, ptr %20, align 8, !tbaa !63
-  store i64 0, ptr %34, align 8, !tbaa !85
-  store i8 0, ptr %23, align 8, !tbaa !89
+  store i64 %35, ptr %36, align 8, !tbaa !84
+  store ptr %23, ptr %20, align 8, !tbaa !62
+  store i64 0, ptr %34, align 8, !tbaa !84
+  store i8 0, ptr %23, align 8, !tbaa !88
   %37 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2
   %38 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 2
   %39 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 2
-  store ptr %39, ptr %37, align 8, !tbaa !88
-  %40 = load ptr, ptr %38, align 8, !tbaa !63
+  store ptr %39, ptr %37, align 8, !tbaa !87
+  %40 = load ptr, ptr %38, align 8, !tbaa !62
   %41 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 2, i32 2
   %42 = icmp eq ptr %40, %41
   br i1 %42, label %43, label %49
 
 43:                                               ; preds = %33
   %44 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 2, i32 1
-  %45 = load i64, ptr %44, align 8, !tbaa !85
+  %45 = load i64, ptr %44, align 8, !tbaa !84
   %46 = add i64 %45, 1
   %47 = icmp eq i64 %46, 0
   br i1 %47, label %51, label %48
@@ -5015,31 +4985,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2EOS0_(ptr noundef
   br label %51
 
 49:                                               ; preds = %33
-  store ptr %40, ptr %37, align 8, !tbaa !63
-  %50 = load i64, ptr %41, align 8, !tbaa !89
-  store i64 %50, ptr %39, align 8, !tbaa !89
+  store ptr %40, ptr %37, align 8, !tbaa !62
+  %50 = load i64, ptr %41, align 8, !tbaa !88
+  store i64 %50, ptr %39, align 8, !tbaa !88
   br label %51
 
 51:                                               ; preds = %43, %48, %49
   %52 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 2, i32 1
-  %53 = load i64, ptr %52, align 8, !tbaa !85
+  %53 = load i64, ptr %52, align 8, !tbaa !84
   %54 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 2, i32 1
-  store i64 %53, ptr %54, align 8, !tbaa !85
-  store ptr %41, ptr %38, align 8, !tbaa !63
-  store i64 0, ptr %52, align 8, !tbaa !85
-  store i8 0, ptr %41, align 8, !tbaa !89
+  store i64 %53, ptr %54, align 8, !tbaa !84
+  store ptr %41, ptr %38, align 8, !tbaa !62
+  store i64 0, ptr %52, align 8, !tbaa !84
+  store i8 0, ptr %41, align 8, !tbaa !88
   %55 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3
   %56 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 3
   %57 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 2
-  store ptr %57, ptr %55, align 8, !tbaa !88
-  %58 = load ptr, ptr %56, align 8, !tbaa !63
+  store ptr %57, ptr %55, align 8, !tbaa !87
+  %58 = load ptr, ptr %56, align 8, !tbaa !62
   %59 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 3, i32 2
   %60 = icmp eq ptr %58, %59
   br i1 %60, label %61, label %67
 
 61:                                               ; preds = %51
   %62 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 3, i32 1
-  %63 = load i64, ptr %62, align 8, !tbaa !85
+  %63 = load i64, ptr %62, align 8, !tbaa !84
   %64 = add i64 %63, 1
   %65 = icmp eq i64 %64, 0
   br i1 %65, label %69, label %66
@@ -5049,31 +5019,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2EOS0_(ptr noundef
   br label %69
 
 67:                                               ; preds = %51
-  store ptr %58, ptr %55, align 8, !tbaa !63
-  %68 = load i64, ptr %59, align 8, !tbaa !89
-  store i64 %68, ptr %57, align 8, !tbaa !89
+  store ptr %58, ptr %55, align 8, !tbaa !62
+  %68 = load i64, ptr %59, align 8, !tbaa !88
+  store i64 %68, ptr %57, align 8, !tbaa !88
   br label %69
 
 69:                                               ; preds = %61, %66, %67
   %70 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 3, i32 1
-  %71 = load i64, ptr %70, align 8, !tbaa !85
+  %71 = load i64, ptr %70, align 8, !tbaa !84
   %72 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 3, i32 1
-  store i64 %71, ptr %72, align 8, !tbaa !85
-  store ptr %59, ptr %56, align 8, !tbaa !63
-  store i64 0, ptr %70, align 8, !tbaa !85
-  store i8 0, ptr %59, align 8, !tbaa !89
+  store i64 %71, ptr %72, align 8, !tbaa !84
+  store ptr %59, ptr %56, align 8, !tbaa !62
+  store i64 0, ptr %70, align 8, !tbaa !84
+  store i8 0, ptr %59, align 8, !tbaa !88
   %73 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4
   %74 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 4
   %75 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 2
-  store ptr %75, ptr %73, align 8, !tbaa !88
-  %76 = load ptr, ptr %74, align 8, !tbaa !63
+  store ptr %75, ptr %73, align 8, !tbaa !87
+  %76 = load ptr, ptr %74, align 8, !tbaa !62
   %77 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 4, i32 2
   %78 = icmp eq ptr %76, %77
   br i1 %78, label %79, label %85
 
 79:                                               ; preds = %69
   %80 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 4, i32 1
-  %81 = load i64, ptr %80, align 8, !tbaa !85
+  %81 = load i64, ptr %80, align 8, !tbaa !84
   %82 = add i64 %81, 1
   %83 = icmp eq i64 %82, 0
   br i1 %83, label %87, label %84
@@ -5083,31 +5053,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2EOS0_(ptr noundef
   br label %87
 
 85:                                               ; preds = %69
-  store ptr %76, ptr %73, align 8, !tbaa !63
-  %86 = load i64, ptr %77, align 8, !tbaa !89
-  store i64 %86, ptr %75, align 8, !tbaa !89
+  store ptr %76, ptr %73, align 8, !tbaa !62
+  %86 = load i64, ptr %77, align 8, !tbaa !88
+  store i64 %86, ptr %75, align 8, !tbaa !88
   br label %87
 
 87:                                               ; preds = %79, %84, %85
   %88 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 4, i32 1
-  %89 = load i64, ptr %88, align 8, !tbaa !85
+  %89 = load i64, ptr %88, align 8, !tbaa !84
   %90 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 4, i32 1
-  store i64 %89, ptr %90, align 8, !tbaa !85
-  store ptr %77, ptr %74, align 8, !tbaa !63
-  store i64 0, ptr %88, align 8, !tbaa !85
-  store i8 0, ptr %77, align 8, !tbaa !89
+  store i64 %89, ptr %90, align 8, !tbaa !84
+  store ptr %77, ptr %74, align 8, !tbaa !62
+  store i64 0, ptr %88, align 8, !tbaa !84
+  store i8 0, ptr %77, align 8, !tbaa !88
   %91 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5
   %92 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 5
   %93 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 2
-  store ptr %93, ptr %91, align 8, !tbaa !88
-  %94 = load ptr, ptr %92, align 8, !tbaa !63
+  store ptr %93, ptr %91, align 8, !tbaa !87
+  %94 = load ptr, ptr %92, align 8, !tbaa !62
   %95 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 5, i32 2
   %96 = icmp eq ptr %94, %95
   br i1 %96, label %97, label %103
 
 97:                                               ; preds = %87
   %98 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 5, i32 1
-  %99 = load i64, ptr %98, align 8, !tbaa !85
+  %99 = load i64, ptr %98, align 8, !tbaa !84
   %100 = add i64 %99, 1
   %101 = icmp eq i64 %100, 0
   br i1 %101, label %105, label %102
@@ -5117,31 +5087,31 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2EOS0_(ptr noundef
   br label %105
 
 103:                                              ; preds = %87
-  store ptr %94, ptr %91, align 8, !tbaa !63
-  %104 = load i64, ptr %95, align 8, !tbaa !89
-  store i64 %104, ptr %93, align 8, !tbaa !89
+  store ptr %94, ptr %91, align 8, !tbaa !62
+  %104 = load i64, ptr %95, align 8, !tbaa !88
+  store i64 %104, ptr %93, align 8, !tbaa !88
   br label %105
 
 105:                                              ; preds = %97, %102, %103
   %106 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 5, i32 1
-  %107 = load i64, ptr %106, align 8, !tbaa !85
+  %107 = load i64, ptr %106, align 8, !tbaa !84
   %108 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 5, i32 1
-  store i64 %107, ptr %108, align 8, !tbaa !85
-  store ptr %95, ptr %92, align 8, !tbaa !63
-  store i64 0, ptr %106, align 8, !tbaa !85
-  store i8 0, ptr %95, align 8, !tbaa !89
+  store i64 %107, ptr %108, align 8, !tbaa !84
+  store ptr %95, ptr %92, align 8, !tbaa !62
+  store i64 0, ptr %106, align 8, !tbaa !84
+  store i8 0, ptr %95, align 8, !tbaa !88
   %109 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6
   %110 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 6
   %111 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 2
-  store ptr %111, ptr %109, align 8, !tbaa !88
-  %112 = load ptr, ptr %110, align 8, !tbaa !63
+  store ptr %111, ptr %109, align 8, !tbaa !87
+  %112 = load ptr, ptr %110, align 8, !tbaa !62
   %113 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 6, i32 2
   %114 = icmp eq ptr %112, %113
   br i1 %114, label %115, label %121
 
 115:                                              ; preds = %105
   %116 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 6, i32 1
-  %117 = load i64, ptr %116, align 8, !tbaa !85
+  %117 = load i64, ptr %116, align 8, !tbaa !84
   %118 = add i64 %117, 1
   %119 = icmp eq i64 %118, 0
   br i1 %119, label %123, label %120
@@ -5151,19 +5121,19 @@ define linkonce_odr hidden void @_ZN9benchmark13BenchmarkNameC2EOS0_(ptr noundef
   br label %123
 
 121:                                              ; preds = %105
-  store ptr %112, ptr %109, align 8, !tbaa !63
-  %122 = load i64, ptr %113, align 8, !tbaa !89
-  store i64 %122, ptr %111, align 8, !tbaa !89
+  store ptr %112, ptr %109, align 8, !tbaa !62
+  %122 = load i64, ptr %113, align 8, !tbaa !88
+  store i64 %122, ptr %111, align 8, !tbaa !88
   br label %123
 
 123:                                              ; preds = %115, %120, %121
   %124 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %1, i64 0, i32 6, i32 1
-  %125 = load i64, ptr %124, align 8, !tbaa !85
+  %125 = load i64, ptr %124, align 8, !tbaa !84
   %126 = getelementptr inbounds %"struct.benchmark::BenchmarkName", ptr %0, i64 0, i32 6, i32 1
-  store i64 %125, ptr %126, align 8, !tbaa !85
-  store ptr %113, ptr %110, align 8, !tbaa !63
-  store i64 0, ptr %124, align 8, !tbaa !85
-  store i8 0, ptr %113, align 8, !tbaa !89
+  store i64 %125, ptr %126, align 8, !tbaa !84
+  store ptr %113, ptr %110, align 8, !tbaa !62
+  store i64 0, ptr %124, align 8, !tbaa !84
+  store i8 0, ptr %113, align 8, !tbaa !88
   ret void
 }
 
@@ -5261,180 +5231,179 @@ attributes #22 = { noreturn nounwind }
 !46 = !{!"_ZTSSt14_Rb_tree_color", !7, i64 0}
 !47 = !{!17, !17, i64 0}
 !48 = !{!10, !17, i64 72}
-!49 = !{!32, !18, i64 336}
-!50 = !{!10, !18, i64 80}
-!51 = !{!32, !27, i64 352}
-!52 = !{!10, !16, i64 84}
-!53 = !{!10, !18, i64 88}
-!54 = !{!32, !18, i64 360}
-!55 = !{!22, !6, i64 0}
-!56 = !{!57, !27, i64 0}
-!57 = !{!"_ZTSNSt6thread2idE", !27, i64 0}
-!58 = !{!22, !6, i64 8}
-!59 = !{!10, !27, i64 144}
-!60 = !{!61, !6, i64 0}
-!61 = !{!"_ZTSNSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
-!62 = !{!61, !6, i64 8}
-!63 = !{!34, !6, i64 0}
-!64 = distinct !{!64, !65}
-!65 = !{!"llvm.loop.mustprogress"}
-!66 = !{!10, !6, i64 240}
-!67 = !{!16, !16, i64 0}
-!68 = !{i8 0, i8 2}
-!69 = !{}
-!70 = !{!10, !16, i64 48}
-!71 = !{!10, !16, i64 49}
-!72 = !{!10, !6, i64 56}
-!73 = !{!32, !36, i64 240}
-!74 = !{!"branch_weights", i32 1, i32 1048575}
-!75 = !{!76, !6, i64 0}
-!76 = !{!"_ZTSN9benchmark8internal7LogTypeE", !6, i64 0}
-!77 = !{!26, !6, i64 0}
-!78 = distinct !{!78, !65}
-!79 = !{i64 0, i64 8, !80}
-!80 = !{!27, !27, i64 0}
-!81 = !{!15, !6, i64 0}
-!82 = !{!15, !6, i64 8}
-!83 = distinct !{!83, !65}
-!84 = !{!18, !18, i64 0}
-!85 = !{!34, !27, i64 8}
-!86 = !{!87, !6, i64 0}
-!87 = !{!"_ZTSSt10_Head_baseILm0EPN9benchmark8internal13ThreadManagerELb0EE", !6, i64 0}
-!88 = !{!35, !6, i64 0}
-!89 = !{!7, !7, i64 0}
-!90 = !{!91, !16, i64 104}
-!91 = !{!"_ZTSN9benchmark8internal13ThreadManager6ResultE", !27, i64 0, !17, i64 8, !17, i64 16, !17, i64 24, !27, i64 32, !34, i64 40, !34, i64 72, !16, i64 104, !39, i64 112}
-!92 = !{!44, !46, i64 0}
-!93 = !{!44, !6, i64 8}
-!94 = !{!44, !6, i64 16}
-!95 = !{!44, !6, i64 24}
-!96 = !{!97, !18, i64 0}
-!97 = !{!"_ZTSSt13__atomic_baseIiE", !18, i64 0}
-!98 = !{!99, !18, i64 88}
-!99 = !{!"_ZTSN9benchmark7BarrierE", !100, i64 0, !103, i64 40, !18, i64 88, !18, i64 92, !18, i64 96}
-!100 = !{!"_ZTSN9benchmark5MutexE", !101, i64 0}
-!101 = !{!"_ZTSSt5mutex", !102, i64 0}
-!102 = !{!"_ZTSSt12__mutex_base", !7, i64 0}
-!103 = !{!"_ZTSSt18condition_variable", !104, i64 0}
-!104 = !{!"_ZTSSt9__condvar", !7, i64 0}
-!105 = !{!99, !18, i64 92}
-!106 = !{!99, !18, i64 96}
-!107 = !{!108, !108, i64 0}
-!108 = !{!"vtable pointer", !8, i64 0}
-!109 = !{!110, !6, i64 0}
-!110 = !{!"_ZTSSt10_Head_baseILm5EPN9benchmark8internal23PerfCountersMeasurementELb0EE", !6, i64 0}
-!111 = !{!112, !6, i64 0}
-!112 = !{!"_ZTSSt10_Head_baseILm4EPN9benchmark8internal13ThreadManagerELb0EE", !6, i64 0}
-!113 = !{!114, !18, i64 0}
-!114 = !{!"_ZTSSt10_Head_baseILm3EiLb0EE", !18, i64 0}
-!115 = !{!116, !27, i64 0}
-!116 = !{!"_ZTSSt10_Head_baseILm2EmLb0EE", !27, i64 0}
-!117 = !{!118, !6, i64 0}
-!118 = !{!"_ZTSSt10_Head_baseILm1EPKN9benchmark8internal17BenchmarkInstanceELb0EE", !6, i64 0}
-!119 = !{!120, !6, i64 0}
-!120 = !{!"_ZTSSt10_Head_baseILm0EPFvPKN9benchmark8internal17BenchmarkInstanceEmiPNS1_13ThreadManagerEPNS1_23PerfCountersMeasurementEELb0EE", !6, i64 0}
-!121 = distinct !{!121, !65}
-!122 = !{!44, !27, i64 32}
-!123 = !{!124, !17, i64 8}
-!124 = !{!"_ZTSN9benchmark8internal15BenchmarkRunner16IterationResultsE", !91, i64 0, !27, i64 160, !17, i64 168}
-!125 = !{!124, !17, i64 24}
-!126 = !{!32, !16, i64 260}
-!127 = !{!124, !17, i64 16}
-!128 = !{!124, !27, i64 0}
-!129 = !{!124, !27, i64 160}
-!130 = !{!124, !17, i64 168}
-!131 = !{!32, !16, i64 262}
-!132 = !{!32, !16, i64 261}
-!133 = !{!134, !16, i64 24}
-!134 = !{!"_ZTSN9benchmark5StateE", !27, i64 0, !27, i64 8, !27, i64 16, !16, i64 24, !16, i64 25, !16, i64 26, !135, i64 32, !27, i64 56, !39, i64 64, !18, i64 112, !18, i64 116, !6, i64 120, !6, i64 128, !6, i64 136}
-!135 = !{!"_ZTSSt6vectorIlSaIlEE", !136, i64 0}
-!136 = !{!"_ZTSSt12_Vector_baseIlSaIlEE", !137, i64 0}
-!137 = !{!"_ZTSNSt12_Vector_baseIlSaIlEE12_Vector_implE", !138, i64 0}
-!138 = !{!"_ZTSNSt12_Vector_baseIlSaIlEE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
-!139 = !{!"branch_weights", i32 1, i32 2000}
-!140 = !{!134, !27, i64 16}
-!141 = !{!134, !27, i64 0}
-!142 = !{!134, !27, i64 8}
-!143 = !{!91, !27, i64 0}
-!144 = !{!145, !17, i64 32}
-!145 = !{!"_ZTSN9benchmark8internal11ThreadTimerE", !16, i64 0, !16, i64 1, !17, i64 8, !17, i64 16, !17, i64 24, !17, i64 32, !17, i64 40}
-!146 = !{!91, !17, i64 16}
-!147 = !{!145, !17, i64 24}
-!148 = !{!91, !17, i64 8}
-!149 = !{!145, !17, i64 40}
-!150 = !{!91, !17, i64 24}
-!151 = !{!134, !27, i64 56}
-!152 = !{!91, !27, i64 32}
-!153 = !{!138, !6, i64 0}
-!154 = !{!155, !6, i64 0}
-!155 = !{!"_ZTSSt11unique_lockISt5mutexE", !6, i64 0, !16, i64 8}
-!156 = !{!155, !16, i64 8}
-!157 = distinct !{!157, !65}
-!158 = !{!124, !16, i64 104}
-!159 = !{!26, !6, i64 8}
-!160 = !{!26, !6, i64 16}
-!161 = !{i64 0, i64 8, !80, i64 8, i64 8, !80}
-!162 = !{i64 0, i64 8, !80, i64 8, i64 8, !80, i64 16, i64 8, !80, i64 24, i64 8, !80}
-!163 = !{!164, !166}
-!164 = distinct !{!164, !165, !"_ZSt19__relocate_object_aIN9benchmark13MemoryManager6ResultES2_SaIS2_EEvPT_PT0_RT1_: argument 0"}
-!165 = distinct !{!165, !"_ZSt19__relocate_object_aIN9benchmark13MemoryManager6ResultES2_SaIS2_EEvPT_PT0_RT1_"}
-!166 = distinct !{!166, !165, !"_ZSt19__relocate_object_aIN9benchmark13MemoryManager6ResultES2_SaIS2_EEvPT_PT0_RT1_: argument 1"}
-!167 = distinct !{!167, !65}
-!168 = !{!169}
-!169 = distinct !{!169, !170, !"_ZN9benchmark8internal12_GLOBAL__N_115CreateRunReportERKNS0_17BenchmarkInstanceERKNS0_13ThreadManager6ResultEmPKNS_13MemoryManager6ResultEdll: argument 0"}
-!170 = distinct !{!170, !"_ZN9benchmark8internal12_GLOBAL__N_115CreateRunReportERKNS0_17BenchmarkInstanceERKNS0_13ThreadManager6ResultEmPKNS_13MemoryManager6ResultEdll"}
-!171 = !{!32, !18, i64 232}
-!172 = !{!173, !27, i64 224}
-!173 = !{!"_ZTSN9benchmark17BenchmarkReporter3RunE", !33, i64 0, !27, i64 224, !27, i64 232, !174, i64 240, !34, i64 248, !175, i64 280, !34, i64 288, !16, i64 320, !34, i64 328, !27, i64 360, !27, i64 368, !27, i64 376, !27, i64 384, !37, i64 392, !17, i64 400, !17, i64 408, !17, i64 416, !38, i64 424, !6, i64 432, !27, i64 440, !6, i64 448, !16, i64 456, !16, i64 457, !39, i64 464, !6, i64 512, !17, i64 520}
-!174 = !{!"_ZTSN9benchmark17BenchmarkReporter3Run7RunTypeE", !7, i64 0}
-!175 = !{!"_ZTSN9benchmark13StatisticUnitE", !7, i64 0}
-!176 = !{!32, !18, i64 236}
-!177 = !{!173, !27, i64 232}
-!178 = !{!173, !16, i64 320}
-!179 = !{!173, !27, i64 360}
-!180 = !{!32, !37, i64 256}
-!181 = !{!173, !37, i64 392}
-!182 = !{!173, !27, i64 368}
-!183 = !{!173, !27, i64 376}
-!184 = !{!173, !27, i64 384}
-!185 = !{!173, !17, i64 408}
-!186 = !{!173, !27, i64 440}
-!187 = !{!32, !38, i64 264}
-!188 = !{!173, !38, i64 424}
-!189 = !{!32, !6, i64 272}
-!190 = !{!173, !6, i64 432}
-!191 = !{!32, !6, i64 328}
-!192 = !{!173, !6, i64 448}
-!193 = !{!173, !6, i64 512}
-!194 = !{!195, !27, i64 0}
-!195 = !{!"_ZTSN9benchmark13MemoryManager6ResultE", !27, i64 0, !27, i64 8, !27, i64 16, !27, i64 24}
-!196 = !{!173, !17, i64 520}
-!197 = !{!198, !18, i64 4}
-!198 = !{!"_ZTSN9benchmark17BenchmarkReporter19PerFamilyRunReportsE", !18, i64 0, !18, i64 4, !12, i64 8}
-!199 = !{!15, !6, i64 16}
-!200 = !{!45, !6, i64 24}
-!201 = !{!45, !6, i64 16}
-!202 = distinct !{!202, !65}
-!203 = !{!204, !6, i64 0}
-!204 = !{!"_ZTSNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE20_Reuse_or_alloc_nodeE", !6, i64 0, !6, i64 8, !6, i64 16}
-!205 = !{!204, !6, i64 8}
-!206 = !{!45, !6, i64 8}
-!207 = distinct !{!207, !65}
-!208 = distinct !{!208, !65}
-!209 = !{!204, !6, i64 16}
-!210 = !{!45, !46, i64 0}
-!211 = distinct !{!211, !65}
-!212 = distinct !{!212, !65}
-!213 = !{i64 0, i64 8, !47, i64 8, i64 4, !214, i64 12, i64 4, !216}
-!214 = !{!215, !215, i64 0}
-!215 = !{!"_ZTSN9benchmark7Counter5FlagsE", !7, i64 0}
-!216 = !{!217, !217, i64 0}
-!217 = !{!"_ZTSN9benchmark7Counter4OneKE", !7, i64 0}
-!218 = !{!173, !174, i64 240}
-!219 = !{!173, !175, i64 280}
-!220 = !{!173, !16, i64 456}
-!221 = !{!173, !16, i64 457}
-!222 = distinct !{!222, !65}
-!223 = !{!224, !6, i64 0}
-!224 = !{!"_ZTSNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE11_Alloc_nodeE", !6, i64 0}
-!225 = distinct !{!225, !65}
+!49 = !{!10, !18, i64 80}
+!50 = !{!32, !27, i64 352}
+!51 = !{!10, !16, i64 84}
+!52 = !{!10, !18, i64 88}
+!53 = !{!32, !18, i64 360}
+!54 = !{!22, !6, i64 0}
+!55 = !{!56, !27, i64 0}
+!56 = !{!"_ZTSNSt6thread2idE", !27, i64 0}
+!57 = !{!22, !6, i64 8}
+!58 = !{!10, !27, i64 144}
+!59 = !{!60, !6, i64 0}
+!60 = !{!"_ZTSNSt12_Vector_baseINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
+!61 = !{!60, !6, i64 8}
+!62 = !{!34, !6, i64 0}
+!63 = distinct !{!63, !64}
+!64 = !{!"llvm.loop.mustprogress"}
+!65 = !{!10, !6, i64 240}
+!66 = !{!16, !16, i64 0}
+!67 = !{i8 0, i8 2}
+!68 = !{}
+!69 = !{!10, !16, i64 48}
+!70 = !{!10, !16, i64 49}
+!71 = !{!10, !6, i64 56}
+!72 = !{!32, !36, i64 240}
+!73 = !{!"branch_weights", i32 1, i32 1048575}
+!74 = !{!75, !6, i64 0}
+!75 = !{!"_ZTSN9benchmark8internal7LogTypeE", !6, i64 0}
+!76 = !{!26, !6, i64 0}
+!77 = distinct !{!77, !64}
+!78 = !{i64 0, i64 8, !79}
+!79 = !{!27, !27, i64 0}
+!80 = !{!15, !6, i64 0}
+!81 = !{!15, !6, i64 8}
+!82 = distinct !{!82, !64}
+!83 = !{!18, !18, i64 0}
+!84 = !{!34, !27, i64 8}
+!85 = !{!86, !6, i64 0}
+!86 = !{!"_ZTSSt10_Head_baseILm0EPN9benchmark8internal13ThreadManagerELb0EE", !6, i64 0}
+!87 = !{!35, !6, i64 0}
+!88 = !{!7, !7, i64 0}
+!89 = !{!90, !16, i64 104}
+!90 = !{!"_ZTSN9benchmark8internal13ThreadManager6ResultE", !27, i64 0, !17, i64 8, !17, i64 16, !17, i64 24, !27, i64 32, !34, i64 40, !34, i64 72, !16, i64 104, !39, i64 112}
+!91 = !{!44, !46, i64 0}
+!92 = !{!44, !6, i64 8}
+!93 = !{!44, !6, i64 16}
+!94 = !{!44, !6, i64 24}
+!95 = !{!96, !18, i64 0}
+!96 = !{!"_ZTSSt13__atomic_baseIiE", !18, i64 0}
+!97 = !{!98, !18, i64 88}
+!98 = !{!"_ZTSN9benchmark7BarrierE", !99, i64 0, !102, i64 40, !18, i64 88, !18, i64 92, !18, i64 96}
+!99 = !{!"_ZTSN9benchmark5MutexE", !100, i64 0}
+!100 = !{!"_ZTSSt5mutex", !101, i64 0}
+!101 = !{!"_ZTSSt12__mutex_base", !7, i64 0}
+!102 = !{!"_ZTSSt18condition_variable", !103, i64 0}
+!103 = !{!"_ZTSSt9__condvar", !7, i64 0}
+!104 = !{!98, !18, i64 92}
+!105 = !{!98, !18, i64 96}
+!106 = !{!107, !107, i64 0}
+!107 = !{!"vtable pointer", !8, i64 0}
+!108 = !{!109, !6, i64 0}
+!109 = !{!"_ZTSSt10_Head_baseILm5EPN9benchmark8internal23PerfCountersMeasurementELb0EE", !6, i64 0}
+!110 = !{!111, !6, i64 0}
+!111 = !{!"_ZTSSt10_Head_baseILm4EPN9benchmark8internal13ThreadManagerELb0EE", !6, i64 0}
+!112 = !{!113, !18, i64 0}
+!113 = !{!"_ZTSSt10_Head_baseILm3EiLb0EE", !18, i64 0}
+!114 = !{!115, !27, i64 0}
+!115 = !{!"_ZTSSt10_Head_baseILm2EmLb0EE", !27, i64 0}
+!116 = !{!117, !6, i64 0}
+!117 = !{!"_ZTSSt10_Head_baseILm1EPKN9benchmark8internal17BenchmarkInstanceELb0EE", !6, i64 0}
+!118 = !{!119, !6, i64 0}
+!119 = !{!"_ZTSSt10_Head_baseILm0EPFvPKN9benchmark8internal17BenchmarkInstanceEmiPNS1_13ThreadManagerEPNS1_23PerfCountersMeasurementEELb0EE", !6, i64 0}
+!120 = distinct !{!120, !64}
+!121 = !{!44, !27, i64 32}
+!122 = !{!123, !17, i64 8}
+!123 = !{!"_ZTSN9benchmark8internal15BenchmarkRunner16IterationResultsE", !90, i64 0, !27, i64 160, !17, i64 168}
+!124 = !{!123, !17, i64 24}
+!125 = !{!32, !16, i64 260}
+!126 = !{!123, !17, i64 16}
+!127 = !{!123, !27, i64 0}
+!128 = !{!123, !27, i64 160}
+!129 = !{!123, !17, i64 168}
+!130 = !{!32, !16, i64 262}
+!131 = !{!32, !16, i64 261}
+!132 = !{!133, !16, i64 24}
+!133 = !{!"_ZTSN9benchmark5StateE", !27, i64 0, !27, i64 8, !27, i64 16, !16, i64 24, !16, i64 25, !16, i64 26, !134, i64 32, !27, i64 56, !39, i64 64, !18, i64 112, !18, i64 116, !6, i64 120, !6, i64 128, !6, i64 136}
+!134 = !{!"_ZTSSt6vectorIlSaIlEE", !135, i64 0}
+!135 = !{!"_ZTSSt12_Vector_baseIlSaIlEE", !136, i64 0}
+!136 = !{!"_ZTSNSt12_Vector_baseIlSaIlEE12_Vector_implE", !137, i64 0}
+!137 = !{!"_ZTSNSt12_Vector_baseIlSaIlEE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
+!138 = !{!"branch_weights", i32 1, i32 2000}
+!139 = !{!133, !27, i64 16}
+!140 = !{!133, !27, i64 0}
+!141 = !{!133, !27, i64 8}
+!142 = !{!90, !27, i64 0}
+!143 = !{!144, !17, i64 32}
+!144 = !{!"_ZTSN9benchmark8internal11ThreadTimerE", !16, i64 0, !16, i64 1, !17, i64 8, !17, i64 16, !17, i64 24, !17, i64 32, !17, i64 40}
+!145 = !{!90, !17, i64 16}
+!146 = !{!144, !17, i64 24}
+!147 = !{!90, !17, i64 8}
+!148 = !{!144, !17, i64 40}
+!149 = !{!90, !17, i64 24}
+!150 = !{!133, !27, i64 56}
+!151 = !{!90, !27, i64 32}
+!152 = !{!137, !6, i64 0}
+!153 = !{!154, !6, i64 0}
+!154 = !{!"_ZTSSt11unique_lockISt5mutexE", !6, i64 0, !16, i64 8}
+!155 = !{!154, !16, i64 8}
+!156 = distinct !{!156, !64}
+!157 = !{!123, !16, i64 104}
+!158 = !{!26, !6, i64 8}
+!159 = !{!26, !6, i64 16}
+!160 = !{i64 0, i64 8, !79, i64 8, i64 8, !79}
+!161 = !{i64 0, i64 8, !79, i64 8, i64 8, !79, i64 16, i64 8, !79, i64 24, i64 8, !79}
+!162 = !{!163, !165}
+!163 = distinct !{!163, !164, !"_ZSt19__relocate_object_aIN9benchmark13MemoryManager6ResultES2_SaIS2_EEvPT_PT0_RT1_: argument 0"}
+!164 = distinct !{!164, !"_ZSt19__relocate_object_aIN9benchmark13MemoryManager6ResultES2_SaIS2_EEvPT_PT0_RT1_"}
+!165 = distinct !{!165, !164, !"_ZSt19__relocate_object_aIN9benchmark13MemoryManager6ResultES2_SaIS2_EEvPT_PT0_RT1_: argument 1"}
+!166 = distinct !{!166, !64}
+!167 = !{!168}
+!168 = distinct !{!168, !169, !"_ZN9benchmark8internal12_GLOBAL__N_115CreateRunReportERKNS0_17BenchmarkInstanceERKNS0_13ThreadManager6ResultEmPKNS_13MemoryManager6ResultEdll: argument 0"}
+!169 = distinct !{!169, !"_ZN9benchmark8internal12_GLOBAL__N_115CreateRunReportERKNS0_17BenchmarkInstanceERKNS0_13ThreadManager6ResultEmPKNS_13MemoryManager6ResultEdll"}
+!170 = !{!32, !18, i64 232}
+!171 = !{!172, !27, i64 224}
+!172 = !{!"_ZTSN9benchmark17BenchmarkReporter3RunE", !33, i64 0, !27, i64 224, !27, i64 232, !173, i64 240, !34, i64 248, !174, i64 280, !34, i64 288, !16, i64 320, !34, i64 328, !27, i64 360, !27, i64 368, !27, i64 376, !27, i64 384, !37, i64 392, !17, i64 400, !17, i64 408, !17, i64 416, !38, i64 424, !6, i64 432, !27, i64 440, !6, i64 448, !16, i64 456, !16, i64 457, !39, i64 464, !6, i64 512, !17, i64 520}
+!173 = !{!"_ZTSN9benchmark17BenchmarkReporter3Run7RunTypeE", !7, i64 0}
+!174 = !{!"_ZTSN9benchmark13StatisticUnitE", !7, i64 0}
+!175 = !{!32, !18, i64 236}
+!176 = !{!172, !27, i64 232}
+!177 = !{!172, !16, i64 320}
+!178 = !{!172, !27, i64 360}
+!179 = !{!32, !37, i64 256}
+!180 = !{!172, !37, i64 392}
+!181 = !{!172, !27, i64 368}
+!182 = !{!172, !27, i64 376}
+!183 = !{!172, !27, i64 384}
+!184 = !{!172, !17, i64 408}
+!185 = !{!172, !27, i64 440}
+!186 = !{!32, !38, i64 264}
+!187 = !{!172, !38, i64 424}
+!188 = !{!32, !6, i64 272}
+!189 = !{!172, !6, i64 432}
+!190 = !{!32, !6, i64 328}
+!191 = !{!172, !6, i64 448}
+!192 = !{!172, !6, i64 512}
+!193 = !{!194, !27, i64 0}
+!194 = !{!"_ZTSN9benchmark13MemoryManager6ResultE", !27, i64 0, !27, i64 8, !27, i64 16, !27, i64 24}
+!195 = !{!172, !17, i64 520}
+!196 = !{!197, !18, i64 4}
+!197 = !{!"_ZTSN9benchmark17BenchmarkReporter19PerFamilyRunReportsE", !18, i64 0, !18, i64 4, !12, i64 8}
+!198 = !{!15, !6, i64 16}
+!199 = !{!45, !6, i64 24}
+!200 = !{!45, !6, i64 16}
+!201 = distinct !{!201, !64}
+!202 = !{!203, !6, i64 0}
+!203 = !{!"_ZTSNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE20_Reuse_or_alloc_nodeE", !6, i64 0, !6, i64 8, !6, i64 16}
+!204 = !{!203, !6, i64 8}
+!205 = !{!45, !6, i64 8}
+!206 = distinct !{!206, !64}
+!207 = distinct !{!207, !64}
+!208 = !{!203, !6, i64 16}
+!209 = !{!45, !46, i64 0}
+!210 = distinct !{!210, !64}
+!211 = distinct !{!211, !64}
+!212 = !{i64 0, i64 8, !47, i64 8, i64 4, !213, i64 12, i64 4, !215}
+!213 = !{!214, !214, i64 0}
+!214 = !{!"_ZTSN9benchmark7Counter5FlagsE", !7, i64 0}
+!215 = !{!216, !216, i64 0}
+!216 = !{!"_ZTSN9benchmark7Counter4OneKE", !7, i64 0}
+!217 = !{!172, !173, i64 240}
+!218 = !{!172, !174, i64 280}
+!219 = !{!172, !16, i64 456}
+!220 = !{!172, !16, i64 457}
+!221 = distinct !{!221, !64}
+!222 = !{!223, !6, i64 0}
+!223 = !{!"_ZTSNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE11_Alloc_nodeE", !6, i64 0}
+!224 = distinct !{!224, !64}

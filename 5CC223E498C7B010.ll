@@ -396,7 +396,7 @@ define dso_local i32 @cab_open(i32 noundef %0, i64 noundef %1, ptr noundef %2) l
 
 150:                                              ; preds = %148, %126
   %151 = phi i32 [ %149, %148 ], [ %128, %126 ]
-  %152 = add nuw nsw i32 %73, %151
+  %152 = add nuw nsw i32 %151, %73
   %153 = icmp ugt i32 %152, 3
   br i1 %153, label %199, label %154
 
@@ -1385,7 +1385,7 @@ define internal i32 @cab_read(ptr nocapture noundef %0, ptr nocapture noundef wr
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #11
   %54 = call i32 @cli_readn(i32 noundef %50, ptr noundef nonnull %4, i32 noundef 8) #11
   %55 = icmp eq i32 %54, 8
-  br i1 %55, label %56, label %77
+  br i1 %55, label %56, label %84
 
 56:                                               ; preds = %49
   %57 = icmp eq i8 %53, 0
@@ -1395,21 +1395,21 @@ define internal i32 @cab_read(ptr nocapture noundef %0, ptr nocapture noundef wr
   %59 = zext i8 %53 to i64
   %60 = call i64 @lseek(i32 noundef %50, i64 noundef %59, i32 noundef 1) #11
   %61 = icmp eq i64 %60, -1
-  br i1 %61, label %77, label %62
+  br i1 %61, label %84, label %62
 
 62:                                               ; preds = %58, %56
   %63 = load i16, ptr %13, align 4, !tbaa !86
   %64 = getelementptr inbounds %struct.cab_state, ptr %20, i64 0, i32 3
   store i16 %63, ptr %64, align 8, !tbaa !88
   %65 = icmp ugt i16 %63, -26624
-  br i1 %65, label %77, label %66
+  br i1 %65, label %84, label %66
 
 66:                                               ; preds = %62
   %67 = load i16, ptr %14, align 2, !tbaa !89
   %68 = getelementptr inbounds %struct.cab_state, ptr %20, i64 0, i32 4
   store i16 %67, ptr %68, align 2, !tbaa !90
   %69 = icmp ugt i16 %67, -32768
-  br i1 %69, label %77, label %70
+  br i1 %69, label %84, label %70
 
 70:                                               ; preds = %66
   %71 = getelementptr inbounds %struct.cab_state, ptr %20, i64 0, i32 2
@@ -1418,30 +1418,30 @@ define internal i32 @cab_read(ptr nocapture noundef %0, ptr nocapture noundef wr
   %74 = load i16, ptr %64, align 8, !tbaa !88
   %75 = zext i16 %74 to i32
   %76 = icmp eq i32 %73, %75
-  br i1 %76, label %80, label %77
+  br i1 %76, label %77, label %84
 
-77:                                               ; preds = %70, %66, %62, %58, %49
-  %78 = phi ptr [ @.str.57, %49 ], [ @.str.58, %58 ], [ @.str.59, %62 ], [ @.str.60, %66 ], [ @.str.61, %70 ]
-  %79 = phi i32 [ -123, %49 ], [ -123, %58 ], [ -124, %62 ], [ -124, %66 ], [ -123, %70 ]
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %78) #11
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #11
-  store i32 %79, ptr %15, align 8, !tbaa !85
-  br label %129
-
-80:                                               ; preds = %70
+77:                                               ; preds = %70
   store ptr %71, ptr %20, align 8, !tbaa !82
-  %81 = zext i16 %74 to i64
-  %82 = getelementptr inbounds i8, ptr %71, i64 %81
-  store ptr %82, ptr %21, align 8, !tbaa !81
+  %78 = zext i16 %74 to i64
+  %79 = getelementptr inbounds i8, ptr %71, i64 %78
+  store ptr %79, ptr %21, align 8, !tbaa !81
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #11
   store i32 0, ptr %15, align 8, !tbaa !85
-  %83 = load ptr, ptr %10, align 8, !tbaa !63
-  %84 = load i16, ptr %83, align 8, !tbaa !50
-  %85 = and i16 %84, 15
-  %86 = icmp eq i16 %85, 2
-  br i1 %86, label %87, label %93
+  %80 = load ptr, ptr %10, align 8, !tbaa !63
+  %81 = load i16, ptr %80, align 8, !tbaa !50
+  %82 = and i16 %81, 15
+  %83 = icmp eq i16 %82, 2
+  br i1 %83, label %87, label %93
 
-87:                                               ; preds = %80
+84:                                               ; preds = %70, %66, %62, %58, %49
+  %85 = phi ptr [ @.str.57, %49 ], [ @.str.58, %58 ], [ @.str.59, %62 ], [ @.str.60, %66 ], [ @.str.61, %70 ]
+  %86 = phi i32 [ -123, %49 ], [ -123, %58 ], [ -124, %62 ], [ -124, %66 ], [ -123, %70 ]
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %85) #11
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #11
+  store i32 %86, ptr %15, align 8, !tbaa !85
+  br label %129
+
+87:                                               ; preds = %77
   %88 = load ptr, ptr %9, align 8, !tbaa !69
   %89 = getelementptr inbounds %struct.cab_state, ptr %88, i64 0, i32 1
   %90 = load ptr, ptr %89, align 8, !tbaa !81
@@ -1451,8 +1451,8 @@ define internal i32 @cab_read(ptr nocapture noundef %0, ptr nocapture noundef wr
   %92 = load ptr, ptr %10, align 8, !tbaa !63
   br label %93
 
-93:                                               ; preds = %87, %80
-  %94 = phi ptr [ %92, %87 ], [ %83, %80 ]
+93:                                               ; preds = %87, %77
+  %94 = phi ptr [ %92, %87 ], [ %80, %77 ]
   %95 = load ptr, ptr %9, align 8, !tbaa !69
   %96 = getelementptr inbounds %struct.cab_state, ptr %95, i64 0, i32 6
   %97 = load i16, ptr %96, align 8, !tbaa !83
@@ -1503,8 +1503,8 @@ define internal i32 @cab_read(ptr nocapture noundef %0, ptr nocapture noundef wr
   %128 = sub nsw i32 %2, %127
   br label %129
 
-129:                                              ; preds = %77, %126
-  %130 = phi i32 [ %128, %126 ], [ -1, %77 ]
+129:                                              ; preds = %126, %84
+  %130 = phi i32 [ %128, %126 ], [ -1, %84 ]
   ret i32 %130
 }
 

@@ -2393,16 +2393,16 @@ define linkonce_odr dso_local void @_ZNSt5stackIPN2kc14impl_operatorsESt5dequeIS
   br i1 %3, label %20, label %4
 
 4:                                                ; preds = %1
-  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_operators *, std::allocator<kc::impl_operators *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
-  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_operators *, std::allocator<kc::impl_operators *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !12
-  %8 = load ptr, ptr %5, align 8, !tbaa !13
+  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_operators *, std::allocator<kc::impl_operators *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !12
+  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_operators *, std::allocator<kc::impl_operators *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
+  %8 = load ptr, ptr %7, align 8, !tbaa !13
   %9 = getelementptr inbounds ptr, ptr %8, i64 1
-  %10 = icmp ult ptr %7, %9
+  %10 = icmp ult ptr %6, %9
   br i1 %10, label %11, label %18
 
 11:                                               ; preds = %4, %11
-  %12 = phi ptr [ %14, %11 ], [ %7, %4 ]
+  %12 = phi ptr [ %14, %11 ], [ %6, %4 ]
   %13 = load ptr, ptr %12, align 8, !tbaa !14
   tail call void @_ZdlPv(ptr noundef %13) #24
   %14 = getelementptr inbounds ptr, ptr %12, i64 1
@@ -2432,16 +2432,16 @@ define linkonce_odr dso_local void @_ZNSt5stackIPN2kc20impl_dollarvarstatusESt5d
   br i1 %3, label %20, label %4
 
 4:                                                ; preds = %1
-  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_dollarvarstatus *, std::allocator<kc::impl_dollarvarstatus *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
-  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_dollarvarstatus *, std::allocator<kc::impl_dollarvarstatus *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !20
-  %8 = load ptr, ptr %5, align 8, !tbaa !21
+  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_dollarvarstatus *, std::allocator<kc::impl_dollarvarstatus *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !20
+  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_dollarvarstatus *, std::allocator<kc::impl_dollarvarstatus *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
+  %8 = load ptr, ptr %7, align 8, !tbaa !21
   %9 = getelementptr inbounds ptr, ptr %8, i64 1
-  %10 = icmp ult ptr %7, %9
+  %10 = icmp ult ptr %6, %9
   br i1 %10, label %11, label %18
 
 11:                                               ; preds = %4, %11
-  %12 = phi ptr [ %14, %11 ], [ %7, %4 ]
+  %12 = phi ptr [ %14, %11 ], [ %6, %4 ]
   %13 = load ptr, ptr %12, align 8, !tbaa !14
   tail call void @_ZdlPv(ptr noundef %13) #24
   %14 = getelementptr inbounds ptr, ptr %12, i64 1
@@ -2468,16 +2468,16 @@ define linkonce_odr dso_local void @_ZNSt5stackIiSt5dequeIiSaIiEEED2Ev(ptr nound
   br i1 %3, label %20, label %4
 
 4:                                                ; preds = %1
-  %5 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
-  %6 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !26
-  %8 = load ptr, ptr %5, align 8, !tbaa !27
+  %5 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !26
+  %7 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
+  %8 = load ptr, ptr %7, align 8, !tbaa !27
   %9 = getelementptr inbounds ptr, ptr %8, i64 1
-  %10 = icmp ult ptr %7, %9
+  %10 = icmp ult ptr %6, %9
   br i1 %10, label %11, label %18
 
 11:                                               ; preds = %4, %11
-  %12 = phi ptr [ %14, %11 ], [ %7, %4 ]
+  %12 = phi ptr [ %14, %11 ], [ %6, %4 ]
   %13 = load ptr, ptr %12, align 8, !tbaa !14
   tail call void @_ZdlPv(ptr noundef %13) #24
   %14 = getelementptr inbounds ptr, ptr %12, i64 1
@@ -2504,16 +2504,16 @@ define linkonce_odr dso_local void @_ZNSt5stackIPN2kc14impl_argumentsESt5dequeIS
   br i1 %3, label %20, label %4
 
 4:                                                ; preds = %1
-  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_arguments *, std::allocator<kc::impl_arguments *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
-  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_arguments *, std::allocator<kc::impl_arguments *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !32
-  %8 = load ptr, ptr %5, align 8, !tbaa !33
+  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_arguments *, std::allocator<kc::impl_arguments *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !32
+  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_arguments *, std::allocator<kc::impl_arguments *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
+  %8 = load ptr, ptr %7, align 8, !tbaa !33
   %9 = getelementptr inbounds ptr, ptr %8, i64 1
-  %10 = icmp ult ptr %7, %9
+  %10 = icmp ult ptr %6, %9
   br i1 %10, label %11, label %18
 
 11:                                               ; preds = %4, %11
-  %12 = phi ptr [ %14, %11 ], [ %7, %4 ]
+  %12 = phi ptr [ %14, %11 ], [ %6, %4 ]
   %13 = load ptr, ptr %12, align 8, !tbaa !14
   tail call void @_ZdlPv(ptr noundef %13) #24
   %14 = getelementptr inbounds ptr, ptr %12, i64 1
@@ -2540,16 +2540,16 @@ define linkonce_odr dso_local void @_ZNSt5stackIPN2kc7impl_IDESt5dequeIS2_SaIS2_
   br i1 %3, label %20, label %4
 
 4:                                                ; preds = %1
-  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_ID *, std::allocator<kc::impl_ID *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
-  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_ID *, std::allocator<kc::impl_ID *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !38
-  %8 = load ptr, ptr %5, align 8, !tbaa !39
+  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_ID *, std::allocator<kc::impl_ID *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !38
+  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_ID *, std::allocator<kc::impl_ID *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
+  %8 = load ptr, ptr %7, align 8, !tbaa !39
   %9 = getelementptr inbounds ptr, ptr %8, i64 1
-  %10 = icmp ult ptr %7, %9
+  %10 = icmp ult ptr %6, %9
   br i1 %10, label %11, label %18
 
 11:                                               ; preds = %4, %11
-  %12 = phi ptr [ %14, %11 ], [ %7, %4 ]
+  %12 = phi ptr [ %14, %11 ], [ %6, %4 ]
   %13 = load ptr, ptr %12, align 8, !tbaa !14
   tail call void @_ZdlPv(ptr noundef %13) #24
   %14 = getelementptr inbounds ptr, ptr %12, i64 1
@@ -2576,16 +2576,16 @@ define linkonce_odr dso_local void @_ZNSt5stackIPN2kc16impl_phylumnamesESt5deque
   br i1 %3, label %20, label %4
 
 4:                                                ; preds = %1
-  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_phylumnames *, std::allocator<kc::impl_phylumnames *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
-  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_phylumnames *, std::allocator<kc::impl_phylumnames *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !44
-  %8 = load ptr, ptr %5, align 8, !tbaa !45
+  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_phylumnames *, std::allocator<kc::impl_phylumnames *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !44
+  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_phylumnames *, std::allocator<kc::impl_phylumnames *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
+  %8 = load ptr, ptr %7, align 8, !tbaa !45
   %9 = getelementptr inbounds ptr, ptr %8, i64 1
-  %10 = icmp ult ptr %7, %9
+  %10 = icmp ult ptr %6, %9
   br i1 %10, label %11, label %18
 
 11:                                               ; preds = %4, %11
-  %12 = phi ptr [ %14, %11 ], [ %7, %4 ]
+  %12 = phi ptr [ %14, %11 ], [ %6, %4 ]
   %13 = load ptr, ptr %12, align 8, !tbaa !14
   tail call void @_ZdlPv(ptr noundef %13) #24
   %14 = getelementptr inbounds ptr, ptr %12, i64 1
@@ -2612,16 +2612,16 @@ define linkonce_odr dso_local void @_ZNSt5stackIPN2kc20impl_withexpressionsESt5d
   br i1 %3, label %20, label %4
 
 4:                                                ; preds = %1
-  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
-  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !50
-  %8 = load ptr, ptr %5, align 8, !tbaa !51
+  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !50
+  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
+  %8 = load ptr, ptr %7, align 8, !tbaa !51
   %9 = getelementptr inbounds ptr, ptr %8, i64 1
-  %10 = icmp ult ptr %7, %9
+  %10 = icmp ult ptr %6, %9
   br i1 %10, label %11, label %18
 
 11:                                               ; preds = %4, %11
-  %12 = phi ptr [ %14, %11 ], [ %7, %4 ]
+  %12 = phi ptr [ %14, %11 ], [ %6, %4 ]
   %13 = load ptr, ptr %12, align 8, !tbaa !14
   tail call void @_ZdlPv(ptr noundef %13) #24
   %14 = getelementptr inbounds ptr, ptr %12, i64 1
@@ -2648,16 +2648,16 @@ define linkonce_odr dso_local void @_ZNSt5stackIPN2kc14impl_variablesESt5dequeIS
   br i1 %3, label %20, label %4
 
 4:                                                ; preds = %1
-  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_variables *, std::allocator<kc::impl_variables *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
-  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_variables *, std::allocator<kc::impl_variables *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !56
-  %8 = load ptr, ptr %5, align 8, !tbaa !57
+  %5 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_variables *, std::allocator<kc::impl_variables *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !56
+  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_variables *, std::allocator<kc::impl_variables *>>::_Deque_impl_data", ptr %0, i64 0, i32 3, i32 3
+  %8 = load ptr, ptr %7, align 8, !tbaa !57
   %9 = getelementptr inbounds ptr, ptr %8, i64 1
-  %10 = icmp ult ptr %7, %9
+  %10 = icmp ult ptr %6, %9
   br i1 %10, label %11, label %18
 
 11:                                               ; preds = %4, %11
-  %12 = phi ptr [ %14, %11 ], [ %7, %4 ]
+  %12 = phi ptr [ %14, %11 ], [ %6, %4 ]
   %13 = load ptr, ptr %12, align 8, !tbaa !14
   tail call void @_ZdlPv(ptr noundef %13) #24
   %14 = getelementptr inbounds ptr, ptr %12, i64 1
@@ -13248,7 +13248,7 @@ define dso_local void @_ZN2kc19impl_storageclasses10do_unparseERNS_21printer_fun
   %198 = icmp eq ptr %197, null
   br i1 %198, label %199, label %187, !llvm.loop !197
 
-199:                                              ; preds = %187, %10, %3, %173, %177, %127, %139, %110, %106, %126, %122, %70, %78, %36, %39, %14, %46, %153
+199:                                              ; preds = %187, %10, %173, %177, %127, %139, %110, %106, %126, %122, %70, %78, %36, %39, %3, %14, %46, %153
   ret void
 }
 
@@ -15065,7 +15065,7 @@ define dso_local void @_ZN2kc17impl_alternatives10do_unparseERNS_21printer_funct
   %784 = icmp eq ptr %783, null
   br i1 %784, label %785, label %773, !llvm.loop !201
 
-785:                                              ; preds = %773, %769, %548, %564, %467, %476, %397, %409, %83, %95, %27, %39, %757, %672, %540, %377, %319, %234, %226, %174, %3, %716, %720, %694, %701, %124, %728, %739
+785:                                              ; preds = %773, %769, %548, %564, %467, %476, %397, %409, %83, %95, %27, %39, %757, %672, %540, %377, %319, %234, %226, %174, %716, %720, %694, %701, %3, %124, %728, %739
   ret void
 }
 
@@ -18748,10 +18748,10 @@ define dso_local void @_ZN2kc37impl_Cexpression_elem_CExpressionPart10do_unparse
   %5 = alloca %"class.std::__cxx11::basic_string", align 8
   %6 = alloca %"class.std::__cxx11::basic_string", align 8
   %7 = load i32, ptr %2, align 4, !tbaa !89
-  switch i32 %7, label %184 [
+  switch i32 %7, label %178 [
     i32 129, label %8
-    i32 11, label %172
-    i32 3, label %178
+    i32 11, label %166
+    i32 3, label %172
   ]
 
 8:                                                ; preds = %3
@@ -18769,289 +18769,287 @@ define dso_local void @_ZN2kc37impl_Cexpression_elem_CExpressionPart10do_unparse
   store i8 0, ptr %13, align 8, !tbaa !264
   %15 = load i8, ptr %12, align 1, !tbaa !264
   %16 = icmp eq i8 %15, 0
-  br i1 %16, label %165, label %17
+  br i1 %16, label %159, label %17
 
 17:                                               ; preds = %8
   %18 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %6, i64 0, i32 2
   %19 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %6, i64 0, i32 1
   br label %20
 
-20:                                               ; preds = %17, %157
+20:                                               ; preds = %17, %151
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #26
   invoke void @_ZN2kc20f_getidentfromstringB5cxx11EPPKc(ptr nonnull sret(%"class.std::__cxx11::basic_string") align 8 %6, ptr noundef nonnull %4)
-          to label %21 unwind label %130
+          to label %21 unwind label %124
 
 21:                                               ; preds = %20
-  %22 = load ptr, ptr %6, align 8, !tbaa !73
-  %23 = icmp eq ptr %22, %18
-  br i1 %23, label %24, label %38
+  %22 = load ptr, ptr %5, align 8, !tbaa !73
+  %23 = load ptr, ptr %6, align 8, !tbaa !73
+  %24 = icmp eq ptr %23, %18
+  br i1 %24, label %25, label %35
 
-24:                                               ; preds = %21
-  %25 = load i64, ptr %19, align 8, !tbaa !263
-  %26 = icmp eq i64 %25, 0
-  br i1 %26, label %33, label %27
+25:                                               ; preds = %21
+  %26 = load i64, ptr %19, align 8, !tbaa !263
+  switch i64 %26, label %29 [
+    i64 0, label %30
+    i64 1, label %27
+  ]
 
-27:                                               ; preds = %24
-  %28 = load ptr, ptr %5, align 8, !tbaa !73
-  %29 = icmp eq i64 %25, 1
-  br i1 %29, label %30, label %32
+27:                                               ; preds = %25
+  %28 = load i8, ptr %18, align 8, !tbaa !264
+  store i8 %28, ptr %22, align 1, !tbaa !264
+  br label %30
 
-30:                                               ; preds = %27
-  %31 = load i8, ptr %18, align 8, !tbaa !264
-  store i8 %31, ptr %28, align 1, !tbaa !264
-  br label %33
+29:                                               ; preds = %25
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %22, ptr nonnull align 8 %18, i64 %26, i1 false)
+  br label %30
 
-32:                                               ; preds = %27
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %28, ptr nonnull align 8 %18, i64 %25, i1 false)
-  br label %33
+30:                                               ; preds = %29, %27, %25
+  %31 = load i64, ptr %19, align 8, !tbaa !263
+  store i64 %31, ptr %14, align 8, !tbaa !263
+  %32 = load ptr, ptr %5, align 8, !tbaa !73
+  %33 = getelementptr inbounds i8, ptr %32, i64 %31
+  store i8 0, ptr %33, align 1, !tbaa !264
+  %34 = load ptr, ptr %6, align 8, !tbaa !73
+  br label %43
 
-33:                                               ; preds = %32, %30, %24
-  %34 = load i64, ptr %19, align 8, !tbaa !263
-  store i64 %34, ptr %14, align 8, !tbaa !263
-  %35 = load ptr, ptr %5, align 8, !tbaa !73
-  %36 = getelementptr inbounds i8, ptr %35, i64 %34
-  store i8 0, ptr %36, align 1, !tbaa !264
-  %37 = load ptr, ptr %6, align 8, !tbaa !73
-  br label %49
+35:                                               ; preds = %21
+  %36 = icmp eq ptr %22, %13
+  %37 = load i64, ptr %13, align 8
+  store ptr %23, ptr %5, align 8, !tbaa !73
+  %38 = load <2 x i64>, ptr %19, align 8, !tbaa !264
+  store <2 x i64> %38, ptr %14, align 8, !tbaa !264
+  %39 = icmp eq ptr %22, null
+  %40 = or i1 %36, %39
+  br i1 %40, label %42, label %41
 
-38:                                               ; preds = %21
-  %39 = load ptr, ptr %5, align 8, !tbaa !73
-  %40 = icmp eq ptr %39, %13
-  br i1 %40, label %41, label %43
+41:                                               ; preds = %35
+  store ptr %22, ptr %6, align 8, !tbaa !73
+  store i64 %37, ptr %18, align 8, !tbaa !264
+  br label %43
 
-41:                                               ; preds = %38
-  store ptr %22, ptr %5, align 8, !tbaa !73
-  %42 = load <2 x i64>, ptr %19, align 8, !tbaa !264
-  store <2 x i64> %42, ptr %14, align 8, !tbaa !264
-  br label %48
+42:                                               ; preds = %35
+  store ptr %18, ptr %6, align 8, !tbaa !73
+  br label %43
 
-43:                                               ; preds = %38
-  %44 = load i64, ptr %13, align 8, !tbaa !264
-  store ptr %22, ptr %5, align 8, !tbaa !73
-  %45 = load <2 x i64>, ptr %19, align 8, !tbaa !264
-  store <2 x i64> %45, ptr %14, align 8, !tbaa !264
-  %46 = icmp eq ptr %39, null
+43:                                               ; preds = %30, %41, %42
+  %44 = phi ptr [ %22, %41 ], [ %18, %42 ], [ %34, %30 ]
+  store i64 0, ptr %19, align 8, !tbaa !263
+  store i8 0, ptr %44, align 1, !tbaa !264
+  %45 = load ptr, ptr %6, align 8, !tbaa !73
+  %46 = icmp eq ptr %45, %18
   br i1 %46, label %48, label %47
 
 47:                                               ; preds = %43
-  store ptr %39, ptr %6, align 8, !tbaa !73
-  store i64 %44, ptr %18, align 8, !tbaa !264
-  br label %49
+  call void @_ZdlPv(ptr noundef %45) #24
+  br label %48
 
-48:                                               ; preds = %43, %41
-  store ptr %18, ptr %6, align 8, !tbaa !73
-  br label %49
-
-49:                                               ; preds = %33, %47, %48
-  %50 = phi ptr [ %37, %33 ], [ %39, %47 ], [ %18, %48 ]
-  store i64 0, ptr %19, align 8, !tbaa !263
-  store i8 0, ptr %50, align 1, !tbaa !264
-  %51 = load ptr, ptr %6, align 8, !tbaa !73
-  %52 = icmp eq ptr %51, %18
-  br i1 %52, label %54, label %53
-
-53:                                               ; preds = %49
-  call void @_ZdlPv(ptr noundef %51) #24
-  br label %54
-
-54:                                               ; preds = %49, %53
+48:                                               ; preds = %43, %47
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #26
-  %55 = load ptr, ptr getelementptr inbounds (%"class.std::map", ptr @_ZN12_GLOBAL__N_111gl_bindingsB5cxx11E, i64 0, i32 0, i32 0, i32 1, i32 0, i32 1), align 8, !tbaa !66
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %57, label %59
+  %49 = load ptr, ptr getelementptr inbounds (%"class.std::map", ptr @_ZN12_GLOBAL__N_111gl_bindingsB5cxx11E, i64 0, i32 0, i32 0, i32 1, i32 0, i32 1), align 8, !tbaa !66
+  %50 = icmp eq ptr %49, null
+  br i1 %50, label %51, label %53
 
-57:                                               ; preds = %54
-  %58 = load ptr, ptr %5, align 8, !tbaa !73
-  br label %151
+51:                                               ; preds = %48
+  %52 = load ptr, ptr %5, align 8, !tbaa !73
+  br label %145
 
-59:                                               ; preds = %54
-  %60 = load i64, ptr %14, align 8, !tbaa !263
-  %61 = load ptr, ptr %5, align 8
-  br label %62
+53:                                               ; preds = %48
+  %54 = load i64, ptr %14, align 8, !tbaa !263
+  %55 = load ptr, ptr %5, align 8
+  br label %56
 
-62:                                               ; preds = %79, %59
-  %63 = phi ptr [ %55, %59 ], [ %86, %79 ]
-  %64 = phi ptr [ getelementptr inbounds (%"class.std::map", ptr @_ZN12_GLOBAL__N_111gl_bindingsB5cxx11E, i64 0, i32 0, i32 0, i32 1, i32 0, i32 0), %59 ], [ %84, %79 ]
-  %65 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %63, i64 0, i32 1, i32 0, i64 8
-  %66 = load i64, ptr %65, align 8, !tbaa !263
-  %67 = call i64 @llvm.umin.i64(i64 %66, i64 %60)
-  %68 = icmp eq i64 %67, 0
-  br i1 %68, label %74, label %69
+56:                                               ; preds = %73, %53
+  %57 = phi ptr [ %49, %53 ], [ %80, %73 ]
+  %58 = phi ptr [ getelementptr inbounds (%"class.std::map", ptr @_ZN12_GLOBAL__N_111gl_bindingsB5cxx11E, i64 0, i32 0, i32 0, i32 1, i32 0, i32 0), %53 ], [ %78, %73 ]
+  %59 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %57, i64 0, i32 1, i32 0, i64 8
+  %60 = load i64, ptr %59, align 8, !tbaa !263
+  %61 = call i64 @llvm.umin.i64(i64 %60, i64 %54)
+  %62 = icmp eq i64 %61, 0
+  br i1 %62, label %68, label %63
 
-69:                                               ; preds = %62
-  %70 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %63, i64 0, i32 1
-  %71 = load ptr, ptr %70, align 8, !tbaa !73
-  %72 = call i32 @memcmp(ptr noundef %71, ptr noundef %61, i64 noundef %67) #26
-  %73 = icmp eq i32 %72, 0
-  br i1 %73, label %74, label %79
+63:                                               ; preds = %56
+  %64 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %57, i64 0, i32 1
+  %65 = load ptr, ptr %64, align 8, !tbaa !73
+  %66 = call i32 @memcmp(ptr noundef %65, ptr noundef %55, i64 noundef %61) #26
+  %67 = icmp eq i32 %66, 0
+  br i1 %67, label %68, label %73
 
-74:                                               ; preds = %69, %62
-  %75 = sub i64 %66, %60
-  %76 = call i64 @llvm.smax.i64(i64 %75, i64 -2147483648)
-  %77 = call i64 @llvm.smin.i64(i64 %76, i64 2147483647)
-  %78 = trunc i64 %77 to i32
-  br label %79
+68:                                               ; preds = %63, %56
+  %69 = sub i64 %60, %54
+  %70 = call i64 @llvm.smax.i64(i64 %69, i64 -2147483648)
+  %71 = call i64 @llvm.smin.i64(i64 %70, i64 2147483647)
+  %72 = trunc i64 %71 to i32
+  br label %73
 
-79:                                               ; preds = %74, %69
-  %80 = phi i32 [ %72, %69 ], [ %78, %74 ]
-  %81 = icmp slt i32 %80, 0
-  %82 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %63, i64 0, i32 3
-  %83 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %63, i64 0, i32 2
-  %84 = select i1 %81, ptr %64, ptr %63
-  %85 = select i1 %81, ptr %82, ptr %83
-  %86 = load ptr, ptr %85, align 8, !tbaa !14
-  %87 = icmp eq ptr %86, null
-  br i1 %87, label %88, label %62, !llvm.loop !265
+73:                                               ; preds = %68, %63
+  %74 = phi i32 [ %66, %63 ], [ %72, %68 ]
+  %75 = icmp slt i32 %74, 0
+  %76 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %57, i64 0, i32 3
+  %77 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %57, i64 0, i32 2
+  %78 = select i1 %75, ptr %58, ptr %57
+  %79 = select i1 %75, ptr %76, ptr %77
+  %80 = load ptr, ptr %79, align 8, !tbaa !14
+  %81 = icmp eq ptr %80, null
+  br i1 %81, label %82, label %56, !llvm.loop !265
 
-88:                                               ; preds = %79
-  %89 = icmp eq ptr %84, getelementptr inbounds (%"class.std::map", ptr @_ZN12_GLOBAL__N_111gl_bindingsB5cxx11E, i64 0, i32 0, i32 0, i32 1, i32 0, i32 0)
-  br i1 %89, label %151, label %90
+82:                                               ; preds = %73
+  %83 = icmp eq ptr %78, getelementptr inbounds (%"class.std::map", ptr @_ZN12_GLOBAL__N_111gl_bindingsB5cxx11E, i64 0, i32 0, i32 0, i32 1, i32 0, i32 0)
+  br i1 %83, label %145, label %84
 
-90:                                               ; preds = %88
-  %91 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %84, i64 0, i32 1, i32 0, i64 8
-  %92 = load i64, ptr %91, align 8, !tbaa !263
-  %93 = call i64 @llvm.umin.i64(i64 %60, i64 %92)
-  %94 = icmp eq i64 %93, 0
-  br i1 %94, label %100, label %95
+84:                                               ; preds = %82
+  %85 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %78, i64 0, i32 1, i32 0, i64 8
+  %86 = load i64, ptr %85, align 8, !tbaa !263
+  %87 = call i64 @llvm.umin.i64(i64 %54, i64 %86)
+  %88 = icmp eq i64 %87, 0
+  br i1 %88, label %94, label %89
 
-95:                                               ; preds = %90
-  %96 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %84, i64 0, i32 1
-  %97 = load ptr, ptr %96, align 8, !tbaa !73
-  %98 = call i32 @memcmp(ptr noundef %61, ptr noundef %97, i64 noundef %93) #26
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %100, label %105
+89:                                               ; preds = %84
+  %90 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %78, i64 0, i32 1
+  %91 = load ptr, ptr %90, align 8, !tbaa !73
+  %92 = call i32 @memcmp(ptr noundef %55, ptr noundef %91, i64 noundef %87) #26
+  %93 = icmp eq i32 %92, 0
+  br i1 %93, label %94, label %99
 
-100:                                              ; preds = %95, %90
-  %101 = sub i64 %60, %92
-  %102 = call i64 @llvm.smax.i64(i64 %101, i64 -2147483648)
-  %103 = call i64 @llvm.smin.i64(i64 %102, i64 2147483647)
-  %104 = trunc i64 %103 to i32
-  br label %105
+94:                                               ; preds = %89, %84
+  %95 = sub i64 %54, %86
+  %96 = call i64 @llvm.smax.i64(i64 %95, i64 -2147483648)
+  %97 = call i64 @llvm.smin.i64(i64 %96, i64 2147483647)
+  %98 = trunc i64 %97 to i32
+  br label %99
 
-105:                                              ; preds = %100, %95
-  %106 = phi i32 [ %98, %95 ], [ %104, %100 ]
-  %107 = icmp slt i32 %106, 0
-  br i1 %107, label %151, label %108
+99:                                               ; preds = %94, %89
+  %100 = phi i32 [ %92, %89 ], [ %98, %94 ]
+  %101 = icmp slt i32 %100, 0
+  br i1 %101, label %145, label %102
 
-108:                                              ; preds = %105
-  %109 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %84, i64 0, i32 1, i32 0, i64 32
-  %110 = load ptr, ptr %109, align 8, !tbaa !266
-  %111 = load ptr, ptr %110, align 8, !tbaa !59
-  %112 = load ptr, ptr %111, align 8
-  %113 = invoke noundef i32 %112(ptr noundef nonnull align 8 dereferenceable(40) %110)
-          to label %114 unwind label %132
+102:                                              ; preds = %99
+  %103 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %78, i64 0, i32 1, i32 0, i64 32
+  %104 = load ptr, ptr %103, align 8, !tbaa !266
+  %105 = load ptr, ptr %104, align 8, !tbaa !59
+  %106 = load ptr, ptr %105, align 8
+  %107 = invoke noundef i32 %106(ptr noundef nonnull align 8 dereferenceable(40) %104)
+          to label %108 unwind label %126
 
-114:                                              ; preds = %108
-  %115 = icmp eq i32 %113, 212
-  br i1 %115, label %116, label %136
+108:                                              ; preds = %102
+  %109 = icmp eq i32 %107, 212
+  br i1 %109, label %110, label %130
 
-116:                                              ; preds = %114
-  %117 = getelementptr inbounds %"class.kc::impl_path", ptr %110, i64 0, i32 4
-  %118 = load ptr, ptr %117, align 8, !tbaa !268
-  %119 = load ptr, ptr %118, align 8, !tbaa !59
-  %120 = getelementptr inbounds ptr, ptr %119, i64 9
-  %121 = load ptr, ptr %120, align 8
-  invoke void %121(ptr noundef nonnull align 8 dereferenceable(8) %118, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc13view_gen_castE)
-          to label %122 unwind label %134
+110:                                              ; preds = %108
+  %111 = getelementptr inbounds %"class.kc::impl_path", ptr %104, i64 0, i32 4
+  %112 = load ptr, ptr %111, align 8, !tbaa !268
+  %113 = load ptr, ptr %112, align 8, !tbaa !59
+  %114 = getelementptr inbounds ptr, ptr %113, i64 9
+  %115 = load ptr, ptr %114, align 8
+  invoke void %115(ptr noundef nonnull align 8 dereferenceable(8) %112, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc13view_gen_castE)
+          to label %116 unwind label %128
 
-122:                                              ; preds = %116
-  %123 = load i32, ptr @_ZN12_GLOBAL__N_113gl_outer_viewE, align 4, !tbaa !270
-  %124 = zext i32 %123 to i64
-  %125 = getelementptr inbounds [154 x %"struct.kc::impl_uviews"], ptr @_ZN2kc6uviewsE, i64 0, i64 %124, i32 1
-  %126 = load ptr, ptr %125, align 8, !tbaa !271
-  %127 = load ptr, ptr %110, align 8, !tbaa !59
-  %128 = getelementptr inbounds ptr, ptr %127, i64 9
-  %129 = load ptr, ptr %128, align 8
-  invoke void %129(ptr noundef nonnull align 8 dereferenceable(8) %110, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %126)
-          to label %157 unwind label %134
+116:                                              ; preds = %110
+  %117 = load i32, ptr @_ZN12_GLOBAL__N_113gl_outer_viewE, align 4, !tbaa !270
+  %118 = zext i32 %117 to i64
+  %119 = getelementptr inbounds [154 x %"struct.kc::impl_uviews"], ptr @_ZN2kc6uviewsE, i64 0, i64 %118, i32 1
+  %120 = load ptr, ptr %119, align 8, !tbaa !271
+  %121 = load ptr, ptr %104, align 8, !tbaa !59
+  %122 = getelementptr inbounds ptr, ptr %121, i64 9
+  %123 = load ptr, ptr %122, align 8
+  invoke void %123(ptr noundef nonnull align 8 dereferenceable(8) %104, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %120)
+          to label %151 unwind label %128
 
-130:                                              ; preds = %20
-  %131 = landingpad { ptr, i32 }
+124:                                              ; preds = %20
+  %125 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #26
-  br label %166
+  br label %160
 
-132:                                              ; preds = %142, %150, %136, %108
-  %133 = landingpad { ptr, i32 }
+126:                                              ; preds = %136, %144, %130, %102
+  %127 = landingpad { ptr, i32 }
           cleanup
-  br label %166
+  br label %160
 
-134:                                              ; preds = %122, %116
-  %135 = landingpad { ptr, i32 }
+128:                                              ; preds = %116, %110
+  %129 = landingpad { ptr, i32 }
           cleanup
-  br label %166
+  br label %160
 
-136:                                              ; preds = %114
-  %137 = load ptr, ptr %110, align 8, !tbaa !59
-  %138 = load ptr, ptr %137, align 8
-  %139 = invoke noundef i32 %138(ptr noundef nonnull align 8 dereferenceable(40) %110)
-          to label %140 unwind label %132
+130:                                              ; preds = %108
+  %131 = load ptr, ptr %104, align 8, !tbaa !59
+  %132 = load ptr, ptr %131, align 8
+  %133 = invoke noundef i32 %132(ptr noundef nonnull align 8 dereferenceable(40) %104)
+          to label %134 unwind label %126
 
-140:                                              ; preds = %136
-  %141 = icmp eq i32 %139, 211
-  br i1 %141, label %142, label %150
+134:                                              ; preds = %130
+  %135 = icmp eq i32 %133, 211
+  br i1 %135, label %136, label %144
 
-142:                                              ; preds = %140
-  %143 = load i32, ptr @_ZN12_GLOBAL__N_113gl_outer_viewE, align 4, !tbaa !270
-  %144 = zext i32 %143 to i64
-  %145 = getelementptr inbounds [154 x %"struct.kc::impl_uviews"], ptr @_ZN2kc6uviewsE, i64 0, i64 %144, i32 1
-  %146 = load ptr, ptr %145, align 8, !tbaa !271
-  %147 = load ptr, ptr %110, align 8, !tbaa !59
-  %148 = getelementptr inbounds ptr, ptr %147, i64 9
-  %149 = load ptr, ptr %148, align 8
-  invoke void %149(ptr noundef nonnull align 8 dereferenceable(8) %110, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %146)
-          to label %157 unwind label %132
+136:                                              ; preds = %134
+  %137 = load i32, ptr @_ZN12_GLOBAL__N_113gl_outer_viewE, align 4, !tbaa !270
+  %138 = zext i32 %137 to i64
+  %139 = getelementptr inbounds [154 x %"struct.kc::impl_uviews"], ptr @_ZN2kc6uviewsE, i64 0, i64 %138, i32 1
+  %140 = load ptr, ptr %139, align 8, !tbaa !271
+  %141 = load ptr, ptr %104, align 8, !tbaa !59
+  %142 = getelementptr inbounds ptr, ptr %141, i64 9
+  %143 = load ptr, ptr %142, align 8
+  invoke void %143(ptr noundef nonnull align 8 dereferenceable(8) %104, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %140)
+          to label %151 unwind label %126
 
-150:                                              ; preds = %140
+144:                                              ; preds = %134
   invoke void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.312, i32 noundef 10900, ptr noundef nonnull @.str.329)
-          to label %157 unwind label %132
+          to label %151 unwind label %126
 
-151:                                              ; preds = %57, %105, %88
-  %152 = phi ptr [ %58, %57 ], [ %61, %105 ], [ %61, %88 ]
-  %153 = load ptr, ptr %1, align 8, !tbaa !59
-  %154 = load ptr, ptr %153, align 8
-  invoke void %154(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %152, ptr noundef nonnull align 4 dereferenceable(4) %2)
-          to label %157 unwind label %155
+145:                                              ; preds = %51, %82, %99
+  %146 = phi ptr [ %52, %51 ], [ %55, %82 ], [ %55, %99 ]
+  %147 = load ptr, ptr %1, align 8, !tbaa !59
+  %148 = load ptr, ptr %147, align 8
+  invoke void %148(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %146, ptr noundef nonnull align 4 dereferenceable(4) %2)
+          to label %151 unwind label %149
+
+149:                                              ; preds = %145
+  %150 = landingpad { ptr, i32 }
+          cleanup
+  br label %160
+
+151:                                              ; preds = %144, %116, %136, %145
+  %152 = load ptr, ptr %4, align 8, !tbaa !14
+  %153 = load i8, ptr %152, align 1, !tbaa !264
+  %154 = icmp eq i8 %153, 0
+  br i1 %154, label %155, label %20, !llvm.loop !273
 
 155:                                              ; preds = %151
-  %156 = landingpad { ptr, i32 }
-          cleanup
-  br label %166
+  %156 = load ptr, ptr %5, align 8, !tbaa !73
+  %157 = icmp eq ptr %156, %13
+  br i1 %157, label %159, label %158
 
-157:                                              ; preds = %142, %122, %150, %151
-  %158 = load ptr, ptr %4, align 8, !tbaa !14
-  %159 = load i8, ptr %158, align 1, !tbaa !264
-  %160 = icmp eq i8 %159, 0
-  br i1 %160, label %161, label %20, !llvm.loop !273
+158:                                              ; preds = %155
+  call void @_ZdlPv(ptr noundef %156) #24
+  br label %159
 
-161:                                              ; preds = %157
+159:                                              ; preds = %8, %155, %158
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #26
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #26
+  br label %182
+
+160:                                              ; preds = %126, %128, %149, %124
+  %161 = phi { ptr, i32 } [ %150, %149 ], [ %125, %124 ], [ %129, %128 ], [ %127, %126 ]
   %162 = load ptr, ptr %5, align 8, !tbaa !73
   %163 = icmp eq ptr %162, %13
   br i1 %163, label %165, label %164
 
-164:                                              ; preds = %161
+164:                                              ; preds = %160
   call void @_ZdlPv(ptr noundef %162) #24
   br label %165
 
-165:                                              ; preds = %8, %161, %164
+165:                                              ; preds = %160, %164
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #26
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #26
-  br label %188
+  resume { ptr, i32 } %161
 
-166:                                              ; preds = %132, %134, %155, %130
-  %167 = phi { ptr, i32 } [ %156, %155 ], [ %131, %130 ], [ %135, %134 ], [ %133, %132 ]
-  %168 = load ptr, ptr %5, align 8, !tbaa !73
-  %169 = icmp eq ptr %168, %13
-  br i1 %169, label %171, label %170
-
-170:                                              ; preds = %166
-  call void @_ZdlPv(ptr noundef %168) #24
-  br label %171
-
-171:                                              ; preds = %166, %170
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #26
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #26
-  resume { ptr, i32 } %167
+166:                                              ; preds = %3
+  %167 = getelementptr inbounds %"class.kc::impl_Cexpression_elem_CExpressionPart", ptr %0, i64 0, i32 1
+  %168 = load ptr, ptr %167, align 8, !tbaa !260
+  %169 = load ptr, ptr %168, align 8, !tbaa !59
+  %170 = getelementptr inbounds ptr, ptr %169, i64 9
+  %171 = load ptr, ptr %170, align 8
+  tail call void %171(ptr noundef nonnull align 8 dereferenceable(8) %168, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %2)
+  br label %182
 
 172:                                              ; preds = %3
   %173 = getelementptr inbounds %"class.kc::impl_Cexpression_elem_CExpressionPart", ptr %0, i64 0, i32 1
@@ -19060,25 +19058,16 @@ define dso_local void @_ZN2kc37impl_Cexpression_elem_CExpressionPart10do_unparse
   %176 = getelementptr inbounds ptr, ptr %175, i64 9
   %177 = load ptr, ptr %176, align 8
   tail call void %177(ptr noundef nonnull align 8 dereferenceable(8) %174, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %2)
-  br label %188
+  br label %182
 
 178:                                              ; preds = %3
-  %179 = getelementptr inbounds %"class.kc::impl_Cexpression_elem_CExpressionPart", ptr %0, i64 0, i32 1
-  %180 = load ptr, ptr %179, align 8, !tbaa !260
-  %181 = load ptr, ptr %180, align 8, !tbaa !59
-  %182 = getelementptr inbounds ptr, ptr %181, i64 9
-  %183 = load ptr, ptr %182, align 8
-  tail call void %183(ptr noundef nonnull align 8 dereferenceable(8) %180, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %2)
-  br label %188
+  %179 = load ptr, ptr %0, align 8, !tbaa !59
+  %180 = getelementptr inbounds ptr, ptr %179, i64 10
+  %181 = load ptr, ptr %180, align 8
+  tail call void %181(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %2)
+  br label %182
 
-184:                                              ; preds = %3
-  %185 = load ptr, ptr %0, align 8, !tbaa !59
-  %186 = getelementptr inbounds ptr, ptr %185, i64 10
-  %187 = load ptr, ptr %186, align 8
-  tail call void %187(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %2)
-  br label %188
-
-188:                                              ; preds = %184, %178, %172, %165
+182:                                              ; preds = %178, %172, %166, %159
   ret void
 }
 
@@ -23822,7 +23811,7 @@ define dso_local void @_ZN2kc13impl_patterns10do_unparseERNS_21printer_functor_c
   %102 = icmp eq ptr %101, null
   br i1 %102, label %103, label %91, !llvm.loop !553
 
-103:                                              ; preds = %91, %12, %3, %46, %90
+103:                                              ; preds = %91, %12, %46, %90, %3
   ret void
 }
 
@@ -25307,7 +25296,7 @@ define dso_local void @_ZN2kc19impl_fndeclarations10do_unparseERNS_21printer_fun
   %875 = icmp eq ptr %874, null
   br i1 %875, label %876, label %864, !llvm.loop !619
 
-876:                                              ; preds = %864, %860, %131, %87, %17, %13, %10, %9, %832, %823, %799, %709, %738, %632, %640, %550, %555, %359, %362, %22, %33, %44, %838, %849
+876:                                              ; preds = %864, %860, %131, %87, %832, %823, %799, %709, %738, %632, %640, %550, %555, %359, %362, %17, %13, %10, %9, %22, %33, %44, %838, %849
   ret void
 }
 
@@ -27571,23 +27560,23 @@ define dso_local void @_ZN2kc35impl_Ctext_elem_CTextWithexpression10do_unparseER
   %25 = load ptr, ptr %24, align 8, !tbaa !647
   %26 = getelementptr inbounds %"class.kc::impl_Ctext_elem_CTextWithexpression", ptr %0, i64 0, i32 2
   %27 = load ptr, ptr %26, align 8, !tbaa !642
-  %28 = getelementptr inbounds %"class.kc::impl_withcases", ptr %27, i64 0, i32 1
-  %29 = load ptr, ptr %28, align 8, !tbaa !645
-  %30 = icmp eq ptr %29, null
-  br i1 %30, label %283, label %31
+  %28 = getelementptr inbounds %"class.kc::impl_Ctext_elem_CTextWithexpression", ptr %0, i64 0, i32 3
+  %29 = load ptr, ptr %28, align 8, !tbaa !648
+  %30 = getelementptr inbounds %"class.kc::impl_withcases", ptr %27, i64 0, i32 1
+  %31 = load ptr, ptr %30, align 8, !tbaa !645
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %283, label %33
 
-31:                                               ; preds = %23
-  %32 = getelementptr inbounds %"class.kc::impl_Ctext_elem_CTextWithexpression", ptr %0, i64 0, i32 3
-  %33 = load ptr, ptr %32, align 8, !tbaa !648
+33:                                               ; preds = %23
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #26
-  %34 = tail call noundef ptr @_ZN2kc21rewrite_withcasesinfoEPNS_18impl_withcasesinfoE(ptr noundef nonnull %29)
-  %35 = load ptr, ptr %33, align 8, !tbaa !59
+  %34 = tail call noundef ptr @_ZN2kc21rewrite_withcasesinfoEPNS_18impl_withcasesinfoE(ptr noundef nonnull %31)
+  %35 = load ptr, ptr %29, align 8, !tbaa !59
   %36 = load ptr, ptr %35, align 8
-  %37 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(8) %33)
+  %37 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(8) %29)
   %38 = icmp eq i32 %37, 130
   br i1 %38, label %39, label %67
 
-39:                                               ; preds = %31
+39:                                               ; preds = %33
   %40 = load i32, ptr @_ZN12_GLOBAL__N_113g_ctext_levelE, align 4, !tbaa !116
   %41 = tail call noundef ptr @_ZN2kc10f_mkselvarEPKci(ptr noundef nonnull @.str.1464, i32 noundef %40)
   store ptr %41, ptr %4, align 8, !tbaa !14
@@ -27642,15 +27631,15 @@ define dso_local void @_ZN2kc35impl_Ctext_elem_CTextWithexpression10do_unparseER
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #26
   br label %96
 
-67:                                               ; preds = %31
-  %68 = load ptr, ptr %33, align 8, !tbaa !59
+67:                                               ; preds = %33
+  %68 = load ptr, ptr %29, align 8, !tbaa !59
   %69 = load ptr, ptr %68, align 8
-  %70 = tail call noundef i32 %69(ptr noundef nonnull align 8 dereferenceable(8) %33)
+  %70 = tail call noundef i32 %69(ptr noundef nonnull align 8 dereferenceable(8) %29)
   %71 = icmp eq i32 %70, 129
   br i1 %71, label %72, label %95
 
 72:                                               ; preds = %67
-  %73 = getelementptr inbounds %"class.kc::impl_contextinfo_InForeachContext", ptr %33, i64 0, i32 1
+  %73 = getelementptr inbounds %"class.kc::impl_contextinfo_InForeachContext", ptr %29, i64 0, i32 1
   %74 = load ptr, ptr %73, align 8, !tbaa !653
   %75 = load ptr, ptr getelementptr inbounds (%"class.std::stack.21", ptr @_ZN12_GLOBAL__N_111selvarstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !247, !noalias !656
   %76 = load ptr, ptr getelementptr inbounds (%"class.std::stack.21", ptr @_ZN12_GLOBAL__N_111selvarstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !189, !noalias !656
@@ -31296,7 +31285,7 @@ define dso_local void @_ZN2kc14impl_viewnames10do_unparseERNS_21printer_functor_
   %361 = icmp eq ptr %360, null
   br i1 %361, label %362, label %350, !llvm.loop !789
 
-362:                                              ; preds = %350, %10, %3, %298, %304, %264, %270, %233, %239, %181, %177, %204, %194, %114, %149, %36, %71, %240, %305, %334, %349
+362:                                              ; preds = %350, %10, %298, %304, %264, %270, %233, %239, %181, %177, %204, %194, %114, %149, %36, %71, %3, %240, %305, %334, %349
   ret void
 }
 
@@ -31493,7 +31482,7 @@ define dso_local void @_ZN2kc17impl_unparseitems10do_unparseERNS_21printer_funct
   %119 = icmp eq ptr %118, null
   br i1 %119, label %120, label %108, !llvm.loop !793
 
-120:                                              ; preds = %108, %15, %11, %9, %28, %32, %42, %53, %64, %75, %86, %97
+120:                                              ; preds = %108, %15, %28, %32, %11, %9, %42, %53, %64, %75, %86, %97
   ret void
 }
 
@@ -34632,7 +34621,7 @@ define dso_local void @_ZN2kc26impl_patternrepresentation10do_unparseERNS_21prin
   %328 = icmp eq ptr %327, null
   br i1 %328, label %329, label %317, !llvm.loop !901
 
-329:                                              ; preds = %317, %16, %3, %232, %303, %307, %264, %133, %204, %208, %165, %34, %105, %109, %66
+329:                                              ; preds = %317, %16, %232, %303, %307, %264, %133, %204, %208, %165, %34, %105, %109, %66, %3
   ret void
 }
 
@@ -34847,7 +34836,7 @@ define dso_local void @_ZN2kc48impl_elem_patternrepresentation_PRNonLeafBinding1
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %44, ptr nonnull align 1 %33, i64 %38, i1 false)
   br label %48
 
-48:                                               ; preds = %47, %45, %43
+48:                                               ; preds = %43, %45, %47
   %49 = load i64, ptr %5, align 8, !tbaa !823
   %50 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %6, i64 0, i32 1
   store i64 %49, ptr %50, align 8, !tbaa !263
@@ -35082,7 +35071,7 @@ define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_Z
   br i1 %58, label %59, label %62
 
 59:                                               ; preds = %2, %39, %56
-  %60 = phi ptr [ %35, %56 ], [ %7, %39 ], [ %7, %2 ]
+  %60 = phi ptr [ %7, %39 ], [ %35, %56 ], [ %7, %2 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #26
   store ptr %1, ptr %3, align 8, !tbaa !14, !alias.scope !912
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #26
@@ -35316,7 +35305,7 @@ define dso_local void @_ZN2kc41impl_elem_patternrepresentation_PRBinding10do_unp
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %44, ptr nonnull align 1 %33, i64 %38, i1 false)
   br label %48
 
-48:                                               ; preds = %47, %45, %43
+48:                                               ; preds = %43, %45, %47
   %49 = load i64, ptr %5, align 8, !tbaa !823
   %50 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %6, i64 0, i32 1
   store i64 %49, ptr %50, align 8, !tbaa !263
@@ -36045,7 +36034,7 @@ define dso_local void @_ZN2kc10impl_paths10do_unparseERNS_21printer_functor_clas
   tail call void %127(ptr noundef nonnull align 8 dereferenceable(24) %124, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %2)
   br label %128
 
-128:                                              ; preds = %3, %38, %119, %112, %84
+128:                                              ; preds = %38, %119, %112, %84, %3
   ret void
 }
 
@@ -40762,7 +40751,7 @@ define dso_local void @_ZN2kc22impl_ac_parameter_list10do_unparseERNS_21printer_
   tail call void %52(ptr noundef nonnull align 8 dereferenceable(8) %18, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(4) %2)
   br label %53
 
-53:                                               ; preds = %3, %39, %43, %20, %26
+53:                                               ; preds = %39, %43, %20, %26, %3
   ret void
 }
 
@@ -43400,18 +43389,18 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #2
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc14impl_operatorsESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %0, i64 noundef %1) local_unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = lshr i64 %1, 6
-  %4 = add nuw nsw i64 %3, 1
-  %5 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
-  %6 = add nuw nsw i64 %5, 3
-  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_operators *, std::allocator<kc::impl_operators *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
-  store i64 %6, ptr %7, align 8, !tbaa !1205
-  %8 = shl nuw nsw i64 %6, 3
+  %4 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
+  %5 = add nuw nsw i64 %4, 3
+  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_operators *, std::allocator<kc::impl_operators *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
+  store i64 %5, ptr %6, align 8, !tbaa !1205
+  %7 = add nuw nsw i64 %3, 1
+  %8 = shl nuw nsw i64 %5, 3
   %9 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %8) #29
   store ptr %9, ptr %0, align 8, !tbaa !5
-  %10 = sub nsw i64 %6, %4
+  %10 = sub nsw i64 %5, %7
   %11 = lshr i64 %10, 1
   %12 = getelementptr inbounds ptr, ptr %9, i64 %11
-  %13 = getelementptr inbounds ptr, ptr %12, i64 %4
+  %13 = getelementptr inbounds ptr, ptr %12, i64 %7
   br label %14
 
 14:                                               ; preds = %2, %17
@@ -43532,18 +43521,18 @@ declare noundef nonnull ptr @_Znwm(i64 noundef) local_unnamed_addr #21
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc20impl_dollarvarstatusESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %0, i64 noundef %1) local_unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = lshr i64 %1, 6
-  %4 = add nuw nsw i64 %3, 1
-  %5 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
-  %6 = add nuw nsw i64 %5, 3
-  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_dollarvarstatus *, std::allocator<kc::impl_dollarvarstatus *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
-  store i64 %6, ptr %7, align 8, !tbaa !1208
-  %8 = shl nuw nsw i64 %6, 3
+  %4 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
+  %5 = add nuw nsw i64 %4, 3
+  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_dollarvarstatus *, std::allocator<kc::impl_dollarvarstatus *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
+  store i64 %5, ptr %6, align 8, !tbaa !1208
+  %7 = add nuw nsw i64 %3, 1
+  %8 = shl nuw nsw i64 %5, 3
   %9 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %8) #29
   store ptr %9, ptr %0, align 8, !tbaa !17
-  %10 = sub nsw i64 %6, %4
+  %10 = sub nsw i64 %5, %7
   %11 = lshr i64 %10, 1
   %12 = getelementptr inbounds ptr, ptr %9, i64 %11
-  %13 = getelementptr inbounds ptr, ptr %12, i64 %4
+  %13 = getelementptr inbounds ptr, ptr %12, i64 %7
   br label %14
 
 14:                                               ; preds = %2, %17
@@ -43651,18 +43640,18 @@ define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc20impl_dollarvarstat
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIiSaIiEE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %0, i64 noundef %1) local_unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = lshr i64 %1, 7
-  %4 = add nuw nsw i64 %3, 1
-  %5 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
-  %6 = add nuw nsw i64 %5, 3
-  %7 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %0, i64 0, i32 1
-  store i64 %6, ptr %7, align 8, !tbaa !1211
-  %8 = shl nuw nsw i64 %6, 3
+  %4 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
+  %5 = add nuw nsw i64 %4, 3
+  %6 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %0, i64 0, i32 1
+  store i64 %5, ptr %6, align 8, !tbaa !1211
+  %7 = add nuw nsw i64 %3, 1
+  %8 = shl nuw nsw i64 %5, 3
   %9 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %8) #29
   store ptr %9, ptr %0, align 8, !tbaa !23
-  %10 = sub nsw i64 %6, %4
+  %10 = sub nsw i64 %5, %7
   %11 = lshr i64 %10, 1
   %12 = getelementptr inbounds ptr, ptr %9, i64 %11
-  %13 = getelementptr inbounds ptr, ptr %12, i64 %4
+  %13 = getelementptr inbounds ptr, ptr %12, i64 %7
   br label %14
 
 14:                                               ; preds = %2, %17
@@ -43770,18 +43759,18 @@ define linkonce_odr dso_local void @_ZNSt11_Deque_baseIiSaIiEE17_M_initialize_ma
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc14impl_argumentsESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %0, i64 noundef %1) local_unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = lshr i64 %1, 6
-  %4 = add nuw nsw i64 %3, 1
-  %5 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
-  %6 = add nuw nsw i64 %5, 3
-  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_arguments *, std::allocator<kc::impl_arguments *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
-  store i64 %6, ptr %7, align 8, !tbaa !1214
-  %8 = shl nuw nsw i64 %6, 3
+  %4 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
+  %5 = add nuw nsw i64 %4, 3
+  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_arguments *, std::allocator<kc::impl_arguments *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
+  store i64 %5, ptr %6, align 8, !tbaa !1214
+  %7 = add nuw nsw i64 %3, 1
+  %8 = shl nuw nsw i64 %5, 3
   %9 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %8) #29
   store ptr %9, ptr %0, align 8, !tbaa !29
-  %10 = sub nsw i64 %6, %4
+  %10 = sub nsw i64 %5, %7
   %11 = lshr i64 %10, 1
   %12 = getelementptr inbounds ptr, ptr %9, i64 %11
-  %13 = getelementptr inbounds ptr, ptr %12, i64 %4
+  %13 = getelementptr inbounds ptr, ptr %12, i64 %7
   br label %14
 
 14:                                               ; preds = %2, %17
@@ -43889,18 +43878,18 @@ define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc14impl_argumentsESaI
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc7impl_IDESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %0, i64 noundef %1) local_unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = lshr i64 %1, 6
-  %4 = add nuw nsw i64 %3, 1
-  %5 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
-  %6 = add nuw nsw i64 %5, 3
-  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_ID *, std::allocator<kc::impl_ID *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
-  store i64 %6, ptr %7, align 8, !tbaa !1217
-  %8 = shl nuw nsw i64 %6, 3
+  %4 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
+  %5 = add nuw nsw i64 %4, 3
+  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_ID *, std::allocator<kc::impl_ID *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
+  store i64 %5, ptr %6, align 8, !tbaa !1217
+  %7 = add nuw nsw i64 %3, 1
+  %8 = shl nuw nsw i64 %5, 3
   %9 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %8) #29
   store ptr %9, ptr %0, align 8, !tbaa !35
-  %10 = sub nsw i64 %6, %4
+  %10 = sub nsw i64 %5, %7
   %11 = lshr i64 %10, 1
   %12 = getelementptr inbounds ptr, ptr %9, i64 %11
-  %13 = getelementptr inbounds ptr, ptr %12, i64 %4
+  %13 = getelementptr inbounds ptr, ptr %12, i64 %7
   br label %14
 
 14:                                               ; preds = %2, %17
@@ -44008,18 +43997,18 @@ define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc7impl_IDESaIS2_EE17_
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc16impl_phylumnamesESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %0, i64 noundef %1) local_unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = lshr i64 %1, 6
-  %4 = add nuw nsw i64 %3, 1
-  %5 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
-  %6 = add nuw nsw i64 %5, 3
-  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_phylumnames *, std::allocator<kc::impl_phylumnames *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
-  store i64 %6, ptr %7, align 8, !tbaa !1220
-  %8 = shl nuw nsw i64 %6, 3
+  %4 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
+  %5 = add nuw nsw i64 %4, 3
+  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_phylumnames *, std::allocator<kc::impl_phylumnames *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
+  store i64 %5, ptr %6, align 8, !tbaa !1220
+  %7 = add nuw nsw i64 %3, 1
+  %8 = shl nuw nsw i64 %5, 3
   %9 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %8) #29
   store ptr %9, ptr %0, align 8, !tbaa !41
-  %10 = sub nsw i64 %6, %4
+  %10 = sub nsw i64 %5, %7
   %11 = lshr i64 %10, 1
   %12 = getelementptr inbounds ptr, ptr %9, i64 %11
-  %13 = getelementptr inbounds ptr, ptr %12, i64 %4
+  %13 = getelementptr inbounds ptr, ptr %12, i64 %7
   br label %14
 
 14:                                               ; preds = %2, %17
@@ -44127,18 +44116,18 @@ define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc16impl_phylumnamesES
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc20impl_withexpressionsESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %0, i64 noundef %1) local_unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = lshr i64 %1, 6
-  %4 = add nuw nsw i64 %3, 1
-  %5 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
-  %6 = add nuw nsw i64 %5, 3
-  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
-  store i64 %6, ptr %7, align 8, !tbaa !1223
-  %8 = shl nuw nsw i64 %6, 3
+  %4 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
+  %5 = add nuw nsw i64 %4, 3
+  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
+  store i64 %5, ptr %6, align 8, !tbaa !1223
+  %7 = add nuw nsw i64 %3, 1
+  %8 = shl nuw nsw i64 %5, 3
   %9 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %8) #29
   store ptr %9, ptr %0, align 8, !tbaa !47
-  %10 = sub nsw i64 %6, %4
+  %10 = sub nsw i64 %5, %7
   %11 = lshr i64 %10, 1
   %12 = getelementptr inbounds ptr, ptr %9, i64 %11
-  %13 = getelementptr inbounds ptr, ptr %12, i64 %4
+  %13 = getelementptr inbounds ptr, ptr %12, i64 %7
   br label %14
 
 14:                                               ; preds = %2, %17
@@ -44246,18 +44235,18 @@ define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc20impl_withexpressio
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc14impl_variablesESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %0, i64 noundef %1) local_unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
   %3 = lshr i64 %1, 6
-  %4 = add nuw nsw i64 %3, 1
-  %5 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
-  %6 = add nuw nsw i64 %5, 3
-  %7 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_variables *, std::allocator<kc::impl_variables *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
-  store i64 %6, ptr %7, align 8, !tbaa !1226
-  %8 = shl nuw nsw i64 %6, 3
+  %4 = tail call i64 @llvm.umax.i64(i64 %3, i64 5)
+  %5 = add nuw nsw i64 %4, 3
+  %6 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_variables *, std::allocator<kc::impl_variables *>>::_Deque_impl_data", ptr %0, i64 0, i32 1
+  store i64 %5, ptr %6, align 8, !tbaa !1226
+  %7 = add nuw nsw i64 %3, 1
+  %8 = shl nuw nsw i64 %5, 3
   %9 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %8) #29
   store ptr %9, ptr %0, align 8, !tbaa !53
-  %10 = sub nsw i64 %6, %4
+  %10 = sub nsw i64 %5, %7
   %11 = lshr i64 %10, 1
   %12 = getelementptr inbounds ptr, ptr %9, i64 %11
-  %13 = getelementptr inbounds ptr, ptr %12, i64 %4
+  %13 = getelementptr inbounds ptr, ptr %12, i64 %7
   br label %14
 
 14:                                               ; preds = %2, %17
@@ -44539,8 +44528,8 @@ define linkonce_odr dso_local void @_ZNSt5dequeIPN2kc7impl_IDESaIS2_EE17_M_reall
   store i64 %43, ptr %14, align 8, !tbaa !1217
   br label %64
 
-64:                                               ; preds = %29, %28, %33, %32, %62
-  %65 = phi ptr [ %56, %62 ], [ %24, %32 ], [ %24, %33 ], [ %24, %28 ], [ %24, %29 ]
+64:                                               ; preds = %33, %32, %29, %28, %62
+  %65 = phi ptr [ %56, %62 ], [ %24, %28 ], [ %24, %29 ], [ %24, %32 ], [ %24, %33 ]
   store ptr %65, ptr %6, align 8, !tbaa !188
   %66 = load ptr, ptr %65, align 8, !tbaa !14
   %67 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_ID *, std::allocator<kc::impl_ID *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 1
@@ -44809,8 +44798,8 @@ define linkonce_odr dso_local void @_ZNSt5dequeIPN2kc14impl_operatorsESaIS2_EE17
   store i64 %43, ptr %14, align 8, !tbaa !1205
   br label %64
 
-64:                                               ; preds = %29, %28, %33, %32, %62
-  %65 = phi ptr [ %56, %62 ], [ %24, %32 ], [ %24, %33 ], [ %24, %28 ], [ %24, %29 ]
+64:                                               ; preds = %33, %32, %29, %28, %62
+  %65 = phi ptr [ %56, %62 ], [ %24, %28 ], [ %24, %29 ], [ %24, %32 ], [ %24, %33 ]
   store ptr %65, ptr %6, align 8, !tbaa !180
   %66 = load ptr, ptr %65, align 8, !tbaa !14
   %67 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_operators *, std::allocator<kc::impl_operators *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 1
@@ -45001,8 +44990,8 @@ define linkonce_odr dso_local void @_ZNSt5dequeIPN2kc20impl_dollarvarstatusESaIS
   store i64 %43, ptr %14, align 8, !tbaa !1208
   br label %64
 
-64:                                               ; preds = %29, %28, %33, %32, %62
-  %65 = phi ptr [ %56, %62 ], [ %24, %32 ], [ %24, %33 ], [ %24, %28 ], [ %24, %29 ]
+64:                                               ; preds = %33, %32, %29, %28, %62
+  %65 = phi ptr [ %56, %62 ], [ %24, %28 ], [ %24, %29 ], [ %24, %32 ], [ %24, %33 ]
   store ptr %65, ptr %6, align 8, !tbaa !184
   %66 = load ptr, ptr %65, align 8, !tbaa !14
   %67 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_dollarvarstatus *, std::allocator<kc::impl_dollarvarstatus *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 1
@@ -45196,8 +45185,8 @@ define linkonce_odr dso_local void @_ZNSt5dequeIPN2kc14impl_variablesESaIS2_EE17
   store i64 %43, ptr %14, align 8, !tbaa !1226
   br label %64
 
-64:                                               ; preds = %29, %28, %33, %32, %62
-  %65 = phi ptr [ %56, %62 ], [ %24, %32 ], [ %24, %33 ], [ %24, %28 ], [ %24, %29 ]
+64:                                               ; preds = %33, %32, %29, %28, %62
+  %65 = phi ptr [ %56, %62 ], [ %24, %28 ], [ %24, %29 ], [ %24, %32 ], [ %24, %33 ]
   store ptr %65, ptr %6, align 8, !tbaa !339
   %66 = load ptr, ptr %65, align 8, !tbaa !14
   %67 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_variables *, std::allocator<kc::impl_variables *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 1
@@ -45388,8 +45377,8 @@ define linkonce_odr dso_local void @_ZNSt5dequeIPN2kc16impl_phylumnamesESaIS2_EE
   store i64 %43, ptr %14, align 8, !tbaa !1220
   br label %64
 
-64:                                               ; preds = %29, %28, %33, %32, %62
-  %65 = phi ptr [ %56, %62 ], [ %24, %32 ], [ %24, %33 ], [ %24, %28 ], [ %24, %29 ]
+64:                                               ; preds = %33, %32, %29, %28, %62
+  %65 = phi ptr [ %56, %62 ], [ %24, %28 ], [ %24, %29 ], [ %24, %32 ], [ %24, %33 ]
   store ptr %65, ptr %6, align 8, !tbaa !364
   %66 = load ptr, ptr %65, align 8, !tbaa !14
   %67 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_phylumnames *, std::allocator<kc::impl_phylumnames *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 1
@@ -45805,8 +45794,8 @@ define linkonce_odr dso_local void @_ZNSt5dequeIPN2kc14impl_argumentsESaIS2_EE17
   store i64 %43, ptr %14, align 8, !tbaa !1214
   br label %64
 
-64:                                               ; preds = %29, %28, %33, %32, %62
-  %65 = phi ptr [ %56, %62 ], [ %24, %32 ], [ %24, %33 ], [ %24, %28 ], [ %24, %29 ]
+64:                                               ; preds = %33, %32, %29, %28, %62
+  %65 = phi ptr [ %56, %62 ], [ %24, %28 ], [ %24, %29 ], [ %24, %32 ], [ %24, %33 ]
   store ptr %65, ptr %6, align 8, !tbaa !451
   %66 = load ptr, ptr %65, align 8, !tbaa !14
   %67 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_arguments *, std::allocator<kc::impl_arguments *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 1
@@ -45997,8 +45986,8 @@ define linkonce_odr dso_local void @_ZNSt5dequeIiSaIiEE17_M_reallocate_mapEmb(pt
   store i64 %43, ptr %14, align 8, !tbaa !1211
   br label %64
 
-64:                                               ; preds = %29, %28, %33, %32, %62
-  %65 = phi ptr [ %56, %62 ], [ %24, %32 ], [ %24, %33 ], [ %24, %28 ], [ %24, %29 ]
+64:                                               ; preds = %33, %32, %29, %28, %62
+  %65 = phi ptr [ %56, %62 ], [ %24, %28 ], [ %24, %29 ], [ %24, %32 ], [ %24, %33 ]
   store ptr %65, ptr %6, align 8, !tbaa !419
   %66 = load ptr, ptr %65, align 8, !tbaa !14
   %67 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 1
@@ -46189,8 +46178,8 @@ define linkonce_odr dso_local void @_ZNSt5dequeIPN2kc20impl_withexpressionsESaIS
   store i64 %43, ptr %14, align 8, !tbaa !1223
   br label %64
 
-64:                                               ; preds = %29, %28, %33, %32, %62
-  %65 = phi ptr [ %56, %62 ], [ %24, %32 ], [ %24, %33 ], [ %24, %28 ], [ %24, %29 ]
+64:                                               ; preds = %33, %32, %29, %28, %62
+  %65 = phi ptr [ %56, %62 ], [ %24, %28 ], [ %24, %29 ], [ %24, %32 ], [ %24, %33 ]
   store ptr %65, ptr %6, align 8, !tbaa !678
   %66 = load ptr, ptr %65, align 8, !tbaa !14
   %67 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %0, i64 0, i32 2, i32 1
@@ -46243,7 +46232,7 @@ define linkonce_odr dso_local ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt1
   store i64 %22, ptr %11, align 8, !tbaa !264
   br label %23
 
-23:                                               ; preds = %21, %20, %15
+23:                                               ; preds = %15, %20, %21
   %24 = getelementptr inbounds %"struct.std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, kc::impl_path *>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, kc::impl_path *>>, std::less<std::__cxx11::basic_string<char>>>::_Auto_node", ptr %6, i64 0, i32 1
   %25 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 0, i32 1
   %26 = load i64, ptr %25, align 8, !tbaa !263
@@ -46299,7 +46288,7 @@ define linkonce_odr dso_local ptr @_ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt1
   %58 = icmp slt i32 %57, 0
   br label %59
 
-59:                                               ; preds = %34, %56
+59:                                               ; preds = %56, %34
   %60 = phi i1 [ true, %34 ], [ %58, %56 ]
   tail call void @_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_(i1 noundef zeroext %60, ptr noundef nonnull %7, ptr noundef nonnull %32, ptr noundef nonnull align 8 dereferenceable(32) %36) #26
   %61 = getelementptr inbounds i8, ptr %0, i64 40
@@ -46533,9 +46522,9 @@ define linkonce_odr dso_local { ptr, ptr } @_ZNSt8_Rb_treeINSt7__cxx1112basic_st
   %142 = extractvalue { ptr, ptr } %140, 1
   br label %143
 
-143:                                              ; preds = %133, %88, %106, %139, %109, %94, %64, %30, %33
-  %144 = phi ptr [ %35, %33 ], [ null, %30 ], [ %96, %94 ], [ %1, %64 ], [ %141, %139 ], [ null, %109 ], [ %1, %106 ], [ %92, %88 ], [ %137, %133 ]
-  %145 = phi ptr [ %36, %33 ], [ %12, %30 ], [ %97, %94 ], [ %1, %64 ], [ %142, %139 ], [ %1, %109 ], [ null, %106 ], [ %93, %88 ], [ %138, %133 ]
+143:                                              ; preds = %109, %64, %30, %106, %139, %133, %94, %88, %33
+  %144 = phi ptr [ %35, %33 ], [ %96, %94 ], [ %92, %88 ], [ %141, %139 ], [ %137, %133 ], [ %1, %106 ], [ null, %30 ], [ %1, %64 ], [ null, %109 ]
+  %145 = phi ptr [ %36, %33 ], [ %97, %94 ], [ %93, %88 ], [ %142, %139 ], [ %138, %133 ], [ null, %106 ], [ %12, %30 ], [ %1, %64 ], [ %1, %109 ]
   %146 = insertvalue { ptr, ptr } poison, ptr %144, 0
   %147 = insertvalue { ptr, ptr } %146, ptr %145, 1
   ret { ptr, ptr } %147
@@ -46879,10 +46868,10 @@ define internal void @_GLOBAL__sub_I_unpk.cc() #4 section ".text.startup" person
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #23
+declare i64 @llvm.umax.i64(i64, i64) #23
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #23
+declare i32 @llvm.smax.i32(i32, i32) #23
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #23

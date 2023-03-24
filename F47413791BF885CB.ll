@@ -41,8 +41,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @stack_size = dso_local local_unnamed_addr global i32 0, align 4
 @see = dso_local local_unnamed_addr global ptr null, align 8
 @NDim = dso_local local_unnamed_addr global i32 0, align 4
-@str = private unnamed_addr constant [21 x i8] c"ERROR: Only 1 point!\00", align 1
-@str.12 = private unnamed_addr constant [17 x i8] c"myalign() failed\00", align 1
+@str = private unnamed_addr constant [17 x i8] c"myalign() failed\00", align 1
+@str.12 = private unnamed_addr constant [21 x i8] c"ERROR: Only 1 point!\00", align 1
 @str.13 = private unnamed_addr constant [5 x i8] c"NULL\00", align 1
 @str.14 = private unnamed_addr constant [20 x i8] c"Done getting points\00", align 1
 @str.15 = private unnamed_addr constant [43 x i8] c"cannot push onto stack: stack is too large\00", align 1
@@ -72,7 +72,7 @@ define dso_local ptr @connect_left(ptr noundef %0, ptr nocapture noundef %1) loc
   br i1 %19, label %20, label %25
 
 20:                                               ; preds = %17
-  %21 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %21 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -203,7 +203,7 @@ define dso_local ptr @connect_right(ptr noundef %0, ptr noundef %1) local_unname
   br i1 %20, label %21, label %26
 
 21:                                               ; preds = %18
-  %22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -474,7 +474,7 @@ define dso_local { ptr, ptr } @build_delaunay(ptr noundef %0, ptr noundef %1) lo
   br i1 %48, label %270, label %40, !llvm.loop !22
 
 49:                                               ; preds = %2
-  %50 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %50 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -496,7 +496,7 @@ define dso_local { ptr, ptr } @build_delaunay(ptr noundef %0, ptr noundef %1) lo
   br i1 %60, label %61, label %66
 
 61:                                               ; preds = %58
-  %62 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %62 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -547,7 +547,7 @@ define dso_local { ptr, ptr } @build_delaunay(ptr noundef %0, ptr noundef %1) lo
   br i1 %88, label %89, label %94
 
 89:                                               ; preds = %86
-  %90 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %90 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -595,7 +595,7 @@ define dso_local { ptr, ptr } @build_delaunay(ptr noundef %0, ptr noundef %1) lo
   br i1 %115, label %116, label %121
 
 116:                                              ; preds = %113
-  %117 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %117 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -676,8 +676,8 @@ define dso_local { ptr, ptr } @build_delaunay(ptr noundef %0, ptr noundef %1) lo
   %175 = fneg double %173
   %176 = fmul double %174, %175
   %177 = tail call double @llvm.fmuladd.f64(double %171, double %172, double %176)
-  %178 = fcmp ule double %177, 0.000000e+00
-  br i1 %178, label %183, label %179
+  %178 = fcmp ogt double %177, 0.000000e+00
+  br i1 %178, label %179, label %183
 
 179:                                              ; preds = %121
   %180 = ptrtoint ptr %161 to i64
@@ -695,8 +695,8 @@ define dso_local { ptr, ptr } @build_delaunay(ptr noundef %0, ptr noundef %1) lo
   %190 = fneg double %188
   %191 = fmul double %189, %190
   %192 = tail call double @llvm.fmuladd.f64(double %186, double %187, double %191)
-  %193 = fcmp ule double %192, 0.000000e+00
-  br i1 %193, label %194, label %272
+  %193 = fcmp ogt double %192, 0.000000e+00
+  br i1 %193, label %272, label %194
 
 194:                                              ; preds = %183
   %195 = ptrtoint ptr %161 to i64
@@ -847,8 +847,8 @@ define dso_local { ptr, ptr } @do_merge(ptr noundef %0, ptr noundef %1, ptr noun
   %30 = fneg double %28
   %31 = fmul double %29, %30
   %32 = tail call double @llvm.fmuladd.f64(double %26, double %27, double %31)
-  %33 = fcmp ule double %32, 0.000000e+00
-  br i1 %33, label %49, label %34
+  %33 = fcmp ogt double %32, 0.000000e+00
+  br i1 %33, label %34, label %49
 
 34:                                               ; preds = %13
   %35 = ptrtoint ptr %14 to i64
@@ -882,8 +882,8 @@ define dso_local { ptr, ptr } @do_merge(ptr noundef %0, ptr noundef %1, ptr noun
   %61 = fneg double %59
   %62 = fmul double %60, %61
   %63 = tail call double @llvm.fmuladd.f64(double %57, double %58, double %62)
-  %64 = fcmp ule double %63, 0.000000e+00
-  br i1 %64, label %68, label %65
+  %64 = fcmp ogt double %63, 0.000000e+00
+  br i1 %64, label %65, label %68
 
 65:                                               ; preds = %49
   %66 = getelementptr inbounds %struct.edge_rec, ptr %52, i64 0, i32 1
@@ -947,8 +947,8 @@ define dso_local { ptr, ptr } @do_merge(ptr noundef %0, ptr noundef %1, ptr noun
   %120 = fmul double %119, %118
   %121 = extractelement <2 x double> %117, i64 0
   %122 = tail call double @llvm.fmuladd.f64(double %121, double %114, double %120)
-  %123 = fcmp ule double %122, 0.000000e+00
-  br i1 %123, label %260, label %124
+  %123 = fcmp ogt double %122, 0.000000e+00
+  br i1 %123, label %124, label %260
 
 124:                                              ; preds = %93
   %125 = getelementptr inbounds %struct.VEC2, ptr %94, i64 0, i32 2
@@ -1007,8 +1007,8 @@ define dso_local { ptr, ptr } @do_merge(ptr noundef %0, ptr noundef %1, ptr noun
   %176 = fmul double %151, %175
   %177 = tail call double @llvm.fmuladd.f64(double %144, double %154, double %176)
   %178 = tail call double @llvm.fmuladd.f64(double %174, double %177, double %173)
-  %179 = fcmp ule double %178, 0.000000e+00
-  br i1 %179, label %252, label %180
+  %179 = fcmp ogt double %178, 0.000000e+00
+  br i1 %179, label %180, label %252
 
 180:                                              ; preds = %130
   %181 = add i64 %139, 32
@@ -1136,8 +1136,8 @@ define dso_local { ptr, ptr } @do_merge(ptr noundef %0, ptr noundef %1, ptr noun
   %289 = fmul double %288, %287
   %290 = extractelement <2 x double> %265, i64 0
   %291 = tail call double @llvm.fmuladd.f64(double %290, double %285, double %289)
-  %292 = fcmp ule double %291, 0.000000e+00
-  br i1 %292, label %443, label %293
+  %292 = fcmp ogt double %291, 0.000000e+00
+  br i1 %292, label %293, label %443
 
 293:                                              ; preds = %260
   %294 = getelementptr inbounds %struct.VEC2, ptr %263, i64 0, i32 2
@@ -1193,8 +1193,8 @@ define dso_local { ptr, ptr } @do_merge(ptr noundef %0, ptr noundef %1, ptr noun
   %342 = fmul double %317, %341
   %343 = tail call double @llvm.fmuladd.f64(double %310, double %320, double %342)
   %344 = tail call double @llvm.fmuladd.f64(double %340, double %343, double %339)
-  %345 = fcmp ule double %344, 0.000000e+00
-  br i1 %345, label %434, label %346
+  %345 = fcmp ogt double %344, 0.000000e+00
+  br i1 %345, label %346, label %434
 
 346:                                              ; preds = %297
   %347 = inttoptr i64 %300 to ptr
@@ -1391,8 +1391,8 @@ define dso_local { ptr, ptr } @do_merge(ptr noundef %0, ptr noundef %1, ptr noun
   %518 = fmul double %493, %517
   %519 = tail call double @llvm.fmuladd.f64(double %488, double %496, double %518)
   %520 = tail call double @llvm.fmuladd.f64(double %516, double %519, double %515)
-  %521 = fcmp ule double %520, 0.000000e+00
-  br i1 %521, label %539, label %522
+  %521 = fcmp ogt double %520, 0.000000e+00
+  br i1 %521, label %522, label %539
 
 522:                                              ; preds = %485, %481
   %523 = tail call ptr @connect_left(ptr noundef nonnull %447, ptr noundef nonnull %102)
@@ -1485,7 +1485,7 @@ define dso_local ptr @myalign(i32 noundef %0, i32 noundef %1) local_unnamed_addr
   br i1 %6, label %7, label %9
 
 7:                                                ; preds = %2
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -1512,7 +1512,7 @@ define dso_local ptr @alloc_edge() local_unnamed_addr #0 {
   br i1 %5, label %6, label %11
 
 6:                                                ; preds = %3
-  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 
@@ -1599,7 +1599,7 @@ define dso_local ptr @makeedge(ptr noundef %0, ptr noundef %1) local_unnamed_add
   br i1 %7, label %8, label %13
 
 8:                                                ; preds = %5
-  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -1) #27
   unreachable
 

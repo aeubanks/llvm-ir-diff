@@ -294,13 +294,13 @@ define dso_local void @MtCoder_Destruct(ptr noundef %0) local_unnamed_addr #1 {
   %6 = tail call i32 @Event_Close(ptr noundef nonnull %5) #6
   %7 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 10
   %8 = tail call i32 @Event_Close(ptr noundef nonnull %7) #6
-  %9 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 0, i32 1
-  %10 = load i32, ptr %9, align 8, !tbaa !41
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %25, label %12
+  %9 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6
+  %10 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 0, i32 1
+  %11 = load i32, ptr %10, align 8, !tbaa !41
+  %12 = icmp eq i32 %11, 0
+  br i1 %12, label %25, label %13
 
-12:                                               ; preds = %2
-  %13 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6
+13:                                               ; preds = %2
   %14 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 3
   store i32 1, ptr %14, align 8, !tbaa !16
   %15 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 1
@@ -308,12 +308,12 @@ define dso_local void @MtCoder_Destruct(ptr noundef %0) local_unnamed_addr #1 {
   %17 = icmp eq i32 %16, 0
   br i1 %17, label %18, label %20
 
-18:                                               ; preds = %12
-  %19 = tail call i32 @Thread_Wait(ptr noundef nonnull %13) #6
+18:                                               ; preds = %13
+  %19 = tail call i32 @Thread_Wait(ptr noundef nonnull %9) #6
   br label %20
 
-20:                                               ; preds = %18, %12
-  %21 = tail call i32 @Thread_Close(ptr noundef nonnull %13) #6
+20:                                               ; preds = %18, %13
+  %21 = tail call i32 @Thread_Close(ptr noundef nonnull %9) #6
   %22 = tail call i32 @Event_Close(ptr noundef nonnull %15) #6
   %23 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 2
   %24 = tail call i32 @Event_Close(ptr noundef nonnull %23) #6
@@ -764,8 +764,8 @@ define internal i32 @ThreadFunc(ptr noundef %0) #1 {
   %112 = icmp eq i32 %111, 0
   br i1 %112, label %152, label %113
 
-113:                                              ; preds = %109, %78, %66, %68, %88, %96, %99
-  %114 = phi i32 [ 9, %99 ], [ 11, %96 ], [ 12, %88 ], [ 12, %68 ], [ %64, %66 ], [ %86, %78 ], [ 12, %109 ]
+113:                                              ; preds = %109, %99, %96, %88, %78, %68, %66
+  %114 = phi i32 [ %64, %66 ], [ 12, %68 ], [ %86, %78 ], [ 12, %88 ], [ 11, %96 ], [ 9, %99 ], [ 12, %109 ]
   %115 = add i32 %16, -1
   %116 = icmp eq i32 %14, %115
   %117 = add i32 %14, 1

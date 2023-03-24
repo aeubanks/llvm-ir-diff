@@ -128,10 +128,10 @@ define linkonce_odr dso_local void @_ZN11btRigidBodyD2Ev(ptr noundef nonnull ali
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !15
   store ptr null, ptr %2, align 8, !tbaa !8
+  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -254,9 +254,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIfED2Ev(ptr noundef
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !24
   store ptr null, ptr %2, align 8, !tbaa !27
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !28
   %12 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !29
@@ -279,9 +279,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI9btVector3ED2Ev(pt
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !18
   store ptr null, ptr %2, align 8, !tbaa !21
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !22
   %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !23
@@ -304,10 +304,10 @@ define dso_local void @_ZN16btRaycastVehicleD2Ev(ptr noundef nonnull align 8 der
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %57
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 16, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !36
   store ptr null, ptr %2, align 8, !tbaa !37
+  %11 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 16, i32 2
   store i32 0, ptr %11, align 4, !tbaa !38
   %12 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 16, i32 3
   store i32 0, ptr %12, align 8, !tbaa !39
@@ -324,10 +324,10 @@ define dso_local void @_ZN16btRaycastVehicleD2Ev(ptr noundef nonnull align 8 der
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %14)
           to label %21 unwind label %60
 
-21:                                               ; preds = %10, %20
-  %22 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 4, i32 2
+21:                                               ; preds = %20, %10
   store i8 1, ptr %16, align 8, !tbaa !24
   store ptr null, ptr %13, align 8, !tbaa !27
+  %22 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 4, i32 2
   store i32 0, ptr %22, align 4, !tbaa !28
   %23 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 4, i32 3
   store i32 0, ptr %23, align 8, !tbaa !29
@@ -344,10 +344,10 @@ define dso_local void @_ZN16btRaycastVehicleD2Ev(ptr noundef nonnull align 8 der
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %25)
           to label %32 unwind label %62
 
-32:                                               ; preds = %21, %31
-  %33 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 3, i32 2
+32:                                               ; preds = %31, %21
   store i8 1, ptr %27, align 8, !tbaa !24
   store ptr null, ptr %24, align 8, !tbaa !27
+  %33 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 3, i32 2
   store i32 0, ptr %33, align 4, !tbaa !28
   %34 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 3, i32 3
   store i32 0, ptr %34, align 8, !tbaa !29
@@ -364,10 +364,10 @@ define dso_local void @_ZN16btRaycastVehicleD2Ev(ptr noundef nonnull align 8 der
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %36)
           to label %43 unwind label %67
 
-43:                                               ; preds = %32, %42
-  %44 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 2, i32 2
+43:                                               ; preds = %42, %32
   store i8 1, ptr %38, align 8, !tbaa !18
   store ptr null, ptr %35, align 8, !tbaa !21
+  %44 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 2, i32 2
   store i32 0, ptr %44, align 4, !tbaa !22
   %45 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 2, i32 3
   store i32 0, ptr %45, align 8, !tbaa !23
@@ -385,9 +385,9 @@ define dso_local void @_ZN16btRaycastVehicleD2Ev(ptr noundef nonnull align 8 der
   br label %54
 
 54:                                               ; preds = %53, %43
-  %55 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %49, align 8, !tbaa !18
   store ptr null, ptr %46, align 8, !tbaa !21
+  %55 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %55, align 4, !tbaa !22
   %56 = getelementptr inbounds %class.btRaycastVehicle, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %56, align 8, !tbaa !23
@@ -1666,10 +1666,10 @@ define dso_local void @_ZN16btRaycastVehicle13updateVehicleEf(ptr noundef nonnul
   %162 = getelementptr inbounds %class.btCollisionObject, ptr %159, i64 0, i32 1, i32 1
   %163 = getelementptr inbounds %class.btRigidBody, ptr %159, i64 0, i32 3, i32 0, i64 1
   %164 = getelementptr inbounds %class.btRigidBody, ptr %159, i64 0, i32 2, i32 0, i64 2
-  %165 = getelementptr inbounds %class.btRigidBody, ptr %159, i64 0, i32 2, i32 0, i64 1
+  %165 = getelementptr inbounds %class.btCollisionObject, ptr %159, i64 0, i32 1, i32 1, i32 0, i64 2
   %166 = getelementptr inbounds %class.btRigidBody, ptr %159, i64 0, i32 3, i32 0, i64 2
-  %167 = getelementptr inbounds %class.btCollisionObject, ptr %159, i64 0, i32 1, i32 1, i32 0, i64 2
-  %168 = getelementptr inbounds %class.btRigidBody, ptr %159, i64 0, i32 2
+  %167 = getelementptr inbounds %class.btRigidBody, ptr %159, i64 0, i32 2
+  %168 = getelementptr inbounds %class.btRigidBody, ptr %159, i64 0, i32 2, i32 0, i64 1
   %169 = getelementptr inbounds %class.btCollisionObject, ptr %159, i64 0, i32 1
   %170 = load i32, ptr %25, align 8
   %171 = sext i32 %170 to i64
@@ -1705,21 +1705,21 @@ define dso_local void @_ZN16btRaycastVehicle13updateVehicleEf(ptr noundef nonnul
   %197 = call float @llvm.fmuladd.f32(float %185, float %190, float %196)
   %198 = load float, ptr %164, align 8, !tbaa !45
   %199 = fadd float %198, %197
-  %200 = load float, ptr %165, align 4, !tbaa !45
-  %201 = load float, ptr %166, align 8, !tbaa !45
-  %202 = getelementptr inbounds [4 x float], ptr %186, i64 0, i64 2
-  %203 = load float, ptr %202, align 4, !tbaa !45
-  %204 = load float, ptr %167, align 4, !tbaa !45
-  %205 = fsub float %203, %204
-  %206 = fneg float %185
-  %207 = fmul float %205, %206
-  %208 = call float @llvm.fmuladd.f32(float %201, float %193, float %207)
-  %209 = fadd float %200, %208
-  %210 = fneg float %201
-  %211 = fmul float %190, %210
-  %212 = call float @llvm.fmuladd.f32(float %194, float %205, float %211)
-  %213 = load float, ptr %168, align 8, !tbaa !45
-  %214 = fadd float %213, %212
+  %200 = getelementptr inbounds [4 x float], ptr %186, i64 0, i64 2
+  %201 = load float, ptr %200, align 4, !tbaa !45
+  %202 = load float, ptr %165, align 4, !tbaa !45
+  %203 = fsub float %201, %202
+  %204 = load float, ptr %166, align 8, !tbaa !45
+  %205 = fneg float %204
+  %206 = fmul float %190, %205
+  %207 = call float @llvm.fmuladd.f32(float %194, float %203, float %206)
+  %208 = load float, ptr %167, align 8, !tbaa !45
+  %209 = fadd float %208, %207
+  %210 = load float, ptr %168, align 4, !tbaa !45
+  %211 = fneg float %185
+  %212 = fmul float %203, %211
+  %213 = call float @llvm.fmuladd.f32(float %204, float %193, float %212)
+  %214 = fadd float %210, %213
   %215 = load float, ptr %172, align 4, !tbaa !45
   %216 = load float, ptr %174, align 4, !tbaa !45
   %217 = load float, ptr %176, align 4, !tbaa !45
@@ -1737,8 +1737,8 @@ define dso_local void @_ZN16btRaycastVehicle13updateVehicleEf(ptr noundef nonnul
   %229 = fsub float %215, %226
   %230 = fsub float %216, %227
   %231 = fsub float %217, %228
-  %232 = fmul float %209, %230
-  %233 = call float @llvm.fmuladd.f32(float %229, float %214, float %232)
+  %232 = fmul float %214, %230
+  %233 = call float @llvm.fmuladd.f32(float %229, float %209, float %232)
   %234 = call float @llvm.fmuladd.f32(float %231, float %199, float %233)
   %235 = fmul float %234, %1
   %236 = getelementptr inbounds %struct.btWheelInfo, ptr %158, i64 %179, i32 7
@@ -1867,70 +1867,70 @@ define linkonce_odr dso_local void @_ZN11btRigidBody12applyImpulseERK9btVector3S
   %26 = load float, ptr %25, align 8, !tbaa !45
   %27 = fadd float %15, %26
   store float %27, ptr %25, align 8, !tbaa !45
-  %28 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 5
-  %29 = load float, ptr %1, align 4, !tbaa !45
-  %30 = extractelement <2 x float> %18, i64 0
-  %31 = fmul float %30, %29
-  %32 = load float, ptr %9, align 4, !tbaa !45
-  %33 = extractelement <2 x float> %18, i64 1
-  %34 = fmul float %32, %33
-  %35 = load float, ptr %10, align 4, !tbaa !45
-  %36 = fmul float %35, %13
-  %37 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 1
-  %38 = load float, ptr %37, align 4, !tbaa !45
-  %39 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 2
-  %40 = load float, ptr %39, align 4, !tbaa !45
-  %41 = fneg float %40
-  %42 = fmul float %34, %41
-  %43 = tail call float @llvm.fmuladd.f32(float %38, float %36, float %42)
-  %44 = load float, ptr %2, align 4, !tbaa !45
-  %45 = fneg float %44
-  %46 = fmul float %36, %45
-  %47 = tail call float @llvm.fmuladd.f32(float %40, float %31, float %46)
-  %48 = fneg float %38
-  %49 = fmul float %31, %48
-  %50 = tail call float @llvm.fmuladd.f32(float %44, float %34, float %49)
-  %51 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1
-  %52 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 0, i32 0, i64 1
-  %53 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 0, i32 0, i64 2
-  %54 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 1
-  %55 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 1, i32 0, i64 1
-  %56 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 1, i32 0, i64 2
-  %57 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 2
-  %58 = load float, ptr %57, align 8, !tbaa !45
-  %59 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 1
-  %60 = load float, ptr %59, align 4, !tbaa !45
-  %61 = fmul float %47, %60
-  %62 = tail call float @llvm.fmuladd.f32(float %58, float %43, float %61)
-  %63 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 2
-  %64 = load float, ptr %63, align 8, !tbaa !45
-  %65 = tail call float @llvm.fmuladd.f32(float %64, float %50, float %62)
+  %28 = load float, ptr %1, align 4, !tbaa !45
+  %29 = extractelement <2 x float> %18, i64 0
+  %30 = fmul float %29, %28
+  %31 = load float, ptr %9, align 4, !tbaa !45
+  %32 = extractelement <2 x float> %18, i64 1
+  %33 = fmul float %32, %31
+  %34 = load float, ptr %10, align 4, !tbaa !45
+  %35 = fmul float %13, %34
+  %36 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 1
+  %37 = load float, ptr %36, align 4, !tbaa !45
+  %38 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 2
+  %39 = load float, ptr %38, align 4, !tbaa !45
+  %40 = fneg float %39
+  %41 = fmul float %33, %40
+  %42 = tail call float @llvm.fmuladd.f32(float %37, float %35, float %41)
+  %43 = load float, ptr %2, align 4, !tbaa !45
+  %44 = fneg float %43
+  %45 = fmul float %35, %44
+  %46 = tail call float @llvm.fmuladd.f32(float %39, float %30, float %45)
+  %47 = fneg float %37
+  %48 = fmul float %30, %47
+  %49 = tail call float @llvm.fmuladd.f32(float %43, float %33, float %48)
+  %50 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1
+  %51 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 0, i32 0, i64 1
+  %52 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 0, i32 0, i64 2
+  %53 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 1
+  %54 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 1, i32 0, i64 1
+  %55 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 1, i32 0, i64 2
+  %56 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 2
+  %57 = load float, ptr %56, align 8, !tbaa !45
+  %58 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 1
+  %59 = load float, ptr %58, align 4, !tbaa !45
+  %60 = fmul float %46, %59
+  %61 = tail call float @llvm.fmuladd.f32(float %57, float %42, float %60)
+  %62 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 1, i32 0, i64 2, i32 0, i64 2
+  %63 = load float, ptr %62, align 8, !tbaa !45
+  %64 = tail call float @llvm.fmuladd.f32(float %63, float %49, float %61)
+  %65 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 5
   %66 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 5, i32 0, i64 2
   %67 = load float, ptr %66, align 4, !tbaa !45
-  %68 = fmul float %65, %67
+  %68 = fmul float %64, %67
   %69 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 3
-  %70 = load <4 x float>, ptr %51, align 8
+  %70 = load <4 x float>, ptr %50, align 8
   %71 = shufflevector <4 x float> %70, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %72 = load <4 x float>, ptr %52, align 4
+  %72 = load <4 x float>, ptr %51, align 4
   %73 = shufflevector <4 x float> %72, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %74 = load <4 x float>, ptr %53, align 8
+  %74 = load <4 x float>, ptr %52, align 8
   %75 = shufflevector <4 x float> %74, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %76 = load float, ptr %54, align 8, !tbaa !45
-  %77 = load float, ptr %55, align 4, !tbaa !45
+  %76 = load float, ptr %53, align 8, !tbaa !45
+  %77 = load float, ptr %54, align 4, !tbaa !45
   %78 = insertelement <2 x float> %73, float %77, i64 1
-  %79 = insertelement <2 x float> poison, float %47, i64 0
+  %79 = insertelement <2 x float> poison, float %46, i64 0
   %80 = shufflevector <2 x float> %79, <2 x float> poison, <2 x i32> zeroinitializer
   %81 = fmul <2 x float> %78, %80
   %82 = insertelement <2 x float> %71, float %76, i64 1
-  %83 = insertelement <2 x float> poison, float %43, i64 0
+  %83 = insertelement <2 x float> poison, float %42, i64 0
   %84 = shufflevector <2 x float> %83, <2 x float> poison, <2 x i32> zeroinitializer
   %85 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %82, <2 x float> %84, <2 x float> %81)
-  %86 = load float, ptr %56, align 8, !tbaa !45
+  %86 = load float, ptr %55, align 8, !tbaa !45
   %87 = insertelement <2 x float> %75, float %86, i64 1
-  %88 = insertelement <2 x float> poison, float %50, i64 0
+  %88 = insertelement <2 x float> poison, float %49, i64 0
   %89 = shufflevector <2 x float> %88, <2 x float> poison, <2 x i32> zeroinitializer
   %90 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %87, <2 x float> %89, <2 x float> %85)
-  %91 = load <2 x float>, ptr %28, align 4, !tbaa !45
+  %91 = load <2 x float>, ptr %65, align 4, !tbaa !45
   %92 = fmul <2 x float> %90, %91
   %93 = load <2 x float>, ptr %69, align 8, !tbaa !45
   %94 = fadd <2 x float> %92, %93
@@ -3408,15 +3408,15 @@ define dso_local void @_ZN16btRaycastVehicle9debugDrawEP12btIDebugDraw(ptr nocap
   store <2 x float> <float 0.000000e+00, float 2.550000e+02>, ptr %10, align 4, !tbaa !45
   store float 0.000000e+00, ptr %11, align 4, !tbaa !45
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #20
-  %24 = getelementptr inbounds %struct.btWheelInfo, ptr %19, i64 %18, i32 1
-  %25 = getelementptr inbounds %struct.btWheelInfo, ptr %19, i64 %18, i32 1, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(16) %25, i64 16, i1 false), !tbaa.struct !59
+  %24 = getelementptr inbounds %struct.btWheelInfo, ptr %19, i64 %18, i32 1, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull align 4 dereferenceable(16) %24, i64 16, i1 false), !tbaa.struct !59
+  %25 = getelementptr inbounds %struct.btWheelInfo, ptr %19, i64 %18, i32 1
   %26 = load i32, ptr %13, align 8, !tbaa !41
   %27 = sext i32 %26 to i64
-  %28 = getelementptr inbounds float, ptr %24, i64 %27
-  %29 = getelementptr inbounds [3 x %class.btVector3], ptr %24, i64 0, i64 1
+  %28 = getelementptr inbounds float, ptr %25, i64 %27
+  %29 = getelementptr inbounds %struct.btWheelInfo, ptr %19, i64 %18, i32 1, i32 0, i32 0, i64 1
   %30 = getelementptr inbounds float, ptr %29, i64 %27
-  %31 = getelementptr inbounds [3 x %class.btVector3], ptr %24, i64 0, i64 2
+  %31 = getelementptr inbounds %struct.btWheelInfo, ptr %19, i64 %18, i32 1, i32 0, i32 0, i64 2
   %32 = getelementptr inbounds float, ptr %31, i64 %27
   %33 = load float, ptr %32, align 4, !tbaa !45
   %34 = load float, ptr %28, align 4, !tbaa !45

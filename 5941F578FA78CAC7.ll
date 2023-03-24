@@ -264,13 +264,13 @@ define dso_local ptr @vba56_dir_read(ptr noundef %0) local_unnamed_addr #0 {
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %3) #12
   %93 = call i32 @cli_readn(i32 noundef %12, ptr noundef nonnull %3, i32 noundef 2) #12
   %94 = icmp eq i32 %93, 2
-  br i1 %94, label %95, label %175
+  br i1 %94, label %95, label %171
 
 95:                                               ; preds = %91
   %96 = icmp eq i32 %92, 0
   br label %97
 
-97:                                               ; preds = %171, %95
+97:                                               ; preds = %173, %95
   %98 = load i16, ptr %3, align 2, !tbaa !13
   %99 = call i16 @llvm.bswap.i16(i16 %98)
   %100 = select i1 %96, i16 %98, i16 %99
@@ -280,7 +280,7 @@ define dso_local ptr @vba56_dir_read(ptr noundef %0) local_unnamed_addr #0 {
 
 102:                                              ; preds = %97
   %103 = call i64 @lseek(i32 noundef %12, i64 noundef -2, i32 noundef 1) #12
-  br label %174
+  br label %176
 
 104:                                              ; preds = %97
   %105 = zext i16 %100 to i64
@@ -290,7 +290,7 @@ define dso_local ptr @vba56_dir_read(ptr noundef %0) local_unnamed_addr #0 {
 
 108:                                              ; preds = %104
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.11) #12
-  br label %175
+  br label %171
 
 109:                                              ; preds = %104
   %110 = call i64 @lseek(i32 noundef %12, i64 noundef 0, i32 noundef 1) #12
@@ -307,7 +307,7 @@ define dso_local ptr @vba56_dir_read(ptr noundef %0) local_unnamed_addr #0 {
   %118 = and i64 %110, 4294967295
   %119 = call i64 @lseek(i32 noundef %12, i64 noundef %118, i32 noundef 0) #12
   call void @free(ptr noundef nonnull %106) #12
-  br label %174
+  br label %176
 
 120:                                              ; preds = %109
   %121 = call fastcc ptr @get_unicode_name(ptr noundef nonnull %106, i32 noundef %113, i32 noundef %92)
@@ -339,7 +339,7 @@ define dso_local ptr @vba56_dir_read(ptr noundef %0) local_unnamed_addr #0 {
   %137 = zext i16 %136 to i64
   %138 = sub nuw nsw i64 -2, %137
   %139 = call i64 @lseek(i32 noundef %12, i64 noundef %138, i32 noundef 1) #12
-  br label %174
+  br label %176
 
 140:                                              ; preds = %128, %125
   %141 = load i16, ptr %3, align 2, !tbaa !13
@@ -347,13 +347,13 @@ define dso_local ptr @vba56_dir_read(ptr noundef %0) local_unnamed_addr #0 {
   %143 = sub nuw nsw i64 -2, %142
   %144 = call i64 @lseek(i32 noundef %12, i64 noundef %143, i32 noundef 1) #12
   call void @free(ptr noundef nonnull %121) #12
-  br label %174
+  br label %176
 
 145:                                              ; preds = %128
   call void @free(ptr noundef nonnull %121) #12
   %146 = call i32 @cli_readn(i32 noundef %12, ptr noundef nonnull %3, i32 noundef 2) #12
   %147 = icmp eq i32 %146, 2
-  br i1 %147, label %148, label %175
+  br i1 %147, label %148, label %171
 
 148:                                              ; preds = %145
   %149 = load i16, ptr %3, align 2, !tbaa !13
@@ -366,7 +366,7 @@ define dso_local ptr @vba56_dir_read(ptr noundef %0) local_unnamed_addr #0 {
 
 154:                                              ; preds = %148
   %155 = call i64 @lseek(i32 noundef %12, i64 noundef -2, i32 noundef 1) #12
-  br label %171
+  br label %173
 
 156:                                              ; preds = %148
   %157 = call i64 @lseek(i32 noundef %12, i64 noundef 10, i32 noundef 1) #12
@@ -398,25 +398,25 @@ define dso_local ptr @vba56_dir_read(ptr noundef %0) local_unnamed_addr #0 {
 
 170:                                              ; preds = %169, %167, %156
   call void @llvm.lifetime.end.p0(i64 20, ptr nonnull %2) #12
-  br label %171
+  br label %173
 
-171:                                              ; preds = %170, %154
+171:                                              ; preds = %173, %145, %108, %91
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #12
+  %172 = call i32 @close(i32 noundef %12) #12
+  br label %433
+
+173:                                              ; preds = %170, %154
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #12
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %3) #12
-  %172 = call i32 @cli_readn(i32 noundef %12, ptr noundef nonnull %3, i32 noundef 2) #12
-  %173 = icmp eq i32 %172, 2
-  br i1 %173, label %97, label %175
+  %174 = call i32 @cli_readn(i32 noundef %12, ptr noundef nonnull %3, i32 noundef 2) #12
+  %175 = icmp eq i32 %174, 2
+  br i1 %175, label %97, label %171
 
-174:                                              ; preds = %102, %117, %134, %140
+176:                                              ; preds = %140, %134, %117, %102
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #12
   br label %177
 
-175:                                              ; preds = %145, %171, %91, %108
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #12
-  %176 = call i32 @close(i32 noundef %12) #12
-  br label %433
-
-177:                                              ; preds = %174, %182
+177:                                              ; preds = %176, %182
   %178 = call i32 @cli_readn(i32 noundef %12, ptr noundef nonnull %6, i32 noundef 2) #12
   %179 = icmp eq i32 %178, 2
   br i1 %179, label %182, label %180
@@ -828,8 +828,8 @@ define dso_local ptr @vba56_dir_read(ptr noundef %0) local_unnamed_addr #0 {
   call void @free(ptr noundef nonnull %242) #12
   br label %433
 
-433:                                              ; preds = %412, %429, %264, %253, %244, %239, %235, %226, %212, %199, %189, %180, %175, %83, %27, %18, %14
-  %434 = phi ptr [ null, %14 ], [ null, %18 ], [ null, %27 ], [ null, %83 ], [ null, %180 ], [ null, %189 ], [ null, %199 ], [ null, %212 ], [ null, %226 ], [ null, %235 ], [ null, %239 ], [ null, %429 ], [ null, %264 ], [ null, %253 ], [ null, %244 ], [ null, %175 ], [ %242, %412 ]
+433:                                              ; preds = %412, %429, %264, %253, %244, %239, %235, %226, %212, %199, %189, %180, %171, %83, %27, %18, %14
+  %434 = phi ptr [ null, %14 ], [ null, %18 ], [ null, %27 ], [ null, %83 ], [ null, %180 ], [ null, %189 ], [ null, %199 ], [ null, %212 ], [ null, %226 ], [ null, %235 ], [ null, %239 ], [ null, %429 ], [ null, %264 ], [ null, %253 ], [ null, %244 ], [ null, %171 ], [ %242, %412 ]
   call void @llvm.lifetime.end.p0(i64 257, ptr nonnull %10) #12
   call void @llvm.lifetime.end.p0(i64 34, ptr nonnull %9) #12
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #12
@@ -1034,58 +1034,58 @@ define dso_local ptr @vba_decompress(i32 noundef %0, i32 noundef %1, ptr noundef
   br label %216
 
 30:                                               ; preds = %24
-  %31 = load i16, ptr %5, align 2, !tbaa !13
-  %32 = and i32 %17, 4095
-  %33 = icmp ult i32 %32, 129
-  br i1 %33, label %34, label %42
+  %31 = and i32 %17, 4095
+  %32 = icmp ult i32 %31, 129
+  br i1 %32, label %33, label %41
 
-34:                                               ; preds = %30
-  %35 = icmp ult i32 %32, 33
-  br i1 %35, label %36, label %39
+33:                                               ; preds = %30
+  %34 = icmp ult i32 %31, 33
+  br i1 %34, label %35, label %38
 
-36:                                               ; preds = %34
-  %37 = icmp ult i32 %32, 17
-  %38 = select i1 %37, i32 12, i32 11
-  br label %52
+35:                                               ; preds = %33
+  %36 = icmp ult i32 %31, 17
+  %37 = select i1 %36, i32 12, i32 11
+  br label %51
 
-39:                                               ; preds = %34
-  %40 = icmp ult i32 %32, 65
-  %41 = select i1 %40, i32 10, i32 9
-  br label %52
+38:                                               ; preds = %33
+  %39 = icmp ult i32 %31, 65
+  %40 = select i1 %39, i32 10, i32 9
+  br label %51
 
-42:                                               ; preds = %30
-  %43 = icmp ult i32 %32, 513
-  br i1 %43, label %44, label %47
+41:                                               ; preds = %30
+  %42 = icmp ult i32 %31, 513
+  br i1 %42, label %43, label %46
 
-44:                                               ; preds = %42
-  %45 = icmp ult i32 %32, 257
-  %46 = select i1 %45, i32 8, i32 7
-  br label %52
+43:                                               ; preds = %41
+  %44 = icmp ult i32 %31, 257
+  %45 = select i1 %44, i32 8, i32 7
+  br label %51
 
-47:                                               ; preds = %42
-  %48 = icmp ult i32 %32, 2049
-  br i1 %48, label %49, label %52
+46:                                               ; preds = %41
+  %47 = icmp ult i32 %31, 2049
+  br i1 %47, label %48, label %51
 
-49:                                               ; preds = %47
-  %50 = icmp ult i32 %32, 1025
-  %51 = select i1 %50, i32 6, i32 5
-  br label %52
+48:                                               ; preds = %46
+  %49 = icmp ult i32 %31, 1025
+  %50 = select i1 %49, i32 6, i32 5
+  br label %51
 
-52:                                               ; preds = %47, %44, %49, %36, %39
-  %53 = phi i32 [ %38, %36 ], [ %41, %39 ], [ %46, %44 ], [ %51, %49 ], [ 4, %47 ]
-  %54 = zext i16 %31 to i32
-  %55 = shl nsw i32 -1, %53
+51:                                               ; preds = %46, %43, %48, %35, %38
+  %52 = phi i32 [ %37, %35 ], [ %40, %38 ], [ %45, %43 ], [ %50, %48 ], [ 4, %46 ]
+  %53 = load i16, ptr %5, align 2, !tbaa !13
+  %54 = zext i16 %53 to i32
+  %55 = shl nsw i32 -1, %52
   %56 = trunc i32 %55 to i16
   %57 = xor i16 %56, -1
-  %58 = and i16 %31, %57
+  %58 = and i16 %53, %57
   %59 = add nuw i16 %58, 3
-  %60 = lshr i32 %54, %53
+  %60 = lshr i32 %54, %52
   %61 = zext i16 %59 to i32
   %62 = xor i32 %60, -1
   %63 = icmp ult i16 %58, 29
   br i1 %63, label %110, label %64
 
-64:                                               ; preds = %52
+64:                                               ; preds = %51
   %65 = add nuw i16 %58, 2
   %66 = trunc i32 %17 to i12
   %67 = trunc i16 %65 to i12
@@ -1143,9 +1143,9 @@ define dso_local ptr @vba_decompress(i32 noundef %0, i32 noundef %1, ptr noundef
   %109 = icmp eq i32 %90, %61
   br i1 %109, label %179, label %110
 
-110:                                              ; preds = %77, %64, %52, %108
-  %111 = phi i32 [ 0, %77 ], [ 0, %64 ], [ 0, %52 ], [ %90, %108 ]
-  %112 = phi i32 [ %17, %77 ], [ %17, %64 ], [ %17, %52 ], [ %91, %108 ]
+110:                                              ; preds = %77, %64, %51, %108
+  %111 = phi i32 [ 0, %77 ], [ 0, %64 ], [ 0, %51 ], [ %90, %108 ]
+  %112 = phi i32 [ %17, %77 ], [ %17, %64 ], [ %17, %51 ], [ %91, %108 ]
   %113 = zext i16 %58 to i32
   %114 = add nuw nsw i32 %113, 2
   %115 = and i32 %113, 1
@@ -1768,7 +1768,7 @@ define dso_local ptr @wm_dir_read(ptr noundef %0) local_unnamed_addr #0 {
   %25 = icmp eq i32 %24, 4
   br i1 %25, label %29, label %26
 
-26:                                               ; preds = %15, %18, %22
+26:                                               ; preds = %22, %18, %15
   %27 = phi ptr [ @.str.61, %15 ], [ @.str.62, %18 ], [ @.str.62, %22 ]
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull %27) #12
   %28 = call i32 @close(i32 noundef %12) #12
@@ -2495,20 +2495,20 @@ declare i32 @inflateEnd(ptr noundef) local_unnamed_addr #3
 
 declare i32 @inflate(ptr noundef, i32 noundef) local_unnamed_addr #3
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i16 @llvm.bswap.i16(i16) #9
+
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #9
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #10
 
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare ptr @memchr(ptr, i32, i64) local_unnamed_addr #9
+declare ptr @memchr(ptr, i32, i64) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.bswap.i16(i16) #10
+declare i32 @llvm.bswap.i32(i32) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.bswap.i32(i32) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #10
+declare i32 @llvm.umin.i32(i32, i32) #9
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
@@ -2522,8 +2522,8 @@ attributes #5 = { nofree "no-trapping-math"="true" "stack-protector-buffer-size"
 attributes #6 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind willreturn memory(none) }

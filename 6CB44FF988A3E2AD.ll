@@ -1169,33 +1169,32 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
 623:                                              ; preds = %521, %417, %422, %408, %565, %622, %494, %589
   %624 = load i32, ptr @EATFIRST, align 4, !tbaa !5
   %625 = icmp eq i32 %624, 0
-  br i1 %625, label %629, label %626
+  br i1 %625, label %628, label %626
 
 626:                                              ; preds = %623
-  %627 = load ptr, ptr @stdout, align 8, !tbaa !10
-  %628 = call i32 @putc(i32 noundef 10, ptr noundef %627)
+  %627 = call i32 @putchar(i32 10)
   store i32 0, ptr @EATFIRST, align 4, !tbaa !5
-  br label %629
+  br label %628
 
-629:                                              ; preds = %626, %623
-  %630 = load i32, ptr @num_of_matched, align 4, !tbaa !5
-  %631 = icmp eq i32 %630, 0
-  br i1 %631, label %633, label %632
+628:                                              ; preds = %626, %623
+  %629 = load i32, ptr @num_of_matched, align 4, !tbaa !5
+  %630 = icmp eq i32 %629, 0
+  br i1 %630, label %632, label %631
 
-632:                                              ; preds = %629
+631:                                              ; preds = %628
   store i32 0, ptr @NOMATCH, align 4, !tbaa !5
-  br label %637
+  br label %636
 
-633:                                              ; preds = %629
-  %634 = load i32, ptr @NOMATCH, align 4, !tbaa !5
-  %635 = icmp eq i32 %634, 0
-  br i1 %635, label %637, label %636
+632:                                              ; preds = %628
+  %633 = load i32, ptr @NOMATCH, align 4, !tbaa !5
+  %634 = icmp eq i32 %633, 0
+  br i1 %634, label %636, label %635
 
-636:                                              ; preds = %633
+635:                                              ; preds = %632
   call void @exit(i32 noundef 1) #22
   unreachable
 
-637:                                              ; preds = %632, %633
+636:                                              ; preds = %631, %632
   call void @exit(i32 noundef 0) #22
   unreachable
 }
@@ -4924,8 +4923,8 @@ define dso_local void @re(i32 noundef %0, i32 noundef %1, i32 noundef %2) local_
   %560 = load i32, ptr %559, align 4, !tbaa !5
   %561 = or i32 %560, %535
   %562 = and i32 %561, %12
-  %563 = or i32 %562, %556
-  %564 = or i32 %563, %552
+  %563 = or i32 %556, %552
+  %564 = or i32 %563, %562
   store i32 %564, ptr %100, align 4, !tbaa !5
   br i1 %102, label %712, label %565
 
@@ -4936,14 +4935,14 @@ define dso_local void @re(i32 noundef %0, i32 noundef %1, i32 noundef %2) local_
   %569 = getelementptr inbounds [66000 x i32], ptr @Next, i64 0, i64 %568
   %570 = load i32, ptr %569, align 4, !tbaa !5
   %571 = and i32 %570, %542
-  %572 = or i32 %563, %551
+  %572 = or i32 %564, %551
   %573 = zext i32 %572 to i64
   %574 = getelementptr inbounds [66000 x i32], ptr @Next, i64 0, i64 %573
   %575 = load i32, ptr %574, align 4, !tbaa !5
   %576 = or i32 %575, %551
   %577 = and i32 %576, %12
-  %578 = or i32 %577, %571
-  %579 = or i32 %578, %567
+  %578 = or i32 %571, %567
+  %579 = or i32 %578, %577
   store i32 %579, ptr %103, align 8, !tbaa !5
   br i1 %105, label %712, label %580
 
@@ -4954,14 +4953,14 @@ define dso_local void @re(i32 noundef %0, i32 noundef %1, i32 noundef %2) local_
   %584 = getelementptr inbounds [66000 x i32], ptr @Next, i64 0, i64 %583
   %585 = load i32, ptr %584, align 4, !tbaa !5
   %586 = and i32 %585, %542
-  %587 = or i32 %578, %566
+  %587 = or i32 %579, %566
   %588 = zext i32 %587 to i64
   %589 = getelementptr inbounds [66000 x i32], ptr @Next, i64 0, i64 %588
   %590 = load i32, ptr %589, align 4, !tbaa !5
   %591 = or i32 %590, %566
   %592 = and i32 %591, %12
-  %593 = or i32 %592, %586
-  %594 = or i32 %593, %582
+  %593 = or i32 %586, %582
+  %594 = or i32 %593, %592
   store i32 %594, ptr %106, align 4, !tbaa !5
   br i1 %108, label %712, label %595
 
@@ -4972,7 +4971,7 @@ define dso_local void @re(i32 noundef %0, i32 noundef %1, i32 noundef %2) local_
   %599 = getelementptr inbounds [66000 x i32], ptr @Next, i64 0, i64 %598
   %600 = load i32, ptr %599, align 4, !tbaa !5
   %601 = and i32 %600, %542
-  %602 = or i32 %593, %581
+  %602 = or i32 %594, %581
   %603 = zext i32 %602 to i64
   %604 = getelementptr inbounds [66000 x i32], ptr @Next, i64 0, i64 %603
   %605 = load i32, ptr %604, align 4, !tbaa !5
@@ -5167,7 +5166,7 @@ declare noundef i64 @write(i32 noundef, ptr nocapture noundef readonly, i64 noun
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @output(ptr noundef readonly %0, i32 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #12 {
   %5 = icmp sgt i32 %1, %2
-  br i1 %5, label %87, label %6
+  br i1 %5, label %86, label %6
 
 6:                                                ; preds = %4
   %7 = load i32, ptr @num_of_matched, align 4, !tbaa !5
@@ -5178,7 +5177,7 @@ define dso_local void @output(ptr noundef readonly %0, i32 noundef %1, i32 nound
   %11 = load i32, ptr @SILENT, align 4
   %12 = icmp eq i32 %11, 0
   %13 = select i1 %10, i1 %12, i1 false
-  br i1 %13, label %14, label %87
+  br i1 %13, label %14, label %86
 
 14:                                               ; preds = %6
   %15 = load i32, ptr @OUTTAIL, align 4, !tbaa !5
@@ -5190,65 +5189,65 @@ define dso_local void @output(ptr noundef readonly %0, i32 noundef %1, i32 nound
   %21 = load i32, ptr @DELIMITER, align 4, !tbaa !5
   %22 = icmp ne i32 %21, 0
   %23 = zext i1 %22 to i32
-  %24 = load i32, ptr @FIRSTOUTPUT, align 4, !tbaa !5
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %35, label %26
+  %24 = add nsw i32 %23, %3
+  %25 = load i32, ptr @FIRSTOUTPUT, align 4, !tbaa !5
+  %26 = icmp eq i32 %25, 0
+  br i1 %26, label %36, label %27
 
-26:                                               ; preds = %14
-  %27 = sext i32 %20 to i64
-  %28 = getelementptr inbounds i8, ptr %0, i64 %27
-  %29 = load i8, ptr %28, align 1, !tbaa !9
-  %30 = icmp eq i8 %29, 10
-  br i1 %30, label %31, label %33
+27:                                               ; preds = %14
+  %28 = sext i32 %20 to i64
+  %29 = getelementptr inbounds i8, ptr %0, i64 %28
+  %30 = load i8, ptr %29, align 1, !tbaa !9
+  %31 = icmp eq i8 %30, 10
+  br i1 %31, label %32, label %34
 
-31:                                               ; preds = %26
-  %32 = add nsw i32 %20, 1
+32:                                               ; preds = %27
+  %33 = add nsw i32 %20, 1
   store i32 1, ptr @EATFIRST, align 4, !tbaa !5
-  br label %33
+  br label %34
 
-33:                                               ; preds = %31, %26
-  %34 = phi i32 [ %32, %31 ], [ %20, %26 ]
+34:                                               ; preds = %32, %27
+  %35 = phi i32 [ %33, %32 ], [ %20, %27 ]
   store i32 0, ptr @FIRSTOUTPUT, align 4, !tbaa !5
-  br label %35
+  br label %36
 
-35:                                               ; preds = %33, %14
-  %36 = phi i32 [ %34, %33 ], [ %20, %14 ]
-  %37 = load i32, ptr @TRUNCATE, align 4, !tbaa !5
-  %38 = icmp eq i32 %37, 0
-  br i1 %38, label %42, label %39
+36:                                               ; preds = %34, %14
+  %37 = phi i32 [ %35, %34 ], [ %20, %14 ]
+  %38 = load i32, ptr @TRUNCATE, align 4, !tbaa !5
+  %39 = icmp eq i32 %38, 0
+  br i1 %39, label %43, label %40
 
-39:                                               ; preds = %35
-  %40 = load ptr, ptr @stderr, align 8, !tbaa !10
-  %41 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %40, ptr noundef nonnull @.str.41, i32 noundef %7) #21
-  br label %42
+40:                                               ; preds = %36
+  %41 = load ptr, ptr @stderr, align 8, !tbaa !10
+  %42 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %41, ptr noundef nonnull @.str.41, i32 noundef %7) #21
+  br label %43
 
-42:                                               ; preds = %39, %35
-  %43 = sext i32 %36 to i64
-  %44 = getelementptr inbounds i8, ptr %0, i64 %43
-  %45 = load i8, ptr %44, align 1, !tbaa !9
-  %46 = icmp eq i8 %45, 10
-  %47 = icmp sle i32 %36, %19
-  %48 = select i1 %46, i1 %47, i1 false
-  br i1 %48, label %49, label %61
+43:                                               ; preds = %40, %36
+  %44 = sext i32 %37 to i64
+  %45 = getelementptr inbounds i8, ptr %0, i64 %44
+  %46 = load i8, ptr %45, align 1, !tbaa !9
+  %47 = icmp eq i8 %46, 10
+  %48 = icmp sle i32 %37, %19
+  %49 = select i1 %47, i1 %48, i1 false
+  br i1 %49, label %50, label %61
 
-49:                                               ; preds = %42
-  %50 = sext i32 %19 to i64
-  br label %51
+50:                                               ; preds = %43
+  %51 = sext i32 %19 to i64
+  br label %52
 
-51:                                               ; preds = %49, %51
-  %52 = phi i64 [ %43, %49 ], [ %55, %51 ]
-  %53 = load ptr, ptr @stdout, align 8, !tbaa !10
-  %54 = tail call i32 @putc(i32 noundef 10, ptr noundef %53)
-  %55 = add nsw i64 %52, 1
+52:                                               ; preds = %50, %52
+  %53 = phi i64 [ %44, %50 ], [ %55, %52 ]
+  %54 = tail call i32 @putchar(i32 10)
+  %55 = add nsw i64 %53, 1
   %56 = getelementptr inbounds i8, ptr %0, i64 %55
   %57 = load i8, ptr %56, align 1, !tbaa !9
   %58 = icmp eq i8 %57, 10
-  %59 = icmp slt i64 %52, %50
+  %59 = icmp slt i64 %53, %51
   %60 = select i1 %58, i1 %59, i1 false
-  br i1 %60, label %51, label %61, !llvm.loop !71
+  br i1 %60, label %52, label %61, !llvm.loop !71
 
-61:                                               ; preds = %51, %42
-  %62 = phi i64 [ %43, %42 ], [ %55, %51 ]
+61:                                               ; preds = %52, %43
+  %62 = phi i64 [ %44, %43 ], [ %55, %52 ]
   %63 = getelementptr inbounds i8, ptr %0, i64 %62
   %64 = load i32, ptr @FNAME, align 4, !tbaa !5
   %65 = icmp eq i32 %64, 1
@@ -5261,31 +5260,30 @@ define dso_local void @output(ptr noundef readonly %0, i32 noundef %1, i32 nound
 68:                                               ; preds = %66, %61
   %69 = load i32, ptr @LINENUM, align 4, !tbaa !5
   %70 = icmp eq i32 %69, 0
-  br i1 %70, label %75, label %71
+  br i1 %70, label %74, label %71
 
 71:                                               ; preds = %68
-  %72 = add i32 %3, -1
-  %73 = add i32 %72, %23
-  %74 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.26, i32 noundef %73)
-  br label %75
+  %72 = add nsw i32 %24, -1
+  %73 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.26, i32 noundef %72)
+  br label %74
 
-75:                                               ; preds = %71, %68
-  %76 = sext i32 %19 to i64
-  %77 = getelementptr inbounds i8, ptr %0, i64 %76
-  %78 = icmp sgt i64 %62, %76
-  br i1 %78, label %87, label %79
+74:                                               ; preds = %71, %68
+  %75 = sext i32 %19 to i64
+  %76 = getelementptr inbounds i8, ptr %0, i64 %75
+  %77 = icmp sgt i64 %62, %75
+  br i1 %77, label %86, label %78
 
-79:                                               ; preds = %75, %79
-  %80 = phi ptr [ %81, %79 ], [ %63, %75 ]
-  %81 = getelementptr inbounds i8, ptr %80, i64 1
-  %82 = load i8, ptr %80, align 1, !tbaa !9
-  %83 = zext i8 %82 to i32
-  %84 = load ptr, ptr @stdout, align 8, !tbaa !10
-  %85 = tail call i32 @putc(i32 noundef %83, ptr noundef %84)
-  %86 = icmp ugt ptr %81, %77
-  br i1 %86, label %87, label %79, !llvm.loop !72
+78:                                               ; preds = %74, %78
+  %79 = phi ptr [ %80, %78 ], [ %63, %74 ]
+  %80 = getelementptr inbounds i8, ptr %79, i64 1
+  %81 = load i8, ptr %79, align 1, !tbaa !9
+  %82 = zext i8 %81 to i32
+  %83 = load ptr, ptr @stdout, align 8, !tbaa !10
+  %84 = tail call i32 @putc(i32 noundef %82, ptr noundef %83)
+  %85 = icmp ugt ptr %80, %76
+  br i1 %85, label %86, label %78, !llvm.loop !72
 
-87:                                               ; preds = %79, %75, %6, %4
+86:                                               ; preds = %78, %74, %6, %4
   ret void
 }
 
@@ -5295,8 +5293,8 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #4
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #16
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
 
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #17
@@ -5304,17 +5302,17 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #17
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #18
-
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #19
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #18
+declare i32 @llvm.umax.i32(i32, i32) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.or.v4i32(<4 x i32>) #18
+declare i32 @llvm.smin.i32(i32, i32) #19
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.vector.reduce.or.v4i32(<4 x i32>) #19
 
 attributes #0 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -5332,10 +5330,10 @@ attributes #12 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trap
 attributes #13 = { nofree norecurse nosync nounwind memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #14 = { inlinehint nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #15 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #17 = { nofree nounwind }
-attributes #18 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #19 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #18 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #19 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #20 = { nounwind }
 attributes #21 = { cold }
 attributes #22 = { noreturn nounwind }

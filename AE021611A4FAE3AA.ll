@@ -456,7 +456,7 @@ define dso_local void @c_print_results(ptr noundef %0, i8 noundef signext %1, i3
   %15 = sext i32 %2 to i64
   %16 = tail call i32 @llvm.umax.i32(i32 %3, i32 1)
   %17 = sext i32 %16 to i64
-  %18 = mul nsw i64 %17, %15
+  %18 = mul nsw i64 %15, %17
   %19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %18)
   br label %22
 

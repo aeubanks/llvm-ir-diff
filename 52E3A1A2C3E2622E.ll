@@ -364,7 +364,7 @@ define dso_local noundef zeroext i1 @_ZN2kc12is_uview_varEPNS_7impl_IDE(ptr noun
   %30 = icmp eq i32 %29, 147
   br i1 %30, label %9, label %31, !llvm.loop !36
 
-31:                                               ; preds = %24, %4, %21, %1
+31:                                               ; preds = %24, %21, %4, %1
   %32 = phi i1 [ false, %1 ], [ true, %21 ], [ false, %4 ], [ false, %24 ]
   ret i1 %32
 }
@@ -467,7 +467,7 @@ define dso_local noundef ptr @_ZN2kc19f_listelementphylumEPNS_7impl_IDE(ptr noun
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.4, i32 noundef 243, ptr noundef nonnull @.str.1)
   br label %48
 
-48:                                               ; preds = %43, %40, %36, %33, %29, %47
+48:                                               ; preds = %36, %33, %29, %40, %43, %47
   %49 = phi ptr [ null, %47 ], [ %32, %29 ], [ %39, %36 ], [ %34, %33 ], [ %46, %43 ], [ %41, %40 ]
   ret ptr %49
 }
@@ -587,7 +587,7 @@ define dso_local noundef ptr @_ZN2kc25f_listelementconsoperatorEPNS_7impl_IDE(pt
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.5, i32 noundef 280, ptr noundef nonnull @.str.1)
   br label %70
 
-70:                                               ; preds = %65, %62, %58, %55, %47, %69
+70:                                               ; preds = %58, %55, %47, %62, %65, %69
   %71 = phi ptr [ null, %69 ], [ %54, %47 ], [ %61, %58 ], [ %56, %55 ], [ %68, %65 ], [ %63, %62 ]
   ret ptr %71
 }
@@ -874,7 +874,7 @@ define dso_local noundef ptr @_ZN2kc18f_phylumofoperatorEPNS_7impl_IDE(ptr nound
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.13, i32 noundef 467, ptr noundef nonnull @.str.1)
   br label %34
 
-34:                                               ; preds = %29, %26, %15, %23, %33
+34:                                               ; preds = %15, %23, %26, %29, %33
   %35 = phi ptr [ null, %33 ], [ %17, %15 ], [ %25, %23 ], [ %32, %29 ], [ %27, %26 ]
   ret ptr %35
 }
@@ -951,7 +951,7 @@ define dso_local noundef ptr @_ZN2kc25f_phylumofpatternvariableEPNS_7impl_IDE(pt
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.14, i32 noundef 506, ptr noundef nonnull @.str.1)
   br label %26
 
-26:                                               ; preds = %21, %18, %15, %25
+26:                                               ; preds = %15, %18, %21, %25
   %27 = phi ptr [ null, %25 ], [ %17, %15 ], [ %24, %21 ], [ %19, %18 ]
   ret ptr %27
 }
@@ -1214,7 +1214,7 @@ define dso_local void @_ZN2kc40v_check_dollarvar_attribute_in_operatorsEPNS_8imp
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.23, i32 noundef 607, ptr noundef nonnull @.str.1)
   br label %90
 
-90:                                               ; preds = %83, %77, %23, %89, %84
+90:                                               ; preds = %23, %77, %83, %89, %84
   ret void
 }
 
@@ -1372,7 +1372,7 @@ define dso_local noundef ptr @_ZN2kc31f_check_unpattributes_in_phylumEPNS_18impl
   br label %49
 
 49:                                               ; preds = %29, %39, %43, %48
-  %50 = phi ptr [ null, %48 ], [ %9, %43 ], [ %42, %39 ], [ %37, %29 ]
+  %50 = phi ptr [ null, %48 ], [ %42, %39 ], [ %37, %29 ], [ %9, %43 ]
   tail call void @_ZN2kc18impl_abstract_list8freelistEv(ptr noundef nonnull align 8 dereferenceable(8) %6)
   ret ptr %50
 }
@@ -1445,7 +1445,7 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
 31:                                               ; preds = %24
   %32 = load ptr, ptr %25, align 8, !tbaa !82
   %33 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %32, i64 0, i32 1
-  %34 = load ptr, ptr %33, align 8, !tbaa !20
+  %34 = load ptr, ptr %33, align 8, !tbaa !83
   %35 = load ptr, ptr %34, align 8, !tbaa !5
   %36 = load ptr, ptr %35, align 8
   %37 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(24) %34)
@@ -1455,7 +1455,7 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
 39:                                               ; preds = %31, %53
   %40 = phi ptr [ %55, %53 ], [ %34, %31 ]
   %41 = getelementptr inbounds %"class.kc::impl_attributes", ptr %40, i64 0, i32 1
-  %42 = load ptr, ptr %41, align 8, !tbaa !83
+  %42 = load ptr, ptr %41, align 8, !tbaa !86
   %43 = load ptr, ptr %42, align 8, !tbaa !5
   %44 = load ptr, ptr %43, align 8
   %45 = tail call noundef i32 %44(ptr noundef nonnull align 8 dereferenceable(8) %42)
@@ -1464,24 +1464,24 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
 
 47:                                               ; preds = %39
   %48 = getelementptr inbounds %"class.kc::impl_attribute_Attribute", ptr %42, i64 0, i32 1
-  %49 = load ptr, ptr %48, align 8, !tbaa !85
+  %49 = load ptr, ptr %48, align 8, !tbaa !88
   %50 = getelementptr inbounds %"class.kc::impl_attribute_Attribute", ptr %42, i64 0, i32 2
-  %51 = load ptr, ptr %50, align 8, !tbaa !88
+  %51 = load ptr, ptr %50, align 8, !tbaa !91
   %52 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %51)
   br i1 %52, label %144, label %53
 
 53:                                               ; preds = %47, %39
   %54 = getelementptr inbounds %"class.kc::impl_attributes", ptr %40, i64 0, i32 2
-  %55 = load ptr, ptr %54, align 8, !tbaa !20
+  %55 = load ptr, ptr %54, align 8, !tbaa !92
   %56 = load ptr, ptr %55, align 8, !tbaa !5
   %57 = load ptr, ptr %56, align 8
   %58 = tail call noundef i32 %57(ptr noundef nonnull align 8 dereferenceable(24) %55)
   %59 = icmp eq i32 %58, 33
-  br i1 %59, label %39, label %60, !llvm.loop !89
+  br i1 %59, label %39, label %60, !llvm.loop !93
 
 60:                                               ; preds = %53, %31
   %61 = getelementptr inbounds %"class.kc::impl_phylumdeclaration", ptr %3, i64 0, i32 2
-  %62 = load ptr, ptr %61, align 8, !tbaa !20
+  %62 = load ptr, ptr %61, align 8, !tbaa !94
   %63 = load ptr, ptr %62, align 8, !tbaa !5
   %64 = load ptr, ptr %63, align 8
   %65 = tail call noundef i32 %64(ptr noundef nonnull align 8 dereferenceable(24) %62)
@@ -1491,7 +1491,7 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
 67:                                               ; preds = %60, %129
   %68 = phi ptr [ %131, %129 ], [ %62, %60 ]
   %69 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %68, i64 0, i32 1
-  %70 = load ptr, ptr %69, align 8, !tbaa !90
+  %70 = load ptr, ptr %69, align 8, !tbaa !95
   %71 = load ptr, ptr %70, align 8, !tbaa !5
   %72 = load ptr, ptr %71, align 8
   %73 = tail call noundef i32 %72(ptr noundef nonnull align 8 dereferenceable(8) %70)
@@ -1500,7 +1500,7 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
 
 75:                                               ; preds = %67
   %76 = getelementptr inbounds %"class.kc::impl_fndeclaration_AcMemberDeclaration", ptr %70, i64 0, i32 1
-  %77 = load ptr, ptr %76, align 8, !tbaa !92
+  %77 = load ptr, ptr %76, align 8, !tbaa !97
   %78 = load ptr, ptr %77, align 8, !tbaa !5
   %79 = load ptr, ptr %78, align 8
   %80 = tail call noundef i32 %79(ptr noundef nonnull align 8 dereferenceable(24) %77)
@@ -1508,9 +1508,9 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
   br i1 %81, label %82, label %129
 
 82:                                               ; preds = %75
-  %83 = load ptr, ptr %76, align 8, !tbaa !92
+  %83 = load ptr, ptr %76, align 8, !tbaa !97
   %84 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %83, i64 0, i32 1
-  %85 = load ptr, ptr %84, align 8, !tbaa !95
+  %85 = load ptr, ptr %84, align 8, !tbaa !100
   %86 = load ptr, ptr %85, align 8, !tbaa !5
   %87 = load ptr, ptr %86, align 8
   %88 = tail call noundef i32 %87(ptr noundef nonnull align 8 dereferenceable(8) %85)
@@ -1518,11 +1518,11 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
   br i1 %89, label %90, label %129
 
 90:                                               ; preds = %82
-  %91 = load ptr, ptr %76, align 8, !tbaa !92
+  %91 = load ptr, ptr %76, align 8, !tbaa !97
   %92 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %91, i64 0, i32 1
-  %93 = load ptr, ptr %92, align 8, !tbaa !95
+  %93 = load ptr, ptr %92, align 8, !tbaa !100
   %94 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecTypeSpec", ptr %93, i64 0, i32 1
-  %95 = load ptr, ptr %94, align 8, !tbaa !97
+  %95 = load ptr, ptr %94, align 8, !tbaa !102
   %96 = load ptr, ptr %95, align 8, !tbaa !5
   %97 = load ptr, ptr %96, align 8
   %98 = tail call noundef i32 %97(ptr noundef nonnull align 8 dereferenceable(8) %95)
@@ -1531,7 +1531,7 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
 
 100:                                              ; preds = %90
   %101 = getelementptr inbounds %"class.kc::impl_fndeclaration_AcMemberDeclaration", ptr %70, i64 0, i32 2
-  %102 = load ptr, ptr %101, align 8, !tbaa !100
+  %102 = load ptr, ptr %101, align 8, !tbaa !105
   %103 = load ptr, ptr %102, align 8, !tbaa !5
   %104 = load ptr, ptr %103, align 8
   %105 = tail call noundef i32 %104(ptr noundef nonnull align 8 dereferenceable(8) %102)
@@ -1539,9 +1539,9 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
   br i1 %106, label %107, label %129
 
 107:                                              ; preds = %100
-  %108 = load ptr, ptr %101, align 8, !tbaa !100
+  %108 = load ptr, ptr %101, align 8, !tbaa !105
   %109 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %108, i64 0, i32 3
-  %110 = load ptr, ptr %109, align 8, !tbaa !101
+  %110 = load ptr, ptr %109, align 8, !tbaa !106
   %111 = load ptr, ptr %110, align 8, !tbaa !5
   %112 = load ptr, ptr %111, align 8
   %113 = tail call noundef i32 %112(ptr noundef nonnull align 8 dereferenceable(8) %110)
@@ -1549,29 +1549,29 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
   br i1 %114, label %115, label %129
 
 115:                                              ; preds = %107
-  %116 = load ptr, ptr %76, align 8, !tbaa !92
+  %116 = load ptr, ptr %76, align 8, !tbaa !97
   %117 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %116, i64 0, i32 1
-  %118 = load ptr, ptr %117, align 8, !tbaa !95
+  %118 = load ptr, ptr %117, align 8, !tbaa !100
   %119 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecTypeSpec", ptr %118, i64 0, i32 1
-  %120 = load ptr, ptr %119, align 8, !tbaa !97
+  %120 = load ptr, ptr %119, align 8, !tbaa !102
   %121 = getelementptr inbounds %"class.kc::impl_ac_type_specifier_AcTypeSpec", ptr %120, i64 0, i32 1
-  %122 = load ptr, ptr %121, align 8, !tbaa !104
-  %123 = load ptr, ptr %101, align 8, !tbaa !100
+  %122 = load ptr, ptr %121, align 8, !tbaa !109
+  %123 = load ptr, ptr %101, align 8, !tbaa !105
   %124 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %123, i64 0, i32 3
-  %125 = load ptr, ptr %124, align 8, !tbaa !101
+  %125 = load ptr, ptr %124, align 8, !tbaa !106
   %126 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcMemberDecl", ptr %125, i64 0, i32 2
-  %127 = load ptr, ptr %126, align 8, !tbaa !107
+  %127 = load ptr, ptr %126, align 8, !tbaa !112
   %128 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %127)
   br i1 %128, label %144, label %129
 
 129:                                              ; preds = %115, %107, %100, %90, %82, %75, %67
   %130 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %68, i64 0, i32 2
-  %131 = load ptr, ptr %130, align 8, !tbaa !20
+  %131 = load ptr, ptr %130, align 8, !tbaa !115
   %132 = load ptr, ptr %131, align 8, !tbaa !5
   %133 = load ptr, ptr %132, align 8
   %134 = tail call noundef i32 %133(ptr noundef nonnull align 8 dereferenceable(24) %131)
   %135 = icmp eq i32 %134, 108
-  br i1 %135, label %67, label %136, !llvm.loop !110
+  br i1 %135, label %67, label %136, !llvm.loop !116
 
 136:                                              ; preds = %129, %60
   %137 = load ptr, ptr @_ZZN2kc9f_emptyIdEvE7emptyID, align 8, !tbaa !20
@@ -1589,8 +1589,8 @@ define dso_local noundef ptr @_ZN2kc28f_typeof_attribute_in_phylymEPNS_7impl_IDE
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.25, i32 noundef 748, ptr noundef nonnull @.str.1)
   br label %144
 
-144:                                              ; preds = %47, %115, %139, %136, %15, %5, %143
-  %145 = phi ptr [ null, %143 ], [ %18, %15 ], [ %13, %5 ], [ %142, %139 ], [ %137, %136 ], [ %122, %115 ], [ %49, %47 ]
+144:                                              ; preds = %47, %115, %143, %139, %136, %15, %5
+  %145 = phi ptr [ %18, %15 ], [ %13, %5 ], [ null, %143 ], [ %142, %139 ], [ %137, %136 ], [ %122, %115 ], [ %49, %47 ]
   ret ptr %145
 }
 
@@ -1798,7 +1798,7 @@ define dso_local noundef ptr @_ZN2kc10f_argumentEPNS_14impl_argumentsEPNS_8impl_
 
 32:                                               ; preds = %27
   %33 = getelementptr inbounds %"class.kc::impl_arguments", ptr %18, i64 0, i32 1
-  %34 = load i32, ptr %33, align 8, !tbaa !111
+  %34 = load i32, ptr %33, align 8, !tbaa !117
   %35 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %34)
   %36 = tail call noundef ptr @_ZN2kc8ArgumentEPNS_7impl_IDEPNS_17impl_integer__IntE(ptr noundef %20, ptr noundef %35)
   br label %56
@@ -1891,7 +1891,7 @@ define dso_local noundef ptr @_ZN2kc24f_phylumofoutmostpatternEPNS_19impl_outmos
 
 31:                                               ; preds = %26
   %32 = getelementptr inbounds %"class.kc::impl_outmostpattern_OPNonLeafVariable", ptr %14, i64 0, i32 2
-  %33 = load ptr, ptr %32, align 8, !tbaa !112
+  %33 = load ptr, ptr %32, align 8, !tbaa !118
   %34 = load ptr, ptr %33, align 8, !tbaa !5
   %35 = load ptr, ptr %34, align 8
   %36 = tail call noundef i32 %35(ptr noundef nonnull align 8 dereferenceable(8) %33)
@@ -1907,7 +1907,7 @@ define dso_local noundef ptr @_ZN2kc24f_phylumofoutmostpatternEPNS_19impl_outmos
 
 43:                                               ; preds = %38
   %44 = getelementptr inbounds %"class.kc::impl_outmostpattern_OPOperator", ptr %14, i64 0, i32 1
-  %45 = load ptr, ptr %44, align 8, !tbaa !115
+  %45 = load ptr, ptr %44, align 8, !tbaa !121
   %46 = tail call noundef ptr @_ZN2kc18f_phylumofoperatorEPNS_7impl_IDE(ptr noundef %45)
   br label %57
 
@@ -1920,7 +1920,7 @@ define dso_local noundef ptr @_ZN2kc24f_phylumofoutmostpatternEPNS_19impl_outmos
 
 52:                                               ; preds = %47
   %53 = getelementptr inbounds %"class.kc::impl_outmostpattern_OPOperatorWildcard", ptr %14, i64 0, i32 1
-  %54 = load ptr, ptr %53, align 8, !tbaa !117
+  %54 = load ptr, ptr %53, align 8, !tbaa !123
   %55 = tail call noundef ptr @_ZN2kc18f_phylumofoperatorEPNS_7impl_IDE(ptr noundef %54)
   br label %57
 
@@ -1977,7 +1977,7 @@ define dso_local noundef ptr @_ZN2kc18f_operatorofphylumEPNS_7impl_IDEi(ptr noun
 
 31:                                               ; preds = %24
   %32 = getelementptr inbounds %"class.kc::impl_productionblock_PredefinedAlternatives", ptr %26, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !119
+  %33 = load ptr, ptr %32, align 8, !tbaa !125
   %34 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %33)
   %35 = load ptr, ptr %33, align 8, !tbaa !5
   %36 = load ptr, ptr %35, align 8
@@ -1993,7 +1993,7 @@ define dso_local noundef ptr @_ZN2kc18f_operatorofphylumEPNS_7impl_IDEi(ptr noun
 
 43:                                               ; preds = %39
   %44 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %41, i64 0, i32 2
-  %45 = load ptr, ptr %44, align 8, !tbaa !121
+  %45 = load ptr, ptr %44, align 8, !tbaa !127
   %46 = add nsw i32 %40, -1
   %47 = load ptr, ptr %45, align 8, !tbaa !5
   %48 = load ptr, ptr %47, align 8
@@ -2064,7 +2064,7 @@ define dso_local noundef ptr @_ZN2kc18f_operatorofphylumEPNS_7impl_IDEi(ptr noun
 
 90:                                               ; preds = %85
   %91 = getelementptr inbounds %"class.kc::impl_productionblock_NonlistAlternatives", ptr %26, i64 0, i32 1
-  %92 = load ptr, ptr %91, align 8, !tbaa !122
+  %92 = load ptr, ptr %91, align 8, !tbaa !128
   %93 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %92)
   %94 = load ptr, ptr %92, align 8, !tbaa !5
   %95 = load ptr, ptr %94, align 8
@@ -2080,7 +2080,7 @@ define dso_local noundef ptr @_ZN2kc18f_operatorofphylumEPNS_7impl_IDEi(ptr noun
 
 102:                                              ; preds = %98
   %103 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %100, i64 0, i32 2
-  %104 = load ptr, ptr %103, align 8, !tbaa !121
+  %104 = load ptr, ptr %103, align 8, !tbaa !127
   %105 = add nsw i32 %99, -1
   %106 = load ptr, ptr %104, align 8, !tbaa !5
   %107 = load ptr, ptr %106, align 8
@@ -2167,7 +2167,7 @@ define dso_local noundef ptr @_ZN2kc18f_operatorofphylumEPNS_7impl_IDEi(ptr noun
 
 161:                                              ; preds = %157
   %162 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %159, i64 0, i32 2
-  %163 = load ptr, ptr %162, align 8, !tbaa !121
+  %163 = load ptr, ptr %162, align 8, !tbaa !127
   %164 = add nsw i32 %158, -1
   %165 = load ptr, ptr %163, align 8, !tbaa !5
   %166 = load ptr, ptr %165, align 8
@@ -2240,8 +2240,8 @@ define dso_local noundef ptr @_ZN2kc18f_operatorofphylumEPNS_7impl_IDEi(ptr noun
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.30, i32 noundef 983, ptr noundef nonnull @.str.1)
   br label %207
 
-207:                                              ; preds = %131, %121, %72, %62, %15, %5, %206, %180, %197, %194, %143, %140, %84, %81, %205, %203
-  %208 = phi ptr [ null, %206 ], [ %204, %203 ], [ null, %205 ], [ %83, %81 ], [ null, %84 ], [ %142, %140 ], [ null, %143 ], [ %188, %180 ], [ %196, %194 ], [ null, %197 ], [ %18, %15 ], [ %13, %5 ], [ %75, %72 ], [ %70, %62 ], [ %134, %131 ], [ %129, %121 ]
+207:                                              ; preds = %206, %180, %197, %194, %121, %131, %143, %140, %62, %72, %84, %81, %205, %203, %15, %5
+  %208 = phi ptr [ %18, %15 ], [ %13, %5 ], [ null, %206 ], [ %204, %203 ], [ null, %205 ], [ %75, %72 ], [ %70, %62 ], [ %83, %81 ], [ null, %84 ], [ %134, %131 ], [ %129, %121 ], [ %142, %140 ], [ null, %143 ], [ %188, %180 ], [ %196, %194 ], [ null, %197 ]
   ret ptr %208
 }
 
@@ -2267,7 +2267,7 @@ define dso_local noundef ptr @_ZN2kc13f_alternativeEPNS_17impl_alternativesEi(pt
 
 15:                                               ; preds = %8
   %16 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %10, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !121
+  %17 = load ptr, ptr %16, align 8, !tbaa !127
   %18 = add nsw i32 %9, -1
   %19 = load ptr, ptr %17, align 8, !tbaa !5
   %20 = load ptr, ptr %19, align 8
@@ -2304,16 +2304,16 @@ define dso_local void @_ZN2kc31v_reset_phylumdeclaration_marksEv() local_unnamed
 6:                                                ; preds = %0, %6
   %7 = phi ptr [ %12, %6 ], [ %1, %0 ]
   %8 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %7, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !124
+  %9 = load ptr, ptr %8, align 8, !tbaa !130
   %10 = getelementptr inbounds %"class.kc::impl_phylumdeclaration", ptr %9, i64 0, i32 1
-  store i32 0, ptr %10, align 8, !tbaa !126
+  store i32 0, ptr %10, align 8, !tbaa !132
   %11 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %7, i64 0, i32 2
   %12 = load ptr, ptr %11, align 8, !tbaa !20
   %13 = load ptr, ptr %12, align 8, !tbaa !5
   %14 = load ptr, ptr %13, align 8
   %15 = tail call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(24) %12)
   %16 = icmp eq i32 %15, 12
-  br i1 %16, label %6, label %17, !llvm.loop !127
+  br i1 %16, label %6, label %17, !llvm.loop !133
 
 17:                                               ; preds = %6, %0
   ret void
@@ -2330,7 +2330,7 @@ define dso_local void @_ZN2kc22v_reset_variables_typeEPNS_14impl_variablesE(ptr 
 6:                                                ; preds = %1, %130
   %7 = phi ptr [ %132, %130 ], [ %0, %1 ]
   %8 = getelementptr inbounds %"class.kc::impl_variables", ptr %7, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !128
+  %9 = load ptr, ptr %8, align 8, !tbaa !134
   %10 = load ptr, ptr %9, align 8, !tbaa !5
   %11 = load ptr, ptr %10, align 8
   %12 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(8) %9)
@@ -2350,9 +2350,9 @@ define dso_local void @_ZN2kc22v_reset_variables_typeEPNS_14impl_variablesE(ptr 
 
 23:                                               ; preds = %14
   %24 = getelementptr inbounds %"class.kc::impl_IDtype_ITPatternVariable", ptr %18, i64 0, i32 2
-  %25 = load ptr, ptr %24, align 8, !tbaa !130
+  %25 = load ptr, ptr %24, align 8, !tbaa !136
   %26 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %16, i64 0, i32 4
-  %27 = load ptr, ptr %26, align 8, !tbaa !131
+  %27 = load ptr, ptr %26, align 8, !tbaa !137
   %28 = load ptr, ptr %27, align 8, !tbaa !5
   %29 = load ptr, ptr %28, align 8
   %30 = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(24) %27)
@@ -2361,7 +2361,7 @@ define dso_local void @_ZN2kc22v_reset_variables_typeEPNS_14impl_variablesE(ptr 
 
 32:                                               ; preds = %23
   %33 = getelementptr inbounds %"class.kc::impl_scopetypefilelinestack", ptr %27, i64 0, i32 1
-  %34 = load ptr, ptr %33, align 8, !tbaa !132
+  %34 = load ptr, ptr %33, align 8, !tbaa !138
   %35 = load ptr, ptr %34, align 8, !tbaa !5
   %36 = load ptr, ptr %35, align 8
   %37 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(8) %34)
@@ -2369,29 +2369,29 @@ define dso_local void @_ZN2kc22v_reset_variables_typeEPNS_14impl_variablesE(ptr 
   br i1 %38, label %39, label %57
 
 39:                                               ; preds = %32
-  %40 = load ptr, ptr %33, align 8, !tbaa !132
+  %40 = load ptr, ptr %33, align 8, !tbaa !138
   %41 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %40, i64 0, i32 1
-  %42 = load ptr, ptr %41, align 8, !tbaa !134
+  %42 = load ptr, ptr %41, align 8, !tbaa !140
   %43 = icmp eq ptr %42, %25
   br i1 %43, label %44, label %130
 
 44:                                               ; preds = %39
-  %45 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %40, i64 0, i32 3
-  %46 = load ptr, ptr %45, align 8, !tbaa !137
-  %47 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %40, i64 0, i32 2
-  %48 = load ptr, ptr %47, align 8, !tbaa !138
-  %49 = getelementptr inbounds %"class.kc::impl_scopetypefilelinestack", ptr %27, i64 0, i32 2
-  %50 = load ptr, ptr %49, align 8, !tbaa !139
-  %51 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %40, i64 0, i32 4
-  %52 = load ptr, ptr %51, align 8, !tbaa !140
-  store ptr %48, ptr %17, align 8, !tbaa !37
+  %45 = getelementptr inbounds %"class.kc::impl_scopetypefilelinestack", ptr %27, i64 0, i32 2
+  %46 = load ptr, ptr %45, align 8, !tbaa !143
+  %47 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %40, i64 0, i32 4
+  %48 = load ptr, ptr %47, align 8, !tbaa !144
+  %49 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %40, i64 0, i32 3
+  %50 = load ptr, ptr %49, align 8, !tbaa !145
+  %51 = getelementptr inbounds %"class.kc::impl_scopetypefileline_ScopeTypeFileLine", ptr %40, i64 0, i32 2
+  %52 = load ptr, ptr %51, align 8, !tbaa !146
+  store ptr %52, ptr %17, align 8, !tbaa !37
   %53 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %16, i64 0, i32 3
-  store ptr %46, ptr %53, align 8, !tbaa !141
-  %54 = getelementptr inbounds %"class.kc::impl_integer__Int", ptr %52, i64 0, i32 1
+  store ptr %50, ptr %53, align 8, !tbaa !147
+  %54 = getelementptr inbounds %"class.kc::impl_integer__Int", ptr %48, i64 0, i32 1
   %55 = load i32, ptr %54, align 8, !tbaa !75
   %56 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %16, i64 0, i32 2
-  store i32 %55, ptr %56, align 8, !tbaa !142
-  store ptr %50, ptr %26, align 8, !tbaa !131
+  store i32 %55, ptr %56, align 8, !tbaa !148
+  store ptr %46, ptr %26, align 8, !tbaa !137
   br label %130
 
 57:                                               ; preds = %32, %23
@@ -2406,9 +2406,9 @@ define dso_local void @_ZN2kc22v_reset_variables_typeEPNS_14impl_variablesE(ptr 
   store ptr %63, ptr %17, align 8, !tbaa !37
   %64 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull @.str.6, i32 noundef -1)
   %65 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %16, i64 0, i32 3
-  store ptr %64, ptr %65, align 8, !tbaa !141
+  store ptr %64, ptr %65, align 8, !tbaa !147
   %66 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %16, i64 0, i32 2
-  store i32 0, ptr %66, align 8, !tbaa !142
+  store i32 0, ptr %66, align 8, !tbaa !148
   br label %130
 
 67:                                               ; preds = %57
@@ -2509,12 +2509,12 @@ define dso_local void @_ZN2kc22v_reset_variables_typeEPNS_14impl_variablesE(ptr 
 
 130:                                              ; preds = %73, %83, %93, %103, %113, %128, %123, %118, %108, %98, %88, %78, %68, %39, %44, %62, %67, %129
   %131 = getelementptr inbounds %"class.kc::impl_variables", ptr %7, i64 0, i32 2
-  %132 = load ptr, ptr %131, align 8, !tbaa !143
+  %132 = load ptr, ptr %131, align 8, !tbaa !149
   %133 = load ptr, ptr %132, align 8, !tbaa !5
   %134 = load ptr, ptr %133, align 8
   %135 = tail call noundef i32 %134(ptr noundef nonnull align 8 dereferenceable(24) %132)
   %136 = icmp eq i32 %135, 192
-  br i1 %136, label %6, label %137, !llvm.loop !144
+  br i1 %136, label %6, label %137, !llvm.loop !150
 
 137:                                              ; preds = %130, %1
   ret void
@@ -2529,31 +2529,31 @@ define dso_local void @_ZN2kc19v_add_to_uviewnamesEPNS_7impl_IDE(ptr noundef %0)
   %4 = load ptr, ptr %3, align 8
   %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(32) %2)
   %6 = icmp eq i32 %5, 145
-  br i1 %6, label %14, label %19
+  br i1 %6, label %7, label %19
 
-7:                                                ; preds = %14
-  %8 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %15, i64 0, i32 3
-  %9 = load ptr, ptr %8, align 8, !tbaa !20
-  %10 = load ptr, ptr %9, align 8, !tbaa !5
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(32) %9)
-  %13 = icmp eq i32 %12, 145
-  br i1 %13, label %14, label %19
+7:                                                ; preds = %1, %12
+  %8 = phi ptr [ %14, %12 ], [ %2, %1 ]
+  %9 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %8, i64 0, i32 2
+  %10 = load ptr, ptr %9, align 8, !tbaa !151
+  %11 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %10, ptr noundef %0)
+  br i1 %11, label %22, label %12
 
-14:                                               ; preds = %1, %7
-  %15 = phi ptr [ %9, %7 ], [ %2, %1 ]
-  %16 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %15, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !145
-  %18 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %17, ptr noundef %0)
-  br i1 %18, label %22, label %7
+12:                                               ; preds = %7
+  %13 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %8, i64 0, i32 3
+  %14 = load ptr, ptr %13, align 8, !tbaa !153
+  %15 = load ptr, ptr %14, align 8, !tbaa !5
+  %16 = load ptr, ptr %15, align 8
+  %17 = tail call noundef i32 %16(ptr noundef nonnull align 8 dereferenceable(32) %14)
+  %18 = icmp eq i32 %17, 145
+  br i1 %18, label %7, label %19
 
-19:                                               ; preds = %7, %1
+19:                                               ; preds = %12, %1
   %20 = load ptr, ptr @Theuviewnames, align 8, !tbaa !20
   %21 = tail call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %0, ptr noundef %20)
   store ptr %21, ptr @Theuviewnames, align 8, !tbaa !20
   br label %22
 
-22:                                               ; preds = %14, %19
+22:                                               ; preds = %7, %19
   ret void
 }
 
@@ -2582,15 +2582,15 @@ define dso_local void @_ZN2kc23v_add_to_uviewnames_extEPNS_7impl_IDE(ptr noundef
 
 15:                                               ; preds = %10
   %16 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %5, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !145
+  %17 = load ptr, ptr %16, align 8, !tbaa !151
   %18 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %5, i64 0, i32 3
-  %19 = load ptr, ptr %18, align 8, !tbaa !147
+  %19 = load ptr, ptr %18, align 8, !tbaa !153
   %20 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %17, ptr noundef %0)
   br i1 %20, label %21, label %26
 
 21:                                               ; preds = %15
   %22 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %5, i64 0, i32 1
-  %23 = load i8, ptr %22, align 8, !tbaa !148, !range !18, !noundef !19
+  %23 = load i8, ptr %22, align 8, !tbaa !154, !range !18, !noundef !19
   %24 = icmp eq i8 %23, 0
   br i1 %24, label %35, label %37
 
@@ -2601,7 +2601,7 @@ define dso_local void @_ZN2kc23v_add_to_uviewnames_extEPNS_7impl_IDE(ptr noundef
 26:                                               ; preds = %25, %15
   %27 = phi ptr [ %5, %25 ], [ %19, %15 ]
   %28 = icmp eq ptr %27, null
-  br i1 %28, label %29, label %4, !llvm.loop !149
+  br i1 %28, label %29, label %4, !llvm.loop !155
 
 29:                                               ; preds = %4, %26
   %30 = load ptr, ptr @Theuviewnames, align 8, !tbaa !20
@@ -2616,7 +2616,7 @@ define dso_local void @_ZN2kc23v_add_to_uviewnames_extEPNS_7impl_IDE(ptr noundef
 
 35:                                               ; preds = %21, %31
   %36 = phi ptr [ %34, %31 ], [ %22, %21 ]
-  store i8 1, ptr %36, align 8, !tbaa !148
+  store i8 1, ptr %36, align 8, !tbaa !154
   br label %37
 
 37:                                               ; preds = %35, %21
@@ -2630,31 +2630,31 @@ define dso_local void @_ZN2kc19v_add_to_rviewnamesEPNS_7impl_IDE(ptr noundef %0)
   %4 = load ptr, ptr %3, align 8
   %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(32) %2)
   %6 = icmp eq i32 %5, 145
-  br i1 %6, label %14, label %19
+  br i1 %6, label %7, label %19
 
-7:                                                ; preds = %14
-  %8 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %15, i64 0, i32 3
-  %9 = load ptr, ptr %8, align 8, !tbaa !20
-  %10 = load ptr, ptr %9, align 8, !tbaa !5
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(32) %9)
-  %13 = icmp eq i32 %12, 145
-  br i1 %13, label %14, label %19
+7:                                                ; preds = %1, %12
+  %8 = phi ptr [ %14, %12 ], [ %2, %1 ]
+  %9 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %8, i64 0, i32 2
+  %10 = load ptr, ptr %9, align 8, !tbaa !151
+  %11 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %10, ptr noundef %0)
+  br i1 %11, label %22, label %12
 
-14:                                               ; preds = %1, %7
-  %15 = phi ptr [ %9, %7 ], [ %2, %1 ]
-  %16 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %15, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !145
-  %18 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %17, ptr noundef %0)
-  br i1 %18, label %22, label %7
+12:                                               ; preds = %7
+  %13 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %8, i64 0, i32 3
+  %14 = load ptr, ptr %13, align 8, !tbaa !153
+  %15 = load ptr, ptr %14, align 8, !tbaa !5
+  %16 = load ptr, ptr %15, align 8
+  %17 = tail call noundef i32 %16(ptr noundef nonnull align 8 dereferenceable(32) %14)
+  %18 = icmp eq i32 %17, 145
+  br i1 %18, label %7, label %19
 
-19:                                               ; preds = %7, %1
+19:                                               ; preds = %12, %1
   %20 = load ptr, ptr @Therviewnames, align 8, !tbaa !20
   %21 = tail call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %0, ptr noundef %20)
   store ptr %21, ptr @Therviewnames, align 8, !tbaa !20
   br label %22
 
-22:                                               ; preds = %14, %19
+22:                                               ; preds = %7, %19
   ret void
 }
 
@@ -2681,15 +2681,15 @@ define dso_local void @_ZN2kc23v_add_to_rviewnames_extEPNS_7impl_IDE(ptr noundef
 
 15:                                               ; preds = %10
   %16 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %5, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !145
+  %17 = load ptr, ptr %16, align 8, !tbaa !151
   %18 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %5, i64 0, i32 3
-  %19 = load ptr, ptr %18, align 8, !tbaa !147
+  %19 = load ptr, ptr %18, align 8, !tbaa !153
   %20 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %17, ptr noundef %0)
   br i1 %20, label %21, label %26
 
 21:                                               ; preds = %15
   %22 = getelementptr inbounds %"class.kc::impl_viewnames", ptr %5, i64 0, i32 1
-  %23 = load i8, ptr %22, align 8, !tbaa !148, !range !18, !noundef !19
+  %23 = load i8, ptr %22, align 8, !tbaa !154, !range !18, !noundef !19
   %24 = icmp eq i8 %23, 0
   br i1 %24, label %35, label %37
 
@@ -2700,7 +2700,7 @@ define dso_local void @_ZN2kc23v_add_to_rviewnames_extEPNS_7impl_IDE(ptr noundef
 26:                                               ; preds = %25, %15
   %27 = phi ptr [ %5, %25 ], [ %19, %15 ]
   %28 = icmp eq ptr %27, null
-  br i1 %28, label %29, label %4, !llvm.loop !150
+  br i1 %28, label %29, label %4, !llvm.loop !156
 
 29:                                               ; preds = %4, %26
   %30 = load ptr, ptr @Therviewnames, align 8, !tbaa !20
@@ -2715,7 +2715,7 @@ define dso_local void @_ZN2kc23v_add_to_rviewnames_extEPNS_7impl_IDE(ptr noundef
 
 35:                                               ; preds = %21, %31
   %36 = phi ptr [ %34, %31 ], [ %22, %21 ]
-  store i8 1, ptr %36, align 8, !tbaa !148
+  store i8 1, ptr %36, align 8, !tbaa !154
   br label %37
 
 37:                                               ; preds = %35, %21
@@ -2737,9 +2737,9 @@ define dso_local void @_ZN2kc23v_add_to_storageclassesEPNS_7impl_IDES1_(ptr noun
 
 10:                                               ; preds = %4
   %11 = getelementptr inbounds %"class.kc::impl_storageclasses", ptr %5, i64 0, i32 2
-  %12 = load ptr, ptr %11, align 8, !tbaa !151
+  %12 = load ptr, ptr %11, align 8, !tbaa !157
   %13 = getelementptr inbounds %"class.kc::impl_storageclasses", ptr %5, i64 0, i32 3
-  %14 = load ptr, ptr %13, align 8, !tbaa !153
+  %14 = load ptr, ptr %13, align 8, !tbaa !159
   %15 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %12, ptr noundef %0)
   br i1 %15, label %16, label %4
 
@@ -2762,9 +2762,9 @@ define dso_local void @_ZN2kc23v_add_to_storageclassesEPNS_7impl_IDES1_(ptr noun
 
 26:                                               ; preds = %23
   %27 = getelementptr inbounds %"class.kc::impl_storageclasses", ptr %5, i64 0, i32 1
-  %28 = load ptr, ptr %27, align 8, !tbaa !154
+  %28 = load ptr, ptr %27, align 8, !tbaa !160
   %29 = tail call noundef ptr @_ZN2kc15ConsphylumnamesEPNS_7impl_IDEPNS_16impl_phylumnamesE(ptr noundef nonnull %1, ptr noundef %28)
-  store ptr %29, ptr %27, align 8, !tbaa !154
+  store ptr %29, ptr %27, align 8, !tbaa !160
   br label %52
 
 30:                                               ; preds = %4
@@ -2778,7 +2778,7 @@ define dso_local void @_ZN2kc23v_add_to_storageclassesEPNS_7impl_IDES1_(ptr noun
   %36 = tail call noundef ptr @_ZN2kc18ConsstorageclassesEPNS_7impl_IDEPNS_19impl_storageclassesE(ptr noundef %0, ptr noundef %3)
   %37 = tail call noundef ptr @_ZN2kc14NilphylumnamesEv()
   %38 = getelementptr inbounds %"class.kc::impl_storageclasses", ptr %36, i64 0, i32 1
-  store ptr %37, ptr %38, align 8, !tbaa !154
+  store ptr %37, ptr %38, align 8, !tbaa !160
   %39 = load ptr, ptr @_ZZN2kc9f_emptyIdEvE7emptyID, align 8, !tbaa !20
   %40 = icmp eq ptr %39, null
   br i1 %40, label %41, label %45
@@ -2796,9 +2796,9 @@ define dso_local void @_ZN2kc23v_add_to_storageclassesEPNS_7impl_IDES1_(ptr noun
   br i1 %47, label %52, label %48
 
 48:                                               ; preds = %45
-  %49 = load ptr, ptr %38, align 8, !tbaa !154
+  %49 = load ptr, ptr %38, align 8, !tbaa !160
   %50 = tail call noundef ptr @_ZN2kc15ConsphylumnamesEPNS_7impl_IDEPNS_16impl_phylumnamesE(ptr noundef nonnull %1, ptr noundef %49)
-  store ptr %50, ptr %38, align 8, !tbaa !154
+  store ptr %50, ptr %38, align 8, !tbaa !160
   br label %52
 
 51:                                               ; preds = %30
@@ -2870,7 +2870,7 @@ define dso_local void @_ZN2kc15collect_stringsEv() local_unnamed_addr #0 {
   %40 = add nuw nsw i64 %27, 4
   %41 = add i64 %28, 4
   %42 = icmp eq i64 %41, %20
-  br i1 %42, label %43, label %26, !llvm.loop !155
+  br i1 %42, label %43, label %26, !llvm.loop !161
 
 43:                                               ; preds = %26, %22
   %44 = phi i64 [ 0, %22 ], [ %40, %26 ]
@@ -2885,12 +2885,12 @@ define dso_local void @_ZN2kc15collect_stringsEv() local_unnamed_addr #0 {
   %50 = add nuw nsw i64 %46, 1
   %51 = add i64 %47, 1
   %52 = icmp eq i64 %51, %18
-  br i1 %52, label %53, label %45, !llvm.loop !156
+  br i1 %52, label %53, label %45, !llvm.loop !162
 
 53:                                               ; preds = %45, %43
   %54 = add nuw i64 %23, 1
   %55 = icmp eq i64 %23, %1
-  br i1 %55, label %62, label %22, !llvm.loop !158
+  br i1 %55, label %62, label %22, !llvm.loop !164
 
 56:                                               ; preds = %11, %56
   %57 = phi i64 [ %60, %56 ], [ 0, %11 ]
@@ -2899,7 +2899,7 @@ define dso_local void @_ZN2kc15collect_stringsEv() local_unnamed_addr #0 {
   store ptr %58, ptr %59, align 8, !tbaa !20
   %60 = add nuw i64 %57, 1
   %61 = icmp eq i64 %57, %1
-  br i1 %61, label %62, label %56, !llvm.loop !158
+  br i1 %61, label %62, label %56, !llvm.loop !164
 
 62:                                               ; preds = %56, %53, %0
   %63 = load ptr, ptr @Theunparsedeclarations, align 8, !tbaa !20
@@ -2927,7 +2927,7 @@ define dso_local void @_ZN2kc24add_string_to_collectionEPNS_16impl_unparseitemE(
 
 6:                                                ; preds = %1
   %7 = getelementptr inbounds %"class.kc::impl_unparseitem_UnpStr", ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !159
+  %8 = load ptr, ptr %7, align 8, !tbaa !165
   %9 = load ptr, ptr %8, align 8, !tbaa !5
   %10 = load ptr, ptr %9, align 8
   %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %8)
@@ -2935,10 +2935,10 @@ define dso_local void @_ZN2kc24add_string_to_collectionEPNS_16impl_unparseitemE(
   br i1 %12, label %13, label %106
 
 13:                                               ; preds = %6
-  %14 = load ptr, ptr %7, align 8, !tbaa !159
+  %14 = load ptr, ptr %7, align 8, !tbaa !165
   %15 = getelementptr inbounds %"class.kc::impl_languageoption_LanguageList", ptr %14, i64 0, i32 1
   %16 = getelementptr inbounds %"class.kc::impl_unparseitem", ptr %0, i64 0, i32 1
-  %17 = load i32, ptr %16, align 8, !tbaa !161
+  %17 = load i32, ptr %16, align 8, !tbaa !167
   %18 = sext i32 %17 to i64
   %19 = load ptr, ptr %15, align 8, !tbaa !20
   %20 = load ptr, ptr %19, align 8, !tbaa !5
@@ -2950,7 +2950,7 @@ define dso_local void @_ZN2kc24add_string_to_collectionEPNS_16impl_unparseitemE(
 24:                                               ; preds = %13, %99
   %25 = phi ptr [ %101, %99 ], [ %19, %13 ]
   %26 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %25, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !162
+  %27 = load ptr, ptr %26, align 8, !tbaa !168
   %28 = load ptr, ptr %27, align 8, !tbaa !5
   %29 = load ptr, ptr %28, align 8
   %30 = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(8) %27)
@@ -2970,7 +2970,7 @@ define dso_local void @_ZN2kc24add_string_to_collectionEPNS_16impl_unparseitemE(
 
 41:                                               ; preds = %32
   %42 = getelementptr inbounds %"class.kc::impl_IDtype_ITLanguageName", ptr %36, i64 0, i32 1
-  %43 = load ptr, ptr %42, align 8, !tbaa !164
+  %43 = load ptr, ptr %42, align 8, !tbaa !170
   %44 = load ptr, ptr @_ZL17string_collection, align 8, !tbaa !20
   %45 = getelementptr inbounds ptr, ptr %44, i64 %18
   %46 = load ptr, ptr %45, align 8, !tbaa !20
@@ -2997,7 +2997,7 @@ define dso_local void @_ZN2kc24add_string_to_collectionEPNS_16impl_unparseitemE(
 63:                                               ; preds = %56
   %64 = load ptr, ptr %57, align 8, !tbaa !29
   %65 = getelementptr inbounds %"class.kc::impl_unparseitem_UnpStr", ptr %64, i64 0, i32 1
-  %66 = load ptr, ptr %65, align 8, !tbaa !159
+  %66 = load ptr, ptr %65, align 8, !tbaa !165
   %67 = load ptr, ptr %66, align 8, !tbaa !5
   %68 = load ptr, ptr %67, align 8
   %69 = tail call noundef i32 %68(ptr noundef nonnull align 8 dereferenceable(8) %66)
@@ -3052,7 +3052,7 @@ define dso_local void @_ZN2kc24add_string_to_collectionEPNS_16impl_unparseitemE(
   %103 = load ptr, ptr %102, align 8
   %104 = tail call noundef i32 %103(ptr noundef nonnull align 8 dereferenceable(24) %101)
   %105 = icmp eq i32 %104, 165
-  br i1 %105, label %24, label %143, !llvm.loop !166
+  br i1 %105, label %24, label %143, !llvm.loop !172
 
 106:                                              ; preds = %6, %1
   %107 = load ptr, ptr %0, align 8, !tbaa !5
@@ -3063,7 +3063,7 @@ define dso_local void @_ZN2kc24add_string_to_collectionEPNS_16impl_unparseitemE(
 
 111:                                              ; preds = %106
   %112 = getelementptr inbounds %"class.kc::impl_unparseitem_UnpStr", ptr %0, i64 0, i32 1
-  %113 = load ptr, ptr %112, align 8, !tbaa !159
+  %113 = load ptr, ptr %112, align 8, !tbaa !165
   %114 = load ptr, ptr %113, align 8, !tbaa !5
   %115 = load ptr, ptr %114, align 8
   %116 = tail call noundef i32 %115(ptr noundef nonnull align 8 dereferenceable(8) %113)
@@ -3074,7 +3074,7 @@ define dso_local void @_ZN2kc24add_string_to_collectionEPNS_16impl_unparseitemE(
   %119 = load ptr, ptr @Thelanguages, align 8, !tbaa !20
   %120 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %119)
   %121 = getelementptr inbounds %"class.kc::impl_unparseitem", ptr %0, i64 0, i32 1
-  %122 = load i32, ptr %121, align 8, !tbaa !161
+  %122 = load i32, ptr %121, align 8, !tbaa !167
   %123 = sext i32 %122 to i64
   %124 = icmp sgt i32 %120, 0
   br i1 %124, label %125, label %143
@@ -3099,7 +3099,7 @@ define dso_local void @_ZN2kc24add_string_to_collectionEPNS_16impl_unparseitemE(
   store ptr %135, ptr %139, align 8, !tbaa !20
   %140 = add nuw nsw i64 %130, 1
   %141 = icmp eq i64 %140, %126
-  br i1 %141, label %143, label %128, !llvm.loop !167
+  br i1 %141, label %143, label %128, !llvm.loop !173
 
 142:                                              ; preds = %111, %106
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.34, i32 noundef 1393, ptr noundef nonnull @.str.1)
@@ -3134,7 +3134,7 @@ define dso_local void @_ZN2kc25unparse_string_collectionEv() local_unnamed_addr 
 13:                                               ; preds = %9, %13
   %14 = phi ptr [ %21, %13 ], [ %4, %9 ]
   %15 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %14, i64 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !162
+  %16 = load ptr, ptr %15, align 8, !tbaa !168
   %17 = load ptr, ptr %16, align 8, !tbaa !5
   %18 = getelementptr inbounds ptr, ptr %17, i64 9
   %19 = load ptr, ptr %18, align 8
@@ -3146,13 +3146,13 @@ define dso_local void @_ZN2kc25unparse_string_collectionEv() local_unnamed_addr 
   %23 = load ptr, ptr %22, align 8
   %24 = tail call noundef i32 %23(ptr noundef nonnull align 8 dereferenceable(24) %21)
   %25 = icmp eq i32 %24, 165
-  br i1 %25, label %13, label %55, !llvm.loop !168
+  br i1 %25, label %13, label %55, !llvm.loop !174
 
 26:                                               ; preds = %11, %48
   %27 = phi i64 [ %12, %11 ], [ %31, %48 ]
   %28 = phi ptr [ %4, %11 ], [ %50, %48 ]
   %29 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %28, i64 0, i32 1
-  %30 = load ptr, ptr %29, align 8, !tbaa !162
+  %30 = load ptr, ptr %29, align 8, !tbaa !168
   %31 = add i64 %27, -1
   %32 = load ptr, ptr %30, align 8, !tbaa !5
   %33 = getelementptr inbounds ptr, ptr %32, i64 9
@@ -3176,7 +3176,7 @@ define dso_local void @_ZN2kc25unparse_string_collectionEv() local_unnamed_addr 
   tail call void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef nonnull align 8 dereferenceable(90) @v_ccfile_printer, ptr noundef nonnull @.str.36, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10base_uviewE)
   %46 = add nuw i64 %36, 1
   %47 = icmp eq i64 %36, %3
-  br i1 %47, label %48, label %35, !llvm.loop !169
+  br i1 %47, label %48, label %35, !llvm.loop !175
 
 48:                                               ; preds = %35
   tail call void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef nonnull align 8 dereferenceable(90) @v_ccfile_printer, ptr noundef nonnull @.str.37, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10base_uviewE)
@@ -3186,7 +3186,7 @@ define dso_local void @_ZN2kc25unparse_string_collectionEv() local_unnamed_addr 
   %52 = load ptr, ptr %51, align 8
   %53 = tail call noundef i32 %52(ptr noundef nonnull align 8 dereferenceable(24) %50)
   %54 = icmp eq i32 %53, 165
-  br i1 %54, label %26, label %55, !llvm.loop !168
+  br i1 %54, label %26, label %55, !llvm.loop !174
 
 55:                                               ; preds = %48, %13, %0
   tail call void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef nonnull align 8 dereferenceable(90) @v_ccfile_printer, ptr noundef nonnull @.str.38, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10base_uviewE)
@@ -3199,7 +3199,7 @@ define dso_local void @_ZN2kc25unparse_string_collectionEv() local_unnamed_addr 
 
 61:                                               ; preds = %55
   %62 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %56, i64 0, i32 1
-  %63 = load ptr, ptr %62, align 8, !tbaa !162
+  %63 = load ptr, ptr %62, align 8, !tbaa !168
   %64 = load ptr, ptr %63, align 8, !tbaa !5
   %65 = getelementptr inbounds ptr, ptr %64, i64 9
   %66 = load ptr, ptr %65, align 8
@@ -3236,7 +3236,7 @@ define dso_local noundef ptr @_ZN2kc32t_f_phylumnames_foreachwith_varsEPNS_19imp
 
 6:                                                ; preds = %1
   %7 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !170
+  %8 = load ptr, ptr %7, align 8, !tbaa !176
   %9 = load ptr, ptr %8, align 8, !tbaa !5
   %10 = load ptr, ptr %9, align 8
   %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %8)
@@ -3248,11 +3248,11 @@ define dso_local noundef ptr @_ZN2kc32t_f_phylumnames_foreachwith_varsEPNS_19imp
   ret ptr %14
 
 15:                                               ; preds = %6
-  %16 = load ptr, ptr %7, align 8, !tbaa !170
+  %16 = load ptr, ptr %7, align 8, !tbaa !176
   %17 = getelementptr inbounds %"class.kc::impl_idCexpression_IdCexpression", ptr %16, i64 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !172
+  %18 = load ptr, ptr %17, align 8, !tbaa !178
   %19 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %0, i64 0, i32 2
-  %20 = load ptr, ptr %19, align 8, !tbaa !175
+  %20 = load ptr, ptr %19, align 8, !tbaa !181
   %21 = tail call noundef ptr @_ZN2kc19f_listelementphylumEPNS_7impl_IDE(ptr noundef %18)
   %22 = tail call noundef ptr @_ZN2kc32t_f_phylumnames_foreachwith_varsEPNS_19impl_idCexpressionsE(ptr noundef %20)
   %23 = tail call noundef ptr @_ZN2kc15ConsphylumnamesEPNS_7impl_IDEPNS_16impl_phylumnamesE(ptr noundef %21, ptr noundef %22)
@@ -3294,7 +3294,7 @@ define dso_local noundef ptr @_ZN2kc36t_f_phylumnames_foreachwith_listvarsEPNS_1
 
 6:                                                ; preds = %1
   %7 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !170
+  %8 = load ptr, ptr %7, align 8, !tbaa !176
   %9 = load ptr, ptr %8, align 8, !tbaa !5
   %10 = load ptr, ptr %9, align 8
   %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %8)
@@ -3306,11 +3306,11 @@ define dso_local noundef ptr @_ZN2kc36t_f_phylumnames_foreachwith_listvarsEPNS_1
   ret ptr %14
 
 15:                                               ; preds = %6
-  %16 = load ptr, ptr %7, align 8, !tbaa !170
+  %16 = load ptr, ptr %7, align 8, !tbaa !176
   %17 = getelementptr inbounds %"class.kc::impl_idCexpression_IdCexpression", ptr %16, i64 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !172
+  %18 = load ptr, ptr %17, align 8, !tbaa !178
   %19 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %0, i64 0, i32 2
-  %20 = load ptr, ptr %19, align 8, !tbaa !175
+  %20 = load ptr, ptr %19, align 8, !tbaa !181
   %21 = tail call noundef ptr @_ZN2kc36t_f_phylumnames_foreachwith_listvarsEPNS_19impl_idCexpressionsE(ptr noundef %20)
   %22 = tail call noundef ptr @_ZN2kc15ConsphylumnamesEPNS_7impl_IDEPNS_16impl_phylumnamesE(ptr noundef %18, ptr noundef %21)
   br label %13
@@ -3342,7 +3342,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 6:                                                ; preds = %1, %496
   %7 = phi ptr [ %498, %496 ], [ %0, %1 ]
   %8 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %7, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !90
+  %9 = load ptr, ptr %8, align 8, !tbaa !95
   %10 = load ptr, ptr %9, align 8, !tbaa !5
   %11 = load ptr, ptr %10, align 8
   %12 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(8) %9)
@@ -3351,7 +3351,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 14:                                               ; preds = %6
   %15 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %9, i64 0, i32 2
-  %16 = load ptr, ptr %15, align 8, !tbaa !176
+  %16 = load ptr, ptr %15, align 8, !tbaa !182
   %17 = load ptr, ptr %16, align 8, !tbaa !5
   %18 = load ptr, ptr %17, align 8
   %19 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %16)
@@ -3359,9 +3359,9 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %20, label %21, label %119
 
 21:                                               ; preds = %14
-  %22 = load ptr, ptr %15, align 8, !tbaa !176
+  %22 = load ptr, ptr %15, align 8, !tbaa !182
   %23 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %22, i64 0, i32 3
-  %24 = load ptr, ptr %23, align 8, !tbaa !101
+  %24 = load ptr, ptr %23, align 8, !tbaa !106
   %25 = load ptr, ptr %24, align 8, !tbaa !5
   %26 = load ptr, ptr %25, align 8
   %27 = tail call noundef i32 %26(ptr noundef nonnull align 8 dereferenceable(8) %24)
@@ -3369,11 +3369,11 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %28, label %29, label %119
 
 29:                                               ; preds = %21
-  %30 = load ptr, ptr %15, align 8, !tbaa !176
+  %30 = load ptr, ptr %15, align 8, !tbaa !182
   %31 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %30, i64 0, i32 3
-  %32 = load ptr, ptr %31, align 8, !tbaa !101
+  %32 = load ptr, ptr %31, align 8, !tbaa !106
   %33 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %32, i64 0, i32 1
-  %34 = load ptr, ptr %33, align 8, !tbaa !178
+  %34 = load ptr, ptr %33, align 8, !tbaa !184
   %35 = load ptr, ptr %34, align 8, !tbaa !5
   %36 = load ptr, ptr %35, align 8
   %37 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(24) %34)
@@ -3381,13 +3381,13 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %38, label %39, label %119
 
 39:                                               ; preds = %29
-  %40 = load ptr, ptr %15, align 8, !tbaa !176
+  %40 = load ptr, ptr %15, align 8, !tbaa !182
   %41 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %40, i64 0, i32 3
-  %42 = load ptr, ptr %41, align 8, !tbaa !101
+  %42 = load ptr, ptr %41, align 8, !tbaa !106
   %43 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %42, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !178
+  %44 = load ptr, ptr %43, align 8, !tbaa !184
   %45 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_list", ptr %44, i64 0, i32 2
-  %46 = load ptr, ptr %45, align 8, !tbaa !180
+  %46 = load ptr, ptr %45, align 8, !tbaa !186
   %47 = load ptr, ptr %46, align 8, !tbaa !5
   %48 = load ptr, ptr %47, align 8
   %49 = tail call noundef i32 %48(ptr noundef nonnull align 8 dereferenceable(24) %46)
@@ -3396,7 +3396,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 51:                                               ; preds = %39
   %52 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %9, i64 0, i32 7
-  %53 = load ptr, ptr %52, align 8, !tbaa !182
+  %53 = load ptr, ptr %52, align 8, !tbaa !188
   %54 = load ptr, ptr %53, align 8, !tbaa !5
   %55 = load ptr, ptr %54, align 8
   %56 = tail call noundef i32 %55(ptr noundef nonnull align 8 dereferenceable(8) %53)
@@ -3404,13 +3404,13 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %57, label %58, label %119
 
 58:                                               ; preds = %51
-  %59 = load ptr, ptr %15, align 8, !tbaa !176
+  %59 = load ptr, ptr %15, align 8, !tbaa !182
   %60 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %59, i64 0, i32 3
-  %61 = load ptr, ptr %60, align 8, !tbaa !101
+  %61 = load ptr, ptr %60, align 8, !tbaa !106
   %62 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %61, i64 0, i32 1
-  %63 = load ptr, ptr %62, align 8, !tbaa !178
+  %63 = load ptr, ptr %62, align 8, !tbaa !184
   %64 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_list", ptr %63, i64 0, i32 1
-  %65 = load ptr, ptr %64, align 8, !tbaa !183
+  %65 = load ptr, ptr %64, align 8, !tbaa !189
   %66 = load ptr, ptr %65, align 8, !tbaa !5
   %67 = load ptr, ptr %66, align 8
   %68 = tail call noundef i32 %67(ptr noundef nonnull align 8 dereferenceable(8) %65)
@@ -3503,7 +3503,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 124:                                              ; preds = %119
   %125 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %9, i64 0, i32 2
-  %126 = load ptr, ptr %125, align 8, !tbaa !176
+  %126 = load ptr, ptr %125, align 8, !tbaa !182
   %127 = load ptr, ptr %126, align 8, !tbaa !5
   %128 = load ptr, ptr %127, align 8
   %129 = tail call noundef i32 %128(ptr noundef nonnull align 8 dereferenceable(8) %126)
@@ -3511,9 +3511,9 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %130, label %131, label %217
 
 131:                                              ; preds = %124
-  %132 = load ptr, ptr %125, align 8, !tbaa !176
+  %132 = load ptr, ptr %125, align 8, !tbaa !182
   %133 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %132, i64 0, i32 3
-  %134 = load ptr, ptr %133, align 8, !tbaa !101
+  %134 = load ptr, ptr %133, align 8, !tbaa !106
   %135 = load ptr, ptr %134, align 8, !tbaa !5
   %136 = load ptr, ptr %135, align 8
   %137 = tail call noundef i32 %136(ptr noundef nonnull align 8 dereferenceable(8) %134)
@@ -3521,11 +3521,11 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %138, label %139, label %217
 
 139:                                              ; preds = %131
-  %140 = load ptr, ptr %125, align 8, !tbaa !176
+  %140 = load ptr, ptr %125, align 8, !tbaa !182
   %141 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %140, i64 0, i32 3
-  %142 = load ptr, ptr %141, align 8, !tbaa !101
+  %142 = load ptr, ptr %141, align 8, !tbaa !106
   %143 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %142, i64 0, i32 2
-  %144 = load ptr, ptr %143, align 8, !tbaa !184
+  %144 = load ptr, ptr %143, align 8, !tbaa !190
   %145 = load ptr, ptr %144, align 8, !tbaa !5
   %146 = load ptr, ptr %145, align 8
   %147 = tail call noundef i32 %146(ptr noundef nonnull align 8 dereferenceable(8) %144)
@@ -3534,7 +3534,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 149:                                              ; preds = %139
   %150 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %9, i64 0, i32 7
-  %151 = load ptr, ptr %150, align 8, !tbaa !182
+  %151 = load ptr, ptr %150, align 8, !tbaa !188
   %152 = load ptr, ptr %151, align 8, !tbaa !5
   %153 = load ptr, ptr %152, align 8
   %154 = tail call noundef i32 %153(ptr noundef nonnull align 8 dereferenceable(8) %151)
@@ -3542,13 +3542,13 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %155, label %156, label %217
 
 156:                                              ; preds = %149
-  %157 = load ptr, ptr %125, align 8, !tbaa !176
+  %157 = load ptr, ptr %125, align 8, !tbaa !182
   %158 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %157, i64 0, i32 3
-  %159 = load ptr, ptr %158, align 8, !tbaa !101
+  %159 = load ptr, ptr %158, align 8, !tbaa !106
   %160 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %159, i64 0, i32 2
-  %161 = load ptr, ptr %160, align 8, !tbaa !184
+  %161 = load ptr, ptr %160, align 8, !tbaa !190
   %162 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %161, i64 0, i32 1
-  %163 = load ptr, ptr %162, align 8, !tbaa !185
+  %163 = load ptr, ptr %162, align 8, !tbaa !191
   %164 = load ptr, ptr %163, align 8, !tbaa !5
   %165 = load ptr, ptr %164, align 8
   %166 = tail call noundef i32 %165(ptr noundef nonnull align 8 dereferenceable(8) %163)
@@ -3641,7 +3641,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 222:                                              ; preds = %217
   %223 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %9, i64 0, i32 2
-  %224 = load ptr, ptr %223, align 8, !tbaa !176
+  %224 = load ptr, ptr %223, align 8, !tbaa !182
   %225 = load ptr, ptr %224, align 8, !tbaa !5
   %226 = load ptr, ptr %225, align 8
   %227 = tail call noundef i32 %226(ptr noundef nonnull align 8 dereferenceable(8) %224)
@@ -3649,9 +3649,9 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %228, label %229, label %315
 
 229:                                              ; preds = %222
-  %230 = load ptr, ptr %223, align 8, !tbaa !176
+  %230 = load ptr, ptr %223, align 8, !tbaa !182
   %231 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %230, i64 0, i32 3
-  %232 = load ptr, ptr %231, align 8, !tbaa !101
+  %232 = load ptr, ptr %231, align 8, !tbaa !106
   %233 = load ptr, ptr %232, align 8, !tbaa !5
   %234 = load ptr, ptr %233, align 8
   %235 = tail call noundef i32 %234(ptr noundef nonnull align 8 dereferenceable(8) %232)
@@ -3659,11 +3659,11 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %236, label %237, label %315
 
 237:                                              ; preds = %229
-  %238 = load ptr, ptr %223, align 8, !tbaa !176
+  %238 = load ptr, ptr %223, align 8, !tbaa !182
   %239 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %238, i64 0, i32 3
-  %240 = load ptr, ptr %239, align 8, !tbaa !101
+  %240 = load ptr, ptr %239, align 8, !tbaa !106
   %241 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %240, i64 0, i32 2
-  %242 = load ptr, ptr %241, align 8, !tbaa !184
+  %242 = load ptr, ptr %241, align 8, !tbaa !190
   %243 = load ptr, ptr %242, align 8, !tbaa !5
   %244 = load ptr, ptr %243, align 8
   %245 = tail call noundef i32 %244(ptr noundef nonnull align 8 dereferenceable(8) %242)
@@ -3672,7 +3672,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 247:                                              ; preds = %237
   %248 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %9, i64 0, i32 7
-  %249 = load ptr, ptr %248, align 8, !tbaa !182
+  %249 = load ptr, ptr %248, align 8, !tbaa !188
   %250 = load ptr, ptr %249, align 8, !tbaa !5
   %251 = load ptr, ptr %250, align 8
   %252 = tail call noundef i32 %251(ptr noundef nonnull align 8 dereferenceable(8) %249)
@@ -3680,13 +3680,13 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %253, label %254, label %315
 
 254:                                              ; preds = %247
-  %255 = load ptr, ptr %223, align 8, !tbaa !176
+  %255 = load ptr, ptr %223, align 8, !tbaa !182
   %256 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %255, i64 0, i32 3
-  %257 = load ptr, ptr %256, align 8, !tbaa !101
+  %257 = load ptr, ptr %256, align 8, !tbaa !106
   %258 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %257, i64 0, i32 2
-  %259 = load ptr, ptr %258, align 8, !tbaa !184
+  %259 = load ptr, ptr %258, align 8, !tbaa !190
   %260 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %259, i64 0, i32 1
-  %261 = load ptr, ptr %260, align 8, !tbaa !185
+  %261 = load ptr, ptr %260, align 8, !tbaa !191
   %262 = load ptr, ptr %261, align 8, !tbaa !5
   %263 = load ptr, ptr %262, align 8
   %264 = tail call noundef i32 %263(ptr noundef nonnull align 8 dereferenceable(8) %261)
@@ -3779,7 +3779,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 320:                                              ; preds = %315
   %321 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %9, i64 0, i32 2
-  %322 = load ptr, ptr %321, align 8, !tbaa !176
+  %322 = load ptr, ptr %321, align 8, !tbaa !182
   %323 = load ptr, ptr %322, align 8, !tbaa !5
   %324 = load ptr, ptr %323, align 8
   %325 = tail call noundef i32 %324(ptr noundef nonnull align 8 dereferenceable(8) %322)
@@ -3787,9 +3787,9 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %326, label %327, label %413
 
 327:                                              ; preds = %320
-  %328 = load ptr, ptr %321, align 8, !tbaa !176
+  %328 = load ptr, ptr %321, align 8, !tbaa !182
   %329 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %328, i64 0, i32 3
-  %330 = load ptr, ptr %329, align 8, !tbaa !101
+  %330 = load ptr, ptr %329, align 8, !tbaa !106
   %331 = load ptr, ptr %330, align 8, !tbaa !5
   %332 = load ptr, ptr %331, align 8
   %333 = tail call noundef i32 %332(ptr noundef nonnull align 8 dereferenceable(8) %330)
@@ -3797,11 +3797,11 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %334, label %335, label %413
 
 335:                                              ; preds = %327
-  %336 = load ptr, ptr %321, align 8, !tbaa !176
+  %336 = load ptr, ptr %321, align 8, !tbaa !182
   %337 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %336, i64 0, i32 3
-  %338 = load ptr, ptr %337, align 8, !tbaa !101
+  %338 = load ptr, ptr %337, align 8, !tbaa !106
   %339 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %338, i64 0, i32 2
-  %340 = load ptr, ptr %339, align 8, !tbaa !184
+  %340 = load ptr, ptr %339, align 8, !tbaa !190
   %341 = load ptr, ptr %340, align 8, !tbaa !5
   %342 = load ptr, ptr %341, align 8
   %343 = tail call noundef i32 %342(ptr noundef nonnull align 8 dereferenceable(8) %340)
@@ -3810,7 +3810,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 345:                                              ; preds = %335
   %346 = getelementptr inbounds %"class.kc::impl_fndeclaration_FnAcDeclaration", ptr %9, i64 0, i32 7
-  %347 = load ptr, ptr %346, align 8, !tbaa !182
+  %347 = load ptr, ptr %346, align 8, !tbaa !188
   %348 = load ptr, ptr %347, align 8, !tbaa !5
   %349 = load ptr, ptr %348, align 8
   %350 = tail call noundef i32 %349(ptr noundef nonnull align 8 dereferenceable(8) %347)
@@ -3818,13 +3818,13 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %351, label %352, label %413
 
 352:                                              ; preds = %345
-  %353 = load ptr, ptr %321, align 8, !tbaa !176
+  %353 = load ptr, ptr %321, align 8, !tbaa !182
   %354 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %353, i64 0, i32 3
-  %355 = load ptr, ptr %354, align 8, !tbaa !101
+  %355 = load ptr, ptr %354, align 8, !tbaa !106
   %356 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %355, i64 0, i32 2
-  %357 = load ptr, ptr %356, align 8, !tbaa !184
+  %357 = load ptr, ptr %356, align 8, !tbaa !190
   %358 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcConvOperatorDecl", ptr %357, i64 0, i32 1
-  %359 = load ptr, ptr %358, align 8, !tbaa !187
+  %359 = load ptr, ptr %358, align 8, !tbaa !193
   %360 = load ptr, ptr %359, align 8, !tbaa !5
   %361 = load ptr, ptr %360, align 8
   %362 = tail call noundef i32 %361(ptr noundef nonnull align 8 dereferenceable(8) %359)
@@ -3917,7 +3917,7 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 418:                                              ; preds = %413
   %419 = getelementptr inbounds %"class.kc::impl_fndeclaration_AcMemberDeclaration", ptr %9, i64 0, i32 2
-  %420 = load ptr, ptr %419, align 8, !tbaa !100
+  %420 = load ptr, ptr %419, align 8, !tbaa !105
   %421 = load ptr, ptr %420, align 8, !tbaa !5
   %422 = load ptr, ptr %421, align 8
   %423 = tail call noundef i32 %422(ptr noundef nonnull align 8 dereferenceable(8) %420)
@@ -3925,9 +3925,9 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %424, label %425, label %496
 
 425:                                              ; preds = %418
-  %426 = load ptr, ptr %419, align 8, !tbaa !100
+  %426 = load ptr, ptr %419, align 8, !tbaa !105
   %427 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %426, i64 0, i32 3
-  %428 = load ptr, ptr %427, align 8, !tbaa !101
+  %428 = load ptr, ptr %427, align 8, !tbaa !106
   %429 = load ptr, ptr %428, align 8, !tbaa !5
   %430 = load ptr, ptr %429, align 8
   %431 = tail call noundef i32 %430(ptr noundef nonnull align 8 dereferenceable(8) %428)
@@ -3935,11 +3935,11 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
   br i1 %432, label %433, label %496
 
 433:                                              ; preds = %425
-  %434 = load ptr, ptr %419, align 8, !tbaa !100
+  %434 = load ptr, ptr %419, align 8, !tbaa !105
   %435 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %434, i64 0, i32 3
-  %436 = load ptr, ptr %435, align 8, !tbaa !101
+  %436 = load ptr, ptr %435, align 8, !tbaa !106
   %437 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcMemberDecl", ptr %436, i64 0, i32 1
-  %438 = load ptr, ptr %437, align 8, !tbaa !189
+  %438 = load ptr, ptr %437, align 8, !tbaa !195
   %439 = load ptr, ptr %438, align 8, !tbaa !5
   %440 = load ptr, ptr %439, align 8
   %441 = tail call noundef i32 %440(ptr noundef nonnull align 8 dereferenceable(8) %438)
@@ -4032,12 +4032,12 @@ define dso_local void @_ZN2kc17f_collect_membersEPNS_19impl_fndeclarationsE(ptr 
 
 496:                                              ; preds = %492, %488, %409, %311, %213, %115, %413, %418, %425
   %497 = getelementptr inbounds %"class.kc::impl_fndeclarations", ptr %7, i64 0, i32 2
-  %498 = load ptr, ptr %497, align 8, !tbaa !190
+  %498 = load ptr, ptr %497, align 8, !tbaa !115
   %499 = load ptr, ptr %498, align 8, !tbaa !5
   %500 = load ptr, ptr %499, align 8
   %501 = tail call noundef i32 %500(ptr noundef nonnull align 8 dereferenceable(24) %498)
   %502 = icmp eq i32 %501, 108
-  br i1 %502, label %6, label %503, !llvm.loop !191
+  br i1 %502, label %6, label %503, !llvm.loop !196
 
 503:                                              ; preds = %496, %1
   ret void
@@ -4055,7 +4055,7 @@ define dso_local noundef ptr @_ZN2kc22f_id_of_ctor_dtor_declEPNS_18impl_ac_decla
 
 6:                                                ; preds = %1
   %7 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %0, i64 0, i32 3
-  %8 = load ptr, ptr %7, align 8, !tbaa !101
+  %8 = load ptr, ptr %7, align 8, !tbaa !106
   %9 = load ptr, ptr %8, align 8, !tbaa !5
   %10 = load ptr, ptr %9, align 8
   %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %8)
@@ -4063,9 +4063,9 @@ define dso_local noundef ptr @_ZN2kc22f_id_of_ctor_dtor_declEPNS_18impl_ac_decla
   br i1 %12, label %13, label %27
 
 13:                                               ; preds = %6
-  %14 = load ptr, ptr %7, align 8, !tbaa !101
+  %14 = load ptr, ptr %7, align 8, !tbaa !106
   %15 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %14, i64 0, i32 2
-  %16 = load ptr, ptr %15, align 8, !tbaa !184
+  %16 = load ptr, ptr %15, align 8, !tbaa !190
   %17 = load ptr, ptr %16, align 8, !tbaa !5
   %18 = load ptr, ptr %17, align 8
   %19 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %16)
@@ -4073,11 +4073,11 @@ define dso_local noundef ptr @_ZN2kc22f_id_of_ctor_dtor_declEPNS_18impl_ac_decla
   br i1 %20, label %21, label %27
 
 21:                                               ; preds = %13
-  %22 = load ptr, ptr %7, align 8, !tbaa !101
+  %22 = load ptr, ptr %7, align 8, !tbaa !106
   %23 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %22, i64 0, i32 2
-  %24 = load ptr, ptr %23, align 8, !tbaa !184
+  %24 = load ptr, ptr %23, align 8, !tbaa !190
   %25 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %24, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !185
+  %26 = load ptr, ptr %25, align 8, !tbaa !191
   br label %27
 
 27:                                               ; preds = %1, %6, %13, %21
@@ -4096,7 +4096,7 @@ define dso_local void @_ZN2kc20prepare_base_classesEPNS_27impl_baseclass_declara
 6:                                                ; preds = %1, %76
   %7 = phi ptr [ %78, %76 ], [ %0, %1 ]
   %8 = getelementptr inbounds %"class.kc::impl_baseclass_declarations", ptr %7, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !192
+  %9 = load ptr, ptr %8, align 8, !tbaa !197
   %10 = load ptr, ptr %9, align 8, !tbaa !5
   %11 = load ptr, ptr %10, align 8
   %12 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(8) %9)
@@ -4105,9 +4105,9 @@ define dso_local void @_ZN2kc20prepare_base_classesEPNS_27impl_baseclass_declara
 
 14:                                               ; preds = %6
   %15 = getelementptr inbounds %"class.kc::impl_baseclass_decl_BaseClassDecl", ptr %9, i64 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !194
+  %16 = load ptr, ptr %15, align 8, !tbaa !199
   %17 = getelementptr inbounds %"class.kc::impl_baseclass_decl_BaseClassDecl", ptr %9, i64 0, i32 2
-  %18 = load ptr, ptr %17, align 8, !tbaa !197
+  %18 = load ptr, ptr %17, align 8, !tbaa !202
   %19 = load ptr, ptr %16, align 8, !tbaa !5
   %20 = load ptr, ptr %19, align 8
   %21 = tail call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %16)
@@ -4200,12 +4200,12 @@ define dso_local void @_ZN2kc20prepare_base_classesEPNS_27impl_baseclass_declara
 
 76:                                               ; preds = %72, %68, %6
   %77 = getelementptr inbounds %"class.kc::impl_baseclass_declarations", ptr %7, i64 0, i32 2
-  %78 = load ptr, ptr %77, align 8, !tbaa !198
+  %78 = load ptr, ptr %77, align 8, !tbaa !203
   %79 = load ptr, ptr %78, align 8, !tbaa !5
   %80 = load ptr, ptr %79, align 8
   %81 = tail call noundef i32 %80(ptr noundef nonnull align 8 dereferenceable(24) %78)
   %82 = icmp eq i32 %81, 302
-  br i1 %82, label %6, label %83, !llvm.loop !199
+  br i1 %82, label %6, label %83, !llvm.loop !204
 
 83:                                               ; preds = %76, %1
   ret void
@@ -4315,119 +4315,124 @@ attributes #7 = { nounwind }
 !81 = !{!10, !14, i64 24}
 !82 = !{!43, !12, i64 56}
 !83 = !{!84, !12, i64 8}
-!84 = !{!"_ZTSN2kc15impl_attributesE", !25, i64 0, !12, i64 8, !12, i64 16}
-!85 = !{!86, !12, i64 8}
-!86 = !{!"_ZTSN2kc24impl_attribute_AttributeE", !87, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
-!87 = !{!"_ZTSN2kc14impl_attributeE", !11, i64 0}
-!88 = !{!86, !12, i64 16}
-!89 = distinct !{!89, !28}
-!90 = !{!91, !12, i64 8}
-!91 = !{!"_ZTSN2kc19impl_fndeclarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
-!92 = !{!93, !12, i64 40}
-!93 = !{!"_ZTSN2kc38impl_fndeclaration_AcMemberDeclarationE", !94, i64 0, !12, i64 40, !12, i64 48, !12, i64 56, !12, i64 64}
-!94 = !{!"_ZTSN2kc18impl_fndeclarationE", !11, i64 0, !12, i64 8, !14, i64 16, !12, i64 24, !17, i64 32}
+!84 = !{!"_ZTSN2kc29impl_Ccode_option_CcodeOptionE", !85, i64 0, !12, i64 8, !12, i64 16}
+!85 = !{!"_ZTSN2kc17impl_Ccode_optionE", !11, i64 0}
+!86 = !{!87, !12, i64 8}
+!87 = !{!"_ZTSN2kc15impl_attributesE", !25, i64 0, !12, i64 8, !12, i64 16}
+!88 = !{!89, !12, i64 8}
+!89 = !{!"_ZTSN2kc24impl_attribute_AttributeE", !90, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!90 = !{!"_ZTSN2kc14impl_attributeE", !11, i64 0}
+!91 = !{!89, !12, i64 16}
+!92 = !{!87, !12, i64 16}
+!93 = distinct !{!93, !28}
+!94 = !{!44, !12, i64 16}
 !95 = !{!96, !12, i64 8}
-!96 = !{!"_ZTSN2kc30impl_ac_declaration_specifiersE", !25, i64 0, !12, i64 8, !12, i64 16}
-!97 = !{!98, !12, i64 8}
-!98 = !{!"_ZTSN2kc48impl_ac_declaration_specifier_AcDeclSpecTypeSpecE", !99, i64 0, !12, i64 8}
-!99 = !{!"_ZTSN2kc29impl_ac_declaration_specifierE", !11, i64 0}
-!100 = !{!93, !12, i64 48}
-!101 = !{!102, !12, i64 24}
-!102 = !{!"_ZTSN2kc31impl_ac_declarator_AcDeclaratorE", !103, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
-!103 = !{!"_ZTSN2kc18impl_ac_declaratorE", !11, i64 0}
-!104 = !{!105, !12, i64 8}
-!105 = !{!"_ZTSN2kc33impl_ac_type_specifier_AcTypeSpecE", !106, i64 0, !12, i64 8}
-!106 = !{!"_ZTSN2kc22impl_ac_type_specifierE", !11, i64 0}
-!107 = !{!108, !12, i64 16}
-!108 = !{!"_ZTSN2kc38impl_ac_direct_declarator_AcMemberDeclE", !109, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
-!109 = !{!"_ZTSN2kc25impl_ac_direct_declaratorE", !11, i64 0}
-!110 = distinct !{!110, !28}
-!111 = !{!65, !14, i64 8}
-!112 = !{!113, !12, i64 40}
-!113 = !{!"_ZTSN2kc37impl_outmostpattern_OPNonLeafVariableE", !114, i64 0, !12, i64 32, !12, i64 40}
-!114 = !{!"_ZTSN2kc19impl_outmostpatternE", !11, i64 0, !14, i64 8, !12, i64 16, !12, i64 24}
-!115 = !{!116, !12, i64 32}
-!116 = !{!"_ZTSN2kc30impl_outmostpattern_OPOperatorE", !114, i64 0, !12, i64 32, !12, i64 40, !12, i64 48}
-!117 = !{!118, !12, i64 32}
-!118 = !{!"_ZTSN2kc38impl_outmostpattern_OPOperatorWildcardE", !114, i64 0, !12, i64 32, !12, i64 40}
-!119 = !{!120, !12, i64 8}
-!120 = !{!"_ZTSN2kc43impl_productionblock_PredefinedAlternativesE", !47, i64 0, !12, i64 8}
-!121 = !{!50, !12, i64 16}
-!122 = !{!123, !12, i64 8}
-!123 = !{!"_ZTSN2kc40impl_productionblock_NonlistAlternativesE", !47, i64 0, !12, i64 8}
-!124 = !{!125, !12, i64 8}
-!125 = !{!"_ZTSN2kc23impl_phylumdeclarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
-!126 = !{!44, !14, i64 8}
-!127 = distinct !{!127, !28}
+!96 = !{!"_ZTSN2kc19impl_fndeclarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
+!97 = !{!98, !12, i64 40}
+!98 = !{!"_ZTSN2kc38impl_fndeclaration_AcMemberDeclarationE", !99, i64 0, !12, i64 40, !12, i64 48, !12, i64 56, !12, i64 64}
+!99 = !{!"_ZTSN2kc18impl_fndeclarationE", !11, i64 0, !12, i64 8, !14, i64 16, !12, i64 24, !17, i64 32}
+!100 = !{!101, !12, i64 8}
+!101 = !{!"_ZTSN2kc30impl_ac_declaration_specifiersE", !25, i64 0, !12, i64 8, !12, i64 16}
+!102 = !{!103, !12, i64 8}
+!103 = !{!"_ZTSN2kc48impl_ac_declaration_specifier_AcDeclSpecTypeSpecE", !104, i64 0, !12, i64 8}
+!104 = !{!"_ZTSN2kc29impl_ac_declaration_specifierE", !11, i64 0}
+!105 = !{!98, !12, i64 48}
+!106 = !{!107, !12, i64 24}
+!107 = !{!"_ZTSN2kc31impl_ac_declarator_AcDeclaratorE", !108, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!108 = !{!"_ZTSN2kc18impl_ac_declaratorE", !11, i64 0}
+!109 = !{!110, !12, i64 8}
+!110 = !{!"_ZTSN2kc33impl_ac_type_specifier_AcTypeSpecE", !111, i64 0, !12, i64 8}
+!111 = !{!"_ZTSN2kc22impl_ac_type_specifierE", !11, i64 0}
+!112 = !{!113, !12, i64 16}
+!113 = !{!"_ZTSN2kc38impl_ac_direct_declarator_AcMemberDeclE", !114, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!114 = !{!"_ZTSN2kc25impl_ac_direct_declaratorE", !11, i64 0}
+!115 = !{!96, !12, i64 16}
+!116 = distinct !{!116, !28}
+!117 = !{!65, !14, i64 8}
+!118 = !{!119, !12, i64 40}
+!119 = !{!"_ZTSN2kc37impl_outmostpattern_OPNonLeafVariableE", !120, i64 0, !12, i64 32, !12, i64 40}
+!120 = !{!"_ZTSN2kc19impl_outmostpatternE", !11, i64 0, !14, i64 8, !12, i64 16, !12, i64 24}
+!121 = !{!122, !12, i64 32}
+!122 = !{!"_ZTSN2kc30impl_outmostpattern_OPOperatorE", !120, i64 0, !12, i64 32, !12, i64 40, !12, i64 48}
+!123 = !{!124, !12, i64 32}
+!124 = !{!"_ZTSN2kc38impl_outmostpattern_OPOperatorWildcardE", !120, i64 0, !12, i64 32, !12, i64 40}
+!125 = !{!126, !12, i64 8}
+!126 = !{!"_ZTSN2kc43impl_productionblock_PredefinedAlternativesE", !47, i64 0, !12, i64 8}
+!127 = !{!50, !12, i64 16}
 !128 = !{!129, !12, i64 8}
-!129 = !{!"_ZTSN2kc14impl_variablesE", !25, i64 0, !12, i64 8, !12, i64 16}
-!130 = !{!63, !12, i64 16}
-!131 = !{!38, !12, i64 32}
-!132 = !{!133, !12, i64 8}
-!133 = !{!"_ZTSN2kc27impl_scopetypefilelinestackE", !25, i64 0, !12, i64 8, !12, i64 16}
+!129 = !{!"_ZTSN2kc40impl_productionblock_NonlistAlternativesE", !47, i64 0, !12, i64 8}
+!130 = !{!131, !12, i64 8}
+!131 = !{!"_ZTSN2kc23impl_phylumdeclarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
+!132 = !{!44, !14, i64 8}
+!133 = distinct !{!133, !28}
 !134 = !{!135, !12, i64 8}
-!135 = !{!"_ZTSN2kc40impl_scopetypefileline_ScopeTypeFileLineE", !136, i64 0, !12, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
-!136 = !{!"_ZTSN2kc22impl_scopetypefilelineE", !11, i64 0}
-!137 = !{!135, !12, i64 24}
-!138 = !{!135, !12, i64 16}
-!139 = !{!133, !12, i64 16}
-!140 = !{!135, !12, i64 32}
-!141 = !{!38, !12, i64 24}
-!142 = !{!38, !14, i64 16}
-!143 = !{!129, !12, i64 16}
-!144 = distinct !{!144, !28}
-!145 = !{!146, !12, i64 16}
-!146 = !{!"_ZTSN2kc14impl_viewnamesE", !25, i64 0, !17, i64 8, !12, i64 16, !12, i64 24}
-!147 = !{!146, !12, i64 24}
-!148 = !{!146, !17, i64 8}
-!149 = distinct !{!149, !28}
+!135 = !{!"_ZTSN2kc14impl_variablesE", !25, i64 0, !12, i64 8, !12, i64 16}
+!136 = !{!63, !12, i64 16}
+!137 = !{!38, !12, i64 32}
+!138 = !{!139, !12, i64 8}
+!139 = !{!"_ZTSN2kc27impl_scopetypefilelinestackE", !25, i64 0, !12, i64 8, !12, i64 16}
+!140 = !{!141, !12, i64 8}
+!141 = !{!"_ZTSN2kc40impl_scopetypefileline_ScopeTypeFileLineE", !142, i64 0, !12, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
+!142 = !{!"_ZTSN2kc22impl_scopetypefilelineE", !11, i64 0}
+!143 = !{!139, !12, i64 16}
+!144 = !{!141, !12, i64 32}
+!145 = !{!141, !12, i64 24}
+!146 = !{!141, !12, i64 16}
+!147 = !{!38, !12, i64 24}
+!148 = !{!38, !14, i64 16}
+!149 = !{!135, !12, i64 16}
 !150 = distinct !{!150, !28}
 !151 = !{!152, !12, i64 16}
-!152 = !{!"_ZTSN2kc19impl_storageclassesE", !25, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!152 = !{!"_ZTSN2kc14impl_viewnamesE", !25, i64 0, !17, i64 8, !12, i64 16, !12, i64 24}
 !153 = !{!152, !12, i64 24}
-!154 = !{!152, !12, i64 8}
+!154 = !{!152, !17, i64 8}
 !155 = distinct !{!155, !28}
-!156 = distinct !{!156, !157}
-!157 = !{!"llvm.loop.unroll.disable"}
-!158 = distinct !{!158, !28}
-!159 = !{!160, !12, i64 16}
-!160 = !{!"_ZTSN2kc23impl_unparseitem_UnpStrE", !33, i64 0, !12, i64 16, !12, i64 24, !12, i64 32}
-!161 = !{!33, !14, i64 8}
-!162 = !{!163, !12, i64 8}
-!163 = !{!"_ZTSN2kc18impl_languagenamesE", !25, i64 0, !12, i64 8, !12, i64 16}
-!164 = !{!165, !12, i64 8}
-!165 = !{!"_ZTSN2kc26impl_IDtype_ITLanguageNameE", !41, i64 0, !12, i64 8}
-!166 = distinct !{!166, !28}
-!167 = distinct !{!167, !28}
-!168 = distinct !{!168, !28}
-!169 = distinct !{!169, !28}
+!156 = distinct !{!156, !28}
+!157 = !{!158, !12, i64 16}
+!158 = !{!"_ZTSN2kc19impl_storageclassesE", !25, i64 0, !12, i64 8, !12, i64 16, !12, i64 24}
+!159 = !{!158, !12, i64 24}
+!160 = !{!158, !12, i64 8}
+!161 = distinct !{!161, !28}
+!162 = distinct !{!162, !163}
+!163 = !{!"llvm.loop.unroll.disable"}
+!164 = distinct !{!164, !28}
+!165 = !{!166, !12, i64 16}
+!166 = !{!"_ZTSN2kc23impl_unparseitem_UnpStrE", !33, i64 0, !12, i64 16, !12, i64 24, !12, i64 32}
+!167 = !{!33, !14, i64 8}
+!168 = !{!169, !12, i64 8}
+!169 = !{!"_ZTSN2kc18impl_languagenamesE", !25, i64 0, !12, i64 8, !12, i64 16}
 !170 = !{!171, !12, i64 8}
-!171 = !{!"_ZTSN2kc19impl_idCexpressionsE", !25, i64 0, !12, i64 8, !12, i64 16}
-!172 = !{!173, !12, i64 16}
-!173 = !{!"_ZTSN2kc32impl_idCexpression_IdCexpressionE", !174, i64 0, !12, i64 16, !12, i64 24}
-!174 = !{!"_ZTSN2kc18impl_idCexpressionE", !11, i64 0, !12, i64 8}
-!175 = !{!171, !12, i64 16}
-!176 = !{!177, !12, i64 48}
-!177 = !{!"_ZTSN2kc34impl_fndeclaration_FnAcDeclarationE", !94, i64 0, !12, i64 40, !12, i64 48, !12, i64 56, !12, i64 64, !12, i64 72, !12, i64 80, !12, i64 88}
-!178 = !{!179, !12, i64 8}
-!179 = !{!"_ZTSN2kc46impl_ac_direct_declarator_AcQualifiedDeclProtoE", !109, i64 0, !12, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
-!180 = !{!181, !12, i64 16}
-!181 = !{!"_ZTSN2kc28impl_ac_class_qualifier_listE", !25, i64 0, !12, i64 8, !12, i64 16}
-!182 = !{!177, !12, i64 88}
-!183 = !{!181, !12, i64 8}
-!184 = !{!179, !12, i64 16}
-!185 = !{!186, !12, i64 8}
-!186 = !{!"_ZTSN2kc40impl_ac_direct_declarator_AcDirectDeclIdE", !109, i64 0, !12, i64 8}
-!187 = !{!188, !12, i64 8}
-!188 = !{!"_ZTSN2kc44impl_ac_direct_declarator_AcConvOperatorDeclE", !109, i64 0, !12, i64 8, !12, i64 16}
-!189 = !{!108, !12, i64 8}
-!190 = !{!91, !12, i64 16}
-!191 = distinct !{!191, !28}
-!192 = !{!193, !12, i64 8}
-!193 = !{!"_ZTSN2kc27impl_baseclass_declarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
-!194 = !{!195, !12, i64 8}
-!195 = !{!"_ZTSN2kc33impl_baseclass_decl_BaseClassDeclE", !196, i64 0, !12, i64 8, !12, i64 16}
-!196 = !{!"_ZTSN2kc19impl_baseclass_declE", !11, i64 0}
-!197 = !{!195, !12, i64 16}
-!198 = !{!193, !12, i64 16}
-!199 = distinct !{!199, !28}
+!171 = !{!"_ZTSN2kc26impl_IDtype_ITLanguageNameE", !41, i64 0, !12, i64 8}
+!172 = distinct !{!172, !28}
+!173 = distinct !{!173, !28}
+!174 = distinct !{!174, !28}
+!175 = distinct !{!175, !28}
+!176 = !{!177, !12, i64 8}
+!177 = !{!"_ZTSN2kc19impl_idCexpressionsE", !25, i64 0, !12, i64 8, !12, i64 16}
+!178 = !{!179, !12, i64 16}
+!179 = !{!"_ZTSN2kc32impl_idCexpression_IdCexpressionE", !180, i64 0, !12, i64 16, !12, i64 24}
+!180 = !{!"_ZTSN2kc18impl_idCexpressionE", !11, i64 0, !12, i64 8}
+!181 = !{!177, !12, i64 16}
+!182 = !{!183, !12, i64 48}
+!183 = !{!"_ZTSN2kc34impl_fndeclaration_FnAcDeclarationE", !99, i64 0, !12, i64 40, !12, i64 48, !12, i64 56, !12, i64 64, !12, i64 72, !12, i64 80, !12, i64 88}
+!184 = !{!185, !12, i64 8}
+!185 = !{!"_ZTSN2kc46impl_ac_direct_declarator_AcQualifiedDeclProtoE", !114, i64 0, !12, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
+!186 = !{!187, !12, i64 16}
+!187 = !{!"_ZTSN2kc28impl_ac_class_qualifier_listE", !25, i64 0, !12, i64 8, !12, i64 16}
+!188 = !{!183, !12, i64 88}
+!189 = !{!187, !12, i64 8}
+!190 = !{!185, !12, i64 16}
+!191 = !{!192, !12, i64 8}
+!192 = !{!"_ZTSN2kc40impl_ac_direct_declarator_AcDirectDeclIdE", !114, i64 0, !12, i64 8}
+!193 = !{!194, !12, i64 8}
+!194 = !{!"_ZTSN2kc44impl_ac_direct_declarator_AcConvOperatorDeclE", !114, i64 0, !12, i64 8, !12, i64 16}
+!195 = !{!113, !12, i64 8}
+!196 = distinct !{!196, !28}
+!197 = !{!198, !12, i64 8}
+!198 = !{!"_ZTSN2kc27impl_baseclass_declarationsE", !25, i64 0, !12, i64 8, !12, i64 16}
+!199 = !{!200, !12, i64 8}
+!200 = !{!"_ZTSN2kc33impl_baseclass_decl_BaseClassDeclE", !201, i64 0, !12, i64 8, !12, i64 16}
+!201 = !{!"_ZTSN2kc19impl_baseclass_declE", !11, i64 0}
+!202 = !{!200, !12, i64 16}
+!203 = !{!198, !12, i64 16}
+!204 = distinct !{!204, !28}

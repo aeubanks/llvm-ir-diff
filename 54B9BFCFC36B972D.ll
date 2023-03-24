@@ -8,7 +8,7 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.environment_t = type { ptr, [256 x i32], ptr, [256 x %struct.tlb_entry_t] }
 %struct.tlb_entry_t = type { i32, i64 }
 
-@simulator_kernel.op_map = internal unnamed_addr constant [2 x ptr] [ptr blockaddress(@simulator_kernel, %65), ptr blockaddress(@simulator_kernel, %98)], align 16
+@simulator_kernel.op_map = internal unnamed_addr constant [2 x ptr] [ptr blockaddress(@simulator_kernel, %65), ptr blockaddress(@simulator_kernel, %97)], align 16
 @program = dso_local global [3 x %union.insn_t] zeroinitializer, align 16
 
 ; Function Attrs: noreturn nounwind uwtable
@@ -100,14 +100,14 @@ define dso_local i32 @simulator_kernel(i32 noundef %0, ptr nocapture noundef %1)
 61:                                               ; preds = %49, %46, %7, %2
   br label %62
 
-62:                                               ; preds = %61, %102
-  %63 = phi ptr [ %108, %102 ], [ %3, %61 ]
+62:                                               ; preds = %61, %101
+  %63 = phi ptr [ %107, %101 ], [ %3, %61 ]
   %64 = load i64, ptr %63, align 8, !tbaa.struct !14
-  br label %102
+  br label %101
 
-65:                                               ; preds = %102
-  %66 = lshr i32 %115, 12
-  %67 = load i64, ptr %108, align 8, !tbaa.struct !14
+65:                                               ; preds = %101
+  %66 = lshr i32 %114, 12
+  %67 = load i64, ptr %107, align 8, !tbaa.struct !14
   %68 = and i32 %66, 255
   %69 = zext i32 %68 to i64
   %70 = getelementptr inbounds %struct.tlb_entry_t, ptr %5, i64 %69
@@ -115,63 +115,63 @@ define dso_local i32 @simulator_kernel(i32 noundef %0, ptr nocapture noundef %1)
   %72 = icmp eq i32 %71, %66
   br i1 %72, label %75, label %85
 
-73:                                               ; preds = %91
-  %74 = zext i32 %93 to i64
+73:                                               ; preds = %90
+  %74 = zext i32 %92 to i64
   br label %75
 
 75:                                               ; preds = %73, %65
   %76 = phi i64 [ %69, %65 ], [ %74, %73 ]
   %77 = getelementptr inbounds %struct.tlb_entry_t, ptr %5, i64 %76, i32 1
   %78 = load i64, ptr %77, align 8, !tbaa !24
-  %79 = zext i32 %115 to i64
+  %79 = zext i32 %114 to i64
   %80 = add i64 %78, %79
   %81 = inttoptr i64 %80 to ptr
   %82 = load i32, ptr %81, align 4, !tbaa !15
-  %83 = zext i32 %114 to i64
+  %83 = zext i32 %110 to i64
   %84 = getelementptr inbounds i8, ptr %4, i64 %83
   store i32 %82, ptr %84, align 4, !tbaa !15
-  br label %102
+  br label %101
 
-85:                                               ; preds = %65, %91
-  %86 = phi i32 [ %96, %91 ], [ %71, %65 ]
-  %87 = phi i32 [ %93, %91 ], [ %68, %65 ]
+85:                                               ; preds = %65, %90
+  %86 = phi i32 [ %95, %90 ], [ %71, %65 ]
+  %87 = phi i32 [ %92, %90 ], [ %68, %65 ]
   %88 = icmp slt i32 %86, 0
-  br i1 %88, label %89, label %91
+  br i1 %88, label %89, label %90
 
 89:                                               ; preds = %85
-  %90 = tail call i64 @f()
+  tail call void @abort() #5
   unreachable
 
-91:                                               ; preds = %85
-  %92 = add nuw nsw i32 %87, 255
-  %93 = and i32 %92, 255
-  %94 = zext i32 %93 to i64
-  %95 = getelementptr inbounds %struct.tlb_entry_t, ptr %5, i64 %94
-  %96 = load i32, ptr %95, align 8, !tbaa !21
-  %97 = icmp eq i32 %96, %66
-  br i1 %97, label %73, label %85
+90:                                               ; preds = %85
+  %91 = add nuw nsw i32 %87, 255
+  %92 = and i32 %91, 255
+  %93 = zext i32 %92 to i64
+  %94 = getelementptr inbounds %struct.tlb_entry_t, ptr %5, i64 %93
+  %95 = load i32, ptr %94, align 8, !tbaa !21
+  %96 = icmp eq i32 %95, %66
+  br i1 %96, label %73, label %85
 
-98:                                               ; preds = %102
-  %99 = zext i32 %114 to i64
-  %100 = getelementptr inbounds i8, ptr %4, i64 %99
-  %101 = load i32, ptr %100, align 4, !tbaa !15
-  ret i32 %101
+97:                                               ; preds = %101
+  %98 = zext i32 %110 to i64
+  %99 = getelementptr inbounds i8, ptr %4, i64 %98
+  %100 = load i32, ptr %99, align 4, !tbaa !15
+  ret i32 %100
 
-102:                                              ; preds = %75, %62
-  %103 = phi i64 [ %64, %62 ], [ %67, %75 ]
-  %104 = phi ptr [ %63, %62 ], [ %108, %75 ]
-  %105 = shl i64 %103, 46
-  %106 = ashr exact i64 %105, 46
-  %107 = getelementptr i8, ptr blockaddress(@simulator_kernel, %62), i64 %106
-  %108 = getelementptr inbounds %union.insn_t, ptr %104, i64 1
-  %109 = lshr i64 %103, 52
-  %110 = and i64 %109, 1020
-  %111 = getelementptr inbounds i8, ptr %4, i64 %110
-  %112 = trunc i64 %103 to i32
-  %113 = lshr i32 %112, 20
-  %114 = and i32 %113, 1020
-  %115 = load i32, ptr %111, align 4, !tbaa !15
-  indirectbr ptr %107, [label %62, label %65, label %98]
+101:                                              ; preds = %75, %62
+  %102 = phi i64 [ %64, %62 ], [ %67, %75 ]
+  %103 = phi ptr [ %63, %62 ], [ %107, %75 ]
+  %104 = shl i64 %102, 46
+  %105 = ashr exact i64 %104, 46
+  %106 = getelementptr i8, ptr blockaddress(@simulator_kernel, %62), i64 %105
+  %107 = getelementptr inbounds %union.insn_t, ptr %103, i64 1
+  %108 = trunc i64 %102 to i32
+  %109 = lshr i32 %108, 20
+  %110 = and i32 %109, 1020
+  %111 = lshr i64 %102, 52
+  %112 = and i64 %111, 1020
+  %113 = getelementptr inbounds i8, ptr %4, i64 %112
+  %114 = load i32, ptr %113, align 4, !tbaa !15
+  indirectbr ptr %106, [label %62, label %65, label %97]
 }
 
 ; Function Attrs: noreturn nounwind uwtable

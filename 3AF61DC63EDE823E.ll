@@ -605,7 +605,7 @@ define dso_local i32 @very_real_unpack(ptr noundef %0, i32 noundef %1, i32 nound
   store i32 1, ptr %45, align 8, !tbaa !26
   br label %315
 
-315:                                              ; preds = %173, %189, %314
+315:                                              ; preds = %189, %173, %314
   %316 = add i32 %123, 192
   %317 = zext i32 %316 to i64
   %318 = getelementptr inbounds i16, ptr %0, i64 %317
@@ -921,7 +921,7 @@ define dso_local i32 @very_real_unpack(ptr noundef %0, i32 noundef %1, i32 nound
   %504 = icmp ult i32 %503, %8
   br i1 %504, label %1245, label %1258
 
-505:                                              ; preds = %438, %481, %465
+505:                                              ; preds = %438, %465, %481
   %506 = call i32 @get_n_bits_from_tablesize(ptr noundef nonnull %109, ptr noundef nonnull %11, i32 noundef %121)
   %507 = icmp slt i32 %123, 7
   %508 = select i1 %507, i32 8, i32 11
@@ -931,7 +931,7 @@ define dso_local i32 @very_real_unpack(ptr noundef %0, i32 noundef %1, i32 nound
   store i32 1, ptr %45, align 8, !tbaa !26
   br label %510
 
-510:                                              ; preds = %408, %424, %509
+510:                                              ; preds = %424, %408, %509
   %511 = add i32 %123, 216
   %512 = zext i32 %511 to i64
   %513 = getelementptr inbounds i16, ptr %0, i64 %512
@@ -1028,7 +1028,7 @@ define dso_local i32 @very_real_unpack(ptr noundef %0, i32 noundef %1, i32 nound
   store i32 1, ptr %45, align 8, !tbaa !26
   br label %567
 
-567:                                              ; preds = %546, %562, %566
+567:                                              ; preds = %562, %546, %566
   %568 = add i32 %123, 228
   %569 = zext i32 %568 to i64
   %570 = getelementptr inbounds i16, ptr %0, i64 %569
@@ -1125,10 +1125,10 @@ define dso_local i32 @very_real_unpack(ptr noundef %0, i32 noundef %1, i32 nound
   store i32 %623, ptr %47, align 8, !tbaa !29
   br label %624
 
-624:                                              ; preds = %575, %604, %620, %600, %584, %542, %526
-  %625 = phi i32 [ %125, %526 ], [ %125, %542 ], [ %126, %584 ], [ %126, %600 ], [ %126, %620 ], [ %126, %604 ], [ %126, %575 ]
-  %626 = phi i32 [ %124, %526 ], [ %124, %542 ], [ %124, %584 ], [ %124, %600 ], [ %125, %620 ], [ %125, %604 ], [ %125, %575 ]
-  %627 = phi i32 [ %126, %526 ], [ %126, %542 ], [ %125, %584 ], [ %125, %600 ], [ %124, %620 ], [ %124, %604 ], [ %124, %575 ]
+624:                                              ; preds = %575, %604, %620, %600, %584, %526, %542
+  %625 = phi i32 [ %125, %542 ], [ %125, %526 ], [ %126, %584 ], [ %126, %600 ], [ %126, %620 ], [ %126, %604 ], [ %126, %575 ]
+  %626 = phi i32 [ %124, %542 ], [ %124, %526 ], [ %124, %584 ], [ %124, %600 ], [ %125, %620 ], [ %125, %604 ], [ %125, %575 ]
+  %627 = phi i32 [ %126, %542 ], [ %126, %526 ], [ %125, %584 ], [ %125, %600 ], [ %124, %620 ], [ %124, %604 ], [ %124, %575 ]
   %628 = call i32 @get_n_bits_from_tablesize(ptr noundef nonnull %109, ptr noundef nonnull %11, i32 noundef %121)
   %629 = icmp slt i32 %123, 7
   %630 = select i1 %629, i32 8, i32 11
@@ -1161,122 +1161,122 @@ define dso_local i32 @very_real_unpack(ptr noundef %0, i32 noundef %1, i32 nound
   %650 = load ptr, ptr %51, align 8
   br label %651
 
-651:                                              ; preds = %710, %643
-  %652 = phi ptr [ %649, %643 ], [ %711, %710 ]
-  %653 = phi i32 [ %648, %643 ], [ %712, %710 ]
-  %654 = phi i32 [ %647, %643 ], [ %713, %710 ]
-  %655 = phi i32 [ 6, %643 ], [ %657, %710 ]
-  %656 = phi i32 [ 1, %643 ], [ %715, %710 ]
-  %657 = add nsw i32 %655, -1
-  %658 = shl i32 %656, 1
-  %659 = zext i32 %656 to i64
-  %660 = getelementptr inbounds i16, ptr %639, i64 %659
-  %661 = icmp ule ptr %645, %660
-  %662 = getelementptr inbounds i8, ptr %660, i64 2
-  %663 = icmp ule ptr %662, %646
-  %664 = select i1 %661, i1 %663, i1 false
-  br i1 %664, label %666, label %665
+651:                                              ; preds = %709, %643
+  %652 = phi ptr [ %649, %643 ], [ %710, %709 ]
+  %653 = phi i32 [ %648, %643 ], [ %711, %709 ]
+  %654 = phi i32 [ %647, %643 ], [ %712, %709 ]
+  %655 = phi i32 [ 5, %643 ], [ %715, %709 ]
+  %656 = phi i32 [ 1, %643 ], [ %714, %709 ]
+  %657 = shl i32 %656, 1
+  %658 = zext i32 %656 to i64
+  %659 = getelementptr inbounds i16, ptr %639, i64 %658
+  %660 = icmp ule ptr %645, %659
+  %661 = getelementptr inbounds i8, ptr %659, i64 2
+  %662 = icmp ule ptr %661, %646
+  %663 = select i1 %660, i1 %662, i1 false
+  br i1 %663, label %665, label %664
+
+664:                                              ; preds = %651
+  store i32 1, ptr %45, align 8, !tbaa !26
+  br label %709
 
 665:                                              ; preds = %651
+  %666 = load i16, ptr %659, align 2, !tbaa !21
+  %667 = zext i16 %666 to i32
+  %668 = lshr i32 %654, 11
+  %669 = mul i32 %668, %667
+  %670 = icmp ult i32 %653, %669
+  br i1 %670, label %671, label %690
+
+671:                                              ; preds = %665
+  store i32 %669, ptr %47, align 8, !tbaa !29
+  %672 = sub nsw i32 2048, %667
+  %673 = ashr i32 %672, 5
+  %674 = trunc i32 %673 to i16
+  %675 = add i16 %666, %674
+  store i16 %675, ptr %659, align 2, !tbaa !21
+  %676 = icmp ult i32 %669, 16777216
+  br i1 %676, label %677, label %709
+
+677:                                              ; preds = %671
+  %678 = shl i32 %653, 8
+  %679 = icmp ult ptr %652, %650
+  br i1 %679, label %681, label %680
+
+680:                                              ; preds = %677
   store i32 1, ptr %45, align 8, !tbaa !26
-  br label %710
+  br label %685
 
-666:                                              ; preds = %651
-  %667 = load i16, ptr %660, align 2, !tbaa !21
-  %668 = zext i16 %667 to i32
-  %669 = lshr i32 %654, 11
-  %670 = mul i32 %669, %668
-  %671 = icmp ult i32 %653, %670
-  br i1 %671, label %672, label %691
+681:                                              ; preds = %677
+  %682 = load i8, ptr %652, align 1, !tbaa !5
+  %683 = zext i8 %682 to i32
+  %684 = getelementptr inbounds i8, ptr %652, i64 1
+  store ptr %684, ptr %11, align 8, !tbaa !28
+  br label %685
 
-672:                                              ; preds = %666
-  store i32 %670, ptr %47, align 8, !tbaa !29
-  %673 = sub nsw i32 2048, %668
-  %674 = ashr i32 %673, 5
-  %675 = trunc i32 %674 to i16
-  %676 = add i16 %667, %675
-  store i16 %676, ptr %660, align 2, !tbaa !21
-  %677 = icmp ult i32 %670, 16777216
-  br i1 %677, label %678, label %710
+685:                                              ; preds = %681, %680
+  %686 = phi ptr [ %652, %680 ], [ %684, %681 ]
+  %687 = phi i32 [ 255, %680 ], [ %683, %681 ]
+  %688 = or i32 %687, %678
+  store i32 %688, ptr %46, align 4, !tbaa !33
+  %689 = shl nuw i32 %669, 8
+  store i32 %689, ptr %47, align 8, !tbaa !29
+  br label %709
 
-678:                                              ; preds = %672
-  %679 = shl i32 %653, 8
-  %680 = icmp ult ptr %652, %650
-  br i1 %680, label %682, label %681
+690:                                              ; preds = %665
+  %691 = sub i32 %654, %669
+  store i32 %691, ptr %47, align 8, !tbaa !29
+  %692 = sub i32 %653, %669
+  store i32 %692, ptr %46, align 4, !tbaa !33
+  %693 = lshr i16 %666, 5
+  %694 = sub i16 %666, %693
+  store i16 %694, ptr %659, align 2, !tbaa !21
+  %695 = icmp ult i32 %691, 16777216
+  br i1 %695, label %696, label %709
 
-681:                                              ; preds = %678
+696:                                              ; preds = %690
+  %697 = shl i32 %692, 8
+  %698 = icmp ult ptr %652, %650
+  br i1 %698, label %700, label %699
+
+699:                                              ; preds = %696
   store i32 1, ptr %45, align 8, !tbaa !26
-  br label %686
+  br label %704
 
-682:                                              ; preds = %678
-  %683 = load i8, ptr %652, align 1, !tbaa !5
-  %684 = zext i8 %683 to i32
-  %685 = getelementptr inbounds i8, ptr %652, i64 1
-  store ptr %685, ptr %11, align 8, !tbaa !28
-  br label %686
+700:                                              ; preds = %696
+  %701 = load i8, ptr %652, align 1, !tbaa !5
+  %702 = zext i8 %701 to i32
+  %703 = getelementptr inbounds i8, ptr %652, i64 1
+  store ptr %703, ptr %11, align 8, !tbaa !28
+  br label %704
 
-686:                                              ; preds = %682, %681
-  %687 = phi ptr [ %652, %681 ], [ %685, %682 ]
-  %688 = phi i32 [ 255, %681 ], [ %684, %682 ]
-  %689 = or i32 %688, %679
-  store i32 %689, ptr %46, align 4, !tbaa !33
-  %690 = shl nuw i32 %670, 8
-  store i32 %690, ptr %47, align 8, !tbaa !29
-  br label %710
+704:                                              ; preds = %700, %699
+  %705 = phi ptr [ %652, %699 ], [ %703, %700 ]
+  %706 = phi i32 [ 255, %699 ], [ %702, %700 ]
+  %707 = or i32 %706, %697
+  store i32 %707, ptr %46, align 4, !tbaa !33
+  %708 = shl nuw i32 %691, 8
+  store i32 %708, ptr %47, align 8, !tbaa !29
+  br label %709
 
-691:                                              ; preds = %666
-  %692 = sub i32 %654, %670
-  store i32 %692, ptr %47, align 8, !tbaa !29
-  %693 = sub i32 %653, %670
-  store i32 %693, ptr %46, align 4, !tbaa !33
-  %694 = lshr i16 %667, 5
-  %695 = sub i16 %667, %694
-  store i16 %695, ptr %660, align 2, !tbaa !21
-  %696 = icmp ult i32 %692, 16777216
-  br i1 %696, label %697, label %710
-
-697:                                              ; preds = %691
-  %698 = shl i32 %693, 8
-  %699 = icmp ult ptr %652, %650
-  br i1 %699, label %701, label %700
-
-700:                                              ; preds = %697
-  store i32 1, ptr %45, align 8, !tbaa !26
-  br label %705
-
-701:                                              ; preds = %697
-  %702 = load i8, ptr %652, align 1, !tbaa !5
-  %703 = zext i8 %702 to i32
-  %704 = getelementptr inbounds i8, ptr %652, i64 1
-  store ptr %704, ptr %11, align 8, !tbaa !28
-  br label %705
-
-705:                                              ; preds = %701, %700
-  %706 = phi ptr [ %652, %700 ], [ %704, %701 ]
-  %707 = phi i32 [ 255, %700 ], [ %703, %701 ]
-  %708 = or i32 %707, %698
-  store i32 %708, ptr %46, align 4, !tbaa !33
-  %709 = shl nuw i32 %692, 8
-  store i32 %709, ptr %47, align 8, !tbaa !29
-  br label %710
-
-710:                                              ; preds = %705, %691, %686, %672, %665
-  %711 = phi ptr [ %652, %665 ], [ %687, %686 ], [ %652, %672 ], [ %706, %705 ], [ %652, %691 ]
-  %712 = phi i32 [ %653, %665 ], [ %689, %686 ], [ %653, %672 ], [ %708, %705 ], [ %693, %691 ]
-  %713 = phi i32 [ %654, %665 ], [ %690, %686 ], [ %670, %672 ], [ %709, %705 ], [ %692, %691 ]
-  %714 = phi i32 [ 255, %665 ], [ 0, %686 ], [ 0, %672 ], [ 1, %705 ], [ 1, %691 ]
-  %715 = add i32 %714, %658
-  %716 = icmp eq i32 %657, 0
+709:                                              ; preds = %704, %690, %685, %671, %664
+  %710 = phi ptr [ %652, %664 ], [ %686, %685 ], [ %652, %671 ], [ %705, %704 ], [ %652, %690 ]
+  %711 = phi i32 [ %653, %664 ], [ %688, %685 ], [ %653, %671 ], [ %707, %704 ], [ %692, %690 ]
+  %712 = phi i32 [ %654, %664 ], [ %689, %685 ], [ %669, %671 ], [ %708, %704 ], [ %691, %690 ]
+  %713 = phi i32 [ 255, %664 ], [ 0, %685 ], [ 0, %671 ], [ 1, %704 ], [ 1, %690 ]
+  %714 = add i32 %713, %657
+  %715 = add nsw i32 %655, -1
+  %716 = icmp eq i32 %655, 0
   br i1 %716, label %717, label %651, !llvm.loop !36
 
-717:                                              ; preds = %710
-  %718 = add i32 %715, -64
+717:                                              ; preds = %709
+  %718 = add i32 %714, -64
   %719 = icmp ugt i32 %718, 3
   br i1 %719, label %720, label %1136
 
 720:                                              ; preds = %642, %717
   %721 = phi i32 [ 16065, %642 ], [ %718, %717 ]
-  %722 = phi i32 [ 16129, %642 ], [ %715, %717 ]
+  %722 = phi i32 [ 16129, %642 ], [ %714, %717 ]
   %723 = lshr i32 %721, 1
   %724 = add nsw i32 %723, -1
   %725 = and i32 %722, 1
@@ -2777,7 +2777,7 @@ define dso_local i32 @get_n_bits_from_tablesize(ptr noundef %0, ptr nocapture no
   store i32 1, ptr %77, align 8, !tbaa !26
   br label %78
 
-78:                                               ; preds = %48, %66, %76
+78:                                               ; preds = %66, %48, %76
   %79 = icmp ule ptr %10, %12
   %80 = getelementptr inbounds i16, ptr %0, i64 2
   %81 = icmp ule ptr %80, %13
@@ -2887,7 +2887,7 @@ define dso_local i32 @get_n_bits_from_tablesize(ptr noundef %0, ptr nocapture no
   %145 = add i32 %144, 8
   br label %150
 
-146:                                              ; preds = %83, %135, %117
+146:                                              ; preds = %83, %117, %135
   %147 = getelementptr inbounds i16, ptr %0, i64 258
   %148 = tail call i32 @get_n_bits_from_table(ptr noundef nonnull %147, i32 noundef 8, ptr noundef nonnull %1)
   %149 = add i32 %148, 16

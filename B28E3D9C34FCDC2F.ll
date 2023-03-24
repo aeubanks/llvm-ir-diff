@@ -40,7 +40,7 @@ define dso_local i32 @foo(ptr nocapture noundef readnone %0, i64 noundef %1, i32
   %4 = load i64, ptr @baz1.l, align 8, !tbaa !5
   %5 = add i64 %4, 1
   %6 = icmp slt i64 %4, %1
-  br i1 %6, label %7, label %48
+  br i1 %6, label %7, label %38
 
 7:                                                ; preds = %3
   %8 = and i32 %2, 16
@@ -55,69 +55,53 @@ define dso_local i32 @foo(ptr nocapture noundef readnone %0, i64 noundef %1, i32
   %17 = freeze ptr %16
   %18 = icmp eq ptr %17, null
   %19 = or i1 %15, %18
-  br i1 %9, label %20, label %31
+  br i1 %9, label %20, label %22
 
 20:                                               ; preds = %7
   %21 = add i64 %1, 1
-  br i1 %13, label %22, label %48
+  br label %38
 
-22:                                               ; preds = %20
-  %23 = and i32 %2, 13848
-  %24 = icmp ne i32 %23, 16
-  %25 = or i1 %24, %19
-  br label %26
+22:                                               ; preds = %7
+  %23 = and i32 %2, 13832
+  %24 = icmp eq i32 %23, 0
+  br i1 %24, label %25, label %35
 
-26:                                               ; preds = %22, %28
-  %27 = phi i64 [ %29, %28 ], [ %5, %22 ]
-  br i1 %25, label %28, label %46
+25:                                               ; preds = %22
+  br i1 %13, label %26, label %29
 
-28:                                               ; preds = %26
-  %29 = add i64 %27, 1
-  %30 = icmp eq i64 %27, %1
-  br i1 %30, label %48, label %26, !llvm.loop !9
+26:                                               ; preds = %25
+  br i1 %19, label %27, label %37
 
-31:                                               ; preds = %7
-  %32 = and i32 %2, 13832
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %34, label %44
+27:                                               ; preds = %26
+  %28 = add i64 %1, 1
+  br label %38
 
-34:                                               ; preds = %31
-  br i1 %13, label %35, label %38
+29:                                               ; preds = %25
+  br i1 %11, label %30, label %32
 
-35:                                               ; preds = %34
-  br i1 %19, label %36, label %46
+30:                                               ; preds = %29
+  %31 = add i64 %1, 1
+  br label %38
 
-36:                                               ; preds = %35
-  %37 = add i64 %1, 1
-  br label %48
+32:                                               ; preds = %29
+  br i1 %19, label %33, label %37
 
-38:                                               ; preds = %34
-  br i1 %11, label %39, label %41
+33:                                               ; preds = %32
+  %34 = add i64 %1, 1
+  br label %38
 
-39:                                               ; preds = %38
-  %40 = add i64 %1, 1
-  br label %48
+35:                                               ; preds = %22
+  %36 = add i64 %1, 1
+  br label %38
 
-41:                                               ; preds = %38
-  br i1 %19, label %42, label %46
-
-42:                                               ; preds = %41
-  %43 = add i64 %1, 1
-  br label %48
-
-44:                                               ; preds = %31
-  %45 = add i64 %1, 1
-  br label %48
-
-46:                                               ; preds = %26, %41, %35
-  %47 = phi i64 [ %5, %35 ], [ %5, %41 ], [ %27, %26 ]
-  store i64 %47, ptr @baz1.l, align 8, !tbaa !5
+37:                                               ; preds = %32, %26
+  store i64 %5, ptr @baz1.l, align 8, !tbaa !5
   tail call void @abort() #6
   unreachable
 
-48:                                               ; preds = %28, %44, %20, %42, %39, %36, %3
-  %49 = phi i64 [ %5, %3 ], [ %37, %36 ], [ %40, %39 ], [ %43, %42 ], [ %21, %20 ], [ %45, %44 ], [ %21, %28 ]
-  store i64 %49, ptr @baz1.l, align 8, !tbaa !5
+38:                                               ; preds = %20, %35, %33, %30, %27, %3
+  %39 = phi i64 [ %5, %3 ], [ %28, %27 ], [ %31, %30 ], [ %34, %33 ], [ %36, %35 ], [ %21, %20 ]
+  store i64 %39, ptr @baz1.l, align 8, !tbaa !5
   ret i32 0
 }
 
@@ -128,8 +112,8 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #4
 define dso_local i32 @main() local_unnamed_addr #5 {
   %1 = alloca ptr, align 8
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #7
-  store ptr null, ptr %1, align 8, !tbaa !11
-  store ptr %1, ptr @bar, align 8, !tbaa !11
+  store ptr null, ptr %1, align 8, !tbaa !9
+  store ptr %1, ptr @bar, align 8, !tbaa !9
   %2 = load i64, ptr @baz1.l, align 8, !tbaa !5
   %3 = add i64 %2, 1
   %4 = icmp slt i64 %2, 1
@@ -163,7 +147,5 @@ attributes #7 = { nounwind }
 !6 = !{!"long", !7, i64 0}
 !7 = !{!"omnipotent char", !8, i64 0}
 !8 = !{!"Simple C/C++ TBAA"}
-!9 = distinct !{!9, !10}
-!10 = !{!"llvm.loop.mustprogress"}
-!11 = !{!12, !12, i64 0}
-!12 = !{!"any pointer", !7, i64 0}
+!9 = !{!10, !10, i64 0}
+!10 = !{!"any pointer", !7, i64 0}

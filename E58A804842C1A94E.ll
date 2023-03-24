@@ -118,7 +118,7 @@ $_ZTI13CMyUnknownImp = comdat any
 @IID_ICompressSetDecoderProperties2 = external local_unnamed_addr global %struct.GUID, align 4
 @IID_ICompressGetInStreamProcessedSize = external local_unnamed_addr global %struct.GUID, align 4
 @IID_ICompressSetInStream = external local_unnamed_addr global %struct.GUID, align 4
-@IID_ICompressSetOutStreamSize = external local_unnamed_addr global %struct.GUID, align 4
+@IID_ICompressSetOutStreamSize = external global %struct.GUID, align 4
 @IID_ISequentialInStream = external global %struct.GUID, align 4
 
 @_ZN9NCompress6NLzma28CDecoderC1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN9NCompress6NLzma28CDecoderC2Ev
@@ -862,8 +862,8 @@ define dso_local noundef i32 @_ZN9NCompress6NLzma28CDecoder21SetDecoderPropertie
 19:                                               ; preds = %16, %12
   br label %20
 
-20:                                               ; preds = %5, %9, %10, %11, %16, %3, %19
-  %21 = phi i32 [ 0, %19 ], [ 4, %3 ], [ -2147024882, %16 ], [ -2147024809, %9 ], [ 1, %10 ], [ -2147467259, %11 ], [ -2147024882, %5 ]
+20:                                               ; preds = %5, %11, %10, %9, %16, %3, %19
+  %21 = phi i32 [ 0, %19 ], [ 4, %3 ], [ -2147024882, %16 ], [ -2147467259, %11 ], [ 1, %10 ], [ -2147024809, %9 ], [ -2147024882, %5 ]
   ret i32 %21
 }
 
@@ -918,7 +918,7 @@ define dso_local noundef i32 @_ZThn8_N9NCompress6NLzma28CDecoder21SetDecoderProp
   br label %20
 
 20:                                               ; preds = %3, %5, %9, %10, %11, %16, %19
-  %21 = phi i32 [ 0, %19 ], [ 4, %3 ], [ -2147024882, %16 ], [ -2147024809, %9 ], [ 1, %10 ], [ -2147467259, %11 ], [ -2147024882, %5 ]
+  %21 = phi i32 [ 0, %19 ], [ 4, %3 ], [ -2147024882, %16 ], [ -2147467259, %11 ], [ 1, %10 ], [ -2147024809, %9 ], [ -2147024882, %5 ]
   ret i32 %21
 }
 
@@ -1526,7 +1526,7 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress6NLzma28CDecoder14QueryI
   %79 = load i8, ptr %78, align 1, !tbaa !31
   %80 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !31
   %81 = icmp eq i8 %79, %80
-  br i1 %81, label %397, label %82
+  br i1 %81, label %322, label %82
 
 82:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77
   %83 = load i8, ptr @IID_ICompressSetDecoderProperties2, align 4, !tbaa !31
@@ -1636,7 +1636,7 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress6NLzma28CDecoder14QueryI
   %157 = load i8, ptr %156, align 1, !tbaa !31
   %158 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetDecoderProperties2, i64 0, i32 3, i64 7), align 1, !tbaa !31
   %159 = icmp eq i8 %157, %158
-  br i1 %159, label %397, label %160
+  br i1 %159, label %322, label %160
 
 160:                                              ; preds = %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
   %161 = load i8, ptr @IID_ICompressGetInStreamProcessedSize, align 4, !tbaa !31
@@ -1746,9 +1746,9 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress6NLzma28CDecoder14QueryI
   %235 = load i8, ptr %234, align 1, !tbaa !31
   %236 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetInStreamProcessedSize, i64 0, i32 3, i64 7), align 1, !tbaa !31
   %237 = icmp eq i8 %235, %236
-  br i1 %237, label %397, label %238
+  br i1 %237, label %322, label %238
 
-238:                                              ; preds = %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
+238:                                              ; preds = %160, %163, %168, %173, %178, %183, %188, %193, %198, %203, %208, %213, %218, %223, %228, %233
   %239 = load i8, ptr @IID_ICompressSetInStream, align 4, !tbaa !31
   %240 = icmp eq i8 %4, %239
   br i1 %240, label %241, label %316
@@ -1856,136 +1856,31 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress6NLzma28CDecoder14QueryI
   %313 = load i8, ptr %312, align 1, !tbaa !31
   %314 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 7), align 1, !tbaa !31
   %315 = icmp eq i8 %313, %314
-  br i1 %315, label %397, label %316
+  br i1 %315, label %322, label %316
 
-316:                                              ; preds = %306, %301, %296, %291, %286, %281, %276, %271, %266, %261, %256, %251, %246, %241, %238, %311
-  %317 = load i8, ptr @IID_ICompressSetOutStreamSize, align 4, !tbaa !31
-  %318 = icmp eq i8 %4, %317
-  br i1 %318, label %319, label %394
+316:                                              ; preds = %238, %241, %246, %251, %256, %261, %266, %271, %276, %281, %286, %291, %296, %301, %306, %311
+  %317 = tail call noundef i32 @_ZeqRK4GUIDS1_(ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressSetOutStreamSize)
+  %318 = icmp eq i32 %317, 0
+  br i1 %318, label %319, label %322
 
 319:                                              ; preds = %316
-  %320 = getelementptr inbounds i8, ptr %1, i64 1
-  %321 = load i8, ptr %320, align 1, !tbaa !31
-  %322 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetOutStreamSize, i64 1), align 1, !tbaa !31
-  %323 = icmp eq i8 %321, %322
-  br i1 %323, label %324, label %394
+  %320 = tail call noundef i32 @_ZeqRK4GUIDS1_(ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) @IID_ISequentialInStream)
+  %321 = icmp eq i32 %320, 0
+  br i1 %321, label %329, label %322
 
-324:                                              ; preds = %319
-  %325 = getelementptr inbounds i8, ptr %1, i64 2
-  %326 = load i8, ptr %325, align 2, !tbaa !31
-  %327 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetOutStreamSize, i64 2), align 2, !tbaa !31
-  %328 = icmp eq i8 %326, %327
-  br i1 %328, label %329, label %394
+322:                                              ; preds = %319, %316, %311, %233, %155, %77
+  %323 = phi i64 [ 8, %77 ], [ 8, %155 ], [ 16, %233 ], [ 24, %311 ], [ 32, %316 ], [ 40, %319 ]
+  %324 = getelementptr inbounds i8, ptr %0, i64 %323
+  store ptr %324, ptr %2, align 8, !tbaa !49
+  %325 = load ptr, ptr %0, align 8, !tbaa !10
+  %326 = getelementptr inbounds ptr, ptr %325, i64 1
+  %327 = load ptr, ptr %326, align 8
+  %328 = tail call noundef i32 %327(ptr noundef nonnull align 8 dereferenceable(280) %0)
+  br label %329
 
-329:                                              ; preds = %324
-  %330 = getelementptr inbounds i8, ptr %1, i64 3
-  %331 = load i8, ptr %330, align 1, !tbaa !31
-  %332 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetOutStreamSize, i64 3), align 1, !tbaa !31
-  %333 = icmp eq i8 %331, %332
-  br i1 %333, label %334, label %394
-
-334:                                              ; preds = %329
-  %335 = getelementptr inbounds i8, ptr %1, i64 4
-  %336 = load i8, ptr %335, align 4, !tbaa !31
-  %337 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 1), align 4, !tbaa !31
-  %338 = icmp eq i8 %336, %337
-  br i1 %338, label %339, label %394
-
-339:                                              ; preds = %334
-  %340 = getelementptr inbounds i8, ptr %1, i64 5
-  %341 = load i8, ptr %340, align 1, !tbaa !31
-  %342 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetOutStreamSize, i64 5), align 1, !tbaa !31
-  %343 = icmp eq i8 %341, %342
-  br i1 %343, label %344, label %394
-
-344:                                              ; preds = %339
-  %345 = getelementptr inbounds i8, ptr %1, i64 6
-  %346 = load i8, ptr %345, align 2, !tbaa !31
-  %347 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 2), align 2, !tbaa !31
-  %348 = icmp eq i8 %346, %347
-  br i1 %348, label %349, label %394
-
-349:                                              ; preds = %344
-  %350 = getelementptr inbounds i8, ptr %1, i64 7
-  %351 = load i8, ptr %350, align 1, !tbaa !31
-  %352 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetOutStreamSize, i64 7), align 1, !tbaa !31
-  %353 = icmp eq i8 %351, %352
-  br i1 %353, label %354, label %394
-
-354:                                              ; preds = %349
-  %355 = getelementptr inbounds i8, ptr %1, i64 8
-  %356 = load i8, ptr %355, align 4, !tbaa !31
-  %357 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 0), align 4, !tbaa !31
-  %358 = icmp eq i8 %356, %357
-  br i1 %358, label %359, label %394
-
-359:                                              ; preds = %354
-  %360 = getelementptr inbounds i8, ptr %1, i64 9
-  %361 = load i8, ptr %360, align 1, !tbaa !31
-  %362 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 1), align 1, !tbaa !31
-  %363 = icmp eq i8 %361, %362
-  br i1 %363, label %364, label %394
-
-364:                                              ; preds = %359
-  %365 = getelementptr inbounds i8, ptr %1, i64 10
-  %366 = load i8, ptr %365, align 2, !tbaa !31
-  %367 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 2), align 2, !tbaa !31
-  %368 = icmp eq i8 %366, %367
-  br i1 %368, label %369, label %394
-
-369:                                              ; preds = %364
-  %370 = getelementptr inbounds i8, ptr %1, i64 11
-  %371 = load i8, ptr %370, align 1, !tbaa !31
-  %372 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 3), align 1, !tbaa !31
-  %373 = icmp eq i8 %371, %372
-  br i1 %373, label %374, label %394
-
-374:                                              ; preds = %369
-  %375 = getelementptr inbounds i8, ptr %1, i64 12
-  %376 = load i8, ptr %375, align 4, !tbaa !31
-  %377 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 4), align 4, !tbaa !31
-  %378 = icmp eq i8 %376, %377
-  br i1 %378, label %379, label %394
-
-379:                                              ; preds = %374
-  %380 = getelementptr inbounds i8, ptr %1, i64 13
-  %381 = load i8, ptr %380, align 1, !tbaa !31
-  %382 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 5), align 1, !tbaa !31
-  %383 = icmp eq i8 %381, %382
-  br i1 %383, label %384, label %394
-
-384:                                              ; preds = %379
-  %385 = getelementptr inbounds i8, ptr %1, i64 14
-  %386 = load i8, ptr %385, align 2, !tbaa !31
-  %387 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 6), align 2, !tbaa !31
-  %388 = icmp eq i8 %386, %387
-  br i1 %388, label %389, label %394
-
-389:                                              ; preds = %384
-  %390 = getelementptr inbounds i8, ptr %1, i64 15
-  %391 = load i8, ptr %390, align 1, !tbaa !31
-  %392 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 7), align 1, !tbaa !31
-  %393 = icmp eq i8 %391, %392
-  br i1 %393, label %397, label %394
-
-394:                                              ; preds = %384, %379, %374, %369, %364, %359, %354, %349, %344, %339, %334, %329, %324, %319, %316, %389
-  %395 = tail call noundef i32 @_ZeqRK4GUIDS1_(ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef nonnull align 4 dereferenceable(16) @IID_ISequentialInStream)
-  %396 = icmp eq i32 %395, 0
-  br i1 %396, label %404, label %397
-
-397:                                              ; preds = %394, %389, %311, %233, %155, %77
-  %398 = phi i64 [ 8, %77 ], [ 8, %155 ], [ 16, %233 ], [ 24, %311 ], [ 32, %389 ], [ 40, %394 ]
-  %399 = getelementptr inbounds i8, ptr %0, i64 %398
-  store ptr %399, ptr %2, align 8, !tbaa !49
-  %400 = load ptr, ptr %0, align 8, !tbaa !10
-  %401 = getelementptr inbounds ptr, ptr %400, i64 1
-  %402 = load ptr, ptr %401, align 8
-  %403 = tail call noundef i32 %402(ptr noundef nonnull align 8 dereferenceable(280) %0)
-  br label %404
-
-404:                                              ; preds = %397, %394
-  %405 = phi i32 [ -2147467262, %394 ], [ 0, %397 ]
-  ret i32 %405
+329:                                              ; preds = %322, %319
+  %330 = phi i32 [ -2147467262, %319 ], [ 0, %322 ]
+  ret i32 %330
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
@@ -2347,11 +2242,11 @@ define linkonce_odr dso_local noundef i32 @_ZeqRK4GUIDS1_(ptr noundef nonnull al
   ret i32 %98
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umin.i64(i64, i64) #12
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -2364,8 +2259,8 @@ attributes #7 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true"
 attributes #8 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { inlinehint mustprogress nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #13 = { noreturn nounwind }
 attributes #14 = { nounwind }
 attributes #15 = { builtin nounwind }

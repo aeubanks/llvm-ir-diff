@@ -3968,7 +3968,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %144 = getelementptr inbounds [32 x i64], ptr %3, i64 0, i64 1
   %145 = getelementptr inbounds %struct.des_context, ptr %3, i64 0, i32 1, i64 31
   %146 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1
-  br i1 %80, label %147, label %373
+  br i1 %80, label %147, label %369
 
 147:                                              ; preds = %7, %74
   %148 = phi ptr [ %73, %7 ], [ %146, %74 ]
@@ -4040,305 +4040,296 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %214 = phi i32 [ 100, %7 ], [ %79, %74 ]
   br label %215
 
-215:                                              ; preds = %147, %372
-  %216 = phi i1 [ true, %147 ], [ false, %372 ]
+215:                                              ; preds = %147, %368
+  %216 = phi i1 [ true, %147 ], [ false, %368 ]
   %217 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str)
   %218 = select i1 %216, ptr @str.9, ptr @str.8
   %219 = call i32 @puts(ptr nonnull dereferenceable(1) %218)
-  br label %220
+  %220 = select i1 %216, ptr %3, ptr %210
+  br label %221
 
-220:                                              ; preds = %369, %215
-  %221 = phi i64 [ %223, %369 ], [ 0, %215 ]
-  %222 = trunc i64 %221 to i32
-  %223 = add nuw nsw i64 %221, 1
-  %224 = shl nuw nsw i32 %222, 6
-  %225 = add nuw nsw i32 %224, 64
-  %226 = trunc i64 %223 to i32
-  %227 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %226, i32 noundef %225)
-  %228 = load ptr, ptr @stdout, align 8, !tbaa !14
-  %229 = call i32 @fflush(ptr noundef %228)
-  %230 = icmp eq i64 %221, 0
-  %231 = getelementptr inbounds [3 x [8 x i8]], ptr @DES3_enc_test, i64 0, i64 %221
-  %232 = getelementptr inbounds [3 x [8 x i8]], ptr @DES3_dec_test, i64 0, i64 %221
-  br label %233
+221:                                              ; preds = %365, %215
+  %222 = phi i64 [ %224, %365 ], [ 0, %215 ]
+  %223 = trunc i64 %222 to i32
+  %224 = add nuw nsw i64 %222, 1
+  %225 = shl nuw nsw i32 %223, 6
+  %226 = add nuw nsw i32 %225, 64
+  %227 = trunc i64 %224 to i32
+  %228 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %227, i32 noundef %226)
+  %229 = load ptr, ptr @stdout, align 8, !tbaa !14
+  %230 = call i32 @fflush(ptr noundef %229)
+  %231 = icmp eq i64 %222, 0
+  %232 = getelementptr inbounds [3 x [8 x i8]], ptr @DES3_enc_test, i64 0, i64 %222
+  %233 = getelementptr inbounds [3 x [8 x i8]], ptr @DES3_dec_test, i64 0, i64 %222
+  br label %234
 
-233:                                              ; preds = %346, %220
-  %234 = phi i32 [ 0, %220 ], [ %347, %346 ]
+234:                                              ; preds = %347, %221
+  %235 = phi i32 [ 0, %221 ], [ %348, %347 ]
   store i64 8367815003007840078, ptr %5, align 8
-  switch i32 %222, label %353 [
-    i32 0, label %305
-    i32 1, label %272
-    i32 2, label %235
+  switch i32 %223, label %350 [
+    i32 0, label %306
+    i32 1, label %273
+    i32 2, label %236
   ]
 
-235:                                              ; preds = %233
-  %236 = call i32 @des_main_ks(ptr noundef nonnull %4, ptr noundef nonnull @DES3_keys)
-  %237 = call i32 @des_main_ks(ptr noundef nonnull %213, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 1))
-  %238 = call i32 @des_main_ks(ptr noundef nonnull %212, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 2))
-  br label %239
+236:                                              ; preds = %234
+  %237 = call i32 @des_main_ks(ptr noundef nonnull %4, ptr noundef nonnull @DES3_keys)
+  %238 = call i32 @des_main_ks(ptr noundef nonnull %213, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 1))
+  %239 = call i32 @des_main_ks(ptr noundef nonnull %212, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 2))
+  br label %240
 
-239:                                              ; preds = %239, %235
-  %240 = phi i64 [ 0, %235 ], [ %270, %239 ]
-  %241 = sub nuw nsw i64 94, %240
-  %242 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %241
-  %243 = load i64, ptr %242, align 8, !tbaa !8
-  %244 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %240
-  store i64 %243, ptr %244, align 8, !tbaa !8
-  %245 = sub nuw nsw i64 95, %240
-  %246 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %245
-  %247 = load i64, ptr %246, align 8, !tbaa !8
-  %248 = or i64 %240, 1
-  %249 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %248
-  store i64 %247, ptr %249, align 8, !tbaa !8
-  %250 = sub nuw nsw i64 62, %240
-  %251 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %250
-  %252 = load i64, ptr %251, align 8, !tbaa !8
-  %253 = add nuw nsw i64 %240, 32
-  %254 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %253
-  store i64 %252, ptr %254, align 8, !tbaa !8
-  %255 = sub nuw nsw i64 63, %240
-  %256 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %255
-  %257 = load i64, ptr %256, align 8, !tbaa !8
-  %258 = add nuw nsw i64 %240, 33
-  %259 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %258
-  store i64 %257, ptr %259, align 8, !tbaa !8
-  %260 = sub nuw nsw i64 30, %240
-  %261 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %260
-  %262 = load i64, ptr %261, align 8, !tbaa !8
-  %263 = add nuw nsw i64 %240, 64
-  %264 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %263
-  store i64 %262, ptr %264, align 8, !tbaa !8
-  %265 = sub nuw nsw i64 31, %240
-  %266 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %265
-  %267 = load i64, ptr %266, align 8, !tbaa !8
-  %268 = add nuw nsw i64 %240, 65
-  %269 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %268
-  store i64 %267, ptr %269, align 8, !tbaa !8
-  %270 = add nuw nsw i64 %240, 2
-  %271 = icmp ult i64 %240, 30
-  br i1 %271, label %239, label %339, !llvm.loop !13
+240:                                              ; preds = %240, %236
+  %241 = phi i64 [ 0, %236 ], [ %271, %240 ]
+  %242 = sub nuw nsw i64 94, %241
+  %243 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %242
+  %244 = load i64, ptr %243, align 8, !tbaa !8
+  %245 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %241
+  store i64 %244, ptr %245, align 8, !tbaa !8
+  %246 = sub nuw nsw i64 95, %241
+  %247 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %246
+  %248 = load i64, ptr %247, align 8, !tbaa !8
+  %249 = or i64 %241, 1
+  %250 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %249
+  store i64 %248, ptr %250, align 8, !tbaa !8
+  %251 = sub nuw nsw i64 62, %241
+  %252 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %251
+  %253 = load i64, ptr %252, align 8, !tbaa !8
+  %254 = add nuw nsw i64 %241, 32
+  %255 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %254
+  store i64 %253, ptr %255, align 8, !tbaa !8
+  %256 = sub nuw nsw i64 63, %241
+  %257 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %256
+  %258 = load i64, ptr %257, align 8, !tbaa !8
+  %259 = add nuw nsw i64 %241, 33
+  %260 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %259
+  store i64 %258, ptr %260, align 8, !tbaa !8
+  %261 = sub nuw nsw i64 30, %241
+  %262 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %261
+  %263 = load i64, ptr %262, align 8, !tbaa !8
+  %264 = add nuw nsw i64 %241, 64
+  %265 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %264
+  store i64 %263, ptr %265, align 8, !tbaa !8
+  %266 = sub nuw nsw i64 31, %241
+  %267 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %266
+  %268 = load i64, ptr %267, align 8, !tbaa !8
+  %269 = add nuw nsw i64 %241, 65
+  %270 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %269
+  store i64 %268, ptr %270, align 8, !tbaa !8
+  %271 = add nuw nsw i64 %241, 2
+  %272 = icmp ult i64 %241, 30
+  br i1 %272, label %240, label %340, !llvm.loop !13
 
-272:                                              ; preds = %233
-  %273 = call i32 @des_main_ks(ptr noundef nonnull %4, ptr noundef nonnull @DES3_keys)
-  %274 = call i32 @des_main_ks(ptr noundef nonnull %213, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 1))
-  br label %275
+273:                                              ; preds = %234
+  %274 = call i32 @des_main_ks(ptr noundef nonnull %4, ptr noundef nonnull @DES3_keys)
+  %275 = call i32 @des_main_ks(ptr noundef nonnull %213, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 1))
+  br label %276
 
-275:                                              ; preds = %275, %272
-  %276 = phi i64 [ 0, %272 ], [ %303, %275 ]
-  %277 = sub nuw nsw i64 30, %276
-  %278 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %277
-  %279 = load i64, ptr %278, align 8, !tbaa !8
-  %280 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %276
-  store i64 %279, ptr %280, align 8, !tbaa !8
-  %281 = sub nuw nsw i64 31, %276
-  %282 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %281
-  %283 = load i64, ptr %282, align 8, !tbaa !8
-  %284 = or i64 %276, 1
-  %285 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %284
-  store i64 %283, ptr %285, align 8, !tbaa !8
-  %286 = sub nuw nsw i64 62, %276
-  %287 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %286
-  %288 = load i64, ptr %287, align 8, !tbaa !8
-  %289 = add nuw nsw i64 %276, 32
-  %290 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %289
-  store i64 %288, ptr %290, align 8, !tbaa !8
-  %291 = sub nuw nsw i64 63, %276
-  %292 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %291
-  %293 = load i64, ptr %292, align 8, !tbaa !8
-  %294 = add nuw nsw i64 %276, 33
-  %295 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %294
-  store i64 %293, ptr %295, align 8, !tbaa !8
-  %296 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %276
-  %297 = add nuw nsw i64 %276, 64
-  %298 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %297
-  %299 = add nuw nsw i64 %276, 65
-  %300 = load <2 x i64>, ptr %296, align 8, !tbaa !8
-  store <2 x i64> %300, ptr %298, align 8, !tbaa !8
-  %301 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %297
-  store i64 %279, ptr %301, align 8, !tbaa !8
-  %302 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %299
-  store i64 %283, ptr %302, align 8, !tbaa !8
-  %303 = add nuw nsw i64 %276, 2
-  %304 = icmp ult i64 %276, 30
-  br i1 %304, label %275, label %339, !llvm.loop !12
+276:                                              ; preds = %276, %273
+  %277 = phi i64 [ 0, %273 ], [ %304, %276 ]
+  %278 = sub nuw nsw i64 30, %277
+  %279 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %278
+  %280 = load i64, ptr %279, align 8, !tbaa !8
+  %281 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %277
+  store i64 %280, ptr %281, align 8, !tbaa !8
+  %282 = sub nuw nsw i64 31, %277
+  %283 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %282
+  %284 = load i64, ptr %283, align 8, !tbaa !8
+  %285 = or i64 %277, 1
+  %286 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %285
+  store i64 %284, ptr %286, align 8, !tbaa !8
+  %287 = sub nuw nsw i64 62, %277
+  %288 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %287
+  %289 = load i64, ptr %288, align 8, !tbaa !8
+  %290 = add nuw nsw i64 %277, 32
+  %291 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %290
+  store i64 %289, ptr %291, align 8, !tbaa !8
+  %292 = sub nuw nsw i64 63, %277
+  %293 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %292
+  %294 = load i64, ptr %293, align 8, !tbaa !8
+  %295 = add nuw nsw i64 %277, 33
+  %296 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %295
+  store i64 %294, ptr %296, align 8, !tbaa !8
+  %297 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %277
+  %298 = add nuw nsw i64 %277, 64
+  %299 = getelementptr inbounds [96 x i64], ptr %4, i64 0, i64 %298
+  %300 = add nuw nsw i64 %277, 65
+  %301 = load <2 x i64>, ptr %297, align 8, !tbaa !8
+  store <2 x i64> %301, ptr %299, align 8, !tbaa !8
+  %302 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %298
+  store i64 %280, ptr %302, align 8, !tbaa !8
+  %303 = getelementptr inbounds %struct.des3_context, ptr %4, i64 0, i32 1, i64 %300
+  store i64 %284, ptr %303, align 8, !tbaa !8
+  %304 = add nuw nsw i64 %277, 2
+  %305 = icmp ult i64 %277, 30
+  br i1 %305, label %276, label %340, !llvm.loop !12
 
-305:                                              ; preds = %233
-  %306 = call i32 @des_main_ks(ptr noundef nonnull %3, ptr noundef nonnull @DES3_keys)
-  %307 = load i64, ptr %211, align 8, !tbaa !8
-  store i64 %307, ptr %210, align 8, !tbaa !8
-  %308 = load i64, ptr %209, align 8, !tbaa !8
-  store i64 %308, ptr %208, align 8, !tbaa !8
-  %309 = load i64, ptr %207, align 8, !tbaa !8
-  store i64 %309, ptr %206, align 8, !tbaa !8
-  %310 = load i64, ptr %205, align 8, !tbaa !8
-  store i64 %310, ptr %204, align 8, !tbaa !8
-  %311 = load i64, ptr %203, align 8, !tbaa !8
-  store i64 %311, ptr %202, align 8, !tbaa !8
-  %312 = load i64, ptr %201, align 8, !tbaa !8
-  store i64 %312, ptr %200, align 8, !tbaa !8
-  %313 = load i64, ptr %199, align 8, !tbaa !8
-  store i64 %313, ptr %198, align 8, !tbaa !8
-  %314 = load i64, ptr %197, align 8, !tbaa !8
-  store i64 %314, ptr %196, align 8, !tbaa !8
-  %315 = load i64, ptr %195, align 8, !tbaa !8
-  store i64 %315, ptr %194, align 8, !tbaa !8
-  %316 = load i64, ptr %193, align 8, !tbaa !8
-  store i64 %316, ptr %192, align 8, !tbaa !8
-  %317 = load i64, ptr %191, align 8, !tbaa !8
-  store i64 %317, ptr %190, align 8, !tbaa !8
-  %318 = load i64, ptr %189, align 8, !tbaa !8
-  store i64 %318, ptr %188, align 8, !tbaa !8
-  %319 = load i64, ptr %187, align 8, !tbaa !8
-  store i64 %319, ptr %186, align 8, !tbaa !8
-  %320 = load i64, ptr %185, align 8, !tbaa !8
-  store i64 %320, ptr %184, align 8, !tbaa !8
-  %321 = load i64, ptr %183, align 8, !tbaa !8
-  store i64 %321, ptr %182, align 8, !tbaa !8
-  %322 = load i64, ptr %181, align 8, !tbaa !8
-  store i64 %322, ptr %180, align 8, !tbaa !8
-  %323 = load i64, ptr %179, align 8, !tbaa !8
-  store i64 %323, ptr %178, align 8, !tbaa !8
-  %324 = load i64, ptr %177, align 8, !tbaa !8
-  store i64 %324, ptr %176, align 8, !tbaa !8
-  %325 = load i64, ptr %175, align 8, !tbaa !8
-  store i64 %325, ptr %174, align 8, !tbaa !8
-  %326 = load i64, ptr %173, align 8, !tbaa !8
-  store i64 %326, ptr %172, align 8, !tbaa !8
-  %327 = load i64, ptr %171, align 8, !tbaa !8
-  store i64 %327, ptr %170, align 8, !tbaa !8
-  %328 = load i64, ptr %169, align 8, !tbaa !8
-  store i64 %328, ptr %168, align 8, !tbaa !8
-  %329 = load i64, ptr %167, align 8, !tbaa !8
-  store i64 %329, ptr %166, align 8, !tbaa !8
-  %330 = load i64, ptr %165, align 8, !tbaa !8
-  store i64 %330, ptr %164, align 8, !tbaa !8
-  %331 = load i64, ptr %163, align 8, !tbaa !8
-  store i64 %331, ptr %162, align 8, !tbaa !8
-  %332 = load i64, ptr %161, align 8, !tbaa !8
-  store i64 %332, ptr %160, align 8, !tbaa !8
-  %333 = load i64, ptr %159, align 8, !tbaa !8
-  store i64 %333, ptr %158, align 8, !tbaa !8
-  %334 = load i64, ptr %157, align 8, !tbaa !8
-  store i64 %334, ptr %156, align 8, !tbaa !8
-  %335 = load i64, ptr %155, align 8, !tbaa !8
-  store i64 %335, ptr %154, align 8, !tbaa !8
-  %336 = load i64, ptr %153, align 8, !tbaa !8
-  store i64 %336, ptr %152, align 8, !tbaa !8
-  %337 = load i64, ptr %3, align 8, !tbaa !8
-  store i64 %337, ptr %151, align 8, !tbaa !8
-  %338 = load i64, ptr %150, align 8, !tbaa !8
-  store i64 %338, ptr %149, align 8, !tbaa !8
-  br label %339
+306:                                              ; preds = %234
+  %307 = call i32 @des_main_ks(ptr noundef nonnull %3, ptr noundef nonnull @DES3_keys)
+  %308 = load i64, ptr %211, align 8, !tbaa !8
+  store i64 %308, ptr %210, align 8, !tbaa !8
+  %309 = load i64, ptr %209, align 8, !tbaa !8
+  store i64 %309, ptr %208, align 8, !tbaa !8
+  %310 = load i64, ptr %207, align 8, !tbaa !8
+  store i64 %310, ptr %206, align 8, !tbaa !8
+  %311 = load i64, ptr %205, align 8, !tbaa !8
+  store i64 %311, ptr %204, align 8, !tbaa !8
+  %312 = load i64, ptr %203, align 8, !tbaa !8
+  store i64 %312, ptr %202, align 8, !tbaa !8
+  %313 = load i64, ptr %201, align 8, !tbaa !8
+  store i64 %313, ptr %200, align 8, !tbaa !8
+  %314 = load i64, ptr %199, align 8, !tbaa !8
+  store i64 %314, ptr %198, align 8, !tbaa !8
+  %315 = load i64, ptr %197, align 8, !tbaa !8
+  store i64 %315, ptr %196, align 8, !tbaa !8
+  %316 = load i64, ptr %195, align 8, !tbaa !8
+  store i64 %316, ptr %194, align 8, !tbaa !8
+  %317 = load i64, ptr %193, align 8, !tbaa !8
+  store i64 %317, ptr %192, align 8, !tbaa !8
+  %318 = load i64, ptr %191, align 8, !tbaa !8
+  store i64 %318, ptr %190, align 8, !tbaa !8
+  %319 = load i64, ptr %189, align 8, !tbaa !8
+  store i64 %319, ptr %188, align 8, !tbaa !8
+  %320 = load i64, ptr %187, align 8, !tbaa !8
+  store i64 %320, ptr %186, align 8, !tbaa !8
+  %321 = load i64, ptr %185, align 8, !tbaa !8
+  store i64 %321, ptr %184, align 8, !tbaa !8
+  %322 = load i64, ptr %183, align 8, !tbaa !8
+  store i64 %322, ptr %182, align 8, !tbaa !8
+  %323 = load i64, ptr %181, align 8, !tbaa !8
+  store i64 %323, ptr %180, align 8, !tbaa !8
+  %324 = load i64, ptr %179, align 8, !tbaa !8
+  store i64 %324, ptr %178, align 8, !tbaa !8
+  %325 = load i64, ptr %177, align 8, !tbaa !8
+  store i64 %325, ptr %176, align 8, !tbaa !8
+  %326 = load i64, ptr %175, align 8, !tbaa !8
+  store i64 %326, ptr %174, align 8, !tbaa !8
+  %327 = load i64, ptr %173, align 8, !tbaa !8
+  store i64 %327, ptr %172, align 8, !tbaa !8
+  %328 = load i64, ptr %171, align 8, !tbaa !8
+  store i64 %328, ptr %170, align 8, !tbaa !8
+  %329 = load i64, ptr %169, align 8, !tbaa !8
+  store i64 %329, ptr %168, align 8, !tbaa !8
+  %330 = load i64, ptr %167, align 8, !tbaa !8
+  store i64 %330, ptr %166, align 8, !tbaa !8
+  %331 = load i64, ptr %165, align 8, !tbaa !8
+  store i64 %331, ptr %164, align 8, !tbaa !8
+  %332 = load i64, ptr %163, align 8, !tbaa !8
+  store i64 %332, ptr %162, align 8, !tbaa !8
+  %333 = load i64, ptr %161, align 8, !tbaa !8
+  store i64 %333, ptr %160, align 8, !tbaa !8
+  %334 = load i64, ptr %159, align 8, !tbaa !8
+  store i64 %334, ptr %158, align 8, !tbaa !8
+  %335 = load i64, ptr %157, align 8, !tbaa !8
+  store i64 %335, ptr %156, align 8, !tbaa !8
+  %336 = load i64, ptr %155, align 8, !tbaa !8
+  store i64 %336, ptr %154, align 8, !tbaa !8
+  %337 = load i64, ptr %153, align 8, !tbaa !8
+  store i64 %337, ptr %152, align 8, !tbaa !8
+  %338 = load i64, ptr %3, align 8, !tbaa !8
+  store i64 %338, ptr %151, align 8, !tbaa !8
+  %339 = load i64, ptr %150, align 8, !tbaa !8
+  store i64 %339, ptr %149, align 8, !tbaa !8
+  br label %340
 
-339:                                              ; preds = %239, %275, %305
-  br i1 %230, label %356, label %353
+340:                                              ; preds = %240, %276, %306
+  br i1 %231, label %353, label %350
 
-340:                                              ; preds = %354
-  %341 = load i64, ptr %231, align 8
-  %342 = icmp eq i64 %355, %341
-  br i1 %342, label %346, label %402
+341:                                              ; preds = %351
+  %342 = load i64, ptr %232, align 8
+  %343 = icmp eq i64 %352, %342
+  br i1 %343, label %347, label %398
 
-343:                                              ; preds = %354
-  %344 = load i64, ptr %232, align 8
-  %345 = icmp eq i64 %355, %344
-  br i1 %345, label %346, label %402
+344:                                              ; preds = %351
+  %345 = load i64, ptr %233, align 8
+  %346 = icmp eq i64 %352, %345
+  br i1 %346, label %347, label %398
 
-346:                                              ; preds = %340, %343
-  %347 = add nuw nsw i32 %234, 1
-  %348 = icmp eq i32 %347, %214
-  br i1 %348, label %369, label %233, !llvm.loop !16
+347:                                              ; preds = %341, %344
+  %348 = add nuw nsw i32 %235, 1
+  %349 = icmp eq i32 %348, %214
+  br i1 %349, label %365, label %234, !llvm.loop !16
 
-349:                                              ; preds = %353, %349
-  %350 = phi i32 [ %351, %349 ], [ 0, %353 ]
-  call void @des3_crypt(ptr noundef nonnull %148, ptr noundef nonnull %5, ptr noundef nonnull %5)
-  %351 = add nuw nsw i32 %350, 1
-  %352 = icmp eq i32 %351, 10000
-  br i1 %352, label %354, label %349, !llvm.loop !17
+350:                                              ; preds = %234, %340
+  br i1 %216, label %357, label %361
 
-353:                                              ; preds = %233, %339
-  br i1 %216, label %361, label %349
+351:                                              ; preds = %353, %361, %357
+  %352 = load i64, ptr %5, align 8
+  br i1 %216, label %341, label %344
 
-354:                                              ; preds = %357, %365, %349, %361
-  %355 = load i64, ptr %5, align 8
-  br i1 %216, label %340, label %343
+353:                                              ; preds = %340, %353
+  %354 = phi i32 [ %355, %353 ], [ 0, %340 ]
+  call void @des_crypt(ptr noundef nonnull %220, ptr noundef nonnull %5, ptr noundef nonnull %5)
+  %355 = add nuw nsw i32 %354, 1
+  %356 = icmp eq i32 %355, 10000
+  br i1 %356, label %351, label %353, !llvm.loop !17
 
-356:                                              ; preds = %339
-  br i1 %216, label %365, label %357
-
-357:                                              ; preds = %356, %357
-  %358 = phi i32 [ %359, %357 ], [ 0, %356 ]
-  call void @des_crypt(ptr noundef nonnull %210, ptr noundef nonnull %5, ptr noundef nonnull %5)
+357:                                              ; preds = %350, %357
+  %358 = phi i32 [ %359, %357 ], [ 0, %350 ]
+  call void @des3_crypt(ptr noundef nonnull %4, ptr noundef nonnull %5, ptr noundef nonnull %5)
   %359 = add nuw nsw i32 %358, 1
   %360 = icmp eq i32 %359, 10000
-  br i1 %360, label %354, label %357, !llvm.loop !17
+  br i1 %360, label %351, label %357, !llvm.loop !17
 
-361:                                              ; preds = %353, %361
-  %362 = phi i32 [ %363, %361 ], [ 0, %353 ]
-  call void @des3_crypt(ptr noundef nonnull %4, ptr noundef nonnull %5, ptr noundef nonnull %5)
+361:                                              ; preds = %350, %361
+  %362 = phi i32 [ %363, %361 ], [ 0, %350 ]
+  call void @des3_crypt(ptr noundef nonnull %148, ptr noundef nonnull %5, ptr noundef nonnull %5)
   %363 = add nuw nsw i32 %362, 1
   %364 = icmp eq i32 %363, 10000
-  br i1 %364, label %354, label %361, !llvm.loop !17
+  br i1 %364, label %351, label %361, !llvm.loop !17
 
-365:                                              ; preds = %356, %365
-  %366 = phi i32 [ %367, %365 ], [ 0, %356 ]
-  call void @des_crypt(ptr noundef nonnull %3, ptr noundef nonnull %5, ptr noundef nonnull %5)
-  %367 = add nuw nsw i32 %366, 1
-  %368 = icmp eq i32 %367, 10000
-  br i1 %368, label %354, label %365, !llvm.loop !17
+365:                                              ; preds = %347
+  %366 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %367 = icmp eq i64 %224, 3
+  br i1 %367, label %368, label %221, !llvm.loop !18
 
-369:                                              ; preds = %346
-  %370 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %371 = icmp eq i64 %223, 3
-  br i1 %371, label %372, label %220, !llvm.loop !18
+368:                                              ; preds = %365
+  br i1 %216, label %215, label %400, !llvm.loop !19
 
-372:                                              ; preds = %369
-  br i1 %216, label %215, label %404, !llvm.loop !19
-
-373:                                              ; preds = %74
-  %374 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str)
-  %375 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
-  %376 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 1, i32 noundef 64)
+369:                                              ; preds = %74
+  %370 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str)
+  %371 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %372 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 1, i32 noundef 64)
+  %373 = load ptr, ptr @stdout, align 8, !tbaa !14
+  %374 = tail call i32 @fflush(ptr noundef %373)
+  %375 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %376 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 2, i32 noundef 128)
   %377 = load ptr, ptr @stdout, align 8, !tbaa !14
   %378 = tail call i32 @fflush(ptr noundef %377)
   %379 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %380 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 2, i32 noundef 128)
+  %380 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 3, i32 noundef 192)
   %381 = load ptr, ptr @stdout, align 8, !tbaa !14
   %382 = tail call i32 @fflush(ptr noundef %381)
   %383 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %384 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 3, i32 noundef 192)
-  %385 = load ptr, ptr @stdout, align 8, !tbaa !14
-  %386 = tail call i32 @fflush(ptr noundef %385)
-  %387 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %388 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str)
-  %389 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  %390 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 1, i32 noundef 64)
+  %384 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str)
+  %385 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %386 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 1, i32 noundef 64)
+  %387 = load ptr, ptr @stdout, align 8, !tbaa !14
+  %388 = tail call i32 @fflush(ptr noundef %387)
+  %389 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %390 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 2, i32 noundef 128)
   %391 = load ptr, ptr @stdout, align 8, !tbaa !14
   %392 = tail call i32 @fflush(ptr noundef %391)
   %393 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %394 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 2, i32 noundef 128)
+  %394 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 3, i32 noundef 192)
   %395 = load ptr, ptr @stdout, align 8, !tbaa !14
   %396 = tail call i32 @fflush(ptr noundef %395)
   %397 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %398 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 3, i32 noundef 192)
-  %399 = load ptr, ptr @stdout, align 8, !tbaa !14
-  %400 = tail call i32 @fflush(ptr noundef %399)
-  %401 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %404
+  br label %400
 
-402:                                              ; preds = %343, %340
-  %403 = call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
-  br label %406
+398:                                              ; preds = %344, %341
+  %399 = call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  br label %402
 
-404:                                              ; preds = %372, %373
-  %405 = call i32 @putchar(i32 10)
-  br label %406
+400:                                              ; preds = %368, %369
+  %401 = call i32 @putchar(i32 10)
+  br label %402
 
-406:                                              ; preds = %404, %402
-  %407 = phi i32 [ 1, %402 ], [ 0, %404 ]
+402:                                              ; preds = %400, %398
+  %403 = phi i32 [ 1, %398 ], [ 0, %400 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #7
   call void @llvm.lifetime.end.p0(i64 1536, ptr nonnull %4) #7
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %3) #7
-  ret i32 %407
+  ret i32 %403
 }
 
 ; Function Attrs: nofree nounwind

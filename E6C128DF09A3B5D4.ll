@@ -119,17 +119,17 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %1 = alloca [200 x i16], align 16
   %2 = alloca [200 x %union.yystype], align 16
-  call void @llvm.lifetime.start.p0(i64 400, ptr nonnull %1) #13
-  call void @llvm.lifetime.start.p0(i64 1600, ptr nonnull %2) #13
+  call void @llvm.lifetime.start.p0(i64 400, ptr nonnull %1) #14
+  call void @llvm.lifetime.start.p0(i64 1600, ptr nonnull %2) #14
   store i32 0, ptr @ia_nerrs, align 4
   store i32 -2, ptr @ia_char, align 4
   %3 = load i32, ptr @symbol_TYPEMASK, align 4
   br label %9
 
-4:                                                ; preds = %568, %572, %90
-  %5 = phi ptr [ %550, %568 ], [ %550, %572 ], [ %91, %90 ]
-  %6 = phi ptr [ %549, %568 ], [ %549, %572 ], [ %47, %90 ]
-  %7 = phi i32 [ %571, %568 ], [ %575, %572 ], [ %83, %90 ]
+4:                                                ; preds = %550, %554, %90
+  %5 = phi ptr [ %532, %550 ], [ %532, %554 ], [ %91, %90 ]
+  %6 = phi ptr [ %531, %550 ], [ %531, %554 ], [ %47, %90 ]
+  %7 = phi i32 [ %553, %550 ], [ %557, %554 ], [ %83, %90 ]
   %8 = getelementptr inbounds i16, ptr %6, i64 1
   br label %9
 
@@ -149,7 +149,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
 
 20:                                               ; preds = %9
   %21 = icmp ugt i64 %10, 9999
-  br i1 %21, label %704, label %22
+  br i1 %21, label %686, label %22
 
 22:                                               ; preds = %20
   %23 = ptrtoint ptr %13 to i64
@@ -174,7 +174,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %40 = getelementptr %union.yystype, ptr %37, i64 -1
   %41 = getelementptr %union.yystype, ptr %40, i64 %27
   %42 = icmp slt i64 %27, %29
-  br i1 %42, label %43, label %714
+  br i1 %42, label %43, label %696
 
 43:                                               ; preds = %22, %9
   %44 = phi i64 [ %10, %9 ], [ %29, %22 ]
@@ -195,7 +195,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   br i1 %56, label %57, label %59
 
 57:                                               ; preds = %54
-  %58 = call i32 @ia_lex() #13
+  %58 = call i32 @ia_lex() #14
   store i32 %58, ptr @ia_char, align 4
   br label %59
 
@@ -239,11 +239,11 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %83 = zext i8 %82 to i32
   %84 = add nsw i64 %75, -80
   %85 = icmp ult i64 %84, 3
-  br i1 %85, label %576, label %86
+  br i1 %85, label %558, label %86
 
 86:                                               ; preds = %80
   %87 = icmp eq i32 %72, 35
-  br i1 %87, label %714, label %88
+  br i1 %87, label %696, label %88
 
 88:                                               ; preds = %86
   br i1 %61, label %90, label %89
@@ -262,7 +262,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %94 = getelementptr inbounds [77 x i8], ptr @yydefact, i64 0, i64 %49
   %95 = load i8, ptr %94, align 1
   %96 = icmp eq i8 %95, 0
-  br i1 %96, label %576, label %97
+  br i1 %96, label %558, label %97
 
 97:                                               ; preds = %93
   %98 = zext i8 %95 to i64
@@ -272,8 +272,8 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %102 = sub nsw i64 1, %101
   %103 = getelementptr inbounds %union.yystype, ptr %45, i64 %102
   %104 = load ptr, ptr %103, align 8
-  switch i8 %95, label %545 [
-    i8 2, label %714
+  switch i8 %95, label %527 [
+    i8 2, label %696
     i8 3, label %105
     i8 4, label %115
     i8 5, label %119
@@ -303,11 +303,11 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
     i8 29, label %431
     i8 30, label %435
     i8 31, label %447
-    i8 32, label %471
-    i8 33, label %525
-    i8 34, label %526
-    i8 35, label %529
-    i8 36, label %533
+    i8 32, label %465
+    i8 33, label %507
+    i8 34, label %508
+    i8 35, label %511
+    i8 36, label %515
   ]
 
 105:                                              ; preds = %97
@@ -316,7 +316,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %107 = load ptr, ptr %106, align 8
   %108 = getelementptr inbounds %union.yystype, ptr %45, i64 -4
   %109 = load ptr, ptr %108, align 8
-  %110 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %110 = call ptr @memory_Malloc(i32 noundef 16) #14
   %111 = getelementptr inbounds %struct.LIST_HELP, ptr %110, i64 0, i32 1
   store ptr %107, ptr %111, align 8
   store ptr %109, ptr %110, align 8
@@ -325,26 +325,26 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %113 = getelementptr inbounds %union.yystype, ptr %45, i64 -2
   %114 = load i32, ptr %113, align 8
   call fastcc void @flag_SetFlagValue(ptr noundef %112, i32 noundef %114)
-  br label %714
+  br label %696
 
 115:                                              ; preds = %97
   %116 = load ptr, ptr %45, align 8
-  %117 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %117 = call ptr @memory_Malloc(i32 noundef 16) #14
   %118 = getelementptr inbounds %struct.LIST_HELP, ptr %117, i64 0, i32 1
   store ptr %116, ptr %118, align 8
   store ptr null, ptr %117, align 8
-  br label %545
+  br label %527
 
 119:                                              ; preds = %97
   %120 = getelementptr inbounds %union.yystype, ptr %45, i64 -2
   %121 = load ptr, ptr %120, align 8
   %122 = load ptr, ptr %45, align 8
-  %123 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %123 = call ptr @memory_Malloc(i32 noundef 16) #14
   %124 = getelementptr inbounds %struct.LIST_HELP, ptr %123, i64 0, i32 1
   store ptr %122, ptr %124, align 8
   store ptr null, ptr %123, align 8
   %125 = icmp eq ptr %121, null
-  br i1 %125, label %545, label %126
+  br i1 %125, label %527, label %126
 
 126:                                              ; preds = %119, %126
   %127 = phi ptr [ %128, %126 ], [ %121, %119 ]
@@ -354,35 +354,35 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
 
 130:                                              ; preds = %126
   store ptr %123, ptr %127, align 8
-  br label %545
+  br label %527
 
 131:                                              ; preds = %97
   %132 = load ptr, ptr %45, align 8
-  %133 = call i32 @list_Length(ptr noundef null) #13
+  %133 = call i32 @list_Length(ptr noundef null) #14
   %134 = call fastcc i32 @ia_Symbol(ptr noundef %132, i32 noundef %133)
-  %135 = call ptr @term_Create(i32 noundef %134, ptr noundef null) #13
-  br label %545
+  %135 = call ptr @term_Create(i32 noundef %134, ptr noundef null) #14
+  br label %527
 
 136:                                              ; preds = %97
   %137 = load i32, ptr @fol_TRUE, align 4
-  %138 = call ptr @term_Create(i32 noundef %137, ptr noundef null) #13
-  br label %545
+  %138 = call ptr @term_Create(i32 noundef %137, ptr noundef null) #14
+  br label %527
 
 139:                                              ; preds = %97
   %140 = load i32, ptr @fol_FALSE, align 4
-  %141 = call ptr @term_Create(i32 noundef %140, ptr noundef null) #13
-  br label %545
+  %141 = call ptr @term_Create(i32 noundef %140, ptr noundef null) #14
+  br label %527
 
 142:                                              ; preds = %97
   %143 = load i32, ptr @fol_NOT, align 4
   %144 = getelementptr inbounds %union.yystype, ptr %45, i64 -1
   %145 = load ptr, ptr %144, align 8
-  %146 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %146 = call ptr @memory_Malloc(i32 noundef 16) #14
   %147 = getelementptr inbounds %struct.LIST_HELP, ptr %146, i64 0, i32 1
   store ptr %145, ptr %147, align 8
   store ptr null, ptr %146, align 8
-  %148 = call ptr @term_Create(i32 noundef %143, ptr noundef nonnull %146) #13
-  br label %545
+  %148 = call ptr @term_Create(i32 noundef %143, ptr noundef nonnull %146) #14
+  br label %527
 
 149:                                              ; preds = %97
   %150 = getelementptr inbounds %union.yystype, ptr %45, i64 -5
@@ -391,54 +391,54 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %153 = load ptr, ptr %152, align 8
   %154 = getelementptr inbounds %union.yystype, ptr %45, i64 -1
   %155 = load ptr, ptr %154, align 8
-  %156 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %156 = call ptr @memory_Malloc(i32 noundef 16) #14
   %157 = getelementptr inbounds %struct.LIST_HELP, ptr %156, i64 0, i32 1
   store ptr %155, ptr %157, align 8
   store ptr null, ptr %156, align 8
-  %158 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %158 = call ptr @memory_Malloc(i32 noundef 16) #14
   %159 = getelementptr inbounds %struct.LIST_HELP, ptr %158, i64 0, i32 1
   store ptr %153, ptr %159, align 8
   store ptr %156, ptr %158, align 8
-  %160 = call ptr @term_Create(i32 noundef %151, ptr noundef nonnull %158) #13
-  br label %545
+  %160 = call ptr @term_Create(i32 noundef %151, ptr noundef nonnull %158) #14
+  br label %527
 
 161:                                              ; preds = %97
   %162 = getelementptr inbounds %union.yystype, ptr %45, i64 -3
   %163 = load i32, ptr %162, align 8
   %164 = getelementptr inbounds %union.yystype, ptr %45, i64 -1
   %165 = load ptr, ptr %164, align 8
-  %166 = call ptr @term_Create(i32 noundef %163, ptr noundef %165) #13
-  br label %545
+  %166 = call ptr @term_Create(i32 noundef %163, ptr noundef %165) #14
+  br label %527
 
 167:                                              ; preds = %97
   %168 = getelementptr inbounds %union.yystype, ptr %45, i64 -3
   %169 = load ptr, ptr %168, align 8
   %170 = getelementptr inbounds %union.yystype, ptr %45, i64 -1
   %171 = load ptr, ptr %170, align 8
-  %172 = call i32 @list_Length(ptr noundef %171) #13
+  %172 = call i32 @list_Length(ptr noundef %171) #14
   %173 = call fastcc i32 @ia_Symbol(ptr noundef %169, i32 noundef %172)
-  %174 = call ptr @term_Create(i32 noundef %173, ptr noundef %171) #13
-  br label %545
+  %174 = call ptr @term_Create(i32 noundef %173, ptr noundef %171) #14
+  br label %527
 
 175:                                              ; preds = %97
   %176 = load ptr, ptr @ia_VARLIST, align 8
-  %177 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %177 = call ptr @memory_Malloc(i32 noundef 16) #14
   %178 = getelementptr inbounds %struct.LIST_HELP, ptr %177, i64 0, i32 1
   store ptr null, ptr %178, align 8
   store ptr %176, ptr %177, align 8
   store ptr %177, ptr @ia_VARLIST, align 8
   store i1 true, ptr @ia_VARDECL, align 4
-  br label %545
+  br label %527
 
 179:                                              ; preds = %97
   store i1 false, ptr @ia_VARDECL, align 4
-  br label %545
+  br label %527
 
 180:                                              ; preds = %97
   %181 = load ptr, ptr @ia_VARLIST, align 8
   %182 = getelementptr i8, ptr %181, i64 8
   %183 = load ptr, ptr %182, align 8
-  call void @list_DeleteWithElement(ptr noundef %183, ptr noundef nonnull @ia_VarFree) #13
+  call void @list_DeleteWithElement(ptr noundef %183, ptr noundef nonnull @ia_VarFree) #14
   %184 = load ptr, ptr @ia_VARLIST, align 8
   %185 = load ptr, ptr %184, align 8
   %186 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -469,13 +469,13 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %205 = getelementptr i8, ptr %202, i64 8
   %206 = load ptr, ptr %205, align 8
   %207 = load i32, ptr %206, align 8
-  %208 = icmp slt i32 %207, 1
-  br i1 %208, label %222, label %209
+  %208 = icmp sgt i32 %207, 0
+  br i1 %208, label %209, label %222
 
 209:                                              ; preds = %201
   %210 = zext i32 %207 to i64
   %211 = inttoptr i64 %210 to ptr
-  %212 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %212 = call ptr @memory_Malloc(i32 noundef 16) #14
   %213 = getelementptr inbounds %struct.LIST_HELP, ptr %212, i64 0, i32 1
   store ptr %211, ptr %213, align 8
   store ptr null, ptr %212, align 8
@@ -494,7 +494,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
 
 220:                                              ; preds = %219, %209
   %221 = phi ptr [ %204, %219 ], [ %212, %209 ]
-  call void @term_Delete(ptr noundef nonnull %206) #13
+  call void @term_Delete(ptr noundef nonnull %206) #14
   br label %248
 
 222:                                              ; preds = %201
@@ -505,7 +505,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %227 = load i32, ptr %226, align 8
   %228 = sext i32 %227 to i64
   %229 = inttoptr i64 %228 to ptr
-  %230 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %230 = call ptr @memory_Malloc(i32 noundef 16) #14
   %231 = getelementptr inbounds %struct.LIST_HELP, ptr %230, i64 0, i32 1
   store ptr %229, ptr %231, align 8
   store ptr null, ptr %230, align 8
@@ -524,7 +524,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
 
 238:                                              ; preds = %237, %222
   %239 = phi ptr [ %204, %237 ], [ %230, %222 ]
-  %240 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %240 = call ptr @memory_Malloc(i32 noundef 16) #14
   %241 = getelementptr inbounds %struct.LIST_HELP, ptr %240, i64 0, i32 1
   store ptr %206, ptr %241, align 8
   store ptr null, ptr %240, align 8
@@ -562,7 +562,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
 261:                                              ; preds = %248, %180
   %262 = phi ptr [ null, %180 ], [ %249, %248 ]
   %263 = phi ptr [ null, %180 ], [ %250, %248 ]
-  %264 = call ptr @list_PointerDeleteDuplicates(ptr noundef %262) #13
+  %264 = call ptr @list_PointerDeleteDuplicates(ptr noundef %262) #14
   %265 = icmp eq ptr %264, null
   br i1 %265, label %275, label %266
 
@@ -572,7 +572,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %269 = load ptr, ptr %268, align 8
   %270 = ptrtoint ptr %269 to i64
   %271 = trunc i64 %270 to i32
-  %272 = call ptr @term_Create(i32 noundef %271, ptr noundef null) #13
+  %272 = call ptr @term_Create(i32 noundef %271, ptr noundef null) #14
   store ptr %272, ptr %268, align 8
   %273 = load ptr, ptr %267, align 8
   %274 = icmp eq ptr %273, null
@@ -598,11 +598,11 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %286 = load i32, ptr @fol_NOT, align 4
   %287 = getelementptr i8, ptr %285, i64 8
   %288 = load ptr, ptr %287, align 8
-  %289 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %289 = call ptr @memory_Malloc(i32 noundef 16) #14
   %290 = getelementptr inbounds %struct.LIST_HELP, ptr %289, i64 0, i32 1
   store ptr %288, ptr %290, align 8
   store ptr null, ptr %289, align 8
-  %291 = call ptr @term_Create(i32 noundef %286, ptr noundef nonnull %289) #13
+  %291 = call ptr @term_Create(i32 noundef %286, ptr noundef nonnull %289) #14
   store ptr %291, ptr %287, align 8
   %292 = load ptr, ptr %285, align 8
   %293 = icmp eq ptr %292, null
@@ -634,28 +634,28 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   br i1 %306, label %307, label %312
 
 307:                                              ; preds = %304
-  %308 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %308 = call ptr @memory_Malloc(i32 noundef 16) #14
   %309 = getelementptr inbounds %struct.LIST_HELP, ptr %308, i64 0, i32 1
   store ptr %199, ptr %309, align 8
   store ptr null, ptr %308, align 8
   store ptr %308, ptr %263, align 8
   %310 = load i32, ptr @fol_IMPLIES, align 4
-  %311 = call ptr @term_Create(i32 noundef %310, ptr noundef nonnull %263) #13
+  %311 = call ptr @term_Create(i32 noundef %310, ptr noundef nonnull %263) #14
   br label %348
 
 312:                                              ; preds = %304
   %313 = load i32, ptr @fol_AND, align 4
-  %314 = call ptr @term_Create(i32 noundef %313, ptr noundef nonnull %263) #13
+  %314 = call ptr @term_Create(i32 noundef %313, ptr noundef nonnull %263) #14
   %315 = load i32, ptr @fol_IMPLIES, align 4
-  %316 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %316 = call ptr @memory_Malloc(i32 noundef 16) #14
   %317 = getelementptr inbounds %struct.LIST_HELP, ptr %316, i64 0, i32 1
   store ptr %199, ptr %317, align 8
   store ptr null, ptr %316, align 8
-  %318 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %318 = call ptr @memory_Malloc(i32 noundef 16) #14
   %319 = getelementptr inbounds %struct.LIST_HELP, ptr %318, i64 0, i32 1
   store ptr %314, ptr %319, align 8
   store ptr %316, ptr %318, align 8
-  %320 = call ptr @term_Create(i32 noundef %315, ptr noundef nonnull %318) #13
+  %320 = call ptr @term_Create(i32 noundef %315, ptr noundef nonnull %318) #14
   br label %348
 
 321:                                              ; preds = %277
@@ -690,7 +690,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   br label %348
 
 338:                                              ; preds = %324
-  %339 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %339 = call ptr @memory_Malloc(i32 noundef 16) #14
   %340 = getelementptr inbounds %struct.LIST_HELP, ptr %339, i64 0, i32 1
   store ptr %199, ptr %340, align 8
   store ptr null, ptr %339, align 8
@@ -705,31 +705,31 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
 345:                                              ; preds = %341
   store ptr %339, ptr %342, align 8
   %346 = load i32, ptr @fol_AND, align 4
-  %347 = call ptr @term_Create(i32 noundef %346, ptr noundef nonnull %263) #13
+  %347 = call ptr @term_Create(i32 noundef %346, ptr noundef nonnull %263) #14
   br label %348
 
 348:                                              ; preds = %275, %303, %307, %312, %321, %337, %345
   %349 = phi ptr [ %199, %275 ], [ %199, %303 ], [ %311, %307 ], [ %320, %312 ], [ %199, %337 ], [ %347, %345 ], [ %199, %321 ]
-  %350 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %350 = call ptr @memory_Malloc(i32 noundef 16) #14
   %351 = getelementptr inbounds %struct.LIST_HELP, ptr %350, i64 0, i32 1
   store ptr %349, ptr %351, align 8
   store ptr null, ptr %350, align 8
-  %352 = call ptr @fol_CreateQuantifier(i32 noundef %195, ptr noundef %264, ptr noundef nonnull %350) #13
-  br label %545
+  %352 = call ptr @fol_CreateQuantifier(i32 noundef %195, ptr noundef %264, ptr noundef nonnull %350) #14
+  br label %527
 
 353:                                              ; preds = %97
   %354 = load ptr, ptr @ia_VARLIST, align 8
-  %355 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %355 = call ptr @memory_Malloc(i32 noundef 16) #14
   %356 = getelementptr inbounds %struct.LIST_HELP, ptr %355, i64 0, i32 1
   store ptr null, ptr %356, align 8
   store ptr %354, ptr %355, align 8
   store ptr %355, ptr @ia_VARLIST, align 8
   store i1 true, ptr @ia_VARDECL, align 4
-  br label %545
+  br label %527
 
 357:                                              ; preds = %97
   store i1 false, ptr @ia_VARDECL, align 4
-  br label %545
+  br label %527
 
 358:                                              ; preds = %97
   %359 = load ptr, ptr @stdout, align 8
@@ -737,14 +737,14 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %361 = load i32, ptr @dfg_LINENUMBER, align 4
   %362 = getelementptr inbounds %union.yystype, ptr %45, i64 -9
   %363 = load ptr, ptr %362, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str, i32 noundef %361, ptr noundef %363) #13
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str, i32 noundef %361, ptr noundef %363) #14
   %364 = load ptr, ptr @stderr, align 8
   %365 = call i32 @fflush(ptr noundef %364)
   %366 = load ptr, ptr @stdout, align 8
   %367 = call i32 @fflush(ptr noundef %366)
   %368 = load ptr, ptr @stderr, align 8
   %369 = call i32 @fflush(ptr noundef %368)
-  call void @exit(i32 noundef 1) #14
+  call void @exit(i32 noundef 1) #15
   unreachable
 
 370:                                              ; preds = %97
@@ -754,7 +754,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %374 = and i64 %372, -4294967296
   %375 = or i64 %374, %373
   %376 = inttoptr i64 %375 to ptr
-  br label %545
+  br label %527
 
 377:                                              ; preds = %97
   %378 = load i32, ptr @fol_EQUIV, align 4
@@ -763,7 +763,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %381 = and i64 %379, -4294967296
   %382 = or i64 %381, %380
   %383 = inttoptr i64 %382 to ptr
-  br label %545
+  br label %527
 
 384:                                              ; preds = %97
   %385 = load i32, ptr @fol_IMPLIED, align 4
@@ -772,7 +772,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %388 = and i64 %386, -4294967296
   %389 = or i64 %388, %387
   %390 = inttoptr i64 %389 to ptr
-  br label %545
+  br label %527
 
 391:                                              ; preds = %97
   %392 = load i32, ptr @fol_IMPLIES, align 4
@@ -781,7 +781,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %395 = and i64 %393, -4294967296
   %396 = or i64 %395, %394
   %397 = inttoptr i64 %396 to ptr
-  br label %545
+  br label %527
 
 398:                                              ; preds = %97
   %399 = load i32, ptr @fol_AND, align 4
@@ -790,7 +790,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %402 = and i64 %400, -4294967296
   %403 = or i64 %402, %401
   %404 = inttoptr i64 %403 to ptr
-  br label %545
+  br label %527
 
 405:                                              ; preds = %97
   %406 = load i32, ptr @fol_OR, align 4
@@ -799,7 +799,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %409 = and i64 %407, -4294967296
   %410 = or i64 %409, %408
   %411 = inttoptr i64 %410 to ptr
-  br label %545
+  br label %527
 
 412:                                              ; preds = %97
   %413 = load i32, ptr @fol_EXIST, align 4
@@ -808,7 +808,7 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %416 = and i64 %414, -4294967296
   %417 = or i64 %416, %415
   %418 = inttoptr i64 %417 to ptr
-  br label %545
+  br label %527
 
 419:                                              ; preds = %97
   %420 = load i32, ptr @fol_ALL, align 4
@@ -817,35 +817,35 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %423 = and i64 %421, -4294967296
   %424 = or i64 %423, %422
   %425 = inttoptr i64 %424 to ptr
-  br label %545
+  br label %527
 
 426:                                              ; preds = %97
   %427 = load ptr, ptr %45, align 8
-  br label %545
+  br label %527
 
 428:                                              ; preds = %97
   %429 = load i32, ptr %45, align 8
-  %430 = call ptr @string_IntToString(i32 noundef %429) #13
-  br label %545
+  %430 = call ptr @string_IntToString(i32 noundef %429) #14
+  br label %527
 
 431:                                              ; preds = %97
   %432 = load ptr, ptr %45, align 8
-  %433 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %433 = call ptr @memory_Malloc(i32 noundef 16) #14
   %434 = getelementptr inbounds %struct.LIST_HELP, ptr %433, i64 0, i32 1
   store ptr %432, ptr %434, align 8
   store ptr null, ptr %433, align 8
-  br label %545
+  br label %527
 
 435:                                              ; preds = %97
   %436 = getelementptr inbounds %union.yystype, ptr %45, i64 -2
   %437 = load ptr, ptr %436, align 8
   %438 = load ptr, ptr %45, align 8
-  %439 = call ptr @memory_Malloc(i32 noundef 16) #13
+  %439 = call ptr @memory_Malloc(i32 noundef 16) #14
   %440 = getelementptr inbounds %struct.LIST_HELP, ptr %439, i64 0, i32 1
   store ptr %438, ptr %440, align 8
   store ptr null, ptr %439, align 8
   %441 = icmp eq ptr %437, null
-  br i1 %441, label %545, label %442
+  br i1 %441, label %527, label %442
 
 442:                                              ; preds = %435, %442
   %443 = phi ptr [ %444, %442 ], [ %437, %435 ]
@@ -855,13 +855,13 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
 
 446:                                              ; preds = %442
   store ptr %439, ptr %443, align 8
-  br label %545
+  br label %527
 
 447:                                              ; preds = %97
   %448 = load ptr, ptr %45, align 8
   %449 = call fastcc i32 @ia_Symbol(ptr noundef %448, i32 noundef 0)
-  %450 = icmp slt i32 %449, 1
-  br i1 %450, label %451, label %469
+  %450 = icmp sgt i32 %449, 0
+  br i1 %450, label %463, label %451
 
 451:                                              ; preds = %447
   %452 = load ptr, ptr @stdout, align 8
@@ -875,368 +875,350 @@ define dso_local i32 @ia_parse() local_unnamed_addr #0 {
   %460 = getelementptr inbounds ptr, ptr %458, i64 %459
   %461 = load ptr, ptr %460, align 8
   %462 = load ptr, ptr %461, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.1, i32 noundef %454, ptr noundef %462) #13
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.2) #13
-  %463 = load ptr, ptr @stderr, align 8
-  %464 = call i32 @fflush(ptr noundef %463)
-  %465 = load ptr, ptr @stdout, align 8
-  %466 = call i32 @fflush(ptr noundef %465)
-  %467 = load ptr, ptr @stderr, align 8
-  %468 = call i32 @fflush(ptr noundef %467)
-  call void @exit(i32 noundef 1) #14
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.1, i32 noundef %454, ptr noundef %462) #14
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.2) #14
+  call fastcc void @misc_Error()
   unreachable
 
-469:                                              ; preds = %447
-  %470 = call ptr @term_Create(i32 noundef %449, ptr noundef null) #13
-  br label %545
+463:                                              ; preds = %447
+  %464 = call ptr @term_Create(i32 noundef %449, ptr noundef null) #14
+  br label %527
 
-471:                                              ; preds = %97
-  %472 = getelementptr inbounds %union.yystype, ptr %45, i64 -3
-  %473 = load ptr, ptr %472, align 8
-  %474 = call fastcc i32 @ia_Symbol(ptr noundef %473, i32 noundef 1)
-  %475 = icmp slt i32 %474, 0
-  %476 = sub nsw i32 0, %474
-  %477 = and i32 %3, %476
-  %478 = icmp eq i32 %477, 2
-  %479 = select i1 %475, i1 %478, i1 false
-  br i1 %479, label %497, label %480
+465:                                              ; preds = %97
+  %466 = getelementptr inbounds %union.yystype, ptr %45, i64 -3
+  %467 = load ptr, ptr %466, align 8
+  %468 = call fastcc i32 @ia_Symbol(ptr noundef %467, i32 noundef 1)
+  %469 = icmp slt i32 %468, 0
+  %470 = sub nsw i32 0, %468
+  %471 = and i32 %3, %470
+  %472 = icmp eq i32 %471, 2
+  %473 = select i1 %469, i1 %472, i1 false
+  br i1 %473, label %485, label %474
 
-480:                                              ; preds = %471
-  %481 = load ptr, ptr @stdout, align 8
-  %482 = call i32 @fflush(ptr noundef %481)
-  %483 = load i32, ptr @dfg_LINENUMBER, align 4
-  %484 = load i32, ptr @symbol_TYPESTATBITS, align 4
-  %485 = ashr i32 %476, %484
-  %486 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %487 = sext i32 %485 to i64
-  %488 = getelementptr inbounds ptr, ptr %486, i64 %487
-  %489 = load ptr, ptr %488, align 8
-  %490 = load ptr, ptr %489, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.1, i32 noundef %483, ptr noundef %490) #13
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.3) #13
-  %491 = load ptr, ptr @stderr, align 8
+474:                                              ; preds = %465
+  %475 = load ptr, ptr @stdout, align 8
+  %476 = call i32 @fflush(ptr noundef %475)
+  %477 = load i32, ptr @dfg_LINENUMBER, align 4
+  %478 = load i32, ptr @symbol_TYPESTATBITS, align 4
+  %479 = ashr i32 %470, %478
+  %480 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %481 = sext i32 %479 to i64
+  %482 = getelementptr inbounds ptr, ptr %480, i64 %481
+  %483 = load ptr, ptr %482, align 8
+  %484 = load ptr, ptr %483, align 8
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.1, i32 noundef %477, ptr noundef %484) #14
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.3) #14
+  call fastcc void @misc_Error()
+  unreachable
+
+485:                                              ; preds = %465
+  %486 = getelementptr inbounds %union.yystype, ptr %45, i64 -1
+  %487 = load ptr, ptr %486, align 8
+  %488 = call fastcc i32 @ia_Symbol(ptr noundef %487, i32 noundef 0)
+  %489 = icmp sgt i32 %488, 0
+  br i1 %489, label %502, label %490
+
+490:                                              ; preds = %485
+  %491 = load ptr, ptr @stdout, align 8
   %492 = call i32 @fflush(ptr noundef %491)
-  %493 = load ptr, ptr @stdout, align 8
-  %494 = call i32 @fflush(ptr noundef %493)
-  %495 = load ptr, ptr @stderr, align 8
-  %496 = call i32 @fflush(ptr noundef %495)
-  call void @exit(i32 noundef 1) #14
+  %493 = load i32, ptr @dfg_LINENUMBER, align 4
+  %494 = sub nsw i32 0, %488
+  %495 = load i32, ptr @symbol_TYPESTATBITS, align 4
+  %496 = lshr i32 %494, %495
+  %497 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %498 = zext i32 %496 to i64
+  %499 = getelementptr inbounds ptr, ptr %497, i64 %498
+  %500 = load ptr, ptr %499, align 8
+  %501 = load ptr, ptr %500, align 8
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.1, i32 noundef %493, ptr noundef %501) #14
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.2) #14
+  call fastcc void @misc_Error()
   unreachable
 
-497:                                              ; preds = %471
-  %498 = getelementptr inbounds %union.yystype, ptr %45, i64 -1
-  %499 = load ptr, ptr %498, align 8
-  %500 = call fastcc i32 @ia_Symbol(ptr noundef %499, i32 noundef 0)
-  %501 = icmp slt i32 %500, 1
-  br i1 %501, label %502, label %520
+502:                                              ; preds = %485
+  %503 = call ptr @term_Create(i32 noundef %488, ptr noundef null) #14
+  %504 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %505 = getelementptr inbounds %struct.LIST_HELP, ptr %504, i64 0, i32 1
+  store ptr %503, ptr %505, align 8
+  store ptr null, ptr %504, align 8
+  %506 = call ptr @term_Create(i32 noundef %468, ptr noundef nonnull %504) #14
+  br label %527
 
-502:                                              ; preds = %497
-  %503 = load ptr, ptr @stdout, align 8
-  %504 = call i32 @fflush(ptr noundef %503)
-  %505 = load i32, ptr @dfg_LINENUMBER, align 4
-  %506 = sub nsw i32 0, %500
-  %507 = load i32, ptr @symbol_TYPESTATBITS, align 4
-  %508 = lshr i32 %506, %507
-  %509 = load ptr, ptr @symbol_SIGNATURE, align 8
-  %510 = zext i32 %508 to i64
-  %511 = getelementptr inbounds ptr, ptr %509, i64 %510
-  %512 = load ptr, ptr %511, align 8
-  %513 = load ptr, ptr %512, align 8
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.1, i32 noundef %505, ptr noundef %513) #13
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.2) #13
-  %514 = load ptr, ptr @stderr, align 8
-  %515 = call i32 @fflush(ptr noundef %514)
-  %516 = load ptr, ptr @stdout, align 8
-  %517 = call i32 @fflush(ptr noundef %516)
-  %518 = load ptr, ptr @stderr, align 8
-  %519 = call i32 @fflush(ptr noundef %518)
-  call void @exit(i32 noundef 1) #14
-  unreachable
+507:                                              ; preds = %97
+  br label %527
 
-520:                                              ; preds = %497
-  %521 = call ptr @term_Create(i32 noundef %500, ptr noundef null) #13
-  %522 = call ptr @memory_Malloc(i32 noundef 16) #13
-  %523 = getelementptr inbounds %struct.LIST_HELP, ptr %522, i64 0, i32 1
-  store ptr %521, ptr %523, align 8
-  store ptr null, ptr %522, align 8
-  %524 = call ptr @term_Create(i32 noundef %474, ptr noundef nonnull %522) #13
-  br label %545
+508:                                              ; preds = %97
+  %509 = getelementptr inbounds %union.yystype, ptr %45, i64 -1
+  %510 = load ptr, ptr %509, align 8
+  br label %527
 
-525:                                              ; preds = %97
-  br label %545
+511:                                              ; preds = %97
+  %512 = load ptr, ptr %45, align 8
+  %513 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %514 = getelementptr inbounds %struct.LIST_HELP, ptr %513, i64 0, i32 1
+  store ptr %512, ptr %514, align 8
+  store ptr null, ptr %513, align 8
+  br label %527
 
-526:                                              ; preds = %97
-  %527 = getelementptr inbounds %union.yystype, ptr %45, i64 -1
-  %528 = load ptr, ptr %527, align 8
-  br label %545
+515:                                              ; preds = %97
+  %516 = getelementptr inbounds %union.yystype, ptr %45, i64 -2
+  %517 = load ptr, ptr %516, align 8
+  %518 = load ptr, ptr %45, align 8
+  %519 = call ptr @memory_Malloc(i32 noundef 16) #14
+  %520 = getelementptr inbounds %struct.LIST_HELP, ptr %519, i64 0, i32 1
+  store ptr %518, ptr %520, align 8
+  store ptr null, ptr %519, align 8
+  %521 = icmp eq ptr %517, null
+  br i1 %521, label %527, label %522
 
-529:                                              ; preds = %97
-  %530 = load ptr, ptr %45, align 8
-  %531 = call ptr @memory_Malloc(i32 noundef 16) #13
-  %532 = getelementptr inbounds %struct.LIST_HELP, ptr %531, i64 0, i32 1
-  store ptr %530, ptr %532, align 8
-  store ptr null, ptr %531, align 8
-  br label %545
+522:                                              ; preds = %515, %522
+  %523 = phi ptr [ %524, %522 ], [ %517, %515 ]
+  %524 = load ptr, ptr %523, align 8
+  %525 = icmp eq ptr %524, null
+  br i1 %525, label %526, label %522, !llvm.loop !5
 
-533:                                              ; preds = %97
-  %534 = getelementptr inbounds %union.yystype, ptr %45, i64 -2
-  %535 = load ptr, ptr %534, align 8
-  %536 = load ptr, ptr %45, align 8
-  %537 = call ptr @memory_Malloc(i32 noundef 16) #13
-  %538 = getelementptr inbounds %struct.LIST_HELP, ptr %537, i64 0, i32 1
-  store ptr %536, ptr %538, align 8
-  store ptr null, ptr %537, align 8
-  %539 = icmp eq ptr %535, null
-  br i1 %539, label %545, label %540
+526:                                              ; preds = %522
+  store ptr %519, ptr %523, align 8
+  br label %527
 
-540:                                              ; preds = %533, %540
-  %541 = phi ptr [ %542, %540 ], [ %535, %533 ]
-  %542 = load ptr, ptr %541, align 8
-  %543 = icmp eq ptr %542, null
-  br i1 %543, label %544, label %540, !llvm.loop !5
+527:                                              ; preds = %526, %515, %446, %435, %130, %119, %97, %511, %508, %507, %502, %463, %431, %428, %426, %419, %412, %405, %398, %391, %384, %377, %370, %357, %353, %348, %179, %175, %167, %161, %149, %142, %139, %136, %131, %115
+  %528 = phi ptr [ %104, %97 ], [ %513, %511 ], [ %510, %508 ], [ null, %507 ], [ %506, %502 ], [ %464, %463 ], [ %433, %431 ], [ %430, %428 ], [ %427, %426 ], [ %425, %419 ], [ %418, %412 ], [ %411, %405 ], [ %404, %398 ], [ %397, %391 ], [ %390, %384 ], [ %383, %377 ], [ %376, %370 ], [ %104, %357 ], [ %104, %353 ], [ %352, %348 ], [ %104, %179 ], [ %104, %175 ], [ %174, %167 ], [ %166, %161 ], [ %160, %149 ], [ %148, %142 ], [ %141, %139 ], [ %138, %136 ], [ %135, %131 ], [ %117, %115 ], [ %121, %130 ], [ %123, %119 ], [ %437, %446 ], [ %439, %435 ], [ %517, %526 ], [ %519, %515 ]
+  %529 = sub nsw i64 0, %101
+  %530 = getelementptr %union.yystype, ptr %45, i64 1
+  %531 = getelementptr inbounds i16, ptr %47, i64 %529
+  %532 = getelementptr %union.yystype, ptr %530, i64 %529
+  store ptr %528, ptr %532, align 8
+  %533 = getelementptr inbounds [37 x i8], ptr @yyr1, i64 0, i64 %98
+  %534 = load i8, ptr %533, align 1
+  %535 = zext i8 %534 to i64
+  %536 = add nsw i64 %535, -23
+  %537 = getelementptr inbounds [16 x i8], ptr @yypgoto, i64 0, i64 %536
+  %538 = load i8, ptr %537, align 1
+  %539 = sext i8 %538 to i32
+  %540 = load i16, ptr %531, align 2
+  %541 = sext i16 %540 to i32
+  %542 = add nsw i32 %541, %539
+  %543 = icmp ult i32 %542, 84
+  br i1 %543, label %544, label %554
 
-544:                                              ; preds = %540
-  store ptr %537, ptr %541, align 8
-  br label %545
+544:                                              ; preds = %527
+  %545 = zext i32 %542 to i64
+  %546 = getelementptr inbounds [84 x i8], ptr @yycheck, i64 0, i64 %545
+  %547 = load i8, ptr %546, align 1
+  %548 = sext i8 %547 to i16
+  %549 = icmp eq i16 %540, %548
+  br i1 %549, label %550, label %554
 
-545:                                              ; preds = %544, %533, %446, %435, %130, %119, %97, %529, %526, %525, %520, %469, %431, %428, %426, %419, %412, %405, %398, %391, %384, %377, %370, %357, %353, %348, %179, %175, %167, %161, %149, %142, %139, %136, %131, %115
-  %546 = phi ptr [ %104, %97 ], [ %531, %529 ], [ %528, %526 ], [ null, %525 ], [ %524, %520 ], [ %470, %469 ], [ %433, %431 ], [ %430, %428 ], [ %427, %426 ], [ %425, %419 ], [ %418, %412 ], [ %411, %405 ], [ %404, %398 ], [ %397, %391 ], [ %390, %384 ], [ %383, %377 ], [ %376, %370 ], [ %104, %357 ], [ %104, %353 ], [ %352, %348 ], [ %104, %179 ], [ %104, %175 ], [ %174, %167 ], [ %166, %161 ], [ %160, %149 ], [ %148, %142 ], [ %141, %139 ], [ %138, %136 ], [ %135, %131 ], [ %117, %115 ], [ %121, %130 ], [ %123, %119 ], [ %437, %446 ], [ %439, %435 ], [ %535, %544 ], [ %537, %533 ]
-  %547 = sub nsw i64 0, %101
-  %548 = getelementptr %union.yystype, ptr %45, i64 1
-  %549 = getelementptr inbounds i16, ptr %47, i64 %547
-  %550 = getelementptr %union.yystype, ptr %548, i64 %547
-  store ptr %546, ptr %550, align 8
-  %551 = getelementptr inbounds [37 x i8], ptr @yyr1, i64 0, i64 %98
+550:                                              ; preds = %544
+  %551 = getelementptr inbounds [84 x i8], ptr @yytable, i64 0, i64 %545
   %552 = load i8, ptr %551, align 1
-  %553 = zext i8 %552 to i64
-  %554 = add nsw i64 %553, -23
-  %555 = getelementptr inbounds [16 x i8], ptr @yypgoto, i64 0, i64 %554
+  %553 = zext i8 %552 to i32
+  br label %4
+
+554:                                              ; preds = %544, %527
+  %555 = getelementptr inbounds [16 x i8], ptr @yydefgoto, i64 0, i64 %536
   %556 = load i8, ptr %555, align 1
   %557 = sext i8 %556 to i32
-  %558 = load i16, ptr %549, align 2
-  %559 = sext i16 %558 to i32
-  %560 = add nsw i32 %559, %557
-  %561 = icmp ult i32 %560, 84
-  br i1 %561, label %562, label %572
-
-562:                                              ; preds = %545
-  %563 = zext i32 %560 to i64
-  %564 = getelementptr inbounds [84 x i8], ptr @yycheck, i64 0, i64 %563
-  %565 = load i8, ptr %564, align 1
-  %566 = sext i8 %565 to i16
-  %567 = icmp eq i16 %558, %566
-  br i1 %567, label %568, label %572
-
-568:                                              ; preds = %562
-  %569 = getelementptr inbounds [84 x i8], ptr @yytable, i64 0, i64 %563
-  %570 = load i8, ptr %569, align 1
-  %571 = zext i8 %570 to i32
   br label %4
 
-572:                                              ; preds = %562, %545
-  %573 = getelementptr inbounds [16 x i8], ptr @yydefgoto, i64 0, i64 %554
-  %574 = load i8, ptr %573, align 1
-  %575 = sext i8 %574 to i32
-  br label %4
+558:                                              ; preds = %93, %80
+  %559 = sext i8 %51 to i32
+  %560 = load i32, ptr @ia_nerrs, align 4
+  %561 = add nsw i32 %560, 1
+  store i32 %561, ptr @ia_nerrs, align 4
+  %562 = icmp sgt i8 %51, -29
+  br i1 %562, label %563, label %676
 
-576:                                              ; preds = %93, %80
-  %577 = sext i8 %51 to i32
-  %578 = load i32, ptr @ia_nerrs, align 4
-  %579 = add nsw i32 %578, 1
-  store i32 %579, ptr @ia_nerrs, align 4
-  %580 = icmp sgt i8 %51, -29
-  br i1 %580, label %581, label %694
+563:                                              ; preds = %558
+  %564 = load i32, ptr @ia_char, align 4
+  %565 = icmp ult i32 %564, 272
+  br i1 %565, label %566, label %571
 
-581:                                              ; preds = %576
-  %582 = load i32, ptr @ia_char, align 4
-  %583 = icmp ult i32 %582, 272
-  br i1 %583, label %584, label %589
+566:                                              ; preds = %563
+  %567 = zext i32 %564 to i64
+  %568 = getelementptr inbounds [272 x i8], ptr @yytranslate, i64 0, i64 %567
+  %569 = load i8, ptr %568, align 1
+  %570 = zext i8 %569 to i64
+  br label %571
 
-584:                                              ; preds = %581
-  %585 = zext i32 %582 to i64
-  %586 = getelementptr inbounds [272 x i8], ptr @yytranslate, i64 0, i64 %585
-  %587 = load i8, ptr %586, align 1
-  %588 = zext i8 %587 to i64
-  br label %589
+571:                                              ; preds = %563, %566
+  %572 = phi i64 [ %570, %566 ], [ 2, %563 ]
+  %573 = icmp slt i8 %51, 0
+  %574 = sub nsw i32 0, %559
+  %575 = select i1 %573, i32 %574, i32 0
+  %576 = icmp slt i32 %575, 40
+  br i1 %576, label %577, label %604
 
-589:                                              ; preds = %581, %584
-  %590 = phi i64 [ %588, %584 ], [ 2, %581 ]
-  %591 = icmp slt i8 %51, 0
-  %592 = sub nsw i32 0, %577
-  %593 = select i1 %591, i32 %592, i32 0
-  %594 = icmp slt i32 %593, 40
-  br i1 %594, label %595, label %622
+577:                                              ; preds = %571
+  %578 = sext i32 %575 to i64
+  %579 = sext i8 %51 to i64
+  br label %580
 
-595:                                              ; preds = %589
-  %596 = sext i32 %593 to i64
-  %597 = sext i8 %51 to i64
-  br label %598
+580:                                              ; preds = %577, %599
+  %581 = phi i64 [ %578, %577 ], [ %602, %599 ]
+  %582 = phi i32 [ 0, %577 ], [ %601, %599 ]
+  %583 = phi i64 [ 0, %577 ], [ %600, %599 ]
+  %584 = add nsw i64 %581, %579
+  %585 = getelementptr inbounds [84 x i8], ptr @yycheck, i64 0, i64 %584
+  %586 = load i8, ptr %585, align 1
+  %587 = sext i8 %586 to i32
+  %588 = trunc i64 %581 to i32
+  %589 = icmp eq i32 %588, %587
+  %590 = icmp ne i64 %581, 1
+  %591 = and i1 %590, %589
+  br i1 %591, label %592, label %599
 
-598:                                              ; preds = %595, %617
-  %599 = phi i64 [ %596, %595 ], [ %620, %617 ]
-  %600 = phi i32 [ 0, %595 ], [ %619, %617 ]
-  %601 = phi i64 [ 0, %595 ], [ %618, %617 ]
-  %602 = add nsw i64 %599, %597
-  %603 = getelementptr inbounds [84 x i8], ptr @yycheck, i64 0, i64 %602
-  %604 = load i8, ptr %603, align 1
-  %605 = sext i8 %604 to i32
-  %606 = trunc i64 %599 to i32
-  %607 = icmp eq i32 %606, %605
-  %608 = icmp ne i64 %599, 1
-  %609 = and i1 %608, %607
-  br i1 %609, label %610, label %617
+592:                                              ; preds = %580
+  %593 = getelementptr inbounds [40 x ptr], ptr @yytname, i64 0, i64 %581
+  %594 = load ptr, ptr %593, align 8
+  %595 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %594) #16
+  %596 = add i64 %583, 15
+  %597 = add i64 %596, %595
+  %598 = add nsw i32 %582, 1
+  br label %599
 
-610:                                              ; preds = %598
-  %611 = getelementptr inbounds [40 x ptr], ptr @yytname, i64 0, i64 %599
-  %612 = load ptr, ptr %611, align 8
-  %613 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %612) #15
-  %614 = add i64 %601, 15
-  %615 = add i64 %614, %613
-  %616 = add nsw i32 %600, 1
-  br label %617
+599:                                              ; preds = %580, %592
+  %600 = phi i64 [ %597, %592 ], [ %583, %580 ]
+  %601 = phi i32 [ %598, %592 ], [ %582, %580 ]
+  %602 = add nsw i64 %581, 1
+  %603 = icmp slt i64 %581, 39
+  br i1 %603, label %580, label %604, !llvm.loop !10
 
-617:                                              ; preds = %598, %610
-  %618 = phi i64 [ %615, %610 ], [ %601, %598 ]
-  %619 = phi i32 [ %616, %610 ], [ %600, %598 ]
-  %620 = add nsw i64 %599, 1
-  %621 = icmp slt i64 %599, 39
-  br i1 %621, label %598, label %622, !llvm.loop !10
+604:                                              ; preds = %599, %571
+  %605 = phi i64 [ 0, %571 ], [ %600, %599 ]
+  %606 = phi i32 [ 0, %571 ], [ %601, %599 ]
+  %607 = add i64 %605, 25
+  %608 = getelementptr inbounds [40 x ptr], ptr @yytname, i64 0, i64 %572
+  %609 = load ptr, ptr %608, align 8
+  %610 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %609) #16
+  %611 = add i64 %607, %610
+  %612 = alloca i8, i64 %611, align 16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(25) %612, ptr noundef nonnull align 1 dereferenceable(25) @.str.4, i64 25, i1 false)
+  %613 = getelementptr i8, ptr %612, i64 24
+  br label %614
 
-622:                                              ; preds = %617, %589
-  %623 = phi i64 [ 0, %589 ], [ %618, %617 ]
-  %624 = phi i32 [ 0, %589 ], [ %619, %617 ]
-  %625 = add i64 %623, 25
-  %626 = getelementptr inbounds [40 x ptr], ptr @yytname, i64 0, i64 %590
-  %627 = load ptr, ptr %626, align 8
-  %628 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %627) #15
-  %629 = add i64 %625, %628
-  %630 = alloca i8, i64 %629, align 16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(25) %630, ptr noundef nonnull align 1 dereferenceable(25) @.str.4, i64 25, i1 false)
-  %631 = getelementptr i8, ptr %630, i64 24
-  br label %632
+614:                                              ; preds = %604, %614
+  %615 = phi ptr [ %619, %614 ], [ %613, %604 ]
+  %616 = phi ptr [ %617, %614 ], [ %609, %604 ]
+  %617 = getelementptr inbounds i8, ptr %616, i64 1
+  %618 = load i8, ptr %616, align 1
+  %619 = getelementptr inbounds i8, ptr %615, i64 1
+  store i8 %618, ptr %615, align 1
+  %620 = icmp eq i8 %618, 0
+  br i1 %620, label %621, label %614, !llvm.loop !11
 
-632:                                              ; preds = %622, %632
-  %633 = phi ptr [ %637, %632 ], [ %631, %622 ]
-  %634 = phi ptr [ %635, %632 ], [ %627, %622 ]
-  %635 = getelementptr inbounds i8, ptr %634, i64 1
-  %636 = load i8, ptr %634, align 1
-  %637 = getelementptr inbounds i8, ptr %633, i64 1
-  store i8 %636, ptr %633, align 1
-  %638 = icmp eq i8 %636, 0
-  br i1 %638, label %639, label %632, !llvm.loop !11
+621:                                              ; preds = %614
+  %622 = icmp slt i32 %606, 5
+  %623 = and i1 %622, %576
+  br i1 %623, label %624, label %666
 
-639:                                              ; preds = %632
-  %640 = icmp slt i32 %624, 5
-  %641 = and i1 %640, %594
-  br i1 %641, label %642, label %684
+624:                                              ; preds = %621
+  %625 = sext i32 %575 to i64
+  %626 = sext i8 %51 to i64
+  br label %627
 
-642:                                              ; preds = %639
-  %643 = sext i32 %593 to i64
-  %644 = sext i8 %51 to i64
-  br label %645
+627:                                              ; preds = %624, %661
+  %628 = phi i64 [ %625, %624 ], [ %664, %661 ]
+  %629 = phi ptr [ %615, %624 ], [ %663, %661 ]
+  %630 = phi i32 [ 0, %624 ], [ %662, %661 ]
+  %631 = add nsw i64 %628, %626
+  %632 = getelementptr inbounds [84 x i8], ptr @yycheck, i64 0, i64 %631
+  %633 = load i8, ptr %632, align 1
+  %634 = sext i8 %633 to i32
+  %635 = trunc i64 %628 to i32
+  %636 = icmp eq i32 %635, %634
+  %637 = icmp ne i64 %628, 1
+  %638 = and i1 %637, %636
+  br i1 %638, label %639, label %661
 
-645:                                              ; preds = %642, %679
-  %646 = phi i64 [ %643, %642 ], [ %682, %679 ]
-  %647 = phi ptr [ %633, %642 ], [ %681, %679 ]
-  %648 = phi i32 [ 0, %642 ], [ %680, %679 ]
-  %649 = add nsw i64 %646, %644
-  %650 = getelementptr inbounds [84 x i8], ptr @yycheck, i64 0, i64 %649
-  %651 = load i8, ptr %650, align 1
-  %652 = sext i8 %651 to i32
-  %653 = trunc i64 %646 to i32
-  %654 = icmp eq i32 %653, %652
-  %655 = icmp ne i64 %646, 1
-  %656 = and i1 %655, %654
-  br i1 %656, label %657, label %679
+639:                                              ; preds = %627
+  %640 = icmp eq i32 %630, 0
+  %641 = select i1 %640, ptr @.str.5, ptr @.str.6
+  br label %642
 
-657:                                              ; preds = %645
-  %658 = icmp eq i32 %648, 0
-  %659 = select i1 %658, ptr @.str.5, ptr @.str.6
-  br label %660
+642:                                              ; preds = %642, %639
+  %643 = phi ptr [ %629, %639 ], [ %647, %642 ]
+  %644 = phi ptr [ %641, %639 ], [ %645, %642 ]
+  %645 = getelementptr inbounds i8, ptr %644, i64 1
+  %646 = load i8, ptr %644, align 1
+  %647 = getelementptr inbounds i8, ptr %643, i64 1
+  store i8 %646, ptr %643, align 1
+  %648 = icmp eq i8 %646, 0
+  br i1 %648, label %649, label %642, !llvm.loop !11
 
-660:                                              ; preds = %660, %657
-  %661 = phi ptr [ %647, %657 ], [ %665, %660 ]
-  %662 = phi ptr [ %659, %657 ], [ %663, %660 ]
-  %663 = getelementptr inbounds i8, ptr %662, i64 1
-  %664 = load i8, ptr %662, align 1
-  %665 = getelementptr inbounds i8, ptr %661, i64 1
-  store i8 %664, ptr %661, align 1
-  %666 = icmp eq i8 %664, 0
-  br i1 %666, label %667, label %660, !llvm.loop !11
+649:                                              ; preds = %642
+  %650 = getelementptr inbounds [40 x ptr], ptr @yytname, i64 0, i64 %628
+  %651 = load ptr, ptr %650, align 8
+  br label %652
 
-667:                                              ; preds = %660
-  %668 = getelementptr inbounds [40 x ptr], ptr @yytname, i64 0, i64 %646
-  %669 = load ptr, ptr %668, align 8
-  br label %670
+652:                                              ; preds = %652, %649
+  %653 = phi ptr [ %643, %649 ], [ %657, %652 ]
+  %654 = phi ptr [ %651, %649 ], [ %655, %652 ]
+  %655 = getelementptr inbounds i8, ptr %654, i64 1
+  %656 = load i8, ptr %654, align 1
+  %657 = getelementptr inbounds i8, ptr %653, i64 1
+  store i8 %656, ptr %653, align 1
+  %658 = icmp eq i8 %656, 0
+  br i1 %658, label %659, label %652, !llvm.loop !11
 
-670:                                              ; preds = %670, %667
-  %671 = phi ptr [ %661, %667 ], [ %675, %670 ]
-  %672 = phi ptr [ %669, %667 ], [ %673, %670 ]
-  %673 = getelementptr inbounds i8, ptr %672, i64 1
-  %674 = load i8, ptr %672, align 1
-  %675 = getelementptr inbounds i8, ptr %671, i64 1
-  store i8 %674, ptr %671, align 1
-  %676 = icmp eq i8 %674, 0
-  br i1 %676, label %677, label %670, !llvm.loop !11
+659:                                              ; preds = %652
+  %660 = add nsw i32 %630, 1
+  br label %661
 
-677:                                              ; preds = %670
-  %678 = add nsw i32 %648, 1
-  br label %679
+661:                                              ; preds = %627, %659
+  %662 = phi i32 [ %660, %659 ], [ %630, %627 ]
+  %663 = phi ptr [ %653, %659 ], [ %629, %627 ]
+  %664 = add nsw i64 %628, 1
+  %665 = icmp slt i64 %628, 39
+  br i1 %665, label %627, label %666, !llvm.loop !12
 
-679:                                              ; preds = %645, %677
-  %680 = phi i32 [ %678, %677 ], [ %648, %645 ]
-  %681 = phi ptr [ %671, %677 ], [ %647, %645 ]
-  %682 = add nsw i64 %646, 1
-  %683 = icmp slt i64 %646, 39
-  br i1 %683, label %645, label %684, !llvm.loop !12
+666:                                              ; preds = %661, %621
+  %667 = load ptr, ptr @stdout, align 8
+  %668 = call i32 @fflush(ptr noundef %667)
+  %669 = load i32, ptr @dfg_LINENUMBER, align 4
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %669, ptr noundef nonnull %612) #14
+  %670 = load ptr, ptr @stderr, align 8
+  %671 = call i32 @fflush(ptr noundef %670)
+  %672 = load ptr, ptr @stdout, align 8
+  %673 = call i32 @fflush(ptr noundef %672)
+  %674 = load ptr, ptr @stderr, align 8
+  %675 = call i32 @fflush(ptr noundef %674)
+  call void @exit(i32 noundef 1) #15
+  unreachable
 
-684:                                              ; preds = %679, %639
-  %685 = load ptr, ptr @stdout, align 8
-  %686 = call i32 @fflush(ptr noundef %685)
-  %687 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %687, ptr noundef nonnull %630) #13
-  %688 = load ptr, ptr @stderr, align 8
-  %689 = call i32 @fflush(ptr noundef %688)
-  %690 = load ptr, ptr @stdout, align 8
+676:                                              ; preds = %558
+  %677 = load ptr, ptr @stdout, align 8
+  %678 = call i32 @fflush(ptr noundef %677)
+  %679 = load i32, ptr @dfg_LINENUMBER, align 4
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %679, ptr noundef nonnull @.str.8) #14
+  %680 = load ptr, ptr @stderr, align 8
+  %681 = call i32 @fflush(ptr noundef %680)
+  %682 = load ptr, ptr @stdout, align 8
+  %683 = call i32 @fflush(ptr noundef %682)
+  %684 = load ptr, ptr @stderr, align 8
+  %685 = call i32 @fflush(ptr noundef %684)
+  call void @exit(i32 noundef 1) #15
+  unreachable
+
+686:                                              ; preds = %20
+  %687 = load ptr, ptr @stdout, align 8
+  %688 = call i32 @fflush(ptr noundef %687)
+  %689 = load i32, ptr @dfg_LINENUMBER, align 4
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %689, ptr noundef nonnull @.str.9) #14
+  %690 = load ptr, ptr @stderr, align 8
   %691 = call i32 @fflush(ptr noundef %690)
-  %692 = load ptr, ptr @stderr, align 8
+  %692 = load ptr, ptr @stdout, align 8
   %693 = call i32 @fflush(ptr noundef %692)
-  call void @exit(i32 noundef 1) #14
+  %694 = load ptr, ptr @stderr, align 8
+  %695 = call i32 @fflush(ptr noundef %694)
+  call void @exit(i32 noundef 1) #15
   unreachable
 
-694:                                              ; preds = %576
-  %695 = load ptr, ptr @stdout, align 8
-  %696 = call i32 @fflush(ptr noundef %695)
-  %697 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %697, ptr noundef nonnull @.str.8) #13
-  %698 = load ptr, ptr @stderr, align 8
-  %699 = call i32 @fflush(ptr noundef %698)
-  %700 = load ptr, ptr @stdout, align 8
-  %701 = call i32 @fflush(ptr noundef %700)
-  %702 = load ptr, ptr @stderr, align 8
-  %703 = call i32 @fflush(ptr noundef %702)
-  call void @exit(i32 noundef 1) #14
-  unreachable
-
-704:                                              ; preds = %20
-  %705 = load ptr, ptr @stdout, align 8
-  %706 = call i32 @fflush(ptr noundef %705)
-  %707 = load i32, ptr @dfg_LINENUMBER, align 4
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %707, ptr noundef nonnull @.str.9) #13
-  %708 = load ptr, ptr @stderr, align 8
-  %709 = call i32 @fflush(ptr noundef %708)
-  %710 = load ptr, ptr @stdout, align 8
-  %711 = call i32 @fflush(ptr noundef %710)
-  %712 = load ptr, ptr @stderr, align 8
-  %713 = call i32 @fflush(ptr noundef %712)
-  call void @exit(i32 noundef 1) #14
-  unreachable
-
-714:                                              ; preds = %22, %86, %97, %105
-  %715 = phi i32 [ 0, %105 ], [ 1, %22 ], [ 1, %97 ], [ 0, %86 ]
-  call void @llvm.lifetime.end.p0(i64 1600, ptr nonnull %2) #13
-  call void @llvm.lifetime.end.p0(i64 400, ptr nonnull %1) #13
-  ret i32 %715
+696:                                              ; preds = %22, %86, %97, %105
+  %697 = phi i32 [ 0, %105 ], [ 1, %22 ], [ 1, %97 ], [ 0, %86 ]
+  call void @llvm.lifetime.end.p0(i64 1600, ptr nonnull %2) #14
+  call void @llvm.lifetime.end.p0(i64 400, ptr nonnull %1) #14
+  ret i32 %697
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -1260,19 +1242,19 @@ define internal fastcc void @ia_VarCheck() unnamed_addr #0 {
   %4 = load ptr, ptr @stdout, align 8
   %5 = tail call i32 @fflush(ptr noundef %4)
   %6 = load ptr, ptr @stderr, align 8
-  %7 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %6, ptr noundef nonnull @.str.56, ptr noundef nonnull @.str.57, i32 noundef 450) #16
-  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.58) #13
+  %7 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %6, ptr noundef nonnull @.str.56, ptr noundef nonnull @.str.57, i32 noundef 450) #17
+  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.58) #14
   %8 = load ptr, ptr @stderr, align 8
-  %9 = tail call i64 @fwrite(ptr nonnull @.str.59, i64 132, i64 1, ptr %8) #16
+  %9 = tail call i64 @fwrite(ptr nonnull @.str.59, i64 132, i64 1, ptr %8) #17
   %10 = load ptr, ptr @stderr, align 8
-  %11 = tail call i64 @fwrite(ptr nonnull @.str.60, i64 2, i64 1, ptr %10) #16
+  %11 = tail call i64 @fwrite(ptr nonnull @.str.60, i64 2, i64 1, ptr %10) #17
   %12 = load ptr, ptr @stderr, align 8
   %13 = tail call i32 @fflush(ptr noundef %12)
   %14 = load ptr, ptr @stdout, align 8
   %15 = tail call i32 @fflush(ptr noundef %14)
   %16 = load ptr, ptr @stderr, align 8
   %17 = tail call i32 @fflush(ptr noundef %16)
-  tail call void @abort() #14
+  tail call void @abort() #15
   unreachable
 
 18:                                               ; preds = %0
@@ -1282,41 +1264,41 @@ define internal fastcc void @ia_VarCheck() unnamed_addr #0 {
 
 ; Function Attrs: inlinehint nounwind uwtable
 define internal fastcc void @flag_SetFlagValue(ptr nocapture noundef writeonly %0, i32 noundef %1) unnamed_addr #4 {
-  %3 = tail call i32 @flag_Minimum(i32 noundef 7) #13
+  %3 = tail call i32 @flag_Minimum(i32 noundef 7) #14
   %4 = icmp slt i32 %3, %1
   br i1 %4, label %15, label %5
 
 5:                                                ; preds = %2
   %6 = load ptr, ptr @stdout, align 8
   %7 = tail call i32 @fflush(ptr noundef %6)
-  %8 = tail call ptr @flag_Name(i32 noundef 7) #13
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.11, i32 noundef %1, ptr noundef %8) #13
+  %8 = tail call ptr @flag_Name(i32 noundef 7) #14
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.11, i32 noundef %1, ptr noundef %8) #14
   %9 = load ptr, ptr @stderr, align 8
   %10 = tail call i32 @fflush(ptr noundef %9)
   %11 = load ptr, ptr @stdout, align 8
   %12 = tail call i32 @fflush(ptr noundef %11)
   %13 = load ptr, ptr @stderr, align 8
   %14 = tail call i32 @fflush(ptr noundef %13)
-  tail call void @exit(i32 noundef 1) #14
+  tail call void @exit(i32 noundef 1) #15
   unreachable
 
 15:                                               ; preds = %2
-  %16 = tail call i32 @flag_Maximum(i32 noundef 7) #13
+  %16 = tail call i32 @flag_Maximum(i32 noundef 7) #14
   %17 = icmp sgt i32 %16, %1
   br i1 %17, label %28, label %18
 
 18:                                               ; preds = %15
   %19 = load ptr, ptr @stdout, align 8
   %20 = tail call i32 @fflush(ptr noundef %19)
-  %21 = tail call ptr @flag_Name(i32 noundef 7) #13
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.12, i32 noundef %1, ptr noundef %21) #13
+  %21 = tail call ptr @flag_Name(i32 noundef 7) #14
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.12, i32 noundef %1, ptr noundef %21) #14
   %22 = load ptr, ptr @stderr, align 8
   %23 = tail call i32 @fflush(ptr noundef %22)
   %24 = load ptr, ptr @stdout, align 8
   %25 = tail call i32 @fflush(ptr noundef %24)
   %26 = load ptr, ptr @stderr, align 8
   %27 = tail call i32 @fflush(ptr noundef %26)
-  tail call void @exit(i32 noundef 1) #14
+  tail call void @exit(i32 noundef 1) #15
   unreachable
 
 28:                                               ; preds = %15
@@ -1332,16 +1314,28 @@ declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #5
 
 declare void @misc_UserErrorReport(ptr noundef, ...) local_unnamed_addr #3
 
+; Function Attrs: inlinehint noreturn nounwind uwtable
+define internal fastcc void @misc_Error() unnamed_addr #6 {
+  %1 = load ptr, ptr @stderr, align 8
+  %2 = tail call i32 @fflush(ptr noundef %1)
+  %3 = load ptr, ptr @stdout, align 8
+  %4 = tail call i32 @fflush(ptr noundef %3)
+  %5 = load ptr, ptr @stderr, align 8
+  %6 = tail call i32 @fflush(ptr noundef %5)
+  tail call void @exit(i32 noundef 1) #15
+  unreachable
+}
+
 declare ptr @string_IntToString(i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_addr #0 {
-  %3 = tail call i32 @symbol_Lookup(ptr noundef %0) #13
+  %3 = tail call i32 @symbol_Lookup(ptr noundef %0) #14
   %4 = icmp eq i32 %3, 0
   br i1 %4, label %88, label %5
 
 5:                                                ; preds = %2
-  %6 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #15
+  %6 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #16
   %7 = trunc i64 %6 to i32
   %8 = add i32 %7, 1
   %9 = icmp ult i32 %8, 1024
@@ -1351,9 +1345,9 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
   %11 = load i32, ptr @memory_ALIGN, align 4
   %12 = urem i32 %8, %11
   %13 = icmp eq i32 %12, 0
-  %14 = sub i32 %11, %12
-  %15 = select i1 %13, i32 0, i32 %14
-  %16 = add i32 %15, %8
+  %14 = add i32 %11, %8
+  %15 = sub i32 %14, %12
+  %16 = select i1 %13, i32 %8, i32 %15
   %17 = load i32, ptr @memory_OFFSET, align 4
   %18 = zext i32 %17 to i64
   %19 = sub nsw i64 0, %18
@@ -1377,7 +1371,7 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
 
 32:                                               ; preds = %30, %10
   %33 = load i32, ptr @memory_MARKSIZE, align 4
-  %34 = add i32 %16, %33
+  %34 = add i32 %33, %16
   %35 = zext i32 %34 to i64
   %36 = add nuw nsw i64 %35, 16
   %37 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -1394,7 +1388,7 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
 
 43:                                               ; preds = %41, %32
   %44 = getelementptr inbounds i8, ptr %0, i64 -16
-  tail call void @free(ptr noundef nonnull %44) #13
+  tail call void @free(ptr noundef nonnull %44) #14
   br label %56
 
 45:                                               ; preds = %5
@@ -1436,20 +1430,20 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
   %74 = getelementptr inbounds ptr, ptr %73, i64 %61
   %75 = load ptr, ptr %74, align 8
   %76 = load ptr, ptr %75, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.53, i32 noundef %72, ptr noundef %76) #13
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.53, i32 noundef %72, ptr noundef %76) #14
   %77 = load ptr, ptr @symbol_SIGNATURE, align 8
   %78 = getelementptr inbounds ptr, ptr %77, i64 %61
   %79 = load ptr, ptr %78, align 8
   %80 = getelementptr inbounds %struct.signature, ptr %79, i64 0, i32 3
   %81 = load i32, ptr %80, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.54, i32 noundef %81) #13
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.54, i32 noundef %81) #14
   %82 = load ptr, ptr @stderr, align 8
   %83 = tail call i32 @fflush(ptr noundef %82)
   %84 = load ptr, ptr @stdout, align 8
   %85 = tail call i32 @fflush(ptr noundef %84)
   %86 = load ptr, ptr @stderr, align 8
   %87 = tail call i32 @fflush(ptr noundef %86)
-  tail call void @exit(i32 noundef 1) #14
+  tail call void @exit(i32 noundef 1) #15
   unreachable
 
 88:                                               ; preds = %2
@@ -1460,14 +1454,14 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
   %91 = load ptr, ptr @stdout, align 8
   %92 = tail call i32 @fflush(ptr noundef %91)
   %93 = load i32, ptr @dfg_LINENUMBER, align 4
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.52, i32 noundef %93, ptr noundef %0) #13
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.52, i32 noundef %93, ptr noundef %0) #14
   %94 = load ptr, ptr @stderr, align 8
   %95 = tail call i32 @fflush(ptr noundef %94)
   %96 = load ptr, ptr @stdout, align 8
   %97 = tail call i32 @fflush(ptr noundef %96)
   %98 = load ptr, ptr @stderr, align 8
   %99 = tail call i32 @fflush(ptr noundef %98)
-  tail call void @exit(i32 noundef 1) #14
+  tail call void @exit(i32 noundef 1) #15
   unreachable
 
 100:                                              ; preds = %88
@@ -1490,7 +1484,7 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
   %111 = getelementptr i8, ptr %108, i64 8
   %112 = load ptr, ptr %111, align 8
   %113 = load ptr, ptr %112, align 8
-  %114 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %113, ptr noundef nonnull dereferenceable(1) %0) #15
+  %114 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %113, ptr noundef nonnull dereferenceable(1) %0) #16
   %115 = icmp eq i32 %114, 0
   br i1 %115, label %119, label %106, !llvm.loop !13
 
@@ -1501,7 +1495,7 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
 
 119:                                              ; preds = %110
   %120 = getelementptr i8, ptr %108, i64 8
-  %121 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #15
+  %121 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #16
   %122 = trunc i64 %121 to i32
   %123 = add i32 %122, 1
   %124 = icmp ult i32 %123, 1024
@@ -1511,9 +1505,9 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
   %126 = load i32, ptr @memory_ALIGN, align 4
   %127 = urem i32 %123, %126
   %128 = icmp eq i32 %127, 0
-  %129 = sub i32 %126, %127
-  %130 = select i1 %128, i32 0, i32 %129
-  %131 = add i32 %130, %123
+  %129 = add i32 %126, %123
+  %130 = sub i32 %129, %127
+  %131 = select i1 %128, i32 %123, i32 %130
   %132 = load i32, ptr @memory_OFFSET, align 4
   %133 = zext i32 %132 to i64
   %134 = sub nsw i64 0, %133
@@ -1537,7 +1531,7 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
 
 147:                                              ; preds = %145, %125
   %148 = load i32, ptr @memory_MARKSIZE, align 4
-  %149 = add i32 %131, %148
+  %149 = add i32 %148, %131
   %150 = zext i32 %149 to i64
   %151 = add nuw nsw i64 %150, 16
   %152 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -1554,7 +1548,7 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
 
 158:                                              ; preds = %156, %147
   %159 = getelementptr inbounds i8, ptr %0, i64 -16
-  tail call void @free(ptr noundef nonnull %159) #13
+  tail call void @free(ptr noundef nonnull %159) #14
   br label %171
 
 160:                                              ; preds = %119
@@ -1582,7 +1576,7 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
   br i1 %174, label %175, label %185
 
 175:                                              ; preds = %173
-  %176 = tail call ptr @memory_Malloc(i32 noundef 16) #13
+  %176 = tail call ptr @memory_Malloc(i32 noundef 16) #14
   store ptr %0, ptr %176, align 8
   %177 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
   %178 = add nsw i32 %177, 1
@@ -1592,7 +1586,7 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
   %180 = load ptr, ptr @ia_VARLIST, align 8
   %181 = getelementptr i8, ptr %180, i64 8
   %182 = load ptr, ptr %181, align 8
-  %183 = tail call ptr @memory_Malloc(i32 noundef 16) #13
+  %183 = tail call ptr @memory_Malloc(i32 noundef 16) #14
   %184 = getelementptr inbounds %struct.LIST_HELP, ptr %183, i64 0, i32 1
   store ptr %176, ptr %184, align 8
   store ptr %182, ptr %183, align 8
@@ -1603,14 +1597,14 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
   %186 = load ptr, ptr @stdout, align 8
   %187 = tail call i32 @fflush(ptr noundef %186)
   %188 = load i32, ptr @dfg_LINENUMBER, align 4
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.55, i32 noundef %188, ptr noundef %0) #13
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.55, i32 noundef %188, ptr noundef %0) #14
   %189 = load ptr, ptr @stderr, align 8
   %190 = tail call i32 @fflush(ptr noundef %189)
   %191 = load ptr, ptr @stdout, align 8
   %192 = tail call i32 @fflush(ptr noundef %191)
   %193 = load ptr, ptr @stderr, align 8
   %194 = tail call i32 @fflush(ptr noundef %193)
-  tail call void @exit(i32 noundef 1) #14
+  tail call void @exit(i32 noundef 1) #15
   unreachable
 
 195:                                              ; preds = %171, %175
@@ -1625,21 +1619,21 @@ define internal fastcc i32 @ia_Symbol(ptr noundef %0, i32 noundef %1) unnamed_ad
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
-declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #6
+declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #7
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local void @ia_error(ptr noundef %0) local_unnamed_addr #7 {
+define dso_local void @ia_error(ptr noundef %0) local_unnamed_addr #8 {
   %2 = load ptr, ptr @stdout, align 8
   %3 = tail call i32 @fflush(ptr noundef %2)
   %4 = load i32, ptr @dfg_LINENUMBER, align 4
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %4, ptr noundef %0) #13
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %4, ptr noundef %0) #14
   %5 = load ptr, ptr @stderr, align 8
   %6 = tail call i32 @fflush(ptr noundef %5)
   %7 = load ptr, ptr @stdout, align 8
   %8 = tail call i32 @fflush(ptr noundef %7)
   %9 = load ptr, ptr @stderr, align 8
   %10 = tail call i32 @fflush(ptr noundef %9)
-  tail call void @exit(i32 noundef 1) #14
+  tail call void @exit(i32 noundef 1) #15
   unreachable
 }
 
@@ -1664,15 +1658,15 @@ declare i32 @list_Length(ptr noundef) local_unnamed_addr #3
 declare ptr @memory_Malloc(i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: noreturn nounwind
-declare void @exit(i32 noundef) local_unnamed_addr #8
+declare void @exit(i32 noundef) local_unnamed_addr #9
 
 declare i32 @symbol_Lookup(ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite)
-declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #9
+declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
-declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #6
+declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #7
 
 declare void @term_Delete(ptr noundef) local_unnamed_addr #3
 
@@ -1683,9 +1677,9 @@ declare ptr @fol_CreateQuantifier(i32 noundef, ptr noundef, ptr noundef) local_u
 declare void @list_DeleteWithElement(ptr noundef, ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress nounwind willreturn uwtable
-define internal void @ia_VarFree(ptr noundef %0) #10 {
+define internal void @ia_VarFree(ptr noundef %0) #11 {
   %2 = load ptr, ptr %0, align 8
-  %3 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #15
+  %3 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #16
   %4 = trunc i64 %3 to i32
   %5 = add i32 %4, 1
   %6 = icmp ult i32 %5, 1024
@@ -1695,9 +1689,9 @@ define internal void @ia_VarFree(ptr noundef %0) #10 {
   %8 = load i32, ptr @memory_ALIGN, align 4
   %9 = urem i32 %5, %8
   %10 = icmp eq i32 %9, 0
-  %11 = sub i32 %8, %9
-  %12 = select i1 %10, i32 0, i32 %11
-  %13 = add i32 %12, %5
+  %11 = add i32 %8, %5
+  %12 = sub i32 %11, %9
+  %13 = select i1 %10, i32 %5, i32 %12
   %14 = load i32, ptr @memory_OFFSET, align 4
   %15 = zext i32 %14 to i64
   %16 = sub nsw i64 0, %15
@@ -1721,7 +1715,7 @@ define internal void @ia_VarFree(ptr noundef %0) #10 {
 
 29:                                               ; preds = %27, %7
   %30 = load i32, ptr @memory_MARKSIZE, align 4
-  %31 = add i32 %13, %30
+  %31 = add i32 %30, %13
   %32 = zext i32 %31 to i64
   %33 = add nuw nsw i64 %32, 16
   %34 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -1738,7 +1732,7 @@ define internal void @ia_VarFree(ptr noundef %0) #10 {
 
 40:                                               ; preds = %38, %29
   %41 = getelementptr inbounds i8, ptr %2, i64 -16
-  tail call void @free(ptr noundef nonnull %41) #13
+  tail call void @free(ptr noundef nonnull %41) #14
   br label %53
 
 42:                                               ; preds = %1
@@ -1778,13 +1772,13 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 declare void @misc_ErrorReport(ptr noundef, ...) local_unnamed_addr #3
 
 ; Function Attrs: noreturn nounwind
-declare void @abort() local_unnamed_addr #8
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #11
+declare void @abort() local_unnamed_addr #9
 
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umin.i64(i64, i64) #13
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1792,17 +1786,18 @@ attributes #2 = { mustprogress nocallback nofree nounwind willreturn memory(argm
 attributes #3 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { inlinehint nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { mustprogress nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { inlinehint noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #8 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #9 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #10 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #11 = { mustprogress nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { nofree nounwind }
-attributes #13 = { nounwind }
-attributes #14 = { noreturn nounwind }
-attributes #15 = { nounwind willreturn memory(read) }
-attributes #16 = { cold }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #14 = { nounwind }
+attributes #15 = { noreturn nounwind }
+attributes #16 = { nounwind willreturn memory(read) }
+attributes #17 = { cold }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

@@ -41,58 +41,60 @@ define dso_local void @load_data() local_unnamed_addr #3 {
   %3 = add nsw i32 %2, 1
   store i32 %3, ptr @fetch.fetch_count, align 4, !tbaa !5
   %4 = icmp slt i32 %2, 1
-  br i1 %4, label %5, label %32
+  %5 = select i1 %4, i64 0, i64 100
+  store i64 %5, ptr @sqlca, align 8, !tbaa !9
+  br i1 %4, label %6, label %33
 
-5:                                                ; preds = %0
-  %6 = sub i32 1, %2
-  %7 = and i32 %6, 3
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %17, label %9
+6:                                                ; preds = %0
+  %7 = sub i32 1, %2
+  %8 = and i32 %7, 3
+  %9 = icmp eq i32 %8, 0
+  br i1 %9, label %18, label %10
 
-9:                                                ; preds = %5, %9
-  %10 = phi ptr [ %13, %9 ], [ %1, %5 ]
-  %11 = phi i32 [ %14, %9 ], [ %3, %5 ]
-  %12 = phi i32 [ %15, %9 ], [ 0, %5 ]
-  %13 = getelementptr inbounds %struct.data_record, ptr %10, i64 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %10, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
+10:                                               ; preds = %6, %10
+  %11 = phi ptr [ %14, %10 ], [ %1, %6 ]
+  %12 = phi i32 [ %15, %10 ], [ %3, %6 ]
+  %13 = phi i32 [ %16, %10 ], [ 0, %6 ]
+  %14 = getelementptr inbounds %struct.data_record, ptr %11, i64 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %11, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %14 = add i32 %11, 1
   %15 = add i32 %12, 1
-  %16 = icmp eq i32 %15, %7
-  br i1 %16, label %17, label %9, !llvm.loop !16
+  %16 = add i32 %13, 1
+  %17 = icmp eq i32 %16, %8
+  br i1 %17, label %18, label %10, !llvm.loop !16
 
-17:                                               ; preds = %9, %5
-  %18 = phi ptr [ %1, %5 ], [ %13, %9 ]
-  %19 = phi i32 [ %3, %5 ], [ %14, %9 ]
-  %20 = add i32 %2, 2
-  %21 = icmp ult i32 %20, 3
-  br i1 %21, label %31, label %22
+18:                                               ; preds = %10, %6
+  %19 = phi ptr [ %1, %6 ], [ %14, %10 ]
+  %20 = phi i32 [ %3, %6 ], [ %15, %10 ]
+  %21 = add i32 %2, 2
+  %22 = icmp ult i32 %21, 3
+  br i1 %22, label %32, label %23
 
-22:                                               ; preds = %17, %22
-  %23 = phi ptr [ %28, %22 ], [ %18, %17 ]
-  %24 = phi i32 [ %29, %22 ], [ %19, %17 ]
-  %25 = getelementptr inbounds %struct.data_record, ptr %23, i64 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %23, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
+23:                                               ; preds = %18, %23
+  %24 = phi ptr [ %29, %23 ], [ %19, %18 ]
+  %25 = phi i32 [ %30, %23 ], [ %20, %18 ]
+  %26 = getelementptr inbounds %struct.data_record, ptr %24, i64 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %24, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %26 = getelementptr inbounds %struct.data_record, ptr %23, i64 2
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %25, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %27 = getelementptr inbounds %struct.data_record, ptr %23, i64 3
+  %27 = getelementptr inbounds %struct.data_record, ptr %24, i64 2
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %26, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %28 = getelementptr inbounds %struct.data_record, ptr %23, i64 4
+  %28 = getelementptr inbounds %struct.data_record, ptr %24, i64 3
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %27, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %29 = add i32 %24, 4
-  %30 = icmp eq i32 %29, 2
-  br i1 %30, label %31, label %22, !llvm.loop !18
+  %29 = getelementptr inbounds %struct.data_record, ptr %24, i64 4
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %28, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
+  %30 = add i32 %25, 4
+  %31 = icmp eq i32 %30, 2
+  br i1 %31, label %32, label %23, !llvm.loop !18
 
-31:                                               ; preds = %22, %17
+32:                                               ; preds = %23, %18
   store i32 2, ptr @fetch.fetch_count, align 4, !tbaa !5
-  br label %32
-
-32:                                               ; preds = %31, %0
   store i64 100, ptr @sqlca, align 8, !tbaa !9
+  br label %33
+
+33:                                               ; preds = %32, %0
   ret void
 }
 
@@ -112,40 +114,38 @@ define dso_local i32 @main() local_unnamed_addr #6 {
   %3 = add nsw i32 %2, 1
   store i32 %3, ptr @fetch.fetch_count, align 4, !tbaa !5
   %4 = icmp slt i32 %2, 1
-  br i1 %4, label %5, label %22
+  %5 = select i1 %4, i64 0, i64 100
+  store i64 %5, ptr @sqlca, align 8, !tbaa !9
+  br i1 %4, label %6, label %35
 
-5:                                                ; preds = %0
-  %6 = sub i32 1, %2
-  %7 = and i32 %6, 3
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %17, label %9
+6:                                                ; preds = %0
+  %7 = sub i32 1, %2
+  %8 = and i32 %7, 3
+  %9 = icmp eq i32 %8, 0
+  br i1 %9, label %18, label %10
 
-9:                                                ; preds = %5, %9
-  %10 = phi ptr [ %13, %9 ], [ %1, %5 ]
-  %11 = phi i32 [ %14, %9 ], [ %3, %5 ]
-  %12 = phi i32 [ %15, %9 ], [ 0, %5 ]
-  %13 = getelementptr inbounds %struct.data_record, ptr %10, i64 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %10, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
+10:                                               ; preds = %6, %10
+  %11 = phi ptr [ %14, %10 ], [ %1, %6 ]
+  %12 = phi i32 [ %15, %10 ], [ %3, %6 ]
+  %13 = phi i32 [ %16, %10 ], [ 0, %6 ]
+  %14 = getelementptr inbounds %struct.data_record, ptr %11, i64 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %11, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
-  %14 = add i32 %11, 1
   %15 = add i32 %12, 1
-  %16 = icmp eq i32 %15, %7
-  br i1 %16, label %17, label %9, !llvm.loop !20
+  %16 = add i32 %13, 1
+  %17 = icmp eq i32 %16, %8
+  br i1 %17, label %18, label %10, !llvm.loop !20
 
-17:                                               ; preds = %9, %5
-  %18 = phi ptr [ %1, %5 ], [ %13, %9 ]
-  %19 = phi i32 [ %3, %5 ], [ %14, %9 ]
-  %20 = add i32 %2, 2
-  %21 = icmp ult i32 %20, 3
-  br i1 %21, label %32, label %23
+18:                                               ; preds = %10, %6
+  %19 = phi ptr [ %1, %6 ], [ %14, %10 ]
+  %20 = phi i32 [ %3, %6 ], [ %15, %10 ]
+  %21 = add i32 %2, 2
+  %22 = icmp ult i32 %21, 3
+  br i1 %22, label %32, label %23
 
-22:                                               ; preds = %0
-  store i64 100, ptr @sqlca, align 8, !tbaa !9
-  br label %35
-
-23:                                               ; preds = %17, %23
-  %24 = phi ptr [ %29, %23 ], [ %18, %17 ]
-  %25 = phi i32 [ %30, %23 ], [ %19, %17 ]
+23:                                               ; preds = %18, %23
+  %24 = phi ptr [ %29, %23 ], [ %19, %18 ]
+  %25 = phi i32 [ %30, %23 ], [ %20, %18 ]
   %26 = getelementptr inbounds %struct.data_record, ptr %24, i64 1
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) %24, ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i64 404, i1 false), !tbaa.struct !14
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(404) @data_tmp, i8 85, i64 404, i1 false)
@@ -162,14 +162,14 @@ define dso_local i32 @main() local_unnamed_addr #6 {
   %31 = icmp eq i32 %30, 2
   br i1 %31, label %32, label %23, !llvm.loop !18
 
-32:                                               ; preds = %23, %17
+32:                                               ; preds = %23, %18
   store i32 2, ptr @fetch.fetch_count, align 4, !tbaa !5
+  store i64 100, ptr @sqlca, align 8, !tbaa !9
   %33 = load i32, ptr %1, align 4, !tbaa !21
   %34 = icmp eq i32 %33, 1431655765
-  store i64 100, ptr @sqlca, align 8, !tbaa !9
   br i1 %34, label %36, label %35
 
-35:                                               ; preds = %22, %32
+35:                                               ; preds = %0, %32
   tail call void @abort() #9
   unreachable
 

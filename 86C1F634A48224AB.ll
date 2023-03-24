@@ -242,7 +242,7 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
   br i1 %99, label %100, label %108
 
 100:                                              ; preds = %97
-  %101 = icmp slt i32 %74, 0
+  %101 = icmp sgt i32 %74, -1
   %102 = zext i32 %75 to i64
   %103 = tail call i32 @llvm.smin.i32(i32 %75, i32 1)
   %104 = add i32 %103, -1
@@ -251,7 +251,7 @@ define dso_local void @L3psycho_anal(ptr nocapture noundef readonly %0, ptr noun
 
 106:                                              ; preds = %100, %141
   %107 = phi i64 [ 0, %100 ], [ %144, %141 ]
-  br i1 %101, label %126, label %116
+  br i1 %101, label %116, label %126
 
 108:                                              ; preds = %141, %97
   %109 = icmp sgt i32 %98, 0
@@ -3401,6 +3401,9 @@ declare void @abort() local_unnamed_addr #3
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare double @llvm.sqrt.f64(double) #10
+
 declare float @sqrtf(float) local_unnamed_addr
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -3411,9 +3414,6 @@ declare i32 @llvm.smin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare double @llvm.sqrt.f64(double) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #10

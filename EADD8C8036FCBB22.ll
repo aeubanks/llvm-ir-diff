@@ -75,72 +75,74 @@ define dso_local i32 @opts_IdIsNull(i32 noundef %0) local_unnamed_addr #0 {
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @opts_Declare(ptr noundef %0, i32 noundef %1) local_unnamed_addr #1 {
-  br label %3
+  %3 = load ptr, ptr @opts_DECLARATIONS, align 8
+  %4 = icmp eq ptr %3, null
+  br i1 %4, label %30, label %5
 
-3:                                                ; preds = %7, %2
-  %4 = phi ptr [ @opts_DECLARATIONS, %2 ], [ %5, %7 ]
-  %5 = load ptr, ptr %4, align 8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %13, label %7
-
-7:                                                ; preds = %3
-  %8 = getelementptr i8, ptr %5, i64 8
+5:                                                ; preds = %2, %12
+  %6 = phi ptr [ %13, %12 ], [ %3, %2 ]
+  %7 = getelementptr i8, ptr %6, i64 8
+  %8 = load ptr, ptr %7, align 8
   %9 = load ptr, ptr %8, align 8
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %10, ptr noundef nonnull dereferenceable(1) %0) #18
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %21, label %3, !llvm.loop !5
+  %10 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %9, ptr noundef nonnull dereferenceable(1) %0) #18
+  %11 = icmp eq i32 %10, 0
+  br i1 %11, label %15, label %12
 
-13:                                               ; preds = %3
-  %14 = tail call ptr @memory_Malloc(i32 noundef 16) #19
-  %15 = tail call ptr @string_StringCopy(ptr noundef %0) #19
-  store ptr %15, ptr %14, align 8
-  %16 = getelementptr inbounds %struct.OPTDECL, ptr %14, i64 0, i32 1
-  store i32 %1, ptr %16, align 8
-  %17 = load ptr, ptr @opts_DECLARATIONS, align 8
-  %18 = tail call ptr @memory_Malloc(i32 noundef 16) #19
-  %19 = getelementptr inbounds %struct.LIST_HELP, ptr %18, i64 0, i32 1
-  store ptr %14, ptr %19, align 8
-  store ptr null, ptr %18, align 8
-  %20 = icmp eq ptr %17, null
-  br i1 %20, label %41, label %36
+12:                                               ; preds = %5
+  %13 = load ptr, ptr %6, align 8
+  %14 = icmp eq ptr %13, null
+  br i1 %14, label %30, label %5, !llvm.loop !5
 
-21:                                               ; preds = %7
-  %22 = load ptr, ptr @stdout, align 8
-  %23 = tail call i32 @fflush(ptr noundef %22)
+15:                                               ; preds = %5
+  %16 = load ptr, ptr @stdout, align 8
+  %17 = tail call i32 @fflush(ptr noundef %16)
+  %18 = load ptr, ptr @stderr, align 8
+  %19 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %18, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 375) #19
+  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.2, ptr noundef %0) #20
+  %20 = load ptr, ptr @stderr, align 8
+  %21 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 132, i64 1, ptr %20) #19
+  %22 = load ptr, ptr @stderr, align 8
+  %23 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 2, i64 1, ptr %22) #19
   %24 = load ptr, ptr @stderr, align 8
-  %25 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %24, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 375) #20
-  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.2, ptr noundef %0) #19
-  %26 = load ptr, ptr @stderr, align 8
-  %27 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 132, i64 1, ptr %26) #20
+  %25 = tail call i32 @fflush(ptr noundef %24)
+  %26 = load ptr, ptr @stdout, align 8
+  %27 = tail call i32 @fflush(ptr noundef %26)
   %28 = load ptr, ptr @stderr, align 8
-  %29 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 2, i64 1, ptr %28) #20
-  %30 = load ptr, ptr @stderr, align 8
-  %31 = tail call i32 @fflush(ptr noundef %30)
-  %32 = load ptr, ptr @stdout, align 8
-  %33 = tail call i32 @fflush(ptr noundef %32)
-  %34 = load ptr, ptr @stderr, align 8
-  %35 = tail call i32 @fflush(ptr noundef %34)
+  %29 = tail call i32 @fflush(ptr noundef %28)
   tail call void @abort() #21
   unreachable
 
-36:                                               ; preds = %13, %36
-  %37 = phi ptr [ %38, %36 ], [ %17, %13 ]
-  %38 = load ptr, ptr %37, align 8
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %40, label %36, !llvm.loop !7
+30:                                               ; preds = %12, %2
+  %31 = tail call ptr @memory_Malloc(i32 noundef 16) #20
+  %32 = tail call ptr @string_StringCopy(ptr noundef %0) #20
+  store ptr %32, ptr %31, align 8
+  %33 = getelementptr inbounds %struct.OPTDECL, ptr %31, i64 0, i32 1
+  store i32 %1, ptr %33, align 8
+  %34 = load ptr, ptr @opts_DECLARATIONS, align 8
+  %35 = tail call ptr @memory_Malloc(i32 noundef 16) #20
+  %36 = getelementptr inbounds %struct.LIST_HELP, ptr %35, i64 0, i32 1
+  store ptr %31, ptr %36, align 8
+  store ptr null, ptr %35, align 8
+  %37 = icmp eq ptr %34, null
+  br i1 %37, label %43, label %38
 
-40:                                               ; preds = %36
-  store ptr %18, ptr %37, align 8
-  br label %41
+38:                                               ; preds = %30, %38
+  %39 = phi ptr [ %40, %38 ], [ %34, %30 ]
+  %40 = load ptr, ptr %39, align 8
+  %41 = icmp eq ptr %40, null
+  br i1 %41, label %42, label %38, !llvm.loop !7
 
-41:                                               ; preds = %13, %40
-  %42 = phi ptr [ %17, %40 ], [ %18, %13 ]
-  store ptr %42, ptr @opts_DECLARATIONS, align 8
-  %43 = load i32, ptr @opts_IdNextAvailable, align 4
-  %44 = add nsw i32 %43, 1
-  store i32 %44, ptr @opts_IdNextAvailable, align 4
-  ret i32 %43
+42:                                               ; preds = %38
+  store ptr %35, ptr %39, align 8
+  br label %43
+
+43:                                               ; preds = %30, %42
+  %44 = phi ptr [ %34, %42 ], [ %35, %30 ]
+  store ptr %44, ptr @opts_DECLARATIONS, align 8
+  %45 = load i32, ptr @opts_IdNextAvailable, align 4
+  %46 = add nsw i32 %45, 1
+  store i32 %46, ptr @opts_IdNextAvailable, align 4
+  ret i32 %45
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -153,9 +155,9 @@ define dso_local i32 @opts_Id(ptr nocapture noundef readonly %0) local_unnamed_a
   br i1 %3, label %16, label %4
 
 4:                                                ; preds = %1, %12
-  %5 = phi ptr [ %14, %12 ], [ %2, %1 ]
-  %6 = phi i32 [ %13, %12 ], [ 0, %1 ]
-  %7 = getelementptr i8, ptr %5, i64 8
+  %5 = phi i32 [ %14, %12 ], [ 0, %1 ]
+  %6 = phi ptr [ %13, %12 ], [ %2, %1 ]
+  %7 = getelementptr i8, ptr %6, i64 8
   %8 = load ptr, ptr %7, align 8
   %9 = load ptr, ptr %8, align 8
   %10 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %9, ptr noundef nonnull dereferenceable(1) %0) #18
@@ -163,13 +165,13 @@ define dso_local i32 @opts_Id(ptr nocapture noundef readonly %0) local_unnamed_a
   br i1 %11, label %16, label %12
 
 12:                                               ; preds = %4
-  %13 = add nuw nsw i32 %6, 1
-  %14 = load ptr, ptr %5, align 8
-  %15 = icmp eq ptr %14, null
+  %13 = load ptr, ptr %6, align 8
+  %14 = add nuw nsw i32 %5, 1
+  %15 = icmp eq ptr %13, null
   br i1 %15, label %16, label %4, !llvm.loop !5
 
-16:                                               ; preds = %12, %4, %1
-  %17 = phi i32 [ -1, %1 ], [ -1, %12 ], [ %6, %4 ]
+16:                                               ; preds = %4, %12, %1
+  %17 = phi i32 [ -1, %1 ], [ %5, %4 ], [ -1, %12 ]
   ret i32 %17
 }
 
@@ -219,50 +221,54 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #6
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local ptr @opts_ClName(i32 noundef %0) local_unnamed_addr #7 {
-  %2 = add i32 %0, 1
-  %3 = and i32 %2, 7
-  %4 = icmp ult i32 %0, 7
-  br i1 %4, label %20, label %5
+  %2 = load ptr, ptr @opts_DECLARATIONS, align 8, !nonnull !9
+  %3 = icmp eq i32 %0, 0
+  br i1 %3, label %32, label %4
 
-5:                                                ; preds = %1
-  %6 = and i32 %2, -8
-  br label %7
+4:                                                ; preds = %1
+  %5 = and i32 %0, 7
+  %6 = icmp ult i32 %0, 8
+  br i1 %6, label %22, label %7
 
-7:                                                ; preds = %7, %5
-  %8 = phi ptr [ @opts_DECLARATIONS, %5 ], [ %17, %7 ]
-  %9 = phi i32 [ 0, %5 ], [ %18, %7 ]
-  %10 = load ptr, ptr %8, align 8, !nonnull !9
-  %11 = load ptr, ptr %10, align 8, !nonnull !9
-  %12 = load ptr, ptr %11, align 8, !nonnull !9
+7:                                                ; preds = %4
+  %8 = and i32 %0, -8
+  br label %9
+
+9:                                                ; preds = %9, %7
+  %10 = phi ptr [ %2, %7 ], [ %19, %9 ]
+  %11 = phi i32 [ 0, %7 ], [ %20, %9 ]
+  %12 = load ptr, ptr %10, align 8, !nonnull !9
   %13 = load ptr, ptr %12, align 8, !nonnull !9
   %14 = load ptr, ptr %13, align 8, !nonnull !9
   %15 = load ptr, ptr %14, align 8, !nonnull !9
   %16 = load ptr, ptr %15, align 8, !nonnull !9
   %17 = load ptr, ptr %16, align 8, !nonnull !9
-  %18 = add i32 %9, 8
-  %19 = icmp eq i32 %18, %6
-  br i1 %19, label %20, label %7
+  %18 = load ptr, ptr %17, align 8, !nonnull !9
+  %19 = load ptr, ptr %18, align 8, !nonnull !9
+  %20 = add i32 %11, 8
+  %21 = icmp eq i32 %20, %8
+  br i1 %21, label %22, label %9
 
-20:                                               ; preds = %7, %1
-  %21 = phi ptr [ undef, %1 ], [ %17, %7 ]
-  %22 = phi ptr [ @opts_DECLARATIONS, %1 ], [ %17, %7 ]
-  %23 = icmp eq i32 %3, 0
-  br i1 %23, label %30, label %24
+22:                                               ; preds = %9, %4
+  %23 = phi ptr [ undef, %4 ], [ %19, %9 ]
+  %24 = phi ptr [ %2, %4 ], [ %19, %9 ]
+  %25 = icmp eq i32 %5, 0
+  br i1 %25, label %32, label %26
 
-24:                                               ; preds = %20, %24
-  %25 = phi ptr [ %27, %24 ], [ %22, %20 ]
-  %26 = phi i32 [ %28, %24 ], [ 0, %20 ]
-  %27 = load ptr, ptr %25, align 8, !nonnull !9
-  %28 = add i32 %26, 1
-  %29 = icmp eq i32 %28, %3
-  br i1 %29, label %30, label %24, !llvm.loop !10
+26:                                               ; preds = %22, %26
+  %27 = phi ptr [ %29, %26 ], [ %24, %22 ]
+  %28 = phi i32 [ %30, %26 ], [ 0, %22 ]
+  %29 = load ptr, ptr %27, align 8, !nonnull !9
+  %30 = add i32 %28, 1
+  %31 = icmp eq i32 %30, %5
+  br i1 %31, label %32, label %26, !llvm.loop !10
 
-30:                                               ; preds = %24, %20
-  %31 = phi ptr [ %21, %20 ], [ %27, %24 ]
-  %32 = getelementptr i8, ptr %31, i64 8
-  %33 = load ptr, ptr %32, align 8
-  %34 = load ptr, ptr %33, align 8
-  ret ptr %34
+32:                                               ; preds = %22, %26, %1
+  %33 = phi ptr [ %2, %1 ], [ %23, %22 ], [ %29, %26 ]
+  %34 = getelementptr i8, ptr %33, i64 8
+  %35 = load ptr, ptr %34, align 8
+  %36 = load ptr, ptr %35, align 8
+  ret ptr %36
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
@@ -279,7 +285,7 @@ define dso_local void @opts_DeclareSPASSFlagsAsOptions() local_unnamed_addr #1 {
 
 1:                                                ; preds = %0, %1
   %2 = phi i32 [ 0, %0 ], [ %5, %1 ]
-  %3 = tail call ptr @flag_Name(i32 noundef %2) #19
+  %3 = tail call ptr @flag_Name(i32 noundef %2) #20
   %4 = tail call i32 @opts_Declare(ptr noundef %3, i32 noundef 2)
   %5 = add nuw nsw i32 %2, 1
   %6 = icmp eq i32 %5, 96
@@ -294,9 +300,9 @@ declare ptr @flag_Name(i32 noundef) local_unnamed_addr #5
 ; Function Attrs: nounwind uwtable
 define dso_local void @opts_Free() local_unnamed_addr #1 {
   %1 = load ptr, ptr @opts_PARAMETERS, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %1, ptr noundef nonnull @opts_FreeParameterPair) #19
+  tail call void @list_DeleteWithElement(ptr noundef %1, ptr noundef nonnull @opts_FreeParameterPair) #20
   %2 = load ptr, ptr @opts_DECLARATIONS, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %2, ptr noundef nonnull @opts_FreeDecl) #19
+  tail call void @list_DeleteWithElement(ptr noundef %2, ptr noundef nonnull @opts_FreeDecl) #20
   ret void
 }
 
@@ -305,7 +311,7 @@ declare void @list_DeleteWithElement(ptr noundef, ptr noundef) local_unnamed_add
 ; Function Attrs: nounwind uwtable
 define internal void @opts_FreeParameterPair(ptr noundef %0) #1 {
   %2 = load ptr, ptr %0, align 8
-  tail call void @string_StringFree(ptr noundef %2) #19
+  tail call void @string_StringFree(ptr noundef %2) #20
   %3 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %4 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %3, i64 0, i32 4
   %5 = load i32, ptr %4, align 8
@@ -323,7 +329,7 @@ define internal void @opts_FreeParameterPair(ptr noundef %0) #1 {
 ; Function Attrs: nounwind uwtable
 define internal void @opts_FreeDecl(ptr noundef %0) #1 {
   %2 = load ptr, ptr %0, align 8
-  tail call void @string_StringFree(ptr noundef %2) #19
+  tail call void @string_StringFree(ptr noundef %2) #20
   %3 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %4 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %3, i64 0, i32 4
   %5 = load i32, ptr %4, align 8
@@ -344,16 +350,16 @@ define dso_local void @opts_PrintSPASSNames() local_unnamed_addr #1 {
 
 1:                                                ; preds = %0, %1
   %2 = phi i32 [ 0, %0 ], [ %16, %1 ]
-  %3 = tail call ptr @flag_Name(i32 noundef %2) #19
+  %3 = tail call ptr @flag_Name(i32 noundef %2) #20
   %4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef %3)
   %5 = or i32 %2, 1
-  %6 = tail call ptr @flag_Name(i32 noundef %5) #19
+  %6 = tail call ptr @flag_Name(i32 noundef %5) #20
   %7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef %6)
   %8 = or i32 %2, 2
-  %9 = tail call ptr @flag_Name(i32 noundef %8) #19
+  %9 = tail call ptr @flag_Name(i32 noundef %8) #20
   %10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef %9)
   %11 = or i32 %2, 3
-  %12 = tail call ptr @flag_Name(i32 noundef %11) #19
+  %12 = tail call ptr @flag_Name(i32 noundef %11) #20
   %13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef %12)
   %14 = load ptr, ptr @stdout, align 8
   %15 = tail call i32 @putc(i32 noundef 10, ptr noundef %14)
@@ -375,9 +381,9 @@ define dso_local ptr @opts_DeclGetByClName(ptr nocapture noundef readonly %0) lo
   br i1 %3, label %27, label %4
 
 4:                                                ; preds = %1, %12
-  %5 = phi ptr [ %14, %12 ], [ %2, %1 ]
-  %6 = phi i32 [ %13, %12 ], [ 0, %1 ]
-  %7 = getelementptr i8, ptr %5, i64 8
+  %5 = phi i32 [ %14, %12 ], [ 0, %1 ]
+  %6 = phi ptr [ %13, %12 ], [ %2, %1 ]
+  %7 = getelementptr i8, ptr %6, i64 8
   %8 = load ptr, ptr %7, align 8
   %9 = load ptr, ptr %8, align 8
   %10 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %9, ptr noundef nonnull dereferenceable(1) %0) #18
@@ -385,9 +391,9 @@ define dso_local ptr @opts_DeclGetByClName(ptr nocapture noundef readonly %0) lo
   br i1 %11, label %20, label %12
 
 12:                                               ; preds = %4
-  %13 = add nuw nsw i32 %6, 1
-  %14 = load ptr, ptr %5, align 8
-  %15 = icmp eq ptr %14, null
+  %13 = load ptr, ptr %6, align 8
+  %14 = add nuw nsw i32 %5, 1
+  %15 = icmp eq ptr %13, null
   br i1 %15, label %27, label %4, !llvm.loop !5
 
 16:                                               ; preds = %20
@@ -399,7 +405,7 @@ define dso_local ptr @opts_DeclGetByClName(ptr nocapture noundef readonly %0) lo
 20:                                               ; preds = %4, %16
   %21 = phi ptr [ %18, %16 ], [ %2, %4 ]
   %22 = phi i32 [ %17, %16 ], [ 0, %4 ]
-  %23 = icmp eq i32 %22, %6
+  %23 = icmp eq i32 %22, %5
   br i1 %23, label %24, label %16
 
 24:                                               ; preds = %20
@@ -415,7 +421,7 @@ define dso_local ptr @opts_DeclGetByClName(ptr nocapture noundef readonly %0) lo
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_unnamed_addr #1 {
   %3 = alloca [2 x i8], align 1
-  %4 = tail call ptr @string_StringCopy(ptr noundef nonnull @.str.14) #19
+  %4 = tail call ptr @string_StringCopy(ptr noundef nonnull @.str.14) #20
   %5 = load ptr, ptr @opts_DECLARATIONS, align 8
   %6 = icmp eq ptr %5, null
   br i1 %6, label %29, label %7
@@ -431,8 +437,8 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   br i1 %14, label %15, label %25
 
 15:                                               ; preds = %7
-  %16 = tail call ptr @string_StringCopy(ptr noundef %12) #19
-  %17 = tail call ptr @string_Nconc(ptr noundef %9, ptr noundef %16) #19
+  %16 = tail call ptr @string_StringCopy(ptr noundef %12) #20
+  %17 = tail call ptr @string_Nconc(ptr noundef %9, ptr noundef %16) #20
   %18 = getelementptr i8, ptr %11, i64 8
   %19 = load i32, ptr %18, align 8
   %20 = add i32 %19, -1
@@ -440,8 +446,8 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   br i1 %21, label %22, label %25
 
 22:                                               ; preds = %15
-  %23 = tail call ptr @string_StringCopy(ptr noundef nonnull @.str.15) #19
-  %24 = tail call ptr @string_Nconc(ptr noundef %17, ptr noundef %23) #19
+  %23 = tail call ptr @string_StringCopy(ptr noundef nonnull @.str.15) #20
+  %24 = tail call ptr @string_Nconc(ptr noundef %17, ptr noundef %23) #20
   br label %25
 
 25:                                               ; preds = %22, %15, %7
@@ -457,8 +463,8 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   br i1 %32, label %36, label %33
 
 33:                                               ; preds = %29
-  %34 = tail call ptr @string_StringCopy(ptr noundef nonnull @.str.15) #19
-  %35 = tail call ptr @string_Nconc(ptr noundef %34, ptr noundef nonnull %30) #19
+  %34 = tail call ptr @string_StringCopy(ptr noundef nonnull @.str.15) #20
+  %35 = tail call ptr @string_Nconc(ptr noundef %34, ptr noundef nonnull %30) #20
   br label %36
 
 36:                                               ; preds = %29, %33
@@ -478,7 +484,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   br i1 %47, label %51, label %48
 
 48:                                               ; preds = %40
-  %49 = tail call ptr @memory_Malloc(i32 noundef 16) #19
+  %49 = tail call ptr @memory_Malloc(i32 noundef 16) #20
   %50 = getelementptr inbounds %struct.LIST_HELP, ptr %49, i64 0, i32 1
   store ptr %44, ptr %50, align 8
   store ptr %42, ptr %49, align 8
@@ -492,10 +498,10 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
 
 55:                                               ; preds = %51, %36
   %56 = phi ptr [ null, %36 ], [ %52, %51 ]
-  %57 = tail call i32 @list_Length(ptr noundef %56) #19
+  %57 = tail call i32 @list_Length(ptr noundef %56) #20
   %58 = shl i32 %57, 5
   %59 = add i32 %58, 32
-  %60 = tail call ptr @memory_Malloc(i32 noundef %59) #19
+  %60 = tail call ptr @memory_Malloc(i32 noundef %59) #20
   %61 = icmp eq ptr %56, null
   br i1 %61, label %99, label %62
 
@@ -584,7 +590,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   store i32 1, ptr @opts_LastNonOpt, align 4
   store i32 1, ptr @opts_FirstNonOpt, align 4
   store ptr null, ptr @opts_NextChar, align 8
-  %115 = tail call ptr @getenv(ptr noundef nonnull @.str.31) #19
+  %115 = tail call ptr @getenv(ptr noundef nonnull @.str.31) #20
   store ptr %115, ptr @opts_PosixlyCorrect, align 8
   %116 = load i8, ptr %37, align 1
   switch i8 %116, label %118 [
@@ -1351,7 +1357,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %617 = sext i32 %616 to i64
   %618 = getelementptr inbounds ptr, ptr %1, i64 %617
   %619 = load ptr, ptr %618, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.19, ptr noundef %615, ptr noundef %619) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.19, ptr noundef %615, ptr noundef %619) #20
   %620 = load ptr, ptr @stderr, align 8
   %621 = tail call i32 @fflush(ptr noundef %620)
   %622 = load ptr, ptr @stdout, align 8
@@ -1391,7 +1397,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
 
 643:                                              ; preds = %639
   %644 = load ptr, ptr %629, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.20, ptr noundef %642, ptr noundef %644) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.20, ptr noundef %642, ptr noundef %644) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1404,7 +1410,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %651 = load i8, ptr %650, align 1
   %652 = sext i8 %651 to i32
   %653 = load ptr, ptr %629, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.21, ptr noundef %642, i32 noundef %652, ptr noundef %653) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.21, ptr noundef %642, i32 noundef %652, ptr noundef %653) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1433,7 +1439,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %669 = sext i32 %668 to i64
   %670 = getelementptr inbounds ptr, ptr %1, i64 %669
   %671 = load ptr, ptr %670, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, ptr noundef %666, ptr noundef %671) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, ptr noundef %666, ptr noundef %671) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1473,7 +1479,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %692 = tail call i32 @fflush(ptr noundef %691)
   %693 = load ptr, ptr %1, align 8
   %694 = load ptr, ptr @opts_NextChar, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.23, ptr noundef %693, ptr noundef %694) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.23, ptr noundef %693, ptr noundef %694) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1488,7 +1494,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %703 = load i8, ptr %702, align 1
   %704 = sext i8 %703 to i32
   %705 = load ptr, ptr @opts_NextChar, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.24, ptr noundef %698, i32 noundef %704, ptr noundef %705) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.24, ptr noundef %698, i32 noundef %704, ptr noundef %705) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1524,7 +1530,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   br i1 %723, label %734, label %727
 
 727:                                              ; preds = %720
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.26, ptr noundef %726, i32 noundef %721) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.26, ptr noundef %726, i32 noundef %721) #20
   %728 = load ptr, ptr @stderr, align 8
   %729 = tail call i32 @fflush(ptr noundef %728)
   %730 = load ptr, ptr @stdout, align 8
@@ -1535,7 +1541,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   unreachable
 
 734:                                              ; preds = %720
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.27, ptr noundef %726, i32 noundef %721) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.27, ptr noundef %726, i32 noundef %721) #20
   %735 = load ptr, ptr @stderr, align 8
   %736 = tail call i32 @fflush(ptr noundef %735)
   %737 = load ptr, ptr @stdout, align 8
@@ -1572,7 +1578,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %755 = load ptr, ptr @stdout, align 8
   %756 = tail call i32 @fflush(ptr noundef %755)
   %757 = load ptr, ptr %1, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.28, ptr noundef %757, i32 noundef %754) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.28, ptr noundef %757, i32 noundef %754) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1660,7 +1666,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %811 = sext i32 %810 to i64
   %812 = getelementptr inbounds ptr, ptr %1, i64 %811
   %813 = load ptr, ptr %812, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.29, ptr noundef %809, ptr noundef %813) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.29, ptr noundef %809, ptr noundef %813) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1689,7 +1695,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %828 = tail call i32 @fflush(ptr noundef %827)
   %829 = load ptr, ptr %1, align 8
   %830 = load ptr, ptr %817, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.30, ptr noundef %829, ptr noundef %830) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.30, ptr noundef %829, ptr noundef %830) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1718,7 +1724,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %846 = sext i32 %845 to i64
   %847 = getelementptr inbounds ptr, ptr %1, i64 %846
   %848 = load ptr, ptr %847, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, ptr noundef %843, ptr noundef %848) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.22, ptr noundef %843, ptr noundef %848) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1788,7 +1794,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %880 = load ptr, ptr @stdout, align 8
   %881 = tail call i32 @fflush(ptr noundef %880)
   %882 = load ptr, ptr %1, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.28, ptr noundef %882, i32 noundef %879) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.28, ptr noundef %882, i32 noundef %879) #20
   tail call fastcc void @misc_Error()
   unreachable
 
@@ -1827,9 +1833,9 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   br i1 %900, label %926, label %901
 
 901:                                              ; preds = %894, %909
-  %902 = phi ptr [ %911, %909 ], [ %899, %894 ]
-  %903 = phi i32 [ %910, %909 ], [ 0, %894 ]
-  %904 = getelementptr i8, ptr %902, i64 8
+  %902 = phi i32 [ %911, %909 ], [ 0, %894 ]
+  %903 = phi ptr [ %910, %909 ], [ %899, %894 ]
+  %904 = getelementptr i8, ptr %903, i64 8
   %905 = load ptr, ptr %904, align 8
   %906 = load ptr, ptr %905, align 8
   %907 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %906, ptr noundef nonnull dereferenceable(1) %898) #18
@@ -1837,14 +1843,14 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   br i1 %908, label %913, label %909
 
 909:                                              ; preds = %901
-  %910 = add nuw nsw i32 %903, 1
-  %911 = load ptr, ptr %902, align 8
-  %912 = icmp eq ptr %911, null
+  %910 = load ptr, ptr %903, align 8
+  %911 = add nuw nsw i32 %902, 1
+  %912 = icmp eq ptr %910, null
   br i1 %912, label %913, label %901, !llvm.loop !5
 
-913:                                              ; preds = %901, %909
-  %914 = phi i32 [ %903, %901 ], [ -1, %909 ]
-  br i1 %900, label %926, label %919
+913:                                              ; preds = %909, %901
+  %914 = phi i32 [ %902, %901 ], [ -1, %909 ]
+  br label %919
 
 915:                                              ; preds = %919
   %916 = add nuw nsw i32 %921, 1
@@ -1863,9 +1869,9 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %925 = load ptr, ptr %924, align 8
   br label %926
 
-926:                                              ; preds = %915, %894, %913, %923
-  %927 = phi i32 [ %914, %923 ], [ %914, %913 ], [ -1, %894 ], [ %914, %915 ]
-  %928 = phi ptr [ %925, %923 ], [ null, %913 ], [ null, %894 ], [ null, %915 ]
+926:                                              ; preds = %915, %894, %923
+  %927 = phi i32 [ %914, %923 ], [ -1, %894 ], [ %914, %915 ]
+  %928 = phi ptr [ %925, %923 ], [ null, %894 ], [ null, %915 ]
   %929 = load ptr, ptr @opts_Arg, align 8
   %930 = icmp eq ptr %929, null
   br i1 %930, label %931, label %946
@@ -1879,7 +1885,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
 935:                                              ; preds = %931
   %936 = load ptr, ptr @stdout, align 8
   %937 = tail call i32 @fflush(ptr noundef %936)
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.5, ptr noundef %898) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.5, ptr noundef %898) #20
   %938 = load ptr, ptr @stderr, align 8
   %939 = tail call i32 @fflush(ptr noundef %938)
   %940 = load ptr, ptr @stdout, align 8
@@ -1902,66 +1908,66 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %950 = phi i32 [ %893, %890 ], [ 87, %861 ], [ 1, %544 ]
   %951 = phi i32 [ %892, %890 ], [ %109, %861 ], [ %109, %544 ]
   %952 = trunc i32 %950 to i8
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %3) #19
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %3) #20
   store i8 %952, ptr %3, align 1
   store i8 0, ptr %107, align 1
   %953 = load ptr, ptr @opts_DECLARATIONS, align 8
   %954 = icmp eq ptr %953, null
-  br i1 %954, label %974, label %955
+  br i1 %954, label %967, label %955
 
 955:                                              ; preds = %948, %963
-  %956 = phi ptr [ %965, %963 ], [ %953, %948 ]
-  %957 = phi i32 [ %964, %963 ], [ 0, %948 ]
-  %958 = getelementptr i8, ptr %956, i64 8
+  %956 = phi i32 [ %965, %963 ], [ 0, %948 ]
+  %957 = phi ptr [ %964, %963 ], [ %953, %948 ]
+  %958 = getelementptr i8, ptr %957, i64 8
   %959 = load ptr, ptr %958, align 8
   %960 = load ptr, ptr %959, align 8
   %961 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %960, ptr noundef nonnull dereferenceable(1) %3) #18
   %962 = icmp eq i32 %961, 0
-  br i1 %962, label %967, label %963
+  br i1 %962, label %982, label %963
 
 963:                                              ; preds = %955
-  %964 = add nuw nsw i32 %957, 1
-  %965 = load ptr, ptr %956, align 8
-  %966 = icmp eq ptr %965, null
-  br i1 %966, label %974, label %955, !llvm.loop !5
+  %964 = load ptr, ptr %957, align 8
+  %965 = add nuw nsw i32 %956, 1
+  %966 = icmp eq ptr %964, null
+  br i1 %966, label %967, label %955, !llvm.loop !5
 
-967:                                              ; preds = %955
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #19
-  %968 = icmp eq i32 %957, 0
-  br i1 %968, label %1012, label %969
-
-969:                                              ; preds = %967
-  %970 = and i32 %957, 7
-  %971 = icmp ult i32 %957, 8
-  br i1 %971, label %1002, label %972
-
-972:                                              ; preds = %969
-  %973 = and i32 %957, 2147483640
-  br label %989
-
-974:                                              ; preds = %948, %963
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #19
-  %975 = load ptr, ptr @stdout, align 8
-  %976 = tail call i32 @fflush(ptr noundef %975)
-  %977 = load ptr, ptr @stderr, align 8
-  %978 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %977, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 928) #20
-  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.7, i32 noundef %950) #19
-  %979 = load ptr, ptr @stderr, align 8
-  %980 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 132, i64 1, ptr %979) #20
-  %981 = load ptr, ptr @stderr, align 8
-  %982 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 2, i64 1, ptr %981) #20
-  %983 = load ptr, ptr @stderr, align 8
-  %984 = tail call i32 @fflush(ptr noundef %983)
-  %985 = load ptr, ptr @stdout, align 8
-  %986 = tail call i32 @fflush(ptr noundef %985)
-  %987 = load ptr, ptr @stderr, align 8
-  %988 = tail call i32 @fflush(ptr noundef %987)
+967:                                              ; preds = %948, %963
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #20
+  %968 = load ptr, ptr @stdout, align 8
+  %969 = tail call i32 @fflush(ptr noundef %968)
+  %970 = load ptr, ptr @stderr, align 8
+  %971 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %970, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 928) #19
+  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.7, i32 noundef %950) #20
+  %972 = load ptr, ptr @stderr, align 8
+  %973 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 132, i64 1, ptr %972) #19
+  %974 = load ptr, ptr @stderr, align 8
+  %975 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 2, i64 1, ptr %974) #19
+  %976 = load ptr, ptr @stderr, align 8
+  %977 = tail call i32 @fflush(ptr noundef %976)
+  %978 = load ptr, ptr @stdout, align 8
+  %979 = tail call i32 @fflush(ptr noundef %978)
+  %980 = load ptr, ptr @stderr, align 8
+  %981 = tail call i32 @fflush(ptr noundef %980)
   tail call void @abort() #21
   unreachable
 
-989:                                              ; preds = %989, %972
-  %990 = phi ptr [ %953, %972 ], [ %999, %989 ]
-  %991 = phi i32 [ 0, %972 ], [ %1000, %989 ]
+982:                                              ; preds = %955
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #20
+  %983 = icmp eq i32 %956, 0
+  br i1 %983, label %1012, label %984
+
+984:                                              ; preds = %982
+  %985 = and i32 %956, 7
+  %986 = icmp ult i32 %956, 8
+  br i1 %986, label %1002, label %987
+
+987:                                              ; preds = %984
+  %988 = and i32 %956, 2147483640
+  br label %989
+
+989:                                              ; preds = %989, %987
+  %990 = phi ptr [ %953, %987 ], [ %999, %989 ]
+  %991 = phi i32 [ 0, %987 ], [ %1000, %989 ]
   %992 = load ptr, ptr %990, align 8, !nonnull !9
   %993 = load ptr, ptr %992, align 8, !nonnull !9
   %994 = load ptr, ptr %993, align 8, !nonnull !9
@@ -1971,13 +1977,13 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %998 = load ptr, ptr %997, align 8, !nonnull !9
   %999 = load ptr, ptr %998, align 8, !nonnull !9
   %1000 = add i32 %991, 8
-  %1001 = icmp eq i32 %1000, %973
+  %1001 = icmp eq i32 %1000, %988
   br i1 %1001, label %1002, label %989
 
-1002:                                             ; preds = %989, %969
-  %1003 = phi ptr [ undef, %969 ], [ %999, %989 ]
-  %1004 = phi ptr [ %953, %969 ], [ %999, %989 ]
-  %1005 = icmp eq i32 %970, 0
+1002:                                             ; preds = %989, %984
+  %1003 = phi ptr [ undef, %984 ], [ %999, %989 ]
+  %1004 = phi ptr [ %953, %984 ], [ %999, %989 ]
+  %1005 = icmp eq i32 %985, 0
   br i1 %1005, label %1012, label %1006
 
 1006:                                             ; preds = %1002, %1006
@@ -1985,11 +1991,11 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %1008 = phi i32 [ %1010, %1006 ], [ 0, %1002 ]
   %1009 = load ptr, ptr %1007, align 8, !nonnull !9
   %1010 = add i32 %1008, 1
-  %1011 = icmp eq i32 %1010, %970
+  %1011 = icmp eq i32 %1010, %985
   br i1 %1011, label %1012, label %1006, !llvm.loop !56
 
-1012:                                             ; preds = %1002, %1006, %967
-  %1013 = phi ptr [ %953, %967 ], [ %1003, %1002 ], [ %1009, %1006 ]
+1012:                                             ; preds = %1002, %1006, %982
+  %1013 = phi ptr [ %953, %982 ], [ %1003, %1002 ], [ %1009, %1006 ]
   %1014 = getelementptr i8, ptr %1013, i64 8
   %1015 = load ptr, ptr %1014, align 8
   %1016 = getelementptr i8, ptr %1015, i64 8
@@ -2006,7 +2012,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
 1020:                                             ; preds = %1018
   %1021 = load ptr, ptr @stdout, align 8
   %1022 = tail call i32 @fflush(ptr noundef %1021)
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.8, i32 noundef %950) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.8, i32 noundef %950) #20
   %1023 = load ptr, ptr @stderr, align 8
   %1024 = tail call i32 @fflush(ptr noundef %1023)
   %1025 = load ptr, ptr @stdout, align 8
@@ -2024,7 +2030,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
 1032:                                             ; preds = %1029
   %1033 = load ptr, ptr @stdout, align 8
   %1034 = tail call i32 @fflush(ptr noundef %1033)
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %950) #19
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.10, i32 noundef %950) #20
   %1035 = load ptr, ptr @stderr, align 8
   %1036 = tail call i32 @fflush(ptr noundef %1035)
   %1037 = load ptr, ptr @stdout, align 8
@@ -2035,7 +2041,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   unreachable
 
 1041:                                             ; preds = %1029
-  %1042 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %957, ptr noundef nonnull %949), !range !55
+  %1042 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %956, ptr noundef nonnull %949), !range !55
   br label %1056
 
 1043:                                             ; preds = %1012
@@ -2048,19 +2054,19 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   br i1 %1047, label %1048, label %1050
 
 1048:                                             ; preds = %1045
-  %1049 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %957, ptr noundef nonnull @.str.6), !range !55
+  %1049 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %956, ptr noundef nonnull @.str.6), !range !55
   br label %1056
 
 1050:                                             ; preds = %1045
-  %1051 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %957, ptr noundef nonnull %949), !range !55
+  %1051 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %956, ptr noundef nonnull %949), !range !55
   br label %1056
 
 1052:                                             ; preds = %1043
-  %1053 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %957, ptr noundef nonnull @.str.6), !range !55
+  %1053 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %956, ptr noundef nonnull @.str.6), !range !55
   br label %1056
 
 1054:                                             ; preds = %1012
-  %1055 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %957, ptr noundef nonnull @.str.6), !range !55
+  %1055 = tail call fastcc i32 @opts_AddParamCheck(i32 noundef %956, ptr noundef nonnull @.str.6), !range !55
   br label %1056
 
 1056:                                             ; preds = %946, %944, %1041, %1052, %1050, %1048, %1054
@@ -2069,9 +2075,9 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %1059 = icmp eq i32 %1058, 0
   br i1 %1059, label %1060, label %108, !llvm.loop !57
 
-1060:                                             ; preds = %542, %890, %1056, %530, %534
-  %1061 = phi i32 [ 1, %530 ], [ 1, %534 ], [ 0, %1056 ], [ 1, %890 ], [ 1, %542 ]
-  tail call void @string_StringFree(ptr noundef %37) #19
+1060:                                             ; preds = %542, %890, %1056, %534, %530
+  %1061 = phi i32 [ 1, %534 ], [ 1, %530 ], [ 0, %1056 ], [ 1, %890 ], [ 1, %542 ]
+  tail call void @string_StringFree(ptr noundef %37) #20
   br label %1062
 
 1062:                                             ; preds = %1062, %1060
@@ -2093,9 +2099,9 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
   %1074 = load i32, ptr @memory_ALIGN, align 4
   %1075 = urem i32 %1071, %1074
   %1076 = icmp eq i32 %1075, 0
-  %1077 = sub i32 %1074, %1075
-  %1078 = select i1 %1076, i32 0, i32 %1077
-  %1079 = add i32 %1078, %1071
+  %1077 = add i32 %1074, %1071
+  %1078 = sub i32 %1077, %1075
+  %1079 = select i1 %1076, i32 %1071, i32 %1078
   %1080 = load i32, ptr @memory_OFFSET, align 4
   %1081 = zext i32 %1080 to i64
   %1082 = sub nsw i64 0, %1081
@@ -2119,7 +2125,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
 
 1095:                                             ; preds = %1093, %1073
   %1096 = load i32, ptr @memory_MARKSIZE, align 4
-  %1097 = add i32 %1079, %1096
+  %1097 = add i32 %1096, %1079
   %1098 = zext i32 %1097 to i64
   %1099 = add nuw nsw i64 %1098, 16
   %1100 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -2136,7 +2142,7 @@ define dso_local i32 @opts_Read(i32 noundef %0, ptr nocapture noundef %1) local_
 
 1106:                                             ; preds = %1104, %1095
   %1107 = getelementptr inbounds i8, ptr %60, i64 -16
-  tail call void @free(ptr noundef nonnull %1107) #19
+  tail call void @free(ptr noundef nonnull %1107) #20
   br label %1119
 
 1108:                                             ; preds = %1068
@@ -2176,94 +2182,101 @@ define internal fastcc void @misc_Error() unnamed_addr #9 {
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @opts_AddParamCheck(i32 noundef %0, ptr noundef %1) unnamed_addr #1 {
-  br label %3
+  %3 = load ptr, ptr @opts_PARAMETERS, align 8
+  %4 = icmp eq ptr %3, null
+  br i1 %4, label %62, label %5
 
-3:                                                ; preds = %7, %2
-  %4 = phi ptr [ @opts_PARAMETERS, %2 ], [ %5, %7 ]
-  %5 = load ptr, ptr %4, align 8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %57, label %7
+5:                                                ; preds = %2, %5
+  %6 = phi ptr [ %14, %5 ], [ %3, %2 ]
+  %7 = getelementptr i8, ptr %6, i64 8
+  %8 = load ptr, ptr %7, align 8
+  %9 = getelementptr i8, ptr %8, i64 8
+  %10 = load ptr, ptr %9, align 8
+  %11 = ptrtoint ptr %10 to i64
+  %12 = trunc i64 %11 to i32
+  %13 = icmp eq i32 %12, %0
+  %14 = load ptr, ptr %6, align 8
+  %15 = icmp eq ptr %14, null
+  %16 = select i1 %13, i1 true, i1 %15
+  br i1 %16, label %17, label %5, !llvm.loop !59
 
-7:                                                ; preds = %3
-  %8 = getelementptr i8, ptr %5, i64 8
-  %9 = load ptr, ptr %8, align 8
-  %10 = getelementptr i8, ptr %9, i64 8
-  %11 = load ptr, ptr %10, align 8
-  %12 = ptrtoint ptr %11 to i64
-  %13 = trunc i64 %12 to i32
-  %14 = icmp eq i32 %13, %0
-  br i1 %14, label %15, label %3
+17:                                               ; preds = %5
+  br i1 %13, label %18, label %62
 
-15:                                               ; preds = %7
-  %16 = load ptr, ptr @stdout, align 8
-  %17 = tail call i32 @fflush(ptr noundef %16)
-  %18 = add i32 %0, 1
-  %19 = and i32 %18, 7
-  %20 = icmp ult i32 %0, 7
-  br i1 %20, label %36, label %21
+18:                                               ; preds = %17
+  %19 = load ptr, ptr @stdout, align 8
+  %20 = tail call i32 @fflush(ptr noundef %19)
+  %21 = load ptr, ptr @opts_DECLARATIONS, align 8, !nonnull !9
+  %22 = icmp eq i32 %0, 0
+  br i1 %22, label %51, label %23
 
-21:                                               ; preds = %15
-  %22 = and i32 %18, -8
-  br label %23
+23:                                               ; preds = %18
+  %24 = and i32 %0, 7
+  %25 = icmp ult i32 %0, 8
+  br i1 %25, label %41, label %26
 
-23:                                               ; preds = %23, %21
-  %24 = phi ptr [ @opts_DECLARATIONS, %21 ], [ %33, %23 ]
-  %25 = phi i32 [ 0, %21 ], [ %34, %23 ]
-  %26 = load ptr, ptr %24, align 8, !nonnull !9
-  %27 = load ptr, ptr %26, align 8, !nonnull !9
-  %28 = load ptr, ptr %27, align 8, !nonnull !9
-  %29 = load ptr, ptr %28, align 8, !nonnull !9
-  %30 = load ptr, ptr %29, align 8, !nonnull !9
-  %31 = load ptr, ptr %30, align 8, !nonnull !9
+26:                                               ; preds = %23
+  %27 = and i32 %0, -8
+  br label %28
+
+28:                                               ; preds = %28, %26
+  %29 = phi ptr [ %21, %26 ], [ %38, %28 ]
+  %30 = phi i32 [ 0, %26 ], [ %39, %28 ]
+  %31 = load ptr, ptr %29, align 8, !nonnull !9
   %32 = load ptr, ptr %31, align 8, !nonnull !9
   %33 = load ptr, ptr %32, align 8, !nonnull !9
-  %34 = add i32 %25, 8
-  %35 = icmp eq i32 %34, %22
-  br i1 %35, label %36, label %23
+  %34 = load ptr, ptr %33, align 8, !nonnull !9
+  %35 = load ptr, ptr %34, align 8, !nonnull !9
+  %36 = load ptr, ptr %35, align 8, !nonnull !9
+  %37 = load ptr, ptr %36, align 8, !nonnull !9
+  %38 = load ptr, ptr %37, align 8, !nonnull !9
+  %39 = add i32 %30, 8
+  %40 = icmp eq i32 %39, %27
+  br i1 %40, label %41, label %28
 
-36:                                               ; preds = %23, %15
-  %37 = phi ptr [ undef, %15 ], [ %33, %23 ]
-  %38 = phi ptr [ @opts_DECLARATIONS, %15 ], [ %33, %23 ]
-  %39 = icmp eq i32 %19, 0
-  br i1 %39, label %46, label %40
+41:                                               ; preds = %28, %23
+  %42 = phi ptr [ undef, %23 ], [ %38, %28 ]
+  %43 = phi ptr [ %21, %23 ], [ %38, %28 ]
+  %44 = icmp eq i32 %24, 0
+  br i1 %44, label %51, label %45
 
-40:                                               ; preds = %36, %40
-  %41 = phi ptr [ %43, %40 ], [ %38, %36 ]
-  %42 = phi i32 [ %44, %40 ], [ 0, %36 ]
-  %43 = load ptr, ptr %41, align 8, !nonnull !9
-  %44 = add i32 %42, 1
-  %45 = icmp eq i32 %44, %19
-  br i1 %45, label %46, label %40, !llvm.loop !59
+45:                                               ; preds = %41, %45
+  %46 = phi ptr [ %48, %45 ], [ %43, %41 ]
+  %47 = phi i32 [ %49, %45 ], [ 0, %41 ]
+  %48 = load ptr, ptr %46, align 8, !nonnull !9
+  %49 = add i32 %47, 1
+  %50 = icmp eq i32 %49, %24
+  br i1 %50, label %51, label %45, !llvm.loop !60
 
-46:                                               ; preds = %40, %36
-  %47 = phi ptr [ %37, %36 ], [ %43, %40 ]
-  %48 = getelementptr i8, ptr %47, i64 8
-  %49 = load ptr, ptr %48, align 8
-  %50 = load ptr, ptr %49, align 8
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.18, ptr noundef %50) #19
-  %51 = load ptr, ptr @stderr, align 8
-  %52 = tail call i32 @fflush(ptr noundef %51)
-  %53 = load ptr, ptr @stdout, align 8
-  %54 = tail call i32 @fflush(ptr noundef %53)
-  %55 = load ptr, ptr @stderr, align 8
-  %56 = tail call i32 @fflush(ptr noundef %55)
+51:                                               ; preds = %41, %45, %18
+  %52 = phi ptr [ %21, %18 ], [ %42, %41 ], [ %48, %45 ]
+  %53 = getelementptr i8, ptr %52, i64 8
+  %54 = load ptr, ptr %53, align 8
+  %55 = load ptr, ptr %54, align 8
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.18, ptr noundef %55) #20
+  %56 = load ptr, ptr @stderr, align 8
+  %57 = tail call i32 @fflush(ptr noundef %56)
+  %58 = load ptr, ptr @stdout, align 8
+  %59 = tail call i32 @fflush(ptr noundef %58)
+  %60 = load ptr, ptr @stderr, align 8
+  %61 = tail call i32 @fflush(ptr noundef %60)
   tail call void @exit(i32 noundef 1) #21
   unreachable
 
-57:                                               ; preds = %3
-  %58 = sext i32 %0 to i64
-  %59 = inttoptr i64 %58 to ptr
-  %60 = tail call ptr @string_StringCopy(ptr noundef %1) #19
-  %61 = tail call ptr @memory_Malloc(i32 noundef 16) #19
-  %62 = getelementptr inbounds %struct.LIST_HELP, ptr %61, i64 0, i32 1
-  store ptr %59, ptr %62, align 8
-  store ptr %60, ptr %61, align 8
-  %63 = load ptr, ptr @opts_PARAMETERS, align 8
-  %64 = tail call ptr @memory_Malloc(i32 noundef 16) #19
-  %65 = getelementptr inbounds %struct.LIST_HELP, ptr %64, i64 0, i32 1
-  store ptr %61, ptr %65, align 8
-  store ptr %63, ptr %64, align 8
-  store ptr %64, ptr @opts_PARAMETERS, align 8
+62:                                               ; preds = %2, %17
+  %63 = sext i32 %0 to i64
+  %64 = inttoptr i64 %63 to ptr
+  %65 = tail call ptr @string_StringCopy(ptr noundef %1) #20
+  %66 = tail call ptr @memory_Malloc(i32 noundef 16) #20
+  %67 = getelementptr inbounds %struct.LIST_HELP, ptr %66, i64 0, i32 1
+  store ptr %64, ptr %67, align 8
+  store ptr %65, ptr %66, align 8
+  %68 = load ptr, ptr @opts_PARAMETERS, align 8
+  %69 = tail call ptr @memory_Malloc(i32 noundef 16) #20
+  %70 = getelementptr inbounds %struct.LIST_HELP, ptr %69, i64 0, i32 1
+  store ptr %66, ptr %70, align 8
+  store ptr %68, ptr %69, align 8
+  store ptr %69, ptr @opts_PARAMETERS, align 8
   ret i32 1
 }
 
@@ -2272,9 +2285,9 @@ declare void @string_StringFree(ptr noundef) local_unnamed_addr #5
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @opts_ReadOptionsFromString(ptr noundef %0) local_unnamed_addr #1 {
   %2 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #19
-  %3 = tail call ptr @string_StringCopy(ptr noundef %0) #19
-  %4 = call ptr @string_Tokens(ptr noundef %3, ptr noundef nonnull %2) #19
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #20
+  %3 = tail call ptr @string_StringCopy(ptr noundef %0) #20
+  %4 = call ptr @string_Tokens(ptr noundef %3, ptr noundef nonnull %2) #20
   %5 = load i32, ptr %2, align 4
   %6 = call i32 @opts_Read(i32 noundef %5, ptr noundef %4), !range !55
   %7 = load i32, ptr @opts_Ind, align 4
@@ -2292,9 +2305,9 @@ define dso_local i32 @opts_ReadOptionsFromString(ptr noundef %0) local_unnamed_a
   %15 = and i64 %14, 4294967295
   %16 = getelementptr inbounds ptr, ptr %4, i64 %15
   %17 = load ptr, ptr %16, align 8
-  call void @string_StringFree(ptr noundef %17) #19
+  call void @string_StringFree(ptr noundef %17) #20
   %18 = icmp ugt i64 %13, 1
-  br i1 %18, label %12, label %19, !llvm.loop !60
+  br i1 %18, label %12, label %19, !llvm.loop !61
 
 19:                                               ; preds = %12
   %20 = load i32, ptr %2, align 4
@@ -2310,9 +2323,9 @@ define dso_local i32 @opts_ReadOptionsFromString(ptr noundef %0) local_unnamed_a
   %26 = load i32, ptr @memory_ALIGN, align 4
   %27 = urem i32 %23, %26
   %28 = icmp eq i32 %27, 0
-  %29 = sub i32 %26, %27
-  %30 = select i1 %28, i32 0, i32 %29
-  %31 = add i32 %30, %23
+  %29 = add i32 %26, %23
+  %30 = sub i32 %29, %27
+  %31 = select i1 %28, i32 %23, i32 %30
   %32 = load i32, ptr @memory_OFFSET, align 4
   %33 = zext i32 %32 to i64
   %34 = sub nsw i64 0, %33
@@ -2336,7 +2349,7 @@ define dso_local i32 @opts_ReadOptionsFromString(ptr noundef %0) local_unnamed_a
 
 47:                                               ; preds = %45, %25
   %48 = load i32, ptr @memory_MARKSIZE, align 4
-  %49 = add i32 %31, %48
+  %49 = add i32 %48, %31
   %50 = zext i32 %49 to i64
   %51 = add nuw nsw i64 %50, 16
   %52 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -2353,7 +2366,7 @@ define dso_local i32 @opts_ReadOptionsFromString(ptr noundef %0) local_unnamed_a
 
 58:                                               ; preds = %56, %47
   %59 = getelementptr inbounds i8, ptr %4, i64 -16
-  call void @free(ptr noundef nonnull %59) #19
+  call void @free(ptr noundef nonnull %59) #20
   br label %71
 
 60:                                               ; preds = %21
@@ -2375,8 +2388,8 @@ define dso_local i32 @opts_ReadOptionsFromString(ptr noundef %0) local_unnamed_a
 71:                                               ; preds = %58, %60
   %72 = icmp slt i32 %7, %8
   %73 = select i1 %72, i32 0, i32 %6
-  call void @string_StringFree(ptr noundef %3) #19
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #19
+  call void @string_StringFree(ptr noundef %3) #20
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #20
   ret i32 %73
 }
 
@@ -2390,299 +2403,334 @@ define dso_local i32 @opts_Indicator() local_unnamed_addr #10 {
 
 ; Function Attrs: nofree nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local i32 @opts_GetValueByName(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #11 {
-  br label %3
+  %3 = load ptr, ptr @opts_PARAMETERS, align 8
+  %4 = icmp eq ptr %3, null
+  br i1 %4, label %57, label %5
 
-3:                                                ; preds = %2, %42
-  %4 = phi ptr [ @opts_PARAMETERS, %2 ], [ %5, %42 ]
-  %5 = load ptr, ptr %4, align 8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %51, label %7
+5:                                                ; preds = %2
+  %6 = load ptr, ptr @opts_DECLARATIONS, align 8, !nonnull !9
+  br label %7
 
-7:                                                ; preds = %3
-  %8 = getelementptr i8, ptr %5, i64 8
-  %9 = load ptr, ptr %8, align 8
-  %10 = getelementptr i8, ptr %9, i64 8
-  %11 = load ptr, ptr %10, align 8
-  %12 = ptrtoint ptr %11 to i64
-  %13 = trunc i64 %12 to i32
-  %14 = add i32 %13, 1
-  %15 = and i32 %14, 7
-  %16 = icmp ult i32 %13, 7
-  br i1 %16, label %32, label %17
+7:                                                ; preds = %5, %44
+  %8 = phi ptr [ %3, %5 ], [ %51, %44 ]
+  %9 = getelementptr i8, ptr %8, i64 8
+  %10 = load ptr, ptr %9, align 8
+  %11 = getelementptr i8, ptr %10, i64 8
+  %12 = load ptr, ptr %11, align 8
+  %13 = ptrtoint ptr %12 to i64
+  %14 = trunc i64 %13 to i32
+  %15 = icmp eq i32 %14, 0
+  br i1 %15, label %44, label %16
 
-17:                                               ; preds = %7
-  %18 = and i32 %14, -8
-  br label %19
+16:                                               ; preds = %7
+  %17 = and i32 %14, 7
+  %18 = icmp ult i32 %14, 8
+  br i1 %18, label %34, label %19
 
-19:                                               ; preds = %19, %17
-  %20 = phi ptr [ @opts_DECLARATIONS, %17 ], [ %29, %19 ]
-  %21 = phi i32 [ 0, %17 ], [ %30, %19 ]
-  %22 = load ptr, ptr %20, align 8, !nonnull !9
-  %23 = load ptr, ptr %22, align 8, !nonnull !9
-  %24 = load ptr, ptr %23, align 8, !nonnull !9
+19:                                               ; preds = %16
+  %20 = and i32 %14, -8
+  br label %21
+
+21:                                               ; preds = %21, %19
+  %22 = phi ptr [ %6, %19 ], [ %31, %21 ]
+  %23 = phi i32 [ 0, %19 ], [ %32, %21 ]
+  %24 = load ptr, ptr %22, align 8, !nonnull !9
   %25 = load ptr, ptr %24, align 8, !nonnull !9
   %26 = load ptr, ptr %25, align 8, !nonnull !9
   %27 = load ptr, ptr %26, align 8, !nonnull !9
   %28 = load ptr, ptr %27, align 8, !nonnull !9
   %29 = load ptr, ptr %28, align 8, !nonnull !9
-  %30 = add i32 %21, 8
-  %31 = icmp eq i32 %30, %18
-  br i1 %31, label %32, label %19
+  %30 = load ptr, ptr %29, align 8, !nonnull !9
+  %31 = load ptr, ptr %30, align 8, !nonnull !9
+  %32 = add i32 %23, 8
+  %33 = icmp eq i32 %32, %20
+  br i1 %33, label %34, label %21
 
-32:                                               ; preds = %19, %7
-  %33 = phi ptr [ undef, %7 ], [ %29, %19 ]
-  %34 = phi ptr [ @opts_DECLARATIONS, %7 ], [ %29, %19 ]
-  %35 = icmp eq i32 %15, 0
-  br i1 %35, label %42, label %36
+34:                                               ; preds = %21, %16
+  %35 = phi ptr [ undef, %16 ], [ %31, %21 ]
+  %36 = phi ptr [ %6, %16 ], [ %31, %21 ]
+  %37 = icmp eq i32 %17, 0
+  br i1 %37, label %44, label %38
 
-36:                                               ; preds = %32, %36
-  %37 = phi ptr [ %39, %36 ], [ %34, %32 ]
-  %38 = phi i32 [ %40, %36 ], [ 0, %32 ]
-  %39 = load ptr, ptr %37, align 8, !nonnull !9
-  %40 = add i32 %38, 1
-  %41 = icmp eq i32 %40, %15
-  br i1 %41, label %42, label %36, !llvm.loop !61
+38:                                               ; preds = %34, %38
+  %39 = phi ptr [ %41, %38 ], [ %36, %34 ]
+  %40 = phi i32 [ %42, %38 ], [ 0, %34 ]
+  %41 = load ptr, ptr %39, align 8, !nonnull !9
+  %42 = add i32 %40, 1
+  %43 = icmp eq i32 %42, %17
+  br i1 %43, label %44, label %38, !llvm.loop !62
 
-42:                                               ; preds = %36, %32
-  %43 = phi ptr [ %33, %32 ], [ %39, %36 ]
-  %44 = getelementptr i8, ptr %43, i64 8
-  %45 = load ptr, ptr %44, align 8
-  %46 = load ptr, ptr %45, align 8
-  %47 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %46) #18
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %3
+44:                                               ; preds = %34, %38, %7
+  %45 = phi ptr [ %6, %7 ], [ %35, %34 ], [ %41, %38 ]
+  %46 = getelementptr i8, ptr %45, i64 8
+  %47 = load ptr, ptr %46, align 8
+  %48 = load ptr, ptr %47, align 8
+  %49 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %48) #18
+  %50 = icmp eq i32 %49, 0
+  %51 = load ptr, ptr %8, align 8
+  %52 = icmp eq ptr %51, null
+  %53 = select i1 %50, i1 true, i1 %52
+  br i1 %53, label %54, label %7, !llvm.loop !63
 
-49:                                               ; preds = %42
-  %50 = load ptr, ptr %9, align 8
-  store ptr %50, ptr %1, align 8
-  br label %51
+54:                                               ; preds = %44
+  br i1 %50, label %55, label %57
 
-51:                                               ; preds = %3, %49
-  %52 = phi i32 [ 1, %49 ], [ 0, %3 ]
-  ret i32 %52
+55:                                               ; preds = %54
+  %56 = load ptr, ptr %10, align 8
+  store ptr %56, ptr %1, align 8
+  br label %57
+
+57:                                               ; preds = %2, %55, %54
+  %58 = phi i1 [ %50, %55 ], [ %50, %54 ], [ false, %2 ]
+  %59 = zext i1 %58 to i32
+  ret i32 %59
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local i32 @opts_GetValue(i32 noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #12 {
-  br label %3
+  %3 = load ptr, ptr @opts_PARAMETERS, align 8
+  %4 = icmp eq ptr %3, null
+  br i1 %4, label %20, label %5
 
-3:                                                ; preds = %2, %7
-  %4 = phi ptr [ @opts_PARAMETERS, %2 ], [ %5, %7 ]
-  %5 = load ptr, ptr %4, align 8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %17, label %7
+5:                                                ; preds = %2, %5
+  %6 = phi ptr [ %14, %5 ], [ %3, %2 ]
+  %7 = getelementptr i8, ptr %6, i64 8
+  %8 = load ptr, ptr %7, align 8
+  %9 = getelementptr i8, ptr %8, i64 8
+  %10 = load ptr, ptr %9, align 8
+  %11 = ptrtoint ptr %10 to i64
+  %12 = trunc i64 %11 to i32
+  %13 = icmp eq i32 %12, %0
+  %14 = load ptr, ptr %6, align 8
+  %15 = icmp eq ptr %14, null
+  %16 = select i1 %13, i1 true, i1 %15
+  br i1 %16, label %17, label %5, !llvm.loop !59
 
-7:                                                ; preds = %3
-  %8 = getelementptr i8, ptr %5, i64 8
-  %9 = load ptr, ptr %8, align 8
-  %10 = getelementptr i8, ptr %9, i64 8
-  %11 = load ptr, ptr %10, align 8
-  %12 = ptrtoint ptr %11 to i64
-  %13 = trunc i64 %12 to i32
-  %14 = icmp eq i32 %13, %0
-  br i1 %14, label %15, label %3
+17:                                               ; preds = %5
+  br i1 %13, label %18, label %20
 
-15:                                               ; preds = %7
-  %16 = load ptr, ptr %9, align 8
-  store ptr %16, ptr %1, align 8
-  br label %17
+18:                                               ; preds = %17
+  %19 = load ptr, ptr %8, align 8
+  store ptr %19, ptr %1, align 8
+  br label %20
 
-17:                                               ; preds = %3, %15
-  %18 = phi i32 [ 1, %15 ], [ 0, %3 ]
-  ret i32 %18
+20:                                               ; preds = %2, %18, %17
+  %21 = phi i1 [ %13, %18 ], [ %13, %17 ], [ false, %2 ]
+  %22 = zext i1 %21 to i32
+  ret i32 %22
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @opts_GetIntValueByName(ptr nocapture noundef readonly %0, ptr noundef %1) local_unnamed_addr #1 {
-  br label %3
+  %3 = load ptr, ptr @opts_PARAMETERS, align 8
+  %4 = icmp eq ptr %3, null
+  br i1 %4, label %58, label %5
 
-3:                                                ; preds = %42, %2
-  %4 = phi ptr [ @opts_PARAMETERS, %2 ], [ %5, %42 ]
-  %5 = load ptr, ptr %4, align 8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %52, label %7
+5:                                                ; preds = %2
+  %6 = load ptr, ptr @opts_DECLARATIONS, align 8, !nonnull !9
+  br label %7
 
-7:                                                ; preds = %3
-  %8 = getelementptr i8, ptr %5, i64 8
-  %9 = load ptr, ptr %8, align 8
-  %10 = getelementptr i8, ptr %9, i64 8
-  %11 = load ptr, ptr %10, align 8
-  %12 = ptrtoint ptr %11 to i64
-  %13 = trunc i64 %12 to i32
-  %14 = add i32 %13, 1
-  %15 = and i32 %14, 7
-  %16 = icmp ult i32 %13, 7
-  br i1 %16, label %32, label %17
+7:                                                ; preds = %44, %5
+  %8 = phi ptr [ %3, %5 ], [ %51, %44 ]
+  %9 = getelementptr i8, ptr %8, i64 8
+  %10 = load ptr, ptr %9, align 8
+  %11 = getelementptr i8, ptr %10, i64 8
+  %12 = load ptr, ptr %11, align 8
+  %13 = ptrtoint ptr %12 to i64
+  %14 = trunc i64 %13 to i32
+  %15 = icmp eq i32 %14, 0
+  br i1 %15, label %44, label %16
 
-17:                                               ; preds = %7
-  %18 = and i32 %14, -8
-  br label %19
+16:                                               ; preds = %7
+  %17 = and i32 %14, 7
+  %18 = icmp ult i32 %14, 8
+  br i1 %18, label %34, label %19
 
-19:                                               ; preds = %19, %17
-  %20 = phi ptr [ @opts_DECLARATIONS, %17 ], [ %29, %19 ]
-  %21 = phi i32 [ 0, %17 ], [ %30, %19 ]
-  %22 = load ptr, ptr %20, align 8, !nonnull !9
-  %23 = load ptr, ptr %22, align 8, !nonnull !9
-  %24 = load ptr, ptr %23, align 8, !nonnull !9
+19:                                               ; preds = %16
+  %20 = and i32 %14, -8
+  br label %21
+
+21:                                               ; preds = %21, %19
+  %22 = phi ptr [ %6, %19 ], [ %31, %21 ]
+  %23 = phi i32 [ 0, %19 ], [ %32, %21 ]
+  %24 = load ptr, ptr %22, align 8, !nonnull !9
   %25 = load ptr, ptr %24, align 8, !nonnull !9
   %26 = load ptr, ptr %25, align 8, !nonnull !9
   %27 = load ptr, ptr %26, align 8, !nonnull !9
   %28 = load ptr, ptr %27, align 8, !nonnull !9
   %29 = load ptr, ptr %28, align 8, !nonnull !9
-  %30 = add i32 %21, 8
-  %31 = icmp eq i32 %30, %18
-  br i1 %31, label %32, label %19
+  %30 = load ptr, ptr %29, align 8, !nonnull !9
+  %31 = load ptr, ptr %30, align 8, !nonnull !9
+  %32 = add i32 %23, 8
+  %33 = icmp eq i32 %32, %20
+  br i1 %33, label %34, label %21
 
-32:                                               ; preds = %19, %7
-  %33 = phi ptr [ undef, %7 ], [ %29, %19 ]
-  %34 = phi ptr [ @opts_DECLARATIONS, %7 ], [ %29, %19 ]
-  %35 = icmp eq i32 %15, 0
-  br i1 %35, label %42, label %36
+34:                                               ; preds = %21, %16
+  %35 = phi ptr [ undef, %16 ], [ %31, %21 ]
+  %36 = phi ptr [ %6, %16 ], [ %31, %21 ]
+  %37 = icmp eq i32 %17, 0
+  br i1 %37, label %44, label %38
 
-36:                                               ; preds = %32, %36
-  %37 = phi ptr [ %39, %36 ], [ %34, %32 ]
-  %38 = phi i32 [ %40, %36 ], [ 0, %32 ]
-  %39 = load ptr, ptr %37, align 8, !nonnull !9
-  %40 = add i32 %38, 1
-  %41 = icmp eq i32 %40, %15
-  br i1 %41, label %42, label %36, !llvm.loop !62
+38:                                               ; preds = %34, %38
+  %39 = phi ptr [ %41, %38 ], [ %36, %34 ]
+  %40 = phi i32 [ %42, %38 ], [ 0, %34 ]
+  %41 = load ptr, ptr %39, align 8, !nonnull !9
+  %42 = add i32 %40, 1
+  %43 = icmp eq i32 %42, %17
+  br i1 %43, label %44, label %38, !llvm.loop !64
 
-42:                                               ; preds = %36, %32
-  %43 = phi ptr [ %33, %32 ], [ %39, %36 ]
-  %44 = getelementptr i8, ptr %43, i64 8
-  %45 = load ptr, ptr %44, align 8
-  %46 = load ptr, ptr %45, align 8
-  %47 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %46) #18
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %3
+44:                                               ; preds = %34, %38, %7
+  %45 = phi ptr [ %6, %7 ], [ %35, %34 ], [ %41, %38 ]
+  %46 = getelementptr i8, ptr %45, i64 8
+  %47 = load ptr, ptr %46, align 8
+  %48 = load ptr, ptr %47, align 8
+  %49 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %48) #18
+  %50 = icmp eq i32 %49, 0
+  %51 = load ptr, ptr %8, align 8
+  %52 = icmp eq ptr %51, null
+  %53 = select i1 %50, i1 true, i1 %52
+  br i1 %53, label %54, label %7, !llvm.loop !63
 
-49:                                               ; preds = %42
-  %50 = load ptr, ptr %9, align 8
-  %51 = tail call i32 @string_StringToInt(ptr noundef %50, i32 noundef 0, ptr noundef %1) #19
-  br label %52
+54:                                               ; preds = %44
+  br i1 %50, label %55, label %58
 
-52:                                               ; preds = %3, %49
-  %53 = phi i32 [ %51, %49 ], [ 0, %3 ]
-  ret i32 %53
+55:                                               ; preds = %54
+  %56 = load ptr, ptr %10, align 8
+  %57 = tail call i32 @string_StringToInt(ptr noundef %56, i32 noundef 0, ptr noundef %1) #20
+  br label %58
+
+58:                                               ; preds = %54, %2, %55
+  %59 = phi i32 [ %57, %55 ], [ 0, %2 ], [ 0, %54 ]
+  ret i32 %59
 }
 
 declare i32 @string_StringToInt(ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #5
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @opts_GetIntValue(i32 noundef %0, ptr noundef %1) local_unnamed_addr #1 {
-  %3 = add i32 %0, 1
-  %4 = and i32 %3, 7
-  %5 = icmp ult i32 %0, 7
-  br i1 %5, label %21, label %6
+  %3 = load ptr, ptr @opts_DECLARATIONS, align 8, !nonnull !9
+  %4 = icmp eq i32 %0, 0
+  br i1 %4, label %33, label %5
 
-6:                                                ; preds = %2
-  %7 = and i32 %3, -8
-  br label %8
+5:                                                ; preds = %2
+  %6 = and i32 %0, 7
+  %7 = icmp ult i32 %0, 8
+  br i1 %7, label %23, label %8
 
-8:                                                ; preds = %8, %6
-  %9 = phi ptr [ @opts_DECLARATIONS, %6 ], [ %18, %8 ]
-  %10 = phi i32 [ 0, %6 ], [ %19, %8 ]
-  %11 = load ptr, ptr %9, align 8, !nonnull !9
-  %12 = load ptr, ptr %11, align 8, !nonnull !9
-  %13 = load ptr, ptr %12, align 8, !nonnull !9
+8:                                                ; preds = %5
+  %9 = and i32 %0, -8
+  br label %10
+
+10:                                               ; preds = %10, %8
+  %11 = phi ptr [ %3, %8 ], [ %20, %10 ]
+  %12 = phi i32 [ 0, %8 ], [ %21, %10 ]
+  %13 = load ptr, ptr %11, align 8, !nonnull !9
   %14 = load ptr, ptr %13, align 8, !nonnull !9
   %15 = load ptr, ptr %14, align 8, !nonnull !9
   %16 = load ptr, ptr %15, align 8, !nonnull !9
   %17 = load ptr, ptr %16, align 8, !nonnull !9
   %18 = load ptr, ptr %17, align 8, !nonnull !9
-  %19 = add i32 %10, 8
-  %20 = icmp eq i32 %19, %7
-  br i1 %20, label %21, label %8
+  %19 = load ptr, ptr %18, align 8, !nonnull !9
+  %20 = load ptr, ptr %19, align 8, !nonnull !9
+  %21 = add i32 %12, 8
+  %22 = icmp eq i32 %21, %9
+  br i1 %22, label %23, label %10
 
-21:                                               ; preds = %8, %2
-  %22 = phi ptr [ undef, %2 ], [ %18, %8 ]
-  %23 = phi ptr [ @opts_DECLARATIONS, %2 ], [ %18, %8 ]
-  %24 = icmp eq i32 %4, 0
-  br i1 %24, label %31, label %25
+23:                                               ; preds = %10, %5
+  %24 = phi ptr [ undef, %5 ], [ %20, %10 ]
+  %25 = phi ptr [ %3, %5 ], [ %20, %10 ]
+  %26 = icmp eq i32 %6, 0
+  br i1 %26, label %33, label %27
 
-25:                                               ; preds = %21, %25
-  %26 = phi ptr [ %28, %25 ], [ %23, %21 ]
-  %27 = phi i32 [ %29, %25 ], [ 0, %21 ]
-  %28 = load ptr, ptr %26, align 8, !nonnull !9
-  %29 = add i32 %27, 1
-  %30 = icmp eq i32 %29, %4
-  br i1 %30, label %31, label %25, !llvm.loop !63
+27:                                               ; preds = %23, %27
+  %28 = phi ptr [ %30, %27 ], [ %25, %23 ]
+  %29 = phi i32 [ %31, %27 ], [ 0, %23 ]
+  %30 = load ptr, ptr %28, align 8, !nonnull !9
+  %31 = add i32 %29, 1
+  %32 = icmp eq i32 %31, %6
+  br i1 %32, label %33, label %27, !llvm.loop !65
 
-31:                                               ; preds = %25, %21
-  %32 = phi ptr [ %22, %21 ], [ %28, %25 ]
-  %33 = getelementptr i8, ptr %32, i64 8
-  %34 = load ptr, ptr %33, align 8
-  %35 = load ptr, ptr %34, align 8
-  br label %36
-
-36:                                               ; preds = %75, %31
-  %37 = phi ptr [ @opts_PARAMETERS, %31 ], [ %38, %75 ]
-  %38 = load ptr, ptr %37, align 8
+33:                                               ; preds = %23, %27, %2
+  %34 = phi ptr [ %3, %2 ], [ %24, %23 ], [ %30, %27 ]
+  %35 = getelementptr i8, ptr %34, i64 8
+  %36 = load ptr, ptr %35, align 8
+  %37 = load ptr, ptr %36, align 8
+  %38 = load ptr, ptr @opts_PARAMETERS, align 8
   %39 = icmp eq ptr %38, null
-  br i1 %39, label %85, label %40
+  br i1 %39, label %91, label %40
 
-40:                                               ; preds = %36
-  %41 = getelementptr i8, ptr %38, i64 8
-  %42 = load ptr, ptr %41, align 8
-  %43 = getelementptr i8, ptr %42, i64 8
-  %44 = load ptr, ptr %43, align 8
-  %45 = ptrtoint ptr %44 to i64
-  %46 = trunc i64 %45 to i32
-  %47 = add i32 %46, 1
-  %48 = and i32 %47, 7
-  %49 = icmp ult i32 %46, 7
-  br i1 %49, label %65, label %50
+40:                                               ; preds = %33, %77
+  %41 = phi ptr [ %84, %77 ], [ %38, %33 ]
+  %42 = getelementptr i8, ptr %41, i64 8
+  %43 = load ptr, ptr %42, align 8
+  %44 = getelementptr i8, ptr %43, i64 8
+  %45 = load ptr, ptr %44, align 8
+  %46 = ptrtoint ptr %45 to i64
+  %47 = trunc i64 %46 to i32
+  %48 = icmp eq i32 %47, 0
+  br i1 %48, label %77, label %49
 
-50:                                               ; preds = %40
-  %51 = and i32 %47, -8
-  br label %52
+49:                                               ; preds = %40
+  %50 = and i32 %47, 7
+  %51 = icmp ult i32 %47, 8
+  br i1 %51, label %67, label %52
 
-52:                                               ; preds = %52, %50
-  %53 = phi ptr [ @opts_DECLARATIONS, %50 ], [ %62, %52 ]
-  %54 = phi i32 [ 0, %50 ], [ %63, %52 ]
-  %55 = load ptr, ptr %53, align 8, !nonnull !9
-  %56 = load ptr, ptr %55, align 8, !nonnull !9
-  %57 = load ptr, ptr %56, align 8, !nonnull !9
+52:                                               ; preds = %49
+  %53 = and i32 %47, -8
+  br label %54
+
+54:                                               ; preds = %54, %52
+  %55 = phi ptr [ %3, %52 ], [ %64, %54 ]
+  %56 = phi i32 [ 0, %52 ], [ %65, %54 ]
+  %57 = load ptr, ptr %55, align 8, !nonnull !9
   %58 = load ptr, ptr %57, align 8, !nonnull !9
   %59 = load ptr, ptr %58, align 8, !nonnull !9
   %60 = load ptr, ptr %59, align 8, !nonnull !9
   %61 = load ptr, ptr %60, align 8, !nonnull !9
   %62 = load ptr, ptr %61, align 8, !nonnull !9
-  %63 = add i32 %54, 8
-  %64 = icmp eq i32 %63, %51
-  br i1 %64, label %65, label %52
+  %63 = load ptr, ptr %62, align 8, !nonnull !9
+  %64 = load ptr, ptr %63, align 8, !nonnull !9
+  %65 = add i32 %56, 8
+  %66 = icmp eq i32 %65, %53
+  br i1 %66, label %67, label %54
 
-65:                                               ; preds = %52, %40
-  %66 = phi ptr [ undef, %40 ], [ %62, %52 ]
-  %67 = phi ptr [ @opts_DECLARATIONS, %40 ], [ %62, %52 ]
-  %68 = icmp eq i32 %48, 0
-  br i1 %68, label %75, label %69
+67:                                               ; preds = %54, %49
+  %68 = phi ptr [ undef, %49 ], [ %64, %54 ]
+  %69 = phi ptr [ %3, %49 ], [ %64, %54 ]
+  %70 = icmp eq i32 %50, 0
+  br i1 %70, label %77, label %71
 
-69:                                               ; preds = %65, %69
-  %70 = phi ptr [ %72, %69 ], [ %67, %65 ]
-  %71 = phi i32 [ %73, %69 ], [ 0, %65 ]
-  %72 = load ptr, ptr %70, align 8, !nonnull !9
-  %73 = add i32 %71, 1
-  %74 = icmp eq i32 %73, %48
-  br i1 %74, label %75, label %69, !llvm.loop !64
+71:                                               ; preds = %67, %71
+  %72 = phi ptr [ %74, %71 ], [ %69, %67 ]
+  %73 = phi i32 [ %75, %71 ], [ 0, %67 ]
+  %74 = load ptr, ptr %72, align 8, !nonnull !9
+  %75 = add i32 %73, 1
+  %76 = icmp eq i32 %75, %50
+  br i1 %76, label %77, label %71, !llvm.loop !66
 
-75:                                               ; preds = %69, %65
-  %76 = phi ptr [ %66, %65 ], [ %72, %69 ]
-  %77 = getelementptr i8, ptr %76, i64 8
-  %78 = load ptr, ptr %77, align 8
-  %79 = load ptr, ptr %78, align 8
-  %80 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %35, ptr noundef nonnull dereferenceable(1) %79) #18
-  %81 = icmp eq i32 %80, 0
-  br i1 %81, label %82, label %36
+77:                                               ; preds = %67, %71, %40
+  %78 = phi ptr [ %3, %40 ], [ %68, %67 ], [ %74, %71 ]
+  %79 = getelementptr i8, ptr %78, i64 8
+  %80 = load ptr, ptr %79, align 8
+  %81 = load ptr, ptr %80, align 8
+  %82 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %37, ptr noundef nonnull dereferenceable(1) %81) #18
+  %83 = icmp eq i32 %82, 0
+  %84 = load ptr, ptr %41, align 8
+  %85 = icmp eq ptr %84, null
+  %86 = select i1 %83, i1 true, i1 %85
+  br i1 %86, label %87, label %40, !llvm.loop !63
 
-82:                                               ; preds = %75
-  %83 = load ptr, ptr %42, align 8
-  %84 = tail call i32 @string_StringToInt(ptr noundef %83, i32 noundef 0, ptr noundef %1) #19
-  br label %85
+87:                                               ; preds = %77
+  br i1 %83, label %88, label %91
 
-85:                                               ; preds = %36, %82
-  %86 = phi i32 [ %84, %82 ], [ 0, %36 ]
-  ret i32 %86
+88:                                               ; preds = %87
+  %89 = load ptr, ptr %43, align 8
+  %90 = tail call i32 @string_StringToInt(ptr noundef %89, i32 noundef 0, ptr noundef %1) #20
+  br label %91
+
+91:                                               ; preds = %33, %87, %88
+  %92 = phi i32 [ %90, %88 ], [ 0, %33 ], [ 0, %87 ]
+  ret i32 %92
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
@@ -2703,7 +2751,7 @@ define dso_local i32 @opts_IsSet(i32 noundef %0) local_unnamed_addr #7 {
   %13 = load ptr, ptr %5, align 8
   %14 = icmp eq ptr %13, null
   %15 = select i1 %12, i1 true, i1 %14
-  br i1 %15, label %16, label %4
+  br i1 %15, label %16, label %4, !llvm.loop !67
 
 16:                                               ; preds = %4
   %17 = zext i1 %12 to i32
@@ -2718,92 +2766,99 @@ define dso_local i32 @opts_IsSet(i32 noundef %0) local_unnamed_addr #7 {
 define dso_local i32 @opts_IsSetByName(ptr nocapture noundef readonly %0) local_unnamed_addr #3 {
   %2 = load ptr, ptr @opts_PARAMETERS, align 8
   %3 = icmp eq ptr %2, null
-  br i1 %3, label %52, label %4
+  br i1 %3, label %55, label %4
 
-4:                                                ; preds = %1, %40
-  %5 = phi ptr [ %47, %40 ], [ %2, %1 ]
-  %6 = getelementptr i8, ptr %5, i64 8
-  %7 = load ptr, ptr %6, align 8
+4:                                                ; preds = %1
+  %5 = load ptr, ptr @opts_DECLARATIONS, align 8, !nonnull !9
+  br label %6
+
+6:                                                ; preds = %4, %43
+  %7 = phi ptr [ %2, %4 ], [ %50, %43 ]
   %8 = getelementptr i8, ptr %7, i64 8
   %9 = load ptr, ptr %8, align 8
-  %10 = ptrtoint ptr %9 to i64
-  %11 = trunc i64 %10 to i32
-  %12 = add i32 %11, 1
-  %13 = and i32 %12, 7
-  %14 = icmp ult i32 %11, 7
-  br i1 %14, label %30, label %15
+  %10 = getelementptr i8, ptr %9, i64 8
+  %11 = load ptr, ptr %10, align 8
+  %12 = ptrtoint ptr %11 to i64
+  %13 = trunc i64 %12 to i32
+  %14 = icmp eq i32 %13, 0
+  br i1 %14, label %43, label %15
 
-15:                                               ; preds = %4
-  %16 = and i32 %12, -8
-  br label %17
+15:                                               ; preds = %6
+  %16 = and i32 %13, 7
+  %17 = icmp ult i32 %13, 8
+  br i1 %17, label %33, label %18
 
-17:                                               ; preds = %17, %15
-  %18 = phi ptr [ @opts_DECLARATIONS, %15 ], [ %27, %17 ]
-  %19 = phi i32 [ 0, %15 ], [ %28, %17 ]
-  %20 = load ptr, ptr %18, align 8, !nonnull !9
-  %21 = load ptr, ptr %20, align 8, !nonnull !9
-  %22 = load ptr, ptr %21, align 8, !nonnull !9
-  %23 = load ptr, ptr %22, align 8, !nonnull !9
+18:                                               ; preds = %15
+  %19 = and i32 %13, -8
+  br label %20
+
+20:                                               ; preds = %20, %18
+  %21 = phi ptr [ %5, %18 ], [ %30, %20 ]
+  %22 = phi i32 [ 0, %18 ], [ %31, %20 ]
+  %23 = load ptr, ptr %21, align 8, !nonnull !9
   %24 = load ptr, ptr %23, align 8, !nonnull !9
   %25 = load ptr, ptr %24, align 8, !nonnull !9
   %26 = load ptr, ptr %25, align 8, !nonnull !9
   %27 = load ptr, ptr %26, align 8, !nonnull !9
-  %28 = add i32 %19, 8
-  %29 = icmp eq i32 %28, %16
-  br i1 %29, label %30, label %17
+  %28 = load ptr, ptr %27, align 8, !nonnull !9
+  %29 = load ptr, ptr %28, align 8, !nonnull !9
+  %30 = load ptr, ptr %29, align 8, !nonnull !9
+  %31 = add i32 %22, 8
+  %32 = icmp eq i32 %31, %19
+  br i1 %32, label %33, label %20
 
-30:                                               ; preds = %17, %4
-  %31 = phi ptr [ undef, %4 ], [ %27, %17 ]
-  %32 = phi ptr [ @opts_DECLARATIONS, %4 ], [ %27, %17 ]
-  %33 = icmp eq i32 %13, 0
-  br i1 %33, label %40, label %34
+33:                                               ; preds = %20, %15
+  %34 = phi ptr [ undef, %15 ], [ %30, %20 ]
+  %35 = phi ptr [ %5, %15 ], [ %30, %20 ]
+  %36 = icmp eq i32 %16, 0
+  br i1 %36, label %43, label %37
 
-34:                                               ; preds = %30, %34
-  %35 = phi ptr [ %37, %34 ], [ %32, %30 ]
-  %36 = phi i32 [ %38, %34 ], [ 0, %30 ]
-  %37 = load ptr, ptr %35, align 8, !nonnull !9
-  %38 = add i32 %36, 1
-  %39 = icmp eq i32 %38, %13
-  br i1 %39, label %40, label %34, !llvm.loop !65
+37:                                               ; preds = %33, %37
+  %38 = phi ptr [ %40, %37 ], [ %35, %33 ]
+  %39 = phi i32 [ %41, %37 ], [ 0, %33 ]
+  %40 = load ptr, ptr %38, align 8, !nonnull !9
+  %41 = add i32 %39, 1
+  %42 = icmp eq i32 %41, %16
+  br i1 %42, label %43, label %37, !llvm.loop !68
 
-40:                                               ; preds = %34, %30
-  %41 = phi ptr [ %31, %30 ], [ %37, %34 ]
-  %42 = getelementptr i8, ptr %41, i64 8
-  %43 = load ptr, ptr %42, align 8
-  %44 = load ptr, ptr %43, align 8
-  %45 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %44) #18
-  %46 = icmp eq i32 %45, 0
-  %47 = load ptr, ptr %5, align 8
-  %48 = icmp eq ptr %47, null
-  %49 = select i1 %46, i1 true, i1 %48
-  br i1 %49, label %50, label %4
+43:                                               ; preds = %33, %37, %6
+  %44 = phi ptr [ %5, %6 ], [ %34, %33 ], [ %40, %37 ]
+  %45 = getelementptr i8, ptr %44, i64 8
+  %46 = load ptr, ptr %45, align 8
+  %47 = load ptr, ptr %46, align 8
+  %48 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %47) #18
+  %49 = icmp eq i32 %48, 0
+  %50 = load ptr, ptr %7, align 8
+  %51 = icmp eq ptr %50, null
+  %52 = select i1 %49, i1 true, i1 %51
+  br i1 %52, label %53, label %6, !llvm.loop !69
 
-50:                                               ; preds = %40
-  %51 = zext i1 %46 to i32
-  br label %52
+53:                                               ; preds = %43
+  %54 = zext i1 %49 to i32
+  br label %55
 
-52:                                               ; preds = %50, %1
-  %53 = phi i32 [ 0, %1 ], [ %51, %50 ]
-  ret i32 %53
+55:                                               ; preds = %53, %1
+  %56 = phi i32 [ 0, %1 ], [ %54, %53 ]
+  ret i32 %56
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @opts_SetFlags(ptr nocapture noundef writeonly %0) local_unnamed_addr #1 {
   %2 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #19
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #20
   br label %3
 
-3:                                                ; preds = %1, %133
-  %4 = phi i32 [ 0, %1 ], [ %134, %133 ]
-  %5 = call ptr @flag_Name(i32 noundef %4) #19
+3:                                                ; preds = %1, %136
+  %4 = phi i32 [ 0, %1 ], [ %137, %136 ]
+  %5 = call ptr @flag_Name(i32 noundef %4) #20
   %6 = load ptr, ptr @opts_DECLARATIONS, align 8
   %7 = icmp eq ptr %6, null
   br i1 %7, label %20, label %8
 
 8:                                                ; preds = %3, %16
-  %9 = phi ptr [ %18, %16 ], [ %6, %3 ]
-  %10 = phi i32 [ %17, %16 ], [ 0, %3 ]
-  %11 = getelementptr i8, ptr %9, i64 8
+  %9 = phi i32 [ %18, %16 ], [ 0, %3 ]
+  %10 = phi ptr [ %17, %16 ], [ %6, %3 ]
+  %11 = getelementptr i8, ptr %10, i64 8
   %12 = load ptr, ptr %11, align 8
   %13 = load ptr, ptr %12, align 8
   %14 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %5) #18
@@ -2811,16 +2866,16 @@ define dso_local void @opts_SetFlags(ptr nocapture noundef writeonly %0) local_u
   br i1 %15, label %20, label %16
 
 16:                                               ; preds = %8
-  %17 = add nuw nsw i32 %10, 1
-  %18 = load ptr, ptr %9, align 8
-  %19 = icmp eq ptr %18, null
+  %17 = load ptr, ptr %10, align 8
+  %18 = add nuw nsw i32 %9, 1
+  %19 = icmp eq ptr %17, null
   br i1 %19, label %20, label %8, !llvm.loop !5
 
 20:                                               ; preds = %8, %16, %3
-  %21 = phi i32 [ -1, %3 ], [ -1, %16 ], [ %10, %8 ]
+  %21 = phi i32 [ -1, %3 ], [ -1, %16 ], [ %9, %8 ]
   %22 = load ptr, ptr @opts_PARAMETERS, align 8
   %23 = icmp eq ptr %22, null
-  br i1 %23, label %133, label %24
+  br i1 %23, label %136, label %24
 
 24:                                               ; preds = %20, %24
   %25 = phi ptr [ %33, %24 ], [ %22, %20 ]
@@ -2834,163 +2889,170 @@ define dso_local void @opts_SetFlags(ptr nocapture noundef writeonly %0) local_u
   %33 = load ptr, ptr %25, align 8
   %34 = icmp eq ptr %33, null
   %35 = select i1 %32, i1 true, i1 %34
-  br i1 %35, label %36, label %24
+  br i1 %35, label %36, label %24, !llvm.loop !67
 
 36:                                               ; preds = %24
-  br i1 %32, label %37, label %133
+  br i1 %32, label %37, label %136
 
 37:                                               ; preds = %36
-  %38 = add i32 %21, 1
-  %39 = and i32 %38, 7
-  %40 = icmp ult i32 %21, 7
-  br i1 %40, label %56, label %41
+  %38 = icmp eq i32 %21, 0
+  br i1 %38, label %67, label %39
 
-41:                                               ; preds = %37
-  %42 = and i32 %38, -8
-  br label %43
+39:                                               ; preds = %37
+  %40 = and i32 %21, 7
+  %41 = icmp ult i32 %21, 8
+  br i1 %41, label %57, label %42
 
-43:                                               ; preds = %43, %41
-  %44 = phi ptr [ @opts_DECLARATIONS, %41 ], [ %53, %43 ]
-  %45 = phi i32 [ 0, %41 ], [ %54, %43 ]
-  %46 = load ptr, ptr %44, align 8, !nonnull !9
-  %47 = load ptr, ptr %46, align 8, !nonnull !9
+42:                                               ; preds = %39
+  %43 = and i32 %21, -8
+  br label %44
+
+44:                                               ; preds = %44, %42
+  %45 = phi ptr [ %6, %42 ], [ %54, %44 ]
+  %46 = phi i32 [ 0, %42 ], [ %55, %44 ]
+  %47 = load ptr, ptr %45, align 8, !nonnull !9
   %48 = load ptr, ptr %47, align 8, !nonnull !9
   %49 = load ptr, ptr %48, align 8, !nonnull !9
   %50 = load ptr, ptr %49, align 8, !nonnull !9
   %51 = load ptr, ptr %50, align 8, !nonnull !9
   %52 = load ptr, ptr %51, align 8, !nonnull !9
   %53 = load ptr, ptr %52, align 8, !nonnull !9
-  %54 = add i32 %45, 8
-  %55 = icmp eq i32 %54, %42
-  br i1 %55, label %56, label %43
+  %54 = load ptr, ptr %53, align 8, !nonnull !9
+  %55 = add i32 %46, 8
+  %56 = icmp eq i32 %55, %43
+  br i1 %56, label %57, label %44
 
-56:                                               ; preds = %43, %37
-  %57 = phi ptr [ undef, %37 ], [ %53, %43 ]
-  %58 = phi ptr [ @opts_DECLARATIONS, %37 ], [ %53, %43 ]
-  %59 = icmp eq i32 %39, 0
-  br i1 %59, label %66, label %60
+57:                                               ; preds = %44, %39
+  %58 = phi ptr [ undef, %39 ], [ %54, %44 ]
+  %59 = phi ptr [ %6, %39 ], [ %54, %44 ]
+  %60 = icmp eq i32 %40, 0
+  br i1 %60, label %67, label %61
 
-60:                                               ; preds = %56, %60
-  %61 = phi ptr [ %63, %60 ], [ %58, %56 ]
-  %62 = phi i32 [ %64, %60 ], [ 0, %56 ]
-  %63 = load ptr, ptr %61, align 8, !nonnull !9
-  %64 = add i32 %62, 1
-  %65 = icmp eq i32 %64, %39
-  br i1 %65, label %66, label %60, !llvm.loop !66
+61:                                               ; preds = %57, %61
+  %62 = phi ptr [ %64, %61 ], [ %59, %57 ]
+  %63 = phi i32 [ %65, %61 ], [ 0, %57 ]
+  %64 = load ptr, ptr %62, align 8, !nonnull !9
+  %65 = add i32 %63, 1
+  %66 = icmp eq i32 %65, %40
+  br i1 %66, label %67, label %61, !llvm.loop !70
 
-66:                                               ; preds = %60, %56
-  %67 = phi ptr [ %57, %56 ], [ %63, %60 ]
-  %68 = getelementptr i8, ptr %67, i64 8
-  %69 = load ptr, ptr %68, align 8
+67:                                               ; preds = %57, %61, %37
+  %68 = phi ptr [ %6, %37 ], [ %58, %57 ], [ %64, %61 ]
+  %69 = getelementptr i8, ptr %68, i64 8
   %70 = load ptr, ptr %69, align 8
-  br label %71
+  %71 = load ptr, ptr %70, align 8
+  br label %72
 
-71:                                               ; preds = %110, %66
-  %72 = phi ptr [ @opts_PARAMETERS, %66 ], [ %73, %110 ]
-  %73 = load ptr, ptr %72, align 8
-  %74 = icmp eq ptr %73, null
-  br i1 %74, label %123, label %75
-
-75:                                               ; preds = %71
-  %76 = getelementptr i8, ptr %73, i64 8
+72:                                               ; preds = %67, %109
+  %73 = phi ptr [ %116, %109 ], [ %22, %67 ]
+  %74 = getelementptr i8, ptr %73, i64 8
+  %75 = load ptr, ptr %74, align 8
+  %76 = getelementptr i8, ptr %75, i64 8
   %77 = load ptr, ptr %76, align 8
-  %78 = getelementptr i8, ptr %77, i64 8
-  %79 = load ptr, ptr %78, align 8
-  %80 = ptrtoint ptr %79 to i64
-  %81 = trunc i64 %80 to i32
-  %82 = add i32 %81, 1
-  %83 = and i32 %82, 7
-  %84 = icmp ult i32 %81, 7
-  br i1 %84, label %100, label %85
+  %78 = ptrtoint ptr %77 to i64
+  %79 = trunc i64 %78 to i32
+  %80 = icmp eq i32 %79, 0
+  br i1 %80, label %109, label %81
 
-85:                                               ; preds = %75
-  %86 = and i32 %82, -8
-  br label %87
+81:                                               ; preds = %72
+  %82 = and i32 %79, 7
+  %83 = icmp ult i32 %79, 8
+  br i1 %83, label %99, label %84
 
-87:                                               ; preds = %87, %85
-  %88 = phi ptr [ @opts_DECLARATIONS, %85 ], [ %97, %87 ]
-  %89 = phi i32 [ 0, %85 ], [ %98, %87 ]
-  %90 = load ptr, ptr %88, align 8, !nonnull !9
+84:                                               ; preds = %81
+  %85 = and i32 %79, -8
+  br label %86
+
+86:                                               ; preds = %86, %84
+  %87 = phi ptr [ %6, %84 ], [ %96, %86 ]
+  %88 = phi i32 [ 0, %84 ], [ %97, %86 ]
+  %89 = load ptr, ptr %87, align 8, !nonnull !9
+  %90 = load ptr, ptr %89, align 8, !nonnull !9
   %91 = load ptr, ptr %90, align 8, !nonnull !9
   %92 = load ptr, ptr %91, align 8, !nonnull !9
   %93 = load ptr, ptr %92, align 8, !nonnull !9
   %94 = load ptr, ptr %93, align 8, !nonnull !9
   %95 = load ptr, ptr %94, align 8, !nonnull !9
   %96 = load ptr, ptr %95, align 8, !nonnull !9
-  %97 = load ptr, ptr %96, align 8, !nonnull !9
-  %98 = add i32 %89, 8
-  %99 = icmp eq i32 %98, %86
-  br i1 %99, label %100, label %87
+  %97 = add i32 %88, 8
+  %98 = icmp eq i32 %97, %85
+  br i1 %98, label %99, label %86
 
-100:                                              ; preds = %87, %75
-  %101 = phi ptr [ undef, %75 ], [ %97, %87 ]
-  %102 = phi ptr [ @opts_DECLARATIONS, %75 ], [ %97, %87 ]
-  %103 = icmp eq i32 %83, 0
-  br i1 %103, label %110, label %104
+99:                                               ; preds = %86, %81
+  %100 = phi ptr [ undef, %81 ], [ %96, %86 ]
+  %101 = phi ptr [ %6, %81 ], [ %96, %86 ]
+  %102 = icmp eq i32 %82, 0
+  br i1 %102, label %109, label %103
 
-104:                                              ; preds = %100, %104
-  %105 = phi ptr [ %107, %104 ], [ %102, %100 ]
-  %106 = phi i32 [ %108, %104 ], [ 0, %100 ]
-  %107 = load ptr, ptr %105, align 8, !nonnull !9
-  %108 = add i32 %106, 1
-  %109 = icmp eq i32 %108, %83
-  br i1 %109, label %110, label %104, !llvm.loop !67
+103:                                              ; preds = %99, %103
+  %104 = phi ptr [ %106, %103 ], [ %101, %99 ]
+  %105 = phi i32 [ %107, %103 ], [ 0, %99 ]
+  %106 = load ptr, ptr %104, align 8, !nonnull !9
+  %107 = add i32 %105, 1
+  %108 = icmp eq i32 %107, %82
+  br i1 %108, label %109, label %103, !llvm.loop !71
 
-110:                                              ; preds = %104, %100
-  %111 = phi ptr [ %101, %100 ], [ %107, %104 ]
-  %112 = getelementptr i8, ptr %111, i64 8
+109:                                              ; preds = %99, %103, %72
+  %110 = phi ptr [ %6, %72 ], [ %100, %99 ], [ %106, %103 ]
+  %111 = getelementptr i8, ptr %110, i64 8
+  %112 = load ptr, ptr %111, align 8
   %113 = load ptr, ptr %112, align 8
-  %114 = load ptr, ptr %113, align 8
-  %115 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %70, ptr noundef nonnull dereferenceable(1) %114) #18
-  %116 = icmp eq i32 %115, 0
-  br i1 %116, label %117, label %71
+  %114 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %71, ptr noundef nonnull dereferenceable(1) %113) #18
+  %115 = icmp eq i32 %114, 0
+  %116 = load ptr, ptr %73, align 8
+  %117 = icmp eq ptr %116, null
+  %118 = select i1 %115, i1 true, i1 %117
+  br i1 %118, label %119, label %72, !llvm.loop !63
 
-117:                                              ; preds = %110
-  %118 = load ptr, ptr %77, align 8
-  %119 = call i32 @string_StringToInt(ptr noundef %118, i32 noundef 0, ptr noundef nonnull %2) #19
-  %120 = icmp eq i32 %119, 0
-  br i1 %120, label %123, label %121
+119:                                              ; preds = %109
+  br i1 %115, label %120, label %126
 
-121:                                              ; preds = %117
-  %122 = load i32, ptr %2, align 4
-  call fastcc void @flag_SetFlagValue(ptr noundef %0, i32 noundef %21, i32 noundef %122)
-  br label %133
+120:                                              ; preds = %119
+  %121 = load ptr, ptr %75, align 8
+  %122 = call i32 @string_StringToInt(ptr noundef %121, i32 noundef 0, ptr noundef nonnull %2) #20
+  %123 = icmp eq i32 %122, 0
+  br i1 %123, label %126, label %124
 
-123:                                              ; preds = %117, %71
-  %124 = load ptr, ptr @stdout, align 8
-  %125 = call i32 @fflush(ptr noundef %124)
-  %126 = call ptr @flag_Name(i32 noundef %4) #19
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.11, ptr noundef %126) #19
-  %127 = load ptr, ptr @stderr, align 8
+124:                                              ; preds = %120
+  %125 = load i32, ptr %2, align 4
+  call fastcc void @flag_SetFlagValue(ptr noundef %0, i32 noundef %21, i32 noundef %125)
+  br label %136
+
+126:                                              ; preds = %119, %120
+  %127 = load ptr, ptr @stdout, align 8
   %128 = call i32 @fflush(ptr noundef %127)
-  %129 = load ptr, ptr @stdout, align 8
-  %130 = call i32 @fflush(ptr noundef %129)
-  %131 = load ptr, ptr @stderr, align 8
-  %132 = call i32 @fflush(ptr noundef %131)
+  %129 = call ptr @flag_Name(i32 noundef %4) #20
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.11, ptr noundef %129) #20
+  %130 = load ptr, ptr @stderr, align 8
+  %131 = call i32 @fflush(ptr noundef %130)
+  %132 = load ptr, ptr @stdout, align 8
+  %133 = call i32 @fflush(ptr noundef %132)
+  %134 = load ptr, ptr @stderr, align 8
+  %135 = call i32 @fflush(ptr noundef %134)
   call void @exit(i32 noundef 1) #21
   unreachable
 
-133:                                              ; preds = %20, %36, %121
-  %134 = add nuw nsw i32 %4, 1
-  %135 = icmp eq i32 %134, 96
-  br i1 %135, label %136, label %3, !llvm.loop !68
+136:                                              ; preds = %20, %36, %124
+  %137 = add nuw nsw i32 %4, 1
+  %138 = icmp eq i32 %137, 96
+  br i1 %138, label %139, label %3, !llvm.loop !72
 
-136:                                              ; preds = %133
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #19
+139:                                              ; preds = %136
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #20
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
 define internal fastcc void @flag_SetFlagValue(ptr nocapture noundef writeonly %0, i32 noundef %1, i32 noundef %2) unnamed_addr #13 {
-  %4 = tail call i32 @flag_Minimum(i32 noundef %1) #19
+  %4 = tail call i32 @flag_Minimum(i32 noundef %1) #20
   %5 = icmp slt i32 %4, %2
   br i1 %5, label %16, label %6
 
 6:                                                ; preds = %3
   %7 = load ptr, ptr @stdout, align 8
   %8 = tail call i32 @fflush(ptr noundef %7)
-  %9 = tail call ptr @flag_Name(i32 noundef %1) #19
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.16, i32 noundef %2, ptr noundef %9) #19
+  %9 = tail call ptr @flag_Name(i32 noundef %1) #20
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.16, i32 noundef %2, ptr noundef %9) #20
   %10 = load ptr, ptr @stderr, align 8
   %11 = tail call i32 @fflush(ptr noundef %10)
   %12 = load ptr, ptr @stdout, align 8
@@ -3001,15 +3063,15 @@ define internal fastcc void @flag_SetFlagValue(ptr nocapture noundef writeonly %
   unreachable
 
 16:                                               ; preds = %3
-  %17 = tail call i32 @flag_Maximum(i32 noundef %1) #19
+  %17 = tail call i32 @flag_Maximum(i32 noundef %1) #20
   %18 = icmp sgt i32 %17, %2
   br i1 %18, label %29, label %19
 
 19:                                               ; preds = %16
   %20 = load ptr, ptr @stdout, align 8
   %21 = tail call i32 @fflush(ptr noundef %20)
-  %22 = tail call ptr @flag_Name(i32 noundef %1) #19
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.17, i32 noundef %2, ptr noundef %22) #19
+  %22 = tail call ptr @flag_Name(i32 noundef %1) #20
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.17, i32 noundef %2, ptr noundef %22) #20
   %23 = load ptr, ptr @stderr, align 8
   %24 = tail call i32 @fflush(ptr noundef %23)
   %25 = load ptr, ptr @stdout, align 8
@@ -3029,13 +3091,13 @@ define internal fastcc void @flag_SetFlagValue(ptr nocapture noundef writeonly %
 ; Function Attrs: nounwind uwtable
 define dso_local void @opts_Transfer(ptr nocapture noundef writeonly %0) local_unnamed_addr #1 {
   %2 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #19
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #20
   %3 = load ptr, ptr @opts_PARAMETERS, align 8
   %4 = icmp eq ptr %3, null
-  br i1 %4, label %63, label %5
+  br i1 %4, label %65, label %5
 
-5:                                                ; preds = %1, %58
-  %6 = phi ptr [ %61, %58 ], [ %3, %1 ]
+5:                                                ; preds = %1, %60
+  %6 = phi ptr [ %63, %60 ], [ %3, %1 ]
   %7 = getelementptr i8, ptr %6, i64 8
   %8 = load ptr, ptr %7, align 8
   %9 = getelementptr i8, ptr %8, i64 8
@@ -3043,76 +3105,80 @@ define dso_local void @opts_Transfer(ptr nocapture noundef writeonly %0) local_u
   %11 = ptrtoint ptr %10 to i64
   %12 = trunc i64 %11 to i32
   %13 = load ptr, ptr %8, align 8
-  %14 = add i32 %12, 1
-  %15 = and i32 %14, 7
-  %16 = icmp ult i32 %12, 7
-  br i1 %16, label %32, label %17
+  %14 = load ptr, ptr @opts_DECLARATIONS, align 8, !nonnull !9
+  %15 = icmp eq i32 %12, 0
+  br i1 %15, label %44, label %16
 
-17:                                               ; preds = %5
-  %18 = and i32 %14, -8
-  br label %19
+16:                                               ; preds = %5
+  %17 = and i32 %12, 7
+  %18 = icmp ult i32 %12, 8
+  br i1 %18, label %34, label %19
 
-19:                                               ; preds = %19, %17
-  %20 = phi ptr [ @opts_DECLARATIONS, %17 ], [ %29, %19 ]
-  %21 = phi i32 [ 0, %17 ], [ %30, %19 ]
-  %22 = load ptr, ptr %20, align 8, !nonnull !9
-  %23 = load ptr, ptr %22, align 8, !nonnull !9
-  %24 = load ptr, ptr %23, align 8, !nonnull !9
+19:                                               ; preds = %16
+  %20 = and i32 %12, -8
+  br label %21
+
+21:                                               ; preds = %21, %19
+  %22 = phi ptr [ %14, %19 ], [ %31, %21 ]
+  %23 = phi i32 [ 0, %19 ], [ %32, %21 ]
+  %24 = load ptr, ptr %22, align 8, !nonnull !9
   %25 = load ptr, ptr %24, align 8, !nonnull !9
   %26 = load ptr, ptr %25, align 8, !nonnull !9
   %27 = load ptr, ptr %26, align 8, !nonnull !9
   %28 = load ptr, ptr %27, align 8, !nonnull !9
   %29 = load ptr, ptr %28, align 8, !nonnull !9
-  %30 = add i32 %21, 8
-  %31 = icmp eq i32 %30, %18
-  br i1 %31, label %32, label %19
+  %30 = load ptr, ptr %29, align 8, !nonnull !9
+  %31 = load ptr, ptr %30, align 8, !nonnull !9
+  %32 = add i32 %23, 8
+  %33 = icmp eq i32 %32, %20
+  br i1 %33, label %34, label %21
 
-32:                                               ; preds = %19, %5
-  %33 = phi ptr [ undef, %5 ], [ %29, %19 ]
-  %34 = phi ptr [ @opts_DECLARATIONS, %5 ], [ %29, %19 ]
-  %35 = icmp eq i32 %15, 0
-  br i1 %35, label %42, label %36
+34:                                               ; preds = %21, %16
+  %35 = phi ptr [ undef, %16 ], [ %31, %21 ]
+  %36 = phi ptr [ %14, %16 ], [ %31, %21 ]
+  %37 = icmp eq i32 %17, 0
+  br i1 %37, label %44, label %38
 
-36:                                               ; preds = %32, %36
-  %37 = phi ptr [ %39, %36 ], [ %34, %32 ]
-  %38 = phi i32 [ %40, %36 ], [ 0, %32 ]
-  %39 = load ptr, ptr %37, align 8, !nonnull !9
-  %40 = add i32 %38, 1
-  %41 = icmp eq i32 %40, %15
-  br i1 %41, label %42, label %36, !llvm.loop !69
+38:                                               ; preds = %34, %38
+  %39 = phi ptr [ %41, %38 ], [ %36, %34 ]
+  %40 = phi i32 [ %42, %38 ], [ 0, %34 ]
+  %41 = load ptr, ptr %39, align 8, !nonnull !9
+  %42 = add i32 %40, 1
+  %43 = icmp eq i32 %42, %17
+  br i1 %43, label %44, label %38, !llvm.loop !73
 
-42:                                               ; preds = %36, %32
-  %43 = phi ptr [ %33, %32 ], [ %39, %36 ]
-  %44 = getelementptr i8, ptr %43, i64 8
-  %45 = load ptr, ptr %44, align 8
-  %46 = load ptr, ptr %45, align 8
-  %47 = call i32 @string_StringToInt(ptr noundef %13, i32 noundef 0, ptr noundef nonnull %2) #19
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %58
+44:                                               ; preds = %34, %38, %5
+  %45 = phi ptr [ %14, %5 ], [ %35, %34 ], [ %41, %38 ]
+  %46 = getelementptr i8, ptr %45, i64 8
+  %47 = load ptr, ptr %46, align 8
+  %48 = load ptr, ptr %47, align 8
+  %49 = call i32 @string_StringToInt(ptr noundef %13, i32 noundef 0, ptr noundef nonnull %2) #20
+  %50 = icmp eq i32 %49, 0
+  br i1 %50, label %51, label %60
 
-49:                                               ; preds = %42
-  %50 = load ptr, ptr @stdout, align 8
-  %51 = call i32 @fflush(ptr noundef %50)
-  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.12, ptr noundef %13, ptr noundef %46) #19
-  %52 = load ptr, ptr @stderr, align 8
+51:                                               ; preds = %44
+  %52 = load ptr, ptr @stdout, align 8
   %53 = call i32 @fflush(ptr noundef %52)
-  %54 = load ptr, ptr @stdout, align 8
+  call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.12, ptr noundef %13, ptr noundef %48) #20
+  %54 = load ptr, ptr @stderr, align 8
   %55 = call i32 @fflush(ptr noundef %54)
-  %56 = load ptr, ptr @stderr, align 8
+  %56 = load ptr, ptr @stdout, align 8
   %57 = call i32 @fflush(ptr noundef %56)
+  %58 = load ptr, ptr @stderr, align 8
+  %59 = call i32 @fflush(ptr noundef %58)
   call void @exit(i32 noundef 1) #21
   unreachable
 
-58:                                               ; preds = %42
-  %59 = call i32 @flag_Id(ptr noundef %46) #19
-  %60 = load i32, ptr %2, align 4
-  call fastcc void @flag_SetFlagValue(ptr noundef %0, i32 noundef %59, i32 noundef %60)
-  %61 = load ptr, ptr %6, align 8
-  %62 = icmp eq ptr %61, null
-  br i1 %62, label %63, label %5, !llvm.loop !70
+60:                                               ; preds = %44
+  %61 = call i32 @flag_Id(ptr noundef %48) #20
+  %62 = load i32, ptr %2, align 4
+  call fastcc void @flag_SetFlagValue(ptr noundef %0, i32 noundef %61, i32 noundef %62)
+  %63 = load ptr, ptr %6, align 8
+  %64 = icmp eq ptr %63, null
+  br i1 %64, label %65, label %5, !llvm.loop !74
 
-63:                                               ; preds = %58, %1
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #19
+65:                                               ; preds = %60, %1
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #20
   ret void
 }
 
@@ -3172,8 +3238,8 @@ attributes #15 = { mustprogress nounwind willreturn allockind("free") memory(arg
 attributes #16 = { nofree nounwind memory(read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #17 = { nofree nounwind }
 attributes #18 = { nounwind willreturn memory(read) }
-attributes #19 = { nounwind }
-attributes #20 = { cold }
+attributes #19 = { cold }
+attributes #20 = { nounwind }
 attributes #21 = { noreturn nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
@@ -3238,15 +3304,19 @@ attributes #21 = { noreturn nounwind }
 !56 = distinct !{!56, !11}
 !57 = distinct !{!57, !6}
 !58 = distinct !{!58, !6}
-!59 = distinct !{!59, !11}
-!60 = distinct !{!60, !6}
-!61 = distinct !{!61, !11}
+!59 = distinct !{!59, !6}
+!60 = distinct !{!60, !11}
+!61 = distinct !{!61, !6}
 !62 = distinct !{!62, !11}
-!63 = distinct !{!63, !11}
+!63 = distinct !{!63, !6}
 !64 = distinct !{!64, !11}
 !65 = distinct !{!65, !11}
 !66 = distinct !{!66, !11}
-!67 = distinct !{!67, !11}
-!68 = distinct !{!68, !6}
-!69 = distinct !{!69, !11}
-!70 = distinct !{!70, !6}
+!67 = distinct !{!67, !6}
+!68 = distinct !{!68, !11}
+!69 = distinct !{!69, !6}
+!70 = distinct !{!70, !11}
+!71 = distinct !{!71, !11}
+!72 = distinct !{!72, !6}
+!73 = distinct !{!73, !11}
+!74 = distinct !{!74, !6}

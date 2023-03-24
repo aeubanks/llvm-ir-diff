@@ -86,10 +86,10 @@ define dso_local noundef i32 @_Z16getHexxagonIndexii(i32 noundef %0, i32 noundef
   %29 = select i1 %27, i32 %28, i32 %26
   %30 = icmp ugt i32 %1, 4
   %31 = sext i1 %30 to i32
-  %32 = xor i1 %14, true
-  %33 = sext i1 %32 to i32
-  %34 = add nsw i32 %33, %31
-  %35 = add nsw i32 %34, %29
+  %32 = add nsw i32 %29, %31
+  %33 = xor i1 %14, true
+  %34 = sext i1 %33 to i32
+  %35 = add nsw i32 %32, %34
   %36 = icmp ugt i32 %1, 6
   %37 = add nsw i32 %35, -2
   %38 = select i1 %36, i32 %37, i32 %35
@@ -133,260 +133,280 @@ define dso_local void @_Z16initCloneLookupsv() local_unnamed_addr #5 personality
   %10 = icmp eq i64 %9, 61
   br i1 %10, label %11, label %4, !llvm.loop !13
 
-11:                                               ; preds = %4, %63
-  %12 = phi i32 [ %51, %63 ], [ 1, %4 ]
-  %13 = phi i32 [ %220, %63 ], [ 0, %4 ]
-  %14 = icmp ult i32 %12, 5
-  %15 = add nuw nsw i32 %12, 4
-  %16 = icmp ugt i32 %12, 5
-  %17 = add nsw i32 %12, -5
-  %18 = add nsw i32 %12, -1
-  %19 = icmp ult i32 %12, 2
-  %20 = icmp ult i32 %12, 6
-  %21 = add nuw nsw i32 %12, 3
-  %22 = icmp ult i32 %12, 7
-  %23 = mul nuw nsw i32 %18, 9
-  %24 = icmp ugt i32 %18, 1
-  %25 = select i1 %24, i32 -14, i32 -10
-  %26 = add i32 %25, %23
-  %27 = icmp ugt i32 %18, 2
-  %28 = icmp ugt i32 %18, 3
-  %29 = icmp ugt i32 %18, 4
-  %30 = sext i1 %29 to i32
-  %31 = xor i1 %22, true
+11:                                               ; preds = %4, %65
+  %12 = phi i1 [ %55, %65 ], [ true, %4 ]
+  %13 = phi i32 [ %54, %65 ], [ 1, %4 ]
+  %14 = phi i32 [ %228, %65 ], [ 0, %4 ]
+  %15 = icmp ult i32 %13, 5
+  %16 = add nuw nsw i32 %13, 4
+  %17 = icmp ult i32 %13, 6
+  %18 = add nsw i32 %13, -5
+  %19 = add nsw i32 %13, -1
+  %20 = add nsw i32 %13, -2
+  %21 = icmp ult i32 %20, 9
+  %22 = icmp ugt i32 %13, 5
+  %23 = add nuw nsw i32 %13, 3
+  %24 = icmp ult i32 %13, 7
+  %25 = mul nuw nsw i32 %19, 9
+  %26 = icmp ugt i32 %19, 1
+  %27 = select i1 %26, i32 -14, i32 -10
+  %28 = add i32 %27, %25
+  %29 = icmp ugt i32 %19, 2
+  %30 = icmp ugt i32 %19, 3
+  %31 = icmp ugt i32 %19, 4
   %32 = sext i1 %31 to i32
-  %33 = add nsw i32 %30, %32
-  %34 = icmp ugt i32 %18, 6
-  %35 = icmp ugt i32 %18, 7
-  %36 = add nsw i32 %12, -6
-  %37 = mul nuw nsw i32 %12, 9
-  %38 = icmp ugt i32 %12, 1
-  %39 = select i1 %38, i32 -14, i32 -10
-  %40 = add nsw i32 %39, %37
-  %41 = icmp ugt i32 %12, 2
-  %42 = icmp ugt i32 %12, 3
-  %43 = icmp ugt i32 %12, 4
-  %44 = sext i1 %43 to i32
-  %45 = xor i1 %20, true
-  %46 = sext i1 %45 to i32
-  %47 = add nsw i32 %46, %44
-  %48 = icmp ugt i32 %12, 6
-  %49 = icmp ugt i32 %12, 7
-  %50 = icmp ugt i32 %12, 8
-  %51 = add nuw nsw i32 %12, 1
-  %52 = icmp ult i32 %12, 9
-  %53 = add nuw nsw i32 %12, 5
-  %54 = add nsw i32 %12, -4
-  %55 = mul nuw nsw i32 %51, 9
-  %56 = select i1 %38, i32 -17, i32 -14
-  %57 = add nsw i32 %56, %55
-  %58 = sext i1 %42 to i32
-  %59 = xor i1 %14, true
-  %60 = sext i1 %59 to i32
-  %61 = add nsw i32 %60, %58
-  br label %65
+  %33 = xor i1 %24, true
+  %34 = sext i1 %33 to i32
+  %35 = add nsw i32 %32, %34
+  %36 = icmp ugt i32 %19, 6
+  %37 = icmp ugt i32 %19, 7
+  %38 = add nsw i32 %13, -6
+  %39 = add nsw i32 %13, -4
+  %40 = mul nuw nsw i32 %13, 9
+  %41 = icmp ugt i32 %13, 1
+  %42 = select i1 %41, i32 -14, i32 -10
+  %43 = add nsw i32 %42, %40
+  %44 = icmp ugt i32 %13, 2
+  %45 = icmp ugt i32 %13, 3
+  %46 = icmp ugt i32 %13, 4
+  %47 = sext i1 %46 to i32
+  %48 = xor i1 %17, true
+  %49 = sext i1 %48 to i32
+  %50 = add nsw i32 %49, %47
+  %51 = icmp ugt i32 %13, 6
+  %52 = icmp ugt i32 %13, 7
+  %53 = icmp ugt i32 %13, 8
+  %54 = add nuw nsw i32 %13, 1
+  %55 = icmp ult i32 %13, 9
+  %56 = add nuw nsw i32 %13, 5
+  %57 = mul nuw nsw i32 %54, 9
+  %58 = select i1 %41, i32 -17, i32 -14
+  %59 = add nsw i32 %58, %57
+  %60 = sext i1 %45 to i32
+  %61 = xor i1 %15, true
+  %62 = sext i1 %61 to i32
+  %63 = add nsw i32 %62, %60
+  br label %67
 
-62:                                               ; preds = %63
+64:                                               ; preds = %65
   ret void
 
-63:                                               ; preds = %218
-  %64 = icmp eq i32 %51, 10
-  br i1 %64, label %62, label %11, !llvm.loop !15
+65:                                               ; preds = %226
+  %66 = icmp eq i32 %54, 10
+  br i1 %66, label %64, label %11, !llvm.loop !15
 
-65:                                               ; preds = %11, %218
-  %66 = phi i32 [ 1, %11 ], [ %219, %218 ]
-  %67 = phi i32 [ %13, %11 ], [ %220, %218 ]
-  %68 = icmp ugt i32 %66, %15
-  %69 = select i1 %14, i1 %68, i1 false
-  %70 = icmp sle i32 %66, %17
-  %71 = select i1 %16, i1 %70, i1 false
-  %72 = select i1 %71, i1 true, i1 %69
-  br i1 %72, label %73, label %75
+67:                                               ; preds = %11, %226
+  %68 = phi i32 [ 1, %11 ], [ %227, %226 ]
+  %69 = phi i32 [ %14, %11 ], [ %228, %226 ]
+  %70 = icmp ule i32 %68, %16
+  %71 = select i1 %61, i1 true, i1 %70
+  %72 = icmp sgt i32 %68, %18
+  %73 = select i1 %17, i1 true, i1 %72
+  %74 = select i1 %73, i1 %71, i1 false
+  br i1 %74, label %77, label %75
 
-73:                                               ; preds = %65
-  %74 = add nuw nsw i32 %66, 1
-  br label %218
+75:                                               ; preds = %67
+  %76 = add nuw nsw i32 %68, 1
+  br label %226
 
-75:                                               ; preds = %65
-  %76 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
-  %77 = sext i32 %67 to i64
-  %78 = getelementptr inbounds %class.BitBoard64, ptr %76, i64 %77
-  %79 = add nsw i32 %66, -1
-  %80 = icmp ult i32 %66, 2
-  %81 = or i1 %19, %80
-  %82 = icmp ult i32 %21, %79
-  %83 = and i1 %20, %82
-  %84 = select i1 %81, i1 true, i1 %83
-  %85 = xor i1 %84, true
-  %86 = icmp slt i32 %17, %66
-  %87 = select i1 %22, i1 true, i1 %86
-  %88 = select i1 %85, i1 %87, i1 false
-  br i1 %88, label %89, label %100
+77:                                               ; preds = %67
+  %78 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
+  %79 = sext i32 %69 to i64
+  %80 = getelementptr inbounds %class.BitBoard64, ptr %78, i64 %79
+  %81 = add nsw i32 %68, -1
+  %82 = add nsw i32 %68, -2
+  %83 = icmp ult i32 %82, 9
+  %84 = and i1 %21, %83
+  br i1 %84, label %85, label %105
 
-89:                                               ; preds = %75
-  %90 = add nsw i32 %26, %79
-  %91 = add nsw i32 %90, -3
-  %92 = select i1 %27, i32 %91, i32 %90
-  %93 = add nsw i32 %92, -2
-  %94 = select i1 %28, i32 %93, i32 %92
-  %95 = add nsw i32 %33, %94
-  %96 = add nsw i32 %95, -2
-  %97 = select i1 %34, i32 %96, i32 %95
-  %98 = add nsw i32 %97, -3
-  %99 = select i1 %35, i32 %98, i32 %97
-  br label %100
+85:                                               ; preds = %77
+  %86 = icmp uge i32 %23, %81
+  %87 = or i1 %22, %86
+  %88 = select i1 %24, i1 true, i1 %72
+  %89 = select i1 %87, i1 %88, i1 false
+  br i1 %89, label %90, label %101
 
-100:                                              ; preds = %75, %89
-  %101 = phi i32 [ %99, %89 ], [ -1, %75 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %78, i32 noundef %101)
-  %102 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
-  %103 = getelementptr inbounds %class.BitBoard64, ptr %102, i64 %77
-  %104 = icmp ult i32 %21, %66
-  %105 = and i1 %20, %104
-  %106 = select i1 %19, i1 true, i1 %105
-  %107 = xor i1 %106, true
-  %108 = icmp slt i32 %36, %66
-  %109 = select i1 %22, i1 true, i1 %108
-  %110 = select i1 %107, i1 %109, i1 false
-  br i1 %110, label %111, label %122
+90:                                               ; preds = %85
+  %91 = add nsw i32 %28, %81
+  %92 = add nsw i32 %91, -3
+  %93 = select i1 %29, i32 %92, i32 %91
+  %94 = add nsw i32 %93, -2
+  %95 = select i1 %30, i32 %94, i32 %93
+  %96 = add i32 %35, %95
+  %97 = add nsw i32 %96, -2
+  %98 = select i1 %36, i32 %97, i32 %96
+  %99 = add nsw i32 %98, -3
+  %100 = select i1 %37, i32 %99, i32 %98
+  br label %101
 
-111:                                              ; preds = %100
-  %112 = add i32 %26, %66
-  %113 = add nsw i32 %112, -3
-  %114 = select i1 %27, i32 %113, i32 %112
-  %115 = add nsw i32 %114, -2
-  %116 = select i1 %28, i32 %115, i32 %114
-  %117 = add nsw i32 %33, %116
-  %118 = add nsw i32 %117, -2
-  %119 = select i1 %34, i32 %118, i32 %117
-  %120 = add nsw i32 %119, -3
-  %121 = select i1 %35, i32 %120, i32 %119
-  br label %122
+101:                                              ; preds = %85, %90
+  %102 = phi i32 [ -1, %85 ], [ %100, %90 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %80, i32 noundef %102)
+  %103 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
+  %104 = getelementptr inbounds %class.BitBoard64, ptr %103, i64 %79
+  br label %108
 
-122:                                              ; preds = %100, %111
-  %123 = phi i32 [ %121, %111 ], [ -1, %100 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %103, i32 noundef %123)
-  %124 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
-  %125 = getelementptr inbounds %class.BitBoard64, ptr %124, i64 %77
-  %126 = icmp ult i32 %15, %79
-  %127 = and i1 %14, %126
-  %128 = select i1 %80, i1 true, i1 %127
-  %129 = xor i1 %128, true
-  %130 = icmp slt i32 %17, %79
-  %131 = select i1 %20, i1 true, i1 %130
-  %132 = select i1 %129, i1 %131, i1 false
-  br i1 %132, label %133, label %146
+105:                                              ; preds = %77
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %80, i32 noundef -1)
+  %106 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
+  %107 = getelementptr inbounds %class.BitBoard64, ptr %106, i64 %79
+  br i1 %21, label %108, label %126
 
-133:                                              ; preds = %122
-  %134 = add nsw i32 %40, %79
-  %135 = add nsw i32 %134, -3
-  %136 = select i1 %41, i32 %135, i32 %134
-  %137 = add nsw i32 %136, -2
-  %138 = select i1 %42, i32 %137, i32 %136
-  %139 = add nsw i32 %47, %138
-  %140 = add nsw i32 %139, -2
-  %141 = select i1 %48, i32 %140, i32 %139
-  %142 = add nsw i32 %141, -3
-  %143 = select i1 %49, i32 %142, i32 %141
-  %144 = add nsw i32 %143, -4
-  %145 = select i1 %50, i32 %144, i32 %143
-  br label %146
+108:                                              ; preds = %101, %105
+  %109 = phi ptr [ %104, %101 ], [ %107, %105 ]
+  %110 = icmp uge i32 %23, %68
+  %111 = or i1 %22, %110
+  %112 = icmp slt i32 %38, %68
+  %113 = select i1 %24, i1 true, i1 %112
+  %114 = select i1 %111, i1 %113, i1 false
+  br i1 %114, label %115, label %126
 
-146:                                              ; preds = %122, %133
-  %147 = phi i32 [ %145, %133 ], [ -1, %122 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %125, i32 noundef %147)
-  %148 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
-  %149 = getelementptr inbounds %class.BitBoard64, ptr %148, i64 %77
-  %150 = add nuw nsw i32 %66, 1
-  %151 = icmp ult i32 %66, 9
-  %152 = icmp ule i32 %15, %66
-  %153 = and i1 %14, %152
-  %154 = xor i1 %153, true
-  %155 = select i1 %151, i1 %154, i1 false
-  %156 = icmp sle i32 %17, %66
-  %157 = select i1 %20, i1 true, i1 %156
-  %158 = select i1 %155, i1 %157, i1 false
-  br i1 %158, label %159, label %172
+115:                                              ; preds = %108
+  %116 = add i32 %28, %68
+  %117 = add nsw i32 %116, -3
+  %118 = select i1 %29, i32 %117, i32 %116
+  %119 = add nsw i32 %118, -2
+  %120 = select i1 %30, i32 %119, i32 %118
+  %121 = add i32 %35, %120
+  %122 = add nsw i32 %121, -2
+  %123 = select i1 %36, i32 %122, i32 %121
+  %124 = add nsw i32 %123, -3
+  %125 = select i1 %37, i32 %124, i32 %123
+  br label %126
 
-159:                                              ; preds = %146
-  %160 = add i32 %40, %150
-  %161 = add nsw i32 %160, -3
-  %162 = select i1 %41, i32 %161, i32 %160
-  %163 = add nsw i32 %162, -2
-  %164 = select i1 %42, i32 %163, i32 %162
-  %165 = add nsw i32 %47, %164
-  %166 = add nsw i32 %165, -2
-  %167 = select i1 %48, i32 %166, i32 %165
+126:                                              ; preds = %105, %108, %115
+  %127 = phi ptr [ %109, %115 ], [ %109, %108 ], [ %107, %105 ]
+  %128 = phi i32 [ %125, %115 ], [ -1, %108 ], [ -1, %105 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %127, i32 noundef %128)
+  %129 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
+  %130 = getelementptr inbounds %class.BitBoard64, ptr %129, i64 %79
+  %131 = and i1 %12, %83
+  %132 = icmp ult i32 %16, %81
+  %133 = and i1 %15, %132
+  %134 = xor i1 %133, true
+  %135 = select i1 %131, i1 %134, i1 false
+  %136 = icmp slt i32 %39, %68
+  %137 = select i1 %17, i1 true, i1 %136
+  %138 = select i1 %135, i1 %137, i1 false
+  br i1 %138, label %139, label %152
+
+139:                                              ; preds = %126
+  %140 = add nsw i32 %43, %81
+  %141 = add nsw i32 %140, -3
+  %142 = select i1 %44, i32 %141, i32 %140
+  %143 = add nsw i32 %142, -2
+  %144 = select i1 %45, i32 %143, i32 %142
+  %145 = add i32 %50, %144
+  %146 = add nsw i32 %145, -2
+  %147 = select i1 %51, i32 %146, i32 %145
+  %148 = add nsw i32 %147, -3
+  %149 = select i1 %52, i32 %148, i32 %147
+  %150 = add nsw i32 %149, -4
+  %151 = select i1 %53, i32 %150, i32 %149
+  br label %152
+
+152:                                              ; preds = %126, %139
+  %153 = phi i32 [ %151, %139 ], [ -1, %126 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %130, i32 noundef %153)
+  %154 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
+  %155 = getelementptr inbounds %class.BitBoard64, ptr %154, i64 %79
+  %156 = add nuw nsw i32 %68, 1
+  %157 = icmp ult i32 %68, 9
+  %158 = and i1 %12, %157
+  %159 = icmp ule i32 %16, %68
+  %160 = and i1 %15, %159
+  %161 = xor i1 %160, true
+  %162 = select i1 %158, i1 %161, i1 false
+  %163 = icmp sle i32 %18, %68
+  %164 = select i1 %17, i1 true, i1 %163
+  %165 = select i1 %162, i1 %164, i1 false
+  br i1 %165, label %166, label %179
+
+166:                                              ; preds = %152
+  %167 = add i32 %43, %156
   %168 = add nsw i32 %167, -3
-  %169 = select i1 %49, i32 %168, i32 %167
-  %170 = add nsw i32 %169, -4
-  %171 = select i1 %50, i32 %170, i32 %169
-  br label %172
+  %169 = select i1 %44, i32 %168, i32 %167
+  %170 = add nsw i32 %169, -2
+  %171 = select i1 %45, i32 %170, i32 %169
+  %172 = add i32 %50, %171
+  %173 = add nsw i32 %172, -2
+  %174 = select i1 %51, i32 %173, i32 %172
+  %175 = add nsw i32 %174, -3
+  %176 = select i1 %52, i32 %175, i32 %174
+  %177 = add nsw i32 %176, -4
+  %178 = select i1 %53, i32 %177, i32 %176
+  br label %179
 
-172:                                              ; preds = %146, %159
-  %173 = phi i32 [ %171, %159 ], [ -1, %146 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %149, i32 noundef %173)
-  %174 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
-  %175 = getelementptr inbounds %class.BitBoard64, ptr %174, i64 %77
-  %176 = icmp uge i32 %53, %66
-  %177 = or i1 %42, %176
-  %178 = select i1 %52, i1 %177, i1 false
-  %179 = icmp slt i32 %54, %66
-  %180 = select i1 %14, i1 true, i1 %179
-  %181 = select i1 %178, i1 %180, i1 false
-  br i1 %181, label %182, label %193
+179:                                              ; preds = %152, %166
+  %180 = phi i32 [ %178, %166 ], [ -1, %152 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %155, i32 noundef %180)
+  %181 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
+  %182 = getelementptr inbounds %class.BitBoard64, ptr %181, i64 %79
+  br i1 %55, label %185, label %183
 
-182:                                              ; preds = %172
-  %183 = add i32 %57, %66
-  %184 = add nsw i32 %183, -2
-  %185 = select i1 %41, i32 %184, i32 %183
-  %186 = add nsw i32 %61, %185
-  %187 = add nsw i32 %186, -2
-  %188 = select i1 %16, i32 %187, i32 %186
-  %189 = add nsw i32 %188, -3
-  %190 = select i1 %48, i32 %189, i32 %188
-  %191 = add nsw i32 %190, -4
-  %192 = select i1 %49, i32 %191, i32 %190
-  br label %193
+183:                                              ; preds = %179
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %182, i32 noundef -1)
+  %184 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
+  br label %221
 
-193:                                              ; preds = %172, %182
-  %194 = phi i32 [ %192, %182 ], [ -1, %172 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %175, i32 noundef %194)
-  %195 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
-  %196 = getelementptr inbounds %class.BitBoard64, ptr %195, i64 %77
-  %197 = and i1 %52, %151
-  %198 = icmp ugt i32 %53, %66
-  %199 = or i1 %42, %198
-  %200 = select i1 %197, i1 %199, i1 false
-  %201 = icmp sle i32 %54, %66
-  %202 = select i1 %14, i1 true, i1 %201
-  %203 = select i1 %200, i1 %202, i1 false
-  br i1 %203, label %204, label %215
+185:                                              ; preds = %179
+  %186 = icmp uge i32 %56, %68
+  %187 = or i1 %45, %186
+  %188 = select i1 %15, i1 true, i1 %136
+  %189 = select i1 %187, i1 %188, i1 false
+  br i1 %189, label %190, label %201
 
-204:                                              ; preds = %193
-  %205 = add i32 %57, %150
-  %206 = add nsw i32 %205, -2
-  %207 = select i1 %41, i32 %206, i32 %205
-  %208 = add nsw i32 %61, %207
-  %209 = add nsw i32 %208, -2
-  %210 = select i1 %16, i32 %209, i32 %208
-  %211 = add nsw i32 %210, -3
-  %212 = select i1 %48, i32 %211, i32 %210
-  %213 = add nsw i32 %212, -4
-  %214 = select i1 %49, i32 %213, i32 %212
-  br label %215
+190:                                              ; preds = %185
+  %191 = add i32 %59, %68
+  %192 = add nsw i32 %191, -2
+  %193 = select i1 %44, i32 %192, i32 %191
+  %194 = add i32 %63, %193
+  %195 = add nsw i32 %194, -2
+  %196 = select i1 %22, i32 %195, i32 %194
+  %197 = add nsw i32 %196, -3
+  %198 = select i1 %51, i32 %197, i32 %196
+  %199 = add nsw i32 %198, -4
+  %200 = select i1 %52, i32 %199, i32 %198
+  br label %201
 
-215:                                              ; preds = %193, %204
-  %216 = phi i32 [ %214, %204 ], [ -1, %193 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %196, i32 noundef %216)
-  %217 = add nsw i32 %67, 1
-  br label %218
+201:                                              ; preds = %185, %190
+  %202 = phi i32 [ %200, %190 ], [ -1, %185 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %182, i32 noundef %202)
+  %203 = load ptr, ptr @clone_lookups, align 8, !tbaa !5
+  %204 = icmp ugt i32 %56, %68
+  %205 = or i1 %45, %204
+  %206 = select i1 %157, i1 %205, i1 false
+  %207 = icmp sle i32 %39, %68
+  %208 = select i1 %15, i1 true, i1 %207
+  %209 = select i1 %206, i1 %208, i1 false
+  br i1 %209, label %210, label %221
 
-218:                                              ; preds = %73, %215
-  %219 = phi i32 [ %74, %73 ], [ %150, %215 ]
-  %220 = phi i32 [ %67, %73 ], [ %217, %215 ]
-  %221 = icmp eq i32 %219, 10
-  br i1 %221, label %63, label %65, !llvm.loop !16
+210:                                              ; preds = %201
+  %211 = add i32 %59, %156
+  %212 = add nsw i32 %211, -2
+  %213 = select i1 %44, i32 %212, i32 %211
+  %214 = add i32 %63, %213
+  %215 = add nsw i32 %214, -2
+  %216 = select i1 %22, i32 %215, i32 %214
+  %217 = add nsw i32 %216, -3
+  %218 = select i1 %51, i32 %217, i32 %216
+  %219 = add nsw i32 %218, -4
+  %220 = select i1 %52, i32 %219, i32 %218
+  br label %221
+
+221:                                              ; preds = %183, %201, %210
+  %222 = phi ptr [ %203, %210 ], [ %203, %201 ], [ %184, %183 ]
+  %223 = phi i32 [ %220, %210 ], [ -1, %201 ], [ -1, %183 ]
+  %224 = getelementptr inbounds %class.BitBoard64, ptr %222, i64 %79
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %224, i32 noundef %223)
+  %225 = add nsw i32 %69, 1
+  br label %226
+
+226:                                              ; preds = %75, %221
+  %227 = phi i32 [ %76, %75 ], [ %156, %221 ]
+  %228 = phi i32 [ %69, %75 ], [ %225, %221 ]
+  %229 = icmp eq i32 %227, 10
+  br i1 %229, label %65, label %67, !llvm.loop !16
 }
 
 ; Function Attrs: nobuiltin allocsize(0)
@@ -419,453 +439,475 @@ define dso_local void @_Z15initJumpLookupsv() local_unnamed_addr #5 personality 
   %10 = icmp eq i64 %9, 61
   br i1 %10, label %11, label %4, !llvm.loop !17
 
-11:                                               ; preds = %4, %95
-  %12 = phi i32 [ %72, %95 ], [ 1, %4 ]
-  %13 = phi i32 [ %383, %95 ], [ 0, %4 ]
-  %14 = icmp ult i32 %12, 5
-  %15 = add nuw nsw i32 %12, 4
-  %16 = icmp ugt i32 %12, 5
-  %17 = add nsw i32 %12, -5
-  %18 = add nsw i32 %12, -2
-  %19 = add nsw i32 %12, -3
-  %20 = icmp ult i32 %19, 9
-  %21 = icmp ugt i32 %18, 4
-  %22 = add nuw nsw i32 %12, 2
-  %23 = icmp ult i32 %18, 6
-  %24 = mul nuw nsw i32 %18, 9
-  %25 = icmp ugt i32 %18, 1
-  %26 = select i1 %25, i32 -14, i32 -10
-  %27 = add i32 %26, %24
-  %28 = icmp ugt i32 %18, 2
-  %29 = icmp ugt i32 %18, 3
-  %30 = sext i1 %21 to i32
-  %31 = xor i1 %23, true
-  %32 = sext i1 %31 to i32
-  %33 = add nsw i32 %32, %30
-  %34 = icmp ugt i32 %18, 6
-  %35 = icmp ugt i32 %18, 7
-  %36 = icmp ugt i32 %18, 8
-  %37 = add nsw i32 %12, -6
-  %38 = add nsw i32 %12, -7
-  %39 = add nsw i32 %12, -1
-  %40 = icmp ult i32 %18, 9
-  %41 = add nuw nsw i32 %12, 3
-  %42 = icmp ult i32 %12, 7
-  %43 = add nsw i32 %12, -4
-  %44 = mul nuw nsw i32 %39, 9
-  %45 = icmp ugt i32 %39, 1
-  %46 = select i1 %45, i32 -14, i32 -10
-  %47 = add i32 %46, %44
-  %48 = icmp ugt i32 %39, 2
-  %49 = icmp ugt i32 %39, 3
-  %50 = icmp ugt i32 %39, 4
-  %51 = sext i1 %50 to i32
-  %52 = xor i1 %42, true
+11:                                               ; preds = %4, %96
+  %12 = phi i1 [ %74, %96 ], [ true, %4 ]
+  %13 = phi i32 [ %73, %96 ], [ 1, %4 ]
+  %14 = phi i32 [ %391, %96 ], [ 0, %4 ]
+  %15 = icmp ult i32 %13, 5
+  %16 = add nuw nsw i32 %13, 4
+  %17 = icmp ult i32 %13, 6
+  %18 = add nsw i32 %13, -5
+  %19 = add nsw i32 %13, -2
+  %20 = add nsw i32 %13, -3
+  %21 = icmp ult i32 %20, 9
+  %22 = icmp ugt i32 %19, 4
+  %23 = add nuw nsw i32 %13, 2
+  %24 = icmp ult i32 %19, 6
+  %25 = mul nuw nsw i32 %19, 9
+  %26 = icmp ugt i32 %19, 1
+  %27 = select i1 %26, i32 -14, i32 -10
+  %28 = add i32 %27, %25
+  %29 = icmp ugt i32 %19, 2
+  %30 = icmp ugt i32 %19, 3
+  %31 = sext i1 %22 to i32
+  %32 = xor i1 %24, true
+  %33 = sext i1 %32 to i32
+  %34 = add nsw i32 %33, %31
+  %35 = icmp ugt i32 %19, 6
+  %36 = icmp ugt i32 %19, 7
+  %37 = icmp ugt i32 %19, 8
+  %38 = add nsw i32 %13, -6
+  %39 = add nsw i32 %13, -7
+  %40 = add nsw i32 %13, -1
+  %41 = icmp ult i32 %19, 9
+  %42 = icmp ugt i32 %13, 5
+  %43 = add nuw nsw i32 %13, 3
+  %44 = icmp ult i32 %13, 7
+  %45 = add nsw i32 %13, -4
+  %46 = mul nuw nsw i32 %40, 9
+  %47 = icmp ugt i32 %40, 1
+  %48 = select i1 %47, i32 -14, i32 -10
+  %49 = add i32 %48, %46
+  %50 = icmp ugt i32 %40, 2
+  %51 = icmp ugt i32 %40, 3
+  %52 = icmp ugt i32 %40, 4
   %53 = sext i1 %52 to i32
-  %54 = add nsw i32 %51, %53
-  %55 = icmp ugt i32 %39, 6
-  %56 = icmp ugt i32 %39, 7
-  %57 = icmp ult i32 %12, 6
-  %58 = mul nuw nsw i32 %12, 9
-  %59 = icmp ugt i32 %12, 1
-  %60 = select i1 %59, i32 -14, i32 -10
-  %61 = add nsw i32 %60, %58
-  %62 = icmp ugt i32 %12, 2
-  %63 = icmp ugt i32 %12, 3
-  %64 = icmp ugt i32 %12, 4
-  %65 = sext i1 %64 to i32
-  %66 = xor i1 %57, true
-  %67 = sext i1 %66 to i32
-  %68 = add nsw i32 %67, %65
-  %69 = icmp ugt i32 %12, 6
-  %70 = icmp ugt i32 %12, 7
-  %71 = icmp ugt i32 %12, 8
-  %72 = add nuw nsw i32 %12, 1
-  %73 = icmp ult i32 %12, 9
-  %74 = add nuw nsw i32 %12, 5
-  %75 = mul nuw nsw i32 %72, 9
-  %76 = select i1 %59, i32 -17, i32 -14
-  %77 = add nsw i32 %76, %75
-  %78 = sext i1 %63 to i32
-  %79 = xor i1 %14, true
-  %80 = sext i1 %79 to i32
-  %81 = add nsw i32 %80, %78
-  %82 = icmp ult i32 %12, 8
-  %83 = add nuw nsw i32 %12, 6
-  %84 = icmp ult i32 %12, 4
-  %85 = mul nuw nsw i32 %22, 9
-  %86 = select i1 %59, i32 -19, i32 -17
-  %87 = sext i1 %62 to i32
-  %88 = xor i1 %84, true
-  %89 = sext i1 %88 to i32
-  %90 = add nsw i32 %89, %87
-  %91 = add i32 %90, %85
-  %92 = add i32 %91, %86
-  %93 = icmp ult i32 %12, 3
-  br label %97
+  %54 = xor i1 %44, true
+  %55 = sext i1 %54 to i32
+  %56 = add nsw i32 %53, %55
+  %57 = icmp ugt i32 %40, 6
+  %58 = icmp ugt i32 %40, 7
+  %59 = mul nuw nsw i32 %13, 9
+  %60 = icmp ugt i32 %13, 1
+  %61 = select i1 %60, i32 -14, i32 -10
+  %62 = add nsw i32 %61, %59
+  %63 = icmp ugt i32 %13, 2
+  %64 = icmp ugt i32 %13, 3
+  %65 = icmp ugt i32 %13, 4
+  %66 = sext i1 %65 to i32
+  %67 = xor i1 %17, true
+  %68 = sext i1 %67 to i32
+  %69 = add nsw i32 %68, %66
+  %70 = icmp ugt i32 %13, 6
+  %71 = icmp ugt i32 %13, 7
+  %72 = icmp ugt i32 %13, 8
+  %73 = add nuw nsw i32 %13, 1
+  %74 = icmp ult i32 %13, 9
+  %75 = add nuw nsw i32 %13, 5
+  %76 = mul nuw nsw i32 %73, 9
+  %77 = select i1 %60, i32 -17, i32 -14
+  %78 = add nsw i32 %77, %76
+  %79 = sext i1 %64 to i32
+  %80 = xor i1 %15, true
+  %81 = sext i1 %80 to i32
+  %82 = add nsw i32 %81, %79
+  %83 = icmp ult i32 %13, 8
+  %84 = add nuw nsw i32 %13, 6
+  %85 = icmp ult i32 %13, 4
+  %86 = mul nuw nsw i32 %23, 9
+  %87 = select i1 %60, i32 -19, i32 -17
+  %88 = sext i1 %63 to i32
+  %89 = xor i1 %85, true
+  %90 = sext i1 %89 to i32
+  %91 = add nsw i32 %87, %86
+  %92 = add i32 %91, %88
+  %93 = add i32 %92, %90
+  %94 = icmp ult i32 %13, 3
+  br label %98
 
-94:                                               ; preds = %95
+95:                                               ; preds = %96
   ret void
 
-95:                                               ; preds = %381
-  %96 = icmp eq i32 %72, 10
-  br i1 %96, label %94, label %11, !llvm.loop !18
+96:                                               ; preds = %389
+  %97 = icmp eq i32 %73, 10
+  br i1 %97, label %95, label %11, !llvm.loop !18
 
-97:                                               ; preds = %11, %381
-  %98 = phi i32 [ 1, %11 ], [ %382, %381 ]
-  %99 = phi i32 [ %13, %11 ], [ %383, %381 ]
-  %100 = icmp ugt i32 %98, %15
-  %101 = select i1 %14, i1 %100, i1 false
-  %102 = icmp sle i32 %98, %17
-  %103 = select i1 %16, i1 %102, i1 false
-  %104 = select i1 %103, i1 true, i1 %101
-  br i1 %104, label %105, label %107
+98:                                               ; preds = %11, %389
+  %99 = phi i32 [ 1, %11 ], [ %390, %389 ]
+  %100 = phi i32 [ %14, %11 ], [ %391, %389 ]
+  %101 = icmp ule i32 %99, %16
+  %102 = select i1 %80, i1 true, i1 %101
+  %103 = icmp sgt i32 %99, %18
+  %104 = select i1 %17, i1 true, i1 %103
+  %105 = select i1 %104, i1 %102, i1 false
+  br i1 %105, label %108, label %106
 
-105:                                              ; preds = %97
-  %106 = add nuw nsw i32 %98, 1
-  br label %381
+106:                                              ; preds = %98
+  %107 = add nuw nsw i32 %99, 1
+  br label %389
 
-107:                                              ; preds = %97
-  %108 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %109 = sext i32 %99 to i64
-  %110 = getelementptr inbounds %class.BitBoard64, ptr %108, i64 %109
-  %111 = add nsw i32 %98, -2
-  %112 = add nsw i32 %98, -3
-  %113 = icmp ult i32 %112, 9
-  %114 = and i1 %20, %113
-  %115 = icmp uge i32 %22, %111
-  %116 = or i1 %21, %115
-  %117 = select i1 %114, i1 %116, i1 false
-  %118 = icmp slt i32 %17, %98
-  %119 = select i1 %23, i1 true, i1 %118
-  %120 = select i1 %117, i1 %119, i1 false
+108:                                              ; preds = %98
+  %109 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %110 = sext i32 %100 to i64
+  %111 = getelementptr inbounds %class.BitBoard64, ptr %109, i64 %110
+  %112 = add nsw i32 %99, -2
+  %113 = add nsw i32 %99, -3
+  %114 = icmp ult i32 %113, 9
+  %115 = and i1 %21, %114
+  %116 = icmp uge i32 %23, %112
+  %117 = or i1 %22, %116
+  %118 = select i1 %115, i1 %117, i1 false
+  %119 = select i1 %24, i1 true, i1 %103
+  %120 = select i1 %118, i1 %119, i1 false
   br i1 %120, label %121, label %134
 
-121:                                              ; preds = %107
-  %122 = add i32 %27, %111
+121:                                              ; preds = %108
+  %122 = add i32 %28, %112
   %123 = add nsw i32 %122, -3
-  %124 = select i1 %28, i32 %123, i32 %122
+  %124 = select i1 %29, i32 %123, i32 %122
   %125 = add nsw i32 %124, -2
-  %126 = select i1 %29, i32 %125, i32 %124
-  %127 = add nsw i32 %33, %126
+  %126 = select i1 %30, i32 %125, i32 %124
+  %127 = add i32 %34, %126
   %128 = add nsw i32 %127, -2
-  %129 = select i1 %34, i32 %128, i32 %127
+  %129 = select i1 %35, i32 %128, i32 %127
   %130 = add nsw i32 %129, -3
-  %131 = select i1 %35, i32 %130, i32 %129
+  %131 = select i1 %36, i32 %130, i32 %129
   %132 = add nsw i32 %131, -4
-  %133 = select i1 %36, i32 %132, i32 %131
+  %133 = select i1 %37, i32 %132, i32 %131
   br label %134
 
-134:                                              ; preds = %107, %121
-  %135 = phi i32 [ %133, %121 ], [ -1, %107 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %110, i32 noundef %135)
+134:                                              ; preds = %108, %121
+  %135 = phi i32 [ %133, %121 ], [ -1, %108 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %111, i32 noundef %135)
   %136 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %137 = getelementptr inbounds %class.BitBoard64, ptr %136, i64 %109
-  %138 = add nsw i32 %98, -1
-  %139 = icmp ult i32 %111, 9
-  %140 = and i1 %20, %139
-  %141 = icmp uge i32 %22, %138
-  %142 = or i1 %21, %141
-  %143 = select i1 %140, i1 %142, i1 false
-  %144 = icmp slt i32 %37, %98
-  %145 = select i1 %23, i1 true, i1 %144
+  %137 = getelementptr inbounds %class.BitBoard64, ptr %136, i64 %110
+  %138 = add nsw i32 %99, -1
+  %139 = icmp ult i32 %112, 9
+  %140 = and i1 %21, %139
+  br i1 %140, label %141, label %164
+
+141:                                              ; preds = %134
+  %142 = icmp uge i32 %23, %138
+  %143 = or i1 %22, %142
+  %144 = icmp slt i32 %38, %99
+  %145 = select i1 %24, i1 true, i1 %144
   %146 = select i1 %143, i1 %145, i1 false
   br i1 %146, label %147, label %160
 
-147:                                              ; preds = %134
-  %148 = add nsw i32 %27, %138
+147:                                              ; preds = %141
+  %148 = add nsw i32 %28, %138
   %149 = add nsw i32 %148, -3
-  %150 = select i1 %28, i32 %149, i32 %148
+  %150 = select i1 %29, i32 %149, i32 %148
   %151 = add nsw i32 %150, -2
-  %152 = select i1 %29, i32 %151, i32 %150
-  %153 = add nsw i32 %33, %152
+  %152 = select i1 %30, i32 %151, i32 %150
+  %153 = add i32 %34, %152
   %154 = add nsw i32 %153, -2
-  %155 = select i1 %34, i32 %154, i32 %153
+  %155 = select i1 %35, i32 %154, i32 %153
   %156 = add nsw i32 %155, -3
-  %157 = select i1 %35, i32 %156, i32 %155
+  %157 = select i1 %36, i32 %156, i32 %155
   %158 = add nsw i32 %157, -4
-  %159 = select i1 %36, i32 %158, i32 %157
+  %159 = select i1 %37, i32 %158, i32 %157
   br label %160
 
-160:                                              ; preds = %134, %147
-  %161 = phi i32 [ %159, %147 ], [ -1, %134 ]
+160:                                              ; preds = %141, %147
+  %161 = phi i32 [ -1, %141 ], [ %159, %147 ]
   call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %137, i32 noundef %161)
   %162 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %163 = getelementptr inbounds %class.BitBoard64, ptr %162, i64 %109
-  %164 = icmp uge i32 %22, %98
-  %165 = or i1 %21, %164
-  %166 = select i1 %20, i1 %165, i1 false
-  %167 = icmp slt i32 %38, %98
-  %168 = select i1 %23, i1 true, i1 %167
-  %169 = select i1 %166, i1 %168, i1 false
-  br i1 %169, label %170, label %183
+  %163 = getelementptr inbounds %class.BitBoard64, ptr %162, i64 %110
+  br label %167
 
-170:                                              ; preds = %160
-  %171 = add i32 %27, %98
-  %172 = add nsw i32 %171, -3
-  %173 = select i1 %28, i32 %172, i32 %171
-  %174 = add nsw i32 %173, -2
-  %175 = select i1 %29, i32 %174, i32 %173
-  %176 = add nsw i32 %33, %175
-  %177 = add nsw i32 %176, -2
-  %178 = select i1 %34, i32 %177, i32 %176
-  %179 = add nsw i32 %178, -3
-  %180 = select i1 %35, i32 %179, i32 %178
-  %181 = add nsw i32 %180, -4
-  %182 = select i1 %36, i32 %181, i32 %180
-  br label %183
+164:                                              ; preds = %134
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %137, i32 noundef -1)
+  %165 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %166 = getelementptr inbounds %class.BitBoard64, ptr %165, i64 %110
+  br i1 %21, label %167, label %187
 
-183:                                              ; preds = %160, %170
-  %184 = phi i32 [ %182, %170 ], [ -1, %160 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %163, i32 noundef %184)
-  %185 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %186 = getelementptr inbounds %class.BitBoard64, ptr %185, i64 %109
-  %187 = and i1 %40, %113
-  %188 = icmp uge i32 %41, %111
-  %189 = or i1 %16, %188
-  %190 = select i1 %187, i1 %189, i1 false
-  %191 = icmp slt i32 %43, %98
-  %192 = select i1 %42, i1 true, i1 %191
-  %193 = select i1 %190, i1 %192, i1 false
-  br i1 %193, label %194, label %205
+167:                                              ; preds = %160, %164
+  %168 = phi ptr [ %163, %160 ], [ %166, %164 ]
+  %169 = icmp uge i32 %23, %99
+  %170 = or i1 %22, %169
+  %171 = icmp slt i32 %39, %99
+  %172 = select i1 %24, i1 true, i1 %171
+  %173 = select i1 %170, i1 %172, i1 false
+  br i1 %173, label %174, label %187
 
-194:                                              ; preds = %183
-  %195 = add i32 %47, %111
-  %196 = add nsw i32 %195, -3
-  %197 = select i1 %48, i32 %196, i32 %195
-  %198 = add nsw i32 %197, -2
-  %199 = select i1 %49, i32 %198, i32 %197
-  %200 = add nsw i32 %54, %199
-  %201 = add nsw i32 %200, -2
-  %202 = select i1 %55, i32 %201, i32 %200
-  %203 = add nsw i32 %202, -3
-  %204 = select i1 %56, i32 %203, i32 %202
-  br label %205
+174:                                              ; preds = %167
+  %175 = add i32 %28, %99
+  %176 = add nsw i32 %175, -3
+  %177 = select i1 %29, i32 %176, i32 %175
+  %178 = add nsw i32 %177, -2
+  %179 = select i1 %30, i32 %178, i32 %177
+  %180 = add i32 %34, %179
+  %181 = add nsw i32 %180, -2
+  %182 = select i1 %35, i32 %181, i32 %180
+  %183 = add nsw i32 %182, -3
+  %184 = select i1 %36, i32 %183, i32 %182
+  %185 = add nsw i32 %184, -4
+  %186 = select i1 %37, i32 %185, i32 %184
+  br label %187
 
-205:                                              ; preds = %183, %194
-  %206 = phi i32 [ %204, %194 ], [ -1, %183 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %186, i32 noundef %206)
-  %207 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %208 = getelementptr inbounds %class.BitBoard64, ptr %207, i64 %109
-  %209 = add nuw nsw i32 %98, 1
-  %210 = icmp ult i32 %98, 9
-  %211 = and i1 %40, %210
-  %212 = icmp ugt i32 %41, %98
-  %213 = or i1 %16, %212
-  %214 = select i1 %211, i1 %213, i1 false
-  %215 = icmp sle i32 %37, %98
-  %216 = select i1 %42, i1 true, i1 %215
-  %217 = select i1 %214, i1 %216, i1 false
-  br i1 %217, label %218, label %229
+187:                                              ; preds = %164, %167, %174
+  %188 = phi ptr [ %168, %174 ], [ %168, %167 ], [ %166, %164 ]
+  %189 = phi i32 [ %186, %174 ], [ -1, %167 ], [ -1, %164 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %188, i32 noundef %189)
+  %190 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %191 = getelementptr inbounds %class.BitBoard64, ptr %190, i64 %110
+  %192 = and i1 %41, %114
+  %193 = icmp uge i32 %43, %112
+  %194 = or i1 %42, %193
+  %195 = select i1 %192, i1 %194, i1 false
+  %196 = icmp slt i32 %45, %99
+  %197 = select i1 %44, i1 true, i1 %196
+  %198 = select i1 %195, i1 %197, i1 false
+  br i1 %198, label %199, label %210
 
-218:                                              ; preds = %205
-  %219 = add i32 %47, %209
-  %220 = add nsw i32 %219, -3
-  %221 = select i1 %48, i32 %220, i32 %219
-  %222 = add nsw i32 %221, -2
-  %223 = select i1 %49, i32 %222, i32 %221
-  %224 = add nsw i32 %54, %223
-  %225 = add nsw i32 %224, -2
-  %226 = select i1 %55, i32 %225, i32 %224
-  %227 = add nsw i32 %226, -3
-  %228 = select i1 %56, i32 %227, i32 %226
-  br label %229
+199:                                              ; preds = %187
+  %200 = add i32 %49, %112
+  %201 = add nsw i32 %200, -3
+  %202 = select i1 %50, i32 %201, i32 %200
+  %203 = add nsw i32 %202, -2
+  %204 = select i1 %51, i32 %203, i32 %202
+  %205 = add i32 %56, %204
+  %206 = add nsw i32 %205, -2
+  %207 = select i1 %57, i32 %206, i32 %205
+  %208 = add nsw i32 %207, -3
+  %209 = select i1 %58, i32 %208, i32 %207
+  br label %210
 
-229:                                              ; preds = %205, %218
-  %230 = phi i32 [ %228, %218 ], [ -1, %205 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %208, i32 noundef %230)
-  %231 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %232 = getelementptr inbounds %class.BitBoard64, ptr %231, i64 %109
-  %233 = icmp ult i32 %15, %111
-  %234 = and i1 %14, %233
-  %235 = xor i1 %234, true
-  %236 = select i1 %113, i1 %235, i1 false
-  %237 = icmp slt i32 %17, %111
-  %238 = select i1 %57, i1 true, i1 %237
-  %239 = select i1 %236, i1 %238, i1 false
-  br i1 %239, label %240, label %253
+210:                                              ; preds = %187, %199
+  %211 = phi i32 [ %209, %199 ], [ -1, %187 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %191, i32 noundef %211)
+  %212 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %213 = getelementptr inbounds %class.BitBoard64, ptr %212, i64 %110
+  %214 = add nuw nsw i32 %99, 1
+  %215 = icmp ult i32 %99, 9
+  %216 = and i1 %41, %215
+  %217 = icmp ugt i32 %43, %99
+  %218 = or i1 %42, %217
+  %219 = select i1 %216, i1 %218, i1 false
+  %220 = icmp sle i32 %38, %99
+  %221 = select i1 %44, i1 true, i1 %220
+  %222 = select i1 %219, i1 %221, i1 false
+  br i1 %222, label %223, label %234
 
-240:                                              ; preds = %229
-  %241 = add i32 %61, %111
-  %242 = add nsw i32 %241, -3
-  %243 = select i1 %62, i32 %242, i32 %241
-  %244 = add nsw i32 %243, -2
-  %245 = select i1 %63, i32 %244, i32 %243
-  %246 = add nsw i32 %68, %245
-  %247 = add nsw i32 %246, -2
-  %248 = select i1 %69, i32 %247, i32 %246
-  %249 = add nsw i32 %248, -3
-  %250 = select i1 %70, i32 %249, i32 %248
-  %251 = add nsw i32 %250, -4
-  %252 = select i1 %71, i32 %251, i32 %250
-  br label %253
+223:                                              ; preds = %210
+  %224 = add i32 %49, %214
+  %225 = add nsw i32 %224, -3
+  %226 = select i1 %50, i32 %225, i32 %224
+  %227 = add nsw i32 %226, -2
+  %228 = select i1 %51, i32 %227, i32 %226
+  %229 = add i32 %56, %228
+  %230 = add nsw i32 %229, -2
+  %231 = select i1 %57, i32 %230, i32 %229
+  %232 = add nsw i32 %231, -3
+  %233 = select i1 %58, i32 %232, i32 %231
+  br label %234
 
-253:                                              ; preds = %229, %240
-  %254 = phi i32 [ %252, %240 ], [ -1, %229 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %232, i32 noundef %254)
-  %255 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %256 = getelementptr inbounds %class.BitBoard64, ptr %255, i64 %109
-  %257 = add nuw nsw i32 %98, 2
-  %258 = icmp ult i32 %98, 8
-  %259 = icmp ult i32 %15, %257
-  %260 = and i1 %14, %259
-  %261 = xor i1 %260, true
-  %262 = select i1 %258, i1 %261, i1 false
-  %263 = icmp slt i32 %17, %257
-  %264 = select i1 %57, i1 true, i1 %263
-  %265 = select i1 %262, i1 %264, i1 false
-  br i1 %265, label %266, label %279
+234:                                              ; preds = %210, %223
+  %235 = phi i32 [ %233, %223 ], [ -1, %210 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %213, i32 noundef %235)
+  %236 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %237 = getelementptr inbounds %class.BitBoard64, ptr %236, i64 %110
+  %238 = and i1 %12, %114
+  %239 = icmp ult i32 %16, %112
+  %240 = and i1 %15, %239
+  %241 = xor i1 %240, true
+  %242 = select i1 %238, i1 %241, i1 false
+  %243 = icmp slt i32 %20, %99
+  %244 = select i1 %17, i1 true, i1 %243
+  %245 = select i1 %242, i1 %244, i1 false
+  br i1 %245, label %246, label %259
 
-266:                                              ; preds = %253
-  %267 = add i32 %61, %257
-  %268 = add nsw i32 %267, -3
-  %269 = select i1 %62, i32 %268, i32 %267
-  %270 = add nsw i32 %269, -2
-  %271 = select i1 %63, i32 %270, i32 %269
-  %272 = add nsw i32 %68, %271
-  %273 = add nsw i32 %272, -2
-  %274 = select i1 %69, i32 %273, i32 %272
+246:                                              ; preds = %234
+  %247 = add i32 %62, %112
+  %248 = add nsw i32 %247, -3
+  %249 = select i1 %63, i32 %248, i32 %247
+  %250 = add nsw i32 %249, -2
+  %251 = select i1 %64, i32 %250, i32 %249
+  %252 = add i32 %69, %251
+  %253 = add nsw i32 %252, -2
+  %254 = select i1 %70, i32 %253, i32 %252
+  %255 = add nsw i32 %254, -3
+  %256 = select i1 %71, i32 %255, i32 %254
+  %257 = add nsw i32 %256, -4
+  %258 = select i1 %72, i32 %257, i32 %256
+  br label %259
+
+259:                                              ; preds = %234, %246
+  %260 = phi i32 [ %258, %246 ], [ -1, %234 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %237, i32 noundef %260)
+  %261 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %262 = getelementptr inbounds %class.BitBoard64, ptr %261, i64 %110
+  %263 = add nuw nsw i32 %99, 2
+  %264 = icmp ult i32 %99, 8
+  %265 = and i1 %12, %264
+  %266 = icmp ult i32 %16, %263
+  %267 = and i1 %15, %266
+  %268 = xor i1 %267, true
+  %269 = select i1 %265, i1 %268, i1 false
+  %270 = icmp slt i32 %18, %263
+  %271 = select i1 %17, i1 true, i1 %270
+  %272 = select i1 %269, i1 %271, i1 false
+  br i1 %272, label %273, label %286
+
+273:                                              ; preds = %259
+  %274 = add i32 %62, %263
   %275 = add nsw i32 %274, -3
-  %276 = select i1 %70, i32 %275, i32 %274
-  %277 = add nsw i32 %276, -4
-  %278 = select i1 %71, i32 %277, i32 %276
-  br label %279
+  %276 = select i1 %63, i32 %275, i32 %274
+  %277 = add nsw i32 %276, -2
+  %278 = select i1 %64, i32 %277, i32 %276
+  %279 = add i32 %69, %278
+  %280 = add nsw i32 %279, -2
+  %281 = select i1 %70, i32 %280, i32 %279
+  %282 = add nsw i32 %281, -3
+  %283 = select i1 %71, i32 %282, i32 %281
+  %284 = add nsw i32 %283, -4
+  %285 = select i1 %72, i32 %284, i32 %283
+  br label %286
 
-279:                                              ; preds = %253, %266
-  %280 = phi i32 [ %278, %266 ], [ -1, %253 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %256, i32 noundef %280)
-  %281 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %282 = getelementptr inbounds %class.BitBoard64, ptr %281, i64 %109
-  %283 = and i1 %73, %139
-  %284 = icmp uge i32 %74, %138
-  %285 = or i1 %63, %284
-  %286 = select i1 %283, i1 %285, i1 false
-  %287 = icmp slt i32 %19, %98
-  %288 = select i1 %14, i1 true, i1 %287
-  %289 = select i1 %286, i1 %288, i1 false
-  br i1 %289, label %290, label %301
+286:                                              ; preds = %259, %273
+  %287 = phi i32 [ %285, %273 ], [ -1, %259 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %262, i32 noundef %287)
+  %288 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %289 = getelementptr inbounds %class.BitBoard64, ptr %288, i64 %110
+  %290 = and i1 %74, %139
+  br i1 %290, label %291, label %307
 
-290:                                              ; preds = %279
-  %291 = add nsw i32 %77, %138
-  %292 = add nsw i32 %291, -2
-  %293 = select i1 %62, i32 %292, i32 %291
-  %294 = add nsw i32 %81, %293
-  %295 = add nsw i32 %294, -2
-  %296 = select i1 %16, i32 %295, i32 %294
-  %297 = add nsw i32 %296, -3
-  %298 = select i1 %69, i32 %297, i32 %296
-  %299 = add nsw i32 %298, -4
-  %300 = select i1 %70, i32 %299, i32 %298
-  br label %301
+291:                                              ; preds = %286
+  %292 = icmp uge i32 %75, %138
+  %293 = or i1 %64, %292
+  %294 = select i1 %15, i1 true, i1 %243
+  %295 = select i1 %293, i1 %294, i1 false
+  br i1 %295, label %296, label %307
 
-301:                                              ; preds = %279, %290
-  %302 = phi i32 [ %300, %290 ], [ -1, %279 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %282, i32 noundef %302)
-  %303 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %304 = getelementptr inbounds %class.BitBoard64, ptr %303, i64 %109
-  %305 = and i1 %73, %258
-  %306 = icmp uge i32 %74, %257
-  %307 = or i1 %63, %306
-  %308 = select i1 %305, i1 %307, i1 false
-  %309 = icmp slt i32 %43, %257
-  %310 = select i1 %14, i1 true, i1 %309
-  %311 = select i1 %308, i1 %310, i1 false
-  br i1 %311, label %312, label %322
+296:                                              ; preds = %291
+  %297 = add nsw i32 %78, %138
+  %298 = add nsw i32 %297, -2
+  %299 = select i1 %63, i32 %298, i32 %297
+  %300 = add i32 %82, %299
+  %301 = add nsw i32 %300, -2
+  %302 = select i1 %42, i32 %301, i32 %300
+  %303 = add nsw i32 %302, -3
+  %304 = select i1 %70, i32 %303, i32 %302
+  %305 = add nsw i32 %304, -4
+  %306 = select i1 %71, i32 %305, i32 %304
+  br label %307
 
-312:                                              ; preds = %301
-  %313 = select i1 %62, i32 %98, i32 %257
-  %314 = add i32 %77, %313
-  %315 = add nsw i32 %81, %314
-  %316 = add nsw i32 %315, -2
-  %317 = select i1 %16, i32 %316, i32 %315
-  %318 = add nsw i32 %317, -3
-  %319 = select i1 %69, i32 %318, i32 %317
-  %320 = add nsw i32 %319, -4
-  %321 = select i1 %70, i32 %320, i32 %319
-  br label %322
+307:                                              ; preds = %286, %291, %296
+  %308 = phi i32 [ %306, %296 ], [ -1, %291 ], [ -1, %286 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %289, i32 noundef %308)
+  %309 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %310 = getelementptr inbounds %class.BitBoard64, ptr %309, i64 %110
+  %311 = and i1 %74, %264
+  %312 = icmp uge i32 %75, %263
+  %313 = or i1 %64, %312
+  %314 = select i1 %311, i1 %313, i1 false
+  %315 = icmp slt i32 %45, %263
+  %316 = select i1 %15, i1 true, i1 %315
+  %317 = select i1 %314, i1 %316, i1 false
+  br i1 %317, label %318, label %328
 
-322:                                              ; preds = %301, %312
-  %323 = phi i32 [ %321, %312 ], [ -1, %301 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %304, i32 noundef %323)
-  %324 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %325 = getelementptr inbounds %class.BitBoard64, ptr %324, i64 %109
-  %326 = icmp uge i32 %83, %98
-  %327 = or i1 %62, %326
-  %328 = select i1 %82, i1 %327, i1 false
-  %329 = select i1 %84, i1 true, i1 %287
-  %330 = select i1 %328, i1 %329, i1 false
-  br i1 %330, label %331, label %339
+318:                                              ; preds = %307
+  %319 = select i1 %63, i32 %99, i32 %263
+  %320 = add i32 %78, %319
+  %321 = add i32 %82, %320
+  %322 = add nsw i32 %321, -2
+  %323 = select i1 %42, i32 %322, i32 %321
+  %324 = add nsw i32 %323, -3
+  %325 = select i1 %70, i32 %324, i32 %323
+  %326 = add nsw i32 %325, -4
+  %327 = select i1 %71, i32 %326, i32 %325
+  br label %328
 
-331:                                              ; preds = %322
-  %332 = add i32 %92, %98
-  %333 = add nsw i32 %332, -2
-  %334 = select i1 %64, i32 %333, i32 %332
-  %335 = add nsw i32 %334, -3
-  %336 = select i1 %16, i32 %335, i32 %334
-  %337 = add nsw i32 %336, -4
-  %338 = select i1 %69, i32 %337, i32 %336
-  br label %339
+328:                                              ; preds = %307, %318
+  %329 = phi i32 [ %327, %318 ], [ -1, %307 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %310, i32 noundef %329)
+  %330 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %331 = getelementptr inbounds %class.BitBoard64, ptr %330, i64 %110
+  br i1 %83, label %334, label %332
 
-339:                                              ; preds = %322, %331
-  %340 = phi i32 [ %338, %331 ], [ -1, %322 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %325, i32 noundef %340)
-  %341 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %342 = getelementptr inbounds %class.BitBoard64, ptr %341, i64 %109
-  %343 = and i1 %82, %210
-  %344 = icmp ugt i32 %83, %98
-  %345 = or i1 %62, %344
-  %346 = select i1 %343, i1 %345, i1 false
-  %347 = icmp sle i32 %19, %98
-  %348 = select i1 %84, i1 true, i1 %347
-  %349 = select i1 %346, i1 %348, i1 false
-  br i1 %349, label %350, label %358
+332:                                              ; preds = %328
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %331, i32 noundef -1)
+  %333 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  br label %364
 
-350:                                              ; preds = %339
-  %351 = add i32 %92, %209
-  %352 = add nsw i32 %351, -2
-  %353 = select i1 %64, i32 %352, i32 %351
-  %354 = add nsw i32 %353, -3
-  %355 = select i1 %16, i32 %354, i32 %353
-  %356 = add nsw i32 %355, -4
-  %357 = select i1 %69, i32 %356, i32 %355
-  br label %358
+334:                                              ; preds = %328
+  %335 = icmp uge i32 %84, %99
+  %336 = or i1 %63, %335
+  %337 = select i1 %85, i1 true, i1 %243
+  %338 = select i1 %336, i1 %337, i1 false
+  br i1 %338, label %339, label %347
 
-358:                                              ; preds = %339, %350
-  %359 = phi i32 [ %357, %350 ], [ -1, %339 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %342, i32 noundef %359)
-  %360 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
-  %361 = getelementptr inbounds %class.BitBoard64, ptr %360, i64 %109
-  %362 = or i32 %98, %12
-  %363 = icmp ugt i32 %362, 7
-  %364 = icmp ult i32 %83, %257
-  %365 = and i1 %93, %364
-  %366 = select i1 %363, i1 true, i1 %365
-  %367 = xor i1 %366, true
-  %368 = icmp slt i32 %19, %257
-  %369 = select i1 %84, i1 true, i1 %368
-  %370 = select i1 %367, i1 %369, i1 false
-  br i1 %370, label %371, label %378
+339:                                              ; preds = %334
+  %340 = add i32 %93, %99
+  %341 = add nsw i32 %340, -2
+  %342 = select i1 %65, i32 %341, i32 %340
+  %343 = add nsw i32 %342, -3
+  %344 = select i1 %42, i32 %343, i32 %342
+  %345 = add nsw i32 %344, -4
+  %346 = select i1 %70, i32 %345, i32 %344
+  br label %347
 
-371:                                              ; preds = %358
-  %372 = select i1 %64, i32 %98, i32 %257
-  %373 = add i32 %92, %372
-  %374 = add nsw i32 %373, -3
-  %375 = select i1 %16, i32 %374, i32 %373
-  %376 = add nsw i32 %375, -4
-  %377 = select i1 %69, i32 %376, i32 %375
-  br label %378
+347:                                              ; preds = %334, %339
+  %348 = phi i32 [ %346, %339 ], [ -1, %334 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %331, i32 noundef %348)
+  %349 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %350 = icmp ugt i32 %84, %99
+  %351 = or i1 %63, %350
+  %352 = select i1 %215, i1 %351, i1 false
+  %353 = icmp sle i32 %20, %99
+  %354 = select i1 %85, i1 true, i1 %353
+  %355 = select i1 %352, i1 %354, i1 false
+  br i1 %355, label %356, label %364
 
-378:                                              ; preds = %358, %371
-  %379 = phi i32 [ %377, %371 ], [ -1, %358 ]
-  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %361, i32 noundef %379)
-  %380 = add nsw i32 %99, 1
-  br label %381
+356:                                              ; preds = %347
+  %357 = add i32 %93, %214
+  %358 = add nsw i32 %357, -2
+  %359 = select i1 %65, i32 %358, i32 %357
+  %360 = add nsw i32 %359, -3
+  %361 = select i1 %42, i32 %360, i32 %359
+  %362 = add nsw i32 %361, -4
+  %363 = select i1 %70, i32 %362, i32 %361
+  br label %364
 
-381:                                              ; preds = %105, %378
-  %382 = phi i32 [ %106, %105 ], [ %209, %378 ]
-  %383 = phi i32 [ %99, %105 ], [ %380, %378 ]
-  %384 = icmp eq i32 %382, 10
-  br i1 %384, label %95, label %97, !llvm.loop !19
+364:                                              ; preds = %332, %347, %356
+  %365 = phi ptr [ %349, %356 ], [ %349, %347 ], [ %333, %332 ]
+  %366 = phi i32 [ %363, %356 ], [ -1, %347 ], [ -1, %332 ]
+  %367 = getelementptr inbounds %class.BitBoard64, ptr %365, i64 %110
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %367, i32 noundef %366)
+  %368 = load ptr, ptr @jump_lookups, align 8, !tbaa !5
+  %369 = getelementptr inbounds %class.BitBoard64, ptr %368, i64 %110
+  %370 = or i32 %99, %13
+  %371 = icmp ugt i32 %370, 7
+  %372 = icmp ult i32 %84, %263
+  %373 = and i1 %94, %372
+  %374 = select i1 %371, i1 true, i1 %373
+  %375 = xor i1 %374, true
+  %376 = icmp slt i32 %20, %263
+  %377 = select i1 %85, i1 true, i1 %376
+  %378 = select i1 %375, i1 %377, i1 false
+  br i1 %378, label %379, label %386
+
+379:                                              ; preds = %364
+  %380 = select i1 %65, i32 %99, i32 %263
+  %381 = add i32 %93, %380
+  %382 = add nsw i32 %381, -3
+  %383 = select i1 %42, i32 %382, i32 %381
+  %384 = add nsw i32 %383, -4
+  %385 = select i1 %70, i32 %384, i32 %383
+  br label %386
+
+386:                                              ; preds = %364, %379
+  %387 = phi i32 [ %385, %379 ], [ -1, %364 ]
+  call void @_ZN10BitBoard646setBitEi(ptr noundef nonnull align 4 dereferenceable(8) %369, i32 noundef %387)
+  %388 = add nsw i32 %100, 1
+  br label %389
+
+389:                                              ; preds = %106, %386
+  %390 = phi i32 [ %107, %106 ], [ %214, %386 ]
+  %391 = phi i32 [ %100, %106 ], [ %388, %386 ]
+  %392 = icmp eq i32 %390, 10
+  br i1 %392, label %96, label %98, !llvm.loop !19
 }
 
 ; Function Attrs: uwtable
@@ -1508,7 +1550,7 @@ define dso_local void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnul
   %60 = select i1 %35, i32 %59, i32 %58
   %61 = add nsw i32 %60, -2
   %62 = select i1 %36, i32 %61, i32 %60
-  %63 = add nsw i32 %41, %62
+  %63 = add i32 %41, %62
   %64 = add nsw i32 %63, -2
   %65 = select i1 %42, i32 %64, i32 %63
   %66 = add nsw i32 %65, -3
@@ -1635,111 +1677,111 @@ define dso_local void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnul
 
 146:                                              ; preds = %128, %142
   %147 = phi i32 [ %143, %142 ], [ %129, %128 ]
-  %148 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.10, i64 noundef 11)
-  br i1 %7, label %163, label %149
+  %148 = add i32 %117, %147
+  %149 = sub i32 61, %148
+  %150 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.10, i64 noundef 11)
+  br i1 %7, label %165, label %151
 
-149:                                              ; preds = %146, %159
-  %150 = phi i32 [ %161, %159 ], [ 0, %146 ]
-  %151 = phi i32 [ %160, %159 ], [ 0, %146 ]
-  %152 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %150)
-  %153 = icmp eq i32 %152, 0
-  br i1 %153, label %159, label %154
+151:                                              ; preds = %146, %161
+  %152 = phi i32 [ %163, %161 ], [ 0, %146 ]
+  %153 = phi i32 [ %162, %161 ], [ 0, %146 ]
+  %154 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %152)
+  %155 = icmp eq i32 %154, 0
+  br i1 %155, label %161, label %156
 
-154:                                              ; preds = %149
-  %155 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %5, i32 noundef %150)
-  %156 = icmp ne i32 %155, 0
-  %157 = zext i1 %156 to i32
-  %158 = add nsw i32 %151, %157
-  br label %159
+156:                                              ; preds = %151
+  %157 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %5, i32 noundef %152)
+  %158 = icmp ne i32 %157, 0
+  %159 = zext i1 %158 to i32
+  %160 = add nsw i32 %153, %159
+  br label %161
 
-159:                                              ; preds = %154, %149
-  %160 = phi i32 [ %151, %149 ], [ %158, %154 ]
-  %161 = add nuw nsw i32 %150, 1
-  %162 = icmp eq i32 %161, 61
-  br i1 %162, label %177, label %149, !llvm.loop !20
+161:                                              ; preds = %156, %151
+  %162 = phi i32 [ %153, %151 ], [ %160, %156 ]
+  %163 = add nuw nsw i32 %152, 1
+  %164 = icmp eq i32 %163, 61
+  br i1 %164, label %179, label %151, !llvm.loop !20
 
-163:                                              ; preds = %146, %173
-  %164 = phi i32 [ %175, %173 ], [ 0, %146 ]
-  %165 = phi i32 [ %174, %173 ], [ 0, %146 ]
-  %166 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %164)
-  %167 = icmp eq i32 %166, 0
-  br i1 %167, label %173, label %168
+165:                                              ; preds = %146, %175
+  %166 = phi i32 [ %177, %175 ], [ 0, %146 ]
+  %167 = phi i32 [ %176, %175 ], [ 0, %146 ]
+  %168 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %166)
+  %169 = icmp eq i32 %168, 0
+  br i1 %169, label %175, label %170
 
-168:                                              ; preds = %163
-  %169 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %5, i32 noundef %164)
-  %170 = icmp eq i32 %169, 0
-  %171 = zext i1 %170 to i32
-  %172 = add nsw i32 %165, %171
-  br label %173
+170:                                              ; preds = %165
+  %171 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %5, i32 noundef %166)
+  %172 = icmp eq i32 %171, 0
+  %173 = zext i1 %172 to i32
+  %174 = add nsw i32 %167, %173
+  br label %175
 
-173:                                              ; preds = %168, %163
-  %174 = phi i32 [ %165, %163 ], [ %172, %168 ]
-  %175 = add nuw nsw i32 %164, 1
-  %176 = icmp eq i32 %175, 61
-  br i1 %176, label %177, label %163, !llvm.loop !20
+175:                                              ; preds = %170, %165
+  %176 = phi i32 [ %167, %165 ], [ %174, %170 ]
+  %177 = add nuw nsw i32 %166, 1
+  %178 = icmp eq i32 %177, 61
+  br i1 %178, label %179, label %165, !llvm.loop !20
 
-177:                                              ; preds = %159, %173
-  %178 = phi i32 [ %174, %173 ], [ %160, %159 ]
-  %179 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %178)
-  %180 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.11, i64 noundef 4)
-  br i1 %7, label %195, label %181
+179:                                              ; preds = %161, %175
+  %180 = phi i32 [ %176, %175 ], [ %162, %161 ]
+  %181 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %180)
+  %182 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.11, i64 noundef 4)
+  br i1 %7, label %197, label %183
 
-181:                                              ; preds = %177, %191
-  %182 = phi i32 [ %193, %191 ], [ 0, %177 ]
-  %183 = phi i32 [ %192, %191 ], [ 0, %177 ]
-  %184 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %182)
-  %185 = icmp eq i32 %184, 0
-  br i1 %185, label %191, label %186
+183:                                              ; preds = %179, %193
+  %184 = phi i32 [ %195, %193 ], [ 0, %179 ]
+  %185 = phi i32 [ %194, %193 ], [ 0, %179 ]
+  %186 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %184)
+  %187 = icmp eq i32 %186, 0
+  br i1 %187, label %193, label %188
 
-186:                                              ; preds = %181
-  %187 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %5, i32 noundef %182)
-  %188 = icmp eq i32 %187, 0
-  %189 = zext i1 %188 to i32
-  %190 = add nsw i32 %183, %189
-  br label %191
+188:                                              ; preds = %183
+  %189 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %5, i32 noundef %184)
+  %190 = icmp eq i32 %189, 0
+  %191 = zext i1 %190 to i32
+  %192 = add nsw i32 %185, %191
+  br label %193
 
-191:                                              ; preds = %186, %181
-  %192 = phi i32 [ %183, %181 ], [ %190, %186 ]
-  %193 = add nuw nsw i32 %182, 1
-  %194 = icmp eq i32 %193, 61
-  br i1 %194, label %209, label %181, !llvm.loop !20
+193:                                              ; preds = %188, %183
+  %194 = phi i32 [ %185, %183 ], [ %192, %188 ]
+  %195 = add nuw nsw i32 %184, 1
+  %196 = icmp eq i32 %195, 61
+  br i1 %196, label %211, label %183, !llvm.loop !20
 
-195:                                              ; preds = %177, %205
-  %196 = phi i32 [ %207, %205 ], [ 0, %177 ]
-  %197 = phi i32 [ %206, %205 ], [ 0, %177 ]
-  %198 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %196)
-  %199 = icmp eq i32 %198, 0
-  br i1 %199, label %205, label %200
+197:                                              ; preds = %179, %207
+  %198 = phi i32 [ %209, %207 ], [ 0, %179 ]
+  %199 = phi i32 [ %208, %207 ], [ 0, %179 ]
+  %200 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %198)
+  %201 = icmp eq i32 %200, 0
+  br i1 %201, label %207, label %202
 
-200:                                              ; preds = %195
-  %201 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %5, i32 noundef %196)
-  %202 = icmp ne i32 %201, 0
-  %203 = zext i1 %202 to i32
-  %204 = add nsw i32 %197, %203
-  br label %205
+202:                                              ; preds = %197
+  %203 = call noundef i32 @_ZN10BitBoard646getBitEi(ptr noundef nonnull align 4 dereferenceable(8) %5, i32 noundef %198)
+  %204 = icmp ne i32 %203, 0
+  %205 = zext i1 %204 to i32
+  %206 = add nsw i32 %199, %205
+  br label %207
 
-205:                                              ; preds = %200, %195
-  %206 = phi i32 [ %197, %195 ], [ %204, %200 ]
-  %207 = add nuw nsw i32 %196, 1
-  %208 = icmp eq i32 %207, 61
-  br i1 %208, label %209, label %195, !llvm.loop !20
+207:                                              ; preds = %202, %197
+  %208 = phi i32 [ %199, %197 ], [ %206, %202 ]
+  %209 = add nuw nsw i32 %198, 1
+  %210 = icmp eq i32 %209, 61
+  br i1 %210, label %211, label %197, !llvm.loop !20
 
-209:                                              ; preds = %191, %205
-  %210 = phi ptr [ @.str.16, %205 ], [ @.str.15, %191 ]
-  %211 = phi i32 [ %206, %205 ], [ %192, %191 ]
-  %212 = add i32 %117, %147
-  %213 = sub i32 61, %212
-  %214 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %211)
+211:                                              ; preds = %193, %207
+  %212 = phi ptr [ @.str.16, %207 ], [ @.str.15, %193 ]
+  %213 = phi i32 [ %208, %207 ], [ %194, %193 ]
+  %214 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %213)
   %215 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.12, i64 noundef 8)
-  %216 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %213)
+  %216 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %149)
   %217 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %216, ptr noundef nonnull @.str.13, i64 noundef 2)
   %218 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.14, i64 noundef 14)
-  %219 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %210, i64 noundef 1)
+  %219 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %212, i64 noundef 1)
   %220 = call noundef ptr @_ZN13HexxagonBoard16generateMoveListEv(ptr noundef nonnull align 4 dereferenceable(16) %0)
   %221 = icmp eq ptr %220, null
   br i1 %221, label %228, label %222
 
-222:                                              ; preds = %209
+222:                                              ; preds = %211
   %223 = getelementptr inbounds %class.HexxagonMoveList, ptr %220, i64 0, i32 1
   %224 = load ptr, ptr %223, align 8, !tbaa !25
   %225 = icmp eq ptr %224, null
@@ -1749,12 +1791,12 @@ define dso_local void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnul
   call void @_ZdlPv(ptr noundef nonnull %224) #13
   br label %227
 
-227:                                              ; preds = %222, %226
+227:                                              ; preds = %226, %222
   call void @_ZdlPv(ptr noundef nonnull %220) #13
   br label %228
 
-228:                                              ; preds = %209, %227
-  %229 = phi ptr [ @.str.18, %227 ], [ @.str.17, %209 ]
+228:                                              ; preds = %211, %227
+  %229 = phi ptr [ @.str.17, %211 ], [ @.str.18, %227 ]
   %230 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %229) #12
   %231 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %229, i64 noundef %230)
   %232 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.9, i64 noundef 1)

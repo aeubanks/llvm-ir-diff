@@ -537,7 +537,7 @@ define dso_local noundef i32 @_ZN9NCompress6NBZip211CThreadInfo10ThreadFuncEv(pt
 
 186:                                              ; preds = %179
   %187 = invoke i32 @Event_Set(ptr noundef nonnull %15)
-          to label %38 unwind label %145
+          to label %38 unwind label %145, !llvm.loop !42
 
 188:                                              ; preds = %122
   %189 = getelementptr inbounds %"class.NCompress::NBZip2::CEncoder", ptr %124, i64 0, i32 16
@@ -1295,7 +1295,7 @@ define dso_local noundef i32 @_ZN9NCompress6NBZip28CEncoder6CreateEv(ptr noundef
   %42 = getelementptr inbounds %"class.NCompress::NBZip2::CThreadInfo", ptr %38, i64 %33
   br label %43
 
-43:                                               ; preds = %41, %43
+43:                                               ; preds = %43, %41
   %44 = phi ptr [ %38, %41 ], [ %50, %43 ]
   store ptr null, ptr %44, align 8, !tbaa !19
   %45 = getelementptr inbounds %"class.NCompress::NBZip2::CThreadInfo", ptr %44, i64 0, i32 3
@@ -1336,20 +1336,20 @@ define dso_local noundef i32 @_ZN9NCompress6NBZip28CEncoder6CreateEv(ptr noundef
   %61 = phi i32 [ %92, %91 ], [ %28, %53 ]
   %62 = phi i64 [ %93, %91 ], [ 0, %53 ]
   %63 = load ptr, ptr %16, align 8, !tbaa !67
-  %64 = getelementptr inbounds %"class.NCompress::NBZip2::CThreadInfo", ptr %63, i64 %62, i32 13
-  store ptr %0, ptr %64, align 8, !tbaa !22
-  %65 = load i8, ptr %30, align 4, !tbaa !66, !range !40, !noundef !41
-  %66 = icmp eq i8 %65, 0
-  br i1 %66, label %91, label %67
+  %64 = getelementptr inbounds %"class.NCompress::NBZip2::CThreadInfo", ptr %63, i64 %62
+  %65 = getelementptr inbounds %"class.NCompress::NBZip2::CThreadInfo", ptr %63, i64 %62, i32 13
+  store ptr %0, ptr %65, align 8, !tbaa !22
+  %66 = load i8, ptr %30, align 4, !tbaa !66, !range !40, !noundef !41
+  %67 = icmp eq i8 %66, 0
+  br i1 %67, label %91, label %68
 
-67:                                               ; preds = %60
-  %68 = getelementptr inbounds %"class.NCompress::NBZip2::CThreadInfo", ptr %63, i64 %62
+68:                                               ; preds = %60
   %69 = getelementptr inbounds %"class.NCompress::NBZip2::CThreadInfo", ptr %63, i64 %62, i32 15
   %70 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %69)
   %71 = icmp eq i32 %70, 0
   br i1 %71, label %72, label %88
 
-72:                                               ; preds = %67
+72:                                               ; preds = %68
   %73 = getelementptr inbounds %"class.NCompress::NBZip2::CThreadInfo", ptr %63, i64 %62, i32 16
   %74 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %73)
   %75 = icmp eq i32 %74, 0
@@ -1363,7 +1363,7 @@ define dso_local noundef i32 @_ZN9NCompress6NBZip28CEncoder6CreateEv(ptr noundef
 
 80:                                               ; preds = %76
   %81 = getelementptr inbounds %"class.NCompress::NBZip2::CThreadInfo", ptr %63, i64 %62, i32 14
-  %82 = tail call i32 @Thread_Create(ptr noundef nonnull %81, ptr noundef nonnull @_ZN9NCompress6NBZip2L8MFThreadEPv, ptr noundef nonnull %68)
+  %82 = tail call i32 @Thread_Create(ptr noundef nonnull %81, ptr noundef nonnull @_ZN9NCompress6NBZip2L8MFThreadEPv, ptr noundef nonnull %64)
   %83 = icmp eq i32 %82, 0
   br i1 %83, label %84, label %86
 
@@ -1377,8 +1377,8 @@ define dso_local noundef i32 @_ZN9NCompress6NBZip28CEncoder6CreateEv(ptr noundef
   tail call void @_ZN9NCompress6NBZip28CEncoder4FreeEv(ptr noundef nonnull align 8 dereferenceable(712) %0)
   br label %96
 
-88:                                               ; preds = %67, %72, %76
-  %89 = phi i32 [ %78, %76 ], [ %74, %72 ], [ %70, %67 ]
+88:                                               ; preds = %68, %72, %76
+  %89 = phi i32 [ %78, %76 ], [ %74, %72 ], [ %70, %68 ]
   %90 = trunc i64 %62 to i32
   store i32 %90, ptr %27, align 8, !tbaa !54
   tail call void @_ZN9NCompress6NBZip28CEncoder4FreeEv(ptr noundef nonnull align 8 dereferenceable(712) %0)
@@ -1391,8 +1391,8 @@ define dso_local noundef i32 @_ZN9NCompress6NBZip28CEncoder6CreateEv(ptr noundef
   %95 = icmp ult i64 %93, %94
   br i1 %95, label %60, label %96, !llvm.loop !89
 
-96:                                               ; preds = %91, %54, %40, %52, %88, %86, %12, %5, %19, %56
-  %97 = phi i32 [ %6, %5 ], [ %13, %12 ], [ -2147024882, %56 ], [ 0, %19 ], [ %82, %86 ], [ %89, %88 ], [ 0, %52 ], [ 0, %40 ], [ 0, %54 ], [ 0, %91 ]
+96:                                               ; preds = %91, %54, %88, %86, %52, %40, %12, %5, %19, %56
+  %97 = phi i32 [ %6, %5 ], [ %13, %12 ], [ -2147024882, %56 ], [ 0, %19 ], [ 0, %52 ], [ %82, %86 ], [ %89, %88 ], [ 0, %40 ], [ 0, %54 ], [ 0, %91 ]
   ret i32 %97
 }
 
@@ -6586,7 +6586,7 @@ define dso_local noundef i32 @_ZN9NCompress6NBZip28CEncoder8CodeRealEP19ISequent
   resume { ptr, i32 } %325
 
 326:                                              ; preds = %51, %45, %27, %31, %35, %6, %67, %64, %323
-  %327 = phi i32 [ %11, %6 ], [ %299, %323 ], [ -2147024882, %64 ], [ -2147024882, %67 ], [ %37, %35 ], [ %33, %31 ], [ %29, %27 ], [ -2147024882, %45 ], [ -2147024882, %51 ]
+  %327 = phi i32 [ %11, %6 ], [ %299, %323 ], [ -2147024882, %64 ], [ -2147024882, %67 ], [ -2147024882, %51 ], [ -2147024882, %45 ], [ %29, %27 ], [ %33, %31 ], [ %37, %35 ]
   ret i32 %327
 }
 
@@ -6763,7 +6763,7 @@ define dso_local noundef i32 @_ZN9NCompress6NBZip28CEncoder18SetCoderPropertiesE
   br i1 %48, label %49, label %12, !llvm.loop !170
 
 49:                                               ; preds = %46, %12, %39, %27, %17, %4
-  %50 = phi i32 [ 0, %4 ], [ -2147024809, %17 ], [ -2147024809, %27 ], [ -2147024809, %39 ], [ -2147024809, %12 ], [ 0, %46 ]
+  %50 = phi i32 [ 0, %4 ], [ 0, %46 ], [ -2147024809, %12 ], [ -2147024809, %39 ], [ -2147024809, %27 ], [ -2147024809, %17 ]
   ret i32 %50
 }
 
@@ -6846,7 +6846,7 @@ define dso_local noundef i32 @_ZThn8_N9NCompress6NBZip28CEncoder18SetCoderProper
   br i1 %48, label %49, label %12, !llvm.loop !170
 
 49:                                               ; preds = %12, %17, %27, %39, %46, %4
-  %50 = phi i32 [ 0, %4 ], [ 0, %46 ], [ -2147024809, %12 ], [ -2147024809, %39 ], [ -2147024809, %27 ], [ -2147024809, %17 ]
+  %50 = phi i32 [ 0, %4 ], [ -2147024809, %17 ], [ -2147024809, %27 ], [ -2147024809, %39 ], [ -2147024809, %12 ], [ 0, %46 ]
   ret i32 %50
 }
 
@@ -7088,7 +7088,7 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress6NBZip28CEncoder14QueryI
   %159 = icmp eq i8 %157, %158
   br i1 %159, label %238, label %160
 
-160:                                              ; preds = %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
+160:                                              ; preds = %82, %85, %90, %95, %100, %105, %110, %115, %120, %125, %130, %135, %140, %145, %150, %155
   %161 = load i8, ptr @IID_ICompressSetCoderProperties, align 4, !tbaa !46
   %162 = icmp eq i8 %4, %161
   br i1 %162, label %163, label %245
@@ -7208,8 +7208,8 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress6NBZip28CEncoder14QueryI
   %244 = tail call noundef i32 %243(ptr noundef nonnull align 8 dereferenceable(712) %0)
   br label %245
 
-245:                                              ; preds = %238, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
-  %246 = phi i32 [ -2147467262, %233 ], [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ 0, %238 ]
+245:                                              ; preds = %238, %233, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160
+  %246 = phi i32 [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ -2147467262, %233 ], [ 0, %238 ]
   ret i32 %246
 }
 
@@ -7364,19 +7364,19 @@ declare void @_ZN10COutBuffer9SetStreamEP20ISequentialOutStream(ptr noundef nonn
 declare void @_ZN10COutBuffer4InitEv(ptr noundef nonnull align 8 dereferenceable(49)) local_unnamed_addr #1
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.fshl.i32(i32, i32, i32) #17
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #17
+declare i32 @llvm.smin.i32(i32, i32) #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #17
+declare i32 @llvm.smax.i32(i32, i32) #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #17
+declare i32 @llvm.fshl.i32(i32, i32, i32) #17
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #17

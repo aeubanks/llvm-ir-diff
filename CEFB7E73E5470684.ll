@@ -66,14 +66,14 @@ define dso_local noundef i64 @_Z10test_listsv() local_unnamed_addr #3 personalit
           cleanup
   %17 = load ptr, ptr %1, align 8, !tbaa !10
   %18 = icmp eq ptr %17, %1
-  br i1 %18, label %176, label %19
+  br i1 %18, label %174, label %19
 
 19:                                               ; preds = %15, %19
   %20 = phi ptr [ %21, %19 ], [ %17, %15 ]
   %21 = load ptr, ptr %20, align 8, !tbaa !10
   call void @_ZdlPv(ptr noundef %20) #12
   %22 = icmp eq ptr %21, %1
-  br i1 %22, label %176, label %19, !llvm.loop !20
+  br i1 %22, label %174, label %19, !llvm.loop !20
 
 23:                                               ; preds = %9
   %24 = load ptr, ptr %1, align 8, !tbaa !10
@@ -137,14 +137,14 @@ define dso_local noundef i64 @_Z10test_listsv() local_unnamed_addr #3 personalit
           cleanup
   %54 = load ptr, ptr %2, align 8, !tbaa !10
   %55 = icmp eq ptr %54, %2
-  br i1 %55, label %168, label %56
+  br i1 %55, label %166, label %56
 
 56:                                               ; preds = %52, %56
   %57 = phi ptr [ %58, %56 ], [ %54, %52 ]
   %58 = load ptr, ptr %57, align 8, !tbaa !10
   call void @_ZdlPv(ptr noundef %57) #12
   %59 = icmp eq ptr %58, %2
-  br i1 %59, label %168, label %56, !llvm.loop !20
+  br i1 %59, label %166, label %56, !llvm.loop !20
 
 60:                                               ; preds = %44
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #10
@@ -208,14 +208,14 @@ define dso_local noundef i64 @_Z10test_listsv() local_unnamed_addr #3 personalit
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #10
   %92 = load ptr, ptr %2, align 8, !tbaa !10
   %93 = icmp eq ptr %92, %2
-  br i1 %93, label %168, label %94
+  br i1 %93, label %166, label %94
 
 94:                                               ; preds = %91, %94
   %95 = phi ptr [ %96, %94 ], [ %92, %91 ]
   %96 = load ptr, ptr %95, align 8, !tbaa !10
   call void @_ZdlPv(ptr noundef %95) #12
   %97 = icmp eq ptr %96, %2
-  br i1 %97, label %168, label %94, !llvm.loop !20
+  br i1 %97, label %166, label %94, !llvm.loop !20
 
 98:                                               ; preds = %68
   %99 = load i64, ptr %62, align 8, !tbaa !15
@@ -254,23 +254,23 @@ define dso_local noundef i64 @_Z10test_listsv() local_unnamed_addr #3 personalit
   %119 = getelementptr inbounds %"struct.std::_List_node", ptr %118, i64 0, i32 1
   %120 = load i64, ptr %119, align 8, !tbaa !14
   %121 = icmp eq i64 %120, 10000
-  br i1 %121, label %122, label %145
+  br i1 %121, label %122, label %143
 
 122:                                              ; preds = %116
   %123 = load i64, ptr %5, align 8, !tbaa !15
   %124 = load i64, ptr %117, align 8, !tbaa !15
   %125 = icmp eq i64 %123, %124
-  br i1 %125, label %126, label %145
+  br i1 %125, label %126, label %143
 
 126:                                              ; preds = %122, %134
   %127 = phi ptr [ %130, %134 ], [ %1, %122 ]
   %128 = phi ptr [ %129, %134 ], [ %2, %122 ]
   %129 = load ptr, ptr %128, align 8, !tbaa !10
   %130 = load ptr, ptr %127, align 8, !tbaa !10
-  %131 = icmp ne ptr %130, %1
-  %132 = icmp ne ptr %129, %2
-  %133 = select i1 %131, i1 %132, i1 false
-  br i1 %133, label %134, label %140
+  %131 = icmp eq ptr %130, %1
+  %132 = icmp eq ptr %129, %2
+  %133 = select i1 %131, i1 true, i1 %132
+  br i1 %133, label %140, label %134
 
 134:                                              ; preds = %126
   %135 = getelementptr inbounds %"struct.std::_List_node", ptr %130, i64 0, i32 1
@@ -278,76 +278,74 @@ define dso_local noundef i64 @_Z10test_listsv() local_unnamed_addr #3 personalit
   %137 = getelementptr inbounds %"struct.std::_List_node", ptr %129, i64 0, i32 1
   %138 = load i64, ptr %137, align 8, !tbaa !14
   %139 = icmp eq i64 %136, %138
-  br i1 %139, label %126, label %140, !llvm.loop !25
+  br i1 %139, label %126, label %143, !llvm.loop !25
 
-140:                                              ; preds = %126, %134
-  %141 = icmp eq ptr %130, %1
-  %142 = icmp eq ptr %129, %2
-  %143 = select i1 %141, i1 %142, i1 false
-  %144 = select i1 %143, i64 %123, i64 0
-  br label %145
+140:                                              ; preds = %126
+  %141 = select i1 %131, i1 %132, i1 false
+  %142 = select i1 %141, i64 %123, i64 0
+  br label %143
 
-145:                                              ; preds = %140, %122, %116
-  %146 = phi i64 [ 0, %116 ], [ 0, %122 ], [ %144, %140 ]
-  %147 = load ptr, ptr %3, align 8, !tbaa !10
-  %148 = icmp eq ptr %147, %3
-  br i1 %148, label %153, label %149
+143:                                              ; preds = %134, %140, %122, %116
+  %144 = phi i64 [ 0, %116 ], [ 0, %122 ], [ %142, %140 ], [ 0, %134 ]
+  %145 = load ptr, ptr %3, align 8, !tbaa !10
+  %146 = icmp eq ptr %145, %3
+  br i1 %146, label %151, label %147
 
-149:                                              ; preds = %145, %149
-  %150 = phi ptr [ %151, %149 ], [ %147, %145 ]
-  %151 = load ptr, ptr %150, align 8, !tbaa !10
-  call void @_ZdlPv(ptr noundef %150) #12
-  %152 = icmp eq ptr %151, %3
-  br i1 %152, label %153, label %149, !llvm.loop !20
+147:                                              ; preds = %143, %147
+  %148 = phi ptr [ %149, %147 ], [ %145, %143 ]
+  %149 = load ptr, ptr %148, align 8, !tbaa !10
+  call void @_ZdlPv(ptr noundef %148) #12
+  %150 = icmp eq ptr %149, %3
+  br i1 %150, label %151, label %147, !llvm.loop !20
 
-153:                                              ; preds = %149, %145
+151:                                              ; preds = %147, %143
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #10
-  %154 = load ptr, ptr %2, align 8, !tbaa !10
-  %155 = icmp eq ptr %154, %2
-  br i1 %155, label %160, label %156
+  %152 = load ptr, ptr %2, align 8, !tbaa !10
+  %153 = icmp eq ptr %152, %2
+  br i1 %153, label %158, label %154
 
-156:                                              ; preds = %153, %156
-  %157 = phi ptr [ %158, %156 ], [ %154, %153 ]
-  %158 = load ptr, ptr %157, align 8, !tbaa !10
-  call void @_ZdlPv(ptr noundef %157) #12
-  %159 = icmp eq ptr %158, %2
-  br i1 %159, label %160, label %156, !llvm.loop !20
+154:                                              ; preds = %151, %154
+  %155 = phi ptr [ %156, %154 ], [ %152, %151 ]
+  %156 = load ptr, ptr %155, align 8, !tbaa !10
+  call void @_ZdlPv(ptr noundef %155) #12
+  %157 = icmp eq ptr %156, %2
+  br i1 %157, label %158, label %154, !llvm.loop !20
 
-160:                                              ; preds = %156, %153
+158:                                              ; preds = %154, %151
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #10
-  %161 = load ptr, ptr %1, align 8, !tbaa !10
-  %162 = icmp eq ptr %161, %1
-  br i1 %162, label %167, label %163
+  %159 = load ptr, ptr %1, align 8, !tbaa !10
+  %160 = icmp eq ptr %159, %1
+  br i1 %160, label %165, label %161
 
-163:                                              ; preds = %160, %163
-  %164 = phi ptr [ %165, %163 ], [ %161, %160 ]
-  %165 = load ptr, ptr %164, align 8, !tbaa !10
-  call void @_ZdlPv(ptr noundef %164) #12
-  %166 = icmp eq ptr %165, %1
-  br i1 %166, label %167, label %163, !llvm.loop !20
+161:                                              ; preds = %158, %161
+  %162 = phi ptr [ %163, %161 ], [ %159, %158 ]
+  %163 = load ptr, ptr %162, align 8, !tbaa !10
+  call void @_ZdlPv(ptr noundef %162) #12
+  %164 = icmp eq ptr %163, %1
+  br i1 %164, label %165, label %161, !llvm.loop !20
 
-167:                                              ; preds = %163, %160
+165:                                              ; preds = %161, %158
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %1) #10
-  ret i64 %146
+  ret i64 %144
 
-168:                                              ; preds = %56, %94, %91, %52
-  %169 = phi { ptr, i32 } [ %53, %52 ], [ %84, %91 ], [ %84, %94 ], [ %53, %56 ]
+166:                                              ; preds = %56, %94, %91, %52
+  %167 = phi { ptr, i32 } [ %53, %52 ], [ %84, %91 ], [ %84, %94 ], [ %53, %56 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #10
-  %170 = load ptr, ptr %1, align 8, !tbaa !10
-  %171 = icmp eq ptr %170, %1
-  br i1 %171, label %176, label %172
+  %168 = load ptr, ptr %1, align 8, !tbaa !10
+  %169 = icmp eq ptr %168, %1
+  br i1 %169, label %174, label %170
 
-172:                                              ; preds = %168, %172
-  %173 = phi ptr [ %174, %172 ], [ %170, %168 ]
-  %174 = load ptr, ptr %173, align 8, !tbaa !10
-  call void @_ZdlPv(ptr noundef %173) #12
-  %175 = icmp eq ptr %174, %1
-  br i1 %175, label %176, label %172, !llvm.loop !20
+170:                                              ; preds = %166, %170
+  %171 = phi ptr [ %172, %170 ], [ %168, %166 ]
+  %172 = load ptr, ptr %171, align 8, !tbaa !10
+  call void @_ZdlPv(ptr noundef %171) #12
+  %173 = icmp eq ptr %172, %1
+  br i1 %173, label %174, label %170, !llvm.loop !20
 
-176:                                              ; preds = %19, %172, %168, %15
-  %177 = phi { ptr, i32 } [ %16, %15 ], [ %169, %168 ], [ %169, %172 ], [ %16, %19 ]
+174:                                              ; preds = %19, %170, %166, %15
+  %175 = phi { ptr, i32 } [ %16, %15 ], [ %167, %166 ], [ %167, %170 ], [ %16, %19 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %1) #10
-  resume { ptr, i32 } %177
+  resume { ptr, i32 } %175
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

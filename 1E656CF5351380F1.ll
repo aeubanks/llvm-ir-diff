@@ -707,21 +707,21 @@ define dso_local i32 @countamino(ptr nocapture noundef readonly %0, i32 noundef 
   br i1 %31, label %47, label %32
 
 32:                                               ; preds = %4, %28
-  %33 = phi i32 [ 0, %4 ], [ %30, %28 ]
-  %34 = phi i32 [ %1, %4 ], [ %10, %28 ]
+  %33 = phi i32 [ %1, %4 ], [ %10, %28 ]
+  %34 = phi i32 [ 0, %4 ], [ %30, %28 ]
   %35 = phi ptr [ %0, %4 ], [ %11, %28 ]
   br label %36
 
 36:                                               ; preds = %32, %36
-  %37 = phi i32 [ %45, %36 ], [ %33, %32 ]
-  %38 = phi i32 [ %40, %36 ], [ %34, %32 ]
+  %37 = phi i32 [ %40, %36 ], [ %33, %32 ]
+  %38 = phi i32 [ %45, %36 ], [ %34, %32 ]
   %39 = phi ptr [ %41, %36 ], [ %35, %32 ]
-  %40 = add nsw i32 %38, -1
+  %40 = add nsw i32 %37, -1
   %41 = getelementptr inbounds i8, ptr %39, i64 1
   %42 = load i8, ptr %39, align 1, !tbaa !5
   %43 = icmp ne i8 %42, 45
   %44 = zext i1 %43 to i32
-  %45 = add nuw nsw i32 %37, %44
+  %45 = add nuw nsw i32 %38, %44
   %46 = icmp eq i32 %40, 0
   br i1 %46, label %47, label %36, !llvm.loop !22
 
@@ -810,287 +810,287 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
   %52 = tail call ptr @AllocateCharMtx(i32 noundef %51, i32 noundef 0) #18
   store ptr %52, ptr @main.mseq2, align 8, !tbaa !8
   %53 = load i32, ptr @nlenmax, align 4, !tbaa !10
-  %54 = load i32, ptr @njob, align 4, !tbaa !10
-  %55 = tail call ptr @AllocateDoubleVec(i32 noundef %54) #18
-  store ptr %55, ptr @main.eff, align 8, !tbaa !8
-  %56 = load ptr, ptr @main.seq, align 8, !tbaa !8
-  tail call void @readData(ptr noundef %21, ptr noundef nonnull @main.name, ptr noundef nonnull @main.nlen, ptr noundef %56) #18
-  %57 = tail call i32 @fclose(ptr noundef %21)
-  %58 = load i32, ptr @njob, align 4, !tbaa !10
-  %59 = load ptr, ptr @main.seq, align 8, !tbaa !8
-  tail call void @constants(i32 noundef %58, ptr noundef %59) #18
+  %54 = mul nsw i32 %53, 9
+  %55 = load i32, ptr @njob, align 4, !tbaa !10
+  %56 = tail call ptr @AllocateDoubleVec(i32 noundef %55) #18
+  store ptr %56, ptr @main.eff, align 8, !tbaa !8
+  %57 = load ptr, ptr @main.seq, align 8, !tbaa !8
+  tail call void @readData(ptr noundef %21, ptr noundef nonnull @main.name, ptr noundef nonnull @main.nlen, ptr noundef %57) #18
+  %58 = tail call i32 @fclose(ptr noundef %21)
+  %59 = load i32, ptr @njob, align 4, !tbaa !10
+  %60 = load ptr, ptr @main.seq, align 8, !tbaa !8
+  tail call void @constants(i32 noundef %59, ptr noundef %60) #18
   tail call void @initSignalSM() #18
   tail call void @initFiles() #18
-  %60 = load ptr, ptr @trap_g, align 8, !tbaa !8
-  %61 = load i32, ptr @dorp, align 4, !tbaa !10
-  %62 = icmp eq i32 %61, 100
-  br i1 %62, label %63, label %65
+  %61 = load ptr, ptr @trap_g, align 8, !tbaa !8
+  %62 = load i32, ptr @dorp, align 4, !tbaa !10
+  %63 = icmp eq i32 %62, 100
+  br i1 %63, label %64, label %66
 
-63:                                               ; preds = %34
-  %64 = tail call i64 @fwrite(ptr nonnull @.str.22, i64 4, i64 1, ptr %60)
-  br label %75
+64:                                               ; preds = %34
+  %65 = tail call i64 @fwrite(ptr nonnull @.str.22, i64 4, i64 1, ptr %61)
+  br label %76
 
-65:                                               ; preds = %34
-  %66 = load i32, ptr @scoremtx, align 4, !tbaa !10
-  switch i32 %66, label %75 [
-    i32 0, label %67
-    i32 1, label %70
-    i32 2, label %73
+66:                                               ; preds = %34
+  %67 = load i32, ptr @scoremtx, align 4, !tbaa !10
+  switch i32 %67, label %76 [
+    i32 0, label %68
+    i32 1, label %71
+    i32 2, label %74
   ]
 
-67:                                               ; preds = %65
-  %68 = load i32, ptr @pamN, align 4, !tbaa !10
-  %69 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %60, ptr noundef nonnull @.str.23, i32 noundef %68)
-  br label %75
+68:                                               ; preds = %66
+  %69 = load i32, ptr @pamN, align 4, !tbaa !10
+  %70 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %61, ptr noundef nonnull @.str.23, i32 noundef %69)
+  br label %76
 
-70:                                               ; preds = %65
-  %71 = load i32, ptr @nblosum, align 4, !tbaa !10
-  %72 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %60, ptr noundef nonnull @.str.24, i32 noundef %71)
-  br label %75
+71:                                               ; preds = %66
+  %72 = load i32, ptr @nblosum, align 4, !tbaa !10
+  %73 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %61, ptr noundef nonnull @.str.24, i32 noundef %72)
+  br label %76
 
-73:                                               ; preds = %65
-  %74 = tail call i64 @fwrite(ptr nonnull @.str.25, i64 4, i64 1, ptr %60)
-  br label %75
+74:                                               ; preds = %66
+  %75 = tail call i64 @fwrite(ptr nonnull @.str.25, i64 4, i64 1, ptr %61)
+  br label %76
 
-75:                                               ; preds = %73, %70, %67, %65, %63
-  %76 = load ptr, ptr @stderr, align 8, !tbaa !8
-  %77 = load i32, ptr @ppenalty, align 4, !tbaa !10
-  %78 = sitofp i32 %77 to double
-  %79 = fdiv double %78, 1.000000e+03
-  %80 = load i32, ptr @ppenalty_ex, align 4, !tbaa !10
-  %81 = sitofp i32 %80 to double
-  %82 = fdiv double %81, 1.000000e+03
-  %83 = load i32, ptr @poffset, align 4, !tbaa !10
-  %84 = sitofp i32 %83 to double
-  %85 = fdiv double %84, 1.000000e+03
-  %86 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %76, ptr noundef nonnull @.str.26, double noundef %79, double noundef %82, double noundef %85) #17
-  %87 = load i8, ptr @use_fft, align 1, !tbaa !5
-  %88 = icmp eq i8 %87, 0
-  br i1 %88, label %91, label %89
+76:                                               ; preds = %74, %71, %68, %66, %64
+  %77 = load ptr, ptr @stderr, align 8, !tbaa !8
+  %78 = load i32, ptr @ppenalty, align 4, !tbaa !10
+  %79 = sitofp i32 %78 to double
+  %80 = fdiv double %79, 1.000000e+03
+  %81 = load i32, ptr @ppenalty_ex, align 4, !tbaa !10
+  %82 = sitofp i32 %81 to double
+  %83 = fdiv double %82, 1.000000e+03
+  %84 = load i32, ptr @poffset, align 4, !tbaa !10
+  %85 = sitofp i32 %84 to double
+  %86 = fdiv double %85, 1.000000e+03
+  %87 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %77, ptr noundef nonnull @.str.26, double noundef %80, double noundef %83, double noundef %86) #17
+  %88 = load i8, ptr @use_fft, align 1, !tbaa !5
+  %89 = icmp eq i8 %88, 0
+  br i1 %89, label %92, label %90
 
-89:                                               ; preds = %75
-  %90 = tail call i64 @fwrite(ptr nonnull @.str.27, i64 7, i64 1, ptr %60)
-  br label %91
+90:                                               ; preds = %76
+  %91 = tail call i64 @fwrite(ptr nonnull @.str.27, i64 7, i64 1, ptr %61)
+  br label %92
 
-91:                                               ; preds = %89, %75
-  %92 = tail call i64 @fwrite(ptr nonnull @.str.28, i64 17, i64 1, ptr %60)
-  %93 = load i32, ptr @tbrweight, align 4, !tbaa !10
-  switch i32 %93, label %98 [
-    i32 0, label %94
-    i32 3, label %96
+92:                                               ; preds = %90, %76
+  %93 = tail call i64 @fwrite(ptr nonnull @.str.28, i64 17, i64 1, ptr %61)
+  %94 = load i32, ptr @tbrweight, align 4, !tbaa !10
+  switch i32 %94, label %99 [
+    i32 0, label %95
+    i32 3, label %97
   ]
 
-94:                                               ; preds = %91
-  %95 = tail call i64 @fwrite(ptr nonnull @.str.29, i64 11, i64 1, ptr %60)
-  br label %98
+95:                                               ; preds = %92
+  %96 = tail call i64 @fwrite(ptr nonnull @.str.29, i64 11, i64 1, ptr %61)
+  br label %99
 
-96:                                               ; preds = %91
-  %97 = tail call i64 @fwrite(ptr nonnull @.str.30, i64 24, i64 1, ptr %60)
-  br label %98
+97:                                               ; preds = %92
+  %98 = tail call i64 @fwrite(ptr nonnull @.str.30, i64 24, i64 1, ptr %61)
+  br label %99
 
-98:                                               ; preds = %96, %94, %91
-  %99 = load i32, ptr @tbitr, align 4, !tbaa !10
-  %100 = icmp ne i32 %99, 0
-  %101 = load i32, ptr @tbweight, align 4
-  %102 = icmp ne i32 %101, 0
-  %103 = select i1 %100, i1 true, i1 %102
-  br i1 %103, label %104, label %130
+99:                                               ; preds = %97, %95, %92
+  %100 = load i32, ptr @tbitr, align 4, !tbaa !10
+  %101 = icmp ne i32 %100, 0
+  %102 = load i32, ptr @tbweight, align 4
+  %103 = icmp ne i32 %102, 0
+  %104 = select i1 %101, i1 true, i1 %103
+  br i1 %104, label %105, label %131
 
-104:                                              ; preds = %98
-  %105 = tail call i64 @fwrite(ptr nonnull @.str.31, i64 21, i64 1, ptr %60)
-  %106 = load i32, ptr @tbitr, align 4, !tbaa !10
-  %107 = icmp ne i32 %106, 0
-  %108 = load i32, ptr @tbrweight, align 4
-  %109 = icmp eq i32 %108, 0
-  %110 = select i1 %107, i1 %109, i1 false
-  br i1 %110, label %111, label %115
+105:                                              ; preds = %99
+  %106 = tail call i64 @fwrite(ptr nonnull @.str.31, i64 21, i64 1, ptr %61)
+  %107 = load i32, ptr @tbitr, align 4, !tbaa !10
+  %108 = icmp ne i32 %107, 0
+  %109 = load i32, ptr @tbrweight, align 4
+  %110 = icmp eq i32 %109, 0
+  %111 = select i1 %108, i1 %110, i1 false
+  br i1 %111, label %112, label %116
 
-111:                                              ; preds = %104
-  %112 = tail call i64 @fwrite(ptr nonnull @.str.32, i64 13, i64 1, ptr %60)
-  %113 = load i32, ptr @tbitr, align 4, !tbaa !10
-  %114 = load i32, ptr @tbrweight, align 4
-  br label %115
+112:                                              ; preds = %105
+  %113 = tail call i64 @fwrite(ptr nonnull @.str.32, i64 13, i64 1, ptr %61)
+  %114 = load i32, ptr @tbitr, align 4, !tbaa !10
+  %115 = load i32, ptr @tbrweight, align 4
+  br label %116
 
-115:                                              ; preds = %111, %104
-  %116 = phi i32 [ %114, %111 ], [ %108, %104 ]
-  %117 = phi i32 [ %113, %111 ], [ %106, %104 ]
-  %118 = icmp ne i32 %117, 0
-  %119 = icmp eq i32 %116, 3
-  %120 = select i1 %118, i1 %119, i1 false
-  br i1 %120, label %121, label %123
+116:                                              ; preds = %112, %105
+  %117 = phi i32 [ %115, %112 ], [ %109, %105 ]
+  %118 = phi i32 [ %114, %112 ], [ %107, %105 ]
+  %119 = icmp ne i32 %118, 0
+  %120 = icmp eq i32 %117, 3
+  %121 = select i1 %119, i1 %120, i1 false
+  br i1 %121, label %122, label %124
 
-121:                                              ; preds = %115
-  %122 = tail call i64 @fwrite(ptr nonnull @.str.33, i64 21, i64 1, ptr %60)
-  br label %123
+122:                                              ; preds = %116
+  %123 = tail call i64 @fwrite(ptr nonnull @.str.33, i64 21, i64 1, ptr %61)
+  br label %124
 
-123:                                              ; preds = %121, %115
-  %124 = load i32, ptr @tbweight, align 4, !tbaa !10
-  %125 = icmp eq i32 %124, 0
-  br i1 %125, label %128, label %126
+124:                                              ; preds = %122, %116
+  %125 = load i32, ptr @tbweight, align 4, !tbaa !10
+  %126 = icmp eq i32 %125, 0
+  br i1 %126, label %129, label %127
 
-126:                                              ; preds = %123
-  %127 = tail call i64 @fwrite(ptr nonnull @.str.34, i64 11, i64 1, ptr %60)
-  br label %128
+127:                                              ; preds = %124
+  %128 = tail call i64 @fwrite(ptr nonnull @.str.34, i64 11, i64 1, ptr %61)
+  br label %129
 
-128:                                              ; preds = %126, %123
-  %129 = tail call i32 @fputc(i32 10, ptr %60)
-  br label %130
+129:                                              ; preds = %127, %124
+  %130 = tail call i32 @fputc(i32 10, ptr %61)
+  br label %131
 
-130:                                              ; preds = %128, %98
-  %131 = load i32, ptr @ppenalty, align 4, !tbaa !10
-  %132 = sitofp i32 %131 to double
-  %133 = fdiv double %132, 1.000000e+03
-  %134 = load i32, ptr @ppenalty_ex, align 4, !tbaa !10
-  %135 = sitofp i32 %134 to double
-  %136 = fdiv double %135, 1.000000e+03
-  %137 = load i32, ptr @poffset, align 4, !tbaa !10
-  %138 = sitofp i32 %137 to double
-  %139 = fdiv double %138, 1.000000e+03
-  %140 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %60, ptr noundef nonnull @.str.26, double noundef %133, double noundef %136, double noundef %139)
-  %141 = load i8, ptr @alg, align 1, !tbaa !5
-  switch i8 %141, label %150 [
-    i8 97, label %142
-    i8 65, label %144
-    i8 83, label %146
-    i8 67, label %148
+131:                                              ; preds = %129, %99
+  %132 = load i32, ptr @ppenalty, align 4, !tbaa !10
+  %133 = sitofp i32 %132 to double
+  %134 = fdiv double %133, 1.000000e+03
+  %135 = load i32, ptr @ppenalty_ex, align 4, !tbaa !10
+  %136 = sitofp i32 %135 to double
+  %137 = fdiv double %136, 1.000000e+03
+  %138 = load i32, ptr @poffset, align 4, !tbaa !10
+  %139 = sitofp i32 %138 to double
+  %140 = fdiv double %139, 1.000000e+03
+  %141 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %61, ptr noundef nonnull @.str.26, double noundef %134, double noundef %137, double noundef %140)
+  %142 = load i8, ptr @alg, align 1, !tbaa !5
+  switch i8 %142, label %151 [
+    i8 97, label %143
+    i8 65, label %145
+    i8 83, label %147
+    i8 67, label %149
   ]
 
-142:                                              ; preds = %130
-  %143 = tail call i64 @fwrite(ptr nonnull @.str.36, i64 12, i64 1, ptr %60)
-  br label %152
+143:                                              ; preds = %131
+  %144 = tail call i64 @fwrite(ptr nonnull @.str.36, i64 12, i64 1, ptr %61)
+  br label %153
 
-144:                                              ; preds = %130
-  %145 = tail call i64 @fwrite(ptr nonnull @.str.37, i64 13, i64 1, ptr %60)
-  br label %152
+145:                                              ; preds = %131
+  %146 = tail call i64 @fwrite(ptr nonnull @.str.37, i64 13, i64 1, ptr %61)
+  br label %153
 
-146:                                              ; preds = %130
-  %147 = tail call i64 @fwrite(ptr nonnull @.str.38, i64 12, i64 1, ptr %60)
-  br label %152
+147:                                              ; preds = %131
+  %148 = tail call i64 @fwrite(ptr nonnull @.str.38, i64 12, i64 1, ptr %61)
+  br label %153
 
-148:                                              ; preds = %130
-  %149 = tail call i64 @fwrite(ptr nonnull @.str.39, i64 15, i64 1, ptr %60)
-  br label %152
+149:                                              ; preds = %131
+  %150 = tail call i64 @fwrite(ptr nonnull @.str.39, i64 15, i64 1, ptr %61)
+  br label %153
 
-150:                                              ; preds = %130
-  %151 = tail call i64 @fwrite(ptr nonnull @.str.40, i64 18, i64 1, ptr %60)
-  br label %152
+151:                                              ; preds = %131
+  %152 = tail call i64 @fwrite(ptr nonnull @.str.40, i64 18, i64 1, ptr %61)
+  br label %153
 
-152:                                              ; preds = %150, %148, %146, %144, %142
-  %153 = load i8, ptr @use_fft, align 1, !tbaa !5
-  %154 = icmp eq i8 %153, 0
-  br i1 %154, label %173, label %155
+153:                                              ; preds = %151, %149, %147, %145, %143
+  %154 = load i8, ptr @use_fft, align 1, !tbaa !5
+  %155 = icmp eq i8 %154, 0
+  br i1 %155, label %174, label %156
 
-155:                                              ; preds = %152
-  %156 = tail call i64 @fwrite(ptr nonnull @.str.27, i64 7, i64 1, ptr %60)
-  %157 = load i32, ptr @dorp, align 4, !tbaa !10
-  %158 = icmp eq i32 %157, 100
-  br i1 %158, label %159, label %161
+156:                                              ; preds = %153
+  %157 = tail call i64 @fwrite(ptr nonnull @.str.27, i64 7, i64 1, ptr %61)
+  %158 = load i32, ptr @dorp, align 4, !tbaa !10
+  %159 = icmp eq i32 %158, 100
+  br i1 %159, label %160, label %162
 
-159:                                              ; preds = %155
-  %160 = tail call i64 @fwrite(ptr nonnull @.str.41, i64 22, i64 1, ptr %60)
-  br label %168
+160:                                              ; preds = %156
+  %161 = tail call i64 @fwrite(ptr nonnull @.str.41, i64 22, i64 1, ptr %61)
+  br label %169
 
-161:                                              ; preds = %155
-  %162 = load i32, ptr @fftscore, align 4, !tbaa !10
-  %163 = icmp eq i32 %162, 0
-  br i1 %163, label %166, label %164
+162:                                              ; preds = %156
+  %163 = load i32, ptr @fftscore, align 4, !tbaa !10
+  %164 = icmp eq i32 %163, 0
+  br i1 %164, label %167, label %165
 
-164:                                              ; preds = %161
-  %165 = tail call i64 @fwrite(ptr nonnull @.str.42, i64 28, i64 1, ptr %60)
-  br label %168
+165:                                              ; preds = %162
+  %166 = tail call i64 @fwrite(ptr nonnull @.str.42, i64 28, i64 1, ptr %61)
+  br label %169
 
-166:                                              ; preds = %161
-  %167 = tail call i64 @fwrite(ptr nonnull @.str.43, i64 23, i64 1, ptr %60)
-  br label %168
+167:                                              ; preds = %162
+  %168 = tail call i64 @fwrite(ptr nonnull @.str.43, i64 23, i64 1, ptr %61)
+  br label %169
 
-168:                                              ; preds = %166, %164, %159
-  %169 = load i32, ptr @fftThreshold, align 4, !tbaa !10
-  %170 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %60, ptr noundef nonnull @.str.44, i32 noundef %169)
-  %171 = load i32, ptr @fftWinSize, align 4, !tbaa !10
-  %172 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %60, ptr noundef nonnull @.str.45, i32 noundef %171)
-  br label %175
+169:                                              ; preds = %167, %165, %160
+  %170 = load i32, ptr @fftThreshold, align 4, !tbaa !10
+  %171 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %61, ptr noundef nonnull @.str.44, i32 noundef %170)
+  %172 = load i32, ptr @fftWinSize, align 4, !tbaa !10
+  %173 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %61, ptr noundef nonnull @.str.45, i32 noundef %172)
+  br label %176
 
-173:                                              ; preds = %152
-  %174 = tail call i64 @fwrite(ptr nonnull @.str.46, i64 8, i64 1, ptr %60)
-  br label %175
+174:                                              ; preds = %153
+  %175 = tail call i64 @fwrite(ptr nonnull @.str.46, i64 8, i64 1, ptr %61)
+  br label %176
 
-175:                                              ; preds = %168, %173
-  %176 = tail call i32 @fflush(ptr noundef %60)
-  %177 = load ptr, ptr @main.seq, align 8, !tbaa !8
-  %178 = tail call signext i8 @seqcheck(ptr noundef %177) #18
-  %179 = icmp eq i8 %178, 0
-  br i1 %179, label %180, label %199
+176:                                              ; preds = %169, %174
+  %177 = tail call i32 @fflush(ptr noundef %61)
+  %178 = load ptr, ptr @main.seq, align 8, !tbaa !8
+  %179 = tail call signext i8 @seqcheck(ptr noundef %178) #18
+  %180 = icmp eq i8 %179, 0
+  br i1 %180, label %181, label %200
 
-180:                                              ; preds = %175
-  %181 = load i32, ptr @njob, align 4, !tbaa !10
-  %182 = icmp sgt i32 %181, 0
-  br i1 %182, label %183, label %221
+181:                                              ; preds = %176
+  %182 = load i32, ptr @njob, align 4, !tbaa !10
+  %183 = icmp sgt i32 %182, 0
+  br i1 %183, label %184, label %222
 
-183:                                              ; preds = %180
-  %184 = load ptr, ptr @main.eff, align 8, !tbaa !8
-  %185 = zext i32 %181 to i64
-  %186 = icmp ult i32 %181, 4
-  br i1 %186, label %197, label %187
+184:                                              ; preds = %181
+  %185 = load ptr, ptr @main.eff, align 8, !tbaa !8
+  %186 = zext i32 %182 to i64
+  %187 = icmp ult i32 %182, 4
+  br i1 %187, label %198, label %188
 
-187:                                              ; preds = %183
-  %188 = and i64 %185, 4294967292
-  br label %189
+188:                                              ; preds = %184
+  %189 = and i64 %186, 4294967292
+  br label %190
 
-189:                                              ; preds = %189, %187
-  %190 = phi i64 [ 0, %187 ], [ %193, %189 ]
-  %191 = getelementptr inbounds double, ptr %184, i64 %190
-  store <2 x double> <double 1.000000e+00, double 1.000000e+00>, ptr %191, align 8, !tbaa !12
-  %192 = getelementptr inbounds double, ptr %191, i64 2
+190:                                              ; preds = %190, %188
+  %191 = phi i64 [ 0, %188 ], [ %194, %190 ]
+  %192 = getelementptr inbounds double, ptr %185, i64 %191
   store <2 x double> <double 1.000000e+00, double 1.000000e+00>, ptr %192, align 8, !tbaa !12
-  %193 = add nuw i64 %190, 4
-  %194 = icmp eq i64 %193, %188
-  br i1 %194, label %195, label %189, !llvm.loop !23
+  %193 = getelementptr inbounds double, ptr %192, i64 2
+  store <2 x double> <double 1.000000e+00, double 1.000000e+00>, ptr %193, align 8, !tbaa !12
+  %194 = add nuw i64 %191, 4
+  %195 = icmp eq i64 %194, %189
+  br i1 %195, label %196, label %190, !llvm.loop !23
 
-195:                                              ; preds = %189
-  %196 = icmp eq i64 %188, %185
-  br i1 %196, label %203, label %197
+196:                                              ; preds = %190
+  %197 = icmp eq i64 %189, %186
+  br i1 %197, label %204, label %198
 
-197:                                              ; preds = %183, %195
-  %198 = phi i64 [ 0, %183 ], [ %188, %195 ]
-  br label %204
+198:                                              ; preds = %184, %196
+  %199 = phi i64 [ 0, %184 ], [ %189, %196 ]
+  br label %205
 
-199:                                              ; preds = %175
-  %200 = load ptr, ptr @stderr, align 8, !tbaa !8
-  %201 = sext i8 %178 to i32
-  %202 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %200, ptr noundef nonnull @.str.16, i32 noundef %201) #17
+200:                                              ; preds = %176
+  %201 = load ptr, ptr @stderr, align 8, !tbaa !8
+  %202 = sext i8 %179 to i32
+  %203 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %201, ptr noundef nonnull @.str.16, i32 noundef %202) #17
   tail call void @exit(i32 noundef 1) #19
   unreachable
 
-203:                                              ; preds = %204, %195
-  br i1 %182, label %209, label %221
+204:                                              ; preds = %205, %196
+  br i1 %183, label %210, label %222
 
-204:                                              ; preds = %197, %204
-  %205 = phi i64 [ %207, %204 ], [ %198, %197 ]
-  %206 = getelementptr inbounds double, ptr %184, i64 %205
-  store double 1.000000e+00, ptr %206, align 8, !tbaa !12
-  %207 = add nuw nsw i64 %205, 1
-  %208 = icmp eq i64 %207, %185
-  br i1 %208, label %203, label %204, !llvm.loop !24
+205:                                              ; preds = %198, %205
+  %206 = phi i64 [ %208, %205 ], [ %199, %198 ]
+  %207 = getelementptr inbounds double, ptr %185, i64 %206
+  store double 1.000000e+00, ptr %207, align 8, !tbaa !12
+  %208 = add nuw nsw i64 %206, 1
+  %209 = icmp eq i64 %208, %186
+  br i1 %209, label %204, label %205, !llvm.loop !24
 
-209:                                              ; preds = %203, %209
-  %210 = phi i64 [ %217, %209 ], [ 0, %203 ]
-  %211 = load ptr, ptr @main.bseq, align 8, !tbaa !8
-  %212 = getelementptr inbounds ptr, ptr %211, i64 %210
-  %213 = load ptr, ptr %212, align 8, !tbaa !8
-  %214 = load ptr, ptr @main.seq, align 8, !tbaa !8
-  %215 = getelementptr inbounds ptr, ptr %214, i64 %210
-  %216 = load ptr, ptr %215, align 8, !tbaa !8
-  tail call void @gappick0(ptr noundef %213, ptr noundef %216) #18
-  %217 = add nuw nsw i64 %210, 1
-  %218 = load i32, ptr @njob, align 4, !tbaa !10
-  %219 = sext i32 %218 to i64
-  %220 = icmp slt i64 %217, %219
-  br i1 %220, label %209, label %221, !llvm.loop !25
+210:                                              ; preds = %204, %210
+  %211 = phi i64 [ %218, %210 ], [ 0, %204 ]
+  %212 = load ptr, ptr @main.bseq, align 8, !tbaa !8
+  %213 = getelementptr inbounds ptr, ptr %212, i64 %211
+  %214 = load ptr, ptr %213, align 8, !tbaa !8
+  %215 = load ptr, ptr @main.seq, align 8, !tbaa !8
+  %216 = getelementptr inbounds ptr, ptr %215, i64 %211
+  %217 = load ptr, ptr %216, align 8, !tbaa !8
+  tail call void @gappick0(ptr noundef %214, ptr noundef %217) #18
+  %218 = add nuw nsw i64 %211, 1
+  %219 = load i32, ptr @njob, align 4, !tbaa !10
+  %220 = sext i32 %219 to i64
+  %221 = icmp slt i64 %218, %220
+  br i1 %221, label %210, label %222, !llvm.loop !25
 
-221:                                              ; preds = %209, %203, %180
-  %222 = phi i32 [ %181, %180 ], [ %181, %203 ], [ %218, %209 ]
-  %223 = sext i32 %222 to i64
-  %224 = mul nsw i32 %53, 9
+222:                                              ; preds = %210, %204, %181
+  %223 = phi i32 [ %182, %181 ], [ %182, %204 ], [ %219, %210 ]
+  %224 = sext i32 %223 to i64
   %225 = load ptr, ptr @main.bseq, align 8, !tbaa !8
   %226 = load ptr, ptr @main.aseq, align 8, !tbaa !8
   %227 = load ptr, ptr @main.mseq1, align 8, !tbaa !8
@@ -1099,13 +1099,13 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %6) #18
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %7) #18
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #18
-  %230 = tail call noalias ptr @calloc(i64 noundef %223, i64 noundef 8) #20
-  %231 = icmp sgt i32 %222, 0
+  %230 = tail call noalias ptr @calloc(i64 noundef %224, i64 noundef 8) #20
+  %231 = icmp sgt i32 %223, 0
   br i1 %231, label %232, label %258
 
-232:                                              ; preds = %221, %253
-  %233 = phi i32 [ %255, %253 ], [ %222, %221 ]
-  %234 = phi i64 [ %256, %253 ], [ 0, %221 ]
+232:                                              ; preds = %222, %253
+  %233 = phi i32 [ %255, %253 ], [ %223, %222 ]
+  %234 = phi i64 [ %256, %253 ], [ 0, %222 ]
   %235 = sext i32 %233 to i64
   %236 = tail call noalias ptr @calloc(i64 noundef %235, i64 noundef 80) #20
   %237 = getelementptr inbounds ptr, ptr %230, i64 %234
@@ -1142,8 +1142,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
   %257 = icmp slt i64 %256, %254
   br i1 %257, label %232, label %258, !llvm.loop !31
 
-258:                                              ; preds = %253, %221
-  %259 = phi i32 [ %222, %221 ], [ %255, %253 ]
+258:                                              ; preds = %253, %222
+  %259 = phi i32 [ %223, %222 ], [ %255, %253 ]
   %260 = load ptr, ptr @pairalign.effarr1, align 8, !tbaa !8
   %261 = icmp eq ptr %260, null
   br i1 %261, label %262, label %273
@@ -1451,7 +1451,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
 
 434:                                              ; preds = %430
   %435 = add nsw i32 %431, -1
-  %436 = sext i32 %224 to i64
+  %436 = sext i32 %54 to i64
   %437 = zext i32 %435 to i64
   br label %449
 
@@ -1540,7 +1540,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
 501:                                              ; preds = %483
   %502 = load ptr, ptr @pairalign.effarr1, align 8, !tbaa !8
   %503 = load ptr, ptr @pairalign.effarr2, align 8, !tbaa !8
-  %504 = call float @Falign(ptr noundef %227, ptr noundef %228, ptr noundef %502, ptr noundef %503, i32 noundef %493, i32 noundef %498, i32 noundef %224, ptr noundef nonnull %8) #18
+  %504 = call float @Falign(ptr noundef %227, ptr noundef %228, ptr noundef %502, ptr noundef %503, i32 noundef %493, i32 noundef %498, i32 noundef %54, ptr noundef nonnull %8) #18
   store i32 0, ptr %7, align 4, !tbaa !10
   store i32 0, ptr %6, align 4, !tbaa !10
   br label %748
@@ -1565,7 +1565,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
 508:                                              ; preds = %505
   %509 = load ptr, ptr @pairalign.effarr1, align 8, !tbaa !8
   %510 = load ptr, ptr @pairalign.effarr2, align 8, !tbaa !8
-  %511 = call float (ptr, ptr, ptr, ptr, i32, i32, i32, ...) @Aalign(ptr noundef %227, ptr noundef %228, ptr noundef %509, ptr noundef %510, i32 noundef %493, i32 noundef %498, i32 noundef %224) #18
+  %511 = call float (ptr, ptr, ptr, ptr, i32, i32, i32, ...) @Aalign(ptr noundef %227, ptr noundef %228, ptr noundef %509, ptr noundef %510, i32 noundef %493, i32 noundef %498, i32 noundef %54) #18
   store i32 0, ptr %7, align 4, !tbaa !10
   store i32 0, ptr %6, align 4, !tbaa !10
   br label %748
@@ -1573,13 +1573,13 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
 512:                                              ; preds = %505
   %513 = load i32, ptr @penalty, align 4, !tbaa !10
   %514 = load i32, ptr @penalty_ex, align 4, !tbaa !10
-  %515 = call float @G__align11_noalign(ptr noundef nonnull @amino_dis, i32 noundef %513, i32 noundef %514, ptr noundef %227, ptr noundef %228, i32 noundef %224) #18
+  %515 = call float @G__align11_noalign(ptr noundef nonnull @amino_dis, i32 noundef %513, i32 noundef %514, ptr noundef %227, ptr noundef %228, i32 noundef %54) #18
   store i32 0, ptr %7, align 4, !tbaa !10
   store i32 0, ptr %6, align 4, !tbaa !10
   br label %748
 
 516:                                              ; preds = %505
-  %517 = call float @G__align11(ptr noundef %227, ptr noundef %228, i32 noundef %224) #18
+  %517 = call float @G__align11(ptr noundef %227, ptr noundef %228, i32 noundef %54) #18
   store i32 0, ptr %7, align 4, !tbaa !10
   store i32 0, ptr %6, align 4, !tbaa !10
   br label %748
@@ -1587,12 +1587,12 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
 518:                                              ; preds = %505
   %519 = load i32, ptr @penalty, align 4, !tbaa !10
   %520 = load i32, ptr @penalty_ex, align 4, !tbaa !10
-  %521 = call float @G__align11_noalign(ptr noundef nonnull @amino_dis, i32 noundef %519, i32 noundef %520, ptr noundef %227, ptr noundef %228, i32 noundef %224) #18
-  %522 = call float @genL__align11(ptr noundef %227, ptr noundef %228, i32 noundef %224, ptr noundef nonnull %6, ptr noundef nonnull %7) #18
+  %521 = call float @G__align11_noalign(ptr noundef nonnull @amino_dis, i32 noundef %519, i32 noundef %520, ptr noundef %227, ptr noundef %228, i32 noundef %54) #18
+  %522 = call float @genL__align11(ptr noundef %227, ptr noundef %228, i32 noundef %54, ptr noundef nonnull %6, ptr noundef nonnull %7) #18
   br label %748
 
 523:                                              ; preds = %505
-  %524 = call float @genG__align11(ptr noundef %227, ptr noundef %228, i32 noundef %224) #18
+  %524 = call float @genG__align11(ptr noundef %227, ptr noundef %228, i32 noundef %54) #18
   store i32 0, ptr %7, align 4, !tbaa !10
   store i32 0, ptr %6, align 4, !tbaa !10
   br label %748
@@ -1600,8 +1600,8 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
 525:                                              ; preds = %505
   %526 = load i32, ptr @penalty, align 4, !tbaa !10
   %527 = load i32, ptr @penalty_ex, align 4, !tbaa !10
-  %528 = call float @G__align11_noalign(ptr noundef nonnull @amino_dis, i32 noundef %526, i32 noundef %527, ptr noundef %227, ptr noundef %228, i32 noundef %224) #18
-  %529 = call float @L__align11(ptr noundef %227, ptr noundef %228, i32 noundef %224, ptr noundef nonnull %6, ptr noundef nonnull %7) #18
+  %528 = call float @G__align11_noalign(ptr noundef nonnull @amino_dis, i32 noundef %526, i32 noundef %527, ptr noundef %227, ptr noundef %228, i32 noundef %54) #18
+  %529 = call float @L__align11(ptr noundef %227, ptr noundef %228, i32 noundef %54, ptr noundef nonnull %6, ptr noundef nonnull %7) #18
   br label %748
 
 530:                                              ; preds = %505
@@ -1629,7 +1629,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
   %542 = call noalias ptr @calloc(i64 noundef %436, i64 noundef 1) #20
   %543 = load ptr, ptr %227, align 8, !tbaa !8
   %544 = load ptr, ptr %228, align 8, !tbaa !8
-  call void @readpairfoldalign(ptr noundef nonnull %540, ptr noundef %543, ptr noundef %544, ptr noundef %541, ptr noundef %542, i32 noundef %455, i32 noundef %497, ptr noundef nonnull %3, ptr noundef nonnull %4, i32 noundef %224) #18
+  call void @readpairfoldalign(ptr noundef nonnull %540, ptr noundef %543, ptr noundef %544, ptr noundef %541, ptr noundef %542, i32 noundef %455, i32 noundef %497, ptr noundef nonnull %3, ptr noundef nonnull %4, i32 noundef %54) #18
   %545 = call ptr @strstr(ptr noundef nonnull dereferenceable(1) @foldalignopt, ptr noundef nonnull dereferenceable(1) @.str.76) #22
   %546 = icmp eq ptr %545, null
   %547 = load ptr, ptr @stderr, align 8, !tbaa !8
@@ -1637,14 +1637,14 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
 
 548:                                              ; preds = %539
   %549 = call i64 @fwrite(ptr nonnull @.str.77, i64 19, i64 1, ptr %547) #17
-  %550 = call float @G__align11(ptr noundef nonnull %227, ptr noundef nonnull %228, i32 noundef %224) #18
+  %550 = call float @G__align11(ptr noundef nonnull %227, ptr noundef nonnull %228, i32 noundef %54) #18
   store i32 0, ptr %6, align 4, !tbaa !10
   store i32 0, ptr %7, align 4, !tbaa !10
   br label %554
 
 551:                                              ; preds = %539
   %552 = call i64 @fwrite(ptr nonnull @.str.78, i64 19, i64 1, ptr %547) #17
-  %553 = call float @L__align11(ptr noundef nonnull %227, ptr noundef nonnull %228, i32 noundef %224, ptr noundef nonnull %6, ptr noundef nonnull %7) #18
+  %553 = call float @L__align11(ptr noundef nonnull %227, ptr noundef nonnull %228, i32 noundef %54, ptr noundef nonnull %6, ptr noundef nonnull %7) #18
   br label %554
 
 554:                                              ; preds = %551, %548
@@ -1699,13 +1699,13 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
   unreachable
 
 581:                                              ; preds = %575
-  %582 = call ptr @AllocateCharVec(i32 noundef %224) #18
+  %582 = call ptr @AllocateCharVec(i32 noundef %54) #18
   store ptr %582, ptr @recalllara.ungap1, align 8, !tbaa !8
-  %583 = call ptr @AllocateCharVec(i32 noundef %224) #18
+  %583 = call ptr @AllocateCharVec(i32 noundef %54) #18
   store ptr %583, ptr @recalllara.ungap2, align 8, !tbaa !8
-  %584 = call ptr @AllocateCharVec(i32 noundef %224) #18
+  %584 = call ptr @AllocateCharVec(i32 noundef %54) #18
   store ptr %584, ptr @recalllara.ori1, align 8, !tbaa !8
-  %585 = call ptr @AllocateCharVec(i32 noundef %224) #18
+  %585 = call ptr @AllocateCharVec(i32 noundef %54) #18
   store ptr %585, ptr @recalllara.ori2, align 8, !tbaa !8
   %586 = load ptr, ptr @recalllara.fp, align 8, !tbaa !8
   br label %587
@@ -2047,7 +2047,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef %1) local_unnam
   unreachable
 
 746:                                              ; preds = %505
-  %747 = call float @MSalign11(ptr noundef %227, ptr noundef %228, i32 noundef %224) #18
+  %747 = call float @MSalign11(ptr noundef %227, ptr noundef %228, i32 noundef %54) #18
   br label %748
 
 748:                                              ; preds = %746, %702, %569, %525, %523, %518, %516, %512, %508, %501

@@ -1248,7 +1248,7 @@ define dso_local void @jpeg_simple_progression(ptr noundef %0) local_unnamed_add
 153:                                              ; preds = %143, %138
   %154 = phi ptr [ %139, %138 ], [ %149, %143 ]
   %155 = and i32 %3, 3
-  %156 = icmp ult i32 %3, 4
+  %156 = icmp ult i32 %111, 3
   br i1 %156, label %181, label %157
 
 157:                                              ; preds = %153

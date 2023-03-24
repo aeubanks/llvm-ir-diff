@@ -120,7 +120,7 @@ define dso_local void @_ZN8NArchive3N7z16CFolderOutStreamC2Ev(ptr nocapture noun
   %20 = invoke noundef i32 %19(ptr noundef nonnull align 8 dereferenceable(8) %14)
           to label %21 unwind label %22
 
-21:                                               ; preds = %13, %16
+21:                                               ; preds = %16, %13
   store ptr %6, ptr %4, align 8, !tbaa !12
   ret void
 
@@ -237,13 +237,13 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream17ProcessEmptyFi
   %9 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 7
   br label %10
 
-10:                                               ; preds = %73, %1
+10:                                               ; preds = %71, %1
   %11 = load i32, ptr %3, align 8, !tbaa !30
   %12 = load ptr, ptr %4, align 8, !tbaa !27
   %13 = getelementptr inbounds %class.CBaseRecordVector, ptr %12, i64 0, i32 2
   %14 = load i32, ptr %13, align 4, !tbaa !32
   %15 = icmp slt i32 %11, %14
-  br i1 %15, label %16, label %82
+  br i1 %15, label %16, label %80
 
 16:                                               ; preds = %10
   %17 = load ptr, ptr %2, align 8, !tbaa !24
@@ -256,12 +256,12 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream17ProcessEmptyFi
   %24 = load ptr, ptr %23, align 8, !tbaa !36
   %25 = load i64, ptr %24, align 8, !tbaa !37
   %26 = icmp eq i64 %25, 0
-  br i1 %26, label %27, label %82
+  br i1 %26, label %27, label %80
 
 27:                                               ; preds = %16
   %28 = tail call noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr noundef nonnull align 8 dereferenceable(88) %0)
   %29 = icmp eq i32 %28, 0
-  br i1 %29, label %30, label %82
+  br i1 %29, label %30, label %80
 
 30:                                               ; preds = %27
   %31 = load ptr, ptr %2, align 8, !tbaa !24
@@ -275,64 +275,62 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream17ProcessEmptyFi
   %39 = load ptr, ptr %38, align 8, !tbaa !36
   %40 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %39, i64 0, i32 5
   %41 = load i8, ptr %40, align 1, !tbaa !40, !range !41, !noundef !42
-  %42 = icmp ne i8 %41, 0
-  %43 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %39, i64 0, i32 6
-  %44 = load i8, ptr %43, align 2
-  %45 = icmp eq i8 %44, 0
-  %46 = select i1 %42, i1 true, i1 %45
+  %42 = icmp eq i8 %41, 0
+  br i1 %42, label %43, label %59
+
+43:                                               ; preds = %30
+  %44 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %39, i64 0, i32 6
+  %45 = load i8, ptr %44, align 2, !tbaa !43, !range !41, !noundef !42
+  %46 = icmp eq i8 %45, 0
   %47 = load i8, ptr %6, align 1
   %48 = icmp eq i8 %47, 0
   %49 = select i1 %46, i1 true, i1 %48
-  br i1 %49, label %50, label %52
+  br i1 %49, label %59, label %50
 
-50:                                               ; preds = %30
-  %51 = load ptr, ptr %7, align 8, !tbaa !17
-  br label %61
+50:                                               ; preds = %43
+  %51 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %39, i64 0, i32 2
+  %52 = load i32, ptr %51, align 4, !tbaa !44
+  %53 = load ptr, ptr %7, align 8, !tbaa !17
+  %54 = getelementptr inbounds %class.COutStreamWithCRC, ptr %53, i64 0, i32 5
+  %55 = load i32, ptr %54, align 8, !tbaa !45
+  %56 = xor i32 %55, -1
+  %57 = icmp eq i32 %52, %56
+  %58 = select i1 %57, i32 0, i32 3
+  br label %59
 
-52:                                               ; preds = %30
-  %53 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %39, i64 0, i32 2
-  %54 = load i32, ptr %53, align 4, !tbaa !43
-  %55 = load ptr, ptr %7, align 8, !tbaa !17
-  %56 = getelementptr inbounds %class.COutStreamWithCRC, ptr %55, i64 0, i32 5
-  %57 = load i32, ptr %56, align 8, !tbaa !44
-  %58 = xor i32 %57, -1
-  %59 = icmp eq i32 %54, %58
-  %60 = select i1 %59, i32 0, i32 3
-  br label %61
+59:                                               ; preds = %50, %43, %30
+  %60 = phi i32 [ 0, %43 ], [ 0, %30 ], [ %58, %50 ]
+  %61 = load ptr, ptr %7, align 8, !tbaa !17
+  %62 = getelementptr inbounds %class.COutStreamWithCRC, ptr %61, i64 0, i32 3
+  %63 = load ptr, ptr %62, align 8, !tbaa !12
+  %64 = icmp eq ptr %63, null
+  br i1 %64, label %71, label %65
 
-61:                                               ; preds = %52, %50
-  %62 = phi ptr [ %51, %50 ], [ %55, %52 ]
-  %63 = phi i32 [ 0, %50 ], [ %60, %52 ]
-  %64 = getelementptr inbounds %class.COutStreamWithCRC, ptr %62, i64 0, i32 3
-  %65 = load ptr, ptr %64, align 8, !tbaa !12
-  %66 = icmp eq ptr %65, null
-  br i1 %66, label %73, label %67
+65:                                               ; preds = %59
+  %66 = load ptr, ptr %63, align 8, !tbaa !10
+  %67 = getelementptr inbounds ptr, ptr %66, i64 2
+  %68 = load ptr, ptr %67, align 8
+  %69 = tail call noundef i32 %68(ptr noundef nonnull align 8 dereferenceable(8) %63)
+  store ptr null, ptr %62, align 8, !tbaa !12
+  %70 = load i32, ptr %3, align 8, !tbaa !30
+  br label %71
 
-67:                                               ; preds = %61
-  %68 = load ptr, ptr %65, align 8, !tbaa !10
-  %69 = getelementptr inbounds ptr, ptr %68, i64 2
-  %70 = load ptr, ptr %69, align 8
-  %71 = tail call noundef i32 %70(ptr noundef nonnull align 8 dereferenceable(8) %65)
-  store ptr null, ptr %64, align 8, !tbaa !12
-  %72 = load i32, ptr %3, align 8, !tbaa !30
-  br label %73
-
-73:                                               ; preds = %61, %67
-  %74 = phi i32 [ %33, %61 ], [ %72, %67 ]
+71:                                               ; preds = %59, %65
+  %72 = phi i32 [ %33, %59 ], [ %70, %65 ]
   store i8 0, ptr %8, align 2, !tbaa !31
-  %75 = add nsw i32 %74, 1
-  store i32 %75, ptr %3, align 8, !tbaa !30
-  %76 = load ptr, ptr %9, align 8, !tbaa !15
-  %77 = load ptr, ptr %76, align 8, !tbaa !10
-  %78 = getelementptr inbounds ptr, ptr %77, i64 9
-  %79 = load ptr, ptr %78, align 8
-  %80 = tail call noundef i32 %79(ptr noundef nonnull align 8 dereferenceable(8) %76, i32 noundef %63)
-  %81 = icmp eq i32 %80, 0
-  br i1 %81, label %10, label %82
+  %73 = add nsw i32 %72, 1
+  store i32 %73, ptr %3, align 8, !tbaa !30
+  %74 = load ptr, ptr %9, align 8, !tbaa !15
+  %75 = load ptr, ptr %74, align 8, !tbaa !10
+  %76 = getelementptr inbounds ptr, ptr %75, i64 9
+  %77 = load ptr, ptr %76, align 8
+  %78 = tail call noundef i32 %77(ptr noundef nonnull align 8 dereferenceable(8) %74, i32 noundef %60)
+  %79 = icmp eq i32 %78, 0
+  br i1 %79, label %10, label %80
 
-82:                                               ; preds = %73, %27, %16, %10
-  %83 = phi i32 [ %28, %27 ], [ %80, %73 ], [ 0, %10 ], [ 0, %16 ]
-  ret i32 %83
+80:                                               ; preds = %71, %27, %16, %10
+  %81 = phi i32 [ %28, %27 ], [ %78, %71 ], [ 0, %10 ], [ 0, %16 ]
+  ret i32 %81
 }
 
 ; Function Attrs: uwtable
@@ -346,7 +344,7 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr 
   %8 = load ptr, ptr %7, align 8, !tbaa !35
   %9 = sext i32 %6 to i64
   %10 = getelementptr inbounds i8, ptr %8, i64 %9
-  %11 = load i8, ptr %10, align 1, !tbaa !46, !range !41, !noundef !42
+  %11 = load i8, ptr %10, align 1, !tbaa !47, !range !41, !noundef !42
   %12 = icmp eq i8 %11, 0
   %13 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 11
   %14 = load i8, ptr %13, align 4
@@ -370,12 +368,12 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr 
 
 29:                                               ; preds = %1
   %30 = icmp eq i32 %28, 0
-  br i1 %30, label %33, label %101
+  br i1 %30, label %33, label %99
 
 31:                                               ; preds = %1
   %32 = landingpad { ptr, i32 }
           cleanup
-  br label %114
+  br label %112
 
 33:                                               ; preds = %29
   %34 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 3
@@ -390,7 +388,7 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr 
   %41 = getelementptr inbounds ptr, ptr %40, i64 1
   %42 = load ptr, ptr %41, align 8
   %43 = invoke noundef i32 %42(ptr noundef nonnull align 8 dereferenceable(8) %36)
-          to label %44 unwind label %90
+          to label %44 unwind label %88
 
 44:                                               ; preds = %39, %33
   %45 = load ptr, ptr %37, align 8, !tbaa !12
@@ -402,7 +400,7 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr 
   %49 = getelementptr inbounds ptr, ptr %48, i64 2
   %50 = load ptr, ptr %49, align 8
   %51 = invoke noundef i32 %50(ptr noundef nonnull align 8 dereferenceable(8) %45)
-          to label %52 unwind label %90
+          to label %52 unwind label %88
 
 52:                                               ; preds = %47, %44
   store ptr %36, ptr %37, align 8, !tbaa !12
@@ -410,11 +408,11 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr 
   %54 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 12
   %55 = load i8, ptr %54, align 1, !tbaa !29, !range !41, !noundef !42
   %56 = getelementptr inbounds %class.COutStreamWithCRC, ptr %53, i64 0, i32 4
-  store i64 0, ptr %56, align 8, !tbaa !47
+  store i64 0, ptr %56, align 8, !tbaa !48
   %57 = getelementptr inbounds %class.COutStreamWithCRC, ptr %53, i64 0, i32 6
-  store i8 %55, ptr %57, align 4, !tbaa !48
+  store i8 %55, ptr %57, align 4, !tbaa !49
   %58 = getelementptr inbounds %class.COutStreamWithCRC, ptr %53, i64 0, i32 5
-  store i32 -1, ptr %58, align 8, !tbaa !44
+  store i32 -1, ptr %58, align 8, !tbaa !45
   %59 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 13
   store i8 1, ptr %59, align 2, !tbaa !31
   %60 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 5
@@ -426,14 +424,14 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr 
   %66 = load ptr, ptr %65, align 8, !tbaa !36
   %67 = load i64, ptr %66, align 8, !tbaa !37
   %68 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 14
-  store i64 %67, ptr %68, align 8, !tbaa !49
+  store i64 %67, ptr %68, align 8, !tbaa !50
   %69 = icmp eq i8 %15, 0
-  br i1 %69, label %70, label %94
+  br i1 %69, label %70, label %92
 
 70:                                               ; preds = %52
   %71 = load ptr, ptr %2, align 8, !tbaa !12
   %72 = icmp eq ptr %71, null
-  br i1 %72, label %73, label %94
+  br i1 %72, label %73, label %92
 
 73:                                               ; preds = %70
   %74 = getelementptr inbounds %"struct.NArchive::N7z::CArchiveDatabase", ptr %61, i64 0, i32 10, i32 0, i32 2
@@ -445,85 +443,83 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr 
   %78 = getelementptr inbounds %"struct.NArchive::N7z::CArchiveDatabase", ptr %61, i64 0, i32 10, i32 0, i32 3
   %79 = load ptr, ptr %78, align 8, !tbaa !35
   %80 = getelementptr inbounds i8, ptr %79, i64 %64
-  %81 = load i8, ptr %80, align 1, !tbaa !46, !range !41, !noundef !42
+  %81 = load i8, ptr %80, align 1, !tbaa !47, !range !41, !noundef !42
   %82 = icmp eq i8 %81, 0
-  br label %83
+  br i1 %82, label %83, label %92
 
-83:                                               ; preds = %77, %73
-  %84 = phi i1 [ true, %73 ], [ %82, %77 ]
-  %85 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %66, i64 0, i32 5
-  %86 = load i8, ptr %85, align 1
-  %87 = icmp eq i8 %86, 0
-  %88 = select i1 %84, i1 %87, i1 false
-  %89 = select i1 %88, i32 2, i32 0
-  br label %94
+83:                                               ; preds = %73, %77
+  %84 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %66, i64 0, i32 5
+  %85 = load i8, ptr %84, align 1, !tbaa !40, !range !41, !noundef !42
+  %86 = icmp eq i8 %85, 0
+  %87 = select i1 %86, i32 2, i32 0
+  br label %92
 
-90:                                               ; preds = %47, %39
+88:                                               ; preds = %47, %39
+  %89 = landingpad { ptr, i32 }
+          cleanup
+  br label %112
+
+90:                                               ; preds = %92
   %91 = landingpad { ptr, i32 }
           cleanup
-  br label %114
+  br label %112
 
-92:                                               ; preds = %94
-  %93 = landingpad { ptr, i32 }
-          cleanup
-  br label %114
+92:                                               ; preds = %83, %77, %70, %52
+  %93 = phi i32 [ 0, %77 ], [ 0, %70 ], [ %16, %52 ], [ %87, %83 ]
+  %94 = load ptr, ptr %20, align 8, !tbaa !15
+  %95 = load ptr, ptr %94, align 8, !tbaa !10
+  %96 = getelementptr inbounds ptr, ptr %95, i64 8
+  %97 = load ptr, ptr %96, align 8
+  %98 = invoke noundef i32 %97(ptr noundef nonnull align 8 dereferenceable(8) %94, i32 noundef %93)
+          to label %99 unwind label %90
 
-94:                                               ; preds = %83, %70, %52
-  %95 = phi i32 [ 0, %70 ], [ %16, %52 ], [ %89, %83 ]
-  %96 = load ptr, ptr %20, align 8, !tbaa !15
-  %97 = load ptr, ptr %96, align 8, !tbaa !10
-  %98 = getelementptr inbounds ptr, ptr %97, i64 8
-  %99 = load ptr, ptr %98, align 8
-  %100 = invoke noundef i32 %99(ptr noundef nonnull align 8 dereferenceable(8) %96, i32 noundef %95)
-          to label %101 unwind label %92
+99:                                               ; preds = %92, %29
+  %100 = phi i32 [ %28, %29 ], [ %98, %92 ]
+  %101 = load ptr, ptr %2, align 8, !tbaa !12
+  %102 = icmp eq ptr %101, null
+  br i1 %102, label %111, label %103
 
-101:                                              ; preds = %94, %29
-  %102 = phi i32 [ %28, %29 ], [ %100, %94 ]
-  %103 = load ptr, ptr %2, align 8, !tbaa !12
-  %104 = icmp eq ptr %103, null
-  br i1 %104, label %113, label %105
+103:                                              ; preds = %99
+  %104 = load ptr, ptr %101, align 8, !tbaa !10
+  %105 = getelementptr inbounds ptr, ptr %104, i64 2
+  %106 = load ptr, ptr %105, align 8
+  %107 = invoke noundef i32 %106(ptr noundef nonnull align 8 dereferenceable(8) %101)
+          to label %111 unwind label %108
 
-105:                                              ; preds = %101
-  %106 = load ptr, ptr %103, align 8, !tbaa !10
-  %107 = getelementptr inbounds ptr, ptr %106, i64 2
-  %108 = load ptr, ptr %107, align 8
-  %109 = invoke noundef i32 %108(ptr noundef nonnull align 8 dereferenceable(8) %103)
-          to label %113 unwind label %110
-
-110:                                              ; preds = %105
-  %111 = landingpad { ptr, i32 }
+108:                                              ; preds = %103
+  %109 = landingpad { ptr, i32 }
           catch ptr null
-  %112 = extractvalue { ptr, i32 } %111, 0
-  call void @__clang_call_terminate(ptr %112) #10
+  %110 = extractvalue { ptr, i32 } %109, 0
+  call void @__clang_call_terminate(ptr %110) #10
   unreachable
 
-113:                                              ; preds = %101, %105
+111:                                              ; preds = %99, %103
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #11
-  ret i32 %102
+  ret i32 %100
 
-114:                                              ; preds = %92, %90, %31
-  %115 = phi { ptr, i32 } [ %93, %92 ], [ %91, %90 ], [ %32, %31 ]
-  %116 = load ptr, ptr %2, align 8, !tbaa !12
-  %117 = icmp eq ptr %116, null
-  br i1 %117, label %126, label %118
+112:                                              ; preds = %90, %88, %31
+  %113 = phi { ptr, i32 } [ %91, %90 ], [ %89, %88 ], [ %32, %31 ]
+  %114 = load ptr, ptr %2, align 8, !tbaa !12
+  %115 = icmp eq ptr %114, null
+  br i1 %115, label %124, label %116
 
-118:                                              ; preds = %114
-  %119 = load ptr, ptr %116, align 8, !tbaa !10
-  %120 = getelementptr inbounds ptr, ptr %119, i64 2
-  %121 = load ptr, ptr %120, align 8
-  %122 = invoke noundef i32 %121(ptr noundef nonnull align 8 dereferenceable(8) %116)
-          to label %126 unwind label %123
+116:                                              ; preds = %112
+  %117 = load ptr, ptr %114, align 8, !tbaa !10
+  %118 = getelementptr inbounds ptr, ptr %117, i64 2
+  %119 = load ptr, ptr %118, align 8
+  %120 = invoke noundef i32 %119(ptr noundef nonnull align 8 dereferenceable(8) %114)
+          to label %124 unwind label %121
 
-123:                                              ; preds = %118
-  %124 = landingpad { ptr, i32 }
+121:                                              ; preds = %116
+  %122 = landingpad { ptr, i32 }
           catch ptr null
-  %125 = extractvalue { ptr, i32 } %124, 0
-  call void @__clang_call_terminate(ptr %125) #10
+  %123 = extractvalue { ptr, i32 } %122, 0
+  call void @__clang_call_terminate(ptr %123) #10
   unreachable
 
-126:                                              ; preds = %114, %118
+124:                                              ; preds = %112, %116
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #11
-  resume { ptr, i32 } %115
+  resume { ptr, i32 } %113
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -581,64 +577,62 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream21CloseFileAndSe
   %13 = load ptr, ptr %12, align 8, !tbaa !36
   %14 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %13, i64 0, i32 5
   %15 = load i8, ptr %14, align 1, !tbaa !40, !range !41, !noundef !42
-  %16 = icmp ne i8 %15, 0
-  %17 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %13, i64 0, i32 6
-  %18 = load i8, ptr %17, align 2
-  %19 = icmp eq i8 %18, 0
-  %20 = select i1 %16, i1 true, i1 %19
+  %16 = icmp eq i8 %15, 0
+  br i1 %16, label %17, label %35
+
+17:                                               ; preds = %1
+  %18 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %13, i64 0, i32 6
+  %19 = load i8, ptr %18, align 2, !tbaa !43, !range !41, !noundef !42
+  %20 = icmp eq i8 %19, 0
   %21 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 12
   %22 = load i8, ptr %21, align 1
   %23 = icmp eq i8 %22, 0
   %24 = select i1 %20, i1 true, i1 %23
-  br i1 %24, label %25, label %28
+  br i1 %24, label %35, label %25
 
-25:                                               ; preds = %1
-  %26 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 3
-  %27 = load ptr, ptr %26, align 8, !tbaa !17
-  br label %38
+25:                                               ; preds = %17
+  %26 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %13, i64 0, i32 2
+  %27 = load i32, ptr %26, align 4, !tbaa !44
+  %28 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 3
+  %29 = load ptr, ptr %28, align 8, !tbaa !17
+  %30 = getelementptr inbounds %class.COutStreamWithCRC, ptr %29, i64 0, i32 5
+  %31 = load i32, ptr %30, align 8, !tbaa !45
+  %32 = xor i32 %31, -1
+  %33 = icmp eq i32 %27, %32
+  %34 = select i1 %33, i32 0, i32 3
+  br label %35
 
-28:                                               ; preds = %1
-  %29 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %13, i64 0, i32 2
-  %30 = load i32, ptr %29, align 4, !tbaa !43
-  %31 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 3
-  %32 = load ptr, ptr %31, align 8, !tbaa !17
-  %33 = getelementptr inbounds %class.COutStreamWithCRC, ptr %32, i64 0, i32 5
-  %34 = load i32, ptr %33, align 8, !tbaa !44
-  %35 = xor i32 %34, -1
-  %36 = icmp eq i32 %30, %35
-  %37 = select i1 %36, i32 0, i32 3
-  br label %38
+35:                                               ; preds = %25, %17, %1
+  %36 = phi i32 [ 0, %17 ], [ 0, %1 ], [ %34, %25 ]
+  %37 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 3
+  %38 = load ptr, ptr %37, align 8, !tbaa !17
+  %39 = getelementptr inbounds %class.COutStreamWithCRC, ptr %38, i64 0, i32 3
+  %40 = load ptr, ptr %39, align 8, !tbaa !12
+  %41 = icmp eq ptr %40, null
+  br i1 %41, label %48, label %42
 
-38:                                               ; preds = %25, %28
-  %39 = phi ptr [ %27, %25 ], [ %32, %28 ]
-  %40 = phi i32 [ 0, %25 ], [ %37, %28 ]
-  %41 = getelementptr inbounds %class.COutStreamWithCRC, ptr %39, i64 0, i32 3
-  %42 = load ptr, ptr %41, align 8, !tbaa !12
-  %43 = icmp eq ptr %42, null
-  br i1 %43, label %50, label %44
+42:                                               ; preds = %35
+  %43 = load ptr, ptr %40, align 8, !tbaa !10
+  %44 = getelementptr inbounds ptr, ptr %43, i64 2
+  %45 = load ptr, ptr %44, align 8
+  %46 = tail call noundef i32 %45(ptr noundef nonnull align 8 dereferenceable(8) %40)
+  store ptr null, ptr %39, align 8, !tbaa !12
+  %47 = load i32, ptr %6, align 8, !tbaa !30
+  br label %48
 
-44:                                               ; preds = %38
-  %45 = load ptr, ptr %42, align 8, !tbaa !10
-  %46 = getelementptr inbounds ptr, ptr %45, i64 2
-  %47 = load ptr, ptr %46, align 8
-  %48 = tail call noundef i32 %47(ptr noundef nonnull align 8 dereferenceable(8) %42)
-  store ptr null, ptr %41, align 8, !tbaa !12
-  %49 = load i32, ptr %6, align 8, !tbaa !30
-  br label %50
-
-50:                                               ; preds = %38, %44
-  %51 = phi i32 [ %7, %38 ], [ %49, %44 ]
-  %52 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 13
-  store i8 0, ptr %52, align 2, !tbaa !31
-  %53 = add nsw i32 %51, 1
-  store i32 %53, ptr %6, align 8, !tbaa !30
-  %54 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 7
-  %55 = load ptr, ptr %54, align 8, !tbaa !15
-  %56 = load ptr, ptr %55, align 8, !tbaa !10
-  %57 = getelementptr inbounds ptr, ptr %56, i64 9
-  %58 = load ptr, ptr %57, align 8
-  %59 = tail call noundef i32 %58(ptr noundef nonnull align 8 dereferenceable(8) %55, i32 noundef %40)
-  ret i32 %59
+48:                                               ; preds = %35, %42
+  %49 = phi i32 [ %7, %35 ], [ %47, %42 ]
+  %50 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 13
+  store i8 0, ptr %50, align 2, !tbaa !31
+  %51 = add nsw i32 %49, 1
+  store i32 %51, ptr %6, align 8, !tbaa !30
+  %52 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 7
+  %53 = load ptr, ptr %52, align 8, !tbaa !15
+  %54 = load ptr, ptr %53, align 8, !tbaa !10
+  %55 = getelementptr inbounds ptr, ptr %54, i64 9
+  %56 = load ptr, ptr %55, align 8
+  %57 = tail call noundef i32 %56(ptr noundef nonnull align 8 dereferenceable(8) %53, i32 noundef %36)
+  ret i32 %57
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -648,12 +642,12 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream5WriteEPKvjPj(pt
   br i1 %6, label %8, label %7
 
 7:                                                ; preds = %4
-  store i32 0, ptr %3, align 4, !tbaa !50
+  store i32 0, ptr %3, align 4, !tbaa !51
   br label %8
 
 8:                                                ; preds = %7, %4
   %9 = icmp eq i32 %2, 0
-  br i1 %9, label %132, label %10
+  br i1 %9, label %130, label %10
 
 10:                                               ; preds = %8
   %11 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 13
@@ -668,51 +662,51 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream5WriteEPKvjPj(pt
   %20 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 6
   br label %21
 
-21:                                               ; preds = %10, %128
-  %22 = phi ptr [ %1, %10 ], [ %130, %128 ]
-  %23 = phi i32 [ %2, %10 ], [ %129, %128 ]
+21:                                               ; preds = %10, %126
+  %22 = phi ptr [ %1, %10 ], [ %128, %126 ]
+  %23 = phi i32 [ %2, %10 ], [ %127, %126 ]
   %24 = load i8, ptr %11, align 2, !tbaa !31, !range !41, !noundef !42
   %25 = icmp eq i8 %24, 0
-  br i1 %25, label %112, label %26
+  br i1 %25, label %110, label %26
 
 26:                                               ; preds = %21
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #11
   %27 = zext i32 %23 to i64
-  %28 = load i64, ptr %12, align 8, !tbaa !49
+  %28 = load i64, ptr %12, align 8, !tbaa !50
   %29 = icmp ugt i64 %28, %27
   %30 = trunc i64 %28 to i32
   %31 = select i1 %29, i32 %23, i32 %30
-  store i32 %31, ptr %5, align 4, !tbaa !50
+  store i32 %31, ptr %5, align 4, !tbaa !51
   %32 = load ptr, ptr %13, align 8, !tbaa !12
   %33 = load ptr, ptr %32, align 8, !tbaa !10
   %34 = getelementptr inbounds ptr, ptr %33, i64 5
   %35 = load ptr, ptr %34, align 8
   %36 = call noundef i32 %35(ptr noundef nonnull align 8 dereferenceable(8) %32, ptr noundef %22, i32 noundef %31, ptr noundef nonnull %5)
   %37 = icmp eq i32 %36, 0
-  br i1 %37, label %38, label %109
+  br i1 %37, label %38, label %107
 
 38:                                               ; preds = %26
-  %39 = load i32, ptr %5, align 4, !tbaa !50
+  %39 = load i32, ptr %5, align 4, !tbaa !51
   %40 = icmp eq i32 %39, 0
   br i1 %40, label %41, label %42
 
 41:                                               ; preds = %38
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #11
-  br label %132
+  br label %130
 
 42:                                               ; preds = %38
   %43 = zext i32 %39 to i64
   %44 = getelementptr inbounds i8, ptr %22, i64 %43
   %45 = sub i32 %23, %39
-  %46 = load i64, ptr %12, align 8, !tbaa !49
+  %46 = load i64, ptr %12, align 8, !tbaa !50
   %47 = sub i64 %46, %43
-  store i64 %47, ptr %12, align 8, !tbaa !49
+  store i64 %47, ptr %12, align 8, !tbaa !50
   br i1 %6, label %51, label %48
 
 48:                                               ; preds = %42
-  %49 = load i32, ptr %3, align 4, !tbaa !50
+  %49 = load i32, ptr %3, align 4, !tbaa !51
   %50 = add i32 %49, %39
-  store i32 %50, ptr %3, align 4, !tbaa !50
+  store i32 %50, ptr %3, align 4, !tbaa !51
   br label %51
 
 51:                                               ; preds = %48, %42
@@ -721,7 +715,7 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream5WriteEPKvjPj(pt
 
 53:                                               ; preds = %51
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #11
-  br label %128
+  br label %126
 
 54:                                               ; preds = %51
   %55 = load ptr, ptr %14, align 8, !tbaa !24
@@ -735,116 +729,114 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream5WriteEPKvjPj(pt
   %63 = load ptr, ptr %62, align 8, !tbaa !36
   %64 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %63, i64 0, i32 5
   %65 = load i8, ptr %64, align 1, !tbaa !40, !range !41, !noundef !42
-  %66 = icmp ne i8 %65, 0
-  %67 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %63, i64 0, i32 6
-  %68 = load i8, ptr %67, align 2
-  %69 = icmp eq i8 %68, 0
-  %70 = select i1 %66, i1 true, i1 %69
+  %66 = icmp eq i8 %65, 0
+  br i1 %66, label %67, label %83
+
+67:                                               ; preds = %54
+  %68 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %63, i64 0, i32 6
+  %69 = load i8, ptr %68, align 2, !tbaa !43, !range !41, !noundef !42
+  %70 = icmp eq i8 %69, 0
   %71 = load i8, ptr %17, align 1
   %72 = icmp eq i8 %71, 0
   %73 = select i1 %70, i1 true, i1 %72
-  br i1 %73, label %74, label %76
+  br i1 %73, label %83, label %74
 
-74:                                               ; preds = %54
-  %75 = load ptr, ptr %18, align 8, !tbaa !17
-  br label %85
+74:                                               ; preds = %67
+  %75 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %63, i64 0, i32 2
+  %76 = load i32, ptr %75, align 4, !tbaa !44
+  %77 = load ptr, ptr %18, align 8, !tbaa !17
+  %78 = getelementptr inbounds %class.COutStreamWithCRC, ptr %77, i64 0, i32 5
+  %79 = load i32, ptr %78, align 8, !tbaa !45
+  %80 = xor i32 %79, -1
+  %81 = icmp eq i32 %76, %80
+  %82 = select i1 %81, i32 0, i32 3
+  br label %83
 
-76:                                               ; preds = %54
-  %77 = getelementptr inbounds %"struct.NArchive::N7z::CFileItem", ptr %63, i64 0, i32 2
-  %78 = load i32, ptr %77, align 4, !tbaa !43
-  %79 = load ptr, ptr %18, align 8, !tbaa !17
-  %80 = getelementptr inbounds %class.COutStreamWithCRC, ptr %79, i64 0, i32 5
-  %81 = load i32, ptr %80, align 8, !tbaa !44
-  %82 = xor i32 %81, -1
-  %83 = icmp eq i32 %78, %82
-  %84 = select i1 %83, i32 0, i32 3
-  br label %85
+83:                                               ; preds = %74, %67, %54
+  %84 = phi i32 [ 0, %67 ], [ 0, %54 ], [ %82, %74 ]
+  %85 = load ptr, ptr %18, align 8, !tbaa !17
+  %86 = getelementptr inbounds %class.COutStreamWithCRC, ptr %85, i64 0, i32 3
+  %87 = load ptr, ptr %86, align 8, !tbaa !12
+  %88 = icmp eq ptr %87, null
+  br i1 %88, label %95, label %89
 
-85:                                               ; preds = %76, %74
-  %86 = phi ptr [ %75, %74 ], [ %79, %76 ]
-  %87 = phi i32 [ 0, %74 ], [ %84, %76 ]
-  %88 = getelementptr inbounds %class.COutStreamWithCRC, ptr %86, i64 0, i32 3
-  %89 = load ptr, ptr %88, align 8, !tbaa !12
-  %90 = icmp eq ptr %89, null
-  br i1 %90, label %97, label %91
+89:                                               ; preds = %83
+  %90 = load ptr, ptr %87, align 8, !tbaa !10
+  %91 = getelementptr inbounds ptr, ptr %90, i64 2
+  %92 = load ptr, ptr %91, align 8
+  %93 = call noundef i32 %92(ptr noundef nonnull align 8 dereferenceable(8) %87)
+  store ptr null, ptr %86, align 8, !tbaa !12
+  %94 = load i32, ptr %16, align 8, !tbaa !30
+  br label %95
 
-91:                                               ; preds = %85
-  %92 = load ptr, ptr %89, align 8, !tbaa !10
-  %93 = getelementptr inbounds ptr, ptr %92, i64 2
-  %94 = load ptr, ptr %93, align 8
-  %95 = call noundef i32 %94(ptr noundef nonnull align 8 dereferenceable(8) %89)
-  store ptr null, ptr %88, align 8, !tbaa !12
-  %96 = load i32, ptr %16, align 8, !tbaa !30
-  br label %97
-
-97:                                               ; preds = %85, %91
-  %98 = phi i32 [ %57, %85 ], [ %96, %91 ]
+95:                                               ; preds = %83, %89
+  %96 = phi i32 [ %57, %83 ], [ %94, %89 ]
   store i8 0, ptr %11, align 2, !tbaa !31
-  %99 = add nsw i32 %98, 1
-  store i32 %99, ptr %16, align 8, !tbaa !30
-  %100 = load ptr, ptr %19, align 8, !tbaa !15
-  %101 = load ptr, ptr %100, align 8, !tbaa !10
-  %102 = getelementptr inbounds ptr, ptr %101, i64 9
-  %103 = load ptr, ptr %102, align 8
-  %104 = call noundef i32 %103(ptr noundef nonnull align 8 dereferenceable(8) %100, i32 noundef %87)
-  %105 = icmp eq i32 %104, 0
-  br i1 %105, label %106, label %109
+  %97 = add nsw i32 %96, 1
+  store i32 %97, ptr %16, align 8, !tbaa !30
+  %98 = load ptr, ptr %19, align 8, !tbaa !15
+  %99 = load ptr, ptr %98, align 8, !tbaa !10
+  %100 = getelementptr inbounds ptr, ptr %99, i64 9
+  %101 = load ptr, ptr %100, align 8
+  %102 = call noundef i32 %101(ptr noundef nonnull align 8 dereferenceable(8) %98, i32 noundef %84)
+  %103 = icmp eq i32 %102, 0
+  br i1 %103, label %104, label %107
 
-106:                                              ; preds = %97
-  %107 = call noundef i32 @_ZN8NArchive3N7z16CFolderOutStream17ProcessEmptyFilesEv(ptr noundef nonnull align 8 dereferenceable(88) %0)
-  %108 = icmp eq i32 %107, 0
-  br i1 %108, label %111, label %109
+104:                                              ; preds = %95
+  %105 = call noundef i32 @_ZN8NArchive3N7z16CFolderOutStream17ProcessEmptyFilesEv(ptr noundef nonnull align 8 dereferenceable(88) %0)
+  %106 = icmp eq i32 %105, 0
+  br i1 %106, label %109, label %107
 
-109:                                              ; preds = %106, %97, %26
-  %110 = phi i32 [ %36, %26 ], [ %104, %97 ], [ %107, %106 ]
+107:                                              ; preds = %104, %95, %26
+  %108 = phi i32 [ %36, %26 ], [ %102, %95 ], [ %105, %104 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #11
-  br label %132
+  br label %130
 
-111:                                              ; preds = %106
+109:                                              ; preds = %104
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #11
-  br label %128
+  br label %126
 
-112:                                              ; preds = %21
-  %113 = call noundef i32 @_ZN8NArchive3N7z16CFolderOutStream17ProcessEmptyFilesEv(ptr noundef nonnull align 8 dereferenceable(88) %0)
-  %114 = icmp eq i32 %113, 0
-  br i1 %114, label %115, label %132
+110:                                              ; preds = %21
+  %111 = call noundef i32 @_ZN8NArchive3N7z16CFolderOutStream17ProcessEmptyFilesEv(ptr noundef nonnull align 8 dereferenceable(88) %0)
+  %112 = icmp eq i32 %111, 0
+  br i1 %112, label %113, label %130
 
-115:                                              ; preds = %112
-  %116 = load i32, ptr %16, align 8, !tbaa !30
-  %117 = load ptr, ptr %20, align 8, !tbaa !27
-  %118 = getelementptr inbounds %class.CBaseRecordVector, ptr %117, i64 0, i32 2
-  %119 = load i32, ptr %118, align 4, !tbaa !32
-  %120 = icmp eq i32 %116, %119
-  br i1 %120, label %121, label %125
+113:                                              ; preds = %110
+  %114 = load i32, ptr %16, align 8, !tbaa !30
+  %115 = load ptr, ptr %20, align 8, !tbaa !27
+  %116 = getelementptr inbounds %class.CBaseRecordVector, ptr %115, i64 0, i32 2
+  %117 = load i32, ptr %116, align 4, !tbaa !32
+  %118 = icmp eq i32 %114, %117
+  br i1 %118, label %119, label %123
 
-121:                                              ; preds = %115
-  br i1 %6, label %132, label %122
+119:                                              ; preds = %113
+  br i1 %6, label %130, label %120
 
-122:                                              ; preds = %121
-  %123 = load i32, ptr %3, align 4, !tbaa !50
-  %124 = add i32 %123, %23
-  store i32 %124, ptr %3, align 4, !tbaa !50
-  br label %132
+120:                                              ; preds = %119
+  %121 = load i32, ptr %3, align 4, !tbaa !51
+  %122 = add i32 %121, %23
+  store i32 %122, ptr %3, align 4, !tbaa !51
+  br label %130
 
-125:                                              ; preds = %115
-  %126 = call noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr noundef nonnull align 8 dereferenceable(88) %0)
-  %127 = icmp eq i32 %126, 0
-  br i1 %127, label %128, label %132
+123:                                              ; preds = %113
+  %124 = call noundef i32 @_ZN8NArchive3N7z16CFolderOutStream8OpenFileEv(ptr noundef nonnull align 8 dereferenceable(88) %0)
+  %125 = icmp eq i32 %124, 0
+  br i1 %125, label %126, label %130
 
-128:                                              ; preds = %125, %53, %111
-  %129 = phi i32 [ %45, %111 ], [ %23, %125 ], [ %45, %53 ]
-  %130 = phi ptr [ %44, %111 ], [ %22, %125 ], [ %44, %53 ]
-  %131 = icmp eq i32 %129, 0
-  br i1 %131, label %132, label %21, !llvm.loop !51
+126:                                              ; preds = %123, %53, %109
+  %127 = phi i32 [ %45, %109 ], [ %23, %123 ], [ %45, %53 ]
+  %128 = phi ptr [ %44, %109 ], [ %22, %123 ], [ %44, %53 ]
+  %129 = icmp eq i32 %127, 0
+  br i1 %129, label %130, label %21, !llvm.loop !52
 
-132:                                              ; preds = %112, %125, %128, %8, %122, %121, %41, %109
-  %133 = phi i32 [ %110, %109 ], [ 0, %41 ], [ 0, %121 ], [ 0, %122 ], [ 0, %8 ], [ %113, %112 ], [ %126, %125 ], [ 0, %128 ]
-  ret i32 %133
+130:                                              ; preds = %110, %123, %126, %8, %120, %119, %41, %107
+  %131 = phi i32 [ %108, %107 ], [ 0, %41 ], [ 0, %119 ], [ 0, %120 ], [ 0, %8 ], [ %111, %110 ], [ %124, %123 ], [ 0, %126 ]
+  ret i32 %131
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream16GetSubStreamSizeEyPy(ptr nocapture noundef nonnull readonly align 8 dereferenceable(88) %0, i64 noundef %1, ptr nocapture noundef writeonly %2) unnamed_addr #5 align 2 {
-  store i64 0, ptr %2, align 8, !tbaa !53
+  store i64 0, ptr %2, align 8, !tbaa !54
   %4 = trunc i64 %1 to i32
   %5 = getelementptr inbounds %"class.NArchive::N7z::CFolderOutStream", ptr %0, i64 0, i32 6
   %6 = load ptr, ptr %5, align 8, !tbaa !27
@@ -865,7 +857,7 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream16GetSubStreamSi
   %19 = getelementptr inbounds ptr, ptr %17, i64 %18
   %20 = load ptr, ptr %19, align 8, !tbaa !36
   %21 = load i64, ptr %20, align 8, !tbaa !37
-  store i64 %21, ptr %2, align 8, !tbaa !53
+  store i64 %21, ptr %2, align 8, !tbaa !54
   br label %22
 
 22:                                               ; preds = %3, %10
@@ -875,7 +867,7 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream16GetSubStreamSi
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local noundef i32 @_ZThn8_N8NArchive3N7z16CFolderOutStream16GetSubStreamSizeEyPy(ptr nocapture noundef readonly %0, i64 noundef %1, ptr nocapture noundef writeonly %2) unnamed_addr #5 align 2 {
-  store i64 0, ptr %2, align 8, !tbaa !53
+  store i64 0, ptr %2, align 8, !tbaa !54
   %4 = trunc i64 %1 to i32
   %5 = getelementptr inbounds i8, ptr %0, i64 40
   %6 = load ptr, ptr %5, align 8, !tbaa !27
@@ -896,7 +888,7 @@ define dso_local noundef i32 @_ZThn8_N8NArchive3N7z16CFolderOutStream16GetSubStr
   %19 = getelementptr inbounds ptr, ptr %17, i64 %18
   %20 = load ptr, ptr %19, align 8, !tbaa !36
   %21 = load i64, ptr %20, align 8, !tbaa !37
-  store i64 %21, ptr %2, align 8, !tbaa !53
+  store i64 %21, ptr %2, align 8, !tbaa !54
   br label %22
 
 22:                                               ; preds = %3, %10
@@ -967,7 +959,7 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream14FlushCorrupted
   %44 = getelementptr inbounds %class.CBaseRecordVector, ptr %43, i64 0, i32 2
   %45 = load i32, ptr %44, align 4, !tbaa !32
   %46 = icmp slt i32 %42, %45
-  br i1 %46, label %14, label %47, !llvm.loop !54
+  br i1 %46, label %14, label %47, !llvm.loop !55
 
 47:                                               ; preds = %41, %29, %38, %2
   %48 = phi i32 [ 0, %2 ], [ %39, %38 ], [ %36, %29 ], [ 0, %41 ]
@@ -976,223 +968,223 @@ define dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream14FlushCorrupted
 
 ; Function Attrs: mustprogress uwtable
 define linkonce_odr dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(88) %0, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef %2) unnamed_addr #3 comdat align 2 {
-  %4 = load i8, ptr %1, align 4, !tbaa !55
-  %5 = load i8, ptr @IID_IUnknown, align 4, !tbaa !55
+  %4 = load i8, ptr %1, align 4, !tbaa !56
+  %5 = load i8, ptr @IID_IUnknown, align 4, !tbaa !56
   %6 = icmp eq i8 %4, %5
   br i1 %6, label %7, label %82
 
 7:                                                ; preds = %3
   %8 = getelementptr inbounds i8, ptr %1, i64 1
-  %9 = load i8, ptr %8, align 1, !tbaa !55
-  %10 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !55
+  %9 = load i8, ptr %8, align 1, !tbaa !56
+  %10 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !56
   %11 = icmp eq i8 %9, %10
   br i1 %11, label %12, label %82
 
 12:                                               ; preds = %7
   %13 = getelementptr inbounds i8, ptr %1, i64 2
-  %14 = load i8, ptr %13, align 2, !tbaa !55
-  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !55
+  %14 = load i8, ptr %13, align 2, !tbaa !56
+  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !56
   %16 = icmp eq i8 %14, %15
   br i1 %16, label %17, label %82
 
 17:                                               ; preds = %12
   %18 = getelementptr inbounds i8, ptr %1, i64 3
-  %19 = load i8, ptr %18, align 1, !tbaa !55
-  %20 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !55
+  %19 = load i8, ptr %18, align 1, !tbaa !56
+  %20 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !56
   %21 = icmp eq i8 %19, %20
   br i1 %21, label %22, label %82
 
 22:                                               ; preds = %17
   %23 = getelementptr inbounds i8, ptr %1, i64 4
-  %24 = load i8, ptr %23, align 4, !tbaa !55
-  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !55
+  %24 = load i8, ptr %23, align 4, !tbaa !56
+  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !56
   %26 = icmp eq i8 %24, %25
   br i1 %26, label %27, label %82
 
 27:                                               ; preds = %22
   %28 = getelementptr inbounds i8, ptr %1, i64 5
-  %29 = load i8, ptr %28, align 1, !tbaa !55
-  %30 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !55
+  %29 = load i8, ptr %28, align 1, !tbaa !56
+  %30 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !56
   %31 = icmp eq i8 %29, %30
   br i1 %31, label %32, label %82
 
 32:                                               ; preds = %27
   %33 = getelementptr inbounds i8, ptr %1, i64 6
-  %34 = load i8, ptr %33, align 2, !tbaa !55
-  %35 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !55
+  %34 = load i8, ptr %33, align 2, !tbaa !56
+  %35 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !56
   %36 = icmp eq i8 %34, %35
   br i1 %36, label %37, label %82
 
 37:                                               ; preds = %32
   %38 = getelementptr inbounds i8, ptr %1, i64 7
-  %39 = load i8, ptr %38, align 1, !tbaa !55
-  %40 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !55
+  %39 = load i8, ptr %38, align 1, !tbaa !56
+  %40 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !56
   %41 = icmp eq i8 %39, %40
   br i1 %41, label %42, label %82
 
 42:                                               ; preds = %37
   %43 = getelementptr inbounds i8, ptr %1, i64 8
-  %44 = load i8, ptr %43, align 4, !tbaa !55
-  %45 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !55
+  %44 = load i8, ptr %43, align 4, !tbaa !56
+  %45 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !56
   %46 = icmp eq i8 %44, %45
   br i1 %46, label %47, label %82
 
 47:                                               ; preds = %42
   %48 = getelementptr inbounds i8, ptr %1, i64 9
-  %49 = load i8, ptr %48, align 1, !tbaa !55
-  %50 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !55
+  %49 = load i8, ptr %48, align 1, !tbaa !56
+  %50 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !56
   %51 = icmp eq i8 %49, %50
   br i1 %51, label %52, label %82
 
 52:                                               ; preds = %47
   %53 = getelementptr inbounds i8, ptr %1, i64 10
-  %54 = load i8, ptr %53, align 2, !tbaa !55
-  %55 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !55
+  %54 = load i8, ptr %53, align 2, !tbaa !56
+  %55 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !56
   %56 = icmp eq i8 %54, %55
   br i1 %56, label %57, label %82
 
 57:                                               ; preds = %52
   %58 = getelementptr inbounds i8, ptr %1, i64 11
-  %59 = load i8, ptr %58, align 1, !tbaa !55
-  %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !55
+  %59 = load i8, ptr %58, align 1, !tbaa !56
+  %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !56
   %61 = icmp eq i8 %59, %60
   br i1 %61, label %62, label %82
 
 62:                                               ; preds = %57
   %63 = getelementptr inbounds i8, ptr %1, i64 12
-  %64 = load i8, ptr %63, align 4, !tbaa !55
-  %65 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !55
+  %64 = load i8, ptr %63, align 4, !tbaa !56
+  %65 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !56
   %66 = icmp eq i8 %64, %65
   br i1 %66, label %67, label %82
 
 67:                                               ; preds = %62
   %68 = getelementptr inbounds i8, ptr %1, i64 13
-  %69 = load i8, ptr %68, align 1, !tbaa !55
-  %70 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !55
+  %69 = load i8, ptr %68, align 1, !tbaa !56
+  %70 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !56
   %71 = icmp eq i8 %69, %70
   br i1 %71, label %72, label %82
 
 72:                                               ; preds = %67
   %73 = getelementptr inbounds i8, ptr %1, i64 14
-  %74 = load i8, ptr %73, align 2, !tbaa !55
-  %75 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !55
+  %74 = load i8, ptr %73, align 2, !tbaa !56
+  %75 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !56
   %76 = icmp eq i8 %74, %75
   br i1 %76, label %77, label %82
 
 77:                                               ; preds = %72
   %78 = getelementptr inbounds i8, ptr %1, i64 15
-  %79 = load i8, ptr %78, align 1, !tbaa !55
-  %80 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !55
+  %79 = load i8, ptr %78, align 1, !tbaa !56
+  %80 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !56
   %81 = icmp eq i8 %79, %80
   br i1 %81, label %160, label %82
 
-82:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77
-  %83 = load i8, ptr @IID_ICompressGetSubStreamSize, align 4, !tbaa !55
+82:                                               ; preds = %3, %7, %12, %17, %22, %27, %32, %37, %42, %47, %52, %57, %62, %67, %72, %77
+  %83 = load i8, ptr @IID_ICompressGetSubStreamSize, align 4, !tbaa !56
   %84 = icmp eq i8 %4, %83
   br i1 %84, label %85, label %166
 
 85:                                               ; preds = %82
   %86 = getelementptr inbounds i8, ptr %1, i64 1
-  %87 = load i8, ptr %86, align 1, !tbaa !55
-  %88 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 1), align 1, !tbaa !55
+  %87 = load i8, ptr %86, align 1, !tbaa !56
+  %88 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 1), align 1, !tbaa !56
   %89 = icmp eq i8 %87, %88
   br i1 %89, label %90, label %166
 
 90:                                               ; preds = %85
   %91 = getelementptr inbounds i8, ptr %1, i64 2
-  %92 = load i8, ptr %91, align 2, !tbaa !55
-  %93 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 2), align 2, !tbaa !55
+  %92 = load i8, ptr %91, align 2, !tbaa !56
+  %93 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 2), align 2, !tbaa !56
   %94 = icmp eq i8 %92, %93
   br i1 %94, label %95, label %166
 
 95:                                               ; preds = %90
   %96 = getelementptr inbounds i8, ptr %1, i64 3
-  %97 = load i8, ptr %96, align 1, !tbaa !55
-  %98 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 3), align 1, !tbaa !55
+  %97 = load i8, ptr %96, align 1, !tbaa !56
+  %98 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 3), align 1, !tbaa !56
   %99 = icmp eq i8 %97, %98
   br i1 %99, label %100, label %166
 
 100:                                              ; preds = %95
   %101 = getelementptr inbounds i8, ptr %1, i64 4
-  %102 = load i8, ptr %101, align 4, !tbaa !55
-  %103 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 1), align 4, !tbaa !55
+  %102 = load i8, ptr %101, align 4, !tbaa !56
+  %103 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 1), align 4, !tbaa !56
   %104 = icmp eq i8 %102, %103
   br i1 %104, label %105, label %166
 
 105:                                              ; preds = %100
   %106 = getelementptr inbounds i8, ptr %1, i64 5
-  %107 = load i8, ptr %106, align 1, !tbaa !55
-  %108 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 5), align 1, !tbaa !55
+  %107 = load i8, ptr %106, align 1, !tbaa !56
+  %108 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 5), align 1, !tbaa !56
   %109 = icmp eq i8 %107, %108
   br i1 %109, label %110, label %166
 
 110:                                              ; preds = %105
   %111 = getelementptr inbounds i8, ptr %1, i64 6
-  %112 = load i8, ptr %111, align 2, !tbaa !55
-  %113 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 2), align 2, !tbaa !55
+  %112 = load i8, ptr %111, align 2, !tbaa !56
+  %113 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 2), align 2, !tbaa !56
   %114 = icmp eq i8 %112, %113
   br i1 %114, label %115, label %166
 
 115:                                              ; preds = %110
   %116 = getelementptr inbounds i8, ptr %1, i64 7
-  %117 = load i8, ptr %116, align 1, !tbaa !55
-  %118 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 7), align 1, !tbaa !55
+  %117 = load i8, ptr %116, align 1, !tbaa !56
+  %118 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressGetSubStreamSize, i64 7), align 1, !tbaa !56
   %119 = icmp eq i8 %117, %118
   br i1 %119, label %120, label %166
 
 120:                                              ; preds = %115
   %121 = getelementptr inbounds i8, ptr %1, i64 8
-  %122 = load i8, ptr %121, align 4, !tbaa !55
-  %123 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 0), align 4, !tbaa !55
+  %122 = load i8, ptr %121, align 4, !tbaa !56
+  %123 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 0), align 4, !tbaa !56
   %124 = icmp eq i8 %122, %123
   br i1 %124, label %125, label %166
 
 125:                                              ; preds = %120
   %126 = getelementptr inbounds i8, ptr %1, i64 9
-  %127 = load i8, ptr %126, align 1, !tbaa !55
-  %128 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 1), align 1, !tbaa !55
+  %127 = load i8, ptr %126, align 1, !tbaa !56
+  %128 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 1), align 1, !tbaa !56
   %129 = icmp eq i8 %127, %128
   br i1 %129, label %130, label %166
 
 130:                                              ; preds = %125
   %131 = getelementptr inbounds i8, ptr %1, i64 10
-  %132 = load i8, ptr %131, align 2, !tbaa !55
-  %133 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 2), align 2, !tbaa !55
+  %132 = load i8, ptr %131, align 2, !tbaa !56
+  %133 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 2), align 2, !tbaa !56
   %134 = icmp eq i8 %132, %133
   br i1 %134, label %135, label %166
 
 135:                                              ; preds = %130
   %136 = getelementptr inbounds i8, ptr %1, i64 11
-  %137 = load i8, ptr %136, align 1, !tbaa !55
-  %138 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 3), align 1, !tbaa !55
+  %137 = load i8, ptr %136, align 1, !tbaa !56
+  %138 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 3), align 1, !tbaa !56
   %139 = icmp eq i8 %137, %138
   br i1 %139, label %140, label %166
 
 140:                                              ; preds = %135
   %141 = getelementptr inbounds i8, ptr %1, i64 12
-  %142 = load i8, ptr %141, align 4, !tbaa !55
-  %143 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 4), align 4, !tbaa !55
+  %142 = load i8, ptr %141, align 4, !tbaa !56
+  %143 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 4), align 4, !tbaa !56
   %144 = icmp eq i8 %142, %143
   br i1 %144, label %145, label %166
 
 145:                                              ; preds = %140
   %146 = getelementptr inbounds i8, ptr %1, i64 13
-  %147 = load i8, ptr %146, align 1, !tbaa !55
-  %148 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 5), align 1, !tbaa !55
+  %147 = load i8, ptr %146, align 1, !tbaa !56
+  %148 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 5), align 1, !tbaa !56
   %149 = icmp eq i8 %147, %148
   br i1 %149, label %150, label %166
 
 150:                                              ; preds = %145
   %151 = getelementptr inbounds i8, ptr %1, i64 14
-  %152 = load i8, ptr %151, align 2, !tbaa !55
-  %153 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 6), align 2, !tbaa !55
+  %152 = load i8, ptr %151, align 2, !tbaa !56
+  %153 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 6), align 2, !tbaa !56
   %154 = icmp eq i8 %152, %153
   br i1 %154, label %155, label %166
 
 155:                                              ; preds = %150
   %156 = getelementptr inbounds i8, ptr %1, i64 15
-  %157 = load i8, ptr %156, align 1, !tbaa !55
-  %158 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 7), align 1, !tbaa !55
+  %157 = load i8, ptr %156, align 1, !tbaa !56
+  %158 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressGetSubStreamSize, i64 0, i32 3, i64 7), align 1, !tbaa !56
   %159 = icmp eq i8 %157, %158
   br i1 %159, label %160, label %166
 
@@ -1205,8 +1197,8 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive3N7z16CFolderOutStream14Q
   %165 = tail call noundef i32 %164(ptr noundef nonnull align 8 dereferenceable(88) %0)
   br label %166
 
-166:                                              ; preds = %160, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
-  %167 = phi i32 [ -2147467262, %155 ], [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ 0, %160 ]
+166:                                              ; preds = %160, %155, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82
+  %167 = phi i32 [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ -2147467262, %155 ], [ 0, %160 ]
   ret i32 %167
 }
 
@@ -1541,16 +1533,17 @@ attributes #12 = { builtin nounwind }
 !40 = !{!38, !22, i64 33}
 !41 = !{i8 0, i8 2}
 !42 = !{}
-!43 = !{!38, !7, i64 12}
-!44 = !{!45, !7, i64 32}
-!45 = !{!"_ZTS17COutStreamWithCRC", !19, i64 0, !6, i64 8, !13, i64 16, !23, i64 24, !7, i64 32, !22, i64 36}
-!46 = !{!22, !22, i64 0}
-!47 = !{!45, !23, i64 24}
-!48 = !{!45, !22, i64 36}
-!49 = !{!18, !23, i64 80}
-!50 = !{!7, !7, i64 0}
-!51 = distinct !{!51, !52}
-!52 = !{!"llvm.loop.mustprogress"}
-!53 = !{!23, !23, i64 0}
-!54 = distinct !{!54, !52}
-!55 = !{!8, !8, i64 0}
+!43 = !{!38, !22, i64 34}
+!44 = !{!38, !7, i64 12}
+!45 = !{!46, !7, i64 32}
+!46 = !{!"_ZTS17COutStreamWithCRC", !19, i64 0, !6, i64 8, !13, i64 16, !23, i64 24, !7, i64 32, !22, i64 36}
+!47 = !{!22, !22, i64 0}
+!48 = !{!46, !23, i64 24}
+!49 = !{!46, !22, i64 36}
+!50 = !{!18, !23, i64 80}
+!51 = !{!7, !7, i64 0}
+!52 = distinct !{!52, !53}
+!53 = !{!"llvm.loop.mustprogress"}
+!54 = !{!23, !23, i64 0}
+!55 = distinct !{!55, !53}
+!56 = !{!8, !8, i64 0}

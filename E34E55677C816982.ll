@@ -528,8 +528,8 @@ define dso_local noundef i32 @_ZN7NCrypto6NWzAes8CDecoder21SetDecoderProperties2
   %12 = select i1 %10, i32 0, i32 -2147024809
   br label %13
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ %12, %5 ], [ -2147024809, %3 ]
+13:                                               ; preds = %5, %3
+  %14 = phi i32 [ -2147024809, %3 ], [ %12, %5 ]
   ret i32 %14
 }
 
@@ -551,7 +551,7 @@ define dso_local noundef i32 @_ZThn592_N7NCrypto6NWzAes8CDecoder21SetDecoderProp
   br label %13
 
 13:                                               ; preds = %3, %5
-  %14 = phi i32 [ %12, %5 ], [ -2147024809, %3 ]
+  %14 = phi i32 [ -2147024809, %3 ], [ %12, %5 ]
   ret i32 %14
 }
 
@@ -591,15 +591,18 @@ declare noundef i32 @_Z15ReadStream_FAILP19ISequentialInStreamPvm(ptr noundef, p
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
 define dso_local noundef zeroext i1 @_ZN7NCrypto6NWzAes8CDecoder23CheckPasswordVerifyCodeEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(600) %0) local_unnamed_addr #7 align 2 {
-  %2 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %0, i64 0, i32 3, i32 2
-  %3 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %0, i64 0, i32 5
-  %4 = load <2 x i8>, ptr %2, align 4
-  %5 = load <2 x i8>, ptr %3, align 8
-  %6 = icmp eq <2 x i8> %4, %5
-  %7 = extractelement <2 x i1> %6, i64 0
-  %8 = extractelement <2 x i1> %6, i64 1
-  %9 = select i1 %7, i1 %8, i1 false
-  ret i1 %9
+  %2 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %0, i64 0, i32 5
+  %3 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %0, i64 0, i32 3, i32 2
+  %4 = load i8, ptr %3, align 4, !tbaa !15
+  %5 = load i8, ptr %2, align 8, !tbaa !15
+  %6 = icmp eq i8 %4, %5
+  %7 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %0, i64 0, i32 3, i32 2, i64 1
+  %8 = load i8, ptr %7, align 1
+  %9 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %0, i64 0, i32 5, i64 1
+  %10 = load i8, ptr %9, align 1
+  %11 = icmp eq i8 %8, %10
+  %12 = select i1 %6, i1 %11, i1 %6
+  ret i1 %12
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -610,99 +613,36 @@ define dso_local noundef i32 @_ZN7NCrypto6NWzAes8CDecoder8CheckMacEP19ISequentia
   call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %4) #19
   %6 = call noundef i32 @_Z15ReadStream_FAILP19ISequentialInStreamPvm(ptr noundef %1, ptr noundef nonnull %4, i64 noundef 10)
   %7 = icmp eq i32 %6, 0
-  br i1 %7, label %8, label %70
+  br i1 %7, label %8, label %22
 
 8:                                                ; preds = %3
   call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %5) #19
   %9 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %0, i64 0, i32 4
   call void @_ZN7NCrypto5NSha15CHmac5FinalEPhm(ptr noundef nonnull align 8 dereferenceable(208) %9, ptr noundef nonnull %5, i64 noundef 10)
-  %10 = load i8, ptr %4, align 1, !tbaa !15
-  %11 = load i8, ptr %5, align 1, !tbaa !15
-  %12 = icmp eq i8 %10, %11
-  br i1 %12, label %13, label %68
+  br label %10
 
-13:                                               ; preds = %8
-  %14 = getelementptr inbounds i8, ptr %4, i64 1
+10:                                               ; preds = %10, %8
+  %11 = phi i64 [ 0, %8 ], [ %17, %10 ]
+  %12 = getelementptr inbounds i8, ptr %4, i64 %11
+  %13 = load i8, ptr %12, align 1, !tbaa !15
+  %14 = getelementptr inbounds i8, ptr %5, i64 %11
   %15 = load i8, ptr %14, align 1, !tbaa !15
-  %16 = getelementptr inbounds i8, ptr %5, i64 1
-  %17 = load i8, ptr %16, align 1, !tbaa !15
-  %18 = icmp eq i8 %15, %17
-  br i1 %18, label %19, label %68, !llvm.loop !28
+  %16 = icmp eq i8 %13, %15
+  %17 = add nuw nsw i64 %11, 1
+  %18 = icmp ne i64 %17, 10
+  %19 = select i1 %16, i1 %18, i1 false
+  br i1 %19, label %10, label %20, !llvm.loop !28
 
-19:                                               ; preds = %13
-  %20 = getelementptr inbounds i8, ptr %4, i64 2
-  %21 = load i8, ptr %20, align 1, !tbaa !15
-  %22 = getelementptr inbounds i8, ptr %5, i64 2
-  %23 = load i8, ptr %22, align 1, !tbaa !15
-  %24 = icmp eq i8 %21, %23
-  br i1 %24, label %25, label %68, !llvm.loop !28
-
-25:                                               ; preds = %19
-  %26 = getelementptr inbounds i8, ptr %4, i64 3
-  %27 = load i8, ptr %26, align 1, !tbaa !15
-  %28 = getelementptr inbounds i8, ptr %5, i64 3
-  %29 = load i8, ptr %28, align 1, !tbaa !15
-  %30 = icmp eq i8 %27, %29
-  br i1 %30, label %31, label %68, !llvm.loop !28
-
-31:                                               ; preds = %25
-  %32 = getelementptr inbounds i8, ptr %4, i64 4
-  %33 = load i8, ptr %32, align 1, !tbaa !15
-  %34 = getelementptr inbounds i8, ptr %5, i64 4
-  %35 = load i8, ptr %34, align 1, !tbaa !15
-  %36 = icmp eq i8 %33, %35
-  br i1 %36, label %37, label %68, !llvm.loop !28
-
-37:                                               ; preds = %31
-  %38 = getelementptr inbounds i8, ptr %4, i64 5
-  %39 = load i8, ptr %38, align 1, !tbaa !15
-  %40 = getelementptr inbounds i8, ptr %5, i64 5
-  %41 = load i8, ptr %40, align 1, !tbaa !15
-  %42 = icmp eq i8 %39, %41
-  br i1 %42, label %43, label %68, !llvm.loop !28
-
-43:                                               ; preds = %37
-  %44 = getelementptr inbounds i8, ptr %4, i64 6
-  %45 = load i8, ptr %44, align 1, !tbaa !15
-  %46 = getelementptr inbounds i8, ptr %5, i64 6
-  %47 = load i8, ptr %46, align 1, !tbaa !15
-  %48 = icmp eq i8 %45, %47
-  br i1 %48, label %49, label %68, !llvm.loop !28
-
-49:                                               ; preds = %43
-  %50 = getelementptr inbounds i8, ptr %4, i64 7
-  %51 = load i8, ptr %50, align 1, !tbaa !15
-  %52 = getelementptr inbounds i8, ptr %5, i64 7
-  %53 = load i8, ptr %52, align 1, !tbaa !15
-  %54 = icmp eq i8 %51, %53
-  br i1 %54, label %55, label %68, !llvm.loop !28
-
-55:                                               ; preds = %49
-  %56 = getelementptr inbounds i8, ptr %4, i64 8
-  %57 = load i8, ptr %56, align 1, !tbaa !15
-  %58 = getelementptr inbounds i8, ptr %5, i64 8
-  %59 = load i8, ptr %58, align 1, !tbaa !15
-  %60 = icmp eq i8 %57, %59
-  br i1 %60, label %61, label %68, !llvm.loop !28
-
-61:                                               ; preds = %55
-  %62 = getelementptr inbounds i8, ptr %4, i64 9
-  %63 = load i8, ptr %62, align 1, !tbaa !15
-  %64 = getelementptr inbounds i8, ptr %5, i64 9
-  %65 = load i8, ptr %64, align 1, !tbaa !15
-  %66 = icmp eq i8 %63, %65
-  %67 = zext i1 %66 to i8
-  br label %68, !llvm.loop !28
-
-68:                                               ; preds = %61, %13, %19, %25, %31, %37, %43, %49, %55, %8
-  %69 = phi i8 [ 0, %8 ], [ 0, %13 ], [ 0, %19 ], [ 0, %25 ], [ 0, %31 ], [ 0, %37 ], [ 0, %43 ], [ 0, %49 ], [ 0, %55 ], [ %67, %61 ]
-  store i8 %69, ptr %2, align 1, !tbaa !26
+20:                                               ; preds = %10
+  %21 = zext i1 %16 to i8
+  store i8 %21, ptr %2, align 1, !tbaa !26
   call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %5) #19
-  br label %70
+  br label %22
 
-70:                                               ; preds = %3, %68
+22:                                               ; preds = %3, %20
+  %23 = phi i32 [ 0, %20 ], [ %6, %3 ]
   call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %4) #19
-  ret i32 %6
+  ret i32 %23
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
@@ -1495,7 +1435,7 @@ define linkonce_odr dso_local noundef i32 @_ZN7NCrypto6NWzAes8CEncoder14QueryInt
   %81 = icmp eq i8 %79, %80
   br i1 %81, label %160, label %82
 
-82:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77
+82:                                               ; preds = %3, %7, %12, %17, %22, %27, %32, %37, %42, %47, %52, %57, %62, %67, %72, %77
   %83 = load i8, ptr @IID_ICryptoSetPassword, align 4, !tbaa !15
   %84 = icmp eq i8 %4, %83
   br i1 %84, label %85, label %166
@@ -1614,8 +1554,8 @@ define linkonce_odr dso_local noundef i32 @_ZN7NCrypto6NWzAes8CEncoder14QueryInt
   %165 = tail call noundef i32 %164(ptr noundef nonnull align 8 dereferenceable(592) %0)
   br label %166
 
-166:                                              ; preds = %160, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
-  %167 = phi i32 [ -2147467262, %155 ], [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ 0, %160 ]
+166:                                              ; preds = %160, %155, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82
+  %167 = phi i32 [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ -2147467262, %155 ], [ 0, %160 ]
   ret i32 %167
 }
 
@@ -2023,7 +1963,7 @@ define linkonce_odr dso_local noundef i32 @_ZN7NCrypto6NWzAes8CDecoder14QueryInt
   %159 = icmp eq i8 %157, %158
   br i1 %159, label %238, label %160
 
-160:                                              ; preds = %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
+160:                                              ; preds = %82, %85, %90, %95, %100, %105, %110, %115, %120, %125, %130, %135, %140, %145, %150, %155
   %161 = load i8, ptr @IID_ICompressSetDecoderProperties2, align 4, !tbaa !15
   %162 = icmp eq i8 %4, %161
   br i1 %162, label %163, label %245
@@ -2143,8 +2083,8 @@ define linkonce_odr dso_local noundef i32 @_ZN7NCrypto6NWzAes8CDecoder14QueryInt
   %244 = tail call noundef i32 %243(ptr noundef nonnull align 8 dereferenceable(600) %0)
   br label %245
 
-245:                                              ; preds = %238, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
-  %246 = phi i32 [ -2147467262, %233 ], [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ 0, %238 ]
+245:                                              ; preds = %238, %233, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160
+  %246 = phi i32 [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ -2147467262, %233 ], [ 0, %238 ]
   ret i32 %246
 }
 

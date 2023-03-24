@@ -316,23 +316,23 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %28 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %10) #19
-  br label %342
+  br label %339
 
 29:                                               ; preds = %20
   store i8 0, ptr %24, align 1, !tbaa !5
   %30 = load i8, ptr %3, align 1, !tbaa !5
   %31 = icmp eq i8 %30, 0
-  br i1 %31, label %341, label %32
+  br i1 %31, label %338, label %32
 
 32:                                               ; preds = %11, %20, %29
   %33 = call i32 @strcasecmp(ptr noundef nonnull @.str.56, ptr noundef nonnull %3) #18
   %34 = icmp eq i32 %33, 0
-  br i1 %34, label %341, label %35
+  br i1 %34, label %338, label %35
 
 35:                                               ; preds = %32
   %36 = call i32 @strcasecmp(ptr noundef nonnull @.str.57, ptr noundef nonnull %3) #18
   %37 = icmp eq i32 %36, 0
-  br i1 %37, label %341, label %38
+  br i1 %37, label %338, label %38
 
 38:                                               ; preds = %35
   %39 = call i32 @strcasecmp(ptr noundef nonnull @.str.58, ptr noundef nonnull %3) #18
@@ -341,7 +341,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 41:                                               ; preds = %38
   tail call void @_Z9printHelpv()
-  br label %341
+  br label %338
 
 42:                                               ; preds = %38
   %43 = call i32 @strcasecmp(ptr noundef nonnull @.str.59, ptr noundef nonnull %3) #18
@@ -350,7 +350,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 45:                                               ; preds = %42
   tail call void @_Z9printCopyv()
-  br label %341
+  br label %338
 
 46:                                               ; preds = %42
   %47 = call i32 @strncasecmp(ptr noundef nonnull @.str.60, ptr noundef nonnull %3, i64 noundef 6) #18
@@ -367,11 +367,11 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %56 = load i8, ptr %55, align 1
   %57 = icmp eq i8 %56, 0
   %58 = select i1 %54, i1 %57, i1 false
-  br i1 %58, label %341, label %59
+  br i1 %58, label %338, label %59
 
 59:                                               ; preds = %49
   %60 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.159)
-  br label %341
+  br label %338
 
 61:                                               ; preds = %46
   %62 = call i32 @strcasecmp(ptr noundef nonnull @.str.62, ptr noundef nonnull %3) #18
@@ -380,7 +380,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 64:                                               ; preds = %61
   %65 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.63, i32 noundef 4)
-  br label %341
+  br label %338
 
 66:                                               ; preds = %61
   %67 = call i32 @strncasecmp(ptr noundef nonnull @.str.64, ptr noundef nonnull %3, i64 noundef 5) #18
@@ -417,11 +417,11 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 86:                                               ; preds = %81, %82, %77
   %87 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.160)
-  br label %341
+  br label %338
 
 88:                                               ; preds = %81, %82
   %89 = call i64 @strtol(ptr nocapture noundef nonnull %79, ptr noundef null, i32 noundef 10) #17
-  br label %341
+  br label %338
 
 90:                                               ; preds = %66
   %91 = call i32 @strcasecmp(ptr noundef nonnull @.str.66, ptr noundef nonnull %3) #18
@@ -430,7 +430,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 93:                                               ; preds = %90
   %94 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.67, i32 noundef 12)
-  br label %341
+  br label %338
 
 95:                                               ; preds = %90
   %96 = call i32 @strcasecmp(ptr noundef nonnull @.str.68, ptr noundef nonnull %3) #18
@@ -441,7 +441,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %99 = load ptr, ptr %12, align 8, !tbaa !10
   %100 = load i32, ptr %10, align 8, !tbaa !14
   tail call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %99, i32 noundef %100)
-  br label %341
+  br label %338
 
 101:                                              ; preds = %95
   %102 = call i32 @strcasecmp(ptr noundef nonnull @.str.69, ptr noundef nonnull %3) #18
@@ -455,13 +455,13 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 107:                                              ; preds = %104
   %108 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.161)
-  br label %341
+  br label %338
 
 109:                                              ; preds = %104
   %110 = load ptr, ptr %12, align 8, !tbaa !10
   %111 = load i32, ptr %10, align 8, !tbaa !14
   tail call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %110, i32 noundef %111)
-  br label %341
+  br label %338
 
 112:                                              ; preds = %101
   %113 = call i32 @strcasecmp(ptr noundef nonnull @.str.71, ptr noundef nonnull %3) #18
@@ -475,13 +475,13 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 118:                                              ; preds = %115
   %119 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.162)
-  br label %341
+  br label %338
 
 120:                                              ; preds = %115
   %121 = load ptr, ptr %12, align 8, !tbaa !10
   %122 = load i32, ptr %10, align 8, !tbaa !14
   tail call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %121, i32 noundef %122)
-  br label %341
+  br label %338
 
 123:                                              ; preds = %112
   %124 = call i32 @strcasecmp(ptr noundef nonnull @.str.73, ptr noundef nonnull %3) #18
@@ -497,7 +497,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %131 = load ptr, ptr %12, align 8, !tbaa !10
   %132 = load i32, ptr %10, align 8, !tbaa !14
   tail call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %131, i32 noundef %132)
-  br label %341
+  br label %338
 
 133:                                              ; preds = %123
   %134 = call i32 @strncasecmp(ptr noundef nonnull @.str.74, ptr noundef nonnull %3, i64 noundef 5) #18
@@ -518,19 +518,19 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %141 = load ptr, ptr %12, align 8, !tbaa !10
   %142 = load i32, ptr %10, align 8, !tbaa !14
   call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %141, i32 noundef %142)
-  br label %341
+  br label %338
 
 143:                                              ; preds = %136
   %144 = call i32 @puts(ptr nonnull dereferenceable(1) @str.165)
-  br label %341
+  br label %338
 
 145:                                              ; preds = %136
   %146 = call i32 @puts(ptr nonnull dereferenceable(1) @str.164)
-  br label %341
+  br label %338
 
 147:                                              ; preds = %136
   %148 = call i32 @puts(ptr nonnull dereferenceable(1) @str.163)
-  br label %341
+  br label %338
 
 149:                                              ; preds = %133
   %150 = call i32 @strcasecmp(ptr noundef nonnull @.str.79, ptr noundef nonnull %3) #18
@@ -539,7 +539,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 152:                                              ; preds = %149
   %153 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.167)
-  br label %341
+  br label %338
 
 154:                                              ; preds = %149
   %155 = call i32 @strncasecmp(ptr noundef nonnull @.str.81, ptr noundef nonnull %3, i64 noundef 5) #18
@@ -556,15 +556,15 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 160:                                              ; preds = %157
   %161 = call i32 @puts(ptr nonnull dereferenceable(1) @str.170)
-  br label %341
+  br label %338
 
 162:                                              ; preds = %157
   %163 = call i32 @puts(ptr nonnull dereferenceable(1) @str.169)
-  br label %341
+  br label %338
 
 164:                                              ; preds = %157
   %165 = call i32 @puts(ptr nonnull dereferenceable(1) @str.168)
-  br label %341
+  br label %338
 
 166:                                              ; preds = %154
   %167 = call i32 @strcasecmp(ptr noundef nonnull @.str.85, ptr noundef nonnull %3) #18
@@ -573,7 +573,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 169:                                              ; preds = %166
   %170 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.171)
-  br label %341
+  br label %338
 
 171:                                              ; preds = %166
   %172 = call i32 @strncasecmp(ptr noundef nonnull @.str.87, ptr noundef nonnull %3, i64 noundef 8) #18
@@ -634,8 +634,8 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 193:                                              ; preds = %189, %189
   switch i8 %179, label %196 [
-    i8 99, label %341
-    i8 67, label %341
+    i8 99, label %338
+    i8 67, label %338
   ]
 
 194:                                              ; preds = %187
@@ -643,7 +643,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %188) #19
   call void @llvm.lifetime.end.p0(i64 11, ptr nonnull %3) #17
-  br label %342
+  br label %339
 
 196:                                              ; preds = %193
   switch i8 %176, label %218 [
@@ -663,7 +663,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %200 = load ptr, ptr %190, align 8, !tbaa !10
   %201 = load i32, ptr %188, align 8, !tbaa !14
   tail call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %200, i32 noundef %201)
-  br label %341
+  br label %338
 
 202:                                              ; preds = %197
   switch i8 %176, label %218 [
@@ -674,8 +674,8 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 203:                                              ; preds = %196, %196, %202
   switch i8 %179, label %204 [
-    i8 104, label %341
-    i8 72, label %341
+    i8 104, label %338
+    i8 72, label %338
   ]
 
 204:                                              ; preds = %203
@@ -692,7 +692,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %208 = load ptr, ptr %190, align 8, !tbaa !10
   %209 = tail call noundef i32 @_ZN13HexxagonBoard9endOfGameEv(ptr noundef nonnull align 4 dereferenceable(16) %208)
   %210 = icmp eq i32 %209, 0
-  br i1 %210, label %211, label %341
+  br i1 %210, label %211, label %338
 
 211:                                              ; preds = %207, %211
   %212 = tail call noundef i32 @_ZN12HexxagonGame12computerMoveEiPFvvEi(ptr noundef nonnull align 8 dereferenceable(24) %188, i32 noundef 4, ptr noundef null, i32 noundef 12000)
@@ -702,15 +702,15 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %215 = load ptr, ptr %190, align 8, !tbaa !10
   %216 = tail call noundef i32 @_ZN13HexxagonBoard9endOfGameEv(ptr noundef nonnull align 4 dereferenceable(16) %215)
   %217 = icmp eq i32 %216, 0
-  br i1 %217, label %211, label %341, !llvm.loop !16
+  br i1 %217, label %211, label %338, !llvm.loop !16
 
 218:                                              ; preds = %204, %189, %196, %202, %206
   %219 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.173)
-  br label %341
+  br label %338
 
 220:                                              ; preds = %177, %180, %174, %183
   %221 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.174)
-  br label %341
+  br label %338
 
 222:                                              ; preds = %171
   %223 = call i32 @strcasecmp(ptr noundef nonnull @.str.90, ptr noundef nonnull %3) #18
@@ -719,7 +719,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 
 225:                                              ; preds = %222
   %226 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.174)
-  br label %341
+  br label %338
 
 227:                                              ; preds = %222
   %228 = call i32 @strncasecmp(ptr noundef nonnull @.str.91, ptr noundef nonnull %3, i64 noundef 5) #18
@@ -729,7 +729,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
 230:                                              ; preds = %227
   %231 = call i32 @strncasecmp(ptr noundef nonnull @.str.92, ptr noundef nonnull %3, i64 noundef 2) #18
   %232 = icmp eq i32 %231, 0
-  br i1 %232, label %233, label %287
+  br i1 %232, label %233, label %284
 
 233:                                              ; preds = %230, %227
   %234 = call i32 @strncasecmp(ptr noundef nonnull @.str.92, ptr noundef nonnull %3, i64 noundef 2) #18
@@ -739,8 +739,8 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #17
   %238 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %237) #18
   %239 = trunc i64 %238 to i32
-  switch i32 %239, label %284 [
-    i32 5, label %250
+  switch i32 %239, label %281 [
+    i32 5, label %249
     i32 4, label %240
   ]
 
@@ -748,179 +748,176 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %241 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %237)
   %242 = trunc i32 %241 to i8
   store i8 %242, ptr %4, align 4, !tbaa !17
-  %243 = select i1 %235, i64 4, i64 7
-  %244 = getelementptr inbounds i8, ptr %3, i64 %243
-  %245 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %244)
-  %246 = trunc i32 %245 to i8
-  store i8 %246, ptr %16, align 1, !tbaa !19
-  %247 = icmp ne i8 %242, -1
-  %248 = icmp ne i8 %246, -1
-  %249 = and i1 %247, %248
-  br i1 %249, label %260, label %282
+  %243 = getelementptr inbounds i8, ptr %237, i64 2
+  %244 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %243)
+  %245 = trunc i32 %244 to i8
+  store i8 %245, ptr %16, align 1, !tbaa !19
+  %246 = icmp ne i8 %242, -1
+  %247 = icmp ne i8 %245, -1
+  %248 = and i1 %246, %247
+  br i1 %248, label %258, label %279
 
-250:                                              ; preds = %233
-  %251 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %237)
-  %252 = trunc i32 %251 to i8
-  store i8 %252, ptr %4, align 4, !tbaa !17
-  %253 = select i1 %235, i64 5, i64 8
-  %254 = getelementptr inbounds i8, ptr %3, i64 %253
-  %255 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %254)
-  %256 = trunc i32 %255 to i8
-  store i8 %256, ptr %16, align 1, !tbaa !19
-  %257 = icmp ne i8 %252, -1
-  %258 = icmp ne i8 %256, -1
-  %259 = and i1 %258, %257
-  br i1 %259, label %260, label %273
+249:                                              ; preds = %233
+  %250 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %237)
+  %251 = trunc i32 %250 to i8
+  store i8 %251, ptr %4, align 4, !tbaa !17
+  %252 = getelementptr inbounds i8, ptr %237, i64 3
+  %253 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %252)
+  %254 = trunc i32 %253 to i8
+  store i8 %254, ptr %16, align 1, !tbaa !19
+  %255 = icmp ne i8 %251, -1
+  %256 = icmp ne i8 %254, -1
+  %257 = and i1 %255, %256
+  br i1 %257, label %258, label %271
 
-260:                                              ; preds = %250, %240
-  %261 = load ptr, ptr %12, align 8, !tbaa !10
-  %262 = call noundef i32 @_ZN13HexxagonBoard11isMoveValidER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %261, ptr noundef nonnull align 4 dereferenceable(8) %4)
-  %263 = icmp eq i32 %262, 0
-  br i1 %263, label %271, label %264
+258:                                              ; preds = %249, %240
+  %259 = load ptr, ptr %12, align 8, !tbaa !10
+  %260 = call noundef i32 @_ZN13HexxagonBoard11isMoveValidER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %259, ptr noundef nonnull align 4 dereferenceable(8) %4)
+  %261 = icmp eq i32 %260, 0
+  br i1 %261, label %269, label %262
 
-264:                                              ; preds = %260
-  %265 = call noundef i32 @_ZN12HexxagonGame9applyMoveER12HexxagonMove(ptr noundef nonnull align 8 dereferenceable(24) %10, ptr noundef nonnull align 4 dereferenceable(8) %4)
-  %266 = load ptr, ptr %12, align 8, !tbaa !10
-  %267 = load i32, ptr %10, align 8, !tbaa !14
-  call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %266, i32 noundef %267)
-  %268 = call noundef i32 @_ZN12HexxagonGame12computerMoveEiPFvvEi(ptr noundef nonnull align 8 dereferenceable(24) %10, i32 noundef 4, ptr noundef null, i32 noundef 12000)
-  %269 = load ptr, ptr %12, align 8, !tbaa !10
-  %270 = load i32, ptr %10, align 8, !tbaa !14
-  call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %269, i32 noundef %270)
-  br label %286
+262:                                              ; preds = %258
+  %263 = call noundef i32 @_ZN12HexxagonGame9applyMoveER12HexxagonMove(ptr noundef nonnull align 8 dereferenceable(24) %10, ptr noundef nonnull align 4 dereferenceable(8) %4)
+  %264 = load ptr, ptr %12, align 8, !tbaa !10
+  %265 = load i32, ptr %10, align 8, !tbaa !14
+  call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %264, i32 noundef %265)
+  %266 = call noundef i32 @_ZN12HexxagonGame12computerMoveEiPFvvEi(ptr noundef nonnull align 8 dereferenceable(24) %10, i32 noundef 4, ptr noundef null, i32 noundef 12000)
+  %267 = load ptr, ptr %12, align 8, !tbaa !10
+  %268 = load i32, ptr %10, align 8, !tbaa !14
+  call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %267, i32 noundef %268)
+  br label %283
 
-271:                                              ; preds = %260
-  %272 = call i32 @puts(ptr nonnull dereferenceable(1) @str.183)
-  br label %286
+269:                                              ; preds = %258
+  %270 = call i32 @puts(ptr nonnull dereferenceable(1) @str.183)
+  br label %283
 
-273:                                              ; preds = %250
-  %274 = select i1 %235, i64 4, i64 7
-  %275 = getelementptr inbounds i8, ptr %3, i64 %274
-  %276 = load i8, ptr %275, align 1, !tbaa !5
-  %277 = icmp eq i8 %276, 32
-  br i1 %277, label %278, label %280
+271:                                              ; preds = %249
+  %272 = getelementptr inbounds i8, ptr %237, i64 2
+  %273 = load i8, ptr %272, align 1, !tbaa !5
+  %274 = icmp eq i8 %273, 32
+  br i1 %274, label %275, label %277
 
-278:                                              ; preds = %273
-  %279 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.178)
-  br label %286
+275:                                              ; preds = %271
+  %276 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.178)
+  br label %283
 
-280:                                              ; preds = %273
-  %281 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
-  br label %286
+277:                                              ; preds = %271
+  %278 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
+  br label %283
 
-282:                                              ; preds = %240
-  %283 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.178)
-  br label %286
+279:                                              ; preds = %240
+  %280 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.178)
+  br label %283
 
-284:                                              ; preds = %233
-  %285 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
-  br label %286
+281:                                              ; preds = %233
+  %282 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
+  br label %283
 
-286:                                              ; preds = %280, %278, %284, %282, %271, %264
+283:                                              ; preds = %277, %275, %281, %279, %269, %262
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #17
-  br label %341
+  br label %338
 
-287:                                              ; preds = %230
-  %288 = call i32 @strcasecmp(ptr noundef nonnull @.str.96, ptr noundef nonnull %3) #18
+284:                                              ; preds = %230
+  %285 = call i32 @strcasecmp(ptr noundef nonnull @.str.96, ptr noundef nonnull %3) #18
+  %286 = icmp eq i32 %285, 0
+  br i1 %286, label %290, label %287
+
+287:                                              ; preds = %284
+  %288 = call i32 @strcasecmp(ptr noundef nonnull @.str.97, ptr noundef nonnull %3) #18
   %289 = icmp eq i32 %288, 0
-  br i1 %289, label %293, label %290
+  br i1 %289, label %290, label %292
 
-290:                                              ; preds = %287
-  %291 = call i32 @strcasecmp(ptr noundef nonnull @.str.97, ptr noundef nonnull %3) #18
-  %292 = icmp eq i32 %291, 0
-  br i1 %292, label %293, label %295
+290:                                              ; preds = %287, %284
+  %291 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
+  br label %338
 
-293:                                              ; preds = %290, %287
-  %294 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
-  br label %341
+292:                                              ; preds = %287
+  %293 = call i32 @strncasecmp(ptr noundef nonnull @.str.98, ptr noundef nonnull %3, i64 noundef 6) #18
+  %294 = icmp eq i32 %293, 0
+  br i1 %294, label %298, label %295
 
-295:                                              ; preds = %290
-  %296 = call i32 @strncasecmp(ptr noundef nonnull @.str.98, ptr noundef nonnull %3, i64 noundef 6) #18
+295:                                              ; preds = %292
+  %296 = call i32 @strncasecmp(ptr noundef nonnull @.str.99, ptr noundef nonnull %3, i64 noundef 2) #18
   %297 = icmp eq i32 %296, 0
-  br i1 %297, label %301, label %298
+  br i1 %297, label %298, label %328
 
-298:                                              ; preds = %295
+298:                                              ; preds = %295, %292
   %299 = call i32 @strncasecmp(ptr noundef nonnull @.str.99, ptr noundef nonnull %3, i64 noundef 2) #18
   %300 = icmp eq i32 %299, 0
-  br i1 %300, label %301, label %331
-
-301:                                              ; preds = %298, %295
-  %302 = call i32 @strncasecmp(ptr noundef nonnull @.str.99, ptr noundef nonnull %3, i64 noundef 2) #18
-  %303 = icmp eq i32 %302, 0
-  %304 = select i1 %303, i64 2, i64 6
-  %305 = getelementptr inbounds i8, ptr %3, i64 %304
+  %301 = select i1 %300, i64 2, i64 6
+  %302 = getelementptr inbounds i8, ptr %3, i64 %301
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #17
-  %306 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %305) #18
-  %307 = icmp eq i64 %306, 2
-  br i1 %307, label %308, label %328
+  %303 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %302) #18
+  %304 = icmp eq i64 %303, 2
+  br i1 %304, label %305, label %325
 
-308:                                              ; preds = %301
-  %309 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %305)
-  %310 = trunc i32 %309 to i8
-  store i8 %310, ptr %15, align 1, !tbaa !19
-  store i8 %310, ptr %5, align 4, !tbaa !17
-  %311 = and i32 %309, 255
-  %312 = icmp eq i32 %311, 255
-  br i1 %312, label %326, label %313
+305:                                              ; preds = %298
+  %306 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %302)
+  %307 = trunc i32 %306 to i8
+  store i8 %307, ptr %15, align 1, !tbaa !19
+  store i8 %307, ptr %5, align 4, !tbaa !17
+  %308 = and i32 %306, 255
+  %309 = icmp eq i32 %308, 255
+  br i1 %309, label %323, label %310
 
-313:                                              ; preds = %308
-  %314 = load ptr, ptr %12, align 8, !tbaa !10
-  %315 = call noundef i32 @_ZN13HexxagonBoard11isMoveValidER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %314, ptr noundef nonnull align 4 dereferenceable(8) %5)
-  %316 = icmp eq i32 %315, 0
-  br i1 %316, label %324, label %317
+310:                                              ; preds = %305
+  %311 = load ptr, ptr %12, align 8, !tbaa !10
+  %312 = call noundef i32 @_ZN13HexxagonBoard11isMoveValidER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %311, ptr noundef nonnull align 4 dereferenceable(8) %5)
+  %313 = icmp eq i32 %312, 0
+  br i1 %313, label %321, label %314
 
-317:                                              ; preds = %313
-  %318 = call noundef i32 @_ZN12HexxagonGame9applyMoveER12HexxagonMove(ptr noundef nonnull align 8 dereferenceable(24) %10, ptr noundef nonnull align 4 dereferenceable(8) %5)
+314:                                              ; preds = %310
+  %315 = call noundef i32 @_ZN12HexxagonGame9applyMoveER12HexxagonMove(ptr noundef nonnull align 8 dereferenceable(24) %10, ptr noundef nonnull align 4 dereferenceable(8) %5)
+  %316 = load ptr, ptr %12, align 8, !tbaa !10
+  %317 = load i32, ptr %10, align 8, !tbaa !14
+  call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %316, i32 noundef %317)
+  %318 = call noundef i32 @_ZN12HexxagonGame12computerMoveEiPFvvEi(ptr noundef nonnull align 8 dereferenceable(24) %10, i32 noundef 4, ptr noundef null, i32 noundef 12000)
   %319 = load ptr, ptr %12, align 8, !tbaa !10
   %320 = load i32, ptr %10, align 8, !tbaa !14
   call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %319, i32 noundef %320)
-  %321 = call noundef i32 @_ZN12HexxagonGame12computerMoveEiPFvvEi(ptr noundef nonnull align 8 dereferenceable(24) %10, i32 noundef 4, ptr noundef null, i32 noundef 12000)
-  %322 = load ptr, ptr %12, align 8, !tbaa !10
-  %323 = load i32, ptr %10, align 8, !tbaa !14
-  call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %322, i32 noundef %323)
-  br label %330
+  br label %327
 
-324:                                              ; preds = %313
-  %325 = call i32 @puts(ptr nonnull dereferenceable(1) @str.183)
-  br label %330
+321:                                              ; preds = %310
+  %322 = call i32 @puts(ptr nonnull dereferenceable(1) @str.183)
+  br label %327
 
-326:                                              ; preds = %308
-  %327 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.182)
-  br label %330
+323:                                              ; preds = %305
+  %324 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.182)
+  br label %327
 
-328:                                              ; preds = %301
-  %329 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.184)
-  br label %330
+325:                                              ; preds = %298
+  %326 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.184)
+  br label %327
 
-330:                                              ; preds = %326, %317, %324, %328
+327:                                              ; preds = %323, %314, %321, %325
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #17
-  br label %341
+  br label %338
 
-331:                                              ; preds = %298
-  %332 = call i32 @strcasecmp(ptr noundef nonnull @.str.102, ptr noundef nonnull %3) #18
+328:                                              ; preds = %295
+  %329 = call i32 @strcasecmp(ptr noundef nonnull @.str.102, ptr noundef nonnull %3) #18
+  %330 = icmp eq i32 %329, 0
+  br i1 %330, label %334, label %331
+
+331:                                              ; preds = %328
+  %332 = call i32 @strcasecmp(ptr noundef nonnull @.str.103, ptr noundef nonnull %3) #18
   %333 = icmp eq i32 %332, 0
-  br i1 %333, label %337, label %334
+  br i1 %333, label %334, label %336
 
-334:                                              ; preds = %331
-  %335 = call i32 @strcasecmp(ptr noundef nonnull @.str.103, ptr noundef nonnull %3) #18
-  %336 = icmp eq i32 %335, 0
-  br i1 %336, label %337, label %339
+334:                                              ; preds = %331, %328
+  %335 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.184)
+  br label %338
 
-337:                                              ; preds = %334, %331
-  %338 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.184)
-  br label %341
+336:                                              ; preds = %331
+  %337 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.185)
+  br label %338
 
-339:                                              ; preds = %334
-  %340 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.185)
-  br label %341
-
-341:                                              ; preds = %211, %49, %29, %207, %45, %64, %93, %109, %107, %126, %152, %169, %225, %293, %337, %339, %330, %286, %220, %198, %218, %118, %120, %98, %59, %41, %35, %32, %88, %86, %143, %147, %145, %139, %162, %164, %160, %193, %193, %203, %203
+338:                                              ; preds = %211, %49, %29, %207, %45, %64, %93, %109, %107, %126, %152, %169, %225, %290, %334, %336, %327, %283, %220, %198, %218, %118, %120, %98, %59, %41, %35, %32, %88, %86, %143, %147, %145, %139, %162, %164, %160, %193, %193, %203, %203
   call void @llvm.lifetime.end.p0(i64 11, ptr nonnull %3) #17
   ret i32 0
 
-342:                                              ; preds = %194, %27
-  %343 = phi { ptr, i32 } [ %195, %194 ], [ %28, %27 ]
-  resume { ptr, i32 } %343
+339:                                              ; preds = %194, %27
+  %340 = phi { ptr, i32 } [ %195, %194 ], [ %28, %27 ]
+  resume { ptr, i32 } %340
 }
 
 ; Function Attrs: nobuiltin allocsize(0)

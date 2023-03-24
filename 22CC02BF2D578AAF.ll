@@ -69,79 +69,8 @@ define dso_local void @init_storage() local_unnamed_addr #0 {
   store ptr %5, ptr @arrays, align 8, !tbaa !9
   %6 = tail call noalias dereferenceable_or_null(256) ptr @malloc(i64 noundef 256) #9
   store ptr %6, ptr @a_names, align 8, !tbaa !9
-  %7 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %8 = getelementptr inbounds ptr, ptr %7, i64 1
-  store ptr null, ptr %8, align 8, !tbaa !9
-  %9 = getelementptr inbounds ptr, ptr %7, i64 2
-  store ptr null, ptr %9, align 8, !tbaa !9
-  %10 = getelementptr inbounds ptr, ptr %7, i64 3
-  store ptr null, ptr %10, align 8, !tbaa !9
-  %11 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %12 = getelementptr inbounds ptr, ptr %11, i64 4
-  store ptr null, ptr %12, align 8, !tbaa !9
-  %13 = getelementptr inbounds ptr, ptr %11, i64 5
-  store ptr null, ptr %13, align 8, !tbaa !9
-  %14 = getelementptr inbounds ptr, ptr %11, i64 6
-  store ptr null, ptr %14, align 8, !tbaa !9
-  %15 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %16 = getelementptr inbounds ptr, ptr %15, i64 7
-  store ptr null, ptr %16, align 8, !tbaa !9
-  %17 = getelementptr inbounds ptr, ptr %15, i64 8
-  store ptr null, ptr %17, align 8, !tbaa !9
-  %18 = getelementptr inbounds ptr, ptr %15, i64 9
-  store ptr null, ptr %18, align 8, !tbaa !9
-  %19 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %20 = getelementptr inbounds ptr, ptr %19, i64 10
-  store ptr null, ptr %20, align 8, !tbaa !9
-  %21 = getelementptr inbounds ptr, ptr %19, i64 11
-  store ptr null, ptr %21, align 8, !tbaa !9
-  %22 = getelementptr inbounds ptr, ptr %19, i64 12
-  store ptr null, ptr %22, align 8, !tbaa !9
-  %23 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %24 = getelementptr inbounds ptr, ptr %23, i64 13
-  store ptr null, ptr %24, align 8, !tbaa !9
-  %25 = getelementptr inbounds ptr, ptr %23, i64 14
-  store ptr null, ptr %25, align 8, !tbaa !9
-  %26 = getelementptr inbounds ptr, ptr %23, i64 15
-  store ptr null, ptr %26, align 8, !tbaa !9
-  %27 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %28 = getelementptr inbounds ptr, ptr %27, i64 16
-  store ptr null, ptr %28, align 8, !tbaa !9
-  %29 = getelementptr inbounds ptr, ptr %27, i64 17
-  store ptr null, ptr %29, align 8, !tbaa !9
-  %30 = getelementptr inbounds ptr, ptr %27, i64 18
-  store ptr null, ptr %30, align 8, !tbaa !9
-  %31 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %32 = getelementptr inbounds ptr, ptr %31, i64 19
-  store ptr null, ptr %32, align 8, !tbaa !9
-  %33 = getelementptr inbounds ptr, ptr %31, i64 20
-  store ptr null, ptr %33, align 8, !tbaa !9
-  %34 = getelementptr inbounds ptr, ptr %31, i64 21
-  store ptr null, ptr %34, align 8, !tbaa !9
-  %35 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %36 = getelementptr inbounds ptr, ptr %35, i64 22
-  store ptr null, ptr %36, align 8, !tbaa !9
-  %37 = getelementptr inbounds ptr, ptr %35, i64 23
-  store ptr null, ptr %37, align 8, !tbaa !9
-  %38 = getelementptr inbounds ptr, ptr %35, i64 24
-  store ptr null, ptr %38, align 8, !tbaa !9
-  %39 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %40 = getelementptr inbounds ptr, ptr %39, i64 25
-  store ptr null, ptr %40, align 8, !tbaa !9
-  %41 = getelementptr inbounds ptr, ptr %39, i64 26
-  store ptr null, ptr %41, align 8, !tbaa !9
-  %42 = getelementptr inbounds ptr, ptr %39, i64 27
-  store ptr null, ptr %42, align 8, !tbaa !9
-  %43 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %44 = getelementptr inbounds ptr, ptr %43, i64 28
-  store ptr null, ptr %44, align 8, !tbaa !9
-  %45 = getelementptr inbounds ptr, ptr %43, i64 29
-  store ptr null, ptr %45, align 8, !tbaa !9
-  %46 = getelementptr inbounds ptr, ptr %43, i64 30
-  store ptr null, ptr %46, align 8, !tbaa !9
-  %47 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %48 = getelementptr inbounds ptr, ptr %47, i64 31
-  store ptr null, ptr %48, align 8, !tbaa !9
+  %7 = getelementptr inbounds ptr, ptr %5, i64 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(248) %7, i8 0, i64 248, i1 false)
   store ptr null, ptr @ex_stack, align 8, !tbaa !9
   store ptr null, ptr @fn_stack, align 8, !tbaa !9
   store i32 10, ptr @i_base, align 4, !tbaa !5
@@ -1380,7 +1309,7 @@ define dso_local void @store_array(i32 noundef %0) local_unnamed_addr #0 {
   %7 = icmp eq ptr %6, null
   br i1 %7, label %8, label %9
 
-8:                                                ; preds = %4, %1
+8:                                                ; preds = %1, %4
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.1) #10
   br label %50
 
@@ -1448,7 +1377,7 @@ define dso_local void @store_array(i32 noundef %0) local_unnamed_addr #0 {
   tail call void @free(ptr noundef nonnull %45) #10
   br label %50
 
-50:                                               ; preds = %47, %33, %8, %24, %29
+50:                                               ; preds = %8, %24, %29, %33, %47
   ret void
 }
 

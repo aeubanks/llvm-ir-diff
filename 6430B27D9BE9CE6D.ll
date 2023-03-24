@@ -628,29 +628,29 @@ define dso_local { <2 x float>, <2 x float> } @_ZNK19btTriangleMeshShape24localG
   store i32 0, ptr %14, align 4, !tbaa !24
   %15 = getelementptr inbounds %class.SupportVertexCallback, ptr %3, i64 0, i32 3
   store float 0xC3ABC16D60000000, ptr %15, align 8, !tbaa !30
-  %16 = getelementptr inbounds %class.SupportVertexCallback, ptr %3, i64 0, i32 4
-  %17 = load float, ptr %1, align 4, !tbaa !18
-  %18 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
-  %19 = load float, ptr %18, align 4, !tbaa !18
-  %20 = fmul float %19, 0.000000e+00
-  %21 = fadd float %17, %20
-  %22 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %23 = load float, ptr %22, align 4, !tbaa !18
-  %24 = load float, ptr %6, align 4, !tbaa !18
-  %25 = tail call float @llvm.fmuladd.f32(float %24, float %17, float %19)
-  %26 = insertelement <2 x float> poison, float %23, i64 0
-  %27 = shufflevector <2 x float> %26, <2 x float> poison, <2 x i32> zeroinitializer
-  %28 = insertelement <2 x float> poison, float %21, i64 0
-  %29 = insertelement <2 x float> %28, float %25, i64 1
-  %30 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %27, <2 x float> zeroinitializer, <2 x float> %29)
-  %31 = getelementptr inbounds %class.SupportVertexCallback, ptr %3, i64 0, i32 2, i32 0, i32 0, i64 0, i32 0, i64 2
-  %32 = load float, ptr %31, align 8, !tbaa !18
-  %33 = tail call float @llvm.fmuladd.f32(float %32, float %17, float %20)
-  %34 = fadd float %23, %33
-  %35 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %34, i64 0
-  store <2 x float> %30, ptr %16, align 4, !tbaa.struct !23
+  %16 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %17 = load float, ptr %16, align 4, !tbaa !18
+  %18 = load float, ptr %1, align 4, !tbaa !18
+  %19 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
+  %20 = load float, ptr %19, align 4, !tbaa !18
+  %21 = fmul float %20, 0.000000e+00
+  %22 = fadd float %18, %21
+  %23 = load float, ptr %6, align 4, !tbaa !18
+  %24 = tail call float @llvm.fmuladd.f32(float %23, float %18, float %20)
+  %25 = insertelement <2 x float> poison, float %17, i64 0
+  %26 = shufflevector <2 x float> %25, <2 x float> poison, <2 x i32> zeroinitializer
+  %27 = insertelement <2 x float> poison, float %22, i64 0
+  %28 = insertelement <2 x float> %27, float %24, i64 1
+  %29 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %26, <2 x float> zeroinitializer, <2 x float> %28)
+  %30 = getelementptr inbounds %class.SupportVertexCallback, ptr %3, i64 0, i32 2, i32 0, i32 0, i64 0, i32 0, i64 2
+  %31 = load float, ptr %30, align 8, !tbaa !18
+  %32 = tail call float @llvm.fmuladd.f32(float %31, float %18, float %21)
+  %33 = fadd float %17, %32
+  %34 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %33, i64 0
+  %35 = getelementptr inbounds %class.SupportVertexCallback, ptr %3, i64 0, i32 4
+  store <2 x float> %29, ptr %35, align 4, !tbaa.struct !23
   %36 = getelementptr inbounds %class.SupportVertexCallback, ptr %3, i64 0, i32 4, i32 0, i64 2
-  store <2 x float> %35, ptr %36, align 4, !tbaa.struct !25
+  store <2 x float> %34, ptr %36, align 4, !tbaa.struct !25
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #14
   store <4 x float> <float 0x43ABC16D60000000, float 0x43ABC16D60000000, float 0x43ABC16D60000000, float 0.000000e+00>, ptr %4, align 16, !tbaa !18
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #14
@@ -668,11 +668,11 @@ define dso_local { <2 x float>, <2 x float> } @_ZNK19btTriangleMeshShape24localG
   %42 = load <2 x float>, ptr %8, align 8, !tbaa.struct !23
   %43 = getelementptr inbounds %class.SupportVertexCallback, ptr %3, i64 0, i32 1, i32 0, i64 2
   %44 = load <2 x float>, ptr %43, align 8, !tbaa.struct !25
-  %45 = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %42, 0
-  %46 = insertvalue { <2 x float>, <2 x float> } %45, <2 x float> %44, 1
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #14
   call void @_ZN18btTriangleCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(108) %3)
   call void @llvm.lifetime.end.p0(i64 112, ptr nonnull %3) #14
+  %45 = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %42, 0
+  %46 = insertvalue { <2 x float>, <2 x float> } %45, <2 x float> %44, 1
   ret { <2 x float>, <2 x float> } %46
 
 47:                                               ; preds = %2
@@ -767,86 +767,80 @@ define internal void @_ZZNK19btTriangleMeshShape19processAllTrianglesEP18btTrian
   %14 = select i1 %13, float %11, float %12
   %15 = load float, ptr %5, align 8, !tbaa !18
   %16 = fcmp ogt float %14, %15
-  br i1 %16, label %81, label %17
+  br i1 %16, label %75, label %17
 
 17:                                               ; preds = %4
   %18 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 2
   %19 = fcmp ogt float %8, %9
   %20 = select i1 %19, float %8, float %9
-  %21 = select i1 %19, ptr %1, ptr %6
-  %22 = fcmp ogt float %20, %12
-  %23 = select i1 %22, ptr %21, ptr %7
-  %24 = load float, ptr %23, align 4, !tbaa !18
-  %25 = load float, ptr %18, align 8, !tbaa !18
-  %26 = fcmp olt float %24, %25
-  br i1 %26, label %81, label %27
+  %21 = fcmp ogt float %20, %12
+  %22 = select i1 %21, float %20, float %12
+  %23 = load float, ptr %18, align 8, !tbaa !18
+  %24 = fcmp olt float %22, %23
+  br i1 %24, label %75, label %25
 
-27:                                               ; preds = %17
-  %28 = getelementptr inbounds float, ptr %1, i64 2
-  %29 = getelementptr inbounds %class.btVector3, ptr %1, i64 1, i32 0, i64 2
-  %30 = load float, ptr %28, align 4
-  %31 = load float, ptr %29, align 4
-  %32 = fcmp olt float %30, %31
-  %33 = getelementptr inbounds %class.btVector3, ptr %1, i64 2, i32 0, i64 2
-  %34 = select i1 %32, float %30, float %31
-  %35 = load float, ptr %33, align 4
-  %36 = fcmp olt float %34, %35
-  %37 = select i1 %36, float %34, float %35
-  %38 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 3, i32 0, i64 2
-  %39 = load float, ptr %38, align 8, !tbaa !18
-  %40 = fcmp ogt float %37, %39
-  br i1 %40, label %81, label %41
+25:                                               ; preds = %17
+  %26 = getelementptr inbounds float, ptr %1, i64 2
+  %27 = getelementptr inbounds %class.btVector3, ptr %1, i64 1, i32 0, i64 2
+  %28 = load float, ptr %26, align 4
+  %29 = load float, ptr %27, align 4
+  %30 = fcmp olt float %28, %29
+  %31 = getelementptr inbounds %class.btVector3, ptr %1, i64 2, i32 0, i64 2
+  %32 = select i1 %30, float %28, float %29
+  %33 = load float, ptr %31, align 4
+  %34 = fcmp olt float %32, %33
+  %35 = select i1 %34, float %32, float %33
+  %36 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 3, i32 0, i64 2
+  %37 = load float, ptr %36, align 8, !tbaa !18
+  %38 = fcmp ogt float %35, %37
+  br i1 %38, label %75, label %39
 
-41:                                               ; preds = %27
-  %42 = fcmp ogt float %30, %31
-  %43 = select i1 %42, float %30, float %31
-  %44 = select i1 %42, ptr %28, ptr %29
-  %45 = fcmp ogt float %43, %35
-  %46 = select i1 %45, ptr %44, ptr %33
-  %47 = load float, ptr %46, align 4, !tbaa !18
-  %48 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 2, i32 0, i64 2
-  %49 = load float, ptr %48, align 8, !tbaa !18
-  %50 = fcmp olt float %47, %49
-  br i1 %50, label %81, label %51
+39:                                               ; preds = %25
+  %40 = fcmp ogt float %28, %29
+  %41 = select i1 %40, float %28, float %29
+  %42 = fcmp ogt float %41, %33
+  %43 = select i1 %42, float %41, float %33
+  %44 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 2, i32 0, i64 2
+  %45 = load float, ptr %44, align 8, !tbaa !18
+  %46 = fcmp olt float %43, %45
+  br i1 %46, label %75, label %47
 
-51:                                               ; preds = %41
-  %52 = getelementptr inbounds float, ptr %1, i64 1
-  %53 = getelementptr inbounds %class.btVector3, ptr %1, i64 1, i32 0, i64 1
-  %54 = load float, ptr %52, align 4
+47:                                               ; preds = %39
+  %48 = getelementptr inbounds float, ptr %1, i64 1
+  %49 = getelementptr inbounds %class.btVector3, ptr %1, i64 1, i32 0, i64 1
+  %50 = load float, ptr %48, align 4
+  %51 = load float, ptr %49, align 4
+  %52 = fcmp olt float %50, %51
+  %53 = getelementptr inbounds %class.btVector3, ptr %1, i64 2, i32 0, i64 1
+  %54 = select i1 %52, float %50, float %51
   %55 = load float, ptr %53, align 4
   %56 = fcmp olt float %54, %55
-  %57 = getelementptr inbounds %class.btVector3, ptr %1, i64 2, i32 0, i64 1
-  %58 = select i1 %56, float %54, float %55
-  %59 = load float, ptr %57, align 4
-  %60 = fcmp olt float %58, %59
-  %61 = select i1 %60, float %58, float %59
-  %62 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 3, i32 0, i64 1
-  %63 = load float, ptr %62, align 4, !tbaa !18
-  %64 = fcmp ogt float %61, %63
-  br i1 %64, label %81, label %65
+  %57 = select i1 %56, float %54, float %55
+  %58 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 3, i32 0, i64 1
+  %59 = load float, ptr %58, align 4, !tbaa !18
+  %60 = fcmp ogt float %57, %59
+  br i1 %60, label %75, label %61
 
-65:                                               ; preds = %51
-  %66 = fcmp ogt float %54, %55
-  %67 = select i1 %66, float %54, float %55
-  %68 = select i1 %66, ptr %52, ptr %53
-  %69 = fcmp ogt float %67, %59
-  %70 = select i1 %69, ptr %68, ptr %57
-  %71 = load float, ptr %70, align 4, !tbaa !18
-  %72 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 2, i32 0, i64 1
-  %73 = load float, ptr %72, align 4, !tbaa !18
-  %74 = fcmp uge float %71, %73
-  br i1 %74, label %75, label %81
+61:                                               ; preds = %47
+  %62 = fcmp ogt float %50, %51
+  %63 = select i1 %62, float %50, float %51
+  %64 = fcmp ogt float %63, %55
+  %65 = select i1 %64, float %63, float %55
+  %66 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 2, i32 0, i64 1
+  %67 = load float, ptr %66, align 4, !tbaa !18
+  %68 = fcmp uge float %65, %67
+  br i1 %68, label %69, label %75
 
-75:                                               ; preds = %65
-  %76 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 1
-  %77 = load ptr, ptr %76, align 8, !tbaa !26
-  %78 = load ptr, ptr %77, align 8, !tbaa !5
-  %79 = getelementptr inbounds ptr, ptr %78, i64 2
-  %80 = load ptr, ptr %79, align 8
-  tail call void %80(ptr noundef nonnull align 8 dereferenceable(8) %77, ptr noundef nonnull %1, i32 noundef %2, i32 noundef %3)
-  br label %81
+69:                                               ; preds = %61
+  %70 = getelementptr inbounds %struct.FilteredCallback, ptr %0, i64 0, i32 1
+  %71 = load ptr, ptr %70, align 8, !tbaa !26
+  %72 = load ptr, ptr %71, align 8, !tbaa !5
+  %73 = getelementptr inbounds ptr, ptr %72, i64 2
+  %74 = load ptr, ptr %73, align 8
+  tail call void %74(ptr noundef nonnull align 8 dereferenceable(8) %71, ptr noundef nonnull %1, i32 noundef %2, i32 noundef %3)
+  br label %75
 
-81:                                               ; preds = %51, %41, %27, %17, %4, %75, %65
+75:                                               ; preds = %4, %17, %25, %39, %47, %69, %61
   ret void
 }
 

@@ -27,57 +27,57 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.63 = private unnamed_addr constant [50 x i8] c"                    first item on the input line.\00", align 1
 @CH = external local_unnamed_addr global i8, align 1
 @.str.67 = private unnamed_addr constant [58 x i8] c"****** %d format errors found in output of your scanner.\0A\00", align 1
-@str = private unnamed_addr constant [4 x i8] c"EOF\00", align 1
-@str.70 = private unnamed_addr constant [18 x i8] c"   SEMICOLON (;) \00", align 1
-@str.71 = private unnamed_addr constant [59 x i8] c"------------>ERROR: Expected a Newline Character <--------\00", align 1
-@str.72 = private unnamed_addr constant [14 x i8] c"   COMMA (,) \00", align 1
-@str.73 = private unnamed_addr constant [22 x i8] c"   RIGHT BRACKET (]) \00", align 1
-@str.74 = private unnamed_addr constant [21 x i8] c"   LEFT BRACKET ([) \00", align 1
-@str.75 = private unnamed_addr constant [20 x i8] c"   RIGHT PAREN ')' \00", align 1
-@str.76 = private unnamed_addr constant [19 x i8] c"   LEFT PAREN '(' \00", align 1
-@str.77 = private unnamed_addr constant [8 x i8] c"   NOT \00", align 1
-@str.78 = private unnamed_addr constant [7 x i8] c"   DO \00", align 1
-@str.79 = private unnamed_addr constant [10 x i8] c"   WHILE \00", align 1
-@str.80 = private unnamed_addr constant [9 x i8] c"   ELSE \00", align 1
-@str.81 = private unnamed_addr constant [9 x i8] c"   THEN \00", align 1
-@str.82 = private unnamed_addr constant [7 x i8] c"   IF \00", align 1
-@str.83 = private unnamed_addr constant [12 x i8] c"   WRITELN \00", align 1
-@str.84 = private unnamed_addr constant [10 x i8] c"   WRITE \00", align 1
-@str.85 = private unnamed_addr constant [9 x i8] c"   READ \00", align 1
-@str.86 = private unnamed_addr constant [8 x i8] c"   END \00", align 1
-@str.87 = private unnamed_addr constant [10 x i8] c"   BEGIN \00", align 1
-@str.88 = private unnamed_addr constant [13 x i8] c"   FUNCTION \00", align 1
-@str.89 = private unnamed_addr constant [12 x i8] c"   FORWARD \00", align 1
-@str.90 = private unnamed_addr constant [14 x i8] c"   PROCEDURE \00", align 1
-@str.91 = private unnamed_addr constant [7 x i8] c"   OF \00", align 1
-@str.92 = private unnamed_addr constant [10 x i8] c"   ARRAY \00", align 1
-@str.93 = private unnamed_addr constant [19 x i8] c"   REAL (KEYWORD) \00", align 1
-@str.94 = private unnamed_addr constant [22 x i8] c"   INTEGER (KEYWORD) \00", align 1
-@str.95 = private unnamed_addr constant [8 x i8] c"   VAR \00", align 1
-@str.96 = private unnamed_addr constant [12 x i8] c"   PROGRAM \00", align 1
-@str.99 = private unnamed_addr constant [49 x i8] c"---------->ERROR: Expected a VALID/ILLEGAL Code \00", align 1
-@str.100 = private unnamed_addr constant [8 x i8] c"illegal\00", align 1
-@str.101 = private unnamed_addr constant [12 x i8] c"   DOT (.) \00", align 1
-@str.102 = private unnamed_addr constant [16 x i8] c"   DOTDOT (..) \00", align 1
-@str.103 = private unnamed_addr constant [14 x i8] c"   COLON (:) \00", align 1
-@str.104 = private unnamed_addr constant [16 x i8] c"   ASSIGN (:=) \00", align 1
-@str.105 = private unnamed_addr constant [2 x i8] c">\00", align 1
-@str.106 = private unnamed_addr constant [3 x i8] c">=\00", align 1
-@str.107 = private unnamed_addr constant [2 x i8] c"<\00", align 1
-@str.108 = private unnamed_addr constant [3 x i8] c"<=\00", align 1
-@str.109 = private unnamed_addr constant [3 x i8] c"<>\00", align 1
-@str.110 = private unnamed_addr constant [2 x i8] c"=\00", align 1
-@str.111 = private unnamed_addr constant [4 x i8] c"DIV\00", align 1
-@str.112 = private unnamed_addr constant [4 x i8] c"AND\00", align 1
-@str.113 = private unnamed_addr constant [2 x i8] c"/\00", align 1
-@str.114 = private unnamed_addr constant [2 x i8] c"*\00", align 1
-@str.115 = private unnamed_addr constant [3 x i8] c"OR\00", align 1
-@str.116 = private unnamed_addr constant [2 x i8] c"-\00", align 1
-@str.117 = private unnamed_addr constant [2 x i8] c"+\00", align 1
-@str.118 = private unnamed_addr constant [50 x i8] c"------------>ERROR: A Valid TOKEN Code is not the\00", align 1
-@str.119 = private unnamed_addr constant [11 x i8] c" <--------\00", align 1
-@str.120 = private unnamed_addr constant [60 x i8] c"------------>ERROR: Expected a SPACE between Token Code and\00", align 1
-@str.121 = private unnamed_addr constant [54 x i8] c"                    the string following it <--------\00", align 1
+@str = private unnamed_addr constant [60 x i8] c"------------>ERROR: Expected a SPACE between Token Code and\00", align 1
+@str.70 = private unnamed_addr constant [54 x i8] c"                    the string following it <--------\00", align 1
+@str.71 = private unnamed_addr constant [4 x i8] c"EOF\00", align 1
+@str.72 = private unnamed_addr constant [18 x i8] c"   SEMICOLON (;) \00", align 1
+@str.73 = private unnamed_addr constant [59 x i8] c"------------>ERROR: Expected a Newline Character <--------\00", align 1
+@str.74 = private unnamed_addr constant [14 x i8] c"   COMMA (,) \00", align 1
+@str.75 = private unnamed_addr constant [22 x i8] c"   RIGHT BRACKET (]) \00", align 1
+@str.76 = private unnamed_addr constant [21 x i8] c"   LEFT BRACKET ([) \00", align 1
+@str.77 = private unnamed_addr constant [20 x i8] c"   RIGHT PAREN ')' \00", align 1
+@str.78 = private unnamed_addr constant [19 x i8] c"   LEFT PAREN '(' \00", align 1
+@str.79 = private unnamed_addr constant [8 x i8] c"   NOT \00", align 1
+@str.80 = private unnamed_addr constant [7 x i8] c"   DO \00", align 1
+@str.81 = private unnamed_addr constant [10 x i8] c"   WHILE \00", align 1
+@str.82 = private unnamed_addr constant [9 x i8] c"   ELSE \00", align 1
+@str.83 = private unnamed_addr constant [9 x i8] c"   THEN \00", align 1
+@str.84 = private unnamed_addr constant [7 x i8] c"   IF \00", align 1
+@str.85 = private unnamed_addr constant [12 x i8] c"   WRITELN \00", align 1
+@str.86 = private unnamed_addr constant [10 x i8] c"   WRITE \00", align 1
+@str.87 = private unnamed_addr constant [9 x i8] c"   READ \00", align 1
+@str.88 = private unnamed_addr constant [8 x i8] c"   END \00", align 1
+@str.89 = private unnamed_addr constant [10 x i8] c"   BEGIN \00", align 1
+@str.90 = private unnamed_addr constant [13 x i8] c"   FUNCTION \00", align 1
+@str.91 = private unnamed_addr constant [12 x i8] c"   FORWARD \00", align 1
+@str.92 = private unnamed_addr constant [14 x i8] c"   PROCEDURE \00", align 1
+@str.93 = private unnamed_addr constant [7 x i8] c"   OF \00", align 1
+@str.94 = private unnamed_addr constant [10 x i8] c"   ARRAY \00", align 1
+@str.95 = private unnamed_addr constant [19 x i8] c"   REAL (KEYWORD) \00", align 1
+@str.96 = private unnamed_addr constant [22 x i8] c"   INTEGER (KEYWORD) \00", align 1
+@str.97 = private unnamed_addr constant [8 x i8] c"   VAR \00", align 1
+@str.98 = private unnamed_addr constant [12 x i8] c"   PROGRAM \00", align 1
+@str.101 = private unnamed_addr constant [49 x i8] c"---------->ERROR: Expected a VALID/ILLEGAL Code \00", align 1
+@str.102 = private unnamed_addr constant [8 x i8] c"illegal\00", align 1
+@str.103 = private unnamed_addr constant [12 x i8] c"   DOT (.) \00", align 1
+@str.104 = private unnamed_addr constant [16 x i8] c"   DOTDOT (..) \00", align 1
+@str.105 = private unnamed_addr constant [14 x i8] c"   COLON (:) \00", align 1
+@str.106 = private unnamed_addr constant [16 x i8] c"   ASSIGN (:=) \00", align 1
+@str.107 = private unnamed_addr constant [2 x i8] c">\00", align 1
+@str.108 = private unnamed_addr constant [3 x i8] c">=\00", align 1
+@str.109 = private unnamed_addr constant [2 x i8] c"<\00", align 1
+@str.110 = private unnamed_addr constant [3 x i8] c"<=\00", align 1
+@str.111 = private unnamed_addr constant [3 x i8] c"<>\00", align 1
+@str.112 = private unnamed_addr constant [2 x i8] c"=\00", align 1
+@str.113 = private unnamed_addr constant [4 x i8] c"DIV\00", align 1
+@str.114 = private unnamed_addr constant [4 x i8] c"AND\00", align 1
+@str.115 = private unnamed_addr constant [2 x i8] c"/\00", align 1
+@str.116 = private unnamed_addr constant [2 x i8] c"*\00", align 1
+@str.117 = private unnamed_addr constant [3 x i8] c"OR\00", align 1
+@str.118 = private unnamed_addr constant [2 x i8] c"-\00", align 1
+@str.119 = private unnamed_addr constant [2 x i8] c"+\00", align 1
+@str.120 = private unnamed_addr constant [50 x i8] c"------------>ERROR: A Valid TOKEN Code is not the\00", align 1
+@str.121 = private unnamed_addr constant [11 x i8] c" <--------\00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
@@ -163,8 +163,8 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %22 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %23 = add nsw i32 %22, 1
   store i32 %23, ptr @ERROR_CNT, align 4, !tbaa !5
-  %24 = call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
-  %25 = call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
+  %24 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %25 = call i32 @puts(ptr nonnull dereferenceable(1) @str.70)
   br label %26
 
 26:                                               ; preds = %21, %20
@@ -211,15 +211,15 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   ]
 
 43:                                               ; preds = %39
-  %44 = call i32 @puts(ptr nonnull dereferenceable(1) @str.117)
+  %44 = call i32 @puts(ptr nonnull dereferenceable(1) @str.119)
   br label %220
 
 45:                                               ; preds = %39
-  %46 = call i32 @puts(ptr nonnull dereferenceable(1) @str.116)
+  %46 = call i32 @puts(ptr nonnull dereferenceable(1) @str.118)
   br label %220
 
 47:                                               ; preds = %39
-  %48 = call i32 @puts(ptr nonnull dereferenceable(1) @str.115)
+  %48 = call i32 @puts(ptr nonnull dereferenceable(1) @str.117)
   br label %220
 
 49:                                               ; preds = %39
@@ -241,19 +241,19 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   ]
 
 57:                                               ; preds = %53
-  %58 = call i32 @puts(ptr nonnull dereferenceable(1) @str.114)
+  %58 = call i32 @puts(ptr nonnull dereferenceable(1) @str.116)
   br label %220
 
 59:                                               ; preds = %53
-  %60 = call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
+  %60 = call i32 @puts(ptr nonnull dereferenceable(1) @str.115)
   br label %220
 
 61:                                               ; preds = %53
-  %62 = call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
+  %62 = call i32 @puts(ptr nonnull dereferenceable(1) @str.114)
   br label %220
 
 63:                                               ; preds = %53
-  %64 = call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
+  %64 = call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
   br label %220
 
 65:                                               ; preds = %53
@@ -277,27 +277,27 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   ]
 
 73:                                               ; preds = %69
-  %74 = call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
+  %74 = call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
   br label %220
 
 75:                                               ; preds = %69
-  %76 = call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
+  %76 = call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
   br label %220
 
 77:                                               ; preds = %69
-  %78 = call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
+  %78 = call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
   br label %220
 
 79:                                               ; preds = %69
-  %80 = call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
+  %80 = call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
   br label %220
 
 81:                                               ; preds = %69
-  %82 = call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
+  %82 = call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
   br label %220
 
 83:                                               ; preds = %69
-  %84 = call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
+  %84 = call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
   br label %220
 
 85:                                               ; preds = %69
@@ -308,19 +308,19 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   br label %220
 
 89:                                               ; preds = %15
-  %90 = call i32 @puts(ptr nonnull dereferenceable(1) @str.104)
+  %90 = call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
   br label %220
 
 91:                                               ; preds = %15
-  %92 = call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
+  %92 = call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
   br label %220
 
 93:                                               ; preds = %15
-  %94 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
+  %94 = call i32 @puts(ptr nonnull dereferenceable(1) @str.104)
   br label %220
 
 95:                                               ; preds = %15
-  %96 = call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
+  %96 = call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
   br label %220
 
 97:                                               ; preds = %15
@@ -333,7 +333,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   ]
 
 101:                                              ; preds = %97
-  %102 = call i32 @puts(ptr nonnull dereferenceable(1) @str.100)
+  %102 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
   br label %220
 
 103:                                              ; preds = %97
@@ -346,7 +346,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %108 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %109 = add nsw i32 %108, 1
   store i32 %109, ptr @ERROR_CNT, align 4, !tbaa !5
-  %110 = call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
+  %110 = call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
   %111 = load i32, ptr %2, align 4, !tbaa !5
   %112 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.30, i32 noundef %111)
   br label %220
@@ -361,7 +361,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   ]
 
 117:                                              ; preds = %113
-  %118 = call i32 @puts(ptr nonnull dereferenceable(1) @str.100)
+  %118 = call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
   br label %220
 
 119:                                              ; preds = %113
@@ -374,89 +374,89 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %124 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %125 = add nsw i32 %124, 1
   store i32 %125, ptr @ERROR_CNT, align 4, !tbaa !5
-  %126 = call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
+  %126 = call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
   %127 = load i32, ptr %2, align 4, !tbaa !5
   %128 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.30, i32 noundef %127)
   br label %220
 
 129:                                              ; preds = %15
-  %130 = call i32 @puts(ptr nonnull dereferenceable(1) @str.96)
+  %130 = call i32 @puts(ptr nonnull dereferenceable(1) @str.98)
   br label %220
 
 131:                                              ; preds = %15
-  %132 = call i32 @puts(ptr nonnull dereferenceable(1) @str.95)
+  %132 = call i32 @puts(ptr nonnull dereferenceable(1) @str.97)
   br label %220
 
 133:                                              ; preds = %15
-  %134 = call i32 @puts(ptr nonnull dereferenceable(1) @str.94)
+  %134 = call i32 @puts(ptr nonnull dereferenceable(1) @str.96)
   br label %220
 
 135:                                              ; preds = %15
-  %136 = call i32 @puts(ptr nonnull dereferenceable(1) @str.93)
+  %136 = call i32 @puts(ptr nonnull dereferenceable(1) @str.95)
   br label %220
 
 137:                                              ; preds = %15
-  %138 = call i32 @puts(ptr nonnull dereferenceable(1) @str.92)
+  %138 = call i32 @puts(ptr nonnull dereferenceable(1) @str.94)
   br label %220
 
 139:                                              ; preds = %15
-  %140 = call i32 @puts(ptr nonnull dereferenceable(1) @str.91)
+  %140 = call i32 @puts(ptr nonnull dereferenceable(1) @str.93)
   br label %220
 
 141:                                              ; preds = %15
-  %142 = call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
+  %142 = call i32 @puts(ptr nonnull dereferenceable(1) @str.92)
   br label %220
 
 143:                                              ; preds = %15
-  %144 = call i32 @puts(ptr nonnull dereferenceable(1) @str.89)
+  %144 = call i32 @puts(ptr nonnull dereferenceable(1) @str.91)
   br label %220
 
 145:                                              ; preds = %15
-  %146 = call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
+  %146 = call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
   br label %220
 
 147:                                              ; preds = %15
-  %148 = call i32 @puts(ptr nonnull dereferenceable(1) @str.87)
+  %148 = call i32 @puts(ptr nonnull dereferenceable(1) @str.89)
   br label %220
 
 149:                                              ; preds = %15
-  %150 = call i32 @puts(ptr nonnull dereferenceable(1) @str.86)
+  %150 = call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
   br label %220
 
 151:                                              ; preds = %15
-  %152 = call i32 @puts(ptr nonnull dereferenceable(1) @str.85)
+  %152 = call i32 @puts(ptr nonnull dereferenceable(1) @str.87)
   br label %220
 
 153:                                              ; preds = %15
-  %154 = call i32 @puts(ptr nonnull dereferenceable(1) @str.84)
+  %154 = call i32 @puts(ptr nonnull dereferenceable(1) @str.86)
   br label %220
 
 155:                                              ; preds = %15
-  %156 = call i32 @puts(ptr nonnull dereferenceable(1) @str.83)
+  %156 = call i32 @puts(ptr nonnull dereferenceable(1) @str.85)
   br label %220
 
 157:                                              ; preds = %15
-  %158 = call i32 @puts(ptr nonnull dereferenceable(1) @str.82)
+  %158 = call i32 @puts(ptr nonnull dereferenceable(1) @str.84)
   br label %220
 
 159:                                              ; preds = %15
-  %160 = call i32 @puts(ptr nonnull dereferenceable(1) @str.81)
+  %160 = call i32 @puts(ptr nonnull dereferenceable(1) @str.83)
   br label %220
 
 161:                                              ; preds = %15
-  %162 = call i32 @puts(ptr nonnull dereferenceable(1) @str.80)
+  %162 = call i32 @puts(ptr nonnull dereferenceable(1) @str.82)
   br label %220
 
 163:                                              ; preds = %15
-  %164 = call i32 @puts(ptr nonnull dereferenceable(1) @str.79)
+  %164 = call i32 @puts(ptr nonnull dereferenceable(1) @str.81)
   br label %220
 
 165:                                              ; preds = %15
-  %166 = call i32 @puts(ptr nonnull dereferenceable(1) @str.78)
+  %166 = call i32 @puts(ptr nonnull dereferenceable(1) @str.80)
   br label %220
 
 167:                                              ; preds = %15
-  %168 = call i32 @puts(ptr nonnull dereferenceable(1) @str.77)
+  %168 = call i32 @puts(ptr nonnull dereferenceable(1) @str.79)
   br label %220
 
 169:                                              ; preds = %15
@@ -475,8 +475,8 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %175 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %176 = add nsw i32 %175, 1
   store i32 %176, ptr @ERROR_CNT, align 4, !tbaa !5
-  %177 = call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
-  %178 = call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
+  %177 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %178 = call i32 @puts(ptr nonnull dereferenceable(1) @str.70)
   br label %179
 
 179:                                              ; preds = %174, %173
@@ -507,36 +507,36 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   br label %220
 
 188:                                              ; preds = %15
-  %189 = call i32 @puts(ptr nonnull dereferenceable(1) @str.76)
+  %189 = call i32 @puts(ptr nonnull dereferenceable(1) @str.78)
   br label %220
 
 190:                                              ; preds = %15
-  %191 = call i32 @puts(ptr nonnull dereferenceable(1) @str.75)
+  %191 = call i32 @puts(ptr nonnull dereferenceable(1) @str.77)
   br label %220
 
 192:                                              ; preds = %15
-  %193 = call i32 @puts(ptr nonnull dereferenceable(1) @str.74)
+  %193 = call i32 @puts(ptr nonnull dereferenceable(1) @str.76)
   br label %220
 
 194:                                              ; preds = %15
-  %195 = call i32 @puts(ptr nonnull dereferenceable(1) @str.73)
+  %195 = call i32 @puts(ptr nonnull dereferenceable(1) @str.75)
   br label %220
 
 196:                                              ; preds = %15
-  %197 = call i32 @puts(ptr nonnull dereferenceable(1) @str.72)
+  %197 = call i32 @puts(ptr nonnull dereferenceable(1) @str.74)
   br label %220
 
 198:                                              ; preds = %15
-  %199 = call i32 @puts(ptr nonnull dereferenceable(1) @str.70)
+  %199 = call i32 @puts(ptr nonnull dereferenceable(1) @str.72)
   br label %220
 
 200:                                              ; preds = %15
   %201 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %202 = add nsw i32 %201, 1
   store i32 %202, ptr @ERROR_CNT, align 4, !tbaa !5
-  %203 = call i32 @puts(ptr nonnull dereferenceable(1) @str.118)
+  %203 = call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
   %204 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.63)
-  %205 = call i32 @puts(ptr nonnull dereferenceable(1) @str.119)
+  %205 = call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
   call void (...) @GETCHR() #7
   %206 = load i8, ptr @CH, align 1, !tbaa !11
   %207 = icmp eq i8 %206, 32
@@ -551,8 +551,8 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %210 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %211 = add nsw i32 %210, 1
   store i32 %211, ptr @ERROR_CNT, align 4, !tbaa !5
-  %212 = call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
-  %213 = call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
+  %212 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %213 = call i32 @puts(ptr nonnull dereferenceable(1) @str.70)
   br label %214
 
 214:                                              ; preds = %209, %208
@@ -589,7 +589,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %226 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %227 = add nsw i32 %226, 1
   store i32 %227, ptr @ERROR_CNT, align 4, !tbaa !5
-  %228 = call i32 @puts(ptr nonnull dereferenceable(1) @str.71)
+  %228 = call i32 @puts(ptr nonnull dereferenceable(1) @str.73)
   br label %230
 
 229:                                              ; preds = %10
@@ -602,7 +602,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   br i1 %231, label %232, label %10, !llvm.loop !16
 
 232:                                              ; preds = %230, %229, %0
-  %233 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %233 = call i32 @puts(ptr nonnull dereferenceable(1) @str.71)
   %234 = load i32, ptr @ERROR_CNT, align 4, !tbaa !5
   %235 = icmp eq i32 %234, 0
   br i1 %235, label %238, label %236

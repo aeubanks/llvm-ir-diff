@@ -1973,8 +1973,8 @@ for.body.lr.ph:                                   ; preds = %if.end3
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %shape, ptr noundef nonnull align 4 dereferenceable(16) %.pre, i64 16, i1 false)
   %extent = getelementptr inbounds [4 x %struct.halide_dimension_t], ptr %shape, i64 0, i64 0, i32 1
   %4 = load i32, ptr %extent, align 4, !tbaa !72
-  %exitcond.not = icmp eq i64 %umin, 0
-  br i1 %exitcond.not, label %for.cond13.preheader, label %for.body.1
+  %exitcond10.not = icmp eq i64 %umin, 0
+  br i1 %exitcond10.not, label %for.cond13.preheader, label %for.body.1
 
 for.cond13.preheader:                             ; preds = %for.body.3, %for.body.2, %for.body.1, %for.body.lr.ph
   %mul.lcssa = phi i32 [ %4, %for.body.lr.ph ], [ %mul.1, %for.body.1 ], [ %mul.2, %for.body.2 ], [ %mul.3, %for.body.3 ]
@@ -1993,8 +1993,8 @@ for.body.1:                                       ; preds = %for.body.lr.ph
   %extent.1 = getelementptr inbounds [4 x %struct.halide_dimension_t], ptr %shape, i64 0, i64 1, i32 1
   %6 = load i32, ptr %extent.1, align 4, !tbaa !72
   %mul.1 = mul i32 %6, %4
-  %exitcond.not.1 = icmp eq i64 %umin, 1
-  br i1 %exitcond.not.1, label %for.cond13.preheader, label %for.body.2
+  %exitcond10.not.1 = icmp eq i64 %umin, 1
+  br i1 %exitcond10.not.1, label %for.cond13.preheader, label %for.body.2
 
 for.body.2:                                       ; preds = %for.body.1
   %arrayidx.2 = getelementptr inbounds %struct.halide_dimension_t, ptr %.pre, i64 2
@@ -2003,8 +2003,8 @@ for.body.2:                                       ; preds = %for.body.1
   %extent.2 = getelementptr inbounds [4 x %struct.halide_dimension_t], ptr %shape, i64 0, i64 2, i32 1
   %7 = load i32, ptr %extent.2, align 4, !tbaa !72
   %mul.2 = mul i32 %7, %mul.1
-  %exitcond.not.2 = icmp eq i64 %umin, 2
-  br i1 %exitcond.not.2, label %for.cond13.preheader, label %for.body.3
+  %exitcond10.not.2 = icmp eq i64 %umin, 2
+  br i1 %exitcond10.not.2, label %for.cond13.preheader, label %for.body.3
 
 for.body.3:                                       ; preds = %for.body.2
   %arrayidx.3 = getelementptr inbounds %struct.halide_dimension_t, ptr %.pre, i64 3
@@ -2225,8 +2225,8 @@ if.end114:                                        ; preds = %for.body109
   %add122 = add nsw i32 %16, %mul121
   store i32 %add122, ptr %offset, align 4, !tbaa !39
   %inc124 = add nuw nsw i32 %i105.0525, 1
-  %exitcond31.not = icmp eq i32 %inc124, %channels.0
-  br i1 %exitcond31.not, label %for.end125, label %for.body109
+  %exitcond11.not = icmp eq i32 %inc124, %channels.0
+  br i1 %exitcond11.not, label %for.end125, label %for.body109
 
 cleanup:                                          ; preds = %for.body109
   %call113 = tail call i32 @fclose(ptr nonnull %call1) #17
@@ -2240,8 +2240,8 @@ for.end125:                                       ; preds = %if.end114
 
 for.cond133:                                      ; preds = %for.body136
   %inc143 = add nuw nsw i32 %i132.0523, 1
-  %exitcond32.not = icmp eq i32 %inc143, %channels.0
-  br i1 %exitcond32.not, label %cleanup148, label %for.body136
+  %exitcond12.not = icmp eq i32 %inc143, %channels.0
+  br i1 %exitcond12.not, label %cleanup148, label %for.body136
 
 for.body136:                                      ; preds = %for.end125, %for.cond133
   %i132.0523 = phi i32 [ %inc143, %for.cond133 ], [ 0, %for.end125 ]
@@ -2265,7 +2265,7 @@ cleanup148:                                       ; preds = %for.cond133
 
 cleanup151.thread:                                ; preds = %cleanup148, %if.end97
   call void @llvm.lifetime.end.p0(i64 210, ptr nonnull %header) #18
-  %.pre33 = load i32, ptr %extent.i.3, align 4, !tbaa !72
+  %.pre13 = load i32, ptr %extent.i.3, align 4, !tbaa !72
   br label %if.end183
 
 cleanup151:                                       ; preds = %cleanup148.thread, %if.then95
@@ -2301,7 +2301,7 @@ cleanup180:                                       ; preds = %if.else161
   br label %if.end183
 
 if.end183:                                        ; preds = %cleanup180, %cleanup151.thread
-  %21 = phi i32 [ %20, %cleanup180 ], [ %.pre33, %cleanup151.thread ]
+  %21 = phi i32 [ %20, %cleanup180 ], [ %.pre13, %cleanup151.thread ]
   call void @llvm.lifetime.start.p0(i64 4096, ptr nonnull %temp) #18
   %div = udiv i32 4096, %div.i
   %cmp192518 = icmp sgt i32 %21, 0
@@ -2319,174 +2319,175 @@ for.body194.lr.ph:                                ; preds = %if.end183
   %24 = zext i32 %mul241 to i64
   %.pre538 = load i32, ptr %min.i.2, align 4, !tbaa !74
   %.pre539 = load i32, ptr %extent.i.2, align 4, !tbaa !72
-  %cmp203513 = icmp slt i32 %.pre539, 1
   %.pre540 = load i32, ptr %min.i.1, align 4
   %.pre541 = load i32, ptr %extent.i.1, align 4
   %.pre542 = load i32, ptr %shape, align 4
   %.pre543 = load i32, ptr %extent.i, align 4
-  %cmp225504 = icmp slt i32 %.pre543, 1
   %add224 = add nsw i32 %.pre543, %.pre542
+  %cmp203513 = icmp sgt i32 %.pre539, 0
+  %cmp214508 = icmp sgt i32 %.pre541, 0
+  %cmp225504 = icmp sgt i32 %.pre543, 0
   %add213 = add nsw i32 %.pre541, %.pre540
   %add202 = add nsw i32 %.pre539, %.pre538
-  %add191 = add nsw i32 %22, %21
-  %cmp214508 = icmp slt i32 %.pre541, 1
-  %or.cond36.not37 = select i1 %cmp203513, i1 true, i1 %cmp214508
-  %brmerge = select i1 %or.cond36.not37, i1 true, i1 %cmp225504
-  br i1 %brmerge, label %if.end284, label %for.body194.us.us.us
+  %add191 = add nsw i32 %21, %22
+  br label %for.body194
 
-for.body194.us.us.us:                             ; preds = %for.body194.lr.ph, %for.inc269.loopexit.split.us.split.us.us.us.us
-  %dim3.0520.us.us.us = phi i32 [ %inc270.us.us.us, %for.inc269.loopexit.split.us.split.us.us.us.us ], [ %22, %for.body194.lr.ph ]
-  %counter.0519.us.us.us = phi i32 [ %counter.5.ph.us.us.us.us.us.us, %for.inc269.loopexit.split.us.split.us.us.us.us ], [ 0, %for.body194.lr.ph ]
-  br label %for.body205.us.us.us.us.us
+for.body194:                                      ; preds = %for.inc269, %for.body194.lr.ph
+  %dim3.0520 = phi i32 [ %22, %for.body194.lr.ph ], [ %inc270, %for.inc269 ]
+  %counter.0519 = phi i32 [ 0, %for.body194.lr.ph ], [ %counter.1.lcssa, %for.inc269 ]
+  br i1 %cmp203513, label %for.body205, label %for.inc269
 
-for.body205.us.us.us.us.us:                       ; preds = %for.inc264.loopexit.split.us.us.us.us.us.us, %for.body194.us.us.us
-  %dim2.0515.us.us.us.us.us = phi i32 [ %inc265.us.us.us.us.us, %for.inc264.loopexit.split.us.us.us.us.us.us ], [ %.pre538, %for.body194.us.us.us ]
-  %counter.1514.us.us.us.us.us = phi i32 [ %counter.5.ph.us.us.us.us.us.us, %for.inc264.loopexit.split.us.us.us.us.us.us ], [ %counter.0519.us.us.us, %for.body194.us.us.us ]
-  br label %for.body216.us.us.us.us.us.us
+for.body205:                                      ; preds = %for.body194, %for.inc264
+  %dim2.0515 = phi i32 [ %inc265, %for.inc264 ], [ %.pre538, %for.body194 ]
+  %counter.1514 = phi i32 [ %counter.2.lcssa, %for.inc264 ], [ %counter.0519, %for.body194 ]
+  br i1 %cmp214508, label %for.body216, label %for.inc264
 
-for.body216.us.us.us.us.us.us:                    ; preds = %for.inc259.loopexit.us.us.us.us.us.us, %for.body205.us.us.us.us.us
-  %dim1.0510.us.us.us.us.us.us = phi i32 [ %inc260.us.us.us.us.us.us, %for.inc259.loopexit.us.us.us.us.us.us ], [ %.pre540, %for.body205.us.us.us.us.us ]
-  %counter.2509.us.us.us.us.us.us = phi i32 [ %counter.5.ph.us.us.us.us.us.us, %for.inc259.loopexit.us.us.us.us.us.us ], [ %counter.1514.us.us.us.us.us, %for.body205.us.us.us.us.us ]
-  br label %for.body227.us.us.us.us.us.us
+for.body216:                                      ; preds = %for.body205, %for.inc259
+  %dim1.0510 = phi i32 [ %inc260, %for.inc259 ], [ %.pre540, %for.body205 ]
+  %counter.2509 = phi i32 [ %counter.3.lcssa, %for.inc259 ], [ %counter.1514, %for.body205 ]
+  br i1 %cmp225504, label %for.body227, label %for.inc259
 
-for.body227.us.us.us.us.us.us:                    ; preds = %for.inc254.us.us.us.us.us.us, %for.body216.us.us.us.us.us.us
-  %dim0.0506.us.us.us.us.us.us = phi i32 [ %inc255.us.us.us.us.us.us, %for.inc254.us.us.us.us.us.us ], [ %.pre542, %for.body216.us.us.us.us.us.us ]
-  %counter.3505.us.us.us.us.us.us = phi i32 [ %counter.5.ph.us.us.us.us.us.us, %for.inc254.us.us.us.us.us.us ], [ %counter.2509.us.us.us.us.us.us, %for.body216.us.us.us.us.us.us ]
-  %inc228.us.us.us.us.us.us = add nsw i32 %counter.3505.us.us.us.us.us.us, 1
+for.body227:                                      ; preds = %for.body216, %for.inc254
+  %dim0.0506 = phi i32 [ %inc255, %for.inc254 ], [ %.pre542, %for.body216 ]
+  %counter.3505 = phi i32 [ %counter.5.ph, %for.inc254 ], [ %counter.2509, %for.body216 ]
+  %inc228 = add nsw i32 %counter.3505, 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %idx) #18
-  store i32 %dim1.0510.us.us.us.us.us.us, ptr %arrayinit.element230, align 4, !tbaa !39
-  store i32 %dim2.0515.us.us.us.us.us, ptr %arrayinit.element231, align 4, !tbaa !39
-  store i32 %dim3.0520.us.us.us, ptr %arrayinit.element232, align 4, !tbaa !39
+  store i32 %dim1.0510, ptr %arrayinit.element230, align 4, !tbaa !39
+  store i32 %dim2.0515, ptr %arrayinit.element231, align 4, !tbaa !39
+  store i32 %dim3.0520, ptr %arrayinit.element232, align 4, !tbaa !39
   %25 = load i32, ptr %dimensions, align 4, !tbaa !69
-  %cmp16.i.us.us.us.us.us.us = icmp sgt i32 %25, 0
-  br i1 %cmp16.i.us.us.us.us.us.us, label %for.body.lr.ph.i.us.us.us.us.us.us, label %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us
+  %cmp16.i = icmp sgt i32 %25, 0
+  br i1 %cmp16.i, label %for.body.lr.ph.i, label %_ZNK15halide_buffer_t10address_ofEPKi.exit
 
-for.body.lr.ph.i.us.us.us.us.us.us:               ; preds = %for.body227.us.us.us.us.us.us
+for.body.lr.ph.i:                                 ; preds = %for.body227
   %26 = load ptr, ptr %dim.i, align 8, !tbaa !71
-  %stride.i415569.us.us.us.us.us.us = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 0, i32 2
-  %27 = load i32, ptr %stride.i415569.us.us.us.us.us.us, align 4, !tbaa !75
+  %stride.i415569 = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 0, i32 2
+  %27 = load i32, ptr %stride.i415569, align 4, !tbaa !75
   %28 = load i32, ptr %26, align 4, !tbaa !74
-  %sub.i571.us.us.us.us.us.us = sub nsw i32 %dim0.0506.us.us.us.us.us.us, %28
-  %mul.i572.us.us.us.us.us.us = mul nsw i32 %sub.i571.us.us.us.us.us.us, %27
-  %conv.i573.us.us.us.us.us.us = sext i32 %mul.i572.us.us.us.us.us.us to i64
-  %exitcond575.us.us.us.us.us.us = icmp eq i32 %25, 1
-  br i1 %exitcond575.us.us.us.us.us.us, label %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us, label %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader
+  %sub.i571 = sub nsw i32 %dim0.0506, %28
+  %mul.i572 = mul nsw i32 %sub.i571, %27
+  %conv.i573 = sext i32 %mul.i572 to i64
+  %exitcond575 = icmp eq i32 %25, 1
+  br i1 %exitcond575, label %_ZNK15halide_buffer_t10address_ofEPKi.exit, label %for.body.i.for.body.i_crit_edge.preheader
 
-for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader: ; preds = %for.body.lr.ph.i.us.us.us.us.us.us
+for.body.i.for.body.i_crit_edge.preheader:        ; preds = %for.body.lr.ph.i
   %29 = zext i32 %25 to i64
   %30 = add nsw i64 %29, -1
   %xtraiter = and i64 %30, 1
   %31 = icmp eq i32 %25, 2
-  br i1 %31, label %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us.loopexit.unr-lcssa, label %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader.new
+  br i1 %31, label %_ZNK15halide_buffer_t10address_ofEPKi.exit.loopexit.unr-lcssa, label %for.body.i.for.body.i_crit_edge.preheader.new
 
-for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader.new: ; preds = %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader
+for.body.i.for.body.i_crit_edge.preheader.new:    ; preds = %for.body.i.for.body.i_crit_edge.preheader
   %unroll_iter = and i64 %30, -2
-  br label %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us
+  br label %for.body.i.for.body.i_crit_edge
 
-for.body.i.for.body.i_crit_edge.us.us.us.us.us.us: ; preds = %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader.new
-  %indvars.iv.next.i577.us.us.us.us.us.us = phi i64 [ 1, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader.new ], [ %indvars.iv.next.i.us.us.us.us.us.us.1, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us ]
-  %add.i576.us.us.us.us.us.us = phi i64 [ %conv.i573.us.us.us.us.us.us, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader.new ], [ %add.i.us.us.us.us.us.us.1, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us ]
-  %niter = phi i64 [ 0, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader.new ], [ %niter.next.1, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us ]
-  %arrayidx3.i.phi.trans.insert.us.us.us.us.us.us = getelementptr inbounds [4 x i32], ptr %idx, i64 0, i64 %indvars.iv.next.i577.us.us.us.us.us.us
-  %.pre544.us.us.us.us.us.us = load i32, ptr %arrayidx3.i.phi.trans.insert.us.us.us.us.us.us, align 4, !tbaa !39
-  %stride.i415.us.us.us.us.us.us = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i577.us.us.us.us.us.us, i32 2
-  %32 = load i32, ptr %stride.i415.us.us.us.us.us.us, align 4, !tbaa !75
-  %min.i416.us.us.us.us.us.us = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i577.us.us.us.us.us.us, i32 0
-  %33 = load i32, ptr %min.i416.us.us.us.us.us.us, align 4, !tbaa !74
-  %sub.i.us.us.us.us.us.us = sub nsw i32 %.pre544.us.us.us.us.us.us, %33
-  %mul.i.us.us.us.us.us.us = mul nsw i32 %sub.i.us.us.us.us.us.us, %32
-  %conv.i.us.us.us.us.us.us = sext i32 %mul.i.us.us.us.us.us.us to i64
-  %add.i.us.us.us.us.us.us = add nsw i64 %add.i576.us.us.us.us.us.us, %conv.i.us.us.us.us.us.us
-  %indvars.iv.next.i.us.us.us.us.us.us = add nuw nsw i64 %indvars.iv.next.i577.us.us.us.us.us.us, 1
-  %arrayidx3.i.phi.trans.insert.us.us.us.us.us.us.1 = getelementptr inbounds [4 x i32], ptr %idx, i64 0, i64 %indvars.iv.next.i.us.us.us.us.us.us
-  %.pre544.us.us.us.us.us.us.1 = load i32, ptr %arrayidx3.i.phi.trans.insert.us.us.us.us.us.us.1, align 4, !tbaa !39
-  %stride.i415.us.us.us.us.us.us.1 = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i.us.us.us.us.us.us, i32 2
-  %34 = load i32, ptr %stride.i415.us.us.us.us.us.us.1, align 4, !tbaa !75
-  %min.i416.us.us.us.us.us.us.1 = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i.us.us.us.us.us.us, i32 0
-  %35 = load i32, ptr %min.i416.us.us.us.us.us.us.1, align 4, !tbaa !74
-  %sub.i.us.us.us.us.us.us.1 = sub nsw i32 %.pre544.us.us.us.us.us.us.1, %35
-  %mul.i.us.us.us.us.us.us.1 = mul nsw i32 %sub.i.us.us.us.us.us.us.1, %34
-  %conv.i.us.us.us.us.us.us.1 = sext i32 %mul.i.us.us.us.us.us.us.1 to i64
-  %add.i.us.us.us.us.us.us.1 = add nsw i64 %add.i.us.us.us.us.us.us, %conv.i.us.us.us.us.us.us.1
-  %indvars.iv.next.i.us.us.us.us.us.us.1 = add nuw nsw i64 %indvars.iv.next.i577.us.us.us.us.us.us, 2
+for.body.i.for.body.i_crit_edge:                  ; preds = %for.body.i.for.body.i_crit_edge, %for.body.i.for.body.i_crit_edge.preheader.new
+  %indvars.iv.next.i577 = phi i64 [ 1, %for.body.i.for.body.i_crit_edge.preheader.new ], [ %indvars.iv.next.i.1, %for.body.i.for.body.i_crit_edge ]
+  %add.i576 = phi i64 [ %conv.i573, %for.body.i.for.body.i_crit_edge.preheader.new ], [ %add.i.1, %for.body.i.for.body.i_crit_edge ]
+  %niter = phi i64 [ 0, %for.body.i.for.body.i_crit_edge.preheader.new ], [ %niter.next.1, %for.body.i.for.body.i_crit_edge ]
+  %arrayidx3.i.phi.trans.insert = getelementptr inbounds [4 x i32], ptr %idx, i64 0, i64 %indvars.iv.next.i577
+  %.pre544 = load i32, ptr %arrayidx3.i.phi.trans.insert, align 4, !tbaa !39
+  %stride.i415 = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i577, i32 2
+  %32 = load i32, ptr %stride.i415, align 4, !tbaa !75
+  %min.i416 = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i577, i32 0
+  %33 = load i32, ptr %min.i416, align 4, !tbaa !74
+  %sub.i = sub nsw i32 %.pre544, %33
+  %mul.i = mul nsw i32 %sub.i, %32
+  %conv.i = sext i32 %mul.i to i64
+  %add.i = add nsw i64 %add.i576, %conv.i
+  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.next.i577, 1
+  %arrayidx3.i.phi.trans.insert.1 = getelementptr inbounds [4 x i32], ptr %idx, i64 0, i64 %indvars.iv.next.i
+  %.pre544.1 = load i32, ptr %arrayidx3.i.phi.trans.insert.1, align 4, !tbaa !39
+  %stride.i415.1 = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i, i32 2
+  %34 = load i32, ptr %stride.i415.1, align 4, !tbaa !75
+  %min.i416.1 = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i, i32 0
+  %35 = load i32, ptr %min.i416.1, align 4, !tbaa !74
+  %sub.i.1 = sub nsw i32 %.pre544.1, %35
+  %mul.i.1 = mul nsw i32 %sub.i.1, %34
+  %conv.i.1 = sext i32 %mul.i.1 to i64
+  %add.i.1 = add nsw i64 %add.i, %conv.i.1
+  %indvars.iv.next.i.1 = add nuw nsw i64 %indvars.iv.next.i577, 2
   %niter.next.1 = add i64 %niter, 2
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
-  br i1 %niter.ncmp.1, label %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us.loopexit.unr-lcssa, label %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us
+  br i1 %niter.ncmp.1, label %_ZNK15halide_buffer_t10address_ofEPKi.exit.loopexit.unr-lcssa, label %for.body.i.for.body.i_crit_edge
 
-_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us.loopexit.unr-lcssa: ; preds = %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader
-  %add.i.us.us.us.us.us.us.lcssa.ph = phi i64 [ undef, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader ], [ %add.i.us.us.us.us.us.us.1, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us ]
-  %indvars.iv.next.i577.us.us.us.us.us.us.unr = phi i64 [ 1, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader ], [ %indvars.iv.next.i.us.us.us.us.us.us.1, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us ]
-  %add.i576.us.us.us.us.us.us.unr = phi i64 [ %conv.i573.us.us.us.us.us.us, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.preheader ], [ %add.i.us.us.us.us.us.us.1, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us ]
+_ZNK15halide_buffer_t10address_ofEPKi.exit.loopexit.unr-lcssa: ; preds = %for.body.i.for.body.i_crit_edge, %for.body.i.for.body.i_crit_edge.preheader
+  %add.i.lcssa.ph = phi i64 [ undef, %for.body.i.for.body.i_crit_edge.preheader ], [ %add.i.1, %for.body.i.for.body.i_crit_edge ]
+  %indvars.iv.next.i577.unr = phi i64 [ 1, %for.body.i.for.body.i_crit_edge.preheader ], [ %indvars.iv.next.i.1, %for.body.i.for.body.i_crit_edge ]
+  %add.i576.unr = phi i64 [ %conv.i573, %for.body.i.for.body.i_crit_edge.preheader ], [ %add.i.1, %for.body.i.for.body.i_crit_edge ]
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
-  br i1 %lcmp.mod.not, label %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us, label %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.epil
+  br i1 %lcmp.mod.not, label %_ZNK15halide_buffer_t10address_ofEPKi.exit, label %for.body.i.for.body.i_crit_edge.epil
 
-for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.epil: ; preds = %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us.loopexit.unr-lcssa
-  %arrayidx3.i.phi.trans.insert.us.us.us.us.us.us.epil = getelementptr inbounds [4 x i32], ptr %idx, i64 0, i64 %indvars.iv.next.i577.us.us.us.us.us.us.unr
-  %.pre544.us.us.us.us.us.us.epil = load i32, ptr %arrayidx3.i.phi.trans.insert.us.us.us.us.us.us.epil, align 4, !tbaa !39
-  %stride.i415.us.us.us.us.us.us.epil = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i577.us.us.us.us.us.us.unr, i32 2
-  %36 = load i32, ptr %stride.i415.us.us.us.us.us.us.epil, align 4, !tbaa !75
-  %min.i416.us.us.us.us.us.us.epil = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i577.us.us.us.us.us.us.unr, i32 0
-  %37 = load i32, ptr %min.i416.us.us.us.us.us.us.epil, align 4, !tbaa !74
-  %sub.i.us.us.us.us.us.us.epil = sub nsw i32 %.pre544.us.us.us.us.us.us.epil, %37
-  %mul.i.us.us.us.us.us.us.epil = mul nsw i32 %sub.i.us.us.us.us.us.us.epil, %36
-  %conv.i.us.us.us.us.us.us.epil = sext i32 %mul.i.us.us.us.us.us.us.epil to i64
-  %add.i.us.us.us.us.us.us.epil = add nsw i64 %add.i576.us.us.us.us.us.us.unr, %conv.i.us.us.us.us.us.us.epil
-  br label %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us
+for.body.i.for.body.i_crit_edge.epil:             ; preds = %_ZNK15halide_buffer_t10address_ofEPKi.exit.loopexit.unr-lcssa
+  %arrayidx3.i.phi.trans.insert.epil = getelementptr inbounds [4 x i32], ptr %idx, i64 0, i64 %indvars.iv.next.i577.unr
+  %.pre544.epil = load i32, ptr %arrayidx3.i.phi.trans.insert.epil, align 4, !tbaa !39
+  %stride.i415.epil = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i577.unr, i32 2
+  %36 = load i32, ptr %stride.i415.epil, align 4, !tbaa !75
+  %min.i416.epil = getelementptr inbounds %struct.halide_dimension_t, ptr %26, i64 %indvars.iv.next.i577.unr, i32 0
+  %37 = load i32, ptr %min.i416.epil, align 4, !tbaa !74
+  %sub.i.epil = sub nsw i32 %.pre544.epil, %37
+  %mul.i.epil = mul nsw i32 %sub.i.epil, %36
+  %conv.i.epil = sext i32 %mul.i.epil to i64
+  %add.i.epil = add nsw i64 %add.i576.unr, %conv.i.epil
+  br label %_ZNK15halide_buffer_t10address_ofEPKi.exit
 
-_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us: ; preds = %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.epil, %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us.loopexit.unr-lcssa, %for.body.lr.ph.i.us.us.us.us.us.us, %for.body227.us.us.us.us.us.us
-  %index.0.lcssa.i.us.us.us.us.us.us = phi i64 [ 0, %for.body227.us.us.us.us.us.us ], [ %conv.i573.us.us.us.us.us.us, %for.body.lr.ph.i.us.us.us.us.us.us ], [ %add.i.us.us.us.us.us.us.lcssa.ph, %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us.loopexit.unr-lcssa ], [ %add.i.us.us.us.us.us.us.epil, %for.body.i.for.body.i_crit_edge.us.us.us.us.us.us.epil ]
+_ZNK15halide_buffer_t10address_ofEPKi.exit:       ; preds = %for.body.i.for.body.i_crit_edge.epil, %_ZNK15halide_buffer_t10address_ofEPKi.exit.loopexit.unr-lcssa, %for.body.lr.ph.i, %for.body227
+  %index.0.lcssa.i = phi i64 [ 0, %for.body227 ], [ %conv.i573, %for.body.lr.ph.i ], [ %add.i.lcssa.ph, %_ZNK15halide_buffer_t10address_ofEPKi.exit.loopexit.unr-lcssa ], [ %add.i.epil, %for.body.i.for.body.i_crit_edge.epil ]
   %38 = load ptr, ptr %host.i, align 8, !tbaa !85
   %39 = load i8, ptr %bits.i, align 1, !tbaa !45
-  %conv.i.i.us.us.us.us.us.us = zext i8 %39 to i64
-  %add.i.i.us.us.us.us.us.us = add nuw nsw i64 %conv.i.i.us.us.us.us.us.us, 7
-  %div.i.i.us.us.us.us.us.us = lshr i64 %add.i.i.us.us.us.us.us.us, 3
-  %mul8.i.us.us.us.us.us.us = mul nsw i64 %div.i.i.us.us.us.us.us.us, %index.0.lcssa.i.us.us.us.us.us.us
-  %add.ptr.i.us.us.us.us.us.us = getelementptr inbounds i8, ptr %38, i64 %mul8.i.us.us.us.us.us.us
-  %mul235.us.us.us.us.us.us = mul nsw i32 %counter.3505.us.us.us.us.us.us, %div.i
-  %idx.ext.us.us.us.us.us.us = sext i32 %mul235.us.us.us.us.us.us to i64
-  %add.ptr.us.us.us.us.us.us = getelementptr inbounds [4096 x i8], ptr %temp, i64 0, i64 %idx.ext.us.us.us.us.us.us
-  %call237.us.us.us.us.us.us = call ptr @memcpy(ptr nonnull %add.ptr.us.us.us.us.us.us, ptr %add.ptr.i.us.us.us.us.us.us, i64 %23) #17
-  %cmp238.us.us.us.us.us.us = icmp eq i32 %inc228.us.us.us.us.us.us, %div
-  br i1 %cmp238.us.us.us.us.us.us, label %if.then239.us.us.us.us.us.us, label %for.inc254.us.us.us.us.us.us
+  %conv.i.i = zext i8 %39 to i64
+  %add.i.i = add nuw nsw i64 %conv.i.i, 7
+  %div.i.i = lshr i64 %add.i.i, 3
+  %mul8.i = mul nsw i64 %div.i.i, %index.0.lcssa.i
+  %add.ptr.i = getelementptr inbounds i8, ptr %38, i64 %mul8.i
+  %mul235 = mul nsw i32 %counter.3505, %div.i
+  %idx.ext = sext i32 %mul235 to i64
+  %add.ptr = getelementptr inbounds [4096 x i8], ptr %temp, i64 0, i64 %idx.ext
+  %call237 = call ptr @memcpy(ptr nonnull %add.ptr, ptr %add.ptr.i, i64 %23) #17
+  %cmp238 = icmp eq i32 %inc228, %div
+  br i1 %cmp238, label %if.then239, label %for.inc254
 
-if.then239.us.us.us.us.us.us:                     ; preds = %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us
-  %call243.us.us.us.us.us.us = call i64 @fwrite(ptr nonnull %temp, i64 %24, i64 1, ptr nonnull %call1) #17
-  %tobool244.us.us.us.us.us.us = icmp eq i64 %call243.us.us.us.us.us.us, 0
-  br i1 %tobool244.us.us.us.us.us.us, label %cleanup271, label %for.inc254.us.us.us.us.us.us
+if.then239:                                       ; preds = %_ZNK15halide_buffer_t10address_ofEPKi.exit
+  %call243 = call i64 @fwrite(ptr nonnull %temp, i64 %24, i64 1, ptr nonnull %call1) #17
+  %tobool244 = icmp eq i64 %call243, 0
+  br i1 %tobool244, label %cleanup271, label %for.inc254
 
-for.inc254.us.us.us.us.us.us:                     ; preds = %if.then239.us.us.us.us.us.us, %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us
-  %counter.5.ph.us.us.us.us.us.us = phi i32 [ %inc228.us.us.us.us.us.us, %_ZNK15halide_buffer_t10address_ofEPKi.exit.us.us.us.us.us.us ], [ 0, %if.then239.us.us.us.us.us.us ]
+for.inc254:                                       ; preds = %if.then239, %_ZNK15halide_buffer_t10address_ofEPKi.exit
+  %counter.5.ph = phi i32 [ %inc228, %_ZNK15halide_buffer_t10address_ofEPKi.exit ], [ 0, %if.then239 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %idx) #18
-  %inc255.us.us.us.us.us.us = add nsw i32 %dim0.0506.us.us.us.us.us.us, 1
-  %cmp225.us.us.us.us.us.us = icmp slt i32 %inc255.us.us.us.us.us.us, %add224
-  br i1 %cmp225.us.us.us.us.us.us, label %for.body227.us.us.us.us.us.us, label %for.inc259.loopexit.us.us.us.us.us.us
+  %inc255 = add nsw i32 %dim0.0506, 1
+  %cmp225 = icmp slt i32 %inc255, %add224
+  br i1 %cmp225, label %for.body227, label %for.inc259
 
-for.inc259.loopexit.us.us.us.us.us.us:            ; preds = %for.inc254.us.us.us.us.us.us
-  %inc260.us.us.us.us.us.us = add nsw i32 %dim1.0510.us.us.us.us.us.us, 1
-  %cmp214.us.us.us.us.us.us = icmp slt i32 %inc260.us.us.us.us.us.us, %add213
-  br i1 %cmp214.us.us.us.us.us.us, label %for.body216.us.us.us.us.us.us, label %for.inc264.loopexit.split.us.us.us.us.us.us
+for.inc259:                                       ; preds = %for.inc254, %for.body216
+  %counter.3.lcssa = phi i32 [ %counter.2509, %for.body216 ], [ %counter.5.ph, %for.inc254 ]
+  %inc260 = add nsw i32 %dim1.0510, 1
+  %cmp214 = icmp slt i32 %inc260, %add213
+  br i1 %cmp214, label %for.body216, label %for.inc264
 
-for.inc264.loopexit.split.us.us.us.us.us.us:      ; preds = %for.inc259.loopexit.us.us.us.us.us.us
-  %inc265.us.us.us.us.us = add nsw i32 %dim2.0515.us.us.us.us.us, 1
-  %cmp203.us.us.us.us.us = icmp slt i32 %inc265.us.us.us.us.us, %add202
-  br i1 %cmp203.us.us.us.us.us, label %for.body205.us.us.us.us.us, label %for.inc269.loopexit.split.us.split.us.us.us.us
+for.inc264:                                       ; preds = %for.inc259, %for.body205
+  %counter.2.lcssa = phi i32 [ %counter.1514, %for.body205 ], [ %counter.3.lcssa, %for.inc259 ]
+  %inc265 = add nsw i32 %dim2.0515, 1
+  %cmp203 = icmp slt i32 %inc265, %add202
+  br i1 %cmp203, label %for.body205, label %for.inc269
 
-for.inc269.loopexit.split.us.split.us.us.us.us:   ; preds = %for.inc264.loopexit.split.us.us.us.us.us.us
-  %inc270.us.us.us = add nsw i32 %dim3.0520.us.us.us, 1
-  %cmp192.us.us.us = icmp slt i32 %inc270.us.us.us, %add191
-  br i1 %cmp192.us.us.us, label %for.body194.us.us.us, label %for.end273
+for.inc269:                                       ; preds = %for.inc264, %for.body194
+  %counter.1.lcssa = phi i32 [ %counter.0519, %for.body194 ], [ %counter.2.lcssa, %for.inc264 ]
+  %inc270 = add nsw i32 %dim3.0520, 1
+  %cmp192 = icmp slt i32 %inc270, %add191
+  br i1 %cmp192, label %for.body194, label %for.end273
 
-cleanup271:                                       ; preds = %if.then239.us.us.us.us.us.us
+cleanup271:                                       ; preds = %if.then239
   %call246 = call i32 @fclose(ptr nonnull %call1) #17
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %idx) #18
   br label %cleanup286
 
-for.end273:                                       ; preds = %for.inc269.loopexit.split.us.split.us.us.us.us
-  %cmp274 = icmp sgt i32 %counter.5.ph.us.us.us.us.us.us, 0
+for.end273:                                       ; preds = %for.inc269
+  %cmp274 = icmp sgt i32 %counter.1.lcssa, 0
   br i1 %cmp274, label %if.then275, label %if.end284
 
 if.then275:                                       ; preds = %for.end273
-  %mul277 = mul nsw i32 %counter.5.ph.us.us.us.us.us.us, %div.i
+  %mul277 = mul nsw i32 %counter.1.lcssa, %div.i
   %conv278 = sext i32 %mul277 to i64
   %call279 = call i64 @fwrite(ptr nonnull %temp, i64 %conv278, i64 1, ptr nonnull %call1) #17
   %tobool280 = icmp eq i64 %call279, 0
@@ -2496,7 +2497,7 @@ if.then281:                                       ; preds = %if.then275
   %call282 = call i32 @fclose(ptr nonnull %call1) #17
   br label %cleanup286
 
-if.end284:                                        ; preds = %for.body194.lr.ph, %if.then275, %for.end273, %if.end183
+if.end284:                                        ; preds = %if.then275, %for.end273, %if.end183
   %call285 = call i32 @fclose(ptr nonnull %call1) #17
   br label %cleanup286
 

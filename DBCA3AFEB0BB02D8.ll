@@ -348,20 +348,20 @@ define dso_local i32 @scan_token(ptr noundef %0, i32 noundef %1, ptr noundef %2)
   call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %90, ptr align 1 %63, i64 %95, i1 false)
   br label %96
 
-96:                                               ; preds = %92, %87
-  %97 = phi ptr [ %90, %92 ], [ %85, %87 ]
-  %98 = phi i32 [ 1, %92 ], [ %64, %87 ]
-  %99 = phi ptr [ %94, %92 ], [ %88, %87 ]
+96:                                               ; preds = %87, %92
+  %97 = phi i32 [ 1, %92 ], [ %64, %87 ]
+  %98 = phi ptr [ %94, %92 ], [ %88, %87 ]
+  %99 = phi ptr [ %90, %92 ], [ %85, %87 ]
   %100 = and i64 %74, 4294967295
-  %101 = getelementptr inbounds i8, ptr %97, i64 %100
+  %101 = getelementptr inbounds i8, ptr %99, i64 %100
   br label %102
 
 102:                                              ; preds = %96, %61
-  %103 = phi i32 [ %83, %96 ], [ %62, %61 ]
-  %104 = phi ptr [ %97, %96 ], [ %63, %61 ]
-  %105 = phi i32 [ %98, %96 ], [ %64, %61 ]
-  %106 = phi ptr [ %99, %96 ], [ %65, %61 ]
-  %107 = phi ptr [ %101, %96 ], [ %66, %61 ]
+  %103 = phi i32 [ %62, %61 ], [ %83, %96 ]
+  %104 = phi ptr [ %63, %61 ], [ %99, %96 ]
+  %105 = phi i32 [ %64, %61 ], [ %97, %96 ]
+  %106 = phi ptr [ %65, %61 ], [ %98, %96 ]
+  %107 = phi ptr [ %66, %61 ], [ %101, %96 ]
   %108 = trunc i32 %22 to i16
   %109 = getelementptr inbounds %struct.ref_s, ptr %107, i64 0, i32 2
   store i16 %108, ptr %109, align 2, !tbaa !34
@@ -669,11 +669,11 @@ define dso_local i32 @scan_token(ptr noundef %0, i32 noundef %1, ptr noundef %2)
   %280 = load i8, ptr %279, align 1, !tbaa !16
   br label %328
 
-281:                                              ; preds = %321, %265
-  %282 = phi ptr [ %266, %265 ], [ %322, %321 ]
-  %283 = phi i32 [ %262, %265 ], [ %323, %321 ]
-  %284 = phi ptr [ %263, %265 ], [ %324, %321 ]
-  %285 = phi ptr [ %269, %265 ], [ %327, %321 ]
+281:                                              ; preds = %265, %321
+  %282 = phi ptr [ %322, %321 ], [ %266, %265 ]
+  %283 = phi i32 [ %323, %321 ], [ %262, %265 ]
+  %284 = phi ptr [ %324, %321 ], [ %263, %265 ]
+  %285 = phi ptr [ %327, %321 ], [ %269, %265 ]
   %286 = load ptr, ptr %0, align 8, !tbaa !18
   %287 = load ptr, ptr %6, align 8, !tbaa !23
   %288 = icmp ult ptr %286, %287
@@ -725,10 +725,10 @@ define dso_local i32 @scan_token(ptr noundef %0, i32 noundef %1, ptr noundef %2)
   br label %321
 
 321:                                              ; preds = %314, %302
-  %322 = phi ptr [ %318, %314 ], [ %282, %302 ]
-  %323 = phi i32 [ %311, %314 ], [ %283, %302 ]
-  %324 = phi ptr [ %312, %314 ], [ %284, %302 ]
-  %325 = phi ptr [ %320, %314 ], [ %285, %302 ]
+  %322 = phi ptr [ %282, %302 ], [ %318, %314 ]
+  %323 = phi i32 [ %283, %302 ], [ %311, %314 ]
+  %324 = phi ptr [ %284, %302 ], [ %312, %314 ]
+  %325 = phi ptr [ %285, %302 ], [ %320, %314 ]
   %326 = trunc i32 %297 to i8
   %327 = getelementptr inbounds i8, ptr %325, i64 1
   store i8 %326, ptr %325, align 1, !tbaa !16
@@ -832,9 +832,9 @@ define dso_local i32 @scan_token(ptr noundef %0, i32 noundef %1, ptr noundef %2)
   br label %376
 
 376:                                              ; preds = %370, %372, %375, %203, %203, %190, %205, %187, %186, %185, %183
-  %377 = phi i32 [ %13, %187 ], [ %13, %186 ], [ %13, %185 ], [ %13, %183 ], [ %13, %205 ], [ %13, %203 ], [ %13, %203 ], [ %13, %190 ], [ %330, %375 ], [ %330, %372 ], [ %330, %370 ]
-  %378 = phi i32 [ %178, %187 ], [ %178, %186 ], [ %178, %185 ], [ %178, %183 ], [ %178, %205 ], [ %178, %203 ], [ %178, %203 ], [ %178, %190 ], [ %243, %375 ], [ %243, %372 ], [ %243, %370 ]
-  %379 = phi i32 [ %14, %187 ], [ %14, %186 ], [ %14, %185 ], [ %14, %183 ], [ %14, %205 ], [ %14, %203 ], [ %14, %203 ], [ %14, %190 ], [ %374, %375 ], [ %374, %372 ], [ %366, %370 ]
+  %377 = phi i32 [ %13, %187 ], [ %13, %186 ], [ %13, %185 ], [ %13, %183 ], [ %13, %205 ], [ %13, %203 ], [ %13, %190 ], [ %13, %203 ], [ %330, %375 ], [ %330, %372 ], [ %330, %370 ]
+  %378 = phi i32 [ %178, %187 ], [ %178, %186 ], [ %178, %185 ], [ %178, %183 ], [ %178, %205 ], [ %178, %203 ], [ %178, %190 ], [ %178, %203 ], [ %243, %375 ], [ %243, %372 ], [ %243, %370 ]
+  %379 = phi i32 [ %14, %187 ], [ %14, %186 ], [ %14, %185 ], [ %14, %183 ], [ %14, %205 ], [ %14, %203 ], [ %14, %190 ], [ %14, %203 ], [ %374, %375 ], [ %374, %372 ], [ %366, %370 ]
   %380 = icmp slt i32 %379, 0
   br i1 %380, label %447, label %381
 
@@ -926,25 +926,25 @@ define dso_local i32 @scan_token(ptr noundef %0, i32 noundef %1, ptr noundef %2)
   call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %428, ptr align 1 %19, i64 %433, i1 false)
   br label %434
 
-434:                                              ; preds = %430, %425
-  %435 = phi ptr [ %428, %430 ], [ %423, %425 ]
-  %436 = phi i32 [ 1, %430 ], [ %20, %425 ]
-  %437 = phi ptr [ %432, %430 ], [ %426, %425 ]
+434:                                              ; preds = %425, %430
+  %435 = phi i32 [ 1, %430 ], [ %20, %425 ]
+  %436 = phi ptr [ %432, %430 ], [ %426, %425 ]
+  %437 = phi ptr [ %428, %430 ], [ %423, %425 ]
   %438 = and i64 %412, 4294967295
-  %439 = getelementptr inbounds i8, ptr %435, i64 %438
+  %439 = getelementptr inbounds i8, ptr %437, i64 %438
   br label %440
 
 440:                                              ; preds = %434, %404
-  %441 = phi i32 [ %421, %434 ], [ %18, %404 ]
-  %442 = phi ptr [ %435, %434 ], [ %19, %404 ]
-  %443 = phi i32 [ %436, %434 ], [ %20, %404 ]
-  %444 = phi ptr [ %437, %434 ], [ %21, %404 ]
-  %445 = phi ptr [ %439, %434 ], [ %400, %404 ]
+  %441 = phi i32 [ %18, %404 ], [ %421, %434 ]
+  %442 = phi ptr [ %19, %404 ], [ %437, %434 ]
+  %443 = phi i32 [ %20, %404 ], [ %435, %434 ]
+  %444 = phi ptr [ %21, %404 ], [ %436, %434 ]
+  %445 = phi ptr [ %400, %404 ], [ %439, %434 ]
   %446 = getelementptr inbounds %struct.ref_s, ptr %445, i64 1
   br label %8
 
-447:                                              ; preds = %427, %422, %115, %251, %132, %136, %396, %376, %89, %84, %304, %35, %35, %395
-  %448 = phi i32 [ -21, %395 ], [ -18, %35 ], [ -18, %35 ], [ -25, %304 ], [ -25, %84 ], [ -25, %89 ], [ -25, %427 ], [ -25, %422 ], [ -18, %115 ], [ -25, %251 ], [ -25, %136 ], [ -25, %132 ], [ %398, %396 ], [ %379, %376 ]
+447:                                              ; preds = %422, %427, %115, %251, %132, %136, %396, %376, %84, %89, %304, %35, %35, %395
+  %448 = phi i32 [ -21, %395 ], [ -18, %35 ], [ -18, %35 ], [ -25, %304 ], [ -25, %89 ], [ -25, %84 ], [ -25, %422 ], [ -25, %427 ], [ -18, %115 ], [ -25, %251 ], [ -25, %136 ], [ -25, %132 ], [ %398, %396 ], [ %379, %376 ]
   ret i32 %448
 }
 
@@ -1045,10 +1045,10 @@ define dso_local i32 @scan_hex_string(ptr noundef %0, ptr nocapture noundef writ
   br label %67
 
 67:                                               ; preds = %60, %48
-  %68 = phi ptr [ %64, %60 ], [ %10, %48 ]
-  %69 = phi i32 [ %57, %60 ], [ %11, %48 ]
-  %70 = phi ptr [ %58, %60 ], [ %12, %48 ]
-  %71 = phi ptr [ %66, %60 ], [ %13, %48 ]
+  %68 = phi ptr [ %10, %48 ], [ %64, %60 ]
+  %69 = phi i32 [ %11, %48 ], [ %57, %60 ]
+  %70 = phi ptr [ %12, %48 ], [ %58, %60 ]
+  %71 = phi ptr [ %13, %48 ], [ %66, %60 ]
   %72 = shl i8 %29, 4
   %73 = add nuw i8 %46, %72
   %74 = getelementptr inbounds i8, ptr %71, i64 1
@@ -1086,9 +1086,9 @@ define dso_local i32 @scan_hex_string(ptr noundef %0, ptr nocapture noundef writ
   br label %95
 
 95:                                               ; preds = %89, %79
-  %96 = phi i32 [ %86, %89 ], [ %11, %79 ]
-  %97 = phi ptr [ %87, %89 ], [ %12, %79 ]
-  %98 = phi ptr [ %94, %89 ], [ %13, %79 ]
+  %96 = phi i32 [ %11, %79 ], [ %86, %89 ]
+  %97 = phi ptr [ %12, %79 ], [ %87, %89 ]
+  %98 = phi ptr [ %13, %79 ], [ %94, %89 ]
   %99 = shl i8 %29, 4
   %100 = getelementptr inbounds i8, ptr %98, i64 1
   store i8 %99, ptr %98, align 1, !tbaa !16
@@ -1208,10 +1208,10 @@ define dso_local i32 @scan_string(ptr noundef %0, i32 noundef %1, ptr nocapture 
   br label %54
 
 54:                                               ; preds = %47, %34
-  %55 = phi ptr [ %51, %47 ], [ %12, %34 ]
-  %56 = phi i32 [ %44, %47 ], [ %13, %34 ]
-  %57 = phi ptr [ %45, %47 ], [ %14, %34 ]
-  %58 = phi ptr [ %53, %47 ], [ %15, %34 ]
+  %55 = phi ptr [ %12, %34 ], [ %51, %47 ]
+  %56 = phi i32 [ %13, %34 ], [ %44, %47 ]
+  %57 = phi ptr [ %14, %34 ], [ %45, %47 ]
+  %58 = phi ptr [ %15, %34 ], [ %53, %47 ]
   %59 = trunc i32 %28 to i8
   %60 = getelementptr inbounds i8, ptr %58, i64 1
   store i8 %59, ptr %58, align 1, !tbaa !16
@@ -1404,10 +1404,10 @@ define dso_local i32 @scan_string(ptr noundef %0, i32 noundef %1, ptr nocapture 
   br label %164
 
 164:                                              ; preds = %157, %143
-  %165 = phi ptr [ %161, %157 ], [ %172, %143 ]
-  %166 = phi i32 [ %154, %157 ], [ %173, %143 ]
-  %167 = phi ptr [ %155, %157 ], [ %174, %143 ]
-  %168 = phi ptr [ %163, %157 ], [ %175, %143 ]
+  %165 = phi ptr [ %172, %143 ], [ %161, %157 ]
+  %166 = phi i32 [ %173, %143 ], [ %154, %157 ]
+  %167 = phi ptr [ %174, %143 ], [ %155, %157 ]
+  %168 = phi ptr [ %175, %143 ], [ %163, %157 ]
   %169 = trunc i32 %144 to i8
   %170 = getelementptr inbounds i8, ptr %168, i64 1
   store i8 %169, ptr %168, align 1, !tbaa !16
@@ -1599,16 +1599,16 @@ define dso_local i32 @scan_number(ptr noundef %0, ptr nocapture noundef writeonl
   %93 = getelementptr inbounds i8, ptr getelementptr inbounds ([257 x i8], ptr @scan_char_array, i64 0, i64 1), i64 %92
   %94 = load i8, ptr %93, align 1, !tbaa !16
   %95 = zext i8 %94 to i32
-  %96 = icmp ult i8 %94, 10
-  br i1 %96, label %102, label %97
+  %96 = icmp ugt i8 %94, 9
+  br i1 %96, label %97, label %102
 
 97:                                               ; preds = %90
   %98 = icmp eq i32 %91, -1
-  %99 = load ptr, ptr %0, align 8, !tbaa !18
-  br i1 %98, label %169, label %100
+  br i1 %98, label %169, label %99
 
-100:                                              ; preds = %97
-  %101 = getelementptr inbounds i8, ptr %99, i64 -1
+99:                                               ; preds = %97
+  %100 = load ptr, ptr %0, align 8, !tbaa !18
+  %101 = getelementptr inbounds i8, ptr %100, i64 -1
   store ptr %101, ptr %0, align 8, !tbaa !18
   br label %169
 
@@ -1664,16 +1664,16 @@ define dso_local i32 @scan_number(ptr noundef %0, ptr nocapture noundef writeonl
 
 135:                                              ; preds = %129
   %136 = icmp eq i32 %130, -1
-  %137 = load ptr, ptr %0, align 8, !tbaa !18
-  br i1 %136, label %140, label %138
+  br i1 %136, label %140, label %137
 
-138:                                              ; preds = %135
-  %139 = getelementptr inbounds i8, ptr %137, i64 -1
+137:                                              ; preds = %135
+  %138 = load ptr, ptr %0, align 8, !tbaa !18
+  %139 = getelementptr inbounds i8, ptr %138, i64 -1
   store ptr %139, ptr %0, align 8, !tbaa !18
   br label %140
 
-140:                                              ; preds = %135, %138
-  %141 = phi ptr [ %139, %138 ], [ %137, %135 ]
+140:                                              ; preds = %137, %135
+  %141 = load ptr, ptr %0, align 8, !tbaa !18
   %142 = load ptr, ptr %4, align 8, !tbaa !23
   %143 = icmp ult ptr %141, %142
   br i1 %143, label %144, label %148
@@ -1724,15 +1724,15 @@ define dso_local i32 @scan_number(ptr noundef %0, ptr nocapture noundef writeonl
   store i16 44, ptr %168, align 8, !tbaa !31
   br label %481
 
-169:                                              ; preds = %97, %100
-  %170 = phi ptr [ %101, %100 ], [ %99, %97 ]
-  %171 = sext i32 %80 to i64
+169:                                              ; preds = %99, %97
+  %170 = sext i32 %80 to i64
+  %171 = load ptr, ptr %0, align 8, !tbaa !18
   %172 = load ptr, ptr %4, align 8, !tbaa !23
-  %173 = icmp ult ptr %170, %172
+  %173 = icmp ult ptr %171, %172
   br i1 %173, label %174, label %178
 
 174:                                              ; preds = %169
-  %175 = getelementptr inbounds i8, ptr %170, i64 1
+  %175 = getelementptr inbounds i8, ptr %171, i64 1
   store ptr %175, ptr %0, align 8, !tbaa !18
   %176 = load i8, ptr %175, align 1, !tbaa !16
   %177 = zext i8 %176 to i32
@@ -1862,7 +1862,7 @@ define dso_local i32 @scan_number(ptr noundef %0, ptr nocapture noundef writeonl
   br i1 %250, label %251, label %481
 
 251:                                              ; preds = %181, %246
-  %252 = phi i64 [ %171, %181 ], [ %247, %246 ]
+  %252 = phi i64 [ %170, %181 ], [ %247, %246 ]
   %253 = sub nsw i64 0, %252
   %254 = select i1 %42, i64 %253, i64 %252
   store i64 %254, ptr %1, align 8, !tbaa !16
@@ -1870,9 +1870,9 @@ define dso_local i32 @scan_number(ptr noundef %0, ptr nocapture noundef writeonl
   store i16 20, ptr %255, align 8, !tbaa !31
   br label %481
 
-256:                                              ; preds = %66, %187, %191
-  %257 = phi i64 [ %171, %187 ], [ %171, %191 ], [ 0, %66 ]
-  %258 = phi i32 [ %190, %187 ], [ %193, %191 ], [ %67, %66 ]
+256:                                              ; preds = %187, %191, %66
+  %257 = phi i64 [ 0, %66 ], [ %170, %191 ], [ %170, %187 ]
+  %258 = phi i32 [ %67, %66 ], [ %193, %191 ], [ %190, %187 ]
   %259 = load ptr, ptr %45, align 8, !tbaa !30
   %260 = sext i32 %258 to i64
   %261 = getelementptr inbounds i16, ptr %259, i64 %260
@@ -1958,9 +1958,9 @@ define dso_local i32 @scan_number(ptr noundef %0, ptr nocapture noundef writeonl
   br label %362
 
 318:                                              ; preds = %157, %161, %272
-  %319 = phi double [ %273, %272 ], [ %118, %157 ], [ %118, %161 ]
-  %320 = phi i32 [ %269, %272 ], [ 0, %157 ], [ 0, %161 ]
-  %321 = phi i32 [ %268, %272 ], [ %160, %157 ], [ %163, %161 ]
+  %319 = phi double [ %273, %272 ], [ %118, %161 ], [ %118, %157 ]
+  %320 = phi i32 [ %269, %272 ], [ 0, %161 ], [ 0, %157 ]
+  %321 = phi i32 [ %268, %272 ], [ %163, %161 ], [ %160, %157 ]
   %322 = load ptr, ptr %45, align 8, !tbaa !30
   %323 = sext i32 %321 to i64
   %324 = getelementptr inbounds i16, ptr %322, i64 %323
@@ -2019,9 +2019,9 @@ define dso_local i32 @scan_number(ptr noundef %0, ptr nocapture noundef writeonl
   br label %362
 
 362:                                              ; preds = %356, %360, %316
-  %363 = phi double [ %317, %316 ], [ %361, %360 ], [ %357, %356 ]
-  %364 = phi i32 [ %300, %316 ], [ %358, %360 ], [ %358, %356 ]
-  %365 = phi i32 [ %301, %316 ], [ %359, %360 ], [ %359, %356 ]
+  %363 = phi double [ %361, %360 ], [ %357, %356 ], [ %317, %316 ]
+  %364 = phi i32 [ %358, %360 ], [ %358, %356 ], [ %300, %316 ]
+  %365 = phi i32 [ %359, %360 ], [ %359, %356 ], [ %301, %316 ]
   %366 = and i32 %365, -33
   %367 = icmp eq i32 %366, 69
   br i1 %367, label %368, label %436
@@ -2137,7 +2137,7 @@ define dso_local i32 @scan_number(ptr noundef %0, ptr nocapture noundef writeonl
 430:                                              ; preds = %424
   %431 = sub i32 0, %390
   %432 = select i1 %387, i32 %390, i32 %431
-  %433 = add i32 %432, %364
+  %433 = add i32 %364, %432
   %434 = load ptr, ptr %388, align 8, !tbaa !24
   %435 = tail call i32 %434(ptr noundef nonnull %0) #7
   br label %436

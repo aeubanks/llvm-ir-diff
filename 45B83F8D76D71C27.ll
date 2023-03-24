@@ -346,8 +346,8 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   call void @_ZdaPv(ptr noundef nonnull %178) #10
   br label %181
 
-181:                                              ; preds = %277, %273, %75, %83, %148, %176, %180, %206, %210
-  %182 = phi { ptr, i32 } [ %177, %180 ], [ %177, %176 ], [ %207, %210 ], [ %207, %206 ], [ %144, %148 ], [ %79, %83 ], [ %71, %75 ], [ %274, %273 ], [ %274, %277 ]
+181:                                              ; preds = %278, %274, %75, %83, %148, %176, %180, %206, %210
+  %182 = phi { ptr, i32 } [ %177, %180 ], [ %177, %176 ], [ %207, %210 ], [ %207, %206 ], [ %144, %148 ], [ %79, %83 ], [ %71, %75 ], [ %275, %274 ], [ %275, %278 ]
   resume { ptr, i32 } %182
 
 183:                                              ; preds = %149
@@ -403,14 +403,14 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
 
 211:                                              ; preds = %69, %140, %173, %203
   %212 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #11
-          to label %213 unwind label %273
+          to label %213 unwind label %274
 
 213:                                              ; preds = %211
   store <4 x i32> <i32 32, i32 10, i32 9, i32 0>, ptr %212, align 4, !tbaa !15
   %214 = load ptr, ptr %0, align 8, !tbaa !14
   %215 = load i32, ptr %214, align 4, !tbaa !15
   %216 = icmp eq i32 %215, 0
-  br i1 %216, label %278, label %217
+  br i1 %216, label %273, label %217
 
 217:                                              ; preds = %213
   %218 = ptrtoint ptr %212 to i64
@@ -456,7 +456,7 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   %246 = getelementptr inbounds i32, ptr %221, i64 1
   %247 = load i32, ptr %246, align 4, !tbaa !15
   %248 = icmp eq i32 %247, 0
-  br i1 %248, label %278, label %249
+  br i1 %248, label %273, label %249
 
 249:                                              ; preds = %245, %234
   %250 = phi i32 [ %243, %234 ], [ %247, %245 ]
@@ -465,7 +465,7 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   br label %219, !llvm.loop !38
 
 253:                                              ; preds = %234
-  br i1 %238, label %254, label %278
+  br i1 %238, label %254, label %273
 
 254:                                              ; preds = %253
   %255 = ptrtoint ptr %241 to i64
@@ -477,7 +477,7 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   %261 = load i32, ptr %260, align 8, !tbaa !8
   %262 = sub nsw i32 %261, %259
   %263 = icmp sgt i32 %262, 0
-  br i1 %263, label %264, label %278
+  br i1 %263, label %264, label %273
 
 264:                                              ; preds = %254
   %265 = shl i64 %257, 30
@@ -490,22 +490,22 @@ define dso_local void @_Z15GetDefaultName2RK11CStringBaseIwES2_S2_(ptr noalias s
   %271 = load i32, ptr %260, align 8, !tbaa !8
   %272 = sub nsw i32 %271, %262
   store i32 %272, ptr %260, align 8, !tbaa !8
-  br label %278
+  br label %273
 
-273:                                              ; preds = %211
-  %274 = landingpad { ptr, i32 }
-          cleanup
-  %275 = load ptr, ptr %0, align 8, !tbaa !14
-  %276 = icmp eq ptr %275, null
-  br i1 %276, label %181, label %277
-
-277:                                              ; preds = %273
-  call void @_ZdaPv(ptr noundef nonnull %275) #10
-  br label %181
-
-278:                                              ; preds = %245, %264, %254, %253, %213
+273:                                              ; preds = %245, %213, %253, %254, %264
   call void @_ZdaPv(ptr noundef nonnull %212) #10
   ret void
+
+274:                                              ; preds = %211
+  %275 = landingpad { ptr, i32 }
+          cleanup
+  %276 = load ptr, ptr %0, align 8, !tbaa !14
+  %277 = icmp eq ptr %276, null
+  br i1 %277, label %181, label %278
+
+278:                                              ; preds = %274
+  call void @_ZdaPv(ptr noundef nonnull %276) #10
+  br label %181
 }
 
 declare i32 @__gxx_personality_v0(...)

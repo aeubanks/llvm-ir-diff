@@ -588,7 +588,7 @@ define dso_local i32 @Ppmd8_DecodeSymbol(ptr noundef %0) local_unnamed_addr #0 {
   br i1 %377, label %378, label %359, !llvm.loop !45
 
 378:                                              ; preds = %359
-  %379 = call ptr @Ppmd8_MakeEscFreq(ptr noundef nonnull %0, i32 noundef %337, ptr noundef nonnull %4) #4
+  %379 = call ptr @Ppmd8_MakeEscFreq(ptr noundef %0, i32 noundef %337, ptr noundef nonnull %4) #4
   %380 = load i32, ptr %4, align 4, !tbaa !46
   %381 = add i32 %380, %372
   store i32 %381, ptr %4, align 4, !tbaa !46

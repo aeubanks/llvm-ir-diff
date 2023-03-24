@@ -3188,7 +3188,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   %1428 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %1427, ptr noundef nonnull @.str.56) #10
   br label %1429
 
-1429:                                             ; preds = %1426, %1411
+1429:                                             ; preds = %1411, %1426
   br label %1430
 
 1430:                                             ; preds = %1429, %1430
@@ -3262,7 +3262,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %1471, ptr %1471, align 8, !tbaa !5
   br label %1476
 
-1476:                                             ; preds = %1470, %1444
+1476:                                             ; preds = %1444, %1470
   %1477 = phi ptr [ %1471, %1470 ], [ null, %1444 ]
   %1478 = getelementptr inbounds [2 x ptr], ptr %12, i64 0, i64 %1452
   store ptr %1477, ptr %1478, align 8, !tbaa !8
@@ -3385,7 +3385,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %1547, ptr %1549, align 8, !tbaa !5
   br label %1550
 
-1550:                                             ; preds = %1539, %1527, %1516
+1550:                                             ; preds = %1527, %1539, %1516
   %1551 = load ptr, ptr %6, align 8, !tbaa !8
   %1552 = call i32 @DisposeObject(ptr noundef %1551) #10
   store ptr null, ptr %6, align 8, !tbaa !8
@@ -3518,7 +3518,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %1620, ptr %1629, align 8, !tbaa !5
   br label %1630
 
-1630:                                             ; preds = %1622, %1604, %1584
+1630:                                             ; preds = %1604, %1622, %1584
   %1631 = load ptr, ptr %1451, align 8, !tbaa !8
   %1632 = icmp eq ptr %1631, null
   br i1 %1632, label %1671, label %1633
@@ -3594,7 +3594,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %1661, ptr %1670, align 8, !tbaa !5
   br label %1671
 
-1671:                                             ; preds = %1663, %1645, %1630
+1671:                                             ; preds = %1645, %1663, %1630
   %1672 = getelementptr inbounds %struct.LIST, ptr %1558, i64 0, i32 1
   %1673 = load ptr, ptr %1672, align 8, !tbaa !5
   %1674 = icmp eq ptr %1673, %0
@@ -3673,7 +3673,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %1714, ptr %1714, align 8, !tbaa !5
   br label %1719
 
-1719:                                             ; preds = %1713, %1697
+1719:                                             ; preds = %1697, %1713
   %1720 = phi ptr [ %1714, %1713 ], [ null, %1697 ]
   store ptr %1720, ptr %1478, align 8, !tbaa !8
   %1721 = icmp eq ptr %1698, null
@@ -3833,7 +3833,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %1806, ptr %1808, align 8, !tbaa !5
   br label %1809
 
-1809:                                             ; preds = %1798, %1786, %1775
+1809:                                             ; preds = %1786, %1798, %1775
   %1810 = load ptr, ptr %6, align 8, !tbaa !8
   %1811 = call i32 @DisposeObject(ptr noundef %1810) #10
   store ptr null, ptr %6, align 8, !tbaa !8
@@ -3998,7 +3998,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %1873, ptr %1909, align 8, !tbaa !5
   br label %1910
 
-1910:                                             ; preds = %1893, %1903, %1894
+1910:                                             ; preds = %1893, %1894, %1903
   store ptr %1880, ptr @zz_hold, align 8, !tbaa !8
   %1911 = getelementptr inbounds %struct.LIST, ptr %1880, i64 0, i32 1
   %1912 = load ptr, ptr %1911, align 8, !tbaa !5
@@ -4050,7 +4050,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %1935, ptr %1937, align 8, !tbaa !5
   br label %1938
 
-1938:                                             ; preds = %1914, %1927, %1915
+1938:                                             ; preds = %1914, %1915, %1927
   %1939 = load ptr, ptr @xx_hold, align 8, !tbaa !8
   store ptr %1939, ptr @zz_hold, align 8, !tbaa !8
   %1940 = getelementptr inbounds %struct.word_type, ptr %1939, i64 0, i32 1
@@ -4183,7 +4183,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %2021, ptr %2023, align 8, !tbaa !5
   br label %2024
 
-2024:                                             ; preds = %2013, %2012
+2024:                                             ; preds = %2012, %2013
   store ptr %1966, ptr @zz_res, align 8, !tbaa !8
   store ptr %1767, ptr @zz_hold, align 8, !tbaa !8
   br i1 %1830, label %2036, label %2025
@@ -4211,7 +4211,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   %2038 = select i1 %2003, i32 %1560, i32 0
   br label %2039
 
-2039:                                             ; preds = %2036, %1812
+2039:                                             ; preds = %1812, %2036
   %2040 = phi i32 [ %2038, %2036 ], [ 0, %1812 ]
   br i1 %1721, label %2041, label %1557, !llvm.loop !42
 
@@ -4312,7 +4312,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %2089, ptr %2091, align 8, !tbaa !5
   br label %2092
 
-2092:                                             ; preds = %2068, %2081, %2069
+2092:                                             ; preds = %2068, %2069, %2081
   %2093 = load ptr, ptr @xx_hold, align 8, !tbaa !8
   store ptr %2093, ptr @zz_hold, align 8, !tbaa !8
   %2094 = getelementptr inbounds %struct.word_type, ptr %2093, i64 0, i32 1
@@ -4431,7 +4431,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   store ptr %2156, ptr %2158, align 8, !tbaa !5
   br label %2159
 
-2159:                                             ; preds = %2135, %2148, %2136
+2159:                                             ; preds = %2135, %2136, %2148
   %2160 = load ptr, ptr @xx_hold, align 8, !tbaa !8
   store ptr %2160, ptr @zz_hold, align 8, !tbaa !8
   %2161 = getelementptr inbounds %struct.word_type, ptr %2160, i64 0, i32 1
@@ -9914,7 +9914,7 @@ define dso_local ptr @Manifest(ptr noundef %0, ptr noundef %1, ptr noundef %2, p
   br i1 %5600, label %5594, label %5601, !llvm.loop !86
 
 5601:                                             ; preds = %5594
-  %5602 = tail call ptr @Manifest(ptr noundef nonnull %5597, ptr noundef %1, ptr noundef nonnull %2, ptr noundef nonnull @nbt, ptr noundef nonnull @nft, ptr noundef nonnull @ntarget, ptr noundef %6, i32 noundef 0, i32 noundef 0, ptr noundef nonnull @nenclose, i32 noundef %10)
+  %5602 = tail call ptr @Manifest(ptr noundef nonnull %5597, ptr noundef %1, ptr noundef %2, ptr noundef nonnull @nbt, ptr noundef nonnull @nft, ptr noundef nonnull @ntarget, ptr noundef %6, i32 noundef 0, i32 noundef 0, ptr noundef nonnull @nenclose, i32 noundef %10)
   %5603 = tail call ptr @ReplaceWithTidy(ptr noundef %5602, i32 noundef 1)
   %5604 = getelementptr inbounds ptr, ptr %3, i64 1
   %5605 = load ptr, ptr %5604, align 8, !tbaa !8
@@ -12639,15 +12639,15 @@ define internal fastcc ptr @ManifestCase(ptr noundef %0, ptr noundef %1, ptr nou
   br i1 %277, label %278, label %151, !llvm.loop !101
 
 278:                                              ; preds = %272, %161
-  %279 = phi ptr [ %154, %161 ], [ %273, %272 ]
-  %280 = phi ptr [ %153, %161 ], [ %274, %272 ]
-  %281 = icmp eq ptr %279, null
+  %279 = phi ptr [ %153, %161 ], [ %274, %272 ]
+  %280 = phi ptr [ %154, %161 ], [ %273, %272 ]
+  %281 = icmp eq ptr %280, null
   br i1 %281, label %287, label %282
 
 282:                                              ; preds = %278
   %283 = getelementptr inbounds %struct.word_type, ptr %22, i64 0, i32 1
   %284 = getelementptr inbounds %struct.word_type, ptr %22, i64 0, i32 4
-  %285 = getelementptr inbounds %struct.word_type, ptr %279, i64 0, i32 4
+  %285 = getelementptr inbounds %struct.word_type, ptr %280, i64 0, i32 4
   %286 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 8, i32 noundef 11, ptr noundef nonnull @.str.74, i32 noundef 2, ptr noundef nonnull %283, ptr noundef nonnull @.str.70, ptr noundef nonnull %284, ptr noundef nonnull %285) #10
   br label %316
 
@@ -12706,7 +12706,7 @@ define internal fastcc ptr @ManifestCase(ptr noundef %0, ptr noundef %1, ptr nou
   br label %379
 
 316:                                              ; preds = %257, %210, %282
-  %317 = phi ptr [ %280, %282 ], [ %213, %210 ], [ %260, %257 ]
+  %317 = phi ptr [ %279, %282 ], [ %213, %210 ], [ %260, %257 ]
   %318 = getelementptr inbounds [2 x %struct.LIST], ptr %317, i64 0, i64 1, i32 1
   %319 = load ptr, ptr %318, align 8, !tbaa !5
   store ptr %319, ptr @xx_link, align 8, !tbaa !8

@@ -874,14 +874,14 @@ define dso_local void @_ZN21btConeTwistConstraint14calcAngleInfo2ERK11btTransfor
 585:                                              ; preds = %421
   %586 = fmul float %580, -0.000000e+00
   %587 = fadd float %575, %586
-  %588 = fneg float %582
-  %589 = fmul float %575, -0.000000e+00
+  %588 = fmul float %575, -0.000000e+00
+  %589 = fneg float %582
   %590 = fadd float %583, 1.000000e+00
   %591 = fmul float %590, 2.000000e+00
   %592 = call float @sqrtf(float noundef %591) #19
   %593 = fdiv float 1.000000e+00, %592
-  %594 = insertelement <2 x float> poison, float %589, i64 0
-  %595 = insertelement <2 x float> %594, float %588, i64 1
+  %594 = insertelement <2 x float> poison, float %588, i64 0
+  %595 = insertelement <2 x float> %594, float %589, i64 1
   %596 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %578, <2 x float> zeroinitializer, <2 x float> %595)
   %597 = insertelement <2 x float> poison, float %593, i64 0
   %598 = shufflevector <2 x float> %597, <2 x float> poison, <2 x i32> zeroinitializer
@@ -1478,7 +1478,7 @@ define dso_local void @_ZN21btConeTwistConstraint14calcAngleInfo2ERK11btTransfor
   store float %1123, ptr %1079, align 4, !tbaa !26
   br label %1124
 
-1124:                                             ; preds = %1000, %1067, %1006, %707, %756
+1124:                                             ; preds = %1067, %1006, %1000, %707, %756
   %1125 = getelementptr inbounds %class.btConeTwistConstraint, ptr %0, i64 0, i32 10
   %1126 = load float, ptr %1125, align 4, !tbaa !62
   %1127 = fcmp ult float %1126, 0.000000e+00
@@ -4249,21 +4249,21 @@ define dso_local void @_ZN21btConeTwistConstraint23solveConstraintObsoleteER12bt
   %1472 = shufflevector <2 x float> %1471, <2 x float> poison, <2 x i32> zeroinitializer
   %1473 = fadd <2 x float> %1378, %1472
   store <2 x float> %1473, ptr %1, align 8, !tbaa !26
-  %1474 = fadd float %1470, %1380
+  %1474 = fadd float %1380, %1470
   store float %1474, ptr %1379, align 8, !tbaa !26
   %1475 = load <2 x float>, ptr %1381, align 8, !tbaa !26
   %1476 = insertelement <2 x float> poison, float %1450, i64 0
   %1477 = shufflevector <2 x float> %1476, <2 x float> poison, <2 x i32> zeroinitializer
-  %1478 = fmul <2 x float> %1477, %1475
-  %1479 = fmul float %1450, %1383
+  %1478 = fmul <2 x float> %1475, %1477
+  %1479 = fmul float %1383, %1450
   %1480 = fmul <2 x float> %1478, %1466
-  %1481 = fmul float %1469, %1479
+  %1481 = fmul float %1479, %1469
   %1482 = load <2 x float>, ptr %1384, align 8, !tbaa !26
-  %1483 = fadd <2 x float> %1480, %1482
+  %1483 = fadd <2 x float> %1482, %1480
   store <2 x float> %1483, ptr %1384, align 8, !tbaa !26
   %1484 = getelementptr inbounds %struct.btSolverBody, ptr %1, i64 0, i32 1, i32 0, i64 2
   %1485 = load float, ptr %1484, align 8, !tbaa !26
-  %1486 = fadd float %1481, %1485
+  %1486 = fadd float %1485, %1481
   store float %1486, ptr %1484, align 8, !tbaa !26
   %1487 = load float, ptr %1371, align 4, !tbaa !26
   %1488 = load float, ptr %1374, align 4, !tbaa !26
@@ -5105,9 +5105,9 @@ define dso_local void @_ZN21btConeTwistConstraint13calcAngleInfoEv(ptr nocapture
   br label %152
 
 152:                                              ; preds = %140, %1
-  %153 = phi <2 x float> [ undef, %1 ], [ %112, %140 ]
-  %154 = phi <2 x float> [ undef, %1 ], [ %116, %140 ]
-  %155 = phi float [ 0.000000e+00, %1 ], [ %151, %140 ]
+  %153 = phi <2 x float> [ %112, %140 ], [ undef, %1 ]
+  %154 = phi <2 x float> [ %116, %140 ], [ undef, %1 ]
+  %155 = phi float [ %151, %140 ], [ 0.000000e+00, %1 ]
   %156 = getelementptr inbounds %class.btConeTwistConstraint, ptr %0, i64 0, i32 9
   %157 = load float, ptr %156, align 8, !tbaa !58
   %158 = fcmp ult float %157, 0x3FA99999A0000000
@@ -5177,9 +5177,9 @@ define dso_local void @_ZN21btConeTwistConstraint13calcAngleInfoEv(ptr nocapture
   br label %214
 
 214:                                              ; preds = %202, %152
-  %215 = phi <2 x float> [ undef, %152 ], [ %174, %202 ]
-  %216 = phi <2 x float> [ undef, %152 ], [ %178, %202 ]
-  %217 = phi float [ 0.000000e+00, %152 ], [ %213, %202 ]
+  %215 = phi <2 x float> [ %174, %202 ], [ undef, %152 ]
+  %216 = phi <2 x float> [ %178, %202 ], [ undef, %152 ]
+  %217 = phi float [ %213, %202 ], [ 0.000000e+00, %152 ]
   %218 = fmul float %95, %95
   %219 = fdiv float 1.000000e+00, %218
   %220 = fmul float %157, %157
@@ -5293,71 +5293,71 @@ define dso_local void @_ZN21btConeTwistConstraint13calcAngleInfoEv(ptr nocapture
   %317 = tail call float @llvm.fmuladd.f32(float %314, float %299, float %316)
   %318 = load float, ptr %91, align 4, !tbaa !26
   %319 = tail call float @llvm.fmuladd.f32(float %318, float %301, float %317)
-  %320 = fneg float %93
+  %320 = extractelement <2 x float> %63, i64 1
   %321 = extractelement <2 x float> %84, i64 1
-  %322 = fneg float %321
-  %323 = extractelement <2 x float> %63, i64 1
-  %324 = fmul float %323, %321
-  %325 = extractelement <2 x float> %63, i64 0
-  %326 = extractelement <2 x float> %84, i64 0
-  %327 = tail call float @llvm.fmuladd.f32(float %326, float %325, float %324)
-  %328 = tail call float @llvm.fmuladd.f32(float %93, float %34, float %327)
-  %329 = fcmp olt float %328, 0xBFEFFFFFC0000000
-  br i1 %329, label %330, label %354
+  %322 = fmul float %320, %321
+  %323 = extractelement <2 x float> %63, i64 0
+  %324 = extractelement <2 x float> %84, i64 0
+  %325 = tail call float @llvm.fmuladd.f32(float %324, float %323, float %322)
+  %326 = tail call float @llvm.fmuladd.f32(float %93, float %34, float %325)
+  %327 = fcmp olt float %326, 0xBFEFFFFFC0000000
+  br i1 %327, label %328, label %354
 
-330:                                              ; preds = %295
-  %331 = tail call float @llvm.fabs.f32(float %93)
-  %332 = fcmp ogt float %331, 0x3FE6A09E60000000
-  br i1 %332, label %333, label %340
+328:                                              ; preds = %295
+  %329 = tail call float @llvm.fabs.f32(float %93)
+  %330 = fcmp ogt float %329, 0x3FE6A09E60000000
+  br i1 %330, label %331, label %339
 
-333:                                              ; preds = %330
-  %334 = fmul float %93, %93
-  %335 = tail call float @llvm.fmuladd.f32(float %321, float %321, float %334)
-  %336 = tail call float @llvm.sqrt.f32(float %335)
-  %337 = fdiv float 1.000000e+00, %336
-  %338 = fmul float %337, %320
-  %339 = fmul float %321, %337
+331:                                              ; preds = %328
+  %332 = fmul float %93, %93
+  %333 = tail call float @llvm.fmuladd.f32(float %321, float %321, float %332)
+  %334 = tail call float @llvm.sqrt.f32(float %333)
+  %335 = fdiv float 1.000000e+00, %334
+  %336 = fneg float %93
+  %337 = fmul float %335, %336
+  %338 = fmul float %321, %335
   br label %347
 
-340:                                              ; preds = %330
-  %341 = fmul float %321, %321
-  %342 = tail call float @llvm.fmuladd.f32(float %326, float %326, float %341)
-  %343 = tail call float @llvm.sqrt.f32(float %342)
-  %344 = fdiv float 1.000000e+00, %343
-  %345 = fmul float %344, %322
-  %346 = fmul float %326, %344
+339:                                              ; preds = %328
+  %340 = fmul float %321, %321
+  %341 = tail call float @llvm.fmuladd.f32(float %324, float %324, float %340)
+  %342 = tail call float @llvm.sqrt.f32(float %341)
+  %343 = fdiv float 1.000000e+00, %342
+  %344 = fneg float %321
+  %345 = fmul float %343, %344
+  %346 = fmul float %324, %343
   br label %347
 
-347:                                              ; preds = %340, %333
-  %348 = phi float [ 0.000000e+00, %333 ], [ %345, %340 ]
-  %349 = phi float [ %338, %333 ], [ %346, %340 ]
-  %350 = phi float [ %339, %333 ], [ 0.000000e+00, %340 ]
+347:                                              ; preds = %339, %331
+  %348 = phi float [ 0.000000e+00, %331 ], [ %345, %339 ]
+  %349 = phi float [ %337, %331 ], [ %346, %339 ]
+  %350 = phi float [ %338, %331 ], [ 0.000000e+00, %339 ]
   %351 = insertelement <2 x float> undef, float %348, i64 0
   %352 = insertelement <2 x float> %351, float %349, i64 1
   %353 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %350, i64 0
   br label %378
 
 354:                                              ; preds = %295
-  %355 = fmul float %325, %322
-  %356 = tail call float @llvm.fmuladd.f32(float %326, float %323, float %355)
-  %357 = fneg float %326
-  %358 = fadd float %328, 1.000000e+00
+  %355 = fneg float %321
+  %356 = fmul float %323, %355
+  %357 = tail call float @llvm.fmuladd.f32(float %324, float %320, float %356)
+  %358 = fadd float %326, 1.000000e+00
   %359 = fmul float %358, 2.000000e+00
   %360 = tail call float @sqrtf(float noundef %359) #19
   %361 = fdiv float 1.000000e+00, %360
-  %362 = shufflevector <2 x float> %63, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %363 = insertelement <2 x float> %362, float %34, i64 1
-  %364 = insertelement <2 x float> poison, float %320, i64 0
-  %365 = insertelement <2 x float> %364, float %357, i64 1
-  %366 = fmul <2 x float> %363, %365
-  %367 = shufflevector <2 x float> %84, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
-  %368 = insertelement <2 x float> %367, float %93, i64 1
-  %369 = insertelement <2 x float> %362, float %34, i64 0
-  %370 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %368, <2 x float> %369, <2 x float> %366)
+  %362 = shufflevector <2 x float> %84, <2 x float> poison, <2 x i32> <i32 1, i32 0>
+  %363 = insertelement <2 x float> %362, float %93, i64 0
+  %364 = fneg <2 x float> %363
+  %365 = shufflevector <2 x float> %63, <2 x float> poison, <2 x i32> <i32 1, i32 0>
+  %366 = insertelement <2 x float> %365, float %34, i64 1
+  %367 = fmul <2 x float> %366, %364
+  %368 = insertelement <2 x float> %362, float %93, i64 1
+  %369 = insertelement <2 x float> %365, float %34, i64 0
+  %370 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %368, <2 x float> %369, <2 x float> %367)
   %371 = insertelement <2 x float> poison, float %361, i64 0
   %372 = shufflevector <2 x float> %371, <2 x float> poison, <2 x i32> zeroinitializer
   %373 = fmul <2 x float> %370, %372
-  %374 = insertelement <2 x float> poison, float %356, i64 0
+  %374 = insertelement <2 x float> poison, float %357, i64 0
   %375 = insertelement <2 x float> %374, float %360, i64 1
   %376 = insertelement <2 x float> <float poison, float 5.000000e-01>, float %361, i64 0
   %377 = fmul <2 x float> %375, %376
@@ -5450,7 +5450,7 @@ define dso_local void @_ZN21btConeTwistConstraint13calcAngleInfoEv(ptr nocapture
   store i8 1, ptr %4, align 1, !tbaa !28
   %452 = fadd <2 x float> %63, %84
   %453 = extractelement <2 x float> %452, i64 0
-  %454 = fadd float %323, %321
+  %454 = fadd float %320, %321
   %455 = fadd float %34, %93
   %456 = fmul float %455, 5.000000e-01
   %457 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %456, i64 0
@@ -6272,14 +6272,14 @@ define dso_local void @_ZN21btConeTwistConstraint31setMotorTargetInConstraintSpa
 57:                                               ; preds = %2
   %58 = fmul float %50, -0.000000e+00
   %59 = fadd float %34, %58
-  %60 = fneg float %52
-  %61 = fmul float %34, -0.000000e+00
+  %60 = fmul float %34, -0.000000e+00
+  %61 = fneg float %52
   %62 = fadd float %53, 1.000000e+00
   %63 = fmul float %62, 2.000000e+00
   %64 = tail call float @sqrtf(float noundef %63) #19
   %65 = fdiv float 1.000000e+00, %64
-  %66 = insertelement <2 x float> poison, float %61, i64 0
-  %67 = insertelement <2 x float> %66, float %60, i64 1
+  %66 = insertelement <2 x float> poison, float %60, i64 0
+  %67 = insertelement <2 x float> %66, float %61, i64 1
   %68 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %48, <2 x float> zeroinitializer, <2 x float> %67)
   %69 = insertelement <2 x float> poison, float %65, i64 0
   %70 = shufflevector <2 x float> %69, <2 x float> poison, <2 x i32> zeroinitializer
@@ -6593,12 +6593,12 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %5 = alloca %class.btMatrix3x3, align 8
   %6 = alloca %class.btQuaternion, align 8
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5) #19
-  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
-  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
-  %9 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
-  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
-  %11 = load float, ptr %10, align 4, !tbaa !26, !noalias !148
-  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
+  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
+  %9 = load float, ptr %8, align 4, !tbaa !26, !noalias !148
+  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %11 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
+  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
   %13 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 1
   %14 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 2
   tail call void @llvm.experimental.noalias.scope.decl(metadata !151)
@@ -6619,32 +6619,32 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %29 = load float, ptr %28, align 4, !tbaa !26, !noalias !151
   %30 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2, i32 0, i64 2
   %31 = load float, ptr %30, align 4, !tbaa !26, !noalias !151
-  %32 = load float, ptr %8, align 4, !tbaa !26, !noalias !148
-  %33 = load float, ptr %12, align 4, !tbaa !26, !noalias !148
-  %34 = load <2 x float>, ptr %9, align 4, !tbaa !26, !noalias !148
+  %32 = load float, ptr %7, align 4, !tbaa !26, !noalias !148
+  %33 = load float, ptr %10, align 4, !tbaa !26, !noalias !148
+  %34 = load <2 x float>, ptr %12, align 4, !tbaa !26, !noalias !148
   %35 = shufflevector <2 x float> %34, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %36 = load float, ptr %7, align 4, !tbaa !26, !noalias !148
+  %36 = load float, ptr %11, align 4, !tbaa !26, !noalias !148
   %37 = load float, ptr %0, align 4, !tbaa !26, !noalias !148
   %38 = load float, ptr %13, align 4, !tbaa !26, !noalias !148
   %39 = load float, ptr %14, align 4, !tbaa !26, !noalias !148
   %40 = insertelement <2 x float> poison, float %36, i64 0
   %41 = insertelement <2 x float> %40, float %39, i64 1
   %42 = fneg <2 x float> %41
-  %43 = insertelement <2 x float> %35, float %11, i64 0
+  %43 = insertelement <2 x float> %35, float %9, i64 0
   %44 = fmul <2 x float> %43, %42
   %45 = insertelement <2 x float> poison, float %33, i64 0
   %46 = insertelement <2 x float> %45, float %37, i64 1
-  %47 = insertelement <2 x float> %34, float %11, i64 1
+  %47 = insertelement <2 x float> %34, float %9, i64 1
   %48 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %46, <2 x float> %47, <2 x float> %44)
   %49 = extractelement <2 x float> %48, i64 0
   %50 = fmul float %38, %49
   %51 = insertelement <2 x float> %45, float %38, i64 1
   %52 = fneg <2 x float> %51
-  %53 = insertelement <2 x float> %35, float %11, i64 1
+  %53 = insertelement <2 x float> %35, float %9, i64 1
   %54 = fmul <2 x float> %53, %52
   %55 = insertelement <2 x float> poison, float %32, i64 0
   %56 = insertelement <2 x float> %55, float %39, i64 1
-  %57 = insertelement <2 x float> %34, float %11, i64 0
+  %57 = insertelement <2 x float> %34, float %9, i64 0
   %58 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %56, <2 x float> %57, <2 x float> %54)
   %59 = extractelement <2 x float> %58, i64 0
   %60 = tail call float @llvm.fmuladd.f32(float %37, float %59, float %50)

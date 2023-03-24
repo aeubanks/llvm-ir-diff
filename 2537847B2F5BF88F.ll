@@ -252,8 +252,8 @@ define dso_local void @cont_Free() local_unnamed_addr #0 {
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local i32 @cont_TermEqual(ptr noundef readonly %0, ptr nocapture noundef readonly %1, ptr noundef readonly %2, ptr nocapture noundef readonly %3) local_unnamed_addr #3 {
   %5 = load i32, ptr %1, align 8
-  %6 = icmp slt i32 %5, 1
-  br i1 %6, label %30, label %7
+  %6 = icmp sgt i32 %5, 0
+  br i1 %6, label %7, label %30
 
 7:                                                ; preds = %4
   %8 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -291,8 +291,8 @@ define dso_local i32 @cont_TermEqual(ptr noundef readonly %0, ptr nocapture noun
   %32 = phi ptr [ %0, %4 ], [ %0, %7 ], [ %0, %10 ], [ %25, %20 ], [ %25, %15 ]
   %33 = phi ptr [ %1, %4 ], [ %1, %7 ], [ %1, %10 ], [ %21, %20 ], [ %21, %15 ]
   %34 = load i32, ptr %3, align 8
-  %35 = icmp slt i32 %34, 1
-  br i1 %35, label %59, label %36
+  %35 = icmp sgt i32 %34, 0
+  br i1 %35, label %36, label %59
 
 36:                                               ; preds = %30
   %37 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -330,58 +330,52 @@ define dso_local i32 @cont_TermEqual(ptr noundef readonly %0, ptr nocapture noun
   %61 = phi ptr [ %2, %30 ], [ %2, %36 ], [ %2, %39 ], [ %54, %49 ], [ %54, %44 ]
   %62 = phi ptr [ %3, %30 ], [ %3, %36 ], [ %3, %39 ], [ %50, %49 ], [ %50, %44 ]
   %63 = icmp eq i32 %31, %60
-  br i1 %63, label %64, label %92
+  br i1 %63, label %64, label %88
 
 64:                                               ; preds = %59
   %65 = getelementptr i8, ptr %33, i64 16
   %66 = load ptr, ptr %65, align 8
   %67 = icmp eq ptr %66, null
-  br i1 %67, label %92, label %68
+  br i1 %67, label %88, label %68
 
 68:                                               ; preds = %64
   %69 = getelementptr i8, ptr %62, i64 16
-  %70 = load ptr, ptr %69, align 8
-  %71 = icmp eq ptr %70, null
-  br i1 %71, label %92, label %72
+  br label %70
 
-72:                                               ; preds = %68, %81
-  %73 = phi ptr [ %83, %81 ], [ %70, %68 ]
-  %74 = phi ptr [ %82, %81 ], [ %66, %68 ]
-  %75 = getelementptr i8, ptr %74, i64 8
-  %76 = load ptr, ptr %75, align 8
-  %77 = getelementptr i8, ptr %73, i64 8
-  %78 = load ptr, ptr %77, align 8
-  %79 = tail call i32 @cont_TermEqual(ptr noundef %32, ptr noundef %76, ptr noundef %61, ptr noundef %78), !range !8
-  %80 = icmp eq i32 %79, 0
-  br i1 %80, label %92, label %81
+70:                                               ; preds = %78, %68
+  %71 = phi ptr [ %65, %68 ], [ %74, %78 ]
+  %72 = phi ptr [ %69, %68 ], [ %73, %78 ]
+  %73 = load ptr, ptr %72, align 8
+  %74 = load ptr, ptr %71, align 8
+  %75 = icmp eq ptr %74, null
+  %76 = icmp eq ptr %73, null
+  %77 = select i1 %75, i1 true, i1 %76
+  br i1 %77, label %85, label %78
 
-81:                                               ; preds = %72
-  %82 = load ptr, ptr %74, align 8
-  %83 = load ptr, ptr %73, align 8
-  %84 = icmp eq ptr %82, null
-  %85 = icmp eq ptr %83, null
-  %86 = select i1 %84, i1 true, i1 %85
-  br i1 %86, label %87, label %72, !llvm.loop !9
+78:                                               ; preds = %70
+  %79 = getelementptr i8, ptr %74, i64 8
+  %80 = load ptr, ptr %79, align 8
+  %81 = getelementptr i8, ptr %73, i64 8
+  %82 = load ptr, ptr %81, align 8
+  %83 = tail call i32 @cont_TermEqual(ptr noundef %32, ptr noundef %80, ptr noundef %61, ptr noundef %82), !range !8
+  %84 = icmp eq i32 %83, 0
+  br i1 %84, label %88, label %70, !llvm.loop !9
 
-87:                                               ; preds = %81
-  %88 = icmp eq ptr %82, null
-  br i1 %88, label %89, label %92
+85:                                               ; preds = %70
+  %86 = select i1 %75, i1 %76, i1 false
+  %87 = zext i1 %86 to i32
+  br label %88
 
-89:                                               ; preds = %87
-  %90 = icmp eq ptr %83, null
-  %91 = zext i1 %90 to i32
-  br label %92
-
-92:                                               ; preds = %72, %68, %64, %87, %89, %59
-  %93 = phi i32 [ 0, %59 ], [ %91, %89 ], [ 0, %87 ], [ 1, %64 ], [ 0, %68 ], [ 0, %72 ]
-  ret i32 %93
+88:                                               ; preds = %78, %64, %85, %59
+  %89 = phi i32 [ 0, %59 ], [ %87, %85 ], [ 1, %64 ], [ 0, %78 ]
+  ret i32 %89
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local i32 @cont_TermEqualModuloBindings(ptr noundef readonly %0, ptr noundef readonly %1, ptr nocapture noundef readonly %2, ptr noundef readonly %3, ptr nocapture noundef readonly %4) local_unnamed_addr #3 {
   %6 = load i32, ptr %2, align 8
-  %7 = icmp slt i32 %6, 1
-  br i1 %7, label %29, label %8
+  %7 = icmp sgt i32 %6, 0
+  br i1 %7, label %8, label %29
 
 8:                                                ; preds = %5
   %9 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -391,9 +385,9 @@ define dso_local i32 @cont_TermEqualModuloBindings(ptr noundef readonly %0, ptr 
   %11 = phi i32 [ %6, %8 ], [ %27, %24 ]
   %12 = phi ptr [ %1, %8 ], [ %26, %24 ]
   %13 = phi ptr [ %2, %8 ], [ %22, %24 ]
-  %14 = add nsw i32 %11, -3001
-  %15 = icmp ult i32 %14, -1000
-  br i1 %15, label %16, label %18
+  %14 = add nsw i32 %11, -2001
+  %15 = icmp ult i32 %14, 1000
+  br i1 %15, label %18, label %16
 
 16:                                               ; preds = %10
   %17 = icmp eq ptr %12, %9
@@ -411,16 +405,16 @@ define dso_local i32 @cont_TermEqualModuloBindings(ptr noundef readonly %0, ptr 
   %25 = getelementptr inbounds %struct.binding, ptr %19, i64 %20, i32 3
   %26 = load ptr, ptr %25, align 8
   %27 = load i32, ptr %22, align 8
-  %28 = icmp slt i32 %27, 1
-  br i1 %28, label %29, label %10
+  %28 = icmp sgt i32 %27, 0
+  br i1 %28, label %10, label %29
 
 29:                                               ; preds = %24, %16, %18, %5
   %30 = phi i32 [ %6, %5 ], [ %11, %18 ], [ %11, %16 ], [ %27, %24 ]
   %31 = phi ptr [ %2, %5 ], [ %13, %18 ], [ %13, %16 ], [ %22, %24 ]
   %32 = phi ptr [ %1, %5 ], [ %19, %18 ], [ %9, %16 ], [ %26, %24 ]
   %33 = load i32, ptr %4, align 8
-  %34 = icmp slt i32 %33, 1
-  br i1 %34, label %56, label %35
+  %34 = icmp sgt i32 %33, 0
+  br i1 %34, label %35, label %56
 
 35:                                               ; preds = %29
   %36 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -430,9 +424,9 @@ define dso_local i32 @cont_TermEqualModuloBindings(ptr noundef readonly %0, ptr 
   %38 = phi i32 [ %33, %35 ], [ %54, %51 ]
   %39 = phi ptr [ %3, %35 ], [ %53, %51 ]
   %40 = phi ptr [ %4, %35 ], [ %49, %51 ]
-  %41 = add nsw i32 %38, -3001
-  %42 = icmp ult i32 %41, -1000
-  br i1 %42, label %43, label %45
+  %41 = add nsw i32 %38, -2001
+  %42 = icmp ult i32 %41, 1000
+  br i1 %42, label %45, label %43
 
 43:                                               ; preds = %37
   %44 = icmp eq ptr %39, %36
@@ -450,72 +444,68 @@ define dso_local i32 @cont_TermEqualModuloBindings(ptr noundef readonly %0, ptr 
   %52 = getelementptr inbounds %struct.binding, ptr %46, i64 %47, i32 3
   %53 = load ptr, ptr %52, align 8
   %54 = load i32, ptr %49, align 8
-  %55 = icmp slt i32 %54, 1
-  br i1 %55, label %56, label %37
+  %55 = icmp sgt i32 %54, 0
+  br i1 %55, label %37, label %56
 
 56:                                               ; preds = %51, %43, %45, %29
   %57 = phi i32 [ %33, %29 ], [ %38, %45 ], [ %38, %43 ], [ %54, %51 ]
   %58 = phi ptr [ %4, %29 ], [ %40, %45 ], [ %40, %43 ], [ %49, %51 ]
   %59 = phi ptr [ %3, %29 ], [ %46, %45 ], [ %36, %43 ], [ %53, %51 ]
   %60 = icmp eq i32 %30, %57
-  br i1 %60, label %61, label %92
+  br i1 %60, label %61, label %88
 
 61:                                               ; preds = %56
-  %62 = icmp slt i32 %30, 1
-  br i1 %62, label %65, label %63
+  %62 = icmp sgt i32 %30, 0
+  br i1 %62, label %63, label %65
 
 63:                                               ; preds = %61
   %64 = icmp eq ptr %32, %59
-  br label %92
+  br label %88
 
 65:                                               ; preds = %61
   %66 = getelementptr i8, ptr %31, i64 16
   %67 = load ptr, ptr %66, align 8
   %68 = icmp eq ptr %67, null
-  br i1 %68, label %92, label %69
+  br i1 %68, label %88, label %69
 
 69:                                               ; preds = %65
   %70 = getelementptr i8, ptr %58, i64 16
-  %71 = load ptr, ptr %70, align 8
-  %72 = icmp eq ptr %71, null
-  br i1 %72, label %92, label %73
+  br label %71
 
-73:                                               ; preds = %69, %82
-  %74 = phi ptr [ %84, %82 ], [ %71, %69 ]
-  %75 = phi ptr [ %83, %82 ], [ %67, %69 ]
-  %76 = getelementptr i8, ptr %75, i64 8
-  %77 = load ptr, ptr %76, align 8
-  %78 = getelementptr i8, ptr %74, i64 8
-  %79 = load ptr, ptr %78, align 8
-  %80 = tail call i32 @cont_TermEqualModuloBindings(ptr noundef %0, ptr noundef %32, ptr noundef %77, ptr noundef %59, ptr noundef %79), !range !8
-  %81 = icmp eq i32 %80, 0
-  br i1 %81, label %92, label %82
+71:                                               ; preds = %79, %69
+  %72 = phi ptr [ %66, %69 ], [ %75, %79 ]
+  %73 = phi ptr [ %70, %69 ], [ %74, %79 ]
+  %74 = load ptr, ptr %73, align 8
+  %75 = load ptr, ptr %72, align 8
+  %76 = icmp eq ptr %75, null
+  %77 = icmp eq ptr %74, null
+  %78 = select i1 %76, i1 true, i1 %77
+  br i1 %78, label %86, label %79
 
-82:                                               ; preds = %73
-  %83 = load ptr, ptr %75, align 8
-  %84 = load ptr, ptr %74, align 8
-  %85 = icmp eq ptr %83, null
-  %86 = icmp eq ptr %84, null
-  %87 = select i1 %85, i1 true, i1 %86
-  br i1 %87, label %88, label %73, !llvm.loop !10
+79:                                               ; preds = %71
+  %80 = getelementptr i8, ptr %75, i64 8
+  %81 = load ptr, ptr %80, align 8
+  %82 = getelementptr i8, ptr %74, i64 8
+  %83 = load ptr, ptr %82, align 8
+  %84 = tail call i32 @cont_TermEqualModuloBindings(ptr noundef %0, ptr noundef %32, ptr noundef %81, ptr noundef %59, ptr noundef %83), !range !8
+  %85 = icmp eq i32 %84, 0
+  br i1 %85, label %88, label %71, !llvm.loop !10
 
-88:                                               ; preds = %82
-  %89 = icmp eq ptr %83, null
-  %90 = icmp eq ptr %84, null
-  %91 = select i1 %89, i1 %90, i1 false
-  br label %92
+86:                                               ; preds = %71
+  %87 = select i1 %76, i1 %77, i1 false
+  br label %88
 
-92:                                               ; preds = %73, %69, %88, %65, %63, %56
-  %93 = phi i1 [ false, %56 ], [ %64, %63 ], [ true, %65 ], [ false, %69 ], [ %91, %88 ], [ false, %73 ]
-  %94 = zext i1 %93 to i32
-  ret i32 %94
+88:                                               ; preds = %79, %65, %86, %63, %56
+  %89 = phi i1 [ false, %56 ], [ %64, %63 ], [ %87, %86 ], [ true, %65 ], [ false, %79 ]
+  %90 = zext i1 %89 to i32
+  ret i32 %90
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @cont_CopyAndApplyBindings(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
   %3 = load i32, ptr %1, align 8
-  %4 = icmp slt i32 %3, 1
-  br i1 %4, label %23, label %5
+  %4 = icmp sgt i32 %3, 0
+  br i1 %4, label %5, label %23
 
 5:                                                ; preds = %2
   %6 = zext i32 %3 to i64
@@ -538,8 +528,8 @@ define dso_local ptr @cont_CopyAndApplyBindings(ptr nocapture noundef readonly %
   %19 = getelementptr inbounds %struct.binding, ptr %18, i64 %17, i32 3
   %20 = load ptr, ptr %19, align 8
   %21 = load i32, ptr %16, align 8
-  %22 = icmp slt i32 %21, 1
-  br i1 %22, label %23, label %10
+  %22 = icmp sgt i32 %21, 0
+  br i1 %22, label %10, label %23
 
 23:                                               ; preds = %10, %15, %5, %2
   %24 = phi i32 [ %3, %2 ], [ %3, %5 ], [ %21, %15 ], [ %21, %10 ]
@@ -590,8 +580,8 @@ define dso_local ptr @cont_CopyAndApplyBindingsCom(ptr nocapture noundef readonl
 3:                                                ; preds = %7, %2
   %4 = phi ptr [ %1, %2 ], [ %10, %7 ]
   %5 = load i32, ptr %4, align 8
-  %6 = icmp slt i32 %5, 1
-  br i1 %6, label %12, label %7
+  %6 = icmp sgt i32 %5, 0
+  br i1 %6, label %7, label %12
 
 7:                                                ; preds = %3
   %8 = zext i32 %5 to i64
@@ -638,8 +628,8 @@ define dso_local ptr @cont_CopyAndApplyBindingsCom(ptr nocapture noundef readonl
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @cont_ApplyBindingsModuloMatching(ptr nocapture noundef readonly %0, ptr noundef returned %1, i32 noundef %2) local_unnamed_addr #0 {
   %4 = load i32, ptr %1, align 8
-  %5 = icmp slt i32 %4, 1
-  br i1 %5, label %18, label %6
+  %5 = icmp sgt i32 %4, 0
+  br i1 %5, label %6, label %18
 
 6:                                                ; preds = %3
   %7 = zext i32 %4 to i64
@@ -682,8 +672,8 @@ define dso_local ptr @cont_ApplyBindingsModuloMatching(ptr nocapture noundef rea
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @cont_ApplyBindingsModuloMatchingReverse(ptr nocapture noundef readonly %0, ptr noundef returned %1) local_unnamed_addr #0 {
   %3 = load i32, ptr %1, align 8
-  %4 = icmp slt i32 %3, 1
-  br i1 %4, label %25, label %5
+  %4 = icmp sgt i32 %3, 0
+  br i1 %4, label %5, label %25
 
 5:                                                ; preds = %2
   %6 = zext i32 %3 to i64
@@ -737,9 +727,9 @@ define dso_local ptr @cont_ApplyBindingsModuloMatchingReverse(ptr nocapture noun
 ; Function Attrs: nounwind uwtable
 define internal fastcc ptr @cont_CopyAndApplyIndexVariableBindings(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) unnamed_addr #0 {
   %3 = load i32, ptr %1, align 8
-  %4 = add i32 %3, -3001
-  %5 = icmp ult i32 %4, -1000
-  br i1 %5, label %20, label %6
+  %4 = add i32 %3, -2001
+  %5 = icmp ult i32 %4, 1000
+  br i1 %5, label %6, label %20
 
 6:                                                ; preds = %2, %15
   %7 = phi i32 [ %17, %15 ], [ %3, %2 ]
@@ -757,9 +747,9 @@ define internal fastcc ptr @cont_CopyAndApplyIndexVariableBindings(ptr nocapture
 15:                                               ; preds = %13, %6
   %16 = phi ptr [ %11, %13 ], [ %8, %6 ]
   %17 = phi i32 [ %14, %13 ], [ %7, %6 ]
-  %18 = add i32 %17, -3001
-  %19 = icmp ult i32 %18, -1000
-  br i1 %19, label %20, label %6, !llvm.loop !16
+  %18 = add i32 %17, -2001
+  %19 = icmp ult i32 %18, 1000
+  br i1 %19, label %6, label %20, !llvm.loop !16
 
 20:                                               ; preds = %15, %2
   %21 = phi ptr [ %1, %2 ], [ %16, %15 ]
@@ -807,16 +797,16 @@ define dso_local i32 @cont_BindingsAreRenamingModuloMatching(ptr noundef %0) loc
 9:                                                ; preds = %1, %119
   %10 = phi ptr [ %121, %119 ], [ %7, %1 ]
   %11 = load i32, ptr %10, align 8
-  %12 = add i32 %11, -3001
-  %13 = icmp ult i32 %12, -1000
-  br i1 %13, label %14, label %119
+  %12 = add i32 %11, -2001
+  %13 = icmp ult i32 %12, 1000
+  br i1 %13, label %119, label %14
 
 14:                                               ; preds = %9
   %15 = getelementptr i8, ptr %10, i64 8
   %16 = load ptr, ptr %15, align 8
   %17 = load i32, ptr %16, align 8
-  %18 = icmp slt i32 %17, 1
-  br i1 %18, label %76, label %19
+  %18 = icmp sgt i32 %17, 0
+  br i1 %18, label %19, label %76
 
 19:                                               ; preds = %14
   %20 = zext i32 %17 to i64
@@ -1079,16 +1069,16 @@ define dso_local i32 @cont_BindingsAreRenamingModuloMatching(ptr noundef %0) loc
   store i32 %172, ptr @cont_BINDINGS, align 4
   br label %173
 
-173:                                              ; preds = %166, %163, %116, %64
-  %174 = phi i32 [ 0, %64 ], [ 0, %116 ], [ 1, %163 ], [ %168, %166 ]
+173:                                              ; preds = %166, %163, %64, %116
+  %174 = phi i32 [ 0, %116 ], [ 0, %64 ], [ 1, %163 ], [ %168, %166 ]
   ret i32 %174
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local i32 @cont_TermMaxVar(ptr noundef readonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #3 {
   %3 = load i32, ptr %1, align 8
-  %4 = icmp slt i32 %3, 1
-  br i1 %4, label %28, label %5
+  %4 = icmp sgt i32 %3, 0
+  br i1 %4, label %5, label %28
 
 5:                                                ; preds = %2
   %6 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1100,36 +1090,34 @@ define dso_local i32 @cont_TermMaxVar(ptr noundef readonly %0, ptr nocapture nou
   %10 = getelementptr inbounds %struct.binding, ptr %0, i64 %9, i32 2
   %11 = load ptr, ptr %10, align 8
   %12 = icmp eq ptr %11, null
-  br i1 %12, label %28, label %20
+  br i1 %12, label %28, label %18
 
-13:                                               ; preds = %20
-  %14 = icmp eq ptr %25, %6
-  br i1 %14, label %28, label %15
+13:                                               ; preds = %18
+  %14 = zext i32 %24 to i64
+  %15 = getelementptr inbounds %struct.binding, ptr %23, i64 %14, i32 2
+  %16 = load ptr, ptr %15, align 8
+  %17 = icmp eq ptr %16, null
+  br i1 %17, label %28, label %18
 
-15:                                               ; preds = %13
-  %16 = zext i32 %26 to i64
-  %17 = getelementptr inbounds %struct.binding, ptr %25, i64 %16, i32 2
-  %18 = load ptr, ptr %17, align 8
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %28, label %20
-
-20:                                               ; preds = %8, %15
-  %21 = phi ptr [ %18, %15 ], [ %11, %8 ]
-  %22 = phi i64 [ %16, %15 ], [ %9, %8 ]
-  %23 = phi ptr [ %25, %15 ], [ %0, %8 ]
-  %24 = getelementptr inbounds %struct.binding, ptr %23, i64 %22, i32 3
-  %25 = load ptr, ptr %24, align 8
-  %26 = load i32, ptr %21, align 8
-  %27 = icmp slt i32 %26, 1
+18:                                               ; preds = %8, %13
+  %19 = phi ptr [ %16, %13 ], [ %11, %8 ]
+  %20 = phi i64 [ %14, %13 ], [ %9, %8 ]
+  %21 = phi ptr [ %23, %13 ], [ %0, %8 ]
+  %22 = getelementptr inbounds %struct.binding, ptr %21, i64 %20, i32 3
+  %23 = load ptr, ptr %22, align 8
+  %24 = load i32, ptr %19, align 8
+  %25 = icmp slt i32 %24, 1
+  %26 = icmp eq ptr %23, %6
+  %27 = select i1 %25, i1 true, i1 %26
   br i1 %27, label %28, label %13
 
-28:                                               ; preds = %13, %15, %20, %8, %5, %2
-  %29 = phi i32 [ %3, %2 ], [ %3, %5 ], [ %3, %8 ], [ %26, %20 ], [ %26, %15 ], [ %26, %13 ]
-  %30 = phi ptr [ %0, %2 ], [ %0, %5 ], [ %0, %8 ], [ %25, %20 ], [ %25, %15 ], [ %6, %13 ]
-  %31 = phi ptr [ %1, %2 ], [ %1, %5 ], [ %1, %8 ], [ %21, %20 ], [ %21, %15 ], [ %21, %13 ]
-  %32 = add i32 %29, -2001
-  %33 = icmp ult i32 %32, -2000
-  br i1 %33, label %34, label %47
+28:                                               ; preds = %13, %18, %8, %5, %2
+  %29 = phi i32 [ %3, %2 ], [ %3, %5 ], [ %3, %8 ], [ %24, %18 ], [ %24, %13 ]
+  %30 = phi ptr [ %0, %2 ], [ %0, %5 ], [ %0, %8 ], [ %23, %18 ], [ %23, %13 ]
+  %31 = phi ptr [ %1, %2 ], [ %1, %5 ], [ %1, %8 ], [ %19, %18 ], [ %19, %13 ]
+  %32 = add i32 %29, -1
+  %33 = icmp ult i32 %32, 2000
+  br i1 %33, label %47, label %34
 
 34:                                               ; preds = %28
   %35 = getelementptr i8, ptr %31, i64 16
@@ -1148,16 +1136,16 @@ define dso_local i32 @cont_TermMaxVar(ptr noundef readonly %0, ptr nocapture nou
   %46 = icmp eq ptr %45, null
   br i1 %46, label %47, label %38, !llvm.loop !24
 
-47:                                               ; preds = %38, %28, %34
-  %48 = phi i32 [ 0, %34 ], [ %29, %28 ], [ %44, %38 ]
+47:                                               ; preds = %38, %34, %28
+  %48 = phi i32 [ %29, %28 ], [ 0, %34 ], [ %44, %38 ]
   ret i32 %48
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local i32 @cont_TermSize(ptr noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #3 {
   %3 = load i32, ptr %1, align 8
-  %4 = icmp slt i32 %3, 1
-  br i1 %4, label %28, label %5
+  %4 = icmp sgt i32 %3, 0
+  br i1 %4, label %5, label %28
 
 5:                                                ; preds = %2
   %6 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1217,8 +1205,8 @@ define dso_local i32 @cont_TermSize(ptr noundef %0, ptr nocapture noundef readon
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local i32 @cont_TermContainsSymbol(ptr noundef readonly %0, ptr nocapture noundef readonly %1, i32 noundef %2) local_unnamed_addr #3 {
   %4 = load i32, ptr %1, align 8
-  %5 = icmp slt i32 %4, 1
-  br i1 %5, label %29, label %6
+  %5 = icmp sgt i32 %4, 0
+  br i1 %5, label %6, label %29
 
 6:                                                ; preds = %3
   %7 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1283,8 +1271,8 @@ define dso_local i32 @cont_TermContainsSymbol(ptr noundef readonly %0, ptr nocap
 ; Function Attrs: nounwind uwtable
 define dso_local void @cont_TermPrintPrefix(ptr noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
   %3 = load i32, ptr %1, align 8
-  %4 = icmp slt i32 %3, 1
-  br i1 %4, label %28, label %5
+  %4 = icmp sgt i32 %3, 0
+  br i1 %4, label %5, label %28
 
 5:                                                ; preds = %2
   %6 = load ptr, ptr @cont_INSTANCECONTEXT, align 8

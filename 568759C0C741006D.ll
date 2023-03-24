@@ -432,7 +432,7 @@ define dso_local noundef ptr @_ZNK8arg_node5cloneEv(ptr nocapture noundef nonnul
   invoke void %32(ptr noundef nonnull align 8 dereferenceable(16) %25, ptr noundef nonnull %2)
           to label %33 unwind label %36
 
-33:                                               ; preds = %26, %20, %29
+33:                                               ; preds = %29, %20, %26
   %34 = getelementptr inbounds %class.node, ptr %0, i64 0, i32 1
   %35 = load ptr, ptr %34, align 8, !tbaa !9
   store ptr %35, ptr %3, align 8, !tbaa !9
@@ -1189,185 +1189,188 @@ define dso_local noundef ptr @_ZN8var_node13reduce_numberEv(ptr noundef nonnull 
   %4 = load ptr, ptr %3, align 8
   %5 = tail call noundef ptr %4(ptr noundef nonnull align 8 dereferenceable(24) %0)
   %6 = icmp eq ptr %5, null
-  br i1 %6, label %97, label %7
+  br i1 %6, label %100, label %7
 
 7:                                                ; preds = %1
   %8 = load ptr, ptr %0, align 8, !tbaa !12
   %9 = getelementptr inbounds ptr, ptr %8, i64 4
   %10 = load ptr, ptr %9, align 8
   %11 = tail call noundef ptr %10(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  br label %12
+  %12 = load i8, ptr %11, align 1, !tbaa !28
+  %13 = icmp eq i8 %12, 0
+  br i1 %13, label %23, label %18
 
-12:                                               ; preds = %12, %7
-  %13 = phi ptr [ %11, %7 ], [ %17, %12 ]
-  %14 = load i8, ptr %13, align 1, !tbaa !28
-  %15 = add i8 %14, -48
-  %16 = icmp ult i8 %15, 10
-  %17 = getelementptr inbounds i8, ptr %13, i64 1
-  br i1 %16, label %12, label %18, !llvm.loop !29
+14:                                               ; preds = %18
+  %15 = getelementptr inbounds i8, ptr %20, i64 1
+  %16 = load i8, ptr %15, align 1, !tbaa !28
+  %17 = icmp eq i8 %16, 0
+  br i1 %17, label %23, label %18, !llvm.loop !29
 
-18:                                               ; preds = %12
-  %19 = icmp eq i8 %14, 0
-  br i1 %19, label %20, label %97
+18:                                               ; preds = %7, %14
+  %19 = phi i8 [ %16, %14 ], [ %12, %7 ]
+  %20 = phi ptr [ %15, %14 ], [ %11, %7 ]
+  %21 = add i8 %19, -58
+  %22 = icmp ult i8 %21, -10
+  br i1 %22, label %100, label %14
 
-20:                                               ; preds = %18
-  %21 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
-  %22 = getelementptr inbounds %class.node, ptr %21, i64 0, i32 1
-  store ptr null, ptr %22, align 8, !tbaa !9
-  store ptr getelementptr inbounds ({ [18 x ptr] }, ptr @_ZTV8arg_node, i64 0, inrange i32 0, i64 2), ptr %21, align 8, !tbaa !12
-  %23 = invoke noalias noundef nonnull dereferenceable(2) ptr @_Znam(i64 noundef 2) #20
-          to label %24 unwind label %63
+23:                                               ; preds = %14, %7
+  %24 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
+  %25 = getelementptr inbounds %class.node, ptr %24, i64 0, i32 1
+  store ptr null, ptr %25, align 8, !tbaa !9
+  store ptr getelementptr inbounds ({ [18 x ptr] }, ptr @_ZTV8arg_node, i64 0, inrange i32 0, i64 2), ptr %24, align 8, !tbaa !12
+  %26 = invoke noalias noundef nonnull dereferenceable(2) ptr @_Znam(i64 noundef 2) #20
+          to label %27 unwind label %66
 
-24:                                               ; preds = %20
-  store i16 109, ptr %23, align 1
-  %25 = getelementptr inbounds %class.arg_node, ptr %21, i64 0, i32 1
-  store ptr %23, ptr %25, align 8, !tbaa !14
-  %26 = getelementptr inbounds %class.arg_node, ptr %21, i64 0, i32 2
-  store ptr null, ptr %26, align 8
-  %27 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
-  %28 = getelementptr inbounds %class.node, ptr %27, i64 0, i32 1
-  store ptr null, ptr %28, align 8, !tbaa !9
-  store ptr getelementptr inbounds ({ [18 x ptr] }, ptr @_ZTV8arg_node, i64 0, inrange i32 0, i64 2), ptr %27, align 8, !tbaa !12
-  %29 = invoke noalias noundef nonnull dereferenceable(2) ptr @_Znam(i64 noundef 2) #20
-          to label %30 unwind label %65
+27:                                               ; preds = %23
+  store i16 109, ptr %26, align 1
+  %28 = getelementptr inbounds %class.arg_node, ptr %24, i64 0, i32 1
+  store ptr %26, ptr %28, align 8, !tbaa !14
+  %29 = getelementptr inbounds %class.arg_node, ptr %24, i64 0, i32 2
+  store ptr null, ptr %29, align 8
+  %30 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
+  %31 = getelementptr inbounds %class.node, ptr %30, i64 0, i32 1
+  store ptr null, ptr %31, align 8, !tbaa !9
+  store ptr getelementptr inbounds ({ [18 x ptr] }, ptr @_ZTV8arg_node, i64 0, inrange i32 0, i64 2), ptr %30, align 8, !tbaa !12
+  %32 = invoke noalias noundef nonnull dereferenceable(2) ptr @_Znam(i64 noundef 2) #20
+          to label %33 unwind label %68
 
-30:                                               ; preds = %24
-  store i16 110, ptr %29, align 1
-  %31 = getelementptr inbounds %class.arg_node, ptr %27, i64 0, i32 1
-  store ptr %29, ptr %31, align 8, !tbaa !14
-  %32 = getelementptr inbounds %class.arg_node, ptr %27, i64 0, i32 2
-  store ptr null, ptr %32, align 8
-  %33 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #20
-  %34 = getelementptr inbounds %class.node, ptr %33, i64 0, i32 1
-  store ptr null, ptr %34, align 8, !tbaa !9
-  store ptr getelementptr inbounds ({ [30 x ptr] }, ptr @_ZTV8var_node, i64 0, inrange i32 0, i64 2), ptr %33, align 8, !tbaa !12
-  %35 = invoke noalias noundef nonnull dereferenceable(2) ptr @_Znam(i64 noundef 2) #20
-          to label %36 unwind label %67
+33:                                               ; preds = %27
+  store i16 110, ptr %32, align 1
+  %34 = getelementptr inbounds %class.arg_node, ptr %30, i64 0, i32 1
+  store ptr %32, ptr %34, align 8, !tbaa !14
+  %35 = getelementptr inbounds %class.arg_node, ptr %30, i64 0, i32 2
+  store ptr null, ptr %35, align 8
+  %36 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #20
+  %37 = getelementptr inbounds %class.node, ptr %36, i64 0, i32 1
+  store ptr null, ptr %37, align 8, !tbaa !9
+  store ptr getelementptr inbounds ({ [30 x ptr] }, ptr @_ZTV8var_node, i64 0, inrange i32 0, i64 2), ptr %36, align 8, !tbaa !12
+  %38 = invoke noalias noundef nonnull dereferenceable(2) ptr @_Znam(i64 noundef 2) #20
+          to label %39 unwind label %70
 
-36:                                               ; preds = %30
-  %37 = getelementptr inbounds %class.var_node, ptr %33, i64 0, i32 1
-  store ptr %35, ptr %37, align 8, !tbaa !20
-  store i16 110, ptr %35, align 1
-  %38 = load ptr, ptr %0, align 8, !tbaa !12
-  %39 = getelementptr inbounds ptr, ptr %38, i64 4
-  %40 = load ptr, ptr %39, align 8
-  %41 = tail call noundef ptr %40(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %42 = tail call i64 @strtol(ptr nocapture noundef nonnull %41, ptr noundef null, i32 noundef 10) #21
-  %43 = trunc i64 %42 to i32
-  %44 = icmp sgt i32 %43, 0
-  br i1 %44, label %45, label %73
+39:                                               ; preds = %33
+  %40 = getelementptr inbounds %class.var_node, ptr %36, i64 0, i32 1
+  store ptr %38, ptr %40, align 8, !tbaa !20
+  store i16 110, ptr %38, align 1
+  %41 = load ptr, ptr %0, align 8, !tbaa !12
+  %42 = getelementptr inbounds ptr, ptr %41, i64 4
+  %43 = load ptr, ptr %42, align 8
+  %44 = tail call noundef ptr %43(ptr noundef nonnull align 8 dereferenceable(24) %0)
+  %45 = tail call i64 @strtol(ptr nocapture noundef nonnull %44, ptr noundef null, i32 noundef 10) #21
+  %46 = trunc i64 %45 to i32
+  %47 = icmp sgt i32 %46, 0
+  br i1 %47, label %48, label %76
 
-45:                                               ; preds = %36, %60
-  %46 = phi i32 [ %61, %60 ], [ %43, %36 ]
-  %47 = phi ptr [ %53, %60 ], [ %33, %36 ]
-  %48 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #20
-  %49 = getelementptr inbounds %class.node, ptr %48, i64 0, i32 1
-  store ptr null, ptr %49, align 8, !tbaa !9
-  store ptr getelementptr inbounds ({ [30 x ptr] }, ptr @_ZTV8var_node, i64 0, inrange i32 0, i64 2), ptr %48, align 8, !tbaa !12
-  %50 = invoke noalias noundef nonnull dereferenceable(2) ptr @_Znam(i64 noundef 2) #20
-          to label %51 unwind label %69
+48:                                               ; preds = %39, %63
+  %49 = phi i32 [ %64, %63 ], [ %46, %39 ]
+  %50 = phi ptr [ %56, %63 ], [ %36, %39 ]
+  %51 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #20
+  %52 = getelementptr inbounds %class.node, ptr %51, i64 0, i32 1
+  store ptr null, ptr %52, align 8, !tbaa !9
+  store ptr getelementptr inbounds ({ [30 x ptr] }, ptr @_ZTV8var_node, i64 0, inrange i32 0, i64 2), ptr %51, align 8, !tbaa !12
+  %53 = invoke noalias noundef nonnull dereferenceable(2) ptr @_Znam(i64 noundef 2) #20
+          to label %54 unwind label %72
 
-51:                                               ; preds = %45
-  %52 = getelementptr inbounds %class.var_node, ptr %48, i64 0, i32 1
-  store ptr %50, ptr %52, align 8, !tbaa !20
-  store i16 109, ptr %50, align 1
-  %53 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
-  %54 = getelementptr inbounds %class.node, ptr %53, i64 0, i32 1
-  store ptr null, ptr %54, align 8, !tbaa !9
-  store ptr getelementptr inbounds ({ [29 x ptr] }, ptr @_ZTV8app_node, i64 0, inrange i32 0, i64 2), ptr %53, align 8, !tbaa !12
-  %55 = getelementptr inbounds %class.app_node, ptr %53, i64 0, i32 1
-  %56 = getelementptr inbounds %class.app_node, ptr %53, i64 0, i32 2
-  store ptr %48, ptr %55, align 8, !tbaa !30
-  store ptr %53, ptr %49, align 8, !tbaa !9
-  store ptr %47, ptr %56, align 8, !tbaa !32
-  %57 = load ptr, ptr %47, align 8, !tbaa !12
-  %58 = getelementptr inbounds ptr, ptr %57, i64 12
-  %59 = load ptr, ptr %58, align 8
-  invoke void %59(ptr noundef nonnull align 8 dereferenceable(16) %47, ptr noundef nonnull %53)
-          to label %60 unwind label %71
+54:                                               ; preds = %48
+  %55 = getelementptr inbounds %class.var_node, ptr %51, i64 0, i32 1
+  store ptr %53, ptr %55, align 8, !tbaa !20
+  store i16 109, ptr %53, align 1
+  %56 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
+  %57 = getelementptr inbounds %class.node, ptr %56, i64 0, i32 1
+  store ptr null, ptr %57, align 8, !tbaa !9
+  store ptr getelementptr inbounds ({ [29 x ptr] }, ptr @_ZTV8app_node, i64 0, inrange i32 0, i64 2), ptr %56, align 8, !tbaa !12
+  %58 = getelementptr inbounds %class.app_node, ptr %56, i64 0, i32 1
+  %59 = getelementptr inbounds %class.app_node, ptr %56, i64 0, i32 2
+  store ptr %51, ptr %58, align 8, !tbaa !30
+  store ptr %56, ptr %52, align 8, !tbaa !9
+  store ptr %50, ptr %59, align 8, !tbaa !32
+  %60 = load ptr, ptr %50, align 8, !tbaa !12
+  %61 = getelementptr inbounds ptr, ptr %60, i64 12
+  %62 = load ptr, ptr %61, align 8
+  invoke void %62(ptr noundef nonnull align 8 dereferenceable(16) %50, ptr noundef nonnull %56)
+          to label %63 unwind label %74
 
-60:                                               ; preds = %51
-  %61 = add nsw i32 %46, -1
-  %62 = icmp sgt i32 %46, 1
-  br i1 %62, label %45, label %73, !llvm.loop !33
+63:                                               ; preds = %54
+  %64 = add nsw i32 %49, -1
+  %65 = icmp sgt i32 %49, 1
+  br i1 %65, label %48, label %76, !llvm.loop !33
 
-63:                                               ; preds = %20
-  %64 = landingpad { ptr, i32 }
+66:                                               ; preds = %23
+  %67 = landingpad { ptr, i32 }
           cleanup
-  br label %94
+  br label %97
 
-65:                                               ; preds = %24
-  %66 = landingpad { ptr, i32 }
+68:                                               ; preds = %27
+  %69 = landingpad { ptr, i32 }
           cleanup
-  br label %94
+  br label %97
 
-67:                                               ; preds = %30
-  %68 = landingpad { ptr, i32 }
+70:                                               ; preds = %33
+  %71 = landingpad { ptr, i32 }
           cleanup
-  br label %94
+  br label %97
 
-69:                                               ; preds = %45
-  %70 = landingpad { ptr, i32 }
+72:                                               ; preds = %48
+  %73 = landingpad { ptr, i32 }
           cleanup
-  br label %94
+  br label %97
 
-71:                                               ; preds = %51
-  %72 = landingpad { ptr, i32 }
+74:                                               ; preds = %54
+  %75 = landingpad { ptr, i32 }
           cleanup
-  br label %94
+  br label %97
 
-73:                                               ; preds = %60, %36
-  %74 = phi ptr [ %33, %36 ], [ %53, %60 ]
-  %75 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
-  %76 = getelementptr inbounds %class.node, ptr %75, i64 0, i32 1
-  store ptr null, ptr %76, align 8, !tbaa !9
-  store ptr getelementptr inbounds ({ [30 x ptr] }, ptr @_ZTV8lam_node, i64 0, inrange i32 0, i64 2), ptr %75, align 8, !tbaa !12
-  %77 = getelementptr inbounds %class.lam_node, ptr %75, i64 0, i32 1
-  %78 = getelementptr inbounds %class.lam_node, ptr %75, i64 0, i32 2
-  store ptr %27, ptr %77, align 8, !tbaa !34
-  store ptr %75, ptr %28, align 8, !tbaa !9
-  store ptr %74, ptr %78, align 8, !tbaa !36
-  %79 = load ptr, ptr %74, align 8, !tbaa !12
-  %80 = getelementptr inbounds ptr, ptr %79, i64 12
-  %81 = load ptr, ptr %80, align 8
-  invoke void %81(ptr noundef nonnull align 8 dereferenceable(16) %74, ptr noundef nonnull %75)
-          to label %82 unwind label %90
+76:                                               ; preds = %63, %39
+  %77 = phi ptr [ %36, %39 ], [ %56, %63 ]
+  %78 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
+  %79 = getelementptr inbounds %class.node, ptr %78, i64 0, i32 1
+  store ptr null, ptr %79, align 8, !tbaa !9
+  store ptr getelementptr inbounds ({ [30 x ptr] }, ptr @_ZTV8lam_node, i64 0, inrange i32 0, i64 2), ptr %78, align 8, !tbaa !12
+  %80 = getelementptr inbounds %class.lam_node, ptr %78, i64 0, i32 1
+  %81 = getelementptr inbounds %class.lam_node, ptr %78, i64 0, i32 2
+  store ptr %30, ptr %80, align 8, !tbaa !34
+  store ptr %78, ptr %31, align 8, !tbaa !9
+  store ptr %77, ptr %81, align 8, !tbaa !36
+  %82 = load ptr, ptr %77, align 8, !tbaa !12
+  %83 = getelementptr inbounds ptr, ptr %82, i64 12
+  %84 = load ptr, ptr %83, align 8
+  invoke void %84(ptr noundef nonnull align 8 dereferenceable(16) %77, ptr noundef nonnull %78)
+          to label %85 unwind label %93
 
-82:                                               ; preds = %73
-  %83 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
-  %84 = getelementptr inbounds %class.node, ptr %83, i64 0, i32 1
-  store ptr null, ptr %84, align 8, !tbaa !9
-  store ptr getelementptr inbounds ({ [30 x ptr] }, ptr @_ZTV8lam_node, i64 0, inrange i32 0, i64 2), ptr %83, align 8, !tbaa !12
-  %85 = getelementptr inbounds %class.lam_node, ptr %83, i64 0, i32 1
-  %86 = getelementptr inbounds %class.lam_node, ptr %83, i64 0, i32 2
-  store ptr %21, ptr %85, align 8, !tbaa !34
-  store ptr %83, ptr %22, align 8, !tbaa !9
-  store ptr %75, ptr %86, align 8, !tbaa !36
-  %87 = load ptr, ptr %75, align 8, !tbaa !12
-  %88 = getelementptr inbounds ptr, ptr %87, i64 12
-  %89 = load ptr, ptr %88, align 8
-  invoke void %89(ptr noundef nonnull align 8 dereferenceable(16) %75, ptr noundef nonnull %83)
-          to label %97 unwind label %92
+85:                                               ; preds = %76
+  %86 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #20
+  %87 = getelementptr inbounds %class.node, ptr %86, i64 0, i32 1
+  store ptr null, ptr %87, align 8, !tbaa !9
+  store ptr getelementptr inbounds ({ [30 x ptr] }, ptr @_ZTV8lam_node, i64 0, inrange i32 0, i64 2), ptr %86, align 8, !tbaa !12
+  %88 = getelementptr inbounds %class.lam_node, ptr %86, i64 0, i32 1
+  %89 = getelementptr inbounds %class.lam_node, ptr %86, i64 0, i32 2
+  store ptr %24, ptr %88, align 8, !tbaa !34
+  store ptr %86, ptr %25, align 8, !tbaa !9
+  store ptr %78, ptr %89, align 8, !tbaa !36
+  %90 = load ptr, ptr %78, align 8, !tbaa !12
+  %91 = getelementptr inbounds ptr, ptr %90, i64 12
+  %92 = load ptr, ptr %91, align 8
+  invoke void %92(ptr noundef nonnull align 8 dereferenceable(16) %78, ptr noundef nonnull %86)
+          to label %100 unwind label %95
 
-90:                                               ; preds = %73
-  %91 = landingpad { ptr, i32 }
+93:                                               ; preds = %76
+  %94 = landingpad { ptr, i32 }
           cleanup
-  br label %94
+  br label %97
 
-92:                                               ; preds = %82
-  %93 = landingpad { ptr, i32 }
+95:                                               ; preds = %85
+  %96 = landingpad { ptr, i32 }
           cleanup
-  br label %94
+  br label %97
 
-94:                                               ; preds = %65, %71, %69, %92, %90, %67, %63
-  %95 = phi ptr [ %27, %65 ], [ %53, %71 ], [ %48, %69 ], [ %83, %92 ], [ %75, %90 ], [ %33, %67 ], [ %21, %63 ]
-  %96 = phi { ptr, i32 } [ %66, %65 ], [ %72, %71 ], [ %70, %69 ], [ %93, %92 ], [ %91, %90 ], [ %68, %67 ], [ %64, %63 ]
-  tail call void @_ZdlPv(ptr noundef nonnull %95) #22
-  resume { ptr, i32 } %96
+97:                                               ; preds = %68, %74, %72, %95, %93, %70, %66
+  %98 = phi ptr [ %30, %68 ], [ %56, %74 ], [ %51, %72 ], [ %86, %95 ], [ %78, %93 ], [ %36, %70 ], [ %24, %66 ]
+  %99 = phi { ptr, i32 } [ %69, %68 ], [ %75, %74 ], [ %73, %72 ], [ %96, %95 ], [ %94, %93 ], [ %71, %70 ], [ %67, %66 ]
+  tail call void @_ZdlPv(ptr noundef nonnull %98) #22
+  resume { ptr, i32 } %99
 
-97:                                               ; preds = %82, %18, %1
-  %98 = phi ptr [ null, %1 ], [ null, %18 ], [ %83, %82 ]
-  ret ptr %98
+100:                                              ; preds = %18, %85, %1
+  %101 = phi ptr [ null, %1 ], [ %86, %85 ], [ null, %18 ]
+  ret ptr %101
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -1738,8 +1741,8 @@ define dso_local noundef ptr @_ZNK8var_node7extractEPKci(ptr noundef nonnull ali
           cleanup
   br label %77
 
-75:                                               ; preds = %48, %70, %63, %22
-  %76 = phi ptr [ %19, %22 ], [ %49, %48 ], [ %58, %63 ], [ %58, %70 ]
+75:                                               ; preds = %48, %63, %70, %22
+  %76 = phi ptr [ %19, %22 ], [ %49, %48 ], [ %58, %70 ], [ %58, %63 ]
   ret ptr %76
 
 77:                                               ; preds = %53, %55, %73, %24
@@ -1835,7 +1838,7 @@ define dso_local void @_ZN8lam_nodeC2EP8arg_nodeP8exp_nodes(ptr noundef nonnull 
   tail call void %48(ptr noundef nonnull align 8 dereferenceable(16) %43, ptr noundef nonnull %0)
   br label %49
 
-49:                                               ; preds = %45, %42, %41, %22, %25
+49:                                               ; preds = %25, %45, %42, %41, %22
   ret void
 }
 
@@ -2948,7 +2951,7 @@ define dso_local noundef ptr @_ZN8lam_node6reduceEPK9alst_nodeiPi(ptr noundef no
   store ptr null, ptr %217, align 8, !tbaa !16
   br label %224
 
-224:                                              ; preds = %215, %220
+224:                                              ; preds = %220, %215
   br label %225
 
 225:                                              ; preds = %224, %251
@@ -3120,7 +3123,7 @@ define dso_local noundef ptr @_ZN8lam_node6reduceEPK9alst_nodeiPi(ptr noundef no
   call void %322(ptr noundef nonnull align 8 dereferenceable(16) %315) #21
   br label %323
 
-323:                                              ; preds = %317, %319
+323:                                              ; preds = %319, %317
   store ptr %311, ptr %131, align 8, !tbaa !36
   %324 = load ptr, ptr %311, align 8, !tbaa !12
   %325 = getelementptr inbounds ptr, ptr %324, i64 12
@@ -3159,7 +3162,7 @@ define dso_local noundef ptr @_ZN8lam_node6reduceEPK9alst_nodeiPi(ptr noundef no
   call void %343(ptr noundef nonnull align 8 dereferenceable(16) %336) #21
   br label %344
 
-344:                                              ; preds = %338, %340
+344:                                              ; preds = %340, %338
   store ptr %332, ptr %131, align 8, !tbaa !36
   %345 = load ptr, ptr %332, align 8, !tbaa !12
   %346 = getelementptr inbounds ptr, ptr %345, i64 12
@@ -3172,7 +3175,7 @@ define dso_local noundef ptr @_ZN8lam_node6reduceEPK9alst_nodeiPi(ptr noundef no
           cleanup
   br label %369
 
-350:                                              ; preds = %335, %344, %314, %323, %333, %312
+350:                                              ; preds = %333, %344, %335, %312, %323, %314
   %351 = and i32 %289, 1
   %352 = icmp eq i32 %351, 0
   br i1 %352, label %357, label %353
@@ -3308,7 +3311,7 @@ define dso_local noundef ptr @_ZN8lam_node10eta_reduceEPK9alst_nodeiPi(ptr nound
   tail call void %60(ptr noundef nonnull align 8 dereferenceable(16) %53) #21
   br label %61
 
-61:                                               ; preds = %55, %57
+61:                                               ; preds = %57, %55
   store ptr %45, ptr %52, align 8, !tbaa !30
   %62 = load ptr, ptr %45, align 8, !tbaa !12
   %63 = getelementptr inbounds ptr, ptr %62, i64 12
@@ -3418,7 +3421,7 @@ define dso_local noundef ptr @_ZN8lam_node10eta_reduceEPK9alst_nodeiPi(ptr nound
   tail call void %136(ptr noundef nonnull align 8 dereferenceable(16) %113) #21
   br label %137
 
-137:                                              ; preds = %91, %13, %26, %17, %125, %133, %124, %96, %93, %72, %65, %4
+137:                                              ; preds = %13, %26, %17, %91, %125, %133, %124, %96, %93, %72, %65, %4
   %138 = phi ptr [ %0, %4 ], [ %0, %13 ], [ %0, %26 ], [ %0, %17 ], [ %0, %96 ], [ %113, %124 ], [ %0, %93 ], [ %0, %72 ], [ %0, %65 ], [ %129, %133 ], [ %113, %125 ], [ %0, %91 ]
   ret ptr %138
 }
@@ -3514,7 +3517,7 @@ define dso_local noundef ptr @_ZN8lam_node11reduce_varsEPK9alst_nodeiPi(ptr noun
   call void %26(ptr noundef nonnull align 8 dereferenceable(16) %19) #21
   br label %27
 
-27:                                               ; preds = %21, %23
+27:                                               ; preds = %23, %21
   store ptr %16, ptr %11, align 8, !tbaa !36
   %28 = load ptr, ptr %16, align 8, !tbaa !12
   %29 = getelementptr inbounds ptr, ptr %28, i64 12
@@ -3824,7 +3827,7 @@ define dso_local noundef ptr @_ZN8lam_node12extract_defsEPK9alst_node(ptr nounde
   tail call void %33(ptr noundef nonnull align 8 dereferenceable(16) %26) #21
   br label %34
 
-34:                                               ; preds = %28, %30
+34:                                               ; preds = %30, %28
   store ptr %22, ptr %25, align 8, !tbaa !36
   %35 = load ptr, ptr %22, align 8, !tbaa !12
   %36 = getelementptr inbounds ptr, ptr %35, i64 12
@@ -3918,8 +3921,8 @@ define dso_local noundef ptr @_ZN8lam_node12extract_defsEPK9alst_node(ptr nounde
           cleanup
   br label %92
 
-90:                                               ; preds = %85, %78, %62, %55, %38, %8
-  %91 = phi ptr [ %0, %8 ], [ %0, %38 ], [ %45, %55 ], [ %45, %62 ], [ %68, %78 ], [ %68, %85 ]
+90:                                               ; preds = %78, %85, %38, %62, %55, %8
+  %91 = phi ptr [ %0, %8 ], [ %0, %38 ], [ %45, %62 ], [ %45, %55 ], [ %68, %85 ], [ %68, %78 ]
   ret ptr %91
 
 92:                                               ; preds = %88, %65
@@ -4070,7 +4073,7 @@ define dso_local void @_ZN8app_nodeC2EP8exp_nodeS1_s(ptr noundef nonnull align 8
   tail call void %48(ptr noundef nonnull align 8 dereferenceable(16) %43, ptr noundef nonnull %0)
   br label %49
 
-49:                                               ; preds = %45, %42, %41, %22, %25
+49:                                               ; preds = %25, %45, %42, %41, %22
   ret void
 }
 
@@ -4273,7 +4276,7 @@ define dso_local noundef signext i16 @_ZNK8app_node8has_freeEPK8arg_nodePK9alst_
   %13 = getelementptr inbounds %class.app_node, ptr %0, i64 0, i32 2
   %14 = load ptr, ptr %13, align 8, !tbaa !32
   %15 = icmp eq ptr %14, null
-  %16 = or i1 %12, %15
+  %16 = or i1 %15, %12
   %17 = xor i1 %15, true
   %18 = or i1 %12, %17
   br i1 %16, label %30, label %23
@@ -5484,8 +5487,8 @@ define dso_local noundef ptr @_ZN8app_node6reduceEPK9alst_nodeiPi(ptr noundef no
   tail call void %398(ptr noundef nonnull align 8 dereferenceable(16) %384, ptr noundef nonnull %0)
   br label %399
 
-399:                                              ; preds = %395, %393, %379, %349, %347, %352
-  %400 = phi ptr [ %0, %352 ], [ %332, %349 ], [ %332, %347 ], [ %0, %379 ], [ %0, %393 ], [ %0, %395 ]
+399:                                              ; preds = %349, %347, %395, %393, %379, %352
+  %400 = phi ptr [ %0, %352 ], [ %0, %379 ], [ %0, %393 ], [ %0, %395 ], [ %332, %349 ], [ %332, %347 ]
   %401 = load i32, ptr @_ZL24app_reduce_recurse_level, align 4, !tbaa !5
   %402 = add nsw i32 %401, -1
   store i32 %402, ptr @_ZL24app_reduce_recurse_level, align 4, !tbaa !5
@@ -5600,7 +5603,7 @@ define dso_local noundef ptr @_ZN8app_node11reduce_varsEPK9alst_nodeiPi(ptr noun
   tail call void %68(ptr noundef nonnull align 8 dereferenceable(16) %65, ptr noundef nonnull %0)
   br label %69
 
-69:                                               ; preds = %64, %62, %45, %37, %41
+69:                                               ; preds = %64, %37, %41, %45, %62
   ret ptr %0
 }
 
@@ -5729,7 +5732,7 @@ define dso_local noundef ptr @_ZN8app_node12extract_defsEPK9alst_node(ptr nounde
   tail call void %33(ptr noundef nonnull align 8 dereferenceable(16) %26) #21
   br label %34
 
-34:                                               ; preds = %28, %30
+34:                                               ; preds = %30, %28
   store ptr %22, ptr %25, align 8, !tbaa !30
   %35 = load ptr, ptr %22, align 8, !tbaa !12
   %36 = getelementptr inbounds ptr, ptr %35, i64 12
@@ -5737,7 +5740,7 @@ define dso_local noundef ptr @_ZN8app_node12extract_defsEPK9alst_node(ptr nounde
   tail call void %37(ptr noundef nonnull align 8 dereferenceable(16) %22, ptr noundef nonnull %0)
   br label %38
 
-38:                                               ; preds = %34, %24, %14, %8
+38:                                               ; preds = %14, %24, %34, %8
   %39 = load ptr, ptr %0, align 8, !tbaa !12
   %40 = getelementptr inbounds ptr, ptr %39, i64 9
   %41 = load ptr, ptr %40, align 8
@@ -5774,7 +5777,7 @@ define dso_local noundef ptr @_ZN8app_node12extract_defsEPK9alst_node(ptr nounde
   tail call void %63(ptr noundef nonnull align 8 dereferenceable(16) %56) #21
   br label %64
 
-64:                                               ; preds = %58, %60
+64:                                               ; preds = %60, %58
   store ptr %52, ptr %55, align 8, !tbaa !32
   %65 = load ptr, ptr %52, align 8, !tbaa !12
   %66 = getelementptr inbounds ptr, ptr %65, i64 12
@@ -5782,7 +5785,7 @@ define dso_local noundef ptr @_ZN8app_node12extract_defsEPK9alst_node(ptr nounde
   tail call void %67(ptr noundef nonnull align 8 dereferenceable(16) %52, ptr noundef nonnull %0)
   br label %68
 
-68:                                               ; preds = %64, %54, %44, %38
+68:                                               ; preds = %44, %54, %64, %38
   %69 = load ptr, ptr %0, align 8, !tbaa !12
   %70 = getelementptr inbounds ptr, ptr %69, i64 24
   %71 = load ptr, ptr %70, align 8
@@ -5868,8 +5871,8 @@ define dso_local noundef ptr @_ZN8app_node12extract_defsEPK9alst_node(ptr nounde
           cleanup
   br label %122
 
-120:                                              ; preds = %115, %108, %92, %85, %68
-  %121 = phi ptr [ %0, %68 ], [ %75, %85 ], [ %75, %92 ], [ %98, %108 ], [ %98, %115 ]
+120:                                              ; preds = %108, %115, %85, %92, %68
+  %121 = phi ptr [ %0, %68 ], [ %75, %92 ], [ %75, %85 ], [ %98, %115 ], [ %98, %108 ]
   ret ptr %121
 
 122:                                              ; preds = %118, %95
@@ -6256,10 +6259,10 @@ define dso_local noundef ptr @_ZNK8app_node7extractEPKci(ptr noundef nonnull ali
   %216 = invoke noundef ptr %215(ptr noundef nonnull align 8 dereferenceable(16) %212)
           to label %217 unwind label %59
 
-217:                                              ; preds = %140, %146, %115, %106, %117, %213, %166, %178, %190, %205
-  %218 = phi ptr [ null, %166 ], [ null, %205 ], [ null, %190 ], [ null, %178 ], [ null, %213 ], [ %62, %117 ], [ %62, %106 ], [ %62, %115 ], [ null, %146 ], [ null, %140 ]
-  %219 = phi ptr [ null, %166 ], [ null, %205 ], [ null, %190 ], [ null, %178 ], [ null, %213 ], [ %80, %117 ], [ %80, %106 ], [ null, %115 ], [ null, %146 ], [ null, %140 ]
-  %220 = phi ptr [ null, %166 ], [ null, %205 ], [ null, %190 ], [ null, %178 ], [ %216, %213 ], [ %98, %117 ], [ %98, %106 ], [ %98, %115 ], [ %134, %146 ], [ %134, %140 ]
+217:                                              ; preds = %213, %146, %140, %117, %106, %115, %166, %178, %190, %205
+  %218 = phi ptr [ null, %166 ], [ null, %205 ], [ null, %190 ], [ null, %178 ], [ %62, %115 ], [ %62, %106 ], [ %62, %117 ], [ null, %140 ], [ null, %146 ], [ null, %213 ]
+  %219 = phi ptr [ null, %166 ], [ null, %205 ], [ null, %190 ], [ null, %178 ], [ null, %115 ], [ %80, %106 ], [ %80, %117 ], [ null, %140 ], [ null, %146 ], [ null, %213 ]
+  %220 = phi ptr [ null, %166 ], [ null, %205 ], [ null, %190 ], [ null, %178 ], [ %98, %115 ], [ %98, %106 ], [ %98, %117 ], [ %134, %140 ], [ %134, %146 ], [ %216, %213 ]
   store ptr getelementptr inbounds ({ [20 x ptr] }, ptr @_ZTV11arglst_node, i64 0, inrange i32 0, i64 2), ptr %4, align 8, !tbaa !12
   %221 = load ptr, ptr %29, align 8, !tbaa !37
   %222 = icmp eq ptr %221, null
@@ -6525,8 +6528,8 @@ define dso_local noundef ptr @_ZNK8app_node7extractEPKci(ptr noundef nonnull ali
   call void @_ZdlPv(ptr noundef nonnull %288) #22
   br label %366
 
-364:                                              ; preds = %356, %347, %344, %358, %321, %312, %323, %250
-  %365 = phi ptr [ %220, %250 ], [ %305, %323 ], [ %305, %312 ], [ %305, %321 ], [ %288, %358 ], [ %288, %344 ], [ %288, %347 ], [ %288, %356 ]
+364:                                              ; preds = %358, %344, %347, %356, %323, %312, %321, %250
+  %365 = phi ptr [ %220, %250 ], [ %305, %321 ], [ %305, %312 ], [ %305, %323 ], [ %288, %356 ], [ %288, %347 ], [ %288, %344 ], [ %288, %358 ]
   ret ptr %365
 
 366:                                              ; preds = %57, %249, %362, %333, %331
@@ -6801,8 +6804,8 @@ define dso_local noundef ptr @_ZN11arglst_node3addEP8arg_nodes(ptr noundef nonnu
   tail call void @_ZdlPv(ptr noundef nonnull %65) #22
   resume { ptr, i32 } %77
 
-78:                                               ; preds = %53, %48, %35, %72, %3
-  %79 = phi ptr [ null, %3 ], [ %65, %72 ], [ %0, %35 ], [ %0, %48 ], [ %0, %53 ]
+78:                                               ; preds = %35, %48, %53, %72, %3
+  %79 = phi ptr [ null, %3 ], [ %65, %72 ], [ %0, %53 ], [ %0, %48 ], [ %0, %35 ]
   ret ptr %79
 }
 
@@ -7130,7 +7133,7 @@ define linkonce_odr dso_local noundef ptr @_ZNK8var_node5cloneEv(ptr noundef non
   store ptr null, ptr %15, align 8, !tbaa !20
   br label %16
 
-16:                                               ; preds = %14, %11
+16:                                               ; preds = %11, %14
   store ptr null, ptr %3, align 8, !tbaa !9
   ret ptr %2
 
@@ -7265,7 +7268,7 @@ define linkonce_odr dso_local noundef ptr @_ZNK8lam_node5cloneEv(ptr noundef non
   invoke void %36(ptr noundef nonnull align 8 dereferenceable(16) %29, ptr noundef nonnull %2)
           to label %37 unwind label %38
 
-37:                                               ; preds = %30, %24, %33
+37:                                               ; preds = %33, %24, %30
   store ptr null, ptr %3, align 8, !tbaa !9
   ret ptr %2
 
@@ -7373,7 +7376,7 @@ define linkonce_odr dso_local noundef ptr @_ZNK8app_node5cloneEv(ptr noundef non
   invoke void %36(ptr noundef nonnull align 8 dereferenceable(16) %2, ptr noundef nonnull %2)
           to label %37 unwind label %40
 
-37:                                               ; preds = %30, %24, %33
+37:                                               ; preds = %33, %24, %30
   %38 = getelementptr inbounds %class.node, ptr %0, i64 0, i32 1
   %39 = load ptr, ptr %38, align 8, !tbaa !9
   store ptr %39, ptr %3, align 8, !tbaa !9
@@ -7522,9 +7525,6 @@ define linkonce_odr dso_local void @_ZN4nodeD2Ev(ptr noundef nonnull align 8 der
 declare void @llvm.trap() #15
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #16
-
-; Function Attrs: nofree nounwind
 declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #16
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
@@ -7532,6 +7532,9 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #1
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
 declare void @llvm.assume(i1 noundef) #18
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #16
 
 attributes #0 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

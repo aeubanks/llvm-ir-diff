@@ -210,9 +210,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIPN20btMultiSapBroa
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !26
   store ptr null, ptr %2, align 8, !tbaa !27
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !28
   %12 = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !29
@@ -246,9 +246,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP21btBroadphaseInt
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -297,10 +297,10 @@ define dso_local void @_ZN20btMultiSapBroadphaseD2Ev(ptr noundef nonnull align 8
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %17)
           to label %24 unwind label %38
 
-24:                                               ; preds = %15, %23
-  %25 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %0, i64 0, i32 9, i32 2
+24:                                               ; preds = %23, %15
   store i8 1, ptr %19, align 8, !tbaa !26
   store ptr null, ptr %16, align 8, !tbaa !27
+  %25 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %0, i64 0, i32 9, i32 2
   store i32 0, ptr %25, align 4, !tbaa !28
   %26 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %0, i64 0, i32 9, i32 3
   store i32 0, ptr %26, align 8, !tbaa !29
@@ -318,9 +318,9 @@ define dso_local void @_ZN20btMultiSapBroadphaseD2Ev(ptr noundef nonnull align 8
   br label %35
 
 35:                                               ; preds = %34, %24
-  %36 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %30, align 8, !tbaa !8
   store ptr null, ptr %27, align 8, !tbaa !15
+  %36 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %36, align 4, !tbaa !16
   %37 = getelementptr inbounds %class.btMultiSapBroadphase, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %37, align 8, !tbaa !17
@@ -1076,7 +1076,7 @@ define dso_local void @_ZN20btMultiSapBroadphase7setAabbEP17btBroadphaseProxyRK9
   %70 = load float, ptr %30, align 4, !tbaa !34
   %71 = load float, ptr %31, align 4, !tbaa !34
   %72 = fcmp uge float %70, %71
-  %73 = and i1 %65, %72
+  %73 = and i1 %72, %65
   br i1 %73, label %74, label %77
 
 74:                                               ; preds = %69
@@ -1315,7 +1315,7 @@ define dso_local void @_ZN20btMultiSapBroadphase25calculateOverlappingPairsEP12b
   %119 = getelementptr inbounds %"struct.btMultiSapBroadphase::btMultiSapProxy", ptr %82, i64 0, i32 3, i32 0, i64 1
   %120 = load float, ptr %119, align 4, !tbaa !34
   %121 = fcmp uge float %118, %120
-  %122 = and i1 %110, %121
+  %122 = and i1 %121, %110
   br i1 %122, label %136, label %123
 
 123:                                              ; preds = %109, %116, %73
@@ -1773,28 +1773,28 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
 
 59:                                               ; preds = %53
   %60 = icmp eq ptr %43, %51
-  br i1 %60, label %64, label %61
+  br i1 %60, label %61, label %65
 
-61:                                               ; preds = %68, %64, %59
-  %62 = trunc i64 %27 to i32
-  %63 = sext i32 %23 to i64
+61:                                               ; preds = %59
+  %62 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
+  %63 = load ptr, ptr %62, align 8, !tbaa !82
+  %64 = icmp ugt ptr %63, %16
+  br i1 %64, label %69, label %65
+
+65:                                               ; preds = %68, %59, %61
+  %66 = trunc i64 %27 to i32
+  %67 = sext i32 %23 to i64
   br label %71
 
-64:                                               ; preds = %59
-  %65 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
-  %66 = load ptr, ptr %65, align 8, !tbaa !82
-  %67 = icmp ugt ptr %66, %16
-  br i1 %67, label %69, label %61
-
 68:                                               ; preds = %53
-  br i1 %56, label %69, label %61
+  br i1 %56, label %69, label %65
 
-69:                                               ; preds = %50, %64, %68
+69:                                               ; preds = %61, %50, %68
   %70 = add i64 %27, 1
   br label %26
 
-71:                                               ; preds = %61, %111
-  %72 = phi i64 [ %63, %61 ], [ %112, %111 ]
+71:                                               ; preds = %65, %111
+  %72 = phi i64 [ %67, %65 ], [ %112, %111 ]
   %73 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %72
   br i1 %17, label %76, label %74
 
@@ -1859,13 +1859,13 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
 110:                                              ; preds = %98
   br i1 %101, label %111, label %113
 
-111:                                              ; preds = %95, %106, %110
+111:                                              ; preds = %106, %95, %110
   %112 = add i64 %72, -1
   br label %71
 
-113:                                              ; preds = %104, %106, %110
+113:                                              ; preds = %106, %104, %110
   %114 = trunc i64 %72 to i32
-  %115 = icmp sgt i32 %62, %114
+  %115 = icmp sgt i32 %66, %114
   br i1 %115, label %125, label %116
 
 116:                                              ; preds = %113
@@ -1879,12 +1879,12 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
   store ptr %37, ptr %121, align 8, !tbaa.struct !85
   %122 = getelementptr inbounds i8, ptr %120, i64 16
   store <2 x ptr> %118, ptr %122, align 8
-  %123 = add nsw i32 %62, 1
+  %123 = add nsw i32 %66, 1
   %124 = add nsw i32 %114, -1
   br label %125
 
 125:                                              ; preds = %113, %116
-  %126 = phi i32 [ %123, %116 ], [ %62, %113 ]
+  %126 = phi i32 [ %123, %116 ], [ %66, %113 ]
   %127 = phi i32 [ %124, %116 ], [ %114, %113 ]
   %128 = icmp sgt i32 %126, %127
   br i1 %128, label %129, label %21

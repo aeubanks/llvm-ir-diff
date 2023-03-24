@@ -2404,7 +2404,7 @@ define internal fastcc i32 @cli_scanarj(i32 noundef %0, ptr noundef %1, i64 noun
   store ptr @.str.76, ptr %80, align 8, !tbaa !24
   br label %101
 
-81:                                               ; preds = %43, %32, %62, %75, %74, %59, %56, %52
+81:                                               ; preds = %75, %74, %62, %59, %56, %52, %43, %32
   %82 = call i32 @cli_unarj_extract_file(i32 noundef %0, ptr noundef %5, ptr noundef nonnull %4) #9
   %83 = load i32, ptr %28, align 4, !tbaa !92
   %84 = icmp sgt i32 %83, -1

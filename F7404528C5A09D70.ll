@@ -229,7 +229,7 @@ define dso_local void @_ZN30btBox2dBox2dCollisionAlgorithm16processCollisionEP17
   store ptr %7, ptr %14, align 8, !tbaa !26
   %15 = getelementptr inbounds %class.btCollisionObject, ptr %1, i64 0, i32 1
   %16 = getelementptr inbounds %class.btCollisionObject, ptr %2, i64 0, i32 1
-  tail call void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeRK11btTransformS3_S6_(ptr noundef nonnull %4, ptr noundef %11, ptr noundef nonnull align 4 dereferenceable(64) %15, ptr noundef %13, ptr noundef nonnull align 4 dereferenceable(64) %16)
+  tail call void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeRK11btTransformS3_S6_(ptr noundef %4, ptr noundef %11, ptr noundef nonnull align 4 dereferenceable(64) %15, ptr noundef %13, ptr noundef nonnull align 4 dereferenceable(64) %16)
   %17 = getelementptr inbounds %class.btBox2dBox2dCollisionAlgorithm, ptr %0, i64 0, i32 1
   %18 = load i8, ptr %17, align 8, !tbaa !8, !range !17, !noundef !18
   %19 = icmp eq i8 %18, 0
@@ -262,7 +262,7 @@ define dso_local void @_ZN30btBox2dBox2dCollisionAlgorithm16processCollisionEP17
   tail call void @_ZN20btPersistentManifold20refreshContactPointsERK11btTransformS2_(ptr noundef nonnull align 8 dereferenceable(744) %21, ptr noundef nonnull align 4 dereferenceable(64) %35, ptr noundef nonnull align 4 dereferenceable(64) %36)
   br label %37
 
-37:                                               ; preds = %34, %31, %20, %9, %5
+37:                                               ; preds = %9, %20, %31, %34, %5
   ret void
 }
 
@@ -313,31 +313,31 @@ define dso_local void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeR
   %37 = getelementptr inbounds [3 x %class.btVector3], ptr %21, i64 0, i64 2, i32 0, i64 1
   %38 = getelementptr inbounds [3 x %class.btVector3], ptr %21, i64 0, i64 1, i32 0, i64 2
   %39 = getelementptr inbounds [3 x %class.btVector3], ptr %21, i64 0, i64 1, i32 0, i64 1
-  %40 = load float, ptr %34, align 4
-  %41 = load float, ptr %35, align 4
-  %42 = load float, ptr %23, align 4
-  %43 = load float, ptr %36, align 4
-  %44 = load float, ptr %37, align 4
-  %45 = load float, ptr %24, align 4
-  %46 = load float, ptr %38, align 4
-  %47 = load float, ptr %39, align 4
-  %48 = load float, ptr %25, align 4
-  %49 = getelementptr inbounds i8, ptr %21, i64 8
-  %50 = load float, ptr %49, align 4
-  %51 = getelementptr inbounds i8, ptr %21, i64 4
+  %40 = load i32, ptr %6, align 4
+  %41 = load i32, ptr %7, align 4
+  %42 = load float, ptr %34, align 4
+  %43 = load float, ptr %35, align 4
+  %44 = load float, ptr %23, align 4
+  %45 = load float, ptr %36, align 4
+  %46 = load float, ptr %37, align 4
+  %47 = load float, ptr %24, align 4
+  %48 = load float, ptr %38, align 4
+  %49 = load float, ptr %39, align 4
+  %50 = load float, ptr %25, align 4
+  %51 = getelementptr inbounds i8, ptr %21, i64 8
   %52 = load float, ptr %51, align 4
-  %53 = load float, ptr %21, align 4
-  %54 = load float, ptr %29, align 4
-  %55 = load float, ptr %30, align 4
-  %56 = load float, ptr %31, align 4
+  %53 = getelementptr inbounds i8, ptr %21, i64 4
+  %54 = load float, ptr %53, align 4
+  %55 = load float, ptr %21, align 4
+  %56 = load float, ptr %29, align 4
   %57 = getelementptr inbounds i8, ptr %20, i64 4
   %58 = getelementptr inbounds i8, ptr %20, i64 8
   %59 = load float, ptr %28, align 4
-  %60 = load i32, ptr %6, align 4
-  %61 = load i32, ptr %7, align 4
+  %60 = load float, ptr %31, align 4
+  %61 = load float, ptr %30, align 4
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %8) #14
   %62 = select i1 %19, ptr %1, ptr %3
-  %63 = select i1 %19, i32 %60, i32 %61
+  %63 = select i1 %19, i32 %40, i32 %41
   %64 = getelementptr inbounds %class.btBox2dShape, ptr %62, i64 0, i32 3
   %65 = getelementptr inbounds %class.btBox2dShape, ptr %22, i64 0, i32 3
   %66 = sext i32 %63 to i64
@@ -345,17 +345,17 @@ define dso_local void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeR
   %68 = load float, ptr %67, align 4, !tbaa !35
   %69 = getelementptr inbounds [4 x float], ptr %67, i64 0, i64 1
   %70 = load float, ptr %69, align 4, !tbaa !35
-  %71 = fmul float %52, %70
-  %72 = tail call float @llvm.fmuladd.f32(float %53, float %68, float %71)
+  %71 = fmul float %54, %70
+  %72 = tail call float @llvm.fmuladd.f32(float %55, float %68, float %71)
   %73 = getelementptr inbounds [4 x float], ptr %67, i64 0, i64 2
   %74 = load float, ptr %73, align 4, !tbaa !35
-  %75 = tail call float @llvm.fmuladd.f32(float %50, float %74, float %72)
-  %76 = fmul float %47, %70
-  %77 = tail call float @llvm.fmuladd.f32(float %48, float %68, float %76)
-  %78 = tail call float @llvm.fmuladd.f32(float %46, float %74, float %77)
-  %79 = fmul float %44, %70
-  %80 = tail call float @llvm.fmuladd.f32(float %45, float %68, float %79)
-  %81 = tail call float @llvm.fmuladd.f32(float %43, float %74, float %80)
+  %75 = tail call float @llvm.fmuladd.f32(float %52, float %74, float %72)
+  %76 = fmul float %49, %70
+  %77 = tail call float @llvm.fmuladd.f32(float %50, float %68, float %76)
+  %78 = tail call float @llvm.fmuladd.f32(float %48, float %74, float %77)
+  %79 = fmul float %46, %70
+  %80 = tail call float @llvm.fmuladd.f32(float %47, float %68, float %79)
+  %81 = tail call float @llvm.fmuladd.f32(float %45, float %74, float %80)
   %82 = load float, ptr %65, align 4, !tbaa !35
   %83 = getelementptr inbounds %class.btBox2dShape, ptr %22, i64 0, i32 3, i64 0, i32 0, i64 1
   %84 = load float, ptr %83, align 4, !tbaa !35
@@ -393,10 +393,10 @@ define dso_local void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeR
   %116 = tail call float @llvm.fmuladd.f32(float %59, float %81, float %115)
   %117 = fmul float %112, %78
   %118 = tail call float @llvm.fmuladd.f32(float %109, float %75, float %117)
-  %119 = tail call float @llvm.fmuladd.f32(float %56, float %81, float %118)
+  %119 = tail call float @llvm.fmuladd.f32(float %60, float %81, float %118)
   %120 = fmul float %113, %78
   %121 = tail call float @llvm.fmuladd.f32(float %110, float %75, float %120)
-  %122 = tail call float @llvm.fmuladd.f32(float %55, float %81, float %121)
+  %122 = tail call float @llvm.fmuladd.f32(float %61, float %81, float %121)
   %123 = fmul float %84, %119
   %124 = tail call float @llvm.fmuladd.f32(float %116, float %82, float %123)
   %125 = tail call float @llvm.fmuladd.f32(float %122, float %86, float %124)
@@ -444,10 +444,10 @@ define dso_local void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeR
   %167 = shufflevector <2 x float> %166, <2 x float> poison, <2 x i32> zeroinitializer
   %168 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %165, <2 x float> %167, <2 x float> %163)
   %169 = fadd <2 x float> %106, %168
-  %170 = fmul float %56, %151
+  %170 = fmul float %60, %151
   %171 = tail call float @llvm.fmuladd.f32(float %59, float %149, float %170)
-  %172 = tail call float @llvm.fmuladd.f32(float %55, float %153, float %171)
-  %173 = fadd float %54, %172
+  %172 = tail call float @llvm.fmuladd.f32(float %61, float %153, float %171)
+  %173 = fadd float %56, %172
   %174 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %173, i64 0
   store <2 x float> %169, ptr %8, align 16, !tbaa.struct !36
   store <2 x float> %174, ptr %107, align 8, !tbaa.struct !38
@@ -468,10 +468,10 @@ define dso_local void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeR
   %189 = shufflevector <2 x float> %188, <2 x float> poison, <2 x i32> zeroinitializer
   %190 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %165, <2 x float> %189, <2 x float> %187)
   %191 = fadd <2 x float> %106, %190
-  %192 = fmul float %56, %179
+  %192 = fmul float %60, %179
   %193 = tail call float @llvm.fmuladd.f32(float %59, float %177, float %192)
-  %194 = tail call float @llvm.fmuladd.f32(float %55, float %181, float %193)
-  %195 = fadd float %54, %194
+  %194 = tail call float @llvm.fmuladd.f32(float %61, float %181, float %193)
+  %195 = fadd float %56, %194
   %196 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %195, i64 0
   %197 = getelementptr inbounds %struct.ClipVertex, ptr %8, i64 1
   store <2 x float> %191, ptr %197, align 4, !tbaa.struct !36
@@ -482,9 +482,9 @@ define dso_local void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeR
   %201 = load <2 x float>, ptr %200, align 4, !tbaa.struct !36
   %202 = getelementptr inbounds i8, ptr %200, i64 8
   %203 = load <2 x float>, ptr %202, align 4, !tbaa.struct !38
-  %204 = add nsw i32 %63, 1
-  %205 = icmp slt i32 %63, 3
-  %206 = select i1 %205, i32 %204, i32 0
+  %204 = icmp slt i32 %63, 3
+  %205 = add nsw i32 %63, 1
+  %206 = select i1 %204, i32 %205, i32 0
   %207 = sext i32 %206 to i64
   %208 = getelementptr %class.btVector3, ptr %199, i64 %207
   %209 = load <2 x float>, ptr %208, align 4, !tbaa.struct !36
@@ -501,15 +501,15 @@ define dso_local void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeR
   %220 = extractelement <2 x float> %203, i64 0
   %221 = fsub <2 x float> %211, %203
   %222 = extractelement <2 x float> %221, i64 0
-  %223 = fmul float %52, %218
-  %224 = tail call float @llvm.fmuladd.f32(float %53, float %215, float %223)
-  %225 = tail call float @llvm.fmuladd.f32(float %50, float %222, float %224)
-  %226 = fmul float %47, %218
-  %227 = tail call float @llvm.fmuladd.f32(float %48, float %215, float %226)
-  %228 = tail call float @llvm.fmuladd.f32(float %46, float %222, float %227)
-  %229 = fmul float %44, %218
-  %230 = tail call float @llvm.fmuladd.f32(float %45, float %215, float %229)
-  %231 = tail call float @llvm.fmuladd.f32(float %43, float %222, float %230)
+  %223 = fmul float %54, %218
+  %224 = tail call float @llvm.fmuladd.f32(float %55, float %215, float %223)
+  %225 = tail call float @llvm.fmuladd.f32(float %52, float %222, float %224)
+  %226 = fmul float %49, %218
+  %227 = tail call float @llvm.fmuladd.f32(float %50, float %215, float %226)
+  %228 = tail call float @llvm.fmuladd.f32(float %48, float %222, float %227)
+  %229 = fmul float %46, %218
+  %230 = tail call float @llvm.fmuladd.f32(float %47, float %215, float %229)
+  %231 = tail call float @llvm.fmuladd.f32(float %45, float %222, float %230)
   %232 = fmul float %228, %228
   %233 = tail call float @llvm.fmuladd.f32(float %225, float %225, float %232)
   %234 = tail call float @llvm.fmuladd.f32(float %231, float %231, float %233)
@@ -519,36 +519,36 @@ define dso_local void @_Z17b2CollidePolygonsP16btManifoldResultPK12btBox2dShapeR
   %238 = fmul float %228, %236
   %239 = fneg float %237
   %240 = insertelement <2 x float> undef, float %238, i64 0
-  %241 = fmul float %52, %217
-  %242 = tail call float @llvm.fmuladd.f32(float %53, float %213, float %241)
-  %243 = tail call float @llvm.fmuladd.f32(float %50, float %220, float %242)
-  %244 = fadd float %42, %243
-  %245 = fmul float %47, %217
-  %246 = tail call float @llvm.fmuladd.f32(float %48, float %213, float %245)
-  %247 = tail call float @llvm.fmuladd.f32(float %46, float %220, float %246)
-  %248 = fadd float %41, %247
-  %249 = fmul float %44, %217
-  %250 = tail call float @llvm.fmuladd.f32(float %45, float %213, float %249)
-  %251 = tail call float @llvm.fmuladd.f32(float %43, float %220, float %250)
-  %252 = fmul float %52, %216
-  %253 = tail call float @llvm.fmuladd.f32(float %53, float %212, float %252)
-  %254 = tail call float @llvm.fmuladd.f32(float %50, float %219, float %253)
-  %255 = fadd float %42, %254
-  %256 = fmul float %47, %216
-  %257 = tail call float @llvm.fmuladd.f32(float %48, float %212, float %256)
-  %258 = tail call float @llvm.fmuladd.f32(float %46, float %219, float %257)
-  %259 = fadd float %41, %258
-  %260 = fmul float %44, %216
-  %261 = tail call float @llvm.fmuladd.f32(float %45, float %212, float %260)
-  %262 = tail call float @llvm.fmuladd.f32(float %43, float %219, float %261)
+  %241 = fmul float %54, %217
+  %242 = tail call float @llvm.fmuladd.f32(float %55, float %213, float %241)
+  %243 = tail call float @llvm.fmuladd.f32(float %52, float %220, float %242)
+  %244 = fadd float %44, %243
+  %245 = fmul float %49, %217
+  %246 = tail call float @llvm.fmuladd.f32(float %50, float %213, float %245)
+  %247 = tail call float @llvm.fmuladd.f32(float %48, float %220, float %246)
+  %248 = fadd float %43, %247
+  %249 = fmul float %46, %217
+  %250 = tail call float @llvm.fmuladd.f32(float %47, float %213, float %249)
+  %251 = tail call float @llvm.fmuladd.f32(float %45, float %220, float %250)
+  %252 = fmul float %54, %216
+  %253 = tail call float @llvm.fmuladd.f32(float %55, float %212, float %252)
+  %254 = tail call float @llvm.fmuladd.f32(float %52, float %219, float %253)
+  %255 = fadd float %44, %254
+  %256 = fmul float %49, %216
+  %257 = tail call float @llvm.fmuladd.f32(float %50, float %212, float %256)
+  %258 = tail call float @llvm.fmuladd.f32(float %48, float %219, float %257)
+  %259 = fadd float %43, %258
+  %260 = fmul float %46, %216
+  %261 = tail call float @llvm.fmuladd.f32(float %47, float %212, float %260)
+  %262 = tail call float @llvm.fmuladd.f32(float %45, float %219, float %261)
   %263 = fmul float %248, %239
   %264 = tail call float @llvm.fmuladd.f32(float %238, float %244, float %263)
   %265 = fmul float %259, %238
   %266 = tail call float @llvm.fmuladd.f32(float %237, float %255, float %265)
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %9) #14
   %267 = fmul float %231, %236
-  %268 = fadd float %40, %251
-  %269 = fadd float %40, %262
+  %268 = fadd float %42, %251
+  %269 = fadd float %42, %262
   %270 = getelementptr inbounds [4 x float], ptr %9, i64 0, i64 2
   %271 = getelementptr inbounds [2 x %struct.ClipVertex], ptr %9, i64 0, i64 1
   %272 = getelementptr inbounds [2 x %struct.ClipVertex], ptr %9, i64 0, i64 1, i32 0, i32 0, i64 2
@@ -960,7 +960,7 @@ define internal fastcc noundef float @_ZL17FindMaxSeparationPiPK12btBox2dShapeRK
   %167 = tail call float @llvm.fmuladd.f32(float %166, float %124, float %164)
   %168 = fcmp ogt float %167, %157
   %169 = select i1 %168, i32 3, i32 %158
-  %170 = tail call fastcc noundef float @_ZL14EdgeSeparationPK12btBox2dShapeRK11btTransformiS1_S4_(ptr noundef nonnull %1, ptr noundef nonnull align 4 dereferenceable(64) %2, i32 noundef %169, ptr noundef nonnull %3, ptr noundef nonnull align 4 dereferenceable(64) %4)
+  %170 = tail call fastcc noundef float @_ZL14EdgeSeparationPK12btBox2dShapeRK11btTransformiS1_S4_(ptr noundef nonnull %1, ptr noundef nonnull align 4 dereferenceable(64) %2, i32 noundef %169, ptr noundef %3, ptr noundef nonnull align 4 dereferenceable(64) %4)
   %171 = fcmp ogt float %170, 0.000000e+00
   br i1 %171, label %212, label %172
 
@@ -995,7 +995,7 @@ define internal fastcc noundef float @_ZL17FindMaxSeparationPiPK12btBox2dShapeRK
   %192 = add nsw i32 %190, -1
   %193 = icmp sgt i32 %190, 0
   %194 = select i1 %193, i32 %192, i32 3
-  %195 = tail call fastcc noundef float @_ZL14EdgeSeparationPK12btBox2dShapeRK11btTransformiS1_S4_(ptr noundef nonnull %1, ptr noundef nonnull align 4 dereferenceable(64) %2, i32 noundef %194, ptr noundef nonnull %3, ptr noundef nonnull align 4 dereferenceable(64) %4)
+  %195 = tail call fastcc noundef float @_ZL14EdgeSeparationPK12btBox2dShapeRK11btTransformiS1_S4_(ptr noundef %1, ptr noundef nonnull align 4 dereferenceable(64) %2, i32 noundef %194, ptr noundef %3, ptr noundef nonnull align 4 dereferenceable(64) %4)
   %196 = fcmp ogt float %195, 0.000000e+00
   br i1 %196, label %212, label %197
 
@@ -1009,7 +1009,7 @@ define internal fastcc noundef float @_ZL17FindMaxSeparationPiPK12btBox2dShapeRK
   %202 = add nsw i32 %200, 1
   %203 = icmp slt i32 %200, 3
   %204 = select i1 %203, i32 %202, i32 0
-  %205 = tail call fastcc noundef float @_ZL14EdgeSeparationPK12btBox2dShapeRK11btTransformiS1_S4_(ptr noundef nonnull %1, ptr noundef nonnull align 4 dereferenceable(64) %2, i32 noundef %204, ptr noundef nonnull %3, ptr noundef nonnull align 4 dereferenceable(64) %4)
+  %205 = tail call fastcc noundef float @_ZL14EdgeSeparationPK12btBox2dShapeRK11btTransformiS1_S4_(ptr noundef %1, ptr noundef nonnull align 4 dereferenceable(64) %2, i32 noundef %204, ptr noundef %3, ptr noundef nonnull align 4 dereferenceable(64) %4)
   %206 = fcmp ogt float %205, 0.000000e+00
   br i1 %206, label %212, label %207
 

@@ -176,7 +176,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip12CLzmaEncoder18SetCoderPropertie
   tail call void @_ZdlPv(ptr noundef nonnull %9) #15
   br label %79
 
-26:                                               ; preds = %4, %23
+26:                                               ; preds = %23, %4
   %27 = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #14
   %28 = getelementptr inbounds i8, ptr %27, i64 8
   store i32 0, ptr %28, align 8, !tbaa !18
@@ -567,7 +567,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   %51 = invoke noundef i32 %50(ptr noundef nonnull align 8 dereferenceable(8) %45)
           to label %52 unwind label %55
 
-52:                                               ; preds = %44, %47
+52:                                               ; preds = %47, %44
   store ptr %37, ptr %33, align 8, !tbaa !44
   %53 = getelementptr inbounds %class.CInStreamWithCRC, ptr %30, i64 0, i32 4
   store i64 0, ptr %53, align 8, !tbaa !46
@@ -575,7 +575,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   br label %82
 
 55:                                               ; preds = %73, %65, %60, %47, %39, %31, %58, %29
-  %56 = phi ptr [ %59, %73 ], [ %59, %65 ], [ null, %60 ], [ null, %58 ], [ %30, %47 ], [ %30, %39 ], [ null, %31 ], [ null, %29 ]
+  %56 = phi ptr [ %30, %47 ], [ %30, %39 ], [ null, %31 ], [ null, %29 ], [ %59, %73 ], [ %59, %65 ], [ null, %60 ], [ null, %58 ]
   %57 = landingpad { ptr, i32 }
           cleanup
   br label %118
@@ -613,7 +613,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   %77 = invoke noundef i32 %76(ptr noundef nonnull align 8 dereferenceable(8) %71)
           to label %78 unwind label %55
 
-78:                                               ; preds = %70, %73
+78:                                               ; preds = %73, %70
   store ptr %1, ptr %62, align 8, !tbaa !51
   %79 = getelementptr inbounds %class.CSequentialInStreamWithCRC, ptr %59, i64 0, i32 4
   store i64 0, ptr %79, align 8, !tbaa !53
@@ -903,7 +903,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   br label %282
 
 277:                                              ; preds = %449, %441, %359, %352, %313, %306, %271, %262, %439, %364, %350, %290, %259
-  %278 = phi ptr [ %430, %449 ], [ %430, %441 ], [ %430, %439 ], [ %223, %364 ], [ %223, %359 ], [ %223, %352 ], [ %223, %350 ], [ %223, %313 ], [ %223, %306 ], [ %223, %290 ], [ %223, %271 ], [ %223, %262 ], [ %223, %259 ]
+  %278 = phi ptr [ %430, %449 ], [ %430, %441 ], [ %430, %439 ], [ %223, %313 ], [ %223, %306 ], [ %223, %290 ], [ %223, %364 ], [ %223, %359 ], [ %223, %352 ], [ %223, %350 ], [ %223, %271 ], [ %223, %262 ], [ %223, %259 ]
   %279 = landingpad { ptr, i32 }
           cleanup
   br label %911
@@ -982,27 +982,27 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   %317 = invoke noundef i32 %316(ptr noundef nonnull align 8 dereferenceable(8) %311)
           to label %318 unwind label %277
 
-318:                                              ; preds = %310, %313
+318:                                              ; preds = %313, %310
   store ptr %291, ptr %308, align 8, !tbaa !71
-  %319 = load ptr, ptr %146, align 8, !tbaa !78
-  %320 = load i8, ptr %148, align 1, !tbaa !79
-  %321 = zext i8 %320 to i32
-  %322 = add nsw i32 %321, -1
-  %323 = icmp ult i32 %322, 3
-  br i1 %323, label %324, label %326
+  %319 = load i8, ptr %148, align 1, !tbaa !79
+  %320 = zext i8 %319 to i32
+  %321 = add nsw i32 %320, -1
+  %322 = icmp ult i32 %321, 3
+  %323 = load ptr, ptr %146, align 8, !tbaa !78
+  br i1 %322, label %324, label %326
 
 324:                                              ; preds = %318
-  %325 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %319, i64 0, i32 3
-  store i32 %321, ptr %325, align 8, !tbaa !80
+  %325 = getelementptr inbounds %"class.NCrypto::NWzAes::CBaseCoder", ptr %323, i64 0, i32 3
+  store i32 %320, ptr %325, align 8, !tbaa !80
   br label %326
 
 326:                                              ; preds = %318, %324
   %327 = load ptr, ptr %149, align 8, !tbaa !41
   %328 = load i32, ptr %150, align 8, !tbaa !39
-  %329 = load ptr, ptr %319, align 8, !tbaa !16
+  %329 = load ptr, ptr %323, align 8, !tbaa !16
   %330 = getelementptr inbounds ptr, ptr %329, i64 7
   %331 = load ptr, ptr %330, align 8
-  %332 = invoke noundef i32 %331(ptr noundef nonnull align 8 dereferenceable(592) %319, ptr noundef %327, i32 noundef %328)
+  %332 = invoke noundef i32 %331(ptr noundef nonnull align 8 dereferenceable(592) %323, ptr noundef %327, i32 noundef %328)
           to label %333 unwind label %336
 
 333:                                              ; preds = %326
@@ -1065,7 +1065,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   %363 = invoke noundef i32 %362(ptr noundef nonnull align 8 dereferenceable(8) %357)
           to label %364 unwind label %277
 
-364:                                              ; preds = %356, %359
+364:                                              ; preds = %359, %356
   store ptr %351, ptr %347, align 8, !tbaa !71
   %365 = load ptr, ptr %151, align 8, !tbaa !89
   %366 = load ptr, ptr %149, align 8, !tbaa !41
@@ -1185,8 +1185,8 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   br label %429
 
 429:                                              ; preds = %427, %253
-  %430 = phi ptr [ %223, %253 ], [ %428, %427 ]
-  %431 = phi i32 [ %222, %253 ], [ %417, %427 ]
+  %430 = phi ptr [ %428, %427 ], [ %223, %253 ]
+  %431 = phi i32 [ %417, %427 ], [ %222, %253 ]
   %432 = load ptr, ptr %153, align 8, !tbaa !29
   %433 = getelementptr inbounds i8, ptr %432, i64 %221
   %434 = load i8, ptr %433, align 1, !tbaa !25
@@ -1500,7 +1500,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   %586 = invoke noundef i32 %585(ptr noundef nonnull align 8 dereferenceable(8) %580)
           to label %587 unwind label %595
 
-587:                                              ; preds = %579, %582
+587:                                              ; preds = %582, %579
   store ptr %572, ptr %154, align 8, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %11) #17
   %588 = load i32, ptr %156, align 8, !tbaa !97
@@ -2116,8 +2116,8 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   br label %899
 
 899:                                              ; preds = %631, %627, %757, %687, %405, %412, %229, %238, %248, %333, %341, %423, %609, %555, %822, %491, %840, %393, %893, %883, %897
-  %900 = phi ptr [ %874, %897 ], [ %874, %893 ], [ %874, %883 ], [ %223, %393 ], [ %223, %229 ], [ %223, %238 ], [ %223, %248 ], [ %223, %333 ], [ %223, %341 ], [ %223, %423 ], [ %430, %555 ], [ %430, %609 ], [ %430, %822 ], [ %430, %491 ], [ %430, %840 ], [ %223, %412 ], [ %223, %405 ], [ %430, %687 ], [ %430, %757 ], [ %430, %627 ], [ %430, %631 ]
-  %901 = phi i32 [ 0, %897 ], [ %892, %893 ], [ %882, %883 ], [ %394, %393 ], [ %228, %229 ], [ %237, %238 ], [ %247, %248 ], [ %332, %333 ], [ %340, %341 ], [ %422, %423 ], [ %521, %555 ], [ %591, %609 ], [ %810, %822 ], [ %479, %491 ], [ %839, %840 ], [ %411, %412 ], [ %404, %405 ], [ %665, %687 ], [ %737, %757 ], [ %626, %627 ], [ -2147467263, %631 ]
+  %900 = phi ptr [ %874, %897 ], [ %874, %893 ], [ %874, %883 ], [ %223, %393 ], [ %223, %229 ], [ %223, %238 ], [ %223, %248 ], [ %223, %333 ], [ %223, %341 ], [ %223, %423 ], [ %430, %609 ], [ %430, %555 ], [ %430, %822 ], [ %430, %491 ], [ %430, %840 ], [ %223, %412 ], [ %223, %405 ], [ %430, %687 ], [ %430, %757 ], [ %430, %627 ], [ %430, %631 ]
+  %901 = phi i32 [ 0, %897 ], [ %892, %893 ], [ %882, %883 ], [ %394, %393 ], [ %228, %229 ], [ %237, %238 ], [ %247, %248 ], [ %332, %333 ], [ %340, %341 ], [ %422, %423 ], [ %591, %609 ], [ %521, %555 ], [ %810, %822 ], [ %479, %491 ], [ %839, %840 ], [ %411, %412 ], [ %404, %405 ], [ %665, %687 ], [ %737, %757 ], [ %626, %627 ], [ -2147467263, %631 ]
   %902 = icmp eq ptr %900, null
   br i1 %902, label %923, label %903
 
@@ -2135,9 +2135,9 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   call void @__clang_call_terminate(ptr %910) #16
   unreachable
 
-911:                                              ; preds = %395, %397, %826, %823, %792, %495, %492, %466, %407, %414, %231, %241, %251, %277, %280, %335, %336, %343, %425, %842, %569, %522, %617, %597, %595, %779, %711, %629, %895, %885
-  %912 = phi ptr [ %874, %895 ], [ %874, %885 ], [ %430, %842 ], [ %278, %277 ], [ %430, %711 ], [ %430, %779 ], [ %430, %629 ], [ %430, %617 ], [ %430, %595 ], [ %430, %597 ], [ %430, %569 ], [ %430, %522 ], [ %223, %425 ], [ %223, %343 ], [ %223, %336 ], [ %223, %335 ], [ %223, %280 ], [ %223, %251 ], [ %223, %241 ], [ %223, %231 ], [ %223, %414 ], [ %223, %407 ], [ %430, %466 ], [ %430, %492 ], [ %430, %495 ], [ %430, %792 ], [ %430, %823 ], [ %430, %826 ], [ %223, %395 ], [ %223, %397 ]
-  %913 = phi { ptr, i32 } [ %896, %895 ], [ %886, %885 ], [ %843, %842 ], [ %279, %277 ], [ %689, %711 ], [ %759, %779 ], [ %630, %629 ], [ %600, %617 ], [ %596, %595 ], [ %598, %597 ], [ %570, %569 ], [ %523, %522 ], [ %426, %425 ], [ %344, %343 ], [ %337, %336 ], [ %300, %335 ], [ %281, %280 ], [ %252, %251 ], [ %242, %241 ], [ %232, %231 ], [ %415, %414 ], [ %408, %407 ], [ %467, %466 ], [ %493, %492 ], [ %493, %495 ], [ %793, %792 ], [ %824, %823 ], [ %824, %826 ], [ %396, %395 ], [ %398, %397 ]
+911:                                              ; preds = %629, %711, %779, %595, %597, %617, %407, %414, %397, %395, %792, %466, %231, %241, %251, %277, %280, %335, %336, %343, %425, %842, %492, %495, %569, %522, %823, %826, %895, %885
+  %912 = phi ptr [ %874, %895 ], [ %874, %885 ], [ %430, %842 ], [ %278, %277 ], [ %223, %425 ], [ %223, %343 ], [ %223, %336 ], [ %223, %335 ], [ %223, %280 ], [ %223, %251 ], [ %223, %241 ], [ %223, %231 ], [ %430, %492 ], [ %430, %495 ], [ %430, %569 ], [ %430, %522 ], [ %430, %823 ], [ %430, %826 ], [ %430, %466 ], [ %430, %792 ], [ %223, %395 ], [ %223, %397 ], [ %223, %414 ], [ %223, %407 ], [ %430, %617 ], [ %430, %597 ], [ %430, %595 ], [ %430, %779 ], [ %430, %711 ], [ %430, %629 ]
+  %913 = phi { ptr, i32 } [ %896, %895 ], [ %886, %885 ], [ %843, %842 ], [ %279, %277 ], [ %426, %425 ], [ %344, %343 ], [ %337, %336 ], [ %300, %335 ], [ %281, %280 ], [ %252, %251 ], [ %242, %241 ], [ %232, %231 ], [ %493, %492 ], [ %493, %495 ], [ %570, %569 ], [ %523, %522 ], [ %824, %823 ], [ %824, %826 ], [ %467, %466 ], [ %793, %792 ], [ %396, %395 ], [ %398, %397 ], [ %415, %414 ], [ %408, %407 ], [ %600, %617 ], [ %598, %597 ], [ %596, %595 ], [ %759, %779 ], [ %689, %711 ], [ %630, %629 ]
   %914 = icmp eq ptr %912, null
   br i1 %914, label %935, label %915
 
@@ -2155,7 +2155,7 @@ define dso_local noundef i32 @_ZN8NArchive4NZip10CAddCommon8CompressEP19ISequent
   call void @__clang_call_terminate(ptr %922) #16
   unreachable
 
-923:                                              ; preds = %106, %903, %899, %114, %101
+923:                                              ; preds = %106, %114, %899, %903, %101
   %924 = phi i32 [ %21, %101 ], [ -2147467263, %114 ], [ %901, %899 ], [ %901, %903 ], [ -2147467263, %106 ]
   %925 = icmp eq ptr %88, null
   br i1 %925, label %934, label %926
@@ -2343,8 +2343,8 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive4NZip12CLzmaEncoder14Quer
   %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(41) %0)
   br label %87
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
+87:                                               ; preds = %77, %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %82
+  %88 = phi i32 [ 0, %82 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ], [ -2147467262, %77 ]
   ret i32 %88
 }
 

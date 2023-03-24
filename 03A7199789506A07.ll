@@ -191,7 +191,7 @@ define dso_local noundef i32 @_ZN18CMemBlockManagerMt13AllocateSpaceEPN8NWindows
 
 21:                                               ; preds = %17
   %22 = icmp ugt i64 %2, 1
-  br i1 %22, label %23, label %54
+  br i1 %22, label %23, label %41
 
 23:                                               ; preds = %21
   %24 = load i64, ptr %9, align 8, !tbaa !12
@@ -199,72 +199,72 @@ define dso_local noundef i32 @_ZN18CMemBlockManagerMt13AllocateSpaceEPN8NWindows
   %26 = add i64 %2, -2
   %27 = and i64 %25, 7
   %28 = icmp ult i64 %26, 7
-  br i1 %28, label %44, label %29
+  br i1 %28, label %31, label %29
 
 29:                                               ; preds = %23
   %30 = and i64 %25, -8
-  br label %31
+  br label %48
 
-31:                                               ; preds = %31, %29
-  %32 = phi ptr [ %19, %29 ], [ %41, %31 ]
-  %33 = phi i64 [ 0, %29 ], [ %42, %31 ]
-  %34 = getelementptr inbounds i8, ptr %32, i64 %24
-  store ptr %34, ptr %32, align 8, !tbaa !13
-  %35 = getelementptr inbounds i8, ptr %34, i64 %24
-  store ptr %35, ptr %34, align 8, !tbaa !13
-  %36 = getelementptr inbounds i8, ptr %35, i64 %24
-  store ptr %36, ptr %35, align 8, !tbaa !13
-  %37 = getelementptr inbounds i8, ptr %36, i64 %24
-  store ptr %37, ptr %36, align 8, !tbaa !13
-  %38 = getelementptr inbounds i8, ptr %37, i64 %24
-  store ptr %38, ptr %37, align 8, !tbaa !13
-  %39 = getelementptr inbounds i8, ptr %38, i64 %24
-  store ptr %39, ptr %38, align 8, !tbaa !13
-  %40 = getelementptr inbounds i8, ptr %39, i64 %24
-  store ptr %40, ptr %39, align 8, !tbaa !13
-  %41 = getelementptr inbounds i8, ptr %40, i64 %24
-  store ptr %41, ptr %40, align 8, !tbaa !13
-  %42 = add i64 %33, 8
-  %43 = icmp eq i64 %42, %30
-  br i1 %43, label %44, label %31, !llvm.loop !16
+31:                                               ; preds = %48, %23
+  %32 = phi ptr [ undef, %23 ], [ %58, %48 ]
+  %33 = phi ptr [ %19, %23 ], [ %58, %48 ]
+  %34 = icmp eq i64 %27, 0
+  br i1 %34, label %41, label %35
 
-44:                                               ; preds = %31, %23
-  %45 = phi ptr [ undef, %23 ], [ %41, %31 ]
-  %46 = phi ptr [ %19, %23 ], [ %41, %31 ]
-  %47 = icmp eq i64 %27, 0
-  br i1 %47, label %54, label %48
+35:                                               ; preds = %31, %35
+  %36 = phi ptr [ %38, %35 ], [ %33, %31 ]
+  %37 = phi i64 [ %39, %35 ], [ 0, %31 ]
+  %38 = getelementptr inbounds i8, ptr %36, i64 %24
+  store ptr %38, ptr %36, align 8, !tbaa !13
+  %39 = add i64 %37, 1
+  %40 = icmp eq i64 %39, %27
+  br i1 %40, label %41, label %35, !llvm.loop !18
 
-48:                                               ; preds = %44, %48
-  %49 = phi ptr [ %51, %48 ], [ %46, %44 ]
-  %50 = phi i64 [ %52, %48 ], [ 0, %44 ]
+41:                                               ; preds = %31, %35, %21
+  %42 = phi ptr [ %19, %21 ], [ %32, %31 ], [ %38, %35 ]
+  store ptr null, ptr %42, align 8, !tbaa !13
+  %43 = load ptr, ptr %0, align 8, !tbaa !5
+  store ptr %43, ptr %8, align 8, !tbaa !11
+  %44 = sub i64 %2, %3
+  %45 = getelementptr inbounds %class.CMemBlockManagerMt, ptr %0, i64 0, i32 2, i32 0, i32 1
+  store ptr null, ptr %45, align 8, !tbaa !19
+  %46 = trunc i64 %44 to i32
+  %47 = icmp slt i32 %46, 1
+  br i1 %47, label %64, label %61
+
+48:                                               ; preds = %48, %29
+  %49 = phi ptr [ %19, %29 ], [ %58, %48 ]
+  %50 = phi i64 [ 0, %29 ], [ %59, %48 ]
   %51 = getelementptr inbounds i8, ptr %49, i64 %24
   store ptr %51, ptr %49, align 8, !tbaa !13
-  %52 = add i64 %50, 1
-  %53 = icmp eq i64 %52, %27
-  br i1 %53, label %54, label %48, !llvm.loop !18
+  %52 = getelementptr inbounds i8, ptr %51, i64 %24
+  store ptr %52, ptr %51, align 8, !tbaa !13
+  %53 = getelementptr inbounds i8, ptr %52, i64 %24
+  store ptr %53, ptr %52, align 8, !tbaa !13
+  %54 = getelementptr inbounds i8, ptr %53, i64 %24
+  store ptr %54, ptr %53, align 8, !tbaa !13
+  %55 = getelementptr inbounds i8, ptr %54, i64 %24
+  store ptr %55, ptr %54, align 8, !tbaa !13
+  %56 = getelementptr inbounds i8, ptr %55, i64 %24
+  store ptr %56, ptr %55, align 8, !tbaa !13
+  %57 = getelementptr inbounds i8, ptr %56, i64 %24
+  store ptr %57, ptr %56, align 8, !tbaa !13
+  %58 = getelementptr inbounds i8, ptr %57, i64 %24
+  store ptr %58, ptr %57, align 8, !tbaa !13
+  %59 = add i64 %50, 8
+  %60 = icmp eq i64 %59, %30
+  br i1 %60, label %31, label %48, !llvm.loop !16
 
-54:                                               ; preds = %44, %48, %21
-  %55 = phi ptr [ %19, %21 ], [ %45, %44 ], [ %51, %48 ]
-  store ptr null, ptr %55, align 8, !tbaa !13
-  %56 = load ptr, ptr %0, align 8, !tbaa !5
-  store ptr %56, ptr %8, align 8, !tbaa !11
-  %57 = sub i64 %2, %3
-  %58 = getelementptr inbounds %class.CMemBlockManagerMt, ptr %0, i64 0, i32 2, i32 0, i32 1
-  store ptr null, ptr %58, align 8, !tbaa !19
-  %59 = trunc i64 %57 to i32
-  %60 = icmp slt i32 %59, 1
-  br i1 %60, label %64, label %61
-
-61:                                               ; preds = %54
-  store ptr %1, ptr %58, align 8, !tbaa !19
+61:                                               ; preds = %41
+  store ptr %1, ptr %45, align 8, !tbaa !19
   %62 = getelementptr inbounds %class.CMemBlockManagerMt, ptr %0, i64 0, i32 2, i32 1
-  store i32 %59, ptr %62, align 8, !tbaa !21
+  store i32 %46, ptr %62, align 8, !tbaa !21
   %63 = getelementptr inbounds %class.CMemBlockManagerMt, ptr %0, i64 0, i32 2, i32 2
-  store i32 %59, ptr %63, align 4, !tbaa !24
+  store i32 %46, ptr %63, align 4, !tbaa !24
   br label %64
 
-64:                                               ; preds = %17, %14, %6, %61, %54, %4
-  %65 = phi i32 [ -2147024809, %4 ], [ 0, %61 ], [ 1, %54 ], [ -2147024882, %6 ], [ -2147024882, %14 ], [ -2147024882, %17 ]
+64:                                               ; preds = %6, %14, %17, %61, %41, %4
+  %65 = phi i32 [ -2147024809, %4 ], [ 0, %61 ], [ 1, %41 ], [ -2147024882, %17 ], [ -2147024882, %14 ], [ -2147024882, %6 ]
   ret i32 %65
 }
 
@@ -309,7 +309,7 @@ define dso_local noundef i32 @_ZN18CMemBlockManagerMt19AllocateSpaceAlwaysEPN8NW
 
 26:                                               ; preds = %22
   %27 = icmp ugt i64 %11, 1
-  br i1 %27, label %28, label %59
+  br i1 %27, label %28, label %46
 
 28:                                               ; preds = %26
   %29 = load i64, ptr %8, align 8, !tbaa !12
@@ -317,63 +317,63 @@ define dso_local noundef i32 @_ZN18CMemBlockManagerMt19AllocateSpaceAlwaysEPN8NW
   %31 = add i64 %11, -2
   %32 = and i64 %30, 7
   %33 = icmp ult i64 %31, 7
-  br i1 %33, label %49, label %34
+  br i1 %33, label %36, label %34
 
 34:                                               ; preds = %28
   %35 = and i64 %30, -8
-  br label %36
+  br label %52
 
-36:                                               ; preds = %36, %34
-  %37 = phi ptr [ %24, %34 ], [ %46, %36 ]
-  %38 = phi i64 [ 0, %34 ], [ %47, %36 ]
-  %39 = getelementptr inbounds i8, ptr %37, i64 %29
-  store ptr %39, ptr %37, align 8, !tbaa !13
-  %40 = getelementptr inbounds i8, ptr %39, i64 %29
-  store ptr %40, ptr %39, align 8, !tbaa !13
-  %41 = getelementptr inbounds i8, ptr %40, i64 %29
-  store ptr %41, ptr %40, align 8, !tbaa !13
-  %42 = getelementptr inbounds i8, ptr %41, i64 %29
-  store ptr %42, ptr %41, align 8, !tbaa !13
-  %43 = getelementptr inbounds i8, ptr %42, i64 %29
-  store ptr %43, ptr %42, align 8, !tbaa !13
-  %44 = getelementptr inbounds i8, ptr %43, i64 %29
-  store ptr %44, ptr %43, align 8, !tbaa !13
-  %45 = getelementptr inbounds i8, ptr %44, i64 %29
-  store ptr %45, ptr %44, align 8, !tbaa !13
-  %46 = getelementptr inbounds i8, ptr %45, i64 %29
-  store ptr %46, ptr %45, align 8, !tbaa !13
-  %47 = add i64 %38, 8
-  %48 = icmp eq i64 %47, %35
-  br i1 %48, label %49, label %36, !llvm.loop !16
+36:                                               ; preds = %52, %28
+  %37 = phi ptr [ undef, %28 ], [ %62, %52 ]
+  %38 = phi ptr [ %24, %28 ], [ %62, %52 ]
+  %39 = icmp eq i64 %32, 0
+  br i1 %39, label %46, label %40
 
-49:                                               ; preds = %36, %28
-  %50 = phi ptr [ undef, %28 ], [ %46, %36 ]
-  %51 = phi ptr [ %24, %28 ], [ %46, %36 ]
-  %52 = icmp eq i64 %32, 0
-  br i1 %52, label %59, label %53
+40:                                               ; preds = %36, %40
+  %41 = phi ptr [ %43, %40 ], [ %38, %36 ]
+  %42 = phi i64 [ %44, %40 ], [ 0, %36 ]
+  %43 = getelementptr inbounds i8, ptr %41, i64 %29
+  store ptr %43, ptr %41, align 8, !tbaa !13
+  %44 = add i64 %42, 1
+  %45 = icmp eq i64 %44, %32
+  br i1 %45, label %46, label %40, !llvm.loop !25
 
-53:                                               ; preds = %49, %53
-  %54 = phi ptr [ %56, %53 ], [ %51, %49 ]
-  %55 = phi i64 [ %57, %53 ], [ 0, %49 ]
-  %56 = getelementptr inbounds i8, ptr %54, i64 %29
-  store ptr %56, ptr %54, align 8, !tbaa !13
-  %57 = add i64 %55, 1
-  %58 = icmp eq i64 %57, %32
-  br i1 %58, label %59, label %53, !llvm.loop !25
-
-59:                                               ; preds = %49, %53, %26
-  %60 = phi ptr [ %24, %26 ], [ %50, %49 ], [ %56, %53 ]
-  store ptr null, ptr %60, align 8, !tbaa !13
-  %61 = load ptr, ptr %0, align 8, !tbaa !5
-  store ptr %61, ptr %7, align 8, !tbaa !11
-  %62 = sub i64 %11, %3
+46:                                               ; preds = %36, %40, %26
+  %47 = phi ptr [ %24, %26 ], [ %37, %36 ], [ %43, %40 ]
+  store ptr null, ptr %47, align 8, !tbaa !13
+  %48 = load ptr, ptr %0, align 8, !tbaa !5
+  store ptr %48, ptr %7, align 8, !tbaa !11
+  %49 = sub i64 %11, %3
   store ptr null, ptr %9, align 8, !tbaa !19
-  %63 = trunc i64 %62 to i32
-  %64 = icmp slt i32 %63, 1
-  br i1 %64, label %69, label %65
+  %50 = trunc i64 %49 to i32
+  %51 = icmp slt i32 %50, 1
+  br i1 %51, label %69, label %65
 
-65:                                               ; preds = %59
-  %66 = trunc i64 %62 to i32
+52:                                               ; preds = %52, %34
+  %53 = phi ptr [ %24, %34 ], [ %62, %52 ]
+  %54 = phi i64 [ 0, %34 ], [ %63, %52 ]
+  %55 = getelementptr inbounds i8, ptr %53, i64 %29
+  store ptr %55, ptr %53, align 8, !tbaa !13
+  %56 = getelementptr inbounds i8, ptr %55, i64 %29
+  store ptr %56, ptr %55, align 8, !tbaa !13
+  %57 = getelementptr inbounds i8, ptr %56, i64 %29
+  store ptr %57, ptr %56, align 8, !tbaa !13
+  %58 = getelementptr inbounds i8, ptr %57, i64 %29
+  store ptr %58, ptr %57, align 8, !tbaa !13
+  %59 = getelementptr inbounds i8, ptr %58, i64 %29
+  store ptr %59, ptr %58, align 8, !tbaa !13
+  %60 = getelementptr inbounds i8, ptr %59, i64 %29
+  store ptr %60, ptr %59, align 8, !tbaa !13
+  %61 = getelementptr inbounds i8, ptr %60, i64 %29
+  store ptr %61, ptr %60, align 8, !tbaa !13
+  %62 = getelementptr inbounds i8, ptr %61, i64 %29
+  store ptr %62, ptr %61, align 8, !tbaa !13
+  %63 = add i64 %54, 8
+  %64 = icmp eq i64 %63, %35
+  br i1 %64, label %36, label %52, !llvm.loop !16
+
+65:                                               ; preds = %46
+  %66 = trunc i64 %49 to i32
   store ptr %1, ptr %9, align 8, !tbaa !19
   %67 = getelementptr inbounds %class.CMemBlockManagerMt, ptr %0, i64 0, i32 2, i32 1
   store i32 %66, ptr %67, align 8, !tbaa !21
@@ -381,7 +381,7 @@ define dso_local noundef i32 @_ZN18CMemBlockManagerMt19AllocateSpaceAlwaysEPN8NW
   store i32 %66, ptr %68, align 4, !tbaa !24
   br label %75
 
-69:                                               ; preds = %10, %59, %13, %19, %22
+69:                                               ; preds = %10, %13, %19, %22, %46
   %70 = icmp eq i64 %11, %3
   br i1 %70, label %75, label %71
 
@@ -391,8 +391,8 @@ define dso_local noundef i32 @_ZN18CMemBlockManagerMt19AllocateSpaceAlwaysEPN8NW
   %74 = add i64 %73, %3
   br label %10, !llvm.loop !26
 
-75:                                               ; preds = %69, %65, %4
-  %76 = phi i32 [ -2147024809, %4 ], [ 0, %65 ], [ -2147024882, %69 ]
+75:                                               ; preds = %69, %4, %65
+  %76 = phi i32 [ 0, %65 ], [ -2147024809, %4 ], [ -2147024882, %69 ]
   ret i32 %76
 }
 
@@ -557,42 +557,42 @@ declare void @_ZN17CBaseRecordVector12ClearAndFreeEv(ptr noundef nonnull align 8
 define dso_local noundef i32 @_ZNK10CMemBlocks13WriteToStreamEmP20ISequentialOutStream(ptr nocapture noundef nonnull readonly align 8 dereferenceable(40) %0, i64 noundef %1, ptr noundef %2) local_unnamed_addr #0 align 2 {
   %4 = getelementptr inbounds %class.CMemBlocks, ptr %0, i64 0, i32 1
   %5 = load i64, ptr %4, align 8, !tbaa !31
-  %6 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %7 = and i64 %1, 4294967295
+  %6 = and i64 %1, 4294967295
+  %7 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
   %8 = icmp eq i64 %5, 0
   br i1 %8, label %30, label %9
 
 9:                                                ; preds = %3
-  %10 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  br label %11
+  %10 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
+  br label %15
 
-11:                                               ; preds = %9, %26
-  %12 = phi i64 [ 0, %9 ], [ %28, %26 ]
-  %13 = phi i64 [ %5, %9 ], [ %27, %26 ]
-  %14 = load i32, ptr %6, align 4, !tbaa !27
-  %15 = sext i32 %14 to i64
-  %16 = icmp slt i64 %12, %15
-  br i1 %16, label %17, label %30
+11:                                               ; preds = %21
+  %12 = add nuw nsw i64 %16, 1
+  %13 = sub i64 %17, %27
+  %14 = icmp eq i64 %13, 0
+  br i1 %14, label %30, label %15, !llvm.loop !35
 
-17:                                               ; preds = %11
-  %18 = icmp ult i64 %13, %7
-  %19 = select i1 %18, i64 %13, i64 %1
-  %20 = load ptr, ptr %10, align 8, !tbaa !29
-  %21 = getelementptr inbounds ptr, ptr %20, i64 %12
-  %22 = load ptr, ptr %21, align 8, !tbaa !13
-  %23 = and i64 %19, 4294967295
-  %24 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %2, ptr noundef %22, i64 noundef %23)
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %26, label %30
+15:                                               ; preds = %9, %11
+  %16 = phi i64 [ 0, %9 ], [ %12, %11 ]
+  %17 = phi i64 [ %5, %9 ], [ %13, %11 ]
+  %18 = load i32, ptr %10, align 4, !tbaa !27
+  %19 = sext i32 %18 to i64
+  %20 = icmp slt i64 %16, %19
+  br i1 %20, label %21, label %30
 
-26:                                               ; preds = %17
-  %27 = sub i64 %13, %23
-  %28 = add nuw nsw i64 %12, 1
-  %29 = icmp eq i64 %27, 0
-  br i1 %29, label %30, label %11, !llvm.loop !35
+21:                                               ; preds = %15
+  %22 = icmp ult i64 %17, %6
+  %23 = select i1 %22, i64 %17, i64 %1
+  %24 = load ptr, ptr %7, align 8, !tbaa !29
+  %25 = getelementptr inbounds ptr, ptr %24, i64 %16
+  %26 = load ptr, ptr %25, align 8, !tbaa !13
+  %27 = and i64 %23, 4294967295
+  %28 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %2, ptr noundef %26, i64 noundef %27)
+  %29 = icmp eq i32 %28, 0
+  br i1 %29, label %11, label %30
 
-30:                                               ; preds = %17, %26, %11, %3
-  %31 = phi i32 [ 0, %3 ], [ -2147467259, %11 ], [ 0, %26 ], [ %24, %17 ]
+30:                                               ; preds = %11, %15, %21, %3
+  %31 = phi i32 [ 0, %3 ], [ 0, %11 ], [ -2147467259, %15 ], [ %28, %21 ]
   ret i32 %31
 }
 
@@ -811,7 +811,7 @@ define dso_local void @_ZN14CMemLockBlocks6DetachERS_P18CMemBlockManagerMt(ptr n
   %24 = load i64, ptr %23, align 8, !tbaa !31
   %25 = getelementptr inbounds %class.CMemBlocks, ptr %1, i64 0, i32 1
   store i64 %24, ptr %25, align 8, !tbaa !31
-  tail call void @_ZN14CMemLockBlocks4FreeEP18CMemBlockManagerMt(ptr noundef nonnull align 8 dereferenceable(41) %0, ptr noundef nonnull %2)
+  tail call void @_ZN14CMemLockBlocks4FreeEP18CMemBlockManagerMt(ptr noundef nonnull align 8 dereferenceable(41) %0, ptr noundef %2)
   ret void
 
 26:                                               ; preds = %12, %67

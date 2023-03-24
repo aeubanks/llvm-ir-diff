@@ -2429,8 +2429,8 @@ entry:
   %41 = sext i32 %narrow13 to i64
   %42 = ashr i32 %blurx.x.min_realized.s, 3
   %narrow14 = sub nsw i32 0, %42
-  %.neg8 = sext i32 %narrow14 to i64
-  %43 = add nsw i64 %39, %.neg8
+  %.neg7 = sext i32 %narrow14 to i64
+  %43 = add nsw i64 %39, %.neg7
   %44 = sub i32 %31, %blurz.x.min_realized
   %45 = add i32 %44, %27
   %narrow = sub nsw i32 %31, %42
@@ -2938,8 +2938,8 @@ entry:
   %a164 = lshr i32 %bilateral_grid.extent.0, 3
   %22 = icmp sgt i32 %bilateral_grid.extent.0, 7
   %23 = select i1 %22, i32 %a164, i32 0
-  %.not2 = icmp eq i32 %23, 0
-  br i1 %.not2, label %"end for bilateral_grid.s0.x.x", label %"for bilateral_grid.s0.x.x.preheader", !prof !4
+  %.not13 = icmp eq i32 %23, 0
+  br i1 %.not13, label %"end for bilateral_grid.s0.x.x", label %"for bilateral_grid.s0.x.x.preheader", !prof !4
 
 "for bilateral_grid.s0.x.x.preheader":            ; preds = %entry
   %24 = sext i32 %bilateral_grid.s0.y to i64
@@ -3741,11 +3741,11 @@ entry:
   %783 = shufflevector <8 x float> %782, <8 x float> undef, <8 x i32> zeroinitializer
   %784 = sext i32 %bilateral_grid.s0.y to i64
   %785 = add nsw i64 %2, %0
-  %reass.add10 = sub nsw i64 %784, %15
-  %reass.mul11 = mul nsw i64 %reass.add10, %17
+  %reass.add9 = sub nsw i64 %784, %15
+  %reass.mul10 = mul nsw i64 %reass.add9, %17
   %786 = add nsw i64 %785, -8
   %787 = sub nsw i64 %786, %13
-  %788 = add i64 %787, %reass.mul11
+  %788 = add i64 %787, %reass.mul10
   %789 = getelementptr inbounds float, ptr %input.host, i64 %788
   %a170 = load <8 x float>, ptr %789, align 4, !tbaa !12
   %790 = fcmp olt <8 x float> %a170, <float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00>
@@ -4509,10 +4509,10 @@ entry:
   %1531 = fmul <8 x float> %1008, %1530
   %1532 = fadd <8 x float> %1357, %1531
   %1533 = fdiv <8 x float> %1532, %1183
-  %reass.add12 = sub nsw i64 %784, %4
-  %reass.mul13 = mul nsw i64 %reass.add12, %6
+  %reass.add11 = sub nsw i64 %784, %4
+  %reass.mul12 = mul nsw i64 %reass.add11, %6
   %1534 = add nsw i64 %0, -8
-  %1535 = add i64 %1534, %reass.mul13
+  %1535 = add i64 %1534, %reass.mul12
   %1536 = getelementptr inbounds float, ptr %bilateral_grid.host, i64 %1535
   store <8 x float> %1533, ptr %1536, align 4, !tbaa !24
   br label %destructor_block
@@ -4568,13 +4568,7 @@ entry:
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.abs.i64(i64, i1 immarg) #5
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #5
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smin.i64(i64, i64) #5
@@ -4582,8 +4576,14 @@ declare i64 @llvm.smin.i64(i64, i64) #5
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #5
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #5
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.abs.i64(i64, i1 immarg) #5
 
 attributes #0 = { "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #1 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) }

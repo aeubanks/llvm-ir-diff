@@ -168,10 +168,10 @@ define linkonce_odr dso_local void @_ZN16btTriangleBufferD2Ev(ptr noundef nonnul
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btTriangleBuffer, ptr %0, i64 0, i32 1, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !19
   store ptr null, ptr %2, align 8, !tbaa !16
+  %11 = getelementptr inbounds %class.btTriangleBuffer, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %11, align 4, !tbaa !9
   %12 = getelementptr inbounds %class.btTriangleBuffer, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %12, align 8, !tbaa !15
@@ -212,9 +212,9 @@ define linkonce_odr dso_local void @_ZN16btTriangleBufferD0Ev(ptr noundef nonnul
           to label %10 unwind label %13
 
 10:                                               ; preds = %9, %1
-  %11 = getelementptr inbounds %class.btTriangleBuffer, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %5, align 8, !tbaa !19
   store ptr null, ptr %2, align 8, !tbaa !16
+  %11 = getelementptr inbounds %class.btTriangleBuffer, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %11, align 4, !tbaa !9
   %12 = getelementptr inbounds %class.btTriangleBuffer, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %12, align 8, !tbaa !15

@@ -239,9 +239,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP17btCollisionObje
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -962,14 +962,14 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
 
 37:                                               ; preds = %36
   %38 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %8, i64 0, i32 3
-  %39 = load float, ptr %38, align 8, !tbaa !53
-  %40 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %8, i64 0, i32 3, i32 0, i64 1
-  %41 = load float, ptr %40, align 4, !tbaa !53
-  %42 = fmul float %41, %41
-  %43 = call float @llvm.fmuladd.f32(float %39, float %39, float %42)
-  %44 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %8, i64 0, i32 3, i32 0, i64 2
-  %45 = load float, ptr %44, align 8, !tbaa !53
-  %46 = call float @llvm.fmuladd.f32(float %45, float %45, float %43)
+  %39 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %8, i64 0, i32 3, i32 0, i64 2
+  %40 = load float, ptr %39, align 8, !tbaa !53
+  %41 = load float, ptr %38, align 8, !tbaa !53
+  %42 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %8, i64 0, i32 3, i32 0, i64 1
+  %43 = load float, ptr %42, align 4, !tbaa !53
+  %44 = fmul float %43, %43
+  %45 = call float @llvm.fmuladd.f32(float %41, float %41, float %44)
+  %46 = call float @llvm.fmuladd.f32(float %40, float %40, float %45)
   %47 = fcmp ogt float %46, 0x3F1A36E2E0000000
   br i1 %47, label %48, label %114
 
@@ -980,43 +980,43 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
   br i1 %51, label %52, label %114
 
 52:                                               ; preds = %48
-  %53 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 1
-  %54 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 2
-  %55 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
-  %56 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
-  %57 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
-  %58 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
+  %53 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 2
+  %54 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 1
+  %55 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %56 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
+  %57 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
+  %58 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
   %59 = load float, ptr %58, align 4, !tbaa !53
-  %60 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 1
+  %60 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
   %61 = load float, ptr %60, align 4, !tbaa !53
-  %62 = fmul float %41, %61
-  %63 = call float @llvm.fmuladd.f32(float %59, float %39, float %62)
-  %64 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
-  %65 = load float, ptr %64, align 4, !tbaa !53
-  %66 = call float @llvm.fmuladd.f32(float %65, float %45, float %63)
+  %62 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 1
+  %63 = load float, ptr %62, align 4, !tbaa !53
+  %64 = fmul float %43, %63
+  %65 = call float @llvm.fmuladd.f32(float %61, float %41, float %64)
+  %66 = call float @llvm.fmuladd.f32(float %59, float %40, float %65)
   %67 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %66, i64 0
-  store <2 x float> %67, ptr %44, align 8, !tbaa.struct !68
-  %68 = load <4 x float>, ptr %0, align 4
+  store <2 x float> %67, ptr %39, align 8, !tbaa.struct !68
+  %68 = load <4 x float>, ptr %53, align 4
   %69 = shufflevector <4 x float> %68, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %70 = load <4 x float>, ptr %53, align 4
+  %70 = load <4 x float>, ptr %0, align 4
   %71 = shufflevector <4 x float> %70, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
   %72 = load <4 x float>, ptr %54, align 4
   %73 = shufflevector <4 x float> %72, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
   %74 = load float, ptr %55, align 4, !tbaa !53
   %75 = load float, ptr %56, align 4, !tbaa !53
-  %76 = insertelement <2 x float> poison, float %41, i64 0
-  %77 = shufflevector <2 x float> %76, <2 x float> poison, <2 x i32> zeroinitializer
-  %78 = insertelement <2 x float> %71, float %75, i64 1
-  %79 = fmul <2 x float> %77, %78
-  %80 = insertelement <2 x float> %69, float %74, i64 1
-  %81 = insertelement <2 x float> poison, float %39, i64 0
-  %82 = shufflevector <2 x float> %81, <2 x float> poison, <2 x i32> zeroinitializer
-  %83 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %80, <2 x float> %82, <2 x float> %79)
-  %84 = load float, ptr %57, align 4, !tbaa !53
-  %85 = insertelement <2 x float> %73, float %84, i64 1
-  %86 = insertelement <2 x float> poison, float %45, i64 0
+  %76 = load float, ptr %57, align 4, !tbaa !53
+  %77 = insertelement <2 x float> poison, float %43, i64 0
+  %78 = shufflevector <2 x float> %77, <2 x float> poison, <2 x i32> zeroinitializer
+  %79 = insertelement <2 x float> %73, float %76, i64 1
+  %80 = fmul <2 x float> %78, %79
+  %81 = insertelement <2 x float> %71, float %75, i64 1
+  %82 = insertelement <2 x float> poison, float %41, i64 0
+  %83 = shufflevector <2 x float> %82, <2 x float> poison, <2 x i32> zeroinitializer
+  %84 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %81, <2 x float> %83, <2 x float> %80)
+  %85 = insertelement <2 x float> %69, float %74, i64 1
+  %86 = insertelement <2 x float> poison, float %40, i64 0
   %87 = shufflevector <2 x float> %86, <2 x float> poison, <2 x i32> zeroinitializer
-  %88 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %85, <2 x float> %87, <2 x float> %83)
+  %88 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %85, <2 x float> %87, <2 x float> %84)
   %89 = fmul <2 x float> %88, %88
   %90 = extractelement <2 x float> %89, i64 1
   %91 = extractelement <2 x float> %88, i64 0
@@ -1029,7 +1029,7 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
   %98 = fmul <2 x float> %97, %88
   store <2 x float> %98, ptr %38, align 8, !tbaa !53
   %99 = fmul float %66, %95
-  store float %99, ptr %44, align 8, !tbaa !53
+  store float %99, ptr %39, align 8, !tbaa !53
   call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %11) #15
   store ptr %2, ptr %11, align 8, !tbaa !69
   %100 = getelementptr inbounds %"struct.btCollisionWorld::LocalRayResult", ptr %11, i64 0, i32 1
@@ -1125,54 +1125,54 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
   %154 = fmul float %131, %138
   %155 = call float @llvm.fmuladd.f32(float %130, float %135, float %154)
   %156 = call float @llvm.fmuladd.f32(float %132, float %141, float %155)
-  %157 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1
+  %157 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1, i32 0, i64 2
   br i1 %124, label %158, label %223
 
 158:                                              ; preds = %123
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %12) #15
   %159 = load float, ptr %157, align 4, !tbaa !53
-  %160 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1, i32 0, i64 1
+  %160 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1
   %161 = load float, ptr %160, align 4, !tbaa !53
-  %162 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1, i32 0, i64 2
+  %162 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1, i32 0, i64 1
   %163 = load float, ptr %162, align 4, !tbaa !53
-  %164 = insertelement <2 x float> poison, float %161, i64 0
+  %164 = insertelement <2 x float> poison, float %163, i64 0
   %165 = shufflevector <2 x float> %164, <2 x float> poison, <2 x i32> zeroinitializer
   %166 = fmul <2 x float> %143, %165
-  %167 = insertelement <2 x float> poison, float %159, i64 0
+  %167 = insertelement <2 x float> poison, float %161, i64 0
   %168 = shufflevector <2 x float> %167, <2 x float> poison, <2 x i32> zeroinitializer
   %169 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %142, <2 x float> %168, <2 x float> %166)
-  %170 = insertelement <2 x float> poison, float %163, i64 0
+  %170 = insertelement <2 x float> poison, float %159, i64 0
   %171 = shufflevector <2 x float> %170, <2 x float> poison, <2 x i32> zeroinitializer
   %172 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %144, <2 x float> %171, <2 x float> %169)
   %173 = fadd <2 x float> %153, %172
-  %174 = fmul float %131, %161
-  %175 = call float @llvm.fmuladd.f32(float %130, float %159, float %174)
-  %176 = call float @llvm.fmuladd.f32(float %132, float %163, float %175)
+  %174 = fmul float %131, %163
+  %175 = call float @llvm.fmuladd.f32(float %130, float %161, float %174)
+  %176 = call float @llvm.fmuladd.f32(float %132, float %159, float %175)
   %177 = fadd float %156, %176
   %178 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %177, i64 0
   store <2 x float> %173, ptr %12, align 8
   %179 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %12, i64 0, i32 1
   store <2 x float> %178, ptr %179, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %13) #15
-  %180 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1
+  %180 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 2
   %181 = load float, ptr %180, align 4, !tbaa !53
-  %182 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 1
+  %182 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1
   %183 = load float, ptr %182, align 4, !tbaa !53
-  %184 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 2
+  %184 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 1
   %185 = load float, ptr %184, align 4, !tbaa !53
-  %186 = insertelement <2 x float> poison, float %183, i64 0
+  %186 = insertelement <2 x float> poison, float %185, i64 0
   %187 = shufflevector <2 x float> %186, <2 x float> poison, <2 x i32> zeroinitializer
   %188 = fmul <2 x float> %143, %187
-  %189 = insertelement <2 x float> poison, float %181, i64 0
+  %189 = insertelement <2 x float> poison, float %183, i64 0
   %190 = shufflevector <2 x float> %189, <2 x float> poison, <2 x i32> zeroinitializer
   %191 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %142, <2 x float> %190, <2 x float> %188)
-  %192 = insertelement <2 x float> poison, float %185, i64 0
+  %192 = insertelement <2 x float> poison, float %181, i64 0
   %193 = shufflevector <2 x float> %192, <2 x float> poison, <2 x i32> zeroinitializer
   %194 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %144, <2 x float> %193, <2 x float> %191)
   %195 = fadd <2 x float> %153, %194
-  %196 = fmul float %131, %183
-  %197 = call float @llvm.fmuladd.f32(float %130, float %181, float %196)
-  %198 = call float @llvm.fmuladd.f32(float %132, float %185, float %197)
+  %196 = fmul float %131, %185
+  %197 = call float @llvm.fmuladd.f32(float %130, float %183, float %196)
+  %198 = call float @llvm.fmuladd.f32(float %132, float %181, float %197)
   %199 = fadd float %156, %198
   %200 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %199, i64 0
   store <2 x float> %195, ptr %13, align 8
@@ -1238,48 +1238,48 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
 223:                                              ; preds = %123
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %15) #15
   %224 = load float, ptr %157, align 4, !tbaa !53
-  %225 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1, i32 0, i64 1
+  %225 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1
   %226 = load float, ptr %225, align 4, !tbaa !53
-  %227 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1, i32 0, i64 2
+  %227 = getelementptr inbounds %class.btTransform, ptr %0, i64 0, i32 1, i32 0, i64 1
   %228 = load float, ptr %227, align 4, !tbaa !53
-  %229 = insertelement <2 x float> poison, float %226, i64 0
+  %229 = insertelement <2 x float> poison, float %228, i64 0
   %230 = shufflevector <2 x float> %229, <2 x float> poison, <2 x i32> zeroinitializer
   %231 = fmul <2 x float> %143, %230
-  %232 = insertelement <2 x float> poison, float %224, i64 0
+  %232 = insertelement <2 x float> poison, float %226, i64 0
   %233 = shufflevector <2 x float> %232, <2 x float> poison, <2 x i32> zeroinitializer
   %234 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %142, <2 x float> %233, <2 x float> %231)
-  %235 = insertelement <2 x float> poison, float %228, i64 0
+  %235 = insertelement <2 x float> poison, float %224, i64 0
   %236 = shufflevector <2 x float> %235, <2 x float> poison, <2 x i32> zeroinitializer
   %237 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %144, <2 x float> %236, <2 x float> %234)
   %238 = fadd <2 x float> %153, %237
-  %239 = fmul float %131, %226
-  %240 = call float @llvm.fmuladd.f32(float %130, float %224, float %239)
-  %241 = call float @llvm.fmuladd.f32(float %132, float %228, float %240)
+  %239 = fmul float %131, %228
+  %240 = call float @llvm.fmuladd.f32(float %130, float %226, float %239)
+  %241 = call float @llvm.fmuladd.f32(float %132, float %224, float %240)
   %242 = fadd float %156, %241
   %243 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %242, i64 0
   store <2 x float> %238, ptr %15, align 8
   %244 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %15, i64 0, i32 1
   store <2 x float> %243, ptr %244, align 8
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %16) #15
-  %245 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1
+  %245 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 2
   %246 = load float, ptr %245, align 4, !tbaa !53
-  %247 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 1
+  %247 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1
   %248 = load float, ptr %247, align 4, !tbaa !53
-  %249 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 2
+  %249 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 1
   %250 = load float, ptr %249, align 4, !tbaa !53
-  %251 = insertelement <2 x float> poison, float %248, i64 0
+  %251 = insertelement <2 x float> poison, float %250, i64 0
   %252 = shufflevector <2 x float> %251, <2 x float> poison, <2 x i32> zeroinitializer
   %253 = fmul <2 x float> %143, %252
-  %254 = insertelement <2 x float> poison, float %246, i64 0
+  %254 = insertelement <2 x float> poison, float %248, i64 0
   %255 = shufflevector <2 x float> %254, <2 x float> poison, <2 x i32> zeroinitializer
   %256 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %142, <2 x float> %255, <2 x float> %253)
-  %257 = insertelement <2 x float> poison, float %250, i64 0
+  %257 = insertelement <2 x float> poison, float %246, i64 0
   %258 = shufflevector <2 x float> %257, <2 x float> poison, <2 x i32> zeroinitializer
   %259 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %144, <2 x float> %258, <2 x float> %256)
   %260 = fadd <2 x float> %153, %259
-  %261 = fmul float %131, %248
-  %262 = call float @llvm.fmuladd.f32(float %130, float %246, float %261)
-  %263 = call float @llvm.fmuladd.f32(float %132, float %250, float %262)
+  %261 = fmul float %131, %250
+  %262 = call float @llvm.fmuladd.f32(float %130, float %248, float %261)
+  %263 = call float @llvm.fmuladd.f32(float %132, float %246, float %262)
   %264 = fadd float %156, %263
   %265 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %264, i64 0
   store <2 x float> %260, ptr %16, align 8
@@ -1477,33 +1477,33 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
   %366 = phi i64 [ 0, %341 ], [ %454, %453 ]
   %367 = load ptr, ptr %342, align 8, !tbaa !88
   %368 = getelementptr inbounds %struct.btCompoundShapeChild, ptr %367, i64 %366
-  %369 = getelementptr inbounds i8, ptr %368, i64 8
-  %370 = load float, ptr %369, align 4, !tbaa.struct !68
-  %371 = getelementptr inbounds [3 x %class.btVector3], ptr %368, i64 0, i64 1
-  %372 = getelementptr inbounds i8, ptr %371, i64 8
-  %373 = load float, ptr %372, align 4, !tbaa.struct !68
-  %374 = getelementptr inbounds [3 x %class.btVector3], ptr %368, i64 0, i64 2
-  %375 = getelementptr inbounds i8, ptr %374, i64 8
-  %376 = load float, ptr %375, align 4, !tbaa.struct !68
-  %377 = getelementptr inbounds %class.btTransform, ptr %368, i64 0, i32 1
-  %378 = load float, ptr %377, align 4, !tbaa.struct !48
-  %379 = getelementptr inbounds i8, ptr %377, i64 4
-  %380 = load float, ptr %379, align 4, !tbaa.struct !89
-  %381 = getelementptr inbounds i8, ptr %377, i64 8
+  %369 = getelementptr inbounds %class.btTransform, ptr %368, i64 0, i32 1
+  %370 = getelementptr inbounds i8, ptr %369, i64 8
+  %371 = load float, ptr %370, align 4, !tbaa.struct !68
+  %372 = getelementptr inbounds i8, ptr %369, i64 4
+  %373 = load float, ptr %372, align 4, !tbaa.struct !89
+  %374 = load float, ptr %369, align 4, !tbaa.struct !48
+  %375 = getelementptr inbounds [3 x %class.btVector3], ptr %368, i64 0, i64 2
+  %376 = getelementptr inbounds i8, ptr %375, i64 8
+  %377 = load float, ptr %376, align 4, !tbaa.struct !68
+  %378 = getelementptr inbounds [3 x %class.btVector3], ptr %368, i64 0, i64 1
+  %379 = getelementptr inbounds i8, ptr %378, i64 8
+  %380 = load float, ptr %379, align 4, !tbaa.struct !68
+  %381 = getelementptr inbounds i8, ptr %368, i64 8
   %382 = load float, ptr %381, align 4, !tbaa.struct !68
   %383 = getelementptr inbounds %struct.btCompoundShapeChild, ptr %367, i64 %366, i32 1
   %384 = load ptr, ptr %383, align 8, !tbaa !90
-  %385 = load <2 x float>, ptr %368, align 4
-  %386 = load <2 x float>, ptr %371, align 4
-  %387 = load <2 x float>, ptr %374, align 4
+  %385 = load <2 x float>, ptr %375, align 4
+  %386 = load <2 x float>, ptr %378, align 4
+  %387 = load <2 x float>, ptr %368, align 4
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %20) #15
   call void @llvm.experimental.noalias.scope.decl(metadata !92)
   %388 = load float, ptr %348, align 4, !tbaa !53, !noalias !95
   %389 = load float, ptr %349, align 4, !tbaa !53, !noalias !95
   %390 = load float, ptr %350, align 4, !tbaa !53, !noalias !95
-  %391 = fmul float %373, %389
-  %392 = call float @llvm.fmuladd.f32(float %370, float %388, float %391)
-  %393 = call float @llvm.fmuladd.f32(float %376, float %390, float %392)
+  %391 = fmul float %380, %389
+  %392 = call float @llvm.fmuladd.f32(float %382, float %388, float %391)
+  %393 = call float @llvm.fmuladd.f32(float %377, float %390, float %392)
   %394 = load float, ptr %4, align 4, !tbaa !53, !noalias !95
   %395 = load float, ptr %343, align 4, !tbaa !53, !noalias !95
   %396 = load float, ptr %344, align 4, !tbaa !53, !noalias !95
@@ -1512,36 +1512,36 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
   %399 = fmul <2 x float> %386, %398
   %400 = insertelement <2 x float> poison, float %394, i64 0
   %401 = shufflevector <2 x float> %400, <2 x float> poison, <2 x i32> zeroinitializer
-  %402 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %385, <2 x float> %401, <2 x float> %399)
+  %402 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %387, <2 x float> %401, <2 x float> %399)
   %403 = insertelement <2 x float> poison, float %396, i64 0
   %404 = shufflevector <2 x float> %403, <2 x float> poison, <2 x i32> zeroinitializer
-  %405 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %387, <2 x float> %404, <2 x float> %402)
-  %406 = fmul float %373, %395
-  %407 = call float @llvm.fmuladd.f32(float %370, float %394, float %406)
-  %408 = call float @llvm.fmuladd.f32(float %376, float %396, float %407)
+  %405 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %385, <2 x float> %404, <2 x float> %402)
+  %406 = fmul float %380, %395
+  %407 = call float @llvm.fmuladd.f32(float %382, float %394, float %406)
+  %408 = call float @llvm.fmuladd.f32(float %377, float %396, float %407)
   %409 = load float, ptr %345, align 4, !tbaa !53, !noalias !95
   %410 = load float, ptr %346, align 4, !tbaa !53, !noalias !95
   %411 = load float, ptr %347, align 4, !tbaa !53, !noalias !95
-  %412 = fmul float %373, %410
-  %413 = call float @llvm.fmuladd.f32(float %370, float %409, float %412)
-  %414 = call float @llvm.fmuladd.f32(float %376, float %411, float %413)
-  %415 = insertelement <2 x float> poison, float %380, i64 0
+  %412 = fmul float %380, %410
+  %413 = call float @llvm.fmuladd.f32(float %382, float %409, float %412)
+  %414 = call float @llvm.fmuladd.f32(float %377, float %411, float %413)
+  %415 = insertelement <2 x float> poison, float %373, i64 0
   %416 = shufflevector <2 x float> %415, <2 x float> poison, <2 x i32> zeroinitializer
   %417 = insertelement <2 x float> %397, float %410, i64 1
   %418 = fmul <2 x float> %416, %417
   %419 = insertelement <2 x float> %400, float %409, i64 1
-  %420 = insertelement <2 x float> poison, float %378, i64 0
+  %420 = insertelement <2 x float> poison, float %374, i64 0
   %421 = shufflevector <2 x float> %420, <2 x float> poison, <2 x i32> zeroinitializer
   %422 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %419, <2 x float> %421, <2 x float> %418)
   %423 = insertelement <2 x float> %403, float %411, i64 1
-  %424 = insertelement <2 x float> poison, float %382, i64 0
+  %424 = insertelement <2 x float> poison, float %371, i64 0
   %425 = shufflevector <2 x float> %424, <2 x float> poison, <2 x i32> zeroinitializer
   %426 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %423, <2 x float> %425, <2 x float> %422)
   %427 = load <2 x float>, ptr %351, align 4, !tbaa !53, !noalias !92
   %428 = fadd <2 x float> %426, %427
-  %429 = fmul float %380, %389
-  %430 = call float @llvm.fmuladd.f32(float %388, float %378, float %429)
-  %431 = call float @llvm.fmuladd.f32(float %390, float %382, float %430)
+  %429 = fmul float %373, %389
+  %430 = call float @llvm.fmuladd.f32(float %388, float %374, float %429)
+  %431 = call float @llvm.fmuladd.f32(float %390, float %371, float %430)
   %432 = load float, ptr %352, align 4, !tbaa !53, !noalias !92
   %433 = fadd float %431, %432
   %434 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %433, i64 0
@@ -1553,10 +1553,10 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
   %437 = fmul <2 x float> %386, %436
   %438 = insertelement <2 x float> poison, float %409, i64 0
   %439 = shufflevector <2 x float> %438, <2 x float> poison, <2 x i32> zeroinitializer
-  %440 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %385, <2 x float> %439, <2 x float> %437)
+  %440 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %387, <2 x float> %439, <2 x float> %437)
   %441 = insertelement <2 x float> poison, float %411, i64 0
   %442 = shufflevector <2 x float> %441, <2 x float> poison, <2 x i32> zeroinitializer
-  %443 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %387, <2 x float> %442, <2 x float> %440)
+  %443 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %385, <2 x float> %442, <2 x float> %440)
   store <2 x float> %443, ptr %355, align 8, !alias.scope !92
   store float %414, ptr %356, align 8, !tbaa.struct !68, !alias.scope !92
   store float 0.000000e+00, ptr %357, align 4, !tbaa.struct !98, !alias.scope !92
@@ -1565,10 +1565,10 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
   %446 = fmul <2 x float> %386, %445
   %447 = insertelement <2 x float> poison, float %388, i64 0
   %448 = shufflevector <2 x float> %447, <2 x float> poison, <2 x i32> zeroinitializer
-  %449 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %385, <2 x float> %448, <2 x float> %446)
+  %449 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %387, <2 x float> %448, <2 x float> %446)
   %450 = insertelement <2 x float> poison, float %390, i64 0
   %451 = shufflevector <2 x float> %450, <2 x float> poison, <2 x i32> zeroinitializer
-  %452 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %387, <2 x float> %451, <2 x float> %449)
+  %452 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %385, <2 x float> %451, <2 x float> %449)
   store <2 x float> %452, ptr %358, align 8, !alias.scope !92
   store float %393, ptr %359, align 8, !tbaa.struct !68, !alias.scope !92
   store float 0.000000e+00, ptr %360, align 4, !tbaa.struct !98, !alias.scope !92
@@ -1598,7 +1598,7 @@ define dso_local void @_ZN16btCollisionWorld13rayTestSingleERK11btTransformS2_P1
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %7) #15
   ret void
 
-461:                                              ; preds = %458, %333, %221, %118
+461:                                              ; preds = %118, %221, %333, %458
   %462 = phi { ptr, i32 } [ %119, %118 ], [ %222, %221 ], [ %334, %333 ], [ %459, %458 ]
   invoke void @_ZN13btConvexShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %7)
           to label %463 unwind label %464
@@ -1690,14 +1690,14 @@ define dso_local void @_ZN16btCollisionWorld17objectQuerySingleEPK13btConvexShap
 
 43:                                               ; preds = %42
   %44 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %9, i64 0, i32 3
-  %45 = load <2 x float>, ptr %44, align 8, !tbaa !53
-  %46 = fmul <2 x float> %45, %45
-  %47 = extractelement <2 x float> %46, i64 1
-  %48 = extractelement <2 x float> %45, i64 0
-  %49 = call float @llvm.fmuladd.f32(float %48, float %48, float %47)
-  %50 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %9, i64 0, i32 3, i32 0, i64 2
-  %51 = load float, ptr %50, align 8, !tbaa !53
-  %52 = call float @llvm.fmuladd.f32(float %51, float %51, float %49)
+  %45 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %9, i64 0, i32 3, i32 0, i64 2
+  %46 = load float, ptr %45, align 8, !tbaa !53
+  %47 = load <2 x float>, ptr %44, align 8, !tbaa !53
+  %48 = fmul <2 x float> %47, %47
+  %49 = extractelement <2 x float> %48, i64 1
+  %50 = extractelement <2 x float> %47, i64 0
+  %51 = call float @llvm.fmuladd.f32(float %50, float %50, float %49)
+  %52 = call float @llvm.fmuladd.f32(float %46, float %46, float %51)
   %53 = fcmp ogt float %52, 0x3F1A36E2E0000000
   br i1 %53, label %54, label %81
 
@@ -1712,10 +1712,10 @@ define dso_local void @_ZN16btCollisionWorld17objectQuerySingleEPK13btConvexShap
   %60 = fdiv float 1.000000e+00, %59
   %61 = insertelement <2 x float> poison, float %60, i64 0
   %62 = shufflevector <2 x float> %61, <2 x float> poison, <2 x i32> zeroinitializer
-  %63 = fmul <2 x float> %45, %62
+  %63 = fmul <2 x float> %47, %62
   store <2 x float> %63, ptr %44, align 8, !tbaa !53
-  %64 = fmul float %51, %60
-  store float %64, ptr %50, align 8, !tbaa !53
+  %64 = fmul float %46, %60
+  store float %64, ptr %45, align 8, !tbaa !53
   call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %13) #15
   %65 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %9, i64 0, i32 4
   store ptr %3, ptr %13, align 8, !tbaa !101
@@ -2254,33 +2254,33 @@ define dso_local void @_ZN16btCollisionWorld17objectQuerySingleEPK13btConvexShap
   %428 = phi i64 [ 0, %403 ], [ %516, %515 ]
   %429 = load ptr, ptr %404, align 8, !tbaa !88
   %430 = getelementptr inbounds %struct.btCompoundShapeChild, ptr %429, i64 %428
-  %431 = getelementptr inbounds i8, ptr %430, i64 8
-  %432 = load float, ptr %431, align 4, !tbaa.struct !68
-  %433 = getelementptr inbounds [3 x %class.btVector3], ptr %430, i64 0, i64 1
-  %434 = getelementptr inbounds i8, ptr %433, i64 8
-  %435 = load float, ptr %434, align 4, !tbaa.struct !68
-  %436 = getelementptr inbounds [3 x %class.btVector3], ptr %430, i64 0, i64 2
-  %437 = getelementptr inbounds i8, ptr %436, i64 8
-  %438 = load float, ptr %437, align 4, !tbaa.struct !68
-  %439 = getelementptr inbounds %class.btTransform, ptr %430, i64 0, i32 1
-  %440 = load float, ptr %439, align 4, !tbaa.struct !48
-  %441 = getelementptr inbounds i8, ptr %439, i64 4
-  %442 = load float, ptr %441, align 4, !tbaa.struct !89
-  %443 = getelementptr inbounds i8, ptr %439, i64 8
+  %431 = getelementptr inbounds %class.btTransform, ptr %430, i64 0, i32 1
+  %432 = getelementptr inbounds i8, ptr %431, i64 8
+  %433 = load float, ptr %432, align 4, !tbaa.struct !68
+  %434 = getelementptr inbounds i8, ptr %431, i64 4
+  %435 = load float, ptr %434, align 4, !tbaa.struct !89
+  %436 = load float, ptr %431, align 4, !tbaa.struct !48
+  %437 = getelementptr inbounds [3 x %class.btVector3], ptr %430, i64 0, i64 2
+  %438 = getelementptr inbounds i8, ptr %437, i64 8
+  %439 = load float, ptr %438, align 4, !tbaa.struct !68
+  %440 = getelementptr inbounds [3 x %class.btVector3], ptr %430, i64 0, i64 1
+  %441 = getelementptr inbounds i8, ptr %440, i64 8
+  %442 = load float, ptr %441, align 4, !tbaa.struct !68
+  %443 = getelementptr inbounds i8, ptr %430, i64 8
   %444 = load float, ptr %443, align 4, !tbaa.struct !68
   %445 = getelementptr inbounds %struct.btCompoundShapeChild, ptr %429, i64 %428, i32 1
   %446 = load ptr, ptr %445, align 8, !tbaa !90
-  %447 = load <2 x float>, ptr %430, align 4
-  %448 = load <2 x float>, ptr %433, align 4
-  %449 = load <2 x float>, ptr %436, align 4
+  %447 = load <2 x float>, ptr %437, align 4
+  %448 = load <2 x float>, ptr %440, align 4
+  %449 = load <2 x float>, ptr %430, align 4
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %26) #15
   call void @llvm.experimental.noalias.scope.decl(metadata !121)
   %450 = load float, ptr %410, align 4, !tbaa !53, !noalias !124
   %451 = load float, ptr %411, align 4, !tbaa !53, !noalias !124
   %452 = load float, ptr %412, align 4, !tbaa !53, !noalias !124
-  %453 = fmul float %435, %451
-  %454 = call float @llvm.fmuladd.f32(float %432, float %450, float %453)
-  %455 = call float @llvm.fmuladd.f32(float %438, float %452, float %454)
+  %453 = fmul float %442, %451
+  %454 = call float @llvm.fmuladd.f32(float %444, float %450, float %453)
+  %455 = call float @llvm.fmuladd.f32(float %439, float %452, float %454)
   %456 = load float, ptr %5, align 4, !tbaa !53, !noalias !124
   %457 = load float, ptr %405, align 4, !tbaa !53, !noalias !124
   %458 = load float, ptr %406, align 4, !tbaa !53, !noalias !124
@@ -2289,36 +2289,36 @@ define dso_local void @_ZN16btCollisionWorld17objectQuerySingleEPK13btConvexShap
   %461 = fmul <2 x float> %448, %460
   %462 = insertelement <2 x float> poison, float %456, i64 0
   %463 = shufflevector <2 x float> %462, <2 x float> poison, <2 x i32> zeroinitializer
-  %464 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %447, <2 x float> %463, <2 x float> %461)
+  %464 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %449, <2 x float> %463, <2 x float> %461)
   %465 = insertelement <2 x float> poison, float %458, i64 0
   %466 = shufflevector <2 x float> %465, <2 x float> poison, <2 x i32> zeroinitializer
-  %467 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %449, <2 x float> %466, <2 x float> %464)
-  %468 = fmul float %435, %457
-  %469 = call float @llvm.fmuladd.f32(float %432, float %456, float %468)
-  %470 = call float @llvm.fmuladd.f32(float %438, float %458, float %469)
+  %467 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %447, <2 x float> %466, <2 x float> %464)
+  %468 = fmul float %442, %457
+  %469 = call float @llvm.fmuladd.f32(float %444, float %456, float %468)
+  %470 = call float @llvm.fmuladd.f32(float %439, float %458, float %469)
   %471 = load float, ptr %407, align 4, !tbaa !53, !noalias !124
   %472 = load float, ptr %408, align 4, !tbaa !53, !noalias !124
   %473 = load float, ptr %409, align 4, !tbaa !53, !noalias !124
-  %474 = fmul float %435, %472
-  %475 = call float @llvm.fmuladd.f32(float %432, float %471, float %474)
-  %476 = call float @llvm.fmuladd.f32(float %438, float %473, float %475)
-  %477 = insertelement <2 x float> poison, float %442, i64 0
+  %474 = fmul float %442, %472
+  %475 = call float @llvm.fmuladd.f32(float %444, float %471, float %474)
+  %476 = call float @llvm.fmuladd.f32(float %439, float %473, float %475)
+  %477 = insertelement <2 x float> poison, float %435, i64 0
   %478 = shufflevector <2 x float> %477, <2 x float> poison, <2 x i32> zeroinitializer
   %479 = insertelement <2 x float> %459, float %472, i64 1
   %480 = fmul <2 x float> %478, %479
   %481 = insertelement <2 x float> %462, float %471, i64 1
-  %482 = insertelement <2 x float> poison, float %440, i64 0
+  %482 = insertelement <2 x float> poison, float %436, i64 0
   %483 = shufflevector <2 x float> %482, <2 x float> poison, <2 x i32> zeroinitializer
   %484 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %481, <2 x float> %483, <2 x float> %480)
   %485 = insertelement <2 x float> %465, float %473, i64 1
-  %486 = insertelement <2 x float> poison, float %444, i64 0
+  %486 = insertelement <2 x float> poison, float %433, i64 0
   %487 = shufflevector <2 x float> %486, <2 x float> poison, <2 x i32> zeroinitializer
   %488 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %485, <2 x float> %487, <2 x float> %484)
   %489 = load <2 x float>, ptr %413, align 4, !tbaa !53, !noalias !121
   %490 = fadd <2 x float> %488, %489
-  %491 = fmul float %442, %451
-  %492 = call float @llvm.fmuladd.f32(float %450, float %440, float %491)
-  %493 = call float @llvm.fmuladd.f32(float %452, float %444, float %492)
+  %491 = fmul float %435, %451
+  %492 = call float @llvm.fmuladd.f32(float %450, float %436, float %491)
+  %493 = call float @llvm.fmuladd.f32(float %452, float %433, float %492)
   %494 = load float, ptr %414, align 4, !tbaa !53, !noalias !121
   %495 = fadd float %493, %494
   %496 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %495, i64 0
@@ -2330,10 +2330,10 @@ define dso_local void @_ZN16btCollisionWorld17objectQuerySingleEPK13btConvexShap
   %499 = fmul <2 x float> %448, %498
   %500 = insertelement <2 x float> poison, float %471, i64 0
   %501 = shufflevector <2 x float> %500, <2 x float> poison, <2 x i32> zeroinitializer
-  %502 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %447, <2 x float> %501, <2 x float> %499)
+  %502 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %449, <2 x float> %501, <2 x float> %499)
   %503 = insertelement <2 x float> poison, float %473, i64 0
   %504 = shufflevector <2 x float> %503, <2 x float> poison, <2 x i32> zeroinitializer
-  %505 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %449, <2 x float> %504, <2 x float> %502)
+  %505 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %447, <2 x float> %504, <2 x float> %502)
   store <2 x float> %505, ptr %417, align 8, !alias.scope !121
   store float %476, ptr %418, align 8, !tbaa.struct !68, !alias.scope !121
   store float 0.000000e+00, ptr %419, align 4, !tbaa.struct !98, !alias.scope !121
@@ -2342,10 +2342,10 @@ define dso_local void @_ZN16btCollisionWorld17objectQuerySingleEPK13btConvexShap
   %508 = fmul <2 x float> %448, %507
   %509 = insertelement <2 x float> poison, float %450, i64 0
   %510 = shufflevector <2 x float> %509, <2 x float> poison, <2 x i32> zeroinitializer
-  %511 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %447, <2 x float> %510, <2 x float> %508)
+  %511 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %449, <2 x float> %510, <2 x float> %508)
   %512 = insertelement <2 x float> poison, float %452, i64 0
   %513 = shufflevector <2 x float> %512, <2 x float> poison, <2 x i32> zeroinitializer
-  %514 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %449, <2 x float> %513, <2 x float> %511)
+  %514 = call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %447, <2 x float> %513, <2 x float> %511)
   store <2 x float> %514, ptr %420, align 8, !alias.scope !121
   store float %455, ptr %421, align 8, !tbaa.struct !68, !alias.scope !121
   store float 0.000000e+00, ptr %422, align 4, !tbaa.struct !98, !alias.scope !121
@@ -3180,12 +3180,12 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %5 = alloca %class.btMatrix3x3, align 8
   %6 = alloca %class.btQuaternion, align 8
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5) #15
-  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
-  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
-  %9 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
-  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
-  %11 = load float, ptr %10, align 4, !tbaa !53, !noalias !142
-  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
+  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
+  %9 = load float, ptr %8, align 4, !tbaa !53, !noalias !142
+  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %11 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
+  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
   %13 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 1
   %14 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 2
   tail call void @llvm.experimental.noalias.scope.decl(metadata !145)
@@ -3206,32 +3206,32 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %29 = load float, ptr %28, align 4, !tbaa !53, !noalias !145
   %30 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2, i32 0, i64 2
   %31 = load float, ptr %30, align 4, !tbaa !53, !noalias !145
-  %32 = load float, ptr %8, align 4, !tbaa !53, !noalias !142
-  %33 = load float, ptr %12, align 4, !tbaa !53, !noalias !142
-  %34 = load <2 x float>, ptr %9, align 4, !tbaa !53, !noalias !142
+  %32 = load float, ptr %7, align 4, !tbaa !53, !noalias !142
+  %33 = load float, ptr %10, align 4, !tbaa !53, !noalias !142
+  %34 = load <2 x float>, ptr %12, align 4, !tbaa !53, !noalias !142
   %35 = shufflevector <2 x float> %34, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %36 = load float, ptr %7, align 4, !tbaa !53, !noalias !142
+  %36 = load float, ptr %11, align 4, !tbaa !53, !noalias !142
   %37 = load float, ptr %0, align 4, !tbaa !53, !noalias !142
   %38 = load float, ptr %13, align 4, !tbaa !53, !noalias !142
   %39 = load float, ptr %14, align 4, !tbaa !53, !noalias !142
   %40 = insertelement <2 x float> poison, float %36, i64 0
   %41 = insertelement <2 x float> %40, float %39, i64 1
   %42 = fneg <2 x float> %41
-  %43 = insertelement <2 x float> %35, float %11, i64 0
+  %43 = insertelement <2 x float> %35, float %9, i64 0
   %44 = fmul <2 x float> %43, %42
   %45 = insertelement <2 x float> poison, float %33, i64 0
   %46 = insertelement <2 x float> %45, float %37, i64 1
-  %47 = insertelement <2 x float> %34, float %11, i64 1
+  %47 = insertelement <2 x float> %34, float %9, i64 1
   %48 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %46, <2 x float> %47, <2 x float> %44)
   %49 = extractelement <2 x float> %48, i64 0
   %50 = fmul float %38, %49
   %51 = insertelement <2 x float> %45, float %38, i64 1
   %52 = fneg <2 x float> %51
-  %53 = insertelement <2 x float> %35, float %11, i64 1
+  %53 = insertelement <2 x float> %35, float %9, i64 1
   %54 = fmul <2 x float> %53, %52
   %55 = insertelement <2 x float> poison, float %32, i64 0
   %56 = insertelement <2 x float> %55, float %39, i64 1
-  %57 = insertelement <2 x float> %34, float %11, i64 0
+  %57 = insertelement <2 x float> %34, float %9, i64 0
   %58 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %56, <2 x float> %57, <2 x float> %54)
   %59 = extractelement <2 x float> %58, i64 0
   %60 = tail call float @llvm.fmuladd.f32(float %37, float %59, float %50)

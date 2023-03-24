@@ -901,7 +901,7 @@ define dso_local noundef ptr @_ZN2kc20makeListAlternativesEPNS_7impl_IDES1_(ptr 
   store i64 %52, ptr %41, align 8, !tbaa !45, !alias.scope !50
   br label %53
 
-53:                                               ; preds = %51, %50, %45
+53:                                               ; preds = %45, %50, %51
   %54 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %39, i64 0, i32 1
   %55 = load i64, ptr %54, align 8, !tbaa !42
   %56 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 1
@@ -1029,7 +1029,7 @@ define dso_local noundef ptr @_ZN2kc20makeListAlternativesEPNS_7impl_IDES1_(ptr 
   store i64 %117, ptr %106, align 8, !tbaa !45, !alias.scope !54
   br label %118
 
-118:                                              ; preds = %116, %115, %110
+118:                                              ; preds = %110, %115, %116
   %119 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %104, i64 0, i32 1
   %120 = load i64, ptr %119, align 8, !tbaa !42
   %121 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %5, i64 0, i32 1
@@ -1941,8 +1941,8 @@ define dso_local noundef i32 @_ZN2kc21f_stars_of_declaratorEPNS_18impl_ac_declar
   %31 = add nuw nsw i32 %22, 2
   br label %32
 
-32:                                               ; preds = %30, %13, %6, %1
-  %33 = phi i32 [ 0, %1 ], [ 0, %6 ], [ 1, %13 ], [ %31, %30 ]
+32:                                               ; preds = %1, %30, %13, %6
+  %33 = phi i32 [ 1, %13 ], [ %31, %30 ], [ 0, %6 ], [ 0, %1 ]
   ret i32 %33
 }
 
@@ -1958,8 +1958,8 @@ define dso_local noundef ptr @_ZN2kc14f_fnclass_infoEPNS_30impl_ac_declaration_s
   %9 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %2, i64 0, i32 3
   br label %10
 
-10:                                               ; preds = %8, %40
-  %11 = phi ptr [ %0, %8 ], [ %15, %40 ]
+10:                                               ; preds = %8, %38
+  %11 = phi ptr [ %0, %8 ], [ %15, %38 ]
   %12 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %11, i64 0, i32 1
   %13 = load ptr, ptr %12, align 8, !tbaa !95
   %14 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %11, i64 0, i32 2
@@ -1976,7 +1976,7 @@ define dso_local noundef ptr @_ZN2kc14f_fnclass_infoEPNS_30impl_ac_declaration_s
   %21 = load ptr, ptr %20, align 8
   %22 = tail call noundef i32 %21(ptr noundef nonnull align 8 dereferenceable(8) %2)
   %23 = icmp eq i32 %22, 254
-  br i1 %23, label %24, label %40
+  br i1 %23, label %24, label %38
 
 24:                                               ; preds = %19
   %25 = load ptr, ptr %9, align 8, !tbaa !98
@@ -1984,7 +1984,7 @@ define dso_local noundef ptr @_ZN2kc14f_fnclass_infoEPNS_30impl_ac_declaration_s
   %27 = load ptr, ptr %26, align 8
   %28 = tail call noundef i32 %27(ptr noundef nonnull align 8 dereferenceable(8) %25)
   %29 = icmp eq i32 %28, 259
-  br i1 %29, label %30, label %40
+  br i1 %29, label %30, label %38
 
 30:                                               ; preds = %24
   %31 = load ptr, ptr %9, align 8, !tbaa !98
@@ -1994,21 +1994,21 @@ define dso_local noundef ptr @_ZN2kc14f_fnclass_infoEPNS_30impl_ac_declaration_s
   %35 = load ptr, ptr %34, align 8
   %36 = tail call noundef i32 %35(ptr noundef nonnull align 8 dereferenceable(24) %33)
   %37 = icmp eq i32 %36, 273
-  br i1 %37, label %38, label %40
+  br i1 %37, label %43, label %38
 
-38:                                               ; preds = %30
-  %39 = tail call noundef ptr @_ZN2kc8MemberFnEv()
+38:                                               ; preds = %30, %24, %19
+  %39 = load ptr, ptr %15, align 8, !tbaa !5
+  %40 = load ptr, ptr %39, align 8
+  %41 = tail call noundef i32 %40(ptr noundef nonnull align 8 dereferenceable(24) %15)
+  %42 = icmp eq i32 %41, 236
+  br i1 %42, label %10, label %45
+
+43:                                               ; preds = %30
+  %44 = tail call noundef ptr @_ZN2kc8MemberFnEv()
   br label %54
 
-40:                                               ; preds = %30, %24, %19
-  %41 = load ptr, ptr %15, align 8, !tbaa !5
-  %42 = load ptr, ptr %41, align 8
-  %43 = tail call noundef i32 %42(ptr noundef nonnull align 8 dereferenceable(24) %15)
-  %44 = icmp eq i32 %43, 236
-  br i1 %44, label %10, label %45
-
-45:                                               ; preds = %40, %3
-  %46 = phi ptr [ %0, %3 ], [ %15, %40 ]
+45:                                               ; preds = %38, %3
+  %46 = phi ptr [ %0, %3 ], [ %15, %38 ]
   %47 = load ptr, ptr %46, align 8, !tbaa !5
   %48 = load ptr, ptr %47, align 8
   %49 = tail call noundef i32 %48(ptr noundef nonnull align 8 dereferenceable(24) %46)
@@ -2023,8 +2023,8 @@ define dso_local noundef ptr @_ZN2kc14f_fnclass_infoEPNS_30impl_ac_declaration_s
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.28, i32 noundef 705, ptr noundef nonnull @.str.6)
   br label %54
 
-54:                                               ; preds = %17, %38, %53, %51
-  %55 = phi ptr [ %52, %51 ], [ null, %53 ], [ %18, %17 ], [ %39, %38 ]
+54:                                               ; preds = %17, %43, %53, %51
+  %55 = phi ptr [ %52, %51 ], [ null, %53 ], [ %18, %17 ], [ %44, %43 ]
   ret ptr %55
 }
 
@@ -2243,7 +2243,7 @@ define dso_local noundef ptr @_ZN2kc33f_ID_of_ac_declaration_specifiersEPNS_30im
   %38 = icmp eq ptr %37, null
   br i1 %38, label %39, label %51
 
-39:                                               ; preds = %23, %29, %24, %34, %35
+39:                                               ; preds = %29, %24, %23, %34, %35
   %40 = load ptr, ptr %11, align 8, !tbaa !5
   %41 = load ptr, ptr %40, align 8
   %42 = tail call noundef i32 %41(ptr noundef nonnull align 8 dereferenceable(24) %11)
@@ -2417,7 +2417,7 @@ define dso_local void @_ZN2kc53check_no_patternchaingroup_or_pattern_in_patternc
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.36, i32 noundef 936, ptr noundef nonnull @.str.6)
   br label %39
 
-39:                                               ; preds = %32, %23, %37, %27, %38, %4
+39:                                               ; preds = %23, %37, %27, %32, %38, %4
   ret void
 }
 

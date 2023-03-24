@@ -533,10 +533,10 @@ define dso_local noundef zeroext i1 @_ZN33btMinkowskiPenetrationDepthSolver12cal
   br label %430
 
 430:                                              ; preds = %384, %429, %364
-  %431 = phi float [ %376, %429 ], [ %368, %384 ], [ %368, %364 ]
-  %432 = phi float [ %375, %429 ], [ %367, %384 ], [ %367, %364 ]
-  %433 = phi float [ %427, %429 ], [ %366, %384 ], [ %366, %364 ]
-  %434 = phi <2 x float> [ %371, %429 ], [ %369, %384 ], [ %369, %364 ]
+  %431 = phi float [ %368, %364 ], [ %376, %429 ], [ %368, %384 ]
+  %432 = phi float [ %367, %364 ], [ %375, %429 ], [ %367, %384 ]
+  %433 = phi float [ %366, %364 ], [ %427, %429 ], [ %366, %384 ]
+  %434 = phi <2 x float> [ %369, %364 ], [ %371, %429 ], [ %369, %384 ]
   %435 = add nuw nsw i64 %365, 1
   %436 = icmp eq i64 %435, %349
   br i1 %436, label %437, label %364
@@ -559,30 +559,30 @@ define dso_local noundef zeroext i1 @_ZN33btMinkowskiPenetrationDepthSolver12cal
   %450 = fadd float %440, %449
   call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %18) #12
   call void @_ZN17btGjkPairDetectorC1EPK13btConvexShapeS2_P22btVoronoiSimplexSolverP30btConvexPenetrationDepthSolver(ptr noundef nonnull align 8 dereferenceable(96) %18, ptr noundef nonnull %2, ptr noundef nonnull %3, ptr noundef nonnull %1, ptr noundef null)
-  %451 = fmul float %438, %450
   call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %19) #12
-  %452 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %19, i64 0, i32 2
-  %453 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %19, i64 0, i32 3
-  store ptr null, ptr %453, align 8, !tbaa !20
-  %454 = getelementptr inbounds %class.btTransform, ptr %4, i64 0, i32 1
-  %455 = insertelement <2 x float> poison, float %450, i64 0
-  %456 = shufflevector <2 x float> %455, <2 x float> poison, <2 x i32> zeroinitializer
-  %457 = fmul <2 x float> %441, %456
-  %458 = load <2 x float>, ptr %454, align 4, !tbaa !11
-  %459 = fadd <2 x float> %457, %458
-  %460 = getelementptr inbounds %class.btTransform, ptr %4, i64 0, i32 1, i32 0, i64 2
-  %461 = load float, ptr %460, align 4, !tbaa !11
-  %462 = fadd float %451, %461
-  %463 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %462, i64 0
+  %451 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %19, i64 0, i32 2
+  %452 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %19, i64 0, i32 3
+  store ptr null, ptr %452, align 8, !tbaa !20
+  %453 = getelementptr inbounds %class.btTransform, ptr %4, i64 0, i32 1
+  %454 = getelementptr inbounds %class.btTransform, ptr %4, i64 0, i32 1, i32 0, i64 2
+  %455 = load float, ptr %454, align 4, !tbaa !11
+  %456 = fmul float %438, %450
+  %457 = fadd float %456, %455
+  %458 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %457, i64 0
+  %459 = load <2 x float>, ptr %453, align 4, !tbaa !11
+  %460 = insertelement <2 x float> poison, float %450, i64 0
+  %461 = shufflevector <2 x float> %460, <2 x float> poison, <2 x i32> zeroinitializer
+  %462 = fmul <2 x float> %441, %461
+  %463 = fadd <2 x float> %462, %459
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %19, ptr noundef nonnull align 4 dereferenceable(16) %4, i64 16, i1 false)
   %464 = getelementptr inbounds [3 x %class.btVector3], ptr %19, i64 0, i64 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %464, ptr noundef nonnull align 4 dereferenceable(16) %32, i64 16, i1 false)
   %465 = getelementptr inbounds [3 x %class.btVector3], ptr %19, i64 0, i64 2
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %465, ptr noundef nonnull align 4 dereferenceable(16) %33, i64 16, i1 false)
   %466 = getelementptr inbounds %class.btTransform, ptr %19, i64 0, i32 1
-  store <2 x float> %459, ptr %466, align 8, !tbaa.struct !13
+  store <2 x float> %463, ptr %466, align 8, !tbaa.struct !13
   %467 = getelementptr inbounds %class.btTransform, ptr %19, i64 0, i32 1, i32 0, i64 2
-  store <2 x float> %463, ptr %467, align 8, !tbaa.struct !16
+  store <2 x float> %458, ptr %467, align 8, !tbaa.struct !16
   %468 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %19, i64 0, i32 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %468, ptr noundef nonnull align 4 dereferenceable(16) %5, i64 16, i1 false), !tbaa.struct !13
   %469 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %19, i64 0, i32 1, i32 0, i32 0, i64 1
@@ -592,7 +592,7 @@ define dso_local noundef zeroext i1 @_ZN33btMinkowskiPenetrationDepthSolver12cal
   %471 = getelementptr inbounds %class.btTransform, ptr %5, i64 0, i32 1
   %472 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %19, i64 0, i32 1, i32 1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %472, ptr noundef nonnull align 4 dereferenceable(16) %471, i64 16, i1 false), !tbaa.struct !13
-  store float 0x43ABC16D60000000, ptr %452, align 8, !tbaa !25
+  store float 0x43ABC16D60000000, ptr %451, align 8, !tbaa !25
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %20) #12
   store ptr getelementptr inbounds ({ [7 x ptr] }, ptr @_ZTVZN33btMinkowskiPenetrationDepthSolver12calcPenDepthER22btVoronoiSimplexSolverPK13btConvexShapeS4_RK11btTransformS7_R9btVector3S9_S9_P12btIDebugDrawP12btStackAllocE20btIntermediateResult, i64 0, inrange i32 0, i64 2), ptr %20, align 8, !tbaa !17
   %473 = getelementptr inbounds %struct.btIntermediateResult, ptr %20, i64 0, i32 4
@@ -610,24 +610,24 @@ define dso_local noundef zeroext i1 @_ZN33btMinkowskiPenetrationDepthSolver12cal
   br i1 %480, label %502, label %481
 
 481:                                              ; preds = %445
-  %482 = getelementptr inbounds %struct.btIntermediateResult, ptr %20, i64 0, i32 3
-  %483 = load float, ptr %482, align 8, !tbaa !32
-  %484 = fsub float %450, %483
-  %485 = getelementptr inbounds %struct.btIntermediateResult, ptr %20, i64 0, i32 2
-  %486 = fmul float %438, %484
-  %487 = insertelement <2 x float> poison, float %484, i64 0
+  %482 = getelementptr inbounds %struct.btIntermediateResult, ptr %20, i64 0, i32 2
+  %483 = getelementptr inbounds %struct.btIntermediateResult, ptr %20, i64 0, i32 3
+  %484 = load float, ptr %483, align 8, !tbaa !32
+  %485 = fsub float %450, %484
+  %486 = load <2 x float>, ptr %482, align 8, !tbaa !11
+  %487 = insertelement <2 x float> poison, float %485, i64 0
   %488 = shufflevector <2 x float> %487, <2 x float> poison, <2 x i32> zeroinitializer
   %489 = fmul <2 x float> %441, %488
-  %490 = load <2 x float>, ptr %485, align 8, !tbaa !11
-  %491 = fsub <2 x float> %490, %489
-  %492 = getelementptr inbounds %struct.btIntermediateResult, ptr %20, i64 0, i32 2, i32 0, i64 2
-  %493 = load float, ptr %492, align 8, !tbaa !11
-  %494 = fsub float %493, %486
+  %490 = fsub <2 x float> %486, %489
+  %491 = getelementptr inbounds %struct.btIntermediateResult, ptr %20, i64 0, i32 2, i32 0, i64 2
+  %492 = load float, ptr %491, align 8, !tbaa !11
+  %493 = fmul float %438, %485
+  %494 = fsub float %492, %493
   %495 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %494, i64 0
-  store <2 x float> %491, ptr %7, align 4, !tbaa.struct !13
+  store <2 x float> %490, ptr %7, align 4, !tbaa.struct !13
   %496 = getelementptr inbounds i8, ptr %7, i64 8
   store <2 x float> %495, ptr %496, align 4, !tbaa.struct !16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %8, ptr noundef nonnull align 8 dereferenceable(16) %485, i64 16, i1 false), !tbaa.struct !13
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %8, ptr noundef nonnull align 8 dereferenceable(16) %482, i64 16, i1 false), !tbaa.struct !13
   %497 = extractelement <2 x float> %441, i64 0
   store float %497, ptr %6, align 4, !tbaa.struct !13
   %498 = getelementptr inbounds i8, ptr %6, i64 4

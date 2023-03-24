@@ -165,7 +165,7 @@ define dso_local i32 @linit() local_unnamed_addr #0 {
   store ptr %78, ptr @sflaglist, align 8, !tbaa !5
   %79 = icmp eq ptr %69, null
   %80 = icmp eq ptr %72, null
-  %81 = or i1 %80, %79
+  %81 = or i1 %79, %80
   %82 = icmp eq ptr %78, null
   %83 = or i1 %82, %81
   br i1 %83, label %84, label %87
@@ -269,10 +269,10 @@ define dso_local i32 @linit() local_unnamed_addr #0 {
   br label %155
 
 155:                                              ; preds = %153, %155
-  %156 = phi ptr [ %176, %155 ], [ %154, %153 ]
-  %157 = phi i32 [ %158, %155 ], [ %151, %153 ]
-  %158 = add nsw i32 %157, -1
-  %159 = getelementptr inbounds %struct.dent, ptr %156, i64 0, i32 1
+  %156 = phi i32 [ %158, %155 ], [ %151, %153 ]
+  %157 = phi ptr [ %176, %155 ], [ %154, %153 ]
+  %158 = add nsw i32 %156, -1
+  %159 = getelementptr inbounds %struct.dent, ptr %157, i64 0, i32 1
   %160 = load ptr, ptr %159, align 8, !tbaa !21
   %161 = icmp eq ptr %160, inttoptr (i64 -1 to ptr)
   %162 = load ptr, ptr @hashstrings, align 8
@@ -282,7 +282,7 @@ define dso_local i32 @linit() local_unnamed_addr #0 {
   %166 = getelementptr inbounds i8, ptr %162, i64 %165
   %167 = select i1 %161, ptr null, ptr %166
   store ptr %167, ptr %159, align 8, !tbaa !21
-  %168 = load ptr, ptr %156, align 8, !tbaa !23
+  %168 = load ptr, ptr %157, align 8, !tbaa !23
   %169 = icmp eq ptr %168, inttoptr (i64 -1 to ptr)
   %170 = load ptr, ptr @hashtbl, align 8
   %171 = ptrtoint ptr %168 to i64
@@ -290,9 +290,9 @@ define dso_local i32 @linit() local_unnamed_addr #0 {
   %173 = ashr exact i64 %172, 32
   %174 = getelementptr inbounds %struct.dent, ptr %170, i64 %173
   %175 = select i1 %169, ptr null, ptr %174
-  store ptr %175, ptr %156, align 8, !tbaa !23
-  %176 = getelementptr inbounds %struct.dent, ptr %156, i64 1
-  %177 = icmp ugt i32 %157, 1
+  store ptr %175, ptr %157, align 8, !tbaa !23
+  %176 = getelementptr inbounds %struct.dent, ptr %157, i64 1
+  %177 = icmp ugt i32 %156, 1
   br i1 %177, label %155, label %178, !llvm.loop !24
 
 178:                                              ; preds = %155, %150, %146

@@ -227,13 +227,13 @@ define dso_local noundef zeroext i1 @_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS
   %5 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 1
   %6 = load i32, ptr %5, align 4, !tbaa !5
   %7 = icmp eq i32 %4, %6
-  br i1 %7, label %8, label %54
+  br i1 %7, label %8, label %49
 
 8:                                                ; preds = %2
   %9 = load i32, ptr %0, align 8, !tbaa !13
   %10 = load i32, ptr %1, align 8, !tbaa !13
   %11 = icmp eq i32 %9, %10
-  br i1 %11, label %12, label %54
+  br i1 %11, label %12, label %49
 
 12:                                               ; preds = %8
   %13 = icmp eq i32 %4, 0
@@ -255,7 +255,7 @@ define dso_local noundef zeroext i1 @_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS
   %23 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 2, i64 %20
   %24 = load i8, ptr %23, align 1, !tbaa !16
   %25 = icmp eq i8 %22, %24
-  br i1 %25, label %16, label %54
+  br i1 %25, label %16, label %49
 
 26:                                               ; preds = %16, %12
   %27 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %0, i64 0, i32 3, i32 1
@@ -263,43 +263,34 @@ define dso_local noundef zeroext i1 @_ZNK7NCrypto7NSevenZ8CKeyInfo9IsEqualToERKS
   %29 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 3, i32 1
   %30 = load i64, ptr %29, align 8, !tbaa !17
   %31 = icmp eq i64 %28, %30
-  br i1 %31, label %32, label %54
+  br i1 %31, label %32, label %49
 
 32:                                               ; preds = %26
   %33 = icmp eq i64 %28, 0
-  br i1 %33, label %54, label %34
+  br i1 %33, label %49, label %34
 
 34:                                               ; preds = %32
   %35 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %0, i64 0, i32 3, i32 2
   %36 = load ptr, ptr %35, align 8, !tbaa !18
   %37 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 3, i32 2
   %38 = load ptr, ptr %37, align 8, !tbaa !18
-  %39 = load i8, ptr %36, align 1, !tbaa !16
-  %40 = load i8, ptr %38, align 1, !tbaa !16
-  %41 = icmp eq i8 %39, %40
-  br i1 %41, label %42, label %54
+  br label %39
 
-42:                                               ; preds = %34, %46
-  %43 = phi i64 [ %44, %46 ], [ 0, %34 ]
-  %44 = add nuw i64 %43, 1
-  %45 = icmp eq i64 %44, %28
-  br i1 %45, label %52, label %46, !llvm.loop !19
+39:                                               ; preds = %39, %34
+  %40 = phi i64 [ 0, %34 ], [ %46, %39 ]
+  %41 = getelementptr inbounds i8, ptr %36, i64 %40
+  %42 = load i8, ptr %41, align 1, !tbaa !16
+  %43 = getelementptr inbounds i8, ptr %38, i64 %40
+  %44 = load i8, ptr %43, align 1, !tbaa !16
+  %45 = icmp eq i8 %42, %44
+  %46 = add nuw i64 %40, 1
+  %47 = icmp ne i64 %46, %28
+  %48 = select i1 %45, i1 %47, i1 false
+  br i1 %48, label %39, label %49, !llvm.loop !19
 
-46:                                               ; preds = %42
-  %47 = getelementptr inbounds i8, ptr %36, i64 %44
-  %48 = load i8, ptr %47, align 1, !tbaa !16
-  %49 = getelementptr inbounds i8, ptr %38, i64 %44
-  %50 = load i8, ptr %49, align 1, !tbaa !16
-  %51 = icmp eq i8 %48, %50
-  br i1 %51, label %42, label %52, !llvm.loop !19
-
-52:                                               ; preds = %46, %42
-  %53 = icmp uge i64 %44, %28
-  br label %54
-
-54:                                               ; preds = %19, %52, %34, %32, %26, %2, %8
-  %55 = phi i1 [ false, %8 ], [ false, %2 ], [ false, %26 ], [ true, %32 ], [ false, %34 ], [ %53, %52 ], [ false, %19 ]
-  ret i1 %55
+49:                                               ; preds = %19, %39, %32, %26, %2, %8
+  %50 = phi i1 [ false, %8 ], [ false, %2 ], [ false, %26 ], [ true, %32 ], [ %45, %39 ], [ false, %19 ]
+  ret i1 %50
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -560,7 +551,7 @@ define dso_local noundef zeroext i1 @_ZN7NCrypto7NSevenZ13CKeyInfoCache4FindERNS
   %3 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 2
   %4 = load i32, ptr %3, align 4, !tbaa !28
   %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %269
+  br i1 %5, label %6, label %286
 
 6:                                                ; preds = %2
   %7 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %0, i64 0, i32 1, i32 0, i32 0, i32 3
@@ -578,375 +569,404 @@ define dso_local noundef zeroext i1 @_ZN7NCrypto7NSevenZ13CKeyInfoCache4FindERNS
   %19 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 3, i32 2
   %20 = load ptr, ptr %19, align 8
   %21 = zext i32 %4 to i64
-  %22 = zext i32 %4 to i64
-  br i1 %18, label %23, label %72
+  br i1 %13, label %22, label %70
 
-23:                                               ; preds = %6
-  br i1 %13, label %24, label %43
+22:                                               ; preds = %6
+  br i1 %18, label %23, label %40
 
-24:                                               ; preds = %23, %39
-  %25 = phi i64 [ %40, %39 ], [ 0, %23 ]
-  %26 = phi i1 [ %41, %39 ], [ true, %23 ]
-  %27 = getelementptr inbounds ptr, ptr %8, i64 %25
-  %28 = load ptr, ptr %27, align 8, !tbaa !31
-  %29 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %28, i64 0, i32 1
-  %30 = load i32, ptr %29, align 4, !tbaa !5
-  %31 = icmp eq i32 %30, 0
-  br i1 %31, label %32, label %39
+23:                                               ; preds = %22, %37
+  %24 = phi i64 [ %38, %37 ], [ 0, %22 ]
+  %25 = getelementptr inbounds ptr, ptr %8, i64 %24
+  %26 = load ptr, ptr %25, align 8, !tbaa !31
+  %27 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %26, i64 0, i32 1
+  %28 = load i32, ptr %27, align 4, !tbaa !5
+  %29 = icmp eq i32 %28, 0
+  br i1 %29, label %30, label %37
 
-32:                                               ; preds = %24
-  %33 = load i32, ptr %28, align 8, !tbaa !13
-  %34 = icmp eq i32 %12, %33
-  br i1 %34, label %35, label %39
+30:                                               ; preds = %23
+  %31 = load i32, ptr %26, align 8, !tbaa !13
+  %32 = icmp eq i32 %12, %31
+  br i1 %32, label %33, label %37
 
-35:                                               ; preds = %32
-  %36 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %28, i64 0, i32 3, i32 1
-  %37 = load i64, ptr %36, align 8, !tbaa !17
-  %38 = icmp eq i64 %37, 0
-  br i1 %38, label %116, label %39
+33:                                               ; preds = %30
+  %34 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %26, i64 0, i32 3, i32 1
+  %35 = load i64, ptr %34, align 8, !tbaa !17
+  %36 = icmp eq i64 %35, 0
+  br i1 %36, label %135, label %37
 
-39:                                               ; preds = %35, %32, %24
-  %40 = add nuw nsw i64 %25, 1
-  %41 = icmp ult i64 %40, %21
-  %42 = icmp eq i64 %40, %22
-  br i1 %42, label %269, label %24, !llvm.loop !32
+37:                                               ; preds = %33, %30, %23
+  %38 = add nuw nsw i64 %24, 1
+  %39 = icmp eq i64 %38, %21
+  br i1 %39, label %286, label %23, !llvm.loop !32
 
-43:                                               ; preds = %23, %64
-  %44 = phi i64 [ %65, %64 ], [ 0, %23 ]
-  %45 = phi i1 [ %66, %64 ], [ true, %23 ]
-  %46 = getelementptr inbounds ptr, ptr %8, i64 %44
-  %47 = load ptr, ptr %46, align 8, !tbaa !31
-  %48 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %47, i64 0, i32 1
-  %49 = load i32, ptr %48, align 4, !tbaa !5
-  %50 = icmp eq i32 %11, %49
-  br i1 %50, label %51, label %64
+40:                                               ; preds = %22, %64
+  %41 = phi i64 [ %65, %64 ], [ 0, %22 ]
+  %42 = getelementptr inbounds ptr, ptr %8, i64 %41
+  %43 = load ptr, ptr %42, align 8, !tbaa !31
+  %44 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %43, i64 0, i32 1
+  %45 = load i32, ptr %44, align 4, !tbaa !5
+  %46 = icmp eq i32 %45, 0
+  br i1 %46, label %47, label %64
 
-51:                                               ; preds = %43
-  %52 = load i32, ptr %47, align 8, !tbaa !13
-  %53 = icmp eq i32 %12, %52
+47:                                               ; preds = %40
+  %48 = load i32, ptr %43, align 8, !tbaa !13
+  %49 = icmp eq i32 %12, %48
+  br i1 %49, label %50, label %64
+
+50:                                               ; preds = %47
+  %51 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %43, i64 0, i32 3, i32 1
+  %52 = load i64, ptr %51, align 8, !tbaa !17
+  %53 = icmp eq i64 %17, %52
   br i1 %53, label %54, label %64
 
-54:                                               ; preds = %51, %61
-  %55 = phi i64 [ %62, %61 ], [ 0, %51 ]
-  %56 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 2, i64 %55
-  %57 = load i8, ptr %56, align 1, !tbaa !16
-  %58 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %47, i64 0, i32 2, i64 %55
-  %59 = load i8, ptr %58, align 1, !tbaa !16
-  %60 = icmp eq i8 %57, %59
-  br i1 %60, label %61, label %64
+54:                                               ; preds = %50
+  %55 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %43, i64 0, i32 3, i32 2
+  %56 = load ptr, ptr %55, align 8, !tbaa !18
+  br label %57
 
-61:                                               ; preds = %54
-  %62 = add nuw nsw i64 %55, 1
-  %63 = icmp eq i64 %62, %14
-  br i1 %63, label %68, label %54, !llvm.loop !14
+57:                                               ; preds = %67, %54
+  %58 = phi i64 [ 0, %54 ], [ %68, %67 ]
+  %59 = getelementptr inbounds i8, ptr %20, i64 %58
+  %60 = load i8, ptr %59, align 1, !tbaa !16
+  %61 = getelementptr inbounds i8, ptr %56, i64 %58
+  %62 = load i8, ptr %61, align 1, !tbaa !16
+  %63 = icmp eq i8 %60, %62
+  br i1 %63, label %67, label %64
 
-64:                                               ; preds = %54, %68, %51, %43
-  %65 = add nuw nsw i64 %44, 1
-  %66 = icmp ult i64 %65, %21
-  %67 = icmp eq i64 %65, %22
-  br i1 %67, label %269, label %43, !llvm.loop !32
+64:                                               ; preds = %57, %50, %47, %40
+  %65 = add nuw nsw i64 %41, 1
+  %66 = icmp eq i64 %65, %21
+  br i1 %66, label %286, label %40, !llvm.loop !32
 
-68:                                               ; preds = %61
-  %69 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %47, i64 0, i32 3, i32 1
-  %70 = load i64, ptr %69, align 8, !tbaa !17
-  %71 = icmp eq i64 %70, 0
-  br i1 %71, label %116, label %64
+67:                                               ; preds = %57
+  %68 = add nuw i64 %58, 1
+  %69 = icmp eq i64 %68, %17
+  br i1 %69, label %135, label %57, !llvm.loop !19
 
-72:                                               ; preds = %6, %265
-  %73 = phi i64 [ %266, %265 ], [ 0, %6 ]
-  %74 = phi i1 [ %267, %265 ], [ true, %6 ]
-  %75 = getelementptr inbounds ptr, ptr %8, i64 %73
-  %76 = load ptr, ptr %75, align 8, !tbaa !31
-  %77 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %76, i64 0, i32 1
-  %78 = load i32, ptr %77, align 4, !tbaa !5
-  %79 = icmp eq i32 %11, %78
-  br i1 %79, label %80, label %265
+70:                                               ; preds = %6
+  br i1 %18, label %71, label %98
 
-80:                                               ; preds = %72
-  %81 = load i32, ptr %76, align 8, !tbaa !13
-  %82 = icmp eq i32 %12, %81
-  br i1 %82, label %83, label %265
+71:                                               ; preds = %70, %91
+  %72 = phi i64 [ %92, %91 ], [ 0, %70 ]
+  %73 = getelementptr inbounds ptr, ptr %8, i64 %72
+  %74 = load ptr, ptr %73, align 8, !tbaa !31
+  %75 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %74, i64 0, i32 1
+  %76 = load i32, ptr %75, align 4, !tbaa !5
+  %77 = icmp eq i32 %11, %76
+  br i1 %77, label %78, label %91
 
-83:                                               ; preds = %80
-  br i1 %13, label %94, label %87
+78:                                               ; preds = %71
+  %79 = load i32, ptr %74, align 8, !tbaa !13
+  %80 = icmp eq i32 %12, %79
+  br i1 %80, label %81, label %91
 
-84:                                               ; preds = %87
-  %85 = add nuw nsw i64 %88, 1
-  %86 = icmp eq i64 %85, %14
-  br i1 %86, label %94, label %87, !llvm.loop !14
+81:                                               ; preds = %78, %88
+  %82 = phi i64 [ %89, %88 ], [ 0, %78 ]
+  %83 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 2, i64 %82
+  %84 = load i8, ptr %83, align 1, !tbaa !16
+  %85 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %74, i64 0, i32 2, i64 %82
+  %86 = load i8, ptr %85, align 1, !tbaa !16
+  %87 = icmp eq i8 %84, %86
+  br i1 %87, label %88, label %91
 
-87:                                               ; preds = %83, %84
-  %88 = phi i64 [ %85, %84 ], [ 0, %83 ]
-  %89 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 2, i64 %88
-  %90 = load i8, ptr %89, align 1, !tbaa !16
-  %91 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %76, i64 0, i32 2, i64 %88
-  %92 = load i8, ptr %91, align 1, !tbaa !16
-  %93 = icmp eq i8 %90, %92
-  br i1 %93, label %84, label %265
+88:                                               ; preds = %81
+  %89 = add nuw nsw i64 %82, 1
+  %90 = icmp eq i64 %89, %14
+  br i1 %90, label %94, label %81, !llvm.loop !14
 
-94:                                               ; preds = %84, %83
-  %95 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %76, i64 0, i32 3, i32 1
+91:                                               ; preds = %81, %94, %78, %71
+  %92 = add nuw nsw i64 %72, 1
+  %93 = icmp eq i64 %92, %21
+  br i1 %93, label %286, label %71, !llvm.loop !32
+
+94:                                               ; preds = %88
+  %95 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %74, i64 0, i32 3, i32 1
   %96 = load i64, ptr %95, align 8, !tbaa !17
-  %97 = icmp eq i64 %17, %96
-  br i1 %97, label %98, label %265
+  %97 = icmp eq i64 %96, 0
+  br i1 %97, label %135, label %91
 
-98:                                               ; preds = %94
-  %99 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %76, i64 0, i32 3, i32 2
-  %100 = load ptr, ptr %99, align 8, !tbaa !18
-  %101 = load i8, ptr %20, align 1, !tbaa !16
-  %102 = load i8, ptr %100, align 1, !tbaa !16
-  %103 = icmp eq i8 %101, %102
-  br i1 %103, label %104, label %265
+98:                                               ; preds = %70, %283
+  %99 = phi i64 [ %284, %283 ], [ 0, %70 ]
+  %100 = getelementptr inbounds ptr, ptr %8, i64 %99
+  %101 = load ptr, ptr %100, align 8, !tbaa !31
+  %102 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %101, i64 0, i32 1
+  %103 = load i32, ptr %102, align 4, !tbaa !5
+  %104 = icmp eq i32 %11, %103
+  br i1 %104, label %105, label %283
 
-104:                                              ; preds = %98, %108
-  %105 = phi i64 [ %106, %108 ], [ 0, %98 ]
-  %106 = add nuw i64 %105, 1
-  %107 = icmp eq i64 %106, %17
-  br i1 %107, label %116, label %108, !llvm.loop !19
+105:                                              ; preds = %98
+  %106 = load i32, ptr %101, align 8, !tbaa !13
+  %107 = icmp eq i32 %12, %106
+  br i1 %107, label %111, label %283
 
-108:                                              ; preds = %104
-  %109 = getelementptr inbounds i8, ptr %20, i64 %106
-  %110 = load i8, ptr %109, align 1, !tbaa !16
-  %111 = getelementptr inbounds i8, ptr %100, i64 %106
-  %112 = load i8, ptr %111, align 1, !tbaa !16
-  %113 = icmp eq i8 %110, %112
-  br i1 %113, label %104, label %114, !llvm.loop !19
+108:                                              ; preds = %111
+  %109 = add nuw nsw i64 %112, 1
+  %110 = icmp eq i64 %109, %14
+  br i1 %110, label %118, label %111, !llvm.loop !14
 
-114:                                              ; preds = %108
-  %115 = icmp ult i64 %106, %17
-  br i1 %115, label %265, label %116
+111:                                              ; preds = %105, %108
+  %112 = phi i64 [ %109, %108 ], [ 0, %105 ]
+  %113 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 2, i64 %112
+  %114 = load i8, ptr %113, align 1, !tbaa !16
+  %115 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %101, i64 0, i32 2, i64 %112
+  %116 = load i8, ptr %115, align 1, !tbaa !16
+  %117 = icmp eq i8 %114, %116
+  br i1 %117, label %108, label %283
 
-116:                                              ; preds = %114, %104, %68, %35
-  %117 = phi ptr [ %28, %35 ], [ %47, %68 ], [ %76, %104 ], [ %76, %114 ]
-  %118 = phi i64 [ %25, %35 ], [ %44, %68 ], [ %73, %104 ], [ %73, %114 ]
-  %119 = phi i1 [ %26, %35 ], [ %45, %68 ], [ %74, %104 ], [ %74, %114 ]
-  %120 = trunc i64 %118 to i32
-  %121 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 0
-  %122 = load i8, ptr %121, align 1, !tbaa !16
-  %123 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 0
-  store i8 %122, ptr %123, align 8, !tbaa !16
-  %124 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 1
-  %125 = load i8, ptr %124, align 1, !tbaa !16
-  %126 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 1
-  store i8 %125, ptr %126, align 1, !tbaa !16
-  %127 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 2
-  %128 = load i8, ptr %127, align 1, !tbaa !16
-  %129 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 2
-  store i8 %128, ptr %129, align 2, !tbaa !16
-  %130 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 3
+118:                                              ; preds = %108
+  %119 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %101, i64 0, i32 3, i32 1
+  %120 = load i64, ptr %119, align 8, !tbaa !17
+  %121 = icmp eq i64 %17, %120
+  br i1 %121, label %122, label %283
+
+122:                                              ; preds = %118
+  %123 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %101, i64 0, i32 3, i32 2
+  %124 = load ptr, ptr %123, align 8, !tbaa !18
+  br label %128
+
+125:                                              ; preds = %128
+  %126 = add nuw i64 %129, 1
+  %127 = icmp eq i64 %126, %17
+  br i1 %127, label %135, label %128, !llvm.loop !19
+
+128:                                              ; preds = %125, %122
+  %129 = phi i64 [ 0, %122 ], [ %126, %125 ]
+  %130 = getelementptr inbounds i8, ptr %20, i64 %129
   %131 = load i8, ptr %130, align 1, !tbaa !16
-  %132 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 3
-  store i8 %131, ptr %132, align 1, !tbaa !16
-  %133 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 4
-  %134 = load i8, ptr %133, align 1, !tbaa !16
-  %135 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 4
-  store i8 %134, ptr %135, align 4, !tbaa !16
-  %136 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 5
-  %137 = load i8, ptr %136, align 1, !tbaa !16
-  %138 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 5
-  store i8 %137, ptr %138, align 1, !tbaa !16
-  %139 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 6
-  %140 = load i8, ptr %139, align 1, !tbaa !16
-  %141 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 6
-  store i8 %140, ptr %141, align 2, !tbaa !16
-  %142 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 7
-  %143 = load i8, ptr %142, align 1, !tbaa !16
-  %144 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 7
-  store i8 %143, ptr %144, align 1, !tbaa !16
-  %145 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 8
-  %146 = load i8, ptr %145, align 1, !tbaa !16
-  %147 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 8
-  store i8 %146, ptr %147, align 8, !tbaa !16
-  %148 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 9
-  %149 = load i8, ptr %148, align 1, !tbaa !16
-  %150 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 9
-  store i8 %149, ptr %150, align 1, !tbaa !16
-  %151 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 10
-  %152 = load i8, ptr %151, align 1, !tbaa !16
-  %153 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 10
-  store i8 %152, ptr %153, align 2, !tbaa !16
-  %154 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 11
-  %155 = load i8, ptr %154, align 1, !tbaa !16
-  %156 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 11
-  store i8 %155, ptr %156, align 1, !tbaa !16
-  %157 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 12
-  %158 = load i8, ptr %157, align 1, !tbaa !16
-  %159 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 12
-  store i8 %158, ptr %159, align 4, !tbaa !16
-  %160 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 13
-  %161 = load i8, ptr %160, align 1, !tbaa !16
-  %162 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 13
-  store i8 %161, ptr %162, align 1, !tbaa !16
-  %163 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 14
-  %164 = load i8, ptr %163, align 1, !tbaa !16
-  %165 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 14
-  store i8 %164, ptr %165, align 2, !tbaa !16
-  %166 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 15
-  %167 = load i8, ptr %166, align 1, !tbaa !16
-  %168 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 15
-  store i8 %167, ptr %168, align 1, !tbaa !16
-  %169 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 16
-  %170 = load i8, ptr %169, align 1, !tbaa !16
-  %171 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 16
-  store i8 %170, ptr %171, align 8, !tbaa !16
-  %172 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 17
-  %173 = load i8, ptr %172, align 1, !tbaa !16
-  %174 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 17
-  store i8 %173, ptr %174, align 1, !tbaa !16
-  %175 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 18
-  %176 = load i8, ptr %175, align 1, !tbaa !16
-  %177 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 18
-  store i8 %176, ptr %177, align 2, !tbaa !16
-  %178 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 19
-  %179 = load i8, ptr %178, align 1, !tbaa !16
-  %180 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 19
-  store i8 %179, ptr %180, align 1, !tbaa !16
-  %181 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 20
-  %182 = load i8, ptr %181, align 1, !tbaa !16
-  %183 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 20
-  store i8 %182, ptr %183, align 4, !tbaa !16
-  %184 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 21
-  %185 = load i8, ptr %184, align 1, !tbaa !16
-  %186 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 21
-  store i8 %185, ptr %186, align 1, !tbaa !16
-  %187 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 22
-  %188 = load i8, ptr %187, align 1, !tbaa !16
-  %189 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 22
-  store i8 %188, ptr %189, align 2, !tbaa !16
-  %190 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 23
-  %191 = load i8, ptr %190, align 1, !tbaa !16
-  %192 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 23
-  store i8 %191, ptr %192, align 1, !tbaa !16
-  %193 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 24
-  %194 = load i8, ptr %193, align 1, !tbaa !16
-  %195 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 24
-  store i8 %194, ptr %195, align 8, !tbaa !16
-  %196 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 25
-  %197 = load i8, ptr %196, align 1, !tbaa !16
-  %198 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 25
-  store i8 %197, ptr %198, align 1, !tbaa !16
-  %199 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 26
-  %200 = load i8, ptr %199, align 1, !tbaa !16
-  %201 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 26
-  store i8 %200, ptr %201, align 2, !tbaa !16
-  %202 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 27
-  %203 = load i8, ptr %202, align 1, !tbaa !16
-  %204 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 27
-  store i8 %203, ptr %204, align 1, !tbaa !16
-  %205 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 28
-  %206 = load i8, ptr %205, align 1, !tbaa !16
-  %207 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 28
-  store i8 %206, ptr %207, align 4, !tbaa !16
-  %208 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 29
-  %209 = load i8, ptr %208, align 1, !tbaa !16
-  %210 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 29
-  store i8 %209, ptr %210, align 1, !tbaa !16
-  %211 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 30
-  %212 = load i8, ptr %211, align 1, !tbaa !16
-  %213 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 30
-  store i8 %212, ptr %213, align 2, !tbaa !16
-  %214 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 4, i64 31
-  %215 = load i8, ptr %214, align 1, !tbaa !16
-  %216 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 31
-  store i8 %215, ptr %216, align 1, !tbaa !16
-  %217 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %0, i64 0, i32 1
-  %218 = icmp eq i32 %120, 0
-  br i1 %218, label %269, label %219
+  %132 = getelementptr inbounds i8, ptr %124, i64 %129
+  %133 = load i8, ptr %132, align 1, !tbaa !16
+  %134 = icmp eq i8 %131, %133
+  br i1 %134, label %125, label %283
 
-219:                                              ; preds = %116
-  %220 = tail call noalias noundef nonnull dereferenceable(80) ptr @_Znwm(i64 noundef 80) #21
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %220, ptr noundef nonnull align 8 dereferenceable(24) %117, i64 24, i1 false)
-  %221 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %220, i64 0, i32 3
-  store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV7CBufferIhE, i64 0, inrange i32 0, i64 2), ptr %221, align 8, !tbaa !33
-  %222 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %220, i64 0, i32 3, i32 1
-  %223 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 3, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %222, i8 0, i64 16, i1 false)
-  %224 = load i64, ptr %223, align 8, !tbaa !17
-  %225 = icmp eq i64 %224, 0
-  br i1 %225, label %234, label %226
+135:                                              ; preds = %125, %94, %67, %33
+  %136 = phi ptr [ %26, %33 ], [ %43, %67 ], [ %74, %94 ], [ %101, %125 ]
+  %137 = phi i64 [ %24, %33 ], [ %41, %67 ], [ %72, %94 ], [ %99, %125 ]
+  %138 = trunc i64 %137 to i32
+  %139 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfoCache", ptr %0, i64 0, i32 1
+  %140 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 0
+  %141 = load i8, ptr %140, align 1, !tbaa !16
+  %142 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 0
+  store i8 %141, ptr %142, align 8, !tbaa !16
+  %143 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 1
+  %144 = load i8, ptr %143, align 1, !tbaa !16
+  %145 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 1
+  store i8 %144, ptr %145, align 1, !tbaa !16
+  %146 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 2
+  %147 = load i8, ptr %146, align 1, !tbaa !16
+  %148 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 2
+  store i8 %147, ptr %148, align 2, !tbaa !16
+  %149 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 3
+  %150 = load i8, ptr %149, align 1, !tbaa !16
+  %151 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 3
+  store i8 %150, ptr %151, align 1, !tbaa !16
+  %152 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 4
+  %153 = load i8, ptr %152, align 1, !tbaa !16
+  %154 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 4
+  store i8 %153, ptr %154, align 4, !tbaa !16
+  %155 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 5
+  %156 = load i8, ptr %155, align 1, !tbaa !16
+  %157 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 5
+  store i8 %156, ptr %157, align 1, !tbaa !16
+  %158 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 6
+  %159 = load i8, ptr %158, align 1, !tbaa !16
+  %160 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 6
+  store i8 %159, ptr %160, align 2, !tbaa !16
+  %161 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 7
+  %162 = load i8, ptr %161, align 1, !tbaa !16
+  %163 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 7
+  store i8 %162, ptr %163, align 1, !tbaa !16
+  %164 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 8
+  %165 = load i8, ptr %164, align 1, !tbaa !16
+  %166 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 8
+  store i8 %165, ptr %166, align 8, !tbaa !16
+  %167 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 9
+  %168 = load i8, ptr %167, align 1, !tbaa !16
+  %169 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 9
+  store i8 %168, ptr %169, align 1, !tbaa !16
+  %170 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 10
+  %171 = load i8, ptr %170, align 1, !tbaa !16
+  %172 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 10
+  store i8 %171, ptr %172, align 2, !tbaa !16
+  %173 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 11
+  %174 = load i8, ptr %173, align 1, !tbaa !16
+  %175 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 11
+  store i8 %174, ptr %175, align 1, !tbaa !16
+  %176 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 12
+  %177 = load i8, ptr %176, align 1, !tbaa !16
+  %178 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 12
+  store i8 %177, ptr %178, align 4, !tbaa !16
+  %179 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 13
+  %180 = load i8, ptr %179, align 1, !tbaa !16
+  %181 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 13
+  store i8 %180, ptr %181, align 1, !tbaa !16
+  %182 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 14
+  %183 = load i8, ptr %182, align 1, !tbaa !16
+  %184 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 14
+  store i8 %183, ptr %184, align 2, !tbaa !16
+  %185 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 15
+  %186 = load i8, ptr %185, align 1, !tbaa !16
+  %187 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 15
+  store i8 %186, ptr %187, align 1, !tbaa !16
+  %188 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 16
+  %189 = load i8, ptr %188, align 1, !tbaa !16
+  %190 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 16
+  store i8 %189, ptr %190, align 8, !tbaa !16
+  %191 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 17
+  %192 = load i8, ptr %191, align 1, !tbaa !16
+  %193 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 17
+  store i8 %192, ptr %193, align 1, !tbaa !16
+  %194 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 18
+  %195 = load i8, ptr %194, align 1, !tbaa !16
+  %196 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 18
+  store i8 %195, ptr %196, align 2, !tbaa !16
+  %197 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 19
+  %198 = load i8, ptr %197, align 1, !tbaa !16
+  %199 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 19
+  store i8 %198, ptr %199, align 1, !tbaa !16
+  %200 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 20
+  %201 = load i8, ptr %200, align 1, !tbaa !16
+  %202 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 20
+  store i8 %201, ptr %202, align 4, !tbaa !16
+  %203 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 21
+  %204 = load i8, ptr %203, align 1, !tbaa !16
+  %205 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 21
+  store i8 %204, ptr %205, align 1, !tbaa !16
+  %206 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 22
+  %207 = load i8, ptr %206, align 1, !tbaa !16
+  %208 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 22
+  store i8 %207, ptr %208, align 2, !tbaa !16
+  %209 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 23
+  %210 = load i8, ptr %209, align 1, !tbaa !16
+  %211 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 23
+  store i8 %210, ptr %211, align 1, !tbaa !16
+  %212 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 24
+  %213 = load i8, ptr %212, align 1, !tbaa !16
+  %214 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 24
+  store i8 %213, ptr %214, align 8, !tbaa !16
+  %215 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 25
+  %216 = load i8, ptr %215, align 1, !tbaa !16
+  %217 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 25
+  store i8 %216, ptr %217, align 1, !tbaa !16
+  %218 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 26
+  %219 = load i8, ptr %218, align 1, !tbaa !16
+  %220 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 26
+  store i8 %219, ptr %220, align 2, !tbaa !16
+  %221 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 27
+  %222 = load i8, ptr %221, align 1, !tbaa !16
+  %223 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 27
+  store i8 %222, ptr %223, align 1, !tbaa !16
+  %224 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 28
+  %225 = load i8, ptr %224, align 1, !tbaa !16
+  %226 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 28
+  store i8 %225, ptr %226, align 4, !tbaa !16
+  %227 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 29
+  %228 = load i8, ptr %227, align 1, !tbaa !16
+  %229 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 29
+  store i8 %228, ptr %229, align 1, !tbaa !16
+  %230 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 30
+  %231 = load i8, ptr %230, align 1, !tbaa !16
+  %232 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 30
+  store i8 %231, ptr %232, align 2, !tbaa !16
+  %233 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 4, i64 31
+  %234 = load i8, ptr %233, align 1, !tbaa !16
+  %235 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %1, i64 0, i32 4, i64 31
+  store i8 %234, ptr %235, align 1, !tbaa !16
+  %236 = icmp eq i32 %138, 0
+  br i1 %236, label %286, label %237
 
-226:                                              ; preds = %219
-  %227 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %224) #21
-          to label %228 unwind label %232
+237:                                              ; preds = %135
+  %238 = tail call noalias noundef nonnull dereferenceable(80) ptr @_Znwm(i64 noundef 80) #21
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %238, ptr noundef nonnull align 8 dereferenceable(24) %136, i64 24, i1 false)
+  %239 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %238, i64 0, i32 3
+  store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV7CBufferIhE, i64 0, inrange i32 0, i64 2), ptr %239, align 8, !tbaa !33
+  %240 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %238, i64 0, i32 3, i32 1
+  %241 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 3, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %240, i8 0, i64 16, i1 false)
+  %242 = load i64, ptr %241, align 8, !tbaa !17
+  %243 = icmp eq i64 %242, 0
+  br i1 %243, label %252, label %244
 
-228:                                              ; preds = %226
-  %229 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %220, i64 0, i32 3, i32 2
-  store ptr %227, ptr %229, align 8, !tbaa !18
-  store i64 %224, ptr %222, align 8, !tbaa !17
-  %230 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %117, i64 0, i32 3, i32 2
-  %231 = load ptr, ptr %230, align 8, !tbaa !18
-  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 1 %227, ptr align 1 %231, i64 %224, i1 false)
-  br label %234
+244:                                              ; preds = %237
+  %245 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %242) #21
+          to label %246 unwind label %250
 
-232:                                              ; preds = %226
-  %233 = landingpad { ptr, i32 }
+246:                                              ; preds = %244
+  %247 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %238, i64 0, i32 3, i32 2
+  store ptr %245, ptr %247, align 8, !tbaa !18
+  store i64 %242, ptr %240, align 8, !tbaa !17
+  %248 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %136, i64 0, i32 3, i32 2
+  %249 = load ptr, ptr %248, align 8, !tbaa !18
+  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 1 %245, ptr align 1 %249, i64 %242, i1 false)
+  br label %252
+
+250:                                              ; preds = %244
+  %251 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %220) #22
-  resume { ptr, i32 } %233
+  tail call void @_ZdlPv(ptr noundef nonnull %238) #22
+  resume { ptr, i32 } %251
 
-234:                                              ; preds = %219, %228
-  %235 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %220, i64 0, i32 4
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %235, ptr noundef nonnull align 8 dereferenceable(32) %121, i64 32, i1 false), !tbaa.struct !35
-  tail call void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr noundef nonnull align 8 dereferenceable(32) %217, i32 noundef 0)
-  %236 = load ptr, ptr %7, align 8, !tbaa !30
-  store ptr %220, ptr %236, align 8, !tbaa !31
-  %237 = add nuw nsw i32 %120, 1
-  %238 = add nuw nsw i32 %120, 2
-  %239 = load i32, ptr %3, align 4, !tbaa !28
-  %240 = icmp sgt i32 %238, %239
-  %241 = sub nsw i32 %239, %237
-  %242 = select i1 %240, i32 %241, i32 1
-  %243 = icmp sgt i32 %242, 0
-  br i1 %243, label %244, label %264
+252:                                              ; preds = %237, %246
+  %253 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %238, i64 0, i32 4
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %253, ptr noundef nonnull align 8 dereferenceable(32) %140, i64 32, i1 false), !tbaa.struct !35
+  tail call void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr noundef nonnull align 8 dereferenceable(32) %139, i32 noundef 0)
+  %254 = load ptr, ptr %7, align 8, !tbaa !30
+  store ptr %238, ptr %254, align 8, !tbaa !31
+  %255 = add nuw nsw i32 %138, 1
+  %256 = add nuw nsw i32 %138, 2
+  %257 = load i32, ptr %3, align 4, !tbaa !28
+  %258 = icmp sgt i32 %256, %257
+  %259 = sub nsw i32 %257, %255
+  %260 = select i1 %258, i32 %259, i32 1
+  %261 = icmp sgt i32 %260, 0
+  br i1 %261, label %262, label %282
 
-244:                                              ; preds = %234
-  %245 = zext i32 %237 to i64
-  %246 = zext i32 %242 to i64
-  br label %247
+262:                                              ; preds = %252
+  %263 = zext i32 %255 to i64
+  %264 = zext i32 %260 to i64
+  br label %265
 
-247:                                              ; preds = %261, %244
-  %248 = phi i64 [ 0, %244 ], [ %262, %261 ]
-  %249 = load ptr, ptr %7, align 8, !tbaa !30
-  %250 = add nuw nsw i64 %248, %245
-  %251 = getelementptr inbounds ptr, ptr %249, i64 %250
-  %252 = load ptr, ptr %251, align 8, !tbaa !31
-  %253 = icmp eq ptr %252, null
-  br i1 %253, label %261, label %254
+265:                                              ; preds = %279, %262
+  %266 = phi i64 [ 0, %262 ], [ %280, %279 ]
+  %267 = load ptr, ptr %7, align 8, !tbaa !30
+  %268 = add nuw nsw i64 %266, %263
+  %269 = getelementptr inbounds ptr, ptr %267, i64 %268
+  %270 = load ptr, ptr %269, align 8, !tbaa !31
+  %271 = icmp eq ptr %270, null
+  br i1 %271, label %279, label %272
 
-254:                                              ; preds = %247
-  %255 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %252, i64 0, i32 3
-  store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV7CBufferIhE, i64 0, inrange i32 0, i64 2), ptr %255, align 8, !tbaa !33
-  %256 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %252, i64 0, i32 3, i32 2
-  %257 = load ptr, ptr %256, align 8, !tbaa !18
-  %258 = icmp eq ptr %257, null
-  br i1 %258, label %260, label %259
+272:                                              ; preds = %265
+  %273 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %270, i64 0, i32 3
+  store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV7CBufferIhE, i64 0, inrange i32 0, i64 2), ptr %273, align 8, !tbaa !33
+  %274 = getelementptr inbounds %"class.NCrypto::NSevenZ::CKeyInfo", ptr %270, i64 0, i32 3, i32 2
+  %275 = load ptr, ptr %274, align 8, !tbaa !18
+  %276 = icmp eq ptr %275, null
+  br i1 %276, label %278, label %277
 
-259:                                              ; preds = %254
-  tail call void @_ZdaPv(ptr noundef nonnull %257) #22
-  br label %260
+277:                                              ; preds = %272
+  tail call void @_ZdaPv(ptr noundef nonnull %275) #22
+  br label %278
 
-260:                                              ; preds = %259, %254
-  tail call void @_ZdlPv(ptr noundef nonnull %252) #22
-  br label %261
+278:                                              ; preds = %277, %272
+  tail call void @_ZdlPv(ptr noundef nonnull %270) #22
+  br label %279
 
-261:                                              ; preds = %260, %247
-  %262 = add nuw nsw i64 %248, 1
-  %263 = icmp eq i64 %262, %246
-  br i1 %263, label %264, label %247, !llvm.loop !36
+279:                                              ; preds = %278, %265
+  %280 = add nuw nsw i64 %266, 1
+  %281 = icmp eq i64 %280, %264
+  br i1 %281, label %282, label %265, !llvm.loop !36
 
-264:                                              ; preds = %261, %234
-  tail call void @_ZN17CBaseRecordVector6DeleteEii(ptr noundef nonnull align 8 dereferenceable(32) %217, i32 noundef %237, i32 noundef %242)
-  br label %269
+282:                                              ; preds = %279, %252
+  tail call void @_ZN17CBaseRecordVector6DeleteEii(ptr noundef nonnull align 8 dereferenceable(32) %139, i32 noundef %255, i32 noundef %260)
+  br label %286
 
-265:                                              ; preds = %87, %98, %94, %72, %80, %114
-  %266 = add nuw nsw i64 %73, 1
-  %267 = icmp ult i64 %266, %21
-  %268 = icmp eq i64 %266, %22
-  br i1 %268, label %269, label %72, !llvm.loop !32
+283:                                              ; preds = %111, %128, %105, %98, %118
+  %284 = add nuw nsw i64 %99, 1
+  %285 = icmp eq i64 %284, %21
+  br i1 %285, label %286, label %98, !llvm.loop !32
 
-269:                                              ; preds = %265, %64, %39, %2, %264, %116
-  %270 = phi i1 [ %119, %264 ], [ %119, %116 ], [ false, %2 ], [ %41, %39 ], [ %66, %64 ], [ %267, %265 ]
-  ret i1 %270
+286:                                              ; preds = %283, %91, %64, %37, %2, %282, %135
+  %287 = phi i1 [ false, %2 ], [ true, %282 ], [ true, %135 ], [ false, %37 ], [ false, %64 ], [ false, %91 ], [ false, %283 ]
+  ret i1 %287
 }
 
 ; Function Attrs: uwtable
@@ -2302,7 +2322,7 @@ define linkonce_odr dso_local noundef i32 @_ZN7NCrypto7NSevenZ8CEncoder14QueryIn
   %237 = icmp eq i8 %235, %236
   br i1 %237, label %316, label %238
 
-238:                                              ; preds = %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
+238:                                              ; preds = %160, %163, %168, %173, %178, %183, %188, %193, %198, %203, %208, %213, %218, %223, %228, %233
   %239 = load i8, ptr @IID_ICryptoResetInitVector, align 4, !tbaa !16
   %240 = icmp eq i8 %4, %239
   br i1 %240, label %241, label %323
@@ -2422,8 +2442,8 @@ define linkonce_odr dso_local noundef i32 @_ZN7NCrypto7NSevenZ8CEncoder14QueryIn
   %322 = tail call noundef i32 %321(ptr noundef nonnull align 8 dereferenceable(192) %0)
   br label %323
 
-323:                                              ; preds = %316, %306, %301, %296, %291, %286, %281, %276, %271, %266, %261, %256, %251, %246, %241, %238, %311
-  %324 = phi i32 [ -2147467262, %311 ], [ -2147467262, %238 ], [ -2147467262, %241 ], [ -2147467262, %246 ], [ -2147467262, %251 ], [ -2147467262, %256 ], [ -2147467262, %261 ], [ -2147467262, %266 ], [ -2147467262, %271 ], [ -2147467262, %276 ], [ -2147467262, %281 ], [ -2147467262, %286 ], [ -2147467262, %291 ], [ -2147467262, %296 ], [ -2147467262, %301 ], [ -2147467262, %306 ], [ 0, %316 ]
+323:                                              ; preds = %316, %311, %306, %301, %296, %291, %286, %281, %276, %271, %266, %261, %256, %251, %246, %241, %238
+  %324 = phi i32 [ -2147467262, %238 ], [ -2147467262, %241 ], [ -2147467262, %246 ], [ -2147467262, %251 ], [ -2147467262, %256 ], [ -2147467262, %261 ], [ -2147467262, %266 ], [ -2147467262, %271 ], [ -2147467262, %276 ], [ -2147467262, %281 ], [ -2147467262, %286 ], [ -2147467262, %291 ], [ -2147467262, %296 ], [ -2147467262, %301 ], [ -2147467262, %306 ], [ -2147467262, %311 ], [ 0, %316 ]
   ret i32 %324
 }
 
@@ -3351,7 +3371,7 @@ define linkonce_odr dso_local noundef i32 @_ZN7NCrypto7NSevenZ8CDecoder14QueryIn
   %159 = icmp eq i8 %157, %158
   br i1 %159, label %238, label %160
 
-160:                                              ; preds = %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
+160:                                              ; preds = %82, %85, %90, %95, %100, %105, %110, %115, %120, %125, %130, %135, %140, %145, %150, %155
   %161 = load i8, ptr @IID_ICompressSetDecoderProperties2, align 4, !tbaa !16
   %162 = icmp eq i8 %4, %161
   br i1 %162, label %163, label %245
@@ -3471,8 +3491,8 @@ define linkonce_odr dso_local noundef i32 @_ZN7NCrypto7NSevenZ8CDecoder14QueryIn
   %244 = tail call noundef i32 %243(ptr noundef nonnull align 8 dereferenceable(184) %0)
   br label %245
 
-245:                                              ; preds = %238, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
-  %246 = phi i32 [ -2147467262, %233 ], [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ 0, %238 ]
+245:                                              ; preds = %238, %233, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160
+  %246 = phi i32 [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ -2147467262, %233 ], [ 0, %238 ]
   ret i32 %246
 }
 
@@ -4034,10 +4054,10 @@ define internal void @_GLOBAL__sub_I_7zAes.cpp() #5 section ".text.startup" pers
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.usub.sat.i32(i32, i32) #19
+declare i64 @llvm.umin.i64(i64, i64) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #19
+declare i32 @llvm.usub.sat.i32(i32, i32) #19
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

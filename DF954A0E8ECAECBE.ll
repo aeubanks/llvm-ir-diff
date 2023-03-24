@@ -11,7 +11,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @Second_Field = external local_unnamed_addr global i32, align 4
 @backward_reference_frame = external global [3 x ptr], align 16
 @chroma_format = external local_unnamed_addr global i32, align 4
-@str.2 = private unnamed_addr constant [20 x i8] c"invalid motion_type\00", align 1
+@str.3 = private unnamed_addr constant [20 x i8] c"invalid motion_type\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @form_predictions(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3, ptr nocapture noundef readonly %4, ptr nocapture noundef readonly %5, ptr noundef %6, i32 noundef %7) local_unnamed_addr #0 {
@@ -149,7 +149,7 @@ define dso_local void @form_predictions(i32 noundef %0, i32 noundef %1, i32 noun
   br label %172
 
 97:                                               ; preds = %39
-  %98 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.2)
+  %98 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
   br label %172
 
 99:                                               ; preds = %17
@@ -259,7 +259,7 @@ define dso_local void @form_predictions(i32 noundef %0, i32 noundef %1, i32 noun
   br label %172
 
 170:                                              ; preds = %122
-  %171 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.2)
+  %171 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
   br label %172
 
 172:                                              ; preds = %53, %51, %82, %84, %97, %31, %33, %143, %123, %170, %153, %113, %115, %8
@@ -382,7 +382,7 @@ define dso_local void @form_predictions(i32 noundef %0, i32 noundef %1, i32 noun
   br label %255
 
 253:                                              ; preds = %225
-  %254 = call i32 @puts(ptr nonnull dereferenceable(1) @str.2)
+  %254 = call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
   br label %255
 
 255:                                              ; preds = %212, %214, %191, %193, %235, %253, %226, %172

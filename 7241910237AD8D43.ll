@@ -684,7 +684,7 @@ define dso_local void @checkline(ptr nocapture noundef %0) local_unnamed_addr #0
   %334 = load i32, ptr @math_mode, align 4, !tbaa !8
   %335 = add nsw i32 %334, 2
   store i32 %335, ptr @math_mode, align 4, !tbaa !8
-  br label %408
+  br label %413
 
 336:                                              ; preds = %325, %318
   %337 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %266, ptr noundef nonnull dereferenceable(7) @.str.32, i64 noundef 6) #14
@@ -763,11 +763,11 @@ define dso_local void @checkline(ptr nocapture noundef %0) local_unnamed_addr #0
 390:                                              ; preds = %385
   %391 = getelementptr inbounds i8, ptr %388, i64 2
   store ptr %391, ptr %2, align 8, !tbaa !10
-  br label %408
+  br label %413
 
 392:                                              ; preds = %385
   store i8 114, ptr @LaTeX_Mode, align 1, !tbaa !5
-  br label %408
+  br label %413
 
 393:                                              ; preds = %358, %351
   %394 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %266, ptr noundef nonnull dereferenceable(6) @.str.34, i64 noundef 5) #14
@@ -778,7 +778,7 @@ define dso_local void @checkline(ptr nocapture noundef %0) local_unnamed_addr #0
   %397 = getelementptr inbounds i8, ptr %243, i64 6
   %398 = load i8, ptr %397, align 1, !tbaa !5
   %399 = icmp sgt i8 %398, -1
-  br i1 %399, label %400, label %426
+  br i1 %399, label %400, label %408
 
 400:                                              ; preds = %396
   %401 = tail call ptr @__ctype_b_loc() #15
@@ -788,42 +788,42 @@ define dso_local void @checkline(ptr nocapture noundef %0) local_unnamed_addr #0
   %405 = load i16, ptr %404, align 2, !tbaa !12
   %406 = and i16 %405, 1024
   %407 = icmp eq i16 %406, 0
-  br i1 %407, label %426, label %431
+  br i1 %407, label %408, label %431
 
-408:                                              ; preds = %392, %390, %333
-  %409 = phi ptr [ %386, %392 ], [ %391, %390 ], [ %266, %333 ]
-  %410 = load i8, ptr %409, align 1, !tbaa !5
-  %411 = icmp eq i8 %410, 0
-  %412 = load i8, ptr getelementptr inbounds (%struct.hashheader, ptr @hashheader, i64 0, i32 16, i64 4), align 1
-  %413 = icmp eq i8 %410, %412
-  %414 = select i1 %411, i1 true, i1 %413
-  %415 = icmp eq i8 %410, %239
-  %416 = select i1 %414, i1 true, i1 %415
-  br i1 %416, label %450, label %417
+408:                                              ; preds = %400, %396
+  %409 = call fastcc i32 @TeX_LR_check(i32 noundef 1, ptr noundef nonnull %2), !range !19
+  %410 = icmp eq i32 %409, 0
+  br i1 %410, label %411, label %450
 
-417:                                              ; preds = %408, %417
-  %418 = phi ptr [ %419, %417 ], [ %409, %408 ]
-  %419 = getelementptr inbounds i8, ptr %418, i64 1
-  store ptr %419, ptr %2, align 8, !tbaa !10
-  %420 = load i8, ptr %419, align 1, !tbaa !5
-  %421 = icmp eq i8 %420, 0
-  %422 = icmp eq i8 %420, %412
-  %423 = select i1 %421, i1 true, i1 %422
-  %424 = icmp eq i8 %420, %239
-  %425 = select i1 %423, i1 true, i1 %424
-  br i1 %425, label %450, label %417, !llvm.loop !21
-
-426:                                              ; preds = %400, %396
-  %427 = call fastcc i32 @TeX_LR_check(i32 noundef 1, ptr noundef nonnull %2), !range !19
-  %428 = icmp eq i32 %427, 0
-  br i1 %428, label %429, label %450
-
-429:                                              ; preds = %426
-  %430 = load ptr, ptr %2, align 8, !tbaa !10
+411:                                              ; preds = %408
+  %412 = load ptr, ptr %2, align 8, !tbaa !10
   br label %431
 
-431:                                              ; preds = %429, %400, %393
-  %432 = phi ptr [ %430, %429 ], [ %266, %400 ], [ %266, %393 ]
+413:                                              ; preds = %392, %390, %333
+  %414 = phi ptr [ %386, %392 ], [ %391, %390 ], [ %266, %333 ]
+  %415 = load i8, ptr %414, align 1, !tbaa !5
+  %416 = icmp eq i8 %415, 0
+  %417 = load i8, ptr getelementptr inbounds (%struct.hashheader, ptr @hashheader, i64 0, i32 16, i64 4), align 1
+  %418 = icmp eq i8 %415, %417
+  %419 = select i1 %416, i1 true, i1 %418
+  %420 = icmp eq i8 %415, %239
+  %421 = select i1 %419, i1 true, i1 %420
+  br i1 %421, label %450, label %422
+
+422:                                              ; preds = %413, %422
+  %423 = phi ptr [ %424, %422 ], [ %414, %413 ]
+  %424 = getelementptr inbounds i8, ptr %423, i64 1
+  store ptr %424, ptr %2, align 8, !tbaa !10
+  %425 = load i8, ptr %424, align 1, !tbaa !5
+  %426 = icmp eq i8 %425, 0
+  %427 = icmp eq i8 %425, %417
+  %428 = select i1 %426, i1 true, i1 %427
+  %429 = icmp eq i8 %425, %239
+  %430 = select i1 %428, i1 true, i1 %429
+  br i1 %430, label %450, label %422, !llvm.loop !21
+
+431:                                              ; preds = %411, %400, %393
+  %432 = phi ptr [ %412, %411 ], [ %266, %400 ], [ %266, %393 ]
   %433 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %432, ptr noundef nonnull dereferenceable(4) @.str.27, i64 noundef 3) #14
   %434 = icmp eq i32 %433, 0
   br i1 %434, label %435, label %453
@@ -849,7 +849,7 @@ define dso_local void @checkline(ptr nocapture noundef %0) local_unnamed_addr #0
   %449 = icmp eq i32 %448, 0
   br i1 %449, label %453, label %450
 
-450:                                              ; preds = %417, %447, %426, %408, %265, %258, %254
+450:                                              ; preds = %422, %447, %413, %408, %265, %258, %254
   %451 = load i32, ptr @math_mode, align 4, !tbaa !8
   %452 = add nsw i32 %451, -1
   store i32 %452, ptr @math_mode, align 4, !tbaa !8
@@ -2301,8 +2301,8 @@ define internal fastcc i32 @TeX_math_check(i32 noundef %0, ptr nocapture noundef
   %172 = select i1 %169, i1 true, i1 %171
   br i1 %172, label %173, label %162, !llvm.loop !22
 
-173:                                              ; preds = %162, %142, %54, %153, %133, %130, %126, %103, %99, %45, %26
-  %174 = phi i32 [ 0, %26 ], [ 1, %45 ], [ 0, %99 ], [ 0, %103 ], [ 0, %126 ], [ 0, %130 ], [ 0, %133 ], [ 0, %153 ], [ 1, %54 ], [ 0, %142 ], [ 0, %162 ]
+173:                                              ; preds = %162, %142, %54, %99, %103, %126, %130, %133, %153, %45, %26
+  %174 = phi i32 [ 0, %26 ], [ 1, %45 ], [ 0, %153 ], [ 0, %133 ], [ 0, %130 ], [ 0, %126 ], [ 0, %103 ], [ 0, %99 ], [ 1, %54 ], [ 0, %142 ], [ 0, %162 ]
   ret i32 %174
 }
 
@@ -2514,19 +2514,19 @@ define internal fastcc void @TeX_skip_parens(ptr nocapture noundef %0) unnamed_a
 }
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #10
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
 declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #11

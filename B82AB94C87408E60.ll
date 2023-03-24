@@ -921,7 +921,7 @@ define internal fastcc void @RecogString(ptr noundef %0, i32 noundef %1) unnamed
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %34
 
-34:                                               ; preds = %26, %33
+34:                                               ; preds = %33, %26
   store ptr %31, ptr %8, align 8, !tbaa !12
   %35 = sext i32 %13 to i64
   %36 = getelementptr inbounds i8, ptr %31, i64 %35
@@ -932,9 +932,9 @@ define internal fastcc void @RecogString(ptr noundef %0, i32 noundef %1) unnamed
   store i8 0, ptr %40, align 1, !tbaa !20
   br label %41
 
-41:                                               ; preds = %19, %34, %20
-  %42 = phi i32 [ %13, %19 ], [ %28, %34 ], [ %13, %20 ]
-  %43 = phi i32 [ %12, %19 ], [ 0, %34 ], [ %22, %20 ]
+41:                                               ; preds = %34, %19, %20
+  %42 = phi i32 [ %13, %19 ], [ %13, %20 ], [ %28, %34 ]
+  %43 = phi i32 [ %12, %19 ], [ %22, %20 ], [ 0, %34 ]
   %44 = load ptr, ptr %3, align 8, !tbaa !14
   %45 = tail call i32 @getc(ptr noundef %44)
   %46 = icmp eq i32 %45, %1
@@ -1071,7 +1071,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %42
 
-42:                                               ; preds = %34, %41
+42:                                               ; preds = %41, %34
   store ptr %39, ptr %4, align 8, !tbaa !12
   %43 = sext i32 %12 to i64
   %44 = getelementptr inbounds i8, ptr %39, i64 %43
@@ -1083,8 +1083,8 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   br label %49
 
 49:                                               ; preds = %42, %28
-  %50 = phi i32 [ 0, %42 ], [ %30, %28 ]
-  %51 = phi i32 [ %36, %42 ], [ %12, %28 ]
+  %50 = phi i32 [ %30, %28 ], [ 0, %42 ]
+  %51 = phi i32 [ %12, %28 ], [ %36, %42 ]
   %52 = load ptr, ptr %2, align 8, !tbaa !14
   %53 = tail call i32 @getc(ptr noundef %52)
   %54 = icmp ne i32 %53, -1
@@ -1120,7 +1120,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %75
 
-75:                                               ; preds = %67, %74
+75:                                               ; preds = %74, %67
   store ptr %72, ptr %4, align 8, !tbaa !12
   %76 = sext i32 %59 to i64
   %77 = getelementptr inbounds i8, ptr %72, i64 %76
@@ -1132,8 +1132,8 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   br label %82
 
 82:                                               ; preds = %75, %62
-  %83 = phi i32 [ 0, %75 ], [ %63, %62 ]
-  %84 = phi i32 [ %69, %75 ], [ %59, %62 ]
+  %83 = phi i32 [ %63, %62 ], [ 0, %75 ]
+  %84 = phi i32 [ %59, %62 ], [ %69, %75 ]
   %85 = load ptr, ptr %2, align 8, !tbaa !14
   %86 = tail call i32 @getc(ptr noundef %85)
   %87 = icmp eq i32 %86, -1
@@ -1176,7 +1176,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %109
 
-109:                                              ; preds = %101, %108
+109:                                              ; preds = %108, %101
   store ptr %106, ptr %4, align 8, !tbaa !12
   %110 = sext i32 %90 to i64
   %111 = getelementptr inbounds i8, ptr %106, i64 %110
@@ -1188,8 +1188,8 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   br label %116
 
 116:                                              ; preds = %109, %95
-  %117 = phi i32 [ 0, %109 ], [ %97, %95 ]
-  %118 = phi i32 [ %103, %109 ], [ %90, %95 ]
+  %117 = phi i32 [ %97, %95 ], [ 0, %109 ]
+  %118 = phi i32 [ %90, %95 ], [ %103, %109 ]
   %119 = load ptr, ptr %2, align 8, !tbaa !14
   %120 = tail call i32 @getc(ptr noundef %119)
   %121 = icmp ne i32 %120, -1
@@ -1234,7 +1234,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %148
 
-148:                                              ; preds = %140, %147
+148:                                              ; preds = %147, %140
   store ptr %145, ptr %4, align 8, !tbaa !12
   %149 = sext i32 %12 to i64
   %150 = getelementptr inbounds i8, ptr %145, i64 %149
@@ -1246,8 +1246,8 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   br label %155
 
 155:                                              ; preds = %148, %135
-  %156 = phi i32 [ 0, %148 ], [ %136, %135 ]
-  %157 = phi i32 [ %142, %148 ], [ %12, %135 ]
+  %156 = phi i32 [ %136, %135 ], [ 0, %148 ]
+  %157 = phi i32 [ %12, %135 ], [ %142, %148 ]
   %158 = load ptr, ptr %2, align 8, !tbaa !14
   %159 = tail call i32 @getc(ptr noundef %158)
   switch i32 %159, label %318 [
@@ -1277,7 +1277,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %173
 
-173:                                              ; preds = %165, %172
+173:                                              ; preds = %172, %165
   store ptr %170, ptr %4, align 8, !tbaa !12
   %174 = sext i32 %157 to i64
   %175 = getelementptr inbounds i8, ptr %170, i64 %174
@@ -1289,8 +1289,8 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   br label %180
 
 180:                                              ; preds = %173, %160
-  %181 = phi i32 [ %161, %160 ], [ 0, %173 ]
-  %182 = phi i32 [ %157, %160 ], [ %167, %173 ]
+  %181 = phi i32 [ 0, %173 ], [ %161, %160 ]
+  %182 = phi i32 [ %167, %173 ], [ %157, %160 ]
   br label %183
 
 183:                                              ; preds = %205, %180
@@ -1334,7 +1334,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %205
 
-205:                                              ; preds = %197, %204
+205:                                              ; preds = %204, %197
   store ptr %202, ptr %4, align 8, !tbaa !12
   %206 = sext i32 %185 to i64
   %207 = getelementptr inbounds i8, ptr %202, i64 %206
@@ -1375,7 +1375,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %229
 
-229:                                              ; preds = %221, %228
+229:                                              ; preds = %228, %221
   store ptr %226, ptr %4, align 8, !tbaa !12
   %230 = sext i32 %157 to i64
   %231 = getelementptr inbounds i8, ptr %226, i64 %230
@@ -1387,8 +1387,8 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   br label %236
 
 236:                                              ; preds = %229, %216
-  %237 = phi i32 [ %217, %216 ], [ 0, %229 ]
-  %238 = phi i32 [ %157, %216 ], [ %223, %229 ]
+  %237 = phi i32 [ 0, %229 ], [ %217, %216 ]
+  %238 = phi i32 [ %223, %229 ], [ %157, %216 ]
   br label %239
 
 239:                                              ; preds = %278, %236
@@ -1428,7 +1428,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %259
 
-259:                                              ; preds = %251, %258
+259:                                              ; preds = %258, %251
   store ptr %256, ptr %4, align 8, !tbaa !12
   %260 = sext i32 %241 to i64
   %261 = getelementptr inbounds i8, ptr %256, i64 %260
@@ -1440,8 +1440,8 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   br label %266
 
 266:                                              ; preds = %259, %246
-  %267 = phi i32 [ 0, %259 ], [ %247, %246 ]
-  %268 = phi i32 [ %253, %259 ], [ %241, %246 ]
+  %267 = phi i32 [ %247, %246 ], [ 0, %259 ]
+  %268 = phi i32 [ %241, %246 ], [ %253, %259 ]
   %269 = load ptr, ptr %2, align 8, !tbaa !14
   %270 = tail call i32 @getc(ptr noundef %269)
   switch i32 %270, label %275 [
@@ -1518,7 +1518,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %311
 
-311:                                              ; preds = %303, %310
+311:                                              ; preds = %310, %303
   store ptr %308, ptr %4, align 8, !tbaa !12
   %312 = sext i32 %241 to i64
   %313 = getelementptr inbounds i8, ptr %308, i64 %312
@@ -1601,7 +1601,7 @@ define internal fastcc void @LiteralCode(ptr noundef %0) unnamed_addr #1 {
   tail call void @TreeCCOutOfMemory(ptr noundef nonnull %0) #9
   br label %360
 
-360:                                              ; preds = %352, %359
+360:                                              ; preds = %359, %352
   store ptr %357, ptr %4, align 8, !tbaa !12
   %361 = sext i32 %346 to i64
   %362 = getelementptr inbounds i8, ptr %357, i64 %361

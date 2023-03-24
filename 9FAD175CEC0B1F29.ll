@@ -395,7 +395,7 @@ define dso_local void @PASS1(ptr noundef %0, ptr noundef %1, ptr noundef %2) loc
   call void (i32, ptr, ptr, ptr, ptr, ptr, ...) @DO_PSEUDO(i32 noundef %169, ptr noundef nonnull %4, ptr noundef %170, ptr noundef nonnull %9, ptr noundef %1, ptr noundef %2) #10
   br label %171
 
-171:                                              ; preds = %160, %153, %151, %144, %105, %167, %101, %121, %118, %137, %134, %98
+171:                                              ; preds = %105, %167, %101, %121, %118, %137, %134, %144, %151, %153, %160, %98
   %172 = load i32, ptr @SEEN_END_OP, align 4, !tbaa !5
   %173 = icmp eq i32 %172, 3
   br i1 %173, label %174, label %182

@@ -389,7 +389,7 @@ declare noundef ptr @_ZN6btDbvt6insertERK12btDbvtAabbMmPv(ptr noundef nonnull al
 ; Function Attrs: inlinehint uwtable
 define linkonce_odr dso_local void @_ZN6btDbvt9collideTVEPK10btDbvtNodeRK12btDbvtAabbMmRNS_8ICollideE(ptr noundef nonnull align 8 dereferenceable(64) %0, ptr noundef %1, ptr noundef nonnull align 4 dereferenceable(32) %2, ptr noundef nonnull align 8 dereferenceable(8) %3) local_unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
   %5 = icmp eq ptr %1, null
-  br i1 %5, label %230, label %6
+  br i1 %5, label %236, label %6
 
 6:                                                ; preds = %4
   %7 = load float, ptr %2, align 4, !tbaa.struct !50
@@ -407,10 +407,10 @@ define linkonce_odr dso_local void @_ZN6btDbvt9collideTVEPK10btDbvtNodeRK12btDbv
   store ptr %1, ptr %18, align 8, !tbaa !25
   br label %19
 
-19:                                               ; preds = %6, %220
-  %20 = phi i32 [ 64, %6 ], [ %221, %220 ]
-  %21 = phi i32 [ 1, %6 ], [ %222, %220 ]
-  %22 = phi ptr [ %18, %6 ], [ %223, %220 ]
+19:                                               ; preds = %6, %221
+  %20 = phi i32 [ 64, %6 ], [ %222, %221 ]
+  %21 = phi i32 [ 1, %6 ], [ %223, %221 ]
+  %22 = phi ptr [ %18, %6 ], [ %224, %221 ]
   %23 = ptrtoint ptr %22 to i64
   %24 = add nsw i32 %21, -1
   %25 = zext i32 %24 to i64
@@ -418,55 +418,55 @@ define linkonce_odr dso_local void @_ZN6btDbvt9collideTVEPK10btDbvtNodeRK12btDbv
   %27 = load ptr, ptr %26, align 8, !tbaa !25
   %28 = load float, ptr %27, align 4, !tbaa !55
   %29 = fcmp ugt float %28, %13
-  br i1 %29, label %220, label %30
+  br i1 %29, label %221, label %30
 
 30:                                               ; preds = %19
   %31 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %27, i64 0, i32 1
   %32 = load float, ptr %31, align 4, !tbaa !55
   %33 = fcmp ult float %32, %7
-  br i1 %33, label %220, label %34
+  br i1 %33, label %221, label %34
 
 34:                                               ; preds = %30
   %35 = getelementptr inbounds [4 x float], ptr %27, i64 0, i64 1
   %36 = load float, ptr %35, align 4, !tbaa !55
   %37 = fcmp ugt float %36, %15
-  br i1 %37, label %220, label %38
+  br i1 %37, label %221, label %38
 
 38:                                               ; preds = %34
   %39 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %27, i64 0, i32 1, i32 0, i64 1
   %40 = load float, ptr %39, align 4, !tbaa !55
   %41 = fcmp ult float %40, %9
-  br i1 %41, label %220, label %42
+  br i1 %41, label %221, label %42
 
 42:                                               ; preds = %38
   %43 = getelementptr inbounds [4 x float], ptr %27, i64 0, i64 2
   %44 = load float, ptr %43, align 4, !tbaa !55
   %45 = fcmp ugt float %44, %17
-  br i1 %45, label %220, label %46
+  br i1 %45, label %221, label %46
 
 46:                                               ; preds = %42
   %47 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %27, i64 0, i32 1, i32 0, i64 2
   %48 = load float, ptr %47, align 4, !tbaa !55
   %49 = fcmp ult float %48, %11
-  br i1 %49, label %220, label %50
+  br i1 %49, label %221, label %50
 
 50:                                               ; preds = %46
   %51 = getelementptr inbounds %struct.btDbvtNode, ptr %27, i64 0, i32 2, i32 0, i64 1
   %52 = load ptr, ptr %51, align 8, !tbaa !35
   %53 = icmp eq ptr %52, null
-  br i1 %53, label %216, label %54
+  br i1 %53, label %217, label %54
 
 54:                                               ; preds = %50
   %55 = getelementptr inbounds %struct.btDbvtNode, ptr %27, i64 0, i32 2
   %56 = icmp eq i32 %24, %20
-  br i1 %56, label %57, label %129
+  br i1 %56, label %57, label %130
 
 57:                                               ; preds = %54
   %58 = icmp eq i32 %20, 0
   %59 = shl nuw nsw i32 %20, 1
   %60 = select i1 %58, i32 1, i32 %59
   %61 = icmp sgt i32 %21, %60
-  br i1 %61, label %129, label %62
+  br i1 %61, label %130, label %62
 
 62:                                               ; preds = %57
   %63 = icmp eq i32 %60, 0
@@ -476,260 +476,271 @@ define linkonce_odr dso_local void @_ZN6btDbvt9collideTVEPK10btDbvtNodeRK12btDbv
   %65 = sext i32 %60 to i64
   %66 = shl nsw i64 %65, 3
   %67 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %66, i32 noundef 16)
-          to label %68 unwind label %226
+          to label %68 unwind label %227
 
 68:                                               ; preds = %64, %62
   %69 = phi ptr [ null, %62 ], [ %67, %64 ]
-  br i1 %58, label %128, label %70
+  %70 = icmp ugt i32 %21, 1
+  br i1 %70, label %71, label %129
 
-70:                                               ; preds = %68
-  %71 = ptrtoint ptr %69 to i64
-  %72 = zext i32 %20 to i64
-  %73 = icmp ult i32 %20, 6
-  %74 = sub i64 %71, %23
-  %75 = icmp ult i64 %74, 32
-  %76 = select i1 %73, i1 true, i1 %75
-  br i1 %76, label %91, label %77
+71:                                               ; preds = %68
+  %72 = ptrtoint ptr %69 to i64
+  %73 = zext i32 %20 to i64
+  %74 = icmp ult i32 %20, 6
+  %75 = sub i64 %72, %23
+  %76 = icmp ult i64 %75, 32
+  %77 = select i1 %74, i1 true, i1 %76
+  br i1 %77, label %92, label %78
 
-77:                                               ; preds = %70
-  %78 = and i64 %72, 4294967292
-  br label %79
+78:                                               ; preds = %71
+  %79 = and i64 %73, 4294967292
+  br label %80
 
-79:                                               ; preds = %79, %77
-  %80 = phi i64 [ 0, %77 ], [ %87, %79 ]
-  %81 = getelementptr inbounds ptr, ptr %69, i64 %80
-  %82 = getelementptr inbounds ptr, ptr %22, i64 %80
-  %83 = load <2 x ptr>, ptr %82, align 8, !tbaa !25
-  %84 = getelementptr inbounds ptr, ptr %82, i64 2
-  %85 = load <2 x ptr>, ptr %84, align 8, !tbaa !25
-  store <2 x ptr> %83, ptr %81, align 8, !tbaa !25
-  %86 = getelementptr inbounds ptr, ptr %81, i64 2
-  store <2 x ptr> %85, ptr %86, align 8, !tbaa !25
-  %87 = add nuw i64 %80, 4
-  %88 = icmp eq i64 %87, %78
-  br i1 %88, label %89, label %79, !llvm.loop !56
+80:                                               ; preds = %80, %78
+  %81 = phi i64 [ 0, %78 ], [ %88, %80 ]
+  %82 = getelementptr inbounds ptr, ptr %69, i64 %81
+  %83 = getelementptr inbounds ptr, ptr %22, i64 %81
+  %84 = load <2 x ptr>, ptr %83, align 8, !tbaa !25
+  %85 = getelementptr inbounds ptr, ptr %83, i64 2
+  %86 = load <2 x ptr>, ptr %85, align 8, !tbaa !25
+  store <2 x ptr> %84, ptr %82, align 8, !tbaa !25
+  %87 = getelementptr inbounds ptr, ptr %82, i64 2
+  store <2 x ptr> %86, ptr %87, align 8, !tbaa !25
+  %88 = add nuw i64 %81, 4
+  %89 = icmp eq i64 %88, %79
+  br i1 %89, label %90, label %80, !llvm.loop !56
 
-89:                                               ; preds = %79
-  %90 = icmp eq i64 %78, %72
-  br i1 %90, label %128, label %91
+90:                                               ; preds = %80
+  %91 = icmp eq i64 %79, %73
+  br i1 %91, label %129, label %92
 
-91:                                               ; preds = %70, %89
-  %92 = phi i64 [ 0, %70 ], [ %78, %89 ]
-  %93 = xor i64 %92, -1
-  %94 = add nsw i64 %93, %72
-  %95 = and i64 %72, 3
-  %96 = icmp eq i64 %95, 0
-  br i1 %96, label %106, label %97
+92:                                               ; preds = %71, %90
+  %93 = phi i64 [ 0, %71 ], [ %79, %90 ]
+  %94 = xor i64 %93, -1
+  %95 = add nsw i64 %94, %73
+  %96 = and i64 %73, 3
+  %97 = icmp eq i64 %96, 0
+  br i1 %97, label %107, label %98
 
-97:                                               ; preds = %91, %97
-  %98 = phi i64 [ %103, %97 ], [ %92, %91 ]
-  %99 = phi i64 [ %104, %97 ], [ 0, %91 ]
-  %100 = getelementptr inbounds ptr, ptr %69, i64 %98
-  %101 = getelementptr inbounds ptr, ptr %22, i64 %98
-  %102 = load ptr, ptr %101, align 8, !tbaa !25
-  store ptr %102, ptr %100, align 8, !tbaa !25
-  %103 = add nuw nsw i64 %98, 1
-  %104 = add i64 %99, 1
-  %105 = icmp eq i64 %104, %95
-  br i1 %105, label %106, label %97, !llvm.loop !59
+98:                                               ; preds = %92, %98
+  %99 = phi i64 [ %104, %98 ], [ %93, %92 ]
+  %100 = phi i64 [ %105, %98 ], [ 0, %92 ]
+  %101 = getelementptr inbounds ptr, ptr %69, i64 %99
+  %102 = getelementptr inbounds ptr, ptr %22, i64 %99
+  %103 = load ptr, ptr %102, align 8, !tbaa !25
+  store ptr %103, ptr %101, align 8, !tbaa !25
+  %104 = add nuw nsw i64 %99, 1
+  %105 = add i64 %100, 1
+  %106 = icmp eq i64 %105, %96
+  br i1 %106, label %107, label %98, !llvm.loop !59
 
-106:                                              ; preds = %97, %91
-  %107 = phi i64 [ %92, %91 ], [ %103, %97 ]
-  %108 = icmp ult i64 %94, 3
-  br i1 %108, label %128, label %109
+107:                                              ; preds = %98, %92
+  %108 = phi i64 [ %93, %92 ], [ %104, %98 ]
+  %109 = icmp ult i64 %95, 3
+  br i1 %109, label %129, label %110
 
-109:                                              ; preds = %106, %109
-  %110 = phi i64 [ %126, %109 ], [ %107, %106 ]
-  %111 = getelementptr inbounds ptr, ptr %69, i64 %110
-  %112 = getelementptr inbounds ptr, ptr %22, i64 %110
-  %113 = load ptr, ptr %112, align 8, !tbaa !25
-  store ptr %113, ptr %111, align 8, !tbaa !25
-  %114 = add nuw nsw i64 %110, 1
-  %115 = getelementptr inbounds ptr, ptr %69, i64 %114
-  %116 = getelementptr inbounds ptr, ptr %22, i64 %114
-  %117 = load ptr, ptr %116, align 8, !tbaa !25
-  store ptr %117, ptr %115, align 8, !tbaa !25
-  %118 = add nuw nsw i64 %110, 2
-  %119 = getelementptr inbounds ptr, ptr %69, i64 %118
-  %120 = getelementptr inbounds ptr, ptr %22, i64 %118
-  %121 = load ptr, ptr %120, align 8, !tbaa !25
-  store ptr %121, ptr %119, align 8, !tbaa !25
-  %122 = add nuw nsw i64 %110, 3
-  %123 = getelementptr inbounds ptr, ptr %69, i64 %122
-  %124 = getelementptr inbounds ptr, ptr %22, i64 %122
-  %125 = load ptr, ptr %124, align 8, !tbaa !25
-  store ptr %125, ptr %123, align 8, !tbaa !25
-  %126 = add nuw nsw i64 %110, 4
-  %127 = icmp eq i64 %126, %72
-  br i1 %127, label %128, label %109, !llvm.loop !61
+110:                                              ; preds = %107, %110
+  %111 = phi i64 [ %127, %110 ], [ %108, %107 ]
+  %112 = getelementptr inbounds ptr, ptr %69, i64 %111
+  %113 = getelementptr inbounds ptr, ptr %22, i64 %111
+  %114 = load ptr, ptr %113, align 8, !tbaa !25
+  store ptr %114, ptr %112, align 8, !tbaa !25
+  %115 = add nuw nsw i64 %111, 1
+  %116 = getelementptr inbounds ptr, ptr %69, i64 %115
+  %117 = getelementptr inbounds ptr, ptr %22, i64 %115
+  %118 = load ptr, ptr %117, align 8, !tbaa !25
+  store ptr %118, ptr %116, align 8, !tbaa !25
+  %119 = add nuw nsw i64 %111, 2
+  %120 = getelementptr inbounds ptr, ptr %69, i64 %119
+  %121 = getelementptr inbounds ptr, ptr %22, i64 %119
+  %122 = load ptr, ptr %121, align 8, !tbaa !25
+  store ptr %122, ptr %120, align 8, !tbaa !25
+  %123 = add nuw nsw i64 %111, 3
+  %124 = getelementptr inbounds ptr, ptr %69, i64 %123
+  %125 = getelementptr inbounds ptr, ptr %22, i64 %123
+  %126 = load ptr, ptr %125, align 8, !tbaa !25
+  store ptr %126, ptr %124, align 8, !tbaa !25
+  %127 = add nuw nsw i64 %111, 4
+  %128 = icmp eq i64 %127, %73
+  br i1 %128, label %129, label %110, !llvm.loop !61
 
-128:                                              ; preds = %106, %109, %89, %68
+129:                                              ; preds = %107, %110, %90, %68
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %22)
-          to label %129 unwind label %226
+          to label %130 unwind label %227
 
-129:                                              ; preds = %57, %54, %128
-  %130 = phi i32 [ %20, %57 ], [ %20, %54 ], [ %60, %128 ]
-  %131 = phi ptr [ %22, %57 ], [ %22, %54 ], [ %69, %128 ]
-  %132 = ptrtoint ptr %131 to i64
-  %133 = getelementptr inbounds ptr, ptr %131, i64 %25
-  %134 = load ptr, ptr %55, align 8, !tbaa !25
-  store ptr %134, ptr %133, align 8, !tbaa !25
-  %135 = icmp eq i32 %21, %130
-  br i1 %135, label %136, label %209
+130:                                              ; preds = %129, %54, %57
+  %131 = phi i32 [ %20, %57 ], [ %20, %54 ], [ %60, %129 ]
+  %132 = phi ptr [ %22, %57 ], [ %22, %54 ], [ %69, %129 ]
+  %133 = ptrtoint ptr %132 to i64
+  %134 = getelementptr inbounds ptr, ptr %132, i64 %25
+  %135 = load ptr, ptr %55, align 8, !tbaa !25
+  store ptr %135, ptr %134, align 8, !tbaa !25
+  %136 = icmp eq i32 %21, %131
+  br i1 %136, label %137, label %210
 
-136:                                              ; preds = %129
-  %137 = icmp eq i32 %21, 0
-  %138 = shl nsw i32 %21, 1
-  %139 = select i1 %137, i32 1, i32 %138
-  %140 = icmp slt i32 %21, %139
-  br i1 %140, label %141, label %209
+137:                                              ; preds = %130
+  %138 = icmp eq i32 %21, 0
+  %139 = shl nsw i32 %21, 1
+  %140 = select i1 %138, i32 1, i32 %139
+  %141 = icmp slt i32 %21, %140
+  br i1 %141, label %142, label %210
 
-141:                                              ; preds = %136
-  %142 = icmp eq i32 %139, 0
-  br i1 %142, label %147, label %143
+142:                                              ; preds = %137
+  %143 = icmp eq i32 %140, 0
+  br i1 %143, label %148, label %144
 
-143:                                              ; preds = %141
-  %144 = sext i32 %139 to i64
-  %145 = shl nsw i64 %144, 3
-  %146 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %145, i32 noundef 16)
-          to label %147 unwind label %226
+144:                                              ; preds = %142
+  %145 = sext i32 %140 to i64
+  %146 = shl nsw i64 %145, 3
+  %147 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %146, i32 noundef 16)
+          to label %148 unwind label %227
 
-147:                                              ; preds = %143, %141
-  %148 = phi ptr [ null, %141 ], [ %146, %143 ]
-  %149 = icmp sgt i32 %21, 0
-  br i1 %149, label %150, label %208
+148:                                              ; preds = %144, %142
+  %149 = phi ptr [ null, %142 ], [ %147, %144 ]
+  %150 = icmp sgt i32 %21, 0
+  br i1 %150, label %151, label %209
 
-150:                                              ; preds = %147
-  %151 = ptrtoint ptr %148 to i64
-  %152 = zext i32 %21 to i64
-  %153 = icmp ult i32 %21, 6
-  %154 = sub i64 %151, %132
-  %155 = icmp ult i64 %154, 32
-  %156 = select i1 %153, i1 true, i1 %155
-  br i1 %156, label %171, label %157
+151:                                              ; preds = %148
+  %152 = ptrtoint ptr %149 to i64
+  %153 = zext i32 %21 to i64
+  %154 = icmp ult i32 %21, 6
+  %155 = sub i64 %152, %133
+  %156 = icmp ult i64 %155, 32
+  %157 = select i1 %154, i1 true, i1 %156
+  br i1 %157, label %172, label %158
 
-157:                                              ; preds = %150
-  %158 = and i64 %152, 4294967292
-  br label %159
+158:                                              ; preds = %151
+  %159 = and i64 %153, 4294967292
+  br label %160
 
-159:                                              ; preds = %159, %157
-  %160 = phi i64 [ 0, %157 ], [ %167, %159 ]
-  %161 = getelementptr inbounds ptr, ptr %148, i64 %160
-  %162 = getelementptr inbounds ptr, ptr %131, i64 %160
-  %163 = load <2 x ptr>, ptr %162, align 8, !tbaa !25
-  %164 = getelementptr inbounds ptr, ptr %162, i64 2
-  %165 = load <2 x ptr>, ptr %164, align 8, !tbaa !25
-  store <2 x ptr> %163, ptr %161, align 8, !tbaa !25
-  %166 = getelementptr inbounds ptr, ptr %161, i64 2
-  store <2 x ptr> %165, ptr %166, align 8, !tbaa !25
-  %167 = add nuw i64 %160, 4
-  %168 = icmp eq i64 %167, %158
-  br i1 %168, label %169, label %159, !llvm.loop !62
+160:                                              ; preds = %160, %158
+  %161 = phi i64 [ 0, %158 ], [ %168, %160 ]
+  %162 = getelementptr inbounds ptr, ptr %149, i64 %161
+  %163 = getelementptr inbounds ptr, ptr %132, i64 %161
+  %164 = load <2 x ptr>, ptr %163, align 8, !tbaa !25
+  %165 = getelementptr inbounds ptr, ptr %163, i64 2
+  %166 = load <2 x ptr>, ptr %165, align 8, !tbaa !25
+  store <2 x ptr> %164, ptr %162, align 8, !tbaa !25
+  %167 = getelementptr inbounds ptr, ptr %162, i64 2
+  store <2 x ptr> %166, ptr %167, align 8, !tbaa !25
+  %168 = add nuw i64 %161, 4
+  %169 = icmp eq i64 %168, %159
+  br i1 %169, label %170, label %160, !llvm.loop !62
 
-169:                                              ; preds = %159
-  %170 = icmp eq i64 %158, %152
-  br i1 %170, label %208, label %171
+170:                                              ; preds = %160
+  %171 = icmp eq i64 %159, %153
+  br i1 %171, label %209, label %172
 
-171:                                              ; preds = %150, %169
-  %172 = phi i64 [ 0, %150 ], [ %158, %169 ]
-  %173 = xor i64 %172, -1
-  %174 = add nsw i64 %173, %152
-  %175 = and i64 %152, 3
-  %176 = icmp eq i64 %175, 0
-  br i1 %176, label %186, label %177
+172:                                              ; preds = %151, %170
+  %173 = phi i64 [ 0, %151 ], [ %159, %170 ]
+  %174 = xor i64 %173, -1
+  %175 = add nsw i64 %174, %153
+  %176 = and i64 %153, 3
+  %177 = icmp eq i64 %176, 0
+  br i1 %177, label %187, label %178
 
-177:                                              ; preds = %171, %177
-  %178 = phi i64 [ %183, %177 ], [ %172, %171 ]
-  %179 = phi i64 [ %184, %177 ], [ 0, %171 ]
-  %180 = getelementptr inbounds ptr, ptr %148, i64 %178
-  %181 = getelementptr inbounds ptr, ptr %131, i64 %178
-  %182 = load ptr, ptr %181, align 8, !tbaa !25
-  store ptr %182, ptr %180, align 8, !tbaa !25
-  %183 = add nuw nsw i64 %178, 1
-  %184 = add i64 %179, 1
-  %185 = icmp eq i64 %184, %175
-  br i1 %185, label %186, label %177, !llvm.loop !63
+178:                                              ; preds = %172, %178
+  %179 = phi i64 [ %184, %178 ], [ %173, %172 ]
+  %180 = phi i64 [ %185, %178 ], [ 0, %172 ]
+  %181 = getelementptr inbounds ptr, ptr %149, i64 %179
+  %182 = getelementptr inbounds ptr, ptr %132, i64 %179
+  %183 = load ptr, ptr %182, align 8, !tbaa !25
+  store ptr %183, ptr %181, align 8, !tbaa !25
+  %184 = add nuw nsw i64 %179, 1
+  %185 = add i64 %180, 1
+  %186 = icmp eq i64 %185, %176
+  br i1 %186, label %187, label %178, !llvm.loop !63
 
-186:                                              ; preds = %177, %171
-  %187 = phi i64 [ %172, %171 ], [ %183, %177 ]
-  %188 = icmp ult i64 %174, 3
-  br i1 %188, label %208, label %189
+187:                                              ; preds = %178, %172
+  %188 = phi i64 [ %173, %172 ], [ %184, %178 ]
+  %189 = icmp ult i64 %175, 3
+  br i1 %189, label %209, label %190
 
-189:                                              ; preds = %186, %189
-  %190 = phi i64 [ %206, %189 ], [ %187, %186 ]
-  %191 = getelementptr inbounds ptr, ptr %148, i64 %190
-  %192 = getelementptr inbounds ptr, ptr %131, i64 %190
-  %193 = load ptr, ptr %192, align 8, !tbaa !25
-  store ptr %193, ptr %191, align 8, !tbaa !25
-  %194 = add nuw nsw i64 %190, 1
-  %195 = getelementptr inbounds ptr, ptr %148, i64 %194
-  %196 = getelementptr inbounds ptr, ptr %131, i64 %194
-  %197 = load ptr, ptr %196, align 8, !tbaa !25
-  store ptr %197, ptr %195, align 8, !tbaa !25
-  %198 = add nuw nsw i64 %190, 2
-  %199 = getelementptr inbounds ptr, ptr %148, i64 %198
-  %200 = getelementptr inbounds ptr, ptr %131, i64 %198
-  %201 = load ptr, ptr %200, align 8, !tbaa !25
-  store ptr %201, ptr %199, align 8, !tbaa !25
-  %202 = add nuw nsw i64 %190, 3
-  %203 = getelementptr inbounds ptr, ptr %148, i64 %202
-  %204 = getelementptr inbounds ptr, ptr %131, i64 %202
-  %205 = load ptr, ptr %204, align 8, !tbaa !25
-  store ptr %205, ptr %203, align 8, !tbaa !25
-  %206 = add nuw nsw i64 %190, 4
-  %207 = icmp eq i64 %206, %152
-  br i1 %207, label %208, label %189, !llvm.loop !64
+190:                                              ; preds = %187, %190
+  %191 = phi i64 [ %207, %190 ], [ %188, %187 ]
+  %192 = getelementptr inbounds ptr, ptr %149, i64 %191
+  %193 = getelementptr inbounds ptr, ptr %132, i64 %191
+  %194 = load ptr, ptr %193, align 8, !tbaa !25
+  store ptr %194, ptr %192, align 8, !tbaa !25
+  %195 = add nuw nsw i64 %191, 1
+  %196 = getelementptr inbounds ptr, ptr %149, i64 %195
+  %197 = getelementptr inbounds ptr, ptr %132, i64 %195
+  %198 = load ptr, ptr %197, align 8, !tbaa !25
+  store ptr %198, ptr %196, align 8, !tbaa !25
+  %199 = add nuw nsw i64 %191, 2
+  %200 = getelementptr inbounds ptr, ptr %149, i64 %199
+  %201 = getelementptr inbounds ptr, ptr %132, i64 %199
+  %202 = load ptr, ptr %201, align 8, !tbaa !25
+  store ptr %202, ptr %200, align 8, !tbaa !25
+  %203 = add nuw nsw i64 %191, 3
+  %204 = getelementptr inbounds ptr, ptr %149, i64 %203
+  %205 = getelementptr inbounds ptr, ptr %132, i64 %203
+  %206 = load ptr, ptr %205, align 8, !tbaa !25
+  store ptr %206, ptr %204, align 8, !tbaa !25
+  %207 = add nuw nsw i64 %191, 4
+  %208 = icmp eq i64 %207, %153
+  br i1 %208, label %209, label %190, !llvm.loop !64
 
-208:                                              ; preds = %186, %189, %169, %147
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %131)
-          to label %209 unwind label %226
+209:                                              ; preds = %187, %190, %170, %148
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %132)
+          to label %210 unwind label %227
 
-209:                                              ; preds = %208, %129, %136
-  %210 = phi i32 [ %21, %136 ], [ %130, %129 ], [ %139, %208 ]
-  %211 = phi ptr [ %131, %136 ], [ %131, %129 ], [ %148, %208 ]
-  %212 = sext i32 %21 to i64
-  %213 = getelementptr inbounds ptr, ptr %211, i64 %212
-  %214 = load ptr, ptr %51, align 8, !tbaa !25
-  store ptr %214, ptr %213, align 8, !tbaa !25
-  %215 = add nsw i32 %21, 1
-  br label %220
+210:                                              ; preds = %209, %130, %137
+  %211 = phi i32 [ %21, %137 ], [ %131, %130 ], [ %140, %209 ]
+  %212 = phi ptr [ %132, %137 ], [ %132, %130 ], [ %149, %209 ]
+  %213 = sext i32 %21 to i64
+  %214 = getelementptr inbounds ptr, ptr %212, i64 %213
+  %215 = load ptr, ptr %51, align 8, !tbaa !25
+  store ptr %215, ptr %214, align 8, !tbaa !25
+  %216 = add nsw i32 %21, 1
+  br label %221
 
-216:                                              ; preds = %50
-  %217 = load ptr, ptr %3, align 8, !tbaa !5
-  %218 = getelementptr inbounds ptr, ptr %217, i64 3
-  %219 = load ptr, ptr %218, align 8
-  invoke void %219(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull %27)
-          to label %220 unwind label %226
+217:                                              ; preds = %50
+  %218 = load ptr, ptr %3, align 8, !tbaa !5
+  %219 = getelementptr inbounds ptr, ptr %218, i64 3
+  %220 = load ptr, ptr %219, align 8
+  invoke void %220(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull %27)
+          to label %221 unwind label %230
 
-220:                                              ; preds = %19, %30, %34, %38, %42, %209, %216, %46
-  %221 = phi i32 [ %210, %209 ], [ %20, %216 ], [ %20, %46 ], [ %20, %42 ], [ %20, %38 ], [ %20, %34 ], [ %20, %30 ], [ %20, %19 ]
-  %222 = phi i32 [ %215, %209 ], [ %24, %216 ], [ %24, %46 ], [ %24, %42 ], [ %24, %38 ], [ %24, %34 ], [ %24, %30 ], [ %24, %19 ]
-  %223 = phi ptr [ %211, %209 ], [ %22, %216 ], [ %22, %46 ], [ %22, %42 ], [ %22, %38 ], [ %22, %34 ], [ %22, %30 ], [ %22, %19 ]
-  %224 = icmp sgt i32 %222, 0
-  br i1 %224, label %19, label %225
+221:                                              ; preds = %42, %38, %34, %30, %19, %210, %217, %46
+  %222 = phi i32 [ %211, %210 ], [ %20, %217 ], [ %20, %46 ], [ %20, %19 ], [ %20, %30 ], [ %20, %34 ], [ %20, %38 ], [ %20, %42 ]
+  %223 = phi i32 [ %216, %210 ], [ %24, %217 ], [ %24, %46 ], [ %24, %19 ], [ %24, %30 ], [ %24, %34 ], [ %24, %38 ], [ %24, %42 ]
+  %224 = phi ptr [ %212, %210 ], [ %22, %217 ], [ %22, %46 ], [ %22, %19 ], [ %22, %30 ], [ %22, %34 ], [ %22, %38 ], [ %22, %42 ]
+  %225 = icmp sgt i32 %223, 0
+  br i1 %225, label %19, label %226
 
-225:                                              ; preds = %220
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %223)
-  br label %230
+226:                                              ; preds = %221
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %224)
+  br label %236
 
-226:                                              ; preds = %208, %143, %128, %64, %216
-  %227 = phi ptr [ %131, %208 ], [ %131, %143 ], [ %22, %128 ], [ %22, %64 ], [ %22, %216 ]
-  %228 = landingpad { ptr, i32 }
+227:                                              ; preds = %209, %144, %129, %64
+  %228 = phi ptr [ %22, %64 ], [ %22, %129 ], [ %132, %144 ], [ %132, %209 ]
+  %229 = landingpad { ptr, i32 }
           cleanup
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %227)
-          to label %229 unwind label %231
+  br label %232
 
-229:                                              ; preds = %226
-  resume { ptr, i32 } %228
+230:                                              ; preds = %217
+  %231 = landingpad { ptr, i32 }
+          cleanup
+  br label %232
 
-230:                                              ; preds = %225, %4
+232:                                              ; preds = %230, %227
+  %233 = phi { ptr, i32 } [ %231, %230 ], [ %229, %227 ]
+  %234 = phi ptr [ %22, %230 ], [ %228, %227 ]
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %234)
+          to label %235 unwind label %237
+
+235:                                              ; preds = %232
+  resume { ptr, i32 } %233
+
+236:                                              ; preds = %226, %4
   ret void
 
-231:                                              ; preds = %226
-  %232 = landingpad { ptr, i32 }
+237:                                              ; preds = %232
+  %238 = landingpad { ptr, i32 }
           catch ptr null
-  %233 = extractvalue { ptr, i32 } %232, 0
-  tail call void @__clang_call_terminate(ptr %233) #16
+  %239 = extractvalue { ptr, i32 } %238, 0
+  tail call void @__clang_call_terminate(ptr %239) #16
   unreachable
 }
 
@@ -1110,12 +1121,12 @@ define linkonce_odr dso_local void @_ZNK6btDbvt15rayTestInternalEPK10btDbvtNodeR
   invoke void %229(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull %35)
           to label %230 unwind label %210
 
-230:                                              ; preds = %86, %25, %214, %226, %110
-  %231 = phi i32 [ %215, %214 ], [ %26, %226 ], [ %26, %110 ], [ %26, %25 ], [ %26, %86 ]
-  %232 = phi i32 [ %216, %214 ], [ %27, %226 ], [ %27, %110 ], [ %27, %25 ], [ %27, %86 ]
-  %233 = phi ptr [ %217, %214 ], [ %28, %226 ], [ %28, %110 ], [ %28, %25 ], [ %28, %86 ]
-  %234 = phi i32 [ %218, %214 ], [ %29, %226 ], [ %29, %110 ], [ %29, %25 ], [ %29, %86 ]
-  %235 = phi i32 [ %223, %214 ], [ %32, %226 ], [ %32, %110 ], [ %32, %25 ], [ %32, %86 ]
+230:                                              ; preds = %25, %86, %214, %226, %110
+  %231 = phi i32 [ %215, %214 ], [ %26, %226 ], [ %26, %110 ], [ %26, %86 ], [ %26, %25 ]
+  %232 = phi i32 [ %216, %214 ], [ %27, %226 ], [ %27, %110 ], [ %27, %86 ], [ %27, %25 ]
+  %233 = phi ptr [ %217, %214 ], [ %28, %226 ], [ %28, %110 ], [ %28, %86 ], [ %28, %25 ]
+  %234 = phi i32 [ %218, %214 ], [ %29, %226 ], [ %29, %110 ], [ %29, %86 ], [ %29, %25 ]
+  %235 = phi i32 [ %223, %214 ], [ %32, %226 ], [ %32, %110 ], [ %32, %86 ], [ %32, %25 ]
   %236 = icmp eq i32 %235, 0
   br i1 %236, label %237, label %25
 
@@ -1124,7 +1135,7 @@ define linkonce_odr dso_local void @_ZNK6btDbvt15rayTestInternalEPK10btDbvtNodeR
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %233)
   br label %241
 
-238:                                              ; preds = %212, %210
+238:                                              ; preds = %210, %212
   %239 = phi { ptr, i32 } [ %213, %212 ], [ %211, %210 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %11) #17
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %28)
@@ -1303,7 +1314,7 @@ define dso_local void @_ZN16btDbvtBroadphase7setAabbEP17btBroadphaseProxyRK9btVe
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #17
   br label %115
 
-110:                                              ; preds = %19, %28, %33, %39, %45, %51
+110:                                              ; preds = %45, %39, %33, %28, %19, %51
   %111 = getelementptr inbounds %struct.btDbvtBroadphase, ptr %0, i64 0, i32 1
   call void @_ZN6btDbvt6updateEP10btDbvtNodeR12btDbvtAabbMm(ptr noundef nonnull align 8 dereferenceable(64) %111, ptr noundef nonnull %24, ptr noundef nonnull align 4 dereferenceable(32) %6)
   %112 = getelementptr inbounds %struct.btDbvtBroadphase, ptr %0, i64 0, i32 12
@@ -1405,8 +1416,8 @@ define linkonce_odr dso_local void @_ZN6btDbvt24collideTTpersistentStackEPK10btD
 8:                                                ; preds = %4
   %9 = getelementptr inbounds %struct.btDbvt, ptr %0, i64 0, i32 6, i32 2
   %10 = load i32, ptr %9, align 4, !tbaa !72
-  %11 = icmp slt i32 %10, 128
-  br i1 %11, label %12, label %57
+  %11 = icmp sgt i32 %10, 127
+  br i1 %11, label %57, label %12
 
 12:                                               ; preds = %8
   %13 = getelementptr inbounds %struct.btDbvt, ptr %0, i64 0, i32 6, i32 3
@@ -1764,8 +1775,8 @@ define linkonce_odr dso_local void @_ZN6btDbvt24collideTTpersistentStackEPK10btD
   tail call void %247(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull %70, ptr noundef nonnull %72)
   br label %248
 
-248:                                              ; preds = %150, %155, %160, %166, %172, %178, %232, %244, %194, %221, %129, %133
-  %249 = phi i32 [ %145, %133 ], [ %66, %129 ], [ %216, %194 ], [ %226, %221 ], [ %239, %232 ], [ %66, %244 ], [ %66, %178 ], [ %66, %172 ], [ %66, %166 ], [ %66, %160 ], [ %66, %155 ], [ %66, %150 ]
+248:                                              ; preds = %172, %166, %160, %155, %150, %178, %232, %244, %194, %221, %129, %133
+  %249 = phi i32 [ %145, %133 ], [ %66, %129 ], [ %216, %194 ], [ %226, %221 ], [ %239, %232 ], [ %66, %244 ], [ %66, %178 ], [ %66, %150 ], [ %66, %155 ], [ %66, %160 ], [ %66, %166 ], [ %66, %172 ]
   %250 = icmp eq i32 %249, 0
   br i1 %250, label %251, label %63
 
@@ -1918,7 +1929,7 @@ define dso_local void @_ZN16btDbvtBroadphase7collideEP12btDispatcher(ptr noundef
   call void @_ZN6btDbvt24collideTTpersistentStackEPK10btDbvtNodeS2_RNS_8ICollideE(ptr noundef nonnull align 8 dereferenceable(64) %5, ptr noundef %88, ptr noundef %88, ptr noundef nonnull align 8 dereferenceable(8) %4)
   br label %89
 
-89:                                               ; preds = %87, %76, %81
+89:                                               ; preds = %76, %87, %81
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #17
   %90 = getelementptr inbounds %struct.btDbvtBroadphase, ptr %0, i64 0, i32 19
   %91 = load i8, ptr %90, align 2, !tbaa !16, !range !26, !noundef !27
@@ -2021,7 +2032,7 @@ define dso_local void @_ZN16btDbvtBroadphase7collideEP12btDispatcher(ptr noundef
   %168 = fcmp ult float %165, %167
   br i1 %168, label %169, label %177
 
-169:                                              ; preds = %119, %140, %145, %151, %157, %163
+169:                                              ; preds = %157, %151, %145, %140, %119, %163
   %170 = load ptr, ptr %94, align 8, !tbaa !21
   %171 = load ptr, ptr %170, align 8, !tbaa !5
   %172 = getelementptr inbounds ptr, ptr %171, i64 3
@@ -2125,7 +2136,7 @@ define dso_local void @_ZN16btDbvtBroadphase22performDeferredRemovalEP12btDispat
   %32 = phi ptr [ null, %25 ], [ %35, %86 ]
   %33 = load ptr, ptr %26, align 8, !tbaa !86
   %34 = getelementptr inbounds %struct.btBroadphasePair, ptr %33, i64 %29
-  %35 = load ptr, ptr %34, align 8, !tbaa !87
+  %35 = load ptr, ptr %34, align 8
   %36 = icmp eq ptr %35, %32
   %37 = getelementptr inbounds %struct.btBroadphasePair, ptr %33, i64 %29, i32 1
   %38 = load ptr, ptr %37, align 8
@@ -2580,8 +2591,8 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
   %4 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 5
   br label %5
 
-5:                                                ; preds = %132, %3
-  %6 = phi i32 [ %1, %3 ], [ %126, %132 ]
+5:                                                ; preds = %133, %3
+  %6 = phi i32 [ %1, %3 ], [ %127, %133 ]
   %7 = load ptr, ptr %4, align 8, !tbaa !86
   %8 = add nsw i32 %6, %2
   %9 = sdiv i32 %8, 2
@@ -2598,15 +2609,15 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
   %20 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %14, i64 0, i32 5
   br label %21
 
-21:                                               ; preds = %125, %5
-  %22 = phi i32 [ %6, %5 ], [ %126, %125 ]
-  %23 = phi i32 [ %2, %5 ], [ %127, %125 ]
+21:                                               ; preds = %126, %5
+  %22 = phi i32 [ %6, %5 ], [ %127, %126 ]
+  %23 = phi i32 [ %2, %5 ], [ %128, %126 ]
   %24 = load ptr, ptr %4, align 8, !tbaa !86
   %25 = sext i32 %22 to i64
   br label %26
 
-26:                                               ; preds = %69, %21
-  %27 = phi i64 [ %70, %69 ], [ %25, %21 ]
+26:                                               ; preds = %70, %21
+  %27 = phi i64 [ %71, %70 ], [ %25, %21 ]
   %28 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27
   %29 = load ptr, ptr %28, align 8, !tbaa !87
   %30 = icmp eq ptr %29, null
@@ -2648,7 +2659,7 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
 50:                                               ; preds = %48, %46
   %51 = phi i32 [ %49, %48 ], [ -1, %46 ]
   %52 = icmp sgt i32 %35, %39
-  br i1 %52, label %69, label %53
+  br i1 %52, label %70, label %53
 
 53:                                               ; preds = %50
   %54 = icmp eq ptr %29, %12
@@ -2656,139 +2667,140 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
   %56 = select i1 %54, i1 %55, i1 false
   %57 = xor i1 %54, true
   %58 = or i1 %56, %57
-  br i1 %58, label %68, label %59
+  br i1 %58, label %69, label %59
 
 59:                                               ; preds = %53
   %60 = icmp eq ptr %41, %14
-  br i1 %60, label %64, label %61
+  br i1 %60, label %61, label %65
 
-61:                                               ; preds = %68, %64, %59
-  %62 = trunc i64 %27 to i32
-  %63 = sext i32 %23 to i64
-  br label %71
+61:                                               ; preds = %59
+  %62 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
+  %63 = load ptr, ptr %62, align 8, !tbaa !92
+  %64 = icmp ugt ptr %63, %16
+  br i1 %64, label %70, label %65
 
-64:                                               ; preds = %59
-  %65 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
-  %66 = load ptr, ptr %65, align 8, !tbaa !92
-  %67 = icmp ugt ptr %66, %16
-  br i1 %67, label %69, label %61
+65:                                               ; preds = %69, %59, %61
+  %66 = phi ptr [ %41, %69 ], [ %41, %59 ], [ %14, %61 ]
+  %67 = trunc i64 %27 to i32
+  %68 = sext i32 %23 to i64
+  br label %72
 
-68:                                               ; preds = %53
-  br i1 %56, label %69, label %61
+69:                                               ; preds = %53
+  br i1 %56, label %70, label %65
 
-69:                                               ; preds = %50, %64, %68
-  %70 = add i64 %27, 1
+70:                                               ; preds = %61, %50, %69
+  %71 = add i64 %27, 1
   br label %26
 
-71:                                               ; preds = %61, %111
-  %72 = phi i64 [ %63, %61 ], [ %112, %111 ]
-  %73 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %72
-  br i1 %17, label %76, label %74
+72:                                               ; preds = %65, %112
+  %73 = phi i64 [ %68, %65 ], [ %113, %112 ]
+  %74 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %73
+  br i1 %17, label %77, label %75
 
-74:                                               ; preds = %71
-  %75 = load i32, ptr %19, align 8, !tbaa !40
-  br label %76
+75:                                               ; preds = %72
+  %76 = load i32, ptr %19, align 8, !tbaa !40
+  br label %77
 
-76:                                               ; preds = %74, %71
-  %77 = phi i32 [ %75, %74 ], [ -1, %71 ]
-  %78 = load ptr, ptr %73, align 8, !tbaa !87
-  %79 = icmp eq ptr %78, null
-  br i1 %79, label %83, label %80
+77:                                               ; preds = %75, %72
+  %78 = phi i32 [ %76, %75 ], [ -1, %72 ]
+  %79 = load ptr, ptr %74, align 8, !tbaa !87
+  %80 = icmp eq ptr %79, null
+  br i1 %80, label %84, label %81
 
-80:                                               ; preds = %76
-  %81 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %78, i64 0, i32 5
-  %82 = load i32, ptr %81, align 8, !tbaa !40
-  br label %83
+81:                                               ; preds = %77
+  %82 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %79, i64 0, i32 5
+  %83 = load i32, ptr %82, align 8, !tbaa !40
+  br label %84
 
-83:                                               ; preds = %80, %76
-  %84 = phi i32 [ %82, %80 ], [ -1, %76 ]
-  br i1 %18, label %87, label %85
+84:                                               ; preds = %81, %77
+  %85 = phi i32 [ %83, %81 ], [ -1, %77 ]
+  br i1 %18, label %88, label %86
 
-85:                                               ; preds = %83
-  %86 = load i32, ptr %20, align 8, !tbaa !40
-  br label %87
+86:                                               ; preds = %84
+  %87 = load i32, ptr %20, align 8, !tbaa !40
+  br label %88
 
-87:                                               ; preds = %85, %83
-  %88 = phi i32 [ %86, %85 ], [ -1, %83 ]
-  %89 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %72, i32 1
-  %90 = load ptr, ptr %89, align 8, !tbaa !89
-  %91 = icmp eq ptr %90, null
-  br i1 %91, label %95, label %92
+88:                                               ; preds = %86, %84
+  %89 = phi i32 [ %87, %86 ], [ -1, %84 ]
+  %90 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %73, i32 1
+  %91 = load ptr, ptr %90, align 8, !tbaa !89
+  %92 = icmp eq ptr %91, null
+  br i1 %92, label %96, label %93
 
-92:                                               ; preds = %87
-  %93 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %90, i64 0, i32 5
-  %94 = load i32, ptr %93, align 8, !tbaa !40
-  br label %95
+93:                                               ; preds = %88
+  %94 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %91, i64 0, i32 5
+  %95 = load i32, ptr %94, align 8, !tbaa !40
+  br label %96
 
-95:                                               ; preds = %92, %87
-  %96 = phi i32 [ %94, %92 ], [ -1, %87 ]
-  %97 = icmp sgt i32 %77, %84
-  br i1 %97, label %111, label %98
+96:                                               ; preds = %93, %88
+  %97 = phi i32 [ %95, %93 ], [ -1, %88 ]
+  %98 = icmp sgt i32 %78, %85
+  br i1 %98, label %112, label %99
 
-98:                                               ; preds = %95
-  %99 = icmp eq ptr %12, %78
-  %100 = icmp sgt i32 %88, %96
-  %101 = select i1 %99, i1 %100, i1 false
-  %102 = xor i1 %99, true
-  %103 = or i1 %101, %102
-  br i1 %103, label %110, label %104
+99:                                               ; preds = %96
+  %100 = icmp eq ptr %12, %79
+  %101 = icmp sgt i32 %89, %97
+  %102 = select i1 %100, i1 %101, i1 false
+  %103 = xor i1 %100, true
+  %104 = or i1 %102, %103
+  br i1 %104, label %111, label %105
 
-104:                                              ; preds = %98
-  %105 = icmp eq ptr %14, %90
-  br i1 %105, label %106, label %113
+105:                                              ; preds = %99
+  %106 = icmp eq ptr %14, %91
+  br i1 %106, label %107, label %114
 
-106:                                              ; preds = %104
-  %107 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %72, i32 2
-  %108 = load ptr, ptr %107, align 8, !tbaa !92
-  %109 = icmp ugt ptr %16, %108
-  br i1 %109, label %111, label %113
+107:                                              ; preds = %105
+  %108 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %73, i32 2
+  %109 = load ptr, ptr %108, align 8, !tbaa !92
+  %110 = icmp ugt ptr %16, %109
+  br i1 %110, label %112, label %114
 
-110:                                              ; preds = %98
-  br i1 %101, label %111, label %113
+111:                                              ; preds = %99
+  br i1 %102, label %112, label %114
 
-111:                                              ; preds = %95, %106, %110
-  %112 = add i64 %72, -1
-  br label %71
+112:                                              ; preds = %107, %96, %111
+  %113 = add i64 %73, -1
+  br label %72
 
-113:                                              ; preds = %104, %106, %110
-  %114 = trunc i64 %72 to i32
-  %115 = icmp sgt i32 %62, %114
-  br i1 %115, label %125, label %116
+114:                                              ; preds = %107, %105, %111
+  %115 = trunc i64 %73 to i32
+  %116 = icmp sgt i32 %67, %115
+  br i1 %116, label %126, label %117
 
-116:                                              ; preds = %113
-  %117 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
-  %118 = load <2 x ptr>, ptr %117, align 8, !tbaa !35
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %28, ptr noundef nonnull align 8 dereferenceable(32) %73, i64 32, i1 false), !tbaa.struct !96
-  %119 = load ptr, ptr %4, align 8, !tbaa !86
-  %120 = getelementptr inbounds %struct.btBroadphasePair, ptr %119, i64 %72
-  store ptr %29, ptr %120, align 8, !tbaa.struct !96
-  %121 = getelementptr inbounds i8, ptr %120, i64 8
-  store ptr %41, ptr %121, align 8, !tbaa.struct !97
-  %122 = getelementptr inbounds i8, ptr %120, i64 16
-  store <2 x ptr> %118, ptr %122, align 8
-  %123 = add nsw i32 %62, 1
-  %124 = add nsw i32 %114, -1
-  br label %125
+117:                                              ; preds = %114
+  %118 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
+  %119 = load <2 x ptr>, ptr %118, align 8, !tbaa !35
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %28, ptr noundef nonnull align 8 dereferenceable(32) %74, i64 32, i1 false), !tbaa.struct !96
+  %120 = load ptr, ptr %4, align 8, !tbaa !86
+  %121 = getelementptr inbounds %struct.btBroadphasePair, ptr %120, i64 %73
+  store ptr %29, ptr %121, align 8, !tbaa.struct !96
+  %122 = getelementptr inbounds i8, ptr %121, i64 8
+  store ptr %66, ptr %122, align 8, !tbaa.struct !97
+  %123 = getelementptr inbounds i8, ptr %121, i64 16
+  store <2 x ptr> %119, ptr %123, align 8
+  %124 = add nsw i32 %67, 1
+  %125 = add nsw i32 %115, -1
+  br label %126
 
-125:                                              ; preds = %113, %116
-  %126 = phi i32 [ %123, %116 ], [ %62, %113 ]
-  %127 = phi i32 [ %124, %116 ], [ %114, %113 ]
-  %128 = icmp sgt i32 %126, %127
-  br i1 %128, label %129, label %21
+126:                                              ; preds = %114, %117
+  %127 = phi i32 [ %124, %117 ], [ %67, %114 ]
+  %128 = phi i32 [ %125, %117 ], [ %115, %114 ]
+  %129 = icmp sgt i32 %127, %128
+  br i1 %129, label %130, label %21
 
-129:                                              ; preds = %125
-  %130 = icmp sgt i32 %127, %6
-  br i1 %130, label %131, label %132
+130:                                              ; preds = %126
+  %131 = icmp sgt i32 %128, %6
+  br i1 %131, label %132, label %133
 
-131:                                              ; preds = %129
-  tail call void @_ZN20btAlignedObjectArrayI16btBroadphasePairE17quickSortInternalI29btBroadphasePairSortPredicateEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %0, i32 noundef %6, i32 noundef %127)
-  br label %132
+132:                                              ; preds = %130
+  tail call void @_ZN20btAlignedObjectArrayI16btBroadphasePairE17quickSortInternalI29btBroadphasePairSortPredicateEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %0, i32 noundef %6, i32 noundef %128)
+  br label %133
 
-132:                                              ; preds = %131, %129
-  %133 = icmp slt i32 %126, %2
-  br i1 %133, label %5, label %134
+133:                                              ; preds = %132, %130
+  %134 = icmp slt i32 %127, %2
+  br i1 %134, label %5, label %135
 
-134:                                              ; preds = %132
+135:                                              ; preds = %133
   ret void
 }
 
@@ -2796,10 +2808,10 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #15
+declare i32 @llvm.smin.i32(i32, i32) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #15
+declare i32 @llvm.smax.i32(i32, i32) #15
 
 attributes #0 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

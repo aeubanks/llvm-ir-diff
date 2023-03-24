@@ -275,7 +275,7 @@ define dso_local i32 @HYPRE_StructDiagScale(ptr nocapture noundef readnone %0, p
   %116 = sub i32 %86, %55
   %117 = mul i32 %116, %92
   %118 = sub i32 %70, %55
-  %119 = mul i32 %76, %118
+  %119 = mul i32 %118, %76
   %120 = icmp slt i32 %55, 1
   %121 = select i1 %109, i1 true, i1 %120
   %122 = select i1 %121, i1 true, i1 %110
@@ -463,9 +463,9 @@ define dso_local i32 @HYPRE_StructDiagScale(ptr nocapture noundef readnone %0, p
   br i1 %275, label %276, label %172, !llvm.loop !30
 
 276:                                              ; preds = %264
-  %277 = add nsw i32 %271, %115
-  %278 = add nsw i32 %272, %117
-  %279 = add nsw i32 %273, %119
+  %277 = add i32 %115, %271
+  %278 = add i32 %117, %272
+  %279 = add i32 %119, %273
   %280 = add nuw nsw i32 %171, 1
   %281 = icmp eq i32 %280, %56
   br i1 %281, label %282, label %167, !llvm.loop !31

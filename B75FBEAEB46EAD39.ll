@@ -29,11 +29,11 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.26 = private unnamed_addr constant [5 x i8] c"    \00", align 1
 @.str.27 = private unnamed_addr constant [7 x i8] c"%12.4e\00", align 1
 @.str.29 = private unnamed_addr constant [4 x i8] c"%8d\00", align 1
-@str.30 = private unnamed_addr constant [25 x i8] c"MATGEN: Error in matvec.\00", align 1
-@str.31 = private unnamed_addr constant [28 x i8] c"MATGEN: All tests complete.\00", align 1
-@str.32 = private unnamed_addr constant [73 x i8] c"\0A\0A**********************************************************************\00", align 1
-@str.33 = private unnamed_addr constant [49 x i8] c"GET_SPACE: Can't get enouph space for vectors...\00", align 1
-@str.34 = private unnamed_addr constant [51 x i8] c"GET_SPACE: Can't get enouph space for matricies...\00", align 1
+@str = private unnamed_addr constant [49 x i8] c"GET_SPACE: Can't get enouph space for vectors...\00", align 1
+@str.30 = private unnamed_addr constant [51 x i8] c"GET_SPACE: Can't get enouph space for matricies...\00", align 1
+@str.32 = private unnamed_addr constant [25 x i8] c"MATGEN: Error in matvec.\00", align 1
+@str.33 = private unnamed_addr constant [28 x i8] c"MATGEN: All tests complete.\00", align 1
+@str.34 = private unnamed_addr constant [73 x i8] c"\0A\0A**********************************************************************\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
@@ -231,7 +231,7 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   br i1 %8, label %9, label %26
 
 9:                                                ; preds = %7
-  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.32)
+  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.34)
   %11 = getelementptr inbounds %struct.FULL, ptr %0, i64 0, i32 1
   %12 = load i32, ptr %11, align 4, !tbaa !6
   %13 = icmp sgt i32 %12, 0
@@ -343,8 +343,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   %73 = select i1 %71, i1 true, i1 %72
   br i1 %73, label %74, label %77
 
-74:                                               ; preds = %37, %47, %66, %69
-  %75 = phi ptr [ @str.33, %69 ], [ @str.33, %66 ], [ @str.33, %47 ], [ @str.34, %37 ]
+74:                                               ; preds = %37, %69, %66, %47
+  %75 = phi ptr [ @str, %69 ], [ @str, %66 ], [ @str, %47 ], [ @str.30, %37 ]
   %76 = tail call i32 @puts(ptr nonnull dereferenceable(1) %75)
   br label %1292
 
@@ -493,8 +493,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   %182 = select i1 %180, i1 true, i1 %181
   br i1 %182, label %183, label %186
 
-183:                                              ; preds = %148, %156, %175, %178
-  %184 = phi ptr [ @str.33, %178 ], [ @str.33, %175 ], [ @str.33, %156 ], [ @str.34, %148 ]
+183:                                              ; preds = %148, %178, %175, %156
+  %184 = phi ptr [ @str, %178 ], [ @str, %175 ], [ @str, %156 ], [ @str.30, %148 ]
   %185 = tail call i32 @puts(ptr nonnull dereferenceable(1) %184)
   br label %1292
 
@@ -574,8 +574,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   %237 = select i1 %235, i1 true, i1 %236
   br i1 %237, label %238, label %241
 
-238:                                              ; preds = %201, %211, %230, %233
-  %239 = phi ptr [ @str.33, %233 ], [ @str.33, %230 ], [ @str.33, %211 ], [ @str.34, %201 ]
+238:                                              ; preds = %201, %233, %230, %211
+  %239 = phi ptr [ @str, %233 ], [ @str, %230 ], [ @str, %211 ], [ @str.30, %201 ]
   %240 = tail call i32 @puts(ptr nonnull dereferenceable(1) %239)
   br label %1292
 
@@ -750,8 +750,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   %348 = select i1 %346, i1 true, i1 %347
   br i1 %348, label %349, label %352
 
-349:                                              ; preds = %312, %322, %341, %344
-  %350 = phi ptr [ @str.33, %344 ], [ @str.33, %341 ], [ @str.33, %322 ], [ @str.34, %312 ]
+349:                                              ; preds = %312, %344, %341, %322
+  %350 = phi ptr [ @str, %344 ], [ @str, %341 ], [ @str, %322 ], [ @str.30, %312 ]
   %351 = tail call i32 @puts(ptr nonnull dereferenceable(1) %350)
   br label %1292
 
@@ -904,8 +904,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   %460 = select i1 %458, i1 true, i1 %459
   br i1 %460, label %461, label %464
 
-461:                                              ; preds = %424, %434, %453, %456
-  %462 = phi ptr [ @str.33, %456 ], [ @str.33, %453 ], [ @str.33, %434 ], [ @str.34, %424 ]
+461:                                              ; preds = %424, %456, %453, %434
+  %462 = phi ptr [ @str, %456 ], [ @str, %453 ], [ @str, %434 ], [ @str.30, %424 ]
   %463 = tail call i32 @puts(ptr nonnull dereferenceable(1) %462)
   br label %1292
 
@@ -1046,8 +1046,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   %559 = select i1 %557, i1 true, i1 %558
   br i1 %559, label %560, label %563
 
-560:                                              ; preds = %523, %533, %552, %555
-  %561 = phi ptr [ @str.33, %555 ], [ @str.33, %552 ], [ @str.33, %533 ], [ @str.34, %523 ]
+560:                                              ; preds = %523, %555, %552, %533
+  %561 = phi ptr [ @str, %555 ], [ @str, %552 ], [ @str, %533 ], [ @str.30, %523 ]
   %562 = tail call i32 @puts(ptr nonnull dereferenceable(1) %561)
   br label %1292
 
@@ -1195,8 +1195,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   %665 = select i1 %663, i1 true, i1 %664
   br i1 %665, label %666, label %669
 
-666:                                              ; preds = %629, %639, %658, %661
-  %667 = phi ptr [ @str.33, %661 ], [ @str.33, %658 ], [ @str.33, %639 ], [ @str.34, %629 ]
+666:                                              ; preds = %629, %661, %658, %639
+  %667 = phi ptr [ @str, %661 ], [ @str, %658 ], [ @str, %639 ], [ @str.30, %629 ]
   %668 = tail call i32 @puts(ptr nonnull dereferenceable(1) %667)
   br label %1292
 
@@ -1344,8 +1344,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   %771 = select i1 %769, i1 true, i1 %770
   br i1 %771, label %772, label %775
 
-772:                                              ; preds = %735, %745, %764, %767
-  %773 = phi ptr [ @str.33, %767 ], [ @str.33, %764 ], [ @str.33, %745 ], [ @str.34, %735 ]
+772:                                              ; preds = %735, %767, %764, %745
+  %773 = phi ptr [ @str, %767 ], [ @str, %764 ], [ @str, %745 ], [ @str.30, %735 ]
   %774 = tail call i32 @puts(ptr nonnull dereferenceable(1) %773)
   br label %1292
 
@@ -1508,8 +1508,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   %892 = select i1 %890, i1 true, i1 %891
   br i1 %892, label %893, label %896
 
-893:                                              ; preds = %856, %866, %885, %888
-  %894 = phi ptr [ @str.33, %888 ], [ @str.33, %885 ], [ @str.33, %866 ], [ @str.34, %856 ]
+893:                                              ; preds = %856, %888, %885, %866
+  %894 = phi ptr [ @str, %888 ], [ @str, %885 ], [ @str, %866 ], [ @str.30, %856 ]
   %895 = tail call i32 @puts(ptr nonnull dereferenceable(1) %894)
   br label %1292
 
@@ -1605,7 +1605,7 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   br i1 %966, label %969, label %913, !llvm.loop !47
 
 967:                                              ; preds = %26
-  %968 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.31)
+  %968 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.33)
   br label %1292
 
 969:                                              ; preds = %965, %845, %723, %617, %511, %412, %301, %139, %896, %775, %669, %563, %464, %352, %241
@@ -1946,7 +1946,7 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   br i1 %1224, label %1097, label %1199, !llvm.loop !71
 
 1225:                                             ; preds = %1020, %1014
-  %1226 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.30)
+  %1226 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.32)
   br label %1292
 
 1227:                                             ; preds = %1195, %1097
@@ -2040,8 +2040,8 @@ define dso_local i32 @matgen(ptr noundef %0, ptr nocapture noundef %1, ptr nocap
   tail call void @fvecdump(ptr noundef %1291, i32 noundef %1015, ptr noundef nonnull @.str.21)
   br label %1292
 
-1292:                                             ; preds = %893, %772, %666, %560, %461, %349, %238, %183, %74, %1288, %1286, %1225, %967
-  %1293 = phi i32 [ 1, %967 ], [ 1, %1225 ], [ 1, %74 ], [ 1, %183 ], [ 1, %238 ], [ 1, %349 ], [ 1, %461 ], [ 1, %560 ], [ 1, %666 ], [ 1, %772 ], [ 1, %893 ], [ 0, %1286 ], [ 0, %1288 ]
+1292:                                             ; preds = %1288, %1286, %1225, %967, %893, %772, %666, %560, %461, %349, %238, %183, %74
+  %1293 = phi i32 [ 1, %967 ], [ 1, %893 ], [ 1, %1225 ], [ 1, %772 ], [ 1, %666 ], [ 1, %560 ], [ 1, %461 ], [ 1, %349 ], [ 1, %238 ], [ 1, %183 ], [ 1, %74 ], [ 0, %1286 ], [ 0, %1288 ]
   ret i32 %1293
 }
 
@@ -2114,7 +2114,7 @@ define dso_local i32 @get_space(ptr nocapture noundef %0, ptr nocapture noundef 
   br i1 %48, label %49, label %52
 
 49:                                               ; preds = %14, %22, %41, %44
-  %50 = phi ptr [ @str.33, %44 ], [ @str.33, %41 ], [ @str.33, %22 ], [ @str.34, %14 ]
+  %50 = phi ptr [ @str, %44 ], [ @str, %41 ], [ @str, %22 ], [ @str.30, %14 ]
   %51 = tail call i32 @puts(ptr nonnull dereferenceable(1) %50)
   br label %52
 

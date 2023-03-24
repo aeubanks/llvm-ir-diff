@@ -179,11 +179,11 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %22 = ashr exact i64 %21, 32
   %23 = tail call noalias ptr @calloc(i64 noundef %22, i64 noundef 8) #15
   %24 = icmp slt i32 %11, 1
-  br i1 %24, label %125, label %27
+  br i1 %24, label %126, label %27
 
 25:                                               ; preds = %82
   %26 = icmp sgt i32 %11, 0
-  br i1 %26, label %87, label %125
+  br i1 %26, label %87, label %126
 
 27:                                               ; preds = %19, %82
   %28 = phi i32 [ %85, %82 ], [ 1, %19 ]
@@ -294,9 +294,9 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %86 = icmp eq i32 %28, %11
   br i1 %86, label %25, label %27, !llvm.loop !29
 
-87:                                               ; preds = %25, %120
-  %88 = phi i32 [ %123, %120 ], [ %11, %25 ]
-  %89 = phi i32 [ %122, %120 ], [ 0, %25 ]
+87:                                               ; preds = %25, %122
+  %88 = phi i32 [ %124, %122 ], [ %11, %25 ]
+  %89 = phi i32 [ %123, %122 ], [ 0, %25 ]
   %90 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %3, ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %88) #14
   %91 = load i8, ptr %3, align 16, !tbaa !26
   %92 = icmp eq i8 %91, 0
@@ -322,7 +322,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %108 = getelementptr inbounds ptr, ptr %23, i64 %107
   %109 = load ptr, ptr %108, align 8, !tbaa !23
   %110 = icmp eq ptr %109, null
-  br i1 %110, label %120, label %111
+  br i1 %110, label %122, label %111
 
 111:                                              ; preds = %103, %116
   %112 = phi ptr [ %118, %116 ], [ %109, %103 ]
@@ -335,45 +335,53 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %117 = getelementptr inbounds %struct.ht_node, ptr %112, i64 0, i32 2
   %118 = load ptr, ptr %117, align 8, !tbaa !23
   %119 = icmp eq ptr %118, null
-  br i1 %119, label %120, label %111, !llvm.loop !30
+  br i1 %119, label %122, label %111, !llvm.loop !30
 
-120:                                              ; preds = %111, %116, %103
-  %121 = phi i32 [ 0, %103 ], [ 1, %111 ], [ 0, %116 ]
-  %122 = add nuw nsw i32 %121, %89
-  %123 = add nsw i32 %88, -1
-  %124 = icmp sgt i32 %88, 1
-  br i1 %124, label %87, label %125, !llvm.loop !31
+120:                                              ; preds = %111
+  %121 = add nsw i32 %89, 1
+  br label %122
 
-125:                                              ; preds = %120, %19, %25
-  %126 = phi i32 [ 0, %25 ], [ 0, %19 ], [ %122, %120 ]
-  %127 = icmp sgt i32 %20, 0
-  br i1 %127, label %128, label %142
+122:                                              ; preds = %116, %103, %120
+  %123 = phi i32 [ %121, %120 ], [ %89, %103 ], [ %89, %116 ]
+  %124 = add nsw i32 %88, -1
+  %125 = icmp sgt i32 %88, 1
+  br i1 %125, label %87, label %126, !llvm.loop !31
 
-128:                                              ; preds = %125, %139
-  %129 = phi i64 [ %140, %139 ], [ 0, %125 ]
-  %130 = getelementptr inbounds ptr, ptr %23, i64 %129
-  %131 = load ptr, ptr %130, align 8, !tbaa !23
-  %132 = icmp eq ptr %131, null
-  br i1 %132, label %139, label %133
+126:                                              ; preds = %122, %19, %25
+  %127 = phi i32 [ 0, %25 ], [ 0, %19 ], [ %123, %122 ]
+  %128 = icmp sgt i32 %20, 0
+  br i1 %128, label %129, label %146
 
-133:                                              ; preds = %128, %133
-  %134 = phi ptr [ %136, %133 ], [ %131, %128 ]
-  %135 = getelementptr inbounds %struct.ht_node, ptr %134, i64 0, i32 2
-  %136 = load ptr, ptr %135, align 8, !tbaa !12
-  %137 = load ptr, ptr %134, align 8, !tbaa !5
-  tail call void @free(ptr noundef %137) #14
-  tail call void @free(ptr noundef nonnull %134) #14
-  %138 = icmp eq ptr %136, null
-  br i1 %138, label %139, label %133, !llvm.loop !24
+129:                                              ; preds = %126
+  %130 = shl i64 %16, 32
+  %131 = ashr exact i64 %130, 32
+  br label %132
 
-139:                                              ; preds = %133, %128
-  %140 = add nuw nsw i64 %129, 1
-  %141 = icmp eq i64 %140, %22
-  br i1 %141, label %142, label %128, !llvm.loop !25
+132:                                              ; preds = %129, %143
+  %133 = phi i64 [ %144, %143 ], [ 0, %129 ]
+  %134 = getelementptr inbounds ptr, ptr %23, i64 %133
+  %135 = load ptr, ptr %134, align 8, !tbaa !23
+  %136 = icmp eq ptr %135, null
+  br i1 %136, label %143, label %137
 
-142:                                              ; preds = %139, %125
+137:                                              ; preds = %132, %137
+  %138 = phi ptr [ %140, %137 ], [ %135, %132 ]
+  %139 = getelementptr inbounds %struct.ht_node, ptr %138, i64 0, i32 2
+  %140 = load ptr, ptr %139, align 8, !tbaa !12
+  %141 = load ptr, ptr %138, align 8, !tbaa !5
+  tail call void @free(ptr noundef %141) #14
+  tail call void @free(ptr noundef nonnull %138) #14
+  %142 = icmp eq ptr %140, null
+  br i1 %142, label %143, label %137, !llvm.loop !24
+
+143:                                              ; preds = %137, %132
+  %144 = add nuw nsw i64 %133, 1
+  %145 = icmp eq i64 %144, %131
+  br i1 %145, label %146, label %132, !llvm.loop !25
+
+146:                                              ; preds = %143, %126
   tail call void @free(ptr noundef %23) #14
-  %143 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %126)
+  %147 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %127)
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #14
   ret i32 0
 }

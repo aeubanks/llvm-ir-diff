@@ -15,29 +15,29 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   store i32 1, ptr %3, align 4, !tbaa !5
   %4 = call i32 (ptr, ...) @test_stdarg_va(ptr noundef nonnull %3, i32 noundef 1, i64 noundef 1981891429, i32 noundef 2, ptr noundef nonnull %3), !range !9
   %5 = icmp eq i32 %4, 0
-  br i1 %5, label %9, label %6
+  br i1 %5, label %15, label %6
 
 6:                                                ; preds = %2
   %7 = call i32 (ptr, ...) @test_stdarg_builtin_va(ptr noundef nonnull %3, i32 noundef 1, i64 noundef 1981891433, i32 noundef 2, ptr noundef nonnull %3), !range !9
   %8 = icmp eq i32 %7, 0
-  br i1 %8, label %9, label %10
+  br i1 %8, label %15, label %9
 
-9:                                                ; preds = %2, %6
+9:                                                ; preds = %6
+  %10 = load i32, ptr %3, align 4, !tbaa !5
+  %11 = and i32 %10, 1
+  %12 = icmp eq i32 %11, 0
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3)
+  %13 = select i1 %12, ptr @str.2, ptr @str
+  %14 = xor i32 %11, 1
+  br label %16
+
+15:                                               ; preds = %6, %2
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3)
   br label %16
 
-10:                                               ; preds = %6
-  %11 = load i32, ptr %3, align 4, !tbaa !5
-  %12 = and i32 %11, 1
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3)
-  %13 = icmp eq i32 %12, 0
-  %14 = select i1 %13, ptr @str.2, ptr @str
-  %15 = xor i32 %12, 1
-  br label %16
-
-16:                                               ; preds = %10, %9
-  %17 = phi ptr [ @str.2, %9 ], [ %14, %10 ]
-  %18 = phi i32 [ 1, %9 ], [ %15, %10 ]
+16:                                               ; preds = %9, %15
+  %17 = phi ptr [ @str.2, %15 ], [ %13, %9 ]
+  %18 = phi i32 [ 1, %15 ], [ %14, %9 ]
   %19 = call i32 @puts(ptr nonnull dereferenceable(1) %17)
   ret i32 %18
 }

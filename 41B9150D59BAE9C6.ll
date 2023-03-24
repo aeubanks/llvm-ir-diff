@@ -8,12 +8,12 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.sm_row_struct = type { i32, i32, i32, ptr, ptr, ptr, ptr, ptr }
 %struct.sm_element_struct = type { i32, i32, ptr, ptr, ptr, ptr, ptr }
 
-; Function Attrs: nofree nosync nounwind uwtable
+; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local i32 @visit_col(ptr nocapture noundef readonly %0, ptr nocapture noundef %1, ptr nocapture noundef %2, ptr nocapture noundef %3) local_unnamed_addr #0 {
   %5 = getelementptr inbounds %struct.sm_col_struct, ptr %1, i64 0, i32 2
   %6 = load i32, ptr %5, align 8, !tbaa !5
   %7 = icmp eq i32 %6, 0
-  br i1 %7, label %8, label %70
+  br i1 %7, label %8, label %78
 
 8:                                                ; preds = %4
   store i32 1, ptr %5, align 8, !tbaa !5
@@ -23,13 +23,13 @@ define dso_local i32 @visit_col(ptr nocapture noundef readonly %0, ptr nocapture
   %11 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 9
   %12 = load i32, ptr %11, align 8, !tbaa !12
   %13 = icmp eq i32 %10, %12
-  br i1 %13, label %70, label %14
+  br i1 %13, label %78, label %14
 
 14:                                               ; preds = %8
   %15 = getelementptr inbounds %struct.sm_col_struct, ptr %1, i64 0, i32 3
   %16 = load ptr, ptr %15, align 8, !tbaa !14
   %17 = icmp eq ptr %16, null
-  br i1 %17, label %70, label %18
+  br i1 %17, label %78, label %18
 
 18:                                               ; preds = %14
   %19 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
@@ -38,76 +38,92 @@ define dso_local i32 @visit_col(ptr nocapture noundef readonly %0, ptr nocapture
   %22 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
   br label %23
 
-23:                                               ; preds = %18, %66
-  %24 = phi ptr [ %16, %18 ], [ %68, %66 ]
+23:                                               ; preds = %18, %74
+  %24 = phi ptr [ %16, %18 ], [ %76, %74 ]
   %25 = load i32, ptr %24, align 8, !tbaa !15
   %26 = icmp sgt i32 %25, -1
-  tail call void @llvm.assume(i1 %26)
-  %27 = load i32, ptr %19, align 8, !tbaa !17
-  %28 = icmp slt i32 %25, %27
-  tail call void @llvm.assume(i1 %28)
-  %29 = load ptr, ptr %0, align 8, !tbaa !18
-  %30 = zext i32 %25 to i64
-  %31 = getelementptr inbounds ptr, ptr %29, i64 %30
-  %32 = load ptr, ptr %31, align 8, !tbaa !14
-  %33 = getelementptr inbounds %struct.sm_row_struct, ptr %32, i64 0, i32 2
-  %34 = load i32, ptr %33, align 8, !tbaa !19
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %36, label %66
+  br i1 %26, label %27, label %35
 
-36:                                               ; preds = %23
-  store i32 1, ptr %33, align 8, !tbaa !19
-  %37 = load i32, ptr %2, align 4, !tbaa !11
-  %38 = add nsw i32 %37, 1
-  store i32 %38, ptr %2, align 4, !tbaa !11
-  %39 = load i32, ptr %20, align 8, !tbaa !21
-  %40 = icmp eq i32 %38, %39
-  br i1 %40, label %70, label %41
+27:                                               ; preds = %23
+  %28 = load i32, ptr %19, align 8, !tbaa !17
+  %29 = icmp slt i32 %25, %28
+  br i1 %29, label %30, label %35
 
-41:                                               ; preds = %36
-  %42 = getelementptr inbounds %struct.sm_row_struct, ptr %32, i64 0, i32 3
-  %43 = load ptr, ptr %42, align 8, !tbaa !14
-  %44 = icmp eq ptr %43, null
-  br i1 %44, label %66, label %45
+30:                                               ; preds = %27
+  %31 = load ptr, ptr %0, align 8, !tbaa !18
+  %32 = zext i32 %25 to i64
+  %33 = getelementptr inbounds ptr, ptr %31, i64 %32
+  %34 = load ptr, ptr %33, align 8, !tbaa !14
+  br label %35
 
-45:                                               ; preds = %41, %62
-  %46 = phi ptr [ %64, %62 ], [ %43, %41 ]
-  %47 = getelementptr inbounds %struct.sm_element_struct, ptr %46, i64 0, i32 1
-  %48 = load i32, ptr %47, align 4, !tbaa !22
-  %49 = icmp sgt i32 %48, -1
-  tail call void @llvm.assume(i1 %49)
-  %50 = load i32, ptr %21, align 8, !tbaa !23
-  %51 = icmp slt i32 %48, %50
-  tail call void @llvm.assume(i1 %51)
-  %52 = load ptr, ptr %22, align 8, !tbaa !24
-  %53 = zext i32 %48 to i64
-  %54 = getelementptr inbounds ptr, ptr %52, i64 %53
-  %55 = load ptr, ptr %54, align 8, !tbaa !14
-  %56 = getelementptr inbounds %struct.sm_col_struct, ptr %55, i64 0, i32 2
-  %57 = load i32, ptr %56, align 8, !tbaa !5
-  %58 = icmp eq i32 %57, 0
-  br i1 %58, label %59, label %62
+35:                                               ; preds = %23, %27, %30
+  %36 = phi ptr [ %34, %30 ], [ null, %27 ], [ null, %23 ]
+  %37 = getelementptr inbounds %struct.sm_row_struct, ptr %36, i64 0, i32 2
+  %38 = load i32, ptr %37, align 8, !tbaa !19
+  %39 = icmp eq i32 %38, 0
+  br i1 %39, label %40, label %74
 
-59:                                               ; preds = %45
-  %60 = tail call i32 @visit_col(ptr noundef nonnull %0, ptr noundef nonnull %55, ptr noundef nonnull %2, ptr noundef nonnull %3), !range !25
-  %61 = icmp eq i32 %60, 0
-  br i1 %61, label %62, label %70
+40:                                               ; preds = %35
+  store i32 1, ptr %37, align 8, !tbaa !19
+  %41 = load i32, ptr %2, align 4, !tbaa !11
+  %42 = add nsw i32 %41, 1
+  store i32 %42, ptr %2, align 4, !tbaa !11
+  %43 = load i32, ptr %20, align 8, !tbaa !21
+  %44 = icmp eq i32 %42, %43
+  br i1 %44, label %78, label %45
 
-62:                                               ; preds = %59, %45
-  %63 = getelementptr inbounds %struct.sm_element_struct, ptr %46, i64 0, i32 4
-  %64 = load ptr, ptr %63, align 8, !tbaa !14
-  %65 = icmp eq ptr %64, null
-  br i1 %65, label %66, label %45
+45:                                               ; preds = %40
+  %46 = getelementptr inbounds %struct.sm_row_struct, ptr %36, i64 0, i32 3
+  %47 = load ptr, ptr %46, align 8, !tbaa !14
+  %48 = icmp eq ptr %47, null
+  br i1 %48, label %74, label %49
 
-66:                                               ; preds = %62, %41, %23
-  %67 = getelementptr inbounds %struct.sm_element_struct, ptr %24, i64 0, i32 2
-  %68 = load ptr, ptr %67, align 8, !tbaa !14
-  %69 = icmp eq ptr %68, null
-  br i1 %69, label %70, label %23
+49:                                               ; preds = %45, %70
+  %50 = phi ptr [ %72, %70 ], [ %47, %45 ]
+  %51 = getelementptr inbounds %struct.sm_element_struct, ptr %50, i64 0, i32 1
+  %52 = load i32, ptr %51, align 4, !tbaa !22
+  %53 = icmp sgt i32 %52, -1
+  br i1 %53, label %54, label %62
 
-70:                                               ; preds = %66, %36, %59, %14, %4, %8
-  %71 = phi i32 [ 1, %8 ], [ 0, %4 ], [ 0, %14 ], [ 1, %59 ], [ 0, %66 ], [ 1, %36 ]
-  ret i32 %71
+54:                                               ; preds = %49
+  %55 = load i32, ptr %21, align 8, !tbaa !23
+  %56 = icmp slt i32 %52, %55
+  br i1 %56, label %57, label %62
+
+57:                                               ; preds = %54
+  %58 = load ptr, ptr %22, align 8, !tbaa !24
+  %59 = zext i32 %52 to i64
+  %60 = getelementptr inbounds ptr, ptr %58, i64 %59
+  %61 = load ptr, ptr %60, align 8, !tbaa !14
+  br label %62
+
+62:                                               ; preds = %57, %54, %49
+  %63 = phi ptr [ %61, %57 ], [ null, %54 ], [ null, %49 ]
+  %64 = getelementptr inbounds %struct.sm_col_struct, ptr %63, i64 0, i32 2
+  %65 = load i32, ptr %64, align 8, !tbaa !5
+  %66 = icmp eq i32 %65, 0
+  br i1 %66, label %67, label %70
+
+67:                                               ; preds = %62
+  %68 = tail call i32 @visit_col(ptr noundef %0, ptr noundef nonnull %63, ptr noundef nonnull %2, ptr noundef nonnull %3), !range !25
+  %69 = icmp eq i32 %68, 0
+  br i1 %69, label %70, label %78
+
+70:                                               ; preds = %67, %62
+  %71 = getelementptr inbounds %struct.sm_element_struct, ptr %50, i64 0, i32 4
+  %72 = load ptr, ptr %71, align 8, !tbaa !14
+  %73 = icmp eq ptr %72, null
+  br i1 %73, label %74, label %49
+
+74:                                               ; preds = %70, %45, %35
+  %75 = getelementptr inbounds %struct.sm_element_struct, ptr %24, i64 0, i32 2
+  %76 = load ptr, ptr %75, align 8, !tbaa !14
+  %77 = icmp eq ptr %76, null
+  br i1 %77, label %78, label %23
+
+78:                                               ; preds = %74, %40, %67, %14, %4, %8
+  %79 = phi i32 [ 1, %8 ], [ 0, %4 ], [ 0, %14 ], [ 1, %67 ], [ 0, %74 ], [ 1, %40 ]
+  ret i32 %79
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -225,8 +241,8 @@ define dso_local i32 @sm_block_partition(ptr nocapture noundef readonly %0, ptr 
   %71 = getelementptr inbounds %struct.sm_row_struct, ptr %70, i64 0, i32 2
   %72 = load i32, ptr %71, align 8, !tbaa !19
   %73 = icmp eq i32 %72, 0
-  %74 = getelementptr inbounds %struct.sm_row_struct, ptr %70, i64 0, i32 3
-  %75 = load ptr, ptr %74, align 8, !tbaa !14
+  %74 = getelementptr i8, ptr %70, i64 16
+  %75 = load ptr, ptr %74, align 8, !tbaa !27
   %76 = icmp eq ptr %75, null
   br i1 %73, label %88, label %77
 
@@ -241,7 +257,7 @@ define dso_local i32 @sm_block_partition(ptr nocapture noundef readonly %0, ptr 
   %83 = load i32, ptr %82, align 4, !tbaa !22
   %84 = tail call ptr (ptr, i32, i32, ...) @sm_insert(ptr noundef %78, i32 noundef %81, i32 noundef %83) #5
   %85 = getelementptr inbounds %struct.sm_element_struct, ptr %80, i64 0, i32 4
-  %86 = load ptr, ptr %85, align 8, !tbaa !14
+  %86 = load ptr, ptr %85, align 8, !tbaa !28
   %87 = icmp eq ptr %86, null
   br i1 %87, label %99, label %79
 
@@ -256,7 +272,7 @@ define dso_local i32 @sm_block_partition(ptr nocapture noundef readonly %0, ptr 
   %94 = load i32, ptr %93, align 4, !tbaa !22
   %95 = tail call ptr (ptr, i32, i32, ...) @sm_insert(ptr noundef %89, i32 noundef %92, i32 noundef %94) #5
   %96 = getelementptr inbounds %struct.sm_element_struct, ptr %91, i64 0, i32 4
-  %97 = load ptr, ptr %96, align 8, !tbaa !14
+  %97 = load ptr, ptr %96, align 8, !tbaa !28
   %98 = icmp eq ptr %97, null
   br i1 %98, label %99, label %90
 
@@ -280,7 +296,7 @@ declare ptr @sm_insert(...) local_unnamed_addr #3
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
 declare void @llvm.assume(i1 noundef) #4
 
-attributes #0 = { nofree nosync nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #0 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #2 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -317,3 +333,5 @@ attributes #5 = { nounwind }
 !24 = !{!13, !10, i64 16}
 !25 = !{i32 0, i32 2}
 !26 = !{!13, !10, i64 32}
+!27 = !{!20, !10, i64 16}
+!28 = !{!16, !10, i64 24}

@@ -22,22 +22,22 @@ define dso_local i32 @main() local_unnamed_addr #1 {
 1:                                                ; preds = %20
   %2 = add nuw nsw i32 %21, 1
   %3 = and i32 %2, 62
-  %4 = icmp ugt i32 %3, 48
+  %4 = icmp ult i32 %3, 49
   %5 = add nsw i32 %3, -49
   %6 = lshr i32 %5, 2
-  %7 = icmp slt i32 %5, %6
-  %8 = select i1 %4, i1 %7, i1 false
-  br i1 %8, label %28, label %9
+  %7 = icmp sge i32 %5, %6
+  %8 = select i1 %4, i1 true, i1 %7
+  br i1 %8, label %9, label %28
 
 9:                                                ; preds = %1
   %10 = add nuw nsw i32 %21, 2
   %11 = and i32 %10, 62
-  %12 = icmp ugt i32 %11, 48
+  %12 = icmp ult i32 %11, 49
   %13 = add nsw i32 %11, -49
   %14 = lshr i32 %13, 2
-  %15 = icmp slt i32 %13, %14
-  %16 = select i1 %12, i1 %15, i1 false
-  br i1 %16, label %28, label %17
+  %15 = icmp sge i32 %13, %14
+  %16 = select i1 %12, i1 true, i1 %15
+  br i1 %16, label %17, label %28
 
 17:                                               ; preds = %9
   %18 = add nuw nsw i32 %21, 3
@@ -47,12 +47,12 @@ define dso_local i32 @main() local_unnamed_addr #1 {
 20:                                               ; preds = %17, %0
   %21 = phi i32 [ 0, %0 ], [ %18, %17 ]
   %22 = and i32 %21, 62
-  %23 = icmp ugt i32 %22, 48
+  %23 = icmp ult i32 %22, 49
   %24 = add nsw i32 %22, -49
   %25 = lshr i32 %24, 2
-  %26 = icmp slt i32 %24, %25
-  %27 = select i1 %23, i1 %26, i1 false
-  br i1 %27, label %28, label %1
+  %26 = icmp sge i32 %24, %25
+  %27 = select i1 %23, i1 true, i1 %26
+  br i1 %27, label %1, label %28
 
 28:                                               ; preds = %9, %1, %20
   tail call void @abort() #3

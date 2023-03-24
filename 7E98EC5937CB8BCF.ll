@@ -390,587 +390,533 @@ define internal void @onintr() #2 {
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc void @process(ptr noundef %0) unnamed_addr #8 {
-  %2 = alloca [2 x i64], align 16
   store ptr null, ptr @out, align 8, !tbaa !5
   store ptr null, ptr @in, align 8, !tbaa !5
   store ptr null, ptr @outname, align 8, !tbaa !5
   store ptr null, ptr @inname, align 8, !tbaa !5
-  %3 = load ptr, ptr @f_format, align 8, !tbaa !5
+  %2 = load ptr, ptr @f_format, align 8, !tbaa !5
   store i64 0, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 2), align 8, !tbaa !15
-  %4 = icmp eq ptr %0, null
-  br i1 %4, label %5, label %7
+  %3 = icmp eq ptr %0, null
+  br i1 %3, label %4, label %6
 
-5:                                                ; preds = %1
-  %6 = load ptr, ptr @stdin, align 8, !tbaa !5
-  store ptr %6, ptr @in, align 8, !tbaa !5
-  br label %120
+4:                                                ; preds = %1
+  %5 = load ptr, ptr @stdin, align 8, !tbaa !5
+  store ptr %5, ptr @in, align 8, !tbaa !5
+  br label %119
 
-7:                                                ; preds = %1
-  %8 = load i32, ptr @f_decode, align 4, !tbaa !10
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %12, label %10
+6:                                                ; preds = %1
+  %7 = load i32, ptr @f_decode, align 4, !tbaa !10
+  %8 = icmp eq i32 %7, 0
+  br i1 %8, label %11, label %9
 
-10:                                               ; preds = %7
-  %11 = tail call fastcc ptr @normalname(ptr noundef nonnull %0, ptr noundef nonnull @.str.41, ptr noundef nonnull @.str.45)
-  br label %38
+9:                                                ; preds = %6
+  %10 = tail call fastcc ptr @normalname(ptr noundef nonnull %0, ptr noundef nonnull @.str.41, ptr noundef nonnull @.str.45)
+  br label %37
 
-12:                                               ; preds = %7
-  %13 = load i32, ptr @f_cat, align 4, !tbaa !10
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %15, label %27
+11:                                               ; preds = %6
+  %12 = load i32, ptr @f_cat, align 4, !tbaa !10
+  %13 = icmp eq i32 %12, 0
+  br i1 %13, label %14, label %26
 
-15:                                               ; preds = %12
-  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #19
-  %17 = icmp ugt i64 %16, 4
-  br i1 %17, label %18, label %27
+14:                                               ; preds = %11
+  %15 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #19
+  %16 = icmp ugt i64 %15, 4
+  br i1 %16, label %17, label %26
 
-18:                                               ; preds = %15
-  %19 = add i64 %16, -4
-  %20 = getelementptr inbounds i8, ptr %0, i64 %19
-  %21 = tail call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %20, ptr noundef nonnull dereferenceable(4) @.str.41, i64 4)
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %23, label %27
+17:                                               ; preds = %14
+  %18 = add i64 %15, -4
+  %19 = getelementptr inbounds i8, ptr %0, i64 %18
+  %20 = tail call i32 @bcmp(ptr noundef nonnull dereferenceable(4) %19, ptr noundef nonnull dereferenceable(4) @.str.41, i64 4)
+  %21 = icmp eq i32 %20, 0
+  br i1 %21, label %22, label %26
 
-23:                                               ; preds = %18
-  %24 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %25 = load ptr, ptr @progname, align 8, !tbaa !5
-  %26 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %24, ptr noundef nonnull @.str.42, ptr noundef %25, ptr noundef nonnull %0, ptr noundef nonnull @.str.41) #21
-  br label %321
+22:                                               ; preds = %17
+  %23 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %24 = load ptr, ptr @progname, align 8, !tbaa !5
+  %25 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %23, ptr noundef nonnull @.str.42, ptr noundef %24, ptr noundef nonnull %0, ptr noundef nonnull @.str.41) #21
+  br label %283
 
-27:                                               ; preds = %18, %15, %12
-  %28 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #19
-  %29 = add i64 %28, 1
-  %30 = tail call noalias ptr @malloc(i64 noundef %29) #23
-  %31 = icmp eq ptr %30, null
-  br i1 %31, label %32, label %36
+26:                                               ; preds = %17, %14, %11
+  %27 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #19
+  %28 = add i64 %27, 1
+  %29 = tail call noalias ptr @malloc(i64 noundef %28) #23
+  %30 = icmp eq ptr %29, null
+  br i1 %30, label %31, label %35
 
-32:                                               ; preds = %27
-  %33 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %34 = load ptr, ptr @progname, align 8, !tbaa !5
-  %35 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %33, ptr noundef nonnull @.str.46, ptr noundef %34, i64 noundef %29) #21
+31:                                               ; preds = %26
+  %32 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %33 = load ptr, ptr @progname, align 8, !tbaa !5
+  %34 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.46, ptr noundef %33, i64 noundef %28) #21
   tail call void @onintr()
   unreachable
 
-36:                                               ; preds = %27
-  %37 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %30, ptr noundef nonnull dereferenceable(1) %0) #20
-  br label %38
+35:                                               ; preds = %26
+  %36 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %29, ptr noundef nonnull dereferenceable(1) %0) #20
+  br label %37
 
-38:                                               ; preds = %36, %10
-  %39 = phi ptr [ %30, %36 ], [ %11, %10 ]
-  store ptr %39, ptr @inname, align 8, !tbaa !5
-  %40 = tail call noalias ptr @fopen(ptr noundef %39, ptr noundef nonnull @.str.43)
-  store ptr %40, ptr @in, align 8, !tbaa !5
-  %41 = icmp eq ptr %40, null
-  %42 = load ptr, ptr @inname, align 8, !tbaa !5
-  br i1 %41, label %43, label %48
+37:                                               ; preds = %35, %9
+  %38 = phi ptr [ %29, %35 ], [ %10, %9 ]
+  store ptr %38, ptr @inname, align 8, !tbaa !5
+  %39 = tail call noalias ptr @fopen(ptr noundef %38, ptr noundef nonnull @.str.43)
+  store ptr %39, ptr @in, align 8, !tbaa !5
+  %40 = icmp eq ptr %39, null
+  %41 = load ptr, ptr @inname, align 8, !tbaa !5
+  br i1 %40, label %42, label %47
 
-43:                                               ; preds = %38
-  tail call void @perror(ptr noundef %42) #21
-  %44 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %45 = load ptr, ptr @progname, align 8, !tbaa !5
-  %46 = load ptr, ptr @inname, align 8, !tbaa !5
-  %47 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %44, ptr noundef nonnull @.str.44, ptr noundef %45, ptr noundef %46) #21
-  br label %321
+42:                                               ; preds = %37
+  tail call void @perror(ptr noundef %41) #21
+  %43 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %44 = load ptr, ptr @progname, align 8, !tbaa !5
+  %45 = load ptr, ptr @inname, align 8, !tbaa !5
+  %46 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %43, ptr noundef nonnull @.str.44, ptr noundef %44, ptr noundef %45) #21
+  br label %283
 
-48:                                               ; preds = %38
-  %49 = tail call i32 @fileno(ptr noundef nonnull %40) #20
-  %50 = tail call i32 @fstat(i32 noundef %49, ptr noundef nonnull @instat) #20
-  %51 = icmp slt i32 %50, 0
-  br i1 %51, label %52, label %56
+47:                                               ; preds = %37
+  %48 = tail call i32 @fileno(ptr noundef nonnull %39) #20
+  %49 = tail call i32 @fstat(i32 noundef %48, ptr noundef nonnull @instat) #20
+  %50 = icmp slt i32 %49, 0
+  br i1 %50, label %51, label %55
 
-52:                                               ; preds = %48
-  tail call void @perror(ptr noundef %42) #21
-  %53 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %54 = load ptr, ptr @progname, align 8, !tbaa !5
-  %55 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %53, ptr noundef nonnull @.str.47, ptr noundef %54, ptr noundef %42) #21
-  br label %321
+51:                                               ; preds = %47
+  tail call void @perror(ptr noundef %41) #21
+  %52 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %53 = load ptr, ptr @progname, align 8, !tbaa !5
+  %54 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %52, ptr noundef nonnull @.str.47, ptr noundef %53, ptr noundef %41) #21
+  br label %283
 
-56:                                               ; preds = %48
-  %57 = load i32, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 3), align 8, !tbaa !19
-  %58 = and i32 %57, 61440
-  %59 = icmp eq i32 %58, 32768
-  br i1 %59, label %64, label %60
+55:                                               ; preds = %47
+  %56 = load i32, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 3), align 8, !tbaa !19
+  %57 = and i32 %56, 61440
+  %58 = icmp eq i32 %57, 32768
+  br i1 %58, label %63, label %59
 
-60:                                               ; preds = %56
-  %61 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %62 = load ptr, ptr @progname, align 8, !tbaa !5
-  %63 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %61, ptr noundef nonnull @.str.48, ptr noundef %62, ptr noundef %42) #21
-  br label %321
+59:                                               ; preds = %55
+  %60 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %61 = load ptr, ptr @progname, align 8, !tbaa !5
+  %62 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %60, ptr noundef nonnull @.str.48, ptr noundef %61, ptr noundef %41) #21
+  br label %283
 
-64:                                               ; preds = %56
-  %65 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 2), align 8, !tbaa !15
-  %66 = icmp ult i64 %65, 2
-  %67 = load i32, ptr @f_cat, align 4
-  %68 = icmp ne i32 %67, 0
-  %69 = select i1 %66, i1 true, i1 %68
-  %70 = load i32, ptr @f_precious, align 4
-  %71 = icmp ne i32 %70, 0
-  %72 = select i1 %69, i1 true, i1 %71
-  br i1 %72, label %81, label %73
+63:                                               ; preds = %55
+  %64 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 2), align 8, !tbaa !15
+  %65 = icmp ult i64 %64, 2
+  %66 = load i32, ptr @f_cat, align 4
+  %67 = icmp ne i32 %66, 0
+  %68 = select i1 %65, i1 true, i1 %67
+  %69 = load i32, ptr @f_precious, align 4
+  %70 = icmp ne i32 %69, 0
+  %71 = select i1 %68, i1 true, i1 %70
+  br i1 %71, label %80, label %72
 
-73:                                               ; preds = %64
-  %74 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %75 = load ptr, ptr @progname, align 8, !tbaa !5
-  %76 = add i64 %65, -1
-  %77 = icmp ult i64 %65, 3
-  %78 = zext i1 %77 to i64
-  %79 = getelementptr inbounds i8, ptr @.str.50, i64 %78
-  %80 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %74, ptr noundef nonnull @.str.49, ptr noundef %75, ptr noundef %42, i64 noundef %76, ptr noundef nonnull %79) #21
-  br label %321
+72:                                               ; preds = %63
+  %73 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %74 = load ptr, ptr @progname, align 8, !tbaa !5
+  %75 = add i64 %64, -1
+  %76 = icmp ult i64 %64, 3
+  %77 = zext i1 %76 to i64
+  %78 = getelementptr inbounds i8, ptr @.str.50, i64 %77
+  %79 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %73, ptr noundef nonnull @.str.49, ptr noundef %74, ptr noundef %41, i64 noundef %75, ptr noundef nonnull %78) #21
+  br label %283
 
-81:                                               ; preds = %64
-  %82 = icmp eq ptr %3, null
-  br i1 %82, label %83, label %120
+80:                                               ; preds = %63
+  %81 = icmp eq ptr %2, null
+  br i1 %81, label %82, label %119
 
-83:                                               ; preds = %81
-  %84 = load ptr, ptr @inname, align 8, !tbaa !5
-  %85 = icmp eq ptr %84, null
-  br i1 %85, label %120, label %86
+82:                                               ; preds = %80
+  %83 = load ptr, ptr @inname, align 8, !tbaa !5
+  %84 = icmp eq ptr %83, null
+  br i1 %84, label %119, label %85
 
-86:                                               ; preds = %83
-  %87 = tail call fastcc ptr @normalname(ptr noundef nonnull %84, ptr noundef nonnull @.str.45, ptr noundef nonnull @.str.41)
-  %88 = freeze ptr %87
-  %89 = load ptr, ptr @alldescs, align 16, !tbaa !5
-  %90 = icmp eq ptr %89, null
-  %91 = icmp eq ptr %88, null
-  %92 = or i1 %90, %91
-  br i1 %92, label %119, label %93
+85:                                               ; preds = %82
+  %86 = tail call fastcc ptr @normalname(ptr noundef nonnull %83, ptr noundef nonnull @.str.45, ptr noundef nonnull @.str.41)
+  %87 = freeze ptr %86
+  %88 = load ptr, ptr @alldescs, align 16, !tbaa !5
+  %89 = icmp eq ptr %88, null
+  %90 = icmp eq ptr %87, null
+  %91 = or i1 %89, %90
+  br i1 %91, label %118, label %92
 
-93:                                               ; preds = %86, %115
-  %94 = phi ptr [ %117, %115 ], [ %89, %86 ]
-  %95 = phi ptr [ %116, %115 ], [ @alldescs, %86 ]
-  %96 = getelementptr inbounds %struct.fmtdesc, ptr %94, i64 0, i32 2
-  %97 = load ptr, ptr %96, align 8, !tbaa !20
-  %98 = icmp eq ptr %97, null
-  br i1 %98, label %115, label %99
+92:                                               ; preds = %85, %114
+  %93 = phi ptr [ %116, %114 ], [ %88, %85 ]
+  %94 = phi ptr [ %115, %114 ], [ @alldescs, %85 ]
+  %95 = getelementptr inbounds %struct.fmtdesc, ptr %93, i64 0, i32 2
+  %96 = load ptr, ptr %95, align 8, !tbaa !20
+  %97 = icmp eq ptr %96, null
+  br i1 %97, label %114, label %98
 
-99:                                               ; preds = %93
-  %100 = load i8, ptr %97, align 1, !tbaa !9
-  %101 = icmp eq i8 %100, 0
-  br i1 %101, label %115, label %102
+98:                                               ; preds = %92
+  %99 = load i8, ptr %96, align 1, !tbaa !9
+  %100 = icmp eq i8 %99, 0
+  br i1 %100, label %114, label %101
 
-102:                                              ; preds = %99
-  %103 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %88) #19
-  %104 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %97) #19
-  %105 = icmp ne i64 %104, 0
-  %106 = icmp ugt i64 %103, %104
-  %107 = select i1 %105, i1 %106, i1 false
-  br i1 %107, label %108, label %115
+101:                                              ; preds = %98
+  %102 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %87) #19
+  %103 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %96) #19
+  %104 = icmp ne i64 %103, 0
+  %105 = icmp ugt i64 %102, %103
+  %106 = select i1 %104, i1 %105, i1 false
+  br i1 %106, label %107, label %114
 
-108:                                              ; preds = %102
-  %109 = sub i64 %103, %104
-  %110 = getelementptr inbounds i8, ptr %88, i64 %109
-  %111 = tail call i32 @bcmp(ptr nonnull %110, ptr nonnull %97, i64 %104)
-  %112 = icmp eq i32 %111, 0
-  br i1 %112, label %113, label %115
+107:                                              ; preds = %101
+  %108 = sub i64 %102, %103
+  %109 = getelementptr inbounds i8, ptr %87, i64 %108
+  %110 = tail call i32 @bcmp(ptr nonnull %109, ptr nonnull %96, i64 %103)
+  %111 = icmp eq i32 %110, 0
+  br i1 %111, label %112, label %114
 
-113:                                              ; preds = %108
-  tail call void @free(ptr noundef %88) #20
-  %114 = load ptr, ptr %95, align 8, !tbaa !5
-  br label %120
+112:                                              ; preds = %107
+  tail call void @free(ptr noundef nonnull %87) #20
+  %113 = load ptr, ptr %94, align 8, !tbaa !5
+  br label %119
 
-115:                                              ; preds = %108, %102, %99, %93
-  %116 = getelementptr inbounds ptr, ptr %95, i64 1
-  %117 = load ptr, ptr %116, align 8, !tbaa !5
-  %118 = icmp eq ptr %117, null
-  br i1 %118, label %119, label %93, !llvm.loop !22
+114:                                              ; preds = %107, %101, %98, %92
+  %115 = getelementptr inbounds ptr, ptr %94, i64 1
+  %116 = load ptr, ptr %115, align 8, !tbaa !5
+  %117 = icmp eq ptr %116, null
+  br i1 %117, label %118, label %92, !llvm.loop !22
 
-119:                                              ; preds = %115, %86
-  tail call void @free(ptr noundef %88) #20
-  br label %120
+118:                                              ; preds = %114, %85
+  tail call void @free(ptr noundef %87) #20
+  br label %119
 
-120:                                              ; preds = %119, %113, %83, %81, %5
-  %121 = phi ptr [ %3, %81 ], [ %3, %5 ], [ %114, %113 ], [ null, %119 ], [ null, %83 ]
-  %122 = icmp eq ptr %121, null
-  %123 = select i1 %122, ptr @f_ulaw, ptr %121
-  %124 = getelementptr inbounds %struct.fmtdesc, ptr %123, i64 0, i32 6
-  %125 = load ptr, ptr %124, align 8, !tbaa !23
-  store ptr %125, ptr @output, align 8, !tbaa !5
-  %126 = getelementptr inbounds %struct.fmtdesc, ptr %123, i64 0, i32 5
-  %127 = load ptr, ptr %126, align 8, !tbaa !24
-  store ptr %127, ptr @input, align 8, !tbaa !5
-  %128 = getelementptr inbounds %struct.fmtdesc, ptr %123, i64 0, i32 3
-  %129 = load ptr, ptr %128, align 8, !tbaa !25
-  store ptr %129, ptr @init_input, align 8, !tbaa !5
-  %130 = getelementptr inbounds %struct.fmtdesc, ptr %123, i64 0, i32 4
-  %131 = load ptr, ptr %130, align 8, !tbaa !26
-  store ptr %131, ptr @init_output, align 8, !tbaa !5
-  %132 = load i32, ptr @f_cat, align 4
-  %133 = icmp ne i32 %132, 0
-  %134 = select i1 %4, i1 true, i1 %133
-  br i1 %134, label %135, label %137
+119:                                              ; preds = %118, %112, %82, %80, %4
+  %120 = phi ptr [ %2, %80 ], [ %2, %4 ], [ %113, %112 ], [ null, %118 ], [ null, %82 ]
+  %121 = icmp eq ptr %120, null
+  %122 = select i1 %121, ptr @f_ulaw, ptr %120
+  %123 = getelementptr inbounds %struct.fmtdesc, ptr %122, i64 0, i32 6
+  %124 = load ptr, ptr %123, align 8, !tbaa !23
+  store ptr %124, ptr @output, align 8, !tbaa !5
+  %125 = getelementptr inbounds %struct.fmtdesc, ptr %122, i64 0, i32 5
+  %126 = load ptr, ptr %125, align 8, !tbaa !24
+  store ptr %126, ptr @input, align 8, !tbaa !5
+  %127 = getelementptr inbounds %struct.fmtdesc, ptr %122, i64 0, i32 3
+  %128 = load ptr, ptr %127, align 8, !tbaa !25
+  store ptr %128, ptr @init_input, align 8, !tbaa !5
+  %129 = getelementptr inbounds %struct.fmtdesc, ptr %122, i64 0, i32 4
+  %130 = load ptr, ptr %129, align 8, !tbaa !26
+  store ptr %130, ptr @init_output, align 8, !tbaa !5
+  %131 = load i32, ptr @f_cat, align 4
+  %132 = icmp ne i32 %131, 0
+  %133 = select i1 %3, i1 true, i1 %132
+  br i1 %133, label %134, label %136
 
-135:                                              ; preds = %120
-  %136 = load ptr, ptr @stdout, align 8, !tbaa !5
-  store ptr %136, ptr @out, align 8, !tbaa !5
-  br label %192
+134:                                              ; preds = %119
+  %135 = load ptr, ptr @stdout, align 8, !tbaa !5
+  store ptr %135, ptr @out, align 8, !tbaa !5
+  br label %191
 
-137:                                              ; preds = %120
-  %138 = load i32, ptr @f_decode, align 4, !tbaa !10
-  %139 = icmp eq i32 %138, 0
-  %140 = select i1 %139, ptr @codename, ptr @plainname
-  %141 = tail call ptr %140(ptr noundef nonnull %0) #20, !callees !27
-  %142 = icmp eq ptr %141, null
-  br i1 %142, label %321, label %143
+136:                                              ; preds = %119
+  %137 = load i32, ptr @f_decode, align 4, !tbaa !10
+  %138 = icmp eq i32 %137, 0
+  %139 = select i1 %138, ptr @codename, ptr @plainname
+  %140 = tail call ptr %139(ptr noundef nonnull %0) #20, !callees !27
+  %141 = icmp eq ptr %140, null
+  br i1 %141, label %283, label %142
 
-143:                                              ; preds = %137
-  %144 = tail call i32 (ptr, i32, ...) @open(ptr noundef nonnull %141, i32 noundef 193, i32 noundef 438) #20
-  %145 = icmp sgt i32 %144, -1
-  br i1 %145, label %146, label %148
+142:                                              ; preds = %136
+  %143 = tail call i32 (ptr, i32, ...) @open(ptr noundef nonnull %140, i32 noundef 193, i32 noundef 438) #20
+  %144 = icmp sgt i32 %143, -1
+  br i1 %144, label %145, label %147
 
-146:                                              ; preds = %143
-  %147 = tail call noalias ptr @fdopen(i32 noundef %144, ptr noundef nonnull @.str.51) #20
-  br label %180
+145:                                              ; preds = %142
+  %146 = tail call noalias ptr @fdopen(i32 noundef %143, ptr noundef nonnull @.str.51) #20
+  br label %179
 
-148:                                              ; preds = %143
-  %149 = tail call ptr @__errno_location() #24
-  %150 = load i32, ptr %149, align 4, !tbaa !10
-  %151 = icmp eq i32 %150, 17
-  br i1 %151, label %153, label %152
+147:                                              ; preds = %142
+  %148 = tail call ptr @__errno_location() #24
+  %149 = load i32, ptr %148, align 4, !tbaa !10
+  %150 = icmp eq i32 %149, 17
+  br i1 %150, label %152, label %151
 
-152:                                              ; preds = %148
+151:                                              ; preds = %147
   store ptr null, ptr @out, align 8, !tbaa !5
-  br label %186
+  br label %182
 
-153:                                              ; preds = %148
-  %154 = load i32, ptr @f_force, align 4, !tbaa !10
-  %155 = icmp eq i32 %154, 0
-  br i1 %155, label %156, label %178
+152:                                              ; preds = %147
+  %153 = load i32, ptr @f_force, align 4, !tbaa !10
+  %154 = icmp eq i32 %153, 0
+  br i1 %154, label %155, label %177
 
-156:                                              ; preds = %153
-  %157 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %158 = tail call i32 @fileno(ptr noundef %157) #20
-  %159 = tail call i32 @isatty(i32 noundef %158) #20
-  %160 = icmp eq i32 %159, 0
-  br i1 %160, label %321, label %161
+155:                                              ; preds = %152
+  %156 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %157 = tail call i32 @fileno(ptr noundef %156) #20
+  %158 = tail call i32 @isatty(i32 noundef %157) #20
+  %159 = icmp eq i32 %158, 0
+  br i1 %159, label %283, label %160
 
-161:                                              ; preds = %156
-  %162 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %163 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %162, ptr noundef nonnull @.str.54, ptr noundef nonnull %141, ptr noundef nonnull %141) #21
-  %164 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %165 = tail call i32 @fflush(ptr noundef %164)
-  %166 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %167 = tail call i32 @getc(ptr noundef %166)
-  br label %168
+160:                                              ; preds = %155
+  %161 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %162 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %161, ptr noundef nonnull @.str.54, ptr noundef nonnull %140, ptr noundef nonnull %140) #21
+  %163 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %164 = tail call i32 @fflush(ptr noundef %163)
+  %165 = load ptr, ptr @stdin, align 8, !tbaa !5
+  %166 = tail call i32 @getc(ptr noundef %165)
+  br label %167
 
-168:                                              ; preds = %170, %161
-  %169 = phi i32 [ %167, %161 ], [ %172, %170 ]
-  switch i32 %169, label %170 [
-    i32 -1, label %173
-    i32 10, label %173
+167:                                              ; preds = %169, %160
+  %168 = phi i32 [ %166, %160 ], [ %171, %169 ]
+  switch i32 %168, label %169 [
+    i32 -1, label %172
+    i32 10, label %172
   ]
 
-170:                                              ; preds = %168
-  %171 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %172 = tail call i32 @getc(ptr noundef %171)
-  br label %168, !llvm.loop !28
+169:                                              ; preds = %167
+  %170 = load ptr, ptr @stdin, align 8, !tbaa !5
+  %171 = tail call i32 @getc(ptr noundef %170)
+  br label %167, !llvm.loop !28
 
-173:                                              ; preds = %168, %168
-  %174 = icmp eq i32 %167, 121
-  br i1 %174, label %178, label %175
+172:                                              ; preds = %167, %167
+  %173 = icmp eq i32 %166, 121
+  br i1 %173, label %177, label %174
 
-175:                                              ; preds = %173
-  %176 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %177 = tail call i64 @fwrite(ptr nonnull @.str.55, i64 17, i64 1, ptr %176) #21
-  br label %321
+174:                                              ; preds = %172
+  %175 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %176 = tail call i64 @fwrite(ptr nonnull @.str.55, i64 17, i64 1, ptr %175) #21
+  br label %283
 
-178:                                              ; preds = %173, %153
-  %179 = tail call noalias ptr @fopen(ptr noundef nonnull %141, ptr noundef nonnull @.str.51)
-  br label %180
+177:                                              ; preds = %172, %152
+  %178 = tail call noalias ptr @fopen(ptr noundef nonnull %140, ptr noundef nonnull @.str.51)
+  br label %179
 
-180:                                              ; preds = %178, %146
-  %181 = phi ptr [ %179, %178 ], [ %147, %146 ]
-  store ptr %181, ptr @out, align 8, !tbaa !5
-  %182 = icmp eq ptr %181, null
-  br i1 %182, label %186, label %183
+179:                                              ; preds = %177, %145
+  %180 = phi ptr [ %178, %177 ], [ %146, %145 ]
+  store ptr %180, ptr @out, align 8, !tbaa !5
+  %181 = icmp eq ptr %180, null
+  br i1 %181, label %182, label %188
 
-183:                                              ; preds = %180
-  %184 = load ptr, ptr @init_output, align 8
-  %185 = load ptr, ptr @init_input, align 8
-  br label %192
+182:                                              ; preds = %179, %151
+  tail call void @perror(ptr noundef nonnull %140) #21
+  %183 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %184 = load ptr, ptr @progname, align 8, !tbaa !5
+  %185 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %183, ptr noundef nonnull @.str.52, ptr noundef %184, ptr noundef nonnull %140) #21
+  br i1 %144, label %186, label %283
 
-186:                                              ; preds = %180, %152
-  tail call void @perror(ptr noundef nonnull %141) #21
-  %187 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %188 = load ptr, ptr @progname, align 8, !tbaa !5
-  %189 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %187, ptr noundef nonnull @.str.52, ptr noundef %188, ptr noundef nonnull %141) #21
-  br i1 %145, label %190, label %321
+186:                                              ; preds = %182
+  %187 = tail call i32 @close(i32 noundef %143) #20
+  br label %283
 
-190:                                              ; preds = %186
-  %191 = tail call i32 @close(i32 noundef %144) #20
-  br label %321
+188:                                              ; preds = %179
+  %189 = load ptr, ptr @init_output, align 8
+  %190 = load ptr, ptr @init_input, align 8
+  br label %191
 
-192:                                              ; preds = %183, %135
-  %193 = phi ptr [ %129, %135 ], [ %185, %183 ]
-  %194 = phi ptr [ %131, %135 ], [ %184, %183 ]
-  %195 = phi ptr [ null, %135 ], [ %141, %183 ]
-  store ptr %195, ptr @outname, align 8, !tbaa !5
-  %196 = load i32, ptr @f_decode, align 4, !tbaa !10
-  %197 = icmp eq i32 %196, 0
-  %198 = select i1 %197, ptr %193, ptr %194
-  %199 = tail call i32 %198() #20
-  %200 = icmp eq i32 %199, 0
-  br i1 %200, label %218, label %201
+191:                                              ; preds = %188, %134
+  %192 = phi ptr [ %190, %188 ], [ %128, %134 ]
+  %193 = phi ptr [ %189, %188 ], [ %130, %134 ]
+  %194 = phi ptr [ %140, %188 ], [ null, %134 ]
+  store ptr %194, ptr @outname, align 8, !tbaa !5
+  %195 = load i32, ptr @f_decode, align 4, !tbaa !10
+  %196 = icmp eq i32 %195, 0
+  %197 = select i1 %196, ptr %192, ptr %193
+  %198 = tail call i32 %197() #20
+  %199 = icmp eq i32 %198, 0
+  br i1 %199, label %217, label %200
 
-201:                                              ; preds = %192
-  %202 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %203 = load ptr, ptr @progname, align 8, !tbaa !5
-  %204 = load i32, ptr @f_decode, align 4, !tbaa !10
-  %205 = icmp eq i32 %204, 0
-  %206 = select i1 %205, ptr @.str.35, ptr @.str.34
-  br i1 %205, label %211, label %207
+200:                                              ; preds = %191
+  %201 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %202 = load ptr, ptr @progname, align 8, !tbaa !5
+  %203 = load i32, ptr @f_decode, align 4, !tbaa !10
+  %204 = icmp eq i32 %203, 0
+  %205 = select i1 %204, ptr @.str.35, ptr @.str.34
+  br i1 %204, label %210, label %206
 
-207:                                              ; preds = %201
-  %208 = load ptr, ptr @outname, align 8, !tbaa !5
-  %209 = icmp eq ptr %208, null
-  %210 = select i1 %209, ptr @.str.36, ptr %208
-  br label %215
+206:                                              ; preds = %200
+  %207 = load ptr, ptr @outname, align 8, !tbaa !5
+  %208 = icmp eq ptr %207, null
+  %209 = select i1 %208, ptr @.str.36, ptr %207
+  br label %214
 
-211:                                              ; preds = %201
-  %212 = load ptr, ptr @inname, align 8, !tbaa !5
-  %213 = icmp eq ptr %212, null
-  %214 = select i1 %213, ptr @.str.37, ptr %212
-  br label %215
+210:                                              ; preds = %200
+  %211 = load ptr, ptr @inname, align 8, !tbaa !5
+  %212 = icmp eq ptr %211, null
+  %213 = select i1 %212, ptr @.str.37, ptr %211
+  br label %214
 
-215:                                              ; preds = %211, %207
-  %216 = phi ptr [ %210, %207 ], [ %214, %211 ]
-  %217 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %202, ptr noundef nonnull @.str.33, ptr noundef %203, ptr noundef nonnull %206, ptr noundef %216) #21
-  br label %321
+214:                                              ; preds = %210, %206
+  %215 = phi ptr [ %209, %206 ], [ %213, %210 ]
+  %216 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %201, ptr noundef nonnull @.str.33, ptr noundef %202, ptr noundef nonnull %205, ptr noundef %215) #21
+  br label %283
 
-218:                                              ; preds = %192
-  %219 = load i32, ptr @f_decode, align 4, !tbaa !10
-  %220 = icmp eq i32 %219, 0
-  %221 = select i1 %220, ptr @process_encode, ptr @process_decode
-  %222 = tail call i32 %221() #20, !callees !29
-  %223 = icmp eq i32 %222, 0
-  br i1 %223, label %224, label %321
+217:                                              ; preds = %191
+  %218 = load i32, ptr @f_decode, align 4, !tbaa !10
+  %219 = icmp eq i32 %218, 0
+  %220 = select i1 %219, ptr @process_encode, ptr @process_decode
+  %221 = tail call i32 %220() #20, !callees !29
+  %222 = icmp eq i32 %221, 0
+  br i1 %222, label %223, label %283
 
-224:                                              ; preds = %218
-  %225 = load ptr, ptr @out, align 8, !tbaa !5
-  %226 = tail call i32 @fflush(ptr noundef %225)
-  %227 = icmp slt i32 %226, 0
-  br i1 %227, label %232, label %228
+223:                                              ; preds = %217
+  %224 = load ptr, ptr @out, align 8, !tbaa !5
+  %225 = tail call i32 @fflush(ptr noundef %224)
+  %226 = icmp slt i32 %225, 0
+  br i1 %226, label %231, label %227
 
-228:                                              ; preds = %224
-  %229 = load ptr, ptr @out, align 8, !tbaa !5
-  %230 = tail call i32 @ferror(ptr noundef %229) #20
-  %231 = icmp eq i32 %230, 0
-  br i1 %231, label %242, label %232
+227:                                              ; preds = %223
+  %228 = load ptr, ptr @out, align 8, !tbaa !5
+  %229 = tail call i32 @ferror(ptr noundef %228) #20
+  %230 = icmp eq i32 %229, 0
+  br i1 %230, label %241, label %231
 
-232:                                              ; preds = %228, %224
-  %233 = load ptr, ptr @outname, align 8, !tbaa !5
-  %234 = icmp eq ptr %233, null
-  %235 = select i1 %234, ptr @.str.36, ptr %233
-  tail call void @perror(ptr noundef %235) #21
-  %236 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %237 = load ptr, ptr @progname, align 8, !tbaa !5
-  %238 = load ptr, ptr @outname, align 8, !tbaa !5
-  %239 = icmp eq ptr %238, null
-  %240 = select i1 %239, ptr @.str.36, ptr %238
-  %241 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %236, ptr noundef nonnull @.str.38, ptr noundef %237, ptr noundef %240) #21
-  br label %321
+231:                                              ; preds = %227, %223
+  %232 = load ptr, ptr @outname, align 8, !tbaa !5
+  %233 = icmp eq ptr %232, null
+  %234 = select i1 %233, ptr @.str.36, ptr %232
+  tail call void @perror(ptr noundef %234) #21
+  %235 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %236 = load ptr, ptr @progname, align 8, !tbaa !5
+  %237 = load ptr, ptr @outname, align 8, !tbaa !5
+  %238 = icmp eq ptr %237, null
+  %239 = select i1 %238, ptr @.str.36, ptr %237
+  %240 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %235, ptr noundef nonnull @.str.38, ptr noundef %236, ptr noundef %239) #21
+  br label %283
 
-242:                                              ; preds = %228
-  %243 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %244 = icmp eq ptr %229, %243
-  br i1 %244, label %296, label %245
+241:                                              ; preds = %227
+  %242 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %243 = icmp eq ptr %228, %242
+  br i1 %243, label %258, label %244
 
-245:                                              ; preds = %242
-  %246 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 2), align 8, !tbaa !15
-  %247 = icmp ne i64 %246, 0
-  %248 = load ptr, ptr @outname, align 8
-  %249 = icmp ne ptr %248, null
-  %250 = select i1 %247, i1 %249, i1 false
-  br i1 %250, label %251, label %257
+244:                                              ; preds = %241
+  tail call fastcc void @update_times()
+  tail call fastcc void @update_mode()
+  tail call fastcc void @update_own()
+  %245 = load ptr, ptr @out, align 8, !tbaa !5
+  %246 = tail call i32 @fclose(ptr noundef %245)
+  %247 = icmp slt i32 %246, 0
+  %248 = load ptr, ptr @outname, align 8, !tbaa !5
+  br i1 %247, label %249, label %254
 
-251:                                              ; preds = %245
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #20
-  %252 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 11), align 8, !tbaa !30
-  store i64 %252, ptr %2, align 16, !tbaa !31
-  %253 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 12), align 8, !tbaa !32
-  %254 = getelementptr inbounds [2 x i64], ptr %2, i64 0, i64 1
-  store i64 %253, ptr %254, align 8, !tbaa !31
-  %255 = call i32 @utime(ptr noundef nonnull %248, ptr noundef nonnull %2) #20
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #20
-  %256 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 2), align 8, !tbaa !15
+249:                                              ; preds = %244
+  tail call void @perror(ptr noundef %248) #21
+  %250 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %251 = load ptr, ptr @progname, align 8, !tbaa !5
+  %252 = load ptr, ptr @outname, align 8, !tbaa !5
+  %253 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %250, ptr noundef nonnull @.str.38, ptr noundef %251, ptr noundef %252) #21
+  br label %283
+
+254:                                              ; preds = %244
+  %255 = icmp eq ptr %248, %0
+  br i1 %255, label %257, label %256
+
+256:                                              ; preds = %254
+  tail call void @free(ptr noundef %248) #20
   br label %257
 
-257:                                              ; preds = %245, %251
-  %258 = phi i64 [ %246, %245 ], [ %256, %251 ]
-  %259 = icmp eq i64 %258, 0
-  br i1 %259, label %273, label %260
+257:                                              ; preds = %256, %254
+  store ptr null, ptr @outname, align 8, !tbaa !5
+  br label %258
 
-260:                                              ; preds = %257
-  %261 = load ptr, ptr @out, align 8, !tbaa !5
-  %262 = tail call i32 @fileno(ptr noundef %261) #20
-  %263 = load i32, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 3), align 8, !tbaa !19
-  %264 = and i32 %263, 4095
-  %265 = tail call i32 @fchmod(i32 noundef %262, i32 noundef %264) #20
-  %266 = icmp eq i32 %265, 0
-  br i1 %266, label %273, label %267
+258:                                              ; preds = %257, %241
+  store ptr null, ptr @out, align 8, !tbaa !5
+  %259 = load ptr, ptr @in, align 8, !tbaa !5
+  %260 = load ptr, ptr @stdin, align 8, !tbaa !5
+  %261 = icmp eq ptr %259, %260
+  br i1 %261, label %323, label %262
 
-267:                                              ; preds = %260
-  %268 = load ptr, ptr @outname, align 8, !tbaa !5
-  tail call void @perror(ptr noundef %268) #21
-  %269 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %270 = load ptr, ptr @progname, align 8, !tbaa !5
-  %271 = load ptr, ptr @outname, align 8, !tbaa !5
-  %272 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %269, ptr noundef nonnull @.str.60, ptr noundef %270, ptr noundef %271) #21
-  br label %273
+262:                                              ; preds = %258
+  %263 = tail call i32 @fclose(ptr noundef %259)
+  store ptr null, ptr @in, align 8, !tbaa !5
+  %264 = load i32, ptr @f_cat, align 4, !tbaa !10
+  %265 = icmp ne i32 %264, 0
+  %266 = load i32, ptr @f_precious, align 4
+  %267 = icmp ne i32 %266, 0
+  %268 = select i1 %265, i1 true, i1 %267
+  %269 = load ptr, ptr @inname, align 8, !tbaa !5
+  br i1 %268, label %279, label %270
 
-273:                                              ; preds = %257, %260, %267
-  %274 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 2), align 8, !tbaa !15
-  %275 = icmp eq i64 %274, 0
-  br i1 %275, label %282, label %276
+270:                                              ; preds = %262
+  %271 = tail call i32 @unlink(ptr noundef %269) #20
+  %272 = icmp slt i32 %271, 0
+  br i1 %272, label %273, label %283
 
-276:                                              ; preds = %273
-  %277 = load ptr, ptr @out, align 8, !tbaa !5
-  %278 = tail call i32 @fileno(ptr noundef %277) #20
-  %279 = load i32, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 4), align 4, !tbaa !33
-  %280 = load i32, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 5), align 8, !tbaa !34
-  %281 = tail call i32 @fchown(i32 noundef %278, i32 noundef %279, i32 noundef %280) #20
+273:                                              ; preds = %270
+  %274 = load ptr, ptr @inname, align 8, !tbaa !5
+  tail call void @perror(ptr noundef %274) #21
+  %275 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %276 = load ptr, ptr @progname, align 8, !tbaa !5
+  %277 = load ptr, ptr @inname, align 8, !tbaa !5
+  %278 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %275, ptr noundef nonnull @.str.39, ptr noundef %276, ptr noundef %277) #21
+  br label %283
+
+279:                                              ; preds = %262
+  %280 = icmp eq ptr %269, %0
+  br i1 %280, label %282, label %281
+
+281:                                              ; preds = %279
+  tail call void @free(ptr noundef %269) #20
   br label %282
 
-282:                                              ; preds = %273, %276
-  %283 = load ptr, ptr @out, align 8, !tbaa !5
-  %284 = tail call i32 @fclose(ptr noundef %283)
-  %285 = icmp slt i32 %284, 0
-  %286 = load ptr, ptr @outname, align 8, !tbaa !5
-  br i1 %285, label %287, label %292
-
-287:                                              ; preds = %282
-  tail call void @perror(ptr noundef %286) #21
-  %288 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %289 = load ptr, ptr @progname, align 8, !tbaa !5
-  %290 = load ptr, ptr @outname, align 8, !tbaa !5
-  %291 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %288, ptr noundef nonnull @.str.38, ptr noundef %289, ptr noundef %290) #21
-  br label %321
-
-292:                                              ; preds = %282
-  %293 = icmp eq ptr %286, %0
-  br i1 %293, label %295, label %294
-
-294:                                              ; preds = %292
-  tail call void @free(ptr noundef %286) #20
-  br label %295
-
-295:                                              ; preds = %294, %292
-  store ptr null, ptr @outname, align 8, !tbaa !5
-  br label %296
-
-296:                                              ; preds = %295, %242
-  store ptr null, ptr @out, align 8, !tbaa !5
-  %297 = load ptr, ptr @in, align 8, !tbaa !5
-  %298 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %299 = icmp eq ptr %297, %298
-  br i1 %299, label %361, label %300
-
-300:                                              ; preds = %296
-  %301 = tail call i32 @fclose(ptr noundef %297)
-  store ptr null, ptr @in, align 8, !tbaa !5
-  %302 = load i32, ptr @f_cat, align 4, !tbaa !10
-  %303 = icmp ne i32 %302, 0
-  %304 = load i32, ptr @f_precious, align 4
-  %305 = icmp ne i32 %304, 0
-  %306 = select i1 %303, i1 true, i1 %305
-  %307 = load ptr, ptr @inname, align 8, !tbaa !5
-  br i1 %306, label %317, label %308
-
-308:                                              ; preds = %300
-  %309 = tail call i32 @unlink(ptr noundef %307) #20
-  %310 = icmp slt i32 %309, 0
-  br i1 %310, label %311, label %321
-
-311:                                              ; preds = %308
-  %312 = load ptr, ptr @inname, align 8, !tbaa !5
-  tail call void @perror(ptr noundef %312) #21
-  %313 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %314 = load ptr, ptr @progname, align 8, !tbaa !5
-  %315 = load ptr, ptr @inname, align 8, !tbaa !5
-  %316 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %313, ptr noundef nonnull @.str.39, ptr noundef %314, ptr noundef %315) #21
-  br label %321
-
-317:                                              ; preds = %300
-  %318 = icmp eq ptr %307, %0
-  br i1 %318, label %320, label %319
-
-319:                                              ; preds = %317
-  tail call void @free(ptr noundef %307) #20
-  br label %320
-
-320:                                              ; preds = %319, %317
+282:                                              ; preds = %281, %279
   store ptr null, ptr @inname, align 8, !tbaa !5
-  br label %361
+  br label %323
 
-321:                                              ; preds = %156, %175, %186, %190, %137, %60, %73, %52, %23, %43, %308, %311, %218, %287, %232, %215
-  %322 = load ptr, ptr @out, align 8, !tbaa !5
-  %323 = icmp eq ptr %322, null
-  %324 = load ptr, ptr @stdout, align 8
-  %325 = icmp eq ptr %322, %324
-  %326 = select i1 %323, i1 true, i1 %325
-  br i1 %326, label %341, label %327
+283:                                              ; preds = %22, %42, %51, %59, %72, %186, %182, %174, %155, %136, %270, %273, %217, %249, %231, %214
+  %284 = load ptr, ptr @out, align 8, !tbaa !5
+  %285 = icmp eq ptr %284, null
+  %286 = load ptr, ptr @stdout, align 8
+  %287 = icmp eq ptr %284, %286
+  %288 = select i1 %285, i1 true, i1 %287
+  br i1 %288, label %303, label %289
 
-327:                                              ; preds = %321
-  %328 = tail call i32 @fclose(ptr noundef nonnull %322)
+289:                                              ; preds = %283
+  %290 = tail call i32 @fclose(ptr noundef nonnull %284)
   store ptr null, ptr @out, align 8, !tbaa !5
-  %329 = load ptr, ptr @outname, align 8, !tbaa !5
-  %330 = tail call i32 @unlink(ptr noundef %329) #20
-  %331 = icmp slt i32 %330, 0
-  br i1 %331, label %332, label %341
+  %291 = load ptr, ptr @outname, align 8, !tbaa !5
+  %292 = tail call i32 @unlink(ptr noundef %291) #20
+  %293 = icmp slt i32 %292, 0
+  br i1 %293, label %294, label %303
 
-332:                                              ; preds = %327
-  %333 = tail call ptr @__errno_location() #24
-  %334 = load i32, ptr %333, align 4, !tbaa !10
-  switch i32 %334, label %335 [
-    i32 2, label %341
-    i32 4, label %341
+294:                                              ; preds = %289
+  %295 = tail call ptr @__errno_location() #24
+  %296 = load i32, ptr %295, align 4, !tbaa !10
+  switch i32 %296, label %297 [
+    i32 2, label %303
+    i32 4, label %303
   ]
 
-335:                                              ; preds = %332
-  %336 = load ptr, ptr @outname, align 8, !tbaa !5
-  tail call void @perror(ptr noundef %336) #21
-  %337 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %338 = load ptr, ptr @progname, align 8, !tbaa !5
-  %339 = load ptr, ptr @outname, align 8, !tbaa !5
-  %340 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %337, ptr noundef nonnull @.str.40, ptr noundef %338, ptr noundef %339) #21
-  br label %341
+297:                                              ; preds = %294
+  %298 = load ptr, ptr @outname, align 8, !tbaa !5
+  tail call void @perror(ptr noundef %298) #21
+  %299 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %300 = load ptr, ptr @progname, align 8, !tbaa !5
+  %301 = load ptr, ptr @outname, align 8, !tbaa !5
+  %302 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %299, ptr noundef nonnull @.str.40, ptr noundef %300, ptr noundef %301) #21
+  br label %303
 
-341:                                              ; preds = %332, %332, %327, %335, %321
-  %342 = load ptr, ptr @in, align 8, !tbaa !5
-  %343 = icmp eq ptr %342, null
-  %344 = load ptr, ptr @stdin, align 8
-  %345 = icmp eq ptr %342, %344
-  %346 = select i1 %343, i1 true, i1 %345
-  br i1 %346, label %349, label %347
+303:                                              ; preds = %294, %294, %289, %297, %283
+  %304 = load ptr, ptr @in, align 8, !tbaa !5
+  %305 = icmp eq ptr %304, null
+  %306 = load ptr, ptr @stdin, align 8
+  %307 = icmp eq ptr %304, %306
+  %308 = select i1 %305, i1 true, i1 %307
+  br i1 %308, label %311, label %309
 
-347:                                              ; preds = %341
-  %348 = tail call i32 @fclose(ptr noundef nonnull %342)
+309:                                              ; preds = %303
+  %310 = tail call i32 @fclose(ptr noundef nonnull %304)
   store ptr null, ptr @in, align 8, !tbaa !5
-  br label %349
+  br label %311
 
-349:                                              ; preds = %347, %341
-  %350 = load ptr, ptr @inname, align 8, !tbaa !5
-  %351 = icmp eq ptr %350, null
-  %352 = icmp eq ptr %350, %0
-  %353 = or i1 %351, %352
-  br i1 %353, label %355, label %354
+311:                                              ; preds = %309, %303
+  %312 = load ptr, ptr @inname, align 8, !tbaa !5
+  %313 = icmp eq ptr %312, null
+  %314 = icmp eq ptr %312, %0
+  %315 = or i1 %313, %314
+  br i1 %315, label %317, label %316
 
-354:                                              ; preds = %349
-  tail call void @free(ptr noundef nonnull %350) #20
-  br label %355
+316:                                              ; preds = %311
+  tail call void @free(ptr noundef nonnull %312) #20
+  br label %317
 
-355:                                              ; preds = %354, %349
-  %356 = load ptr, ptr @outname, align 8, !tbaa !5
-  %357 = icmp eq ptr %356, null
-  %358 = icmp eq ptr %356, %0
-  %359 = or i1 %357, %358
-  br i1 %359, label %361, label %360
+317:                                              ; preds = %316, %311
+  %318 = load ptr, ptr @outname, align 8, !tbaa !5
+  %319 = icmp eq ptr %318, null
+  %320 = icmp eq ptr %318, %0
+  %321 = or i1 %319, %320
+  br i1 %321, label %323, label %322
 
-360:                                              ; preds = %355
-  tail call void @free(ptr noundef nonnull %356) #20
-  br label %361
+322:                                              ; preds = %317
+  tail call void @free(ptr noundef nonnull %318) #20
+  br label %323
 
-361:                                              ; preds = %355, %360, %296, %320
+323:                                              ; preds = %317, %322, %258, %282
   ret void
 }
 
@@ -1067,7 +1013,7 @@ define internal i32 @process_decode() unnamed_addr #8 {
   %42 = load ptr, ptr @output, align 8, !tbaa !5
   %43 = call i32 %42(ptr noundef nonnull %2) #20
   %44 = icmp slt i32 %43, 0
-  br i1 %44, label %45, label %10, !llvm.loop !35
+  br i1 %44, label %45, label %10, !llvm.loop !30
 
 45:                                               ; preds = %41
   %46 = load ptr, ptr @outname, align 8, !tbaa !5
@@ -1152,7 +1098,7 @@ define internal i32 @process_encode() unnamed_addr #8 {
   %22 = load ptr, ptr @out, align 8, !tbaa !5
   %23 = call i64 @fwrite(ptr noundef nonnull %2, i64 noundef 33, i64 noundef 1, ptr noundef %22)
   %24 = icmp eq i64 %23, 1
-  br i1 %24, label %10, label %25, !llvm.loop !36
+  br i1 %24, label %10, label %25, !llvm.loop !31
 
 25:                                               ; preds = %21
   %26 = load ptr, ptr @outname, align 8, !tbaa !5
@@ -1205,6 +1151,77 @@ declare noundef i32 @ferror(ptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: nofree nounwind
 declare void @perror(ptr nocapture noundef readonly) local_unnamed_addr #7
+
+; Function Attrs: nofree nounwind uwtable
+define internal fastcc void @update_times() unnamed_addr #5 {
+  %1 = alloca [2 x i64], align 16
+  %2 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 2), align 8, !tbaa !15
+  %3 = icmp ne i64 %2, 0
+  %4 = load ptr, ptr @outname, align 8
+  %5 = icmp ne ptr %4, null
+  %6 = select i1 %3, i1 %5, i1 false
+  br i1 %6, label %7, label %12
+
+7:                                                ; preds = %0
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %1) #20
+  %8 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 11), align 8, !tbaa !32
+  store i64 %8, ptr %1, align 16, !tbaa !33
+  %9 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 12), align 8, !tbaa !34
+  %10 = getelementptr inbounds [2 x i64], ptr %1, i64 0, i64 1
+  store i64 %9, ptr %10, align 8, !tbaa !33
+  %11 = call i32 @utime(ptr noundef nonnull %4, ptr noundef nonnull %1) #20
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1) #20
+  br label %12
+
+12:                                               ; preds = %0, %7
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define internal fastcc void @update_mode() unnamed_addr #8 {
+  %1 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 2), align 8, !tbaa !15
+  %2 = icmp eq i64 %1, 0
+  br i1 %2, label %16, label %3
+
+3:                                                ; preds = %0
+  %4 = load ptr, ptr @out, align 8, !tbaa !5
+  %5 = tail call i32 @fileno(ptr noundef %4) #20
+  %6 = load i32, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 3), align 8, !tbaa !19
+  %7 = and i32 %6, 4095
+  %8 = tail call i32 @fchmod(i32 noundef %5, i32 noundef %7) #20
+  %9 = icmp eq i32 %8, 0
+  br i1 %9, label %16, label %10
+
+10:                                               ; preds = %3
+  %11 = load ptr, ptr @outname, align 8, !tbaa !5
+  tail call void @perror(ptr noundef %11) #21
+  %12 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %13 = load ptr, ptr @progname, align 8, !tbaa !5
+  %14 = load ptr, ptr @outname, align 8, !tbaa !5
+  %15 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %12, ptr noundef nonnull @.str.60, ptr noundef %13, ptr noundef %14) #21
+  br label %16
+
+16:                                               ; preds = %0, %10, %3
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define internal fastcc void @update_own() unnamed_addr #8 {
+  %1 = load i64, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 2), align 8, !tbaa !15
+  %2 = icmp eq i64 %1, 0
+  br i1 %2, label %9, label %3
+
+3:                                                ; preds = %0
+  %4 = load ptr, ptr @out, align 8, !tbaa !5
+  %5 = tail call i32 @fileno(ptr noundef %4) #20
+  %6 = load i32, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 4), align 4, !tbaa !35
+  %7 = load i32, ptr getelementptr inbounds (%struct.stat, ptr @instat, i64 0, i32 5), align 8, !tbaa !36
+  %8 = tail call i32 @fchown(i32 noundef %5, i32 noundef %6, i32 noundef %7) #20
+  br label %9
+
+9:                                                ; preds = %0, %3
+  ret void
+}
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #7
@@ -1292,8 +1309,8 @@ define internal fastcc ptr @normalname(ptr noundef readonly %0, ptr nocapture no
   %45 = tail call ptr @strcat(ptr noundef nonnull dereferenceable(1) %12, ptr noundef nonnull dereferenceable(1) %1) #20
   br label %46
 
-46:                                               ; preds = %39, %29, %44, %31, %3
-  %47 = phi ptr [ null, %3 ], [ %12, %31 ], [ %12, %44 ], [ %12, %29 ], [ %12, %39 ]
+46:                                               ; preds = %29, %44, %39, %31, %3
+  %47 = phi ptr [ null, %3 ], [ %12, %31 ], [ %12, %39 ], [ %12, %44 ], [ %12, %29 ]
   ret ptr %47
 }
 
@@ -1425,10 +1442,10 @@ attributes #24 = { nounwind willreturn memory(none) }
 !27 = !{ptr @codename, ptr @plainname}
 !28 = distinct !{!28, !13}
 !29 = !{ptr @process_decode, ptr @process_encode}
-!30 = !{!16, !17, i64 72}
-!31 = !{!17, !17, i64 0}
-!32 = !{!16, !17, i64 88}
-!33 = !{!16, !11, i64 28}
-!34 = !{!16, !11, i64 32}
-!35 = distinct !{!35, !13}
-!36 = distinct !{!36, !13}
+!30 = distinct !{!30, !13}
+!31 = distinct !{!31, !13}
+!32 = !{!16, !17, i64 72}
+!33 = !{!17, !17, i64 0}
+!34 = !{!16, !17, i64 88}
+!35 = !{!16, !11, i64 28}
+!36 = !{!16, !11, i64 32}

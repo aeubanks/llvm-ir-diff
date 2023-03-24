@@ -31,7 +31,7 @@ define dso_local void @_ZN11btUnionFindD2Ev(ptr noundef nonnull align 8 derefere
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %9, %1
+10:                                               ; preds = %1, %9
   %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i8 1, ptr %5, align 8, !tbaa !13
@@ -73,9 +73,9 @@ define dso_local void @_ZN11btUnionFind4FreeEv(ptr nocapture noundef nonnull ali
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !13
   store ptr null, ptr %2, align 8, !tbaa !5
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !14
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !15
@@ -100,9 +100,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI9btElementED2Ev(pt
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !13
   store ptr null, ptr %2, align 8, !tbaa !5
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !14
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !15
@@ -575,82 +575,81 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI9btElementE17quick
   %4 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 5
   br label %5
 
-5:                                                ; preds = %53, %3
-  %6 = phi i32 [ %1, %3 ], [ %47, %53 ]
+5:                                                ; preds = %52, %3
+  %6 = phi i32 [ %1, %3 ], [ %46, %52 ]
   %7 = load ptr, ptr %4, align 8, !tbaa !5
   %8 = add nsw i32 %6, %2
   %9 = sdiv i32 %8, 2
   %10 = sext i32 %9 to i64
   %11 = getelementptr inbounds %struct.btElement, ptr %7, i64 %10
-  %12 = load i64, ptr %11, align 4
-  %13 = trunc i64 %12 to i32
-  br label %14
+  %12 = load i32, ptr %11, align 4, !tbaa.struct !29
+  br label %13
 
-14:                                               ; preds = %46, %5
-  %15 = phi i32 [ %6, %5 ], [ %47, %46 ]
-  %16 = phi i32 [ %2, %5 ], [ %48, %46 ]
-  %17 = load ptr, ptr %4, align 8, !tbaa !5
-  %18 = sext i32 %15 to i64
-  br label %19
+13:                                               ; preds = %45, %5
+  %14 = phi i32 [ %6, %5 ], [ %46, %45 ]
+  %15 = phi i32 [ %2, %5 ], [ %47, %45 ]
+  %16 = load ptr, ptr %4, align 8, !tbaa !5
+  %17 = sext i32 %14 to i64
+  br label %18
 
-19:                                               ; preds = %19, %14
-  %20 = phi i64 [ %24, %19 ], [ %18, %14 ]
-  %21 = getelementptr inbounds %struct.btElement, ptr %17, i64 %20
-  %22 = load i32, ptr %21, align 4, !tbaa !25
-  %23 = icmp slt i32 %22, %13
-  %24 = add i64 %20, 1
-  br i1 %23, label %19, label %25
+18:                                               ; preds = %18, %13
+  %19 = phi i64 [ %23, %18 ], [ %17, %13 ]
+  %20 = getelementptr inbounds %struct.btElement, ptr %16, i64 %19
+  %21 = load i32, ptr %20, align 4, !tbaa !25
+  %22 = icmp slt i32 %21, %12
+  %23 = add i64 %19, 1
+  br i1 %22, label %18, label %24
 
-25:                                               ; preds = %19
-  %26 = getelementptr inbounds %struct.btElement, ptr %17, i64 %20
-  %27 = trunc i64 %20 to i32
-  %28 = sext i32 %16 to i64
-  br label %29
+24:                                               ; preds = %18
+  %25 = getelementptr inbounds %struct.btElement, ptr %16, i64 %19
+  %26 = trunc i64 %19 to i32
+  %27 = sext i32 %15 to i64
+  br label %28
 
-29:                                               ; preds = %29, %25
-  %30 = phi i64 [ %34, %29 ], [ %28, %25 ]
-  %31 = getelementptr inbounds %struct.btElement, ptr %17, i64 %30
-  %32 = load i32, ptr %31, align 4, !tbaa !25
-  %33 = icmp sgt i32 %32, %13
-  %34 = add i64 %30, -1
-  br i1 %33, label %29, label %35
+28:                                               ; preds = %28, %24
+  %29 = phi i64 [ %33, %28 ], [ %27, %24 ]
+  %30 = getelementptr inbounds %struct.btElement, ptr %16, i64 %29
+  %31 = load i32, ptr %30, align 4, !tbaa !25
+  %32 = icmp slt i32 %12, %31
+  %33 = add i64 %29, -1
+  br i1 %32, label %28, label %34
 
-35:                                               ; preds = %29
-  %36 = trunc i64 %30 to i32
-  %37 = icmp sgt i32 %27, %36
-  br i1 %37, label %46, label %38
+34:                                               ; preds = %28
+  %35 = trunc i64 %29 to i32
+  %36 = icmp sgt i32 %26, %35
+  br i1 %36, label %45, label %37
 
-38:                                               ; preds = %35
-  %39 = getelementptr inbounds %struct.btElement, ptr %17, i64 %30
-  %40 = load i64, ptr %26, align 4
-  %41 = load i64, ptr %39, align 4
-  store i64 %41, ptr %26, align 4
-  %42 = load ptr, ptr %4, align 8, !tbaa !5
-  %43 = getelementptr inbounds %struct.btElement, ptr %42, i64 %30
-  store i64 %40, ptr %43, align 4
-  %44 = add nsw i32 %27, 1
-  %45 = add nsw i32 %36, -1
-  br label %46
+37:                                               ; preds = %34
+  %38 = getelementptr inbounds %struct.btElement, ptr %16, i64 %29
+  %39 = load i64, ptr %25, align 4
+  %40 = load i64, ptr %38, align 4
+  store i64 %40, ptr %25, align 4
+  %41 = load ptr, ptr %4, align 8, !tbaa !5
+  %42 = getelementptr inbounds %struct.btElement, ptr %41, i64 %29
+  store i64 %39, ptr %42, align 4
+  %43 = add nsw i32 %26, 1
+  %44 = add nsw i32 %35, -1
+  br label %45
 
-46:                                               ; preds = %35, %38
-  %47 = phi i32 [ %44, %38 ], [ %27, %35 ]
-  %48 = phi i32 [ %45, %38 ], [ %36, %35 ]
-  %49 = icmp sgt i32 %47, %48
-  br i1 %49, label %50, label %14
+45:                                               ; preds = %34, %37
+  %46 = phi i32 [ %43, %37 ], [ %26, %34 ]
+  %47 = phi i32 [ %44, %37 ], [ %35, %34 ]
+  %48 = icmp sgt i32 %46, %47
+  br i1 %48, label %49, label %13
 
-50:                                               ; preds = %46
-  %51 = icmp sgt i32 %48, %6
-  br i1 %51, label %52, label %53
+49:                                               ; preds = %45
+  %50 = icmp sgt i32 %47, %6
+  br i1 %50, label %51, label %52
 
-52:                                               ; preds = %50
-  tail call void @_ZN20btAlignedObjectArrayI9btElementE17quickSortInternalI31btUnionFindElementSortPredicateEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %0, i32 noundef %6, i32 noundef %48)
-  br label %53
+51:                                               ; preds = %49
+  tail call void @_ZN20btAlignedObjectArrayI9btElementE17quickSortInternalI31btUnionFindElementSortPredicateEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %0, i32 noundef %6, i32 noundef %47)
+  br label %52
 
-53:                                               ; preds = %52, %50
-  %54 = icmp slt i32 %47, %2
-  br i1 %54, label %5, label %55
+52:                                               ; preds = %51, %49
+  %53 = icmp slt i32 %46, %2
+  br i1 %53, label %5, label %54
 
-55:                                               ; preds = %53
+54:                                               ; preds = %52
   ret void
 }
 
@@ -693,3 +692,4 @@ attributes #5 = { nounwind }
 !26 = !{!"_ZTS9btElement", !8, i64 0, !8, i64 4}
 !27 = !{!26, !8, i64 4}
 !28 = distinct !{!28, !24, !23}
+!29 = !{i64 0, i64 4, !21, i64 4, i64 4, !21}

@@ -277,7 +277,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %109 = sitofp i32 %108 to double
   %110 = getelementptr inbounds double, ptr %32, i64 %107
   store double %109, ptr %110, align 8, !tbaa !5
-  %111 = icmp eq i64 %107, 3999
+  %111 = icmp ugt i64 %107, 3998
   %112 = uitofp i1 %111 to double
   %113 = fmul double %112, 5.000000e-01
   %114 = getelementptr inbounds double, ptr %50, i64 %107

@@ -164,7 +164,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %29, ptr nonnull align 1 %16, i64 %22, i1 false)
   br label %33
 
-33:                                               ; preds = %32, %30, %28
+33:                                               ; preds = %28, %30, %32
   %34 = load i64, ptr %5, align 8, !tbaa !11
   %35 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %8, i64 0, i32 1
   store i64 %34, ptr %35, align 8, !tbaa !16
@@ -207,7 +207,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %47, ptr align 1 %39, i64 %40, i1 false)
   br label %51
 
-51:                                               ; preds = %50, %48, %46
+51:                                               ; preds = %46, %48, %50
   %52 = load i64, ptr %4, align 8, !tbaa !11
   %53 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %7, i64 0, i32 1
   store i64 %52, ptr %53, align 8, !tbaa !16
@@ -245,7 +245,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @_ZdlPv(ptr noundef %66) #26
   br label %69
 
-69:                                               ; preds = %68, %65
+69:                                               ; preds = %65, %68
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %8) #24
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #24
   %70 = getelementptr inbounds ptr, ptr %1, i64 2
@@ -419,7 +419,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %170, ptr nonnull align 1 %157, i64 %163, i1 false)
   br label %174
 
-174:                                              ; preds = %173, %171, %169
+174:                                              ; preds = %169, %171, %173
   %175 = load i64, ptr %3, align 8, !tbaa !11
   %176 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %10, i64 0, i32 1
   store i64 %175, ptr %176, align 8, !tbaa !16
@@ -923,7 +923,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8Internal21end
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %38, ptr align 1 %30, i64 %31, i1 false)
   br label %42
 
-42:                                               ; preds = %41, %39, %37
+42:                                               ; preds = %37, %39, %41
   %43 = load i64, ptr %3, align 8, !tbaa !11
   %44 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %6, i64 0, i32 1
   store i64 %43, ptr %44, align 8, !tbaa !16
@@ -1059,12 +1059,12 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
           to label %20 unwind label %21
 
 20:                                               ; preds = %2
-  br i1 %19, label %23, label %553
+  br i1 %19, label %23, label %543
 
 21:                                               ; preds = %2
   %22 = landingpad { ptr, i32 }
           cleanup
-  br label %559
+  br label %549
 
 23:                                               ; preds = %20
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #24
@@ -1080,12 +1080,12 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
           to label %28 unwind label %29
 
 28:                                               ; preds = %25
-  br i1 %27, label %31, label %549
+  br i1 %27, label %31, label %539
 
 29:                                               ; preds = %43, %39, %37, %33, %31, %25, %23
   %30 = landingpad { ptr, i32 }
           cleanup
-  br label %551
+  br label %541
 
 31:                                               ; preds = %28
   %32 = invoke i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %16, ptr noundef nonnull @.str.10, ptr noundef nonnull %3, ptr noundef nonnull %4)
@@ -1097,7 +1097,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
           to label %36 unwind label %29
 
 36:                                               ; preds = %33
-  br i1 %35, label %37, label %549
+  br i1 %35, label %37, label %539
 
 37:                                               ; preds = %36
   %38 = invoke i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %16, ptr noundef nonnull @.str.12, ptr noundef nonnull %5)
@@ -1109,7 +1109,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
           to label %42 unwind label %29
 
 42:                                               ; preds = %39
-  br i1 %41, label %43, label %549
+  br i1 %41, label %43, label %539
 
 43:                                               ; preds = %42
   %44 = call i32 @fgetc(ptr noundef %16)
@@ -1118,7 +1118,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
           to label %47 unwind label %29
 
 47:                                               ; preds = %43
-  br i1 %46, label %48, label %549
+  br i1 %46, label %48, label %539
 
 48:                                               ; preds = %47
   %49 = load i32, ptr %5, align 4, !tbaa !22
@@ -1134,12 +1134,12 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
           to label %55 unwind label %56
 
 55:                                               ; preds = %53
-  br i1 %54, label %58, label %549
+  br i1 %54, label %58, label %539
 
 56:                                               ; preds = %53
   %57 = landingpad { ptr, i32 }
           cleanup
-  br label %551
+  br label %541
 
 58:                                               ; preds = %51, %48, %55
   %59 = phi i1 [ false, %55 ], [ false, %48 ], [ true, %51 ]
@@ -1200,7 +1200,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
 
 83:                                               ; preds = %79, %82
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #24
-  br i1 %71, label %101, label %549
+  br i1 %71, label %101, label %539
 
 84:                                               ; preds = %65
   %85 = landingpad { ptr, i32 }
@@ -1240,7 +1240,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
 
 100:                                              ; preds = %99, %95
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #24
-  br label %551
+  br label %541
 
 101:                                              ; preds = %83
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #24
@@ -1285,13 +1285,13 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
           to label %127 unwind label %132
 
 127:                                              ; preds = %112
-  br i1 %126, label %136, label %539
+  br i1 %126, label %136, label %314
 
 128:                                              ; preds = %101
   %129 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #24
-  br label %551
+  br label %541
 
 130:                                              ; preds = %106
   %131 = landingpad { ptr, i32 }
@@ -1516,7 +1516,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
   %313 = add nuw nsw i64 %173, 1
   br label %172, !llvm.loop !69
 
-314:                                              ; preds = %201
+314:                                              ; preds = %201, %127
   %315 = load ptr, ptr %11, align 8, !tbaa !47
   br label %316
 
@@ -1531,7 +1531,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
 
 320:                                              ; preds = %316, %319
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %11) #24
-  br label %535
+  br i1 %126, label %535, label %539
 
 321:                                              ; preds = %132
   call void @_ZdlPv(ptr noundef nonnull %134) #26
@@ -1540,7 +1540,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
 322:                                              ; preds = %321, %132, %130
   %323 = phi { ptr, i32 } [ %131, %130 ], [ %133, %132 ], [ %133, %321 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %11) #24
-  br label %551
+  br label %541
 
 324:                                              ; preds = %104
   br i1 %59, label %325, label %535
@@ -1575,7 +1575,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
           to label %346 unwind label %349
 
 346:                                              ; preds = %331
-  br i1 %345, label %353, label %544
+  br i1 %345, label %353, label %525
 
 347:                                              ; preds = %325
   %348 = landingpad { ptr, i32 }
@@ -1794,7 +1794,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
   %524 = add nuw nsw i64 %390, 1
   br label %389, !llvm.loop !87
 
-525:                                              ; preds = %418
+525:                                              ; preds = %418, %346
   %526 = load ptr, ptr %13, align 8, !tbaa !70
   br label %527
 
@@ -1809,7 +1809,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
 
 531:                                              ; preds = %527, %530
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %13) #24
-  br label %535
+  br i1 %345, label %535, label %539
 
 532:                                              ; preds = %349
   call void @_ZdlPv(ptr noundef nonnull %351) #26
@@ -1818,80 +1818,54 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8load_ppmINS0_
 533:                                              ; preds = %532, %349, %347
   %534 = phi { ptr, i32 } [ %348, %347 ], [ %350, %349 ], [ %350, %532 ]
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %13) #24
-  br label %551
+  br label %541
 
-535:                                              ; preds = %531, %320, %324
+535:                                              ; preds = %324, %531, %320
   %536 = call noundef nonnull align 2 dereferenceable(2) ptr @_ZN6Halide5Tools5ImageItEclEiiii(ptr noundef nonnull align 8 dereferenceable(8) %1, i32 noundef 0, i32 noundef 0, i32 noundef 0, i32 noundef 0)
   %537 = load i16, ptr %536, align 2, !tbaa !50
   %538 = call noundef nonnull align 2 dereferenceable(2) ptr @_ZN6Halide5Tools5ImageItEclEiiii(ptr noundef nonnull align 8 dereferenceable(8) %1, i32 noundef 0, i32 noundef 0, i32 noundef 0, i32 noundef 0)
   store i16 %537, ptr %538, align 2, !tbaa !50
-  br label %549
+  br label %539
 
-539:                                              ; preds = %127
-  %540 = load ptr, ptr %11, align 8, !tbaa !47
-  %541 = icmp eq ptr %540, null
-  br i1 %541, label %543, label %542
-
-542:                                              ; preds = %539
-  call void @_ZdlPv(ptr noundef nonnull %540) #26
+539:                                              ; preds = %55, %83, %320, %531, %535, %47, %42, %36, %28
+  %540 = phi i1 [ false, %28 ], [ false, %36 ], [ false, %42 ], [ false, %47 ], [ false, %55 ], [ false, %83 ], [ true, %535 ], [ false, %320 ], [ false, %531 ]
+  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %6) #24
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #24
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #24
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #24
   br label %543
 
-543:                                              ; preds = %539, %542
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %11) #24
+541:                                              ; preds = %56, %100, %533, %322, %128, %29
+  %542 = phi { ptr, i32 } [ %30, %29 ], [ %96, %100 ], [ %57, %56 ], [ %323, %322 ], [ %534, %533 ], [ %129, %128 ]
+  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %6) #24
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #24
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #24
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #24
   br label %549
 
-544:                                              ; preds = %346
-  %545 = load ptr, ptr %13, align 8, !tbaa !70
-  %546 = icmp eq ptr %545, null
-  br i1 %546, label %548, label %547
+543:                                              ; preds = %20, %539
+  %544 = phi i1 [ %540, %539 ], [ false, %20 ]
+  %545 = icmp eq ptr %16, null
+  br i1 %545, label %548, label %546
 
-547:                                              ; preds = %544
-  call void @_ZdlPv(ptr noundef nonnull %545) #26
+546:                                              ; preds = %543
+  %547 = call i32 @fclose(ptr noundef nonnull %16)
   br label %548
 
-548:                                              ; preds = %544, %547
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %13) #24
-  br label %549
+548:                                              ; preds = %543, %546
+  ret i1 %544
 
-549:                                              ; preds = %55, %83, %548, %543, %535, %47, %42, %36, %28
-  %550 = phi i1 [ false, %28 ], [ false, %36 ], [ false, %42 ], [ false, %47 ], [ false, %55 ], [ false, %83 ], [ true, %535 ], [ false, %543 ], [ false, %548 ]
-  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %6) #24
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #24
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #24
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #24
-  br label %553
+549:                                              ; preds = %541, %21
+  %550 = phi { ptr, i32 } [ %542, %541 ], [ %22, %21 ]
+  %551 = icmp eq ptr %16, null
+  br i1 %551, label %554, label %552
 
-551:                                              ; preds = %56, %100, %533, %322, %128, %29
-  %552 = phi { ptr, i32 } [ %30, %29 ], [ %96, %100 ], [ %57, %56 ], [ %323, %322 ], [ %534, %533 ], [ %129, %128 ]
-  call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %6) #24
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #24
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #24
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #24
-  br label %559
+552:                                              ; preds = %549
+  %553 = call i32 @fclose(ptr noundef nonnull %16)
+  br label %554
 
-553:                                              ; preds = %20, %549
-  %554 = phi i1 [ %550, %549 ], [ false, %20 ]
-  %555 = icmp eq ptr %16, null
-  br i1 %555, label %558, label %556
-
-556:                                              ; preds = %553
-  %557 = call i32 @fclose(ptr noundef nonnull %16)
-  br label %558
-
-558:                                              ; preds = %553, %556
-  ret i1 %554
-
-559:                                              ; preds = %551, %21
-  %560 = phi { ptr, i32 } [ %552, %551 ], [ %22, %21 ]
-  %561 = icmp eq ptr %16, null
-  br i1 %561, label %564, label %562
-
-562:                                              ; preds = %559
-  %563 = call i32 @fclose(ptr noundef nonnull %16)
-  br label %564
-
-564:                                              ; preds = %559, %562
-  resume { ptr, i32 } %560
+554:                                              ; preds = %549, %552
+  resume { ptr, i32 } %550
 }
 
 ; Function Attrs: uwtable
@@ -2058,7 +2032,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools10load_bytesIN
   tail call void @_ZdlPv(ptr noundef nonnull %86) #26
   br label %99
 
-99:                                               ; preds = %98, %88, %64
+99:                                               ; preds = %64, %88, %98
   store ptr %63, ptr %1, align 8, !tbaa !17
   %100 = load i32, ptr %84, align 8, !tbaa !40
   %101 = add nsw i32 %100, -1
@@ -2144,7 +2118,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools10load_bytesIN
   tail call void @_ZdlPv(ptr noundef nonnull %132) #26
   br label %145
 
-145:                                              ; preds = %144, %134, %112
+145:                                              ; preds = %112, %134, %144
   store ptr %111, ptr %1, align 8, !tbaa !17
   %146 = load i32, ptr %130, align 8, !tbaa !40
   %147 = add nsw i32 %146, -1
@@ -2364,8 +2338,8 @@ define linkonce_odr dso_local void @_ZNSt6vectorIhSaIhEEC2EmRKS0_(ptr noundef no
   tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %13, i8 0, i64 %14, i1 false)
   br label %17
 
-17:                                               ; preds = %16, %9, %8
-  %18 = phi ptr [ %13, %9 ], [ %11, %16 ], [ null, %8 ]
+17:                                               ; preds = %8, %9, %16
+  %18 = phi ptr [ %11, %16 ], [ %13, %9 ], [ null, %8 ]
   %19 = getelementptr inbounds %"struct.std::_Vector_base<unsigned char, std::allocator<unsigned char>>::_Vector_impl_data", ptr %0, i64 0, i32 1
   store ptr %18, ptr %19, align 8, !tbaa !93
   ret void
@@ -2409,7 +2383,7 @@ define linkonce_odr dso_local void @_ZNSt6vectorItSaItEEC2EmRKS0_(ptr noundef no
   tail call void @llvm.memset.p0.i64(ptr align 2 %14, i8 0, i64 %17, i1 false), !tbaa !50
   br label %18
 
-18:                                               ; preds = %16, %9, %8
+18:                                               ; preds = %8, %9, %16
   %19 = phi ptr [ %14, %9 ], [ %12, %16 ], [ null, %8 ]
   %20 = getelementptr inbounds %"struct.std::_Vector_base<unsigned short, std::allocator<unsigned short>>::_Vector_impl_data", ptr %0, i64 0, i32 1
   store ptr %19, ptr %20, align 8, !tbaa !95
@@ -2654,7 +2628,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN6Halide5Tools8save_ppmINS0_
   %26 = tail call i32 @llvm.umax.i32(i32 %25, i32 1)
   br label %27
 
-27:                                               ; preds = %23, %17
+27:                                               ; preds = %17, %23
   %28 = phi i32 [ 1, %17 ], [ %26, %23 ]
   %29 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %10, ptr noundef nonnull @.str.29, i32 noundef %21, i32 noundef %28, i32 noundef 65535)
   %30 = load ptr, ptr %0, align 8, !tbaa !17
@@ -3225,16 +3199,16 @@ define internal void @_GLOBAL__sub_I_driver.cpp() #6 section ".text.startup" {
 }
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #2
-
-; Function Attrs: nofree nounwind
 declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #2
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umax.i32(i32, i32) #23
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i16 @llvm.bswap.i16(i16) #23
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #23
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <8 x i16> @llvm.bswap.v8i16(<8 x i16>) #23

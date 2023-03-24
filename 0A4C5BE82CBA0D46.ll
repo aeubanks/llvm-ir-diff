@@ -3253,7 +3253,7 @@ define internal fastcc void @emit_dht(ptr noundef %0, i32 noundef %1, i32 nounde
   store i32 %9, ptr %16, align 4, !tbaa !27
   %17 = load ptr, ptr %0, align 8, !tbaa !30
   %18 = load ptr, ptr %17, align 8, !tbaa !33
-  tail call void %18(ptr noundef nonnull %0) #2
+  tail call void %18(ptr noundef %0) #2
   br label %19
 
 19:                                               ; preds = %13, %3

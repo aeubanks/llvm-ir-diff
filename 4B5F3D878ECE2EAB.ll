@@ -590,47 +590,47 @@ define dso_local noundef i32 @_ZN22CUpdateCallbackConsole13OpenFileErrorEPKwj(pt
   br i1 %20, label %22, label %16, !llvm.loop !26
 
 22:                                               ; preds = %16
-  %23 = trunc i64 %17 to i32
-  %24 = add nsw i32 %23, 1
-  %25 = icmp ne i32 %24, 0
-  br i1 %25, label %26, label %33
+  %23 = getelementptr inbounds %class.CUpdateCallbackConsole, ptr %0, i64 0, i32 11
+  %24 = trunc i64 %17 to i32
+  %25 = add nsw i32 %24, 1
+  %26 = icmp ne i32 %25, 0
+  br i1 %26, label %27, label %34
 
-26:                                               ; preds = %22
-  %27 = zext i32 %24 to i64
-  %28 = icmp slt i32 %23, -1
-  %29 = shl nuw nsw i64 %27, 2
-  %30 = select i1 %28, i64 -1, i64 %29
-  %31 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %30) #14
-          to label %32 unwind label %99
+27:                                               ; preds = %22
+  %28 = zext i32 %25 to i64
+  %29 = icmp slt i32 %24, -1
+  %30 = shl nuw nsw i64 %28, 2
+  %31 = select i1 %29, i64 -1, i64 %30
+  %32 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %31) #14
+          to label %33 unwind label %99
 
-32:                                               ; preds = %26
-  store i32 0, ptr %31, align 4, !tbaa !24
-  br label %33
+33:                                               ; preds = %27
+  store i32 0, ptr %32, align 4, !tbaa !24
+  br label %34
 
-33:                                               ; preds = %32, %22
-  %34 = phi ptr [ null, %22 ], [ %31, %32 ]
-  br label %35
+34:                                               ; preds = %33, %22
+  %35 = phi ptr [ null, %22 ], [ %32, %33 ]
+  br label %36
 
-35:                                               ; preds = %35, %33
-  %36 = phi ptr [ %1, %33 ], [ %38, %35 ]
-  %37 = phi ptr [ %34, %33 ], [ %40, %35 ]
-  %38 = getelementptr inbounds i32, ptr %36, i64 1
-  %39 = load i32, ptr %36, align 4, !tbaa !24
-  %40 = getelementptr inbounds i32, ptr %37, i64 1
-  store i32 %39, ptr %37, align 4, !tbaa !24
-  %41 = icmp eq i32 %39, 0
-  br i1 %41, label %42, label %35, !llvm.loop !28
+36:                                               ; preds = %36, %34
+  %37 = phi ptr [ %1, %34 ], [ %39, %36 ]
+  %38 = phi ptr [ %35, %34 ], [ %41, %36 ]
+  %39 = getelementptr inbounds i32, ptr %37, i64 1
+  %40 = load i32, ptr %37, align 4, !tbaa !24
+  %41 = getelementptr inbounds i32, ptr %38, i64 1
+  store i32 %40, ptr %38, align 4, !tbaa !24
+  %42 = icmp eq i32 %40, 0
+  br i1 %42, label %43, label %36, !llvm.loop !28
 
-42:                                               ; preds = %35
-  %43 = getelementptr inbounds %class.CUpdateCallbackConsole, ptr %0, i64 0, i32 11
+43:                                               ; preds = %36
   %44 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #14
           to label %45 unwind label %101
 
-45:                                               ; preds = %42
+45:                                               ; preds = %43
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %44, i8 0, i64 16, i1 false)
-  tail call void @llvm.assume(i1 %25)
-  %46 = zext i32 %24 to i64
-  %47 = icmp slt i32 %23, -1
+  tail call void @llvm.assume(i1 %26)
+  %46 = zext i32 %25 to i64
+  %47 = icmp slt i32 %24, -1
   %48 = shl nuw nsw i64 %46, 2
   %49 = select i1 %47, i64 -1, i64 %48
   %50 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %49) #14
@@ -640,11 +640,11 @@ define dso_local noundef i32 @_ZN22CUpdateCallbackConsole13OpenFileErrorEPKwj(pt
   %52 = getelementptr inbounds %class.CStringBase, ptr %44, i64 0, i32 2
   store ptr %50, ptr %44, align 8, !tbaa !29
   store i32 0, ptr %50, align 4, !tbaa !24
-  store i32 %24, ptr %52, align 4, !tbaa !30
+  store i32 %25, ptr %52, align 4, !tbaa !30
   br label %53
 
 53:                                               ; preds = %51, %53
-  %54 = phi ptr [ %56, %53 ], [ %34, %51 ]
+  %54 = phi ptr [ %56, %53 ], [ %35, %51 ]
   %55 = phi ptr [ %58, %53 ], [ %50, %51 ]
   %56 = getelementptr inbounds i32, ptr %54, i64 1
   %57 = load i32, ptr %54, align 4, !tbaa !24
@@ -655,8 +655,8 @@ define dso_local noundef i32 @_ZN22CUpdateCallbackConsole13OpenFileErrorEPKwj(pt
 
 60:                                               ; preds = %53
   %61 = getelementptr inbounds %class.CStringBase, ptr %44, i64 0, i32 1
-  store i32 %23, ptr %61, align 8, !tbaa !31
-  invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %43)
+  store i32 %24, ptr %61, align 8, !tbaa !31
+  invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %23)
           to label %64 unwind label %101
 
 62:                                               ; preds = %45
@@ -675,11 +675,11 @@ define dso_local noundef i32 @_ZN22CUpdateCallbackConsole13OpenFileErrorEPKwj(pt
   store ptr %44, ptr %70, align 8, !tbaa !34
   %71 = add nsw i32 %68, 1
   store i32 %71, ptr %67, align 4, !tbaa !33
-  %72 = icmp eq ptr %34, null
+  %72 = icmp eq ptr %35, null
   br i1 %72, label %74, label %73
 
 73:                                               ; preds = %64
-  tail call void @_ZdaPv(ptr noundef nonnull %34) #15
+  tail call void @_ZdaPv(ptr noundef nonnull %35) #15
   br label %74
 
 74:                                               ; preds = %64, %73
@@ -747,23 +747,23 @@ define dso_local noundef i32 @_ZN22CUpdateCallbackConsole13OpenFileErrorEPKwj(pt
           cleanup
   br label %116
 
-99:                                               ; preds = %26
+99:                                               ; preds = %27
   %100 = landingpad { ptr, i32 }
           cleanup
   br label %116
 
-101:                                              ; preds = %60, %42
+101:                                              ; preds = %60, %43
   %102 = landingpad { ptr, i32 }
           cleanup
   br label %103
 
 103:                                              ; preds = %62, %101
   %104 = phi { ptr, i32 } [ %102, %101 ], [ %63, %62 ]
-  %105 = icmp eq ptr %34, null
+  %105 = icmp eq ptr %35, null
   br i1 %105, label %116, label %106
 
 106:                                              ; preds = %103
-  tail call void @_ZdaPv(ptr noundef nonnull %34) #15
+  tail call void @_ZdaPv(ptr noundef nonnull %35) #15
   br label %116
 
 107:                                              ; preds = %78

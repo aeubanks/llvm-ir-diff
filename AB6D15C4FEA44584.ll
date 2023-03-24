@@ -438,11 +438,11 @@ define internal fastcc i32 @choose_table_short(ptr noundef readonly %0, ptr noun
 
 57:                                               ; preds = %47, %40
   %58 = phi i32 [ %42, %40 ], [ %55, %47 ]
-  %59 = icmp ugt i32 %58, 8206
+  %59 = icmp sgt i32 %58, 8206
   br i1 %59, label %439, label %60
 
 60:                                               ; preds = %57
-  %61 = icmp ult i32 %58, 16
+  %61 = icmp slt i32 %58, 16
   br i1 %61, label %62, label %198
 
 62:                                               ; preds = %60
@@ -474,52 +474,52 @@ define internal fastcc i32 @choose_table_short(ptr noundef readonly %0, ptr noun
   %84 = icmp ne i32 %78, 0
   %85 = add nsw i32 %82, %78
   %86 = zext i1 %84 to i32
-  %87 = add i32 %73, %86
-  %88 = add i32 %87, %83
-  %89 = getelementptr inbounds i32, ptr %75, i64 1
+  %87 = getelementptr inbounds i32, ptr %75, i64 1
   store i32 %85, ptr %75, align 4, !tbaa !5
-  %90 = sext i32 %85 to i64
-  %91 = getelementptr inbounds i8, ptr %71, i64 %90
-  %92 = load i8, ptr %91, align 1, !tbaa !24
-  %93 = zext i8 %92 to i32
-  %94 = add nsw i32 %74, %93
-  %95 = getelementptr inbounds i32, ptr %76, i64 4
-  %96 = load i32, ptr %95, align 4, !tbaa !5
-  %97 = getelementptr inbounds i32, ptr %76, i64 2
-  %98 = load i32, ptr %79, align 4, !tbaa !5
-  %99 = icmp ne i32 %98, 0
-  %100 = shl i32 %98, 4
-  %101 = zext i1 %99 to i32
-  %102 = icmp ne i32 %96, 0
-  %103 = add nsw i32 %100, %96
-  %104 = zext i1 %102 to i32
-  %105 = add i32 %88, %104
-  %106 = add i32 %105, %101
-  %107 = getelementptr inbounds i32, ptr %75, i64 2
-  store i32 %103, ptr %89, align 4, !tbaa !5
-  %108 = sext i32 %103 to i64
-  %109 = getelementptr inbounds i8, ptr %71, i64 %108
-  %110 = load i8, ptr %109, align 1, !tbaa !24
-  %111 = zext i8 %110 to i32
-  %112 = add nsw i32 %94, %111
-  %113 = getelementptr inbounds i32, ptr %76, i64 5
-  %114 = load i32, ptr %113, align 4, !tbaa !5
-  %115 = load i32, ptr %97, align 4, !tbaa !5
-  %116 = icmp ne i32 %115, 0
-  %117 = shl i32 %115, 4
-  %118 = zext i1 %116 to i32
-  %119 = icmp ne i32 %114, 0
-  %120 = add nsw i32 %117, %114
-  %121 = zext i1 %119 to i32
-  %122 = add i32 %106, %121
-  %123 = add i32 %122, %118
+  %88 = sext i32 %85 to i64
+  %89 = getelementptr inbounds i8, ptr %71, i64 %88
+  %90 = load i8, ptr %89, align 1, !tbaa !24
+  %91 = zext i8 %90 to i32
+  %92 = add nsw i32 %74, %91
+  %93 = getelementptr inbounds i32, ptr %76, i64 4
+  %94 = load i32, ptr %93, align 4, !tbaa !5
+  %95 = getelementptr inbounds i32, ptr %76, i64 2
+  %96 = load i32, ptr %79, align 4, !tbaa !5
+  %97 = icmp ne i32 %96, 0
+  %98 = shl i32 %96, 4
+  %99 = zext i1 %97 to i32
+  %100 = icmp ne i32 %94, 0
+  %101 = add nsw i32 %98, %94
+  %102 = zext i1 %100 to i32
+  %103 = getelementptr inbounds i32, ptr %75, i64 2
+  store i32 %101, ptr %87, align 4, !tbaa !5
+  %104 = sext i32 %101 to i64
+  %105 = getelementptr inbounds i8, ptr %71, i64 %104
+  %106 = load i8, ptr %105, align 1, !tbaa !24
+  %107 = zext i8 %106 to i32
+  %108 = add nsw i32 %92, %107
+  %109 = getelementptr inbounds i32, ptr %76, i64 5
+  %110 = load i32, ptr %109, align 4, !tbaa !5
+  %111 = load i32, ptr %95, align 4, !tbaa !5
+  %112 = icmp ne i32 %111, 0
+  %113 = shl i32 %111, 4
+  %114 = zext i1 %112 to i32
+  %115 = icmp ne i32 %110, 0
+  %116 = add nsw i32 %113, %110
+  %117 = zext i1 %115 to i32
+  %118 = add i32 %73, %86
+  %119 = add i32 %118, %83
+  %120 = add i32 %119, %102
+  %121 = add i32 %120, %99
+  %122 = add i32 %121, %117
+  %123 = add i32 %122, %114
   %124 = getelementptr inbounds i32, ptr %75, i64 3
-  store i32 %120, ptr %107, align 4, !tbaa !5
-  %125 = sext i32 %120 to i64
+  store i32 %116, ptr %103, align 4, !tbaa !5
+  %125 = sext i32 %116 to i64
   %126 = getelementptr inbounds i8, ptr %71, i64 %125
   %127 = load i8, ptr %126, align 1, !tbaa !24
   %128 = zext i8 %127 to i32
-  %129 = add nsw i32 %112, %128
+  %129 = add nsw i32 %108, %128
   %130 = getelementptr inbounds i32, ptr %76, i64 6
   %131 = icmp ult ptr %130, %1
   br i1 %131, label %72, label %132, !llvm.loop !41
@@ -933,16 +933,16 @@ define internal fastcc i32 @choose_table_short(ptr noundef readonly %0, ptr noun
   %433 = load i32, ptr %2, align 4, !tbaa !5
   br label %434
 
-434:                                              ; preds = %194, %428
+434:                                              ; preds = %428, %194
   %435 = phi i32 [ %433, %428 ], [ %196, %194 ]
   %436 = phi i32 [ %432, %428 ], [ %197, %194 ]
   %437 = phi i32 [ %430, %428 ], [ %195, %194 ]
   %438 = add nsw i32 %436, %435
   br label %439
 
-439:                                              ; preds = %434, %57
-  %440 = phi i32 [ 100000, %57 ], [ %438, %434 ]
-  %441 = phi i32 [ -1, %57 ], [ %437, %434 ]
+439:                                              ; preds = %57, %434
+  %440 = phi i32 [ %438, %434 ], [ 100000, %57 ]
+  %441 = phi i32 [ %437, %434 ], [ -1, %57 ]
   store i32 %440, ptr %2, align 4, !tbaa !5
   br label %442
 
@@ -1626,11 +1626,11 @@ define internal fastcc i32 @choose_table(ptr noundef readonly %0, ptr noundef re
 
 57:                                               ; preds = %47, %40
   %58 = phi i32 [ %42, %40 ], [ %55, %47 ]
-  %59 = icmp ugt i32 %58, 8206
+  %59 = icmp sgt i32 %58, 8206
   br i1 %59, label %317, label %60
 
 60:                                               ; preds = %57
-  %61 = icmp ult i32 %58, 16
+  %61 = icmp slt i32 %58, 16
   br i1 %61, label %62, label %162
 
 62:                                               ; preds = %60
@@ -1639,7 +1639,7 @@ define internal fastcc i32 @choose_table(ptr noundef readonly %0, ptr noundef re
 
 64:                                               ; preds = %62
   %65 = add nsw i32 %58, -1
-  %66 = zext i32 %65 to i64
+  %66 = sext i32 %65 to i64
   %67 = getelementptr inbounds [15 x i32], ptr @huf_tbl_noESC, i64 0, i64 %66
   %68 = load i32, ptr %67, align 4, !tbaa !5
   %69 = zext i32 %68 to i64
@@ -1981,16 +1981,16 @@ define internal fastcc i32 @choose_table(ptr noundef readonly %0, ptr noundef re
   %311 = load i32, ptr %2, align 4, !tbaa !5
   br label %312
 
-312:                                              ; preds = %158, %306
+312:                                              ; preds = %306, %158
   %313 = phi i32 [ %311, %306 ], [ %160, %158 ]
   %314 = phi i32 [ %310, %306 ], [ %161, %158 ]
   %315 = phi i32 [ %308, %306 ], [ %159, %158 ]
   %316 = add nsw i32 %314, %313
   br label %317
 
-317:                                              ; preds = %312, %57
-  %318 = phi i32 [ 100000, %57 ], [ %316, %312 ]
-  %319 = phi i32 [ -1, %57 ], [ %315, %312 ]
+317:                                              ; preds = %57, %312
+  %318 = phi i32 [ %316, %312 ], [ 100000, %57 ]
+  %319 = phi i32 [ %315, %312 ], [ -1, %57 ]
   store i32 %318, ptr %2, align 4, !tbaa !5
   br label %320
 

@@ -75,7 +75,7 @@ define dso_local i32 @hypre_StructScale(double noundef %0, ptr nocapture noundef
   %58 = icmp slt i32 %34, 1
   %59 = sub i32 %56, %34
   %60 = sub i32 %50, %35
-  %61 = mul i32 %56, %60
+  %61 = mul i32 %60, %56
   %62 = icmp slt i32 %35, 1
   %63 = select i1 %57, i1 true, i1 %62
   %64 = select i1 %63, i1 true, i1 %58
@@ -164,7 +164,7 @@ define dso_local i32 @hypre_StructScale(double noundef %0, ptr nocapture noundef
   br i1 %125, label %126, label %90, !llvm.loop !27
 
 126:                                              ; preds = %120
-  %127 = add nsw i32 %123, %61
+  %127 = add i32 %61, %123
   %128 = add nuw nsw i32 %89, 1
   %129 = icmp eq i32 %128, %36
   br i1 %129, label %130, label %87, !llvm.loop !28

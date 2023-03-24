@@ -38,7 +38,6 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.27 = private unnamed_addr constant [5 x i8] c"str \00", align 1
 @.str.28 = private unnamed_addr constant [5 x i8] c"colr\00", align 1
 @.str.29 = private unnamed_addr constant [5 x i8] c"devc\00", align 1
-@.str.30 = private unnamed_addr constant [17 x i8] c"xe......wr?????s\00", align 1
 @.str.31 = private unnamed_addr constant [15 x i8] c"0x%lx: 0x%02x \00", align 1
 @.str.33 = private unnamed_addr constant [4 x i8] c"%s \00", align 1
 @.str.34 = private unnamed_addr constant [16 x i8] c" 0x%04x 0x%08lx\00", align 1
@@ -96,8 +95,8 @@ define dso_local void @debug_print_ref(ptr noundef %0) local_unnamed_addr #0 {
   br label %84
 
 25:                                               ; preds = %1
-  %26 = tail call i32 (ptr, ...) @dict_length(ptr noundef nonnull %0) #5
-  %27 = tail call i32 (ptr, ...) @dict_maxlength(ptr noundef nonnull %0) #5
+  %26 = tail call i32 (ptr, ...) @dict_length(ptr noundef nonnull %0) #6
+  %27 = tail call i32 (ptr, ...) @dict_maxlength(ptr noundef nonnull %0) #6
   %28 = load ptr, ptr %0, align 8, !tbaa !11
   %29 = ptrtoint ptr %28 to i64
   %30 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %26, i32 noundef %27, i64 noundef %29)
@@ -215,17 +214,20 @@ define dso_local void @debug_print_string(ptr nocapture noundef readonly %0, i16
   ret void
 }
 
+; Function Attrs: inlinehint nofree nounwind uwtable
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #4
+
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @debug_dump_refs(ptr noundef %0, ptr noundef readnone %1, ptr noundef %2) local_unnamed_addr #3 {
   %4 = icmp ult ptr %0, %1
-  br i1 %4, label %5, label %54
+  br i1 %4, label %5, label %83
 
 5:                                                ; preds = %3
   %6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.15, ptr noundef %2)
   br label %7
 
-7:                                                ; preds = %5, %49
-  %8 = phi ptr [ %52, %49 ], [ %0, %5 ]
+7:                                                ; preds = %5, %79
+  %8 = phi ptr [ %81, %79 ], [ %0, %5 ]
   %9 = getelementptr inbounds %struct.ref_s, ptr %8, i64 0, i32 1
   %10 = load i16, ptr %9, align 8, !tbaa !10
   %11 = zext i16 %10 to i32
@@ -239,61 +241,79 @@ define dso_local void @debug_dump_refs(ptr noundef %0, ptr noundef readnone %1, 
   %19 = shl i64 %18, 2
   %20 = call ptr @llvm.load.relative.i64(ptr @reltable.debug_dump_refs, i64 %19)
   %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.33, ptr noundef %20)
-  br label %22
-
-22:                                               ; preds = %33, %7
-  %23 = phi i32 [ %11, %7 ], [ %35, %33 ]
-  %24 = phi ptr [ @.str.30, %7 ], [ %34, %33 ]
-  %25 = load i8, ptr %24, align 1, !tbaa !11
-  switch i8 %25, label %26 [
-    i8 0, label %36
-    i8 46, label %33
+  %22 = and i32 %11, 1
+  %23 = icmp eq i32 %22, 0
+  %24 = select i1 %23, i32 45, i32 120
+  %25 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %26 = tail call i32 @putc(i32 noundef %24, ptr noundef %25)
+  %27 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %28 = insertelement <8 x i32> poison, i32 %11, i64 0
+  %29 = shufflevector <8 x i32> %28, <8 x i32> poison, <8 x i32> zeroinitializer
+  %30 = and <8 x i32> %29, <i32 16384, i32 8192, i32 4096, i32 2048, i32 1024, i32 512, i32 256, i32 2>
+  %31 = icmp eq <8 x i32> %30, zeroinitializer
+  %32 = extractelement <8 x i1> %31, i64 7
+  %33 = select i1 %32, i32 45, i32 101
+  %34 = tail call i32 @putc(i32 noundef %33, ptr noundef %27)
+  %35 = extractelement <8 x i1> %31, i64 6
+  %36 = select i1 %35, i32 45, i32 119
+  %37 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %38 = tail call i32 @putc(i32 noundef %36, ptr noundef %37)
+  %39 = extractelement <8 x i1> %31, i64 5
+  %40 = select i1 %39, i32 45, i32 114
+  %41 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %42 = tail call i32 @putc(i32 noundef %40, ptr noundef %41)
+  %43 = extractelement <8 x i1> %31, i64 4
+  %44 = select i1 %43, i32 45, i32 63
+  %45 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %46 = tail call i32 @putc(i32 noundef %44, ptr noundef %45)
+  %47 = extractelement <8 x i1> %31, i64 3
+  %48 = select i1 %47, i32 45, i32 63
+  %49 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %50 = tail call i32 @putc(i32 noundef %48, ptr noundef %49)
+  %51 = extractelement <8 x i1> %31, i64 2
+  %52 = select i1 %51, i32 45, i32 63
+  %53 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %54 = tail call i32 @putc(i32 noundef %52, ptr noundef %53)
+  %55 = extractelement <8 x i1> %31, i64 1
+  %56 = select i1 %55, i32 45, i32 63
+  %57 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %58 = tail call i32 @putc(i32 noundef %56, ptr noundef %57)
+  %59 = extractelement <8 x i1> %31, i64 0
+  %60 = select i1 %59, i32 45, i32 63
+  %61 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %62 = tail call i32 @putc(i32 noundef %60, ptr noundef %61)
+  %63 = icmp sgt i16 %10, -1
+  %64 = select i1 %63, i32 45, i32 115
+  %65 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %66 = tail call i32 @putc(i32 noundef %64, ptr noundef %65)
+  %67 = getelementptr inbounds %struct.ref_s, ptr %8, i64 0, i32 2
+  %68 = load i16, ptr %67, align 2, !tbaa !5
+  %69 = zext i16 %68 to i32
+  %70 = load i64, ptr %8, align 8, !tbaa !20
+  %71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.34, i32 noundef %69, i64 noundef %70)
+  switch i32 %15, label %79 [
+    i32 11, label %72
+    i32 5, label %76
   ]
 
-26:                                               ; preds = %22
-  %27 = sext i8 %25 to i32
-  %28 = and i32 %23, 1
-  %29 = icmp eq i32 %28, 0
-  %30 = select i1 %29, i32 45, i32 %27
-  %31 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %32 = tail call i32 @putc(i32 noundef %30, ptr noundef %31)
-  br label %33
+72:                                               ; preds = %7
+  %73 = load float, ptr %8, align 8, !tbaa !11
+  %74 = fpext float %73 to double
+  %75 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.35, double noundef %74)
+  br label %79
 
-33:                                               ; preds = %22, %26
-  %34 = getelementptr inbounds i8, ptr %24, i64 1
-  %35 = lshr i32 %23, 1
-  br label %22, !llvm.loop !20
+76:                                               ; preds = %7
+  %77 = load i64, ptr %8, align 8, !tbaa !11
+  %78 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.36, i64 noundef %77)
+  br label %79
 
-36:                                               ; preds = %22
-  %37 = getelementptr inbounds %struct.ref_s, ptr %8, i64 0, i32 2
-  %38 = load i16, ptr %37, align 2, !tbaa !5
-  %39 = zext i16 %38 to i32
-  %40 = load i64, ptr %8, align 8, !tbaa !21
-  %41 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.34, i32 noundef %39, i64 noundef %40)
-  switch i32 %15, label %49 [
-    i32 11, label %42
-    i32 5, label %46
-  ]
+79:                                               ; preds = %7, %76, %72
+  %80 = tail call i32 @putchar(i32 10)
+  %81 = getelementptr inbounds %struct.ref_s, ptr %8, i64 1
+  %82 = icmp ult ptr %81, %1
+  br i1 %82, label %7, label %83, !llvm.loop !22
 
-42:                                               ; preds = %36
-  %43 = load float, ptr %8, align 8, !tbaa !11
-  %44 = fpext float %43 to double
-  %45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.35, double noundef %44)
-  br label %49
-
-46:                                               ; preds = %36
-  %47 = load i64, ptr %8, align 8, !tbaa !11
-  %48 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.36, i64 noundef %47)
-  br label %49
-
-49:                                               ; preds = %36, %46, %42
-  %50 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %51 = tail call i32 @putc(i32 noundef 10, ptr noundef %50)
-  %52 = getelementptr inbounds %struct.ref_s, ptr %8, i64 1
-  %53 = icmp ult ptr %52, %1
-  br i1 %53, label %7, label %54, !llvm.loop !23
-
-54:                                               ; preds = %49, %3
+83:                                               ; preds = %79, %3
   ret void
 }
 
@@ -308,7 +328,7 @@ define dso_local void @debug_dump_bytes(ptr noundef %0, ptr noundef readnone %1,
 
 7:                                                ; preds = %5, %3
   %8 = icmp eq ptr %0, %1
-  br i1 %8, label %26, label %9
+  br i1 %8, label %25, label %9
 
 9:                                                ; preds = %7, %23
   %10 = phi ptr [ %11, %23 ], [ %0, %7 ]
@@ -326,14 +346,13 @@ define dso_local void @debug_dump_bytes(ptr noundef %0, ptr noundef readnone %1,
   %20 = zext i8 %19 to i32
   %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.39, i32 noundef %20)
   %22 = icmp eq ptr %18, %13
-  br i1 %22, label %23, label %16, !llvm.loop !24
+  br i1 %22, label %23, label %16, !llvm.loop !23
 
 23:                                               ; preds = %16
-  %24 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %25 = tail call i32 @putc(i32 noundef 10, ptr noundef %24)
-  br i1 %12, label %9, label %26, !llvm.loop !25
+  %24 = tail call i32 @putchar(i32 10)
+  br i1 %12, label %9, label %25, !llvm.loop !24
 
-26:                                               ; preds = %23, %7
+25:                                               ; preds = %23, %7
   ret void
 }
 
@@ -341,14 +360,15 @@ define dso_local void @debug_dump_bytes(ptr noundef %0, ptr noundef readnone %1,
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #1
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
-declare ptr @llvm.load.relative.i64(ptr, i64) #4
+declare ptr @llvm.load.relative.i64(ptr, i64) #5
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }
-attributes #5 = { nounwind }
+attributes #4 = { inlinehint nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #5 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }
+attributes #6 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}
@@ -373,9 +393,8 @@ attributes #5 = { nounwind }
 !17 = !{!14, !14, i64 0}
 !18 = distinct !{!18, !19}
 !19 = !{!"llvm.loop.mustprogress"}
-!20 = distinct !{!20, !19}
-!21 = !{!22, !22, i64 0}
-!22 = !{!"long", !7, i64 0}
+!20 = !{!21, !21, i64 0}
+!21 = !{!"long", !7, i64 0}
+!22 = distinct !{!22, !19}
 !23 = distinct !{!23, !19}
 !24 = distinct !{!24, !19}
-!25 = distinct !{!25, !19}

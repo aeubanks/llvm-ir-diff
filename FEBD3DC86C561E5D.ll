@@ -731,8 +731,8 @@ define dso_local void @readMVD_CABAC(ptr nocapture noundef %0, ptr nocapture nou
   %65 = lshr i32 %45, %64
   br label %66
 
-66:                                               ; preds = %60, %54, %51, %3, %30
-  %67 = phi i32 [ %45, %30 ], [ 0, %3 ], [ %59, %54 ], [ %45, %51 ], [ %65, %60 ]
+66:                                               ; preds = %54, %51, %60, %3, %30
+  %67 = phi i32 [ %45, %30 ], [ %65, %60 ], [ 0, %3 ], [ %59, %54 ], [ %45, %51 ]
   %68 = load i32, ptr %4, align 4, !tbaa !16
   %69 = icmp eq i32 %68, 0
   br i1 %69, label %106, label %70
@@ -784,8 +784,8 @@ define dso_local void @readMVD_CABAC(ptr nocapture noundef %0, ptr nocapture nou
   %105 = lshr i32 %85, %104
   br label %106
 
-106:                                              ; preds = %100, %94, %91, %66, %70
-  %107 = phi i32 [ %85, %70 ], [ 0, %66 ], [ %99, %94 ], [ %85, %91 ], [ %105, %100 ]
+106:                                              ; preds = %94, %91, %100, %66, %70
+  %107 = phi i32 [ %85, %70 ], [ %105, %100 ], [ 0, %66 ], [ %99, %94 ], [ %85, %91 ]
   %108 = add nsw i32 %107, %67
   %109 = icmp slt i32 %108, 3
   br i1 %109, label %110, label %112
@@ -887,14 +887,14 @@ define dso_local i32 @unary_exp_golomb_mv_decode(ptr noundef %0, ptr noundef %1,
   br i1 %35, label %36, label %25, !llvm.loop !49
 
 36:                                               ; preds = %25, %36
-  %37 = phi i32 [ %44, %36 ], [ 0, %25 ]
-  %38 = phi i32 [ %39, %36 ], [ %32, %25 ]
-  %39 = add nsw i32 %38, -1
+  %37 = phi i32 [ %39, %36 ], [ %32, %25 ]
+  %38 = phi i32 [ %44, %36 ], [ 0, %25 ]
+  %39 = add nsw i32 %37, -1
   %40 = tail call i32 @biari_decode_symbol_eq_prob(ptr noundef %0) #12
   %41 = icmp eq i32 %40, 1
   %42 = shl nuw i32 1, %39
   %43 = select i1 %41, i32 %42, i32 0
-  %44 = or i32 %43, %37
+  %44 = or i32 %43, %38
   %45 = icmp eq i32 %39, 0
   br i1 %45, label %46, label %36, !llvm.loop !50
 
@@ -1130,7 +1130,7 @@ define dso_local void @readMB_typeInfo_CABAC(ptr nocapture noundef writeonly %0,
   %58 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %57) #12
   %59 = icmp eq i32 %58, 0
   %60 = select i1 %59, i32 5, i32 9
-  %61 = add i32 %60, %51
+  %61 = add i32 %51, %60
   br label %62
 
 62:                                               ; preds = %56, %48
@@ -1238,7 +1238,7 @@ define dso_local void @readMB_typeInfo_CABAC(ptr nocapture noundef writeonly %0,
   %136 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %135) #12
   %137 = icmp eq i32 %136, 0
   %138 = select i1 %137, i32 6, i32 10
-  %139 = add i32 %138, %129
+  %139 = add i32 %129, %138
   br label %140
 
 140:                                              ; preds = %134, %126
@@ -1412,7 +1412,7 @@ define dso_local void @readMB_typeInfo_CABAC(ptr nocapture noundef writeonly %0,
   %259 = tail call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %255) #12
   %260 = icmp eq i32 %259, 0
   %261 = select i1 %260, i32 4, i32 8
-  %262 = add nsw i32 %261, %254
+  %262 = add nsw i32 %254, %261
   br label %263
 
 263:                                              ; preds = %258, %250
@@ -1937,7 +1937,7 @@ define dso_local void @readCBP_CABAC(ptr nocapture noundef writeonly %0, ptr noc
   %121 = call i32 @biari_decode_symbol(ptr noundef %2, ptr noundef nonnull %120) #12
   %122 = icmp eq i32 %121, 0
   %123 = select i1 %122, i32 0, i32 8
-  %124 = or i32 %123, %113
+  %124 = or i32 %113, %123
   %125 = load ptr, ptr @dec_picture, align 8, !tbaa !5
   %126 = getelementptr inbounds %struct.storable_picture, ptr %125, i64 0, i32 50
   %127 = load i32, ptr %126, align 4, !tbaa !61
@@ -2798,14 +2798,14 @@ define dso_local i32 @unary_exp_golomb_level_decode(ptr noundef %0, ptr noundef 
   br i1 %27, label %38, label %28
 
 28:                                               ; preds = %26, %28
-  %29 = phi i32 [ %36, %28 ], [ 0, %26 ]
-  %30 = phi i32 [ %31, %28 ], [ %22, %26 ]
-  %31 = add nsw i32 %30, -1
+  %29 = phi i32 [ %31, %28 ], [ %22, %26 ]
+  %30 = phi i32 [ %36, %28 ], [ 0, %26 ]
+  %31 = add nsw i32 %29, -1
   %32 = tail call i32 @biari_decode_symbol_eq_prob(ptr noundef %0) #12
   %33 = icmp eq i32 %32, 1
   %34 = shl nuw i32 1, %31
   %35 = select i1 %33, i32 %34, i32 0
-  %36 = or i32 %35, %29
+  %36 = or i32 %35, %30
   %37 = icmp eq i32 %31, 0
   br i1 %37, label %38, label %28, !llvm.loop !50
 
@@ -2960,7 +2960,7 @@ define dso_local i32 @exp_golomb_decode_eq_prob(ptr noundef %0, i32 noundef %1) 
   %9 = zext i1 %7 to i32
   %10 = add nsw i32 %4, %9
   %11 = select i1 %7, i32 %8, i32 0
-  %12 = add nsw i32 %11, %5
+  %12 = add nsw i32 %5, %11
   %13 = icmp eq i32 %6, 0
   br i1 %13, label %14, label %3, !llvm.loop !49
 
@@ -2969,14 +2969,14 @@ define dso_local i32 @exp_golomb_decode_eq_prob(ptr noundef %0, i32 noundef %1) 
   br i1 %15, label %26, label %16
 
 16:                                               ; preds = %14, %16
-  %17 = phi i32 [ %24, %16 ], [ 0, %14 ]
-  %18 = phi i32 [ %19, %16 ], [ %10, %14 ]
-  %19 = add nsw i32 %18, -1
+  %17 = phi i32 [ %19, %16 ], [ %10, %14 ]
+  %18 = phi i32 [ %24, %16 ], [ 0, %14 ]
+  %19 = add nsw i32 %17, -1
   %20 = tail call i32 @biari_decode_symbol_eq_prob(ptr noundef %0) #12
   %21 = icmp eq i32 %20, 1
   %22 = shl nuw i32 1, %19
   %23 = select i1 %21, i32 %22, i32 0
-  %24 = or i32 %23, %17
+  %24 = or i32 %18, %23
   %25 = icmp eq i32 %19, 0
   br i1 %25, label %26, label %16, !llvm.loop !50
 
@@ -3025,11 +3025,11 @@ define dso_local void @readIPCMBytes_CABAC(ptr nocapture noundef %0, ptr nocaptu
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #9
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #9
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #11

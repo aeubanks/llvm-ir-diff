@@ -9,7 +9,7 @@ define dso_local i32 @f(i32 %0) local_unnamed_addr #0 {
   %3 = icmp eq i32 %2, 0
   %4 = and i32 %0, -1310721
   %5 = select i1 %3, i32 0, i32 1310720
-  %6 = or i32 %5, %4
+  %6 = or i32 %4, %5
   ret i32 %6
 }
 

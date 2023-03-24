@@ -179,7 +179,7 @@ define dso_local i32 @findcost() local_unnamed_addr #0 {
   %120 = icmp sgt i32 %119, 0
   %121 = load i32, ptr @numnets, align 4
   %122 = select i1 %120, i32 %3, i32 0
-  %123 = add i32 %122, %121
+  %123 = add i32 %121, %122
   %124 = icmp slt i32 %123, 1
   br i1 %124, label %218, label %125
 

@@ -52,7 +52,7 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
 
 15:                                               ; preds = %2
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str, i32 noundef %1) #8
-  br label %199
+  br label %202
 
 16:                                               ; preds = %2
   %17 = getelementptr inbounds %struct.stat, ptr %9, i64 0, i32 8
@@ -65,7 +65,7 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
 22:                                               ; preds = %16
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.2, i32 noundef %1) #8
   %23 = tail call i32 @close(i32 noundef %19) #8
-  br label %199
+  br label %202
 
 24:                                               ; preds = %16
   %25 = call i64 @fread(ptr noundef nonnull %7, i64 noundef 4, i64 noundef 1, ptr noundef nonnull %20)
@@ -74,7 +74,7 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
 
 27:                                               ; preds = %24
   %28 = tail call i32 @fclose(ptr noundef nonnull %20)
-  br label %199
+  br label %202
 
 29:                                               ; preds = %24
   %30 = load i32, ptr %7, align 4, !tbaa !12
@@ -83,42 +83,38 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
 
 32:                                               ; preds = %29
   %33 = tail call i32 @fclose(ptr noundef nonnull %20)
-  br label %199
+  br label %202
 
 34:                                               ; preds = %29
   %35 = call i64 @fread(ptr noundef nonnull %8, i64 noundef 2, i64 noundef 1, ptr noundef nonnull %20)
   %36 = icmp eq i64 %35, 1
-  br i1 %36, label %37, label %42
+  br i1 %36, label %37, label %44
 
 37:                                               ; preds = %34
+  %38 = icmp sgt i64 %18, 0
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %10) #8
   store i8 0, ptr %10, align 1, !tbaa !13
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %6) #8
-  %38 = call i64 @fread(ptr noundef nonnull %10, i64 noundef 1, i64 noundef 1, ptr noundef nonnull %20)
-  %39 = icmp eq i64 %38, 1
-  br i1 %39, label %40, label %63
+  %39 = call i64 @fread(ptr noundef nonnull %10, i64 noundef 1, i64 noundef 1, ptr noundef nonnull %20)
+  %40 = icmp ne i64 %39, 1
+  %41 = load i8, ptr %10, align 1
+  %42 = icmp eq i8 %41, 0
+  %43 = select i1 %40, i1 true, i1 %42
+  br i1 %43, label %63, label %46
 
-40:                                               ; preds = %37
-  %41 = icmp sgt i64 %18, 0
-  br label %44
+44:                                               ; preds = %34
+  %45 = tail call i32 @fclose(ptr noundef nonnull %20)
+  br label %202
 
-42:                                               ; preds = %34
-  %43 = tail call i32 @fclose(ptr noundef nonnull %20)
-  br label %199
-
-44:                                               ; preds = %40, %189
-  %45 = phi ptr [ null, %40 ], [ %190, %189 ]
-  %46 = load i8, ptr %10, align 1, !tbaa !13
-  %47 = icmp eq i8 %46, 0
-  br i1 %47, label %63, label %48
-
-48:                                               ; preds = %44
+46:                                               ; preds = %37, %184
+  %47 = phi i8 [ %188, %184 ], [ %41, %37 ]
+  %48 = phi ptr [ %185, %184 ], [ null, %37 ]
   %49 = call i64 @fread(ptr noundef nonnull %6, i64 noundef 4, i64 noundef 1, ptr noundef nonnull %20)
   %50 = icmp eq i64 %49, 1
   br i1 %50, label %57, label %51
 
-51:                                               ; preds = %48
-  %52 = icmp eq i8 %46, 10
+51:                                               ; preds = %46
+  %52 = icmp eq i8 %47, 10
   br i1 %52, label %53, label %68
 
 53:                                               ; preds = %51
@@ -130,7 +126,7 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.22) #8
   br label %63
 
-57:                                               ; preds = %48
+57:                                               ; preds = %46
   %58 = load i32, ptr %6, align 4, !tbaa !12
   %59 = trunc i32 %58 to i16
   %60 = lshr i32 %58, 16
@@ -138,20 +134,20 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %62 = icmp eq i64 %61, 1
   br i1 %62, label %69, label %68
 
-63:                                               ; preds = %44, %189, %37, %56
-  %64 = phi ptr [ %45, %56 ], [ null, %37 ], [ %45, %44 ], [ %190, %189 ]
+63:                                               ; preds = %184, %37, %56
+  %64 = phi ptr [ %48, %56 ], [ null, %37 ], [ %185, %184 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #8
   %65 = call i32 @ferror(ptr noundef nonnull %20) #8
   %66 = icmp eq i32 %65, 0
-  br i1 %66, label %184, label %67
+  br i1 %66, label %191, label %67
 
 67:                                               ; preds = %63
   call void @perror(ptr noundef nonnull @.str.3) #9
-  br label %184
+  br label %191
 
 68:                                               ; preds = %57, %53, %51
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #8
-  br label %184
+  br label %191
 
 69:                                               ; preds = %57
   %70 = load i32, ptr %6, align 4, !tbaa !12
@@ -159,7 +155,7 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.15, i32 noundef %71, i32 noundef %60, i32 noundef %70) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #8
   %72 = icmp eq i32 %70, 0
-  br i1 %72, label %189, label %73
+  br i1 %72, label %184, label %73
 
 73:                                               ; preds = %69
   %74 = icmp slt i32 %70, 0
@@ -167,21 +163,21 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
 
 75:                                               ; preds = %73
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.4, i32 noundef %70) #8
-  br label %184
+  br label %191
 
 76:                                               ; preds = %73
-  switch i8 %46, label %164 [
+  switch i8 %47, label %164 [
     i8 1, label %77
     i8 2, label %103
   ]
 
 77:                                               ; preds = %76
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.5) #8
-  %78 = icmp eq ptr %45, null
+  %78 = icmp eq ptr %48, null
   br i1 %78, label %80, label %79
 
 79:                                               ; preds = %77
-  call void @fileblobDestroy(ptr noundef nonnull %45) #8
+  call void @fileblobDestroy(ptr noundef nonnull %48) #8
   br label %80
 
 80:                                               ; preds = %79, %77
@@ -198,7 +194,7 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
 
 85:                                               ; preds = %84, %80
   %86 = zext i32 %70 to i64
-  br i1 %41, label %87, label %94
+  br i1 %38, label %87, label %94
 
 87:                                               ; preds = %85
   %88 = icmp uge i64 %18, %86
@@ -228,11 +224,11 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %100 = call i64 @fread(ptr noundef nonnull %5, i64 noundef 2, i64 noundef 1, ptr noundef nonnull %20)
   %101 = icmp eq i64 %100, 1
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %5) #8
-  br i1 %101, label %189, label %102
+  br i1 %101, label %184, label %102
 
 102:                                              ; preds = %99, %98
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.6) #8
-  br label %184
+  br label %191
 
 103:                                              ; preds = %76
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.7) #8
@@ -265,7 +261,7 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %116 = getelementptr inbounds i8, ptr %108, i64 %111
   store i8 0, ptr %116, align 1, !tbaa !13
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.19, ptr noundef nonnull %108) #8
-  %117 = icmp eq ptr %45, null
+  %117 = icmp eq ptr %48, null
   br i1 %117, label %118, label %122
 
 118:                                              ; preds = %115
@@ -278,13 +274,13 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   br label %157
 
 122:                                              ; preds = %118, %115
-  %123 = phi ptr [ %119, %118 ], [ %45, %115 ]
+  %123 = phi ptr [ %119, %118 ], [ %48, %115 ]
   call void @fileblobSetFilename(ptr noundef nonnull %123, ptr noundef %0, ptr noundef nonnull %108) #8
   call void @free(ptr noundef nonnull %108) #8
   br label %141
 
 124:                                              ; preds = %103
-  %125 = icmp eq ptr %45, null
+  %125 = icmp eq ptr %48, null
   br i1 %125, label %126, label %129
 
 126:                                              ; preds = %124
@@ -293,7 +289,7 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   br i1 %128, label %157, label %129
 
 129:                                              ; preds = %126, %124
-  %130 = phi ptr [ %127, %126 ], [ %45, %124 ]
+  %130 = phi ptr [ %127, %126 ], [ %48, %124 ]
   br label %131
 
 131:                                              ; preds = %129, %136
@@ -320,9 +316,9 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   br label %141
 
 141:                                              ; preds = %136, %140, %135, %122
-  %142 = phi ptr [ %45, %140 ], [ %130, %135 ], [ %123, %122 ], [ %130, %136 ]
+  %142 = phi ptr [ %48, %140 ], [ %130, %135 ], [ %123, %122 ], [ %130, %136 ]
   %143 = sext i32 %70 to i64
-  br i1 %41, label %144, label %153
+  br i1 %38, label %144, label %153
 
 144:                                              ; preds = %141
   %145 = icmp sge i64 %18, %143
@@ -346,8 +342,8 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %156 = icmp slt i32 %155, 0
   br i1 %156, label %157, label %159
 
-157:                                              ; preds = %105, %126, %154, %153, %114, %121
-  %158 = phi ptr [ %45, %114 ], [ null, %121 ], [ %142, %153 ], [ %142, %154 ], [ null, %126 ], [ %45, %105 ]
+157:                                              ; preds = %154, %126, %105, %153, %121, %114
+  %158 = phi ptr [ %48, %114 ], [ null, %121 ], [ %142, %153 ], [ %142, %154 ], [ null, %126 ], [ %48, %105 ]
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #8
   br label %162
 
@@ -355,19 +351,19 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
   %160 = call i64 @fread(ptr noundef nonnull %3, i64 noundef 2, i64 noundef 1, ptr noundef nonnull %20)
   %161 = icmp eq i64 %160, 1
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #8
-  br i1 %161, label %189, label %162
+  br i1 %161, label %184, label %162
 
 162:                                              ; preds = %159, %157
   %163 = phi ptr [ %158, %157 ], [ %142, %159 ]
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.8) #8
-  br label %184
+  br label %191
 
 164:                                              ; preds = %76
-  %165 = zext i8 %46 to i32
+  %165 = zext i8 %47 to i32
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.9, i32 noundef %165, i32 noundef %71) #8
   %166 = load i8, ptr @cli_debug_flag, align 1, !tbaa !13
   %167 = icmp eq i8 %166, 0
-  br i1 %167, label %184, label %168
+  br i1 %167, label %191, label %168
 
 168:                                              ; preds = %164
   %169 = call ptr @cli_gentemp(ptr noundef null) #8
@@ -397,51 +393,54 @@ define dso_local i32 @cli_tnef(ptr noundef %0, i32 noundef %1) local_unnamed_add
 183:                                              ; preds = %181, %168
   call void @free(ptr noundef %169) #8
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %11) #8
-  br label %184
+  br label %191
 
-184:                                              ; preds = %75, %162, %102, %183, %164, %68, %67, %63
-  %185 = phi ptr [ %81, %102 ], [ %163, %162 ], [ %45, %183 ], [ %45, %164 ], [ %45, %75 ], [ %45, %68 ], [ %64, %67 ], [ %64, %63 ]
-  %186 = phi i32 [ -124, %102 ], [ -124, %162 ], [ -124, %183 ], [ -124, %164 ], [ -124, %75 ], [ -123, %68 ], [ -123, %67 ], [ 0, %63 ]
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %10) #8
-  %187 = call i32 @fclose(ptr noundef nonnull %20)
-  %188 = icmp eq ptr %185, null
-  br i1 %188, label %198, label %193
-
-189:                                              ; preds = %99, %159, %69
-  %190 = phi ptr [ %45, %69 ], [ %142, %159 ], [ %81, %99 ]
+184:                                              ; preds = %99, %159, %69
+  %185 = phi ptr [ %48, %69 ], [ %142, %159 ], [ %81, %99 ]
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %10) #8
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %10) #8
   store i8 0, ptr %10, align 1, !tbaa !13
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %6) #8
-  %191 = call i64 @fread(ptr noundef nonnull %10, i64 noundef 1, i64 noundef 1, ptr noundef nonnull %20)
-  %192 = icmp eq i64 %191, 1
-  br i1 %192, label %44, label %63, !llvm.loop !17
+  %186 = call i64 @fread(ptr noundef nonnull %10, i64 noundef 1, i64 noundef 1, ptr noundef nonnull %20)
+  %187 = icmp ne i64 %186, 1
+  %188 = load i8, ptr %10, align 1
+  %189 = icmp eq i8 %188, 0
+  %190 = select i1 %187, i1 true, i1 %189
+  br i1 %190, label %63, label %46
 
-193:                                              ; preds = %184
+191:                                              ; preds = %63, %67, %68, %164, %183, %102, %162, %75
+  %192 = phi ptr [ %48, %164 ], [ %48, %183 ], [ %81, %102 ], [ %163, %162 ], [ %48, %75 ], [ %48, %68 ], [ %64, %67 ], [ %64, %63 ]
+  %193 = phi i32 [ -124, %164 ], [ -124, %183 ], [ -124, %102 ], [ -124, %162 ], [ -124, %75 ], [ -123, %68 ], [ -123, %67 ], [ 0, %63 ]
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %10) #8
+  %194 = call i32 @fclose(ptr noundef nonnull %20)
+  %195 = icmp eq ptr %192, null
+  br i1 %195, label %201, label %196
+
+196:                                              ; preds = %191
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.11) #8
-  %194 = call ptr @fileblobGetFilename(ptr noundef nonnull %185) #8
-  %195 = icmp eq ptr %194, null
-  br i1 %195, label %196, label %197
+  %197 = call ptr @fileblobGetFilename(ptr noundef nonnull %192) #8
+  %198 = icmp eq ptr %197, null
+  br i1 %198, label %199, label %200
 
-196:                                              ; preds = %193
+199:                                              ; preds = %196
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.12) #8
-  call void @fileblobSetFilename(ptr noundef nonnull %185, ptr noundef %0, ptr noundef nonnull @.str.13) #8
-  br label %197
+  call void @fileblobSetFilename(ptr noundef nonnull %192, ptr noundef %0, ptr noundef nonnull @.str.13) #8
+  br label %200
 
-197:                                              ; preds = %196, %193
-  call void @fileblobDestroy(ptr noundef nonnull %185) #8
-  br label %198
+200:                                              ; preds = %199, %196
+  call void @fileblobDestroy(ptr noundef nonnull %192) #8
+  br label %201
 
-198:                                              ; preds = %197, %184
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.14, i32 noundef %186) #8
-  br label %199
+201:                                              ; preds = %200, %191
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.14, i32 noundef %193) #8
+  br label %202
 
-199:                                              ; preds = %198, %42, %32, %27, %22, %15
-  %200 = phi i32 [ -123, %15 ], [ -115, %22 ], [ -123, %27 ], [ -124, %32 ], [ -123, %42 ], [ %186, %198 ]
+202:                                              ; preds = %201, %44, %32, %27, %22, %15
+  %203 = phi i32 [ -123, %15 ], [ -115, %22 ], [ -123, %27 ], [ -124, %32 ], [ -123, %44 ], [ %193, %201 ]
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %9) #8
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %8) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #8
-  ret i32 %200
+  ret i32 %203
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -549,4 +548,3 @@ attributes #9 = { cold }
 !14 = distinct !{!14, !15}
 !15 = !{!"llvm.loop.mustprogress"}
 !16 = distinct !{!16, !15}
-!17 = distinct !{!17, !15}

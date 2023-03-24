@@ -3667,41 +3667,41 @@ define dso_local noundef ptr @_Z16yy_create_bufferP8_IO_FILEi(ptr noundef %0, i3
   store i32 0, ptr %26, align 8, !tbaa !46
   %27 = load ptr, ptr @_ZL15yy_buffer_stack, align 8, !tbaa !5
   %28 = icmp eq ptr %27, null
-  br i1 %28, label %34, label %29
+  br i1 %28, label %38, label %29
 
 29:                                               ; preds = %18
   %30 = load i64, ptr @_ZL19yy_buffer_stack_top, align 8, !tbaa !11
   %31 = getelementptr inbounds ptr, ptr %27, i64 %30
   %32 = load ptr, ptr %31, align 8, !tbaa !5
   %33 = icmp eq ptr %32, %3
-  br i1 %33, label %36, label %40
+  br i1 %33, label %34, label %40
 
-34:                                               ; preds = %18
-  store ptr %0, ptr %3, align 8, !tbaa !16
-  %35 = getelementptr inbounds %struct.yy_buffer_state, ptr %3, i64 0, i32 10
-  store i32 1, ptr %35, align 4, !tbaa !54
-  br label %43
-
-36:                                               ; preds = %29
+34:                                               ; preds = %29
   store i32 0, ptr @_ZL10yy_n_chars, align 4, !tbaa !9
   store ptr %12, ptr @_ZL10yy_c_buf_p, align 8, !tbaa !5
   store ptr %12, ptr @yytext_ptr, align 8, !tbaa !5
-  %37 = load ptr, ptr %31, align 8, !tbaa !5
-  %38 = load ptr, ptr %37, align 8, !tbaa !16
-  store ptr %38, ptr @yyin, align 8, !tbaa !5
-  %39 = load i8, ptr %12, align 1, !tbaa !17
-  store i8 %39, ptr @_ZL12yy_hold_char, align 1, !tbaa !17
+  %35 = load ptr, ptr %31, align 8, !tbaa !5
+  %36 = load ptr, ptr %35, align 8, !tbaa !16
+  store ptr %36, ptr @yyin, align 8, !tbaa !5
+  %37 = load i8, ptr %12, align 1, !tbaa !17
+  store i8 %37, ptr @_ZL12yy_hold_char, align 1, !tbaa !17
   br label %40
 
-40:                                               ; preds = %29, %36
+38:                                               ; preds = %18
+  store ptr %0, ptr %3, align 8, !tbaa !16
+  %39 = getelementptr inbounds %struct.yy_buffer_state, ptr %3, i64 0, i32 10
+  store i32 1, ptr %39, align 4, !tbaa !54
+  br label %43
+
+40:                                               ; preds = %29, %34
   store ptr %0, ptr %3, align 8
   %41 = getelementptr inbounds %struct.yy_buffer_state, ptr %3, i64 0, i32 10
   store i32 1, ptr %41, align 4
   %42 = load ptr, ptr %31, align 8, !tbaa !5
   br label %43
 
-43:                                               ; preds = %34, %40
-  %44 = phi ptr [ %42, %40 ], [ null, %34 ]
+43:                                               ; preds = %38, %40
+  %44 = phi ptr [ %42, %40 ], [ null, %38 ]
   %45 = icmp eq ptr %44, %3
   br i1 %45, label %49, label %46
 
@@ -4869,8 +4869,8 @@ define dso_local noundef ptr @_Z13yy_scan_bytesPKci(ptr nocapture noundef readon
 9:                                                ; preds = %7
   %10 = zext i32 %1 to i64
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %5, ptr align 1 %0, i64 %10, i1 false), !tbaa !17
-  %11 = add nuw i32 %1, 1
-  %12 = sext i32 %11 to i64
+  %11 = add nuw nsw i32 %1, 1
+  %12 = zext i32 %11 to i64
   %13 = getelementptr inbounds i8, ptr %5, i64 %12
   store i8 0, ptr %13, align 1, !tbaa !17
   %14 = zext i32 %1 to i64
@@ -4893,7 +4893,7 @@ define dso_local noundef ptr @_Z13yy_scan_bytesPKci(ptr nocapture noundef readon
   %24 = getelementptr inbounds i8, ptr %5, i64 %23
   store i8 0, ptr %24, align 1, !tbaa !17
   %25 = icmp ugt i32 %1, -3
-  br i1 %25, label %53, label %26
+  br i1 %25, label %43, label %26
 
 26:                                               ; preds = %9, %19
   %27 = phi i32 [ %11, %9 ], [ %20, %19 ]
@@ -4901,19 +4901,19 @@ define dso_local noundef ptr @_Z13yy_scan_bytesPKci(ptr nocapture noundef readon
   %29 = getelementptr inbounds i8, ptr %5, i64 %28
   %30 = load i8, ptr %29, align 1, !tbaa !17
   %31 = icmp eq i8 %30, 0
-  br i1 %31, label %32, label %53
+  br i1 %31, label %32, label %43
 
 32:                                               ; preds = %26
   %33 = zext i32 %27 to i64
   %34 = getelementptr inbounds i8, ptr %5, i64 %33
   %35 = load i8, ptr %34, align 1, !tbaa !17
   %36 = icmp eq i8 %35, 0
-  br i1 %36, label %37, label %53
+  br i1 %36, label %37, label %43
 
 37:                                               ; preds = %32
   %38 = tail call noalias dereferenceable_or_null(64) ptr @malloc(i64 noundef 64) #29
   %39 = icmp eq ptr %38, null
-  br i1 %39, label %40, label %43
+  br i1 %39, label %40, label %46
 
 40:                                               ; preds = %37
   %41 = load ptr, ptr @stderr, align 8, !tbaa !5
@@ -4921,35 +4921,35 @@ define dso_local noundef ptr @_Z13yy_scan_bytesPKci(ptr nocapture noundef readon
   tail call void @exit(i32 noundef 2) #32
   unreachable
 
-43:                                               ; preds = %37
-  %44 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 3
-  store i32 %1, ptr %44, align 8, !tbaa !52
-  %45 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 1
-  store ptr %5, ptr %45, align 8, !tbaa !47
-  %46 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 2
-  store ptr %5, ptr %46, align 8, !tbaa !15
-  %47 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 5
-  store i32 0, ptr %47, align 8, !tbaa !53
-  store ptr null, ptr %38, align 8, !tbaa !16
-  %48 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 4
-  store i32 %1, ptr %48, align 4, !tbaa !13
-  %49 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 6
-  store i32 0, ptr %49, align 4, !tbaa !57
-  %50 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 7
-  store i32 1, ptr %50, align 8, !tbaa !18
-  %51 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 10
-  store i32 0, ptr %51, align 4, !tbaa !54
-  %52 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 11
-  store i32 0, ptr %52, align 8, !tbaa !46
-  tail call void @_Z19yy_switch_to_bufferP15yy_buffer_state(ptr noundef nonnull %38)
-  store i32 1, ptr %47, align 8, !tbaa !53
-  ret ptr %38
-
-53:                                               ; preds = %32, %26, %19
-  %54 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %55 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %54, ptr noundef nonnull @.str.28, ptr noundef nonnull @.str.23) #31
+43:                                               ; preds = %32, %26, %19
+  %44 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %45 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %44, ptr noundef nonnull @.str.28, ptr noundef nonnull @.str.23) #31
   tail call void @exit(i32 noundef 2) #32
   unreachable
+
+46:                                               ; preds = %37
+  %47 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 3
+  store i32 %1, ptr %47, align 8, !tbaa !52
+  %48 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 1
+  store ptr %5, ptr %48, align 8, !tbaa !47
+  %49 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 2
+  store ptr %5, ptr %49, align 8, !tbaa !15
+  %50 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 5
+  store i32 0, ptr %50, align 8, !tbaa !53
+  store ptr null, ptr %38, align 8, !tbaa !16
+  %51 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 4
+  store i32 %1, ptr %51, align 4, !tbaa !13
+  %52 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 6
+  store i32 0, ptr %52, align 4, !tbaa !57
+  %53 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 7
+  store i32 1, ptr %53, align 8, !tbaa !18
+  %54 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 10
+  store i32 0, ptr %54, align 4, !tbaa !54
+  %55 = getelementptr inbounds %struct.yy_buffer_state, ptr %38, i64 0, i32 11
+  store i32 0, ptr %55, align 8, !tbaa !46
+  tail call void @_Z19yy_switch_to_bufferP15yy_buffer_state(ptr noundef nonnull %38)
+  store i32 1, ptr %50, align 8, !tbaa !53
+  ret ptr %38
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
@@ -5245,11 +5245,11 @@ define internal void @_GLOBAL__sub_I_kimwl.cc() #26 section ".text.startup" pers
   ret void
 }
 
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #27
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #28
+declare i32 @llvm.umin.i32(i32, i32) #27
+
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #28
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind }
@@ -5278,8 +5278,8 @@ attributes #23 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-
 attributes #24 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #25 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #26 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #27 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #28 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #27 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #28 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #29 = { nounwind allocsize(0) }
 attributes #30 = { nounwind allocsize(1) }
 attributes #31 = { cold }

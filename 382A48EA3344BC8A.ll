@@ -12,42 +12,41 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local void @_ZN12ClassVersion4readEP9Classfile(ptr nocapture noundef nonnull align 2 dereferenceable(4) %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 align 2 {
   %3 = load ptr, ptr %1, align 8, !tbaa !5
   %4 = tail call i32 @getc(ptr noundef %3)
-  %5 = trunc i32 %4 to i16
-  %6 = tail call i32 @getc(ptr noundef %3)
-  %7 = trunc i32 %6 to i16
-  %8 = shl i16 %5, 8
-  %9 = and i16 %7, 255
-  %10 = or i16 %9, %8
-  store i16 %10, ptr %0, align 2, !tbaa !16
-  %11 = load ptr, ptr %1, align 8, !tbaa !5
-  %12 = tail call i32 @getc(ptr noundef %11)
-  %13 = trunc i32 %12 to i16
-  %14 = tail call i32 @getc(ptr noundef %11)
-  %15 = trunc i32 %14 to i16
-  %16 = shl i16 %13, 8
-  %17 = and i16 %15, 255
-  %18 = or i16 %17, %16
-  %19 = getelementptr inbounds %struct.ClassVersion, ptr %0, i64 0, i32 1
-  store i16 %18, ptr %19, align 2, !tbaa !17
-  %20 = icmp eq i16 %18, 45
-  br i1 %20, label %22, label %21
+  %5 = tail call i32 @getc(ptr noundef %3)
+  %6 = and i32 %5, 255
+  %7 = shl i32 %4, 8
+  %8 = or i32 %6, %7
+  %9 = trunc i32 %8 to i16
+  store i16 %9, ptr %0, align 2, !tbaa !16
+  %10 = load ptr, ptr %1, align 8, !tbaa !5
+  %11 = tail call i32 @getc(ptr noundef %10)
+  %12 = tail call i32 @getc(ptr noundef %10)
+  %13 = and i32 %12, 255
+  %14 = shl i32 %11, 8
+  %15 = or i32 %13, %14
+  %16 = trunc i32 %15 to i16
+  %17 = getelementptr inbounds %struct.ClassVersion, ptr %0, i64 0, i32 1
+  store i16 %16, ptr %17, align 2, !tbaa !17
+  %18 = and i32 %15, 65535
+  %19 = icmp eq i32 %18, 45
+  br i1 %19, label %21, label %20
+
+20:                                               ; preds = %2
+  tail call void (i32, ...) @_Z10fatalerroriz(i32 noundef 5)
+  br label %28
 
 21:                                               ; preds = %2
-  tail call void (i32, ...) @_Z10fatalerroriz(i32 noundef 5)
-  br label %29
+  %22 = load i16, ptr %0, align 2, !tbaa !16
+  %23 = icmp eq i16 %22, 3
+  br i1 %23, label %28, label %24
 
-22:                                               ; preds = %2
-  %23 = load i16, ptr %0, align 2, !tbaa !16
-  %24 = icmp eq i16 %23, 3
-  br i1 %24, label %29, label %25
+24:                                               ; preds = %21
+  %25 = zext i16 %22 to i32
+  %26 = load ptr, ptr @stderr, align 8, !tbaa !18
+  %27 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %26, ptr noundef nonnull @.str, i32 noundef %25) #3
+  br label %28
 
-25:                                               ; preds = %22
-  %26 = zext i16 %23 to i32
-  %27 = load ptr, ptr @stderr, align 8, !tbaa !18
-  %28 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %27, ptr noundef nonnull @.str, i32 noundef %26) #3
-  br label %29
-
-29:                                               ; preds = %22, %25, %21
+28:                                               ; preds = %21, %24, %20
   ret void
 }
 

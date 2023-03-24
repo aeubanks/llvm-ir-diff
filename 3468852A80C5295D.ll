@@ -322,21 +322,21 @@ define dso_local noundef zeroext i1 @_ZN27btContinuousConvexCollision16calcTimeO
 177:                                              ; preds = %158
   %178 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %5, i64 0, i32 7
   %179 = getelementptr inbounds %class.btTransform, ptr %21, i64 0, i32 1
-  %180 = getelementptr inbounds %class.btTransform, ptr %22, i64 0, i32 1
-  %181 = getelementptr inbounds [3 x %class.btVector3], ptr %22, i64 0, i64 1
-  %182 = getelementptr inbounds [3 x %class.btVector3], ptr %21, i64 0, i64 1
-  %183 = getelementptr inbounds [3 x %class.btVector3], ptr %22, i64 0, i64 2
-  %184 = getelementptr inbounds [3 x %class.btVector3], ptr %21, i64 0, i64 2
-  %185 = getelementptr inbounds %struct.btPointCollector, ptr %24, i64 0, i32 3
-  %186 = getelementptr inbounds %struct.btPointCollector, ptr %24, i64 0, i32 4
-  %187 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 2
-  %188 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 3
-  %189 = getelementptr inbounds [3 x %class.btVector3], ptr %26, i64 0, i64 1
-  %190 = getelementptr inbounds [3 x %class.btVector3], ptr %26, i64 0, i64 2
-  %191 = getelementptr inbounds %class.btTransform, ptr %26, i64 0, i32 1
-  %192 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 1
-  %193 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 1, i32 0, i32 0, i64 1
-  %194 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 1, i32 0, i32 0, i64 2
+  %180 = getelementptr inbounds %struct.btPointCollector, ptr %24, i64 0, i32 3
+  %181 = getelementptr inbounds %struct.btPointCollector, ptr %24, i64 0, i32 4
+  %182 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 2
+  %183 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 3
+  %184 = getelementptr inbounds [3 x %class.btVector3], ptr %21, i64 0, i64 1
+  %185 = getelementptr inbounds [3 x %class.btVector3], ptr %26, i64 0, i64 1
+  %186 = getelementptr inbounds [3 x %class.btVector3], ptr %21, i64 0, i64 2
+  %187 = getelementptr inbounds [3 x %class.btVector3], ptr %26, i64 0, i64 2
+  %188 = getelementptr inbounds %class.btTransform, ptr %26, i64 0, i32 1
+  %189 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 1
+  %190 = getelementptr inbounds [3 x %class.btVector3], ptr %22, i64 0, i64 1
+  %191 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 1, i32 0, i32 0, i64 1
+  %192 = getelementptr inbounds [3 x %class.btVector3], ptr %22, i64 0, i64 2
+  %193 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 1, i32 0, i32 0, i64 2
+  %194 = getelementptr inbounds %class.btTransform, ptr %22, i64 0, i32 1
   %195 = getelementptr inbounds %"struct.btDiscreteCollisionDetectorInterface::ClosestPointInput", ptr %26, i64 0, i32 1, i32 1
   %196 = getelementptr inbounds %struct.btPointCollector, ptr %24, i64 0, i32 2
   %197 = getelementptr inbounds %struct.btPointCollector, ptr %24, i64 0, i32 1
@@ -409,7 +409,7 @@ define dso_local noundef zeroext i1 @_ZN27btContinuousConvexCollision16calcTimeO
   %234 = fcmp uge float %232, 0.000000e+00
   %235 = and i1 %233, %234
   %236 = fcmp ugt float %232, %201
-  %237 = and i1 %236, %235
+  %237 = and i1 %235, %236
   br i1 %237, label %238, label %297
 
 238:                                              ; preds = %230
@@ -460,8 +460,8 @@ define dso_local noundef zeroext i1 @_ZN27btContinuousConvexCollision16calcTimeO
 255:                                              ; preds = %252
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %24) #14
   store ptr getelementptr inbounds ({ [7 x ptr] }, ptr @_ZTV16btPointCollector, i64 0, inrange i32 0, i64 2), ptr %24, align 8, !tbaa !5
-  store float 0x43ABC16D60000000, ptr %185, align 8, !tbaa !28
-  store i8 0, ptr %186, align 4, !tbaa !32
+  store float 0x43ABC16D60000000, ptr %180, align 8, !tbaa !28
+  store i8 0, ptr %181, align 4, !tbaa !32
   call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %25) #14
   %256 = load ptr, ptr %73, align 8, !tbaa !14
   %257 = load ptr, ptr %79, align 8, !tbaa !15
@@ -472,26 +472,26 @@ define dso_local noundef zeroext i1 @_ZN27btContinuousConvexCollision16calcTimeO
 
 260:                                              ; preds = %255
   call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %26) #14
-  store float 0x43ABC16D60000000, ptr %187, align 8, !tbaa !33
-  store ptr null, ptr %188, align 8, !tbaa !37
+  store float 0x43ABC16D60000000, ptr %182, align 8, !tbaa !33
+  store ptr null, ptr %183, align 8, !tbaa !37
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %26, ptr noundef nonnull align 4 dereferenceable(16) %21, i64 16, i1 false), !tbaa.struct !18
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %189, ptr noundef nonnull align 4 dereferenceable(16) %182, i64 16, i1 false), !tbaa.struct !18
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %190, ptr noundef nonnull align 4 dereferenceable(16) %184, i64 16, i1 false), !tbaa.struct !18
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %191, ptr noundef nonnull align 4 dereferenceable(16) %179, i64 16, i1 false), !tbaa.struct !18
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %192, ptr noundef nonnull align 4 dereferenceable(16) %22, i64 16, i1 false), !tbaa.struct !18
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %193, ptr noundef nonnull align 4 dereferenceable(16) %181, i64 16, i1 false), !tbaa.struct !18
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %194, ptr noundef nonnull align 4 dereferenceable(16) %183, i64 16, i1 false), !tbaa.struct !18
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %195, ptr noundef nonnull align 4 dereferenceable(16) %180, i64 16, i1 false), !tbaa.struct !18
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %185, ptr noundef nonnull align 4 dereferenceable(16) %184, i64 16, i1 false), !tbaa.struct !18
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %187, ptr noundef nonnull align 4 dereferenceable(16) %186, i64 16, i1 false), !tbaa.struct !18
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %188, ptr noundef nonnull align 4 dereferenceable(16) %179, i64 16, i1 false), !tbaa.struct !18
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %189, ptr noundef nonnull align 4 dereferenceable(16) %22, i64 16, i1 false), !tbaa.struct !18
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %191, ptr noundef nonnull align 4 dereferenceable(16) %190, i64 16, i1 false), !tbaa.struct !18
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %193, ptr noundef nonnull align 4 dereferenceable(16) %192, i64 16, i1 false), !tbaa.struct !18
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %195, ptr noundef nonnull align 4 dereferenceable(16) %194, i64 16, i1 false), !tbaa.struct !18
   invoke void @_ZN17btGjkPairDetector16getClosestPointsERKN36btDiscreteCollisionDetectorInterface17ClosestPointInputERNS0_6ResultEP12btIDebugDrawb(ptr noundef nonnull align 8 dereferenceable(96) %25, ptr noundef nonnull align 8 dereferenceable(144) %26, ptr noundef nonnull align 8 dereferenceable(8) %24, ptr noundef null, i1 noundef zeroext false)
           to label %261 unwind label %274
 
 261:                                              ; preds = %260
-  %262 = load i8, ptr %186, align 4, !tbaa !32, !range !38, !noundef !39
+  %262 = load i8, ptr %181, align 4, !tbaa !32, !range !38, !noundef !39
   %263 = icmp ne i8 %262, 0
   br i1 %263, label %264, label %276
 
 264:                                              ; preds = %261
-  %265 = load float, ptr %185, align 8, !tbaa !28
+  %265 = load float, ptr %180, align 8, !tbaa !28
   %266 = fcmp olt float %265, 0.000000e+00
   br i1 %266, label %267, label %277
 
@@ -852,12 +852,12 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %5 = alloca %class.btMatrix3x3, align 8
   %6 = alloca %class.btQuaternion, align 8
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5) #14
-  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
-  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
-  %9 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
-  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
-  %11 = load float, ptr %10, align 4, !tbaa !16, !noalias !45
-  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
+  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
+  %9 = load float, ptr %8, align 4, !tbaa !16, !noalias !45
+  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %11 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
+  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
   %13 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 1
   %14 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 2
   tail call void @llvm.experimental.noalias.scope.decl(metadata !48)
@@ -878,32 +878,32 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %29 = load float, ptr %28, align 4, !tbaa !16, !noalias !48
   %30 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2, i32 0, i64 2
   %31 = load float, ptr %30, align 4, !tbaa !16, !noalias !48
-  %32 = load float, ptr %8, align 4, !tbaa !16, !noalias !45
-  %33 = load float, ptr %12, align 4, !tbaa !16, !noalias !45
-  %34 = load <2 x float>, ptr %9, align 4, !tbaa !16, !noalias !45
+  %32 = load float, ptr %7, align 4, !tbaa !16, !noalias !45
+  %33 = load float, ptr %10, align 4, !tbaa !16, !noalias !45
+  %34 = load <2 x float>, ptr %12, align 4, !tbaa !16, !noalias !45
   %35 = shufflevector <2 x float> %34, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %36 = load float, ptr %7, align 4, !tbaa !16, !noalias !45
+  %36 = load float, ptr %11, align 4, !tbaa !16, !noalias !45
   %37 = load float, ptr %0, align 4, !tbaa !16, !noalias !45
   %38 = load float, ptr %13, align 4, !tbaa !16, !noalias !45
   %39 = load float, ptr %14, align 4, !tbaa !16, !noalias !45
   %40 = insertelement <2 x float> poison, float %36, i64 0
   %41 = insertelement <2 x float> %40, float %39, i64 1
   %42 = fneg <2 x float> %41
-  %43 = insertelement <2 x float> %35, float %11, i64 0
+  %43 = insertelement <2 x float> %35, float %9, i64 0
   %44 = fmul <2 x float> %43, %42
   %45 = insertelement <2 x float> poison, float %33, i64 0
   %46 = insertelement <2 x float> %45, float %37, i64 1
-  %47 = insertelement <2 x float> %34, float %11, i64 1
+  %47 = insertelement <2 x float> %34, float %9, i64 1
   %48 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %46, <2 x float> %47, <2 x float> %44)
   %49 = extractelement <2 x float> %48, i64 0
   %50 = fmul float %38, %49
   %51 = insertelement <2 x float> %45, float %38, i64 1
   %52 = fneg <2 x float> %51
-  %53 = insertelement <2 x float> %35, float %11, i64 1
+  %53 = insertelement <2 x float> %35, float %9, i64 1
   %54 = fmul <2 x float> %53, %52
   %55 = insertelement <2 x float> poison, float %32, i64 0
   %56 = insertelement <2 x float> %55, float %39, i64 1
-  %57 = insertelement <2 x float> %34, float %11, i64 0
+  %57 = insertelement <2 x float> %34, float %9, i64 0
   %58 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %56, <2 x float> %57, <2 x float> %54)
   %59 = extractelement <2 x float> %58, i64 0
   %60 = tail call float @llvm.fmuladd.f32(float %37, float %59, float %50)

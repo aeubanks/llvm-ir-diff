@@ -57,7 +57,7 @@ define dso_local i32 @cdist0(ptr nocapture noundef readonly %0, ptr nocapture no
   %15 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 14), align 8, !tbaa !13
   %16 = and i32 %15, %14
   %17 = icmp eq i32 %16, 0
-  br i1 %17, label %18, label %82
+  br i1 %17, label %18, label %83
 
 18:                                               ; preds = %5
   %19 = icmp sgt i32 %3, 1
@@ -83,7 +83,7 @@ define dso_local i32 @cdist0(ptr nocapture noundef readonly %0, ptr nocapture no
   %33 = or i32 %32, %31
   %34 = and i32 %33, 1431655765
   %35 = icmp eq i32 %34, 1431655765
-  br i1 %35, label %22, label %82
+  br i1 %35, label %22, label %83
 
 36:                                               ; preds = %22, %18, %2
   %37 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2), align 8, !tbaa !14
@@ -101,7 +101,7 @@ define dso_local i32 @cdist0(ptr nocapture noundef readonly %0, ptr nocapture no
 
 46:                                               ; preds = %40, %74
   %47 = phi i64 [ %44, %40 ], [ %75, %74 ]
-  %48 = phi i1 [ false, %40 ], [ %76, %74 ]
+  %48 = phi i1 [ true, %40 ], [ %76, %74 ]
   %49 = getelementptr inbounds ptr, ptr %41, i64 %47
   %50 = load ptr, ptr %49, align 8, !tbaa !19
   %51 = getelementptr inbounds i32, ptr %42, i64 %47
@@ -137,19 +137,20 @@ define dso_local i32 @cdist0(ptr nocapture noundef readonly %0, ptr nocapture no
 
 74:                                               ; preds = %63
   %75 = add nsw i64 %47, 1
-  %76 = icmp sge i64 %75, %45
+  %76 = icmp slt i64 %75, %45
   %77 = trunc i64 %75 to i32
   %78 = icmp eq i32 %38, %77
   br i1 %78, label %79, label %46
 
 79:                                               ; preds = %74, %46, %59, %36
-  %80 = phi i1 [ true, %36 ], [ %48, %59 ], [ %48, %46 ], [ %76, %74 ]
-  %81 = zext i1 %80 to i32
-  br label %82
+  %80 = phi i1 [ false, %36 ], [ %48, %59 ], [ %48, %46 ], [ %76, %74 ]
+  %81 = xor i1 %80, true
+  %82 = zext i1 %81 to i32
+  br label %83
 
-82:                                               ; preds = %25, %5, %79
-  %83 = phi i32 [ %81, %79 ], [ 0, %5 ], [ 0, %25 ]
-  ret i32 %83
+83:                                               ; preds = %25, %5, %79
+  %84 = phi i32 [ %82, %79 ], [ 0, %5 ], [ 0, %25 ]
+  ret i32 %84
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
@@ -196,7 +197,7 @@ define dso_local i32 @cdist01(ptr nocapture noundef readonly %0, ptr nocapture n
   %38 = load i32, ptr %37, align 4, !tbaa !5
   %39 = add nsw i32 %34, %38
   %40 = icmp sgt i32 %39, 1
-  br i1 %40, label %135, label %41
+  br i1 %40, label %143, label %41
 
 41:                                               ; preds = %18, %5
   %42 = phi i32 [ %39, %18 ], [ 0, %5 ]
@@ -224,7 +225,7 @@ define dso_local i32 @cdist01(ptr nocapture noundef readonly %0, ptr nocapture n
 
 59:                                               ; preds = %46
   %60 = icmp eq i32 %48, 1
-  br i1 %60, label %135, label %61
+  br i1 %60, label %143, label %61
 
 61:                                               ; preds = %59
   %62 = and i32 %57, 85
@@ -250,7 +251,7 @@ define dso_local i32 @cdist01(ptr nocapture noundef readonly %0, ptr nocapture n
   %82 = add i32 %81, %75
   %83 = add i32 %82, %79
   %84 = icmp sgt i32 %83, 1
-  br i1 %84, label %135, label %85
+  br i1 %84, label %143, label %85
 
 85:                                               ; preds = %46, %61
   %86 = phi i32 [ %83, %61 ], [ %48, %46 ]
@@ -263,66 +264,76 @@ define dso_local i32 @cdist01(ptr nocapture noundef readonly %0, ptr nocapture n
   %91 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2), align 8, !tbaa !14
   %92 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !15
   %93 = icmp slt i32 %91, %92
-  br i1 %93, label %94, label %135
+  br i1 %93, label %94, label %143
 
 94:                                               ; preds = %89
   %95 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 10), align 8, !tbaa !16
   %96 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 7), align 8, !tbaa !17
   %97 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 6), align 8, !tbaa !18
   %98 = sext i32 %91 to i64
-  br label %99
+  %99 = sext i32 %92 to i64
+  br label %100
 
-99:                                               ; preds = %94, %130
-  %100 = phi i64 [ %98, %94 ], [ %132, %130 ]
-  %101 = phi i32 [ %90, %94 ], [ %131, %130 ]
-  %102 = getelementptr inbounds ptr, ptr %95, i64 %100
-  %103 = load ptr, ptr %102, align 8, !tbaa !19
-  %104 = getelementptr inbounds i32, ptr %96, i64 %100
-  %105 = load i32, ptr %104, align 4, !tbaa !5
-  %106 = getelementptr inbounds i32, ptr %97, i64 %100
+100:                                              ; preds = %94, %132
+  %101 = phi i64 [ %98, %94 ], [ %134, %132 ]
+  %102 = phi i1 [ true, %94 ], [ %135, %132 ]
+  %103 = phi i32 [ %90, %94 ], [ %133, %132 ]
+  %104 = getelementptr inbounds ptr, ptr %95, i64 %101
+  %105 = load ptr, ptr %104, align 8, !tbaa !19
+  %106 = getelementptr inbounds i32, ptr %96, i64 %101
   %107 = load i32, ptr %106, align 4, !tbaa !5
-  %108 = icmp sgt i32 %107, %105
-  br i1 %108, label %127, label %109
+  %108 = getelementptr inbounds i32, ptr %97, i64 %101
+  %109 = load i32, ptr %108, align 4, !tbaa !5
+  %110 = icmp sgt i32 %109, %107
+  br i1 %110, label %129, label %111
 
-109:                                              ; preds = %99
-  %110 = sext i32 %107 to i64
-  %111 = add i32 %105, 1
-  br label %116
+111:                                              ; preds = %100
+  %112 = sext i32 %109 to i64
+  %113 = add i32 %107, 1
+  br label %118
 
-112:                                              ; preds = %116
-  %113 = add nsw i64 %117, 1
-  %114 = trunc i64 %113 to i32
-  %115 = icmp eq i32 %111, %114
-  br i1 %115, label %127, label %116
+114:                                              ; preds = %118
+  %115 = add nsw i64 %119, 1
+  %116 = trunc i64 %115 to i32
+  %117 = icmp eq i32 %113, %116
+  br i1 %117, label %129, label %118
 
-116:                                              ; preds = %109, %112
-  %117 = phi i64 [ %110, %109 ], [ %113, %112 ]
-  %118 = getelementptr inbounds i32, ptr %0, i64 %117
-  %119 = load i32, ptr %118, align 4, !tbaa !5
-  %120 = getelementptr inbounds i32, ptr %1, i64 %117
+118:                                              ; preds = %111, %114
+  %119 = phi i64 [ %112, %111 ], [ %115, %114 ]
+  %120 = getelementptr inbounds i32, ptr %0, i64 %119
   %121 = load i32, ptr %120, align 4, !tbaa !5
-  %122 = and i32 %121, %119
-  %123 = getelementptr inbounds i32, ptr %103, i64 %117
-  %124 = load i32, ptr %123, align 4, !tbaa !5
-  %125 = and i32 %122, %124
-  %126 = icmp eq i32 %125, 0
-  br i1 %126, label %112, label %130
+  %122 = getelementptr inbounds i32, ptr %1, i64 %119
+  %123 = load i32, ptr %122, align 4, !tbaa !5
+  %124 = and i32 %123, %121
+  %125 = getelementptr inbounds i32, ptr %105, i64 %119
+  %126 = load i32, ptr %125, align 4, !tbaa !5
+  %127 = and i32 %124, %126
+  %128 = icmp eq i32 %127, 0
+  br i1 %128, label %114, label %132
 
-127:                                              ; preds = %112, %99
-  %128 = add nsw i32 %101, 1
-  %129 = icmp sgt i32 %101, 0
-  br i1 %129, label %135, label %130
+129:                                              ; preds = %114, %100
+  %130 = add nsw i32 %103, 1
+  %131 = icmp sgt i32 %103, 0
+  br i1 %131, label %138, label %132
 
-130:                                              ; preds = %116, %127
-  %131 = phi i32 [ %128, %127 ], [ %101, %116 ]
-  %132 = add nsw i64 %100, 1
-  %133 = trunc i64 %132 to i32
-  %134 = icmp eq i32 %92, %133
-  br i1 %134, label %135, label %99
+132:                                              ; preds = %118, %129
+  %133 = phi i32 [ %130, %129 ], [ %103, %118 ]
+  %134 = add nsw i64 %101, 1
+  %135 = icmp slt i64 %134, %99
+  %136 = trunc i64 %134 to i32
+  %137 = icmp eq i32 %92, %136
+  br i1 %137, label %138, label %100
 
-135:                                              ; preds = %59, %61, %130, %127, %89, %18
-  %136 = phi i32 [ 2, %18 ], [ %90, %89 ], [ %131, %130 ], [ 2, %127 ], [ 2, %61 ], [ 2, %59 ]
-  ret i32 %136
+138:                                              ; preds = %129, %132
+  %139 = phi i1 [ %102, %129 ], [ %135, %132 ]
+  %140 = phi i32 [ %130, %129 ], [ %133, %132 ]
+  %141 = freeze i1 %139
+  %142 = select i1 %141, i32 2, i32 %140
+  br label %143
+
+143:                                              ; preds = %59, %61, %138, %89, %18
+  %144 = phi i32 [ 2, %18 ], [ %90, %89 ], [ %142, %138 ], [ 2, %61 ], [ 2, %59 ]
+  ret i32 %144
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
@@ -1250,7 +1261,7 @@ define dso_local i32 @cactive(ptr nocapture noundef readonly %0) local_unnamed_a
   %34 = load i32, ptr %33, align 4, !tbaa !5
   %35 = add nsw i32 %30, %34
   %36 = icmp sgt i32 %35, 1
-  br i1 %36, label %145, label %37
+  br i1 %36, label %153, label %37
 
 37:                                               ; preds = %14
   %38 = shl i32 %2, 4
@@ -1307,7 +1318,7 @@ define dso_local i32 @cactive(ptr nocapture noundef readonly %0) local_unnamed_a
   %81 = add i32 %80, %74
   %82 = add i32 %81, %78
   %83 = icmp sgt i32 %82, 1
-  br i1 %83, label %145, label %84
+  br i1 %83, label %153, label %84
 
 84:                                               ; preds = %60
   %85 = trunc i64 %50 to i32
@@ -1331,70 +1342,80 @@ define dso_local i32 @cactive(ptr nocapture noundef readonly %0) local_unnamed_a
   %99 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2), align 8, !tbaa !14
   %100 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !15
   %101 = icmp slt i32 %99, %100
-  br i1 %101, label %102, label %145
+  br i1 %101, label %102, label %153
 
 102:                                              ; preds = %96
   %103 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 10), align 8, !tbaa !16
   %104 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 7), align 8, !tbaa !17
   %105 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 6), align 8, !tbaa !18
   %106 = sext i32 %99 to i64
-  br label %107
+  %107 = sext i32 %100 to i64
+  br label %108
 
-107:                                              ; preds = %102, %139
-  %108 = phi i64 [ %106, %102 ], [ %142, %139 ]
-  %109 = phi i32 [ %98, %102 ], [ %141, %139 ]
-  %110 = phi i32 [ %97, %102 ], [ %140, %139 ]
-  %111 = getelementptr inbounds ptr, ptr %103, i64 %108
-  %112 = load ptr, ptr %111, align 8, !tbaa !19
-  %113 = getelementptr inbounds i32, ptr %104, i64 %108
-  %114 = load i32, ptr %113, align 4, !tbaa !5
-  %115 = getelementptr inbounds i32, ptr %105, i64 %108
+108:                                              ; preds = %102, %141
+  %109 = phi i64 [ %106, %102 ], [ %144, %141 ]
+  %110 = phi i1 [ true, %102 ], [ %145, %141 ]
+  %111 = phi i32 [ %98, %102 ], [ %143, %141 ]
+  %112 = phi i32 [ %97, %102 ], [ %142, %141 ]
+  %113 = getelementptr inbounds ptr, ptr %103, i64 %109
+  %114 = load ptr, ptr %113, align 8, !tbaa !19
+  %115 = getelementptr inbounds i32, ptr %104, i64 %109
   %116 = load i32, ptr %115, align 4, !tbaa !5
-  %117 = icmp sgt i32 %116, %114
-  br i1 %117, label %139, label %118
+  %117 = getelementptr inbounds i32, ptr %105, i64 %109
+  %118 = load i32, ptr %117, align 4, !tbaa !5
+  %119 = icmp sgt i32 %118, %116
+  br i1 %119, label %141, label %120
 
-118:                                              ; preds = %107
-  %119 = sext i32 %116 to i64
-  %120 = add i32 %114, 1
-  br label %125
+120:                                              ; preds = %108
+  %121 = sext i32 %118 to i64
+  %122 = add i32 %116, 1
+  br label %127
 
-121:                                              ; preds = %125
-  %122 = add nsw i64 %126, 1
-  %123 = trunc i64 %122 to i32
-  %124 = icmp eq i32 %120, %123
-  br i1 %124, label %139, label %125
+123:                                              ; preds = %127
+  %124 = add nsw i64 %128, 1
+  %125 = trunc i64 %124 to i32
+  %126 = icmp eq i32 %122, %125
+  br i1 %126, label %141, label %127
 
-125:                                              ; preds = %118, %121
-  %126 = phi i64 [ %119, %118 ], [ %122, %121 ]
-  %127 = getelementptr inbounds i32, ptr %112, i64 %126
-  %128 = load i32, ptr %127, align 4, !tbaa !5
-  %129 = getelementptr inbounds i32, ptr %0, i64 %126
+127:                                              ; preds = %120, %123
+  %128 = phi i64 [ %121, %120 ], [ %124, %123 ]
+  %129 = getelementptr inbounds i32, ptr %114, i64 %128
   %130 = load i32, ptr %129, align 4, !tbaa !5
-  %131 = xor i32 %130, -1
-  %132 = and i32 %128, %131
-  %133 = icmp eq i32 %132, 0
-  br i1 %133, label %121, label %134
+  %131 = getelementptr inbounds i32, ptr %0, i64 %128
+  %132 = load i32, ptr %131, align 4, !tbaa !5
+  %133 = xor i32 %132, -1
+  %134 = and i32 %130, %133
+  %135 = icmp eq i32 %134, 0
+  br i1 %135, label %123, label %136
 
-134:                                              ; preds = %125
-  %135 = icmp sgt i32 %110, 0
-  br i1 %135, label %145, label %136
+136:                                              ; preds = %127
+  %137 = icmp sgt i32 %112, 0
+  br i1 %137, label %148, label %138
 
-136:                                              ; preds = %134
-  %137 = add nsw i32 %110, 1
-  %138 = trunc i64 %108 to i32
-  br label %139
+138:                                              ; preds = %136
+  %139 = add nsw i32 %112, 1
+  %140 = trunc i64 %109 to i32
+  br label %141
 
-139:                                              ; preds = %121, %107, %136
-  %140 = phi i32 [ %137, %136 ], [ %110, %107 ], [ %110, %121 ]
-  %141 = phi i32 [ %138, %136 ], [ %109, %107 ], [ %109, %121 ]
-  %142 = add nsw i64 %108, 1
-  %143 = trunc i64 %142 to i32
-  %144 = icmp eq i32 %100, %143
-  br i1 %144, label %145, label %107
+141:                                              ; preds = %123, %108, %138
+  %142 = phi i32 [ %139, %138 ], [ %112, %108 ], [ %112, %123 ]
+  %143 = phi i32 [ %140, %138 ], [ %111, %108 ], [ %111, %123 ]
+  %144 = add nsw i64 %109, 1
+  %145 = icmp slt i64 %144, %107
+  %146 = trunc i64 %144 to i32
+  %147 = icmp eq i32 %100, %146
+  br i1 %147, label %148, label %108
 
-145:                                              ; preds = %60, %139, %134, %96, %14
-  %146 = phi i32 [ -1, %14 ], [ %98, %96 ], [ %141, %139 ], [ -1, %134 ], [ -1, %60 ]
-  ret i32 %146
+148:                                              ; preds = %136, %141
+  %149 = phi i32 [ %111, %136 ], [ %143, %141 ]
+  %150 = phi i1 [ %110, %136 ], [ %145, %141 ]
+  %151 = freeze i1 %150
+  %152 = select i1 %151, i32 -1, i32 %149
+  br label %153
+
+153:                                              ; preds = %60, %148, %96, %14
+  %154 = phi i32 [ -1, %14 ], [ %98, %96 ], [ %152, %148 ], [ -1, %60 ]
+  ret i32 %154
 }
 
 declare i32 @bit_index(...) local_unnamed_addr #4

@@ -31,9 +31,9 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.19 = private unnamed_addr constant [49 x i8] c"new 'best' solution %d at level %d (time is %s)\0A\00", align 1
 @.str.20 = private unnamed_addr constant [12 x i8] c"comp %d %d\0A\00", align 1
 @.str.21 = private unnamed_addr constant [9 x i8] c"pick=%d\0A\00", align 1
-@str = private unnamed_addr constant [28 x i8] c"**** heuristic covering ...\00", align 1
-@str.22 = private unnamed_addr constant [5 x i8] c"BEST\00", align 1
-@str.23 = private unnamed_addr constant [8 x i8] c"bounded\00", align 1
+@str = private unnamed_addr constant [5 x i8] c"BEST\00", align 1
+@str.22 = private unnamed_addr constant [8 x i8] c"bounded\00", align 1
+@str.24 = private unnamed_addr constant [28 x i8] c"**** heuristic covering ...\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @sm_minimum_cover(ptr noundef %0, ptr noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #0 {
@@ -69,7 +69,7 @@ define dso_local ptr @sm_minimum_cover(ptr noundef %0, ptr noundef %1, i32 nound
   store i32 %22, ptr %23, align 8, !tbaa !17
   %24 = getelementptr inbounds %struct.stats_struct, ptr %5, i64 0, i32 10
   store i32 -1, ptr %24, align 4, !tbaa !18
-  %25 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
+  %25 = getelementptr %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
   %26 = load ptr, ptr %25, align 8, !tbaa !19
   %27 = icmp eq ptr %26, null
   br i1 %27, label %37, label %28
@@ -142,7 +142,7 @@ define dso_local ptr @sm_minimum_cover(ptr noundef %0, ptr noundef %1, i32 nound
   br i1 %78, label %83, label %79
 
 79:                                               ; preds = %76
-  %80 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %80 = call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
   %81 = load i32, ptr %24, align 4, !tbaa !18
   %82 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %81)
   br label %83
@@ -177,23 +177,23 @@ define dso_local ptr @sm_minimum_cover(ptr noundef %0, ptr noundef %1, i32 nound
 108:                                              ; preds = %83, %69
   %109 = load ptr, ptr %73, align 8, !tbaa !26
   %110 = call ptr (ptr, ...) @sm_row_dup(ptr noundef %109) #9
-  %111 = load ptr, ptr %25, align 8, !tbaa !19
+  %111 = load ptr, ptr %25, align 8, !tbaa !32
   %112 = icmp eq ptr %111, null
-  br i1 %112, label %126, label %117
+  br i1 %112, label %126, label %113
 
-113:                                              ; preds = %117
-  %114 = getelementptr inbounds %struct.sm_row_struct, ptr %118, i64 0, i32 5
-  %115 = load ptr, ptr %114, align 8, !tbaa !19
-  %116 = icmp eq ptr %115, null
-  br i1 %116, label %126, label %117
+113:                                              ; preds = %108, %117
+  %114 = phi ptr [ %119, %117 ], [ %111, %108 ]
+  %115 = call i32 (ptr, ptr, ...) @sm_row_intersects(ptr noundef nonnull %114, ptr noundef %110) #9
+  %116 = icmp eq i32 %115, 0
+  br i1 %116, label %121, label %117
 
-117:                                              ; preds = %108, %113
-  %118 = phi ptr [ %115, %113 ], [ %111, %108 ]
-  %119 = call i32 (ptr, ptr, ...) @sm_row_intersects(ptr noundef nonnull %118, ptr noundef %110) #9
-  %120 = icmp eq i32 %119, 0
-  br i1 %120, label %121, label %113
+117:                                              ; preds = %113
+  %118 = getelementptr inbounds %struct.sm_row_struct, ptr %114, i64 0, i32 5
+  %119 = load ptr, ptr %118, align 8, !tbaa !33
+  %120 = icmp eq ptr %119, null
+  br i1 %120, label %126, label %113
 
-121:                                              ; preds = %117
+121:                                              ; preds = %113
   %122 = load ptr, ptr @stderr, align 8, !tbaa !19
   %123 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %122, ptr noundef nonnull @.str.10, ptr noundef nonnull @.str.11, i32 noundef 91, ptr noundef nonnull @.str.12) #10
   %124 = load ptr, ptr @stdout, align 8, !tbaa !19
@@ -201,7 +201,7 @@ define dso_local ptr @sm_minimum_cover(ptr noundef %0, ptr noundef %1, i32 nound
   call void @abort() #11
   unreachable
 
-126:                                              ; preds = %113, %108
+126:                                              ; preds = %117, %108
   call void (ptr, ...) @solution_free(ptr noundef nonnull %73) #9
   br label %127
 
@@ -299,9 +299,9 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 
 39:                                               ; preds = %34
   %40 = getelementptr inbounds %struct.sm_row_struct, ptr %35, i64 0, i32 3
-  %41 = load ptr, ptr %40, align 8, !tbaa !32
+  %41 = load ptr, ptr %40, align 8, !tbaa !34
   %42 = getelementptr inbounds %struct.sm_element_struct, ptr %41, i64 0, i32 1
-  %43 = load i32, ptr %42, align 4, !tbaa !33
+  %43 = load i32, ptr %42, align 4, !tbaa !35
   %44 = tail call ptr (ptr, i32, ...) @sm_row_insert(ptr noundef %31, i32 noundef %43) #9
   br label %45
 
@@ -326,7 +326,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 57:                                               ; preds = %49, %53
   %58 = phi ptr [ %55, %53 ], [ %51, %49 ]
   %59 = getelementptr inbounds %struct.sm_element_struct, ptr %58, i64 0, i32 1
-  %60 = load i32, ptr %59, align 4, !tbaa !33
+  %60 = load i32, ptr %59, align 4, !tbaa !35
   tail call void (ptr, ptr, ptr, i32, ...) @solution_accept(ptr noundef %1, ptr noundef %0, ptr noundef %2, i32 noundef %60) #9
   %61 = load i32, ptr %28, align 8, !tbaa !28
   %62 = icmp slt i32 %61, %4
@@ -387,13 +387,13 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 97:                                               ; preds = %119, %95
   %98 = phi ptr [ %93, %95 ], [ %121, %119 ]
   %99 = getelementptr inbounds %struct.sm_element_struct, ptr %98, i64 0, i32 1
-  %100 = load i32, ptr %99, align 4, !tbaa !33
+  %100 = load i32, ptr %99, align 4, !tbaa !35
   %101 = icmp sgt i32 %100, -1
   call void @llvm.assume(i1 %101)
-  %102 = load i32, ptr %96, align 8, !tbaa !35
+  %102 = load i32, ptr %96, align 8, !tbaa !37
   %103 = icmp slt i32 %100, %102
   call void @llvm.assume(i1 %103)
-  %104 = load ptr, ptr %0, align 8, !tbaa !36
+  %104 = load ptr, ptr %0, align 8, !tbaa !38
   %105 = zext i32 %100 to i64
   %106 = getelementptr inbounds ptr, ptr %104, i64 %105
   %107 = load ptr, ptr %106, align 8, !tbaa !19
@@ -405,7 +405,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 111:                                              ; preds = %97, %111
   %112 = phi ptr [ %117, %111 ], [ %109, %97 ]
   %113 = getelementptr inbounds %struct.sm_element_struct, ptr %112, i64 0, i32 1
-  %114 = load i32, ptr %113, align 4, !tbaa !33
+  %114 = load i32, ptr %113, align 4, !tbaa !35
   %115 = call ptr (ptr, i32, ...) @sm_row_insert(ptr noundef %90, i32 noundef %114) #9
   %116 = getelementptr inbounds %struct.sm_element_struct, ptr %112, i64 0, i32 4
   %117 = load ptr, ptr %116, align 8, !tbaa !19
@@ -435,17 +435,17 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   %133 = phi i32 [ %176, %174 ], [ -1, %127 ]
   %134 = phi double [ %175, %174 ], [ -1.000000e+00, %127 ]
   %135 = getelementptr inbounds %struct.sm_element_struct, ptr %132, i64 0, i32 1
-  %136 = load i32, ptr %135, align 4, !tbaa !33
+  %136 = load i32, ptr %135, align 4, !tbaa !35
   %137 = icmp sgt i32 %136, -1
   br i1 %137, label %138, label %146
 
 138:                                              ; preds = %131
-  %139 = load i32, ptr %128, align 8, !tbaa !37
+  %139 = load i32, ptr %128, align 8, !tbaa !39
   %140 = icmp slt i32 %136, %139
   br i1 %140, label %141, label %146
 
 141:                                              ; preds = %138
-  %142 = load ptr, ptr %129, align 8, !tbaa !38
+  %142 = load ptr, ptr %129, align 8, !tbaa !40
   %143 = zext i32 %136 to i64
   %144 = getelementptr inbounds ptr, ptr %142, i64 %143
   %145 = load ptr, ptr %144, align 8, !tbaa !19
@@ -461,7 +461,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 151:                                              ; preds = %180, %151
   %152 = phi ptr [ %149, %180 ], [ %167, %151 ]
   %153 = phi double [ 0.000000e+00, %180 ], [ %165, %151 ]
-  %154 = load i32, ptr %152, align 8, !tbaa !39
+  %154 = load i32, ptr %152, align 8, !tbaa !41
   %155 = icmp sgt i32 %154, -1
   call void @llvm.assume(i1 %155)
   %156 = icmp slt i32 %154, %181
@@ -498,8 +498,8 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   br i1 %179, label %238, label %131
 
 180:                                              ; preds = %146
-  %181 = load i32, ptr %130, align 8, !tbaa !35
-  %182 = load ptr, ptr %0, align 8, !tbaa !36
+  %181 = load i32, ptr %130, align 8, !tbaa !37
+  %182 = load ptr, ptr %0, align 8, !tbaa !38
   br label %151
 
 183:                                              ; preds = %127, %224
@@ -507,17 +507,17 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   %185 = phi i32 [ %234, %224 ], [ -1, %127 ]
   %186 = phi double [ %233, %224 ], [ -1.000000e+00, %127 ]
   %187 = getelementptr inbounds %struct.sm_element_struct, ptr %184, i64 0, i32 1
-  %188 = load i32, ptr %187, align 4, !tbaa !33
+  %188 = load i32, ptr %187, align 4, !tbaa !35
   %189 = icmp sgt i32 %188, -1
   br i1 %189, label %190, label %198
 
 190:                                              ; preds = %183
-  %191 = load i32, ptr %128, align 8, !tbaa !37
+  %191 = load i32, ptr %128, align 8, !tbaa !39
   %192 = icmp slt i32 %188, %191
   br i1 %192, label %193, label %198
 
 193:                                              ; preds = %190
-  %194 = load ptr, ptr %129, align 8, !tbaa !38
+  %194 = load ptr, ptr %129, align 8, !tbaa !40
   %195 = zext i32 %188 to i64
   %196 = getelementptr inbounds ptr, ptr %194, i64 %195
   %197 = load ptr, ptr %196, align 8, !tbaa !19
@@ -531,14 +531,14 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   br i1 %202, label %224, label %203
 
 203:                                              ; preds = %198
-  %204 = load i32, ptr %130, align 8, !tbaa !35
-  %205 = load ptr, ptr %0, align 8, !tbaa !36
+  %204 = load i32, ptr %130, align 8, !tbaa !37
+  %205 = load ptr, ptr %0, align 8, !tbaa !38
   br label %206
 
 206:                                              ; preds = %206, %203
   %207 = phi ptr [ %201, %203 ], [ %222, %206 ]
   %208 = phi double [ 0.000000e+00, %203 ], [ %220, %206 ]
-  %209 = load i32, ptr %207, align 8, !tbaa !39
+  %209 = load i32, ptr %207, align 8, !tbaa !41
   %210 = icmp sgt i32 %209, -1
   call void @llvm.assume(i1 %210)
   %211 = icmp slt i32 %209, %204
@@ -582,7 +582,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 
 241:                                              ; preds = %238
   %242 = getelementptr inbounds %struct.stats_struct, ptr %6, i64 0, i32 7
-  %243 = load i32, ptr %242, align 4, !tbaa !40
+  %243 = load i32, ptr %242, align 4, !tbaa !42
   %244 = add nsw i32 %243, %89
   %245 = getelementptr inbounds %struct.stats_struct, ptr %6, i64 0, i32 10
   store i32 %244, ptr %245, align 4, !tbaa !18
@@ -593,7 +593,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 
 247:                                              ; preds = %246
   %248 = getelementptr inbounds %struct.stats_struct, ptr %6, i64 0, i32 4
-  %249 = load i32, ptr %248, align 8, !tbaa !41
+  %249 = load i32, ptr %248, align 8, !tbaa !43
   %250 = icmp eq i32 %249, 0
   %251 = select i1 %250, ptr @.str.15, ptr @.str.14
   %252 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, i32 noundef %5, ptr noundef nonnull %251)
@@ -603,7 +603,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   %256 = load i32, ptr %255, align 8, !tbaa !22
   %257 = load i32, ptr %28, align 8, !tbaa !28
   %258 = getelementptr inbounds %struct.stats_struct, ptr %6, i64 0, i32 7
-  %259 = load i32, ptr %258, align 4, !tbaa !40
+  %259 = load i32, ptr %258, align 4, !tbaa !42
   %260 = add nsw i32 %259, %257
   %261 = add nsw i32 %259, %4
   %262 = add nsw i32 %259, %89
@@ -621,7 +621,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   br i1 %271, label %275, label %274
 
 272:                                              ; preds = %247
-  %273 = call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
+  %273 = call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
   br label %274
 
 274:                                              ; preds = %270, %272
@@ -640,7 +640,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   br i1 %26, label %281, label %283
 
 281:                                              ; preds = %279
-  %282 = call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
+  %282 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %283
 
 283:                                              ; preds = %281, %279
@@ -650,7 +650,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 
 286:                                              ; preds = %283
   %287 = getelementptr inbounds %struct.stats_struct, ptr %6, i64 0, i32 4
-  %288 = load i32, ptr %287, align 8, !tbaa !41
+  %288 = load i32, ptr %287, align 8, !tbaa !43
   %289 = icmp eq i32 %288, 0
   br i1 %289, label %290, label %384
 
@@ -659,7 +659,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   %292 = getelementptr inbounds %struct.solution_struct, ptr %291, i64 0, i32 1
   %293 = load i32, ptr %292, align 8, !tbaa !28
   %294 = getelementptr inbounds %struct.stats_struct, ptr %6, i64 0, i32 7
-  %295 = load i32, ptr %294, align 4, !tbaa !40
+  %295 = load i32, ptr %294, align 4, !tbaa !42
   %296 = add nsw i32 %295, %293
   %297 = call i64 (...) @util_cpu_time() #9
   %298 = getelementptr inbounds %struct.stats_struct, ptr %6, i64 0, i32 8
@@ -709,17 +709,17 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
   store i32 %327, ptr %325, align 4, !tbaa !29
   %328 = call ptr (...) @solution_alloc() #9
   %329 = getelementptr inbounds %struct.stats_struct, ptr %6, i64 0, i32 4
-  %330 = load i32, ptr %329, align 8, !tbaa !41
+  %330 = load i32, ptr %329, align 8, !tbaa !43
   %331 = add nsw i32 %330, 1
-  store i32 %331, ptr %329, align 8, !tbaa !41
+  store i32 %331, ptr %329, align 8, !tbaa !43
   %332 = load ptr, ptr %8, align 8, !tbaa !19
   %333 = load i32, ptr %28, align 8, !tbaa !28
   %334 = sub nsw i32 %4, %333
   %335 = add nsw i32 %5, 1
   %336 = call ptr @sm_mincov(ptr noundef %332, ptr noundef %328, ptr noundef %2, i32 noundef 0, i32 noundef %334, i32 noundef %335, ptr noundef nonnull %6)
-  %337 = load i32, ptr %329, align 8, !tbaa !41
+  %337 = load i32, ptr %329, align 8, !tbaa !43
   %338 = add nsw i32 %337, -1
-  store i32 %338, ptr %329, align 8, !tbaa !41
+  store i32 %338, ptr %329, align 8, !tbaa !43
   call void (ptr, ...) @solution_free(ptr noundef %328) #9
   %339 = load ptr, ptr %8, align 8, !tbaa !19
   call void (ptr, ...) @sm_free(ptr noundef %339) #9
@@ -736,7 +736,7 @@ define dso_local ptr @sm_mincov(ptr noundef %0, ptr noundef %1, ptr noundef %2, 
 346:                                              ; preds = %341, %346
   %347 = phi ptr [ %351, %346 ], [ %344, %341 ]
   %348 = getelementptr inbounds %struct.sm_element_struct, ptr %347, i64 0, i32 1
-  %349 = load i32, ptr %348, align 4, !tbaa !33
+  %349 = load i32, ptr %348, align 4, !tbaa !35
   call void (ptr, ptr, i32, ...) @solution_add(ptr noundef %1, ptr noundef %2, i32 noundef %349) #9
   %350 = getelementptr inbounds %struct.sm_element_struct, ptr %347, i64 0, i32 4
   %351 = load ptr, ptr %350, align 8, !tbaa !19
@@ -840,11 +840,11 @@ declare i32 @sm_row_dominance(...) local_unnamed_addr #2
 
 declare i32 @sm_row_intersects(...) local_unnamed_addr #2
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #5
-
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
-declare void @llvm.assume(i1 noundef) #6
+declare void @llvm.assume(i1 noundef) #5
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #6
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #7
@@ -860,8 +860,8 @@ attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memo
 attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nofree nounwind }
-attributes #6 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
+attributes #5 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
+attributes #6 = { nofree nounwind }
 attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #9 = { nounwind }
@@ -903,13 +903,15 @@ attributes #11 = { noreturn nounwind }
 !29 = !{!12, !10, i64 20}
 !30 = !{!12, !10, i64 24}
 !31 = !{!12, !10, i64 12}
-!32 = !{!21, !7, i64 16}
-!33 = !{!34, !10, i64 4}
-!34 = !{!"sm_element_struct", !10, i64 0, !10, i64 4, !7, i64 8, !7, i64 16, !7, i64 24, !7, i64 32, !7, i64 40}
-!35 = !{!6, !10, i64 8}
-!36 = !{!6, !7, i64 0}
-!37 = !{!6, !10, i64 24}
-!38 = !{!6, !7, i64 16}
-!39 = !{!34, !10, i64 0}
-!40 = !{!12, !10, i64 28}
-!41 = !{!12, !10, i64 16}
+!32 = !{!6, !7, i64 32}
+!33 = !{!21, !7, i64 32}
+!34 = !{!21, !7, i64 16}
+!35 = !{!36, !10, i64 4}
+!36 = !{!"sm_element_struct", !10, i64 0, !10, i64 4, !7, i64 8, !7, i64 16, !7, i64 24, !7, i64 32, !7, i64 40}
+!37 = !{!6, !10, i64 8}
+!38 = !{!6, !7, i64 0}
+!39 = !{!6, !10, i64 24}
+!40 = !{!6, !7, i64 16}
+!41 = !{!36, !10, i64 0}
+!42 = !{!12, !10, i64 28}
+!43 = !{!12, !10, i64 16}

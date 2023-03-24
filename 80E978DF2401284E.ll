@@ -281,8 +281,8 @@ define dso_local noundef i32 @_ZN20btPersistentManifold16sortCachedPointsERK15bt
   %180 = phi float [ %152, %140 ], [ %135, %99 ]
   %181 = phi float [ %147, %140 ], [ %105, %99 ]
   %182 = phi float [ %170, %140 ], [ 0.000000e+00, %99 ]
-  %183 = phi float [ %154, %140 ], [ %132, %99 ]
-  %184 = phi float [ %155, %140 ], [ %108, %99 ]
+  %183 = phi float [ %155, %140 ], [ %108, %99 ]
+  %184 = phi float [ %154, %140 ], [ %132, %99 ]
   %185 = phi <2 x float> [ %156, %140 ], [ %113, %99 ]
   %186 = fsub float %181, %180
   %187 = fsub float %179, %178
@@ -301,14 +301,14 @@ define dso_local noundef i32 @_ZN20btPersistentManifold16sortCachedPointsERK15bt
   br label %200
 
 200:                                              ; preds = %171, %140
-  %201 = phi float [ %199, %171 ], [ 0.000000e+00, %140 ]
-  %202 = phi float [ %182, %171 ], [ %170, %140 ]
-  %203 = phi float [ %183, %171 ], [ %154, %140 ]
-  %204 = phi float [ %184, %171 ], [ %155, %140 ]
-  %205 = tail call float @llvm.fabs.f32(float %204)
+  %201 = phi float [ %182, %171 ], [ %170, %140 ]
+  %202 = phi float [ %183, %171 ], [ %155, %140 ]
+  %203 = phi float [ %184, %171 ], [ %154, %140 ]
+  %204 = phi float [ %199, %171 ], [ 0.000000e+00, %140 ]
+  %205 = tail call float @llvm.fabs.f32(float %202)
   %206 = tail call float @llvm.fabs.f32(float %203)
-  %207 = tail call float @llvm.fabs.f32(float %202)
-  %208 = tail call float @llvm.fabs.f32(float %201)
+  %207 = tail call float @llvm.fabs.f32(float %201)
+  %208 = tail call float @llvm.fabs.f32(float %204)
   %209 = fcmp ule float %205, 0xC3ABC16D60000000
   %210 = sext i1 %209 to i32
   %211 = select i1 %209, float 0xC3ABC16D60000000, float %205
@@ -633,7 +633,7 @@ define dso_local void @_ZN20btPersistentManifold20refreshContactPointsERK11btTra
   %174 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %141, i32 3
   %175 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %141, i32 4
   %176 = load float, ptr %175, align 8, !tbaa !18
-  %177 = fmul float %176, %144
+  %177 = fmul float %144, %176
   %178 = getelementptr inbounds [4 x float], ptr %175, i64 0, i64 1
   %179 = load float, ptr %178, align 4, !tbaa !18
   %180 = fmul float %144, %179
@@ -735,14 +735,14 @@ declare float @llvm.fmuladd.f32(float, float, float) #7
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare float @llvm.fabs.f32(float) #7
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #8
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x float> @llvm.fmuladd.v2f32(<2 x float>, <2 x float>, <2 x float>) #8
+declare i32 @llvm.smax.i32(i32, i32) #9
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <2 x float> @llvm.fmuladd.v2f32(<2 x float>, <2 x float>, <2 x float>) #9
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -752,8 +752,8 @@ attributes #4 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #5 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #6 = { uwtable "min-legal-vector-width"="64" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

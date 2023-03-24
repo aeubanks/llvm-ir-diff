@@ -116,7 +116,7 @@ define dso_local void @_ZN6btDbvtD2Ev(ptr noundef nonnull align 8 dereferenceabl
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %11)
           to label %18 unwind label %22
 
-18:                                               ; preds = %17, %8
+18:                                               ; preds = %8, %17
   %19 = getelementptr inbounds %struct.btDbvt, ptr %0, i64 0, i32 6, i32 2
   %20 = getelementptr inbounds %struct.btDbvt, ptr %0, i64 0, i32 6, i32 3
   %21 = getelementptr inbounds %struct.btDbvt, ptr %0, i64 0, i32 4
@@ -176,9 +176,9 @@ define dso_local void @_ZN6btDbvt5clearEv(ptr noundef nonnull align 8 dereferenc
   br label %17
 
 17:                                               ; preds = %5, %16
-  %18 = getelementptr inbounds %struct.btDbvt, ptr %0, i64 0, i32 6, i32 2
   store i8 1, ptr %12, align 8, !tbaa !5
   store ptr null, ptr %9, align 8, !tbaa !13
+  %18 = getelementptr inbounds %struct.btDbvt, ptr %0, i64 0, i32 6, i32 2
   store i32 0, ptr %18, align 4, !tbaa !14
   %19 = getelementptr inbounds %struct.btDbvt, ptr %0, i64 0, i32 6, i32 3
   store i32 0, ptr %19, align 8, !tbaa !15
@@ -205,9 +205,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIN6btDbvt6sStkNNEED
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !5
   store ptr null, ptr %2, align 8, !tbaa !13
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !14
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !15
@@ -333,7 +333,7 @@ define dso_local void @_ZN6btDbvt16optimizeBottomUpEv(ptr noundef nonnull align 
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %31)
           to label %37 unwind label %39
 
-37:                                               ; preds = %29, %36
+37:                                               ; preds = %36, %29
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #17
   resume { ptr, i32 } %30
 
@@ -708,9 +708,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP10btDbvtNodeED2Ev
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !23
   store ptr null, ptr %2, align 8, !tbaa !26
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !27
   %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !28
@@ -795,7 +795,7 @@ define dso_local void @_ZN6btDbvt15optimizeTopDownEi(ptr noundef nonnull align 8
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %34)
           to label %40 unwind label %42
 
-40:                                               ; preds = %32, %39
+40:                                               ; preds = %39, %32
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #17
   resume { ptr, i32 } %33
 
@@ -921,21 +921,21 @@ define internal fastcc noundef ptr @_ZL7topdownP6btDbvtR20btAlignedObjectArrayIP
 
 78:                                               ; preds = %60
   %79 = zext i32 %15 to i64
-  %80 = load float, ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, align 16, !tbaa !32
-  %81 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 0, i32 0, i64 1), align 4, !tbaa !32
-  %82 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 0, i32 0, i64 2), align 8, !tbaa !32
-  %83 = load <4 x float>, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 1), align 16
-  %84 = shufflevector <4 x float> %83, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %85 = load <4 x float>, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 1, i32 0, i64 1), align 4
-  %86 = shufflevector <4 x float> %85, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %87 = load <4 x float>, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 1, i32 0, i64 2), align 8
+  %80 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 0, i32 0, i64 2), align 8, !tbaa !32
+  %81 = load float, ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, align 16, !tbaa !32
+  %82 = load <4 x float>, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 1, i32 0, i64 2), align 8
+  %83 = shufflevector <4 x float> %82, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %84 = load <4 x float>, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 1), align 16
+  %85 = shufflevector <4 x float> %84, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %86 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 0, i32 0, i64 1), align 4, !tbaa !32
+  %87 = load <4 x float>, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 1, i32 0, i64 1), align 4
   %88 = shufflevector <4 x float> %87, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %89 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 2), align 16, !tbaa !32
-  %90 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 2, i32 0, i64 1), align 4, !tbaa !32
-  %91 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 2, i32 0, i64 2), align 8, !tbaa !32
-  %92 = insertelement <2 x float> %88, float %82, i64 1
-  %93 = insertelement <2 x float> %84, float %80, i64 1
-  %94 = insertelement <2 x float> %86, float %81, i64 1
+  %89 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 2, i32 0, i64 2), align 8, !tbaa !32
+  %90 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 2), align 16, !tbaa !32
+  %91 = load float, ptr getelementptr inbounds ([3 x %class.btVector3], ptr @_ZZL7topdownP6btDbvtR20btAlignedObjectArrayIP10btDbvtNodeEiE4axis, i64 0, i64 2, i32 0, i64 1), align 4, !tbaa !32
+  %92 = insertelement <2 x float> %83, float %80, i64 1
+  %93 = insertelement <2 x float> %85, float %81, i64 1
+  %94 = insertelement <2 x float> %88, float %86, i64 1
   br label %98
 
 95:                                               ; preds = %98
@@ -947,30 +947,30 @@ define internal fastcc noundef ptr @_ZL7topdownP6btDbvtR20btAlignedObjectArrayIP
   %99 = phi i64 [ 0, %78 ], [ %150, %98 ]
   %100 = getelementptr inbounds ptr, ptr %21, i64 %99
   %101 = load ptr, ptr %100, align 8, !tbaa !29
-  %102 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %101, i64 0, i32 1
-  %103 = load float, ptr %101, align 4, !tbaa !32
-  %104 = load float, ptr %102, align 4, !tbaa !32
-  %105 = fadd float %103, %104
-  %106 = getelementptr inbounds [4 x float], ptr %101, i64 0, i64 1
-  %107 = load float, ptr %106, align 4, !tbaa !32
-  %108 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %101, i64 0, i32 1, i32 0, i64 1
+  %102 = load float, ptr %101, align 4, !tbaa !32
+  %103 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %101, i64 0, i32 1
+  %104 = load float, ptr %103, align 4, !tbaa !32
+  %105 = fadd float %102, %104
+  %106 = fmul float %105, 5.000000e-01
+  %107 = fsub float %106, %75
+  %108 = getelementptr inbounds [4 x float], ptr %101, i64 0, i64 1
   %109 = load float, ptr %108, align 4, !tbaa !32
-  %110 = fadd float %107, %109
-  %111 = getelementptr inbounds [4 x float], ptr %101, i64 0, i64 2
-  %112 = load float, ptr %111, align 4, !tbaa !32
-  %113 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %101, i64 0, i32 1, i32 0, i64 2
-  %114 = load float, ptr %113, align 4, !tbaa !32
-  %115 = fadd float %112, %114
-  %116 = fmul float %105, 5.000000e-01
-  %117 = fmul float %110, 5.000000e-01
-  %118 = fmul float %115, 5.000000e-01
-  %119 = fsub float %116, %75
-  %120 = fsub float %117, %64
-  %121 = fsub float %118, %76
-  %122 = insertelement <2 x float> poison, float %120, i64 0
+  %110 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %101, i64 0, i32 1, i32 0, i64 1
+  %111 = load float, ptr %110, align 4, !tbaa !32
+  %112 = fadd float %109, %111
+  %113 = fmul float %112, 5.000000e-01
+  %114 = fsub float %113, %64
+  %115 = getelementptr inbounds [4 x float], ptr %101, i64 0, i64 2
+  %116 = load float, ptr %115, align 4, !tbaa !32
+  %117 = getelementptr inbounds %struct.btDbvtAabbMm, ptr %101, i64 0, i32 1, i32 0, i64 2
+  %118 = load float, ptr %117, align 4, !tbaa !32
+  %119 = fadd float %116, %118
+  %120 = fmul float %119, 5.000000e-01
+  %121 = fsub float %120, %76
+  %122 = insertelement <2 x float> poison, float %114, i64 0
   %123 = shufflevector <2 x float> %122, <2 x float> poison, <2 x i32> zeroinitializer
   %124 = fmul <2 x float> %123, %94
-  %125 = insertelement <2 x float> poison, float %119, i64 0
+  %125 = insertelement <2 x float> poison, float %107, i64 0
   %126 = shufflevector <2 x float> %125, <2 x float> poison, <2 x i32> zeroinitializer
   %127 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %126, <2 x float> %93, <2 x float> %124)
   %128 = insertelement <2 x float> poison, float %121, i64 0
@@ -989,9 +989,9 @@ define internal fastcc noundef ptr @_ZL7topdownP6btDbvtR20btAlignedObjectArrayIP
   %140 = load i32, ptr %139, align 4, !tbaa !49
   %141 = add nsw i32 %140, 1
   store i32 %141, ptr %139, align 4, !tbaa !49
-  %142 = fmul float %120, %90
-  %143 = tail call float @llvm.fmuladd.f32(float %119, float %89, float %142)
-  %144 = tail call float @llvm.fmuladd.f32(float %121, float %91, float %143)
+  %142 = fmul float %114, %91
+  %143 = tail call float @llvm.fmuladd.f32(float %107, float %90, float %142)
+  %144 = tail call float @llvm.fmuladd.f32(float %121, float %89, float %143)
   %145 = fcmp ogt float %144, 0.000000e+00
   %146 = zext i1 %145 to i64
   %147 = getelementptr inbounds [3 x [2 x i32]], ptr %5, i64 0, i64 2, i64 %146
@@ -2056,7 +2056,7 @@ define internal fastcc noundef ptr @_ZL7topdownP6btDbvtR20btAlignedObjectArrayIP
   store i32 %791, ptr %785, align 8, !tbaa !28
   br label %863
 
-863:                                              ; preds = %861, %788, %778
+863:                                              ; preds = %778, %788, %861
   %864 = phi i32 [ %862, %861 ], [ %784, %788 ], [ %784, %778 ]
   %865 = getelementptr inbounds [2 x %class.btAlignedObjectArray.0], ptr %4, i64 0, i64 %780, i32 5
   %866 = load ptr, ptr %865, align 16, !tbaa !26
@@ -2093,7 +2093,7 @@ define internal fastcc noundef ptr @_ZL7topdownP6btDbvtR20btAlignedObjectArrayIP
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %881, i8 0, i64 56, i1 false)
   br label %883
 
-883:                                              ; preds = %882, %879
+883:                                              ; preds = %879, %882
   %884 = phi ptr [ %877, %879 ], [ %881, %882 ]
   %885 = getelementptr inbounds %struct.btDbvtNode, ptr %884, i64 0, i32 1
   %886 = getelementptr inbounds %struct.btDbvtNode, ptr %884, i64 0, i32 2
@@ -2153,10 +2153,10 @@ define internal fastcc noundef ptr @_ZL7topdownP6btDbvtR20btAlignedObjectArrayIP
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %903)
           to label %915 unwind label %927
 
-915:                                              ; preds = %897, %914
-  %916 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %4, i64 1, i32 2
+915:                                              ; preds = %914, %897
   store i8 1, ptr %905, align 8, !tbaa !23
   store ptr null, ptr %902, align 16, !tbaa !26
+  %916 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %4, i64 1, i32 2
   store i32 0, ptr %916, align 4, !tbaa !27
   %917 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %4, i64 1, i32 3
   store i32 0, ptr %917, align 8, !tbaa !28
@@ -2635,7 +2635,7 @@ define internal fastcc void @_ZL10insertleafP6btDbvtP10btDbvtNodeS2_(ptr nocaptu
   %169 = fcmp ult float %166, %168
   br i1 %169, label %170, label %220
 
-170:                                              ; preds = %134, %140, %146, %152, %158, %164
+170:                                              ; preds = %158, %152, %146, %140, %134, %164
   %171 = getelementptr inbounds %struct.btDbvtNode, ptr %136, i64 0, i32 2
   %172 = load ptr, ptr %171, align 8, !tbaa !22
   %173 = getelementptr inbounds %struct.btDbvtNode, ptr %136, i64 0, i32 2, i32 0, i64 1
@@ -3513,7 +3513,7 @@ define dso_local void @_ZNK6btDbvt5writeEPNS_7IWriterE(ptr nocapture noundef non
   %154 = getelementptr inbounds ptr, ptr %153, i64 3
   %155 = load ptr, ptr %154, align 8
   %156 = trunc i64 %93 to i32
-  invoke void %155(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull %97, i32 noundef %156, i32 noundef %118, i32 noundef %151, i32 noundef %152)
+  invoke void %155(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %97, i32 noundef %156, i32 noundef %118, i32 noundef %151, i32 noundef %152)
           to label %164 unwind label %157
 
 157:                                              ; preds = %150
@@ -3550,7 +3550,7 @@ define dso_local void @_ZNK6btDbvt5writeEPNS_7IWriterE(ptr nocapture noundef non
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %171)
           to label %177 unwind label %178
 
-177:                                              ; preds = %169, %176
+177:                                              ; preds = %176, %169
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %3) #17
   resume { ptr, i32 } %170
 
@@ -3610,9 +3610,9 @@ define linkonce_odr dso_local void @_ZN20btDbvtNodeEnumeratorD2Ev(ptr noundef no
   br label %10
 
 10:                                               ; preds = %9, %1
-  %11 = getelementptr inbounds %struct.btDbvtNodeEnumerator, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %5, align 8, !tbaa !65
   store ptr null, ptr %2, align 8, !tbaa !68
+  %11 = getelementptr inbounds %struct.btDbvtNodeEnumerator, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %11, align 4, !tbaa !69
   %12 = getelementptr inbounds %struct.btDbvtNodeEnumerator, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %12, align 8, !tbaa !70
@@ -3650,9 +3650,9 @@ define dso_local void @_ZNK6btDbvt5cloneERS_PNS_6ICloneE(ptr nocapture noundef n
   br label %19
 
 19:                                               ; preds = %7, %18
-  %20 = getelementptr inbounds %struct.btDbvt, ptr %1, i64 0, i32 6, i32 2
   store i8 1, ptr %14, align 8, !tbaa !5
   store ptr null, ptr %11, align 8, !tbaa !13
+  %20 = getelementptr inbounds %struct.btDbvt, ptr %1, i64 0, i32 6, i32 2
   store i32 0, ptr %20, align 4, !tbaa !14
   %21 = getelementptr inbounds %struct.btDbvt, ptr %1, i64 0, i32 6, i32 3
   store i32 0, ptr %21, align 8, !tbaa !15
@@ -3660,29 +3660,29 @@ define dso_local void @_ZNK6btDbvt5cloneERS_PNS_6ICloneE(ptr nocapture noundef n
   store i32 0, ptr %22, align 8, !tbaa !19
   %23 = load ptr, ptr %0, align 8, !tbaa !20
   %24 = icmp eq ptr %23, null
-  br i1 %24, label %186, label %25
+  br i1 %24, label %188, label %25
 
 25:                                               ; preds = %19
   %26 = getelementptr inbounds %struct.btDbvt, ptr %0, i64 0, i32 3
   %27 = load i32, ptr %26, align 4, !tbaa !18
   %28 = icmp sgt i32 %27, 0
-  br i1 %28, label %31, label %29
+  br i1 %28, label %29, label %34
 
 29:                                               ; preds = %25
-  %30 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
+  %30 = zext i32 %27 to i64
+  %31 = shl nuw nsw i64 %30, 4
+  %32 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %31, i32 noundef 16)
+  %33 = load ptr, ptr %0, align 8, !tbaa !20
   br label %36
 
-31:                                               ; preds = %25
-  %32 = zext i32 %27 to i64
-  %33 = shl nuw nsw i64 %32, 4
-  %34 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %33, i32 noundef 16)
-  %35 = load ptr, ptr %0, align 8, !tbaa !20
+34:                                               ; preds = %25
+  %35 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
   br label %36
 
-36:                                               ; preds = %29, %31
-  %37 = phi ptr [ %35, %31 ], [ %23, %29 ]
-  %38 = phi i32 [ %27, %31 ], [ 1, %29 ]
-  %39 = phi ptr [ %34, %31 ], [ %30, %29 ]
+36:                                               ; preds = %34, %29
+  %37 = phi ptr [ %33, %29 ], [ %23, %34 ]
+  %38 = phi i32 [ %27, %29 ], [ 1, %34 ]
+  %39 = phi ptr [ %32, %29 ], [ %35, %34 ]
   store ptr %37, ptr %39, align 8, !tbaa.struct !72
   %40 = getelementptr inbounds i8, ptr %39, i64 8
   store ptr null, ptr %40, align 8, !tbaa.struct !73
@@ -3706,43 +3706,43 @@ define dso_local void @_ZNK6btDbvt5cloneERS_PNS_6ICloneE(ptr nocapture noundef n
 
 55:                                               ; preds = %41
   store ptr null, ptr %8, align 8, !tbaa !21
-  br label %59
+  br label %61
 
 56:                                               ; preds = %41
   %57 = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 56, i32 noundef 16)
-          to label %58 unwind label %73
+          to label %60 unwind label %58
 
 58:                                               ; preds = %56
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %57, i8 0, i64 56, i1 false)
-  br label %59
-
-59:                                               ; preds = %58, %55
-  %60 = phi ptr [ %53, %55 ], [ %57, %58 ]
-  %61 = getelementptr inbounds %struct.btDbvtNode, ptr %60, i64 0, i32 1
-  store ptr %50, ptr %61, align 8, !tbaa !34
-  %62 = getelementptr inbounds %struct.btDbvtNode, ptr %60, i64 0, i32 2
-  store ptr %52, ptr %62, align 8, !tbaa !22
-  %63 = getelementptr inbounds %struct.btDbvtNode, ptr %60, i64 0, i32 2, i32 0, i64 1
-  store ptr null, ptr %63, align 8, !tbaa !22
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %60, ptr noundef nonnull align 4 dereferenceable(32) %48, i64 32, i1 false), !tbaa.struct !59
-  %64 = icmp eq ptr %50, null
-  %65 = getelementptr inbounds %struct.btDbvtNode, ptr %50, i64 0, i32 2
-  %66 = and i32 %45, 1
-  %67 = zext i32 %66 to i64
-  %68 = getelementptr inbounds [2 x ptr], ptr %65, i64 0, i64 %67
-  %69 = select i1 %64, ptr %1, ptr %68
-  store ptr %60, ptr %69, align 8, !tbaa !22
-  %70 = getelementptr inbounds %struct.btDbvtNode, ptr %48, i64 0, i32 2, i32 0, i64 1
-  %71 = load ptr, ptr %70, align 8, !tbaa !22
-  %72 = icmp eq ptr %71, null
-  br i1 %72, label %172, label %75
-
-73:                                               ; preds = %56, %172
-  %74 = landingpad { ptr, i32 }
+  %59 = landingpad { ptr, i32 }
           cleanup
-  br label %182
+  br label %184
 
-75:                                               ; preds = %59
+60:                                               ; preds = %56
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %57, i8 0, i64 56, i1 false)
+  br label %61
+
+61:                                               ; preds = %55, %60
+  %62 = phi ptr [ %53, %55 ], [ %57, %60 ]
+  %63 = getelementptr inbounds %struct.btDbvtNode, ptr %62, i64 0, i32 1
+  store ptr %50, ptr %63, align 8, !tbaa !34
+  %64 = getelementptr inbounds %struct.btDbvtNode, ptr %62, i64 0, i32 2
+  store ptr %52, ptr %64, align 8, !tbaa !22
+  %65 = getelementptr inbounds %struct.btDbvtNode, ptr %62, i64 0, i32 2, i32 0, i64 1
+  store ptr null, ptr %65, align 8, !tbaa !22
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %62, ptr noundef nonnull align 4 dereferenceable(32) %48, i64 32, i1 false), !tbaa.struct !59
+  %66 = icmp eq ptr %50, null
+  %67 = getelementptr inbounds %struct.btDbvtNode, ptr %50, i64 0, i32 2
+  %68 = and i32 %45, 1
+  %69 = zext i32 %68 to i64
+  %70 = getelementptr inbounds [2 x ptr], ptr %67, i64 0, i64 %69
+  %71 = select i1 %66, ptr %1, ptr %70
+  store ptr %62, ptr %71, align 8, !tbaa !22
+  %72 = getelementptr inbounds %struct.btDbvtNode, ptr %48, i64 0, i32 2, i32 0, i64 1
+  %73 = load ptr, ptr %72, align 8, !tbaa !22
+  %74 = icmp eq ptr %73, null
+  br i1 %74, label %172, label %75
+
+75:                                               ; preds = %61
   %76 = load ptr, ptr %51, align 8, !tbaa !22
   %77 = icmp eq i32 %45, %43
   br i1 %77, label %78, label %116
@@ -3766,7 +3766,7 @@ define dso_local void @_ZNK6btDbvt5cloneERS_PNS_6ICloneE(ptr nocapture noundef n
 
 89:                                               ; preds = %85, %83
   %90 = phi ptr [ null, %83 ], [ %88, %85 ]
-  %91 = icmp sgt i32 %42, 1
+  %91 = icmp ugt i32 %42, 1
   br i1 %91, label %92, label %115
 
 92:                                               ; preds = %89
@@ -3809,14 +3809,14 @@ define dso_local void @_ZNK6btDbvt5cloneERS_PNS_6ICloneE(ptr nocapture noundef n
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %44)
           to label %116 unwind label %168
 
-116:                                              ; preds = %78, %75, %115
+116:                                              ; preds = %115, %75, %78
   %117 = phi i32 [ %43, %78 ], [ %43, %75 ], [ %81, %115 ]
   %118 = phi ptr [ %44, %78 ], [ %44, %75 ], [ %90, %115 ]
   %119 = getelementptr inbounds %"struct.btDbvt::sStkCLN", ptr %118, i64 %46
   store ptr %76, ptr %119, align 8, !tbaa.struct !72
   %120 = getelementptr inbounds i8, ptr %119, i64 8
-  store ptr %60, ptr %120, align 8, !tbaa.struct !73
-  %121 = load ptr, ptr %70, align 8, !tbaa !22
+  store ptr %62, ptr %120, align 8, !tbaa.struct !73
+  %121 = load ptr, ptr %72, align 8, !tbaa !22
   %122 = icmp eq i32 %42, %117
   br i1 %122, label %123, label %161
 
@@ -3882,33 +3882,33 @@ define dso_local void @_ZNK6btDbvt5cloneERS_PNS_6ICloneE(ptr nocapture noundef n
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %118)
           to label %161 unwind label %170
 
-161:                                              ; preds = %123, %116, %160
+161:                                              ; preds = %160, %116, %123
   %162 = phi i32 [ %42, %123 ], [ %117, %116 ], [ %126, %160 ]
   %163 = phi ptr [ %118, %123 ], [ %118, %116 ], [ %135, %160 ]
   %164 = sext i32 %42 to i64
   %165 = getelementptr inbounds %"struct.btDbvt::sStkCLN", ptr %163, i64 %164
   store ptr %121, ptr %165, align 8, !tbaa.struct !72
   %166 = getelementptr inbounds i8, ptr %165, i64 8
-  store ptr %60, ptr %166, align 8, !tbaa.struct !73
+  store ptr %62, ptr %166, align 8, !tbaa.struct !73
   %167 = add nsw i32 %42, 1
   br label %176
 
 168:                                              ; preds = %115, %85
   %169 = landingpad { ptr, i32 }
           cleanup
-  br label %182
+  br label %184
 
 170:                                              ; preds = %160, %130
   %171 = landingpad { ptr, i32 }
           cleanup
-  br label %182
+  br label %184
 
-172:                                              ; preds = %59
+172:                                              ; preds = %61
   %173 = load ptr, ptr %2, align 8, !tbaa !63
   %174 = getelementptr inbounds ptr, ptr %173, i64 2
   %175 = load ptr, ptr %174, align 8
-  invoke void %175(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull %60)
-          to label %176 unwind label %73
+  invoke void %175(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull %62)
+          to label %176 unwind label %182
 
 176:                                              ; preds = %172, %161
   %177 = phi i32 [ %167, %161 ], [ %45, %172 ]
@@ -3919,25 +3919,30 @@ define dso_local void @_ZNK6btDbvt5cloneERS_PNS_6ICloneE(ptr nocapture noundef n
 
 181:                                              ; preds = %176
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %179)
-  br label %186
+  br label %188
 
-182:                                              ; preds = %170, %168, %73
-  %183 = phi ptr [ %44, %73 ], [ %44, %168 ], [ %118, %170 ]
-  %184 = phi { ptr, i32 } [ %74, %73 ], [ %169, %168 ], [ %171, %170 ]
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %183)
-          to label %185 unwind label %187
+182:                                              ; preds = %172
+  %183 = landingpad { ptr, i32 }
+          cleanup
+  br label %184
 
-185:                                              ; preds = %182
-  resume { ptr, i32 } %184
+184:                                              ; preds = %182, %168, %170, %58
+  %185 = phi { ptr, i32 } [ %183, %182 ], [ %59, %58 ], [ %169, %168 ], [ %171, %170 ]
+  %186 = phi ptr [ %44, %182 ], [ %44, %58 ], [ %44, %168 ], [ %118, %170 ]
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %186)
+          to label %187 unwind label %189
 
-186:                                              ; preds = %181, %19
+187:                                              ; preds = %184
+  resume { ptr, i32 } %185
+
+188:                                              ; preds = %181, %19
   ret void
 
-187:                                              ; preds = %182
-  %188 = landingpad { ptr, i32 }
+189:                                              ; preds = %184
+  %190 = landingpad { ptr, i32 }
           catch ptr null
-  %189 = extractvalue { ptr, i32 } %188, 0
-  tail call void @__clang_call_terminate(ptr %189) #16
+  %191 = extractvalue { ptr, i32 } %190, 0
+  tail call void @__clang_call_terminate(ptr %191) #16
   unreachable
 }
 
@@ -4199,7 +4204,7 @@ define linkonce_odr dso_local void @_ZN20btDbvtNodeEnumeratorD0Ev(ptr noundef no
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %11
 
-10:                                               ; preds = %1, %9
+10:                                               ; preds = %9, %1
   tail call void @_ZdlPv(ptr noundef nonnull %0) #18
   ret void
 

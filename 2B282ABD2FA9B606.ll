@@ -2091,7 +2091,7 @@ define internal fastcc ptr @BreakVcat(ptr noundef returned %0, ptr nocapture nou
   %58 = add nsw i32 %26, %27
   %59 = icmp sgt i32 %58, %19
   %60 = icmp sgt i32 %26, 8388607
-  %61 = or i1 %60, %59
+  %61 = or i1 %59, %60
   br i1 %61, label %62, label %65
 
 62:                                               ; preds = %57, %55
@@ -2178,7 +2178,7 @@ define internal fastcc ptr @BreakVcat(ptr noundef returned %0, ptr nocapture nou
   %118 = add nsw i32 %113, %112
   %119 = icmp sgt i32 %118, %19
   %120 = icmp sgt i32 %113, 8388607
-  %121 = or i1 %120, %119
+  %121 = or i1 %119, %120
   br i1 %121, label %122, label %127
 
 122:                                              ; preds = %117, %115

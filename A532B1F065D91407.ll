@@ -187,8 +187,8 @@ define dso_local i32 @gx_path_bbox(ptr nocapture noundef %0, ptr nocapture nound
   store i64 %104, ptr %115, align 8, !tbaa.struct !27
   br label %116
 
-116:                                              ; preds = %6, %10, %23, %103
-  %117 = phi i32 [ 0, %103 ], [ 0, %23 ], [ 0, %10 ], [ -14, %6 ]
+116:                                              ; preds = %6, %23, %103, %10
+  %117 = phi i32 [ 0, %10 ], [ 0, %103 ], [ 0, %23 ], [ -14, %6 ]
   ret i32 %117
 }
 
@@ -842,13 +842,13 @@ declare i32 @gx_path_add_line(ptr noundef, i64 noundef, i64 noundef) local_unnam
 declare i32 @gx_path_close_subpath(ptr noundef) local_unnamed_addr #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.abs.i64(i64, i1 immarg) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smin.i64(i64, i64) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.abs.i64(i64, i1 immarg) #10
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

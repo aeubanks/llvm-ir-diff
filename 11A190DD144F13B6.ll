@@ -375,15 +375,15 @@ define dso_local noundef i32 @_ZN8NArchive3NGz5CItem10ReadHeaderEPN9NCompress8ND
 
 66:                                               ; preds = %58
   %67 = load i32, ptr %16, align 8, !tbaa !23
-  %68 = icmp ne i32 %67, 0
+  %68 = icmp eq i32 %67, 0
   %69 = sub nuw nsw i32 32, %59
   %70 = shl i32 %67, 3
-  %71 = icmp ult i32 %69, %70
-  %72 = select i1 %68, i1 %71, i1 false
+  %71 = icmp uge i32 %69, %70
+  %72 = select i1 %68, i1 true, i1 %71
   %73 = load i16, ptr %3, align 2
-  %74 = icmp ne i16 %73, -29921
-  %75 = select i1 %72, i1 true, i1 %74
-  br i1 %75, label %141, label %76
+  %74 = icmp eq i16 %73, -29921
+  %75 = select i1 %72, i1 %74, i1 false
+  br i1 %75, label %76, label %141
 
 76:                                               ; preds = %66
   %77 = getelementptr inbounds [10 x i8], ptr %3, i64 0, i64 2
@@ -774,7 +774,7 @@ define internal fastcc noundef i32 @_ZN8NArchive3NGzL10ReadStringEPN9NCompress8N
   %5 = load ptr, ptr %1, align 8, !tbaa !11
   store i8 0, ptr %5, align 1, !tbaa !12
   %6 = icmp eq i32 %2, 0
-  br i1 %6, label %71, label %7
+  br i1 %6, label %72, label %7
 
 7:                                                ; preds = %3
   %8 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8
@@ -785,8 +785,8 @@ define internal fastcc noundef i32 @_ZN8NArchive3NGzL10ReadStringEPN9NCompress8N
   %13 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8, i32 0, i32 1
   br label %14
 
-14:                                               ; preds = %7, %67
-  %15 = phi i32 [ 0, %7 ], [ %69, %67 ]
+14:                                               ; preds = %7, %68
+  %15 = phi i32 [ 0, %7 ], [ %70, %68 ]
   %16 = load i32, ptr %8, align 8, !tbaa !13
   %17 = icmp ugt i32 %16, 7
   br i1 %17, label %22, label %18
@@ -859,21 +859,22 @@ define internal fastcc noundef i32 @_ZN8NArchive3NGzL10ReadStringEPN9NCompress8N
   %62 = shl i32 %60, 3
   %63 = icmp ult i32 %55, %62
   %64 = select i1 %61, i1 %63, i1 false
-  br i1 %64, label %71, label %65
+  br i1 %64, label %72, label %65
 
 65:                                               ; preds = %54
-  %66 = icmp eq i8 %59, 0
-  br i1 %66, label %71, label %67
+  %66 = and i32 %57, 255
+  %67 = icmp eq i32 %66, 0
+  br i1 %67, label %72, label %68
 
-67:                                               ; preds = %65
-  %68 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN11CStringBaseIcEpLEc(ptr noundef nonnull align 8 dereferenceable(16) %1, i8 noundef signext %59)
-  %69 = add nuw i32 %15, 1
-  %70 = icmp eq i32 %69, %2
-  br i1 %70, label %71, label %14, !llvm.loop !39
+68:                                               ; preds = %65
+  %69 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN11CStringBaseIcEpLEc(ptr noundef nonnull align 8 dereferenceable(16) %1, i8 noundef signext %59)
+  %70 = add nuw i32 %15, 1
+  %71 = icmp eq i32 %70, %2
+  br i1 %71, label %72, label %14, !llvm.loop !39
 
-71:                                               ; preds = %67, %54, %65, %3
-  %72 = phi i32 [ 1, %3 ], [ 0, %65 ], [ 1, %54 ], [ 1, %67 ]
-  ret i32 %72
+72:                                               ; preds = %68, %54, %65, %3
+  %73 = phi i32 [ 1, %3 ], [ 1, %68 ], [ 1, %54 ], [ 0, %65 ]
+  ret i32 %73
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -1649,25 +1650,25 @@ define dso_local noundef i32 @_ZN8NArchive3NGz8CHandler7OpenSeqEP19ISequentialIn
 
 34:                                               ; preds = %26
   %35 = load ptr, ptr %8, align 8, !tbaa !72
-  %36 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8
-  %37 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8, i32 0, i32 2
-  %38 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8, i32 0, i32 2, i32 4
-  %39 = load i64, ptr %38, align 8, !tbaa !86
-  %40 = load ptr, ptr %37, align 8, !tbaa !21
-  %41 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8, i32 0, i32 2, i32 2
-  %42 = load ptr, ptr %41, align 8, !tbaa !87
-  %43 = ptrtoint ptr %40 to i64
-  %44 = ptrtoint ptr %42 to i64
-  %45 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8, i32 0, i32 3
-  %46 = load i32, ptr %45, align 8, !tbaa !23
-  %47 = zext i32 %46 to i64
-  %48 = load i32, ptr %36, align 8, !tbaa !13
+  %36 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8, i32 0, i32 2, i32 4
+  %37 = load i64, ptr %36, align 8, !tbaa !86
+  %38 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8, i32 0, i32 2
+  %39 = load ptr, ptr %38, align 8, !tbaa !21
+  %40 = ptrtoint ptr %39 to i64
+  %41 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8, i32 0, i32 3
+  %42 = load i32, ptr %41, align 8, !tbaa !23
+  %43 = zext i32 %42 to i64
+  %44 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8, i32 0, i32 2, i32 2
+  %45 = load ptr, ptr %44, align 8, !tbaa !87
+  %46 = ptrtoint ptr %45 to i64
+  %47 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %35, i64 0, i32 8
+  %48 = load i32, ptr %47, align 8, !tbaa !13
   %49 = sub i32 32, %48
   %50 = lshr i32 %49, 3
   %51 = zext i32 %50 to i64
-  %52 = add i64 %39, %43
-  %53 = add i64 %52, %47
-  %54 = add i64 %44, %51
+  %52 = add i64 %37, %40
+  %53 = add i64 %52, %43
+  %54 = add i64 %46, %51
   %55 = sub i64 %53, %54
   %56 = getelementptr inbounds %"class.NArchive::NGz::CHandler", ptr %0, i64 0, i32 7
   store i64 %55, ptr %56, align 8, !tbaa !88
@@ -1915,7 +1916,7 @@ define dso_local noundef i32 @_ZN8NArchive3NGz8CHandler7ExtractEPKjjiP23IArchive
   %79 = invoke noundef i32 %78(ptr noundef nonnull align 8 dereferenceable(8) %73)
           to label %80 unwind label %117
 
-80:                                               ; preds = %72, %75
+80:                                               ; preds = %75, %72
   store ptr %65, ptr %61, align 8, !tbaa !89
   %81 = getelementptr inbounds %class.COutStreamWithCRC, ptr %58, i64 0, i32 4
   store i64 0, ptr %81, align 8, !tbaa !91
@@ -2045,30 +2046,30 @@ define dso_local noundef i32 @_ZN8NArchive3NGz8CHandler7ExtractEPKjjiP23IArchive
   %145 = getelementptr inbounds %"class.NArchive::NGz::CItem", ptr %8, i64 0, i32 7, i32 1
   br label %146
 
-146:                                              ; preds = %133, %252
+146:                                              ; preds = %252, %133
   %147 = phi i32 [ undef, %133 ], [ %241, %252 ]
   %148 = phi i8 [ 1, %133 ], [ %242, %252 ]
   %149 = phi i32 [ 0, %133 ], [ %244, %252 ]
   %150 = load ptr, ptr %134, align 8, !tbaa !72
-  %151 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8
-  %152 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8, i32 0, i32 2
-  %153 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8, i32 0, i32 2, i32 4
-  %154 = load i64, ptr %153, align 8, !tbaa !86
-  %155 = load ptr, ptr %152, align 8, !tbaa !21
-  %156 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8, i32 0, i32 2, i32 2
-  %157 = load ptr, ptr %156, align 8, !tbaa !87
-  %158 = ptrtoint ptr %155 to i64
-  %159 = ptrtoint ptr %157 to i64
-  %160 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8, i32 0, i32 3
-  %161 = load i32, ptr %160, align 8, !tbaa !23
-  %162 = zext i32 %161 to i64
-  %163 = load i32, ptr %151, align 8, !tbaa !13
+  %151 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8, i32 0, i32 2, i32 4
+  %152 = load i64, ptr %151, align 8, !tbaa !86
+  %153 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8, i32 0, i32 2
+  %154 = load ptr, ptr %153, align 8, !tbaa !21
+  %155 = ptrtoint ptr %154 to i64
+  %156 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8, i32 0, i32 3
+  %157 = load i32, ptr %156, align 8, !tbaa !23
+  %158 = zext i32 %157 to i64
+  %159 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8, i32 0, i32 2, i32 2
+  %160 = load ptr, ptr %159, align 8, !tbaa !87
+  %161 = ptrtoint ptr %160 to i64
+  %162 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %150, i64 0, i32 8
+  %163 = load i32, ptr %162, align 8, !tbaa !13
   %164 = sub i32 32, %163
   %165 = lshr i32 %164, 3
   %166 = zext i32 %165 to i64
-  %167 = add i64 %154, %158
-  %168 = add i64 %167, %162
-  %169 = add i64 %159, %166
+  %167 = add i64 %152, %155
+  %168 = add i64 %167, %158
+  %169 = add i64 %161, %166
   %170 = sub i64 %168, %169
   store i64 %170, ptr %135, align 8, !tbaa !47
   store i64 %170, ptr %136, align 8, !tbaa !96
@@ -2270,8 +2271,8 @@ define dso_local noundef i32 @_ZN8NArchive3NGz8CHandler7ExtractEPKjjiP23IArchive
           to label %267 unwind label %175
 
 267:                                              ; preds = %173, %252, %111, %262
-  %268 = phi ptr [ null, %262 ], [ %58, %111 ], [ %58, %252 ], [ %58, %173 ]
-  %269 = phi i32 [ %266, %262 ], [ %110, %111 ], [ %172, %173 ], [ %244, %252 ]
+  %268 = phi ptr [ %58, %111 ], [ null, %262 ], [ %58, %252 ], [ %58, %173 ]
+  %269 = phi i32 [ %110, %111 ], [ %266, %262 ], [ %172, %173 ], [ %244, %252 ]
   %270 = load ptr, ptr %93, align 8, !tbaa !68
   %271 = getelementptr inbounds ptr, ptr %270, i64 2
   %272 = load ptr, ptr %271, align 8
@@ -2304,8 +2305,8 @@ define dso_local noundef i32 @_ZN8NArchive3NGz8CHandler7ExtractEPKjjiP23IArchive
   unreachable
 
 287:                                              ; preds = %125, %127, %255, %178, %175
-  %288 = phi ptr [ %176, %175 ], [ %58, %255 ], [ %58, %178 ], [ %58, %125 ], [ %58, %127 ]
-  %289 = phi { ptr, i32 } [ %177, %175 ], [ %256, %255 ], [ %179, %178 ], [ %126, %125 ], [ %128, %127 ]
+  %288 = phi ptr [ %58, %125 ], [ %58, %127 ], [ %176, %175 ], [ %58, %255 ], [ %58, %178 ]
+  %289 = phi { ptr, i32 } [ %126, %125 ], [ %128, %127 ], [ %177, %175 ], [ %256, %255 ], [ %179, %178 ]
   %290 = load ptr, ptr %93, align 8, !tbaa !68
   %291 = getelementptr inbounds ptr, ptr %290, i64 2
   %292 = load ptr, ptr %291, align 8
@@ -2323,7 +2324,7 @@ define dso_local noundef i32 @_ZN8NArchive3NGz8CHandler7ExtractEPKjjiP23IArchive
   %298 = icmp eq ptr %288, null
   br i1 %298, label %323, label %299
 
-299:                                              ; preds = %123, %117, %119, %121, %297
+299:                                              ; preds = %123, %119, %121, %117, %297
   %300 = phi { ptr, i32 } [ %289, %297 ], [ %124, %123 ], [ %120, %119 ], [ %122, %121 ], [ %118, %117 ]
   %301 = phi ptr [ %288, %297 ], [ %58, %123 ], [ %58, %119 ], [ %58, %121 ], [ %58, %117 ]
   %302 = load ptr, ptr %301, align 8, !tbaa !68
@@ -3547,7 +3548,7 @@ define internal fastcc noundef i32 @_ZN8NArchive3NGzL13UpdateArchiveEP20ISequent
   %53 = invoke noundef i32 %52(ptr noundef nonnull align 8 dereferenceable(8) %47)
           to label %54 unwind label %149
 
-54:                                               ; preds = %46, %49
+54:                                               ; preds = %49, %46
   store ptr %39, ptr %35, align 8, !tbaa !121
   %55 = getelementptr inbounds %class.CSequentialInStreamWithCRC, ptr %32, i64 0, i32 4
   store i64 0, ptr %55, align 8, !tbaa !122
@@ -3896,8 +3897,8 @@ define internal fastcc noundef i32 @_ZN8NArchive3NGzL13UpdateArchiveEP20ISequent
   call void @__clang_call_terminate(ptr %230) #21
   unreachable
 
-231:                                              ; preds = %213, %143
-  %232 = phi i32 [ %144, %143 ], [ %214, %213 ]
+231:                                              ; preds = %143, %213
+  %232 = phi i32 [ %214, %213 ], [ %144, %143 ]
   %233 = icmp eq ptr %102, null
   br i1 %233, label %235, label %234
 
@@ -3913,7 +3914,7 @@ define internal fastcc noundef i32 @_ZN8NArchive3NGzL13UpdateArchiveEP20ISequent
   call void @_ZdaPv(ptr noundef nonnull %79) #22
   br label %238
 
-238:                                              ; preds = %237, %235
+238:                                              ; preds = %235, %237
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %10) #20
   %239 = load ptr, ptr %58, align 8, !tbaa !68
   %240 = getelementptr inbounds ptr, ptr %239, i64 2
@@ -3942,7 +3943,7 @@ define internal fastcc noundef i32 @_ZN8NArchive3NGzL13UpdateArchiveEP20ISequent
   call void @__clang_call_terminate(ptr %253) #21
   unreachable
 
-254:                                              ; preds = %180, %222, %176, %178, %161
+254:                                              ; preds = %176, %178, %222, %180, %161
   %255 = phi { ptr, i32 } [ %162, %161 ], [ %179, %178 ], [ %177, %176 ], [ %181, %180 ], [ %223, %222 ]
   call void @_ZN8NArchive3NGz5CItemD2Ev(ptr noundef nonnull align 8 dereferenceable(48) %10) #20
   br label %256
@@ -3967,7 +3968,7 @@ define internal fastcc noundef i32 @_ZN8NArchive3NGzL13UpdateArchiveEP20ISequent
   call void @__clang_call_terminate(ptr %266) #21
   unreachable
 
-267:                                              ; preds = %149, %153, %151, %258, %155
+267:                                              ; preds = %149, %155, %258, %153, %151
   %268 = phi { ptr, i32 } [ %150, %149 ], [ %154, %153 ], [ %152, %151 ], [ %156, %155 ], [ %259, %258 ]
   %269 = load ptr, ptr %32, align 8, !tbaa !68
   %270 = getelementptr inbounds ptr, ptr %269, i64 2
@@ -4512,7 +4513,7 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive3NGz8CHandler14QueryInter
   %319 = getelementptr inbounds i8, ptr %0, i64 16
   br label %400
 
-320:                                              ; preds = %308, %303, %298, %293, %288, %283, %278, %273, %268, %263, %258, %253, %248, %243, %240, %313
+320:                                              ; preds = %240, %243, %248, %253, %258, %263, %268, %273, %278, %283, %288, %293, %298, %303, %308, %313
   %321 = load i8, ptr @IID_ISetProperties, align 4, !tbaa !12
   %322 = icmp eq i8 %4, %321
   br i1 %322, label %323, label %406
@@ -4635,8 +4636,8 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive3NGz8CHandler14QueryInter
   %405 = tail call noundef i32 %404(ptr noundef nonnull align 8 dereferenceable(168) %0)
   br label %406
 
-406:                                              ; preds = %400, %388, %383, %378, %373, %368, %363, %358, %353, %348, %343, %338, %333, %328, %323, %320, %393
-  %407 = phi i32 [ -2147467262, %393 ], [ -2147467262, %320 ], [ -2147467262, %323 ], [ -2147467262, %328 ], [ -2147467262, %333 ], [ -2147467262, %338 ], [ -2147467262, %343 ], [ -2147467262, %348 ], [ -2147467262, %353 ], [ -2147467262, %358 ], [ -2147467262, %363 ], [ -2147467262, %368 ], [ -2147467262, %373 ], [ -2147467262, %378 ], [ -2147467262, %383 ], [ -2147467262, %388 ], [ 0, %400 ]
+406:                                              ; preds = %400, %393, %388, %383, %378, %373, %368, %363, %358, %353, %348, %343, %338, %333, %328, %323, %320
+  %407 = phi i32 [ -2147467262, %320 ], [ -2147467262, %323 ], [ -2147467262, %328 ], [ -2147467262, %333 ], [ -2147467262, %338 ], [ -2147467262, %343 ], [ -2147467262, %348 ], [ -2147467262, %353 ], [ -2147467262, %358 ], [ -2147467262, %363 ], [ -2147467262, %368 ], [ -2147467262, %373 ], [ -2147467262, %378 ], [ -2147467262, %383 ], [ -2147467262, %388 ], [ -2147467262, %393 ], [ 0, %400 ]
   ret i32 %407
 }
 
@@ -5638,12 +5639,12 @@ define linkonce_odr dso_local void @_ZN8NArchive3NGz8CHandlerC2Ev(ptr noundef no
   store ptr getelementptr inbounds ({ [21 x ptr], [8 x ptr], [9 x ptr], [8 x ptr] }, ptr @_ZTVN8NArchive3NGz8CHandlerE, i64 0, inrange i32 3, i64 2), ptr %4, align 8, !tbaa !68
   %6 = getelementptr inbounds %"class.NArchive::NGz::CHandler", ptr %0, i64 0, i32 5
   %7 = getelementptr inbounds %"class.NArchive::NGz::CHandler", ptr %0, i64 0, i32 5, i32 7
-  %8 = getelementptr inbounds %"class.NArchive::NGz::CHandler", ptr %0, i64 0, i32 5, i32 7, i32 2
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %7, i8 0, i64 16, i1 false)
-  %9 = tail call noalias noundef nonnull dereferenceable(4) ptr @_Znam(i64 noundef 4) #24
-  store ptr %9, ptr %7, align 8, !tbaa !11
-  store i8 0, ptr %9, align 1, !tbaa !12
-  store i32 4, ptr %8, align 4, !tbaa !102
+  %8 = tail call noalias noundef nonnull dereferenceable(4) ptr @_Znam(i64 noundef 4) #24
+  %9 = getelementptr inbounds %"class.NArchive::NGz::CHandler", ptr %0, i64 0, i32 5, i32 7, i32 2
+  store ptr %8, ptr %7, align 8, !tbaa !11
+  store i8 0, ptr %8, align 1, !tbaa !12
+  store i32 4, ptr %9, align 4, !tbaa !102
   %10 = getelementptr inbounds %"class.NArchive::NGz::CHandler", ptr %0, i64 0, i32 5, i32 8
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %10, i8 0, i64 16, i1 false)
   %11 = invoke noalias noundef nonnull dereferenceable(4) ptr @_Znam(i64 noundef 4) #24
@@ -5652,7 +5653,7 @@ define linkonce_odr dso_local void @_ZN8NArchive3NGz8CHandlerC2Ev(ptr noundef no
 12:                                               ; preds = %1
   %13 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %9) #22
+  tail call void @_ZdaPv(ptr noundef nonnull %8) #22
   br label %67
 
 14:                                               ; preds = %1
@@ -5701,7 +5702,7 @@ define linkonce_odr dso_local void @_ZN8NArchive3NGz8CHandlerC2Ev(ptr noundef no
   %37 = invoke noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(8) %31)
           to label %38 unwind label %39
 
-38:                                               ; preds = %22, %33
+38:                                               ; preds = %33, %22
   store ptr %20, ptr %17, align 8, !tbaa !127
   ret void
 
@@ -6208,7 +6209,7 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCode
   %315 = icmp eq i8 %313, %314
   br i1 %315, label %394, label %316
 
-316:                                              ; preds = %306, %301, %296, %291, %286, %281, %276, %271, %266, %261, %256, %251, %246, %241, %238, %311
+316:                                              ; preds = %238, %241, %246, %251, %256, %261, %266, %271, %276, %281, %286, %291, %296, %301, %306, %311
   %317 = load i8, ptr @IID_ISequentialInStream, align 4, !tbaa !12
   %318 = icmp eq i8 %4, %317
   br i1 %318, label %319, label %401
@@ -6328,8 +6329,8 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCode
   %400 = tail call noundef i32 %399(ptr noundef nonnull align 8 dereferenceable(3474) %0)
   br label %401
 
-401:                                              ; preds = %394, %384, %379, %374, %369, %364, %359, %354, %349, %344, %339, %334, %329, %324, %319, %316, %389
-  %402 = phi i32 [ -2147467262, %389 ], [ -2147467262, %316 ], [ -2147467262, %319 ], [ -2147467262, %324 ], [ -2147467262, %329 ], [ -2147467262, %334 ], [ -2147467262, %339 ], [ -2147467262, %344 ], [ -2147467262, %349 ], [ -2147467262, %354 ], [ -2147467262, %359 ], [ -2147467262, %364 ], [ -2147467262, %369 ], [ -2147467262, %374 ], [ -2147467262, %379 ], [ -2147467262, %384 ], [ 0, %394 ]
+401:                                              ; preds = %394, %389, %384, %379, %374, %369, %364, %359, %354, %349, %344, %339, %334, %329, %324, %319, %316
+  %402 = phi i32 [ -2147467262, %316 ], [ -2147467262, %319 ], [ -2147467262, %324 ], [ -2147467262, %329 ], [ -2147467262, %334 ], [ -2147467262, %339 ], [ -2147467262, %344 ], [ -2147467262, %349 ], [ -2147467262, %354 ], [ -2147467262, %359 ], [ -2147467262, %364 ], [ -2147467262, %369 ], [ -2147467262, %374 ], [ -2147467262, %379 ], [ -2147467262, %384 ], [ -2147467262, %389 ], [ 0, %394 ]
   ret i32 %402
 }
 

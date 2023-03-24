@@ -146,57 +146,57 @@ target triple = "x86_64-unknown-linux-gnu"
 @counter_malloc_init = common dso_local local_unnamed_addr global i32 0, align 4
 @size_malloc_init = common dso_local local_unnamed_addr global double 0.000000e+00, align 8
 @total_red = common dso_local local_unnamed_addr global i32 0, align 4
-@str = private unnamed_addr constant [39 x i8] c"object number greater than num_objects\00", align 1
-@str.83 = private unnamed_addr constant [48 x i8] c"(Optional) command line input is of the form: \0A\00", align 1
-@str.84 = private unnamed_addr constant [34 x i8] c"--nx - block size x (even && > 0)\00", align 1
-@str.85 = private unnamed_addr constant [34 x i8] c"--ny - block size y (even && > 0)\00", align 1
-@str.86 = private unnamed_addr constant [34 x i8] c"--nz - block size z (even && > 0)\00", align 1
-@str.87 = private unnamed_addr constant [37 x i8] c"--init_x - initial blocks in x (> 0)\00", align 1
-@str.88 = private unnamed_addr constant [37 x i8] c"--init_y - initial blocks in y (> 0)\00", align 1
-@str.89 = private unnamed_addr constant [37 x i8] c"--init_z - initial blocks in z (> 0)\00", align 1
-@str.90 = private unnamed_addr constant [53 x i8] c"--reorder - ordering of blocks if initial number > 1\00", align 1
-@str.91 = private unnamed_addr constant [49 x i8] c"--max_blocks - maximun number of blocks per core\00", align 1
-@str.92 = private unnamed_addr constant [53 x i8] c"--num_refine - (>= 0) number of levels of refinement\00", align 1
-@str.93 = private unnamed_addr constant [74 x i8] c"--block_change - (>= 0) number of levels a block can change in a timestep\00", align 1
-@str.94 = private unnamed_addr constant [56 x i8] c"--uniform_refine - if 1, then grid is uniformly refined\00", align 1
-@str.95 = private unnamed_addr constant [68 x i8] c"--refine_freq - frequency (in timesteps) of checking for refinement\00", align 1
-@str.96 = private unnamed_addr constant [69 x i8] c"--target_active - (>= 0) target number of blocks per core, none if 0\00", align 1
-@str.97 = private unnamed_addr constant [63 x i8] c"--target_max - (>= 0) max number of blocks per core, none if 0\00", align 1
-@str.98 = private unnamed_addr constant [63 x i8] c"--target_min - (>= 0) min number of blocks per core, none if 0\00", align 1
-@str.99 = private unnamed_addr constant [39 x i8] c"--num_vars - number of variables (> 0)\00", align 1
-@str.100 = private unnamed_addr constant [53 x i8] c"--comm_vars - number of vars to communicate together\00", align 1
-@str.101 = private unnamed_addr constant [41 x i8] c"--num_tsteps - number of timesteps (> 0)\00", align 1
-@str.102 = private unnamed_addr constant [58 x i8] c"--stages_per_ts - number of comm/calc stages per timestep\00", align 1
-@str.103 = private unnamed_addr constant [53 x i8] c"--checksum_freq - number of stages between checksums\00", align 1
-@str.104 = private unnamed_addr constant [78 x i8] c"--stencil - 7 or 27 point (27 will not work with refinement (except uniform))\00", align 1
-@str.105 = private unnamed_addr constant [39 x i8] c"--error_tol - (e^{-error_tol} ; >= 0) \00", align 1
-@str.106 = private unnamed_addr constant [38 x i8] c"--report_diffusion - (>= 0) none if 0\00", align 1
-@str.107 = private unnamed_addr constant [24 x i8] c"--report_perf - 0, 1, 2\00", align 1
-@str.108 = private unnamed_addr constant [63 x i8] c"--refine_freq - frequency (timesteps) of plotting (0 for none)\00", align 1
-@str.109 = private unnamed_addr constant [56 x i8] c"--code - closely minic communication of different codes\00", align 1
-@str.110 = private unnamed_addr constant [75 x i8] c"         0 minimal sends, 1 send ghosts, 2 send ghosts and process on send\00", align 1
-@str.111 = private unnamed_addr constant [50 x i8] c"--permute - altenates directions in communication\00", align 1
-@str.112 = private unnamed_addr constant [94 x i8] c"--refine_ghost - use full extent of block (including ghosts) to determine if block is refined\00", align 1
-@str.113 = private unnamed_addr constant [61 x i8] c"--num_objects - (>= 0) number of objects to cause refinement\00", align 1
-@str.114 = private unnamed_addr constant [63 x i8] c"--object - type, position, movement, size, size rate of change\00", align 1
-@str.115 = private unnamed_addr constant [56 x i8] c"All associated settings are integers except for objects\00", align 1
-@str.116 = private unnamed_addr constant [75 x i8] c"WARNING: 27 point stencil with non-uniform refinement: answers may diverge\00", align 1
-@str.117 = private unnamed_addr constant [24 x i8] c"code must be 0, 1, or 2\00", align 1
-@str.118 = private unnamed_addr constant [26 x i8] c"illegal value for stencil\00", align 1
-@str.119 = private unnamed_addr constant [58 x i8] c"number of processors used does not match number allocated\00", align 1
-@str.120 = private unnamed_addr constant [37 x i8] c"number of variables must be positive\00", align 1
-@str.122 = private unnamed_addr constant [49 x i8] c"number of refinement levels must be non-negative\00", align 1
-@str.123 = private unnamed_addr constant [29 x i8] c"illegal value for target_min\00", align 1
-@str.124 = private unnamed_addr constant [29 x i8] c"illegal value for target_max\00", align 1
-@str.125 = private unnamed_addr constant [32 x i8] c"illegal value for target_active\00", align 1
-@str.126 = private unnamed_addr constant [53 x i8] c"Only one of target_active and target_min can be used\00", align 1
-@str.127 = private unnamed_addr constant [53 x i8] c"Only one of target_active and target_max can be used\00", align 1
-@str.128 = private unnamed_addr constant [39 x i8] c"block size in z direction must be even\00", align 1
-@str.129 = private unnamed_addr constant [39 x i8] c"block size in y direction must be even\00", align 1
-@str.130 = private unnamed_addr constant [39 x i8] c"block size in x direction must be even\00", align 1
-@str.131 = private unnamed_addr constant [28 x i8] c"block size must be positive\00", align 1
-@str.132 = private unnamed_addr constant [32 x i8] c"max_num_blocks not large enough\00", align 1
-@str.133 = private unnamed_addr constant [45 x i8] c"initial blocks on processor must be positive\00", align 1
+@str = private unnamed_addr constant [48 x i8] c"(Optional) command line input is of the form: \0A\00", align 1
+@str.83 = private unnamed_addr constant [34 x i8] c"--nx - block size x (even && > 0)\00", align 1
+@str.84 = private unnamed_addr constant [34 x i8] c"--ny - block size y (even && > 0)\00", align 1
+@str.85 = private unnamed_addr constant [34 x i8] c"--nz - block size z (even && > 0)\00", align 1
+@str.86 = private unnamed_addr constant [37 x i8] c"--init_x - initial blocks in x (> 0)\00", align 1
+@str.87 = private unnamed_addr constant [37 x i8] c"--init_y - initial blocks in y (> 0)\00", align 1
+@str.88 = private unnamed_addr constant [37 x i8] c"--init_z - initial blocks in z (> 0)\00", align 1
+@str.89 = private unnamed_addr constant [53 x i8] c"--reorder - ordering of blocks if initial number > 1\00", align 1
+@str.90 = private unnamed_addr constant [49 x i8] c"--max_blocks - maximun number of blocks per core\00", align 1
+@str.91 = private unnamed_addr constant [53 x i8] c"--num_refine - (>= 0) number of levels of refinement\00", align 1
+@str.92 = private unnamed_addr constant [74 x i8] c"--block_change - (>= 0) number of levels a block can change in a timestep\00", align 1
+@str.93 = private unnamed_addr constant [56 x i8] c"--uniform_refine - if 1, then grid is uniformly refined\00", align 1
+@str.94 = private unnamed_addr constant [68 x i8] c"--refine_freq - frequency (in timesteps) of checking for refinement\00", align 1
+@str.95 = private unnamed_addr constant [69 x i8] c"--target_active - (>= 0) target number of blocks per core, none if 0\00", align 1
+@str.96 = private unnamed_addr constant [63 x i8] c"--target_max - (>= 0) max number of blocks per core, none if 0\00", align 1
+@str.97 = private unnamed_addr constant [63 x i8] c"--target_min - (>= 0) min number of blocks per core, none if 0\00", align 1
+@str.98 = private unnamed_addr constant [39 x i8] c"--num_vars - number of variables (> 0)\00", align 1
+@str.99 = private unnamed_addr constant [53 x i8] c"--comm_vars - number of vars to communicate together\00", align 1
+@str.100 = private unnamed_addr constant [41 x i8] c"--num_tsteps - number of timesteps (> 0)\00", align 1
+@str.101 = private unnamed_addr constant [58 x i8] c"--stages_per_ts - number of comm/calc stages per timestep\00", align 1
+@str.102 = private unnamed_addr constant [53 x i8] c"--checksum_freq - number of stages between checksums\00", align 1
+@str.103 = private unnamed_addr constant [78 x i8] c"--stencil - 7 or 27 point (27 will not work with refinement (except uniform))\00", align 1
+@str.104 = private unnamed_addr constant [39 x i8] c"--error_tol - (e^{-error_tol} ; >= 0) \00", align 1
+@str.105 = private unnamed_addr constant [38 x i8] c"--report_diffusion - (>= 0) none if 0\00", align 1
+@str.106 = private unnamed_addr constant [24 x i8] c"--report_perf - 0, 1, 2\00", align 1
+@str.107 = private unnamed_addr constant [63 x i8] c"--refine_freq - frequency (timesteps) of plotting (0 for none)\00", align 1
+@str.108 = private unnamed_addr constant [56 x i8] c"--code - closely minic communication of different codes\00", align 1
+@str.109 = private unnamed_addr constant [75 x i8] c"         0 minimal sends, 1 send ghosts, 2 send ghosts and process on send\00", align 1
+@str.110 = private unnamed_addr constant [50 x i8] c"--permute - altenates directions in communication\00", align 1
+@str.111 = private unnamed_addr constant [94 x i8] c"--refine_ghost - use full extent of block (including ghosts) to determine if block is refined\00", align 1
+@str.112 = private unnamed_addr constant [61 x i8] c"--num_objects - (>= 0) number of objects to cause refinement\00", align 1
+@str.113 = private unnamed_addr constant [63 x i8] c"--object - type, position, movement, size, size rate of change\00", align 1
+@str.114 = private unnamed_addr constant [56 x i8] c"All associated settings are integers except for objects\00", align 1
+@str.115 = private unnamed_addr constant [75 x i8] c"WARNING: 27 point stencil with non-uniform refinement: answers may diverge\00", align 1
+@str.116 = private unnamed_addr constant [24 x i8] c"code must be 0, 1, or 2\00", align 1
+@str.117 = private unnamed_addr constant [26 x i8] c"illegal value for stencil\00", align 1
+@str.118 = private unnamed_addr constant [58 x i8] c"number of processors used does not match number allocated\00", align 1
+@str.119 = private unnamed_addr constant [37 x i8] c"number of variables must be positive\00", align 1
+@str.121 = private unnamed_addr constant [49 x i8] c"number of refinement levels must be non-negative\00", align 1
+@str.122 = private unnamed_addr constant [29 x i8] c"illegal value for target_min\00", align 1
+@str.123 = private unnamed_addr constant [29 x i8] c"illegal value for target_max\00", align 1
+@str.124 = private unnamed_addr constant [32 x i8] c"illegal value for target_active\00", align 1
+@str.125 = private unnamed_addr constant [53 x i8] c"Only one of target_active and target_min can be used\00", align 1
+@str.126 = private unnamed_addr constant [53 x i8] c"Only one of target_active and target_max can be used\00", align 1
+@str.127 = private unnamed_addr constant [39 x i8] c"block size in z direction must be even\00", align 1
+@str.128 = private unnamed_addr constant [39 x i8] c"block size in y direction must be even\00", align 1
+@str.129 = private unnamed_addr constant [39 x i8] c"block size in x direction must be even\00", align 1
+@str.130 = private unnamed_addr constant [28 x i8] c"block size must be positive\00", align 1
+@str.131 = private unnamed_addr constant [32 x i8] c"max_num_blocks not large enough\00", align 1
+@str.132 = private unnamed_addr constant [45 x i8] c"initial blocks on processor must be positive\00", align 1
+@str.133 = private unnamed_addr constant [39 x i8] c"object number greater than num_objects\00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
@@ -671,7 +671,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   br i1 %286, label %289, label %287
 
 287:                                              ; preds = %284
-  %288 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %288 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.133)
   tail call void @exit(i32 noundef -1) #12
   unreachable
 
@@ -898,39 +898,39 @@ declare void @exit(i32 noundef) local_unnamed_addr #4
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @print_help_message() local_unnamed_addr #5 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.83)
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.84)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.85)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.86)
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.87)
-  %6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
-  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.89)
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
-  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.91)
-  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.92)
-  %11 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.93)
-  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.94)
-  %13 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.95)
-  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.96)
-  %15 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.97)
-  %16 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.98)
-  %17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
-  %18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.100)
-  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
-  %20 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
-  %21 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
-  %22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.104)
-  %23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
-  %24 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
-  %25 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
-  %26 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
-  %27 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
-  %28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
-  %29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
-  %30 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
-  %31 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
-  %32 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.114)
-  %33 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.115)
+  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.83)
+  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.84)
+  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.85)
+  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.86)
+  %6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.87)
+  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
+  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.89)
+  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
+  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.91)
+  %11 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.92)
+  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.93)
+  %13 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.94)
+  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.95)
+  %15 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.96)
+  %16 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.97)
+  %17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.98)
+  %18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.99)
+  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.100)
+  %20 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.101)
+  %21 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.102)
+  %22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.103)
+  %23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.104)
+  %24 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.105)
+  %25 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.106)
+  %26 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.107)
+  %27 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.108)
+  %28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.109)
+  %29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.110)
+  %30 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.111)
+  %31 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.112)
+  %32 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.113)
+  %33 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.114)
   ret void
 }
 
@@ -947,7 +947,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %8, label %9, label %14
 
 9:                                                ; preds = %0
-  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.133)
+  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.132)
   %11 = load i32, ptr @init_block_x, align 4, !tbaa !5
   %12 = load i32, ptr @init_block_y, align 4, !tbaa !5
   %13 = load i32, ptr @init_block_z, align 4, !tbaa !5
@@ -965,7 +965,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %22, label %23, label %25
 
 23:                                               ; preds = %14
-  %24 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.132)
+  %24 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.131)
   br label %25
 
 25:                                               ; preds = %23, %14
@@ -981,7 +981,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %34, label %35, label %38
 
 35:                                               ; preds = %25
-  %36 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.131)
+  %36 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.130)
   %37 = load i32, ptr @x_block_size, align 4, !tbaa !5
   br label %38
 
@@ -994,7 +994,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %43, label %46, label %44
 
 44:                                               ; preds = %38
-  %45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.130)
+  %45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.129)
   br label %46
 
 46:                                               ; preds = %44, %38
@@ -1006,7 +1006,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %51, label %54, label %52
 
 52:                                               ; preds = %46
-  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.129)
+  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.128)
   br label %54
 
 54:                                               ; preds = %52, %46
@@ -1018,7 +1018,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %59, label %62, label %60
 
 60:                                               ; preds = %54
-  %61 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.128)
+  %61 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.127)
   br label %62
 
 62:                                               ; preds = %60, %54
@@ -1031,7 +1031,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %68, label %69, label %72
 
 69:                                               ; preds = %62
-  %70 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.127)
+  %70 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.126)
   %71 = load i32, ptr @target_active, align 4, !tbaa !5
   br label %72
 
@@ -1045,7 +1045,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %78, label %79, label %82
 
 79:                                               ; preds = %72
-  %80 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.126)
+  %80 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.125)
   %81 = load i32, ptr @target_active, align 4, !tbaa !5
   br label %82
 
@@ -1059,7 +1059,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %88, label %89, label %93
 
 89:                                               ; preds = %82
-  %90 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.125)
+  %90 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.124)
   %91 = load i32, ptr @max_num_blocks, align 4
   %92 = load i32, ptr @target_active, align 4
   br label %93
@@ -1077,7 +1077,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %102, label %103, label %108
 
 103:                                              ; preds = %93
-  %104 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.124)
+  %104 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.123)
   %105 = load i32, ptr @max_num_blocks, align 4
   %106 = load i32, ptr @target_active, align 4
   %107 = load i32, ptr @target_max, align 4
@@ -1099,7 +1099,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %120, label %121, label %123
 
 121:                                              ; preds = %108
-  %122 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.123)
+  %122 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.122)
   br label %123
 
 123:                                              ; preds = %108, %121
@@ -1109,7 +1109,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %126, label %127, label %129
 
 127:                                              ; preds = %123
-  %128 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.122)
+  %128 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
   br label %129
 
 129:                                              ; preds = %127, %123
@@ -1119,7 +1119,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %132, label %133, label %135
 
 133:                                              ; preds = %129
-  %134 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.122)
+  %134 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.121)
   br label %135
 
 135:                                              ; preds = %133, %129
@@ -1129,7 +1129,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %138, label %139, label %141
 
 139:                                              ; preds = %135
-  %140 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.120)
+  %140 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.119)
   br label %141
 
 141:                                              ; preds = %139, %135
@@ -1144,7 +1144,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %149, label %152, label %150
 
 150:                                              ; preds = %141
-  %151 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.119)
+  %151 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.118)
   br label %152
 
 152:                                              ; preds = %150, %141
@@ -1156,7 +1156,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   ]
 
 155:                                              ; preds = %152
-  %156 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.118)
+  %156 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.117)
   %157 = load i32, ptr @stencil, align 4, !tbaa !5
   br label %158
 
@@ -1173,7 +1173,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %167, label %170, label %168
 
 168:                                              ; preds = %158
-  %169 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.116)
+  %169 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.115)
   br label %170
 
 170:                                              ; preds = %168, %158
@@ -1194,7 +1194,7 @@ define dso_local i32 @check_input() local_unnamed_addr #5 {
   br i1 %179, label %180, label %182
 
 180:                                              ; preds = %177
-  %181 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.117)
+  %181 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.116)
   br label %182
 
 182:                                              ; preds = %177, %180

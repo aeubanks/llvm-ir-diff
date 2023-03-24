@@ -43,9 +43,9 @@ define dso_local i32 @main() local_unnamed_addr #3 {
   %5 = icmp ne i16 %1, 0
   %6 = select i1 %4, i1 %5, i1 false
   %7 = load i32, ptr @i, align 4, !tbaa !12
-  %8 = icmp slt i32 %7, 1
+  %8 = icmp sgt i32 %7, 0
   %9 = xor i1 %6, %8
-  br i1 %9, label %13, label %10
+  br i1 %9, label %10, label %13
 
 10:                                               ; preds = %0
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -61,9 +61,9 @@ define dso_local i32 @main() local_unnamed_addr #3 {
   %17 = icmp ne i32 %15, 0
   %18 = icmp ne i16 %16, 0
   %19 = select i1 %17, i1 %18, i1 false
-  %20 = icmp slt i32 %14, 1
+  %20 = icmp sgt i32 %14, 0
   %21 = xor i1 %19, %20
-  br i1 %21, label %25, label %22
+  br i1 %21, label %22, label %25
 
 22:                                               ; preds = %13
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -79,9 +79,9 @@ define dso_local i32 @main() local_unnamed_addr #3 {
   %29 = icmp ne i32 %27, 0
   %30 = icmp ne i16 %28, 0
   %31 = select i1 %29, i1 %30, i1 false
-  %32 = icmp slt i32 %26, 1
+  %32 = icmp sgt i32 %26, 0
   %33 = xor i1 %31, %32
-  br i1 %33, label %37, label %34
+  br i1 %33, label %34, label %37
 
 34:                                               ; preds = %25
   store i16 1, ptr @c, align 2, !tbaa !6
@@ -94,101 +94,103 @@ define dso_local i32 @main() local_unnamed_addr #3 {
   %38 = phi i32 [ %36, %34 ], [ %26, %25 ]
   %39 = phi i32 [ %35, %34 ], [ %27, %25 ]
   %40 = phi i16 [ 1, %34 ], [ %28, %25 ]
-  %41 = zext i1 %33 to i32
-  store i32 %41, ptr @g, align 4, !tbaa !12
-  %42 = icmp ne i32 %39, 0
-  %43 = icmp ne i16 %40, 0
-  %44 = select i1 %42, i1 %43, i1 false
-  %45 = icmp slt i32 %38, 1
-  %46 = xor i1 %44, %45
-  br i1 %46, label %50, label %47
+  %41 = xor i1 %33, true
+  %42 = zext i1 %41 to i32
+  store i32 %42, ptr @g, align 4, !tbaa !12
+  %43 = icmp ne i32 %39, 0
+  %44 = icmp ne i16 %40, 0
+  %45 = select i1 %43, i1 %44, i1 false
+  %46 = icmp sgt i32 %38, 0
+  %47 = xor i1 %45, %46
+  br i1 %47, label %48, label %51
 
-47:                                               ; preds = %37
+48:                                               ; preds = %37
   store i16 1, ptr @c, align 2, !tbaa !6
   store i32 0, ptr %2, align 4, !tbaa !12
-  %48 = load i32, ptr @k, align 4, !tbaa !12
-  %49 = load i32, ptr @i, align 4, !tbaa !12
-  br label %50
+  %49 = load i32, ptr @k, align 4, !tbaa !12
+  %50 = load i32, ptr @i, align 4, !tbaa !12
+  br label %51
 
-50:                                               ; preds = %47, %37
-  %51 = phi i32 [ %49, %47 ], [ %38, %37 ]
-  %52 = phi i32 [ %48, %47 ], [ %39, %37 ]
-  %53 = phi i16 [ 1, %47 ], [ %40, %37 ]
-  %54 = icmp ne i32 %52, 0
-  %55 = icmp ne i16 %53, 0
-  %56 = select i1 %54, i1 %55, i1 false
-  %57 = icmp slt i32 %51, 1
-  %58 = xor i1 %56, %57
-  br i1 %58, label %62, label %59
+51:                                               ; preds = %48, %37
+  %52 = phi i32 [ %50, %48 ], [ %38, %37 ]
+  %53 = phi i32 [ %49, %48 ], [ %39, %37 ]
+  %54 = phi i16 [ 1, %48 ], [ %40, %37 ]
+  %55 = icmp ne i32 %53, 0
+  %56 = icmp ne i16 %54, 0
+  %57 = select i1 %55, i1 %56, i1 false
+  %58 = icmp sgt i32 %52, 0
+  %59 = xor i1 %57, %58
+  br i1 %59, label %60, label %63
 
-59:                                               ; preds = %50
+60:                                               ; preds = %51
   store i16 1, ptr @c, align 2, !tbaa !6
   store i32 0, ptr %2, align 4, !tbaa !12
-  %60 = load i32, ptr @k, align 4, !tbaa !12
-  %61 = load i32, ptr @i, align 4, !tbaa !12
-  br label %62
+  %61 = load i32, ptr @k, align 4, !tbaa !12
+  %62 = load i32, ptr @i, align 4, !tbaa !12
+  br label %63
 
-62:                                               ; preds = %59, %50
-  %63 = phi i32 [ %61, %59 ], [ %51, %50 ]
-  %64 = phi i32 [ %60, %59 ], [ %52, %50 ]
-  %65 = phi i16 [ 1, %59 ], [ %53, %50 ]
-  %66 = icmp ne i32 %64, 0
-  %67 = icmp ne i16 %65, 0
-  %68 = select i1 %66, i1 %67, i1 false
-  %69 = icmp slt i32 %63, 1
-  %70 = xor i1 %68, %69
-  br i1 %70, label %74, label %71
+63:                                               ; preds = %60, %51
+  %64 = phi i32 [ %62, %60 ], [ %52, %51 ]
+  %65 = phi i32 [ %61, %60 ], [ %53, %51 ]
+  %66 = phi i16 [ 1, %60 ], [ %54, %51 ]
+  %67 = icmp ne i32 %65, 0
+  %68 = icmp ne i16 %66, 0
+  %69 = select i1 %67, i1 %68, i1 false
+  %70 = icmp sgt i32 %64, 0
+  %71 = xor i1 %69, %70
+  br i1 %71, label %72, label %75
 
-71:                                               ; preds = %62
+72:                                               ; preds = %63
   store i16 1, ptr @c, align 2, !tbaa !6
   store i32 0, ptr %2, align 4, !tbaa !12
-  %72 = load i32, ptr @k, align 4, !tbaa !12
-  %73 = load i32, ptr @i, align 4, !tbaa !12
-  br label %74
+  %73 = load i32, ptr @k, align 4, !tbaa !12
+  %74 = load i32, ptr @i, align 4, !tbaa !12
+  br label %75
 
-74:                                               ; preds = %71, %62
-  %75 = phi i32 [ %73, %71 ], [ %63, %62 ]
-  %76 = phi i32 [ %72, %71 ], [ %64, %62 ]
-  %77 = phi i16 [ 1, %71 ], [ %65, %62 ]
-  %78 = icmp ne i32 %76, 0
-  %79 = icmp ne i16 %77, 0
-  %80 = select i1 %78, i1 %79, i1 false
-  %81 = icmp slt i32 %75, 1
-  %82 = xor i1 %80, %81
-  br i1 %82, label %86, label %83
+75:                                               ; preds = %72, %63
+  %76 = phi i32 [ %74, %72 ], [ %64, %63 ]
+  %77 = phi i32 [ %73, %72 ], [ %65, %63 ]
+  %78 = phi i16 [ 1, %72 ], [ %66, %63 ]
+  %79 = icmp ne i32 %77, 0
+  %80 = icmp ne i16 %78, 0
+  %81 = select i1 %79, i1 %80, i1 false
+  %82 = icmp sgt i32 %76, 0
+  %83 = xor i1 %81, %82
+  br i1 %83, label %84, label %87
 
-83:                                               ; preds = %74
+84:                                               ; preds = %75
   store i16 1, ptr @c, align 2, !tbaa !6
   store i32 0, ptr %2, align 4, !tbaa !12
-  %84 = load i32, ptr @k, align 4, !tbaa !12
-  %85 = load i32, ptr @i, align 4, !tbaa !12
-  br label %86
+  %85 = load i32, ptr @k, align 4, !tbaa !12
+  %86 = load i32, ptr @i, align 4, !tbaa !12
+  br label %87
 
-86:                                               ; preds = %83, %74
-  %87 = phi i32 [ %85, %83 ], [ %75, %74 ]
-  %88 = phi i32 [ %84, %83 ], [ %76, %74 ]
-  %89 = phi i16 [ 1, %83 ], [ %77, %74 ]
-  %90 = load i32, ptr @a, align 4, !tbaa !12
-  %91 = icmp ne i32 %88, 0
-  %92 = icmp ne i16 %89, 0
-  %93 = select i1 %91, i1 %92, i1 false
-  %94 = icmp slt i32 %87, 1
-  %95 = xor i1 %93, %94
-  br i1 %95, label %97, label %96
+87:                                               ; preds = %84, %75
+  %88 = phi i32 [ %86, %84 ], [ %76, %75 ]
+  %89 = phi i32 [ %85, %84 ], [ %77, %75 ]
+  %90 = phi i16 [ 1, %84 ], [ %78, %75 ]
+  %91 = load i32, ptr @a, align 4, !tbaa !12
+  %92 = icmp ne i32 %89, 0
+  %93 = icmp ne i16 %90, 0
+  %94 = select i1 %92, i1 %93, i1 false
+  %95 = icmp sgt i32 %88, 0
+  %96 = xor i1 %94, %95
+  br i1 %96, label %97, label %98
 
-96:                                               ; preds = %86
+97:                                               ; preds = %87
   store i16 1, ptr @c, align 2, !tbaa !6
   store i32 0, ptr %2, align 4, !tbaa !12
-  br label %97
+  br label %98
 
-97:                                               ; preds = %96, %86
-  %98 = zext i1 %95 to i32
-  store i32 %98, ptr @g, align 4, !tbaa !12
-  %99 = trunc i32 %90 to i16
-  %100 = zext i1 %93 to i8
+98:                                               ; preds = %97, %87
+  %99 = xor i1 %96, true
+  %100 = zext i1 %99 to i32
+  store i32 %100, ptr @g, align 4, !tbaa !12
+  %101 = trunc i32 %91 to i16
+  %102 = zext i1 %94 to i8
   store i8 -30, ptr @b, align 1, !tbaa !14
-  store i16 %99, ptr @h, align 2, !tbaa !6
-  store i8 %100, ptr @e, align 1, !tbaa !14
+  store i16 %101, ptr @h, align 2, !tbaa !6
+  store i8 %102, ptr @e, align 1, !tbaa !14
   tail call void @dummy()
   ret i32 0
 }

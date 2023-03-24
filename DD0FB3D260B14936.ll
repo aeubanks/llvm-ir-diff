@@ -840,9 +840,9 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   %450 = load i32, ptr @memory_ALIGN, align 4
   %451 = urem i32 %418, %450
   %452 = icmp eq i32 %451, 0
-  %453 = sub i32 %450, %451
-  %454 = select i1 %452, i32 0, i32 %453
-  %455 = add i32 %454, %418
+  %453 = add i32 %450, %418
+  %454 = sub i32 %453, %451
+  %455 = select i1 %452, i32 %418, i32 %454
   %456 = load i32, ptr @memory_OFFSET, align 4
   %457 = zext i32 %456 to i64
   %458 = sub nsw i64 0, %457
@@ -866,7 +866,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 
 471:                                              ; preds = %469, %449
   %472 = load i32, ptr @memory_MARKSIZE, align 4
-  %473 = add i32 %455, %472
+  %473 = add i32 %472, %455
   %474 = zext i32 %473 to i64
   %475 = add nuw nsw i64 %474, 16
   %476 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -1810,8 +1810,8 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   %1099 = phi ptr [ %1071, %1096 ], [ %1863, %1862 ]
   %1100 = phi ptr [ %1072, %1096 ], [ %1813, %1862 ]
   %1101 = load ptr, ptr %5, align 8
-  %1102 = icmp ne ptr %1101, null
-  br i1 %1102, label %1103, label %1106
+  %1102 = icmp eq ptr %1101, null
+  br i1 %1102, label %1106, label %1103
 
 1103:                                             ; preds = %1097
   %1104 = load ptr, ptr %511, align 8
@@ -1825,9 +1825,9 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 
 1109:                                             ; preds = %1106
   %1110 = load ptr, ptr %506, align 8
-  %1111 = icmp ne ptr %1110, null
-  %1112 = or i1 %1102, %1111
-  br i1 %1112, label %1113, label %1866
+  %1111 = icmp eq ptr %1110, null
+  %1112 = and i1 %1102, %1111
+  br i1 %1112, label %1866, label %1113
 
 1113:                                             ; preds = %1109
   %1114 = load i32, ptr %1051, align 4
@@ -1861,30 +1861,30 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   %1131 = icmp eq ptr %1130, null
   %1132 = load ptr, ptr %5, align 8
   %1133 = icmp eq ptr %1132, null
-  br i1 %1131, label %1135, label %1134
+  br i1 %1131, label %1134, label %1142
 
 1134:                                             ; preds = %1125
-  br i1 %1133, label %1162, label %1143
+  br i1 %1133, label %1175, label %1135
 
-1135:                                             ; preds = %1125
-  br i1 %1133, label %1175, label %1136
+1135:                                             ; preds = %1134
+  %1136 = icmp eq ptr %1126, null
+  br i1 %1136, label %1175, label %1137
 
-1136:                                             ; preds = %1135
-  %1137 = icmp eq ptr %1126, null
-  br i1 %1137, label %1175, label %1138
+1137:                                             ; preds = %1135, %1137
+  %1138 = phi ptr [ %1139, %1137 ], [ %1132, %1135 ]
+  %1139 = load ptr, ptr %1138, align 8
+  %1140 = icmp eq ptr %1139, null
+  br i1 %1140, label %1141, label %1137, !llvm.loop !16
 
-1138:                                             ; preds = %1136, %1138
-  %1139 = phi ptr [ %1140, %1138 ], [ %1132, %1136 ]
-  %1140 = load ptr, ptr %1139, align 8
-  %1141 = icmp eq ptr %1140, null
-  br i1 %1141, label %1142, label %1138, !llvm.loop !16
-
-1142:                                             ; preds = %1138
-  store ptr %1126, ptr %1139, align 8
+1141:                                             ; preds = %1137
+  store ptr %1126, ptr %1138, align 8
   br label %1175
 
-1143:                                             ; preds = %1134, %1150
-  %1144 = phi ptr [ %1152, %1150 ], [ %1132, %1134 ]
+1142:                                             ; preds = %1125
+  br i1 %1133, label %1162, label %1143
+
+1143:                                             ; preds = %1142, %1150
+  %1144 = phi ptr [ %1152, %1150 ], [ %1132, %1142 ]
   %1145 = getelementptr i8, ptr %1144, i64 8
   %1146 = load ptr, ptr %1145, align 8
   %1147 = icmp eq ptr %1146, %1099
@@ -1913,7 +1913,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   %1161 = icmp eq ptr %1152, null
   br i1 %1161, label %1162, label %1143, !llvm.loop !37
 
-1162:                                             ; preds = %1150, %1134
+1162:                                             ; preds = %1150, %1142
   call void @prfs_InsertDocProofClause(ptr noundef %40, ptr noundef %1099) #14
   %1163 = load i32, ptr %1052, align 4
   %1164 = icmp eq i32 %1163, 0
@@ -1937,9 +1937,9 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   %1174 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.60, i32 noundef %1173)
   br label %1175
 
-1175:                                             ; preds = %1172, %1168, %1142, %1136, %1135
-  %1176 = phi ptr [ %1169, %1172 ], [ %1169, %1168 ], [ %1100, %1135 ], [ %1100, %1136 ], [ %1100, %1142 ]
-  %1177 = phi ptr [ %1126, %1172 ], [ %1126, %1168 ], [ %1126, %1135 ], [ %1132, %1136 ], [ %1132, %1142 ]
+1175:                                             ; preds = %1172, %1168, %1141, %1135, %1134
+  %1176 = phi ptr [ %1169, %1172 ], [ %1169, %1168 ], [ %1100, %1134 ], [ %1100, %1135 ], [ %1100, %1141 ]
+  %1177 = phi ptr [ %1126, %1172 ], [ %1126, %1168 ], [ %1126, %1134 ], [ %1132, %1135 ], [ %1132, %1141 ]
   store ptr null, ptr %5, align 8
   br label %1810
 
@@ -2925,10 +2925,10 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   br label %1810
 
 1810:                                             ; preds = %1807, %1490, %1175
-  %1811 = phi i32 [ %1098, %1175 ], [ %1808, %1807 ], [ %1459, %1490 ]
-  %1812 = phi ptr [ null, %1175 ], [ %1099, %1807 ], [ %1099, %1490 ]
-  %1813 = phi ptr [ %1176, %1175 ], [ %1100, %1807 ], [ %1100, %1490 ]
-  %1814 = phi ptr [ %1177, %1175 ], [ %1809, %1807 ], [ %1491, %1490 ]
+  %1811 = phi i32 [ %1459, %1490 ], [ %1808, %1807 ], [ %1098, %1175 ]
+  %1812 = phi ptr [ %1099, %1490 ], [ %1099, %1807 ], [ null, %1175 ]
+  %1813 = phi ptr [ %1100, %1490 ], [ %1100, %1807 ], [ %1176, %1175 ]
+  %1814 = phi ptr [ %1491, %1490 ], [ %1809, %1807 ], [ %1177, %1175 ]
   %1815 = load i32, ptr %1055, align 4
   %1816 = icmp eq i32 %1815, 0
   %1817 = icmp eq ptr %1814, null
@@ -3072,15 +3072,15 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   br i1 %1895, label %1900, label %1896
 
 1896:                                             ; preds = %1890
-  %1897 = icmp ne ptr %1893, null
+  %1897 = icmp eq ptr %1893, null
   %1898 = xor i1 %1897, true
-  %1899 = zext i1 %1898 to i32
+  %1899 = zext i1 %1897 to i32
   br label %1900
 
 1900:                                             ; preds = %1890, %1896, %1887, %1883
-  %1901 = phi i1 [ false, %1887 ], [ false, %1883 ], [ %1897, %1896 ], [ false, %1890 ]
+  %1901 = phi i1 [ false, %1887 ], [ false, %1883 ], [ %1898, %1896 ], [ false, %1890 ]
   %1902 = phi i1 [ false, %1887 ], [ false, %1883 ], [ true, %1896 ], [ false, %1890 ]
-  %1903 = phi i1 [ false, %1887 ], [ false, %1883 ], [ %1898, %1896 ], [ false, %1890 ]
+  %1903 = phi i1 [ false, %1887 ], [ false, %1883 ], [ %1897, %1896 ], [ false, %1890 ]
   %1904 = phi i32 [ 2, %1887 ], [ 2, %1883 ], [ %1899, %1896 ], [ 2, %1890 ]
   %1905 = load i32, ptr %519, align 4
   %1906 = icmp eq i32 %1905, 0
@@ -4575,7 +4575,7 @@ define internal fastcc ptr @top_GetLiteralsForSplitting(ptr noundef %0) unnamed_
   %152 = add i32 %151, %149
   %153 = sext i32 %152 to i64
   %154 = icmp slt i64 %128, %153
-  %155 = and i1 %144, %154
+  %155 = and i1 %154, %144
   br i1 %155, label %127, label %156, !llvm.loop !60
 
 156:                                              ; preds = %143
@@ -4657,9 +4657,9 @@ define internal fastcc ptr @top_GetLiteralsForSplitting(ptr noundef %0) unnamed_
   %211 = load i32, ptr @memory_ALIGN, align 4
   %212 = urem i32 %208, %211
   %213 = icmp eq i32 %212, 0
-  %214 = sub i32 %211, %212
-  %215 = select i1 %213, i32 0, i32 %214
-  %216 = add i32 %215, %208
+  %214 = add i32 %211, %208
+  %215 = sub i32 %214, %212
+  %216 = select i1 %213, i32 %208, i32 %215
   %217 = load i32, ptr @memory_OFFSET, align 4
   %218 = zext i32 %217 to i64
   %219 = sub nsw i64 0, %218
@@ -4683,7 +4683,7 @@ define internal fastcc ptr @top_GetLiteralsForSplitting(ptr noundef %0) unnamed_
 
 232:                                              ; preds = %230, %210
   %233 = load i32, ptr @memory_MARKSIZE, align 4
-  %234 = add i32 %216, %233
+  %234 = add i32 %233, %216
   %235 = zext i32 %234 to i64
   %236 = add nuw nsw i64 %235, 16
   %237 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -4779,11 +4779,11 @@ declare void @list_DeleteWithElement(ptr noundef, ptr noundef) local_unnamed_add
 
 declare void @symbol_Delete(i32 noundef) #2
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umax.i64(i64, i64) #13
@@ -4799,8 +4799,8 @@ attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: readwri
 attributes #8 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #12 = { nofree nounwind }
 attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { nounwind }
 attributes #15 = { nounwind willreturn memory(read) }

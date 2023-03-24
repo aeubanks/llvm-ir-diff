@@ -190,7 +190,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN30GIM_TRIANGLE_CALCULATION_
   %133 = fneg float %132
   store float %133, ptr %127, align 4, !tbaa !16
   %134 = fcmp olt float %13, %133
-  br i1 %134, label %524, label %135
+  br i1 %134, label %525, label %135
 
 135:                                              ; preds = %128
   %136 = fadd <2 x float> %20, %21
@@ -223,7 +223,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN30GIM_TRIANGLE_CALCULATION_
   %156 = select i1 %155, float %154, float %116
   store float %156, ptr %127, align 4, !tbaa !16
   %157 = fcmp ogt float %156, %13
-  br i1 %157, label %524, label %190
+  br i1 %157, label %525, label %190
 
 158:                                              ; preds = %74
   %159 = fadd float %116, %117
@@ -377,26 +377,26 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN30GIM_TRIANGLE_CALCULATION_
   %280 = extractelement <2 x float> %277, i64 1
   %281 = fcmp ogt float %280, 0.000000e+00
   %282 = select i1 %279, i1 %281, i1 false
-  br i1 %282, label %283, label %316
+  br i1 %282, label %283, label %317
 
 283:                                              ; preds = %241
   %284 = fcmp olt float %259, 0.000000e+00
-  %285 = getelementptr inbounds %class.GIM_TRIANGLE_CALCULATION_CACHE, ptr %0, i64 0, i32 8, i32 0, i64 1
-  br i1 %284, label %286, label %308
+  br i1 %284, label %285, label %308
 
-286:                                              ; preds = %283
-  %287 = extractelement <2 x float> %273, i64 0
-  %288 = extractelement <2 x float> %273, i64 1
-  %289 = fcmp olt float %287, %288
-  %290 = select i1 %289, float %288, float %287
-  %291 = fcmp olt float %259, %290
-  %292 = select i1 %291, float %290, float %259
-  %293 = fneg float %292
-  store float %293, ptr %285, align 4, !tbaa !16
-  %294 = fcmp olt float %13, %293
-  br i1 %294, label %524, label %295
+285:                                              ; preds = %283
+  %286 = extractelement <2 x float> %273, i64 0
+  %287 = extractelement <2 x float> %273, i64 1
+  %288 = fcmp olt float %286, %287
+  %289 = select i1 %288, float %287, float %286
+  %290 = fcmp olt float %259, %289
+  %291 = select i1 %290, float %289, float %259
+  %292 = fneg float %291
+  %293 = getelementptr inbounds %class.GIM_TRIANGLE_CALCULATION_CACHE, ptr %0, i64 0, i32 8, i32 0, i64 1
+  store float %292, ptr %293, align 4, !tbaa !16
+  %294 = fcmp olt float %13, %292
+  br i1 %294, label %525, label %295
 
-295:                                              ; preds = %286
+295:                                              ; preds = %285
   %296 = fadd <2 x float> %81, %82
   %297 = fsub <2 x float> %296, %82
   store <2 x float> %297, ptr %15, align 4, !tbaa !16
@@ -414,7 +414,7 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN30GIM_TRIANGLE_CALCULATION_
   %306 = shufflevector <4 x float> %304, <4 x float> %305, <4 x i32> <i32 0, i32 1, i32 2, i32 5>
   %307 = fneg <4 x float> %306
   store <4 x float> %307, ptr %201, align 4, !tbaa !16
-  br label %346
+  br label %347
 
 308:                                              ; preds = %283
   %309 = extractelement <2 x float> %273, i64 0
@@ -423,328 +423,329 @@ define linkonce_odr dso_local noundef zeroext i1 @_ZN30GIM_TRIANGLE_CALCULATION_
   %312 = select i1 %311, float %310, float %309
   %313 = fcmp ogt float %259, %312
   %314 = select i1 %313, float %312, float %259
-  store float %314, ptr %285, align 4, !tbaa !16
-  %315 = fcmp ogt float %314, %13
-  br i1 %315, label %524, label %346
+  %315 = getelementptr inbounds %class.GIM_TRIANGLE_CALCULATION_CACHE, ptr %0, i64 0, i32 8, i32 0, i64 1
+  store float %314, ptr %315, align 4, !tbaa !16
+  %316 = fcmp ogt float %314, %13
+  br i1 %316, label %525, label %347
 
-316:                                              ; preds = %241
-  %317 = extractelement <2 x float> %273, i64 0
-  %318 = fadd float %259, %317
-  %319 = extractelement <2 x float> %273, i64 1
-  %320 = fadd float %319, %318
-  %321 = fdiv float %320, 3.000000e+00
-  %322 = getelementptr inbounds %class.GIM_TRIANGLE_CALCULATION_CACHE, ptr %0, i64 0, i32 8, i32 0, i64 1
-  %323 = fcmp olt float %321, 0.000000e+00
-  br i1 %323, label %324, label %341
+317:                                              ; preds = %241
+  %318 = extractelement <2 x float> %273, i64 0
+  %319 = fadd float %259, %318
+  %320 = extractelement <2 x float> %273, i64 1
+  %321 = fadd float %320, %319
+  %322 = fdiv float %321, 3.000000e+00
+  %323 = getelementptr inbounds %class.GIM_TRIANGLE_CALCULATION_CACHE, ptr %0, i64 0, i32 8, i32 0, i64 1
+  %324 = fcmp olt float %322, 0.000000e+00
+  br i1 %324, label %325, label %342
 
-324:                                              ; preds = %316
-  %325 = fadd <2 x float> %81, %82
-  %326 = fsub <2 x float> %325, %82
-  store <2 x float> %326, ptr %15, align 4, !tbaa !16
-  %327 = fsub <2 x float> %325, %326
-  store <2 x float> %327, ptr %14, align 4, !tbaa !16
-  %328 = fadd float %84, %92
-  %329 = fsub float %328, %92
-  store float %329, ptr %83, align 4, !tbaa !16
-  %330 = fsub float %328, %329
-  store float %330, ptr %79, align 4, !tbaa !16
-  %331 = shufflevector <2 x float> %243, <2 x float> poison, <4 x i32> <i32 undef, i32 0, i32 1, i32 undef>
-  %332 = insertelement <4 x float> %331, float %242, i64 0
-  %333 = shufflevector <2 x float> %256, <2 x float> poison, <4 x i32> <i32 undef, i32 1, i32 undef, i32 undef>
-  %334 = shufflevector <4 x float> %332, <4 x float> %333, <4 x i32> <i32 0, i32 1, i32 2, i32 5>
-  %335 = fneg <4 x float> %334
-  store <4 x float> %335, ptr %201, align 4, !tbaa !16
-  %336 = fcmp olt float %317, %319
-  %337 = select i1 %336, float %319, float %317
-  %338 = fcmp olt float %259, %337
-  %339 = select i1 %338, float %337, float %259
-  %340 = fneg float %339
-  store float %340, ptr %322, align 4, !tbaa !16
-  br label %346
+325:                                              ; preds = %317
+  %326 = fadd <2 x float> %81, %82
+  %327 = fsub <2 x float> %326, %82
+  store <2 x float> %327, ptr %15, align 4, !tbaa !16
+  %328 = fsub <2 x float> %326, %327
+  store <2 x float> %328, ptr %14, align 4, !tbaa !16
+  %329 = fadd float %84, %92
+  %330 = fsub float %329, %92
+  store float %330, ptr %83, align 4, !tbaa !16
+  %331 = fsub float %329, %330
+  store float %331, ptr %79, align 4, !tbaa !16
+  %332 = shufflevector <2 x float> %243, <2 x float> poison, <4 x i32> <i32 undef, i32 0, i32 1, i32 undef>
+  %333 = insertelement <4 x float> %332, float %242, i64 0
+  %334 = shufflevector <2 x float> %256, <2 x float> poison, <4 x i32> <i32 undef, i32 1, i32 undef, i32 undef>
+  %335 = shufflevector <4 x float> %333, <4 x float> %334, <4 x i32> <i32 0, i32 1, i32 2, i32 5>
+  %336 = fneg <4 x float> %335
+  store <4 x float> %336, ptr %201, align 4, !tbaa !16
+  %337 = fcmp olt float %318, %320
+  %338 = select i1 %337, float %320, float %318
+  %339 = fcmp olt float %259, %338
+  %340 = select i1 %339, float %338, float %259
+  %341 = fneg float %340
+  store float %341, ptr %323, align 4, !tbaa !16
+  br label %347
 
-341:                                              ; preds = %316
-  %342 = fcmp ogt float %317, %319
-  %343 = select i1 %342, float %319, float %317
-  %344 = fcmp ogt float %259, %343
-  %345 = select i1 %344, float %343, float %259
-  store float %345, ptr %322, align 4, !tbaa !16
-  br label %346
+342:                                              ; preds = %317
+  %343 = fcmp ogt float %318, %320
+  %344 = select i1 %343, float %320, float %318
+  %345 = fcmp ogt float %259, %344
+  %346 = select i1 %345, float %344, float %259
+  store float %346, ptr %323, align 4, !tbaa !16
+  br label %347
 
-346:                                              ; preds = %324, %341, %295, %308
-  %347 = phi float [ %340, %324 ], [ %345, %341 ], [ %293, %295 ], [ %314, %308 ]
-  %348 = fcmp uge float %191, %347
-  %349 = getelementptr inbounds %class.GIM_TRIANGLE_CALCULATION_CACHE, ptr %0, i64 0, i32 17
-  br i1 %348, label %350, label %433
+347:                                              ; preds = %325, %342, %295, %308
+  %348 = phi float [ %341, %325 ], [ %346, %342 ], [ %292, %295 ], [ %314, %308 ]
+  %349 = fcmp uge float %191, %348
+  %350 = getelementptr inbounds %class.GIM_TRIANGLE_CALCULATION_CACHE, ptr %0, i64 0, i32 17
+  br i1 %349, label %351, label %434
 
-350:                                              ; preds = %346
-  %351 = tail call noundef i32 @_ZN30GIM_TRIANGLE_CALCULATION_CACHE13clip_triangleERK9btVector4PK9btVector3S5_PS3_(ptr noundef nonnull align 4 dereferenceable(1012) %0, ptr noundef nonnull align 4 dereferenceable(16) %33, ptr noundef nonnull %17, ptr noundef nonnull %14, ptr noundef nonnull %349)
-  %352 = icmp eq i32 %351, 0
-  br i1 %352, label %524, label %353
+351:                                              ; preds = %347
+  %352 = tail call noundef i32 @_ZN30GIM_TRIANGLE_CALCULATION_CACHE13clip_triangleERK9btVector4PK9btVector3S5_PS3_(ptr noundef nonnull align 4 dereferenceable(1012) %0, ptr noundef nonnull align 4 dereferenceable(16) %33, ptr noundef nonnull %17, ptr noundef nonnull %14, ptr noundef nonnull %350)
+  %353 = icmp eq i32 %352, 0
+  br i1 %353, label %525, label %354
 
-353:                                              ; preds = %350
-  %354 = load float, ptr %0, align 4, !tbaa !10
-  %355 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 2
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %355, ptr noundef nonnull align 4 dereferenceable(16) %33, i64 16, i1 false)
-  %356 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 1
-  store i32 0, ptr %356, align 4, !tbaa !19
+354:                                              ; preds = %351
+  %355 = load float, ptr %0, align 4, !tbaa !10
+  %356 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 2
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %356, ptr noundef nonnull align 4 dereferenceable(16) %33, i64 16, i1 false)
+  %357 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 1
+  store i32 0, ptr %357, align 4, !tbaa !19
   store float -1.000000e+03, ptr %9, align 4, !tbaa !22
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %12) #7
-  %357 = zext i32 %351 to i64
-  br label %366
+  %358 = zext i32 %352 to i64
+  br label %367
 
-358:                                              ; preds = %401
-  %359 = icmp eq i32 %403, 0
-  br i1 %359, label %432, label %360
+359:                                              ; preds = %402
+  %360 = icmp eq i32 %404, 0
+  br i1 %360, label %433, label %361
 
-360:                                              ; preds = %358
-  %361 = zext i32 %403 to i64
-  %362 = and i64 %361, 1
-  %363 = icmp eq i32 %403, 1
-  br i1 %363, label %423, label %364
+361:                                              ; preds = %359
+  %362 = zext i32 %404 to i64
+  %363 = and i64 %362, 1
+  %364 = icmp eq i32 %404, 1
+  br i1 %364, label %424, label %365
 
-364:                                              ; preds = %360
-  %365 = and i64 %361, 4294967294
-  br label %406
+365:                                              ; preds = %361
+  %366 = and i64 %362, 4294967294
+  br label %407
 
-366:                                              ; preds = %401, %353
-  %367 = phi float [ -1.000000e+03, %353 ], [ %402, %401 ]
-  %368 = phi i64 [ 0, %353 ], [ %404, %401 ]
-  %369 = phi i32 [ 0, %353 ], [ %403, %401 ]
-  %370 = getelementptr inbounds %class.btVector3, ptr %349, i64 %368
-  %371 = load float, ptr %33, align 4, !tbaa !16
-  %372 = load float, ptr %370, align 4, !tbaa !16
-  %373 = load float, ptr %34, align 4, !tbaa !16
-  %374 = getelementptr inbounds float, ptr %370, i64 1
-  %375 = load float, ptr %374, align 4, !tbaa !16
-  %376 = fmul float %373, %375
-  %377 = tail call float @llvm.fmuladd.f32(float %371, float %372, float %376)
-  %378 = load float, ptr %52, align 4, !tbaa !16
-  %379 = getelementptr inbounds float, ptr %370, i64 2
-  %380 = load float, ptr %379, align 4, !tbaa !16
-  %381 = tail call float @llvm.fmuladd.f32(float %378, float %380, float %377)
-  %382 = load float, ptr %78, align 4, !tbaa !16
-  %383 = fsub float %381, %382
-  %384 = fsub float %354, %383
-  %385 = fcmp ult float %384, 0.000000e+00
-  br i1 %385, label %401, label %386
+367:                                              ; preds = %402, %354
+  %368 = phi float [ -1.000000e+03, %354 ], [ %403, %402 ]
+  %369 = phi i64 [ 0, %354 ], [ %405, %402 ]
+  %370 = phi i32 [ 0, %354 ], [ %404, %402 ]
+  %371 = getelementptr inbounds %class.btVector3, ptr %350, i64 %369
+  %372 = load float, ptr %33, align 4, !tbaa !16
+  %373 = load float, ptr %371, align 4, !tbaa !16
+  %374 = load float, ptr %34, align 4, !tbaa !16
+  %375 = getelementptr inbounds float, ptr %371, i64 1
+  %376 = load float, ptr %375, align 4, !tbaa !16
+  %377 = fmul float %374, %376
+  %378 = tail call float @llvm.fmuladd.f32(float %372, float %373, float %377)
+  %379 = load float, ptr %52, align 4, !tbaa !16
+  %380 = getelementptr inbounds float, ptr %371, i64 2
+  %381 = load float, ptr %380, align 4, !tbaa !16
+  %382 = tail call float @llvm.fmuladd.f32(float %379, float %381, float %378)
+  %383 = load float, ptr %78, align 4, !tbaa !16
+  %384 = fsub float %382, %383
+  %385 = fsub float %355, %384
+  %386 = fcmp ult float %385, 0.000000e+00
+  br i1 %386, label %402, label %387
 
-386:                                              ; preds = %366
-  %387 = fcmp ogt float %384, %367
-  br i1 %387, label %388, label %390
+387:                                              ; preds = %367
+  %388 = fcmp ogt float %385, %368
+  br i1 %388, label %389, label %391
 
-388:                                              ; preds = %386
-  store float %384, ptr %9, align 4, !tbaa !22
-  %389 = trunc i64 %368 to i32
-  store i32 %389, ptr %12, align 16, !tbaa !23
-  br label %398
+389:                                              ; preds = %387
+  store float %385, ptr %9, align 4, !tbaa !22
+  %390 = trunc i64 %369 to i32
+  store i32 %390, ptr %12, align 16, !tbaa !23
+  br label %399
 
-390:                                              ; preds = %386
-  %391 = fadd float %384, 0x3E80000000000000
-  %392 = fcmp ult float %391, %367
-  br i1 %392, label %401, label %393
+391:                                              ; preds = %387
+  %392 = fadd float %385, 0x3E80000000000000
+  %393 = fcmp ult float %392, %368
+  br i1 %393, label %402, label %394
 
-393:                                              ; preds = %390
-  %394 = zext i32 %369 to i64
-  %395 = getelementptr inbounds [16 x i32], ptr %12, i64 0, i64 %394
-  %396 = trunc i64 %368 to i32
-  store i32 %396, ptr %395, align 4, !tbaa !23
-  %397 = add i32 %369, 1
-  br label %398
+394:                                              ; preds = %391
+  %395 = zext i32 %370 to i64
+  %396 = getelementptr inbounds [16 x i32], ptr %12, i64 0, i64 %395
+  %397 = trunc i64 %369 to i32
+  store i32 %397, ptr %396, align 4, !tbaa !23
+  %398 = add i32 %370, 1
+  br label %399
 
-398:                                              ; preds = %393, %388
-  %399 = phi i32 [ 1, %388 ], [ %397, %393 ]
-  %400 = phi float [ %384, %388 ], [ %367, %393 ]
-  store i32 %399, ptr %356, align 4, !tbaa !19
-  br label %401
+399:                                              ; preds = %394, %389
+  %400 = phi i32 [ 1, %389 ], [ %398, %394 ]
+  %401 = phi float [ %385, %389 ], [ %368, %394 ]
+  store i32 %400, ptr %357, align 4, !tbaa !19
+  br label %402
 
-401:                                              ; preds = %398, %390, %366
-  %402 = phi float [ %367, %390 ], [ %367, %366 ], [ %400, %398 ]
-  %403 = phi i32 [ %369, %390 ], [ %369, %366 ], [ %399, %398 ]
-  %404 = add nuw nsw i64 %368, 1
-  %405 = icmp eq i64 %404, %357
-  br i1 %405, label %358, label %366
+402:                                              ; preds = %399, %391, %367
+  %403 = phi float [ %368, %391 ], [ %368, %367 ], [ %401, %399 ]
+  %404 = phi i32 [ %370, %391 ], [ %370, %367 ], [ %400, %399 ]
+  %405 = add nuw nsw i64 %369, 1
+  %406 = icmp eq i64 %405, %358
+  br i1 %406, label %359, label %367
 
-406:                                              ; preds = %406, %364
-  %407 = phi i64 [ 0, %364 ], [ %420, %406 ]
-  %408 = phi i64 [ 0, %364 ], [ %421, %406 ]
-  %409 = getelementptr inbounds [16 x i32], ptr %12, i64 0, i64 %407
-  %410 = load i32, ptr %409, align 8, !tbaa !23
-  %411 = zext i32 %410 to i64
-  %412 = getelementptr inbounds %class.btVector3, ptr %349, i64 %411
-  %413 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %407
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %413, ptr noundef nonnull align 4 dereferenceable(16) %412, i64 16, i1 false), !tbaa.struct !14
-  %414 = or i64 %407, 1
-  %415 = getelementptr inbounds [16 x i32], ptr %12, i64 0, i64 %414
-  %416 = load i32, ptr %415, align 4, !tbaa !23
-  %417 = zext i32 %416 to i64
-  %418 = getelementptr inbounds %class.btVector3, ptr %349, i64 %417
-  %419 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %414
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %419, ptr noundef nonnull align 4 dereferenceable(16) %418, i64 16, i1 false), !tbaa.struct !14
-  %420 = add nuw nsw i64 %407, 2
-  %421 = add i64 %408, 2
-  %422 = icmp eq i64 %421, %365
-  br i1 %422, label %423, label %406
+407:                                              ; preds = %407, %365
+  %408 = phi i64 [ 0, %365 ], [ %421, %407 ]
+  %409 = phi i64 [ 0, %365 ], [ %422, %407 ]
+  %410 = getelementptr inbounds [16 x i32], ptr %12, i64 0, i64 %408
+  %411 = load i32, ptr %410, align 8, !tbaa !23
+  %412 = zext i32 %411 to i64
+  %413 = getelementptr inbounds %class.btVector3, ptr %350, i64 %412
+  %414 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %408
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %414, ptr noundef nonnull align 4 dereferenceable(16) %413, i64 16, i1 false), !tbaa.struct !14
+  %415 = or i64 %408, 1
+  %416 = getelementptr inbounds [16 x i32], ptr %12, i64 0, i64 %415
+  %417 = load i32, ptr %416, align 4, !tbaa !23
+  %418 = zext i32 %417 to i64
+  %419 = getelementptr inbounds %class.btVector3, ptr %350, i64 %418
+  %420 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %415
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %420, ptr noundef nonnull align 4 dereferenceable(16) %419, i64 16, i1 false), !tbaa.struct !14
+  %421 = add nuw nsw i64 %408, 2
+  %422 = add i64 %409, 2
+  %423 = icmp eq i64 %422, %366
+  br i1 %423, label %424, label %407
 
-423:                                              ; preds = %406, %360
-  %424 = phi i64 [ 0, %360 ], [ %420, %406 ]
-  %425 = icmp eq i64 %362, 0
-  br i1 %425, label %432, label %426
+424:                                              ; preds = %407, %361
+  %425 = phi i64 [ 0, %361 ], [ %421, %407 ]
+  %426 = icmp eq i64 %363, 0
+  br i1 %426, label %433, label %427
 
-426:                                              ; preds = %423
-  %427 = getelementptr inbounds [16 x i32], ptr %12, i64 0, i64 %424
-  %428 = load i32, ptr %427, align 4, !tbaa !23
-  %429 = zext i32 %428 to i64
-  %430 = getelementptr inbounds %class.btVector3, ptr %349, i64 %429
-  %431 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %424
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %431, ptr noundef nonnull align 4 dereferenceable(16) %430, i64 16, i1 false), !tbaa.struct !14
-  br label %432
+427:                                              ; preds = %424
+  %428 = getelementptr inbounds [16 x i32], ptr %12, i64 0, i64 %425
+  %429 = load i32, ptr %428, align 4, !tbaa !23
+  %430 = zext i32 %429 to i64
+  %431 = getelementptr inbounds %class.btVector3, ptr %350, i64 %430
+  %432 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %425
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %432, ptr noundef nonnull align 4 dereferenceable(16) %431, i64 16, i1 false), !tbaa.struct !14
+  br label %433
 
-432:                                              ; preds = %426, %423, %358
+433:                                              ; preds = %427, %424, %359
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %12) #7
-  br label %521
+  br label %522
 
-433:                                              ; preds = %346
-  %434 = tail call noundef i32 @_ZN30GIM_TRIANGLE_CALCULATION_CACHE13clip_triangleERK9btVector4PK9btVector3S5_PS3_(ptr noundef nonnull align 4 dereferenceable(1012) %0, ptr noundef nonnull align 4 dereferenceable(16) %201, ptr noundef nonnull %14, ptr noundef nonnull %17, ptr noundef nonnull %349)
-  %435 = icmp eq i32 %434, 0
-  br i1 %435, label %524, label %436
+434:                                              ; preds = %347
+  %435 = tail call noundef i32 @_ZN30GIM_TRIANGLE_CALCULATION_CACHE13clip_triangleERK9btVector4PK9btVector3S5_PS3_(ptr noundef nonnull align 4 dereferenceable(1012) %0, ptr noundef nonnull align 4 dereferenceable(16) %201, ptr noundef nonnull %14, ptr noundef nonnull %17, ptr noundef nonnull %350)
+  %436 = icmp eq i32 %435, 0
+  br i1 %436, label %525, label %437
 
-436:                                              ; preds = %433
-  %437 = load float, ptr %0, align 4, !tbaa !10
-  %438 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 2
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %438, ptr noundef nonnull align 4 dereferenceable(16) %201, i64 16, i1 false)
-  %439 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 1
-  store i32 0, ptr %439, align 4, !tbaa !19
+437:                                              ; preds = %434
+  %438 = load float, ptr %0, align 4, !tbaa !10
+  %439 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 2
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %439, ptr noundef nonnull align 4 dereferenceable(16) %201, i64 16, i1 false)
+  %440 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 1
+  store i32 0, ptr %440, align 4, !tbaa !19
   store float -1.000000e+03, ptr %9, align 4, !tbaa !22
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %11) #7
-  %440 = zext i32 %434 to i64
-  br label %449
+  %441 = zext i32 %435 to i64
+  br label %450
 
-441:                                              ; preds = %484
-  %442 = icmp eq i32 %486, 0
-  br i1 %442, label %515, label %443
+442:                                              ; preds = %485
+  %443 = icmp eq i32 %487, 0
+  br i1 %443, label %516, label %444
 
-443:                                              ; preds = %441
-  %444 = zext i32 %486 to i64
-  %445 = and i64 %444, 1
-  %446 = icmp eq i32 %486, 1
-  br i1 %446, label %506, label %447
+444:                                              ; preds = %442
+  %445 = zext i32 %487 to i64
+  %446 = and i64 %445, 1
+  %447 = icmp eq i32 %487, 1
+  br i1 %447, label %507, label %448
 
-447:                                              ; preds = %443
-  %448 = and i64 %444, 4294967294
-  br label %489
+448:                                              ; preds = %444
+  %449 = and i64 %445, 4294967294
+  br label %490
 
-449:                                              ; preds = %484, %436
-  %450 = phi float [ -1.000000e+03, %436 ], [ %485, %484 ]
-  %451 = phi i64 [ 0, %436 ], [ %487, %484 ]
-  %452 = phi i32 [ 0, %436 ], [ %486, %484 ]
-  %453 = getelementptr inbounds %class.btVector3, ptr %349, i64 %451
-  %454 = load float, ptr %201, align 4, !tbaa !16
-  %455 = load float, ptr %453, align 4, !tbaa !16
-  %456 = load float, ptr %202, align 4, !tbaa !16
-  %457 = getelementptr inbounds float, ptr %453, i64 1
-  %458 = load float, ptr %457, align 4, !tbaa !16
-  %459 = fmul float %456, %458
-  %460 = tail call float @llvm.fmuladd.f32(float %454, float %455, float %459)
-  %461 = load float, ptr %219, align 4, !tbaa !16
-  %462 = getelementptr inbounds float, ptr %453, i64 2
-  %463 = load float, ptr %462, align 4, !tbaa !16
-  %464 = tail call float @llvm.fmuladd.f32(float %461, float %463, float %460)
-  %465 = load float, ptr %244, align 4, !tbaa !16
-  %466 = fsub float %464, %465
-  %467 = fsub float %437, %466
-  %468 = fcmp ult float %467, 0.000000e+00
-  br i1 %468, label %484, label %469
+450:                                              ; preds = %485, %437
+  %451 = phi float [ -1.000000e+03, %437 ], [ %486, %485 ]
+  %452 = phi i64 [ 0, %437 ], [ %488, %485 ]
+  %453 = phi i32 [ 0, %437 ], [ %487, %485 ]
+  %454 = getelementptr inbounds %class.btVector3, ptr %350, i64 %452
+  %455 = load float, ptr %201, align 4, !tbaa !16
+  %456 = load float, ptr %454, align 4, !tbaa !16
+  %457 = load float, ptr %202, align 4, !tbaa !16
+  %458 = getelementptr inbounds float, ptr %454, i64 1
+  %459 = load float, ptr %458, align 4, !tbaa !16
+  %460 = fmul float %457, %459
+  %461 = tail call float @llvm.fmuladd.f32(float %455, float %456, float %460)
+  %462 = load float, ptr %219, align 4, !tbaa !16
+  %463 = getelementptr inbounds float, ptr %454, i64 2
+  %464 = load float, ptr %463, align 4, !tbaa !16
+  %465 = tail call float @llvm.fmuladd.f32(float %462, float %464, float %461)
+  %466 = load float, ptr %244, align 4, !tbaa !16
+  %467 = fsub float %465, %466
+  %468 = fsub float %438, %467
+  %469 = fcmp ult float %468, 0.000000e+00
+  br i1 %469, label %485, label %470
 
-469:                                              ; preds = %449
-  %470 = fcmp ogt float %467, %450
-  br i1 %470, label %471, label %473
+470:                                              ; preds = %450
+  %471 = fcmp ogt float %468, %451
+  br i1 %471, label %472, label %474
 
-471:                                              ; preds = %469
-  store float %467, ptr %9, align 4, !tbaa !22
-  %472 = trunc i64 %451 to i32
-  store i32 %472, ptr %11, align 16, !tbaa !23
-  br label %481
+472:                                              ; preds = %470
+  store float %468, ptr %9, align 4, !tbaa !22
+  %473 = trunc i64 %452 to i32
+  store i32 %473, ptr %11, align 16, !tbaa !23
+  br label %482
 
-473:                                              ; preds = %469
-  %474 = fadd float %467, 0x3E80000000000000
-  %475 = fcmp ult float %474, %450
-  br i1 %475, label %484, label %476
+474:                                              ; preds = %470
+  %475 = fadd float %468, 0x3E80000000000000
+  %476 = fcmp ult float %475, %451
+  br i1 %476, label %485, label %477
 
-476:                                              ; preds = %473
-  %477 = zext i32 %452 to i64
-  %478 = getelementptr inbounds [16 x i32], ptr %11, i64 0, i64 %477
-  %479 = trunc i64 %451 to i32
-  store i32 %479, ptr %478, align 4, !tbaa !23
-  %480 = add i32 %452, 1
-  br label %481
+477:                                              ; preds = %474
+  %478 = zext i32 %453 to i64
+  %479 = getelementptr inbounds [16 x i32], ptr %11, i64 0, i64 %478
+  %480 = trunc i64 %452 to i32
+  store i32 %480, ptr %479, align 4, !tbaa !23
+  %481 = add i32 %453, 1
+  br label %482
 
-481:                                              ; preds = %476, %471
-  %482 = phi i32 [ 1, %471 ], [ %480, %476 ]
-  %483 = phi float [ %467, %471 ], [ %450, %476 ]
-  store i32 %482, ptr %439, align 4, !tbaa !19
-  br label %484
+482:                                              ; preds = %477, %472
+  %483 = phi i32 [ 1, %472 ], [ %481, %477 ]
+  %484 = phi float [ %468, %472 ], [ %451, %477 ]
+  store i32 %483, ptr %440, align 4, !tbaa !19
+  br label %485
 
-484:                                              ; preds = %481, %473, %449
-  %485 = phi float [ %450, %473 ], [ %450, %449 ], [ %483, %481 ]
-  %486 = phi i32 [ %452, %473 ], [ %452, %449 ], [ %482, %481 ]
-  %487 = add nuw nsw i64 %451, 1
-  %488 = icmp eq i64 %487, %440
-  br i1 %488, label %441, label %449
+485:                                              ; preds = %482, %474, %450
+  %486 = phi float [ %451, %474 ], [ %451, %450 ], [ %484, %482 ]
+  %487 = phi i32 [ %453, %474 ], [ %453, %450 ], [ %483, %482 ]
+  %488 = add nuw nsw i64 %452, 1
+  %489 = icmp eq i64 %488, %441
+  br i1 %489, label %442, label %450
 
-489:                                              ; preds = %489, %447
-  %490 = phi i64 [ 0, %447 ], [ %503, %489 ]
-  %491 = phi i64 [ 0, %447 ], [ %504, %489 ]
-  %492 = getelementptr inbounds [16 x i32], ptr %11, i64 0, i64 %490
-  %493 = load i32, ptr %492, align 8, !tbaa !23
-  %494 = zext i32 %493 to i64
-  %495 = getelementptr inbounds %class.btVector3, ptr %349, i64 %494
-  %496 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %490
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %496, ptr noundef nonnull align 4 dereferenceable(16) %495, i64 16, i1 false), !tbaa.struct !14
-  %497 = or i64 %490, 1
-  %498 = getelementptr inbounds [16 x i32], ptr %11, i64 0, i64 %497
-  %499 = load i32, ptr %498, align 4, !tbaa !23
-  %500 = zext i32 %499 to i64
-  %501 = getelementptr inbounds %class.btVector3, ptr %349, i64 %500
-  %502 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %497
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %502, ptr noundef nonnull align 4 dereferenceable(16) %501, i64 16, i1 false), !tbaa.struct !14
-  %503 = add nuw nsw i64 %490, 2
-  %504 = add i64 %491, 2
-  %505 = icmp eq i64 %504, %448
-  br i1 %505, label %506, label %489
+490:                                              ; preds = %490, %448
+  %491 = phi i64 [ 0, %448 ], [ %504, %490 ]
+  %492 = phi i64 [ 0, %448 ], [ %505, %490 ]
+  %493 = getelementptr inbounds [16 x i32], ptr %11, i64 0, i64 %491
+  %494 = load i32, ptr %493, align 8, !tbaa !23
+  %495 = zext i32 %494 to i64
+  %496 = getelementptr inbounds %class.btVector3, ptr %350, i64 %495
+  %497 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %491
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %497, ptr noundef nonnull align 4 dereferenceable(16) %496, i64 16, i1 false), !tbaa.struct !14
+  %498 = or i64 %491, 1
+  %499 = getelementptr inbounds [16 x i32], ptr %11, i64 0, i64 %498
+  %500 = load i32, ptr %499, align 4, !tbaa !23
+  %501 = zext i32 %500 to i64
+  %502 = getelementptr inbounds %class.btVector3, ptr %350, i64 %501
+  %503 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %498
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %503, ptr noundef nonnull align 4 dereferenceable(16) %502, i64 16, i1 false), !tbaa.struct !14
+  %504 = add nuw nsw i64 %491, 2
+  %505 = add i64 %492, 2
+  %506 = icmp eq i64 %505, %449
+  br i1 %506, label %507, label %490
 
-506:                                              ; preds = %489, %443
-  %507 = phi i64 [ 0, %443 ], [ %503, %489 ]
-  %508 = icmp eq i64 %445, 0
-  br i1 %508, label %515, label %509
+507:                                              ; preds = %490, %444
+  %508 = phi i64 [ 0, %444 ], [ %504, %490 ]
+  %509 = icmp eq i64 %446, 0
+  br i1 %509, label %516, label %510
 
-509:                                              ; preds = %506
-  %510 = getelementptr inbounds [16 x i32], ptr %11, i64 0, i64 %507
-  %511 = load i32, ptr %510, align 4, !tbaa !23
-  %512 = zext i32 %511 to i64
-  %513 = getelementptr inbounds %class.btVector3, ptr %349, i64 %512
-  %514 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %507
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %514, ptr noundef nonnull align 4 dereferenceable(16) %513, i64 16, i1 false), !tbaa.struct !14
-  br label %515
+510:                                              ; preds = %507
+  %511 = getelementptr inbounds [16 x i32], ptr %11, i64 0, i64 %508
+  %512 = load i32, ptr %511, align 4, !tbaa !23
+  %513 = zext i32 %512 to i64
+  %514 = getelementptr inbounds %class.btVector3, ptr %350, i64 %513
+  %515 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 3, i64 %508
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %515, ptr noundef nonnull align 4 dereferenceable(16) %514, i64 16, i1 false), !tbaa.struct !14
+  br label %516
 
-515:                                              ; preds = %509, %506, %441
+516:                                              ; preds = %510, %507, %442
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %11) #7
-  %516 = load <2 x float>, ptr %438, align 4, !tbaa !16
-  %517 = fneg <2 x float> %516
-  store <2 x float> %517, ptr %438, align 4, !tbaa !16
-  %518 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 2, i32 0, i32 0, i64 2
-  %519 = load float, ptr %518, align 4, !tbaa !16
-  %520 = fneg float %519
-  store float %520, ptr %518, align 4, !tbaa !16
-  br label %521
+  %517 = load <2 x float>, ptr %439, align 4, !tbaa !16
+  %518 = fneg <2 x float> %517
+  store <2 x float> %518, ptr %439, align 4, !tbaa !16
+  %519 = getelementptr inbounds %struct.GIM_TRIANGLE_CONTACT_DATA, ptr %9, i64 0, i32 2, i32 0, i32 0, i64 2
+  %520 = load float, ptr %519, align 4, !tbaa !16
+  %521 = fneg float %520
+  store float %521, ptr %519, align 4, !tbaa !16
+  br label %522
 
-521:                                              ; preds = %515, %432
-  %522 = phi i32 [ %486, %515 ], [ %403, %432 ]
-  %523 = icmp ne i32 %522, 0
-  br label %524
+522:                                              ; preds = %516, %433
+  %523 = phi i32 [ %487, %516 ], [ %404, %433 ]
+  %524 = icmp ne i32 %523, 0
+  br label %525
 
-524:                                              ; preds = %521, %433, %350, %308, %286, %152, %128
-  %525 = phi i1 [ false, %128 ], [ false, %152 ], [ false, %286 ], [ false, %308 ], [ false, %350 ], [ false, %433 ], [ %523, %521 ]
-  ret i1 %525
+525:                                              ; preds = %522, %434, %351, %308, %285, %152, %128
+  %526 = phi i1 [ false, %128 ], [ false, %152 ], [ false, %285 ], [ false, %308 ], [ false, %351 ], [ false, %434 ], [ %524, %522 ]
+  ret i1 %526
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -1047,13 +1048,13 @@ define linkonce_odr dso_local noundef i32 @_Z27PLANE_CLIP_TRIANGLE_GENERICI9btVe
   %61 = load float, ptr %39, align 4, !tbaa !16
   %62 = fmul float %53, %61
   %63 = tail call float @llvm.fmuladd.f32(float %54, float %60, float %62)
-  %64 = getelementptr inbounds float, ptr %59, i64 1
+  %64 = getelementptr inbounds %class.btVector3, ptr %4, i64 %58, i32 0, i64 1
   store float %63, ptr %64, align 4, !tbaa !16
   %65 = load float, ptr %16, align 4, !tbaa !16
   %66 = load float, ptr %43, align 4, !tbaa !16
   %67 = fmul float %53, %66
   %68 = tail call float @llvm.fmuladd.f32(float %54, float %65, float %67)
-  %69 = getelementptr inbounds float, ptr %59, i64 2
+  %69 = getelementptr inbounds %class.btVector3, ptr %4, i64 %58, i32 0, i64 2
   store float %68, ptr %69, align 4, !tbaa !16
   %70 = add nuw nsw i32 %37, 1
   br label %71
@@ -1068,10 +1069,10 @@ define linkonce_odr dso_local noundef i32 @_Z27PLANE_CLIP_TRIANGLE_GENERICI9btVe
   %76 = getelementptr inbounds %class.btVector3, ptr %4, i64 %75
   store float %74, ptr %76, align 4, !tbaa !16
   %77 = load float, ptr %39, align 4, !tbaa !16
-  %78 = getelementptr inbounds float, ptr %76, i64 1
+  %78 = getelementptr inbounds %class.btVector3, ptr %4, i64 %75, i32 0, i64 1
   store float %77, ptr %78, align 4, !tbaa !16
   %79 = load float, ptr %43, align 4, !tbaa !16
-  %80 = getelementptr inbounds float, ptr %76, i64 2
+  %80 = getelementptr inbounds %class.btVector3, ptr %4, i64 %75, i32 0, i64 2
   store float %79, ptr %80, align 4, !tbaa !16
   %81 = add nuw nsw i32 %72, 1
   br label %82
@@ -1111,13 +1112,13 @@ define linkonce_odr dso_local noundef i32 @_Z27PLANE_CLIP_TRIANGLE_GENERICI9btVe
   %111 = load float, ptr %87, align 4, !tbaa !16
   %112 = fmul float %103, %111
   %113 = tail call float @llvm.fmuladd.f32(float %104, float %110, float %112)
-  %114 = getelementptr inbounds float, ptr %109, i64 1
+  %114 = getelementptr inbounds %class.btVector3, ptr %4, i64 %108, i32 0, i64 1
   store float %113, ptr %114, align 4, !tbaa !16
   %115 = load float, ptr %43, align 4, !tbaa !16
   %116 = load float, ptr %92, align 4, !tbaa !16
   %117 = fmul float %103, %116
   %118 = tail call float @llvm.fmuladd.f32(float %104, float %115, float %117)
-  %119 = getelementptr inbounds float, ptr %109, i64 2
+  %119 = getelementptr inbounds %class.btVector3, ptr %4, i64 %108, i32 0, i64 2
   store float %118, ptr %119, align 4, !tbaa !16
   %120 = add nuw nsw i32 %83, 1
   br label %121
@@ -1132,10 +1133,10 @@ define linkonce_odr dso_local noundef i32 @_Z27PLANE_CLIP_TRIANGLE_GENERICI9btVe
   %126 = getelementptr inbounds %class.btVector3, ptr %4, i64 %125
   store float %124, ptr %126, align 4, !tbaa !16
   %127 = load float, ptr %87, align 4, !tbaa !16
-  %128 = getelementptr inbounds float, ptr %126, i64 1
+  %128 = getelementptr inbounds %class.btVector3, ptr %4, i64 %125, i32 0, i64 1
   store float %127, ptr %128, align 4, !tbaa !16
   %129 = load float, ptr %92, align 4, !tbaa !16
-  %130 = getelementptr inbounds float, ptr %126, i64 2
+  %130 = getelementptr inbounds %class.btVector3, ptr %4, i64 %125, i32 0, i64 2
   store float %129, ptr %130, align 4, !tbaa !16
   %131 = add nuw nsw i32 %122, 1
   br label %132
@@ -1162,13 +1163,13 @@ define linkonce_odr dso_local noundef i32 @_Z27PLANE_CLIP_TRIANGLE_GENERICI9btVe
   %148 = load float, ptr %10, align 4, !tbaa !16
   %149 = fmul float %139, %148
   %150 = tail call float @llvm.fmuladd.f32(float %140, float %147, float %149)
-  %151 = getelementptr inbounds float, ptr %146, i64 1
+  %151 = getelementptr inbounds %class.btVector3, ptr %4, i64 %145, i32 0, i64 1
   store float %150, ptr %151, align 4, !tbaa !16
   %152 = load float, ptr %92, align 4, !tbaa !16
   %153 = load float, ptr %16, align 4, !tbaa !16
   %154 = fmul float %139, %153
   %155 = tail call float @llvm.fmuladd.f32(float %140, float %152, float %154)
-  %156 = getelementptr inbounds float, ptr %146, i64 2
+  %156 = getelementptr inbounds %class.btVector3, ptr %4, i64 %145, i32 0, i64 2
   store float %155, ptr %156, align 4, !tbaa !16
   %157 = add nuw nsw i32 %133, 1
   br label %158
@@ -1183,10 +1184,10 @@ define linkonce_odr dso_local noundef i32 @_Z27PLANE_CLIP_TRIANGLE_GENERICI9btVe
   %163 = getelementptr inbounds %class.btVector3, ptr %4, i64 %162
   store float %161, ptr %163, align 4, !tbaa !16
   %164 = load float, ptr %10, align 4, !tbaa !16
-  %165 = getelementptr inbounds float, ptr %163, i64 1
+  %165 = getelementptr inbounds %class.btVector3, ptr %4, i64 %162, i32 0, i64 1
   store float %164, ptr %165, align 4, !tbaa !16
   %166 = load float, ptr %16, align 4, !tbaa !16
-  %167 = getelementptr inbounds float, ptr %163, i64 2
+  %167 = getelementptr inbounds %class.btVector3, ptr %4, i64 %162, i32 0, i64 2
   store float %166, ptr %167, align 4, !tbaa !16
   %168 = add nuw nsw i32 %159, 1
   br label %169
@@ -1263,14 +1264,14 @@ define linkonce_odr dso_local noundef i32 @_Z26PLANE_CLIP_POLYGON_GENERICI9btVec
   %53 = load float, ptr %9, align 4, !tbaa !16
   %54 = fmul float %43, %53
   %55 = tail call float @llvm.fmuladd.f32(float %44, float %52, float %54)
-  %56 = getelementptr inbounds float, ptr %50, i64 1
+  %56 = getelementptr inbounds %class.btVector3, ptr %3, i64 %49, i32 0, i64 1
   store float %55, ptr %56, align 4, !tbaa !16
   %57 = getelementptr inbounds float, ptr %40, i64 2
   %58 = load float, ptr %57, align 4, !tbaa !16
   %59 = load float, ptr %15, align 4, !tbaa !16
   %60 = fmul float %43, %59
   %61 = tail call float @llvm.fmuladd.f32(float %44, float %58, float %60)
-  %62 = getelementptr inbounds float, ptr %50, i64 2
+  %62 = getelementptr inbounds %class.btVector3, ptr %3, i64 %49, i32 0, i64 2
   store float %61, ptr %62, align 4, !tbaa !16
   %63 = add i32 %33, 1
   br label %64
@@ -1285,10 +1286,10 @@ define linkonce_odr dso_local noundef i32 @_Z26PLANE_CLIP_POLYGON_GENERICI9btVec
   %69 = getelementptr inbounds %class.btVector3, ptr %3, i64 %68
   store float %67, ptr %69, align 4, !tbaa !16
   %70 = load float, ptr %9, align 4, !tbaa !16
-  %71 = getelementptr inbounds float, ptr %69, i64 1
+  %71 = getelementptr inbounds %class.btVector3, ptr %3, i64 %68, i32 0, i64 1
   store float %70, ptr %71, align 4, !tbaa !16
   %72 = load float, ptr %15, align 4, !tbaa !16
-  %73 = getelementptr inbounds float, ptr %69, i64 2
+  %73 = getelementptr inbounds %class.btVector3, ptr %3, i64 %68, i32 0, i64 2
   store float %72, ptr %73, align 4, !tbaa !16
   %74 = add i32 %65, 1
   br label %75
@@ -1338,14 +1339,14 @@ define linkonce_odr dso_local noundef i32 @_Z26PLANE_CLIP_POLYGON_GENERICI9btVec
   %112 = load float, ptr %85, align 4, !tbaa !16
   %113 = fmul float %103, %112
   %114 = tail call float @llvm.fmuladd.f32(float %104, float %111, float %113)
-  %115 = getelementptr inbounds float, ptr %109, i64 1
+  %115 = getelementptr inbounds %class.btVector3, ptr %3, i64 %108, i32 0, i64 1
   store float %114, ptr %115, align 4, !tbaa !16
   %116 = getelementptr inbounds float, ptr %100, i64 2
   %117 = load float, ptr %116, align 4, !tbaa !16
   %118 = load float, ptr %90, align 4, !tbaa !16
   %119 = fmul float %103, %118
   %120 = tail call float @llvm.fmuladd.f32(float %104, float %117, float %119)
-  %121 = getelementptr inbounds float, ptr %109, i64 2
+  %121 = getelementptr inbounds %class.btVector3, ptr %3, i64 %108, i32 0, i64 2
   store float %120, ptr %121, align 4, !tbaa !16
   %122 = add i32 %80, 1
   br label %123
@@ -1360,10 +1361,10 @@ define linkonce_odr dso_local noundef i32 @_Z26PLANE_CLIP_POLYGON_GENERICI9btVec
   %128 = getelementptr inbounds %class.btVector3, ptr %3, i64 %127
   store float %126, ptr %128, align 4, !tbaa !16
   %129 = load float, ptr %85, align 4, !tbaa !16
-  %130 = getelementptr inbounds float, ptr %128, i64 1
+  %130 = getelementptr inbounds %class.btVector3, ptr %3, i64 %127, i32 0, i64 1
   store float %129, ptr %130, align 4, !tbaa !16
   %131 = load float, ptr %90, align 4, !tbaa !16
-  %132 = getelementptr inbounds float, ptr %128, i64 2
+  %132 = getelementptr inbounds %class.btVector3, ptr %3, i64 %127, i32 0, i64 2
   store float %131, ptr %132, align 4, !tbaa !16
   %133 = add i32 %124, 1
   br label %134

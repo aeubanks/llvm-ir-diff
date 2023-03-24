@@ -108,13 +108,11 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #2
   %23 = tail call ptr @tsp(ptr noundef %6, i32 noundef 150, i32 noundef %22) #5
   %24 = load i32, ptr @flag, align 4, !tbaa !18
   %25 = icmp eq i32 %24, 0
-  br i1 %25, label %52, label %26
+  %26 = icmp eq ptr %6, null
+  %27 = select i1 %25, i1 true, i1 %26
+  br i1 %27, label %49, label %28
 
-26:                                               ; preds = %19
-  %27 = icmp eq ptr %6, null
-  br i1 %27, label %50, label %28
-
-28:                                               ; preds = %26
+28:                                               ; preds = %19
   %29 = getelementptr inbounds %struct.tree, ptr %6, i64 0, i32 1
   %30 = load double, ptr %29, align 8, !tbaa !5
   %31 = getelementptr inbounds %struct.tree, ptr %6, i64 0, i32 2
@@ -139,14 +137,18 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #2
 
 47:                                               ; preds = %37, %28
   %48 = load i32, ptr @flag, align 4, !tbaa !18
-  %49 = icmp eq i32 %48, 0
-  br i1 %49, label %52, label %50
+  br label %49
 
-50:                                               ; preds = %26, %47
-  %51 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  br label %52
+49:                                               ; preds = %47, %19
+  %50 = phi i32 [ %48, %47 ], [ %24, %19 ]
+  %51 = icmp eq i32 %50, 0
+  br i1 %51, label %54, label %52
 
-52:                                               ; preds = %19, %50, %47
+52:                                               ; preds = %49
+  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  br label %54
+
+54:                                               ; preds = %52, %49
   ret i32 0
 }
 

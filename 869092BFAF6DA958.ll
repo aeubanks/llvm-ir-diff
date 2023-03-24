@@ -597,7 +597,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder25BaseSetEnc
   br i1 %62, label %63, label %16, !llvm.loop !57
 
 63:                                               ; preds = %60, %16, %50, %44, %38, %35, %21, %4
-  %64 = phi i32 [ 0, %4 ], [ -2147024809, %21 ], [ -2147024809, %35 ], [ -2147024809, %38 ], [ -2147024809, %44 ], [ -2147024809, %50 ], [ -2147024809, %16 ], [ 0, %60 ]
+  %64 = phi i32 [ 0, %4 ], [ 0, %60 ], [ -2147024809, %16 ], [ -2147024809, %50 ], [ -2147024809, %44 ], [ -2147024809, %38 ], [ -2147024809, %35 ], [ -2147024809, %21 ]
   ret i32 %64
 }
 
@@ -867,8 +867,8 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10GetMatchesEv(ptr 
   %94 = load i32, ptr %93, align 8, !tbaa !66
   %95 = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 1
   %96 = load i32, ptr %95, align 8, !tbaa !67
-  %97 = add i32 %94, 1
-  %98 = sub i32 %97, %96
+  %97 = sub i32 %94, %96
+  %98 = add i32 %97, 1
   %99 = load ptr, ptr %0, align 8, !tbaa !68
   %100 = getelementptr inbounds i8, ptr %99, i64 -1
   %101 = add i32 %31, -1
@@ -1583,8 +1583,8 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder10GetOptimal
   %399 = select i1 %396, i1 true, i1 %398
   br i1 %399, label %128, label %155
 
-400:                                              ; preds = %219, %194, %56, %38, %22, %148, %8
-  %401 = phi i32 [ %13, %8 ], [ 1, %22 ], [ %154, %148 ], [ %34, %38 ], [ %34, %56 ], [ %200, %194 ], [ %200, %219 ]
+400:                                              ; preds = %219, %194, %22, %148, %56, %38, %8
+  %401 = phi i32 [ %13, %8 ], [ 1, %22 ], [ %34, %38 ], [ %34, %56 ], [ %154, %148 ], [ %200, %194 ], [ %200, %219 ]
   ret i32 %401
 }
 
@@ -2487,36 +2487,38 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder8TryBlockEv(ptr nou
   %18 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 3
   br label %19
 
-19:                                               ; preds = %137, %1
-  %20 = phi i32 [ %139, %137 ], [ 0, %1 ]
-  %21 = phi i32 [ %143, %137 ], [ 0, %1 ]
-  %22 = load i32, ptr %8, align 4, !tbaa !76
-  %23 = load i32, ptr %9, align 8, !tbaa !71
-  %24 = icmp eq i32 %22, %23
-  br i1 %24, label %25, label %40
+19:                                               ; preds = %136, %1
+  %20 = phi i32 [ %141, %136 ], [ 0, %1 ]
+  %21 = load i32, ptr %8, align 4, !tbaa !76
+  %22 = load i32, ptr %9, align 8, !tbaa !71
+  %23 = icmp eq i32 %21, %22
+  br i1 %23, label %24, label %40
 
-25:                                               ; preds = %19
-  %26 = load i32, ptr %10, align 8, !tbaa !59
-  %27 = icmp ult i32 %26, 653286
-  %28 = icmp ult i32 %21, %6
-  %29 = select i1 %27, i1 %28, i1 false
-  br i1 %29, label %30, label %144
+24:                                               ; preds = %19
+  %25 = load i32, ptr %10, align 8, !tbaa !59
+  %26 = icmp ult i32 %25, 653286
+  %27 = icmp ult i32 %20, %6
+  %28 = select i1 %26, i1 %27, i1 false
+  br i1 %28, label %29, label %142
 
-30:                                               ; preds = %25
-  %31 = load i8, ptr %11, align 8, !tbaa !60, !range !45, !noundef !46
-  %32 = icmp eq i8 %31, 0
-  br i1 %32, label %33, label %40
+29:                                               ; preds = %24
+  %30 = load i8, ptr %11, align 8, !tbaa !60, !range !45, !noundef !46
+  %31 = icmp eq i8 %30, 0
+  br i1 %31, label %32, label %40
 
-33:                                               ; preds = %30
-  %34 = load i32, ptr %7, align 8, !tbaa !66
-  %35 = load i32, ptr %12, align 8, !tbaa !67
-  %36 = icmp ne i32 %34, %35
-  %37 = load i32, ptr %13, align 8
-  %38 = icmp ult i32 %20, %37
-  %39 = select i1 %36, i1 %38, i1 false
-  br i1 %39, label %40, label %144
+32:                                               ; preds = %29
+  %33 = load i32, ptr %7, align 8, !tbaa !66
+  %34 = load i32, ptr %12, align 8, !tbaa !67
+  %35 = icmp eq i32 %33, %34
+  br i1 %35, label %142, label %36
 
-40:                                               ; preds = %33, %30, %19
+36:                                               ; preds = %32
+  %37 = load i32, ptr %4, align 4, !tbaa !100
+  %38 = load i32, ptr %13, align 8, !tbaa !102
+  %39 = icmp ult i32 %37, %38
+  br i1 %39, label %40, label %142
+
+40:                                               ; preds = %29, %36, %19
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #22
   %41 = load i8, ptr %14, align 4, !tbaa !27, !range !45, !noundef !46
   %42 = icmp eq i8 %41, 0
@@ -2593,7 +2595,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder8TryBlockEv(ptr nou
 86:                                               ; preds = %78
   %87 = add i32 %79, -3
   %88 = trunc i32 %87 to i16
-  store i16 %88, ptr %84, align 2, !tbaa !102
+  store i16 %88, ptr %84, align 2, !tbaa !103
   %89 = zext i32 %87 to i64
   %90 = getelementptr inbounds [256 x i8], ptr @_ZN9NCompress8NDeflate8NEncoderL10g_LenSlotsE, i64 0, i64 %89
   %91 = load i8, ptr %90, align 1, !tbaa !5
@@ -2606,7 +2608,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder8TryBlockEv(ptr nou
   %97 = load i32, ptr %2, align 4, !tbaa !53
   %98 = trunc i32 %97 to i16
   %99 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CCodeValue", ptr %80, i64 %83, i32 1
-  store i16 %98, ptr %99, align 2, !tbaa !104
+  store i16 %98, ptr %99, align 2, !tbaa !105
   %100 = icmp ult i32 %97, 512
   br i1 %100, label %101, label %106
 
@@ -2633,51 +2635,49 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder8TryBlockEv(ptr nou
   %117 = add i32 %116, 1
   store i32 %117, ptr %115, align 4, !tbaa !53
   %118 = load i32, ptr %17, align 4, !tbaa !70
-  br label %137
+  br label %136
 
 119:                                              ; preds = %47, %78
-  %120 = phi i32 [ %50, %47 ], [ %82, %78 ]
-  %121 = phi ptr [ %52, %47 ], [ %84, %78 ]
-  %122 = phi i64 [ %51, %47 ], [ %83, %78 ]
-  %123 = phi ptr [ %48, %47 ], [ %80, %78 ]
-  %124 = phi i32 [ 1, %47 ], [ %79, %78 ]
-  %125 = load ptr, ptr %0, align 8, !tbaa !68
-  %126 = load i32, ptr %17, align 4, !tbaa !70
-  %127 = sub i32 0, %126
-  %128 = sext i32 %127 to i64
-  %129 = getelementptr inbounds i8, ptr %125, i64 %128
-  %130 = load i8, ptr %129, align 1, !tbaa !5
-  %131 = zext i8 %130 to i64
-  %132 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 40, i64 %131
-  %133 = load i32, ptr %132, align 4, !tbaa !53
-  %134 = add i32 %133, 1
-  store i32 %134, ptr %132, align 4, !tbaa !53
-  store i16 -32768, ptr %121, align 2, !tbaa !102
-  %135 = zext i8 %130 to i16
-  %136 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CCodeValue", ptr %123, i64 %122, i32 1
-  store i16 %135, ptr %136, align 2, !tbaa !104
-  br label %137
+  %120 = phi ptr [ %52, %47 ], [ %84, %78 ]
+  %121 = phi i64 [ %51, %47 ], [ %83, %78 ]
+  %122 = phi ptr [ %48, %47 ], [ %80, %78 ]
+  %123 = phi i32 [ 1, %47 ], [ %79, %78 ]
+  %124 = load ptr, ptr %0, align 8, !tbaa !68
+  %125 = load i32, ptr %17, align 4, !tbaa !70
+  %126 = sub i32 0, %125
+  %127 = sext i32 %126 to i64
+  %128 = getelementptr inbounds i8, ptr %124, i64 %127
+  %129 = load i8, ptr %128, align 1, !tbaa !5
+  %130 = zext i8 %129 to i64
+  %131 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 40, i64 %130
+  %132 = load i32, ptr %131, align 4, !tbaa !53
+  %133 = add i32 %132, 1
+  store i32 %133, ptr %131, align 4, !tbaa !53
+  store i16 -32768, ptr %120, align 2, !tbaa !103
+  %134 = zext i8 %129 to i16
+  %135 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CCodeValue", ptr %122, i64 %121, i32 1
+  store i16 %134, ptr %135, align 2, !tbaa !105
+  br label %136
 
-137:                                              ; preds = %119, %113
-  %138 = phi i32 [ %126, %119 ], [ %118, %113 ]
-  %139 = phi i32 [ %120, %119 ], [ %82, %113 ]
-  %140 = phi i32 [ %124, %119 ], [ %79, %113 ]
-  %141 = sub i32 %138, %140
-  store i32 %141, ptr %17, align 4, !tbaa !70
-  %142 = load i32, ptr %5, align 8, !tbaa !101
-  %143 = add i32 %142, %140
-  store i32 %143, ptr %5, align 8, !tbaa !101
+136:                                              ; preds = %119, %113
+  %137 = phi i32 [ %125, %119 ], [ %118, %113 ]
+  %138 = phi i32 [ %123, %119 ], [ %79, %113 ]
+  %139 = sub i32 %137, %138
+  store i32 %139, ptr %17, align 4, !tbaa !70
+  %140 = load i32, ptr %5, align 8, !tbaa !101
+  %141 = add i32 %140, %138
+  store i32 %141, ptr %5, align 8, !tbaa !101
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #22
-  br label %19, !llvm.loop !105
+  br label %19, !llvm.loop !106
 
-144:                                              ; preds = %25, %33
-  %145 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 40, i64 256
-  %146 = load i32, ptr %145, align 8, !tbaa !53
-  %147 = add i32 %146, 1
-  store i32 %147, ptr %145, align 8, !tbaa !53
-  %148 = load i32, ptr %17, align 4, !tbaa !70
-  %149 = add i32 %148, %21
-  store i32 %149, ptr %17, align 4, !tbaa !70
+142:                                              ; preds = %24, %32, %36
+  %143 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 40, i64 256
+  %144 = load i32, ptr %143, align 8, !tbaa !53
+  %145 = add i32 %144, 1
+  store i32 %145, ptr %143, align 8, !tbaa !53
+  %146 = load i32, ptr %17, align 4, !tbaa !70
+  %147 = add i32 %146, %20
+  store i32 %147, ptr %17, align 4, !tbaa !70
   store i8 1, ptr %11, align 8, !tbaa !60
   ret void
 }
@@ -2847,7 +2847,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9SetPricesERKNS0_7C
   store i8 %127, ptr %128, align 1, !tbaa !5
   %129 = add nuw nsw i64 %105, 4
   %130 = icmp eq i64 %129, 256
-  br i1 %130, label %92, label %104, !llvm.loop !106
+  br i1 %130, label %92, label %104, !llvm.loop !107
 
 131:                                              ; preds = %336, %96
   %132 = phi i64 [ 0, %96 ], [ %364, %336 ]
@@ -3126,7 +3126,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9SetPricesERKNS0_7C
   %364 = add nuw nsw i64 %337, 2
   %365 = add i64 %338, 2
   %366 = icmp eq i64 %365, %103
-  br i1 %366, label %131, label %336, !llvm.loop !107
+  br i1 %366, label %131, label %336, !llvm.loop !108
 
 367:                                              ; preds = %147, %2
   ret void
@@ -3158,19 +3158,19 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder19Huffman_ReverseBitsEPjPK
 17:                                               ; preds = %17, %15
   %18 = phi i64 [ 0, %15 ], [ %29, %17 ]
   %19 = getelementptr inbounds i32, ptr %0, i64 %18
-  %20 = load <4 x i32>, ptr %19, align 4, !tbaa !53, !alias.scope !108, !noalias !111
+  %20 = load <4 x i32>, ptr %19, align 4, !tbaa !53, !alias.scope !109, !noalias !112
   %21 = trunc <4 x i32> %20 to <4 x i16>
   %22 = tail call <4 x i16> @llvm.bitreverse.v4i16(<4 x i16> %21)
   %23 = zext <4 x i16> %22 to <4 x i32>
   %24 = getelementptr inbounds i8, ptr %1, i64 %18
-  %25 = load <4 x i8>, ptr %24, align 1, !tbaa !5, !alias.scope !111
+  %25 = load <4 x i8>, ptr %24, align 1, !tbaa !5, !alias.scope !112
   %26 = zext <4 x i8> %25 to <4 x i32>
   %27 = sub nsw <4 x i32> <i32 16, i32 16, i32 16, i32 16>, %26
   %28 = lshr <4 x i32> %23, %27
-  store <4 x i32> %28, ptr %19, align 4, !tbaa !53, !alias.scope !108, !noalias !111
+  store <4 x i32> %28, ptr %19, align 4, !tbaa !53, !alias.scope !109, !noalias !112
   %29 = add nuw i64 %18, 4
   %30 = icmp eq i64 %29, %16
-  br i1 %30, label %31, label %17, !llvm.loop !113
+  br i1 %30, label %31, label %17, !llvm.loop !114
 
 31:                                               ; preds = %17
   %32 = icmp eq i64 %16, %6
@@ -3234,7 +3234,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder19Huffman_ReverseBitsEPjPK
   store i32 %77, ptr %68, align 4, !tbaa !53
   %78 = add nuw nsw i64 %56, 2
   %79 = icmp eq i64 %78, %6
-  br i1 %79, label %54, label %55, !llvm.loop !114
+  br i1 %79, label %54, label %55, !llvm.loop !115
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -3251,19 +3251,19 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
 9:                                                ; preds = %1, %9
   %10 = phi i64 [ %21, %9 ], [ 0, %1 ]
   %11 = getelementptr inbounds i32, ptr %2, i64 %10
-  %12 = load <4 x i32>, ptr %11, align 8, !tbaa !53, !alias.scope !115, !noalias !118
+  %12 = load <4 x i32>, ptr %11, align 8, !tbaa !53, !alias.scope !116, !noalias !119
   %13 = trunc <4 x i32> %12 to <4 x i16>
   %14 = tail call <4 x i16> @llvm.bitreverse.v4i16(<4 x i16> %13)
   %15 = zext <4 x i16> %14 to <4 x i32>
   %16 = getelementptr inbounds i8, ptr %3, i64 %10
-  %17 = load <4 x i8>, ptr %16, align 4, !tbaa !5, !alias.scope !118
+  %17 = load <4 x i8>, ptr %16, align 4, !tbaa !5, !alias.scope !119
   %18 = zext <4 x i8> %17 to <4 x i32>
   %19 = sub nsw <4 x i32> <i32 16, i32 16, i32 16, i32 16>, %18
   %20 = lshr <4 x i32> %15, %19
-  store <4 x i32> %20, ptr %11, align 8, !tbaa !53, !alias.scope !115, !noalias !118
+  store <4 x i32> %20, ptr %11, align 8, !tbaa !53, !alias.scope !116, !noalias !119
   %21 = add nuw i64 %10, 4
   %22 = icmp eq i64 %21, 288
-  br i1 %22, label %48, label %9, !llvm.loop !120
+  br i1 %22, label %48, label %9, !llvm.loop !121
 
 23:                                               ; preds = %1, %23
   %24 = phi i64 [ %46, %23 ], [ 0, %1 ]
@@ -3292,7 +3292,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
   store i32 %45, ptr %36, align 4, !tbaa !53
   %46 = add nuw nsw i64 %24, 2
   %47 = icmp eq i64 %46, 288
-  br i1 %47, label %48, label %23, !llvm.loop !121
+  br i1 %47, label %48, label %23, !llvm.loop !122
 
 48:                                               ; preds = %9, %23
   %49 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 43
@@ -3504,7 +3504,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
   store i32 8, ptr %150, align 8, !tbaa !85
   store i8 0, ptr %151, align 4, !tbaa !86
   %211 = icmp eq i32 %197, 0
-  br i1 %211, label %212, label %179, !llvm.loop !122
+  br i1 %211, label %212, label %179, !llvm.loop !123
 
 212:                                              ; preds = %208, %174, %141, %183
   ret void
@@ -3513,13 +3513,13 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
   %214 = phi i64 [ 0, %132 ], [ %584, %583 ]
   %215 = load ptr, ptr %133, align 8, !tbaa !42
   %216 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CCodeValue", ptr %215, i64 %214
-  %217 = load i16, ptr %216, align 2, !tbaa !102
+  %217 = load i16, ptr %216, align 2, !tbaa !103
   %218 = icmp slt i16 %217, 0
   br i1 %218, label %219, label %288
 
 219:                                              ; preds = %213
   %220 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CCodeValue", ptr %215, i64 %214, i32 1
-  %221 = load i16, ptr %220, align 2, !tbaa !104
+  %221 = load i16, ptr %220, align 2, !tbaa !105
   %222 = zext i16 %221 to i64
   %223 = getelementptr inbounds [288 x i8], ptr %3, i64 0, i64 %222
   %224 = load i8, ptr %223, align 1, !tbaa !5
@@ -3619,7 +3619,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
   store i32 8, ptr %135, align 8, !tbaa !85
   store i8 0, ptr %136, align 4, !tbaa !86
   %287 = icmp eq i32 %273, 0
-  br i1 %287, label %583, label %255, !llvm.loop !123
+  br i1 %287, label %583, label %255, !llvm.loop !124
 
 288:                                              ; preds = %213
   %289 = zext i16 %217 to i32
@@ -3727,7 +3727,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
   store i32 8, ptr %135, align 8, !tbaa !85
   store i8 0, ptr %136, align 4, !tbaa !86
   %359 = icmp eq i32 %345, 0
-  br i1 %359, label %360, label %327, !llvm.loop !124
+  br i1 %359, label %360, label %327, !llvm.loop !125
 
 360:                                              ; preds = %356, %322, %288, %331
   %361 = load ptr, ptr %139, align 8, !tbaa !38
@@ -3833,11 +3833,11 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
   store i32 8, ptr %135, align 8, !tbaa !85
   store i8 0, ptr %136, align 4, !tbaa !86
   %429 = icmp eq i32 %415, 0
-  br i1 %429, label %430, label %397, !llvm.loop !125
+  br i1 %429, label %430, label %397, !llvm.loop !126
 
 430:                                              ; preds = %426, %392, %360, %401
   %431 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CCodeValue", ptr %215, i64 %214, i32 1
-  %432 = load i16, ptr %431, align 2, !tbaa !104
+  %432 = load i16, ptr %431, align 2, !tbaa !105
   %433 = zext i16 %432 to i32
   %434 = icmp ult i16 %432, 512
   br i1 %434, label %435, label %440
@@ -3959,7 +3959,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
   store i32 8, ptr %135, align 8, !tbaa !85
   store i8 0, ptr %136, align 4, !tbaa !86
   %513 = icmp eq i32 %499, 0
-  br i1 %513, label %514, label %481, !llvm.loop !126
+  br i1 %513, label %514, label %481, !llvm.loop !127
 
 514:                                              ; preds = %510, %476, %447, %485
   %515 = icmp ult i64 %448, 4
@@ -4061,7 +4061,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
   store i32 8, ptr %135, align 8, !tbaa !85
   store i8 0, ptr %136, align 4, !tbaa !86
   %580 = icmp eq i32 %566, 0
-  br i1 %580, label %583, label %548, !llvm.loop !127
+  br i1 %580, label %583, label %548, !llvm.loop !128
 
 581:                                              ; preds = %259, %552
   %582 = phi i32 [ %564, %552 ], [ %271, %259 ]
@@ -4073,7 +4073,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr 
   %585 = load i32, ptr %129, align 4, !tbaa !100
   %586 = zext i32 %585 to i64
   %587 = icmp ult i64 %584, %586
-  br i1 %587, label %213, label %141, !llvm.loop !128
+  br i1 %587, label %213, label %141, !llvm.loop !129
 }
 
 ; Function Attrs: mustprogress uwtable
@@ -4136,7 +4136,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder15WriteStoreBlockEj
 
 40:                                               ; preds = %55, %31
   %41 = sub i32 %11, %13
-  br i1 %15, label %58, label %10, !llvm.loop !129
+  br i1 %15, label %58, label %10, !llvm.loop !130
 
 42:                                               ; preds = %38, %55
   %43 = phi i64 [ 0, %38 ], [ %56, %55 ]
@@ -4161,7 +4161,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder15WriteStoreBlockEj
 55:                                               ; preds = %42, %54
   %56 = add nuw nsw i64 %43, 1
   %57 = icmp eq i64 %56, %39
-  br i1 %57, label %40, label %42, !llvm.loop !130
+  br i1 %57, label %40, label %42, !llvm.loop !131
 
 58:                                               ; preds = %40
   ret void
@@ -4175,11 +4175,11 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   %7 = sext i32 %1 to i64
   %8 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %6, i64 %7
   %9 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %6, i64 %7, i32 4
-  %10 = load i32, ptr %9, align 4, !tbaa !131
+  %10 = load i32, ptr %9, align 4, !tbaa !132
   %11 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 47
   store i32 %10, ptr %11, align 8, !tbaa !101
   %12 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %6, i64 %7, i32 5
-  %13 = load i32, ptr %12, align 4, !tbaa !133
+  %13 = load i32, ptr %12, align 4, !tbaa !134
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder9SetPricesERKNS0_7CLevelsE(ptr noundef nonnull align 8 dereferenceable(39764) %0, ptr noundef nonnull align 1 dereferenceable(320) %8)
   %14 = icmp eq i32 %2, 0
   br i1 %14, label %24, label %15
@@ -4197,13 +4197,13 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
 
 24:                                               ; preds = %39, %3
   %25 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(320) %8, ptr noundef nonnull align 8 dereferenceable(320) %25, i64 320, i1 false), !tbaa.struct !134
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(320) %8, ptr noundef nonnull align 8 dereferenceable(320) %25, i64 320, i1 false), !tbaa.struct !135
   %26 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 27
-  store i32 286, ptr %26, align 8, !tbaa !135
+  store i32 286, ptr %26, align 8, !tbaa !136
   %27 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 285
   %28 = load i8, ptr %27, align 1, !tbaa !5
   %29 = icmp eq i8 %28, 0
-  br i1 %29, label %43, label %157, !llvm.loop !136
+  br i1 %29, label %43, label %157, !llvm.loop !137
 
 30:                                               ; preds = %15, %39
   %31 = phi i32 [ 0, %15 ], [ %41, %39 ]
@@ -4229,428 +4229,428 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder9SetPricesERKNS0_7CLevelsE(ptr noundef nonnull align 8 dereferenceable(39764) %0, ptr noundef nonnull align 1 dereferenceable(320) %20)
   %41 = add nuw i32 %31, 1
   %42 = icmp eq i32 %41, %2
-  br i1 %42, label %24, label %30, !llvm.loop !137
+  br i1 %42, label %24, label %30, !llvm.loop !138
 
 43:                                               ; preds = %24
-  store i32 285, ptr %26, align 8, !tbaa !135
+  store i32 285, ptr %26, align 8, !tbaa !136
   %44 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 284
   %45 = load i8, ptr %44, align 4, !tbaa !5
   %46 = icmp eq i8 %45, 0
-  br i1 %46, label %47, label %157, !llvm.loop !136
+  br i1 %46, label %47, label %157, !llvm.loop !137
 
 47:                                               ; preds = %43
-  store i32 284, ptr %26, align 8, !tbaa !135
+  store i32 284, ptr %26, align 8, !tbaa !136
   %48 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 283
   %49 = load i8, ptr %48, align 1, !tbaa !5
   %50 = icmp eq i8 %49, 0
-  br i1 %50, label %51, label %157, !llvm.loop !136
+  br i1 %50, label %51, label %157, !llvm.loop !137
 
 51:                                               ; preds = %47
-  store i32 283, ptr %26, align 8, !tbaa !135
+  store i32 283, ptr %26, align 8, !tbaa !136
   %52 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 282
   %53 = load i8, ptr %52, align 2, !tbaa !5
   %54 = icmp eq i8 %53, 0
-  br i1 %54, label %55, label %157, !llvm.loop !136
+  br i1 %54, label %55, label %157, !llvm.loop !137
 
 55:                                               ; preds = %51
-  store i32 282, ptr %26, align 8, !tbaa !135
+  store i32 282, ptr %26, align 8, !tbaa !136
   %56 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 281
   %57 = load i8, ptr %56, align 1, !tbaa !5
   %58 = icmp eq i8 %57, 0
-  br i1 %58, label %59, label %157, !llvm.loop !136
+  br i1 %58, label %59, label %157, !llvm.loop !137
 
 59:                                               ; preds = %55
-  store i32 281, ptr %26, align 8, !tbaa !135
+  store i32 281, ptr %26, align 8, !tbaa !136
   %60 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 280
   %61 = load i8, ptr %60, align 8, !tbaa !5
   %62 = icmp eq i8 %61, 0
-  br i1 %62, label %63, label %157, !llvm.loop !136
+  br i1 %62, label %63, label %157, !llvm.loop !137
 
 63:                                               ; preds = %59
-  store i32 280, ptr %26, align 8, !tbaa !135
+  store i32 280, ptr %26, align 8, !tbaa !136
   %64 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 279
   %65 = load i8, ptr %64, align 1, !tbaa !5
   %66 = icmp eq i8 %65, 0
-  br i1 %66, label %67, label %157, !llvm.loop !136
+  br i1 %66, label %67, label %157, !llvm.loop !137
 
 67:                                               ; preds = %63
-  store i32 279, ptr %26, align 8, !tbaa !135
+  store i32 279, ptr %26, align 8, !tbaa !136
   %68 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 278
   %69 = load i8, ptr %68, align 2, !tbaa !5
   %70 = icmp eq i8 %69, 0
-  br i1 %70, label %71, label %157, !llvm.loop !136
+  br i1 %70, label %71, label %157, !llvm.loop !137
 
 71:                                               ; preds = %67
-  store i32 278, ptr %26, align 8, !tbaa !135
+  store i32 278, ptr %26, align 8, !tbaa !136
   %72 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 277
   %73 = load i8, ptr %72, align 1, !tbaa !5
   %74 = icmp eq i8 %73, 0
-  br i1 %74, label %75, label %157, !llvm.loop !136
+  br i1 %74, label %75, label %157, !llvm.loop !137
 
 75:                                               ; preds = %71
-  store i32 277, ptr %26, align 8, !tbaa !135
+  store i32 277, ptr %26, align 8, !tbaa !136
   %76 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 276
   %77 = load i8, ptr %76, align 4, !tbaa !5
   %78 = icmp eq i8 %77, 0
-  br i1 %78, label %79, label %157, !llvm.loop !136
+  br i1 %78, label %79, label %157, !llvm.loop !137
 
 79:                                               ; preds = %75
-  store i32 276, ptr %26, align 8, !tbaa !135
+  store i32 276, ptr %26, align 8, !tbaa !136
   %80 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 275
   %81 = load i8, ptr %80, align 1, !tbaa !5
   %82 = icmp eq i8 %81, 0
-  br i1 %82, label %83, label %157, !llvm.loop !136
+  br i1 %82, label %83, label %157, !llvm.loop !137
 
 83:                                               ; preds = %79
-  store i32 275, ptr %26, align 8, !tbaa !135
+  store i32 275, ptr %26, align 8, !tbaa !136
   %84 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 274
   %85 = load i8, ptr %84, align 2, !tbaa !5
   %86 = icmp eq i8 %85, 0
-  br i1 %86, label %87, label %157, !llvm.loop !136
+  br i1 %86, label %87, label %157, !llvm.loop !137
 
 87:                                               ; preds = %83
-  store i32 274, ptr %26, align 8, !tbaa !135
+  store i32 274, ptr %26, align 8, !tbaa !136
   %88 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 273
   %89 = load i8, ptr %88, align 1, !tbaa !5
   %90 = icmp eq i8 %89, 0
-  br i1 %90, label %91, label %157, !llvm.loop !136
+  br i1 %90, label %91, label %157, !llvm.loop !137
 
 91:                                               ; preds = %87
-  store i32 273, ptr %26, align 8, !tbaa !135
+  store i32 273, ptr %26, align 8, !tbaa !136
   %92 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 272
   %93 = load i8, ptr %92, align 8, !tbaa !5
   %94 = icmp eq i8 %93, 0
-  br i1 %94, label %95, label %157, !llvm.loop !136
+  br i1 %94, label %95, label %157, !llvm.loop !137
 
 95:                                               ; preds = %91
-  store i32 272, ptr %26, align 8, !tbaa !135
+  store i32 272, ptr %26, align 8, !tbaa !136
   %96 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 271
   %97 = load i8, ptr %96, align 1, !tbaa !5
   %98 = icmp eq i8 %97, 0
-  br i1 %98, label %99, label %157, !llvm.loop !136
+  br i1 %98, label %99, label %157, !llvm.loop !137
 
 99:                                               ; preds = %95
-  store i32 271, ptr %26, align 8, !tbaa !135
+  store i32 271, ptr %26, align 8, !tbaa !136
   %100 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 270
   %101 = load i8, ptr %100, align 2, !tbaa !5
   %102 = icmp eq i8 %101, 0
-  br i1 %102, label %103, label %157, !llvm.loop !136
+  br i1 %102, label %103, label %157, !llvm.loop !137
 
 103:                                              ; preds = %99
-  store i32 270, ptr %26, align 8, !tbaa !135
+  store i32 270, ptr %26, align 8, !tbaa !136
   %104 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 269
   %105 = load i8, ptr %104, align 1, !tbaa !5
   %106 = icmp eq i8 %105, 0
-  br i1 %106, label %107, label %157, !llvm.loop !136
+  br i1 %106, label %107, label %157, !llvm.loop !137
 
 107:                                              ; preds = %103
-  store i32 269, ptr %26, align 8, !tbaa !135
+  store i32 269, ptr %26, align 8, !tbaa !136
   %108 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 268
   %109 = load i8, ptr %108, align 4, !tbaa !5
   %110 = icmp eq i8 %109, 0
-  br i1 %110, label %111, label %157, !llvm.loop !136
+  br i1 %110, label %111, label %157, !llvm.loop !137
 
 111:                                              ; preds = %107
-  store i32 268, ptr %26, align 8, !tbaa !135
+  store i32 268, ptr %26, align 8, !tbaa !136
   %112 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 267
   %113 = load i8, ptr %112, align 1, !tbaa !5
   %114 = icmp eq i8 %113, 0
-  br i1 %114, label %115, label %157, !llvm.loop !136
+  br i1 %114, label %115, label %157, !llvm.loop !137
 
 115:                                              ; preds = %111
-  store i32 267, ptr %26, align 8, !tbaa !135
+  store i32 267, ptr %26, align 8, !tbaa !136
   %116 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 266
   %117 = load i8, ptr %116, align 2, !tbaa !5
   %118 = icmp eq i8 %117, 0
-  br i1 %118, label %119, label %157, !llvm.loop !136
+  br i1 %118, label %119, label %157, !llvm.loop !137
 
 119:                                              ; preds = %115
-  store i32 266, ptr %26, align 8, !tbaa !135
+  store i32 266, ptr %26, align 8, !tbaa !136
   %120 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 265
   %121 = load i8, ptr %120, align 1, !tbaa !5
   %122 = icmp eq i8 %121, 0
-  br i1 %122, label %123, label %157, !llvm.loop !136
+  br i1 %122, label %123, label %157, !llvm.loop !137
 
 123:                                              ; preds = %119
-  store i32 265, ptr %26, align 8, !tbaa !135
+  store i32 265, ptr %26, align 8, !tbaa !136
   %124 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 264
   %125 = load i8, ptr %124, align 8, !tbaa !5
   %126 = icmp eq i8 %125, 0
-  br i1 %126, label %127, label %157, !llvm.loop !136
+  br i1 %126, label %127, label %157, !llvm.loop !137
 
 127:                                              ; preds = %123
-  store i32 264, ptr %26, align 8, !tbaa !135
+  store i32 264, ptr %26, align 8, !tbaa !136
   %128 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 263
   %129 = load i8, ptr %128, align 1, !tbaa !5
   %130 = icmp eq i8 %129, 0
-  br i1 %130, label %131, label %157, !llvm.loop !136
+  br i1 %130, label %131, label %157, !llvm.loop !137
 
 131:                                              ; preds = %127
-  store i32 263, ptr %26, align 8, !tbaa !135
+  store i32 263, ptr %26, align 8, !tbaa !136
   %132 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 262
   %133 = load i8, ptr %132, align 2, !tbaa !5
   %134 = icmp eq i8 %133, 0
-  br i1 %134, label %135, label %157, !llvm.loop !136
+  br i1 %134, label %135, label %157, !llvm.loop !137
 
 135:                                              ; preds = %131
-  store i32 262, ptr %26, align 8, !tbaa !135
+  store i32 262, ptr %26, align 8, !tbaa !136
   %136 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 261
   %137 = load i8, ptr %136, align 1, !tbaa !5
   %138 = icmp eq i8 %137, 0
-  br i1 %138, label %139, label %157, !llvm.loop !136
+  br i1 %138, label %139, label %157, !llvm.loop !137
 
 139:                                              ; preds = %135
-  store i32 261, ptr %26, align 8, !tbaa !135
+  store i32 261, ptr %26, align 8, !tbaa !136
   %140 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 260
   %141 = load i8, ptr %140, align 4, !tbaa !5
   %142 = icmp eq i8 %141, 0
-  br i1 %142, label %143, label %157, !llvm.loop !136
+  br i1 %142, label %143, label %157, !llvm.loop !137
 
 143:                                              ; preds = %139
-  store i32 260, ptr %26, align 8, !tbaa !135
+  store i32 260, ptr %26, align 8, !tbaa !136
   %144 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 259
   %145 = load i8, ptr %144, align 1, !tbaa !5
   %146 = icmp eq i8 %145, 0
-  br i1 %146, label %147, label %157, !llvm.loop !136
+  br i1 %146, label %147, label %157, !llvm.loop !137
 
 147:                                              ; preds = %143
-  store i32 259, ptr %26, align 8, !tbaa !135
+  store i32 259, ptr %26, align 8, !tbaa !136
   %148 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 258
   %149 = load i8, ptr %148, align 2, !tbaa !5
   %150 = icmp eq i8 %149, 0
-  br i1 %150, label %151, label %157, !llvm.loop !136
+  br i1 %150, label %151, label %157, !llvm.loop !137
 
 151:                                              ; preds = %147
-  store i32 258, ptr %26, align 8, !tbaa !135
+  store i32 258, ptr %26, align 8, !tbaa !136
   %152 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 0, i64 257
   %153 = load i8, ptr %152, align 1, !tbaa !5
   %154 = icmp eq i8 %153, 0
   %155 = select i1 %154, i32 257, i32 258
   store i32 %155, ptr %26, align 8
   %156 = select i1 %154, i32 257, i32 258
-  br label %157, !llvm.loop !136
+  br label %157, !llvm.loop !137
 
 157:                                              ; preds = %151, %147, %143, %139, %135, %131, %127, %123, %119, %115, %111, %107, %103, %99, %95, %91, %87, %83, %79, %75, %71, %67, %63, %59, %55, %51, %47, %43, %24
   %158 = phi i32 [ 286, %24 ], [ 285, %43 ], [ 284, %47 ], [ 283, %51 ], [ 282, %55 ], [ 281, %59 ], [ 280, %63 ], [ 279, %67 ], [ 278, %71 ], [ 277, %75 ], [ 276, %79 ], [ 275, %83 ], [ 274, %87 ], [ 273, %91 ], [ 272, %95 ], [ 271, %99 ], [ 270, %103 ], [ 269, %107 ], [ 268, %111 ], [ 267, %115 ], [ 266, %119 ], [ 265, %123 ], [ 264, %127 ], [ 263, %131 ], [ 262, %135 ], [ 261, %139 ], [ 260, %143 ], [ 259, %147 ], [ %156, %151 ]
   %159 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 28
-  store i32 32, ptr %159, align 4, !tbaa !138
+  store i32 32, ptr %159, align 4, !tbaa !139
   %160 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 31
   %161 = load i8, ptr %160, align 1, !tbaa !5
   %162 = icmp eq i8 %161, 0
-  br i1 %162, label %163, label %285, !llvm.loop !139
+  br i1 %162, label %163, label %285, !llvm.loop !140
 
 163:                                              ; preds = %157
-  store i32 31, ptr %159, align 4, !tbaa !138
+  store i32 31, ptr %159, align 4, !tbaa !139
   %164 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 30
   %165 = load i8, ptr %164, align 2, !tbaa !5
   %166 = icmp eq i8 %165, 0
-  br i1 %166, label %167, label %285, !llvm.loop !139
+  br i1 %166, label %167, label %285, !llvm.loop !140
 
 167:                                              ; preds = %163
-  store i32 30, ptr %159, align 4, !tbaa !138
+  store i32 30, ptr %159, align 4, !tbaa !139
   %168 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 29
   %169 = load i8, ptr %168, align 1, !tbaa !5
   %170 = icmp eq i8 %169, 0
-  br i1 %170, label %171, label %285, !llvm.loop !139
+  br i1 %170, label %171, label %285, !llvm.loop !140
 
 171:                                              ; preds = %167
-  store i32 29, ptr %159, align 4, !tbaa !138
+  store i32 29, ptr %159, align 4, !tbaa !139
   %172 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 28
   %173 = load i8, ptr %172, align 4, !tbaa !5
   %174 = icmp eq i8 %173, 0
-  br i1 %174, label %175, label %285, !llvm.loop !139
+  br i1 %174, label %175, label %285, !llvm.loop !140
 
 175:                                              ; preds = %171
-  store i32 28, ptr %159, align 4, !tbaa !138
+  store i32 28, ptr %159, align 4, !tbaa !139
   %176 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 27
   %177 = load i8, ptr %176, align 1, !tbaa !5
   %178 = icmp eq i8 %177, 0
-  br i1 %178, label %179, label %285, !llvm.loop !139
+  br i1 %178, label %179, label %285, !llvm.loop !140
 
 179:                                              ; preds = %175
-  store i32 27, ptr %159, align 4, !tbaa !138
+  store i32 27, ptr %159, align 4, !tbaa !139
   %180 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 26
   %181 = load i8, ptr %180, align 2, !tbaa !5
   %182 = icmp eq i8 %181, 0
-  br i1 %182, label %183, label %285, !llvm.loop !139
+  br i1 %182, label %183, label %285, !llvm.loop !140
 
 183:                                              ; preds = %179
-  store i32 26, ptr %159, align 4, !tbaa !138
+  store i32 26, ptr %159, align 4, !tbaa !139
   %184 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 25
   %185 = load i8, ptr %184, align 1, !tbaa !5
   %186 = icmp eq i8 %185, 0
-  br i1 %186, label %187, label %285, !llvm.loop !139
+  br i1 %186, label %187, label %285, !llvm.loop !140
 
 187:                                              ; preds = %183
-  store i32 25, ptr %159, align 4, !tbaa !138
+  store i32 25, ptr %159, align 4, !tbaa !139
   %188 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 24
   %189 = load i8, ptr %188, align 8, !tbaa !5
   %190 = icmp eq i8 %189, 0
-  br i1 %190, label %191, label %285, !llvm.loop !139
+  br i1 %190, label %191, label %285, !llvm.loop !140
 
 191:                                              ; preds = %187
-  store i32 24, ptr %159, align 4, !tbaa !138
+  store i32 24, ptr %159, align 4, !tbaa !139
   %192 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 23
   %193 = load i8, ptr %192, align 1, !tbaa !5
   %194 = icmp eq i8 %193, 0
-  br i1 %194, label %195, label %285, !llvm.loop !139
+  br i1 %194, label %195, label %285, !llvm.loop !140
 
 195:                                              ; preds = %191
-  store i32 23, ptr %159, align 4, !tbaa !138
+  store i32 23, ptr %159, align 4, !tbaa !139
   %196 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 22
   %197 = load i8, ptr %196, align 2, !tbaa !5
   %198 = icmp eq i8 %197, 0
-  br i1 %198, label %199, label %285, !llvm.loop !139
+  br i1 %198, label %199, label %285, !llvm.loop !140
 
 199:                                              ; preds = %195
-  store i32 22, ptr %159, align 4, !tbaa !138
+  store i32 22, ptr %159, align 4, !tbaa !139
   %200 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 21
   %201 = load i8, ptr %200, align 1, !tbaa !5
   %202 = icmp eq i8 %201, 0
-  br i1 %202, label %203, label %285, !llvm.loop !139
+  br i1 %202, label %203, label %285, !llvm.loop !140
 
 203:                                              ; preds = %199
-  store i32 21, ptr %159, align 4, !tbaa !138
+  store i32 21, ptr %159, align 4, !tbaa !139
   %204 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 20
   %205 = load i8, ptr %204, align 4, !tbaa !5
   %206 = icmp eq i8 %205, 0
-  br i1 %206, label %207, label %285, !llvm.loop !139
+  br i1 %206, label %207, label %285, !llvm.loop !140
 
 207:                                              ; preds = %203
-  store i32 20, ptr %159, align 4, !tbaa !138
+  store i32 20, ptr %159, align 4, !tbaa !139
   %208 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 19
   %209 = load i8, ptr %208, align 1, !tbaa !5
   %210 = icmp eq i8 %209, 0
-  br i1 %210, label %211, label %285, !llvm.loop !139
+  br i1 %210, label %211, label %285, !llvm.loop !140
 
 211:                                              ; preds = %207
-  store i32 19, ptr %159, align 4, !tbaa !138
+  store i32 19, ptr %159, align 4, !tbaa !139
   %212 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 18
   %213 = load i8, ptr %212, align 2, !tbaa !5
   %214 = icmp eq i8 %213, 0
-  br i1 %214, label %215, label %285, !llvm.loop !139
+  br i1 %214, label %215, label %285, !llvm.loop !140
 
 215:                                              ; preds = %211
-  store i32 18, ptr %159, align 4, !tbaa !138
+  store i32 18, ptr %159, align 4, !tbaa !139
   %216 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 17
   %217 = load i8, ptr %216, align 1, !tbaa !5
   %218 = icmp eq i8 %217, 0
-  br i1 %218, label %219, label %285, !llvm.loop !139
+  br i1 %218, label %219, label %285, !llvm.loop !140
 
 219:                                              ; preds = %215
-  store i32 17, ptr %159, align 4, !tbaa !138
+  store i32 17, ptr %159, align 4, !tbaa !139
   %220 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 16
   %221 = load i8, ptr %220, align 8, !tbaa !5
   %222 = icmp eq i8 %221, 0
-  br i1 %222, label %223, label %285, !llvm.loop !139
+  br i1 %222, label %223, label %285, !llvm.loop !140
 
 223:                                              ; preds = %219
-  store i32 16, ptr %159, align 4, !tbaa !138
+  store i32 16, ptr %159, align 4, !tbaa !139
   %224 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 15
   %225 = load i8, ptr %224, align 1, !tbaa !5
   %226 = icmp eq i8 %225, 0
-  br i1 %226, label %227, label %285, !llvm.loop !139
+  br i1 %226, label %227, label %285, !llvm.loop !140
 
 227:                                              ; preds = %223
-  store i32 15, ptr %159, align 4, !tbaa !138
+  store i32 15, ptr %159, align 4, !tbaa !139
   %228 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 14
   %229 = load i8, ptr %228, align 2, !tbaa !5
   %230 = icmp eq i8 %229, 0
-  br i1 %230, label %231, label %285, !llvm.loop !139
+  br i1 %230, label %231, label %285, !llvm.loop !140
 
 231:                                              ; preds = %227
-  store i32 14, ptr %159, align 4, !tbaa !138
+  store i32 14, ptr %159, align 4, !tbaa !139
   %232 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 13
   %233 = load i8, ptr %232, align 1, !tbaa !5
   %234 = icmp eq i8 %233, 0
-  br i1 %234, label %235, label %285, !llvm.loop !139
+  br i1 %234, label %235, label %285, !llvm.loop !140
 
 235:                                              ; preds = %231
-  store i32 13, ptr %159, align 4, !tbaa !138
+  store i32 13, ptr %159, align 4, !tbaa !139
   %236 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 12
   %237 = load i8, ptr %236, align 4, !tbaa !5
   %238 = icmp eq i8 %237, 0
-  br i1 %238, label %239, label %285, !llvm.loop !139
+  br i1 %238, label %239, label %285, !llvm.loop !140
 
 239:                                              ; preds = %235
-  store i32 12, ptr %159, align 4, !tbaa !138
+  store i32 12, ptr %159, align 4, !tbaa !139
   %240 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 11
   %241 = load i8, ptr %240, align 1, !tbaa !5
   %242 = icmp eq i8 %241, 0
-  br i1 %242, label %243, label %285, !llvm.loop !139
+  br i1 %242, label %243, label %285, !llvm.loop !140
 
 243:                                              ; preds = %239
-  store i32 11, ptr %159, align 4, !tbaa !138
+  store i32 11, ptr %159, align 4, !tbaa !139
   %244 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 10
   %245 = load i8, ptr %244, align 2, !tbaa !5
   %246 = icmp eq i8 %245, 0
-  br i1 %246, label %247, label %285, !llvm.loop !139
+  br i1 %246, label %247, label %285, !llvm.loop !140
 
 247:                                              ; preds = %243
-  store i32 10, ptr %159, align 4, !tbaa !138
+  store i32 10, ptr %159, align 4, !tbaa !139
   %248 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 9
   %249 = load i8, ptr %248, align 1, !tbaa !5
   %250 = icmp eq i8 %249, 0
-  br i1 %250, label %251, label %285, !llvm.loop !139
+  br i1 %250, label %251, label %285, !llvm.loop !140
 
 251:                                              ; preds = %247
-  store i32 9, ptr %159, align 4, !tbaa !138
+  store i32 9, ptr %159, align 4, !tbaa !139
   %252 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 8
   %253 = load i8, ptr %252, align 8, !tbaa !5
   %254 = icmp eq i8 %253, 0
-  br i1 %254, label %255, label %285, !llvm.loop !139
+  br i1 %254, label %255, label %285, !llvm.loop !140
 
 255:                                              ; preds = %251
-  store i32 8, ptr %159, align 4, !tbaa !138
+  store i32 8, ptr %159, align 4, !tbaa !139
   %256 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 7
   %257 = load i8, ptr %256, align 1, !tbaa !5
   %258 = icmp eq i8 %257, 0
-  br i1 %258, label %259, label %285, !llvm.loop !139
+  br i1 %258, label %259, label %285, !llvm.loop !140
 
 259:                                              ; preds = %255
-  store i32 7, ptr %159, align 4, !tbaa !138
+  store i32 7, ptr %159, align 4, !tbaa !139
   %260 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 6
   %261 = load i8, ptr %260, align 2, !tbaa !5
   %262 = icmp eq i8 %261, 0
-  br i1 %262, label %263, label %285, !llvm.loop !139
+  br i1 %262, label %263, label %285, !llvm.loop !140
 
 263:                                              ; preds = %259
-  store i32 6, ptr %159, align 4, !tbaa !138
+  store i32 6, ptr %159, align 4, !tbaa !139
   %264 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 5
   %265 = load i8, ptr %264, align 1, !tbaa !5
   %266 = icmp eq i8 %265, 0
-  br i1 %266, label %267, label %285, !llvm.loop !139
+  br i1 %266, label %267, label %285, !llvm.loop !140
 
 267:                                              ; preds = %263
-  store i32 5, ptr %159, align 4, !tbaa !138
+  store i32 5, ptr %159, align 4, !tbaa !139
   %268 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 4
   %269 = load i8, ptr %268, align 4, !tbaa !5
   %270 = icmp eq i8 %269, 0
-  br i1 %270, label %271, label %285, !llvm.loop !139
+  br i1 %270, label %271, label %285, !llvm.loop !140
 
 271:                                              ; preds = %267
-  store i32 4, ptr %159, align 4, !tbaa !138
+  store i32 4, ptr %159, align 4, !tbaa !139
   %272 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 3
   %273 = load i8, ptr %272, align 1, !tbaa !5
   %274 = icmp eq i8 %273, 0
-  br i1 %274, label %275, label %285, !llvm.loop !139
+  br i1 %274, label %275, label %285, !llvm.loop !140
 
 275:                                              ; preds = %271
-  store i32 3, ptr %159, align 4, !tbaa !138
+  store i32 3, ptr %159, align 4, !tbaa !139
   %276 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 2
   %277 = load i8, ptr %276, align 2, !tbaa !5
   %278 = icmp eq i8 %277, 0
-  br i1 %278, label %279, label %285, !llvm.loop !139
+  br i1 %278, label %279, label %285, !llvm.loop !140
 
 279:                                              ; preds = %275
-  store i32 2, ptr %159, align 4, !tbaa !138
+  store i32 2, ptr %159, align 4, !tbaa !139
   %280 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1, i64 1
   %281 = load i8, ptr %280, align 1, !tbaa !5
   %282 = icmp eq i8 %281, 0
   %283 = select i1 %282, i32 1, i32 2
   store i32 %283, ptr %159, align 4
   %284 = select i1 %282, i32 1, i32 2
-  br label %285, !llvm.loop !139
+  br label %285, !llvm.loop !140
 
 285:                                              ; preds = %279, %157, %163, %167, %171, %175, %179, %183, %187, %191, %195, %199, %203, %207, %211, %215, %219, %223, %227, %231, %235, %239, %243, %247, %251, %255, %259, %263, %267, %271, %275
   %286 = phi i32 [ 32, %157 ], [ 31, %163 ], [ 30, %167 ], [ 29, %171 ], [ 28, %175 ], [ 27, %179 ], [ 26, %183 ], [ 25, %187 ], [ 24, %191 ], [ 23, %195 ], [ 22, %199 ], [ 21, %203 ], [ 20, %207 ], [ 19, %211 ], [ 18, %215 ], [ 17, %219 ], [ 16, %223 ], [ 15, %227 ], [ 14, %231 ], [ 13, %235 ], [ 12, %239 ], [ 11, %243 ], [ 10, %247 ], [ 9, %251 ], [ 8, %255 ], [ 7, %259 ], [ 6, %263 ], [ 5, %267 ], [ 4, %271 ], [ 3, %275 ], [ %284, %279 ]
@@ -4841,7 +4841,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   %417 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 45
   call void @Huffman_Generate(ptr noundef nonnull %4, ptr noundef nonnull %416, ptr noundef nonnull %417, i32 noundef 19, i32 noundef 7)
   %418 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 29
-  store i32 4, ptr %418, align 8, !tbaa !140
+  store i32 4, ptr %418, align 8, !tbaa !141
   %419 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 45, i64 16
   %420 = load i8, ptr %419, align 4, !tbaa !5
   %421 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 25, i64 0
@@ -4863,7 +4863,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %432, label %434, label %433
 
 433:                                              ; preds = %415
-  store i32 5, ptr %418, align 8, !tbaa !140
+  store i32 5, ptr %418, align 8, !tbaa !141
   br label %434
 
 434:                                              ; preds = %433, %415
@@ -4875,7 +4875,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %438, label %440, label %439
 
 439:                                              ; preds = %434
-  store i32 6, ptr %418, align 8, !tbaa !140
+  store i32 6, ptr %418, align 8, !tbaa !141
   br label %440
 
 440:                                              ; preds = %439, %434
@@ -4887,7 +4887,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %444, label %446, label %445
 
 445:                                              ; preds = %440
-  store i32 7, ptr %418, align 8, !tbaa !140
+  store i32 7, ptr %418, align 8, !tbaa !141
   br label %446
 
 446:                                              ; preds = %445, %440
@@ -4899,7 +4899,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %450, label %452, label %451
 
 451:                                              ; preds = %446
-  store i32 8, ptr %418, align 8, !tbaa !140
+  store i32 8, ptr %418, align 8, !tbaa !141
   br label %452
 
 452:                                              ; preds = %451, %446
@@ -4911,7 +4911,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %456, label %458, label %457
 
 457:                                              ; preds = %452
-  store i32 9, ptr %418, align 8, !tbaa !140
+  store i32 9, ptr %418, align 8, !tbaa !141
   br label %458
 
 458:                                              ; preds = %457, %452
@@ -4923,7 +4923,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %462, label %464, label %463
 
 463:                                              ; preds = %458
-  store i32 10, ptr %418, align 8, !tbaa !140
+  store i32 10, ptr %418, align 8, !tbaa !141
   br label %464
 
 464:                                              ; preds = %463, %458
@@ -4935,7 +4935,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %468, label %470, label %469
 
 469:                                              ; preds = %464
-  store i32 11, ptr %418, align 8, !tbaa !140
+  store i32 11, ptr %418, align 8, !tbaa !141
   br label %470
 
 470:                                              ; preds = %469, %464
@@ -4947,7 +4947,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %474, label %476, label %475
 
 475:                                              ; preds = %470
-  store i32 12, ptr %418, align 8, !tbaa !140
+  store i32 12, ptr %418, align 8, !tbaa !141
   br label %476
 
 476:                                              ; preds = %475, %470
@@ -4959,7 +4959,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %480, label %482, label %481
 
 481:                                              ; preds = %476
-  store i32 13, ptr %418, align 8, !tbaa !140
+  store i32 13, ptr %418, align 8, !tbaa !141
   br label %482
 
 482:                                              ; preds = %481, %476
@@ -4971,7 +4971,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %486, label %488, label %487
 
 487:                                              ; preds = %482
-  store i32 14, ptr %418, align 8, !tbaa !140
+  store i32 14, ptr %418, align 8, !tbaa !141
   br label %488
 
 488:                                              ; preds = %487, %482
@@ -4983,7 +4983,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %492, label %494, label %493
 
 493:                                              ; preds = %488
-  store i32 15, ptr %418, align 8, !tbaa !140
+  store i32 15, ptr %418, align 8, !tbaa !141
   br label %494
 
 494:                                              ; preds = %493, %488
@@ -4995,7 +4995,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %498, label %500, label %499
 
 499:                                              ; preds = %494
-  store i32 16, ptr %418, align 8, !tbaa !140
+  store i32 16, ptr %418, align 8, !tbaa !141
   br label %500
 
 500:                                              ; preds = %499, %494
@@ -5007,7 +5007,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %504, label %506, label %505
 
 505:                                              ; preds = %500
-  store i32 17, ptr %418, align 8, !tbaa !140
+  store i32 17, ptr %418, align 8, !tbaa !141
   br label %506
 
 506:                                              ; preds = %505, %500
@@ -5019,7 +5019,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %510, label %512, label %511
 
 511:                                              ; preds = %506
-  store i32 18, ptr %418, align 8, !tbaa !140
+  store i32 18, ptr %418, align 8, !tbaa !141
   br label %512
 
 512:                                              ; preds = %511, %506
@@ -5031,7 +5031,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   br i1 %516, label %518, label %517
 
 517:                                              ; preds = %512
-  store i32 19, ptr %418, align 8, !tbaa !140
+  store i32 19, ptr %418, align 8, !tbaa !141
   br label %518
 
 518:                                              ; preds = %517, %512
@@ -5136,7 +5136,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBloc
   %616 = add i32 %585, %615
   %617 = add i32 %589, %616
   %618 = add i32 %593, %617
-  %619 = load i32, ptr %418, align 8, !tbaa !140
+  %619 = load i32, ptr %418, align 8, !tbaa !141
   %620 = mul i32 %619, 3
   %621 = add i32 %520, 17
   %622 = add i32 %621, %618
@@ -5155,11 +5155,11 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13TryFixedBl
   %4 = load ptr, ptr %3, align 8, !tbaa !33
   %5 = sext i32 %1 to i64
   %6 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %4, i64 %5, i32 4
-  %7 = load i32, ptr %6, align 4, !tbaa !131
+  %7 = load i32, ptr %6, align 4, !tbaa !132
   %8 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 47
   store i32 %7, ptr %8, align 8, !tbaa !101
   %9 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %4, i64 %5, i32 5
-  %10 = load i32, ptr %9, align 4, !tbaa !133
+  %10 = load i32, ptr %9, align 4, !tbaa !134
   %11 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 11
   store i32 %10, ptr %11, align 8, !tbaa !59
   %12 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39
@@ -5186,14 +5186,14 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPr
   %6 = sext i32 %1 to i64
   %7 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %5, i64 %6
   %8 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %5, i64 %6, i32 3
-  store i8 0, ptr %8, align 2, !tbaa !141
+  store i8 0, ptr %8, align 2, !tbaa !142
   %9 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 12
   %10 = load i32, ptr %9, align 4, !tbaa !29
   %11 = tail call noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder11TryDynBlockEij(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef %1, i32 noundef %10)
   %12 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 47
   %13 = load i32, ptr %12, align 8, !tbaa !101
   %14 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %5, i64 %6, i32 4
-  store i32 %13, ptr %14, align 4, !tbaa !131
+  store i32 %13, ptr %14, align 4, !tbaa !132
   %15 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 30
   %16 = load i32, ptr %15, align 4, !tbaa !100
   %17 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 11
@@ -5201,7 +5201,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPr
   %19 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 33
   %20 = load i32, ptr %19, align 4, !tbaa !70
   %21 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 14
-  %22 = load i8, ptr %21, align 4, !tbaa !142, !range !45, !noundef !46
+  %22 = load i8, ptr %21, align 4, !tbaa !143, !range !45, !noundef !46
   %23 = icmp ne i8 %22, 0
   %24 = icmp ult i32 %16, 257
   %25 = select i1 %23, i1 %24, i1 false
@@ -5210,10 +5210,10 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPr
 26:                                               ; preds = %3
   %27 = load ptr, ptr %4, align 8, !tbaa !33
   %28 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %27, i64 %6, i32 4
-  %29 = load i32, ptr %28, align 4, !tbaa !131
+  %29 = load i32, ptr %28, align 4, !tbaa !132
   store i32 %29, ptr %12, align 8, !tbaa !101
   %30 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %27, i64 %6, i32 5
-  %31 = load i32, ptr %30, align 4, !tbaa !133
+  %31 = load i32, ptr %30, align 4, !tbaa !134
   store i32 %31, ptr %17, align 8, !tbaa !59
   %32 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %32, i8 8, i64 144, i1 false), !tbaa !5
@@ -5231,7 +5231,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPr
   %38 = add i32 %37, 3
   %39 = icmp ult i32 %38, %11
   %40 = zext i1 %39 to i8
-  store i8 %40, ptr %8, align 2, !tbaa !141
+  store i8 %40, ptr %8, align 2, !tbaa !142
   %41 = tail call i32 @llvm.umin.i32(i32 %38, i32 %11)
   %42 = load i32, ptr %12, align 8, !tbaa !101
   br label %43
@@ -5250,16 +5250,16 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPr
   %52 = add i32 %51, %50
   %53 = sub i32 %48, %49
   %54 = icmp eq i32 %53, 0
-  br i1 %54, label %55, label %46, !llvm.loop !143
+  br i1 %54, label %55, label %46, !llvm.loop !144
 
 55:                                               ; preds = %46
   %56 = icmp ule i32 %52, %45
   %57 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %5, i64 %6, i32 2
   %58 = zext i1 %56 to i8
-  store i8 %58, ptr %57, align 1, !tbaa !144
+  store i8 %58, ptr %57, align 1, !tbaa !145
   %59 = tail call i32 @llvm.umin.i32(i32 %52, i32 %45)
   %60 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %5, i64 %6, i32 1
-  store i8 0, ptr %60, align 4, !tbaa !145
+  store i8 0, ptr %60, align 4, !tbaa !146
   %61 = icmp sgt i32 %2, 1
   %62 = icmp ugt i32 %16, 127
   %63 = select i1 %61, i1 %62, i1 false
@@ -5270,19 +5270,19 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPr
   %66 = shl i32 %1, 1
   %67 = sext i32 %66 to i64
   %68 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %65, i64 %67
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(320) %68, ptr noundef nonnull align 4 dereferenceable(320) %7, i64 320, i1 false), !tbaa.struct !134
-  %69 = load i32, ptr %14, align 4, !tbaa !131
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(320) %68, ptr noundef nonnull align 4 dereferenceable(320) %7, i64 320, i1 false), !tbaa.struct !135
+  %69 = load i32, ptr %14, align 4, !tbaa !132
   %70 = lshr i32 %69, 1
   %71 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %65, i64 %67, i32 4
-  store i32 %70, ptr %71, align 4, !tbaa !131
+  store i32 %70, ptr %71, align 4, !tbaa !132
   %72 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %5, i64 %6, i32 5
-  %73 = load i32, ptr %72, align 4, !tbaa !133
+  %73 = load i32, ptr %72, align 4, !tbaa !134
   %74 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %65, i64 %67, i32 5
-  store i32 %73, ptr %74, align 4, !tbaa !133
+  store i32 %73, ptr %74, align 4, !tbaa !134
   %75 = add nsw i32 %2, -1
   %76 = tail call noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPriceEii(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef %66, i32 noundef %75)
-  %77 = load i32, ptr %14, align 4, !tbaa !131
-  %78 = load i32, ptr %71, align 4, !tbaa !131
+  %77 = load i32, ptr %14, align 4, !tbaa !132
+  %78 = load i32, ptr %71, align 4, !tbaa !132
   %79 = sub i32 %77, %78
   %80 = icmp ugt i32 %78, 63
   %81 = icmp ugt i32 %79, 63
@@ -5294,13 +5294,13 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPr
   %85 = or i32 %66, 1
   %86 = sext i32 %85 to i64
   %87 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %84, i64 %86
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(320) %87, ptr noundef nonnull align 4 dereferenceable(320) %7, i64 320, i1 false), !tbaa.struct !134
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(320) %87, ptr noundef nonnull align 4 dereferenceable(320) %7, i64 320, i1 false), !tbaa.struct !135
   %88 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %84, i64 %86, i32 4
-  store i32 %79, ptr %88, align 4, !tbaa !131
+  store i32 %79, ptr %88, align 4, !tbaa !132
   %89 = load i32, ptr %17, align 8, !tbaa !59
   %90 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %84, i64 %86, i32 5
-  store i32 %89, ptr %90, align 4, !tbaa !133
-  %91 = load i32, ptr %71, align 4, !tbaa !131
+  store i32 %89, ptr %90, align 4, !tbaa !134
+  %91 = load i32, ptr %71, align 4, !tbaa !132
   %92 = load i32, ptr %19, align 4, !tbaa !70
   %93 = sub i32 %92, %91
   store i32 %93, ptr %19, align 4, !tbaa !70
@@ -5308,7 +5308,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPr
   %95 = add i32 %94, %76
   %96 = icmp ult i32 %95, %59
   %97 = zext i1 %96 to i8
-  store i8 %97, ptr %60, align 4, !tbaa !145
+  store i8 %97, ptr %60, align 4, !tbaa !146
   %98 = tail call i32 @llvm.umin.i32(i32 %95, i32 %59)
   br label %99
 
@@ -5325,7 +5325,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
   %5 = load ptr, ptr %4, align 8, !tbaa !33
   %6 = sext i32 %1 to i64
   %7 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %5, i64 %6, i32 1
-  %8 = load i8, ptr %7, align 4, !tbaa !145, !range !45, !noundef !46
+  %8 = load i8, ptr %7, align 4, !tbaa !146, !range !45, !noundef !46
   %9 = icmp eq i8 %8, 0
   br i1 %9, label %19, label %10
 
@@ -5337,7 +5337,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
   %14 = load ptr, ptr %4, align 8, !tbaa !33
   %15 = sext i32 %13 to i64
   %16 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %14, i64 %15, i32 1
-  %17 = load i8, ptr %16, align 4, !tbaa !145, !range !45, !noundef !46
+  %17 = load i8, ptr %16, align 4, !tbaa !146, !range !45, !noundef !46
   %18 = icmp eq i8 %17, 0
   br i1 %18, label %19, label %10
 
@@ -5346,13 +5346,13 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
   %21 = phi ptr [ %5, %3 ], [ %14, %10 ]
   %22 = phi i64 [ %6, %3 ], [ %15, %10 ]
   %23 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %21, i64 %22, i32 2
-  %24 = load i8, ptr %23, align 1, !tbaa !144, !range !45, !noundef !46
+  %24 = load i8, ptr %23, align 1, !tbaa !145, !range !45, !noundef !46
   %25 = icmp eq i8 %24, 0
   br i1 %25, label %31, label %26
 
 26:                                               ; preds = %19
   %27 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %21, i64 %22, i32 4
-  %28 = load i32, ptr %27, align 4, !tbaa !131
+  %28 = load i32, ptr %27, align 4, !tbaa !132
   %29 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 33
   %30 = load i32, ptr %29, align 4, !tbaa !70
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder15WriteStoreBlockEjjb(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef %28, i32 noundef %30, i1 noundef zeroext %2)
@@ -5362,7 +5362,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
   %32 = zext i1 %2 to i32
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder9WriteBitsEji(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef %32, i32 noundef 1)
   %33 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %21, i64 %22, i32 3
-  %34 = load i8, ptr %33, align 2, !tbaa !141, !range !45, !noundef !46
+  %34 = load i8, ptr %33, align 2, !tbaa !142, !range !45, !noundef !46
   %35 = icmp eq i8 %34, 0
   br i1 %35, label %275, label %36
 
@@ -5370,11 +5370,11 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder9WriteBitsEji(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef 1, i32 noundef 2)
   %37 = load ptr, ptr %4, align 8, !tbaa !33
   %38 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %37, i64 %22, i32 4
-  %39 = load i32, ptr %38, align 4, !tbaa !131
+  %39 = load i32, ptr %38, align 4, !tbaa !132
   %40 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 47
   store i32 %39, ptr %40, align 8, !tbaa !101
   %41 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %37, i64 %22, i32 5
-  %42 = load i32, ptr %41, align 4, !tbaa !133
+  %42 = load i32, ptr %41, align 4, !tbaa !134
   %43 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 11
   store i32 %42, ptr %43, align 8, !tbaa !59
   %44 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39
@@ -5426,7 +5426,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
   store i32 %76, ptr %77, align 4, !tbaa !53
   %78 = add nuw nsw i64 %50, 4
   %79 = icmp eq i64 %78, 288
-  br i1 %79, label %80, label %49, !llvm.loop !146
+  br i1 %79, label %80, label %49, !llvm.loop !147
 
 80:                                               ; preds = %49
   %81 = load i8, ptr %48, align 8, !tbaa !5
@@ -5676,18 +5676,18 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
 285:                                              ; preds = %275, %283
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder9WriteBitsEji(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef 2, i32 noundef 2)
   %286 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 27
-  %287 = load i32, ptr %286, align 8, !tbaa !135
+  %287 = load i32, ptr %286, align 8, !tbaa !136
   %288 = add i32 %287, -257
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder9WriteBitsEji(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef %288, i32 noundef 5)
   %289 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 28
-  %290 = load i32, ptr %289, align 4, !tbaa !138
+  %290 = load i32, ptr %289, align 4, !tbaa !139
   %291 = add i32 %290, -1
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder9WriteBitsEji(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef %291, i32 noundef 5)
   %292 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 29
-  %293 = load i32, ptr %292, align 8, !tbaa !140
+  %293 = load i32, ptr %292, align 8, !tbaa !141
   %294 = add i32 %293, -4
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder9WriteBitsEji(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef %294, i32 noundef 4)
-  %295 = load i32, ptr %292, align 8, !tbaa !140
+  %295 = load i32, ptr %292, align 8, !tbaa !141
   %296 = icmp eq i32 %295, 0
   br i1 %296, label %297, label %372
 
@@ -5770,10 +5770,10 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
   %367 = lshr i32 %362, %366
   store i32 %367, ptr %358, align 8, !tbaa !53
   %368 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39
-  %369 = load i32, ptr %286, align 8, !tbaa !135
+  %369 = load i32, ptr %286, align 8, !tbaa !136
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder14LevelTableCodeEPKhiS4_PKj(ptr noundef nonnull align 8 dereferenceable(39764) %0, ptr noundef nonnull %368, i32 noundef %369, ptr noundef nonnull %299, ptr noundef nonnull %298)
   %370 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 39, i32 1
-  %371 = load i32, ptr %289, align 4, !tbaa !138
+  %371 = load i32, ptr %289, align 4, !tbaa !139
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder14LevelTableCodeEPKhiS4_PKj(ptr noundef nonnull align 8 dereferenceable(39764) %0, ptr noundef nonnull %370, i32 noundef %371, ptr noundef nonnull %299, ptr noundef nonnull %298)
   br label %381
 
@@ -5784,10 +5784,10 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
   %376 = zext i8 %375 to i32
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder9WriteBitsEji(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef %376, i32 noundef 3)
   %377 = add nuw nsw i64 %373, 1
-  %378 = load i32, ptr %292, align 8, !tbaa !140
+  %378 = load i32, ptr %292, align 8, !tbaa !141
   %379 = zext i32 %378 to i64
   %380 = icmp ult i64 %377, %379
-  br i1 %380, label %372, label %297, !llvm.loop !147
+  br i1 %380, label %372, label %297, !llvm.loop !148
 
 381:                                              ; preds = %297, %80
   tail call void @_ZN9NCompress8NDeflate8NEncoder6CCoder10WriteBlockEv(ptr noundef nonnull align 8 dereferenceable(39764) %0)
@@ -5795,7 +5795,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
 
 382:                                              ; preds = %381, %26
   %383 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %21, i64 %22, i32 4
-  %384 = load i32, ptr %383, align 4, !tbaa !131
+  %384 = load i32, ptr %383, align 4, !tbaa !132
   %385 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 33
   %386 = load i32, ptr %385, align 4, !tbaa !70
   %387 = sub i32 %386, %384
@@ -5807,7 +5807,7 @@ define dso_local void @_ZN9NCompress8NDeflate8NEncoder6CCoder9CodeBlockEib(ptr n
 define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder4ReadEPvS2_Pm(ptr nocapture noundef readonly %0, ptr noundef %1, ptr nocapture noundef %2) #4 {
   %4 = alloca i32, align 4
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #22
-  %5 = load i64, ptr %2, align 8, !tbaa !148
+  %5 = load i64, ptr %2, align 8, !tbaa !149
   %6 = tail call i64 @llvm.umin.i64(i64 %5, i64 2147483648)
   %7 = trunc i64 %6 to i32
   store i32 %7, ptr %4, align 4, !tbaa !53
@@ -5819,7 +5819,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder4ReadEPvS2_Pm(ptr n
   %13 = call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef %1, i32 noundef %7, ptr noundef nonnull %4)
   %14 = load i32, ptr %4, align 4, !tbaa !53
   %15 = zext i32 %14 to i64
-  store i64 %15, ptr %2, align 8, !tbaa !148
+  store i64 %15, ptr %2, align 8, !tbaa !149
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #22
   ret i32 %13
 }
@@ -5838,10 +5838,10 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder8CodeRealEP1
   %16 = select i1 %12, i1 true, i1 %15
   %17 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 14
   %18 = zext i1 %16 to i8
-  store i8 %18, ptr %17, align 4, !tbaa !142
+  store i8 %18, ptr %17, align 4, !tbaa !143
   %19 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 15
   store i8 %18, ptr %19, align 1, !tbaa !44
-  %20 = tail call noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder6CreateEv(ptr noundef nonnull align 8 dereferenceable(39764) %0), !range !149
+  %20 = tail call noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder6CreateEv(ptr noundef nonnull align 8 dereferenceable(39764) %0), !range !150
   %21 = icmp eq i32 %20, 0
   br i1 %21, label %22, label %174
 
@@ -5850,7 +5850,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder8CodeRealEP1
   %24 = shl nsw i32 %23, 12
   %25 = add nsw i32 %24, 7168
   %26 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 17
-  store i32 %25, ptr %26, align 8, !tbaa !150
+  store i32 %25, ptr %26, align 8, !tbaa !102
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #22
   store i64 0, ptr %7, align 8, !tbaa !151
   %27 = getelementptr inbounds %"class.NCompress::NDeflate::NEncoder::CCoder", ptr %0, i64 0, i32 2
@@ -5900,7 +5900,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder8CodeRealEP1
   %51 = load ptr, ptr %50, align 8, !tbaa !33
   %52 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %51, i64 1
   %53 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %51, i64 1, i32 5
-  store i32 0, ptr %53, align 4, !tbaa !133
+  store i32 0, ptr %53, align 4, !tbaa !134
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(256) %52, i8 8, i64 256, i1 false), !tbaa !5
   %54 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %51, i64 1, i32 0, i32 0, i64 256
   store i8 13, ptr %54, align 4, !tbaa !5
@@ -5917,7 +5917,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder8CodeRealEP1
 
 62:                                               ; preds = %43, %70
   %63 = phi i64 [ %75, %70 ], [ 0, %43 ]
-  store i32 60923, ptr %57, align 4, !tbaa !131
+  store i32 60923, ptr %57, align 4, !tbaa !132
   store i8 0, ptr %58, align 8, !tbaa !60
   %64 = load i32, ptr %13, align 8, !tbaa !30
   %65 = invoke noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPriceEii(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef 1, i32 noundef %64)
@@ -5933,7 +5933,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder8CodeRealEP1
 70:                                               ; preds = %66
   %71 = load ptr, ptr %50, align 8, !tbaa !33
   %72 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %71, i64 1, i32 4
-  %73 = load i32, ptr %72, align 4, !tbaa !131
+  %73 = load i32, ptr %72, align 4, !tbaa !132
   %74 = zext i32 %73 to i64
   %75 = add i64 %63, %74
   store i64 %75, ptr %7, align 8, !tbaa !151
@@ -5948,7 +5948,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder8CodeRealEP1
   br label %172
 
 81:                                               ; preds = %43, %118
-  store i32 60923, ptr %57, align 4, !tbaa !131
+  store i32 60923, ptr %57, align 4, !tbaa !132
   store i8 0, ptr %58, align 8, !tbaa !60
   %82 = load i32, ptr %13, align 8, !tbaa !30
   %83 = invoke noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder13GetBlockPriceEii(ptr noundef nonnull align 8 dereferenceable(39764) %0, i32 noundef 1, i32 noundef %82)
@@ -5964,7 +5964,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder6CCoder8CodeRealEP1
 88:                                               ; preds = %84
   %89 = load ptr, ptr %50, align 8, !tbaa !33
   %90 = getelementptr inbounds %"struct.NCompress::NDeflate::NEncoder::CTables", ptr %89, i64 1, i32 4
-  %91 = load i32, ptr %90, align 4, !tbaa !131
+  %91 = load i32, ptr %90, align 4, !tbaa !132
   %92 = zext i32 %91 to i64
   %93 = load i64, ptr %7, align 8, !tbaa !151
   %94 = add i64 %93, %92
@@ -6404,7 +6404,7 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder9CCOMC
   %81 = icmp eq i8 %79, %80
   br i1 %81, label %160, label %82
 
-82:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77
+82:                                               ; preds = %3, %7, %12, %17, %22, %27, %32, %37, %42, %47, %52, %57, %62, %67, %72, %77
   %83 = load i8, ptr @IID_ICompressSetCoderProperties, align 4, !tbaa !5
   %84 = icmp eq i8 %4, %83
   br i1 %84, label %85, label %166
@@ -6523,8 +6523,8 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder9CCOMC
   %165 = tail call noundef i32 %164(ptr noundef nonnull align 8 dereferenceable(39788) %0)
   br label %166
 
-166:                                              ; preds = %160, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
-  %167 = phi i32 [ -2147467262, %155 ], [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ 0, %160 ]
+166:                                              ; preds = %160, %155, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82
+  %167 = phi i32 [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ -2147467262, %155 ], [ 0, %160 ]
   ret i32 %167
 }
 
@@ -6737,7 +6737,7 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder11CCOM
   %81 = icmp eq i8 %79, %80
   br i1 %81, label %160, label %82
 
-82:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77
+82:                                               ; preds = %3, %7, %12, %17, %22, %27, %32, %37, %42, %47, %52, %57, %62, %67, %72, %77
   %83 = load i8, ptr @IID_ICompressSetCoderProperties, align 4, !tbaa !5
   %84 = icmp eq i8 %4, %83
   br i1 %84, label %85, label %166
@@ -6856,8 +6856,8 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress8NDeflate8NEncoder11CCOM
   %165 = tail call noundef i32 %164(ptr noundef nonnull align 8 dereferenceable(39788) %0)
   br label %166
 
-166:                                              ; preds = %160, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
-  %167 = phi i32 [ -2147467262, %155 ], [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ 0, %160 ]
+166:                                              ; preds = %160, %155, %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82
+  %167 = phi i32 [ -2147467262, %82 ], [ -2147467262, %85 ], [ -2147467262, %90 ], [ -2147467262, %95 ], [ -2147467262, %100 ], [ -2147467262, %105 ], [ -2147467262, %110 ], [ -2147467262, %115 ], [ -2147467262, %120 ], [ -2147467262, %125 ], [ -2147467262, %130 ], [ -2147467262, %135 ], [ -2147467262, %140 ], [ -2147467262, %145 ], [ -2147467262, %150 ], [ -2147467262, %155 ], [ 0, %160 ]
   ret i32 %167
 }
 
@@ -6994,13 +6994,13 @@ define internal void @_GLOBAL__sub_I_DeflateEncoder.cpp() #0 section ".text.star
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.bitreverse.i16(i16) #20
+declare i32 @llvm.umax.i32(i32, i32) #20
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umin.i32(i32, i32) #20
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #20
+declare i16 @llvm.bitreverse.i16(i16) #20
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umin.i64(i64, i64) #20
@@ -7151,55 +7151,55 @@ attributes #24 = { builtin nounwind }
 !99 = distinct !{!99, !58, !63, !64}
 !100 = !{!19, !11, i64 1372}
 !101 = !{!19, !11, i64 4912}
-!102 = !{!103, !56, i64 0}
-!103 = !{!"_ZTSN9NCompress8NDeflate8NEncoder10CCodeValueE", !56, i64 0, !56, i64 2}
-!104 = !{!103, !56, i64 2}
-!105 = distinct !{!105, !58}
-!106 = distinct !{!106, !58, !63}
-!107 = distinct !{!107, !58}
-!108 = !{!109}
-!109 = distinct !{!109, !110}
-!110 = distinct !{!110, !"LVerDomain"}
-!111 = !{!112}
-!112 = distinct !{!112, !110}
-!113 = distinct !{!113, !58, !63, !64}
-!114 = distinct !{!114, !58, !63}
-!115 = !{!116}
-!116 = distinct !{!116, !117}
-!117 = distinct !{!117, !"LVerDomain"}
-!118 = !{!119}
-!119 = distinct !{!119, !117}
-!120 = distinct !{!120, !58, !63, !64}
-!121 = distinct !{!121, !58, !63}
-!122 = distinct !{!122, !58, !89}
+!102 = !{!19, !11, i64 1304}
+!103 = !{!104, !56, i64 0}
+!104 = !{!"_ZTSN9NCompress8NDeflate8NEncoder10CCodeValueE", !56, i64 0, !56, i64 2}
+!105 = !{!104, !56, i64 2}
+!106 = distinct !{!106, !58}
+!107 = distinct !{!107, !58, !63}
+!108 = distinct !{!108, !58}
+!109 = !{!110}
+!110 = distinct !{!110, !111}
+!111 = distinct !{!111, !"LVerDomain"}
+!112 = !{!113}
+!113 = distinct !{!113, !111}
+!114 = distinct !{!114, !58, !63, !64}
+!115 = distinct !{!115, !58, !63}
+!116 = !{!117}
+!117 = distinct !{!117, !118}
+!118 = distinct !{!118, !"LVerDomain"}
+!119 = !{!120}
+!120 = distinct !{!120, !118}
+!121 = distinct !{!121, !58, !63, !64}
+!122 = distinct !{!122, !58, !63}
 !123 = distinct !{!123, !58, !89}
 !124 = distinct !{!124, !58, !89}
 !125 = distinct !{!125, !58, !89}
 !126 = distinct !{!126, !58, !89}
 !127 = distinct !{!127, !58, !89}
-!128 = distinct !{!128, !58}
+!128 = distinct !{!128, !58, !89}
 !129 = distinct !{!129, !58}
 !130 = distinct !{!130, !58}
-!131 = !{!132, !11, i64 324}
-!132 = !{!"_ZTSN9NCompress8NDeflate8NEncoder7CTablesE", !26, i64 0, !14, i64 320, !14, i64 321, !14, i64 322, !11, i64 324, !11, i64 328}
-!133 = !{!132, !11, i64 328}
-!134 = !{i64 0, i64 288, !5, i64 288, i64 32, !5}
-!135 = !{!19, !11, i64 1360}
-!136 = distinct !{!136, !58}
+!131 = distinct !{!131, !58}
+!132 = !{!133, !11, i64 324}
+!133 = !{!"_ZTSN9NCompress8NDeflate8NEncoder7CTablesE", !26, i64 0, !14, i64 320, !14, i64 321, !14, i64 322, !11, i64 324, !11, i64 328}
+!134 = !{!133, !11, i64 328}
+!135 = !{i64 0, i64 288, !5, i64 288, i64 32, !5}
+!136 = !{!19, !11, i64 1360}
 !137 = distinct !{!137, !58}
-!138 = !{!19, !11, i64 1364}
-!139 = distinct !{!139, !58}
-!140 = !{!19, !11, i64 1368}
-!141 = !{!132, !14, i64 322}
-!142 = !{!19, !14, i64 1300}
-!143 = distinct !{!143, !58}
-!144 = !{!132, !14, i64 321}
-!145 = !{!132, !14, i64 320}
-!146 = distinct !{!146, !58}
+!138 = distinct !{!138, !58}
+!139 = !{!19, !11, i64 1364}
+!140 = distinct !{!140, !58}
+!141 = !{!19, !11, i64 1368}
+!142 = !{!133, !14, i64 322}
+!143 = !{!19, !14, i64 1300}
+!144 = distinct !{!144, !58}
+!145 = !{!133, !14, i64 321}
+!146 = !{!133, !14, i64 320}
 !147 = distinct !{!147, !58}
-!148 = !{!21, !21, i64 0}
-!149 = !{i32 -2147024882, i32 1}
-!150 = !{!19, !11, i64 1304}
+!148 = distinct !{!148, !58}
+!149 = !{!21, !21, i64 0}
+!150 = !{i32 -2147024882, i32 1}
 !151 = !{!13, !13, i64 0}
 !152 = !{!19, !10, i64 1232}
 !153 = !{!19, !10, i64 72}

@@ -505,8 +505,8 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   tail call void @__cxa_throw(ptr nonnull %28, ptr nonnull @_ZTI28CArchiveCommandLineException, ptr nonnull @_ZN11CStringBaseIcED2Ev) #21
   unreachable
 
-30:                                               ; preds = %1109, %2069, %2072, %1124, %1128, %1695, %248, %326, %352, %2077, %1867, %482, %220, %170, %101, %96, %32
-  %31 = phi { ptr, i32 } [ %33, %32 ], [ %93, %96 ], [ %102, %101 ], [ %171, %170 ], [ %221, %220 ], [ %483, %482 ], [ %1868, %1867 ], [ %2078, %2077 ], [ %327, %326 ], [ %353, %352 ], [ %244, %248 ], [ %1696, %1695 ], [ %1125, %1128 ], [ %1125, %1124 ], [ %1110, %1109 ], [ %2070, %2069 ], [ %2073, %2072 ]
+30:                                               ; preds = %1109, %2072, %2075, %1124, %1128, %1695, %248, %326, %352, %2080, %1867, %482, %220, %170, %101, %96, %32
+  %31 = phi { ptr, i32 } [ %33, %32 ], [ %93, %96 ], [ %102, %101 ], [ %171, %170 ], [ %221, %220 ], [ %483, %482 ], [ %1868, %1867 ], [ %2081, %2080 ], [ %327, %326 ], [ %353, %352 ], [ %244, %248 ], [ %1696, %1695 ], [ %1125, %1128 ], [ %1125, %1124 ], [ %1110, %1109 ], [ %2073, %2072 ], [ %2076, %2075 ]
   resume { ptr, i32 } %31
 
 32:                                               ; preds = %27
@@ -731,7 +731,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   %149 = call noundef nonnull align 8 dereferenceable(44) ptr @_ZNK18NCommandLineParser7CParserixEm(ptr noundef nonnull align 8 dereferenceable(48) %0, i64 noundef 15)
   %150 = load i8, ptr %149, align 8, !tbaa !38, !range !40, !noundef !41
   %151 = icmp eq i8 %150, 0
-  %152 = load i32, ptr %38, align 8
+  %152 = load i32, ptr %38, align 8, !tbaa !5
   %153 = add i32 %152, -9
   %154 = icmp ult i32 %153, -2
   %155 = add i32 %152, -3
@@ -1421,8 +1421,8 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
           cleanup
   br label %1109
 
-548:                                              ; preds = %539, %507, %528, %542, %545, %506
-  %549 = phi i1 [ false, %506 ], [ false, %545 ], [ true, %542 ], [ true, %528 ], [ true, %507 ], [ true, %539 ]
+548:                                              ; preds = %539, %507, %528, %545, %542, %506
+  %549 = phi i1 [ false, %506 ], [ true, %542 ], [ false, %545 ], [ true, %528 ], [ true, %507 ], [ true, %539 ]
   invoke void @_ZN9NWildcard7CCensor13ExtendExcludeEv(ptr noundef nonnull align 8 dereferenceable(32) %15)
           to label %550 unwind label %546
 
@@ -1662,7 +1662,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   %675 = call ptr @__cxa_allocate_exception(i64 8) #19
   store ptr @.str.6, ptr %675, align 16, !tbaa !19
   invoke void @__cxa_throw(ptr nonnull %675, ptr nonnull @_ZTIPKc, ptr null) #21
-          to label %2080 unwind label %676
+          to label %2083 unwind label %676
 
 676:                                              ; preds = %674, %649
   %677 = landingpad { ptr, i32 }
@@ -1951,7 +1951,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   %817 = call ptr @__cxa_allocate_exception(i64 8) #19
   store ptr @.str.7, ptr %817, align 16, !tbaa !19
   invoke void @__cxa_throw(ptr nonnull %817, ptr nonnull @_ZTIPKc, ptr null) #21
-          to label %2080 unwind label %810
+          to label %2083 unwind label %810
 
 818:                                              ; preds = %812
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %21) #19
@@ -2361,7 +2361,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   %1035 = call ptr @__cxa_allocate_exception(i64 8) #19
   store ptr @.str.50, ptr %1035, align 16, !tbaa !19
   invoke void @__cxa_throw(ptr nonnull %1035, ptr nonnull @_ZTIPKc, ptr null) #21
-          to label %2080 unwind label %546
+          to label %2083 unwind label %546
 
 1036:                                             ; preds = %1022
   %1037 = invoke noundef nonnull align 8 dereferenceable(44) ptr @_ZNK18NCommandLineParser7CParserixEm(ptr noundef nonnull align 8 dereferenceable(48) %0, i64 noundef 9)
@@ -2495,9 +2495,9 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
 1108:                                             ; preds = %1104
   call void @_ZN17CBaseRecordVectorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %15) #19
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %15) #19
-  br label %2079
+  br label %2082
 
-1109:                                             ; preds = %641, %645, %648, %546, %1017, %495
+1109:                                             ; preds = %546, %1017, %648, %645, %641, %495
   %1110 = phi { ptr, i32 } [ %496, %495 ], [ %547, %546 ], [ %1018, %1017 ], [ %642, %641 ], [ %646, %645 ], [ %646, %648 ]
   call void @_ZN9NWildcard7CCensorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %15) #19
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %15) #19
@@ -2950,14 +2950,14 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   %1348 = phi ptr [ %1215, %1327 ], [ %1262, %1345 ]
   %1349 = load i8, ptr %1119, align 8, !tbaa !87, !range !40, !noundef !41
   %1350 = icmp eq i8 %1349, 0
-  br i1 %1350, label %1455, label %1351
+  br i1 %1350, label %1457, label %1351
 
 1351:                                             ; preds = %1347
   %1352 = load ptr, ptr %1150, align 8, !tbaa !47
   %1353 = load ptr, ptr %1352, align 8, !tbaa !19
   %1354 = getelementptr inbounds %struct.CUpdateArchiveCommand, ptr %1353, i64 0, i32 2
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(28) %1354, ptr noundef nonnull align 4 dereferenceable(28) %8, i64 28, i1 false), !tbaa.struct !86
-  br label %1455
+  br label %1457
 
 1355:                                             ; preds = %1345
   %1356 = load i32, ptr %1262, align 4, !tbaa !50
@@ -3010,11 +3010,11 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
           cleanup
   %1374 = load ptr, ptr %9, align 8, !tbaa !10
   %1375 = icmp eq ptr %1374, null
-  br i1 %1375, label %1457, label %1376
+  br i1 %1375, label %1455, label %1376
 
 1376:                                             ; preds = %1372
   call void @_ZdaPv(ptr noundef nonnull %1374) #18
-  br label %1457
+  br label %1455
 
 1377:                                             ; preds = %1371
   %1378 = add nsw i32 %1272, -1
@@ -3091,7 +3091,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
 1411:                                             ; preds = %1369
   %1412 = landingpad { ptr, i32 }
           cleanup
-  br label %1457
+  br label %1455
 
 1413:                                             ; preds = %1377
   %1414 = landingpad { ptr, i32 }
@@ -3173,32 +3173,32 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   call void @_ZdaPv(ptr noundef nonnull %1423) #18
   call void @_ZN21CUpdateArchiveCommandD2Ev(ptr noundef nonnull align 8 dereferenceable(164) %9) #19
   call void @llvm.lifetime.end.p0(i64 168, ptr nonnull %9) #19
-  br label %1455
-
-1453:                                             ; preds = %1419, %1413, %1396
-  %1454 = phi { ptr, i32 } [ %1421, %1419 ], [ %1397, %1396 ], [ %1414, %1413 ]
-  call void @_ZN21CUpdateArchiveCommandD2Ev(ptr noundef nonnull align 8 dereferenceable(164) %9) #19
   br label %1457
 
-1455:                                             ; preds = %1452, %1351, %1347
-  %1456 = phi ptr [ %1348, %1347 ], [ %1348, %1351 ], [ %1262, %1452 ]
-  call void @_ZdaPv(ptr noundef nonnull %1456) #18
-  call void @llvm.lifetime.end.p0(i64 28, ptr nonnull %8) #19
-  br label %1462
+1453:                                             ; preds = %1419, %1413, %1396
+  %1454 = phi { ptr, i32 } [ %1421, %1419 ], [ %1414, %1413 ], [ %1397, %1396 ]
+  call void @_ZN21CUpdateArchiveCommandD2Ev(ptr noundef nonnull align 8 dereferenceable(164) %9) #19
+  br label %1455
 
-1457:                                             ; preds = %1453, %1411, %1376, %1372
-  %1458 = phi { ptr, i32 } [ %1454, %1453 ], [ %1373, %1372 ], [ %1373, %1376 ], [ %1412, %1411 ]
+1455:                                             ; preds = %1453, %1411, %1376, %1372
+  %1456 = phi { ptr, i32 } [ %1454, %1453 ], [ %1412, %1411 ], [ %1373, %1376 ], [ %1373, %1372 ]
   call void @llvm.lifetime.end.p0(i64 168, ptr nonnull %9) #19
   br label %1459
 
-1459:                                             ; preds = %1457, %1367, %1342, %1339, %1337, %1335, %1280
-  %1460 = phi { ptr, i32 } [ %1458, %1457 ], [ %1336, %1335 ], [ %1276, %1280 ], [ %1368, %1367 ], [ %1338, %1337 ], [ %1341, %1339 ], [ %1344, %1342 ]
-  %1461 = phi ptr [ %1262, %1457 ], [ %1215, %1335 ], [ %1215, %1280 ], [ %1262, %1367 ], [ %1215, %1337 ], [ %1340, %1339 ], [ %1343, %1342 ]
-  call void @_ZdaPv(ptr noundef nonnull %1461) #18
+1457:                                             ; preds = %1452, %1351, %1347
+  %1458 = phi ptr [ %1348, %1351 ], [ %1348, %1347 ], [ %1262, %1452 ]
+  call void @_ZdaPv(ptr noundef nonnull %1458) #18
+  call void @llvm.lifetime.end.p0(i64 28, ptr nonnull %8) #19
+  br label %1462
+
+1459:                                             ; preds = %1455, %1367, %1342, %1339, %1337, %1335, %1280
+  %1460 = phi ptr [ %1262, %1455 ], [ %1215, %1280 ], [ %1215, %1335 ], [ %1262, %1367 ], [ %1215, %1337 ], [ %1340, %1339 ], [ %1343, %1342 ]
+  %1461 = phi { ptr, i32 } [ %1456, %1455 ], [ %1276, %1280 ], [ %1336, %1335 ], [ %1368, %1367 ], [ %1338, %1337 ], [ %1341, %1339 ], [ %1344, %1342 ]
+  call void @_ZdaPv(ptr noundef nonnull %1460) #18
   call void @llvm.lifetime.end.p0(i64 28, ptr nonnull %8) #19
   br label %1695
 
-1462:                                             ; preds = %1455, %1213, %1162
+1462:                                             ; preds = %1457, %1213, %1162
   %1463 = add nuw nsw i64 %1153, 1
   %1464 = load i32, ptr %1140, align 4, !tbaa !49
   %1465 = sext i32 %1464 to i64
@@ -3620,7 +3620,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   br i1 %1694, label %1593, label %1697, !llvm.loop !101
 
 1695:                                             ; preds = %1679, %1677, %1675, %1666, %1663, %1591, %1488, %1469, %1467, %1459
-  %1696 = phi { ptr, i32 } [ %1489, %1488 ], [ %1592, %1591 ], [ %1460, %1459 ], [ %1664, %1666 ], [ %1664, %1663 ], [ %1676, %1675 ], [ %1468, %1467 ], [ %1470, %1469 ], [ %1678, %1677 ], [ %1680, %1679 ]
+  %1696 = phi { ptr, i32 } [ %1489, %1488 ], [ %1461, %1459 ], [ %1592, %1591 ], [ %1664, %1666 ], [ %1664, %1663 ], [ %1676, %1675 ], [ %1468, %1467 ], [ %1470, %1469 ], [ %1678, %1677 ], [ %1680, %1679 ]
   call void @_ZN21CUpdateArchiveCommandD2Ev(ptr noundef nonnull align 8 dereferenceable(164) %11) #19
   call void @llvm.lifetime.end.p0(i64 168, ptr nonnull %11) #19
   call void @llvm.lifetime.end.p0(i64 28, ptr nonnull %10)
@@ -3763,7 +3763,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   store i32 %1781, ptr %1769, align 8, !tbaa !48
   br label %1782
 
-1782:                                             ; preds = %1767, %1775, %1771, %1719
+1782:                                             ; preds = %1775, %1767, %1771, %1719
   %1783 = getelementptr inbounds %struct.CArchiveCommandLineOptions, ptr %1, i64 0, i32 6
   %1784 = load i8, ptr %1783, align 2, !tbaa !43, !range !40, !noundef !41
   %1785 = getelementptr inbounds %struct.CArchiveCommandLineOptions, ptr %1, i64 0, i32 23, i32 9
@@ -3798,7 +3798,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
 
 1801:                                             ; preds = %1794
   %1802 = icmp eq i8 %1786, 0
-  br i1 %1802, label %2079, label %1803
+  br i1 %1802, label %2082, label %1803
 
 1803:                                             ; preds = %1801
   %1804 = call noundef nonnull align 8 dereferenceable(44) ptr @_ZNK18NCommandLineParser7CParserixEm(ptr noundef nonnull align 8 dereferenceable(48) %0, i64 noundef 20)
@@ -3807,7 +3807,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   %1807 = load ptr, ptr %1806, align 8, !tbaa !19
   %1808 = getelementptr inbounds %struct.CArchiveCommandLineOptions, ptr %1, i64 0, i32 23, i32 8
   %1809 = icmp eq ptr %1807, %1808
-  br i1 %1809, label %2079, label %1810
+  br i1 %1809, label %2082, label %1810
 
 1810:                                             ; preds = %1803
   %1811 = getelementptr inbounds %struct.CArchiveCommandLineOptions, ptr %1, i64 0, i32 23, i32 8, i32 1
@@ -3863,12 +3863,12 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
 1842:                                             ; preds = %1835
   %1843 = load i32, ptr %1813, align 8, !tbaa !48
   store i32 %1843, ptr %1811, align 8, !tbaa !48
-  br label %2079
+  br label %2082
 
 1844:                                             ; preds = %1111
-  switch i32 %1112, label %2074 [
+  switch i32 %1112, label %2077 [
     i32 7, label %1845
-    i32 8, label %2079
+    i32 8, label %2082
   ]
 
 1845:                                             ; preds = %1844
@@ -3923,7 +3923,7 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   %1871 = getelementptr inbounds %"struct.NCommandLineParser::CSwitchResult", ptr %1870, i64 0, i32 3, i32 0, i32 0, i32 2
   %1872 = load i32, ptr %1871, align 4, !tbaa !49
   %1873 = icmp sgt i32 %1872, 0
-  br i1 %1873, label %1874, label %2079
+  br i1 %1873, label %1874, label %2082
 
 1874:                                             ; preds = %1869
   %1875 = getelementptr inbounds %struct.CArchiveCommandLineOptions, ptr %1, i64 0, i32 29
@@ -3931,420 +3931,423 @@ define dso_local void @_ZN25CArchiveCommandLineParser6Parse2ER26CArchiveCommandL
   %1877 = getelementptr inbounds %struct.CArchiveCommandLineOptions, ptr %1, i64 0, i32 29, i32 2
   br label %1878
 
-1878:                                             ; preds = %1874, %2062
-  %1879 = phi i64 [ 0, %1874 ], [ %2063, %2062 ]
-  %1880 = call noundef nonnull align 8 dereferenceable(44) ptr @_ZNK18NCommandLineParser7CParserixEm(ptr noundef nonnull align 8 dereferenceable(48) %0, i64 noundef 8)
-  %1881 = getelementptr inbounds %"struct.NCommandLineParser::CSwitchResult", ptr %1880, i64 0, i32 3, i32 0, i32 0, i32 3
-  %1882 = load ptr, ptr %1881, align 8, !tbaa !47
-  %1883 = getelementptr inbounds ptr, ptr %1882, i64 %1879
-  %1884 = load ptr, ptr %1883, align 8, !tbaa !19
-  %1885 = getelementptr inbounds %class.CStringBase, ptr %1884, i64 0, i32 1
-  %1886 = load i32, ptr %1885, align 8, !tbaa !48
-  %1887 = add nsw i32 %1886, 1
-  %1888 = icmp eq i32 %1887, 0
-  br i1 %1888, label %1895, label %1889
+1878:                                             ; preds = %1874, %2064
+  %1879 = phi i64 [ 0, %1874 ], [ %2066, %2064 ]
+  %1880 = phi i32 [ undef, %1874 ], [ %2065, %2064 ]
+  %1881 = call noundef nonnull align 8 dereferenceable(44) ptr @_ZNK18NCommandLineParser7CParserixEm(ptr noundef nonnull align 8 dereferenceable(48) %0, i64 noundef 8)
+  %1882 = getelementptr inbounds %"struct.NCommandLineParser::CSwitchResult", ptr %1881, i64 0, i32 3, i32 0, i32 0, i32 3
+  %1883 = load ptr, ptr %1882, align 8, !tbaa !47
+  %1884 = getelementptr inbounds ptr, ptr %1883, i64 %1879
+  %1885 = load ptr, ptr %1884, align 8, !tbaa !19
+  %1886 = getelementptr inbounds %class.CStringBase, ptr %1885, i64 0, i32 1
+  %1887 = load i32, ptr %1886, align 8, !tbaa !48
+  %1888 = add nsw i32 %1887, 1
+  %1889 = icmp eq i32 %1888, 0
+  br i1 %1889, label %1896, label %1890
 
-1889:                                             ; preds = %1878
-  %1890 = zext i32 %1887 to i64
-  %1891 = icmp slt i32 %1886, -1
-  %1892 = shl nuw nsw i64 %1890, 2
-  %1893 = select i1 %1891, i64 -1, i64 %1892
-  %1894 = call noalias noundef nonnull ptr @_Znam(i64 noundef %1893) #20
-  store i32 0, ptr %1894, align 4, !tbaa !50
-  br label %1895
+1890:                                             ; preds = %1878
+  %1891 = zext i32 %1888 to i64
+  %1892 = icmp slt i32 %1887, -1
+  %1893 = shl nuw nsw i64 %1891, 2
+  %1894 = select i1 %1892, i64 -1, i64 %1893
+  %1895 = call noalias noundef nonnull ptr @_Znam(i64 noundef %1894) #20
+  store i32 0, ptr %1895, align 4, !tbaa !50
+  br label %1896
 
-1895:                                             ; preds = %1889, %1878
-  %1896 = phi ptr [ null, %1878 ], [ %1894, %1889 ]
-  %1897 = load ptr, ptr %1884, align 8, !tbaa !10
-  br label %1898
+1896:                                             ; preds = %1890, %1878
+  %1897 = phi ptr [ null, %1878 ], [ %1895, %1890 ]
+  %1898 = load ptr, ptr %1885, align 8, !tbaa !10
+  br label %1899
 
-1898:                                             ; preds = %1898, %1895
-  %1899 = phi ptr [ %1897, %1895 ], [ %1901, %1898 ]
-  %1900 = phi ptr [ %1896, %1895 ], [ %1903, %1898 ]
-  %1901 = getelementptr inbounds i32, ptr %1899, i64 1
-  %1902 = load i32, ptr %1899, align 4, !tbaa !50
-  %1903 = getelementptr inbounds i32, ptr %1900, i64 1
-  store i32 %1902, ptr %1900, align 4, !tbaa !50
-  %1904 = icmp eq i32 %1902, 0
-  br i1 %1904, label %1905, label %1898, !llvm.loop !53
+1899:                                             ; preds = %1899, %1896
+  %1900 = phi ptr [ %1898, %1896 ], [ %1902, %1899 ]
+  %1901 = phi ptr [ %1897, %1896 ], [ %1904, %1899 ]
+  %1902 = getelementptr inbounds i32, ptr %1900, i64 1
+  %1903 = load i32, ptr %1900, align 4, !tbaa !50
+  %1904 = getelementptr inbounds i32, ptr %1901, i64 1
+  store i32 %1903, ptr %1901, align 4, !tbaa !50
+  %1905 = icmp eq i32 %1903, 0
+  br i1 %1905, label %1906, label %1899, !llvm.loop !53
 
-1905:                                             ; preds = %1898
-  %1906 = invoke noundef ptr @_Z13MyStringUpperPw(ptr noundef %1896)
-          to label %1907 unwind label %1921
+1906:                                             ; preds = %1899
+  %1907 = invoke noundef ptr @_Z13MyStringUpperPw(ptr noundef %1897)
+          to label %1908 unwind label %1922
 
-1907:                                             ; preds = %1905
-  %1908 = icmp slt i32 %1886, 2
-  br i1 %1908, label %1909, label %1925
+1908:                                             ; preds = %1906
+  %1909 = icmp slt i32 %1887, 2
+  br i1 %1909, label %1910, label %1926
 
-1909:                                             ; preds = %1907
-  %1910 = call ptr @__cxa_allocate_exception(i64 16) #19
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1910, i8 0, i64 16, i1 false)
-  %1911 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
-          to label %1912 unwind label %1919
+1910:                                             ; preds = %1908
+  %1911 = call ptr @__cxa_allocate_exception(i64 16) #19
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1911, i8 0, i64 16, i1 false)
+  %1912 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
+          to label %1913 unwind label %1920
 
-1912:                                             ; preds = %1909
-  store ptr %1911, ptr %1910, align 8, !tbaa !14
-  br label %1913
+1913:                                             ; preds = %1910
+  store ptr %1912, ptr %1911, align 8, !tbaa !14
+  br label %1914
 
-1913:                                             ; preds = %2059, %1912
-  %1914 = phi ptr [ %2058, %2059 ], [ %1911, %1912 ]
-  %1915 = phi ptr [ %2057, %2059 ], [ %1910, %1912 ]
-  %1916 = getelementptr inbounds %class.CStringBase.9, ptr %1915, i64 0, i32 2
-  store i32 23, ptr %1916, align 4, !tbaa !16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(23) %1914, ptr noundef nonnull align 1 dereferenceable(23) @.str.41, i64 23, i1 false), !tbaa !17
-  %1917 = getelementptr inbounds %class.CStringBase.9, ptr %1915, i64 0, i32 1
-  store i32 22, ptr %1917, align 8, !tbaa !18
-  invoke void @__cxa_throw(ptr nonnull %1915, ptr nonnull @_ZTI28CArchiveCommandLineException, ptr nonnull @_ZN11CStringBaseIcED2Ev) #21
-          to label %1918 unwind label %1923
+1914:                                             ; preds = %2061, %1913
+  %1915 = phi ptr [ %2060, %2061 ], [ %1912, %1913 ]
+  %1916 = phi ptr [ %2059, %2061 ], [ %1911, %1913 ]
+  %1917 = getelementptr inbounds %class.CStringBase.9, ptr %1916, i64 0, i32 2
+  store i32 23, ptr %1917, align 4, !tbaa !16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(23) %1915, ptr noundef nonnull align 1 dereferenceable(23) @.str.41, i64 23, i1 false), !tbaa !17
+  %1918 = getelementptr inbounds %class.CStringBase.9, ptr %1916, i64 0, i32 1
+  store i32 22, ptr %1918, align 8, !tbaa !18
+  invoke void @__cxa_throw(ptr nonnull %1916, ptr nonnull @_ZTI28CArchiveCommandLineException, ptr nonnull @_ZN11CStringBaseIcED2Ev) #21
+          to label %1919 unwind label %1924
 
-1918:                                             ; preds = %1913
+1919:                                             ; preds = %1914
   unreachable
 
-1919:                                             ; preds = %1909
-  %1920 = landingpad { ptr, i32 }
+1920:                                             ; preds = %1910
+  %1921 = landingpad { ptr, i32 }
           cleanup
-  call void @__cxa_free_exception(ptr nonnull %1910) #19
-  br label %2069
+  call void @__cxa_free_exception(ptr nonnull %1911) #19
+  br label %2072
 
-1921:                                             ; preds = %1905
-  %1922 = landingpad { ptr, i32 }
+1922:                                             ; preds = %1906
+  %1923 = landingpad { ptr, i32 }
           cleanup
-  br label %2069
+  br label %2072
 
-1923:                                             ; preds = %1913
-  %1924 = landingpad { ptr, i32 }
+1924:                                             ; preds = %1914
+  %1925 = landingpad { ptr, i32 }
           cleanup
-  br label %2069
+  br label %2072
 
-1925:                                             ; preds = %1907
-  %1926 = load i32, ptr %1896, align 4, !tbaa !50
-  switch i32 %1926, label %2056 [
-    i32 68, label %1927
-    i32 77, label %1967
+1926:                                             ; preds = %1908
+  %1927 = load i32, ptr %1897, align 4, !tbaa !50
+  switch i32 %1927, label %2058 [
+    i32 68, label %1928
+    i32 77, label %1969
   ]
 
-1927:                                             ; preds = %1925
-  %1928 = getelementptr inbounds i32, ptr %1896, i64 1
-  %1929 = load i32, ptr %1928, align 4, !tbaa !50
-  %1930 = icmp eq i32 %1929, 61
-  %1931 = select i1 %1930, i64 2, i64 1
-  %1932 = getelementptr inbounds i32, ptr %1896, i64 %1931
+1928:                                             ; preds = %1926
+  %1929 = getelementptr inbounds i32, ptr %1897, i64 1
+  %1930 = load i32, ptr %1929, align 4, !tbaa !50
+  %1931 = icmp eq i32 %1930, 61
+  %1932 = select i1 %1931, i64 2, i64 1
+  %1933 = getelementptr inbounds i32, ptr %1897, i64 %1932
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #19
-  %1933 = invoke noundef i64 @_Z21ConvertStringToUInt64PKwPS0_(ptr noundef nonnull %1932, ptr noundef nonnull %4)
-          to label %1934 unwind label %1952
+  %1934 = invoke noundef i64 @_Z21ConvertStringToUInt64PKwPS0_(ptr noundef nonnull %1933, ptr noundef nonnull %4)
+          to label %1935 unwind label %1955
 
-1934:                                             ; preds = %1927
-  %1935 = load ptr, ptr %4, align 8, !tbaa !19
-  %1936 = load i32, ptr %1935, align 4, !tbaa !50
-  %1937 = icmp eq i32 %1936, 0
-  %1938 = icmp ult i64 %1933, 4294967296
-  %1939 = and i1 %1938, %1937
+1935:                                             ; preds = %1928
+  %1936 = load ptr, ptr %4, align 8, !tbaa !19
+  %1937 = load i32, ptr %1936, align 4, !tbaa !50
+  %1938 = icmp eq i32 %1937, 0
+  %1939 = icmp ult i64 %1934, 4294967296
+  %1940 = and i1 %1939, %1938
+  %1941 = trunc i64 %1934 to i32
+  %1942 = select i1 %1940, i32 %1941, i32 %1880
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #19
-  br i1 %1939, label %1956, label %1940
+  br i1 %1940, label %1959, label %1943
 
-1940:                                             ; preds = %1934
-  %1941 = call ptr @__cxa_allocate_exception(i64 16) #19
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1941, i8 0, i64 16, i1 false)
-  %1942 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
-          to label %1943 unwind label %1950
+1943:                                             ; preds = %1935
+  %1944 = call ptr @__cxa_allocate_exception(i64 16) #19
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1944, i8 0, i64 16, i1 false)
+  %1945 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
+          to label %1946 unwind label %1953
 
-1943:                                             ; preds = %1940
-  store ptr %1942, ptr %1941, align 8, !tbaa !14
-  br label %1944
+1946:                                             ; preds = %1943
+  store ptr %1945, ptr %1944, align 8, !tbaa !14
+  br label %1947
 
-1944:                                             ; preds = %1962, %1943
-  %1945 = phi ptr [ %1961, %1962 ], [ %1942, %1943 ]
-  %1946 = phi ptr [ %1960, %1962 ], [ %1941, %1943 ]
-  %1947 = getelementptr inbounds %class.CStringBase.9, ptr %1946, i64 0, i32 2
-  store i32 23, ptr %1947, align 4, !tbaa !16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(23) %1945, ptr noundef nonnull align 1 dereferenceable(23) @.str.41, i64 23, i1 false), !tbaa !17
-  %1948 = getelementptr inbounds %class.CStringBase.9, ptr %1946, i64 0, i32 1
-  store i32 22, ptr %1948, align 8, !tbaa !18
-  invoke void @__cxa_throw(ptr nonnull %1946, ptr nonnull @_ZTI28CArchiveCommandLineException, ptr nonnull @_ZN11CStringBaseIcED2Ev) #21
-          to label %1949 unwind label %1954
+1947:                                             ; preds = %1964, %1946
+  %1948 = phi ptr [ %1963, %1964 ], [ %1945, %1946 ]
+  %1949 = phi ptr [ %1962, %1964 ], [ %1944, %1946 ]
+  %1950 = getelementptr inbounds %class.CStringBase.9, ptr %1949, i64 0, i32 2
+  store i32 23, ptr %1950, align 4, !tbaa !16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(23) %1948, ptr noundef nonnull align 1 dereferenceable(23) @.str.41, i64 23, i1 false), !tbaa !17
+  %1951 = getelementptr inbounds %class.CStringBase.9, ptr %1949, i64 0, i32 1
+  store i32 22, ptr %1951, align 8, !tbaa !18
+  invoke void @__cxa_throw(ptr nonnull %1949, ptr nonnull @_ZTI28CArchiveCommandLineException, ptr nonnull @_ZN11CStringBaseIcED2Ev) #21
+          to label %1952 unwind label %1957
 
-1949:                                             ; preds = %1944
+1952:                                             ; preds = %1947
   unreachable
 
-1950:                                             ; preds = %1940
-  %1951 = landingpad { ptr, i32 }
+1953:                                             ; preds = %1943
+  %1954 = landingpad { ptr, i32 }
           cleanup
-  call void @__cxa_free_exception(ptr nonnull %1941) #19
-  br label %2072
+  call void @__cxa_free_exception(ptr nonnull %1944) #19
+  br label %2075
 
-1952:                                             ; preds = %1927
-  %1953 = landingpad { ptr, i32 }
+1955:                                             ; preds = %1928
+  %1956 = landingpad { ptr, i32 }
           cleanup
-  br label %2072
+  br label %2075
 
-1954:                                             ; preds = %1944
-  %1955 = landingpad { ptr, i32 }
+1957:                                             ; preds = %1947
+  %1958 = landingpad { ptr, i32 }
           cleanup
-  br label %2072
+  br label %2075
 
-1956:                                             ; preds = %1934
-  %1957 = trunc i64 %1933 to i32
-  %1958 = icmp ugt i32 %1957, 31
-  br i1 %1958, label %1959, label %1965
+1959:                                             ; preds = %1935
+  %1960 = icmp ugt i32 %1942, 31
+  br i1 %1960, label %1961, label %1967
 
-1959:                                             ; preds = %1956
-  %1960 = call ptr @__cxa_allocate_exception(i64 16) #19
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1960, i8 0, i64 16, i1 false)
-  %1961 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
-          to label %1962 unwind label %1963
+1961:                                             ; preds = %1959
+  %1962 = call ptr @__cxa_allocate_exception(i64 16) #19
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1962, i8 0, i64 16, i1 false)
+  %1963 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
+          to label %1964 unwind label %1965
 
-1962:                                             ; preds = %1959
-  store ptr %1961, ptr %1960, align 8, !tbaa !14
-  br label %1944
+1964:                                             ; preds = %1961
+  store ptr %1963, ptr %1962, align 8, !tbaa !14
+  br label %1947
 
-1963:                                             ; preds = %1959
-  %1964 = landingpad { ptr, i32 }
+1965:                                             ; preds = %1961
+  %1966 = landingpad { ptr, i32 }
           cleanup
-  call void @__cxa_free_exception(ptr nonnull %1960) #19
-  br label %2072
+  call void @__cxa_free_exception(ptr nonnull %1962) #19
+  br label %2075
 
-1965:                                             ; preds = %1956
-  %1966 = shl nuw i32 1, %1957
-  store i32 %1966, ptr %1847, align 4, !tbaa !108
-  br label %2062
+1967:                                             ; preds = %1959
+  %1968 = shl nuw i32 1, %1942
+  store i32 %1968, ptr %1847, align 4, !tbaa !108
+  br label %2064
 
-1967:                                             ; preds = %1925
-  %1968 = getelementptr inbounds i32, ptr %1896, i64 1
-  %1969 = load i32, ptr %1968, align 4, !tbaa !50
-  switch i32 %1969, label %2056 [
-    i32 84, label %1970
-    i32 61, label %2001
+1969:                                             ; preds = %1926
+  %1970 = getelementptr inbounds i32, ptr %1897, i64 1
+  %1971 = load i32, ptr %1970, align 4, !tbaa !50
+  switch i32 %1971, label %2058 [
+    i32 84, label %1972
+    i32 61, label %2003
   ]
 
-1970:                                             ; preds = %1967
-  %1971 = getelementptr inbounds i32, ptr %1896, i64 2
-  %1972 = load i32, ptr %1971, align 4, !tbaa !50
-  %1973 = icmp eq i32 %1972, 61
-  %1974 = select i1 %1973, i64 3, i64 2
-  %1975 = getelementptr inbounds i32, ptr %1896, i64 %1974
-  %1976 = load i32, ptr %1975, align 4, !tbaa !50
-  %1977 = icmp eq i32 %1976, 0
-  br i1 %1977, label %2062, label %1982
+1972:                                             ; preds = %1969
+  %1973 = getelementptr inbounds i32, ptr %1897, i64 2
+  %1974 = load i32, ptr %1973, align 4, !tbaa !50
+  %1975 = icmp eq i32 %1974, 61
+  %1976 = select i1 %1975, i64 3, i64 2
+  %1977 = getelementptr inbounds i32, ptr %1897, i64 %1976
+  %1978 = load i32, ptr %1977, align 4, !tbaa !50
+  %1979 = icmp eq i32 %1978, 0
+  br i1 %1979, label %2064, label %1984
 
-1978:                                             ; preds = %1982
-  %1979 = landingpad { ptr, i32 }
-          cleanup
-  br label %2072
-
-1980:                                             ; preds = %1995
+1980:                                             ; preds = %1984
   %1981 = landingpad { ptr, i32 }
           cleanup
-  br label %2072
+  br label %2075
 
-1982:                                             ; preds = %1970
+1982:                                             ; preds = %1997
+  %1983 = landingpad { ptr, i32 }
+          cleanup
+  br label %2075
+
+1984:                                             ; preds = %1972
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #19
-  %1983 = invoke noundef i64 @_Z21ConvertStringToUInt64PKwPS0_(ptr noundef nonnull %1975, ptr noundef nonnull %3)
-          to label %1984 unwind label %1978
+  %1985 = invoke noundef i64 @_Z21ConvertStringToUInt64PKwPS0_(ptr noundef nonnull %1977, ptr noundef nonnull %3)
+          to label %1986 unwind label %1980
 
-1984:                                             ; preds = %1982
-  %1985 = load ptr, ptr %3, align 8, !tbaa !19
-  %1986 = load i32, ptr %1985, align 4, !tbaa !50
-  %1987 = icmp eq i32 %1986, 0
-  %1988 = icmp ult i64 %1983, 4294967296
-  %1989 = and i1 %1988, %1987
-  br i1 %1989, label %1990, label %1992
+1986:                                             ; preds = %1984
+  %1987 = load ptr, ptr %3, align 8, !tbaa !19
+  %1988 = load i32, ptr %1987, align 4, !tbaa !50
+  %1989 = icmp eq i32 %1988, 0
+  %1990 = icmp ult i64 %1985, 4294967296
+  %1991 = and i1 %1990, %1989
+  br i1 %1991, label %1992, label %1994
 
-1990:                                             ; preds = %1984
-  %1991 = trunc i64 %1983 to i32
-  store i32 %1991, ptr %1846, align 8, !tbaa !70
+1992:                                             ; preds = %1986
+  %1993 = trunc i64 %1985 to i32
+  store i32 %1993, ptr %1846, align 8, !tbaa !70
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #19
-  br label %2062
+  br label %2064
 
-1992:                                             ; preds = %1984
+1994:                                             ; preds = %1986
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #19
-  %1993 = call ptr @__cxa_allocate_exception(i64 16) #19
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1993, i8 0, i64 16, i1 false)
-  %1994 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
-          to label %1995 unwind label %1999
+  %1995 = call ptr @__cxa_allocate_exception(i64 16) #19
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1995, i8 0, i64 16, i1 false)
+  %1996 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
+          to label %1997 unwind label %2001
 
-1995:                                             ; preds = %1992
-  %1996 = getelementptr inbounds %class.CStringBase.9, ptr %1993, i64 0, i32 2
-  store ptr %1994, ptr %1993, align 8, !tbaa !14
-  store i32 23, ptr %1996, align 4, !tbaa !16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(23) %1994, ptr noundef nonnull align 1 dereferenceable(23) @.str.41, i64 23, i1 false), !tbaa !17
-  %1997 = getelementptr inbounds %class.CStringBase.9, ptr %1993, i64 0, i32 1
-  store i32 22, ptr %1997, align 8, !tbaa !18
-  invoke void @__cxa_throw(ptr nonnull %1993, ptr nonnull @_ZTI28CArchiveCommandLineException, ptr nonnull @_ZN11CStringBaseIcED2Ev) #21
-          to label %1998 unwind label %1980
+1997:                                             ; preds = %1994
+  %1998 = getelementptr inbounds %class.CStringBase.9, ptr %1995, i64 0, i32 2
+  store ptr %1996, ptr %1995, align 8, !tbaa !14
+  store i32 23, ptr %1998, align 4, !tbaa !16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(23) %1996, ptr noundef nonnull align 1 dereferenceable(23) @.str.41, i64 23, i1 false), !tbaa !17
+  %1999 = getelementptr inbounds %class.CStringBase.9, ptr %1995, i64 0, i32 1
+  store i32 22, ptr %1999, align 8, !tbaa !18
+  invoke void @__cxa_throw(ptr nonnull %1995, ptr nonnull @_ZTI28CArchiveCommandLineException, ptr nonnull @_ZN11CStringBaseIcED2Ev) #21
+          to label %2000 unwind label %1982
 
-1998:                                             ; preds = %1995
+2000:                                             ; preds = %1997
   unreachable
 
-1999:                                             ; preds = %1992
-  %2000 = landingpad { ptr, i32 }
+2001:                                             ; preds = %1994
+  %2002 = landingpad { ptr, i32 }
           cleanup
-  call void @__cxa_free_exception(ptr nonnull %1993) #19
-  br label %2072
+  call void @__cxa_free_exception(ptr nonnull %1995) #19
+  br label %2075
 
-2001:                                             ; preds = %1967
-  %2002 = getelementptr i32, ptr %1896, i64 2
-  %2003 = load i32, ptr %2002, align 4, !tbaa !50
-  %2004 = icmp eq i32 %2003, 0
-  br i1 %2004, label %2062, label %2005
+2003:                                             ; preds = %1969
+  %2004 = getelementptr i32, ptr %1897, i64 2
+  %2005 = load i32, ptr %2004, align 4, !tbaa !50
+  %2006 = icmp eq i32 %2005, 0
+  br i1 %2006, label %2064, label %2007
 
-2005:                                             ; preds = %2001
-  %2006 = add nsw i32 %1886, -2
-  %2007 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #20
-          to label %2008 unwind label %2052
+2007:                                             ; preds = %2003
+  %2008 = add nsw i32 %1887, -2
+  %2009 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #20
+          to label %2010 unwind label %2054
 
-2008:                                             ; preds = %2005
-  store i32 0, ptr %2007, align 4, !tbaa !50, !noalias !110
-  %2009 = add nsw i32 %1886, -1
-  %2010 = icmp eq i32 %2009, 4
-  br i1 %2010, label %2017, label %2011
+2010:                                             ; preds = %2007
+  store i32 0, ptr %2009, align 4, !tbaa !50, !noalias !110
+  %2011 = add nsw i32 %1887, -1
+  %2012 = icmp eq i32 %2011, 4
+  br i1 %2012, label %2019, label %2013
 
-2011:                                             ; preds = %2008
-  %2012 = zext i32 %2009 to i64
-  %2013 = shl nuw nsw i64 %2012, 2
-  %2014 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %2013) #20
-          to label %2015 unwind label %2021, !noalias !110
+2013:                                             ; preds = %2010
+  %2014 = zext i32 %2011 to i64
+  %2015 = shl nuw nsw i64 %2014, 2
+  %2016 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %2015) #20
+          to label %2017 unwind label %2023, !noalias !110
 
-2015:                                             ; preds = %2011
-  call void @_ZdaPv(ptr noundef nonnull %2007) #18, !noalias !110
-  store i32 0, ptr %2014, align 4, !tbaa !50, !noalias !110
-  %2016 = icmp eq i32 %2006, 0
-  br i1 %2016, label %2023, label %2017
+2017:                                             ; preds = %2013
+  call void @_ZdaPv(ptr noundef nonnull %2009) #18, !noalias !110
+  store i32 0, ptr %2016, align 4, !tbaa !50, !noalias !110
+  %2018 = icmp ugt i32 %1887, 2
+  br i1 %2018, label %2019, label %2025
 
-2017:                                             ; preds = %2015, %2008
-  %2018 = phi ptr [ %2007, %2008 ], [ %2014, %2015 ]
-  %2019 = zext i32 %2006 to i64
-  %2020 = shl nuw nsw i64 %2019, 2
-  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 4 %2018, ptr nonnull align 4 %2002, i64 %2020, i1 false), !tbaa !50, !noalias !110
-  br label %2023
+2019:                                             ; preds = %2017, %2010
+  %2020 = phi ptr [ %2009, %2010 ], [ %2016, %2017 ]
+  %2021 = zext i32 %2008 to i64
+  %2022 = shl nuw nsw i64 %2021, 2
+  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 4 %2020, ptr nonnull align 4 %2004, i64 %2022, i1 false), !tbaa !50, !noalias !110
+  br label %2025
 
-2021:                                             ; preds = %2011
-  %2022 = landingpad { ptr, i32 }
+2023:                                             ; preds = %2013
+  %2024 = landingpad { ptr, i32 }
           cleanup
-  call void @_ZdaPv(ptr noundef nonnull %2007) #18, !noalias !110
-  br label %2072
+  call void @_ZdaPv(ptr noundef nonnull %2009) #18, !noalias !110
+  br label %2075
 
-2023:                                             ; preds = %2017, %2015
-  %2024 = phi ptr [ %2018, %2017 ], [ %2014, %2015 ]
-  %2025 = phi i64 [ %2019, %2017 ], [ 0, %2015 ]
-  %2026 = getelementptr inbounds i32, ptr %2024, i64 %2025
-  store i32 0, ptr %2026, align 4, !tbaa !50, !noalias !110
+2025:                                             ; preds = %2019, %2017
+  %2026 = phi ptr [ %2020, %2019 ], [ %2016, %2017 ]
+  %2027 = phi i64 [ %2021, %2019 ], [ 0, %2017 ]
+  %2028 = getelementptr inbounds i32, ptr %2026, i64 %2027
+  store i32 0, ptr %2028, align 4, !tbaa !50, !noalias !110
   store i32 0, ptr %1876, align 8, !tbaa !48
-  %2027 = load ptr, ptr %1875, align 8, !tbaa !10
-  store i32 0, ptr %2027, align 4, !tbaa !50
-  %2028 = load i32, ptr %1877, align 4, !tbaa !52
-  %2029 = icmp eq i32 %2009, %2028
-  br i1 %2029, label %2042, label %2030
+  %2029 = load ptr, ptr %1875, align 8, !tbaa !10
+  store i32 0, ptr %2029, align 4, !tbaa !50
+  %2030 = load i32, ptr %1877, align 4, !tbaa !52
+  %2031 = icmp eq i32 %2011, %2030
+  br i1 %2031, label %2044, label %2032
 
-2030:                                             ; preds = %2023
-  %2031 = zext i32 %2009 to i64
-  %2032 = shl nuw nsw i64 %2031, 2
-  %2033 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %2032) #20
-          to label %2034 unwind label %2054
+2032:                                             ; preds = %2025
+  %2033 = zext i32 %2011 to i64
+  %2034 = shl nuw nsw i64 %2033, 2
+  %2035 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %2034) #20
+          to label %2036 unwind label %2056
 
-2034:                                             ; preds = %2030
-  %2035 = icmp sgt i32 %2028, 0
-  br i1 %2035, label %2036, label %2039
+2036:                                             ; preds = %2032
+  %2037 = icmp sgt i32 %2030, 0
+  br i1 %2037, label %2038, label %2041
 
-2036:                                             ; preds = %2034
-  call void @_ZdaPv(ptr noundef nonnull %2027) #18
-  %2037 = load i32, ptr %1876, align 8, !tbaa !48
-  %2038 = sext i32 %2037 to i64
-  br label %2039
+2038:                                             ; preds = %2036
+  call void @_ZdaPv(ptr noundef nonnull %2029) #18
+  %2039 = load i32, ptr %1876, align 8, !tbaa !48
+  %2040 = sext i32 %2039 to i64
+  br label %2041
 
-2039:                                             ; preds = %2036, %2034
-  %2040 = phi i64 [ %2038, %2036 ], [ 0, %2034 ]
-  store ptr %2033, ptr %1875, align 8, !tbaa !10
-  %2041 = getelementptr inbounds i32, ptr %2033, i64 %2040
-  store i32 0, ptr %2041, align 4, !tbaa !50
-  store i32 %2009, ptr %1877, align 4, !tbaa !52
-  br label %2042
-
-2042:                                             ; preds = %2039, %2023
-  %2043 = phi ptr [ %2027, %2023 ], [ %2033, %2039 ]
+2041:                                             ; preds = %2038, %2036
+  %2042 = phi i64 [ %2040, %2038 ], [ 0, %2036 ]
+  store ptr %2035, ptr %1875, align 8, !tbaa !10
+  %2043 = getelementptr inbounds i32, ptr %2035, i64 %2042
+  store i32 0, ptr %2043, align 4, !tbaa !50
+  store i32 %2011, ptr %1877, align 4, !tbaa !52
   br label %2044
 
-2044:                                             ; preds = %2042, %2044
-  %2045 = phi ptr [ %2047, %2044 ], [ %2024, %2042 ]
-  %2046 = phi ptr [ %2049, %2044 ], [ %2043, %2042 ]
-  %2047 = getelementptr inbounds i32, ptr %2045, i64 1
-  %2048 = load i32, ptr %2045, align 4, !tbaa !50
-  %2049 = getelementptr inbounds i32, ptr %2046, i64 1
-  store i32 %2048, ptr %2046, align 4, !tbaa !50
-  %2050 = icmp eq i32 %2048, 0
-  br i1 %2050, label %2051, label %2044, !llvm.loop !53
+2044:                                             ; preds = %2041, %2025
+  %2045 = phi ptr [ %2029, %2025 ], [ %2035, %2041 ]
+  br label %2046
 
-2051:                                             ; preds = %2044
-  store i32 %2006, ptr %1876, align 8, !tbaa !48
-  call void @_ZdaPv(ptr noundef nonnull %2024) #18
-  br label %2062
+2046:                                             ; preds = %2044, %2046
+  %2047 = phi ptr [ %2049, %2046 ], [ %2026, %2044 ]
+  %2048 = phi ptr [ %2051, %2046 ], [ %2045, %2044 ]
+  %2049 = getelementptr inbounds i32, ptr %2047, i64 1
+  %2050 = load i32, ptr %2047, align 4, !tbaa !50
+  %2051 = getelementptr inbounds i32, ptr %2048, i64 1
+  store i32 %2050, ptr %2048, align 4, !tbaa !50
+  %2052 = icmp eq i32 %2050, 0
+  br i1 %2052, label %2053, label %2046, !llvm.loop !53
 
-2052:                                             ; preds = %2005
-  %2053 = landingpad { ptr, i32 }
-          cleanup
-  br label %2072
+2053:                                             ; preds = %2046
+  store i32 %2008, ptr %1876, align 8, !tbaa !48
+  call void @_ZdaPv(ptr noundef nonnull %2026) #18
+  br label %2064
 
-2054:                                             ; preds = %2030
+2054:                                             ; preds = %2007
   %2055 = landingpad { ptr, i32 }
           cleanup
-  call void @_ZdaPv(ptr noundef nonnull %2024) #18
-  br label %2072
+  br label %2075
 
-2056:                                             ; preds = %1967, %1925
-  %2057 = call ptr @__cxa_allocate_exception(i64 16) #19
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2057, i8 0, i64 16, i1 false)
-  %2058 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
-          to label %2059 unwind label %2060
-
-2059:                                             ; preds = %2056
-  store ptr %2058, ptr %2057, align 8, !tbaa !14
-  br label %1913
-
-2060:                                             ; preds = %2056
-  %2061 = landingpad { ptr, i32 }
+2056:                                             ; preds = %2032
+  %2057 = landingpad { ptr, i32 }
           cleanup
-  call void @__cxa_free_exception(ptr nonnull %2057) #19
-  br label %2072
+  call void @_ZdaPv(ptr noundef nonnull %2026) #18
+  br label %2075
 
-2062:                                             ; preds = %1990, %2001, %2051, %1970, %1965
-  call void @_ZdaPv(ptr noundef nonnull %1896) #18
-  %2063 = add nuw nsw i64 %1879, 1
-  %2064 = call noundef nonnull align 8 dereferenceable(44) ptr @_ZNK18NCommandLineParser7CParserixEm(ptr noundef nonnull align 8 dereferenceable(48) %0, i64 noundef 8)
-  %2065 = getelementptr inbounds %"struct.NCommandLineParser::CSwitchResult", ptr %2064, i64 0, i32 3, i32 0, i32 0, i32 2
-  %2066 = load i32, ptr %2065, align 4, !tbaa !49
-  %2067 = sext i32 %2066 to i64
-  %2068 = icmp slt i64 %2063, %2067
-  br i1 %2068, label %1878, label %2079, !llvm.loop !113
+2058:                                             ; preds = %1969, %1926
+  %2059 = call ptr @__cxa_allocate_exception(i64 16) #19
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2059, i8 0, i64 16, i1 false)
+  %2060 = invoke noalias noundef nonnull dereferenceable(23) ptr @_Znam(i64 noundef 23) #20
+          to label %2061 unwind label %2062
 
-2069:                                             ; preds = %1921, %1923, %1919
-  %2070 = phi { ptr, i32 } [ %1920, %1919 ], [ %1922, %1921 ], [ %1924, %1923 ]
-  %2071 = icmp eq ptr %1896, null
-  br i1 %2071, label %30, label %2072
+2061:                                             ; preds = %2058
+  store ptr %2060, ptr %2059, align 8, !tbaa !14
+  br label %1914
 
-2072:                                             ; preds = %2060, %1963, %1950, %1999, %1954, %1952, %1980, %1978, %2054, %2052, %2021, %2069
-  %2073 = phi { ptr, i32 } [ %2070, %2069 ], [ %2053, %2052 ], [ %2022, %2021 ], [ %2055, %2054 ], [ %1981, %1980 ], [ %1979, %1978 ], [ %1955, %1954 ], [ %1953, %1952 ], [ %2000, %1999 ], [ %1964, %1963 ], [ %1951, %1950 ], [ %2061, %2060 ]
-  call void @_ZdaPv(ptr noundef nonnull %1896) #18
+2062:                                             ; preds = %2058
+  %2063 = landingpad { ptr, i32 }
+          cleanup
+  call void @__cxa_free_exception(ptr nonnull %2059) #19
+  br label %2075
+
+2064:                                             ; preds = %1992, %1967, %1972, %2053, %2003
+  %2065 = phi i32 [ %1941, %1967 ], [ %1880, %1992 ], [ %1880, %1972 ], [ %1880, %2053 ], [ %1880, %2003 ]
+  call void @_ZdaPv(ptr noundef nonnull %1897) #18
+  %2066 = add nuw nsw i64 %1879, 1
+  %2067 = call noundef nonnull align 8 dereferenceable(44) ptr @_ZNK18NCommandLineParser7CParserixEm(ptr noundef nonnull align 8 dereferenceable(48) %0, i64 noundef 8)
+  %2068 = getelementptr inbounds %"struct.NCommandLineParser::CSwitchResult", ptr %2067, i64 0, i32 3, i32 0, i32 0, i32 2
+  %2069 = load i32, ptr %2068, align 4, !tbaa !49
+  %2070 = sext i32 %2069 to i64
+  %2071 = icmp slt i64 %2066, %2070
+  br i1 %2071, label %1878, label %2082, !llvm.loop !113
+
+2072:                                             ; preds = %1922, %1924, %1920
+  %2073 = phi { ptr, i32 } [ %1921, %1920 ], [ %1923, %1922 ], [ %1925, %1924 ]
+  %2074 = icmp eq ptr %1897, null
+  br i1 %2074, label %30, label %2075
+
+2075:                                             ; preds = %2062, %1965, %1953, %2001, %1957, %1955, %1982, %1980, %2056, %2054, %2023, %2072
+  %2076 = phi { ptr, i32 } [ %2073, %2072 ], [ %2055, %2054 ], [ %2024, %2023 ], [ %2057, %2056 ], [ %1983, %1982 ], [ %1981, %1980 ], [ %1958, %1957 ], [ %1956, %1955 ], [ %2002, %2001 ], [ %1966, %1965 ], [ %1954, %1953 ], [ %2063, %2062 ]
+  call void @_ZdaPv(ptr noundef nonnull %1897) #18
   br label %30
 
-2074:                                             ; preds = %1844
-  %2075 = call ptr @__cxa_allocate_exception(i64 16) #19
-  invoke void @_ZN28CArchiveCommandLineExceptionC2EPKc(ptr noundef nonnull align 8 dereferenceable(16) %2075, ptr noundef nonnull @.str.41)
-          to label %2076 unwind label %2077
+2077:                                             ; preds = %1844
+  %2078 = call ptr @__cxa_allocate_exception(i64 16) #19
+  invoke void @_ZN28CArchiveCommandLineExceptionC2EPKc(ptr noundef nonnull align 8 dereferenceable(16) %2078, ptr noundef nonnull @.str.41)
+          to label %2079 unwind label %2080
 
-2076:                                             ; preds = %2074
-  call void @__cxa_throw(ptr nonnull %2075, ptr nonnull @_ZTI28CArchiveCommandLineException, ptr nonnull @_ZN11CStringBaseIcED2Ev) #21
+2079:                                             ; preds = %2077
+  call void @__cxa_throw(ptr nonnull %2078, ptr nonnull @_ZTI28CArchiveCommandLineException, ptr nonnull @_ZN11CStringBaseIcED2Ev) #21
   unreachable
 
-2077:                                             ; preds = %2074
-  %2078 = landingpad { ptr, i32 }
+2080:                                             ; preds = %2077
+  %2081 = landingpad { ptr, i32 }
           cleanup
-  call void @__cxa_free_exception(ptr %2075) #19
+  call void @__cxa_free_exception(ptr %2078) #19
   br label %30
 
-2079:                                             ; preds = %2062, %1869, %1842, %1803, %1844, %1801, %1108
+2082:                                             ; preds = %2064, %1869, %1844, %1801, %1803, %1842, %1108
   call void @_ZN9NWildcard7CCensor13ExtendExcludeEv(ptr noundef nonnull align 8 dereferenceable(32) %224)
   ret void
 
-2080:                                             ; preds = %1034, %816, %674
+2083:                                             ; preds = %1034, %816, %674
   unreachable
 }
 

@@ -43,83 +43,82 @@ define dso_local i32 @lame_decode_initfile(ptr nocapture noundef %0, ptr nocaptu
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %7) #8
   %8 = tail call i32 @InitMP3(ptr noundef nonnull @mp) #8
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16384) @buf, i8 0, i64 16384, i1 false)
-  br label %15
+  br label %9
 
-9:                                                ; preds = %15
+9:                                                ; preds = %15, %5
   %10 = load i8, ptr @buf, align 16, !tbaa !5
   %11 = icmp ne i8 %10, -1
   %12 = load i8, ptr getelementptr inbounds ([16384 x i8], ptr @buf, i64 0, i64 1), align 1
   %13 = icmp ult i8 %12, -16
   %14 = select i1 %11, i1 true, i1 %13
-  br i1 %14, label %15, label %19
+  br i1 %14, label %15, label %18
 
-15:                                               ; preds = %5, %9
-  %16 = phi i8 [ 0, %5 ], [ %12, %9 ]
-  store i8 %16, ptr @buf, align 16, !tbaa !5
-  %17 = tail call i64 @fread(ptr noundef nonnull getelementptr inbounds ([16384 x i8], ptr @buf, i64 0, i64 1), i64 noundef 1, i64 noundef 1, ptr noundef %0)
-  %18 = icmp eq i64 %17, 0
-  br i1 %18, label %61, label %9, !llvm.loop !8
+15:                                               ; preds = %9
+  store i8 %12, ptr @buf, align 16, !tbaa !5
+  %16 = tail call i64 @fread(ptr noundef nonnull getelementptr inbounds ([16384 x i8], ptr @buf, i64 0, i64 1), i64 noundef 1, i64 noundef 1, ptr noundef %0)
+  %17 = icmp eq i64 %16, 0
+  br i1 %17, label %60, label %9, !llvm.loop !8
 
-19:                                               ; preds = %9
-  %20 = tail call i64 @fread(ptr noundef nonnull getelementptr inbounds ([16384 x i8], ptr @buf, i64 0, i64 2), i64 noundef 1, i64 noundef 46, ptr noundef %0)
-  %21 = icmp eq i64 %20, 0
-  br i1 %21, label %61, label %22
+18:                                               ; preds = %9
+  %19 = tail call i64 @fread(ptr noundef nonnull getelementptr inbounds ([16384 x i8], ptr @buf, i64 0, i64 2), i64 noundef 1, i64 noundef 46, ptr noundef %0)
+  %20 = icmp eq i64 %19, 0
+  br i1 %20, label %60, label %21
 
-22:                                               ; preds = %19
-  %23 = call i32 @GetVbrTag(ptr noundef nonnull %6, ptr noundef nonnull @buf) #8
-  %24 = icmp ne i32 %23, 0
-  %25 = getelementptr inbounds %struct.VBRTAGDATA, ptr %6, i64 0, i32 3
-  %26 = load i32, ptr %25, align 4
-  %27 = select i1 %24, i32 %26, i32 0
-  %28 = sext i32 %27 to i64
+21:                                               ; preds = %18
+  %22 = call i32 @GetVbrTag(ptr noundef nonnull %6, ptr noundef nonnull @buf) #8
+  %23 = icmp ne i32 %22, 0
+  %24 = getelementptr inbounds %struct.VBRTAGDATA, ptr %6, i64 0, i32 3
+  %25 = load i32, ptr %24, align 4
+  %26 = select i1 %23, i32 %25, i32 0
+  %27 = sext i32 %26 to i64
   store i32 0, ptr %7, align 4, !tbaa !10
-  %29 = trunc i64 %20 to i32
-  %30 = add i32 %29, 2
-  %31 = call i32 @decodeMP3(ptr noundef nonnull @mp, ptr noundef nonnull @buf, i32 noundef %30, ptr noundef nonnull @out, i32 noundef 8192, ptr noundef nonnull %7) #8
-  %32 = load i32, ptr %7, align 4, !tbaa !10
-  %33 = icmp slt i32 %32, 1
-  %34 = or i1 %24, %33
-  br i1 %34, label %38, label %35
+  %28 = trunc i64 %19 to i32
+  %29 = add i32 %28, 2
+  %30 = call i32 @decodeMP3(ptr noundef nonnull @mp, ptr noundef nonnull @buf, i32 noundef %29, ptr noundef nonnull @out, i32 noundef 8192, ptr noundef nonnull %7) #8
+  %31 = load i32, ptr %7, align 4, !tbaa !10
+  %32 = icmp slt i32 %31, 1
+  %33 = or i1 %23, %32
+  br i1 %33, label %37, label %34
 
-35:                                               ; preds = %22
-  %36 = load ptr, ptr @stderr, align 8, !tbaa !12
-  %37 = call i64 @fwrite(ptr nonnull @.str, i64 49, i64 1, ptr %36) #9
-  br label %38
+34:                                               ; preds = %21
+  %35 = load ptr, ptr @stderr, align 8, !tbaa !12
+  %36 = call i64 @fwrite(ptr nonnull @.str, i64 49, i64 1, ptr %35) #9
+  br label %37
 
-38:                                               ; preds = %35, %22
-  %39 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5), align 4, !tbaa !14
-  store i32 %39, ptr %1, align 4, !tbaa !10
-  %40 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 9), align 8, !tbaa !18
-  %41 = sext i32 %40 to i64
-  %42 = getelementptr inbounds [9 x i64], ptr @freqs, i64 0, i64 %41
-  %43 = load i64, ptr %42, align 8, !tbaa !19
-  %44 = trunc i64 %43 to i32
-  store i32 %44, ptr %2, align 4, !tbaa !10
-  %45 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 3), align 8, !tbaa !20
-  %46 = sext i32 %45 to i64
-  %47 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 6), align 4, !tbaa !21
-  %48 = add nsw i32 %47, -1
-  %49 = sext i32 %48 to i64
-  %50 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 8), align 4, !tbaa !22
-  %51 = sext i32 %50 to i64
-  %52 = getelementptr inbounds [2 x [3 x [16 x i32]]], ptr @tabsel_123, i64 0, i64 %46, i64 %49, i64 %51
-  %53 = load i32, ptr %52, align 4, !tbaa !10
-  store i32 %53, ptr %3, align 4, !tbaa !10
-  %54 = icmp ne i32 %27, 0
-  %55 = select i1 %24, i1 %54, i1 false
-  %56 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 3), align 8
-  %57 = icmp eq i32 %56, 0
-  %58 = select i1 %57, i64 1152, i64 576
-  %59 = mul nsw i64 %58, %28
-  %60 = select i1 %55, i64 %59, i64 4294967295
-  store i64 %60, ptr %4, align 8, !tbaa !19
-  br label %61
+37:                                               ; preds = %34, %21
+  %38 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5), align 4, !tbaa !14
+  store i32 %38, ptr %1, align 4, !tbaa !10
+  %39 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 9), align 8, !tbaa !18
+  %40 = sext i32 %39 to i64
+  %41 = getelementptr inbounds [9 x i64], ptr @freqs, i64 0, i64 %40
+  %42 = load i64, ptr %41, align 8, !tbaa !19
+  %43 = trunc i64 %42 to i32
+  store i32 %43, ptr %2, align 4, !tbaa !10
+  %44 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 3), align 8, !tbaa !20
+  %45 = sext i32 %44 to i64
+  %46 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 6), align 4, !tbaa !21
+  %47 = add nsw i32 %46, -1
+  %48 = sext i32 %47 to i64
+  %49 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 8), align 4, !tbaa !22
+  %50 = sext i32 %49 to i64
+  %51 = getelementptr inbounds [2 x [3 x [16 x i32]]], ptr @tabsel_123, i64 0, i64 %45, i64 %48, i64 %50
+  %52 = load i32, ptr %51, align 4, !tbaa !10
+  store i32 %52, ptr %3, align 4, !tbaa !10
+  %53 = icmp ne i32 %26, 0
+  %54 = select i1 %23, i1 %53, i1 false
+  %55 = load i32, ptr getelementptr inbounds (%struct.mpstr, ptr @mp, i64 0, i32 5, i32 3), align 8
+  %56 = icmp eq i32 %55, 0
+  %57 = select i1 %56, i64 1152, i64 576
+  %58 = mul nsw i64 %57, %27
+  %59 = select i1 %54, i64 %58, i64 4294967295
+  store i64 %59, ptr %4, align 8, !tbaa !19
+  br label %60
 
-61:                                               ; preds = %15, %19, %38
-  %62 = phi i32 [ 0, %38 ], [ -1, %19 ], [ -1, %15 ]
+60:                                               ; preds = %15, %18, %37
+  %61 = phi i32 [ 0, %37 ], [ -1, %18 ], [ -1, %15 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #8
   call void @llvm.lifetime.end.p0(i64 124, ptr nonnull %6) #8
-  ret i32 %62
+  ret i32 %61
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

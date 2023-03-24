@@ -416,8 +416,8 @@ define dso_local i32 @gx_path_add_line(ptr noundef %0, i64 noundef %1, i64 nound
   store i32 %83, ptr %81, align 4, !tbaa !50
   br label %84
 
-84:                                               ; preds = %22, %26, %23, %11, %59, %63, %60, %68
-  %85 = phi i32 [ 0, %68 ], [ -13, %60 ], [ -13, %63 ], [ -13, %59 ], [ -14, %11 ], [ -13, %23 ], [ -13, %26 ], [ -13, %22 ]
+84:                                               ; preds = %26, %23, %22, %11, %59, %63, %60, %68
+  %85 = phi i32 [ 0, %68 ], [ -13, %60 ], [ -13, %63 ], [ -13, %59 ], [ -14, %11 ], [ -13, %22 ], [ -13, %23 ], [ -13, %26 ]
   ret i32 %85
 }
 
@@ -536,26 +536,26 @@ define dso_local i32 @gx_path_close_subpath(ptr noundef %0) local_unnamed_addr #
   call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %3) #12
   %32 = call i32 @gx_path_copy(ptr noundef nonnull %0, ptr noundef nonnull %3) #12
   %33 = icmp slt i32 %32, 0
-  br i1 %33, label %34, label %35
+  br i1 %33, label %39, label %34
 
 34:                                               ; preds = %31
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %3, i64 144, i1 false), !tbaa.struct !30
+  store i8 0, ptr %28, align 2, !tbaa !19
+  %35 = load ptr, ptr %4, align 8, !tbaa !21
+  %36 = icmp eq ptr %35, null
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #12
+  br i1 %36, label %81, label %37
+
+37:                                               ; preds = %34
+  %38 = load ptr, ptr %22, align 8, !tbaa !22
+  br label %40
+
+39:                                               ; preds = %31
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #12
   br label %81
 
-35:                                               ; preds = %31
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %3, i64 144, i1 false), !tbaa.struct !30
-  store i8 0, ptr %28, align 2, !tbaa !19
-  %36 = load ptr, ptr %4, align 8, !tbaa !21
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #12
-  %37 = icmp eq ptr %36, null
-  br i1 %37, label %81, label %38
-
-38:                                               ; preds = %35
-  %39 = load ptr, ptr %22, align 8, !tbaa !22
-  br label %40
-
-40:                                               ; preds = %38, %27
-  %41 = phi ptr [ %39, %38 ], [ %23, %27 ]
+40:                                               ; preds = %37, %27
+  %41 = phi ptr [ %38, %37 ], [ %23, %27 ]
   %42 = getelementptr inbounds %struct.segment_s, ptr %41, i64 0, i32 2
   store i32 2, ptr %42, align 8, !tbaa !24
   br label %78
@@ -630,8 +630,8 @@ define dso_local i32 @gx_path_close_subpath(ptr noundef %0) local_unnamed_addr #
   store i8 0, ptr %6, align 1, !tbaa !18
   br label %81
 
-81:                                               ; preds = %50, %34, %54, %51, %35, %1, %78
-  %82 = phi i32 [ 0, %78 ], [ 0, %1 ], [ -13, %35 ], [ -13, %51 ], [ -13, %54 ], [ -13, %34 ], [ -13, %50 ]
+81:                                               ; preds = %50, %54, %51, %34, %39, %1, %78
+  %82 = phi i32 [ 0, %78 ], [ 0, %1 ], [ -13, %39 ], [ -13, %34 ], [ -13, %51 ], [ -13, %54 ], [ -13, %50 ]
   ret i32 %82
 }
 
@@ -790,8 +790,8 @@ define dso_local i32 @gx_path_add_curve(ptr noundef %0, i64 noundef %1, i64 noun
   store <2 x i32> %91, ptr %89, align 4, !tbaa !32
   br label %92
 
-92:                                               ; preds = %26, %30, %27, %15, %63, %67, %64, %72
-  %93 = phi i32 [ 0, %72 ], [ -13, %64 ], [ -13, %67 ], [ -13, %63 ], [ -14, %15 ], [ -13, %27 ], [ -13, %30 ], [ -13, %26 ]
+92:                                               ; preds = %30, %27, %26, %15, %63, %67, %64, %72
+  %93 = phi i32 [ 0, %72 ], [ -13, %64 ], [ -13, %67 ], [ -13, %63 ], [ -14, %15 ], [ -13, %26 ], [ -13, %27 ], [ -13, %30 ]
   ret i32 %93
 }
 

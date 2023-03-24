@@ -203,10 +203,10 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %99 = load i32, ptr %98, align 4
   br label %100
 
-100:                                              ; preds = %96, %76, %88, %92, %83
+100:                                              ; preds = %96, %76, %83, %92, %88
   %101 = phi i32 [ undef, %83 ], [ 0, %76 ], [ %89, %88 ], [ 20, %92 ], [ 0, %96 ]
-  %102 = phi i32 [ undef, %83 ], [ 0, %76 ], [ %91, %88 ], [ %95, %92 ], [ 0, %96 ]
-  %103 = phi i32 [ undef, %83 ], [ 4096, %76 ], [ 1, %88 ], [ 1, %92 ], [ 4096, %96 ]
+  %102 = phi i32 [ undef, %83 ], [ 4096, %76 ], [ 1, %88 ], [ 1, %92 ], [ 4096, %96 ]
+  %103 = phi i32 [ undef, %83 ], [ 0, %76 ], [ %91, %88 ], [ %95, %92 ], [ 0, %96 ]
   %104 = phi i32 [ undef, %83 ], [ 1, %76 ], [ 0, %88 ], [ 0, %92 ], [ %99, %96 ]
   %105 = phi i32 [ 1819304813, %83 ], [ 1634492771, %76 ], [ 1819304813, %88 ], [ 1819304813, %92 ], [ 1634492771, %96 ]
   %106 = call noundef i32 @_Z13FindDataStartP8_IO_FILEjPiS1_(ptr noundef nonnull %38, i32 noundef %61, ptr noundef nonnull %4, ptr noundef nonnull %5), !range !21
@@ -222,11 +222,11 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %112 = getelementptr inbounds i8, ptr %7, i64 12
   store i32 %104, ptr %112, align 4, !tbaa.struct !20
   %113 = getelementptr inbounds i8, ptr %7, i64 16
-  store i32 %102, ptr %113, align 8, !tbaa.struct !23
+  store i32 %103, ptr %113, align 8, !tbaa.struct !23
   %114 = getelementptr inbounds i8, ptr %7, i64 20
-  store i32 %103, ptr %114, align 4, !tbaa.struct !24
+  store i32 %102, ptr %114, align 4, !tbaa.struct !24
   %115 = getelementptr inbounds i8, ptr %7, i64 24
-  store i32 %102, ptr %115, align 8, !tbaa.struct !25
+  store i32 %103, ptr %115, align 8, !tbaa.struct !25
   %116 = getelementptr inbounds i8, ptr %7, i64 28
   store i32 %74, ptr %116, align 4, !tbaa.struct !18
   %117 = getelementptr inbounds i8, ptr %7, i64 32
@@ -258,11 +258,11 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %132 = getelementptr inbounds i8, ptr %8, i64 12
   store i32 %104, ptr %132, align 4, !tbaa.struct !20
   %133 = getelementptr inbounds i8, ptr %8, i64 16
-  store i32 %102, ptr %133, align 8, !tbaa.struct !23
+  store i32 %103, ptr %133, align 8, !tbaa.struct !23
   %134 = getelementptr inbounds i8, ptr %8, i64 20
-  store i32 %103, ptr %134, align 4, !tbaa.struct !24
+  store i32 %102, ptr %134, align 4, !tbaa.struct !24
   %135 = getelementptr inbounds i8, ptr %8, i64 24
-  store i32 %102, ptr %135, align 8, !tbaa.struct !25
+  store i32 %103, ptr %135, align 8, !tbaa.struct !25
   %136 = getelementptr inbounds i8, ptr %8, i64 28
   store i32 %74, ptr %136, align 4, !tbaa.struct !18
   %137 = getelementptr inbounds i8, ptr %8, i64 32
@@ -1219,26 +1219,26 @@ define dso_local noundef i32 @_Z10DecodeALACP8_IO_FILES0_22AudioFormatDescriptio
   br label %180
 
 154:                                              ; preds = %147
-  %155 = trunc i64 %148 to i32
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #22
-  %156 = trunc i64 %148 to i8
-  store i8 %156, ptr %8, align 1, !tbaa !27
-  %157 = lshr i64 %148, 8
-  %158 = trunc i64 %157 to i8
-  %159 = getelementptr inbounds [4 x i8], ptr %8, i64 0, i64 1
-  store i8 %158, ptr %159, align 1, !tbaa !27
-  %160 = lshr i64 %148, 16
-  %161 = trunc i64 %160 to i8
-  %162 = getelementptr inbounds [4 x i8], ptr %8, i64 0, i64 2
-  store i8 %161, ptr %162, align 1, !tbaa !27
-  %163 = lshr i64 %148, 24
-  %164 = trunc i64 %163 to i8
-  %165 = getelementptr inbounds [4 x i8], ptr %8, i64 0, i64 3
-  store i8 %164, ptr %165, align 1, !tbaa !27
-  %166 = call i64 @fwrite(ptr noundef nonnull %8, i64 noundef 1, i64 noundef 4, ptr noundef %1)
+  %155 = trunc i64 %148 to i8
+  store i8 %155, ptr %8, align 1, !tbaa !27
+  %156 = lshr i64 %148, 8
+  %157 = trunc i64 %156 to i8
+  %158 = getelementptr inbounds [4 x i8], ptr %8, i64 0, i64 1
+  store i8 %157, ptr %158, align 1, !tbaa !27
+  %159 = lshr i64 %148, 16
+  %160 = trunc i64 %159 to i8
+  %161 = getelementptr inbounds [4 x i8], ptr %8, i64 0, i64 2
+  store i8 %160, ptr %161, align 1, !tbaa !27
+  %162 = lshr i64 %148, 24
+  %163 = trunc i64 %162 to i8
+  %164 = getelementptr inbounds [4 x i8], ptr %8, i64 0, i64 3
+  store i8 %163, ptr %164, align 1, !tbaa !27
+  %165 = call i64 @fwrite(ptr noundef nonnull %8, i64 noundef 1, i64 noundef 4, ptr noundef %1)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #22
-  %167 = call i32 @fseek(ptr noundef %1, i64 noundef 4, i32 noundef 0)
-  %168 = add i32 %155, 36
+  %166 = call i32 @fseek(ptr noundef %1, i64 noundef 4, i32 noundef 0)
+  %167 = trunc i64 %148 to i32
+  %168 = add i32 %167, 36
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %7) #22
   %169 = trunc i32 %168 to i8
   store i8 %169, ptr %7, align 1, !tbaa !27
@@ -1468,14 +1468,14 @@ define dso_local void @_Z18WriteWAVEChunkSizeP8_IO_FILEj(ptr nocapture noundef %
 ; Function Attrs: nounwind
 declare void @_ZN11ALACDecoderD1Ev(ptr noundef nonnull align 8 dereferenceable(64)) unnamed_addr #16
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #17
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #17
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.fshl.i32(i32, i32, i32) #18
+declare i32 @llvm.fshl.i32(i32, i32, i32) #17
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #18
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #18
 
 attributes #0 = { mustprogress norecurse uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1494,8 +1494,8 @@ attributes #13 = { mustprogress nounwind willreturn allockind("free") memory(arg
 attributes #14 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #15 = { mustprogress nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #16 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #17 = { nofree nounwind }
-attributes #18 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #17 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #18 = { nofree nounwind }
 attributes #19 = { nounwind willreturn memory(read) }
 attributes #20 = { cold }
 attributes #21 = { noreturn nounwind }

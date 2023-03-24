@@ -1123,8 +1123,8 @@ define dso_local void @ana_AutoConfiguration(ptr noundef readonly %0, ptr nounde
   %296 = getelementptr i8, ptr %295, i64 8
   %297 = load ptr, ptr %296, align 8
   %298 = load i32, ptr %294, align 8
-  %299 = icmp slt i32 %298, 1
-  br i1 %299, label %300, label %332
+  %299 = icmp sgt i32 %298, 0
+  br i1 %299, label %332, label %300
 
 300:                                              ; preds = %289
   %301 = load i32, ptr %297, align 8
@@ -1320,55 +1320,55 @@ define dso_local void @ana_AutoConfiguration(ptr noundef readonly %0, ptr nounde
 439:                                              ; preds = %437
   %440 = load ptr, ptr %347, align 8
   %441 = icmp eq ptr %440, null
-  br i1 %441, label %474, label %445
+  br i1 %441, label %474, label %442
 
-442:                                              ; preds = %471
-  %443 = load ptr, ptr %446, align 8
-  %444 = icmp eq ptr %443, null
-  br i1 %444, label %474, label %445, !llvm.loop !24
+442:                                              ; preds = %439, %471
+  %443 = phi ptr [ %472, %471 ], [ %440, %439 ]
+  %444 = phi ptr [ %443, %471 ], [ %347, %439 ]
+  %445 = getelementptr i8, ptr %444, i64 8
+  %446 = load ptr, ptr %445, align 8
+  %447 = getelementptr i8, ptr %446, i64 8
+  %448 = load ptr, ptr %447, align 8
+  %449 = ptrtoint ptr %448 to i64
+  %450 = trunc i64 %449 to i32
+  br label %451
 
-445:                                              ; preds = %439, %442
-  %446 = phi ptr [ %443, %442 ], [ %440, %439 ]
-  %447 = phi ptr [ %446, %442 ], [ %347, %439 ]
-  %448 = getelementptr i8, ptr %447, i64 8
-  %449 = load ptr, ptr %448, align 8
-  %450 = getelementptr i8, ptr %449, i64 8
-  %451 = load ptr, ptr %450, align 8
-  %452 = ptrtoint ptr %451 to i64
-  %453 = trunc i64 %452 to i32
-  br label %454
+451:                                              ; preds = %468, %442
+  %452 = phi ptr [ %443, %442 ], [ %469, %468 ]
+  %453 = getelementptr i8, ptr %452, i64 8
+  %454 = load ptr, ptr %453, align 8
+  %455 = load ptr, ptr %454, align 8
+  %456 = ptrtoint ptr %455 to i64
+  %457 = trunc i64 %456 to i32
+  %458 = icmp eq i32 %450, %457
+  br i1 %458, label %459, label %468
 
-454:                                              ; preds = %471, %445
-  %455 = phi ptr [ %446, %445 ], [ %472, %471 ]
-  %456 = getelementptr i8, ptr %455, i64 8
-  %457 = load ptr, ptr %456, align 8
-  %458 = load ptr, ptr %457, align 8
-  %459 = ptrtoint ptr %458 to i64
-  %460 = trunc i64 %459 to i32
-  %461 = icmp eq i32 %453, %460
-  br i1 %461, label %462, label %471
+459:                                              ; preds = %451
+  %460 = load ptr, ptr %446, align 8
+  %461 = ptrtoint ptr %460 to i64
+  %462 = trunc i64 %461 to i32
+  %463 = getelementptr i8, ptr %454, i64 8
+  %464 = load ptr, ptr %463, align 8
+  %465 = ptrtoint ptr %464 to i64
+  %466 = trunc i64 %465 to i32
+  %467 = icmp eq i32 %462, %466
+  br i1 %467, label %475, label %468
 
-462:                                              ; preds = %454
-  %463 = load ptr, ptr %449, align 8
-  %464 = ptrtoint ptr %463 to i64
-  %465 = trunc i64 %464 to i32
-  %466 = getelementptr i8, ptr %457, i64 8
-  %467 = load ptr, ptr %466, align 8
-  %468 = ptrtoint ptr %467 to i64
-  %469 = trunc i64 %468 to i32
-  %470 = icmp eq i32 %465, %469
-  br i1 %470, label %475, label %471
+468:                                              ; preds = %459, %451
+  %469 = load ptr, ptr %452, align 8
+  %470 = icmp eq ptr %469, null
+  br i1 %470, label %471, label %451, !llvm.loop !24
 
-471:                                              ; preds = %462, %454
-  %472 = load ptr, ptr %455, align 8
+471:                                              ; preds = %468
+  %472 = load ptr, ptr %443, align 8
   %473 = icmp eq ptr %472, null
-  br i1 %473, label %442, label %454, !llvm.loop !24
+  br i1 %473, label %474, label %442, !llvm.loop !25
 
-474:                                              ; preds = %442, %439
+474:                                              ; preds = %471, %439
   call fastcc void @flag_SetFlagValue(ptr noundef %1, i32 noundef 52, i32 noundef 1)
   br label %475
 
-475:                                              ; preds = %462, %474
+475:                                              ; preds = %459, %474
   br label %476
 
 476:                                              ; preds = %475, %476
@@ -1415,7 +1415,7 @@ define dso_local void @ana_AutoConfiguration(ptr noundef readonly %0, ptr nounde
   %509 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %477, ptr %509, align 8
   %510 = icmp eq ptr %501, null
-  br i1 %510, label %511, label %476, !llvm.loop !25
+  br i1 %510, label %511, label %476, !llvm.loop !26
 
 511:                                              ; preds = %476, %437
   %512 = call i32 @graph_StronglyConnectedComponents(ptr noundef %196) #10
@@ -1430,7 +1430,7 @@ define dso_local void @ana_AutoConfiguration(ptr noundef readonly %0, ptr nounde
 517:                                              ; preds = %548, %522
   %518 = phi ptr [ %525, %522 ], [ %549, %548 ]
   %519 = icmp eq i32 %526, 0
-  br i1 %519, label %552, label %520, !llvm.loop !26
+  br i1 %519, label %552, label %520, !llvm.loop !27
 
 520:                                              ; preds = %517
   %521 = load ptr, ptr %348, align 8
@@ -1474,7 +1474,7 @@ define dso_local void @ana_AutoConfiguration(ptr noundef readonly %0, ptr nounde
   %549 = phi ptr [ %546, %536 ], [ %530, %528 ]
   %550 = load ptr, ptr %529, align 8
   %551 = icmp eq ptr %550, null
-  br i1 %551, label %517, label %528, !llvm.loop !27
+  br i1 %551, label %517, label %528, !llvm.loop !28
 
 552:                                              ; preds = %517, %514, %511
   %553 = phi ptr [ null, %511 ], [ null, %514 ], [ %518, %517 ]
@@ -1519,7 +1519,7 @@ define dso_local void @ana_AutoConfiguration(ptr noundef readonly %0, ptr nounde
   %575 = phi ptr [ %572, %571 ], [ %560, %567 ], [ %560, %559 ]
   %576 = load ptr, ptr %561, align 8
   %577 = icmp eq ptr %576, null
-  br i1 %577, label %578, label %559, !llvm.loop !28
+  br i1 %577, label %578, label %559, !llvm.loop !29
 
 578:                                              ; preds = %574, %190, %554
   %579 = phi ptr [ null, %554 ], [ null, %190 ], [ %555, %574 ]
@@ -1566,7 +1566,7 @@ define dso_local void @ana_AutoConfiguration(ptr noundef readonly %0, ptr nounde
   %609 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %591, ptr %609, align 8
   %610 = icmp eq ptr %601, null
-  br i1 %610, label %586, label %590, !llvm.loop !29
+  br i1 %610, label %586, label %590, !llvm.loop !30
 
 611:                                              ; preds = %615, %586
   %612 = icmp eq ptr %582, null
@@ -1601,7 +1601,7 @@ define dso_local void @ana_AutoConfiguration(ptr noundef readonly %0, ptr nounde
   %634 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %616, ptr %634, align 8
   %635 = icmp eq ptr %626, null
-  br i1 %635, label %611, label %615, !llvm.loop !30
+  br i1 %635, label %611, label %615, !llvm.loop !31
 
 636:                                              ; preds = %613, %636
   %637 = phi ptr [ %582, %613 ], [ %647, %636 ]
@@ -1628,7 +1628,7 @@ define dso_local void @ana_AutoConfiguration(ptr noundef readonly %0, ptr nounde
   %655 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %637, ptr %655, align 8
   %656 = icmp eq ptr %647, null
-  br i1 %656, label %657, label %636, !llvm.loop !31
+  br i1 %656, label %657, label %636, !llvm.loop !32
 
 657:                                              ; preds = %636, %611
   call void @flag_ClearInferenceRules(ptr noundef %1) #10
@@ -1991,9 +1991,10 @@ attributes #11 = { noreturn nounwind }
 !23 = distinct !{!23, !6}
 !24 = distinct !{!24, !6}
 !25 = distinct !{!25, !6}
-!26 = distinct !{!26, !6, !16}
-!27 = distinct !{!27, !6}
+!26 = distinct !{!26, !6}
+!27 = distinct !{!27, !6, !16}
 !28 = distinct !{!28, !6}
 !29 = distinct !{!29, !6}
 !30 = distinct !{!30, !6}
 !31 = distinct !{!31, !6}
+!32 = distinct !{!32, !6}

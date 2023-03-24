@@ -2476,13 +2476,13 @@ define dso_local i32 @yylex() local_unnamed_addr #0 {
 8:                                                ; preds = %5, %94
   %9 = phi i32 [ %95, %94 ], [ %6, %5 ]
   switch i32 %9, label %91 [
-    i32 0, label %99
-    i32 1, label %97
-    i32 2, label %100
-    i32 3, label %101
-    i32 4, label %102
-    i32 5, label %99
-    i32 6, label %103
+    i32 0, label %97
+    i32 1, label %98
+    i32 2, label %99
+    i32 3, label %100
+    i32 4, label %101
+    i32 5, label %97
+    i32 6, label %102
     i32 7, label %10
     i32 8, label %11
     i32 9, label %12
@@ -2491,14 +2491,14 @@ define dso_local i32 @yylex() local_unnamed_addr #0 {
     i32 12, label %15
     i32 13, label %16
     i32 14, label %17
-    i32 15, label %99
+    i32 15, label %97
     i32 16, label %18
     i32 17, label %19
     i32 18, label %20
     i32 19, label %21
     i32 20, label %22
     i32 21, label %23
-    i32 22, label %97
+    i32 22, label %98
     i32 23, label %24
     i32 24, label %25
     i32 25, label %26
@@ -2536,195 +2536,195 @@ define dso_local i32 @yylex() local_unnamed_addr #0 {
   ]
 
 10:                                               ; preds = %8
-  br label %103
+  br label %102
 
 11:                                               ; preds = %8
-  br label %103
+  br label %102
 
 12:                                               ; preds = %8
-  br label %103
+  br label %102
 
 13:                                               ; preds = %8
-  br label %103
+  br label %102
 
 14:                                               ; preds = %8
-  br label %103
+  br label %102
 
 15:                                               ; preds = %8
-  br label %103
+  br label %102
 
 16:                                               ; preds = %8
-  br label %103
+  br label %102
 
 17:                                               ; preds = %8
-  br label %103
+  br label %102
 
 18:                                               ; preds = %8
-  br label %103
+  br label %102
 
 19:                                               ; preds = %8
-  br label %103
+  br label %102
 
 20:                                               ; preds = %8
-  br label %103
+  br label %102
 
 21:                                               ; preds = %8
-  br label %103
+  br label %102
 
 22:                                               ; preds = %8
-  br label %103
+  br label %102
 
 23:                                               ; preds = %8
-  br label %103
+  br label %102
 
 24:                                               ; preds = %8
-  br label %103
+  br label %102
 
 25:                                               ; preds = %8
-  br label %103
+  br label %102
 
 26:                                               ; preds = %8
-  br label %103
+  br label %102
 
 27:                                               ; preds = %8
   %28 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %28, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 29:                                               ; preds = %8
   %30 = tail call ptr @ds(ptr noundef nonnull @.str.49)
   store ptr %30, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 31:                                               ; preds = %8
   %32 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %32, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 33:                                               ; preds = %8
   %34 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %34, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 35:                                               ; preds = %8
   %36 = tail call ptr @ds(ptr noundef nonnull @.str.50)
   store ptr %36, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 37:                                               ; preds = %8
   %38 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %38, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 39:                                               ; preds = %8
   %40 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %40, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 41:                                               ; preds = %8
   %42 = tail call ptr @ds(ptr noundef nonnull @.str.51)
   store ptr %42, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 43:                                               ; preds = %8
   %44 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %44, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 45:                                               ; preds = %8
   %46 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %46, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 47:                                               ; preds = %8
   %48 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %48, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 49:                                               ; preds = %8
   %50 = tail call ptr @ds(ptr noundef nonnull @.str.52)
   store ptr %50, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 51:                                               ; preds = %8
   %52 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %52, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 53:                                               ; preds = %8
   %54 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %54, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 55:                                               ; preds = %8
   %56 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %56, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 57:                                               ; preds = %8
   %58 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %58, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 59:                                               ; preds = %8
   %60 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %60, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 61:                                               ; preds = %8
   %62 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %62, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 63:                                               ; preds = %8
   %64 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %64, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 65:                                               ; preds = %8
   %66 = tail call ptr @ds(ptr noundef nonnull @.str.41)
   store ptr %66, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 67:                                               ; preds = %8
   %68 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %68, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 69:                                               ; preds = %8
   %70 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %70, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 71:                                               ; preds = %8
   %72 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %72, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 73:                                               ; preds = %8
   %74 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %74, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 75:                                               ; preds = %8
   %76 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %76, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 77:                                               ; preds = %8
   %78 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %78, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 79:                                               ; preds = %8
   %80 = tail call ptr @ds(ptr noundef nonnull @yytext)
   store ptr %80, ptr @yylval, align 8, !tbaa !15
-  br label %103
+  br label %102
 
 81:                                               ; preds = %8
   %82 = load i8, ptr @yytext, align 16, !tbaa !15
   %83 = sext i8 %82 to i32
-  br label %103
+  br label %102
 
 84:                                               ; preds = %8
   %85 = load i8, ptr @yytext, align 16, !tbaa !15
@@ -2733,7 +2733,7 @@ define dso_local i32 @yylex() local_unnamed_addr #0 {
   %88 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.53, ptr noundef nonnull @visible.buf)
   %89 = load i8, ptr @yytext, align 16, !tbaa !15
   %90 = sext i8 %89 to i32
-  br label %103
+  br label %102
 
 91:                                               ; preds = %8
   %92 = load ptr, ptr @yyout, align 8, !tbaa !12
@@ -2745,25 +2745,24 @@ define dso_local i32 @yylex() local_unnamed_addr #0 {
   %96 = icmp sgt i32 %95, -1
   br i1 %96, label %8, label %97
 
-97:                                               ; preds = %94, %8, %8, %5
-  %98 = phi i32 [ 0, %5 ], [ 257, %8 ], [ 257, %8 ], [ 0, %94 ]
-  br label %103
+97:                                               ; preds = %94, %8, %8, %8, %5
+  br label %102
 
-99:                                               ; preds = %8, %8, %8
-  br label %103
+98:                                               ; preds = %8, %8
+  br label %102
+
+99:                                               ; preds = %8
+  br label %102
 
 100:                                              ; preds = %8
-  br label %103
+  br label %102
 
 101:                                              ; preds = %8
-  br label %103
+  br label %102
 
-102:                                              ; preds = %8
-  br label %103
-
-103:                                              ; preds = %8, %102, %101, %100, %99, %97, %84, %81, %79, %77, %75, %73, %71, %69, %67, %65, %63, %61, %59, %57, %55, %53, %51, %49, %47, %45, %43, %41, %39, %37, %35, %33, %31, %29, %27, %26, %25, %24, %23, %22, %21, %20, %19, %18, %17, %16, %15, %14, %13, %12, %11, %10
-  %104 = phi i32 [ %90, %84 ], [ %83, %81 ], [ 283, %79 ], [ 282, %77 ], [ 276, %75 ], [ 289, %73 ], [ 288, %71 ], [ 287, %69 ], [ 286, %67 ], [ 286, %65 ], [ 293, %63 ], [ 285, %61 ], [ 284, %59 ], [ 292, %57 ], [ 276, %55 ], [ 281, %53 ], [ 280, %51 ], [ 280, %49 ], [ 279, %47 ], [ 291, %45 ], [ 278, %43 ], [ 278, %41 ], [ 277, %39 ], [ 276, %37 ], [ 276, %35 ], [ 275, %33 ], [ 274, %31 ], [ 274, %29 ], [ 290, %27 ], [ 260, %26 ], [ 265, %25 ], [ 262, %24 ], [ 273, %23 ], [ 272, %22 ], [ 271, %21 ], [ 271, %20 ], [ 270, %19 ], [ 270, %18 ], [ 269, %17 ], [ 269, %16 ], [ 267, %15 ], [ 268, %14 ], [ 266, %13 ], [ 265, %12 ], [ 264, %11 ], [ 264, %10 ], [ %98, %97 ], [ 0, %99 ], [ 258, %100 ], [ 259, %101 ], [ 261, %102 ], [ 263, %8 ]
-  ret i32 %104
+102:                                              ; preds = %8, %101, %100, %99, %98, %97, %84, %81, %79, %77, %75, %73, %71, %69, %67, %65, %63, %61, %59, %57, %55, %53, %51, %49, %47, %45, %43, %41, %39, %37, %35, %33, %31, %29, %27, %26, %25, %24, %23, %22, %21, %20, %19, %18, %17, %16, %15, %14, %13, %12, %11, %10
+  %103 = phi i32 [ %90, %84 ], [ %83, %81 ], [ 283, %79 ], [ 282, %77 ], [ 276, %75 ], [ 289, %73 ], [ 288, %71 ], [ 287, %69 ], [ 286, %67 ], [ 286, %65 ], [ 293, %63 ], [ 285, %61 ], [ 284, %59 ], [ 292, %57 ], [ 276, %55 ], [ 281, %53 ], [ 280, %51 ], [ 280, %49 ], [ 279, %47 ], [ 291, %45 ], [ 278, %43 ], [ 278, %41 ], [ 277, %39 ], [ 276, %37 ], [ 276, %35 ], [ 275, %33 ], [ 274, %31 ], [ 274, %29 ], [ 290, %27 ], [ 260, %26 ], [ 265, %25 ], [ 262, %24 ], [ 273, %23 ], [ 272, %22 ], [ 271, %21 ], [ 271, %20 ], [ 270, %19 ], [ 270, %18 ], [ 269, %17 ], [ 269, %16 ], [ 267, %15 ], [ 268, %14 ], [ 266, %13 ], [ 265, %12 ], [ 264, %11 ], [ 264, %10 ], [ 0, %97 ], [ 257, %98 ], [ 258, %99 ], [ 259, %100 ], [ 261, %101 ], [ 263, %8 ]
+  ret i32 %103
 }
 
 ; Function Attrs: nounwind uwtable
@@ -3917,17 +3916,17 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 ; Function Attrs: nounwind
 declare i32 @getopt(i32 noundef, ptr noundef, ptr noundef) local_unnamed_addr #19
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #20
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #20
+
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #20
+declare i32 @llvm.smax.i32(i32, i32) #21
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #21
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #21
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #21
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #20
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -3949,8 +3948,8 @@ attributes #16 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-tr
 attributes #17 = { mustprogress nofree nounwind willreturn memory(write, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #18 = { mustprogress nofree nounwind willreturn memory(readwrite, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #19 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #20 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #21 = { nofree nounwind }
+attributes #20 = { nofree nounwind }
+attributes #21 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #22 = { nounwind }
 attributes #23 = { nounwind willreturn memory(read) }
 attributes #24 = { cold }

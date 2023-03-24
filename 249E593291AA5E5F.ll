@@ -5989,7 +5989,7 @@ define dso_local i32 @dct_chroma(i32 noundef %0, i32 noundef %1) local_unnamed_a
   br i1 %583, label %584, label %586
 
 584:                                              ; preds = %581
-  %585 = tail call i32 @llvm.smin.i32(i32 %578, i32 2063)
+  %585 = tail call i32 @llvm.umin.i32(i32 %578, i32 2063)
   br label %586
 
 586:                                              ; preds = %584, %581, %566
@@ -6025,7 +6025,7 @@ define dso_local i32 @dct_chroma(i32 noundef %0, i32 noundef %1) local_unnamed_a
   br i1 %606, label %607, label %609
 
 607:                                              ; preds = %604
-  %608 = tail call i32 @llvm.smin.i32(i32 %602, i32 2063)
+  %608 = tail call i32 @llvm.umin.i32(i32 %602, i32 2063)
   br label %609
 
 609:                                              ; preds = %607, %604, %597
@@ -6067,7 +6067,7 @@ define dso_local i32 @dct_chroma(i32 noundef %0, i32 noundef %1) local_unnamed_a
   br i1 %635, label %636, label %638
 
 636:                                              ; preds = %633
-  %637 = tail call i32 @llvm.smin.i32(i32 %631, i32 2063)
+  %637 = tail call i32 @llvm.umin.i32(i32 %631, i32 2063)
   br label %638
 
 638:                                              ; preds = %636, %633, %624
@@ -6109,7 +6109,7 @@ define dso_local i32 @dct_chroma(i32 noundef %0, i32 noundef %1) local_unnamed_a
   br i1 %664, label %665, label %667
 
 665:                                              ; preds = %662
-  %666 = tail call i32 @llvm.smin.i32(i32 %660, i32 2063)
+  %666 = tail call i32 @llvm.umin.i32(i32 %660, i32 2063)
   br label %667
 
 667:                                              ; preds = %665, %662, %653
@@ -7109,7 +7109,7 @@ define dso_local i32 @dct_chroma(i32 noundef %0, i32 noundef %1) local_unnamed_a
   %1453 = getelementptr inbounds %struct.ImageParameters, ptr %1452, i64 0, i32 158
   %1454 = load i32, ptr %1453, align 8, !tbaa !70
   %1455 = icmp sgt i32 %1454, 1
-  br i1 %1455, label %1466, label %1901
+  br i1 %1455, label %1466, label %1903
 
 1456:                                             ; preds = %667, %670
   %1457 = phi i32 [ 1, %670 ], [ %655, %667 ]
@@ -7122,7 +7122,7 @@ define dso_local i32 @dct_chroma(i32 noundef %0, i32 noundef %1) local_unnamed_a
   %1463 = getelementptr inbounds %struct.ImageParameters, ptr %1462, i64 0, i32 158
   %1464 = load i32, ptr %1463, align 8, !tbaa !70
   %1465 = icmp sgt i32 %1464, 1
-  br i1 %1465, label %1466, label %1902
+  br i1 %1465, label %1466, label %1904
 
 1466:                                             ; preds = %1456, %1449
   %1467 = phi ptr [ %1463, %1456 ], [ %1453, %1449 ]
@@ -7147,9 +7147,9 @@ define dso_local i32 @dct_chroma(i32 noundef %0, i32 noundef %1) local_unnamed_a
   br label %1486
 
 1486:                                             ; preds = %1466, %1892
-  %1487 = phi i64 [ 0, %1466 ], [ %1895, %1892 ]
+  %1487 = phi i64 [ 0, %1466 ], [ %1896, %1892 ]
   %1488 = phi i32 [ 0, %1466 ], [ %1894, %1892 ]
-  %1489 = phi i32 [ 0, %1466 ], [ %1893, %1892 ]
+  %1489 = phi i32 [ 0, %1466 ], [ %1895, %1892 ]
   %1490 = add nsw i64 %1487, %1485
   %1491 = trunc i64 %1487 to i32
   %1492 = add i32 %1474, %1491
@@ -7657,1035 +7657,1037 @@ define dso_local i32 @dct_chroma(i32 noundef %0, i32 noundef %1) local_unnamed_a
 1892:                                             ; preds = %1887, %1765
   %1893 = phi i32 [ %1759, %1765 ], [ %1880, %1887 ]
   %1894 = phi i32 [ %1760, %1765 ], [ %1881, %1887 ]
-  %1895 = add nuw nsw i64 %1487, 1
-  %1896 = load i32, ptr %1467, align 8, !tbaa !70
-  %1897 = ashr i32 %1896, 1
-  %1898 = sext i32 %1897 to i64
-  %1899 = icmp slt i64 %1895, %1898
-  br i1 %1899, label %1486, label %1900, !llvm.loop !88
+  %1895 = freeze i32 %1893
+  %1896 = add nuw nsw i64 %1487, 1
+  %1897 = load i32, ptr %1467, align 8, !tbaa !70
+  %1898 = ashr i32 %1897, 1
+  %1899 = sext i32 %1898 to i64
+  %1900 = icmp slt i64 %1896, %1899
+  br i1 %1900, label %1486, label %1901, !llvm.loop !88
 
-1900:                                             ; preds = %1892
-  br i1 %44, label %1902, label %1930
+1901:                                             ; preds = %1892
+  %1902 = freeze i32 %1893
+  br i1 %44, label %1904, label %1932
 
-1901:                                             ; preds = %1449
-  br i1 %44, label %1902, label %2163
+1903:                                             ; preds = %1449
+  br i1 %44, label %1904, label %2165
 
-1902:                                             ; preds = %1456, %1901, %1900
-  %1903 = phi ptr [ %1452, %1901 ], [ %1468, %1900 ], [ %1462, %1456 ]
-  %1904 = phi i32 [ %1451, %1901 ], [ %1469, %1900 ], [ %1459, %1456 ]
-  %1905 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 163
-  %1906 = load i32, ptr %1905, align 4, !tbaa !73
-  %1907 = icmp sgt i32 %1906, 0
-  br i1 %1907, label %1908, label %2720
+1904:                                             ; preds = %1456, %1903, %1901
+  %1905 = phi ptr [ %1452, %1903 ], [ %1468, %1901 ], [ %1462, %1456 ]
+  %1906 = phi i32 [ %1451, %1903 ], [ %1469, %1901 ], [ %1459, %1456 ]
+  %1907 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 163
+  %1908 = load i32, ptr %1907, align 4, !tbaa !73
+  %1909 = icmp sgt i32 %1908, 0
+  br i1 %1909, label %1910, label %2722
 
-1908:                                             ; preds = %1902
-  %1909 = ptrtoint ptr %1903 to i64
-  %1910 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 42
-  %1911 = load i32, ptr %1910, align 4, !tbaa !89
-  %1912 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 162
-  %1913 = load i32, ptr %1912, align 8, !tbaa !74
-  %1914 = icmp sgt i32 %1913, 0
-  %1915 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 41
-  %1916 = load ptr, ptr @enc_picture, align 8
-  %1917 = getelementptr inbounds %struct.storable_picture, ptr %1916, i64 0, i32 33
-  %1918 = zext i32 %1906 to i64
-  %1919 = zext i32 %1913 to i64
-  %1920 = add nsw i64 %1919, -1
-  %1921 = add i64 %1909, 12624
-  %1922 = icmp ult i32 %1913, 12
-  %1923 = trunc i64 %1920 to i16
-  %1924 = icmp ugt i64 %1920, 65535
-  %1925 = and i64 %1919, 4294967288
-  %1926 = icmp eq i64 %1925, %1919
-  %1927 = and i64 %1919, 1
-  %1928 = icmp eq i64 %1927, 0
-  %1929 = sub nsw i64 0, %1919
-  br label %2615
+1910:                                             ; preds = %1904
+  %1911 = ptrtoint ptr %1905 to i64
+  %1912 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 42
+  %1913 = load i32, ptr %1912, align 4, !tbaa !89
+  %1914 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 162
+  %1915 = load i32, ptr %1914, align 8, !tbaa !74
+  %1916 = icmp sgt i32 %1915, 0
+  %1917 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 41
+  %1918 = load ptr, ptr @enc_picture, align 8
+  %1919 = getelementptr inbounds %struct.storable_picture, ptr %1918, i64 0, i32 33
+  %1920 = zext i32 %1908 to i64
+  %1921 = zext i32 %1915 to i64
+  %1922 = add nsw i64 %1921, -1
+  %1923 = add i64 %1911, 12624
+  %1924 = icmp ult i32 %1915, 12
+  %1925 = trunc i64 %1922 to i16
+  %1926 = icmp ugt i64 %1922, 65535
+  %1927 = and i64 %1921, 4294967288
+  %1928 = icmp eq i64 %1927, %1921
+  %1929 = and i64 %1921, 1
+  %1930 = icmp eq i64 %1929, 0
+  %1931 = sub nsw i64 0, %1921
+  br label %2617
 
-1930:                                             ; preds = %1900
-  %1931 = icmp slt i32 %1894, 4
-  br i1 %1931, label %1932, label %2160
+1932:                                             ; preds = %1901
+  %1933 = icmp slt i32 %1894, 4
+  br i1 %1933, label %1934, label %2162
 
-1932:                                             ; preds = %1930
-  %1933 = sext i32 %28 to i64
-  %1934 = icmp sgt i32 %1896, 1
-  br i1 %1934, label %1935, label %2163
+1934:                                             ; preds = %1932
+  %1935 = sext i32 %28 to i64
+  %1936 = icmp sgt i32 %1897, 1
+  br i1 %1936, label %1937, label %2165
 
-1935:                                             ; preds = %1932
-  %1936 = getelementptr inbounds [4 x i64], ptr @dct_chroma.cbpblk_pattern, i64 0, i64 %1933
-  %1937 = load i64, ptr %1936, align 8, !tbaa !90
-  %1938 = add nsw i32 %28, 1
-  %1939 = shl i32 %0, %1938
-  %1940 = zext i32 %1939 to i64
-  %1941 = shl i64 %1937, %1940
-  %1942 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 53
-  %1943 = load ptr, ptr %1942, align 8, !tbaa !50
-  %1944 = add i32 %26, 4
-  %1945 = icmp eq i32 %1470, 0
-  %1946 = xor i64 %1941, -1
-  %1947 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %8, i32 13
-  %1948 = zext i1 %31 to i64
-  %1949 = xor i1 %31, true
-  %1950 = zext i1 %1949 to i64
+1937:                                             ; preds = %1934
+  %1938 = getelementptr inbounds [4 x i64], ptr @dct_chroma.cbpblk_pattern, i64 0, i64 %1935
+  %1939 = load i64, ptr %1938, align 8, !tbaa !90
+  %1940 = add nsw i32 %28, 1
+  %1941 = shl i32 %0, %1940
+  %1942 = zext i32 %1941 to i64
+  %1943 = shl i64 %1939, %1942
+  %1944 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 53
+  %1945 = load ptr, ptr %1944, align 8, !tbaa !50
+  %1946 = add i32 %26, 4
+  %1947 = icmp eq i32 %1470, 0
+  %1948 = xor i64 %1943, -1
+  %1949 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %8, i32 13
+  %1950 = zext i1 %31 to i64
   %1951 = xor i1 %31, true
   %1952 = zext i1 %1951 to i64
-  %1953 = zext i1 %31 to i64
-  %1954 = zext i1 %31 to i64
-  %1955 = select i1 %31, i64 1, i64 3
-  %1956 = select i1 %31, i64 2, i64 1
-  %1957 = xor i1 %31, true
-  %1958 = zext i1 %1957 to i64
-  %1959 = select i1 %31, i64 3, i64 1
-  %1960 = select i1 %31, i64 0, i64 2
-  %1961 = select i1 %31, i64 2, i64 1
-  %1962 = select i1 %31, i64 1, i64 3
-  %1963 = select i1 %31, i64 1, i64 2
-  %1964 = select i1 %31, i64 2, i64 0
-  %1965 = select i1 %31, i64 0, i64 2
-  %1966 = select i1 %31, i64 3, i64 1
-  %1967 = select i1 %31, i64 1, i64 2
-  %1968 = select i1 %31, i64 3, i64 2
-  %1969 = select i1 %31, i64 2, i64 3
-  %1970 = zext i1 %31 to i64
-  %1971 = select i1 %31, i64 2, i64 1
-  %1972 = select i1 %31, i64 2, i64 3
-  %1973 = select i1 %31, i64 3, i64 2
-  %1974 = zext i1 %31 to i64
-  %1975 = xor i1 %31, true
-  %1976 = zext i1 %1975 to i64
+  %1953 = xor i1 %31, true
+  %1954 = zext i1 %1953 to i64
+  %1955 = zext i1 %31 to i64
+  %1956 = zext i1 %31 to i64
+  %1957 = select i1 %31, i64 1, i64 3
+  %1958 = select i1 %31, i64 2, i64 1
+  %1959 = xor i1 %31, true
+  %1960 = zext i1 %1959 to i64
+  %1961 = select i1 %31, i64 3, i64 1
+  %1962 = select i1 %31, i64 0, i64 2
+  %1963 = select i1 %31, i64 2, i64 1
+  %1964 = select i1 %31, i64 1, i64 3
+  %1965 = select i1 %31, i64 1, i64 2
+  %1966 = select i1 %31, i64 2, i64 0
+  %1967 = select i1 %31, i64 0, i64 2
+  %1968 = select i1 %31, i64 3, i64 1
+  %1969 = select i1 %31, i64 1, i64 2
+  %1970 = select i1 %31, i64 3, i64 2
+  %1971 = select i1 %31, i64 2, i64 3
+  %1972 = zext i1 %31 to i64
+  %1973 = select i1 %31, i64 2, i64 1
+  %1974 = select i1 %31, i64 2, i64 3
+  %1975 = select i1 %31, i64 3, i64 2
+  %1976 = zext i1 %31 to i64
   %1977 = xor i1 %31, true
   %1978 = zext i1 %1977 to i64
-  %1979 = zext i1 %31 to i64
-  %1980 = zext i1 %31 to i64
-  %1981 = select i1 %31, i64 1, i64 3
-  %1982 = select i1 %31, i64 2, i64 1
-  %1983 = xor i1 %31, true
-  %1984 = zext i1 %1983 to i64
-  %1985 = select i1 %31, i64 3, i64 1
-  %1986 = select i1 %31, i64 0, i64 2
-  %1987 = select i1 %31, i64 2, i64 1
-  %1988 = select i1 %31, i64 1, i64 3
-  %1989 = select i1 %31, i64 1, i64 2
-  %1990 = select i1 %31, i64 2, i64 0
-  %1991 = select i1 %31, i64 0, i64 2
-  %1992 = select i1 %31, i64 3, i64 1
-  %1993 = select i1 %31, i64 1, i64 2
-  %1994 = select i1 %31, i64 3, i64 2
-  %1995 = select i1 %31, i64 2, i64 3
-  %1996 = zext i1 %31 to i64
-  %1997 = select i1 %31, i64 2, i64 1
-  %1998 = select i1 %31, i64 2, i64 3
-  %1999 = select i1 %31, i64 3, i64 2
-  br label %2000
+  %1979 = xor i1 %31, true
+  %1980 = zext i1 %1979 to i64
+  %1981 = zext i1 %31 to i64
+  %1982 = zext i1 %31 to i64
+  %1983 = select i1 %31, i64 1, i64 3
+  %1984 = select i1 %31, i64 2, i64 1
+  %1985 = xor i1 %31, true
+  %1986 = zext i1 %1985 to i64
+  %1987 = select i1 %31, i64 3, i64 1
+  %1988 = select i1 %31, i64 0, i64 2
+  %1989 = select i1 %31, i64 2, i64 1
+  %1990 = select i1 %31, i64 1, i64 3
+  %1991 = select i1 %31, i64 1, i64 2
+  %1992 = select i1 %31, i64 2, i64 0
+  %1993 = select i1 %31, i64 0, i64 2
+  %1994 = select i1 %31, i64 3, i64 1
+  %1995 = select i1 %31, i64 1, i64 2
+  %1996 = select i1 %31, i64 3, i64 2
+  %1997 = select i1 %31, i64 2, i64 3
+  %1998 = zext i1 %31 to i64
+  %1999 = select i1 %31, i64 2, i64 1
+  %2000 = select i1 %31, i64 2, i64 3
+  %2001 = select i1 %31, i64 3, i64 2
+  br label %2002
 
-2000:                                             ; preds = %1935, %2154
-  %2001 = phi i64 [ 0, %1935 ], [ %2155, %2154 ]
-  %2002 = trunc i64 %2001 to i32
-  %2003 = add i32 %1944, %2002
-  %2004 = sext i32 %2003 to i64
-  %2005 = getelementptr inbounds ptr, ptr %1943, i64 %2004
-  %2006 = load ptr, ptr %2005, align 8, !tbaa !5
-  br i1 %1945, label %2007, label %2082
+2002:                                             ; preds = %1937, %2156
+  %2003 = phi i64 [ 0, %1937 ], [ %2157, %2156 ]
+  %2004 = trunc i64 %2003 to i32
+  %2005 = add i32 %1946, %2004
+  %2006 = sext i32 %2005 to i64
+  %2007 = getelementptr inbounds ptr, ptr %1945, i64 %2006
+  %2008 = load ptr, ptr %2007, align 8, !tbaa !5
+  br i1 %1947, label %2009, label %2084
 
-2007:                                             ; preds = %2000
-  %2008 = load i64, ptr %1947, align 8, !tbaa !81
-  %2009 = and i64 %2008, %1946
-  br label %2010
+2009:                                             ; preds = %2002
+  %2010 = load i64, ptr %1949, align 8, !tbaa !81
+  %2011 = and i64 %2010, %1948
+  br label %2012
 
-2010:                                             ; preds = %2010, %2007
-  %2011 = phi i64 [ %2080, %2010 ], [ 0, %2007 ]
-  %2012 = getelementptr inbounds [4 x [4 x [4 x i8]]], ptr @hor_offset, i64 0, i64 %1933, i64 %2001, i64 %2011
-  %2013 = load i8, ptr %2012, align 1, !tbaa !45
-  %2014 = zext i8 %2013 to i64
-  %2015 = getelementptr inbounds [4 x [4 x [4 x i8]]], ptr @ver_offset, i64 0, i64 %1933, i64 %2001, i64 %2011
-  %2016 = load i8, ptr %2015, align 1, !tbaa !45
-  %2017 = zext i8 %2016 to i64
-  %2018 = getelementptr inbounds ptr, ptr %2006, i64 %2011
-  %2019 = load ptr, ptr %2018, align 8, !tbaa !5
-  %2020 = load ptr, ptr %2019, align 8, !tbaa !5
-  store i64 %2009, ptr %1947, align 8, !tbaa !81
-  store i32 0, ptr %2020, align 4, !tbaa !23
-  %2021 = add nuw nsw i64 %1976, %2017
-  %2022 = add nuw nsw i64 %1974, %2014
-  %2023 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2021, i64 %2022
-  store i32 0, ptr %2023, align 4, !tbaa !23
-  %2024 = getelementptr inbounds i32, ptr %2020, i64 1
-  store i32 0, ptr %2024, align 4, !tbaa !23
-  %2025 = add nuw nsw i64 %1979, %2017
-  %2026 = add nuw nsw i64 %1978, %2014
-  %2027 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2025, i64 %2026
-  store i32 0, ptr %2027, align 4, !tbaa !23
-  %2028 = getelementptr inbounds i32, ptr %2020, i64 2
-  store i32 0, ptr %2028, align 4, !tbaa !23
-  %2029 = add nuw nsw i64 %2017, 2
-  %2030 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2029, i64 %2014
+2012:                                             ; preds = %2012, %2009
+  %2013 = phi i64 [ %2082, %2012 ], [ 0, %2009 ]
+  %2014 = getelementptr inbounds [4 x [4 x [4 x i8]]], ptr @hor_offset, i64 0, i64 %1935, i64 %2003, i64 %2013
+  %2015 = load i8, ptr %2014, align 1, !tbaa !45
+  %2016 = zext i8 %2015 to i64
+  %2017 = getelementptr inbounds [4 x [4 x [4 x i8]]], ptr @ver_offset, i64 0, i64 %1935, i64 %2003, i64 %2013
+  %2018 = load i8, ptr %2017, align 1, !tbaa !45
+  %2019 = zext i8 %2018 to i64
+  %2020 = getelementptr inbounds ptr, ptr %2008, i64 %2013
+  %2021 = load ptr, ptr %2020, align 8, !tbaa !5
+  %2022 = load ptr, ptr %2021, align 8, !tbaa !5
+  store i64 %2011, ptr %1949, align 8, !tbaa !81
+  store i32 0, ptr %2022, align 4, !tbaa !23
+  %2023 = add nuw nsw i64 %1978, %2019
+  %2024 = add nuw nsw i64 %1976, %2016
+  %2025 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2023, i64 %2024
+  store i32 0, ptr %2025, align 4, !tbaa !23
+  %2026 = getelementptr inbounds i32, ptr %2022, i64 1
+  store i32 0, ptr %2026, align 4, !tbaa !23
+  %2027 = add nuw nsw i64 %1981, %2019
+  %2028 = add nuw nsw i64 %1980, %2016
+  %2029 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2027, i64 %2028
+  store i32 0, ptr %2029, align 4, !tbaa !23
+  %2030 = getelementptr inbounds i32, ptr %2022, i64 2
   store i32 0, ptr %2030, align 4, !tbaa !23
-  %2031 = getelementptr inbounds i32, ptr %2020, i64 3
-  store i32 0, ptr %2031, align 4, !tbaa !23
-  %2032 = add nuw nsw i64 %1981, %2017
-  %2033 = add nuw nsw i64 %1980, %2014
-  %2034 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2032, i64 %2033
-  store i32 0, ptr %2034, align 4, !tbaa !23
-  %2035 = getelementptr inbounds i32, ptr %2020, i64 4
-  store i32 0, ptr %2035, align 4, !tbaa !23
-  %2036 = add nuw nsw i64 %1984, %2017
-  %2037 = add nuw nsw i64 %1982, %2014
-  %2038 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2036, i64 %2037
-  store i32 0, ptr %2038, align 4, !tbaa !23
-  %2039 = getelementptr inbounds i32, ptr %2020, i64 5
-  store i32 0, ptr %2039, align 4, !tbaa !23
-  %2040 = add nuw nsw i64 %1986, %2017
-  %2041 = add nuw nsw i64 %1985, %2014
-  %2042 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2040, i64 %2041
-  store i32 0, ptr %2042, align 4, !tbaa !23
-  %2043 = getelementptr inbounds i32, ptr %2020, i64 6
-  store i32 0, ptr %2043, align 4, !tbaa !23
-  %2044 = add nuw nsw i64 %1988, %2017
-  %2045 = add nuw nsw i64 %1987, %2014
-  %2046 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2044, i64 %2045
-  store i32 0, ptr %2046, align 4, !tbaa !23
-  %2047 = getelementptr inbounds i32, ptr %2020, i64 7
-  store i32 0, ptr %2047, align 4, !tbaa !23
-  %2048 = add nuw nsw i64 %1990, %2017
-  %2049 = add nuw nsw i64 %1989, %2014
-  %2050 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2048, i64 %2049
-  store i32 0, ptr %2050, align 4, !tbaa !23
-  %2051 = getelementptr inbounds i32, ptr %2020, i64 8
-  store i32 0, ptr %2051, align 4, !tbaa !23
-  %2052 = add nuw nsw i64 %1992, %2017
-  %2053 = add nuw nsw i64 %1991, %2014
-  %2054 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2052, i64 %2053
-  store i32 0, ptr %2054, align 4, !tbaa !23
-  %2055 = getelementptr inbounds i32, ptr %2020, i64 9
-  store i32 0, ptr %2055, align 4, !tbaa !23
-  %2056 = add nuw nsw i64 %1994, %2017
-  %2057 = add nuw nsw i64 %1993, %2014
-  %2058 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2056, i64 %2057
-  store i32 0, ptr %2058, align 4, !tbaa !23
-  %2059 = getelementptr inbounds i32, ptr %2020, i64 10
-  store i32 0, ptr %2059, align 4, !tbaa !23
-  %2060 = add nuw nsw i64 %1995, %2017
-  %2061 = add nuw nsw i64 %2014, 2
-  %2062 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2060, i64 %2061
-  store i32 0, ptr %2062, align 4, !tbaa !23
-  %2063 = getelementptr inbounds i32, ptr %2020, i64 11
-  store i32 0, ptr %2063, align 4, !tbaa !23
-  %2064 = add nuw nsw i64 %1996, %2017
-  %2065 = add nuw nsw i64 %2014, 3
-  %2066 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2064, i64 %2065
-  store i32 0, ptr %2066, align 4, !tbaa !23
-  %2067 = getelementptr inbounds i32, ptr %2020, i64 12
-  store i32 0, ptr %2067, align 4, !tbaa !23
-  %2068 = add nuw nsw i64 %1997, %2017
-  %2069 = add nuw nsw i64 %2014, 3
-  %2070 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2068, i64 %2069
-  store i32 0, ptr %2070, align 4, !tbaa !23
-  %2071 = getelementptr inbounds i32, ptr %2020, i64 13
-  store i32 0, ptr %2071, align 4, !tbaa !23
-  %2072 = add nuw nsw i64 %1999, %2017
-  %2073 = add nuw nsw i64 %1998, %2014
-  %2074 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2072, i64 %2073
-  store i32 0, ptr %2074, align 4, !tbaa !23
-  %2075 = getelementptr inbounds i32, ptr %2020, i64 14
-  store i32 0, ptr %2075, align 4, !tbaa !23
-  %2076 = add nuw nsw i64 %2017, 3
-  %2077 = add nuw nsw i64 %2014, 3
-  %2078 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2076, i64 %2077
-  store i32 0, ptr %2078, align 4, !tbaa !23
-  %2079 = getelementptr inbounds i32, ptr %2020, i64 15
-  store i32 0, ptr %2079, align 4, !tbaa !23
-  %2080 = add nuw nsw i64 %2011, 1
-  %2081 = icmp eq i64 %2080, 4
-  br i1 %2081, label %2154, label %2010, !llvm.loop !91
+  %2031 = add nuw nsw i64 %2019, 2
+  %2032 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2031, i64 %2016
+  store i32 0, ptr %2032, align 4, !tbaa !23
+  %2033 = getelementptr inbounds i32, ptr %2022, i64 3
+  store i32 0, ptr %2033, align 4, !tbaa !23
+  %2034 = add nuw nsw i64 %1983, %2019
+  %2035 = add nuw nsw i64 %1982, %2016
+  %2036 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2034, i64 %2035
+  store i32 0, ptr %2036, align 4, !tbaa !23
+  %2037 = getelementptr inbounds i32, ptr %2022, i64 4
+  store i32 0, ptr %2037, align 4, !tbaa !23
+  %2038 = add nuw nsw i64 %1986, %2019
+  %2039 = add nuw nsw i64 %1984, %2016
+  %2040 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2038, i64 %2039
+  store i32 0, ptr %2040, align 4, !tbaa !23
+  %2041 = getelementptr inbounds i32, ptr %2022, i64 5
+  store i32 0, ptr %2041, align 4, !tbaa !23
+  %2042 = add nuw nsw i64 %1988, %2019
+  %2043 = add nuw nsw i64 %1987, %2016
+  %2044 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2042, i64 %2043
+  store i32 0, ptr %2044, align 4, !tbaa !23
+  %2045 = getelementptr inbounds i32, ptr %2022, i64 6
+  store i32 0, ptr %2045, align 4, !tbaa !23
+  %2046 = add nuw nsw i64 %1990, %2019
+  %2047 = add nuw nsw i64 %1989, %2016
+  %2048 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2046, i64 %2047
+  store i32 0, ptr %2048, align 4, !tbaa !23
+  %2049 = getelementptr inbounds i32, ptr %2022, i64 7
+  store i32 0, ptr %2049, align 4, !tbaa !23
+  %2050 = add nuw nsw i64 %1992, %2019
+  %2051 = add nuw nsw i64 %1991, %2016
+  %2052 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2050, i64 %2051
+  store i32 0, ptr %2052, align 4, !tbaa !23
+  %2053 = getelementptr inbounds i32, ptr %2022, i64 8
+  store i32 0, ptr %2053, align 4, !tbaa !23
+  %2054 = add nuw nsw i64 %1994, %2019
+  %2055 = add nuw nsw i64 %1993, %2016
+  %2056 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2054, i64 %2055
+  store i32 0, ptr %2056, align 4, !tbaa !23
+  %2057 = getelementptr inbounds i32, ptr %2022, i64 9
+  store i32 0, ptr %2057, align 4, !tbaa !23
+  %2058 = add nuw nsw i64 %1996, %2019
+  %2059 = add nuw nsw i64 %1995, %2016
+  %2060 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2058, i64 %2059
+  store i32 0, ptr %2060, align 4, !tbaa !23
+  %2061 = getelementptr inbounds i32, ptr %2022, i64 10
+  store i32 0, ptr %2061, align 4, !tbaa !23
+  %2062 = add nuw nsw i64 %1997, %2019
+  %2063 = add nuw nsw i64 %2016, 2
+  %2064 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2062, i64 %2063
+  store i32 0, ptr %2064, align 4, !tbaa !23
+  %2065 = getelementptr inbounds i32, ptr %2022, i64 11
+  store i32 0, ptr %2065, align 4, !tbaa !23
+  %2066 = add nuw nsw i64 %1998, %2019
+  %2067 = add nuw nsw i64 %2016, 3
+  %2068 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2066, i64 %2067
+  store i32 0, ptr %2068, align 4, !tbaa !23
+  %2069 = getelementptr inbounds i32, ptr %2022, i64 12
+  store i32 0, ptr %2069, align 4, !tbaa !23
+  %2070 = add nuw nsw i64 %1999, %2019
+  %2071 = add nuw nsw i64 %2016, 3
+  %2072 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2070, i64 %2071
+  store i32 0, ptr %2072, align 4, !tbaa !23
+  %2073 = getelementptr inbounds i32, ptr %2022, i64 13
+  store i32 0, ptr %2073, align 4, !tbaa !23
+  %2074 = add nuw nsw i64 %2001, %2019
+  %2075 = add nuw nsw i64 %2000, %2016
+  %2076 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2074, i64 %2075
+  store i32 0, ptr %2076, align 4, !tbaa !23
+  %2077 = getelementptr inbounds i32, ptr %2022, i64 14
+  store i32 0, ptr %2077, align 4, !tbaa !23
+  %2078 = add nuw nsw i64 %2019, 3
+  %2079 = add nuw nsw i64 %2016, 3
+  %2080 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2078, i64 %2079
+  store i32 0, ptr %2080, align 4, !tbaa !23
+  %2081 = getelementptr inbounds i32, ptr %2022, i64 15
+  store i32 0, ptr %2081, align 4, !tbaa !23
+  %2082 = add nuw nsw i64 %2013, 1
+  %2083 = icmp eq i64 %2082, 4
+  br i1 %2083, label %2156, label %2012, !llvm.loop !91
 
-2082:                                             ; preds = %2000, %2082
-  %2083 = phi i64 [ %2152, %2082 ], [ 0, %2000 ]
-  %2084 = getelementptr inbounds [4 x [4 x [4 x i8]]], ptr @hor_offset, i64 0, i64 %1933, i64 %2001, i64 %2083
-  %2085 = load i8, ptr %2084, align 1, !tbaa !45
-  %2086 = zext i8 %2085 to i64
-  %2087 = getelementptr inbounds [4 x [4 x [4 x i8]]], ptr @ver_offset, i64 0, i64 %1933, i64 %2001, i64 %2083
-  %2088 = load i8, ptr %2087, align 1, !tbaa !45
-  %2089 = zext i8 %2088 to i64
-  %2090 = getelementptr inbounds ptr, ptr %2006, i64 %2083
-  %2091 = load ptr, ptr %2090, align 8, !tbaa !5
-  %2092 = load ptr, ptr %2091, align 8, !tbaa !5
-  store i32 0, ptr %2092, align 4, !tbaa !23
-  %2093 = add nuw nsw i64 %1950, %2089
-  %2094 = add nuw nsw i64 %1948, %2086
-  %2095 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2093, i64 %2094
-  store i32 0, ptr %2095, align 4, !tbaa !23
-  %2096 = getelementptr inbounds i32, ptr %2092, i64 1
-  store i32 0, ptr %2096, align 4, !tbaa !23
-  %2097 = add nuw nsw i64 %1953, %2089
-  %2098 = add nuw nsw i64 %1952, %2086
-  %2099 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2097, i64 %2098
-  store i32 0, ptr %2099, align 4, !tbaa !23
-  %2100 = getelementptr inbounds i32, ptr %2092, i64 2
-  store i32 0, ptr %2100, align 4, !tbaa !23
-  %2101 = add nuw nsw i64 %2089, 2
-  %2102 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2101, i64 %2086
+2084:                                             ; preds = %2002, %2084
+  %2085 = phi i64 [ %2154, %2084 ], [ 0, %2002 ]
+  %2086 = getelementptr inbounds [4 x [4 x [4 x i8]]], ptr @hor_offset, i64 0, i64 %1935, i64 %2003, i64 %2085
+  %2087 = load i8, ptr %2086, align 1, !tbaa !45
+  %2088 = zext i8 %2087 to i64
+  %2089 = getelementptr inbounds [4 x [4 x [4 x i8]]], ptr @ver_offset, i64 0, i64 %1935, i64 %2003, i64 %2085
+  %2090 = load i8, ptr %2089, align 1, !tbaa !45
+  %2091 = zext i8 %2090 to i64
+  %2092 = getelementptr inbounds ptr, ptr %2008, i64 %2085
+  %2093 = load ptr, ptr %2092, align 8, !tbaa !5
+  %2094 = load ptr, ptr %2093, align 8, !tbaa !5
+  store i32 0, ptr %2094, align 4, !tbaa !23
+  %2095 = add nuw nsw i64 %1952, %2091
+  %2096 = add nuw nsw i64 %1950, %2088
+  %2097 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2095, i64 %2096
+  store i32 0, ptr %2097, align 4, !tbaa !23
+  %2098 = getelementptr inbounds i32, ptr %2094, i64 1
+  store i32 0, ptr %2098, align 4, !tbaa !23
+  %2099 = add nuw nsw i64 %1955, %2091
+  %2100 = add nuw nsw i64 %1954, %2088
+  %2101 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2099, i64 %2100
+  store i32 0, ptr %2101, align 4, !tbaa !23
+  %2102 = getelementptr inbounds i32, ptr %2094, i64 2
   store i32 0, ptr %2102, align 4, !tbaa !23
-  %2103 = getelementptr inbounds i32, ptr %2092, i64 3
-  store i32 0, ptr %2103, align 4, !tbaa !23
-  %2104 = add nuw nsw i64 %1955, %2089
-  %2105 = add nuw nsw i64 %1954, %2086
-  %2106 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2104, i64 %2105
-  store i32 0, ptr %2106, align 4, !tbaa !23
-  %2107 = getelementptr inbounds i32, ptr %2092, i64 4
-  store i32 0, ptr %2107, align 4, !tbaa !23
-  %2108 = add nuw nsw i64 %1958, %2089
-  %2109 = add nuw nsw i64 %1956, %2086
-  %2110 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2108, i64 %2109
-  store i32 0, ptr %2110, align 4, !tbaa !23
-  %2111 = getelementptr inbounds i32, ptr %2092, i64 5
-  store i32 0, ptr %2111, align 4, !tbaa !23
-  %2112 = add nuw nsw i64 %1960, %2089
-  %2113 = add nuw nsw i64 %1959, %2086
-  %2114 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2112, i64 %2113
-  store i32 0, ptr %2114, align 4, !tbaa !23
-  %2115 = getelementptr inbounds i32, ptr %2092, i64 6
-  store i32 0, ptr %2115, align 4, !tbaa !23
-  %2116 = add nuw nsw i64 %1962, %2089
-  %2117 = add nuw nsw i64 %1961, %2086
-  %2118 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2116, i64 %2117
-  store i32 0, ptr %2118, align 4, !tbaa !23
-  %2119 = getelementptr inbounds i32, ptr %2092, i64 7
-  store i32 0, ptr %2119, align 4, !tbaa !23
-  %2120 = add nuw nsw i64 %1964, %2089
-  %2121 = add nuw nsw i64 %1963, %2086
-  %2122 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2120, i64 %2121
-  store i32 0, ptr %2122, align 4, !tbaa !23
-  %2123 = getelementptr inbounds i32, ptr %2092, i64 8
-  store i32 0, ptr %2123, align 4, !tbaa !23
-  %2124 = add nuw nsw i64 %1966, %2089
-  %2125 = add nuw nsw i64 %1965, %2086
-  %2126 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2124, i64 %2125
-  store i32 0, ptr %2126, align 4, !tbaa !23
-  %2127 = getelementptr inbounds i32, ptr %2092, i64 9
-  store i32 0, ptr %2127, align 4, !tbaa !23
-  %2128 = add nuw nsw i64 %1968, %2089
-  %2129 = add nuw nsw i64 %1967, %2086
-  %2130 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2128, i64 %2129
-  store i32 0, ptr %2130, align 4, !tbaa !23
-  %2131 = getelementptr inbounds i32, ptr %2092, i64 10
-  store i32 0, ptr %2131, align 4, !tbaa !23
-  %2132 = add nuw nsw i64 %1969, %2089
-  %2133 = add nuw nsw i64 %2086, 2
-  %2134 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2132, i64 %2133
-  store i32 0, ptr %2134, align 4, !tbaa !23
-  %2135 = getelementptr inbounds i32, ptr %2092, i64 11
-  store i32 0, ptr %2135, align 4, !tbaa !23
-  %2136 = add nuw nsw i64 %1970, %2089
-  %2137 = add nuw nsw i64 %2086, 3
-  %2138 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2136, i64 %2137
-  store i32 0, ptr %2138, align 4, !tbaa !23
-  %2139 = getelementptr inbounds i32, ptr %2092, i64 12
-  store i32 0, ptr %2139, align 4, !tbaa !23
-  %2140 = add nuw nsw i64 %1971, %2089
-  %2141 = add nuw nsw i64 %2086, 3
-  %2142 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2140, i64 %2141
-  store i32 0, ptr %2142, align 4, !tbaa !23
-  %2143 = getelementptr inbounds i32, ptr %2092, i64 13
-  store i32 0, ptr %2143, align 4, !tbaa !23
-  %2144 = add nuw nsw i64 %1973, %2089
-  %2145 = add nuw nsw i64 %1972, %2086
-  %2146 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2144, i64 %2145
-  store i32 0, ptr %2146, align 4, !tbaa !23
-  %2147 = getelementptr inbounds i32, ptr %2092, i64 14
-  store i32 0, ptr %2147, align 4, !tbaa !23
-  %2148 = add nuw nsw i64 %2089, 3
-  %2149 = add nuw nsw i64 %2086, 3
-  %2150 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2148, i64 %2149
-  store i32 0, ptr %2150, align 4, !tbaa !23
-  %2151 = getelementptr inbounds i32, ptr %2092, i64 15
-  store i32 0, ptr %2151, align 4, !tbaa !23
-  %2152 = add nuw nsw i64 %2083, 1
-  %2153 = icmp eq i64 %2152, 4
-  br i1 %2153, label %2154, label %2082, !llvm.loop !91
+  %2103 = add nuw nsw i64 %2091, 2
+  %2104 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2103, i64 %2088
+  store i32 0, ptr %2104, align 4, !tbaa !23
+  %2105 = getelementptr inbounds i32, ptr %2094, i64 3
+  store i32 0, ptr %2105, align 4, !tbaa !23
+  %2106 = add nuw nsw i64 %1957, %2091
+  %2107 = add nuw nsw i64 %1956, %2088
+  %2108 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2106, i64 %2107
+  store i32 0, ptr %2108, align 4, !tbaa !23
+  %2109 = getelementptr inbounds i32, ptr %2094, i64 4
+  store i32 0, ptr %2109, align 4, !tbaa !23
+  %2110 = add nuw nsw i64 %1960, %2091
+  %2111 = add nuw nsw i64 %1958, %2088
+  %2112 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2110, i64 %2111
+  store i32 0, ptr %2112, align 4, !tbaa !23
+  %2113 = getelementptr inbounds i32, ptr %2094, i64 5
+  store i32 0, ptr %2113, align 4, !tbaa !23
+  %2114 = add nuw nsw i64 %1962, %2091
+  %2115 = add nuw nsw i64 %1961, %2088
+  %2116 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2114, i64 %2115
+  store i32 0, ptr %2116, align 4, !tbaa !23
+  %2117 = getelementptr inbounds i32, ptr %2094, i64 6
+  store i32 0, ptr %2117, align 4, !tbaa !23
+  %2118 = add nuw nsw i64 %1964, %2091
+  %2119 = add nuw nsw i64 %1963, %2088
+  %2120 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2118, i64 %2119
+  store i32 0, ptr %2120, align 4, !tbaa !23
+  %2121 = getelementptr inbounds i32, ptr %2094, i64 7
+  store i32 0, ptr %2121, align 4, !tbaa !23
+  %2122 = add nuw nsw i64 %1966, %2091
+  %2123 = add nuw nsw i64 %1965, %2088
+  %2124 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2122, i64 %2123
+  store i32 0, ptr %2124, align 4, !tbaa !23
+  %2125 = getelementptr inbounds i32, ptr %2094, i64 8
+  store i32 0, ptr %2125, align 4, !tbaa !23
+  %2126 = add nuw nsw i64 %1968, %2091
+  %2127 = add nuw nsw i64 %1967, %2088
+  %2128 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2126, i64 %2127
+  store i32 0, ptr %2128, align 4, !tbaa !23
+  %2129 = getelementptr inbounds i32, ptr %2094, i64 9
+  store i32 0, ptr %2129, align 4, !tbaa !23
+  %2130 = add nuw nsw i64 %1970, %2091
+  %2131 = add nuw nsw i64 %1969, %2088
+  %2132 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2130, i64 %2131
+  store i32 0, ptr %2132, align 4, !tbaa !23
+  %2133 = getelementptr inbounds i32, ptr %2094, i64 10
+  store i32 0, ptr %2133, align 4, !tbaa !23
+  %2134 = add nuw nsw i64 %1971, %2091
+  %2135 = add nuw nsw i64 %2088, 2
+  %2136 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2134, i64 %2135
+  store i32 0, ptr %2136, align 4, !tbaa !23
+  %2137 = getelementptr inbounds i32, ptr %2094, i64 11
+  store i32 0, ptr %2137, align 4, !tbaa !23
+  %2138 = add nuw nsw i64 %1972, %2091
+  %2139 = add nuw nsw i64 %2088, 3
+  %2140 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2138, i64 %2139
+  store i32 0, ptr %2140, align 4, !tbaa !23
+  %2141 = getelementptr inbounds i32, ptr %2094, i64 12
+  store i32 0, ptr %2141, align 4, !tbaa !23
+  %2142 = add nuw nsw i64 %1973, %2091
+  %2143 = add nuw nsw i64 %2088, 3
+  %2144 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2142, i64 %2143
+  store i32 0, ptr %2144, align 4, !tbaa !23
+  %2145 = getelementptr inbounds i32, ptr %2094, i64 13
+  store i32 0, ptr %2145, align 4, !tbaa !23
+  %2146 = add nuw nsw i64 %1975, %2091
+  %2147 = add nuw nsw i64 %1974, %2088
+  %2148 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2146, i64 %2147
+  store i32 0, ptr %2148, align 4, !tbaa !23
+  %2149 = getelementptr inbounds i32, ptr %2094, i64 14
+  store i32 0, ptr %2149, align 4, !tbaa !23
+  %2150 = add nuw nsw i64 %2091, 3
+  %2151 = add nuw nsw i64 %2088, 3
+  %2152 = getelementptr inbounds %struct.ImageParameters, ptr %1468, i64 0, i32 52, i64 %2150, i64 %2151
+  store i32 0, ptr %2152, align 4, !tbaa !23
+  %2153 = getelementptr inbounds i32, ptr %2094, i64 15
+  store i32 0, ptr %2153, align 4, !tbaa !23
+  %2154 = add nuw nsw i64 %2085, 1
+  %2155 = icmp eq i64 %2154, 4
+  br i1 %2155, label %2156, label %2084, !llvm.loop !91
 
-2154:                                             ; preds = %2082, %2010
-  %2155 = add nuw nsw i64 %2001, 1
-  %2156 = load i32, ptr %1467, align 8, !tbaa !70
-  %2157 = ashr i32 %2156, 1
-  %2158 = sext i32 %2157 to i64
-  %2159 = icmp slt i64 %2155, %2158
-  br i1 %2159, label %2000, label %2163, !llvm.loop !92
+2156:                                             ; preds = %2084, %2012
+  %2157 = add nuw nsw i64 %2003, 1
+  %2158 = load i32, ptr %1467, align 8, !tbaa !70
+  %2159 = ashr i32 %2158, 1
+  %2160 = sext i32 %2159 to i64
+  %2161 = icmp slt i64 %2157, %2160
+  br i1 %2161, label %2002, label %2165, !llvm.loop !92
 
-2160:                                             ; preds = %1930
-  %2161 = icmp eq i32 %1893, 2
-  %2162 = select i1 %2161, i32 2, i32 %1469
-  br label %2163
+2162:                                             ; preds = %1932
+  %2163 = icmp eq i32 %1902, 2
+  %2164 = select i1 %2163, i32 2, i32 %1469
+  br label %2165
 
-2163:                                             ; preds = %2154, %1901, %1932, %2160
-  %2164 = phi ptr [ %1468, %2160 ], [ %1468, %1932 ], [ %1452, %1901 ], [ %1468, %2154 ]
-  %2165 = phi i32 [ %2162, %2160 ], [ %1469, %1932 ], [ %1451, %1901 ], [ %1469, %2154 ]
-  %2166 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 163
-  %2167 = load i32, ptr %2166, align 4, !tbaa !73
-  %2168 = icmp sgt i32 %2167, 0
-  br i1 %2168, label %2169, label %2720
+2165:                                             ; preds = %2156, %1903, %1934, %2162
+  %2166 = phi ptr [ %1468, %2162 ], [ %1468, %1934 ], [ %1452, %1903 ], [ %1468, %2156 ]
+  %2167 = phi i32 [ %2164, %2162 ], [ %1469, %1934 ], [ %1451, %1903 ], [ %1469, %2156 ]
+  %2168 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 163
+  %2169 = load i32, ptr %2168, align 4, !tbaa !73
+  %2170 = icmp sgt i32 %2169, 0
+  br i1 %2170, label %2171, label %2722
 
-2169:                                             ; preds = %2163
-  %2170 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 162
-  %2171 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 157
-  %2172 = load i32, ptr %2170, align 8, !tbaa !74
-  br label %2173
+2171:                                             ; preds = %2165
+  %2172 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 162
+  %2173 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 157
+  %2174 = load i32, ptr %2172, align 8, !tbaa !74
+  br label %2175
 
-2173:                                             ; preds = %2169, %2529
-  %2174 = phi i32 [ %2167, %2169 ], [ %2530, %2529 ]
-  %2175 = phi i32 [ %2172, %2169 ], [ %2531, %2529 ]
-  %2176 = phi i64 [ 0, %2169 ], [ %2532, %2529 ]
-  %2177 = icmp sgt i32 %2175, 0
-  br i1 %2177, label %2178, label %2529
+2175:                                             ; preds = %2171, %2531
+  %2176 = phi i32 [ %2169, %2171 ], [ %2532, %2531 ]
+  %2177 = phi i32 [ %2174, %2171 ], [ %2533, %2531 ]
+  %2178 = phi i64 [ 0, %2171 ], [ %2534, %2531 ]
+  %2179 = icmp sgt i32 %2177, 0
+  br i1 %2179, label %2180, label %2531
 
-2178:                                             ; preds = %2173
-  %2179 = or i64 %2176, 1
-  %2180 = or i64 %2176, 2
-  %2181 = or i64 %2176, 3
-  %2182 = or i64 %2176, 1
-  %2183 = or i64 %2176, 2
-  %2184 = or i64 %2176, 3
-  br label %2207
+2180:                                             ; preds = %2175
+  %2181 = or i64 %2178, 1
+  %2182 = or i64 %2178, 2
+  %2183 = or i64 %2178, 3
+  %2184 = or i64 %2178, 1
+  %2185 = or i64 %2178, 2
+  %2186 = or i64 %2178, 3
+  br label %2209
 
-2185:                                             ; preds = %2529
-  %2186 = icmp sgt i32 %2530, 0
-  br i1 %2186, label %2187, label %2720
+2187:                                             ; preds = %2531
+  %2188 = icmp sgt i32 %2532, 0
+  br i1 %2188, label %2189, label %2722
 
-2187:                                             ; preds = %2185
-  %2188 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 42
-  %2189 = load i32, ptr %2188, align 4, !tbaa !89
-  %2190 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 162
-  %2191 = load i32, ptr %2190, align 8, !tbaa !74
-  %2192 = icmp sgt i32 %2191, 0
-  %2193 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 41
-  %2194 = load ptr, ptr @enc_picture, align 8
-  %2195 = getelementptr inbounds %struct.storable_picture, ptr %2194, i64 0, i32 33
-  %2196 = zext i32 %2530 to i64
-  %2197 = zext i32 %2191 to i64
-  %2198 = add nsw i64 %2197, -1
-  %2199 = icmp ult i32 %2191, 8
-  %2200 = trunc i64 %2198 to i16
-  %2201 = icmp ugt i64 %2198, 65535
-  %2202 = and i64 %2197, 4294967288
-  %2203 = icmp eq i64 %2202, %2197
-  %2204 = and i64 %2197, 1
-  %2205 = icmp eq i64 %2204, 0
-  %2206 = sub nsw i64 0, %2197
-  br label %2535
+2189:                                             ; preds = %2187
+  %2190 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 42
+  %2191 = load i32, ptr %2190, align 4, !tbaa !89
+  %2192 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 162
+  %2193 = load i32, ptr %2192, align 8, !tbaa !74
+  %2194 = icmp sgt i32 %2193, 0
+  %2195 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 41
+  %2196 = load ptr, ptr @enc_picture, align 8
+  %2197 = getelementptr inbounds %struct.storable_picture, ptr %2196, i64 0, i32 33
+  %2198 = zext i32 %2532 to i64
+  %2199 = zext i32 %2193 to i64
+  %2200 = add nsw i64 %2199, -1
+  %2201 = icmp ult i32 %2193, 8
+  %2202 = trunc i64 %2200 to i16
+  %2203 = icmp ugt i64 %2200, 65535
+  %2204 = and i64 %2199, 4294967288
+  %2205 = icmp eq i64 %2204, %2199
+  %2206 = and i64 %2199, 1
+  %2207 = icmp eq i64 %2206, 0
+  %2208 = sub nsw i64 0, %2199
+  br label %2537
 
-2207:                                             ; preds = %2178, %2207
-  %2208 = phi i64 [ 0, %2178 ], [ %2523, %2207 ]
-  %2209 = or i64 %2208, 1
-  %2210 = or i64 %2208, 2
-  %2211 = or i64 %2208, 3
-  %2212 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2176, i64 %2208
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @dct_chroma.m5, ptr noundef nonnull align 4 dereferenceable(16) %2212, i64 16, i1 false)
-  %2213 = load i32, ptr @dct_chroma.m5, align 16, !tbaa !23
-  %2214 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
-  %2215 = add nsw i32 %2214, %2213
-  %2216 = sub nsw i32 %2213, %2214
-  %2217 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
-  %2218 = ashr i32 %2217, 1
-  %2219 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
-  %2220 = sub nsw i32 %2218, %2219
-  %2221 = ashr i32 %2219, 1
-  %2222 = add nsw i32 %2221, %2217
-  %2223 = add nsw i32 %2222, %2215
-  store i32 %2223, ptr %2212, align 4, !tbaa !23
-  %2224 = add nsw i32 %2220, %2216
-  %2225 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2176, i64 %2209
-  store i32 %2224, ptr %2225, align 4, !tbaa !23
-  %2226 = sub nsw i32 %2216, %2220
-  %2227 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2176, i64 %2210
+2209:                                             ; preds = %2180, %2209
+  %2210 = phi i64 [ 0, %2180 ], [ %2525, %2209 ]
+  %2211 = or i64 %2210, 1
+  %2212 = or i64 %2210, 2
+  %2213 = or i64 %2210, 3
+  %2214 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2178, i64 %2210
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @dct_chroma.m5, ptr noundef nonnull align 4 dereferenceable(16) %2214, i64 16, i1 false)
+  %2215 = load i32, ptr @dct_chroma.m5, align 16, !tbaa !23
+  %2216 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
+  %2217 = add nsw i32 %2216, %2215
+  %2218 = sub nsw i32 %2215, %2216
+  %2219 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
+  %2220 = ashr i32 %2219, 1
+  %2221 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
+  %2222 = sub nsw i32 %2220, %2221
+  %2223 = ashr i32 %2221, 1
+  %2224 = add nsw i32 %2223, %2219
+  %2225 = add nsw i32 %2224, %2217
+  store i32 %2225, ptr %2214, align 4, !tbaa !23
+  %2226 = add nsw i32 %2222, %2218
+  %2227 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2178, i64 %2211
   store i32 %2226, ptr %2227, align 4, !tbaa !23
-  %2228 = sub nsw i32 %2215, %2222
-  %2229 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2176, i64 %2211
+  %2228 = sub nsw i32 %2218, %2222
+  %2229 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2178, i64 %2212
   store i32 %2228, ptr %2229, align 4, !tbaa !23
-  %2230 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2182, i64 %2208
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @dct_chroma.m5, ptr noundef nonnull align 4 dereferenceable(16) %2230, i64 16, i1 false)
-  %2231 = load i32, ptr @dct_chroma.m5, align 16, !tbaa !23
-  %2232 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
-  %2233 = add nsw i32 %2232, %2231
-  %2234 = sub nsw i32 %2231, %2232
-  %2235 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
-  %2236 = ashr i32 %2235, 1
-  %2237 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
-  %2238 = sub nsw i32 %2236, %2237
-  %2239 = ashr i32 %2237, 1
-  %2240 = add nsw i32 %2239, %2235
-  %2241 = add nsw i32 %2240, %2233
-  store i32 %2241, ptr %2230, align 4, !tbaa !23
-  %2242 = add nsw i32 %2238, %2234
-  %2243 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2182, i64 %2209
-  store i32 %2242, ptr %2243, align 4, !tbaa !23
-  %2244 = sub nsw i32 %2234, %2238
-  %2245 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2182, i64 %2210
+  %2230 = sub nsw i32 %2217, %2224
+  %2231 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2178, i64 %2213
+  store i32 %2230, ptr %2231, align 4, !tbaa !23
+  %2232 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2184, i64 %2210
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @dct_chroma.m5, ptr noundef nonnull align 4 dereferenceable(16) %2232, i64 16, i1 false)
+  %2233 = load i32, ptr @dct_chroma.m5, align 16, !tbaa !23
+  %2234 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
+  %2235 = add nsw i32 %2234, %2233
+  %2236 = sub nsw i32 %2233, %2234
+  %2237 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
+  %2238 = ashr i32 %2237, 1
+  %2239 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
+  %2240 = sub nsw i32 %2238, %2239
+  %2241 = ashr i32 %2239, 1
+  %2242 = add nsw i32 %2241, %2237
+  %2243 = add nsw i32 %2242, %2235
+  store i32 %2243, ptr %2232, align 4, !tbaa !23
+  %2244 = add nsw i32 %2240, %2236
+  %2245 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2184, i64 %2211
   store i32 %2244, ptr %2245, align 4, !tbaa !23
-  %2246 = sub nsw i32 %2233, %2240
-  %2247 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2182, i64 %2211
+  %2246 = sub nsw i32 %2236, %2240
+  %2247 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2184, i64 %2212
   store i32 %2246, ptr %2247, align 4, !tbaa !23
-  %2248 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2183, i64 %2208
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @dct_chroma.m5, ptr noundef nonnull align 4 dereferenceable(16) %2248, i64 16, i1 false)
-  %2249 = load i32, ptr @dct_chroma.m5, align 16, !tbaa !23
-  %2250 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
-  %2251 = add nsw i32 %2250, %2249
-  %2252 = sub nsw i32 %2249, %2250
-  %2253 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
-  %2254 = ashr i32 %2253, 1
-  %2255 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
-  %2256 = sub nsw i32 %2254, %2255
-  %2257 = ashr i32 %2255, 1
-  %2258 = add nsw i32 %2257, %2253
-  %2259 = add nsw i32 %2258, %2251
-  store i32 %2259, ptr %2248, align 4, !tbaa !23
-  %2260 = add nsw i32 %2256, %2252
-  %2261 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2183, i64 %2209
-  store i32 %2260, ptr %2261, align 4, !tbaa !23
-  %2262 = sub nsw i32 %2252, %2256
-  %2263 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2183, i64 %2210
+  %2248 = sub nsw i32 %2235, %2242
+  %2249 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2184, i64 %2213
+  store i32 %2248, ptr %2249, align 4, !tbaa !23
+  %2250 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2185, i64 %2210
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @dct_chroma.m5, ptr noundef nonnull align 4 dereferenceable(16) %2250, i64 16, i1 false)
+  %2251 = load i32, ptr @dct_chroma.m5, align 16, !tbaa !23
+  %2252 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
+  %2253 = add nsw i32 %2252, %2251
+  %2254 = sub nsw i32 %2251, %2252
+  %2255 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
+  %2256 = ashr i32 %2255, 1
+  %2257 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
+  %2258 = sub nsw i32 %2256, %2257
+  %2259 = ashr i32 %2257, 1
+  %2260 = add nsw i32 %2259, %2255
+  %2261 = add nsw i32 %2260, %2253
+  store i32 %2261, ptr %2250, align 4, !tbaa !23
+  %2262 = add nsw i32 %2258, %2254
+  %2263 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2185, i64 %2211
   store i32 %2262, ptr %2263, align 4, !tbaa !23
-  %2264 = sub nsw i32 %2251, %2258
-  %2265 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2183, i64 %2211
+  %2264 = sub nsw i32 %2254, %2258
+  %2265 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2185, i64 %2212
   store i32 %2264, ptr %2265, align 4, !tbaa !23
-  %2266 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2184, i64 %2208
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @dct_chroma.m5, ptr noundef nonnull align 4 dereferenceable(16) %2266, i64 16, i1 false)
-  %2267 = load i32, ptr @dct_chroma.m5, align 16, !tbaa !23
-  %2268 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
-  %2269 = add nsw i32 %2268, %2267
-  %2270 = sub nsw i32 %2267, %2268
-  %2271 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
-  %2272 = ashr i32 %2271, 1
-  %2273 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
-  %2274 = sub nsw i32 %2272, %2273
-  %2275 = ashr i32 %2273, 1
-  %2276 = add nsw i32 %2275, %2271
-  %2277 = add nsw i32 %2276, %2269
-  store i32 %2277, ptr %2266, align 4, !tbaa !23
-  %2278 = add nsw i32 %2274, %2270
-  %2279 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2184, i64 %2209
-  store i32 %2278, ptr %2279, align 4, !tbaa !23
-  %2280 = sub nsw i32 %2270, %2274
-  %2281 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2184, i64 %2210
+  %2266 = sub nsw i32 %2253, %2260
+  %2267 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2185, i64 %2213
+  store i32 %2266, ptr %2267, align 4, !tbaa !23
+  %2268 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2186, i64 %2210
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @dct_chroma.m5, ptr noundef nonnull align 4 dereferenceable(16) %2268, i64 16, i1 false)
+  %2269 = load i32, ptr @dct_chroma.m5, align 16, !tbaa !23
+  %2270 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
+  %2271 = add nsw i32 %2270, %2269
+  %2272 = sub nsw i32 %2269, %2270
+  %2273 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
+  %2274 = ashr i32 %2273, 1
+  %2275 = load i32, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
+  %2276 = sub nsw i32 %2274, %2275
+  %2277 = ashr i32 %2275, 1
+  %2278 = add nsw i32 %2277, %2273
+  %2279 = add nsw i32 %2278, %2271
+  store i32 %2279, ptr %2268, align 4, !tbaa !23
+  %2280 = add nsw i32 %2276, %2272
+  %2281 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2186, i64 %2211
   store i32 %2280, ptr %2281, align 4, !tbaa !23
-  %2282 = sub nsw i32 %2269, %2276
-  %2283 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2184, i64 %2211
+  %2282 = sub nsw i32 %2272, %2276
+  %2283 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2186, i64 %2212
   store i32 %2282, ptr %2283, align 4, !tbaa !23
-  %2284 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2176, i64 %2208
-  %2285 = load i32, ptr %2284, align 4, !tbaa !23
-  %2286 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2182, i64 %2208
+  %2284 = sub nsw i32 %2271, %2278
+  %2285 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2186, i64 %2213
+  store i32 %2284, ptr %2285, align 4, !tbaa !23
+  %2286 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2178, i64 %2210
   %2287 = load i32, ptr %2286, align 4, !tbaa !23
-  %2288 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2183, i64 %2208
+  %2288 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2184, i64 %2210
   %2289 = load i32, ptr %2288, align 4, !tbaa !23
-  %2290 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2184, i64 %2208
+  %2290 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2185, i64 %2210
   %2291 = load i32, ptr %2290, align 4, !tbaa !23
-  %2292 = add nsw i32 %2289, %2285
-  %2293 = sub nsw i32 %2285, %2289
-  %2294 = ashr i32 %2287, 1
-  %2295 = sub nsw i32 %2294, %2291
-  %2296 = ashr i32 %2291, 1
-  %2297 = add nsw i32 %2296, %2287
-  %2298 = load i32, ptr %2171, align 4, !tbaa !93
-  %2299 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2176, i64 %2208
-  %2300 = load i16, ptr %2299, align 2, !tbaa !26
-  %2301 = zext i16 %2300 to i32
-  %2302 = shl nuw nsw i32 %2301, 6
-  %2303 = add i32 %2292, 32
-  %2304 = add i32 %2303, %2297
-  %2305 = add i32 %2304, %2302
-  %2306 = ashr i32 %2305, 6
-  %2307 = tail call i32 @llvm.smax.i32(i32 %2306, i32 0)
-  %2308 = tail call i32 @llvm.smin.i32(i32 %2307, i32 %2298)
-  store i32 %2308, ptr %2284, align 4, !tbaa !23
-  %2309 = load i32, ptr %2171, align 4, !tbaa !93
-  %2310 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2179, i64 %2208
-  %2311 = load i16, ptr %2310, align 2, !tbaa !26
-  %2312 = zext i16 %2311 to i32
-  %2313 = shl nuw nsw i32 %2312, 6
-  %2314 = add i32 %2293, 32
-  %2315 = add i32 %2314, %2295
-  %2316 = add i32 %2315, %2313
-  %2317 = ashr i32 %2316, 6
-  %2318 = tail call i32 @llvm.smax.i32(i32 %2317, i32 0)
-  %2319 = tail call i32 @llvm.smin.i32(i32 %2318, i32 %2309)
-  %2320 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2179, i64 %2208
-  store i32 %2319, ptr %2320, align 4, !tbaa !23
-  %2321 = load i32, ptr %2171, align 4, !tbaa !93
-  %2322 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2180, i64 %2208
-  %2323 = load i16, ptr %2322, align 2, !tbaa !26
-  %2324 = zext i16 %2323 to i32
-  %2325 = shl nuw nsw i32 %2324, 6
-  %2326 = sub i32 %2314, %2295
-  %2327 = add i32 %2326, %2325
-  %2328 = ashr i32 %2327, 6
-  %2329 = tail call i32 @llvm.smax.i32(i32 %2328, i32 0)
-  %2330 = tail call i32 @llvm.smin.i32(i32 %2329, i32 %2321)
-  %2331 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2180, i64 %2208
-  store i32 %2330, ptr %2331, align 4, !tbaa !23
-  %2332 = load i32, ptr %2171, align 4, !tbaa !93
-  %2333 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2181, i64 %2208
-  %2334 = load i16, ptr %2333, align 2, !tbaa !26
-  %2335 = zext i16 %2334 to i32
-  %2336 = shl nuw nsw i32 %2335, 6
-  %2337 = sub i32 %2303, %2297
-  %2338 = add i32 %2337, %2336
-  %2339 = ashr i32 %2338, 6
-  %2340 = tail call i32 @llvm.smax.i32(i32 %2339, i32 0)
-  %2341 = tail call i32 @llvm.smin.i32(i32 %2340, i32 %2332)
-  %2342 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2181, i64 %2208
-  store i32 %2341, ptr %2342, align 4, !tbaa !23
-  %2343 = or i64 %2208, 1
-  %2344 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2176, i64 %2343
-  %2345 = load i32, ptr %2344, align 4, !tbaa !23
-  %2346 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2182, i64 %2343
+  %2292 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2186, i64 %2210
+  %2293 = load i32, ptr %2292, align 4, !tbaa !23
+  %2294 = add nsw i32 %2291, %2287
+  %2295 = sub nsw i32 %2287, %2291
+  %2296 = ashr i32 %2289, 1
+  %2297 = sub nsw i32 %2296, %2293
+  %2298 = ashr i32 %2293, 1
+  %2299 = add nsw i32 %2298, %2289
+  %2300 = load i32, ptr %2173, align 4, !tbaa !93
+  %2301 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2178, i64 %2210
+  %2302 = load i16, ptr %2301, align 2, !tbaa !26
+  %2303 = zext i16 %2302 to i32
+  %2304 = shl nuw nsw i32 %2303, 6
+  %2305 = add i32 %2294, 32
+  %2306 = add i32 %2305, %2299
+  %2307 = add i32 %2306, %2304
+  %2308 = ashr i32 %2307, 6
+  %2309 = tail call i32 @llvm.smax.i32(i32 %2308, i32 0)
+  %2310 = tail call i32 @llvm.smin.i32(i32 %2309, i32 %2300)
+  store i32 %2310, ptr %2286, align 4, !tbaa !23
+  %2311 = load i32, ptr %2173, align 4, !tbaa !93
+  %2312 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2181, i64 %2210
+  %2313 = load i16, ptr %2312, align 2, !tbaa !26
+  %2314 = zext i16 %2313 to i32
+  %2315 = shl nuw nsw i32 %2314, 6
+  %2316 = add i32 %2295, 32
+  %2317 = add i32 %2316, %2297
+  %2318 = add i32 %2317, %2315
+  %2319 = ashr i32 %2318, 6
+  %2320 = tail call i32 @llvm.smax.i32(i32 %2319, i32 0)
+  %2321 = tail call i32 @llvm.smin.i32(i32 %2320, i32 %2311)
+  %2322 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2181, i64 %2210
+  store i32 %2321, ptr %2322, align 4, !tbaa !23
+  %2323 = load i32, ptr %2173, align 4, !tbaa !93
+  %2324 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2182, i64 %2210
+  %2325 = load i16, ptr %2324, align 2, !tbaa !26
+  %2326 = zext i16 %2325 to i32
+  %2327 = shl nuw nsw i32 %2326, 6
+  %2328 = sub i32 %2316, %2297
+  %2329 = add i32 %2328, %2327
+  %2330 = ashr i32 %2329, 6
+  %2331 = tail call i32 @llvm.smax.i32(i32 %2330, i32 0)
+  %2332 = tail call i32 @llvm.smin.i32(i32 %2331, i32 %2323)
+  %2333 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2182, i64 %2210
+  store i32 %2332, ptr %2333, align 4, !tbaa !23
+  %2334 = load i32, ptr %2173, align 4, !tbaa !93
+  %2335 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2183, i64 %2210
+  %2336 = load i16, ptr %2335, align 2, !tbaa !26
+  %2337 = zext i16 %2336 to i32
+  %2338 = shl nuw nsw i32 %2337, 6
+  %2339 = sub i32 %2305, %2299
+  %2340 = add i32 %2339, %2338
+  %2341 = ashr i32 %2340, 6
+  %2342 = tail call i32 @llvm.smax.i32(i32 %2341, i32 0)
+  %2343 = tail call i32 @llvm.smin.i32(i32 %2342, i32 %2334)
+  %2344 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2183, i64 %2210
+  store i32 %2343, ptr %2344, align 4, !tbaa !23
+  %2345 = or i64 %2210, 1
+  %2346 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2178, i64 %2345
   %2347 = load i32, ptr %2346, align 4, !tbaa !23
-  %2348 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2183, i64 %2343
+  %2348 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2184, i64 %2345
   %2349 = load i32, ptr %2348, align 4, !tbaa !23
-  %2350 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2184, i64 %2343
+  %2350 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2185, i64 %2345
   %2351 = load i32, ptr %2350, align 4, !tbaa !23
-  %2352 = add nsw i32 %2349, %2345
-  %2353 = sub nsw i32 %2345, %2349
-  %2354 = ashr i32 %2347, 1
-  %2355 = sub nsw i32 %2354, %2351
-  %2356 = ashr i32 %2351, 1
-  %2357 = add nsw i32 %2356, %2347
-  %2358 = load i32, ptr %2171, align 4, !tbaa !93
-  %2359 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2176, i64 %2343
-  %2360 = load i16, ptr %2359, align 2, !tbaa !26
-  %2361 = zext i16 %2360 to i32
-  %2362 = shl nuw nsw i32 %2361, 6
-  %2363 = add i32 %2352, 32
-  %2364 = add i32 %2363, %2357
-  %2365 = add i32 %2364, %2362
-  %2366 = ashr i32 %2365, 6
-  %2367 = tail call i32 @llvm.smax.i32(i32 %2366, i32 0)
-  %2368 = tail call i32 @llvm.smin.i32(i32 %2367, i32 %2358)
-  store i32 %2368, ptr %2344, align 4, !tbaa !23
-  %2369 = load i32, ptr %2171, align 4, !tbaa !93
-  %2370 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2179, i64 %2343
-  %2371 = load i16, ptr %2370, align 2, !tbaa !26
-  %2372 = zext i16 %2371 to i32
-  %2373 = shl nuw nsw i32 %2372, 6
-  %2374 = add i32 %2353, 32
-  %2375 = add i32 %2374, %2355
-  %2376 = add i32 %2375, %2373
-  %2377 = ashr i32 %2376, 6
-  %2378 = tail call i32 @llvm.smax.i32(i32 %2377, i32 0)
-  %2379 = tail call i32 @llvm.smin.i32(i32 %2378, i32 %2369)
-  %2380 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2179, i64 %2343
-  store i32 %2379, ptr %2380, align 4, !tbaa !23
-  %2381 = load i32, ptr %2171, align 4, !tbaa !93
-  %2382 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2180, i64 %2343
-  %2383 = load i16, ptr %2382, align 2, !tbaa !26
-  %2384 = zext i16 %2383 to i32
-  %2385 = shl nuw nsw i32 %2384, 6
-  %2386 = sub i32 %2374, %2355
-  %2387 = add i32 %2386, %2385
-  %2388 = ashr i32 %2387, 6
-  %2389 = tail call i32 @llvm.smax.i32(i32 %2388, i32 0)
-  %2390 = tail call i32 @llvm.smin.i32(i32 %2389, i32 %2381)
-  %2391 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2180, i64 %2343
-  store i32 %2390, ptr %2391, align 4, !tbaa !23
-  %2392 = load i32, ptr %2171, align 4, !tbaa !93
-  %2393 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2181, i64 %2343
-  %2394 = load i16, ptr %2393, align 2, !tbaa !26
-  %2395 = zext i16 %2394 to i32
-  %2396 = shl nuw nsw i32 %2395, 6
-  %2397 = sub i32 %2363, %2357
-  %2398 = add i32 %2397, %2396
-  %2399 = ashr i32 %2398, 6
-  %2400 = tail call i32 @llvm.smax.i32(i32 %2399, i32 0)
-  %2401 = tail call i32 @llvm.smin.i32(i32 %2400, i32 %2392)
-  %2402 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2181, i64 %2343
-  store i32 %2401, ptr %2402, align 4, !tbaa !23
-  %2403 = or i64 %2208, 2
-  %2404 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2176, i64 %2403
-  %2405 = load i32, ptr %2404, align 4, !tbaa !23
-  %2406 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2182, i64 %2403
+  %2352 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2186, i64 %2345
+  %2353 = load i32, ptr %2352, align 4, !tbaa !23
+  %2354 = add nsw i32 %2351, %2347
+  %2355 = sub nsw i32 %2347, %2351
+  %2356 = ashr i32 %2349, 1
+  %2357 = sub nsw i32 %2356, %2353
+  %2358 = ashr i32 %2353, 1
+  %2359 = add nsw i32 %2358, %2349
+  %2360 = load i32, ptr %2173, align 4, !tbaa !93
+  %2361 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2178, i64 %2345
+  %2362 = load i16, ptr %2361, align 2, !tbaa !26
+  %2363 = zext i16 %2362 to i32
+  %2364 = shl nuw nsw i32 %2363, 6
+  %2365 = add i32 %2354, 32
+  %2366 = add i32 %2365, %2359
+  %2367 = add i32 %2366, %2364
+  %2368 = ashr i32 %2367, 6
+  %2369 = tail call i32 @llvm.smax.i32(i32 %2368, i32 0)
+  %2370 = tail call i32 @llvm.smin.i32(i32 %2369, i32 %2360)
+  store i32 %2370, ptr %2346, align 4, !tbaa !23
+  %2371 = load i32, ptr %2173, align 4, !tbaa !93
+  %2372 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2181, i64 %2345
+  %2373 = load i16, ptr %2372, align 2, !tbaa !26
+  %2374 = zext i16 %2373 to i32
+  %2375 = shl nuw nsw i32 %2374, 6
+  %2376 = add i32 %2355, 32
+  %2377 = add i32 %2376, %2357
+  %2378 = add i32 %2377, %2375
+  %2379 = ashr i32 %2378, 6
+  %2380 = tail call i32 @llvm.smax.i32(i32 %2379, i32 0)
+  %2381 = tail call i32 @llvm.smin.i32(i32 %2380, i32 %2371)
+  %2382 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2181, i64 %2345
+  store i32 %2381, ptr %2382, align 4, !tbaa !23
+  %2383 = load i32, ptr %2173, align 4, !tbaa !93
+  %2384 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2182, i64 %2345
+  %2385 = load i16, ptr %2384, align 2, !tbaa !26
+  %2386 = zext i16 %2385 to i32
+  %2387 = shl nuw nsw i32 %2386, 6
+  %2388 = sub i32 %2376, %2357
+  %2389 = add i32 %2388, %2387
+  %2390 = ashr i32 %2389, 6
+  %2391 = tail call i32 @llvm.smax.i32(i32 %2390, i32 0)
+  %2392 = tail call i32 @llvm.smin.i32(i32 %2391, i32 %2383)
+  %2393 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2182, i64 %2345
+  store i32 %2392, ptr %2393, align 4, !tbaa !23
+  %2394 = load i32, ptr %2173, align 4, !tbaa !93
+  %2395 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2183, i64 %2345
+  %2396 = load i16, ptr %2395, align 2, !tbaa !26
+  %2397 = zext i16 %2396 to i32
+  %2398 = shl nuw nsw i32 %2397, 6
+  %2399 = sub i32 %2365, %2359
+  %2400 = add i32 %2399, %2398
+  %2401 = ashr i32 %2400, 6
+  %2402 = tail call i32 @llvm.smax.i32(i32 %2401, i32 0)
+  %2403 = tail call i32 @llvm.smin.i32(i32 %2402, i32 %2394)
+  %2404 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2183, i64 %2345
+  store i32 %2403, ptr %2404, align 4, !tbaa !23
+  %2405 = or i64 %2210, 2
+  %2406 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2178, i64 %2405
   %2407 = load i32, ptr %2406, align 4, !tbaa !23
-  %2408 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2183, i64 %2403
+  %2408 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2184, i64 %2405
   %2409 = load i32, ptr %2408, align 4, !tbaa !23
-  %2410 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2184, i64 %2403
+  %2410 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2185, i64 %2405
   %2411 = load i32, ptr %2410, align 4, !tbaa !23
-  %2412 = add nsw i32 %2409, %2405
-  %2413 = sub nsw i32 %2405, %2409
-  %2414 = ashr i32 %2407, 1
-  %2415 = sub nsw i32 %2414, %2411
-  %2416 = ashr i32 %2411, 1
-  %2417 = add nsw i32 %2416, %2407
-  %2418 = load i32, ptr %2171, align 4, !tbaa !93
-  %2419 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2176, i64 %2403
-  %2420 = load i16, ptr %2419, align 2, !tbaa !26
-  %2421 = zext i16 %2420 to i32
-  %2422 = shl nuw nsw i32 %2421, 6
-  %2423 = add i32 %2412, 32
-  %2424 = add i32 %2423, %2417
-  %2425 = add i32 %2424, %2422
-  %2426 = ashr i32 %2425, 6
-  %2427 = tail call i32 @llvm.smax.i32(i32 %2426, i32 0)
-  %2428 = tail call i32 @llvm.smin.i32(i32 %2427, i32 %2418)
-  store i32 %2428, ptr %2404, align 4, !tbaa !23
-  %2429 = load i32, ptr %2171, align 4, !tbaa !93
-  %2430 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2179, i64 %2403
-  %2431 = load i16, ptr %2430, align 2, !tbaa !26
-  %2432 = zext i16 %2431 to i32
-  %2433 = shl nuw nsw i32 %2432, 6
-  %2434 = add i32 %2413, 32
-  %2435 = add i32 %2434, %2415
-  %2436 = add i32 %2435, %2433
-  %2437 = ashr i32 %2436, 6
-  %2438 = tail call i32 @llvm.smax.i32(i32 %2437, i32 0)
-  %2439 = tail call i32 @llvm.smin.i32(i32 %2438, i32 %2429)
-  %2440 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2179, i64 %2403
-  store i32 %2439, ptr %2440, align 4, !tbaa !23
-  %2441 = load i32, ptr %2171, align 4, !tbaa !93
-  %2442 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2180, i64 %2403
-  %2443 = load i16, ptr %2442, align 2, !tbaa !26
-  %2444 = zext i16 %2443 to i32
-  %2445 = shl nuw nsw i32 %2444, 6
-  %2446 = sub i32 %2434, %2415
-  %2447 = add i32 %2446, %2445
-  %2448 = ashr i32 %2447, 6
-  %2449 = tail call i32 @llvm.smax.i32(i32 %2448, i32 0)
-  %2450 = tail call i32 @llvm.smin.i32(i32 %2449, i32 %2441)
-  %2451 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2180, i64 %2403
-  store i32 %2450, ptr %2451, align 4, !tbaa !23
-  %2452 = load i32, ptr %2171, align 4, !tbaa !93
-  %2453 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2181, i64 %2403
-  %2454 = load i16, ptr %2453, align 2, !tbaa !26
-  %2455 = zext i16 %2454 to i32
-  %2456 = shl nuw nsw i32 %2455, 6
-  %2457 = sub i32 %2423, %2417
-  %2458 = add i32 %2457, %2456
-  %2459 = ashr i32 %2458, 6
-  %2460 = tail call i32 @llvm.smax.i32(i32 %2459, i32 0)
-  %2461 = tail call i32 @llvm.smin.i32(i32 %2460, i32 %2452)
-  %2462 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2181, i64 %2403
-  store i32 %2461, ptr %2462, align 4, !tbaa !23
-  %2463 = or i64 %2208, 3
-  %2464 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2176, i64 %2463
-  %2465 = load i32, ptr %2464, align 4, !tbaa !23
-  %2466 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2182, i64 %2463
+  %2412 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2186, i64 %2405
+  %2413 = load i32, ptr %2412, align 4, !tbaa !23
+  %2414 = add nsw i32 %2411, %2407
+  %2415 = sub nsw i32 %2407, %2411
+  %2416 = ashr i32 %2409, 1
+  %2417 = sub nsw i32 %2416, %2413
+  %2418 = ashr i32 %2413, 1
+  %2419 = add nsw i32 %2418, %2409
+  %2420 = load i32, ptr %2173, align 4, !tbaa !93
+  %2421 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2178, i64 %2405
+  %2422 = load i16, ptr %2421, align 2, !tbaa !26
+  %2423 = zext i16 %2422 to i32
+  %2424 = shl nuw nsw i32 %2423, 6
+  %2425 = add i32 %2414, 32
+  %2426 = add i32 %2425, %2419
+  %2427 = add i32 %2426, %2424
+  %2428 = ashr i32 %2427, 6
+  %2429 = tail call i32 @llvm.smax.i32(i32 %2428, i32 0)
+  %2430 = tail call i32 @llvm.smin.i32(i32 %2429, i32 %2420)
+  store i32 %2430, ptr %2406, align 4, !tbaa !23
+  %2431 = load i32, ptr %2173, align 4, !tbaa !93
+  %2432 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2181, i64 %2405
+  %2433 = load i16, ptr %2432, align 2, !tbaa !26
+  %2434 = zext i16 %2433 to i32
+  %2435 = shl nuw nsw i32 %2434, 6
+  %2436 = add i32 %2415, 32
+  %2437 = add i32 %2436, %2417
+  %2438 = add i32 %2437, %2435
+  %2439 = ashr i32 %2438, 6
+  %2440 = tail call i32 @llvm.smax.i32(i32 %2439, i32 0)
+  %2441 = tail call i32 @llvm.smin.i32(i32 %2440, i32 %2431)
+  %2442 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2181, i64 %2405
+  store i32 %2441, ptr %2442, align 4, !tbaa !23
+  %2443 = load i32, ptr %2173, align 4, !tbaa !93
+  %2444 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2182, i64 %2405
+  %2445 = load i16, ptr %2444, align 2, !tbaa !26
+  %2446 = zext i16 %2445 to i32
+  %2447 = shl nuw nsw i32 %2446, 6
+  %2448 = sub i32 %2436, %2417
+  %2449 = add i32 %2448, %2447
+  %2450 = ashr i32 %2449, 6
+  %2451 = tail call i32 @llvm.smax.i32(i32 %2450, i32 0)
+  %2452 = tail call i32 @llvm.smin.i32(i32 %2451, i32 %2443)
+  %2453 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2182, i64 %2405
+  store i32 %2452, ptr %2453, align 4, !tbaa !23
+  %2454 = load i32, ptr %2173, align 4, !tbaa !93
+  %2455 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2183, i64 %2405
+  %2456 = load i16, ptr %2455, align 2, !tbaa !26
+  %2457 = zext i16 %2456 to i32
+  %2458 = shl nuw nsw i32 %2457, 6
+  %2459 = sub i32 %2425, %2419
+  %2460 = add i32 %2459, %2458
+  %2461 = ashr i32 %2460, 6
+  %2462 = tail call i32 @llvm.smax.i32(i32 %2461, i32 0)
+  %2463 = tail call i32 @llvm.smin.i32(i32 %2462, i32 %2454)
+  %2464 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2183, i64 %2405
+  store i32 %2463, ptr %2464, align 4, !tbaa !23
+  %2465 = or i64 %2210, 3
+  %2466 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2178, i64 %2465
   %2467 = load i32, ptr %2466, align 4, !tbaa !23
-  %2468 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2183, i64 %2463
+  %2468 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2184, i64 %2465
   %2469 = load i32, ptr %2468, align 4, !tbaa !23
-  %2470 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2184, i64 %2463
+  %2470 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2185, i64 %2465
   %2471 = load i32, ptr %2470, align 4, !tbaa !23
-  %2472 = add nsw i32 %2469, %2465
-  %2473 = sub nsw i32 %2465, %2469
-  %2474 = ashr i32 %2467, 1
-  %2475 = sub nsw i32 %2474, %2471
-  %2476 = ashr i32 %2471, 1
-  %2477 = add nsw i32 %2476, %2467
-  %2478 = load i32, ptr %2171, align 4, !tbaa !93
-  %2479 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2176, i64 %2463
-  %2480 = load i16, ptr %2479, align 2, !tbaa !26
-  %2481 = zext i16 %2480 to i32
-  %2482 = shl nuw nsw i32 %2481, 6
-  %2483 = add i32 %2472, 32
-  %2484 = add i32 %2483, %2477
-  %2485 = add i32 %2484, %2482
-  %2486 = ashr i32 %2485, 6
-  %2487 = tail call i32 @llvm.smax.i32(i32 %2486, i32 0)
-  %2488 = tail call i32 @llvm.smin.i32(i32 %2487, i32 %2478)
-  store i32 %2488, ptr %2464, align 4, !tbaa !23
-  %2489 = load i32, ptr %2171, align 4, !tbaa !93
-  %2490 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2179, i64 %2463
-  %2491 = load i16, ptr %2490, align 2, !tbaa !26
-  %2492 = zext i16 %2491 to i32
-  %2493 = shl nuw nsw i32 %2492, 6
-  %2494 = add i32 %2473, 32
-  %2495 = add i32 %2494, %2475
-  %2496 = add i32 %2495, %2493
-  %2497 = ashr i32 %2496, 6
-  %2498 = tail call i32 @llvm.smax.i32(i32 %2497, i32 0)
-  %2499 = tail call i32 @llvm.smin.i32(i32 %2498, i32 %2489)
-  %2500 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2179, i64 %2463
-  store i32 %2499, ptr %2500, align 4, !tbaa !23
-  %2501 = load i32, ptr %2171, align 4, !tbaa !93
-  %2502 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2180, i64 %2463
-  %2503 = load i16, ptr %2502, align 2, !tbaa !26
-  %2504 = zext i16 %2503 to i32
-  %2505 = shl nuw nsw i32 %2504, 6
-  %2506 = sub i32 %2494, %2475
-  %2507 = add i32 %2506, %2505
-  %2508 = ashr i32 %2507, 6
-  %2509 = tail call i32 @llvm.smax.i32(i32 %2508, i32 0)
-  %2510 = tail call i32 @llvm.smin.i32(i32 %2509, i32 %2501)
-  %2511 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2180, i64 %2463
-  store i32 %2510, ptr %2511, align 4, !tbaa !23
-  %2512 = load i32, ptr %2171, align 4, !tbaa !93
-  %2513 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 51, i64 %2181, i64 %2463
-  %2514 = load i16, ptr %2513, align 2, !tbaa !26
-  %2515 = zext i16 %2514 to i32
-  %2516 = shl nuw nsw i32 %2515, 6
-  %2517 = sub i32 %2483, %2477
-  %2518 = add i32 %2517, %2516
-  %2519 = ashr i32 %2518, 6
-  %2520 = tail call i32 @llvm.smax.i32(i32 %2519, i32 0)
-  %2521 = tail call i32 @llvm.smin.i32(i32 %2520, i32 %2512)
-  %2522 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2181, i64 %2463
-  store i32 %2521, ptr %2522, align 4, !tbaa !23
-  store i32 %2465, ptr @dct_chroma.m5, align 16, !tbaa !23
-  store i32 %2467, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
-  store i32 %2469, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
-  store i32 %2471, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
-  %2523 = add nuw nsw i64 %2208, 4
-  %2524 = load i32, ptr %2170, align 8, !tbaa !74
-  %2525 = sext i32 %2524 to i64
-  %2526 = icmp slt i64 %2523, %2525
-  br i1 %2526, label %2207, label %2527, !llvm.loop !94
+  %2472 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2186, i64 %2465
+  %2473 = load i32, ptr %2472, align 4, !tbaa !23
+  %2474 = add nsw i32 %2471, %2467
+  %2475 = sub nsw i32 %2467, %2471
+  %2476 = ashr i32 %2469, 1
+  %2477 = sub nsw i32 %2476, %2473
+  %2478 = ashr i32 %2473, 1
+  %2479 = add nsw i32 %2478, %2469
+  %2480 = load i32, ptr %2173, align 4, !tbaa !93
+  %2481 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2178, i64 %2465
+  %2482 = load i16, ptr %2481, align 2, !tbaa !26
+  %2483 = zext i16 %2482 to i32
+  %2484 = shl nuw nsw i32 %2483, 6
+  %2485 = add i32 %2474, 32
+  %2486 = add i32 %2485, %2479
+  %2487 = add i32 %2486, %2484
+  %2488 = ashr i32 %2487, 6
+  %2489 = tail call i32 @llvm.smax.i32(i32 %2488, i32 0)
+  %2490 = tail call i32 @llvm.smin.i32(i32 %2489, i32 %2480)
+  store i32 %2490, ptr %2466, align 4, !tbaa !23
+  %2491 = load i32, ptr %2173, align 4, !tbaa !93
+  %2492 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2181, i64 %2465
+  %2493 = load i16, ptr %2492, align 2, !tbaa !26
+  %2494 = zext i16 %2493 to i32
+  %2495 = shl nuw nsw i32 %2494, 6
+  %2496 = add i32 %2475, 32
+  %2497 = add i32 %2496, %2477
+  %2498 = add i32 %2497, %2495
+  %2499 = ashr i32 %2498, 6
+  %2500 = tail call i32 @llvm.smax.i32(i32 %2499, i32 0)
+  %2501 = tail call i32 @llvm.smin.i32(i32 %2500, i32 %2491)
+  %2502 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2181, i64 %2465
+  store i32 %2501, ptr %2502, align 4, !tbaa !23
+  %2503 = load i32, ptr %2173, align 4, !tbaa !93
+  %2504 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2182, i64 %2465
+  %2505 = load i16, ptr %2504, align 2, !tbaa !26
+  %2506 = zext i16 %2505 to i32
+  %2507 = shl nuw nsw i32 %2506, 6
+  %2508 = sub i32 %2496, %2477
+  %2509 = add i32 %2508, %2507
+  %2510 = ashr i32 %2509, 6
+  %2511 = tail call i32 @llvm.smax.i32(i32 %2510, i32 0)
+  %2512 = tail call i32 @llvm.smin.i32(i32 %2511, i32 %2503)
+  %2513 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2182, i64 %2465
+  store i32 %2512, ptr %2513, align 4, !tbaa !23
+  %2514 = load i32, ptr %2173, align 4, !tbaa !93
+  %2515 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 51, i64 %2183, i64 %2465
+  %2516 = load i16, ptr %2515, align 2, !tbaa !26
+  %2517 = zext i16 %2516 to i32
+  %2518 = shl nuw nsw i32 %2517, 6
+  %2519 = sub i32 %2485, %2479
+  %2520 = add i32 %2519, %2518
+  %2521 = ashr i32 %2520, 6
+  %2522 = tail call i32 @llvm.smax.i32(i32 %2521, i32 0)
+  %2523 = tail call i32 @llvm.smin.i32(i32 %2522, i32 %2514)
+  %2524 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2183, i64 %2465
+  store i32 %2523, ptr %2524, align 4, !tbaa !23
+  store i32 %2467, ptr @dct_chroma.m5, align 16, !tbaa !23
+  store i32 %2469, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 1), align 4, !tbaa !23
+  store i32 %2471, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 2), align 8, !tbaa !23
+  store i32 %2473, ptr getelementptr inbounds ([4 x i32], ptr @dct_chroma.m5, i64 0, i64 3), align 4, !tbaa !23
+  %2525 = add nuw nsw i64 %2210, 4
+  %2526 = load i32, ptr %2172, align 8, !tbaa !74
+  %2527 = sext i32 %2526 to i64
+  %2528 = icmp slt i64 %2525, %2527
+  br i1 %2528, label %2209, label %2529, !llvm.loop !94
 
-2527:                                             ; preds = %2207
-  %2528 = load i32, ptr %2166, align 4, !tbaa !73
-  br label %2529
+2529:                                             ; preds = %2209
+  %2530 = load i32, ptr %2168, align 4, !tbaa !73
+  br label %2531
 
-2529:                                             ; preds = %2527, %2173
-  %2530 = phi i32 [ %2528, %2527 ], [ %2174, %2173 ]
-  %2531 = phi i32 [ %2524, %2527 ], [ %2175, %2173 ]
-  %2532 = add nuw nsw i64 %2176, 4
-  %2533 = sext i32 %2530 to i64
-  %2534 = icmp slt i64 %2532, %2533
-  br i1 %2534, label %2173, label %2185, !llvm.loop !95
+2531:                                             ; preds = %2529, %2175
+  %2532 = phi i32 [ %2530, %2529 ], [ %2176, %2175 ]
+  %2533 = phi i32 [ %2526, %2529 ], [ %2177, %2175 ]
+  %2534 = add nuw nsw i64 %2178, 4
+  %2535 = sext i32 %2532 to i64
+  %2536 = icmp slt i64 %2534, %2535
+  br i1 %2536, label %2175, label %2187, !llvm.loop !95
 
-2535:                                             ; preds = %2187, %2612
-  %2536 = phi i64 [ 0, %2187 ], [ %2613, %2612 ]
-  br i1 %2192, label %2537, label %2612
+2537:                                             ; preds = %2189, %2614
+  %2538 = phi i64 [ 0, %2189 ], [ %2615, %2614 ]
+  br i1 %2194, label %2539, label %2614
 
-2537:                                             ; preds = %2535
-  %2538 = trunc i64 %2536 to i32
-  %2539 = add nsw i32 %2189, %2538
-  %2540 = zext i32 %2539 to i64
-  %2541 = load i32, ptr %2193, align 8, !tbaa !96
-  %2542 = load ptr, ptr %2195, align 8, !tbaa !97
-  %2543 = getelementptr inbounds ptr, ptr %2542, i64 %46
-  %2544 = load ptr, ptr %2543, align 8, !tbaa !5
-  %2545 = shl i64 %2540, 48
-  %2546 = ashr exact i64 %2545, 48
-  %2547 = getelementptr inbounds ptr, ptr %2544, i64 %2546
-  %2548 = load ptr, ptr %2547, align 8, !tbaa !5
-  br i1 %2199, label %2572, label %2549
+2539:                                             ; preds = %2537
+  %2540 = trunc i64 %2538 to i32
+  %2541 = add nsw i32 %2191, %2540
+  %2542 = zext i32 %2541 to i64
+  %2543 = load i32, ptr %2195, align 8, !tbaa !96
+  %2544 = load ptr, ptr %2197, align 8, !tbaa !97
+  %2545 = getelementptr inbounds ptr, ptr %2544, i64 %46
+  %2546 = load ptr, ptr %2545, align 8, !tbaa !5
+  %2547 = shl i64 %2542, 48
+  %2548 = ashr exact i64 %2547, 48
+  %2549 = getelementptr inbounds ptr, ptr %2546, i64 %2548
+  %2550 = load ptr, ptr %2549, align 8, !tbaa !5
+  br i1 %2201, label %2574, label %2551
 
-2549:                                             ; preds = %2537
-  %2550 = trunc i32 %2541 to i16
-  %2551 = add i16 %2550, %2200
-  %2552 = icmp slt i16 %2551, %2550
-  %2553 = or i1 %2552, %2201
-  br i1 %2553, label %2572, label %2554
+2551:                                             ; preds = %2539
+  %2552 = trunc i32 %2543 to i16
+  %2553 = add i16 %2552, %2202
+  %2554 = icmp slt i16 %2553, %2552
+  %2555 = or i1 %2554, %2203
+  br i1 %2555, label %2574, label %2556
 
-2554:                                             ; preds = %2549, %2554
-  %2555 = phi i64 [ %2569, %2554 ], [ 0, %2549 ]
-  %2556 = trunc i64 %2555 to i32
-  %2557 = add i32 %2541, %2556
-  %2558 = zext i32 %2557 to i64
-  %2559 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2536, i64 %2555
-  %2560 = load <4 x i32>, ptr %2559, align 4, !tbaa !23
-  %2561 = getelementptr inbounds i32, ptr %2559, i64 4
+2556:                                             ; preds = %2551, %2556
+  %2557 = phi i64 [ %2571, %2556 ], [ 0, %2551 ]
+  %2558 = trunc i64 %2557 to i32
+  %2559 = add i32 %2543, %2558
+  %2560 = zext i32 %2559 to i64
+  %2561 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2538, i64 %2557
   %2562 = load <4 x i32>, ptr %2561, align 4, !tbaa !23
-  %2563 = trunc <4 x i32> %2560 to <4 x i16>
-  %2564 = trunc <4 x i32> %2562 to <4 x i16>
-  %2565 = shl i64 %2558, 48
-  %2566 = ashr exact i64 %2565, 48
-  %2567 = getelementptr inbounds i16, ptr %2548, i64 %2566
-  store <4 x i16> %2563, ptr %2567, align 2, !tbaa !26
-  %2568 = getelementptr inbounds i16, ptr %2567, i64 4
-  store <4 x i16> %2564, ptr %2568, align 2, !tbaa !26
-  %2569 = add nuw i64 %2555, 8
-  %2570 = icmp eq i64 %2569, %2202
-  br i1 %2570, label %2571, label %2554, !llvm.loop !98
+  %2563 = getelementptr inbounds i32, ptr %2561, i64 4
+  %2564 = load <4 x i32>, ptr %2563, align 4, !tbaa !23
+  %2565 = trunc <4 x i32> %2562 to <4 x i16>
+  %2566 = trunc <4 x i32> %2564 to <4 x i16>
+  %2567 = shl i64 %2560, 48
+  %2568 = ashr exact i64 %2567, 48
+  %2569 = getelementptr inbounds i16, ptr %2550, i64 %2568
+  store <4 x i16> %2565, ptr %2569, align 2, !tbaa !26
+  %2570 = getelementptr inbounds i16, ptr %2569, i64 4
+  store <4 x i16> %2566, ptr %2570, align 2, !tbaa !26
+  %2571 = add nuw i64 %2557, 8
+  %2572 = icmp eq i64 %2571, %2204
+  br i1 %2572, label %2573, label %2556, !llvm.loop !98
 
-2571:                                             ; preds = %2554
-  br i1 %2203, label %2612, label %2572
+2573:                                             ; preds = %2556
+  br i1 %2205, label %2614, label %2574
 
-2572:                                             ; preds = %2549, %2537, %2571
-  %2573 = phi i64 [ 0, %2549 ], [ 0, %2537 ], [ %2202, %2571 ]
-  %2574 = xor i64 %2573, -1
-  br i1 %2205, label %2586, label %2575
+2574:                                             ; preds = %2551, %2539, %2573
+  %2575 = phi i64 [ 0, %2551 ], [ 0, %2539 ], [ %2204, %2573 ]
+  %2576 = xor i64 %2575, -1
+  br i1 %2207, label %2588, label %2577
 
-2575:                                             ; preds = %2572
-  %2576 = trunc i64 %2573 to i32
-  %2577 = add i32 %2541, %2576
-  %2578 = zext i32 %2577 to i64
-  %2579 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2536, i64 %2573
-  %2580 = load i32, ptr %2579, align 4, !tbaa !23
-  %2581 = trunc i32 %2580 to i16
-  %2582 = shl i64 %2578, 48
-  %2583 = ashr exact i64 %2582, 48
-  %2584 = getelementptr inbounds i16, ptr %2548, i64 %2583
-  store i16 %2581, ptr %2584, align 2, !tbaa !26
-  %2585 = or i64 %2573, 1
-  br label %2586
+2577:                                             ; preds = %2574
+  %2578 = trunc i64 %2575 to i32
+  %2579 = add i32 %2543, %2578
+  %2580 = zext i32 %2579 to i64
+  %2581 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2538, i64 %2575
+  %2582 = load i32, ptr %2581, align 4, !tbaa !23
+  %2583 = trunc i32 %2582 to i16
+  %2584 = shl i64 %2580, 48
+  %2585 = ashr exact i64 %2584, 48
+  %2586 = getelementptr inbounds i16, ptr %2550, i64 %2585
+  store i16 %2583, ptr %2586, align 2, !tbaa !26
+  %2587 = or i64 %2575, 1
+  br label %2588
 
-2586:                                             ; preds = %2575, %2572
-  %2587 = phi i64 [ %2573, %2572 ], [ %2585, %2575 ]
-  %2588 = icmp eq i64 %2574, %2206
-  br i1 %2588, label %2612, label %2589
+2588:                                             ; preds = %2577, %2574
+  %2589 = phi i64 [ %2575, %2574 ], [ %2587, %2577 ]
+  %2590 = icmp eq i64 %2576, %2208
+  br i1 %2590, label %2614, label %2591
 
-2589:                                             ; preds = %2586, %2589
-  %2590 = phi i64 [ %2610, %2589 ], [ %2587, %2586 ]
-  %2591 = trunc i64 %2590 to i32
-  %2592 = add i32 %2541, %2591
-  %2593 = zext i32 %2592 to i64
-  %2594 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2536, i64 %2590
-  %2595 = load i32, ptr %2594, align 4, !tbaa !23
-  %2596 = trunc i32 %2595 to i16
-  %2597 = shl i64 %2593, 48
-  %2598 = ashr exact i64 %2597, 48
-  %2599 = getelementptr inbounds i16, ptr %2548, i64 %2598
-  store i16 %2596, ptr %2599, align 2, !tbaa !26
-  %2600 = add nuw nsw i64 %2590, 1
-  %2601 = trunc i64 %2600 to i32
-  %2602 = add i32 %2541, %2601
-  %2603 = zext i32 %2602 to i64
-  %2604 = getelementptr inbounds %struct.ImageParameters, ptr %2164, i64 0, i32 52, i64 %2536, i64 %2600
-  %2605 = load i32, ptr %2604, align 4, !tbaa !23
-  %2606 = trunc i32 %2605 to i16
-  %2607 = shl i64 %2603, 48
-  %2608 = ashr exact i64 %2607, 48
-  %2609 = getelementptr inbounds i16, ptr %2548, i64 %2608
-  store i16 %2606, ptr %2609, align 2, !tbaa !26
-  %2610 = add nuw nsw i64 %2590, 2
-  %2611 = icmp eq i64 %2610, %2197
-  br i1 %2611, label %2612, label %2589, !llvm.loop !101
+2591:                                             ; preds = %2588, %2591
+  %2592 = phi i64 [ %2612, %2591 ], [ %2589, %2588 ]
+  %2593 = trunc i64 %2592 to i32
+  %2594 = add i32 %2543, %2593
+  %2595 = zext i32 %2594 to i64
+  %2596 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2538, i64 %2592
+  %2597 = load i32, ptr %2596, align 4, !tbaa !23
+  %2598 = trunc i32 %2597 to i16
+  %2599 = shl i64 %2595, 48
+  %2600 = ashr exact i64 %2599, 48
+  %2601 = getelementptr inbounds i16, ptr %2550, i64 %2600
+  store i16 %2598, ptr %2601, align 2, !tbaa !26
+  %2602 = add nuw nsw i64 %2592, 1
+  %2603 = trunc i64 %2602 to i32
+  %2604 = add i32 %2543, %2603
+  %2605 = zext i32 %2604 to i64
+  %2606 = getelementptr inbounds %struct.ImageParameters, ptr %2166, i64 0, i32 52, i64 %2538, i64 %2602
+  %2607 = load i32, ptr %2606, align 4, !tbaa !23
+  %2608 = trunc i32 %2607 to i16
+  %2609 = shl i64 %2605, 48
+  %2610 = ashr exact i64 %2609, 48
+  %2611 = getelementptr inbounds i16, ptr %2550, i64 %2610
+  store i16 %2608, ptr %2611, align 2, !tbaa !26
+  %2612 = add nuw nsw i64 %2592, 2
+  %2613 = icmp eq i64 %2612, %2199
+  br i1 %2613, label %2614, label %2591, !llvm.loop !101
 
-2612:                                             ; preds = %2586, %2589, %2571, %2535
-  %2613 = add nuw nsw i64 %2536, 1
-  %2614 = icmp eq i64 %2613, %2196
-  br i1 %2614, label %2720, label %2535, !llvm.loop !102
+2614:                                             ; preds = %2588, %2591, %2573, %2537
+  %2615 = add nuw nsw i64 %2538, 1
+  %2616 = icmp eq i64 %2615, %2198
+  br i1 %2616, label %2722, label %2537, !llvm.loop !102
 
-2615:                                             ; preds = %1908, %2717
-  %2616 = phi i64 [ 0, %1908 ], [ %2718, %2717 ]
-  %2617 = shl nuw nsw i64 %2616, 5
-  %2618 = add i64 %1921, %2617
-  br i1 %1914, label %2619, label %2717
+2617:                                             ; preds = %1910, %2719
+  %2618 = phi i64 [ 0, %1910 ], [ %2720, %2719 ]
+  %2619 = shl nuw nsw i64 %2618, 5
+  %2620 = add i64 %1923, %2619
+  br i1 %1916, label %2621, label %2719
 
-2619:                                             ; preds = %2615
-  %2620 = trunc i64 %2616 to i32
-  %2621 = add nsw i32 %1911, %2620
-  %2622 = zext i32 %2621 to i64
-  %2623 = load i32, ptr %1915, align 8, !tbaa !96
-  %2624 = load ptr, ptr %1917, align 8, !tbaa !97
-  %2625 = getelementptr inbounds ptr, ptr %2624, i64 %46
-  %2626 = load ptr, ptr %2625, align 8, !tbaa !5
-  %2627 = shl i64 %2622, 48
-  %2628 = ashr exact i64 %2627, 48
-  %2629 = getelementptr inbounds ptr, ptr %2626, i64 %2628
-  %2630 = load ptr, ptr %2629, align 8, !tbaa !5
-  %2631 = ptrtoint ptr %2630 to i64
-  br i1 %1922, label %2668, label %2632
+2621:                                             ; preds = %2617
+  %2622 = trunc i64 %2618 to i32
+  %2623 = add nsw i32 %1913, %2622
+  %2624 = zext i32 %2623 to i64
+  %2625 = load i32, ptr %1917, align 8, !tbaa !96
+  %2626 = load ptr, ptr %1919, align 8, !tbaa !97
+  %2627 = getelementptr inbounds ptr, ptr %2626, i64 %46
+  %2628 = load ptr, ptr %2627, align 8, !tbaa !5
+  %2629 = shl i64 %2624, 48
+  %2630 = ashr exact i64 %2629, 48
+  %2631 = getelementptr inbounds ptr, ptr %2628, i64 %2630
+  %2632 = load ptr, ptr %2631, align 8, !tbaa !5
+  %2633 = ptrtoint ptr %2632 to i64
+  br i1 %1924, label %2670, label %2634
 
-2632:                                             ; preds = %2619
-  %2633 = trunc i32 %2623 to i16
-  %2634 = add i16 %2633, %1923
-  %2635 = icmp slt i16 %2634, %2633
-  %2636 = or i1 %2635, %1924
-  br i1 %2636, label %2668, label %2637
+2634:                                             ; preds = %2621
+  %2635 = trunc i32 %2625 to i16
+  %2636 = add i16 %2635, %1925
+  %2637 = icmp slt i16 %2636, %2635
+  %2638 = or i1 %2637, %1926
+  br i1 %2638, label %2670, label %2639
 
-2637:                                             ; preds = %2632
-  %2638 = zext i32 %2623 to i64
-  %2639 = shl i64 %2638, 48
-  %2640 = ashr exact i64 %2639, 47
-  %2641 = add i64 %2640, %2631
-  %2642 = sub i64 %2641, %2618
-  %2643 = icmp ult i64 %2642, 16
-  br i1 %2643, label %2668, label %2644
+2639:                                             ; preds = %2634
+  %2640 = zext i32 %2625 to i64
+  %2641 = shl i64 %2640, 48
+  %2642 = ashr exact i64 %2641, 47
+  %2643 = add i64 %2642, %2633
+  %2644 = sub i64 %2643, %2620
+  %2645 = icmp ult i64 %2644, 16
+  br i1 %2645, label %2670, label %2646
 
-2644:                                             ; preds = %2637, %2644
-  %2645 = phi i64 [ %2665, %2644 ], [ 0, %2637 ]
-  %2646 = trunc i64 %2645 to i32
-  %2647 = add i32 %2623, %2646
-  %2648 = zext i32 %2647 to i64
-  %2649 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 52, i64 %2616, i64 %2645
-  %2650 = load <4 x i32>, ptr %2649, align 4, !tbaa !23
-  %2651 = getelementptr inbounds i32, ptr %2649, i64 4
+2646:                                             ; preds = %2639, %2646
+  %2647 = phi i64 [ %2667, %2646 ], [ 0, %2639 ]
+  %2648 = trunc i64 %2647 to i32
+  %2649 = add i32 %2625, %2648
+  %2650 = zext i32 %2649 to i64
+  %2651 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 52, i64 %2618, i64 %2647
   %2652 = load <4 x i32>, ptr %2651, align 4, !tbaa !23
-  %2653 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 51, i64 %2616, i64 %2645
-  %2654 = load <4 x i16>, ptr %2653, align 2, !tbaa !26
-  %2655 = getelementptr inbounds i16, ptr %2653, i64 4
+  %2653 = getelementptr inbounds i32, ptr %2651, i64 4
+  %2654 = load <4 x i32>, ptr %2653, align 4, !tbaa !23
+  %2655 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 51, i64 %2618, i64 %2647
   %2656 = load <4 x i16>, ptr %2655, align 2, !tbaa !26
-  %2657 = trunc <4 x i32> %2650 to <4 x i16>
-  %2658 = trunc <4 x i32> %2652 to <4 x i16>
-  %2659 = add <4 x i16> %2654, %2657
-  %2660 = add <4 x i16> %2656, %2658
-  %2661 = shl i64 %2648, 48
-  %2662 = ashr exact i64 %2661, 48
-  %2663 = getelementptr inbounds i16, ptr %2630, i64 %2662
-  store <4 x i16> %2659, ptr %2663, align 2, !tbaa !26
-  %2664 = getelementptr inbounds i16, ptr %2663, i64 4
-  store <4 x i16> %2660, ptr %2664, align 2, !tbaa !26
-  %2665 = add nuw i64 %2645, 8
-  %2666 = icmp eq i64 %2665, %1925
-  br i1 %2666, label %2667, label %2644, !llvm.loop !103
+  %2657 = getelementptr inbounds i16, ptr %2655, i64 4
+  %2658 = load <4 x i16>, ptr %2657, align 2, !tbaa !26
+  %2659 = trunc <4 x i32> %2652 to <4 x i16>
+  %2660 = trunc <4 x i32> %2654 to <4 x i16>
+  %2661 = add <4 x i16> %2656, %2659
+  %2662 = add <4 x i16> %2658, %2660
+  %2663 = shl i64 %2650, 48
+  %2664 = ashr exact i64 %2663, 48
+  %2665 = getelementptr inbounds i16, ptr %2632, i64 %2664
+  store <4 x i16> %2661, ptr %2665, align 2, !tbaa !26
+  %2666 = getelementptr inbounds i16, ptr %2665, i64 4
+  store <4 x i16> %2662, ptr %2666, align 2, !tbaa !26
+  %2667 = add nuw i64 %2647, 8
+  %2668 = icmp eq i64 %2667, %1927
+  br i1 %2668, label %2669, label %2646, !llvm.loop !103
 
-2667:                                             ; preds = %2644
-  br i1 %1926, label %2717, label %2668
+2669:                                             ; preds = %2646
+  br i1 %1928, label %2719, label %2670
 
-2668:                                             ; preds = %2637, %2632, %2619, %2667
-  %2669 = phi i64 [ 0, %2637 ], [ 0, %2632 ], [ 0, %2619 ], [ %1925, %2667 ]
-  %2670 = xor i64 %2669, -1
-  br i1 %1928, label %2685, label %2671
+2670:                                             ; preds = %2639, %2634, %2621, %2669
+  %2671 = phi i64 [ 0, %2639 ], [ 0, %2634 ], [ 0, %2621 ], [ %1927, %2669 ]
+  %2672 = xor i64 %2671, -1
+  br i1 %1930, label %2687, label %2673
 
-2671:                                             ; preds = %2668
-  %2672 = trunc i64 %2669 to i32
-  %2673 = add i32 %2623, %2672
-  %2674 = zext i32 %2673 to i64
-  %2675 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 52, i64 %2616, i64 %2669
-  %2676 = load i32, ptr %2675, align 4, !tbaa !23
-  %2677 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 51, i64 %2616, i64 %2669
-  %2678 = load i16, ptr %2677, align 2, !tbaa !26
-  %2679 = trunc i32 %2676 to i16
-  %2680 = add i16 %2678, %2679
-  %2681 = shl i64 %2674, 48
-  %2682 = ashr exact i64 %2681, 48
-  %2683 = getelementptr inbounds i16, ptr %2630, i64 %2682
-  store i16 %2680, ptr %2683, align 2, !tbaa !26
-  %2684 = or i64 %2669, 1
-  br label %2685
+2673:                                             ; preds = %2670
+  %2674 = trunc i64 %2671 to i32
+  %2675 = add i32 %2625, %2674
+  %2676 = zext i32 %2675 to i64
+  %2677 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 52, i64 %2618, i64 %2671
+  %2678 = load i32, ptr %2677, align 4, !tbaa !23
+  %2679 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 51, i64 %2618, i64 %2671
+  %2680 = load i16, ptr %2679, align 2, !tbaa !26
+  %2681 = trunc i32 %2678 to i16
+  %2682 = add i16 %2680, %2681
+  %2683 = shl i64 %2676, 48
+  %2684 = ashr exact i64 %2683, 48
+  %2685 = getelementptr inbounds i16, ptr %2632, i64 %2684
+  store i16 %2682, ptr %2685, align 2, !tbaa !26
+  %2686 = or i64 %2671, 1
+  br label %2687
 
-2685:                                             ; preds = %2671, %2668
-  %2686 = phi i64 [ %2669, %2668 ], [ %2684, %2671 ]
-  %2687 = icmp eq i64 %2670, %1929
-  br i1 %2687, label %2717, label %2688
+2687:                                             ; preds = %2673, %2670
+  %2688 = phi i64 [ %2671, %2670 ], [ %2686, %2673 ]
+  %2689 = icmp eq i64 %2672, %1931
+  br i1 %2689, label %2719, label %2690
 
-2688:                                             ; preds = %2685, %2688
-  %2689 = phi i64 [ %2715, %2688 ], [ %2686, %2685 ]
-  %2690 = trunc i64 %2689 to i32
-  %2691 = add i32 %2623, %2690
-  %2692 = zext i32 %2691 to i64
-  %2693 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 52, i64 %2616, i64 %2689
-  %2694 = load i32, ptr %2693, align 4, !tbaa !23
-  %2695 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 51, i64 %2616, i64 %2689
-  %2696 = load i16, ptr %2695, align 2, !tbaa !26
-  %2697 = trunc i32 %2694 to i16
-  %2698 = add i16 %2696, %2697
-  %2699 = shl i64 %2692, 48
-  %2700 = ashr exact i64 %2699, 48
-  %2701 = getelementptr inbounds i16, ptr %2630, i64 %2700
-  store i16 %2698, ptr %2701, align 2, !tbaa !26
-  %2702 = add nuw nsw i64 %2689, 1
-  %2703 = trunc i64 %2702 to i32
-  %2704 = add i32 %2623, %2703
-  %2705 = zext i32 %2704 to i64
-  %2706 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 52, i64 %2616, i64 %2702
-  %2707 = load i32, ptr %2706, align 4, !tbaa !23
-  %2708 = getelementptr inbounds %struct.ImageParameters, ptr %1903, i64 0, i32 51, i64 %2616, i64 %2702
-  %2709 = load i16, ptr %2708, align 2, !tbaa !26
-  %2710 = trunc i32 %2707 to i16
-  %2711 = add i16 %2709, %2710
-  %2712 = shl i64 %2705, 48
-  %2713 = ashr exact i64 %2712, 48
-  %2714 = getelementptr inbounds i16, ptr %2630, i64 %2713
-  store i16 %2711, ptr %2714, align 2, !tbaa !26
-  %2715 = add nuw nsw i64 %2689, 2
-  %2716 = icmp eq i64 %2715, %1919
-  br i1 %2716, label %2717, label %2688, !llvm.loop !104
+2690:                                             ; preds = %2687, %2690
+  %2691 = phi i64 [ %2717, %2690 ], [ %2688, %2687 ]
+  %2692 = trunc i64 %2691 to i32
+  %2693 = add i32 %2625, %2692
+  %2694 = zext i32 %2693 to i64
+  %2695 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 52, i64 %2618, i64 %2691
+  %2696 = load i32, ptr %2695, align 4, !tbaa !23
+  %2697 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 51, i64 %2618, i64 %2691
+  %2698 = load i16, ptr %2697, align 2, !tbaa !26
+  %2699 = trunc i32 %2696 to i16
+  %2700 = add i16 %2698, %2699
+  %2701 = shl i64 %2694, 48
+  %2702 = ashr exact i64 %2701, 48
+  %2703 = getelementptr inbounds i16, ptr %2632, i64 %2702
+  store i16 %2700, ptr %2703, align 2, !tbaa !26
+  %2704 = add nuw nsw i64 %2691, 1
+  %2705 = trunc i64 %2704 to i32
+  %2706 = add i32 %2625, %2705
+  %2707 = zext i32 %2706 to i64
+  %2708 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 52, i64 %2618, i64 %2704
+  %2709 = load i32, ptr %2708, align 4, !tbaa !23
+  %2710 = getelementptr inbounds %struct.ImageParameters, ptr %1905, i64 0, i32 51, i64 %2618, i64 %2704
+  %2711 = load i16, ptr %2710, align 2, !tbaa !26
+  %2712 = trunc i32 %2709 to i16
+  %2713 = add i16 %2711, %2712
+  %2714 = shl i64 %2707, 48
+  %2715 = ashr exact i64 %2714, 48
+  %2716 = getelementptr inbounds i16, ptr %2632, i64 %2715
+  store i16 %2713, ptr %2716, align 2, !tbaa !26
+  %2717 = add nuw nsw i64 %2691, 2
+  %2718 = icmp eq i64 %2717, %1921
+  br i1 %2718, label %2719, label %2690, !llvm.loop !104
 
-2717:                                             ; preds = %2685, %2688, %2667, %2615
-  %2718 = add nuw nsw i64 %2616, 1
-  %2719 = icmp eq i64 %2718, %1918
-  br i1 %2719, label %2720, label %2615, !llvm.loop !105
+2719:                                             ; preds = %2687, %2690, %2669, %2617
+  %2720 = add nuw nsw i64 %2618, 1
+  %2721 = icmp eq i64 %2720, %1920
+  br i1 %2721, label %2722, label %2617, !llvm.loop !105
 
-2720:                                             ; preds = %2612, %2717, %2163, %2185, %1902
-  %2721 = phi i32 [ %1904, %1902 ], [ %2165, %2185 ], [ %2165, %2163 ], [ %1904, %2717 ], [ %2165, %2612 ]
-  ret i32 %2721
+2722:                                             ; preds = %2614, %2719, %2165, %2187, %1904
+  %2723 = phi i32 [ %1906, %1904 ], [ %2167, %2187 ], [ %2167, %2165 ], [ %1906, %2719 ], [ %2167, %2614 ]
+  ret i32 %2723
 }
 
 ; Function Attrs: nounwind uwtable
@@ -10517,272 +10519,272 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %732 = add nsw i32 %535, 16
   br label %733
 
-733:                                              ; preds = %702, %957
-  %734 = phi ptr [ %713, %702 ], [ %950, %957 ]
-  %735 = phi i1 [ true, %702 ], [ false, %957 ]
-  %736 = phi i64 [ 0, %702 ], [ 4, %957 ]
-  %737 = phi i32 [ 0, %702 ], [ %895, %957 ]
+733:                                              ; preds = %702, %955
+  %734 = phi ptr [ %713, %702 ], [ %948, %955 ]
+  %735 = phi i1 [ true, %702 ], [ false, %955 ]
+  %736 = phi i64 [ 0, %702 ], [ 4, %955 ]
+  %737 = phi i32 [ 0, %702 ], [ %893, %955 ]
   %738 = lshr exact i64 %736, 1
   %739 = trunc i64 %736 to i32
-  br label %742
+  br label %740
 
-740:                                              ; preds = %957
-  %741 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 157
+740:                                              ; preds = %733, %952
+  %741 = phi ptr [ %734, %733 ], [ %948, %952 ]
+  %742 = phi i1 [ true, %733 ], [ false, %952 ]
+  %743 = phi i64 [ 0, %733 ], [ 4, %952 ]
+  %744 = phi i32 [ %737, %733 ], [ %893, %952 ]
+  %745 = lshr exact i64 %743, 2
+  %746 = or i64 %745, %738
+  %747 = getelementptr inbounds %struct.ImageParameters, ptr %741, i64 0, i32 53
+  %748 = load ptr, ptr %747, align 8, !tbaa !50
+  %749 = getelementptr inbounds ptr, ptr %748, i64 %729
+  %750 = load ptr, ptr %749, align 8, !tbaa !5
+  %751 = getelementptr inbounds ptr, ptr %750, i64 %746
+  %752 = load ptr, ptr %751, align 8, !tbaa !5
+  %753 = load ptr, ptr %752, align 8, !tbaa !5
+  %754 = getelementptr inbounds ptr, ptr %752, i64 1
+  %755 = load ptr, ptr %754, align 8, !tbaa !5
+  %756 = trunc i64 %746 to i32
+  %757 = or i32 %732, %756
+  %758 = zext i32 %757 to i64
+  %759 = shl nuw i64 1, %758
+  %760 = trunc i64 %743 to i32
+  br label %761
+
+761:                                              ; preds = %740, %935
+  %762 = phi ptr [ %741, %740 ], [ %948, %935 ]
+  %763 = phi i64 [ 1, %740 ], [ %950, %935 ]
+  %764 = phi i32 [ 0, %740 ], [ %895, %935 ]
+  %765 = phi i32 [ -1, %740 ], [ %894, %935 ]
+  %766 = phi i32 [ %744, %740 ], [ %893, %935 ]
+  %767 = load i32, ptr %730, align 4, !tbaa !39
+  %768 = icmp eq i32 %767, 0
+  %769 = getelementptr inbounds [16 x [2 x i8]], ptr @FIELD_SCAN, i64 0, i64 %763
+  %770 = getelementptr inbounds [16 x [2 x i8]], ptr @FIELD_SCAN, i64 0, i64 %763, i64 1
+  %771 = getelementptr inbounds [16 x [2 x i8]], ptr @SNGL_SCAN, i64 0, i64 %763
+  %772 = getelementptr inbounds [16 x [2 x i8]], ptr @SNGL_SCAN, i64 0, i64 %763, i64 1
+  %773 = select i1 %768, ptr %772, ptr %770
+  %774 = select i1 %768, ptr %771, ptr %769
+  %775 = load i8, ptr %774, align 2, !tbaa !45
+  %776 = zext i8 %775 to i32
+  %777 = load i8, ptr %773, align 1, !tbaa !45
+  %778 = zext i8 %777 to i32
+  %779 = add nsw i32 %765, 1
+  %780 = zext i8 %775 to i64
+  %781 = add nuw nsw i64 %743, %780
+  %782 = add nuw nsw i32 %739, %778
+  %783 = zext i32 %782 to i64
+  %784 = getelementptr inbounds [8 x [8 x i32]], ptr %4, i64 0, i64 %781, i64 %783
+  %785 = load i32, ptr %784, align 4, !tbaa !23
+  %786 = call i32 @llvm.abs.i32(i32 %785, i1 true)
+  %787 = zext i8 %775 to i64
+  %788 = zext i8 %777 to i64
+  %789 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %523, i64 %787, i64 %788
+  %790 = load i32, ptr %789, align 4, !tbaa !23
+  %791 = mul nsw i32 %786, %790
+  %792 = add nsw i32 %791, %481
+  %793 = and i32 %792, %731
+  %794 = sdiv i32 %793, %790
+  %795 = getelementptr inbounds %struct.ImageParameters, ptr %762, i64 0, i32 52, i64 %783, i64 %781
+  %796 = load i32, ptr %795, align 4, !tbaa !23
+  %797 = icmp slt i32 %785, 0
+  %798 = call i32 @llvm.abs.i32(i32 %794, i1 true)
+  %799 = sub nsw i32 0, %798
+  %800 = select i1 %797, i32 %798, i32 %799
+  %801 = add i32 %800, %796
+  %802 = call i32 @llvm.abs.i32(i32 %801, i1 true)
+  %803 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %529, i64 %787, i64 %788
+  %804 = load i32, ptr %803, align 4, !tbaa !23
+  %805 = mul nsw i32 %802, %804
+  %806 = add nsw i32 %805, %65
+  %807 = ashr i32 %806, %63
+  %808 = sub nsw i32 %796, %785
+  %809 = call i32 @llvm.abs.i32(i32 %808, i1 true)
+  %810 = mul nsw i32 %809, %804
+  %811 = add nsw i32 %810, %65
+  %812 = ashr i32 %811, %63
+  %813 = icmp ne i32 %807, %812
+  %814 = icmp ne i32 %807, 0
+  %815 = and i1 %813, %814
+  %816 = icmp ne i32 %812, 0
+  %817 = and i1 %816, %815
+  br i1 %817, label %818, label %863
+
+818:                                              ; preds = %761
+  %819 = icmp slt i32 %801, 0
+  %820 = call i32 @llvm.abs.i32(i32 %807, i1 true)
+  %821 = sub nsw i32 0, %820
+  %822 = select i1 %819, i32 %821, i32 %820
+  %823 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %529, i64 %787, i64 %788
+  %824 = load i32, ptr %823, align 4, !tbaa !23
+  %825 = getelementptr inbounds [4 x [4 x i32]], ptr @A, i64 0, i64 %787, i64 %788
+  %826 = load i32, ptr %825, align 4, !tbaa !23
+  %827 = mul i32 %826, %824
+  %828 = mul i32 %827, %822
+  %829 = shl i32 %828, %60
+  %830 = ashr i32 %829, 6
+  %831 = add i32 %785, %830
+  %832 = sub i32 %796, %831
+  %833 = sitofp i32 %832 to double
+  call void @levrun_linfo_inter(i32 noundef %807, i32 noundef %779, ptr noundef nonnull %6, ptr noundef nonnull %7) #8
+  %834 = load i32, ptr %6, align 4, !tbaa !23
+  %835 = sitofp i32 %834 to double
+  %836 = fmul double %30, %835
+  %837 = call double @llvm.fmuladd.f64(double %833, double %833, double %836)
+  %838 = load ptr, ptr @img, align 8, !tbaa !5
+  %839 = getelementptr inbounds %struct.ImageParameters, ptr %838, i64 0, i32 52, i64 %783, i64 %781
+  %840 = load i32, ptr %839, align 4, !tbaa !23
+  %841 = icmp slt i32 %808, 0
+  %842 = call i32 @llvm.abs.i32(i32 %812, i1 true)
+  %843 = sub nsw i32 0, %842
+  %844 = select i1 %841, i32 %843, i32 %842
+  %845 = mul i32 %827, %844
+  %846 = shl i32 %845, %60
+  %847 = ashr i32 %846, 6
+  %848 = add i32 %847, %785
+  %849 = sub i32 %840, %848
+  %850 = sitofp i32 %849 to double
+  call void @levrun_linfo_inter(i32 noundef %812, i32 noundef %779, ptr noundef nonnull %6, ptr noundef nonnull %7) #8
+  %851 = load i32, ptr %6, align 4, !tbaa !23
+  %852 = sitofp i32 %851 to double
+  %853 = fmul double %30, %852
+  %854 = call double @llvm.fmuladd.f64(double %850, double %850, double %853)
+  %855 = fcmp oeq double %837, %854
+  %856 = icmp ult i32 %820, %842
+  %857 = select i1 %856, i32 %807, i32 %812
+  %858 = fcmp olt double %837, %854
+  %859 = select i1 %858, i32 %807, i32 %812
+  %860 = select i1 %855, i32 %857, i32 %859
+  %861 = icmp eq i32 %860, %807
+  %862 = select i1 %861, i32 %801, i32 %808
+  br label %871
+
+863:                                              ; preds = %761
+  %864 = icmp eq i32 %807, %812
+  br i1 %864, label %867, label %865
+
+865:                                              ; preds = %863
+  %866 = icmp eq i32 %807, 0
+  br i1 %866, label %892, label %867
+
+867:                                              ; preds = %865, %863
+  %868 = phi i32 [ %812, %865 ], [ %807, %863 ]
+  %869 = phi i32 [ %808, %865 ], [ %801, %863 ]
+  %870 = icmp eq i32 %868, 0
+  br i1 %870, label %892, label %871
+
+871:                                              ; preds = %818, %867
+  %872 = phi i32 [ %862, %818 ], [ %869, %867 ]
+  %873 = phi i32 [ %860, %818 ], [ %868, %867 ]
+  %874 = load i64, ptr %538, align 8, !tbaa !81
+  %875 = or i64 %874, %759
+  store i64 %875, ptr %538, align 8, !tbaa !81
+  %876 = icmp slt i32 %872, 0
+  %877 = call i32 @llvm.abs.i32(i32 %873, i1 true)
+  %878 = sub nsw i32 0, %877
+  %879 = select i1 %876, i32 %878, i32 %877
+  %880 = sext i32 %764 to i64
+  %881 = getelementptr inbounds i32, ptr %753, i64 %880
+  store i32 %879, ptr %881, align 4, !tbaa !23
+  %882 = getelementptr inbounds i32, ptr %755, i64 %880
+  store i32 %779, ptr %882, align 4, !tbaa !23
+  %883 = add nsw i32 %764, 1
+  %884 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %529, i64 %787, i64 %788
+  %885 = load i32, ptr %884, align 4, !tbaa !23
+  %886 = mul nsw i32 %885, %879
+  %887 = getelementptr inbounds [4 x [4 x i32]], ptr @A, i64 0, i64 %787, i64 %788
+  %888 = load i32, ptr %887, align 4, !tbaa !23
+  %889 = mul nsw i32 %886, %888
+  %890 = shl i32 %889, %60
+  %891 = ashr i32 %890, 6
+  br label %892
+
+892:                                              ; preds = %865, %871, %867
+  %893 = phi i32 [ 2, %871 ], [ %766, %867 ], [ %766, %865 ]
+  %894 = phi i32 [ -1, %871 ], [ %779, %867 ], [ %779, %865 ]
+  %895 = phi i32 [ %883, %871 ], [ %764, %867 ], [ %764, %865 ]
+  %896 = phi i32 [ %891, %871 ], [ 0, %867 ], [ 0, %865 ]
+  %897 = add nsw i32 %896, %785
+  %898 = load i32, ptr @si_frame_indicator, align 4, !tbaa !23
+  %899 = icmp ne i32 %898, 0
+  %900 = load i32, ptr @sp2_frame_indicator, align 4
+  %901 = icmp ne i32 %900, 0
+  %902 = select i1 %899, i1 true, i1 %901
+  br i1 %902, label %935, label %903
+
+903:                                              ; preds = %892
+  %904 = and i32 %778, 3
+  %905 = icmp eq i32 %904, 0
+  %906 = and i32 %776, 3
+  %907 = icmp eq i32 %906, 0
+  %908 = select i1 %905, i1 %907, i1 false
+  br i1 %908, label %935, label %909
+
+909:                                              ; preds = %903
+  %910 = call i32 @llvm.abs.i32(i32 %897, i1 true)
+  %911 = mul nsw i32 %910, %790
+  %912 = add nsw i32 %911, %481
+  %913 = ashr i32 %912, %79
+  %914 = icmp slt i32 %897, 0
+  %915 = call i32 @llvm.abs.i32(i32 %913, i1 true)
+  %916 = sub nsw i32 0, %915
+  %917 = select i1 %914, i32 %916, i32 %915
+  %918 = load ptr, ptr @lrec_uv, align 8, !tbaa !5
+  %919 = getelementptr inbounds ptr, ptr %918, i64 %540
+  %920 = load ptr, ptr %919, align 8, !tbaa !5
+  %921 = load ptr, ptr @img, align 8, !tbaa !5
+  %922 = getelementptr inbounds %struct.ImageParameters, ptr %921, i64 0, i32 42
+  %923 = load i32, ptr %922, align 4, !tbaa !89
+  %924 = add nuw nsw i32 %760, %778
+  %925 = add i32 %924, %923
+  %926 = sext i32 %925 to i64
+  %927 = getelementptr inbounds ptr, ptr %920, i64 %926
+  %928 = load ptr, ptr %927, align 8, !tbaa !5
+  %929 = getelementptr inbounds %struct.ImageParameters, ptr %921, i64 0, i32 41
+  %930 = load i32, ptr %929, align 8, !tbaa !96
+  %931 = add nuw nsw i32 %739, %776
+  %932 = add i32 %931, %930
+  %933 = sext i32 %932 to i64
+  %934 = getelementptr inbounds i32, ptr %928, i64 %933
+  store i32 %917, ptr %934, align 4, !tbaa !23
+  br label %935
+
+935:                                              ; preds = %903, %909, %892
+  %936 = call i32 @llvm.abs.i32(i32 %897, i1 true)
+  %937 = mul nsw i32 %936, %790
+  %938 = add nsw i32 %937, %481
+  %939 = ashr i32 %938, %79
+  %940 = icmp slt i32 %897, 0
+  %941 = call i32 @llvm.abs.i32(i32 %939, i1 true)
+  %942 = sub nsw i32 0, %941
+  %943 = select i1 %940, i32 %942, i32 %941
+  %944 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %523, i64 %787, i64 %788
+  %945 = load i32, ptr %944, align 4, !tbaa !23
+  %946 = mul nsw i32 %945, %943
+  %947 = shl i32 %946, %77
+  %948 = load ptr, ptr @img, align 8, !tbaa !5
+  %949 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %783, i64 %781
+  store i32 %947, ptr %949, align 4, !tbaa !23
+  %950 = add nuw nsw i64 %763, 1
+  %951 = icmp eq i64 %950, 16
+  br i1 %951, label %952, label %761, !llvm.loop !116
+
+952:                                              ; preds = %935
+  %953 = sext i32 %895 to i64
+  %954 = getelementptr inbounds i32, ptr %753, i64 %953
+  store i32 0, ptr %954, align 4, !tbaa !23
+  br i1 %742, label %740, label %955, !llvm.loop !117
+
+955:                                              ; preds = %952
+  br i1 %735, label %733, label %956, !llvm.loop !118
+
+956:                                              ; preds = %955
+  %957 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 157
   br label %958
 
-742:                                              ; preds = %733, %954
-  %743 = phi ptr [ %734, %733 ], [ %950, %954 ]
-  %744 = phi i1 [ true, %733 ], [ false, %954 ]
-  %745 = phi i64 [ 0, %733 ], [ 4, %954 ]
-  %746 = phi i32 [ %737, %733 ], [ %895, %954 ]
-  %747 = lshr exact i64 %745, 2
-  %748 = or i64 %747, %738
-  %749 = getelementptr inbounds %struct.ImageParameters, ptr %743, i64 0, i32 53
-  %750 = load ptr, ptr %749, align 8, !tbaa !50
-  %751 = getelementptr inbounds ptr, ptr %750, i64 %729
-  %752 = load ptr, ptr %751, align 8, !tbaa !5
-  %753 = getelementptr inbounds ptr, ptr %752, i64 %748
-  %754 = load ptr, ptr %753, align 8, !tbaa !5
-  %755 = load ptr, ptr %754, align 8, !tbaa !5
-  %756 = getelementptr inbounds ptr, ptr %754, i64 1
-  %757 = load ptr, ptr %756, align 8, !tbaa !5
-  %758 = trunc i64 %748 to i32
-  %759 = or i32 %732, %758
-  %760 = zext i32 %759 to i64
-  %761 = shl nuw i64 1, %760
-  %762 = trunc i64 %745 to i32
-  br label %763
-
-763:                                              ; preds = %742, %937
-  %764 = phi ptr [ %743, %742 ], [ %950, %937 ]
-  %765 = phi i64 [ 1, %742 ], [ %952, %937 ]
-  %766 = phi i32 [ 0, %742 ], [ %897, %937 ]
-  %767 = phi i32 [ -1, %742 ], [ %896, %937 ]
-  %768 = phi i32 [ %746, %742 ], [ %895, %937 ]
-  %769 = load i32, ptr %730, align 4, !tbaa !39
-  %770 = icmp eq i32 %769, 0
-  %771 = getelementptr inbounds [16 x [2 x i8]], ptr @FIELD_SCAN, i64 0, i64 %765
-  %772 = getelementptr inbounds [16 x [2 x i8]], ptr @FIELD_SCAN, i64 0, i64 %765, i64 1
-  %773 = getelementptr inbounds [16 x [2 x i8]], ptr @SNGL_SCAN, i64 0, i64 %765
-  %774 = getelementptr inbounds [16 x [2 x i8]], ptr @SNGL_SCAN, i64 0, i64 %765, i64 1
-  %775 = select i1 %770, ptr %774, ptr %772
-  %776 = select i1 %770, ptr %773, ptr %771
-  %777 = load i8, ptr %776, align 2, !tbaa !45
-  %778 = zext i8 %777 to i32
-  %779 = load i8, ptr %775, align 1, !tbaa !45
-  %780 = zext i8 %779 to i32
-  %781 = add nsw i32 %767, 1
-  %782 = zext i8 %777 to i64
-  %783 = add nuw nsw i64 %745, %782
-  %784 = add nuw nsw i32 %739, %780
-  %785 = zext i32 %784 to i64
-  %786 = getelementptr inbounds [8 x [8 x i32]], ptr %4, i64 0, i64 %783, i64 %785
-  %787 = load i32, ptr %786, align 4, !tbaa !23
-  %788 = call i32 @llvm.abs.i32(i32 %787, i1 true)
-  %789 = zext i8 %777 to i64
-  %790 = zext i8 %779 to i64
-  %791 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %523, i64 %789, i64 %790
-  %792 = load i32, ptr %791, align 4, !tbaa !23
-  %793 = mul nsw i32 %788, %792
-  %794 = add nsw i32 %793, %481
-  %795 = and i32 %794, %731
-  %796 = sdiv i32 %795, %792
-  %797 = getelementptr inbounds %struct.ImageParameters, ptr %764, i64 0, i32 52, i64 %785, i64 %783
-  %798 = load i32, ptr %797, align 4, !tbaa !23
-  %799 = icmp slt i32 %787, 0
-  %800 = call i32 @llvm.abs.i32(i32 %796, i1 true)
-  %801 = sub nsw i32 0, %800
-  %802 = select i1 %799, i32 %800, i32 %801
-  %803 = add i32 %802, %798
-  %804 = call i32 @llvm.abs.i32(i32 %803, i1 true)
-  %805 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %529, i64 %789, i64 %790
-  %806 = load i32, ptr %805, align 4, !tbaa !23
-  %807 = mul nsw i32 %804, %806
-  %808 = add nsw i32 %807, %65
-  %809 = ashr i32 %808, %63
-  %810 = sub nsw i32 %798, %787
-  %811 = call i32 @llvm.abs.i32(i32 %810, i1 true)
-  %812 = mul nsw i32 %811, %806
-  %813 = add nsw i32 %812, %65
-  %814 = ashr i32 %813, %63
-  %815 = icmp ne i32 %809, %814
-  %816 = icmp ne i32 %809, 0
-  %817 = and i1 %815, %816
-  %818 = icmp ne i32 %814, 0
-  %819 = and i1 %818, %817
-  br i1 %819, label %820, label %865
-
-820:                                              ; preds = %763
-  %821 = icmp slt i32 %803, 0
-  %822 = call i32 @llvm.abs.i32(i32 %809, i1 true)
-  %823 = sub nsw i32 0, %822
-  %824 = select i1 %821, i32 %823, i32 %822
-  %825 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %529, i64 %789, i64 %790
-  %826 = load i32, ptr %825, align 4, !tbaa !23
-  %827 = getelementptr inbounds [4 x [4 x i32]], ptr @A, i64 0, i64 %789, i64 %790
-  %828 = load i32, ptr %827, align 4, !tbaa !23
-  %829 = mul i32 %828, %826
-  %830 = mul i32 %829, %824
-  %831 = shl i32 %830, %60
-  %832 = ashr i32 %831, 6
-  %833 = add i32 %787, %832
-  %834 = sub i32 %798, %833
-  %835 = sitofp i32 %834 to double
-  call void @levrun_linfo_inter(i32 noundef %809, i32 noundef %781, ptr noundef nonnull %6, ptr noundef nonnull %7) #8
-  %836 = load i32, ptr %6, align 4, !tbaa !23
-  %837 = sitofp i32 %836 to double
-  %838 = fmul double %30, %837
-  %839 = call double @llvm.fmuladd.f64(double %835, double %835, double %838)
-  %840 = load ptr, ptr @img, align 8, !tbaa !5
-  %841 = getelementptr inbounds %struct.ImageParameters, ptr %840, i64 0, i32 52, i64 %785, i64 %783
-  %842 = load i32, ptr %841, align 4, !tbaa !23
-  %843 = icmp slt i32 %810, 0
-  %844 = call i32 @llvm.abs.i32(i32 %814, i1 true)
-  %845 = sub nsw i32 0, %844
-  %846 = select i1 %843, i32 %845, i32 %844
-  %847 = mul i32 %829, %846
-  %848 = shl i32 %847, %60
-  %849 = ashr i32 %848, 6
-  %850 = add i32 %849, %787
-  %851 = sub i32 %842, %850
-  %852 = sitofp i32 %851 to double
-  call void @levrun_linfo_inter(i32 noundef %814, i32 noundef %781, ptr noundef nonnull %6, ptr noundef nonnull %7) #8
-  %853 = load i32, ptr %6, align 4, !tbaa !23
-  %854 = sitofp i32 %853 to double
-  %855 = fmul double %30, %854
-  %856 = call double @llvm.fmuladd.f64(double %852, double %852, double %855)
-  %857 = fcmp oeq double %839, %856
-  %858 = icmp ult i32 %822, %844
-  %859 = select i1 %858, i32 %809, i32 %814
-  %860 = fcmp olt double %839, %856
-  %861 = select i1 %860, i32 %809, i32 %814
-  %862 = select i1 %857, i32 %859, i32 %861
-  %863 = icmp eq i32 %862, %809
-  %864 = select i1 %863, i32 %803, i32 %810
-  br label %873
-
-865:                                              ; preds = %763
-  %866 = icmp eq i32 %809, %814
-  br i1 %866, label %869, label %867
-
-867:                                              ; preds = %865
-  %868 = icmp eq i32 %809, 0
-  br i1 %868, label %894, label %869
-
-869:                                              ; preds = %867, %865
-  %870 = phi i32 [ %814, %867 ], [ %809, %865 ]
-  %871 = phi i32 [ %810, %867 ], [ %803, %865 ]
-  %872 = icmp eq i32 %870, 0
-  br i1 %872, label %894, label %873
-
-873:                                              ; preds = %820, %869
-  %874 = phi i32 [ %864, %820 ], [ %871, %869 ]
-  %875 = phi i32 [ %862, %820 ], [ %870, %869 ]
-  %876 = load i64, ptr %538, align 8, !tbaa !81
-  %877 = or i64 %876, %761
-  store i64 %877, ptr %538, align 8, !tbaa !81
-  %878 = icmp slt i32 %874, 0
-  %879 = call i32 @llvm.abs.i32(i32 %875, i1 true)
-  %880 = sub nsw i32 0, %879
-  %881 = select i1 %878, i32 %880, i32 %879
-  %882 = sext i32 %766 to i64
-  %883 = getelementptr inbounds i32, ptr %755, i64 %882
-  store i32 %881, ptr %883, align 4, !tbaa !23
-  %884 = getelementptr inbounds i32, ptr %757, i64 %882
-  store i32 %781, ptr %884, align 4, !tbaa !23
-  %885 = add nsw i32 %766, 1
-  %886 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %529, i64 %789, i64 %790
-  %887 = load i32, ptr %886, align 4, !tbaa !23
-  %888 = mul nsw i32 %887, %881
-  %889 = getelementptr inbounds [4 x [4 x i32]], ptr @A, i64 0, i64 %789, i64 %790
-  %890 = load i32, ptr %889, align 4, !tbaa !23
-  %891 = mul nsw i32 %888, %890
-  %892 = shl i32 %891, %60
-  %893 = ashr i32 %892, 6
-  br label %894
-
-894:                                              ; preds = %867, %873, %869
-  %895 = phi i32 [ 2, %873 ], [ %768, %869 ], [ %768, %867 ]
-  %896 = phi i32 [ -1, %873 ], [ %781, %869 ], [ %781, %867 ]
-  %897 = phi i32 [ %885, %873 ], [ %766, %869 ], [ %766, %867 ]
-  %898 = phi i32 [ %893, %873 ], [ 0, %869 ], [ 0, %867 ]
-  %899 = add nsw i32 %898, %787
-  %900 = load i32, ptr @si_frame_indicator, align 4, !tbaa !23
-  %901 = icmp ne i32 %900, 0
-  %902 = load i32, ptr @sp2_frame_indicator, align 4
-  %903 = icmp ne i32 %902, 0
-  %904 = select i1 %901, i1 true, i1 %903
-  br i1 %904, label %937, label %905
-
-905:                                              ; preds = %894
-  %906 = and i32 %780, 3
-  %907 = icmp eq i32 %906, 0
-  %908 = and i32 %778, 3
-  %909 = icmp eq i32 %908, 0
-  %910 = select i1 %907, i1 %909, i1 false
-  br i1 %910, label %937, label %911
-
-911:                                              ; preds = %905
-  %912 = call i32 @llvm.abs.i32(i32 %899, i1 true)
-  %913 = mul nsw i32 %912, %792
-  %914 = add nsw i32 %913, %481
-  %915 = ashr i32 %914, %79
-  %916 = icmp slt i32 %899, 0
-  %917 = call i32 @llvm.abs.i32(i32 %915, i1 true)
-  %918 = sub nsw i32 0, %917
-  %919 = select i1 %916, i32 %918, i32 %917
-  %920 = load ptr, ptr @lrec_uv, align 8, !tbaa !5
-  %921 = getelementptr inbounds ptr, ptr %920, i64 %540
-  %922 = load ptr, ptr %921, align 8, !tbaa !5
-  %923 = load ptr, ptr @img, align 8, !tbaa !5
-  %924 = getelementptr inbounds %struct.ImageParameters, ptr %923, i64 0, i32 42
-  %925 = load i32, ptr %924, align 4, !tbaa !89
-  %926 = add nuw nsw i32 %762, %780
-  %927 = add i32 %926, %925
-  %928 = sext i32 %927 to i64
-  %929 = getelementptr inbounds ptr, ptr %922, i64 %928
-  %930 = load ptr, ptr %929, align 8, !tbaa !5
-  %931 = getelementptr inbounds %struct.ImageParameters, ptr %923, i64 0, i32 41
-  %932 = load i32, ptr %931, align 8, !tbaa !96
-  %933 = add nuw nsw i32 %739, %778
-  %934 = add i32 %933, %932
-  %935 = sext i32 %934 to i64
-  %936 = getelementptr inbounds i32, ptr %930, i64 %935
-  store i32 %919, ptr %936, align 4, !tbaa !23
-  br label %937
-
-937:                                              ; preds = %905, %911, %894
-  %938 = call i32 @llvm.abs.i32(i32 %899, i1 true)
-  %939 = mul nsw i32 %938, %792
-  %940 = add nsw i32 %939, %481
-  %941 = ashr i32 %940, %79
-  %942 = icmp slt i32 %899, 0
-  %943 = call i32 @llvm.abs.i32(i32 %941, i1 true)
-  %944 = sub nsw i32 0, %943
-  %945 = select i1 %942, i32 %944, i32 %943
-  %946 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %523, i64 %789, i64 %790
-  %947 = load i32, ptr %946, align 4, !tbaa !23
-  %948 = mul nsw i32 %947, %945
-  %949 = shl i32 %948, %77
-  %950 = load ptr, ptr @img, align 8, !tbaa !5
-  %951 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %785, i64 %783
-  store i32 %949, ptr %951, align 4, !tbaa !23
-  %952 = add nuw nsw i64 %765, 1
-  %953 = icmp eq i64 %952, 16
-  br i1 %953, label %954, label %763, !llvm.loop !116
-
-954:                                              ; preds = %937
-  %955 = sext i32 %897 to i64
-  %956 = getelementptr inbounds i32, ptr %755, i64 %955
-  store i32 0, ptr %956, align 4, !tbaa !23
-  br i1 %744, label %742, label %957, !llvm.loop !117
-
-957:                                              ; preds = %954
-  br i1 %735, label %733, label %740, !llvm.loop !118
-
-958:                                              ; preds = %740, %1254
-  %959 = phi i1 [ true, %740 ], [ false, %1254 ]
-  %960 = phi i64 [ 0, %740 ], [ 4, %1254 ]
+958:                                              ; preds = %956, %1254
+  %959 = phi i1 [ true, %956 ], [ false, %1254 ]
+  %960 = phi i64 [ 0, %956 ], [ 4, %1254 ]
   %961 = or i64 %960, 1
   %962 = or i64 %960, 2
   %963 = or i64 %960, 3
@@ -10794,15 +10796,15 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %967 = load ptr, ptr %966, align 8, !tbaa !97
   %968 = getelementptr inbounds ptr, ptr %967, i64 %540
   %969 = load ptr, ptr %968, align 8, !tbaa !5
-  %970 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 42
+  %970 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 42
   %971 = load i32, ptr %970, align 4, !tbaa !89
-  %972 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 41
+  %972 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 41
   %973 = load i32, ptr %972, align 8, !tbaa !96
   %974 = sext i32 %973 to i64
   %975 = sext i32 %971 to i64
   %976 = getelementptr inbounds ptr, ptr %969, i64 %975
   %977 = load ptr, ptr %976, align 8, !tbaa !5
-  %978 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 0, i64 0
+  %978 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 0, i64 0
   %979 = getelementptr inbounds i16, ptr %977, i64 %974
   %980 = load <8 x i32>, ptr %978, align 4, !tbaa !23
   %981 = trunc <8 x i32> %980 to <8 x i16>
@@ -10810,7 +10812,7 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %982 = add nsw i64 %975, 1
   %983 = getelementptr inbounds ptr, ptr %969, i64 %982
   %984 = load ptr, ptr %983, align 8, !tbaa !5
-  %985 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 1, i64 0
+  %985 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 1, i64 0
   %986 = getelementptr inbounds i16, ptr %984, i64 %974
   %987 = load <8 x i32>, ptr %985, align 4, !tbaa !23
   %988 = trunc <8 x i32> %987 to <8 x i16>
@@ -10818,7 +10820,7 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %989 = add nsw i64 %975, 2
   %990 = getelementptr inbounds ptr, ptr %969, i64 %989
   %991 = load ptr, ptr %990, align 8, !tbaa !5
-  %992 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 2, i64 0
+  %992 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 2, i64 0
   %993 = getelementptr inbounds i16, ptr %991, i64 %974
   %994 = load <8 x i32>, ptr %992, align 4, !tbaa !23
   %995 = trunc <8 x i32> %994 to <8 x i16>
@@ -10826,7 +10828,7 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %996 = add nsw i64 %975, 3
   %997 = getelementptr inbounds ptr, ptr %969, i64 %996
   %998 = load ptr, ptr %997, align 8, !tbaa !5
-  %999 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 3, i64 0
+  %999 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 3, i64 0
   %1000 = getelementptr inbounds i16, ptr %998, i64 %974
   %1001 = load <8 x i32>, ptr %999, align 4, !tbaa !23
   %1002 = trunc <8 x i32> %1001 to <8 x i16>
@@ -10834,7 +10836,7 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1003 = add nsw i64 %975, 4
   %1004 = getelementptr inbounds ptr, ptr %969, i64 %1003
   %1005 = load ptr, ptr %1004, align 8, !tbaa !5
-  %1006 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 4, i64 0
+  %1006 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 4, i64 0
   %1007 = getelementptr inbounds i16, ptr %1005, i64 %974
   %1008 = load <8 x i32>, ptr %1006, align 4, !tbaa !23
   %1009 = trunc <8 x i32> %1008 to <8 x i16>
@@ -10842,7 +10844,7 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1010 = add nsw i64 %975, 5
   %1011 = getelementptr inbounds ptr, ptr %969, i64 %1010
   %1012 = load ptr, ptr %1011, align 8, !tbaa !5
-  %1013 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 5, i64 0
+  %1013 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 5, i64 0
   %1014 = getelementptr inbounds i16, ptr %1012, i64 %974
   %1015 = load <8 x i32>, ptr %1013, align 4, !tbaa !23
   %1016 = trunc <8 x i32> %1015 to <8 x i16>
@@ -10850,7 +10852,7 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1017 = add nsw i64 %975, 6
   %1018 = getelementptr inbounds ptr, ptr %969, i64 %1017
   %1019 = load ptr, ptr %1018, align 8, !tbaa !5
-  %1020 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 6, i64 0
+  %1020 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 6, i64 0
   %1021 = getelementptr inbounds i16, ptr %1019, i64 %974
   %1022 = load <8 x i32>, ptr %1020, align 4, !tbaa !23
   %1023 = trunc <8 x i32> %1022 to <8 x i16>
@@ -10858,12 +10860,12 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1024 = add nsw i64 %975, 7
   %1025 = getelementptr inbounds ptr, ptr %969, i64 %1024
   %1026 = load ptr, ptr %1025, align 8, !tbaa !5
-  %1027 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 7, i64 0
+  %1027 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 7, i64 0
   %1028 = getelementptr inbounds i16, ptr %1026, i64 %974
   %1029 = load <8 x i32>, ptr %1027, align 4, !tbaa !23
   %1030 = trunc <8 x i32> %1029 to <8 x i16>
   store <8 x i16> %1030, ptr %1028, align 2, !tbaa !26
-  %1031 = icmp eq i32 %895, 2
+  %1031 = icmp eq i32 %893, 2
   %1032 = select i1 %1031, i32 2, i32 %659
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #8
@@ -10875,16 +10877,16 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
 1033:                                             ; preds = %958, %1033
   %1034 = phi i1 [ true, %958 ], [ false, %1033 ]
   %1035 = phi i64 [ 0, %958 ], [ 4, %1033 ]
-  %1036 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %960, i64 %1035
+  %1036 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %960, i64 %1035
   %1037 = load i32, ptr %1036, align 4, !tbaa !23
   %1038 = or i64 %1035, 1
-  %1039 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %960, i64 %1038
+  %1039 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %960, i64 %1038
   %1040 = load i32, ptr %1039, align 4, !tbaa !23
   %1041 = or i64 %1035, 2
-  %1042 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %960, i64 %1041
+  %1042 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %960, i64 %1041
   %1043 = load i32, ptr %1042, align 4, !tbaa !23
   %1044 = or i64 %1035, 3
-  %1045 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %960, i64 %1044
+  %1045 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %960, i64 %1044
   %1046 = load i32, ptr %1045, align 4, !tbaa !23
   %1047 = add nsw i32 %1043, %1037
   %1048 = sub nsw i32 %1037, %1043
@@ -10900,13 +10902,13 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   store i32 %1055, ptr %1039, align 4, !tbaa !23
   %1056 = sub nsw i32 %1048, %1050
   store i32 %1056, ptr %1042, align 4, !tbaa !23
-  %1057 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %961, i64 %1035
+  %1057 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %961, i64 %1035
   %1058 = load i32, ptr %1057, align 4, !tbaa !23
-  %1059 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %961, i64 %1038
+  %1059 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %961, i64 %1038
   %1060 = load i32, ptr %1059, align 4, !tbaa !23
-  %1061 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %961, i64 %1041
+  %1061 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %961, i64 %1041
   %1062 = load i32, ptr %1061, align 4, !tbaa !23
-  %1063 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %961, i64 %1044
+  %1063 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %961, i64 %1044
   %1064 = load i32, ptr %1063, align 4, !tbaa !23
   %1065 = add nsw i32 %1062, %1058
   %1066 = sub nsw i32 %1058, %1062
@@ -10922,13 +10924,13 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   store i32 %1073, ptr %1059, align 4, !tbaa !23
   %1074 = sub nsw i32 %1066, %1068
   store i32 %1074, ptr %1061, align 4, !tbaa !23
-  %1075 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %962, i64 %1035
+  %1075 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %962, i64 %1035
   %1076 = load i32, ptr %1075, align 4, !tbaa !23
-  %1077 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %962, i64 %1038
+  %1077 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %962, i64 %1038
   %1078 = load i32, ptr %1077, align 4, !tbaa !23
-  %1079 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %962, i64 %1041
+  %1079 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %962, i64 %1041
   %1080 = load i32, ptr %1079, align 4, !tbaa !23
-  %1081 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %962, i64 %1044
+  %1081 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %962, i64 %1044
   %1082 = load i32, ptr %1081, align 4, !tbaa !23
   %1083 = add nsw i32 %1080, %1076
   %1084 = sub nsw i32 %1076, %1080
@@ -10944,13 +10946,13 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   store i32 %1091, ptr %1077, align 4, !tbaa !23
   %1092 = sub nsw i32 %1084, %1086
   store i32 %1092, ptr %1079, align 4, !tbaa !23
-  %1093 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %963, i64 %1035
+  %1093 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %963, i64 %1035
   %1094 = load i32, ptr %1093, align 4, !tbaa !23
-  %1095 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %963, i64 %1038
+  %1095 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %963, i64 %1038
   %1096 = load i32, ptr %1095, align 4, !tbaa !23
-  %1097 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %963, i64 %1041
+  %1097 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %963, i64 %1041
   %1098 = load i32, ptr %1097, align 4, !tbaa !23
-  %1099 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %963, i64 %1044
+  %1099 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %963, i64 %1044
   %1100 = load i32, ptr %1099, align 4, !tbaa !23
   %1101 = add nsw i32 %1098, %1094
   %1102 = sub nsw i32 %1094, %1098
@@ -10966,13 +10968,13 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   store i32 %1109, ptr %1095, align 4, !tbaa !23
   %1110 = sub nsw i32 %1102, %1104
   store i32 %1110, ptr %1097, align 4, !tbaa !23
-  %1111 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %960, i64 %1035
+  %1111 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %960, i64 %1035
   %1112 = load i32, ptr %1111, align 4, !tbaa !23
-  %1113 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %961, i64 %1035
+  %1113 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %961, i64 %1035
   %1114 = load i32, ptr %1113, align 4, !tbaa !23
-  %1115 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %962, i64 %1035
+  %1115 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %962, i64 %1035
   %1116 = load i32, ptr %1115, align 4, !tbaa !23
-  %1117 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %963, i64 %1035
+  %1117 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %963, i64 %1035
   %1118 = load i32, ptr %1117, align 4, !tbaa !23
   %1119 = add nsw i32 %1116, %1112
   %1120 = sub nsw i32 %1112, %1116
@@ -10980,14 +10982,14 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1122 = sub nsw i32 %1121, %1118
   %1123 = ashr i32 %1118, 1
   %1124 = add nsw i32 %1123, %1114
-  %1125 = load i32, ptr %741, align 4, !tbaa !93
+  %1125 = load i32, ptr %957, align 4, !tbaa !93
   %1126 = add i32 %1119, 32
   %1127 = add i32 %1126, %1124
   %1128 = ashr i32 %1127, 6
   %1129 = call i32 @llvm.smax.i32(i32 %1128, i32 0)
   %1130 = call i32 @llvm.smin.i32(i32 %1129, i32 %1125)
   store i32 %1130, ptr %1111, align 4, !tbaa !23
-  %1131 = load i32, ptr %741, align 4, !tbaa !93
+  %1131 = load i32, ptr %957, align 4, !tbaa !93
   %1132 = sub i32 %1126, %1124
   %1133 = ashr i32 %1132, 6
   %1134 = call i32 @llvm.smax.i32(i32 %1133, i32 0)
@@ -10999,20 +11001,20 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1139 = call i32 @llvm.smax.i32(i32 %1138, i32 0)
   %1140 = call i32 @llvm.smin.i32(i32 %1139, i32 %1131)
   store i32 %1140, ptr %1113, align 4, !tbaa !23
-  %1141 = load i32, ptr %741, align 4, !tbaa !93
+  %1141 = load i32, ptr %957, align 4, !tbaa !93
   %1142 = sub i32 %1136, %1122
   %1143 = ashr i32 %1142, 6
   %1144 = call i32 @llvm.smax.i32(i32 %1143, i32 0)
   %1145 = call i32 @llvm.smin.i32(i32 %1144, i32 %1141)
   store i32 %1145, ptr %1115, align 4, !tbaa !23
   %1146 = or i64 %1035, 1
-  %1147 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %960, i64 %1146
+  %1147 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %960, i64 %1146
   %1148 = load i32, ptr %1147, align 4, !tbaa !23
-  %1149 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %961, i64 %1146
+  %1149 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %961, i64 %1146
   %1150 = load i32, ptr %1149, align 4, !tbaa !23
-  %1151 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %962, i64 %1146
+  %1151 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %962, i64 %1146
   %1152 = load i32, ptr %1151, align 4, !tbaa !23
-  %1153 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %963, i64 %1146
+  %1153 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %963, i64 %1146
   %1154 = load i32, ptr %1153, align 4, !tbaa !23
   %1155 = add nsw i32 %1152, %1148
   %1156 = sub nsw i32 %1148, %1152
@@ -11020,14 +11022,14 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1158 = sub nsw i32 %1157, %1154
   %1159 = ashr i32 %1154, 1
   %1160 = add nsw i32 %1159, %1150
-  %1161 = load i32, ptr %741, align 4, !tbaa !93
+  %1161 = load i32, ptr %957, align 4, !tbaa !93
   %1162 = add i32 %1155, 32
   %1163 = add i32 %1162, %1160
   %1164 = ashr i32 %1163, 6
   %1165 = call i32 @llvm.smax.i32(i32 %1164, i32 0)
   %1166 = call i32 @llvm.smin.i32(i32 %1165, i32 %1161)
   store i32 %1166, ptr %1147, align 4, !tbaa !23
-  %1167 = load i32, ptr %741, align 4, !tbaa !93
+  %1167 = load i32, ptr %957, align 4, !tbaa !93
   %1168 = sub i32 %1162, %1160
   %1169 = ashr i32 %1168, 6
   %1170 = call i32 @llvm.smax.i32(i32 %1169, i32 0)
@@ -11039,20 +11041,20 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1175 = call i32 @llvm.smax.i32(i32 %1174, i32 0)
   %1176 = call i32 @llvm.smin.i32(i32 %1175, i32 %1167)
   store i32 %1176, ptr %1149, align 4, !tbaa !23
-  %1177 = load i32, ptr %741, align 4, !tbaa !93
+  %1177 = load i32, ptr %957, align 4, !tbaa !93
   %1178 = sub i32 %1172, %1158
   %1179 = ashr i32 %1178, 6
   %1180 = call i32 @llvm.smax.i32(i32 %1179, i32 0)
   %1181 = call i32 @llvm.smin.i32(i32 %1180, i32 %1177)
   store i32 %1181, ptr %1151, align 4, !tbaa !23
   %1182 = or i64 %1035, 2
-  %1183 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %960, i64 %1182
+  %1183 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %960, i64 %1182
   %1184 = load i32, ptr %1183, align 4, !tbaa !23
-  %1185 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %961, i64 %1182
+  %1185 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %961, i64 %1182
   %1186 = load i32, ptr %1185, align 4, !tbaa !23
-  %1187 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %962, i64 %1182
+  %1187 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %962, i64 %1182
   %1188 = load i32, ptr %1187, align 4, !tbaa !23
-  %1189 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %963, i64 %1182
+  %1189 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %963, i64 %1182
   %1190 = load i32, ptr %1189, align 4, !tbaa !23
   %1191 = add nsw i32 %1188, %1184
   %1192 = sub nsw i32 %1184, %1188
@@ -11060,14 +11062,14 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1194 = sub nsw i32 %1193, %1190
   %1195 = ashr i32 %1190, 1
   %1196 = add nsw i32 %1195, %1186
-  %1197 = load i32, ptr %741, align 4, !tbaa !93
+  %1197 = load i32, ptr %957, align 4, !tbaa !93
   %1198 = add i32 %1191, 32
   %1199 = add i32 %1198, %1196
   %1200 = ashr i32 %1199, 6
   %1201 = call i32 @llvm.smax.i32(i32 %1200, i32 0)
   %1202 = call i32 @llvm.smin.i32(i32 %1201, i32 %1197)
   store i32 %1202, ptr %1183, align 4, !tbaa !23
-  %1203 = load i32, ptr %741, align 4, !tbaa !93
+  %1203 = load i32, ptr %957, align 4, !tbaa !93
   %1204 = sub i32 %1198, %1196
   %1205 = ashr i32 %1204, 6
   %1206 = call i32 @llvm.smax.i32(i32 %1205, i32 0)
@@ -11079,20 +11081,20 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1211 = call i32 @llvm.smax.i32(i32 %1210, i32 0)
   %1212 = call i32 @llvm.smin.i32(i32 %1211, i32 %1203)
   store i32 %1212, ptr %1185, align 4, !tbaa !23
-  %1213 = load i32, ptr %741, align 4, !tbaa !93
+  %1213 = load i32, ptr %957, align 4, !tbaa !93
   %1214 = sub i32 %1208, %1194
   %1215 = ashr i32 %1214, 6
   %1216 = call i32 @llvm.smax.i32(i32 %1215, i32 0)
   %1217 = call i32 @llvm.smin.i32(i32 %1216, i32 %1213)
   store i32 %1217, ptr %1187, align 4, !tbaa !23
   %1218 = or i64 %1035, 3
-  %1219 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %960, i64 %1218
+  %1219 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %960, i64 %1218
   %1220 = load i32, ptr %1219, align 4, !tbaa !23
-  %1221 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %961, i64 %1218
+  %1221 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %961, i64 %1218
   %1222 = load i32, ptr %1221, align 4, !tbaa !23
-  %1223 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %962, i64 %1218
+  %1223 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %962, i64 %1218
   %1224 = load i32, ptr %1223, align 4, !tbaa !23
-  %1225 = getelementptr inbounds %struct.ImageParameters, ptr %950, i64 0, i32 52, i64 %963, i64 %1218
+  %1225 = getelementptr inbounds %struct.ImageParameters, ptr %948, i64 0, i32 52, i64 %963, i64 %1218
   %1226 = load i32, ptr %1225, align 4, !tbaa !23
   %1227 = add nsw i32 %1224, %1220
   %1228 = sub nsw i32 %1220, %1224
@@ -11100,14 +11102,14 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1230 = sub nsw i32 %1229, %1226
   %1231 = ashr i32 %1226, 1
   %1232 = add nsw i32 %1231, %1222
-  %1233 = load i32, ptr %741, align 4, !tbaa !93
+  %1233 = load i32, ptr %957, align 4, !tbaa !93
   %1234 = add i32 %1227, 32
   %1235 = add i32 %1234, %1232
   %1236 = ashr i32 %1235, 6
   %1237 = call i32 @llvm.smax.i32(i32 %1236, i32 0)
   %1238 = call i32 @llvm.smin.i32(i32 %1237, i32 %1233)
   store i32 %1238, ptr %1219, align 4, !tbaa !23
-  %1239 = load i32, ptr %741, align 4, !tbaa !93
+  %1239 = load i32, ptr %957, align 4, !tbaa !93
   %1240 = sub i32 %1234, %1232
   %1241 = ashr i32 %1240, 6
   %1242 = call i32 @llvm.smax.i32(i32 %1241, i32 0)
@@ -11119,7 +11121,7 @@ define dso_local i32 @dct_chroma_sp(i32 noundef %0, i32 noundef %1) local_unname
   %1247 = call i32 @llvm.smax.i32(i32 %1246, i32 0)
   %1248 = call i32 @llvm.smin.i32(i32 %1247, i32 %1239)
   store i32 %1248, ptr %1221, align 4, !tbaa !23
-  %1249 = load i32, ptr %741, align 4, !tbaa !93
+  %1249 = load i32, ptr %957, align 4, !tbaa !93
   %1250 = sub i32 %1244, %1230
   %1251 = ashr i32 %1250, 6
   %1252 = call i32 @llvm.smax.i32(i32 %1251, i32 0)
@@ -12633,7 +12635,7 @@ define dso_local i32 @dct_luma_sp2(i32 noundef %0, i32 noundef %1, ptr nocapture
   br label %296
 
 296:                                              ; preds = %3, %356
-  %297 = phi i64 [ 0, %3 ], [ %364, %356 ]
+  %297 = phi i64 [ 0, %3 ], [ %366, %356 ]
   %298 = phi i32 [ 0, %3 ], [ %359, %356 ]
   %299 = phi i32 [ -1, %3 ], [ %358, %356 ]
   %300 = phi i32 [ 0, %3 ], [ %357, %356 ]
@@ -12715,288 +12717,290 @@ define dso_local i32 @dct_luma_sp2(i32 noundef %0, i32 noundef %1, ptr nocapture
   %357 = phi i32 [ 1, %345 ], [ %300, %310 ]
   %358 = phi i32 [ -1, %345 ], [ %316, %310 ]
   %359 = phi i32 [ %355, %345 ], [ %298, %310 ]
-  %360 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %292, i64 %317, i64 %318
-  %361 = load i32, ptr %360, align 4, !tbaa !23
-  %362 = mul nsw i32 %361, %328
-  %363 = shl i32 %362, %28
-  store i32 %363, ptr %327, align 4, !tbaa !23
-  %364 = add nuw nsw i64 %297, 1
-  %365 = icmp eq i64 %364, 16
-  br i1 %365, label %366, label %296, !llvm.loop !139
+  %360 = select i1 %329, i32 %331, i32 %330
+  %361 = add nsw i32 %333, %360
+  %362 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %292, i64 %317, i64 %318
+  %363 = load i32, ptr %362, align 4, !tbaa !23
+  %364 = mul nsw i32 %363, %361
+  %365 = shl i32 %364, %28
+  store i32 %365, ptr %327, align 4, !tbaa !23
+  %366 = add nuw nsw i64 %297, 1
+  %367 = icmp eq i64 %366, 16
+  br i1 %367, label %368, label %296, !llvm.loop !139
 
-366:                                              ; preds = %356
-  %367 = sext i32 %359 to i64
-  %368 = getelementptr inbounds i32, ptr %23, i64 %367
-  store i32 0, ptr %368, align 4, !tbaa !23
-  %369 = load i32, ptr %46, align 4, !tbaa !23
-  %370 = load i32, ptr %55, align 4, !tbaa !23
-  %371 = load i32, ptr %66, align 4, !tbaa !23
-  %372 = load i32, ptr %77, align 4, !tbaa !23
-  %373 = add nsw i32 %371, %369
-  %374 = sub nsw i32 %369, %371
-  %375 = ashr i32 %370, 1
-  %376 = sub nsw i32 %375, %372
+368:                                              ; preds = %356
+  %369 = sext i32 %359 to i64
+  %370 = getelementptr inbounds i32, ptr %23, i64 %369
+  store i32 0, ptr %370, align 4, !tbaa !23
+  %371 = load i32, ptr %46, align 4, !tbaa !23
+  %372 = load i32, ptr %55, align 4, !tbaa !23
+  %373 = load i32, ptr %66, align 4, !tbaa !23
+  %374 = load i32, ptr %77, align 4, !tbaa !23
+  %375 = add nsw i32 %373, %371
+  %376 = sub nsw i32 %371, %373
   %377 = ashr i32 %372, 1
-  %378 = add nsw i32 %377, %370
-  %379 = add nsw i32 %378, %373
-  %380 = sub nsw i32 %373, %378
-  store i32 %380, ptr %77, align 4, !tbaa !23
-  %381 = add nsw i32 %376, %374
-  %382 = sub nsw i32 %374, %376
-  store i32 %382, ptr %66, align 4, !tbaa !23
-  %383 = load i32, ptr %91, align 4, !tbaa !23
-  %384 = load i32, ptr %98, align 4, !tbaa !23
-  %385 = load i32, ptr %105, align 4, !tbaa !23
-  %386 = load i32, ptr %112, align 4, !tbaa !23
-  %387 = add nsw i32 %385, %383
-  %388 = sub nsw i32 %383, %385
-  %389 = ashr i32 %384, 1
-  %390 = sub nsw i32 %389, %386
+  %378 = sub nsw i32 %377, %374
+  %379 = ashr i32 %374, 1
+  %380 = add nsw i32 %379, %372
+  %381 = add nsw i32 %380, %375
+  %382 = sub nsw i32 %375, %380
+  store i32 %382, ptr %77, align 4, !tbaa !23
+  %383 = add nsw i32 %378, %376
+  %384 = sub nsw i32 %376, %378
+  store i32 %384, ptr %66, align 4, !tbaa !23
+  %385 = load i32, ptr %91, align 4, !tbaa !23
+  %386 = load i32, ptr %98, align 4, !tbaa !23
+  %387 = load i32, ptr %105, align 4, !tbaa !23
+  %388 = load i32, ptr %112, align 4, !tbaa !23
+  %389 = add nsw i32 %387, %385
+  %390 = sub nsw i32 %385, %387
   %391 = ashr i32 %386, 1
-  %392 = add nsw i32 %391, %384
-  %393 = add nsw i32 %392, %387
-  %394 = sub nsw i32 %387, %392
-  store i32 %394, ptr %112, align 4, !tbaa !23
-  %395 = add nsw i32 %390, %388
-  %396 = sub nsw i32 %388, %390
-  %397 = load i32, ptr %125, align 4, !tbaa !23
-  %398 = load i32, ptr %140, align 4, !tbaa !23
-  %399 = load i32, ptr %149, align 4, !tbaa !23
-  %400 = load i32, ptr %158, align 4, !tbaa !23
-  %401 = add nsw i32 %399, %397
-  %402 = sub nsw i32 %397, %399
-  %403 = ashr i32 %398, 1
-  %404 = sub nsw i32 %403, %400
+  %392 = sub nsw i32 %391, %388
+  %393 = ashr i32 %388, 1
+  %394 = add nsw i32 %393, %386
+  %395 = add nsw i32 %394, %389
+  %396 = sub nsw i32 %389, %394
+  store i32 %396, ptr %112, align 4, !tbaa !23
+  %397 = add nsw i32 %392, %390
+  %398 = sub nsw i32 %390, %392
+  %399 = load i32, ptr %125, align 4, !tbaa !23
+  %400 = load i32, ptr %140, align 4, !tbaa !23
+  %401 = load i32, ptr %149, align 4, !tbaa !23
+  %402 = load i32, ptr %158, align 4, !tbaa !23
+  %403 = add nsw i32 %401, %399
+  %404 = sub nsw i32 %399, %401
   %405 = ashr i32 %400, 1
-  %406 = add nsw i32 %405, %398
-  %407 = add nsw i32 %406, %401
-  %408 = sub nsw i32 %401, %406
-  store i32 %408, ptr %158, align 4, !tbaa !23
-  %409 = add nsw i32 %404, %402
-  %410 = sub nsw i32 %402, %404
-  %411 = load i32, ptr %173, align 4, !tbaa !23
-  %412 = load i32, ptr %180, align 4, !tbaa !23
-  %413 = load i32, ptr %187, align 4, !tbaa !23
-  %414 = load i32, ptr %194, align 4, !tbaa !23
-  %415 = add nsw i32 %413, %411
-  %416 = sub nsw i32 %411, %413
-  %417 = ashr i32 %412, 1
-  %418 = sub nsw i32 %417, %414
+  %406 = sub nsw i32 %405, %402
+  %407 = ashr i32 %402, 1
+  %408 = add nsw i32 %407, %400
+  %409 = add nsw i32 %408, %403
+  %410 = sub nsw i32 %403, %408
+  store i32 %410, ptr %158, align 4, !tbaa !23
+  %411 = add nsw i32 %406, %404
+  %412 = sub nsw i32 %404, %406
+  %413 = load i32, ptr %173, align 4, !tbaa !23
+  %414 = load i32, ptr %180, align 4, !tbaa !23
+  %415 = load i32, ptr %187, align 4, !tbaa !23
+  %416 = load i32, ptr %194, align 4, !tbaa !23
+  %417 = add nsw i32 %415, %413
+  %418 = sub nsw i32 %413, %415
   %419 = ashr i32 %414, 1
-  %420 = add nsw i32 %419, %412
-  %421 = add nsw i32 %420, %415
-  %422 = sub nsw i32 %415, %420
-  %423 = add nsw i32 %418, %416
-  %424 = sub nsw i32 %416, %418
-  %425 = add nsw i32 %407, %379
-  %426 = sub nsw i32 %379, %407
-  %427 = ashr i32 %393, 1
-  %428 = sub nsw i32 %427, %421
-  %429 = ashr i32 %421, 1
-  %430 = add nsw i32 %429, %393
-  %431 = add i32 %425, 32
-  %432 = add i32 %431, %430
-  %433 = ashr i32 %432, 6
-  %434 = tail call i32 @llvm.smax.i32(i32 %433, i32 0)
-  %435 = tail call i32 @llvm.smin.i32(i32 %434, i32 255)
-  store i32 %435, ptr %46, align 4, !tbaa !23
-  %436 = sub i32 %431, %430
-  %437 = ashr i32 %436, 6
-  %438 = tail call i32 @llvm.smax.i32(i32 %437, i32 0)
-  %439 = tail call i32 @llvm.smin.i32(i32 %438, i32 255)
-  store i32 %439, ptr %173, align 4, !tbaa !23
-  %440 = add i32 %426, 32
-  %441 = add i32 %440, %428
-  %442 = ashr i32 %441, 6
-  %443 = tail call i32 @llvm.smax.i32(i32 %442, i32 0)
-  %444 = tail call i32 @llvm.smin.i32(i32 %443, i32 255)
-  store i32 %444, ptr %91, align 4, !tbaa !23
-  %445 = sub i32 %440, %428
-  %446 = ashr i32 %445, 6
-  %447 = tail call i32 @llvm.smax.i32(i32 %446, i32 0)
-  %448 = tail call i32 @llvm.smin.i32(i32 %447, i32 255)
-  store i32 %448, ptr %125, align 4, !tbaa !23
-  %449 = add nsw i32 %409, %381
-  %450 = sub nsw i32 %381, %409
-  %451 = ashr i32 %395, 1
-  %452 = sub nsw i32 %451, %423
-  %453 = ashr i32 %423, 1
-  %454 = add nsw i32 %453, %395
-  %455 = add i32 %449, 32
-  %456 = add i32 %455, %454
-  %457 = ashr i32 %456, 6
-  %458 = tail call i32 @llvm.smax.i32(i32 %457, i32 0)
-  %459 = tail call i32 @llvm.smin.i32(i32 %458, i32 255)
-  store i32 %459, ptr %55, align 4, !tbaa !23
-  %460 = sub i32 %455, %454
-  %461 = ashr i32 %460, 6
-  %462 = tail call i32 @llvm.smax.i32(i32 %461, i32 0)
-  %463 = tail call i32 @llvm.smin.i32(i32 %462, i32 255)
-  store i32 %463, ptr %180, align 4, !tbaa !23
-  %464 = add i32 %450, 32
-  %465 = add i32 %464, %452
-  %466 = ashr i32 %465, 6
-  %467 = tail call i32 @llvm.smax.i32(i32 %466, i32 0)
-  %468 = tail call i32 @llvm.smin.i32(i32 %467, i32 255)
-  store i32 %468, ptr %98, align 4, !tbaa !23
-  %469 = sub i32 %464, %452
-  %470 = ashr i32 %469, 6
-  %471 = tail call i32 @llvm.smax.i32(i32 %470, i32 0)
-  %472 = tail call i32 @llvm.smin.i32(i32 %471, i32 255)
-  store i32 %472, ptr %140, align 4, !tbaa !23
-  %473 = load i32, ptr %66, align 4, !tbaa !23
-  %474 = add nsw i32 %410, %473
-  %475 = sub nsw i32 %473, %410
-  %476 = ashr i32 %396, 1
-  %477 = sub nsw i32 %476, %424
-  %478 = ashr i32 %424, 1
-  %479 = add nsw i32 %478, %396
-  %480 = add i32 %474, 32
-  %481 = add i32 %480, %479
-  %482 = ashr i32 %481, 6
-  %483 = tail call i32 @llvm.smax.i32(i32 %482, i32 0)
-  %484 = tail call i32 @llvm.smin.i32(i32 %483, i32 255)
-  store i32 %484, ptr %66, align 4, !tbaa !23
-  %485 = sub i32 %480, %479
-  %486 = ashr i32 %485, 6
-  %487 = tail call i32 @llvm.smax.i32(i32 %486, i32 0)
-  %488 = tail call i32 @llvm.smin.i32(i32 %487, i32 255)
-  store i32 %488, ptr %187, align 4, !tbaa !23
-  %489 = add i32 %475, 32
-  %490 = add i32 %489, %477
-  %491 = ashr i32 %490, 6
-  %492 = tail call i32 @llvm.smax.i32(i32 %491, i32 0)
-  %493 = tail call i32 @llvm.smin.i32(i32 %492, i32 255)
-  store i32 %493, ptr %105, align 4, !tbaa !23
-  %494 = sub i32 %489, %477
-  %495 = ashr i32 %494, 6
-  %496 = tail call i32 @llvm.smax.i32(i32 %495, i32 0)
-  %497 = tail call i32 @llvm.smin.i32(i32 %496, i32 255)
-  store i32 %497, ptr %149, align 4, !tbaa !23
-  %498 = load i32, ptr %77, align 4, !tbaa !23
-  %499 = load i32, ptr %112, align 4, !tbaa !23
-  %500 = load i32, ptr %158, align 4, !tbaa !23
-  %501 = add nsw i32 %500, %498
-  %502 = sub nsw i32 %498, %500
-  %503 = ashr i32 %499, 1
-  %504 = sub nsw i32 %503, %422
-  %505 = ashr i32 %422, 1
-  %506 = add nsw i32 %505, %499
-  %507 = add i32 %501, 32
-  %508 = add i32 %507, %506
-  %509 = ashr i32 %508, 6
-  %510 = tail call i32 @llvm.smax.i32(i32 %509, i32 0)
-  %511 = tail call i32 @llvm.smin.i32(i32 %510, i32 255)
-  store i32 %511, ptr %77, align 4, !tbaa !23
-  %512 = sub i32 %507, %506
-  %513 = ashr i32 %512, 6
-  %514 = tail call i32 @llvm.smax.i32(i32 %513, i32 0)
-  %515 = tail call i32 @llvm.smin.i32(i32 %514, i32 255)
-  store i32 %515, ptr %194, align 4, !tbaa !23
-  %516 = add i32 %502, 32
-  %517 = add i32 %516, %504
-  %518 = ashr i32 %517, 6
-  %519 = tail call i32 @llvm.smax.i32(i32 %518, i32 0)
-  %520 = tail call i32 @llvm.smin.i32(i32 %519, i32 255)
-  store i32 %520, ptr %112, align 4, !tbaa !23
-  %521 = sub i32 %516, %504
-  %522 = ashr i32 %521, 6
-  %523 = tail call i32 @llvm.smax.i32(i32 %522, i32 0)
-  %524 = tail call i32 @llvm.smin.i32(i32 %523, i32 255)
-  store i32 %524, ptr %158, align 4, !tbaa !23
-  %525 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %526 = getelementptr inbounds %struct.storable_picture, ptr %525, i64 0, i32 29
-  %527 = load ptr, ptr %526, align 8, !tbaa !9
-  %528 = load i32, ptr %32, align 4, !tbaa !59
-  %529 = load i32, ptr %33, align 8, !tbaa !60
-  %530 = add i32 %529, %0
-  %531 = sext i32 %530 to i64
-  %532 = load i32, ptr %46, align 4, !tbaa !23
-  %533 = trunc i32 %532 to i16
-  %534 = add i32 %528, %1
-  %535 = sext i32 %534 to i64
-  %536 = getelementptr inbounds ptr, ptr %527, i64 %535
-  %537 = load ptr, ptr %536, align 8, !tbaa !5
-  %538 = getelementptr inbounds i16, ptr %537, i64 %531
-  store i16 %533, ptr %538, align 2, !tbaa !26
-  %539 = load i32, ptr %91, align 4, !tbaa !23
-  %540 = trunc i32 %539 to i16
-  %541 = add i32 %1, 1
-  %542 = add i32 %541, %528
-  %543 = sext i32 %542 to i64
-  %544 = getelementptr inbounds ptr, ptr %527, i64 %543
-  %545 = load ptr, ptr %544, align 8, !tbaa !5
-  %546 = getelementptr inbounds i16, ptr %545, i64 %531
-  store i16 %540, ptr %546, align 2, !tbaa !26
-  %547 = load i32, ptr %125, align 4, !tbaa !23
-  %548 = trunc i32 %547 to i16
-  %549 = add i32 %1, 2
-  %550 = add i32 %549, %528
-  %551 = sext i32 %550 to i64
-  %552 = getelementptr inbounds ptr, ptr %527, i64 %551
-  %553 = load ptr, ptr %552, align 8, !tbaa !5
-  %554 = getelementptr inbounds i16, ptr %553, i64 %531
-  store i16 %548, ptr %554, align 2, !tbaa !26
-  %555 = load i32, ptr %173, align 4, !tbaa !23
-  %556 = trunc i32 %555 to i16
-  %557 = add i32 %1, 3
-  %558 = add i32 %557, %528
-  %559 = sext i32 %558 to i64
-  %560 = getelementptr inbounds ptr, ptr %527, i64 %559
-  %561 = load ptr, ptr %560, align 8, !tbaa !5
-  %562 = getelementptr inbounds i16, ptr %561, i64 %531
-  store i16 %556, ptr %562, align 2, !tbaa !26
-  %563 = add i32 %50, %529
-  %564 = sext i32 %563 to i64
-  %565 = load i32, ptr %55, align 4, !tbaa !23
-  %566 = trunc i32 %565 to i16
-  %567 = getelementptr inbounds i16, ptr %537, i64 %564
-  store i16 %566, ptr %567, align 2, !tbaa !26
-  %568 = load i32, ptr %98, align 4, !tbaa !23
-  %569 = trunc i32 %568 to i16
-  %570 = getelementptr inbounds i16, ptr %545, i64 %564
-  store i16 %569, ptr %570, align 2, !tbaa !26
-  %571 = load i32, ptr %140, align 4, !tbaa !23
-  %572 = trunc i32 %571 to i16
-  %573 = getelementptr inbounds i16, ptr %553, i64 %564
-  store i16 %572, ptr %573, align 2, !tbaa !26
-  %574 = load i32, ptr %180, align 4, !tbaa !23
-  %575 = trunc i32 %574 to i16
-  %576 = getelementptr inbounds i16, ptr %561, i64 %564
-  store i16 %575, ptr %576, align 2, !tbaa !26
-  %577 = add i32 %61, %529
-  %578 = sext i32 %577 to i64
-  %579 = load i32, ptr %66, align 4, !tbaa !23
-  %580 = trunc i32 %579 to i16
-  %581 = getelementptr inbounds i16, ptr %537, i64 %578
-  store i16 %580, ptr %581, align 2, !tbaa !26
-  %582 = load i32, ptr %105, align 4, !tbaa !23
-  %583 = trunc i32 %582 to i16
-  %584 = getelementptr inbounds i16, ptr %545, i64 %578
-  store i16 %583, ptr %584, align 2, !tbaa !26
-  %585 = load i32, ptr %149, align 4, !tbaa !23
-  %586 = trunc i32 %585 to i16
-  %587 = getelementptr inbounds i16, ptr %553, i64 %578
-  store i16 %586, ptr %587, align 2, !tbaa !26
-  %588 = load i32, ptr %187, align 4, !tbaa !23
-  %589 = trunc i32 %588 to i16
-  %590 = getelementptr inbounds i16, ptr %561, i64 %578
-  store i16 %589, ptr %590, align 2, !tbaa !26
-  %591 = add i32 %72, %529
-  %592 = sext i32 %591 to i64
-  %593 = trunc i32 %511 to i16
-  %594 = getelementptr inbounds i16, ptr %537, i64 %592
-  store i16 %593, ptr %594, align 2, !tbaa !26
-  %595 = trunc i32 %520 to i16
-  %596 = getelementptr inbounds i16, ptr %545, i64 %592
+  %420 = sub nsw i32 %419, %416
+  %421 = ashr i32 %416, 1
+  %422 = add nsw i32 %421, %414
+  %423 = add nsw i32 %422, %417
+  %424 = sub nsw i32 %417, %422
+  %425 = add nsw i32 %420, %418
+  %426 = sub nsw i32 %418, %420
+  %427 = add nsw i32 %409, %381
+  %428 = sub nsw i32 %381, %409
+  %429 = ashr i32 %395, 1
+  %430 = sub nsw i32 %429, %423
+  %431 = ashr i32 %423, 1
+  %432 = add nsw i32 %431, %395
+  %433 = add i32 %427, 32
+  %434 = add i32 %433, %432
+  %435 = ashr i32 %434, 6
+  %436 = tail call i32 @llvm.smax.i32(i32 %435, i32 0)
+  %437 = tail call i32 @llvm.smin.i32(i32 %436, i32 255)
+  store i32 %437, ptr %46, align 4, !tbaa !23
+  %438 = sub i32 %433, %432
+  %439 = ashr i32 %438, 6
+  %440 = tail call i32 @llvm.smax.i32(i32 %439, i32 0)
+  %441 = tail call i32 @llvm.smin.i32(i32 %440, i32 255)
+  store i32 %441, ptr %173, align 4, !tbaa !23
+  %442 = add i32 %428, 32
+  %443 = add i32 %442, %430
+  %444 = ashr i32 %443, 6
+  %445 = tail call i32 @llvm.smax.i32(i32 %444, i32 0)
+  %446 = tail call i32 @llvm.smin.i32(i32 %445, i32 255)
+  store i32 %446, ptr %91, align 4, !tbaa !23
+  %447 = sub i32 %442, %430
+  %448 = ashr i32 %447, 6
+  %449 = tail call i32 @llvm.smax.i32(i32 %448, i32 0)
+  %450 = tail call i32 @llvm.smin.i32(i32 %449, i32 255)
+  store i32 %450, ptr %125, align 4, !tbaa !23
+  %451 = add nsw i32 %411, %383
+  %452 = sub nsw i32 %383, %411
+  %453 = ashr i32 %397, 1
+  %454 = sub nsw i32 %453, %425
+  %455 = ashr i32 %425, 1
+  %456 = add nsw i32 %455, %397
+  %457 = add i32 %451, 32
+  %458 = add i32 %457, %456
+  %459 = ashr i32 %458, 6
+  %460 = tail call i32 @llvm.smax.i32(i32 %459, i32 0)
+  %461 = tail call i32 @llvm.smin.i32(i32 %460, i32 255)
+  store i32 %461, ptr %55, align 4, !tbaa !23
+  %462 = sub i32 %457, %456
+  %463 = ashr i32 %462, 6
+  %464 = tail call i32 @llvm.smax.i32(i32 %463, i32 0)
+  %465 = tail call i32 @llvm.smin.i32(i32 %464, i32 255)
+  store i32 %465, ptr %180, align 4, !tbaa !23
+  %466 = add i32 %452, 32
+  %467 = add i32 %466, %454
+  %468 = ashr i32 %467, 6
+  %469 = tail call i32 @llvm.smax.i32(i32 %468, i32 0)
+  %470 = tail call i32 @llvm.smin.i32(i32 %469, i32 255)
+  store i32 %470, ptr %98, align 4, !tbaa !23
+  %471 = sub i32 %466, %454
+  %472 = ashr i32 %471, 6
+  %473 = tail call i32 @llvm.smax.i32(i32 %472, i32 0)
+  %474 = tail call i32 @llvm.smin.i32(i32 %473, i32 255)
+  store i32 %474, ptr %140, align 4, !tbaa !23
+  %475 = load i32, ptr %66, align 4, !tbaa !23
+  %476 = add nsw i32 %412, %475
+  %477 = sub nsw i32 %475, %412
+  %478 = ashr i32 %398, 1
+  %479 = sub nsw i32 %478, %426
+  %480 = ashr i32 %426, 1
+  %481 = add nsw i32 %480, %398
+  %482 = add i32 %476, 32
+  %483 = add i32 %482, %481
+  %484 = ashr i32 %483, 6
+  %485 = tail call i32 @llvm.smax.i32(i32 %484, i32 0)
+  %486 = tail call i32 @llvm.smin.i32(i32 %485, i32 255)
+  store i32 %486, ptr %66, align 4, !tbaa !23
+  %487 = sub i32 %482, %481
+  %488 = ashr i32 %487, 6
+  %489 = tail call i32 @llvm.smax.i32(i32 %488, i32 0)
+  %490 = tail call i32 @llvm.smin.i32(i32 %489, i32 255)
+  store i32 %490, ptr %187, align 4, !tbaa !23
+  %491 = add i32 %477, 32
+  %492 = add i32 %491, %479
+  %493 = ashr i32 %492, 6
+  %494 = tail call i32 @llvm.smax.i32(i32 %493, i32 0)
+  %495 = tail call i32 @llvm.smin.i32(i32 %494, i32 255)
+  store i32 %495, ptr %105, align 4, !tbaa !23
+  %496 = sub i32 %491, %479
+  %497 = ashr i32 %496, 6
+  %498 = tail call i32 @llvm.smax.i32(i32 %497, i32 0)
+  %499 = tail call i32 @llvm.smin.i32(i32 %498, i32 255)
+  store i32 %499, ptr %149, align 4, !tbaa !23
+  %500 = load i32, ptr %77, align 4, !tbaa !23
+  %501 = load i32, ptr %112, align 4, !tbaa !23
+  %502 = load i32, ptr %158, align 4, !tbaa !23
+  %503 = add nsw i32 %502, %500
+  %504 = sub nsw i32 %500, %502
+  %505 = ashr i32 %501, 1
+  %506 = sub nsw i32 %505, %424
+  %507 = ashr i32 %424, 1
+  %508 = add nsw i32 %507, %501
+  %509 = add i32 %503, 32
+  %510 = add i32 %509, %508
+  %511 = ashr i32 %510, 6
+  %512 = tail call i32 @llvm.smax.i32(i32 %511, i32 0)
+  %513 = tail call i32 @llvm.smin.i32(i32 %512, i32 255)
+  store i32 %513, ptr %77, align 4, !tbaa !23
+  %514 = sub i32 %509, %508
+  %515 = ashr i32 %514, 6
+  %516 = tail call i32 @llvm.smax.i32(i32 %515, i32 0)
+  %517 = tail call i32 @llvm.smin.i32(i32 %516, i32 255)
+  store i32 %517, ptr %194, align 4, !tbaa !23
+  %518 = add i32 %504, 32
+  %519 = add i32 %518, %506
+  %520 = ashr i32 %519, 6
+  %521 = tail call i32 @llvm.smax.i32(i32 %520, i32 0)
+  %522 = tail call i32 @llvm.smin.i32(i32 %521, i32 255)
+  store i32 %522, ptr %112, align 4, !tbaa !23
+  %523 = sub i32 %518, %506
+  %524 = ashr i32 %523, 6
+  %525 = tail call i32 @llvm.smax.i32(i32 %524, i32 0)
+  %526 = tail call i32 @llvm.smin.i32(i32 %525, i32 255)
+  store i32 %526, ptr %158, align 4, !tbaa !23
+  %527 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %528 = getelementptr inbounds %struct.storable_picture, ptr %527, i64 0, i32 29
+  %529 = load ptr, ptr %528, align 8, !tbaa !9
+  %530 = load i32, ptr %32, align 4, !tbaa !59
+  %531 = load i32, ptr %33, align 8, !tbaa !60
+  %532 = add i32 %531, %0
+  %533 = sext i32 %532 to i64
+  %534 = load i32, ptr %46, align 4, !tbaa !23
+  %535 = trunc i32 %534 to i16
+  %536 = add i32 %530, %1
+  %537 = sext i32 %536 to i64
+  %538 = getelementptr inbounds ptr, ptr %529, i64 %537
+  %539 = load ptr, ptr %538, align 8, !tbaa !5
+  %540 = getelementptr inbounds i16, ptr %539, i64 %533
+  store i16 %535, ptr %540, align 2, !tbaa !26
+  %541 = load i32, ptr %91, align 4, !tbaa !23
+  %542 = trunc i32 %541 to i16
+  %543 = add i32 %1, 1
+  %544 = add i32 %543, %530
+  %545 = sext i32 %544 to i64
+  %546 = getelementptr inbounds ptr, ptr %529, i64 %545
+  %547 = load ptr, ptr %546, align 8, !tbaa !5
+  %548 = getelementptr inbounds i16, ptr %547, i64 %533
+  store i16 %542, ptr %548, align 2, !tbaa !26
+  %549 = load i32, ptr %125, align 4, !tbaa !23
+  %550 = trunc i32 %549 to i16
+  %551 = add i32 %1, 2
+  %552 = add i32 %551, %530
+  %553 = sext i32 %552 to i64
+  %554 = getelementptr inbounds ptr, ptr %529, i64 %553
+  %555 = load ptr, ptr %554, align 8, !tbaa !5
+  %556 = getelementptr inbounds i16, ptr %555, i64 %533
+  store i16 %550, ptr %556, align 2, !tbaa !26
+  %557 = load i32, ptr %173, align 4, !tbaa !23
+  %558 = trunc i32 %557 to i16
+  %559 = add i32 %1, 3
+  %560 = add i32 %559, %530
+  %561 = sext i32 %560 to i64
+  %562 = getelementptr inbounds ptr, ptr %529, i64 %561
+  %563 = load ptr, ptr %562, align 8, !tbaa !5
+  %564 = getelementptr inbounds i16, ptr %563, i64 %533
+  store i16 %558, ptr %564, align 2, !tbaa !26
+  %565 = add i32 %50, %531
+  %566 = sext i32 %565 to i64
+  %567 = load i32, ptr %55, align 4, !tbaa !23
+  %568 = trunc i32 %567 to i16
+  %569 = getelementptr inbounds i16, ptr %539, i64 %566
+  store i16 %568, ptr %569, align 2, !tbaa !26
+  %570 = load i32, ptr %98, align 4, !tbaa !23
+  %571 = trunc i32 %570 to i16
+  %572 = getelementptr inbounds i16, ptr %547, i64 %566
+  store i16 %571, ptr %572, align 2, !tbaa !26
+  %573 = load i32, ptr %140, align 4, !tbaa !23
+  %574 = trunc i32 %573 to i16
+  %575 = getelementptr inbounds i16, ptr %555, i64 %566
+  store i16 %574, ptr %575, align 2, !tbaa !26
+  %576 = load i32, ptr %180, align 4, !tbaa !23
+  %577 = trunc i32 %576 to i16
+  %578 = getelementptr inbounds i16, ptr %563, i64 %566
+  store i16 %577, ptr %578, align 2, !tbaa !26
+  %579 = add i32 %61, %531
+  %580 = sext i32 %579 to i64
+  %581 = load i32, ptr %66, align 4, !tbaa !23
+  %582 = trunc i32 %581 to i16
+  %583 = getelementptr inbounds i16, ptr %539, i64 %580
+  store i16 %582, ptr %583, align 2, !tbaa !26
+  %584 = load i32, ptr %105, align 4, !tbaa !23
+  %585 = trunc i32 %584 to i16
+  %586 = getelementptr inbounds i16, ptr %547, i64 %580
+  store i16 %585, ptr %586, align 2, !tbaa !26
+  %587 = load i32, ptr %149, align 4, !tbaa !23
+  %588 = trunc i32 %587 to i16
+  %589 = getelementptr inbounds i16, ptr %555, i64 %580
+  store i16 %588, ptr %589, align 2, !tbaa !26
+  %590 = load i32, ptr %187, align 4, !tbaa !23
+  %591 = trunc i32 %590 to i16
+  %592 = getelementptr inbounds i16, ptr %563, i64 %580
+  store i16 %591, ptr %592, align 2, !tbaa !26
+  %593 = add i32 %72, %531
+  %594 = sext i32 %593 to i64
+  %595 = trunc i32 %513 to i16
+  %596 = getelementptr inbounds i16, ptr %539, i64 %594
   store i16 %595, ptr %596, align 2, !tbaa !26
-  %597 = trunc i32 %524 to i16
-  %598 = getelementptr inbounds i16, ptr %553, i64 %592
+  %597 = trunc i32 %522 to i16
+  %598 = getelementptr inbounds i16, ptr %547, i64 %594
   store i16 %597, ptr %598, align 2, !tbaa !26
-  %599 = load i32, ptr %194, align 4, !tbaa !23
-  %600 = trunc i32 %599 to i16
-  %601 = getelementptr inbounds i16, ptr %561, i64 %592
-  store i16 %600, ptr %601, align 2, !tbaa !26
+  %599 = trunc i32 %526 to i16
+  %600 = getelementptr inbounds i16, ptr %555, i64 %594
+  store i16 %599, ptr %600, align 2, !tbaa !26
+  %601 = load i32, ptr %194, align 4, !tbaa !23
+  %602 = trunc i32 %601 to i16
+  %603 = getelementptr inbounds i16, ptr %563, i64 %594
+  store i16 %602, ptr %603, align 2, !tbaa !26
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %4) #8
   ret i32 %357
 }
@@ -13473,1162 +13477,995 @@ define dso_local i32 @dct_chroma_sp2(i32 noundef %0, i32 noundef %1) local_unnam
   %397 = phi i32 [ 0, %388 ], [ 1, %340 ]
   %398 = phi i32 [ 1, %388 ], [ 0, %340 ]
   %399 = phi i32 [ %392, %388 ], [ %1, %340 ]
-  %400 = mul nsw i32 %373, %343
-  %401 = shl i32 %400, %34
-  %402 = tail call i32 @llvm.abs.i32(i32 %362, i1 true)
-  %403 = mul nsw i32 %402, %369
-  %404 = add nsw i32 %403, %370
-  %405 = ashr i32 %404, %371
-  %406 = icmp slt i32 %362, 0
-  %407 = tail call i32 @llvm.abs.i32(i32 %405, i1 true)
-  %408 = sub nsw i32 0, %407
-  %409 = select i1 %406, i32 %407, i32 %408
-  %410 = add i32 %409, %345
-  %411 = icmp eq i32 %410, 0
-  br i1 %411, label %424, label %412
+  %400 = select i1 %382, i32 %384, i32 %383
+  %401 = add nsw i32 %386, %400
+  %402 = mul nsw i32 %373, %401
+  %403 = shl i32 %402, %34
+  %404 = tail call i32 @llvm.abs.i32(i32 %362, i1 true)
+  %405 = mul nsw i32 %404, %369
+  %406 = add nsw i32 %405, %370
+  %407 = ashr i32 %406, %371
+  %408 = icmp slt i32 %362, 0
+  %409 = tail call i32 @llvm.abs.i32(i32 %407, i1 true)
+  %410 = sub nsw i32 0, %409
+  %411 = select i1 %408, i32 %409, i32 %410
+  %412 = add i32 %411, %345
+  %413 = icmp eq i32 %412, 0
+  br i1 %413, label %426, label %414
 
-412:                                              ; preds = %396
-  %413 = tail call i32 @llvm.abs.i32(i32 %410, i1 true)
-  %414 = load i64, ptr %377, align 8, !tbaa !81
-  %415 = or i64 %414, %376
-  store i64 %415, ptr %377, align 8, !tbaa !81
-  %416 = tail call i32 @llvm.smax.i32(i32 %399, i32 1)
-  %417 = icmp slt i32 %410, 0
-  %418 = sub nsw i32 0, %413
-  %419 = select i1 %417, i32 %418, i32 %413
-  %420 = zext i32 %398 to i64
-  %421 = getelementptr inbounds i32, ptr %16, i64 %420
-  store i32 %419, ptr %421, align 4, !tbaa !23
-  %422 = getelementptr inbounds i32, ptr %18, i64 %420
-  store i32 %397, ptr %422, align 4, !tbaa !23
-  %423 = add nuw nsw i32 %398, 1
-  br label %424
+414:                                              ; preds = %396
+  %415 = tail call i32 @llvm.abs.i32(i32 %412, i1 true)
+  %416 = load i64, ptr %377, align 8, !tbaa !81
+  %417 = or i64 %416, %376
+  store i64 %417, ptr %377, align 8, !tbaa !81
+  %418 = tail call i32 @llvm.smax.i32(i32 %399, i32 1)
+  %419 = icmp slt i32 %412, 0
+  %420 = sub nsw i32 0, %415
+  %421 = select i1 %419, i32 %420, i32 %415
+  %422 = zext i32 %398 to i64
+  %423 = getelementptr inbounds i32, ptr %16, i64 %422
+  store i32 %421, ptr %423, align 4, !tbaa !23
+  %424 = getelementptr inbounds i32, ptr %18, i64 %422
+  store i32 %397, ptr %424, align 4, !tbaa !23
+  %425 = add nuw nsw i32 %398, 1
+  br label %426
 
-424:                                              ; preds = %412, %396
-  %425 = phi i32 [ -1, %412 ], [ %397, %396 ]
-  %426 = phi i32 [ %423, %412 ], [ %398, %396 ]
-  %427 = phi i32 [ %416, %412 ], [ %399, %396 ]
-  %428 = mul nsw i32 %373, %345
-  %429 = shl i32 %428, %34
-  %430 = add nsw i32 %425, 1
-  %431 = tail call i32 @llvm.abs.i32(i32 %363, i1 true)
-  %432 = mul nsw i32 %431, %369
-  %433 = add nsw i32 %432, %370
-  %434 = ashr i32 %433, %371
-  %435 = icmp slt i32 %363, 0
-  %436 = tail call i32 @llvm.abs.i32(i32 %434, i1 true)
-  %437 = sub nsw i32 0, %436
-  %438 = select i1 %435, i32 %436, i32 %437
-  %439 = add i32 %438, %347
-  %440 = icmp eq i32 %439, 0
-  br i1 %440, label %453, label %441
+426:                                              ; preds = %414, %396
+  %427 = phi i32 [ -1, %414 ], [ %397, %396 ]
+  %428 = phi i32 [ %425, %414 ], [ %398, %396 ]
+  %429 = phi i32 [ %418, %414 ], [ %399, %396 ]
+  %430 = select i1 %408, i32 %410, i32 %409
+  %431 = add nsw i32 %412, %430
+  %432 = mul nsw i32 %373, %431
+  %433 = shl i32 %432, %34
+  %434 = add nsw i32 %427, 1
+  %435 = tail call i32 @llvm.abs.i32(i32 %363, i1 true)
+  %436 = mul nsw i32 %435, %369
+  %437 = add nsw i32 %436, %370
+  %438 = ashr i32 %437, %371
+  %439 = icmp slt i32 %363, 0
+  %440 = tail call i32 @llvm.abs.i32(i32 %438, i1 true)
+  %441 = sub nsw i32 0, %440
+  %442 = select i1 %439, i32 %440, i32 %441
+  %443 = add i32 %442, %347
+  %444 = icmp eq i32 %443, 0
+  br i1 %444, label %457, label %445
 
-441:                                              ; preds = %424
-  %442 = tail call i32 @llvm.abs.i32(i32 %439, i1 true)
-  %443 = load i64, ptr %377, align 8, !tbaa !81
-  %444 = or i64 %443, %376
-  store i64 %444, ptr %377, align 8, !tbaa !81
-  %445 = tail call i32 @llvm.smax.i32(i32 %427, i32 1)
-  %446 = icmp slt i32 %439, 0
-  %447 = sub nsw i32 0, %442
-  %448 = select i1 %446, i32 %447, i32 %442
-  %449 = zext i32 %426 to i64
-  %450 = getelementptr inbounds i32, ptr %16, i64 %449
-  store i32 %448, ptr %450, align 4, !tbaa !23
-  %451 = getelementptr inbounds i32, ptr %18, i64 %449
-  store i32 %430, ptr %451, align 4, !tbaa !23
-  %452 = add nuw nsw i32 %426, 1
-  br label %453
+445:                                              ; preds = %426
+  %446 = tail call i32 @llvm.abs.i32(i32 %443, i1 true)
+  %447 = load i64, ptr %377, align 8, !tbaa !81
+  %448 = or i64 %447, %376
+  store i64 %448, ptr %377, align 8, !tbaa !81
+  %449 = tail call i32 @llvm.smax.i32(i32 %429, i32 1)
+  %450 = icmp slt i32 %443, 0
+  %451 = sub nsw i32 0, %446
+  %452 = select i1 %450, i32 %451, i32 %446
+  %453 = zext i32 %428 to i64
+  %454 = getelementptr inbounds i32, ptr %16, i64 %453
+  store i32 %452, ptr %454, align 4, !tbaa !23
+  %455 = getelementptr inbounds i32, ptr %18, i64 %453
+  store i32 %434, ptr %455, align 4, !tbaa !23
+  %456 = add nuw nsw i32 %428, 1
+  br label %457
 
-453:                                              ; preds = %441, %424
-  %454 = phi i32 [ -1, %441 ], [ %430, %424 ]
-  %455 = phi i32 [ %452, %441 ], [ %426, %424 ]
-  %456 = phi i32 [ %445, %441 ], [ %427, %424 ]
-  %457 = mul nsw i32 %373, %347
-  %458 = shl i32 %457, %34
-  %459 = tail call i32 @llvm.abs.i32(i32 %366, i1 true)
-  %460 = mul nsw i32 %459, %369
-  %461 = add nsw i32 %460, %370
-  %462 = ashr i32 %461, %371
-  %463 = icmp slt i32 %366, 0
-  %464 = tail call i32 @llvm.abs.i32(i32 %462, i1 true)
-  %465 = sub nsw i32 0, %464
-  %466 = select i1 %463, i32 %464, i32 %465
-  %467 = add i32 %466, %349
-  %468 = icmp eq i32 %467, 0
-  br i1 %468, label %482, label %469
+457:                                              ; preds = %445, %426
+  %458 = phi i32 [ -1, %445 ], [ %434, %426 ]
+  %459 = phi i32 [ %456, %445 ], [ %428, %426 ]
+  %460 = phi i32 [ %449, %445 ], [ %429, %426 ]
+  %461 = select i1 %439, i32 %441, i32 %440
+  %462 = add nsw i32 %443, %461
+  %463 = mul nsw i32 %373, %462
+  %464 = shl i32 %463, %34
+  %465 = tail call i32 @llvm.abs.i32(i32 %366, i1 true)
+  %466 = mul nsw i32 %465, %369
+  %467 = add nsw i32 %466, %370
+  %468 = ashr i32 %467, %371
+  %469 = icmp slt i32 %366, 0
+  %470 = tail call i32 @llvm.abs.i32(i32 %468, i1 true)
+  %471 = sub nsw i32 0, %470
+  %472 = select i1 %469, i32 %470, i32 %471
+  %473 = add i32 %472, %349
+  %474 = icmp eq i32 %473, 0
+  br i1 %474, label %488, label %475
 
-469:                                              ; preds = %453
-  %470 = add nsw i32 %454, 1
-  %471 = tail call i32 @llvm.abs.i32(i32 %467, i1 true)
-  %472 = load i64, ptr %377, align 8, !tbaa !81
-  %473 = or i64 %472, %376
-  store i64 %473, ptr %377, align 8, !tbaa !81
-  %474 = tail call i32 @llvm.smax.i32(i32 %456, i32 1)
-  %475 = icmp slt i32 %467, 0
-  %476 = sub nsw i32 0, %471
-  %477 = select i1 %475, i32 %476, i32 %471
-  %478 = zext i32 %455 to i64
-  %479 = getelementptr inbounds i32, ptr %16, i64 %478
-  store i32 %477, ptr %479, align 4, !tbaa !23
-  %480 = getelementptr inbounds i32, ptr %18, i64 %478
-  store i32 %470, ptr %480, align 4, !tbaa !23
-  %481 = add nuw nsw i32 %455, 1
-  br label %482
+475:                                              ; preds = %457
+  %476 = add nsw i32 %458, 1
+  %477 = tail call i32 @llvm.abs.i32(i32 %473, i1 true)
+  %478 = load i64, ptr %377, align 8, !tbaa !81
+  %479 = or i64 %478, %376
+  store i64 %479, ptr %377, align 8, !tbaa !81
+  %480 = tail call i32 @llvm.smax.i32(i32 %460, i32 1)
+  %481 = icmp slt i32 %473, 0
+  %482 = sub nsw i32 0, %477
+  %483 = select i1 %481, i32 %482, i32 %477
+  %484 = zext i32 %459 to i64
+  %485 = getelementptr inbounds i32, ptr %16, i64 %484
+  store i32 %483, ptr %485, align 4, !tbaa !23
+  %486 = getelementptr inbounds i32, ptr %18, i64 %484
+  store i32 %476, ptr %486, align 4, !tbaa !23
+  %487 = add nuw nsw i32 %459, 1
+  br label %488
 
-482:                                              ; preds = %469, %453
-  %483 = phi i32 [ %481, %469 ], [ %455, %453 ]
-  %484 = phi i32 [ %474, %469 ], [ %456, %453 ]
-  %485 = mul nsw i32 %373, %349
-  %486 = shl i32 %485, %34
-  %487 = zext i32 %483 to i64
-  %488 = getelementptr inbounds i32, ptr %16, i64 %487
-  store i32 0, ptr %488, align 4, !tbaa !23
-  %489 = add nsw i32 %429, %401
-  %490 = add i32 %486, %458
-  %491 = add i32 %490, %489
-  %492 = sdiv i32 %491, 2
-  store i32 %492, ptr %342, align 8, !tbaa !23
-  %493 = add i32 %401, %458
-  %494 = add i32 %429, %486
-  %495 = sub i32 %493, %494
-  %496 = sdiv i32 %495, 2
-  store i32 %496, ptr %344, align 8, !tbaa !23
-  %497 = sub i32 %489, %490
-  %498 = sdiv i32 %497, 2
-  store i32 %498, ptr %346, align 8, !tbaa !23
-  %499 = add i32 %429, %458
-  %500 = sub i32 %401, %499
-  %501 = add i32 %500, %486
-  %502 = sdiv i32 %501, 2
-  store i32 %502, ptr %348, align 8, !tbaa !23
-  %503 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 53
-  %504 = load ptr, ptr %503, align 8, !tbaa !50
-  %505 = add nsw i32 %0, 4
-  %506 = sext i32 %505 to i64
-  %507 = getelementptr inbounds ptr, ptr %504, i64 %506
-  %508 = load ptr, ptr %507, align 8, !tbaa !5
-  %509 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 110
-  %510 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 90
-  %511 = add nsw i32 %374, 16
-  %512 = load ptr, ptr %508, align 8, !tbaa !5
-  %513 = load ptr, ptr %512, align 8, !tbaa !5
-  %514 = getelementptr inbounds ptr, ptr %512, i64 1
-  %515 = load ptr, ptr %514, align 8, !tbaa !5
-  %516 = zext i32 %511 to i64
-  %517 = shl nuw i64 1, %516
-  br label %518
+488:                                              ; preds = %475, %457
+  %489 = phi i32 [ %487, %475 ], [ %459, %457 ]
+  %490 = phi i32 [ %480, %475 ], [ %460, %457 ]
+  %491 = select i1 %469, i32 %471, i32 %470
+  %492 = add nsw i32 %473, %491
+  %493 = mul nsw i32 %373, %492
+  %494 = shl i32 %493, %34
+  %495 = zext i32 %489 to i64
+  %496 = getelementptr inbounds i32, ptr %16, i64 %495
+  store i32 0, ptr %496, align 4, !tbaa !23
+  %497 = add nsw i32 %433, %403
+  %498 = add i32 %494, %464
+  %499 = add i32 %498, %497
+  %500 = sdiv i32 %499, 2
+  store i32 %500, ptr %342, align 8, !tbaa !23
+  %501 = add i32 %403, %464
+  %502 = add i32 %433, %494
+  %503 = sub i32 %501, %502
+  %504 = sdiv i32 %503, 2
+  store i32 %504, ptr %344, align 8, !tbaa !23
+  %505 = sub i32 %497, %498
+  %506 = sdiv i32 %505, 2
+  store i32 %506, ptr %346, align 8, !tbaa !23
+  %507 = add i32 %433, %464
+  %508 = sub i32 %403, %507
+  %509 = add i32 %508, %494
+  %510 = sdiv i32 %509, 2
+  store i32 %510, ptr %348, align 8, !tbaa !23
+  %511 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 53
+  %512 = load ptr, ptr %511, align 8, !tbaa !50
+  %513 = add nsw i32 %0, 4
+  %514 = sext i32 %513 to i64
+  %515 = getelementptr inbounds ptr, ptr %512, i64 %514
+  %516 = load ptr, ptr %515, align 8, !tbaa !5
+  %517 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 110
+  %518 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 90
+  %519 = add nsw i32 %374, 16
+  br label %520
 
-518:                                              ; preds = %482, %572
-  %519 = phi i64 [ 1, %482 ], [ %580, %572 ]
-  %520 = phi i32 [ 0, %482 ], [ %575, %572 ]
-  %521 = phi i32 [ -1, %482 ], [ %574, %572 ]
-  %522 = phi i32 [ 0, %482 ], [ %573, %572 ]
-  %523 = load i32, ptr %509, align 8, !tbaa !137
-  %524 = icmp eq i32 %523, 0
-  br i1 %524, label %525, label %532
+520:                                              ; preds = %488, %685
+  %521 = phi i1 [ true, %488 ], [ false, %685 ]
+  %522 = phi i64 [ 0, %488 ], [ 4, %685 ]
+  %523 = phi i32 [ 0, %488 ], [ %674, %685 ]
+  %524 = lshr exact i64 %522, 1
+  %525 = getelementptr inbounds ptr, ptr %516, i64 %524
+  %526 = load ptr, ptr %525, align 8, !tbaa !5
+  %527 = load ptr, ptr %526, align 8, !tbaa !5
+  %528 = getelementptr inbounds ptr, ptr %526, i64 1
+  %529 = load ptr, ptr %528, align 8, !tbaa !5
+  %530 = trunc i64 %524 to i32
+  %531 = or i32 %519, %530
+  %532 = zext i32 %531 to i64
+  %533 = shl nuw i64 1, %532
+  br label %534
 
-525:                                              ; preds = %518
-  %526 = load i32, ptr @mb_adaptive, align 4, !tbaa !23
-  %527 = icmp eq i32 %526, 0
-  br i1 %527, label %531, label %528
+534:                                              ; preds = %520, %590
+  %535 = phi i64 [ 1, %520 ], [ %600, %590 ]
+  %536 = phi i32 [ 0, %520 ], [ %593, %590 ]
+  %537 = phi i32 [ -1, %520 ], [ %592, %590 ]
+  %538 = phi i32 [ %523, %520 ], [ %591, %590 ]
+  %539 = load i32, ptr %517, align 8, !tbaa !137
+  %540 = icmp eq i32 %539, 0
+  br i1 %540, label %541, label %548
 
-528:                                              ; preds = %525
-  %529 = load i32, ptr %510, align 8, !tbaa !138
-  %530 = icmp eq i32 %529, 0
-  br i1 %530, label %531, label %532
+541:                                              ; preds = %534
+  %542 = load i32, ptr @mb_adaptive, align 4, !tbaa !23
+  %543 = icmp eq i32 %542, 0
+  br i1 %543, label %547, label %544
 
-531:                                              ; preds = %528, %525
-  br label %532
+544:                                              ; preds = %541
+  %545 = load i32, ptr %518, align 8, !tbaa !138
+  %546 = icmp eq i32 %545, 0
+  br i1 %546, label %547, label %548
 
-532:                                              ; preds = %518, %528, %531
-  %533 = phi ptr [ @SNGL_SCAN, %531 ], [ @FIELD_SCAN, %528 ], [ @FIELD_SCAN, %518 ]
-  %534 = getelementptr inbounds [16 x [2 x i8]], ptr %533, i64 0, i64 %519, i64 1
-  %535 = getelementptr inbounds [16 x [2 x i8]], ptr %533, i64 0, i64 %519
-  %536 = load i8, ptr %534, align 1, !tbaa !45
-  %537 = zext i8 %536 to i64
-  %538 = load i8, ptr %535, align 2, !tbaa !45
-  %539 = zext i8 %538 to i64
-  %540 = add nsw i32 %521, 1
-  %541 = zext i8 %538 to i64
-  %542 = getelementptr inbounds [8 x [8 x i32]], ptr %3, i64 0, i64 %541, i64 %537
-  %543 = load i32, ptr %542, align 4, !tbaa !23
-  %544 = tail call i32 @llvm.abs.i32(i32 %543, i1 true)
-  %545 = zext i8 %536 to i64
-  %546 = zext i8 %538 to i64
-  %547 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %367, i64 %545, i64 %546
-  %548 = load i32, ptr %547, align 4, !tbaa !23
-  %549 = mul nsw i32 %544, %548
-  %550 = add nsw i32 %549, %341
-  %551 = ashr i32 %550, %36
-  %552 = zext i8 %536 to i64
-  %553 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %552, i64 %539
-  %554 = load i32, ptr %553, align 4, !tbaa !23
-  %555 = icmp slt i32 %543, 0
-  %556 = tail call i32 @llvm.abs.i32(i32 %551, i1 true)
-  %557 = sub nsw i32 0, %556
-  %558 = select i1 %555, i32 %556, i32 %557
-  %559 = add i32 %558, %554
-  %560 = icmp eq i32 %559, 0
-  br i1 %560, label %572, label %561
+547:                                              ; preds = %544, %541
+  br label %548
 
-561:                                              ; preds = %532
-  %562 = tail call i32 @llvm.abs.i32(i32 %559, i1 true)
-  %563 = load i64, ptr %377, align 8, !tbaa !81
-  %564 = or i64 %563, %517
-  store i64 %564, ptr %377, align 8, !tbaa !81
-  %565 = icmp slt i32 %559, 0
-  %566 = sub nsw i32 0, %562
-  %567 = select i1 %565, i32 %566, i32 %562
-  %568 = sext i32 %520 to i64
-  %569 = getelementptr inbounds i32, ptr %513, i64 %568
-  store i32 %567, ptr %569, align 4, !tbaa !23
-  %570 = getelementptr inbounds i32, ptr %515, i64 %568
-  store i32 %540, ptr %570, align 4, !tbaa !23
-  %571 = add nsw i32 %520, 1
-  br label %572
+548:                                              ; preds = %534, %544, %547
+  %549 = phi ptr [ @SNGL_SCAN, %547 ], [ @FIELD_SCAN, %544 ], [ @FIELD_SCAN, %534 ]
+  %550 = getelementptr inbounds [16 x [2 x i8]], ptr %549, i64 0, i64 %535, i64 1
+  %551 = getelementptr inbounds [16 x [2 x i8]], ptr %549, i64 0, i64 %535
+  %552 = load i8, ptr %550, align 1, !tbaa !45
+  %553 = zext i8 %552 to i64
+  %554 = load i8, ptr %551, align 2, !tbaa !45
+  %555 = zext i8 %554 to i64
+  %556 = add nsw i32 %537, 1
+  %557 = zext i8 %554 to i64
+  %558 = add nuw nsw i64 %522, %553
+  %559 = getelementptr inbounds [8 x [8 x i32]], ptr %3, i64 0, i64 %557, i64 %558
+  %560 = load i32, ptr %559, align 4, !tbaa !23
+  %561 = tail call i32 @llvm.abs.i32(i32 %560, i1 true)
+  %562 = zext i8 %552 to i64
+  %563 = zext i8 %554 to i64
+  %564 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %367, i64 %562, i64 %563
+  %565 = load i32, ptr %564, align 4, !tbaa !23
+  %566 = mul nsw i32 %561, %565
+  %567 = add nsw i32 %566, %341
+  %568 = ashr i32 %567, %36
+  %569 = zext i8 %552 to i64
+  %570 = add nuw nsw i64 %522, %555
+  %571 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %569, i64 %570
+  %572 = load i32, ptr %571, align 4, !tbaa !23
+  %573 = icmp slt i32 %560, 0
+  %574 = tail call i32 @llvm.abs.i32(i32 %568, i1 true)
+  %575 = sub nsw i32 0, %574
+  %576 = select i1 %573, i32 %574, i32 %575
+  %577 = add i32 %576, %572
+  %578 = icmp eq i32 %577, 0
+  br i1 %578, label %590, label %579
 
-572:                                              ; preds = %561, %532
-  %573 = phi i32 [ 2, %561 ], [ %522, %532 ]
-  %574 = phi i32 [ -1, %561 ], [ %540, %532 ]
-  %575 = phi i32 [ %571, %561 ], [ %520, %532 ]
-  %576 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %367, i64 %545, i64 %546
-  %577 = load i32, ptr %576, align 4, !tbaa !23
-  %578 = mul nsw i32 %577, %554
-  %579 = shl i32 %578, %34
-  store i32 %579, ptr %553, align 4, !tbaa !23
-  %580 = add nuw nsw i64 %519, 1
-  %581 = icmp eq i64 %580, 16
-  br i1 %581, label %582, label %518, !llvm.loop !143
+579:                                              ; preds = %548
+  %580 = tail call i32 @llvm.abs.i32(i32 %577, i1 true)
+  %581 = load i64, ptr %377, align 8, !tbaa !81
+  %582 = or i64 %581, %533
+  store i64 %582, ptr %377, align 8, !tbaa !81
+  %583 = icmp slt i32 %577, 0
+  %584 = sub nsw i32 0, %580
+  %585 = select i1 %583, i32 %584, i32 %580
+  %586 = sext i32 %536 to i64
+  %587 = getelementptr inbounds i32, ptr %527, i64 %586
+  store i32 %585, ptr %587, align 4, !tbaa !23
+  %588 = getelementptr inbounds i32, ptr %529, i64 %586
+  store i32 %556, ptr %588, align 4, !tbaa !23
+  %589 = add nsw i32 %536, 1
+  br label %590
 
-582:                                              ; preds = %572
-  %583 = sext i32 %575 to i64
-  %584 = getelementptr inbounds i32, ptr %513, i64 %583
-  store i32 0, ptr %584, align 4, !tbaa !23
-  %585 = getelementptr inbounds ptr, ptr %508, i64 1
-  %586 = load ptr, ptr %585, align 8, !tbaa !5
-  %587 = load ptr, ptr %586, align 8, !tbaa !5
-  %588 = getelementptr inbounds ptr, ptr %586, i64 1
-  %589 = load ptr, ptr %588, align 8, !tbaa !5
-  %590 = or i32 %511, 1
-  %591 = zext i32 %590 to i64
-  %592 = shl nuw i64 1, %591
-  br label %593
+590:                                              ; preds = %579, %548
+  %591 = phi i32 [ 2, %579 ], [ %538, %548 ]
+  %592 = phi i32 [ -1, %579 ], [ %556, %548 ]
+  %593 = phi i32 [ %589, %579 ], [ %536, %548 ]
+  %594 = select i1 %573, i32 %575, i32 %574
+  %595 = add nsw i32 %577, %594
+  %596 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %367, i64 %562, i64 %563
+  %597 = load i32, ptr %596, align 4, !tbaa !23
+  %598 = mul nsw i32 %597, %595
+  %599 = shl i32 %598, %34
+  store i32 %599, ptr %571, align 4, !tbaa !23
+  %600 = add nuw nsw i64 %535, 1
+  %601 = icmp eq i64 %600, 16
+  br i1 %601, label %602, label %534, !llvm.loop !143
 
-593:                                              ; preds = %649, %582
-  %594 = phi i64 [ 1, %582 ], [ %657, %649 ]
-  %595 = phi i32 [ 0, %582 ], [ %652, %649 ]
-  %596 = phi i32 [ -1, %582 ], [ %651, %649 ]
-  %597 = phi i32 [ %573, %582 ], [ %650, %649 ]
-  %598 = load i32, ptr %509, align 8, !tbaa !137
-  %599 = icmp eq i32 %598, 0
-  br i1 %599, label %600, label %607
+602:                                              ; preds = %590
+  %603 = sext i32 %593 to i64
+  %604 = getelementptr inbounds i32, ptr %527, i64 %603
+  store i32 0, ptr %604, align 4, !tbaa !23
+  %605 = or i64 %524, 1
+  %606 = getelementptr inbounds ptr, ptr %516, i64 %605
+  %607 = load ptr, ptr %606, align 8, !tbaa !5
+  %608 = load ptr, ptr %607, align 8, !tbaa !5
+  %609 = getelementptr inbounds ptr, ptr %607, i64 1
+  %610 = load ptr, ptr %609, align 8, !tbaa !5
+  %611 = trunc i64 %605 to i32
+  %612 = or i32 %519, %611
+  %613 = zext i32 %612 to i64
+  %614 = shl nuw i64 1, %613
+  br label %615
 
-600:                                              ; preds = %593
-  %601 = load i32, ptr @mb_adaptive, align 4, !tbaa !23
-  %602 = icmp eq i32 %601, 0
-  br i1 %602, label %606, label %603
+615:                                              ; preds = %673, %602
+  %616 = phi i64 [ 1, %602 ], [ %683, %673 ]
+  %617 = phi i32 [ 0, %602 ], [ %676, %673 ]
+  %618 = phi i32 [ -1, %602 ], [ %675, %673 ]
+  %619 = phi i32 [ %591, %602 ], [ %674, %673 ]
+  %620 = load i32, ptr %517, align 8, !tbaa !137
+  %621 = icmp eq i32 %620, 0
+  br i1 %621, label %622, label %629
 
-603:                                              ; preds = %600
-  %604 = load i32, ptr %510, align 8, !tbaa !138
-  %605 = icmp eq i32 %604, 0
-  br i1 %605, label %606, label %607
+622:                                              ; preds = %615
+  %623 = load i32, ptr @mb_adaptive, align 4, !tbaa !23
+  %624 = icmp eq i32 %623, 0
+  br i1 %624, label %628, label %625
 
-606:                                              ; preds = %603, %600
-  br label %607
+625:                                              ; preds = %622
+  %626 = load i32, ptr %518, align 8, !tbaa !138
+  %627 = icmp eq i32 %626, 0
+  br i1 %627, label %628, label %629
 
-607:                                              ; preds = %593, %603, %606
-  %608 = phi ptr [ @SNGL_SCAN, %606 ], [ @FIELD_SCAN, %603 ], [ @FIELD_SCAN, %593 ]
-  %609 = getelementptr inbounds [16 x [2 x i8]], ptr %608, i64 0, i64 %594, i64 1
-  %610 = getelementptr inbounds [16 x [2 x i8]], ptr %608, i64 0, i64 %594
-  %611 = load i8, ptr %609, align 1, !tbaa !45
-  %612 = zext i8 %611 to i64
-  %613 = load i8, ptr %610, align 2, !tbaa !45
-  %614 = zext i8 %613 to i64
-  %615 = add nsw i32 %596, 1
-  %616 = zext i8 %613 to i64
-  %617 = add nuw nsw i64 %616, 4
-  %618 = getelementptr inbounds [8 x [8 x i32]], ptr %3, i64 0, i64 %617, i64 %612
-  %619 = load i32, ptr %618, align 4, !tbaa !23
-  %620 = tail call i32 @llvm.abs.i32(i32 %619, i1 true)
-  %621 = zext i8 %611 to i64
-  %622 = zext i8 %613 to i64
-  %623 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %367, i64 %621, i64 %622
-  %624 = load i32, ptr %623, align 4, !tbaa !23
-  %625 = mul nsw i32 %620, %624
-  %626 = add nsw i32 %625, %341
-  %627 = ashr i32 %626, %36
-  %628 = zext i8 %611 to i64
-  %629 = add nuw nsw i64 %628, 4
-  %630 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %629, i64 %614
-  %631 = load i32, ptr %630, align 4, !tbaa !23
-  %632 = icmp slt i32 %619, 0
-  %633 = tail call i32 @llvm.abs.i32(i32 %627, i1 true)
-  %634 = sub nsw i32 0, %633
-  %635 = select i1 %632, i32 %633, i32 %634
-  %636 = add i32 %635, %631
-  %637 = icmp eq i32 %636, 0
-  br i1 %637, label %649, label %638
+628:                                              ; preds = %625, %622
+  br label %629
 
-638:                                              ; preds = %607
-  %639 = tail call i32 @llvm.abs.i32(i32 %636, i1 true)
-  %640 = load i64, ptr %377, align 8, !tbaa !81
-  %641 = or i64 %640, %592
-  store i64 %641, ptr %377, align 8, !tbaa !81
-  %642 = icmp slt i32 %636, 0
-  %643 = sub nsw i32 0, %639
-  %644 = select i1 %642, i32 %643, i32 %639
-  %645 = sext i32 %595 to i64
-  %646 = getelementptr inbounds i32, ptr %587, i64 %645
-  store i32 %644, ptr %646, align 4, !tbaa !23
-  %647 = getelementptr inbounds i32, ptr %589, i64 %645
-  store i32 %615, ptr %647, align 4, !tbaa !23
-  %648 = add nsw i32 %595, 1
-  br label %649
+629:                                              ; preds = %615, %625, %628
+  %630 = phi ptr [ @SNGL_SCAN, %628 ], [ @FIELD_SCAN, %625 ], [ @FIELD_SCAN, %615 ]
+  %631 = getelementptr inbounds [16 x [2 x i8]], ptr %630, i64 0, i64 %616, i64 1
+  %632 = getelementptr inbounds [16 x [2 x i8]], ptr %630, i64 0, i64 %616
+  %633 = load i8, ptr %631, align 1, !tbaa !45
+  %634 = zext i8 %633 to i64
+  %635 = load i8, ptr %632, align 2, !tbaa !45
+  %636 = zext i8 %635 to i64
+  %637 = add nsw i32 %618, 1
+  %638 = zext i8 %635 to i64
+  %639 = add nuw nsw i64 %638, 4
+  %640 = add nuw nsw i64 %522, %634
+  %641 = getelementptr inbounds [8 x [8 x i32]], ptr %3, i64 0, i64 %639, i64 %640
+  %642 = load i32, ptr %641, align 4, !tbaa !23
+  %643 = tail call i32 @llvm.abs.i32(i32 %642, i1 true)
+  %644 = zext i8 %633 to i64
+  %645 = zext i8 %635 to i64
+  %646 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %367, i64 %644, i64 %645
+  %647 = load i32, ptr %646, align 4, !tbaa !23
+  %648 = mul nsw i32 %643, %647
+  %649 = add nsw i32 %648, %341
+  %650 = ashr i32 %649, %36
+  %651 = zext i8 %633 to i64
+  %652 = add nuw nsw i64 %651, 4
+  %653 = add nuw nsw i64 %522, %636
+  %654 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %652, i64 %653
+  %655 = load i32, ptr %654, align 4, !tbaa !23
+  %656 = icmp slt i32 %642, 0
+  %657 = tail call i32 @llvm.abs.i32(i32 %650, i1 true)
+  %658 = sub nsw i32 0, %657
+  %659 = select i1 %656, i32 %657, i32 %658
+  %660 = add i32 %659, %655
+  %661 = icmp eq i32 %660, 0
+  br i1 %661, label %673, label %662
 
-649:                                              ; preds = %638, %607
-  %650 = phi i32 [ 2, %638 ], [ %597, %607 ]
-  %651 = phi i32 [ -1, %638 ], [ %615, %607 ]
-  %652 = phi i32 [ %648, %638 ], [ %595, %607 ]
-  %653 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %367, i64 %621, i64 %622
-  %654 = load i32, ptr %653, align 4, !tbaa !23
-  %655 = mul nsw i32 %654, %631
-  %656 = shl i32 %655, %34
-  store i32 %656, ptr %630, align 4, !tbaa !23
-  %657 = add nuw nsw i64 %594, 1
-  %658 = icmp eq i64 %657, 16
-  br i1 %658, label %659, label %593, !llvm.loop !143
+662:                                              ; preds = %629
+  %663 = tail call i32 @llvm.abs.i32(i32 %660, i1 true)
+  %664 = load i64, ptr %377, align 8, !tbaa !81
+  %665 = or i64 %664, %614
+  store i64 %665, ptr %377, align 8, !tbaa !81
+  %666 = icmp slt i32 %660, 0
+  %667 = sub nsw i32 0, %663
+  %668 = select i1 %666, i32 %667, i32 %663
+  %669 = sext i32 %617 to i64
+  %670 = getelementptr inbounds i32, ptr %608, i64 %669
+  store i32 %668, ptr %670, align 4, !tbaa !23
+  %671 = getelementptr inbounds i32, ptr %610, i64 %669
+  store i32 %637, ptr %671, align 4, !tbaa !23
+  %672 = add nsw i32 %617, 1
+  br label %673
 
-659:                                              ; preds = %649
-  %660 = sext i32 %652 to i64
-  %661 = getelementptr inbounds i32, ptr %587, i64 %660
-  store i32 0, ptr %661, align 4, !tbaa !23
-  %662 = getelementptr inbounds ptr, ptr %508, i64 2
-  %663 = load ptr, ptr %662, align 8, !tbaa !5
-  %664 = load ptr, ptr %663, align 8, !tbaa !5
-  %665 = getelementptr inbounds ptr, ptr %663, i64 1
-  %666 = load ptr, ptr %665, align 8, !tbaa !5
-  %667 = or i32 %511, 2
-  %668 = zext i32 %667 to i64
-  %669 = shl nuw i64 1, %668
-  br label %670
+673:                                              ; preds = %662, %629
+  %674 = phi i32 [ 2, %662 ], [ %619, %629 ]
+  %675 = phi i32 [ -1, %662 ], [ %637, %629 ]
+  %676 = phi i32 [ %672, %662 ], [ %617, %629 ]
+  %677 = select i1 %656, i32 %658, i32 %657
+  %678 = add nsw i32 %660, %677
+  %679 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %367, i64 %644, i64 %645
+  %680 = load i32, ptr %679, align 4, !tbaa !23
+  %681 = mul nsw i32 %680, %678
+  %682 = shl i32 %681, %34
+  store i32 %682, ptr %654, align 4, !tbaa !23
+  %683 = add nuw nsw i64 %616, 1
+  %684 = icmp eq i64 %683, 16
+  br i1 %684, label %685, label %615, !llvm.loop !143
 
-670:                                              ; preds = %726, %659
-  %671 = phi i64 [ 1, %659 ], [ %734, %726 ]
-  %672 = phi i32 [ 0, %659 ], [ %729, %726 ]
-  %673 = phi i32 [ -1, %659 ], [ %728, %726 ]
-  %674 = phi i32 [ %650, %659 ], [ %727, %726 ]
-  %675 = load i32, ptr %509, align 8, !tbaa !137
-  %676 = icmp eq i32 %675, 0
-  br i1 %676, label %677, label %684
+685:                                              ; preds = %673
+  %686 = sext i32 %676 to i64
+  %687 = getelementptr inbounds i32, ptr %608, i64 %686
+  store i32 0, ptr %687, align 4, !tbaa !23
+  br i1 %521, label %520, label %688, !llvm.loop !144
 
-677:                                              ; preds = %670
-  %678 = load i32, ptr @mb_adaptive, align 4, !tbaa !23
-  %679 = icmp eq i32 %678, 0
-  br i1 %679, label %683, label %680
+688:                                              ; preds = %685, %1208
+  %689 = phi i1 [ false, %1208 ], [ true, %685 ]
+  %690 = phi i64 [ 4, %1208 ], [ 0, %685 ]
+  %691 = or i64 %690, 1
+  %692 = or i64 %690, 2
+  %693 = or i64 %690, 3
+  br label %999
 
-680:                                              ; preds = %677
-  %681 = load i32, ptr %510, align 8, !tbaa !138
-  %682 = icmp eq i32 %681, 0
-  br i1 %682, label %683, label %684
-
-683:                                              ; preds = %680, %677
-  br label %684
-
-684:                                              ; preds = %683, %680, %670
-  %685 = phi ptr [ @SNGL_SCAN, %683 ], [ @FIELD_SCAN, %680 ], [ @FIELD_SCAN, %670 ]
-  %686 = getelementptr inbounds [16 x [2 x i8]], ptr %685, i64 0, i64 %671, i64 1
-  %687 = getelementptr inbounds [16 x [2 x i8]], ptr %685, i64 0, i64 %671
-  %688 = load i8, ptr %686, align 1, !tbaa !45
-  %689 = zext i8 %688 to i64
-  %690 = load i8, ptr %687, align 2, !tbaa !45
-  %691 = zext i8 %690 to i64
-  %692 = add nsw i32 %673, 1
-  %693 = zext i8 %690 to i64
-  %694 = add nuw nsw i64 %689, 4
-  %695 = getelementptr inbounds [8 x [8 x i32]], ptr %3, i64 0, i64 %693, i64 %694
-  %696 = load i32, ptr %695, align 4, !tbaa !23
-  %697 = tail call i32 @llvm.abs.i32(i32 %696, i1 true)
-  %698 = zext i8 %688 to i64
-  %699 = zext i8 %690 to i64
-  %700 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %367, i64 %698, i64 %699
-  %701 = load i32, ptr %700, align 4, !tbaa !23
-  %702 = mul nsw i32 %697, %701
-  %703 = add nsw i32 %702, %341
-  %704 = ashr i32 %703, %36
-  %705 = zext i8 %688 to i64
-  %706 = add nuw nsw i64 %691, 4
-  %707 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %705, i64 %706
-  %708 = load i32, ptr %707, align 4, !tbaa !23
-  %709 = icmp slt i32 %696, 0
-  %710 = tail call i32 @llvm.abs.i32(i32 %704, i1 true)
-  %711 = sub nsw i32 0, %710
-  %712 = select i1 %709, i32 %710, i32 %711
-  %713 = add i32 %712, %708
-  %714 = icmp eq i32 %713, 0
-  br i1 %714, label %726, label %715
-
-715:                                              ; preds = %684
-  %716 = tail call i32 @llvm.abs.i32(i32 %713, i1 true)
-  %717 = load i64, ptr %377, align 8, !tbaa !81
-  %718 = or i64 %717, %669
-  store i64 %718, ptr %377, align 8, !tbaa !81
-  %719 = icmp slt i32 %713, 0
-  %720 = sub nsw i32 0, %716
-  %721 = select i1 %719, i32 %720, i32 %716
-  %722 = sext i32 %672 to i64
-  %723 = getelementptr inbounds i32, ptr %664, i64 %722
-  store i32 %721, ptr %723, align 4, !tbaa !23
-  %724 = getelementptr inbounds i32, ptr %666, i64 %722
-  store i32 %692, ptr %724, align 4, !tbaa !23
-  %725 = add nsw i32 %672, 1
-  br label %726
-
-726:                                              ; preds = %715, %684
-  %727 = phi i32 [ 2, %715 ], [ %674, %684 ]
-  %728 = phi i32 [ -1, %715 ], [ %692, %684 ]
-  %729 = phi i32 [ %725, %715 ], [ %672, %684 ]
-  %730 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %367, i64 %698, i64 %699
-  %731 = load i32, ptr %730, align 4, !tbaa !23
-  %732 = mul nsw i32 %731, %708
-  %733 = shl i32 %732, %34
-  store i32 %733, ptr %707, align 4, !tbaa !23
-  %734 = add nuw nsw i64 %671, 1
-  %735 = icmp eq i64 %734, 16
-  br i1 %735, label %736, label %670, !llvm.loop !143
-
-736:                                              ; preds = %726
-  %737 = sext i32 %729 to i64
-  %738 = getelementptr inbounds i32, ptr %664, i64 %737
-  store i32 0, ptr %738, align 4, !tbaa !23
-  %739 = getelementptr inbounds ptr, ptr %508, i64 3
-  %740 = load ptr, ptr %739, align 8, !tbaa !5
-  %741 = load ptr, ptr %740, align 8, !tbaa !5
-  %742 = getelementptr inbounds ptr, ptr %740, i64 1
-  %743 = load ptr, ptr %742, align 8, !tbaa !5
-  %744 = or i32 %511, 3
-  %745 = zext i32 %744 to i64
-  %746 = shl nuw i64 1, %745
-  br label %747
-
-747:                                              ; preds = %805, %736
-  %748 = phi i64 [ 1, %736 ], [ %813, %805 ]
-  %749 = phi i32 [ 0, %736 ], [ %808, %805 ]
-  %750 = phi i32 [ -1, %736 ], [ %807, %805 ]
-  %751 = phi i32 [ %727, %736 ], [ %806, %805 ]
-  %752 = load i32, ptr %509, align 8, !tbaa !137
-  %753 = icmp eq i32 %752, 0
-  br i1 %753, label %754, label %761
-
-754:                                              ; preds = %747
-  %755 = load i32, ptr @mb_adaptive, align 4, !tbaa !23
-  %756 = icmp eq i32 %755, 0
-  br i1 %756, label %760, label %757
-
-757:                                              ; preds = %754
-  %758 = load i32, ptr %510, align 8, !tbaa !138
-  %759 = icmp eq i32 %758, 0
-  br i1 %759, label %760, label %761
-
-760:                                              ; preds = %757, %754
-  br label %761
-
-761:                                              ; preds = %760, %757, %747
-  %762 = phi ptr [ @SNGL_SCAN, %760 ], [ @FIELD_SCAN, %757 ], [ @FIELD_SCAN, %747 ]
-  %763 = getelementptr inbounds [16 x [2 x i8]], ptr %762, i64 0, i64 %748, i64 1
-  %764 = getelementptr inbounds [16 x [2 x i8]], ptr %762, i64 0, i64 %748
-  %765 = load i8, ptr %763, align 1, !tbaa !45
-  %766 = zext i8 %765 to i64
-  %767 = load i8, ptr %764, align 2, !tbaa !45
-  %768 = zext i8 %767 to i64
-  %769 = add nsw i32 %750, 1
-  %770 = zext i8 %767 to i64
-  %771 = add nuw nsw i64 %770, 4
-  %772 = add nuw nsw i64 %766, 4
-  %773 = getelementptr inbounds [8 x [8 x i32]], ptr %3, i64 0, i64 %771, i64 %772
+694:                                              ; preds = %1208
+  %695 = load ptr, ptr @enc_picture, align 8, !tbaa !5
+  %696 = getelementptr inbounds %struct.storable_picture, ptr %695, i64 0, i32 33
+  %697 = load ptr, ptr %696, align 8, !tbaa !97
+  %698 = getelementptr inbounds ptr, ptr %697, i64 %39
+  %699 = load ptr, ptr %698, align 8, !tbaa !5
+  %700 = load i32, ptr %42, align 4, !tbaa !89
+  %701 = load i32, ptr %43, align 8, !tbaa !96
+  %702 = sext i32 %700 to i64
+  %703 = sext i32 %701 to i64
+  %704 = add nsw i64 %703, 4
+  %705 = load i32, ptr %342, align 4, !tbaa !23
+  %706 = trunc i32 %705 to i16
+  %707 = getelementptr inbounds ptr, ptr %699, i64 %702
+  %708 = load ptr, ptr %707, align 8, !tbaa !5
+  %709 = getelementptr inbounds i16, ptr %708, i64 %703
+  store i16 %706, ptr %709, align 2, !tbaa !26
+  %710 = load i32, ptr %344, align 4, !tbaa !23
+  %711 = trunc i32 %710 to i16
+  %712 = getelementptr inbounds i16, ptr %708, i64 %704
+  store i16 %711, ptr %712, align 2, !tbaa !26
+  %713 = load i32, ptr %346, align 4, !tbaa !23
+  %714 = trunc i32 %713 to i16
+  %715 = add nsw i64 %702, 4
+  %716 = getelementptr inbounds ptr, ptr %699, i64 %715
+  %717 = load ptr, ptr %716, align 8, !tbaa !5
+  %718 = getelementptr inbounds i16, ptr %717, i64 %703
+  store i16 %714, ptr %718, align 2, !tbaa !26
+  %719 = load i32, ptr %348, align 4, !tbaa !23
+  %720 = trunc i32 %719 to i16
+  %721 = getelementptr inbounds i16, ptr %717, i64 %704
+  store i16 %720, ptr %721, align 2, !tbaa !26
+  %722 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 0
+  %723 = load i32, ptr %722, align 4, !tbaa !23
+  %724 = trunc i32 %723 to i16
+  %725 = add nsw i64 %702, 1
+  %726 = getelementptr inbounds ptr, ptr %699, i64 %725
+  %727 = load ptr, ptr %726, align 8, !tbaa !5
+  %728 = getelementptr inbounds i16, ptr %727, i64 %703
+  store i16 %724, ptr %728, align 2, !tbaa !26
+  %729 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 0
+  %730 = load i32, ptr %729, align 4, !tbaa !23
+  %731 = trunc i32 %730 to i16
+  %732 = getelementptr inbounds i16, ptr %727, i64 %704
+  store i16 %731, ptr %732, align 2, !tbaa !26
+  %733 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 4
+  %734 = load i32, ptr %733, align 4, !tbaa !23
+  %735 = trunc i32 %734 to i16
+  %736 = add nsw i64 %702, 5
+  %737 = getelementptr inbounds ptr, ptr %699, i64 %736
+  %738 = load ptr, ptr %737, align 8, !tbaa !5
+  %739 = getelementptr inbounds i16, ptr %738, i64 %703
+  store i16 %735, ptr %739, align 2, !tbaa !26
+  %740 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 4
+  %741 = load i32, ptr %740, align 4, !tbaa !23
+  %742 = trunc i32 %741 to i16
+  %743 = getelementptr inbounds i16, ptr %738, i64 %704
+  store i16 %742, ptr %743, align 2, !tbaa !26
+  %744 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 0
+  %745 = load i32, ptr %744, align 4, !tbaa !23
+  %746 = trunc i32 %745 to i16
+  %747 = add nsw i64 %702, 2
+  %748 = getelementptr inbounds ptr, ptr %699, i64 %747
+  %749 = load ptr, ptr %748, align 8, !tbaa !5
+  %750 = getelementptr inbounds i16, ptr %749, i64 %703
+  store i16 %746, ptr %750, align 2, !tbaa !26
+  %751 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 0
+  %752 = load i32, ptr %751, align 4, !tbaa !23
+  %753 = trunc i32 %752 to i16
+  %754 = getelementptr inbounds i16, ptr %749, i64 %704
+  store i16 %753, ptr %754, align 2, !tbaa !26
+  %755 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 4
+  %756 = load i32, ptr %755, align 4, !tbaa !23
+  %757 = trunc i32 %756 to i16
+  %758 = add nsw i64 %702, 6
+  %759 = getelementptr inbounds ptr, ptr %699, i64 %758
+  %760 = load ptr, ptr %759, align 8, !tbaa !5
+  %761 = getelementptr inbounds i16, ptr %760, i64 %703
+  store i16 %757, ptr %761, align 2, !tbaa !26
+  %762 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 4
+  %763 = load i32, ptr %762, align 4, !tbaa !23
+  %764 = trunc i32 %763 to i16
+  %765 = getelementptr inbounds i16, ptr %760, i64 %704
+  store i16 %764, ptr %765, align 2, !tbaa !26
+  %766 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 0
+  %767 = load i32, ptr %766, align 4, !tbaa !23
+  %768 = trunc i32 %767 to i16
+  %769 = add nsw i64 %702, 3
+  %770 = getelementptr inbounds ptr, ptr %699, i64 %769
+  %771 = load ptr, ptr %770, align 8, !tbaa !5
+  %772 = getelementptr inbounds i16, ptr %771, i64 %703
+  store i16 %768, ptr %772, align 2, !tbaa !26
+  %773 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 0
   %774 = load i32, ptr %773, align 4, !tbaa !23
-  %775 = tail call i32 @llvm.abs.i32(i32 %774, i1 true)
-  %776 = zext i8 %765 to i64
-  %777 = zext i8 %767 to i64
-  %778 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @quant_coef, i64 0, i64 %367, i64 %776, i64 %777
-  %779 = load i32, ptr %778, align 4, !tbaa !23
-  %780 = mul nsw i32 %775, %779
-  %781 = add nsw i32 %780, %341
-  %782 = ashr i32 %781, %36
-  %783 = zext i8 %765 to i64
-  %784 = add nuw nsw i64 %783, 4
-  %785 = add nuw nsw i64 %768, 4
-  %786 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %784, i64 %785
-  %787 = load i32, ptr %786, align 4, !tbaa !23
-  %788 = icmp slt i32 %774, 0
-  %789 = tail call i32 @llvm.abs.i32(i32 %782, i1 true)
-  %790 = sub nsw i32 0, %789
-  %791 = select i1 %788, i32 %789, i32 %790
-  %792 = add i32 %791, %787
-  %793 = icmp eq i32 %792, 0
-  br i1 %793, label %805, label %794
-
-794:                                              ; preds = %761
-  %795 = tail call i32 @llvm.abs.i32(i32 %792, i1 true)
-  %796 = load i64, ptr %377, align 8, !tbaa !81
-  %797 = or i64 %796, %746
-  store i64 %797, ptr %377, align 8, !tbaa !81
-  %798 = icmp slt i32 %792, 0
-  %799 = sub nsw i32 0, %795
-  %800 = select i1 %798, i32 %799, i32 %795
-  %801 = sext i32 %749 to i64
-  %802 = getelementptr inbounds i32, ptr %741, i64 %801
-  store i32 %800, ptr %802, align 4, !tbaa !23
-  %803 = getelementptr inbounds i32, ptr %743, i64 %801
-  store i32 %769, ptr %803, align 4, !tbaa !23
-  %804 = add nsw i32 %749, 1
-  br label %805
-
-805:                                              ; preds = %794, %761
-  %806 = phi i32 [ 2, %794 ], [ %751, %761 ]
-  %807 = phi i32 [ -1, %794 ], [ %769, %761 ]
-  %808 = phi i32 [ %804, %794 ], [ %749, %761 ]
-  %809 = getelementptr inbounds [6 x [4 x [4 x i32]]], ptr @dequant_coef, i64 0, i64 %367, i64 %776, i64 %777
-  %810 = load i32, ptr %809, align 4, !tbaa !23
-  %811 = mul nsw i32 %810, %787
-  %812 = shl i32 %811, %34
-  store i32 %812, ptr %786, align 4, !tbaa !23
-  %813 = add nuw nsw i64 %748, 1
-  %814 = icmp eq i64 %813, 16
-  br i1 %814, label %815, label %747, !llvm.loop !143
-
-815:                                              ; preds = %805
-  %816 = sext i32 %808 to i64
-  %817 = getelementptr inbounds i32, ptr %741, i64 %816
-  store i32 0, ptr %817, align 4, !tbaa !23
-  br label %818
-
-818:                                              ; preds = %815, %1338
-  %819 = phi i1 [ false, %1338 ], [ true, %815 ]
-  %820 = phi i64 [ 4, %1338 ], [ 0, %815 ]
-  %821 = or i64 %820, 1
-  %822 = or i64 %820, 2
-  %823 = or i64 %820, 3
-  br label %1129
-
-824:                                              ; preds = %1338
-  %825 = load ptr, ptr @enc_picture, align 8, !tbaa !5
-  %826 = getelementptr inbounds %struct.storable_picture, ptr %825, i64 0, i32 33
-  %827 = load ptr, ptr %826, align 8, !tbaa !97
-  %828 = getelementptr inbounds ptr, ptr %827, i64 %39
-  %829 = load ptr, ptr %828, align 8, !tbaa !5
-  %830 = load i32, ptr %42, align 4, !tbaa !89
-  %831 = load i32, ptr %43, align 8, !tbaa !96
-  %832 = sext i32 %830 to i64
-  %833 = sext i32 %831 to i64
-  %834 = add nsw i64 %833, 4
-  %835 = load i32, ptr %342, align 4, !tbaa !23
-  %836 = trunc i32 %835 to i16
-  %837 = getelementptr inbounds ptr, ptr %829, i64 %832
-  %838 = load ptr, ptr %837, align 8, !tbaa !5
-  %839 = getelementptr inbounds i16, ptr %838, i64 %833
-  store i16 %836, ptr %839, align 2, !tbaa !26
-  %840 = load i32, ptr %344, align 4, !tbaa !23
-  %841 = trunc i32 %840 to i16
-  %842 = getelementptr inbounds i16, ptr %838, i64 %834
-  store i16 %841, ptr %842, align 2, !tbaa !26
-  %843 = load i32, ptr %346, align 4, !tbaa !23
-  %844 = trunc i32 %843 to i16
-  %845 = add nsw i64 %832, 4
-  %846 = getelementptr inbounds ptr, ptr %829, i64 %845
-  %847 = load ptr, ptr %846, align 8, !tbaa !5
-  %848 = getelementptr inbounds i16, ptr %847, i64 %833
-  store i16 %844, ptr %848, align 2, !tbaa !26
-  %849 = load i32, ptr %348, align 4, !tbaa !23
-  %850 = trunc i32 %849 to i16
-  %851 = getelementptr inbounds i16, ptr %847, i64 %834
-  store i16 %850, ptr %851, align 2, !tbaa !26
-  %852 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 0
-  %853 = load i32, ptr %852, align 4, !tbaa !23
-  %854 = trunc i32 %853 to i16
-  %855 = add nsw i64 %832, 1
-  %856 = getelementptr inbounds ptr, ptr %829, i64 %855
-  %857 = load ptr, ptr %856, align 8, !tbaa !5
-  %858 = getelementptr inbounds i16, ptr %857, i64 %833
-  store i16 %854, ptr %858, align 2, !tbaa !26
-  %859 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 0
+  %775 = trunc i32 %774 to i16
+  %776 = getelementptr inbounds i16, ptr %771, i64 %704
+  store i16 %775, ptr %776, align 2, !tbaa !26
+  %777 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 4
+  %778 = load i32, ptr %777, align 4, !tbaa !23
+  %779 = trunc i32 %778 to i16
+  %780 = add nsw i64 %702, 7
+  %781 = getelementptr inbounds ptr, ptr %699, i64 %780
+  %782 = load ptr, ptr %781, align 8, !tbaa !5
+  %783 = getelementptr inbounds i16, ptr %782, i64 %703
+  store i16 %779, ptr %783, align 2, !tbaa !26
+  %784 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 4
+  %785 = load i32, ptr %784, align 4, !tbaa !23
+  %786 = trunc i32 %785 to i16
+  %787 = getelementptr inbounds i16, ptr %782, i64 %704
+  store i16 %786, ptr %787, align 2, !tbaa !26
+  %788 = add nsw i64 %703, 1
+  %789 = add nsw i64 %703, 5
+  %790 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 1
+  %791 = load i32, ptr %790, align 4, !tbaa !23
+  %792 = trunc i32 %791 to i16
+  %793 = load ptr, ptr %707, align 8, !tbaa !5
+  %794 = getelementptr inbounds i16, ptr %793, i64 %788
+  store i16 %792, ptr %794, align 2, !tbaa !26
+  %795 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 1
+  %796 = load i32, ptr %795, align 4, !tbaa !23
+  %797 = trunc i32 %796 to i16
+  %798 = getelementptr inbounds i16, ptr %793, i64 %789
+  store i16 %797, ptr %798, align 2, !tbaa !26
+  %799 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 5
+  %800 = load i32, ptr %799, align 4, !tbaa !23
+  %801 = trunc i32 %800 to i16
+  %802 = load ptr, ptr %716, align 8, !tbaa !5
+  %803 = getelementptr inbounds i16, ptr %802, i64 %788
+  store i16 %801, ptr %803, align 2, !tbaa !26
+  %804 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 5
+  %805 = load i32, ptr %804, align 4, !tbaa !23
+  %806 = trunc i32 %805 to i16
+  %807 = getelementptr inbounds i16, ptr %802, i64 %789
+  store i16 %806, ptr %807, align 2, !tbaa !26
+  %808 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 1
+  %809 = load i32, ptr %808, align 4, !tbaa !23
+  %810 = trunc i32 %809 to i16
+  %811 = load ptr, ptr %726, align 8, !tbaa !5
+  %812 = getelementptr inbounds i16, ptr %811, i64 %788
+  store i16 %810, ptr %812, align 2, !tbaa !26
+  %813 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 1
+  %814 = load i32, ptr %813, align 4, !tbaa !23
+  %815 = trunc i32 %814 to i16
+  %816 = getelementptr inbounds i16, ptr %811, i64 %789
+  store i16 %815, ptr %816, align 2, !tbaa !26
+  %817 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 5
+  %818 = load i32, ptr %817, align 4, !tbaa !23
+  %819 = trunc i32 %818 to i16
+  %820 = getelementptr inbounds i16, ptr %738, i64 %788
+  store i16 %819, ptr %820, align 2, !tbaa !26
+  %821 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 5
+  %822 = load i32, ptr %821, align 4, !tbaa !23
+  %823 = trunc i32 %822 to i16
+  %824 = getelementptr inbounds i16, ptr %738, i64 %789
+  store i16 %823, ptr %824, align 2, !tbaa !26
+  %825 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 1
+  %826 = load i32, ptr %825, align 4, !tbaa !23
+  %827 = trunc i32 %826 to i16
+  %828 = getelementptr inbounds i16, ptr %749, i64 %788
+  store i16 %827, ptr %828, align 2, !tbaa !26
+  %829 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 1
+  %830 = load i32, ptr %829, align 4, !tbaa !23
+  %831 = trunc i32 %830 to i16
+  %832 = getelementptr inbounds i16, ptr %749, i64 %789
+  store i16 %831, ptr %832, align 2, !tbaa !26
+  %833 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 5
+  %834 = load i32, ptr %833, align 4, !tbaa !23
+  %835 = trunc i32 %834 to i16
+  %836 = getelementptr inbounds i16, ptr %760, i64 %788
+  store i16 %835, ptr %836, align 2, !tbaa !26
+  %837 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 5
+  %838 = load i32, ptr %837, align 4, !tbaa !23
+  %839 = trunc i32 %838 to i16
+  %840 = getelementptr inbounds i16, ptr %760, i64 %789
+  store i16 %839, ptr %840, align 2, !tbaa !26
+  %841 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 1
+  %842 = load i32, ptr %841, align 4, !tbaa !23
+  %843 = trunc i32 %842 to i16
+  %844 = getelementptr inbounds i16, ptr %771, i64 %788
+  store i16 %843, ptr %844, align 2, !tbaa !26
+  %845 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 1
+  %846 = load i32, ptr %845, align 4, !tbaa !23
+  %847 = trunc i32 %846 to i16
+  %848 = getelementptr inbounds i16, ptr %771, i64 %789
+  store i16 %847, ptr %848, align 2, !tbaa !26
+  %849 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 5
+  %850 = load i32, ptr %849, align 4, !tbaa !23
+  %851 = trunc i32 %850 to i16
+  %852 = getelementptr inbounds i16, ptr %782, i64 %788
+  store i16 %851, ptr %852, align 2, !tbaa !26
+  %853 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 5
+  %854 = load i32, ptr %853, align 4, !tbaa !23
+  %855 = trunc i32 %854 to i16
+  %856 = getelementptr inbounds i16, ptr %782, i64 %789
+  store i16 %855, ptr %856, align 2, !tbaa !26
+  %857 = add nsw i64 %703, 2
+  %858 = add nsw i64 %703, 6
+  %859 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 2
   %860 = load i32, ptr %859, align 4, !tbaa !23
   %861 = trunc i32 %860 to i16
-  %862 = getelementptr inbounds i16, ptr %857, i64 %834
+  %862 = getelementptr inbounds i16, ptr %793, i64 %857
   store i16 %861, ptr %862, align 2, !tbaa !26
-  %863 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 4
+  %863 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 2
   %864 = load i32, ptr %863, align 4, !tbaa !23
   %865 = trunc i32 %864 to i16
-  %866 = add nsw i64 %832, 5
-  %867 = getelementptr inbounds ptr, ptr %829, i64 %866
-  %868 = load ptr, ptr %867, align 8, !tbaa !5
-  %869 = getelementptr inbounds i16, ptr %868, i64 %833
-  store i16 %865, ptr %869, align 2, !tbaa !26
-  %870 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 4
-  %871 = load i32, ptr %870, align 4, !tbaa !23
-  %872 = trunc i32 %871 to i16
-  %873 = getelementptr inbounds i16, ptr %868, i64 %834
-  store i16 %872, ptr %873, align 2, !tbaa !26
-  %874 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 0
-  %875 = load i32, ptr %874, align 4, !tbaa !23
-  %876 = trunc i32 %875 to i16
-  %877 = add nsw i64 %832, 2
-  %878 = getelementptr inbounds ptr, ptr %829, i64 %877
-  %879 = load ptr, ptr %878, align 8, !tbaa !5
-  %880 = getelementptr inbounds i16, ptr %879, i64 %833
-  store i16 %876, ptr %880, align 2, !tbaa !26
-  %881 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 0
-  %882 = load i32, ptr %881, align 4, !tbaa !23
-  %883 = trunc i32 %882 to i16
-  %884 = getelementptr inbounds i16, ptr %879, i64 %834
-  store i16 %883, ptr %884, align 2, !tbaa !26
-  %885 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 4
-  %886 = load i32, ptr %885, align 4, !tbaa !23
-  %887 = trunc i32 %886 to i16
-  %888 = add nsw i64 %832, 6
-  %889 = getelementptr inbounds ptr, ptr %829, i64 %888
-  %890 = load ptr, ptr %889, align 8, !tbaa !5
-  %891 = getelementptr inbounds i16, ptr %890, i64 %833
-  store i16 %887, ptr %891, align 2, !tbaa !26
-  %892 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 4
+  %866 = getelementptr inbounds i16, ptr %793, i64 %858
+  store i16 %865, ptr %866, align 2, !tbaa !26
+  %867 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 6
+  %868 = load i32, ptr %867, align 4, !tbaa !23
+  %869 = trunc i32 %868 to i16
+  %870 = getelementptr inbounds i16, ptr %802, i64 %857
+  store i16 %869, ptr %870, align 2, !tbaa !26
+  %871 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 6
+  %872 = load i32, ptr %871, align 4, !tbaa !23
+  %873 = trunc i32 %872 to i16
+  %874 = getelementptr inbounds i16, ptr %802, i64 %858
+  store i16 %873, ptr %874, align 2, !tbaa !26
+  %875 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 2
+  %876 = load i32, ptr %875, align 4, !tbaa !23
+  %877 = trunc i32 %876 to i16
+  %878 = getelementptr inbounds i16, ptr %811, i64 %857
+  store i16 %877, ptr %878, align 2, !tbaa !26
+  %879 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 2
+  %880 = load i32, ptr %879, align 4, !tbaa !23
+  %881 = trunc i32 %880 to i16
+  %882 = getelementptr inbounds i16, ptr %811, i64 %858
+  store i16 %881, ptr %882, align 2, !tbaa !26
+  %883 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 6
+  %884 = load i32, ptr %883, align 4, !tbaa !23
+  %885 = trunc i32 %884 to i16
+  %886 = load ptr, ptr %737, align 8, !tbaa !5
+  %887 = getelementptr inbounds i16, ptr %886, i64 %857
+  store i16 %885, ptr %887, align 2, !tbaa !26
+  %888 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 6
+  %889 = load i32, ptr %888, align 4, !tbaa !23
+  %890 = trunc i32 %889 to i16
+  %891 = getelementptr inbounds i16, ptr %886, i64 %858
+  store i16 %890, ptr %891, align 2, !tbaa !26
+  %892 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 2
   %893 = load i32, ptr %892, align 4, !tbaa !23
   %894 = trunc i32 %893 to i16
-  %895 = getelementptr inbounds i16, ptr %890, i64 %834
-  store i16 %894, ptr %895, align 2, !tbaa !26
-  %896 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 0
-  %897 = load i32, ptr %896, align 4, !tbaa !23
-  %898 = trunc i32 %897 to i16
-  %899 = add nsw i64 %832, 3
-  %900 = getelementptr inbounds ptr, ptr %829, i64 %899
-  %901 = load ptr, ptr %900, align 8, !tbaa !5
-  %902 = getelementptr inbounds i16, ptr %901, i64 %833
-  store i16 %898, ptr %902, align 2, !tbaa !26
-  %903 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 0
-  %904 = load i32, ptr %903, align 4, !tbaa !23
-  %905 = trunc i32 %904 to i16
-  %906 = getelementptr inbounds i16, ptr %901, i64 %834
-  store i16 %905, ptr %906, align 2, !tbaa !26
-  %907 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 4
-  %908 = load i32, ptr %907, align 4, !tbaa !23
-  %909 = trunc i32 %908 to i16
-  %910 = add nsw i64 %832, 7
-  %911 = getelementptr inbounds ptr, ptr %829, i64 %910
-  %912 = load ptr, ptr %911, align 8, !tbaa !5
-  %913 = getelementptr inbounds i16, ptr %912, i64 %833
-  store i16 %909, ptr %913, align 2, !tbaa !26
-  %914 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 4
-  %915 = load i32, ptr %914, align 4, !tbaa !23
-  %916 = trunc i32 %915 to i16
-  %917 = getelementptr inbounds i16, ptr %912, i64 %834
-  store i16 %916, ptr %917, align 2, !tbaa !26
-  %918 = add nsw i64 %833, 1
-  %919 = add nsw i64 %833, 5
-  %920 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 1
-  %921 = load i32, ptr %920, align 4, !tbaa !23
-  %922 = trunc i32 %921 to i16
-  %923 = load ptr, ptr %837, align 8, !tbaa !5
-  %924 = getelementptr inbounds i16, ptr %923, i64 %918
-  store i16 %922, ptr %924, align 2, !tbaa !26
-  %925 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 1
-  %926 = load i32, ptr %925, align 4, !tbaa !23
-  %927 = trunc i32 %926 to i16
-  %928 = getelementptr inbounds i16, ptr %923, i64 %919
-  store i16 %927, ptr %928, align 2, !tbaa !26
-  %929 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 5
-  %930 = load i32, ptr %929, align 4, !tbaa !23
-  %931 = trunc i32 %930 to i16
-  %932 = load ptr, ptr %846, align 8, !tbaa !5
-  %933 = getelementptr inbounds i16, ptr %932, i64 %918
-  store i16 %931, ptr %933, align 2, !tbaa !26
-  %934 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 5
-  %935 = load i32, ptr %934, align 4, !tbaa !23
-  %936 = trunc i32 %935 to i16
-  %937 = getelementptr inbounds i16, ptr %932, i64 %919
-  store i16 %936, ptr %937, align 2, !tbaa !26
-  %938 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 1
-  %939 = load i32, ptr %938, align 4, !tbaa !23
-  %940 = trunc i32 %939 to i16
-  %941 = load ptr, ptr %856, align 8, !tbaa !5
-  %942 = getelementptr inbounds i16, ptr %941, i64 %918
-  store i16 %940, ptr %942, align 2, !tbaa !26
-  %943 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 1
-  %944 = load i32, ptr %943, align 4, !tbaa !23
-  %945 = trunc i32 %944 to i16
-  %946 = getelementptr inbounds i16, ptr %941, i64 %919
-  store i16 %945, ptr %946, align 2, !tbaa !26
-  %947 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 5
-  %948 = load i32, ptr %947, align 4, !tbaa !23
-  %949 = trunc i32 %948 to i16
-  %950 = getelementptr inbounds i16, ptr %868, i64 %918
-  store i16 %949, ptr %950, align 2, !tbaa !26
-  %951 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 5
-  %952 = load i32, ptr %951, align 4, !tbaa !23
-  %953 = trunc i32 %952 to i16
-  %954 = getelementptr inbounds i16, ptr %868, i64 %919
-  store i16 %953, ptr %954, align 2, !tbaa !26
-  %955 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 1
-  %956 = load i32, ptr %955, align 4, !tbaa !23
-  %957 = trunc i32 %956 to i16
-  %958 = getelementptr inbounds i16, ptr %879, i64 %918
-  store i16 %957, ptr %958, align 2, !tbaa !26
-  %959 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 1
-  %960 = load i32, ptr %959, align 4, !tbaa !23
-  %961 = trunc i32 %960 to i16
-  %962 = getelementptr inbounds i16, ptr %879, i64 %919
-  store i16 %961, ptr %962, align 2, !tbaa !26
-  %963 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 5
-  %964 = load i32, ptr %963, align 4, !tbaa !23
-  %965 = trunc i32 %964 to i16
-  %966 = getelementptr inbounds i16, ptr %890, i64 %918
-  store i16 %965, ptr %966, align 2, !tbaa !26
-  %967 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 5
-  %968 = load i32, ptr %967, align 4, !tbaa !23
-  %969 = trunc i32 %968 to i16
-  %970 = getelementptr inbounds i16, ptr %890, i64 %919
-  store i16 %969, ptr %970, align 2, !tbaa !26
-  %971 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 1
-  %972 = load i32, ptr %971, align 4, !tbaa !23
-  %973 = trunc i32 %972 to i16
-  %974 = getelementptr inbounds i16, ptr %901, i64 %918
-  store i16 %973, ptr %974, align 2, !tbaa !26
-  %975 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 1
-  %976 = load i32, ptr %975, align 4, !tbaa !23
-  %977 = trunc i32 %976 to i16
-  %978 = getelementptr inbounds i16, ptr %901, i64 %919
-  store i16 %977, ptr %978, align 2, !tbaa !26
-  %979 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 5
-  %980 = load i32, ptr %979, align 4, !tbaa !23
-  %981 = trunc i32 %980 to i16
-  %982 = getelementptr inbounds i16, ptr %912, i64 %918
-  store i16 %981, ptr %982, align 2, !tbaa !26
-  %983 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 5
-  %984 = load i32, ptr %983, align 4, !tbaa !23
-  %985 = trunc i32 %984 to i16
-  %986 = getelementptr inbounds i16, ptr %912, i64 %919
-  store i16 %985, ptr %986, align 2, !tbaa !26
-  %987 = add nsw i64 %833, 2
-  %988 = add nsw i64 %833, 6
-  %989 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 2
+  %895 = load ptr, ptr %748, align 8, !tbaa !5
+  %896 = getelementptr inbounds i16, ptr %895, i64 %857
+  store i16 %894, ptr %896, align 2, !tbaa !26
+  %897 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 2
+  %898 = load i32, ptr %897, align 4, !tbaa !23
+  %899 = trunc i32 %898 to i16
+  %900 = getelementptr inbounds i16, ptr %895, i64 %858
+  store i16 %899, ptr %900, align 2, !tbaa !26
+  %901 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 6
+  %902 = load i32, ptr %901, align 4, !tbaa !23
+  %903 = trunc i32 %902 to i16
+  %904 = load ptr, ptr %759, align 8, !tbaa !5
+  %905 = getelementptr inbounds i16, ptr %904, i64 %857
+  store i16 %903, ptr %905, align 2, !tbaa !26
+  %906 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 6
+  %907 = load i32, ptr %906, align 4, !tbaa !23
+  %908 = trunc i32 %907 to i16
+  %909 = getelementptr inbounds i16, ptr %904, i64 %858
+  store i16 %908, ptr %909, align 2, !tbaa !26
+  %910 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 2
+  %911 = load i32, ptr %910, align 4, !tbaa !23
+  %912 = trunc i32 %911 to i16
+  %913 = load ptr, ptr %770, align 8, !tbaa !5
+  %914 = getelementptr inbounds i16, ptr %913, i64 %857
+  store i16 %912, ptr %914, align 2, !tbaa !26
+  %915 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 2
+  %916 = load i32, ptr %915, align 4, !tbaa !23
+  %917 = trunc i32 %916 to i16
+  %918 = getelementptr inbounds i16, ptr %913, i64 %858
+  store i16 %917, ptr %918, align 2, !tbaa !26
+  %919 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 6
+  %920 = load i32, ptr %919, align 4, !tbaa !23
+  %921 = trunc i32 %920 to i16
+  %922 = load ptr, ptr %781, align 8, !tbaa !5
+  %923 = getelementptr inbounds i16, ptr %922, i64 %857
+  store i16 %921, ptr %923, align 2, !tbaa !26
+  %924 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 6
+  %925 = load i32, ptr %924, align 4, !tbaa !23
+  %926 = trunc i32 %925 to i16
+  %927 = getelementptr inbounds i16, ptr %922, i64 %858
+  store i16 %926, ptr %927, align 2, !tbaa !26
+  %928 = add nsw i64 %703, 3
+  %929 = add nsw i64 %703, 7
+  %930 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 3
+  %931 = load i32, ptr %930, align 4, !tbaa !23
+  %932 = trunc i32 %931 to i16
+  %933 = load ptr, ptr %707, align 8, !tbaa !5
+  %934 = getelementptr inbounds i16, ptr %933, i64 %928
+  store i16 %932, ptr %934, align 2, !tbaa !26
+  %935 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 3
+  %936 = load i32, ptr %935, align 4, !tbaa !23
+  %937 = trunc i32 %936 to i16
+  %938 = getelementptr inbounds i16, ptr %933, i64 %929
+  store i16 %937, ptr %938, align 2, !tbaa !26
+  %939 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 7
+  %940 = load i32, ptr %939, align 4, !tbaa !23
+  %941 = trunc i32 %940 to i16
+  %942 = load ptr, ptr %716, align 8, !tbaa !5
+  %943 = getelementptr inbounds i16, ptr %942, i64 %928
+  store i16 %941, ptr %943, align 2, !tbaa !26
+  %944 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 7
+  %945 = load i32, ptr %944, align 4, !tbaa !23
+  %946 = trunc i32 %945 to i16
+  %947 = getelementptr inbounds i16, ptr %942, i64 %929
+  store i16 %946, ptr %947, align 2, !tbaa !26
+  %948 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 3
+  %949 = load i32, ptr %948, align 4, !tbaa !23
+  %950 = trunc i32 %949 to i16
+  %951 = load ptr, ptr %726, align 8, !tbaa !5
+  %952 = getelementptr inbounds i16, ptr %951, i64 %928
+  store i16 %950, ptr %952, align 2, !tbaa !26
+  %953 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 3
+  %954 = load i32, ptr %953, align 4, !tbaa !23
+  %955 = trunc i32 %954 to i16
+  %956 = getelementptr inbounds i16, ptr %951, i64 %929
+  store i16 %955, ptr %956, align 2, !tbaa !26
+  %957 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 7
+  %958 = load i32, ptr %957, align 4, !tbaa !23
+  %959 = trunc i32 %958 to i16
+  %960 = getelementptr inbounds i16, ptr %886, i64 %928
+  store i16 %959, ptr %960, align 2, !tbaa !26
+  %961 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 7
+  %962 = load i32, ptr %961, align 4, !tbaa !23
+  %963 = trunc i32 %962 to i16
+  %964 = getelementptr inbounds i16, ptr %886, i64 %929
+  store i16 %963, ptr %964, align 2, !tbaa !26
+  %965 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 3
+  %966 = load i32, ptr %965, align 4, !tbaa !23
+  %967 = trunc i32 %966 to i16
+  %968 = getelementptr inbounds i16, ptr %895, i64 %928
+  store i16 %967, ptr %968, align 2, !tbaa !26
+  %969 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 3
+  %970 = load i32, ptr %969, align 4, !tbaa !23
+  %971 = trunc i32 %970 to i16
+  %972 = getelementptr inbounds i16, ptr %895, i64 %929
+  store i16 %971, ptr %972, align 2, !tbaa !26
+  %973 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 7
+  %974 = load i32, ptr %973, align 4, !tbaa !23
+  %975 = trunc i32 %974 to i16
+  %976 = getelementptr inbounds i16, ptr %904, i64 %928
+  store i16 %975, ptr %976, align 2, !tbaa !26
+  %977 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 7
+  %978 = load i32, ptr %977, align 4, !tbaa !23
+  %979 = trunc i32 %978 to i16
+  %980 = getelementptr inbounds i16, ptr %904, i64 %929
+  store i16 %979, ptr %980, align 2, !tbaa !26
+  %981 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 3
+  %982 = load i32, ptr %981, align 4, !tbaa !23
+  %983 = trunc i32 %982 to i16
+  %984 = getelementptr inbounds i16, ptr %913, i64 %928
+  store i16 %983, ptr %984, align 2, !tbaa !26
+  %985 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 3
+  %986 = load i32, ptr %985, align 4, !tbaa !23
+  %987 = trunc i32 %986 to i16
+  %988 = getelementptr inbounds i16, ptr %913, i64 %929
+  store i16 %987, ptr %988, align 2, !tbaa !26
+  %989 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 7
   %990 = load i32, ptr %989, align 4, !tbaa !23
   %991 = trunc i32 %990 to i16
-  %992 = getelementptr inbounds i16, ptr %923, i64 %987
+  %992 = getelementptr inbounds i16, ptr %922, i64 %928
   store i16 %991, ptr %992, align 2, !tbaa !26
-  %993 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 2
+  %993 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 7
   %994 = load i32, ptr %993, align 4, !tbaa !23
   %995 = trunc i32 %994 to i16
-  %996 = getelementptr inbounds i16, ptr %923, i64 %988
+  %996 = getelementptr inbounds i16, ptr %922, i64 %929
   store i16 %995, ptr %996, align 2, !tbaa !26
-  %997 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 6
-  %998 = load i32, ptr %997, align 4, !tbaa !23
-  %999 = trunc i32 %998 to i16
-  %1000 = getelementptr inbounds i16, ptr %932, i64 %987
-  store i16 %999, ptr %1000, align 2, !tbaa !26
-  %1001 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 6
-  %1002 = load i32, ptr %1001, align 4, !tbaa !23
-  %1003 = trunc i32 %1002 to i16
-  %1004 = getelementptr inbounds i16, ptr %932, i64 %988
-  store i16 %1003, ptr %1004, align 2, !tbaa !26
-  %1005 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 2
-  %1006 = load i32, ptr %1005, align 4, !tbaa !23
-  %1007 = trunc i32 %1006 to i16
-  %1008 = getelementptr inbounds i16, ptr %941, i64 %987
-  store i16 %1007, ptr %1008, align 2, !tbaa !26
-  %1009 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 2
-  %1010 = load i32, ptr %1009, align 4, !tbaa !23
-  %1011 = trunc i32 %1010 to i16
-  %1012 = getelementptr inbounds i16, ptr %941, i64 %988
-  store i16 %1011, ptr %1012, align 2, !tbaa !26
-  %1013 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 6
-  %1014 = load i32, ptr %1013, align 4, !tbaa !23
-  %1015 = trunc i32 %1014 to i16
-  %1016 = load ptr, ptr %867, align 8, !tbaa !5
-  %1017 = getelementptr inbounds i16, ptr %1016, i64 %987
-  store i16 %1015, ptr %1017, align 2, !tbaa !26
-  %1018 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 6
-  %1019 = load i32, ptr %1018, align 4, !tbaa !23
-  %1020 = trunc i32 %1019 to i16
-  %1021 = getelementptr inbounds i16, ptr %1016, i64 %988
-  store i16 %1020, ptr %1021, align 2, !tbaa !26
-  %1022 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 2
-  %1023 = load i32, ptr %1022, align 4, !tbaa !23
-  %1024 = trunc i32 %1023 to i16
-  %1025 = load ptr, ptr %878, align 8, !tbaa !5
-  %1026 = getelementptr inbounds i16, ptr %1025, i64 %987
-  store i16 %1024, ptr %1026, align 2, !tbaa !26
-  %1027 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 2
-  %1028 = load i32, ptr %1027, align 4, !tbaa !23
-  %1029 = trunc i32 %1028 to i16
-  %1030 = getelementptr inbounds i16, ptr %1025, i64 %988
-  store i16 %1029, ptr %1030, align 2, !tbaa !26
-  %1031 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 6
-  %1032 = load i32, ptr %1031, align 4, !tbaa !23
-  %1033 = trunc i32 %1032 to i16
-  %1034 = load ptr, ptr %889, align 8, !tbaa !5
-  %1035 = getelementptr inbounds i16, ptr %1034, i64 %987
-  store i16 %1033, ptr %1035, align 2, !tbaa !26
-  %1036 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 6
-  %1037 = load i32, ptr %1036, align 4, !tbaa !23
-  %1038 = trunc i32 %1037 to i16
-  %1039 = getelementptr inbounds i16, ptr %1034, i64 %988
-  store i16 %1038, ptr %1039, align 2, !tbaa !26
-  %1040 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 2
-  %1041 = load i32, ptr %1040, align 4, !tbaa !23
-  %1042 = trunc i32 %1041 to i16
-  %1043 = load ptr, ptr %900, align 8, !tbaa !5
-  %1044 = getelementptr inbounds i16, ptr %1043, i64 %987
-  store i16 %1042, ptr %1044, align 2, !tbaa !26
-  %1045 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 2
-  %1046 = load i32, ptr %1045, align 4, !tbaa !23
-  %1047 = trunc i32 %1046 to i16
-  %1048 = getelementptr inbounds i16, ptr %1043, i64 %988
-  store i16 %1047, ptr %1048, align 2, !tbaa !26
-  %1049 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 6
-  %1050 = load i32, ptr %1049, align 4, !tbaa !23
-  %1051 = trunc i32 %1050 to i16
-  %1052 = load ptr, ptr %911, align 8, !tbaa !5
-  %1053 = getelementptr inbounds i16, ptr %1052, i64 %987
-  store i16 %1051, ptr %1053, align 2, !tbaa !26
-  %1054 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 6
-  %1055 = load i32, ptr %1054, align 4, !tbaa !23
-  %1056 = trunc i32 %1055 to i16
-  %1057 = getelementptr inbounds i16, ptr %1052, i64 %988
-  store i16 %1056, ptr %1057, align 2, !tbaa !26
-  %1058 = add nsw i64 %833, 3
-  %1059 = add nsw i64 %833, 7
-  %1060 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 3
-  %1061 = load i32, ptr %1060, align 4, !tbaa !23
-  %1062 = trunc i32 %1061 to i16
-  %1063 = load ptr, ptr %837, align 8, !tbaa !5
-  %1064 = getelementptr inbounds i16, ptr %1063, i64 %1058
-  store i16 %1062, ptr %1064, align 2, !tbaa !26
-  %1065 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 3
-  %1066 = load i32, ptr %1065, align 4, !tbaa !23
-  %1067 = trunc i32 %1066 to i16
-  %1068 = getelementptr inbounds i16, ptr %1063, i64 %1059
-  store i16 %1067, ptr %1068, align 2, !tbaa !26
-  %1069 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 0, i64 7
-  %1070 = load i32, ptr %1069, align 4, !tbaa !23
-  %1071 = trunc i32 %1070 to i16
-  %1072 = load ptr, ptr %846, align 8, !tbaa !5
-  %1073 = getelementptr inbounds i16, ptr %1072, i64 %1058
-  store i16 %1071, ptr %1073, align 2, !tbaa !26
-  %1074 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 4, i64 7
-  %1075 = load i32, ptr %1074, align 4, !tbaa !23
-  %1076 = trunc i32 %1075 to i16
-  %1077 = getelementptr inbounds i16, ptr %1072, i64 %1059
-  store i16 %1076, ptr %1077, align 2, !tbaa !26
-  %1078 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 3
-  %1079 = load i32, ptr %1078, align 4, !tbaa !23
-  %1080 = trunc i32 %1079 to i16
-  %1081 = load ptr, ptr %856, align 8, !tbaa !5
-  %1082 = getelementptr inbounds i16, ptr %1081, i64 %1058
-  store i16 %1080, ptr %1082, align 2, !tbaa !26
-  %1083 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 3
-  %1084 = load i32, ptr %1083, align 4, !tbaa !23
-  %1085 = trunc i32 %1084 to i16
-  %1086 = getelementptr inbounds i16, ptr %1081, i64 %1059
-  store i16 %1085, ptr %1086, align 2, !tbaa !26
-  %1087 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 1, i64 7
-  %1088 = load i32, ptr %1087, align 4, !tbaa !23
-  %1089 = trunc i32 %1088 to i16
-  %1090 = getelementptr inbounds i16, ptr %1016, i64 %1058
-  store i16 %1089, ptr %1090, align 2, !tbaa !26
-  %1091 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 5, i64 7
-  %1092 = load i32, ptr %1091, align 4, !tbaa !23
-  %1093 = trunc i32 %1092 to i16
-  %1094 = getelementptr inbounds i16, ptr %1016, i64 %1059
-  store i16 %1093, ptr %1094, align 2, !tbaa !26
-  %1095 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 3
-  %1096 = load i32, ptr %1095, align 4, !tbaa !23
-  %1097 = trunc i32 %1096 to i16
-  %1098 = getelementptr inbounds i16, ptr %1025, i64 %1058
-  store i16 %1097, ptr %1098, align 2, !tbaa !26
-  %1099 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 3
-  %1100 = load i32, ptr %1099, align 4, !tbaa !23
-  %1101 = trunc i32 %1100 to i16
-  %1102 = getelementptr inbounds i16, ptr %1025, i64 %1059
-  store i16 %1101, ptr %1102, align 2, !tbaa !26
-  %1103 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 2, i64 7
-  %1104 = load i32, ptr %1103, align 4, !tbaa !23
-  %1105 = trunc i32 %1104 to i16
-  %1106 = getelementptr inbounds i16, ptr %1034, i64 %1058
-  store i16 %1105, ptr %1106, align 2, !tbaa !26
-  %1107 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 6, i64 7
-  %1108 = load i32, ptr %1107, align 4, !tbaa !23
-  %1109 = trunc i32 %1108 to i16
-  %1110 = getelementptr inbounds i16, ptr %1034, i64 %1059
-  store i16 %1109, ptr %1110, align 2, !tbaa !26
-  %1111 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 3
-  %1112 = load i32, ptr %1111, align 4, !tbaa !23
-  %1113 = trunc i32 %1112 to i16
-  %1114 = getelementptr inbounds i16, ptr %1043, i64 %1058
-  store i16 %1113, ptr %1114, align 2, !tbaa !26
-  %1115 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 3
-  %1116 = load i32, ptr %1115, align 4, !tbaa !23
-  %1117 = trunc i32 %1116 to i16
-  %1118 = getelementptr inbounds i16, ptr %1043, i64 %1059
-  store i16 %1117, ptr %1118, align 2, !tbaa !26
-  %1119 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 3, i64 7
-  %1120 = load i32, ptr %1119, align 4, !tbaa !23
-  %1121 = trunc i32 %1120 to i16
-  %1122 = getelementptr inbounds i16, ptr %1052, i64 %1058
-  store i16 %1121, ptr %1122, align 2, !tbaa !26
-  %1123 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 7, i64 7
-  %1124 = load i32, ptr %1123, align 4, !tbaa !23
-  %1125 = trunc i32 %1124 to i16
-  %1126 = getelementptr inbounds i16, ptr %1052, i64 %1059
-  store i16 %1125, ptr %1126, align 2, !tbaa !26
-  %1127 = icmp eq i32 %806, 2
-  %1128 = select i1 %1127, i32 2, i32 %484
+  %997 = icmp eq i32 %674, 2
+  %998 = select i1 %997, i32 2, i32 %490
   call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %3) #8
-  ret i32 %1128
+  ret i32 %998
 
-1129:                                             ; preds = %818, %1129
-  %1130 = phi i1 [ true, %818 ], [ false, %1129 ]
-  %1131 = phi i64 [ 0, %818 ], [ 4, %1129 ]
-  %1132 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1131, i64 %820
-  %1133 = load i32, ptr %1132, align 4, !tbaa !23
-  %1134 = or i64 %1131, 1
-  %1135 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1134, i64 %820
-  %1136 = load i32, ptr %1135, align 4, !tbaa !23
-  %1137 = or i64 %1131, 2
-  %1138 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1137, i64 %820
-  %1139 = load i32, ptr %1138, align 4, !tbaa !23
-  %1140 = or i64 %1131, 3
-  %1141 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1140, i64 %820
-  %1142 = load i32, ptr %1141, align 4, !tbaa !23
-  %1143 = add nsw i32 %1139, %1133
-  %1144 = sub nsw i32 %1133, %1139
-  %1145 = ashr i32 %1136, 1
-  %1146 = sub nsw i32 %1145, %1142
-  %1147 = ashr i32 %1142, 1
-  %1148 = add nsw i32 %1147, %1136
-  %1149 = add nsw i32 %1148, %1143
-  store i32 %1149, ptr %1132, align 4, !tbaa !23
-  %1150 = sub nsw i32 %1143, %1148
-  store i32 %1150, ptr %1141, align 4, !tbaa !23
-  %1151 = add nsw i32 %1146, %1144
-  store i32 %1151, ptr %1135, align 4, !tbaa !23
-  %1152 = sub nsw i32 %1144, %1146
-  store i32 %1152, ptr %1138, align 4, !tbaa !23
-  %1153 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1131, i64 %821
-  %1154 = load i32, ptr %1153, align 4, !tbaa !23
-  %1155 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1134, i64 %821
-  %1156 = load i32, ptr %1155, align 4, !tbaa !23
-  %1157 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1137, i64 %821
-  %1158 = load i32, ptr %1157, align 4, !tbaa !23
-  %1159 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1140, i64 %821
-  %1160 = load i32, ptr %1159, align 4, !tbaa !23
-  %1161 = add nsw i32 %1158, %1154
-  %1162 = sub nsw i32 %1154, %1158
-  %1163 = ashr i32 %1156, 1
-  %1164 = sub nsw i32 %1163, %1160
-  %1165 = ashr i32 %1160, 1
-  %1166 = add nsw i32 %1165, %1156
-  %1167 = add nsw i32 %1166, %1161
-  store i32 %1167, ptr %1153, align 4, !tbaa !23
-  %1168 = sub nsw i32 %1161, %1166
-  store i32 %1168, ptr %1159, align 4, !tbaa !23
-  %1169 = add nsw i32 %1164, %1162
-  store i32 %1169, ptr %1155, align 4, !tbaa !23
-  %1170 = sub nsw i32 %1162, %1164
-  store i32 %1170, ptr %1157, align 4, !tbaa !23
-  %1171 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1131, i64 %822
-  %1172 = load i32, ptr %1171, align 4, !tbaa !23
-  %1173 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1134, i64 %822
-  %1174 = load i32, ptr %1173, align 4, !tbaa !23
-  %1175 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1137, i64 %822
-  %1176 = load i32, ptr %1175, align 4, !tbaa !23
-  %1177 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1140, i64 %822
-  %1178 = load i32, ptr %1177, align 4, !tbaa !23
-  %1179 = add nsw i32 %1176, %1172
-  %1180 = sub nsw i32 %1172, %1176
-  %1181 = ashr i32 %1174, 1
-  %1182 = sub nsw i32 %1181, %1178
-  %1183 = ashr i32 %1178, 1
-  %1184 = add nsw i32 %1183, %1174
-  %1185 = add nsw i32 %1184, %1179
-  store i32 %1185, ptr %1171, align 4, !tbaa !23
-  %1186 = sub nsw i32 %1179, %1184
-  store i32 %1186, ptr %1177, align 4, !tbaa !23
-  %1187 = add nsw i32 %1182, %1180
-  store i32 %1187, ptr %1173, align 4, !tbaa !23
-  %1188 = sub nsw i32 %1180, %1182
-  store i32 %1188, ptr %1175, align 4, !tbaa !23
-  %1189 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1131, i64 %823
-  %1190 = load i32, ptr %1189, align 4, !tbaa !23
-  %1191 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1134, i64 %823
-  %1192 = load i32, ptr %1191, align 4, !tbaa !23
-  %1193 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1137, i64 %823
-  %1194 = load i32, ptr %1193, align 4, !tbaa !23
-  %1195 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1140, i64 %823
-  %1196 = load i32, ptr %1195, align 4, !tbaa !23
-  %1197 = add nsw i32 %1194, %1190
-  %1198 = sub nsw i32 %1190, %1194
-  %1199 = ashr i32 %1192, 1
-  %1200 = sub nsw i32 %1199, %1196
-  %1201 = ashr i32 %1196, 1
-  %1202 = add nsw i32 %1201, %1192
-  %1203 = add nsw i32 %1202, %1197
-  store i32 %1203, ptr %1189, align 4, !tbaa !23
-  %1204 = sub nsw i32 %1197, %1202
-  store i32 %1204, ptr %1195, align 4, !tbaa !23
-  %1205 = add nsw i32 %1200, %1198
-  store i32 %1205, ptr %1191, align 4, !tbaa !23
-  %1206 = sub nsw i32 %1198, %1200
-  store i32 %1206, ptr %1193, align 4, !tbaa !23
-  %1207 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1131, i64 %820
-  %1208 = load i32, ptr %1207, align 4, !tbaa !23
-  %1209 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1131, i64 %821
-  %1210 = load i32, ptr %1209, align 4, !tbaa !23
-  %1211 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1131, i64 %822
-  %1212 = load i32, ptr %1211, align 4, !tbaa !23
-  %1213 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1131, i64 %823
-  %1214 = load i32, ptr %1213, align 4, !tbaa !23
-  %1215 = add nsw i32 %1212, %1208
-  %1216 = sub nsw i32 %1208, %1212
-  %1217 = ashr i32 %1210, 1
-  %1218 = sub nsw i32 %1217, %1214
-  %1219 = ashr i32 %1214, 1
-  %1220 = add nsw i32 %1219, %1210
-  %1221 = add i32 %1215, 32
-  %1222 = add i32 %1221, %1220
-  %1223 = ashr i32 %1222, 6
-  %1224 = tail call i32 @llvm.smax.i32(i32 %1223, i32 0)
-  %1225 = tail call i32 @llvm.smin.i32(i32 %1224, i32 255)
-  store i32 %1225, ptr %1207, align 4, !tbaa !23
-  %1226 = sub i32 %1221, %1220
-  %1227 = ashr i32 %1226, 6
-  %1228 = tail call i32 @llvm.smax.i32(i32 %1227, i32 0)
-  %1229 = tail call i32 @llvm.smin.i32(i32 %1228, i32 255)
-  store i32 %1229, ptr %1213, align 4, !tbaa !23
-  %1230 = add i32 %1216, 32
-  %1231 = add i32 %1230, %1218
-  %1232 = ashr i32 %1231, 6
-  %1233 = tail call i32 @llvm.smax.i32(i32 %1232, i32 0)
-  %1234 = tail call i32 @llvm.smin.i32(i32 %1233, i32 255)
-  store i32 %1234, ptr %1209, align 4, !tbaa !23
-  %1235 = sub i32 %1230, %1218
-  %1236 = ashr i32 %1235, 6
-  %1237 = tail call i32 @llvm.smax.i32(i32 %1236, i32 0)
-  %1238 = tail call i32 @llvm.smin.i32(i32 %1237, i32 255)
-  store i32 %1238, ptr %1211, align 4, !tbaa !23
-  %1239 = or i64 %1131, 1
-  %1240 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1239, i64 %820
-  %1241 = load i32, ptr %1240, align 4, !tbaa !23
-  %1242 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1239, i64 %821
-  %1243 = load i32, ptr %1242, align 4, !tbaa !23
-  %1244 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1239, i64 %822
-  %1245 = load i32, ptr %1244, align 4, !tbaa !23
-  %1246 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1239, i64 %823
-  %1247 = load i32, ptr %1246, align 4, !tbaa !23
-  %1248 = add nsw i32 %1245, %1241
-  %1249 = sub nsw i32 %1241, %1245
-  %1250 = ashr i32 %1243, 1
-  %1251 = sub nsw i32 %1250, %1247
-  %1252 = ashr i32 %1247, 1
-  %1253 = add nsw i32 %1252, %1243
-  %1254 = add i32 %1248, 32
-  %1255 = add i32 %1254, %1253
-  %1256 = ashr i32 %1255, 6
-  %1257 = tail call i32 @llvm.smax.i32(i32 %1256, i32 0)
-  %1258 = tail call i32 @llvm.smin.i32(i32 %1257, i32 255)
-  store i32 %1258, ptr %1240, align 4, !tbaa !23
-  %1259 = sub i32 %1254, %1253
-  %1260 = ashr i32 %1259, 6
-  %1261 = tail call i32 @llvm.smax.i32(i32 %1260, i32 0)
-  %1262 = tail call i32 @llvm.smin.i32(i32 %1261, i32 255)
-  store i32 %1262, ptr %1246, align 4, !tbaa !23
-  %1263 = add i32 %1249, 32
-  %1264 = add i32 %1263, %1251
-  %1265 = ashr i32 %1264, 6
-  %1266 = tail call i32 @llvm.smax.i32(i32 %1265, i32 0)
-  %1267 = tail call i32 @llvm.smin.i32(i32 %1266, i32 255)
-  store i32 %1267, ptr %1242, align 4, !tbaa !23
-  %1268 = sub i32 %1263, %1251
-  %1269 = ashr i32 %1268, 6
-  %1270 = tail call i32 @llvm.smax.i32(i32 %1269, i32 0)
-  %1271 = tail call i32 @llvm.smin.i32(i32 %1270, i32 255)
-  store i32 %1271, ptr %1244, align 4, !tbaa !23
-  %1272 = or i64 %1131, 2
-  %1273 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1272, i64 %820
-  %1274 = load i32, ptr %1273, align 4, !tbaa !23
-  %1275 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1272, i64 %821
-  %1276 = load i32, ptr %1275, align 4, !tbaa !23
-  %1277 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1272, i64 %822
-  %1278 = load i32, ptr %1277, align 4, !tbaa !23
-  %1279 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1272, i64 %823
-  %1280 = load i32, ptr %1279, align 4, !tbaa !23
-  %1281 = add nsw i32 %1278, %1274
-  %1282 = sub nsw i32 %1274, %1278
-  %1283 = ashr i32 %1276, 1
-  %1284 = sub nsw i32 %1283, %1280
-  %1285 = ashr i32 %1280, 1
-  %1286 = add nsw i32 %1285, %1276
-  %1287 = add i32 %1281, 32
-  %1288 = add i32 %1287, %1286
-  %1289 = ashr i32 %1288, 6
-  %1290 = tail call i32 @llvm.smax.i32(i32 %1289, i32 0)
-  %1291 = tail call i32 @llvm.smin.i32(i32 %1290, i32 255)
-  store i32 %1291, ptr %1273, align 4, !tbaa !23
-  %1292 = sub i32 %1287, %1286
-  %1293 = ashr i32 %1292, 6
-  %1294 = tail call i32 @llvm.smax.i32(i32 %1293, i32 0)
-  %1295 = tail call i32 @llvm.smin.i32(i32 %1294, i32 255)
-  store i32 %1295, ptr %1279, align 4, !tbaa !23
-  %1296 = add i32 %1282, 32
-  %1297 = add i32 %1296, %1284
-  %1298 = ashr i32 %1297, 6
-  %1299 = tail call i32 @llvm.smax.i32(i32 %1298, i32 0)
-  %1300 = tail call i32 @llvm.smin.i32(i32 %1299, i32 255)
-  store i32 %1300, ptr %1275, align 4, !tbaa !23
-  %1301 = sub i32 %1296, %1284
-  %1302 = ashr i32 %1301, 6
-  %1303 = tail call i32 @llvm.smax.i32(i32 %1302, i32 0)
-  %1304 = tail call i32 @llvm.smin.i32(i32 %1303, i32 255)
-  store i32 %1304, ptr %1277, align 4, !tbaa !23
-  %1305 = or i64 %1131, 3
-  %1306 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1305, i64 %820
-  %1307 = load i32, ptr %1306, align 4, !tbaa !23
-  %1308 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1305, i64 %821
-  %1309 = load i32, ptr %1308, align 4, !tbaa !23
-  %1310 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1305, i64 %822
-  %1311 = load i32, ptr %1310, align 4, !tbaa !23
-  %1312 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1305, i64 %823
-  %1313 = load i32, ptr %1312, align 4, !tbaa !23
-  %1314 = add nsw i32 %1311, %1307
-  %1315 = sub nsw i32 %1307, %1311
-  %1316 = ashr i32 %1309, 1
-  %1317 = sub nsw i32 %1316, %1313
-  %1318 = ashr i32 %1313, 1
-  %1319 = add nsw i32 %1318, %1309
-  %1320 = add i32 %1314, 32
-  %1321 = add i32 %1320, %1319
-  %1322 = ashr i32 %1321, 6
-  %1323 = tail call i32 @llvm.smax.i32(i32 %1322, i32 0)
-  %1324 = tail call i32 @llvm.smin.i32(i32 %1323, i32 255)
-  store i32 %1324, ptr %1306, align 4, !tbaa !23
-  %1325 = sub i32 %1320, %1319
-  %1326 = ashr i32 %1325, 6
-  %1327 = tail call i32 @llvm.smax.i32(i32 %1326, i32 0)
-  %1328 = tail call i32 @llvm.smin.i32(i32 %1327, i32 255)
-  store i32 %1328, ptr %1312, align 4, !tbaa !23
-  %1329 = add i32 %1315, 32
-  %1330 = add i32 %1329, %1317
-  %1331 = ashr i32 %1330, 6
-  %1332 = tail call i32 @llvm.smax.i32(i32 %1331, i32 0)
-  %1333 = tail call i32 @llvm.smin.i32(i32 %1332, i32 255)
-  store i32 %1333, ptr %1308, align 4, !tbaa !23
-  %1334 = sub i32 %1329, %1317
-  %1335 = ashr i32 %1334, 6
-  %1336 = tail call i32 @llvm.smax.i32(i32 %1335, i32 0)
-  %1337 = tail call i32 @llvm.smin.i32(i32 %1336, i32 255)
-  store i32 %1337, ptr %1310, align 4, !tbaa !23
-  br i1 %1130, label %1129, label %1338, !llvm.loop !144
+999:                                              ; preds = %688, %999
+  %1000 = phi i1 [ true, %688 ], [ false, %999 ]
+  %1001 = phi i64 [ 0, %688 ], [ 4, %999 ]
+  %1002 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1001, i64 %690
+  %1003 = load i32, ptr %1002, align 4, !tbaa !23
+  %1004 = or i64 %1001, 1
+  %1005 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1004, i64 %690
+  %1006 = load i32, ptr %1005, align 4, !tbaa !23
+  %1007 = or i64 %1001, 2
+  %1008 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1007, i64 %690
+  %1009 = load i32, ptr %1008, align 4, !tbaa !23
+  %1010 = or i64 %1001, 3
+  %1011 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1010, i64 %690
+  %1012 = load i32, ptr %1011, align 4, !tbaa !23
+  %1013 = add nsw i32 %1009, %1003
+  %1014 = sub nsw i32 %1003, %1009
+  %1015 = ashr i32 %1006, 1
+  %1016 = sub nsw i32 %1015, %1012
+  %1017 = ashr i32 %1012, 1
+  %1018 = add nsw i32 %1017, %1006
+  %1019 = add nsw i32 %1018, %1013
+  store i32 %1019, ptr %1002, align 4, !tbaa !23
+  %1020 = sub nsw i32 %1013, %1018
+  store i32 %1020, ptr %1011, align 4, !tbaa !23
+  %1021 = add nsw i32 %1016, %1014
+  store i32 %1021, ptr %1005, align 4, !tbaa !23
+  %1022 = sub nsw i32 %1014, %1016
+  store i32 %1022, ptr %1008, align 4, !tbaa !23
+  %1023 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1001, i64 %691
+  %1024 = load i32, ptr %1023, align 4, !tbaa !23
+  %1025 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1004, i64 %691
+  %1026 = load i32, ptr %1025, align 4, !tbaa !23
+  %1027 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1007, i64 %691
+  %1028 = load i32, ptr %1027, align 4, !tbaa !23
+  %1029 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1010, i64 %691
+  %1030 = load i32, ptr %1029, align 4, !tbaa !23
+  %1031 = add nsw i32 %1028, %1024
+  %1032 = sub nsw i32 %1024, %1028
+  %1033 = ashr i32 %1026, 1
+  %1034 = sub nsw i32 %1033, %1030
+  %1035 = ashr i32 %1030, 1
+  %1036 = add nsw i32 %1035, %1026
+  %1037 = add nsw i32 %1036, %1031
+  store i32 %1037, ptr %1023, align 4, !tbaa !23
+  %1038 = sub nsw i32 %1031, %1036
+  store i32 %1038, ptr %1029, align 4, !tbaa !23
+  %1039 = add nsw i32 %1034, %1032
+  store i32 %1039, ptr %1025, align 4, !tbaa !23
+  %1040 = sub nsw i32 %1032, %1034
+  store i32 %1040, ptr %1027, align 4, !tbaa !23
+  %1041 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1001, i64 %692
+  %1042 = load i32, ptr %1041, align 4, !tbaa !23
+  %1043 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1004, i64 %692
+  %1044 = load i32, ptr %1043, align 4, !tbaa !23
+  %1045 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1007, i64 %692
+  %1046 = load i32, ptr %1045, align 4, !tbaa !23
+  %1047 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1010, i64 %692
+  %1048 = load i32, ptr %1047, align 4, !tbaa !23
+  %1049 = add nsw i32 %1046, %1042
+  %1050 = sub nsw i32 %1042, %1046
+  %1051 = ashr i32 %1044, 1
+  %1052 = sub nsw i32 %1051, %1048
+  %1053 = ashr i32 %1048, 1
+  %1054 = add nsw i32 %1053, %1044
+  %1055 = add nsw i32 %1054, %1049
+  store i32 %1055, ptr %1041, align 4, !tbaa !23
+  %1056 = sub nsw i32 %1049, %1054
+  store i32 %1056, ptr %1047, align 4, !tbaa !23
+  %1057 = add nsw i32 %1052, %1050
+  store i32 %1057, ptr %1043, align 4, !tbaa !23
+  %1058 = sub nsw i32 %1050, %1052
+  store i32 %1058, ptr %1045, align 4, !tbaa !23
+  %1059 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1001, i64 %693
+  %1060 = load i32, ptr %1059, align 4, !tbaa !23
+  %1061 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1004, i64 %693
+  %1062 = load i32, ptr %1061, align 4, !tbaa !23
+  %1063 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1007, i64 %693
+  %1064 = load i32, ptr %1063, align 4, !tbaa !23
+  %1065 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1010, i64 %693
+  %1066 = load i32, ptr %1065, align 4, !tbaa !23
+  %1067 = add nsw i32 %1064, %1060
+  %1068 = sub nsw i32 %1060, %1064
+  %1069 = ashr i32 %1062, 1
+  %1070 = sub nsw i32 %1069, %1066
+  %1071 = ashr i32 %1066, 1
+  %1072 = add nsw i32 %1071, %1062
+  %1073 = add nsw i32 %1072, %1067
+  store i32 %1073, ptr %1059, align 4, !tbaa !23
+  %1074 = sub nsw i32 %1067, %1072
+  store i32 %1074, ptr %1065, align 4, !tbaa !23
+  %1075 = add nsw i32 %1070, %1068
+  store i32 %1075, ptr %1061, align 4, !tbaa !23
+  %1076 = sub nsw i32 %1068, %1070
+  store i32 %1076, ptr %1063, align 4, !tbaa !23
+  %1077 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1001, i64 %690
+  %1078 = load i32, ptr %1077, align 4, !tbaa !23
+  %1079 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1001, i64 %691
+  %1080 = load i32, ptr %1079, align 4, !tbaa !23
+  %1081 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1001, i64 %692
+  %1082 = load i32, ptr %1081, align 4, !tbaa !23
+  %1083 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1001, i64 %693
+  %1084 = load i32, ptr %1083, align 4, !tbaa !23
+  %1085 = add nsw i32 %1082, %1078
+  %1086 = sub nsw i32 %1078, %1082
+  %1087 = ashr i32 %1080, 1
+  %1088 = sub nsw i32 %1087, %1084
+  %1089 = ashr i32 %1084, 1
+  %1090 = add nsw i32 %1089, %1080
+  %1091 = add i32 %1085, 32
+  %1092 = add i32 %1091, %1090
+  %1093 = ashr i32 %1092, 6
+  %1094 = tail call i32 @llvm.smax.i32(i32 %1093, i32 0)
+  %1095 = tail call i32 @llvm.smin.i32(i32 %1094, i32 255)
+  store i32 %1095, ptr %1077, align 4, !tbaa !23
+  %1096 = sub i32 %1091, %1090
+  %1097 = ashr i32 %1096, 6
+  %1098 = tail call i32 @llvm.smax.i32(i32 %1097, i32 0)
+  %1099 = tail call i32 @llvm.smin.i32(i32 %1098, i32 255)
+  store i32 %1099, ptr %1083, align 4, !tbaa !23
+  %1100 = add i32 %1086, 32
+  %1101 = add i32 %1100, %1088
+  %1102 = ashr i32 %1101, 6
+  %1103 = tail call i32 @llvm.smax.i32(i32 %1102, i32 0)
+  %1104 = tail call i32 @llvm.smin.i32(i32 %1103, i32 255)
+  store i32 %1104, ptr %1079, align 4, !tbaa !23
+  %1105 = sub i32 %1100, %1088
+  %1106 = ashr i32 %1105, 6
+  %1107 = tail call i32 @llvm.smax.i32(i32 %1106, i32 0)
+  %1108 = tail call i32 @llvm.smin.i32(i32 %1107, i32 255)
+  store i32 %1108, ptr %1081, align 4, !tbaa !23
+  %1109 = or i64 %1001, 1
+  %1110 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1109, i64 %690
+  %1111 = load i32, ptr %1110, align 4, !tbaa !23
+  %1112 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1109, i64 %691
+  %1113 = load i32, ptr %1112, align 4, !tbaa !23
+  %1114 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1109, i64 %692
+  %1115 = load i32, ptr %1114, align 4, !tbaa !23
+  %1116 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1109, i64 %693
+  %1117 = load i32, ptr %1116, align 4, !tbaa !23
+  %1118 = add nsw i32 %1115, %1111
+  %1119 = sub nsw i32 %1111, %1115
+  %1120 = ashr i32 %1113, 1
+  %1121 = sub nsw i32 %1120, %1117
+  %1122 = ashr i32 %1117, 1
+  %1123 = add nsw i32 %1122, %1113
+  %1124 = add i32 %1118, 32
+  %1125 = add i32 %1124, %1123
+  %1126 = ashr i32 %1125, 6
+  %1127 = tail call i32 @llvm.smax.i32(i32 %1126, i32 0)
+  %1128 = tail call i32 @llvm.smin.i32(i32 %1127, i32 255)
+  store i32 %1128, ptr %1110, align 4, !tbaa !23
+  %1129 = sub i32 %1124, %1123
+  %1130 = ashr i32 %1129, 6
+  %1131 = tail call i32 @llvm.smax.i32(i32 %1130, i32 0)
+  %1132 = tail call i32 @llvm.smin.i32(i32 %1131, i32 255)
+  store i32 %1132, ptr %1116, align 4, !tbaa !23
+  %1133 = add i32 %1119, 32
+  %1134 = add i32 %1133, %1121
+  %1135 = ashr i32 %1134, 6
+  %1136 = tail call i32 @llvm.smax.i32(i32 %1135, i32 0)
+  %1137 = tail call i32 @llvm.smin.i32(i32 %1136, i32 255)
+  store i32 %1137, ptr %1112, align 4, !tbaa !23
+  %1138 = sub i32 %1133, %1121
+  %1139 = ashr i32 %1138, 6
+  %1140 = tail call i32 @llvm.smax.i32(i32 %1139, i32 0)
+  %1141 = tail call i32 @llvm.smin.i32(i32 %1140, i32 255)
+  store i32 %1141, ptr %1114, align 4, !tbaa !23
+  %1142 = or i64 %1001, 2
+  %1143 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1142, i64 %690
+  %1144 = load i32, ptr %1143, align 4, !tbaa !23
+  %1145 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1142, i64 %691
+  %1146 = load i32, ptr %1145, align 4, !tbaa !23
+  %1147 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1142, i64 %692
+  %1148 = load i32, ptr %1147, align 4, !tbaa !23
+  %1149 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1142, i64 %693
+  %1150 = load i32, ptr %1149, align 4, !tbaa !23
+  %1151 = add nsw i32 %1148, %1144
+  %1152 = sub nsw i32 %1144, %1148
+  %1153 = ashr i32 %1146, 1
+  %1154 = sub nsw i32 %1153, %1150
+  %1155 = ashr i32 %1150, 1
+  %1156 = add nsw i32 %1155, %1146
+  %1157 = add i32 %1151, 32
+  %1158 = add i32 %1157, %1156
+  %1159 = ashr i32 %1158, 6
+  %1160 = tail call i32 @llvm.smax.i32(i32 %1159, i32 0)
+  %1161 = tail call i32 @llvm.smin.i32(i32 %1160, i32 255)
+  store i32 %1161, ptr %1143, align 4, !tbaa !23
+  %1162 = sub i32 %1157, %1156
+  %1163 = ashr i32 %1162, 6
+  %1164 = tail call i32 @llvm.smax.i32(i32 %1163, i32 0)
+  %1165 = tail call i32 @llvm.smin.i32(i32 %1164, i32 255)
+  store i32 %1165, ptr %1149, align 4, !tbaa !23
+  %1166 = add i32 %1152, 32
+  %1167 = add i32 %1166, %1154
+  %1168 = ashr i32 %1167, 6
+  %1169 = tail call i32 @llvm.smax.i32(i32 %1168, i32 0)
+  %1170 = tail call i32 @llvm.smin.i32(i32 %1169, i32 255)
+  store i32 %1170, ptr %1145, align 4, !tbaa !23
+  %1171 = sub i32 %1166, %1154
+  %1172 = ashr i32 %1171, 6
+  %1173 = tail call i32 @llvm.smax.i32(i32 %1172, i32 0)
+  %1174 = tail call i32 @llvm.smin.i32(i32 %1173, i32 255)
+  store i32 %1174, ptr %1147, align 4, !tbaa !23
+  %1175 = or i64 %1001, 3
+  %1176 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1175, i64 %690
+  %1177 = load i32, ptr %1176, align 4, !tbaa !23
+  %1178 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1175, i64 %691
+  %1179 = load i32, ptr %1178, align 4, !tbaa !23
+  %1180 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1175, i64 %692
+  %1181 = load i32, ptr %1180, align 4, !tbaa !23
+  %1182 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 52, i64 %1175, i64 %693
+  %1183 = load i32, ptr %1182, align 4, !tbaa !23
+  %1184 = add nsw i32 %1181, %1177
+  %1185 = sub nsw i32 %1177, %1181
+  %1186 = ashr i32 %1179, 1
+  %1187 = sub nsw i32 %1186, %1183
+  %1188 = ashr i32 %1183, 1
+  %1189 = add nsw i32 %1188, %1179
+  %1190 = add i32 %1184, 32
+  %1191 = add i32 %1190, %1189
+  %1192 = ashr i32 %1191, 6
+  %1193 = tail call i32 @llvm.smax.i32(i32 %1192, i32 0)
+  %1194 = tail call i32 @llvm.smin.i32(i32 %1193, i32 255)
+  store i32 %1194, ptr %1176, align 4, !tbaa !23
+  %1195 = sub i32 %1190, %1189
+  %1196 = ashr i32 %1195, 6
+  %1197 = tail call i32 @llvm.smax.i32(i32 %1196, i32 0)
+  %1198 = tail call i32 @llvm.smin.i32(i32 %1197, i32 255)
+  store i32 %1198, ptr %1182, align 4, !tbaa !23
+  %1199 = add i32 %1185, 32
+  %1200 = add i32 %1199, %1187
+  %1201 = ashr i32 %1200, 6
+  %1202 = tail call i32 @llvm.smax.i32(i32 %1201, i32 0)
+  %1203 = tail call i32 @llvm.smin.i32(i32 %1202, i32 255)
+  store i32 %1203, ptr %1178, align 4, !tbaa !23
+  %1204 = sub i32 %1199, %1187
+  %1205 = ashr i32 %1204, 6
+  %1206 = tail call i32 @llvm.smax.i32(i32 %1205, i32 0)
+  %1207 = tail call i32 @llvm.smin.i32(i32 %1206, i32 255)
+  store i32 %1207, ptr %1180, align 4, !tbaa !23
+  br i1 %1000, label %999, label %1208, !llvm.loop !145
 
-1338:                                             ; preds = %1129
-  br i1 %819, label %818, label %824, !llvm.loop !145
+1208:                                             ; preds = %999
+  br i1 %689, label %688, label %694, !llvm.loop !146
 }
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #7
@@ -14637,7 +14474,7 @@ declare i32 @llvm.smin.i32(i32, i32) #7
 declare i32 @llvm.abs.i32(i32, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #7
+declare i32 @llvm.umin.i32(i32, i32) #7
 
 declare double @exp2(double) local_unnamed_addr
 
@@ -14809,3 +14646,4 @@ attributes #8 = { nounwind }
 !143 = distinct !{!143, !29}
 !144 = distinct !{!144, !29}
 !145 = distinct !{!145, !29}
+!146 = distinct !{!146, !29}

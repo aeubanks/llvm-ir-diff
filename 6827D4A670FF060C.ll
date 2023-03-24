@@ -200,7 +200,7 @@ define dso_local void @_Z17nameWindowToUnix2PKw(ptr noalias nocapture writeonly 
   br label %77
 
 77:                                               ; preds = %75, %74
-  %78 = phi { ptr, i32 } [ %76, %75 ], [ %70, %74 ]
+  %78 = phi { ptr, i32 } [ %70, %74 ], [ %76, %75 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #22
   resume { ptr, i32 } %78
 }
@@ -1907,7 +1907,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
   %60 = getelementptr inbounds i32, ptr %25, i64 1
   %61 = load i32, ptr %60, align 4, !tbaa !5
   %62 = icmp eq i32 %61, 58
-  br i1 %62, label %309, label %63
+  br i1 %62, label %310, label %63
 
 63:                                               ; preds = %59, %57
   %64 = icmp sgt i32 %15, %52
@@ -1925,7 +1925,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
   %74 = sub i32 %16, %69
   %75 = sext i32 %74 to i64
   %76 = shl nsw i64 %75, 2
-  tail call void @llvm.memmove.p0.p0.i64(ptr align 4 %71, ptr align 4 %73, i64 %76, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 4 %71, ptr align 4 %73, i64 %76, i1 false)
   %77 = sub nsw i32 %15, %66
   store i32 %77, ptr %34, align 8, !tbaa !17
   br label %78
@@ -1986,7 +1986,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
   %113 = icmp eq i32 %112, 0
   br i1 %113, label %114, label %116
 
-114:                                              ; preds = %111, %107
+114:                                              ; preds = %107, %111
   %115 = tail call ptr @__errno_location() #26
   store i32 2, ptr %115, align 4, !tbaa !29
   br label %134
@@ -2007,24 +2007,24 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
   call void @_ZdaPv(ptr noundef nonnull %118) #24
   br label %123
 
-123:                                              ; preds = %117, %122
+123:                                              ; preds = %122, %117
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #22
   br i1 %120, label %208, label %130
 
 124:                                              ; preds = %88
   %125 = landingpad { ptr, i32 }
           cleanup
-  br label %314
+  br label %315
 
 126:                                              ; preds = %116
   %127 = landingpad { ptr, i32 }
           cleanup
-  br label %302
+  br label %303
 
 128:                                              ; preds = %212
   %129 = landingpad { ptr, i32 }
           cleanup
-  br label %302
+  br label %303
 
 130:                                              ; preds = %123
   %131 = tail call ptr @__errno_location() #26
@@ -2035,7 +2035,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
 134:                                              ; preds = %114, %130
   %135 = load i32, ptr %34, align 8, !tbaa !17
   %136 = icmp eq i32 %135, 0
-  br i1 %136, label %298, label %137
+  br i1 %136, label %299, label %137
 
 137:                                              ; preds = %134
   %138 = load ptr, ptr %4, align 8, !tbaa !11
@@ -2052,7 +2052,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
 
 146:                                              ; preds = %141
   %147 = icmp eq ptr %143, %138
-  br i1 %147, label %298, label %141, !llvm.loop !58
+  br i1 %147, label %299, label %141, !llvm.loop !58
 
 148:                                              ; preds = %141
   %149 = ptrtoint ptr %143 to i64
@@ -2061,7 +2061,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
   %152 = lshr exact i64 %151, 2
   %153 = trunc i64 %152 to i32
   %154 = icmp slt i32 %153, 1
-  br i1 %154, label %298, label %155
+  br i1 %154, label %299, label %155
 
 155:                                              ; preds = %148
   %156 = add nuw nsw i64 %152, 4294967295
@@ -2069,7 +2069,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
   %158 = getelementptr inbounds i32, ptr %138, i64 %157
   %159 = load i32, ptr %158, align 4, !tbaa !5
   %160 = icmp eq i32 %159, 58
-  br i1 %160, label %298, label %161
+  br i1 %160, label %299, label %161
 
 161:                                              ; preds = %155
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #22
@@ -2162,7 +2162,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
 206:                                              ; preds = %205, %201, %199
   %207 = phi { ptr, i32 } [ %200, %199 ], [ %202, %201 ], [ %202, %205 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #22
-  br label %302
+  br label %303
 
 208:                                              ; preds = %130, %123
   store i32 0, ptr %34, align 8, !tbaa !17
@@ -2216,170 +2216,171 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory22CreateCompl
   store i32 %96, ptr %34, align 8, !tbaa !17
   br label %236
 
-236:                                              ; preds = %235, %288
-  %237 = phi i32 [ %109, %235 ], [ %265, %288 ]
+236:                                              ; preds = %235, %289
+  %237 = phi i32 [ %109, %235 ], [ %266, %289 ]
   %238 = load i32, ptr %34, align 8, !tbaa !17
   %239 = icmp sge i32 %237, %238
-  br i1 %239, label %298, label %240
+  br i1 %239, label %299, label %240
 
 240:                                              ; preds = %236
   %241 = add nsw i32 %237, 1
   %242 = load ptr, ptr %4, align 8, !tbaa !11
-  %243 = sext i32 %241 to i64
-  %244 = getelementptr inbounds i32, ptr %242, i64 %243
-  %245 = load i32, ptr %244, align 4, !tbaa !5
-  %246 = icmp eq i32 %245, 47
-  br i1 %246, label %255, label %247
+  %243 = freeze ptr %242
+  %244 = sext i32 %241 to i64
+  %245 = getelementptr inbounds i32, ptr %243, i64 %244
+  %246 = load i32, ptr %245, align 4, !tbaa !5
+  %247 = icmp eq i32 %246, 47
+  br i1 %247, label %256, label %248
 
-247:                                              ; preds = %240, %251
-  %248 = phi i32 [ %253, %251 ], [ %245, %240 ]
-  %249 = phi ptr [ %252, %251 ], [ %244, %240 ]
-  %250 = icmp eq i32 %248, 0
-  br i1 %250, label %263, label %251
+248:                                              ; preds = %240, %252
+  %249 = phi i32 [ %254, %252 ], [ %246, %240 ]
+  %250 = phi ptr [ %253, %252 ], [ %245, %240 ]
+  %251 = icmp eq i32 %249, 0
+  br i1 %251, label %264, label %252
 
-251:                                              ; preds = %247
-  %252 = getelementptr inbounds i32, ptr %249, i64 1
-  %253 = load i32, ptr %252, align 4, !tbaa !5
-  %254 = icmp eq i32 %253, 47
-  br i1 %254, label %255, label %247, !llvm.loop !60
+252:                                              ; preds = %248
+  %253 = getelementptr inbounds i32, ptr %250, i64 1
+  %254 = load i32, ptr %253, align 4, !tbaa !5
+  %255 = icmp eq i32 %254, 47
+  br i1 %255, label %256, label %248, !llvm.loop !60
 
-255:                                              ; preds = %251, %240
-  %256 = phi ptr [ %244, %240 ], [ %252, %251 ]
-  %257 = ptrtoint ptr %256 to i64
-  %258 = ptrtoint ptr %242 to i64
-  %259 = sub i64 %257, %258
-  %260 = lshr exact i64 %259, 2
-  %261 = trunc i64 %260 to i32
-  %262 = icmp slt i32 %261, 0
-  br i1 %262, label %263, label %264
+256:                                              ; preds = %252, %240
+  %257 = phi ptr [ %245, %240 ], [ %253, %252 ]
+  %258 = ptrtoint ptr %257 to i64
+  %259 = ptrtoint ptr %243 to i64
+  %260 = sub i64 %258, %259
+  %261 = lshr i64 %260, 2
+  %262 = trunc i64 %261 to i32
+  %263 = icmp slt i32 %262, 0
+  br i1 %263, label %264, label %265
 
-263:                                              ; preds = %247, %255
-  br label %264
+264:                                              ; preds = %248, %256
+  br label %265
 
-264:                                              ; preds = %263, %255
-  %265 = phi i32 [ %238, %263 ], [ %261, %255 ]
+265:                                              ; preds = %256, %264
+  %266 = phi i32 [ %238, %264 ], [ %262, %256 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #22
-  invoke void @_ZNK11CStringBaseIwE3MidEii(ptr nonnull sret(%class.CStringBase.0) align 8 %6, ptr noundef nonnull align 8 dereferenceable(16) %4, i32 noundef 0, i32 noundef %265)
-          to label %266 unwind label %289
+  invoke void @_ZNK11CStringBaseIwE3MidEii(ptr nonnull sret(%class.CStringBase.0) align 8 %6, ptr noundef nonnull align 8 dereferenceable(16) %4, i32 noundef 0, i32 noundef %266)
+          to label %267 unwind label %290
 
-266:                                              ; preds = %264
-  %267 = load ptr, ptr %6, align 8, !tbaa !11
-  %268 = icmp eq ptr %267, null
-  br i1 %268, label %272, label %269
+267:                                              ; preds = %265
+  %268 = load ptr, ptr %6, align 8, !tbaa !11
+  %269 = icmp eq ptr %268, null
+  br i1 %269, label %273, label %270
 
-269:                                              ; preds = %266
-  %270 = load i32, ptr %267, align 4, !tbaa !5
-  %271 = icmp eq i32 %270, 0
-  br i1 %271, label %272, label %274
+270:                                              ; preds = %267
+  %271 = load i32, ptr %268, align 4, !tbaa !5
+  %272 = icmp eq i32 %271, 0
+  br i1 %272, label %273, label %275
 
-272:                                              ; preds = %269, %266
-  %273 = tail call ptr @__errno_location() #26
-  store i32 2, ptr %273, align 4, !tbaa !29
-  br label %283
+273:                                              ; preds = %270, %267
+  %274 = tail call ptr @__errno_location() #26
+  store i32 2, ptr %274, align 4, !tbaa !29
+  br label %284
 
-274:                                              ; preds = %269
+275:                                              ; preds = %270
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #22
-  invoke void @_Z17nameWindowToUnix2PKw(ptr nonnull sret(%class.CStringBase) align 8 %2, ptr noundef nonnull %267)
-          to label %275 unwind label %291
+  invoke void @_Z17nameWindowToUnix2PKw(ptr nonnull sret(%class.CStringBase) align 8 %2, ptr noundef nonnull %268)
+          to label %276 unwind label %292
 
-275:                                              ; preds = %274
-  %276 = load ptr, ptr %2, align 8, !tbaa !18
-  %277 = call i32 @mkdir(ptr noundef %276, i32 noundef 448) #22
-  %278 = icmp eq i32 %277, 0
-  %279 = icmp eq ptr %276, null
-  br i1 %279, label %281, label %280
+276:                                              ; preds = %275
+  %277 = load ptr, ptr %2, align 8, !tbaa !18
+  %278 = call i32 @mkdir(ptr noundef %277, i32 noundef 448) #22
+  %279 = icmp eq i32 %278, 0
+  %280 = icmp eq ptr %277, null
+  br i1 %280, label %282, label %281
 
-280:                                              ; preds = %275
-  call void @_ZdaPv(ptr noundef nonnull %276) #24
-  br label %281
+281:                                              ; preds = %276
+  call void @_ZdaPv(ptr noundef nonnull %277) #24
+  br label %282
 
-281:                                              ; preds = %280, %275
+282:                                              ; preds = %281, %276
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #22
-  %282 = load ptr, ptr %6, align 8, !tbaa !11
-  br label %283
+  %283 = load ptr, ptr %6, align 8, !tbaa !11
+  br label %284
 
-283:                                              ; preds = %281, %272
-  %284 = phi ptr [ %282, %281 ], [ %267, %272 ]
-  %285 = phi i1 [ %278, %281 ], [ false, %272 ]
-  %286 = icmp eq ptr %284, null
-  br i1 %286, label %288, label %287
+284:                                              ; preds = %282, %273
+  %285 = phi ptr [ %283, %282 ], [ %268, %273 ]
+  %286 = phi i1 [ %279, %282 ], [ false, %273 ]
+  %287 = icmp eq ptr %285, null
+  br i1 %287, label %289, label %288
 
-287:                                              ; preds = %283
-  call void @_ZdaPv(ptr noundef nonnull %284) #24
-  br label %288
+288:                                              ; preds = %284
+  call void @_ZdaPv(ptr noundef nonnull %285) #24
+  br label %289
 
-288:                                              ; preds = %283, %287
+289:                                              ; preds = %284, %288
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #22
-  br i1 %285, label %236, label %298, !llvm.loop !61
+  br i1 %286, label %236, label %299, !llvm.loop !61
 
-289:                                              ; preds = %264
-  %290 = landingpad { ptr, i32 }
+290:                                              ; preds = %265
+  %291 = landingpad { ptr, i32 }
           cleanup
-  br label %296
+  br label %297
 
-291:                                              ; preds = %274
-  %292 = landingpad { ptr, i32 }
+292:                                              ; preds = %275
+  %293 = landingpad { ptr, i32 }
           cleanup
-  %293 = load ptr, ptr %6, align 8, !tbaa !11
-  %294 = icmp eq ptr %293, null
-  br i1 %294, label %296, label %295
+  %294 = load ptr, ptr %6, align 8, !tbaa !11
+  %295 = icmp eq ptr %294, null
+  br i1 %295, label %297, label %296
 
-295:                                              ; preds = %291
-  call void @_ZdaPv(ptr noundef nonnull %293) #24
-  br label %296
+296:                                              ; preds = %292
+  call void @_ZdaPv(ptr noundef nonnull %294) #24
+  br label %297
 
-296:                                              ; preds = %295, %291, %289
-  %297 = phi { ptr, i32 } [ %290, %289 ], [ %292, %291 ], [ %292, %295 ]
+297:                                              ; preds = %296, %292, %290
+  %298 = phi { ptr, i32 } [ %291, %290 ], [ %293, %292 ], [ %293, %296 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #22
-  br label %302
+  br label %303
 
-298:                                              ; preds = %134, %155, %148, %146, %236, %288
-  %299 = phi i1 [ true, %236 ], [ %239, %288 ], [ false, %146 ], [ false, %148 ], [ false, %155 ], [ false, %134 ]
-  %300 = icmp eq ptr %97, null
-  br i1 %300, label %306, label %301
+299:                                              ; preds = %134, %155, %148, %146, %236, %289
+  %300 = phi i1 [ true, %236 ], [ %239, %289 ], [ false, %146 ], [ false, %148 ], [ false, %155 ], [ false, %134 ]
+  %301 = icmp eq ptr %97, null
+  br i1 %301, label %307, label %302
 
-301:                                              ; preds = %298
+302:                                              ; preds = %299
   call void @_ZdaPv(ptr noundef nonnull %97) #24
-  br label %306
+  br label %307
 
-302:                                              ; preds = %126, %128, %296, %206
-  %303 = phi { ptr, i32 } [ %297, %296 ], [ %207, %206 ], [ %127, %126 ], [ %129, %128 ]
-  %304 = icmp eq ptr %97, null
-  br i1 %304, label %314, label %305
+303:                                              ; preds = %126, %128, %297, %206
+  %304 = phi { ptr, i32 } [ %298, %297 ], [ %207, %206 ], [ %127, %126 ], [ %129, %128 ]
+  %305 = icmp eq ptr %97, null
+  br i1 %305, label %315, label %306
 
-305:                                              ; preds = %302
+306:                                              ; preds = %303
   call void @_ZdaPv(ptr noundef nonnull %97) #24
-  br label %314
+  br label %315
 
-306:                                              ; preds = %301, %298
-  %307 = load ptr, ptr %4, align 8, !tbaa !11
-  %308 = icmp eq ptr %307, null
-  br i1 %308, label %312, label %309
+307:                                              ; preds = %302, %299
+  %308 = load ptr, ptr %4, align 8, !tbaa !11
+  %309 = icmp eq ptr %308, null
+  br i1 %309, label %313, label %310
 
-309:                                              ; preds = %59, %306
-  %310 = phi i1 [ %299, %306 ], [ true, %59 ]
-  %311 = phi ptr [ %307, %306 ], [ %25, %59 ]
-  call void @_ZdaPv(ptr noundef nonnull %311) #24
-  br label %312
+310:                                              ; preds = %59, %307
+  %311 = phi i1 [ %300, %307 ], [ true, %59 ]
+  %312 = phi ptr [ %308, %307 ], [ %25, %59 ]
+  call void @_ZdaPv(ptr noundef nonnull %312) #24
+  br label %313
 
-312:                                              ; preds = %306, %309
-  %313 = phi i1 [ %299, %306 ], [ %310, %309 ]
+313:                                              ; preds = %307, %310
+  %314 = phi i1 [ %300, %307 ], [ %311, %310 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #22
-  ret i1 %313
+  ret i1 %314
 
-314:                                              ; preds = %124, %302, %305
-  %315 = phi { ptr, i32 } [ %125, %124 ], [ %303, %302 ], [ %303, %305 ]
-  %316 = load ptr, ptr %4, align 8, !tbaa !11
-  %317 = icmp eq ptr %316, null
-  br i1 %317, label %319, label %318
+315:                                              ; preds = %124, %303, %306
+  %316 = phi { ptr, i32 } [ %125, %124 ], [ %304, %303 ], [ %304, %306 ]
+  %317 = load ptr, ptr %4, align 8, !tbaa !11
+  %318 = icmp eq ptr %317, null
+  br i1 %318, label %320, label %319
 
-318:                                              ; preds = %314
-  call void @_ZdaPv(ptr noundef nonnull %316) #24
-  br label %319
+319:                                              ; preds = %315
+  call void @_ZdaPv(ptr noundef nonnull %317) #24
+  br label %320
 
-319:                                              ; preds = %314, %318
+320:                                              ; preds = %315, %319
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #22
-  resume { ptr, i32 } %315
+  resume { ptr, i32 } %316
 }
 
 ; Function Attrs: uwtable
@@ -2484,7 +2485,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
 
 41:                                               ; preds = %32
   %42 = sext i32 %12 to i64
-  br label %67
+  br label %63
 
 43:                                               ; preds = %32
   %44 = add nsw i32 %39, 1
@@ -2493,7 +2494,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   %47 = shl nuw nsw i64 %45, 2
   %48 = select i1 %46, i64 -1, i64 %47
   %49 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %48) #23
-          to label %50 unwind label %63
+          to label %50 unwind label %71
 
 50:                                               ; preds = %43
   %51 = icmp sgt i32 %12, -1
@@ -2521,36 +2522,36 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   %61 = sext i32 %12 to i64
   %62 = getelementptr inbounds i32, ptr %49, i64 %61
   store i32 0, ptr %62, align 4, !tbaa !5
-  br label %67
+  br label %63
 
-63:                                               ; preds = %43
-  %64 = landingpad { ptr, i32 }
-          cleanup
-  %65 = icmp eq ptr %23, null
-  br i1 %65, label %380, label %66
-
-66:                                               ; preds = %63
-  tail call void @_ZdaPv(ptr noundef nonnull %23) #24
-  br label %380
-
-67:                                               ; preds = %41, %60
-  %68 = phi i64 [ %42, %41 ], [ %61, %60 ]
-  %69 = phi ptr [ %23, %41 ], [ %49, %60 ]
-  %70 = getelementptr inbounds i32, ptr %69, i64 %68
-  store i32 47, ptr %70, align 4, !tbaa !5
-  %71 = sext i32 %13 to i64
-  %72 = getelementptr inbounds i32, ptr %69, i64 %71
-  store i32 0, ptr %72, align 4, !tbaa !5
+63:                                               ; preds = %41, %60
+  %64 = phi i64 [ %42, %41 ], [ %61, %60 ]
+  %65 = phi ptr [ %23, %41 ], [ %49, %60 ]
+  %66 = getelementptr inbounds i32, ptr %65, i64 %64
+  store i32 47, ptr %66, align 4, !tbaa !5
+  %67 = sext i32 %13 to i64
+  %68 = getelementptr inbounds i32, ptr %65, i64 %67
+  store i32 0, ptr %68, align 4, !tbaa !5
   call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %6) #22
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %7) #22
   tail call void @llvm.experimental.noalias.scope.decl(metadata !65)
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %7, i8 0, i64 16, i1 false), !alias.scope !65
-  %73 = add nsw i32 %12, 2
-  %74 = icmp eq i32 %73, 0
-  br i1 %74, label %83, label %75
+  %69 = add nsw i32 %12, 2
+  %70 = icmp eq i32 %69, 0
+  br i1 %70, label %83, label %75
 
-75:                                               ; preds = %67
-  %76 = zext i32 %73 to i64
+71:                                               ; preds = %43
+  %72 = landingpad { ptr, i32 }
+          cleanup
+  %73 = icmp eq ptr %23, null
+  br i1 %73, label %361, label %74
+
+74:                                               ; preds = %71
+  tail call void @_ZdaPv(ptr noundef nonnull %23) #24
+  br label %361
+
+75:                                               ; preds = %63
+  %76 = zext i32 %69 to i64
   %77 = icmp slt i32 %12, -2
   %78 = shl nuw nsw i64 %76, 2
   %79 = select i1 %77, i64 -1, i64 %78
@@ -2561,15 +2562,15 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   %82 = getelementptr inbounds %class.CStringBase.0, ptr %7, i64 0, i32 2
   store ptr %80, ptr %7, align 8, !tbaa !11, !alias.scope !65
   store i32 0, ptr %80, align 4, !tbaa !5, !noalias !65
-  store i32 %73, ptr %82, align 4, !tbaa !15, !alias.scope !65
+  store i32 %69, ptr %82, align 4, !tbaa !15, !alias.scope !65
   br label %83
 
-83:                                               ; preds = %81, %67
-  %84 = phi ptr [ null, %67 ], [ %80, %81 ]
+83:                                               ; preds = %81, %63
+  %84 = phi ptr [ null, %63 ], [ %80, %81 ]
   br label %85
 
 85:                                               ; preds = %85, %83
-  %86 = phi ptr [ %69, %83 ], [ %88, %85 ]
+  %86 = phi ptr [ %65, %83 ], [ %88, %85 ]
   %87 = phi ptr [ %84, %83 ], [ %90, %85 ]
   %88 = getelementptr inbounds i32, ptr %86, i64 1
   %89 = load i32, ptr %86, align 4, !tbaa !5, !noalias !65
@@ -2582,15 +2583,15 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   %93 = getelementptr inbounds %class.CStringBase.0, ptr %7, i64 0, i32 1
   %94 = getelementptr inbounds %class.CStringBase.0, ptr %7, i64 0, i32 2
   %95 = icmp sgt i32 %12, 62
-  %96 = lshr i32 %73, 1
+  %96 = lshr i32 %69, 1
   %97 = icmp sgt i32 %12, 6
   %98 = select i1 %97, i32 16, i32 4
   %99 = select i1 %95, i32 %96, i32 %98
   %100 = tail call i32 @llvm.umax.i32(i32 %99, i32 1)
-  %101 = add nsw i32 %100, %73
+  %101 = add nsw i32 %100, %69
   %102 = add nsw i32 %101, 1
-  %103 = icmp eq i32 %102, %73
-  br i1 %103, label %126, label %104
+  %103 = icmp eq i32 %102, %69
+  br i1 %103, label %122, label %104
 
 104:                                              ; preds = %92
   %105 = zext i32 %102 to i64
@@ -2598,7 +2599,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   %107 = shl nuw nsw i64 %105, 2
   %108 = select i1 %106, i64 -1, i64 %107
   %109 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %108) #23
-          to label %110 unwind label %122
+          to label %110 unwind label %127
 
 110:                                              ; preds = %104
   %111 = icmp sgt i32 %12, -2
@@ -2624,33 +2625,33 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
 
 120:                                              ; preds = %119, %117, %110
   store ptr %109, ptr %7, align 8, !tbaa !11
-  %121 = getelementptr inbounds i32, ptr %109, i64 %71
+  %121 = getelementptr inbounds i32, ptr %109, i64 %67
   store i32 0, ptr %121, align 4, !tbaa !5
   store i32 %102, ptr %94, align 4, !tbaa !15
-  br label %126
+  br label %122
 
-122:                                              ; preds = %104
-  %123 = landingpad { ptr, i32 }
-          cleanup
-  %124 = icmp eq ptr %84, null
-  br i1 %124, label %296, label %125
-
-125:                                              ; preds = %122
-  tail call void @_ZdaPv(ptr noundef nonnull %84) #24
-  br label %296
-
-126:                                              ; preds = %92, %120
-  %127 = phi ptr [ %84, %92 ], [ %109, %120 ]
-  %128 = getelementptr inbounds i32, ptr %127, i64 %71
-  store i32 42, ptr %128, align 4, !tbaa !5
-  store i32 %73, ptr %93, align 8, !tbaa !17
-  %129 = sext i32 %73 to i64
-  %130 = getelementptr inbounds i32, ptr %127, i64 %129
-  store i32 0, ptr %130, align 4, !tbaa !5
+122:                                              ; preds = %92, %120
+  %123 = phi ptr [ %84, %92 ], [ %109, %120 ]
+  %124 = getelementptr inbounds i32, ptr %123, i64 %67
+  store i32 42, ptr %124, align 4, !tbaa !5
+  store i32 %69, ptr %93, align 8, !tbaa !17
+  %125 = sext i32 %69 to i64
+  %126 = getelementptr inbounds i32, ptr %123, i64 %125
+  store i32 0, ptr %126, align 4, !tbaa !5
   invoke void @_ZN8NWindows5NFile5NFind12CEnumeratorWC2ERK11CStringBaseIwE(ptr noundef nonnull align 8 dereferenceable(56) %6, ptr noundef nonnull align 8 dereferenceable(16) %7)
           to label %131 unwind label %291
 
-131:                                              ; preds = %126
+127:                                              ; preds = %104
+  %128 = landingpad { ptr, i32 }
+          cleanup
+  %129 = icmp eq ptr %84, null
+  br i1 %129, label %296, label %130
+
+130:                                              ; preds = %127
+  tail call void @_ZdaPv(ptr noundef nonnull %84) #24
+  br label %296
+
+131:                                              ; preds = %122
   %132 = load ptr, ptr %7, align 8, !tbaa !11
   %133 = icmp eq ptr %132, null
   br i1 %133, label %135, label %134
@@ -2662,7 +2663,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
 135:                                              ; preds = %131, %134
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #22
   %136 = getelementptr inbounds %"class.NWindows::NFile::NFind::CFileInfoBase", ptr %5, i64 0, i32 4
-  %137 = zext i32 %73 to i64
+  %137 = zext i32 %69 to i64
   %138 = icmp slt i32 %12, -2
   %139 = shl nuw nsw i64 %137, 2
   %140 = select i1 %138, i64 -1, i64 %139
@@ -2679,7 +2680,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
           to label %149 unwind label %298
 
 149:                                              ; preds = %147
-  br i1 %148, label %150, label %323
+  br i1 %148, label %150, label %302
 
 150:                                              ; preds = %149
   %151 = load i32, ptr %136, align 8, !tbaa !68
@@ -2691,7 +2692,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #22
   call void @llvm.experimental.noalias.scope.decl(metadata !71)
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %4, i8 0, i64 16, i1 false), !alias.scope !71
-  br i1 %74, label %158, label %155
+  br i1 %70, label %158, label %155
 
 155:                                              ; preds = %154
   %156 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %140) #23
@@ -2700,7 +2701,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
 157:                                              ; preds = %155
   store ptr %156, ptr %4, align 8, !tbaa !11, !alias.scope !71
   store i32 0, ptr %156, align 4, !tbaa !5, !noalias !71
-  store i32 %73, ptr %141, align 4, !tbaa !15, !alias.scope !71
+  store i32 %69, ptr %141, align 4, !tbaa !15, !alias.scope !71
   br label %158
 
 158:                                              ; preds = %157, %154
@@ -2708,7 +2709,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   br label %160
 
 160:                                              ; preds = %160, %158
-  %161 = phi ptr [ %69, %158 ], [ %163, %160 ]
+  %161 = phi ptr [ %65, %158 ], [ %163, %160 ]
   %162 = phi ptr [ %159, %158 ], [ %165, %160 ]
   %163 = getelementptr inbounds i32, ptr %161, i64 1
   %164 = load i32, ptr %161, align 4, !tbaa !5, !noalias !71
@@ -2724,9 +2725,9 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
 
 170:                                              ; preds = %167
   %171 = call i32 @llvm.smax.i32(i32 %99, i32 %168)
-  %172 = add nsw i32 %171, %73
+  %172 = add nsw i32 %171, %69
   %173 = add nsw i32 %172, 1
-  %174 = icmp eq i32 %173, %73
+  %174 = icmp eq i32 %173, %69
   br i1 %174, label %189, label %175
 
 175:                                              ; preds = %170
@@ -2735,7 +2736,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   %178 = shl nuw nsw i64 %176, 2
   %179 = select i1 %177, i64 -1, i64 %178
   %180 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %179) #23
-          to label %181 unwind label %200
+          to label %181 unwind label %204
 
 181:                                              ; preds = %175
   br i1 %145, label %182, label %187
@@ -2757,14 +2758,14 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
 
 187:                                              ; preds = %186, %184, %181
   store ptr %180, ptr %4, align 8, !tbaa !11
-  %188 = getelementptr inbounds i32, ptr %180, i64 %71
+  %188 = getelementptr inbounds i32, ptr %180, i64 %67
   store i32 0, ptr %188, align 4, !tbaa !5
   store i32 %173, ptr %141, align 4, !tbaa !15
   br label %189
 
 189:                                              ; preds = %170, %167, %187
   %190 = phi ptr [ %180, %187 ], [ %159, %167 ], [ %159, %170 ]
-  %191 = getelementptr inbounds i32, ptr %190, i64 %71
+  %191 = getelementptr inbounds i32, ptr %190, i64 %67
   %192 = load ptr, ptr %8, align 8, !tbaa !11
   br label %193
 
@@ -2776,26 +2777,26 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   %198 = getelementptr inbounds i32, ptr %195, i64 1
   store i32 %197, ptr %195, align 4, !tbaa !5
   %199 = icmp eq i32 %197, 0
-  br i1 %199, label %204, label %193, !llvm.loop !16
+  br i1 %199, label %200, label %193, !llvm.loop !16
 
-200:                                              ; preds = %175
-  %201 = landingpad { ptr, i32 }
+200:                                              ; preds = %193
+  %201 = load i32, ptr %9, align 8, !tbaa !17
+  %202 = add nsw i32 %201, %13
+  store i32 %202, ptr %142, align 8, !tbaa !17
+  %203 = invoke noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirectoryWithSubItemsERK11CStringBaseIwE(ptr noundef nonnull align 8 dereferenceable(16) %4)
+          to label %208 unwind label %213
+
+204:                                              ; preds = %175
+  %205 = landingpad { ptr, i32 }
           cleanup
-  %202 = icmp eq ptr %159, null
-  br i1 %202, label %300, label %203
+  %206 = icmp eq ptr %159, null
+  br i1 %206, label %300, label %207
 
-203:                                              ; preds = %200
+207:                                              ; preds = %204
   call void @_ZdaPv(ptr noundef nonnull %159) #24
   br label %300
 
-204:                                              ; preds = %193
-  %205 = load i32, ptr %9, align 8, !tbaa !17
-  %206 = add nsw i32 %205, %13
-  store i32 %206, ptr %142, align 8, !tbaa !17
-  %207 = invoke noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirectoryWithSubItemsERK11CStringBaseIwE(ptr noundef nonnull align 8 dereferenceable(16) %4)
-          to label %208 unwind label %213
-
-208:                                              ; preds = %204
+208:                                              ; preds = %200
   %209 = icmp eq ptr %190, null
   br i1 %209, label %211, label %210
 
@@ -2805,12 +2806,12 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
 
 211:                                              ; preds = %208, %210
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #22
-  br i1 %207, label %212, label %302
+  br i1 %203, label %212, label %302
 
 212:                                              ; preds = %211, %282
   br label %147, !llvm.loop !74
 
-213:                                              ; preds = %204
+213:                                              ; preds = %200
   %214 = landingpad { ptr, i32 }
           cleanup
   %215 = icmp eq ptr %190, null
@@ -2825,7 +2826,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   br label %300
 
 218:                                              ; preds = %150
-  br i1 %74, label %222, label %219
+  br i1 %70, label %222, label %219
 
 219:                                              ; preds = %218
   %220 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %140) #23
@@ -2840,7 +2841,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   br label %224
 
 224:                                              ; preds = %224, %222
-  %225 = phi ptr [ %69, %222 ], [ %227, %224 ]
+  %225 = phi ptr [ %65, %222 ], [ %227, %224 ]
   %226 = phi ptr [ %223, %222 ], [ %229, %224 ]
   %227 = getelementptr inbounds i32, ptr %225, i64 1
   %228 = load i32, ptr %225, align 4, !tbaa !5, !noalias !75
@@ -2856,9 +2857,9 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
 
 234:                                              ; preds = %231
   %235 = call i32 @llvm.smax.i32(i32 %99, i32 %232)
-  %236 = add nsw i32 %235, %73
+  %236 = add nsw i32 %235, %69
   %237 = add nsw i32 %236, 1
-  %238 = icmp eq i32 %237, %73
+  %238 = icmp eq i32 %237, %69
   br i1 %238, label %253, label %239
 
 239:                                              ; preds = %234
@@ -2873,7 +2874,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   br i1 %145, label %246, label %251
 
 246:                                              ; preds = %245
-  br i1 %14, label %248, label %247
+  br i1 %143, label %247, label %248
 
 247:                                              ; preds = %246
   call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 4 %244, ptr align 4 %223, i64 %146, i1 false), !tbaa !5
@@ -2888,13 +2889,13 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   br label %251
 
 251:                                              ; preds = %250, %248, %245
-  %252 = getelementptr inbounds i32, ptr %244, i64 %71
+  %252 = getelementptr inbounds i32, ptr %244, i64 %67
   store i32 0, ptr %252, align 4, !tbaa !5
   br label %253
 
 253:                                              ; preds = %251, %234, %231
   %254 = phi ptr [ %223, %234 ], [ %244, %251 ], [ %223, %231 ]
-  %255 = getelementptr inbounds i32, ptr %254, i64 %71
+  %255 = getelementptr inbounds i32, ptr %254, i64 %67
   %256 = load ptr, ptr %8, align 8, !tbaa !11
   br label %257
 
@@ -2968,14 +2969,14 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
 287:                                              ; preds = %15
   %288 = landingpad { ptr, i32 }
           cleanup
-  br label %380
+  br label %361
 
 289:                                              ; preds = %75
   %290 = landingpad { ptr, i32 }
           cleanup
   br label %296
 
-291:                                              ; preds = %126
+291:                                              ; preds = %122
   %292 = landingpad { ptr, i32 }
           cleanup
   %293 = load ptr, ptr %7, align 8, !tbaa !11
@@ -2986,205 +2987,164 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory27RemoveDirec
   call void @_ZdaPv(ptr noundef nonnull %293) #24
   br label %296
 
-296:                                              ; preds = %295, %291, %289, %125, %122
-  %297 = phi { ptr, i32 } [ %290, %289 ], [ %123, %125 ], [ %123, %122 ], [ %292, %291 ], [ %292, %295 ]
+296:                                              ; preds = %295, %291, %289, %130, %127
+  %297 = phi { ptr, i32 } [ %290, %289 ], [ %128, %130 ], [ %128, %127 ], [ %292, %291 ], [ %292, %295 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #22
-  br label %347
+  br label %328
 
 298:                                              ; preds = %155, %219, %147
   %299 = landingpad { ptr, i32 }
           cleanup
   br label %300
 
-300:                                              ; preds = %267, %264, %200, %203, %298, %217, %283
-  %301 = phi { ptr, i32 } [ %214, %217 ], [ %284, %283 ], [ %265, %267 ], [ %265, %264 ], [ %299, %298 ], [ %201, %203 ], [ %201, %200 ]
+300:                                              ; preds = %267, %264, %204, %207, %298, %217, %283
+  %301 = phi { ptr, i32 } [ %214, %217 ], [ %284, %283 ], [ %265, %267 ], [ %265, %264 ], [ %299, %298 ], [ %205, %207 ], [ %205, %204 ]
   call void @_ZN8NWindows5NFile5NFind12CEnumeratorWD2Ev(ptr noundef nonnull align 8 dereferenceable(56) %6) #22
-  br label %347
-
-302:                                              ; preds = %282, %211, %285, %280
-  %303 = getelementptr inbounds %"class.NWindows::NFile::NFind::CEnumeratorW", ptr %6, i64 0, i32 1
-  %304 = load ptr, ptr %303, align 8, !tbaa !11
-  %305 = icmp eq ptr %304, null
-  br i1 %305, label %307, label %306
-
-306:                                              ; preds = %302
-  call void @_ZdaPv(ptr noundef nonnull %304) #24
-  br label %307
-
-307:                                              ; preds = %306, %302
-  %308 = invoke noundef zeroext i1 @_ZN8NWindows5NFile5NFind9CFindFile5CloseEv(ptr noundef nonnull align 8 dereferenceable(40) %6)
-          to label %309 unwind label %319
-
-309:                                              ; preds = %307
-  %310 = getelementptr inbounds %"class.NWindows::NFile::NFind::CFindFile", ptr %6, i64 0, i32 2
-  %311 = load ptr, ptr %310, align 8, !tbaa !18
-  %312 = icmp eq ptr %311, null
-  br i1 %312, label %314, label %313
-
-313:                                              ; preds = %309
-  call void @_ZdaPv(ptr noundef nonnull %311) #24
-  br label %314
-
-314:                                              ; preds = %313, %309
-  %315 = getelementptr inbounds %"class.NWindows::NFile::NFind::CFindFile", ptr %6, i64 0, i32 1
-  %316 = load ptr, ptr %315, align 8, !tbaa !18
-  %317 = icmp eq ptr %316, null
-  br i1 %317, label %322, label %318
-
-318:                                              ; preds = %314
-  call void @_ZdaPv(ptr noundef nonnull %316) #24
-  br label %322
-
-319:                                              ; preds = %307
-  %320 = landingpad { ptr, i32 }
-          catch ptr null
-  %321 = extractvalue { ptr, i32 } %320, 0
-  call void @__clang_call_terminate(ptr %321) #27
-  unreachable
-
-322:                                              ; preds = %314, %318
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %6) #22
-  br label %367
-
-323:                                              ; preds = %149
-  %324 = getelementptr inbounds %"class.NWindows::NFile::NFind::CEnumeratorW", ptr %6, i64 0, i32 1
-  %325 = load ptr, ptr %324, align 8, !tbaa !11
-  %326 = icmp eq ptr %325, null
-  br i1 %326, label %328, label %327
-
-327:                                              ; preds = %323
-  call void @_ZdaPv(ptr noundef nonnull %325) #24
   br label %328
 
-328:                                              ; preds = %327, %323
-  %329 = invoke noundef zeroext i1 @_ZN8NWindows5NFile5NFind9CFindFile5CloseEv(ptr noundef nonnull align 8 dereferenceable(40) %6)
-          to label %330 unwind label %340
+302:                                              ; preds = %282, %211, %149, %285, %280
+  %303 = phi i1 [ true, %285 ], [ true, %280 ], [ %148, %282 ], [ %148, %211 ], [ false, %149 ]
+  %304 = getelementptr inbounds %"class.NWindows::NFile::NFind::CEnumeratorW", ptr %6, i64 0, i32 1
+  %305 = load ptr, ptr %304, align 8, !tbaa !11
+  %306 = icmp eq ptr %305, null
+  br i1 %306, label %308, label %307
 
-330:                                              ; preds = %328
-  %331 = getelementptr inbounds %"class.NWindows::NFile::NFind::CFindFile", ptr %6, i64 0, i32 2
-  %332 = load ptr, ptr %331, align 8, !tbaa !18
-  %333 = icmp eq ptr %332, null
-  br i1 %333, label %335, label %334
+307:                                              ; preds = %302
+  call void @_ZdaPv(ptr noundef nonnull %305) #24
+  br label %308
 
-334:                                              ; preds = %330
-  call void @_ZdaPv(ptr noundef nonnull %332) #24
-  br label %335
+308:                                              ; preds = %307, %302
+  %309 = invoke noundef zeroext i1 @_ZN8NWindows5NFile5NFind9CFindFile5CloseEv(ptr noundef nonnull align 8 dereferenceable(40) %6)
+          to label %310 unwind label %320
 
-335:                                              ; preds = %334, %330
-  %336 = getelementptr inbounds %"class.NWindows::NFile::NFind::CFindFile", ptr %6, i64 0, i32 1
-  %337 = load ptr, ptr %336, align 8, !tbaa !18
-  %338 = icmp eq ptr %337, null
-  br i1 %338, label %343, label %339
+310:                                              ; preds = %308
+  %311 = getelementptr inbounds %"class.NWindows::NFile::NFind::CFindFile", ptr %6, i64 0, i32 2
+  %312 = load ptr, ptr %311, align 8, !tbaa !18
+  %313 = icmp eq ptr %312, null
+  br i1 %313, label %315, label %314
 
-339:                                              ; preds = %335
-  call void @_ZdaPv(ptr noundef nonnull %337) #24
-  br label %343
+314:                                              ; preds = %310
+  call void @_ZdaPv(ptr noundef nonnull %312) #24
+  br label %315
 
-340:                                              ; preds = %328
-  %341 = landingpad { ptr, i32 }
+315:                                              ; preds = %314, %310
+  %316 = getelementptr inbounds %"class.NWindows::NFile::NFind::CFindFile", ptr %6, i64 0, i32 1
+  %317 = load ptr, ptr %316, align 8, !tbaa !18
+  %318 = icmp eq ptr %317, null
+  br i1 %318, label %323, label %319
+
+319:                                              ; preds = %315
+  call void @_ZdaPv(ptr noundef nonnull %317) #24
+  br label %323
+
+320:                                              ; preds = %308
+  %321 = landingpad { ptr, i32 }
           catch ptr null
-  %342 = extractvalue { ptr, i32 } %341, 0
-  call void @__clang_call_terminate(ptr %342) #27
+  %322 = extractvalue { ptr, i32 } %321, 0
+  call void @__clang_call_terminate(ptr %322) #27
   unreachable
 
-343:                                              ; preds = %339, %335
+323:                                              ; preds = %315, %319
   call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %6) #22
-  %344 = load ptr, ptr %0, align 8, !tbaa !11
-  %345 = invoke noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory19MySetFileAttributesEPKwj(ptr noundef %344, i32 noundef 0)
-          to label %346 unwind label %349
+  br i1 %303, label %348, label %324
 
-346:                                              ; preds = %343
-  br i1 %345, label %351, label %367
+324:                                              ; preds = %323
+  %325 = load ptr, ptr %0, align 8, !tbaa !11
+  %326 = invoke noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory19MySetFileAttributesEPKwj(ptr noundef %325, i32 noundef 0)
+          to label %327 unwind label %330
 
-347:                                              ; preds = %300, %296
-  %348 = phi { ptr, i32 } [ %301, %300 ], [ %297, %296 ]
+327:                                              ; preds = %324
+  br i1 %326, label %332, label %348
+
+328:                                              ; preds = %300, %296
+  %329 = phi { ptr, i32 } [ %301, %300 ], [ %297, %296 ]
   call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %6) #22
-  br label %376
+  br label %357
 
-349:                                              ; preds = %359, %343
-  %350 = landingpad { ptr, i32 }
+330:                                              ; preds = %340, %324
+  %331 = landingpad { ptr, i32 }
           cleanup
-  br label %376
+  br label %357
 
-351:                                              ; preds = %346
-  %352 = load ptr, ptr %0, align 8, !tbaa !11
-  %353 = icmp eq ptr %352, null
-  br i1 %353, label %357, label %354
+332:                                              ; preds = %327
+  %333 = load ptr, ptr %0, align 8, !tbaa !11
+  %334 = icmp eq ptr %333, null
+  br i1 %334, label %338, label %335
 
-354:                                              ; preds = %351
-  %355 = load i32, ptr %352, align 4, !tbaa !5
-  %356 = icmp eq i32 %355, 0
-  br i1 %356, label %357, label %359
+335:                                              ; preds = %332
+  %336 = load i32, ptr %333, align 4, !tbaa !5
+  %337 = icmp eq i32 %336, 0
+  br i1 %337, label %338, label %340
 
-357:                                              ; preds = %354, %351
-  %358 = tail call ptr @__errno_location() #26
-  store i32 2, ptr %358, align 4, !tbaa !29
-  br label %367
+338:                                              ; preds = %335, %332
+  %339 = tail call ptr @__errno_location() #26
+  store i32 2, ptr %339, align 4, !tbaa !29
+  br label %348
 
-359:                                              ; preds = %354
+340:                                              ; preds = %335
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #22
-  invoke void @_Z17nameWindowToUnix2PKw(ptr nonnull sret(%class.CStringBase) align 8 %3, ptr noundef nonnull %352)
-          to label %360 unwind label %349
+  invoke void @_Z17nameWindowToUnix2PKw(ptr nonnull sret(%class.CStringBase) align 8 %3, ptr noundef nonnull %333)
+          to label %341 unwind label %330
 
-360:                                              ; preds = %359
-  %361 = load ptr, ptr %3, align 8, !tbaa !18
-  %362 = call i32 @rmdir(ptr noundef %361) #22
-  %363 = icmp eq i32 %362, 0
-  %364 = icmp eq ptr %361, null
+341:                                              ; preds = %340
+  %342 = load ptr, ptr %3, align 8, !tbaa !18
+  %343 = call i32 @rmdir(ptr noundef %342) #22
+  %344 = icmp eq i32 %343, 0
+  %345 = icmp eq ptr %342, null
+  br i1 %345, label %347, label %346
+
+346:                                              ; preds = %341
+  call void @_ZdaPv(ptr noundef nonnull %342) #24
+  br label %347
+
+347:                                              ; preds = %346, %341
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #22
+  br label %348
+
+348:                                              ; preds = %338, %347, %327, %323
+  %349 = phi i1 [ false, %323 ], [ false, %327 ], [ %344, %347 ], [ false, %338 ]
+  %350 = icmp eq ptr %65, null
+  br i1 %350, label %352, label %351
+
+351:                                              ; preds = %348
+  call void @_ZdaPv(ptr noundef nonnull %65) #24
+  br label %352
+
+352:                                              ; preds = %348, %351
+  %353 = load ptr, ptr %8, align 8, !tbaa !11
+  %354 = icmp eq ptr %353, null
+  br i1 %354, label %356, label %355
+
+355:                                              ; preds = %352
+  call void @_ZdaPv(ptr noundef nonnull %353) #24
+  br label %356
+
+356:                                              ; preds = %352, %355
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %5) #22
+  ret i1 %349
+
+357:                                              ; preds = %330, %328
+  %358 = phi { ptr, i32 } [ %331, %330 ], [ %329, %328 ]
+  %359 = icmp eq ptr %65, null
+  br i1 %359, label %361, label %360
+
+360:                                              ; preds = %357
+  call void @_ZdaPv(ptr noundef nonnull %65) #24
+  br label %361
+
+361:                                              ; preds = %360, %357, %287, %74, %71
+  %362 = phi { ptr, i32 } [ %288, %287 ], [ %72, %74 ], [ %72, %71 ], [ %358, %357 ], [ %358, %360 ]
+  %363 = load ptr, ptr %8, align 8, !tbaa !11
+  %364 = icmp eq ptr %363, null
   br i1 %364, label %366, label %365
 
-365:                                              ; preds = %360
-  call void @_ZdaPv(ptr noundef nonnull %361) #24
+365:                                              ; preds = %361
+  call void @_ZdaPv(ptr noundef nonnull %363) #24
   br label %366
 
-366:                                              ; preds = %365, %360
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #22
-  br label %367
-
-367:                                              ; preds = %322, %366, %357, %346
-  %368 = phi i1 [ false, %322 ], [ false, %346 ], [ %363, %366 ], [ false, %357 ]
-  %369 = icmp eq ptr %69, null
-  br i1 %369, label %371, label %370
-
-370:                                              ; preds = %367
-  call void @_ZdaPv(ptr noundef nonnull %69) #24
-  br label %371
-
-371:                                              ; preds = %367, %370
-  %372 = load ptr, ptr %8, align 8, !tbaa !11
-  %373 = icmp eq ptr %372, null
-  br i1 %373, label %375, label %374
-
-374:                                              ; preds = %371
-  call void @_ZdaPv(ptr noundef nonnull %372) #24
-  br label %375
-
-375:                                              ; preds = %371, %374
+366:                                              ; preds = %361, %365
   call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %5) #22
-  ret i1 %368
-
-376:                                              ; preds = %349, %347
-  %377 = phi { ptr, i32 } [ %350, %349 ], [ %348, %347 ]
-  %378 = icmp eq ptr %69, null
-  br i1 %378, label %380, label %379
-
-379:                                              ; preds = %376
-  call void @_ZdaPv(ptr noundef nonnull %69) #24
-  br label %380
-
-380:                                              ; preds = %379, %376, %287, %66, %63
-  %381 = phi { ptr, i32 } [ %288, %287 ], [ %64, %66 ], [ %64, %63 ], [ %377, %376 ], [ %377, %379 ]
-  %382 = load ptr, ptr %8, align 8, !tbaa !11
-  %383 = icmp eq ptr %382, null
-  br i1 %383, label %385, label %384
-
-384:                                              ; preds = %380
-  call void @_ZdaPv(ptr noundef nonnull %382) #24
-  br label %385
-
-385:                                              ; preds = %380, %384
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %5) #22
-  resume { ptr, i32 } %381
+  resume { ptr, i32 } %362
 }
 
 ; Function Attrs: uwtable
@@ -3358,7 +3318,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory12MySearchPat
 20:                                               ; preds = %16
   %21 = tail call ptr @getenv(ptr noundef nonnull @.str.5) #22
   %22 = icmp eq ptr %21, null
-  br i1 %22, label %261, label %23
+  br i1 %22, label %259, label %23
 
 23:                                               ; preds = %20
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #22
@@ -3428,7 +3388,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory12MySearchPat
   %61 = shl nuw nsw i64 %59, 2
   %62 = select i1 %60, i64 -1, i64 %61
   %63 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %62) #23
-          to label %64 unwind label %225
+          to label %64 unwind label %222
 
 64:                                               ; preds = %55
   %65 = getelementptr inbounds %class.CStringBase.0, ptr %7, i64 0, i32 2
@@ -3451,7 +3411,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory12MySearchPat
   %74 = getelementptr inbounds %class.CStringBase.0, ptr %7, i64 0, i32 1
   store i32 %56, ptr %74, align 8, !tbaa !17
   invoke void @_Z24UnicodeStringToMultiByteRK11CStringBaseIwEj(ptr nonnull sret(%class.CStringBase) align 8 %6, ptr noundef nonnull align 8 dereferenceable(16) %7, i32 noundef 0)
-          to label %75 unwind label %227
+          to label %75 unwind label %224
 
 75:                                               ; preds = %73
   %76 = getelementptr inbounds %class.CStringBase, ptr %6, i64 0, i32 1
@@ -3474,7 +3434,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory12MySearchPat
 89:                                               ; preds = %79
   %90 = sext i32 %87 to i64
   %91 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %90) #23
-          to label %92 unwind label %229
+          to label %92 unwind label %226
 
 92:                                               ; preds = %89
   %93 = icmp sgt i32 %32, -1
@@ -3617,13 +3577,13 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory12MySearchPat
   %172 = load ptr, ptr %5, align 8, !tbaa !18
   %173 = call noalias ptr @fopen64(ptr noundef %172, ptr noundef nonnull @.str.6)
   %174 = icmp eq ptr %173, null
-  br i1 %174, label %257, label %175
+  br i1 %174, label %248, label %175
 
 175:                                              ; preds = %171
   %176 = call i32 @fclose(ptr noundef nonnull %173)
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %8) #22
   invoke void @_Z24MultiByteToUnicodeStringRK11CStringBaseIcEj(ptr nonnull sret(%class.CStringBase.0) align 8 %8, ptr noundef nonnull align 8 dereferenceable(16) %5, i32 noundef 0)
-          to label %177 unwind label %241
+          to label %177 unwind label %238
 
 177:                                              ; preds = %175
   %178 = icmp eq ptr %8, %3
@@ -3652,7 +3612,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory12MySearchPat
   %193 = shl nuw nsw i64 %191, 2
   %194 = select i1 %192, i64 -1, i64 %193
   %195 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %194) #23
-          to label %196 unwind label %243
+          to label %196 unwind label %240
 
 196:                                              ; preds = %190
   %197 = icmp sgt i32 %188, 0
@@ -3704,105 +3664,100 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory12MySearchPat
 220:                                              ; preds = %216, %219
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %8) #22
   %221 = load ptr, ptr %5, align 8, !tbaa !18
-  %222 = icmp eq ptr %221, null
-  br i1 %222, label %224, label %223
+  br label %248
 
-223:                                              ; preds = %220
-  call void @_ZdaPv(ptr noundef nonnull %221) #24
-  br label %224
-
-224:                                              ; preds = %220, %223
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #22
-  br label %261
-
-225:                                              ; preds = %55
-  %226 = landingpad { ptr, i32 }
+222:                                              ; preds = %55
+  %223 = landingpad { ptr, i32 }
           cleanup
-  br label %239
+  br label %236
 
-227:                                              ; preds = %73
-  %228 = landingpad { ptr, i32 }
+224:                                              ; preds = %73
+  %225 = landingpad { ptr, i32 }
           cleanup
-  br label %234
+  br label %231
 
-229:                                              ; preds = %89
-  %230 = landingpad { ptr, i32 }
+226:                                              ; preds = %89
+  %227 = landingpad { ptr, i32 }
           cleanup
-  %231 = load ptr, ptr %6, align 8, !tbaa !18
-  %232 = icmp eq ptr %231, null
-  br i1 %232, label %234, label %233
+  %228 = load ptr, ptr %6, align 8, !tbaa !18
+  %229 = icmp eq ptr %228, null
+  br i1 %229, label %231, label %230
 
-233:                                              ; preds = %229
-  call void @_ZdaPv(ptr noundef nonnull %231) #24
-  br label %234
+230:                                              ; preds = %226
+  call void @_ZdaPv(ptr noundef nonnull %228) #24
+  br label %231
 
-234:                                              ; preds = %233, %229, %227
-  %235 = phi { ptr, i32 } [ %228, %227 ], [ %230, %229 ], [ %230, %233 ]
-  %236 = load ptr, ptr %7, align 8, !tbaa !11
-  %237 = icmp eq ptr %236, null
-  br i1 %237, label %239, label %238
+231:                                              ; preds = %230, %226, %224
+  %232 = phi { ptr, i32 } [ %225, %224 ], [ %227, %226 ], [ %227, %230 ]
+  %233 = load ptr, ptr %7, align 8, !tbaa !11
+  %234 = icmp eq ptr %233, null
+  br i1 %234, label %236, label %235
 
-238:                                              ; preds = %234
-  call void @_ZdaPv(ptr noundef nonnull %236) #24
-  br label %239
+235:                                              ; preds = %231
+  call void @_ZdaPv(ptr noundef nonnull %233) #24
+  br label %236
 
-239:                                              ; preds = %238, %234, %225
-  %240 = phi { ptr, i32 } [ %226, %225 ], [ %235, %234 ], [ %235, %238 ]
+236:                                              ; preds = %235, %231, %222
+  %237 = phi { ptr, i32 } [ %223, %222 ], [ %232, %231 ], [ %232, %235 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %7) #22
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #22
-  br label %251
+  br label %253
 
-241:                                              ; preds = %175
-  %242 = landingpad { ptr, i32 }
+238:                                              ; preds = %175
+  %239 = landingpad { ptr, i32 }
           cleanup
-  br label %248
+  br label %245
 
-243:                                              ; preds = %190
-  %244 = landingpad { ptr, i32 }
+240:                                              ; preds = %190
+  %241 = landingpad { ptr, i32 }
           cleanup
-  %245 = load ptr, ptr %8, align 8, !tbaa !11
-  %246 = icmp eq ptr %245, null
-  br i1 %246, label %248, label %247
+  %242 = load ptr, ptr %8, align 8, !tbaa !11
+  %243 = icmp eq ptr %242, null
+  br i1 %243, label %245, label %244
 
-247:                                              ; preds = %243
-  call void @_ZdaPv(ptr noundef nonnull %245) #24
-  br label %248
+244:                                              ; preds = %240
+  call void @_ZdaPv(ptr noundef nonnull %242) #24
+  br label %245
 
-248:                                              ; preds = %247, %243, %241
-  %249 = phi { ptr, i32 } [ %242, %241 ], [ %244, %243 ], [ %244, %247 ]
+245:                                              ; preds = %244, %240, %238
+  %246 = phi { ptr, i32 } [ %239, %238 ], [ %241, %240 ], [ %241, %244 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %8) #22
-  %250 = load ptr, ptr %5, align 8, !tbaa !18
-  br label %251
+  %247 = load ptr, ptr %5, align 8, !tbaa !18
+  br label %253
 
-251:                                              ; preds = %248, %239
-  %252 = phi ptr [ %250, %248 ], [ %39, %239 ]
-  %253 = phi { ptr, i32 } [ %249, %248 ], [ %240, %239 ]
-  %254 = icmp eq ptr %252, null
-  br i1 %254, label %256, label %255
+248:                                              ; preds = %171, %220
+  %249 = phi ptr [ %172, %171 ], [ %221, %220 ]
+  %250 = icmp eq ptr %249, null
+  br i1 %250, label %252, label %251
 
-255:                                              ; preds = %251
-  call void @_ZdaPv(ptr noundef nonnull %252) #24
-  br label %256
+251:                                              ; preds = %248
+  call void @_ZdaPv(ptr noundef nonnull %249) #24
+  br label %252
 
-256:                                              ; preds = %251, %255
+252:                                              ; preds = %248, %251
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #22
-  resume { ptr, i32 } %253
+  br i1 %174, label %259, label %260
 
-257:                                              ; preds = %171
-  %258 = icmp eq ptr %172, null
-  br i1 %258, label %260, label %259
+253:                                              ; preds = %245, %236
+  %254 = phi ptr [ %247, %245 ], [ %39, %236 ]
+  %255 = phi { ptr, i32 } [ %246, %245 ], [ %237, %236 ]
+  %256 = icmp eq ptr %254, null
+  br i1 %256, label %258, label %257
 
-259:                                              ; preds = %257
-  call void @_ZdaPv(ptr noundef nonnull %172) #24
+257:                                              ; preds = %253
+  call void @_ZdaPv(ptr noundef nonnull %254) #24
+  br label %258
+
+258:                                              ; preds = %253, %257
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #22
+  resume { ptr, i32 } %255
+
+259:                                              ; preds = %252, %20
   br label %260
 
-260:                                              ; preds = %257, %259
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #22
-  br label %261
-
-261:                                              ; preds = %20, %260, %224
-  %262 = phi i1 [ true, %224 ], [ false, %260 ], [ false, %20 ]
-  ret i1 %262
+260:                                              ; preds = %252, %259
+  %261 = phi i1 [ false, %259 ], [ true, %252 ]
+  ret i1 %261
 }
 
 ; Function Attrs: noreturn nounwind
@@ -4762,25 +4717,25 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory9CTempFile6Cr
   %4 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #23
   store i32 0, ptr %4, align 4, !tbaa !5
   %5 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znam(i64 noundef 32) #23
-          to label %9 unwind label %6
+          to label %6 unwind label %9
 
-6:                                                ; preds = %3, %9
-  %7 = phi ptr [ %5, %9 ], [ %4, %3 ]
-  %8 = landingpad { ptr, i32 }
-          cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %7) #24
-  resume { ptr, i32 } %8
-
-9:                                                ; preds = %3
+6:                                                ; preds = %3
   tail call void @_ZdaPv(ptr noundef nonnull %4) #24
-  %10 = getelementptr inbounds i32, ptr %5, i64 4
+  %7 = getelementptr inbounds i32, ptr %5, i64 4
   store <4 x i32> <i32 99, i32 58, i32 47, i32 116>, ptr %5, align 4, !tbaa !5
-  store <4 x i32> <i32 109, i32 112, i32 47, i32 0>, ptr %10, align 4, !tbaa !5
-  %11 = invoke noundef i32 @_ZN8NWindows5NFile10NDirectory9CTempFile6CreateEPKwS4_R11CStringBaseIwE(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull %5, ptr noundef %1, ptr noundef nonnull align 8 dereferenceable(16) %2)
-          to label %12 unwind label %6
+  store <4 x i32> <i32 109, i32 112, i32 47, i32 0>, ptr %7, align 4, !tbaa !5
+  %8 = invoke noundef i32 @_ZN8NWindows5NFile10NDirectory9CTempFile6CreateEPKwS4_R11CStringBaseIwE(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull %5, ptr noundef %1, ptr noundef nonnull align 8 dereferenceable(16) %2)
+          to label %12 unwind label %9
 
-12:                                               ; preds = %9
-  %13 = icmp ne i32 %11, 0
+9:                                                ; preds = %3, %6
+  %10 = phi ptr [ %5, %6 ], [ %4, %3 ]
+  %11 = landingpad { ptr, i32 }
+          cleanup
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #24
+  resume { ptr, i32 } %11
+
+12:                                               ; preds = %6
+  %13 = icmp ne i32 %8, 0
   tail call void @_ZdaPv(ptr noundef nonnull %5) #24
   ret i1 %13
 }
@@ -4809,26 +4764,26 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory19CreateTempD
 12:                                               ; preds = %9
   store i32 0, ptr %11, align 4, !tbaa !5
   %13 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znam(i64 noundef 32) #23
-          to label %17 unwind label %14
+          to label %14 unwind label %17
 
-14:                                               ; preds = %17, %12
-  %15 = phi ptr [ %13, %17 ], [ %11, %12 ]
-  %16 = landingpad { ptr, i32 }
+14:                                               ; preds = %12
+  call void @_ZdaPv(ptr noundef nonnull %11) #24
+  %15 = getelementptr inbounds i32, ptr %13, i64 4
+  store <4 x i32> <i32 99, i32 58, i32 47, i32 116>, ptr %13, align 4, !tbaa !5
+  store <4 x i32> <i32 109, i32 112, i32 47, i32 0>, ptr %15, align 4, !tbaa !5
+  %16 = invoke noundef i32 @_ZN8NWindows5NFile10NDirectory9CTempFile6CreateEPKwS4_R11CStringBaseIwE(ptr noundef nonnull align 8 dereferenceable(24) %5, ptr noundef nonnull %13, ptr noundef %0, ptr noundef nonnull align 8 dereferenceable(16) %1)
+          to label %20 unwind label %17
+
+17:                                               ; preds = %14, %12
+  %18 = phi ptr [ %13, %14 ], [ %11, %12 ]
+  %19 = landingpad { ptr, i32 }
           cleanup
-  call void @_ZdaPv(ptr noundef nonnull %15) #24
+  call void @_ZdaPv(ptr noundef nonnull %18) #24
   br label %24
 
-17:                                               ; preds = %12
-  call void @_ZdaPv(ptr noundef nonnull %11) #24
-  %18 = getelementptr inbounds i32, ptr %13, i64 4
-  store <4 x i32> <i32 99, i32 58, i32 47, i32 116>, ptr %13, align 4, !tbaa !5
-  store <4 x i32> <i32 109, i32 112, i32 47, i32 0>, ptr %18, align 4, !tbaa !5
-  %19 = invoke noundef i32 @_ZN8NWindows5NFile10NDirectory9CTempFile6CreateEPKwS4_R11CStringBaseIwE(ptr noundef nonnull align 8 dereferenceable(24) %5, ptr noundef nonnull %13, ptr noundef %0, ptr noundef nonnull align 8 dereferenceable(16) %1)
-          to label %20 unwind label %14
-
-20:                                               ; preds = %17
-  %21 = icmp eq i32 %19, 0
+20:                                               ; preds = %14
   call void @_ZdaPv(ptr noundef nonnull %13) #24
+  %21 = icmp eq i32 %16, 0
   br i1 %21, label %46, label %26
 
 22:                                               ; preds = %37, %9
@@ -4836,8 +4791,8 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory19CreateTempD
           cleanup
   br label %24
 
-24:                                               ; preds = %14, %22
-  %25 = phi { ptr, i32 } [ %23, %22 ], [ %16, %14 ]
+24:                                               ; preds = %17, %22
+  %25 = phi { ptr, i32 } [ %23, %22 ], [ %19, %17 ]
   call void @_ZN8NWindows5NFile10NDirectory9CTempFileD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %5) #22
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #22
   resume { ptr, i32 } %25
@@ -4910,7 +4865,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory19CreateTempD
   %56 = icmp eq i32 %55, 0
   br i1 %56, label %57, label %59
 
-57:                                               ; preds = %54, %51
+57:                                               ; preds = %51, %54
   %58 = tail call ptr @__errno_location() #26
   store i32 2, ptr %58, align 4, !tbaa !29
   br label %70
@@ -4928,7 +4883,7 @@ define dso_local noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory19CreateTempD
   call void @_ZdaPv(ptr noundef nonnull %60) #24
   br label %65
 
-65:                                               ; preds = %59, %64
+65:                                               ; preds = %64, %59
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #22
   br i1 %62, label %70, label %66
 
@@ -5298,9 +5253,6 @@ define internal void @_GLOBAL__sub_I_FileDir.cpp() #0 section ".text.startup" pe
   ret void
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #18
 
@@ -5315,6 +5267,9 @@ declare i32 @llvm.smax.i32(i32, i32) #21
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #21
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
 declare void @llvm.assume(i1 noundef) #19

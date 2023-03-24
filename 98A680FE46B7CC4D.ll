@@ -1484,7 +1484,7 @@ define internal fastcc void @RubyGenEntry(ptr noundef %0, ptr noundef %1, ptr no
   %69 = icmp eq i32 %68, 0
   br i1 %69, label %70, label %71
 
-70:                                               ; preds = %60, %65
+70:                                               ; preds = %65, %60
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.6) #4
   br label %71
 

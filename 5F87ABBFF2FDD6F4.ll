@@ -335,28 +335,28 @@ define internal fastcc void @chunk(ptr noundef %0) unnamed_addr #0 {
   %70 = getelementptr inbounds %struct.LHS_assign, ptr %24, i64 0, i32 1, i32 1
   br label %71
 
-71:                                               ; preds = %32, %1127
+71:                                               ; preds = %32, %1121
   %72 = load i32, ptr %33, align 8, !tbaa !37
   switch i32 %72, label %73 [
-    i32 260, label %1133
-    i32 261, label %1133
-    i32 262, label %1133
-    i32 276, label %1133
-    i32 287, label %1133
+    i32 260, label %1127
+    i32 261, label %1127
+    i32 262, label %1127
+    i32 276, label %1127
+    i32 287, label %1127
   ]
 
 73:                                               ; preds = %71
   %74 = load i32, ptr %34, align 4, !tbaa !39
-  switch i32 %72, label %1106 [
+  switch i32 %72, label %1100 [
     i32 266, label %75
     i32 277, label %197
     i32 259, label %382
     i32 264, label %383
-    i32 272, label %574
-    i32 265, label %865
-    i32 268, label %874
-    i32 273, label %1025
-    i32 258, label %1074
+    i32 272, label %568
+    i32 265, label %859
+    i32 268, label %868
+    i32 273, label %1019
+    i32 258, label %1068
   ]
 
 75:                                               ; preds = %73
@@ -457,96 +457,96 @@ define internal fastcc void @chunk(ptr noundef %0) unnamed_addr #0 {
   %118 = load ptr, ptr %117, align 8, !tbaa !18
   %119 = getelementptr inbounds %struct.BlockCnt, ptr %115, i64 0, i32 2
   %120 = load i8, ptr %119, align 4, !tbaa !51
-  %121 = zext i8 %120 to i32
-  %122 = getelementptr i8, ptr %118, i64 48
-  %123 = load ptr, ptr %122, align 8, !tbaa !16
-  %124 = getelementptr inbounds %struct.FuncState, ptr %123, i64 0, i32 13
-  %125 = load i8, ptr %124, align 2, !tbaa !50
-  %126 = icmp ugt i8 %125, %120
-  br i1 %126, label %127, label %182
+  %121 = getelementptr i8, ptr %118, i64 48
+  %122 = load ptr, ptr %121, align 8, !tbaa !16
+  %123 = getelementptr inbounds %struct.FuncState, ptr %122, i64 0, i32 13
+  %124 = load i8, ptr %123, align 2, !tbaa !50
+  %125 = icmp ugt i8 %124, %120
+  br i1 %125, label %126, label %181
 
-127:                                              ; preds = %108
-  %128 = getelementptr inbounds %struct.FuncState, ptr %123, i64 0, i32 6
-  %129 = load i32, ptr %128, align 8, !tbaa !20
-  %130 = load ptr, ptr %123, align 8, !tbaa !13
-  %131 = getelementptr inbounds %struct.Proto, ptr %130, i64 0, i32 7
-  %132 = load ptr, ptr %131, align 8, !tbaa !54
-  %133 = zext i8 %125 to i64
-  %134 = sub i8 %125, %120
-  %135 = xor i8 %120, -1
-  %136 = add i8 %125, %135
-  %137 = and i8 %134, 3
-  %138 = icmp eq i8 %137, 0
-  br i1 %138, label %150, label %139
+126:                                              ; preds = %108
+  %127 = getelementptr inbounds %struct.FuncState, ptr %122, i64 0, i32 6
+  %128 = load i32, ptr %127, align 8, !tbaa !20
+  %129 = load ptr, ptr %122, align 8, !tbaa !13
+  %130 = getelementptr inbounds %struct.Proto, ptr %129, i64 0, i32 7
+  %131 = load ptr, ptr %130, align 8, !tbaa !54
+  %132 = zext i8 %124 to i64
+  %133 = sub i8 %124, %120
+  %134 = xor i8 %120, -1
+  %135 = add i8 %124, %134
+  %136 = and i8 %133, 3
+  %137 = icmp eq i8 %136, 0
+  br i1 %137, label %149, label %138
 
-139:                                              ; preds = %127, %139
-  %140 = phi i64 [ %142, %139 ], [ %133, %127 ]
-  %141 = phi i8 [ %148, %139 ], [ 0, %127 ]
-  %142 = add nsw i64 %140, -1
-  %143 = and i64 %142, 255
-  %144 = getelementptr inbounds %struct.FuncState, ptr %123, i64 0, i32 15, i64 %143
-  %145 = load i16, ptr %144, align 2, !tbaa !55
-  %146 = zext i16 %145 to i64
-  %147 = getelementptr inbounds %struct.LocVar, ptr %132, i64 %146, i32 2
-  store i32 %129, ptr %147, align 4, !tbaa !56
-  %148 = add i8 %141, 1
-  %149 = icmp eq i8 %148, %137
-  br i1 %149, label %150, label %139, !llvm.loop !58
+138:                                              ; preds = %126, %138
+  %139 = phi i64 [ %141, %138 ], [ %132, %126 ]
+  %140 = phi i8 [ %147, %138 ], [ 0, %126 ]
+  %141 = add nsw i64 %139, -1
+  %142 = and i64 %141, 255
+  %143 = getelementptr inbounds %struct.FuncState, ptr %122, i64 0, i32 15, i64 %142
+  %144 = load i16, ptr %143, align 2, !tbaa !55
+  %145 = zext i16 %144 to i64
+  %146 = getelementptr inbounds %struct.LocVar, ptr %131, i64 %145, i32 2
+  store i32 %128, ptr %146, align 4, !tbaa !56
+  %147 = add i8 %140, 1
+  %148 = icmp eq i8 %147, %136
+  br i1 %148, label %149, label %138, !llvm.loop !58
 
-150:                                              ; preds = %139, %127
-  %151 = phi i64 [ %133, %127 ], [ %142, %139 ]
-  %152 = icmp ult i8 %136, 3
-  br i1 %152, label %181, label %153
+149:                                              ; preds = %138, %126
+  %150 = phi i64 [ %132, %126 ], [ %141, %138 ]
+  %151 = icmp ult i8 %135, 3
+  br i1 %151, label %180, label %152
 
-153:                                              ; preds = %150, %153
-  %154 = phi i64 [ %173, %153 ], [ %151, %150 ]
-  %155 = add i64 %154, 255
-  %156 = and i64 %155, 255
-  %157 = getelementptr inbounds %struct.FuncState, ptr %123, i64 0, i32 15, i64 %156
-  %158 = load i16, ptr %157, align 2, !tbaa !55
-  %159 = zext i16 %158 to i64
-  %160 = getelementptr inbounds %struct.LocVar, ptr %132, i64 %159, i32 2
-  store i32 %129, ptr %160, align 4, !tbaa !56
-  %161 = add i64 %154, 254
-  %162 = and i64 %161, 255
-  %163 = getelementptr inbounds %struct.FuncState, ptr %123, i64 0, i32 15, i64 %162
-  %164 = load i16, ptr %163, align 2, !tbaa !55
-  %165 = zext i16 %164 to i64
-  %166 = getelementptr inbounds %struct.LocVar, ptr %132, i64 %165, i32 2
-  store i32 %129, ptr %166, align 4, !tbaa !56
-  %167 = add i64 %154, 253
-  %168 = and i64 %167, 255
-  %169 = getelementptr inbounds %struct.FuncState, ptr %123, i64 0, i32 15, i64 %168
-  %170 = load i16, ptr %169, align 2, !tbaa !55
-  %171 = zext i16 %170 to i64
-  %172 = getelementptr inbounds %struct.LocVar, ptr %132, i64 %171, i32 2
-  store i32 %129, ptr %172, align 4, !tbaa !56
-  %173 = add nsw i64 %154, -4
-  %174 = trunc i64 %173 to i8
-  %175 = and i64 %173, 255
-  %176 = getelementptr inbounds %struct.FuncState, ptr %123, i64 0, i32 15, i64 %175
-  %177 = load i16, ptr %176, align 2, !tbaa !55
-  %178 = zext i16 %177 to i64
-  %179 = getelementptr inbounds %struct.LocVar, ptr %132, i64 %178, i32 2
-  store i32 %129, ptr %179, align 4, !tbaa !56
-  %180 = icmp ult i8 %120, %174
-  br i1 %180, label %153, label %181, !llvm.loop !60
+152:                                              ; preds = %149, %152
+  %153 = phi i64 [ %172, %152 ], [ %150, %149 ]
+  %154 = add i64 %153, 255
+  %155 = and i64 %154, 255
+  %156 = getelementptr inbounds %struct.FuncState, ptr %122, i64 0, i32 15, i64 %155
+  %157 = load i16, ptr %156, align 2, !tbaa !55
+  %158 = zext i16 %157 to i64
+  %159 = getelementptr inbounds %struct.LocVar, ptr %131, i64 %158, i32 2
+  store i32 %128, ptr %159, align 4, !tbaa !56
+  %160 = add i64 %153, 254
+  %161 = and i64 %160, 255
+  %162 = getelementptr inbounds %struct.FuncState, ptr %122, i64 0, i32 15, i64 %161
+  %163 = load i16, ptr %162, align 2, !tbaa !55
+  %164 = zext i16 %163 to i64
+  %165 = getelementptr inbounds %struct.LocVar, ptr %131, i64 %164, i32 2
+  store i32 %128, ptr %165, align 4, !tbaa !56
+  %166 = add i64 %153, 253
+  %167 = and i64 %166, 255
+  %168 = getelementptr inbounds %struct.FuncState, ptr %122, i64 0, i32 15, i64 %167
+  %169 = load i16, ptr %168, align 2, !tbaa !55
+  %170 = zext i16 %169 to i64
+  %171 = getelementptr inbounds %struct.LocVar, ptr %131, i64 %170, i32 2
+  store i32 %128, ptr %171, align 4, !tbaa !56
+  %172 = add nsw i64 %153, -4
+  %173 = trunc i64 %172 to i8
+  %174 = and i64 %172, 255
+  %175 = getelementptr inbounds %struct.FuncState, ptr %122, i64 0, i32 15, i64 %174
+  %176 = load i16, ptr %175, align 2, !tbaa !55
+  %177 = zext i16 %176 to i64
+  %178 = getelementptr inbounds %struct.LocVar, ptr %131, i64 %177, i32 2
+  store i32 %128, ptr %178, align 4, !tbaa !56
+  %179 = icmp ult i8 %120, %173
+  br i1 %179, label %152, label %180, !llvm.loop !60
 
-181:                                              ; preds = %153, %150
-  store i8 %120, ptr %124, align 2, !tbaa !50
-  br label %182
+180:                                              ; preds = %152, %149
+  store i8 %120, ptr %123, align 2, !tbaa !50
+  br label %181
 
-182:                                              ; preds = %181, %108
-  %183 = getelementptr inbounds %struct.BlockCnt, ptr %115, i64 0, i32 3
-  %184 = load i8, ptr %183, align 1, !tbaa !52
-  %185 = icmp eq i8 %184, 0
-  br i1 %185, label %188, label %186
+181:                                              ; preds = %180, %108
+  %182 = getelementptr inbounds %struct.BlockCnt, ptr %115, i64 0, i32 3
+  %183 = load i8, ptr %182, align 1, !tbaa !52
+  %184 = icmp eq i8 %183, 0
+  br i1 %184, label %188, label %185
 
-186:                                              ; preds = %182
-  %187 = call i32 @luaK_codeABC(ptr noundef %110, i32 noundef 35, i32 noundef %121, i32 noundef 0, i32 noundef 0) #6
+185:                                              ; preds = %181
+  %186 = zext i8 %120 to i32
+  %187 = call i32 @luaK_codeABC(ptr noundef %110, i32 noundef 35, i32 noundef %186, i32 noundef 0, i32 noundef 0) #6
   br label %188
 
-188:                                              ; preds = %182, %186
+188:                                              ; preds = %181, %185
   %189 = load i8, ptr %111, align 2, !tbaa !50
   %190 = zext i8 %189 to i32
   %191 = getelementptr inbounds %struct.FuncState, ptr %110, i64 0, i32 9
@@ -566,7 +566,7 @@ define internal fastcc void @chunk(ptr noundef %0) unnamed_addr #0 {
   call void @luaK_patchtohere(ptr noundef %76, i32 noundef %196) #6
   call fastcc void @check_match(ptr noundef %0, i32 noundef 262, i32 noundef 266, i32 noundef %74)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #6
-  br label %1122
+  br label %1116
 
 197:                                              ; preds = %73
   %198 = load ptr, ptr %35, align 8, !tbaa !16
@@ -631,96 +631,96 @@ define internal fastcc void @chunk(ptr noundef %0) unnamed_addr #0 {
   %226 = load ptr, ptr %225, align 8, !tbaa !18
   %227 = getelementptr inbounds %struct.BlockCnt, ptr %223, i64 0, i32 2
   %228 = load i8, ptr %227, align 4, !tbaa !51
-  %229 = zext i8 %228 to i32
-  %230 = getelementptr i8, ptr %226, i64 48
-  %231 = load ptr, ptr %230, align 8, !tbaa !16
-  %232 = getelementptr inbounds %struct.FuncState, ptr %231, i64 0, i32 13
-  %233 = load i8, ptr %232, align 2, !tbaa !50
-  %234 = icmp ugt i8 %233, %228
-  br i1 %234, label %235, label %290
+  %229 = getelementptr i8, ptr %226, i64 48
+  %230 = load ptr, ptr %229, align 8, !tbaa !16
+  %231 = getelementptr inbounds %struct.FuncState, ptr %230, i64 0, i32 13
+  %232 = load i8, ptr %231, align 2, !tbaa !50
+  %233 = icmp ugt i8 %232, %228
+  br i1 %233, label %234, label %289
 
-235:                                              ; preds = %217
-  %236 = getelementptr inbounds %struct.FuncState, ptr %231, i64 0, i32 6
-  %237 = load i32, ptr %236, align 8, !tbaa !20
-  %238 = load ptr, ptr %231, align 8, !tbaa !13
-  %239 = getelementptr inbounds %struct.Proto, ptr %238, i64 0, i32 7
-  %240 = load ptr, ptr %239, align 8, !tbaa !54
-  %241 = zext i8 %233 to i64
-  %242 = sub i8 %233, %228
-  %243 = xor i8 %228, -1
-  %244 = add i8 %233, %243
-  %245 = and i8 %242, 3
-  %246 = icmp eq i8 %245, 0
-  br i1 %246, label %258, label %247
+234:                                              ; preds = %217
+  %235 = getelementptr inbounds %struct.FuncState, ptr %230, i64 0, i32 6
+  %236 = load i32, ptr %235, align 8, !tbaa !20
+  %237 = load ptr, ptr %230, align 8, !tbaa !13
+  %238 = getelementptr inbounds %struct.Proto, ptr %237, i64 0, i32 7
+  %239 = load ptr, ptr %238, align 8, !tbaa !54
+  %240 = zext i8 %232 to i64
+  %241 = sub i8 %232, %228
+  %242 = xor i8 %228, -1
+  %243 = add i8 %232, %242
+  %244 = and i8 %241, 3
+  %245 = icmp eq i8 %244, 0
+  br i1 %245, label %257, label %246
 
-247:                                              ; preds = %235, %247
-  %248 = phi i64 [ %250, %247 ], [ %241, %235 ]
-  %249 = phi i8 [ %256, %247 ], [ 0, %235 ]
-  %250 = add nsw i64 %248, -1
-  %251 = and i64 %250, 255
-  %252 = getelementptr inbounds %struct.FuncState, ptr %231, i64 0, i32 15, i64 %251
-  %253 = load i16, ptr %252, align 2, !tbaa !55
-  %254 = zext i16 %253 to i64
-  %255 = getelementptr inbounds %struct.LocVar, ptr %240, i64 %254, i32 2
-  store i32 %237, ptr %255, align 4, !tbaa !56
-  %256 = add i8 %249, 1
-  %257 = icmp eq i8 %256, %245
-  br i1 %257, label %258, label %247, !llvm.loop !62
+246:                                              ; preds = %234, %246
+  %247 = phi i64 [ %249, %246 ], [ %240, %234 ]
+  %248 = phi i8 [ %255, %246 ], [ 0, %234 ]
+  %249 = add nsw i64 %247, -1
+  %250 = and i64 %249, 255
+  %251 = getelementptr inbounds %struct.FuncState, ptr %230, i64 0, i32 15, i64 %250
+  %252 = load i16, ptr %251, align 2, !tbaa !55
+  %253 = zext i16 %252 to i64
+  %254 = getelementptr inbounds %struct.LocVar, ptr %239, i64 %253, i32 2
+  store i32 %236, ptr %254, align 4, !tbaa !56
+  %255 = add i8 %248, 1
+  %256 = icmp eq i8 %255, %244
+  br i1 %256, label %257, label %246, !llvm.loop !62
 
-258:                                              ; preds = %247, %235
-  %259 = phi i64 [ %241, %235 ], [ %250, %247 ]
-  %260 = icmp ult i8 %244, 3
-  br i1 %260, label %289, label %261
+257:                                              ; preds = %246, %234
+  %258 = phi i64 [ %240, %234 ], [ %249, %246 ]
+  %259 = icmp ult i8 %243, 3
+  br i1 %259, label %288, label %260
 
-261:                                              ; preds = %258, %261
-  %262 = phi i64 [ %281, %261 ], [ %259, %258 ]
-  %263 = add i64 %262, 255
-  %264 = and i64 %263, 255
-  %265 = getelementptr inbounds %struct.FuncState, ptr %231, i64 0, i32 15, i64 %264
-  %266 = load i16, ptr %265, align 2, !tbaa !55
-  %267 = zext i16 %266 to i64
-  %268 = getelementptr inbounds %struct.LocVar, ptr %240, i64 %267, i32 2
-  store i32 %237, ptr %268, align 4, !tbaa !56
-  %269 = add i64 %262, 254
-  %270 = and i64 %269, 255
-  %271 = getelementptr inbounds %struct.FuncState, ptr %231, i64 0, i32 15, i64 %270
-  %272 = load i16, ptr %271, align 2, !tbaa !55
-  %273 = zext i16 %272 to i64
-  %274 = getelementptr inbounds %struct.LocVar, ptr %240, i64 %273, i32 2
-  store i32 %237, ptr %274, align 4, !tbaa !56
-  %275 = add i64 %262, 253
-  %276 = and i64 %275, 255
-  %277 = getelementptr inbounds %struct.FuncState, ptr %231, i64 0, i32 15, i64 %276
-  %278 = load i16, ptr %277, align 2, !tbaa !55
-  %279 = zext i16 %278 to i64
-  %280 = getelementptr inbounds %struct.LocVar, ptr %240, i64 %279, i32 2
-  store i32 %237, ptr %280, align 4, !tbaa !56
-  %281 = add nsw i64 %262, -4
-  %282 = trunc i64 %281 to i8
-  %283 = and i64 %281, 255
-  %284 = getelementptr inbounds %struct.FuncState, ptr %231, i64 0, i32 15, i64 %283
-  %285 = load i16, ptr %284, align 2, !tbaa !55
-  %286 = zext i16 %285 to i64
-  %287 = getelementptr inbounds %struct.LocVar, ptr %240, i64 %286, i32 2
-  store i32 %237, ptr %287, align 4, !tbaa !56
-  %288 = icmp ult i8 %228, %282
-  br i1 %288, label %261, label %289, !llvm.loop !60
+260:                                              ; preds = %257, %260
+  %261 = phi i64 [ %280, %260 ], [ %258, %257 ]
+  %262 = add i64 %261, 255
+  %263 = and i64 %262, 255
+  %264 = getelementptr inbounds %struct.FuncState, ptr %230, i64 0, i32 15, i64 %263
+  %265 = load i16, ptr %264, align 2, !tbaa !55
+  %266 = zext i16 %265 to i64
+  %267 = getelementptr inbounds %struct.LocVar, ptr %239, i64 %266, i32 2
+  store i32 %236, ptr %267, align 4, !tbaa !56
+  %268 = add i64 %261, 254
+  %269 = and i64 %268, 255
+  %270 = getelementptr inbounds %struct.FuncState, ptr %230, i64 0, i32 15, i64 %269
+  %271 = load i16, ptr %270, align 2, !tbaa !55
+  %272 = zext i16 %271 to i64
+  %273 = getelementptr inbounds %struct.LocVar, ptr %239, i64 %272, i32 2
+  store i32 %236, ptr %273, align 4, !tbaa !56
+  %274 = add i64 %261, 253
+  %275 = and i64 %274, 255
+  %276 = getelementptr inbounds %struct.FuncState, ptr %230, i64 0, i32 15, i64 %275
+  %277 = load i16, ptr %276, align 2, !tbaa !55
+  %278 = zext i16 %277 to i64
+  %279 = getelementptr inbounds %struct.LocVar, ptr %239, i64 %278, i32 2
+  store i32 %236, ptr %279, align 4, !tbaa !56
+  %280 = add nsw i64 %261, -4
+  %281 = trunc i64 %280 to i8
+  %282 = and i64 %280, 255
+  %283 = getelementptr inbounds %struct.FuncState, ptr %230, i64 0, i32 15, i64 %282
+  %284 = load i16, ptr %283, align 2, !tbaa !55
+  %285 = zext i16 %284 to i64
+  %286 = getelementptr inbounds %struct.LocVar, ptr %239, i64 %285, i32 2
+  store i32 %236, ptr %286, align 4, !tbaa !56
+  %287 = icmp ult i8 %228, %281
+  br i1 %287, label %260, label %288, !llvm.loop !60
 
-289:                                              ; preds = %261, %258
-  store i8 %228, ptr %232, align 2, !tbaa !50
-  br label %290
+288:                                              ; preds = %260, %257
+  store i8 %228, ptr %231, align 2, !tbaa !50
+  br label %289
 
-290:                                              ; preds = %289, %217
-  %291 = getelementptr inbounds %struct.BlockCnt, ptr %223, i64 0, i32 3
-  %292 = load i8, ptr %291, align 1, !tbaa !52
-  %293 = icmp eq i8 %292, 0
-  br i1 %293, label %296, label %294
+289:                                              ; preds = %288, %217
+  %290 = getelementptr inbounds %struct.BlockCnt, ptr %223, i64 0, i32 3
+  %291 = load i8, ptr %290, align 1, !tbaa !52
+  %292 = icmp eq i8 %291, 0
+  br i1 %292, label %296, label %293
 
-294:                                              ; preds = %290
-  %295 = call i32 @luaK_codeABC(ptr noundef %218, i32 noundef 35, i32 noundef %229, i32 noundef 0, i32 noundef 0) #6
+293:                                              ; preds = %289
+  %294 = zext i8 %228 to i32
+  %295 = call i32 @luaK_codeABC(ptr noundef %218, i32 noundef 35, i32 noundef %294, i32 noundef 0, i32 noundef 0) #6
   br label %296
 
-296:                                              ; preds = %290, %294
+296:                                              ; preds = %289, %293
   %297 = load i8, ptr %219, align 2, !tbaa !50
   %298 = zext i8 %297 to i32
   %299 = getelementptr inbounds %struct.FuncState, ptr %218, i64 0, i32 9
@@ -739,96 +739,96 @@ define internal fastcc void @chunk(ptr noundef %0) unnamed_addr #0 {
   %306 = load ptr, ptr %305, align 8, !tbaa !18
   %307 = getelementptr inbounds %struct.BlockCnt, ptr %303, i64 0, i32 2
   %308 = load i8, ptr %307, align 4, !tbaa !51
-  %309 = zext i8 %308 to i32
-  %310 = getelementptr i8, ptr %306, i64 48
-  %311 = load ptr, ptr %310, align 8, !tbaa !16
-  %312 = getelementptr inbounds %struct.FuncState, ptr %311, i64 0, i32 13
-  %313 = load i8, ptr %312, align 2, !tbaa !50
-  %314 = icmp ugt i8 %313, %308
-  br i1 %314, label %315, label %370
+  %309 = getelementptr i8, ptr %306, i64 48
+  %310 = load ptr, ptr %309, align 8, !tbaa !16
+  %311 = getelementptr inbounds %struct.FuncState, ptr %310, i64 0, i32 13
+  %312 = load i8, ptr %311, align 2, !tbaa !50
+  %313 = icmp ugt i8 %312, %308
+  br i1 %313, label %314, label %369
 
-315:                                              ; preds = %296
-  %316 = getelementptr inbounds %struct.FuncState, ptr %311, i64 0, i32 6
-  %317 = load i32, ptr %316, align 8, !tbaa !20
-  %318 = load ptr, ptr %311, align 8, !tbaa !13
-  %319 = getelementptr inbounds %struct.Proto, ptr %318, i64 0, i32 7
-  %320 = load ptr, ptr %319, align 8, !tbaa !54
-  %321 = zext i8 %313 to i64
-  %322 = sub i8 %313, %308
-  %323 = xor i8 %308, -1
-  %324 = add i8 %313, %323
-  %325 = and i8 %322, 3
-  %326 = icmp eq i8 %325, 0
-  br i1 %326, label %338, label %327
+314:                                              ; preds = %296
+  %315 = getelementptr inbounds %struct.FuncState, ptr %310, i64 0, i32 6
+  %316 = load i32, ptr %315, align 8, !tbaa !20
+  %317 = load ptr, ptr %310, align 8, !tbaa !13
+  %318 = getelementptr inbounds %struct.Proto, ptr %317, i64 0, i32 7
+  %319 = load ptr, ptr %318, align 8, !tbaa !54
+  %320 = zext i8 %312 to i64
+  %321 = sub i8 %312, %308
+  %322 = xor i8 %308, -1
+  %323 = add i8 %312, %322
+  %324 = and i8 %321, 3
+  %325 = icmp eq i8 %324, 0
+  br i1 %325, label %337, label %326
 
-327:                                              ; preds = %315, %327
-  %328 = phi i64 [ %330, %327 ], [ %321, %315 ]
-  %329 = phi i8 [ %336, %327 ], [ 0, %315 ]
-  %330 = add nsw i64 %328, -1
-  %331 = and i64 %330, 255
-  %332 = getelementptr inbounds %struct.FuncState, ptr %311, i64 0, i32 15, i64 %331
-  %333 = load i16, ptr %332, align 2, !tbaa !55
-  %334 = zext i16 %333 to i64
-  %335 = getelementptr inbounds %struct.LocVar, ptr %320, i64 %334, i32 2
-  store i32 %317, ptr %335, align 4, !tbaa !56
-  %336 = add i8 %329, 1
-  %337 = icmp eq i8 %336, %325
-  br i1 %337, label %338, label %327, !llvm.loop !63
+326:                                              ; preds = %314, %326
+  %327 = phi i64 [ %329, %326 ], [ %320, %314 ]
+  %328 = phi i8 [ %335, %326 ], [ 0, %314 ]
+  %329 = add nsw i64 %327, -1
+  %330 = and i64 %329, 255
+  %331 = getelementptr inbounds %struct.FuncState, ptr %310, i64 0, i32 15, i64 %330
+  %332 = load i16, ptr %331, align 2, !tbaa !55
+  %333 = zext i16 %332 to i64
+  %334 = getelementptr inbounds %struct.LocVar, ptr %319, i64 %333, i32 2
+  store i32 %316, ptr %334, align 4, !tbaa !56
+  %335 = add i8 %328, 1
+  %336 = icmp eq i8 %335, %324
+  br i1 %336, label %337, label %326, !llvm.loop !63
 
-338:                                              ; preds = %327, %315
-  %339 = phi i64 [ %321, %315 ], [ %330, %327 ]
-  %340 = icmp ult i8 %324, 3
-  br i1 %340, label %369, label %341
+337:                                              ; preds = %326, %314
+  %338 = phi i64 [ %320, %314 ], [ %329, %326 ]
+  %339 = icmp ult i8 %323, 3
+  br i1 %339, label %368, label %340
 
-341:                                              ; preds = %338, %341
-  %342 = phi i64 [ %361, %341 ], [ %339, %338 ]
-  %343 = add i64 %342, 255
-  %344 = and i64 %343, 255
-  %345 = getelementptr inbounds %struct.FuncState, ptr %311, i64 0, i32 15, i64 %344
-  %346 = load i16, ptr %345, align 2, !tbaa !55
-  %347 = zext i16 %346 to i64
-  %348 = getelementptr inbounds %struct.LocVar, ptr %320, i64 %347, i32 2
-  store i32 %317, ptr %348, align 4, !tbaa !56
-  %349 = add i64 %342, 254
-  %350 = and i64 %349, 255
-  %351 = getelementptr inbounds %struct.FuncState, ptr %311, i64 0, i32 15, i64 %350
-  %352 = load i16, ptr %351, align 2, !tbaa !55
-  %353 = zext i16 %352 to i64
-  %354 = getelementptr inbounds %struct.LocVar, ptr %320, i64 %353, i32 2
-  store i32 %317, ptr %354, align 4, !tbaa !56
-  %355 = add i64 %342, 253
-  %356 = and i64 %355, 255
-  %357 = getelementptr inbounds %struct.FuncState, ptr %311, i64 0, i32 15, i64 %356
-  %358 = load i16, ptr %357, align 2, !tbaa !55
-  %359 = zext i16 %358 to i64
-  %360 = getelementptr inbounds %struct.LocVar, ptr %320, i64 %359, i32 2
-  store i32 %317, ptr %360, align 4, !tbaa !56
-  %361 = add nsw i64 %342, -4
-  %362 = trunc i64 %361 to i8
-  %363 = and i64 %361, 255
-  %364 = getelementptr inbounds %struct.FuncState, ptr %311, i64 0, i32 15, i64 %363
-  %365 = load i16, ptr %364, align 2, !tbaa !55
-  %366 = zext i16 %365 to i64
-  %367 = getelementptr inbounds %struct.LocVar, ptr %320, i64 %366, i32 2
-  store i32 %317, ptr %367, align 4, !tbaa !56
-  %368 = icmp ult i8 %308, %362
-  br i1 %368, label %341, label %369, !llvm.loop !60
+340:                                              ; preds = %337, %340
+  %341 = phi i64 [ %360, %340 ], [ %338, %337 ]
+  %342 = add i64 %341, 255
+  %343 = and i64 %342, 255
+  %344 = getelementptr inbounds %struct.FuncState, ptr %310, i64 0, i32 15, i64 %343
+  %345 = load i16, ptr %344, align 2, !tbaa !55
+  %346 = zext i16 %345 to i64
+  %347 = getelementptr inbounds %struct.LocVar, ptr %319, i64 %346, i32 2
+  store i32 %316, ptr %347, align 4, !tbaa !56
+  %348 = add i64 %341, 254
+  %349 = and i64 %348, 255
+  %350 = getelementptr inbounds %struct.FuncState, ptr %310, i64 0, i32 15, i64 %349
+  %351 = load i16, ptr %350, align 2, !tbaa !55
+  %352 = zext i16 %351 to i64
+  %353 = getelementptr inbounds %struct.LocVar, ptr %319, i64 %352, i32 2
+  store i32 %316, ptr %353, align 4, !tbaa !56
+  %354 = add i64 %341, 253
+  %355 = and i64 %354, 255
+  %356 = getelementptr inbounds %struct.FuncState, ptr %310, i64 0, i32 15, i64 %355
+  %357 = load i16, ptr %356, align 2, !tbaa !55
+  %358 = zext i16 %357 to i64
+  %359 = getelementptr inbounds %struct.LocVar, ptr %319, i64 %358, i32 2
+  store i32 %316, ptr %359, align 4, !tbaa !56
+  %360 = add nsw i64 %341, -4
+  %361 = trunc i64 %360 to i8
+  %362 = and i64 %360, 255
+  %363 = getelementptr inbounds %struct.FuncState, ptr %310, i64 0, i32 15, i64 %362
+  %364 = load i16, ptr %363, align 2, !tbaa !55
+  %365 = zext i16 %364 to i64
+  %366 = getelementptr inbounds %struct.LocVar, ptr %319, i64 %365, i32 2
+  store i32 %316, ptr %366, align 4, !tbaa !56
+  %367 = icmp ult i8 %308, %361
+  br i1 %367, label %340, label %368, !llvm.loop !60
 
-369:                                              ; preds = %341, %338
-  store i8 %308, ptr %312, align 2, !tbaa !50
-  br label %370
+368:                                              ; preds = %340, %337
+  store i8 %308, ptr %311, align 2, !tbaa !50
+  br label %369
 
-370:                                              ; preds = %369, %296
-  %371 = getelementptr inbounds %struct.BlockCnt, ptr %303, i64 0, i32 3
-  %372 = load i8, ptr %371, align 1, !tbaa !52
-  %373 = icmp eq i8 %372, 0
-  br i1 %373, label %376, label %374
+369:                                              ; preds = %368, %296
+  %370 = getelementptr inbounds %struct.BlockCnt, ptr %303, i64 0, i32 3
+  %371 = load i8, ptr %370, align 1, !tbaa !52
+  %372 = icmp eq i8 %371, 0
+  br i1 %372, label %376, label %373
 
-374:                                              ; preds = %370
-  %375 = call i32 @luaK_codeABC(ptr noundef %198, i32 noundef 35, i32 noundef %309, i32 noundef 0, i32 noundef 0) #6
+373:                                              ; preds = %369
+  %374 = zext i8 %308 to i32
+  %375 = call i32 @luaK_codeABC(ptr noundef %198, i32 noundef 35, i32 noundef %374, i32 noundef 0, i32 noundef 0) #6
   br label %376
 
-376:                                              ; preds = %370, %374
+376:                                              ; preds = %369, %373
   %377 = load i8, ptr %207, align 2, !tbaa !50
   %378 = zext i8 %377 to i32
   %379 = getelementptr inbounds %struct.FuncState, ptr %198, i64 0, i32 9
@@ -838,13 +838,13 @@ define internal fastcc void @chunk(ptr noundef %0) unnamed_addr #0 {
   call void @luaK_patchtohere(ptr noundef %198, i32 noundef %381) #6
   call void @luaK_patchtohere(ptr noundef %198, i32 noundef %206) #6
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %11) #6
-  br label %1122
+  br label %1116
 
 382:                                              ; preds = %73
   call void @luaX_next(ptr noundef nonnull %0) #6
   call fastcc void @block(ptr noundef nonnull %0)
   call fastcc void @check_match(ptr noundef nonnull %0, i32 noundef 262, i32 noundef 259, i32 noundef %74)
-  br label %1122
+  br label %1116
 
 383:                                              ; preds = %73
   %384 = load ptr, ptr %35, align 8, !tbaa !16
@@ -875,7 +875,7 @@ define internal fastcc void @chunk(ptr noundef %0) unnamed_addr #0 {
   %396 = load ptr, ptr %37, align 8, !tbaa !33
   call void @luaX_next(ptr noundef nonnull %0) #6
   %397 = load i32, ptr %33, align 8, !tbaa !37
-  switch i32 %397, label %493 [
+  switch i32 %397, label %487 [
     i32 61, label %398
     i32 44, label %433
     i32 267, label %433
@@ -950,7 +950,7 @@ define internal fastcc void @chunk(ptr noundef %0) unnamed_addr #0 {
 
 432:                                              ; preds = %428, %425
   call fastcc void @forbody(ptr noundef nonnull %0, i32 noundef %401, i32 noundef %74, i32 noundef 1, i32 noundef 1)
-  br label %494
+  br label %488
 
 433:                                              ; preds = %395, %395
   %434 = load ptr, ptr %35, align 8, !tbaa !16
@@ -964,1126 +964,1123 @@ define internal fastcc void @chunk(ptr noundef %0) unnamed_addr #0 {
   %439 = call ptr @luaX_newstring(ptr noundef nonnull %0, ptr noundef nonnull @.str.24, i64 noundef 13) #6
   call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %439, i32 noundef 2)
   call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %396, i32 noundef 3)
-  %440 = load i32, ptr %33, align 8, !tbaa !37
-  %441 = icmp eq i32 %440, 44
-  br i1 %441, label %442, label %455
+  br label %440
 
-442:                                              ; preds = %433, %450
-  %443 = phi i32 [ %452, %450 ], [ 4, %433 ]
+440:                                              ; preds = %450, %433
+  %441 = phi i32 [ 4, %433 ], [ %452, %450 ]
+  %442 = load i32, ptr %33, align 8, !tbaa !37
+  switch i32 %442, label %453 [
+    i32 44, label %443
+    i32 267, label %457
+  ]
+
+443:                                              ; preds = %440
   call void @luaX_next(ptr noundef nonnull %0) #6
   %444 = load i32, ptr %33, align 8, !tbaa !37
   %445 = icmp eq i32 %444, 285
   br i1 %445, label %450, label %446
 
-446:                                              ; preds = %442
+446:                                              ; preds = %443
   %447 = load ptr, ptr %25, align 8, !tbaa !12
   %448 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 285) #6
   %449 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %447, ptr noundef nonnull @.str, ptr noundef %448) #6
   call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %449) #6
   br label %450
 
-450:                                              ; preds = %442, %446
+450:                                              ; preds = %443, %446
   %451 = load ptr, ptr %37, align 8, !tbaa !33
   call void @luaX_next(ptr noundef nonnull %0) #6
-  %452 = add nuw nsw i32 %443, 1
-  call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %451, i32 noundef %443)
-  %453 = load i32, ptr %33, align 8, !tbaa !37
-  %454 = icmp eq i32 %453, 44
-  br i1 %454, label %442, label %455, !llvm.loop !64
+  %452 = add nuw nsw i32 %441, 1
+  call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %451, i32 noundef %441)
+  br label %440, !llvm.loop !64
 
-455:                                              ; preds = %450, %433
-  %456 = phi i32 [ %440, %433 ], [ %453, %450 ]
-  %457 = phi i32 [ 4, %433 ], [ %452, %450 ]
-  %458 = icmp eq i32 %456, 267
-  br i1 %458, label %463, label %459
+453:                                              ; preds = %440
+  %454 = load ptr, ptr %25, align 8, !tbaa !12
+  %455 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 267) #6
+  %456 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %454, ptr noundef nonnull @.str, ptr noundef %455) #6
+  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %456) #6
+  br label %457
 
-459:                                              ; preds = %455
-  %460 = load ptr, ptr %25, align 8, !tbaa !12
-  %461 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 267) #6
-  %462 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %460, ptr noundef nonnull @.str, ptr noundef %461) #6
-  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %462) #6
-  br label %463
-
-463:                                              ; preds = %455, %459
+457:                                              ; preds = %440, %453
   call void @luaX_next(ptr noundef nonnull %0) #6
-  %464 = load i32, ptr %34, align 4, !tbaa !39
+  %458 = load i32, ptr %34, align 4, !tbaa !39
+  %459 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %12, i32 noundef 0), !range !41
+  %460 = load i32, ptr %33, align 8, !tbaa !37
+  %461 = icmp eq i32 %460, 44
+  br i1 %461, label %462, label %469
+
+462:                                              ; preds = %457, %462
+  %463 = phi i32 [ %466, %462 ], [ 1, %457 ]
+  call void @luaX_next(ptr noundef nonnull %0) #6
+  %464 = load ptr, ptr %35, align 8, !tbaa !16
+  call void @luaK_exp2nextreg(ptr noundef %464, ptr noundef nonnull %12) #6
   %465 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %12, i32 noundef 0), !range !41
-  %466 = load i32, ptr %33, align 8, !tbaa !37
-  %467 = icmp eq i32 %466, 44
-  br i1 %467, label %468, label %475
+  %466 = add nuw nsw i32 %463, 1
+  %467 = load i32, ptr %33, align 8, !tbaa !37
+  %468 = icmp eq i32 %467, 44
+  br i1 %468, label %462, label %469, !llvm.loop !65
 
-468:                                              ; preds = %463, %468
-  %469 = phi i32 [ %472, %468 ], [ 1, %463 ]
-  call void @luaX_next(ptr noundef nonnull %0) #6
-  %470 = load ptr, ptr %35, align 8, !tbaa !16
-  call void @luaK_exp2nextreg(ptr noundef %470, ptr noundef nonnull %12) #6
-  %471 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %12, i32 noundef 0), !range !41
-  %472 = add nuw nsw i32 %469, 1
-  %473 = load i32, ptr %33, align 8, !tbaa !37
-  %474 = icmp eq i32 %473, 44
-  br i1 %474, label %468, label %475, !llvm.loop !65
-
-475:                                              ; preds = %468, %463
-  %476 = phi i32 [ 1, %463 ], [ %472, %468 ]
-  %477 = load ptr, ptr %35, align 8, !tbaa !16
-  %478 = sub nsw i32 3, %476
-  %479 = load i32, ptr %12, align 8, !tbaa !42
-  switch i32 %479, label %485 [
-    i32 13, label %480
-    i32 14, label %480
-    i32 0, label %486
+469:                                              ; preds = %462, %457
+  %470 = phi i32 [ 1, %457 ], [ %466, %462 ]
+  %471 = load ptr, ptr %35, align 8, !tbaa !16
+  %472 = sub nsw i32 3, %470
+  %473 = load i32, ptr %12, align 8, !tbaa !42
+  switch i32 %473, label %479 [
+    i32 13, label %474
+    i32 14, label %474
+    i32 0, label %480
   ]
 
-480:                                              ; preds = %475, %475
-  %481 = call i32 @llvm.smax.i32(i32 %478, i32 -1)
-  %482 = add nsw i32 %481, 1
-  call void @luaK_setreturns(ptr noundef %477, ptr noundef nonnull %12, i32 noundef %482) #6
-  %483 = icmp sgt i32 %481, 0
-  br i1 %483, label %484, label %491
+474:                                              ; preds = %469, %469
+  %475 = call i32 @llvm.smax.i32(i32 %472, i32 -1)
+  %476 = add nsw i32 %475, 1
+  call void @luaK_setreturns(ptr noundef %471, ptr noundef nonnull %12, i32 noundef %476) #6
+  %477 = icmp sgt i32 %475, 0
+  br i1 %477, label %478, label %485
 
-484:                                              ; preds = %480
-  call void @luaK_reserveregs(ptr noundef %477, i32 noundef %481) #6
-  br label %491
+478:                                              ; preds = %474
+  call void @luaK_reserveregs(ptr noundef %471, i32 noundef %475) #6
+  br label %485
 
-485:                                              ; preds = %475
-  call void @luaK_exp2nextreg(ptr noundef %477, ptr noundef nonnull %12) #6
-  br label %486
+479:                                              ; preds = %469
+  call void @luaK_exp2nextreg(ptr noundef %471, ptr noundef nonnull %12) #6
+  br label %480
 
-486:                                              ; preds = %485, %475
-  %487 = icmp ult i32 %476, 3
-  br i1 %487, label %488, label %491
+480:                                              ; preds = %479, %469
+  %481 = icmp ult i32 %470, 3
+  br i1 %481, label %482, label %485
 
-488:                                              ; preds = %486
-  %489 = getelementptr inbounds %struct.FuncState, ptr %477, i64 0, i32 9
-  %490 = load i32, ptr %489, align 4, !tbaa !61
-  call void @luaK_reserveregs(ptr noundef %477, i32 noundef %478) #6
-  call void @luaK_nil(ptr noundef %477, i32 noundef %490, i32 noundef %478) #6
-  br label %491
+482:                                              ; preds = %480
+  %483 = getelementptr inbounds %struct.FuncState, ptr %471, i64 0, i32 9
+  %484 = load i32, ptr %483, align 4, !tbaa !61
+  call void @luaK_reserveregs(ptr noundef %471, i32 noundef %472) #6
+  call void @luaK_nil(ptr noundef %471, i32 noundef %484, i32 noundef %472) #6
+  br label %485
 
-491:                                              ; preds = %480, %484, %486, %488
+485:                                              ; preds = %474, %478, %480, %482
   call void @luaK_checkstack(ptr noundef %434, i32 noundef 3) #6
-  %492 = add nsw i32 %457, -3
-  call fastcc void @forbody(ptr noundef nonnull %0, i32 noundef %436, i32 noundef %464, i32 noundef %492, i32 noundef 0)
+  %486 = add nsw i32 %441, -3
+  call fastcc void @forbody(ptr noundef nonnull %0, i32 noundef %436, i32 noundef %458, i32 noundef %486, i32 noundef 0)
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %12) #6
-  br label %494
+  br label %488
 
-493:                                              ; preds = %395
+487:                                              ; preds = %395
   call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef nonnull @.str.18) #6
-  br label %494
+  br label %488
 
-494:                                              ; preds = %493, %491, %432
+488:                                              ; preds = %487, %485, %432
   call fastcc void @check_match(ptr noundef nonnull %0, i32 noundef 262, i32 noundef 264, i32 noundef %74)
-  %495 = load ptr, ptr %387, align 8, !tbaa !23
-  %496 = load ptr, ptr %495, align 8, !tbaa !53
-  store ptr %496, ptr %387, align 8, !tbaa !23
-  %497 = getelementptr inbounds %struct.FuncState, ptr %384, i64 0, i32 3
-  %498 = load ptr, ptr %497, align 8, !tbaa !18
-  %499 = getelementptr inbounds %struct.BlockCnt, ptr %495, i64 0, i32 2
-  %500 = load i8, ptr %499, align 4, !tbaa !51
-  %501 = zext i8 %500 to i32
-  %502 = getelementptr i8, ptr %498, i64 48
-  %503 = load ptr, ptr %502, align 8, !tbaa !16
-  %504 = getelementptr inbounds %struct.FuncState, ptr %503, i64 0, i32 13
-  %505 = load i8, ptr %504, align 2, !tbaa !50
-  %506 = icmp ugt i8 %505, %500
-  br i1 %506, label %507, label %562
+  %489 = load ptr, ptr %387, align 8, !tbaa !23
+  %490 = load ptr, ptr %489, align 8, !tbaa !53
+  store ptr %490, ptr %387, align 8, !tbaa !23
+  %491 = getelementptr inbounds %struct.FuncState, ptr %384, i64 0, i32 3
+  %492 = load ptr, ptr %491, align 8, !tbaa !18
+  %493 = getelementptr inbounds %struct.BlockCnt, ptr %489, i64 0, i32 2
+  %494 = load i8, ptr %493, align 4, !tbaa !51
+  %495 = getelementptr i8, ptr %492, i64 48
+  %496 = load ptr, ptr %495, align 8, !tbaa !16
+  %497 = getelementptr inbounds %struct.FuncState, ptr %496, i64 0, i32 13
+  %498 = load i8, ptr %497, align 2, !tbaa !50
+  %499 = icmp ugt i8 %498, %494
+  br i1 %499, label %500, label %555
 
-507:                                              ; preds = %494
-  %508 = getelementptr inbounds %struct.FuncState, ptr %503, i64 0, i32 6
-  %509 = load i32, ptr %508, align 8, !tbaa !20
-  %510 = load ptr, ptr %503, align 8, !tbaa !13
-  %511 = getelementptr inbounds %struct.Proto, ptr %510, i64 0, i32 7
-  %512 = load ptr, ptr %511, align 8, !tbaa !54
-  %513 = zext i8 %505 to i64
-  %514 = sub i8 %505, %500
-  %515 = xor i8 %500, -1
-  %516 = add i8 %505, %515
-  %517 = and i8 %514, 3
-  %518 = icmp eq i8 %517, 0
-  br i1 %518, label %530, label %519
+500:                                              ; preds = %488
+  %501 = getelementptr inbounds %struct.FuncState, ptr %496, i64 0, i32 6
+  %502 = load i32, ptr %501, align 8, !tbaa !20
+  %503 = load ptr, ptr %496, align 8, !tbaa !13
+  %504 = getelementptr inbounds %struct.Proto, ptr %503, i64 0, i32 7
+  %505 = load ptr, ptr %504, align 8, !tbaa !54
+  %506 = zext i8 %498 to i64
+  %507 = sub i8 %498, %494
+  %508 = xor i8 %494, -1
+  %509 = add i8 %498, %508
+  %510 = and i8 %507, 3
+  %511 = icmp eq i8 %510, 0
+  br i1 %511, label %523, label %512
 
-519:                                              ; preds = %507, %519
-  %520 = phi i64 [ %522, %519 ], [ %513, %507 ]
-  %521 = phi i8 [ %528, %519 ], [ 0, %507 ]
-  %522 = add nsw i64 %520, -1
-  %523 = and i64 %522, 255
-  %524 = getelementptr inbounds %struct.FuncState, ptr %503, i64 0, i32 15, i64 %523
-  %525 = load i16, ptr %524, align 2, !tbaa !55
-  %526 = zext i16 %525 to i64
-  %527 = getelementptr inbounds %struct.LocVar, ptr %512, i64 %526, i32 2
-  store i32 %509, ptr %527, align 4, !tbaa !56
-  %528 = add i8 %521, 1
-  %529 = icmp eq i8 %528, %517
-  br i1 %529, label %530, label %519, !llvm.loop !66
+512:                                              ; preds = %500, %512
+  %513 = phi i64 [ %515, %512 ], [ %506, %500 ]
+  %514 = phi i8 [ %521, %512 ], [ 0, %500 ]
+  %515 = add nsw i64 %513, -1
+  %516 = and i64 %515, 255
+  %517 = getelementptr inbounds %struct.FuncState, ptr %496, i64 0, i32 15, i64 %516
+  %518 = load i16, ptr %517, align 2, !tbaa !55
+  %519 = zext i16 %518 to i64
+  %520 = getelementptr inbounds %struct.LocVar, ptr %505, i64 %519, i32 2
+  store i32 %502, ptr %520, align 4, !tbaa !56
+  %521 = add i8 %514, 1
+  %522 = icmp eq i8 %521, %510
+  br i1 %522, label %523, label %512, !llvm.loop !66
 
-530:                                              ; preds = %519, %507
-  %531 = phi i64 [ %513, %507 ], [ %522, %519 ]
-  %532 = icmp ult i8 %516, 3
-  br i1 %532, label %561, label %533
+523:                                              ; preds = %512, %500
+  %524 = phi i64 [ %506, %500 ], [ %515, %512 ]
+  %525 = icmp ult i8 %509, 3
+  br i1 %525, label %554, label %526
 
-533:                                              ; preds = %530, %533
-  %534 = phi i64 [ %553, %533 ], [ %531, %530 ]
-  %535 = add i64 %534, 255
-  %536 = and i64 %535, 255
-  %537 = getelementptr inbounds %struct.FuncState, ptr %503, i64 0, i32 15, i64 %536
-  %538 = load i16, ptr %537, align 2, !tbaa !55
-  %539 = zext i16 %538 to i64
-  %540 = getelementptr inbounds %struct.LocVar, ptr %512, i64 %539, i32 2
-  store i32 %509, ptr %540, align 4, !tbaa !56
-  %541 = add i64 %534, 254
-  %542 = and i64 %541, 255
-  %543 = getelementptr inbounds %struct.FuncState, ptr %503, i64 0, i32 15, i64 %542
-  %544 = load i16, ptr %543, align 2, !tbaa !55
-  %545 = zext i16 %544 to i64
-  %546 = getelementptr inbounds %struct.LocVar, ptr %512, i64 %545, i32 2
-  store i32 %509, ptr %546, align 4, !tbaa !56
-  %547 = add i64 %534, 253
-  %548 = and i64 %547, 255
-  %549 = getelementptr inbounds %struct.FuncState, ptr %503, i64 0, i32 15, i64 %548
+526:                                              ; preds = %523, %526
+  %527 = phi i64 [ %546, %526 ], [ %524, %523 ]
+  %528 = add i64 %527, 255
+  %529 = and i64 %528, 255
+  %530 = getelementptr inbounds %struct.FuncState, ptr %496, i64 0, i32 15, i64 %529
+  %531 = load i16, ptr %530, align 2, !tbaa !55
+  %532 = zext i16 %531 to i64
+  %533 = getelementptr inbounds %struct.LocVar, ptr %505, i64 %532, i32 2
+  store i32 %502, ptr %533, align 4, !tbaa !56
+  %534 = add i64 %527, 254
+  %535 = and i64 %534, 255
+  %536 = getelementptr inbounds %struct.FuncState, ptr %496, i64 0, i32 15, i64 %535
+  %537 = load i16, ptr %536, align 2, !tbaa !55
+  %538 = zext i16 %537 to i64
+  %539 = getelementptr inbounds %struct.LocVar, ptr %505, i64 %538, i32 2
+  store i32 %502, ptr %539, align 4, !tbaa !56
+  %540 = add i64 %527, 253
+  %541 = and i64 %540, 255
+  %542 = getelementptr inbounds %struct.FuncState, ptr %496, i64 0, i32 15, i64 %541
+  %543 = load i16, ptr %542, align 2, !tbaa !55
+  %544 = zext i16 %543 to i64
+  %545 = getelementptr inbounds %struct.LocVar, ptr %505, i64 %544, i32 2
+  store i32 %502, ptr %545, align 4, !tbaa !56
+  %546 = add nsw i64 %527, -4
+  %547 = trunc i64 %546 to i8
+  %548 = and i64 %546, 255
+  %549 = getelementptr inbounds %struct.FuncState, ptr %496, i64 0, i32 15, i64 %548
   %550 = load i16, ptr %549, align 2, !tbaa !55
   %551 = zext i16 %550 to i64
-  %552 = getelementptr inbounds %struct.LocVar, ptr %512, i64 %551, i32 2
-  store i32 %509, ptr %552, align 4, !tbaa !56
-  %553 = add nsw i64 %534, -4
-  %554 = trunc i64 %553 to i8
-  %555 = and i64 %553, 255
-  %556 = getelementptr inbounds %struct.FuncState, ptr %503, i64 0, i32 15, i64 %555
-  %557 = load i16, ptr %556, align 2, !tbaa !55
-  %558 = zext i16 %557 to i64
-  %559 = getelementptr inbounds %struct.LocVar, ptr %512, i64 %558, i32 2
-  store i32 %509, ptr %559, align 4, !tbaa !56
-  %560 = icmp ult i8 %500, %554
-  br i1 %560, label %533, label %561, !llvm.loop !60
+  %552 = getelementptr inbounds %struct.LocVar, ptr %505, i64 %551, i32 2
+  store i32 %502, ptr %552, align 4, !tbaa !56
+  %553 = icmp ult i8 %494, %547
+  br i1 %553, label %526, label %554, !llvm.loop !60
 
-561:                                              ; preds = %533, %530
-  store i8 %500, ptr %504, align 2, !tbaa !50
+554:                                              ; preds = %526, %523
+  store i8 %494, ptr %497, align 2, !tbaa !50
+  br label %555
+
+555:                                              ; preds = %554, %488
+  %556 = getelementptr inbounds %struct.BlockCnt, ptr %489, i64 0, i32 3
+  %557 = load i8, ptr %556, align 1, !tbaa !52
+  %558 = icmp eq i8 %557, 0
+  br i1 %558, label %562, label %559
+
+559:                                              ; preds = %555
+  %560 = zext i8 %494 to i32
+  %561 = call i32 @luaK_codeABC(ptr noundef %384, i32 noundef 35, i32 noundef %560, i32 noundef 0, i32 noundef 0) #6
   br label %562
 
-562:                                              ; preds = %561, %494
-  %563 = getelementptr inbounds %struct.BlockCnt, ptr %495, i64 0, i32 3
-  %564 = load i8, ptr %563, align 1, !tbaa !52
-  %565 = icmp eq i8 %564, 0
-  br i1 %565, label %568, label %566
-
-566:                                              ; preds = %562
-  %567 = call i32 @luaK_codeABC(ptr noundef %384, i32 noundef 35, i32 noundef %501, i32 noundef 0, i32 noundef 0) #6
-  br label %568
-
-568:                                              ; preds = %562, %566
-  %569 = load i8, ptr %385, align 2, !tbaa !50
-  %570 = zext i8 %569 to i32
-  %571 = getelementptr inbounds %struct.FuncState, ptr %384, i64 0, i32 9
-  store i32 %570, ptr %571, align 4, !tbaa !61
-  %572 = getelementptr inbounds %struct.BlockCnt, ptr %495, i64 0, i32 1
-  %573 = load i32, ptr %572, align 8, !tbaa !47
-  call void @luaK_patchtohere(ptr noundef %384, i32 noundef %573) #6
+562:                                              ; preds = %555, %559
+  %563 = load i8, ptr %385, align 2, !tbaa !50
+  %564 = zext i8 %563 to i32
+  %565 = getelementptr inbounds %struct.FuncState, ptr %384, i64 0, i32 9
+  store i32 %564, ptr %565, align 4, !tbaa !61
+  %566 = getelementptr inbounds %struct.BlockCnt, ptr %489, i64 0, i32 1
+  %567 = load i32, ptr %566, align 8, !tbaa !47
+  call void @luaK_patchtohere(ptr noundef %384, i32 noundef %567) #6
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %13) #6
-  br label %1122
+  br label %1116
 
-574:                                              ; preds = %73
-  %575 = load ptr, ptr %35, align 8, !tbaa !16
-  %576 = call i32 @luaK_getlabel(ptr noundef %575) #6
+568:                                              ; preds = %73
+  %569 = load ptr, ptr %35, align 8, !tbaa !16
+  %570 = call i32 @luaK_getlabel(ptr noundef %569) #6
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %15) #6
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %16) #6
   store i32 -1, ptr %41, align 8, !tbaa !47
   store i8 1, ptr %42, align 2, !tbaa !49
-  %577 = getelementptr inbounds %struct.FuncState, ptr %575, i64 0, i32 13
-  %578 = load i8, ptr %577, align 2, !tbaa !50
-  store i8 %578, ptr %43, align 4, !tbaa !51
+  %571 = getelementptr inbounds %struct.FuncState, ptr %569, i64 0, i32 13
+  %572 = load i8, ptr %571, align 2, !tbaa !50
+  store i8 %572, ptr %43, align 4, !tbaa !51
   store i8 0, ptr %44, align 1, !tbaa !52
-  %579 = getelementptr inbounds %struct.FuncState, ptr %575, i64 0, i32 5
-  %580 = load ptr, ptr %579, align 8, !tbaa !23
-  store ptr %580, ptr %15, align 8, !tbaa !53
+  %573 = getelementptr inbounds %struct.FuncState, ptr %569, i64 0, i32 5
+  %574 = load ptr, ptr %573, align 8, !tbaa !23
+  store ptr %574, ptr %15, align 8, !tbaa !53
   store i32 -1, ptr %45, align 8, !tbaa !47
   store i8 0, ptr %46, align 2, !tbaa !49
-  store i8 %578, ptr %47, align 4, !tbaa !51
+  store i8 %572, ptr %47, align 4, !tbaa !51
   store i8 0, ptr %48, align 1, !tbaa !52
   store ptr %15, ptr %16, align 8, !tbaa !53
-  store ptr %16, ptr %579, align 8, !tbaa !23
+  store ptr %16, ptr %573, align 8, !tbaa !23
   call void @luaX_next(ptr noundef nonnull %0) #6
   call fastcc void @chunk(ptr noundef nonnull %0)
   call fastcc void @check_match(ptr noundef nonnull %0, i32 noundef 276, i32 noundef 272, i32 noundef %74)
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %14) #6
-  %581 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %14, i32 noundef 0), !range !41
-  %582 = load i32, ptr %14, align 8, !tbaa !42
-  %583 = icmp eq i32 %582, 1
-  br i1 %583, label %584, label %585
+  %575 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %14, i32 noundef 0), !range !41
+  %576 = load i32, ptr %14, align 8, !tbaa !42
+  %577 = icmp eq i32 %576, 1
+  br i1 %577, label %578, label %579
 
-584:                                              ; preds = %574
+578:                                              ; preds = %568
   store i32 3, ptr %14, align 8, !tbaa !42
-  br label %585
+  br label %579
 
-585:                                              ; preds = %584, %574
-  %586 = load ptr, ptr %35, align 8, !tbaa !16
-  call void @luaK_goiftrue(ptr noundef %586, ptr noundef nonnull %14) #6
-  %587 = load i32, ptr %49, align 4, !tbaa !44
+579:                                              ; preds = %578, %568
+  %580 = load ptr, ptr %35, align 8, !tbaa !16
+  call void @luaK_goiftrue(ptr noundef %580, ptr noundef nonnull %14) #6
+  %581 = load i32, ptr %49, align 4, !tbaa !44
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %14) #6
-  %588 = load i8, ptr %48, align 1, !tbaa !52
-  %589 = icmp eq i8 %588, 0
-  br i1 %589, label %590, label %671
+  %582 = load i8, ptr %48, align 1, !tbaa !52
+  %583 = icmp eq i8 %582, 0
+  br i1 %583, label %584, label %665
 
-590:                                              ; preds = %585
-  %591 = load ptr, ptr %579, align 8, !tbaa !23
-  %592 = load ptr, ptr %591, align 8, !tbaa !53
-  store ptr %592, ptr %579, align 8, !tbaa !23
-  %593 = getelementptr inbounds %struct.FuncState, ptr %575, i64 0, i32 3
-  %594 = load ptr, ptr %593, align 8, !tbaa !18
-  %595 = getelementptr inbounds %struct.BlockCnt, ptr %591, i64 0, i32 2
-  %596 = load i8, ptr %595, align 4, !tbaa !51
-  %597 = zext i8 %596 to i32
-  %598 = getelementptr i8, ptr %594, i64 48
-  %599 = load ptr, ptr %598, align 8, !tbaa !16
-  %600 = getelementptr inbounds %struct.FuncState, ptr %599, i64 0, i32 13
-  %601 = load i8, ptr %600, align 2, !tbaa !50
-  %602 = icmp ugt i8 %601, %596
-  br i1 %602, label %603, label %658
+584:                                              ; preds = %579
+  %585 = load ptr, ptr %573, align 8, !tbaa !23
+  %586 = load ptr, ptr %585, align 8, !tbaa !53
+  store ptr %586, ptr %573, align 8, !tbaa !23
+  %587 = getelementptr inbounds %struct.FuncState, ptr %569, i64 0, i32 3
+  %588 = load ptr, ptr %587, align 8, !tbaa !18
+  %589 = getelementptr inbounds %struct.BlockCnt, ptr %585, i64 0, i32 2
+  %590 = load i8, ptr %589, align 4, !tbaa !51
+  %591 = getelementptr i8, ptr %588, i64 48
+  %592 = load ptr, ptr %591, align 8, !tbaa !16
+  %593 = getelementptr inbounds %struct.FuncState, ptr %592, i64 0, i32 13
+  %594 = load i8, ptr %593, align 2, !tbaa !50
+  %595 = icmp ugt i8 %594, %590
+  br i1 %595, label %596, label %651
 
-603:                                              ; preds = %590
-  %604 = getelementptr inbounds %struct.FuncState, ptr %599, i64 0, i32 6
-  %605 = load i32, ptr %604, align 8, !tbaa !20
-  %606 = load ptr, ptr %599, align 8, !tbaa !13
-  %607 = getelementptr inbounds %struct.Proto, ptr %606, i64 0, i32 7
-  %608 = load ptr, ptr %607, align 8, !tbaa !54
-  %609 = zext i8 %601 to i64
-  %610 = sub i8 %601, %596
-  %611 = xor i8 %596, -1
-  %612 = add i8 %601, %611
-  %613 = and i8 %610, 3
-  %614 = icmp eq i8 %613, 0
-  br i1 %614, label %626, label %615
+596:                                              ; preds = %584
+  %597 = getelementptr inbounds %struct.FuncState, ptr %592, i64 0, i32 6
+  %598 = load i32, ptr %597, align 8, !tbaa !20
+  %599 = load ptr, ptr %592, align 8, !tbaa !13
+  %600 = getelementptr inbounds %struct.Proto, ptr %599, i64 0, i32 7
+  %601 = load ptr, ptr %600, align 8, !tbaa !54
+  %602 = zext i8 %594 to i64
+  %603 = sub i8 %594, %590
+  %604 = xor i8 %590, -1
+  %605 = add i8 %594, %604
+  %606 = and i8 %603, 3
+  %607 = icmp eq i8 %606, 0
+  br i1 %607, label %619, label %608
 
-615:                                              ; preds = %603, %615
-  %616 = phi i64 [ %618, %615 ], [ %609, %603 ]
-  %617 = phi i8 [ %624, %615 ], [ 0, %603 ]
-  %618 = add nsw i64 %616, -1
-  %619 = and i64 %618, 255
-  %620 = getelementptr inbounds %struct.FuncState, ptr %599, i64 0, i32 15, i64 %619
-  %621 = load i16, ptr %620, align 2, !tbaa !55
-  %622 = zext i16 %621 to i64
-  %623 = getelementptr inbounds %struct.LocVar, ptr %608, i64 %622, i32 2
-  store i32 %605, ptr %623, align 4, !tbaa !56
-  %624 = add i8 %617, 1
-  %625 = icmp eq i8 %624, %613
-  br i1 %625, label %626, label %615, !llvm.loop !67
+608:                                              ; preds = %596, %608
+  %609 = phi i64 [ %611, %608 ], [ %602, %596 ]
+  %610 = phi i8 [ %617, %608 ], [ 0, %596 ]
+  %611 = add nsw i64 %609, -1
+  %612 = and i64 %611, 255
+  %613 = getelementptr inbounds %struct.FuncState, ptr %592, i64 0, i32 15, i64 %612
+  %614 = load i16, ptr %613, align 2, !tbaa !55
+  %615 = zext i16 %614 to i64
+  %616 = getelementptr inbounds %struct.LocVar, ptr %601, i64 %615, i32 2
+  store i32 %598, ptr %616, align 4, !tbaa !56
+  %617 = add i8 %610, 1
+  %618 = icmp eq i8 %617, %606
+  br i1 %618, label %619, label %608, !llvm.loop !67
 
-626:                                              ; preds = %615, %603
-  %627 = phi i64 [ %609, %603 ], [ %618, %615 ]
-  %628 = icmp ult i8 %612, 3
-  br i1 %628, label %657, label %629
+619:                                              ; preds = %608, %596
+  %620 = phi i64 [ %602, %596 ], [ %611, %608 ]
+  %621 = icmp ult i8 %605, 3
+  br i1 %621, label %650, label %622
 
-629:                                              ; preds = %626, %629
-  %630 = phi i64 [ %649, %629 ], [ %627, %626 ]
-  %631 = add i64 %630, 255
-  %632 = and i64 %631, 255
-  %633 = getelementptr inbounds %struct.FuncState, ptr %599, i64 0, i32 15, i64 %632
-  %634 = load i16, ptr %633, align 2, !tbaa !55
-  %635 = zext i16 %634 to i64
-  %636 = getelementptr inbounds %struct.LocVar, ptr %608, i64 %635, i32 2
-  store i32 %605, ptr %636, align 4, !tbaa !56
-  %637 = add i64 %630, 254
-  %638 = and i64 %637, 255
-  %639 = getelementptr inbounds %struct.FuncState, ptr %599, i64 0, i32 15, i64 %638
-  %640 = load i16, ptr %639, align 2, !tbaa !55
-  %641 = zext i16 %640 to i64
-  %642 = getelementptr inbounds %struct.LocVar, ptr %608, i64 %641, i32 2
-  store i32 %605, ptr %642, align 4, !tbaa !56
-  %643 = add i64 %630, 253
-  %644 = and i64 %643, 255
-  %645 = getelementptr inbounds %struct.FuncState, ptr %599, i64 0, i32 15, i64 %644
+622:                                              ; preds = %619, %622
+  %623 = phi i64 [ %642, %622 ], [ %620, %619 ]
+  %624 = add i64 %623, 255
+  %625 = and i64 %624, 255
+  %626 = getelementptr inbounds %struct.FuncState, ptr %592, i64 0, i32 15, i64 %625
+  %627 = load i16, ptr %626, align 2, !tbaa !55
+  %628 = zext i16 %627 to i64
+  %629 = getelementptr inbounds %struct.LocVar, ptr %601, i64 %628, i32 2
+  store i32 %598, ptr %629, align 4, !tbaa !56
+  %630 = add i64 %623, 254
+  %631 = and i64 %630, 255
+  %632 = getelementptr inbounds %struct.FuncState, ptr %592, i64 0, i32 15, i64 %631
+  %633 = load i16, ptr %632, align 2, !tbaa !55
+  %634 = zext i16 %633 to i64
+  %635 = getelementptr inbounds %struct.LocVar, ptr %601, i64 %634, i32 2
+  store i32 %598, ptr %635, align 4, !tbaa !56
+  %636 = add i64 %623, 253
+  %637 = and i64 %636, 255
+  %638 = getelementptr inbounds %struct.FuncState, ptr %592, i64 0, i32 15, i64 %637
+  %639 = load i16, ptr %638, align 2, !tbaa !55
+  %640 = zext i16 %639 to i64
+  %641 = getelementptr inbounds %struct.LocVar, ptr %601, i64 %640, i32 2
+  store i32 %598, ptr %641, align 4, !tbaa !56
+  %642 = add nsw i64 %623, -4
+  %643 = trunc i64 %642 to i8
+  %644 = and i64 %642, 255
+  %645 = getelementptr inbounds %struct.FuncState, ptr %592, i64 0, i32 15, i64 %644
   %646 = load i16, ptr %645, align 2, !tbaa !55
   %647 = zext i16 %646 to i64
-  %648 = getelementptr inbounds %struct.LocVar, ptr %608, i64 %647, i32 2
-  store i32 %605, ptr %648, align 4, !tbaa !56
-  %649 = add nsw i64 %630, -4
-  %650 = trunc i64 %649 to i8
-  %651 = and i64 %649, 255
-  %652 = getelementptr inbounds %struct.FuncState, ptr %599, i64 0, i32 15, i64 %651
-  %653 = load i16, ptr %652, align 2, !tbaa !55
-  %654 = zext i16 %653 to i64
-  %655 = getelementptr inbounds %struct.LocVar, ptr %608, i64 %654, i32 2
-  store i32 %605, ptr %655, align 4, !tbaa !56
-  %656 = icmp ult i8 %596, %650
-  br i1 %656, label %629, label %657, !llvm.loop !60
+  %648 = getelementptr inbounds %struct.LocVar, ptr %601, i64 %647, i32 2
+  store i32 %598, ptr %648, align 4, !tbaa !56
+  %649 = icmp ult i8 %590, %643
+  br i1 %649, label %622, label %650, !llvm.loop !60
 
-657:                                              ; preds = %629, %626
-  store i8 %596, ptr %600, align 2, !tbaa !50
+650:                                              ; preds = %622, %619
+  store i8 %590, ptr %593, align 2, !tbaa !50
+  br label %651
+
+651:                                              ; preds = %650, %584
+  %652 = getelementptr inbounds %struct.BlockCnt, ptr %585, i64 0, i32 3
+  %653 = load i8, ptr %652, align 1, !tbaa !52
+  %654 = icmp eq i8 %653, 0
+  br i1 %654, label %658, label %655
+
+655:                                              ; preds = %651
+  %656 = zext i8 %590 to i32
+  %657 = call i32 @luaK_codeABC(ptr noundef %569, i32 noundef 35, i32 noundef %656, i32 noundef 0, i32 noundef 0) #6
   br label %658
 
-658:                                              ; preds = %657, %590
-  %659 = getelementptr inbounds %struct.BlockCnt, ptr %591, i64 0, i32 3
-  %660 = load i8, ptr %659, align 1, !tbaa !52
-  %661 = icmp eq i8 %660, 0
-  br i1 %661, label %664, label %662
+658:                                              ; preds = %655, %651
+  %659 = load i8, ptr %571, align 2, !tbaa !50
+  %660 = zext i8 %659 to i32
+  %661 = getelementptr inbounds %struct.FuncState, ptr %569, i64 0, i32 9
+  store i32 %660, ptr %661, align 4, !tbaa !61
+  %662 = getelementptr inbounds %struct.BlockCnt, ptr %585, i64 0, i32 1
+  %663 = load i32, ptr %662, align 8, !tbaa !47
+  call void @luaK_patchtohere(ptr noundef %569, i32 noundef %663) #6
+  %664 = load ptr, ptr %35, align 8, !tbaa !16
+  call void @luaK_patchlist(ptr noundef %664, i32 noundef %581, i32 noundef %570) #6
+  br label %779
 
-662:                                              ; preds = %658
-  %663 = call i32 @luaK_codeABC(ptr noundef %575, i32 noundef 35, i32 noundef %597, i32 noundef 0, i32 noundef 0) #6
-  br label %664
+665:                                              ; preds = %579
+  %666 = load ptr, ptr %35, align 8, !tbaa !16
+  %667 = getelementptr inbounds %struct.FuncState, ptr %666, i64 0, i32 5
+  %668 = load ptr, ptr %667, align 8, !tbaa !68
+  %669 = icmp eq ptr %668, null
+  br i1 %669, label %683, label %670
 
-664:                                              ; preds = %662, %658
-  %665 = load i8, ptr %577, align 2, !tbaa !50
-  %666 = zext i8 %665 to i32
-  %667 = getelementptr inbounds %struct.FuncState, ptr %575, i64 0, i32 9
-  store i32 %666, ptr %667, align 4, !tbaa !61
-  %668 = getelementptr inbounds %struct.BlockCnt, ptr %591, i64 0, i32 1
-  %669 = load i32, ptr %668, align 8, !tbaa !47
-  call void @luaK_patchtohere(ptr noundef %575, i32 noundef %669) #6
-  %670 = load ptr, ptr %35, align 8, !tbaa !16
-  call void @luaK_patchlist(ptr noundef %670, i32 noundef %587, i32 noundef %576) #6
-  br label %785
+670:                                              ; preds = %665, %676
+  %671 = phi ptr [ %681, %676 ], [ %668, %665 ]
+  %672 = phi i32 [ %680, %676 ], [ 0, %665 ]
+  %673 = getelementptr inbounds %struct.BlockCnt, ptr %671, i64 0, i32 4
+  %674 = load i8, ptr %673, align 2, !tbaa !49
+  %675 = icmp eq i8 %674, 0
+  br i1 %675, label %676, label %685
 
-671:                                              ; preds = %585
-  %672 = load ptr, ptr %35, align 8, !tbaa !16
-  %673 = getelementptr inbounds %struct.FuncState, ptr %672, i64 0, i32 5
-  %674 = load ptr, ptr %673, align 8, !tbaa !68
-  %675 = icmp eq ptr %674, null
-  br i1 %675, label %689, label %676
+676:                                              ; preds = %670
+  %677 = getelementptr inbounds %struct.BlockCnt, ptr %671, i64 0, i32 3
+  %678 = load i8, ptr %677, align 1, !tbaa !52
+  %679 = zext i8 %678 to i32
+  %680 = or i32 %672, %679
+  %681 = load ptr, ptr %671, align 8, !tbaa !68
+  %682 = icmp eq ptr %681, null
+  br i1 %682, label %683, label %670, !llvm.loop !69
 
-676:                                              ; preds = %671, %682
-  %677 = phi ptr [ %687, %682 ], [ %674, %671 ]
-  %678 = phi i32 [ %686, %682 ], [ 0, %671 ]
-  %679 = getelementptr inbounds %struct.BlockCnt, ptr %677, i64 0, i32 4
-  %680 = load i8, ptr %679, align 2, !tbaa !49
-  %681 = icmp eq i8 %680, 0
-  br i1 %681, label %682, label %691
-
-682:                                              ; preds = %676
-  %683 = getelementptr inbounds %struct.BlockCnt, ptr %677, i64 0, i32 3
-  %684 = load i8, ptr %683, align 1, !tbaa !52
-  %685 = zext i8 %684 to i32
-  %686 = or i32 %678, %685
-  %687 = load ptr, ptr %677, align 8, !tbaa !68
-  %688 = icmp eq ptr %687, null
-  br i1 %688, label %689, label %676, !llvm.loop !69
-
-689:                                              ; preds = %682, %671
-  %690 = phi i32 [ 0, %671 ], [ %686, %682 ]
+683:                                              ; preds = %676, %665
+  %684 = phi i32 [ 0, %665 ], [ %680, %676 ]
   call void @luaX_syntaxerror(ptr noundef %0, ptr noundef nonnull @.str.25) #6
-  br label %691
+  br label %685
 
-691:                                              ; preds = %676, %689
-  %692 = phi i32 [ %690, %689 ], [ %678, %676 ]
-  %693 = phi ptr [ null, %689 ], [ %677, %676 ]
-  %694 = icmp eq i32 %692, 0
-  br i1 %694, label %700, label %695
+685:                                              ; preds = %670, %683
+  %686 = phi i32 [ %684, %683 ], [ %672, %670 ]
+  %687 = phi ptr [ null, %683 ], [ %671, %670 ]
+  %688 = icmp eq i32 %686, 0
+  br i1 %688, label %694, label %689
 
-695:                                              ; preds = %691
-  %696 = getelementptr inbounds %struct.BlockCnt, ptr %693, i64 0, i32 2
-  %697 = load i8, ptr %696, align 4, !tbaa !51
-  %698 = zext i8 %697 to i32
-  %699 = call i32 @luaK_codeABC(ptr noundef %672, i32 noundef 35, i32 noundef %698, i32 noundef 0, i32 noundef 0) #6
-  br label %700
+689:                                              ; preds = %685
+  %690 = getelementptr inbounds %struct.BlockCnt, ptr %687, i64 0, i32 2
+  %691 = load i8, ptr %690, align 4, !tbaa !51
+  %692 = zext i8 %691 to i32
+  %693 = call i32 @luaK_codeABC(ptr noundef %666, i32 noundef 35, i32 noundef %692, i32 noundef 0, i32 noundef 0) #6
+  br label %694
 
-700:                                              ; preds = %695, %691
-  %701 = getelementptr inbounds %struct.BlockCnt, ptr %693, i64 0, i32 1
-  %702 = call i32 @luaK_jump(ptr noundef %672) #6
-  call void @luaK_concat(ptr noundef %672, ptr noundef nonnull %701, i32 noundef %702) #6
-  %703 = load ptr, ptr %35, align 8, !tbaa !16
-  call void @luaK_patchtohere(ptr noundef %703, i32 noundef %587) #6
-  %704 = load ptr, ptr %579, align 8, !tbaa !23
-  %705 = load ptr, ptr %704, align 8, !tbaa !53
-  store ptr %705, ptr %579, align 8, !tbaa !23
-  %706 = getelementptr inbounds %struct.FuncState, ptr %575, i64 0, i32 3
-  %707 = load ptr, ptr %706, align 8, !tbaa !18
-  %708 = getelementptr inbounds %struct.BlockCnt, ptr %704, i64 0, i32 2
-  %709 = load i8, ptr %708, align 4, !tbaa !51
-  %710 = zext i8 %709 to i32
-  %711 = getelementptr i8, ptr %707, i64 48
-  %712 = load ptr, ptr %711, align 8, !tbaa !16
-  %713 = getelementptr inbounds %struct.FuncState, ptr %712, i64 0, i32 13
-  %714 = load i8, ptr %713, align 2, !tbaa !50
-  %715 = icmp ugt i8 %714, %709
-  br i1 %715, label %716, label %771
+694:                                              ; preds = %689, %685
+  %695 = getelementptr inbounds %struct.BlockCnt, ptr %687, i64 0, i32 1
+  %696 = call i32 @luaK_jump(ptr noundef %666) #6
+  call void @luaK_concat(ptr noundef %666, ptr noundef nonnull %695, i32 noundef %696) #6
+  %697 = load ptr, ptr %35, align 8, !tbaa !16
+  call void @luaK_patchtohere(ptr noundef %697, i32 noundef %581) #6
+  %698 = load ptr, ptr %573, align 8, !tbaa !23
+  %699 = load ptr, ptr %698, align 8, !tbaa !53
+  store ptr %699, ptr %573, align 8, !tbaa !23
+  %700 = getelementptr inbounds %struct.FuncState, ptr %569, i64 0, i32 3
+  %701 = load ptr, ptr %700, align 8, !tbaa !18
+  %702 = getelementptr inbounds %struct.BlockCnt, ptr %698, i64 0, i32 2
+  %703 = load i8, ptr %702, align 4, !tbaa !51
+  %704 = getelementptr i8, ptr %701, i64 48
+  %705 = load ptr, ptr %704, align 8, !tbaa !16
+  %706 = getelementptr inbounds %struct.FuncState, ptr %705, i64 0, i32 13
+  %707 = load i8, ptr %706, align 2, !tbaa !50
+  %708 = icmp ugt i8 %707, %703
+  br i1 %708, label %709, label %764
 
-716:                                              ; preds = %700
-  %717 = getelementptr inbounds %struct.FuncState, ptr %712, i64 0, i32 6
-  %718 = load i32, ptr %717, align 8, !tbaa !20
-  %719 = load ptr, ptr %712, align 8, !tbaa !13
-  %720 = getelementptr inbounds %struct.Proto, ptr %719, i64 0, i32 7
-  %721 = load ptr, ptr %720, align 8, !tbaa !54
-  %722 = zext i8 %714 to i64
-  %723 = sub i8 %714, %709
-  %724 = xor i8 %709, -1
-  %725 = add i8 %714, %724
-  %726 = and i8 %723, 3
-  %727 = icmp eq i8 %726, 0
-  br i1 %727, label %739, label %728
+709:                                              ; preds = %694
+  %710 = getelementptr inbounds %struct.FuncState, ptr %705, i64 0, i32 6
+  %711 = load i32, ptr %710, align 8, !tbaa !20
+  %712 = load ptr, ptr %705, align 8, !tbaa !13
+  %713 = getelementptr inbounds %struct.Proto, ptr %712, i64 0, i32 7
+  %714 = load ptr, ptr %713, align 8, !tbaa !54
+  %715 = zext i8 %707 to i64
+  %716 = sub i8 %707, %703
+  %717 = xor i8 %703, -1
+  %718 = add i8 %707, %717
+  %719 = and i8 %716, 3
+  %720 = icmp eq i8 %719, 0
+  br i1 %720, label %732, label %721
 
-728:                                              ; preds = %716, %728
-  %729 = phi i64 [ %731, %728 ], [ %722, %716 ]
-  %730 = phi i8 [ %737, %728 ], [ 0, %716 ]
-  %731 = add nsw i64 %729, -1
-  %732 = and i64 %731, 255
-  %733 = getelementptr inbounds %struct.FuncState, ptr %712, i64 0, i32 15, i64 %732
-  %734 = load i16, ptr %733, align 2, !tbaa !55
-  %735 = zext i16 %734 to i64
-  %736 = getelementptr inbounds %struct.LocVar, ptr %721, i64 %735, i32 2
-  store i32 %718, ptr %736, align 4, !tbaa !56
-  %737 = add i8 %730, 1
-  %738 = icmp eq i8 %737, %726
-  br i1 %738, label %739, label %728, !llvm.loop !70
+721:                                              ; preds = %709, %721
+  %722 = phi i64 [ %724, %721 ], [ %715, %709 ]
+  %723 = phi i8 [ %730, %721 ], [ 0, %709 ]
+  %724 = add nsw i64 %722, -1
+  %725 = and i64 %724, 255
+  %726 = getelementptr inbounds %struct.FuncState, ptr %705, i64 0, i32 15, i64 %725
+  %727 = load i16, ptr %726, align 2, !tbaa !55
+  %728 = zext i16 %727 to i64
+  %729 = getelementptr inbounds %struct.LocVar, ptr %714, i64 %728, i32 2
+  store i32 %711, ptr %729, align 4, !tbaa !56
+  %730 = add i8 %723, 1
+  %731 = icmp eq i8 %730, %719
+  br i1 %731, label %732, label %721, !llvm.loop !70
 
-739:                                              ; preds = %728, %716
-  %740 = phi i64 [ %722, %716 ], [ %731, %728 ]
-  %741 = icmp ult i8 %725, 3
-  br i1 %741, label %770, label %742
+732:                                              ; preds = %721, %709
+  %733 = phi i64 [ %715, %709 ], [ %724, %721 ]
+  %734 = icmp ult i8 %718, 3
+  br i1 %734, label %763, label %735
 
-742:                                              ; preds = %739, %742
-  %743 = phi i64 [ %762, %742 ], [ %740, %739 ]
-  %744 = add i64 %743, 255
-  %745 = and i64 %744, 255
-  %746 = getelementptr inbounds %struct.FuncState, ptr %712, i64 0, i32 15, i64 %745
-  %747 = load i16, ptr %746, align 2, !tbaa !55
-  %748 = zext i16 %747 to i64
-  %749 = getelementptr inbounds %struct.LocVar, ptr %721, i64 %748, i32 2
-  store i32 %718, ptr %749, align 4, !tbaa !56
-  %750 = add i64 %743, 254
-  %751 = and i64 %750, 255
-  %752 = getelementptr inbounds %struct.FuncState, ptr %712, i64 0, i32 15, i64 %751
-  %753 = load i16, ptr %752, align 2, !tbaa !55
-  %754 = zext i16 %753 to i64
-  %755 = getelementptr inbounds %struct.LocVar, ptr %721, i64 %754, i32 2
-  store i32 %718, ptr %755, align 4, !tbaa !56
-  %756 = add i64 %743, 253
-  %757 = and i64 %756, 255
-  %758 = getelementptr inbounds %struct.FuncState, ptr %712, i64 0, i32 15, i64 %757
+735:                                              ; preds = %732, %735
+  %736 = phi i64 [ %755, %735 ], [ %733, %732 ]
+  %737 = add i64 %736, 255
+  %738 = and i64 %737, 255
+  %739 = getelementptr inbounds %struct.FuncState, ptr %705, i64 0, i32 15, i64 %738
+  %740 = load i16, ptr %739, align 2, !tbaa !55
+  %741 = zext i16 %740 to i64
+  %742 = getelementptr inbounds %struct.LocVar, ptr %714, i64 %741, i32 2
+  store i32 %711, ptr %742, align 4, !tbaa !56
+  %743 = add i64 %736, 254
+  %744 = and i64 %743, 255
+  %745 = getelementptr inbounds %struct.FuncState, ptr %705, i64 0, i32 15, i64 %744
+  %746 = load i16, ptr %745, align 2, !tbaa !55
+  %747 = zext i16 %746 to i64
+  %748 = getelementptr inbounds %struct.LocVar, ptr %714, i64 %747, i32 2
+  store i32 %711, ptr %748, align 4, !tbaa !56
+  %749 = add i64 %736, 253
+  %750 = and i64 %749, 255
+  %751 = getelementptr inbounds %struct.FuncState, ptr %705, i64 0, i32 15, i64 %750
+  %752 = load i16, ptr %751, align 2, !tbaa !55
+  %753 = zext i16 %752 to i64
+  %754 = getelementptr inbounds %struct.LocVar, ptr %714, i64 %753, i32 2
+  store i32 %711, ptr %754, align 4, !tbaa !56
+  %755 = add nsw i64 %736, -4
+  %756 = trunc i64 %755 to i8
+  %757 = and i64 %755, 255
+  %758 = getelementptr inbounds %struct.FuncState, ptr %705, i64 0, i32 15, i64 %757
   %759 = load i16, ptr %758, align 2, !tbaa !55
   %760 = zext i16 %759 to i64
-  %761 = getelementptr inbounds %struct.LocVar, ptr %721, i64 %760, i32 2
-  store i32 %718, ptr %761, align 4, !tbaa !56
-  %762 = add nsw i64 %743, -4
-  %763 = trunc i64 %762 to i8
-  %764 = and i64 %762, 255
-  %765 = getelementptr inbounds %struct.FuncState, ptr %712, i64 0, i32 15, i64 %764
-  %766 = load i16, ptr %765, align 2, !tbaa !55
-  %767 = zext i16 %766 to i64
-  %768 = getelementptr inbounds %struct.LocVar, ptr %721, i64 %767, i32 2
-  store i32 %718, ptr %768, align 4, !tbaa !56
-  %769 = icmp ult i8 %709, %763
-  br i1 %769, label %742, label %770, !llvm.loop !60
+  %761 = getelementptr inbounds %struct.LocVar, ptr %714, i64 %760, i32 2
+  store i32 %711, ptr %761, align 4, !tbaa !56
+  %762 = icmp ult i8 %703, %756
+  br i1 %762, label %735, label %763, !llvm.loop !60
 
-770:                                              ; preds = %742, %739
-  store i8 %709, ptr %713, align 2, !tbaa !50
+763:                                              ; preds = %735, %732
+  store i8 %703, ptr %706, align 2, !tbaa !50
+  br label %764
+
+764:                                              ; preds = %763, %694
+  %765 = getelementptr inbounds %struct.BlockCnt, ptr %698, i64 0, i32 3
+  %766 = load i8, ptr %765, align 1, !tbaa !52
+  %767 = icmp eq i8 %766, 0
+  br i1 %767, label %771, label %768
+
+768:                                              ; preds = %764
+  %769 = zext i8 %703 to i32
+  %770 = call i32 @luaK_codeABC(ptr noundef %569, i32 noundef 35, i32 noundef %769, i32 noundef 0, i32 noundef 0) #6
   br label %771
 
-771:                                              ; preds = %770, %700
-  %772 = getelementptr inbounds %struct.BlockCnt, ptr %704, i64 0, i32 3
-  %773 = load i8, ptr %772, align 1, !tbaa !52
-  %774 = icmp eq i8 %773, 0
-  br i1 %774, label %777, label %775
+771:                                              ; preds = %768, %764
+  %772 = load i8, ptr %571, align 2, !tbaa !50
+  %773 = zext i8 %772 to i32
+  %774 = getelementptr inbounds %struct.FuncState, ptr %569, i64 0, i32 9
+  store i32 %773, ptr %774, align 4, !tbaa !61
+  %775 = getelementptr inbounds %struct.BlockCnt, ptr %698, i64 0, i32 1
+  %776 = load i32, ptr %775, align 8, !tbaa !47
+  call void @luaK_patchtohere(ptr noundef %569, i32 noundef %776) #6
+  %777 = load ptr, ptr %35, align 8, !tbaa !16
+  %778 = call i32 @luaK_jump(ptr noundef %569) #6
+  call void @luaK_patchlist(ptr noundef %777, i32 noundef %778, i32 noundef %570) #6
+  br label %779
 
-775:                                              ; preds = %771
-  %776 = call i32 @luaK_codeABC(ptr noundef %575, i32 noundef 35, i32 noundef %710, i32 noundef 0, i32 noundef 0) #6
-  br label %777
+779:                                              ; preds = %771, %658
+  %780 = load ptr, ptr %573, align 8, !tbaa !23
+  %781 = load ptr, ptr %780, align 8, !tbaa !53
+  store ptr %781, ptr %573, align 8, !tbaa !23
+  %782 = getelementptr inbounds %struct.FuncState, ptr %569, i64 0, i32 3
+  %783 = load ptr, ptr %782, align 8, !tbaa !18
+  %784 = getelementptr inbounds %struct.BlockCnt, ptr %780, i64 0, i32 2
+  %785 = load i8, ptr %784, align 4, !tbaa !51
+  %786 = getelementptr i8, ptr %783, i64 48
+  %787 = load ptr, ptr %786, align 8, !tbaa !16
+  %788 = getelementptr inbounds %struct.FuncState, ptr %787, i64 0, i32 13
+  %789 = load i8, ptr %788, align 2, !tbaa !50
+  %790 = icmp ugt i8 %789, %785
+  br i1 %790, label %791, label %846
 
-777:                                              ; preds = %775, %771
-  %778 = load i8, ptr %577, align 2, !tbaa !50
-  %779 = zext i8 %778 to i32
-  %780 = getelementptr inbounds %struct.FuncState, ptr %575, i64 0, i32 9
-  store i32 %779, ptr %780, align 4, !tbaa !61
-  %781 = getelementptr inbounds %struct.BlockCnt, ptr %704, i64 0, i32 1
-  %782 = load i32, ptr %781, align 8, !tbaa !47
-  call void @luaK_patchtohere(ptr noundef %575, i32 noundef %782) #6
-  %783 = load ptr, ptr %35, align 8, !tbaa !16
-  %784 = call i32 @luaK_jump(ptr noundef %575) #6
-  call void @luaK_patchlist(ptr noundef %783, i32 noundef %784, i32 noundef %576) #6
-  br label %785
+791:                                              ; preds = %779
+  %792 = getelementptr inbounds %struct.FuncState, ptr %787, i64 0, i32 6
+  %793 = load i32, ptr %792, align 8, !tbaa !20
+  %794 = load ptr, ptr %787, align 8, !tbaa !13
+  %795 = getelementptr inbounds %struct.Proto, ptr %794, i64 0, i32 7
+  %796 = load ptr, ptr %795, align 8, !tbaa !54
+  %797 = zext i8 %789 to i64
+  %798 = sub i8 %789, %785
+  %799 = xor i8 %785, -1
+  %800 = add i8 %789, %799
+  %801 = and i8 %798, 3
+  %802 = icmp eq i8 %801, 0
+  br i1 %802, label %814, label %803
 
-785:                                              ; preds = %777, %664
-  %786 = load ptr, ptr %579, align 8, !tbaa !23
-  %787 = load ptr, ptr %786, align 8, !tbaa !53
-  store ptr %787, ptr %579, align 8, !tbaa !23
-  %788 = getelementptr inbounds %struct.FuncState, ptr %575, i64 0, i32 3
-  %789 = load ptr, ptr %788, align 8, !tbaa !18
-  %790 = getelementptr inbounds %struct.BlockCnt, ptr %786, i64 0, i32 2
-  %791 = load i8, ptr %790, align 4, !tbaa !51
-  %792 = zext i8 %791 to i32
-  %793 = getelementptr i8, ptr %789, i64 48
-  %794 = load ptr, ptr %793, align 8, !tbaa !16
-  %795 = getelementptr inbounds %struct.FuncState, ptr %794, i64 0, i32 13
-  %796 = load i8, ptr %795, align 2, !tbaa !50
-  %797 = icmp ugt i8 %796, %791
-  br i1 %797, label %798, label %853
+803:                                              ; preds = %791, %803
+  %804 = phi i64 [ %806, %803 ], [ %797, %791 ]
+  %805 = phi i8 [ %812, %803 ], [ 0, %791 ]
+  %806 = add nsw i64 %804, -1
+  %807 = and i64 %806, 255
+  %808 = getelementptr inbounds %struct.FuncState, ptr %787, i64 0, i32 15, i64 %807
+  %809 = load i16, ptr %808, align 2, !tbaa !55
+  %810 = zext i16 %809 to i64
+  %811 = getelementptr inbounds %struct.LocVar, ptr %796, i64 %810, i32 2
+  store i32 %793, ptr %811, align 4, !tbaa !56
+  %812 = add i8 %805, 1
+  %813 = icmp eq i8 %812, %801
+  br i1 %813, label %814, label %803, !llvm.loop !71
 
-798:                                              ; preds = %785
-  %799 = getelementptr inbounds %struct.FuncState, ptr %794, i64 0, i32 6
-  %800 = load i32, ptr %799, align 8, !tbaa !20
-  %801 = load ptr, ptr %794, align 8, !tbaa !13
-  %802 = getelementptr inbounds %struct.Proto, ptr %801, i64 0, i32 7
-  %803 = load ptr, ptr %802, align 8, !tbaa !54
-  %804 = zext i8 %796 to i64
-  %805 = sub i8 %796, %791
-  %806 = xor i8 %791, -1
-  %807 = add i8 %796, %806
-  %808 = and i8 %805, 3
-  %809 = icmp eq i8 %808, 0
-  br i1 %809, label %821, label %810
+814:                                              ; preds = %803, %791
+  %815 = phi i64 [ %797, %791 ], [ %806, %803 ]
+  %816 = icmp ult i8 %800, 3
+  br i1 %816, label %845, label %817
 
-810:                                              ; preds = %798, %810
-  %811 = phi i64 [ %813, %810 ], [ %804, %798 ]
-  %812 = phi i8 [ %819, %810 ], [ 0, %798 ]
-  %813 = add nsw i64 %811, -1
-  %814 = and i64 %813, 255
-  %815 = getelementptr inbounds %struct.FuncState, ptr %794, i64 0, i32 15, i64 %814
-  %816 = load i16, ptr %815, align 2, !tbaa !55
-  %817 = zext i16 %816 to i64
-  %818 = getelementptr inbounds %struct.LocVar, ptr %803, i64 %817, i32 2
-  store i32 %800, ptr %818, align 4, !tbaa !56
-  %819 = add i8 %812, 1
-  %820 = icmp eq i8 %819, %808
-  br i1 %820, label %821, label %810, !llvm.loop !71
-
-821:                                              ; preds = %810, %798
-  %822 = phi i64 [ %804, %798 ], [ %813, %810 ]
-  %823 = icmp ult i8 %807, 3
-  br i1 %823, label %852, label %824
-
-824:                                              ; preds = %821, %824
-  %825 = phi i64 [ %844, %824 ], [ %822, %821 ]
-  %826 = add i64 %825, 255
-  %827 = and i64 %826, 255
-  %828 = getelementptr inbounds %struct.FuncState, ptr %794, i64 0, i32 15, i64 %827
-  %829 = load i16, ptr %828, align 2, !tbaa !55
-  %830 = zext i16 %829 to i64
-  %831 = getelementptr inbounds %struct.LocVar, ptr %803, i64 %830, i32 2
-  store i32 %800, ptr %831, align 4, !tbaa !56
-  %832 = add i64 %825, 254
-  %833 = and i64 %832, 255
-  %834 = getelementptr inbounds %struct.FuncState, ptr %794, i64 0, i32 15, i64 %833
-  %835 = load i16, ptr %834, align 2, !tbaa !55
-  %836 = zext i16 %835 to i64
-  %837 = getelementptr inbounds %struct.LocVar, ptr %803, i64 %836, i32 2
-  store i32 %800, ptr %837, align 4, !tbaa !56
-  %838 = add i64 %825, 253
-  %839 = and i64 %838, 255
-  %840 = getelementptr inbounds %struct.FuncState, ptr %794, i64 0, i32 15, i64 %839
+817:                                              ; preds = %814, %817
+  %818 = phi i64 [ %837, %817 ], [ %815, %814 ]
+  %819 = add i64 %818, 255
+  %820 = and i64 %819, 255
+  %821 = getelementptr inbounds %struct.FuncState, ptr %787, i64 0, i32 15, i64 %820
+  %822 = load i16, ptr %821, align 2, !tbaa !55
+  %823 = zext i16 %822 to i64
+  %824 = getelementptr inbounds %struct.LocVar, ptr %796, i64 %823, i32 2
+  store i32 %793, ptr %824, align 4, !tbaa !56
+  %825 = add i64 %818, 254
+  %826 = and i64 %825, 255
+  %827 = getelementptr inbounds %struct.FuncState, ptr %787, i64 0, i32 15, i64 %826
+  %828 = load i16, ptr %827, align 2, !tbaa !55
+  %829 = zext i16 %828 to i64
+  %830 = getelementptr inbounds %struct.LocVar, ptr %796, i64 %829, i32 2
+  store i32 %793, ptr %830, align 4, !tbaa !56
+  %831 = add i64 %818, 253
+  %832 = and i64 %831, 255
+  %833 = getelementptr inbounds %struct.FuncState, ptr %787, i64 0, i32 15, i64 %832
+  %834 = load i16, ptr %833, align 2, !tbaa !55
+  %835 = zext i16 %834 to i64
+  %836 = getelementptr inbounds %struct.LocVar, ptr %796, i64 %835, i32 2
+  store i32 %793, ptr %836, align 4, !tbaa !56
+  %837 = add nsw i64 %818, -4
+  %838 = trunc i64 %837 to i8
+  %839 = and i64 %837, 255
+  %840 = getelementptr inbounds %struct.FuncState, ptr %787, i64 0, i32 15, i64 %839
   %841 = load i16, ptr %840, align 2, !tbaa !55
   %842 = zext i16 %841 to i64
-  %843 = getelementptr inbounds %struct.LocVar, ptr %803, i64 %842, i32 2
-  store i32 %800, ptr %843, align 4, !tbaa !56
-  %844 = add nsw i64 %825, -4
-  %845 = trunc i64 %844 to i8
-  %846 = and i64 %844, 255
-  %847 = getelementptr inbounds %struct.FuncState, ptr %794, i64 0, i32 15, i64 %846
-  %848 = load i16, ptr %847, align 2, !tbaa !55
-  %849 = zext i16 %848 to i64
-  %850 = getelementptr inbounds %struct.LocVar, ptr %803, i64 %849, i32 2
-  store i32 %800, ptr %850, align 4, !tbaa !56
-  %851 = icmp ult i8 %791, %845
-  br i1 %851, label %824, label %852, !llvm.loop !60
+  %843 = getelementptr inbounds %struct.LocVar, ptr %796, i64 %842, i32 2
+  store i32 %793, ptr %843, align 4, !tbaa !56
+  %844 = icmp ult i8 %785, %838
+  br i1 %844, label %817, label %845, !llvm.loop !60
 
-852:                                              ; preds = %824, %821
-  store i8 %791, ptr %795, align 2, !tbaa !50
+845:                                              ; preds = %817, %814
+  store i8 %785, ptr %788, align 2, !tbaa !50
+  br label %846
+
+846:                                              ; preds = %845, %779
+  %847 = getelementptr inbounds %struct.BlockCnt, ptr %780, i64 0, i32 3
+  %848 = load i8, ptr %847, align 1, !tbaa !52
+  %849 = icmp eq i8 %848, 0
+  br i1 %849, label %853, label %850
+
+850:                                              ; preds = %846
+  %851 = zext i8 %785 to i32
+  %852 = call i32 @luaK_codeABC(ptr noundef %569, i32 noundef 35, i32 noundef %851, i32 noundef 0, i32 noundef 0) #6
   br label %853
 
-853:                                              ; preds = %852, %785
-  %854 = getelementptr inbounds %struct.BlockCnt, ptr %786, i64 0, i32 3
-  %855 = load i8, ptr %854, align 1, !tbaa !52
-  %856 = icmp eq i8 %855, 0
-  br i1 %856, label %859, label %857
-
-857:                                              ; preds = %853
-  %858 = call i32 @luaK_codeABC(ptr noundef %575, i32 noundef 35, i32 noundef %792, i32 noundef 0, i32 noundef 0) #6
-  br label %859
-
-859:                                              ; preds = %853, %857
-  %860 = load i8, ptr %577, align 2, !tbaa !50
-  %861 = zext i8 %860 to i32
-  %862 = getelementptr inbounds %struct.FuncState, ptr %575, i64 0, i32 9
-  store i32 %861, ptr %862, align 4, !tbaa !61
-  %863 = getelementptr inbounds %struct.BlockCnt, ptr %786, i64 0, i32 1
-  %864 = load i32, ptr %863, align 8, !tbaa !47
-  call void @luaK_patchtohere(ptr noundef %575, i32 noundef %864) #6
+853:                                              ; preds = %846, %850
+  %854 = load i8, ptr %571, align 2, !tbaa !50
+  %855 = zext i8 %854 to i32
+  %856 = getelementptr inbounds %struct.FuncState, ptr %569, i64 0, i32 9
+  store i32 %855, ptr %856, align 4, !tbaa !61
+  %857 = getelementptr inbounds %struct.BlockCnt, ptr %780, i64 0, i32 1
+  %858 = load i32, ptr %857, align 8, !tbaa !47
+  call void @luaK_patchtohere(ptr noundef %569, i32 noundef %858) #6
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %16) #6
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %15) #6
-  br label %1122
+  br label %1116
 
-865:                                              ; preds = %73
+859:                                              ; preds = %73
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %17) #6
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %18) #6
   call void @luaX_next(ptr noundef nonnull %0) #6
   call fastcc void @singlevar(ptr noundef nonnull %0, ptr noundef nonnull %17)
-  br label %866
+  br label %860
 
-866:                                              ; preds = %868, %865
-  %867 = load i32, ptr %33, align 8, !tbaa !37
-  switch i32 %867, label %870 [
-    i32 46, label %868
-    i32 58, label %869
+860:                                              ; preds = %862, %859
+  %861 = load i32, ptr %33, align 8, !tbaa !37
+  switch i32 %861, label %864 [
+    i32 46, label %862
+    i32 58, label %863
   ]
 
-868:                                              ; preds = %866
+862:                                              ; preds = %860
   call fastcc void @field(ptr noundef nonnull %0, ptr noundef nonnull %17)
-  br label %866, !llvm.loop !72
+  br label %860, !llvm.loop !72
 
-869:                                              ; preds = %866
+863:                                              ; preds = %860
   call fastcc void @field(ptr noundef nonnull %0, ptr noundef nonnull %17)
-  br label %870
+  br label %864
 
-870:                                              ; preds = %866, %869
-  %871 = phi i32 [ 1, %869 ], [ 0, %866 ]
-  call fastcc void @body(ptr noundef nonnull %0, ptr noundef nonnull %18, i32 noundef %871, i32 noundef %74)
-  %872 = load ptr, ptr %35, align 8, !tbaa !16
-  call void @luaK_storevar(ptr noundef %872, ptr noundef nonnull %17, ptr noundef nonnull %18) #6
-  %873 = load ptr, ptr %35, align 8, !tbaa !16
-  call void @luaK_fixline(ptr noundef %873, i32 noundef %74) #6
+864:                                              ; preds = %860, %863
+  %865 = phi i32 [ 1, %863 ], [ 0, %860 ]
+  call fastcc void @body(ptr noundef nonnull %0, ptr noundef nonnull %18, i32 noundef %865, i32 noundef %74)
+  %866 = load ptr, ptr %35, align 8, !tbaa !16
+  call void @luaK_storevar(ptr noundef %866, ptr noundef nonnull %17, ptr noundef nonnull %18) #6
+  %867 = load ptr, ptr %35, align 8, !tbaa !16
+  call void @luaK_fixline(ptr noundef %867, i32 noundef %74) #6
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %18) #6
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %17) #6
-  br label %1122
+  br label %1116
 
-874:                                              ; preds = %73
+868:                                              ; preds = %73
   call void @luaX_next(ptr noundef nonnull %0) #6
-  %875 = load i32, ptr %33, align 8, !tbaa !37
-  %876 = icmp eq i32 %875, 265
-  br i1 %876, label %877, label %937
+  %869 = load i32, ptr %33, align 8, !tbaa !37
+  %870 = icmp eq i32 %869, 265
+  br i1 %870, label %871, label %931
 
-877:                                              ; preds = %874
+871:                                              ; preds = %868
   call void @luaX_next(ptr noundef nonnull %0) #6
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %20) #6
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %21) #6
-  %878 = load ptr, ptr %35, align 8, !tbaa !16
-  %879 = load i32, ptr %33, align 8, !tbaa !37
-  %880 = icmp eq i32 %879, 285
-  br i1 %880, label %885, label %881
+  %872 = load ptr, ptr %35, align 8, !tbaa !16
+  %873 = load i32, ptr %33, align 8, !tbaa !37
+  %874 = icmp eq i32 %873, 285
+  br i1 %874, label %879, label %875
 
-881:                                              ; preds = %877
-  %882 = load ptr, ptr %25, align 8, !tbaa !12
-  %883 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 285) #6
-  %884 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %882, ptr noundef nonnull @.str, ptr noundef %883) #6
-  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %884) #6
-  br label %885
+875:                                              ; preds = %871
+  %876 = load ptr, ptr %25, align 8, !tbaa !12
+  %877 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 285) #6
+  %878 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %876, ptr noundef nonnull @.str, ptr noundef %877) #6
+  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %878) #6
+  br label %879
 
-885:                                              ; preds = %881, %877
-  %886 = load ptr, ptr %37, align 8, !tbaa !33
+879:                                              ; preds = %875, %871
+  %880 = load ptr, ptr %37, align 8, !tbaa !33
   call void @luaX_next(ptr noundef nonnull %0) #6
-  call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %886, i32 noundef 0)
-  %887 = getelementptr inbounds %struct.FuncState, ptr %878, i64 0, i32 9
-  %888 = load i32, ptr %887, align 4, !tbaa !61
+  call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %880, i32 noundef 0)
+  %881 = getelementptr inbounds %struct.FuncState, ptr %872, i64 0, i32 9
+  %882 = load i32, ptr %881, align 4, !tbaa !61
   store i32 -1, ptr %38, align 8, !tbaa !73
   store i32 -1, ptr %39, align 4, !tbaa !44
   store i32 6, ptr %20, align 8, !tbaa !42
-  store i32 %888, ptr %40, align 8, !tbaa !33
-  call void @luaK_reserveregs(ptr noundef %878, i32 noundef 1) #6
-  %889 = load ptr, ptr %35, align 8, !tbaa !16
-  %890 = getelementptr inbounds %struct.FuncState, ptr %889, i64 0, i32 13
-  %891 = load i8, ptr %890, align 2, !tbaa !50
-  %892 = add i8 %891, 1
-  store i8 %892, ptr %890, align 2, !tbaa !50
-  %893 = getelementptr inbounds %struct.FuncState, ptr %889, i64 0, i32 6
-  %894 = load i32, ptr %893, align 8, !tbaa !20
-  %895 = load ptr, ptr %889, align 8, !tbaa !13
-  %896 = getelementptr inbounds %struct.Proto, ptr %895, i64 0, i32 7
-  %897 = load ptr, ptr %896, align 8, !tbaa !54
-  %898 = zext i8 %892 to i64
-  %899 = add nsw i64 %898, -1
-  %900 = getelementptr inbounds %struct.FuncState, ptr %889, i64 0, i32 15, i64 %899
-  %901 = load i16, ptr %900, align 2, !tbaa !55
-  %902 = zext i16 %901 to i64
-  %903 = getelementptr inbounds %struct.LocVar, ptr %897, i64 %902, i32 1
-  store i32 %894, ptr %903, align 8, !tbaa !74
-  %904 = load i32, ptr %34, align 4, !tbaa !39
+  store i32 %882, ptr %40, align 8, !tbaa !33
+  call void @luaK_reserveregs(ptr noundef %872, i32 noundef 1) #6
+  %883 = load ptr, ptr %35, align 8, !tbaa !16
+  %884 = getelementptr inbounds %struct.FuncState, ptr %883, i64 0, i32 13
+  %885 = load i8, ptr %884, align 2, !tbaa !50
+  %886 = add i8 %885, 1
+  store i8 %886, ptr %884, align 2, !tbaa !50
+  %887 = getelementptr inbounds %struct.FuncState, ptr %883, i64 0, i32 6
+  %888 = load i32, ptr %887, align 8, !tbaa !20
+  %889 = load ptr, ptr %883, align 8, !tbaa !13
+  %890 = getelementptr inbounds %struct.Proto, ptr %889, i64 0, i32 7
+  %891 = load ptr, ptr %890, align 8, !tbaa !54
+  %892 = zext i8 %886 to i64
+  %893 = add nsw i64 %892, -1
+  %894 = getelementptr inbounds %struct.FuncState, ptr %883, i64 0, i32 15, i64 %893
+  %895 = load i16, ptr %894, align 2, !tbaa !55
+  %896 = zext i16 %895 to i64
+  %897 = getelementptr inbounds %struct.LocVar, ptr %891, i64 %896, i32 1
+  store i32 %888, ptr %897, align 8, !tbaa !74
+  %898 = load i32, ptr %34, align 4, !tbaa !39
   call void @llvm.lifetime.start.p0(i64 600, ptr nonnull %19) #6
   call fastcc void @open_func(ptr noundef nonnull %0, ptr noundef nonnull %19)
-  %905 = load ptr, ptr %19, align 8, !tbaa !13
-  %906 = getelementptr inbounds %struct.Proto, ptr %905, i64 0, i32 16
-  store i32 %904, ptr %906, align 8, !tbaa !75
-  %907 = load i32, ptr %33, align 8, !tbaa !37
-  %908 = icmp eq i32 %907, 40
-  br i1 %908, label %913, label %909
+  %899 = load ptr, ptr %19, align 8, !tbaa !13
+  %900 = getelementptr inbounds %struct.Proto, ptr %899, i64 0, i32 16
+  store i32 %898, ptr %900, align 8, !tbaa !75
+  %901 = load i32, ptr %33, align 8, !tbaa !37
+  %902 = icmp eq i32 %901, 40
+  br i1 %902, label %907, label %903
 
-909:                                              ; preds = %885
-  %910 = load ptr, ptr %25, align 8, !tbaa !12
-  %911 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 40) #6
-  %912 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %910, ptr noundef nonnull @.str, ptr noundef %911) #6
-  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %912) #6
-  br label %913
+903:                                              ; preds = %879
+  %904 = load ptr, ptr %25, align 8, !tbaa !12
+  %905 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 40) #6
+  %906 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %904, ptr noundef nonnull @.str, ptr noundef %905) #6
+  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %906) #6
+  br label %907
 
-913:                                              ; preds = %885, %909
+907:                                              ; preds = %879, %903
   call void @luaX_next(ptr noundef nonnull %0) #6
   call fastcc void @parlist(ptr noundef nonnull %0)
-  %914 = load i32, ptr %33, align 8, !tbaa !37
-  %915 = icmp eq i32 %914, 41
-  br i1 %915, label %920, label %916
+  %908 = load i32, ptr %33, align 8, !tbaa !37
+  %909 = icmp eq i32 %908, 41
+  br i1 %909, label %914, label %910
 
-916:                                              ; preds = %913
-  %917 = load ptr, ptr %25, align 8, !tbaa !12
-  %918 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 41) #6
-  %919 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %917, ptr noundef nonnull @.str, ptr noundef %918) #6
-  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %919) #6
-  br label %920
+910:                                              ; preds = %907
+  %911 = load ptr, ptr %25, align 8, !tbaa !12
+  %912 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 41) #6
+  %913 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %911, ptr noundef nonnull @.str, ptr noundef %912) #6
+  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %913) #6
+  br label %914
 
-920:                                              ; preds = %913, %916
+914:                                              ; preds = %907, %910
   call void @luaX_next(ptr noundef nonnull %0) #6
   call fastcc void @chunk(ptr noundef nonnull %0)
-  %921 = load i32, ptr %34, align 4, !tbaa !39
-  %922 = load ptr, ptr %19, align 8, !tbaa !13
-  %923 = getelementptr inbounds %struct.Proto, ptr %922, i64 0, i32 17
-  store i32 %921, ptr %923, align 4, !tbaa !76
-  call fastcc void @check_match(ptr noundef nonnull %0, i32 noundef 262, i32 noundef 265, i32 noundef %904)
+  %915 = load i32, ptr %34, align 4, !tbaa !39
+  %916 = load ptr, ptr %19, align 8, !tbaa !13
+  %917 = getelementptr inbounds %struct.Proto, ptr %916, i64 0, i32 17
+  store i32 %915, ptr %917, align 4, !tbaa !76
+  call fastcc void @check_match(ptr noundef nonnull %0, i32 noundef 262, i32 noundef 265, i32 noundef %898)
   call fastcc void @close_func(ptr noundef nonnull %0)
   call fastcc void @pushclosure(ptr noundef nonnull %0, ptr noundef nonnull %19, ptr noundef nonnull %21)
   call void @llvm.lifetime.end.p0(i64 600, ptr nonnull %19) #6
-  call void @luaK_storevar(ptr noundef nonnull %878, ptr noundef nonnull %20, ptr noundef nonnull %21) #6
-  %924 = getelementptr inbounds %struct.FuncState, ptr %878, i64 0, i32 6
-  %925 = load i32, ptr %924, align 8, !tbaa !20
-  %926 = load ptr, ptr %878, align 8, !tbaa !13
-  %927 = getelementptr inbounds %struct.Proto, ptr %926, i64 0, i32 7
-  %928 = load ptr, ptr %927, align 8, !tbaa !54
-  %929 = getelementptr inbounds %struct.FuncState, ptr %878, i64 0, i32 13
-  %930 = load i8, ptr %929, align 2, !tbaa !50
-  %931 = zext i8 %930 to i64
-  %932 = add nsw i64 %931, -1
-  %933 = getelementptr inbounds %struct.FuncState, ptr %878, i64 0, i32 15, i64 %932
-  %934 = load i16, ptr %933, align 2, !tbaa !55
-  %935 = zext i16 %934 to i64
-  %936 = getelementptr inbounds %struct.LocVar, ptr %928, i64 %935, i32 1
-  store i32 %925, ptr %936, align 8, !tbaa !74
+  call void @luaK_storevar(ptr noundef nonnull %872, ptr noundef nonnull %20, ptr noundef nonnull %21) #6
+  %918 = getelementptr inbounds %struct.FuncState, ptr %872, i64 0, i32 6
+  %919 = load i32, ptr %918, align 8, !tbaa !20
+  %920 = load ptr, ptr %872, align 8, !tbaa !13
+  %921 = getelementptr inbounds %struct.Proto, ptr %920, i64 0, i32 7
+  %922 = load ptr, ptr %921, align 8, !tbaa !54
+  %923 = getelementptr inbounds %struct.FuncState, ptr %872, i64 0, i32 13
+  %924 = load i8, ptr %923, align 2, !tbaa !50
+  %925 = zext i8 %924 to i64
+  %926 = add nsw i64 %925, -1
+  %927 = getelementptr inbounds %struct.FuncState, ptr %872, i64 0, i32 15, i64 %926
+  %928 = load i16, ptr %927, align 2, !tbaa !55
+  %929 = zext i16 %928 to i64
+  %930 = getelementptr inbounds %struct.LocVar, ptr %922, i64 %929, i32 1
+  store i32 %919, ptr %930, align 8, !tbaa !74
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %21) #6
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %20) #6
-  br label %1122
+  br label %1116
 
-937:                                              ; preds = %874
+931:                                              ; preds = %868
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %22) #6
+  br label %932
+
+932:                                              ; preds = %944, %931
+  %933 = phi i32 [ %945, %944 ], [ %869, %931 ]
+  %934 = phi i32 [ %942, %944 ], [ 0, %931 ]
+  %935 = icmp eq i32 %933, 285
+  br i1 %935, label %940, label %936
+
+936:                                              ; preds = %932
+  %937 = load ptr, ptr %25, align 8, !tbaa !12
+  %938 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 285) #6
+  %939 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %937, ptr noundef nonnull @.str, ptr noundef %938) #6
+  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %939) #6
   br label %940
 
-938:                                              ; preds = %948
+940:                                              ; preds = %936, %932
+  %941 = load ptr, ptr %37, align 8, !tbaa !33
   call void @luaX_next(ptr noundef nonnull %0) #6
-  %939 = load i32, ptr %33, align 8, !tbaa !37
-  br label %940
-
-940:                                              ; preds = %938, %937
-  %941 = phi i32 [ %939, %938 ], [ %875, %937 ]
-  %942 = phi i32 [ %950, %938 ], [ 0, %937 ]
-  %943 = icmp eq i32 %941, 285
-  br i1 %943, label %948, label %944
+  %942 = add nuw nsw i32 %934, 1
+  call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %941, i32 noundef %934)
+  %943 = load i32, ptr %33, align 8, !tbaa !37
+  switch i32 %943, label %957 [
+    i32 44, label %944
+    i32 61, label %946
+  ]
 
 944:                                              ; preds = %940
-  %945 = load ptr, ptr %25, align 8, !tbaa !12
-  %946 = call ptr @luaX_token2str(ptr noundef nonnull %0, i32 noundef 285) #6
-  %947 = call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %945, ptr noundef nonnull @.str, ptr noundef %946) #6
-  call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef %947) #6
-  br label %948
-
-948:                                              ; preds = %944, %940
-  %949 = load ptr, ptr %37, align 8, !tbaa !33
   call void @luaX_next(ptr noundef nonnull %0) #6
-  %950 = add nuw nsw i32 %942, 1
-  call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %949, i32 noundef %942)
-  %951 = load i32, ptr %33, align 8, !tbaa !37
-  switch i32 %951, label %963 [
-    i32 44, label %938
-    i32 61, label %952
-  ]
+  %945 = load i32, ptr %33, align 8, !tbaa !37
+  br label %932, !llvm.loop !77
 
-952:                                              ; preds = %948
+946:                                              ; preds = %940
   call void @luaX_next(ptr noundef nonnull %0) #6
+  %947 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %22, i32 noundef 0), !range !41
+  %948 = load i32, ptr %33, align 8, !tbaa !37
+  %949 = icmp eq i32 %948, 44
+  br i1 %949, label %950, label %959
+
+950:                                              ; preds = %946, %950
+  %951 = phi i32 [ %954, %950 ], [ 1, %946 ]
+  call void @luaX_next(ptr noundef nonnull %0) #6
+  %952 = load ptr, ptr %35, align 8, !tbaa !16
+  call void @luaK_exp2nextreg(ptr noundef %952, ptr noundef nonnull %22) #6
   %953 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %22, i32 noundef 0), !range !41
-  %954 = load i32, ptr %33, align 8, !tbaa !37
-  %955 = icmp eq i32 %954, 44
-  br i1 %955, label %956, label %965
+  %954 = add nuw nsw i32 %951, 1
+  %955 = load i32, ptr %33, align 8, !tbaa !37
+  %956 = icmp eq i32 %955, 44
+  br i1 %956, label %950, label %959, !llvm.loop !65
 
-956:                                              ; preds = %952, %956
-  %957 = phi i32 [ %960, %956 ], [ 1, %952 ]
-  call void @luaX_next(ptr noundef nonnull %0) #6
-  %958 = load ptr, ptr %35, align 8, !tbaa !16
-  call void @luaK_exp2nextreg(ptr noundef %958, ptr noundef nonnull %22) #6
-  %959 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %22, i32 noundef 0), !range !41
-  %960 = add nuw nsw i32 %957, 1
-  %961 = load i32, ptr %33, align 8, !tbaa !37
-  %962 = icmp eq i32 %961, 44
-  br i1 %962, label %956, label %965, !llvm.loop !65
-
-963:                                              ; preds = %948
+957:                                              ; preds = %940
   store i32 0, ptr %22, align 8, !tbaa !42
-  %964 = load ptr, ptr %35, align 8, !tbaa !16
-  br label %978
+  %958 = load ptr, ptr %35, align 8, !tbaa !16
+  br label %972
 
-965:                                              ; preds = %956, %952
-  %966 = phi i32 [ 1, %952 ], [ %960, %956 ]
-  %967 = load i32, ptr %22, align 8, !tbaa !42
-  %968 = load ptr, ptr %35, align 8, !tbaa !16
-  %969 = sub nsw i32 %950, %966
-  switch i32 %967, label %975 [
-    i32 13, label %970
-    i32 14, label %970
-    i32 0, label %976
+959:                                              ; preds = %950, %946
+  %960 = phi i32 [ 1, %946 ], [ %954, %950 ]
+  %961 = load i32, ptr %22, align 8, !tbaa !42
+  %962 = load ptr, ptr %35, align 8, !tbaa !16
+  %963 = sub nsw i32 %942, %960
+  switch i32 %961, label %969 [
+    i32 13, label %964
+    i32 14, label %964
+    i32 0, label %970
   ]
 
-970:                                              ; preds = %965, %965
-  %971 = call i32 @llvm.smax.i32(i32 %969, i32 -1)
-  %972 = add nsw i32 %971, 1
-  call void @luaK_setreturns(ptr noundef %968, ptr noundef nonnull %22, i32 noundef %972) #6
-  %973 = icmp sgt i32 %971, 0
-  br i1 %973, label %974, label %983
+964:                                              ; preds = %959, %959
+  %965 = call i32 @llvm.smax.i32(i32 %963, i32 -1)
+  %966 = add nsw i32 %965, 1
+  call void @luaK_setreturns(ptr noundef %962, ptr noundef nonnull %22, i32 noundef %966) #6
+  %967 = icmp sgt i32 %965, 0
+  br i1 %967, label %968, label %977
 
-974:                                              ; preds = %970
-  call void @luaK_reserveregs(ptr noundef %968, i32 noundef %971) #6
-  br label %983
+968:                                              ; preds = %964
+  call void @luaK_reserveregs(ptr noundef %962, i32 noundef %965) #6
+  br label %977
 
-975:                                              ; preds = %965
-  call void @luaK_exp2nextreg(ptr noundef %968, ptr noundef nonnull %22) #6
-  br label %976
+969:                                              ; preds = %959
+  call void @luaK_exp2nextreg(ptr noundef %962, ptr noundef nonnull %22) #6
+  br label %970
 
-976:                                              ; preds = %975, %965
-  %977 = icmp sgt i32 %969, 0
-  br i1 %977, label %978, label %983
+970:                                              ; preds = %969, %959
+  %971 = icmp sgt i32 %963, 0
+  br i1 %971, label %972, label %977
 
-978:                                              ; preds = %963, %976
-  %979 = phi ptr [ %964, %963 ], [ %968, %976 ]
-  %980 = phi i32 [ %950, %963 ], [ %969, %976 ]
-  %981 = getelementptr inbounds %struct.FuncState, ptr %979, i64 0, i32 9
-  %982 = load i32, ptr %981, align 4, !tbaa !61
-  call void @luaK_reserveregs(ptr noundef %979, i32 noundef %980) #6
-  call void @luaK_nil(ptr noundef %979, i32 noundef %982, i32 noundef %980) #6
-  br label %983
+972:                                              ; preds = %957, %970
+  %973 = phi ptr [ %958, %957 ], [ %962, %970 ]
+  %974 = phi i32 [ %942, %957 ], [ %963, %970 ]
+  %975 = getelementptr inbounds %struct.FuncState, ptr %973, i64 0, i32 9
+  %976 = load i32, ptr %975, align 4, !tbaa !61
+  call void @luaK_reserveregs(ptr noundef %973, i32 noundef %974) #6
+  call void @luaK_nil(ptr noundef %973, i32 noundef %976, i32 noundef %974) #6
+  br label %977
 
-983:                                              ; preds = %978, %976, %974, %970
-  %984 = load ptr, ptr %35, align 8, !tbaa !16
-  %985 = getelementptr inbounds %struct.FuncState, ptr %984, i64 0, i32 13
-  %986 = load i8, ptr %985, align 2, !tbaa !50
-  %987 = trunc i32 %950 to i8
-  %988 = add i8 %986, %987
-  store i8 %988, ptr %985, align 2, !tbaa !50
-  %989 = getelementptr inbounds %struct.FuncState, ptr %984, i64 0, i32 6
-  %990 = load i32, ptr %989, align 8, !tbaa !20
-  %991 = load ptr, ptr %984, align 8, !tbaa !13
-  %992 = getelementptr inbounds %struct.Proto, ptr %991, i64 0, i32 7
-  %993 = load ptr, ptr %992, align 8, !tbaa !54
-  %994 = zext i32 %950 to i64
-  %995 = zext i8 %988 to i64
-  %996 = and i32 %950, 1
-  %997 = icmp eq i32 %996, 0
-  br i1 %997, label %1005, label %998
+977:                                              ; preds = %972, %970, %968, %964
+  %978 = load ptr, ptr %35, align 8, !tbaa !16
+  %979 = getelementptr inbounds %struct.FuncState, ptr %978, i64 0, i32 13
+  %980 = load i8, ptr %979, align 2, !tbaa !50
+  %981 = trunc i32 %942 to i8
+  %982 = add i8 %980, %981
+  store i8 %982, ptr %979, align 2, !tbaa !50
+  %983 = getelementptr inbounds %struct.FuncState, ptr %978, i64 0, i32 6
+  %984 = load i32, ptr %983, align 8, !tbaa !20
+  %985 = load ptr, ptr %978, align 8, !tbaa !13
+  %986 = getelementptr inbounds %struct.Proto, ptr %985, i64 0, i32 7
+  %987 = load ptr, ptr %986, align 8, !tbaa !54
+  %988 = zext i32 %942 to i64
+  %989 = zext i8 %982 to i64
+  %990 = and i32 %942, 1
+  %991 = icmp eq i32 %990, 0
+  br i1 %991, label %999, label %992
 
-998:                                              ; preds = %983
-  %999 = sub nsw i64 %995, %994
-  %1000 = getelementptr inbounds %struct.FuncState, ptr %984, i64 0, i32 15, i64 %999
-  %1001 = load i16, ptr %1000, align 2, !tbaa !55
-  %1002 = zext i16 %1001 to i64
-  %1003 = getelementptr inbounds %struct.LocVar, ptr %993, i64 %1002, i32 1
-  store i32 %990, ptr %1003, align 8, !tbaa !74
-  %1004 = add nsw i64 %994, -1
-  br label %1005
+992:                                              ; preds = %977
+  %993 = sub nsw i64 %989, %988
+  %994 = getelementptr inbounds %struct.FuncState, ptr %978, i64 0, i32 15, i64 %993
+  %995 = load i16, ptr %994, align 2, !tbaa !55
+  %996 = zext i16 %995 to i64
+  %997 = getelementptr inbounds %struct.LocVar, ptr %987, i64 %996, i32 1
+  store i32 %984, ptr %997, align 8, !tbaa !74
+  %998 = add nsw i64 %988, -1
+  br label %999
 
-1005:                                             ; preds = %998, %983
-  %1006 = phi i64 [ %994, %983 ], [ %1004, %998 ]
-  %1007 = icmp eq i32 %942, 0
-  br i1 %1007, label %1024, label %1008
+999:                                              ; preds = %992, %977
+  %1000 = phi i64 [ %988, %977 ], [ %998, %992 ]
+  %1001 = icmp eq i32 %934, 0
+  br i1 %1001, label %1018, label %1002
 
-1008:                                             ; preds = %1005, %1008
-  %1009 = phi i64 [ %1021, %1008 ], [ %1006, %1005 ]
-  %1010 = sub nsw i64 %995, %1009
-  %1011 = getelementptr inbounds %struct.FuncState, ptr %984, i64 0, i32 15, i64 %1010
+1002:                                             ; preds = %999, %1002
+  %1003 = phi i64 [ %1015, %1002 ], [ %1000, %999 ]
+  %1004 = sub nsw i64 %989, %1003
+  %1005 = getelementptr inbounds %struct.FuncState, ptr %978, i64 0, i32 15, i64 %1004
+  %1006 = load i16, ptr %1005, align 2, !tbaa !55
+  %1007 = zext i16 %1006 to i64
+  %1008 = getelementptr inbounds %struct.LocVar, ptr %987, i64 %1007, i32 1
+  store i32 %984, ptr %1008, align 8, !tbaa !74
+  %1009 = add nsw i64 %1003, -1
+  %1010 = sub nsw i64 %989, %1009
+  %1011 = getelementptr inbounds %struct.FuncState, ptr %978, i64 0, i32 15, i64 %1010
   %1012 = load i16, ptr %1011, align 2, !tbaa !55
   %1013 = zext i16 %1012 to i64
-  %1014 = getelementptr inbounds %struct.LocVar, ptr %993, i64 %1013, i32 1
-  store i32 %990, ptr %1014, align 8, !tbaa !74
-  %1015 = add nsw i64 %1009, -1
-  %1016 = sub nsw i64 %995, %1015
-  %1017 = getelementptr inbounds %struct.FuncState, ptr %984, i64 0, i32 15, i64 %1016
-  %1018 = load i16, ptr %1017, align 2, !tbaa !55
-  %1019 = zext i16 %1018 to i64
-  %1020 = getelementptr inbounds %struct.LocVar, ptr %993, i64 %1019, i32 1
-  store i32 %990, ptr %1020, align 8, !tbaa !74
-  %1021 = add nsw i64 %1009, -2
-  %1022 = and i64 %1021, 4294967295
-  %1023 = icmp eq i64 %1022, 0
-  br i1 %1023, label %1024, label %1008, !llvm.loop !77
+  %1014 = getelementptr inbounds %struct.LocVar, ptr %987, i64 %1013, i32 1
+  store i32 %984, ptr %1014, align 8, !tbaa !74
+  %1015 = add nsw i64 %1003, -2
+  %1016 = and i64 %1015, 4294967295
+  %1017 = icmp eq i64 %1016, 0
+  br i1 %1017, label %1018, label %1002, !llvm.loop !78
 
-1024:                                             ; preds = %1008, %1005
+1018:                                             ; preds = %1002, %999
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %22) #6
-  br label %1122
+  br label %1116
 
-1025:                                             ; preds = %73
-  %1026 = load ptr, ptr %35, align 8, !tbaa !16
+1019:                                             ; preds = %73
+  %1020 = load ptr, ptr %35, align 8, !tbaa !16
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %23) #6
   call void @luaX_next(ptr noundef nonnull %0) #6
-  %1027 = load i32, ptr %33, align 8, !tbaa !37
-  switch i32 %1027, label %1028 [
-    i32 260, label %1071
-    i32 261, label %1071
-    i32 262, label %1071
-    i32 276, label %1071
-    i32 287, label %1071
-    i32 59, label %1071
+  %1021 = load i32, ptr %33, align 8, !tbaa !37
+  switch i32 %1021, label %1022 [
+    i32 260, label %1065
+    i32 261, label %1065
+    i32 262, label %1065
+    i32 276, label %1065
+    i32 287, label %1065
+    i32 59, label %1065
   ]
 
-1028:                                             ; preds = %1025
-  %1029 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %23, i32 noundef 0), !range !41
-  %1030 = load i32, ptr %33, align 8, !tbaa !37
-  %1031 = icmp ne i32 %1030, 44
-  br i1 %1031, label %1043, label %1032
+1022:                                             ; preds = %1019
+  %1023 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %23, i32 noundef 0), !range !41
+  %1024 = load i32, ptr %33, align 8, !tbaa !37
+  %1025 = icmp ne i32 %1024, 44
+  br i1 %1025, label %1037, label %1026
 
-1032:                                             ; preds = %1028, %1032
-  %1033 = phi i32 [ %1036, %1032 ], [ 1, %1028 ]
+1026:                                             ; preds = %1022, %1026
+  %1027 = phi i32 [ %1030, %1026 ], [ 1, %1022 ]
   call void @luaX_next(ptr noundef nonnull %0) #6
-  %1034 = load ptr, ptr %35, align 8, !tbaa !16
-  call void @luaK_exp2nextreg(ptr noundef %1034, ptr noundef nonnull %23) #6
-  %1035 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %23, i32 noundef 0), !range !41
-  %1036 = add nuw nsw i32 %1033, 1
-  %1037 = load i32, ptr %33, align 8, !tbaa !37
-  %1038 = icmp eq i32 %1037, 44
-  br i1 %1038, label %1032, label %1039, !llvm.loop !65
+  %1028 = load ptr, ptr %35, align 8, !tbaa !16
+  call void @luaK_exp2nextreg(ptr noundef %1028, ptr noundef nonnull %23) #6
+  %1029 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %23, i32 noundef 0), !range !41
+  %1030 = add nuw nsw i32 %1027, 1
+  %1031 = load i32, ptr %33, align 8, !tbaa !37
+  %1032 = icmp eq i32 %1031, 44
+  br i1 %1032, label %1026, label %1033, !llvm.loop !65
 
-1039:                                             ; preds = %1032
-  %1040 = load i32, ptr %23, align 8, !tbaa !42
-  %1041 = add i32 %1040, -13
-  %1042 = icmp ult i32 %1041, 2
-  br i1 %1042, label %1047, label %1067
+1033:                                             ; preds = %1026
+  %1034 = load i32, ptr %23, align 8, !tbaa !42
+  %1035 = add i32 %1034, -13
+  %1036 = icmp ult i32 %1035, 2
+  br i1 %1036, label %1041, label %1061
 
-1043:                                             ; preds = %1028
-  %1044 = load i32, ptr %23, align 8, !tbaa !42
-  %1045 = add i32 %1044, -13
-  %1046 = icmp ult i32 %1045, 2
-  br i1 %1046, label %1047, label %1065
+1037:                                             ; preds = %1022
+  %1038 = load i32, ptr %23, align 8, !tbaa !42
+  %1039 = add i32 %1038, -13
+  %1040 = icmp ult i32 %1039, 2
+  br i1 %1040, label %1041, label %1059
 
-1047:                                             ; preds = %1043, %1039
-  call void @luaK_setreturns(ptr noundef %1026, ptr noundef nonnull %23, i32 noundef -1) #6
-  %1048 = load i32, ptr %23, align 8, !tbaa !42
-  %1049 = icmp eq i32 %1048, 13
-  %1050 = and i1 %1049, %1031
-  br i1 %1050, label %1051, label %1061
+1041:                                             ; preds = %1037, %1033
+  call void @luaK_setreturns(ptr noundef %1020, ptr noundef nonnull %23, i32 noundef -1) #6
+  %1042 = load i32, ptr %23, align 8, !tbaa !42
+  %1043 = icmp eq i32 %1042, 13
+  %1044 = and i1 %1043, %1025
+  br i1 %1044, label %1045, label %1055
 
-1051:                                             ; preds = %1047
-  %1052 = load ptr, ptr %1026, align 8, !tbaa !13
-  %1053 = getelementptr inbounds %struct.Proto, ptr %1052, i64 0, i32 4
-  %1054 = load ptr, ptr %1053, align 8, !tbaa !78
-  %1055 = load i32, ptr %36, align 8, !tbaa !33
-  %1056 = sext i32 %1055 to i64
-  %1057 = getelementptr inbounds i32, ptr %1054, i64 %1056
-  %1058 = load i32, ptr %1057, align 4, !tbaa !40
-  %1059 = and i32 %1058, -64
-  %1060 = or i32 %1059, 29
-  store i32 %1060, ptr %1057, align 4, !tbaa !40
-  br label %1061
+1045:                                             ; preds = %1041
+  %1046 = load ptr, ptr %1020, align 8, !tbaa !13
+  %1047 = getelementptr inbounds %struct.Proto, ptr %1046, i64 0, i32 4
+  %1048 = load ptr, ptr %1047, align 8, !tbaa !79
+  %1049 = load i32, ptr %36, align 8, !tbaa !33
+  %1050 = sext i32 %1049 to i64
+  %1051 = getelementptr inbounds i32, ptr %1048, i64 %1050
+  %1052 = load i32, ptr %1051, align 4, !tbaa !40
+  %1053 = and i32 %1052, -64
+  %1054 = or i32 %1053, 29
+  store i32 %1054, ptr %1051, align 4, !tbaa !40
+  br label %1055
 
-1061:                                             ; preds = %1051, %1047
-  %1062 = getelementptr inbounds %struct.FuncState, ptr %1026, i64 0, i32 13
+1055:                                             ; preds = %1045, %1041
+  %1056 = getelementptr inbounds %struct.FuncState, ptr %1020, i64 0, i32 13
+  %1057 = load i8, ptr %1056, align 2, !tbaa !50
+  %1058 = zext i8 %1057 to i32
+  br label %1065
+
+1059:                                             ; preds = %1037
+  %1060 = call i32 @luaK_exp2anyreg(ptr noundef %1020, ptr noundef nonnull %23) #6
+  br label %1065
+
+1061:                                             ; preds = %1033
+  call void @luaK_exp2nextreg(ptr noundef %1020, ptr noundef nonnull %23) #6
+  %1062 = getelementptr inbounds %struct.FuncState, ptr %1020, i64 0, i32 13
   %1063 = load i8, ptr %1062, align 2, !tbaa !50
   %1064 = zext i8 %1063 to i32
-  br label %1071
+  br label %1065
 
-1065:                                             ; preds = %1043
-  %1066 = call i32 @luaK_exp2anyreg(ptr noundef %1026, ptr noundef nonnull %23) #6
-  br label %1071
-
-1067:                                             ; preds = %1039
-  call void @luaK_exp2nextreg(ptr noundef %1026, ptr noundef nonnull %23) #6
-  %1068 = getelementptr inbounds %struct.FuncState, ptr %1026, i64 0, i32 13
-  %1069 = load i8, ptr %1068, align 2, !tbaa !50
-  %1070 = zext i8 %1069 to i32
-  br label %1071
-
-1071:                                             ; preds = %1025, %1025, %1025, %1025, %1025, %1025, %1061, %1065, %1067
-  %1072 = phi i32 [ %1064, %1061 ], [ %1066, %1065 ], [ %1070, %1067 ], [ 0, %1025 ], [ 0, %1025 ], [ 0, %1025 ], [ 0, %1025 ], [ 0, %1025 ], [ 0, %1025 ]
-  %1073 = phi i32 [ -1, %1061 ], [ 1, %1065 ], [ %1036, %1067 ], [ 0, %1025 ], [ 0, %1025 ], [ 0, %1025 ], [ 0, %1025 ], [ 0, %1025 ], [ 0, %1025 ]
-  call void @luaK_ret(ptr noundef %1026, i32 noundef %1072, i32 noundef %1073) #6
+1065:                                             ; preds = %1019, %1019, %1019, %1019, %1019, %1019, %1055, %1059, %1061
+  %1066 = phi i32 [ %1058, %1055 ], [ %1060, %1059 ], [ %1064, %1061 ], [ 0, %1019 ], [ 0, %1019 ], [ 0, %1019 ], [ 0, %1019 ], [ 0, %1019 ], [ 0, %1019 ]
+  %1067 = phi i32 [ -1, %1055 ], [ 1, %1059 ], [ %1030, %1061 ], [ 0, %1019 ], [ 0, %1019 ], [ 0, %1019 ], [ 0, %1019 ], [ 0, %1019 ], [ 0, %1019 ]
+  call void @luaK_ret(ptr noundef %1020, i32 noundef %1066, i32 noundef %1067) #6
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %23) #6
-  br label %1122
+  br label %1116
 
-1074:                                             ; preds = %73
+1068:                                             ; preds = %73
   call void @luaX_next(ptr noundef nonnull %0) #6
-  %1075 = load ptr, ptr %35, align 8, !tbaa !16
-  %1076 = getelementptr inbounds %struct.FuncState, ptr %1075, i64 0, i32 5
-  %1077 = load ptr, ptr %1076, align 8, !tbaa !68
-  %1078 = icmp eq ptr %1077, null
-  br i1 %1078, label %1092, label %1079
+  %1069 = load ptr, ptr %35, align 8, !tbaa !16
+  %1070 = getelementptr inbounds %struct.FuncState, ptr %1069, i64 0, i32 5
+  %1071 = load ptr, ptr %1070, align 8, !tbaa !68
+  %1072 = icmp eq ptr %1071, null
+  br i1 %1072, label %1086, label %1073
 
-1079:                                             ; preds = %1074, %1085
-  %1080 = phi ptr [ %1090, %1085 ], [ %1077, %1074 ]
-  %1081 = phi i32 [ %1089, %1085 ], [ 0, %1074 ]
-  %1082 = getelementptr inbounds %struct.BlockCnt, ptr %1080, i64 0, i32 4
-  %1083 = load i8, ptr %1082, align 2, !tbaa !49
-  %1084 = icmp eq i8 %1083, 0
-  br i1 %1084, label %1085, label %1094
+1073:                                             ; preds = %1068, %1079
+  %1074 = phi ptr [ %1084, %1079 ], [ %1071, %1068 ]
+  %1075 = phi i32 [ %1083, %1079 ], [ 0, %1068 ]
+  %1076 = getelementptr inbounds %struct.BlockCnt, ptr %1074, i64 0, i32 4
+  %1077 = load i8, ptr %1076, align 2, !tbaa !49
+  %1078 = icmp eq i8 %1077, 0
+  br i1 %1078, label %1079, label %1088
 
-1085:                                             ; preds = %1079
-  %1086 = getelementptr inbounds %struct.BlockCnt, ptr %1080, i64 0, i32 3
-  %1087 = load i8, ptr %1086, align 1, !tbaa !52
-  %1088 = zext i8 %1087 to i32
-  %1089 = or i32 %1081, %1088
-  %1090 = load ptr, ptr %1080, align 8, !tbaa !68
-  %1091 = icmp eq ptr %1090, null
-  br i1 %1091, label %1092, label %1079, !llvm.loop !69
+1079:                                             ; preds = %1073
+  %1080 = getelementptr inbounds %struct.BlockCnt, ptr %1074, i64 0, i32 3
+  %1081 = load i8, ptr %1080, align 1, !tbaa !52
+  %1082 = zext i8 %1081 to i32
+  %1083 = or i32 %1075, %1082
+  %1084 = load ptr, ptr %1074, align 8, !tbaa !68
+  %1085 = icmp eq ptr %1084, null
+  br i1 %1085, label %1086, label %1073, !llvm.loop !69
 
-1092:                                             ; preds = %1085, %1074
-  %1093 = phi i32 [ 0, %1074 ], [ %1089, %1085 ]
+1086:                                             ; preds = %1079, %1068
+  %1087 = phi i32 [ 0, %1068 ], [ %1083, %1079 ]
   call void @luaX_syntaxerror(ptr noundef %0, ptr noundef nonnull @.str.25) #6
-  br label %1094
+  br label %1088
 
-1094:                                             ; preds = %1079, %1092
-  %1095 = phi i32 [ %1093, %1092 ], [ %1081, %1079 ]
-  %1096 = phi ptr [ null, %1092 ], [ %1080, %1079 ]
-  %1097 = icmp eq i32 %1095, 0
-  br i1 %1097, label %1103, label %1098
+1088:                                             ; preds = %1073, %1086
+  %1089 = phi i32 [ %1087, %1086 ], [ %1075, %1073 ]
+  %1090 = phi ptr [ null, %1086 ], [ %1074, %1073 ]
+  %1091 = icmp eq i32 %1089, 0
+  br i1 %1091, label %1097, label %1092
 
-1098:                                             ; preds = %1094
-  %1099 = getelementptr inbounds %struct.BlockCnt, ptr %1096, i64 0, i32 2
-  %1100 = load i8, ptr %1099, align 4, !tbaa !51
-  %1101 = zext i8 %1100 to i32
-  %1102 = call i32 @luaK_codeABC(ptr noundef %1075, i32 noundef 35, i32 noundef %1101, i32 noundef 0, i32 noundef 0) #6
-  br label %1103
+1092:                                             ; preds = %1088
+  %1093 = getelementptr inbounds %struct.BlockCnt, ptr %1090, i64 0, i32 2
+  %1094 = load i8, ptr %1093, align 4, !tbaa !51
+  %1095 = zext i8 %1094 to i32
+  %1096 = call i32 @luaK_codeABC(ptr noundef %1069, i32 noundef 35, i32 noundef %1095, i32 noundef 0, i32 noundef 0) #6
+  br label %1097
 
-1103:                                             ; preds = %1094, %1098
-  %1104 = getelementptr inbounds %struct.BlockCnt, ptr %1096, i64 0, i32 1
-  %1105 = call i32 @luaK_jump(ptr noundef %1075) #6
-  call void @luaK_concat(ptr noundef %1075, ptr noundef nonnull %1104, i32 noundef %1105) #6
-  br label %1122
+1097:                                             ; preds = %1088, %1092
+  %1098 = getelementptr inbounds %struct.BlockCnt, ptr %1090, i64 0, i32 1
+  %1099 = call i32 @luaK_jump(ptr noundef %1069) #6
+  call void @luaK_concat(ptr noundef %1069, ptr noundef nonnull %1098, i32 noundef %1099) #6
+  br label %1116
 
-1106:                                             ; preds = %73
-  %1107 = load ptr, ptr %35, align 8, !tbaa !16
+1100:                                             ; preds = %73
+  %1101 = load ptr, ptr %35, align 8, !tbaa !16
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %24) #6
   call fastcc void @primaryexp(ptr noundef nonnull %0, ptr noundef nonnull %69)
-  %1108 = load i32, ptr %69, align 8, !tbaa !79
-  %1109 = icmp eq i32 %1108, 13
-  br i1 %1109, label %1110, label %1120
+  %1102 = load i32, ptr %69, align 8, !tbaa !80
+  %1103 = icmp eq i32 %1102, 13
+  br i1 %1103, label %1104, label %1114
 
-1110:                                             ; preds = %1106
-  %1111 = load ptr, ptr %1107, align 8, !tbaa !13
-  %1112 = getelementptr inbounds %struct.Proto, ptr %1111, i64 0, i32 4
-  %1113 = load ptr, ptr %1112, align 8, !tbaa !78
-  %1114 = load i32, ptr %70, align 8, !tbaa !33
-  %1115 = sext i32 %1114 to i64
-  %1116 = getelementptr inbounds i32, ptr %1113, i64 %1115
-  %1117 = load i32, ptr %1116, align 4, !tbaa !40
-  %1118 = and i32 %1117, -8372225
-  %1119 = or i32 %1118, 16384
-  store i32 %1119, ptr %1116, align 4, !tbaa !40
-  br label %1121
+1104:                                             ; preds = %1100
+  %1105 = load ptr, ptr %1101, align 8, !tbaa !13
+  %1106 = getelementptr inbounds %struct.Proto, ptr %1105, i64 0, i32 4
+  %1107 = load ptr, ptr %1106, align 8, !tbaa !79
+  %1108 = load i32, ptr %70, align 8, !tbaa !33
+  %1109 = sext i32 %1108 to i64
+  %1110 = getelementptr inbounds i32, ptr %1107, i64 %1109
+  %1111 = load i32, ptr %1110, align 4, !tbaa !40
+  %1112 = and i32 %1111, -8372225
+  %1113 = or i32 %1112, 16384
+  store i32 %1113, ptr %1110, align 4, !tbaa !40
+  br label %1115
 
-1120:                                             ; preds = %1106
-  store ptr null, ptr %24, align 8, !tbaa !81
+1114:                                             ; preds = %1100
+  store ptr null, ptr %24, align 8, !tbaa !82
   call fastcc void @assignment(ptr noundef nonnull %0, ptr noundef nonnull %24, i32 noundef 1)
+  br label %1115
+
+1115:                                             ; preds = %1104, %1114
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %24) #6
+  br label %1116
+
+1116:                                             ; preds = %914, %1018, %195, %376, %382, %562, %853, %864, %1065, %1097, %1115
+  %1117 = phi i1 [ true, %914 ], [ true, %1018 ], [ true, %195 ], [ true, %376 ], [ true, %382 ], [ true, %562 ], [ true, %853 ], [ true, %864 ], [ false, %1065 ], [ false, %1097 ], [ true, %1115 ]
+  %1118 = load i32, ptr %33, align 8, !tbaa !37
+  %1119 = icmp eq i32 %1118, 59
+  br i1 %1119, label %1120, label %1121
+
+1120:                                             ; preds = %1116
+  call void @luaX_next(ptr noundef nonnull %0) #6
   br label %1121
 
-1121:                                             ; preds = %1110, %1120
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %24) #6
-  br label %1122
+1121:                                             ; preds = %1116, %1120
+  %1122 = load ptr, ptr %35, align 8, !tbaa !16
+  %1123 = getelementptr inbounds %struct.FuncState, ptr %1122, i64 0, i32 13
+  %1124 = load i8, ptr %1123, align 2, !tbaa !50
+  %1125 = zext i8 %1124 to i32
+  %1126 = getelementptr inbounds %struct.FuncState, ptr %1122, i64 0, i32 9
+  store i32 %1125, ptr %1126, align 4, !tbaa !61
+  br i1 %1117, label %71, label %1127, !llvm.loop !83
 
-1122:                                             ; preds = %195, %376, %382, %568, %859, %870, %920, %1024, %1071, %1103, %1121
-  %1123 = phi i1 [ true, %195 ], [ true, %376 ], [ true, %382 ], [ true, %568 ], [ true, %859 ], [ true, %870 ], [ true, %920 ], [ true, %1024 ], [ false, %1071 ], [ false, %1103 ], [ true, %1121 ]
-  %1124 = load i32, ptr %33, align 8, !tbaa !37
-  %1125 = icmp eq i32 %1124, 59
-  br i1 %1125, label %1126, label %1127
-
-1126:                                             ; preds = %1122
-  call void @luaX_next(ptr noundef nonnull %0) #6
-  br label %1127
-
-1127:                                             ; preds = %1122, %1126
-  %1128 = load ptr, ptr %35, align 8, !tbaa !16
-  %1129 = getelementptr inbounds %struct.FuncState, ptr %1128, i64 0, i32 13
-  %1130 = load i8, ptr %1129, align 2, !tbaa !50
-  %1131 = zext i8 %1130 to i32
-  %1132 = getelementptr inbounds %struct.FuncState, ptr %1128, i64 0, i32 9
-  store i32 %1131, ptr %1132, align 4, !tbaa !61
-  br i1 %1123, label %71, label %1133, !llvm.loop !82
-
-1133:                                             ; preds = %71, %71, %71, %71, %71, %1127
-  %1134 = load ptr, ptr %25, align 8, !tbaa !12
-  %1135 = getelementptr inbounds %struct.lua_State, ptr %1134, i64 0, i32 15
-  %1136 = load i16, ptr %1135, align 8, !tbaa !38
-  %1137 = add i16 %1136, -1
-  store i16 %1137, ptr %1135, align 8, !tbaa !38
+1127:                                             ; preds = %71, %71, %71, %71, %71, %1121
+  %1128 = load ptr, ptr %25, align 8, !tbaa !12
+  %1129 = getelementptr inbounds %struct.lua_State, ptr %1128, i64 0, i32 15
+  %1130 = load i16, ptr %1129, align 8, !tbaa !38
+  %1131 = add i16 %1130, -1
+  store i16 %1131, ptr %1129, align 8, !tbaa !38
   ret void
 }
 
@@ -2157,9 +2154,9 @@ define internal fastcc void @close_func(ptr noundef %0) unnamed_addr #0 {
 
 49:                                               ; preds = %45
   %50 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 4
-  %51 = load ptr, ptr %50, align 8, !tbaa !78
+  %51 = load ptr, ptr %50, align 8, !tbaa !79
   %52 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 12
-  %53 = load i32, ptr %52, align 8, !tbaa !83
+  %53 = load i32, ptr %52, align 8, !tbaa !84
   %54 = sext i32 %53 to i64
   %55 = shl nsw i64 %54, 2
   %56 = sext i32 %47 to i64
@@ -2174,18 +2171,18 @@ define internal fastcc void @close_func(ptr noundef %0) unnamed_addr #0 {
 61:                                               ; preds = %59, %49
   %62 = phi ptr [ %58, %49 ], [ %60, %59 ]
   %63 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 4
-  store ptr %62, ptr %63, align 8, !tbaa !78
+  store ptr %62, ptr %63, align 8, !tbaa !79
   %64 = load i32, ptr %46, align 8, !tbaa !20
   %65 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 12
-  store i32 %64, ptr %65, align 8, !tbaa !83
+  store i32 %64, ptr %65, align 8, !tbaa !84
   %66 = icmp sgt i32 %64, -2
   br i1 %66, label %67, label %77
 
 67:                                               ; preds = %61
   %68 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 6
-  %69 = load ptr, ptr %68, align 8, !tbaa !84
+  %69 = load ptr, ptr %68, align 8, !tbaa !85
   %70 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 13
-  %71 = load i32, ptr %70, align 4, !tbaa !85
+  %71 = load i32, ptr %70, align 4, !tbaa !86
   %72 = sext i32 %71 to i64
   %73 = shl nsw i64 %72, 2
   %74 = sext i32 %64 to i64
@@ -2200,20 +2197,20 @@ define internal fastcc void @close_func(ptr noundef %0) unnamed_addr #0 {
 79:                                               ; preds = %77, %67
   %80 = phi ptr [ %76, %67 ], [ %78, %77 ]
   %81 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 6
-  store ptr %80, ptr %81, align 8, !tbaa !84
+  store ptr %80, ptr %81, align 8, !tbaa !85
   %82 = load i32, ptr %46, align 8, !tbaa !20
   %83 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 13
-  store i32 %82, ptr %83, align 4, !tbaa !85
+  store i32 %82, ptr %83, align 4, !tbaa !86
   %84 = getelementptr inbounds %struct.FuncState, ptr %5, i64 0, i32 10
-  %85 = load i32, ptr %84, align 8, !tbaa !86
+  %85 = load i32, ptr %84, align 8, !tbaa !87
   %86 = icmp sgt i32 %85, -2
   br i1 %86, label %87, label %97
 
 87:                                               ; preds = %79
   %88 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 3
-  %89 = load ptr, ptr %88, align 8, !tbaa !87
+  %89 = load ptr, ptr %88, align 8, !tbaa !88
   %90 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 11
-  %91 = load i32, ptr %90, align 4, !tbaa !88
+  %91 = load i32, ptr %90, align 4, !tbaa !89
   %92 = sext i32 %91 to i64
   %93 = shl nsw i64 %92, 4
   %94 = sext i32 %85 to i64
@@ -2228,20 +2225,20 @@ define internal fastcc void @close_func(ptr noundef %0) unnamed_addr #0 {
 99:                                               ; preds = %97, %87
   %100 = phi ptr [ %96, %87 ], [ %98, %97 ]
   %101 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 3
-  store ptr %100, ptr %101, align 8, !tbaa !87
-  %102 = load i32, ptr %84, align 8, !tbaa !86
+  store ptr %100, ptr %101, align 8, !tbaa !88
+  %102 = load i32, ptr %84, align 8, !tbaa !87
   %103 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 11
-  store i32 %102, ptr %103, align 4, !tbaa !88
+  store i32 %102, ptr %103, align 4, !tbaa !89
   %104 = getelementptr inbounds %struct.FuncState, ptr %5, i64 0, i32 11
-  %105 = load i32, ptr %104, align 4, !tbaa !89
+  %105 = load i32, ptr %104, align 4, !tbaa !90
   %106 = icmp sgt i32 %105, -2
   br i1 %106, label %107, label %117
 
 107:                                              ; preds = %99
   %108 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 5
-  %109 = load ptr, ptr %108, align 8, !tbaa !90
+  %109 = load ptr, ptr %108, align 8, !tbaa !91
   %110 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 14
-  %111 = load i32, ptr %110, align 8, !tbaa !91
+  %111 = load i32, ptr %110, align 8, !tbaa !92
   %112 = sext i32 %111 to i64
   %113 = shl nsw i64 %112, 3
   %114 = sext i32 %105 to i64
@@ -2256,12 +2253,12 @@ define internal fastcc void @close_func(ptr noundef %0) unnamed_addr #0 {
 119:                                              ; preds = %117, %107
   %120 = phi ptr [ %116, %107 ], [ %118, %117 ]
   %121 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 5
-  store ptr %120, ptr %121, align 8, !tbaa !90
-  %122 = load i32, ptr %104, align 4, !tbaa !89
+  store ptr %120, ptr %121, align 8, !tbaa !91
+  %122 = load i32, ptr %104, align 4, !tbaa !90
   %123 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 14
-  store i32 %122, ptr %123, align 8, !tbaa !91
+  store i32 %122, ptr %123, align 8, !tbaa !92
   %124 = getelementptr inbounds %struct.FuncState, ptr %5, i64 0, i32 12
-  %125 = load i16, ptr %124, align 8, !tbaa !92
+  %125 = load i16, ptr %124, align 8, !tbaa !93
   %126 = sext i16 %125 to i64
   %127 = add nsw i64 %126, 1
   %128 = icmp ult i64 %127, 1152921504606846976
@@ -2271,7 +2268,7 @@ define internal fastcc void @close_func(ptr noundef %0) unnamed_addr #0 {
   %130 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 7
   %131 = load ptr, ptr %130, align 8, !tbaa !54
   %132 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 15
-  %133 = load i32, ptr %132, align 4, !tbaa !93
+  %133 = load i32, ptr %132, align 4, !tbaa !94
   %134 = sext i32 %133 to i64
   %135 = shl nsw i64 %134, 4
   %136 = shl nsw i64 %126, 4
@@ -2286,25 +2283,25 @@ define internal fastcc void @close_func(ptr noundef %0) unnamed_addr #0 {
   %141 = phi ptr [ %137, %129 ], [ %139, %138 ]
   %142 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 7
   store ptr %141, ptr %142, align 8, !tbaa !54
-  %143 = load i16, ptr %124, align 8, !tbaa !92
+  %143 = load i16, ptr %124, align 8, !tbaa !93
   %144 = sext i16 %143 to i32
   %145 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 15
-  store i32 %144, ptr %145, align 4, !tbaa !93
+  store i32 %144, ptr %145, align 4, !tbaa !94
   %146 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 19
-  %147 = load i8, ptr %146, align 8, !tbaa !94
+  %147 = load i8, ptr %146, align 8, !tbaa !95
   %148 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 8
-  %149 = load ptr, ptr %148, align 8, !tbaa !95
+  %149 = load ptr, ptr %148, align 8, !tbaa !96
   %150 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 10
-  %151 = load i32, ptr %150, align 8, !tbaa !96
+  %151 = load i32, ptr %150, align 8, !tbaa !97
   %152 = sext i32 %151 to i64
   %153 = shl nsw i64 %152, 3
   %154 = zext i8 %147 to i64
   %155 = shl nuw nsw i64 %154, 3
   %156 = tail call ptr @luaM_realloc_(ptr noundef %3, ptr noundef %149, i64 noundef %153, i64 noundef %155) #6
-  store ptr %156, ptr %148, align 8, !tbaa !95
-  %157 = load i8, ptr %146, align 8, !tbaa !94
+  store ptr %156, ptr %148, align 8, !tbaa !96
+  %157 = load i8, ptr %146, align 8, !tbaa !95
   %158 = zext i8 %157 to i32
-  store i32 %158, ptr %150, align 8, !tbaa !96
+  store i32 %158, ptr %150, align 8, !tbaa !97
   %159 = getelementptr inbounds %struct.FuncState, ptr %5, i64 0, i32 2
   %160 = load ptr, ptr %159, align 8, !tbaa !17
   store ptr %160, ptr %4, align 8, !tbaa !16
@@ -2327,7 +2324,7 @@ define internal fastcc void @close_func(ptr noundef %0) unnamed_addr #0 {
   %174 = tail call ptr @luaX_newstring(ptr noundef nonnull %0, ptr noundef nonnull %171, i64 noundef %173) #6
   br label %175
 
-175:                                              ; preds = %140, %168
+175:                                              ; preds = %168, %140
   ret void
 }
 
@@ -2384,96 +2381,96 @@ define internal fastcc void @block(ptr noundef %0) unnamed_addr #0 {
   %16 = load ptr, ptr %15, align 8, !tbaa !18
   %17 = getelementptr inbounds %struct.BlockCnt, ptr %13, i64 0, i32 2
   %18 = load i8, ptr %17, align 4, !tbaa !51
-  %19 = zext i8 %18 to i32
-  %20 = getelementptr i8, ptr %16, i64 48
-  %21 = load ptr, ptr %20, align 8, !tbaa !16
-  %22 = getelementptr inbounds %struct.FuncState, ptr %21, i64 0, i32 13
-  %23 = load i8, ptr %22, align 2, !tbaa !50
-  %24 = icmp ugt i8 %23, %18
-  br i1 %24, label %25, label %80
+  %19 = getelementptr i8, ptr %16, i64 48
+  %20 = load ptr, ptr %19, align 8, !tbaa !16
+  %21 = getelementptr inbounds %struct.FuncState, ptr %20, i64 0, i32 13
+  %22 = load i8, ptr %21, align 2, !tbaa !50
+  %23 = icmp ugt i8 %22, %18
+  br i1 %23, label %24, label %79
 
-25:                                               ; preds = %1
-  %26 = getelementptr inbounds %struct.FuncState, ptr %21, i64 0, i32 6
-  %27 = load i32, ptr %26, align 8, !tbaa !20
-  %28 = load ptr, ptr %21, align 8, !tbaa !13
-  %29 = getelementptr inbounds %struct.Proto, ptr %28, i64 0, i32 7
-  %30 = load ptr, ptr %29, align 8, !tbaa !54
-  %31 = zext i8 %23 to i64
-  %32 = sub i8 %23, %18
-  %33 = xor i8 %18, -1
-  %34 = add i8 %23, %33
-  %35 = and i8 %32, 3
-  %36 = icmp eq i8 %35, 0
-  br i1 %36, label %48, label %37
+24:                                               ; preds = %1
+  %25 = getelementptr inbounds %struct.FuncState, ptr %20, i64 0, i32 6
+  %26 = load i32, ptr %25, align 8, !tbaa !20
+  %27 = load ptr, ptr %20, align 8, !tbaa !13
+  %28 = getelementptr inbounds %struct.Proto, ptr %27, i64 0, i32 7
+  %29 = load ptr, ptr %28, align 8, !tbaa !54
+  %30 = zext i8 %22 to i64
+  %31 = sub i8 %22, %18
+  %32 = xor i8 %18, -1
+  %33 = add i8 %22, %32
+  %34 = and i8 %31, 3
+  %35 = icmp eq i8 %34, 0
+  br i1 %35, label %47, label %36
 
-37:                                               ; preds = %25, %37
-  %38 = phi i64 [ %40, %37 ], [ %31, %25 ]
-  %39 = phi i8 [ %46, %37 ], [ 0, %25 ]
-  %40 = add nsw i64 %38, -1
-  %41 = and i64 %40, 255
-  %42 = getelementptr inbounds %struct.FuncState, ptr %21, i64 0, i32 15, i64 %41
-  %43 = load i16, ptr %42, align 2, !tbaa !55
-  %44 = zext i16 %43 to i64
-  %45 = getelementptr inbounds %struct.LocVar, ptr %30, i64 %44, i32 2
-  store i32 %27, ptr %45, align 4, !tbaa !56
-  %46 = add i8 %39, 1
-  %47 = icmp eq i8 %46, %35
-  br i1 %47, label %48, label %37, !llvm.loop !97
+36:                                               ; preds = %24, %36
+  %37 = phi i64 [ %39, %36 ], [ %30, %24 ]
+  %38 = phi i8 [ %45, %36 ], [ 0, %24 ]
+  %39 = add nsw i64 %37, -1
+  %40 = and i64 %39, 255
+  %41 = getelementptr inbounds %struct.FuncState, ptr %20, i64 0, i32 15, i64 %40
+  %42 = load i16, ptr %41, align 2, !tbaa !55
+  %43 = zext i16 %42 to i64
+  %44 = getelementptr inbounds %struct.LocVar, ptr %29, i64 %43, i32 2
+  store i32 %26, ptr %44, align 4, !tbaa !56
+  %45 = add i8 %38, 1
+  %46 = icmp eq i8 %45, %34
+  br i1 %46, label %47, label %36, !llvm.loop !98
 
-48:                                               ; preds = %37, %25
-  %49 = phi i64 [ %31, %25 ], [ %40, %37 ]
-  %50 = icmp ult i8 %34, 3
-  br i1 %50, label %79, label %51
+47:                                               ; preds = %36, %24
+  %48 = phi i64 [ %30, %24 ], [ %39, %36 ]
+  %49 = icmp ult i8 %33, 3
+  br i1 %49, label %78, label %50
 
-51:                                               ; preds = %48, %51
-  %52 = phi i64 [ %71, %51 ], [ %49, %48 ]
-  %53 = add i64 %52, 255
-  %54 = and i64 %53, 255
-  %55 = getelementptr inbounds %struct.FuncState, ptr %21, i64 0, i32 15, i64 %54
-  %56 = load i16, ptr %55, align 2, !tbaa !55
-  %57 = zext i16 %56 to i64
-  %58 = getelementptr inbounds %struct.LocVar, ptr %30, i64 %57, i32 2
-  store i32 %27, ptr %58, align 4, !tbaa !56
-  %59 = add i64 %52, 254
-  %60 = and i64 %59, 255
-  %61 = getelementptr inbounds %struct.FuncState, ptr %21, i64 0, i32 15, i64 %60
-  %62 = load i16, ptr %61, align 2, !tbaa !55
-  %63 = zext i16 %62 to i64
-  %64 = getelementptr inbounds %struct.LocVar, ptr %30, i64 %63, i32 2
-  store i32 %27, ptr %64, align 4, !tbaa !56
-  %65 = add i64 %52, 253
-  %66 = and i64 %65, 255
-  %67 = getelementptr inbounds %struct.FuncState, ptr %21, i64 0, i32 15, i64 %66
-  %68 = load i16, ptr %67, align 2, !tbaa !55
-  %69 = zext i16 %68 to i64
-  %70 = getelementptr inbounds %struct.LocVar, ptr %30, i64 %69, i32 2
-  store i32 %27, ptr %70, align 4, !tbaa !56
-  %71 = add nsw i64 %52, -4
-  %72 = trunc i64 %71 to i8
-  %73 = and i64 %71, 255
-  %74 = getelementptr inbounds %struct.FuncState, ptr %21, i64 0, i32 15, i64 %73
-  %75 = load i16, ptr %74, align 2, !tbaa !55
-  %76 = zext i16 %75 to i64
-  %77 = getelementptr inbounds %struct.LocVar, ptr %30, i64 %76, i32 2
-  store i32 %27, ptr %77, align 4, !tbaa !56
-  %78 = icmp ult i8 %18, %72
-  br i1 %78, label %51, label %79, !llvm.loop !60
+50:                                               ; preds = %47, %50
+  %51 = phi i64 [ %70, %50 ], [ %48, %47 ]
+  %52 = add i64 %51, 255
+  %53 = and i64 %52, 255
+  %54 = getelementptr inbounds %struct.FuncState, ptr %20, i64 0, i32 15, i64 %53
+  %55 = load i16, ptr %54, align 2, !tbaa !55
+  %56 = zext i16 %55 to i64
+  %57 = getelementptr inbounds %struct.LocVar, ptr %29, i64 %56, i32 2
+  store i32 %26, ptr %57, align 4, !tbaa !56
+  %58 = add i64 %51, 254
+  %59 = and i64 %58, 255
+  %60 = getelementptr inbounds %struct.FuncState, ptr %20, i64 0, i32 15, i64 %59
+  %61 = load i16, ptr %60, align 2, !tbaa !55
+  %62 = zext i16 %61 to i64
+  %63 = getelementptr inbounds %struct.LocVar, ptr %29, i64 %62, i32 2
+  store i32 %26, ptr %63, align 4, !tbaa !56
+  %64 = add i64 %51, 253
+  %65 = and i64 %64, 255
+  %66 = getelementptr inbounds %struct.FuncState, ptr %20, i64 0, i32 15, i64 %65
+  %67 = load i16, ptr %66, align 2, !tbaa !55
+  %68 = zext i16 %67 to i64
+  %69 = getelementptr inbounds %struct.LocVar, ptr %29, i64 %68, i32 2
+  store i32 %26, ptr %69, align 4, !tbaa !56
+  %70 = add nsw i64 %51, -4
+  %71 = trunc i64 %70 to i8
+  %72 = and i64 %70, 255
+  %73 = getelementptr inbounds %struct.FuncState, ptr %20, i64 0, i32 15, i64 %72
+  %74 = load i16, ptr %73, align 2, !tbaa !55
+  %75 = zext i16 %74 to i64
+  %76 = getelementptr inbounds %struct.LocVar, ptr %29, i64 %75, i32 2
+  store i32 %26, ptr %76, align 4, !tbaa !56
+  %77 = icmp ult i8 %18, %71
+  br i1 %77, label %50, label %78, !llvm.loop !60
 
-79:                                               ; preds = %51, %48
-  store i8 %18, ptr %22, align 2, !tbaa !50
-  br label %80
+78:                                               ; preds = %50, %47
+  store i8 %18, ptr %21, align 2, !tbaa !50
+  br label %79
 
-80:                                               ; preds = %79, %1
-  %81 = getelementptr inbounds %struct.BlockCnt, ptr %13, i64 0, i32 3
-  %82 = load i8, ptr %81, align 1, !tbaa !52
-  %83 = icmp eq i8 %82, 0
-  br i1 %83, label %86, label %84
+79:                                               ; preds = %78, %1
+  %80 = getelementptr inbounds %struct.BlockCnt, ptr %13, i64 0, i32 3
+  %81 = load i8, ptr %80, align 1, !tbaa !52
+  %82 = icmp eq i8 %81, 0
+  br i1 %82, label %86, label %83
 
-84:                                               ; preds = %80
-  %85 = call i32 @luaK_codeABC(ptr noundef %4, i32 noundef 35, i32 noundef %19, i32 noundef 0, i32 noundef 0) #6
+83:                                               ; preds = %79
+  %84 = zext i8 %18 to i32
+  %85 = call i32 @luaK_codeABC(ptr noundef %4, i32 noundef 35, i32 noundef %84, i32 noundef 0, i32 noundef 0) #6
   br label %86
 
-86:                                               ; preds = %80, %84
+86:                                               ; preds = %79, %83
   %87 = load i8, ptr %7, align 2, !tbaa !50
   %88 = zext i8 %87 to i32
   %89 = getelementptr inbounds %struct.FuncState, ptr %4, i64 0, i32 9
@@ -2567,8 +2564,8 @@ define internal fastcc i32 @subexpr(ptr noundef %0, ptr noundef %1, i32 noundef 
 16:                                               ; preds = %12
   br label %17
 
-17:                                               ; preds = %12, %16, %15
-  %18 = phi i32 [ 1, %12 ], [ 0, %15 ], [ 2, %16 ]
+17:                                               ; preds = %12, %15, %16
+  %18 = phi i32 [ 2, %16 ], [ 0, %15 ], [ 1, %12 ]
   tail call void @luaX_next(ptr noundef nonnull %0) #6
   %19 = tail call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef %1, i32 noundef 8), !range !41
   %20 = getelementptr inbounds %struct.LexState, ptr %0, i64 0, i32 5
@@ -2756,7 +2753,7 @@ define internal fastcc i32 @subexpr(ptr noundef %0, ptr noundef %1, i32 noundef 
   %95 = phi i32 [ %92, %91 ], [ %106, %101 ]
   %96 = zext i32 %95 to i64
   %97 = getelementptr inbounds [15 x %struct.anon.5], ptr @priority, i64 0, i64 %96
-  %98 = load i8, ptr %97, align 2, !tbaa !98
+  %98 = load i8, ptr %97, align 2, !tbaa !99
   %99 = zext i8 %98 to i32
   %100 = icmp ugt i32 %99, %2
   br i1 %100, label %101, label %109
@@ -2767,14 +2764,14 @@ define internal fastcc i32 @subexpr(ptr noundef %0, ptr noundef %1, i32 noundef 
   %102 = load ptr, ptr %93, align 8, !tbaa !16
   call void @luaK_infix(ptr noundef %102, i32 noundef %95, ptr noundef %1) #6
   %103 = getelementptr inbounds [15 x %struct.anon.5], ptr @priority, i64 0, i64 %96, i32 1
-  %104 = load i8, ptr %103, align 1, !tbaa !100
+  %104 = load i8, ptr %103, align 1, !tbaa !101
   %105 = zext i8 %104 to i32
   %106 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %4, i32 noundef %105), !range !41
   %107 = load ptr, ptr %93, align 8, !tbaa !16
   call void @luaK_posfix(ptr noundef %107, i32 noundef %95, ptr noundef %1, ptr noundef nonnull %4) #6
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #6
   %108 = icmp eq i32 %106, 15
-  br i1 %108, label %109, label %94, !llvm.loop !101
+  br i1 %108, label %109, label %94, !llvm.loop !102
 
 109:                                              ; preds = %94, %101, %75
   %110 = phi i32 [ 15, %75 ], [ 15, %101 ], [ %95, %94 ]
@@ -2804,13 +2801,13 @@ define internal fastcc void @constructor(ptr noundef %0, ptr noundef %1) unnamed
   %8 = tail call i32 @luaK_codeABC(ptr noundef %5, i32 noundef 10, i32 noundef 0, i32 noundef 0, i32 noundef 0) #6
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %3) #6
   %9 = getelementptr inbounds %struct.ConsControl, ptr %3, i64 0, i32 4
-  store i32 0, ptr %9, align 8, !tbaa !102
+  store i32 0, ptr %9, align 8, !tbaa !103
   %10 = getelementptr inbounds %struct.ConsControl, ptr %3, i64 0, i32 2
-  store i32 0, ptr %10, align 8, !tbaa !104
+  store i32 0, ptr %10, align 8, !tbaa !105
   %11 = getelementptr inbounds %struct.ConsControl, ptr %3, i64 0, i32 3
-  store i32 0, ptr %11, align 4, !tbaa !105
+  store i32 0, ptr %11, align 4, !tbaa !106
   %12 = getelementptr inbounds %struct.ConsControl, ptr %3, i64 0, i32 1
-  store ptr %1, ptr %12, align 8, !tbaa !106
+  store ptr %1, ptr %12, align 8, !tbaa !107
   %13 = getelementptr inbounds %struct.expdesc, ptr %1, i64 0, i32 2
   store i32 -1, ptr %13, align 8, !tbaa !73
   %14 = getelementptr inbounds %struct.expdesc, ptr %1, i64 0, i32 3
@@ -2852,24 +2849,24 @@ define internal fastcc void @constructor(ptr noundef %0, ptr noundef %1) unnamed
 
 33:                                               ; preds = %31, %108
   %34 = phi i32 [ %29, %31 ], [ %109, %108 ]
-  %35 = load i32, ptr %3, align 8, !tbaa !107
+  %35 = load i32, ptr %3, align 8, !tbaa !108
   %36 = icmp eq i32 %35, 0
   br i1 %36, label %47, label %37
 
 37:                                               ; preds = %33
   call void @luaK_exp2nextreg(ptr noundef %5, ptr noundef nonnull %3) #6
-  store i32 0, ptr %3, align 8, !tbaa !107
-  %38 = load i32, ptr %9, align 8, !tbaa !102
+  store i32 0, ptr %3, align 8, !tbaa !108
+  %38 = load i32, ptr %9, align 8, !tbaa !103
   %39 = icmp eq i32 %38, 50
   br i1 %39, label %40, label %45
 
 40:                                               ; preds = %37
-  %41 = load ptr, ptr %12, align 8, !tbaa !106
+  %41 = load ptr, ptr %12, align 8, !tbaa !107
   %42 = getelementptr inbounds %struct.expdesc, ptr %41, i64 0, i32 1
   %43 = load i32, ptr %42, align 8, !tbaa !33
-  %44 = load i32, ptr %11, align 4, !tbaa !105
+  %44 = load i32, ptr %11, align 4, !tbaa !106
   call void @luaK_setlist(ptr noundef %5, i32 noundef %43, i32 noundef %44, i32 noundef 50) #6
-  store i32 0, ptr %9, align 8, !tbaa !102
+  store i32 0, ptr %9, align 8, !tbaa !103
   br label %45
 
 45:                                               ; preds = %40, %37
@@ -2885,13 +2882,13 @@ define internal fastcc void @constructor(ptr noundef %0, ptr noundef %1) unnamed
 
 49:                                               ; preds = %47
   call void @luaX_lookahead(ptr noundef nonnull %0) #6
-  %50 = load i32, ptr %32, align 8, !tbaa !108
+  %50 = load i32, ptr %32, align 8, !tbaa !109
   %51 = icmp eq i32 %50, 61
   br i1 %51, label %78, label %52
 
 52:                                               ; preds = %49
   %53 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %3, i32 noundef 0), !range !41
-  %54 = load i32, ptr %11, align 4, !tbaa !105
+  %54 = load i32, ptr %11, align 4, !tbaa !106
   %55 = icmp sgt i32 %54, 2147483645
   br i1 %55, label %56, label %73
 
@@ -2918,16 +2915,16 @@ define internal fastcc void @constructor(ptr noundef %0, ptr noundef %1) unnamed
   %70 = getelementptr inbounds %struct.FuncState, ptr %57, i64 0, i32 3
   %71 = load ptr, ptr %70, align 8, !tbaa !18
   call void @luaX_lexerror(ptr noundef %71, ptr noundef %69, i32 noundef 0) #6
-  %72 = load i32, ptr %11, align 4, !tbaa !105
+  %72 = load i32, ptr %11, align 4, !tbaa !106
   br label %73
 
 73:                                               ; preds = %52, %68
   %74 = phi i32 [ %54, %52 ], [ %72, %68 ]
   %75 = add nsw i32 %74, 1
-  store i32 %75, ptr %11, align 4, !tbaa !105
-  %76 = load i32, ptr %9, align 8, !tbaa !102
+  store i32 %75, ptr %11, align 4, !tbaa !106
+  %76 = load i32, ptr %9, align 8, !tbaa !103
   %77 = add nsw i32 %76, 1
-  store i32 %77, ptr %9, align 8, !tbaa !102
+  store i32 %77, ptr %9, align 8, !tbaa !103
   br label %106
 
 78:                                               ; preds = %49
@@ -2940,7 +2937,7 @@ define internal fastcc void @constructor(ptr noundef %0, ptr noundef %1) unnamed
 
 80:                                               ; preds = %47
   %81 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %3, i32 noundef 0), !range !41
-  %82 = load i32, ptr %11, align 4, !tbaa !105
+  %82 = load i32, ptr %11, align 4, !tbaa !106
   %83 = icmp sgt i32 %82, 2147483645
   br i1 %83, label %84, label %101
 
@@ -2967,16 +2964,16 @@ define internal fastcc void @constructor(ptr noundef %0, ptr noundef %1) unnamed
   %98 = getelementptr inbounds %struct.FuncState, ptr %85, i64 0, i32 3
   %99 = load ptr, ptr %98, align 8, !tbaa !18
   call void @luaX_lexerror(ptr noundef %99, ptr noundef %97, i32 noundef 0) #6
-  %100 = load i32, ptr %11, align 4, !tbaa !105
+  %100 = load i32, ptr %11, align 4, !tbaa !106
   br label %101
 
 101:                                              ; preds = %80, %96
   %102 = phi i32 [ %82, %80 ], [ %100, %96 ]
   %103 = add nsw i32 %102, 1
-  store i32 %103, ptr %11, align 4, !tbaa !105
-  %104 = load i32, ptr %9, align 8, !tbaa !102
+  store i32 %103, ptr %11, align 4, !tbaa !106
+  %104 = load i32, ptr %9, align 8, !tbaa !103
   %105 = add nsw i32 %104, 1
-  store i32 %105, ptr %9, align 8, !tbaa !102
+  store i32 %105, ptr %9, align 8, !tbaa !103
   br label %106
 
 106:                                              ; preds = %79, %101, %78, %73
@@ -2990,16 +2987,16 @@ define internal fastcc void @constructor(ptr noundef %0, ptr noundef %1) unnamed
   call void @luaX_next(ptr noundef nonnull %0) #6
   %109 = load i32, ptr %20, align 8, !tbaa !37
   %110 = icmp eq i32 %109, 125
-  br i1 %110, label %111, label %33, !llvm.loop !109
+  br i1 %110, label %111, label %33, !llvm.loop !110
 
 111:                                              ; preds = %108, %106, %28
   call fastcc void @check_match(ptr noundef nonnull %0, i32 noundef 125, i32 noundef 123, i32 noundef %7)
-  %112 = load i32, ptr %9, align 8, !tbaa !102
+  %112 = load i32, ptr %9, align 8, !tbaa !103
   %113 = icmp eq i32 %112, 0
   br i1 %113, label %131, label %114
 
 114:                                              ; preds = %111
-  %115 = load i32, ptr %3, align 8, !tbaa !107
+  %115 = load i32, ptr %3, align 8, !tbaa !108
   switch i32 %115, label %123 [
     i32 13, label %116
     i32 14, label %116
@@ -3008,56 +3005,56 @@ define internal fastcc void @constructor(ptr noundef %0, ptr noundef %1) unnamed
 
 116:                                              ; preds = %114, %114
   call void @luaK_setreturns(ptr noundef %5, ptr noundef nonnull %3, i32 noundef -1) #6
-  %117 = load ptr, ptr %12, align 8, !tbaa !106
+  %117 = load ptr, ptr %12, align 8, !tbaa !107
   %118 = getelementptr inbounds %struct.expdesc, ptr %117, i64 0, i32 1
   %119 = load i32, ptr %118, align 8, !tbaa !33
-  %120 = load i32, ptr %11, align 4, !tbaa !105
+  %120 = load i32, ptr %11, align 4, !tbaa !106
   call void @luaK_setlist(ptr noundef %5, i32 noundef %119, i32 noundef %120, i32 noundef -1) #6
-  %121 = load i32, ptr %11, align 4, !tbaa !105
+  %121 = load i32, ptr %11, align 4, !tbaa !106
   %122 = add nsw i32 %121, -1
-  store i32 %122, ptr %11, align 4, !tbaa !105
+  store i32 %122, ptr %11, align 4, !tbaa !106
   br label %131
 
 123:                                              ; preds = %114
   call void @luaK_exp2nextreg(ptr noundef %5, ptr noundef nonnull %3) #6
-  %124 = load i32, ptr %9, align 8, !tbaa !102
+  %124 = load i32, ptr %9, align 8, !tbaa !103
   br label %125
 
 125:                                              ; preds = %123, %114
   %126 = phi i32 [ %112, %114 ], [ %124, %123 ]
-  %127 = load ptr, ptr %12, align 8, !tbaa !106
+  %127 = load ptr, ptr %12, align 8, !tbaa !107
   %128 = getelementptr inbounds %struct.expdesc, ptr %127, i64 0, i32 1
   %129 = load i32, ptr %128, align 8, !tbaa !33
-  %130 = load i32, ptr %11, align 4, !tbaa !105
+  %130 = load i32, ptr %11, align 4, !tbaa !106
   call void @luaK_setlist(ptr noundef %5, i32 noundef %129, i32 noundef %130, i32 noundef %126) #6
   br label %131
 
 131:                                              ; preds = %111, %116, %125
   %132 = load ptr, ptr %5, align 8, !tbaa !13
   %133 = getelementptr inbounds %struct.Proto, ptr %132, i64 0, i32 4
-  %134 = load ptr, ptr %133, align 8, !tbaa !78
+  %134 = load ptr, ptr %133, align 8, !tbaa !79
   %135 = sext i32 %8 to i64
   %136 = getelementptr inbounds i32, ptr %134, i64 %135
   %137 = load i32, ptr %136, align 4, !tbaa !40
   %138 = and i32 %137, 8388607
-  %139 = load i32, ptr %11, align 4, !tbaa !105
+  %139 = load i32, ptr %11, align 4, !tbaa !106
   %140 = call i32 @luaO_int2fb(i32 noundef %139) #6
   %141 = shl i32 %140, 23
   %142 = or i32 %141, %138
   %143 = load ptr, ptr %5, align 8, !tbaa !13
   %144 = getelementptr inbounds %struct.Proto, ptr %143, i64 0, i32 4
-  %145 = load ptr, ptr %144, align 8, !tbaa !78
+  %145 = load ptr, ptr %144, align 8, !tbaa !79
   %146 = getelementptr inbounds i32, ptr %145, i64 %135
   store i32 %142, ptr %146, align 4, !tbaa !40
   %147 = and i32 %142, -8372225
-  %148 = load i32, ptr %10, align 8, !tbaa !104
+  %148 = load i32, ptr %10, align 8, !tbaa !105
   %149 = call i32 @luaO_int2fb(i32 noundef %148) #6
   %150 = shl i32 %149, 14
   %151 = and i32 %150, 8372224
   %152 = or i32 %151, %147
   %153 = load ptr, ptr %5, align 8, !tbaa !13
   %154 = getelementptr inbounds %struct.Proto, ptr %153, i64 0, i32 4
-  %155 = load ptr, ptr %154, align 8, !tbaa !78
+  %155 = load ptr, ptr %154, align 8, !tbaa !79
   %156 = getelementptr inbounds i32, ptr %155, i64 %135
   store i32 %152, ptr %156, align 4, !tbaa !40
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %3) #6
@@ -3283,7 +3280,7 @@ define internal fastcc void @recfield(ptr noundef %0, ptr nocapture noundef %1) 
 
 12:                                               ; preds = %2
   %13 = getelementptr inbounds %struct.ConsControl, ptr %1, i64 0, i32 2
-  %14 = load i32, ptr %13, align 8, !tbaa !104
+  %14 = load i32, ptr %13, align 8, !tbaa !105
   %15 = icmp sgt i32 %14, 2147483645
   br i1 %15, label %16, label %38
 
@@ -3359,9 +3356,9 @@ define internal fastcc void @recfield(ptr noundef %0, ptr nocapture noundef %1) 
 
 57:                                               ; preds = %56, %38
   %58 = getelementptr inbounds %struct.ConsControl, ptr %1, i64 0, i32 2
-  %59 = load i32, ptr %58, align 8, !tbaa !104
+  %59 = load i32, ptr %58, align 8, !tbaa !105
   %60 = add nsw i32 %59, 1
-  store i32 %60, ptr %58, align 8, !tbaa !104
+  store i32 %60, ptr %58, align 8, !tbaa !105
   %61 = load i32, ptr %9, align 8, !tbaa !37
   %62 = icmp eq i32 %61, 61
   br i1 %62, label %68, label %63
@@ -3379,7 +3376,7 @@ define internal fastcc void @recfield(ptr noundef %0, ptr nocapture noundef %1) 
   %69 = call i32 @luaK_exp2RK(ptr noundef nonnull %6, ptr noundef nonnull %3) #6
   %70 = call fastcc i32 @subexpr(ptr noundef nonnull %0, ptr noundef nonnull %4, i32 noundef 0), !range !41
   %71 = getelementptr inbounds %struct.ConsControl, ptr %1, i64 0, i32 1
-  %72 = load ptr, ptr %71, align 8, !tbaa !106
+  %72 = load ptr, ptr %71, align 8, !tbaa !107
   %73 = getelementptr inbounds %struct.expdesc, ptr %72, i64 0, i32 1
   %74 = load i32, ptr %73, align 8, !tbaa !33
   %75 = call i32 @luaK_exp2RK(ptr noundef nonnull %6, ptr noundef nonnull %4) #6
@@ -3440,9 +3437,9 @@ define internal fastcc void @new_localvar(ptr nocapture noundef readonly %0, ptr
   %28 = phi ptr [ %26, %22 ], [ %5, %3 ]
   %29 = load ptr, ptr %28, align 8, !tbaa !13
   %30 = getelementptr inbounds %struct.Proto, ptr %29, i64 0, i32 15
-  %31 = load i32, ptr %30, align 4, !tbaa !93
+  %31 = load i32, ptr %30, align 4, !tbaa !94
   %32 = getelementptr inbounds %struct.FuncState, ptr %28, i64 0, i32 12
-  %33 = load i16, ptr %32, align 8, !tbaa !92
+  %33 = load i16, ptr %32, align 8, !tbaa !93
   %34 = sext i16 %33 to i32
   %35 = icmp sgt i32 %31, %34
   br i1 %35, label %36, label %39
@@ -3459,7 +3456,7 @@ define internal fastcc void @new_localvar(ptr nocapture noundef readonly %0, ptr
   %43 = load ptr, ptr %42, align 8, !tbaa !54
   %44 = tail call ptr @luaM_growaux_(ptr noundef %41, ptr noundef %43, ptr noundef nonnull %30, i64 noundef 16, i32 noundef 32767, ptr noundef nonnull @.str.8) #6
   store ptr %44, ptr %42, align 8, !tbaa !54
-  %45 = load i32, ptr %30, align 4, !tbaa !93
+  %45 = load i32, ptr %30, align 4, !tbaa !94
   %46 = icmp slt i32 %31, %45
   br i1 %46, label %47, label %76
 
@@ -3478,10 +3475,10 @@ define internal fastcc void @new_localvar(ptr nocapture noundef readonly %0, ptr
   %57 = phi i64 [ %60, %55 ], [ 0, %47 ]
   %58 = add nsw i64 %56, 1
   %59 = getelementptr inbounds %struct.LocVar, ptr %44, i64 %56
-  store ptr null, ptr %59, align 8, !tbaa !110
+  store ptr null, ptr %59, align 8, !tbaa !111
   %60 = add i64 %57, 1
   %61 = icmp eq i64 %60, %53
-  br i1 %61, label %62, label %55, !llvm.loop !111
+  br i1 %61, label %62, label %55, !llvm.loop !112
 
 62:                                               ; preds = %55, %47
   %63 = phi i64 [ %48, %47 ], [ %58, %55 ]
@@ -3492,25 +3489,25 @@ define internal fastcc void @new_localvar(ptr nocapture noundef readonly %0, ptr
   %66 = phi i64 [ %73, %65 ], [ %63, %62 ]
   %67 = add nsw i64 %66, 1
   %68 = getelementptr inbounds %struct.LocVar, ptr %44, i64 %66
-  store ptr null, ptr %68, align 8, !tbaa !110
+  store ptr null, ptr %68, align 8, !tbaa !111
   %69 = add nsw i64 %66, 2
   %70 = getelementptr inbounds %struct.LocVar, ptr %44, i64 %67
-  store ptr null, ptr %70, align 8, !tbaa !110
+  store ptr null, ptr %70, align 8, !tbaa !111
   %71 = add nsw i64 %66, 3
   %72 = getelementptr inbounds %struct.LocVar, ptr %44, i64 %69
-  store ptr null, ptr %72, align 8, !tbaa !110
+  store ptr null, ptr %72, align 8, !tbaa !111
   %73 = add nsw i64 %66, 4
   %74 = getelementptr inbounds %struct.LocVar, ptr %44, i64 %71
-  store ptr null, ptr %74, align 8, !tbaa !110
+  store ptr null, ptr %74, align 8, !tbaa !111
   %75 = icmp eq i64 %73, %49
-  br i1 %75, label %76, label %65, !llvm.loop !112
+  br i1 %75, label %76, label %65, !llvm.loop !113
 
 76:                                               ; preds = %62, %65, %39, %36
   %77 = phi ptr [ %38, %36 ], [ %44, %39 ], [ %44, %65 ], [ %44, %62 ]
-  %78 = load i16, ptr %32, align 8, !tbaa !92
+  %78 = load i16, ptr %32, align 8, !tbaa !93
   %79 = sext i16 %78 to i64
   %80 = getelementptr inbounds %struct.LocVar, ptr %77, i64 %79
-  store ptr %1, ptr %80, align 8, !tbaa !110
+  store ptr %1, ptr %80, align 8, !tbaa !111
   %81 = getelementptr inbounds %struct.GCheader, ptr %1, i64 0, i32 2
   %82 = load i8, ptr %81, align 1, !tbaa !33
   %83 = and i8 %82, 3
@@ -3528,13 +3525,13 @@ define internal fastcc void @new_localvar(ptr nocapture noundef readonly %0, ptr
   %91 = getelementptr inbounds %struct.LexState, ptr %0, i64 0, i32 6
   %92 = load ptr, ptr %91, align 8, !tbaa !12
   tail call void @luaC_barrierf(ptr noundef %92, ptr noundef nonnull %29, ptr noundef nonnull %1) #6
-  %93 = load i16, ptr %32, align 8, !tbaa !92
+  %93 = load i16, ptr %32, align 8, !tbaa !93
   br label %94
 
 94:                                               ; preds = %76, %85, %90
   %95 = phi i16 [ %93, %90 ], [ %78, %85 ], [ %78, %76 ]
   %96 = add i16 %95, 1
-  store i16 %96, ptr %32, align 8, !tbaa !92
+  store i16 %96, ptr %32, align 8, !tbaa !93
   %97 = load i8, ptr %6, align 2, !tbaa !50
   %98 = zext i8 %97 to i32
   %99 = add nsw i32 %98, %2
@@ -3558,54 +3555,54 @@ define internal fastcc void @parlist(ptr noundef %0) unnamed_addr #0 {
 
 9:                                                ; preds = %1
   %10 = getelementptr inbounds %struct.LexState, ptr %0, i64 0, i32 3, i32 1
-  br label %13
+  br label %11
 
-11:                                               ; preds = %27
-  tail call void @luaX_next(ptr noundef nonnull %0) #6
-  %12 = load i32, ptr %6, align 8, !tbaa !37
-  br label %13
-
-13:                                               ; preds = %9, %11
-  %14 = phi i32 [ %12, %11 ], [ %7, %9 ]
-  %15 = phi i32 [ %24, %11 ], [ 0, %9 ]
-  switch i32 %14, label %22 [
-    i32 285, label %16
-    i32 279, label %19
+11:                                               ; preds = %9, %28
+  %12 = phi i32 [ %29, %28 ], [ %7, %9 ]
+  %13 = phi i32 [ %22, %28 ], [ 0, %9 ]
+  switch i32 %12, label %20 [
+    i32 285, label %14
+    i32 279, label %17
   ]
 
-16:                                               ; preds = %13
-  %17 = load ptr, ptr %10, align 8, !tbaa !33
+14:                                               ; preds = %11
+  %15 = load ptr, ptr %10, align 8, !tbaa !33
   tail call void @luaX_next(ptr noundef nonnull %0) #6
-  %18 = add nsw i32 %15, 1
-  tail call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %17, i32 noundef %15)
-  br label %23
+  %16 = add nsw i32 %13, 1
+  tail call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %15, i32 noundef %13)
+  br label %21
 
-19:                                               ; preds = %13
+17:                                               ; preds = %11
   tail call void @luaX_next(ptr noundef nonnull %0) #6
-  %20 = tail call ptr @luaX_newstring(ptr noundef nonnull %0, ptr noundef nonnull @.str.9, i64 noundef 3) #6
-  %21 = add nsw i32 %15, 1
-  tail call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %20, i32 noundef %15)
+  %18 = tail call ptr @luaX_newstring(ptr noundef nonnull %0, ptr noundef nonnull @.str.9, i64 noundef 3) #6
+  %19 = add nsw i32 %13, 1
+  tail call fastcc void @new_localvar(ptr noundef nonnull %0, ptr noundef %18, i32 noundef %13)
   store i8 7, ptr %5, align 2, !tbaa !36
   br label %30
 
-22:                                               ; preds = %13
+20:                                               ; preds = %11
   tail call void @luaX_syntaxerror(ptr noundef nonnull %0, ptr noundef nonnull @.str.10) #6
-  br label %23
+  br label %21
 
-23:                                               ; preds = %16, %22
-  %24 = phi i32 [ %18, %16 ], [ %15, %22 ]
-  %25 = load i8, ptr %5, align 2, !tbaa !36
-  %26 = icmp eq i8 %25, 0
-  br i1 %26, label %27, label %30
+21:                                               ; preds = %14, %20
+  %22 = phi i32 [ %16, %14 ], [ %13, %20 ]
+  %23 = load i8, ptr %5, align 2, !tbaa !36
+  %24 = icmp eq i8 %23, 0
+  br i1 %24, label %25, label %30
 
-27:                                               ; preds = %23
-  %28 = load i32, ptr %6, align 8, !tbaa !37
-  %29 = icmp eq i32 %28, 44
-  br i1 %29, label %11, label %30
+25:                                               ; preds = %21
+  %26 = load i32, ptr %6, align 8, !tbaa !37
+  %27 = icmp eq i32 %26, 44
+  br i1 %27, label %28, label %30
 
-30:                                               ; preds = %27, %23, %19
-  %31 = phi i8 [ 7, %19 ], [ 0, %27 ], [ %25, %23 ]
-  %32 = phi i32 [ %21, %19 ], [ %24, %23 ], [ %24, %27 ]
+28:                                               ; preds = %25
+  tail call void @luaX_next(ptr noundef nonnull %0) #6
+  %29 = load i32, ptr %6, align 8, !tbaa !37
+  br label %11, !llvm.loop !114
+
+30:                                               ; preds = %25, %21, %17
+  %31 = phi i8 [ 7, %17 ], [ 0, %25 ], [ %23, %21 ]
+  %32 = phi i32 [ %19, %17 ], [ %22, %21 ], [ %22, %25 ]
   %33 = load ptr, ptr %2, align 8, !tbaa !16
   %34 = getelementptr inbounds %struct.FuncState, ptr %33, i64 0, i32 13
   %35 = load i8, ptr %34, align 2, !tbaa !50
@@ -3660,16 +3657,16 @@ define internal fastcc void @parlist(ptr noundef %0) unnamed_addr #0 {
   %72 = add nsw i64 %60, -2
   %73 = and i64 %72, 4294967295
   %74 = icmp eq i64 %73, 0
-  br i1 %74, label %75, label %59, !llvm.loop !77
+  br i1 %74, label %75, label %59, !llvm.loop !78
 
 75:                                               ; preds = %56, %59, %1, %30
-  %76 = phi i8 [ 0, %1 ], [ %31, %30 ], [ %31, %59 ], [ %31, %56 ]
+  %76 = phi i8 [ %31, %30 ], [ 0, %1 ], [ %31, %59 ], [ %31, %56 ]
   %77 = getelementptr inbounds %struct.FuncState, ptr %3, i64 0, i32 13
   %78 = load i8, ptr %77, align 2, !tbaa !50
   %79 = and i8 %76, 1
   %80 = sub i8 %78, %79
   %81 = getelementptr inbounds %struct.Proto, ptr %4, i64 0, i32 20
-  store i8 %80, ptr %81, align 1, !tbaa !113
+  store i8 %80, ptr %81, align 1, !tbaa !115
   %82 = zext i8 %78 to i32
   tail call void @luaK_reserveregs(ptr noundef nonnull %3, i32 noundef %82) #6
   ret void
@@ -3681,9 +3678,9 @@ define internal fastcc void @pushclosure(ptr nocapture noundef readonly %0, ptr 
   %5 = load ptr, ptr %4, align 8, !tbaa !16
   %6 = load ptr, ptr %5, align 8, !tbaa !13
   %7 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 14
-  %8 = load i32, ptr %7, align 8, !tbaa !91
+  %8 = load i32, ptr %7, align 8, !tbaa !92
   %9 = getelementptr inbounds %struct.FuncState, ptr %5, i64 0, i32 11
-  %10 = load i32, ptr %9, align 4, !tbaa !89
+  %10 = load i32, ptr %9, align 4, !tbaa !90
   %11 = icmp slt i32 %10, %8
   br i1 %11, label %55, label %12
 
@@ -3691,10 +3688,10 @@ define internal fastcc void @pushclosure(ptr nocapture noundef readonly %0, ptr 
   %13 = getelementptr inbounds %struct.LexState, ptr %0, i64 0, i32 6
   %14 = load ptr, ptr %13, align 8, !tbaa !12
   %15 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 5
-  %16 = load ptr, ptr %15, align 8, !tbaa !90
+  %16 = load ptr, ptr %15, align 8, !tbaa !91
   %17 = tail call ptr @luaM_growaux_(ptr noundef %14, ptr noundef %16, ptr noundef nonnull %7, i64 noundef 8, i32 noundef 262143, ptr noundef nonnull @.str.11) #6
-  store ptr %17, ptr %15, align 8, !tbaa !90
-  %18 = load i32, ptr %7, align 8, !tbaa !91
+  store ptr %17, ptr %15, align 8, !tbaa !91
+  %18 = load i32, ptr %7, align 8, !tbaa !92
   %19 = icmp slt i32 %8, %18
   br i1 %19, label %20, label %55
 
@@ -3712,13 +3709,13 @@ define internal fastcc void @pushclosure(ptr nocapture noundef readonly %0, ptr 
 29:                                               ; preds = %20, %29
   %30 = phi i64 [ %33, %29 ], [ %22, %20 ]
   %31 = phi i64 [ %35, %29 ], [ 0, %20 ]
-  %32 = load ptr, ptr %21, align 8, !tbaa !90
+  %32 = load ptr, ptr %21, align 8, !tbaa !91
   %33 = add nsw i64 %30, 1
   %34 = getelementptr inbounds ptr, ptr %32, i64 %30
   store ptr null, ptr %34, align 8, !tbaa !68
   %35 = add i64 %31, 1
   %36 = icmp eq i64 %35, %27
-  br i1 %36, label %37, label %29, !llvm.loop !114
+  br i1 %36, label %37, label %29, !llvm.loop !116
 
 37:                                               ; preds = %29, %20
   %38 = phi i64 [ %22, %20 ], [ %33, %29 ]
@@ -3727,32 +3724,32 @@ define internal fastcc void @pushclosure(ptr nocapture noundef readonly %0, ptr 
 
 40:                                               ; preds = %37, %40
   %41 = phi i64 [ %52, %40 ], [ %38, %37 ]
-  %42 = load ptr, ptr %21, align 8, !tbaa !90
+  %42 = load ptr, ptr %21, align 8, !tbaa !91
   %43 = add nsw i64 %41, 1
   %44 = getelementptr inbounds ptr, ptr %42, i64 %41
   store ptr null, ptr %44, align 8, !tbaa !68
-  %45 = load ptr, ptr %21, align 8, !tbaa !90
+  %45 = load ptr, ptr %21, align 8, !tbaa !91
   %46 = add nsw i64 %41, 2
   %47 = getelementptr inbounds ptr, ptr %45, i64 %43
   store ptr null, ptr %47, align 8, !tbaa !68
-  %48 = load ptr, ptr %21, align 8, !tbaa !90
+  %48 = load ptr, ptr %21, align 8, !tbaa !91
   %49 = add nsw i64 %41, 3
   %50 = getelementptr inbounds ptr, ptr %48, i64 %46
   store ptr null, ptr %50, align 8, !tbaa !68
-  %51 = load ptr, ptr %21, align 8, !tbaa !90
+  %51 = load ptr, ptr %21, align 8, !tbaa !91
   %52 = add nsw i64 %41, 4
   %53 = getelementptr inbounds ptr, ptr %51, i64 %49
   store ptr null, ptr %53, align 8, !tbaa !68
   %54 = icmp eq i64 %52, %23
-  br i1 %54, label %55, label %40, !llvm.loop !115
+  br i1 %54, label %55, label %40, !llvm.loop !117
 
 55:                                               ; preds = %37, %40, %3, %12
   %56 = load ptr, ptr %1, align 8, !tbaa !13
   %57 = getelementptr inbounds %struct.Proto, ptr %6, i64 0, i32 5
-  %58 = load ptr, ptr %57, align 8, !tbaa !90
-  %59 = load i32, ptr %9, align 4, !tbaa !89
+  %58 = load ptr, ptr %57, align 8, !tbaa !91
+  %59 = load i32, ptr %9, align 4, !tbaa !90
   %60 = add nsw i32 %59, 1
-  store i32 %60, ptr %9, align 4, !tbaa !89
+  store i32 %60, ptr %9, align 4, !tbaa !90
   %61 = sext i32 %59 to i64
   %62 = getelementptr inbounds ptr, ptr %58, i64 %61
   store ptr %56, ptr %62, align 8, !tbaa !68
@@ -3774,7 +3771,7 @@ define internal fastcc void @pushclosure(ptr nocapture noundef readonly %0, ptr 
   %74 = getelementptr inbounds %struct.LexState, ptr %0, i64 0, i32 6
   %75 = load ptr, ptr %74, align 8, !tbaa !12
   tail call void @luaC_barrierf(ptr noundef %75, ptr noundef nonnull %6, ptr noundef nonnull %63) #6
-  %76 = load i32, ptr %9, align 4, !tbaa !89
+  %76 = load i32, ptr %9, align 4, !tbaa !90
   %77 = add nsw i32 %76, -1
   br label %78
 
@@ -3790,27 +3787,27 @@ define internal fastcc void @pushclosure(ptr nocapture noundef readonly %0, ptr 
   store i32 %80, ptr %83, align 8, !tbaa !33
   %84 = load ptr, ptr %1, align 8, !tbaa !13
   %85 = getelementptr inbounds %struct.Proto, ptr %84, i64 0, i32 19
-  %86 = load i8, ptr %85, align 8, !tbaa !94
+  %86 = load i8, ptr %85, align 8, !tbaa !95
   %87 = icmp eq i8 %86, 0
   br i1 %87, label %104, label %88
 
 88:                                               ; preds = %78, %88
   %89 = phi i64 [ %98, %88 ], [ 0, %78 ]
   %90 = getelementptr inbounds %struct.FuncState, ptr %1, i64 0, i32 14, i64 %89
-  %91 = load i8, ptr %90, align 1, !tbaa !116
+  %91 = load i8, ptr %90, align 1, !tbaa !118
   %92 = icmp eq i8 %91, 6
   %93 = select i1 %92, i32 0, i32 4
   %94 = getelementptr inbounds %struct.FuncState, ptr %1, i64 0, i32 14, i64 %89, i32 1
-  %95 = load i8, ptr %94, align 1, !tbaa !118
+  %95 = load i8, ptr %94, align 1, !tbaa !120
   %96 = zext i8 %95 to i32
   %97 = tail call i32 @luaK_codeABC(ptr noundef nonnull %5, i32 noundef %93, i32 noundef 0, i32 noundef %96, i32 noundef 0) #6
   %98 = add nuw nsw i64 %89, 1
   %99 = load ptr, ptr %1, align 8, !tbaa !13
   %100 = getelementptr inbounds %struct.Proto, ptr %99, i64 0, i32 19
-  %101 = load i8, ptr %100, align 8, !tbaa !94
+  %101 = load i8, ptr %100, align 8, !tbaa !95
   %102 = zext i8 %101 to i64
   %103 = icmp ult i64 %98, %102
-  br i1 %103, label %88, label %104, !llvm.loop !119
+  br i1 %103, label %88, label %104, !llvm.loop !121
 
 104:                                              ; preds = %88, %78
   ret void
@@ -3887,7 +3884,7 @@ define internal fastcc void @funcargs(ptr noundef %0, ptr nocapture noundef %1) 
 
 10:                                               ; preds = %2
   %11 = getelementptr inbounds %struct.LexState, ptr %0, i64 0, i32 2
-  %12 = load i32, ptr %11, align 8, !tbaa !120
+  %12 = load i32, ptr %11, align 8, !tbaa !122
   %13 = icmp eq i32 %7, %12
   br i1 %13, label %15, label %14
 
@@ -4023,7 +4020,7 @@ define internal fastcc void @singlevar(ptr noundef %0, ptr nocapture noundef %1)
   tail call void @luaX_next(ptr noundef nonnull %0) #6
   %14 = getelementptr inbounds %struct.LexState, ptr %0, i64 0, i32 5
   %15 = load ptr, ptr %14, align 8, !tbaa !16
-  %16 = tail call fastcc i32 @singlevaraux(ptr noundef %15, ptr noundef %13, ptr noundef %1, i32 noundef 1), !range !121
+  %16 = tail call fastcc i32 @singlevaraux(ptr noundef %15, ptr noundef %13, ptr noundef %1, i32 noundef 1), !range !123
   %17 = icmp eq i32 %16, 8
   br i1 %17, label %18, label %21
 
@@ -4050,7 +4047,7 @@ define internal fastcc i32 @singlevaraux(ptr noundef %0, ptr noundef %1, ptr noc
   store i32 8, ptr %2, align 8, !tbaa !42
   %9 = getelementptr inbounds %struct.expdesc, ptr %2, i64 0, i32 1
   store i32 255, ptr %9, align 8, !tbaa !33
-  br label %186
+  br label %188
 
 10:                                               ; preds = %4
   %11 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 13
@@ -4061,7 +4058,7 @@ define internal fastcc i32 @singlevaraux(ptr noundef %0, ptr noundef %1, ptr noc
 14:                                               ; preds = %17, %10
   %15 = phi i64 [ %18, %17 ], [ %13, %10 ]
   %16 = icmp sgt i64 %15, 0
-  br i1 %16, label %17, label %50
+  br i1 %16, label %17, label %52
 
 17:                                               ; preds = %14
   %18 = add nsw i64 %15, -1
@@ -4073,14 +4070,14 @@ define internal fastcc i32 @singlevaraux(ptr noundef %0, ptr noundef %1, ptr noc
   %24 = load i16, ptr %23, align 2, !tbaa !55
   %25 = zext i16 %24 to i64
   %26 = getelementptr inbounds %struct.LocVar, ptr %21, i64 %25
-  %27 = load ptr, ptr %26, align 8, !tbaa !110
+  %27 = load ptr, ptr %26, align 8, !tbaa !111
   %28 = icmp eq ptr %27, %1
-  br i1 %28, label %29, label %14, !llvm.loop !122
+  br i1 %28, label %29, label %14, !llvm.loop !124
 
 29:                                               ; preds = %17
   %30 = trunc i64 %18 to i32
   %31 = icmp sgt i32 %30, -1
-  br i1 %31, label %32, label %50
+  br i1 %31, label %32, label %52
 
 32:                                               ; preds = %29
   %33 = getelementptr inbounds %struct.expdesc, ptr %2, i64 0, i32 2
@@ -4091,231 +4088,233 @@ define internal fastcc i32 @singlevaraux(ptr noundef %0, ptr noundef %1, ptr noc
   %35 = getelementptr inbounds %struct.expdesc, ptr %2, i64 0, i32 1
   store i32 %30, ptr %35, align 8, !tbaa !33
   %36 = icmp eq i32 %3, 0
-  br i1 %36, label %37, label %186
+  br i1 %36, label %37, label %188
 
 37:                                               ; preds = %32
-  %38 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 5
-  br label %39
+  %38 = getelementptr i8, ptr %0, i64 40
+  %39 = load ptr, ptr %38, align 8, !tbaa !23
+  %40 = icmp eq ptr %39, null
+  br i1 %40, label %188, label %41
 
-39:                                               ; preds = %43, %37
-  %40 = phi ptr [ %38, %37 ], [ %41, %43 ]
-  %41 = load ptr, ptr %40, align 8, !tbaa !68
-  %42 = icmp eq ptr %41, null
-  br i1 %42, label %186, label %43
+41:                                               ; preds = %37, %47
+  %42 = phi ptr [ %48, %47 ], [ %39, %37 ]
+  %43 = getelementptr inbounds %struct.BlockCnt, ptr %42, i64 0, i32 2
+  %44 = load i8, ptr %43, align 4, !tbaa !51
+  %45 = zext i8 %44 to i32
+  %46 = icmp slt i32 %30, %45
+  br i1 %46, label %47, label %50
 
-43:                                               ; preds = %39
-  %44 = getelementptr inbounds %struct.BlockCnt, ptr %41, i64 0, i32 2
-  %45 = load i8, ptr %44, align 4, !tbaa !51
-  %46 = zext i8 %45 to i32
-  %47 = icmp sgt i32 %46, %30
-  br i1 %47, label %39, label %48, !llvm.loop !123
+47:                                               ; preds = %41
+  %48 = load ptr, ptr %42, align 8, !tbaa !53
+  %49 = icmp eq ptr %48, null
+  br i1 %49, label %188, label %41, !llvm.loop !125
 
-48:                                               ; preds = %43
-  %49 = getelementptr inbounds %struct.BlockCnt, ptr %41, i64 0, i32 3
-  store i8 1, ptr %49, align 1, !tbaa !52
-  br label %186
+50:                                               ; preds = %41
+  %51 = getelementptr inbounds %struct.BlockCnt, ptr %42, i64 0, i32 3
+  store i8 1, ptr %51, align 1, !tbaa !52
+  br label %188
 
-50:                                               ; preds = %14, %29
-  %51 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 2
-  %52 = load ptr, ptr %51, align 8, !tbaa !17
-  %53 = tail call fastcc i32 @singlevaraux(ptr noundef %52, ptr noundef %1, ptr noundef %2, i32 noundef 0), !range !121
-  %54 = icmp eq i32 %53, 8
-  br i1 %54, label %186, label %55
+52:                                               ; preds = %14, %29
+  %53 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 2
+  %54 = load ptr, ptr %53, align 8, !tbaa !17
+  %55 = tail call fastcc i32 @singlevaraux(ptr noundef %54, ptr noundef %1, ptr noundef %2, i32 noundef 0), !range !123
+  %56 = icmp eq i32 %55, 8
+  br i1 %56, label %188, label %57
 
-55:                                               ; preds = %50
-  %56 = load ptr, ptr %0, align 8, !tbaa !13
-  %57 = getelementptr inbounds %struct.Proto, ptr %56, i64 0, i32 10
-  %58 = load i32, ptr %57, align 8, !tbaa !96
-  %59 = getelementptr inbounds %struct.Proto, ptr %56, i64 0, i32 19
-  %60 = load i8, ptr %59, align 8, !tbaa !94
-  %61 = icmp eq i8 %60, 0
-  br i1 %61, label %99, label %62
+57:                                               ; preds = %52
+  %58 = load ptr, ptr %0, align 8, !tbaa !13
+  %59 = getelementptr inbounds %struct.Proto, ptr %58, i64 0, i32 10
+  %60 = load i32, ptr %59, align 8, !tbaa !97
+  %61 = getelementptr inbounds %struct.Proto, ptr %58, i64 0, i32 19
+  %62 = load i8, ptr %61, align 8, !tbaa !95
+  %63 = icmp eq i8 %62, 0
+  br i1 %63, label %101, label %64
 
-62:                                               ; preds = %55
-  %63 = load i32, ptr %2, align 8, !tbaa !42
-  %64 = getelementptr inbounds %struct.expdesc, ptr %2, i64 0, i32 1
-  %65 = zext i8 %60 to i64
-  br label %66
+64:                                               ; preds = %57
+  %65 = load i32, ptr %2, align 8, !tbaa !42
+  %66 = getelementptr inbounds %struct.expdesc, ptr %2, i64 0, i32 1
+  %67 = zext i8 %62 to i64
+  br label %68
 
-66:                                               ; preds = %78, %62
-  %67 = phi i64 [ 0, %62 ], [ %79, %78 ]
-  %68 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 14, i64 %67
-  %69 = load i8, ptr %68, align 1, !tbaa !116
-  %70 = zext i8 %69 to i32
-  %71 = icmp eq i32 %63, %70
-  br i1 %71, label %72, label %78
+68:                                               ; preds = %80, %64
+  %69 = phi i64 [ 0, %64 ], [ %81, %80 ]
+  %70 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 14, i64 %69
+  %71 = load i8, ptr %70, align 1, !tbaa !118
+  %72 = zext i8 %71 to i32
+  %73 = icmp eq i32 %65, %72
+  br i1 %73, label %74, label %80
 
-72:                                               ; preds = %66
-  %73 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 14, i64 %67, i32 1
-  %74 = load i8, ptr %73, align 1, !tbaa !118
-  %75 = zext i8 %74 to i32
-  %76 = load i32, ptr %64, align 8, !tbaa !33
-  %77 = icmp eq i32 %76, %75
-  br i1 %77, label %181, label %78
+74:                                               ; preds = %68
+  %75 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 14, i64 %69, i32 1
+  %76 = load i8, ptr %75, align 1, !tbaa !120
+  %77 = zext i8 %76 to i32
+  %78 = load i32, ptr %66, align 8, !tbaa !33
+  %79 = icmp eq i32 %78, %77
+  br i1 %79, label %183, label %80
 
-78:                                               ; preds = %72, %66
-  %79 = add nuw nsw i64 %67, 1
-  %80 = icmp eq i64 %79, %65
-  br i1 %80, label %81, label %66, !llvm.loop !124
+80:                                               ; preds = %74, %68
+  %81 = add nuw nsw i64 %69, 1
+  %82 = icmp eq i64 %81, %67
+  br i1 %82, label %83, label %68, !llvm.loop !126
 
-81:                                               ; preds = %78
-  %82 = icmp ugt i8 %60, 59
-  br i1 %82, label %83, label %99
+83:                                               ; preds = %80
+  %84 = icmp ugt i8 %62, 59
+  br i1 %84, label %85, label %101
 
-83:                                               ; preds = %81
-  %84 = getelementptr inbounds %struct.Proto, ptr %56, i64 0, i32 16
-  %85 = load i32, ptr %84, align 8, !tbaa !75
-  %86 = icmp eq i32 %85, 0
-  %87 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 4
-  %88 = load ptr, ptr %87, align 8, !tbaa !19
-  br i1 %86, label %89, label %91
+85:                                               ; preds = %83
+  %86 = getelementptr inbounds %struct.Proto, ptr %58, i64 0, i32 16
+  %87 = load i32, ptr %86, align 8, !tbaa !75
+  %88 = icmp eq i32 %87, 0
+  %89 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 4
+  %90 = load ptr, ptr %89, align 8, !tbaa !19
+  br i1 %88, label %91, label %93
 
-89:                                               ; preds = %83
-  %90 = tail call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %88, ptr noundef nonnull @.str.4, i32 noundef 60, ptr noundef nonnull @.str.13) #6
-  br label %93
+91:                                               ; preds = %85
+  %92 = tail call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %90, ptr noundef nonnull @.str.4, i32 noundef 60, ptr noundef nonnull @.str.13) #6
+  br label %95
 
-91:                                               ; preds = %83
-  %92 = tail call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %88, ptr noundef nonnull @.str.5, i32 noundef %85, i32 noundef 60, ptr noundef nonnull @.str.13) #6
-  br label %93
+93:                                               ; preds = %85
+  %94 = tail call ptr (ptr, ptr, ...) @luaO_pushfstring(ptr noundef %90, ptr noundef nonnull @.str.5, i32 noundef %87, i32 noundef 60, ptr noundef nonnull @.str.13) #6
+  br label %95
 
-93:                                               ; preds = %91, %89
-  %94 = phi ptr [ %90, %89 ], [ %92, %91 ]
-  %95 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 3
-  %96 = load ptr, ptr %95, align 8, !tbaa !18
-  tail call void @luaX_lexerror(ptr noundef %96, ptr noundef %94, i32 noundef 0) #6
-  %97 = load i8, ptr %59, align 8, !tbaa !94
-  %98 = load i32, ptr %57, align 8, !tbaa !96
-  br label %99
+95:                                               ; preds = %93, %91
+  %96 = phi ptr [ %92, %91 ], [ %94, %93 ]
+  %97 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 3
+  %98 = load ptr, ptr %97, align 8, !tbaa !18
+  tail call void @luaX_lexerror(ptr noundef %98, ptr noundef %96, i32 noundef 0) #6
+  %99 = load i8, ptr %61, align 8, !tbaa !95
+  %100 = load i32, ptr %59, align 8, !tbaa !97
+  br label %101
 
-99:                                               ; preds = %93, %81, %55
-  %100 = phi i8 [ %97, %93 ], [ %60, %81 ], [ 0, %55 ]
-  %101 = phi i32 [ %98, %93 ], [ %58, %81 ], [ %58, %55 ]
-  %102 = zext i8 %100 to i32
-  %103 = icmp sgt i32 %101, %102
-  br i1 %103, label %111, label %104
+101:                                              ; preds = %95, %83, %57
+  %102 = phi i8 [ %99, %95 ], [ %62, %83 ], [ 0, %57 ]
+  %103 = phi i32 [ %100, %95 ], [ %60, %83 ], [ %60, %57 ]
+  %104 = zext i8 %102 to i32
+  %105 = icmp sgt i32 %103, %104
+  br i1 %105, label %113, label %106
 
-104:                                              ; preds = %99
-  %105 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 4
-  %106 = load ptr, ptr %105, align 8, !tbaa !19
-  %107 = getelementptr inbounds %struct.Proto, ptr %56, i64 0, i32 8
-  %108 = load ptr, ptr %107, align 8, !tbaa !95
-  %109 = tail call ptr @luaM_growaux_(ptr noundef %106, ptr noundef %108, ptr noundef nonnull %57, i64 noundef 8, i32 noundef 2147483645, ptr noundef nonnull @.str.14) #6
-  store ptr %109, ptr %107, align 8, !tbaa !95
-  %110 = load i32, ptr %57, align 8, !tbaa !96
-  br label %111
+106:                                              ; preds = %101
+  %107 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 4
+  %108 = load ptr, ptr %107, align 8, !tbaa !19
+  %109 = getelementptr inbounds %struct.Proto, ptr %58, i64 0, i32 8
+  %110 = load ptr, ptr %109, align 8, !tbaa !96
+  %111 = tail call ptr @luaM_growaux_(ptr noundef %108, ptr noundef %110, ptr noundef nonnull %59, i64 noundef 8, i32 noundef 2147483645, ptr noundef nonnull @.str.14) #6
+  store ptr %111, ptr %109, align 8, !tbaa !96
+  %112 = load i32, ptr %59, align 8, !tbaa !97
+  br label %113
 
-111:                                              ; preds = %104, %99
-  %112 = phi i32 [ %110, %104 ], [ %101, %99 ]
-  %113 = icmp slt i32 %58, %112
-  br i1 %113, label %114, label %149
+113:                                              ; preds = %106, %101
+  %114 = phi i32 [ %112, %106 ], [ %103, %101 ]
+  %115 = icmp slt i32 %60, %114
+  br i1 %115, label %116, label %151
 
-114:                                              ; preds = %111
-  %115 = getelementptr inbounds %struct.Proto, ptr %56, i64 0, i32 8
-  %116 = sext i32 %58 to i64
-  %117 = sext i32 %112 to i64
-  %118 = sub nsw i64 %117, %116
-  %119 = xor i64 %116, -1
-  %120 = add nsw i64 %119, %117
-  %121 = and i64 %118, 3
-  %122 = icmp eq i64 %121, 0
-  br i1 %122, label %131, label %123
+116:                                              ; preds = %113
+  %117 = getelementptr inbounds %struct.Proto, ptr %58, i64 0, i32 8
+  %118 = sext i32 %60 to i64
+  %119 = sext i32 %114 to i64
+  %120 = sub nsw i64 %119, %118
+  %121 = xor i64 %118, -1
+  %122 = add nsw i64 %121, %119
+  %123 = and i64 %120, 3
+  %124 = icmp eq i64 %123, 0
+  br i1 %124, label %133, label %125
 
-123:                                              ; preds = %114, %123
-  %124 = phi i64 [ %127, %123 ], [ %116, %114 ]
-  %125 = phi i64 [ %129, %123 ], [ 0, %114 ]
-  %126 = load ptr, ptr %115, align 8, !tbaa !95
-  %127 = add nsw i64 %124, 1
-  %128 = getelementptr inbounds ptr, ptr %126, i64 %124
-  store ptr null, ptr %128, align 8, !tbaa !68
-  %129 = add i64 %125, 1
-  %130 = icmp eq i64 %129, %121
-  br i1 %130, label %131, label %123, !llvm.loop !125
+125:                                              ; preds = %116, %125
+  %126 = phi i64 [ %129, %125 ], [ %118, %116 ]
+  %127 = phi i64 [ %131, %125 ], [ 0, %116 ]
+  %128 = load ptr, ptr %117, align 8, !tbaa !96
+  %129 = add nsw i64 %126, 1
+  %130 = getelementptr inbounds ptr, ptr %128, i64 %126
+  store ptr null, ptr %130, align 8, !tbaa !68
+  %131 = add i64 %127, 1
+  %132 = icmp eq i64 %131, %123
+  br i1 %132, label %133, label %125, !llvm.loop !127
 
-131:                                              ; preds = %123, %114
-  %132 = phi i64 [ %116, %114 ], [ %127, %123 ]
-  %133 = icmp ult i64 %120, 3
-  br i1 %133, label %149, label %134
+133:                                              ; preds = %125, %116
+  %134 = phi i64 [ %118, %116 ], [ %129, %125 ]
+  %135 = icmp ult i64 %122, 3
+  br i1 %135, label %151, label %136
 
-134:                                              ; preds = %131, %134
-  %135 = phi i64 [ %146, %134 ], [ %132, %131 ]
-  %136 = load ptr, ptr %115, align 8, !tbaa !95
-  %137 = add nsw i64 %135, 1
-  %138 = getelementptr inbounds ptr, ptr %136, i64 %135
-  store ptr null, ptr %138, align 8, !tbaa !68
-  %139 = load ptr, ptr %115, align 8, !tbaa !95
-  %140 = add nsw i64 %135, 2
-  %141 = getelementptr inbounds ptr, ptr %139, i64 %137
-  store ptr null, ptr %141, align 8, !tbaa !68
-  %142 = load ptr, ptr %115, align 8, !tbaa !95
-  %143 = add nsw i64 %135, 3
-  %144 = getelementptr inbounds ptr, ptr %142, i64 %140
-  store ptr null, ptr %144, align 8, !tbaa !68
-  %145 = load ptr, ptr %115, align 8, !tbaa !95
-  %146 = add nsw i64 %135, 4
-  %147 = getelementptr inbounds ptr, ptr %145, i64 %143
-  store ptr null, ptr %147, align 8, !tbaa !68
-  %148 = icmp eq i64 %146, %117
-  br i1 %148, label %149, label %134, !llvm.loop !126
+136:                                              ; preds = %133, %136
+  %137 = phi i64 [ %148, %136 ], [ %134, %133 ]
+  %138 = load ptr, ptr %117, align 8, !tbaa !96
+  %139 = add nsw i64 %137, 1
+  %140 = getelementptr inbounds ptr, ptr %138, i64 %137
+  store ptr null, ptr %140, align 8, !tbaa !68
+  %141 = load ptr, ptr %117, align 8, !tbaa !96
+  %142 = add nsw i64 %137, 2
+  %143 = getelementptr inbounds ptr, ptr %141, i64 %139
+  store ptr null, ptr %143, align 8, !tbaa !68
+  %144 = load ptr, ptr %117, align 8, !tbaa !96
+  %145 = add nsw i64 %137, 3
+  %146 = getelementptr inbounds ptr, ptr %144, i64 %142
+  store ptr null, ptr %146, align 8, !tbaa !68
+  %147 = load ptr, ptr %117, align 8, !tbaa !96
+  %148 = add nsw i64 %137, 4
+  %149 = getelementptr inbounds ptr, ptr %147, i64 %145
+  store ptr null, ptr %149, align 8, !tbaa !68
+  %150 = icmp eq i64 %148, %119
+  br i1 %150, label %151, label %136, !llvm.loop !128
 
-149:                                              ; preds = %131, %134, %111
-  %150 = getelementptr inbounds %struct.Proto, ptr %56, i64 0, i32 8
-  %151 = load ptr, ptr %150, align 8, !tbaa !95
-  %152 = load i8, ptr %59, align 8, !tbaa !94
-  %153 = zext i8 %152 to i64
-  %154 = getelementptr inbounds ptr, ptr %151, i64 %153
-  store ptr %1, ptr %154, align 8, !tbaa !68
-  %155 = getelementptr inbounds %struct.GCheader, ptr %1, i64 0, i32 2
-  %156 = load i8, ptr %155, align 1, !tbaa !33
-  %157 = and i8 %156, 3
-  %158 = icmp eq i8 %157, 0
-  br i1 %158, label %169, label %159
+151:                                              ; preds = %133, %136, %113
+  %152 = getelementptr inbounds %struct.Proto, ptr %58, i64 0, i32 8
+  %153 = load ptr, ptr %152, align 8, !tbaa !96
+  %154 = load i8, ptr %61, align 8, !tbaa !95
+  %155 = zext i8 %154 to i64
+  %156 = getelementptr inbounds ptr, ptr %153, i64 %155
+  store ptr %1, ptr %156, align 8, !tbaa !68
+  %157 = getelementptr inbounds %struct.GCheader, ptr %1, i64 0, i32 2
+  %158 = load i8, ptr %157, align 1, !tbaa !33
+  %159 = and i8 %158, 3
+  %160 = icmp eq i8 %159, 0
+  br i1 %160, label %171, label %161
 
-159:                                              ; preds = %149
-  %160 = getelementptr inbounds %struct.GCheader, ptr %56, i64 0, i32 2
-  %161 = load i8, ptr %160, align 1, !tbaa !33
-  %162 = and i8 %161, 4
-  %163 = icmp eq i8 %162, 0
-  br i1 %163, label %169, label %164
+161:                                              ; preds = %151
+  %162 = getelementptr inbounds %struct.GCheader, ptr %58, i64 0, i32 2
+  %163 = load i8, ptr %162, align 1, !tbaa !33
+  %164 = and i8 %163, 4
+  %165 = icmp eq i8 %164, 0
+  br i1 %165, label %171, label %166
 
-164:                                              ; preds = %159
-  %165 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 4
-  %166 = load ptr, ptr %165, align 8, !tbaa !19
-  tail call void @luaC_barrierf(ptr noundef %166, ptr noundef nonnull %56, ptr noundef nonnull %1) #6
-  %167 = load i8, ptr %59, align 8, !tbaa !94
-  %168 = zext i8 %167 to i64
-  br label %169
+166:                                              ; preds = %161
+  %167 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 4
+  %168 = load ptr, ptr %167, align 8, !tbaa !19
+  tail call void @luaC_barrierf(ptr noundef %168, ptr noundef nonnull %58, ptr noundef nonnull %1) #6
+  %169 = load i8, ptr %61, align 8, !tbaa !95
+  %170 = zext i8 %169 to i64
+  br label %171
 
-169:                                              ; preds = %164, %159, %149
-  %170 = phi i64 [ %168, %164 ], [ %153, %159 ], [ %153, %149 ]
-  %171 = phi i8 [ %167, %164 ], [ %152, %159 ], [ %152, %149 ]
-  %172 = load i32, ptr %2, align 8, !tbaa !42
-  %173 = trunc i32 %172 to i8
-  %174 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 14, i64 %170
-  store i8 %173, ptr %174, align 1, !tbaa !116
-  %175 = getelementptr inbounds %struct.expdesc, ptr %2, i64 0, i32 1
-  %176 = load i32, ptr %175, align 8, !tbaa !33
-  %177 = trunc i32 %176 to i8
-  %178 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 14, i64 %170, i32 1
-  store i8 %177, ptr %178, align 1, !tbaa !118
-  %179 = add i8 %171, 1
-  store i8 %179, ptr %59, align 8, !tbaa !94
-  %180 = zext i8 %171 to i32
-  br label %183
+171:                                              ; preds = %166, %161, %151
+  %172 = phi i64 [ %170, %166 ], [ %155, %161 ], [ %155, %151 ]
+  %173 = phi i8 [ %169, %166 ], [ %154, %161 ], [ %154, %151 ]
+  %174 = load i32, ptr %2, align 8, !tbaa !42
+  %175 = trunc i32 %174 to i8
+  %176 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 14, i64 %172
+  store i8 %175, ptr %176, align 1, !tbaa !118
+  %177 = getelementptr inbounds %struct.expdesc, ptr %2, i64 0, i32 1
+  %178 = load i32, ptr %177, align 8, !tbaa !33
+  %179 = trunc i32 %178 to i8
+  %180 = getelementptr inbounds %struct.FuncState, ptr %0, i64 0, i32 14, i64 %172, i32 1
+  store i8 %179, ptr %180, align 1, !tbaa !120
+  %181 = add i8 %173, 1
+  store i8 %181, ptr %61, align 8, !tbaa !95
+  %182 = zext i8 %173 to i32
+  br label %185
 
-181:                                              ; preds = %72
-  %182 = trunc i64 %67 to i32
-  br label %183
+183:                                              ; preds = %74
+  %184 = trunc i64 %69 to i32
+  br label %185
 
-183:                                              ; preds = %169, %181
-  %184 = phi i32 [ %180, %169 ], [ %182, %181 ]
-  %185 = getelementptr inbounds %struct.expdesc, ptr %2, i64 0, i32 1
-  store i32 %184, ptr %185, align 8, !tbaa !33
+185:                                              ; preds = %171, %183
+  %186 = phi i32 [ %182, %171 ], [ %184, %183 ]
+  %187 = getelementptr inbounds %struct.expdesc, ptr %2, i64 0, i32 1
+  store i32 %186, ptr %187, align 8, !tbaa !33
   store i32 7, ptr %2, align 8, !tbaa !42
-  br label %186
+  br label %188
 
-186:                                              ; preds = %39, %48, %183, %32, %50, %6
-  %187 = phi i32 [ 8, %6 ], [ 7, %183 ], [ 6, %32 ], [ 8, %50 ], [ 6, %48 ], [ 6, %39 ]
-  ret i32 %187
+188:                                              ; preds = %47, %185, %50, %37, %32, %52, %6
+  %189 = phi i32 [ 8, %6 ], [ 7, %185 ], [ 6, %50 ], [ 6, %37 ], [ 6, %32 ], [ 8, %52 ], [ 6, %47 ]
+  ret i32 %189
 }
 
 declare hidden void @luaK_fixline(ptr noundef, i32 noundef) local_unnamed_addr #2
@@ -4456,7 +4455,7 @@ define internal fastcc void @forbody(ptr noundef %0, i32 noundef %1, i32 noundef
   %96 = add nsw i64 %84, -2
   %97 = and i64 %96, 4294967295
   %98 = icmp eq i64 %97, 0
-  br i1 %98, label %99, label %83, !llvm.loop !77
+  br i1 %98, label %99, label %83, !llvm.loop !78
 
 99:                                               ; preds = %80, %83, %48
   call void @luaK_reserveregs(ptr noundef nonnull %9, i32 noundef %3) #6
@@ -4484,96 +4483,96 @@ define internal fastcc void @forbody(ptr noundef %0, i32 noundef %1, i32 noundef
   %112 = load ptr, ptr %111, align 8, !tbaa !18
   %113 = getelementptr inbounds %struct.BlockCnt, ptr %109, i64 0, i32 2
   %114 = load i8, ptr %113, align 4, !tbaa !51
-  %115 = zext i8 %114 to i32
-  %116 = getelementptr i8, ptr %112, i64 48
-  %117 = load ptr, ptr %116, align 8, !tbaa !16
-  %118 = getelementptr inbounds %struct.FuncState, ptr %117, i64 0, i32 13
-  %119 = load i8, ptr %118, align 2, !tbaa !50
-  %120 = icmp ugt i8 %119, %114
-  br i1 %120, label %121, label %176
+  %115 = getelementptr i8, ptr %112, i64 48
+  %116 = load ptr, ptr %115, align 8, !tbaa !16
+  %117 = getelementptr inbounds %struct.FuncState, ptr %116, i64 0, i32 13
+  %118 = load i8, ptr %117, align 2, !tbaa !50
+  %119 = icmp ugt i8 %118, %114
+  br i1 %119, label %120, label %175
 
-121:                                              ; preds = %99
-  %122 = getelementptr inbounds %struct.FuncState, ptr %117, i64 0, i32 6
-  %123 = load i32, ptr %122, align 8, !tbaa !20
-  %124 = load ptr, ptr %117, align 8, !tbaa !13
-  %125 = getelementptr inbounds %struct.Proto, ptr %124, i64 0, i32 7
-  %126 = load ptr, ptr %125, align 8, !tbaa !54
-  %127 = zext i8 %119 to i64
-  %128 = sub i8 %119, %114
-  %129 = xor i8 %114, -1
-  %130 = add i8 %119, %129
-  %131 = and i8 %128, 3
-  %132 = icmp eq i8 %131, 0
-  br i1 %132, label %144, label %133
+120:                                              ; preds = %99
+  %121 = getelementptr inbounds %struct.FuncState, ptr %116, i64 0, i32 6
+  %122 = load i32, ptr %121, align 8, !tbaa !20
+  %123 = load ptr, ptr %116, align 8, !tbaa !13
+  %124 = getelementptr inbounds %struct.Proto, ptr %123, i64 0, i32 7
+  %125 = load ptr, ptr %124, align 8, !tbaa !54
+  %126 = zext i8 %118 to i64
+  %127 = sub i8 %118, %114
+  %128 = xor i8 %114, -1
+  %129 = add i8 %118, %128
+  %130 = and i8 %127, 3
+  %131 = icmp eq i8 %130, 0
+  br i1 %131, label %143, label %132
 
-133:                                              ; preds = %121, %133
-  %134 = phi i64 [ %136, %133 ], [ %127, %121 ]
-  %135 = phi i8 [ %142, %133 ], [ 0, %121 ]
-  %136 = add nsw i64 %134, -1
-  %137 = and i64 %136, 255
-  %138 = getelementptr inbounds %struct.FuncState, ptr %117, i64 0, i32 15, i64 %137
-  %139 = load i16, ptr %138, align 2, !tbaa !55
-  %140 = zext i16 %139 to i64
-  %141 = getelementptr inbounds %struct.LocVar, ptr %126, i64 %140, i32 2
-  store i32 %123, ptr %141, align 4, !tbaa !56
-  %142 = add i8 %135, 1
-  %143 = icmp eq i8 %142, %131
-  br i1 %143, label %144, label %133, !llvm.loop !127
+132:                                              ; preds = %120, %132
+  %133 = phi i64 [ %135, %132 ], [ %126, %120 ]
+  %134 = phi i8 [ %141, %132 ], [ 0, %120 ]
+  %135 = add nsw i64 %133, -1
+  %136 = and i64 %135, 255
+  %137 = getelementptr inbounds %struct.FuncState, ptr %116, i64 0, i32 15, i64 %136
+  %138 = load i16, ptr %137, align 2, !tbaa !55
+  %139 = zext i16 %138 to i64
+  %140 = getelementptr inbounds %struct.LocVar, ptr %125, i64 %139, i32 2
+  store i32 %122, ptr %140, align 4, !tbaa !56
+  %141 = add i8 %134, 1
+  %142 = icmp eq i8 %141, %130
+  br i1 %142, label %143, label %132, !llvm.loop !129
 
-144:                                              ; preds = %133, %121
-  %145 = phi i64 [ %127, %121 ], [ %136, %133 ]
-  %146 = icmp ult i8 %130, 3
-  br i1 %146, label %175, label %147
+143:                                              ; preds = %132, %120
+  %144 = phi i64 [ %126, %120 ], [ %135, %132 ]
+  %145 = icmp ult i8 %129, 3
+  br i1 %145, label %174, label %146
 
-147:                                              ; preds = %144, %147
-  %148 = phi i64 [ %167, %147 ], [ %145, %144 ]
-  %149 = add i64 %148, 255
-  %150 = and i64 %149, 255
-  %151 = getelementptr inbounds %struct.FuncState, ptr %117, i64 0, i32 15, i64 %150
-  %152 = load i16, ptr %151, align 2, !tbaa !55
-  %153 = zext i16 %152 to i64
-  %154 = getelementptr inbounds %struct.LocVar, ptr %126, i64 %153, i32 2
-  store i32 %123, ptr %154, align 4, !tbaa !56
-  %155 = add i64 %148, 254
-  %156 = and i64 %155, 255
-  %157 = getelementptr inbounds %struct.FuncState, ptr %117, i64 0, i32 15, i64 %156
-  %158 = load i16, ptr %157, align 2, !tbaa !55
-  %159 = zext i16 %158 to i64
-  %160 = getelementptr inbounds %struct.LocVar, ptr %126, i64 %159, i32 2
-  store i32 %123, ptr %160, align 4, !tbaa !56
-  %161 = add i64 %148, 253
-  %162 = and i64 %161, 255
-  %163 = getelementptr inbounds %struct.FuncState, ptr %117, i64 0, i32 15, i64 %162
-  %164 = load i16, ptr %163, align 2, !tbaa !55
-  %165 = zext i16 %164 to i64
-  %166 = getelementptr inbounds %struct.LocVar, ptr %126, i64 %165, i32 2
-  store i32 %123, ptr %166, align 4, !tbaa !56
-  %167 = add nsw i64 %148, -4
-  %168 = trunc i64 %167 to i8
-  %169 = and i64 %167, 255
-  %170 = getelementptr inbounds %struct.FuncState, ptr %117, i64 0, i32 15, i64 %169
-  %171 = load i16, ptr %170, align 2, !tbaa !55
-  %172 = zext i16 %171 to i64
-  %173 = getelementptr inbounds %struct.LocVar, ptr %126, i64 %172, i32 2
-  store i32 %123, ptr %173, align 4, !tbaa !56
-  %174 = icmp ult i8 %114, %168
-  br i1 %174, label %147, label %175, !llvm.loop !60
+146:                                              ; preds = %143, %146
+  %147 = phi i64 [ %166, %146 ], [ %144, %143 ]
+  %148 = add i64 %147, 255
+  %149 = and i64 %148, 255
+  %150 = getelementptr inbounds %struct.FuncState, ptr %116, i64 0, i32 15, i64 %149
+  %151 = load i16, ptr %150, align 2, !tbaa !55
+  %152 = zext i16 %151 to i64
+  %153 = getelementptr inbounds %struct.LocVar, ptr %125, i64 %152, i32 2
+  store i32 %122, ptr %153, align 4, !tbaa !56
+  %154 = add i64 %147, 254
+  %155 = and i64 %154, 255
+  %156 = getelementptr inbounds %struct.FuncState, ptr %116, i64 0, i32 15, i64 %155
+  %157 = load i16, ptr %156, align 2, !tbaa !55
+  %158 = zext i16 %157 to i64
+  %159 = getelementptr inbounds %struct.LocVar, ptr %125, i64 %158, i32 2
+  store i32 %122, ptr %159, align 4, !tbaa !56
+  %160 = add i64 %147, 253
+  %161 = and i64 %160, 255
+  %162 = getelementptr inbounds %struct.FuncState, ptr %116, i64 0, i32 15, i64 %161
+  %163 = load i16, ptr %162, align 2, !tbaa !55
+  %164 = zext i16 %163 to i64
+  %165 = getelementptr inbounds %struct.LocVar, ptr %125, i64 %164, i32 2
+  store i32 %122, ptr %165, align 4, !tbaa !56
+  %166 = add nsw i64 %147, -4
+  %167 = trunc i64 %166 to i8
+  %168 = and i64 %166, 255
+  %169 = getelementptr inbounds %struct.FuncState, ptr %116, i64 0, i32 15, i64 %168
+  %170 = load i16, ptr %169, align 2, !tbaa !55
+  %171 = zext i16 %170 to i64
+  %172 = getelementptr inbounds %struct.LocVar, ptr %125, i64 %171, i32 2
+  store i32 %122, ptr %172, align 4, !tbaa !56
+  %173 = icmp ult i8 %114, %167
+  br i1 %173, label %146, label %174, !llvm.loop !60
 
-175:                                              ; preds = %147, %144
-  store i8 %114, ptr %118, align 2, !tbaa !50
-  br label %176
+174:                                              ; preds = %146, %143
+  store i8 %114, ptr %117, align 2, !tbaa !50
+  br label %175
 
-176:                                              ; preds = %175, %99
-  %177 = getelementptr inbounds %struct.BlockCnt, ptr %109, i64 0, i32 3
-  %178 = load i8, ptr %177, align 1, !tbaa !52
-  %179 = icmp eq i8 %178, 0
-  br i1 %179, label %182, label %180
+175:                                              ; preds = %174, %99
+  %176 = getelementptr inbounds %struct.BlockCnt, ptr %109, i64 0, i32 3
+  %177 = load i8, ptr %176, align 1, !tbaa !52
+  %178 = icmp eq i8 %177, 0
+  br i1 %178, label %182, label %179
 
-180:                                              ; preds = %176
-  %181 = call i32 @luaK_codeABC(ptr noundef %100, i32 noundef 35, i32 noundef %115, i32 noundef 0, i32 noundef 0) #6
+179:                                              ; preds = %175
+  %180 = zext i8 %114 to i32
+  %181 = call i32 @luaK_codeABC(ptr noundef %100, i32 noundef 35, i32 noundef %180, i32 noundef 0, i32 noundef 0) #6
   br label %182
 
-182:                                              ; preds = %176, %180
+182:                                              ; preds = %175, %179
   %183 = load i8, ptr %103, align 2, !tbaa !50
   %184 = zext i8 %183 to i32
   %185 = getelementptr inbounds %struct.FuncState, ptr %100, i64 0, i32 9
@@ -4589,96 +4588,96 @@ define internal fastcc void @forbody(ptr noundef %0, i32 noundef %1, i32 noundef
   %191 = load ptr, ptr %190, align 8, !tbaa !18
   %192 = getelementptr inbounds %struct.BlockCnt, ptr %188, i64 0, i32 2
   %193 = load i8, ptr %192, align 4, !tbaa !51
-  %194 = zext i8 %193 to i32
-  %195 = getelementptr i8, ptr %191, i64 48
-  %196 = load ptr, ptr %195, align 8, !tbaa !16
-  %197 = getelementptr inbounds %struct.FuncState, ptr %196, i64 0, i32 13
-  %198 = load i8, ptr %197, align 2, !tbaa !50
-  %199 = icmp ugt i8 %198, %193
-  br i1 %199, label %200, label %255
+  %194 = getelementptr i8, ptr %191, i64 48
+  %195 = load ptr, ptr %194, align 8, !tbaa !16
+  %196 = getelementptr inbounds %struct.FuncState, ptr %195, i64 0, i32 13
+  %197 = load i8, ptr %196, align 2, !tbaa !50
+  %198 = icmp ugt i8 %197, %193
+  br i1 %198, label %199, label %254
 
-200:                                              ; preds = %182
-  %201 = getelementptr inbounds %struct.FuncState, ptr %196, i64 0, i32 6
-  %202 = load i32, ptr %201, align 8, !tbaa !20
-  %203 = load ptr, ptr %196, align 8, !tbaa !13
-  %204 = getelementptr inbounds %struct.Proto, ptr %203, i64 0, i32 7
-  %205 = load ptr, ptr %204, align 8, !tbaa !54
-  %206 = zext i8 %198 to i64
-  %207 = sub i8 %198, %193
-  %208 = xor i8 %193, -1
-  %209 = add i8 %198, %208
-  %210 = and i8 %207, 3
-  %211 = icmp eq i8 %210, 0
-  br i1 %211, label %223, label %212
+199:                                              ; preds = %182
+  %200 = getelementptr inbounds %struct.FuncState, ptr %195, i64 0, i32 6
+  %201 = load i32, ptr %200, align 8, !tbaa !20
+  %202 = load ptr, ptr %195, align 8, !tbaa !13
+  %203 = getelementptr inbounds %struct.Proto, ptr %202, i64 0, i32 7
+  %204 = load ptr, ptr %203, align 8, !tbaa !54
+  %205 = zext i8 %197 to i64
+  %206 = sub i8 %197, %193
+  %207 = xor i8 %193, -1
+  %208 = add i8 %197, %207
+  %209 = and i8 %206, 3
+  %210 = icmp eq i8 %209, 0
+  br i1 %210, label %222, label %211
 
-212:                                              ; preds = %200, %212
-  %213 = phi i64 [ %215, %212 ], [ %206, %200 ]
-  %214 = phi i8 [ %221, %212 ], [ 0, %200 ]
-  %215 = add nsw i64 %213, -1
-  %216 = and i64 %215, 255
-  %217 = getelementptr inbounds %struct.FuncState, ptr %196, i64 0, i32 15, i64 %216
-  %218 = load i16, ptr %217, align 2, !tbaa !55
-  %219 = zext i16 %218 to i64
-  %220 = getelementptr inbounds %struct.LocVar, ptr %205, i64 %219, i32 2
-  store i32 %202, ptr %220, align 4, !tbaa !56
-  %221 = add i8 %214, 1
-  %222 = icmp eq i8 %221, %210
-  br i1 %222, label %223, label %212, !llvm.loop !128
+211:                                              ; preds = %199, %211
+  %212 = phi i64 [ %214, %211 ], [ %205, %199 ]
+  %213 = phi i8 [ %220, %211 ], [ 0, %199 ]
+  %214 = add nsw i64 %212, -1
+  %215 = and i64 %214, 255
+  %216 = getelementptr inbounds %struct.FuncState, ptr %195, i64 0, i32 15, i64 %215
+  %217 = load i16, ptr %216, align 2, !tbaa !55
+  %218 = zext i16 %217 to i64
+  %219 = getelementptr inbounds %struct.LocVar, ptr %204, i64 %218, i32 2
+  store i32 %201, ptr %219, align 4, !tbaa !56
+  %220 = add i8 %213, 1
+  %221 = icmp eq i8 %220, %209
+  br i1 %221, label %222, label %211, !llvm.loop !130
 
-223:                                              ; preds = %212, %200
-  %224 = phi i64 [ %206, %200 ], [ %215, %212 ]
-  %225 = icmp ult i8 %209, 3
-  br i1 %225, label %254, label %226
+222:                                              ; preds = %211, %199
+  %223 = phi i64 [ %205, %199 ], [ %214, %211 ]
+  %224 = icmp ult i8 %208, 3
+  br i1 %224, label %253, label %225
 
-226:                                              ; preds = %223, %226
-  %227 = phi i64 [ %246, %226 ], [ %224, %223 ]
-  %228 = add i64 %227, 255
-  %229 = and i64 %228, 255
-  %230 = getelementptr inbounds %struct.FuncState, ptr %196, i64 0, i32 15, i64 %229
-  %231 = load i16, ptr %230, align 2, !tbaa !55
-  %232 = zext i16 %231 to i64
-  %233 = getelementptr inbounds %struct.LocVar, ptr %205, i64 %232, i32 2
-  store i32 %202, ptr %233, align 4, !tbaa !56
-  %234 = add i64 %227, 254
-  %235 = and i64 %234, 255
-  %236 = getelementptr inbounds %struct.FuncState, ptr %196, i64 0, i32 15, i64 %235
-  %237 = load i16, ptr %236, align 2, !tbaa !55
-  %238 = zext i16 %237 to i64
-  %239 = getelementptr inbounds %struct.LocVar, ptr %205, i64 %238, i32 2
-  store i32 %202, ptr %239, align 4, !tbaa !56
-  %240 = add i64 %227, 253
-  %241 = and i64 %240, 255
-  %242 = getelementptr inbounds %struct.FuncState, ptr %196, i64 0, i32 15, i64 %241
-  %243 = load i16, ptr %242, align 2, !tbaa !55
-  %244 = zext i16 %243 to i64
-  %245 = getelementptr inbounds %struct.LocVar, ptr %205, i64 %244, i32 2
-  store i32 %202, ptr %245, align 4, !tbaa !56
-  %246 = add nsw i64 %227, -4
-  %247 = trunc i64 %246 to i8
-  %248 = and i64 %246, 255
-  %249 = getelementptr inbounds %struct.FuncState, ptr %196, i64 0, i32 15, i64 %248
-  %250 = load i16, ptr %249, align 2, !tbaa !55
-  %251 = zext i16 %250 to i64
-  %252 = getelementptr inbounds %struct.LocVar, ptr %205, i64 %251, i32 2
-  store i32 %202, ptr %252, align 4, !tbaa !56
-  %253 = icmp ult i8 %193, %247
-  br i1 %253, label %226, label %254, !llvm.loop !60
+225:                                              ; preds = %222, %225
+  %226 = phi i64 [ %245, %225 ], [ %223, %222 ]
+  %227 = add i64 %226, 255
+  %228 = and i64 %227, 255
+  %229 = getelementptr inbounds %struct.FuncState, ptr %195, i64 0, i32 15, i64 %228
+  %230 = load i16, ptr %229, align 2, !tbaa !55
+  %231 = zext i16 %230 to i64
+  %232 = getelementptr inbounds %struct.LocVar, ptr %204, i64 %231, i32 2
+  store i32 %201, ptr %232, align 4, !tbaa !56
+  %233 = add i64 %226, 254
+  %234 = and i64 %233, 255
+  %235 = getelementptr inbounds %struct.FuncState, ptr %195, i64 0, i32 15, i64 %234
+  %236 = load i16, ptr %235, align 2, !tbaa !55
+  %237 = zext i16 %236 to i64
+  %238 = getelementptr inbounds %struct.LocVar, ptr %204, i64 %237, i32 2
+  store i32 %201, ptr %238, align 4, !tbaa !56
+  %239 = add i64 %226, 253
+  %240 = and i64 %239, 255
+  %241 = getelementptr inbounds %struct.FuncState, ptr %195, i64 0, i32 15, i64 %240
+  %242 = load i16, ptr %241, align 2, !tbaa !55
+  %243 = zext i16 %242 to i64
+  %244 = getelementptr inbounds %struct.LocVar, ptr %204, i64 %243, i32 2
+  store i32 %201, ptr %244, align 4, !tbaa !56
+  %245 = add nsw i64 %226, -4
+  %246 = trunc i64 %245 to i8
+  %247 = and i64 %245, 255
+  %248 = getelementptr inbounds %struct.FuncState, ptr %195, i64 0, i32 15, i64 %247
+  %249 = load i16, ptr %248, align 2, !tbaa !55
+  %250 = zext i16 %249 to i64
+  %251 = getelementptr inbounds %struct.LocVar, ptr %204, i64 %250, i32 2
+  store i32 %201, ptr %251, align 4, !tbaa !56
+  %252 = icmp ult i8 %193, %246
+  br i1 %252, label %225, label %253, !llvm.loop !60
 
-254:                                              ; preds = %226, %223
-  store i8 %193, ptr %197, align 2, !tbaa !50
-  br label %255
+253:                                              ; preds = %225, %222
+  store i8 %193, ptr %196, align 2, !tbaa !50
+  br label %254
 
-255:                                              ; preds = %254, %182
-  %256 = getelementptr inbounds %struct.BlockCnt, ptr %188, i64 0, i32 3
-  %257 = load i8, ptr %256, align 1, !tbaa !52
-  %258 = icmp eq i8 %257, 0
-  br i1 %258, label %261, label %259
+254:                                              ; preds = %253, %182
+  %255 = getelementptr inbounds %struct.BlockCnt, ptr %188, i64 0, i32 3
+  %256 = load i8, ptr %255, align 1, !tbaa !52
+  %257 = icmp eq i8 %256, 0
+  br i1 %257, label %261, label %258
 
-259:                                              ; preds = %255
-  %260 = call i32 @luaK_codeABC(ptr noundef nonnull %9, i32 noundef 35, i32 noundef %194, i32 noundef 0, i32 noundef 0) #6
+258:                                              ; preds = %254
+  %259 = zext i8 %193 to i32
+  %260 = call i32 @luaK_codeABC(ptr noundef nonnull %9, i32 noundef 35, i32 noundef %259, i32 noundef 0, i32 noundef 0) #6
   br label %261
 
-261:                                              ; preds = %255, %259
+261:                                              ; preds = %254, %258
   %262 = load i8, ptr %10, align 2, !tbaa !50
   %263 = zext i8 %262 to i32
   %264 = getelementptr inbounds %struct.FuncState, ptr %9, i64 0, i32 9
@@ -4720,7 +4719,7 @@ define internal fastcc void @assignment(ptr noundef %0, ptr noundef %1, i32 noun
   %5 = alloca %struct.LHS_assign, align 8
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #6
   %6 = getelementptr inbounds %struct.LHS_assign, ptr %1, i64 0, i32 1
-  %7 = load i32, ptr %6, align 8, !tbaa !79
+  %7 = load i32, ptr %6, align 8, !tbaa !80
   %8 = add i32 %7, -6
   %9 = icmp ult i32 %8, 4
   br i1 %9, label %11, label %10
@@ -4740,10 +4739,10 @@ define internal fastcc void @assignment(ptr noundef %0, ptr noundef %1, i32 noun
 14:                                               ; preds = %11
   tail call void @luaX_next(ptr noundef nonnull %0) #6
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #6
-  store ptr %1, ptr %5, align 8, !tbaa !81
+  store ptr %1, ptr %5, align 8, !tbaa !82
   %15 = getelementptr inbounds %struct.LHS_assign, ptr %5, i64 0, i32 1
   call fastcc void @primaryexp(ptr noundef nonnull %0, ptr noundef nonnull %15)
-  %16 = load i32, ptr %15, align 8, !tbaa !79
+  %16 = load i32, ptr %15, align 8, !tbaa !80
   %17 = icmp eq i32 %16, 6
   br i1 %17, label %18, label %61
 
@@ -4759,7 +4758,7 @@ define internal fastcc void @assignment(ptr noundef %0, ptr noundef %1, i32 noun
   %25 = phi i32 [ 0, %18 ], [ %48, %47 ]
   %26 = phi ptr [ %1, %18 ], [ %49, %47 ]
   %27 = getelementptr inbounds %struct.LHS_assign, ptr %26, i64 0, i32 1
-  %28 = load i32, ptr %27, align 8, !tbaa !79
+  %28 = load i32, ptr %27, align 8, !tbaa !80
   %29 = icmp eq i32 %28, 9
   br i1 %29, label %30, label %43
 
@@ -4785,18 +4784,18 @@ define internal fastcc void @assignment(ptr noundef %0, ptr noundef %1, i32 noun
 
 43:                                               ; preds = %37, %24
   %44 = phi i32 [ %39, %37 ], [ %25, %24 ]
-  %45 = load ptr, ptr %26, align 8, !tbaa !81
+  %45 = load ptr, ptr %26, align 8, !tbaa !82
   %46 = icmp eq ptr %45, null
   br i1 %46, label %53, label %47
 
 47:                                               ; preds = %43, %50
   %48 = phi i32 [ %44, %43 ], [ 1, %50 ]
   %49 = phi ptr [ %45, %43 ], [ %51, %50 ]
-  br label %24, !llvm.loop !129
+  br label %24, !llvm.loop !131
 
 50:                                               ; preds = %37
   store i32 %22, ptr %40, align 4, !tbaa !33
-  %51 = load ptr, ptr %26, align 8, !tbaa !81
+  %51 = load ptr, ptr %26, align 8, !tbaa !82
   %52 = icmp eq ptr %51, null
   br i1 %52, label %57, label %47
 
@@ -4972,18 +4971,18 @@ define internal fastcc void @assignment(ptr noundef %0, ptr noundef %1, i32 noun
 
 declare hidden void @luaK_setoneret(ptr noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #4
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #5
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #4
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #5
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #4 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #6 = { nounwind }
 attributes #7 = { nounwind willreturn memory(read) }
 
@@ -5068,55 +5067,57 @@ attributes #7 = { nounwind willreturn memory(read) }
 !75 = !{!26, !7, i64 96}
 !76 = !{!26, !7, i64 100}
 !77 = distinct !{!77, !46}
-!78 = !{!26, !11, i64 24}
-!79 = !{!80, !8, i64 8}
-!80 = !{!"LHS_assign", !11, i64 0, !43, i64 8}
-!81 = !{!80, !11, i64 0}
-!82 = distinct !{!82, !46}
-!83 = !{!26, !7, i64 80}
-!84 = !{!26, !11, i64 40}
-!85 = !{!26, !7, i64 84}
-!86 = !{!14, !7, i64 64}
-!87 = !{!26, !11, i64 16}
-!88 = !{!26, !7, i64 76}
-!89 = !{!14, !7, i64 68}
-!90 = !{!26, !11, i64 32}
-!91 = !{!26, !7, i64 88}
-!92 = !{!14, !15, i64 72}
-!93 = !{!26, !7, i64 92}
-!94 = !{!26, !8, i64 112}
-!95 = !{!26, !11, i64 56}
-!96 = !{!26, !7, i64 72}
-!97 = distinct !{!97, !59}
-!98 = !{!99, !8, i64 0}
-!99 = !{!"", !8, i64 0, !8, i64 1}
-!100 = !{!99, !8, i64 1}
-!101 = distinct !{!101, !46}
-!102 = !{!103, !7, i64 40}
-!103 = !{!"ConsControl", !43, i64 0, !11, i64 24, !7, i64 32, !7, i64 36, !7, i64 40}
-!104 = !{!103, !7, i64 32}
-!105 = !{!103, !7, i64 36}
-!106 = !{!103, !11, i64 24}
-!107 = !{!103, !8, i64 0}
-!108 = !{!6, !7, i64 32}
-!109 = distinct !{!109, !46}
-!110 = !{!57, !11, i64 0}
-!111 = distinct !{!111, !59}
-!112 = distinct !{!112, !46}
-!113 = !{!26, !8, i64 113}
-!114 = distinct !{!114, !59}
-!115 = distinct !{!115, !46}
-!116 = !{!117, !8, i64 0}
-!117 = !{!"upvaldesc", !8, i64 0, !8, i64 1}
-!118 = !{!117, !8, i64 1}
-!119 = distinct !{!119, !46}
-!120 = !{!6, !7, i64 8}
-!121 = !{i32 6, i32 9}
-!122 = distinct !{!122, !46}
-!123 = distinct !{!123, !46}
+!78 = distinct !{!78, !46}
+!79 = !{!26, !11, i64 24}
+!80 = !{!81, !8, i64 8}
+!81 = !{!"LHS_assign", !11, i64 0, !43, i64 8}
+!82 = !{!81, !11, i64 0}
+!83 = distinct !{!83, !46}
+!84 = !{!26, !7, i64 80}
+!85 = !{!26, !11, i64 40}
+!86 = !{!26, !7, i64 84}
+!87 = !{!14, !7, i64 64}
+!88 = !{!26, !11, i64 16}
+!89 = !{!26, !7, i64 76}
+!90 = !{!14, !7, i64 68}
+!91 = !{!26, !11, i64 32}
+!92 = !{!26, !7, i64 88}
+!93 = !{!14, !15, i64 72}
+!94 = !{!26, !7, i64 92}
+!95 = !{!26, !8, i64 112}
+!96 = !{!26, !11, i64 56}
+!97 = !{!26, !7, i64 72}
+!98 = distinct !{!98, !59}
+!99 = !{!100, !8, i64 0}
+!100 = !{!"", !8, i64 0, !8, i64 1}
+!101 = !{!100, !8, i64 1}
+!102 = distinct !{!102, !46}
+!103 = !{!104, !7, i64 40}
+!104 = !{!"ConsControl", !43, i64 0, !11, i64 24, !7, i64 32, !7, i64 36, !7, i64 40}
+!105 = !{!104, !7, i64 32}
+!106 = !{!104, !7, i64 36}
+!107 = !{!104, !11, i64 24}
+!108 = !{!104, !8, i64 0}
+!109 = !{!6, !7, i64 32}
+!110 = distinct !{!110, !46}
+!111 = !{!57, !11, i64 0}
+!112 = distinct !{!112, !59}
+!113 = distinct !{!113, !46}
+!114 = distinct !{!114, !46}
+!115 = !{!26, !8, i64 113}
+!116 = distinct !{!116, !59}
+!117 = distinct !{!117, !46}
+!118 = !{!119, !8, i64 0}
+!119 = !{!"upvaldesc", !8, i64 0, !8, i64 1}
+!120 = !{!119, !8, i64 1}
+!121 = distinct !{!121, !46}
+!122 = !{!6, !7, i64 8}
+!123 = !{i32 6, i32 9}
 !124 = distinct !{!124, !46}
-!125 = distinct !{!125, !59}
+!125 = distinct !{!125, !46}
 !126 = distinct !{!126, !46}
 !127 = distinct !{!127, !59}
-!128 = distinct !{!128, !59}
-!129 = distinct !{!129, !46}
+!128 = distinct !{!128, !46}
+!129 = distinct !{!129, !59}
+!130 = distinct !{!130, !59}
+!131 = distinct !{!131, !46}

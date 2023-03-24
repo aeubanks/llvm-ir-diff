@@ -323,9 +323,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP17btTypedConstrai
   br label %10
 
 10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -1039,7 +1039,7 @@ define dso_local void @_ZN11btRigidBody12applyDampingEf(ptr nocapture noundef no
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %19, i8 0, i64 16, i1 false)
   br label %109
 
-109:                                              ; preds = %98, %108, %87, %2
+109:                                              ; preds = %87, %108, %98, %2
   ret void
 }
 
@@ -1468,14 +1468,14 @@ define dso_local noundef zeroext i1 @_ZN11btRigidBody24checkCollideWithOverrideE
   %4 = load i32, ptr %3, align 8, !tbaa !18
   %5 = icmp ne i32 %4, 2
   %6 = icmp eq ptr %1, null
-  %7 = or i1 %5, %6
-  br i1 %7, label %38, label %8
+  %7 = or i1 %6, %5
+  br i1 %7, label %41, label %8
 
 8:                                                ; preds = %2
   %9 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
   %10 = load i32, ptr %9, align 4, !tbaa !16
-  %11 = icmp slt i32 %10, 1
-  br i1 %11, label %38, label %12
+  %11 = icmp sgt i32 %10, 0
+  br i1 %11, label %12, label %38
 
 12:                                               ; preds = %8
   %13 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 5
@@ -1490,7 +1490,7 @@ define dso_local noundef zeroext i1 @_ZN11btRigidBody24checkCollideWithOverrideE
 
 21:                                               ; preds = %31
   %22 = add nuw nsw i64 %34, 1
-  %23 = icmp uge i64 %22, %15
+  %23 = icmp ult i64 %22, %15
   %24 = icmp eq i64 %22, %16
   br i1 %24, label %38, label %25
 
@@ -1504,16 +1504,21 @@ define dso_local noundef zeroext i1 @_ZN11btRigidBody24checkCollideWithOverrideE
 
 31:                                               ; preds = %12, %25
   %32 = phi ptr [ %27, %25 ], [ %17, %12 ]
-  %33 = phi i1 [ %23, %25 ], [ false, %12 ]
+  %33 = phi i1 [ %23, %25 ], [ true, %12 ]
   %34 = phi i64 [ %22, %25 ], [ 0, %12 ]
   %35 = getelementptr inbounds %class.btTypedConstraint, ptr %32, i64 0, i32 6
   %36 = load ptr, ptr %35, align 8, !tbaa !63
   %37 = icmp eq ptr %36, %1
   br i1 %37, label %38, label %21
 
-38:                                               ; preds = %21, %25, %31, %12, %8, %2
-  %39 = phi i1 [ true, %2 ], [ true, %8 ], [ false, %12 ], [ %33, %31 ], [ %23, %25 ], [ %23, %21 ]
-  ret i1 %39
+38:                                               ; preds = %31, %25, %21, %12, %8
+  %39 = phi i1 [ false, %8 ], [ true, %12 ], [ %23, %21 ], [ %23, %25 ], [ %33, %31 ]
+  %40 = xor i1 %39, true
+  br label %41
+
+41:                                               ; preds = %38, %2
+  %42 = phi i1 [ true, %2 ], [ %40, %38 ]
+  ret i1 %42
 }
 
 ; Function Attrs: uwtable
@@ -1746,10 +1751,10 @@ define linkonce_odr dso_local void @_ZN11btRigidBodyD2Ev(ptr noundef nonnull ali
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %13
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
+10:                                               ; preds = %9, %1
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
+  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -1790,9 +1795,9 @@ define linkonce_odr dso_local void @_ZN11btRigidBodyD0Ev(ptr noundef nonnull ali
           to label %10 unwind label %13
 
 10:                                               ; preds = %9, %1
-  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
+  %11 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 23, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -1863,12 +1868,12 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %5 = alloca %class.btMatrix3x3, align 8
   %6 = alloca %class.btQuaternion, align 8
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %5) #21
-  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
-  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
-  %9 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
-  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
-  %11 = load float, ptr %10, align 4, !tbaa !24, !noalias !68
-  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %7 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 1
+  %8 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2, i32 0, i64 2
+  %9 = load float, ptr %8, align 4, !tbaa !24, !noalias !68
+  %10 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1, i32 0, i64 2
+  %11 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 1
+  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %0, i64 0, i64 2
   %13 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 1
   %14 = getelementptr inbounds [4 x float], ptr %0, i64 0, i64 2
   tail call void @llvm.experimental.noalias.scope.decl(metadata !71)
@@ -1889,32 +1894,32 @@ define linkonce_odr dso_local void @_ZN15btTransformUtil22calculateDiffAxisAngle
   %29 = load float, ptr %28, align 4, !tbaa !24, !noalias !71
   %30 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2, i32 0, i64 2
   %31 = load float, ptr %30, align 4, !tbaa !24, !noalias !71
-  %32 = load float, ptr %8, align 4, !tbaa !24, !noalias !68
-  %33 = load float, ptr %12, align 4, !tbaa !24, !noalias !68
-  %34 = load <2 x float>, ptr %9, align 4, !tbaa !24, !noalias !68
+  %32 = load float, ptr %7, align 4, !tbaa !24, !noalias !68
+  %33 = load float, ptr %10, align 4, !tbaa !24, !noalias !68
+  %34 = load <2 x float>, ptr %12, align 4, !tbaa !24, !noalias !68
   %35 = shufflevector <2 x float> %34, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %36 = load float, ptr %7, align 4, !tbaa !24, !noalias !68
+  %36 = load float, ptr %11, align 4, !tbaa !24, !noalias !68
   %37 = load float, ptr %0, align 4, !tbaa !24, !noalias !68
   %38 = load float, ptr %13, align 4, !tbaa !24, !noalias !68
   %39 = load float, ptr %14, align 4, !tbaa !24, !noalias !68
   %40 = insertelement <2 x float> poison, float %36, i64 0
   %41 = insertelement <2 x float> %40, float %39, i64 1
   %42 = fneg <2 x float> %41
-  %43 = insertelement <2 x float> %35, float %11, i64 0
+  %43 = insertelement <2 x float> %35, float %9, i64 0
   %44 = fmul <2 x float> %43, %42
   %45 = insertelement <2 x float> poison, float %33, i64 0
   %46 = insertelement <2 x float> %45, float %37, i64 1
-  %47 = insertelement <2 x float> %34, float %11, i64 1
+  %47 = insertelement <2 x float> %34, float %9, i64 1
   %48 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %46, <2 x float> %47, <2 x float> %44)
   %49 = extractelement <2 x float> %48, i64 0
   %50 = fmul float %38, %49
   %51 = insertelement <2 x float> %45, float %38, i64 1
   %52 = fneg <2 x float> %51
-  %53 = insertelement <2 x float> %35, float %11, i64 1
+  %53 = insertelement <2 x float> %35, float %9, i64 1
   %54 = fmul <2 x float> %53, %52
   %55 = insertelement <2 x float> poison, float %32, i64 0
   %56 = insertelement <2 x float> %55, float %39, i64 1
-  %57 = insertelement <2 x float> %34, float %11, i64 0
+  %57 = insertelement <2 x float> %34, float %9, i64 0
   %58 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %56, <2 x float> %57, <2 x float> %54)
   %59 = extractelement <2 x float> %58, i64 0
   %60 = tail call float @llvm.fmuladd.f32(float %37, float %59, float %50)

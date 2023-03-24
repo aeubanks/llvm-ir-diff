@@ -193,7 +193,7 @@ define dso_local noundef zeroext i1 @_ZN2kc25f_something_to_initializeEPNS_17imp
   %49 = icmp eq i32 %48, 33
   br i1 %49, label %15, label %50, !llvm.loop !22
 
-50:                                               ; preds = %43, %42, %6
+50:                                               ; preds = %43, %6, %42
   %51 = load ptr, ptr %10, align 8, !tbaa !5
   %52 = load ptr, ptr %51, align 8
   %53 = tail call noundef i32 %52(ptr noundef nonnull align 8 dereferenceable(24) %10)
@@ -215,7 +215,7 @@ define dso_local noundef zeroext i1 @_ZN2kc25f_something_to_initializeEPNS_17imp
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str, i32 noundef 96, ptr noundef nonnull @.str.1)
   br label %62
 
-62:                                               ; preds = %23, %60, %55, %50, %61
+62:                                               ; preds = %23, %50, %55, %60, %61
   %63 = phi i1 [ false, %61 ], [ true, %60 ], [ true, %50 ], [ false, %55 ], [ true, %23 ]
   ret i1 %63
 }
@@ -1385,11 +1385,11 @@ define dso_local noundef nonnull ptr @_ZN2kc13f_mk_filenameEPNS_20impl_casestrin
   br label %50
 
 50:                                               ; preds = %48, %50
-  %51 = phi ptr [ %49, %48 ], [ %55, %50 ]
-  %52 = phi ptr [ %1, %48 ], [ %53, %50 ]
-  %53 = getelementptr inbounds i8, ptr %52, i64 1
+  %51 = phi ptr [ %1, %48 ], [ %53, %50 ]
+  %52 = phi ptr [ %49, %48 ], [ %55, %50 ]
+  %53 = getelementptr inbounds i8, ptr %51, i64 1
   %54 = load i8, ptr %53, align 1, !tbaa !94
-  %55 = getelementptr inbounds i8, ptr %51, i64 1
+  %55 = getelementptr inbounds i8, ptr %52, i64 1
   store i8 %54, ptr %55, align 1, !tbaa !94
   %56 = icmp eq i8 %54, 0
   br i1 %56, label %57, label %50, !llvm.loop !95
@@ -2262,7 +2262,7 @@ define internal fastcc noundef ptr @_ZN2kcL43f_outmost_nl_preds_in_patternrepres
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.39, i32 noundef 1035, ptr noundef nonnull @.str.1)
   br label %57
 
-57:                                               ; preds = %6, %56, %51
+57:                                               ; preds = %56, %51, %6
   %58 = load ptr, ptr %11, align 8, !tbaa !5
   %59 = load ptr, ptr %58, align 8
   %60 = tail call noundef i32 %59(ptr noundef nonnull align 8 dereferenceable(24) %11)
@@ -2410,26 +2410,26 @@ define dso_local noundef zeroext i1 @_ZN2kc19f_is_known_ptr_typeEPNS_7impl_IDE(p
   %59 = load ptr, ptr %58, align 8
   %60 = tail call noundef i32 %59(ptr noundef nonnull align 8 dereferenceable(24) %57)
   %61 = icmp eq i32 %60, 14
-  br i1 %61, label %69, label %74
+  br i1 %61, label %62, label %74
 
-62:                                               ; preds = %69
-  %63 = getelementptr inbounds %"class.kc::impl_phylumnames", ptr %70, i64 0, i32 2
-  %64 = load ptr, ptr %63, align 8, !tbaa !24
-  %65 = load ptr, ptr %64, align 8, !tbaa !5
-  %66 = load ptr, ptr %65, align 8
-  %67 = tail call noundef i32 %66(ptr noundef nonnull align 8 dereferenceable(24) %64)
-  %68 = icmp eq i32 %67, 14
-  br i1 %68, label %69, label %74
+62:                                               ; preds = %56, %67
+  %63 = phi ptr [ %69, %67 ], [ %57, %56 ]
+  %64 = getelementptr inbounds %"class.kc::impl_phylumnames", ptr %63, i64 0, i32 1
+  %65 = load ptr, ptr %64, align 8, !tbaa !162
+  %66 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %65, ptr noundef %0)
+  br i1 %66, label %74, label %67
 
-69:                                               ; preds = %56, %62
-  %70 = phi ptr [ %64, %62 ], [ %57, %56 ]
-  %71 = getelementptr inbounds %"class.kc::impl_phylumnames", ptr %70, i64 0, i32 1
-  %72 = load ptr, ptr %71, align 8, !tbaa !162
-  %73 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %72, ptr noundef %0)
-  br i1 %73, label %74, label %62
+67:                                               ; preds = %62
+  %68 = getelementptr inbounds %"class.kc::impl_phylumnames", ptr %63, i64 0, i32 2
+  %69 = load ptr, ptr %68, align 8, !tbaa !164
+  %70 = load ptr, ptr %69, align 8, !tbaa !5
+  %71 = load ptr, ptr %70, align 8
+  %72 = tail call noundef i32 %71(ptr noundef nonnull align 8 dereferenceable(24) %69)
+  %73 = icmp eq i32 %72, 14
+  br i1 %73, label %62, label %74
 
-74:                                               ; preds = %62, %69, %56
-  %75 = phi i1 [ false, %56 ], [ %73, %69 ], [ %73, %62 ]
+74:                                               ; preds = %67, %62, %56
+  %75 = phi i1 [ false, %56 ], [ %66, %62 ], [ %66, %67 ]
   ret i1 %75
 }
 
@@ -2463,9 +2463,9 @@ define dso_local noundef ptr @_ZN2kc21rewrite_withcasesinfoEPNS_18impl_withcases
   %17 = getelementptr inbounds %"class.kc::impl_withcaseinfo_Withcaseinfo", ptr %16, i64 0, i32 1
   %18 = load ptr, ptr %17, align 8, !tbaa !62
   %19 = getelementptr inbounds %"class.kc::impl_withcaseinfo_Withcaseinfo", ptr %16, i64 0, i32 2
-  %20 = load ptr, ptr %19, align 8, !tbaa !164
+  %20 = load ptr, ptr %19, align 8, !tbaa !165
   %21 = getelementptr inbounds %"class.kc::impl_withcaseinfo_Withcaseinfo", ptr %16, i64 0, i32 3
-  %22 = load ptr, ptr %21, align 8, !tbaa !165
+  %22 = load ptr, ptr %21, align 8, !tbaa !166
   %23 = getelementptr inbounds %"class.kc::impl_withcasesinfo", ptr %0, i64 0, i32 2
   %24 = load ptr, ptr %23, align 8, !tbaa !61
   %25 = load ptr, ptr %18, align 8, !tbaa !5
@@ -2513,9 +2513,9 @@ define dso_local noundef i32 @_ZN2kc47t_pos_of_sole_dollar_or_pattern_in_pattern
 
 10:                                               ; preds = %5
   %11 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %0, i64 0, i32 3
-  %12 = load ptr, ptr %11, align 8, !tbaa !166
+  %12 = load ptr, ptr %11, align 8, !tbaa !167
   %13 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %0, i64 0, i32 4
-  %14 = load ptr, ptr %13, align 8, !tbaa !168
+  %14 = load ptr, ptr %13, align 8, !tbaa !169
   %15 = add nsw i32 %2, 1
   %16 = tail call noundef i32 @_ZN2kc47t_pos_of_sole_dollar_or_pattern_in_patternchainEPNS_17impl_patternchainEii(ptr noundef %14, i32 noundef %1, i32 noundef %15)
   %17 = icmp eq i32 %16, -1
@@ -2542,7 +2542,7 @@ define dso_local noundef i32 @_ZN2kc47t_pos_of_sole_dollar_or_pattern_in_pattern
 
 31:                                               ; preds = %26
   %32 = getelementptr inbounds %"class.kc::impl_patternchainitem_PatternchainitemOutmost", ptr %12, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !169
+  %33 = load ptr, ptr %32, align 8, !tbaa !170
   %34 = load ptr, ptr %33, align 8, !tbaa !5
   %35 = load ptr, ptr %34, align 8
   %36 = tail call noundef i32 %35(ptr noundef nonnull align 8 dereferenceable(8) %33)
@@ -2551,7 +2551,7 @@ define dso_local noundef i32 @_ZN2kc47t_pos_of_sole_dollar_or_pattern_in_pattern
 
 38:                                               ; preds = %31
   %39 = getelementptr inbounds %"class.kc::impl_outmostpattern_OPOperatorWildcard", ptr %33, i64 0, i32 1
-  %40 = load ptr, ptr %39, align 8, !tbaa !172
+  %40 = load ptr, ptr %39, align 8, !tbaa !173
   %41 = load ptr, ptr %40, align 8, !tbaa !5
   %42 = load ptr, ptr %41, align 8
   %43 = tail call noundef i32 %42(ptr noundef nonnull align 8 dereferenceable(8) %40)
@@ -2559,11 +2559,11 @@ define dso_local noundef i32 @_ZN2kc47t_pos_of_sole_dollar_or_pattern_in_pattern
   br i1 %44, label %45, label %63
 
 45:                                               ; preds = %38
-  %46 = load ptr, ptr %39, align 8, !tbaa !172
+  %46 = load ptr, ptr %39, align 8, !tbaa !173
   %47 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %46, i64 0, i32 1
   %48 = load ptr, ptr %47, align 8, !tbaa !46
   %49 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %48, i64 0, i32 1
-  %50 = load ptr, ptr %49, align 8, !tbaa !175
+  %50 = load ptr, ptr %49, align 8, !tbaa !176
   %51 = load ptr, ptr %50, align 8, !tbaa !5
   %52 = load ptr, ptr %51, align 8
   %53 = tail call noundef i32 %52(ptr noundef nonnull align 8 dereferenceable(8) %50)
@@ -2595,9 +2595,9 @@ define dso_local noundef i32 @_ZN2kc47t_pos_of_sole_dollar_or_pattern_in_pattern
 ; Function Attrs: uwtable
 define dso_local void @_ZN2kc20f_getidentfromstringB5cxx11EPPKc(ptr noalias sret(%"class.std::__cxx11::basic_string") align 8 %0, ptr nocapture noundef %1) local_unnamed_addr #11 personality ptr @__gxx_personality_v0 {
   %3 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
-  store ptr %3, ptr %0, align 8, !tbaa !176
+  store ptr %3, ptr %0, align 8, !tbaa !177
   %4 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
-  store i64 0, ptr %4, align 8, !tbaa !177
+  store i64 0, ptr %4, align 8, !tbaa !178
   store i8 0, ptr %3, align 8, !tbaa !94
   %5 = load ptr, ptr %1, align 8, !tbaa !24
   %6 = load i8, ptr %5, align 1, !tbaa !94
@@ -2613,7 +2613,7 @@ define dso_local void @_ZN2kc20f_getidentfromstringB5cxx11EPPKc(ptr noalias sret
   %14 = getelementptr inbounds i8, ptr %13, i64 1
   store ptr %14, ptr %1, align 8, !tbaa !24
   %15 = load i8, ptr %13, align 1, !tbaa !94
-  %16 = load i64, ptr %4, align 8, !tbaa !177
+  %16 = load i64, ptr %4, align 8, !tbaa !178
   %17 = add i64 %16, 1
   %18 = load ptr, ptr %0, align 8, !tbaa !96
   %19 = icmp eq ptr %18, %3
@@ -2634,7 +2634,7 @@ define dso_local void @_ZN2kc20f_getidentfromstringB5cxx11EPPKc(ptr noalias sret
   %27 = phi ptr [ %25, %24 ], [ %18, %12 ]
   %28 = getelementptr inbounds i8, ptr %27, i64 %16
   store i8 %15, ptr %28, align 1, !tbaa !94
-  store i64 %17, ptr %4, align 8, !tbaa !177
+  store i64 %17, ptr %4, align 8, !tbaa !178
   %29 = load ptr, ptr %0, align 8, !tbaa !96
   %30 = getelementptr inbounds i8, ptr %29, i64 %17
   store i8 0, ptr %30, align 1, !tbaa !94
@@ -2679,7 +2679,7 @@ define dso_local void @_ZN2kc20f_getidentfromstringB5cxx11EPPKc(ptr noalias sret
   %51 = getelementptr inbounds i8, ptr %49, i64 1
   store ptr %51, ptr %1, align 8, !tbaa !24
   %52 = load i8, ptr %49, align 1, !tbaa !94
-  %53 = load i64, ptr %4, align 8, !tbaa !177
+  %53 = load i64, ptr %4, align 8, !tbaa !178
   %54 = add i64 %53, 1
   %55 = load ptr, ptr %0, align 8, !tbaa !96
   %56 = icmp eq ptr %55, %3
@@ -2700,7 +2700,7 @@ define dso_local void @_ZN2kc20f_getidentfromstringB5cxx11EPPKc(ptr noalias sret
   %64 = phi ptr [ %62, %61 ], [ %55, %50 ]
   %65 = getelementptr inbounds i8, ptr %64, i64 %53
   store i8 %52, ptr %65, align 1, !tbaa !94
-  store i64 %54, ptr %4, align 8, !tbaa !177
+  store i64 %54, ptr %4, align 8, !tbaa !178
   %66 = load ptr, ptr %0, align 8, !tbaa !96
   %67 = getelementptr inbounds i8, ptr %66, i64 %54
   store i8 0, ptr %67, align 1, !tbaa !94
@@ -2941,17 +2941,18 @@ attributes #15 = { builtin nounwind }
 !161 = !{!159, !12, i64 16}
 !162 = !{!163, !12, i64 8}
 !163 = !{!"_ZTSN2kc16impl_phylumnamesE", !17, i64 0, !12, i64 8, !12, i64 16}
-!164 = !{!63, !12, i64 16}
-!165 = !{!63, !12, i64 24}
-!166 = !{!167, !12, i64 24}
-!167 = !{!"_ZTSN2kc17impl_patternchainE", !17, i64 0, !30, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
-!168 = !{!167, !12, i64 32}
-!169 = !{!170, !12, i64 32}
-!170 = !{!"_ZTSN2kc45impl_patternchainitem_PatternchainitemOutmostE", !171, i64 0, !12, i64 32}
-!171 = !{!"_ZTSN2kc21impl_patternchainitemE", !11, i64 0, !30, i64 8, !12, i64 16, !12, i64 24}
-!172 = !{!173, !12, i64 32}
-!173 = !{!"_ZTSN2kc38impl_outmostpattern_OPOperatorWildcardE", !174, i64 0, !12, i64 32, !12, i64 40}
-!174 = !{!"_ZTSN2kc19impl_outmostpatternE", !11, i64 0, !30, i64 8, !12, i64 16, !12, i64 24}
-!175 = !{!51, !12, i64 8}
-!176 = !{!98, !12, i64 0}
-!177 = !{!97, !99, i64 8}
+!164 = !{!163, !12, i64 16}
+!165 = !{!63, !12, i64 16}
+!166 = !{!63, !12, i64 24}
+!167 = !{!168, !12, i64 24}
+!168 = !{!"_ZTSN2kc17impl_patternchainE", !17, i64 0, !30, i64 8, !12, i64 16, !12, i64 24, !12, i64 32}
+!169 = !{!168, !12, i64 32}
+!170 = !{!171, !12, i64 32}
+!171 = !{!"_ZTSN2kc45impl_patternchainitem_PatternchainitemOutmostE", !172, i64 0, !12, i64 32}
+!172 = !{!"_ZTSN2kc21impl_patternchainitemE", !11, i64 0, !30, i64 8, !12, i64 16, !12, i64 24}
+!173 = !{!174, !12, i64 32}
+!174 = !{!"_ZTSN2kc38impl_outmostpattern_OPOperatorWildcardE", !175, i64 0, !12, i64 32, !12, i64 40}
+!175 = !{!"_ZTSN2kc19impl_outmostpatternE", !11, i64 0, !30, i64 8, !12, i64 16, !12, i64 24}
+!176 = !{!51, !12, i64 8}
+!177 = !{!98, !12, i64 0}
+!178 = !{!97, !99, i64 8}

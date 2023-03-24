@@ -98,7 +98,7 @@ define dso_local void @_ZN18btSimpleBroadphaseC2EiP22btOverlappingPairCache(ptr 
   %23 = getelementptr inbounds %struct.btSimpleBroadphaseProxy, ptr %13, i64 %11
   br label %24
 
-24:                                               ; preds = %22, %24
+24:                                               ; preds = %24, %22
   %25 = phi ptr [ %13, %22 ], [ %27, %24 ]
   store ptr null, ptr %25, align 8, !tbaa !23
   %26 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %25, i64 0, i32 4
@@ -296,8 +296,8 @@ define dso_local noundef ptr @_ZN18btSimpleBroadphase11createProxyERK9btVector3S
   store ptr %8, ptr %34, align 8, !tbaa !27
   br label %35
 
-35:                                               ; preds = %28, %9
-  %36 = phi ptr [ null, %9 ], [ %29, %28 ]
+35:                                               ; preds = %9, %28
+  %36 = phi ptr [ %29, %28 ], [ null, %9 ]
   ret ptr %36
 }
 
@@ -567,7 +567,7 @@ define dso_local void @_ZN18btSimpleBroadphase25calculateOverlappingPairsEP12btD
   %83 = tail call noundef ptr %82(ptr noundef nonnull align 8 dereferenceable(8) %79, ptr noundef nonnull %20, ptr noundef nonnull %38)
   br label %103
 
-84:                                               ; preds = %41, %46, %51, %56, %61, %66
+84:                                               ; preds = %61, %56, %51, %46, %41, %66
   %85 = load ptr, ptr %14, align 8, !tbaa !8
   %86 = load ptr, ptr %85, align 8, !tbaa !5
   %87 = getelementptr inbounds ptr, ptr %86, i64 14
@@ -666,7 +666,7 @@ define dso_local void @_ZN18btSimpleBroadphase25calculateOverlappingPairsEP12btD
   %151 = phi ptr [ null, %144 ], [ %154, %206 ]
   %152 = load ptr, ptr %145, align 8, !tbaa !42
   %153 = getelementptr inbounds %struct.btBroadphasePair, ptr %152, i64 %149
-  %154 = load ptr, ptr %153, align 8, !tbaa !43
+  %154 = load ptr, ptr %153, align 8
   %155 = icmp eq ptr %154, %151
   %156 = getelementptr inbounds %struct.btBroadphasePair, ptr %152, i64 %149, i32 1
   %157 = load ptr, ptr %156, align 8
@@ -732,9 +732,9 @@ define dso_local void @_ZN18btSimpleBroadphase25calculateOverlappingPairsEP12btD
   %201 = load i32, ptr %139, align 4, !tbaa !16
   %202 = add nsw i32 %201, 1
   store i32 %202, ptr %139, align 4, !tbaa !16
-  %203 = load i32, ptr @gOverlappingPairs, align 4, !tbaa !45
+  %203 = load i32, ptr @gOverlappingPairs, align 4, !tbaa !43
   %204 = add nsw i32 %203, -1
-  store i32 %204, ptr @gOverlappingPairs, align 4, !tbaa !45
+  store i32 %204, ptr @gOverlappingPairs, align 4, !tbaa !43
   %205 = load i32, ptr %131, align 4, !tbaa !39
   br label %206
 
@@ -785,7 +785,7 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
 
 9:                                                ; preds = %7
   %10 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
-  %11 = load i32, ptr %10, align 8, !tbaa !46
+  %11 = load i32, ptr %10, align 8, !tbaa !44
   %12 = icmp slt i32 %11, %1
   br i1 %12, label %13, label %51
 
@@ -816,12 +816,12 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
   %29 = getelementptr inbounds %struct.btBroadphasePair, ptr %22, i64 %28
   %30 = load ptr, ptr %25, align 8, !tbaa !42
   %31 = getelementptr inbounds %struct.btBroadphasePair, ptr %30, i64 %28
-  %32 = load <2 x ptr>, ptr %31, align 8, !tbaa !47
-  store <2 x ptr> %32, ptr %29, align 8, !tbaa !47
+  %32 = load <2 x ptr>, ptr %31, align 8, !tbaa !45
+  store <2 x ptr> %32, ptr %29, align 8, !tbaa !45
   %33 = getelementptr inbounds %struct.btBroadphasePair, ptr %22, i64 %28, i32 2
   %34 = getelementptr inbounds %struct.btBroadphasePair, ptr %30, i64 %28, i32 2
-  %35 = load ptr, ptr %34, align 8, !tbaa !48
-  store ptr %35, ptr %33, align 8, !tbaa !48
+  %35 = load ptr, ptr %34, align 8, !tbaa !46
+  store ptr %35, ptr %33, align 8, !tbaa !46
   %36 = getelementptr inbounds %struct.btBroadphasePair, ptr %22, i64 %28, i32 3
   %37 = getelementptr inbounds %struct.btBroadphasePair, ptr %30, i64 %28, i32 3
   %38 = load ptr, ptr %37, align 8, !tbaa !36
@@ -845,9 +845,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
   br label %50
 
 50:                                               ; preds = %41, %49
-  store i8 1, ptr %45, align 8, !tbaa !49
+  store i8 1, ptr %45, align 8, !tbaa !48
   store ptr %22, ptr %42, align 8, !tbaa !42
-  store i32 %1, ptr %10, align 8, !tbaa !46
+  store i32 %1, ptr %10, align 8, !tbaa !44
   br i1 %8, label %51, label %68
 
 51:                                               ; preds = %9, %50
@@ -862,11 +862,11 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
   %58 = phi i64 [ %55, %51 ], [ %66, %57 ]
   %59 = load ptr, ptr %52, align 8, !tbaa !42
   %60 = getelementptr inbounds %struct.btBroadphasePair, ptr %59, i64 %58
-  %61 = load <2 x ptr>, ptr %2, align 8, !tbaa !47
-  store <2 x ptr> %61, ptr %60, align 8, !tbaa !47
+  %61 = load <2 x ptr>, ptr %2, align 8, !tbaa !45
+  store <2 x ptr> %61, ptr %60, align 8, !tbaa !45
   %62 = getelementptr inbounds %struct.btBroadphasePair, ptr %59, i64 %58, i32 2
-  %63 = load ptr, ptr %53, align 8, !tbaa !48
-  store ptr %63, ptr %62, align 8, !tbaa !48
+  %63 = load ptr, ptr %53, align 8, !tbaa !46
+  store ptr %63, ptr %62, align 8, !tbaa !46
   %64 = getelementptr inbounds %struct.btBroadphasePair, ptr %59, i64 %58, i32 3
   %65 = load ptr, ptr %54, align 8, !tbaa !36
   store ptr %65, ptr %64, align 8, !tbaa !36
@@ -969,35 +969,35 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
   %4 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 5
   br label %5
 
-5:                                                ; preds = %132, %3
-  %6 = phi i32 [ %1, %3 ], [ %126, %132 ]
+5:                                                ; preds = %133, %3
+  %6 = phi i32 [ %1, %3 ], [ %127, %133 ]
   %7 = load ptr, ptr %4, align 8, !tbaa !42
   %8 = add nsw i32 %6, %2
   %9 = sdiv i32 %8, 2
   %10 = sext i32 %9 to i64
   %11 = getelementptr inbounds %struct.btBroadphasePair, ptr %7, i64 %10
-  %12 = load ptr, ptr %11, align 8, !tbaa !43
+  %12 = load ptr, ptr %11, align 8, !tbaa !49
   %13 = getelementptr inbounds %struct.btBroadphasePair, ptr %7, i64 %10, i32 1
   %14 = load ptr, ptr %13, align 8, !tbaa !50
   %15 = getelementptr inbounds %struct.btBroadphasePair, ptr %7, i64 %10, i32 2
-  %16 = load ptr, ptr %15, align 8, !tbaa !48
+  %16 = load ptr, ptr %15, align 8, !tbaa !46
   %17 = icmp eq ptr %12, null
   %18 = icmp eq ptr %14, null
   %19 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %12, i64 0, i32 5
   %20 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %14, i64 0, i32 5
   br label %21
 
-21:                                               ; preds = %125, %5
-  %22 = phi i32 [ %6, %5 ], [ %126, %125 ]
-  %23 = phi i32 [ %2, %5 ], [ %127, %125 ]
+21:                                               ; preds = %126, %5
+  %22 = phi i32 [ %6, %5 ], [ %127, %126 ]
+  %23 = phi i32 [ %2, %5 ], [ %128, %126 ]
   %24 = load ptr, ptr %4, align 8, !tbaa !42
   %25 = sext i32 %22 to i64
   br label %26
 
-26:                                               ; preds = %69, %21
-  %27 = phi i64 [ %70, %69 ], [ %25, %21 ]
+26:                                               ; preds = %70, %21
+  %27 = phi i64 [ %71, %70 ], [ %25, %21 ]
   %28 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27
-  %29 = load ptr, ptr %28, align 8, !tbaa !43
+  %29 = load ptr, ptr %28, align 8, !tbaa !49
   %30 = icmp eq ptr %29, null
   br i1 %30, label %34, label %31
 
@@ -1037,7 +1037,7 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
 50:                                               ; preds = %48, %46
   %51 = phi i32 [ %49, %48 ], [ -1, %46 ]
   %52 = icmp sgt i32 %35, %39
-  br i1 %52, label %69, label %53
+  br i1 %52, label %70, label %53
 
 53:                                               ; preds = %50
   %54 = icmp eq ptr %29, %12
@@ -1045,139 +1045,140 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI16btBroadphasePair
   %56 = select i1 %54, i1 %55, i1 false
   %57 = xor i1 %54, true
   %58 = or i1 %56, %57
-  br i1 %58, label %68, label %59
+  br i1 %58, label %69, label %59
 
 59:                                               ; preds = %53
   %60 = icmp eq ptr %41, %14
-  br i1 %60, label %64, label %61
+  br i1 %60, label %61, label %65
 
-61:                                               ; preds = %68, %64, %59
-  %62 = trunc i64 %27 to i32
-  %63 = sext i32 %23 to i64
-  br label %71
+61:                                               ; preds = %59
+  %62 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
+  %63 = load ptr, ptr %62, align 8, !tbaa !46
+  %64 = icmp ugt ptr %63, %16
+  br i1 %64, label %70, label %65
 
-64:                                               ; preds = %59
-  %65 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
-  %66 = load ptr, ptr %65, align 8, !tbaa !48
-  %67 = icmp ugt ptr %66, %16
-  br i1 %67, label %69, label %61
+65:                                               ; preds = %69, %59, %61
+  %66 = phi ptr [ %41, %69 ], [ %41, %59 ], [ %14, %61 ]
+  %67 = trunc i64 %27 to i32
+  %68 = sext i32 %23 to i64
+  br label %72
 
-68:                                               ; preds = %53
-  br i1 %56, label %69, label %61
+69:                                               ; preds = %53
+  br i1 %56, label %70, label %65
 
-69:                                               ; preds = %50, %64, %68
-  %70 = add i64 %27, 1
+70:                                               ; preds = %61, %50, %69
+  %71 = add i64 %27, 1
   br label %26
 
-71:                                               ; preds = %61, %111
-  %72 = phi i64 [ %63, %61 ], [ %112, %111 ]
-  %73 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %72
-  br i1 %17, label %76, label %74
+72:                                               ; preds = %65, %112
+  %73 = phi i64 [ %68, %65 ], [ %113, %112 ]
+  %74 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %73
+  br i1 %17, label %77, label %75
 
-74:                                               ; preds = %71
-  %75 = load i32, ptr %19, align 8, !tbaa !30
-  br label %76
+75:                                               ; preds = %72
+  %76 = load i32, ptr %19, align 8, !tbaa !30
+  br label %77
 
-76:                                               ; preds = %74, %71
-  %77 = phi i32 [ %75, %74 ], [ -1, %71 ]
-  %78 = load ptr, ptr %73, align 8, !tbaa !43
-  %79 = icmp eq ptr %78, null
-  br i1 %79, label %83, label %80
+77:                                               ; preds = %75, %72
+  %78 = phi i32 [ %76, %75 ], [ -1, %72 ]
+  %79 = load ptr, ptr %74, align 8, !tbaa !49
+  %80 = icmp eq ptr %79, null
+  br i1 %80, label %84, label %81
 
-80:                                               ; preds = %76
-  %81 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %78, i64 0, i32 5
-  %82 = load i32, ptr %81, align 8, !tbaa !30
-  br label %83
+81:                                               ; preds = %77
+  %82 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %79, i64 0, i32 5
+  %83 = load i32, ptr %82, align 8, !tbaa !30
+  br label %84
 
-83:                                               ; preds = %80, %76
-  %84 = phi i32 [ %82, %80 ], [ -1, %76 ]
-  br i1 %18, label %87, label %85
+84:                                               ; preds = %81, %77
+  %85 = phi i32 [ %83, %81 ], [ -1, %77 ]
+  br i1 %18, label %88, label %86
 
-85:                                               ; preds = %83
-  %86 = load i32, ptr %20, align 8, !tbaa !30
-  br label %87
+86:                                               ; preds = %84
+  %87 = load i32, ptr %20, align 8, !tbaa !30
+  br label %88
 
-87:                                               ; preds = %85, %83
-  %88 = phi i32 [ %86, %85 ], [ -1, %83 ]
-  %89 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %72, i32 1
-  %90 = load ptr, ptr %89, align 8, !tbaa !50
-  %91 = icmp eq ptr %90, null
-  br i1 %91, label %95, label %92
+88:                                               ; preds = %86, %84
+  %89 = phi i32 [ %87, %86 ], [ -1, %84 ]
+  %90 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %73, i32 1
+  %91 = load ptr, ptr %90, align 8, !tbaa !50
+  %92 = icmp eq ptr %91, null
+  br i1 %92, label %96, label %93
 
-92:                                               ; preds = %87
-  %93 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %90, i64 0, i32 5
-  %94 = load i32, ptr %93, align 8, !tbaa !30
-  br label %95
+93:                                               ; preds = %88
+  %94 = getelementptr inbounds %struct.btBroadphaseProxy, ptr %91, i64 0, i32 5
+  %95 = load i32, ptr %94, align 8, !tbaa !30
+  br label %96
 
-95:                                               ; preds = %92, %87
-  %96 = phi i32 [ %94, %92 ], [ -1, %87 ]
-  %97 = icmp sgt i32 %77, %84
-  br i1 %97, label %111, label %98
+96:                                               ; preds = %93, %88
+  %97 = phi i32 [ %95, %93 ], [ -1, %88 ]
+  %98 = icmp sgt i32 %78, %85
+  br i1 %98, label %112, label %99
 
-98:                                               ; preds = %95
-  %99 = icmp eq ptr %12, %78
-  %100 = icmp sgt i32 %88, %96
-  %101 = select i1 %99, i1 %100, i1 false
-  %102 = xor i1 %99, true
-  %103 = or i1 %101, %102
-  br i1 %103, label %110, label %104
+99:                                               ; preds = %96
+  %100 = icmp eq ptr %12, %79
+  %101 = icmp sgt i32 %89, %97
+  %102 = select i1 %100, i1 %101, i1 false
+  %103 = xor i1 %100, true
+  %104 = or i1 %102, %103
+  br i1 %104, label %111, label %105
 
-104:                                              ; preds = %98
-  %105 = icmp eq ptr %14, %90
-  br i1 %105, label %106, label %113
+105:                                              ; preds = %99
+  %106 = icmp eq ptr %14, %91
+  br i1 %106, label %107, label %114
 
-106:                                              ; preds = %104
-  %107 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %72, i32 2
-  %108 = load ptr, ptr %107, align 8, !tbaa !48
-  %109 = icmp ugt ptr %16, %108
-  br i1 %109, label %111, label %113
+107:                                              ; preds = %105
+  %108 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %73, i32 2
+  %109 = load ptr, ptr %108, align 8, !tbaa !46
+  %110 = icmp ugt ptr %16, %109
+  br i1 %110, label %112, label %114
 
-110:                                              ; preds = %98
-  br i1 %101, label %111, label %113
+111:                                              ; preds = %99
+  br i1 %102, label %112, label %114
 
-111:                                              ; preds = %95, %106, %110
-  %112 = add i64 %72, -1
-  br label %71
+112:                                              ; preds = %107, %96, %111
+  %113 = add i64 %73, -1
+  br label %72
 
-113:                                              ; preds = %104, %106, %110
-  %114 = trunc i64 %72 to i32
-  %115 = icmp sgt i32 %62, %114
-  br i1 %115, label %125, label %116
+114:                                              ; preds = %107, %105, %111
+  %115 = trunc i64 %73 to i32
+  %116 = icmp sgt i32 %67, %115
+  br i1 %116, label %126, label %117
 
-116:                                              ; preds = %113
-  %117 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
-  %118 = load <2 x ptr>, ptr %117, align 8, !tbaa !36
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %28, ptr noundef nonnull align 8 dereferenceable(32) %73, i64 32, i1 false), !tbaa.struct !51
-  %119 = load ptr, ptr %4, align 8, !tbaa !42
-  %120 = getelementptr inbounds %struct.btBroadphasePair, ptr %119, i64 %72
-  store ptr %29, ptr %120, align 8, !tbaa.struct !51
-  %121 = getelementptr inbounds i8, ptr %120, i64 8
-  store ptr %41, ptr %121, align 8, !tbaa.struct !52
-  %122 = getelementptr inbounds i8, ptr %120, i64 16
-  store <2 x ptr> %118, ptr %122, align 8
-  %123 = add nsw i32 %62, 1
-  %124 = add nsw i32 %114, -1
-  br label %125
+117:                                              ; preds = %114
+  %118 = getelementptr inbounds %struct.btBroadphasePair, ptr %24, i64 %27, i32 2
+  %119 = load <2 x ptr>, ptr %118, align 8, !tbaa !36
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %28, ptr noundef nonnull align 8 dereferenceable(32) %74, i64 32, i1 false), !tbaa.struct !51
+  %120 = load ptr, ptr %4, align 8, !tbaa !42
+  %121 = getelementptr inbounds %struct.btBroadphasePair, ptr %120, i64 %73
+  store ptr %29, ptr %121, align 8, !tbaa.struct !51
+  %122 = getelementptr inbounds i8, ptr %121, i64 8
+  store ptr %66, ptr %122, align 8, !tbaa.struct !52
+  %123 = getelementptr inbounds i8, ptr %121, i64 16
+  store <2 x ptr> %119, ptr %123, align 8
+  %124 = add nsw i32 %67, 1
+  %125 = add nsw i32 %115, -1
+  br label %126
 
-125:                                              ; preds = %113, %116
-  %126 = phi i32 [ %123, %116 ], [ %62, %113 ]
-  %127 = phi i32 [ %124, %116 ], [ %114, %113 ]
-  %128 = icmp sgt i32 %126, %127
-  br i1 %128, label %129, label %21
+126:                                              ; preds = %114, %117
+  %127 = phi i32 [ %124, %117 ], [ %67, %114 ]
+  %128 = phi i32 [ %125, %117 ], [ %115, %114 ]
+  %129 = icmp sgt i32 %127, %128
+  br i1 %129, label %130, label %21
 
-129:                                              ; preds = %125
-  %130 = icmp sgt i32 %127, %6
-  br i1 %130, label %131, label %132
+130:                                              ; preds = %126
+  %131 = icmp sgt i32 %128, %6
+  br i1 %131, label %132, label %133
 
-131:                                              ; preds = %129
-  tail call void @_ZN20btAlignedObjectArrayI16btBroadphasePairE17quickSortInternalI29btBroadphasePairSortPredicateEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %0, i32 noundef %6, i32 noundef %127)
-  br label %132
+132:                                              ; preds = %130
+  tail call void @_ZN20btAlignedObjectArrayI16btBroadphasePairE17quickSortInternalI29btBroadphasePairSortPredicateEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %0, i32 noundef %6, i32 noundef %128)
+  br label %133
 
-132:                                              ; preds = %131, %129
-  %133 = icmp slt i32 %126, %2
-  br i1 %133, label %5, label %134
+133:                                              ; preds = %132, %130
+  %134 = icmp slt i32 %127, %2
+  br i1 %134, label %5, label %135
 
-134:                                              ; preds = %132
+135:                                              ; preds = %133
   ret void
 }
 
@@ -1245,13 +1246,13 @@ attributes #13 = { nounwind }
 !40 = !{!"_ZTS20btAlignedObjectArrayI16btBroadphasePairE", !41, i64 0, !11, i64 4, !11, i64 8, !13, i64 16, !14, i64 24}
 !41 = !{!"_ZTS18btAlignedAllocatorI16btBroadphasePairLj16EE"}
 !42 = !{!40, !13, i64 16}
-!43 = !{!44, !13, i64 0}
-!44 = !{!"_ZTS16btBroadphasePair", !13, i64 0, !13, i64 8, !13, i64 16, !12, i64 24}
-!45 = !{!11, !11, i64 0}
-!46 = !{!40, !11, i64 8}
-!47 = !{!13, !13, i64 0}
-!48 = !{!44, !13, i64 16}
-!49 = !{!40, !14, i64 24}
-!50 = !{!44, !13, i64 8}
-!51 = !{i64 0, i64 8, !47, i64 8, i64 8, !47, i64 16, i64 8, !47, i64 24, i64 8, !47, i64 24, i64 4, !45}
-!52 = !{i64 0, i64 8, !47, i64 8, i64 8, !47, i64 16, i64 8, !47, i64 16, i64 4, !45}
+!43 = !{!11, !11, i64 0}
+!44 = !{!40, !11, i64 8}
+!45 = !{!13, !13, i64 0}
+!46 = !{!47, !13, i64 16}
+!47 = !{!"_ZTS16btBroadphasePair", !13, i64 0, !13, i64 8, !13, i64 16, !12, i64 24}
+!48 = !{!40, !14, i64 24}
+!49 = !{!47, !13, i64 0}
+!50 = !{!47, !13, i64 8}
+!51 = !{i64 0, i64 8, !45, i64 8, i64 8, !45, i64 16, i64 8, !45, i64 24, i64 8, !45, i64 24, i64 4, !43}
+!52 = !{i64 0, i64 8, !45, i64 8, i64 8, !45, i64 16, i64 8, !45, i64 16, i64 4, !43}

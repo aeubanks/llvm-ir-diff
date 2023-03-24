@@ -83,33 +83,33 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
   %46 = phi i32 [ %31, %37 ], [ -1, %1 ], [ %31, %43 ]
   %47 = phi i32 [ %42, %37 ], [ -1, %1 ], [ -1, %43 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #8
-  %48 = getelementptr inbounds %class.CStringBase, ptr %3, i64 0, i32 2
-  %49 = getelementptr inbounds i8, ptr %3, i64 8
-  store i64 0, ptr %49, align 8
-  %50 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #9
-          to label %51 unwind label %129
+  %48 = getelementptr inbounds i8, ptr %3, i64 8
+  store i64 0, ptr %48, align 8
+  %49 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #9
+          to label %50 unwind label %129
 
-51:                                               ; preds = %45
-  store ptr %50, ptr %3, align 8, !tbaa !5
-  store i32 0, ptr %50, align 4, !tbaa !11
-  store i32 4, ptr %48, align 4, !tbaa !13
+50:                                               ; preds = %45
+  %51 = getelementptr inbounds %class.CStringBase, ptr %3, i64 0, i32 2
+  store ptr %49, ptr %3, align 8, !tbaa !5
+  store i32 0, ptr %49, align 4, !tbaa !11
+  store i32 4, ptr %51, align 4, !tbaa !13
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #8
-  %52 = getelementptr inbounds %class.CStringBase, ptr %4, i64 0, i32 2
-  %53 = getelementptr inbounds i8, ptr %4, i64 8
-  store i64 0, ptr %53, align 8
-  %54 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #9
-          to label %55 unwind label %131
+  %52 = getelementptr inbounds i8, ptr %4, i64 8
+  store i64 0, ptr %52, align 8
+  %53 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #9
+          to label %54 unwind label %131
 
-55:                                               ; preds = %51
-  store ptr %54, ptr %4, align 8, !tbaa !5
-  store i32 0, ptr %54, align 4, !tbaa !11
-  store i32 4, ptr %52, align 4, !tbaa !13
+54:                                               ; preds = %50
+  %55 = getelementptr inbounds %class.CStringBase, ptr %4, i64 0, i32 2
+  store ptr %53, ptr %4, align 8, !tbaa !5
+  store i32 0, ptr %53, align 4, !tbaa !11
+  store i32 4, ptr %55, align 4, !tbaa !13
   %56 = icmp sgt i32 %46, %47
   %57 = icmp sgt i32 %46, 0
   %58 = and i1 %57, %56
   br i1 %58, label %59, label %151
 
-59:                                               ; preds = %55
+59:                                               ; preds = %54
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #8
   invoke void @_ZNK11CStringBaseIwE3MidEii(ptr nonnull sret(%class.CStringBase) align 8 %5, ptr noundef nonnull align 8 dereferenceable(16) %0, i32 noundef 0, i32 noundef %46)
           to label %60 unwind label %133
@@ -122,7 +122,7 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
   %63 = getelementptr inbounds %class.CStringBase, ptr %5, i64 0, i32 1
   %64 = load i32, ptr %63, align 8, !tbaa !14
   %65 = add nsw i32 %64, 1
-  %66 = load i32, ptr %48, align 4, !tbaa !13
+  %66 = load i32, ptr %51, align 4, !tbaa !13
   %67 = icmp eq i32 %65, %66
   br i1 %67, label %82, label %68
 
@@ -149,7 +149,7 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
   store ptr %73, ptr %3, align 8, !tbaa !5
   %81 = getelementptr inbounds i32, ptr %73, i64 %80
   store i32 0, ptr %81, align 4, !tbaa !11
-  store i32 %65, ptr %48, align 4, !tbaa !13
+  store i32 %65, ptr %51, align 4, !tbaa !13
   br label %82
 
 82:                                               ; preds = %79, %60
@@ -188,7 +188,7 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
 99:                                               ; preds = %96
   %100 = getelementptr inbounds %class.CStringBase, ptr %4, i64 0, i32 1
   store i32 0, ptr %100, align 8, !tbaa !14
-  store i32 0, ptr %54, align 4, !tbaa !11
+  store i32 0, ptr %53, align 4, !tbaa !11
   %101 = getelementptr inbounds %class.CStringBase, ptr %6, i64 0, i32 1
   %102 = load i32, ptr %101, align 8, !tbaa !14
   %103 = add nsw i32 %102, 1
@@ -204,14 +204,14 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
           to label %111 unwind label %144
 
 111:                                              ; preds = %105
-  call void @_ZdaPv(ptr noundef nonnull %54) #10
+  call void @_ZdaPv(ptr noundef nonnull %53) #10
   store ptr %110, ptr %4, align 8, !tbaa !5
   store i32 0, ptr %110, align 4, !tbaa !11
-  store i32 %103, ptr %52, align 4, !tbaa !13
+  store i32 %103, ptr %55, align 4, !tbaa !13
   br label %112
 
 112:                                              ; preds = %111, %99
-  %113 = phi ptr [ %54, %99 ], [ %110, %111 ]
+  %113 = phi ptr [ %53, %99 ], [ %110, %111 ]
   %114 = load ptr, ptr %6, align 8, !tbaa !5
   br label %115
 
@@ -237,7 +237,7 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
 
 126:                                              ; preds = %122, %125
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #8
-  %127 = load i32, ptr %48, align 4, !tbaa !13
+  %127 = load i32, ptr %51, align 4, !tbaa !13
   %128 = load i32, ptr %61, align 8, !tbaa !14
   br label %181
 
@@ -246,7 +246,7 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
           cleanup
   br label %328
 
-131:                                              ; preds = %51
+131:                                              ; preds = %50
   %132 = landingpad { ptr, i32 }
           cleanup
   br label %323
@@ -293,14 +293,14 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #8
   br label %318
 
-151:                                              ; preds = %55
+151:                                              ; preds = %54
   %152 = icmp eq ptr %3, %0
   br i1 %152, label %181, label %153
 
 153:                                              ; preds = %151
   %154 = getelementptr inbounds %class.CStringBase, ptr %3, i64 0, i32 1
   store i32 0, ptr %154, align 8, !tbaa !14
-  store i32 0, ptr %50, align 4, !tbaa !11
+  store i32 0, ptr %49, align 4, !tbaa !11
   %155 = add nsw i32 %11, 1
   %156 = icmp eq i32 %155, 4
   br i1 %156, label %167, label %157
@@ -314,17 +314,17 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
           to label %163 unwind label %179
 
 163:                                              ; preds = %157
-  call void @_ZdaPv(ptr noundef nonnull %50) #10
+  call void @_ZdaPv(ptr noundef nonnull %49) #10
   %164 = load i32, ptr %154, align 8, !tbaa !14
   %165 = sext i32 %164 to i64
   store ptr %162, ptr %3, align 8, !tbaa !5
   %166 = getelementptr inbounds i32, ptr %162, i64 %165
   store i32 0, ptr %166, align 4, !tbaa !11
-  store i32 %155, ptr %48, align 4, !tbaa !13
+  store i32 %155, ptr %51, align 4, !tbaa !13
   br label %167
 
 167:                                              ; preds = %163, %153
-  %168 = phi ptr [ %50, %153 ], [ %162, %163 ]
+  %168 = phi ptr [ %49, %153 ], [ %162, %163 ]
   %169 = load ptr, ptr %0, align 8, !tbaa !5
   br label %170
 
@@ -486,7 +486,7 @@ define dso_local noundef zeroext i1 @_Z14AutoRenamePathR11CStringBaseIwE(ptr nou
   %277 = sext i32 %276 to i64
   %278 = getelementptr inbounds i32, ptr %206, i64 %277
   store i32 0, ptr %278, align 4, !tbaa !11
-  store i32 %199, ptr %48, align 4, !tbaa !13
+  store i32 %199, ptr %51, align 4, !tbaa !13
   br label %279
 
 279:                                              ; preds = %181, %188, %275

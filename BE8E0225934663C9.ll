@@ -1278,44 +1278,44 @@ define dso_local void @TreeCCFieldCreate(ptr nocapture noundef readonly %0, ptr 
 
 22:                                               ; preds = %20, %46
   %23 = phi ptr [ %47, %46 ], [ %1, %20 ]
-  %24 = getelementptr inbounds %struct._tagTreeCCNode, ptr %23, i64 0, i32 10
-  %25 = load ptr, ptr %24, align 8, !tbaa !26
+  %24 = getelementptr i8, ptr %23, i64 72
+  %25 = load ptr, ptr %24, align 8, !tbaa !10
   %26 = icmp eq ptr %25, null
   br i1 %26, label %46, label %27
 
-27:                                               ; preds = %22, %32
-  %28 = phi ptr [ %34, %32 ], [ %25, %22 ]
+27:                                               ; preds = %22, %41
+  %28 = phi ptr [ %43, %41 ], [ %25, %22 ]
   %29 = load ptr, ptr %28, align 8, !tbaa !17
   %30 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %29, ptr noundef nonnull dereferenceable(1) %2) #11
   %31 = icmp eq i32 %30, 0
-  br i1 %31, label %36, label %32
+  br i1 %31, label %32, label %41
 
 32:                                               ; preds = %27
-  %33 = getelementptr inbounds %struct._tagTreeCCField, ptr %28, i64 0, i32 6
-  %34 = load ptr, ptr %33, align 8, !tbaa !26
-  %35 = icmp eq ptr %34, null
-  br i1 %35, label %46, label %27, !llvm.loop !78
-
-36:                                               ; preds = %27
-  %37 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 2
-  %38 = load ptr, ptr %37, align 8, !tbaa !28
-  tail call void (ptr, ptr, ...) @TreeCCError(ptr noundef %38, ptr noundef nonnull @.str.11, ptr noundef %2) #10
-  %39 = load ptr, ptr %37, align 8, !tbaa !28
-  %40 = getelementptr inbounds %struct._tagTreeCCField, ptr %28, i64 0, i32 4
-  %41 = load ptr, ptr %40, align 8, !tbaa !48
-  %42 = getelementptr inbounds %struct._tagTreeCCField, ptr %28, i64 0, i32 5
-  %43 = load i64, ptr %42, align 8, !tbaa !49
-  tail call void (ptr, ptr, i64, ptr, ...) @TreeCCErrorOnLine(ptr noundef %39, ptr noundef %41, i64 noundef %43, ptr noundef nonnull @.str.3) #10
+  %33 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 2
+  %34 = load ptr, ptr %33, align 8, !tbaa !28
+  tail call void (ptr, ptr, ...) @TreeCCError(ptr noundef %34, ptr noundef nonnull @.str.11, ptr noundef %2) #10
+  %35 = load ptr, ptr %33, align 8, !tbaa !28
+  %36 = getelementptr inbounds %struct._tagTreeCCField, ptr %28, i64 0, i32 4
+  %37 = load ptr, ptr %36, align 8, !tbaa !48
+  %38 = getelementptr inbounds %struct._tagTreeCCField, ptr %28, i64 0, i32 5
+  %39 = load i64, ptr %38, align 8, !tbaa !49
+  tail call void (ptr, ptr, i64, ptr, ...) @TreeCCErrorOnLine(ptr noundef %35, ptr noundef %37, i64 noundef %39, ptr noundef nonnull @.str.3) #10
   tail call void @free(ptr noundef %2) #10
   tail call void @free(ptr noundef %3) #10
-  %44 = icmp eq ptr %4, null
-  br i1 %44, label %81, label %45
+  %40 = icmp eq ptr %4, null
+  br i1 %40, label %81, label %45
 
-45:                                               ; preds = %36
+41:                                               ; preds = %27
+  %42 = getelementptr inbounds %struct._tagTreeCCField, ptr %28, i64 0, i32 6
+  %43 = load ptr, ptr %42, align 8, !tbaa !15
+  %44 = icmp eq ptr %43, null
+  br i1 %44, label %46, label %27, !llvm.loop !78
+
+45:                                               ; preds = %32
   tail call void @free(ptr noundef nonnull %4) #10
   br label %81
 
-46:                                               ; preds = %32, %22
+46:                                               ; preds = %41, %22
   %47 = load ptr, ptr %23, align 8, !tbaa !38
   %48 = icmp eq ptr %47, null
   br i1 %48, label %49, label %22, !llvm.loop !79
@@ -1376,7 +1376,7 @@ define dso_local void @TreeCCFieldCreate(ptr nocapture noundef readonly %0, ptr 
   store ptr %59, ptr %51, align 8, !tbaa !10
   br label %81
 
-81:                                               ; preds = %78, %80, %36, %45
+81:                                               ; preds = %78, %80, %32, %45
   ret void
 }
 
@@ -1395,43 +1395,43 @@ define internal fastcc i32 @IsDeclaredInChildren(ptr nocapture noundef readonly 
 
 11:                                               ; preds = %3, %7
   %12 = phi ptr [ %9, %7 ], [ %5, %3 ]
-  %13 = getelementptr inbounds %struct._tagTreeCCNode, ptr %12, i64 0, i32 10
-  %14 = load ptr, ptr %13, align 8, !tbaa !26
+  %13 = getelementptr i8, ptr %12, i64 72
+  %14 = load ptr, ptr %13, align 8, !tbaa !10
   %15 = icmp eq ptr %14, null
   br i1 %15, label %33, label %16
 
-16:                                               ; preds = %11, %21
-  %17 = phi ptr [ %23, %21 ], [ %14, %11 ]
+16:                                               ; preds = %11, %29
+  %17 = phi ptr [ %31, %29 ], [ %14, %11 ]
   %18 = load ptr, ptr %17, align 8, !tbaa !17
   %19 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %18, ptr noundef nonnull dereferenceable(1) %2) #11
   %20 = icmp eq i32 %19, 0
-  br i1 %20, label %25, label %21
+  br i1 %20, label %21, label %29
 
 21:                                               ; preds = %16
-  %22 = getelementptr inbounds %struct._tagTreeCCField, ptr %17, i64 0, i32 6
-  %23 = load ptr, ptr %22, align 8, !tbaa !26
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %33, label %16, !llvm.loop !78
-
-25:                                               ; preds = %16
-  %26 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 2
-  %27 = load ptr, ptr %26, align 8, !tbaa !28
-  %28 = getelementptr inbounds %struct._tagTreeCCField, ptr %17, i64 0, i32 4
-  %29 = load ptr, ptr %28, align 8, !tbaa !48
-  %30 = getelementptr inbounds %struct._tagTreeCCField, ptr %17, i64 0, i32 5
-  %31 = load i64, ptr %30, align 8, !tbaa !49
-  tail call void (ptr, ptr, i64, ptr, ...) @TreeCCErrorOnLine(ptr noundef %27, ptr noundef %29, i64 noundef %31, ptr noundef nonnull @.str.11, ptr noundef %2) #10
-  %32 = load ptr, ptr %26, align 8, !tbaa !28
-  tail call void (ptr, ptr, ...) @TreeCCError(ptr noundef %32, ptr noundef nonnull @.str.3) #10
+  %22 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 2
+  %23 = load ptr, ptr %22, align 8, !tbaa !28
+  %24 = getelementptr inbounds %struct._tagTreeCCField, ptr %17, i64 0, i32 4
+  %25 = load ptr, ptr %24, align 8, !tbaa !48
+  %26 = getelementptr inbounds %struct._tagTreeCCField, ptr %17, i64 0, i32 5
+  %27 = load i64, ptr %26, align 8, !tbaa !49
+  tail call void (ptr, ptr, i64, ptr, ...) @TreeCCErrorOnLine(ptr noundef %23, ptr noundef %25, i64 noundef %27, ptr noundef nonnull @.str.11, ptr noundef %2) #10
+  %28 = load ptr, ptr %22, align 8, !tbaa !28
+  tail call void (ptr, ptr, ...) @TreeCCError(ptr noundef %28, ptr noundef nonnull @.str.3) #10
   br label %36
 
-33:                                               ; preds = %21, %11
+29:                                               ; preds = %16
+  %30 = getelementptr inbounds %struct._tagTreeCCField, ptr %17, i64 0, i32 6
+  %31 = load ptr, ptr %30, align 8, !tbaa !15
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %33, label %16, !llvm.loop !78
+
+33:                                               ; preds = %29, %11
   %34 = tail call fastcc i32 @IsDeclaredInChildren(ptr noundef %0, ptr noundef nonnull %12, ptr noundef %2), !range !57
   %35 = icmp eq i32 %34, 0
   br i1 %35, label %7, label %36
 
-36:                                               ; preds = %33, %7, %3, %25
-  %37 = phi i32 [ 1, %25 ], [ 0, %3 ], [ 1, %33 ], [ 0, %7 ]
+36:                                               ; preds = %33, %7, %3, %21
+  %37 = phi i32 [ 1, %21 ], [ 0, %3 ], [ 1, %33 ], [ 0, %7 ]
   ret i32 %37
 }
 

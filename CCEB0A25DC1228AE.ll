@@ -172,7 +172,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   %95 = load i32, ptr %20, align 4
   %96 = load i32, ptr %21, align 8
   %97 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %92, i32 noundef %93, i32 noundef %94, i32 noundef %95, i32 noundef %96)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %98
 
 98:                                               ; preds = %91, %73
@@ -216,7 +216,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   %127 = load i32, ptr %24, align 4
   %128 = load i32, ptr %25, align 8
   %129 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %124, i32 noundef %125, i32 noundef %126, i32 noundef %127, i32 noundef %128)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %130
 
 130:                                              ; preds = %123, %98
@@ -258,7 +258,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   %157 = load i32, ptr %28, align 4
   %158 = load i32, ptr %29, align 8
   %159 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %154, i32 noundef %155, i32 noundef %156, i32 noundef %157, i32 noundef %158)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %160
 
 160:                                              ; preds = %153, %130
@@ -300,7 +300,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   %187 = load i32, ptr %32, align 4
   %188 = load i32, ptr %33, align 8
   %189 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %184, i32 noundef %185, i32 noundef %186, i32 noundef %187, i32 noundef %188)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 23, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %190
 
 190:                                              ; preds = %183, %160
@@ -340,7 +340,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   %213 = load i32, ptr %36, align 4
   %214 = load i32, ptr %37, align 8
   %215 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %210, i32 noundef %211, i32 noundef %212, i32 noundef %213, i32 noundef %214)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %216
 
 216:                                              ; preds = %209, %191
@@ -384,7 +384,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   %245 = load i32, ptr %40, align 4
   %246 = load i32, ptr %41, align 8
   %247 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %242, i32 noundef %243, i32 noundef %244, i32 noundef %245, i32 noundef %246)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %248
 
 248:                                              ; preds = %241, %216
@@ -426,7 +426,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   %275 = load i32, ptr %44, align 4
   %276 = load i32, ptr %45, align 8
   %277 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %272, i32 noundef %273, i32 noundef %274, i32 noundef %275, i32 noundef %276)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %278
 
 278:                                              ; preds = %271, %248
@@ -468,7 +468,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   %305 = load i32, ptr %48, align 4
   %306 = load i32, ptr %49, align 8
   %307 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i32 noundef %302, i32 noundef %303, i32 noundef %304, i32 noundef %305, i32 noundef %306)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 38, i32 noundef 1, ptr noundef nonnull @.str.28) #10
   br label %308
 
 308:                                              ; preds = %301, %278
@@ -549,7 +549,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   br i1 %357, label %361, label %358
 
 358:                                              ; preds = %355
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #10
   %359 = load i32, ptr @g_board_size, align 4, !tbaa !5
   %360 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   br label %361
@@ -616,7 +616,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   br i1 %402, label %406, label %403
 
 403:                                              ; preds = %400
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #10
   %404 = load i32, ptr @g_board_size, align 4, !tbaa !5
   %405 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   br label %406
@@ -683,7 +683,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   br i1 %447, label %451, label %448
 
 448:                                              ; preds = %445
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #10
   %449 = load i32, ptr @g_board_size, align 4, !tbaa !5
   %450 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   br label %451
@@ -750,7 +750,7 @@ define dso_local void @check_hash_code_sanity() local_unnamed_addr #0 {
   br i1 %492, label %494, label %493
 
 493:                                              ; preds = %490
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 59, i32 noundef 1, ptr noundef nonnull @.str.29) #10
   br label %494
 
 494:                                              ; preds = %490, %493
@@ -802,7 +802,7 @@ define dso_local void @check_board_sanity() local_unnamed_addr #0 {
   %23 = trunc i64 %16 to i32
   %24 = lshr i32 %22, %23
   %25 = and i32 %24, 1
-  %26 = add nuw nsw i32 %25, %21
+  %26 = add nuw nsw i32 %21, %25
   %27 = icmp eq i32 %26, 1
   br i1 %27, label %28, label %97
 
@@ -904,7 +904,7 @@ define dso_local void @check_board_sanity() local_unnamed_addr #0 {
 
 94:                                               ; preds = %88, %84, %62
   %95 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %13, i32 noundef %23, i32 noundef 1)
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 136, i32 noundef 1, ptr noundef nonnull @.str.2) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 136, i32 noundef 1, ptr noundef nonnull @.str.2) #10
   %96 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   br label %97
 
@@ -943,11 +943,11 @@ define dso_local void @print_board(i32 noundef %0) local_unnamed_addr #3 {
   %8 = getelementptr inbounds [2 x i32], ptr @g_board_size, i64 0, i64 %7
   %9 = load i32, ptr %8, align 4, !tbaa !5
   %10 = icmp sgt i32 %5, 0
-  br i1 %10, label %11, label %39
+  br i1 %10, label %11, label %37
 
 11:                                               ; preds = %1
   %12 = icmp sgt i32 %9, 0
-  br i1 %12, label %13, label %33
+  br i1 %12, label %13, label %32
 
 13:                                               ; preds = %11
   %14 = zext i32 %5 to i64
@@ -972,20 +972,18 @@ define dso_local void @print_board(i32 noundef %0) local_unnamed_addr #3 {
   br i1 %28, label %29, label %19, !llvm.loop !17
 
 29:                                               ; preds = %19
-  %30 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %31 = tail call i32 @putc(i32 noundef 10, ptr noundef %30)
-  %32 = icmp eq i64 %17, %14
-  br i1 %32, label %39, label %15, !llvm.loop !20
+  %30 = tail call i32 @putchar(i32 10)
+  %31 = icmp eq i64 %17, %14
+  br i1 %31, label %37, label %15, !llvm.loop !20
 
-33:                                               ; preds = %11, %33
-  %34 = phi i32 [ %37, %33 ], [ 0, %11 ]
-  %35 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %36 = tail call i32 @putc(i32 noundef 10, ptr noundef %35)
-  %37 = add nuw nsw i32 %34, 1
-  %38 = icmp eq i32 %37, %5
-  br i1 %38, label %39, label %33, !llvm.loop !20
+32:                                               ; preds = %11, %32
+  %33 = phi i32 [ %35, %32 ], [ 0, %11 ]
+  %34 = tail call i32 @putchar(i32 10)
+  %35 = add nuw nsw i32 %33, 1
+  %36 = icmp eq i32 %35, %5
+  br i1 %36, label %37, label %32, !llvm.loop !20
 
-39:                                               ; preds = %33, %29, %1
+37:                                               ; preds = %32, %29, %1
   ret void
 }
 
@@ -1034,17 +1032,17 @@ define dso_local void @print_hashentry(i32 noundef %0) local_unnamed_addr #3 {
 define dso_local void @print_board_info(i32 %0) local_unnamed_addr #3 {
   %2 = alloca [32 x [80 x i8]], align 16
   %3 = alloca [1 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 2560, ptr nonnull %2) #9
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #9
+  call void @llvm.lifetime.start.p0(i64 2560, ptr nonnull %2) #10
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #10
   store i8 0, ptr %3, align 1
   %4 = load i32, ptr @g_board_size, align 4, !tbaa !5
   %5 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
   %6 = tail call i32 @llvm.smax.i32(i32 %4, i32 %5)
   %7 = getelementptr inbounds [32 x [80 x i8]], ptr %2, i64 0, i64 1
-  %8 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %4) #9
+  %8 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %4) #10
   %9 = getelementptr inbounds [32 x [80 x i8]], ptr %2, i64 0, i64 2
   %10 = load i32, ptr getelementptr inbounds ([2 x i32], ptr @g_board_size, i64 0, i64 1), align 4, !tbaa !5
-  %11 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %9, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %10) #9
+  %11 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %9, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %10) #10
   %12 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, ptr noundef nonnull %3, ptr noundef nonnull @.str.11, ptr noundef nonnull @.str.12)
   %13 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, ptr noundef nonnull %3, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.15)
   %14 = icmp sgt i32 %6, 0
@@ -1079,8 +1077,8 @@ define dso_local void @print_board_info(i32 %0) local_unnamed_addr #3 {
   %37 = load i32, ptr getelementptr inbounds ([2 x %struct.Basic_Info], ptr @g_info_totals, i64 0, i64 0, i32 1), align 4, !tbaa !33
   %38 = load i32, ptr @g_info_totals, align 16, !tbaa !35
   %39 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, i32 noundef %35, i32 noundef %36, i32 noundef %37, i32 noundef %38)
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #9
-  call void @llvm.lifetime.end.p0(i64 2560, ptr nonnull %2) #9
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #10
+  call void @llvm.lifetime.end.p0(i64 2560, ptr nonnull %2) #10
   ret void
 }
 
@@ -1129,7 +1127,7 @@ define dso_local void @print_hashkey(ptr nocapture noundef readonly byval(%struc
 ; Function Attrs: nounwind uwtable
 define dso_local void @print_u64bit(i64 noundef %0) local_unnamed_addr #0 {
   %2 = alloca [10 x i32], align 16
-  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %2) #9
+  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %2) #10
   br label %3
 
 3:                                                ; preds = %3, %1
@@ -1151,7 +1149,7 @@ define dso_local void @print_u64bit(i64 noundef %0) local_unnamed_addr #0 {
   br i1 %15, label %16, label %18
 
 16:                                               ; preds = %12
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 255, i32 noundef 1, ptr noundef nonnull @.str.20) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 255, i32 noundef 1, ptr noundef nonnull @.str.20) #10
   %17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.21, i32 noundef %13)
   br label %21
 
@@ -1173,7 +1171,7 @@ define dso_local void @print_u64bit(i64 noundef %0) local_unnamed_addr #0 {
   br i1 %28, label %29, label %22, !llvm.loop !38
 
 29:                                               ; preds = %22, %18
-  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %2) #9
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %2) #10
   ret void
 }
 
@@ -1186,7 +1184,7 @@ define dso_local void @print_keyinfo(i64 %0, i32 %1, i32 noundef %2) local_unnam
   br i1 %7, label %8, label %9
 
 8:                                                ; preds = %3
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %9
 
 9:                                                ; preds = %8, %3
@@ -1236,7 +1234,7 @@ define dso_local void @print_keyinfo_table(i32 noundef %0, i32 noundef %1) local
   br i1 %22, label %23, label %24
 
 23:                                               ; preds = %13
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %24
 
 24:                                               ; preds = %23, %13
@@ -1262,7 +1260,7 @@ define dso_local void @print_keyinfo_table(i32 noundef %0, i32 noundef %1) local
   br i1 %37, label %38, label %39
 
 38:                                               ; preds = %29
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %39
 
 39:                                               ; preds = %38, %29
@@ -1288,7 +1286,7 @@ define dso_local void @print_keyinfo_table(i32 noundef %0, i32 noundef %1) local
   br i1 %52, label %53, label %54
 
 53:                                               ; preds = %44
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %54
 
 54:                                               ; preds = %53, %44
@@ -1314,7 +1312,7 @@ define dso_local void @print_keyinfo_table(i32 noundef %0, i32 noundef %1) local
   br i1 %67, label %68, label %69
 
 68:                                               ; preds = %59
-  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #9
+  tail call void (ptr, i32, i32, ptr, ...) @_fatal_error_aux(ptr noundef nonnull @.str.1, i32 noundef 266, i32 noundef 1, ptr noundef nonnull @.str.23) #10
   br label %69
 
 69:                                               ; preds = %68, %59
@@ -1346,6 +1344,9 @@ define dso_local void @print_keyinfo_table(i32 noundef %0, i32 noundef %1) local
 83:                                               ; preds = %80
   ret void
 }
+
+; Function Attrs: inlinehint nofree nounwind uwtable
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #6
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @print_external() local_unnamed_addr #0 {
@@ -1401,8 +1402,7 @@ define dso_local void @print_current_state() local_unnamed_addr #3 {
   br i1 %31, label %32, label %26, !llvm.loop !20
 
 32:                                               ; preds = %26, %22, %0
-  %33 = load ptr, ptr @stdout, align 8, !tbaa !18
-  %34 = tail call i32 @putc(i32 noundef 10, ptr noundef %33)
+  %33 = tail call i32 @putchar(i32 10)
   tail call void @print_board_info(i32 poison)
   store i32 0, ptr @g_print, align 4, !tbaa !5
   ret void
@@ -1416,12 +1416,12 @@ define dso_local ptr @current_search_state() local_unnamed_addr #0 {
   br i1 %2, label %4, label %3
 
 3:                                                ; preds = %0
-  tail call void @free(ptr noundef nonnull %1) #9
+  tail call void @free(ptr noundef nonnull %1) #10
   br label %4
 
 4:                                                ; preds = %3, %0
   %5 = load i64, ptr @g_num_nodes, align 8, !tbaa !43
-  %6 = tail call ptr @u64bit_to_string(i64 noundef %5) #9
+  %6 = tail call ptr @u64bit_to_string(i64 noundef %5) #10
   %7 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 1), align 4, !tbaa !5
   %8 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 2), align 8, !tbaa !5
   %9 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 3), align 4, !tbaa !5
@@ -1431,16 +1431,16 @@ define dso_local ptr @current_search_state() local_unnamed_addr #0 {
   %13 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 7), align 4, !tbaa !5
   %14 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 8), align 16, !tbaa !5
   %15 = load i32, ptr getelementptr inbounds ([128 x i32], ptr @g_move_number, i64 0, i64 9), align 4, !tbaa !5
-  %16 = tail call i32 (ptr, ptr, ...) @asprintf(ptr noundef nonnull @current_search_state.str, ptr noundef nonnull @.str.27, ptr noundef %6, i32 noundef %7, i32 noundef %8, i32 noundef %9, i32 noundef %10, i32 noundef %11, i32 noundef %12, i32 noundef %13, i32 noundef %14, i32 noundef %15) #9
+  %16 = tail call i32 (ptr, ptr, ...) @asprintf(ptr noundef nonnull @current_search_state.str, ptr noundef nonnull @.str.27, ptr noundef %6, i32 noundef %7, i32 noundef %8, i32 noundef %9, i32 noundef %10, i32 noundef %11, i32 noundef %12, i32 noundef %13, i32 noundef %14, i32 noundef %15) #10
   %17 = load ptr, ptr @current_search_state.str, align 8, !tbaa !18
   ret ptr %17
 }
 
 ; Function Attrs: mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite)
-declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #6
+declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #7
 
 ; Function Attrs: nounwind
-declare i32 @asprintf(ptr noundef, ptr noundef, ...) local_unnamed_addr #7
+declare i32 @asprintf(ptr noundef, ptr noundef, ...) local_unnamed_addr #8
 
 declare ptr @u64bit_to_string(i64 noundef) local_unnamed_addr #5
 
@@ -1448,7 +1448,7 @@ declare ptr @u64bit_to_string(i64 noundef) local_unnamed_addr #5
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #8
+declare i32 @llvm.smax.i32(i32, i32) #9
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1456,10 +1456,11 @@ attributes #2 = { mustprogress nocallback nofree nounwind willreturn memory(argm
 attributes #3 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #9 = { nounwind }
+attributes #6 = { inlinehint nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #7 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #8 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

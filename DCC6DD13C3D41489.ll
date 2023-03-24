@@ -586,7 +586,7 @@ define dso_local void @_ZN11NCoderMixer7CCoder24CodeEP21ICompressProgressInfo(pt
   %102 = load ptr, ptr %94, align 8, !tbaa !15
   %103 = getelementptr inbounds ptr, ptr %102, i64 5
   %104 = load ptr, ptr %103, align 8
-  %105 = tail call noundef i32 %104(ptr noundef nonnull align 8 dereferenceable(8) %94, ptr noundef nonnull %96, ptr noundef nonnull %98, i32 noundef %99, ptr noundef nonnull %101, ptr noundef nonnull %76, i32 noundef %72, ptr noundef %1)
+  %105 = tail call noundef i32 %104(ptr noundef nonnull align 8 dereferenceable(8) %94, ptr noundef %96, ptr noundef %98, i32 noundef %99, ptr noundef %101, ptr noundef %76, i32 noundef %72, ptr noundef %1)
   br label %106
 
 106:                                              ; preds = %92, %77
@@ -904,7 +904,7 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT11SetBindInfoERKNS
   resume { ptr, i32 } %69
 
 70:                                               ; preds = %59, %20, %2
-  %71 = phi i32 [ 0, %2 ], [ 0, %20 ], [ %66, %59 ]
+  %71 = phi i32 [ 0, %2 ], [ %66, %59 ], [ 0, %20 ]
   ret i32 %71
 }
 
@@ -1517,17 +1517,17 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   br label %88
 
 88:                                               ; preds = %95, %84
-  %89 = phi i32 [ 0, %84 ], [ %97, %95 ]
-  %90 = phi i32 [ %86, %84 ], [ %96, %95 ]
-  %91 = sext i32 %89 to i64
+  %89 = phi i32 [ %86, %84 ], [ %96, %95 ]
+  %90 = phi i32 [ 0, %84 ], [ %97, %95 ]
+  %91 = sext i32 %90 to i64
   %92 = getelementptr inbounds %"struct.NCoderMixer::CCoderStreamsInfo", ptr %87, i64 %91
   %93 = load i32, ptr %92, align 4, !tbaa !62
-  %94 = icmp ult i32 %90, %93
+  %94 = icmp ult i32 %89, %93
   br i1 %94, label %101, label %95
 
 95:                                               ; preds = %88
-  %96 = sub i32 %90, %93
-  %97 = add nuw i32 %89, 1
+  %96 = sub i32 %89, %93
+  %97 = add nuw i32 %90, 1
   %98 = icmp eq i32 %97, %82
   br i1 %98, label %99, label %88, !llvm.loop !71
 
@@ -1543,17 +1543,17 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   br label %104
 
 104:                                              ; preds = %111, %101
-  %105 = phi i32 [ 0, %101 ], [ %113, %111 ]
-  %106 = phi i32 [ %103, %101 ], [ %112, %111 ]
-  %107 = sext i32 %105 to i64
+  %105 = phi i32 [ %103, %101 ], [ %112, %111 ]
+  %106 = phi i32 [ 0, %101 ], [ %113, %111 ]
+  %107 = sext i32 %106 to i64
   %108 = getelementptr inbounds %"struct.NCoderMixer::CCoderStreamsInfo", ptr %87, i64 %107, i32 1
   %109 = load i32, ptr %108, align 4, !tbaa !64
-  %110 = icmp ult i32 %106, %109
+  %110 = icmp ult i32 %105, %109
   br i1 %110, label %117, label %111
 
 111:                                              ; preds = %104
-  %112 = sub i32 %106, %109
-  %113 = add nuw i32 %105, 1
+  %112 = sub i32 %105, %109
+  %113 = add nuw i32 %106, 1
   %114 = icmp eq i32 %113, %82
   br i1 %114, label %115, label %104, !llvm.loop !73
 
@@ -1572,14 +1572,14 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   %123 = load ptr, ptr %122, align 8, !tbaa !30
   %124 = getelementptr inbounds %"struct.NCoderMixer::CCoder2", ptr %123, i64 0, i32 3, i32 0, i32 0, i32 3
   %125 = load ptr, ptr %124, align 8, !tbaa !29
-  %126 = sext i32 %90 to i64
+  %126 = sext i32 %89 to i64
   %127 = getelementptr inbounds ptr, ptr %125, i64 %126
   %128 = load ptr, ptr %127, align 8, !tbaa !30
   %129 = getelementptr inbounds ptr, ptr %121, i64 %107
   %130 = load ptr, ptr %129, align 8, !tbaa !30
   %131 = getelementptr inbounds %"struct.NCoderMixer::CCoder2", ptr %130, i64 0, i32 4, i32 0, i32 0, i32 3
   %132 = load ptr, ptr %131, align 8, !tbaa !29
-  %133 = sext i32 %106 to i64
+  %133 = sext i32 %105 to i64
   %134 = getelementptr inbounds ptr, ptr %132, i64 %133
   %135 = load ptr, ptr %134, align 8, !tbaa !30
   call void @_ZN13CStreamBinder13CreateStreamsEPP19ISequentialInStreamPP20ISequentialOutStream(ptr noundef nonnull align 8 dereferenceable(184) %120, ptr noundef %128, ptr noundef %135)
@@ -1591,7 +1591,7 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   %137 = getelementptr inbounds ptr, ptr %136, i64 %91
   %138 = load ptr, ptr %137, align 8, !tbaa !30
   %139 = getelementptr inbounds i8, ptr %138, i64 240
-  %140 = load ptr, ptr %139, align 8, !tbaa !28
+  %140 = load ptr, ptr %139, align 8
   %141 = icmp eq ptr %140, null
   %142 = getelementptr inbounds i8, ptr %138, i64 248
   %143 = load ptr, ptr %142, align 8
@@ -1599,14 +1599,14 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   %145 = load ptr, ptr %144, align 8, !tbaa !15
   %146 = load ptr, ptr %145, align 8
   %147 = invoke noundef i32 %146(ptr noundef nonnull align 8 dereferenceable(8) %144, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressSetBufSize, ptr noundef nonnull %4)
-          to label %148 unwind label %179
+          to label %148 unwind label %178
 
 148:                                              ; preds = %117
   %149 = load ptr, ptr %21, align 8, !tbaa !29
   %150 = getelementptr inbounds ptr, ptr %149, i64 %107
   %151 = load ptr, ptr %150, align 8, !tbaa !30
   %152 = getelementptr inbounds i8, ptr %151, i64 240
-  %153 = load ptr, ptr %152, align 8, !tbaa !28
+  %153 = load ptr, ptr %152, align 8
   %154 = icmp eq ptr %153, null
   %155 = getelementptr inbounds i8, ptr %151, i64 248
   %156 = load ptr, ptr %155, align 8
@@ -1614,88 +1614,85 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   %158 = load ptr, ptr %157, align 8, !tbaa !15
   %159 = load ptr, ptr %158, align 8
   %160 = invoke noundef i32 %159(ptr noundef nonnull align 8 dereferenceable(8) %157, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressSetBufSize, ptr noundef nonnull %5)
-          to label %161 unwind label %179
+          to label %161 unwind label %178
 
 161:                                              ; preds = %148
   %162 = load ptr, ptr %4, align 8, !tbaa !74
   %163 = icmp eq ptr %162, null
-  br i1 %163, label %183, label %164
+  %164 = load ptr, ptr %5, align 8
+  %165 = icmp eq ptr %164, null
+  %166 = select i1 %163, i1 true, i1 %165
+  br i1 %166, label %184, label %167
 
-164:                                              ; preds = %161
-  %165 = load ptr, ptr %5, align 8, !tbaa !74
-  %166 = icmp eq ptr %165, null
-  br i1 %166, label %167, label %168
+167:                                              ; preds = %161
+  %168 = load ptr, ptr %162, align 8, !tbaa !15
+  %169 = getelementptr inbounds ptr, ptr %168, i64 5
+  %170 = load ptr, ptr %169, align 8
+  %171 = invoke noundef i32 %170(ptr noundef nonnull align 8 dereferenceable(8) %162, i32 noundef %89, i32 noundef 524288)
+          to label %172 unwind label %180
 
-167:                                              ; preds = %164
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #15
-  br label %197
+172:                                              ; preds = %167
+  %173 = load ptr, ptr %5, align 8, !tbaa !74
+  %174 = load ptr, ptr %173, align 8, !tbaa !15
+  %175 = getelementptr inbounds ptr, ptr %174, i64 6
+  %176 = load ptr, ptr %175, align 8
+  %177 = invoke noundef i32 %176(ptr noundef nonnull align 8 dereferenceable(8) %173, i32 noundef %105, i32 noundef 524288)
+          to label %182 unwind label %180
 
-168:                                              ; preds = %164
-  %169 = load ptr, ptr %162, align 8, !tbaa !15
-  %170 = getelementptr inbounds ptr, ptr %169, i64 5
-  %171 = load ptr, ptr %170, align 8
-  %172 = invoke noundef i32 %171(ptr noundef nonnull align 8 dereferenceable(8) %162, i32 noundef %90, i32 noundef 524288)
-          to label %173 unwind label %181
-
-173:                                              ; preds = %168
-  %174 = load ptr, ptr %5, align 8, !tbaa !74
-  %175 = load ptr, ptr %174, align 8, !tbaa !15
-  %176 = getelementptr inbounds ptr, ptr %175, i64 6
-  %177 = load ptr, ptr %176, align 8
-  %178 = invoke noundef i32 %177(ptr noundef nonnull align 8 dereferenceable(8) %174, i32 noundef %106, i32 noundef 524288)
-          to label %183 unwind label %181
-
-179:                                              ; preds = %148, %117
-  %180 = landingpad { ptr, i32 }
+178:                                              ; preds = %148, %117
+  %179 = landingpad { ptr, i32 }
           cleanup
   br label %211
 
-181:                                              ; preds = %173, %168
-  %182 = landingpad { ptr, i32 }
+180:                                              ; preds = %172, %167
+  %181 = landingpad { ptr, i32 }
           cleanup
   br label %211
 
-183:                                              ; preds = %173, %161
-  %184 = load ptr, ptr %5, align 8, !tbaa !74
-  %185 = icmp eq ptr %184, null
-  br i1 %185, label %194, label %186
+182:                                              ; preds = %172
+  %183 = load ptr, ptr %5, align 8, !tbaa !74
+  br label %184
 
-186:                                              ; preds = %183
-  %187 = load ptr, ptr %184, align 8, !tbaa !15
-  %188 = getelementptr inbounds ptr, ptr %187, i64 2
-  %189 = load ptr, ptr %188, align 8
-  %190 = invoke noundef i32 %189(ptr noundef nonnull align 8 dereferenceable(8) %184)
-          to label %194 unwind label %191
+184:                                              ; preds = %182, %161
+  %185 = phi ptr [ %183, %182 ], [ %164, %161 ]
+  %186 = icmp eq ptr %185, null
+  br i1 %186, label %195, label %187
 
-191:                                              ; preds = %186
-  %192 = landingpad { ptr, i32 }
+187:                                              ; preds = %184
+  %188 = load ptr, ptr %185, align 8, !tbaa !15
+  %189 = getelementptr inbounds ptr, ptr %188, i64 2
+  %190 = load ptr, ptr %189, align 8
+  %191 = invoke noundef i32 %190(ptr noundef nonnull align 8 dereferenceable(8) %185)
+          to label %195 unwind label %192
+
+192:                                              ; preds = %187
+  %193 = landingpad { ptr, i32 }
           catch ptr null
-  %193 = extractvalue { ptr, i32 } %192, 0
-  call void @__clang_call_terminate(ptr %193) #16
+  %194 = extractvalue { ptr, i32 } %193, 0
+  call void @__clang_call_terminate(ptr %194) #16
   unreachable
 
-194:                                              ; preds = %183, %186
-  %195 = load ptr, ptr %4, align 8, !tbaa !74
+195:                                              ; preds = %184, %187
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #15
-  %196 = icmp eq ptr %195, null
-  br i1 %196, label %206, label %197
+  %196 = load ptr, ptr %4, align 8, !tbaa !74
+  %197 = icmp eq ptr %196, null
+  br i1 %197, label %206, label %198
 
-197:                                              ; preds = %167, %194
-  %198 = phi ptr [ %162, %167 ], [ %195, %194 ]
-  %199 = load ptr, ptr %198, align 8, !tbaa !15
+198:                                              ; preds = %195
+  %199 = load ptr, ptr %196, align 8, !tbaa !15
   %200 = getelementptr inbounds ptr, ptr %199, i64 2
   %201 = load ptr, ptr %200, align 8
-  %202 = invoke noundef i32 %201(ptr noundef nonnull align 8 dereferenceable(8) %198)
+  %202 = invoke noundef i32 %201(ptr noundef nonnull align 8 dereferenceable(8) %196)
           to label %206 unwind label %203
 
-203:                                              ; preds = %197
+203:                                              ; preds = %198
   %204 = landingpad { ptr, i32 }
           catch ptr null
   %205 = extractvalue { ptr, i32 } %204, 0
   call void @__clang_call_terminate(ptr %205) #16
   unreachable
 
-206:                                              ; preds = %194, %197
+206:                                              ; preds = %195, %198
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #15
   %207 = add nuw nsw i64 %80, 1
   %208 = load i32, ptr %13, align 4, !tbaa !33
@@ -1703,8 +1700,8 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   %210 = icmp slt i64 %207, %209
   br i1 %210, label %79, label %70, !llvm.loop !76
 
-211:                                              ; preds = %181, %179
-  %212 = phi { ptr, i32 } [ %182, %181 ], [ %180, %179 ]
+211:                                              ; preds = %180, %178
+  %212 = phi { ptr, i32 } [ %181, %180 ], [ %179, %178 ]
   %213 = load ptr, ptr %5, align 8, !tbaa !74
   %214 = icmp eq ptr %213, null
   br i1 %214, label %223, label %215
@@ -1774,17 +1771,17 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   br label %253
 
 253:                                              ; preds = %260, %248
-  %254 = phi i32 [ 0, %248 ], [ %262, %260 ]
-  %255 = phi i32 [ %251, %248 ], [ %261, %260 ]
-  %256 = sext i32 %254 to i64
+  %254 = phi i32 [ %251, %248 ], [ %261, %260 ]
+  %255 = phi i32 [ 0, %248 ], [ %262, %260 ]
+  %256 = sext i32 %255 to i64
   %257 = getelementptr inbounds %"struct.NCoderMixer::CCoderStreamsInfo", ptr %252, i64 %256
   %258 = load i32, ptr %257, align 4, !tbaa !62
-  %259 = icmp ult i32 %255, %258
+  %259 = icmp ult i32 %254, %258
   br i1 %259, label %266, label %260
 
 260:                                              ; preds = %253
-  %261 = sub i32 %255, %258
-  %262 = add nuw i32 %254, 1
+  %261 = sub i32 %254, %258
+  %262 = add nuw i32 %255, 1
   %263 = icmp eq i32 %262, %246
   br i1 %263, label %264, label %253, !llvm.loop !71
 
@@ -1802,7 +1799,7 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   %271 = load ptr, ptr %270, align 8, !tbaa !30
   %272 = getelementptr inbounds %"struct.NCoderMixer::CCoder2", ptr %271, i64 0, i32 3, i32 0, i32 0, i32 3
   %273 = load ptr, ptr %272, align 8, !tbaa !29
-  %274 = sext i32 %255 to i64
+  %274 = sext i32 %254 to i64
   %275 = getelementptr inbounds ptr, ptr %273, i64 %274
   %276 = load ptr, ptr %275, align 8, !tbaa !30
   %277 = icmp eq ptr %268, null
@@ -1849,17 +1846,17 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   br label %305
 
 305:                                              ; preds = %312, %300
-  %306 = phi i32 [ 0, %300 ], [ %314, %312 ]
-  %307 = phi i32 [ %303, %300 ], [ %313, %312 ]
-  %308 = sext i32 %306 to i64
+  %306 = phi i32 [ %303, %300 ], [ %313, %312 ]
+  %307 = phi i32 [ 0, %300 ], [ %314, %312 ]
+  %308 = sext i32 %307 to i64
   %309 = getelementptr inbounds %"struct.NCoderMixer::CCoderStreamsInfo", ptr %304, i64 %308, i32 1
   %310 = load i32, ptr %309, align 4, !tbaa !64
-  %311 = icmp ult i32 %307, %310
+  %311 = icmp ult i32 %306, %310
   br i1 %311, label %318, label %312
 
 312:                                              ; preds = %305
-  %313 = sub i32 %307, %310
-  %314 = add nuw i32 %306, 1
+  %313 = sub i32 %306, %310
+  %314 = add nuw i32 %307, 1
   %315 = icmp eq i32 %314, %298
   br i1 %315, label %316, label %305, !llvm.loop !73
 
@@ -1877,7 +1874,7 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT4InitEPP19ISequent
   %323 = load ptr, ptr %322, align 8, !tbaa !30
   %324 = getelementptr inbounds %"struct.NCoderMixer::CCoder2", ptr %323, i64 0, i32 4, i32 0, i32 0, i32 3
   %325 = load ptr, ptr %324, align 8, !tbaa !29
-  %326 = sext i32 %307 to i64
+  %326 = sext i32 %306 to i64
   %327 = getelementptr inbounds ptr, ptr %325, i64 %326
   %328 = load ptr, ptr %327, align 8, !tbaa !30
   %329 = icmp eq ptr %320, null
@@ -1944,7 +1941,7 @@ define dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT13ReturnIfErrorEi(
   br i1 %19, label %20, label %10
 
 20:                                               ; preds = %10, %13, %2
-  %21 = phi i32 [ 0, %2 ], [ %1, %13 ], [ 0, %10 ]
+  %21 = phi i32 [ 0, %2 ], [ 0, %10 ], [ %1, %13 ]
   ret i32 %21
 }
 
@@ -2314,8 +2311,8 @@ define linkonce_odr dso_local noundef i32 @_ZN11NCoderMixer14CCoderMixer2MT14Que
   %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(224) %0)
   br label %87
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
+87:                                               ; preds = %77, %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %82
+  %88 = phi i32 [ 0, %82 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ], [ -2147467262, %77 ]
   ret i32 %88
 }
 
@@ -3044,12 +3041,12 @@ define linkonce_odr dso_local void @_ZN11NCoderMixer7CCoder2C2ERKS0_(ptr noundef
   tail call void @_ZN13CObjectVectorI9CMyComPtrI20ISequentialOutStreamEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %18) #15
   br label %96
 
-96:                                               ; preds = %23, %94
+96:                                               ; preds = %94, %23
   %97 = phi { ptr, i32 } [ %95, %94 ], [ %24, %23 ]
   tail call void @_ZN13CObjectVectorI9CMyComPtrI19ISequentialInStreamEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %10) #15
   br label %98
 
-98:                                               ; preds = %15, %96
+98:                                               ; preds = %96, %15
   %99 = phi { ptr, i32 } [ %97, %96 ], [ %16, %15 ]
   tail call void @_ZN11CVirtThreadD2Ev(ptr noundef nonnull align 8 dereferenceable(233) %0) #15
   tail call void @_ZN11NCoderMixer11CCoderInfo2D2Ev(ptr noundef nonnull align 8 dereferenceable(152) %3) #15

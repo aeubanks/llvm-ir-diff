@@ -378,8 +378,8 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   %92 = load i64, ptr %91, align 8, !tbaa !38
   br label %93
 
-93:                                               ; preds = %89, %88, %83
-  %94 = phi i64 [ %92, %89 ], [ %85, %88 ], [ -1, %83 ]
+93:                                               ; preds = %83, %88, %89
+  %94 = phi i64 [ -1, %83 ], [ %85, %88 ], [ %92, %89 ]
   %95 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %29, i64 0, i32 1
   %96 = getelementptr inbounds %"struct.std::pair.43", ptr %28, i64 3, i32 1, i32 1
   store i64 %94, ptr %96, align 8, !tbaa !38
@@ -1015,7 +1015,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   store i64 %428, ptr %417, align 8, !tbaa !40, !alias.scope !54
   br label %429
 
-429:                                              ; preds = %427, %426, %421
+429:                                              ; preds = %421, %426, %427
   %430 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %415, i64 0, i32 1
   %431 = load i64, ptr %430, align 8, !tbaa !38
   %432 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %37, i64 0, i32 1
@@ -1065,7 +1065,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   store i64 %452, ptr %441, align 8, !tbaa !40, !alias.scope !57
   br label %453
 
-453:                                              ; preds = %451, %450, %445
+453:                                              ; preds = %445, %450, %451
   %454 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %439, i64 0, i32 1
   %455 = load i64, ptr %454, align 8, !tbaa !38
   %456 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %36, i64 0, i32 1
@@ -1495,7 +1495,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   store i64 %650, ptr %639, align 8, !tbaa !40, !alias.scope !63
   br label %651
 
-651:                                              ; preds = %649, %648, %643
+651:                                              ; preds = %643, %648, %649
   %652 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %637, i64 0, i32 1
   %653 = load i64, ptr %652, align 8, !tbaa !38
   %654 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %53, i64 0, i32 1
@@ -1545,7 +1545,7 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   store i64 %674, ptr %663, align 8, !tbaa !40, !alias.scope !66
   br label %675
 
-675:                                              ; preds = %673, %672, %667
+675:                                              ; preds = %667, %672, %673
   %676 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %661, i64 0, i32 1
   %677 = load i64, ptr %676, align 8, !tbaa !38
   %678 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %52, i64 0, i32 1
@@ -2517,9 +2517,9 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   br label %1129
 
 1129:                                             ; preds = %1122, %1128, %1104
-  %1130 = phi ptr [ %30, %1104 ], [ %1123, %1122 ], [ %1123, %1128 ]
-  %1131 = phi i1 [ true, %1104 ], [ %1124, %1122 ], [ %1124, %1128 ]
-  %1132 = phi { ptr, i32 } [ %1105, %1104 ], [ %1125, %1122 ], [ %1125, %1128 ]
+  %1130 = phi ptr [ %30, %1104 ], [ %1123, %1128 ], [ %1123, %1122 ]
+  %1131 = phi i1 [ true, %1104 ], [ %1124, %1128 ], [ %1124, %1122 ]
+  %1132 = phi { ptr, i32 } [ %1105, %1104 ], [ %1125, %1128 ], [ %1125, %1122 ]
   %1133 = load ptr, ptr %31, align 8, !tbaa !41
   %1134 = icmp eq ptr %1133, %178
   br i1 %1134, label %1136, label %1135
@@ -2846,9 +2846,9 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   br label %1271
 
 1271:                                             ; preds = %1265, %1270, %1235
-  %1272 = phi { ptr, i32 } [ %1236, %1235 ], [ %1266, %1265 ], [ %1266, %1270 ]
-  %1273 = phi ptr [ %739, %1235 ], [ %744, %1265 ], [ %744, %1270 ]
-  %1274 = phi i1 [ true, %1235 ], [ %1267, %1265 ], [ %1267, %1270 ]
+  %1272 = phi { ptr, i32 } [ %1236, %1235 ], [ %1266, %1270 ], [ %1266, %1265 ]
+  %1273 = phi ptr [ %739, %1235 ], [ %744, %1270 ], [ %744, %1265 ]
+  %1274 = phi i1 [ true, %1235 ], [ %1267, %1270 ], [ %1267, %1265 ]
   %1275 = load ptr, ptr %62, align 8, !tbaa !41
   %1276 = icmp eq ptr %1275, %740
   br i1 %1276, label %1278, label %1277
@@ -2858,9 +2858,9 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   br label %1278
 
 1278:                                             ; preds = %1271, %1277, %1233
-  %1279 = phi { ptr, i32 } [ %1234, %1233 ], [ %1272, %1271 ], [ %1272, %1277 ]
-  %1280 = phi ptr [ %730, %1233 ], [ %1273, %1271 ], [ %1273, %1277 ]
-  %1281 = phi i1 [ true, %1233 ], [ %1274, %1271 ], [ %1274, %1277 ]
+  %1279 = phi { ptr, i32 } [ %1234, %1233 ], [ %1272, %1277 ], [ %1272, %1271 ]
+  %1280 = phi ptr [ %730, %1233 ], [ %1273, %1277 ], [ %1273, %1271 ]
+  %1281 = phi i1 [ true, %1233 ], [ %1274, %1277 ], [ %1274, %1271 ]
   %1282 = load ptr, ptr %61, align 8, !tbaa !41
   %1283 = icmp eq ptr %1282, %731
   br i1 %1283, label %1285, label %1284
@@ -2894,9 +2894,9 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   br label %1299
 
 1299:                                             ; preds = %1292, %1298, %1223
-  %1300 = phi { ptr, i32 } [ %1224, %1223 ], [ %1293, %1292 ], [ %1293, %1298 ]
-  %1301 = phi ptr [ %707, %1223 ], [ %1294, %1292 ], [ %1294, %1298 ]
-  %1302 = phi i1 [ true, %1223 ], [ %1295, %1292 ], [ %1295, %1298 ]
+  %1300 = phi { ptr, i32 } [ %1224, %1223 ], [ %1293, %1298 ], [ %1293, %1292 ]
+  %1301 = phi ptr [ %707, %1223 ], [ %1294, %1298 ], [ %1294, %1292 ]
+  %1302 = phi i1 [ true, %1223 ], [ %1295, %1298 ], [ %1295, %1292 ]
   %1303 = load ptr, ptr %58, align 8, !tbaa !41
   %1304 = icmp eq ptr %1303, %708
   br i1 %1304, label %1306, label %1305
@@ -3007,9 +3007,9 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   br label %1363
 
 1363:                                             ; preds = %1356, %1362, %1195
-  %1364 = phi { ptr, i32 } [ %1196, %1195 ], [ %1357, %1356 ], [ %1357, %1362 ]
-  %1365 = phi ptr [ %544, %1195 ], [ %1358, %1356 ], [ %1358, %1362 ]
-  %1366 = phi i1 [ true, %1195 ], [ %1359, %1356 ], [ %1359, %1362 ]
+  %1364 = phi { ptr, i32 } [ %1196, %1195 ], [ %1357, %1362 ], [ %1357, %1356 ]
+  %1365 = phi ptr [ %544, %1195 ], [ %1358, %1362 ], [ %1358, %1356 ]
+  %1366 = phi i1 [ true, %1195 ], [ %1359, %1362 ], [ %1359, %1356 ]
   %1367 = load ptr, ptr %49, align 8, !tbaa !41
   %1368 = icmp eq ptr %1367, %545
   br i1 %1368, label %1370, label %1369
@@ -3091,9 +3091,9 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   br label %1412
 
 1412:                                             ; preds = %1405, %1411, %1169
-  %1413 = phi { ptr, i32 } [ %1170, %1169 ], [ %1406, %1405 ], [ %1406, %1411 ]
-  %1414 = phi ptr [ %485, %1169 ], [ %1407, %1405 ], [ %1407, %1411 ]
-  %1415 = phi i1 [ true, %1169 ], [ %1408, %1405 ], [ %1408, %1411 ]
+  %1413 = phi { ptr, i32 } [ %1170, %1169 ], [ %1406, %1411 ], [ %1406, %1405 ]
+  %1414 = phi ptr [ %485, %1169 ], [ %1407, %1411 ], [ %1407, %1405 ]
+  %1415 = phi i1 [ true, %1169 ], [ %1408, %1411 ], [ %1408, %1405 ]
   %1416 = load ptr, ptr %42, align 8, !tbaa !41
   %1417 = icmp eq ptr %1416, %486
   br i1 %1417, label %1419, label %1418
@@ -3267,9 +3267,9 @@ define internal fastcc void @_ZN12_GLOBAL__N_117AddComplexityTestERKNSt7__cxx111
   br label %1505
 
 1505:                                             ; preds = %1498, %1504, %1480
-  %1506 = phi { ptr, i32 } [ %1481, %1480 ], [ %1499, %1498 ], [ %1499, %1504 ]
-  %1507 = phi ptr [ %64, %1480 ], [ %1500, %1498 ], [ %1500, %1504 ]
-  %1508 = phi i1 [ true, %1480 ], [ %1501, %1498 ], [ %1501, %1504 ]
+  %1506 = phi { ptr, i32 } [ %1481, %1480 ], [ %1499, %1504 ], [ %1499, %1498 ]
+  %1507 = phi ptr [ %64, %1480 ], [ %1500, %1504 ], [ %1500, %1498 ]
+  %1508 = phi i1 [ true, %1480 ], [ %1501, %1504 ], [ %1501, %1498 ]
   %1509 = load ptr, ptr %65, align 8, !tbaa !41
   %1510 = icmp eq ptr %1509, %912
   br i1 %1510, label %1512, label %1511
@@ -3330,9 +3330,9 @@ define hidden void @_Z21ConstructRandomVectorl(ptr noalias nocapture writeonly s
   store ptr %14, ptr %8, align 8, !tbaa !72
   br label %15
 
-15:                                               ; preds = %7, %10
-  %16 = phi ptr [ null, %7 ], [ %14, %10 ]
-  %17 = phi ptr [ null, %7 ], [ %13, %10 ]
+15:                                               ; preds = %10, %7
+  %16 = phi ptr [ %14, %10 ], [ null, %7 ]
+  %17 = phi ptr [ %13, %10 ], [ null, %7 ]
   %18 = icmp sgt i64 %1, 0
   br i1 %18, label %19, label %73
 
@@ -3549,7 +3549,7 @@ define hidden void @_Z17BM_Complexity_O_NRN9benchmark5StateE(ptr noundef nonnull
   %63 = ptrtoint ptr %59 to i64
   %64 = sub i64 %30, %63
   %65 = ashr exact i64 %64, 2
-  switch i64 %65, label %91 [
+  switch i64 %65, label %84 [
     i64 3, label %66
     i64 2, label %72
     i64 1, label %79
@@ -3581,7 +3581,9 @@ define hidden void @_Z17BM_Complexity_O_NRN9benchmark5StateE(ptr noundef nonnull
   %81 = load i32, ptr %80, align 4, !tbaa !32
   %82 = sext i32 %81 to i64
   %83 = icmp eq i64 %17, %82
-  %84 = select i1 %83, ptr %80, ptr %29
+  br i1 %83, label %91, label %84
+
+84:                                               ; preds = %79, %62
   br label %91
 
 85:                                               ; preds = %43
@@ -3596,8 +3598,8 @@ define hidden void @_Z17BM_Complexity_O_NRN9benchmark5StateE(ptr noundef nonnull
   %90 = getelementptr inbounds i32, ptr %39, i64 3
   br label %91
 
-91:                                               ; preds = %37, %85, %87, %89, %79, %72, %66, %62
-  %92 = phi ptr [ %59, %66 ], [ %73, %72 ], [ %29, %62 ], [ %84, %79 ], [ %86, %85 ], [ %88, %87 ], [ %90, %89 ], [ %39, %37 ]
+91:                                               ; preds = %37, %85, %87, %89, %84, %79, %72, %66
+  %92 = phi ptr [ %29, %84 ], [ %59, %66 ], [ %73, %72 ], [ %80, %79 ], [ %86, %85 ], [ %88, %87 ], [ %90, %89 ], [ %39, %37 ]
   %93 = ptrtoint ptr %92 to i64
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %93) #25, !srcloc !33
   %94 = add i64 %36, -1
@@ -3887,7 +3889,7 @@ define hidden void @_Z24BM_ComplexityCaptureArgsRN9benchmark5StateEi(ptr noundef
   %25 = add i64 %23, %24
   br label %26
 
-26:                                               ; preds = %20, %16
+26:                                               ; preds = %16, %20
   %27 = phi i64 [ %25, %20 ], [ 0, %16 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %27) #25, !srcloc !33
   %28 = add i64 %17, -1
@@ -3956,7 +3958,7 @@ define linkonce_odr hidden void @_ZNSt4pairINSt7__cxx1112basic_stringIcSt11char_
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %13, ptr nonnull align 1 %1, i64 %7, i1 false)
   br label %17
 
-17:                                               ; preds = %16, %14, %12
+17:                                               ; preds = %12, %14, %16
   %18 = load i64, ptr %5, align 8, !tbaa !30
   %19 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
   store i64 %18, ptr %19, align 8, !tbaa !38
@@ -4001,7 +4003,7 @@ define linkonce_odr hidden void @_ZNSt4pairINSt7__cxx1112basic_stringIcSt11char_
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %33, ptr align 1 %24, i64 %26, i1 false)
   br label %37
 
-37:                                               ; preds = %36, %34, %32
+37:                                               ; preds = %32, %34, %36
   %38 = load i64, ptr %4, align 8, !tbaa !30
   %39 = getelementptr inbounds %"struct.std::pair.43", ptr %0, i64 0, i32 1, i32 1
   store i64 %38, ptr %39, align 8, !tbaa !38
@@ -4061,7 +4063,7 @@ define linkonce_odr hidden void @_ZNSt4pairINSt7__cxx1112basic_stringIcSt11char_
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %13, ptr nonnull align 1 %1, i64 %7, i1 false)
   br label %17
 
-17:                                               ; preds = %16, %14, %12
+17:                                               ; preds = %12, %14, %16
   %18 = load i64, ptr %5, align 8, !tbaa !30
   %19 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
   store i64 %18, ptr %19, align 8, !tbaa !38
@@ -4106,7 +4108,7 @@ define linkonce_odr hidden void @_ZNSt4pairINSt7__cxx1112basic_stringIcSt11char_
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %33, ptr align 1 %24, i64 %26, i1 false)
   br label %37
 
-37:                                               ; preds = %36, %34, %32
+37:                                               ; preds = %32, %34, %36
   %38 = load i64, ptr %4, align 8, !tbaa !30
   %39 = getelementptr inbounds %"struct.std::pair.43", ptr %0, i64 0, i32 1, i32 1
   store i64 %38, ptr %39, align 8, !tbaa !38
@@ -4166,7 +4168,7 @@ define linkonce_odr hidden void @_ZNSt4pairINSt7__cxx1112basic_stringIcSt11char_
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %13, ptr nonnull align 1 %1, i64 %7, i1 false)
   br label %17
 
-17:                                               ; preds = %16, %14, %12
+17:                                               ; preds = %12, %14, %16
   %18 = load i64, ptr %5, align 8, !tbaa !30
   %19 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
   store i64 %18, ptr %19, align 8, !tbaa !38
@@ -4211,7 +4213,7 @@ define linkonce_odr hidden void @_ZNSt4pairINSt7__cxx1112basic_stringIcSt11char_
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %33, ptr align 1 %24, i64 %26, i1 false)
   br label %37
 
-37:                                               ; preds = %36, %34, %32
+37:                                               ; preds = %32, %34, %36
   %38 = load i64, ptr %4, align 8, !tbaa !30
   %39 = getelementptr inbounds %"struct.std::pair.43", ptr %0, i64 0, i32 1, i32 1
   store i64 %38, ptr %39, align 8, !tbaa !38
@@ -4332,7 +4334,7 @@ define linkonce_odr hidden void @_ZNSt4pairINSt7__cxx1112basic_stringIcSt11char_
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %13, ptr nonnull align 1 %1, i64 %7, i1 false)
   br label %17
 
-17:                                               ; preds = %16, %14, %12
+17:                                               ; preds = %12, %14, %16
   %18 = load i64, ptr %5, align 8, !tbaa !30
   %19 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
   store i64 %18, ptr %19, align 8, !tbaa !38
@@ -4375,7 +4377,7 @@ define linkonce_odr hidden void @_ZNSt4pairINSt7__cxx1112basic_stringIcSt11char_
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %31, ptr nonnull align 1 %2, i64 %24, i1 false)
   br label %35
 
-35:                                               ; preds = %34, %32, %30
+35:                                               ; preds = %30, %32, %34
   %36 = load i64, ptr %4, align 8, !tbaa !30
   %37 = getelementptr inbounds %"struct.std::pair.43", ptr %0, i64 0, i32 1, i32 1
   store i64 %36, ptr %37, align 8, !tbaa !38
@@ -4594,7 +4596,7 @@ define linkonce_odr hidden void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal_it
 
 11:                                               ; preds = %9, %119
   %12 = phi i64 [ %7, %9 ], [ %121, %119 ]
-  %13 = phi i64 [ %2, %9 ], [ %76, %119 ]
+  %13 = phi i64 [ %2, %9 ], [ %75, %119 ]
   %14 = phi ptr [ %1, %9 ], [ %107, %119 ]
   %15 = icmp eq i64 %13, 0
   br i1 %15, label %16, label %74
@@ -4666,7 +4668,7 @@ define linkonce_odr hidden void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal_it
 60:                                               ; preds = %57, %67
   %61 = phi i64 [ %63, %67 ], [ %58, %57 ]
   %62 = add nsw i64 %61, -1
-  %63 = lshr i64 %62, 1
+  %63 = sdiv i64 %62, 2
   %64 = getelementptr inbounds i32, ptr %0, i64 %63
   %65 = load i32, ptr %64, align 4, !tbaa !32
   %66 = icmp slt i32 %65, %20
@@ -4675,20 +4677,20 @@ define linkonce_odr hidden void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal_it
 67:                                               ; preds = %60
   %68 = getelementptr inbounds i32, ptr %0, i64 %61
   store i32 %65, ptr %68, align 4, !tbaa !32
-  %69 = icmp ult i64 %62, 2
-  br i1 %69, label %70, label %60, !llvm.loop !82
+  %69 = icmp sgt i64 %61, 2
+  br i1 %69, label %60, label %70, !llvm.loop !82
 
 70:                                               ; preds = %67, %60, %57
-  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ 0, %67 ]
+  %71 = phi i64 [ %58, %57 ], [ %61, %60 ], [ %63, %67 ]
   %72 = getelementptr inbounds i32, ptr %0, i64 %71
   store i32 %20, ptr %72, align 4, !tbaa !32
   %73 = icmp sgt i64 %23, 4
   br i1 %73, label %17, label %123, !llvm.loop !83
 
 74:                                               ; preds = %11
-  %75 = lshr i64 %12, 3
-  %76 = add nsw i64 %13, -1
-  %77 = getelementptr inbounds i32, ptr %0, i64 %75
+  %75 = add nsw i64 %13, -1
+  %76 = lshr i64 %12, 3
+  %77 = getelementptr inbounds i32, ptr %0, i64 %76
   %78 = getelementptr inbounds i32, ptr %14, i64 -1
   %79 = load i32, ptr %10, align 4, !tbaa !32
   %80 = load i32, ptr %77, align 4, !tbaa !32
@@ -4779,7 +4781,7 @@ define linkonce_odr hidden void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal_it
   br label %102, !llvm.loop !86
 
 119:                                              ; preds = %116
-  tail call void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEElNS0_5__ops15_Iter_less_iterEEvT_S9_T0_T1_(ptr nonnull %107, ptr %14, i64 noundef %76)
+  tail call void @_ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEElNS0_5__ops15_Iter_less_iterEEvT_S9_T0_T1_(ptr nonnull %107, ptr %14, i64 noundef %75)
   %120 = ptrtoint ptr %107 to i64
   %121 = sub i64 %120, %5
   %122 = icmp sgt i64 %121, 64
@@ -8306,14 +8308,14 @@ define internal void @_GLOBAL__sub_I_complexity_test.cc() #3 section ".text.star
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #21
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #22
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #21
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #21
+declare i64 @llvm.umax.i64(i64, i64) #22
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.abs.i32(i32, i1 immarg) #22
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
 declare void @llvm.experimental.noalias.scope.decl(metadata) #23
@@ -8339,8 +8341,8 @@ attributes #17 = { mustprogress nocallback nofree nosync nounwind speculatable w
 attributes #18 = { inlinehint mustprogress nofree nounwind willreturn memory(write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #19 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #20 = { inlinehint uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #21 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #22 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #21 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #22 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #23 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite) }
 attributes #24 = { noreturn nounwind }
 attributes #25 = { nounwind }

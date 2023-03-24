@@ -35,9 +35,9 @@ define dso_local void @_ZN14btContactArray14merge_contactsERKS_b(ptr noundef non
   br label %14
 
 14:                                               ; preds = %3, %13
-  %15 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %9, align 8, !tbaa !13
   store ptr null, ptr %6, align 8, !tbaa !5
+  %15 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %15, align 4, !tbaa !14
   %16 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %16, align 8, !tbaa !15
@@ -251,7 +251,7 @@ define dso_local void @_ZN14btContactArray14merge_contactsERKS_b(ptr noundef non
   %156 = load i32, ptr %17, align 4, !tbaa !14
   br label %157
 
-157:                                              ; preds = %155, %60, %36
+157:                                              ; preds = %36, %60, %155
   %158 = phi i32 [ %156, %155 ], [ %37, %60 ], [ %37, %36 ]
   %159 = phi ptr [ %72, %155 ], [ %38, %60 ], [ %38, %36 ]
   %160 = phi i32 [ %63, %155 ], [ %39, %60 ], [ %39, %36 ]
@@ -475,8 +475,8 @@ define dso_local void @_ZN14btContactArray14merge_contactsERKS_b(ptr noundef non
   store <2 x float> %316, ptr %237, align 4, !tbaa.struct !42
   br label %317
 
-317:                                              ; preds = %309, %265, %231
-  %318 = phi i32 [ %197, %231 ], [ 0, %265 ], [ 0, %309 ]
+317:                                              ; preds = %265, %309, %231
+  %318 = phi i32 [ %197, %231 ], [ 0, %309 ], [ 0, %265 ]
   invoke void @_ZN20btAlignedObjectArrayI11GIM_CONTACTE9push_backERKS0_(ptr noundef nonnull align 8 dereferenceable(25) %0, ptr noundef nonnull align 4 dereferenceable(48) %205)
           to label %319 unwind label %217
 
@@ -536,7 +536,7 @@ define dso_local void @_ZN14btContactArray14merge_contactsERKS_b(ptr noundef non
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %346)
           to label %352 unwind label %353
 
-352:                                              ; preds = %344, %351
+352:                                              ; preds = %351, %344
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #10
   resume { ptr, i32 } %345
 
@@ -690,9 +690,9 @@ define dso_local void @_ZN14btContactArray21merge_contacts_uniqueERKS_(ptr nound
   br label %11
 
 11:                                               ; preds = %2, %10
-  %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %6, align 8, !tbaa !13
   store ptr null, ptr %3, align 8, !tbaa !5
+  %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %12, align 4, !tbaa !14
   %13 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %13, align 8, !tbaa !15
@@ -726,8 +726,8 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI17CONTACT_KEY_TOKE
   %4 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 5
   br label %5
 
-5:                                                ; preds = %57, %3
-  %6 = phi i32 [ %1, %3 ], [ %51, %57 ]
+5:                                                ; preds = %54, %3
+  %6 = phi i32 [ %1, %3 ], [ %48, %54 ]
   %7 = load ptr, ptr %4, align 8, !tbaa !19
   %8 = add nsw i32 %6, %2
   %9 = sdiv i32 %8, 2
@@ -736,9 +736,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI17CONTACT_KEY_TOKE
   %12 = load i32, ptr %11, align 4, !tbaa !33
   br label %13
 
-13:                                               ; preds = %50, %5
-  %14 = phi i32 [ %6, %5 ], [ %51, %50 ]
-  %15 = phi i32 [ %2, %5 ], [ %52, %50 ]
+13:                                               ; preds = %47, %5
+  %14 = phi i32 [ %6, %5 ], [ %48, %47 ]
+  %15 = phi i32 [ %2, %5 ], [ %49, %47 ]
   %16 = load ptr, ptr %4, align 8, !tbaa !19
   %17 = sext i32 %14 to i64
   br label %18
@@ -768,7 +768,7 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI17CONTACT_KEY_TOKE
 34:                                               ; preds = %28
   %35 = trunc i64 %29 to i32
   %36 = icmp sgt i32 %26, %35
-  br i1 %36, label %50, label %37
+  br i1 %36, label %47, label %37
 
 37:                                               ; preds = %34
   %38 = getelementptr inbounds %struct.CONTACT_KEY_TOKEN, ptr %16, i64 %29
@@ -778,34 +778,32 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI17CONTACT_KEY_TOKE
   store i64 %41, ptr %25, align 4
   %42 = load ptr, ptr %4, align 8, !tbaa !19
   %43 = getelementptr inbounds %struct.CONTACT_KEY_TOKEN, ptr %42, i64 %29
-  %44 = zext i32 %40 to i64
-  %45 = shl nuw i64 %44, 32
-  %46 = zext i32 %21 to i64
-  %47 = or i64 %45, %46
-  store i64 %47, ptr %43, align 4
-  %48 = add nsw i32 %26, 1
-  %49 = add nsw i32 %35, -1
-  br label %50
+  store i32 %21, ptr %43, align 4, !tbaa.struct !44
+  %44 = getelementptr inbounds i8, ptr %43, i64 4
+  store i32 %40, ptr %44, align 4, !tbaa.struct !45
+  %45 = add nsw i32 %26, 1
+  %46 = add nsw i32 %35, -1
+  br label %47
 
-50:                                               ; preds = %34, %37
-  %51 = phi i32 [ %48, %37 ], [ %26, %34 ]
-  %52 = phi i32 [ %49, %37 ], [ %35, %34 ]
-  %53 = icmp sgt i32 %51, %52
-  br i1 %53, label %54, label %13
+47:                                               ; preds = %34, %37
+  %48 = phi i32 [ %45, %37 ], [ %26, %34 ]
+  %49 = phi i32 [ %46, %37 ], [ %35, %34 ]
+  %50 = icmp sgt i32 %48, %49
+  br i1 %50, label %51, label %13
 
-54:                                               ; preds = %50
-  %55 = icmp sgt i32 %52, %6
-  br i1 %55, label %56, label %57
+51:                                               ; preds = %47
+  %52 = icmp sgt i32 %49, %6
+  br i1 %52, label %53, label %54
+
+53:                                               ; preds = %51
+  tail call void @_ZN20btAlignedObjectArrayI17CONTACT_KEY_TOKENE17quickSortInternalI22CONTACT_KEY_TOKEN_COMPEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %0, i32 noundef %6, i32 noundef %49)
+  br label %54
+
+54:                                               ; preds = %53, %51
+  %55 = icmp slt i32 %48, %2
+  br i1 %55, label %5, label %56
 
 56:                                               ; preds = %54
-  tail call void @_ZN20btAlignedObjectArrayI17CONTACT_KEY_TOKENE17quickSortInternalI22CONTACT_KEY_TOKEN_COMPEEvT_ii(ptr noundef nonnull align 8 dereferenceable(25) %0, i32 noundef %6, i32 noundef %52)
-  br label %57
-
-57:                                               ; preds = %56, %54
-  %58 = icmp slt i32 %51, %2
-  br i1 %58, label %5, label %59
-
-59:                                               ; preds = %57
   ret void
 }
 
@@ -875,3 +873,5 @@ attributes #11 = { noreturn nounwind }
 !41 = !{i64 0, i64 16, !40}
 !42 = !{i64 0, i64 8, !40}
 !43 = distinct !{!43, !29}
+!44 = !{i64 0, i64 4, !24, i64 4, i64 4, !24}
+!45 = !{i64 0, i64 4, !24}

@@ -317,7 +317,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %190 = tail call noundef signext i8 %189(ptr noundef nonnull align 8 dereferenceable(570) %176, i8 noundef signext 10)
   br label %191
 
-191:                                              ; preds = %186, %183
+191:                                              ; preds = %183, %186
   %192 = phi i8 [ %185, %183 ], [ %190, %186 ]
   %193 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext %192)
   %194 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %193)

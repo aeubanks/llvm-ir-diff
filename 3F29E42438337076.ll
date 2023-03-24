@@ -32,12 +32,12 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.23 = private unnamed_addr constant [5 x i8] c" -> \00", align 1
 @.str.25 = private unnamed_addr constant [37 x i8] c"Found, resultant path has %d steps.\0A\00", align 1
 @.str.27 = private unnamed_addr constant [24 x i8] c"\0A\0ATotal %d legs found\0A\0A\00", align 1
-@str = private unnamed_addr constant [632 x i8] c"\0A\0A        PathFinder: finding a series of labeled nodes within a\0A                two-layer directed, cyclic graph.\0A               Copyright (2013) Sandia Corporation\0A\0A Sandia National Laboratories is a multi-program laboratory managed and\0A operated by Sandia Corporation, a wholly owned subsidiary of Lockheed\0A Martin Corporation, for the U.S. Department of Energy's National Nuclear\0A Security Administration under terms of Contract DE-AC04-94AL85000,\0A there is a non-exclusive license for use of this work by or on behalf\0A of the U.S. Government. Export of this program may require a license \0A from the United States Government.\0A\0A\00", align 1
-@str.28 = private unnamed_addr constant [67 x i8] c"Error: Could not allocation configuration structure.\0A\0A\09---Exiting\0A\00", align 1
-@str.29 = private unnamed_addr constant [21 x i8] c"\0A\0ASearches complete.\00", align 1
-@str.30 = private unnamed_addr constant [81 x i8] c"\0APlease insert a node label for this signature (\22\22 to complete, \22bail\22 to exit):\00", align 1
-@str.31 = private unnamed_addr constant [32 x i8] c"\0A\09Path not found for signature.\00", align 1
-@str.32 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@str = private unnamed_addr constant [21 x i8] c"\0A\0ASearches complete.\00", align 1
+@str.28 = private unnamed_addr constant [81 x i8] c"\0APlease insert a node label for this signature (\22\22 to complete, \22bail\22 to exit):\00", align 1
+@str.29 = private unnamed_addr constant [32 x i8] c"\0A\09Path not found for signature.\00", align 1
+@str.30 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@str.31 = private unnamed_addr constant [632 x i8] c"\0A\0A        PathFinder: finding a series of labeled nodes within a\0A                two-layer directed, cyclic graph.\0A               Copyright (2013) Sandia Corporation\0A\0A Sandia National Laboratories is a multi-program laboratory managed and\0A operated by Sandia Corporation, a wholly owned subsidiary of Lockheed\0A Martin Corporation, for the U.S. Department of Energy's National Nuclear\0A Security Administration under terms of Contract DE-AC04-94AL85000,\0A there is a non-exclusive license for use of this work by or on behalf\0A of the U.S. Government. Export of this program may require a license \0A from the United States Government.\0A\0A\00", align 1
+@str.32 = private unnamed_addr constant [67 x i8] c"Error: Could not allocation configuration structure.\0A\0A\09---Exiting\0A\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0 {
@@ -47,12 +47,12 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(23) %3, ptr noundef nonnull align 16 dereferenceable(23) @__const.main.defaultFile, i64 23, i1 false)
   %5 = tail call ptr (...) @Configuration_new() #14
   call void @llvm.lifetime.start.p0(i64 200, ptr nonnull %4) #14
-  %6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.31)
   %7 = icmp eq ptr %5, null
   br i1 %7, label %8, label %10
 
 8:                                                ; preds = %2
-  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.28)
+  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.32)
   tail call void @exit(i32 noundef 0) #15
   unreachable
 
@@ -161,7 +161,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 66:                                               ; preds = %10
   %67 = call ptr @parseFile(ptr noundef nonnull %3) #14
   %68 = icmp eq ptr %67, null
-  br i1 %68, label %146, label %69
+  br i1 %68, label %130, label %69
 
 69:                                               ; preds = %66
   %70 = getelementptr inbounds %struct.ConfigurationStruct, ptr %5, i64 0, i32 2
@@ -184,11 +184,11 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
   %81 = phi i32 [ %77, %75 ], [ %79, %78 ]
   %82 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.27, i32 noundef %81)
   call void @Graph_delete(ptr noundef nonnull %67) #14
-  br label %146
+  br label %130
 
 83:                                               ; preds = %21
   %84 = load i32, ptr @optopt, align 4, !tbaa !23
-  switch i32 %84, label %147 [
+  switch i32 %84, label %131 [
     i32 99, label %85
     i32 120, label %88
     i32 105, label %88
@@ -199,26 +199,26 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 85:                                               ; preds = %83
   %86 = load ptr, ptr @stderr, align 8, !tbaa !8
   %87 = call i64 @fwrite(ptr nonnull @.str.3, i64 37, i64 1, ptr %86) #16
-  br label %147
+  br label %131
 
 88:                                               ; preds = %83, %83
   %89 = load ptr, ptr @stderr, align 8, !tbaa !8
   %90 = call i64 @fwrite(ptr nonnull @.str.4, i64 28, i64 1, ptr %89) #16
-  br label %147
+  br label %131
 
 91:                                               ; preds = %83
   %92 = load ptr, ptr @stderr, align 8, !tbaa !8
   %93 = call i64 @fwrite(ptr nonnull @.str.5, i64 41, i64 1, ptr %92) #16
-  br label %147
+  br label %131
 
 94:                                               ; preds = %83
   %95 = load ptr, ptr @stderr, align 8, !tbaa !8
   %96 = call i64 @fwrite(ptr nonnull @.str.6, i64 57, i64 1, ptr %95) #16
-  br label %147
+  br label %131
 
 97:                                               ; preds = %21, %21
   %98 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.8)
-  br label %147
+  br label %131
 
 99:                                               ; preds = %56, %12
   %100 = phi i32 [ 0, %12 ], [ %57, %56 ]
@@ -234,7 +234,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 108:                                              ; preds = %99
   %109 = load ptr, ptr @stderr, align 8, !tbaa !8
   %110 = call i64 @fwrite(ptr nonnull @.str.11, i64 75, i64 1, ptr %109) #16
-  br label %147
+  br label %131
 
 111:                                              ; preds = %99
   %112 = icmp eq i32 %106, 0
@@ -243,7 +243,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 113:                                              ; preds = %111
   %114 = load ptr, ptr @stderr, align 8, !tbaa !8
   %115 = call i64 @fwrite(ptr nonnull @.str.12, i64 73, i64 1, ptr %114) #16
-  br label %147
+  br label %131
 
 116:                                              ; preds = %111
   %117 = icmp eq i32 %104, 0
@@ -254,7 +254,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 120:                                              ; preds = %116
   %121 = load ptr, ptr @stderr, align 8, !tbaa !8
   %122 = call i64 @fwrite(ptr nonnull @.str.13, i64 79, i64 1, ptr %121) #16
-  br label %147
+  br label %131
 
 123:                                              ; preds = %116
   %124 = icmp eq i32 %102, 0
@@ -262,7 +262,7 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 
 125:                                              ; preds = %123
   call void @runBatch(ptr noundef %103, ptr noundef nonnull %5)
-  br label %146
+  br label %130
 
 126:                                              ; preds = %123
   %127 = icmp eq i32 %100, 0
@@ -270,45 +270,21 @@ define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0
 
 128:                                              ; preds = %126
   call void @runInteractively(ptr noundef %103, ptr noundef nonnull %5)
-  br label %146
+  br label %130
 
 129:                                              ; preds = %126
-  %130 = call ptr @parseFile(ptr noundef %103) #14
-  %131 = icmp eq ptr %130, null
-  br i1 %131, label %146, label %132
+  call void @exhaustiveLegSearch(ptr noundef %103, ptr noundef nonnull %5)
+  br label %130
 
-132:                                              ; preds = %129
-  %133 = getelementptr inbounds %struct.ConfigurationStruct, ptr %5, i64 0, i32 2
-  %134 = load ptr, ptr %133, align 8, !tbaa !15
-  %135 = getelementptr inbounds %struct.SearchOptionsStruct, ptr %134, i64 0, i32 4
-  %136 = load ptr, ptr %135, align 8, !tbaa !19
-  %137 = icmp eq ptr %136, null
-  br i1 %137, label %138, label %141
-
-138:                                              ; preds = %132
-  %139 = load i32, ptr %134, align 8, !tbaa !22
-  %140 = call i32 @findAllPossibleLegs(ptr noundef nonnull %130, i32 noundef %139) #14
-  br label %143
-
-141:                                              ; preds = %132
-  %142 = call i32 @findAndLogAllPossibleLegs(ptr noundef nonnull %130, ptr noundef nonnull %134) #14
-  br label %143
-
-143:                                              ; preds = %141, %138
-  %144 = phi i32 [ %140, %138 ], [ %142, %141 ]
-  %145 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.27, i32 noundef %144)
-  call void @Graph_delete(ptr noundef nonnull %130) #14
-  br label %146
-
-146:                                              ; preds = %143, %129, %80, %66, %125, %128
+130:                                              ; preds = %80, %66, %125, %129, %128
   call void (...) @YAMLClose() #14
-  br label %147
+  br label %131
 
-147:                                              ; preds = %83, %85, %91, %94, %88, %146, %120, %113, %108, %97
-  %148 = phi i32 [ 0, %146 ], [ 0, %97 ], [ 1, %108 ], [ 1, %113 ], [ 1, %120 ], [ 1, %88 ], [ 1, %94 ], [ 1, %91 ], [ 1, %85 ], [ 1, %83 ]
+131:                                              ; preds = %83, %85, %91, %94, %88, %130, %120, %113, %108, %97
+  %132 = phi i32 [ 0, %130 ], [ 0, %97 ], [ 1, %108 ], [ 1, %113 ], [ 1, %120 ], [ 1, %88 ], [ 1, %94 ], [ 1, %91 ], [ 1, %85 ], [ 1, %83 ]
   call void @llvm.lifetime.end.p0(i64 200, ptr nonnull %4) #14
   call void @llvm.lifetime.end.p0(i64 23, ptr nonnull %3) #14
-  ret i32 %148
+  ret i32 %132
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -399,7 +375,7 @@ define dso_local void @runBatch(ptr noundef %0, ptr noundef %1) local_unnamed_ad
   br label %19
 
 19:                                               ; preds = %18, %6
-  %20 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.29)
+  %20 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   ret void
 }
 
@@ -424,7 +400,7 @@ define dso_local void @runInteractively(ptr noundef %0, ptr nocapture noundef re
 
 10:                                               ; preds = %39, %7
   %11 = phi i64 [ 0, %7 ], [ %40, %39 ]
-  %12 = call i32 @puts(ptr nonnull dereferenceable(1) @str.30)
+  %12 = call i32 @puts(ptr nonnull dereferenceable(1) @str.28)
   %13 = load ptr, ptr @stdin, align 8, !tbaa !8
   %14 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 200, ptr noundef %13)
   %15 = icmp eq ptr %14, null
@@ -508,7 +484,7 @@ define dso_local void @runInteractively(ptr noundef %0, ptr nocapture noundef re
   br label %64
 
 62:                                               ; preds = %54
-  %63 = call i32 @puts(ptr nonnull dereferenceable(1) @str.32)
+  %63 = call i32 @puts(ptr nonnull dereferenceable(1) @str.30)
   br label %64
 
 64:                                               ; preds = %60, %62
@@ -529,7 +505,7 @@ define dso_local void @runInteractively(ptr noundef %0, ptr nocapture noundef re
   br label %77
 
 75:                                               ; preds = %67
-  %76 = call i32 @puts(ptr nonnull dereferenceable(1) @str.31)
+  %76 = call i32 @puts(ptr nonnull dereferenceable(1) @str.29)
   br label %77
 
 77:                                               ; preds = %75, %72
@@ -613,14 +589,14 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
 
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #12
+
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #12
-
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #13
+declare i32 @llvm.smax.i32(i32, i32) #13
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -634,8 +610,8 @@ attributes #8 = { mustprogress nofree nounwind willreturn memory(argmem: read) "
 attributes #9 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #13 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #12 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { nounwind }
 attributes #15 = { noreturn nounwind }
 attributes #16 = { cold }

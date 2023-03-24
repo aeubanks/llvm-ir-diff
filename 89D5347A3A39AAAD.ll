@@ -738,12 +738,12 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   br i1 %83, label %84, label %682
 
 84:                                               ; preds = %81
-  %85 = icmp eq i64 %15, 6
-  br i1 %85, label %330, label %86
+  %85 = add nuw nsw i64 %15, 1
+  %86 = icmp eq i64 %15, 6
+  br i1 %86, label %330, label %87
 
-86:                                               ; preds = %84
-  %87 = add nuw nsw i64 %15, 1
-  %88 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %87
+87:                                               ; preds = %84
+  %88 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %85
   %89 = load i8, ptr %88, align 1, !tbaa !9
   %90 = sext i8 %89 to i64
   %91 = and i64 %90, 4294967295
@@ -753,7 +753,7 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %95 = icmp eq i64 %94, 0
   br i1 %95, label %96, label %121
 
-96:                                               ; preds = %86
+96:                                               ; preds = %87
   %97 = lshr i64 %93, 6
   %98 = and i64 %97, %93
   %99 = lshr i64 %98, 12
@@ -786,18 +786,18 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %120 = zext i1 %119 to i32
   br label %121
 
-121:                                              ; preds = %86, %114
-  %122 = phi i32 [ 0, %86 ], [ %120, %114 ]
+121:                                              ; preds = %87, %114
+  %122 = phi i32 [ 0, %87 ], [ %120, %114 ]
   %123 = icmp eq i32 %122, 0
   br i1 %123, label %124, label %682, !llvm.loop !20
 
 124:                                              ; preds = %121
-  %125 = icmp eq i64 %87, 6
-  br i1 %125, label %330, label %126
+  %125 = add nuw nsw i64 %15, 2
+  %126 = icmp eq i64 %85, 6
+  br i1 %126, label %330, label %127
 
-126:                                              ; preds = %124
-  %127 = add nuw nsw i64 %15, 2
-  %128 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %127
+127:                                              ; preds = %124
+  %128 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %125
   %129 = load i8, ptr %128, align 1, !tbaa !9
   %130 = sext i8 %129 to i64
   %131 = and i64 %130, 4294967295
@@ -807,7 +807,7 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %135 = icmp eq i64 %134, 0
   br i1 %135, label %136, label %161
 
-136:                                              ; preds = %126
+136:                                              ; preds = %127
   %137 = lshr i64 %133, 6
   %138 = and i64 %137, %133
   %139 = lshr i64 %138, 12
@@ -840,18 +840,18 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %160 = zext i1 %159 to i32
   br label %161
 
-161:                                              ; preds = %154, %126
-  %162 = phi i32 [ 0, %126 ], [ %160, %154 ]
+161:                                              ; preds = %154, %127
+  %162 = phi i32 [ 0, %127 ], [ %160, %154 ]
   %163 = icmp eq i32 %162, 0
   br i1 %163, label %164, label %682, !llvm.loop !20
 
 164:                                              ; preds = %161
-  %165 = icmp eq i64 %127, 6
-  br i1 %165, label %330, label %166
+  %165 = add nuw nsw i64 %15, 3
+  %166 = icmp eq i64 %125, 6
+  br i1 %166, label %330, label %167
 
-166:                                              ; preds = %164
-  %167 = add nuw nsw i64 %15, 3
-  %168 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %167
+167:                                              ; preds = %164
+  %168 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %165
   %169 = load i8, ptr %168, align 1, !tbaa !9
   %170 = sext i8 %169 to i64
   %171 = and i64 %170, 4294967295
@@ -861,7 +861,7 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %175 = icmp eq i64 %174, 0
   br i1 %175, label %176, label %201
 
-176:                                              ; preds = %166
+176:                                              ; preds = %167
   %177 = lshr i64 %173, 6
   %178 = and i64 %177, %173
   %179 = lshr i64 %178, 12
@@ -894,18 +894,18 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %200 = zext i1 %199 to i32
   br label %201
 
-201:                                              ; preds = %194, %166
-  %202 = phi i32 [ 0, %166 ], [ %200, %194 ]
+201:                                              ; preds = %194, %167
+  %202 = phi i32 [ 0, %167 ], [ %200, %194 ]
   %203 = icmp eq i32 %202, 0
   br i1 %203, label %204, label %682, !llvm.loop !20
 
 204:                                              ; preds = %201
-  %205 = icmp eq i64 %167, 6
-  br i1 %205, label %330, label %206
+  %205 = add nuw nsw i64 %15, 4
+  %206 = icmp eq i64 %165, 6
+  br i1 %206, label %330, label %207
 
-206:                                              ; preds = %204
-  %207 = add nuw nsw i64 %15, 4
-  %208 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %207
+207:                                              ; preds = %204
+  %208 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %205
   %209 = load i8, ptr %208, align 1, !tbaa !9
   %210 = sext i8 %209 to i64
   %211 = and i64 %210, 4294967295
@@ -915,7 +915,7 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %215 = icmp eq i64 %214, 0
   br i1 %215, label %216, label %240
 
-216:                                              ; preds = %206
+216:                                              ; preds = %207
   %217 = lshr i64 %213, 6
   %218 = and i64 %217, %213
   %219 = lshr i64 %218, 12
@@ -947,13 +947,13 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %239 = icmp eq i64 %238, 0
   br i1 %239, label %240, label %682, !llvm.loop !20
 
-240:                                              ; preds = %206, %234
-  %241 = icmp eq i64 %207, 6
-  br i1 %241, label %330, label %242
+240:                                              ; preds = %207, %234
+  %241 = add nuw nsw i64 %15, 5
+  %242 = icmp eq i64 %205, 6
+  br i1 %242, label %330, label %243
 
-242:                                              ; preds = %240
-  %243 = add nuw nsw i64 %15, 5
-  %244 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %243
+243:                                              ; preds = %240
+  %244 = getelementptr inbounds [7 x i8], ptr @height, i64 0, i64 %241
   %245 = load i8, ptr %244, align 1, !tbaa !9
   %246 = sext i8 %245 to i64
   %247 = and i64 %246, 4294967295
@@ -963,7 +963,7 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %251 = icmp eq i64 %250, 0
   br i1 %251, label %252, label %276
 
-252:                                              ; preds = %242
+252:                                              ; preds = %243
   %253 = lshr i64 %249, 6
   %254 = and i64 %253, %249
   %255 = lshr i64 %254, 12
@@ -995,8 +995,8 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %275 = icmp eq i64 %274, 0
   br i1 %275, label %276, label %682, !llvm.loop !20
 
-276:                                              ; preds = %242, %270
-  %277 = icmp eq i64 %243, 6
+276:                                              ; preds = %243, %270
+  %277 = icmp eq i64 %241, 6
   br i1 %277, label %330, label %278
 
 278:                                              ; preds = %276
@@ -1523,7 +1523,7 @@ define dso_local i32 @ab(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
   %665 = shl i64 %398, 32
   %666 = and i64 %665, 288230371856744448
   %667 = and i64 %646, -2305843004918726657
-  %668 = or i64 %666, %667
+  %668 = or i64 %667, %666
   %669 = and i32 %631, 7
   %670 = zext i32 %669 to i64
   %671 = shl nuw nsw i64 %670, 58
@@ -1904,8 +1904,8 @@ define dso_local i32 @solve() local_unnamed_addr #3 {
   store i64 %264, ptr @msecs, align 8, !tbaa !10
   br label %265
 
-265:                                              ; preds = %53, %47, %41, %59, %73, %79, %85, %91, %105, %111, %117, %123, %137, %143, %149, %155, %169, %175, %181, %187, %201, %207, %213, %219, %233, %239, %245, %251, %18, %12, %0, %24, %257
-  %266 = phi i32 [ %260, %257 ], [ 1, %24 ], [ 1, %0 ], [ 1, %12 ], [ 1, %18 ], [ 5, %251 ], [ 5, %245 ], [ 5, %239 ], [ 5, %233 ], [ 5, %219 ], [ 5, %213 ], [ 5, %207 ], [ 5, %201 ], [ 5, %187 ], [ 5, %181 ], [ 5, %175 ], [ 5, %169 ], [ 5, %155 ], [ 5, %149 ], [ 5, %143 ], [ 5, %137 ], [ 5, %123 ], [ 5, %117 ], [ 5, %111 ], [ 5, %105 ], [ 5, %91 ], [ 5, %85 ], [ 5, %79 ], [ 5, %73 ], [ 5, %59 ], [ 5, %41 ], [ 5, %47 ], [ 5, %53 ]
+265:                                              ; preds = %53, %47, %41, %59, %73, %79, %85, %91, %105, %111, %117, %123, %137, %143, %149, %155, %169, %175, %181, %187, %201, %207, %213, %219, %233, %239, %245, %251, %0, %12, %18, %24, %257
+  %266 = phi i32 [ %260, %257 ], [ 1, %24 ], [ 1, %18 ], [ 1, %12 ], [ 1, %0 ], [ 5, %251 ], [ 5, %245 ], [ 5, %239 ], [ 5, %233 ], [ 5, %219 ], [ 5, %213 ], [ 5, %207 ], [ 5, %201 ], [ 5, %187 ], [ 5, %181 ], [ 5, %175 ], [ 5, %169 ], [ 5, %155 ], [ 5, %149 ], [ 5, %143 ], [ 5, %137 ], [ 5, %123 ], [ 5, %117 ], [ 5, %111 ], [ 5, %105 ], [ 5, %91 ], [ 5, %85 ], [ 5, %79 ], [ 5, %73 ], [ 5, %59 ], [ 5, %41 ], [ 5, %47 ], [ 5, %53 ]
   ret i32 %266
 }
 
@@ -2061,17 +2061,17 @@ declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #4
 ; Function Attrs: nofree nounwind
 declare noundef i32 @getc(ptr nocapture noundef) local_unnamed_addr #4
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #15
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #15
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #15
+declare i64 @llvm.umin.i64(i64, i64) #16
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #16
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #16
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2088,8 +2088,8 @@ attributes #11 = { nofree nosync nounwind memory(readwrite, argmem: read, inacce
 attributes #12 = { mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { mustprogress nofree nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #14 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #15 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #17 = { nounwind allocsize(0,1) }
 attributes #18 = { nounwind }
 

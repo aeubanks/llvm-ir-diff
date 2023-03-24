@@ -146,7 +146,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   tail call void @readpar() #14
   %21 = load i32, ptr @doPlacement, align 4, !tbaa !5
   %22 = icmp eq i32 %21, 0
-  br i1 %22, label %449, label %23
+  br i1 %22, label %448, label %23
 
 23:                                               ; preds = %19
   store ptr @woverlap, ptr @overlap, align 8, !tbaa !11
@@ -648,7 +648,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %408 = call i32 @fflush(ptr noundef %407)
   %409 = load i32, ptr @cost_only, align 4, !tbaa !5
   %410 = icmp eq i32 %409, 0
-  br i1 %410, label %411, label %448
+  br i1 %410, label %411, label %447
 
 411:                                              ; preds = %406
   %412 = load ptr, ptr @fpo, align 8, !tbaa !11
@@ -663,7 +663,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %419 = load i32, ptr @attpercell, align 4, !tbaa !5
   %420 = mul nsw i32 %419, %414
   store i32 %420, ptr @attmax, align 4, !tbaa !5
-  br label %444
+  br label %442
 
 421:                                              ; preds = %411
   %422 = load ptr, ptr @cellarray, align 8, !tbaa !11
@@ -673,78 +673,79 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
 
 425:                                              ; preds = %421, %425
   %426 = phi i64 [ %423, %421 ], [ %428, %425 ]
-  %427 = phi i32 [ 0, %421 ], [ %436, %425 ]
+  %427 = phi i32 [ 0, %421 ], [ %435, %425 ]
   %428 = add nsw i64 %426, 1
   %429 = getelementptr inbounds ptr, ptr %422, i64 %428
   %430 = load ptr, ptr %429, align 8, !tbaa !11
   %431 = getelementptr inbounds %struct.cellbox, ptr %430, i64 0, i32 1
   %432 = load i32, ptr %431, align 8, !tbaa !27
-  %433 = freeze i32 %432
-  %434 = icmp sgt i32 %433, 0
-  %435 = zext i1 %434 to i32
-  %436 = add i32 %427, %435
-  %437 = icmp slt i64 %428, %424
-  br i1 %437, label %425, label %438, !llvm.loop !28
+  %433 = icmp sgt i32 %432, 0
+  %434 = zext i1 %433 to i32
+  %435 = add nuw nsw i32 %427, %434
+  %436 = icmp slt i64 %428, %424
+  br i1 %436, label %425, label %437, !llvm.loop !28
 
-438:                                              ; preds = %425
-  %439 = load i32, ptr @attpercell, align 4, !tbaa !5
-  %440 = add nsw i32 %436, %414
-  %441 = mul nsw i32 %439, %440
-  store i32 %441, ptr @attmax, align 4, !tbaa !5
-  %442 = icmp ugt i32 %436, 1
-  %443 = select i1 %442, i32 %416, i32 %414
-  br label %444
+437:                                              ; preds = %425
+  %438 = load i32, ptr @attpercell, align 4, !tbaa !5
+  %439 = add nsw i32 %435, %414
+  %440 = mul nsw i32 %438, %439
+  store i32 %440, ptr @attmax, align 4, !tbaa !5
+  %441 = icmp ugt i32 %435, 1
+  br i1 %441, label %443, label %442
 
-444:                                              ; preds = %438, %418
-  %445 = phi i32 [ %414, %418 ], [ %443, %438 ]
-  %446 = mul nsw i32 %445, 11
-  store i32 %446, ptr @bigcell, align 4, !tbaa !5
-  store i32 %445, ptr @choose, align 4, !tbaa !5
-  %447 = add nsw i32 %446, 1
-  store i32 %447, ptr @toobig, align 4, !tbaa !5
+442:                                              ; preds = %418, %437
+  br label %443
+
+443:                                              ; preds = %437, %442
+  %444 = phi i32 [ %414, %442 ], [ %416, %437 ]
+  %445 = mul nsw i32 %444, 11
+  store i32 %445, ptr @bigcell, align 4, !tbaa !5
+  store i32 %444, ptr @choose, align 4, !tbaa !5
+  %446 = add nsw i32 %445, 1
+  store i32 %446, ptr @toobig, align 4, !tbaa !5
   call void @prepSpots()
   call void @utemp() #14
-  br label %448
+  br label %447
 
-448:                                              ; preds = %444, %406
+447:                                              ; preds = %443, %406
   call void @finalout() #14
   call void @finalcheck() #14
   call void @twstats() #14
-  br label %460
+  br label %459
 
-449:                                              ; preds = %19
-  %450 = load i32, ptr @doChannelGraph, align 4, !tbaa !5
-  %451 = icmp eq i32 %450, 0
-  br i1 %451, label %456, label %452
+448:                                              ; preds = %19
+  %449 = load i32, ptr @doChannelGraph, align 4, !tbaa !5
+  %450 = icmp eq i32 %449, 0
+  br i1 %450, label %455, label %451
 
-452:                                              ; preds = %449
+451:                                              ; preds = %448
   tail call void @gmain() #14
-  %453 = load i32, ptr @doGlobalRoute, align 4, !tbaa !5
-  %454 = icmp eq i32 %453, 0
-  br i1 %454, label %460, label %455
+  %452 = load i32, ptr @doGlobalRoute, align 4, !tbaa !5
+  %453 = icmp eq i32 %452, 0
+  br i1 %453, label %459, label %454
 
-455:                                              ; preds = %452
+454:                                              ; preds = %451
   tail call void @rmain() #14
-  br label %460
+  br label %459
 
-456:                                              ; preds = %449
-  %457 = load i32, ptr @doGlobalRoute, align 4, !tbaa !5
-  %458 = icmp eq i32 %457, 0
-  br i1 %458, label %460, label %459
+455:                                              ; preds = %448
+  %456 = load i32, ptr @doGlobalRoute, align 4, !tbaa !5
+  %457 = icmp eq i32 %456, 0
+  br i1 %457, label %459, label %458
 
-459:                                              ; preds = %456
+458:                                              ; preds = %455
   tail call void @rmain() #14
-  br label %460
+  br label %459
 
-460:                                              ; preds = %455, %452, %459, %456, %448
-  %461 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %462 = call i64 @fwrite(ptr nonnull @.str.29, i64 41, i64 1, ptr %461)
-  %463 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %464 = call i64 @fwrite(ptr nonnull @.str.30, i64 39, i64 1, ptr %463)
-  %465 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %466 = call i64 @fwrite(ptr nonnull @.str.29, i64 41, i64 1, ptr %465)
-  %467 = load ptr, ptr @fpo, align 8, !tbaa !11
-  %468 = call i32 @fclose(ptr noundef %467)
+459:                                              ; preds = %454, %451, %458, %455, %447
+  %460 = load ptr, ptr @fpo, align 8, !tbaa !11
+  %461 = call i64 @fwrite(ptr nonnull @.str.29, i64 41, i64 1, ptr %460)
+  %462 = load ptr, ptr @fpo, align 8, !tbaa !11
+  %463 = call i64 @fwrite(ptr nonnull @.str.30, i64 39, i64 1, ptr %462)
+  %464 = load ptr, ptr @fpo, align 8, !tbaa !11
+  %465 = call i64 @fwrite(ptr nonnull @.str.29, i64 41, i64 1, ptr %464)
+  %466 = load ptr, ptr @fpo, align 8, !tbaa !11
+  %467 = call i32 @fclose(ptr noundef %466)
   call void @exit(i32 noundef 0) #15
   unreachable
 }
@@ -1398,23 +1399,23 @@ declare i32 @wireestx(i32 noundef, i32 noundef, i32 noundef, double noundef) loc
 
 declare i32 @wireesty(i32 noundef, i32 noundef, i32 noundef, double noundef) local_unnamed_addr #6
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #11
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #11
+
 ; Function Attrs: nofree nounwind willreturn memory(argmem: readwrite)
-declare ptr @strcpy(ptr noalias returned writeonly, ptr noalias nocapture readonly) local_unnamed_addr #11
+declare ptr @strcpy(ptr noalias returned writeonly, ptr noalias nocapture readonly) local_unnamed_addr #12
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #13
+declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #11
 
 attributes #0 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1427,9 +1428,9 @@ attributes #7 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-siz
 attributes #8 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #10 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #12 = { nofree nounwind }
-attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #12 = { nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #13 = { nofree nounwind }
 attributes #14 = { nounwind }
 attributes #15 = { noreturn nounwind }
 attributes #16 = { nounwind willreturn memory(read) }

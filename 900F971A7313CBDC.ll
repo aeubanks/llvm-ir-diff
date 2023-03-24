@@ -20,7 +20,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @ao = dso_local local_unnamed_addr global i32 0, align 4
 @ap = dso_local local_unnamed_addr global i32 0, align 4
 @ab = internal unnamed_addr global i32 0, align 4
-@g = internal unnamed_addr global { i32, i8, i8, i32 } { i32 9, i8 5, i8 0, i32 0 }, align 8
+@g = internal unnamed_addr global { i32, i8, i8, i32 } { i32 9, i8 5, i8 0, i32 0 }, align 4
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @dummy(ptr noundef %0, ...) local_unnamed_addr #0 {
@@ -135,7 +135,7 @@ define dso_local i32 @aw(i32 noundef %0) local_unnamed_addr #3 {
   %66 = shl i16 %65, 7
   %67 = ashr exact i16 %66, 7
   %68 = sext i16 %67 to i32
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(12) @g, ptr noundef nonnull align 4 dereferenceable(12) @__const.aw.bf, i64 12, i1 false), !tbaa.struct !13
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(12) @g, ptr noundef nonnull align 4 dereferenceable(12) @__const.aw.bf, i64 12, i1 false), !tbaa.struct !13
   %69 = icmp eq i32 %60, 0
   br i1 %69, label %81, label %70
 
@@ -220,7 +220,7 @@ define dso_local i32 @aw(i32 noundef %0) local_unnamed_addr #3 {
   store i8 %3, ptr @c, align 1, !tbaa !14
   store ptr @.str, ptr @ss, align 8, !tbaa !5
   store i16 %39, ptr @am, align 2, !tbaa !11
-  %120 = load i32, ptr @g, align 8
+  %120 = load i32, ptr @g, align 4
   %121 = icmp ne i32 %120, 0
   %122 = select i1 %33, i1 %121, i1 false
   %123 = zext i1 %122 to i32

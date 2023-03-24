@@ -378,24 +378,24 @@ define dso_local ptr @find_destination(ptr nocapture noundef readonly %0, i32 no
 
 48:                                               ; preds = %46
   %49 = getelementptr inbounds %struct._StrTreeNode, ptr %6, i64 0, i32 5
-  %50 = load ptr, ptr %49, align 8, !tbaa !15
+  %50 = load ptr, ptr %49, align 8, !tbaa !21
   %51 = icmp eq ptr %50, null
   br i1 %51, label %160, label %52
 
 52:                                               ; preds = %48, %153
   %53 = phi ptr [ %155, %153 ], [ %50, %48 ]
   %54 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 6
-  %55 = load i32, ptr %54, align 4, !tbaa !21
+  %55 = load i32, ptr %54, align 4, !tbaa !22
   %56 = icmp eq i32 %55, 0
   br i1 %56, label %57, label %97
 
 57:                                               ; preds = %52
   %58 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 4
-  %59 = load ptr, ptr %58, align 8, !tbaa !23
+  %59 = load ptr, ptr %58, align 8, !tbaa !24
   %60 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 5
-  %61 = load i32, ptr %60, align 8, !tbaa !24
+  %61 = load i32, ptr %60, align 8, !tbaa !25
   %62 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 7
-  %63 = load ptr, ptr %62, align 8, !tbaa !25
+  %63 = load ptr, ptr %62, align 8, !tbaa !26
   %64 = add nsw i32 %61, -1
   %65 = icmp sgt i32 %61, %1
   br i1 %65, label %153, label %66
@@ -446,11 +446,11 @@ define dso_local ptr @find_destination(ptr nocapture noundef readonly %0, i32 no
 97:                                               ; preds = %52
   %98 = tail call i32 @llvm.smin.i32(i32 %55, i32 %1)
   %99 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 4
-  %100 = load ptr, ptr %99, align 8, !tbaa !23
+  %100 = load ptr, ptr %99, align 8, !tbaa !24
   %101 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 5
-  %102 = load i32, ptr %101, align 8, !tbaa !24
+  %102 = load i32, ptr %101, align 8, !tbaa !25
   %103 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 7
-  %104 = load ptr, ptr %103, align 8, !tbaa !25
+  %104 = load ptr, ptr %103, align 8, !tbaa !26
   %105 = add nsw i32 %102, -1
   %106 = icmp sgt i32 %102, %98
   br i1 %106, label %153, label %107
@@ -505,13 +505,13 @@ define dso_local ptr @find_destination(ptr nocapture noundef readonly %0, i32 no
 
 141:                                              ; preds = %138
   %142 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 1
-  %143 = load i32, ptr %142, align 4, !tbaa !26
+  %143 = load i32, ptr %142, align 4, !tbaa !27
   %144 = icmp eq i32 %143, 0
   br i1 %144, label %145, label %157
 
 145:                                              ; preds = %141
   %146 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 3
-  %147 = load ptr, ptr %146, align 8, !tbaa !27
+  %147 = load ptr, ptr %146, align 8, !tbaa !28
   %148 = getelementptr inbounds i8, ptr %0, i64 12
   %149 = load i32, ptr %148, align 4, !tbaa !5
   %150 = getelementptr inbounds i8, ptr %0, i64 16
@@ -521,20 +521,20 @@ define dso_local ptr @find_destination(ptr nocapture noundef readonly %0, i32 no
 
 153:                                              ; preds = %134, %93, %97, %57, %138
   %154 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 9
-  %155 = load ptr, ptr %154, align 8, !tbaa !15
+  %155 = load ptr, ptr %154, align 8, !tbaa !29
   %156 = icmp eq ptr %155, null
   br i1 %156, label %160, label %52
 
 157:                                              ; preds = %141, %145
   %158 = getelementptr inbounds %struct._PatternNode, ptr %53, i64 0, i32 8
-  %159 = load ptr, ptr %158, align 8, !tbaa !28
+  %159 = load ptr, ptr %158, align 8, !tbaa !30
   br label %164
 
 160:                                              ; preds = %42, %153, %48, %5, %46
   %161 = getelementptr inbounds %struct._StrTreeNode, ptr %6, i64 0, i32 4
   %162 = load ptr, ptr %161, align 8, !tbaa !15
   %163 = icmp eq ptr %162, null
-  br i1 %163, label %164, label %5, !llvm.loop !29
+  br i1 %163, label %164, label %5, !llvm.loop !31
 
 164:                                              ; preds = %160, %2, %157
   %165 = phi ptr [ %159, %157 ], [ null, %2 ], [ null, %160 ]
@@ -555,13 +555,13 @@ define dso_local noalias ptr @NewPatternNode(i32 noundef %0, i32 noundef %1, ptr
   unreachable
 
 9:                                                ; preds = %5
-  store i32 %0, ptr %6, align 8, !tbaa !30
+  store i32 %0, ptr %6, align 8, !tbaa !32
   %10 = getelementptr inbounds %struct._PatternNode, ptr %6, i64 0, i32 1
-  store i32 %1, ptr %10, align 4, !tbaa !26
+  store i32 %1, ptr %10, align 4, !tbaa !27
   %11 = sext i32 %3 to i64
   %12 = tail call noalias ptr @malloc(i64 noundef %11) #11
   %13 = getelementptr inbounds %struct._PatternNode, ptr %6, i64 0, i32 4
-  store ptr %12, ptr %13, align 8, !tbaa !23
+  store ptr %12, ptr %13, align 8, !tbaa !24
   %14 = icmp eq ptr %12, null
   br i1 %14, label %15, label %16
 
@@ -572,9 +572,9 @@ define dso_local noalias ptr @NewPatternNode(i32 noundef %0, i32 noundef %1, ptr
 16:                                               ; preds = %9
   %17 = tail call ptr @strncpy(ptr noundef nonnull %12, ptr noundef %2, i64 noundef %11) #13
   %18 = getelementptr inbounds %struct._PatternNode, ptr %6, i64 0, i32 5
-  store i32 %3, ptr %18, align 8, !tbaa !24
+  store i32 %3, ptr %18, align 8, !tbaa !25
   %19 = getelementptr inbounds %struct._PatternNode, ptr %6, i64 0, i32 6
-  store i32 %4, ptr %19, align 4, !tbaa !21
+  store i32 %4, ptr %19, align 4, !tbaa !22
   %20 = tail call noalias dereferenceable_or_null(1024) ptr @malloc(i64 noundef 1024) #11
   %21 = icmp eq ptr %20, null
   br i1 %21, label %91, label %22
@@ -790,11 +790,11 @@ define dso_local noalias ptr @NewPatternNode(i32 noundef %0, i32 noundef %1, ptr
   %148 = add nuw nsw i64 %139, 1
   %149 = add i64 %140, 1
   %150 = icmp eq i64 %149, %94
-  br i1 %150, label %151, label %138, !llvm.loop !31
+  br i1 %150, label %151, label %138, !llvm.loop !33
 
 151:                                              ; preds = %135, %138, %22
   %152 = getelementptr inbounds %struct._PatternNode, ptr %6, i64 0, i32 7
-  store ptr %20, ptr %152, align 8, !tbaa !25
+  store ptr %20, ptr %152, align 8, !tbaa !26
   ret ptr %6
 }
 
@@ -812,7 +812,7 @@ define dso_local noalias ptr @NewStrTreeNode(i32 noundef %0, ptr nocapture nound
   unreachable
 
 7:                                                ; preds = %3
-  store i32 %0, ptr %4, align 8, !tbaa !32
+  store i32 %0, ptr %4, align 8, !tbaa !34
   %8 = sext i32 %2 to i64
   %9 = tail call noalias ptr @malloc(i64 noundef %8) #11
   %10 = getelementptr inbounds %struct._StrTreeNode, ptr %4, i64 0, i32 1
@@ -1043,7 +1043,7 @@ define dso_local noalias ptr @NewStrTreeNode(i32 noundef %0, ptr nocapture nound
   %144 = add nuw nsw i64 %135, 1
   %145 = add i64 %136, 1
   %146 = icmp eq i64 %145, %90
-  br i1 %146, label %147, label %134, !llvm.loop !33
+  br i1 %146, label %147, label %134, !llvm.loop !35
 
 147:                                              ; preds = %131, %134, %18
   %148 = getelementptr inbounds %struct._StrTreeNode, ptr %4, i64 0, i32 3
@@ -1273,7 +1273,7 @@ define dso_local ptr @find_lcs(ptr noundef readonly %0, i32 noundef %1, ptr noun
   %139 = add nuw nsw i64 %130, 1
   %140 = add i64 %131, 1
   %141 = icmp eq i64 %140, %85
-  br i1 %141, label %142, label %129, !llvm.loop !34
+  br i1 %141, label %142, label %129, !llvm.loop !36
 
 142:                                              ; preds = %126, %129, %15
   %143 = extractelement <2 x i32> %12, i64 1
@@ -1340,7 +1340,7 @@ define dso_local ptr @find_lcs(ptr noundef readonly %0, i32 noundef %1, ptr noun
   %190 = add i64 %177, 1
   %191 = trunc i64 %190 to i32
   %192 = icmp eq i32 %80, %191
-  br i1 %192, label %196, label %176, !llvm.loop !35
+  br i1 %192, label %196, label %176, !llvm.loop !37
 
 193:                                              ; preds = %176
   %194 = trunc i64 %177 to i32
@@ -1380,7 +1380,7 @@ define dso_local ptr @find_lcs(ptr noundef readonly %0, i32 noundef %1, ptr noun
   %220 = add nuw nsw i32 %209, 1
   %221 = add nsw i64 %208, 1
   %222 = icmp sgt i64 %207, 1
-  br i1 %222, label %206, label %225, !llvm.loop !36
+  br i1 %222, label %206, label %225, !llvm.loop !38
 
 223:                                              ; preds = %206
   %224 = trunc i64 %208 to i32
@@ -1408,7 +1408,7 @@ define dso_local ptr @find_lcs(ptr noundef readonly %0, i32 noundef %1, ptr noun
   %237 = phi i32 [ %156, %174 ], [ %156, %225 ], [ %226, %229 ]
   %238 = phi i32 [ %175, %174 ], [ 1, %225 ], [ 1, %229 ]
   %239 = icmp slt i32 %158, %143
-  br i1 %239, label %153, label %240, !llvm.loop !37
+  br i1 %239, label %153, label %240, !llvm.loop !39
 
 240:                                              ; preds = %235, %142
   %241 = phi ptr [ null, %142 ], [ %236, %235 ]
@@ -1449,10 +1449,10 @@ define dso_local void @insert_rule(ptr noundef %0, i32 noundef %1, i32 noundef %
   %20 = tail call i32 @llvm.umax.i32(i32 %17, i32 %10)
   %21 = select i1 %18, ptr %8, ptr %9
   %22 = getelementptr inbounds %struct._StrTreeNode, ptr %8, i64 0, i32 4
-  %23 = load ptr, ptr %22, align 8, !tbaa !38
+  %23 = load ptr, ptr %22, align 8, !tbaa !40
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #13
   %24 = icmp eq ptr %23, null
-  br i1 %24, label %25, label %7, !llvm.loop !39
+  br i1 %24, label %25, label %7, !llvm.loop !41
 
 25:                                               ; preds = %7
   %26 = icmp ult i32 %20, 3
@@ -1464,7 +1464,7 @@ define dso_local void @insert_rule(ptr noundef %0, i32 noundef %1, i32 noundef %
   br i1 %29, label %33, label %30
 
 30:                                               ; preds = %27
-  %31 = load i32, ptr %28, align 8, !tbaa !32
+  %31 = load i32, ptr %28, align 8, !tbaa !34
   %32 = add nsw i32 %31, 1
   br label %33
 
@@ -1473,12 +1473,12 @@ define dso_local void @insert_rule(ptr noundef %0, i32 noundef %1, i32 noundef %
   %35 = tail call ptr @NewStrTreeNode(i32 noundef %34, ptr noundef %0, i32 noundef %1)
   %36 = tail call ptr @NewPatternNode(i32 noundef 0, i32 noundef 1, ptr noundef %0, i32 noundef %1, i32 noundef %2)
   %37 = getelementptr inbounds %struct._PatternNode, ptr %36, i64 0, i32 9
-  store ptr null, ptr %37, align 8, !tbaa !40
+  store ptr null, ptr %37, align 8, !tbaa !29
   %38 = getelementptr inbounds %struct._StrTreeNode, ptr %35, i64 0, i32 5
-  store ptr %36, ptr %38, align 8, !tbaa !41
+  store ptr %36, ptr %38, align 8, !tbaa !21
   %39 = load ptr, ptr @tree_head, align 8, !tbaa !15
   %40 = getelementptr inbounds %struct._StrTreeNode, ptr %35, i64 0, i32 4
-  store ptr %39, ptr %40, align 8, !tbaa !38
+  store ptr %39, ptr %40, align 8, !tbaa !40
   store ptr %35, ptr @tree_head, align 8, !tbaa !15
   br label %54
 
@@ -1490,14 +1490,14 @@ define dso_local void @insert_rule(ptr noundef %0, i32 noundef %1, i32 noundef %
   %46 = getelementptr inbounds %struct._StrTreeNode, ptr %21, i64 0, i32 2
   store i32 %20, ptr %46, align 8, !tbaa !19
   %47 = getelementptr inbounds %struct._StrTreeNode, ptr %21, i64 0, i32 5
-  %48 = load ptr, ptr %47, align 8, !tbaa !41
-  %49 = load i32, ptr %48, align 8, !tbaa !30
+  %48 = load ptr, ptr %47, align 8, !tbaa !21
+  %49 = load i32, ptr %48, align 8, !tbaa !32
   %50 = add nsw i32 %49, 1
   %51 = tail call ptr @NewPatternNode(i32 noundef %50, i32 noundef 1, ptr noundef %0, i32 noundef %1, i32 noundef %2)
-  %52 = load ptr, ptr %47, align 8, !tbaa !41
+  %52 = load ptr, ptr %47, align 8, !tbaa !21
   %53 = getelementptr inbounds %struct._PatternNode, ptr %51, i64 0, i32 9
-  store ptr %52, ptr %53, align 8, !tbaa !40
-  store ptr %51, ptr %47, align 8, !tbaa !41
+  store ptr %52, ptr %53, align 8, !tbaa !29
+  store ptr %51, ptr %47, align 8, !tbaa !21
   br label %54
 
 54:                                               ; preds = %41, %33
@@ -1669,27 +1669,27 @@ attributes #13 = { nounwind }
 !18 = !{!"_StrTreeNode", !6, i64 0, !16, i64 8, !6, i64 16, !16, i64 24, !16, i64 32, !16, i64 40}
 !19 = !{!18, !6, i64 16}
 !20 = !{!18, !16, i64 24}
-!21 = !{!22, !6, i64 36}
-!22 = !{!"_PatternNode", !6, i64 0, !7, i64 4, !6, i64 8, !16, i64 16, !16, i64 24, !6, i64 32, !6, i64 36, !16, i64 40, !16, i64 48, !16, i64 56}
-!23 = !{!22, !16, i64 24}
-!24 = !{!22, !6, i64 32}
-!25 = !{!22, !16, i64 40}
-!26 = !{!22, !7, i64 4}
-!27 = !{!22, !16, i64 16}
-!28 = !{!22, !16, i64 48}
-!29 = distinct !{!29, !11}
-!30 = !{!22, !6, i64 0}
-!31 = distinct !{!31, !13}
-!32 = !{!18, !6, i64 0}
+!21 = !{!18, !16, i64 40}
+!22 = !{!23, !6, i64 36}
+!23 = !{!"_PatternNode", !6, i64 0, !7, i64 4, !6, i64 8, !16, i64 16, !16, i64 24, !6, i64 32, !6, i64 36, !16, i64 40, !16, i64 48, !16, i64 56}
+!24 = !{!23, !16, i64 24}
+!25 = !{!23, !6, i64 32}
+!26 = !{!23, !16, i64 40}
+!27 = !{!23, !7, i64 4}
+!28 = !{!23, !16, i64 16}
+!29 = !{!23, !16, i64 56}
+!30 = !{!23, !16, i64 48}
+!31 = distinct !{!31, !11}
+!32 = !{!23, !6, i64 0}
 !33 = distinct !{!33, !13}
-!34 = distinct !{!34, !13}
-!35 = distinct !{!35, !11}
-!36 = distinct !{!36, !11}
+!34 = !{!18, !6, i64 0}
+!35 = distinct !{!35, !13}
+!36 = distinct !{!36, !13}
 !37 = distinct !{!37, !11}
-!38 = !{!18, !16, i64 32}
+!38 = distinct !{!38, !11}
 !39 = distinct !{!39, !11}
-!40 = !{!22, !16, i64 56}
-!41 = !{!18, !16, i64 40}
+!40 = !{!18, !16, i64 32}
+!41 = distinct !{!41, !11}
 !42 = distinct !{!42, !11}
 !43 = distinct !{!43, !11}
 !44 = distinct !{!44, !11}

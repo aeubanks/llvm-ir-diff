@@ -221,125 +221,125 @@ define dso_local void @_Z29BENCHMARK_expf_autovec_float_RN9benchmark5StateE(ptr 
   store float %38, ptr %39, align 4, !tbaa !9
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !15
+  br i1 %41, label %51, label %30, !llvm.loop !15
 
-42:                                               ; preds = %30, %97
-  %43 = phi i64 [ %98, %97 ], [ 0, %30 ]
-  %44 = getelementptr inbounds float, ptr %8, i64 %43
-  %45 = load float, ptr %44, align 4, !tbaa !9
-  %46 = getelementptr inbounds float, ptr %10, i64 %43
-  %47 = load float, ptr %46, align 4, !tbaa !9
-  %48 = fcmp une float %45, %47
-  br i1 %48, label %49, label %97
+42:                                               ; preds = %106
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %145
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq float %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %109, label %122, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno float %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %106
+  %52 = phi i64 [ %107, %106 ], [ 0, %30 ]
+  %53 = getelementptr inbounds float, ptr %8, i64 %52
+  %54 = load float, ptr %53, align 4, !tbaa !9
+  %55 = getelementptr inbounds float, ptr %10, i64 %52
+  %56 = load float, ptr %55, align 4, !tbaa !9
+  %57 = fcmp une float %54, %56
+  br i1 %57, label %58, label %106
 
-53:                                               ; preds = %51
-  %54 = tail call float @llvm.fabs.f32(float %45) #17
-  %55 = fcmp oeq float %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq float %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge float %54, 0x3810000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno float %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq float %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call float @llvm.fabs.f32(float %54) #18
+  %64 = fcmp oeq float %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno float %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge float %63, 0x3810000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call float @llvm.fabs.f32(float %47) #17
-  %66 = fcmp oeq float %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq float %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge float %65, 0x3810000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno float %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %97, label %73
+73:                                               ; preds = %71
+  %74 = tail call float @llvm.fabs.f32(float %56) #18
+  %75 = fcmp oeq float %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds float, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %95
+76:                                               ; preds = %73
+  %77 = fcmp uge float %74, 0x3810000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds float, ptr %8, i64 %74
-  %79 = load float, ptr %78, align 4, !tbaa !9
-  %80 = fpext float %79 to double
-  %81 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %80)
-          to label %82 unwind label %95
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %106, label %82
 
-82:                                               ; preds = %77
-  %83 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %81, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %84 unwind label %95
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds float, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %104
 
-84:                                               ; preds = %82
-  %85 = load float, ptr %75, align 4, !tbaa !9
-  %86 = fpext float %85 to double
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %81, double noundef %86)
-          to label %88 unwind label %95
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds float, ptr %8, i64 %83
+  %88 = load float, ptr %87, align 4, !tbaa !9
+  %89 = fpext float %88 to double
+  %90 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %89)
+          to label %91 unwind label %104
 
-88:                                               ; preds = %84
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %87, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %90 unwind label %95
+91:                                               ; preds = %86
+  %92 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %90, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %93 unwind label %104
 
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %87, i64 noundef %74)
-          to label %92 unwind label %95
+93:                                               ; preds = %91
+  %94 = load float, ptr %84, align 4, !tbaa !9
+  %95 = fpext float %94 to double
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %90, double noundef %95)
+          to label %97 unwind label %104
 
-92:                                               ; preds = %90
-  %93 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %91, ptr noundef nonnull @.str.76)
-          to label %94 unwind label %95
+97:                                               ; preds = %93
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %96, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %99 unwind label %104
 
-94:                                               ; preds = %92
-  tail call void @exit(i32 noundef 1) #18
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %96, i64 noundef %83)
+          to label %101 unwind label %104
+
+101:                                              ; preds = %99
+  %102 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %100, ptr noundef nonnull @.str.76)
+          to label %103 unwind label %104
+
+103:                                              ; preds = %101
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-95:                                               ; preds = %73, %77, %82, %84, %88, %90, %92
-  %96 = landingpad { ptr, i32 }
+104:                                              ; preds = %82, %86, %91, %93, %97, %99, %101
+  %105 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %149
 
-97:                                               ; preds = %70, %42
-  %98 = add nuw nsw i64 %43, 1
-  %99 = icmp eq i64 %98, 10000
-  br i1 %99, label %100, label %42, !llvm.loop !16
+106:                                              ; preds = %79, %51
+  %107 = add nuw nsw i64 %52, 1
+  %108 = icmp eq i64 %107, 10000
+  br i1 %108, label %42, label %51, !llvm.loop !36
 
-100:                                              ; preds = %97
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %102 = load i8, ptr %101, align 2, !tbaa !17, !range !34, !noundef !35
-  %103 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %104 = load i64, ptr %103, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %105 unwind label %145
-
-105:                                              ; preds = %100
-  %106 = icmp ne i8 %102, 0
-  %107 = icmp eq i64 %104, 0
-  %108 = select i1 %106, i1 true, i1 %107
-  br i1 %108, label %109, label %122, !prof !36
-
-109:                                              ; preds = %139, %105
+109:                                              ; preds = %139, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %110 unwind label %145
 
@@ -349,7 +349,7 @@ define dso_local void @_Z29BENCHMARK_expf_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %112, label %114, label %113
 
 113:                                              ; preds = %110
-  call void @_ZdaPv(ptr noundef nonnull %111) #19
+  call void @_ZdaPv(ptr noundef nonnull %111) #17
   br label %114
 
 114:                                              ; preds = %113, %110
@@ -359,7 +359,7 @@ define dso_local void @_Z29BENCHMARK_expf_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %116, label %118, label %117
 
 117:                                              ; preds = %114
-  call void @_ZdaPv(ptr noundef nonnull %115) #19
+  call void @_ZdaPv(ptr noundef nonnull %115) #17
   br label %118
 
 118:                                              ; preds = %117, %114
@@ -369,11 +369,11 @@ define dso_local void @_Z29BENCHMARK_expf_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %120, label %168, label %121
 
 121:                                              ; preds = %118
-  call void @_ZdaPv(ptr noundef nonnull %119) #19
+  call void @_ZdaPv(ptr noundef nonnull %119) #17
   br label %168
 
-122:                                              ; preds = %105, %139
-  %123 = phi i64 [ %143, %139 ], [ %104, %105 ]
+122:                                              ; preds = %47, %139
+  %123 = phi i64 [ %143, %139 ], [ %46, %47 ]
   %124 = load ptr, ptr %2, align 8, !tbaa !5
   %125 = load ptr, ptr %3, align 8, !tbaa !5
   %126 = load ptr, ptr %4, align 8, !tbaa !5
@@ -404,19 +404,19 @@ define dso_local void @_Z29BENCHMARK_expf_autovec_float_RN9benchmark5StateE(ptr 
   fence syncscope("singlethread") acq_rel
   %143 = add i64 %123, -1
   %144 = icmp eq i64 %143, 0
-  br i1 %144, label %109, label %122, !prof !36
+  br i1 %144, label %109, label %122, !prof !35
 
-145:                                              ; preds = %100, %109
+145:                                              ; preds = %42, %109
   %146 = landingpad { ptr, i32 }
           cleanup
   %147 = load ptr, ptr %4, align 8, !tbaa !5
   %148 = icmp eq ptr %147, null
   br i1 %148, label %152, label %149
 
-149:                                              ; preds = %95, %145, %28
-  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %96, %95 ]
-  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %95 ]
-  call void @_ZdaPv(ptr noundef nonnull %151) #19
+149:                                              ; preds = %104, %145, %28
+  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %105, %104 ]
+  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %104 ]
+  call void @_ZdaPv(ptr noundef nonnull %151) #17
   br label %152
 
 152:                                              ; preds = %149, %145
@@ -429,7 +429,7 @@ define dso_local void @_Z29BENCHMARK_expf_autovec_float_RN9benchmark5StateE(ptr 
 156:                                              ; preds = %152, %26
   %157 = phi { ptr, i32 } [ %27, %26 ], [ %153, %152 ]
   %158 = phi ptr [ %6, %26 ], [ %154, %152 ]
-  call void @_ZdaPv(ptr noundef nonnull %158) #19
+  call void @_ZdaPv(ptr noundef nonnull %158) #17
   br label %159
 
 159:                                              ; preds = %156, %152
@@ -442,7 +442,7 @@ define dso_local void @_Z29BENCHMARK_expf_autovec_float_RN9benchmark5StateE(ptr 
 163:                                              ; preds = %159, %24
   %164 = phi { ptr, i32 } [ %25, %24 ], [ %160, %159 ]
   %165 = phi ptr [ %5, %24 ], [ %161, %159 ]
-  call void @_ZdaPv(ptr noundef nonnull %165) #19
+  call void @_ZdaPv(ptr noundef nonnull %165) #17
   br label %166
 
 166:                                              ; preds = %163, %159
@@ -492,7 +492,7 @@ define dso_local void @_Z27BENCHMARK_expf_novec_float_RN9benchmark5StateE(ptr no
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIfEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -502,7 +502,7 @@ define dso_local void @_Z27BENCHMARK_expf_novec_float_RN9benchmark5StateE(ptr no
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -514,7 +514,7 @@ define dso_local void @_Z27BENCHMARK_expf_novec_float_RN9benchmark5StateE(ptr no
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -524,7 +524,7 @@ define dso_local void @_Z27BENCHMARK_expf_novec_float_RN9benchmark5StateE(ptr no
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -534,7 +534,7 @@ define dso_local void @_Z27BENCHMARK_expf_novec_float_RN9benchmark5StateE(ptr no
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -587,10 +587,10 @@ define dso_local void @_Z27BENCHMARK_expf_novec_float_RN9benchmark5StateE(ptr no
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -602,7 +602,7 @@ define dso_local void @_Z27BENCHMARK_expf_novec_float_RN9benchmark5StateE(ptr no
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -615,7 +615,7 @@ define dso_local void @_Z27BENCHMARK_expf_novec_float_RN9benchmark5StateE(ptr no
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -701,123 +701,123 @@ define dso_local void @_Z29BENCHMARK_exp_autovec_double_RN9benchmark5StateE(ptr 
   store double %38, ptr %39, align 8, !tbaa !38
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !41
+  br i1 %41, label %51, label %30, !llvm.loop !41
 
-42:                                               ; preds = %30, %95
-  %43 = phi i64 [ %96, %95 ], [ 0, %30 ]
-  %44 = getelementptr inbounds double, ptr %8, i64 %43
-  %45 = load double, ptr %44, align 8, !tbaa !38
-  %46 = getelementptr inbounds double, ptr %10, i64 %43
-  %47 = load double, ptr %46, align 8, !tbaa !38
-  %48 = fcmp une double %45, %47
-  br i1 %48, label %49, label %95
+42:                                               ; preds = %104
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %143
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq double %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %107, label %120, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno double %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %104
+  %52 = phi i64 [ %105, %104 ], [ 0, %30 ]
+  %53 = getelementptr inbounds double, ptr %8, i64 %52
+  %54 = load double, ptr %53, align 8, !tbaa !38
+  %55 = getelementptr inbounds double, ptr %10, i64 %52
+  %56 = load double, ptr %55, align 8, !tbaa !38
+  %57 = fcmp une double %54, %56
+  br i1 %57, label %58, label %104
 
-53:                                               ; preds = %51
-  %54 = tail call double @llvm.fabs.f64(double %45) #17
-  %55 = fcmp oeq double %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq double %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge double %54, 0x10000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno double %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq double %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call double @llvm.fabs.f64(double %54) #18
+  %64 = fcmp oeq double %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno double %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge double %63, 0x10000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call double @llvm.fabs.f64(double %47) #17
-  %66 = fcmp oeq double %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq double %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge double %65, 0x10000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno double %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %95, label %73
+73:                                               ; preds = %71
+  %74 = tail call double @llvm.fabs.f64(double %56) #18
+  %75 = fcmp oeq double %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds double, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %93
+76:                                               ; preds = %73
+  %77 = fcmp uge double %74, 0x10000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds double, ptr %8, i64 %74
-  %79 = load double, ptr %78, align 8, !tbaa !38
-  %80 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %79)
-          to label %81 unwind label %93
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %104, label %82
 
-81:                                               ; preds = %77
-  %82 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %80, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %83 unwind label %93
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds double, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %102
 
-83:                                               ; preds = %81
-  %84 = load double, ptr %75, align 8, !tbaa !38
-  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %80, double noundef %84)
-          to label %86 unwind label %93
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds double, ptr %8, i64 %83
+  %88 = load double, ptr %87, align 8, !tbaa !38
+  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %88)
+          to label %90 unwind label %102
 
-86:                                               ; preds = %83
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %85, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %88 unwind label %93
-
-88:                                               ; preds = %86
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %85, i64 noundef %74)
-          to label %90 unwind label %93
-
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.76)
-          to label %92 unwind label %93
+90:                                               ; preds = %86
+  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %92 unwind label %102
 
 92:                                               ; preds = %90
-  tail call void @exit(i32 noundef 1) #18
+  %93 = load double, ptr %84, align 8, !tbaa !38
+  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %89, double noundef %93)
+          to label %95 unwind label %102
+
+95:                                               ; preds = %92
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %94, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %97 unwind label %102
+
+97:                                               ; preds = %95
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %94, i64 noundef %83)
+          to label %99 unwind label %102
+
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %98, ptr noundef nonnull @.str.76)
+          to label %101 unwind label %102
+
+101:                                              ; preds = %99
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-93:                                               ; preds = %73, %77, %81, %83, %86, %88, %90
-  %94 = landingpad { ptr, i32 }
+102:                                              ; preds = %82, %86, %90, %92, %95, %97, %99
+  %103 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %147
 
-95:                                               ; preds = %70, %42
-  %96 = add nuw nsw i64 %43, 1
-  %97 = icmp eq i64 %96, 10000
-  br i1 %97, label %98, label %42, !llvm.loop !42
+104:                                              ; preds = %79, %51
+  %105 = add nuw nsw i64 %52, 1
+  %106 = icmp eq i64 %105, 10000
+  br i1 %106, label %42, label %51, !llvm.loop !42
 
-98:                                               ; preds = %95
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %99 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %100 = load i8, ptr %99, align 2, !tbaa !17, !range !34, !noundef !35
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %102 = load i64, ptr %101, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %103 unwind label %143
-
-103:                                              ; preds = %98
-  %104 = icmp ne i8 %100, 0
-  %105 = icmp eq i64 %102, 0
-  %106 = select i1 %104, i1 true, i1 %105
-  br i1 %106, label %107, label %120, !prof !36
-
-107:                                              ; preds = %137, %103
+107:                                              ; preds = %137, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %108 unwind label %143
 
@@ -827,7 +827,7 @@ define dso_local void @_Z29BENCHMARK_exp_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %110, label %112, label %111
 
 111:                                              ; preds = %108
-  call void @_ZdaPv(ptr noundef nonnull %109) #19
+  call void @_ZdaPv(ptr noundef nonnull %109) #17
   br label %112
 
 112:                                              ; preds = %111, %108
@@ -837,7 +837,7 @@ define dso_local void @_Z29BENCHMARK_exp_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %114, label %116, label %115
 
 115:                                              ; preds = %112
-  call void @_ZdaPv(ptr noundef nonnull %113) #19
+  call void @_ZdaPv(ptr noundef nonnull %113) #17
   br label %116
 
 116:                                              ; preds = %115, %112
@@ -847,11 +847,11 @@ define dso_local void @_Z29BENCHMARK_exp_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %118, label %166, label %119
 
 119:                                              ; preds = %116
-  call void @_ZdaPv(ptr noundef nonnull %117) #19
+  call void @_ZdaPv(ptr noundef nonnull %117) #17
   br label %166
 
-120:                                              ; preds = %103, %137
-  %121 = phi i64 [ %141, %137 ], [ %102, %103 ]
+120:                                              ; preds = %47, %137
+  %121 = phi i64 [ %141, %137 ], [ %46, %47 ]
   %122 = load ptr, ptr %2, align 8, !tbaa !5
   %123 = load ptr, ptr %3, align 8, !tbaa !5
   %124 = load ptr, ptr %4, align 8, !tbaa !5
@@ -882,19 +882,19 @@ define dso_local void @_Z29BENCHMARK_exp_autovec_double_RN9benchmark5StateE(ptr 
   fence syncscope("singlethread") acq_rel
   %141 = add i64 %121, -1
   %142 = icmp eq i64 %141, 0
-  br i1 %142, label %107, label %120, !prof !36
+  br i1 %142, label %107, label %120, !prof !35
 
-143:                                              ; preds = %98, %107
+143:                                              ; preds = %42, %107
   %144 = landingpad { ptr, i32 }
           cleanup
   %145 = load ptr, ptr %4, align 8, !tbaa !5
   %146 = icmp eq ptr %145, null
   br i1 %146, label %150, label %147
 
-147:                                              ; preds = %93, %143, %28
-  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %94, %93 ]
-  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %93 ]
-  call void @_ZdaPv(ptr noundef nonnull %149) #19
+147:                                              ; preds = %102, %143, %28
+  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %103, %102 ]
+  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %102 ]
+  call void @_ZdaPv(ptr noundef nonnull %149) #17
   br label %150
 
 150:                                              ; preds = %147, %143
@@ -907,7 +907,7 @@ define dso_local void @_Z29BENCHMARK_exp_autovec_double_RN9benchmark5StateE(ptr 
 154:                                              ; preds = %150, %26
   %155 = phi { ptr, i32 } [ %27, %26 ], [ %151, %150 ]
   %156 = phi ptr [ %6, %26 ], [ %152, %150 ]
-  call void @_ZdaPv(ptr noundef nonnull %156) #19
+  call void @_ZdaPv(ptr noundef nonnull %156) #17
   br label %157
 
 157:                                              ; preds = %154, %150
@@ -920,7 +920,7 @@ define dso_local void @_Z29BENCHMARK_exp_autovec_double_RN9benchmark5StateE(ptr 
 161:                                              ; preds = %157, %24
   %162 = phi { ptr, i32 } [ %25, %24 ], [ %158, %157 ]
   %163 = phi ptr [ %5, %24 ], [ %159, %157 ]
-  call void @_ZdaPv(ptr noundef nonnull %163) #19
+  call void @_ZdaPv(ptr noundef nonnull %163) #17
   br label %164
 
 164:                                              ; preds = %161, %157
@@ -958,7 +958,7 @@ define dso_local void @_Z27BENCHMARK_exp_novec_double_RN9benchmark5StateE(ptr no
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIdEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -968,7 +968,7 @@ define dso_local void @_Z27BENCHMARK_exp_novec_double_RN9benchmark5StateE(ptr no
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -980,7 +980,7 @@ define dso_local void @_Z27BENCHMARK_exp_novec_double_RN9benchmark5StateE(ptr no
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -990,7 +990,7 @@ define dso_local void @_Z27BENCHMARK_exp_novec_double_RN9benchmark5StateE(ptr no
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -1000,7 +1000,7 @@ define dso_local void @_Z27BENCHMARK_exp_novec_double_RN9benchmark5StateE(ptr no
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -1053,10 +1053,10 @@ define dso_local void @_Z27BENCHMARK_exp_novec_double_RN9benchmark5StateE(ptr no
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr.33") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -1068,7 +1068,7 @@ define dso_local void @_Z27BENCHMARK_exp_novec_double_RN9benchmark5StateE(ptr no
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -1081,7 +1081,7 @@ define dso_local void @_Z27BENCHMARK_exp_novec_double_RN9benchmark5StateE(ptr no
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -1167,125 +1167,125 @@ define dso_local void @_Z30BENCHMARK_acosf_autovec_float_RN9benchmark5StateE(ptr
   store float %38, ptr %39, align 4, !tbaa !9
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !15
+  br i1 %41, label %51, label %30, !llvm.loop !15
 
-42:                                               ; preds = %30, %97
-  %43 = phi i64 [ %98, %97 ], [ 0, %30 ]
-  %44 = getelementptr inbounds float, ptr %8, i64 %43
-  %45 = load float, ptr %44, align 4, !tbaa !9
-  %46 = getelementptr inbounds float, ptr %10, i64 %43
-  %47 = load float, ptr %46, align 4, !tbaa !9
-  %48 = fcmp une float %45, %47
-  br i1 %48, label %49, label %97
+42:                                               ; preds = %106
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %145
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq float %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %109, label %122, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno float %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %106
+  %52 = phi i64 [ %107, %106 ], [ 0, %30 ]
+  %53 = getelementptr inbounds float, ptr %8, i64 %52
+  %54 = load float, ptr %53, align 4, !tbaa !9
+  %55 = getelementptr inbounds float, ptr %10, i64 %52
+  %56 = load float, ptr %55, align 4, !tbaa !9
+  %57 = fcmp une float %54, %56
+  br i1 %57, label %58, label %106
 
-53:                                               ; preds = %51
-  %54 = tail call float @llvm.fabs.f32(float %45) #17
-  %55 = fcmp oeq float %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq float %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge float %54, 0x3810000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno float %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq float %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call float @llvm.fabs.f32(float %54) #18
+  %64 = fcmp oeq float %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno float %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge float %63, 0x3810000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call float @llvm.fabs.f32(float %47) #17
-  %66 = fcmp oeq float %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq float %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge float %65, 0x3810000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno float %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %97, label %73
+73:                                               ; preds = %71
+  %74 = tail call float @llvm.fabs.f32(float %56) #18
+  %75 = fcmp oeq float %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds float, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %95
+76:                                               ; preds = %73
+  %77 = fcmp uge float %74, 0x3810000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds float, ptr %8, i64 %74
-  %79 = load float, ptr %78, align 4, !tbaa !9
-  %80 = fpext float %79 to double
-  %81 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %80)
-          to label %82 unwind label %95
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %106, label %82
 
-82:                                               ; preds = %77
-  %83 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %81, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %84 unwind label %95
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds float, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %104
 
-84:                                               ; preds = %82
-  %85 = load float, ptr %75, align 4, !tbaa !9
-  %86 = fpext float %85 to double
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %81, double noundef %86)
-          to label %88 unwind label %95
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds float, ptr %8, i64 %83
+  %88 = load float, ptr %87, align 4, !tbaa !9
+  %89 = fpext float %88 to double
+  %90 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %89)
+          to label %91 unwind label %104
 
-88:                                               ; preds = %84
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %87, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %90 unwind label %95
+91:                                               ; preds = %86
+  %92 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %90, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %93 unwind label %104
 
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %87, i64 noundef %74)
-          to label %92 unwind label %95
+93:                                               ; preds = %91
+  %94 = load float, ptr %84, align 4, !tbaa !9
+  %95 = fpext float %94 to double
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %90, double noundef %95)
+          to label %97 unwind label %104
 
-92:                                               ; preds = %90
-  %93 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %91, ptr noundef nonnull @.str.76)
-          to label %94 unwind label %95
+97:                                               ; preds = %93
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %96, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %99 unwind label %104
 
-94:                                               ; preds = %92
-  tail call void @exit(i32 noundef 1) #18
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %96, i64 noundef %83)
+          to label %101 unwind label %104
+
+101:                                              ; preds = %99
+  %102 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %100, ptr noundef nonnull @.str.76)
+          to label %103 unwind label %104
+
+103:                                              ; preds = %101
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-95:                                               ; preds = %73, %77, %82, %84, %88, %90, %92
-  %96 = landingpad { ptr, i32 }
+104:                                              ; preds = %82, %86, %91, %93, %97, %99, %101
+  %105 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %149
 
-97:                                               ; preds = %70, %42
-  %98 = add nuw nsw i64 %43, 1
-  %99 = icmp eq i64 %98, 10000
-  br i1 %99, label %100, label %42, !llvm.loop !16
+106:                                              ; preds = %79, %51
+  %107 = add nuw nsw i64 %52, 1
+  %108 = icmp eq i64 %107, 10000
+  br i1 %108, label %42, label %51, !llvm.loop !36
 
-100:                                              ; preds = %97
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %102 = load i8, ptr %101, align 2, !tbaa !17, !range !34, !noundef !35
-  %103 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %104 = load i64, ptr %103, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %105 unwind label %145
-
-105:                                              ; preds = %100
-  %106 = icmp ne i8 %102, 0
-  %107 = icmp eq i64 %104, 0
-  %108 = select i1 %106, i1 true, i1 %107
-  br i1 %108, label %109, label %122, !prof !36
-
-109:                                              ; preds = %139, %105
+109:                                              ; preds = %139, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %110 unwind label %145
 
@@ -1295,7 +1295,7 @@ define dso_local void @_Z30BENCHMARK_acosf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %112, label %114, label %113
 
 113:                                              ; preds = %110
-  call void @_ZdaPv(ptr noundef nonnull %111) #19
+  call void @_ZdaPv(ptr noundef nonnull %111) #17
   br label %114
 
 114:                                              ; preds = %113, %110
@@ -1305,7 +1305,7 @@ define dso_local void @_Z30BENCHMARK_acosf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %116, label %118, label %117
 
 117:                                              ; preds = %114
-  call void @_ZdaPv(ptr noundef nonnull %115) #19
+  call void @_ZdaPv(ptr noundef nonnull %115) #17
   br label %118
 
 118:                                              ; preds = %117, %114
@@ -1315,11 +1315,11 @@ define dso_local void @_Z30BENCHMARK_acosf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %120, label %168, label %121
 
 121:                                              ; preds = %118
-  call void @_ZdaPv(ptr noundef nonnull %119) #19
+  call void @_ZdaPv(ptr noundef nonnull %119) #17
   br label %168
 
-122:                                              ; preds = %105, %139
-  %123 = phi i64 [ %143, %139 ], [ %104, %105 ]
+122:                                              ; preds = %47, %139
+  %123 = phi i64 [ %143, %139 ], [ %46, %47 ]
   %124 = load ptr, ptr %2, align 8, !tbaa !5
   %125 = load ptr, ptr %3, align 8, !tbaa !5
   %126 = load ptr, ptr %4, align 8, !tbaa !5
@@ -1350,19 +1350,19 @@ define dso_local void @_Z30BENCHMARK_acosf_autovec_float_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %143 = add i64 %123, -1
   %144 = icmp eq i64 %143, 0
-  br i1 %144, label %109, label %122, !prof !36
+  br i1 %144, label %109, label %122, !prof !35
 
-145:                                              ; preds = %100, %109
+145:                                              ; preds = %42, %109
   %146 = landingpad { ptr, i32 }
           cleanup
   %147 = load ptr, ptr %4, align 8, !tbaa !5
   %148 = icmp eq ptr %147, null
   br i1 %148, label %152, label %149
 
-149:                                              ; preds = %95, %145, %28
-  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %96, %95 ]
-  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %95 ]
-  call void @_ZdaPv(ptr noundef nonnull %151) #19
+149:                                              ; preds = %104, %145, %28
+  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %105, %104 ]
+  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %104 ]
+  call void @_ZdaPv(ptr noundef nonnull %151) #17
   br label %152
 
 152:                                              ; preds = %149, %145
@@ -1375,7 +1375,7 @@ define dso_local void @_Z30BENCHMARK_acosf_autovec_float_RN9benchmark5StateE(ptr
 156:                                              ; preds = %152, %26
   %157 = phi { ptr, i32 } [ %27, %26 ], [ %153, %152 ]
   %158 = phi ptr [ %6, %26 ], [ %154, %152 ]
-  call void @_ZdaPv(ptr noundef nonnull %158) #19
+  call void @_ZdaPv(ptr noundef nonnull %158) #17
   br label %159
 
 159:                                              ; preds = %156, %152
@@ -1388,7 +1388,7 @@ define dso_local void @_Z30BENCHMARK_acosf_autovec_float_RN9benchmark5StateE(ptr
 163:                                              ; preds = %159, %24
   %164 = phi { ptr, i32 } [ %25, %24 ], [ %160, %159 ]
   %165 = phi ptr [ %5, %24 ], [ %161, %159 ]
-  call void @_ZdaPv(ptr noundef nonnull %165) #19
+  call void @_ZdaPv(ptr noundef nonnull %165) #17
   br label %166
 
 166:                                              ; preds = %163, %159
@@ -1426,7 +1426,7 @@ define dso_local void @_Z28BENCHMARK_acosf_novec_float_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIfEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -1436,7 +1436,7 @@ define dso_local void @_Z28BENCHMARK_acosf_novec_float_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -1448,7 +1448,7 @@ define dso_local void @_Z28BENCHMARK_acosf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -1458,7 +1458,7 @@ define dso_local void @_Z28BENCHMARK_acosf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -1468,7 +1468,7 @@ define dso_local void @_Z28BENCHMARK_acosf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -1521,10 +1521,10 @@ define dso_local void @_Z28BENCHMARK_acosf_novec_float_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -1536,7 +1536,7 @@ define dso_local void @_Z28BENCHMARK_acosf_novec_float_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -1549,7 +1549,7 @@ define dso_local void @_Z28BENCHMARK_acosf_novec_float_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -1635,123 +1635,123 @@ define dso_local void @_Z30BENCHMARK_acos_autovec_double_RN9benchmark5StateE(ptr
   store double %38, ptr %39, align 8, !tbaa !38
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !41
+  br i1 %41, label %51, label %30, !llvm.loop !41
 
-42:                                               ; preds = %30, %95
-  %43 = phi i64 [ %96, %95 ], [ 0, %30 ]
-  %44 = getelementptr inbounds double, ptr %8, i64 %43
-  %45 = load double, ptr %44, align 8, !tbaa !38
-  %46 = getelementptr inbounds double, ptr %10, i64 %43
-  %47 = load double, ptr %46, align 8, !tbaa !38
-  %48 = fcmp une double %45, %47
-  br i1 %48, label %49, label %95
+42:                                               ; preds = %104
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %143
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq double %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %107, label %120, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno double %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %104
+  %52 = phi i64 [ %105, %104 ], [ 0, %30 ]
+  %53 = getelementptr inbounds double, ptr %8, i64 %52
+  %54 = load double, ptr %53, align 8, !tbaa !38
+  %55 = getelementptr inbounds double, ptr %10, i64 %52
+  %56 = load double, ptr %55, align 8, !tbaa !38
+  %57 = fcmp une double %54, %56
+  br i1 %57, label %58, label %104
 
-53:                                               ; preds = %51
-  %54 = tail call double @llvm.fabs.f64(double %45) #17
-  %55 = fcmp oeq double %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq double %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge double %54, 0x10000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno double %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq double %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call double @llvm.fabs.f64(double %54) #18
+  %64 = fcmp oeq double %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno double %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge double %63, 0x10000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call double @llvm.fabs.f64(double %47) #17
-  %66 = fcmp oeq double %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq double %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge double %65, 0x10000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno double %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %95, label %73
+73:                                               ; preds = %71
+  %74 = tail call double @llvm.fabs.f64(double %56) #18
+  %75 = fcmp oeq double %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds double, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %93
+76:                                               ; preds = %73
+  %77 = fcmp uge double %74, 0x10000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds double, ptr %8, i64 %74
-  %79 = load double, ptr %78, align 8, !tbaa !38
-  %80 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %79)
-          to label %81 unwind label %93
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %104, label %82
 
-81:                                               ; preds = %77
-  %82 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %80, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %83 unwind label %93
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds double, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %102
 
-83:                                               ; preds = %81
-  %84 = load double, ptr %75, align 8, !tbaa !38
-  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %80, double noundef %84)
-          to label %86 unwind label %93
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds double, ptr %8, i64 %83
+  %88 = load double, ptr %87, align 8, !tbaa !38
+  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %88)
+          to label %90 unwind label %102
 
-86:                                               ; preds = %83
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %85, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %88 unwind label %93
-
-88:                                               ; preds = %86
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %85, i64 noundef %74)
-          to label %90 unwind label %93
-
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.76)
-          to label %92 unwind label %93
+90:                                               ; preds = %86
+  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %92 unwind label %102
 
 92:                                               ; preds = %90
-  tail call void @exit(i32 noundef 1) #18
+  %93 = load double, ptr %84, align 8, !tbaa !38
+  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %89, double noundef %93)
+          to label %95 unwind label %102
+
+95:                                               ; preds = %92
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %94, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %97 unwind label %102
+
+97:                                               ; preds = %95
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %94, i64 noundef %83)
+          to label %99 unwind label %102
+
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %98, ptr noundef nonnull @.str.76)
+          to label %101 unwind label %102
+
+101:                                              ; preds = %99
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-93:                                               ; preds = %73, %77, %81, %83, %86, %88, %90
-  %94 = landingpad { ptr, i32 }
+102:                                              ; preds = %82, %86, %90, %92, %95, %97, %99
+  %103 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %147
 
-95:                                               ; preds = %70, %42
-  %96 = add nuw nsw i64 %43, 1
-  %97 = icmp eq i64 %96, 10000
-  br i1 %97, label %98, label %42, !llvm.loop !42
+104:                                              ; preds = %79, %51
+  %105 = add nuw nsw i64 %52, 1
+  %106 = icmp eq i64 %105, 10000
+  br i1 %106, label %42, label %51, !llvm.loop !42
 
-98:                                               ; preds = %95
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %99 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %100 = load i8, ptr %99, align 2, !tbaa !17, !range !34, !noundef !35
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %102 = load i64, ptr %101, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %103 unwind label %143
-
-103:                                              ; preds = %98
-  %104 = icmp ne i8 %100, 0
-  %105 = icmp eq i64 %102, 0
-  %106 = select i1 %104, i1 true, i1 %105
-  br i1 %106, label %107, label %120, !prof !36
-
-107:                                              ; preds = %137, %103
+107:                                              ; preds = %137, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %108 unwind label %143
 
@@ -1761,7 +1761,7 @@ define dso_local void @_Z30BENCHMARK_acos_autovec_double_RN9benchmark5StateE(ptr
   br i1 %110, label %112, label %111
 
 111:                                              ; preds = %108
-  call void @_ZdaPv(ptr noundef nonnull %109) #19
+  call void @_ZdaPv(ptr noundef nonnull %109) #17
   br label %112
 
 112:                                              ; preds = %111, %108
@@ -1771,7 +1771,7 @@ define dso_local void @_Z30BENCHMARK_acos_autovec_double_RN9benchmark5StateE(ptr
   br i1 %114, label %116, label %115
 
 115:                                              ; preds = %112
-  call void @_ZdaPv(ptr noundef nonnull %113) #19
+  call void @_ZdaPv(ptr noundef nonnull %113) #17
   br label %116
 
 116:                                              ; preds = %115, %112
@@ -1781,11 +1781,11 @@ define dso_local void @_Z30BENCHMARK_acos_autovec_double_RN9benchmark5StateE(ptr
   br i1 %118, label %166, label %119
 
 119:                                              ; preds = %116
-  call void @_ZdaPv(ptr noundef nonnull %117) #19
+  call void @_ZdaPv(ptr noundef nonnull %117) #17
   br label %166
 
-120:                                              ; preds = %103, %137
-  %121 = phi i64 [ %141, %137 ], [ %102, %103 ]
+120:                                              ; preds = %47, %137
+  %121 = phi i64 [ %141, %137 ], [ %46, %47 ]
   %122 = load ptr, ptr %2, align 8, !tbaa !5
   %123 = load ptr, ptr %3, align 8, !tbaa !5
   %124 = load ptr, ptr %4, align 8, !tbaa !5
@@ -1816,19 +1816,19 @@ define dso_local void @_Z30BENCHMARK_acos_autovec_double_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %141 = add i64 %121, -1
   %142 = icmp eq i64 %141, 0
-  br i1 %142, label %107, label %120, !prof !36
+  br i1 %142, label %107, label %120, !prof !35
 
-143:                                              ; preds = %98, %107
+143:                                              ; preds = %42, %107
   %144 = landingpad { ptr, i32 }
           cleanup
   %145 = load ptr, ptr %4, align 8, !tbaa !5
   %146 = icmp eq ptr %145, null
   br i1 %146, label %150, label %147
 
-147:                                              ; preds = %93, %143, %28
-  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %94, %93 ]
-  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %93 ]
-  call void @_ZdaPv(ptr noundef nonnull %149) #19
+147:                                              ; preds = %102, %143, %28
+  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %103, %102 ]
+  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %102 ]
+  call void @_ZdaPv(ptr noundef nonnull %149) #17
   br label %150
 
 150:                                              ; preds = %147, %143
@@ -1841,7 +1841,7 @@ define dso_local void @_Z30BENCHMARK_acos_autovec_double_RN9benchmark5StateE(ptr
 154:                                              ; preds = %150, %26
   %155 = phi { ptr, i32 } [ %27, %26 ], [ %151, %150 ]
   %156 = phi ptr [ %6, %26 ], [ %152, %150 ]
-  call void @_ZdaPv(ptr noundef nonnull %156) #19
+  call void @_ZdaPv(ptr noundef nonnull %156) #17
   br label %157
 
 157:                                              ; preds = %154, %150
@@ -1854,7 +1854,7 @@ define dso_local void @_Z30BENCHMARK_acos_autovec_double_RN9benchmark5StateE(ptr
 161:                                              ; preds = %157, %24
   %162 = phi { ptr, i32 } [ %25, %24 ], [ %158, %157 ]
   %163 = phi ptr [ %5, %24 ], [ %159, %157 ]
-  call void @_ZdaPv(ptr noundef nonnull %163) #19
+  call void @_ZdaPv(ptr noundef nonnull %163) #17
   br label %164
 
 164:                                              ; preds = %161, %157
@@ -1892,7 +1892,7 @@ define dso_local void @_Z28BENCHMARK_acos_novec_double_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIdEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -1902,7 +1902,7 @@ define dso_local void @_Z28BENCHMARK_acos_novec_double_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -1914,7 +1914,7 @@ define dso_local void @_Z28BENCHMARK_acos_novec_double_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -1924,7 +1924,7 @@ define dso_local void @_Z28BENCHMARK_acos_novec_double_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -1934,7 +1934,7 @@ define dso_local void @_Z28BENCHMARK_acos_novec_double_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -1987,10 +1987,10 @@ define dso_local void @_Z28BENCHMARK_acos_novec_double_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr.33") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -2002,7 +2002,7 @@ define dso_local void @_Z28BENCHMARK_acos_novec_double_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -2015,7 +2015,7 @@ define dso_local void @_Z28BENCHMARK_acos_novec_double_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -2101,125 +2101,125 @@ define dso_local void @_Z30BENCHMARK_asinf_autovec_float_RN9benchmark5StateE(ptr
   store float %38, ptr %39, align 4, !tbaa !9
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !15
+  br i1 %41, label %51, label %30, !llvm.loop !15
 
-42:                                               ; preds = %30, %97
-  %43 = phi i64 [ %98, %97 ], [ 0, %30 ]
-  %44 = getelementptr inbounds float, ptr %8, i64 %43
-  %45 = load float, ptr %44, align 4, !tbaa !9
-  %46 = getelementptr inbounds float, ptr %10, i64 %43
-  %47 = load float, ptr %46, align 4, !tbaa !9
-  %48 = fcmp une float %45, %47
-  br i1 %48, label %49, label %97
+42:                                               ; preds = %106
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %145
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq float %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %109, label %122, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno float %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %106
+  %52 = phi i64 [ %107, %106 ], [ 0, %30 ]
+  %53 = getelementptr inbounds float, ptr %8, i64 %52
+  %54 = load float, ptr %53, align 4, !tbaa !9
+  %55 = getelementptr inbounds float, ptr %10, i64 %52
+  %56 = load float, ptr %55, align 4, !tbaa !9
+  %57 = fcmp une float %54, %56
+  br i1 %57, label %58, label %106
 
-53:                                               ; preds = %51
-  %54 = tail call float @llvm.fabs.f32(float %45) #17
-  %55 = fcmp oeq float %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq float %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge float %54, 0x3810000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno float %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq float %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call float @llvm.fabs.f32(float %54) #18
+  %64 = fcmp oeq float %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno float %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge float %63, 0x3810000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call float @llvm.fabs.f32(float %47) #17
-  %66 = fcmp oeq float %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq float %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge float %65, 0x3810000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno float %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %97, label %73
+73:                                               ; preds = %71
+  %74 = tail call float @llvm.fabs.f32(float %56) #18
+  %75 = fcmp oeq float %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds float, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %95
+76:                                               ; preds = %73
+  %77 = fcmp uge float %74, 0x3810000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds float, ptr %8, i64 %74
-  %79 = load float, ptr %78, align 4, !tbaa !9
-  %80 = fpext float %79 to double
-  %81 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %80)
-          to label %82 unwind label %95
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %106, label %82
 
-82:                                               ; preds = %77
-  %83 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %81, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %84 unwind label %95
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds float, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %104
 
-84:                                               ; preds = %82
-  %85 = load float, ptr %75, align 4, !tbaa !9
-  %86 = fpext float %85 to double
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %81, double noundef %86)
-          to label %88 unwind label %95
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds float, ptr %8, i64 %83
+  %88 = load float, ptr %87, align 4, !tbaa !9
+  %89 = fpext float %88 to double
+  %90 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %89)
+          to label %91 unwind label %104
 
-88:                                               ; preds = %84
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %87, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %90 unwind label %95
+91:                                               ; preds = %86
+  %92 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %90, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %93 unwind label %104
 
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %87, i64 noundef %74)
-          to label %92 unwind label %95
+93:                                               ; preds = %91
+  %94 = load float, ptr %84, align 4, !tbaa !9
+  %95 = fpext float %94 to double
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %90, double noundef %95)
+          to label %97 unwind label %104
 
-92:                                               ; preds = %90
-  %93 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %91, ptr noundef nonnull @.str.76)
-          to label %94 unwind label %95
+97:                                               ; preds = %93
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %96, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %99 unwind label %104
 
-94:                                               ; preds = %92
-  tail call void @exit(i32 noundef 1) #18
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %96, i64 noundef %83)
+          to label %101 unwind label %104
+
+101:                                              ; preds = %99
+  %102 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %100, ptr noundef nonnull @.str.76)
+          to label %103 unwind label %104
+
+103:                                              ; preds = %101
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-95:                                               ; preds = %73, %77, %82, %84, %88, %90, %92
-  %96 = landingpad { ptr, i32 }
+104:                                              ; preds = %82, %86, %91, %93, %97, %99, %101
+  %105 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %149
 
-97:                                               ; preds = %70, %42
-  %98 = add nuw nsw i64 %43, 1
-  %99 = icmp eq i64 %98, 10000
-  br i1 %99, label %100, label %42, !llvm.loop !16
+106:                                              ; preds = %79, %51
+  %107 = add nuw nsw i64 %52, 1
+  %108 = icmp eq i64 %107, 10000
+  br i1 %108, label %42, label %51, !llvm.loop !36
 
-100:                                              ; preds = %97
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %102 = load i8, ptr %101, align 2, !tbaa !17, !range !34, !noundef !35
-  %103 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %104 = load i64, ptr %103, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %105 unwind label %145
-
-105:                                              ; preds = %100
-  %106 = icmp ne i8 %102, 0
-  %107 = icmp eq i64 %104, 0
-  %108 = select i1 %106, i1 true, i1 %107
-  br i1 %108, label %109, label %122, !prof !36
-
-109:                                              ; preds = %139, %105
+109:                                              ; preds = %139, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %110 unwind label %145
 
@@ -2229,7 +2229,7 @@ define dso_local void @_Z30BENCHMARK_asinf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %112, label %114, label %113
 
 113:                                              ; preds = %110
-  call void @_ZdaPv(ptr noundef nonnull %111) #19
+  call void @_ZdaPv(ptr noundef nonnull %111) #17
   br label %114
 
 114:                                              ; preds = %113, %110
@@ -2239,7 +2239,7 @@ define dso_local void @_Z30BENCHMARK_asinf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %116, label %118, label %117
 
 117:                                              ; preds = %114
-  call void @_ZdaPv(ptr noundef nonnull %115) #19
+  call void @_ZdaPv(ptr noundef nonnull %115) #17
   br label %118
 
 118:                                              ; preds = %117, %114
@@ -2249,11 +2249,11 @@ define dso_local void @_Z30BENCHMARK_asinf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %120, label %168, label %121
 
 121:                                              ; preds = %118
-  call void @_ZdaPv(ptr noundef nonnull %119) #19
+  call void @_ZdaPv(ptr noundef nonnull %119) #17
   br label %168
 
-122:                                              ; preds = %105, %139
-  %123 = phi i64 [ %143, %139 ], [ %104, %105 ]
+122:                                              ; preds = %47, %139
+  %123 = phi i64 [ %143, %139 ], [ %46, %47 ]
   %124 = load ptr, ptr %2, align 8, !tbaa !5
   %125 = load ptr, ptr %3, align 8, !tbaa !5
   %126 = load ptr, ptr %4, align 8, !tbaa !5
@@ -2284,19 +2284,19 @@ define dso_local void @_Z30BENCHMARK_asinf_autovec_float_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %143 = add i64 %123, -1
   %144 = icmp eq i64 %143, 0
-  br i1 %144, label %109, label %122, !prof !36
+  br i1 %144, label %109, label %122, !prof !35
 
-145:                                              ; preds = %100, %109
+145:                                              ; preds = %42, %109
   %146 = landingpad { ptr, i32 }
           cleanup
   %147 = load ptr, ptr %4, align 8, !tbaa !5
   %148 = icmp eq ptr %147, null
   br i1 %148, label %152, label %149
 
-149:                                              ; preds = %95, %145, %28
-  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %96, %95 ]
-  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %95 ]
-  call void @_ZdaPv(ptr noundef nonnull %151) #19
+149:                                              ; preds = %104, %145, %28
+  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %105, %104 ]
+  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %104 ]
+  call void @_ZdaPv(ptr noundef nonnull %151) #17
   br label %152
 
 152:                                              ; preds = %149, %145
@@ -2309,7 +2309,7 @@ define dso_local void @_Z30BENCHMARK_asinf_autovec_float_RN9benchmark5StateE(ptr
 156:                                              ; preds = %152, %26
   %157 = phi { ptr, i32 } [ %27, %26 ], [ %153, %152 ]
   %158 = phi ptr [ %6, %26 ], [ %154, %152 ]
-  call void @_ZdaPv(ptr noundef nonnull %158) #19
+  call void @_ZdaPv(ptr noundef nonnull %158) #17
   br label %159
 
 159:                                              ; preds = %156, %152
@@ -2322,7 +2322,7 @@ define dso_local void @_Z30BENCHMARK_asinf_autovec_float_RN9benchmark5StateE(ptr
 163:                                              ; preds = %159, %24
   %164 = phi { ptr, i32 } [ %25, %24 ], [ %160, %159 ]
   %165 = phi ptr [ %5, %24 ], [ %161, %159 ]
-  call void @_ZdaPv(ptr noundef nonnull %165) #19
+  call void @_ZdaPv(ptr noundef nonnull %165) #17
   br label %166
 
 166:                                              ; preds = %163, %159
@@ -2360,7 +2360,7 @@ define dso_local void @_Z28BENCHMARK_asinf_novec_float_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIfEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -2370,7 +2370,7 @@ define dso_local void @_Z28BENCHMARK_asinf_novec_float_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -2382,7 +2382,7 @@ define dso_local void @_Z28BENCHMARK_asinf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -2392,7 +2392,7 @@ define dso_local void @_Z28BENCHMARK_asinf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -2402,7 +2402,7 @@ define dso_local void @_Z28BENCHMARK_asinf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -2455,10 +2455,10 @@ define dso_local void @_Z28BENCHMARK_asinf_novec_float_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -2470,7 +2470,7 @@ define dso_local void @_Z28BENCHMARK_asinf_novec_float_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -2483,7 +2483,7 @@ define dso_local void @_Z28BENCHMARK_asinf_novec_float_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -2569,123 +2569,123 @@ define dso_local void @_Z30BENCHMARK_asin_autovec_double_RN9benchmark5StateE(ptr
   store double %38, ptr %39, align 8, !tbaa !38
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !41
+  br i1 %41, label %51, label %30, !llvm.loop !41
 
-42:                                               ; preds = %30, %95
-  %43 = phi i64 [ %96, %95 ], [ 0, %30 ]
-  %44 = getelementptr inbounds double, ptr %8, i64 %43
-  %45 = load double, ptr %44, align 8, !tbaa !38
-  %46 = getelementptr inbounds double, ptr %10, i64 %43
-  %47 = load double, ptr %46, align 8, !tbaa !38
-  %48 = fcmp une double %45, %47
-  br i1 %48, label %49, label %95
+42:                                               ; preds = %104
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %143
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq double %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %107, label %120, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno double %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %104
+  %52 = phi i64 [ %105, %104 ], [ 0, %30 ]
+  %53 = getelementptr inbounds double, ptr %8, i64 %52
+  %54 = load double, ptr %53, align 8, !tbaa !38
+  %55 = getelementptr inbounds double, ptr %10, i64 %52
+  %56 = load double, ptr %55, align 8, !tbaa !38
+  %57 = fcmp une double %54, %56
+  br i1 %57, label %58, label %104
 
-53:                                               ; preds = %51
-  %54 = tail call double @llvm.fabs.f64(double %45) #17
-  %55 = fcmp oeq double %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq double %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge double %54, 0x10000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno double %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq double %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call double @llvm.fabs.f64(double %54) #18
+  %64 = fcmp oeq double %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno double %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge double %63, 0x10000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call double @llvm.fabs.f64(double %47) #17
-  %66 = fcmp oeq double %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq double %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge double %65, 0x10000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno double %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %95, label %73
+73:                                               ; preds = %71
+  %74 = tail call double @llvm.fabs.f64(double %56) #18
+  %75 = fcmp oeq double %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds double, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %93
+76:                                               ; preds = %73
+  %77 = fcmp uge double %74, 0x10000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds double, ptr %8, i64 %74
-  %79 = load double, ptr %78, align 8, !tbaa !38
-  %80 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %79)
-          to label %81 unwind label %93
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %104, label %82
 
-81:                                               ; preds = %77
-  %82 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %80, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %83 unwind label %93
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds double, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %102
 
-83:                                               ; preds = %81
-  %84 = load double, ptr %75, align 8, !tbaa !38
-  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %80, double noundef %84)
-          to label %86 unwind label %93
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds double, ptr %8, i64 %83
+  %88 = load double, ptr %87, align 8, !tbaa !38
+  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %88)
+          to label %90 unwind label %102
 
-86:                                               ; preds = %83
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %85, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %88 unwind label %93
-
-88:                                               ; preds = %86
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %85, i64 noundef %74)
-          to label %90 unwind label %93
-
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.76)
-          to label %92 unwind label %93
+90:                                               ; preds = %86
+  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %92 unwind label %102
 
 92:                                               ; preds = %90
-  tail call void @exit(i32 noundef 1) #18
+  %93 = load double, ptr %84, align 8, !tbaa !38
+  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %89, double noundef %93)
+          to label %95 unwind label %102
+
+95:                                               ; preds = %92
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %94, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %97 unwind label %102
+
+97:                                               ; preds = %95
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %94, i64 noundef %83)
+          to label %99 unwind label %102
+
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %98, ptr noundef nonnull @.str.76)
+          to label %101 unwind label %102
+
+101:                                              ; preds = %99
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-93:                                               ; preds = %73, %77, %81, %83, %86, %88, %90
-  %94 = landingpad { ptr, i32 }
+102:                                              ; preds = %82, %86, %90, %92, %95, %97, %99
+  %103 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %147
 
-95:                                               ; preds = %70, %42
-  %96 = add nuw nsw i64 %43, 1
-  %97 = icmp eq i64 %96, 10000
-  br i1 %97, label %98, label %42, !llvm.loop !42
+104:                                              ; preds = %79, %51
+  %105 = add nuw nsw i64 %52, 1
+  %106 = icmp eq i64 %105, 10000
+  br i1 %106, label %42, label %51, !llvm.loop !42
 
-98:                                               ; preds = %95
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %99 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %100 = load i8, ptr %99, align 2, !tbaa !17, !range !34, !noundef !35
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %102 = load i64, ptr %101, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %103 unwind label %143
-
-103:                                              ; preds = %98
-  %104 = icmp ne i8 %100, 0
-  %105 = icmp eq i64 %102, 0
-  %106 = select i1 %104, i1 true, i1 %105
-  br i1 %106, label %107, label %120, !prof !36
-
-107:                                              ; preds = %137, %103
+107:                                              ; preds = %137, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %108 unwind label %143
 
@@ -2695,7 +2695,7 @@ define dso_local void @_Z30BENCHMARK_asin_autovec_double_RN9benchmark5StateE(ptr
   br i1 %110, label %112, label %111
 
 111:                                              ; preds = %108
-  call void @_ZdaPv(ptr noundef nonnull %109) #19
+  call void @_ZdaPv(ptr noundef nonnull %109) #17
   br label %112
 
 112:                                              ; preds = %111, %108
@@ -2705,7 +2705,7 @@ define dso_local void @_Z30BENCHMARK_asin_autovec_double_RN9benchmark5StateE(ptr
   br i1 %114, label %116, label %115
 
 115:                                              ; preds = %112
-  call void @_ZdaPv(ptr noundef nonnull %113) #19
+  call void @_ZdaPv(ptr noundef nonnull %113) #17
   br label %116
 
 116:                                              ; preds = %115, %112
@@ -2715,11 +2715,11 @@ define dso_local void @_Z30BENCHMARK_asin_autovec_double_RN9benchmark5StateE(ptr
   br i1 %118, label %166, label %119
 
 119:                                              ; preds = %116
-  call void @_ZdaPv(ptr noundef nonnull %117) #19
+  call void @_ZdaPv(ptr noundef nonnull %117) #17
   br label %166
 
-120:                                              ; preds = %103, %137
-  %121 = phi i64 [ %141, %137 ], [ %102, %103 ]
+120:                                              ; preds = %47, %137
+  %121 = phi i64 [ %141, %137 ], [ %46, %47 ]
   %122 = load ptr, ptr %2, align 8, !tbaa !5
   %123 = load ptr, ptr %3, align 8, !tbaa !5
   %124 = load ptr, ptr %4, align 8, !tbaa !5
@@ -2750,19 +2750,19 @@ define dso_local void @_Z30BENCHMARK_asin_autovec_double_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %141 = add i64 %121, -1
   %142 = icmp eq i64 %141, 0
-  br i1 %142, label %107, label %120, !prof !36
+  br i1 %142, label %107, label %120, !prof !35
 
-143:                                              ; preds = %98, %107
+143:                                              ; preds = %42, %107
   %144 = landingpad { ptr, i32 }
           cleanup
   %145 = load ptr, ptr %4, align 8, !tbaa !5
   %146 = icmp eq ptr %145, null
   br i1 %146, label %150, label %147
 
-147:                                              ; preds = %93, %143, %28
-  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %94, %93 ]
-  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %93 ]
-  call void @_ZdaPv(ptr noundef nonnull %149) #19
+147:                                              ; preds = %102, %143, %28
+  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %103, %102 ]
+  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %102 ]
+  call void @_ZdaPv(ptr noundef nonnull %149) #17
   br label %150
 
 150:                                              ; preds = %147, %143
@@ -2775,7 +2775,7 @@ define dso_local void @_Z30BENCHMARK_asin_autovec_double_RN9benchmark5StateE(ptr
 154:                                              ; preds = %150, %26
   %155 = phi { ptr, i32 } [ %27, %26 ], [ %151, %150 ]
   %156 = phi ptr [ %6, %26 ], [ %152, %150 ]
-  call void @_ZdaPv(ptr noundef nonnull %156) #19
+  call void @_ZdaPv(ptr noundef nonnull %156) #17
   br label %157
 
 157:                                              ; preds = %154, %150
@@ -2788,7 +2788,7 @@ define dso_local void @_Z30BENCHMARK_asin_autovec_double_RN9benchmark5StateE(ptr
 161:                                              ; preds = %157, %24
   %162 = phi { ptr, i32 } [ %25, %24 ], [ %158, %157 ]
   %163 = phi ptr [ %5, %24 ], [ %159, %157 ]
-  call void @_ZdaPv(ptr noundef nonnull %163) #19
+  call void @_ZdaPv(ptr noundef nonnull %163) #17
   br label %164
 
 164:                                              ; preds = %161, %157
@@ -2826,7 +2826,7 @@ define dso_local void @_Z28BENCHMARK_asin_novec_double_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIdEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -2836,7 +2836,7 @@ define dso_local void @_Z28BENCHMARK_asin_novec_double_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -2848,7 +2848,7 @@ define dso_local void @_Z28BENCHMARK_asin_novec_double_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -2858,7 +2858,7 @@ define dso_local void @_Z28BENCHMARK_asin_novec_double_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -2868,7 +2868,7 @@ define dso_local void @_Z28BENCHMARK_asin_novec_double_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -2921,10 +2921,10 @@ define dso_local void @_Z28BENCHMARK_asin_novec_double_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr.33") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -2936,7 +2936,7 @@ define dso_local void @_Z28BENCHMARK_asin_novec_double_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -2949,7 +2949,7 @@ define dso_local void @_Z28BENCHMARK_asin_novec_double_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -3035,125 +3035,125 @@ define dso_local void @_Z30BENCHMARK_atanf_autovec_float_RN9benchmark5StateE(ptr
   store float %38, ptr %39, align 4, !tbaa !9
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !15
+  br i1 %41, label %51, label %30, !llvm.loop !15
 
-42:                                               ; preds = %30, %97
-  %43 = phi i64 [ %98, %97 ], [ 0, %30 ]
-  %44 = getelementptr inbounds float, ptr %8, i64 %43
-  %45 = load float, ptr %44, align 4, !tbaa !9
-  %46 = getelementptr inbounds float, ptr %10, i64 %43
-  %47 = load float, ptr %46, align 4, !tbaa !9
-  %48 = fcmp une float %45, %47
-  br i1 %48, label %49, label %97
+42:                                               ; preds = %106
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %145
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq float %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %109, label %122, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno float %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %106
+  %52 = phi i64 [ %107, %106 ], [ 0, %30 ]
+  %53 = getelementptr inbounds float, ptr %8, i64 %52
+  %54 = load float, ptr %53, align 4, !tbaa !9
+  %55 = getelementptr inbounds float, ptr %10, i64 %52
+  %56 = load float, ptr %55, align 4, !tbaa !9
+  %57 = fcmp une float %54, %56
+  br i1 %57, label %58, label %106
 
-53:                                               ; preds = %51
-  %54 = tail call float @llvm.fabs.f32(float %45) #17
-  %55 = fcmp oeq float %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq float %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge float %54, 0x3810000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno float %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq float %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call float @llvm.fabs.f32(float %54) #18
+  %64 = fcmp oeq float %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno float %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge float %63, 0x3810000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call float @llvm.fabs.f32(float %47) #17
-  %66 = fcmp oeq float %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq float %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge float %65, 0x3810000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno float %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %97, label %73
+73:                                               ; preds = %71
+  %74 = tail call float @llvm.fabs.f32(float %56) #18
+  %75 = fcmp oeq float %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds float, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %95
+76:                                               ; preds = %73
+  %77 = fcmp uge float %74, 0x3810000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds float, ptr %8, i64 %74
-  %79 = load float, ptr %78, align 4, !tbaa !9
-  %80 = fpext float %79 to double
-  %81 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %80)
-          to label %82 unwind label %95
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %106, label %82
 
-82:                                               ; preds = %77
-  %83 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %81, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %84 unwind label %95
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds float, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %104
 
-84:                                               ; preds = %82
-  %85 = load float, ptr %75, align 4, !tbaa !9
-  %86 = fpext float %85 to double
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %81, double noundef %86)
-          to label %88 unwind label %95
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds float, ptr %8, i64 %83
+  %88 = load float, ptr %87, align 4, !tbaa !9
+  %89 = fpext float %88 to double
+  %90 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %89)
+          to label %91 unwind label %104
 
-88:                                               ; preds = %84
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %87, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %90 unwind label %95
+91:                                               ; preds = %86
+  %92 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %90, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %93 unwind label %104
 
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %87, i64 noundef %74)
-          to label %92 unwind label %95
+93:                                               ; preds = %91
+  %94 = load float, ptr %84, align 4, !tbaa !9
+  %95 = fpext float %94 to double
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %90, double noundef %95)
+          to label %97 unwind label %104
 
-92:                                               ; preds = %90
-  %93 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %91, ptr noundef nonnull @.str.76)
-          to label %94 unwind label %95
+97:                                               ; preds = %93
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %96, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %99 unwind label %104
 
-94:                                               ; preds = %92
-  tail call void @exit(i32 noundef 1) #18
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %96, i64 noundef %83)
+          to label %101 unwind label %104
+
+101:                                              ; preds = %99
+  %102 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %100, ptr noundef nonnull @.str.76)
+          to label %103 unwind label %104
+
+103:                                              ; preds = %101
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-95:                                               ; preds = %73, %77, %82, %84, %88, %90, %92
-  %96 = landingpad { ptr, i32 }
+104:                                              ; preds = %82, %86, %91, %93, %97, %99, %101
+  %105 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %149
 
-97:                                               ; preds = %70, %42
-  %98 = add nuw nsw i64 %43, 1
-  %99 = icmp eq i64 %98, 10000
-  br i1 %99, label %100, label %42, !llvm.loop !16
+106:                                              ; preds = %79, %51
+  %107 = add nuw nsw i64 %52, 1
+  %108 = icmp eq i64 %107, 10000
+  br i1 %108, label %42, label %51, !llvm.loop !36
 
-100:                                              ; preds = %97
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %102 = load i8, ptr %101, align 2, !tbaa !17, !range !34, !noundef !35
-  %103 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %104 = load i64, ptr %103, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %105 unwind label %145
-
-105:                                              ; preds = %100
-  %106 = icmp ne i8 %102, 0
-  %107 = icmp eq i64 %104, 0
-  %108 = select i1 %106, i1 true, i1 %107
-  br i1 %108, label %109, label %122, !prof !36
-
-109:                                              ; preds = %139, %105
+109:                                              ; preds = %139, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %110 unwind label %145
 
@@ -3163,7 +3163,7 @@ define dso_local void @_Z30BENCHMARK_atanf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %112, label %114, label %113
 
 113:                                              ; preds = %110
-  call void @_ZdaPv(ptr noundef nonnull %111) #19
+  call void @_ZdaPv(ptr noundef nonnull %111) #17
   br label %114
 
 114:                                              ; preds = %113, %110
@@ -3173,7 +3173,7 @@ define dso_local void @_Z30BENCHMARK_atanf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %116, label %118, label %117
 
 117:                                              ; preds = %114
-  call void @_ZdaPv(ptr noundef nonnull %115) #19
+  call void @_ZdaPv(ptr noundef nonnull %115) #17
   br label %118
 
 118:                                              ; preds = %117, %114
@@ -3183,11 +3183,11 @@ define dso_local void @_Z30BENCHMARK_atanf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %120, label %168, label %121
 
 121:                                              ; preds = %118
-  call void @_ZdaPv(ptr noundef nonnull %119) #19
+  call void @_ZdaPv(ptr noundef nonnull %119) #17
   br label %168
 
-122:                                              ; preds = %105, %139
-  %123 = phi i64 [ %143, %139 ], [ %104, %105 ]
+122:                                              ; preds = %47, %139
+  %123 = phi i64 [ %143, %139 ], [ %46, %47 ]
   %124 = load ptr, ptr %2, align 8, !tbaa !5
   %125 = load ptr, ptr %3, align 8, !tbaa !5
   %126 = load ptr, ptr %4, align 8, !tbaa !5
@@ -3218,19 +3218,19 @@ define dso_local void @_Z30BENCHMARK_atanf_autovec_float_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %143 = add i64 %123, -1
   %144 = icmp eq i64 %143, 0
-  br i1 %144, label %109, label %122, !prof !36
+  br i1 %144, label %109, label %122, !prof !35
 
-145:                                              ; preds = %100, %109
+145:                                              ; preds = %42, %109
   %146 = landingpad { ptr, i32 }
           cleanup
   %147 = load ptr, ptr %4, align 8, !tbaa !5
   %148 = icmp eq ptr %147, null
   br i1 %148, label %152, label %149
 
-149:                                              ; preds = %95, %145, %28
-  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %96, %95 ]
-  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %95 ]
-  call void @_ZdaPv(ptr noundef nonnull %151) #19
+149:                                              ; preds = %104, %145, %28
+  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %105, %104 ]
+  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %104 ]
+  call void @_ZdaPv(ptr noundef nonnull %151) #17
   br label %152
 
 152:                                              ; preds = %149, %145
@@ -3243,7 +3243,7 @@ define dso_local void @_Z30BENCHMARK_atanf_autovec_float_RN9benchmark5StateE(ptr
 156:                                              ; preds = %152, %26
   %157 = phi { ptr, i32 } [ %27, %26 ], [ %153, %152 ]
   %158 = phi ptr [ %6, %26 ], [ %154, %152 ]
-  call void @_ZdaPv(ptr noundef nonnull %158) #19
+  call void @_ZdaPv(ptr noundef nonnull %158) #17
   br label %159
 
 159:                                              ; preds = %156, %152
@@ -3256,7 +3256,7 @@ define dso_local void @_Z30BENCHMARK_atanf_autovec_float_RN9benchmark5StateE(ptr
 163:                                              ; preds = %159, %24
   %164 = phi { ptr, i32 } [ %25, %24 ], [ %160, %159 ]
   %165 = phi ptr [ %5, %24 ], [ %161, %159 ]
-  call void @_ZdaPv(ptr noundef nonnull %165) #19
+  call void @_ZdaPv(ptr noundef nonnull %165) #17
   br label %166
 
 166:                                              ; preds = %163, %159
@@ -3294,7 +3294,7 @@ define dso_local void @_Z28BENCHMARK_atanf_novec_float_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIfEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -3304,7 +3304,7 @@ define dso_local void @_Z28BENCHMARK_atanf_novec_float_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -3316,7 +3316,7 @@ define dso_local void @_Z28BENCHMARK_atanf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -3326,7 +3326,7 @@ define dso_local void @_Z28BENCHMARK_atanf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -3336,7 +3336,7 @@ define dso_local void @_Z28BENCHMARK_atanf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -3389,10 +3389,10 @@ define dso_local void @_Z28BENCHMARK_atanf_novec_float_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -3404,7 +3404,7 @@ define dso_local void @_Z28BENCHMARK_atanf_novec_float_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -3417,7 +3417,7 @@ define dso_local void @_Z28BENCHMARK_atanf_novec_float_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -3503,123 +3503,123 @@ define dso_local void @_Z30BENCHMARK_atan_autovec_double_RN9benchmark5StateE(ptr
   store double %38, ptr %39, align 8, !tbaa !38
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !41
+  br i1 %41, label %51, label %30, !llvm.loop !41
 
-42:                                               ; preds = %30, %95
-  %43 = phi i64 [ %96, %95 ], [ 0, %30 ]
-  %44 = getelementptr inbounds double, ptr %8, i64 %43
-  %45 = load double, ptr %44, align 8, !tbaa !38
-  %46 = getelementptr inbounds double, ptr %10, i64 %43
-  %47 = load double, ptr %46, align 8, !tbaa !38
-  %48 = fcmp une double %45, %47
-  br i1 %48, label %49, label %95
+42:                                               ; preds = %104
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %143
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq double %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %107, label %120, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno double %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %104
+  %52 = phi i64 [ %105, %104 ], [ 0, %30 ]
+  %53 = getelementptr inbounds double, ptr %8, i64 %52
+  %54 = load double, ptr %53, align 8, !tbaa !38
+  %55 = getelementptr inbounds double, ptr %10, i64 %52
+  %56 = load double, ptr %55, align 8, !tbaa !38
+  %57 = fcmp une double %54, %56
+  br i1 %57, label %58, label %104
 
-53:                                               ; preds = %51
-  %54 = tail call double @llvm.fabs.f64(double %45) #17
-  %55 = fcmp oeq double %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq double %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge double %54, 0x10000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno double %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq double %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call double @llvm.fabs.f64(double %54) #18
+  %64 = fcmp oeq double %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno double %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge double %63, 0x10000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call double @llvm.fabs.f64(double %47) #17
-  %66 = fcmp oeq double %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq double %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge double %65, 0x10000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno double %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %95, label %73
+73:                                               ; preds = %71
+  %74 = tail call double @llvm.fabs.f64(double %56) #18
+  %75 = fcmp oeq double %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds double, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %93
+76:                                               ; preds = %73
+  %77 = fcmp uge double %74, 0x10000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds double, ptr %8, i64 %74
-  %79 = load double, ptr %78, align 8, !tbaa !38
-  %80 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %79)
-          to label %81 unwind label %93
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %104, label %82
 
-81:                                               ; preds = %77
-  %82 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %80, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %83 unwind label %93
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds double, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %102
 
-83:                                               ; preds = %81
-  %84 = load double, ptr %75, align 8, !tbaa !38
-  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %80, double noundef %84)
-          to label %86 unwind label %93
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds double, ptr %8, i64 %83
+  %88 = load double, ptr %87, align 8, !tbaa !38
+  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %88)
+          to label %90 unwind label %102
 
-86:                                               ; preds = %83
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %85, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %88 unwind label %93
-
-88:                                               ; preds = %86
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %85, i64 noundef %74)
-          to label %90 unwind label %93
-
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.76)
-          to label %92 unwind label %93
+90:                                               ; preds = %86
+  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %92 unwind label %102
 
 92:                                               ; preds = %90
-  tail call void @exit(i32 noundef 1) #18
+  %93 = load double, ptr %84, align 8, !tbaa !38
+  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %89, double noundef %93)
+          to label %95 unwind label %102
+
+95:                                               ; preds = %92
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %94, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %97 unwind label %102
+
+97:                                               ; preds = %95
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %94, i64 noundef %83)
+          to label %99 unwind label %102
+
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %98, ptr noundef nonnull @.str.76)
+          to label %101 unwind label %102
+
+101:                                              ; preds = %99
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-93:                                               ; preds = %73, %77, %81, %83, %86, %88, %90
-  %94 = landingpad { ptr, i32 }
+102:                                              ; preds = %82, %86, %90, %92, %95, %97, %99
+  %103 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %147
 
-95:                                               ; preds = %70, %42
-  %96 = add nuw nsw i64 %43, 1
-  %97 = icmp eq i64 %96, 10000
-  br i1 %97, label %98, label %42, !llvm.loop !42
+104:                                              ; preds = %79, %51
+  %105 = add nuw nsw i64 %52, 1
+  %106 = icmp eq i64 %105, 10000
+  br i1 %106, label %42, label %51, !llvm.loop !42
 
-98:                                               ; preds = %95
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %99 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %100 = load i8, ptr %99, align 2, !tbaa !17, !range !34, !noundef !35
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %102 = load i64, ptr %101, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %103 unwind label %143
-
-103:                                              ; preds = %98
-  %104 = icmp ne i8 %100, 0
-  %105 = icmp eq i64 %102, 0
-  %106 = select i1 %104, i1 true, i1 %105
-  br i1 %106, label %107, label %120, !prof !36
-
-107:                                              ; preds = %137, %103
+107:                                              ; preds = %137, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %108 unwind label %143
 
@@ -3629,7 +3629,7 @@ define dso_local void @_Z30BENCHMARK_atan_autovec_double_RN9benchmark5StateE(ptr
   br i1 %110, label %112, label %111
 
 111:                                              ; preds = %108
-  call void @_ZdaPv(ptr noundef nonnull %109) #19
+  call void @_ZdaPv(ptr noundef nonnull %109) #17
   br label %112
 
 112:                                              ; preds = %111, %108
@@ -3639,7 +3639,7 @@ define dso_local void @_Z30BENCHMARK_atan_autovec_double_RN9benchmark5StateE(ptr
   br i1 %114, label %116, label %115
 
 115:                                              ; preds = %112
-  call void @_ZdaPv(ptr noundef nonnull %113) #19
+  call void @_ZdaPv(ptr noundef nonnull %113) #17
   br label %116
 
 116:                                              ; preds = %115, %112
@@ -3649,11 +3649,11 @@ define dso_local void @_Z30BENCHMARK_atan_autovec_double_RN9benchmark5StateE(ptr
   br i1 %118, label %166, label %119
 
 119:                                              ; preds = %116
-  call void @_ZdaPv(ptr noundef nonnull %117) #19
+  call void @_ZdaPv(ptr noundef nonnull %117) #17
   br label %166
 
-120:                                              ; preds = %103, %137
-  %121 = phi i64 [ %141, %137 ], [ %102, %103 ]
+120:                                              ; preds = %47, %137
+  %121 = phi i64 [ %141, %137 ], [ %46, %47 ]
   %122 = load ptr, ptr %2, align 8, !tbaa !5
   %123 = load ptr, ptr %3, align 8, !tbaa !5
   %124 = load ptr, ptr %4, align 8, !tbaa !5
@@ -3684,19 +3684,19 @@ define dso_local void @_Z30BENCHMARK_atan_autovec_double_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %141 = add i64 %121, -1
   %142 = icmp eq i64 %141, 0
-  br i1 %142, label %107, label %120, !prof !36
+  br i1 %142, label %107, label %120, !prof !35
 
-143:                                              ; preds = %98, %107
+143:                                              ; preds = %42, %107
   %144 = landingpad { ptr, i32 }
           cleanup
   %145 = load ptr, ptr %4, align 8, !tbaa !5
   %146 = icmp eq ptr %145, null
   br i1 %146, label %150, label %147
 
-147:                                              ; preds = %93, %143, %28
-  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %94, %93 ]
-  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %93 ]
-  call void @_ZdaPv(ptr noundef nonnull %149) #19
+147:                                              ; preds = %102, %143, %28
+  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %103, %102 ]
+  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %102 ]
+  call void @_ZdaPv(ptr noundef nonnull %149) #17
   br label %150
 
 150:                                              ; preds = %147, %143
@@ -3709,7 +3709,7 @@ define dso_local void @_Z30BENCHMARK_atan_autovec_double_RN9benchmark5StateE(ptr
 154:                                              ; preds = %150, %26
   %155 = phi { ptr, i32 } [ %27, %26 ], [ %151, %150 ]
   %156 = phi ptr [ %6, %26 ], [ %152, %150 ]
-  call void @_ZdaPv(ptr noundef nonnull %156) #19
+  call void @_ZdaPv(ptr noundef nonnull %156) #17
   br label %157
 
 157:                                              ; preds = %154, %150
@@ -3722,7 +3722,7 @@ define dso_local void @_Z30BENCHMARK_atan_autovec_double_RN9benchmark5StateE(ptr
 161:                                              ; preds = %157, %24
   %162 = phi { ptr, i32 } [ %25, %24 ], [ %158, %157 ]
   %163 = phi ptr [ %5, %24 ], [ %159, %157 ]
-  call void @_ZdaPv(ptr noundef nonnull %163) #19
+  call void @_ZdaPv(ptr noundef nonnull %163) #17
   br label %164
 
 164:                                              ; preds = %161, %157
@@ -3760,7 +3760,7 @@ define dso_local void @_Z28BENCHMARK_atan_novec_double_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIdEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -3770,7 +3770,7 @@ define dso_local void @_Z28BENCHMARK_atan_novec_double_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -3782,7 +3782,7 @@ define dso_local void @_Z28BENCHMARK_atan_novec_double_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -3792,7 +3792,7 @@ define dso_local void @_Z28BENCHMARK_atan_novec_double_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -3802,7 +3802,7 @@ define dso_local void @_Z28BENCHMARK_atan_novec_double_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -3855,10 +3855,10 @@ define dso_local void @_Z28BENCHMARK_atan_novec_double_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr.33") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -3870,7 +3870,7 @@ define dso_local void @_Z28BENCHMARK_atan_novec_double_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -3883,7 +3883,7 @@ define dso_local void @_Z28BENCHMARK_atan_novec_double_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -3969,125 +3969,125 @@ define dso_local void @_Z30BENCHMARK_cbrtf_autovec_float_RN9benchmark5StateE(ptr
   store float %38, ptr %39, align 4, !tbaa !9
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !15
+  br i1 %41, label %51, label %30, !llvm.loop !15
 
-42:                                               ; preds = %30, %97
-  %43 = phi i64 [ %98, %97 ], [ 0, %30 ]
-  %44 = getelementptr inbounds float, ptr %8, i64 %43
-  %45 = load float, ptr %44, align 4, !tbaa !9
-  %46 = getelementptr inbounds float, ptr %10, i64 %43
-  %47 = load float, ptr %46, align 4, !tbaa !9
-  %48 = fcmp une float %45, %47
-  br i1 %48, label %49, label %97
+42:                                               ; preds = %106
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %145
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq float %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %109, label %122, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno float %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %106
+  %52 = phi i64 [ %107, %106 ], [ 0, %30 ]
+  %53 = getelementptr inbounds float, ptr %8, i64 %52
+  %54 = load float, ptr %53, align 4, !tbaa !9
+  %55 = getelementptr inbounds float, ptr %10, i64 %52
+  %56 = load float, ptr %55, align 4, !tbaa !9
+  %57 = fcmp une float %54, %56
+  br i1 %57, label %58, label %106
 
-53:                                               ; preds = %51
-  %54 = tail call float @llvm.fabs.f32(float %45) #17
-  %55 = fcmp oeq float %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq float %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge float %54, 0x3810000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno float %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq float %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call float @llvm.fabs.f32(float %54) #18
+  %64 = fcmp oeq float %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno float %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge float %63, 0x3810000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call float @llvm.fabs.f32(float %47) #17
-  %66 = fcmp oeq float %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq float %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge float %65, 0x3810000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno float %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %97, label %73
+73:                                               ; preds = %71
+  %74 = tail call float @llvm.fabs.f32(float %56) #18
+  %75 = fcmp oeq float %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds float, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %95
+76:                                               ; preds = %73
+  %77 = fcmp uge float %74, 0x3810000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds float, ptr %8, i64 %74
-  %79 = load float, ptr %78, align 4, !tbaa !9
-  %80 = fpext float %79 to double
-  %81 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %80)
-          to label %82 unwind label %95
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %106, label %82
 
-82:                                               ; preds = %77
-  %83 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %81, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %84 unwind label %95
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds float, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %104
 
-84:                                               ; preds = %82
-  %85 = load float, ptr %75, align 4, !tbaa !9
-  %86 = fpext float %85 to double
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %81, double noundef %86)
-          to label %88 unwind label %95
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds float, ptr %8, i64 %83
+  %88 = load float, ptr %87, align 4, !tbaa !9
+  %89 = fpext float %88 to double
+  %90 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %89)
+          to label %91 unwind label %104
 
-88:                                               ; preds = %84
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %87, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %90 unwind label %95
+91:                                               ; preds = %86
+  %92 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %90, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %93 unwind label %104
 
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %87, i64 noundef %74)
-          to label %92 unwind label %95
+93:                                               ; preds = %91
+  %94 = load float, ptr %84, align 4, !tbaa !9
+  %95 = fpext float %94 to double
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %90, double noundef %95)
+          to label %97 unwind label %104
 
-92:                                               ; preds = %90
-  %93 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %91, ptr noundef nonnull @.str.76)
-          to label %94 unwind label %95
+97:                                               ; preds = %93
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %96, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %99 unwind label %104
 
-94:                                               ; preds = %92
-  tail call void @exit(i32 noundef 1) #18
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %96, i64 noundef %83)
+          to label %101 unwind label %104
+
+101:                                              ; preds = %99
+  %102 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %100, ptr noundef nonnull @.str.76)
+          to label %103 unwind label %104
+
+103:                                              ; preds = %101
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-95:                                               ; preds = %73, %77, %82, %84, %88, %90, %92
-  %96 = landingpad { ptr, i32 }
+104:                                              ; preds = %82, %86, %91, %93, %97, %99, %101
+  %105 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %149
 
-97:                                               ; preds = %70, %42
-  %98 = add nuw nsw i64 %43, 1
-  %99 = icmp eq i64 %98, 10000
-  br i1 %99, label %100, label %42, !llvm.loop !16
+106:                                              ; preds = %79, %51
+  %107 = add nuw nsw i64 %52, 1
+  %108 = icmp eq i64 %107, 10000
+  br i1 %108, label %42, label %51, !llvm.loop !36
 
-100:                                              ; preds = %97
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %102 = load i8, ptr %101, align 2, !tbaa !17, !range !34, !noundef !35
-  %103 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %104 = load i64, ptr %103, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %105 unwind label %145
-
-105:                                              ; preds = %100
-  %106 = icmp ne i8 %102, 0
-  %107 = icmp eq i64 %104, 0
-  %108 = select i1 %106, i1 true, i1 %107
-  br i1 %108, label %109, label %122, !prof !36
-
-109:                                              ; preds = %139, %105
+109:                                              ; preds = %139, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %110 unwind label %145
 
@@ -4097,7 +4097,7 @@ define dso_local void @_Z30BENCHMARK_cbrtf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %112, label %114, label %113
 
 113:                                              ; preds = %110
-  call void @_ZdaPv(ptr noundef nonnull %111) #19
+  call void @_ZdaPv(ptr noundef nonnull %111) #17
   br label %114
 
 114:                                              ; preds = %113, %110
@@ -4107,7 +4107,7 @@ define dso_local void @_Z30BENCHMARK_cbrtf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %116, label %118, label %117
 
 117:                                              ; preds = %114
-  call void @_ZdaPv(ptr noundef nonnull %115) #19
+  call void @_ZdaPv(ptr noundef nonnull %115) #17
   br label %118
 
 118:                                              ; preds = %117, %114
@@ -4117,11 +4117,11 @@ define dso_local void @_Z30BENCHMARK_cbrtf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %120, label %168, label %121
 
 121:                                              ; preds = %118
-  call void @_ZdaPv(ptr noundef nonnull %119) #19
+  call void @_ZdaPv(ptr noundef nonnull %119) #17
   br label %168
 
-122:                                              ; preds = %105, %139
-  %123 = phi i64 [ %143, %139 ], [ %104, %105 ]
+122:                                              ; preds = %47, %139
+  %123 = phi i64 [ %143, %139 ], [ %46, %47 ]
   %124 = load ptr, ptr %2, align 8, !tbaa !5
   %125 = load ptr, ptr %3, align 8, !tbaa !5
   %126 = load ptr, ptr %4, align 8, !tbaa !5
@@ -4152,19 +4152,19 @@ define dso_local void @_Z30BENCHMARK_cbrtf_autovec_float_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %143 = add i64 %123, -1
   %144 = icmp eq i64 %143, 0
-  br i1 %144, label %109, label %122, !prof !36
+  br i1 %144, label %109, label %122, !prof !35
 
-145:                                              ; preds = %100, %109
+145:                                              ; preds = %42, %109
   %146 = landingpad { ptr, i32 }
           cleanup
   %147 = load ptr, ptr %4, align 8, !tbaa !5
   %148 = icmp eq ptr %147, null
   br i1 %148, label %152, label %149
 
-149:                                              ; preds = %95, %145, %28
-  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %96, %95 ]
-  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %95 ]
-  call void @_ZdaPv(ptr noundef nonnull %151) #19
+149:                                              ; preds = %104, %145, %28
+  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %105, %104 ]
+  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %104 ]
+  call void @_ZdaPv(ptr noundef nonnull %151) #17
   br label %152
 
 152:                                              ; preds = %149, %145
@@ -4177,7 +4177,7 @@ define dso_local void @_Z30BENCHMARK_cbrtf_autovec_float_RN9benchmark5StateE(ptr
 156:                                              ; preds = %152, %26
   %157 = phi { ptr, i32 } [ %27, %26 ], [ %153, %152 ]
   %158 = phi ptr [ %6, %26 ], [ %154, %152 ]
-  call void @_ZdaPv(ptr noundef nonnull %158) #19
+  call void @_ZdaPv(ptr noundef nonnull %158) #17
   br label %159
 
 159:                                              ; preds = %156, %152
@@ -4190,7 +4190,7 @@ define dso_local void @_Z30BENCHMARK_cbrtf_autovec_float_RN9benchmark5StateE(ptr
 163:                                              ; preds = %159, %24
   %164 = phi { ptr, i32 } [ %25, %24 ], [ %160, %159 ]
   %165 = phi ptr [ %5, %24 ], [ %161, %159 ]
-  call void @_ZdaPv(ptr noundef nonnull %165) #19
+  call void @_ZdaPv(ptr noundef nonnull %165) #17
   br label %166
 
 166:                                              ; preds = %163, %159
@@ -4228,7 +4228,7 @@ define dso_local void @_Z28BENCHMARK_cbrtf_novec_float_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIfEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -4238,7 +4238,7 @@ define dso_local void @_Z28BENCHMARK_cbrtf_novec_float_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -4250,7 +4250,7 @@ define dso_local void @_Z28BENCHMARK_cbrtf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -4260,7 +4260,7 @@ define dso_local void @_Z28BENCHMARK_cbrtf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -4270,7 +4270,7 @@ define dso_local void @_Z28BENCHMARK_cbrtf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -4323,10 +4323,10 @@ define dso_local void @_Z28BENCHMARK_cbrtf_novec_float_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -4338,7 +4338,7 @@ define dso_local void @_Z28BENCHMARK_cbrtf_novec_float_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -4351,7 +4351,7 @@ define dso_local void @_Z28BENCHMARK_cbrtf_novec_float_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -4437,123 +4437,123 @@ define dso_local void @_Z30BENCHMARK_cbrt_autovec_double_RN9benchmark5StateE(ptr
   store double %38, ptr %39, align 8, !tbaa !38
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !41
+  br i1 %41, label %51, label %30, !llvm.loop !41
 
-42:                                               ; preds = %30, %95
-  %43 = phi i64 [ %96, %95 ], [ 0, %30 ]
-  %44 = getelementptr inbounds double, ptr %8, i64 %43
-  %45 = load double, ptr %44, align 8, !tbaa !38
-  %46 = getelementptr inbounds double, ptr %10, i64 %43
-  %47 = load double, ptr %46, align 8, !tbaa !38
-  %48 = fcmp une double %45, %47
-  br i1 %48, label %49, label %95
+42:                                               ; preds = %104
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %143
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq double %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %107, label %120, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno double %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %104
+  %52 = phi i64 [ %105, %104 ], [ 0, %30 ]
+  %53 = getelementptr inbounds double, ptr %8, i64 %52
+  %54 = load double, ptr %53, align 8, !tbaa !38
+  %55 = getelementptr inbounds double, ptr %10, i64 %52
+  %56 = load double, ptr %55, align 8, !tbaa !38
+  %57 = fcmp une double %54, %56
+  br i1 %57, label %58, label %104
 
-53:                                               ; preds = %51
-  %54 = tail call double @llvm.fabs.f64(double %45) #17
-  %55 = fcmp oeq double %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq double %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge double %54, 0x10000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno double %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq double %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call double @llvm.fabs.f64(double %54) #18
+  %64 = fcmp oeq double %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno double %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge double %63, 0x10000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call double @llvm.fabs.f64(double %47) #17
-  %66 = fcmp oeq double %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq double %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge double %65, 0x10000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno double %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %95, label %73
+73:                                               ; preds = %71
+  %74 = tail call double @llvm.fabs.f64(double %56) #18
+  %75 = fcmp oeq double %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds double, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %93
+76:                                               ; preds = %73
+  %77 = fcmp uge double %74, 0x10000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds double, ptr %8, i64 %74
-  %79 = load double, ptr %78, align 8, !tbaa !38
-  %80 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %79)
-          to label %81 unwind label %93
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %104, label %82
 
-81:                                               ; preds = %77
-  %82 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %80, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %83 unwind label %93
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds double, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %102
 
-83:                                               ; preds = %81
-  %84 = load double, ptr %75, align 8, !tbaa !38
-  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %80, double noundef %84)
-          to label %86 unwind label %93
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds double, ptr %8, i64 %83
+  %88 = load double, ptr %87, align 8, !tbaa !38
+  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %88)
+          to label %90 unwind label %102
 
-86:                                               ; preds = %83
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %85, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %88 unwind label %93
-
-88:                                               ; preds = %86
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %85, i64 noundef %74)
-          to label %90 unwind label %93
-
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.76)
-          to label %92 unwind label %93
+90:                                               ; preds = %86
+  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %92 unwind label %102
 
 92:                                               ; preds = %90
-  tail call void @exit(i32 noundef 1) #18
+  %93 = load double, ptr %84, align 8, !tbaa !38
+  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %89, double noundef %93)
+          to label %95 unwind label %102
+
+95:                                               ; preds = %92
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %94, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %97 unwind label %102
+
+97:                                               ; preds = %95
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %94, i64 noundef %83)
+          to label %99 unwind label %102
+
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %98, ptr noundef nonnull @.str.76)
+          to label %101 unwind label %102
+
+101:                                              ; preds = %99
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-93:                                               ; preds = %73, %77, %81, %83, %86, %88, %90
-  %94 = landingpad { ptr, i32 }
+102:                                              ; preds = %82, %86, %90, %92, %95, %97, %99
+  %103 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %147
 
-95:                                               ; preds = %70, %42
-  %96 = add nuw nsw i64 %43, 1
-  %97 = icmp eq i64 %96, 10000
-  br i1 %97, label %98, label %42, !llvm.loop !42
+104:                                              ; preds = %79, %51
+  %105 = add nuw nsw i64 %52, 1
+  %106 = icmp eq i64 %105, 10000
+  br i1 %106, label %42, label %51, !llvm.loop !42
 
-98:                                               ; preds = %95
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %99 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %100 = load i8, ptr %99, align 2, !tbaa !17, !range !34, !noundef !35
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %102 = load i64, ptr %101, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %103 unwind label %143
-
-103:                                              ; preds = %98
-  %104 = icmp ne i8 %100, 0
-  %105 = icmp eq i64 %102, 0
-  %106 = select i1 %104, i1 true, i1 %105
-  br i1 %106, label %107, label %120, !prof !36
-
-107:                                              ; preds = %137, %103
+107:                                              ; preds = %137, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %108 unwind label %143
 
@@ -4563,7 +4563,7 @@ define dso_local void @_Z30BENCHMARK_cbrt_autovec_double_RN9benchmark5StateE(ptr
   br i1 %110, label %112, label %111
 
 111:                                              ; preds = %108
-  call void @_ZdaPv(ptr noundef nonnull %109) #19
+  call void @_ZdaPv(ptr noundef nonnull %109) #17
   br label %112
 
 112:                                              ; preds = %111, %108
@@ -4573,7 +4573,7 @@ define dso_local void @_Z30BENCHMARK_cbrt_autovec_double_RN9benchmark5StateE(ptr
   br i1 %114, label %116, label %115
 
 115:                                              ; preds = %112
-  call void @_ZdaPv(ptr noundef nonnull %113) #19
+  call void @_ZdaPv(ptr noundef nonnull %113) #17
   br label %116
 
 116:                                              ; preds = %115, %112
@@ -4583,11 +4583,11 @@ define dso_local void @_Z30BENCHMARK_cbrt_autovec_double_RN9benchmark5StateE(ptr
   br i1 %118, label %166, label %119
 
 119:                                              ; preds = %116
-  call void @_ZdaPv(ptr noundef nonnull %117) #19
+  call void @_ZdaPv(ptr noundef nonnull %117) #17
   br label %166
 
-120:                                              ; preds = %103, %137
-  %121 = phi i64 [ %141, %137 ], [ %102, %103 ]
+120:                                              ; preds = %47, %137
+  %121 = phi i64 [ %141, %137 ], [ %46, %47 ]
   %122 = load ptr, ptr %2, align 8, !tbaa !5
   %123 = load ptr, ptr %3, align 8, !tbaa !5
   %124 = load ptr, ptr %4, align 8, !tbaa !5
@@ -4618,19 +4618,19 @@ define dso_local void @_Z30BENCHMARK_cbrt_autovec_double_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %141 = add i64 %121, -1
   %142 = icmp eq i64 %141, 0
-  br i1 %142, label %107, label %120, !prof !36
+  br i1 %142, label %107, label %120, !prof !35
 
-143:                                              ; preds = %98, %107
+143:                                              ; preds = %42, %107
   %144 = landingpad { ptr, i32 }
           cleanup
   %145 = load ptr, ptr %4, align 8, !tbaa !5
   %146 = icmp eq ptr %145, null
   br i1 %146, label %150, label %147
 
-147:                                              ; preds = %93, %143, %28
-  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %94, %93 ]
-  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %93 ]
-  call void @_ZdaPv(ptr noundef nonnull %149) #19
+147:                                              ; preds = %102, %143, %28
+  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %103, %102 ]
+  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %102 ]
+  call void @_ZdaPv(ptr noundef nonnull %149) #17
   br label %150
 
 150:                                              ; preds = %147, %143
@@ -4643,7 +4643,7 @@ define dso_local void @_Z30BENCHMARK_cbrt_autovec_double_RN9benchmark5StateE(ptr
 154:                                              ; preds = %150, %26
   %155 = phi { ptr, i32 } [ %27, %26 ], [ %151, %150 ]
   %156 = phi ptr [ %6, %26 ], [ %152, %150 ]
-  call void @_ZdaPv(ptr noundef nonnull %156) #19
+  call void @_ZdaPv(ptr noundef nonnull %156) #17
   br label %157
 
 157:                                              ; preds = %154, %150
@@ -4656,7 +4656,7 @@ define dso_local void @_Z30BENCHMARK_cbrt_autovec_double_RN9benchmark5StateE(ptr
 161:                                              ; preds = %157, %24
   %162 = phi { ptr, i32 } [ %25, %24 ], [ %158, %157 ]
   %163 = phi ptr [ %5, %24 ], [ %159, %157 ]
-  call void @_ZdaPv(ptr noundef nonnull %163) #19
+  call void @_ZdaPv(ptr noundef nonnull %163) #17
   br label %164
 
 164:                                              ; preds = %161, %157
@@ -4694,7 +4694,7 @@ define dso_local void @_Z28BENCHMARK_cbrt_novec_double_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIdEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -4704,7 +4704,7 @@ define dso_local void @_Z28BENCHMARK_cbrt_novec_double_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -4716,7 +4716,7 @@ define dso_local void @_Z28BENCHMARK_cbrt_novec_double_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -4726,7 +4726,7 @@ define dso_local void @_Z28BENCHMARK_cbrt_novec_double_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -4736,7 +4736,7 @@ define dso_local void @_Z28BENCHMARK_cbrt_novec_double_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -4789,10 +4789,10 @@ define dso_local void @_Z28BENCHMARK_cbrt_novec_double_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr.33") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -4804,7 +4804,7 @@ define dso_local void @_Z28BENCHMARK_cbrt_novec_double_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -4817,7 +4817,7 @@ define dso_local void @_Z28BENCHMARK_cbrt_novec_double_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -4903,125 +4903,125 @@ define dso_local void @_Z29BENCHMARK_erff_autovec_float_RN9benchmark5StateE(ptr 
   store float %38, ptr %39, align 4, !tbaa !9
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !15
+  br i1 %41, label %51, label %30, !llvm.loop !15
 
-42:                                               ; preds = %30, %97
-  %43 = phi i64 [ %98, %97 ], [ 0, %30 ]
-  %44 = getelementptr inbounds float, ptr %8, i64 %43
-  %45 = load float, ptr %44, align 4, !tbaa !9
-  %46 = getelementptr inbounds float, ptr %10, i64 %43
-  %47 = load float, ptr %46, align 4, !tbaa !9
-  %48 = fcmp une float %45, %47
-  br i1 %48, label %49, label %97
+42:                                               ; preds = %106
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %145
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq float %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %109, label %122, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno float %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %106
+  %52 = phi i64 [ %107, %106 ], [ 0, %30 ]
+  %53 = getelementptr inbounds float, ptr %8, i64 %52
+  %54 = load float, ptr %53, align 4, !tbaa !9
+  %55 = getelementptr inbounds float, ptr %10, i64 %52
+  %56 = load float, ptr %55, align 4, !tbaa !9
+  %57 = fcmp une float %54, %56
+  br i1 %57, label %58, label %106
 
-53:                                               ; preds = %51
-  %54 = tail call float @llvm.fabs.f32(float %45) #17
-  %55 = fcmp oeq float %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq float %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge float %54, 0x3810000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno float %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq float %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call float @llvm.fabs.f32(float %54) #18
+  %64 = fcmp oeq float %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno float %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge float %63, 0x3810000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call float @llvm.fabs.f32(float %47) #17
-  %66 = fcmp oeq float %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq float %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge float %65, 0x3810000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno float %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %97, label %73
+73:                                               ; preds = %71
+  %74 = tail call float @llvm.fabs.f32(float %56) #18
+  %75 = fcmp oeq float %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds float, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %95
+76:                                               ; preds = %73
+  %77 = fcmp uge float %74, 0x3810000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds float, ptr %8, i64 %74
-  %79 = load float, ptr %78, align 4, !tbaa !9
-  %80 = fpext float %79 to double
-  %81 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %80)
-          to label %82 unwind label %95
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %106, label %82
 
-82:                                               ; preds = %77
-  %83 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %81, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %84 unwind label %95
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds float, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %104
 
-84:                                               ; preds = %82
-  %85 = load float, ptr %75, align 4, !tbaa !9
-  %86 = fpext float %85 to double
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %81, double noundef %86)
-          to label %88 unwind label %95
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds float, ptr %8, i64 %83
+  %88 = load float, ptr %87, align 4, !tbaa !9
+  %89 = fpext float %88 to double
+  %90 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %89)
+          to label %91 unwind label %104
 
-88:                                               ; preds = %84
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %87, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %90 unwind label %95
+91:                                               ; preds = %86
+  %92 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %90, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %93 unwind label %104
 
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %87, i64 noundef %74)
-          to label %92 unwind label %95
+93:                                               ; preds = %91
+  %94 = load float, ptr %84, align 4, !tbaa !9
+  %95 = fpext float %94 to double
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %90, double noundef %95)
+          to label %97 unwind label %104
 
-92:                                               ; preds = %90
-  %93 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %91, ptr noundef nonnull @.str.76)
-          to label %94 unwind label %95
+97:                                               ; preds = %93
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %96, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %99 unwind label %104
 
-94:                                               ; preds = %92
-  tail call void @exit(i32 noundef 1) #18
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %96, i64 noundef %83)
+          to label %101 unwind label %104
+
+101:                                              ; preds = %99
+  %102 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %100, ptr noundef nonnull @.str.76)
+          to label %103 unwind label %104
+
+103:                                              ; preds = %101
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-95:                                               ; preds = %73, %77, %82, %84, %88, %90, %92
-  %96 = landingpad { ptr, i32 }
+104:                                              ; preds = %82, %86, %91, %93, %97, %99, %101
+  %105 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %149
 
-97:                                               ; preds = %70, %42
-  %98 = add nuw nsw i64 %43, 1
-  %99 = icmp eq i64 %98, 10000
-  br i1 %99, label %100, label %42, !llvm.loop !16
+106:                                              ; preds = %79, %51
+  %107 = add nuw nsw i64 %52, 1
+  %108 = icmp eq i64 %107, 10000
+  br i1 %108, label %42, label %51, !llvm.loop !36
 
-100:                                              ; preds = %97
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %102 = load i8, ptr %101, align 2, !tbaa !17, !range !34, !noundef !35
-  %103 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %104 = load i64, ptr %103, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %105 unwind label %145
-
-105:                                              ; preds = %100
-  %106 = icmp ne i8 %102, 0
-  %107 = icmp eq i64 %104, 0
-  %108 = select i1 %106, i1 true, i1 %107
-  br i1 %108, label %109, label %122, !prof !36
-
-109:                                              ; preds = %139, %105
+109:                                              ; preds = %139, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %110 unwind label %145
 
@@ -5031,7 +5031,7 @@ define dso_local void @_Z29BENCHMARK_erff_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %112, label %114, label %113
 
 113:                                              ; preds = %110
-  call void @_ZdaPv(ptr noundef nonnull %111) #19
+  call void @_ZdaPv(ptr noundef nonnull %111) #17
   br label %114
 
 114:                                              ; preds = %113, %110
@@ -5041,7 +5041,7 @@ define dso_local void @_Z29BENCHMARK_erff_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %116, label %118, label %117
 
 117:                                              ; preds = %114
-  call void @_ZdaPv(ptr noundef nonnull %115) #19
+  call void @_ZdaPv(ptr noundef nonnull %115) #17
   br label %118
 
 118:                                              ; preds = %117, %114
@@ -5051,11 +5051,11 @@ define dso_local void @_Z29BENCHMARK_erff_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %120, label %168, label %121
 
 121:                                              ; preds = %118
-  call void @_ZdaPv(ptr noundef nonnull %119) #19
+  call void @_ZdaPv(ptr noundef nonnull %119) #17
   br label %168
 
-122:                                              ; preds = %105, %139
-  %123 = phi i64 [ %143, %139 ], [ %104, %105 ]
+122:                                              ; preds = %47, %139
+  %123 = phi i64 [ %143, %139 ], [ %46, %47 ]
   %124 = load ptr, ptr %2, align 8, !tbaa !5
   %125 = load ptr, ptr %3, align 8, !tbaa !5
   %126 = load ptr, ptr %4, align 8, !tbaa !5
@@ -5086,19 +5086,19 @@ define dso_local void @_Z29BENCHMARK_erff_autovec_float_RN9benchmark5StateE(ptr 
   fence syncscope("singlethread") acq_rel
   %143 = add i64 %123, -1
   %144 = icmp eq i64 %143, 0
-  br i1 %144, label %109, label %122, !prof !36
+  br i1 %144, label %109, label %122, !prof !35
 
-145:                                              ; preds = %100, %109
+145:                                              ; preds = %42, %109
   %146 = landingpad { ptr, i32 }
           cleanup
   %147 = load ptr, ptr %4, align 8, !tbaa !5
   %148 = icmp eq ptr %147, null
   br i1 %148, label %152, label %149
 
-149:                                              ; preds = %95, %145, %28
-  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %96, %95 ]
-  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %95 ]
-  call void @_ZdaPv(ptr noundef nonnull %151) #19
+149:                                              ; preds = %104, %145, %28
+  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %105, %104 ]
+  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %104 ]
+  call void @_ZdaPv(ptr noundef nonnull %151) #17
   br label %152
 
 152:                                              ; preds = %149, %145
@@ -5111,7 +5111,7 @@ define dso_local void @_Z29BENCHMARK_erff_autovec_float_RN9benchmark5StateE(ptr 
 156:                                              ; preds = %152, %26
   %157 = phi { ptr, i32 } [ %27, %26 ], [ %153, %152 ]
   %158 = phi ptr [ %6, %26 ], [ %154, %152 ]
-  call void @_ZdaPv(ptr noundef nonnull %158) #19
+  call void @_ZdaPv(ptr noundef nonnull %158) #17
   br label %159
 
 159:                                              ; preds = %156, %152
@@ -5124,7 +5124,7 @@ define dso_local void @_Z29BENCHMARK_erff_autovec_float_RN9benchmark5StateE(ptr 
 163:                                              ; preds = %159, %24
   %164 = phi { ptr, i32 } [ %25, %24 ], [ %160, %159 ]
   %165 = phi ptr [ %5, %24 ], [ %161, %159 ]
-  call void @_ZdaPv(ptr noundef nonnull %165) #19
+  call void @_ZdaPv(ptr noundef nonnull %165) #17
   br label %166
 
 166:                                              ; preds = %163, %159
@@ -5162,7 +5162,7 @@ define dso_local void @_Z27BENCHMARK_erff_novec_float_RN9benchmark5StateE(ptr no
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIfEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -5172,7 +5172,7 @@ define dso_local void @_Z27BENCHMARK_erff_novec_float_RN9benchmark5StateE(ptr no
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -5184,7 +5184,7 @@ define dso_local void @_Z27BENCHMARK_erff_novec_float_RN9benchmark5StateE(ptr no
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -5194,7 +5194,7 @@ define dso_local void @_Z27BENCHMARK_erff_novec_float_RN9benchmark5StateE(ptr no
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -5204,7 +5204,7 @@ define dso_local void @_Z27BENCHMARK_erff_novec_float_RN9benchmark5StateE(ptr no
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -5257,10 +5257,10 @@ define dso_local void @_Z27BENCHMARK_erff_novec_float_RN9benchmark5StateE(ptr no
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -5272,7 +5272,7 @@ define dso_local void @_Z27BENCHMARK_erff_novec_float_RN9benchmark5StateE(ptr no
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -5285,7 +5285,7 @@ define dso_local void @_Z27BENCHMARK_erff_novec_float_RN9benchmark5StateE(ptr no
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -5371,123 +5371,123 @@ define dso_local void @_Z29BENCHMARK_erf_autovec_double_RN9benchmark5StateE(ptr 
   store double %38, ptr %39, align 8, !tbaa !38
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !41
+  br i1 %41, label %51, label %30, !llvm.loop !41
 
-42:                                               ; preds = %30, %95
-  %43 = phi i64 [ %96, %95 ], [ 0, %30 ]
-  %44 = getelementptr inbounds double, ptr %8, i64 %43
-  %45 = load double, ptr %44, align 8, !tbaa !38
-  %46 = getelementptr inbounds double, ptr %10, i64 %43
-  %47 = load double, ptr %46, align 8, !tbaa !38
-  %48 = fcmp une double %45, %47
-  br i1 %48, label %49, label %95
+42:                                               ; preds = %104
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %143
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq double %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %107, label %120, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno double %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %104
+  %52 = phi i64 [ %105, %104 ], [ 0, %30 ]
+  %53 = getelementptr inbounds double, ptr %8, i64 %52
+  %54 = load double, ptr %53, align 8, !tbaa !38
+  %55 = getelementptr inbounds double, ptr %10, i64 %52
+  %56 = load double, ptr %55, align 8, !tbaa !38
+  %57 = fcmp une double %54, %56
+  br i1 %57, label %58, label %104
 
-53:                                               ; preds = %51
-  %54 = tail call double @llvm.fabs.f64(double %45) #17
-  %55 = fcmp oeq double %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq double %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge double %54, 0x10000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno double %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq double %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call double @llvm.fabs.f64(double %54) #18
+  %64 = fcmp oeq double %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno double %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge double %63, 0x10000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call double @llvm.fabs.f64(double %47) #17
-  %66 = fcmp oeq double %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq double %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge double %65, 0x10000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno double %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %95, label %73
+73:                                               ; preds = %71
+  %74 = tail call double @llvm.fabs.f64(double %56) #18
+  %75 = fcmp oeq double %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds double, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %93
+76:                                               ; preds = %73
+  %77 = fcmp uge double %74, 0x10000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds double, ptr %8, i64 %74
-  %79 = load double, ptr %78, align 8, !tbaa !38
-  %80 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %79)
-          to label %81 unwind label %93
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %104, label %82
 
-81:                                               ; preds = %77
-  %82 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %80, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %83 unwind label %93
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds double, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %102
 
-83:                                               ; preds = %81
-  %84 = load double, ptr %75, align 8, !tbaa !38
-  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %80, double noundef %84)
-          to label %86 unwind label %93
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds double, ptr %8, i64 %83
+  %88 = load double, ptr %87, align 8, !tbaa !38
+  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %88)
+          to label %90 unwind label %102
 
-86:                                               ; preds = %83
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %85, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %88 unwind label %93
-
-88:                                               ; preds = %86
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %85, i64 noundef %74)
-          to label %90 unwind label %93
-
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.76)
-          to label %92 unwind label %93
+90:                                               ; preds = %86
+  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %92 unwind label %102
 
 92:                                               ; preds = %90
-  tail call void @exit(i32 noundef 1) #18
+  %93 = load double, ptr %84, align 8, !tbaa !38
+  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %89, double noundef %93)
+          to label %95 unwind label %102
+
+95:                                               ; preds = %92
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %94, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %97 unwind label %102
+
+97:                                               ; preds = %95
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %94, i64 noundef %83)
+          to label %99 unwind label %102
+
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %98, ptr noundef nonnull @.str.76)
+          to label %101 unwind label %102
+
+101:                                              ; preds = %99
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-93:                                               ; preds = %73, %77, %81, %83, %86, %88, %90
-  %94 = landingpad { ptr, i32 }
+102:                                              ; preds = %82, %86, %90, %92, %95, %97, %99
+  %103 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %147
 
-95:                                               ; preds = %70, %42
-  %96 = add nuw nsw i64 %43, 1
-  %97 = icmp eq i64 %96, 10000
-  br i1 %97, label %98, label %42, !llvm.loop !42
+104:                                              ; preds = %79, %51
+  %105 = add nuw nsw i64 %52, 1
+  %106 = icmp eq i64 %105, 10000
+  br i1 %106, label %42, label %51, !llvm.loop !42
 
-98:                                               ; preds = %95
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %99 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %100 = load i8, ptr %99, align 2, !tbaa !17, !range !34, !noundef !35
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %102 = load i64, ptr %101, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %103 unwind label %143
-
-103:                                              ; preds = %98
-  %104 = icmp ne i8 %100, 0
-  %105 = icmp eq i64 %102, 0
-  %106 = select i1 %104, i1 true, i1 %105
-  br i1 %106, label %107, label %120, !prof !36
-
-107:                                              ; preds = %137, %103
+107:                                              ; preds = %137, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %108 unwind label %143
 
@@ -5497,7 +5497,7 @@ define dso_local void @_Z29BENCHMARK_erf_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %110, label %112, label %111
 
 111:                                              ; preds = %108
-  call void @_ZdaPv(ptr noundef nonnull %109) #19
+  call void @_ZdaPv(ptr noundef nonnull %109) #17
   br label %112
 
 112:                                              ; preds = %111, %108
@@ -5507,7 +5507,7 @@ define dso_local void @_Z29BENCHMARK_erf_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %114, label %116, label %115
 
 115:                                              ; preds = %112
-  call void @_ZdaPv(ptr noundef nonnull %113) #19
+  call void @_ZdaPv(ptr noundef nonnull %113) #17
   br label %116
 
 116:                                              ; preds = %115, %112
@@ -5517,11 +5517,11 @@ define dso_local void @_Z29BENCHMARK_erf_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %118, label %166, label %119
 
 119:                                              ; preds = %116
-  call void @_ZdaPv(ptr noundef nonnull %117) #19
+  call void @_ZdaPv(ptr noundef nonnull %117) #17
   br label %166
 
-120:                                              ; preds = %103, %137
-  %121 = phi i64 [ %141, %137 ], [ %102, %103 ]
+120:                                              ; preds = %47, %137
+  %121 = phi i64 [ %141, %137 ], [ %46, %47 ]
   %122 = load ptr, ptr %2, align 8, !tbaa !5
   %123 = load ptr, ptr %3, align 8, !tbaa !5
   %124 = load ptr, ptr %4, align 8, !tbaa !5
@@ -5552,19 +5552,19 @@ define dso_local void @_Z29BENCHMARK_erf_autovec_double_RN9benchmark5StateE(ptr 
   fence syncscope("singlethread") acq_rel
   %141 = add i64 %121, -1
   %142 = icmp eq i64 %141, 0
-  br i1 %142, label %107, label %120, !prof !36
+  br i1 %142, label %107, label %120, !prof !35
 
-143:                                              ; preds = %98, %107
+143:                                              ; preds = %42, %107
   %144 = landingpad { ptr, i32 }
           cleanup
   %145 = load ptr, ptr %4, align 8, !tbaa !5
   %146 = icmp eq ptr %145, null
   br i1 %146, label %150, label %147
 
-147:                                              ; preds = %93, %143, %28
-  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %94, %93 ]
-  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %93 ]
-  call void @_ZdaPv(ptr noundef nonnull %149) #19
+147:                                              ; preds = %102, %143, %28
+  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %103, %102 ]
+  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %102 ]
+  call void @_ZdaPv(ptr noundef nonnull %149) #17
   br label %150
 
 150:                                              ; preds = %147, %143
@@ -5577,7 +5577,7 @@ define dso_local void @_Z29BENCHMARK_erf_autovec_double_RN9benchmark5StateE(ptr 
 154:                                              ; preds = %150, %26
   %155 = phi { ptr, i32 } [ %27, %26 ], [ %151, %150 ]
   %156 = phi ptr [ %6, %26 ], [ %152, %150 ]
-  call void @_ZdaPv(ptr noundef nonnull %156) #19
+  call void @_ZdaPv(ptr noundef nonnull %156) #17
   br label %157
 
 157:                                              ; preds = %154, %150
@@ -5590,7 +5590,7 @@ define dso_local void @_Z29BENCHMARK_erf_autovec_double_RN9benchmark5StateE(ptr 
 161:                                              ; preds = %157, %24
   %162 = phi { ptr, i32 } [ %25, %24 ], [ %158, %157 ]
   %163 = phi ptr [ %5, %24 ], [ %159, %157 ]
-  call void @_ZdaPv(ptr noundef nonnull %163) #19
+  call void @_ZdaPv(ptr noundef nonnull %163) #17
   br label %164
 
 164:                                              ; preds = %161, %157
@@ -5628,7 +5628,7 @@ define dso_local void @_Z27BENCHMARK_erf_novec_double_RN9benchmark5StateE(ptr no
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIdEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -5638,7 +5638,7 @@ define dso_local void @_Z27BENCHMARK_erf_novec_double_RN9benchmark5StateE(ptr no
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -5650,7 +5650,7 @@ define dso_local void @_Z27BENCHMARK_erf_novec_double_RN9benchmark5StateE(ptr no
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -5660,7 +5660,7 @@ define dso_local void @_Z27BENCHMARK_erf_novec_double_RN9benchmark5StateE(ptr no
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -5670,7 +5670,7 @@ define dso_local void @_Z27BENCHMARK_erf_novec_double_RN9benchmark5StateE(ptr no
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -5723,10 +5723,10 @@ define dso_local void @_Z27BENCHMARK_erf_novec_double_RN9benchmark5StateE(ptr no
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr.33") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -5738,7 +5738,7 @@ define dso_local void @_Z27BENCHMARK_erf_novec_double_RN9benchmark5StateE(ptr no
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -5751,7 +5751,7 @@ define dso_local void @_Z27BENCHMARK_erf_novec_double_RN9benchmark5StateE(ptr no
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -5857,125 +5857,125 @@ define dso_local void @_Z29BENCHMARK_cosf_autovec_float_RN9benchmark5StateE(ptr 
   store float %56, ptr %57, align 4, !tbaa !9
   %58 = add nuw nsw i64 %40, 2
   %59 = icmp eq i64 %58, 10000
-  br i1 %59, label %60, label %39, !llvm.loop !15
+  br i1 %59, label %69, label %39, !llvm.loop !15
 
-60:                                               ; preds = %39, %115
-  %61 = phi i64 [ %116, %115 ], [ 0, %39 ]
-  %62 = getelementptr inbounds float, ptr %8, i64 %61
-  %63 = load float, ptr %62, align 4, !tbaa !9
-  %64 = getelementptr inbounds float, ptr %10, i64 %61
-  %65 = load float, ptr %64, align 4, !tbaa !9
-  %66 = fcmp une float %63, %65
-  br i1 %66, label %67, label %115
+60:                                               ; preds = %124
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %61 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %62 = load i8, ptr %61, align 2, !tbaa !16, !range !33, !noundef !34
+  %63 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %64 = load i64, ptr %63, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %65 unwind label %172
 
-67:                                               ; preds = %60
-  %68 = fcmp oeq float %63, 0.000000e+00
-  br i1 %68, label %77, label %69
+65:                                               ; preds = %60
+  %66 = icmp ne i8 %62, 0
+  %67 = icmp eq i64 %64, 0
+  %68 = select i1 %66, i1 true, i1 %67
+  br i1 %68, label %127, label %140, !prof !35
 
-69:                                               ; preds = %67
-  %70 = fcmp uno float %63, 0.000000e+00
-  br i1 %70, label %77, label %71
+69:                                               ; preds = %39, %124
+  %70 = phi i64 [ %125, %124 ], [ 0, %39 ]
+  %71 = getelementptr inbounds float, ptr %8, i64 %70
+  %72 = load float, ptr %71, align 4, !tbaa !9
+  %73 = getelementptr inbounds float, ptr %10, i64 %70
+  %74 = load float, ptr %73, align 4, !tbaa !9
+  %75 = fcmp une float %72, %74
+  br i1 %75, label %76, label %124
 
-71:                                               ; preds = %69
-  %72 = tail call float @llvm.fabs.f32(float %63) #17
-  %73 = fcmp oeq float %72, 0x7FF0000000000000
-  br i1 %73, label %77, label %74
+76:                                               ; preds = %69
+  %77 = fcmp oeq float %72, 0.000000e+00
+  br i1 %77, label %86, label %78
 
-74:                                               ; preds = %71
-  %75 = fcmp uge float %72, 0x3810000000000000
-  %76 = select i1 %75, i32 4, i32 3
-  br label %77
+78:                                               ; preds = %76
+  %79 = fcmp uno float %72, 0.000000e+00
+  br i1 %79, label %86, label %80
 
-77:                                               ; preds = %74, %71, %69, %67
-  %78 = phi i32 [ 2, %67 ], [ 0, %69 ], [ 1, %71 ], [ %76, %74 ]
-  %79 = fcmp oeq float %65, 0.000000e+00
-  br i1 %79, label %88, label %80
+80:                                               ; preds = %78
+  %81 = tail call float @llvm.fabs.f32(float %72) #18
+  %82 = fcmp oeq float %81, 0x7FF0000000000000
+  br i1 %82, label %86, label %83
 
-80:                                               ; preds = %77
-  %81 = fcmp uno float %65, 0.000000e+00
-  br i1 %81, label %88, label %82
+83:                                               ; preds = %80
+  %84 = fcmp uge float %81, 0x3810000000000000
+  %85 = select i1 %84, i32 4, i32 3
+  br label %86
 
-82:                                               ; preds = %80
-  %83 = tail call float @llvm.fabs.f32(float %65) #17
-  %84 = fcmp oeq float %83, 0x7FF0000000000000
-  br i1 %84, label %88, label %85
+86:                                               ; preds = %83, %80, %78, %76
+  %87 = phi i32 [ 2, %76 ], [ 0, %78 ], [ 1, %80 ], [ %85, %83 ]
+  %88 = fcmp oeq float %74, 0.000000e+00
+  br i1 %88, label %97, label %89
 
-85:                                               ; preds = %82
-  %86 = fcmp uge float %83, 0x3810000000000000
-  %87 = select i1 %86, i32 4, i32 3
-  br label %88
+89:                                               ; preds = %86
+  %90 = fcmp uno float %74, 0.000000e+00
+  br i1 %90, label %97, label %91
 
-88:                                               ; preds = %85, %82, %80, %77
-  %89 = phi i32 [ 2, %77 ], [ 0, %80 ], [ 1, %82 ], [ %87, %85 ]
-  %90 = icmp eq i32 %78, %89
-  br i1 %90, label %115, label %91
+91:                                               ; preds = %89
+  %92 = tail call float @llvm.fabs.f32(float %74) #18
+  %93 = fcmp oeq float %92, 0x7FF0000000000000
+  br i1 %93, label %97, label %94
 
-91:                                               ; preds = %88
-  %92 = and i64 %61, 4294967295
-  %93 = getelementptr inbounds float, ptr %10, i64 %92
-  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %95 unwind label %113
+94:                                               ; preds = %91
+  %95 = fcmp uge float %92, 0x3810000000000000
+  %96 = select i1 %95, i32 4, i32 3
+  br label %97
 
-95:                                               ; preds = %91
-  %96 = getelementptr inbounds float, ptr %8, i64 %92
-  %97 = load float, ptr %96, align 4, !tbaa !9
-  %98 = fpext float %97 to double
-  %99 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %98)
-          to label %100 unwind label %113
+97:                                               ; preds = %94, %91, %89, %86
+  %98 = phi i32 [ 2, %86 ], [ 0, %89 ], [ 1, %91 ], [ %96, %94 ]
+  %99 = icmp eq i32 %87, %98
+  br i1 %99, label %124, label %100
 
-100:                                              ; preds = %95
-  %101 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %99, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %102 unwind label %113
+100:                                              ; preds = %97
+  %101 = and i64 %70, 4294967295
+  %102 = getelementptr inbounds float, ptr %10, i64 %101
+  %103 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %104 unwind label %122
 
-102:                                              ; preds = %100
-  %103 = load float, ptr %93, align 4, !tbaa !9
-  %104 = fpext float %103 to double
-  %105 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %99, double noundef %104)
-          to label %106 unwind label %113
+104:                                              ; preds = %100
+  %105 = getelementptr inbounds float, ptr %8, i64 %101
+  %106 = load float, ptr %105, align 4, !tbaa !9
+  %107 = fpext float %106 to double
+  %108 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %107)
+          to label %109 unwind label %122
 
-106:                                              ; preds = %102
-  %107 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %105, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %108 unwind label %113
+109:                                              ; preds = %104
+  %110 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %108, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %111 unwind label %122
 
-108:                                              ; preds = %106
-  %109 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %105, i64 noundef %92)
-          to label %110 unwind label %113
+111:                                              ; preds = %109
+  %112 = load float, ptr %102, align 4, !tbaa !9
+  %113 = fpext float %112 to double
+  %114 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %108, double noundef %113)
+          to label %115 unwind label %122
 
-110:                                              ; preds = %108
-  %111 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %109, ptr noundef nonnull @.str.76)
-          to label %112 unwind label %113
+115:                                              ; preds = %111
+  %116 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %114, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %117 unwind label %122
 
-112:                                              ; preds = %110
-  tail call void @exit(i32 noundef 1) #18
+117:                                              ; preds = %115
+  %118 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %114, i64 noundef %101)
+          to label %119 unwind label %122
+
+119:                                              ; preds = %117
+  %120 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %118, ptr noundef nonnull @.str.76)
+          to label %121 unwind label %122
+
+121:                                              ; preds = %119
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-113:                                              ; preds = %91, %95, %100, %102, %106, %108, %110
-  %114 = landingpad { ptr, i32 }
+122:                                              ; preds = %100, %104, %109, %111, %115, %117, %119
+  %123 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %176
 
-115:                                              ; preds = %88, %60
-  %116 = add nuw nsw i64 %61, 1
-  %117 = icmp eq i64 %116, 10000
-  br i1 %117, label %118, label %60, !llvm.loop !16
+124:                                              ; preds = %97, %69
+  %125 = add nuw nsw i64 %70, 1
+  %126 = icmp eq i64 %125, 10000
+  br i1 %126, label %60, label %69, !llvm.loop !36
 
-118:                                              ; preds = %115
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %119 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %120 = load i8, ptr %119, align 2, !tbaa !17, !range !34, !noundef !35
-  %121 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %122 = load i64, ptr %121, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %123 unwind label %172
-
-123:                                              ; preds = %118
-  %124 = icmp ne i8 %120, 0
-  %125 = icmp eq i64 %122, 0
-  %126 = select i1 %124, i1 true, i1 %125
-  br i1 %126, label %127, label %140, !prof !36
-
-127:                                              ; preds = %166, %123
+127:                                              ; preds = %166, %65
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %128 unwind label %172
 
@@ -5985,7 +5985,7 @@ define dso_local void @_Z29BENCHMARK_cosf_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %130, label %132, label %131
 
 131:                                              ; preds = %128
-  call void @_ZdaPv(ptr noundef nonnull %129) #19
+  call void @_ZdaPv(ptr noundef nonnull %129) #17
   br label %132
 
 132:                                              ; preds = %131, %128
@@ -5995,7 +5995,7 @@ define dso_local void @_Z29BENCHMARK_cosf_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %134, label %136, label %135
 
 135:                                              ; preds = %132
-  call void @_ZdaPv(ptr noundef nonnull %133) #19
+  call void @_ZdaPv(ptr noundef nonnull %133) #17
   br label %136
 
 136:                                              ; preds = %135, %132
@@ -6005,11 +6005,11 @@ define dso_local void @_Z29BENCHMARK_cosf_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %138, label %195, label %139
 
 139:                                              ; preds = %136
-  call void @_ZdaPv(ptr noundef nonnull %137) #19
+  call void @_ZdaPv(ptr noundef nonnull %137) #17
   br label %195
 
-140:                                              ; preds = %123, %166
-  %141 = phi i64 [ %170, %166 ], [ %122, %123 ]
+140:                                              ; preds = %65, %166
+  %141 = phi i64 [ %170, %166 ], [ %64, %65 ]
   %142 = load ptr, ptr %2, align 8, !tbaa !5
   %143 = load ptr, ptr %3, align 8, !tbaa !5
   %144 = load ptr, ptr %4, align 8, !tbaa !5
@@ -6050,19 +6050,19 @@ define dso_local void @_Z29BENCHMARK_cosf_autovec_float_RN9benchmark5StateE(ptr 
   fence syncscope("singlethread") acq_rel
   %170 = add i64 %141, -1
   %171 = icmp eq i64 %170, 0
-  br i1 %171, label %127, label %140, !prof !36
+  br i1 %171, label %127, label %140, !prof !35
 
-172:                                              ; preds = %118, %127
+172:                                              ; preds = %60, %127
   %173 = landingpad { ptr, i32 }
           cleanup
   %174 = load ptr, ptr %4, align 8, !tbaa !5
   %175 = icmp eq ptr %174, null
   br i1 %175, label %179, label %176
 
-176:                                              ; preds = %113, %172, %37
-  %177 = phi { ptr, i32 } [ %38, %37 ], [ %173, %172 ], [ %114, %113 ]
-  %178 = phi ptr [ %8, %37 ], [ %174, %172 ], [ %8, %113 ]
-  call void @_ZdaPv(ptr noundef nonnull %178) #19
+176:                                              ; preds = %122, %172, %37
+  %177 = phi { ptr, i32 } [ %38, %37 ], [ %173, %172 ], [ %123, %122 ]
+  %178 = phi ptr [ %8, %37 ], [ %174, %172 ], [ %8, %122 ]
+  call void @_ZdaPv(ptr noundef nonnull %178) #17
   br label %179
 
 179:                                              ; preds = %176, %172
@@ -6075,7 +6075,7 @@ define dso_local void @_Z29BENCHMARK_cosf_autovec_float_RN9benchmark5StateE(ptr 
 183:                                              ; preds = %179, %35
   %184 = phi { ptr, i32 } [ %36, %35 ], [ %180, %179 ]
   %185 = phi ptr [ %6, %35 ], [ %181, %179 ]
-  call void @_ZdaPv(ptr noundef nonnull %185) #19
+  call void @_ZdaPv(ptr noundef nonnull %185) #17
   br label %186
 
 186:                                              ; preds = %183, %179
@@ -6088,7 +6088,7 @@ define dso_local void @_Z29BENCHMARK_cosf_autovec_float_RN9benchmark5StateE(ptr 
 190:                                              ; preds = %186, %33
   %191 = phi { ptr, i32 } [ %34, %33 ], [ %187, %186 ]
   %192 = phi ptr [ %5, %33 ], [ %188, %186 ]
-  call void @_ZdaPv(ptr noundef nonnull %192) #19
+  call void @_ZdaPv(ptr noundef nonnull %192) #17
   br label %193
 
 193:                                              ; preds = %190, %186
@@ -6126,7 +6126,7 @@ define dso_local void @_Z27BENCHMARK_cosf_novec_float_RN9benchmark5StateE(ptr no
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIfEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -6136,7 +6136,7 @@ define dso_local void @_Z27BENCHMARK_cosf_novec_float_RN9benchmark5StateE(ptr no
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %65, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -6148,7 +6148,7 @@ define dso_local void @_Z27BENCHMARK_cosf_novec_float_RN9benchmark5StateE(ptr no
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -6158,7 +6158,7 @@ define dso_local void @_Z27BENCHMARK_cosf_novec_float_RN9benchmark5StateE(ptr no
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -6168,7 +6168,7 @@ define dso_local void @_Z27BENCHMARK_cosf_novec_float_RN9benchmark5StateE(ptr no
   br i1 %29, label %87, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %87
 
 31:                                               ; preds = %1
@@ -6231,10 +6231,10 @@ define dso_local void @_Z27BENCHMARK_cosf_novec_float_RN9benchmark5StateE(ptr no
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %4, i64 %68) #15, !srcloc !37
   %69 = add i64 %40, -1
   %70 = icmp eq i64 %69, 0
-  br i1 %70, label %18, label %39, !prof !36
+  br i1 %70, label %18, label %39, !prof !35
 
 71:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %72
 
 72:                                               ; preds = %71, %35
@@ -6246,7 +6246,7 @@ define dso_local void @_Z27BENCHMARK_cosf_novec_float_RN9benchmark5StateE(ptr no
 75:                                               ; preds = %72, %33
   %76 = phi { ptr, i32 } [ %34, %33 ], [ %36, %72 ]
   %77 = phi ptr [ %6, %33 ], [ %73, %72 ]
-  call void @_ZdaPv(ptr noundef nonnull %77) #19
+  call void @_ZdaPv(ptr noundef nonnull %77) #17
   br label %78
 
 78:                                               ; preds = %75, %72
@@ -6259,7 +6259,7 @@ define dso_local void @_Z27BENCHMARK_cosf_novec_float_RN9benchmark5StateE(ptr no
 82:                                               ; preds = %78, %31
   %83 = phi { ptr, i32 } [ %32, %31 ], [ %79, %78 ]
   %84 = phi ptr [ %5, %31 ], [ %80, %78 ]
-  call void @_ZdaPv(ptr noundef nonnull %84) #19
+  call void @_ZdaPv(ptr noundef nonnull %84) #17
   br label %85
 
 85:                                               ; preds = %82, %78
@@ -6365,123 +6365,123 @@ define dso_local void @_Z29BENCHMARK_cos_autovec_double_RN9benchmark5StateE(ptr 
   store double %56, ptr %57, align 8, !tbaa !38
   %58 = add nuw nsw i64 %40, 2
   %59 = icmp eq i64 %58, 10000
-  br i1 %59, label %60, label %39, !llvm.loop !41
+  br i1 %59, label %69, label %39, !llvm.loop !41
 
-60:                                               ; preds = %39, %113
-  %61 = phi i64 [ %114, %113 ], [ 0, %39 ]
-  %62 = getelementptr inbounds double, ptr %8, i64 %61
-  %63 = load double, ptr %62, align 8, !tbaa !38
-  %64 = getelementptr inbounds double, ptr %10, i64 %61
-  %65 = load double, ptr %64, align 8, !tbaa !38
-  %66 = fcmp une double %63, %65
-  br i1 %66, label %67, label %113
+60:                                               ; preds = %122
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %61 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %62 = load i8, ptr %61, align 2, !tbaa !16, !range !33, !noundef !34
+  %63 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %64 = load i64, ptr %63, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %65 unwind label %170
 
-67:                                               ; preds = %60
-  %68 = fcmp oeq double %63, 0.000000e+00
-  br i1 %68, label %77, label %69
+65:                                               ; preds = %60
+  %66 = icmp ne i8 %62, 0
+  %67 = icmp eq i64 %64, 0
+  %68 = select i1 %66, i1 true, i1 %67
+  br i1 %68, label %125, label %138, !prof !35
 
-69:                                               ; preds = %67
-  %70 = fcmp uno double %63, 0.000000e+00
-  br i1 %70, label %77, label %71
+69:                                               ; preds = %39, %122
+  %70 = phi i64 [ %123, %122 ], [ 0, %39 ]
+  %71 = getelementptr inbounds double, ptr %8, i64 %70
+  %72 = load double, ptr %71, align 8, !tbaa !38
+  %73 = getelementptr inbounds double, ptr %10, i64 %70
+  %74 = load double, ptr %73, align 8, !tbaa !38
+  %75 = fcmp une double %72, %74
+  br i1 %75, label %76, label %122
 
-71:                                               ; preds = %69
-  %72 = tail call double @llvm.fabs.f64(double %63) #17
-  %73 = fcmp oeq double %72, 0x7FF0000000000000
-  br i1 %73, label %77, label %74
+76:                                               ; preds = %69
+  %77 = fcmp oeq double %72, 0.000000e+00
+  br i1 %77, label %86, label %78
 
-74:                                               ; preds = %71
-  %75 = fcmp uge double %72, 0x10000000000000
-  %76 = select i1 %75, i32 4, i32 3
-  br label %77
+78:                                               ; preds = %76
+  %79 = fcmp uno double %72, 0.000000e+00
+  br i1 %79, label %86, label %80
 
-77:                                               ; preds = %74, %71, %69, %67
-  %78 = phi i32 [ 2, %67 ], [ 0, %69 ], [ 1, %71 ], [ %76, %74 ]
-  %79 = fcmp oeq double %65, 0.000000e+00
-  br i1 %79, label %88, label %80
+80:                                               ; preds = %78
+  %81 = tail call double @llvm.fabs.f64(double %72) #18
+  %82 = fcmp oeq double %81, 0x7FF0000000000000
+  br i1 %82, label %86, label %83
 
-80:                                               ; preds = %77
-  %81 = fcmp uno double %65, 0.000000e+00
-  br i1 %81, label %88, label %82
+83:                                               ; preds = %80
+  %84 = fcmp uge double %81, 0x10000000000000
+  %85 = select i1 %84, i32 4, i32 3
+  br label %86
 
-82:                                               ; preds = %80
-  %83 = tail call double @llvm.fabs.f64(double %65) #17
-  %84 = fcmp oeq double %83, 0x7FF0000000000000
-  br i1 %84, label %88, label %85
+86:                                               ; preds = %83, %80, %78, %76
+  %87 = phi i32 [ 2, %76 ], [ 0, %78 ], [ 1, %80 ], [ %85, %83 ]
+  %88 = fcmp oeq double %74, 0.000000e+00
+  br i1 %88, label %97, label %89
 
-85:                                               ; preds = %82
-  %86 = fcmp uge double %83, 0x10000000000000
-  %87 = select i1 %86, i32 4, i32 3
-  br label %88
+89:                                               ; preds = %86
+  %90 = fcmp uno double %74, 0.000000e+00
+  br i1 %90, label %97, label %91
 
-88:                                               ; preds = %85, %82, %80, %77
-  %89 = phi i32 [ 2, %77 ], [ 0, %80 ], [ 1, %82 ], [ %87, %85 ]
-  %90 = icmp eq i32 %78, %89
-  br i1 %90, label %113, label %91
+91:                                               ; preds = %89
+  %92 = tail call double @llvm.fabs.f64(double %74) #18
+  %93 = fcmp oeq double %92, 0x7FF0000000000000
+  br i1 %93, label %97, label %94
 
-91:                                               ; preds = %88
-  %92 = and i64 %61, 4294967295
-  %93 = getelementptr inbounds double, ptr %10, i64 %92
-  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %95 unwind label %111
+94:                                               ; preds = %91
+  %95 = fcmp uge double %92, 0x10000000000000
+  %96 = select i1 %95, i32 4, i32 3
+  br label %97
 
-95:                                               ; preds = %91
-  %96 = getelementptr inbounds double, ptr %8, i64 %92
-  %97 = load double, ptr %96, align 8, !tbaa !38
-  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %97)
-          to label %99 unwind label %111
+97:                                               ; preds = %94, %91, %89, %86
+  %98 = phi i32 [ 2, %86 ], [ 0, %89 ], [ 1, %91 ], [ %96, %94 ]
+  %99 = icmp eq i32 %87, %98
+  br i1 %99, label %122, label %100
 
-99:                                               ; preds = %95
-  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %98, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %101 unwind label %111
+100:                                              ; preds = %97
+  %101 = and i64 %70, 4294967295
+  %102 = getelementptr inbounds double, ptr %10, i64 %101
+  %103 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %104 unwind label %120
 
-101:                                              ; preds = %99
-  %102 = load double, ptr %93, align 8, !tbaa !38
-  %103 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %98, double noundef %102)
-          to label %104 unwind label %111
+104:                                              ; preds = %100
+  %105 = getelementptr inbounds double, ptr %8, i64 %101
+  %106 = load double, ptr %105, align 8, !tbaa !38
+  %107 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %106)
+          to label %108 unwind label %120
 
-104:                                              ; preds = %101
-  %105 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %103, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %106 unwind label %111
-
-106:                                              ; preds = %104
-  %107 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %103, i64 noundef %92)
-          to label %108 unwind label %111
-
-108:                                              ; preds = %106
-  %109 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %107, ptr noundef nonnull @.str.76)
-          to label %110 unwind label %111
+108:                                              ; preds = %104
+  %109 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %107, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %110 unwind label %120
 
 110:                                              ; preds = %108
-  tail call void @exit(i32 noundef 1) #18
+  %111 = load double, ptr %102, align 8, !tbaa !38
+  %112 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %107, double noundef %111)
+          to label %113 unwind label %120
+
+113:                                              ; preds = %110
+  %114 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %112, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %115 unwind label %120
+
+115:                                              ; preds = %113
+  %116 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %112, i64 noundef %101)
+          to label %117 unwind label %120
+
+117:                                              ; preds = %115
+  %118 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %116, ptr noundef nonnull @.str.76)
+          to label %119 unwind label %120
+
+119:                                              ; preds = %117
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-111:                                              ; preds = %91, %95, %99, %101, %104, %106, %108
-  %112 = landingpad { ptr, i32 }
+120:                                              ; preds = %100, %104, %108, %110, %113, %115, %117
+  %121 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %174
 
-113:                                              ; preds = %88, %60
-  %114 = add nuw nsw i64 %61, 1
-  %115 = icmp eq i64 %114, 10000
-  br i1 %115, label %116, label %60, !llvm.loop !42
+122:                                              ; preds = %97, %69
+  %123 = add nuw nsw i64 %70, 1
+  %124 = icmp eq i64 %123, 10000
+  br i1 %124, label %60, label %69, !llvm.loop !42
 
-116:                                              ; preds = %113
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %117 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %118 = load i8, ptr %117, align 2, !tbaa !17, !range !34, !noundef !35
-  %119 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %120 = load i64, ptr %119, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %121 unwind label %170
-
-121:                                              ; preds = %116
-  %122 = icmp ne i8 %118, 0
-  %123 = icmp eq i64 %120, 0
-  %124 = select i1 %122, i1 true, i1 %123
-  br i1 %124, label %125, label %138, !prof !36
-
-125:                                              ; preds = %164, %121
+125:                                              ; preds = %164, %65
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %126 unwind label %170
 
@@ -6491,7 +6491,7 @@ define dso_local void @_Z29BENCHMARK_cos_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %128, label %130, label %129
 
 129:                                              ; preds = %126
-  call void @_ZdaPv(ptr noundef nonnull %127) #19
+  call void @_ZdaPv(ptr noundef nonnull %127) #17
   br label %130
 
 130:                                              ; preds = %129, %126
@@ -6501,7 +6501,7 @@ define dso_local void @_Z29BENCHMARK_cos_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %132, label %134, label %133
 
 133:                                              ; preds = %130
-  call void @_ZdaPv(ptr noundef nonnull %131) #19
+  call void @_ZdaPv(ptr noundef nonnull %131) #17
   br label %134
 
 134:                                              ; preds = %133, %130
@@ -6511,11 +6511,11 @@ define dso_local void @_Z29BENCHMARK_cos_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %136, label %193, label %137
 
 137:                                              ; preds = %134
-  call void @_ZdaPv(ptr noundef nonnull %135) #19
+  call void @_ZdaPv(ptr noundef nonnull %135) #17
   br label %193
 
-138:                                              ; preds = %121, %164
-  %139 = phi i64 [ %168, %164 ], [ %120, %121 ]
+138:                                              ; preds = %65, %164
+  %139 = phi i64 [ %168, %164 ], [ %64, %65 ]
   %140 = load ptr, ptr %2, align 8, !tbaa !5
   %141 = load ptr, ptr %3, align 8, !tbaa !5
   %142 = load ptr, ptr %4, align 8, !tbaa !5
@@ -6556,19 +6556,19 @@ define dso_local void @_Z29BENCHMARK_cos_autovec_double_RN9benchmark5StateE(ptr 
   fence syncscope("singlethread") acq_rel
   %168 = add i64 %139, -1
   %169 = icmp eq i64 %168, 0
-  br i1 %169, label %125, label %138, !prof !36
+  br i1 %169, label %125, label %138, !prof !35
 
-170:                                              ; preds = %116, %125
+170:                                              ; preds = %60, %125
   %171 = landingpad { ptr, i32 }
           cleanup
   %172 = load ptr, ptr %4, align 8, !tbaa !5
   %173 = icmp eq ptr %172, null
   br i1 %173, label %177, label %174
 
-174:                                              ; preds = %111, %170, %37
-  %175 = phi { ptr, i32 } [ %38, %37 ], [ %171, %170 ], [ %112, %111 ]
-  %176 = phi ptr [ %8, %37 ], [ %172, %170 ], [ %8, %111 ]
-  call void @_ZdaPv(ptr noundef nonnull %176) #19
+174:                                              ; preds = %120, %170, %37
+  %175 = phi { ptr, i32 } [ %38, %37 ], [ %171, %170 ], [ %121, %120 ]
+  %176 = phi ptr [ %8, %37 ], [ %172, %170 ], [ %8, %120 ]
+  call void @_ZdaPv(ptr noundef nonnull %176) #17
   br label %177
 
 177:                                              ; preds = %174, %170
@@ -6581,7 +6581,7 @@ define dso_local void @_Z29BENCHMARK_cos_autovec_double_RN9benchmark5StateE(ptr 
 181:                                              ; preds = %177, %35
   %182 = phi { ptr, i32 } [ %36, %35 ], [ %178, %177 ]
   %183 = phi ptr [ %6, %35 ], [ %179, %177 ]
-  call void @_ZdaPv(ptr noundef nonnull %183) #19
+  call void @_ZdaPv(ptr noundef nonnull %183) #17
   br label %184
 
 184:                                              ; preds = %181, %177
@@ -6594,7 +6594,7 @@ define dso_local void @_Z29BENCHMARK_cos_autovec_double_RN9benchmark5StateE(ptr 
 188:                                              ; preds = %184, %33
   %189 = phi { ptr, i32 } [ %34, %33 ], [ %185, %184 ]
   %190 = phi ptr [ %5, %33 ], [ %186, %184 ]
-  call void @_ZdaPv(ptr noundef nonnull %190) #19
+  call void @_ZdaPv(ptr noundef nonnull %190) #17
   br label %191
 
 191:                                              ; preds = %188, %184
@@ -6632,7 +6632,7 @@ define dso_local void @_Z27BENCHMARK_cos_novec_double_RN9benchmark5StateE(ptr no
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIdEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -6642,7 +6642,7 @@ define dso_local void @_Z27BENCHMARK_cos_novec_double_RN9benchmark5StateE(ptr no
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %65, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -6654,7 +6654,7 @@ define dso_local void @_Z27BENCHMARK_cos_novec_double_RN9benchmark5StateE(ptr no
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -6664,7 +6664,7 @@ define dso_local void @_Z27BENCHMARK_cos_novec_double_RN9benchmark5StateE(ptr no
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -6674,7 +6674,7 @@ define dso_local void @_Z27BENCHMARK_cos_novec_double_RN9benchmark5StateE(ptr no
   br i1 %29, label %87, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %87
 
 31:                                               ; preds = %1
@@ -6737,10 +6737,10 @@ define dso_local void @_Z27BENCHMARK_cos_novec_double_RN9benchmark5StateE(ptr no
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr.33") %4, i64 %68) #15, !srcloc !37
   %69 = add i64 %40, -1
   %70 = icmp eq i64 %69, 0
-  br i1 %70, label %18, label %39, !prof !36
+  br i1 %70, label %18, label %39, !prof !35
 
 71:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %72
 
 72:                                               ; preds = %71, %35
@@ -6752,7 +6752,7 @@ define dso_local void @_Z27BENCHMARK_cos_novec_double_RN9benchmark5StateE(ptr no
 75:                                               ; preds = %72, %33
   %76 = phi { ptr, i32 } [ %34, %33 ], [ %36, %72 ]
   %77 = phi ptr [ %6, %33 ], [ %73, %72 ]
-  call void @_ZdaPv(ptr noundef nonnull %77) #19
+  call void @_ZdaPv(ptr noundef nonnull %77) #17
   br label %78
 
 78:                                               ; preds = %75, %72
@@ -6765,7 +6765,7 @@ define dso_local void @_Z27BENCHMARK_cos_novec_double_RN9benchmark5StateE(ptr no
 82:                                               ; preds = %78, %31
   %83 = phi { ptr, i32 } [ %32, %31 ], [ %79, %78 ]
   %84 = phi ptr [ %5, %31 ], [ %80, %78 ]
-  call void @_ZdaPv(ptr noundef nonnull %84) #19
+  call void @_ZdaPv(ptr noundef nonnull %84) #17
   br label %85
 
 85:                                               ; preds = %82, %78
@@ -6871,125 +6871,125 @@ define dso_local void @_Z29BENCHMARK_sinf_autovec_float_RN9benchmark5StateE(ptr 
   store float %56, ptr %57, align 4, !tbaa !9
   %58 = add nuw nsw i64 %40, 2
   %59 = icmp eq i64 %58, 10000
-  br i1 %59, label %60, label %39, !llvm.loop !15
+  br i1 %59, label %69, label %39, !llvm.loop !15
 
-60:                                               ; preds = %39, %115
-  %61 = phi i64 [ %116, %115 ], [ 0, %39 ]
-  %62 = getelementptr inbounds float, ptr %8, i64 %61
-  %63 = load float, ptr %62, align 4, !tbaa !9
-  %64 = getelementptr inbounds float, ptr %10, i64 %61
-  %65 = load float, ptr %64, align 4, !tbaa !9
-  %66 = fcmp une float %63, %65
-  br i1 %66, label %67, label %115
+60:                                               ; preds = %124
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %61 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %62 = load i8, ptr %61, align 2, !tbaa !16, !range !33, !noundef !34
+  %63 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %64 = load i64, ptr %63, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %65 unwind label %172
 
-67:                                               ; preds = %60
-  %68 = fcmp oeq float %63, 0.000000e+00
-  br i1 %68, label %77, label %69
+65:                                               ; preds = %60
+  %66 = icmp ne i8 %62, 0
+  %67 = icmp eq i64 %64, 0
+  %68 = select i1 %66, i1 true, i1 %67
+  br i1 %68, label %127, label %140, !prof !35
 
-69:                                               ; preds = %67
-  %70 = fcmp uno float %63, 0.000000e+00
-  br i1 %70, label %77, label %71
+69:                                               ; preds = %39, %124
+  %70 = phi i64 [ %125, %124 ], [ 0, %39 ]
+  %71 = getelementptr inbounds float, ptr %8, i64 %70
+  %72 = load float, ptr %71, align 4, !tbaa !9
+  %73 = getelementptr inbounds float, ptr %10, i64 %70
+  %74 = load float, ptr %73, align 4, !tbaa !9
+  %75 = fcmp une float %72, %74
+  br i1 %75, label %76, label %124
 
-71:                                               ; preds = %69
-  %72 = tail call float @llvm.fabs.f32(float %63) #17
-  %73 = fcmp oeq float %72, 0x7FF0000000000000
-  br i1 %73, label %77, label %74
+76:                                               ; preds = %69
+  %77 = fcmp oeq float %72, 0.000000e+00
+  br i1 %77, label %86, label %78
 
-74:                                               ; preds = %71
-  %75 = fcmp uge float %72, 0x3810000000000000
-  %76 = select i1 %75, i32 4, i32 3
-  br label %77
+78:                                               ; preds = %76
+  %79 = fcmp uno float %72, 0.000000e+00
+  br i1 %79, label %86, label %80
 
-77:                                               ; preds = %74, %71, %69, %67
-  %78 = phi i32 [ 2, %67 ], [ 0, %69 ], [ 1, %71 ], [ %76, %74 ]
-  %79 = fcmp oeq float %65, 0.000000e+00
-  br i1 %79, label %88, label %80
+80:                                               ; preds = %78
+  %81 = tail call float @llvm.fabs.f32(float %72) #18
+  %82 = fcmp oeq float %81, 0x7FF0000000000000
+  br i1 %82, label %86, label %83
 
-80:                                               ; preds = %77
-  %81 = fcmp uno float %65, 0.000000e+00
-  br i1 %81, label %88, label %82
+83:                                               ; preds = %80
+  %84 = fcmp uge float %81, 0x3810000000000000
+  %85 = select i1 %84, i32 4, i32 3
+  br label %86
 
-82:                                               ; preds = %80
-  %83 = tail call float @llvm.fabs.f32(float %65) #17
-  %84 = fcmp oeq float %83, 0x7FF0000000000000
-  br i1 %84, label %88, label %85
+86:                                               ; preds = %83, %80, %78, %76
+  %87 = phi i32 [ 2, %76 ], [ 0, %78 ], [ 1, %80 ], [ %85, %83 ]
+  %88 = fcmp oeq float %74, 0.000000e+00
+  br i1 %88, label %97, label %89
 
-85:                                               ; preds = %82
-  %86 = fcmp uge float %83, 0x3810000000000000
-  %87 = select i1 %86, i32 4, i32 3
-  br label %88
+89:                                               ; preds = %86
+  %90 = fcmp uno float %74, 0.000000e+00
+  br i1 %90, label %97, label %91
 
-88:                                               ; preds = %85, %82, %80, %77
-  %89 = phi i32 [ 2, %77 ], [ 0, %80 ], [ 1, %82 ], [ %87, %85 ]
-  %90 = icmp eq i32 %78, %89
-  br i1 %90, label %115, label %91
+91:                                               ; preds = %89
+  %92 = tail call float @llvm.fabs.f32(float %74) #18
+  %93 = fcmp oeq float %92, 0x7FF0000000000000
+  br i1 %93, label %97, label %94
 
-91:                                               ; preds = %88
-  %92 = and i64 %61, 4294967295
-  %93 = getelementptr inbounds float, ptr %10, i64 %92
-  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %95 unwind label %113
+94:                                               ; preds = %91
+  %95 = fcmp uge float %92, 0x3810000000000000
+  %96 = select i1 %95, i32 4, i32 3
+  br label %97
 
-95:                                               ; preds = %91
-  %96 = getelementptr inbounds float, ptr %8, i64 %92
-  %97 = load float, ptr %96, align 4, !tbaa !9
-  %98 = fpext float %97 to double
-  %99 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %98)
-          to label %100 unwind label %113
+97:                                               ; preds = %94, %91, %89, %86
+  %98 = phi i32 [ 2, %86 ], [ 0, %89 ], [ 1, %91 ], [ %96, %94 ]
+  %99 = icmp eq i32 %87, %98
+  br i1 %99, label %124, label %100
 
-100:                                              ; preds = %95
-  %101 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %99, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %102 unwind label %113
+100:                                              ; preds = %97
+  %101 = and i64 %70, 4294967295
+  %102 = getelementptr inbounds float, ptr %10, i64 %101
+  %103 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %104 unwind label %122
 
-102:                                              ; preds = %100
-  %103 = load float, ptr %93, align 4, !tbaa !9
-  %104 = fpext float %103 to double
-  %105 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %99, double noundef %104)
-          to label %106 unwind label %113
+104:                                              ; preds = %100
+  %105 = getelementptr inbounds float, ptr %8, i64 %101
+  %106 = load float, ptr %105, align 4, !tbaa !9
+  %107 = fpext float %106 to double
+  %108 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %107)
+          to label %109 unwind label %122
 
-106:                                              ; preds = %102
-  %107 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %105, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %108 unwind label %113
+109:                                              ; preds = %104
+  %110 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %108, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %111 unwind label %122
 
-108:                                              ; preds = %106
-  %109 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %105, i64 noundef %92)
-          to label %110 unwind label %113
+111:                                              ; preds = %109
+  %112 = load float, ptr %102, align 4, !tbaa !9
+  %113 = fpext float %112 to double
+  %114 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %108, double noundef %113)
+          to label %115 unwind label %122
 
-110:                                              ; preds = %108
-  %111 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %109, ptr noundef nonnull @.str.76)
-          to label %112 unwind label %113
+115:                                              ; preds = %111
+  %116 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %114, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %117 unwind label %122
 
-112:                                              ; preds = %110
-  tail call void @exit(i32 noundef 1) #18
+117:                                              ; preds = %115
+  %118 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %114, i64 noundef %101)
+          to label %119 unwind label %122
+
+119:                                              ; preds = %117
+  %120 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %118, ptr noundef nonnull @.str.76)
+          to label %121 unwind label %122
+
+121:                                              ; preds = %119
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-113:                                              ; preds = %91, %95, %100, %102, %106, %108, %110
-  %114 = landingpad { ptr, i32 }
+122:                                              ; preds = %100, %104, %109, %111, %115, %117, %119
+  %123 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %176
 
-115:                                              ; preds = %88, %60
-  %116 = add nuw nsw i64 %61, 1
-  %117 = icmp eq i64 %116, 10000
-  br i1 %117, label %118, label %60, !llvm.loop !16
+124:                                              ; preds = %97, %69
+  %125 = add nuw nsw i64 %70, 1
+  %126 = icmp eq i64 %125, 10000
+  br i1 %126, label %60, label %69, !llvm.loop !36
 
-118:                                              ; preds = %115
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %119 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %120 = load i8, ptr %119, align 2, !tbaa !17, !range !34, !noundef !35
-  %121 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %122 = load i64, ptr %121, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %123 unwind label %172
-
-123:                                              ; preds = %118
-  %124 = icmp ne i8 %120, 0
-  %125 = icmp eq i64 %122, 0
-  %126 = select i1 %124, i1 true, i1 %125
-  br i1 %126, label %127, label %140, !prof !36
-
-127:                                              ; preds = %166, %123
+127:                                              ; preds = %166, %65
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %128 unwind label %172
 
@@ -6999,7 +6999,7 @@ define dso_local void @_Z29BENCHMARK_sinf_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %130, label %132, label %131
 
 131:                                              ; preds = %128
-  call void @_ZdaPv(ptr noundef nonnull %129) #19
+  call void @_ZdaPv(ptr noundef nonnull %129) #17
   br label %132
 
 132:                                              ; preds = %131, %128
@@ -7009,7 +7009,7 @@ define dso_local void @_Z29BENCHMARK_sinf_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %134, label %136, label %135
 
 135:                                              ; preds = %132
-  call void @_ZdaPv(ptr noundef nonnull %133) #19
+  call void @_ZdaPv(ptr noundef nonnull %133) #17
   br label %136
 
 136:                                              ; preds = %135, %132
@@ -7019,11 +7019,11 @@ define dso_local void @_Z29BENCHMARK_sinf_autovec_float_RN9benchmark5StateE(ptr 
   br i1 %138, label %195, label %139
 
 139:                                              ; preds = %136
-  call void @_ZdaPv(ptr noundef nonnull %137) #19
+  call void @_ZdaPv(ptr noundef nonnull %137) #17
   br label %195
 
-140:                                              ; preds = %123, %166
-  %141 = phi i64 [ %170, %166 ], [ %122, %123 ]
+140:                                              ; preds = %65, %166
+  %141 = phi i64 [ %170, %166 ], [ %64, %65 ]
   %142 = load ptr, ptr %2, align 8, !tbaa !5
   %143 = load ptr, ptr %3, align 8, !tbaa !5
   %144 = load ptr, ptr %4, align 8, !tbaa !5
@@ -7064,19 +7064,19 @@ define dso_local void @_Z29BENCHMARK_sinf_autovec_float_RN9benchmark5StateE(ptr 
   fence syncscope("singlethread") acq_rel
   %170 = add i64 %141, -1
   %171 = icmp eq i64 %170, 0
-  br i1 %171, label %127, label %140, !prof !36
+  br i1 %171, label %127, label %140, !prof !35
 
-172:                                              ; preds = %118, %127
+172:                                              ; preds = %60, %127
   %173 = landingpad { ptr, i32 }
           cleanup
   %174 = load ptr, ptr %4, align 8, !tbaa !5
   %175 = icmp eq ptr %174, null
   br i1 %175, label %179, label %176
 
-176:                                              ; preds = %113, %172, %37
-  %177 = phi { ptr, i32 } [ %38, %37 ], [ %173, %172 ], [ %114, %113 ]
-  %178 = phi ptr [ %8, %37 ], [ %174, %172 ], [ %8, %113 ]
-  call void @_ZdaPv(ptr noundef nonnull %178) #19
+176:                                              ; preds = %122, %172, %37
+  %177 = phi { ptr, i32 } [ %38, %37 ], [ %173, %172 ], [ %123, %122 ]
+  %178 = phi ptr [ %8, %37 ], [ %174, %172 ], [ %8, %122 ]
+  call void @_ZdaPv(ptr noundef nonnull %178) #17
   br label %179
 
 179:                                              ; preds = %176, %172
@@ -7089,7 +7089,7 @@ define dso_local void @_Z29BENCHMARK_sinf_autovec_float_RN9benchmark5StateE(ptr 
 183:                                              ; preds = %179, %35
   %184 = phi { ptr, i32 } [ %36, %35 ], [ %180, %179 ]
   %185 = phi ptr [ %6, %35 ], [ %181, %179 ]
-  call void @_ZdaPv(ptr noundef nonnull %185) #19
+  call void @_ZdaPv(ptr noundef nonnull %185) #17
   br label %186
 
 186:                                              ; preds = %183, %179
@@ -7102,7 +7102,7 @@ define dso_local void @_Z29BENCHMARK_sinf_autovec_float_RN9benchmark5StateE(ptr 
 190:                                              ; preds = %186, %33
   %191 = phi { ptr, i32 } [ %34, %33 ], [ %187, %186 ]
   %192 = phi ptr [ %5, %33 ], [ %188, %186 ]
-  call void @_ZdaPv(ptr noundef nonnull %192) #19
+  call void @_ZdaPv(ptr noundef nonnull %192) #17
   br label %193
 
 193:                                              ; preds = %190, %186
@@ -7140,7 +7140,7 @@ define dso_local void @_Z27BENCHMARK_sinf_novec_float_RN9benchmark5StateE(ptr no
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIfEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -7150,7 +7150,7 @@ define dso_local void @_Z27BENCHMARK_sinf_novec_float_RN9benchmark5StateE(ptr no
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %65, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -7162,7 +7162,7 @@ define dso_local void @_Z27BENCHMARK_sinf_novec_float_RN9benchmark5StateE(ptr no
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -7172,7 +7172,7 @@ define dso_local void @_Z27BENCHMARK_sinf_novec_float_RN9benchmark5StateE(ptr no
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -7182,7 +7182,7 @@ define dso_local void @_Z27BENCHMARK_sinf_novec_float_RN9benchmark5StateE(ptr no
   br i1 %29, label %87, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %87
 
 31:                                               ; preds = %1
@@ -7245,10 +7245,10 @@ define dso_local void @_Z27BENCHMARK_sinf_novec_float_RN9benchmark5StateE(ptr no
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %4, i64 %68) #15, !srcloc !37
   %69 = add i64 %40, -1
   %70 = icmp eq i64 %69, 0
-  br i1 %70, label %18, label %39, !prof !36
+  br i1 %70, label %18, label %39, !prof !35
 
 71:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %72
 
 72:                                               ; preds = %71, %35
@@ -7260,7 +7260,7 @@ define dso_local void @_Z27BENCHMARK_sinf_novec_float_RN9benchmark5StateE(ptr no
 75:                                               ; preds = %72, %33
   %76 = phi { ptr, i32 } [ %34, %33 ], [ %36, %72 ]
   %77 = phi ptr [ %6, %33 ], [ %73, %72 ]
-  call void @_ZdaPv(ptr noundef nonnull %77) #19
+  call void @_ZdaPv(ptr noundef nonnull %77) #17
   br label %78
 
 78:                                               ; preds = %75, %72
@@ -7273,7 +7273,7 @@ define dso_local void @_Z27BENCHMARK_sinf_novec_float_RN9benchmark5StateE(ptr no
 82:                                               ; preds = %78, %31
   %83 = phi { ptr, i32 } [ %32, %31 ], [ %79, %78 ]
   %84 = phi ptr [ %5, %31 ], [ %80, %78 ]
-  call void @_ZdaPv(ptr noundef nonnull %84) #19
+  call void @_ZdaPv(ptr noundef nonnull %84) #17
   br label %85
 
 85:                                               ; preds = %82, %78
@@ -7379,123 +7379,123 @@ define dso_local void @_Z29BENCHMARK_sin_autovec_double_RN9benchmark5StateE(ptr 
   store double %56, ptr %57, align 8, !tbaa !38
   %58 = add nuw nsw i64 %40, 2
   %59 = icmp eq i64 %58, 10000
-  br i1 %59, label %60, label %39, !llvm.loop !41
+  br i1 %59, label %69, label %39, !llvm.loop !41
 
-60:                                               ; preds = %39, %113
-  %61 = phi i64 [ %114, %113 ], [ 0, %39 ]
-  %62 = getelementptr inbounds double, ptr %8, i64 %61
-  %63 = load double, ptr %62, align 8, !tbaa !38
-  %64 = getelementptr inbounds double, ptr %10, i64 %61
-  %65 = load double, ptr %64, align 8, !tbaa !38
-  %66 = fcmp une double %63, %65
-  br i1 %66, label %67, label %113
+60:                                               ; preds = %122
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %61 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %62 = load i8, ptr %61, align 2, !tbaa !16, !range !33, !noundef !34
+  %63 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %64 = load i64, ptr %63, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %65 unwind label %170
 
-67:                                               ; preds = %60
-  %68 = fcmp oeq double %63, 0.000000e+00
-  br i1 %68, label %77, label %69
+65:                                               ; preds = %60
+  %66 = icmp ne i8 %62, 0
+  %67 = icmp eq i64 %64, 0
+  %68 = select i1 %66, i1 true, i1 %67
+  br i1 %68, label %125, label %138, !prof !35
 
-69:                                               ; preds = %67
-  %70 = fcmp uno double %63, 0.000000e+00
-  br i1 %70, label %77, label %71
+69:                                               ; preds = %39, %122
+  %70 = phi i64 [ %123, %122 ], [ 0, %39 ]
+  %71 = getelementptr inbounds double, ptr %8, i64 %70
+  %72 = load double, ptr %71, align 8, !tbaa !38
+  %73 = getelementptr inbounds double, ptr %10, i64 %70
+  %74 = load double, ptr %73, align 8, !tbaa !38
+  %75 = fcmp une double %72, %74
+  br i1 %75, label %76, label %122
 
-71:                                               ; preds = %69
-  %72 = tail call double @llvm.fabs.f64(double %63) #17
-  %73 = fcmp oeq double %72, 0x7FF0000000000000
-  br i1 %73, label %77, label %74
+76:                                               ; preds = %69
+  %77 = fcmp oeq double %72, 0.000000e+00
+  br i1 %77, label %86, label %78
 
-74:                                               ; preds = %71
-  %75 = fcmp uge double %72, 0x10000000000000
-  %76 = select i1 %75, i32 4, i32 3
-  br label %77
+78:                                               ; preds = %76
+  %79 = fcmp uno double %72, 0.000000e+00
+  br i1 %79, label %86, label %80
 
-77:                                               ; preds = %74, %71, %69, %67
-  %78 = phi i32 [ 2, %67 ], [ 0, %69 ], [ 1, %71 ], [ %76, %74 ]
-  %79 = fcmp oeq double %65, 0.000000e+00
-  br i1 %79, label %88, label %80
+80:                                               ; preds = %78
+  %81 = tail call double @llvm.fabs.f64(double %72) #18
+  %82 = fcmp oeq double %81, 0x7FF0000000000000
+  br i1 %82, label %86, label %83
 
-80:                                               ; preds = %77
-  %81 = fcmp uno double %65, 0.000000e+00
-  br i1 %81, label %88, label %82
+83:                                               ; preds = %80
+  %84 = fcmp uge double %81, 0x10000000000000
+  %85 = select i1 %84, i32 4, i32 3
+  br label %86
 
-82:                                               ; preds = %80
-  %83 = tail call double @llvm.fabs.f64(double %65) #17
-  %84 = fcmp oeq double %83, 0x7FF0000000000000
-  br i1 %84, label %88, label %85
+86:                                               ; preds = %83, %80, %78, %76
+  %87 = phi i32 [ 2, %76 ], [ 0, %78 ], [ 1, %80 ], [ %85, %83 ]
+  %88 = fcmp oeq double %74, 0.000000e+00
+  br i1 %88, label %97, label %89
 
-85:                                               ; preds = %82
-  %86 = fcmp uge double %83, 0x10000000000000
-  %87 = select i1 %86, i32 4, i32 3
-  br label %88
+89:                                               ; preds = %86
+  %90 = fcmp uno double %74, 0.000000e+00
+  br i1 %90, label %97, label %91
 
-88:                                               ; preds = %85, %82, %80, %77
-  %89 = phi i32 [ 2, %77 ], [ 0, %80 ], [ 1, %82 ], [ %87, %85 ]
-  %90 = icmp eq i32 %78, %89
-  br i1 %90, label %113, label %91
+91:                                               ; preds = %89
+  %92 = tail call double @llvm.fabs.f64(double %74) #18
+  %93 = fcmp oeq double %92, 0x7FF0000000000000
+  br i1 %93, label %97, label %94
 
-91:                                               ; preds = %88
-  %92 = and i64 %61, 4294967295
-  %93 = getelementptr inbounds double, ptr %10, i64 %92
-  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %95 unwind label %111
+94:                                               ; preds = %91
+  %95 = fcmp uge double %92, 0x10000000000000
+  %96 = select i1 %95, i32 4, i32 3
+  br label %97
 
-95:                                               ; preds = %91
-  %96 = getelementptr inbounds double, ptr %8, i64 %92
-  %97 = load double, ptr %96, align 8, !tbaa !38
-  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %97)
-          to label %99 unwind label %111
+97:                                               ; preds = %94, %91, %89, %86
+  %98 = phi i32 [ 2, %86 ], [ 0, %89 ], [ 1, %91 ], [ %96, %94 ]
+  %99 = icmp eq i32 %87, %98
+  br i1 %99, label %122, label %100
 
-99:                                               ; preds = %95
-  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %98, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %101 unwind label %111
+100:                                              ; preds = %97
+  %101 = and i64 %70, 4294967295
+  %102 = getelementptr inbounds double, ptr %10, i64 %101
+  %103 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %104 unwind label %120
 
-101:                                              ; preds = %99
-  %102 = load double, ptr %93, align 8, !tbaa !38
-  %103 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %98, double noundef %102)
-          to label %104 unwind label %111
+104:                                              ; preds = %100
+  %105 = getelementptr inbounds double, ptr %8, i64 %101
+  %106 = load double, ptr %105, align 8, !tbaa !38
+  %107 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %106)
+          to label %108 unwind label %120
 
-104:                                              ; preds = %101
-  %105 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %103, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %106 unwind label %111
-
-106:                                              ; preds = %104
-  %107 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %103, i64 noundef %92)
-          to label %108 unwind label %111
-
-108:                                              ; preds = %106
-  %109 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %107, ptr noundef nonnull @.str.76)
-          to label %110 unwind label %111
+108:                                              ; preds = %104
+  %109 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %107, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %110 unwind label %120
 
 110:                                              ; preds = %108
-  tail call void @exit(i32 noundef 1) #18
+  %111 = load double, ptr %102, align 8, !tbaa !38
+  %112 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %107, double noundef %111)
+          to label %113 unwind label %120
+
+113:                                              ; preds = %110
+  %114 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %112, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %115 unwind label %120
+
+115:                                              ; preds = %113
+  %116 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %112, i64 noundef %101)
+          to label %117 unwind label %120
+
+117:                                              ; preds = %115
+  %118 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %116, ptr noundef nonnull @.str.76)
+          to label %119 unwind label %120
+
+119:                                              ; preds = %117
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-111:                                              ; preds = %91, %95, %99, %101, %104, %106, %108
-  %112 = landingpad { ptr, i32 }
+120:                                              ; preds = %100, %104, %108, %110, %113, %115, %117
+  %121 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %174
 
-113:                                              ; preds = %88, %60
-  %114 = add nuw nsw i64 %61, 1
-  %115 = icmp eq i64 %114, 10000
-  br i1 %115, label %116, label %60, !llvm.loop !42
+122:                                              ; preds = %97, %69
+  %123 = add nuw nsw i64 %70, 1
+  %124 = icmp eq i64 %123, 10000
+  br i1 %124, label %60, label %69, !llvm.loop !42
 
-116:                                              ; preds = %113
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %117 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %118 = load i8, ptr %117, align 2, !tbaa !17, !range !34, !noundef !35
-  %119 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %120 = load i64, ptr %119, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %121 unwind label %170
-
-121:                                              ; preds = %116
-  %122 = icmp ne i8 %118, 0
-  %123 = icmp eq i64 %120, 0
-  %124 = select i1 %122, i1 true, i1 %123
-  br i1 %124, label %125, label %138, !prof !36
-
-125:                                              ; preds = %164, %121
+125:                                              ; preds = %164, %65
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %126 unwind label %170
 
@@ -7505,7 +7505,7 @@ define dso_local void @_Z29BENCHMARK_sin_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %128, label %130, label %129
 
 129:                                              ; preds = %126
-  call void @_ZdaPv(ptr noundef nonnull %127) #19
+  call void @_ZdaPv(ptr noundef nonnull %127) #17
   br label %130
 
 130:                                              ; preds = %129, %126
@@ -7515,7 +7515,7 @@ define dso_local void @_Z29BENCHMARK_sin_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %132, label %134, label %133
 
 133:                                              ; preds = %130
-  call void @_ZdaPv(ptr noundef nonnull %131) #19
+  call void @_ZdaPv(ptr noundef nonnull %131) #17
   br label %134
 
 134:                                              ; preds = %133, %130
@@ -7525,11 +7525,11 @@ define dso_local void @_Z29BENCHMARK_sin_autovec_double_RN9benchmark5StateE(ptr 
   br i1 %136, label %193, label %137
 
 137:                                              ; preds = %134
-  call void @_ZdaPv(ptr noundef nonnull %135) #19
+  call void @_ZdaPv(ptr noundef nonnull %135) #17
   br label %193
 
-138:                                              ; preds = %121, %164
-  %139 = phi i64 [ %168, %164 ], [ %120, %121 ]
+138:                                              ; preds = %65, %164
+  %139 = phi i64 [ %168, %164 ], [ %64, %65 ]
   %140 = load ptr, ptr %2, align 8, !tbaa !5
   %141 = load ptr, ptr %3, align 8, !tbaa !5
   %142 = load ptr, ptr %4, align 8, !tbaa !5
@@ -7570,19 +7570,19 @@ define dso_local void @_Z29BENCHMARK_sin_autovec_double_RN9benchmark5StateE(ptr 
   fence syncscope("singlethread") acq_rel
   %168 = add i64 %139, -1
   %169 = icmp eq i64 %168, 0
-  br i1 %169, label %125, label %138, !prof !36
+  br i1 %169, label %125, label %138, !prof !35
 
-170:                                              ; preds = %116, %125
+170:                                              ; preds = %60, %125
   %171 = landingpad { ptr, i32 }
           cleanup
   %172 = load ptr, ptr %4, align 8, !tbaa !5
   %173 = icmp eq ptr %172, null
   br i1 %173, label %177, label %174
 
-174:                                              ; preds = %111, %170, %37
-  %175 = phi { ptr, i32 } [ %38, %37 ], [ %171, %170 ], [ %112, %111 ]
-  %176 = phi ptr [ %8, %37 ], [ %172, %170 ], [ %8, %111 ]
-  call void @_ZdaPv(ptr noundef nonnull %176) #19
+174:                                              ; preds = %120, %170, %37
+  %175 = phi { ptr, i32 } [ %38, %37 ], [ %171, %170 ], [ %121, %120 ]
+  %176 = phi ptr [ %8, %37 ], [ %172, %170 ], [ %8, %120 ]
+  call void @_ZdaPv(ptr noundef nonnull %176) #17
   br label %177
 
 177:                                              ; preds = %174, %170
@@ -7595,7 +7595,7 @@ define dso_local void @_Z29BENCHMARK_sin_autovec_double_RN9benchmark5StateE(ptr 
 181:                                              ; preds = %177, %35
   %182 = phi { ptr, i32 } [ %36, %35 ], [ %178, %177 ]
   %183 = phi ptr [ %6, %35 ], [ %179, %177 ]
-  call void @_ZdaPv(ptr noundef nonnull %183) #19
+  call void @_ZdaPv(ptr noundef nonnull %183) #17
   br label %184
 
 184:                                              ; preds = %181, %177
@@ -7608,7 +7608,7 @@ define dso_local void @_Z29BENCHMARK_sin_autovec_double_RN9benchmark5StateE(ptr 
 188:                                              ; preds = %184, %33
   %189 = phi { ptr, i32 } [ %34, %33 ], [ %185, %184 ]
   %190 = phi ptr [ %5, %33 ], [ %186, %184 ]
-  call void @_ZdaPv(ptr noundef nonnull %190) #19
+  call void @_ZdaPv(ptr noundef nonnull %190) #17
   br label %191
 
 191:                                              ; preds = %188, %184
@@ -7646,7 +7646,7 @@ define dso_local void @_Z27BENCHMARK_sin_novec_double_RN9benchmark5StateE(ptr no
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIdEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -7656,7 +7656,7 @@ define dso_local void @_Z27BENCHMARK_sin_novec_double_RN9benchmark5StateE(ptr no
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %65, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -7668,7 +7668,7 @@ define dso_local void @_Z27BENCHMARK_sin_novec_double_RN9benchmark5StateE(ptr no
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -7678,7 +7678,7 @@ define dso_local void @_Z27BENCHMARK_sin_novec_double_RN9benchmark5StateE(ptr no
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -7688,7 +7688,7 @@ define dso_local void @_Z27BENCHMARK_sin_novec_double_RN9benchmark5StateE(ptr no
   br i1 %29, label %87, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %87
 
 31:                                               ; preds = %1
@@ -7751,10 +7751,10 @@ define dso_local void @_Z27BENCHMARK_sin_novec_double_RN9benchmark5StateE(ptr no
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr.33") %4, i64 %68) #15, !srcloc !37
   %69 = add i64 %40, -1
   %70 = icmp eq i64 %69, 0
-  br i1 %70, label %18, label %39, !prof !36
+  br i1 %70, label %18, label %39, !prof !35
 
 71:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %72
 
 72:                                               ; preds = %71, %35
@@ -7766,7 +7766,7 @@ define dso_local void @_Z27BENCHMARK_sin_novec_double_RN9benchmark5StateE(ptr no
 75:                                               ; preds = %72, %33
   %76 = phi { ptr, i32 } [ %34, %33 ], [ %36, %72 ]
   %77 = phi ptr [ %6, %33 ], [ %73, %72 ]
-  call void @_ZdaPv(ptr noundef nonnull %77) #19
+  call void @_ZdaPv(ptr noundef nonnull %77) #17
   br label %78
 
 78:                                               ; preds = %75, %72
@@ -7779,7 +7779,7 @@ define dso_local void @_Z27BENCHMARK_sin_novec_double_RN9benchmark5StateE(ptr no
 82:                                               ; preds = %78, %31
   %83 = phi { ptr, i32 } [ %32, %31 ], [ %79, %78 ]
   %84 = phi ptr [ %5, %31 ], [ %80, %78 ]
-  call void @_ZdaPv(ptr noundef nonnull %84) #19
+  call void @_ZdaPv(ptr noundef nonnull %84) #17
   br label %85
 
 85:                                               ; preds = %82, %78
@@ -7865,125 +7865,125 @@ define dso_local void @_Z30BENCHMARK_sinhf_autovec_float_RN9benchmark5StateE(ptr
   store float %38, ptr %39, align 4, !tbaa !9
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !15
+  br i1 %41, label %51, label %30, !llvm.loop !15
 
-42:                                               ; preds = %30, %97
-  %43 = phi i64 [ %98, %97 ], [ 0, %30 ]
-  %44 = getelementptr inbounds float, ptr %8, i64 %43
-  %45 = load float, ptr %44, align 4, !tbaa !9
-  %46 = getelementptr inbounds float, ptr %10, i64 %43
-  %47 = load float, ptr %46, align 4, !tbaa !9
-  %48 = fcmp une float %45, %47
-  br i1 %48, label %49, label %97
+42:                                               ; preds = %106
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %145
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq float %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %109, label %122, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno float %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %106
+  %52 = phi i64 [ %107, %106 ], [ 0, %30 ]
+  %53 = getelementptr inbounds float, ptr %8, i64 %52
+  %54 = load float, ptr %53, align 4, !tbaa !9
+  %55 = getelementptr inbounds float, ptr %10, i64 %52
+  %56 = load float, ptr %55, align 4, !tbaa !9
+  %57 = fcmp une float %54, %56
+  br i1 %57, label %58, label %106
 
-53:                                               ; preds = %51
-  %54 = tail call float @llvm.fabs.f32(float %45) #17
-  %55 = fcmp oeq float %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq float %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge float %54, 0x3810000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno float %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq float %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call float @llvm.fabs.f32(float %54) #18
+  %64 = fcmp oeq float %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno float %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge float %63, 0x3810000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call float @llvm.fabs.f32(float %47) #17
-  %66 = fcmp oeq float %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq float %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge float %65, 0x3810000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno float %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %97, label %73
+73:                                               ; preds = %71
+  %74 = tail call float @llvm.fabs.f32(float %56) #18
+  %75 = fcmp oeq float %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds float, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %95
+76:                                               ; preds = %73
+  %77 = fcmp uge float %74, 0x3810000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds float, ptr %8, i64 %74
-  %79 = load float, ptr %78, align 4, !tbaa !9
-  %80 = fpext float %79 to double
-  %81 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %80)
-          to label %82 unwind label %95
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %106, label %82
 
-82:                                               ; preds = %77
-  %83 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %81, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %84 unwind label %95
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds float, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %104
 
-84:                                               ; preds = %82
-  %85 = load float, ptr %75, align 4, !tbaa !9
-  %86 = fpext float %85 to double
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %81, double noundef %86)
-          to label %88 unwind label %95
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds float, ptr %8, i64 %83
+  %88 = load float, ptr %87, align 4, !tbaa !9
+  %89 = fpext float %88 to double
+  %90 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %89)
+          to label %91 unwind label %104
 
-88:                                               ; preds = %84
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %87, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %90 unwind label %95
+91:                                               ; preds = %86
+  %92 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %90, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %93 unwind label %104
 
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %87, i64 noundef %74)
-          to label %92 unwind label %95
+93:                                               ; preds = %91
+  %94 = load float, ptr %84, align 4, !tbaa !9
+  %95 = fpext float %94 to double
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %90, double noundef %95)
+          to label %97 unwind label %104
 
-92:                                               ; preds = %90
-  %93 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %91, ptr noundef nonnull @.str.76)
-          to label %94 unwind label %95
+97:                                               ; preds = %93
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %96, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %99 unwind label %104
 
-94:                                               ; preds = %92
-  tail call void @exit(i32 noundef 1) #18
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %96, i64 noundef %83)
+          to label %101 unwind label %104
+
+101:                                              ; preds = %99
+  %102 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %100, ptr noundef nonnull @.str.76)
+          to label %103 unwind label %104
+
+103:                                              ; preds = %101
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-95:                                               ; preds = %73, %77, %82, %84, %88, %90, %92
-  %96 = landingpad { ptr, i32 }
+104:                                              ; preds = %82, %86, %91, %93, %97, %99, %101
+  %105 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %149
 
-97:                                               ; preds = %70, %42
-  %98 = add nuw nsw i64 %43, 1
-  %99 = icmp eq i64 %98, 10000
-  br i1 %99, label %100, label %42, !llvm.loop !16
+106:                                              ; preds = %79, %51
+  %107 = add nuw nsw i64 %52, 1
+  %108 = icmp eq i64 %107, 10000
+  br i1 %108, label %42, label %51, !llvm.loop !36
 
-100:                                              ; preds = %97
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %102 = load i8, ptr %101, align 2, !tbaa !17, !range !34, !noundef !35
-  %103 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %104 = load i64, ptr %103, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %105 unwind label %145
-
-105:                                              ; preds = %100
-  %106 = icmp ne i8 %102, 0
-  %107 = icmp eq i64 %104, 0
-  %108 = select i1 %106, i1 true, i1 %107
-  br i1 %108, label %109, label %122, !prof !36
-
-109:                                              ; preds = %139, %105
+109:                                              ; preds = %139, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %110 unwind label %145
 
@@ -7993,7 +7993,7 @@ define dso_local void @_Z30BENCHMARK_sinhf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %112, label %114, label %113
 
 113:                                              ; preds = %110
-  call void @_ZdaPv(ptr noundef nonnull %111) #19
+  call void @_ZdaPv(ptr noundef nonnull %111) #17
   br label %114
 
 114:                                              ; preds = %113, %110
@@ -8003,7 +8003,7 @@ define dso_local void @_Z30BENCHMARK_sinhf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %116, label %118, label %117
 
 117:                                              ; preds = %114
-  call void @_ZdaPv(ptr noundef nonnull %115) #19
+  call void @_ZdaPv(ptr noundef nonnull %115) #17
   br label %118
 
 118:                                              ; preds = %117, %114
@@ -8013,11 +8013,11 @@ define dso_local void @_Z30BENCHMARK_sinhf_autovec_float_RN9benchmark5StateE(ptr
   br i1 %120, label %168, label %121
 
 121:                                              ; preds = %118
-  call void @_ZdaPv(ptr noundef nonnull %119) #19
+  call void @_ZdaPv(ptr noundef nonnull %119) #17
   br label %168
 
-122:                                              ; preds = %105, %139
-  %123 = phi i64 [ %143, %139 ], [ %104, %105 ]
+122:                                              ; preds = %47, %139
+  %123 = phi i64 [ %143, %139 ], [ %46, %47 ]
   %124 = load ptr, ptr %2, align 8, !tbaa !5
   %125 = load ptr, ptr %3, align 8, !tbaa !5
   %126 = load ptr, ptr %4, align 8, !tbaa !5
@@ -8048,19 +8048,19 @@ define dso_local void @_Z30BENCHMARK_sinhf_autovec_float_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %143 = add i64 %123, -1
   %144 = icmp eq i64 %143, 0
-  br i1 %144, label %109, label %122, !prof !36
+  br i1 %144, label %109, label %122, !prof !35
 
-145:                                              ; preds = %100, %109
+145:                                              ; preds = %42, %109
   %146 = landingpad { ptr, i32 }
           cleanup
   %147 = load ptr, ptr %4, align 8, !tbaa !5
   %148 = icmp eq ptr %147, null
   br i1 %148, label %152, label %149
 
-149:                                              ; preds = %95, %145, %28
-  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %96, %95 ]
-  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %95 ]
-  call void @_ZdaPv(ptr noundef nonnull %151) #19
+149:                                              ; preds = %104, %145, %28
+  %150 = phi { ptr, i32 } [ %29, %28 ], [ %146, %145 ], [ %105, %104 ]
+  %151 = phi ptr [ %8, %28 ], [ %147, %145 ], [ %8, %104 ]
+  call void @_ZdaPv(ptr noundef nonnull %151) #17
   br label %152
 
 152:                                              ; preds = %149, %145
@@ -8073,7 +8073,7 @@ define dso_local void @_Z30BENCHMARK_sinhf_autovec_float_RN9benchmark5StateE(ptr
 156:                                              ; preds = %152, %26
   %157 = phi { ptr, i32 } [ %27, %26 ], [ %153, %152 ]
   %158 = phi ptr [ %6, %26 ], [ %154, %152 ]
-  call void @_ZdaPv(ptr noundef nonnull %158) #19
+  call void @_ZdaPv(ptr noundef nonnull %158) #17
   br label %159
 
 159:                                              ; preds = %156, %152
@@ -8086,7 +8086,7 @@ define dso_local void @_Z30BENCHMARK_sinhf_autovec_float_RN9benchmark5StateE(ptr
 163:                                              ; preds = %159, %24
   %164 = phi { ptr, i32 } [ %25, %24 ], [ %160, %159 ]
   %165 = phi ptr [ %5, %24 ], [ %161, %159 ]
-  call void @_ZdaPv(ptr noundef nonnull %165) #19
+  call void @_ZdaPv(ptr noundef nonnull %165) #17
   br label %166
 
 166:                                              ; preds = %163, %159
@@ -8124,7 +8124,7 @@ define dso_local void @_Z28BENCHMARK_sinhf_novec_float_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIfEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -8134,7 +8134,7 @@ define dso_local void @_Z28BENCHMARK_sinhf_novec_float_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -8146,7 +8146,7 @@ define dso_local void @_Z28BENCHMARK_sinhf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -8156,7 +8156,7 @@ define dso_local void @_Z28BENCHMARK_sinhf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -8166,7 +8166,7 @@ define dso_local void @_Z28BENCHMARK_sinhf_novec_float_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -8219,10 +8219,10 @@ define dso_local void @_Z28BENCHMARK_sinhf_novec_float_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -8234,7 +8234,7 @@ define dso_local void @_Z28BENCHMARK_sinhf_novec_float_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -8247,7 +8247,7 @@ define dso_local void @_Z28BENCHMARK_sinhf_novec_float_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -8333,123 +8333,123 @@ define dso_local void @_Z30BENCHMARK_sinh_autovec_double_RN9benchmark5StateE(ptr
   store double %38, ptr %39, align 8, !tbaa !38
   %40 = add nuw nsw i64 %31, 1
   %41 = icmp eq i64 %40, 10000
-  br i1 %41, label %42, label %30, !llvm.loop !41
+  br i1 %41, label %51, label %30, !llvm.loop !41
 
-42:                                               ; preds = %30, %95
-  %43 = phi i64 [ %96, %95 ], [ 0, %30 ]
-  %44 = getelementptr inbounds double, ptr %8, i64 %43
-  %45 = load double, ptr %44, align 8, !tbaa !38
-  %46 = getelementptr inbounds double, ptr %10, i64 %43
-  %47 = load double, ptr %46, align 8, !tbaa !38
-  %48 = fcmp une double %45, %47
-  br i1 %48, label %49, label %95
+42:                                               ; preds = %104
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
+  %43 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
+  %44 = load i8, ptr %43, align 2, !tbaa !16, !range !33, !noundef !34
+  %45 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
+  %46 = load i64, ptr %45, align 8
+  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+          to label %47 unwind label %143
 
-49:                                               ; preds = %42
-  %50 = fcmp oeq double %45, 0.000000e+00
-  br i1 %50, label %59, label %51
+47:                                               ; preds = %42
+  %48 = icmp ne i8 %44, 0
+  %49 = icmp eq i64 %46, 0
+  %50 = select i1 %48, i1 true, i1 %49
+  br i1 %50, label %107, label %120, !prof !35
 
-51:                                               ; preds = %49
-  %52 = fcmp uno double %45, 0.000000e+00
-  br i1 %52, label %59, label %53
+51:                                               ; preds = %30, %104
+  %52 = phi i64 [ %105, %104 ], [ 0, %30 ]
+  %53 = getelementptr inbounds double, ptr %8, i64 %52
+  %54 = load double, ptr %53, align 8, !tbaa !38
+  %55 = getelementptr inbounds double, ptr %10, i64 %52
+  %56 = load double, ptr %55, align 8, !tbaa !38
+  %57 = fcmp une double %54, %56
+  br i1 %57, label %58, label %104
 
-53:                                               ; preds = %51
-  %54 = tail call double @llvm.fabs.f64(double %45) #17
-  %55 = fcmp oeq double %54, 0x7FF0000000000000
-  br i1 %55, label %59, label %56
+58:                                               ; preds = %51
+  %59 = fcmp oeq double %54, 0.000000e+00
+  br i1 %59, label %68, label %60
 
-56:                                               ; preds = %53
-  %57 = fcmp uge double %54, 0x10000000000000
-  %58 = select i1 %57, i32 4, i32 3
-  br label %59
+60:                                               ; preds = %58
+  %61 = fcmp uno double %54, 0.000000e+00
+  br i1 %61, label %68, label %62
 
-59:                                               ; preds = %56, %53, %51, %49
-  %60 = phi i32 [ 2, %49 ], [ 0, %51 ], [ 1, %53 ], [ %58, %56 ]
-  %61 = fcmp oeq double %47, 0.000000e+00
-  br i1 %61, label %70, label %62
+62:                                               ; preds = %60
+  %63 = tail call double @llvm.fabs.f64(double %54) #18
+  %64 = fcmp oeq double %63, 0x7FF0000000000000
+  br i1 %64, label %68, label %65
 
-62:                                               ; preds = %59
-  %63 = fcmp uno double %47, 0.000000e+00
-  br i1 %63, label %70, label %64
+65:                                               ; preds = %62
+  %66 = fcmp uge double %63, 0x10000000000000
+  %67 = select i1 %66, i32 4, i32 3
+  br label %68
 
-64:                                               ; preds = %62
-  %65 = tail call double @llvm.fabs.f64(double %47) #17
-  %66 = fcmp oeq double %65, 0x7FF0000000000000
-  br i1 %66, label %70, label %67
+68:                                               ; preds = %65, %62, %60, %58
+  %69 = phi i32 [ 2, %58 ], [ 0, %60 ], [ 1, %62 ], [ %67, %65 ]
+  %70 = fcmp oeq double %56, 0.000000e+00
+  br i1 %70, label %79, label %71
 
-67:                                               ; preds = %64
-  %68 = fcmp uge double %65, 0x10000000000000
-  %69 = select i1 %68, i32 4, i32 3
-  br label %70
+71:                                               ; preds = %68
+  %72 = fcmp uno double %56, 0.000000e+00
+  br i1 %72, label %79, label %73
 
-70:                                               ; preds = %67, %64, %62, %59
-  %71 = phi i32 [ 2, %59 ], [ 0, %62 ], [ 1, %64 ], [ %69, %67 ]
-  %72 = icmp eq i32 %60, %71
-  br i1 %72, label %95, label %73
+73:                                               ; preds = %71
+  %74 = tail call double @llvm.fabs.f64(double %56) #18
+  %75 = fcmp oeq double %74, 0x7FF0000000000000
+  br i1 %75, label %79, label %76
 
-73:                                               ; preds = %70
-  %74 = and i64 %43, 4294967295
-  %75 = getelementptr inbounds double, ptr %10, i64 %74
-  %76 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
-          to label %77 unwind label %93
+76:                                               ; preds = %73
+  %77 = fcmp uge double %74, 0x10000000000000
+  %78 = select i1 %77, i32 4, i32 3
+  br label %79
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds double, ptr %8, i64 %74
-  %79 = load double, ptr %78, align 8, !tbaa !38
-  %80 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %79)
-          to label %81 unwind label %93
+79:                                               ; preds = %76, %73, %71, %68
+  %80 = phi i32 [ 2, %68 ], [ 0, %71 ], [ 1, %73 ], [ %78, %76 ]
+  %81 = icmp eq i32 %69, %80
+  br i1 %81, label %104, label %82
 
-81:                                               ; preds = %77
-  %82 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %80, ptr noundef nonnull @.str.74, i64 noundef 4)
-          to label %83 unwind label %93
+82:                                               ; preds = %79
+  %83 = and i64 %52, 4294967295
+  %84 = getelementptr inbounds double, ptr %10, i64 %83
+  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.73, i64 noundef 49)
+          to label %86 unwind label %102
 
-83:                                               ; preds = %81
-  %84 = load double, ptr %75, align 8, !tbaa !38
-  %85 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %80, double noundef %84)
-          to label %86 unwind label %93
+86:                                               ; preds = %82
+  %87 = getelementptr inbounds double, ptr %8, i64 %83
+  %88 = load double, ptr %87, align 8, !tbaa !38
+  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, double noundef %88)
+          to label %90 unwind label %102
 
-86:                                               ; preds = %83
-  %87 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %85, ptr noundef nonnull @.str.75, i64 noundef 10)
-          to label %88 unwind label %93
-
-88:                                               ; preds = %86
-  %89 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %85, i64 noundef %74)
-          to label %90 unwind label %93
-
-90:                                               ; preds = %88
-  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.76)
-          to label %92 unwind label %93
+90:                                               ; preds = %86
+  %91 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %89, ptr noundef nonnull @.str.74, i64 noundef 4)
+          to label %92 unwind label %102
 
 92:                                               ; preds = %90
-  tail call void @exit(i32 noundef 1) #18
+  %93 = load double, ptr %84, align 8, !tbaa !38
+  %94 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %89, double noundef %93)
+          to label %95 unwind label %102
+
+95:                                               ; preds = %92
+  %96 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %94, ptr noundef nonnull @.str.75, i64 noundef 10)
+          to label %97 unwind label %102
+
+97:                                               ; preds = %95
+  %98 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertImEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) %94, i64 noundef %83)
+          to label %99 unwind label %102
+
+99:                                               ; preds = %97
+  %100 = invoke noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %98, ptr noundef nonnull @.str.76)
+          to label %101 unwind label %102
+
+101:                                              ; preds = %99
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
-93:                                               ; preds = %73, %77, %81, %83, %86, %88, %90
-  %94 = landingpad { ptr, i32 }
+102:                                              ; preds = %82, %86, %90, %92, %95, %97, %99
+  %103 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
+  tail call void @_ZdaPv(ptr noundef nonnull %10) #17
   br label %147
 
-95:                                               ; preds = %70, %42
-  %96 = add nuw nsw i64 %43, 1
-  %97 = icmp eq i64 %96, 10000
-  br i1 %97, label %98, label %42, !llvm.loop !42
+104:                                              ; preds = %79, %51
+  %105 = add nuw nsw i64 %52, 1
+  %106 = icmp eq i64 %105, 10000
+  br i1 %106, label %42, label %51, !llvm.loop !42
 
-98:                                               ; preds = %95
-  tail call void @_ZdaPv(ptr noundef nonnull %10) #19
-  %99 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %100 = load i8, ptr %99, align 2, !tbaa !17, !range !34, !noundef !35
-  %101 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
-  %102 = load i64, ptr %101, align 8
-  invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-          to label %103 unwind label %143
-
-103:                                              ; preds = %98
-  %104 = icmp ne i8 %100, 0
-  %105 = icmp eq i64 %102, 0
-  %106 = select i1 %104, i1 true, i1 %105
-  br i1 %106, label %107, label %120, !prof !36
-
-107:                                              ; preds = %137, %103
+107:                                              ; preds = %137, %47
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
           to label %108 unwind label %143
 
@@ -8459,7 +8459,7 @@ define dso_local void @_Z30BENCHMARK_sinh_autovec_double_RN9benchmark5StateE(ptr
   br i1 %110, label %112, label %111
 
 111:                                              ; preds = %108
-  call void @_ZdaPv(ptr noundef nonnull %109) #19
+  call void @_ZdaPv(ptr noundef nonnull %109) #17
   br label %112
 
 112:                                              ; preds = %111, %108
@@ -8469,7 +8469,7 @@ define dso_local void @_Z30BENCHMARK_sinh_autovec_double_RN9benchmark5StateE(ptr
   br i1 %114, label %116, label %115
 
 115:                                              ; preds = %112
-  call void @_ZdaPv(ptr noundef nonnull %113) #19
+  call void @_ZdaPv(ptr noundef nonnull %113) #17
   br label %116
 
 116:                                              ; preds = %115, %112
@@ -8479,11 +8479,11 @@ define dso_local void @_Z30BENCHMARK_sinh_autovec_double_RN9benchmark5StateE(ptr
   br i1 %118, label %166, label %119
 
 119:                                              ; preds = %116
-  call void @_ZdaPv(ptr noundef nonnull %117) #19
+  call void @_ZdaPv(ptr noundef nonnull %117) #17
   br label %166
 
-120:                                              ; preds = %103, %137
-  %121 = phi i64 [ %141, %137 ], [ %102, %103 ]
+120:                                              ; preds = %47, %137
+  %121 = phi i64 [ %141, %137 ], [ %46, %47 ]
   %122 = load ptr, ptr %2, align 8, !tbaa !5
   %123 = load ptr, ptr %3, align 8, !tbaa !5
   %124 = load ptr, ptr %4, align 8, !tbaa !5
@@ -8514,19 +8514,19 @@ define dso_local void @_Z30BENCHMARK_sinh_autovec_double_RN9benchmark5StateE(ptr
   fence syncscope("singlethread") acq_rel
   %141 = add i64 %121, -1
   %142 = icmp eq i64 %141, 0
-  br i1 %142, label %107, label %120, !prof !36
+  br i1 %142, label %107, label %120, !prof !35
 
-143:                                              ; preds = %98, %107
+143:                                              ; preds = %42, %107
   %144 = landingpad { ptr, i32 }
           cleanup
   %145 = load ptr, ptr %4, align 8, !tbaa !5
   %146 = icmp eq ptr %145, null
   br i1 %146, label %150, label %147
 
-147:                                              ; preds = %93, %143, %28
-  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %94, %93 ]
-  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %93 ]
-  call void @_ZdaPv(ptr noundef nonnull %149) #19
+147:                                              ; preds = %102, %143, %28
+  %148 = phi { ptr, i32 } [ %29, %28 ], [ %144, %143 ], [ %103, %102 ]
+  %149 = phi ptr [ %8, %28 ], [ %145, %143 ], [ %8, %102 ]
+  call void @_ZdaPv(ptr noundef nonnull %149) #17
   br label %150
 
 150:                                              ; preds = %147, %143
@@ -8539,7 +8539,7 @@ define dso_local void @_Z30BENCHMARK_sinh_autovec_double_RN9benchmark5StateE(ptr
 154:                                              ; preds = %150, %26
   %155 = phi { ptr, i32 } [ %27, %26 ], [ %151, %150 ]
   %156 = phi ptr [ %6, %26 ], [ %152, %150 ]
-  call void @_ZdaPv(ptr noundef nonnull %156) #19
+  call void @_ZdaPv(ptr noundef nonnull %156) #17
   br label %157
 
 157:                                              ; preds = %154, %150
@@ -8552,7 +8552,7 @@ define dso_local void @_Z30BENCHMARK_sinh_autovec_double_RN9benchmark5StateE(ptr
 161:                                              ; preds = %157, %24
   %162 = phi { ptr, i32 } [ %25, %24 ], [ %158, %157 ]
   %163 = phi ptr [ %5, %24 ], [ %159, %157 ]
-  call void @_ZdaPv(ptr noundef nonnull %163) #19
+  call void @_ZdaPv(ptr noundef nonnull %163) #17
   br label %164
 
 164:                                              ; preds = %161, %157
@@ -8590,7 +8590,7 @@ define dso_local void @_Z28BENCHMARK_sinh_novec_double_RN9benchmark5StateE(ptr n
   store ptr %8, ptr %4, align 8, !tbaa !5
   tail call fastcc void @_ZL9init_dataIdEvPT_S1_S1_(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %8)
   %10 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  %11 = load i8, ptr %10, align 2, !tbaa !17, !range !34, !noundef !35
+  %11 = load i8, ptr %10, align 2, !tbaa !16, !range !33, !noundef !34
   %12 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %13 = load i64, ptr %12, align 8
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -8600,7 +8600,7 @@ define dso_local void @_Z28BENCHMARK_sinh_novec_double_RN9benchmark5StateE(ptr n
   %15 = icmp ne i8 %11, 0
   %16 = icmp eq i64 %13, 0
   %17 = select i1 %15, i1 true, i1 %16
-  br i1 %17, label %18, label %39, !prof !36
+  br i1 %17, label %18, label %39, !prof !35
 
 18:                                               ; preds = %56, %14
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -8612,7 +8612,7 @@ define dso_local void @_Z28BENCHMARK_sinh_novec_double_RN9benchmark5StateE(ptr n
   br i1 %21, label %23, label %22
 
 22:                                               ; preds = %19
-  call void @_ZdaPv(ptr noundef nonnull %20) #19
+  call void @_ZdaPv(ptr noundef nonnull %20) #17
   br label %23
 
 23:                                               ; preds = %22, %19
@@ -8622,7 +8622,7 @@ define dso_local void @_Z28BENCHMARK_sinh_novec_double_RN9benchmark5StateE(ptr n
   br i1 %25, label %27, label %26
 
 26:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %24) #19
+  call void @_ZdaPv(ptr noundef nonnull %24) #17
   br label %27
 
 27:                                               ; preds = %26, %23
@@ -8632,7 +8632,7 @@ define dso_local void @_Z28BENCHMARK_sinh_novec_double_RN9benchmark5StateE(ptr n
   br i1 %29, label %78, label %30
 
 30:                                               ; preds = %27
-  call void @_ZdaPv(ptr noundef nonnull %28) #19
+  call void @_ZdaPv(ptr noundef nonnull %28) #17
   br label %78
 
 31:                                               ; preds = %1
@@ -8685,10 +8685,10 @@ define dso_local void @_Z28BENCHMARK_sinh_novec_double_RN9benchmark5StateE(ptr n
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr.33") %4, i64 %59) #15, !srcloc !37
   %60 = add i64 %40, -1
   %61 = icmp eq i64 %60, 0
-  br i1 %61, label %18, label %39, !prof !36
+  br i1 %61, label %18, label %39, !prof !35
 
 62:                                               ; preds = %35
-  call void @_ZdaPv(ptr noundef nonnull %37) #19
+  call void @_ZdaPv(ptr noundef nonnull %37) #17
   br label %63
 
 63:                                               ; preds = %62, %35
@@ -8700,7 +8700,7 @@ define dso_local void @_Z28BENCHMARK_sinh_novec_double_RN9benchmark5StateE(ptr n
 66:                                               ; preds = %63, %33
   %67 = phi { ptr, i32 } [ %34, %33 ], [ %36, %63 ]
   %68 = phi ptr [ %6, %33 ], [ %64, %63 ]
-  call void @_ZdaPv(ptr noundef nonnull %68) #19
+  call void @_ZdaPv(ptr noundef nonnull %68) #17
   br label %69
 
 69:                                               ; preds = %66, %63
@@ -8713,7 +8713,7 @@ define dso_local void @_Z28BENCHMARK_sinh_novec_double_RN9benchmark5StateE(ptr n
 73:                                               ; preds = %69, %31
   %74 = phi { ptr, i32 } [ %32, %31 ], [ %70, %69 ]
   %75 = phi ptr [ %5, %31 ], [ %71, %69 ]
-  call void @_ZdaPv(ptr noundef nonnull %75) #19
+  call void @_ZdaPv(ptr noundef nonnull %75) #17
   br label %76
 
 76:                                               ; preds = %73, %69
@@ -9789,7 +9789,7 @@ define internal void @_GLOBAL__sub_I_MathFunctions.cpp() #3 section ".text.start
 4:                                                ; preds = %252, %245, %238, %231, %224, %217, %210, %203, %196, %189, %182, %175, %168, %161, %154, %147, %140, %133, %126, %119, %112, %105, %98, %91, %84, %77, %70, %63, %56, %49, %42, %35, %28, %21, %14, %7
   %5 = phi ptr [ %251, %252 ], [ %244, %245 ], [ %237, %238 ], [ %230, %231 ], [ %223, %224 ], [ %216, %217 ], [ %209, %210 ], [ %202, %203 ], [ %195, %196 ], [ %188, %189 ], [ %181, %182 ], [ %174, %175 ], [ %167, %168 ], [ %160, %161 ], [ %153, %154 ], [ %146, %147 ], [ %139, %140 ], [ %132, %133 ], [ %125, %126 ], [ %118, %119 ], [ %111, %112 ], [ %104, %105 ], [ %97, %98 ], [ %90, %91 ], [ %83, %84 ], [ %76, %77 ], [ %69, %70 ], [ %62, %63 ], [ %55, %56 ], [ %48, %49 ], [ %41, %42 ], [ %34, %35 ], [ %27, %28 ], [ %20, %21 ], [ %13, %14 ], [ %3, %7 ]
   %6 = phi { ptr, i32 } [ %253, %252 ], [ %246, %245 ], [ %239, %238 ], [ %232, %231 ], [ %225, %224 ], [ %218, %217 ], [ %211, %210 ], [ %204, %203 ], [ %197, %196 ], [ %190, %189 ], [ %183, %182 ], [ %176, %175 ], [ %169, %168 ], [ %162, %161 ], [ %155, %154 ], [ %148, %147 ], [ %141, %140 ], [ %134, %133 ], [ %127, %126 ], [ %120, %119 ], [ %113, %112 ], [ %106, %105 ], [ %99, %98 ], [ %92, %91 ], [ %85, %84 ], [ %78, %77 ], [ %71, %70 ], [ %64, %63 ], [ %57, %56 ], [ %50, %49 ], [ %43, %42 ], [ %36, %35 ], [ %29, %28 ], [ %22, %21 ], [ %15, %14 ], [ %8, %7 ]
-  tail call void @_ZdlPv(ptr noundef nonnull %5) #19
+  tail call void @_ZdlPv(ptr noundef nonnull %5) #17
   resume { ptr, i32 } %6
 
 7:                                                ; preds = %0
@@ -10390,9 +10390,9 @@ attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn mem
 attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #15 = { nounwind }
 attributes #16 = { builtin allocsize(0) }
-attributes #17 = { memory(none) }
-attributes #18 = { noreturn nounwind }
-attributes #19 = { builtin nounwind }
+attributes #17 = { builtin nounwind }
+attributes #18 = { memory(none) }
+attributes #19 = { noreturn nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}
@@ -10413,37 +10413,37 @@ attributes #19 = { builtin nounwind }
 !13 = !{!"llvm.loop.vectorize.width", i32 1}
 !14 = !{!"llvm.loop.interleave.count", i32 1}
 !15 = distinct !{!15, !12}
-!16 = distinct !{!16, !12}
-!17 = !{!18, !20, i64 26}
-!18 = !{!"_ZTSN9benchmark5StateE", !19, i64 0, !19, i64 8, !19, i64 16, !20, i64 24, !20, i64 25, !20, i64 26, !21, i64 32, !19, i64 56, !25, i64 64, !33, i64 112, !33, i64 116, !6, i64 120, !6, i64 128, !6, i64 136}
-!19 = !{!"long", !7, i64 0}
-!20 = !{!"bool", !7, i64 0}
-!21 = !{!"_ZTSSt6vectorIlSaIlEE", !22, i64 0}
-!22 = !{!"_ZTSSt12_Vector_baseIlSaIlEE", !23, i64 0}
-!23 = !{!"_ZTSNSt12_Vector_baseIlSaIlEE12_Vector_implE", !24, i64 0}
-!24 = !{!"_ZTSNSt12_Vector_baseIlSaIlEE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
-!25 = !{!"_ZTSSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEE", !26, i64 0}
-!26 = !{!"_ZTSSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE", !27, i64 0}
-!27 = !{!"_ZTSNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE13_Rb_tree_implISE_Lb1EEE", !28, i64 0, !30, i64 8}
-!28 = !{!"_ZTSSt20_Rb_tree_key_compareISt4lessINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEE", !29, i64 0}
-!29 = !{!"_ZTSSt4lessINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEE"}
-!30 = !{!"_ZTSSt15_Rb_tree_header", !31, i64 0, !19, i64 32}
-!31 = !{!"_ZTSSt18_Rb_tree_node_base", !32, i64 0, !6, i64 8, !6, i64 16, !6, i64 24}
-!32 = !{!"_ZTSSt14_Rb_tree_color", !7, i64 0}
-!33 = !{!"int", !7, i64 0}
-!34 = !{i8 0, i8 2}
-!35 = !{}
-!36 = !{!"branch_weights", i32 1, i32 2000}
+!16 = !{!17, !19, i64 26}
+!17 = !{!"_ZTSN9benchmark5StateE", !18, i64 0, !18, i64 8, !18, i64 16, !19, i64 24, !19, i64 25, !19, i64 26, !20, i64 32, !18, i64 56, !24, i64 64, !32, i64 112, !32, i64 116, !6, i64 120, !6, i64 128, !6, i64 136}
+!18 = !{!"long", !7, i64 0}
+!19 = !{!"bool", !7, i64 0}
+!20 = !{!"_ZTSSt6vectorIlSaIlEE", !21, i64 0}
+!21 = !{!"_ZTSSt12_Vector_baseIlSaIlEE", !22, i64 0}
+!22 = !{!"_ZTSNSt12_Vector_baseIlSaIlEE12_Vector_implE", !23, i64 0}
+!23 = !{!"_ZTSNSt12_Vector_baseIlSaIlEE17_Vector_impl_dataE", !6, i64 0, !6, i64 8, !6, i64 16}
+!24 = !{!"_ZTSSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN9benchmark7CounterESt4lessIS5_ESaISt4pairIKS5_S7_EEE", !25, i64 0}
+!25 = !{!"_ZTSSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE", !26, i64 0}
+!26 = !{!"_ZTSNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_N9benchmark7CounterEESt10_Select1stISA_ESt4lessIS5_ESaISA_EE13_Rb_tree_implISE_Lb1EEE", !27, i64 0, !29, i64 8}
+!27 = !{!"_ZTSSt20_Rb_tree_key_compareISt4lessINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEE", !28, i64 0}
+!28 = !{!"_ZTSSt4lessINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEE"}
+!29 = !{!"_ZTSSt15_Rb_tree_header", !30, i64 0, !18, i64 32}
+!30 = !{!"_ZTSSt18_Rb_tree_node_base", !31, i64 0, !6, i64 8, !6, i64 16, !6, i64 24}
+!31 = !{!"_ZTSSt14_Rb_tree_color", !7, i64 0}
+!32 = !{!"int", !7, i64 0}
+!33 = !{i8 0, i8 2}
+!34 = !{}
+!35 = !{!"branch_weights", i32 1, i32 2000}
+!36 = distinct !{!36, !12}
 !37 = !{i64 4250703}
 !38 = !{!39, !39, i64 0}
 !39 = !{!"double", !7, i64 0}
 !40 = distinct !{!40, !12, !13, !14}
 !41 = distinct !{!41, !12}
 !42 = distinct !{!42, !12}
-!43 = !{!19, !19, i64 0}
+!43 = !{!18, !18, i64 0}
 !44 = distinct !{!44, !12}
-!45 = !{!46, !19, i64 4992}
-!46 = !{!"_ZTSSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE", !7, i64 0, !19, i64 4992}
+!45 = !{!46, !18, i64 4992}
+!46 = !{!"_ZTSSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EE", !7, i64 0, !18, i64 4992}
 !47 = !{!"branch_weights", i32 2000, i32 1}
 !48 = distinct !{!48, !12, !49, !50}
 !49 = !{!"llvm.loop.isvectorized", i32 1}
@@ -10467,8 +10467,8 @@ attributes #19 = { builtin nounwind }
 !67 = !{!"vtable pointer", !8, i64 0}
 !68 = !{!69, !6, i64 216}
 !69 = !{!"_ZTSN9benchmark8internal17FunctionBenchmarkE", !70, i64 0, !6, i64 216}
-!70 = !{!"_ZTSN9benchmark8internal9BenchmarkE", !71, i64 8, !73, i64 40, !74, i64 48, !78, i64 72, !82, i64 96, !20, i64 100, !33, i64 104, !39, i64 112, !19, i64 120, !33, i64 128, !20, i64 132, !20, i64 133, !20, i64 134, !83, i64 136, !6, i64 144, !84, i64 152, !88, i64 176, !6, i64 200, !6, i64 208}
-!71 = !{!"_ZTSNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE", !72, i64 0, !19, i64 8, !7, i64 16}
+!70 = !{!"_ZTSN9benchmark8internal9BenchmarkE", !71, i64 8, !73, i64 40, !74, i64 48, !78, i64 72, !82, i64 96, !19, i64 100, !32, i64 104, !39, i64 112, !18, i64 120, !32, i64 128, !19, i64 132, !19, i64 133, !19, i64 134, !83, i64 136, !6, i64 144, !84, i64 152, !88, i64 176, !6, i64 200, !6, i64 208}
+!71 = !{!"_ZTSNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE", !72, i64 0, !18, i64 8, !7, i64 16}
 !72 = !{!"_ZTSNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderE", !6, i64 0}
 !73 = !{!"_ZTSN9benchmark8internal21AggregationReportModeE", !7, i64 0}
 !74 = !{!"_ZTSSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE", !75, i64 0}

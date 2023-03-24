@@ -131,8 +131,8 @@ define dso_local noalias ptr @old_main() local_unnamed_addr #0 {
   %59 = icmp eq ptr %58, null
   br i1 %59, label %80, label %60
 
-60:                                               ; preds = %46, %110
-  %61 = phi ptr [ %140, %110 ], [ %58, %46 ]
+60:                                               ; preds = %46, %112
+  %61 = phi ptr [ %144, %112 ], [ %58, %46 ]
   %62 = getelementptr inbounds %struct.bnode, ptr %61, i64 0, i32 2, i64 0
   %63 = load <2 x double>, ptr %62, align 8, !tbaa !13
   %64 = fsub <2 x double> %63, %52
@@ -157,10 +157,10 @@ define dso_local noalias ptr @old_main() local_unnamed_addr #0 {
   %79 = and i1 %77, %78
   br i1 %79, label %83, label %87
 
-80:                                               ; preds = %110, %46
+80:                                               ; preds = %112, %46
   %81 = load i32, ptr @NumNodes, align 4, !tbaa !5
   %82 = icmp sgt i32 %81, 0
-  br i1 %82, label %142, label %155
+  br i1 %82, label %146, label %159
 
 83:                                               ; preds = %60
   %84 = fmul double %76, 0x41D0000000000000
@@ -176,98 +176,102 @@ define dso_local noalias ptr @old_main() local_unnamed_addr #0 {
   %92 = fcmp oge double %91, 0.000000e+00
   %93 = fcmp olt double %91, 1.000000e+00
   %94 = and i1 %92, %93
-  br i1 %94, label %95, label %99
+  br i1 %94, label %95, label %101
 
 95:                                               ; preds = %87
   %96 = fmul double %91, 0x41D0000000000000
   %97 = tail call double @llvm.floor.f64(double %96)
   %98 = fptosi double %97 to i32
-  br label %99
+  %99 = zext i32 %98 to i64
+  %100 = shl nuw i64 %99, 32
+  br label %101
 
-99:                                               ; preds = %95, %87
-  %100 = phi i32 [ %98, %95 ], [ 0, %87 ]
-  %101 = fadd double %67, 2.000000e+00
-  %102 = fmul double %101, 2.500000e-01
-  %103 = fcmp oge double %102, 0.000000e+00
-  %104 = fcmp olt double %102, 1.000000e+00
-  %105 = and i1 %103, %104
-  br i1 %105, label %106, label %110
+101:                                              ; preds = %95, %87
+  %102 = phi i64 [ %100, %95 ], [ 0, %87 ]
+  %103 = fadd double %67, 2.000000e+00
+  %104 = fmul double %103, 2.500000e-01
+  %105 = fcmp oge double %104, 0.000000e+00
+  %106 = fcmp olt double %104, 1.000000e+00
+  %107 = and i1 %105, %106
+  br i1 %107, label %108, label %112
 
-106:                                              ; preds = %99
-  %107 = fmul double %102, 0x41D0000000000000
-  %108 = tail call double @llvm.floor.f64(double %107)
-  %109 = fptosi double %108 to i32
-  br label %110
+108:                                              ; preds = %101
+  %109 = fmul double %104, 0x41D0000000000000
+  %110 = tail call double @llvm.floor.f64(double %109)
+  %111 = fptosi double %110 to i32
+  br label %112
 
-110:                                              ; preds = %99, %106
-  %111 = phi i32 [ %109, %106 ], [ 0, %99 ]
-  %112 = lshr i32 %88, 27
-  %113 = and i32 %112, 4
-  %114 = lshr i32 %100, 28
-  %115 = and i32 %114, 2
-  %116 = or i32 %113, %115
-  %117 = lshr i32 %111, 29
-  %118 = and i32 %117, 1
-  %119 = or i32 %118, %116
-  %120 = shl nuw nsw i32 %119, 3
-  %121 = lshr i32 %88, 26
-  %122 = and i32 %121, 4
-  %123 = lshr i32 %100, 27
-  %124 = and i32 %123, 2
-  %125 = or i32 %124, %122
-  %126 = lshr i32 %111, 28
-  %127 = and i32 %126, 1
-  %128 = or i32 %125, %127
-  %129 = or i32 %128, %120
-  %130 = sdiv i32 %129, %56
-  %131 = sext i32 %130 to i64
-  %132 = getelementptr inbounds [64 x i32], ptr %1, i64 0, i64 %131
-  %133 = load i32, ptr %132, align 4, !tbaa !5
-  %134 = add nsw i32 %133, 1
-  store i32 %134, ptr %132, align 4, !tbaa !5
-  %135 = getelementptr inbounds [64 x ptr], ptr %2, i64 0, i64 %131
-  %136 = load ptr, ptr %135, align 8, !tbaa !16
-  %137 = getelementptr inbounds %struct.bnode, ptr %61, i64 0, i32 10
-  store ptr %136, ptr %137, align 8, !tbaa !25
-  store ptr %61, ptr %135, align 8, !tbaa !16
-  %138 = getelementptr inbounds %struct.bnode, ptr %61, i64 0, i32 3
-  store i32 %130, ptr %138, align 8, !tbaa !26
-  %139 = getelementptr inbounds %struct.bnode, ptr %61, i64 0, i32 9
+112:                                              ; preds = %101, %108
+  %113 = phi i32 [ %111, %108 ], [ 0, %101 ]
+  %114 = lshr i32 %88, 27
+  %115 = and i32 %114, 4
+  %116 = lshr i64 %102, 60
+  %117 = trunc i64 %116 to i32
+  %118 = and i32 %117, 2
+  %119 = or i32 %115, %118
+  %120 = lshr i32 %113, 29
+  %121 = and i32 %120, 1
+  %122 = or i32 %121, %119
+  %123 = shl nuw nsw i32 %122, 3
+  %124 = lshr i32 %88, 26
+  %125 = and i32 %124, 4
+  %126 = lshr i64 %102, 59
+  %127 = trunc i64 %126 to i32
+  %128 = and i32 %127, 2
+  %129 = or i32 %128, %125
+  %130 = lshr i32 %113, 28
+  %131 = and i32 %130, 1
+  %132 = or i32 %129, %131
+  %133 = or i32 %132, %123
+  %134 = sdiv i32 %133, %56
+  %135 = sext i32 %134 to i64
+  %136 = getelementptr inbounds [64 x i32], ptr %1, i64 0, i64 %135
+  %137 = load i32, ptr %136, align 4, !tbaa !5
+  %138 = add nsw i32 %137, 1
+  store i32 %138, ptr %136, align 4, !tbaa !5
+  %139 = getelementptr inbounds [64 x ptr], ptr %2, i64 0, i64 %135
   %140 = load ptr, ptr %139, align 8, !tbaa !16
-  %141 = icmp eq ptr %140, null
-  br i1 %141, label %80, label %60, !llvm.loop !27
+  %141 = getelementptr inbounds %struct.bnode, ptr %61, i64 0, i32 10
+  store ptr %140, ptr %141, align 8, !tbaa !25
+  store ptr %61, ptr %139, align 8, !tbaa !16
+  %142 = getelementptr inbounds %struct.bnode, ptr %61, i64 0, i32 3
+  store i32 %134, ptr %142, align 8, !tbaa !26
+  %143 = getelementptr inbounds %struct.bnode, ptr %61, i64 0, i32 9
+  %144 = load ptr, ptr %143, align 8, !tbaa !16
+  %145 = icmp eq ptr %144, null
+  br i1 %145, label %80, label %60, !llvm.loop !27
 
-142:                                              ; preds = %80, %142
-  %143 = phi i64 [ %151, %142 ], [ 0, %80 ]
-  %144 = getelementptr inbounds [64 x i32], ptr %1, i64 0, i64 %143
-  %145 = load i32, ptr %144, align 4, !tbaa !5
-  %146 = trunc i64 %143 to i32
-  %147 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %146, i32 noundef %145)
-  %148 = getelementptr inbounds [64 x ptr], ptr %2, i64 0, i64 %143
-  %149 = load ptr, ptr %148, align 8, !tbaa !16
-  %150 = getelementptr inbounds %struct.tree, ptr %5, i64 0, i32 4, i64 %143
-  store ptr %149, ptr %150, align 8, !tbaa !16
-  %151 = add nuw nsw i64 %143, 1
-  %152 = load i32, ptr @NumNodes, align 4, !tbaa !5
-  %153 = sext i32 %152 to i64
-  %154 = icmp slt i64 %151, %153
-  br i1 %154, label %142, label %155, !llvm.loop !28
+146:                                              ; preds = %80, %146
+  %147 = phi i64 [ %155, %146 ], [ 0, %80 ]
+  %148 = getelementptr inbounds [64 x i32], ptr %1, i64 0, i64 %147
+  %149 = load i32, ptr %148, align 4, !tbaa !5
+  %150 = trunc i64 %147 to i32
+  %151 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %150, i32 noundef %149)
+  %152 = getelementptr inbounds [64 x ptr], ptr %2, i64 0, i64 %147
+  %153 = load ptr, ptr %152, align 8, !tbaa !16
+  %154 = getelementptr inbounds %struct.tree, ptr %5, i64 0, i32 4, i64 %147
+  store ptr %153, ptr %154, align 8, !tbaa !16
+  %155 = add nuw nsw i64 %147, 1
+  %156 = load i32, ptr @NumNodes, align 4, !tbaa !5
+  %157 = sext i32 %156 to i64
+  %158 = icmp slt i64 %155, %157
+  br i1 %158, label %146, label %159, !llvm.loop !28
 
-155:                                              ; preds = %142, %80
-  br label %156
+159:                                              ; preds = %146, %80
+  br label %160
 
-156:                                              ; preds = %155, %156
-  %157 = phi double [ %159, %156 ], [ 0.000000e+00, %155 ]
-  %158 = phi i32 [ %160, %156 ], [ 0, %155 ]
-  tail call void @stepsystem(ptr noundef nonnull %5, i32 noundef %158)
-  %159 = fadd double %157, 1.250000e-02
-  %160 = add nuw nsw i32 %158, 1
-  %161 = fcmp olt double %159, 2.001250e+00
-  %162 = icmp ult i32 %158, 9
-  %163 = and i1 %161, %162
-  br i1 %163, label %156, label %164, !llvm.loop !29
+160:                                              ; preds = %159, %160
+  %161 = phi double [ %163, %160 ], [ 0.000000e+00, %159 ]
+  %162 = phi i32 [ %164, %160 ], [ 0, %159 ]
+  tail call void @stepsystem(ptr noundef nonnull %5, i32 noundef %162)
+  %163 = fadd double %161, 1.250000e-02
+  %164 = add nuw nsw i32 %162, 1
+  %165 = fcmp olt double %163, 2.001250e+00
+  %166 = icmp ult i32 %162, 9
+  %167 = and i1 %165, %166
+  br i1 %167, label %160, label %168, !llvm.loop !29
 
-164:                                              ; preds = %156
+168:                                              ; preds = %160
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %2) #25
   call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %1) #25
   ret ptr %5
@@ -517,7 +521,7 @@ define dso_local i32 @old_subindex(i64 %0, i64 %1, i32 noundef %2) local_unnamed
   %11 = and i32 %6, %2
   %12 = icmp eq i32 %11, 0
   %13 = select i1 %12, i32 0, i32 2
-  %14 = or i32 %13, %10
+  %14 = or i32 %10, %13
   %15 = and i32 %7, %2
   %16 = icmp ne i32 %15, 0
   %17 = zext i1 %16 to i32
@@ -1768,7 +1772,7 @@ define dso_local ptr @loadtree(ptr noundef %0, i64 %1, i64 %2, ptr noundef %3, i
   %41 = and i32 %36, %4
   %42 = icmp eq i32 %41, 0
   %43 = select i1 %42, i64 0, i64 2
-  %44 = or i64 %43, %40
+  %44 = or i64 %40, %43
   %45 = and i32 %37, %4
   %46 = icmp ne i32 %45, 0
   %47 = zext i1 %46 to i64
@@ -2177,7 +2181,7 @@ define dso_local i32 @subindex(ptr nocapture noundef readonly %0, ptr nocapture 
   %54 = select i1 %53, i32 0, i32 4
   %55 = extractelement <2 x i1> %52, i64 0
   %56 = select i1 %55, i32 0, i32 2
-  %57 = or i32 %56, %54
+  %57 = or i32 %54, %56
   %58 = and i32 %46, %2
   %59 = icmp ne i32 %58, 0
   %60 = zext i1 %59 to i32
@@ -2324,11 +2328,11 @@ define dso_local i32 @dis2_number(ptr noundef %0, i32 noundef %1, i32 noundef %2
   ret i32 %40
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #22
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #23
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #22
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #23
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <2 x double> @llvm.floor.v2f64(<2 x double>) #24
@@ -2355,8 +2359,8 @@ attributes #18 = { nofree nosync nounwind memory(read, argmem: readwrite, inacce
 attributes #19 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #20 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #21 = { nofree nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #22 = { nofree nounwind }
-attributes #23 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #22 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #23 = { nofree nounwind }
 attributes #24 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #25 = { nounwind }
 attributes #26 = { nounwind allocsize(0) }

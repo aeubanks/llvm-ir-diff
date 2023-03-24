@@ -358,7 +358,7 @@ define dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream7PreReadERjS2_
   %10 = load ptr, ptr %9, align 8, !tbaa !18
   %11 = call noundef i32 @_Z16ReadStream_FALSEP19ISequentialInStreamPvm(ptr noundef %10, ptr noundef nonnull %4, i64 noundef 8)
   %12 = icmp eq i32 %11, 0
-  br i1 %12, label %13, label %212
+  br i1 %12, label %13, label %334
 
 13:                                               ; preds = %3
   %14 = load i32, ptr %8, align 4, !tbaa !30
@@ -434,7 +434,7 @@ define dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream7PreReadERjS2_
   %72 = zext i32 %66 to i64
   %73 = call noundef i32 @_Z16ReadStream_FALSEP19ISequentialInStreamPvm(ptr noundef %69, ptr noundef %71, i64 noundef %72)
   %74 = icmp eq i32 %73, 0
-  br i1 %74, label %75, label %212
+  br i1 %74, label %75, label %334
 
 75:                                               ; preds = %68, %13
   %76 = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %0, i64 0, i32 5
@@ -455,7 +455,7 @@ define dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream7PreReadERjS2_
 
 86:                                               ; preds = %75
   %87 = icmp ult i32 %78, 2
-  br i1 %87, label %210, label %88
+  br i1 %87, label %332, label %88
 
 88:                                               ; preds = %86
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %6) #13
@@ -476,7 +476,7 @@ define dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream7PreReadERjS2_
 99:                                               ; preds = %88, %92
   %100 = phi i32 [ 1, %92 ], [ %90, %88 ]
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %6) #13
-  br label %210
+  br label %332
 
 101:                                              ; preds = %92
   %102 = add i32 %78, -2
@@ -490,11 +490,11 @@ define dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream7PreReadERjS2_
   %106 = phi i32 [ %102, %101 ], [ %78, %75 ]
   %107 = sub i32 65536, %105
   %108 = icmp ult i32 %107, %106
-  br i1 %108, label %210, label %109
+  br i1 %108, label %332, label %109
 
 109:                                              ; preds = %104
   %110 = icmp eq i32 %106, 0
-  br i1 %110, label %130, label %111
+  br i1 %110, label %252, label %111
 
 111:                                              ; preds = %109
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #13
@@ -511,136 +511,305 @@ define dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream7PreReadERjS2_
 
 120:                                              ; preds = %111
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #13
-  br label %210
+  br label %332
 
 121:                                              ; preds = %111
-  %122 = load ptr, ptr %114, align 8, !tbaa !5
-  %123 = load i32, ptr %82, align 4, !tbaa !38
-  %124 = zext i32 %123 to i64
-  %125 = getelementptr inbounds i8, ptr %122, i64 %124
-  %126 = load i64, ptr %7, align 8, !tbaa !39
-  %127 = trunc i64 %126 to i32
-  call void @_ZN8NArchive4NCab10CCheckSum26UpdateEPKvj(ptr noundef nonnull align 4 dereferenceable(12) %5, ptr noundef %125, i32 noundef %127)
-  %128 = add i32 %123, %127
-  store i32 %128, ptr %82, align 4, !tbaa !38
-  %129 = icmp eq i64 %126, %112
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #13
-  br i1 %129, label %130, label %210
+  %122 = load i64, ptr %7, align 8, !tbaa !39
+  %123 = trunc i64 %122 to i32
+  %124 = load i32, ptr %5, align 4, !tbaa !19
+  %125 = icmp eq i32 %123, 0
+  br i1 %125, label %126, label %128
 
-130:                                              ; preds = %121, %109
-  %131 = phi i32 [ %128, %121 ], [ %105, %109 ]
-  %132 = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %0, i64 0, i32 7
-  store i32 %131, ptr %132, align 8, !tbaa !41
+126:                                              ; preds = %121
+  %127 = load i32, ptr %82, align 4, !tbaa !38
+  br label %173
+
+128:                                              ; preds = %121
+  %129 = load ptr, ptr %114, align 8, !tbaa !5
+  %130 = load i32, ptr %82, align 4, !tbaa !38
+  %131 = zext i32 %130 to i64
+  %132 = getelementptr inbounds i8, ptr %129, i64 %131
   %133 = load i32, ptr %77, align 4, !tbaa !21
-  %134 = icmp sgt i32 %133, 0
-  br i1 %134, label %135, label %193
+  %134 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 0
+  %135 = load i8, ptr %134, align 4
+  %136 = zext i8 %135 to i32
+  %137 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 1
+  %138 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 2
+  %139 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 3
+  br label %140
 
-135:                                              ; preds = %130
-  %136 = load i32, ptr %5, align 4, !tbaa !19
-  %137 = zext i32 %133 to i64
-  %138 = icmp ult i32 %133, 8
-  br i1 %138, label %174, label %139
+140:                                              ; preds = %170, %128
+  %141 = phi i32 [ %153, %170 ], [ %133, %128 ]
+  %142 = phi i32 [ %154, %170 ], [ %123, %128 ]
+  %143 = phi ptr [ %147, %170 ], [ %132, %128 ]
+  %144 = phi i32 [ %171, %170 ], [ %124, %128 ]
+  %145 = icmp eq i32 %141, 0
+  br i1 %145, label %176, label %146
 
-139:                                              ; preds = %135
-  %140 = and i64 %137, 4294967288
-  %141 = insertelement <4 x i32> <i32 poison, i32 0, i32 0, i32 0>, i32 %136, i64 0
-  %142 = insertelement <4 x i32> poison, i32 %133, i64 0
-  %143 = shufflevector <4 x i32> %142, <4 x i32> poison, <4 x i32> zeroinitializer
-  %144 = insertelement <4 x i32> poison, i32 %133, i64 0
-  %145 = shufflevector <4 x i32> %144, <4 x i32> poison, <4 x i32> zeroinitializer
-  br label %146
+146:                                              ; preds = %140
+  %147 = getelementptr inbounds i8, ptr %143, i64 1
+  %148 = load i8, ptr %143, align 1, !tbaa !22
+  %149 = sext i32 %141 to i64
+  %150 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 %149
+  store i8 %148, ptr %150, align 1, !tbaa !22
+  %151 = load i32, ptr %77, align 4, !tbaa !21
+  %152 = add nsw i32 %151, 1
+  %153 = and i32 %152, 3
+  store i32 %153, ptr %77, align 4, !tbaa !21
+  %154 = add i32 %142, -1
+  %155 = icmp eq i32 %153, 0
+  br i1 %155, label %156, label %170
 
-146:                                              ; preds = %146, %139
-  %147 = phi i64 [ 0, %139 ], [ %167, %146 ]
-  %148 = phi <4 x i32> [ %141, %139 ], [ %165, %146 ]
-  %149 = phi <4 x i32> [ zeroinitializer, %139 ], [ %166, %146 ]
-  %150 = phi <4 x i32> [ <i32 0, i32 1, i32 2, i32 3>, %139 ], [ %168, %146 ]
-  %151 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 %147
-  %152 = load <4 x i8>, ptr %151, align 4, !tbaa !22
-  %153 = getelementptr inbounds i8, ptr %151, i64 4
-  %154 = load <4 x i8>, ptr %153, align 4, !tbaa !22
-  %155 = zext <4 x i8> %152 to <4 x i32>
-  %156 = zext <4 x i8> %154 to <4 x i32>
-  %157 = xor <4 x i32> %150, <i32 -1, i32 -1, i32 -1, i32 -1>
-  %158 = add <4 x i32> %143, %157
-  %159 = sub <4 x i32> %145, %150
-  %160 = shl nsw <4 x i32> %158, <i32 3, i32 3, i32 3, i32 3>
-  %161 = shl <4 x i32> %159, <i32 3, i32 3, i32 3, i32 3>
-  %162 = add <4 x i32> %161, <i32 -40, i32 -40, i32 -40, i32 -40>
-  %163 = shl <4 x i32> %155, %160
-  %164 = shl <4 x i32> %156, %162
-  %165 = xor <4 x i32> %163, %148
-  %166 = xor <4 x i32> %164, %149
-  %167 = add nuw i64 %147, 8
-  %168 = add <4 x i32> %150, <i32 8, i32 8, i32 8, i32 8>
-  %169 = icmp eq i64 %167, %140
-  br i1 %169, label %170, label %146, !llvm.loop !42
+156:                                              ; preds = %146
+  %157 = load i8, ptr %137, align 1, !tbaa !22
+  %158 = zext i8 %157 to i32
+  %159 = shl nuw nsw i32 %158, 8
+  %160 = or i32 %159, %136
+  %161 = load i8, ptr %138, align 2, !tbaa !22
+  %162 = zext i8 %161 to i32
+  %163 = shl nuw nsw i32 %162, 16
+  %164 = or i32 %160, %163
+  %165 = load i8, ptr %139, align 1, !tbaa !22
+  %166 = zext i8 %165 to i32
+  %167 = shl nuw i32 %166, 24
+  %168 = or i32 %164, %167
+  %169 = xor i32 %168, %144
+  br label %170
 
-170:                                              ; preds = %146
-  %171 = xor <4 x i32> %166, %165
-  %172 = call i32 @llvm.vector.reduce.xor.v4i32(<4 x i32> %171)
-  %173 = icmp eq i64 %140, %137
-  br i1 %173, label %177, label %174
+170:                                              ; preds = %156, %146
+  %171 = phi i32 [ %144, %146 ], [ %169, %156 ]
+  %172 = icmp eq i32 %154, 0
+  br i1 %172, label %173, label %140, !llvm.loop !23
 
-174:                                              ; preds = %135, %170
-  %175 = phi i64 [ 0, %135 ], [ %140, %170 ]
-  %176 = phi i32 [ %136, %135 ], [ %172, %170 ]
-  br label %179
+173:                                              ; preds = %170, %126
+  %174 = phi i32 [ %127, %126 ], [ %130, %170 ]
+  %175 = phi i32 [ %124, %126 ], [ %171, %170 ]
+  store i32 %175, ptr %5, align 4, !tbaa !19
+  br label %248
 
-177:                                              ; preds = %179, %170
-  %178 = phi i32 [ %172, %170 ], [ %190, %179 ]
-  store i32 %178, ptr %5, align 4, !tbaa !19
-  br label %193
+176:                                              ; preds = %140
+  %177 = icmp ult i32 %142, 4
+  br i1 %177, label %221, label %178
 
-179:                                              ; preds = %174, %179
-  %180 = phi i64 [ %191, %179 ], [ %175, %174 ]
-  %181 = phi i32 [ %190, %179 ], [ %176, %174 ]
-  %182 = trunc i64 %180 to i32
-  %183 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 %180
-  %184 = load i8, ptr %183, align 1, !tbaa !22
-  %185 = zext i8 %184 to i32
-  %186 = xor i32 %182, -1
-  %187 = add i32 %133, %186
-  %188 = shl nsw i32 %187, 3
-  %189 = shl i32 %185, %188
-  %190 = xor i32 %189, %181
-  %191 = add nuw nsw i64 %180, 1
-  %192 = icmp eq i64 %191, %137
-  br i1 %192, label %177, label %179, !llvm.loop !43
+178:                                              ; preds = %176
+  %179 = lshr i32 %142, 2
+  %180 = add nsw i32 %179, -1
+  %181 = zext i32 %180 to i64
+  %182 = add nuw nsw i64 %181, 1
+  %183 = icmp ult i32 %180, 7
+  br i1 %183, label %208, label %184
 
-193:                                              ; preds = %130, %177
-  %194 = icmp eq i32 %40, 0
-  br i1 %194, label %203, label %195
+184:                                              ; preds = %178
+  %185 = and i64 %182, -8
+  %186 = trunc i64 %185 to i32
+  %187 = sub i32 %179, %186
+  %188 = shl nuw nsw i64 %185, 2
+  %189 = getelementptr i8, ptr %143, i64 %188
+  %190 = insertelement <4 x i32> <i32 poison, i32 0, i32 0, i32 0>, i32 %144, i64 0
+  br label %191
 
-195:                                              ; preds = %193
-  %196 = load i32, ptr %1, align 4, !tbaa !32
-  %197 = load i32, ptr %2, align 4, !tbaa !32
-  %198 = shl i32 %197, 16
-  %199 = or i32 %198, %196
-  %200 = load i32, ptr %5, align 4, !tbaa !19
-  %201 = xor i32 %199, %200
-  %202 = icmp ne i32 %201, %40
-  br label %203
+191:                                              ; preds = %191, %184
+  %192 = phi i64 [ 0, %184 ], [ %202, %191 ]
+  %193 = phi <4 x i32> [ %190, %184 ], [ %200, %191 ]
+  %194 = phi <4 x i32> [ zeroinitializer, %184 ], [ %201, %191 ]
+  %195 = shl i64 %192, 2
+  %196 = getelementptr i8, ptr %143, i64 %195
+  %197 = load <4 x i32>, ptr %196, align 1
+  %198 = getelementptr i32, ptr %196, i64 4
+  %199 = load <4 x i32>, ptr %198, align 1
+  %200 = xor <4 x i32> %197, %193
+  %201 = xor <4 x i32> %199, %194
+  %202 = add nuw i64 %192, 8
+  %203 = icmp eq i64 %202, %185
+  br i1 %203, label %204, label %191, !llvm.loop !41
 
-203:                                              ; preds = %193, %195
-  %204 = phi i1 [ %202, %195 ], [ false, %193 ]
-  %205 = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %0, i64 0, i32 9
-  %206 = load i8, ptr %205, align 8, !tbaa !44, !range !36, !noundef !37
-  %207 = zext i1 %204 to i8
-  %208 = or i8 %206, %207
-  store i8 %208, ptr %205, align 8, !tbaa !44
-  %209 = zext i1 %204 to i32
-  br label %210
+204:                                              ; preds = %191
+  %205 = xor <4 x i32> %201, %200
+  %206 = call i32 @llvm.vector.reduce.xor.v4i32(<4 x i32> %205)
+  %207 = icmp eq i64 %182, %185
+  br i1 %207, label %221, label %208
 
-210:                                              ; preds = %120, %99, %203, %121, %104, %86
-  %211 = phi i32 [ 1, %86 ], [ 1, %104 ], [ %209, %203 ], [ 1, %121 ], [ %100, %99 ], [ %118, %120 ]
-  call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %5) #13
+208:                                              ; preds = %178, %204
+  %209 = phi i32 [ %179, %178 ], [ %187, %204 ]
+  %210 = phi ptr [ %143, %178 ], [ %189, %204 ]
+  %211 = phi i32 [ %144, %178 ], [ %206, %204 ]
   br label %212
 
-212:                                              ; preds = %210, %68, %3
-  %213 = phi i32 [ %11, %3 ], [ %211, %210 ], [ %73, %68 ]
+212:                                              ; preds = %208, %212
+  %213 = phi i32 [ %216, %212 ], [ %209, %208 ]
+  %214 = phi ptr [ %218, %212 ], [ %210, %208 ]
+  %215 = phi i32 [ %219, %212 ], [ %211, %208 ]
+  %216 = add nsw i32 %213, -1
+  %217 = load i32, ptr %214, align 1
+  %218 = getelementptr inbounds i8, ptr %214, i64 4
+  %219 = xor i32 %217, %215
+  %220 = icmp eq i32 %216, 0
+  br i1 %220, label %221, label %212, !llvm.loop !42
+
+221:                                              ; preds = %212, %204, %176
+  %222 = phi i32 [ %144, %176 ], [ %206, %204 ], [ %219, %212 ]
+  %223 = phi ptr [ %143, %176 ], [ %189, %204 ], [ %218, %212 ]
+  store i32 %222, ptr %5, align 4, !tbaa !19
+  %224 = and i32 %142, 3
+  %225 = icmp eq i32 %224, 0
+  br i1 %225, label %248, label %226
+
+226:                                              ; preds = %221
+  %227 = load i32, ptr %77, align 4, !tbaa !21
+  %228 = load i8, ptr %223, align 1, !tbaa !22
+  %229 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 0
+  store i8 %228, ptr %229, align 4, !tbaa !22
+  %230 = add nsw i32 %227, 1
+  %231 = and i32 %230, 3
+  store i32 %231, ptr %77, align 4, !tbaa !21
+  %232 = icmp eq i32 %224, 1
+  br i1 %232, label %248, label %233, !llvm.loop !29
+
+233:                                              ; preds = %226
+  %234 = getelementptr inbounds i8, ptr %223, i64 1
+  %235 = load i8, ptr %234, align 1, !tbaa !22
+  %236 = zext i32 %231 to i64
+  %237 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 %236
+  store i8 %235, ptr %237, align 1, !tbaa !22
+  %238 = add i32 %227, 2
+  %239 = and i32 %238, 3
+  store i32 %239, ptr %77, align 4, !tbaa !21
+  %240 = icmp eq i32 %224, 2
+  br i1 %240, label %248, label %241, !llvm.loop !29
+
+241:                                              ; preds = %233
+  %242 = getelementptr inbounds i8, ptr %223, i64 2
+  %243 = load i8, ptr %242, align 1, !tbaa !22
+  %244 = zext i32 %239 to i64
+  %245 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 %244
+  store i8 %243, ptr %245, align 1, !tbaa !22
+  %246 = add i32 %227, 3
+  %247 = and i32 %246, 3
+  store i32 %247, ptr %77, align 4, !tbaa !21
+  br label %248
+
+248:                                              ; preds = %226, %233, %241, %221, %173
+  %249 = phi i32 [ %130, %221 ], [ %174, %173 ], [ %130, %241 ], [ %130, %233 ], [ %130, %226 ]
+  %250 = add i32 %249, %123
+  store i32 %250, ptr %82, align 4, !tbaa !38
+  %251 = icmp eq i64 %122, %112
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #13
+  br i1 %251, label %252, label %332
+
+252:                                              ; preds = %248, %109
+  %253 = phi i32 [ %250, %248 ], [ %105, %109 ]
+  %254 = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %0, i64 0, i32 7
+  store i32 %253, ptr %254, align 8, !tbaa !43
+  %255 = load i32, ptr %77, align 4, !tbaa !21
+  %256 = icmp sgt i32 %255, 0
+  br i1 %256, label %257, label %315
+
+257:                                              ; preds = %252
+  %258 = load i32, ptr %5, align 4, !tbaa !19
+  %259 = zext i32 %255 to i64
+  %260 = icmp ult i32 %255, 8
+  br i1 %260, label %296, label %261
+
+261:                                              ; preds = %257
+  %262 = and i64 %259, 4294967288
+  %263 = insertelement <4 x i32> <i32 poison, i32 0, i32 0, i32 0>, i32 %258, i64 0
+  %264 = insertelement <4 x i32> poison, i32 %255, i64 0
+  %265 = shufflevector <4 x i32> %264, <4 x i32> poison, <4 x i32> zeroinitializer
+  %266 = insertelement <4 x i32> poison, i32 %255, i64 0
+  %267 = shufflevector <4 x i32> %266, <4 x i32> poison, <4 x i32> zeroinitializer
+  br label %268
+
+268:                                              ; preds = %268, %261
+  %269 = phi i64 [ 0, %261 ], [ %289, %268 ]
+  %270 = phi <4 x i32> [ %263, %261 ], [ %287, %268 ]
+  %271 = phi <4 x i32> [ zeroinitializer, %261 ], [ %288, %268 ]
+  %272 = phi <4 x i32> [ <i32 0, i32 1, i32 2, i32 3>, %261 ], [ %290, %268 ]
+  %273 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 %269
+  %274 = load <4 x i8>, ptr %273, align 4, !tbaa !22
+  %275 = getelementptr inbounds i8, ptr %273, i64 4
+  %276 = load <4 x i8>, ptr %275, align 4, !tbaa !22
+  %277 = zext <4 x i8> %274 to <4 x i32>
+  %278 = zext <4 x i8> %276 to <4 x i32>
+  %279 = xor <4 x i32> %272, <i32 -1, i32 -1, i32 -1, i32 -1>
+  %280 = add <4 x i32> %265, %279
+  %281 = sub <4 x i32> %267, %272
+  %282 = shl nsw <4 x i32> %280, <i32 3, i32 3, i32 3, i32 3>
+  %283 = shl <4 x i32> %281, <i32 3, i32 3, i32 3, i32 3>
+  %284 = add <4 x i32> %283, <i32 -40, i32 -40, i32 -40, i32 -40>
+  %285 = shl <4 x i32> %277, %282
+  %286 = shl <4 x i32> %278, %284
+  %287 = xor <4 x i32> %285, %270
+  %288 = xor <4 x i32> %286, %271
+  %289 = add nuw i64 %269, 8
+  %290 = add <4 x i32> %272, <i32 8, i32 8, i32 8, i32 8>
+  %291 = icmp eq i64 %289, %262
+  br i1 %291, label %292, label %268, !llvm.loop !44
+
+292:                                              ; preds = %268
+  %293 = xor <4 x i32> %288, %287
+  %294 = call i32 @llvm.vector.reduce.xor.v4i32(<4 x i32> %293)
+  %295 = icmp eq i64 %262, %259
+  br i1 %295, label %299, label %296
+
+296:                                              ; preds = %257, %292
+  %297 = phi i64 [ 0, %257 ], [ %262, %292 ]
+  %298 = phi i32 [ %258, %257 ], [ %294, %292 ]
+  br label %301
+
+299:                                              ; preds = %301, %292
+  %300 = phi i32 [ %294, %292 ], [ %312, %301 ]
+  store i32 %300, ptr %5, align 4, !tbaa !19
+  br label %315
+
+301:                                              ; preds = %296, %301
+  %302 = phi i64 [ %313, %301 ], [ %297, %296 ]
+  %303 = phi i32 [ %312, %301 ], [ %298, %296 ]
+  %304 = trunc i64 %302 to i32
+  %305 = getelementptr inbounds %"class.NArchive::NCab::CCheckSum2", ptr %5, i64 0, i32 2, i64 %302
+  %306 = load i8, ptr %305, align 1, !tbaa !22
+  %307 = zext i8 %306 to i32
+  %308 = xor i32 %304, -1
+  %309 = add i32 %255, %308
+  %310 = shl nsw i32 %309, 3
+  %311 = shl i32 %307, %310
+  %312 = xor i32 %311, %303
+  %313 = add nuw nsw i64 %302, 1
+  %314 = icmp eq i64 %313, %259
+  br i1 %314, label %299, label %301, !llvm.loop !45
+
+315:                                              ; preds = %252, %299
+  %316 = icmp eq i32 %40, 0
+  br i1 %316, label %325, label %317
+
+317:                                              ; preds = %315
+  %318 = load i32, ptr %1, align 4, !tbaa !32
+  %319 = load i32, ptr %2, align 4, !tbaa !32
+  %320 = shl i32 %319, 16
+  %321 = or i32 %320, %318
+  %322 = load i32, ptr %5, align 4, !tbaa !19
+  %323 = xor i32 %321, %322
+  %324 = icmp ne i32 %323, %40
+  br label %325
+
+325:                                              ; preds = %315, %317
+  %326 = phi i1 [ %324, %317 ], [ false, %315 ]
+  %327 = getelementptr inbounds %"class.NArchive::NCab::CCabBlockInStream", ptr %0, i64 0, i32 9
+  %328 = load i8, ptr %327, align 8, !tbaa !46, !range !36, !noundef !37
+  %329 = zext i1 %326 to i8
+  %330 = or i8 %328, %329
+  store i8 %330, ptr %327, align 8, !tbaa !46
+  %331 = zext i1 %326 to i32
+  br label %332
+
+332:                                              ; preds = %120, %99, %325, %248, %104, %86
+  %333 = phi i32 [ 1, %86 ], [ 1, %104 ], [ %331, %325 ], [ 1, %248 ], [ %100, %99 ], [ %118, %120 ]
+  call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %5) #13
+  br label %334
+
+334:                                              ; preds = %332, %68, %3
+  %335 = phi i32 [ %11, %3 ], [ %333, %332 ], [ %73, %68 ]
   call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %4) #13
-  ret i32 %213
+  ret i32 %335
 }
 
 declare noundef i32 @_Z16ReadStream_FALSEP19ISequentialInStreamPvm(ptr noundef, ptr noundef, i64 noundef) local_unnamed_addr #1
@@ -808,33 +977,33 @@ define linkonce_odr dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream1
   br i1 %81, label %82, label %87
 
 82:                                               ; preds = %77
-  store ptr %0, ptr %2, align 8, !tbaa !45
+  store ptr %0, ptr %2, align 8, !tbaa !47
   %83 = load ptr, ptr %0, align 8, !tbaa !16
   %84 = getelementptr inbounds ptr, ptr %83, i64 1
   %85 = load ptr, ptr %84, align 8
   %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(50) %0)
   br label %87
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
+87:                                               ; preds = %77, %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %82
+  %88 = phi i32 [ 0, %82 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ], [ -2147467262, %77 ]
   ret i32 %88
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
 define linkonce_odr dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream6AddRefEv(ptr noundef nonnull align 8 dereferenceable(50) %0) unnamed_addr #10 comdat align 2 {
   %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !46
+  %3 = load i32, ptr %2, align 8, !tbaa !48
   %4 = add i32 %3, 1
-  store i32 %4, ptr %2, align 8, !tbaa !46
+  store i32 %4, ptr %2, align 8, !tbaa !48
   ret i32 %4
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
 define linkonce_odr dso_local noundef i32 @_ZN8NArchive4NCab17CCabBlockInStream7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(50) %0) unnamed_addr #10 comdat align 2 {
   %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !46
+  %3 = load i32, ptr %2, align 8, !tbaa !48
   %4 = add i32 %3, -1
-  store i32 %4, ptr %2, align 8, !tbaa !46
+  store i32 %4, ptr %2, align 8, !tbaa !48
   %5 = icmp eq i32 %4, 0
   br i1 %5, label %6, label %10
 
@@ -915,9 +1084,11 @@ attributes #14 = { builtin nounwind }
 !38 = !{!6, !10, i64 36}
 !39 = !{!40, !40, i64 0}
 !40 = !{!"long", !11, i64 0}
-!41 = !{!6, !10, i64 40}
-!42 = distinct !{!42, !24, !26, !27}
-!43 = distinct !{!43, !24, !27, !26}
-!44 = !{!6, !15, i64 48}
-!45 = !{!14, !14, i64 0}
-!46 = !{!9, !10, i64 0}
+!41 = distinct !{!41, !24, !26, !27}
+!42 = distinct !{!42, !24, !27, !26}
+!43 = !{!6, !10, i64 40}
+!44 = distinct !{!44, !24, !26, !27}
+!45 = distinct !{!45, !24, !27, !26}
+!46 = !{!6, !15, i64 48}
+!47 = !{!14, !14, i64 0}
+!48 = !{!9, !10, i64 0}

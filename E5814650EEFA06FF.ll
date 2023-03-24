@@ -670,7 +670,7 @@ define dso_local i32 @hypre_StructMatrixInitializeData(ptr nocapture noundef %0,
   %62 = icmp slt i32 %39, 1
   %63 = sub i32 %52, %39
   %64 = sub i32 %60, %40
-  %65 = mul i32 %52, %64
+  %65 = mul i32 %64, %52
   %66 = icmp slt i32 %40, 1
   %67 = select i1 %61, i1 true, i1 %66
   %68 = select i1 %67, i1 true, i1 %62
@@ -739,7 +739,7 @@ define dso_local i32 @hypre_StructMatrixInitializeData(ptr nocapture noundef %0,
   br i1 %109, label %110, label %80, !llvm.loop !49
 
 110:                                              ; preds = %104
-  %111 = add nsw i32 %107, %65
+  %111 = add i32 %65, %107
   %112 = add nuw nsw i32 %79, 1
   %113 = icmp eq i32 %112, %41
   br i1 %113, label %114, label %77, !llvm.loop !50
@@ -1296,7 +1296,7 @@ define dso_local i32 @hypre_StructMatrixSetBoxValues(ptr nocapture noundef reado
   %158 = sub i32 %147, %119
   %159 = mul i32 %158, %152
   %160 = sub i32 %135, %119
-  %161 = mul i32 %140, %160
+  %161 = mul i32 %160, %140
   %162 = icmp slt i32 %119, 1
   %163 = select i1 %153, i1 true, i1 %162
   %164 = select i1 %163, i1 true, i1 %154
@@ -1489,8 +1489,8 @@ define dso_local i32 @hypre_StructMatrixSetBoxValues(ptr nocapture noundef reado
   br i1 %319, label %320, label %207, !llvm.loop !67
 
 320:                                              ; preds = %311
-  %321 = add nsw i32 %316, %159
-  %322 = add nsw i32 %317, %161
+  %321 = add i32 %159, %316
+  %322 = add i32 %161, %317
   %323 = add nuw nsw i32 %206, 1
   %324 = icmp eq i32 %323, %120
   br i1 %324, label %124, label %203, !llvm.loop !68
@@ -1551,7 +1551,7 @@ define dso_local i32 @hypre_StructMatrixSetBoxValues(ptr nocapture noundef reado
   %376 = sub i32 %365, %341
   %377 = mul i32 %376, %370
   %378 = sub i32 %353, %341
-  %379 = mul i32 %358, %378
+  %379 = mul i32 %378, %358
   %380 = icmp slt i32 %341, 1
   %381 = select i1 %371, i1 true, i1 %380
   %382 = select i1 %381, i1 true, i1 %372
@@ -1735,8 +1735,8 @@ define dso_local i32 @hypre_StructMatrixSetBoxValues(ptr nocapture noundef reado
   br i1 %530, label %531, label %425, !llvm.loop !76
 
 531:                                              ; preds = %522
-  %532 = add nsw i32 %527, %377
-  %533 = add nsw i32 %528, %379
+  %532 = add i32 %377, %527
+  %533 = add i32 %379, %528
   %534 = add nuw nsw i32 %424, 1
   %535 = icmp eq i32 %534, %342
   br i1 %535, label %536, label %421, !llvm.loop !77
@@ -2178,14 +2178,14 @@ declare ptr @hypre_StructStencilCreate(i32 noundef, i32 noundef, ptr noundef) lo
 
 declare i32 @hypre_ReadBoxArrayData(ptr noundef, ptr noundef, ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #8
+
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #8
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #9
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #9
+declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #8
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2195,8 +2195,8 @@ attributes #4 = { mustprogress nocallback nofree nounwind willreturn memory(argm
 attributes #5 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nofree nounwind }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nofree nounwind }
 attributes #10 = { nounwind }
 attributes #11 = { noreturn nounwind }
 

@@ -122,51 +122,58 @@ define dso_local i32 @GET_NUM(ptr nocapture noundef %0, i32 noundef %1, i32 noun
   %18 = icmp sge i32 %17, %2
   %19 = icmp eq i32 %17, -1
   %20 = or i1 %18, %19
-  %21 = icmp eq i8 %8, 0
-  %22 = select i1 %20, i1 true, i1 %21
-  br i1 %22, label %47, label %23
+  br i1 %20, label %46, label %21
 
-23:                                               ; preds = %4, %23
-  %24 = phi i32 [ %41, %23 ], [ %17, %4 ]
-  %25 = phi i32 [ %30, %23 ], [ 0, %4 ]
-  %26 = phi ptr [ %31, %23 ], [ %7, %4 ]
-  %27 = icmp sgt i32 %25, %6
-  %28 = mul nsw i32 %25, %2
-  %29 = add nsw i32 %24, %28
-  %30 = select i1 %27, i32 %25, i32 %29
-  %31 = getelementptr inbounds i8, ptr %26, i64 1
-  store ptr %31, ptr %0, align 8, !tbaa !10
-  %32 = load i8, ptr %31, align 1, !tbaa !5
-  %33 = sext i8 %32 to i32
-  %34 = add i8 %32, -48
-  %35 = icmp ult i8 %34, 10
-  %36 = add nsw i32 %33, -48
-  %37 = select i1 %35, i32 %36, i32 -1
-  %38 = add i8 %32, -65
-  %39 = icmp ult i8 %38, 26
-  %40 = add nsw i32 %33, -55
-  %41 = select i1 %39, i32 %40, i32 %37
-  %42 = icmp sge i32 %41, %2
-  %43 = icmp eq i32 %41, -1
-  %44 = or i1 %42, %43
-  %45 = icmp eq i8 %32, 0
-  %46 = select i1 %44, i1 true, i1 %45
-  br i1 %46, label %47, label %23, !llvm.loop !12
+21:                                               ; preds = %4, %27
+  %22 = phi i32 [ %42, %27 ], [ %17, %4 ]
+  %23 = phi i8 [ %33, %27 ], [ %8, %4 ]
+  %24 = phi i32 [ %31, %27 ], [ 0, %4 ]
+  %25 = phi ptr [ %32, %27 ], [ %7, %4 ]
+  %26 = icmp eq i8 %23, 0
+  br i1 %26, label %52, label %27
 
-47:                                               ; preds = %23, %4
-  %48 = phi i32 [ 0, %4 ], [ %30, %23 ]
-  %49 = phi i8 [ %8, %4 ], [ %32, %23 ]
-  %50 = icmp slt i32 %48, %6
-  %51 = icmp eq i8 %49, 0
-  %52 = select i1 %50, i1 %51, i1 false
-  br i1 %52, label %54, label %53
+27:                                               ; preds = %21
+  %28 = icmp sgt i32 %24, %6
+  %29 = mul nsw i32 %24, %2
+  %30 = add nsw i32 %22, %29
+  %31 = select i1 %28, i32 %24, i32 %30
+  %32 = getelementptr inbounds i8, ptr %25, i64 1
+  store ptr %32, ptr %0, align 8, !tbaa !10
+  %33 = load i8, ptr %32, align 1, !tbaa !5
+  %34 = sext i8 %33 to i32
+  %35 = add i8 %33, -48
+  %36 = icmp ult i8 %35, 10
+  %37 = add nsw i32 %34, -48
+  %38 = select i1 %36, i32 %37, i32 -1
+  %39 = add i8 %33, -65
+  %40 = icmp ult i8 %39, 26
+  %41 = add nsw i32 %34, -55
+  %42 = select i1 %40, i32 %41, i32 %38
+  %43 = icmp sge i32 %42, %2
+  %44 = icmp eq i32 %42, -1
+  %45 = or i1 %43, %44
+  br i1 %45, label %46, label %21, !llvm.loop !12
 
-53:                                               ; preds = %47
+46:                                               ; preds = %27, %4
+  %47 = phi i32 [ 0, %4 ], [ %31, %27 ]
+  %48 = phi i8 [ %8, %4 ], [ %33, %27 ]
+  %49 = icmp slt i32 %47, %6
+  %50 = icmp eq i8 %48, 0
+  %51 = select i1 %49, i1 %50, i1 false
+  br i1 %51, label %56, label %54
+
+52:                                               ; preds = %21
+  %53 = icmp slt i32 %24, %6
+  br i1 %53, label %56, label %54
+
+54:                                               ; preds = %52, %46
+  %55 = phi i32 [ %24, %52 ], [ %47, %46 ]
   store i32 1, ptr %3, align 4, !tbaa !13
-  br label %54
+  br label %56
 
-54:                                               ; preds = %47, %53
-  ret i32 %48
+56:                                               ; preds = %46, %52, %54
+  %57 = phi i32 [ %47, %46 ], [ %24, %52 ], [ %55, %54 ]
+  ret i32 %57
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable

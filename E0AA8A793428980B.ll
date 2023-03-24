@@ -1121,7 +1121,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %414 = load ptr, ptr @dMpb, align 8, !tbaa !5
   %415 = load ptr, ptr @dMpe, align 8, !tbaa !5
   %416 = icmp eq ptr %414, %415
-  br i1 %416, label %511, label %417
+  br i1 %416, label %520, label %417
 
 417:                                              ; preds = %411, %417
   %418 = phi ptr [ %421, %417 ], [ %414, %411 ]
@@ -1134,26 +1134,26 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 423:                                              ; preds = %417
   %424 = load ptr, ptr @dMpb, align 8, !tbaa !5
-  %425 = ptrtoint ptr %424 to i64
-  %426 = load ptr, ptr @dMpe, align 8, !tbaa !5
-  %427 = ptrtoint ptr %426 to i64
-  %428 = icmp eq ptr %424, %426
-  br i1 %428, label %511, label %429
+  %425 = load ptr, ptr @dMpe, align 8, !tbaa !5
+  %426 = icmp eq ptr %424, %425
+  br i1 %426, label %520, label %427
 
-429:                                              ; preds = %423
+427:                                              ; preds = %423
+  %428 = ptrtoint ptr %424 to i64
+  %429 = ptrtoint ptr %425 to i64
   %430 = load ptr, ptr @DVMpb, align 8, !tbaa !5
-  %431 = add i64 %427, -8
-  %432 = sub i64 %431, %425
+  %431 = add i64 %429, -8
+  %432 = sub i64 %431, %428
   %433 = lshr i64 %432, 3
   %434 = add nuw nsw i64 %433, 1
   %435 = icmp ult i64 %432, 56
   %436 = ptrtoint ptr %430 to i64
-  %437 = sub i64 %436, %425
+  %437 = sub i64 %436, %428
   %438 = icmp ult i64 %437, 32
   %439 = select i1 %435, i1 true, i1 %438
   br i1 %439, label %460, label %440
 
-440:                                              ; preds = %429
+440:                                              ; preds = %427
   %441 = and i64 %434, -4
   %442 = shl i64 %441, 3
   %443 = getelementptr i8, ptr %430, i64 %442
@@ -1167,12 +1167,12 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %449 = getelementptr i8, ptr %430, i64 %448
   %450 = shl i64 %447, 3
   %451 = getelementptr i8, ptr %424, i64 %450
-  %452 = load <2 x i64>, ptr %451, align 8, !tbaa !28
-  %453 = getelementptr i64, ptr %451, i64 2
-  %454 = load <2 x i64>, ptr %453, align 8, !tbaa !28
-  store <2 x i64> %452, ptr %449, align 8, !tbaa !28
-  %455 = getelementptr i64, ptr %449, i64 2
-  store <2 x i64> %454, ptr %455, align 8, !tbaa !28
+  %452 = load <2 x double>, ptr %451, align 8, !tbaa !28
+  %453 = getelementptr double, ptr %451, i64 2
+  %454 = load <2 x double>, ptr %453, align 8, !tbaa !28
+  store <2 x double> %452, ptr %449, align 8
+  %455 = getelementptr double, ptr %449, i64 2
+  store <2 x double> %454, ptr %455, align 8
   %456 = add nuw i64 %447, 4
   %457 = icmp eq i64 %456, %441
   br i1 %457, label %458, label %446, !llvm.loop !54
@@ -1181,171 +1181,184 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %459 = icmp eq i64 %434, %441
   br i1 %459, label %470, label %460
 
-460:                                              ; preds = %429, %458
-  %461 = phi ptr [ %430, %429 ], [ %443, %458 ]
-  %462 = phi ptr [ %424, %429 ], [ %445, %458 ]
+460:                                              ; preds = %427, %458
+  %461 = phi ptr [ %430, %427 ], [ %443, %458 ]
+  %462 = phi ptr [ %424, %427 ], [ %445, %458 ]
   br label %463
 
 463:                                              ; preds = %460, %463
   %464 = phi ptr [ %468, %463 ], [ %461, %460 ]
   %465 = phi ptr [ %466, %463 ], [ %462, %460 ]
   %466 = getelementptr inbounds double, ptr %465, i64 1
-  %467 = load i64, ptr %465, align 8, !tbaa !28
+  %467 = load double, ptr %465, align 8, !tbaa !28
   %468 = getelementptr inbounds %struct.ValueWrapper, ptr %464, i64 1
-  store i64 %467, ptr %464, align 8, !tbaa !28
-  %469 = icmp eq ptr %466, %426
+  store double %467, ptr %464, align 8, !tbaa.struct !34
+  %469 = icmp eq ptr %466, %425
   br i1 %469, label %470, label %463, !llvm.loop !55
 
 470:                                              ; preds = %463, %458
-  %471 = load ptr, ptr @DV10Mpb, align 8, !tbaa !5
-  %472 = add i64 %427, -8
-  %473 = sub i64 %472, %425
-  %474 = lshr i64 %473, 3
-  %475 = add nuw nsw i64 %474, 1
-  %476 = icmp ult i64 %473, 56
-  %477 = ptrtoint ptr %471 to i64
-  %478 = sub i64 %477, %425
-  %479 = icmp ult i64 %478, 32
-  %480 = select i1 %476, i1 true, i1 %479
-  br i1 %480, label %501, label %481
+  %471 = load ptr, ptr @dMpb, align 8, !tbaa !5
+  %472 = load ptr, ptr @dMpe, align 8, !tbaa !5
+  %473 = icmp eq ptr %471, %472
+  br i1 %473, label %520, label %474
 
-481:                                              ; preds = %470
-  %482 = and i64 %475, -4
-  %483 = shl i64 %482, 3
-  %484 = getelementptr i8, ptr %471, i64 %483
-  %485 = shl i64 %482, 3
-  %486 = getelementptr i8, ptr %424, i64 %485
-  br label %487
+474:                                              ; preds = %470
+  %475 = ptrtoint ptr %471 to i64
+  %476 = ptrtoint ptr %472 to i64
+  %477 = load ptr, ptr @DV10Mpb, align 8, !tbaa !5
+  %478 = add i64 %476, -8
+  %479 = sub i64 %478, %475
+  %480 = lshr i64 %479, 3
+  %481 = add nuw nsw i64 %480, 1
+  %482 = icmp ult i64 %479, 56
+  %483 = ptrtoint ptr %477 to i64
+  %484 = sub i64 %483, %475
+  %485 = icmp ult i64 %484, 32
+  %486 = select i1 %482, i1 true, i1 %485
+  br i1 %486, label %507, label %487
 
-487:                                              ; preds = %487, %481
-  %488 = phi i64 [ 0, %481 ], [ %497, %487 ]
+487:                                              ; preds = %474
+  %488 = and i64 %481, -4
   %489 = shl i64 %488, 3
-  %490 = getelementptr i8, ptr %471, i64 %489
+  %490 = getelementptr i8, ptr %477, i64 %489
   %491 = shl i64 %488, 3
-  %492 = getelementptr i8, ptr %424, i64 %491
-  %493 = load <2 x i64>, ptr %492, align 8, !tbaa !28
-  %494 = getelementptr i64, ptr %492, i64 2
-  %495 = load <2 x i64>, ptr %494, align 8, !tbaa !28
-  store <2 x i64> %493, ptr %490, align 8, !tbaa !28
-  %496 = getelementptr i64, ptr %490, i64 2
-  store <2 x i64> %495, ptr %496, align 8, !tbaa !28
-  %497 = add nuw i64 %488, 4
-  %498 = icmp eq i64 %497, %482
-  br i1 %498, label %499, label %487, !llvm.loop !56
+  %492 = getelementptr i8, ptr %471, i64 %491
+  br label %493
 
-499:                                              ; preds = %487
-  %500 = icmp eq i64 %475, %482
-  br i1 %500, label %511, label %501
+493:                                              ; preds = %493, %487
+  %494 = phi i64 [ 0, %487 ], [ %503, %493 ]
+  %495 = shl i64 %494, 3
+  %496 = getelementptr i8, ptr %477, i64 %495
+  %497 = shl i64 %494, 3
+  %498 = getelementptr i8, ptr %471, i64 %497
+  %499 = load <2 x double>, ptr %498, align 8, !tbaa !28
+  %500 = getelementptr double, ptr %498, i64 2
+  %501 = load <2 x double>, ptr %500, align 8, !tbaa !28
+  store <2 x double> %499, ptr %496, align 8
+  %502 = getelementptr double, ptr %496, i64 2
+  store <2 x double> %501, ptr %502, align 8
+  %503 = add nuw i64 %494, 4
+  %504 = icmp eq i64 %503, %488
+  br i1 %504, label %505, label %493, !llvm.loop !56
 
-501:                                              ; preds = %470, %499
-  %502 = phi ptr [ %471, %470 ], [ %484, %499 ]
-  %503 = phi ptr [ %424, %470 ], [ %486, %499 ]
-  br label %504
+505:                                              ; preds = %493
+  %506 = icmp eq i64 %481, %488
+  br i1 %506, label %517, label %507
 
-504:                                              ; preds = %501, %504
-  %505 = phi ptr [ %509, %504 ], [ %502, %501 ]
-  %506 = phi ptr [ %507, %504 ], [ %503, %501 ]
-  %507 = getelementptr inbounds double, ptr %506, i64 1
-  %508 = load i64, ptr %506, align 8, !tbaa !28
-  %509 = getelementptr inbounds %struct.ValueWrapper.0, ptr %505, i64 1
-  store i64 %508, ptr %505, align 8, !tbaa !28
-  %510 = icmp eq ptr %507, %426
-  br i1 %510, label %511, label %504, !llvm.loop !57
+507:                                              ; preds = %474, %505
+  %508 = phi ptr [ %477, %474 ], [ %490, %505 ]
+  %509 = phi ptr [ %471, %474 ], [ %492, %505 ]
+  br label %510
 
-511:                                              ; preds = %504, %499, %411, %423
-  %512 = phi ptr [ %424, %423 ], [ %414, %411 ], [ %424, %499 ], [ %424, %504 ]
-  %513 = phi ptr [ %426, %423 ], [ %414, %411 ], [ %426, %499 ], [ %426, %504 ]
-  %514 = load ptr, ptr @dpb, align 8, !tbaa !5
-  %515 = load ptr, ptr @dpe, align 8, !tbaa !5
-  tail call void @_Z19test_insertion_sortIPddEvT_S1_S1_S1_T0_PKc(ptr noundef %512, ptr noundef %513, ptr noundef %514, ptr noundef %515, double noundef 0.000000e+00, ptr noundef nonnull @.str.32)
-  %516 = load ptr, ptr @dMPb, align 8, !tbaa.struct !40
-  %517 = load ptr, ptr @dMPe, align 8, !tbaa.struct !40
-  %518 = load ptr, ptr @dPb, align 8, !tbaa.struct !40
-  %519 = load ptr, ptr @dPe, align 8, !tbaa.struct !40
-  tail call void @_Z19test_insertion_sortI14PointerWrapperIdEdEvT_S2_S2_S2_T0_PKc(ptr %516, ptr %517, ptr %518, ptr %519, double noundef 0.000000e+00, ptr noundef nonnull @.str.33)
-  %520 = load ptr, ptr @DVMpb, align 8, !tbaa !5
-  %521 = load ptr, ptr @DVMpe, align 8, !tbaa !5
-  %522 = load ptr, ptr @DVpb, align 8, !tbaa !5
-  %523 = load ptr, ptr @DVpe, align 8, !tbaa !5
-  tail call void @_Z19test_insertion_sortIP12ValueWrapperIdES1_EvT_S3_S3_S3_T0_PKc(ptr noundef %520, ptr noundef %521, ptr noundef %522, ptr noundef %523, double 0.000000e+00, ptr noundef nonnull @.str.34)
-  %524 = load ptr, ptr @DVMPb, align 8, !tbaa.struct !40
-  %525 = load ptr, ptr @DVMPe, align 8, !tbaa.struct !40
-  %526 = load ptr, ptr @DVPb, align 8, !tbaa.struct !40
-  %527 = load ptr, ptr @DVPe, align 8, !tbaa.struct !40
-  tail call void @_Z19test_insertion_sortI14PointerWrapperI12ValueWrapperIdEES2_EvT_S4_S4_S4_T0_PKc(ptr %524, ptr %525, ptr %526, ptr %527, double 0.000000e+00, ptr noundef nonnull @.str.35)
-  %528 = load ptr, ptr @DV10Mpb, align 8, !tbaa !5
-  %529 = load ptr, ptr @DV10Mpe, align 8, !tbaa !5
-  %530 = load ptr, ptr @DV10pb, align 8, !tbaa !5
-  %531 = load ptr, ptr @DV10pe, align 8, !tbaa !5
-  tail call void @_Z19test_insertion_sortIP12ValueWrapperIS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IdEEEEEEEEEESA_EvT_SC_SC_SC_T0_PKc(ptr noundef %528, ptr noundef %529, ptr noundef %530, ptr noundef %531, double 0.000000e+00, ptr noundef nonnull @.str.36)
-  %532 = load ptr, ptr @DV10MPb, align 8, !tbaa.struct !40
-  %533 = load ptr, ptr @DV10MPe, align 8, !tbaa.struct !40
-  %534 = load ptr, ptr @DV10Pb, align 8, !tbaa.struct !40
-  %535 = load ptr, ptr @DV10Pe, align 8, !tbaa.struct !40
-  tail call void @_Z19test_insertion_sortI14PointerWrapperI12ValueWrapperIS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IdEEEEEEEEEEESB_EvT_SD_SD_SD_T0_PKc(ptr %532, ptr %533, ptr %534, ptr %535, double 0.000000e+00, ptr noundef nonnull @.str.37)
-  %536 = load i32, ptr @iterations, align 4, !tbaa !9
-  %537 = shl nsw i32 %536, 3
-  store i32 %537, ptr @iterations, align 4, !tbaa !9
-  %538 = load ptr, ptr @dMpb, align 8, !tbaa !5
-  %539 = load ptr, ptr @dMpe, align 8, !tbaa !5
-  %540 = load ptr, ptr @dpb, align 8, !tbaa !5
-  %541 = load ptr, ptr @dpe, align 8, !tbaa !5
-  tail call void @_Z14test_quicksortIPddEvT_S1_S1_S1_T0_PKc(ptr noundef %538, ptr noundef %539, ptr noundef %540, ptr noundef %541, double noundef 0.000000e+00, ptr noundef nonnull @.str.38)
-  %542 = load ptr, ptr @dMPb, align 8, !tbaa.struct !40
-  %543 = load ptr, ptr @dMPe, align 8, !tbaa.struct !40
-  %544 = load ptr, ptr @dPb, align 8, !tbaa.struct !40
-  %545 = load ptr, ptr @dPe, align 8, !tbaa.struct !40
-  tail call void @_Z14test_quicksortI14PointerWrapperIdEdEvT_S2_S2_S2_T0_PKc(ptr %542, ptr %543, ptr %544, ptr %545, double noundef 0.000000e+00, ptr noundef nonnull @.str.39)
-  %546 = load ptr, ptr @DVMpb, align 8, !tbaa !5
-  %547 = load ptr, ptr @DVMpe, align 8, !tbaa !5
-  %548 = load ptr, ptr @DVpb, align 8, !tbaa !5
-  %549 = load ptr, ptr @DVpe, align 8, !tbaa !5
-  tail call void @_Z14test_quicksortIP12ValueWrapperIdES1_EvT_S3_S3_S3_T0_PKc(ptr noundef %546, ptr noundef %547, ptr noundef %548, ptr noundef %549, double 0.000000e+00, ptr noundef nonnull @.str.40)
-  %550 = load ptr, ptr @DVMPb, align 8, !tbaa.struct !40
-  %551 = load ptr, ptr @DVMPe, align 8, !tbaa.struct !40
-  %552 = load ptr, ptr @DVPb, align 8, !tbaa.struct !40
-  %553 = load ptr, ptr @DVPe, align 8, !tbaa.struct !40
-  tail call void @_Z14test_quicksortI14PointerWrapperI12ValueWrapperIdEES2_EvT_S4_S4_S4_T0_PKc(ptr %550, ptr %551, ptr %552, ptr %553, double 0.000000e+00, ptr noundef nonnull @.str.41)
-  %554 = load ptr, ptr @DV10Mpb, align 8, !tbaa !5
-  %555 = load ptr, ptr @DV10Mpe, align 8, !tbaa !5
-  %556 = load ptr, ptr @DV10pb, align 8, !tbaa !5
-  %557 = load ptr, ptr @DV10pe, align 8, !tbaa !5
-  tail call void @_Z14test_quicksortIP12ValueWrapperIS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IdEEEEEEEEEESA_EvT_SC_SC_SC_T0_PKc(ptr noundef %554, ptr noundef %555, ptr noundef %556, ptr noundef %557, double 0.000000e+00, ptr noundef nonnull @.str.42)
-  %558 = load ptr, ptr @DV10MPb, align 8, !tbaa.struct !40
-  %559 = load ptr, ptr @DV10MPe, align 8, !tbaa.struct !40
-  %560 = load ptr, ptr @DV10Pb, align 8, !tbaa.struct !40
-  %561 = load ptr, ptr @DV10Pe, align 8, !tbaa.struct !40
-  tail call void @_Z14test_quicksortI14PointerWrapperI12ValueWrapperIS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IdEEEEEEEEEEESB_EvT_SD_SD_SD_T0_PKc(ptr %558, ptr %559, ptr %560, ptr %561, double 0.000000e+00, ptr noundef nonnull @.str.43)
-  %562 = load ptr, ptr @dMpb, align 8, !tbaa !5
-  %563 = load ptr, ptr @dMpe, align 8, !tbaa !5
-  %564 = load ptr, ptr @dpb, align 8, !tbaa !5
-  %565 = load ptr, ptr @dpe, align 8, !tbaa !5
-  tail call void @_Z14test_heap_sortIPddEvT_S1_S1_S1_T0_PKc(ptr noundef %562, ptr noundef %563, ptr noundef %564, ptr noundef %565, double noundef 0.000000e+00, ptr noundef nonnull @.str.44)
-  %566 = load ptr, ptr @dMPb, align 8, !tbaa.struct !40
-  %567 = load ptr, ptr @dMPe, align 8, !tbaa.struct !40
-  %568 = load ptr, ptr @dPb, align 8, !tbaa.struct !40
-  %569 = load ptr, ptr @dPe, align 8, !tbaa.struct !40
-  tail call void @_Z14test_heap_sortI14PointerWrapperIdEdEvT_S2_S2_S2_T0_PKc(ptr %566, ptr %567, ptr %568, ptr %569, double noundef 0.000000e+00, ptr noundef nonnull @.str.45)
-  %570 = load ptr, ptr @DVMpb, align 8, !tbaa !5
-  %571 = load ptr, ptr @DVMpe, align 8, !tbaa !5
-  %572 = load ptr, ptr @DVpb, align 8, !tbaa !5
-  %573 = load ptr, ptr @DVpe, align 8, !tbaa !5
-  tail call void @_Z14test_heap_sortIP12ValueWrapperIdES1_EvT_S3_S3_S3_T0_PKc(ptr noundef %570, ptr noundef %571, ptr noundef %572, ptr noundef %573, double 0.000000e+00, ptr noundef nonnull @.str.46)
-  %574 = load ptr, ptr @DVMPb, align 8, !tbaa.struct !40
-  %575 = load ptr, ptr @DVMPe, align 8, !tbaa.struct !40
-  %576 = load ptr, ptr @DVPb, align 8, !tbaa.struct !40
-  %577 = load ptr, ptr @DVPe, align 8, !tbaa.struct !40
-  tail call void @_Z14test_heap_sortI14PointerWrapperI12ValueWrapperIdEES2_EvT_S4_S4_S4_T0_PKc(ptr %574, ptr %575, ptr %576, ptr %577, double 0.000000e+00, ptr noundef nonnull @.str.47)
-  %578 = load ptr, ptr @DV10Mpb, align 8, !tbaa !5
-  %579 = load ptr, ptr @DV10Mpe, align 8, !tbaa !5
-  %580 = load ptr, ptr @DV10pb, align 8, !tbaa !5
-  %581 = load ptr, ptr @DV10pe, align 8, !tbaa !5
-  tail call void @_Z14test_heap_sortIP12ValueWrapperIS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IdEEEEEEEEEESA_EvT_SC_SC_SC_T0_PKc(ptr noundef %578, ptr noundef %579, ptr noundef %580, ptr noundef %581, double 0.000000e+00, ptr noundef nonnull @.str.48)
-  %582 = load ptr, ptr @DV10MPb, align 8, !tbaa.struct !40
-  %583 = load ptr, ptr @DV10MPe, align 8, !tbaa.struct !40
-  %584 = load ptr, ptr @DV10Pb, align 8, !tbaa.struct !40
-  %585 = load ptr, ptr @DV10Pe, align 8, !tbaa.struct !40
-  tail call void @_Z14test_heap_sortI14PointerWrapperI12ValueWrapperIS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IdEEEEEEEEEEESB_EvT_SD_SD_SD_T0_PKc(ptr %582, ptr %583, ptr %584, ptr %585, double 0.000000e+00, ptr noundef nonnull @.str.49)
+510:                                              ; preds = %507, %510
+  %511 = phi ptr [ %515, %510 ], [ %508, %507 ]
+  %512 = phi ptr [ %513, %510 ], [ %509, %507 ]
+  %513 = getelementptr inbounds double, ptr %512, i64 1
+  %514 = load double, ptr %512, align 8, !tbaa !28
+  %515 = getelementptr inbounds %struct.ValueWrapper.0, ptr %511, i64 1
+  store double %514, ptr %511, align 8, !tbaa.struct !34
+  %516 = icmp eq ptr %513, %472
+  br i1 %516, label %517, label %510, !llvm.loop !57
+
+517:                                              ; preds = %510, %505
+  %518 = load ptr, ptr @dMpb, align 8, !tbaa !5
+  %519 = load ptr, ptr @dMpe, align 8, !tbaa !5
+  br label %520
+
+520:                                              ; preds = %411, %423, %517, %470
+  %521 = phi ptr [ %519, %517 ], [ %472, %470 ], [ %425, %423 ], [ %414, %411 ]
+  %522 = phi ptr [ %518, %517 ], [ %472, %470 ], [ %425, %423 ], [ %414, %411 ]
+  %523 = load ptr, ptr @dpb, align 8, !tbaa !5
+  %524 = load ptr, ptr @dpe, align 8, !tbaa !5
+  tail call void @_Z19test_insertion_sortIPddEvT_S1_S1_S1_T0_PKc(ptr noundef %522, ptr noundef %521, ptr noundef %523, ptr noundef %524, double noundef 0.000000e+00, ptr noundef nonnull @.str.32)
+  %525 = load ptr, ptr @dMPb, align 8, !tbaa.struct !40
+  %526 = load ptr, ptr @dMPe, align 8, !tbaa.struct !40
+  %527 = load ptr, ptr @dPb, align 8, !tbaa.struct !40
+  %528 = load ptr, ptr @dPe, align 8, !tbaa.struct !40
+  tail call void @_Z19test_insertion_sortI14PointerWrapperIdEdEvT_S2_S2_S2_T0_PKc(ptr %525, ptr %526, ptr %527, ptr %528, double noundef 0.000000e+00, ptr noundef nonnull @.str.33)
+  %529 = load ptr, ptr @DVMpb, align 8, !tbaa !5
+  %530 = load ptr, ptr @DVMpe, align 8, !tbaa !5
+  %531 = load ptr, ptr @DVpb, align 8, !tbaa !5
+  %532 = load ptr, ptr @DVpe, align 8, !tbaa !5
+  tail call void @_Z19test_insertion_sortIP12ValueWrapperIdES1_EvT_S3_S3_S3_T0_PKc(ptr noundef %529, ptr noundef %530, ptr noundef %531, ptr noundef %532, double 0.000000e+00, ptr noundef nonnull @.str.34)
+  %533 = load ptr, ptr @DVMPb, align 8, !tbaa.struct !40
+  %534 = load ptr, ptr @DVMPe, align 8, !tbaa.struct !40
+  %535 = load ptr, ptr @DVPb, align 8, !tbaa.struct !40
+  %536 = load ptr, ptr @DVPe, align 8, !tbaa.struct !40
+  tail call void @_Z19test_insertion_sortI14PointerWrapperI12ValueWrapperIdEES2_EvT_S4_S4_S4_T0_PKc(ptr %533, ptr %534, ptr %535, ptr %536, double 0.000000e+00, ptr noundef nonnull @.str.35)
+  %537 = load ptr, ptr @DV10Mpb, align 8, !tbaa !5
+  %538 = load ptr, ptr @DV10Mpe, align 8, !tbaa !5
+  %539 = load ptr, ptr @DV10pb, align 8, !tbaa !5
+  %540 = load ptr, ptr @DV10pe, align 8, !tbaa !5
+  tail call void @_Z19test_insertion_sortIP12ValueWrapperIS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IdEEEEEEEEEESA_EvT_SC_SC_SC_T0_PKc(ptr noundef %537, ptr noundef %538, ptr noundef %539, ptr noundef %540, double 0.000000e+00, ptr noundef nonnull @.str.36)
+  %541 = load ptr, ptr @DV10MPb, align 8, !tbaa.struct !40
+  %542 = load ptr, ptr @DV10MPe, align 8, !tbaa.struct !40
+  %543 = load ptr, ptr @DV10Pb, align 8, !tbaa.struct !40
+  %544 = load ptr, ptr @DV10Pe, align 8, !tbaa.struct !40
+  tail call void @_Z19test_insertion_sortI14PointerWrapperI12ValueWrapperIS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IdEEEEEEEEEEESB_EvT_SD_SD_SD_T0_PKc(ptr %541, ptr %542, ptr %543, ptr %544, double 0.000000e+00, ptr noundef nonnull @.str.37)
+  %545 = load i32, ptr @iterations, align 4, !tbaa !9
+  %546 = shl nsw i32 %545, 3
+  store i32 %546, ptr @iterations, align 4, !tbaa !9
+  %547 = load ptr, ptr @dMpb, align 8, !tbaa !5
+  %548 = load ptr, ptr @dMpe, align 8, !tbaa !5
+  %549 = load ptr, ptr @dpb, align 8, !tbaa !5
+  %550 = load ptr, ptr @dpe, align 8, !tbaa !5
+  tail call void @_Z14test_quicksortIPddEvT_S1_S1_S1_T0_PKc(ptr noundef %547, ptr noundef %548, ptr noundef %549, ptr noundef %550, double noundef 0.000000e+00, ptr noundef nonnull @.str.38)
+  %551 = load ptr, ptr @dMPb, align 8, !tbaa.struct !40
+  %552 = load ptr, ptr @dMPe, align 8, !tbaa.struct !40
+  %553 = load ptr, ptr @dPb, align 8, !tbaa.struct !40
+  %554 = load ptr, ptr @dPe, align 8, !tbaa.struct !40
+  tail call void @_Z14test_quicksortI14PointerWrapperIdEdEvT_S2_S2_S2_T0_PKc(ptr %551, ptr %552, ptr %553, ptr %554, double noundef 0.000000e+00, ptr noundef nonnull @.str.39)
+  %555 = load ptr, ptr @DVMpb, align 8, !tbaa !5
+  %556 = load ptr, ptr @DVMpe, align 8, !tbaa !5
+  %557 = load ptr, ptr @DVpb, align 8, !tbaa !5
+  %558 = load ptr, ptr @DVpe, align 8, !tbaa !5
+  tail call void @_Z14test_quicksortIP12ValueWrapperIdES1_EvT_S3_S3_S3_T0_PKc(ptr noundef %555, ptr noundef %556, ptr noundef %557, ptr noundef %558, double 0.000000e+00, ptr noundef nonnull @.str.40)
+  %559 = load ptr, ptr @DVMPb, align 8, !tbaa.struct !40
+  %560 = load ptr, ptr @DVMPe, align 8, !tbaa.struct !40
+  %561 = load ptr, ptr @DVPb, align 8, !tbaa.struct !40
+  %562 = load ptr, ptr @DVPe, align 8, !tbaa.struct !40
+  tail call void @_Z14test_quicksortI14PointerWrapperI12ValueWrapperIdEES2_EvT_S4_S4_S4_T0_PKc(ptr %559, ptr %560, ptr %561, ptr %562, double 0.000000e+00, ptr noundef nonnull @.str.41)
+  %563 = load ptr, ptr @DV10Mpb, align 8, !tbaa !5
+  %564 = load ptr, ptr @DV10Mpe, align 8, !tbaa !5
+  %565 = load ptr, ptr @DV10pb, align 8, !tbaa !5
+  %566 = load ptr, ptr @DV10pe, align 8, !tbaa !5
+  tail call void @_Z14test_quicksortIP12ValueWrapperIS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IdEEEEEEEEEESA_EvT_SC_SC_SC_T0_PKc(ptr noundef %563, ptr noundef %564, ptr noundef %565, ptr noundef %566, double 0.000000e+00, ptr noundef nonnull @.str.42)
+  %567 = load ptr, ptr @DV10MPb, align 8, !tbaa.struct !40
+  %568 = load ptr, ptr @DV10MPe, align 8, !tbaa.struct !40
+  %569 = load ptr, ptr @DV10Pb, align 8, !tbaa.struct !40
+  %570 = load ptr, ptr @DV10Pe, align 8, !tbaa.struct !40
+  tail call void @_Z14test_quicksortI14PointerWrapperI12ValueWrapperIS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IdEEEEEEEEEEESB_EvT_SD_SD_SD_T0_PKc(ptr %567, ptr %568, ptr %569, ptr %570, double 0.000000e+00, ptr noundef nonnull @.str.43)
+  %571 = load ptr, ptr @dMpb, align 8, !tbaa !5
+  %572 = load ptr, ptr @dMpe, align 8, !tbaa !5
+  %573 = load ptr, ptr @dpb, align 8, !tbaa !5
+  %574 = load ptr, ptr @dpe, align 8, !tbaa !5
+  tail call void @_Z14test_heap_sortIPddEvT_S1_S1_S1_T0_PKc(ptr noundef %571, ptr noundef %572, ptr noundef %573, ptr noundef %574, double noundef 0.000000e+00, ptr noundef nonnull @.str.44)
+  %575 = load ptr, ptr @dMPb, align 8, !tbaa.struct !40
+  %576 = load ptr, ptr @dMPe, align 8, !tbaa.struct !40
+  %577 = load ptr, ptr @dPb, align 8, !tbaa.struct !40
+  %578 = load ptr, ptr @dPe, align 8, !tbaa.struct !40
+  tail call void @_Z14test_heap_sortI14PointerWrapperIdEdEvT_S2_S2_S2_T0_PKc(ptr %575, ptr %576, ptr %577, ptr %578, double noundef 0.000000e+00, ptr noundef nonnull @.str.45)
+  %579 = load ptr, ptr @DVMpb, align 8, !tbaa !5
+  %580 = load ptr, ptr @DVMpe, align 8, !tbaa !5
+  %581 = load ptr, ptr @DVpb, align 8, !tbaa !5
+  %582 = load ptr, ptr @DVpe, align 8, !tbaa !5
+  tail call void @_Z14test_heap_sortIP12ValueWrapperIdES1_EvT_S3_S3_S3_T0_PKc(ptr noundef %579, ptr noundef %580, ptr noundef %581, ptr noundef %582, double 0.000000e+00, ptr noundef nonnull @.str.46)
+  %583 = load ptr, ptr @DVMPb, align 8, !tbaa.struct !40
+  %584 = load ptr, ptr @DVMPe, align 8, !tbaa.struct !40
+  %585 = load ptr, ptr @DVPb, align 8, !tbaa.struct !40
+  %586 = load ptr, ptr @DVPe, align 8, !tbaa.struct !40
+  tail call void @_Z14test_heap_sortI14PointerWrapperI12ValueWrapperIdEES2_EvT_S4_S4_S4_T0_PKc(ptr %583, ptr %584, ptr %585, ptr %586, double 0.000000e+00, ptr noundef nonnull @.str.47)
+  %587 = load ptr, ptr @DV10Mpb, align 8, !tbaa !5
+  %588 = load ptr, ptr @DV10Mpe, align 8, !tbaa !5
+  %589 = load ptr, ptr @DV10pb, align 8, !tbaa !5
+  %590 = load ptr, ptr @DV10pe, align 8, !tbaa !5
+  tail call void @_Z14test_heap_sortIP12ValueWrapperIS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IS0_IdEEEEEEEEEESA_EvT_SC_SC_SC_T0_PKc(ptr noundef %587, ptr noundef %588, ptr noundef %589, ptr noundef %590, double 0.000000e+00, ptr noundef nonnull @.str.48)
+  %591 = load ptr, ptr @DV10MPb, align 8, !tbaa.struct !40
+  %592 = load ptr, ptr @DV10MPe, align 8, !tbaa.struct !40
+  %593 = load ptr, ptr @DV10Pb, align 8, !tbaa.struct !40
+  %594 = load ptr, ptr @DV10Pe, align 8, !tbaa.struct !40
+  tail call void @_Z14test_heap_sortI14PointerWrapperI12ValueWrapperIS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IS1_IdEEEEEEEEEEESB_EvT_SD_SD_SD_T0_PKc(ptr %591, ptr %592, ptr %593, ptr %594, double 0.000000e+00, ptr noundef nonnull @.str.49)
   ret i32 0
 }
 
@@ -1972,7 +1985,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortIP12ValueWrapperIdES1
   %14 = ptrtoint ptr %2 to i64
   %15 = load i32, ptr @iterations, align 4, !tbaa !9
   %16 = icmp sgt i32 %15, 0
-  br i1 %16, label %17, label %209
+  br i1 %16, label %17, label %207
 
 17:                                               ; preds = %6
   %18 = icmp eq ptr %0, %1
@@ -2027,7 +2040,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortIP12ValueWrapperIdES1
   %53 = phi i32 [ %51, %48 ], [ %38, %40 ]
   %54 = add nuw nsw i32 %39, 1
   %55 = icmp slt i32 %54, %53
-  br i1 %55, label %37, label %209, !llvm.loop !75
+  br i1 %55, label %37, label %207, !llvm.loop !75
 
 56:                                               ; preds = %22, %95
   %57 = phi i32 [ %96, %95 ], [ %15, %22 ]
@@ -2093,7 +2106,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortIP12ValueWrapperIdES1
   %96 = phi i32 [ %94, %91 ], [ %57, %83 ]
   %97 = add nuw nsw i32 %58, 1
   %98 = icmp slt i32 %97, %96
-  br i1 %98, label %56, label %209, !llvm.loop !75
+  br i1 %98, label %56, label %207, !llvm.loop !75
 
 99:                                               ; preds = %17
   br i1 %18, label %115, label %100
@@ -2113,156 +2126,154 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortIP12ValueWrapperIdES1
   %112 = shl i64 %109, 3
   %113 = getelementptr i8, ptr %0, i64 %112
   %114 = icmp eq i64 %104, %109
-  br label %150
+  br label %149
 
-115:                                              ; preds = %99, %146
-  %116 = phi i32 [ %147, %146 ], [ %15, %99 ]
-  %117 = phi i32 [ %148, %146 ], [ 0, %99 ]
+115:                                              ; preds = %99, %145
+  %116 = phi i32 [ %146, %145 ], [ %15, %99 ]
+  %117 = phi i32 [ %147, %145 ], [ 0, %99 ]
   br label %118
 
-118:                                              ; preds = %130, %115
-  %119 = phi ptr [ %132, %130 ], [ %19, %115 ]
-  %120 = load i64, ptr %119, align 8, !tbaa !28
-  %121 = bitcast i64 %120 to double
-  %122 = icmp eq ptr %119, %2
-  br i1 %122, label %130, label %123
+118:                                              ; preds = %129, %115
+  %119 = phi ptr [ %131, %129 ], [ %19, %115 ]
+  %120 = load double, ptr %119, align 8, !tbaa.struct !34
+  %121 = icmp eq ptr %119, %2
+  br i1 %121, label %129, label %122
 
-123:                                              ; preds = %118, %128
-  %124 = phi ptr [ %125, %128 ], [ %119, %118 ]
-  %125 = getelementptr %struct.ValueWrapper, ptr %124, i64 -1
-  %126 = load double, ptr %125, align 8, !tbaa !44
-  %127 = fcmp ogt double %126, %121
-  br i1 %127, label %128, label %130
+122:                                              ; preds = %118, %127
+  %123 = phi ptr [ %124, %127 ], [ %119, %118 ]
+  %124 = getelementptr %struct.ValueWrapper, ptr %123, i64 -1
+  %125 = load double, ptr %124, align 8, !tbaa !44
+  %126 = fcmp olt double %120, %125
+  br i1 %126, label %127, label %129
 
-128:                                              ; preds = %123
-  store double %126, ptr %124, align 8, !tbaa !28
-  %129 = icmp eq ptr %125, %2
-  br i1 %129, label %130, label %123, !llvm.loop !78
+127:                                              ; preds = %122
+  store double %125, ptr %123, align 8, !tbaa !28
+  %128 = icmp eq ptr %124, %2
+  br i1 %128, label %129, label %122, !llvm.loop !78
 
-130:                                              ; preds = %123, %128, %118
-  %131 = phi ptr [ %2, %118 ], [ %124, %123 ], [ %2, %128 ]
-  store i64 %120, ptr %131, align 8, !tbaa !28
-  %132 = getelementptr inbounds %struct.ValueWrapper, ptr %119, i64 1
-  %133 = icmp eq ptr %132, %3
-  br i1 %133, label %134, label %118, !llvm.loop !79
+129:                                              ; preds = %122, %127, %118
+  %130 = phi ptr [ %2, %118 ], [ %123, %122 ], [ %2, %127 ]
+  store double %120, ptr %130, align 8, !tbaa.struct !34
+  %131 = getelementptr inbounds %struct.ValueWrapper, ptr %119, i64 1
+  %132 = icmp eq ptr %131, %3
+  br i1 %132, label %133, label %118, !llvm.loop !79
 
-134:                                              ; preds = %130, %138
-  %135 = phi ptr [ %136, %138 ], [ %2, %130 ]
-  %136 = getelementptr %struct.ValueWrapper, ptr %135, i64 1
-  %137 = icmp eq ptr %136, %3
-  br i1 %137, label %146, label %138
+133:                                              ; preds = %129, %137
+  %134 = phi ptr [ %135, %137 ], [ %2, %129 ]
+  %135 = getelementptr %struct.ValueWrapper, ptr %134, i64 1
+  %136 = icmp eq ptr %135, %3
+  br i1 %136, label %145, label %137
 
-138:                                              ; preds = %134
-  %139 = load double, ptr %136, align 8, !tbaa !44
-  %140 = load double, ptr %135, align 8, !tbaa !44
-  %141 = fcmp olt double %139, %140
-  br i1 %141, label %142, label %134, !llvm.loop !74
+137:                                              ; preds = %133
+  %138 = load double, ptr %135, align 8, !tbaa !44
+  %139 = load double, ptr %134, align 8, !tbaa !44
+  %140 = fcmp olt double %138, %139
+  br i1 %140, label %141, label %133, !llvm.loop !74
 
-142:                                              ; preds = %138
-  %143 = load i32, ptr @current_test, align 4, !tbaa !9
-  %144 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %143)
-  %145 = load i32, ptr @iterations, align 4, !tbaa !9
-  br label %146
+141:                                              ; preds = %137
+  %142 = load i32, ptr @current_test, align 4, !tbaa !9
+  %143 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %142)
+  %144 = load i32, ptr @iterations, align 4, !tbaa !9
+  br label %145
 
-146:                                              ; preds = %134, %142
-  %147 = phi i32 [ %145, %142 ], [ %116, %134 ]
-  %148 = add nuw nsw i32 %117, 1
-  %149 = icmp slt i32 %148, %147
-  br i1 %149, label %115, label %209, !llvm.loop !75
+145:                                              ; preds = %133, %141
+  %146 = phi i32 [ %144, %141 ], [ %116, %133 ]
+  %147 = add nuw nsw i32 %117, 1
+  %148 = icmp slt i32 %147, %146
+  br i1 %148, label %115, label %207, !llvm.loop !75
 
-150:                                              ; preds = %100, %205
-  %151 = phi i32 [ %206, %205 ], [ %15, %100 ]
-  %152 = phi i32 [ %207, %205 ], [ 0, %100 ]
-  br i1 %108, label %166, label %153
+149:                                              ; preds = %100, %203
+  %150 = phi i32 [ %204, %203 ], [ %15, %100 ]
+  %151 = phi i32 [ %205, %203 ], [ 0, %100 ]
+  br i1 %108, label %165, label %152
 
-153:                                              ; preds = %150, %153
-  %154 = phi i64 [ %163, %153 ], [ 0, %150 ]
-  %155 = shl i64 %154, 3
-  %156 = getelementptr i8, ptr %2, i64 %155
-  %157 = shl i64 %154, 3
-  %158 = getelementptr i8, ptr %0, i64 %157
-  %159 = load <2 x i64>, ptr %158, align 8, !tbaa !28
-  %160 = getelementptr i64, ptr %158, i64 2
-  %161 = load <2 x i64>, ptr %160, align 8, !tbaa !28
-  store <2 x i64> %159, ptr %156, align 8, !tbaa !28
-  %162 = getelementptr i64, ptr %156, i64 2
-  store <2 x i64> %161, ptr %162, align 8, !tbaa !28
-  %163 = add nuw i64 %154, 4
-  %164 = icmp eq i64 %163, %109
-  br i1 %164, label %165, label %153, !llvm.loop !80
+152:                                              ; preds = %149, %152
+  %153 = phi i64 [ %162, %152 ], [ 0, %149 ]
+  %154 = shl i64 %153, 3
+  %155 = getelementptr i8, ptr %2, i64 %154
+  %156 = shl i64 %153, 3
+  %157 = getelementptr i8, ptr %0, i64 %156
+  %158 = load <2 x i64>, ptr %157, align 8, !tbaa !28
+  %159 = getelementptr i64, ptr %157, i64 2
+  %160 = load <2 x i64>, ptr %159, align 8, !tbaa !28
+  store <2 x i64> %158, ptr %155, align 8, !tbaa !28
+  %161 = getelementptr i64, ptr %155, i64 2
+  store <2 x i64> %160, ptr %161, align 8, !tbaa !28
+  %162 = add nuw i64 %153, 4
+  %163 = icmp eq i64 %162, %109
+  br i1 %163, label %164, label %152, !llvm.loop !80
 
-165:                                              ; preds = %153
-  br i1 %114, label %176, label %166
+164:                                              ; preds = %152
+  br i1 %114, label %175, label %165
 
-166:                                              ; preds = %150, %165
-  %167 = phi ptr [ %2, %150 ], [ %111, %165 ]
-  %168 = phi ptr [ %0, %150 ], [ %113, %165 ]
-  br label %169
+165:                                              ; preds = %149, %164
+  %166 = phi ptr [ %2, %149 ], [ %111, %164 ]
+  %167 = phi ptr [ %0, %149 ], [ %113, %164 ]
+  br label %168
 
-169:                                              ; preds = %166, %169
-  %170 = phi ptr [ %173, %169 ], [ %167, %166 ]
-  %171 = phi ptr [ %172, %169 ], [ %168, %166 ]
-  %172 = getelementptr inbounds %struct.ValueWrapper, ptr %171, i64 1
-  %173 = getelementptr inbounds %struct.ValueWrapper, ptr %170, i64 1
-  %174 = load i64, ptr %171, align 8, !tbaa !28
-  store i64 %174, ptr %170, align 8, !tbaa !28
-  %175 = icmp eq ptr %172, %1
-  br i1 %175, label %176, label %169, !llvm.loop !81
+168:                                              ; preds = %165, %168
+  %169 = phi ptr [ %172, %168 ], [ %166, %165 ]
+  %170 = phi ptr [ %171, %168 ], [ %167, %165 ]
+  %171 = getelementptr inbounds %struct.ValueWrapper, ptr %170, i64 1
+  %172 = getelementptr inbounds %struct.ValueWrapper, ptr %169, i64 1
+  %173 = load i64, ptr %170, align 8, !tbaa !28
+  store i64 %173, ptr %169, align 8, !tbaa !28
+  %174 = icmp eq ptr %171, %1
+  br i1 %174, label %175, label %168, !llvm.loop !81
 
-176:                                              ; preds = %169, %165
-  br label %177
+175:                                              ; preds = %168, %164
+  br label %176
 
-177:                                              ; preds = %176, %189
-  %178 = phi ptr [ %191, %189 ], [ %19, %176 ]
-  %179 = load i64, ptr %178, align 8, !tbaa !28
-  %180 = bitcast i64 %179 to double
-  %181 = icmp eq ptr %178, %2
-  br i1 %181, label %189, label %182
+176:                                              ; preds = %175, %187
+  %177 = phi ptr [ %189, %187 ], [ %19, %175 ]
+  %178 = load double, ptr %177, align 8, !tbaa.struct !34
+  %179 = icmp eq ptr %177, %2
+  br i1 %179, label %187, label %180
 
-182:                                              ; preds = %177, %187
-  %183 = phi ptr [ %184, %187 ], [ %178, %177 ]
-  %184 = getelementptr %struct.ValueWrapper, ptr %183, i64 -1
-  %185 = load double, ptr %184, align 8, !tbaa !44
-  %186 = fcmp ogt double %185, %180
-  br i1 %186, label %187, label %189
+180:                                              ; preds = %176, %185
+  %181 = phi ptr [ %182, %185 ], [ %177, %176 ]
+  %182 = getelementptr %struct.ValueWrapper, ptr %181, i64 -1
+  %183 = load double, ptr %182, align 8, !tbaa !44
+  %184 = fcmp olt double %178, %183
+  br i1 %184, label %185, label %187
 
-187:                                              ; preds = %182
-  store double %185, ptr %183, align 8, !tbaa !28
-  %188 = icmp eq ptr %184, %2
-  br i1 %188, label %189, label %182, !llvm.loop !78
+185:                                              ; preds = %180
+  store double %183, ptr %181, align 8, !tbaa !28
+  %186 = icmp eq ptr %182, %2
+  br i1 %186, label %187, label %180, !llvm.loop !78
 
-189:                                              ; preds = %187, %182, %177
-  %190 = phi ptr [ %2, %177 ], [ %183, %182 ], [ %2, %187 ]
-  store i64 %179, ptr %190, align 8, !tbaa !28
-  %191 = getelementptr inbounds %struct.ValueWrapper, ptr %178, i64 1
-  %192 = icmp eq ptr %191, %3
-  br i1 %192, label %193, label %177, !llvm.loop !79
+187:                                              ; preds = %185, %180, %176
+  %188 = phi ptr [ %2, %176 ], [ %181, %180 ], [ %2, %185 ]
+  store double %178, ptr %188, align 8, !tbaa.struct !34
+  %189 = getelementptr inbounds %struct.ValueWrapper, ptr %177, i64 1
+  %190 = icmp eq ptr %189, %3
+  br i1 %190, label %191, label %176, !llvm.loop !79
 
-193:                                              ; preds = %189, %197
-  %194 = phi ptr [ %195, %197 ], [ %2, %189 ]
-  %195 = getelementptr %struct.ValueWrapper, ptr %194, i64 1
-  %196 = icmp eq ptr %195, %3
-  br i1 %196, label %205, label %197
+191:                                              ; preds = %187, %195
+  %192 = phi ptr [ %193, %195 ], [ %2, %187 ]
+  %193 = getelementptr %struct.ValueWrapper, ptr %192, i64 1
+  %194 = icmp eq ptr %193, %3
+  br i1 %194, label %203, label %195
 
-197:                                              ; preds = %193
-  %198 = load double, ptr %195, align 8, !tbaa !44
-  %199 = load double, ptr %194, align 8, !tbaa !44
-  %200 = fcmp olt double %198, %199
-  br i1 %200, label %201, label %193, !llvm.loop !74
+195:                                              ; preds = %191
+  %196 = load double, ptr %193, align 8, !tbaa !44
+  %197 = load double, ptr %192, align 8, !tbaa !44
+  %198 = fcmp olt double %196, %197
+  br i1 %198, label %199, label %191, !llvm.loop !74
 
-201:                                              ; preds = %197
-  %202 = load i32, ptr @current_test, align 4, !tbaa !9
-  %203 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %202)
-  %204 = load i32, ptr @iterations, align 4, !tbaa !9
-  br label %205
+199:                                              ; preds = %195
+  %200 = load i32, ptr @current_test, align 4, !tbaa !9
+  %201 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %200)
+  %202 = load i32, ptr @iterations, align 4, !tbaa !9
+  br label %203
 
-205:                                              ; preds = %193, %201
-  %206 = phi i32 [ %204, %201 ], [ %151, %193 ]
-  %207 = add nuw nsw i32 %152, 1
-  %208 = icmp slt i32 %207, %206
-  br i1 %208, label %150, label %209, !llvm.loop !75
+203:                                              ; preds = %191, %199
+  %204 = phi i32 [ %202, %199 ], [ %150, %191 ]
+  %205 = add nuw nsw i32 %151, 1
+  %206 = icmp slt i32 %205, %204
+  br i1 %206, label %149, label %207, !llvm.loop !75
 
-209:                                              ; preds = %205, %146, %95, %52, %6
+207:                                              ; preds = %203, %145, %95, %52, %6
   ret void
 }
 
@@ -2278,7 +2289,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortI14PointerWrapperI12V
   %14 = ptrtoint ptr %2 to i64
   %15 = load i32, ptr @iterations, align 4, !tbaa !9
   %16 = icmp sgt i32 %15, 0
-  br i1 %16, label %17, label %209
+  br i1 %16, label %17, label %207
 
 17:                                               ; preds = %6
   %18 = icmp eq ptr %0, %1
@@ -2333,7 +2344,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortI14PointerWrapperI12V
   %53 = phi i32 [ %51, %48 ], [ %38, %40 ]
   %54 = add nuw nsw i32 %39, 1
   %55 = icmp slt i32 %54, %53
-  br i1 %55, label %37, label %209, !llvm.loop !83
+  br i1 %55, label %37, label %207, !llvm.loop !83
 
 56:                                               ; preds = %22, %95
   %57 = phi i32 [ %96, %95 ], [ %15, %22 ]
@@ -2399,7 +2410,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortI14PointerWrapperI12V
   %96 = phi i32 [ %94, %91 ], [ %57, %83 ]
   %97 = add nuw nsw i32 %58, 1
   %98 = icmp slt i32 %97, %96
-  br i1 %98, label %56, label %209, !llvm.loop !83
+  br i1 %98, label %56, label %207, !llvm.loop !83
 
 99:                                               ; preds = %17
   br i1 %18, label %115, label %100
@@ -2419,156 +2430,154 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortI14PointerWrapperI12V
   %112 = shl i64 %109, 3
   %113 = getelementptr i8, ptr %2, i64 %112
   %114 = icmp eq i64 %104, %109
-  br label %150
+  br label %149
 
-115:                                              ; preds = %99, %146
-  %116 = phi i32 [ %147, %146 ], [ %15, %99 ]
-  %117 = phi i32 [ %148, %146 ], [ 0, %99 ]
+115:                                              ; preds = %99, %145
+  %116 = phi i32 [ %146, %145 ], [ %15, %99 ]
+  %117 = phi i32 [ %147, %145 ], [ 0, %99 ]
   br label %118
 
-118:                                              ; preds = %130, %115
-  %119 = phi ptr [ %132, %130 ], [ %19, %115 ]
-  %120 = load i64, ptr %119, align 8, !tbaa !28
-  %121 = bitcast i64 %120 to double
-  %122 = icmp eq ptr %119, %2
-  br i1 %122, label %130, label %123
+118:                                              ; preds = %129, %115
+  %119 = phi ptr [ %131, %129 ], [ %19, %115 ]
+  %120 = load double, ptr %119, align 8, !tbaa.struct !34
+  %121 = icmp eq ptr %119, %2
+  br i1 %121, label %129, label %122
 
-123:                                              ; preds = %118, %128
-  %124 = phi ptr [ %125, %128 ], [ %119, %118 ]
-  %125 = getelementptr %struct.ValueWrapper, ptr %124, i64 -1
-  %126 = load double, ptr %125, align 8, !tbaa !44
-  %127 = fcmp ogt double %126, %121
-  br i1 %127, label %128, label %130
+122:                                              ; preds = %118, %127
+  %123 = phi ptr [ %124, %127 ], [ %119, %118 ]
+  %124 = getelementptr %struct.ValueWrapper, ptr %123, i64 -1
+  %125 = load double, ptr %124, align 8, !tbaa !44
+  %126 = fcmp olt double %120, %125
+  br i1 %126, label %127, label %129
 
-128:                                              ; preds = %123
-  store double %126, ptr %124, align 8, !tbaa !28
-  %129 = icmp eq ptr %125, %2
-  br i1 %129, label %130, label %123, !llvm.loop !86
+127:                                              ; preds = %122
+  store double %125, ptr %123, align 8, !tbaa !28
+  %128 = icmp eq ptr %124, %2
+  br i1 %128, label %129, label %122, !llvm.loop !86
 
-130:                                              ; preds = %123, %128, %118
-  %131 = phi ptr [ %2, %118 ], [ %124, %123 ], [ %2, %128 ]
-  store i64 %120, ptr %131, align 8, !tbaa !28
-  %132 = getelementptr inbounds %struct.ValueWrapper, ptr %119, i64 1
-  %133 = icmp eq ptr %132, %3
-  br i1 %133, label %134, label %118, !llvm.loop !87
+129:                                              ; preds = %122, %127, %118
+  %130 = phi ptr [ %2, %118 ], [ %123, %122 ], [ %2, %127 ]
+  store double %120, ptr %130, align 8, !tbaa.struct !34
+  %131 = getelementptr inbounds %struct.ValueWrapper, ptr %119, i64 1
+  %132 = icmp eq ptr %131, %3
+  br i1 %132, label %133, label %118, !llvm.loop !87
 
-134:                                              ; preds = %130, %138
-  %135 = phi ptr [ %136, %138 ], [ %2, %130 ]
-  %136 = getelementptr %struct.ValueWrapper, ptr %135, i64 1
-  %137 = icmp eq ptr %136, %3
-  br i1 %137, label %146, label %138
+133:                                              ; preds = %129, %137
+  %134 = phi ptr [ %135, %137 ], [ %2, %129 ]
+  %135 = getelementptr %struct.ValueWrapper, ptr %134, i64 1
+  %136 = icmp eq ptr %135, %3
+  br i1 %136, label %145, label %137
 
-138:                                              ; preds = %134
-  %139 = load double, ptr %136, align 8, !tbaa !44
-  %140 = load double, ptr %135, align 8, !tbaa !44
-  %141 = fcmp olt double %139, %140
-  br i1 %141, label %142, label %134, !llvm.loop !82
+137:                                              ; preds = %133
+  %138 = load double, ptr %135, align 8, !tbaa !44
+  %139 = load double, ptr %134, align 8, !tbaa !44
+  %140 = fcmp olt double %138, %139
+  br i1 %140, label %141, label %133, !llvm.loop !82
 
-142:                                              ; preds = %138
-  %143 = load i32, ptr @current_test, align 4, !tbaa !9
-  %144 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %143)
-  %145 = load i32, ptr @iterations, align 4, !tbaa !9
-  br label %146
+141:                                              ; preds = %137
+  %142 = load i32, ptr @current_test, align 4, !tbaa !9
+  %143 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %142)
+  %144 = load i32, ptr @iterations, align 4, !tbaa !9
+  br label %145
 
-146:                                              ; preds = %134, %142
-  %147 = phi i32 [ %145, %142 ], [ %116, %134 ]
-  %148 = add nuw nsw i32 %117, 1
-  %149 = icmp slt i32 %148, %147
-  br i1 %149, label %115, label %209, !llvm.loop !83
+145:                                              ; preds = %133, %141
+  %146 = phi i32 [ %144, %141 ], [ %116, %133 ]
+  %147 = add nuw nsw i32 %117, 1
+  %148 = icmp slt i32 %147, %146
+  br i1 %148, label %115, label %207, !llvm.loop !83
 
-150:                                              ; preds = %100, %205
-  %151 = phi i32 [ %206, %205 ], [ %15, %100 ]
-  %152 = phi i32 [ %207, %205 ], [ 0, %100 ]
-  br i1 %108, label %166, label %153
+149:                                              ; preds = %100, %203
+  %150 = phi i32 [ %204, %203 ], [ %15, %100 ]
+  %151 = phi i32 [ %205, %203 ], [ 0, %100 ]
+  br i1 %108, label %165, label %152
 
-153:                                              ; preds = %150, %153
-  %154 = phi i64 [ %163, %153 ], [ 0, %150 ]
-  %155 = shl i64 %154, 3
-  %156 = getelementptr i8, ptr %0, i64 %155
-  %157 = shl i64 %154, 3
-  %158 = getelementptr i8, ptr %2, i64 %157
-  %159 = load <2 x i64>, ptr %156, align 8, !tbaa !28
-  %160 = getelementptr i64, ptr %156, i64 2
-  %161 = load <2 x i64>, ptr %160, align 8, !tbaa !28
-  store <2 x i64> %159, ptr %158, align 8, !tbaa !28
-  %162 = getelementptr i64, ptr %158, i64 2
-  store <2 x i64> %161, ptr %162, align 8, !tbaa !28
-  %163 = add nuw i64 %154, 4
-  %164 = icmp eq i64 %163, %109
-  br i1 %164, label %165, label %153, !llvm.loop !88
+152:                                              ; preds = %149, %152
+  %153 = phi i64 [ %162, %152 ], [ 0, %149 ]
+  %154 = shl i64 %153, 3
+  %155 = getelementptr i8, ptr %0, i64 %154
+  %156 = shl i64 %153, 3
+  %157 = getelementptr i8, ptr %2, i64 %156
+  %158 = load <2 x i64>, ptr %155, align 8, !tbaa !28
+  %159 = getelementptr i64, ptr %155, i64 2
+  %160 = load <2 x i64>, ptr %159, align 8, !tbaa !28
+  store <2 x i64> %158, ptr %157, align 8, !tbaa !28
+  %161 = getelementptr i64, ptr %157, i64 2
+  store <2 x i64> %160, ptr %161, align 8, !tbaa !28
+  %162 = add nuw i64 %153, 4
+  %163 = icmp eq i64 %162, %109
+  br i1 %163, label %164, label %152, !llvm.loop !88
 
-165:                                              ; preds = %153
-  br i1 %114, label %176, label %166
+164:                                              ; preds = %152
+  br i1 %114, label %175, label %165
 
-166:                                              ; preds = %150, %165
-  %167 = phi ptr [ %0, %150 ], [ %111, %165 ]
-  %168 = phi ptr [ %2, %150 ], [ %113, %165 ]
-  br label %169
+165:                                              ; preds = %149, %164
+  %166 = phi ptr [ %0, %149 ], [ %111, %164 ]
+  %167 = phi ptr [ %2, %149 ], [ %113, %164 ]
+  br label %168
 
-169:                                              ; preds = %166, %169
-  %170 = phi ptr [ %172, %169 ], [ %167, %166 ]
-  %171 = phi ptr [ %173, %169 ], [ %168, %166 ]
+168:                                              ; preds = %165, %168
+  %169 = phi ptr [ %171, %168 ], [ %166, %165 ]
+  %170 = phi ptr [ %172, %168 ], [ %167, %165 ]
+  %171 = getelementptr inbounds %struct.ValueWrapper, ptr %169, i64 1
   %172 = getelementptr inbounds %struct.ValueWrapper, ptr %170, i64 1
-  %173 = getelementptr inbounds %struct.ValueWrapper, ptr %171, i64 1
-  %174 = load i64, ptr %170, align 8, !tbaa !28
-  store i64 %174, ptr %171, align 8, !tbaa !28
-  %175 = icmp eq ptr %172, %1
-  br i1 %175, label %176, label %169, !llvm.loop !89
+  %173 = load i64, ptr %169, align 8, !tbaa !28
+  store i64 %173, ptr %170, align 8, !tbaa !28
+  %174 = icmp eq ptr %171, %1
+  br i1 %174, label %175, label %168, !llvm.loop !89
 
-176:                                              ; preds = %169, %165
-  br label %177
+175:                                              ; preds = %168, %164
+  br label %176
 
-177:                                              ; preds = %176, %189
-  %178 = phi ptr [ %191, %189 ], [ %19, %176 ]
-  %179 = load i64, ptr %178, align 8, !tbaa !28
-  %180 = bitcast i64 %179 to double
-  %181 = icmp eq ptr %178, %2
-  br i1 %181, label %189, label %182
+176:                                              ; preds = %175, %187
+  %177 = phi ptr [ %189, %187 ], [ %19, %175 ]
+  %178 = load double, ptr %177, align 8, !tbaa.struct !34
+  %179 = icmp eq ptr %177, %2
+  br i1 %179, label %187, label %180
 
-182:                                              ; preds = %177, %187
-  %183 = phi ptr [ %184, %187 ], [ %178, %177 ]
-  %184 = getelementptr %struct.ValueWrapper, ptr %183, i64 -1
-  %185 = load double, ptr %184, align 8, !tbaa !44
-  %186 = fcmp ogt double %185, %180
-  br i1 %186, label %187, label %189
+180:                                              ; preds = %176, %185
+  %181 = phi ptr [ %182, %185 ], [ %177, %176 ]
+  %182 = getelementptr %struct.ValueWrapper, ptr %181, i64 -1
+  %183 = load double, ptr %182, align 8, !tbaa !44
+  %184 = fcmp olt double %178, %183
+  br i1 %184, label %185, label %187
 
-187:                                              ; preds = %182
-  store double %185, ptr %183, align 8, !tbaa !28
-  %188 = icmp eq ptr %184, %2
-  br i1 %188, label %189, label %182, !llvm.loop !86
+185:                                              ; preds = %180
+  store double %183, ptr %181, align 8, !tbaa !28
+  %186 = icmp eq ptr %182, %2
+  br i1 %186, label %187, label %180, !llvm.loop !86
 
-189:                                              ; preds = %187, %182, %177
-  %190 = phi ptr [ %2, %177 ], [ %183, %182 ], [ %2, %187 ]
-  store i64 %179, ptr %190, align 8, !tbaa !28
-  %191 = getelementptr inbounds %struct.ValueWrapper, ptr %178, i64 1
-  %192 = icmp eq ptr %191, %3
-  br i1 %192, label %193, label %177, !llvm.loop !87
+187:                                              ; preds = %185, %180, %176
+  %188 = phi ptr [ %2, %176 ], [ %181, %180 ], [ %2, %185 ]
+  store double %178, ptr %188, align 8, !tbaa.struct !34
+  %189 = getelementptr inbounds %struct.ValueWrapper, ptr %177, i64 1
+  %190 = icmp eq ptr %189, %3
+  br i1 %190, label %191, label %176, !llvm.loop !87
 
-193:                                              ; preds = %189, %197
-  %194 = phi ptr [ %195, %197 ], [ %2, %189 ]
-  %195 = getelementptr %struct.ValueWrapper, ptr %194, i64 1
-  %196 = icmp eq ptr %195, %3
-  br i1 %196, label %205, label %197
+191:                                              ; preds = %187, %195
+  %192 = phi ptr [ %193, %195 ], [ %2, %187 ]
+  %193 = getelementptr %struct.ValueWrapper, ptr %192, i64 1
+  %194 = icmp eq ptr %193, %3
+  br i1 %194, label %203, label %195
 
-197:                                              ; preds = %193
-  %198 = load double, ptr %195, align 8, !tbaa !44
-  %199 = load double, ptr %194, align 8, !tbaa !44
-  %200 = fcmp olt double %198, %199
-  br i1 %200, label %201, label %193, !llvm.loop !82
+195:                                              ; preds = %191
+  %196 = load double, ptr %193, align 8, !tbaa !44
+  %197 = load double, ptr %192, align 8, !tbaa !44
+  %198 = fcmp olt double %196, %197
+  br i1 %198, label %199, label %191, !llvm.loop !82
 
-201:                                              ; preds = %197
-  %202 = load i32, ptr @current_test, align 4, !tbaa !9
-  %203 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %202)
-  %204 = load i32, ptr @iterations, align 4, !tbaa !9
-  br label %205
+199:                                              ; preds = %195
+  %200 = load i32, ptr @current_test, align 4, !tbaa !9
+  %201 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %200)
+  %202 = load i32, ptr @iterations, align 4, !tbaa !9
+  br label %203
 
-205:                                              ; preds = %193, %201
-  %206 = phi i32 [ %204, %201 ], [ %151, %193 ]
-  %207 = add nuw nsw i32 %152, 1
-  %208 = icmp slt i32 %207, %206
-  br i1 %208, label %150, label %209, !llvm.loop !83
+203:                                              ; preds = %191, %199
+  %204 = phi i32 [ %202, %199 ], [ %150, %191 ]
+  %205 = add nuw nsw i32 %151, 1
+  %206 = icmp slt i32 %205, %204
+  br i1 %206, label %149, label %207, !llvm.loop !83
 
-209:                                              ; preds = %205, %146, %95, %52, %6
+207:                                              ; preds = %203, %145, %95, %52, %6
   ret void
 }
 
@@ -2584,7 +2593,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortIP12ValueWrapperIS0_I
   %14 = ptrtoint ptr %2 to i64
   %15 = load i32, ptr @iterations, align 4, !tbaa !9
   %16 = icmp sgt i32 %15, 0
-  br i1 %16, label %17, label %209
+  br i1 %16, label %17, label %207
 
 17:                                               ; preds = %6
   %18 = icmp eq ptr %0, %1
@@ -2639,7 +2648,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortIP12ValueWrapperIS0_I
   %53 = phi i32 [ %51, %48 ], [ %38, %40 ]
   %54 = add nuw nsw i32 %39, 1
   %55 = icmp slt i32 %54, %53
-  br i1 %55, label %37, label %209, !llvm.loop !91
+  br i1 %55, label %37, label %207, !llvm.loop !91
 
 56:                                               ; preds = %22, %95
   %57 = phi i32 [ %96, %95 ], [ %15, %22 ]
@@ -2705,7 +2714,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortIP12ValueWrapperIS0_I
   %96 = phi i32 [ %94, %91 ], [ %57, %83 ]
   %97 = add nuw nsw i32 %58, 1
   %98 = icmp slt i32 %97, %96
-  br i1 %98, label %56, label %209, !llvm.loop !91
+  br i1 %98, label %56, label %207, !llvm.loop !91
 
 99:                                               ; preds = %17
   br i1 %18, label %115, label %100
@@ -2725,156 +2734,154 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortIP12ValueWrapperIS0_I
   %112 = shl i64 %109, 3
   %113 = getelementptr i8, ptr %0, i64 %112
   %114 = icmp eq i64 %104, %109
-  br label %150
+  br label %149
 
-115:                                              ; preds = %99, %146
-  %116 = phi i32 [ %147, %146 ], [ %15, %99 ]
-  %117 = phi i32 [ %148, %146 ], [ 0, %99 ]
+115:                                              ; preds = %99, %145
+  %116 = phi i32 [ %146, %145 ], [ %15, %99 ]
+  %117 = phi i32 [ %147, %145 ], [ 0, %99 ]
   br label %118
 
-118:                                              ; preds = %130, %115
-  %119 = phi ptr [ %132, %130 ], [ %19, %115 ]
-  %120 = load i64, ptr %119, align 8, !tbaa !28
-  %121 = bitcast i64 %120 to double
-  %122 = icmp eq ptr %119, %2
-  br i1 %122, label %130, label %123
+118:                                              ; preds = %129, %115
+  %119 = phi ptr [ %131, %129 ], [ %19, %115 ]
+  %120 = load double, ptr %119, align 8, !tbaa.struct !34
+  %121 = icmp eq ptr %119, %2
+  br i1 %121, label %129, label %122
 
-123:                                              ; preds = %118, %128
-  %124 = phi ptr [ %125, %128 ], [ %119, %118 ]
-  %125 = getelementptr %struct.ValueWrapper.0, ptr %124, i64 -1
-  %126 = load double, ptr %125, align 8, !tbaa !44
-  %127 = fcmp ogt double %126, %121
-  br i1 %127, label %128, label %130
+122:                                              ; preds = %118, %127
+  %123 = phi ptr [ %124, %127 ], [ %119, %118 ]
+  %124 = getelementptr %struct.ValueWrapper.0, ptr %123, i64 -1
+  %125 = load double, ptr %124, align 8, !tbaa !44
+  %126 = fcmp olt double %120, %125
+  br i1 %126, label %127, label %129
 
-128:                                              ; preds = %123
-  store double %126, ptr %124, align 8, !tbaa !28
-  %129 = icmp eq ptr %125, %2
-  br i1 %129, label %130, label %123, !llvm.loop !94
+127:                                              ; preds = %122
+  store double %125, ptr %123, align 8, !tbaa !28
+  %128 = icmp eq ptr %124, %2
+  br i1 %128, label %129, label %122, !llvm.loop !94
 
-130:                                              ; preds = %123, %128, %118
-  %131 = phi ptr [ %2, %118 ], [ %124, %123 ], [ %2, %128 ]
-  store i64 %120, ptr %131, align 8, !tbaa !28
-  %132 = getelementptr inbounds %struct.ValueWrapper.0, ptr %119, i64 1
-  %133 = icmp eq ptr %132, %3
-  br i1 %133, label %134, label %118, !llvm.loop !95
+129:                                              ; preds = %122, %127, %118
+  %130 = phi ptr [ %2, %118 ], [ %123, %122 ], [ %2, %127 ]
+  store double %120, ptr %130, align 8, !tbaa.struct !34
+  %131 = getelementptr inbounds %struct.ValueWrapper.0, ptr %119, i64 1
+  %132 = icmp eq ptr %131, %3
+  br i1 %132, label %133, label %118, !llvm.loop !95
 
-134:                                              ; preds = %130, %138
-  %135 = phi ptr [ %136, %138 ], [ %2, %130 ]
-  %136 = getelementptr %struct.ValueWrapper.0, ptr %135, i64 1
-  %137 = icmp eq ptr %136, %3
-  br i1 %137, label %146, label %138
+133:                                              ; preds = %129, %137
+  %134 = phi ptr [ %135, %137 ], [ %2, %129 ]
+  %135 = getelementptr %struct.ValueWrapper.0, ptr %134, i64 1
+  %136 = icmp eq ptr %135, %3
+  br i1 %136, label %145, label %137
 
-138:                                              ; preds = %134
-  %139 = load double, ptr %136, align 8, !tbaa !44
-  %140 = load double, ptr %135, align 8, !tbaa !44
-  %141 = fcmp olt double %139, %140
-  br i1 %141, label %142, label %134, !llvm.loop !90
+137:                                              ; preds = %133
+  %138 = load double, ptr %135, align 8, !tbaa !44
+  %139 = load double, ptr %134, align 8, !tbaa !44
+  %140 = fcmp olt double %138, %139
+  br i1 %140, label %141, label %133, !llvm.loop !90
 
-142:                                              ; preds = %138
-  %143 = load i32, ptr @current_test, align 4, !tbaa !9
-  %144 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %143)
-  %145 = load i32, ptr @iterations, align 4, !tbaa !9
-  br label %146
+141:                                              ; preds = %137
+  %142 = load i32, ptr @current_test, align 4, !tbaa !9
+  %143 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %142)
+  %144 = load i32, ptr @iterations, align 4, !tbaa !9
+  br label %145
 
-146:                                              ; preds = %134, %142
-  %147 = phi i32 [ %145, %142 ], [ %116, %134 ]
-  %148 = add nuw nsw i32 %117, 1
-  %149 = icmp slt i32 %148, %147
-  br i1 %149, label %115, label %209, !llvm.loop !91
+145:                                              ; preds = %133, %141
+  %146 = phi i32 [ %144, %141 ], [ %116, %133 ]
+  %147 = add nuw nsw i32 %117, 1
+  %148 = icmp slt i32 %147, %146
+  br i1 %148, label %115, label %207, !llvm.loop !91
 
-150:                                              ; preds = %100, %205
-  %151 = phi i32 [ %206, %205 ], [ %15, %100 ]
-  %152 = phi i32 [ %207, %205 ], [ 0, %100 ]
-  br i1 %108, label %166, label %153
+149:                                              ; preds = %100, %203
+  %150 = phi i32 [ %204, %203 ], [ %15, %100 ]
+  %151 = phi i32 [ %205, %203 ], [ 0, %100 ]
+  br i1 %108, label %165, label %152
 
-153:                                              ; preds = %150, %153
-  %154 = phi i64 [ %163, %153 ], [ 0, %150 ]
-  %155 = shl i64 %154, 3
-  %156 = getelementptr i8, ptr %2, i64 %155
-  %157 = shl i64 %154, 3
-  %158 = getelementptr i8, ptr %0, i64 %157
-  %159 = load <2 x i64>, ptr %158, align 8, !tbaa !28
-  %160 = getelementptr i64, ptr %158, i64 2
-  %161 = load <2 x i64>, ptr %160, align 8, !tbaa !28
-  store <2 x i64> %159, ptr %156, align 8, !tbaa !28
-  %162 = getelementptr i64, ptr %156, i64 2
-  store <2 x i64> %161, ptr %162, align 8, !tbaa !28
-  %163 = add nuw i64 %154, 4
-  %164 = icmp eq i64 %163, %109
-  br i1 %164, label %165, label %153, !llvm.loop !96
+152:                                              ; preds = %149, %152
+  %153 = phi i64 [ %162, %152 ], [ 0, %149 ]
+  %154 = shl i64 %153, 3
+  %155 = getelementptr i8, ptr %2, i64 %154
+  %156 = shl i64 %153, 3
+  %157 = getelementptr i8, ptr %0, i64 %156
+  %158 = load <2 x i64>, ptr %157, align 8, !tbaa !28
+  %159 = getelementptr i64, ptr %157, i64 2
+  %160 = load <2 x i64>, ptr %159, align 8, !tbaa !28
+  store <2 x i64> %158, ptr %155, align 8, !tbaa !28
+  %161 = getelementptr i64, ptr %155, i64 2
+  store <2 x i64> %160, ptr %161, align 8, !tbaa !28
+  %162 = add nuw i64 %153, 4
+  %163 = icmp eq i64 %162, %109
+  br i1 %163, label %164, label %152, !llvm.loop !96
 
-165:                                              ; preds = %153
-  br i1 %114, label %176, label %166
+164:                                              ; preds = %152
+  br i1 %114, label %175, label %165
 
-166:                                              ; preds = %150, %165
-  %167 = phi ptr [ %2, %150 ], [ %111, %165 ]
-  %168 = phi ptr [ %0, %150 ], [ %113, %165 ]
-  br label %169
+165:                                              ; preds = %149, %164
+  %166 = phi ptr [ %2, %149 ], [ %111, %164 ]
+  %167 = phi ptr [ %0, %149 ], [ %113, %164 ]
+  br label %168
 
-169:                                              ; preds = %166, %169
-  %170 = phi ptr [ %173, %169 ], [ %167, %166 ]
-  %171 = phi ptr [ %172, %169 ], [ %168, %166 ]
-  %172 = getelementptr inbounds %struct.ValueWrapper.0, ptr %171, i64 1
-  %173 = getelementptr inbounds %struct.ValueWrapper.0, ptr %170, i64 1
-  %174 = load i64, ptr %171, align 8, !tbaa !28
-  store i64 %174, ptr %170, align 8, !tbaa !28
-  %175 = icmp eq ptr %172, %1
-  br i1 %175, label %176, label %169, !llvm.loop !97
+168:                                              ; preds = %165, %168
+  %169 = phi ptr [ %172, %168 ], [ %166, %165 ]
+  %170 = phi ptr [ %171, %168 ], [ %167, %165 ]
+  %171 = getelementptr inbounds %struct.ValueWrapper.0, ptr %170, i64 1
+  %172 = getelementptr inbounds %struct.ValueWrapper.0, ptr %169, i64 1
+  %173 = load i64, ptr %170, align 8, !tbaa !28
+  store i64 %173, ptr %169, align 8, !tbaa !28
+  %174 = icmp eq ptr %171, %1
+  br i1 %174, label %175, label %168, !llvm.loop !97
 
-176:                                              ; preds = %169, %165
-  br label %177
+175:                                              ; preds = %168, %164
+  br label %176
 
-177:                                              ; preds = %176, %189
-  %178 = phi ptr [ %191, %189 ], [ %19, %176 ]
-  %179 = load i64, ptr %178, align 8, !tbaa !28
-  %180 = bitcast i64 %179 to double
-  %181 = icmp eq ptr %178, %2
-  br i1 %181, label %189, label %182
+176:                                              ; preds = %175, %187
+  %177 = phi ptr [ %189, %187 ], [ %19, %175 ]
+  %178 = load double, ptr %177, align 8, !tbaa.struct !34
+  %179 = icmp eq ptr %177, %2
+  br i1 %179, label %187, label %180
 
-182:                                              ; preds = %177, %187
-  %183 = phi ptr [ %184, %187 ], [ %178, %177 ]
-  %184 = getelementptr %struct.ValueWrapper.0, ptr %183, i64 -1
-  %185 = load double, ptr %184, align 8, !tbaa !44
-  %186 = fcmp ogt double %185, %180
-  br i1 %186, label %187, label %189
+180:                                              ; preds = %176, %185
+  %181 = phi ptr [ %182, %185 ], [ %177, %176 ]
+  %182 = getelementptr %struct.ValueWrapper.0, ptr %181, i64 -1
+  %183 = load double, ptr %182, align 8, !tbaa !44
+  %184 = fcmp olt double %178, %183
+  br i1 %184, label %185, label %187
 
-187:                                              ; preds = %182
-  store double %185, ptr %183, align 8, !tbaa !28
-  %188 = icmp eq ptr %184, %2
-  br i1 %188, label %189, label %182, !llvm.loop !94
+185:                                              ; preds = %180
+  store double %183, ptr %181, align 8, !tbaa !28
+  %186 = icmp eq ptr %182, %2
+  br i1 %186, label %187, label %180, !llvm.loop !94
 
-189:                                              ; preds = %187, %182, %177
-  %190 = phi ptr [ %2, %177 ], [ %183, %182 ], [ %2, %187 ]
-  store i64 %179, ptr %190, align 8, !tbaa !28
-  %191 = getelementptr inbounds %struct.ValueWrapper.0, ptr %178, i64 1
-  %192 = icmp eq ptr %191, %3
-  br i1 %192, label %193, label %177, !llvm.loop !95
+187:                                              ; preds = %185, %180, %176
+  %188 = phi ptr [ %2, %176 ], [ %181, %180 ], [ %2, %185 ]
+  store double %178, ptr %188, align 8, !tbaa.struct !34
+  %189 = getelementptr inbounds %struct.ValueWrapper.0, ptr %177, i64 1
+  %190 = icmp eq ptr %189, %3
+  br i1 %190, label %191, label %176, !llvm.loop !95
 
-193:                                              ; preds = %189, %197
-  %194 = phi ptr [ %195, %197 ], [ %2, %189 ]
-  %195 = getelementptr %struct.ValueWrapper.0, ptr %194, i64 1
-  %196 = icmp eq ptr %195, %3
-  br i1 %196, label %205, label %197
+191:                                              ; preds = %187, %195
+  %192 = phi ptr [ %193, %195 ], [ %2, %187 ]
+  %193 = getelementptr %struct.ValueWrapper.0, ptr %192, i64 1
+  %194 = icmp eq ptr %193, %3
+  br i1 %194, label %203, label %195
 
-197:                                              ; preds = %193
-  %198 = load double, ptr %195, align 8, !tbaa !44
-  %199 = load double, ptr %194, align 8, !tbaa !44
-  %200 = fcmp olt double %198, %199
-  br i1 %200, label %201, label %193, !llvm.loop !90
+195:                                              ; preds = %191
+  %196 = load double, ptr %193, align 8, !tbaa !44
+  %197 = load double, ptr %192, align 8, !tbaa !44
+  %198 = fcmp olt double %196, %197
+  br i1 %198, label %199, label %191, !llvm.loop !90
 
-201:                                              ; preds = %197
-  %202 = load i32, ptr @current_test, align 4, !tbaa !9
-  %203 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %202)
-  %204 = load i32, ptr @iterations, align 4, !tbaa !9
-  br label %205
+199:                                              ; preds = %195
+  %200 = load i32, ptr @current_test, align 4, !tbaa !9
+  %201 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %200)
+  %202 = load i32, ptr @iterations, align 4, !tbaa !9
+  br label %203
 
-205:                                              ; preds = %193, %201
-  %206 = phi i32 [ %204, %201 ], [ %151, %193 ]
-  %207 = add nuw nsw i32 %152, 1
-  %208 = icmp slt i32 %207, %206
-  br i1 %208, label %150, label %209, !llvm.loop !91
+203:                                              ; preds = %191, %199
+  %204 = phi i32 [ %202, %199 ], [ %150, %191 ]
+  %205 = add nuw nsw i32 %151, 1
+  %206 = icmp slt i32 %205, %204
+  br i1 %206, label %149, label %207, !llvm.loop !91
 
-209:                                              ; preds = %205, %146, %95, %52, %6
+207:                                              ; preds = %203, %145, %95, %52, %6
   ret void
 }
 
@@ -2890,7 +2897,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortI14PointerWrapperI12V
   %14 = ptrtoint ptr %2 to i64
   %15 = load i32, ptr @iterations, align 4, !tbaa !9
   %16 = icmp sgt i32 %15, 0
-  br i1 %16, label %17, label %209
+  br i1 %16, label %17, label %207
 
 17:                                               ; preds = %6
   %18 = icmp eq ptr %0, %1
@@ -2945,7 +2952,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortI14PointerWrapperI12V
   %53 = phi i32 [ %51, %48 ], [ %38, %40 ]
   %54 = add nuw nsw i32 %39, 1
   %55 = icmp slt i32 %54, %53
-  br i1 %55, label %37, label %209, !llvm.loop !99
+  br i1 %55, label %37, label %207, !llvm.loop !99
 
 56:                                               ; preds = %22, %95
   %57 = phi i32 [ %96, %95 ], [ %15, %22 ]
@@ -3011,7 +3018,7 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortI14PointerWrapperI12V
   %96 = phi i32 [ %94, %91 ], [ %57, %83 ]
   %97 = add nuw nsw i32 %58, 1
   %98 = icmp slt i32 %97, %96
-  br i1 %98, label %56, label %209, !llvm.loop !99
+  br i1 %98, label %56, label %207, !llvm.loop !99
 
 99:                                               ; preds = %17
   br i1 %18, label %115, label %100
@@ -3031,156 +3038,154 @@ define linkonce_odr dso_local void @_Z19test_insertion_sortI14PointerWrapperI12V
   %112 = shl i64 %109, 3
   %113 = getelementptr i8, ptr %2, i64 %112
   %114 = icmp eq i64 %104, %109
-  br label %150
+  br label %149
 
-115:                                              ; preds = %99, %146
-  %116 = phi i32 [ %147, %146 ], [ %15, %99 ]
-  %117 = phi i32 [ %148, %146 ], [ 0, %99 ]
+115:                                              ; preds = %99, %145
+  %116 = phi i32 [ %146, %145 ], [ %15, %99 ]
+  %117 = phi i32 [ %147, %145 ], [ 0, %99 ]
   br label %118
 
-118:                                              ; preds = %130, %115
-  %119 = phi ptr [ %132, %130 ], [ %19, %115 ]
-  %120 = load i64, ptr %119, align 8, !tbaa !28
-  %121 = bitcast i64 %120 to double
-  %122 = icmp eq ptr %119, %2
-  br i1 %122, label %130, label %123
+118:                                              ; preds = %129, %115
+  %119 = phi ptr [ %131, %129 ], [ %19, %115 ]
+  %120 = load double, ptr %119, align 8, !tbaa.struct !34
+  %121 = icmp eq ptr %119, %2
+  br i1 %121, label %129, label %122
 
-123:                                              ; preds = %118, %128
-  %124 = phi ptr [ %125, %128 ], [ %119, %118 ]
-  %125 = getelementptr %struct.ValueWrapper.0, ptr %124, i64 -1
-  %126 = load double, ptr %125, align 8, !tbaa !44
-  %127 = fcmp ogt double %126, %121
-  br i1 %127, label %128, label %130
+122:                                              ; preds = %118, %127
+  %123 = phi ptr [ %124, %127 ], [ %119, %118 ]
+  %124 = getelementptr %struct.ValueWrapper.0, ptr %123, i64 -1
+  %125 = load double, ptr %124, align 8, !tbaa !44
+  %126 = fcmp olt double %120, %125
+  br i1 %126, label %127, label %129
 
-128:                                              ; preds = %123
-  store double %126, ptr %124, align 8, !tbaa !28
-  %129 = icmp eq ptr %125, %2
-  br i1 %129, label %130, label %123, !llvm.loop !102
+127:                                              ; preds = %122
+  store double %125, ptr %123, align 8, !tbaa !28
+  %128 = icmp eq ptr %124, %2
+  br i1 %128, label %129, label %122, !llvm.loop !102
 
-130:                                              ; preds = %123, %128, %118
-  %131 = phi ptr [ %2, %118 ], [ %124, %123 ], [ %2, %128 ]
-  store i64 %120, ptr %131, align 8, !tbaa !28
-  %132 = getelementptr inbounds %struct.ValueWrapper.0, ptr %119, i64 1
-  %133 = icmp eq ptr %132, %3
-  br i1 %133, label %134, label %118, !llvm.loop !103
+129:                                              ; preds = %122, %127, %118
+  %130 = phi ptr [ %2, %118 ], [ %123, %122 ], [ %2, %127 ]
+  store double %120, ptr %130, align 8, !tbaa.struct !34
+  %131 = getelementptr inbounds %struct.ValueWrapper.0, ptr %119, i64 1
+  %132 = icmp eq ptr %131, %3
+  br i1 %132, label %133, label %118, !llvm.loop !103
 
-134:                                              ; preds = %130, %138
-  %135 = phi ptr [ %136, %138 ], [ %2, %130 ]
-  %136 = getelementptr %struct.ValueWrapper.0, ptr %135, i64 1
-  %137 = icmp eq ptr %136, %3
-  br i1 %137, label %146, label %138
+133:                                              ; preds = %129, %137
+  %134 = phi ptr [ %135, %137 ], [ %2, %129 ]
+  %135 = getelementptr %struct.ValueWrapper.0, ptr %134, i64 1
+  %136 = icmp eq ptr %135, %3
+  br i1 %136, label %145, label %137
 
-138:                                              ; preds = %134
-  %139 = load double, ptr %136, align 8, !tbaa !44
-  %140 = load double, ptr %135, align 8, !tbaa !44
-  %141 = fcmp olt double %139, %140
-  br i1 %141, label %142, label %134, !llvm.loop !98
+137:                                              ; preds = %133
+  %138 = load double, ptr %135, align 8, !tbaa !44
+  %139 = load double, ptr %134, align 8, !tbaa !44
+  %140 = fcmp olt double %138, %139
+  br i1 %140, label %141, label %133, !llvm.loop !98
 
-142:                                              ; preds = %138
-  %143 = load i32, ptr @current_test, align 4, !tbaa !9
-  %144 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %143)
-  %145 = load i32, ptr @iterations, align 4, !tbaa !9
-  br label %146
+141:                                              ; preds = %137
+  %142 = load i32, ptr @current_test, align 4, !tbaa !9
+  %143 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %142)
+  %144 = load i32, ptr @iterations, align 4, !tbaa !9
+  br label %145
 
-146:                                              ; preds = %134, %142
-  %147 = phi i32 [ %145, %142 ], [ %116, %134 ]
-  %148 = add nuw nsw i32 %117, 1
-  %149 = icmp slt i32 %148, %147
-  br i1 %149, label %115, label %209, !llvm.loop !99
+145:                                              ; preds = %133, %141
+  %146 = phi i32 [ %144, %141 ], [ %116, %133 ]
+  %147 = add nuw nsw i32 %117, 1
+  %148 = icmp slt i32 %147, %146
+  br i1 %148, label %115, label %207, !llvm.loop !99
 
-150:                                              ; preds = %100, %205
-  %151 = phi i32 [ %206, %205 ], [ %15, %100 ]
-  %152 = phi i32 [ %207, %205 ], [ 0, %100 ]
-  br i1 %108, label %166, label %153
+149:                                              ; preds = %100, %203
+  %150 = phi i32 [ %204, %203 ], [ %15, %100 ]
+  %151 = phi i32 [ %205, %203 ], [ 0, %100 ]
+  br i1 %108, label %165, label %152
 
-153:                                              ; preds = %150, %153
-  %154 = phi i64 [ %163, %153 ], [ 0, %150 ]
-  %155 = shl i64 %154, 3
-  %156 = getelementptr i8, ptr %0, i64 %155
-  %157 = shl i64 %154, 3
-  %158 = getelementptr i8, ptr %2, i64 %157
-  %159 = load <2 x i64>, ptr %156, align 8, !tbaa !28
-  %160 = getelementptr i64, ptr %156, i64 2
-  %161 = load <2 x i64>, ptr %160, align 8, !tbaa !28
-  store <2 x i64> %159, ptr %158, align 8, !tbaa !28
-  %162 = getelementptr i64, ptr %158, i64 2
-  store <2 x i64> %161, ptr %162, align 8, !tbaa !28
-  %163 = add nuw i64 %154, 4
-  %164 = icmp eq i64 %163, %109
-  br i1 %164, label %165, label %153, !llvm.loop !104
+152:                                              ; preds = %149, %152
+  %153 = phi i64 [ %162, %152 ], [ 0, %149 ]
+  %154 = shl i64 %153, 3
+  %155 = getelementptr i8, ptr %0, i64 %154
+  %156 = shl i64 %153, 3
+  %157 = getelementptr i8, ptr %2, i64 %156
+  %158 = load <2 x i64>, ptr %155, align 8, !tbaa !28
+  %159 = getelementptr i64, ptr %155, i64 2
+  %160 = load <2 x i64>, ptr %159, align 8, !tbaa !28
+  store <2 x i64> %158, ptr %157, align 8, !tbaa !28
+  %161 = getelementptr i64, ptr %157, i64 2
+  store <2 x i64> %160, ptr %161, align 8, !tbaa !28
+  %162 = add nuw i64 %153, 4
+  %163 = icmp eq i64 %162, %109
+  br i1 %163, label %164, label %152, !llvm.loop !104
 
-165:                                              ; preds = %153
-  br i1 %114, label %176, label %166
+164:                                              ; preds = %152
+  br i1 %114, label %175, label %165
 
-166:                                              ; preds = %150, %165
-  %167 = phi ptr [ %0, %150 ], [ %111, %165 ]
-  %168 = phi ptr [ %2, %150 ], [ %113, %165 ]
-  br label %169
+165:                                              ; preds = %149, %164
+  %166 = phi ptr [ %0, %149 ], [ %111, %164 ]
+  %167 = phi ptr [ %2, %149 ], [ %113, %164 ]
+  br label %168
 
-169:                                              ; preds = %166, %169
-  %170 = phi ptr [ %172, %169 ], [ %167, %166 ]
-  %171 = phi ptr [ %173, %169 ], [ %168, %166 ]
+168:                                              ; preds = %165, %168
+  %169 = phi ptr [ %171, %168 ], [ %166, %165 ]
+  %170 = phi ptr [ %172, %168 ], [ %167, %165 ]
+  %171 = getelementptr inbounds %struct.ValueWrapper.0, ptr %169, i64 1
   %172 = getelementptr inbounds %struct.ValueWrapper.0, ptr %170, i64 1
-  %173 = getelementptr inbounds %struct.ValueWrapper.0, ptr %171, i64 1
-  %174 = load i64, ptr %170, align 8, !tbaa !28
-  store i64 %174, ptr %171, align 8, !tbaa !28
-  %175 = icmp eq ptr %172, %1
-  br i1 %175, label %176, label %169, !llvm.loop !105
+  %173 = load i64, ptr %169, align 8, !tbaa !28
+  store i64 %173, ptr %170, align 8, !tbaa !28
+  %174 = icmp eq ptr %171, %1
+  br i1 %174, label %175, label %168, !llvm.loop !105
 
-176:                                              ; preds = %169, %165
-  br label %177
+175:                                              ; preds = %168, %164
+  br label %176
 
-177:                                              ; preds = %176, %189
-  %178 = phi ptr [ %191, %189 ], [ %19, %176 ]
-  %179 = load i64, ptr %178, align 8, !tbaa !28
-  %180 = bitcast i64 %179 to double
-  %181 = icmp eq ptr %178, %2
-  br i1 %181, label %189, label %182
+176:                                              ; preds = %175, %187
+  %177 = phi ptr [ %189, %187 ], [ %19, %175 ]
+  %178 = load double, ptr %177, align 8, !tbaa.struct !34
+  %179 = icmp eq ptr %177, %2
+  br i1 %179, label %187, label %180
 
-182:                                              ; preds = %177, %187
-  %183 = phi ptr [ %184, %187 ], [ %178, %177 ]
-  %184 = getelementptr %struct.ValueWrapper.0, ptr %183, i64 -1
-  %185 = load double, ptr %184, align 8, !tbaa !44
-  %186 = fcmp ogt double %185, %180
-  br i1 %186, label %187, label %189
+180:                                              ; preds = %176, %185
+  %181 = phi ptr [ %182, %185 ], [ %177, %176 ]
+  %182 = getelementptr %struct.ValueWrapper.0, ptr %181, i64 -1
+  %183 = load double, ptr %182, align 8, !tbaa !44
+  %184 = fcmp olt double %178, %183
+  br i1 %184, label %185, label %187
 
-187:                                              ; preds = %182
-  store double %185, ptr %183, align 8, !tbaa !28
-  %188 = icmp eq ptr %184, %2
-  br i1 %188, label %189, label %182, !llvm.loop !102
+185:                                              ; preds = %180
+  store double %183, ptr %181, align 8, !tbaa !28
+  %186 = icmp eq ptr %182, %2
+  br i1 %186, label %187, label %180, !llvm.loop !102
 
-189:                                              ; preds = %187, %182, %177
-  %190 = phi ptr [ %2, %177 ], [ %183, %182 ], [ %2, %187 ]
-  store i64 %179, ptr %190, align 8, !tbaa !28
-  %191 = getelementptr inbounds %struct.ValueWrapper.0, ptr %178, i64 1
-  %192 = icmp eq ptr %191, %3
-  br i1 %192, label %193, label %177, !llvm.loop !103
+187:                                              ; preds = %185, %180, %176
+  %188 = phi ptr [ %2, %176 ], [ %181, %180 ], [ %2, %185 ]
+  store double %178, ptr %188, align 8, !tbaa.struct !34
+  %189 = getelementptr inbounds %struct.ValueWrapper.0, ptr %177, i64 1
+  %190 = icmp eq ptr %189, %3
+  br i1 %190, label %191, label %176, !llvm.loop !103
 
-193:                                              ; preds = %189, %197
-  %194 = phi ptr [ %195, %197 ], [ %2, %189 ]
-  %195 = getelementptr %struct.ValueWrapper.0, ptr %194, i64 1
-  %196 = icmp eq ptr %195, %3
-  br i1 %196, label %205, label %197
+191:                                              ; preds = %187, %195
+  %192 = phi ptr [ %193, %195 ], [ %2, %187 ]
+  %193 = getelementptr %struct.ValueWrapper.0, ptr %192, i64 1
+  %194 = icmp eq ptr %193, %3
+  br i1 %194, label %203, label %195
 
-197:                                              ; preds = %193
-  %198 = load double, ptr %195, align 8, !tbaa !44
-  %199 = load double, ptr %194, align 8, !tbaa !44
-  %200 = fcmp olt double %198, %199
-  br i1 %200, label %201, label %193, !llvm.loop !98
+195:                                              ; preds = %191
+  %196 = load double, ptr %193, align 8, !tbaa !44
+  %197 = load double, ptr %192, align 8, !tbaa !44
+  %198 = fcmp olt double %196, %197
+  br i1 %198, label %199, label %191, !llvm.loop !98
 
-201:                                              ; preds = %197
-  %202 = load i32, ptr @current_test, align 4, !tbaa !9
-  %203 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %202)
-  %204 = load i32, ptr @iterations, align 4, !tbaa !9
-  br label %205
+199:                                              ; preds = %195
+  %200 = load i32, ptr @current_test, align 4, !tbaa !9
+  %201 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.51, i32 noundef %200)
+  %202 = load i32, ptr @iterations, align 4, !tbaa !9
+  br label %203
 
-205:                                              ; preds = %193, %201
-  %206 = phi i32 [ %204, %201 ], [ %151, %193 ]
-  %207 = add nuw nsw i32 %152, 1
-  %208 = icmp slt i32 %207, %206
-  br i1 %208, label %150, label %209, !llvm.loop !99
+203:                                              ; preds = %191, %199
+  %204 = phi i32 [ %202, %199 ], [ %150, %191 ]
+  %205 = add nuw nsw i32 %151, 1
+  %206 = icmp slt i32 %205, %204
+  br i1 %206, label %149, label %207, !llvm.loop !99
 
-209:                                              ; preds = %205, %146, %95, %52, %6
+207:                                              ; preds = %203, %145, %95, %52, %6
   ret void
 }
 
@@ -4831,7 +4836,7 @@ define linkonce_odr dso_local void @_ZN9benchmark9quicksortI14PointerWrapperIdEd
   br label %10, !llvm.loop !147
 
 28:                                               ; preds = %25, %18
-  tail call void @_ZN9benchmark9quicksortI14PointerWrapperIdEdEEvT_S3_(ptr nonnull %8, ptr nonnull %14)
+  tail call void @_ZN9benchmark9quicksortI14PointerWrapperIdEdEEvT_S3_(ptr nonnull %8, ptr %14)
   %29 = ptrtoint ptr %14 to i64
   %30 = sub i64 %3, %29
   %31 = icmp sgt i64 %30, 8
@@ -4851,7 +4856,7 @@ define linkonce_odr dso_local void @_ZN9benchmark9quicksortIP12ValueWrapperIdES2
 
 7:                                                ; preds = %2, %28
   %8 = phi ptr [ %14, %28 ], [ %0, %2 ]
-  %9 = load double, ptr %8, align 8, !tbaa !28
+  %9 = load double, ptr %8, align 8, !tbaa.struct !34
   br label %10
 
 10:                                               ; preds = %27, %7
@@ -4907,7 +4912,7 @@ define linkonce_odr dso_local void @_ZN9benchmark9quicksortI14PointerWrapperI12V
 
 7:                                                ; preds = %2, %28
   %8 = phi ptr [ %14, %28 ], [ %0, %2 ]
-  %9 = load double, ptr %8, align 8, !tbaa !28
+  %9 = load double, ptr %8, align 8, !tbaa.struct !34
   br label %10
 
 10:                                               ; preds = %27, %7
@@ -4943,7 +4948,7 @@ define linkonce_odr dso_local void @_ZN9benchmark9quicksortI14PointerWrapperI12V
   br label %10, !llvm.loop !153
 
 28:                                               ; preds = %25, %18
-  tail call void @_ZN9benchmark9quicksortI14PointerWrapperI12ValueWrapperIdEES3_EEvT_S5_(ptr nonnull %8, ptr nonnull %14)
+  tail call void @_ZN9benchmark9quicksortI14PointerWrapperI12ValueWrapperIdEES3_EEvT_S5_(ptr nonnull %8, ptr %14)
   %29 = ptrtoint ptr %14 to i64
   %30 = sub i64 %3, %29
   %31 = icmp sgt i64 %30, 8
@@ -4963,7 +4968,7 @@ define linkonce_odr dso_local void @_ZN9benchmark9quicksortIP12ValueWrapperIS1_I
 
 7:                                                ; preds = %2, %28
   %8 = phi ptr [ %14, %28 ], [ %0, %2 ]
-  %9 = load double, ptr %8, align 8, !tbaa !28
+  %9 = load double, ptr %8, align 8, !tbaa.struct !34
   br label %10
 
 10:                                               ; preds = %27, %7
@@ -5019,7 +5024,7 @@ define linkonce_odr dso_local void @_ZN9benchmark9quicksortI14PointerWrapperI12V
 
 7:                                                ; preds = %2, %28
   %8 = phi ptr [ %14, %28 ], [ %0, %2 ]
-  %9 = load double, ptr %8, align 8, !tbaa !28
+  %9 = load double, ptr %8, align 8, !tbaa.struct !34
   br label %10
 
 10:                                               ; preds = %27, %7
@@ -5055,7 +5060,7 @@ define linkonce_odr dso_local void @_ZN9benchmark9quicksortI14PointerWrapperI12V
   br label %10, !llvm.loop !159
 
 28:                                               ; preds = %25, %18
-  tail call void @_ZN9benchmark9quicksortI14PointerWrapperI12ValueWrapperIS2_IS2_IS2_IS2_IS2_IS2_IS2_IS2_IS2_IdEEEEEEEEEEESC_EEvT_SE_(ptr nonnull %8, ptr nonnull %14)
+  tail call void @_ZN9benchmark9quicksortI14PointerWrapperI12ValueWrapperIS2_IS2_IS2_IS2_IS2_IS2_IS2_IS2_IS2_IdEEEEEEEEEEESC_EEvT_SE_(ptr nonnull %8, ptr %14)
   %29 = ptrtoint ptr %14 to i64
   %30 = sub i64 %3, %29
   %31 = icmp sgt i64 %30, 8
@@ -5159,7 +5164,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIPddEEvT_S2_(ptr nound
   %66 = load double, ptr %65, align 8, !tbaa !28
   %67 = load double, ptr %0, align 8, !tbaa !28
   store double %67, ptr %65, align 8, !tbaa !28
-  %68 = icmp ugt i64 %64, 2
+  %68 = icmp ugt i64 %63, 3
   br i1 %68, label %69, label %86
 
 69:                                               ; preds = %62, %69
@@ -5204,7 +5209,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIPddEEvT_S2_(ptr nound
 98:                                               ; preds = %95, %105
   %99 = phi i64 [ %101, %105 ], [ %96, %95 ]
   %100 = add nsw i64 %99, -1
-  %101 = lshr i64 %100, 1
+  %101 = sdiv i64 %100, 2
   %102 = getelementptr inbounds double, ptr %0, i64 %101
   %103 = load double, ptr %102, align 8, !tbaa !28
   %104 = fcmp olt double %103, %66
@@ -5213,11 +5218,11 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIPddEEvT_S2_(ptr nound
 105:                                              ; preds = %98
   %106 = getelementptr inbounds double, ptr %0, i64 %99
   store double %103, ptr %106, align 8, !tbaa !28
-  %107 = icmp ult i64 %100, 2
-  br i1 %107, label %108, label %98, !llvm.loop !161
+  %107 = icmp sgt i64 %99, 2
+  br i1 %107, label %98, label %108, !llvm.loop !161
 
 108:                                              ; preds = %98, %105, %95
-  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ 0, %105 ]
+  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ %101, %105 ]
   %110 = getelementptr inbounds double, ptr %0, i64 %109
   store double %66, ptr %110, align 8, !tbaa !28
   %111 = icmp sgt i64 %63, 2
@@ -5321,7 +5326,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperIdEdE
   %66 = load double, ptr %65, align 8, !tbaa !28
   %67 = load double, ptr %0, align 8, !tbaa !28
   store double %67, ptr %65, align 8, !tbaa !28
-  %68 = icmp ugt i64 %64, 2
+  %68 = icmp ugt i64 %63, 3
   br i1 %68, label %69, label %86
 
 69:                                               ; preds = %62, %69
@@ -5366,7 +5371,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperIdEdE
 98:                                               ; preds = %95, %105
   %99 = phi i64 [ %101, %105 ], [ %96, %95 ]
   %100 = add nsw i64 %99, -1
-  %101 = lshr i64 %100, 1
+  %101 = sdiv i64 %100, 2
   %102 = getelementptr inbounds double, ptr %0, i64 %101
   %103 = load double, ptr %102, align 8, !tbaa !28
   %104 = fcmp olt double %103, %66
@@ -5375,11 +5380,11 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperIdEdE
 105:                                              ; preds = %98
   %106 = getelementptr inbounds double, ptr %0, i64 %99
   store double %103, ptr %106, align 8, !tbaa !28
-  %107 = icmp ult i64 %100, 2
-  br i1 %107, label %108, label %98, !llvm.loop !165
+  %107 = icmp sgt i64 %99, 2
+  br i1 %107, label %98, label %108, !llvm.loop !165
 
 108:                                              ; preds = %98, %105, %95
-  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ 0, %105 ]
+  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ %101, %105 ]
   %110 = getelementptr inbounds double, ptr %0, i64 %109
   store double %66, ptr %110, align 8, !tbaa !28
   %111 = icmp sgt i64 %63, 2
@@ -5472,7 +5477,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIP12ValueWrapperIdES2_
 58:                                               ; preds = %48, %55, %45
   %59 = phi i64 [ %46, %45 ], [ %49, %48 ], [ %51, %55 ]
   %60 = getelementptr inbounds %struct.ValueWrapper, ptr %0, i64 %59
-  store double %17, ptr %60, align 8, !tbaa !28
+  store double %17, ptr %60, align 8, !tbaa.struct !34
   %61 = icmp sgt i64 %14, 1
   br i1 %61, label %13, label %12, !llvm.loop !170
 
@@ -5483,7 +5488,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIP12ValueWrapperIdES2_
   %66 = load double, ptr %65, align 8, !tbaa.struct !34
   %67 = load i64, ptr %0, align 8, !tbaa !28
   store i64 %67, ptr %65, align 8, !tbaa !28
-  %68 = icmp ugt i64 %64, 2
+  %68 = icmp ugt i64 %63, 3
   br i1 %68, label %69, label %86
 
 69:                                               ; preds = %62, %69
@@ -5528,7 +5533,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIP12ValueWrapperIdES2_
 98:                                               ; preds = %95, %105
   %99 = phi i64 [ %101, %105 ], [ %96, %95 ]
   %100 = add nsw i64 %99, -1
-  %101 = lshr i64 %100, 1
+  %101 = sdiv i64 %100, 2
   %102 = getelementptr inbounds %struct.ValueWrapper, ptr %0, i64 %101
   %103 = load double, ptr %102, align 8, !tbaa !44
   %104 = fcmp olt double %103, %66
@@ -5537,13 +5542,13 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIP12ValueWrapperIdES2_
 105:                                              ; preds = %98
   %106 = getelementptr inbounds %struct.ValueWrapper, ptr %0, i64 %99
   store double %103, ptr %106, align 8, !tbaa !28
-  %107 = icmp ult i64 %100, 2
-  br i1 %107, label %108, label %98, !llvm.loop !169
+  %107 = icmp sgt i64 %99, 2
+  br i1 %107, label %98, label %108, !llvm.loop !169
 
 108:                                              ; preds = %98, %105, %95
-  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ 0, %105 ]
+  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ %101, %105 ]
   %110 = getelementptr inbounds %struct.ValueWrapper, ptr %0, i64 %109
-  store double %66, ptr %110, align 8, !tbaa !28
+  store double %66, ptr %110, align 8, !tbaa.struct !34
   %111 = icmp sgt i64 %63, 2
   br i1 %111, label %62, label %112, !llvm.loop !171
 
@@ -5634,7 +5639,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperI12Va
 58:                                               ; preds = %48, %55, %45
   %59 = phi i64 [ %46, %45 ], [ %49, %48 ], [ %51, %55 ]
   %60 = getelementptr inbounds %struct.ValueWrapper, ptr %0, i64 %59
-  store double %17, ptr %60, align 8, !tbaa !28
+  store double %17, ptr %60, align 8, !tbaa.struct !34
   %61 = icmp sgt i64 %14, 1
   br i1 %61, label %13, label %12, !llvm.loop !174
 
@@ -5645,7 +5650,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperI12Va
   %66 = load double, ptr %65, align 8, !tbaa.struct !34
   %67 = load i64, ptr %0, align 8, !tbaa !28
   store i64 %67, ptr %65, align 8, !tbaa !28
-  %68 = icmp ugt i64 %64, 2
+  %68 = icmp ugt i64 %63, 3
   br i1 %68, label %69, label %86
 
 69:                                               ; preds = %62, %69
@@ -5690,7 +5695,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperI12Va
 98:                                               ; preds = %95, %105
   %99 = phi i64 [ %101, %105 ], [ %96, %95 ]
   %100 = add nsw i64 %99, -1
-  %101 = lshr i64 %100, 1
+  %101 = sdiv i64 %100, 2
   %102 = getelementptr inbounds %struct.ValueWrapper, ptr %0, i64 %101
   %103 = load double, ptr %102, align 8, !tbaa !44
   %104 = fcmp olt double %103, %66
@@ -5699,13 +5704,13 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperI12Va
 105:                                              ; preds = %98
   %106 = getelementptr inbounds %struct.ValueWrapper, ptr %0, i64 %99
   store double %103, ptr %106, align 8, !tbaa !28
-  %107 = icmp ult i64 %100, 2
-  br i1 %107, label %108, label %98, !llvm.loop !173
+  %107 = icmp sgt i64 %99, 2
+  br i1 %107, label %98, label %108, !llvm.loop !173
 
 108:                                              ; preds = %98, %105, %95
-  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ 0, %105 ]
+  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ %101, %105 ]
   %110 = getelementptr inbounds %struct.ValueWrapper, ptr %0, i64 %109
-  store double %66, ptr %110, align 8, !tbaa !28
+  store double %66, ptr %110, align 8, !tbaa.struct !34
   %111 = icmp sgt i64 %63, 2
   br i1 %111, label %62, label %112, !llvm.loop !175
 
@@ -5796,7 +5801,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIP12ValueWrapperIS1_IS
 58:                                               ; preds = %48, %55, %45
   %59 = phi i64 [ %46, %45 ], [ %49, %48 ], [ %51, %55 ]
   %60 = getelementptr inbounds %struct.ValueWrapper.0, ptr %0, i64 %59
-  store double %17, ptr %60, align 8, !tbaa !28
+  store double %17, ptr %60, align 8, !tbaa.struct !34
   %61 = icmp sgt i64 %14, 1
   br i1 %61, label %13, label %12, !llvm.loop !178
 
@@ -5807,7 +5812,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIP12ValueWrapperIS1_IS
   %66 = load double, ptr %65, align 8, !tbaa.struct !34
   %67 = load i64, ptr %0, align 8, !tbaa !28
   store i64 %67, ptr %65, align 8, !tbaa !28
-  %68 = icmp ugt i64 %64, 2
+  %68 = icmp ugt i64 %63, 3
   br i1 %68, label %69, label %86
 
 69:                                               ; preds = %62, %69
@@ -5852,7 +5857,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIP12ValueWrapperIS1_IS
 98:                                               ; preds = %95, %105
   %99 = phi i64 [ %101, %105 ], [ %96, %95 ]
   %100 = add nsw i64 %99, -1
-  %101 = lshr i64 %100, 1
+  %101 = sdiv i64 %100, 2
   %102 = getelementptr inbounds %struct.ValueWrapper.0, ptr %0, i64 %101
   %103 = load double, ptr %102, align 8, !tbaa !44
   %104 = fcmp olt double %103, %66
@@ -5861,13 +5866,13 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortIP12ValueWrapperIS1_IS
 105:                                              ; preds = %98
   %106 = getelementptr inbounds %struct.ValueWrapper.0, ptr %0, i64 %99
   store double %103, ptr %106, align 8, !tbaa !28
-  %107 = icmp ult i64 %100, 2
-  br i1 %107, label %108, label %98, !llvm.loop !177
+  %107 = icmp sgt i64 %99, 2
+  br i1 %107, label %98, label %108, !llvm.loop !177
 
 108:                                              ; preds = %98, %105, %95
-  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ 0, %105 ]
+  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ %101, %105 ]
   %110 = getelementptr inbounds %struct.ValueWrapper.0, ptr %0, i64 %109
-  store double %66, ptr %110, align 8, !tbaa !28
+  store double %66, ptr %110, align 8, !tbaa.struct !34
   %111 = icmp sgt i64 %63, 2
   br i1 %111, label %62, label %112, !llvm.loop !179
 
@@ -5958,7 +5963,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperI12Va
 58:                                               ; preds = %48, %55, %45
   %59 = phi i64 [ %46, %45 ], [ %49, %48 ], [ %51, %55 ]
   %60 = getelementptr inbounds %struct.ValueWrapper.0, ptr %0, i64 %59
-  store double %17, ptr %60, align 8, !tbaa !28
+  store double %17, ptr %60, align 8, !tbaa.struct !34
   %61 = icmp sgt i64 %14, 1
   br i1 %61, label %13, label %12, !llvm.loop !182
 
@@ -5969,7 +5974,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperI12Va
   %66 = load double, ptr %65, align 8, !tbaa.struct !34
   %67 = load i64, ptr %0, align 8, !tbaa !28
   store i64 %67, ptr %65, align 8, !tbaa !28
-  %68 = icmp ugt i64 %64, 2
+  %68 = icmp ugt i64 %63, 3
   br i1 %68, label %69, label %86
 
 69:                                               ; preds = %62, %69
@@ -6014,7 +6019,7 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperI12Va
 98:                                               ; preds = %95, %105
   %99 = phi i64 [ %101, %105 ], [ %96, %95 ]
   %100 = add nsw i64 %99, -1
-  %101 = lshr i64 %100, 1
+  %101 = sdiv i64 %100, 2
   %102 = getelementptr inbounds %struct.ValueWrapper.0, ptr %0, i64 %101
   %103 = load double, ptr %102, align 8, !tbaa !44
   %104 = fcmp olt double %103, %66
@@ -6023,13 +6028,13 @@ define linkonce_odr dso_local void @_ZN9benchmark8heapsortI14PointerWrapperI12Va
 105:                                              ; preds = %98
   %106 = getelementptr inbounds %struct.ValueWrapper.0, ptr %0, i64 %99
   store double %103, ptr %106, align 8, !tbaa !28
-  %107 = icmp ult i64 %100, 2
-  br i1 %107, label %108, label %98, !llvm.loop !181
+  %107 = icmp sgt i64 %99, 2
+  br i1 %107, label %98, label %108, !llvm.loop !181
 
 108:                                              ; preds = %98, %105, %95
-  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ 0, %105 ]
+  %109 = phi i64 [ %96, %95 ], [ %99, %98 ], [ %101, %105 ]
   %110 = getelementptr inbounds %struct.ValueWrapper.0, ptr %0, i64 %109
-  store double %66, ptr %110, align 8, !tbaa !28
+  store double %66, ptr %110, align 8, !tbaa.struct !34
   %111 = icmp sgt i64 %63, 2
   br i1 %111, label %62, label %112, !llvm.loop !183
 

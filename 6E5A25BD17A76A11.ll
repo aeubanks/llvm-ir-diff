@@ -38,8 +38,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @str = private unnamed_addr constant [26 x i8] c"------------------------\0A\00", align 1
 @str.23 = private unnamed_addr constant [25 x i8] c"------------------------\00", align 1
 @str.24 = private unnamed_addr constant [45 x i8] c"Unexpected error in MergeToLeft(), aborting.\00", align 1
-@str.25 = private unnamed_addr constant [9 x i8] c"Exiting.\00", align 1
-@str.26 = private unnamed_addr constant [7 x i8] c"Twink!\00", align 1
+@str.25 = private unnamed_addr constant [7 x i8] c"Twink!\00", align 1
+@str.26 = private unnamed_addr constant [9 x i8] c"Exiting.\00", align 1
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @ConvertToFloat(ptr nocapture noundef %0) local_unnamed_addr #0 {
@@ -604,10 +604,10 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
 114:                                              ; preds = %92, %114
   %115 = phi ptr [ %117, %114 ], [ %36, %92 ]
   %116 = getelementptr inbounds %struct._CompT, ptr %115, i64 0, i32 15
-  %117 = load ptr, ptr %116, align 8, !tbaa !56
+  %117 = load ptr, ptr %116, align 8, !tbaa !55
   %118 = load i32, ptr %117, align 8, !tbaa !45
   %119 = icmp eq i32 %118, %90
-  br i1 %119, label %120, label %114, !llvm.loop !57
+  br i1 %119, label %120, label %114, !llvm.loop !56
 
 120:                                              ; preds = %114, %92, %101
   %121 = phi i32 [ %102, %101 ], [ %90, %92 ], [ %90, %114 ]
@@ -618,14 +618,14 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
   %126 = getelementptr inbounds i32, ptr %48, i64 %125
   store i32 %121, ptr %126, align 4, !tbaa !42
   %127 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #12
-  store i32 %34, ptr %127, align 8, !tbaa !58
+  store i32 %34, ptr %127, align 8, !tbaa !57
   %128 = getelementptr inbounds %struct._PixT, ptr %127, i64 0, i32 1
-  store i32 %22, ptr %128, align 4, !tbaa !60
+  store i32 %22, ptr %128, align 4, !tbaa !59
   %129 = getelementptr inbounds %struct._CompT, ptr %123, i64 0, i32 12
-  %130 = load ptr, ptr %129, align 8, !tbaa !61
+  %130 = load ptr, ptr %129, align 8, !tbaa !60
   %131 = getelementptr inbounds %struct._PixT, ptr %127, i64 0, i32 2
-  store ptr %130, ptr %131, align 8, !tbaa !62
-  store ptr %127, ptr %129, align 8, !tbaa !61
+  store ptr %130, ptr %131, align 8, !tbaa !61
+  store ptr %127, ptr %129, align 8, !tbaa !60
   %132 = getelementptr inbounds %struct._CompT, ptr %123, i64 0, i32 1
   %133 = load i32, ptr %132, align 4, !tbaa !47
   %134 = add nsw i32 %133, 1
@@ -678,18 +678,18 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
   %165 = getelementptr inbounds float, ptr %160, i64 %164
   %166 = load float, ptr %165, align 4, !tbaa !19
   %167 = getelementptr inbounds %struct._CompT, ptr %123, i64 0, i32 9
-  %168 = load float, ptr %167, align 4, !tbaa !63
+  %168 = load float, ptr %167, align 4, !tbaa !62
   %169 = fadd float %166, %168
-  store float %169, ptr %167, align 4, !tbaa !63
+  store float %169, ptr %167, align 4, !tbaa !62
   %170 = mul nsw i32 %161, %29
   %171 = add nsw i32 %170, %34
   %172 = sext i32 %171 to i64
   %173 = getelementptr inbounds float, ptr %160, i64 %172
   %174 = load float, ptr %173, align 4, !tbaa !19
   %175 = getelementptr inbounds %struct._CompT, ptr %123, i64 0, i32 10
-  %176 = load float, ptr %175, align 8, !tbaa !64
+  %176 = load float, ptr %175, align 8, !tbaa !63
   %177 = fadd float %174, %176
-  store float %177, ptr %175, align 8, !tbaa !64
+  store float %177, ptr %175, align 8, !tbaa !63
   %178 = getelementptr inbounds %struct._CompT, ptr %123, i64 0, i32 7
   %179 = getelementptr inbounds %struct._CompT, ptr %123, i64 0, i32 8
   %180 = add nsw i32 %34, -1
@@ -724,41 +724,41 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
 201:                                              ; preds = %198, %201
   %202 = phi ptr [ %204, %201 ], [ %185, %198 ]
   %203 = getelementptr inbounds %struct._CompT, ptr %202, i64 0, i32 15
-  %204 = load ptr, ptr %203, align 8, !tbaa !56
+  %204 = load ptr, ptr %203, align 8, !tbaa !55
   %205 = load i32, ptr %204, align 8, !tbaa !45
   %206 = icmp eq i32 %205, %193
-  br i1 %206, label %207, label %201, !llvm.loop !65
+  br i1 %206, label %207, label %201, !llvm.loop !64
 
 207:                                              ; preds = %201, %198
   %208 = phi ptr [ %185, %198 ], [ %204, %201 ]
   %209 = phi ptr [ null, %198 ], [ %202, %201 ]
   %210 = getelementptr inbounds %struct._CompT, ptr %208, i64 0, i32 12
-  %211 = load ptr, ptr %210, align 8, !tbaa !61
+  %211 = load ptr, ptr %210, align 8, !tbaa !60
   %212 = icmp eq ptr %211, null
   br i1 %212, label %264, label %213
 
 213:                                              ; preds = %207, %213
   %214 = phi ptr [ %225, %213 ], [ %211, %207 ]
   %215 = getelementptr inbounds %struct._PixT, ptr %214, i64 0, i32 1
-  %216 = load i32, ptr %215, align 4, !tbaa !60
+  %216 = load i32, ptr %215, align 4, !tbaa !59
   %217 = load i32, ptr %3, align 4, !tbaa !5
   %218 = mul nsw i32 %217, %216
-  %219 = load i32, ptr %214, align 8, !tbaa !58
+  %219 = load i32, ptr %214, align 8, !tbaa !57
   %220 = add nsw i32 %218, %219
   %221 = load i32, ptr %123, align 8, !tbaa !45
   %222 = sext i32 %220 to i64
   %223 = getelementptr inbounds i32, ptr %190, i64 %222
   store i32 %221, ptr %223, align 4, !tbaa !42
   %224 = getelementptr inbounds %struct._PixT, ptr %214, i64 0, i32 2
-  %225 = load ptr, ptr %224, align 8, !tbaa !62
+  %225 = load ptr, ptr %224, align 8, !tbaa !61
   %226 = icmp eq ptr %225, null
-  br i1 %226, label %227, label %213, !llvm.loop !66
+  br i1 %226, label %227, label %213, !llvm.loop !65
 
 227:                                              ; preds = %213
   %228 = getelementptr inbounds %struct._PixT, ptr %214, i64 0, i32 2
-  %229 = load ptr, ptr %129, align 8, !tbaa !61
-  store ptr %229, ptr %228, align 8, !tbaa !62
-  store ptr %211, ptr %129, align 8, !tbaa !61
+  %229 = load ptr, ptr %129, align 8, !tbaa !60
+  store ptr %229, ptr %228, align 8, !tbaa !61
+  store ptr %211, ptr %129, align 8, !tbaa !60
   %230 = getelementptr inbounds %struct._CompT, ptr %208, i64 0, i32 1
   %231 = load i32, ptr %230, align 4, !tbaa !47
   %232 = load i32, ptr %132, align 4, !tbaa !47
@@ -815,7 +815,7 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
 
 268:                                              ; preds = %264
   %269 = getelementptr inbounds %struct._CompT, ptr %209, i64 0, i32 15
-  store ptr %267, ptr %269, align 8, !tbaa !56
+  store ptr %267, ptr %269, align 8, !tbaa !66
   br label %270
 
 270:                                              ; preds = %264, %268
@@ -852,41 +852,41 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
 292:                                              ; preds = %289, %292
   %293 = phi ptr [ %295, %292 ], [ %279, %289 ]
   %294 = getelementptr inbounds %struct._CompT, ptr %293, i64 0, i32 15
-  %295 = load ptr, ptr %294, align 8, !tbaa !56
+  %295 = load ptr, ptr %294, align 8, !tbaa !55
   %296 = load i32, ptr %295, align 8, !tbaa !45
   %297 = icmp eq i32 %296, %284
-  br i1 %297, label %298, label %292, !llvm.loop !65
+  br i1 %297, label %298, label %292, !llvm.loop !64
 
 298:                                              ; preds = %292, %289
   %299 = phi ptr [ %279, %289 ], [ %295, %292 ]
   %300 = phi ptr [ null, %289 ], [ %293, %292 ]
   %301 = getelementptr inbounds %struct._CompT, ptr %299, i64 0, i32 12
-  %302 = load ptr, ptr %301, align 8, !tbaa !61
+  %302 = load ptr, ptr %301, align 8, !tbaa !60
   %303 = icmp eq ptr %302, null
   br i1 %303, label %355, label %304
 
 304:                                              ; preds = %298, %304
   %305 = phi ptr [ %316, %304 ], [ %302, %298 ]
   %306 = getelementptr inbounds %struct._PixT, ptr %305, i64 0, i32 1
-  %307 = load i32, ptr %306, align 4, !tbaa !60
+  %307 = load i32, ptr %306, align 4, !tbaa !59
   %308 = load i32, ptr %3, align 4, !tbaa !5
   %309 = mul nsw i32 %308, %307
-  %310 = load i32, ptr %305, align 8, !tbaa !58
+  %310 = load i32, ptr %305, align 8, !tbaa !57
   %311 = add nsw i32 %309, %310
   %312 = load i32, ptr %123, align 8, !tbaa !45
   %313 = sext i32 %311 to i64
   %314 = getelementptr inbounds i32, ptr %278, i64 %313
   store i32 %312, ptr %314, align 4, !tbaa !42
   %315 = getelementptr inbounds %struct._PixT, ptr %305, i64 0, i32 2
-  %316 = load ptr, ptr %315, align 8, !tbaa !62
+  %316 = load ptr, ptr %315, align 8, !tbaa !61
   %317 = icmp eq ptr %316, null
-  br i1 %317, label %318, label %304, !llvm.loop !66
+  br i1 %317, label %318, label %304, !llvm.loop !65
 
 318:                                              ; preds = %304
   %319 = getelementptr inbounds %struct._PixT, ptr %305, i64 0, i32 2
-  %320 = load ptr, ptr %129, align 8, !tbaa !61
-  store ptr %320, ptr %319, align 8, !tbaa !62
-  store ptr %302, ptr %129, align 8, !tbaa !61
+  %320 = load ptr, ptr %129, align 8, !tbaa !60
+  store ptr %320, ptr %319, align 8, !tbaa !61
+  store ptr %302, ptr %129, align 8, !tbaa !60
   %321 = getelementptr inbounds %struct._CompT, ptr %299, i64 0, i32 1
   %322 = load i32, ptr %321, align 4, !tbaa !47
   %323 = load i32, ptr %132, align 4, !tbaa !47
@@ -943,7 +943,7 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
 
 359:                                              ; preds = %355
   %360 = getelementptr inbounds %struct._CompT, ptr %300, i64 0, i32 15
-  store ptr %358, ptr %360, align 8, !tbaa !56
+  store ptr %358, ptr %360, align 8, !tbaa !66
   br label %361
 
 361:                                              ; preds = %359, %355
@@ -980,41 +980,41 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
 383:                                              ; preds = %380, %383
   %384 = phi ptr [ %386, %383 ], [ %370, %380 ]
   %385 = getelementptr inbounds %struct._CompT, ptr %384, i64 0, i32 15
-  %386 = load ptr, ptr %385, align 8, !tbaa !56
+  %386 = load ptr, ptr %385, align 8, !tbaa !55
   %387 = load i32, ptr %386, align 8, !tbaa !45
   %388 = icmp eq i32 %387, %375
-  br i1 %388, label %389, label %383, !llvm.loop !65
+  br i1 %388, label %389, label %383, !llvm.loop !64
 
 389:                                              ; preds = %383, %380
   %390 = phi ptr [ %370, %380 ], [ %386, %383 ]
   %391 = phi ptr [ null, %380 ], [ %384, %383 ]
   %392 = getelementptr inbounds %struct._CompT, ptr %390, i64 0, i32 12
-  %393 = load ptr, ptr %392, align 8, !tbaa !61
+  %393 = load ptr, ptr %392, align 8, !tbaa !60
   %394 = icmp eq ptr %393, null
   br i1 %394, label %446, label %395
 
 395:                                              ; preds = %389, %395
   %396 = phi ptr [ %407, %395 ], [ %393, %389 ]
   %397 = getelementptr inbounds %struct._PixT, ptr %396, i64 0, i32 1
-  %398 = load i32, ptr %397, align 4, !tbaa !60
+  %398 = load i32, ptr %397, align 4, !tbaa !59
   %399 = load i32, ptr %3, align 4, !tbaa !5
   %400 = mul nsw i32 %399, %398
-  %401 = load i32, ptr %396, align 8, !tbaa !58
+  %401 = load i32, ptr %396, align 8, !tbaa !57
   %402 = add nsw i32 %400, %401
   %403 = load i32, ptr %123, align 8, !tbaa !45
   %404 = sext i32 %402 to i64
   %405 = getelementptr inbounds i32, ptr %369, i64 %404
   store i32 %403, ptr %405, align 4, !tbaa !42
   %406 = getelementptr inbounds %struct._PixT, ptr %396, i64 0, i32 2
-  %407 = load ptr, ptr %406, align 8, !tbaa !62
+  %407 = load ptr, ptr %406, align 8, !tbaa !61
   %408 = icmp eq ptr %407, null
-  br i1 %408, label %409, label %395, !llvm.loop !66
+  br i1 %408, label %409, label %395, !llvm.loop !65
 
 409:                                              ; preds = %395
   %410 = getelementptr inbounds %struct._PixT, ptr %396, i64 0, i32 2
-  %411 = load ptr, ptr %129, align 8, !tbaa !61
-  store ptr %411, ptr %410, align 8, !tbaa !62
-  store ptr %393, ptr %129, align 8, !tbaa !61
+  %411 = load ptr, ptr %129, align 8, !tbaa !60
+  store ptr %411, ptr %410, align 8, !tbaa !61
+  store ptr %393, ptr %129, align 8, !tbaa !60
   %412 = getelementptr inbounds %struct._CompT, ptr %390, i64 0, i32 1
   %413 = load i32, ptr %412, align 4, !tbaa !47
   %414 = load i32, ptr %132, align 4, !tbaa !47
@@ -1071,7 +1071,7 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
 
 450:                                              ; preds = %446
   %451 = getelementptr inbounds %struct._CompT, ptr %391, i64 0, i32 15
-  store ptr %449, ptr %451, align 8, !tbaa !56
+  store ptr %449, ptr %451, align 8, !tbaa !66
   br label %452
 
 452:                                              ; preds = %450, %446
@@ -1081,8 +1081,8 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
   br label %455
 
 455:                                              ; preds = %452, %377, %367
-  %456 = phi ptr [ %370, %367 ], [ %370, %377 ], [ %454, %452 ]
-  %457 = phi ptr [ %371, %367 ], [ %371, %377 ], [ %453, %452 ]
+  %456 = phi ptr [ %370, %377 ], [ %370, %367 ], [ %454, %452 ]
+  %457 = phi ptr [ %371, %377 ], [ %371, %367 ], [ %453, %452 ]
   %458 = add nsw i32 %184, 1
   %459 = icmp eq i32 %458, 2
   br i1 %459, label %460, label %182, !llvm.loop !67
@@ -1122,7 +1122,7 @@ define dso_local ptr @BuildConnectedComponents(ptr nocapture noundef %0, i32 nou
 ; Function Attrs: nounwind uwtable
 define dso_local void @MergeComponents(ptr nocapture noundef %0, ptr nocapture noundef %1, ptr noundef writeonly %2, ptr nocapture noundef writeonly %3, ptr nocapture noundef readonly %4) local_unnamed_addr #4 {
   %6 = getelementptr inbounds %struct._CompT, ptr %1, i64 0, i32 12
-  %7 = load ptr, ptr %6, align 8, !tbaa !61
+  %7 = load ptr, ptr %6, align 8, !tbaa !60
   %8 = icmp eq ptr %7, null
   br i1 %8, label %71, label %9
 
@@ -1135,26 +1135,26 @@ define dso_local void @MergeComponents(ptr nocapture noundef %0, ptr nocapture n
 13:                                               ; preds = %9, %13
   %14 = phi ptr [ %7, %9 ], [ %25, %13 ]
   %15 = getelementptr inbounds %struct._PixT, ptr %14, i64 0, i32 1
-  %16 = load i32, ptr %15, align 4, !tbaa !60
+  %16 = load i32, ptr %15, align 4, !tbaa !59
   %17 = load i32, ptr %10, align 4, !tbaa !5
   %18 = mul nsw i32 %17, %16
-  %19 = load i32, ptr %14, align 8, !tbaa !58
+  %19 = load i32, ptr %14, align 8, !tbaa !57
   %20 = add nsw i32 %18, %19
   %21 = load i32, ptr %0, align 8, !tbaa !45
   %22 = sext i32 %20 to i64
   %23 = getelementptr inbounds i32, ptr %12, i64 %22
   store i32 %21, ptr %23, align 4, !tbaa !42
   %24 = getelementptr inbounds %struct._PixT, ptr %14, i64 0, i32 2
-  %25 = load ptr, ptr %24, align 8, !tbaa !62
+  %25 = load ptr, ptr %24, align 8, !tbaa !61
   %26 = icmp eq ptr %25, null
-  br i1 %26, label %27, label %13, !llvm.loop !66
+  br i1 %26, label %27, label %13, !llvm.loop !65
 
 27:                                               ; preds = %13
   %28 = getelementptr inbounds %struct._CompT, ptr %0, i64 0, i32 12
-  %29 = load ptr, ptr %28, align 8, !tbaa !61
+  %29 = load ptr, ptr %28, align 8, !tbaa !60
   %30 = getelementptr inbounds %struct._PixT, ptr %14, i64 0, i32 2
-  store ptr %29, ptr %30, align 8, !tbaa !62
-  store ptr %7, ptr %28, align 8, !tbaa !61
+  store ptr %29, ptr %30, align 8, !tbaa !61
+  store ptr %7, ptr %28, align 8, !tbaa !60
   %31 = getelementptr inbounds %struct._CompT, ptr %1, i64 0, i32 1
   %32 = load i32, ptr %31, align 4, !tbaa !47
   %33 = getelementptr inbounds %struct._CompT, ptr %0, i64 0, i32 1
@@ -1215,14 +1215,14 @@ define dso_local void @MergeComponents(ptr nocapture noundef %0, ptr nocapture n
   %74 = load ptr, ptr %73, align 8, !tbaa !55
   %75 = getelementptr inbounds %struct._CompT, ptr %2, i64 0, i32 15
   %76 = select i1 %72, ptr %3, ptr %75
-  store ptr %74, ptr %76, align 8, !tbaa !56
+  store ptr %74, ptr %76, align 8, !tbaa !66
   tail call void @free(ptr noundef nonnull %1) #14
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @EliminateLargeSpreadComponents(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #4 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !56
+  %3 = load ptr, ptr %0, align 8, !tbaa !66
   %4 = icmp eq ptr %3, null
   br i1 %4, label %74, label %5
 
@@ -1270,7 +1270,7 @@ define dso_local void @EliminateLargeSpreadComponents(ptr nocapture noundef %0, 
 
 37:                                               ; preds = %28, %27, %29
   %38 = getelementptr inbounds %struct._CompT, ptr %12, i64 0, i32 12
-  %39 = load ptr, ptr %38, align 8, !tbaa !56
+  %39 = load ptr, ptr %38, align 8, !tbaa !66
   %40 = icmp eq ptr %39, null
   br i1 %40, label %56, label %41
 
@@ -1281,32 +1281,32 @@ define dso_local void @EliminateLargeSpreadComponents(ptr nocapture noundef %0, 
 43:                                               ; preds = %41, %43
   %44 = phi ptr [ %39, %41 ], [ %54, %43 ]
   %45 = getelementptr inbounds %struct._PixT, ptr %44, i64 0, i32 1
-  %46 = load i32, ptr %45, align 4, !tbaa !60
+  %46 = load i32, ptr %45, align 4, !tbaa !59
   %47 = load i32, ptr %7, align 4, !tbaa !5
   %48 = mul nsw i32 %47, %46
-  %49 = load i32, ptr %44, align 8, !tbaa !58
+  %49 = load i32, ptr %44, align 8, !tbaa !57
   %50 = add nsw i32 %48, %49
   %51 = sext i32 %50 to i64
   %52 = getelementptr inbounds i32, ptr %42, i64 %51
   store i32 0, ptr %52, align 4, !tbaa !42
   %53 = getelementptr inbounds %struct._PixT, ptr %44, i64 0, i32 2
-  %54 = load ptr, ptr %53, align 8, !tbaa !56
+  %54 = load ptr, ptr %53, align 8, !tbaa !66
   %55 = icmp eq ptr %54, null
   br i1 %55, label %56, label %43, !llvm.loop !71
 
 56:                                               ; preds = %43, %37
   %57 = getelementptr inbounds %struct._CompT, ptr %12, i64 0, i32 15
   %58 = load ptr, ptr %57, align 8, !tbaa !55
-  store ptr %58, ptr %13, align 8, !tbaa !56
+  store ptr %58, ptr %13, align 8, !tbaa !66
   tail call void @free(ptr noundef %12) #14
   %59 = load i32, ptr @KILL_SMALL_COMP, align 4, !tbaa !42
   br label %69
 
 60:                                               ; preds = %28, %29
   %61 = getelementptr inbounds %struct._CompT, ptr %12, i64 0, i32 9
-  %62 = load float, ptr %61, align 4, !tbaa !63
+  %62 = load float, ptr %61, align 4, !tbaa !62
   %63 = getelementptr inbounds %struct._CompT, ptr %12, i64 0, i32 10
-  %64 = load float, ptr %63, align 8, !tbaa !64
+  %64 = load float, ptr %63, align 8, !tbaa !63
   %65 = fcmp ult float %62, %64
   %66 = zext i1 %65 to i8
   %67 = getelementptr inbounds %struct._CompT, ptr %12, i64 0, i32 11
@@ -1317,7 +1317,7 @@ define dso_local void @EliminateLargeSpreadComponents(ptr nocapture noundef %0, 
 69:                                               ; preds = %60, %56
   %70 = phi i32 [ %59, %56 ], [ %11, %60 ]
   %71 = phi ptr [ %13, %56 ], [ %68, %60 ]
-  %72 = load ptr, ptr %71, align 8, !tbaa !56
+  %72 = load ptr, ptr %71, align 8, !tbaa !66
   %73 = icmp eq ptr %72, null
   br i1 %73, label %74, label %10, !llvm.loop !73
 
@@ -1418,22 +1418,22 @@ define dso_local void @WriteConnectedComponentsToPGM(ptr noundef readonly %0, pt
 22:                                               ; preds = %18, %39
   %23 = phi ptr [ %41, %39 ], [ %0, %18 ]
   %24 = getelementptr inbounds %struct._CompT, ptr %23, i64 0, i32 12
-  %25 = load ptr, ptr %24, align 8, !tbaa !56
+  %25 = load ptr, ptr %24, align 8, !tbaa !66
   %26 = icmp eq ptr %25, null
   br i1 %26, label %39, label %27
 
 27:                                               ; preds = %22, %27
   %28 = phi ptr [ %37, %27 ], [ %25, %22 ]
   %29 = getelementptr inbounds %struct._PixT, ptr %28, i64 0, i32 1
-  %30 = load i32, ptr %29, align 4, !tbaa !60
+  %30 = load i32, ptr %29, align 4, !tbaa !59
   %31 = mul nsw i32 %30, %9
-  %32 = load i32, ptr %28, align 8, !tbaa !58
+  %32 = load i32, ptr %28, align 8, !tbaa !57
   %33 = add nsw i32 %31, %32
   %34 = sext i32 %33 to i64
   %35 = getelementptr inbounds i8, ptr %21, i64 %34
   store i8 -1, ptr %35, align 1, !tbaa !15
   %36 = getelementptr inbounds %struct._PixT, ptr %28, i64 0, i32 2
-  %37 = load ptr, ptr %36, align 8, !tbaa !56
+  %37 = load ptr, ptr %36, align 8, !tbaa !66
   %38 = icmp eq ptr %37, null
   br i1 %38, label %39, label %27, !llvm.loop !76
 
@@ -1452,7 +1452,7 @@ define dso_local void @WriteConnectedComponentsToPGM(ptr noundef readonly %0, pt
   %49 = add nsw i32 %15, 1
   store i32 %49, ptr @WriteConnectedComponentsToPGM.index, align 4, !tbaa !42
   %50 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %48, ptr noundef nonnull dereferenceable(1) @.str.13, ptr noundef %45, i32 noundef %15) #14
-  %51 = load ptr, ptr @stdout, align 8, !tbaa !56
+  %51 = load ptr, ptr @stdout, align 8, !tbaa !66
   %52 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 3, i64 1, ptr %51)
   %53 = load i32, ptr %8, align 4, !tbaa !5
   %54 = load i32, ptr %12, align 8, !tbaa !12
@@ -1509,14 +1509,14 @@ define dso_local void @FreeConnectedComponents(ptr noundef %0) local_unnamed_add
   %5 = getelementptr inbounds %struct._CompT, ptr %4, i64 0, i32 15
   %6 = load ptr, ptr %5, align 8, !tbaa !55
   %7 = getelementptr inbounds %struct._CompT, ptr %4, i64 0, i32 12
-  %8 = load ptr, ptr %7, align 8, !tbaa !61
+  %8 = load ptr, ptr %7, align 8, !tbaa !60
   %9 = icmp eq ptr %8, null
   br i1 %9, label %15, label %10
 
 10:                                               ; preds = %3, %10
   %11 = phi ptr [ %13, %10 ], [ %8, %3 ]
   %12 = getelementptr inbounds %struct._PixT, ptr %11, i64 0, i32 2
-  %13 = load ptr, ptr %12, align 8, !tbaa !62
+  %13 = load ptr, ptr %12, align 8, !tbaa !61
   tail call void @free(ptr noundef nonnull %11) #14
   %14 = icmp eq ptr %13, null
   br i1 %14, label %15, label %10, !llvm.loop !80
@@ -1532,7 +1532,7 @@ define dso_local void @FreeConnectedComponents(ptr noundef %0) local_unnamed_add
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @MergeRowComponents(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #4 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !56
+  %3 = load ptr, ptr %0, align 8, !tbaa !66
   %4 = icmp eq ptr %3, null
   br i1 %4, label %10, label %5
 
@@ -1540,7 +1540,7 @@ define dso_local void @MergeRowComponents(ptr nocapture noundef %0, ptr nocaptur
   %6 = phi ptr [ %8, %5 ], [ %3, %2 ]
   tail call void @MergeToLeft(ptr noundef nonnull %6, ptr noundef nonnull %0, ptr noundef %1)
   %7 = getelementptr inbounds %struct._CompT, ptr %6, i64 0, i32 15
-  %8 = load ptr, ptr %7, align 8, !tbaa !56
+  %8 = load ptr, ptr %7, align 8, !tbaa !66
   %9 = icmp eq ptr %8, null
   br i1 %9, label %10, label %5, !llvm.loop !82
 
@@ -1627,7 +1627,7 @@ define dso_local void @MergeToLeft(ptr nocapture noundef %0, ptr nocapture nound
   br i1 %57, label %83, label %58
 
 58:                                               ; preds = %53
-  %59 = load ptr, ptr %1, align 8, !tbaa !56
+  %59 = load ptr, ptr %1, align 8, !tbaa !66
   %60 = icmp eq ptr %59, null
   br i1 %60, label %72, label %61
 
@@ -1644,7 +1644,7 @@ define dso_local void @MergeToLeft(ptr nocapture noundef %0, ptr nocapture nound
 67:                                               ; preds = %61, %64
   %68 = phi ptr [ %70, %64 ], [ %59, %61 ]
   %69 = getelementptr inbounds %struct._CompT, ptr %68, i64 0, i32 15
-  %70 = load ptr, ptr %69, align 8, !tbaa !56
+  %70 = load ptr, ptr %69, align 8, !tbaa !66
   %71 = icmp eq ptr %70, null
   br i1 %71, label %72, label %64, !llvm.loop !83
 
@@ -1694,7 +1694,7 @@ declare void @exit(i32 noundef) local_unnamed_addr #8
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @PairComponents(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #4 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !56
+  %3 = load ptr, ptr %0, align 8, !tbaa !66
   %4 = icmp eq ptr %3, null
   br i1 %4, label %183, label %5
 
@@ -1810,7 +1810,7 @@ define dso_local void @PairComponents(ptr nocapture noundef %0, ptr nocapture no
   br i1 %83, label %107, label %84
 
 84:                                               ; preds = %81
-  %85 = load ptr, ptr %0, align 8, !tbaa !56
+  %85 = load ptr, ptr %0, align 8, !tbaa !66
   %86 = icmp eq ptr %85, null
   br i1 %86, label %95, label %87
 
@@ -1822,13 +1822,13 @@ define dso_local void @PairComponents(ptr nocapture noundef %0, ptr nocapture no
 
 91:                                               ; preds = %87
   %92 = getelementptr inbounds %struct._CompT, ptr %88, i64 0, i32 15
-  %93 = load ptr, ptr %92, align 8, !tbaa !56
+  %93 = load ptr, ptr %92, align 8, !tbaa !66
   %94 = icmp eq ptr %93, null
   br i1 %94, label %95, label %87, !llvm.loop !88
 
 95:                                               ; preds = %84, %91
   %96 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.18)
-  %97 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
+  %97 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.26)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
@@ -1899,7 +1899,7 @@ define dso_local void @PairComponents(ptr nocapture noundef %0, ptr nocapture no
   %144 = phi i8 [ %139, %137 ], [ 0, %15 ]
   %145 = phi i8 [ %138, %137 ], [ 0, %15 ]
   %146 = getelementptr inbounds %struct._CompT, ptr %10, i64 0, i32 12
-  %147 = load ptr, ptr %146, align 8, !tbaa !61
+  %147 = load ptr, ptr %146, align 8, !tbaa !60
   %148 = icmp eq ptr %147, null
   br i1 %148, label %163, label %149
 
@@ -1907,16 +1907,16 @@ define dso_local void @PairComponents(ptr nocapture noundef %0, ptr nocapture no
   %150 = phi ptr [ %161, %149 ], [ %147, %143 ]
   %151 = load ptr, ptr %8, align 8, !tbaa !40
   %152 = getelementptr inbounds %struct._PixT, ptr %150, i64 0, i32 1
-  %153 = load i32, ptr %152, align 4, !tbaa !60
+  %153 = load i32, ptr %152, align 4, !tbaa !59
   %154 = load i32, ptr %6, align 4, !tbaa !5
   %155 = mul nsw i32 %154, %153
-  %156 = load i32, ptr %150, align 8, !tbaa !58
+  %156 = load i32, ptr %150, align 8, !tbaa !57
   %157 = add nsw i32 %155, %156
   %158 = sext i32 %157 to i64
   %159 = getelementptr inbounds i32, ptr %151, i64 %158
   store i32 0, ptr %159, align 4, !tbaa !42
   %160 = getelementptr inbounds %struct._PixT, ptr %150, i64 0, i32 2
-  %161 = load ptr, ptr %160, align 8, !tbaa !62
+  %161 = load ptr, ptr %160, align 8, !tbaa !61
   tail call void @free(ptr noundef nonnull %150) #14
   %162 = icmp eq ptr %161, null
   br i1 %162, label %163, label %149, !llvm.loop !92
@@ -1927,7 +1927,7 @@ define dso_local void @PairComponents(ptr nocapture noundef %0, ptr nocapture no
   %166 = load ptr, ptr %165, align 8, !tbaa !55
   %167 = getelementptr inbounds %struct._CompT, ptr %11, i64 0, i32 15
   %168 = select i1 %164, ptr %0, ptr %167
-  store ptr %166, ptr %168, align 8, !tbaa !56
+  store ptr %166, ptr %168, align 8, !tbaa !66
   tail call void @free(ptr noundef nonnull %10) #14
   br label %169
 
@@ -1943,7 +1943,7 @@ define dso_local void @PairComponents(ptr nocapture noundef %0, ptr nocapture no
   %178 = select i1 %176, ptr %0, ptr %177
   %179 = select i1 %174, ptr %10, ptr %11
   %180 = select i1 %174, ptr %175, ptr %178
-  %181 = load ptr, ptr %180, align 8, !tbaa !56
+  %181 = load ptr, ptr %180, align 8, !tbaa !66
   %182 = icmp eq ptr %181, null
   br i1 %182, label %183, label %9, !llvm.loop !93
 
@@ -2053,7 +2053,7 @@ define dso_local signext i8 @Overlap(ptr nocapture noundef readonly %0, ptr noca
 
 81:                                               ; preds = %74
   %82 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20)
-  %83 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.26)
+  %83 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
@@ -2167,7 +2167,7 @@ define dso_local void @ComputeBoundingBoxes(ptr noundef readonly %0, ptr nocaptu
   %82 = add i64 %81, 9
   %83 = tail call noalias ptr @malloc(i64 noundef %82) #12
   %84 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %83, ptr noundef nonnull dereferenceable(1) @.str.22, ptr noundef %80) #14
-  %85 = load ptr, ptr @stdout, align 8, !tbaa !56
+  %85 = load ptr, ptr @stdout, align 8, !tbaa !66
   %86 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 3, i64 1, ptr %85)
   %87 = load i32, ptr %5, align 4, !tbaa !5
   %88 = getelementptr inbounds %struct.ImgT, ptr %1, i64 0, i32 4
@@ -2203,26 +2203,26 @@ define dso_local void @ComputeBoundingBoxes(ptr noundef readonly %0, ptr nocaptu
   ret void
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #10
+declare i32 @llvm.smin.i32(i32, i32) #9
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x i32> @llvm.smax.v2i32(<2 x i32>, <2 x i32>) #10
+declare <2 x i32> @llvm.smax.v2i32(<2 x i32>, <2 x i32>) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x i32> @llvm.smin.v2i32(<2 x i32>, <2 x i32>) #10
+declare <2 x i32> @llvm.smin.v2i32(<2 x i32>, <2 x i32>) #9
 
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -2233,9 +2233,9 @@ attributes #5 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #6 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nofree nounwind }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nofree nounwind }
 attributes #12 = { nounwind allocsize(0) }
 attributes #13 = { nounwind allocsize(0,1) }
 attributes #14 = { nounwind }
@@ -2301,17 +2301,17 @@ attributes #16 = { noreturn nounwind }
 !53 = !{!46, !10, i64 28}
 !54 = !{!46, !10, i64 32}
 !55 = !{!46, !9, i64 72}
-!56 = !{!9, !9, i64 0}
-!57 = distinct !{!57, !24}
-!58 = !{!59, !10, i64 0}
-!59 = !{!"_PixT", !10, i64 0, !10, i64 4, !9, i64 8}
-!60 = !{!59, !10, i64 4}
-!61 = !{!46, !9, i64 48}
-!62 = !{!59, !9, i64 8}
-!63 = !{!46, !20, i64 36}
-!64 = !{!46, !20, i64 40}
+!56 = distinct !{!56, !24}
+!57 = !{!58, !10, i64 0}
+!58 = !{!"_PixT", !10, i64 0, !10, i64 4, !9, i64 8}
+!59 = !{!58, !10, i64 4}
+!60 = !{!46, !9, i64 48}
+!61 = !{!58, !9, i64 8}
+!62 = !{!46, !20, i64 36}
+!63 = !{!46, !20, i64 40}
+!64 = distinct !{!64, !24}
 !65 = distinct !{!65, !24}
-!66 = distinct !{!66, !24}
+!66 = !{!9, !9, i64 0}
 !67 = distinct !{!67, !24}
 !68 = distinct !{!68, !24}
 !69 = distinct !{!69, !24}

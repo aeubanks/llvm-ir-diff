@@ -694,8 +694,8 @@ define dso_local void @_ZN7NCrypto5NSha112CContextBase14GetBlockDigestEPjS2_b(pt
   store i32 %631, ptr %632, align 4, !tbaa !5
   %633 = tail call i32 @llvm.fshl.i32(i32 %617, i32 %617, i32 5)
   %634 = add i32 %587, -899497514
-  %635 = add i32 %634, %620
-  %636 = add i32 %635, %631
+  %635 = add i32 %634, %631
+  %636 = add i32 %635, %620
   %637 = add i32 %636, %633
   %638 = tail call i32 @llvm.fshl.i32(i32 %603, i32 %603, i32 30)
   %639 = add nuw nsw i64 %543, 5

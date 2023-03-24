@@ -70,27 +70,27 @@ define hidden i32 @luaZ_lookahead(ptr nocapture noundef %0) local_unnamed_addr #
   %17 = load i64, ptr %2, align 8
   %18 = icmp eq i64 %17, 0
   %19 = select i1 %16, i1 true, i1 %18
-  br i1 %19, label %20, label %21
+  br i1 %19, label %22, label %20
 
 20:                                               ; preds = %8
+  %21 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 1
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #7
+  store i64 %17, ptr %0, align 8, !tbaa !13
+  store ptr %15, ptr %21, align 8, !tbaa !14
+  br label %23
+
+22:                                               ; preds = %8
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #7
   br label %27
 
-21:                                               ; preds = %8
-  %22 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 1
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #7
-  store i64 %17, ptr %0, align 8, !tbaa !13
-  store ptr %15, ptr %22, align 8, !tbaa !14
-  br label %23
-
-23:                                               ; preds = %5, %21
-  %24 = phi ptr [ %7, %5 ], [ %15, %21 ]
+23:                                               ; preds = %5, %20
+  %24 = phi ptr [ %7, %5 ], [ %15, %20 ]
   %25 = load i8, ptr %24, align 1, !tbaa !15
   %26 = zext i8 %25 to i32
   br label %27
 
-27:                                               ; preds = %20, %23
-  %28 = phi i32 [ %26, %23 ], [ -1, %20 ]
+27:                                               ; preds = %22, %23
+  %28 = phi i32 [ %26, %23 ], [ -1, %22 ]
   ret i32 %28
 }
 
@@ -150,8 +150,8 @@ define hidden i64 @luaZ_read(ptr nocapture noundef %0, ptr nocapture noundef wri
   br label %29
 
 29:                                               ; preds = %17, %28
-  %30 = phi ptr [ %18, %17 ], [ %23, %28 ]
-  %31 = phi i64 [ %13, %17 ], [ %25, %28 ]
+  %30 = phi ptr [ %23, %28 ], [ %18, %17 ]
+  %31 = phi i64 [ %25, %28 ], [ %13, %17 ]
   %32 = call i64 @llvm.umin.i64(i64 %14, i64 %31)
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %15, ptr align 1 %30, i64 %32, i1 false)
   %33 = load i64, ptr %0, align 8, !tbaa !13
@@ -214,22 +214,22 @@ declare hidden ptr @luaM_realloc_(ptr noundef, ptr noundef, i64 noundef, i64 nou
 
 declare hidden ptr @luaM_toobig(ptr noundef) local_unnamed_addr #4
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #5
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #5
+declare i64 @llvm.umin.i64(i64, i64) #6
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umax.i64(i64, i64) #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #2 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #7 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

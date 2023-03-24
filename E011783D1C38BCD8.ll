@@ -264,7 +264,7 @@ define dso_local void @_ZN8NArchive4NCab10CInArchive12SafeReadNameEv(ptr noalias
 17:                                               ; preds = %15
   unreachable
 
-18:                                               ; preds = %13, %6
+18:                                               ; preds = %6, %13
   %19 = phi ptr [ %14, %13 ], [ %7, %6 ]
   %20 = getelementptr inbounds i8, ptr %19, i64 1
   store ptr %20, ptr %1, align 8, !tbaa !5
@@ -1385,9 +1385,9 @@ define dso_local noundef i32 @_ZN8NArchive4NCab10CInArchive4OpenEPKyRNS0_11CData
   %146 = zext i8 %143 to i32
   br label %147
 
-147:                                              ; preds = %145, %159
-  %148 = phi ptr [ %161, %159 ], [ %141, %145 ]
-  %149 = phi i32 [ %150, %159 ], [ %146, %145 ]
+147:                                              ; preds = %159, %145
+  %148 = phi ptr [ %141, %145 ], [ %161, %159 ]
+  %149 = phi i32 [ %146, %145 ], [ %150, %159 ]
   %150 = add nsw i32 %149, -1
   %151 = load ptr, ptr %85, align 8, !tbaa !14
   %152 = icmp ult ptr %148, %151
@@ -1842,13 +1842,13 @@ define dso_local void @_ZN8NArchive4NCab13CMvDatabaseEx17FillSortAndShrinkEv(ptr
   %11 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 2, i32 0, i32 2
   %12 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 3
   %13 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 2
-  br label %546
+  br label %530
 
-14:                                               ; preds = %628, %1
+14:                                               ; preds = %587, %1
   %15 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 2
   %16 = load i32, ptr %15, align 4, !tbaa !74
   %17 = icmp slt i32 %16, 2
-  br i1 %17, label %746, label %18
+  br i1 %17, label %706, label %18
 
 18:                                               ; preds = %14
   %19 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 3
@@ -1860,8 +1860,8 @@ define dso_local void @_ZN8NArchive4NCab13CMvDatabaseEx17FillSortAndShrinkEv(ptr
   %25 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 2, i32 0, i32 3
   br label %26
 
-26:                                               ; preds = %274, %18
-  %27 = phi i64 [ %277, %274 ], [ %23, %18 ]
+26:                                               ; preds = %266, %18
+  %27 = phi i64 [ %269, %266 ], [ %23, %18 ]
   %28 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %27
   %29 = load i64, ptr %28, align 4
   %30 = trunc i64 %29 to i32
@@ -1870,7 +1870,7 @@ define dso_local void @_ZN8NArchive4NCab13CMvDatabaseEx17FillSortAndShrinkEv(ptr
   %33 = trunc i64 %27 to i32
   %34 = shl i32 %33, 1
   %35 = icmp sgt i32 %34, %16
-  br i1 %35, label %274, label %36
+  br i1 %35, label %266, label %36
 
 36:                                               ; preds = %26
   %37 = shl i64 %29, 32
@@ -1878,15 +1878,15 @@ define dso_local void @_ZN8NArchive4NCab13CMvDatabaseEx17FillSortAndShrinkEv(ptr
   %39 = ashr i64 %29, 32
   br label %40
 
-40:                                               ; preds = %36, %268
-  %41 = phi i32 [ %272, %268 ], [ %34, %36 ]
-  %42 = phi i32 [ %163, %268 ], [ %33, %36 ]
+40:                                               ; preds = %36, %260
+  %41 = phi i32 [ %264, %260 ], [ %34, %36 ]
+  %42 = phi i32 [ %159, %260 ], [ %33, %36 ]
   %43 = icmp slt i32 %41, %16
   br i1 %43, label %46, label %44
 
 44:                                               ; preds = %40
   %45 = load ptr, ptr %24, align 8, !tbaa !73
-  br label %161
+  br label %157
 
 46:                                               ; preds = %40
   %47 = sext i32 %41 to i64
@@ -1923,12 +1923,12 @@ define dso_local void @_ZN8NArchive4NCab13CMvDatabaseEx17FillSortAndShrinkEv(ptr
   %78 = load i16, ptr %77, align 8, !tbaa !83
   %79 = and i16 %78, 16
   %80 = icmp eq i16 %79, 0
-  %81 = and i1 %76, %80
-  br i1 %81, label %156, label %82
+  %81 = select i1 %76, i1 %80, i1 false
+  br i1 %81, label %152, label %82
 
 82:                                               ; preds = %46
-  %83 = or i1 %76, %80
-  br i1 %83, label %84, label %156
+  %83 = select i1 %80, i1 true, i1 %76
+  br i1 %83, label %84, label %152
 
 84:                                               ; preds = %82
   %85 = load ptr, ptr %25, align 8, !tbaa !73
@@ -1986,922 +1986,876 @@ define dso_local void @_ZN8NArchive4NCab13CMvDatabaseEx17FillSortAndShrinkEv(ptr
   %121 = icmp ne i32 %102, %119
   %122 = zext i1 %121 to i32
   %123 = select i1 %120, i32 -1, i32 %122
-  %124 = icmp eq i32 %123, 0
-  br i1 %124, label %125, label %156
+  br i1 %121, label %152, label %124
 
-125:                                              ; preds = %117
-  %126 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %65, i64 0, i32 1
-  %127 = load i32, ptr %126, align 8, !tbaa !80
-  %128 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %72, i64 0, i32 1
-  %129 = load i32, ptr %128, align 8, !tbaa !80
-  %130 = icmp ult i32 %127, %129
-  %131 = icmp ne i32 %127, %129
-  %132 = zext i1 %131 to i32
-  %133 = select i1 %130, i32 -1, i32 %132
-  %134 = icmp eq i32 %133, 0
-  br i1 %134, label %135, label %156
+124:                                              ; preds = %117
+  %125 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %65, i64 0, i32 1
+  %126 = load i32, ptr %125, align 8, !tbaa !80
+  %127 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %72, i64 0, i32 1
+  %128 = load i32, ptr %127, align 8, !tbaa !80
+  %129 = icmp ne i32 %126, %128
+  %130 = icmp ult i32 %126, %128
+  %131 = zext i1 %129 to i32
+  %132 = select i1 %130, i32 -1, i32 %131
+  br i1 %129, label %152, label %133
 
-135:                                              ; preds = %125
-  %136 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %65, i64 0, i32 2
+133:                                              ; preds = %124
+  %134 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %65, i64 0, i32 2
+  %135 = load i32, ptr %134, align 4, !tbaa !78
+  %136 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %72, i64 0, i32 2
   %137 = load i32, ptr %136, align 4, !tbaa !78
-  %138 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %72, i64 0, i32 2
-  %139 = load i32, ptr %138, align 4, !tbaa !78
-  %140 = icmp ult i32 %137, %139
-  %141 = icmp ne i32 %137, %139
-  %142 = zext i1 %141 to i32
-  %143 = select i1 %140, i32 -1, i32 %142
-  %144 = icmp eq i32 %143, 0
-  br i1 %144, label %145, label %156
+  %138 = icmp ne i32 %135, %137
+  %139 = icmp ult i32 %135, %137
+  %140 = zext i1 %138 to i32
+  %141 = select i1 %139, i32 -1, i32 %140
+  br i1 %138, label %152, label %142
 
-145:                                              ; preds = %135
-  %146 = icmp slt i32 %50, %55
-  %147 = icmp ne i32 %50, %55
-  %148 = zext i1 %147 to i32
-  %149 = select i1 %146, i32 -1, i32 %148
-  %150 = icmp eq i32 %149, 0
-  br i1 %150, label %151, label %156
+142:                                              ; preds = %133
+  %143 = icmp ne i32 %50, %55
+  %144 = icmp slt i32 %50, %55
+  %145 = zext i1 %143 to i32
+  %146 = select i1 %144, i32 -1, i32 %145
+  br i1 %143, label %152, label %147
 
-151:                                              ; preds = %145
-  %152 = icmp slt i32 %60, %67
-  %153 = icmp ne i32 %60, %67
-  %154 = zext i1 %153 to i32
-  %155 = select i1 %152, i32 -1, i32 %154
-  br label %156
+147:                                              ; preds = %142
+  %148 = icmp slt i32 %60, %67
+  %149 = icmp ne i32 %60, %67
+  %150 = zext i1 %149 to i32
+  %151 = select i1 %148, i32 -1, i32 %150
+  br label %152
 
-156:                                              ; preds = %46, %82, %117, %125, %135, %145, %151
-  %157 = phi i32 [ -1, %46 ], [ 1, %82 ], [ %155, %151 ], [ %149, %145 ], [ %143, %135 ], [ %133, %125 ], [ %123, %117 ]
-  %158 = icmp sgt i32 %157, 0
-  %159 = zext i1 %158 to i32
-  %160 = or i32 %41, %159
-  br label %161
+152:                                              ; preds = %46, %82, %117, %124, %133, %142, %147
+  %153 = phi i32 [ -1, %46 ], [ 1, %82 ], [ %151, %147 ], [ %146, %142 ], [ %141, %133 ], [ %132, %124 ], [ %123, %117 ]
+  %154 = icmp sgt i32 %153, 0
+  %155 = zext i1 %154 to i32
+  %156 = or i32 %41, %155
+  br label %157
 
-161:                                              ; preds = %44, %156
-  %162 = phi ptr [ %45, %44 ], [ %51, %156 ]
-  %163 = phi i32 [ %41, %44 ], [ %160, %156 ]
-  %164 = sext i32 %163 to i64
-  %165 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %164
-  %166 = getelementptr inbounds ptr, ptr %162, i64 %38
+157:                                              ; preds = %44, %152
+  %158 = phi ptr [ %45, %44 ], [ %51, %152 ]
+  %159 = phi i32 [ %41, %44 ], [ %156, %152 ]
+  %160 = sext i32 %159 to i64
+  %161 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %160
+  %162 = getelementptr inbounds ptr, ptr %158, i64 %38
+  %163 = load ptr, ptr %162, align 8, !tbaa !75
+  %164 = load i32, ptr %161, align 4, !tbaa !84
+  %165 = sext i32 %164 to i64
+  %166 = getelementptr inbounds ptr, ptr %158, i64 %165
   %167 = load ptr, ptr %166, align 8, !tbaa !75
-  %168 = load i32, ptr %165, align 4, !tbaa !84
-  %169 = sext i32 %168 to i64
-  %170 = getelementptr inbounds ptr, ptr %162, i64 %169
+  %168 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %163, i64 0, i32 3, i32 0, i32 0, i32 3
+  %169 = load ptr, ptr %168, align 8, !tbaa !73
+  %170 = getelementptr inbounds ptr, ptr %169, i64 %39
   %171 = load ptr, ptr %170, align 8, !tbaa !75
-  %172 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %167, i64 0, i32 3, i32 0, i32 0, i32 3
-  %173 = load ptr, ptr %172, align 8, !tbaa !73
-  %174 = getelementptr inbounds ptr, ptr %173, i64 %39
-  %175 = load ptr, ptr %174, align 8, !tbaa !75
-  %176 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %165, i64 0, i32 1
-  %177 = load i32, ptr %176, align 4, !tbaa !86
-  %178 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %171, i64 0, i32 3, i32 0, i32 0, i32 3
-  %179 = load ptr, ptr %178, align 8, !tbaa !73
-  %180 = sext i32 %177 to i64
-  %181 = getelementptr inbounds ptr, ptr %179, i64 %180
-  %182 = load ptr, ptr %181, align 8, !tbaa !75
-  %183 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %175, i64 0, i32 6
+  %172 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %161, i64 0, i32 1
+  %173 = load i32, ptr %172, align 4, !tbaa !86
+  %174 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %167, i64 0, i32 3, i32 0, i32 0, i32 3
+  %175 = load ptr, ptr %174, align 8, !tbaa !73
+  %176 = sext i32 %173 to i64
+  %177 = getelementptr inbounds ptr, ptr %175, i64 %176
+  %178 = load ptr, ptr %177, align 8, !tbaa !75
+  %179 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %171, i64 0, i32 6
+  %180 = load i16, ptr %179, align 8, !tbaa !83
+  %181 = and i16 %180, 16
+  %182 = icmp ne i16 %181, 0
+  %183 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %178, i64 0, i32 6
   %184 = load i16, ptr %183, align 8, !tbaa !83
   %185 = and i16 %184, 16
-  %186 = icmp ne i16 %185, 0
-  %187 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %182, i64 0, i32 6
-  %188 = load i16, ptr %187, align 8, !tbaa !83
-  %189 = and i16 %188, 16
-  %190 = icmp eq i16 %189, 0
-  %191 = and i1 %186, %190
-  br i1 %191, label %268, label %192
+  %186 = icmp eq i16 %185, 0
+  %187 = select i1 %182, i1 %186, i1 false
+  br i1 %187, label %260, label %188
 
-192:                                              ; preds = %161
-  %193 = or i1 %186, %190
-  br i1 %193, label %194, label %266
+188:                                              ; preds = %157
+  %189 = select i1 %186, i1 true, i1 %182
+  br i1 %189, label %190, label %258
 
-194:                                              ; preds = %192
-  %195 = load ptr, ptr %25, align 8, !tbaa !73
-  %196 = getelementptr inbounds i32, ptr %195, i64 %38
-  %197 = load i32, ptr %196, align 4, !tbaa !87
-  %198 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %167, i64 0, i32 2, i32 0, i32 0, i32 2
-  %199 = load i32, ptr %198, align 4, !tbaa !74
-  %200 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %175, i64 0, i32 4
-  %201 = load i16, ptr %200, align 4, !tbaa !81
-  %202 = and i16 %201, -3
-  %203 = icmp eq i16 %202, -3
-  br i1 %203, label %210, label %204
+190:                                              ; preds = %188
+  %191 = load ptr, ptr %25, align 8, !tbaa !73
+  %192 = getelementptr inbounds i32, ptr %191, i64 %38
+  %193 = load i32, ptr %192, align 4, !tbaa !87
+  %194 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %163, i64 0, i32 2, i32 0, i32 0, i32 2
+  %195 = load i32, ptr %194, align 4, !tbaa !74
+  %196 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %171, i64 0, i32 4
+  %197 = load i16, ptr %196, align 4, !tbaa !81
+  %198 = and i16 %197, -3
+  %199 = icmp eq i16 %198, -3
+  br i1 %199, label %206, label %200
 
-204:                                              ; preds = %194
-  %205 = icmp ugt i16 %201, -3
-  br i1 %205, label %206, label %208
+200:                                              ; preds = %190
+  %201 = icmp ugt i16 %197, -3
+  br i1 %201, label %202, label %204
 
-206:                                              ; preds = %204
-  %207 = add nsw i32 %199, -1
-  br label %210
+202:                                              ; preds = %200
+  %203 = add nsw i32 %195, -1
+  br label %206
 
-208:                                              ; preds = %204
-  %209 = zext i16 %201 to i32
-  br label %210
+204:                                              ; preds = %200
+  %205 = zext i16 %197 to i32
+  br label %206
 
-210:                                              ; preds = %208, %206, %194
-  %211 = phi i32 [ %207, %206 ], [ %209, %208 ], [ 0, %194 ]
-  %212 = add nsw i32 %211, %197
-  %213 = getelementptr inbounds i32, ptr %195, i64 %169
-  %214 = load i32, ptr %213, align 4, !tbaa !87
-  %215 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %171, i64 0, i32 2, i32 0, i32 0, i32 2
-  %216 = load i32, ptr %215, align 4, !tbaa !74
-  %217 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %182, i64 0, i32 4
-  %218 = load i16, ptr %217, align 4, !tbaa !81
-  %219 = and i16 %218, -3
-  %220 = icmp eq i16 %219, -3
-  br i1 %220, label %227, label %221
+206:                                              ; preds = %204, %202, %190
+  %207 = phi i32 [ %203, %202 ], [ %205, %204 ], [ 0, %190 ]
+  %208 = add nsw i32 %207, %193
+  %209 = getelementptr inbounds i32, ptr %191, i64 %165
+  %210 = load i32, ptr %209, align 4, !tbaa !87
+  %211 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %167, i64 0, i32 2, i32 0, i32 0, i32 2
+  %212 = load i32, ptr %211, align 4, !tbaa !74
+  %213 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %178, i64 0, i32 4
+  %214 = load i16, ptr %213, align 4, !tbaa !81
+  %215 = and i16 %214, -3
+  %216 = icmp eq i16 %215, -3
+  br i1 %216, label %223, label %217
 
-221:                                              ; preds = %210
-  %222 = icmp ugt i16 %218, -3
-  br i1 %222, label %223, label %225
+217:                                              ; preds = %206
+  %218 = icmp ugt i16 %214, -3
+  br i1 %218, label %219, label %221
 
-223:                                              ; preds = %221
-  %224 = add nsw i32 %216, -1
-  br label %227
+219:                                              ; preds = %217
+  %220 = add nsw i32 %212, -1
+  br label %223
 
-225:                                              ; preds = %221
-  %226 = zext i16 %218 to i32
-  br label %227
+221:                                              ; preds = %217
+  %222 = zext i16 %214 to i32
+  br label %223
 
-227:                                              ; preds = %225, %223, %210
-  %228 = phi i32 [ %224, %223 ], [ %226, %225 ], [ 0, %210 ]
-  %229 = add nsw i32 %228, %214
-  %230 = icmp slt i32 %212, %229
-  %231 = icmp ne i32 %212, %229
-  %232 = zext i1 %231 to i32
-  %233 = select i1 %230, i32 -1, i32 %232
-  %234 = icmp eq i32 %233, 0
-  br i1 %234, label %235, label %263
+223:                                              ; preds = %221, %219, %206
+  %224 = phi i32 [ %220, %219 ], [ %222, %221 ], [ 0, %206 ]
+  %225 = add nsw i32 %224, %210
+  %226 = icmp slt i32 %208, %225
+  %227 = icmp ne i32 %208, %225
+  %228 = zext i1 %227 to i32
+  %229 = select i1 %226, i32 -1, i32 %228
+  br i1 %227, label %255, label %230
 
-235:                                              ; preds = %227
-  %236 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %175, i64 0, i32 1
-  %237 = load i32, ptr %236, align 8, !tbaa !80
-  %238 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %182, i64 0, i32 1
-  %239 = load i32, ptr %238, align 8, !tbaa !80
-  %240 = icmp ult i32 %237, %239
-  %241 = icmp ne i32 %237, %239
-  %242 = zext i1 %241 to i32
-  %243 = select i1 %240, i32 -1, i32 %242
-  %244 = icmp eq i32 %243, 0
-  br i1 %244, label %245, label %263
+230:                                              ; preds = %223
+  %231 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %171, i64 0, i32 1
+  %232 = load i32, ptr %231, align 8, !tbaa !80
+  %233 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %178, i64 0, i32 1
+  %234 = load i32, ptr %233, align 8, !tbaa !80
+  %235 = icmp ne i32 %232, %234
+  %236 = icmp ult i32 %232, %234
+  %237 = zext i1 %235 to i32
+  %238 = select i1 %236, i32 -1, i32 %237
+  br i1 %235, label %255, label %239
 
-245:                                              ; preds = %235
-  %246 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %175, i64 0, i32 2
-  %247 = load i32, ptr %246, align 4, !tbaa !78
-  %248 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %182, i64 0, i32 2
-  %249 = load i32, ptr %248, align 4, !tbaa !78
-  %250 = icmp ult i32 %247, %249
-  %251 = icmp ne i32 %247, %249
-  %252 = zext i1 %251 to i32
-  %253 = select i1 %250, i32 -1, i32 %252
-  %254 = icmp eq i32 %253, 0
-  br i1 %254, label %255, label %263
+239:                                              ; preds = %230
+  %240 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %171, i64 0, i32 2
+  %241 = load i32, ptr %240, align 4, !tbaa !78
+  %242 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %178, i64 0, i32 2
+  %243 = load i32, ptr %242, align 4, !tbaa !78
+  %244 = icmp ne i32 %241, %243
+  %245 = icmp ult i32 %241, %243
+  %246 = zext i1 %244 to i32
+  %247 = select i1 %245, i32 -1, i32 %246
+  br i1 %244, label %255, label %248
 
-255:                                              ; preds = %245
-  %256 = icmp sgt i32 %168, %30
-  %257 = icmp ne i32 %168, %30
-  %258 = zext i1 %257 to i32
-  %259 = select i1 %256, i32 -1, i32 %258
-  %260 = icmp eq i32 %259, 0
-  br i1 %260, label %261, label %263
+248:                                              ; preds = %239
+  %249 = icmp ne i32 %164, %30
+  %250 = icmp sgt i32 %164, %30
+  %251 = zext i1 %249 to i32
+  %252 = select i1 %250, i32 -1, i32 %251
+  br i1 %249, label %255, label %253
 
-261:                                              ; preds = %255
-  %262 = icmp sgt i32 %177, %32
-  br i1 %262, label %268, label %266
+253:                                              ; preds = %248
+  %254 = icmp sgt i32 %173, %32
+  br i1 %254, label %260, label %258
 
-263:                                              ; preds = %227, %235, %245, %255
-  %264 = phi i32 [ %259, %255 ], [ %253, %245 ], [ %243, %235 ], [ %233, %227 ]
-  %265 = icmp sgt i32 %264, -1
-  br i1 %265, label %266, label %268
+255:                                              ; preds = %223, %230, %239, %248
+  %256 = phi i32 [ %252, %248 ], [ %247, %239 ], [ %238, %230 ], [ %229, %223 ]
+  %257 = icmp sgt i32 %256, -1
+  br i1 %257, label %258, label %260
 
-266:                                              ; preds = %261, %192, %263
-  %267 = sext i32 %42 to i64
-  br label %274
+258:                                              ; preds = %253, %188, %255
+  %259 = sext i32 %42 to i64
+  br label %266
 
-268:                                              ; preds = %261, %161, %263
-  %269 = sext i32 %42 to i64
-  %270 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %269
-  %271 = load i64, ptr %165, align 4
-  store i64 %271, ptr %270, align 4
-  %272 = shl i32 %163, 1
-  %273 = icmp sgt i32 %272, %16
-  br i1 %273, label %274, label %40
+260:                                              ; preds = %253, %157, %255
+  %261 = sext i32 %42 to i64
+  %262 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %261
+  %263 = load i64, ptr %161, align 4
+  store i64 %263, ptr %262, align 4
+  %264 = shl i32 %159, 1
+  %265 = icmp sgt i32 %264, %16
+  br i1 %265, label %266, label %40
 
-274:                                              ; preds = %268, %266, %26
-  %275 = phi i64 [ %27, %26 ], [ %267, %266 ], [ %164, %268 ]
-  %276 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %275
-  store i64 %29, ptr %276, align 4
-  %277 = add nsw i64 %27, -1
-  %278 = icmp eq i64 %277, 0
-  br i1 %278, label %279, label %26, !llvm.loop !88
+266:                                              ; preds = %260, %258, %26
+  %267 = phi i64 [ %27, %26 ], [ %259, %258 ], [ %160, %260 ]
+  %268 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %267
+  store i64 %29, ptr %268, align 4
+  %269 = add nsw i64 %27, -1
+  %270 = icmp eq i64 %269, 0
+  br i1 %270, label %271, label %26, !llvm.loop !88
 
-279:                                              ; preds = %274
-  %280 = sext i32 %16 to i64
-  %281 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %280
-  %282 = load i64, ptr %281, align 4
-  %283 = load i64, ptr %20, align 4
-  store i64 %283, ptr %281, align 4
-  store i64 %282, ptr %20, align 4
-  %284 = icmp slt i32 %16, 3
-  br i1 %284, label %538, label %285
+271:                                              ; preds = %266
+  %272 = sext i32 %16 to i64
+  %273 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %272
+  %274 = load i64, ptr %273, align 4
+  %275 = load i64, ptr %20, align 4
+  store i64 %275, ptr %273, align 4
+  store i64 %274, ptr %20, align 4
+  %276 = icmp slt i32 %16, 3
+  br i1 %276, label %522, label %277
 
-285:                                              ; preds = %279, %531
-  %286 = phi i64 [ %535, %531 ], [ %282, %279 ]
-  %287 = phi i64 [ %291, %531 ], [ %280, %279 ]
-  %288 = lshr i64 %286, 32
-  %289 = trunc i64 %288 to i32
-  %290 = trunc i64 %286 to i32
-  %291 = add nsw i64 %287, -1
-  %292 = shl i64 %286, 32
-  %293 = ashr exact i64 %292, 32
-  %294 = ashr i64 %286, 32
-  br label %295
+277:                                              ; preds = %271, %515
+  %278 = phi i64 [ %519, %515 ], [ %274, %271 ]
+  %279 = phi i64 [ %283, %515 ], [ %272, %271 ]
+  %280 = lshr i64 %278, 32
+  %281 = trunc i64 %280 to i32
+  %282 = trunc i64 %278 to i32
+  %283 = add nsw i64 %279, -1
+  %284 = shl i64 %278, 32
+  %285 = ashr exact i64 %284, 32
+  %286 = ashr i64 %278, 32
+  br label %287
 
-295:                                              ; preds = %524, %285
-  %296 = phi i32 [ %528, %524 ], [ 2, %285 ]
-  %297 = phi i32 [ %420, %524 ], [ 1, %285 ]
-  %298 = sext i32 %296 to i64
-  %299 = icmp sgt i64 %291, %298
-  br i1 %299, label %302, label %300
+287:                                              ; preds = %508, %277
+  %288 = phi i32 [ %512, %508 ], [ 2, %277 ]
+  %289 = phi i32 [ %408, %508 ], [ 1, %277 ]
+  %290 = sext i32 %288 to i64
+  %291 = icmp sgt i64 %283, %290
+  br i1 %291, label %294, label %292
 
-300:                                              ; preds = %295
-  %301 = load ptr, ptr %24, align 8, !tbaa !73
-  br label %417
+292:                                              ; preds = %287
+  %293 = load ptr, ptr %24, align 8, !tbaa !73
+  br label %405
 
-302:                                              ; preds = %295
-  %303 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %298
-  %304 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %303, i64 1
-  %305 = load i32, ptr %304, align 4, !tbaa !84
-  %306 = load ptr, ptr %24, align 8, !tbaa !73
-  %307 = sext i32 %305 to i64
-  %308 = getelementptr inbounds ptr, ptr %306, i64 %307
-  %309 = load ptr, ptr %308, align 8, !tbaa !75
-  %310 = load i32, ptr %303, align 4, !tbaa !84
-  %311 = sext i32 %310 to i64
-  %312 = getelementptr inbounds ptr, ptr %306, i64 %311
-  %313 = load ptr, ptr %312, align 8, !tbaa !75
-  %314 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %304, i64 0, i32 1
-  %315 = load i32, ptr %314, align 4, !tbaa !86
-  %316 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %309, i64 0, i32 3, i32 0, i32 0, i32 3
-  %317 = load ptr, ptr %316, align 8, !tbaa !73
-  %318 = sext i32 %315 to i64
-  %319 = getelementptr inbounds ptr, ptr %317, i64 %318
-  %320 = load ptr, ptr %319, align 8, !tbaa !75
-  %321 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %303, i64 0, i32 1
-  %322 = load i32, ptr %321, align 4, !tbaa !86
-  %323 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %313, i64 0, i32 3, i32 0, i32 0, i32 3
-  %324 = load ptr, ptr %323, align 8, !tbaa !73
-  %325 = sext i32 %322 to i64
-  %326 = getelementptr inbounds ptr, ptr %324, i64 %325
-  %327 = load ptr, ptr %326, align 8, !tbaa !75
-  %328 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %320, i64 0, i32 6
-  %329 = load i16, ptr %328, align 8, !tbaa !83
-  %330 = and i16 %329, 16
-  %331 = icmp ne i16 %330, 0
-  %332 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %327, i64 0, i32 6
-  %333 = load i16, ptr %332, align 8, !tbaa !83
-  %334 = and i16 %333, 16
-  %335 = icmp eq i16 %334, 0
-  %336 = and i1 %331, %335
-  br i1 %336, label %411, label %337
+294:                                              ; preds = %287
+  %295 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %290
+  %296 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %295, i64 1
+  %297 = load i32, ptr %296, align 4, !tbaa !84
+  %298 = load ptr, ptr %24, align 8, !tbaa !73
+  %299 = sext i32 %297 to i64
+  %300 = getelementptr inbounds ptr, ptr %298, i64 %299
+  %301 = load ptr, ptr %300, align 8, !tbaa !75
+  %302 = load i32, ptr %295, align 4, !tbaa !84
+  %303 = sext i32 %302 to i64
+  %304 = getelementptr inbounds ptr, ptr %298, i64 %303
+  %305 = load ptr, ptr %304, align 8, !tbaa !75
+  %306 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %296, i64 0, i32 1
+  %307 = load i32, ptr %306, align 4, !tbaa !86
+  %308 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %301, i64 0, i32 3, i32 0, i32 0, i32 3
+  %309 = load ptr, ptr %308, align 8, !tbaa !73
+  %310 = sext i32 %307 to i64
+  %311 = getelementptr inbounds ptr, ptr %309, i64 %310
+  %312 = load ptr, ptr %311, align 8, !tbaa !75
+  %313 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %295, i64 0, i32 1
+  %314 = load i32, ptr %313, align 4, !tbaa !86
+  %315 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %305, i64 0, i32 3, i32 0, i32 0, i32 3
+  %316 = load ptr, ptr %315, align 8, !tbaa !73
+  %317 = sext i32 %314 to i64
+  %318 = getelementptr inbounds ptr, ptr %316, i64 %317
+  %319 = load ptr, ptr %318, align 8, !tbaa !75
+  %320 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %312, i64 0, i32 6
+  %321 = load i16, ptr %320, align 8, !tbaa !83
+  %322 = and i16 %321, 16
+  %323 = icmp ne i16 %322, 0
+  %324 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %319, i64 0, i32 6
+  %325 = load i16, ptr %324, align 8, !tbaa !83
+  %326 = and i16 %325, 16
+  %327 = icmp eq i16 %326, 0
+  %328 = select i1 %323, i1 %327, i1 false
+  br i1 %328, label %399, label %329
 
-337:                                              ; preds = %302
-  %338 = or i1 %331, %335
-  br i1 %338, label %339, label %411
+329:                                              ; preds = %294
+  %330 = select i1 %327, i1 true, i1 %323
+  br i1 %330, label %331, label %399
 
-339:                                              ; preds = %337
-  %340 = load ptr, ptr %25, align 8, !tbaa !73
-  %341 = getelementptr inbounds i32, ptr %340, i64 %307
-  %342 = load i32, ptr %341, align 4, !tbaa !87
-  %343 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %309, i64 0, i32 2, i32 0, i32 0, i32 2
-  %344 = load i32, ptr %343, align 4, !tbaa !74
-  %345 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %320, i64 0, i32 4
-  %346 = load i16, ptr %345, align 4, !tbaa !81
-  %347 = and i16 %346, -3
-  %348 = icmp eq i16 %347, -3
-  br i1 %348, label %355, label %349
+331:                                              ; preds = %329
+  %332 = load ptr, ptr %25, align 8, !tbaa !73
+  %333 = getelementptr inbounds i32, ptr %332, i64 %299
+  %334 = load i32, ptr %333, align 4, !tbaa !87
+  %335 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %301, i64 0, i32 2, i32 0, i32 0, i32 2
+  %336 = load i32, ptr %335, align 4, !tbaa !74
+  %337 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %312, i64 0, i32 4
+  %338 = load i16, ptr %337, align 4, !tbaa !81
+  %339 = and i16 %338, -3
+  %340 = icmp eq i16 %339, -3
+  br i1 %340, label %347, label %341
 
-349:                                              ; preds = %339
-  %350 = icmp ugt i16 %346, -3
-  br i1 %350, label %351, label %353
+341:                                              ; preds = %331
+  %342 = icmp ugt i16 %338, -3
+  br i1 %342, label %343, label %345
 
-351:                                              ; preds = %349
-  %352 = add nsw i32 %344, -1
-  br label %355
+343:                                              ; preds = %341
+  %344 = add nsw i32 %336, -1
+  br label %347
 
-353:                                              ; preds = %349
-  %354 = zext i16 %346 to i32
-  br label %355
+345:                                              ; preds = %341
+  %346 = zext i16 %338 to i32
+  br label %347
 
-355:                                              ; preds = %353, %351, %339
-  %356 = phi i32 [ %352, %351 ], [ %354, %353 ], [ 0, %339 ]
-  %357 = add nsw i32 %356, %342
-  %358 = getelementptr inbounds i32, ptr %340, i64 %311
-  %359 = load i32, ptr %358, align 4, !tbaa !87
-  %360 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %313, i64 0, i32 2, i32 0, i32 0, i32 2
-  %361 = load i32, ptr %360, align 4, !tbaa !74
-  %362 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %327, i64 0, i32 4
-  %363 = load i16, ptr %362, align 4, !tbaa !81
-  %364 = and i16 %363, -3
-  %365 = icmp eq i16 %364, -3
-  br i1 %365, label %372, label %366
+347:                                              ; preds = %345, %343, %331
+  %348 = phi i32 [ %344, %343 ], [ %346, %345 ], [ 0, %331 ]
+  %349 = add nsw i32 %348, %334
+  %350 = getelementptr inbounds i32, ptr %332, i64 %303
+  %351 = load i32, ptr %350, align 4, !tbaa !87
+  %352 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %305, i64 0, i32 2, i32 0, i32 0, i32 2
+  %353 = load i32, ptr %352, align 4, !tbaa !74
+  %354 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %319, i64 0, i32 4
+  %355 = load i16, ptr %354, align 4, !tbaa !81
+  %356 = and i16 %355, -3
+  %357 = icmp eq i16 %356, -3
+  br i1 %357, label %364, label %358
 
-366:                                              ; preds = %355
-  %367 = icmp ugt i16 %363, -3
-  br i1 %367, label %368, label %370
+358:                                              ; preds = %347
+  %359 = icmp ugt i16 %355, -3
+  br i1 %359, label %360, label %362
 
-368:                                              ; preds = %366
-  %369 = add nsw i32 %361, -1
-  br label %372
+360:                                              ; preds = %358
+  %361 = add nsw i32 %353, -1
+  br label %364
 
-370:                                              ; preds = %366
-  %371 = zext i16 %363 to i32
-  br label %372
+362:                                              ; preds = %358
+  %363 = zext i16 %355 to i32
+  br label %364
 
-372:                                              ; preds = %370, %368, %355
-  %373 = phi i32 [ %369, %368 ], [ %371, %370 ], [ 0, %355 ]
-  %374 = add nsw i32 %373, %359
-  %375 = icmp slt i32 %357, %374
-  %376 = icmp ne i32 %357, %374
-  %377 = zext i1 %376 to i32
-  %378 = select i1 %375, i32 -1, i32 %377
-  %379 = icmp eq i32 %378, 0
-  br i1 %379, label %380, label %411
+364:                                              ; preds = %362, %360, %347
+  %365 = phi i32 [ %361, %360 ], [ %363, %362 ], [ 0, %347 ]
+  %366 = add nsw i32 %365, %351
+  %367 = icmp slt i32 %349, %366
+  %368 = icmp ne i32 %349, %366
+  %369 = zext i1 %368 to i32
+  %370 = select i1 %367, i32 -1, i32 %369
+  br i1 %368, label %399, label %371
 
-380:                                              ; preds = %372
-  %381 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %320, i64 0, i32 1
-  %382 = load i32, ptr %381, align 8, !tbaa !80
-  %383 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %327, i64 0, i32 1
-  %384 = load i32, ptr %383, align 8, !tbaa !80
-  %385 = icmp ult i32 %382, %384
-  %386 = icmp ne i32 %382, %384
-  %387 = zext i1 %386 to i32
-  %388 = select i1 %385, i32 -1, i32 %387
-  %389 = icmp eq i32 %388, 0
-  br i1 %389, label %390, label %411
+371:                                              ; preds = %364
+  %372 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %312, i64 0, i32 1
+  %373 = load i32, ptr %372, align 8, !tbaa !80
+  %374 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %319, i64 0, i32 1
+  %375 = load i32, ptr %374, align 8, !tbaa !80
+  %376 = icmp ne i32 %373, %375
+  %377 = icmp ult i32 %373, %375
+  %378 = zext i1 %376 to i32
+  %379 = select i1 %377, i32 -1, i32 %378
+  br i1 %376, label %399, label %380
 
-390:                                              ; preds = %380
-  %391 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %320, i64 0, i32 2
-  %392 = load i32, ptr %391, align 4, !tbaa !78
-  %393 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %327, i64 0, i32 2
-  %394 = load i32, ptr %393, align 4, !tbaa !78
-  %395 = icmp ult i32 %392, %394
-  %396 = icmp ne i32 %392, %394
+380:                                              ; preds = %371
+  %381 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %312, i64 0, i32 2
+  %382 = load i32, ptr %381, align 4, !tbaa !78
+  %383 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %319, i64 0, i32 2
+  %384 = load i32, ptr %383, align 4, !tbaa !78
+  %385 = icmp ne i32 %382, %384
+  %386 = icmp ult i32 %382, %384
+  %387 = zext i1 %385 to i32
+  %388 = select i1 %386, i32 -1, i32 %387
+  br i1 %385, label %399, label %389
+
+389:                                              ; preds = %380
+  %390 = icmp ne i32 %297, %302
+  %391 = icmp slt i32 %297, %302
+  %392 = zext i1 %390 to i32
+  %393 = select i1 %391, i32 -1, i32 %392
+  br i1 %390, label %399, label %394
+
+394:                                              ; preds = %389
+  %395 = icmp slt i32 %307, %314
+  %396 = icmp ne i32 %307, %314
   %397 = zext i1 %396 to i32
   %398 = select i1 %395, i32 -1, i32 %397
-  %399 = icmp eq i32 %398, 0
-  br i1 %399, label %400, label %411
+  br label %399
 
-400:                                              ; preds = %390
-  %401 = icmp slt i32 %305, %310
-  %402 = icmp ne i32 %305, %310
-  %403 = zext i1 %402 to i32
-  %404 = select i1 %401, i32 -1, i32 %403
-  %405 = icmp eq i32 %404, 0
-  br i1 %405, label %406, label %411
+399:                                              ; preds = %294, %329, %364, %371, %380, %389, %394
+  %400 = phi i32 [ -1, %294 ], [ 1, %329 ], [ %398, %394 ], [ %393, %389 ], [ %388, %380 ], [ %379, %371 ], [ %370, %364 ]
+  %401 = icmp sgt i32 %400, 0
+  %402 = zext i1 %401 to i32
+  %403 = or i32 %288, %402
+  %404 = sext i32 %403 to i64
+  br label %405
 
-406:                                              ; preds = %400
-  %407 = icmp slt i32 %315, %322
-  %408 = icmp ne i32 %315, %322
-  %409 = zext i1 %408 to i32
-  %410 = select i1 %407, i32 -1, i32 %409
-  br label %411
+405:                                              ; preds = %292, %399
+  %406 = phi ptr [ %298, %399 ], [ %293, %292 ]
+  %407 = phi i64 [ %404, %399 ], [ %290, %292 ]
+  %408 = phi i32 [ %403, %399 ], [ %288, %292 ]
+  %409 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %407
+  %410 = getelementptr inbounds ptr, ptr %406, i64 %285
+  %411 = load ptr, ptr %410, align 8, !tbaa !75
+  %412 = load i32, ptr %409, align 4, !tbaa !84
+  %413 = sext i32 %412 to i64
+  %414 = getelementptr inbounds ptr, ptr %406, i64 %413
+  %415 = load ptr, ptr %414, align 8, !tbaa !75
+  %416 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %411, i64 0, i32 3, i32 0, i32 0, i32 3
+  %417 = load ptr, ptr %416, align 8, !tbaa !73
+  %418 = getelementptr inbounds ptr, ptr %417, i64 %286
+  %419 = load ptr, ptr %418, align 8, !tbaa !75
+  %420 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %409, i64 0, i32 1
+  %421 = load i32, ptr %420, align 4, !tbaa !86
+  %422 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %415, i64 0, i32 3, i32 0, i32 0, i32 3
+  %423 = load ptr, ptr %422, align 8, !tbaa !73
+  %424 = sext i32 %421 to i64
+  %425 = getelementptr inbounds ptr, ptr %423, i64 %424
+  %426 = load ptr, ptr %425, align 8, !tbaa !75
+  %427 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %419, i64 0, i32 6
+  %428 = load i16, ptr %427, align 8, !tbaa !83
+  %429 = and i16 %428, 16
+  %430 = icmp ne i16 %429, 0
+  %431 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %426, i64 0, i32 6
+  %432 = load i16, ptr %431, align 8, !tbaa !83
+  %433 = and i16 %432, 16
+  %434 = icmp eq i16 %433, 0
+  %435 = select i1 %430, i1 %434, i1 false
+  br i1 %435, label %508, label %436
 
-411:                                              ; preds = %302, %337, %372, %380, %390, %400, %406
-  %412 = phi i32 [ -1, %302 ], [ 1, %337 ], [ %410, %406 ], [ %404, %400 ], [ %398, %390 ], [ %388, %380 ], [ %378, %372 ]
-  %413 = icmp sgt i32 %412, 0
-  %414 = zext i1 %413 to i32
-  %415 = or i32 %296, %414
-  %416 = sext i32 %415 to i64
-  br label %417
+436:                                              ; preds = %405
+  %437 = select i1 %434, i1 true, i1 %430
+  br i1 %437, label %438, label %506
 
-417:                                              ; preds = %300, %411
-  %418 = phi ptr [ %306, %411 ], [ %301, %300 ]
-  %419 = phi i64 [ %416, %411 ], [ %298, %300 ]
-  %420 = phi i32 [ %415, %411 ], [ %296, %300 ]
-  %421 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %419
-  %422 = getelementptr inbounds ptr, ptr %418, i64 %293
-  %423 = load ptr, ptr %422, align 8, !tbaa !75
-  %424 = load i32, ptr %421, align 4, !tbaa !84
-  %425 = sext i32 %424 to i64
-  %426 = getelementptr inbounds ptr, ptr %418, i64 %425
-  %427 = load ptr, ptr %426, align 8, !tbaa !75
-  %428 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %423, i64 0, i32 3, i32 0, i32 0, i32 3
-  %429 = load ptr, ptr %428, align 8, !tbaa !73
-  %430 = getelementptr inbounds ptr, ptr %429, i64 %294
-  %431 = load ptr, ptr %430, align 8, !tbaa !75
-  %432 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %421, i64 0, i32 1
-  %433 = load i32, ptr %432, align 4, !tbaa !86
-  %434 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %427, i64 0, i32 3, i32 0, i32 0, i32 3
-  %435 = load ptr, ptr %434, align 8, !tbaa !73
-  %436 = sext i32 %433 to i64
-  %437 = getelementptr inbounds ptr, ptr %435, i64 %436
-  %438 = load ptr, ptr %437, align 8, !tbaa !75
-  %439 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %431, i64 0, i32 6
-  %440 = load i16, ptr %439, align 8, !tbaa !83
-  %441 = and i16 %440, 16
-  %442 = icmp ne i16 %441, 0
-  %443 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %438, i64 0, i32 6
-  %444 = load i16, ptr %443, align 8, !tbaa !83
-  %445 = and i16 %444, 16
-  %446 = icmp eq i16 %445, 0
-  %447 = and i1 %442, %446
-  br i1 %447, label %524, label %448
+438:                                              ; preds = %436
+  %439 = load ptr, ptr %25, align 8, !tbaa !73
+  %440 = getelementptr inbounds i32, ptr %439, i64 %285
+  %441 = load i32, ptr %440, align 4, !tbaa !87
+  %442 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %411, i64 0, i32 2, i32 0, i32 0, i32 2
+  %443 = load i32, ptr %442, align 4, !tbaa !74
+  %444 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %419, i64 0, i32 4
+  %445 = load i16, ptr %444, align 4, !tbaa !81
+  %446 = and i16 %445, -3
+  %447 = icmp eq i16 %446, -3
+  br i1 %447, label %454, label %448
 
-448:                                              ; preds = %417
-  %449 = or i1 %442, %446
-  br i1 %449, label %450, label %522
+448:                                              ; preds = %438
+  %449 = icmp ugt i16 %445, -3
+  br i1 %449, label %450, label %452
 
 450:                                              ; preds = %448
-  %451 = load ptr, ptr %25, align 8, !tbaa !73
-  %452 = getelementptr inbounds i32, ptr %451, i64 %293
-  %453 = load i32, ptr %452, align 4, !tbaa !87
-  %454 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %423, i64 0, i32 2, i32 0, i32 0, i32 2
-  %455 = load i32, ptr %454, align 4, !tbaa !74
-  %456 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %431, i64 0, i32 4
-  %457 = load i16, ptr %456, align 4, !tbaa !81
-  %458 = and i16 %457, -3
-  %459 = icmp eq i16 %458, -3
-  br i1 %459, label %466, label %460
+  %451 = add nsw i32 %443, -1
+  br label %454
 
-460:                                              ; preds = %450
-  %461 = icmp ugt i16 %457, -3
-  br i1 %461, label %462, label %464
+452:                                              ; preds = %448
+  %453 = zext i16 %445 to i32
+  br label %454
 
-462:                                              ; preds = %460
-  %463 = add nsw i32 %455, -1
-  br label %466
+454:                                              ; preds = %452, %450, %438
+  %455 = phi i32 [ %451, %450 ], [ %453, %452 ], [ 0, %438 ]
+  %456 = add nsw i32 %455, %441
+  %457 = getelementptr inbounds i32, ptr %439, i64 %413
+  %458 = load i32, ptr %457, align 4, !tbaa !87
+  %459 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %415, i64 0, i32 2, i32 0, i32 0, i32 2
+  %460 = load i32, ptr %459, align 4, !tbaa !74
+  %461 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %426, i64 0, i32 4
+  %462 = load i16, ptr %461, align 4, !tbaa !81
+  %463 = and i16 %462, -3
+  %464 = icmp eq i16 %463, -3
+  br i1 %464, label %471, label %465
 
-464:                                              ; preds = %460
-  %465 = zext i16 %457 to i32
-  br label %466
+465:                                              ; preds = %454
+  %466 = icmp ugt i16 %462, -3
+  br i1 %466, label %467, label %469
 
-466:                                              ; preds = %464, %462, %450
-  %467 = phi i32 [ %463, %462 ], [ %465, %464 ], [ 0, %450 ]
-  %468 = add nsw i32 %467, %453
-  %469 = getelementptr inbounds i32, ptr %451, i64 %425
-  %470 = load i32, ptr %469, align 4, !tbaa !87
-  %471 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %427, i64 0, i32 2, i32 0, i32 0, i32 2
-  %472 = load i32, ptr %471, align 4, !tbaa !74
-  %473 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %438, i64 0, i32 4
-  %474 = load i16, ptr %473, align 4, !tbaa !81
-  %475 = and i16 %474, -3
-  %476 = icmp eq i16 %475, -3
-  br i1 %476, label %483, label %477
+467:                                              ; preds = %465
+  %468 = add nsw i32 %460, -1
+  br label %471
 
-477:                                              ; preds = %466
-  %478 = icmp ugt i16 %474, -3
-  br i1 %478, label %479, label %481
+469:                                              ; preds = %465
+  %470 = zext i16 %462 to i32
+  br label %471
 
-479:                                              ; preds = %477
-  %480 = add nsw i32 %472, -1
-  br label %483
+471:                                              ; preds = %469, %467, %454
+  %472 = phi i32 [ %468, %467 ], [ %470, %469 ], [ 0, %454 ]
+  %473 = add nsw i32 %472, %458
+  %474 = icmp slt i32 %456, %473
+  %475 = icmp ne i32 %456, %473
+  %476 = zext i1 %475 to i32
+  %477 = select i1 %474, i32 -1, i32 %476
+  br i1 %475, label %503, label %478
 
-481:                                              ; preds = %477
-  %482 = zext i16 %474 to i32
-  br label %483
+478:                                              ; preds = %471
+  %479 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %419, i64 0, i32 1
+  %480 = load i32, ptr %479, align 8, !tbaa !80
+  %481 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %426, i64 0, i32 1
+  %482 = load i32, ptr %481, align 8, !tbaa !80
+  %483 = icmp ne i32 %480, %482
+  %484 = icmp ult i32 %480, %482
+  %485 = zext i1 %483 to i32
+  %486 = select i1 %484, i32 -1, i32 %485
+  br i1 %483, label %503, label %487
 
-483:                                              ; preds = %481, %479, %466
-  %484 = phi i32 [ %480, %479 ], [ %482, %481 ], [ 0, %466 ]
-  %485 = add nsw i32 %484, %470
-  %486 = icmp slt i32 %468, %485
-  %487 = icmp ne i32 %468, %485
-  %488 = zext i1 %487 to i32
-  %489 = select i1 %486, i32 -1, i32 %488
-  %490 = icmp eq i32 %489, 0
-  br i1 %490, label %491, label %519
+487:                                              ; preds = %478
+  %488 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %419, i64 0, i32 2
+  %489 = load i32, ptr %488, align 4, !tbaa !78
+  %490 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %426, i64 0, i32 2
+  %491 = load i32, ptr %490, align 4, !tbaa !78
+  %492 = icmp ne i32 %489, %491
+  %493 = icmp ult i32 %489, %491
+  %494 = zext i1 %492 to i32
+  %495 = select i1 %493, i32 -1, i32 %494
+  br i1 %492, label %503, label %496
 
-491:                                              ; preds = %483
-  %492 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %431, i64 0, i32 1
-  %493 = load i32, ptr %492, align 8, !tbaa !80
-  %494 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %438, i64 0, i32 1
-  %495 = load i32, ptr %494, align 8, !tbaa !80
-  %496 = icmp ult i32 %493, %495
-  %497 = icmp ne i32 %493, %495
-  %498 = zext i1 %497 to i32
-  %499 = select i1 %496, i32 -1, i32 %498
-  %500 = icmp eq i32 %499, 0
-  br i1 %500, label %501, label %519
+496:                                              ; preds = %487
+  %497 = icmp ne i32 %412, %282
+  %498 = icmp sgt i32 %412, %282
+  %499 = zext i1 %497 to i32
+  %500 = select i1 %498, i32 -1, i32 %499
+  br i1 %497, label %503, label %501
 
-501:                                              ; preds = %491
-  %502 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %431, i64 0, i32 2
-  %503 = load i32, ptr %502, align 4, !tbaa !78
-  %504 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %438, i64 0, i32 2
-  %505 = load i32, ptr %504, align 4, !tbaa !78
-  %506 = icmp ult i32 %503, %505
-  %507 = icmp ne i32 %503, %505
-  %508 = zext i1 %507 to i32
-  %509 = select i1 %506, i32 -1, i32 %508
-  %510 = icmp eq i32 %509, 0
-  br i1 %510, label %511, label %519
+501:                                              ; preds = %496
+  %502 = icmp sgt i32 %421, %281
+  br i1 %502, label %508, label %506
 
-511:                                              ; preds = %501
-  %512 = icmp sgt i32 %424, %290
-  %513 = icmp ne i32 %424, %290
-  %514 = zext i1 %513 to i32
-  %515 = select i1 %512, i32 -1, i32 %514
-  %516 = icmp eq i32 %515, 0
-  br i1 %516, label %517, label %519
+503:                                              ; preds = %471, %478, %487, %496
+  %504 = phi i32 [ %500, %496 ], [ %495, %487 ], [ %486, %478 ], [ %477, %471 ]
+  %505 = icmp sgt i32 %504, -1
+  br i1 %505, label %506, label %508
 
-517:                                              ; preds = %511
-  %518 = icmp sgt i32 %433, %289
-  br i1 %518, label %524, label %522
+506:                                              ; preds = %501, %436, %503
+  %507 = sext i32 %289 to i64
+  br label %515
 
-519:                                              ; preds = %483, %491, %501, %511
-  %520 = phi i32 [ %515, %511 ], [ %509, %501 ], [ %499, %491 ], [ %489, %483 ]
-  %521 = icmp sgt i32 %520, -1
-  br i1 %521, label %522, label %524
+508:                                              ; preds = %501, %405, %503
+  %509 = sext i32 %289 to i64
+  %510 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %509
+  %511 = load i64, ptr %409, align 4
+  store i64 %511, ptr %510, align 4
+  %512 = shl i32 %408, 1
+  %513 = sext i32 %512 to i64
+  %514 = icmp sgt i64 %279, %513
+  br i1 %514, label %287, label %515
 
-522:                                              ; preds = %517, %448, %519
-  %523 = sext i32 %297 to i64
-  br label %531
+515:                                              ; preds = %508, %506
+  %516 = phi i64 [ %507, %506 ], [ %407, %508 ]
+  %517 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %516
+  store i64 %278, ptr %517, align 4
+  %518 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %283
+  %519 = load i64, ptr %518, align 4
+  %520 = load i64, ptr %20, align 4
+  store i64 %520, ptr %518, align 4
+  store i64 %519, ptr %20, align 4
+  %521 = icmp slt i64 %279, 4
+  br i1 %521, label %522, label %277, !llvm.loop !89
 
-524:                                              ; preds = %517, %417, %519
-  %525 = sext i32 %297 to i64
-  %526 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %525
-  %527 = load i64, ptr %421, align 4
-  store i64 %527, ptr %526, align 4
-  %528 = shl i32 %420, 1
-  %529 = sext i32 %528 to i64
-  %530 = icmp sgt i64 %287, %529
-  br i1 %530, label %295, label %531
+522:                                              ; preds = %515, %271
+  %523 = phi i64 [ %274, %271 ], [ %519, %515 ]
+  store i64 %523, ptr %20, align 4
+  %524 = load i32, ptr %15, align 4, !tbaa !74
+  %525 = icmp sgt i32 %524, 1
+  br i1 %525, label %526, label %706
 
-531:                                              ; preds = %524, %522
-  %532 = phi i64 [ %523, %522 ], [ %419, %524 ]
-  %533 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %532
-  store i64 %286, ptr %533, align 4
-  %534 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %21, i64 %291
-  %535 = load i64, ptr %534, align 4
-  %536 = load i64, ptr %20, align 4
-  store i64 %536, ptr %534, align 4
-  store i64 %535, ptr %20, align 4
-  %537 = icmp slt i64 %287, 4
-  br i1 %537, label %538, label %285, !llvm.loop !89
+526:                                              ; preds = %522
+  %527 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 3
+  %528 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
+  %529 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 2, i32 0, i32 3
+  br label %608
 
-538:                                              ; preds = %531, %279
-  %539 = phi i64 [ %282, %279 ], [ %535, %531 ]
-  store i64 %539, ptr %20, align 4
-  %540 = load i32, ptr %15, align 4, !tbaa !74
-  %541 = icmp sgt i32 %540, 1
-  br i1 %541, label %542, label %746
+530:                                              ; preds = %8, %587
+  %531 = phi i64 [ 0, %8 ], [ %590, %587 ]
+  %532 = phi i32 [ 0, %8 ], [ %589, %587 ]
+  %533 = load ptr, ptr %9, align 8, !tbaa !73
+  %534 = getelementptr inbounds ptr, ptr %533, i64 %531
+  %535 = load ptr, ptr %534, align 8, !tbaa !75
+  %536 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %535, i64 0, i32 3, i32 0, i32 0, i32 2
+  %537 = load i32, ptr %536, align 4, !tbaa !74
+  %538 = icmp sgt i32 %537, 0
+  br i1 %538, label %539, label %556
 
-542:                                              ; preds = %538
-  %543 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 3
-  %544 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %545 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 2, i32 0, i32 3
-  br label %648
+539:                                              ; preds = %530
+  %540 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %535, i64 0, i32 3, i32 0, i32 0, i32 3
+  %541 = load ptr, ptr %540, align 8, !tbaa !73
+  %542 = zext i32 %537 to i64
+  br label %546
 
-546:                                              ; preds = %8, %628
-  %547 = phi i64 [ 0, %8 ], [ %630, %628 ]
-  %548 = phi i32 [ 0, %8 ], [ %629, %628 ]
-  %549 = load ptr, ptr %9, align 8, !tbaa !73
-  %550 = getelementptr inbounds ptr, ptr %549, i64 %547
-  %551 = load ptr, ptr %550, align 8, !tbaa !75
-  %552 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %551, i64 0, i32 3, i32 0, i32 0, i32 2
-  %553 = load i32, ptr %552, align 4, !tbaa !74
-  %554 = icmp sgt i32 %553, 0
-  br i1 %554, label %555, label %582
+543:                                              ; preds = %546
+  %544 = add nuw nsw i64 %547, 1
+  %545 = icmp eq i64 %544, %542
+  br i1 %545, label %556, label %546, !llvm.loop !90
 
-555:                                              ; preds = %546
-  %556 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %551, i64 0, i32 3, i32 0, i32 0, i32 3
-  %557 = load ptr, ptr %556, align 8, !tbaa !73
-  %558 = zext i32 %553 to i64
-  %559 = load ptr, ptr %557, align 8, !tbaa !75
-  %560 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %559, i64 0, i32 4
-  %561 = load i16, ptr %560, align 4, !tbaa !81
-  %562 = and i16 %561, -3
-  %563 = icmp eq i16 %562, -3
-  br i1 %563, label %577, label %564
+546:                                              ; preds = %543, %539
+  %547 = phi i64 [ 0, %539 ], [ %544, %543 ]
+  %548 = getelementptr inbounds ptr, ptr %541, i64 %547
+  %549 = load ptr, ptr %548, align 8, !tbaa !75
+  %550 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %549, i64 0, i32 4
+  %551 = load i16, ptr %550, align 4, !tbaa !81
+  %552 = and i16 %551, -3
+  %553 = icmp eq i16 %552, -3
+  br i1 %553, label %554, label %543
 
-564:                                              ; preds = %555, %568
-  %565 = phi i64 [ %566, %568 ], [ 0, %555 ]
-  %566 = add nuw nsw i64 %565, 1
-  %567 = icmp eq i64 %566, %558
-  br i1 %567, label %575, label %568, !llvm.loop !90
+554:                                              ; preds = %546
+  %555 = add nsw i32 %532, -1
+  br label %556
 
-568:                                              ; preds = %564
-  %569 = getelementptr inbounds ptr, ptr %557, i64 %566
-  %570 = load ptr, ptr %569, align 8, !tbaa !75
-  %571 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %570, i64 0, i32 4
-  %572 = load i16, ptr %571, align 4, !tbaa !81
-  %573 = and i16 %572, -3
-  %574 = icmp eq i16 %573, -3
-  br i1 %574, label %575, label %564, !llvm.loop !90
-
-575:                                              ; preds = %564, %568
-  %576 = icmp ult i64 %566, %558
-  br label %577
-
-577:                                              ; preds = %575, %555
-  %578 = phi i1 [ true, %555 ], [ %576, %575 ]
-  %579 = freeze i1 %578
-  %580 = sext i1 %579 to i32
-  %581 = add nsw i32 %548, %580
-  br label %582
-
-582:                                              ; preds = %577, %546
-  %583 = phi i32 [ %548, %546 ], [ %581, %577 ]
+556:                                              ; preds = %543, %530, %554
+  %557 = phi i32 [ %555, %554 ], [ %532, %530 ], [ %532, %543 ]
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %3)
-  %584 = load ptr, ptr %10, align 8, !tbaa !73
-  %585 = load i32, ptr %11, align 4, !tbaa !74
-  %586 = sext i32 %585 to i64
-  %587 = getelementptr inbounds i32, ptr %584, i64 %586
-  store i32 %583, ptr %587, align 4, !tbaa !87
-  %588 = load i32, ptr %11, align 4, !tbaa !74
-  %589 = add nsw i32 %588, 1
-  store i32 %589, ptr %11, align 4, !tbaa !74
-  %590 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %551, i64 0, i32 2, i32 0, i32 0, i32 2
-  %591 = load i32, ptr %590, align 4, !tbaa !74
-  %592 = load i32, ptr %552, align 4, !tbaa !74
-  %593 = icmp sgt i32 %592, 0
-  br i1 %593, label %596, label %594
+  %558 = load ptr, ptr %10, align 8, !tbaa !73
+  %559 = load i32, ptr %11, align 4, !tbaa !74
+  %560 = sext i32 %559 to i64
+  %561 = getelementptr inbounds i32, ptr %558, i64 %560
+  store i32 %557, ptr %561, align 4, !tbaa !87
+  %562 = load i32, ptr %11, align 4, !tbaa !74
+  %563 = add nsw i32 %562, 1
+  store i32 %563, ptr %11, align 4, !tbaa !74
+  %564 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %535, i64 0, i32 2, i32 0, i32 0, i32 2
+  %565 = load i32, ptr %564, align 4, !tbaa !74
+  %566 = load i32, ptr %536, align 4, !tbaa !74
+  %567 = icmp sgt i32 %566, 0
+  br i1 %567, label %568, label %587
 
-594:                                              ; preds = %582
-  %595 = add nsw i32 %591, %548
-  br label %628
+568:                                              ; preds = %556
+  %569 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %535, i64 0, i32 3, i32 0, i32 0, i32 3
+  %570 = load ptr, ptr %569, align 8, !tbaa !73
+  %571 = zext i32 %566 to i64
+  br label %575
 
-596:                                              ; preds = %582
-  %597 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %551, i64 0, i32 3, i32 0, i32 0, i32 3
-  %598 = load ptr, ptr %597, align 8, !tbaa !73
-  %599 = zext i32 %592 to i64
-  %600 = load ptr, ptr %598, align 8, !tbaa !75
-  %601 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %600, i64 0, i32 4
-  %602 = load i16, ptr %601, align 4, !tbaa !81
-  %603 = and i16 %602, -3
-  %604 = icmp eq i16 %603, -3
-  br i1 %604, label %605, label %608
+572:                                              ; preds = %575
+  %573 = add nuw nsw i64 %576, 1
+  %574 = icmp eq i64 %573, %571
+  br i1 %574, label %585, label %575, !llvm.loop !90
 
-605:                                              ; preds = %596
-  %606 = add nsw i32 %591, -1
-  %607 = add nsw i32 %606, %548
-  br label %626
+575:                                              ; preds = %572, %568
+  %576 = phi i64 [ 0, %568 ], [ %573, %572 ]
+  %577 = getelementptr inbounds ptr, ptr %570, i64 %576
+  %578 = load ptr, ptr %577, align 8, !tbaa !75
+  %579 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %578, i64 0, i32 4
+  %580 = load i16, ptr %579, align 4, !tbaa !81
+  %581 = and i16 %580, -3
+  %582 = icmp eq i16 %581, -3
+  br i1 %582, label %583, label %572
 
-608:                                              ; preds = %596, %612
-  %609 = phi i64 [ %610, %612 ], [ 0, %596 ]
-  %610 = add nuw nsw i64 %609, 1
-  %611 = icmp eq i64 %610, %599
-  br i1 %611, label %619, label %612, !llvm.loop !90
+583:                                              ; preds = %575
+  %584 = add nsw i32 %565, -1
+  br label %585
 
-612:                                              ; preds = %608
-  %613 = getelementptr inbounds ptr, ptr %598, i64 %610
-  %614 = load ptr, ptr %613, align 8, !tbaa !75
-  %615 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %614, i64 0, i32 4
-  %616 = load i16, ptr %615, align 4, !tbaa !81
-  %617 = and i16 %616, -3
-  %618 = icmp eq i16 %617, -3
-  br i1 %618, label %619, label %608, !llvm.loop !90
+585:                                              ; preds = %572, %583
+  %586 = phi i32 [ %584, %583 ], [ %565, %572 ]
+  br i1 %567, label %594, label %587
 
-619:                                              ; preds = %608, %612
-  %620 = phi i64 [ %610, %612 ], [ %599, %608 ]
-  %621 = icmp ult i64 %620, %599
-  %622 = freeze i1 %621
-  %623 = sext i1 %622 to i32
-  %624 = add nsw i32 %591, %623
-  %625 = add nsw i32 %624, %548
-  br i1 %593, label %626, label %628
+587:                                              ; preds = %594, %556, %585
+  %588 = phi i32 [ %586, %585 ], [ %565, %556 ], [ %586, %594 ]
+  %589 = add nsw i32 %588, %532
+  %590 = add nuw nsw i64 %531, 1
+  %591 = load i32, ptr %5, align 4, !tbaa !74
+  %592 = sext i32 %591 to i64
+  %593 = icmp slt i64 %590, %592
+  br i1 %593, label %530, label %14, !llvm.loop !91
 
-626:                                              ; preds = %605, %619
-  %627 = phi i32 [ %607, %605 ], [ %625, %619 ]
-  br label %634
-
-628:                                              ; preds = %634, %594, %619
-  %629 = phi i32 [ %595, %594 ], [ %625, %619 ], [ %627, %634 ]
-  %630 = add nuw nsw i64 %547, 1
-  %631 = load i32, ptr %5, align 4, !tbaa !74
-  %632 = sext i32 %631 to i64
-  %633 = icmp slt i64 %630, %632
-  br i1 %633, label %546, label %14, !llvm.loop !91
-
-634:                                              ; preds = %626, %634
-  %635 = phi i64 [ 0, %626 ], [ %644, %634 ]
-  %636 = shl nuw nsw i64 %635, 32
-  %637 = or i64 %636, %547
+594:                                              ; preds = %585, %594
+  %595 = phi i64 [ %604, %594 ], [ 0, %585 ]
+  %596 = shl nuw nsw i64 %595, 32
+  %597 = or i64 %596, %531
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %2)
-  %638 = load ptr, ptr %12, align 8, !tbaa !73
-  %639 = load i32, ptr %13, align 4, !tbaa !74
-  %640 = sext i32 %639 to i64
-  %641 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %638, i64 %640
-  store i64 %637, ptr %641, align 4, !tbaa.struct !92
-  %642 = load i32, ptr %13, align 4, !tbaa !74
-  %643 = add nsw i32 %642, 1
-  store i32 %643, ptr %13, align 4, !tbaa !74
-  %644 = add nuw nsw i64 %635, 1
-  %645 = load i32, ptr %552, align 4, !tbaa !74
-  %646 = sext i32 %645 to i64
-  %647 = icmp slt i64 %644, %646
-  br i1 %647, label %634, label %628, !llvm.loop !93
+  %598 = load ptr, ptr %12, align 8, !tbaa !73
+  %599 = load i32, ptr %13, align 4, !tbaa !74
+  %600 = sext i32 %599 to i64
+  %601 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %598, i64 %600
+  store i64 %597, ptr %601, align 4, !tbaa.struct !92
+  %602 = load i32, ptr %13, align 4, !tbaa !74
+  %603 = add nsw i32 %602, 1
+  store i32 %603, ptr %13, align 4, !tbaa !74
+  %604 = add nuw nsw i64 %595, 1
+  %605 = load i32, ptr %536, align 4, !tbaa !74
+  %606 = sext i32 %605 to i64
+  %607 = icmp slt i64 %604, %606
+  br i1 %607, label %594, label %587, !llvm.loop !93
 
-648:                                              ; preds = %542, %740
-  %649 = phi i64 [ 1, %542 ], [ %742, %740 ]
-  %650 = phi i32 [ 1, %542 ], [ %741, %740 ]
-  %651 = add nsw i64 %649, -1
-  %652 = load ptr, ptr %543, align 8, !tbaa !73
-  %653 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %652, i64 %649
-  %654 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %652, i64 %651
-  %655 = load i32, ptr %653, align 4, !tbaa !84
-  %656 = load ptr, ptr %544, align 8, !tbaa !73
-  %657 = sext i32 %655 to i64
-  %658 = getelementptr inbounds ptr, ptr %656, i64 %657
-  %659 = load ptr, ptr %658, align 8, !tbaa !75
-  %660 = load i32, ptr %654, align 4, !tbaa !84
-  %661 = sext i32 %660 to i64
-  %662 = getelementptr inbounds ptr, ptr %656, i64 %661
-  %663 = load ptr, ptr %662, align 8, !tbaa !75
-  %664 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %652, i64 %649, i32 1
-  %665 = load i32, ptr %664, align 4, !tbaa !86
-  %666 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %659, i64 0, i32 3, i32 0, i32 0, i32 3
-  %667 = load ptr, ptr %666, align 8, !tbaa !73
-  %668 = sext i32 %665 to i64
-  %669 = getelementptr inbounds ptr, ptr %667, i64 %668
-  %670 = load ptr, ptr %669, align 8, !tbaa !75
-  %671 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %652, i64 %651, i32 1
-  %672 = load i32, ptr %671, align 4, !tbaa !86
-  %673 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %663, i64 0, i32 3, i32 0, i32 0, i32 3
-  %674 = load ptr, ptr %673, align 8, !tbaa !73
-  %675 = sext i32 %672 to i64
-  %676 = getelementptr inbounds ptr, ptr %674, i64 %675
-  %677 = load ptr, ptr %676, align 8, !tbaa !75
-  %678 = load ptr, ptr %545, align 8, !tbaa !73
-  %679 = getelementptr inbounds i32, ptr %678, i64 %657
-  %680 = load i32, ptr %679, align 4, !tbaa !87
-  %681 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %659, i64 0, i32 2, i32 0, i32 0, i32 2
-  %682 = load i32, ptr %681, align 4, !tbaa !74
-  %683 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %670, i64 0, i32 4
-  %684 = load i16, ptr %683, align 4, !tbaa !81
-  %685 = and i16 %684, -3
-  %686 = icmp eq i16 %685, -3
-  br i1 %686, label %693, label %687
+608:                                              ; preds = %526, %700
+  %609 = phi i64 [ 1, %526 ], [ %702, %700 ]
+  %610 = phi i32 [ 1, %526 ], [ %701, %700 ]
+  %611 = add nsw i64 %609, -1
+  %612 = load ptr, ptr %527, align 8, !tbaa !73
+  %613 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %612, i64 %609
+  %614 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %612, i64 %611
+  %615 = load i32, ptr %613, align 4, !tbaa !84
+  %616 = load ptr, ptr %528, align 8, !tbaa !73
+  %617 = sext i32 %615 to i64
+  %618 = getelementptr inbounds ptr, ptr %616, i64 %617
+  %619 = load ptr, ptr %618, align 8, !tbaa !75
+  %620 = load i32, ptr %614, align 4, !tbaa !84
+  %621 = sext i32 %620 to i64
+  %622 = getelementptr inbounds ptr, ptr %616, i64 %621
+  %623 = load ptr, ptr %622, align 8, !tbaa !75
+  %624 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %612, i64 %609, i32 1
+  %625 = load i32, ptr %624, align 4, !tbaa !86
+  %626 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %619, i64 0, i32 3, i32 0, i32 0, i32 3
+  %627 = load ptr, ptr %626, align 8, !tbaa !73
+  %628 = sext i32 %625 to i64
+  %629 = getelementptr inbounds ptr, ptr %627, i64 %628
+  %630 = load ptr, ptr %629, align 8, !tbaa !75
+  %631 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %612, i64 %611, i32 1
+  %632 = load i32, ptr %631, align 4, !tbaa !86
+  %633 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %623, i64 0, i32 3, i32 0, i32 0, i32 3
+  %634 = load ptr, ptr %633, align 8, !tbaa !73
+  %635 = sext i32 %632 to i64
+  %636 = getelementptr inbounds ptr, ptr %634, i64 %635
+  %637 = load ptr, ptr %636, align 8, !tbaa !75
+  %638 = load ptr, ptr %529, align 8, !tbaa !73
+  %639 = getelementptr inbounds i32, ptr %638, i64 %617
+  %640 = load i32, ptr %639, align 4, !tbaa !87
+  %641 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %619, i64 0, i32 2, i32 0, i32 0, i32 2
+  %642 = load i32, ptr %641, align 4, !tbaa !74
+  %643 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %630, i64 0, i32 4
+  %644 = load i16, ptr %643, align 4, !tbaa !81
+  %645 = and i16 %644, -3
+  %646 = icmp eq i16 %645, -3
+  br i1 %646, label %653, label %647
 
-687:                                              ; preds = %648
-  %688 = icmp ugt i16 %684, -3
-  br i1 %688, label %689, label %691
+647:                                              ; preds = %608
+  %648 = icmp ugt i16 %644, -3
+  br i1 %648, label %649, label %651
 
-689:                                              ; preds = %687
-  %690 = add nsw i32 %682, -1
+649:                                              ; preds = %647
+  %650 = add nsw i32 %642, -1
+  br label %653
+
+651:                                              ; preds = %647
+  %652 = zext i16 %644 to i32
+  br label %653
+
+653:                                              ; preds = %651, %649, %608
+  %654 = phi i32 [ %650, %649 ], [ %652, %651 ], [ 0, %608 ]
+  %655 = add nsw i32 %654, %640
+  %656 = getelementptr inbounds i32, ptr %638, i64 %621
+  %657 = load i32, ptr %656, align 4, !tbaa !87
+  %658 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %623, i64 0, i32 2, i32 0, i32 0, i32 2
+  %659 = load i32, ptr %658, align 4, !tbaa !74
+  %660 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %637, i64 0, i32 4
+  %661 = load i16, ptr %660, align 4, !tbaa !81
+  %662 = and i16 %661, -3
+  %663 = icmp eq i16 %662, -3
+  br i1 %663, label %670, label %664
+
+664:                                              ; preds = %653
+  %665 = icmp ugt i16 %661, -3
+  br i1 %665, label %666, label %668
+
+666:                                              ; preds = %664
+  %667 = add nsw i32 %659, -1
+  br label %670
+
+668:                                              ; preds = %664
+  %669 = zext i16 %661 to i32
+  br label %670
+
+670:                                              ; preds = %668, %666, %653
+  %671 = phi i32 [ %667, %666 ], [ %669, %668 ], [ 0, %653 ]
+  %672 = add nsw i32 %671, %657
+  %673 = icmp eq i32 %655, %672
+  br i1 %673, label %674, label %693
+
+674:                                              ; preds = %670
+  %675 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %630, i64 0, i32 1
+  %676 = load i32, ptr %675, align 8, !tbaa !80
+  %677 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %637, i64 0, i32 1
+  %678 = load i32, ptr %677, align 8, !tbaa !80
+  %679 = icmp eq i32 %676, %678
+  br i1 %679, label %680, label %693
+
+680:                                              ; preds = %674
+  %681 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %630, i64 0, i32 2
+  %682 = load i32, ptr %681, align 4, !tbaa !78
+  %683 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %637, i64 0, i32 2
+  %684 = load i32, ptr %683, align 4, !tbaa !78
+  %685 = icmp eq i32 %682, %684
+  br i1 %685, label %686, label %693
+
+686:                                              ; preds = %680
+  %687 = load ptr, ptr %630, align 8, !tbaa !19
+  %688 = load ptr, ptr %637, align 8, !tbaa !19
+  %689 = tail call noundef i32 @_Z15MyStringComparePKcS0_(ptr noundef %687, ptr noundef %688)
+  %690 = icmp eq i32 %689, 0
+  br i1 %690, label %700, label %691
+
+691:                                              ; preds = %686
+  %692 = load ptr, ptr %527, align 8, !tbaa !73
   br label %693
 
-691:                                              ; preds = %687
-  %692 = zext i16 %684 to i32
-  br label %693
+693:                                              ; preds = %691, %680, %674, %670
+  %694 = phi ptr [ %692, %691 ], [ %612, %680 ], [ %612, %674 ], [ %612, %670 ]
+  %695 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %694, i64 %609
+  %696 = add nsw i32 %610, 1
+  %697 = sext i32 %610 to i64
+  %698 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %694, i64 %697
+  %699 = load i64, ptr %695, align 4
+  store i64 %699, ptr %698, align 4
+  br label %700
 
-693:                                              ; preds = %691, %689, %648
-  %694 = phi i32 [ %690, %689 ], [ %692, %691 ], [ 0, %648 ]
-  %695 = add nsw i32 %694, %680
-  %696 = getelementptr inbounds i32, ptr %678, i64 %661
-  %697 = load i32, ptr %696, align 4, !tbaa !87
-  %698 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %663, i64 0, i32 2, i32 0, i32 0, i32 2
-  %699 = load i32, ptr %698, align 4, !tbaa !74
-  %700 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %677, i64 0, i32 4
-  %701 = load i16, ptr %700, align 4, !tbaa !81
-  %702 = and i16 %701, -3
-  %703 = icmp eq i16 %702, -3
-  br i1 %703, label %710, label %704
+700:                                              ; preds = %686, %693
+  %701 = phi i32 [ %610, %686 ], [ %696, %693 ]
+  %702 = add nuw nsw i64 %609, 1
+  %703 = load i32, ptr %15, align 4, !tbaa !74
+  %704 = sext i32 %703 to i64
+  %705 = icmp slt i64 %702, %704
+  br i1 %705, label %608, label %706, !llvm.loop !94
 
-704:                                              ; preds = %693
-  %705 = icmp ugt i16 %701, -3
-  br i1 %705, label %706, label %708
+706:                                              ; preds = %700, %14, %522
+  %707 = phi i32 [ 1, %522 ], [ 1, %14 ], [ %701, %700 ]
+  tail call void @_ZN17CBaseRecordVector10DeleteFromEi(ptr noundef nonnull align 8 dereferenceable(32) %2, i32 noundef %707)
+  %708 = load i32, ptr %15, align 4, !tbaa !74
+  %709 = icmp sgt i32 %708, 0
+  br i1 %709, label %710, label %767
 
-706:                                              ; preds = %704
-  %707 = add nsw i32 %699, -1
-  br label %710
+710:                                              ; preds = %706
+  %711 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 3
+  %712 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
+  %713 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 2, i32 0, i32 3
+  %714 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 3, i32 0, i32 2
+  %715 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 3, i32 0, i32 3
+  br label %716
 
-708:                                              ; preds = %704
-  %709 = zext i16 %701 to i32
-  br label %710
+716:                                              ; preds = %710, %762
+  %717 = phi i32 [ %708, %710 ], [ %763, %762 ]
+  %718 = phi i64 [ 0, %710 ], [ %764, %762 ]
+  %719 = load ptr, ptr %711, align 8, !tbaa !73
+  %720 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %719, i64 %718
+  %721 = load i32, ptr %720, align 4, !tbaa !84
+  %722 = load ptr, ptr %712, align 8, !tbaa !73
+  %723 = sext i32 %721 to i64
+  %724 = getelementptr inbounds ptr, ptr %722, i64 %723
+  %725 = load ptr, ptr %724, align 8, !tbaa !75
+  %726 = load ptr, ptr %713, align 8, !tbaa !73
+  %727 = getelementptr inbounds i32, ptr %726, i64 %723
+  %728 = load i32, ptr %727, align 4, !tbaa !87
+  %729 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %719, i64 %718, i32 1
+  %730 = load i32, ptr %729, align 4, !tbaa !86
+  %731 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %725, i64 0, i32 3, i32 0, i32 0, i32 3
+  %732 = load ptr, ptr %731, align 8, !tbaa !73
+  %733 = sext i32 %730 to i64
+  %734 = getelementptr inbounds ptr, ptr %732, i64 %733
+  %735 = load ptr, ptr %734, align 8, !tbaa !75
+  %736 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %725, i64 0, i32 2, i32 0, i32 0, i32 2
+  %737 = load i32, ptr %736, align 4, !tbaa !74
+  %738 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %735, i64 0, i32 4
+  %739 = load i16, ptr %738, align 4, !tbaa !81
+  %740 = and i16 %739, -3
+  %741 = icmp eq i16 %740, -3
+  br i1 %741, label %748, label %742
 
-710:                                              ; preds = %708, %706, %693
-  %711 = phi i32 [ %707, %706 ], [ %709, %708 ], [ 0, %693 ]
-  %712 = add nsw i32 %711, %697
-  %713 = icmp eq i32 %695, %712
-  br i1 %713, label %714, label %733
+742:                                              ; preds = %716
+  %743 = icmp ugt i16 %739, -3
+  br i1 %743, label %744, label %746
 
-714:                                              ; preds = %710
-  %715 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %670, i64 0, i32 1
-  %716 = load i32, ptr %715, align 8, !tbaa !80
-  %717 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %677, i64 0, i32 1
-  %718 = load i32, ptr %717, align 8, !tbaa !80
-  %719 = icmp eq i32 %716, %718
-  br i1 %719, label %720, label %733
+744:                                              ; preds = %742
+  %745 = add nsw i32 %737, -1
+  br label %748
 
-720:                                              ; preds = %714
-  %721 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %670, i64 0, i32 2
-  %722 = load i32, ptr %721, align 4, !tbaa !78
-  %723 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %677, i64 0, i32 2
-  %724 = load i32, ptr %723, align 4, !tbaa !78
-  %725 = icmp eq i32 %722, %724
-  br i1 %725, label %726, label %733
+746:                                              ; preds = %742
+  %747 = zext i16 %739 to i32
+  br label %748
 
-726:                                              ; preds = %720
-  %727 = load ptr, ptr %670, align 8, !tbaa !19
-  %728 = load ptr, ptr %677, align 8, !tbaa !19
-  %729 = tail call noundef i32 @_Z15MyStringComparePKcS0_(ptr noundef %727, ptr noundef %728)
-  %730 = icmp eq i32 %729, 0
-  br i1 %730, label %740, label %731
+748:                                              ; preds = %716, %744, %746
+  %749 = phi i32 [ %745, %744 ], [ %747, %746 ], [ 0, %716 ]
+  %750 = add nsw i32 %749, %728
+  %751 = load i32, ptr %714, align 4, !tbaa !74
+  %752 = icmp slt i32 %750, %751
+  br i1 %752, label %762, label %753
 
-731:                                              ; preds = %726
-  %732 = load ptr, ptr %543, align 8, !tbaa !73
-  br label %733
-
-733:                                              ; preds = %731, %710, %714, %720
-  %734 = phi ptr [ %732, %731 ], [ %652, %710 ], [ %652, %714 ], [ %652, %720 ]
-  %735 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %734, i64 %649
-  %736 = add nsw i32 %650, 1
-  %737 = sext i32 %650 to i64
-  %738 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %734, i64 %737
-  %739 = load i64, ptr %735, align 4
-  store i64 %739, ptr %738, align 4
-  br label %740
-
-740:                                              ; preds = %726, %733
-  %741 = phi i32 [ %650, %726 ], [ %736, %733 ]
-  %742 = add nuw nsw i64 %649, 1
-  %743 = load i32, ptr %15, align 4, !tbaa !74
-  %744 = sext i32 %743 to i64
-  %745 = icmp slt i64 %742, %744
-  br i1 %745, label %648, label %746, !llvm.loop !94
-
-746:                                              ; preds = %740, %14, %538
-  %747 = phi i32 [ 1, %538 ], [ 1, %14 ], [ %741, %740 ]
-  tail call void @_ZN17CBaseRecordVector10DeleteFromEi(ptr noundef nonnull align 8 dereferenceable(32) %2, i32 noundef %747)
-  %748 = load i32, ptr %15, align 4, !tbaa !74
-  %749 = icmp sgt i32 %748, 0
-  br i1 %749, label %750, label %807
-
-750:                                              ; preds = %746
-  %751 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 3
-  %752 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %753 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 2, i32 0, i32 3
-  %754 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 3, i32 0, i32 2
-  %755 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 3, i32 0, i32 3
-  br label %756
-
-756:                                              ; preds = %750, %802
-  %757 = phi i32 [ %748, %750 ], [ %803, %802 ]
-  %758 = phi i64 [ 0, %750 ], [ %804, %802 ]
-  %759 = load ptr, ptr %751, align 8, !tbaa !73
-  %760 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %759, i64 %758
-  %761 = load i32, ptr %760, align 4, !tbaa !84
-  %762 = load ptr, ptr %752, align 8, !tbaa !73
-  %763 = sext i32 %761 to i64
-  %764 = getelementptr inbounds ptr, ptr %762, i64 %763
-  %765 = load ptr, ptr %764, align 8, !tbaa !75
-  %766 = load ptr, ptr %753, align 8, !tbaa !73
-  %767 = getelementptr inbounds i32, ptr %766, i64 %763
-  %768 = load i32, ptr %767, align 4, !tbaa !87
-  %769 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %759, i64 %758, i32 1
-  %770 = load i32, ptr %769, align 4, !tbaa !86
-  %771 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %765, i64 0, i32 3, i32 0, i32 0, i32 3
-  %772 = load ptr, ptr %771, align 8, !tbaa !73
-  %773 = sext i32 %770 to i64
-  %774 = getelementptr inbounds ptr, ptr %772, i64 %773
-  %775 = load ptr, ptr %774, align 8, !tbaa !75
-  %776 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %765, i64 0, i32 2, i32 0, i32 0, i32 2
-  %777 = load i32, ptr %776, align 4, !tbaa !74
-  %778 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %775, i64 0, i32 4
-  %779 = load i16, ptr %778, align 4, !tbaa !81
-  %780 = and i16 %779, -3
-  %781 = icmp eq i16 %780, -3
-  br i1 %781, label %788, label %782
-
-782:                                              ; preds = %756
-  %783 = icmp ugt i16 %779, -3
-  br i1 %783, label %784, label %786
-
-784:                                              ; preds = %782
-  %785 = add nsw i32 %777, -1
-  br label %788
-
-786:                                              ; preds = %782
-  %787 = zext i16 %779 to i32
-  br label %788
-
-788:                                              ; preds = %756, %784, %786
-  %789 = phi i32 [ %785, %784 ], [ %787, %786 ], [ 0, %756 ]
-  %790 = add nsw i32 %789, %768
-  %791 = load i32, ptr %754, align 4, !tbaa !74
-  %792 = icmp slt i32 %790, %791
-  br i1 %792, label %802, label %793
-
-793:                                              ; preds = %788
+753:                                              ; preds = %748
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %4)
-  %794 = load ptr, ptr %755, align 8, !tbaa !73
-  %795 = load i32, ptr %754, align 4, !tbaa !74
-  %796 = sext i32 %795 to i64
-  %797 = getelementptr inbounds i32, ptr %794, i64 %796
-  %798 = trunc i64 %758 to i32
-  store i32 %798, ptr %797, align 4, !tbaa !87
-  %799 = load i32, ptr %754, align 4, !tbaa !74
-  %800 = add nsw i32 %799, 1
-  store i32 %800, ptr %754, align 4, !tbaa !74
-  %801 = load i32, ptr %15, align 4, !tbaa !74
-  br label %802
+  %754 = load ptr, ptr %715, align 8, !tbaa !73
+  %755 = load i32, ptr %714, align 4, !tbaa !74
+  %756 = sext i32 %755 to i64
+  %757 = getelementptr inbounds i32, ptr %754, i64 %756
+  %758 = trunc i64 %718 to i32
+  store i32 %758, ptr %757, align 4, !tbaa !87
+  %759 = load i32, ptr %714, align 4, !tbaa !74
+  %760 = add nsw i32 %759, 1
+  store i32 %760, ptr %714, align 4, !tbaa !74
+  %761 = load i32, ptr %15, align 4, !tbaa !74
+  br label %762
 
-802:                                              ; preds = %793, %788
-  %803 = phi i32 [ %801, %793 ], [ %757, %788 ]
-  %804 = add nuw nsw i64 %758, 1
-  %805 = sext i32 %803 to i64
-  %806 = icmp slt i64 %804, %805
-  br i1 %806, label %756, label %807, !llvm.loop !95
+762:                                              ; preds = %753, %748
+  %763 = phi i32 [ %761, %753 ], [ %717, %748 ]
+  %764 = add nuw nsw i64 %718, 1
+  %765 = sext i32 %763 to i64
+  %766 = icmp slt i64 %764, %765
+  br i1 %766, label %716, label %767, !llvm.loop !95
 
-807:                                              ; preds = %802, %746
+767:                                              ; preds = %762, %706
   ret void
 }
 
@@ -2917,229 +2871,220 @@ define dso_local noundef zeroext i1 @_ZN8NArchive4NCab13CMvDatabaseEx5CheckEv(pt
   %2 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
   %3 = load i32, ptr %2, align 4, !tbaa !74
   %4 = icmp sgt i32 %3, 1
-  br i1 %4, label %5, label %9
+  br i1 %4, label %5, label %66
 
 5:                                                ; preds = %1
   %6 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
   %7 = load ptr, ptr %6, align 8, !tbaa !73
   %8 = zext i32 %3 to i64
+  br label %9
+
+9:                                                ; preds = %5, %63
+  %10 = phi i64 [ 1, %5 ], [ %64, %63 ]
+  %11 = getelementptr inbounds ptr, ptr %7, i64 %10
+  %12 = load ptr, ptr %11, align 8, !tbaa !75
+  %13 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %12, i64 0, i32 3, i32 0, i32 0, i32 2
+  %14 = load i32, ptr %13, align 4, !tbaa !74
+  %15 = icmp sgt i32 %14, 0
+  br i1 %15, label %16, label %63
+
+16:                                               ; preds = %9
+  %17 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %12, i64 0, i32 3, i32 0, i32 0, i32 3
+  %18 = load ptr, ptr %17, align 8, !tbaa !73
+  %19 = zext i32 %14 to i64
   br label %23
 
-9:                                                ; preds = %84, %1
-  %10 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 2
-  %11 = load i32, ptr %10, align 4, !tbaa !74
-  %12 = icmp sgt i32 %11, 0
-  br i1 %12, label %13, label %165
+20:                                               ; preds = %23
+  %21 = add nuw nsw i64 %24, 1
+  %22 = icmp eq i64 %21, %19
+  br i1 %22, label %63, label %23, !llvm.loop !90
 
-13:                                               ; preds = %9
-  %14 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 3
-  %15 = load ptr, ptr %14, align 8, !tbaa !73
-  %16 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !tbaa !73
-  %18 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 2, i32 0, i32 3
-  %19 = load ptr, ptr %18, align 8, !tbaa !73
-  %20 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 3, i32 0, i32 2
-  %21 = load i32, ptr %20, align 4, !tbaa !74
-  %22 = zext i32 %11 to i64
-  br label %87
-
-23:                                               ; preds = %5, %84
-  %24 = phi i64 [ 1, %5 ], [ %85, %84 ]
-  %25 = getelementptr inbounds ptr, ptr %7, i64 %24
+23:                                               ; preds = %20, %16
+  %24 = phi i64 [ 0, %16 ], [ %21, %20 ]
+  %25 = getelementptr inbounds ptr, ptr %18, i64 %24
   %26 = load ptr, ptr %25, align 8, !tbaa !75
-  %27 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %26, i64 0, i32 3, i32 0, i32 0, i32 2
-  %28 = load i32, ptr %27, align 4, !tbaa !74
-  %29 = icmp sgt i32 %28, 0
-  br i1 %29, label %30, label %84
+  %27 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %26, i64 0, i32 4
+  %28 = load i16, ptr %27, align 4, !tbaa !81
+  %29 = and i16 %28, -3
+  %30 = icmp eq i16 %29, -3
+  br i1 %30, label %31, label %20
 
-30:                                               ; preds = %23
-  %31 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %26, i64 0, i32 3, i32 0, i32 0, i32 3
-  %32 = load ptr, ptr %31, align 8, !tbaa !73
-  %33 = zext i32 %28 to i64
-  %34 = load ptr, ptr %32, align 8, !tbaa !75
-  %35 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %34, i64 0, i32 4
-  %36 = load i16, ptr %35, align 4, !tbaa !81
-  %37 = and i16 %36, -3
-  %38 = icmp eq i16 %37, -3
-  br i1 %38, label %52, label %39
+31:                                               ; preds = %23
+  %32 = add nsw i64 %10, -1
+  %33 = getelementptr inbounds ptr, ptr %7, i64 %32
+  %34 = load ptr, ptr %33, align 8, !tbaa !75
+  %35 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %34, i64 0, i32 2, i32 0, i32 0, i32 2
+  %36 = load i32, ptr %35, align 4, !tbaa !74
+  %37 = icmp eq i32 %36, 0
+  br i1 %37, label %158, label %38
 
-39:                                               ; preds = %30, %43
-  %40 = phi i64 [ %41, %43 ], [ 0, %30 ]
-  %41 = add nuw nsw i64 %40, 1
-  %42 = icmp eq i64 %41, %33
-  br i1 %42, label %50, label %43, !llvm.loop !90
+38:                                               ; preds = %31
+  %39 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %12, i64 0, i32 2, i32 0, i32 0, i32 2
+  %40 = load i32, ptr %39, align 4, !tbaa !74
+  %41 = icmp eq i32 %40, 0
+  br i1 %41, label %158, label %42
 
-43:                                               ; preds = %39
-  %44 = getelementptr inbounds ptr, ptr %32, i64 %41
-  %45 = load ptr, ptr %44, align 8, !tbaa !75
-  %46 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %45, i64 0, i32 4
-  %47 = load i16, ptr %46, align 4, !tbaa !81
-  %48 = and i16 %47, -3
-  %49 = icmp eq i16 %48, -3
-  br i1 %49, label %50, label %39, !llvm.loop !90
+42:                                               ; preds = %38
+  %43 = add nsw i32 %36, -1
+  %44 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %34, i64 0, i32 2, i32 0, i32 0, i32 3
+  %45 = load ptr, ptr %44, align 8, !tbaa !73
+  %46 = sext i32 %43 to i64
+  %47 = getelementptr inbounds ptr, ptr %45, i64 %46
+  %48 = load ptr, ptr %47, align 8, !tbaa !75
+  %49 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %12, i64 0, i32 2, i32 0, i32 0, i32 3
+  %50 = load ptr, ptr %49, align 8, !tbaa !73
+  %51 = load ptr, ptr %50, align 8, !tbaa !75
+  %52 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %48, i64 0, i32 2
+  %53 = load i8, ptr %52, align 2, !tbaa !96
+  %54 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %51, i64 0, i32 2
+  %55 = load i8, ptr %54, align 2, !tbaa !96
+  %56 = icmp eq i8 %53, %55
+  br i1 %56, label %57, label %158
 
-50:                                               ; preds = %43, %39
-  %51 = icmp ult i64 %41, %33
-  br i1 %51, label %52, label %84
+57:                                               ; preds = %42
+  %58 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %48, i64 0, i32 3
+  %59 = load i8, ptr %58, align 1, !tbaa !98
+  %60 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %51, i64 0, i32 3
+  %61 = load i8, ptr %60, align 1, !tbaa !98
+  %62 = icmp eq i8 %59, %61
+  br i1 %62, label %63, label %158
 
-52:                                               ; preds = %30, %50
-  %53 = add nsw i64 %24, -1
-  %54 = getelementptr inbounds ptr, ptr %7, i64 %53
-  %55 = load ptr, ptr %54, align 8, !tbaa !75
-  %56 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %55, i64 0, i32 2, i32 0, i32 0, i32 2
-  %57 = load i32, ptr %56, align 4, !tbaa !74
-  %58 = icmp eq i32 %57, 0
-  br i1 %58, label %165, label %59
+63:                                               ; preds = %20, %57, %9
+  %64 = add nuw nsw i64 %10, 1
+  %65 = icmp eq i64 %64, %8
+  br i1 %65, label %66, label %9, !llvm.loop !99
 
-59:                                               ; preds = %52
-  %60 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %26, i64 0, i32 2, i32 0, i32 0, i32 2
-  %61 = load i32, ptr %60, align 4, !tbaa !74
-  %62 = icmp eq i32 %61, 0
-  br i1 %62, label %165, label %63
+66:                                               ; preds = %63, %1
+  %67 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 2
+  %68 = load i32, ptr %67, align 4, !tbaa !74
+  %69 = icmp slt i32 %68, 1
+  br i1 %69, label %158, label %70
 
-63:                                               ; preds = %59
-  %64 = add nsw i32 %57, -1
-  %65 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %55, i64 0, i32 2, i32 0, i32 0, i32 3
-  %66 = load ptr, ptr %65, align 8, !tbaa !73
-  %67 = sext i32 %64 to i64
-  %68 = getelementptr inbounds ptr, ptr %66, i64 %67
-  %69 = load ptr, ptr %68, align 8, !tbaa !75
-  %70 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %26, i64 0, i32 2, i32 0, i32 0, i32 3
-  %71 = load ptr, ptr %70, align 8, !tbaa !73
-  %72 = load ptr, ptr %71, align 8, !tbaa !75
-  %73 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %69, i64 0, i32 2
-  %74 = load i8, ptr %73, align 2, !tbaa !96
-  %75 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %72, i64 0, i32 2
-  %76 = load i8, ptr %75, align 2, !tbaa !96
-  %77 = icmp eq i8 %74, %76
-  br i1 %77, label %78, label %165
+70:                                               ; preds = %66
+  %71 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 1, i32 0, i32 3
+  %72 = load ptr, ptr %71, align 8, !tbaa !73
+  %73 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
+  %74 = load ptr, ptr %73, align 8, !tbaa !73
+  %75 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 2, i32 0, i32 3
+  %76 = load ptr, ptr %75, align 8, !tbaa !73
+  %77 = getelementptr inbounds %"class.NArchive::NCab::CMvDatabaseEx", ptr %0, i64 0, i32 3, i32 0, i32 2
+  %78 = load i32, ptr %77, align 4, !tbaa !74
+  %79 = zext i32 %68 to i64
+  br label %80
 
-78:                                               ; preds = %63
-  %79 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %69, i64 0, i32 3
-  %80 = load i8, ptr %79, align 1, !tbaa !98
-  %81 = getelementptr inbounds %"struct.NArchive::NCab::CFolder", ptr %72, i64 0, i32 3
-  %82 = load i8, ptr %81, align 1, !tbaa !98
-  %83 = icmp eq i8 %80, %82
-  br i1 %83, label %84, label %165
+80:                                               ; preds = %70, %152
+  %81 = phi i64 [ 0, %70 ], [ %156, %152 ]
+  %82 = phi i32 [ 0, %70 ], [ %155, %152 ]
+  %83 = phi i32 [ -2, %70 ], [ %154, %152 ]
+  %84 = phi i64 [ 0, %70 ], [ %153, %152 ]
+  %85 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %72, i64 %81
+  %86 = load i32, ptr %85, align 4, !tbaa !84
+  %87 = sext i32 %86 to i64
+  %88 = getelementptr inbounds ptr, ptr %74, i64 %87
+  %89 = load ptr, ptr %88, align 8, !tbaa !75
+  %90 = getelementptr inbounds i32, ptr %76, i64 %87
+  %91 = load i32, ptr %90, align 4, !tbaa !87
+  %92 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %72, i64 %81, i32 1
+  %93 = load i32, ptr %92, align 4, !tbaa !86
+  %94 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %89, i64 0, i32 3, i32 0, i32 0, i32 3
+  %95 = load ptr, ptr %94, align 8, !tbaa !73
+  %96 = sext i32 %93 to i64
+  %97 = getelementptr inbounds ptr, ptr %95, i64 %96
+  %98 = load ptr, ptr %97, align 8, !tbaa !75
+  %99 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %89, i64 0, i32 2, i32 0, i32 0, i32 2
+  %100 = load i32, ptr %99, align 4, !tbaa !74
+  %101 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %98, i64 0, i32 4
+  %102 = load i16, ptr %101, align 4, !tbaa !81
+  %103 = and i16 %102, -3
+  %104 = icmp eq i16 %103, -3
+  br i1 %104, label %111, label %105
 
-84:                                               ; preds = %23, %78, %50
-  %85 = add nuw nsw i64 %24, 1
-  %86 = icmp eq i64 %85, %8
-  br i1 %86, label %9, label %23, !llvm.loop !99
+105:                                              ; preds = %80
+  %106 = icmp ugt i16 %102, -3
+  br i1 %106, label %107, label %109
 
-87:                                               ; preds = %13, %159
-  %88 = phi i64 [ 0, %13 ], [ %163, %159 ]
-  %89 = phi i32 [ 0, %13 ], [ %162, %159 ]
-  %90 = phi i32 [ -2, %13 ], [ %161, %159 ]
-  %91 = phi i64 [ 0, %13 ], [ %160, %159 ]
-  %92 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %15, i64 %88
-  %93 = load i32, ptr %92, align 4, !tbaa !84
-  %94 = sext i32 %93 to i64
-  %95 = getelementptr inbounds ptr, ptr %17, i64 %94
-  %96 = load ptr, ptr %95, align 8, !tbaa !75
-  %97 = getelementptr inbounds i32, ptr %19, i64 %94
-  %98 = load i32, ptr %97, align 4, !tbaa !87
-  %99 = getelementptr inbounds %"struct.NArchive::NCab::CMvItem", ptr %15, i64 %88, i32 1
-  %100 = load i32, ptr %99, align 4, !tbaa !86
-  %101 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %96, i64 0, i32 3, i32 0, i32 0, i32 3
-  %102 = load ptr, ptr %101, align 8, !tbaa !73
-  %103 = sext i32 %100 to i64
-  %104 = getelementptr inbounds ptr, ptr %102, i64 %103
-  %105 = load ptr, ptr %104, align 8, !tbaa !75
-  %106 = getelementptr inbounds %"struct.NArchive::NCab::CDatabase", ptr %96, i64 0, i32 2, i32 0, i32 0, i32 2
-  %107 = load i32, ptr %106, align 4, !tbaa !74
-  %108 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %105, i64 0, i32 4
-  %109 = load i16, ptr %108, align 4, !tbaa !81
-  %110 = and i16 %109, -3
-  %111 = icmp eq i16 %110, -3
-  br i1 %111, label %118, label %112
+107:                                              ; preds = %105
+  %108 = add nsw i32 %100, -1
+  br label %111
 
-112:                                              ; preds = %87
-  %113 = icmp ugt i16 %109, -3
-  br i1 %113, label %114, label %116
+109:                                              ; preds = %105
+  %110 = zext i16 %102 to i32
+  br label %111
 
-114:                                              ; preds = %112
-  %115 = add nsw i32 %107, -1
-  br label %118
+111:                                              ; preds = %80, %107, %109
+  %112 = phi i32 [ %108, %107 ], [ %110, %109 ], [ 0, %80 ]
+  %113 = add nsw i32 %112, %91
+  %114 = icmp slt i32 %113, %78
+  br i1 %114, label %115, label %158
 
-116:                                              ; preds = %112
-  %117 = zext i16 %109 to i32
-  br label %118
+115:                                              ; preds = %111
+  %116 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %98, i64 0, i32 6
+  %117 = load i16, ptr %116, align 8, !tbaa !83
+  %118 = and i16 %117, 16
+  %119 = icmp eq i16 %118, 0
+  br i1 %119, label %120, label %152
 
-118:                                              ; preds = %87, %114, %116
-  %119 = phi i32 [ %115, %114 ], [ %117, %116 ], [ 0, %87 ]
-  %120 = add nsw i32 %119, %98
-  %121 = icmp slt i32 %120, %21
-  br i1 %121, label %122, label %165
+120:                                              ; preds = %115
+  br i1 %104, label %127, label %121
 
-122:                                              ; preds = %118
-  %123 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %105, i64 0, i32 6
-  %124 = load i16, ptr %123, align 8, !tbaa !83
-  %125 = and i16 %124, 16
-  %126 = icmp eq i16 %125, 0
-  br i1 %126, label %127, label %159
+121:                                              ; preds = %120
+  %122 = icmp ugt i16 %102, -3
+  br i1 %122, label %123, label %125
 
-127:                                              ; preds = %122
-  br i1 %111, label %134, label %128
+123:                                              ; preds = %121
+  %124 = add nsw i32 %100, -1
+  br label %127
 
-128:                                              ; preds = %127
-  %129 = icmp ugt i16 %109, -3
-  br i1 %129, label %130, label %132
+125:                                              ; preds = %121
+  %126 = zext i16 %102 to i32
+  br label %127
 
-130:                                              ; preds = %128
-  %131 = add nsw i32 %107, -1
-  br label %134
+127:                                              ; preds = %120, %123, %125
+  %128 = phi i32 [ %124, %123 ], [ %126, %125 ], [ 0, %120 ]
+  %129 = add nsw i32 %128, %91
+  %130 = icmp eq i32 %129, %83
+  %131 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %98, i64 0, i32 1
+  %132 = load i32, ptr %131, align 8, !tbaa !80
+  br i1 %130, label %133, label %144
 
-132:                                              ; preds = %128
-  %133 = zext i16 %109 to i32
-  br label %134
+133:                                              ; preds = %127
+  %134 = zext i32 %132 to i64
+  %135 = icmp ugt i64 %84, %134
+  br i1 %135, label %136, label %144
 
-134:                                              ; preds = %127, %130, %132
-  %135 = phi i32 [ %131, %130 ], [ %133, %132 ], [ 0, %127 ]
-  %136 = add nsw i32 %135, %98
-  %137 = icmp eq i32 %136, %90
-  %138 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %105, i64 0, i32 1
-  %139 = load i32, ptr %138, align 8, !tbaa !80
-  br i1 %137, label %140, label %151
+136:                                              ; preds = %133
+  %137 = icmp eq i32 %132, %82
+  br i1 %137, label %138, label %158
 
-140:                                              ; preds = %134
-  %141 = zext i32 %139 to i64
-  %142 = icmp ugt i64 %91, %141
-  br i1 %142, label %143, label %151
+138:                                              ; preds = %136
+  %139 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %98, i64 0, i32 2
+  %140 = load i32, ptr %139, align 4, !tbaa !78
+  %141 = zext i32 %140 to i64
+  %142 = add nuw nsw i64 %141, %134
+  %143 = icmp eq i64 %142, %84
+  br i1 %143, label %144, label %158
 
-143:                                              ; preds = %140
-  %144 = icmp eq i32 %139, %89
-  br i1 %144, label %145, label %165
+144:                                              ; preds = %127, %133, %138
+  %145 = phi i32 [ %82, %138 ], [ %132, %133 ], [ %132, %127 ]
+  %146 = phi i32 [ %83, %138 ], [ %83, %133 ], [ %129, %127 ]
+  %147 = zext i32 %145 to i64
+  %148 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %98, i64 0, i32 2
+  %149 = load i32, ptr %148, align 4, !tbaa !78
+  %150 = zext i32 %149 to i64
+  %151 = add nuw nsw i64 %150, %147
+  br label %152
 
-145:                                              ; preds = %143
-  %146 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %105, i64 0, i32 2
-  %147 = load i32, ptr %146, align 4, !tbaa !78
-  %148 = zext i32 %147 to i64
-  %149 = add nuw nsw i64 %148, %141
-  %150 = icmp eq i64 %149, %91
-  br i1 %150, label %151, label %165
+152:                                              ; preds = %144, %115
+  %153 = phi i64 [ %84, %115 ], [ %151, %144 ]
+  %154 = phi i32 [ %83, %115 ], [ %146, %144 ]
+  %155 = phi i32 [ %82, %115 ], [ %145, %144 ]
+  %156 = add nuw nsw i64 %81, 1
+  %157 = icmp eq i64 %156, %79
+  br i1 %157, label %158, label %80, !llvm.loop !100
 
-151:                                              ; preds = %134, %140, %145
-  %152 = phi i32 [ %89, %145 ], [ %139, %140 ], [ %139, %134 ]
-  %153 = phi i32 [ %90, %145 ], [ %90, %140 ], [ %136, %134 ]
-  %154 = zext i32 %152 to i64
-  %155 = getelementptr inbounds %"struct.NArchive::NCab::CItem", ptr %105, i64 0, i32 2
-  %156 = load i32, ptr %155, align 4, !tbaa !78
-  %157 = zext i32 %156 to i64
-  %158 = add nuw nsw i64 %157, %154
-  br label %159
-
-159:                                              ; preds = %151, %122
-  %160 = phi i64 [ %91, %122 ], [ %158, %151 ]
-  %161 = phi i32 [ %90, %122 ], [ %153, %151 ]
-  %162 = phi i32 [ %89, %122 ], [ %152, %151 ]
-  %163 = add nuw nsw i64 %88, 1
-  %164 = icmp eq i64 %163, %22
-  br i1 %164, label %165, label %87, !llvm.loop !100
-
-165:                                              ; preds = %59, %52, %63, %78, %159, %118, %145, %143, %9
-  %166 = phi i1 [ true, %9 ], [ true, %159 ], [ false, %118 ], [ false, %145 ], [ false, %143 ], [ false, %78 ], [ false, %63 ], [ false, %52 ], [ false, %59 ]
-  ret i1 %166
+158:                                              ; preds = %38, %31, %42, %57, %152, %111, %138, %136, %66
+  %159 = phi i1 [ true, %66 ], [ true, %152 ], [ false, %111 ], [ false, %138 ], [ false, %136 ], [ false, %57 ], [ false, %42 ], [ false, %31 ], [ false, %38 ]
+  ret i1 %159
 }
 
 declare noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45)) local_unnamed_addr #3

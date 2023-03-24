@@ -219,45 +219,45 @@ define dso_local void @processArgs(i32 noundef %0, ptr noundef %1) local_unnamed
   %22 = zext i32 %7 to i64
   br label %26
 
-23:                                               ; preds = %46
+23:                                               ; preds = %47
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #12
   store i32 0, ptr %3, align 4, !tbaa !12
   %24 = call i32 @getopt_long(i32 noundef %0, ptr noundef %1, ptr noundef %19, ptr noundef nonnull %21, ptr noundef nonnull %3) #12
   %25 = icmp eq i32 %24, -1
   br i1 %25, label %118, label %51
 
-26:                                               ; preds = %15, %46
-  %27 = phi i64 [ 0, %15 ], [ %49, %46 ]
-  %28 = phi ptr [ %4, %15 ], [ %48, %46 ]
-  %29 = getelementptr inbounds %struct.MyOptionSt, ptr %28, i64 0, i32 1
-  %30 = load ptr, ptr %29, align 8, !tbaa !11
-  %31 = getelementptr inbounds %struct.option, ptr %21, i64 %27
-  store ptr %30, ptr %31, align 8, !tbaa !20
-  %32 = getelementptr inbounds %struct.MyOptionSt, ptr %28, i64 0, i32 3
-  %33 = load i32, ptr %32, align 4, !tbaa !13
-  %34 = getelementptr inbounds %struct.option, ptr %21, i64 %27, i32 1
-  store i32 %33, ptr %34, align 8, !tbaa !22
-  %35 = getelementptr inbounds %struct.option, ptr %21, i64 %27, i32 2
-  store ptr null, ptr %35, align 8, !tbaa !23
-  %36 = getelementptr inbounds %struct.MyOptionSt, ptr %28, i64 0, i32 2
-  %37 = load i8, ptr %36, align 8, !tbaa !19
-  %38 = zext i8 %37 to i32
-  %39 = getelementptr inbounds %struct.option, ptr %21, i64 %27, i32 3
-  store i32 %38, ptr %39, align 8, !tbaa !24
-  %40 = tail call ptr @strcat(ptr noundef nonnull dereferenceable(1) %19, ptr noundef nonnull dereferenceable(1) %36) #12
-  %41 = load i32, ptr %32, align 4, !tbaa !13
-  %42 = icmp eq i32 %41, 0
-  br i1 %42, label %46, label %43
+26:                                               ; preds = %15, %47
+  %27 = phi i64 [ 0, %15 ], [ %49, %47 ]
+  %28 = phi ptr [ @myargs, %15 ], [ %48, %47 ]
+  %29 = load ptr, ptr %28, align 8, !tbaa !17
+  %30 = getelementptr inbounds %struct.MyOptionSt, ptr %29, i64 0, i32 1
+  %31 = load ptr, ptr %30, align 8, !tbaa !11
+  %32 = getelementptr inbounds %struct.option, ptr %21, i64 %27
+  store ptr %31, ptr %32, align 8, !tbaa !20
+  %33 = getelementptr inbounds %struct.MyOptionSt, ptr %29, i64 0, i32 3
+  %34 = load i32, ptr %33, align 4, !tbaa !13
+  %35 = getelementptr inbounds %struct.option, ptr %21, i64 %27, i32 1
+  store i32 %34, ptr %35, align 8, !tbaa !22
+  %36 = getelementptr inbounds %struct.option, ptr %21, i64 %27, i32 2
+  store ptr null, ptr %36, align 8, !tbaa !23
+  %37 = getelementptr inbounds %struct.MyOptionSt, ptr %29, i64 0, i32 2
+  %38 = load i8, ptr %37, align 8, !tbaa !19
+  %39 = zext i8 %38 to i32
+  %40 = getelementptr inbounds %struct.option, ptr %21, i64 %27, i32 3
+  store i32 %39, ptr %40, align 8, !tbaa !24
+  %41 = tail call ptr @strcat(ptr noundef nonnull dereferenceable(1) %19, ptr noundef nonnull dereferenceable(1) %37) #12
+  %42 = load i32, ptr %33, align 4, !tbaa !13
+  %43 = icmp eq i32 %42, 0
+  br i1 %43, label %47, label %44
 
-43:                                               ; preds = %26
-  %44 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %19)
-  %45 = getelementptr inbounds i8, ptr %19, i64 %44
-  store i16 58, ptr %45, align 1
-  br label %46
+44:                                               ; preds = %26
+  %45 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %19)
+  %46 = getelementptr inbounds i8, ptr %19, i64 %45
+  store i16 58, ptr %46, align 1
+  br label %47
 
-46:                                               ; preds = %43, %26
-  %47 = getelementptr inbounds %struct.MyOptionSt, ptr %28, i64 0, i32 7
-  %48 = load ptr, ptr %47, align 8, !tbaa !18
+47:                                               ; preds = %44, %26
+  %48 = getelementptr inbounds %struct.MyOptionSt, ptr %29, i64 0, i32 7
   %49 = add nuw nsw i64 %27, 1
   %50 = icmp eq i64 %49, %22
   br i1 %50, label %23, label %26

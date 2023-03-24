@@ -98,15 +98,15 @@ define dso_local void @cnf_Init(ptr nocapture noundef readonly %0) local_unnamed
   br i1 %4, label %7, label %5
 
 5:                                                ; preds = %1
-  %6 = tail call ptr @memory_Malloc(i32 noundef 8004) #18
+  %6 = tail call ptr @memory_Malloc(i32 noundef 8004) #17
   br label %7
 
 7:                                                ; preds = %1, %5
   %8 = phi ptr [ %6, %5 ], [ null, %1 ]
   store ptr %8, ptr @cnf_VARIABLEDEPTHARRAY, align 8
-  %9 = tail call ptr @prfs_Create() #18
+  %9 = tail call ptr @prfs_Create() #17
   store ptr %9, ptr @cnf_SEARCHCOPY, align 8
-  %10 = tail call ptr @prfs_Create() #18
+  %10 = tail call ptr @prfs_Create() #17
   store ptr %10, ptr @cnf_HAVEPROOFPS, align 8
   ret void
 }
@@ -170,16 +170,16 @@ define dso_local void @cnf_Free(ptr nocapture noundef readonly %0) local_unnamed
 
 39:                                               ; preds = %28, %37
   %40 = getelementptr inbounds i8, ptr %6, i64 -16
-  tail call void @free(ptr noundef nonnull %40) #18
+  tail call void @free(ptr noundef nonnull %40) #17
   store ptr null, ptr @cnf_VARIABLEDEPTHARRAY, align 8
   br label %41
 
 41:                                               ; preds = %39, %1
   %42 = load ptr, ptr @cnf_SEARCHCOPY, align 8
-  tail call void @prfs_Delete(ptr noundef %42) #18
+  tail call void @prfs_Delete(ptr noundef %42) #17
   store ptr null, ptr @cnf_SEARCHCOPY, align 8
   %43 = load ptr, ptr @cnf_HAVEPROOFPS, align 8
-  tail call void @prfs_Delete(ptr noundef %43) #18
+  tail call void @prfs_Delete(ptr noundef %43) #17
   store ptr null, ptr @cnf_HAVEPROOFPS, align 8
   ret void
 }
@@ -202,7 +202,7 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %6 = load i32, ptr %0, align 8
   %7 = icmp eq i32 %6, %4
   %8 = and i1 %5, %7
-  br i1 %8, label %332, label %9
+  br i1 %8, label %334, label %9
 
 9:                                                ; preds = %3
   %10 = load i32, ptr @fol_OR, align 4
@@ -232,10 +232,10 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   br i1 %27, label %114, label %28
 
 28:                                               ; preds = %25
-  %29 = icmp ne i32 %16, %19
-  %30 = icmp ne i32 %15, %19
-  %31 = select i1 %29, i1 %30, i1 false
-  br i1 %31, label %139, label %32
+  %29 = icmp eq i32 %16, %19
+  %30 = icmp eq i32 %15, %19
+  %31 = select i1 %29, i1 true, i1 %30
+  br i1 %31, label %32, label %139
 
 32:                                               ; preds = %28
   %33 = getelementptr i8, ptr %22, i64 16
@@ -245,7 +245,7 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %37 = load ptr, ptr %36, align 8
   %38 = load i32, ptr %37, align 8
   %39 = icmp eq i32 %38, %14
-  br i1 %39, label %332, label %59
+  br i1 %39, label %334, label %59
 
 40:                                               ; preds = %24
   %41 = icmp eq i32 %19, %17
@@ -255,10 +255,10 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
 43:                                               ; preds = %40, %49
   %44 = phi ptr [ %54, %49 ], [ %22, %40 ]
   %45 = phi i32 [ %55, %49 ], [ %19, %40 ]
-  %46 = icmp ne i32 %16, %45
-  %47 = icmp ne i32 %15, %45
-  %48 = select i1 %46, i1 %47, i1 false
-  br i1 %48, label %139, label %49
+  %46 = icmp eq i32 %16, %45
+  %47 = icmp eq i32 %15, %45
+  %48 = select i1 %46, i1 true, i1 %47
+  br i1 %48, label %49, label %139
 
 49:                                               ; preds = %43
   %50 = getelementptr i8, ptr %44, i64 16
@@ -279,10 +279,10 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   br i1 %62, label %114, label %63
 
 63:                                               ; preds = %59
-  %64 = icmp ne i32 %16, %60
-  %65 = icmp ne i32 %15, %60
-  %66 = select i1 %64, i1 %65, i1 false
-  br i1 %66, label %139, label %67
+  %64 = icmp eq i32 %16, %60
+  %65 = icmp eq i32 %15, %60
+  %66 = select i1 %64, i1 true, i1 %65
+  br i1 %66, label %67, label %139
 
 67:                                               ; preds = %63
   %68 = getelementptr i8, ptr %61, i64 16
@@ -292,23 +292,23 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %72 = load ptr, ptr %71, align 8
   %73 = load i32, ptr %72, align 8
   %74 = icmp eq i32 %73, %14
-  br i1 %74, label %332, label %59, !llvm.loop !5
+  br i1 %74, label %334, label %59, !llvm.loop !5
 
 75:                                               ; preds = %13
   br i1 %20, label %76, label %91
 
 76:                                               ; preds = %75
   %77 = icmp eq i32 %19, %17
-  br i1 %77, label %332, label %78
+  br i1 %77, label %334, label %78
 
 78:                                               ; preds = %76
   br i1 %18, label %114, label %79
 
 79:                                               ; preds = %78
-  %80 = icmp ne i32 %16, %19
-  %81 = icmp ne i32 %15, %19
-  %82 = select i1 %80, i1 %81, i1 false
-  br i1 %82, label %139, label %83
+  %80 = icmp eq i32 %16, %19
+  %81 = icmp eq i32 %15, %19
+  %82 = select i1 %80, i1 true, i1 %81
+  br i1 %82, label %83, label %139
 
 83:                                               ; preds = %79
   %84 = getelementptr i8, ptr %22, i64 16
@@ -318,11 +318,11 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %88 = load ptr, ptr %87, align 8
   %89 = load i32, ptr %88, align 8
   %90 = icmp eq i32 %89, %14
-  br i1 %90, label %332, label %110
+  br i1 %90, label %334, label %110
 
 91:                                               ; preds = %75
   %92 = icmp eq i32 %19, %17
-  br i1 %92, label %332, label %93
+  br i1 %92, label %334, label %93
 
 93:                                               ; preds = %91, %101
   %94 = phi ptr [ %106, %101 ], [ %22, %91 ]
@@ -331,10 +331,10 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   br i1 %96, label %114, label %97
 
 97:                                               ; preds = %93
-  %98 = icmp ne i32 %16, %95
-  %99 = icmp ne i32 %15, %95
-  %100 = select i1 %98, i1 %99, i1 false
-  br i1 %100, label %139, label %101
+  %98 = icmp eq i32 %16, %95
+  %99 = icmp eq i32 %15, %95
+  %100 = select i1 %98, i1 true, i1 %99
+  br i1 %100, label %101, label %139
 
 101:                                              ; preds = %97
   %102 = getelementptr i8, ptr %94, i64 16
@@ -345,13 +345,13 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %107 = load i32, ptr %106, align 8
   %108 = icmp eq i32 %107, %14
   %109 = icmp eq i32 %107, %17
-  br i1 %109, label %332, label %93
+  br i1 %109, label %334, label %93
 
 110:                                              ; preds = %83, %131
   %111 = phi i32 [ %137, %131 ], [ %89, %83 ]
   %112 = phi ptr [ %136, %131 ], [ %88, %83 ]
   %113 = icmp eq i32 %111, %17
-  br i1 %113, label %332, label %127
+  br i1 %113, label %334, label %127
 
 114:                                              ; preds = %40, %49, %59, %25, %93, %78
   %115 = phi i32 [ -1, %78 ], [ -1, %93 ], [ %21, %25 ], [ %21, %59 ], [ %21, %49 ], [ %21, %40 ]
@@ -363,20 +363,20 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %119 = phi ptr [ %117, %114 ], [ %120, %122 ]
   %120 = load ptr, ptr %119, align 8
   %121 = icmp eq ptr %120, null
-  br i1 %121, label %332, label %122
+  br i1 %121, label %334, label %122
 
 122:                                              ; preds = %118
   %123 = getelementptr i8, ptr %120, i64 8
   %124 = load ptr, ptr %123, align 8
   %125 = tail call fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %124, i32 noundef %115, ptr noundef %2)
   %126 = icmp eq i32 %125, 0
-  br i1 %126, label %118, label %332, !llvm.loop !7
+  br i1 %126, label %118, label %334, !llvm.loop !7
 
 127:                                              ; preds = %110
-  %128 = icmp ne i32 %16, %111
-  %129 = icmp ne i32 %15, %111
-  %130 = select i1 %128, i1 %129, i1 false
-  br i1 %130, label %139, label %131
+  %128 = icmp eq i32 %16, %111
+  %129 = icmp eq i32 %15, %111
+  %130 = select i1 %128, i1 true, i1 %129
+  br i1 %130, label %131, label %139
 
 131:                                              ; preds = %127
   %132 = getelementptr i8, ptr %112, i64 16
@@ -386,7 +386,7 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %136 = load ptr, ptr %135, align 8
   %137 = load i32, ptr %136, align 8
   %138 = icmp eq i32 %137, %14
-  br i1 %138, label %332, label %110, !llvm.loop !9
+  br i1 %138, label %334, label %110, !llvm.loop !9
 
 139:                                              ; preds = %43, %28, %63, %97, %79, %127
   %140 = phi ptr [ %22, %79 ], [ %112, %127 ], [ %94, %97 ], [ %22, %28 ], [ %61, %63 ], [ %44, %43 ]
@@ -415,7 +415,7 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %159 = load i32, ptr %157, align 8
   %160 = icmp eq i32 %159, %149
   %161 = and i1 %158, %160
-  br i1 %161, label %332, label %13
+  br i1 %161, label %334, label %13
 
 162:                                              ; preds = %139
   %163 = load i32, ptr @fol_IMPLIES, align 4
@@ -423,7 +423,7 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   br i1 %164, label %165, label %179
 
 165:                                              ; preds = %162
-  br i1 %142, label %166, label %332
+  br i1 %142, label %166, label %334
 
 166:                                              ; preds = %165
   %167 = getelementptr i8, ptr %140, i64 16
@@ -432,7 +432,7 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %170 = load ptr, ptr %169, align 8
   %171 = tail call fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %170, i32 noundef -1, ptr noundef %2)
   %172 = icmp eq i32 %171, 0
-  br i1 %172, label %173, label %332
+  br i1 %172, label %173, label %334
 
 173:                                              ; preds = %166
   %174 = load i32, ptr @fol_EXIST, align 4
@@ -446,92 +446,92 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %180 = load i32, ptr @fol_EQUIV, align 4
   %181 = icmp eq i32 %141, %180
   %182 = and i1 %142, %181
-  br i1 %182, label %183, label %332
+  br i1 %182, label %183, label %334
 
 183:                                              ; preds = %179
   %184 = tail call fastcc ptr @cnf_IsDefinition(ptr noundef nonnull %140)
   %185 = icmp eq ptr %184, null
-  br i1 %185, label %332, label %186
+  br i1 %185, label %334, label %186
 
 186:                                              ; preds = %183
-  %187 = tail call ptr @term_ListOfVariables(ptr noundef nonnull %184) #18
-  %188 = tail call ptr @list_DeleteDuplicates(ptr noundef %187, ptr noundef nonnull @term_Equal) #18
+  %187 = tail call ptr @term_ListOfVariables(ptr noundef nonnull %184) #17
+  %188 = tail call ptr @list_DeleteDuplicates(ptr noundef %187, ptr noundef nonnull @term_Equal) #17
   br label %189
 
 189:                                              ; preds = %186, %189
   %190 = phi ptr [ %195, %189 ], [ %140, %186 ]
   %191 = phi ptr [ %192, %189 ], [ null, %186 ]
-  %192 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %192 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %193 = getelementptr inbounds %struct.LIST_HELP, ptr %192, i64 0, i32 1
   store ptr %190, ptr %193, align 8
   store ptr %191, ptr %192, align 8
   %194 = getelementptr i8, ptr %190, i64 8
   %195 = load ptr, ptr %194, align 8
   %196 = icmp eq ptr %195, null
-  br i1 %196, label %197, label %189, !llvm.loop !10
+  br i1 %196, label %199, label %189, !llvm.loop !10
 
-197:                                              ; preds = %189, %229
-  %198 = phi i32 [ %230, %229 ], [ 1, %189 ]
-  %199 = phi ptr [ %231, %229 ], [ %192, %189 ]
-  %200 = getelementptr i8, ptr %199, i64 8
-  %201 = load ptr, ptr %200, align 8
-  %202 = sext i32 %198 to i64
-  %203 = inttoptr i64 %202 to ptr
-  %204 = tail call ptr @memory_Malloc(i32 noundef 16) #18
-  %205 = getelementptr inbounds %struct.LIST_HELP, ptr %204, i64 0, i32 1
-  store ptr %201, ptr %205, align 8
-  store ptr %203, ptr %204, align 8
-  store ptr %204, ptr %200, align 8
-  %206 = load i32, ptr %204, align 8
-  %207 = load i32, ptr @fol_NOT, align 4
-  %208 = icmp eq i32 %206, %207
-  br i1 %208, label %209, label %211
+197:                                              ; preds = %231
+  %198 = icmp eq ptr %188, null
+  br i1 %198, label %333, label %235
 
-209:                                              ; preds = %197
-  %210 = sub nsw i32 0, %198
-  br label %229
+199:                                              ; preds = %189, %231
+  %200 = phi i32 [ %232, %231 ], [ 1, %189 ]
+  %201 = phi ptr [ %233, %231 ], [ %192, %189 ]
+  %202 = getelementptr i8, ptr %201, i64 8
+  %203 = load ptr, ptr %202, align 8
+  %204 = sext i32 %200 to i64
+  %205 = inttoptr i64 %204 to ptr
+  %206 = tail call ptr @memory_Malloc(i32 noundef 16) #17
+  %207 = getelementptr inbounds %struct.LIST_HELP, ptr %206, i64 0, i32 1
+  store ptr %203, ptr %207, align 8
+  store ptr %205, ptr %206, align 8
+  store ptr %206, ptr %202, align 8
+  %208 = load i32, ptr %206, align 8
+  %209 = load i32, ptr @fol_NOT, align 4
+  %210 = icmp eq i32 %208, %209
+  br i1 %210, label %211, label %213
 
-211:                                              ; preds = %197
-  %212 = load i32, ptr @fol_IMPLIES, align 4
-  %213 = icmp eq i32 %206, %212
-  br i1 %213, label %214, label %225
+211:                                              ; preds = %199
+  %212 = sub nsw i32 0, %200
+  br label %231
 
-214:                                              ; preds = %211
-  %215 = getelementptr i8, ptr %204, i64 16
-  %216 = load ptr, ptr %215, align 8
-  %217 = getelementptr i8, ptr %216, i64 8
+213:                                              ; preds = %199
+  %214 = load i32, ptr @fol_IMPLIES, align 4
+  %215 = icmp eq i32 %208, %214
+  br i1 %215, label %216, label %227
+
+216:                                              ; preds = %213
+  %217 = getelementptr i8, ptr %206, i64 16
   %218 = load ptr, ptr %217, align 8
-  %219 = load ptr, ptr %199, align 8
-  %220 = getelementptr i8, ptr %219, i64 8
-  %221 = load ptr, ptr %220, align 8
-  %222 = icmp eq ptr %218, %221
-  br i1 %222, label %223, label %225
+  %219 = getelementptr i8, ptr %218, i64 8
+  %220 = load ptr, ptr %219, align 8
+  %221 = load ptr, ptr %201, align 8
+  %222 = getelementptr i8, ptr %221, i64 8
+  %223 = load ptr, ptr %222, align 8
+  %224 = icmp eq ptr %220, %223
+  br i1 %224, label %225, label %227
 
-223:                                              ; preds = %214
-  %224 = sub nsw i32 0, %198
-  br label %229
+225:                                              ; preds = %216
+  %226 = sub nsw i32 0, %200
+  br label %231
 
-225:                                              ; preds = %214, %211
-  %226 = load i32, ptr @fol_EQUIV, align 4
-  %227 = icmp eq i32 %206, %226
-  %228 = select i1 %227, i32 0, i32 %198
-  br label %229
+227:                                              ; preds = %216, %213
+  %228 = load i32, ptr @fol_EQUIV, align 4
+  %229 = icmp eq i32 %208, %228
+  %230 = select i1 %229, i32 0, i32 %200
+  br label %231
 
-229:                                              ; preds = %225, %209, %223
-  %230 = phi i32 [ %210, %209 ], [ %224, %223 ], [ %228, %225 ]
-  %231 = load ptr, ptr %199, align 8
-  %232 = icmp eq ptr %231, null
-  br i1 %232, label %233, label %197, !llvm.loop !11
+231:                                              ; preds = %227, %211, %225
+  %232 = phi i32 [ %212, %211 ], [ %226, %225 ], [ %230, %227 ]
+  %233 = load ptr, ptr %201, align 8
+  %234 = icmp eq ptr %233, null
+  br i1 %234, label %197, label %199, !llvm.loop !11
 
-233:                                              ; preds = %229, %326
-  %234 = phi i32 [ %328, %326 ], [ 0, %229 ]
-  %235 = phi ptr [ %329, %326 ], [ %192, %229 ]
-  %236 = phi ptr [ %327, %326 ], [ %188, %229 ]
-  %237 = icmp eq ptr %236, null
-  br i1 %237, label %331, label %238
-
-238:                                              ; preds = %233
-  %239 = getelementptr i8, ptr %235, i64 8
+235:                                              ; preds = %197, %326
+  %236 = phi i32 [ %328, %326 ], [ 0, %197 ]
+  %237 = phi ptr [ %329, %326 ], [ %192, %197 ]
+  %238 = phi ptr [ %327, %326 ], [ %188, %197 ]
+  %239 = getelementptr i8, ptr %237, i64 8
   %240 = load ptr, ptr %239, align 8
   %241 = getelementptr i8, ptr %240, i64 8
   %242 = load ptr, ptr %241, align 8
@@ -543,7 +543,7 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   %248 = select i1 %245, i1 true, i1 %247
   br i1 %248, label %249, label %326
 
-249:                                              ; preds = %238
+249:                                              ; preds = %235
   %250 = load ptr, ptr %240, align 8
   %251 = ptrtoint ptr %250 to i64
   %252 = trunc i64 %251 to i32
@@ -566,20 +566,20 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
 
 266:                                              ; preds = %258, %266
   %267 = phi ptr [ %272, %266 ], [ %264, %258 ]
-  %268 = phi ptr [ %271, %266 ], [ %236, %258 ]
+  %268 = phi ptr [ %271, %266 ], [ %238, %258 ]
   %269 = getelementptr i8, ptr %267, i64 8
   %270 = load ptr, ptr %269, align 8
-  %271 = tail call ptr @list_DeleteElement(ptr noundef %268, ptr noundef %270, ptr noundef nonnull @term_Equal) #18
+  %271 = tail call ptr @list_DeleteElement(ptr noundef %268, ptr noundef %270, ptr noundef nonnull @term_Equal) #17
   %272 = load ptr, ptr %267, align 8
   %273 = icmp eq ptr %272, null
   br i1 %273, label %326, label %266, !llvm.loop !12
 
 274:                                              ; preds = %249
-  %275 = icmp eq i32 %234, 0
+  %275 = icmp eq i32 %236, 0
   br i1 %275, label %289, label %276
 
 276:                                              ; preds = %274, %276
-  %277 = phi ptr [ %278, %276 ], [ %236, %274 ]
+  %277 = phi ptr [ %278, %276 ], [ %238, %274 ]
   %278 = load ptr, ptr %277, align 8
   %279 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %280 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %279, i64 0, i32 4
@@ -596,8 +596,8 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   br i1 %287, label %288, label %276, !llvm.loop !13
 
 288:                                              ; preds = %276
-  tail call void @list_DeleteWithElement(ptr noundef nonnull %192, ptr noundef nonnull @list_PairFree) #18
-  br label %332
+  tail call void @list_DeleteWithElement(ptr noundef nonnull %192, ptr noundef nonnull @list_PairFree) #17
+  br label %334
 
 289:                                              ; preds = %274
   %290 = getelementptr i8, ptr %242, i64 16
@@ -616,10 +616,10 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   br label %301
 
 301:                                              ; preds = %297, %307
-  %302 = phi ptr [ %308, %307 ], [ %236, %297 ]
+  %302 = phi ptr [ %308, %307 ], [ %238, %297 ]
   %303 = getelementptr i8, ptr %302, i64 8
   %304 = load ptr, ptr %303, align 8
-  %305 = tail call i32 @term_Equal(ptr noundef %300, ptr noundef %304) #18, !callees !14
+  %305 = tail call i32 @term_Equal(ptr noundef %300, ptr noundef %304) #17, !callees !14
   %306 = icmp eq i32 %305, 0
   br i1 %306, label %307, label %310
 
@@ -629,7 +629,7 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   br i1 %309, label %323, label %301, !llvm.loop !15
 
 310:                                              ; preds = %301, %310
-  %311 = phi ptr [ %312, %310 ], [ %236, %301 ]
+  %311 = phi ptr [ %312, %310 ], [ %238, %301 ]
   %312 = load ptr, ptr %311, align 8
   %313 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %314 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %313, i64 0, i32 4
@@ -646,29 +646,31 @@ define internal fastcc i32 @cnf_ContainsDefinitionIntern(ptr noundef %0, i32 nou
   br i1 %321, label %322, label %310, !llvm.loop !13
 
 322:                                              ; preds = %310
-  tail call void @list_DeleteWithElement(ptr noundef nonnull %192, ptr noundef nonnull @list_PairFree) #18
-  br label %332
+  tail call void @list_DeleteWithElement(ptr noundef nonnull %192, ptr noundef nonnull @list_PairFree) #17
+  br label %334
 
 323:                                              ; preds = %307
   %324 = load ptr, ptr %298, align 8
   %325 = icmp eq ptr %324, null
   br i1 %325, label %326, label %297, !llvm.loop !16
 
-326:                                              ; preds = %323, %266, %289, %258, %238
-  %327 = phi ptr [ %236, %238 ], [ %236, %258 ], [ %236, %289 ], [ %271, %266 ], [ %236, %323 ]
-  %328 = phi i32 [ %234, %238 ], [ 1, %258 ], [ 0, %289 ], [ 1, %266 ], [ 0, %323 ]
-  %329 = load ptr, ptr %235, align 8
+326:                                              ; preds = %323, %266, %289, %258, %235
+  %327 = phi ptr [ %238, %235 ], [ %238, %258 ], [ %238, %289 ], [ %271, %266 ], [ %238, %323 ]
+  %328 = phi i32 [ %236, %235 ], [ 1, %258 ], [ 0, %289 ], [ 1, %266 ], [ 0, %323 ]
+  %329 = load ptr, ptr %237, align 8
   %330 = icmp eq ptr %329, null
-  br i1 %330, label %331, label %233, !llvm.loop !17
+  %331 = icmp eq ptr %327, null
+  %332 = select i1 %330, i1 true, i1 %331
+  br i1 %332, label %333, label %235, !llvm.loop !17
 
-331:                                              ; preds = %233, %326
-  tail call void @list_DeleteWithElement(ptr noundef nonnull %192, ptr noundef nonnull @list_PairFree) #18
+333:                                              ; preds = %326, %197
+  tail call void @list_DeleteWithElement(ptr noundef nonnull %192, ptr noundef nonnull @list_PairFree) #17
   store ptr %184, ptr %2, align 8
-  br label %332
+  br label %334
 
-332:                                              ; preds = %91, %148, %165, %166, %67, %32, %101, %110, %131, %76, %83, %122, %118, %179, %183, %331, %322, %288, %3
-  %333 = phi i32 [ 0, %3 ], [ 1, %331 ], [ 0, %322 ], [ 0, %288 ], [ 0, %183 ], [ 0, %179 ], [ 0, %118 ], [ 1, %122 ], [ 0, %83 ], [ 0, %76 ], [ 0, %131 ], [ 0, %110 ], [ 0, %101 ], [ 0, %32 ], [ 0, %67 ], [ 0, %91 ], [ 0, %148 ], [ 1, %166 ], [ 0, %165 ]
-  ret i32 %333
+334:                                              ; preds = %91, %148, %165, %166, %67, %32, %101, %110, %131, %76, %83, %122, %118, %179, %183, %333, %322, %288, %3
+  %335 = phi i32 [ 0, %3 ], [ 1, %333 ], [ 0, %322 ], [ 0, %288 ], [ 0, %183 ], [ 0, %179 ], [ 0, %118 ], [ 1, %122 ], [ 0, %83 ], [ 0, %76 ], [ 0, %131 ], [ 0, %110 ], [ 0, %101 ], [ 0, %32 ], [ 0, %67 ], [ 0, %91 ], [ 0, %148 ], [ 1, %166 ], [ 0, %165 ]
+  ret i32 %335
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -721,11 +723,11 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
 
 35:                                               ; preds = %31
   %36 = load i32, ptr @fol_ALL, align 4
-  %37 = icmp ne i32 %36, %16
+  %37 = icmp eq i32 %36, %16
   %38 = load i32, ptr @fol_EXIST, align 4
-  %39 = icmp ne i32 %38, %16
-  %40 = select i1 %37, i1 %39, i1 false
-  br i1 %40, label %41, label %286
+  %39 = icmp eq i32 %38, %16
+  %40 = select i1 %37, i1 true, i1 %39
+  br i1 %40, label %286, label %41
 
 41:                                               ; preds = %35
   %42 = load i32, ptr @fol_NOT, align 4
@@ -780,11 +782,11 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
 
 78:                                               ; preds = %70
   %79 = load i32, ptr @fol_ALL, align 4
-  %80 = icmp ne i32 %79, %75
+  %80 = icmp eq i32 %79, %75
   %81 = load i32, ptr @fol_EXIST, align 4
-  %82 = icmp ne i32 %81, %75
-  %83 = select i1 %80, i1 %82, i1 false
-  br i1 %83, label %84, label %286
+  %82 = icmp eq i32 %81, %75
+  %83 = select i1 %80, i1 true, i1 %82
+  br i1 %83, label %286, label %84
 
 84:                                               ; preds = %78
   %85 = load i32, ptr @fol_NOT, align 4
@@ -840,11 +842,11 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
 
 124:                                              ; preds = %121
   %125 = load i32, ptr @fol_ALL, align 4
-  %126 = icmp ne i32 %125, %113
+  %126 = icmp eq i32 %125, %113
   %127 = load i32, ptr @fol_EXIST, align 4
-  %128 = icmp ne i32 %127, %113
-  %129 = select i1 %126, i1 %128, i1 false
-  br i1 %129, label %130, label %286
+  %128 = icmp eq i32 %127, %113
+  %129 = select i1 %126, i1 true, i1 %128
+  br i1 %129, label %286, label %130
 
 130:                                              ; preds = %124
   %131 = load i32, ptr @fol_NOT, align 4
@@ -895,11 +897,11 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
 
 161:                                              ; preds = %160
   %162 = load i32, ptr @fol_ALL, align 4
-  %163 = icmp ne i32 %162, %16
+  %163 = icmp eq i32 %162, %16
   %164 = load i32, ptr @fol_EXIST, align 4
-  %165 = icmp ne i32 %164, %16
-  %166 = select i1 %163, i1 %165, i1 false
-  br i1 %166, label %167, label %286
+  %165 = icmp eq i32 %164, %16
+  %166 = select i1 %163, i1 true, i1 %165
+  br i1 %166, label %286, label %167
 
 167:                                              ; preds = %161
   %168 = load i32, ptr @fol_NOT, align 4
@@ -951,11 +953,11 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
 
 201:                                              ; preds = %200
   %202 = load i32, ptr @fol_ALL, align 4
-  %203 = icmp ne i32 %202, %192
+  %203 = icmp eq i32 %202, %192
   %204 = load i32, ptr @fol_EXIST, align 4
-  %205 = icmp ne i32 %204, %192
-  %206 = select i1 %203, i1 %205, i1 false
-  br i1 %206, label %207, label %286
+  %205 = icmp eq i32 %204, %192
+  %206 = select i1 %203, i1 true, i1 %205
+  br i1 %206, label %286, label %207
 
 207:                                              ; preds = %201
   %208 = load i32, ptr @fol_NOT, align 4
@@ -1005,7 +1007,7 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
 
 241:                                              ; preds = %186, %60, %346, %95, %141, %111, %24, %52, %218, %189, %364, %228, %234, %150, %153, %178, %7
   %242 = phi ptr [ %0, %7 ], [ %368, %364 ], [ %231, %228 ], [ %231, %234 ], [ %182, %178 ], [ %19, %153 ], [ %19, %150 ], [ %191, %189 ], [ %222, %218 ], [ %145, %141 ], [ %114, %111 ], [ %56, %52 ], [ %19, %24 ], [ %99, %95 ], [ %352, %346 ], [ %19, %60 ], [ %19, %186 ]
-  %243 = tail call ptr @term_FindSubterm(ptr noundef nonnull %242, i32 noundef %1) #18
+  %243 = tail call ptr @term_FindSubterm(ptr noundef nonnull %242, i32 noundef %1) #17
   %244 = icmp eq ptr %243, null
   br i1 %244, label %407, label %245
 
@@ -1019,7 +1021,7 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
   %250 = phi ptr [ %265, %263 ], [ %247, %245 ]
   %251 = getelementptr i8, ptr %250, i64 8
   %252 = load ptr, ptr %251, align 8
-  %253 = tail call ptr @fol_FreeVariables(ptr noundef %252) #18
+  %253 = tail call ptr @fol_FreeVariables(ptr noundef %252) #17
   %254 = load ptr, ptr %5, align 8
   %255 = icmp eq ptr %253, null
   br i1 %255, label %263, label %256
@@ -1066,11 +1068,11 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
 
 280:                                              ; preds = %234
   %281 = load i32, ptr @fol_ALL, align 4
-  %282 = icmp ne i32 %281, %230
+  %282 = icmp eq i32 %281, %230
   %283 = load i32, ptr @fol_EXIST, align 4
-  %284 = icmp ne i32 %283, %230
-  %285 = select i1 %282, i1 %284, i1 false
-  br i1 %285, label %343, label %286
+  %284 = icmp eq i32 %283, %230
+  %285 = select i1 %282, i1 true, i1 %284
+  br i1 %285, label %286, label %343
 
 286:                                              ; preds = %78, %124, %35, %201, %280, %161
   %287 = phi i32 [ -1, %161 ], [ -1, %280 ], [ -1, %201 ], [ %18, %35 ], [ %18, %124 ], [ %18, %78 ]
@@ -1128,7 +1130,7 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
   %327 = phi ptr [ %333, %332 ], [ %322, %316 ]
   %328 = getelementptr i8, ptr %327, i64 8
   %329 = load ptr, ptr %328, align 8
-  %330 = tail call i32 @term_Equal(ptr noundef %324, ptr noundef %329) #18, !callees !14
+  %330 = tail call i32 @term_Equal(ptr noundef %324, ptr noundef %329) #17, !callees !14
   %331 = icmp eq i32 %330, 0
   br i1 %331, label %332, label %335
 
@@ -1140,7 +1142,7 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
 335:                                              ; preds = %326
   %336 = load ptr, ptr %323, align 8
   %337 = load ptr, ptr %6, align 8
-  %338 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %338 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %339 = getelementptr inbounds %struct.LIST_HELP, ptr %338, i64 0, i32 1
   store ptr %336, ptr %339, align 8
   store ptr %337, ptr %338, align 8
@@ -1207,7 +1209,7 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
   %381 = phi ptr [ %396, %394 ], [ %378, %376 ]
   %382 = getelementptr i8, ptr %381, i64 8
   %383 = load ptr, ptr %382, align 8
-  %384 = tail call ptr @fol_FreeVariables(ptr noundef %383) #18
+  %384 = tail call ptr @fol_FreeVariables(ptr noundef %383) #17
   %385 = load ptr, ptr %5, align 8
   %386 = icmp eq ptr %384, null
   br i1 %386, label %394, label %387
@@ -1243,7 +1245,7 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
   %403 = phi ptr [ %401, %398 ], [ %264, %263 ], [ %395, %394 ]
   %404 = phi ptr [ %399, %398 ], [ %243, %263 ], [ %373, %394 ]
   %405 = phi ptr [ %400, %398 ], [ %242, %263 ], [ %373, %394 ]
-  %406 = tail call ptr @list_DeleteDuplicates(ptr noundef %403, ptr noundef nonnull @term_Equal) #18
+  %406 = tail call ptr @list_DeleteDuplicates(ptr noundef %403, ptr noundef nonnull @term_Equal) #17
   store ptr %406, ptr %5, align 8
   store ptr %404, ptr %3, align 8
   store ptr %405, ptr %4, align 8
@@ -1257,12 +1259,12 @@ define internal fastcc i32 @cnf_ContainsPredicateIntern(ptr noundef %0, i32 noun
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @cnf_ApplyDefinitionOnce(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, ptr nocapture noundef readonly %4) local_unnamed_addr #0 {
   %6 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %6) #18
-  %7 = tail call i32 @term_MaxVar(ptr noundef %2) #18
-  %8 = tail call i32 @term_MaxVar(ptr noundef %1) #18
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %6) #17
+  %7 = tail call i32 @term_MaxVar(ptr noundef %2) #17
+  %8 = tail call i32 @term_MaxVar(ptr noundef %1) #17
   %9 = tail call i32 @llvm.smax.i32(i32 %8, i32 %7)
   store i32 %9, ptr @symbol_STANDARDVARCOUNTER, align 4
-  %10 = tail call ptr @fol_BoundVariables(ptr noundef %1) #18
+  %10 = tail call ptr @fol_BoundVariables(ptr noundef %1) #17
   %11 = icmp eq ptr %10, null
   br i1 %11, label %39, label %12
 
@@ -1271,7 +1273,7 @@ define dso_local ptr @cnf_ApplyDefinitionOnce(ptr noundef %0, ptr noundef %1, pt
   %14 = getelementptr i8, ptr %13, i64 8
   %15 = load ptr, ptr %14, align 8
   %16 = load i32, ptr %15, align 8
-  %17 = tail call i32 @term_ContainsSymbol(ptr noundef %2, i32 noundef %16) #18
+  %17 = tail call i32 @term_ContainsSymbol(ptr noundef %2, i32 noundef %16) #17
   %18 = icmp eq i32 %17, 0
   br i1 %18, label %24, label %19
 
@@ -1281,7 +1283,7 @@ define dso_local ptr @cnf_ApplyDefinitionOnce(ptr noundef %0, ptr noundef %1, pt
   %22 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
   %23 = add nsw i32 %22, 1
   store i32 %23, ptr @symbol_STANDARDVARCOUNTER, align 4
-  tail call void @term_ExchangeVariable(ptr noundef %1, i32 noundef %21, i32 noundef %23) #18
+  tail call void @term_ExchangeVariable(ptr noundef %1, i32 noundef %21, i32 noundef %23) #17
   br label %24
 
 24:                                               ; preds = %12, %19
@@ -1319,12 +1321,12 @@ define dso_local ptr @cnf_ApplyDefinitionOnce(ptr noundef %0, ptr noundef %1, pt
 47:                                               ; preds = %39
   %48 = load ptr, ptr @stdout, align 8
   %49 = call i64 @fwrite(ptr nonnull @.str, i64 28, i64 1, ptr %48)
-  call void @fol_PrettyPrint(ptr noundef %40) #18
+  call void @fol_PrettyPrint(ptr noundef %40) #17
   %50 = call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.1)
   br label %51
 
 51:                                               ; preds = %47, %39
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #18
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #17
   ret ptr %40
 }
 
@@ -1346,8 +1348,8 @@ define internal fastcc ptr @cnf_ApplyDefinitionInternOnce(ptr noundef %0, ptr no
   %11 = select i1 %8, i1 true, i1 %10
   br i1 %11, label %14, label %29
 
-12:                                               ; preds = %62, %156, %50, %54, %14
-  %13 = phi ptr [ %2, %14 ], [ %1, %156 ], [ %2, %62 ], [ %2, %50 ], [ %2, %54 ]
+12:                                               ; preds = %62, %67, %50, %54, %14
+  %13 = phi ptr [ %2, %14 ], [ %1, %67 ], [ %2, %62 ], [ %2, %50 ], [ %2, %54 ]
   ret ptr %13
 
 14:                                               ; preds = %5
@@ -1374,22 +1376,22 @@ define internal fastcc ptr @cnf_ApplyDefinitionInternOnce(ptr noundef %0, ptr no
   %31 = icmp eq i32 %30, %6
   %32 = load i32, ptr @fol_OR, align 4
   %33 = icmp eq i32 %32, %6
-  %34 = load i32, ptr @fol_NOT, align 4
-  %35 = icmp eq i32 %34, %6
-  %36 = load i32, ptr @fol_IMPLIED, align 4
-  %37 = icmp eq i32 %36, %6
-  %38 = load i32, ptr @fol_VARLIST, align 4
+  %34 = select i1 %31, i1 true, i1 %33
+  %35 = load i32, ptr @fol_NOT, align 4
+  %36 = icmp eq i32 %35, %6
+  %37 = select i1 %34, i1 true, i1 %36
+  %38 = load i32, ptr @fol_IMPLIED, align 4
   %39 = icmp eq i32 %38, %6
-  %40 = load i32, ptr @fol_IMPLIES, align 4
-  %41 = icmp eq i32 %40, %6
-  %42 = load i32, ptr @fol_EQUIV, align 4
-  %43 = icmp eq i32 %42, %6
-  %44 = select i1 %35, i1 true, i1 %33
-  %45 = select i1 %44, i1 true, i1 %31
-  %46 = select i1 %45, i1 true, i1 %37
-  %47 = select i1 %46, i1 true, i1 %39
-  %48 = select i1 %47, i1 true, i1 %41
-  %49 = select i1 %48, i1 true, i1 %43
+  %40 = select i1 %37, i1 true, i1 %39
+  %41 = load i32, ptr @fol_VARLIST, align 4
+  %42 = icmp eq i32 %41, %6
+  %43 = select i1 %40, i1 true, i1 %42
+  %44 = load i32, ptr @fol_IMPLIES, align 4
+  %45 = icmp eq i32 %44, %6
+  %46 = select i1 %43, i1 true, i1 %45
+  %47 = load i32, ptr @fol_EQUIV, align 4
+  %48 = icmp eq i32 %47, %6
+  %49 = select i1 %46, i1 true, i1 %48
   br i1 %49, label %50, label %62
 
 50:                                               ; preds = %29
@@ -1422,135 +1424,9 @@ define internal fastcc ptr @cnf_ApplyDefinitionInternOnce(ptr noundef %0, ptr no
   %69 = load ptr, ptr %68, align 8
   %70 = getelementptr i8, ptr %2, i64 16
   %71 = load ptr, ptr %70, align 8
-  %72 = load i32, ptr @vec_MAX, align 4
-  %73 = add nsw i32 %72, 1
-  %74 = sext i32 %72 to i64
-  %75 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %74
-  store ptr %1, ptr %75, align 8
-  %76 = icmp eq ptr %69, null
-  br i1 %76, label %126, label %77
-
-77:                                               ; preds = %67, %121
-  %78 = phi i32 [ %122, %121 ], [ %73, %67 ]
-  %79 = add nsw i32 %78, -1
-  store i32 %79, ptr @vec_MAX, align 4
-  %80 = sext i32 %79 to i64
-  %81 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %80
-  %82 = load ptr, ptr %81, align 8
-  %83 = load i32, ptr %82, align 8
-  %84 = icmp slt i32 %83, 1
-  br i1 %84, label %105, label %124
-
-85:                                               ; preds = %124, %101
-  %86 = phi ptr [ %71, %124 ], [ %103, %101 ]
-  %87 = phi ptr [ %69, %124 ], [ %102, %101 ]
-  %88 = getelementptr i8, ptr %87, i64 8
-  %89 = load ptr, ptr %88, align 8
-  %90 = load i32, ptr %89, align 8
-  %91 = icmp eq i32 %83, %90
-  br i1 %91, label %92, label %101
-
-92:                                               ; preds = %85
-  %93 = getelementptr i8, ptr %86, i64 8
-  %94 = load ptr, ptr %93, align 8
-  %95 = load i32, ptr %94, align 8
-  store i32 %95, ptr %82, align 8
-  %96 = load ptr, ptr %93, align 8
-  %97 = getelementptr i8, ptr %96, i64 16
-  %98 = load ptr, ptr %97, align 8
-  %99 = tail call ptr @list_CopyWithElement(ptr noundef %98, ptr noundef nonnull @term_Copy) #18
-  store ptr %99, ptr %125, align 8
-  %100 = load i32, ptr @vec_MAX, align 4
-  br label %121
-
-101:                                              ; preds = %85
-  %102 = load ptr, ptr %87, align 8
-  %103 = load ptr, ptr %86, align 8
-  %104 = icmp eq ptr %102, null
-  br i1 %104, label %121, label %85, !llvm.loop !29
-
-105:                                              ; preds = %77
-  %106 = getelementptr i8, ptr %82, i64 16
-  %107 = load ptr, ptr %106, align 8
-  %108 = icmp eq ptr %107, null
-  br i1 %108, label %121, label %109
-
-109:                                              ; preds = %105, %109
-  %110 = phi i64 [ %114, %109 ], [ %80, %105 ]
-  %111 = phi ptr [ %117, %109 ], [ %107, %105 ]
-  %112 = getelementptr i8, ptr %111, i64 8
-  %113 = load ptr, ptr %112, align 8
-  %114 = add i64 %110, 1
-  %115 = trunc i64 %114 to i32
-  store i32 %115, ptr @vec_MAX, align 4
-  %116 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %110
-  store ptr %113, ptr %116, align 8
-  %117 = load ptr, ptr %111, align 8
-  %118 = icmp eq ptr %117, null
-  br i1 %118, label %119, label %109, !llvm.loop !30
-
-119:                                              ; preds = %109
-  %120 = trunc i64 %114 to i32
-  br label %121
-
-121:                                              ; preds = %101, %119, %92, %105
-  %122 = phi i32 [ %79, %105 ], [ %100, %92 ], [ %120, %119 ], [ %79, %101 ]
-  %123 = icmp eq i32 %72, %122
-  br i1 %123, label %156, label %77, !llvm.loop !31
-
-124:                                              ; preds = %77
-  %125 = getelementptr inbounds %struct.term, ptr %82, i64 0, i32 2
-  br label %85
-
-126:                                              ; preds = %67, %153
-  %127 = phi i32 [ %154, %153 ], [ %73, %67 ]
-  %128 = add nsw i32 %127, -1
-  store i32 %128, ptr @vec_MAX, align 4
-  %129 = sext i32 %128 to i64
-  %130 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %129
-  %131 = load ptr, ptr %130, align 8
-  %132 = load i32, ptr %131, align 8
-  %133 = icmp slt i32 %132, 1
-  br i1 %133, label %134, label %153
-
-134:                                              ; preds = %126
-  %135 = getelementptr i8, ptr %131, i64 16
-  %136 = load ptr, ptr %135, align 8
-  %137 = icmp eq ptr %136, null
-  br i1 %137, label %153, label %138
-
-138:                                              ; preds = %134
-  %139 = sext i32 %127 to i64
-  %140 = add nsw i64 %139, -1
-  br label %141
-
-141:                                              ; preds = %141, %138
-  %142 = phi i64 [ %140, %138 ], [ %146, %141 ]
-  %143 = phi ptr [ %136, %138 ], [ %149, %141 ]
-  %144 = getelementptr i8, ptr %143, i64 8
-  %145 = load ptr, ptr %144, align 8
-  %146 = add i64 %142, 1
-  %147 = trunc i64 %146 to i32
-  store i32 %147, ptr @vec_MAX, align 4
-  %148 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %142
-  store ptr %145, ptr %148, align 8
-  %149 = load ptr, ptr %143, align 8
-  %150 = icmp eq ptr %149, null
-  br i1 %150, label %151, label %141, !llvm.loop !30
-
-151:                                              ; preds = %141
-  %152 = trunc i64 %146 to i32
-  br label %153
-
-153:                                              ; preds = %151, %134, %126
-  %154 = phi i32 [ %128, %134 ], [ %128, %126 ], [ %152, %151 ]
-  %155 = icmp eq i32 %72, %154
-  br i1 %155, label %156, label %126, !llvm.loop !31
-
-156:                                              ; preds = %121, %153
-  store i32 %72, ptr @vec_MAX, align 4
-  tail call void @term_AddFatherLinks(ptr noundef %1) #18
-  tail call void @term_Delete(ptr noundef nonnull %2) #18
+  tail call fastcc void @cnf_RplacVar(ptr noundef %1, ptr noundef %69, ptr noundef %71)
+  tail call void @term_AddFatherLinks(ptr noundef %1) #17
+  tail call void @term_Delete(ptr noundef nonnull %2) #17
   store i32 1, ptr %4, align 4
   br label %12
 }
@@ -1569,8 +1445,8 @@ define dso_local ptr @cnf_NegationNormalFormula(ptr noundef returned %0) local_u
   store ptr %0, ptr %5, align 8
   br label %6
 
-6:                                                ; preds = %1, %182
-  %7 = phi i32 [ %183, %182 ], [ %3, %1 ]
+6:                                                ; preds = %1, %181
+  %7 = phi i32 [ %182, %181 ], [ %3, %1 ]
   %8 = add nsw i32 %7, -1
   store i32 %8, ptr @vec_MAX, align 4
   %9 = sext i32 %8 to i64
@@ -1579,7 +1455,7 @@ define dso_local ptr @cnf_NegationNormalFormula(ptr noundef returned %0) local_u
   %12 = load i32, ptr %11, align 8
   %13 = load i32, ptr @fol_NOT, align 4
   %14 = icmp eq i32 %12, %13
-  br i1 %14, label %15, label %163
+  br i1 %14, label %15, label %162
 
 15:                                               ; preds = %6
   %16 = getelementptr i8, ptr %11, i64 16
@@ -1676,7 +1552,7 @@ define dso_local ptr @cnf_NegationNormalFormula(ptr noundef returned %0) local_u
   %82 = sext i32 %80 to i64
   %83 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %82
   store ptr %11, ptr %83, align 8
-  br label %163
+  br label %162
 
 84:                                               ; preds = %15
   %85 = load i32, ptr @fol_ALL, align 4
@@ -1693,11 +1569,11 @@ define dso_local ptr @cnf_NegationNormalFormula(ptr noundef returned %0) local_u
   %94 = load ptr, ptr %93, align 8
   %95 = getelementptr i8, ptr %94, i64 8
   %96 = load ptr, ptr %95, align 8
-  %97 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %97 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %98 = getelementptr inbounds %struct.LIST_HELP, ptr %97, i64 0, i32 1
   store ptr %96, ptr %98, align 8
   store ptr null, ptr %97, align 8
-  %99 = tail call ptr @term_Create(i32 noundef %12, ptr noundef nonnull %97) #18
+  %99 = tail call ptr @term_Create(i32 noundef %12, ptr noundef nonnull %97) #17
   %100 = load ptr, ptr %92, align 8
   %101 = load ptr, ptr %100, align 8
   %102 = getelementptr inbounds %struct.LIST_HELP, ptr %101, i64 0, i32 1
@@ -1726,115 +1602,116 @@ define dso_local ptr @cnf_NegationNormalFormula(ptr noundef returned %0) local_u
 
 117:                                              ; preds = %105, %90
   %118 = load ptr, ptr %92, align 8
-  %119 = tail call ptr @list_CopyWithElement(ptr noundef %118, ptr noundef nonnull @term_Copy) #18
+  %119 = tail call ptr @list_CopyWithElement(ptr noundef %118, ptr noundef nonnull @term_Copy) #17
   store ptr %119, ptr %16, align 8
-  tail call void @term_Delete(ptr noundef nonnull %19) #18
-  br label %163
+  tail call void @term_Delete(ptr noundef nonnull %19) #17
+  br label %162
 
 120:                                              ; preds = %84
   %121 = load i32, ptr @fol_OR, align 4
   %122 = icmp eq i32 %20, %121
   %123 = load i32, ptr @fol_AND, align 4
-  %124 = icmp eq i32 %20, %123
-  %125 = select i1 %122, i1 true, i1 %124
-  br i1 %125, label %126, label %163
+  br i1 %122, label %126, label %124
 
-126:                                              ; preds = %120
-  %127 = select i1 %124, i32 %121, i32 %20
-  %128 = select i1 %122, i32 %123, i32 %127
-  %129 = getelementptr i8, ptr %19, i64 16
-  %130 = load ptr, ptr %129, align 8
-  %131 = icmp eq ptr %130, null
-  br i1 %131, label %132, label %133
+124:                                              ; preds = %120
+  %125 = icmp eq i32 %20, %123
+  br i1 %125, label %126, label %162
 
-132:                                              ; preds = %126
-  store i32 %128, ptr %11, align 8
-  br label %146
+126:                                              ; preds = %120, %124
+  %127 = phi i32 [ %121, %124 ], [ %123, %120 ]
+  %128 = getelementptr i8, ptr %19, i64 16
+  %129 = load ptr, ptr %128, align 8
+  %130 = icmp eq ptr %129, null
+  br i1 %130, label %131, label %132
 
-133:                                              ; preds = %126, %133
-  %134 = phi ptr [ %141, %133 ], [ %130, %126 ]
-  %135 = getelementptr i8, ptr %134, i64 8
-  %136 = load ptr, ptr %135, align 8
-  %137 = load i32, ptr @fol_NOT, align 4
-  %138 = tail call ptr @memory_Malloc(i32 noundef 16) #18
-  %139 = getelementptr inbounds %struct.LIST_HELP, ptr %138, i64 0, i32 1
-  store ptr %136, ptr %139, align 8
-  store ptr null, ptr %138, align 8
-  %140 = tail call ptr @term_Create(i32 noundef %137, ptr noundef nonnull %138) #18
-  store ptr %140, ptr %135, align 8
-  %141 = load ptr, ptr %134, align 8
-  %142 = icmp eq ptr %141, null
-  br i1 %142, label %143, label %133, !llvm.loop !32
+131:                                              ; preds = %126
+  store i32 %127, ptr %11, align 8
+  br label %145
 
-143:                                              ; preds = %133
-  %144 = load ptr, ptr %16, align 8
-  store i32 %128, ptr %11, align 8
-  %145 = icmp eq ptr %144, null
-  br i1 %145, label %160, label %146
+132:                                              ; preds = %126, %132
+  %133 = phi ptr [ %140, %132 ], [ %129, %126 ]
+  %134 = getelementptr i8, ptr %133, i64 8
+  %135 = load ptr, ptr %134, align 8
+  %136 = load i32, ptr @fol_NOT, align 4
+  %137 = tail call ptr @memory_Malloc(i32 noundef 16) #17
+  %138 = getelementptr inbounds %struct.LIST_HELP, ptr %137, i64 0, i32 1
+  store ptr %135, ptr %138, align 8
+  store ptr null, ptr %137, align 8
+  %139 = tail call ptr @term_Create(i32 noundef %136, ptr noundef nonnull %137) #17
+  store ptr %139, ptr %134, align 8
+  %140 = load ptr, ptr %133, align 8
+  %141 = icmp eq ptr %140, null
+  br i1 %141, label %142, label %132, !llvm.loop !29
 
-146:                                              ; preds = %132, %143
-  %147 = phi ptr [ %144, %143 ], [ %17, %132 ]
-  br label %148
+142:                                              ; preds = %132
+  %143 = load ptr, ptr %16, align 8
+  store i32 %127, ptr %11, align 8
+  %144 = icmp eq ptr %143, null
+  br i1 %144, label %159, label %145
 
-148:                                              ; preds = %146, %148
-  %149 = phi ptr [ %150, %148 ], [ %147, %146 ]
-  %150 = load ptr, ptr %149, align 8
-  %151 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %152 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %151, i64 0, i32 4
-  %153 = load i32, ptr %152, align 8
-  %154 = sext i32 %153 to i64
-  %155 = load i64, ptr @memory_FREEDBYTES, align 8
-  %156 = add i64 %155, %154
-  store i64 %156, ptr @memory_FREEDBYTES, align 8
-  %157 = load ptr, ptr %151, align 8
-  store ptr %157, ptr %149, align 8
-  %158 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %149, ptr %158, align 8
-  %159 = icmp eq ptr %150, null
-  br i1 %159, label %160, label %148, !llvm.loop !13
+145:                                              ; preds = %131, %142
+  %146 = phi ptr [ %143, %142 ], [ %17, %131 ]
+  br label %147
 
-160:                                              ; preds = %148, %143
-  %161 = load ptr, ptr %129, align 8
-  %162 = tail call ptr @list_CopyWithElement(ptr noundef %161, ptr noundef nonnull @term_Copy) #18
-  store ptr %162, ptr %16, align 8
-  tail call void @term_Delete(ptr noundef nonnull %19) #18
-  br label %163
+147:                                              ; preds = %145, %147
+  %148 = phi ptr [ %149, %147 ], [ %146, %145 ]
+  %149 = load ptr, ptr %148, align 8
+  %150 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %151 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %150, i64 0, i32 4
+  %152 = load i32, ptr %151, align 8
+  %153 = sext i32 %152 to i64
+  %154 = load i64, ptr @memory_FREEDBYTES, align 8
+  %155 = add i64 %154, %153
+  store i64 %155, ptr @memory_FREEDBYTES, align 8
+  %156 = load ptr, ptr %150, align 8
+  store ptr %156, ptr %148, align 8
+  %157 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %148, ptr %157, align 8
+  %158 = icmp eq ptr %149, null
+  br i1 %158, label %159, label %147, !llvm.loop !13
 
-163:                                              ; preds = %120, %71, %160, %117, %6
-  %164 = getelementptr i8, ptr %11, i64 16
-  %165 = load ptr, ptr %164, align 8
-  %166 = icmp eq ptr %165, null
-  %167 = load i32, ptr @vec_MAX, align 4
-  br i1 %166, label %182, label %168
+159:                                              ; preds = %147, %142
+  %160 = load ptr, ptr %128, align 8
+  %161 = tail call ptr @list_CopyWithElement(ptr noundef %160, ptr noundef nonnull @term_Copy) #17
+  store ptr %161, ptr %16, align 8
+  tail call void @term_Delete(ptr noundef nonnull %19) #17
+  br label %162
 
-168:                                              ; preds = %163
-  %169 = sext i32 %167 to i64
-  br label %170
+162:                                              ; preds = %71, %124, %159, %117, %6
+  %163 = getelementptr i8, ptr %11, i64 16
+  %164 = load ptr, ptr %163, align 8
+  %165 = icmp eq ptr %164, null
+  %166 = load i32, ptr @vec_MAX, align 4
+  br i1 %165, label %181, label %167
 
-170:                                              ; preds = %168, %170
-  %171 = phi i64 [ %169, %168 ], [ %175, %170 ]
-  %172 = phi ptr [ %165, %168 ], [ %178, %170 ]
-  %173 = getelementptr i8, ptr %172, i64 8
-  %174 = load ptr, ptr %173, align 8
-  %175 = add i64 %171, 1
-  %176 = trunc i64 %175 to i32
-  store i32 %176, ptr @vec_MAX, align 4
-  %177 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %171
-  store ptr %174, ptr %177, align 8
-  %178 = load ptr, ptr %172, align 8
-  %179 = icmp eq ptr %178, null
-  br i1 %179, label %180, label %170, !llvm.loop !33
+167:                                              ; preds = %162
+  %168 = sext i32 %166 to i64
+  br label %169
 
-180:                                              ; preds = %170
-  %181 = trunc i64 %175 to i32
-  br label %182
+169:                                              ; preds = %167, %169
+  %170 = phi i64 [ %168, %167 ], [ %174, %169 ]
+  %171 = phi ptr [ %164, %167 ], [ %177, %169 ]
+  %172 = getelementptr i8, ptr %171, i64 8
+  %173 = load ptr, ptr %172, align 8
+  %174 = add i64 %170, 1
+  %175 = trunc i64 %174 to i32
+  store i32 %175, ptr @vec_MAX, align 4
+  %176 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %170
+  store ptr %173, ptr %176, align 8
+  %177 = load ptr, ptr %171, align 8
+  %178 = icmp eq ptr %177, null
+  br i1 %178, label %179, label %169, !llvm.loop !30
 
-182:                                              ; preds = %163, %180
-  %183 = phi i32 [ %181, %180 ], [ %167, %163 ]
-  %184 = icmp eq i32 %2, %183
-  br i1 %184, label %185, label %6, !llvm.loop !34
+179:                                              ; preds = %169
+  %180 = trunc i64 %174 to i32
+  br label %181
 
-185:                                              ; preds = %182
+181:                                              ; preds = %162, %179
+  %182 = phi i32 [ %180, %179 ], [ %166, %162 ]
+  %183 = icmp eq i32 %2, %182
+  br i1 %183, label %184, label %6, !llvm.loop !31
+
+184:                                              ; preds = %181
   store i32 %2, ptr @vec_MAX, align 4
   ret ptr %0
 }
@@ -1866,7 +1743,7 @@ define dso_local ptr @cnf_ComputeLiteralLists(ptr noundef %0) local_unnamed_addr
   %11 = load ptr, ptr %6, align 8
   %12 = load ptr, ptr %11, align 8
   %13 = icmp eq ptr %12, null
-  br i1 %13, label %149, label %14
+  br i1 %13, label %157, label %14
 
 14:                                               ; preds = %5, %93
   %15 = phi ptr [ %94, %93 ], [ %12, %5 ]
@@ -1898,7 +1775,7 @@ define dso_local ptr @cnf_ComputeLiteralLists(ptr noundef %0) local_unnamed_addr
   br i1 %34, label %37, label %35
 
 35:                                               ; preds = %27
-  %36 = tail call ptr @list_CopyWithElement(ptr noundef %30, ptr noundef nonnull @term_Copy) #18
+  %36 = tail call ptr @list_CopyWithElement(ptr noundef %30, ptr noundef nonnull @term_Copy) #17
   br label %37
 
 37:                                               ; preds = %35, %27
@@ -1908,7 +1785,7 @@ define dso_local ptr @cnf_ComputeLiteralLists(ptr noundef %0) local_unnamed_addr
   br i1 %40, label %43, label %41
 
 41:                                               ; preds = %37
-  %42 = tail call ptr @list_CopyWithElement(ptr noundef %32, ptr noundef nonnull @term_Copy) #18
+  %42 = tail call ptr @list_CopyWithElement(ptr noundef %32, ptr noundef nonnull @term_Copy) #17
   br label %43
 
 43:                                               ; preds = %41, %37
@@ -1932,19 +1809,19 @@ define dso_local ptr @cnf_ComputeLiteralLists(ptr noundef %0) local_unnamed_addr
 
 53:                                               ; preds = %43, %46, %52
   %54 = phi ptr [ %38, %52 ], [ %44, %43 ], [ %38, %46 ]
-  %55 = tail call ptr @list_DeleteDuplicatesFree(ptr noundef %54, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #18
-  %56 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %55 = tail call ptr @list_DeleteDuplicatesFree(ptr noundef %54, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #17
+  %56 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %57 = getelementptr inbounds %struct.LIST_HELP, ptr %56, i64 0, i32 1
   store ptr %55, ptr %57, align 8
   store ptr %28, ptr %56, align 8
   %58 = load ptr, ptr %29, align 8
   %59 = icmp eq ptr %58, null
-  br i1 %59, label %60, label %27, !llvm.loop !35
+  br i1 %59, label %60, label %27, !llvm.loop !32
 
 60:                                               ; preds = %53
   %61 = load ptr, ptr %25, align 8
   %62 = icmp eq ptr %61, null
-  br i1 %62, label %63, label %23, !llvm.loop !36
+  br i1 %62, label %63, label %23, !llvm.loop !33
 
 63:                                               ; preds = %60
   br i1 %20, label %78, label %64
@@ -1995,7 +1872,7 @@ define dso_local ptr @cnf_ComputeLiteralLists(ptr noundef %0) local_unnamed_addr
 93:                                               ; preds = %81, %78
   %94 = load ptr, ptr %15, align 8
   %95 = icmp eq ptr %94, null
-  br i1 %95, label %149, label %14, !llvm.loop !37
+  br i1 %95, label %157, label %14, !llvm.loop !34
 
 96:                                               ; preds = %1
   %97 = load i32, ptr @fol_AND, align 4
@@ -2011,7 +1888,7 @@ define dso_local ptr @cnf_ComputeLiteralLists(ptr noundef %0) local_unnamed_addr
   %105 = load ptr, ptr %100, align 8
   %106 = load ptr, ptr %105, align 8
   %107 = icmp eq ptr %106, null
-  br i1 %107, label %149, label %108
+  br i1 %107, label %157, label %108
 
 108:                                              ; preds = %99, %122
   %109 = phi ptr [ %124, %122 ], [ %106, %99 ]
@@ -2040,7 +1917,7 @@ define dso_local ptr @cnf_ComputeLiteralLists(ptr noundef %0) local_unnamed_addr
   %123 = phi ptr [ %113, %121 ], [ %110, %108 ], [ %113, %115 ]
   %124 = load ptr, ptr %109, align 8
   %125 = icmp eq ptr %124, null
-  br i1 %125, label %149, label %108, !llvm.loop !38
+  br i1 %125, label %157, label %108, !llvm.loop !35
 
 126:                                              ; preds = %96
   %127 = load i32, ptr @fol_NOT, align 4
@@ -2049,41 +1926,47 @@ define dso_local ptr @cnf_ComputeLiteralLists(ptr noundef %0) local_unnamed_addr
 
 129:                                              ; preds = %126
   %130 = icmp sgt i32 %2, -1
-  br i1 %130, label %142, label %131
+  %131 = sub nsw i32 0, %2
+  %132 = load i32, ptr @symbol_TYPEMASK, align 4
+  %133 = and i32 %132, %131
+  %134 = icmp ne i32 %133, 2
+  %135 = select i1 %130, i1 true, i1 %134
+  br i1 %135, label %142, label %136
 
-131:                                              ; preds = %129
-  %132 = sub nsw i32 0, %2
-  %133 = load i32, ptr @symbol_TYPEMASK, align 4
-  %134 = and i32 %133, %132
-  %135 = icmp eq i32 %134, 2
-  br i1 %135, label %136, label %142
-
-136:                                              ; preds = %131, %126
-  %137 = tail call ptr @term_Copy(ptr noundef nonnull %0) #18
-  %138 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+136:                                              ; preds = %129, %126
+  %137 = tail call ptr @term_Copy(ptr noundef nonnull %0) #17
+  %138 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %139 = getelementptr inbounds %struct.LIST_HELP, ptr %138, i64 0, i32 1
   store ptr %137, ptr %139, align 8
   store ptr null, ptr %138, align 8
-  %140 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %140 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %141 = getelementptr inbounds %struct.LIST_HELP, ptr %140, i64 0, i32 1
   store ptr %138, ptr %141, align 8
   store ptr null, ptr %140, align 8
-  br label %149
+  br label %157
 
-142:                                              ; preds = %129, %131
+142:                                              ; preds = %129
   %143 = load ptr, ptr @stdout, align 8
   %144 = tail call i32 @fflush(ptr noundef %143)
   %145 = load ptr, ptr @stderr, align 8
-  %146 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %145, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3, i32 noundef 1306) #19
-  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.4) #18
+  %146 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %145, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3, i32 noundef 1306) #18
+  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.4) #17
   %147 = load ptr, ptr @stderr, align 8
-  %148 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 132, i64 1, ptr %147) #19
-  tail call fastcc void @misc_DumpCore()
+  %148 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 132, i64 1, ptr %147) #18
+  %149 = load ptr, ptr @stderr, align 8
+  %150 = tail call i64 @fwrite(ptr nonnull @.str.20, i64 2, i64 1, ptr %149) #18
+  %151 = load ptr, ptr @stderr, align 8
+  %152 = tail call i32 @fflush(ptr noundef %151)
+  %153 = load ptr, ptr @stdout, align 8
+  %154 = tail call i32 @fflush(ptr noundef %153)
+  %155 = load ptr, ptr @stderr, align 8
+  %156 = tail call i32 @fflush(ptr noundef %155)
+  tail call void @abort() #19
   unreachable
 
-149:                                              ; preds = %122, %93, %99, %5, %136
-  %150 = phi ptr [ %140, %136 ], [ %10, %5 ], [ %104, %99 ], [ %79, %93 ], [ %123, %122 ]
-  ret ptr %150
+157:                                              ; preds = %122, %93, %99, %5, %136
+  %158 = phi ptr [ %140, %136 ], [ %10, %5 ], [ %104, %99 ], [ %79, %93 ], [ %123, %122 ]
+  ret ptr %158
 }
 
 declare ptr @term_Copy(ptr noundef) #1
@@ -2095,20 +1978,6 @@ declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #3
 declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readonly, ...) local_unnamed_addr #3
 
 declare void @misc_ErrorReport(ptr noundef, ...) local_unnamed_addr #1
-
-; Function Attrs: inlinehint noreturn nounwind uwtable
-define internal fastcc void @misc_DumpCore() unnamed_addr #5 {
-  %1 = load ptr, ptr @stderr, align 8
-  %2 = tail call i64 @fwrite(ptr nonnull @.str.20, i64 2, i64 1, ptr %1) #19
-  %3 = load ptr, ptr @stderr, align 8
-  %4 = tail call i32 @fflush(ptr noundef %3)
-  %5 = load ptr, ptr @stdout, align 8
-  %6 = tail call i32 @fflush(ptr noundef %5)
-  %7 = load ptr, ptr @stderr, align 8
-  %8 = tail call i32 @fflush(ptr noundef %7)
-  tail call void @abort() #20
-  unreachable
-}
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @cnf_FPrintClause(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
@@ -2150,10 +2019,10 @@ define dso_local void @cnf_FPrintClause(ptr noundef %0, ptr noundef %1) local_un
   store ptr %25, ptr %28, align 8
   %29 = load ptr, ptr %23, align 8
   %30 = icmp eq ptr %29, null
-  br i1 %30, label %34, label %21, !llvm.loop !39
+  br i1 %30, label %34, label %21, !llvm.loop !36
 
 31:                                               ; preds = %8
-  tail call void @term_FPrint(ptr noundef %1, ptr noundef nonnull %14) #18
+  tail call void @term_FPrint(ptr noundef %1, ptr noundef nonnull %14) #17
   %32 = load i32, ptr @fol_OR, align 4
   %33 = load i32, ptr @vec_MAX, align 4
   br label %36
@@ -2166,7 +2035,7 @@ define dso_local void @cnf_FPrintClause(ptr noundef %0, ptr noundef %1) local_un
   %37 = phi i32 [ %11, %17 ], [ %33, %31 ], [ %35, %34 ]
   %38 = phi i32 [ %9, %17 ], [ %32, %31 ], [ %9, %34 ]
   %39 = icmp eq i32 %3, %37
-  br i1 %39, label %40, label %8, !llvm.loop !40
+  br i1 %39, label %40, label %8, !llvm.loop !37
 
 40:                                               ; preds = %36
   %41 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 2, i64 1, ptr %1)
@@ -2217,7 +2086,7 @@ define dso_local void @cnf_FPrint(ptr noundef %0, ptr noundef %1) local_unnamed_
   store ptr %26, ptr %29, align 8
   %30 = load ptr, ptr %24, align 8
   %31 = icmp eq ptr %30, null
-  br i1 %31, label %83, label %22, !llvm.loop !41
+  br i1 %31, label %83, label %22, !llvm.loop !38
 
 32:                                               ; preds = %9
   %33 = load i32, ptr @fol_OR, align 4
@@ -2275,10 +2144,10 @@ define dso_local void @cnf_FPrint(ptr noundef %0, ptr noundef %1) local_unnamed_
   store ptr %65, ptr %68, align 8
   %69 = load ptr, ptr %63, align 8
   %70 = icmp eq ptr %69, null
-  br i1 %70, label %74, label %61, !llvm.loop !39
+  br i1 %70, label %74, label %61, !llvm.loop !36
 
 71:                                               ; preds = %48
-  tail call void @term_FPrint(ptr noundef %1, ptr noundef nonnull %54) #18
+  tail call void @term_FPrint(ptr noundef %1, ptr noundef nonnull %54) #17
   %72 = load i32, ptr @fol_OR, align 4
   %73 = load i32, ptr @vec_MAX, align 4
   br label %76
@@ -2291,7 +2160,7 @@ define dso_local void @cnf_FPrint(ptr noundef %0, ptr noundef %1) local_unnamed_
   %77 = phi i32 [ %51, %57 ], [ %73, %71 ], [ %75, %74 ]
   %78 = phi i32 [ %49, %57 ], [ %72, %71 ], [ %49, %74 ]
   %79 = icmp eq i32 %12, %77
-  br i1 %79, label %80, label %48, !llvm.loop !40
+  br i1 %79, label %80, label %48, !llvm.loop !37
 
 80:                                               ; preds = %76
   %81 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 2, i64 1, ptr %1)
@@ -2307,7 +2176,7 @@ define dso_local void @cnf_FPrint(ptr noundef %0, ptr noundef %1) local_unnamed_
   %86 = phi i32 [ %12, %18 ], [ %12, %37 ], [ %12, %44 ], [ %12, %80 ], [ %84, %83 ]
   %87 = phi i32 [ %10, %18 ], [ %10, %37 ], [ %10, %44 ], [ %82, %80 ], [ %10, %83 ]
   %88 = icmp eq i32 %3, %86
-  br i1 %88, label %89, label %9, !llvm.loop !42
+  br i1 %88, label %89, label %9, !llvm.loop !39
 
 89:                                               ; preds = %85
   store i32 %3, ptr @vec_MAX, align 4
@@ -2370,20 +2239,20 @@ define dso_local void @cnf_StdoutPrint(ptr nocapture noundef readonly %0) local_
   %35 = phi ptr [ %38, %34 ], [ %21, %33 ]
   %36 = getelementptr i8, ptr %35, i64 8
   %37 = load ptr, ptr %36, align 8
-  tail call void @term_Print(ptr noundef %37) #18
+  tail call void @term_Print(ptr noundef %37) #17
   %38 = load ptr, ptr %35, align 8
   %39 = icmp eq ptr %38, null
-  br i1 %39, label %41, label %34, !llvm.loop !43
+  br i1 %39, label %41, label %34, !llvm.loop !40
 
 40:                                               ; preds = %27, %13, %31
-  tail call void @term_Print(ptr noundef nonnull %10) #18
+  tail call void @term_Print(ptr noundef nonnull %10) #17
   br label %41
 
 41:                                               ; preds = %34, %40
   %42 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.7)
   %43 = load ptr, ptr %8, align 8
   %44 = icmp eq ptr %43, null
-  br i1 %44, label %45, label %7, !llvm.loop !44
+  br i1 %44, label %45, label %7, !llvm.loop !41
 
 45:                                               ; preds = %41, %1
   ret void
@@ -2447,20 +2316,20 @@ define dso_local void @cnf_FilePrint(ptr nocapture noundef readonly %0, ptr noun
   %36 = phi ptr [ %39, %35 ], [ %22, %34 ]
   %37 = getelementptr i8, ptr %36, i64 8
   %38 = load ptr, ptr %37, align 8
-  tail call void @term_FPrint(ptr noundef %1, ptr noundef %38) #18
+  tail call void @term_FPrint(ptr noundef %1, ptr noundef %38) #17
   %39 = load ptr, ptr %36, align 8
   %40 = icmp eq ptr %39, null
-  br i1 %40, label %42, label %35, !llvm.loop !45
+  br i1 %40, label %42, label %35, !llvm.loop !42
 
 41:                                               ; preds = %28, %14, %32
-  tail call void @term_FPrint(ptr noundef %1, ptr noundef nonnull %11) #18
+  tail call void @term_FPrint(ptr noundef %1, ptr noundef nonnull %11) #17
   br label %42
 
 42:                                               ; preds = %35, %41
   %43 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 2, i64 1, ptr %1)
   %44 = load ptr, ptr %9, align 8
   %45 = icmp eq ptr %44, null
-  br i1 %45, label %46, label %8, !llvm.loop !46
+  br i1 %45, label %46, label %8, !llvm.loop !43
 
 46:                                               ; preds = %42, %2
   ret void
@@ -2522,7 +2391,7 @@ define dso_local void @cnf_FilePrintPrefix(ptr nocapture noundef readonly %0, pt
   %36 = phi ptr [ %43, %41 ], [ %22, %34 ]
   %37 = getelementptr i8, ptr %36, i64 8
   %38 = load ptr, ptr %37, align 8
-  tail call void @term_FPrintPrefix(ptr noundef %1, ptr noundef %38) #18
+  tail call void @term_FPrintPrefix(ptr noundef %1, ptr noundef %38) #17
   %39 = load ptr, ptr %36, align 8
   %40 = icmp eq ptr %39, null
   br i1 %40, label %46, label %41
@@ -2531,17 +2400,17 @@ define dso_local void @cnf_FilePrintPrefix(ptr nocapture noundef readonly %0, pt
   %42 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 3, i64 1, ptr %1)
   %43 = load ptr, ptr %36, align 8
   %44 = icmp eq ptr %43, null
-  br i1 %44, label %46, label %35, !llvm.loop !47
+  br i1 %44, label %46, label %35, !llvm.loop !44
 
 45:                                               ; preds = %28, %14, %32
-  tail call void @term_FPrintPrefix(ptr noundef %1, ptr noundef nonnull %11) #18
+  tail call void @term_FPrintPrefix(ptr noundef %1, ptr noundef nonnull %11) #17
   br label %46
 
 46:                                               ; preds = %41, %35, %45
   %47 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 2, i64 1, ptr %1)
   %48 = load ptr, ptr %9, align 8
   %49 = icmp eq ptr %48, null
-  br i1 %49, label %50, label %8, !llvm.loop !48
+  br i1 %49, label %50, label %8, !llvm.loop !45
 
 50:                                               ; preds = %46, %2
   ret void
@@ -2575,7 +2444,7 @@ define dso_local ptr @cnf_Flatten(ptr noundef readonly returned %0, i32 noundef 
   %18 = getelementptr i8, ptr %12, i64 16
   %19 = load ptr, ptr %18, align 8
   %20 = load ptr, ptr %19, align 8
-  tail call void @list_NInsert(ptr noundef nonnull %10, ptr noundef %20) #18
+  tail call void @list_NInsert(ptr noundef nonnull %10, ptr noundef %20) #17
   %21 = load ptr, ptr %18, align 8
   %22 = getelementptr i8, ptr %21, i64 8
   %23 = load ptr, ptr %22, align 8
@@ -2607,7 +2476,7 @@ define dso_local ptr @cnf_Flatten(ptr noundef readonly returned %0, i32 noundef 
 
 41:                                               ; preds = %16, %9
   %42 = icmp eq ptr %13, null
-  br i1 %42, label %43, label %9, !llvm.loop !49
+  br i1 %42, label %43, label %9, !llvm.loop !46
 
 43:                                               ; preds = %41, %5, %2
   ret ptr %0
@@ -2620,22 +2489,22 @@ define dso_local ptr @cnf_RemoveTrivialAtoms(ptr noundef returned %0) local_unna
   %2 = getelementptr i8, ptr %0, i64 16
   %3 = load ptr, ptr %2, align 8
   %4 = icmp eq ptr %3, null
-  br i1 %4, label %279, label %5
+  br i1 %4, label %280, label %5
 
-5:                                                ; preds = %1, %169
-  %6 = phi ptr [ %170, %169 ], [ %3, %1 ]
+5:                                                ; preds = %1, %170
+  %6 = phi ptr [ %171, %170 ], [ %3, %1 ]
   %7 = load i32, ptr %0, align 8
   %8 = load i32, ptr @fol_AND, align 4
   %9 = icmp eq i32 %7, %8
   br i1 %9, label %10, label %39
 
 10:                                               ; preds = %5, %29
-  %11 = phi i1 [ false, %29 ], [ true, %5 ]
-  %12 = phi ptr [ %30, %29 ], [ %6, %5 ]
+  %11 = phi ptr [ %30, %29 ], [ %6, %5 ]
+  %12 = phi i1 [ false, %29 ], [ true, %5 ]
   br label %13
 
 13:                                               ; preds = %10, %26
-  %14 = phi ptr [ %27, %26 ], [ %12, %10 ]
+  %14 = phi ptr [ %27, %26 ], [ %11, %10 ]
   %15 = getelementptr i8, ptr %14, i64 8
   %16 = load ptr, ptr %15, align 8
   %17 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %16)
@@ -2652,34 +2521,34 @@ define dso_local ptr @cnf_RemoveTrivialAtoms(ptr noundef returned %0) local_unna
 24:                                               ; preds = %21
   store i32 %18, ptr %0, align 8
   %25 = load ptr, ptr %2, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %25, ptr noundef nonnull @term_Delete) #18
+  tail call void @list_DeleteWithElement(ptr noundef %25, ptr noundef nonnull @term_Delete) #17
   store ptr null, ptr %2, align 8
-  br label %279
+  br label %280
 
 26:                                               ; preds = %21
   %27 = load ptr, ptr %14, align 8
   %28 = icmp eq ptr %27, null
-  br i1 %28, label %32, label %13, !llvm.loop !50
+  br i1 %28, label %32, label %13, !llvm.loop !47
 
 29:                                               ; preds = %13
   %30 = load ptr, ptr %14, align 8
   %31 = icmp eq ptr %30, null
-  br i1 %31, label %33, label %10, !llvm.loop !50
+  br i1 %31, label %33, label %10, !llvm.loop !47
 
 32:                                               ; preds = %26
-  br i1 %11, label %279, label %33
+  br i1 %12, label %280, label %33
 
 33:                                               ; preds = %29, %32
   %34 = load ptr, ptr %2, align 8
-  %35 = tail call ptr @list_DeleteElementIfFree(ptr noundef %34, ptr noundef nonnull @fol_IsTrue, ptr noundef nonnull @term_Delete) #18
+  %35 = tail call ptr @list_DeleteElementIfFree(ptr noundef %34, ptr noundef nonnull @fol_IsTrue, ptr noundef nonnull @term_Delete) #17
   store ptr %35, ptr %2, align 8
   %36 = icmp eq ptr %35, null
-  br i1 %36, label %37, label %279
+  br i1 %36, label %37, label %280
 
 37:                                               ; preds = %33
   %38 = load i32, ptr @fol_TRUE, align 4
   store i32 %38, ptr %0, align 8
-  br label %279
+  br label %280
 
 39:                                               ; preds = %5
   %40 = load i32, ptr @fol_OR, align 4
@@ -2687,12 +2556,12 @@ define dso_local ptr @cnf_RemoveTrivialAtoms(ptr noundef returned %0) local_unna
   br i1 %41, label %42, label %71
 
 42:                                               ; preds = %39, %61
-  %43 = phi i1 [ false, %61 ], [ true, %39 ]
-  %44 = phi ptr [ %62, %61 ], [ %6, %39 ]
+  %43 = phi ptr [ %62, %61 ], [ %6, %39 ]
+  %44 = phi i1 [ false, %61 ], [ true, %39 ]
   br label %45
 
 45:                                               ; preds = %42, %58
-  %46 = phi ptr [ %59, %58 ], [ %44, %42 ]
+  %46 = phi ptr [ %59, %58 ], [ %43, %42 ]
   %47 = getelementptr i8, ptr %46, i64 8
   %48 = load ptr, ptr %47, align 8
   %49 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %48)
@@ -2709,363 +2578,364 @@ define dso_local ptr @cnf_RemoveTrivialAtoms(ptr noundef returned %0) local_unna
 56:                                               ; preds = %53
   store i32 %50, ptr %0, align 8
   %57 = load ptr, ptr %2, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %57, ptr noundef nonnull @term_Delete) #18
+  tail call void @list_DeleteWithElement(ptr noundef %57, ptr noundef nonnull @term_Delete) #17
   store ptr null, ptr %2, align 8
-  br label %279
+  br label %280
 
 58:                                               ; preds = %53
   %59 = load ptr, ptr %46, align 8
   %60 = icmp eq ptr %59, null
-  br i1 %60, label %64, label %45, !llvm.loop !51
+  br i1 %60, label %64, label %45, !llvm.loop !48
 
 61:                                               ; preds = %45
   %62 = load ptr, ptr %46, align 8
   %63 = icmp eq ptr %62, null
-  br i1 %63, label %65, label %42, !llvm.loop !51
+  br i1 %63, label %65, label %42, !llvm.loop !48
 
 64:                                               ; preds = %58
-  br i1 %43, label %279, label %65
+  br i1 %44, label %280, label %65
 
 65:                                               ; preds = %61, %64
   %66 = load ptr, ptr %2, align 8
-  %67 = tail call ptr @list_DeleteElementIfFree(ptr noundef %66, ptr noundef nonnull @fol_IsFalse, ptr noundef nonnull @term_Delete) #18
+  %67 = tail call ptr @list_DeleteElementIfFree(ptr noundef %66, ptr noundef nonnull @fol_IsFalse, ptr noundef nonnull @term_Delete) #17
   store ptr %67, ptr %2, align 8
   %68 = icmp eq ptr %67, null
-  br i1 %68, label %69, label %279
+  br i1 %68, label %69, label %280
 
 69:                                               ; preds = %65
   %70 = load i32, ptr @fol_FALSE, align 4
   store i32 %70, ptr %0, align 8
-  br label %279
+  br label %280
 
 71:                                               ; preds = %39
   %72 = load i32, ptr @fol_ALL, align 4
-  %73 = icmp ne i32 %72, %7
+  %73 = icmp eq i32 %72, %7
   %74 = load i32, ptr @fol_EXIST, align 4
-  %75 = icmp ne i32 %74, %7
-  %76 = select i1 %73, i1 %75, i1 false
-  br i1 %76, label %77, label %80
-
-77:                                               ; preds = %71
-  %78 = load i32, ptr @fol_NOT, align 4
-  %79 = icmp eq i32 %7, %78
-  br i1 %79, label %82, label %115
+  %75 = icmp eq i32 %74, %7
+  %76 = select i1 %73, i1 true, i1 %75
+  %77 = load i32, ptr @fol_NOT, align 4
+  %78 = icmp eq i32 %7, %77
+  %79 = select i1 %76, i1 true, i1 %78
+  br i1 %79, label %80, label %116
 
 80:                                               ; preds = %71
-  %81 = load ptr, ptr %6, align 8
-  br label %82
+  br i1 %76, label %81, label %83
 
-82:                                               ; preds = %77, %80
-  %83 = phi ptr [ %81, %80 ], [ %6, %77 ]
-  %84 = getelementptr i8, ptr %83, i64 8
-  %85 = load ptr, ptr %84, align 8
-  %86 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %85)
-  %87 = load i32, ptr %85, align 8
-  %88 = load i32, ptr @fol_FALSE, align 4
-  %89 = icmp eq i32 %87, %88
-  %90 = load i32, ptr @fol_NOT, align 4
-  %91 = icmp eq i32 %7, %90
-  %92 = select i1 %89, i1 %91, i1 false
-  %93 = load i32, ptr @fol_TRUE, align 4
-  br i1 %92, label %102, label %94
+81:                                               ; preds = %80
+  %82 = load ptr, ptr %6, align 8
+  br label %83
 
-94:                                               ; preds = %82
-  %95 = icmp eq i32 %87, %93
-  br i1 %95, label %96, label %106
+83:                                               ; preds = %80, %81
+  %84 = phi ptr [ %82, %81 ], [ %6, %80 ]
+  %85 = getelementptr i8, ptr %84, i64 8
+  %86 = load ptr, ptr %85, align 8
+  %87 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %86)
+  %88 = load i32, ptr %86, align 8
+  %89 = load i32, ptr @fol_FALSE, align 4
+  %90 = icmp eq i32 %88, %89
+  %91 = load i32, ptr @fol_NOT, align 4
+  %92 = icmp eq i32 %7, %91
+  %93 = select i1 %90, i1 %92, i1 false
+  %94 = load i32, ptr @fol_TRUE, align 4
+  br i1 %93, label %103, label %95
 
-96:                                               ; preds = %94
-  %97 = load i32, ptr @fol_ALL, align 4
-  %98 = icmp ne i32 %97, %7
-  %99 = load i32, ptr @fol_EXIST, align 4
-  %100 = icmp ne i32 %99, %7
-  %101 = select i1 %98, i1 %100, i1 false
-  br i1 %101, label %105, label %102
+95:                                               ; preds = %83
+  %96 = icmp eq i32 %88, %94
+  br i1 %96, label %97, label %107
 
-102:                                              ; preds = %82, %96
-  %103 = phi i32 [ %87, %96 ], [ %93, %82 ]
-  store i32 %103, ptr %0, align 8
-  %104 = load ptr, ptr %2, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %104, ptr noundef nonnull @term_Delete) #18
+97:                                               ; preds = %95
+  %98 = load i32, ptr @fol_ALL, align 4
+  %99 = icmp eq i32 %98, %7
+  %100 = load i32, ptr @fol_EXIST, align 4
+  %101 = icmp eq i32 %100, %7
+  %102 = select i1 %99, i1 true, i1 %101
+  br i1 %102, label %103, label %106
+
+103:                                              ; preds = %83, %97
+  %104 = phi i32 [ %88, %97 ], [ %94, %83 ]
+  store i32 %104, ptr %0, align 8
+  %105 = load ptr, ptr %2, align 8
+  tail call void @list_DeleteWithElement(ptr noundef %105, ptr noundef nonnull @term_Delete) #17
   store ptr null, ptr %2, align 8
-  br label %279
+  br label %280
 
-105:                                              ; preds = %96
-  br i1 %91, label %113, label %106
+106:                                              ; preds = %97
+  br i1 %92, label %114, label %107
 
-106:                                              ; preds = %94, %105
-  br i1 %89, label %107, label %279
+107:                                              ; preds = %95, %106
+  br i1 %90, label %108, label %280
 
-107:                                              ; preds = %106
-  %108 = load i32, ptr @fol_ALL, align 4
-  %109 = icmp ne i32 %108, %7
-  %110 = load i32, ptr @fol_EXIST, align 4
-  %111 = icmp ne i32 %110, %7
-  %112 = select i1 %109, i1 %111, i1 false
-  br i1 %112, label %279, label %113
+108:                                              ; preds = %107
+  %109 = load i32, ptr @fol_ALL, align 4
+  %110 = icmp eq i32 %109, %7
+  %111 = load i32, ptr @fol_EXIST, align 4
+  %112 = icmp eq i32 %111, %7
+  %113 = select i1 %110, i1 true, i1 %112
+  br i1 %113, label %114, label %280
 
-113:                                              ; preds = %107, %105
-  store i32 %88, ptr %0, align 8
-  %114 = load ptr, ptr %2, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %114, ptr noundef nonnull @term_Delete) #18
+114:                                              ; preds = %106, %108
+  store i32 %89, ptr %0, align 8
+  %115 = load ptr, ptr %2, align 8
+  tail call void @list_DeleteWithElement(ptr noundef %115, ptr noundef nonnull @term_Delete) #17
   store ptr null, ptr %2, align 8
-  br label %279
+  br label %280
 
-115:                                              ; preds = %77
-  %116 = load i32, ptr @fol_IMPLIES, align 4
-  %117 = icmp eq i32 %7, %116
-  br i1 %117, label %118, label %190
+116:                                              ; preds = %71
+  %117 = load i32, ptr @fol_IMPLIES, align 4
+  %118 = icmp eq i32 %7, %117
+  br i1 %118, label %119, label %191
 
-118:                                              ; preds = %115
-  %119 = getelementptr i8, ptr %6, i64 8
-  %120 = load ptr, ptr %119, align 8
-  %121 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %120)
-  %122 = load i32, ptr %120, align 8
-  %123 = load i32, ptr @fol_FALSE, align 4
-  %124 = icmp eq i32 %122, %123
-  %125 = load i32, ptr @fol_TRUE, align 4
-  br i1 %124, label %126, label %128
+119:                                              ; preds = %116
+  %120 = getelementptr i8, ptr %6, i64 8
+  %121 = load ptr, ptr %120, align 8
+  %122 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %121)
+  %123 = load i32, ptr %121, align 8
+  %124 = load i32, ptr @fol_FALSE, align 4
+  %125 = icmp eq i32 %123, %124
+  %126 = load i32, ptr @fol_TRUE, align 4
+  br i1 %125, label %127, label %129
 
-126:                                              ; preds = %118
-  store i32 %125, ptr %0, align 8
-  %127 = load ptr, ptr %2, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %127, ptr noundef nonnull @term_Delete) #18
+127:                                              ; preds = %119
+  store i32 %126, ptr %0, align 8
+  %128 = load ptr, ptr %2, align 8
+  tail call void @list_DeleteWithElement(ptr noundef %128, ptr noundef nonnull @term_Delete) #17
   store ptr null, ptr %2, align 8
-  br label %279
+  br label %280
 
-128:                                              ; preds = %118
-  %129 = icmp eq i32 %122, %125
-  br i1 %129, label %130, label %172
+129:                                              ; preds = %119
+  %130 = icmp eq i32 %123, %126
+  br i1 %130, label %131, label %173
 
-130:                                              ; preds = %128
-  tail call void @term_Delete(ptr noundef nonnull %120) #18
-  %131 = load ptr, ptr %2, align 8
-  %132 = load ptr, ptr %131, align 8
-  %133 = getelementptr i8, ptr %132, i64 8
-  %134 = load ptr, ptr %133, align 8
-  %135 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %136 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %135, i64 0, i32 4
-  %137 = load i32, ptr %136, align 8
-  %138 = sext i32 %137 to i64
-  %139 = load i64, ptr @memory_FREEDBYTES, align 8
-  %140 = add i64 %139, %138
-  store i64 %140, ptr @memory_FREEDBYTES, align 8
-  %141 = load ptr, ptr %135, align 8
-  store ptr %141, ptr %131, align 8
-  %142 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %131, ptr %142, align 8
-  br label %143
+131:                                              ; preds = %129
+  tail call void @term_Delete(ptr noundef nonnull %121) #17
+  %132 = load ptr, ptr %2, align 8
+  %133 = load ptr, ptr %132, align 8
+  %134 = getelementptr i8, ptr %133, i64 8
+  %135 = load ptr, ptr %134, align 8
+  %136 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %137 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %136, i64 0, i32 4
+  %138 = load i32, ptr %137, align 8
+  %139 = sext i32 %138 to i64
+  %140 = load i64, ptr @memory_FREEDBYTES, align 8
+  %141 = add i64 %140, %139
+  store i64 %141, ptr @memory_FREEDBYTES, align 8
+  %142 = load ptr, ptr %136, align 8
+  store ptr %142, ptr %132, align 8
+  %143 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %132, ptr %143, align 8
+  br label %144
 
-143:                                              ; preds = %130, %143
-  %144 = phi ptr [ %145, %143 ], [ %132, %130 ]
-  %145 = load ptr, ptr %144, align 8
-  %146 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %147 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %146, i64 0, i32 4
-  %148 = load i32, ptr %147, align 8
-  %149 = sext i32 %148 to i64
-  %150 = load i64, ptr @memory_FREEDBYTES, align 8
-  %151 = add i64 %150, %149
-  store i64 %151, ptr @memory_FREEDBYTES, align 8
-  %152 = load ptr, ptr %146, align 8
-  store ptr %152, ptr %144, align 8
-  %153 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %144, ptr %153, align 8
-  %154 = icmp eq ptr %145, null
-  br i1 %154, label %155, label %143, !llvm.loop !13
+144:                                              ; preds = %131, %144
+  %145 = phi ptr [ %146, %144 ], [ %133, %131 ]
+  %146 = load ptr, ptr %145, align 8
+  %147 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %148 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %147, i64 0, i32 4
+  %149 = load i32, ptr %148, align 8
+  %150 = sext i32 %149 to i64
+  %151 = load i64, ptr @memory_FREEDBYTES, align 8
+  %152 = add i64 %151, %150
+  store i64 %152, ptr @memory_FREEDBYTES, align 8
+  %153 = load ptr, ptr %147, align 8
+  store ptr %153, ptr %145, align 8
+  %154 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %145, ptr %154, align 8
+  %155 = icmp eq ptr %146, null
+  br i1 %155, label %156, label %144, !llvm.loop !13
 
-155:                                              ; preds = %223, %143
-  %156 = phi ptr [ %134, %143 ], [ %214, %223 ]
-  %157 = load i32, ptr %156, align 8
-  store i32 %157, ptr %0, align 8
-  %158 = getelementptr i8, ptr %156, i64 16
-  %159 = load ptr, ptr %158, align 8
-  store ptr %159, ptr %2, align 8
-  %160 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  %161 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %160, i64 0, i32 4
-  %162 = load i32, ptr %161, align 8
-  %163 = sext i32 %162 to i64
-  %164 = load i64, ptr @memory_FREEDBYTES, align 8
-  %165 = add i64 %164, %163
-  store i64 %165, ptr @memory_FREEDBYTES, align 8
-  %166 = load ptr, ptr %160, align 8
-  store ptr %166, ptr %156, align 8
-  %167 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  store ptr %156, ptr %167, align 8
-  %168 = load ptr, ptr %2, align 8
-  br label %169
+156:                                              ; preds = %224, %144
+  %157 = phi ptr [ %135, %144 ], [ %215, %224 ]
+  %158 = load i32, ptr %157, align 8
+  store i32 %158, ptr %0, align 8
+  %159 = getelementptr i8, ptr %157, i64 16
+  %160 = load ptr, ptr %159, align 8
+  store ptr %160, ptr %2, align 8
+  %161 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  %162 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %161, i64 0, i32 4
+  %163 = load i32, ptr %162, align 8
+  %164 = sext i32 %163 to i64
+  %165 = load i64, ptr @memory_FREEDBYTES, align 8
+  %166 = add i64 %165, %164
+  store i64 %166, ptr @memory_FREEDBYTES, align 8
+  %167 = load ptr, ptr %161, align 8
+  store ptr %167, ptr %157, align 8
+  %168 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  store ptr %157, ptr %168, align 8
+  %169 = load ptr, ptr %2, align 8
+  br label %170
 
-169:                                              ; preds = %155, %200
-  %170 = phi ptr [ %168, %155 ], [ %203, %200 ]
-  %171 = icmp eq ptr %170, null
-  br i1 %171, label %279, label %5
+170:                                              ; preds = %156, %201
+  %171 = phi ptr [ %169, %156 ], [ %204, %201 ]
+  %172 = icmp eq ptr %171, null
+  br i1 %172, label %280, label %5
 
-172:                                              ; preds = %128
-  %173 = load ptr, ptr %2, align 8
-  %174 = load ptr, ptr %173, align 8
-  %175 = getelementptr i8, ptr %174, i64 8
-  %176 = load ptr, ptr %175, align 8
-  %177 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %176)
-  %178 = load i32, ptr %176, align 8
-  %179 = load i32, ptr @fol_TRUE, align 4
-  %180 = icmp eq i32 %178, %179
-  br i1 %180, label %181, label %183
+173:                                              ; preds = %129
+  %174 = load ptr, ptr %2, align 8
+  %175 = load ptr, ptr %174, align 8
+  %176 = getelementptr i8, ptr %175, i64 8
+  %177 = load ptr, ptr %176, align 8
+  %178 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %177)
+  %179 = load i32, ptr %177, align 8
+  %180 = load i32, ptr @fol_TRUE, align 4
+  %181 = icmp eq i32 %179, %180
+  br i1 %181, label %182, label %184
 
-181:                                              ; preds = %172
-  store i32 %178, ptr %0, align 8
-  %182 = load ptr, ptr %2, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %182, ptr noundef nonnull @term_Delete) #18
+182:                                              ; preds = %173
+  store i32 %179, ptr %0, align 8
+  %183 = load ptr, ptr %2, align 8
+  tail call void @list_DeleteWithElement(ptr noundef %183, ptr noundef nonnull @term_Delete) #17
   store ptr null, ptr %2, align 8
-  br label %279
+  br label %280
 
-183:                                              ; preds = %172
-  %184 = load i32, ptr @fol_FALSE, align 4
-  %185 = icmp eq i32 %178, %184
-  br i1 %185, label %186, label %279
+184:                                              ; preds = %173
+  %185 = load i32, ptr @fol_FALSE, align 4
+  %186 = icmp eq i32 %179, %185
+  br i1 %186, label %187, label %280
 
-186:                                              ; preds = %183
-  %187 = load i32, ptr @fol_NOT, align 4
-  store i32 %187, ptr %0, align 8
-  %188 = load ptr, ptr %2, align 8
-  %189 = tail call ptr @list_DeleteElementIfFree(ptr noundef %188, ptr noundef nonnull @fol_IsFalse, ptr noundef nonnull @term_Delete) #18
-  store ptr %189, ptr %2, align 8
-  br label %279
+187:                                              ; preds = %184
+  %188 = load i32, ptr @fol_NOT, align 4
+  store i32 %188, ptr %0, align 8
+  %189 = load ptr, ptr %2, align 8
+  %190 = tail call ptr @list_DeleteElementIfFree(ptr noundef %189, ptr noundef nonnull @fol_IsFalse, ptr noundef nonnull @term_Delete) #17
+  store ptr %190, ptr %2, align 8
+  br label %280
 
-190:                                              ; preds = %115
-  %191 = load i32, ptr @fol_EQUIV, align 4
-  %192 = icmp eq i32 %7, %191
-  br i1 %192, label %193, label %279
+191:                                              ; preds = %116
+  %192 = load i32, ptr @fol_EQUIV, align 4
+  %193 = icmp eq i32 %7, %192
+  br i1 %193, label %194, label %280
 
-193:                                              ; preds = %190
-  %194 = getelementptr i8, ptr %6, i64 8
-  %195 = load ptr, ptr %194, align 8
-  %196 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %195)
-  %197 = load i32, ptr %195, align 8
-  %198 = load i32, ptr @fol_FALSE, align 4
-  %199 = icmp eq i32 %197, %198
-  br i1 %199, label %200, label %207
+194:                                              ; preds = %191
+  %195 = getelementptr i8, ptr %6, i64 8
+  %196 = load ptr, ptr %195, align 8
+  %197 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %196)
+  %198 = load i32, ptr %196, align 8
+  %199 = load i32, ptr @fol_FALSE, align 4
+  %200 = icmp eq i32 %198, %199
+  br i1 %200, label %201, label %208
 
-200:                                              ; preds = %193
-  %201 = load i32, ptr @fol_NOT, align 4
-  store i32 %201, ptr %0, align 8
-  %202 = load ptr, ptr %2, align 8
-  %203 = tail call ptr @list_DeleteElementIfFree(ptr noundef %202, ptr noundef nonnull @fol_IsFalse, ptr noundef nonnull @term_Delete) #18
-  store ptr %203, ptr %2, align 8
-  %204 = icmp eq ptr %203, null
-  br i1 %204, label %205, label %169
+201:                                              ; preds = %194
+  %202 = load i32, ptr @fol_NOT, align 4
+  store i32 %202, ptr %0, align 8
+  %203 = load ptr, ptr %2, align 8
+  %204 = tail call ptr @list_DeleteElementIfFree(ptr noundef %203, ptr noundef nonnull @fol_IsFalse, ptr noundef nonnull @term_Delete) #17
+  store ptr %204, ptr %2, align 8
+  %205 = icmp eq ptr %204, null
+  br i1 %205, label %206, label %170
 
-205:                                              ; preds = %200
-  %206 = load i32, ptr @fol_TRUE, align 4
-  store i32 %206, ptr %0, align 8
-  br label %279
+206:                                              ; preds = %201
+  %207 = load i32, ptr @fol_TRUE, align 4
+  store i32 %207, ptr %0, align 8
+  br label %280
 
-207:                                              ; preds = %193
-  %208 = load i32, ptr @fol_TRUE, align 4
-  %209 = icmp eq i32 %197, %208
-  br i1 %209, label %210, label %235
+208:                                              ; preds = %194
+  %209 = load i32, ptr @fol_TRUE, align 4
+  %210 = icmp eq i32 %198, %209
+  br i1 %210, label %211, label %236
 
-210:                                              ; preds = %207
-  tail call void @term_Delete(ptr noundef nonnull %195) #18
-  %211 = load ptr, ptr %2, align 8
-  %212 = load ptr, ptr %211, align 8
-  %213 = getelementptr i8, ptr %212, i64 8
-  %214 = load ptr, ptr %213, align 8
-  %215 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %216 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %215, i64 0, i32 4
-  %217 = load i32, ptr %216, align 8
-  %218 = sext i32 %217 to i64
-  %219 = load i64, ptr @memory_FREEDBYTES, align 8
-  %220 = add i64 %219, %218
-  store i64 %220, ptr @memory_FREEDBYTES, align 8
-  %221 = load ptr, ptr %215, align 8
-  store ptr %221, ptr %211, align 8
-  %222 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %211, ptr %222, align 8
-  br label %223
+211:                                              ; preds = %208
+  tail call void @term_Delete(ptr noundef nonnull %196) #17
+  %212 = load ptr, ptr %2, align 8
+  %213 = load ptr, ptr %212, align 8
+  %214 = getelementptr i8, ptr %213, i64 8
+  %215 = load ptr, ptr %214, align 8
+  %216 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %217 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %216, i64 0, i32 4
+  %218 = load i32, ptr %217, align 8
+  %219 = sext i32 %218 to i64
+  %220 = load i64, ptr @memory_FREEDBYTES, align 8
+  %221 = add i64 %220, %219
+  store i64 %221, ptr @memory_FREEDBYTES, align 8
+  %222 = load ptr, ptr %216, align 8
+  store ptr %222, ptr %212, align 8
+  %223 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %212, ptr %223, align 8
+  br label %224
 
-223:                                              ; preds = %210, %223
-  %224 = phi ptr [ %225, %223 ], [ %212, %210 ]
-  %225 = load ptr, ptr %224, align 8
-  %226 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %227 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %226, i64 0, i32 4
-  %228 = load i32, ptr %227, align 8
-  %229 = sext i32 %228 to i64
-  %230 = load i64, ptr @memory_FREEDBYTES, align 8
-  %231 = add i64 %230, %229
-  store i64 %231, ptr @memory_FREEDBYTES, align 8
-  %232 = load ptr, ptr %226, align 8
-  store ptr %232, ptr %224, align 8
-  %233 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %224, ptr %233, align 8
-  %234 = icmp eq ptr %225, null
-  br i1 %234, label %155, label %223, !llvm.loop !13
+224:                                              ; preds = %211, %224
+  %225 = phi ptr [ %226, %224 ], [ %213, %211 ]
+  %226 = load ptr, ptr %225, align 8
+  %227 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %228 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %227, i64 0, i32 4
+  %229 = load i32, ptr %228, align 8
+  %230 = sext i32 %229 to i64
+  %231 = load i64, ptr @memory_FREEDBYTES, align 8
+  %232 = add i64 %231, %230
+  store i64 %232, ptr @memory_FREEDBYTES, align 8
+  %233 = load ptr, ptr %227, align 8
+  store ptr %233, ptr %225, align 8
+  %234 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %225, ptr %234, align 8
+  %235 = icmp eq ptr %226, null
+  br i1 %235, label %156, label %224, !llvm.loop !13
 
-235:                                              ; preds = %207
-  %236 = load ptr, ptr %2, align 8
-  %237 = load ptr, ptr %236, align 8
-  %238 = getelementptr i8, ptr %237, i64 8
-  %239 = load ptr, ptr %238, align 8
-  %240 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %239)
-  %241 = load i32, ptr %239, align 8
-  %242 = load i32, ptr @fol_FALSE, align 4
-  %243 = icmp eq i32 %241, %242
-  br i1 %243, label %244, label %248
+236:                                              ; preds = %208
+  %237 = load ptr, ptr %2, align 8
+  %238 = load ptr, ptr %237, align 8
+  %239 = getelementptr i8, ptr %238, i64 8
+  %240 = load ptr, ptr %239, align 8
+  %241 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %240)
+  %242 = load i32, ptr %240, align 8
+  %243 = load i32, ptr @fol_FALSE, align 4
+  %244 = icmp eq i32 %242, %243
+  br i1 %244, label %245, label %249
 
-244:                                              ; preds = %235
-  %245 = load i32, ptr @fol_NOT, align 4
-  store i32 %245, ptr %0, align 8
-  %246 = load ptr, ptr %2, align 8
-  %247 = tail call ptr @list_DeleteElementIfFree(ptr noundef %246, ptr noundef nonnull @fol_IsFalse, ptr noundef nonnull @term_Delete) #18
-  store ptr %247, ptr %2, align 8
-  br label %279
+245:                                              ; preds = %236
+  %246 = load i32, ptr @fol_NOT, align 4
+  store i32 %246, ptr %0, align 8
+  %247 = load ptr, ptr %2, align 8
+  %248 = tail call ptr @list_DeleteElementIfFree(ptr noundef %247, ptr noundef nonnull @fol_IsFalse, ptr noundef nonnull @term_Delete) #17
+  store ptr %248, ptr %2, align 8
+  br label %280
 
-248:                                              ; preds = %235
-  %249 = load i32, ptr @fol_TRUE, align 4
-  %250 = icmp eq i32 %241, %249
-  br i1 %250, label %251, label %279
+249:                                              ; preds = %236
+  %250 = load i32, ptr @fol_TRUE, align 4
+  %251 = icmp eq i32 %242, %250
+  br i1 %251, label %252, label %280
 
-251:                                              ; preds = %248
-  tail call void @term_Delete(ptr noundef nonnull %239) #18
-  %252 = load ptr, ptr %2, align 8
-  %253 = getelementptr i8, ptr %252, i64 8
-  %254 = load ptr, ptr %253, align 8
-  br label %255
+252:                                              ; preds = %249
+  tail call void @term_Delete(ptr noundef nonnull %240) #17
+  %253 = load ptr, ptr %2, align 8
+  %254 = getelementptr i8, ptr %253, i64 8
+  %255 = load ptr, ptr %254, align 8
+  br label %256
 
-255:                                              ; preds = %251, %255
-  %256 = phi ptr [ %257, %255 ], [ %252, %251 ]
-  %257 = load ptr, ptr %256, align 8
-  %258 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %259 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %258, i64 0, i32 4
-  %260 = load i32, ptr %259, align 8
-  %261 = sext i32 %260 to i64
-  %262 = load i64, ptr @memory_FREEDBYTES, align 8
-  %263 = add i64 %262, %261
-  store i64 %263, ptr @memory_FREEDBYTES, align 8
-  %264 = load ptr, ptr %258, align 8
-  store ptr %264, ptr %256, align 8
-  %265 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %256, ptr %265, align 8
-  %266 = icmp eq ptr %257, null
-  br i1 %266, label %267, label %255, !llvm.loop !13
+256:                                              ; preds = %252, %256
+  %257 = phi ptr [ %258, %256 ], [ %253, %252 ]
+  %258 = load ptr, ptr %257, align 8
+  %259 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %260 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %259, i64 0, i32 4
+  %261 = load i32, ptr %260, align 8
+  %262 = sext i32 %261 to i64
+  %263 = load i64, ptr @memory_FREEDBYTES, align 8
+  %264 = add i64 %263, %262
+  store i64 %264, ptr @memory_FREEDBYTES, align 8
+  %265 = load ptr, ptr %259, align 8
+  store ptr %265, ptr %257, align 8
+  %266 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %257, ptr %266, align 8
+  %267 = icmp eq ptr %258, null
+  br i1 %267, label %268, label %256, !llvm.loop !13
 
-267:                                              ; preds = %255
-  %268 = load i32, ptr %254, align 8
-  store i32 %268, ptr %0, align 8
-  %269 = getelementptr i8, ptr %254, i64 16
-  %270 = load ptr, ptr %269, align 8
-  store ptr %270, ptr %2, align 8
-  %271 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  %272 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %271, i64 0, i32 4
-  %273 = load i32, ptr %272, align 8
-  %274 = sext i32 %273 to i64
-  %275 = load i64, ptr @memory_FREEDBYTES, align 8
-  %276 = add i64 %275, %274
-  store i64 %276, ptr @memory_FREEDBYTES, align 8
-  %277 = load ptr, ptr %271, align 8
-  store ptr %277, ptr %254, align 8
-  %278 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  store ptr %254, ptr %278, align 8
-  br label %279
+268:                                              ; preds = %256
+  %269 = load i32, ptr %255, align 8
+  store i32 %269, ptr %0, align 8
+  %270 = getelementptr i8, ptr %255, i64 16
+  %271 = load ptr, ptr %270, align 8
+  store ptr %271, ptr %2, align 8
+  %272 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  %273 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %272, i64 0, i32 4
+  %274 = load i32, ptr %273, align 8
+  %275 = sext i32 %274 to i64
+  %276 = load i64, ptr @memory_FREEDBYTES, align 8
+  %277 = add i64 %276, %275
+  store i64 %277, ptr @memory_FREEDBYTES, align 8
+  %278 = load ptr, ptr %272, align 8
+  store ptr %278, ptr %255, align 8
+  %279 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  store ptr %255, ptr %279, align 8
+  br label %280
 
-279:                                              ; preds = %169, %190, %1, %33, %32, %106, %107, %248, %267, %244, %186, %183, %64, %65, %205, %181, %126, %113, %102, %69, %56, %37, %24
+280:                                              ; preds = %170, %191, %1, %33, %32, %107, %108, %249, %268, %245, %187, %184, %64, %65, %206, %182, %127, %114, %103, %69, %56, %37, %24
   ret ptr %0
 }
 
@@ -3078,41 +2948,37 @@ define dso_local ptr @cnf_ObviousSimplifications(ptr noundef %0) local_unnamed_a
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define internal fastcc ptr @cnf_RemoveTrivialOperators(ptr noundef %0) unnamed_addr #6 {
+define internal fastcc ptr @cnf_RemoveTrivialOperators(ptr noundef %0) unnamed_addr #5 {
   %2 = load i32, ptr @symbol_TYPEMASK, align 4
-  br label %3
+  %3 = load i32, ptr %0, align 8
+  %4 = icmp sgt i32 %3, -1
+  %5 = sub nsw i32 0, %3
+  %6 = and i32 %2, %5
+  %7 = icmp ne i32 %6, 2
+  %8 = select i1 %4, i1 true, i1 %7
+  br i1 %8, label %9, label %68
 
-3:                                                ; preds = %42, %1
-  %4 = phi ptr [ %0, %1 ], [ %24, %42 ]
-  %5 = load i32, ptr %4, align 8
-  %6 = icmp sgt i32 %5, -1
-  br i1 %6, label %11, label %7
-
-7:                                                ; preds = %3
-  %8 = sub nsw i32 0, %5
-  %9 = and i32 %2, %8
-  %10 = icmp eq i32 %9, 2
-  br i1 %10, label %62, label %11
-
-11:                                               ; preds = %3, %7
+9:                                                ; preds = %1, %42
+  %10 = phi i32 [ %51, %42 ], [ %3, %1 ]
+  %11 = phi ptr [ %24, %42 ], [ %0, %1 ]
   %12 = load i32, ptr @fol_AND, align 4
-  %13 = icmp eq i32 %5, %12
+  %13 = icmp eq i32 %10, %12
   %14 = load i32, ptr @fol_OR, align 4
-  %15 = icmp eq i32 %5, %14
+  %15 = icmp eq i32 %10, %14
   %16 = select i1 %13, i1 true, i1 %15
-  %17 = getelementptr i8, ptr %4, i64 16
+  %17 = getelementptr i8, ptr %11, i64 16
   %18 = load ptr, ptr %17, align 8
-  br i1 %16, label %19, label %51
+  br i1 %16, label %19, label %57
 
-19:                                               ; preds = %11
+19:                                               ; preds = %9
   %20 = load ptr, ptr %18, align 8
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %22, label %53
+  br i1 %21, label %22, label %59
 
 22:                                               ; preds = %19
   %23 = getelementptr i8, ptr %18, i64 8
   %24 = load ptr, ptr %23, align 8
-  %25 = getelementptr i8, ptr %4, i64 8
+  %25 = getelementptr i8, ptr %11, i64 8
   %26 = load ptr, ptr %25, align 8
   %27 = getelementptr inbounds %struct.term, ptr %24, i64 0, i32 1
   store ptr %26, ptr %27, align 8
@@ -3146,298 +3012,306 @@ define internal fastcc ptr @cnf_RemoveTrivialOperators(ptr noundef %0) unnamed_a
   %48 = add i64 %47, %46
   store i64 %48, ptr @memory_FREEDBYTES, align 8
   %49 = load ptr, ptr %43, align 8
-  store ptr %49, ptr %4, align 8
+  store ptr %49, ptr %11, align 8
   %50 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  store ptr %4, ptr %50, align 8
-  br label %3
+  store ptr %11, ptr %50, align 8
+  %51 = load i32, ptr %24, align 8
+  %52 = icmp sgt i32 %51, -1
+  %53 = sub nsw i32 0, %51
+  %54 = and i32 %2, %53
+  %55 = icmp ne i32 %54, 2
+  %56 = select i1 %52, i1 true, i1 %55
+  br i1 %56, label %9, label %68
 
-51:                                               ; preds = %11
-  %52 = icmp eq ptr %18, null
-  br i1 %52, label %62, label %53
+57:                                               ; preds = %9
+  %58 = icmp eq ptr %18, null
+  br i1 %58, label %68, label %59
 
-53:                                               ; preds = %19, %51
-  br label %54
+59:                                               ; preds = %19, %57
+  br label %60
 
-54:                                               ; preds = %53, %54
-  %55 = phi ptr [ %60, %54 ], [ %18, %53 ]
-  %56 = getelementptr i8, ptr %55, i64 8
-  %57 = load ptr, ptr %56, align 8
-  %58 = tail call fastcc ptr @cnf_RemoveTrivialOperators(ptr noundef %57)
-  store ptr %58, ptr %56, align 8
-  %59 = getelementptr inbounds %struct.term, ptr %58, i64 0, i32 1
-  store ptr %4, ptr %59, align 8
-  %60 = load ptr, ptr %55, align 8
-  %61 = icmp eq ptr %60, null
-  br i1 %61, label %62, label %54, !llvm.loop !52
+60:                                               ; preds = %59, %60
+  %61 = phi ptr [ %66, %60 ], [ %18, %59 ]
+  %62 = getelementptr i8, ptr %61, i64 8
+  %63 = load ptr, ptr %62, align 8
+  %64 = tail call fastcc ptr @cnf_RemoveTrivialOperators(ptr noundef %63)
+  store ptr %64, ptr %62, align 8
+  %65 = getelementptr inbounds %struct.term, ptr %64, i64 0, i32 1
+  store ptr %11, ptr %65, align 8
+  %66 = load ptr, ptr %61, align 8
+  %67 = icmp eq ptr %66, null
+  br i1 %67, label %68, label %60, !llvm.loop !49
 
-62:                                               ; preds = %7, %54, %51
-  ret ptr %4
+68:                                               ; preds = %42, %60, %1, %57
+  %69 = phi ptr [ %11, %57 ], [ %0, %1 ], [ %11, %60 ], [ %24, %42 ]
+  ret ptr %69
 }
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc ptr @cnf_SimplifyQuantors(ptr noundef %0) unnamed_addr #0 {
   %2 = load i32, ptr @symbol_TYPEMASK, align 4
-  br label %3
+  %3 = load i32, ptr %0, align 8
+  %4 = icmp slt i32 %3, 0
+  %5 = sub nsw i32 0, %3
+  %6 = and i32 %2, %5
+  %7 = icmp eq i32 %6, 2
+  %8 = select i1 %4, i1 %7, i1 false
+  %9 = load i32, ptr @fol_VARLIST, align 4
+  %10 = icmp eq i32 %3, %9
+  %11 = select i1 %8, i1 true, i1 %10
+  br i1 %11, label %185, label %12
 
-3:                                                ; preds = %159, %1
-  %4 = phi ptr [ %0, %1 ], [ %142, %159 ]
-  %5 = load i32, ptr %4, align 8
-  %6 = icmp sgt i32 %5, -1
-  br i1 %6, label %14, label %7
+12:                                               ; preds = %1, %156
+  %13 = phi i32 [ %165, %156 ], [ %3, %1 ]
+  %14 = phi ptr [ %139, %156 ], [ %0, %1 ]
+  %15 = load i32, ptr @fol_ALL, align 4
+  %16 = icmp eq i32 %15, %13
+  %17 = load i32, ptr @fol_EXIST, align 4
+  %18 = icmp eq i32 %17, %13
+  %19 = select i1 %16, i1 true, i1 %18
+  br i1 %19, label %20, label %174
 
-7:                                                ; preds = %3
-  %8 = sub nsw i32 0, %5
-  %9 = and i32 %2, %8
-  %10 = icmp eq i32 %9, 2
-  %11 = load i32, ptr @fol_VARLIST, align 4
-  %12 = icmp eq i32 %5, %11
-  %13 = select i1 %10, i1 true, i1 %12
-  br i1 %13, label %179, label %17
-
-14:                                               ; preds = %3
-  %15 = load i32, ptr @fol_VARLIST, align 4
-  %16 = icmp eq i32 %5, %15
-  br i1 %16, label %179, label %17
-
-17:                                               ; preds = %7, %14
-  %18 = load i32, ptr @fol_ALL, align 4
-  %19 = icmp ne i32 %18, %5
-  %20 = load i32, ptr @fol_EXIST, align 4
-  %21 = icmp ne i32 %20, %5
-  %22 = select i1 %19, i1 %21, i1 false
-  br i1 %22, label %168, label %23
-
-23:                                               ; preds = %17
-  %24 = getelementptr i8, ptr %4, i64 16
+20:                                               ; preds = %12
+  %21 = getelementptr i8, ptr %14, i64 16
+  %22 = load ptr, ptr %21, align 8
+  %23 = load ptr, ptr %22, align 8
+  %24 = getelementptr i8, ptr %23, i64 8
   %25 = load ptr, ptr %24, align 8
-  %26 = load ptr, ptr %25, align 8
-  %27 = getelementptr i8, ptr %26, i64 8
-  %28 = load ptr, ptr %27, align 8
-  %29 = load i32, ptr %28, align 8
-  %30 = icmp eq i32 %29, %5
-  br i1 %30, label %31, label %105
+  %26 = load i32, ptr %25, align 8
+  %27 = icmp eq i32 %26, %13
+  br i1 %27, label %28, label %102
 
-31:                                               ; preds = %23, %89
-  %32 = phi ptr [ %68, %89 ], [ %28, %23 ]
-  %33 = load ptr, ptr %24, align 8
-  %34 = getelementptr i8, ptr %33, i64 8
-  %35 = load ptr, ptr %34, align 8
-  %36 = getelementptr i8, ptr %35, i64 16
-  %37 = load ptr, ptr %36, align 8
-  %38 = getelementptr i8, ptr %32, i64 16
-  %39 = load ptr, ptr %38, align 8
-  %40 = getelementptr i8, ptr %39, i64 8
-  %41 = load ptr, ptr %40, align 8
-  %42 = getelementptr i8, ptr %41, i64 16
-  %43 = load ptr, ptr %42, align 8
-  %44 = icmp eq ptr %37, null
-  br i1 %44, label %52, label %45
+28:                                               ; preds = %20, %86
+  %29 = phi ptr [ %65, %86 ], [ %25, %20 ]
+  %30 = load ptr, ptr %21, align 8
+  %31 = getelementptr i8, ptr %30, i64 8
+  %32 = load ptr, ptr %31, align 8
+  %33 = getelementptr i8, ptr %32, i64 16
+  %34 = load ptr, ptr %33, align 8
+  %35 = getelementptr i8, ptr %29, i64 16
+  %36 = load ptr, ptr %35, align 8
+  %37 = getelementptr i8, ptr %36, i64 8
+  %38 = load ptr, ptr %37, align 8
+  %39 = getelementptr i8, ptr %38, i64 16
+  %40 = load ptr, ptr %39, align 8
+  %41 = icmp eq ptr %34, null
+  br i1 %41, label %49, label %42
 
-45:                                               ; preds = %31
-  %46 = icmp eq ptr %43, null
-  br i1 %46, label %52, label %47
+42:                                               ; preds = %28
+  %43 = icmp eq ptr %40, null
+  br i1 %43, label %49, label %44
 
-47:                                               ; preds = %45, %47
-  %48 = phi ptr [ %49, %47 ], [ %37, %45 ]
-  %49 = load ptr, ptr %48, align 8
-  %50 = icmp eq ptr %49, null
-  br i1 %50, label %51, label %47, !llvm.loop !20
+44:                                               ; preds = %42, %44
+  %45 = phi ptr [ %46, %44 ], [ %34, %42 ]
+  %46 = load ptr, ptr %45, align 8
+  %47 = icmp eq ptr %46, null
+  br i1 %47, label %48, label %44, !llvm.loop !20
 
-51:                                               ; preds = %47
-  store ptr %43, ptr %48, align 8
-  br label %52
+48:                                               ; preds = %44
+  store ptr %40, ptr %45, align 8
+  br label %49
 
-52:                                               ; preds = %51, %45, %31
-  %53 = phi ptr [ %37, %51 ], [ %43, %31 ], [ %37, %45 ]
-  store ptr %53, ptr %36, align 8
-  %54 = load ptr, ptr %38, align 8
-  %55 = getelementptr i8, ptr %54, i64 8
-  %56 = load ptr, ptr %55, align 8
-  %57 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  %58 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %57, i64 0, i32 4
-  %59 = load i32, ptr %58, align 8
-  %60 = sext i32 %59 to i64
-  %61 = load i64, ptr @memory_FREEDBYTES, align 8
-  %62 = add i64 %61, %60
-  store i64 %62, ptr @memory_FREEDBYTES, align 8
-  %63 = load ptr, ptr %57, align 8
-  store ptr %63, ptr %56, align 8
-  %64 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  store ptr %56, ptr %64, align 8
-  %65 = load ptr, ptr %38, align 8
-  %66 = load ptr, ptr %65, align 8
-  %67 = getelementptr i8, ptr %66, i64 8
-  %68 = load ptr, ptr %67, align 8
-  %69 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %70 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %69, i64 0, i32 4
-  %71 = load i32, ptr %70, align 8
-  %72 = sext i32 %71 to i64
-  %73 = load i64, ptr @memory_FREEDBYTES, align 8
-  %74 = add i64 %73, %72
-  store i64 %74, ptr @memory_FREEDBYTES, align 8
-  %75 = load ptr, ptr %69, align 8
-  store ptr %75, ptr %65, align 8
-  %76 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %65, ptr %76, align 8
-  br label %77
+49:                                               ; preds = %48, %42, %28
+  %50 = phi ptr [ %34, %48 ], [ %40, %28 ], [ %34, %42 ]
+  store ptr %50, ptr %33, align 8
+  %51 = load ptr, ptr %35, align 8
+  %52 = getelementptr i8, ptr %51, i64 8
+  %53 = load ptr, ptr %52, align 8
+  %54 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  %55 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %54, i64 0, i32 4
+  %56 = load i32, ptr %55, align 8
+  %57 = sext i32 %56 to i64
+  %58 = load i64, ptr @memory_FREEDBYTES, align 8
+  %59 = add i64 %58, %57
+  store i64 %59, ptr @memory_FREEDBYTES, align 8
+  %60 = load ptr, ptr %54, align 8
+  store ptr %60, ptr %53, align 8
+  %61 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  store ptr %53, ptr %61, align 8
+  %62 = load ptr, ptr %35, align 8
+  %63 = load ptr, ptr %62, align 8
+  %64 = getelementptr i8, ptr %63, i64 8
+  %65 = load ptr, ptr %64, align 8
+  %66 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %67 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %66, i64 0, i32 4
+  %68 = load i32, ptr %67, align 8
+  %69 = sext i32 %68 to i64
+  %70 = load i64, ptr @memory_FREEDBYTES, align 8
+  %71 = add i64 %70, %69
+  store i64 %71, ptr @memory_FREEDBYTES, align 8
+  %72 = load ptr, ptr %66, align 8
+  store ptr %72, ptr %62, align 8
+  %73 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %62, ptr %73, align 8
+  br label %74
 
-77:                                               ; preds = %52, %77
-  %78 = phi ptr [ %79, %77 ], [ %66, %52 ]
-  %79 = load ptr, ptr %78, align 8
-  %80 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %81 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %80, i64 0, i32 4
-  %82 = load i32, ptr %81, align 8
-  %83 = sext i32 %82 to i64
-  %84 = load i64, ptr @memory_FREEDBYTES, align 8
-  %85 = add i64 %84, %83
-  store i64 %85, ptr @memory_FREEDBYTES, align 8
-  %86 = load ptr, ptr %80, align 8
-  store ptr %86, ptr %78, align 8
-  %87 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %78, ptr %87, align 8
-  %88 = icmp eq ptr %79, null
-  br i1 %88, label %89, label %77, !llvm.loop !13
+74:                                               ; preds = %49, %74
+  %75 = phi ptr [ %76, %74 ], [ %63, %49 ]
+  %76 = load ptr, ptr %75, align 8
+  %77 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %78 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %77, i64 0, i32 4
+  %79 = load i32, ptr %78, align 8
+  %80 = sext i32 %79 to i64
+  %81 = load i64, ptr @memory_FREEDBYTES, align 8
+  %82 = add i64 %81, %80
+  store i64 %82, ptr @memory_FREEDBYTES, align 8
+  %83 = load ptr, ptr %77, align 8
+  store ptr %83, ptr %75, align 8
+  %84 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %75, ptr %84, align 8
+  %85 = icmp eq ptr %76, null
+  br i1 %85, label %86, label %74, !llvm.loop !13
 
-89:                                               ; preds = %77
-  %90 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  %91 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %90, i64 0, i32 4
-  %92 = load i32, ptr %91, align 8
-  %93 = sext i32 %92 to i64
-  %94 = load i64, ptr @memory_FREEDBYTES, align 8
-  %95 = add i64 %94, %93
-  store i64 %95, ptr @memory_FREEDBYTES, align 8
-  %96 = load ptr, ptr %90, align 8
-  store ptr %96, ptr %32, align 8
-  %97 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  store ptr %32, ptr %97, align 8
-  %98 = load ptr, ptr %24, align 8
-  %99 = load ptr, ptr %98, align 8
-  %100 = getelementptr inbounds %struct.LIST_HELP, ptr %99, i64 0, i32 1
-  store ptr %68, ptr %100, align 8
-  %101 = load i32, ptr %68, align 8
-  %102 = icmp eq i32 %101, %5
-  br i1 %102, label %31, label %103, !llvm.loop !53
+86:                                               ; preds = %74
+  %87 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  %88 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %87, i64 0, i32 4
+  %89 = load i32, ptr %88, align 8
+  %90 = sext i32 %89 to i64
+  %91 = load i64, ptr @memory_FREEDBYTES, align 8
+  %92 = add i64 %91, %90
+  store i64 %92, ptr @memory_FREEDBYTES, align 8
+  %93 = load ptr, ptr %87, align 8
+  store ptr %93, ptr %29, align 8
+  %94 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  store ptr %29, ptr %94, align 8
+  %95 = load ptr, ptr %21, align 8
+  %96 = load ptr, ptr %95, align 8
+  %97 = getelementptr inbounds %struct.LIST_HELP, ptr %96, i64 0, i32 1
+  store ptr %65, ptr %97, align 8
+  %98 = load i32, ptr %65, align 8
+  %99 = icmp eq i32 %98, %13
+  br i1 %99, label %28, label %100, !llvm.loop !50
 
-103:                                              ; preds = %89
-  %104 = load ptr, ptr %24, align 8
-  br label %105
+100:                                              ; preds = %86
+  %101 = load ptr, ptr %21, align 8
+  br label %102
 
-105:                                              ; preds = %103, %23
-  %106 = phi ptr [ %25, %23 ], [ %104, %103 ]
-  %107 = phi ptr [ %28, %23 ], [ %68, %103 ]
-  %108 = getelementptr i8, ptr %106, i64 8
-  %109 = load ptr, ptr %108, align 8
-  %110 = getelementptr i8, ptr %109, i64 16
-  %111 = load ptr, ptr %110, align 8
-  %112 = icmp eq ptr %111, null
-  br i1 %112, label %168, label %113
+102:                                              ; preds = %100, %20
+  %103 = phi ptr [ %22, %20 ], [ %101, %100 ]
+  %104 = phi ptr [ %25, %20 ], [ %65, %100 ]
+  %105 = getelementptr i8, ptr %103, i64 8
+  %106 = load ptr, ptr %105, align 8
+  %107 = getelementptr i8, ptr %106, i64 16
+  %108 = load ptr, ptr %107, align 8
+  %109 = icmp eq ptr %108, null
+  br i1 %109, label %174, label %110
 
-113:                                              ; preds = %105, %123
-  %114 = phi ptr [ %125, %123 ], [ %111, %105 ]
-  %115 = phi ptr [ %124, %123 ], [ null, %105 ]
-  %116 = getelementptr i8, ptr %114, i64 8
-  %117 = load ptr, ptr %116, align 8
-  %118 = tail call i32 @fol_VarOccursFreely(ptr noundef %117, ptr noundef nonnull %107) #18
-  %119 = icmp eq i32 %118, 0
-  br i1 %119, label %120, label %123
+110:                                              ; preds = %102, %120
+  %111 = phi ptr [ %122, %120 ], [ %108, %102 ]
+  %112 = phi ptr [ %121, %120 ], [ null, %102 ]
+  %113 = getelementptr i8, ptr %111, i64 8
+  %114 = load ptr, ptr %113, align 8
+  %115 = tail call i32 @fol_VarOccursFreely(ptr noundef %114, ptr noundef nonnull %104) #17
+  %116 = icmp eq i32 %115, 0
+  br i1 %116, label %117, label %120
 
-120:                                              ; preds = %113
-  %121 = tail call ptr @memory_Malloc(i32 noundef 16) #18
-  %122 = getelementptr inbounds %struct.LIST_HELP, ptr %121, i64 0, i32 1
-  store ptr %117, ptr %122, align 8
-  store ptr %115, ptr %121, align 8
-  br label %123
+117:                                              ; preds = %110
+  %118 = tail call ptr @memory_Malloc(i32 noundef 16) #17
+  %119 = getelementptr inbounds %struct.LIST_HELP, ptr %118, i64 0, i32 1
+  store ptr %114, ptr %119, align 8
+  store ptr %112, ptr %118, align 8
+  br label %120
 
-123:                                              ; preds = %113, %120
-  %124 = phi ptr [ %115, %113 ], [ %121, %120 ]
-  %125 = load ptr, ptr %114, align 8
-  %126 = icmp eq ptr %125, null
-  br i1 %126, label %127, label %113, !llvm.loop !54
+120:                                              ; preds = %110, %117
+  %121 = phi ptr [ %112, %110 ], [ %118, %117 ]
+  %122 = load ptr, ptr %111, align 8
+  %123 = icmp eq ptr %122, null
+  br i1 %123, label %124, label %110, !llvm.loop !51
 
-127:                                              ; preds = %123
-  %128 = icmp eq ptr %124, null
-  br i1 %128, label %168, label %129
+124:                                              ; preds = %120
+  %125 = icmp eq ptr %121, null
+  br i1 %125, label %174, label %126
 
-129:                                              ; preds = %127
-  %130 = load ptr, ptr %24, align 8
-  %131 = getelementptr i8, ptr %130, i64 8
-  %132 = load ptr, ptr %131, align 8
-  %133 = getelementptr i8, ptr %132, i64 16
-  %134 = load ptr, ptr %133, align 8
-  %135 = tail call ptr @list_NPointerDifference(ptr noundef %134, ptr noundef nonnull %124) #18
-  store ptr %135, ptr %133, align 8
-  tail call void @list_DeleteWithElement(ptr noundef nonnull %124, ptr noundef nonnull @term_Delete) #18
-  %136 = load ptr, ptr %133, align 8
-  %137 = icmp eq ptr %136, null
-  br i1 %137, label %138, label %168
+126:                                              ; preds = %124
+  %127 = load ptr, ptr %21, align 8
+  %128 = getelementptr i8, ptr %127, i64 8
+  %129 = load ptr, ptr %128, align 8
+  %130 = getelementptr i8, ptr %129, i64 16
+  %131 = load ptr, ptr %130, align 8
+  %132 = tail call ptr @list_NPointerDifference(ptr noundef %131, ptr noundef nonnull %121) #17
+  store ptr %132, ptr %130, align 8
+  tail call void @list_DeleteWithElement(ptr noundef nonnull %121, ptr noundef nonnull @term_Delete) #17
+  %133 = load ptr, ptr %130, align 8
+  %134 = icmp eq ptr %133, null
+  br i1 %134, label %135, label %174
 
-138:                                              ; preds = %129
-  %139 = load ptr, ptr %24, align 8
-  %140 = load ptr, ptr %139, align 8
-  %141 = getelementptr i8, ptr %140, i64 8
-  %142 = load ptr, ptr %141, align 8
-  %143 = getelementptr i8, ptr %139, i64 8
-  %144 = load ptr, ptr %143, align 8
-  tail call void @term_Delete(ptr noundef %144) #18
-  %145 = load ptr, ptr %24, align 8
-  %146 = icmp eq ptr %145, null
-  br i1 %146, label %159, label %147
+135:                                              ; preds = %126
+  %136 = load ptr, ptr %21, align 8
+  %137 = load ptr, ptr %136, align 8
+  %138 = getelementptr i8, ptr %137, i64 8
+  %139 = load ptr, ptr %138, align 8
+  %140 = getelementptr i8, ptr %136, i64 8
+  %141 = load ptr, ptr %140, align 8
+  tail call void @term_Delete(ptr noundef %141) #17
+  %142 = load ptr, ptr %21, align 8
+  %143 = icmp eq ptr %142, null
+  br i1 %143, label %156, label %144
 
-147:                                              ; preds = %138, %147
-  %148 = phi ptr [ %149, %147 ], [ %145, %138 ]
-  %149 = load ptr, ptr %148, align 8
-  %150 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %151 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %150, i64 0, i32 4
-  %152 = load i32, ptr %151, align 8
-  %153 = sext i32 %152 to i64
-  %154 = load i64, ptr @memory_FREEDBYTES, align 8
-  %155 = add i64 %154, %153
-  store i64 %155, ptr @memory_FREEDBYTES, align 8
-  %156 = load ptr, ptr %150, align 8
-  store ptr %156, ptr %148, align 8
-  %157 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %148, ptr %157, align 8
-  %158 = icmp eq ptr %149, null
-  br i1 %158, label %159, label %147, !llvm.loop !13
+144:                                              ; preds = %135, %144
+  %145 = phi ptr [ %146, %144 ], [ %142, %135 ]
+  %146 = load ptr, ptr %145, align 8
+  %147 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %148 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %147, i64 0, i32 4
+  %149 = load i32, ptr %148, align 8
+  %150 = sext i32 %149 to i64
+  %151 = load i64, ptr @memory_FREEDBYTES, align 8
+  %152 = add i64 %151, %150
+  store i64 %152, ptr @memory_FREEDBYTES, align 8
+  %153 = load ptr, ptr %147, align 8
+  store ptr %153, ptr %145, align 8
+  %154 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %145, ptr %154, align 8
+  %155 = icmp eq ptr %146, null
+  br i1 %155, label %156, label %144, !llvm.loop !13
 
-159:                                              ; preds = %147, %138
-  %160 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  %161 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %160, i64 0, i32 4
-  %162 = load i32, ptr %161, align 8
-  %163 = sext i32 %162 to i64
-  %164 = load i64, ptr @memory_FREEDBYTES, align 8
-  %165 = add i64 %164, %163
-  store i64 %165, ptr @memory_FREEDBYTES, align 8
-  %166 = load ptr, ptr %160, align 8
-  store ptr %166, ptr %4, align 8
-  %167 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  store ptr %4, ptr %167, align 8
-  br label %3
+156:                                              ; preds = %144, %135
+  %157 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  %158 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %157, i64 0, i32 4
+  %159 = load i32, ptr %158, align 8
+  %160 = sext i32 %159 to i64
+  %161 = load i64, ptr @memory_FREEDBYTES, align 8
+  %162 = add i64 %161, %160
+  store i64 %162, ptr @memory_FREEDBYTES, align 8
+  %163 = load ptr, ptr %157, align 8
+  store ptr %163, ptr %14, align 8
+  %164 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  store ptr %14, ptr %164, align 8
+  %165 = load i32, ptr %139, align 8
+  %166 = icmp slt i32 %165, 0
+  %167 = sub nsw i32 0, %165
+  %168 = and i32 %2, %167
+  %169 = icmp eq i32 %168, 2
+  %170 = select i1 %166, i1 %169, i1 false
+  %171 = load i32, ptr @fol_VARLIST, align 4
+  %172 = icmp eq i32 %165, %171
+  %173 = select i1 %170, i1 true, i1 %172
+  br i1 %173, label %185, label %12
 
-168:                                              ; preds = %105, %127, %129, %17
-  %169 = getelementptr i8, ptr %4, i64 16
-  %170 = load ptr, ptr %169, align 8
-  %171 = icmp eq ptr %170, null
-  br i1 %171, label %179, label %172
+174:                                              ; preds = %102, %124, %126, %12
+  %175 = getelementptr i8, ptr %14, i64 16
+  %176 = load ptr, ptr %175, align 8
+  %177 = icmp eq ptr %176, null
+  br i1 %177, label %185, label %178
 
-172:                                              ; preds = %168, %172
-  %173 = phi ptr [ %177, %172 ], [ %170, %168 ]
-  %174 = getelementptr i8, ptr %173, i64 8
-  %175 = load ptr, ptr %174, align 8
-  %176 = tail call fastcc ptr @cnf_SimplifyQuantors(ptr noundef %175)
-  store ptr %176, ptr %174, align 8
-  %177 = load ptr, ptr %173, align 8
-  %178 = icmp eq ptr %177, null
-  br i1 %178, label %179, label %172, !llvm.loop !55
+178:                                              ; preds = %174, %178
+  %179 = phi ptr [ %183, %178 ], [ %176, %174 ]
+  %180 = getelementptr i8, ptr %179, i64 8
+  %181 = load ptr, ptr %180, align 8
+  %182 = tail call fastcc ptr @cnf_SimplifyQuantors(ptr noundef %181)
+  store ptr %182, ptr %180, align 8
+  %183 = load ptr, ptr %179, align 8
+  %184 = icmp eq ptr %183, null
+  br i1 %184, label %185, label %178, !llvm.loop !52
 
-179:                                              ; preds = %7, %14, %172, %168
-  ret ptr %4
+185:                                              ; preds = %156, %178, %1, %174
+  %186 = phi ptr [ %14, %174 ], [ %0, %1 ], [ %14, %178 ], [ %139, %156 ]
+  ret ptr %186
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr noundef %2, ptr nocapture noundef readonly %3) local_unnamed_addr #0 {
   %5 = alloca ptr, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #17
   %6 = load ptr, ptr @cnf_HAVEPROOFPS, align 8
   store ptr null, ptr %5, align 8
   %7 = getelementptr i8, ptr %6, i64 112
@@ -3492,7 +3366,7 @@ define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr
   store <4 x i32> %11, ptr %33, align 4
   %34 = getelementptr inbounds i32, ptr %8, i64 92
   store <4 x i32> %11, ptr %34, align 4
-  tail call void @flag_InitFlotterSubproofFlags(ptr noundef %2, ptr noundef nonnull %8) #18
+  tail call void @flag_InitFlotterSubproofFlags(ptr noundef %2, ptr noundef nonnull %8) #17
   %35 = getelementptr i8, ptr %6, i64 104
   %36 = load ptr, ptr %35, align 8
   %37 = ptrtoint ptr %36 to i64
@@ -3540,7 +3414,7 @@ define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr
   store <4 x i32> %67, ptr %69, align 4
   %70 = add nuw nsw i64 %42, 32
   %71 = icmp eq i64 %70, 4000
-  br i1 %71, label %95, label %41, !llvm.loop !56
+  br i1 %71, label %95, label %41, !llvm.loop !53
 
 72:                                               ; preds = %4, %72
   %73 = phi i64 [ %93, %72 ], [ 0, %4 ]
@@ -3570,7 +3444,7 @@ define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr
   store i32 %91, ptr %92, align 4
   %93 = add nuw nsw i64 %73, 5
   %94 = icmp eq i64 %93, 4000
-  br i1 %94, label %95, label %72, !llvm.loop !59
+  br i1 %94, label %95, label %72, !llvm.loop !56
 
 95:                                               ; preds = %41, %72
   %96 = icmp eq ptr %0, null
@@ -3581,7 +3455,7 @@ define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr
   %99 = phi ptr [ %114, %113 ], [ null, %95 ]
   %100 = getelementptr i8, ptr %98, i64 8
   %101 = load ptr, ptr %100, align 8
-  %102 = call ptr @term_Copy(ptr noundef %101) #18
+  %102 = call ptr @term_Copy(ptr noundef %101) #17
   %103 = call fastcc ptr @cnf_Cnf(ptr noundef %102, ptr noundef %36, ptr noundef nonnull %5)
   %104 = call fastcc ptr @cnf_MakeClauseList(ptr noundef %103, ptr noundef nonnull %8, ptr noundef %36)
   %105 = icmp eq ptr %104, null
@@ -3603,21 +3477,21 @@ define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr
 
 113:                                              ; preds = %97, %106, %112
   %114 = phi ptr [ %104, %112 ], [ %99, %97 ], [ %104, %106 ]
-  call void @term_Delete(ptr noundef %103) #18
+  call void @term_Delete(ptr noundef %103) #17
   %115 = load ptr, ptr %98, align 8
   %116 = icmp eq ptr %115, null
-  br i1 %116, label %117, label %97, !llvm.loop !60
+  br i1 %116, label %117, label %97, !llvm.loop !57
 
 117:                                              ; preds = %113, %95
   %118 = phi ptr [ null, %95 ], [ %114, %113 ]
   %119 = load i32, ptr @fol_NOT, align 4
-  %120 = call ptr @term_Copy(ptr noundef %1) #18
-  %121 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %120 = call ptr @term_Copy(ptr noundef %1) #17
+  %121 = call ptr @memory_Malloc(i32 noundef 16) #17
   %122 = getelementptr inbounds %struct.LIST_HELP, ptr %121, i64 0, i32 1
   store ptr %120, ptr %122, align 8
   store ptr null, ptr %121, align 8
-  %123 = call ptr @term_Create(i32 noundef %119, ptr noundef nonnull %121) #18
-  call void @term_AddFatherLinks(ptr noundef %123) #18
+  %123 = call ptr @term_Create(i32 noundef %119, ptr noundef nonnull %121) #17
+  call void @term_AddFatherLinks(ptr noundef %123) #17
   %124 = call fastcc ptr @cnf_Cnf(ptr noundef %123, ptr noundef %36, ptr noundef nonnull %5)
   %125 = call fastcc ptr @cnf_MakeClauseList(ptr noundef %124, ptr noundef nonnull %8, ptr noundef %36)
   %126 = icmp eq ptr %125, null
@@ -3628,7 +3502,7 @@ define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr
   br i1 %128, label %129, label %130
 
 129:                                              ; preds = %127
-  call void @term_Delete(ptr noundef %124) #18
+  call void @term_Delete(ptr noundef %124) #17
   br label %138
 
 130:                                              ; preds = %127, %130
@@ -3643,7 +3517,7 @@ define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr
 
 135:                                              ; preds = %117, %134
   %136 = phi ptr [ %125, %134 ], [ %118, %117 ]
-  call void @term_Delete(ptr noundef %124) #18
+  call void @term_Delete(ptr noundef %124) #17
   %137 = icmp eq ptr %136, null
   br i1 %137, label %149, label %138
 
@@ -3661,7 +3535,7 @@ define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr
   store i32 %146, ptr %144, align 8
   %147 = load ptr, ptr %141, align 8
   %148 = icmp eq ptr %147, null
-  br i1 %148, label %149, label %140, !llvm.loop !61
+  br i1 %148, label %149, label %140, !llvm.loop !58
 
 149:                                              ; preds = %140, %135
   %150 = phi ptr [ null, %135 ], [ %139, %140 ]
@@ -3670,16 +3544,16 @@ define dso_local i32 @cnf_HaveProof(ptr noundef readonly %0, ptr noundef %1, ptr
   br i1 %152, label %155, label %153
 
 153:                                              ; preds = %149
-  %154 = call ptr @list_PointerDeleteDuplicates(ptr noundef nonnull %151) #18
-  call void @clause_DeleteClauseList(ptr noundef %154) #18
+  %154 = call ptr @list_PointerDeleteDuplicates(ptr noundef nonnull %151) #17
+  call void @clause_DeleteClauseList(ptr noundef %154) #17
   br label %155
 
 155:                                              ; preds = %149, %153
   %156 = phi i32 [ 1, %153 ], [ 0, %149 ]
-  call void @prfs_Clean(ptr noundef %6) #18
+  call void @prfs_Clean(ptr noundef %6) #17
   %157 = load ptr, ptr %5, align 8
-  call void @list_DeleteWithElement(ptr noundef %157, ptr noundef nonnull @symbol_Delete) #18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #18
+  call void @list_DeleteWithElement(ptr noundef %157, ptr noundef nonnull @symbol_Delete) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #17
   ret i32 %156
 }
 
@@ -3690,8 +3564,8 @@ define internal fastcc ptr @cnf_Cnf(ptr noundef %0, ptr noundef %1, ptr noundef 
   %4 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %0)
   %5 = tail call fastcc ptr @cnf_RemoveTrivialOperators(ptr noundef %0)
   %6 = tail call fastcc ptr @cnf_SimplifyQuantors(ptr noundef %5)
-  tail call void @term_AddFatherLinks(ptr noundef %6) #18
-  %7 = tail call ptr @ren_Rename(ptr noundef %6, ptr noundef %1, ptr noundef %2, i32 noundef 0, i32 noundef 0) #18
+  tail call void @term_AddFatherLinks(ptr noundef %6) #17
+  %7 = tail call ptr @ren_Rename(ptr noundef %6, ptr noundef %1, ptr noundef %2, i32 noundef 0, i32 noundef 0) #17
   %8 = tail call fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef %7)
   %9 = tail call ptr @cnf_NegationNormalFormula(ptr noundef %7)
   %10 = tail call fastcc ptr @cnf_AntiPrenex(ptr noundef %7)
@@ -3705,16 +3579,16 @@ define internal fastcc ptr @cnf_Cnf(ptr noundef %0, ptr noundef %1, ptr noundef 
   %16 = load i32, ptr @fol_OR, align 4
   %17 = getelementptr i8, ptr %15, i64 8
   %18 = load ptr, ptr %17, align 8
-  %19 = tail call ptr @term_Create(i32 noundef %16, ptr noundef %18) #18
+  %19 = tail call ptr @term_Create(i32 noundef %16, ptr noundef %18) #17
   store ptr %19, ptr %17, align 8
   %20 = load ptr, ptr %15, align 8
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %22, label %14, !llvm.loop !62
+  br i1 %21, label %22, label %14, !llvm.loop !59
 
 22:                                               ; preds = %14, %3
   %23 = load i32, ptr @fol_AND, align 4
-  %24 = tail call ptr @term_Create(i32 noundef %23, ptr noundef %12) #18
-  tail call void @term_Delete(ptr noundef %7) #18
+  %24 = tail call ptr @term_Create(i32 noundef %23, ptr noundef %12) #17
+  tail call void @term_Delete(ptr noundef %7) #17
   ret ptr %24
 }
 
@@ -3758,23 +3632,23 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   br i1 %28, label %29, label %54
 
 29:                                               ; preds = %24, %17
-  %30 = tail call ptr @term_Copy(ptr noundef nonnull %0) #18
-  %31 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %30 = tail call ptr @term_Copy(ptr noundef nonnull %0) #17
+  %31 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %32 = getelementptr inbounds %struct.LIST_HELP, ptr %31, i64 0, i32 1
   store ptr %30, ptr %32, align 8
   store ptr null, ptr %31, align 8
-  %33 = tail call ptr @clause_CreateFromLiterals(ptr noundef nonnull %31, i32 noundef 0, i32 noundef 0, i32 noundef 1, ptr noundef %1, ptr noundef %2) #18
-  %34 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %33 = tail call ptr @clause_CreateFromLiterals(ptr noundef nonnull %31, i32 noundef 0, i32 noundef 0, i32 noundef 1, ptr noundef %1, ptr noundef %2) #17
+  %34 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %35 = getelementptr inbounds %struct.LIST_HELP, ptr %34, i64 0, i32 1
   store ptr %33, ptr %35, align 8
   store ptr null, ptr %34, align 8
-  tail call void @term_StartMinRenaming() #18
+  tail call void @term_StartMinRenaming() #17
   %36 = getelementptr i8, ptr %33, i64 56
   %37 = load ptr, ptr %36, align 8
   %38 = load ptr, ptr %37, align 8
   %39 = getelementptr i8, ptr %38, i64 24
   %40 = load ptr, ptr %39, align 8
-  %41 = tail call ptr @term_Rename(ptr noundef %40) #18
+  %41 = tail call ptr @term_Rename(ptr noundef %40) #17
   br label %42
 
 42:                                               ; preds = %29, %42
@@ -3811,7 +3685,7 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %64 = load ptr, ptr %63, align 8
   %65 = load i32, ptr %64, align 8
   %66 = icmp eq i32 %65, %57
-  br i1 %66, label %67, label %58, !llvm.loop !63
+  br i1 %66, label %67, label %58, !llvm.loop !60
 
 67:                                               ; preds = %62
   %68 = load i32, ptr @symbol_TYPEMASK, align 4
@@ -3859,7 +3733,7 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   br i1 %97, label %98, label %101
 
 98:                                               ; preds = %94
-  %99 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %99 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %100 = getelementptr inbounds %struct.LIST_HELP, ptr %99, i64 0, i32 1
   store ptr %77, ptr %100, align 8
   store ptr %74, ptr %99, align 8
@@ -3869,18 +3743,18 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %102 = phi ptr [ %99, %98 ], [ %74, %94 ], [ %74, %80 ], [ %74, %73 ], [ %74, %87 ]
   %103 = load ptr, ptr %75, align 8
   %104 = icmp eq ptr %103, null
-  br i1 %104, label %69, label %73, !llvm.loop !64
+  br i1 %104, label %69, label %73, !llvm.loop !61
 
 105:                                              ; preds = %105, %71
   %106 = phi ptr [ %72, %71 ], [ %110, %105 ]
   %107 = phi ptr [ %102, %71 ], [ %111, %105 ]
   %108 = getelementptr i8, ptr %107, i64 8
   %109 = load ptr, ptr %108, align 8
-  %110 = tail call ptr @list_PointerDeleteElement(ptr noundef %106, ptr noundef %109) #18
+  %110 = tail call ptr @list_PointerDeleteElement(ptr noundef %106, ptr noundef %109) #17
   store ptr %110, ptr %56, align 8
   %111 = load ptr, ptr %107, align 8
   %112 = icmp eq ptr %111, null
-  br i1 %112, label %113, label %105, !llvm.loop !65
+  br i1 %112, label %113, label %105, !llvm.loop !62
 
 113:                                              ; preds = %105
   %114 = icmp eq ptr %110, null
@@ -3953,23 +3827,23 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   br i1 %155, label %156, label %160
 
 156:                                              ; preds = %138, %152
-  %157 = tail call ptr @term_Copy(ptr noundef nonnull %134) #18
-  %158 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %157 = tail call ptr @term_Copy(ptr noundef nonnull %134) #17
+  %158 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %159 = getelementptr inbounds %struct.LIST_HELP, ptr %158, i64 0, i32 1
   store ptr %157, ptr %159, align 8
   store ptr null, ptr %158, align 8
   br label %164
 
 160:                                              ; preds = %142, %147, %152
-  %161 = tail call ptr @list_CopyWithElement(ptr noundef %146, ptr noundef nonnull @term_Copy) #18
-  %162 = tail call ptr @list_DeleteDuplicatesFree(ptr noundef %161, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #18
+  %161 = tail call ptr @list_CopyWithElement(ptr noundef %146, ptr noundef nonnull @term_Copy) #17
+  %162 = tail call ptr @list_DeleteDuplicatesFree(ptr noundef %161, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #17
   %163 = icmp eq ptr %162, null
   br i1 %163, label %209, label %164
 
 164:                                              ; preds = %156, %160
   %165 = phi ptr [ %158, %156 ], [ %162, %160 ]
-  %166 = tail call ptr @clause_CreateFromLiterals(ptr noundef nonnull %165, i32 noundef 0, i32 noundef 0, i32 noundef 1, ptr noundef %1, ptr noundef %2) #18
-  tail call void @term_StartMinRenaming() #18
+  %166 = tail call ptr @clause_CreateFromLiterals(ptr noundef nonnull %165, i32 noundef 0, i32 noundef 0, i32 noundef 1, ptr noundef %1, ptr noundef %2) #17
+  tail call void @term_StartMinRenaming() #17
   %167 = getelementptr i8, ptr %166, i64 64
   %168 = getelementptr i8, ptr %166, i64 68
   %169 = getelementptr i8, ptr %166, i64 72
@@ -3992,7 +3866,7 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %182 = load ptr, ptr %181, align 8
   %183 = getelementptr i8, ptr %182, i64 24
   %184 = load ptr, ptr %183, align 8
-  %185 = tail call ptr @term_Rename(ptr noundef %184) #18
+  %185 = tail call ptr @term_Rename(ptr noundef %184) #17
   %186 = add nuw nsw i64 %179, 1
   %187 = load i32, ptr %167, align 8
   %188 = load i32, ptr %168, align 4
@@ -4001,10 +3875,10 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %191 = add nsw i32 %189, %190
   %192 = sext i32 %191 to i64
   %193 = icmp slt i64 %186, %192
-  br i1 %193, label %178, label %194, !llvm.loop !66
+  br i1 %193, label %178, label %194, !llvm.loop !63
 
 194:                                              ; preds = %178, %164
-  %195 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %195 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %196 = getelementptr inbounds %struct.LIST_HELP, ptr %195, i64 0, i32 1
   store ptr %166, ptr %196, align 8
   store ptr %132, ptr %195, align 8
@@ -4031,7 +3905,7 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %210 = phi ptr [ %132, %160 ], [ %195, %197 ]
   %211 = load ptr, ptr %131, align 8
   %212 = icmp eq ptr %211, null
-  br i1 %212, label %289, label %130, !llvm.loop !67
+  br i1 %212, label %289, label %130, !llvm.loop !64
 
 213:                                              ; preds = %121
   %214 = tail call fastcc ptr @cnf_MakeOneOrTerm(ptr noundef nonnull %0)
@@ -4067,23 +3941,23 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   br i1 %235, label %236, label %240
 
 236:                                              ; preds = %217, %231
-  %237 = tail call ptr @term_Copy(ptr noundef nonnull %0) #18
-  %238 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %237 = tail call ptr @term_Copy(ptr noundef nonnull %0) #17
+  %238 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %239 = getelementptr inbounds %struct.LIST_HELP, ptr %238, i64 0, i32 1
   store ptr %237, ptr %239, align 8
   store ptr null, ptr %238, align 8
   br label %244
 
 240:                                              ; preds = %222, %226, %231
-  %241 = tail call ptr @list_CopyWithElement(ptr noundef %225, ptr noundef nonnull @term_Copy) #18
-  %242 = tail call ptr @list_DeleteDuplicatesFree(ptr noundef %241, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #18
+  %241 = tail call ptr @list_CopyWithElement(ptr noundef %225, ptr noundef nonnull @term_Copy) #17
+  %242 = tail call ptr @list_DeleteDuplicatesFree(ptr noundef %241, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #17
   %243 = icmp eq ptr %242, null
   br i1 %243, label %315, label %244
 
 244:                                              ; preds = %236, %240
   %245 = phi ptr [ %238, %236 ], [ %242, %240 ]
-  %246 = tail call ptr @clause_CreateFromLiterals(ptr noundef nonnull %245, i32 noundef 0, i32 noundef 0, i32 noundef 1, ptr noundef %1, ptr noundef %2) #18
-  tail call void @term_StartMinRenaming() #18
+  %246 = tail call ptr @clause_CreateFromLiterals(ptr noundef nonnull %245, i32 noundef 0, i32 noundef 0, i32 noundef 1, ptr noundef %1, ptr noundef %2) #17
+  tail call void @term_StartMinRenaming() #17
   %247 = getelementptr i8, ptr %246, i64 64
   %248 = getelementptr i8, ptr %246, i64 68
   %249 = getelementptr i8, ptr %246, i64 72
@@ -4106,7 +3980,7 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %262 = load ptr, ptr %261, align 8
   %263 = getelementptr i8, ptr %262, i64 24
   %264 = load ptr, ptr %263, align 8
-  %265 = tail call ptr @term_Rename(ptr noundef %264) #18
+  %265 = tail call ptr @term_Rename(ptr noundef %264) #17
   %266 = add nuw nsw i64 %259, 1
   %267 = load i32, ptr %247, align 8
   %268 = load i32, ptr %248, align 4
@@ -4115,10 +3989,10 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %271 = add nsw i32 %269, %270
   %272 = sext i32 %271 to i64
   %273 = icmp slt i64 %266, %272
-  br i1 %273, label %258, label %274, !llvm.loop !68
+  br i1 %273, label %258, label %274, !llvm.loop !65
 
 274:                                              ; preds = %258, %244
-  %275 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %275 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %276 = getelementptr inbounds %struct.LIST_HELP, ptr %275, i64 0, i32 1
   store ptr %246, ptr %276, align 8
   store ptr null, ptr %275, align 8
@@ -4150,13 +4024,13 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %293 = phi ptr [ %313, %312 ], [ %290, %289 ]
   %294 = getelementptr i8, ptr %293, i64 8
   %295 = load ptr, ptr %294, align 8
-  %296 = tail call ptr @cond_CondFast(ptr noundef %295) #18
+  %296 = tail call ptr @cond_CondFast(ptr noundef %295) #17
   %297 = icmp eq ptr %296, null
   br i1 %297, label %312, label %298
 
 298:                                              ; preds = %292
   %299 = load ptr, ptr %294, align 8
-  tail call void @clause_DeleteLiterals(ptr noundef %299, ptr noundef nonnull %296, ptr noundef %1, ptr noundef %2) #18
+  tail call void @clause_DeleteLiterals(ptr noundef %299, ptr noundef nonnull %296, ptr noundef %1, ptr noundef %2) #17
   br label %300
 
 300:                                              ; preds = %298, %300
@@ -4179,38 +4053,38 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
 312:                                              ; preds = %300, %292
   %313 = load ptr, ptr %293, align 8
   %314 = icmp eq ptr %313, null
-  br i1 %314, label %317, label %292, !llvm.loop !69
+  br i1 %314, label %317, label %292, !llvm.loop !66
 
 315:                                              ; preds = %289, %240, %125
-  %316 = tail call ptr @st_IndexCreate() #18
+  %316 = tail call ptr @st_IndexCreate() #17
   br label %339
 
 317:                                              ; preds = %312
-  %318 = tail call ptr @st_IndexCreate() #18
+  %318 = tail call ptr @st_IndexCreate() #17
   br i1 %291, label %339, label %319
 
 319:                                              ; preds = %317, %319
   %320 = phi ptr [ %323, %319 ], [ %290, %317 ]
   %321 = getelementptr i8, ptr %320, i64 8
   %322 = load ptr, ptr %321, align 8
-  tail call void @res_InsertClauseIndex(ptr noundef %322, ptr noundef %318) #18
+  tail call void @res_InsertClauseIndex(ptr noundef %322, ptr noundef %318) #17
   %323 = load ptr, ptr %320, align 8
   %324 = icmp eq ptr %323, null
-  br i1 %324, label %325, label %319, !llvm.loop !70
+  br i1 %324, label %325, label %319, !llvm.loop !67
 
 325:                                              ; preds = %319, %335
   %326 = phi ptr [ %337, %335 ], [ %290, %319 ]
   %327 = phi ptr [ %336, %335 ], [ null, %319 ]
   %328 = getelementptr i8, ptr %326, i64 8
   %329 = load ptr, ptr %328, align 8
-  tail call void @res_DeleteClauseIndex(ptr noundef %329, ptr noundef %318) #18
-  %330 = tail call i32 @res_BackSubWithLength(ptr noundef %329, ptr noundef %318) #18
+  tail call void @res_DeleteClauseIndex(ptr noundef %329, ptr noundef %318) #17
+  %330 = tail call i32 @res_BackSubWithLength(ptr noundef %329, ptr noundef %318) #17
   %331 = icmp eq i32 %330, 0
   br i1 %331, label %332, label %335
 
 332:                                              ; preds = %325
-  tail call void @res_InsertClauseIndex(ptr noundef %329, ptr noundef %318) #18
-  %333 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  tail call void @res_InsertClauseIndex(ptr noundef %329, ptr noundef %318) #17
+  %333 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %334 = getelementptr inbounds %struct.LIST_HELP, ptr %333, i64 0, i32 1
   store ptr %329, ptr %334, align 8
   store ptr %327, ptr %333, align 8
@@ -4220,15 +4094,15 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %336 = phi ptr [ %327, %325 ], [ %333, %332 ]
   %337 = load ptr, ptr %326, align 8
   %338 = icmp eq ptr %337, null
-  br i1 %338, label %339, label %325, !llvm.loop !71
+  br i1 %338, label %339, label %325, !llvm.loop !68
 
 339:                                              ; preds = %335, %315, %317
   %340 = phi ptr [ %318, %317 ], [ %316, %315 ], [ %318, %335 ]
   %341 = phi ptr [ %290, %317 ], [ null, %315 ], [ %290, %335 ]
   %342 = phi i1 [ true, %317 ], [ true, %315 ], [ %291, %335 ]
   %343 = phi ptr [ null, %317 ], [ null, %315 ], [ %336, %335 ]
-  %344 = tail call i32 @list_Length(ptr noundef %343) #18
-  %345 = tail call i32 @list_Length(ptr noundef %341) #18
+  %344 = tail call i32 @list_Length(ptr noundef %343) #17
+  %345 = tail call i32 @list_Length(ptr noundef %341) #17
   %346 = icmp eq i32 %344, %345
   br i1 %346, label %359, label %347
 
@@ -4237,7 +4111,7 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   br i1 %348, label %349, label %350
 
 349:                                              ; preds = %347
-  tail call void @st_IndexDelete(ptr noundef %340) #18
+  tail call void @st_IndexDelete(ptr noundef %340) #17
   br label %415
 
 350:                                              ; preds = %347, %350
@@ -4245,13 +4119,13 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %352 = phi ptr [ %356, %350 ], [ %343, %347 ]
   %353 = getelementptr i8, ptr %352, i64 8
   %354 = load ptr, ptr %353, align 8
-  %355 = tail call ptr @list_PointerDeleteElement(ptr noundef %351, ptr noundef %354) #18
+  %355 = tail call ptr @list_PointerDeleteElement(ptr noundef %351, ptr noundef %354) #17
   %356 = load ptr, ptr %352, align 8
   %357 = icmp eq ptr %356, null
-  br i1 %357, label %358, label %350, !llvm.loop !72
+  br i1 %357, label %358, label %350, !llvm.loop !69
 
 358:                                              ; preds = %350
-  tail call void @clause_DeleteClauseList(ptr noundef %355) #18
+  tail call void @clause_DeleteClauseList(ptr noundef %355) #17
   br label %372
 
 359:                                              ; preds = %339
@@ -4275,15 +4149,15 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   br i1 %371, label %372, label %360, !llvm.loop !13
 
 372:                                              ; preds = %360, %358, %359
-  tail call void @st_IndexDelete(ptr noundef %340) #18
+  tail call void @st_IndexDelete(ptr noundef %340) #17
   %373 = icmp eq ptr %343, null
   br i1 %373, label %415, label %374
 
 374:                                              ; preds = %372, %386
   %375 = phi ptr [ %387, %386 ], [ null, %372 ]
   %376 = phi ptr [ %388, %386 ], [ %343, %372 ]
-  %377 = tail call ptr @res_SelectLightestClause(ptr noundef nonnull %376) #18
-  %378 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %377 = tail call ptr @res_SelectLightestClause(ptr noundef nonnull %376) #17
+  %378 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %379 = getelementptr inbounds %struct.LIST_HELP, ptr %378, i64 0, i32 1
   store ptr %377, ptr %379, align 8
   store ptr null, ptr %378, align 8
@@ -4302,9 +4176,9 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
 
 386:                                              ; preds = %374, %385
   %387 = phi ptr [ %375, %385 ], [ %378, %374 ]
-  %388 = tail call ptr @list_PointerDeleteElement(ptr noundef nonnull %376, ptr noundef %377) #18
+  %388 = tail call ptr @list_PointerDeleteElement(ptr noundef nonnull %376, ptr noundef %377) #17
   %389 = icmp eq ptr %388, null
-  br i1 %389, label %392, label %374, !llvm.loop !73
+  br i1 %389, label %392, label %374, !llvm.loop !70
 
 390:                                              ; preds = %403
   %391 = icmp eq ptr %404, null
@@ -4315,13 +4189,13 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %394 = phi ptr [ %405, %403 ], [ %387, %386 ]
   %395 = getelementptr i8, ptr %394, i64 8
   %396 = load ptr, ptr %395, align 8
-  %397 = tail call i32 @res_HasTautology(ptr noundef %396) #18
+  %397 = tail call i32 @res_HasTautology(ptr noundef %396) #17
   %398 = icmp eq i32 %397, 0
   br i1 %398, label %403, label %399
 
 399:                                              ; preds = %392
   %400 = load ptr, ptr %395, align 8
-  %401 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %401 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %402 = getelementptr inbounds %struct.LIST_HELP, ptr %401, i64 0, i32 1
   store ptr %400, ptr %402, align 8
   store ptr %393, ptr %401, align 8
@@ -4331,22 +4205,22 @@ define internal fastcc ptr @cnf_MakeClauseList(ptr noundef %0, ptr noundef %1, p
   %404 = phi ptr [ %401, %399 ], [ %393, %392 ]
   %405 = load ptr, ptr %394, align 8
   %406 = icmp eq ptr %405, null
-  br i1 %406, label %390, label %392, !llvm.loop !74
+  br i1 %406, label %390, label %392, !llvm.loop !71
 
 407:                                              ; preds = %390, %407
   %408 = phi ptr [ %412, %407 ], [ %387, %390 ]
   %409 = phi ptr [ %413, %407 ], [ %404, %390 ]
   %410 = getelementptr i8, ptr %409, i64 8
   %411 = load ptr, ptr %410, align 8
-  %412 = tail call ptr @list_PointerDeleteElement(ptr noundef %408, ptr noundef %411) #18
+  %412 = tail call ptr @list_PointerDeleteElement(ptr noundef %408, ptr noundef %411) #17
   %413 = load ptr, ptr %409, align 8
   %414 = icmp eq ptr %413, null
-  br i1 %414, label %415, label %407, !llvm.loop !75
+  br i1 %414, label %415, label %407, !llvm.loop !72
 
 415:                                              ; preds = %407, %349, %372, %390
   %416 = phi ptr [ null, %390 ], [ null, %372 ], [ null, %349 ], [ %404, %407 ]
   %417 = phi ptr [ %387, %390 ], [ null, %372 ], [ null, %349 ], [ %412, %407 ]
-  tail call void @clause_DeleteClauseList(ptr noundef %416) #18
+  tail call void @clause_DeleteClauseList(ptr noundef %416) #17
   br label %418
 
 418:                                              ; preds = %42, %3, %415
@@ -4359,7 +4233,7 @@ declare void @term_AddFatherLinks(ptr noundef) local_unnamed_addr #1
 ; Function Attrs: nounwind uwtable
 define internal fastcc ptr @cnf_SatUnit(ptr noundef %0, ptr noundef %1) unnamed_addr #0 {
   %3 = alloca ptr, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #17
   %4 = getelementptr i8, ptr %0, i64 112
   %5 = load ptr, ptr %4, align 8
   %6 = getelementptr i8, ptr %0, i64 104
@@ -4367,7 +4241,7 @@ define internal fastcc ptr @cnf_SatUnit(ptr noundef %0, ptr noundef %1) unnamed_
   %8 = getelementptr inbounds i32, ptr %5, i64 55
   %9 = load i32, ptr %8, align 4
   store ptr null, ptr %3, align 8
-  %10 = tail call ptr @clause_ListSortWeighed(ptr noundef %1) #18
+  %10 = tail call ptr @clause_ListSortWeighed(ptr noundef %1) #17
   %11 = icmp eq ptr %10, null
   br i1 %11, label %109, label %12
 
@@ -4395,7 +4269,7 @@ define internal fastcc ptr @cnf_SatUnit(ptr noundef %0, ptr noundef %1) unnamed_
   store ptr %29, ptr %19, align 8
   %30 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %19, ptr %30, align 8
-  %31 = call ptr @red_CompleteReductionOnDerivedClause(ptr noundef %0, ptr noundef %21, i32 noundef %13) #18
+  %31 = call ptr @red_CompleteReductionOnDerivedClause(ptr noundef %0, ptr noundef %21, i32 noundef %13) #17
   %32 = icmp eq ptr %31, null
   br i1 %32, label %102, label %33
 
@@ -4418,7 +4292,7 @@ define internal fastcc ptr @cnf_SatUnit(ptr noundef %0, ptr noundef %1) unnamed_
   br i1 %44, label %45, label %48
 
 45:                                               ; preds = %41
-  %46 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %46 = call ptr @memory_Malloc(i32 noundef 16) #17
   %47 = getelementptr inbounds %struct.LIST_HELP, ptr %46, i64 0, i32 1
   store ptr %31, ptr %47, align 8
   store ptr null, ptr %46, align 8
@@ -4426,15 +4300,15 @@ define internal fastcc ptr @cnf_SatUnit(ptr noundef %0, ptr noundef %1) unnamed_
   br label %102
 
 48:                                               ; preds = %33, %37, %41
-  %49 = call ptr @red_BackReduction(ptr noundef %0, ptr noundef nonnull %31, i32 noundef %14) #18
+  %49 = call ptr @red_BackReduction(ptr noundef %0, ptr noundef nonnull %31, i32 noundef %14) #17
   %50 = icmp eq i32 %18, 0
   br i1 %50, label %76, label %51
 
 51:                                               ; preds = %48
   %52 = load ptr, ptr %15, align 8
-  %53 = call ptr @inf_BoundedDepthUnitResolution(ptr noundef nonnull %31, ptr noundef %52, i32 noundef 0, ptr noundef %5, ptr noundef %7) #18
+  %53 = call ptr @inf_BoundedDepthUnitResolution(ptr noundef nonnull %31, ptr noundef %52, i32 noundef 0, ptr noundef %5, ptr noundef %7) #17
   %54 = load ptr, ptr %16, align 8
-  %55 = call ptr @inf_BoundedDepthUnitResolution(ptr noundef nonnull %31, ptr noundef %54, i32 noundef 0, ptr noundef %5, ptr noundef %7) #18
+  %55 = call ptr @inf_BoundedDepthUnitResolution(ptr noundef nonnull %31, ptr noundef %54, i32 noundef 0, ptr noundef %5, ptr noundef %7) #17
   %56 = icmp eq ptr %53, null
   br i1 %56, label %64, label %57
 
@@ -4454,7 +4328,7 @@ define internal fastcc ptr @cnf_SatUnit(ptr noundef %0, ptr noundef %1) unnamed_
 
 64:                                               ; preds = %63, %57, %51
   %65 = phi ptr [ %53, %63 ], [ %55, %51 ], [ %53, %57 ]
-  %66 = call i32 @list_Length(ptr noundef %65) #18
+  %66 = call i32 @list_Length(ptr noundef %65) #17
   %67 = call i32 @llvm.usub.sat.i32(i32 %18, i32 %66)
   %68 = icmp eq ptr %49, null
   br i1 %68, label %76, label %69
@@ -4476,8 +4350,8 @@ define internal fastcc ptr @cnf_SatUnit(ptr noundef %0, ptr noundef %1) unnamed_
 76:                                               ; preds = %48, %64, %69, %75
   %77 = phi i32 [ %67, %75 ], [ %67, %64 ], [ %67, %69 ], [ 0, %48 ]
   %78 = phi ptr [ %49, %75 ], [ %65, %64 ], [ %49, %69 ], [ %49, %48 ]
-  %79 = call ptr @split_ExtractEmptyClauses(ptr noundef %78, ptr noundef nonnull %3) #18
-  call void @prfs_InsertUsableClause(ptr noundef %0, ptr noundef nonnull %31) #18
+  %79 = call ptr @split_ExtractEmptyClauses(ptr noundef %78, ptr noundef nonnull %3) #17
+  call void @prfs_InsertUsableClause(ptr noundef %0, ptr noundef nonnull %31) #17
   %80 = icmp eq ptr %79, null
   br i1 %80, label %102, label %81
 
@@ -4486,10 +4360,10 @@ define internal fastcc ptr @cnf_SatUnit(ptr noundef %0, ptr noundef %1) unnamed_
   %83 = phi ptr [ %86, %81 ], [ %22, %76 ]
   %84 = getelementptr i8, ptr %82, i64 8
   %85 = load ptr, ptr %84, align 8
-  %86 = call ptr @clause_InsertWeighed(ptr noundef %85, ptr noundef %83, ptr noundef %5, ptr noundef %7) #18
+  %86 = call ptr @clause_InsertWeighed(ptr noundef %85, ptr noundef %83, ptr noundef %5, ptr noundef %7) #17
   %87 = load ptr, ptr %82, align 8
   %88 = icmp eq ptr %87, null
-  br i1 %88, label %89, label %81, !llvm.loop !76
+  br i1 %88, label %89, label %81, !llvm.loop !73
 
 89:                                               ; preds = %81
   br i1 %80, label %102, label %90
@@ -4512,19 +4386,19 @@ define internal fastcc ptr @cnf_SatUnit(ptr noundef %0, ptr noundef %1) unnamed_
   br i1 %101, label %102, label %90, !llvm.loop !13
 
 102:                                              ; preds = %90, %76, %89, %45, %17
-  %103 = phi ptr [ %22, %17 ], [ %22, %45 ], [ %86, %89 ], [ %22, %76 ], [ %86, %90 ]
-  %104 = phi i32 [ %18, %17 ], [ %18, %45 ], [ %77, %89 ], [ %77, %76 ], [ %77, %90 ]
+  %103 = phi ptr [ %22, %45 ], [ %22, %17 ], [ %86, %89 ], [ %22, %76 ], [ %86, %90 ]
+  %104 = phi i32 [ %18, %45 ], [ %18, %17 ], [ %77, %89 ], [ %77, %76 ], [ %77, %90 ]
   %105 = icmp ne ptr %103, null
   %106 = load ptr, ptr %3, align 8
   %107 = icmp eq ptr %106, null
   %108 = select i1 %105, i1 %107, i1 false
-  br i1 %108, label %17, label %109, !llvm.loop !77
+  br i1 %108, label %17, label %109, !llvm.loop !74
 
 109:                                              ; preds = %102, %2
   %110 = phi ptr [ null, %2 ], [ %103, %102 ]
-  call void @clause_DeleteClauseList(ptr noundef %110) #18
+  call void @clause_DeleteClauseList(ptr noundef %110) #17
   %111 = load ptr, ptr %3, align 8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #17
   ret ptr %111
 }
 
@@ -4539,10 +4413,10 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
   %4 = load i32, ptr @fol_ALL, align 4
   %5 = load i32, ptr @fol_EXIST, align 4
   %6 = load i32, ptr %0, align 8
-  %7 = icmp ne i32 %4, %6
-  %8 = icmp ne i32 %5, %6
-  %9 = select i1 %7, i1 %8, i1 false
-  br i1 %9, label %21, label %10
+  %7 = icmp eq i32 %4, %6
+  %8 = icmp eq i32 %5, %6
+  %9 = select i1 %7, i1 true, i1 %8
+  br i1 %9, label %10, label %21
 
 10:                                               ; preds = %3, %10
   %11 = phi ptr [ %16, %10 ], [ %0, %3 ]
@@ -4552,10 +4426,10 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
   %15 = getelementptr i8, ptr %14, i64 8
   %16 = load ptr, ptr %15, align 8
   %17 = load i32, ptr %16, align 8
-  %18 = icmp ne i32 %4, %17
-  %19 = icmp ne i32 %5, %17
-  %20 = select i1 %18, i1 %19, i1 false
-  br i1 %20, label %21, label %10
+  %18 = icmp eq i32 %4, %17
+  %19 = icmp eq i32 %5, %17
+  %20 = select i1 %18, i1 true, i1 %19
+  br i1 %20, label %10, label %21
 
 21:                                               ; preds = %10, %3
   %22 = phi ptr [ %0, %3 ], [ %16, %10 ]
@@ -4586,26 +4460,26 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
 41:                                               ; preds = %30
   %42 = getelementptr i8, ptr %22, i64 16
   %43 = load ptr, ptr %42, align 8
-  %44 = tail call i32 @list_Length(ptr noundef %43) #18
-  %45 = tail call i32 @list_Length(ptr noundef %1) #18
+  %44 = tail call i32 @list_Length(ptr noundef %43) #17
+  %45 = tail call i32 @list_Length(ptr noundef %1) #17
   %46 = icmp ugt i32 %44, %45
   br i1 %46, label %47, label %49
 
 47:                                               ; preds = %41
-  tail call void @list_DeleteWithElement(ptr noundef %1, ptr noundef nonnull @term_Delete) #18
+  tail call void @list_DeleteWithElement(ptr noundef %1, ptr noundef nonnull @term_Delete) #17
   %48 = load ptr, ptr %42, align 8
   br label %51
 
 49:                                               ; preds = %41
   %50 = load ptr, ptr %42, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %50, ptr noundef nonnull @term_Delete) #18
+  tail call void @list_DeleteWithElement(ptr noundef %50, ptr noundef nonnull @term_Delete) #17
   br label %51
 
 51:                                               ; preds = %49, %47
   %52 = phi ptr [ %48, %47 ], [ %1, %49 ]
   store ptr null, ptr %42, align 8
   %53 = load ptr, ptr %2, align 8
-  %54 = tail call i32 @list_Length(ptr noundef %53) #18
+  %54 = tail call i32 @list_Length(ptr noundef %53) #17
   %55 = icmp ugt i32 %54, %44
   br i1 %55, label %56, label %109
 
@@ -4632,7 +4506,7 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
   %72 = load ptr, ptr %71, align 8
   %73 = add i32 %64, 8
   %74 = icmp eq i32 %73, %61
-  br i1 %74, label %75, label %62, !llvm.loop !78
+  br i1 %74, label %75, label %62, !llvm.loop !75
 
 75:                                               ; preds = %62, %56
   %76 = phi ptr [ undef, %56 ], [ %72, %62 ]
@@ -4646,7 +4520,7 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
   %82 = load ptr, ptr %80, align 8
   %83 = add i32 %81, 1
   %84 = icmp eq i32 %83, %58
-  br i1 %84, label %85, label %79, !llvm.loop !79
+  br i1 %84, label %85, label %79, !llvm.loop !76
 
 85:                                               ; preds = %79, %75
   %86 = phi ptr [ %76, %75 ], [ %82, %79 ]
@@ -4673,8 +4547,8 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
 101:                                              ; preds = %92
   %102 = load ptr, ptr %93, align 8
   %103 = icmp ne ptr %102, null
-  %104 = and i1 %100, %103
-  br i1 %104, label %92, label %109, !llvm.loop !81
+  %104 = and i1 %103, %100
+  br i1 %104, label %92, label %109, !llvm.loop !78
 
 105:                                              ; preds = %92
   %106 = load ptr, ptr %95, align 8
@@ -4682,7 +4556,7 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
   %108 = trunc i64 %107 to i32
   br label %145
 
-109:                                              ; preds = %101, %85, %51
+109:                                              ; preds = %101, %51, %85
   %110 = load ptr, ptr %2, align 8
   %111 = icmp eq i32 %44, 0
   br i1 %111, label %123, label %112
@@ -4695,7 +4569,7 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
   br i1 %116, label %117, label %119
 
 117:                                              ; preds = %112
-  %118 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %118 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %118, i8 0, i64 16, i1 false)
   store ptr %118, ptr %113, align 8
   br label %119
@@ -4704,7 +4578,7 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
   %120 = phi ptr [ %118, %117 ], [ %115, %112 ]
   %121 = add nuw i32 %114, 1
   %122 = icmp eq i32 %121, %44
-  br i1 %122, label %123, label %112, !llvm.loop !82
+  br i1 %122, label %123, label %112, !llvm.loop !79
 
 123:                                              ; preds = %119, %109
   %124 = phi ptr [ %110, %109 ], [ %120, %119 ]
@@ -4716,14 +4590,14 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
   %129 = inttoptr i64 %128 to ptr
   %130 = sext i32 %126 to i64
   %131 = inttoptr i64 %130 to ptr
-  %132 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %132 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %133 = getelementptr inbounds %struct.LIST_HELP, ptr %132, i64 0, i32 1
   store ptr %129, ptr %133, align 8
   store ptr %131, ptr %132, align 8
   %134 = getelementptr i8, ptr %124, i64 8
   %135 = load ptr, ptr %134, align 8
   %136 = icmp eq ptr %135, null
-  %137 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %137 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %138 = getelementptr inbounds %struct.LIST_HELP, ptr %137, i64 0, i32 1
   store ptr %132, ptr %138, align 8
   store ptr null, ptr %137, align 8
@@ -4763,7 +4637,7 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
   %156 = tail call ptr @cnf_GetSkolemFunctions(ptr noundef %155, ptr noundef %153, ptr noundef %2)
   %157 = load ptr, ptr %152, align 8
   %158 = icmp eq ptr %157, null
-  br i1 %158, label %159, label %151, !llvm.loop !83
+  br i1 %158, label %159, label %151, !llvm.loop !80
 
 159:                                              ; preds = %151, %147, %145
   %160 = phi ptr [ %52, %145 ], [ %1, %147 ], [ %156, %151 ]
@@ -4773,7 +4647,7 @@ define dso_local ptr @cnf_GetSkolemFunctions(ptr nocapture noundef %0, ptr nound
 declare i32 @list_Length(ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @cnf_ReplaceVariable(ptr nocapture noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #7 {
+define dso_local void @cnf_ReplaceVariable(ptr nocapture noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #6 {
   %4 = load i32, ptr %0, align 8
   %5 = icmp eq i32 %4, %1
   br i1 %5, label %6, label %7
@@ -4795,7 +4669,7 @@ define dso_local void @cnf_ReplaceVariable(ptr nocapture noundef %0, i32 noundef
   tail call void @cnf_ReplaceVariable(ptr noundef %14, i32 noundef %1, i32 noundef %2)
   %15 = load ptr, ptr %12, align 8
   %16 = icmp eq ptr %15, null
-  br i1 %16, label %17, label %11, !llvm.loop !84
+  br i1 %16, label %17, label %11, !llvm.loop !81
 
 17:                                               ; preds = %11, %7, %6
   ret void
@@ -4827,9 +4701,9 @@ define dso_local ptr @cnf_RemoveSkolemFunctions(ptr nocapture noundef readonly %
   %21 = load ptr, ptr %20, align 8
   %22 = getelementptr i8, ptr %21, i64 24
   %23 = load ptr, ptr %22, align 8
-  %24 = tail call ptr @term_Copy(ptr noundef %23) #18
+  %24 = tail call ptr @term_Copy(ptr noundef %23) #17
   %25 = tail call ptr @cnf_GetSkolemFunctions(ptr noundef %24, ptr noundef %17, ptr noundef %1)
-  %26 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %26 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %27 = getelementptr inbounds %struct.LIST_HELP, ptr %26, i64 0, i32 1
   store ptr %24, ptr %27, align 8
   store ptr %18, ptr %26, align 8
@@ -4841,7 +4715,7 @@ define dso_local ptr @cnf_RemoveSkolemFunctions(ptr nocapture noundef readonly %
   %33 = add nsw i32 %31, %32
   %34 = sext i32 %33 to i64
   %35 = icmp slt i64 %28, %34
-  br i1 %35, label %15, label %36, !llvm.loop !85
+  br i1 %35, label %15, label %36, !llvm.loop !82
 
 36:                                               ; preds = %15
   %37 = icmp eq ptr %25, null
@@ -4866,7 +4740,7 @@ define dso_local ptr @cnf_RemoveSkolemFunctions(ptr nocapture noundef readonly %
   tail call void @cnf_ReplaceVariable(ptr noundef %46, i32 noundef %48, i32 noundef %51)
   %52 = load ptr, ptr %44, align 8
   %53 = icmp eq ptr %52, null
-  br i1 %53, label %54, label %43, !llvm.loop !86
+  br i1 %53, label %54, label %43, !llvm.loop !83
 
 54:                                               ; preds = %43
   %55 = load ptr, ptr %40, align 8
@@ -4879,7 +4753,7 @@ define dso_local ptr @cnf_RemoveSkolemFunctions(ptr nocapture noundef readonly %
   store i32 %59, ptr @symbol_STANDARDVARCOUNTER, align 4
   %60 = sext i32 %59 to i64
   %61 = inttoptr i64 %60 to ptr
-  %62 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %62 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %63 = getelementptr inbounds %struct.LIST_HELP, ptr %62, i64 0, i32 1
   store ptr %61, ptr %63, align 8
   store ptr null, ptr %62, align 8
@@ -4900,10 +4774,10 @@ define dso_local ptr @cnf_RemoveSkolemFunctions(ptr nocapture noundef readonly %
   %71 = phi ptr [ %69, %68 ], [ %55, %54 ]
   %72 = load ptr, ptr %39, align 8
   %73 = icmp eq ptr %72, null
-  br i1 %73, label %74, label %38, !llvm.loop !87
+  br i1 %73, label %74, label %38, !llvm.loop !84
 
 74:                                               ; preds = %70
-  tail call void @list_DeleteWithElement(ptr noundef nonnull %25, ptr noundef nonnull @term_Delete) #18
+  tail call void @list_DeleteWithElement(ptr noundef nonnull %25, ptr noundef nonnull @term_Delete) #17
   br label %75
 
 75:                                               ; preds = %3, %36, %74
@@ -4914,8 +4788,8 @@ define dso_local ptr @cnf_RemoveSkolemFunctions(ptr nocapture noundef readonly %
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed_addr #0 {
   %2 = alloca ptr, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #18
-  %3 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #17
+  %3 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %3, i8 0, i64 16, i1 false)
   store ptr %3, ptr %2, align 8
   %4 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
@@ -4923,12 +4797,12 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   store i32 %5, ptr @symbol_STANDARDVARCOUNTER, align 4
   %6 = sext i32 %5 to i64
   %7 = inttoptr i64 %6 to ptr
-  %8 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %8 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %9 = getelementptr inbounds %struct.LIST_HELP, ptr %8, i64 0, i32 1
   store ptr %7, ptr %9, align 8
   store ptr null, ptr %8, align 8
   %10 = load i32, ptr @fol_AND, align 4
-  %11 = tail call ptr @term_Create(i32 noundef %10, ptr noundef null) #18
+  %11 = tail call ptr @term_Create(i32 noundef %10, ptr noundef null) #17
   %12 = icmp eq ptr %0, null
   br i1 %12, label %50, label %13
 
@@ -4942,13 +4816,13 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   %18 = load ptr, ptr %17, align 8
   %19 = call ptr @cnf_RemoveSkolemFunctions(ptr noundef %18, ptr noundef nonnull %2, ptr noundef nonnull %8)
   %20 = load i32, ptr @fol_OR, align 4
-  %21 = tail call ptr @term_Create(i32 noundef %20, ptr noundef %19) #18
-  %22 = tail call ptr @fol_FreeVariables(ptr noundef %21) #18
+  %21 = tail call ptr @term_Create(i32 noundef %20, ptr noundef %19) #17
+  %22 = tail call ptr @fol_FreeVariables(ptr noundef %21) #17
   %23 = icmp eq ptr %22, null
   br i1 %23, label %43, label %24
 
 24:                                               ; preds = %15
-  %25 = tail call ptr @list_CopyWithElement(ptr noundef nonnull %22, ptr noundef nonnull @term_Copy) #18
+  %25 = tail call ptr @list_CopyWithElement(ptr noundef nonnull %22, ptr noundef nonnull @term_Copy) #17
   br label %26
 
 26:                                               ; preds = %24, %26
@@ -4970,40 +4844,40 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
 
 38:                                               ; preds = %26
   %39 = load i32, ptr @fol_ALL, align 4
-  %40 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %40 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %41 = getelementptr inbounds %struct.LIST_HELP, ptr %40, i64 0, i32 1
   store ptr %21, ptr %41, align 8
   store ptr null, ptr %40, align 8
-  %42 = tail call ptr @fol_CreateQuantifier(i32 noundef %39, ptr noundef %25, ptr noundef nonnull %40) #18
+  %42 = tail call ptr @fol_CreateQuantifier(i32 noundef %39, ptr noundef %25, ptr noundef nonnull %40) #17
   br label %43
 
 43:                                               ; preds = %38, %15
   %44 = phi ptr [ %21, %15 ], [ %42, %38 ]
   %45 = load ptr, ptr %14, align 8
-  %46 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %46 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %47 = getelementptr inbounds %struct.LIST_HELP, ptr %46, i64 0, i32 1
   store ptr %44, ptr %47, align 8
   store ptr %45, ptr %46, align 8
   store ptr %46, ptr %14, align 8
   %48 = load ptr, ptr %16, align 8
   %49 = icmp eq ptr %48, null
-  br i1 %49, label %50, label %15, !llvm.loop !88
+  br i1 %49, label %50, label %15, !llvm.loop !85
 
 50:                                               ; preds = %43, %1
   br label %51
 
 51:                                               ; preds = %50, %164
-  %52 = phi i1 [ true, %164 ], [ false, %50 ]
-  %53 = phi ptr [ %165, %164 ], [ %11, %50 ]
-  %54 = phi ptr [ %167, %164 ], [ %3, %50 ]
+  %52 = phi ptr [ %167, %164 ], [ %3, %50 ]
+  %53 = phi i1 [ true, %164 ], [ false, %50 ]
+  %54 = phi ptr [ %165, %164 ], [ %11, %50 ]
   %55 = phi ptr [ %166, %164 ], [ %8, %50 ]
-  %56 = getelementptr i8, ptr %54, i64 8
+  %56 = getelementptr i8, ptr %52, i64 8
   %57 = load ptr, ptr %56, align 8
   %58 = icmp eq ptr %57, null
   br i1 %58, label %59, label %86
 
 59:                                               ; preds = %51
-  %60 = load i32, ptr %53, align 8
+  %60 = load i32, ptr %54, align 8
   %61 = load i32, ptr @fol_ALL, align 4
   %62 = icmp eq i32 %60, %61
   br i1 %62, label %63, label %73
@@ -5013,10 +4887,10 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   %65 = load ptr, ptr %64, align 8
   %66 = ptrtoint ptr %65 to i64
   %67 = trunc i64 %66 to i32
-  %68 = tail call ptr @term_Create(i32 noundef %67, ptr noundef null) #18
-  %69 = getelementptr i8, ptr %53, i64 16
+  %68 = tail call ptr @term_Create(i32 noundef %67, ptr noundef null) #17
+  %69 = getelementptr i8, ptr %54, i64 16
   %70 = load ptr, ptr %69, align 8
-  %71 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %71 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %72 = getelementptr inbounds %struct.LIST_HELP, ptr %71, i64 0, i32 1
   store ptr %68, ptr %72, align 8
   store ptr %70, ptr %71, align 8
@@ -5024,7 +4898,7 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   br label %73
 
 73:                                               ; preds = %63, %59
-  br i1 %52, label %74, label %164
+  br i1 %53, label %74, label %164
 
 74:                                               ; preds = %73
   %75 = load i32, ptr @fol_ALL, align 4
@@ -5032,16 +4906,16 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   %77 = load ptr, ptr %76, align 8
   %78 = ptrtoint ptr %77 to i64
   %79 = trunc i64 %78 to i32
-  %80 = tail call ptr @term_Create(i32 noundef %79, ptr noundef null) #18
-  %81 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %80 = tail call ptr @term_Create(i32 noundef %79, ptr noundef null) #17
+  %81 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %82 = getelementptr inbounds %struct.LIST_HELP, ptr %81, i64 0, i32 1
   store ptr %80, ptr %82, align 8
   store ptr null, ptr %81, align 8
-  %83 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %83 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %84 = getelementptr inbounds %struct.LIST_HELP, ptr %83, i64 0, i32 1
-  store ptr %53, ptr %84, align 8
+  store ptr %54, ptr %84, align 8
   store ptr null, ptr %83, align 8
-  %85 = tail call ptr @fol_CreateQuantifier(i32 noundef %75, ptr noundef nonnull %81, ptr noundef nonnull %83) #18
+  %85 = tail call ptr @fol_CreateQuantifier(i32 noundef %75, ptr noundef nonnull %81, ptr noundef nonnull %83) #17
   br label %161
 
 86:                                               ; preds = %51, %86
@@ -5052,8 +4926,8 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   %91 = load ptr, ptr %90, align 8
   %92 = ptrtoint ptr %91 to i64
   %93 = trunc i64 %92 to i32
-  %94 = tail call ptr @term_Create(i32 noundef %93, ptr noundef null) #18
-  %95 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %94 = tail call ptr @term_Create(i32 noundef %93, ptr noundef null) #17
+  %95 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %96 = getelementptr inbounds %struct.LIST_HELP, ptr %95, i64 0, i32 1
   store ptr %94, ptr %96, align 8
   store ptr %87, ptr %95, align 8
@@ -5072,7 +4946,7 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   store ptr %98, ptr %106, align 8
   %107 = load ptr, ptr %88, align 8
   %108 = icmp eq ptr %107, null
-  br i1 %108, label %109, label %86, !llvm.loop !89
+  br i1 %108, label %109, label %86, !llvm.loop !86
 
 109:                                              ; preds = %86
   %110 = load ptr, ptr %56, align 8
@@ -5098,13 +4972,13 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
 
 124:                                              ; preds = %112, %109
   store ptr null, ptr %56, align 8
-  %125 = load i32, ptr %53, align 8
+  %125 = load i32, ptr %54, align 8
   %126 = load i32, ptr @fol_EXIST, align 4
   %127 = icmp eq i32 %125, %126
   br i1 %127, label %128, label %143
 
 128:                                              ; preds = %124
-  %129 = getelementptr i8, ptr %53, i64 16
+  %129 = getelementptr i8, ptr %54, i64 16
   %130 = load ptr, ptr %129, align 8
   %131 = getelementptr i8, ptr %130, i64 8
   %132 = load ptr, ptr %131, align 8
@@ -5129,16 +5003,16 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   br label %147
 
 143:                                              ; preds = %124
-  %144 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %144 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %145 = getelementptr inbounds %struct.LIST_HELP, ptr %144, i64 0, i32 1
-  store ptr %53, ptr %145, align 8
+  store ptr %54, ptr %145, align 8
   store ptr null, ptr %144, align 8
-  %146 = tail call ptr @fol_CreateQuantifier(i32 noundef %126, ptr noundef nonnull %95, ptr noundef nonnull %144) #18
+  %146 = tail call ptr @fol_CreateQuantifier(i32 noundef %126, ptr noundef nonnull %95, ptr noundef nonnull %144) #17
   br label %147
 
 147:                                              ; preds = %143, %141
-  %148 = phi ptr [ %53, %141 ], [ %146, %143 ]
-  br i1 %52, label %149, label %164
+  %148 = phi ptr [ %54, %141 ], [ %146, %143 ]
+  br i1 %53, label %149, label %164
 
 149:                                              ; preds = %147
   %150 = load i32, ptr @fol_ALL, align 4
@@ -5146,16 +5020,16 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   %152 = load ptr, ptr %151, align 8
   %153 = ptrtoint ptr %152 to i64
   %154 = trunc i64 %153 to i32
-  %155 = tail call ptr @term_Create(i32 noundef %154, ptr noundef null) #18
-  %156 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %155 = tail call ptr @term_Create(i32 noundef %154, ptr noundef null) #17
+  %156 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %157 = getelementptr inbounds %struct.LIST_HELP, ptr %156, i64 0, i32 1
   store ptr %155, ptr %157, align 8
   store ptr null, ptr %156, align 8
-  %158 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %158 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %159 = getelementptr inbounds %struct.LIST_HELP, ptr %158, i64 0, i32 1
   store ptr %148, ptr %159, align 8
   store ptr null, ptr %158, align 8
-  %160 = tail call ptr @fol_CreateQuantifier(i32 noundef %150, ptr noundef nonnull %156, ptr noundef nonnull %158) #18
+  %160 = tail call ptr @fol_CreateQuantifier(i32 noundef %150, ptr noundef nonnull %156, ptr noundef nonnull %158) #17
   br label %161
 
 161:                                              ; preds = %149, %74
@@ -5164,11 +5038,11 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   br label %164
 
 164:                                              ; preds = %73, %147, %161
-  %165 = phi ptr [ %162, %161 ], [ %53, %73 ], [ %148, %147 ]
+  %165 = phi ptr [ %162, %161 ], [ %54, %73 ], [ %148, %147 ]
   %166 = phi ptr [ %163, %161 ], [ %55, %73 ], [ %55, %147 ]
-  %167 = load ptr, ptr %54, align 8
+  %167 = load ptr, ptr %52, align 8
   %168 = icmp eq ptr %167, null
-  br i1 %168, label %169, label %51, !llvm.loop !90
+  br i1 %168, label %169, label %51, !llvm.loop !87
 
 169:                                              ; preds = %164, %169
   %170 = phi ptr [ %171, %169 ], [ %3, %164 ]
@@ -5205,7 +5079,7 @@ define dso_local ptr @cnf_DeSkolemFormula(ptr noundef readonly %0) local_unnamed
   br i1 %192, label %193, label %181, !llvm.loop !13
 
 193:                                              ; preds = %181
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #17
   ret ptr %165
 }
 
@@ -5214,7 +5088,7 @@ declare ptr @fol_FreeVariables(ptr noundef) local_unnamed_addr #1
 declare ptr @fol_CreateQuantifier(i32 noundef, ptr noundef, ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define internal void @list_PairFree(ptr noundef %0) #8 {
+define internal void @list_PairFree(ptr noundef %0) #7 {
   %2 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %3 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %2, i64 0, i32 4
   %4 = load i32, ptr %3, align 8
@@ -5236,10 +5110,10 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %12 = alloca ptr, align 8
   %13 = alloca ptr, align 8
   %14 = alloca [100 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %13) #18
-  %15 = tail call ptr @prfs_Create() #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %13) #17
+  %15 = tail call ptr @prfs_Create() #17
   %16 = getelementptr i8, ptr %15, i64 112
   %17 = load ptr, ptr %16, align 8
   %18 = load i32, ptr @flag_CLEAN, align 4
@@ -5297,7 +5171,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store <4 x i32> %21, ptr %47, align 4
   %48 = getelementptr inbounds i32, ptr %17, i64 92
   store <4 x i32> %21, ptr %48, align 4
-  tail call void @flag_InitFlotterFlags(ptr noundef %6, ptr noundef nonnull %17) #18
+  tail call void @flag_InitFlotterFlags(ptr noundef %6, ptr noundef nonnull %17) #17
   %49 = getelementptr i8, ptr %15, i64 104
   %50 = load ptr, ptr %49, align 8
   %51 = ptrtoint ptr %50 to i64
@@ -5344,7 +5218,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store <4 x i32> %80, ptr %82, align 4
   %83 = add nuw nsw i64 %55, 32
   %84 = icmp eq i64 %83, 4000
-  br i1 %84, label %108, label %54, !llvm.loop !91
+  br i1 %84, label %108, label %54, !llvm.loop !88
 
 85:                                               ; preds = %9, %85
   %86 = phi i64 [ %106, %85 ], [ 0, %9 ]
@@ -5374,7 +5248,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store i32 %104, ptr %105, align 4
   %106 = add nuw nsw i64 %86, 5
   %107 = icmp eq i64 %106, 4000
-  br i1 %107, label %108, label %85, !llvm.loop !92
+  br i1 %107, label %108, label %85, !llvm.loop !89
 
 108:                                              ; preds = %54, %85
   %109 = load i32, ptr %24, align 4
@@ -5386,7 +5260,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br label %119
 
 112:                                              ; preds = %108
-  %113 = tail call ptr @sharing_IndexCreate() #18
+  %113 = tail call ptr @sharing_IndexCreate() #17
   %114 = getelementptr inbounds %struct.PROOFSEARCH_HELP, ptr %15, i64 0, i32 11
   store ptr %113, ptr %114, align 8
   %115 = load i32, ptr %24, align 4
@@ -5395,12 +5269,12 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br i1 %116, label %119, label %117
 
 117:                                              ; preds = %112
-  %118 = tail call ptr @hsh_Create() #18
+  %118 = tail call ptr @hsh_Create() #17
   br label %119
 
 119:                                              ; preds = %111, %112, %117
   %120 = phi ptr [ %118, %117 ], [ null, %112 ], [ null, %111 ]
-  tail call void @symbol_ReinitGenericNameCounters() #18
+  tail call void @symbol_ReinitGenericNameCounters() #17
   %121 = icmp eq ptr %0, null
   br i1 %121, label %122, label %124
 
@@ -5413,9 +5287,9 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %126 = getelementptr i8, ptr %125, i64 8
   %127 = load ptr, ptr %126, align 8
   %128 = load ptr, ptr %127, align 8
-  call void @fol_RemoveImplied(ptr noundef %128) #18
-  call void @term_AddFatherLinks(ptr noundef %128) #18
-  call void @fol_NormalizeVars(ptr noundef %128) #18
+  call void @fol_RemoveImplied(ptr noundef %128) #17
+  call void @term_AddFatherLinks(ptr noundef %128) #17
+  call void @fol_NormalizeVars(ptr noundef %128) #17
   %129 = load i32, ptr %39, align 4
   %130 = icmp eq i32 %129, 0
   br i1 %130, label %133, label %131
@@ -5433,9 +5307,9 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br i1 %138, label %142, label %139
 
 139:                                              ; preds = %133
-  call void @term_AddFatherLinks(ptr noundef %136) #18
+  call void @term_AddFatherLinks(ptr noundef %136) #17
   %140 = load i32, ptr %38, align 4
-  %141 = call ptr @ren_Rename(ptr noundef %136, ptr noundef %50, ptr noundef nonnull %12, i32 noundef %140, i32 noundef 1) #18
+  %141 = call ptr @ren_Rename(ptr noundef %136, ptr noundef %50, ptr noundef nonnull %12, i32 noundef %140, i32 noundef 1) #17
   br label %142
 
 142:                                              ; preds = %139, %133
@@ -5446,12 +5320,12 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store ptr %143, ptr %127, align 8
   %147 = load ptr, ptr %125, align 8
   %148 = icmp eq ptr %147, null
-  br i1 %148, label %122, label %124, !llvm.loop !93
+  br i1 %148, label %122, label %124, !llvm.loop !90
 
 149:                                              ; preds = %122, %187
   %150 = phi ptr [ %194, %187 ], [ %1, %122 ]
   %151 = phi i32 [ %193, %187 ], [ 0, %122 ]
-  call void @llvm.lifetime.start.p0(i64 100, ptr nonnull %14) #18
+  call void @llvm.lifetime.start.p0(i64 100, ptr nonnull %14) #17
   %152 = getelementptr i8, ptr %150, i64 8
   %153 = load ptr, ptr %152, align 8
   %154 = getelementptr i8, ptr %153, i64 8
@@ -5460,8 +5334,8 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br i1 %156, label %157, label %171
 
 157:                                              ; preds = %149
-  %158 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %151) #18
-  %159 = call ptr @string_StringCopy(ptr noundef nonnull %14) #18
+  %158 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %151) #17
+  %159 = call ptr @string_StringCopy(ptr noundef nonnull %14) #17
   %160 = load ptr, ptr %152, align 8
   %161 = getelementptr inbounds %struct.LIST_HELP, ptr %160, i64 0, i32 1
   store ptr %159, ptr %161, align 8
@@ -5478,15 +5352,15 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %168 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, ptr noundef %159)
   %169 = load ptr, ptr %152, align 8
   %170 = load ptr, ptr %169, align 8
-  call void @fol_PrettyPrintDFG(ptr noundef %170) #18
+  call void @fol_PrettyPrintDFG(ptr noundef %170) #17
   br label %171
 
 171:                                              ; preds = %157, %164, %167, %149
   %172 = load ptr, ptr %152, align 8
   %173 = load ptr, ptr %172, align 8
-  call void @fol_RemoveImplied(ptr noundef %173) #18
-  call void @term_AddFatherLinks(ptr noundef %173) #18
-  call void @fol_NormalizeVars(ptr noundef %173) #18
+  call void @fol_RemoveImplied(ptr noundef %173) #17
+  call void @term_AddFatherLinks(ptr noundef %173) #17
+  call void @fol_NormalizeVars(ptr noundef %173) #17
   %174 = load i32, ptr %39, align 4
   %175 = icmp eq i32 %174, 0
   br i1 %175, label %178, label %176
@@ -5504,9 +5378,9 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br i1 %183, label %187, label %184
 
 184:                                              ; preds = %178
-  call void @term_AddFatherLinks(ptr noundef %181) #18
+  call void @term_AddFatherLinks(ptr noundef %181) #17
   %185 = load i32, ptr %38, align 4
-  %186 = call ptr @ren_Rename(ptr noundef %181, ptr noundef %50, ptr noundef nonnull %12, i32 noundef %185, i32 noundef 1) #18
+  %186 = call ptr @ren_Rename(ptr noundef %181, ptr noundef %50, ptr noundef nonnull %12, i32 noundef %185, i32 noundef 1) #17
   br label %187
 
 187:                                              ; preds = %184, %178
@@ -5517,23 +5391,23 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %192 = load ptr, ptr %152, align 8
   store ptr %188, ptr %192, align 8
   %193 = add i32 %151, 1
-  call void @llvm.lifetime.end.p0(i64 100, ptr nonnull %14) #18
+  call void @llvm.lifetime.end.p0(i64 100, ptr nonnull %14) #17
   %194 = load ptr, ptr %150, align 8
   %195 = icmp eq ptr %194, null
-  br i1 %195, label %196, label %149, !llvm.loop !94
+  br i1 %195, label %196, label %149, !llvm.loop !91
 
 196:                                              ; preds = %187
   br i1 %123, label %212, label %197
 
 197:                                              ; preds = %196
-  %198 = call ptr @list_Copy(ptr noundef nonnull %1) #18
+  %198 = call ptr @list_Copy(ptr noundef nonnull %1) #17
   br i1 %121, label %204, label %199
 
 199:                                              ; preds = %197, %199
   %200 = phi ptr [ %201, %199 ], [ %198, %197 ]
   %201 = load ptr, ptr %200, align 8
   %202 = icmp eq ptr %201, null
-  br i1 %202, label %203, label %199, !llvm.loop !95
+  br i1 %202, label %203, label %199, !llvm.loop !92
 
 203:                                              ; preds = %199
   store ptr %0, ptr %200, align 8
@@ -5550,7 +5424,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store ptr %209, ptr %207, align 8
   %210 = load ptr, ptr %206, align 8
   %211 = icmp eq ptr %210, null
-  br i1 %211, label %212, label %205, !llvm.loop !96
+  br i1 %211, label %212, label %205, !llvm.loop !93
 
 212:                                              ; preds = %205, %122, %196, %203
   %213 = phi ptr [ %198, %203 ], [ %0, %196 ], [ %0, %122 ], [ %198, %205 ]
@@ -5568,7 +5442,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %220 = getelementptr i8, ptr %218, i64 8
   %221 = load ptr, ptr %220, align 8
   %222 = load ptr, ptr %221, align 8
-  %223 = call ptr @term_Copy(ptr noundef %222) #18
+  %223 = call ptr @term_Copy(ptr noundef %222) #17
   %224 = call fastcc ptr @cnf_SkolemFormula(ptr noundef %223, ptr noundef %50, ptr noundef nonnull %11)
   %225 = call ptr @cnf_ComputeLiteralLists(ptr noundef %223)
   %226 = icmp eq ptr %225, null
@@ -5579,16 +5453,16 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %229 = load i32, ptr @fol_OR, align 4
   %230 = getelementptr i8, ptr %228, i64 8
   %231 = load ptr, ptr %230, align 8
-  %232 = call ptr @term_Create(i32 noundef %229, ptr noundef %231) #18
+  %232 = call ptr @term_Create(i32 noundef %229, ptr noundef %231) #17
   store ptr %232, ptr %230, align 8
   %233 = load ptr, ptr %228, align 8
   %234 = icmp eq ptr %233, null
-  br i1 %234, label %235, label %227, !llvm.loop !62
+  br i1 %234, label %235, label %227, !llvm.loop !59
 
 235:                                              ; preds = %227, %217
   %236 = load i32, ptr @fol_AND, align 4
-  %237 = call ptr @term_Create(i32 noundef %236, ptr noundef %225) #18
-  call void @term_Delete(ptr noundef %223) #18
+  %237 = call ptr @term_Create(i32 noundef %236, ptr noundef %225) #17
+  call void @term_Delete(ptr noundef %223) #17
   %238 = call fastcc ptr @cnf_MakeClauseList(ptr noundef %237, ptr noundef nonnull %17, ptr noundef %50)
   %239 = load i32, ptr %24, align 4
   %240 = icmp eq i32 %239, 0
@@ -5620,7 +5494,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %260 = getelementptr i8, ptr %259, i64 8
   %261 = load ptr, ptr %260, align 8
   %262 = icmp eq ptr %261, %246
-  br i1 %262, label %263, label %253, !llvm.loop !97
+  br i1 %262, label %263, label %253, !llvm.loop !94
 
 263:                                              ; preds = %257
   %264 = load ptr, ptr %259, align 8
@@ -5637,10 +5511,10 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
 271:                                              ; preds = %266
   %272 = load ptr, ptr %267, align 8
   %273 = icmp eq ptr %272, null
-  br i1 %273, label %274, label %266, !llvm.loop !98
+  br i1 %273, label %274, label %266, !llvm.loop !95
 
 274:                                              ; preds = %271, %263
-  %275 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %275 = call ptr @memory_Malloc(i32 noundef 16) #17
   %276 = getelementptr inbounds %struct.LIST_HELP, ptr %275, i64 0, i32 1
   store ptr %249, ptr %276, align 8
   store ptr %264, ptr %275, align 8
@@ -5648,16 +5522,16 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br label %285
 
 277:                                              ; preds = %253
-  %278 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %278 = call ptr @memory_Malloc(i32 noundef 16) #17
   %279 = getelementptr inbounds %struct.LIST_HELP, ptr %278, i64 0, i32 1
   store ptr %249, ptr %279, align 8
   store ptr null, ptr %278, align 8
-  %280 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %280 = call ptr @memory_Malloc(i32 noundef 16) #17
   %281 = getelementptr inbounds %struct.LIST_HELP, ptr %280, i64 0, i32 1
   store ptr %246, ptr %281, align 8
   store ptr %278, ptr %280, align 8
   %282 = load ptr, ptr %252, align 8
-  %283 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %283 = call ptr @memory_Malloc(i32 noundef 16) #17
   %284 = getelementptr inbounds %struct.LIST_HELP, ptr %283, i64 0, i32 1
   store ptr %280, ptr %284, align 8
   store ptr %282, ptr %283, align 8
@@ -5667,7 +5541,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
 285:                                              ; preds = %266, %274, %277
   %286 = load ptr, ptr %244, align 8
   %287 = icmp eq ptr %286, null
-  br i1 %287, label %288, label %243, !llvm.loop !99
+  br i1 %287, label %288, label %243, !llvm.loop !96
 
 288:                                              ; preds = %285, %235
   %289 = icmp eq ptr %219, null
@@ -5687,10 +5561,10 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
 
 297:                                              ; preds = %288, %296
   %298 = phi ptr [ %219, %296 ], [ %291, %288 ]
-  call void @term_Delete(ptr noundef %237) #18
+  call void @term_Delete(ptr noundef %237) #17
   %299 = load ptr, ptr %218, align 8
   %300 = icmp eq ptr %299, null
-  br i1 %300, label %215, label %217, !llvm.loop !100
+  br i1 %300, label %215, label %217, !llvm.loop !97
 
 301:                                              ; preds = %215, %301
   %302 = phi ptr [ %308, %301 ], [ %298, %215 ]
@@ -5702,23 +5576,23 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store i32 %307, ptr %305, align 8
   %308 = load ptr, ptr %302, align 8
   %309 = icmp eq ptr %308, null
-  br i1 %309, label %310, label %301, !llvm.loop !101
+  br i1 %309, label %310, label %301, !llvm.loop !98
 
 310:                                              ; preds = %301, %212, %215
   %311 = phi ptr [ null, %215 ], [ null, %212 ], [ %298, %301 ]
-  %312 = call ptr @red_SatUnit(ptr noundef %15, ptr noundef %311) #18
+  %312 = call ptr @red_SatUnit(ptr noundef %15, ptr noundef %311) #17
   %313 = icmp eq ptr %312, null
   br i1 %313, label %315, label %314
 
 314:                                              ; preds = %310
-  call void @clause_DeleteClauseList(ptr noundef nonnull %312) #18
+  call void @clause_DeleteClauseList(ptr noundef nonnull %312) #17
   br label %315
 
 315:                                              ; preds = %314, %310
   %316 = phi i32 [ 0, %310 ], [ 1, %314 ]
   %317 = getelementptr i8, ptr %15, i64 56
   %318 = load ptr, ptr %317, align 8
-  %319 = call ptr @list_Copy(ptr noundef %318) #18
+  %319 = call ptr @list_Copy(ptr noundef %318) #17
   %320 = icmp eq ptr %319, null
   br i1 %320, label %339, label %321
 
@@ -5726,10 +5600,10 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %322 = phi ptr [ %325, %321 ], [ %319, %315 ]
   %323 = getelementptr i8, ptr %322, i64 8
   %324 = load ptr, ptr %323, align 8
-  call void @prfs_MoveUsableWorkedOff(ptr noundef %15, ptr noundef %324) #18
+  call void @prfs_MoveUsableWorkedOff(ptr noundef %15, ptr noundef %324) #17
   %325 = load ptr, ptr %322, align 8
   %326 = icmp eq ptr %325, null
-  br i1 %326, label %327, label %321, !llvm.loop !102
+  br i1 %326, label %327, label %321, !llvm.loop !99
 
 327:                                              ; preds = %321, %327
   %328 = phi ptr [ %329, %327 ], [ %319, %321 ]
@@ -5796,7 +5670,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store <4 x i32> %369, ptr %371, align 4
   %372 = add nuw nsw i64 %344, 32
   %373 = icmp eq i64 %372, 4000
-  br i1 %373, label %652, label %343, !llvm.loop !103
+  br i1 %373, label %652, label %343, !llvm.loop !100
 
 374:                                              ; preds = %339, %626
   %375 = phi ptr [ %627, %626 ], [ %213, %339 ]
@@ -5804,7 +5678,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %376 = getelementptr i8, ptr %375, i64 8
   %377 = load ptr, ptr %376, align 8
   %378 = load ptr, ptr %377, align 8
-  %379 = call ptr @term_Copy(ptr noundef %378) #18
+  %379 = call ptr @term_Copy(ptr noundef %378) #17
   %380 = getelementptr i8, ptr %377, i64 8
   %381 = load ptr, ptr %380, align 8
   %382 = call fastcc ptr @cnf_OptimizedSkolemization(ptr noundef %15, ptr noundef %379, ptr noundef %381, ptr noundef nonnull %13, ptr noundef nonnull %8, i32 noundef %316, ptr noundef %120)
@@ -5825,7 +5699,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
 391:                                              ; preds = %384
   %392 = load ptr, ptr %385, align 8
   %393 = icmp eq ptr %392, null
-  br i1 %393, label %403, label %384, !llvm.loop !98
+  br i1 %393, label %403, label %384, !llvm.loop !95
 
 394:                                              ; preds = %389, %394
   %395 = phi ptr [ %401, %394 ], [ %382, %389 ]
@@ -5837,7 +5711,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store i32 %400, ptr %398, align 8
   %401 = load ptr, ptr %395, align 8
   %402 = icmp eq ptr %401, null
-  br i1 %402, label %403, label %394, !llvm.loop !104
+  br i1 %402, label %403, label %394, !llvm.loop !101
 
 403:                                              ; preds = %391, %394, %389, %374
   %404 = load i32, ptr %24, align 4
@@ -5846,8 +5720,8 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
 
 406:                                              ; preds = %403
   %407 = load ptr, ptr %380, align 8
-  %408 = call ptr @list_Copy(ptr noundef %382) #18
-  %409 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %407) #21
+  %408 = call ptr @list_Copy(ptr noundef %382) #17
+  %409 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %407) #20
   %410 = add i64 %409, 1
   %411 = call i64 @llvm.umax.i64(i64 %410, i64 1)
   %412 = add i64 %411, -1
@@ -5905,7 +5779,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %460 = add nuw i64 %419, 8
   %461 = add i64 %420, 8
   %462 = icmp eq i64 %461, %416
-  br i1 %462, label %463, label %417, !llvm.loop !105
+  br i1 %462, label %463, label %417, !llvm.loop !102
 
 463:                                              ; preds = %417, %406
   %464 = phi i64 [ undef, %406 ], [ %459, %417 ]
@@ -5925,7 +5799,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %476 = add nuw i64 %470, 1
   %477 = add i64 %471, 1
   %478 = icmp eq i64 %477, %413
-  br i1 %478, label %479, label %468, !llvm.loop !106
+  br i1 %478, label %479, label %468, !llvm.loop !103
 
 479:                                              ; preds = %468, %463
   %480 = phi i64 [ %464, %463 ], [ %475, %468 ]
@@ -5944,9 +5818,9 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %489 = load ptr, ptr %488, align 8
   %490 = getelementptr i8, ptr %489, i64 8
   %491 = load ptr, ptr %490, align 8
-  %492 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %491, ptr noundef nonnull dereferenceable(1) %407) #21
+  %492 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %491, ptr noundef nonnull dereferenceable(1) %407) #20
   %493 = icmp eq i32 %492, 0
-  br i1 %493, label %494, label %483, !llvm.loop !107
+  br i1 %493, label %494, label %483, !llvm.loop !104
 
 494:                                              ; preds = %487
   %495 = load ptr, ptr %489, align 8
@@ -5973,12 +5847,12 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br label %512
 
 506:                                              ; preds = %483
-  %507 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %507 = call ptr @memory_Malloc(i32 noundef 16) #17
   %508 = getelementptr inbounds %struct.LIST_HELP, ptr %507, i64 0, i32 1
   store ptr %407, ptr %508, align 8
   store ptr %408, ptr %507, align 8
   %509 = load ptr, ptr %482, align 8
-  %510 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %510 = call ptr @memory_Malloc(i32 noundef 16) #17
   %511 = getelementptr inbounds %struct.LIST_HELP, ptr %510, i64 0, i32 1
   store ptr %507, ptr %511, align 8
   store ptr %509, ptr %510, align 8
@@ -5988,12 +5862,12 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
 512:                                              ; preds = %504, %506
   %513 = load ptr, ptr %380, align 8
   %514 = load ptr, ptr %13, align 8
-  %515 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %515 = call ptr @memory_Malloc(i32 noundef 16) #17
   %516 = getelementptr inbounds %struct.LIST_HELP, ptr %515, i64 0, i32 1
   store ptr %513, ptr %516, align 8
   store ptr %514, ptr %515, align 8
   store ptr %515, ptr %13, align 8
-  %517 = call ptr @list_DeleteDuplicates(ptr noundef nonnull %515, ptr noundef nonnull @cnf_LabelEqual) #18
+  %517 = call ptr @list_DeleteDuplicates(ptr noundef nonnull %515, ptr noundef nonnull @cnf_LabelEqual) #17
   store ptr %517, ptr %13, align 8
   %518 = icmp eq ptr %382, null
   br i1 %518, label %597, label %519
@@ -6003,7 +5877,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %521 = getelementptr i8, ptr %520, i64 8
   %522 = load ptr, ptr %521, align 8
   %523 = load ptr, ptr %13, align 8
-  %524 = call ptr @list_Copy(ptr noundef %523) #18
+  %524 = call ptr @list_Copy(ptr noundef %523) #17
   %525 = ptrtoint ptr %522 to i64
   %526 = urem i64 %525, 29
   %527 = getelementptr inbounds ptr, ptr %5, i64 %526
@@ -6021,7 +5895,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %535 = getelementptr i8, ptr %534, i64 8
   %536 = load ptr, ptr %535, align 8
   %537 = icmp eq ptr %536, %522
-  br i1 %537, label %538, label %528, !llvm.loop !108
+  br i1 %537, label %538, label %528, !llvm.loop !105
 
 538:                                              ; preds = %532
   %539 = load ptr, ptr %534, align 8
@@ -6048,12 +5922,12 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br label %556
 
 550:                                              ; preds = %528
-  %551 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %551 = call ptr @memory_Malloc(i32 noundef 16) #17
   %552 = getelementptr inbounds %struct.LIST_HELP, ptr %551, i64 0, i32 1
   store ptr %522, ptr %552, align 8
   store ptr %524, ptr %551, align 8
   %553 = load ptr, ptr %527, align 8
-  %554 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %554 = call ptr @memory_Malloc(i32 noundef 16) #17
   %555 = getelementptr inbounds %struct.LIST_HELP, ptr %554, i64 0, i32 1
   store ptr %551, ptr %555, align 8
   store ptr %553, ptr %554, align 8
@@ -6063,7 +5937,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
 556:                                              ; preds = %548, %550
   %557 = load ptr, ptr %521, align 8
   %558 = load ptr, ptr %13, align 8
-  %559 = call ptr @list_Copy(ptr noundef %558) #18
+  %559 = call ptr @list_Copy(ptr noundef %558) #17
   %560 = ptrtoint ptr %557 to i64
   %561 = urem i64 %560, 29
   %562 = getelementptr inbounds ptr, ptr %120, i64 %561
@@ -6081,7 +5955,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %570 = getelementptr i8, ptr %569, i64 8
   %571 = load ptr, ptr %570, align 8
   %572 = icmp eq ptr %571, %557
-  br i1 %572, label %573, label %563, !llvm.loop !108
+  br i1 %572, label %573, label %563, !llvm.loop !105
 
 573:                                              ; preds = %567
   %574 = load ptr, ptr %569, align 8
@@ -6108,12 +5982,12 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br label %591
 
 585:                                              ; preds = %563
-  %586 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %586 = call ptr @memory_Malloc(i32 noundef 16) #17
   %587 = getelementptr inbounds %struct.LIST_HELP, ptr %586, i64 0, i32 1
   store ptr %557, ptr %587, align 8
   store ptr %559, ptr %586, align 8
   %588 = load ptr, ptr %562, align 8
-  %589 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %589 = call ptr @memory_Malloc(i32 noundef 16) #17
   %590 = getelementptr inbounds %struct.LIST_HELP, ptr %589, i64 0, i32 1
   store ptr %586, ptr %590, align 8
   store ptr %588, ptr %589, align 8
@@ -6123,7 +5997,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
 591:                                              ; preds = %583, %585
   %592 = load ptr, ptr %520, align 8
   %593 = icmp eq ptr %592, null
-  br i1 %593, label %594, label %519, !llvm.loop !109
+  br i1 %593, label %594, label %519, !llvm.loop !106
 
 594:                                              ; preds = %591, %403
   %595 = load ptr, ptr %2, align 8
@@ -6181,7 +6055,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
 626:                                              ; preds = %614, %610
   %627 = load ptr, ptr %375, align 8
   %628 = icmp eq ptr %627, null
-  br i1 %628, label %340, label %374, !llvm.loop !110
+  br i1 %628, label %340, label %374, !llvm.loop !107
 
 629:                                              ; preds = %340, %629
   %630 = phi i64 [ %650, %629 ], [ 0, %340 ]
@@ -6211,7 +6085,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store i32 %648, ptr %649, align 4
   %650 = add nuw nsw i64 %630, 5
   %651 = icmp eq i64 %650, 4000
-  br i1 %651, label %652, label %629, !llvm.loop !111
+  br i1 %651, label %652, label %629, !llvm.loop !108
 
 652:                                              ; preds = %343, %629
   br i1 %123, label %665, label %653
@@ -6239,7 +6113,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   br i1 %667, label %669, label %668
 
 668:                                              ; preds = %665
-  call void @hsh_Delete(ptr noundef %120) #18
+  call void @hsh_Delete(ptr noundef %120) #17
   br label %669
 
 669:                                              ; preds = %668, %665
@@ -6278,11 +6152,11 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   %690 = getelementptr i8, ptr %689, i64 8
   %691 = load ptr, ptr %690, align 8
   %692 = load ptr, ptr %691, align 8
-  call void @term_Delete(ptr noundef %692) #18
+  call void @term_Delete(ptr noundef %692) #17
   %693 = getelementptr i8, ptr %691, i64 8
   %694 = load ptr, ptr %693, align 8
   %695 = load ptr, ptr %3, align 8
-  %696 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %696 = call ptr @memory_Malloc(i32 noundef 16) #17
   %697 = getelementptr inbounds %struct.LIST_HELP, ptr %696, i64 0, i32 1
   store ptr %694, ptr %697, align 8
   store ptr %695, ptr %696, align 8
@@ -6300,7 +6174,7 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store ptr %691, ptr %705, align 8
   %706 = load ptr, ptr %689, align 8
   %707 = icmp eq ptr %706, null
-  br i1 %707, label %708, label %688, !llvm.loop !112
+  br i1 %707, label %708, label %688, !llvm.loop !109
 
 708:                                              ; preds = %688, %708
   %709 = phi ptr [ %710, %708 ], [ %213, %688 ]
@@ -6373,18 +6247,18 @@ define dso_local ptr @cnf_Flotter(ptr noundef %0, ptr noundef %1, ptr nocapture 
   store i32 0, ptr @symbol_ACTSKOLEMCINDEX, align 4
   store i32 0, ptr @symbol_ACTSKOLEMPINDEX, align 4
   store i32 0, ptr @symbol_ACTSKOLEMAINDEX, align 4
-  call void @prfs_Delete(ptr noundef %15) #18
+  call void @prfs_Delete(ptr noundef %15) #17
   br label %755
 
 754:                                              ; preds = %750
-  call void @prfs_DeleteDocProof(ptr noundef %15) #18
+  call void @prfs_DeleteDocProof(ptr noundef %15) #17
   br label %755
 
 755:                                              ; preds = %754, %753
   %756 = phi ptr [ %15, %754 ], [ null, %753 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %13) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #17
   ret ptr %756
 }
 
@@ -6400,7 +6274,7 @@ declare void @fol_NormalizeVars(ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @cnf_PropagateSubstEquations(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = tail call ptr @fol_GetSubstEquations(ptr noundef %0) #18
+  %2 = tail call ptr @fol_GetSubstEquations(ptr noundef %0) #17
   %3 = icmp eq ptr %2, null
   br i1 %3, label %77, label %4
 
@@ -6414,14 +6288,14 @@ define dso_local i32 @cnf_PropagateSubstEquations(ptr noundef %0) local_unnamed_
   %11 = getelementptr i8, ptr %10, i64 8
   %12 = load ptr, ptr %11, align 8
   %13 = load i32, ptr %12, align 8
-  %14 = icmp slt i32 %13, 1
-  br i1 %14, label %33, label %15
+  %14 = icmp sgt i32 %13, 0
+  br i1 %14, label %15, label %33
 
 15:                                               ; preds = %4
   %16 = load ptr, ptr %10, align 8
   %17 = getelementptr i8, ptr %16, i64 8
   %18 = load ptr, ptr %17, align 8
-  %19 = tail call i32 @term_ContainsVariable(ptr noundef %18, i32 noundef %13) #18
+  %19 = tail call i32 @term_ContainsVariable(ptr noundef %18, i32 noundef %13) #17
   %20 = icmp eq i32 %19, 0
   br i1 %20, label %21, label %33
 
@@ -6430,12 +6304,12 @@ define dso_local i32 @cnf_PropagateSubstEquations(ptr noundef %0) local_unnamed_
   %23 = getelementptr i8, ptr %22, i64 8
   %24 = load ptr, ptr %23, align 8
   %25 = load i32, ptr %24, align 8
-  %26 = tail call ptr @fol_GetBindingQuantifier(ptr noundef nonnull %8, i32 noundef %25) #18
+  %26 = tail call ptr @fol_GetBindingQuantifier(ptr noundef nonnull %8, i32 noundef %25) #17
   %27 = load ptr, ptr %9, align 8
   %28 = load ptr, ptr %27, align 8
   %29 = getelementptr i8, ptr %28, i64 8
   %30 = load ptr, ptr %29, align 8
-  %31 = tail call i32 @fol_PolarCheck(ptr noundef nonnull %8, ptr noundef %26) #18
+  %31 = tail call i32 @fol_PolarCheck(ptr noundef nonnull %8, ptr noundef %26) #17
   %32 = icmp eq i32 %31, 0
   br i1 %32, label %33, label %57
 
@@ -6445,13 +6319,13 @@ define dso_local i32 @cnf_PropagateSubstEquations(ptr noundef %0) local_unnamed_
   %36 = getelementptr i8, ptr %35, i64 8
   %37 = load ptr, ptr %36, align 8
   %38 = load i32, ptr %37, align 8
-  %39 = icmp slt i32 %38, 1
-  br i1 %39, label %65, label %40
+  %39 = icmp sgt i32 %38, 0
+  br i1 %39, label %40, label %65
 
 40:                                               ; preds = %33
   %41 = getelementptr i8, ptr %34, i64 8
   %42 = load ptr, ptr %41, align 8
-  %43 = tail call i32 @term_ContainsVariable(ptr noundef %42, i32 noundef %38) #18
+  %43 = tail call i32 @term_ContainsVariable(ptr noundef %42, i32 noundef %38) #17
   %44 = icmp eq i32 %43, 0
   br i1 %44, label %45, label %65
 
@@ -6461,11 +6335,11 @@ define dso_local i32 @cnf_PropagateSubstEquations(ptr noundef %0) local_unnamed_
   %48 = getelementptr i8, ptr %47, i64 8
   %49 = load ptr, ptr %48, align 8
   %50 = load i32, ptr %49, align 8
-  %51 = tail call ptr @fol_GetBindingQuantifier(ptr noundef nonnull %8, i32 noundef %50) #18
+  %51 = tail call ptr @fol_GetBindingQuantifier(ptr noundef nonnull %8, i32 noundef %50) #17
   %52 = load ptr, ptr %9, align 8
   %53 = getelementptr i8, ptr %52, i64 8
   %54 = load ptr, ptr %53, align 8
-  %55 = tail call i32 @fol_PolarCheck(ptr noundef nonnull %8, ptr noundef %51) #18
+  %55 = tail call i32 @fol_PolarCheck(ptr noundef nonnull %8, ptr noundef %51) #17
   %56 = icmp eq i32 %55, 0
   br i1 %56, label %65, label %57
 
@@ -6473,14 +6347,14 @@ define dso_local i32 @cnf_PropagateSubstEquations(ptr noundef %0) local_unnamed_
   %58 = phi i32 [ %50, %45 ], [ %25, %21 ]
   %59 = phi ptr [ %54, %45 ], [ %30, %21 ]
   %60 = phi ptr [ %51, %45 ], [ %26, %21 ]
-  tail call void @fol_DeleteQuantifierVariable(ptr noundef %60, i32 noundef %58) #18
-  tail call void @term_ReplaceVariable(ptr noundef %0, i32 noundef %58, ptr noundef %59) #18
-  tail call void @term_AddFatherLinks(ptr noundef %0) #18
+  tail call void @fol_DeleteQuantifierVariable(ptr noundef %60, i32 noundef %58) #17
+  tail call void @term_ReplaceVariable(ptr noundef %0, i32 noundef %58, ptr noundef %59) #17
+  tail call void @term_AddFatherLinks(ptr noundef %0) #17
   %61 = load i32, ptr %60, align 8
   %62 = load i32, ptr @fol_EQUALITY, align 4
   %63 = icmp eq i32 %61, %62
   %64 = select i1 %63, ptr %60, ptr %8
-  tail call void @fol_SetTrue(ptr noundef nonnull %64) #18
+  tail call void @fol_SetTrue(ptr noundef nonnull %64) #17
   br label %65
 
 65:                                               ; preds = %57, %33, %40, %45
@@ -6498,7 +6372,7 @@ define dso_local i32 @cnf_PropagateSubstEquations(ptr noundef %0) local_unnamed_
   %75 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %6, ptr %75, align 8
   %76 = icmp eq ptr %67, null
-  br i1 %76, label %77, label %4, !llvm.loop !113
+  br i1 %76, label %77, label %4, !llvm.loop !110
 
 77:                                               ; preds = %65, %1
   %78 = phi i32 [ 0, %1 ], [ %66, %65 ]
@@ -6536,11 +6410,11 @@ define internal fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef returned 
   %19 = load i32, ptr @fol_NOT, align 4
   %20 = getelementptr i8, ptr %18, i64 8
   %21 = load ptr, ptr %20, align 8
-  %22 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %22 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %23 = getelementptr inbounds %struct.LIST_HELP, ptr %22, i64 0, i32 1
   store ptr %21, ptr %23, align 8
   store ptr null, ptr %22, align 8
-  %24 = tail call ptr @term_Create(i32 noundef %19, ptr noundef nonnull %22) #18
+  %24 = tail call ptr @term_Create(i32 noundef %19, ptr noundef nonnull %22) #17
   store ptr %24, ptr %20, align 8
   br label %240
 
@@ -6736,7 +6610,7 @@ define internal fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef returned 
   store ptr %154, ptr %157, align 8
   %158 = load ptr, ptr %149, align 8
   %159 = icmp eq ptr %158, null
-  br i1 %159, label %160, label %147, !llvm.loop !114
+  br i1 %159, label %160, label %147, !llvm.loop !111
 
 160:                                              ; preds = %147
   %161 = trunc i64 %155 to i32
@@ -6745,26 +6619,26 @@ define internal fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef returned 
 162:                                              ; preds = %160, %138, %134, %113, %84, %67
   %163 = phi i32 [ %63, %134 ], [ %79, %67 ], [ %131, %113 ], [ %108, %84 ], [ %63, %138 ], [ %161, %160 ]
   %164 = icmp eq i32 %8, %163
-  br i1 %164, label %165, label %37, !llvm.loop !115
+  br i1 %164, label %165, label %37, !llvm.loop !112
 
 165:                                              ; preds = %162
   store i32 %8, ptr @vec_MAX, align 4
   %166 = load ptr, ptr @stdout, align 8
   %167 = tail call i32 @fflush(ptr noundef %166)
   %168 = load ptr, ptr @stderr, align 8
-  %169 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %168, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3, i32 noundef 176) #19
-  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.21) #18
+  %169 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %168, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3, i32 noundef 176) #18
+  tail call void (ptr, ...) @misc_ErrorReport(ptr noundef nonnull @.str.21) #17
   %170 = load ptr, ptr @stderr, align 8
-  %171 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 132, i64 1, ptr %170) #19
+  %171 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 132, i64 1, ptr %170) #18
   %172 = load ptr, ptr @stderr, align 8
-  %173 = tail call i64 @fwrite(ptr nonnull @.str.20, i64 2, i64 1, ptr %172) #19
+  %173 = tail call i64 @fwrite(ptr nonnull @.str.20, i64 2, i64 1, ptr %172) #18
   %174 = load ptr, ptr @stderr, align 8
   %175 = tail call i32 @fflush(ptr noundef %174)
   %176 = load ptr, ptr @stdout, align 8
   %177 = tail call i32 @fflush(ptr noundef %176)
   %178 = load ptr, ptr @stderr, align 8
   %179 = tail call i32 @fflush(ptr noundef %178)
-  tail call void @abort() #20
+  tail call void @abort() #19
   unreachable
 
 180:                                              ; preds = %37
@@ -6778,19 +6652,19 @@ define internal fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef returned 
   %187 = load ptr, ptr %184, align 8
   %188 = getelementptr i8, ptr %187, i64 8
   %189 = load ptr, ptr %188, align 8
-  %190 = tail call ptr @term_Copy(ptr noundef %186) #18
-  %191 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %190 = tail call ptr @term_Copy(ptr noundef %186) #17
+  %191 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %192 = getelementptr inbounds %struct.LIST_HELP, ptr %191, i64 0, i32 1
   store ptr %190, ptr %192, align 8
   store ptr null, ptr %191, align 8
-  %193 = tail call ptr @term_Create(i32 noundef %32, ptr noundef nonnull %191) #18
+  %193 = tail call ptr @term_Create(i32 noundef %32, ptr noundef nonnull %191) #17
   %194 = load i32, ptr @fol_NOT, align 4
-  %195 = tail call ptr @term_Copy(ptr noundef %189) #18
-  %196 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %195 = tail call ptr @term_Copy(ptr noundef %189) #17
+  %196 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %197 = getelementptr inbounds %struct.LIST_HELP, ptr %196, i64 0, i32 1
   store ptr %195, ptr %197, align 8
   store ptr null, ptr %196, align 8
-  %198 = tail call ptr @term_Create(i32 noundef %194, ptr noundef nonnull %196) #18
+  %198 = tail call ptr @term_Create(i32 noundef %194, ptr noundef nonnull %196) #17
   %199 = icmp ult i32 %182, 2
   br i1 %199, label %200, label %219
 
@@ -6799,28 +6673,28 @@ define internal fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef returned 
   store i32 %201, ptr %11, align 8
   %202 = load ptr, ptr %183, align 8
   %203 = load i32, ptr @fol_OR, align 4
-  %204 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %204 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %205 = getelementptr inbounds %struct.LIST_HELP, ptr %204, i64 0, i32 1
   store ptr %189, ptr %205, align 8
   store ptr null, ptr %204, align 8
-  %206 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %206 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %207 = getelementptr inbounds %struct.LIST_HELP, ptr %206, i64 0, i32 1
   store ptr %193, ptr %207, align 8
   store ptr %204, ptr %206, align 8
-  %208 = tail call ptr @term_Create(i32 noundef %203, ptr noundef nonnull %206) #18
+  %208 = tail call ptr @term_Create(i32 noundef %203, ptr noundef nonnull %206) #17
   %209 = getelementptr inbounds %struct.LIST_HELP, ptr %202, i64 0, i32 1
   store ptr %208, ptr %209, align 8
   %210 = load ptr, ptr %183, align 8
   %211 = load i32, ptr @fol_OR, align 4
-  %212 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %212 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %213 = getelementptr inbounds %struct.LIST_HELP, ptr %212, i64 0, i32 1
   store ptr %186, ptr %213, align 8
   store ptr null, ptr %212, align 8
-  %214 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %214 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %215 = getelementptr inbounds %struct.LIST_HELP, ptr %214, i64 0, i32 1
   store ptr %198, ptr %215, align 8
   store ptr %212, ptr %214, align 8
-  %216 = tail call ptr @term_Create(i32 noundef %211, ptr noundef nonnull %214) #18
+  %216 = tail call ptr @term_Create(i32 noundef %211, ptr noundef nonnull %214) #17
   %217 = load ptr, ptr %210, align 8
   %218 = getelementptr inbounds %struct.LIST_HELP, ptr %217, i64 0, i32 1
   store ptr %216, ptr %218, align 8
@@ -6835,28 +6709,28 @@ define internal fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef returned 
   store i32 %222, ptr %11, align 8
   %223 = load ptr, ptr %183, align 8
   %224 = load i32, ptr @fol_AND, align 4
-  %225 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %225 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %226 = getelementptr inbounds %struct.LIST_HELP, ptr %225, i64 0, i32 1
   store ptr %198, ptr %226, align 8
   store ptr null, ptr %225, align 8
-  %227 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %227 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %228 = getelementptr inbounds %struct.LIST_HELP, ptr %227, i64 0, i32 1
   store ptr %193, ptr %228, align 8
   store ptr %225, ptr %227, align 8
-  %229 = tail call ptr @term_Create(i32 noundef %224, ptr noundef nonnull %227) #18
+  %229 = tail call ptr @term_Create(i32 noundef %224, ptr noundef nonnull %227) #17
   %230 = getelementptr inbounds %struct.LIST_HELP, ptr %223, i64 0, i32 1
   store ptr %229, ptr %230, align 8
   %231 = load ptr, ptr %183, align 8
   %232 = load i32, ptr @fol_AND, align 4
-  %233 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %233 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %234 = getelementptr inbounds %struct.LIST_HELP, ptr %233, i64 0, i32 1
   store ptr %189, ptr %234, align 8
   store ptr null, ptr %233, align 8
-  %235 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %235 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %236 = getelementptr inbounds %struct.LIST_HELP, ptr %235, i64 0, i32 1
   store ptr %186, ptr %236, align 8
   store ptr %233, ptr %235, align 8
-  %237 = tail call ptr @term_Create(i32 noundef %232, ptr noundef nonnull %235) #18
+  %237 = tail call ptr @term_Create(i32 noundef %232, ptr noundef nonnull %235) #17
   %238 = load ptr, ptr %231, align 8
   %239 = getelementptr inbounds %struct.LIST_HELP, ptr %238, i64 0, i32 1
   store ptr %237, ptr %239, align 8
@@ -6885,7 +6759,7 @@ define internal fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef returned 
   store ptr %251, ptr %254, align 8
   %255 = load ptr, ptr %249, align 8
   %256 = icmp eq ptr %255, null
-  br i1 %256, label %257, label %247, !llvm.loop !116
+  br i1 %256, label %257, label %247, !llvm.loop !113
 
 257:                                              ; preds = %247
   %258 = trunc i64 %252 to i32
@@ -6894,7 +6768,7 @@ define internal fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef returned 
 259:                                              ; preds = %240, %257
   %260 = phi i32 [ %258, %257 ], [ %244, %240 ]
   %261 = icmp eq i32 %2, %260
-  br i1 %261, label %262, label %6, !llvm.loop !117
+  br i1 %261, label %262, label %6, !llvm.loop !114
 
 262:                                              ; preds = %259
   store i32 %2, ptr @vec_MAX, align 4
@@ -6909,7 +6783,7 @@ define internal fastcc ptr @cnf_AntiPrenex(ptr noundef returned %0) unnamed_addr
   %5 = load i32, ptr @fol_EXIST, align 4
   %6 = icmp eq i32 %5, %2
   %7 = select i1 %4, i1 true, i1 %6
-  br i1 %7, label %8, label %135
+  br i1 %7, label %8, label %132
 
 8:                                                ; preds = %1
   %9 = getelementptr i8, ptr %0, i64 16
@@ -6918,219 +6792,210 @@ define internal fastcc ptr @cnf_AntiPrenex(ptr noundef returned %0) unnamed_addr
   %12 = getelementptr i8, ptr %11, i64 8
   %13 = load ptr, ptr %12, align 8
   %14 = load i32, ptr %13, align 8
-  %15 = icmp sgt i32 %14, -1
-  br i1 %15, label %24, label %16
-
-16:                                               ; preds = %8
-  %17 = sub nsw i32 0, %14
-  %18 = load i32, ptr @symbol_TYPEMASK, align 4
-  %19 = and i32 %18, %17
-  %20 = icmp eq i32 %19, 2
+  %15 = icmp slt i32 %14, 0
+  %16 = sub nsw i32 0, %14
+  %17 = load i32, ptr @symbol_TYPEMASK, align 4
+  %18 = and i32 %17, %16
+  %19 = icmp eq i32 %18, 2
+  %20 = select i1 %15, i1 %19, i1 false
   %21 = load i32, ptr @fol_NOT, align 4
   %22 = icmp eq i32 %14, %21
   %23 = select i1 %20, i1 true, i1 %22
-  br i1 %23, label %156, label %27
+  br i1 %23, label %153, label %24
 
 24:                                               ; preds = %8
-  %25 = load i32, ptr @fol_NOT, align 4
-  %26 = icmp eq i32 %14, %25
-  br i1 %26, label %156, label %27
+  %25 = load i32, ptr @fol_AND, align 4
+  %26 = load i32, ptr @fol_OR, align 4
+  %27 = select i1 %4, i32 %25, i32 %26
+  %28 = icmp eq i32 %3, %14
+  %29 = icmp eq i32 %5, %14
+  %30 = select i1 %28, i1 true, i1 %29
+  br i1 %30, label %31, label %34
 
-27:                                               ; preds = %16, %24
-  %28 = load i32, ptr @fol_AND, align 4
-  %29 = load i32, ptr @fol_OR, align 4
-  %30 = select i1 %4, i32 %28, i32 %29
-  %31 = icmp ne i32 %3, %14
-  %32 = icmp ne i32 %5, %14
-  %33 = select i1 %31, i1 %32, i1 false
-  br i1 %33, label %37, label %34
+31:                                               ; preds = %24
+  %32 = tail call fastcc ptr @cnf_AntiPrenex(ptr noundef nonnull %13)
+  %33 = load i32, ptr %13, align 8
+  br label %34
 
-34:                                               ; preds = %27
-  %35 = tail call fastcc ptr @cnf_AntiPrenex(ptr noundef nonnull %13)
-  %36 = load i32, ptr %13, align 8
-  br label %37
+34:                                               ; preds = %31, %24
+  %35 = phi i32 [ %33, %31 ], [ %14, %24 ]
+  %36 = icmp eq i32 %35, %27
+  br i1 %36, label %37, label %116
 
-37:                                               ; preds = %34, %27
-  %38 = phi i32 [ %36, %34 ], [ %14, %27 ]
-  %39 = icmp eq i32 %38, %30
-  br i1 %39, label %40, label %119
-
-40:                                               ; preds = %37
-  %41 = load ptr, ptr %9, align 8
-  %42 = getelementptr i8, ptr %41, i64 8
-  %43 = load ptr, ptr %42, align 8
-  %44 = getelementptr i8, ptr %43, i64 16
+37:                                               ; preds = %34
+  %38 = load ptr, ptr %9, align 8
+  %39 = getelementptr i8, ptr %38, i64 8
+  %40 = load ptr, ptr %39, align 8
+  %41 = getelementptr i8, ptr %40, i64 16
+  %42 = load ptr, ptr %41, align 8
+  %43 = tail call ptr @cnf_Flatten(ptr noundef nonnull %13, i32 noundef %27)
+  %44 = getelementptr i8, ptr %13, i64 16
   %45 = load ptr, ptr %44, align 8
-  %46 = tail call ptr @cnf_Flatten(ptr noundef nonnull %13, i32 noundef %30)
-  %47 = getelementptr i8, ptr %13, i64 16
-  %48 = load ptr, ptr %47, align 8
-  %49 = icmp eq ptr %48, null
-  br i1 %49, label %82, label %50
+  %46 = icmp eq ptr %45, null
+  br i1 %46, label %79, label %47
 
-50:                                               ; preds = %40, %79
-  %51 = phi ptr [ %80, %79 ], [ %48, %40 ]
-  %52 = getelementptr i8, ptr %51, i64 8
-  %53 = load ptr, ptr %52, align 8
-  %54 = tail call ptr @fol_FreeVariables(ptr noundef %53) #18
-  %55 = tail call ptr @list_NIntersect(ptr noundef %54, ptr noundef %45, ptr noundef nonnull @term_Equal) #18
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %79, label %57
+47:                                               ; preds = %37, %76
+  %48 = phi ptr [ %77, %76 ], [ %45, %37 ]
+  %49 = getelementptr i8, ptr %48, i64 8
+  %50 = load ptr, ptr %49, align 8
+  %51 = tail call ptr @fol_FreeVariables(ptr noundef %50) #17
+  %52 = tail call ptr @list_NIntersect(ptr noundef %51, ptr noundef %42, ptr noundef nonnull @term_Equal) #17
+  %53 = icmp eq ptr %52, null
+  br i1 %53, label %76, label %54
 
-57:                                               ; preds = %50
-  %58 = load i32, ptr %53, align 8
-  %59 = icmp eq i32 %2, %58
-  tail call void @list_NMapCar(ptr noundef nonnull %55, ptr noundef nonnull @term_Copy) #18
-  br i1 %59, label %60, label %75
+54:                                               ; preds = %47
+  %55 = load i32, ptr %50, align 8
+  %56 = icmp eq i32 %2, %55
+  tail call void @list_NMapCar(ptr noundef nonnull %52, ptr noundef nonnull @term_Copy) #17
+  br i1 %56, label %57, label %72
 
-60:                                               ; preds = %57
-  %61 = getelementptr i8, ptr %53, i64 16
-  %62 = load ptr, ptr %61, align 8
-  %63 = getelementptr i8, ptr %62, i64 8
-  %64 = load ptr, ptr %63, align 8
-  %65 = getelementptr i8, ptr %64, i64 16
-  %66 = load ptr, ptr %65, align 8
-  %67 = icmp eq ptr %66, null
-  br i1 %67, label %73, label %68
+57:                                               ; preds = %54
+  %58 = getelementptr i8, ptr %50, i64 16
+  %59 = load ptr, ptr %58, align 8
+  %60 = getelementptr i8, ptr %59, i64 8
+  %61 = load ptr, ptr %60, align 8
+  %62 = getelementptr i8, ptr %61, i64 16
+  %63 = load ptr, ptr %62, align 8
+  %64 = icmp eq ptr %63, null
+  br i1 %64, label %70, label %65
 
-68:                                               ; preds = %60, %68
-  %69 = phi ptr [ %70, %68 ], [ %66, %60 ]
-  %70 = load ptr, ptr %69, align 8
-  %71 = icmp eq ptr %70, null
-  br i1 %71, label %72, label %68, !llvm.loop !20
+65:                                               ; preds = %57, %65
+  %66 = phi ptr [ %67, %65 ], [ %63, %57 ]
+  %67 = load ptr, ptr %66, align 8
+  %68 = icmp eq ptr %67, null
+  br i1 %68, label %69, label %65, !llvm.loop !20
 
-72:                                               ; preds = %68
-  store ptr %55, ptr %69, align 8
-  br label %73
+69:                                               ; preds = %65
+  store ptr %52, ptr %66, align 8
+  br label %70
 
-73:                                               ; preds = %60, %72
-  %74 = phi ptr [ %66, %72 ], [ %55, %60 ]
-  store ptr %74, ptr %65, align 8
-  br label %79
+70:                                               ; preds = %57, %69
+  %71 = phi ptr [ %63, %69 ], [ %52, %57 ]
+  store ptr %71, ptr %62, align 8
+  br label %76
 
-75:                                               ; preds = %57
-  %76 = tail call ptr @memory_Malloc(i32 noundef 16) #18
-  %77 = getelementptr inbounds %struct.LIST_HELP, ptr %76, i64 0, i32 1
-  store ptr %53, ptr %77, align 8
-  store ptr null, ptr %76, align 8
-  %78 = tail call ptr @fol_CreateQuantifier(i32 noundef %2, ptr noundef nonnull %55, ptr noundef nonnull %76) #18
-  store ptr %78, ptr %52, align 8
-  br label %79
+72:                                               ; preds = %54
+  %73 = tail call ptr @memory_Malloc(i32 noundef 16) #17
+  %74 = getelementptr inbounds %struct.LIST_HELP, ptr %73, i64 0, i32 1
+  store ptr %50, ptr %74, align 8
+  store ptr null, ptr %73, align 8
+  %75 = tail call ptr @fol_CreateQuantifier(i32 noundef %2, ptr noundef nonnull %52, ptr noundef nonnull %73) #17
+  store ptr %75, ptr %49, align 8
+  br label %76
 
-79:                                               ; preds = %50, %75, %73
-  %80 = load ptr, ptr %51, align 8
-  %81 = icmp eq ptr %80, null
-  br i1 %81, label %82, label %50, !llvm.loop !118
+76:                                               ; preds = %47, %72, %70
+  %77 = load ptr, ptr %48, align 8
+  %78 = icmp eq ptr %77, null
+  br i1 %78, label %79, label %47, !llvm.loop !115
 
-82:                                               ; preds = %79, %40
+79:                                               ; preds = %76, %37
+  %80 = load ptr, ptr %9, align 8
+  %81 = getelementptr i8, ptr %80, i64 8
+  %82 = load ptr, ptr %81, align 8
+  tail call void @term_Delete(ptr noundef %82) #17
   %83 = load ptr, ptr %9, align 8
-  %84 = getelementptr i8, ptr %83, i64 8
-  %85 = load ptr, ptr %84, align 8
-  tail call void @term_Delete(ptr noundef %85) #18
-  %86 = load ptr, ptr %9, align 8
-  %87 = icmp eq ptr %86, null
-  br i1 %87, label %100, label %88
+  %84 = icmp eq ptr %83, null
+  br i1 %84, label %97, label %85
 
-88:                                               ; preds = %82, %88
-  %89 = phi ptr [ %90, %88 ], [ %86, %82 ]
-  %90 = load ptr, ptr %89, align 8
-  %91 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %92 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %91, i64 0, i32 4
-  %93 = load i32, ptr %92, align 8
-  %94 = sext i32 %93 to i64
-  %95 = load i64, ptr @memory_FREEDBYTES, align 8
-  %96 = add i64 %95, %94
-  store i64 %96, ptr @memory_FREEDBYTES, align 8
-  %97 = load ptr, ptr %91, align 8
-  store ptr %97, ptr %89, align 8
-  %98 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %89, ptr %98, align 8
-  %99 = icmp eq ptr %90, null
-  br i1 %99, label %100, label %88, !llvm.loop !13
+85:                                               ; preds = %79, %85
+  %86 = phi ptr [ %87, %85 ], [ %83, %79 ]
+  %87 = load ptr, ptr %86, align 8
+  %88 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %89 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %88, i64 0, i32 4
+  %90 = load i32, ptr %89, align 8
+  %91 = sext i32 %90 to i64
+  %92 = load i64, ptr @memory_FREEDBYTES, align 8
+  %93 = add i64 %92, %91
+  store i64 %93, ptr @memory_FREEDBYTES, align 8
+  %94 = load ptr, ptr %88, align 8
+  store ptr %94, ptr %86, align 8
+  %95 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %86, ptr %95, align 8
+  %96 = icmp eq ptr %87, null
+  br i1 %96, label %97, label %85, !llvm.loop !13
 
-100:                                              ; preds = %88, %82
-  store i32 %30, ptr %0, align 8
-  %101 = load ptr, ptr %47, align 8
-  store ptr %101, ptr %9, align 8
-  %102 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  %103 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %102, i64 0, i32 4
-  %104 = load i32, ptr %103, align 8
-  %105 = sext i32 %104 to i64
-  %106 = load i64, ptr @memory_FREEDBYTES, align 8
-  %107 = add i64 %106, %105
-  store i64 %107, ptr @memory_FREEDBYTES, align 8
-  %108 = load ptr, ptr %102, align 8
-  store ptr %108, ptr %13, align 8
-  %109 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  store ptr %13, ptr %109, align 8
-  %110 = load ptr, ptr %9, align 8
-  %111 = icmp eq ptr %110, null
-  br i1 %111, label %156, label %112
+97:                                               ; preds = %85, %79
+  store i32 %27, ptr %0, align 8
+  %98 = load ptr, ptr %44, align 8
+  store ptr %98, ptr %9, align 8
+  %99 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  %100 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %99, i64 0, i32 4
+  %101 = load i32, ptr %100, align 8
+  %102 = sext i32 %101 to i64
+  %103 = load i64, ptr @memory_FREEDBYTES, align 8
+  %104 = add i64 %103, %102
+  store i64 %104, ptr @memory_FREEDBYTES, align 8
+  %105 = load ptr, ptr %99, align 8
+  store ptr %105, ptr %13, align 8
+  %106 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  store ptr %13, ptr %106, align 8
+  %107 = load ptr, ptr %9, align 8
+  %108 = icmp eq ptr %107, null
+  br i1 %108, label %153, label %109
 
-112:                                              ; preds = %100, %112
-  %113 = phi ptr [ %117, %112 ], [ %110, %100 ]
-  %114 = getelementptr i8, ptr %113, i64 8
-  %115 = load ptr, ptr %114, align 8
-  %116 = tail call fastcc ptr @cnf_AntiPrenex(ptr noundef %115)
-  store ptr %115, ptr %114, align 8
-  %117 = load ptr, ptr %113, align 8
-  %118 = icmp eq ptr %117, null
-  br i1 %118, label %156, label %112, !llvm.loop !119
+109:                                              ; preds = %97, %109
+  %110 = phi ptr [ %114, %109 ], [ %107, %97 ]
+  %111 = getelementptr i8, ptr %110, i64 8
+  %112 = load ptr, ptr %111, align 8
+  %113 = tail call fastcc ptr @cnf_AntiPrenex(ptr noundef %112)
+  store ptr %112, ptr %111, align 8
+  %114 = load ptr, ptr %110, align 8
+  %115 = icmp eq ptr %114, null
+  br i1 %115, label %153, label %109, !llvm.loop !116
 
-119:                                              ; preds = %37
-  %120 = load i32, ptr @fol_ALL, align 4
-  %121 = icmp ne i32 %120, %38
-  %122 = load i32, ptr @fol_EXIST, align 4
-  %123 = icmp ne i32 %122, %38
-  %124 = select i1 %121, i1 %123, i1 false
-  br i1 %124, label %125, label %156
+116:                                              ; preds = %34
+  %117 = load i32, ptr @fol_ALL, align 4
+  %118 = icmp eq i32 %117, %35
+  %119 = load i32, ptr @fol_EXIST, align 4
+  %120 = icmp eq i32 %119, %35
+  %121 = select i1 %118, i1 true, i1 %120
+  br i1 %121, label %153, label %122
 
-125:                                              ; preds = %119
+122:                                              ; preds = %116
   tail call fastcc void @cnf_DistrQuantorNoVarSub(ptr noundef nonnull %0)
-  %126 = load ptr, ptr %9, align 8
-  %127 = icmp eq ptr %126, null
-  br i1 %127, label %156, label %128
+  %123 = load ptr, ptr %9, align 8
+  %124 = icmp eq ptr %123, null
+  br i1 %124, label %153, label %125
 
-128:                                              ; preds = %125, %128
-  %129 = phi ptr [ %133, %128 ], [ %126, %125 ]
-  %130 = getelementptr i8, ptr %129, i64 8
-  %131 = load ptr, ptr %130, align 8
-  %132 = tail call fastcc ptr @cnf_AntiPrenex(ptr noundef %131)
-  %133 = load ptr, ptr %129, align 8
-  %134 = icmp eq ptr %133, null
-  br i1 %134, label %156, label %128, !llvm.loop !120
+125:                                              ; preds = %122, %125
+  %126 = phi ptr [ %130, %125 ], [ %123, %122 ]
+  %127 = getelementptr i8, ptr %126, i64 8
+  %128 = load ptr, ptr %127, align 8
+  %129 = tail call fastcc ptr @cnf_AntiPrenex(ptr noundef %128)
+  %130 = load ptr, ptr %126, align 8
+  %131 = icmp eq ptr %130, null
+  br i1 %131, label %153, label %125, !llvm.loop !117
 
-135:                                              ; preds = %1
-  %136 = load i32, ptr @fol_NOT, align 4
-  %137 = icmp eq i32 %2, %136
-  br i1 %137, label %156, label %138
+132:                                              ; preds = %1
+  %133 = load i32, ptr @fol_NOT, align 4
+  %134 = icmp eq i32 %2, %133
+  br i1 %134, label %153, label %135
 
-138:                                              ; preds = %135
-  %139 = icmp sgt i32 %2, -1
-  br i1 %139, label %145, label %140
+135:                                              ; preds = %132
+  %136 = icmp sgt i32 %2, -1
+  %137 = sub nsw i32 0, %2
+  %138 = load i32, ptr @symbol_TYPEMASK, align 4
+  %139 = and i32 %138, %137
+  %140 = icmp ne i32 %139, 2
+  %141 = select i1 %136, i1 true, i1 %140
+  br i1 %141, label %142, label %153
 
-140:                                              ; preds = %138
-  %141 = sub nsw i32 0, %2
-  %142 = load i32, ptr @symbol_TYPEMASK, align 4
-  %143 = and i32 %142, %141
-  %144 = icmp eq i32 %143, 2
-  br i1 %144, label %156, label %145
+142:                                              ; preds = %135
+  %143 = getelementptr i8, ptr %0, i64 16
+  %144 = load ptr, ptr %143, align 8
+  %145 = icmp eq ptr %144, null
+  br i1 %145, label %153, label %146
 
-145:                                              ; preds = %138, %140
-  %146 = getelementptr i8, ptr %0, i64 16
-  %147 = load ptr, ptr %146, align 8
-  %148 = icmp eq ptr %147, null
-  br i1 %148, label %156, label %149
+146:                                              ; preds = %142, %146
+  %147 = phi ptr [ %151, %146 ], [ %144, %142 ]
+  %148 = getelementptr i8, ptr %147, i64 8
+  %149 = load ptr, ptr %148, align 8
+  %150 = tail call fastcc ptr @cnf_AntiPrenex(ptr noundef %149)
+  %151 = load ptr, ptr %147, align 8
+  %152 = icmp eq ptr %151, null
+  br i1 %152, label %153, label %146, !llvm.loop !118
 
-149:                                              ; preds = %145, %149
-  %150 = phi ptr [ %154, %149 ], [ %147, %145 ]
-  %151 = getelementptr i8, ptr %150, i64 8
-  %152 = load ptr, ptr %151, align 8
-  %153 = tail call fastcc ptr @cnf_AntiPrenex(ptr noundef %152)
-  %154 = load ptr, ptr %150, align 8
-  %155 = icmp eq ptr %154, null
-  br i1 %155, label %156, label %149, !llvm.loop !121
-
-156:                                              ; preds = %149, %128, %112, %145, %125, %100, %16, %24, %119, %135, %140
+153:                                              ; preds = %146, %125, %109, %142, %122, %97, %8, %116, %132, %135
   ret ptr %0
 }
 
@@ -7166,7 +7031,7 @@ define internal fastcc ptr @cnf_SkolemFormula(ptr noundef returned %0, ptr nound
   %15 = load ptr, ptr %11, align 8
   %16 = getelementptr i8, ptr %15, i64 8
   %17 = load ptr, ptr %16, align 8
-  tail call void @term_Delete(ptr noundef %17) #18
+  tail call void @term_Delete(ptr noundef %17) #17
   %18 = load ptr, ptr %11, align 8
   %19 = load ptr, ptr %18, align 8
   %20 = getelementptr i8, ptr %19, i64 8
@@ -7228,8 +7093,8 @@ define internal fastcc ptr @cnf_SkolemFormula(ptr noundef returned %0, ptr nound
   br i1 %60, label %12, label %138
 
 61:                                               ; preds = %12
-  %62 = tail call ptr @fol_FreeVariables(ptr noundef nonnull %0) #18
-  %63 = tail call i32 @list_Length(ptr noundef %62) #18
+  %62 = tail call ptr @fol_FreeVariables(ptr noundef nonnull %0) #17
+  %63 = tail call i32 @list_Length(ptr noundef %62) #17
   %64 = load ptr, ptr %11, align 8
   %65 = getelementptr i8, ptr %64, i64 8
   %66 = load ptr, ptr %65, align 8
@@ -7240,16 +7105,16 @@ define internal fastcc ptr @cnf_SkolemFormula(ptr noundef returned %0, ptr nound
 
 70:                                               ; preds = %61, %70
   %71 = phi ptr [ %94, %70 ], [ %68, %61 ]
-  %72 = tail call i32 @symbol_CreateSkolemFunction(i32 noundef %63, ptr noundef %1) #18
+  %72 = tail call i32 @symbol_CreateSkolemFunction(i32 noundef %63, ptr noundef %1) #17
   %73 = sext i32 %72 to i64
   %74 = inttoptr i64 %73 to ptr
   %75 = load ptr, ptr %2, align 8
-  %76 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %76 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %77 = getelementptr inbounds %struct.LIST_HELP, ptr %76, i64 0, i32 1
   store ptr %74, ptr %77, align 8
   store ptr %75, ptr %76, align 8
   store ptr %76, ptr %2, align 8
-  %78 = tail call ptr @term_Create(i32 noundef %72, ptr noundef %62) #18
+  %78 = tail call ptr @term_Create(i32 noundef %72, ptr noundef %62) #17
   %79 = load ptr, ptr %11, align 8
   %80 = load ptr, ptr %79, align 8
   %81 = getelementptr i8, ptr %80, i64 8
@@ -7257,7 +7122,7 @@ define internal fastcc ptr @cnf_SkolemFormula(ptr noundef returned %0, ptr nound
   %83 = getelementptr i8, ptr %71, i64 8
   %84 = load ptr, ptr %83, align 8
   %85 = load i32, ptr %84, align 8
-  tail call void @fol_ReplaceVariable(ptr noundef %82, i32 noundef %85, ptr noundef %78) #18
+  tail call void @fol_ReplaceVariable(ptr noundef %82, i32 noundef %85, ptr noundef %78) #17
   %86 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
   %87 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %86, i64 0, i32 4
   %88 = load i32, ptr %87, align 8
@@ -7271,7 +7136,7 @@ define internal fastcc ptr @cnf_SkolemFormula(ptr noundef returned %0, ptr nound
   store ptr %78, ptr %93, align 8
   %94 = load ptr, ptr %71, align 8
   %95 = icmp eq ptr %94, null
-  br i1 %95, label %96, label %70, !llvm.loop !122
+  br i1 %95, label %96, label %70, !llvm.loop !119
 
 96:                                               ; preds = %70, %61
   %97 = icmp eq ptr %62, null
@@ -7298,7 +7163,7 @@ define internal fastcc ptr @cnf_SkolemFormula(ptr noundef returned %0, ptr nound
   %111 = load ptr, ptr %11, align 8
   %112 = getelementptr i8, ptr %111, i64 8
   %113 = load ptr, ptr %112, align 8
-  tail call void @term_Delete(ptr noundef %113) #18
+  tail call void @term_Delete(ptr noundef %113) #17
   %114 = load ptr, ptr %11, align 8
   %115 = load ptr, ptr %114, align 8
   %116 = getelementptr i8, ptr %115, i64 8
@@ -7355,7 +7220,7 @@ define internal fastcc ptr @cnf_SkolemFormula(ptr noundef returned %0, ptr nound
   %153 = tail call fastcc ptr @cnf_SkolemFormula(ptr noundef %152, ptr noundef %1, ptr noundef %2)
   %154 = load ptr, ptr %150, align 8
   %155 = icmp eq ptr %154, null
-  br i1 %155, label %156, label %149, !llvm.loop !123
+  br i1 %155, label %156, label %149, !llvm.loop !120
 
 156:                                              ; preds = %149, %145, %138
   ret ptr %0
@@ -7400,25 +7265,23 @@ define internal fastcc ptr @cnf_OptimizedSkolemization(ptr noundef %0, ptr nound
 27:                                               ; preds = %23, %19
   %28 = load ptr, ptr @stdout, align 8
   %29 = tail call i64 @fwrite(ptr nonnull @.str.22, i64 31, i64 1, ptr %28)
-  tail call void @fol_PrettyPrintDFG(ptr noundef %1) #18
+  tail call void @fol_PrettyPrintDFG(ptr noundef %1) #17
   br label %30
 
 30:                                               ; preds = %27, %23
   %31 = load i32, ptr %1, align 8
   %32 = icmp sgt i32 %31, -1
-  br i1 %32, label %38, label %33
+  %33 = sub nsw i32 0, %31
+  %34 = load i32, ptr @symbol_TYPEMASK, align 4
+  %35 = and i32 %34, %33
+  %36 = icmp ne i32 %35, 2
+  %37 = select i1 %32, i1 true, i1 %36
+  br i1 %37, label %38, label %83
 
-33:                                               ; preds = %30
-  %34 = sub nsw i32 0, %31
-  %35 = load i32, ptr @symbol_TYPEMASK, align 4
-  %36 = and i32 %35, %34
-  %37 = icmp eq i32 %36, 2
-  br i1 %37, label %84, label %38
-
-38:                                               ; preds = %33, %30
+38:                                               ; preds = %30
   %39 = load i32, ptr @fol_NOT, align 4
   %40 = icmp eq i32 %31, %39
-  br i1 %40, label %41, label %53
+  br i1 %40, label %41, label %52
 
 41:                                               ; preds = %38
   %42 = getelementptr i8, ptr %1, i64 16
@@ -7427,115 +7290,114 @@ define internal fastcc ptr @cnf_OptimizedSkolemization(ptr noundef %0, ptr nound
   %45 = load ptr, ptr %44, align 8
   %46 = load i32, ptr %45, align 8
   %47 = icmp sgt i32 %46, -1
-  br i1 %47, label %53, label %48
+  br i1 %47, label %52, label %48
 
 48:                                               ; preds = %41
   %49 = sub nsw i32 0, %46
-  %50 = load i32, ptr @symbol_TYPEMASK, align 4
-  %51 = and i32 %50, %49
-  %52 = icmp eq i32 %51, 2
-  br i1 %52, label %84, label %53
+  %50 = and i32 %34, %49
+  %51 = icmp eq i32 %50, 2
+  br i1 %51, label %83, label %52
 
-53:                                               ; preds = %41, %38, %48
-  %54 = getelementptr inbounds i32, ptr %10, i64 53
-  %55 = load i32, ptr %54, align 4
-  %56 = icmp eq i32 %55, 0
-  br i1 %56, label %57, label %60
+52:                                               ; preds = %38, %41, %48
+  %53 = getelementptr inbounds i32, ptr %10, i64 53
+  %54 = load i32, ptr %53, align 4
+  %55 = icmp eq i32 %54, 0
+  br i1 %55, label %56, label %59
 
-57:                                               ; preds = %53
-  %58 = load i32, ptr %13, align 4
-  %59 = icmp eq i32 %58, 0
-  br i1 %59, label %67, label %65
+56:                                               ; preds = %52
+  %57 = load i32, ptr %13, align 4
+  %58 = icmp eq i32 %57, 0
+  br i1 %58, label %66, label %64
 
-60:                                               ; preds = %53
-  %61 = load i32, ptr @fol_AND, align 4
-  %62 = tail call ptr @memory_Malloc(i32 noundef 16) #18
-  %63 = getelementptr inbounds %struct.LIST_HELP, ptr %62, i64 0, i32 1
-  store ptr %1, ptr %63, align 8
-  store ptr null, ptr %62, align 8
-  %64 = tail call ptr @term_Create(i32 noundef %61, ptr noundef nonnull %62) #18
-  br label %65
+59:                                               ; preds = %52
+  %60 = load i32, ptr @fol_AND, align 4
+  %61 = tail call ptr @memory_Malloc(i32 noundef 16) #17
+  %62 = getelementptr inbounds %struct.LIST_HELP, ptr %61, i64 0, i32 1
+  store ptr %1, ptr %62, align 8
+  store ptr null, ptr %61, align 8
+  %63 = tail call ptr @term_Create(i32 noundef %60, ptr noundef nonnull %61) #17
+  br label %64
 
-65:                                               ; preds = %57, %60
-  %66 = phi ptr [ %64, %60 ], [ %1, %57 ]
-  tail call fastcc void @cnf_OptimizedSkolemFormula(ptr noundef nonnull %0, ptr noundef %66, ptr noundef %2, i32 noundef 1, ptr noundef nonnull %1, ptr noundef %3, ptr noundef %4, i32 noundef %5, ptr noundef %6, i32 noundef 0)
-  br label %84
+64:                                               ; preds = %56, %59
+  %65 = phi ptr [ %63, %59 ], [ %1, %56 ]
+  tail call fastcc void @cnf_OptimizedSkolemFormula(ptr noundef nonnull %0, ptr noundef %65, ptr noundef %2, i32 noundef 1, ptr noundef nonnull %1, ptr noundef %3, ptr noundef %4, i32 noundef %5, ptr noundef %6, i32 noundef 0)
+  br label %83
 
-67:                                               ; preds = %57
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #18
+66:                                               ; preds = %56
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #17
   store ptr null, ptr %8, align 8
-  %68 = call fastcc ptr @cnf_SkolemFormula(ptr noundef nonnull %1, ptr noundef %12, ptr noundef nonnull %8)
-  %69 = load ptr, ptr %8, align 8
-  %70 = icmp eq ptr %69, null
-  br i1 %70, label %83, label %71
+  %67 = call fastcc ptr @cnf_SkolemFormula(ptr noundef nonnull %1, ptr noundef %12, ptr noundef nonnull %8)
+  %68 = load ptr, ptr %8, align 8
+  %69 = icmp eq ptr %68, null
+  br i1 %69, label %82, label %70
 
-71:                                               ; preds = %67, %71
-  %72 = phi ptr [ %73, %71 ], [ %69, %67 ]
-  %73 = load ptr, ptr %72, align 8
-  %74 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %75 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %74, i64 0, i32 4
-  %76 = load i32, ptr %75, align 8
-  %77 = sext i32 %76 to i64
-  %78 = load i64, ptr @memory_FREEDBYTES, align 8
-  %79 = add i64 %78, %77
-  store i64 %79, ptr @memory_FREEDBYTES, align 8
-  %80 = load ptr, ptr %74, align 8
-  store ptr %80, ptr %72, align 8
-  %81 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %72, ptr %81, align 8
-  %82 = icmp eq ptr %73, null
-  br i1 %82, label %83, label %71, !llvm.loop !13
+70:                                               ; preds = %66, %70
+  %71 = phi ptr [ %72, %70 ], [ %68, %66 ]
+  %72 = load ptr, ptr %71, align 8
+  %73 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %74 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %73, i64 0, i32 4
+  %75 = load i32, ptr %74, align 8
+  %76 = sext i32 %75 to i64
+  %77 = load i64, ptr @memory_FREEDBYTES, align 8
+  %78 = add i64 %77, %76
+  store i64 %78, ptr @memory_FREEDBYTES, align 8
+  %79 = load ptr, ptr %73, align 8
+  store ptr %79, ptr %71, align 8
+  %80 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %71, ptr %80, align 8
+  %81 = icmp eq ptr %72, null
+  br i1 %81, label %82, label %70, !llvm.loop !13
 
-83:                                               ; preds = %71, %67
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #18
-  br label %84
+82:                                               ; preds = %70, %66
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #17
+  br label %83
 
-84:                                               ; preds = %33, %65, %83, %48
-  %85 = phi ptr [ %1, %48 ], [ %66, %65 ], [ %1, %83 ], [ %1, %33 ]
-  %86 = load i32, ptr %20, align 4
-  %87 = icmp eq i32 %86, 0
-  br i1 %87, label %88, label %92
+83:                                               ; preds = %30, %64, %82, %48
+  %84 = phi ptr [ %1, %48 ], [ %65, %64 ], [ %1, %82 ], [ %1, %30 ]
+  %85 = load i32, ptr %20, align 4
+  %86 = icmp eq i32 %85, 0
+  br i1 %86, label %87, label %91
 
-88:                                               ; preds = %84
-  %89 = getelementptr inbounds i32, ptr %10, i64 34
-  %90 = load i32, ptr %89, align 4
-  %91 = icmp eq i32 %90, 0
-  br i1 %91, label %95, label %92
+87:                                               ; preds = %83
+  %88 = getelementptr inbounds i32, ptr %10, i64 34
+  %89 = load i32, ptr %88, align 4
+  %90 = icmp eq i32 %89, 0
+  br i1 %90, label %94, label %91
 
-92:                                               ; preds = %88, %84
-  %93 = load ptr, ptr @stdout, align 8
-  %94 = tail call i64 @fwrite(ptr nonnull @.str.23, i64 28, i64 1, ptr %93)
-  tail call void @term_Print(ptr noundef %85) #18
-  br label %95
+91:                                               ; preds = %87, %83
+  %92 = load ptr, ptr @stdout, align 8
+  %93 = tail call i64 @fwrite(ptr nonnull @.str.23, i64 28, i64 1, ptr %92)
+  tail call void @term_Print(ptr noundef %84) #17
+  br label %94
 
-95:                                               ; preds = %92, %88
-  %96 = tail call ptr @cnf_ComputeLiteralLists(ptr noundef %85)
-  %97 = icmp eq ptr %96, null
-  br i1 %97, label %106, label %98
+94:                                               ; preds = %91, %87
+  %95 = tail call ptr @cnf_ComputeLiteralLists(ptr noundef %84)
+  %96 = icmp eq ptr %95, null
+  br i1 %96, label %105, label %97
 
-98:                                               ; preds = %95, %98
-  %99 = phi ptr [ %104, %98 ], [ %96, %95 ]
-  %100 = load i32, ptr @fol_OR, align 4
-  %101 = getelementptr i8, ptr %99, i64 8
-  %102 = load ptr, ptr %101, align 8
-  %103 = tail call ptr @term_Create(i32 noundef %100, ptr noundef %102) #18
-  store ptr %103, ptr %101, align 8
-  %104 = load ptr, ptr %99, align 8
-  %105 = icmp eq ptr %104, null
-  br i1 %105, label %106, label %98, !llvm.loop !62
+97:                                               ; preds = %94, %97
+  %98 = phi ptr [ %103, %97 ], [ %95, %94 ]
+  %99 = load i32, ptr @fol_OR, align 4
+  %100 = getelementptr i8, ptr %98, i64 8
+  %101 = load ptr, ptr %100, align 8
+  %102 = tail call ptr @term_Create(i32 noundef %99, ptr noundef %101) #17
+  store ptr %102, ptr %100, align 8
+  %103 = load ptr, ptr %98, align 8
+  %104 = icmp eq ptr %103, null
+  br i1 %104, label %105, label %97, !llvm.loop !59
 
-106:                                              ; preds = %98, %95
-  %107 = load i32, ptr @fol_AND, align 4
-  %108 = tail call ptr @term_Create(i32 noundef %107, ptr noundef %96) #18
-  tail call void @term_Delete(ptr noundef %85) #18
-  %109 = tail call fastcc ptr @cnf_MakeClauseList(ptr noundef %108, ptr noundef %10, ptr noundef %12)
-  tail call void @term_Delete(ptr noundef %108) #18
-  ret ptr %109
+105:                                              ; preds = %97, %94
+  %106 = load i32, ptr @fol_AND, align 4
+  %107 = tail call ptr @term_Create(i32 noundef %106, ptr noundef %95) #17
+  tail call void @term_Delete(ptr noundef %84) #17
+  %108 = tail call fastcc ptr @cnf_MakeClauseList(ptr noundef %107, ptr noundef %10, ptr noundef %12)
+  tail call void @term_Delete(ptr noundef %107) #17
+  ret ptr %108
 }
 
 ; Function Attrs: inlinehint mustprogress nofree nounwind willreturn memory(argmem: read) uwtable
-define internal i32 @cnf_LabelEqual(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) #9 {
-  %3 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %1) #21
+define internal i32 @cnf_LabelEqual(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) #8 {
+  %3 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %1) #20
   %4 = icmp eq i32 %3, 0
   %5 = zext i1 %4 to i32
   ret i32 %5
@@ -7550,9 +7412,9 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   %4 = alloca ptr, align 8
   %5 = alloca ptr, align 8
   %6 = alloca ptr, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #17
   %7 = getelementptr i8, ptr %0, i64 112
   %8 = load ptr, ptr %7, align 8
   %9 = getelementptr i8, ptr %0, i64 104
@@ -7565,14 +7427,14 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
 
 15:                                               ; preds = %15, %3
   %16 = phi i64 [ 0, %3 ], [ %21, %15 ]
-  %17 = tail call ptr @flag_DefaultStore() #18
+  %17 = tail call ptr @flag_DefaultStore() #17
   %18 = getelementptr inbounds i32, ptr %17, i64 %16
   %19 = load i32, ptr %18, align 4
   %20 = trunc i64 %16 to i32
   tail call fastcc void @flag_SetFlagValue(ptr noundef %14, i32 noundef %20, i32 noundef %19)
   %21 = add nuw nsw i64 %16, 1
   %22 = icmp eq i64 %21, 96
-  br i1 %22, label %23, label %15, !llvm.loop !124
+  br i1 %22, label %23, label %15, !llvm.loop !121
 
 23:                                               ; preds = %15
   %24 = getelementptr i8, ptr %8, i64 36
@@ -7625,7 +7487,7 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   store <4 x i32> %58, ptr %60, align 4
   %61 = add nuw nsw i64 %33, 32
   %62 = icmp eq i64 %61, 4000
-  br i1 %62, label %86, label %32, !llvm.loop !125
+  br i1 %62, label %86, label %32, !llvm.loop !122
 
 63:                                               ; preds = %23, %63
   %64 = phi i64 [ %84, %63 ], [ 0, %23 ]
@@ -7655,19 +7517,19 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   store i32 %82, ptr %83, align 4
   %84 = add nuw nsw i64 %64, 5
   %85 = icmp eq i64 %84, 4000
-  br i1 %85, label %86, label %63, !llvm.loop !126
+  br i1 %85, label %86, label %63, !llvm.loop !123
 
 86:                                               ; preds = %32, %63
   store ptr null, ptr %5, align 8
   store ptr null, ptr %4, align 8
-  tail call void @prfs_CopyIndices(ptr noundef %0, ptr noundef %26) #18
+  tail call void @prfs_CopyIndices(ptr noundef %0, ptr noundef %26) #17
   %87 = load i32, ptr @fol_NOT, align 4
-  %88 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %88 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %89 = getelementptr inbounds %struct.LIST_HELP, ptr %88, i64 0, i32 1
   store ptr %1, ptr %89, align 8
   store ptr null, ptr %88, align 8
-  %90 = tail call ptr @term_Create(i32 noundef %87, ptr noundef nonnull %88) #18
-  tail call void @fol_NormalizeVars(ptr noundef %90) #18
+  %90 = tail call ptr @term_Create(i32 noundef %87, ptr noundef nonnull %88) #17
+  tail call void @fol_NormalizeVars(ptr noundef %90) #17
   %91 = tail call ptr @cnf_RemoveTrivialAtoms(ptr noundef %90)
   %92 = tail call fastcc ptr @cnf_RemoveTrivialOperators(ptr noundef %90)
   %93 = tail call fastcc ptr @cnf_SimplifyQuantors(ptr noundef %92)
@@ -7677,10 +7539,10 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   br i1 %96, label %101, label %97
 
 97:                                               ; preds = %86
-  tail call void @term_AddFatherLinks(ptr noundef %93) #18
+  tail call void @term_AddFatherLinks(ptr noundef %93) #17
   %98 = getelementptr inbounds i32, ptr %8, i64 57
   %99 = load i32, ptr %98, align 4
-  %100 = call ptr @ren_Rename(ptr noundef %93, ptr noundef nonnull %10, ptr noundef nonnull %4, i32 noundef %99, i32 noundef 1) #18
+  %100 = call ptr @ren_Rename(ptr noundef %93, ptr noundef nonnull %10, ptr noundef nonnull %4, i32 noundef %99, i32 noundef 1) #17
   br label %101
 
 101:                                              ; preds = %97, %86
@@ -7688,7 +7550,7 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   %103 = call fastcc ptr @cnf_RemoveEquivImplFromFormula(ptr noundef %102)
   %104 = call ptr @cnf_NegationNormalFormula(ptr noundef %102)
   %105 = call fastcc ptr @cnf_AntiPrenex(ptr noundef %102)
-  %106 = call ptr @term_Copy(ptr noundef %102) #18
+  %106 = call ptr @term_Copy(ptr noundef %102) #17
   %107 = call fastcc ptr @cnf_SkolemFormula(ptr noundef %106, ptr noundef nonnull %10, ptr noundef nonnull %5)
   %108 = call ptr @cnf_ComputeLiteralLists(ptr noundef %106)
   %109 = icmp eq ptr %108, null
@@ -7699,18 +7561,18 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   %112 = load i32, ptr @fol_OR, align 4
   %113 = getelementptr i8, ptr %111, i64 8
   %114 = load ptr, ptr %113, align 8
-  %115 = call ptr @term_Create(i32 noundef %112, ptr noundef %114) #18
+  %115 = call ptr @term_Create(i32 noundef %112, ptr noundef %114) #17
   store ptr %115, ptr %113, align 8
   %116 = load ptr, ptr %111, align 8
   %117 = icmp eq ptr %116, null
-  br i1 %117, label %118, label %110, !llvm.loop !62
+  br i1 %117, label %118, label %110, !llvm.loop !59
 
 118:                                              ; preds = %110, %101
   %119 = load i32, ptr @fol_AND, align 4
-  %120 = call ptr @term_Create(i32 noundef %119, ptr noundef %108) #18
-  call void @term_Delete(ptr noundef %106) #18
+  %120 = call ptr @term_Create(i32 noundef %119, ptr noundef %108) #17
+  call void @term_Delete(ptr noundef %106) #17
   %121 = call fastcc ptr @cnf_MakeClauseList(ptr noundef %120, ptr noundef %8, ptr noundef %10)
-  call void @term_Delete(ptr noundef %120) #18
+  call void @term_Delete(ptr noundef %120) #17
   %122 = icmp eq ptr %121, null
   br i1 %122, label %132, label %123
 
@@ -7724,16 +7586,16 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   store i32 %129, ptr %127, align 8
   %130 = load ptr, ptr %124, align 8
   %131 = icmp eq ptr %130, null
-  br i1 %131, label %132, label %123, !llvm.loop !127
+  br i1 %131, label %132, label %123, !llvm.loop !124
 
 132:                                              ; preds = %123, %118
   %133 = load ptr, ptr @cnf_SEARCHCOPY, align 8
-  %134 = call ptr @red_SatUnit(ptr noundef %133, ptr noundef %121) #18
+  %134 = call ptr @red_SatUnit(ptr noundef %133, ptr noundef %121) #17
   %135 = icmp eq ptr %134, null
   br i1 %135, label %137, label %136
 
 136:                                              ; preds = %132
-  call void @clause_DeleteClauseList(ptr noundef nonnull %134) #18
+  call void @clause_DeleteClauseList(ptr noundef nonnull %134) #17
   br label %137
 
 137:                                              ; preds = %136, %132
@@ -7749,12 +7611,12 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   %145 = phi ptr [ %148, %143 ], [ %139, %137 ]
   %146 = getelementptr i8, ptr %144, i64 8
   %147 = load ptr, ptr %146, align 8
-  call void @prfs_MoveUsableWorkedOff(ptr noundef nonnull %145, ptr noundef %147) #18
+  call void @prfs_MoveUsableWorkedOff(ptr noundef nonnull %145, ptr noundef %147) #17
   %148 = load ptr, ptr @cnf_SEARCHCOPY, align 8
   %149 = getelementptr i8, ptr %148, i64 56
   %150 = load ptr, ptr %149, align 8
   %151 = icmp eq ptr %150, null
-  br i1 %151, label %152, label %143, !llvm.loop !128
+  br i1 %151, label %152, label %143, !llvm.loop !125
 
 152:                                              ; preds = %143, %137
   store ptr null, ptr %6, align 8
@@ -7763,7 +7625,7 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   %155 = icmp eq i32 %154, 0
   call fastcc void @flag_SetFlagValue(ptr noundef %14, i32 noundef 9, i32 noundef 0)
   %156 = load ptr, ptr @cnf_SEARCHCOPY, align 8
-  %157 = call ptr @term_Copy(ptr noundef %102) #18
+  %157 = call ptr @term_Copy(ptr noundef %102) #17
   %158 = call fastcc ptr @cnf_OptimizedSkolemization(ptr noundef %156, ptr noundef %157, ptr noundef null, ptr noundef nonnull %6, ptr noundef %2, i32 noundef %138, ptr noundef null)
   br i1 %155, label %160, label %159
 
@@ -7772,7 +7634,7 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   br label %160
 
 160:                                              ; preds = %159, %152
-  call void @term_Delete(ptr noundef %102) #18
+  call void @term_Delete(ptr noundef %102) #17
   %161 = load ptr, ptr %4, align 8
   %162 = icmp eq ptr %161, null
   br i1 %162, label %175, label %163
@@ -7818,7 +7680,7 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
 
 190:                                              ; preds = %178, %175
   %191 = load ptr, ptr @cnf_SEARCHCOPY, align 8
-  call void @prfs_Clean(ptr noundef %191) #18
+  call void @prfs_Clean(ptr noundef %191) #17
   %192 = icmp eq ptr %158, null
   br i1 %192, label %202, label %193
 
@@ -7832,54 +7694,54 @@ define dso_local ptr @cnf_QueryFlotter(ptr noundef %0, ptr noundef %1, ptr nound
   store i32 %199, ptr %197, align 8
   %200 = load ptr, ptr %194, align 8
   %201 = icmp eq ptr %200, null
-  br i1 %201, label %202, label %193, !llvm.loop !129
+  br i1 %201, label %202, label %193, !llvm.loop !126
 
 202:                                              ; preds = %193, %190
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #17
   ret ptr %158
 }
 
 declare void @prfs_CopyIndices(ptr noundef, ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: inlinehint nounwind uwtable
-define internal fastcc void @flag_SetFlagValue(ptr nocapture noundef writeonly %0, i32 noundef %1, i32 noundef %2) unnamed_addr #10 {
-  %4 = tail call i32 @flag_Minimum(i32 noundef %1) #18
+define internal fastcc void @flag_SetFlagValue(ptr nocapture noundef writeonly %0, i32 noundef %1, i32 noundef %2) unnamed_addr #9 {
+  %4 = tail call i32 @flag_Minimum(i32 noundef %1) #17
   %5 = icmp slt i32 %4, %2
   br i1 %5, label %16, label %6
 
 6:                                                ; preds = %3
   %7 = load ptr, ptr @stdout, align 8
   %8 = tail call i32 @fflush(ptr noundef %7)
-  %9 = tail call ptr @flag_Name(i32 noundef %1) #18
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.30, i32 noundef %2, ptr noundef %9) #18
+  %9 = tail call ptr @flag_Name(i32 noundef %1) #17
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.30, i32 noundef %2, ptr noundef %9) #17
   %10 = load ptr, ptr @stderr, align 8
   %11 = tail call i32 @fflush(ptr noundef %10)
   %12 = load ptr, ptr @stdout, align 8
   %13 = tail call i32 @fflush(ptr noundef %12)
   %14 = load ptr, ptr @stderr, align 8
   %15 = tail call i32 @fflush(ptr noundef %14)
-  tail call void @exit(i32 noundef 1) #20
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
 16:                                               ; preds = %3
-  %17 = tail call i32 @flag_Maximum(i32 noundef %1) #18
+  %17 = tail call i32 @flag_Maximum(i32 noundef %1) #17
   %18 = icmp sgt i32 %17, %2
   br i1 %18, label %29, label %19
 
 19:                                               ; preds = %16
   %20 = load ptr, ptr @stdout, align 8
   %21 = tail call i32 @fflush(ptr noundef %20)
-  %22 = tail call ptr @flag_Name(i32 noundef %1) #18
-  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.31, i32 noundef %2, ptr noundef %22) #18
+  %22 = tail call ptr @flag_Name(i32 noundef %1) #17
+  tail call void (ptr, ...) @misc_UserErrorReport(ptr noundef nonnull @.str.31, i32 noundef %2, ptr noundef %22) #17
   %23 = load ptr, ptr @stderr, align 8
   %24 = tail call i32 @fflush(ptr noundef %23)
   %25 = load ptr, ptr @stdout, align 8
   %26 = tail call i32 @fflush(ptr noundef %25)
   %27 = load ptr, ptr @stderr, align 8
   %28 = tail call i32 @fflush(ptr noundef %27)
-  tail call void @exit(i32 noundef 1) #20
+  tail call void @exit(i32 noundef 1) #19
   unreachable
 
 29:                                               ; preds = %16
@@ -7898,7 +7760,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
 
 14:                                               ; preds = %10
   %15 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.11)
-  tail call void @fol_PrettyPrint(ptr noundef %0) #18
+  tail call void @fol_PrettyPrint(ptr noundef %0) #17
   br label %16
 
 16:                                               ; preds = %14, %10
@@ -7933,7 +7795,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   %36 = phi ptr [ %115, %114 ], [ %33, %26 ]
   %37 = getelementptr i8, ptr %36, i64 8
   %38 = load ptr, ptr %37, align 8
-  %39 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %38) #18
+  %39 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %38) #17
   %40 = icmp eq i32 %39, 0
   br i1 %40, label %114, label %41
 
@@ -7957,10 +7819,10 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   %54 = phi ptr [ %57, %52 ], [ %51, %45 ]
   %55 = getelementptr i8, ptr %53, i64 8
   %56 = load ptr, ptr %55, align 8
-  %57 = tail call ptr @list_DeleteElementFree(ptr noundef %54, ptr noundef %56, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #18
+  %57 = tail call ptr @list_DeleteElementFree(ptr noundef %54, ptr noundef %56, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #17
   %58 = load ptr, ptr %53, align 8
   %59 = icmp eq ptr %58, null
-  br i1 %59, label %60, label %52, !llvm.loop !130
+  br i1 %59, label %60, label %52, !llvm.loop !127
 
 60:                                               ; preds = %52
   %61 = load ptr, ptr %46, align 8
@@ -8047,7 +7909,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
 114:                                              ; preds = %108, %35
   %115 = load ptr, ptr %36, align 8
   %116 = icmp eq ptr %115, null
-  br i1 %116, label %117, label %35, !llvm.loop !131
+  br i1 %116, label %117, label %35, !llvm.loop !128
 
 117:                                              ; preds = %114
   %118 = load i32, ptr @vec_MAX, align 4
@@ -8056,17 +7918,17 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
 119:                                              ; preds = %117, %26
   %120 = phi i32 [ %118, %117 ], [ %28, %26 ]
   %121 = icmp eq i32 %20, %120
-  br i1 %121, label %25, label %26, !llvm.loop !132
+  br i1 %121, label %25, label %26, !llvm.loop !129
 
 122:                                              ; preds = %25, %122
   %123 = phi ptr [ %127, %122 ], [ %6, %25 ]
   %124 = getelementptr i8, ptr %123, i64 8
   %125 = load ptr, ptr %124, align 8
-  %126 = tail call ptr @term_Copy(ptr noundef %125) #18
+  %126 = tail call ptr @term_Copy(ptr noundef %125) #17
   store ptr %126, ptr %124, align 8
   %127 = load ptr, ptr %123, align 8
   %128 = icmp eq ptr %127, null
-  br i1 %128, label %129, label %122, !llvm.loop !133
+  br i1 %128, label %129, label %122, !llvm.loop !130
 
 129:                                              ; preds = %122, %25
   %130 = load i32, ptr %0, align 8
@@ -8081,7 +7943,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   %137 = load ptr, ptr %136, align 8
   %138 = getelementptr i8, ptr %137, i64 16
   %139 = load ptr, ptr %138, align 8
-  %140 = tail call ptr @list_Copy(ptr noundef %6) #18
+  %140 = tail call ptr @list_Copy(ptr noundef %6) #17
   %141 = icmp eq ptr %139, null
   br i1 %141, label %149, label %142
 
@@ -8101,7 +7963,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
 
 149:                                              ; preds = %148, %142, %133
   %150 = phi ptr [ %139, %148 ], [ %140, %133 ], [ %139, %142 ]
-  %151 = tail call ptr @list_DeleteDuplicatesFree(ptr noundef %150, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #18
+  %151 = tail call ptr @list_DeleteDuplicatesFree(ptr noundef %150, ptr noundef nonnull @term_Equal, ptr noundef nonnull @term_Delete) #17
   %152 = load ptr, ptr %134, align 8
   %153 = getelementptr i8, ptr %152, i64 8
   %154 = load ptr, ptr %153, align 8
@@ -8110,12 +7972,12 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   br label %162
 
 156:                                              ; preds = %129
-  %157 = tail call ptr @list_Copy(ptr noundef %6) #18
-  %158 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %157 = tail call ptr @list_Copy(ptr noundef %6) #17
+  %158 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %159 = getelementptr inbounds %struct.LIST_HELP, ptr %158, i64 0, i32 1
   store ptr %0, ptr %159, align 8
   store ptr null, ptr %158, align 8
-  %160 = tail call ptr @fol_CreateQuantifier(i32 noundef %131, ptr noundef %157, ptr noundef nonnull %158) #18
+  %160 = tail call ptr @fol_CreateQuantifier(i32 noundef %131, ptr noundef %157, ptr noundef nonnull %158) #17
   %161 = getelementptr inbounds %struct.term, ptr %0, i64 0, i32 1
   store ptr %160, ptr %161, align 8
   br label %162
@@ -8137,7 +7999,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   %173 = load ptr, ptr %172, align 8
   %174 = load i32, ptr %173, align 8
   %175 = icmp eq i32 %174, %164
-  br i1 %175, label %167, label %176, !llvm.loop !134
+  br i1 %175, label %167, label %176, !llvm.loop !131
 
 176:                                              ; preds = %167, %162
   %177 = phi ptr [ %163, %162 ], [ %173, %167 ]
@@ -8157,7 +8019,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   %187 = getelementptr i8, ptr %186, i64 8
   %188 = load ptr, ptr %187, align 8
   %189 = load ptr, ptr %186, align 8
-  %190 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %188) #18
+  %190 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %188) #17
   %191 = icmp eq i32 %190, 0
   br i1 %191, label %230, label %192
 
@@ -8170,7 +8032,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
 196:                                              ; preds = %192
   %197 = tail call ptr @cnf_Flatten(ptr noundef nonnull %188, i32 noundef %193)
   %198 = getelementptr i8, ptr %188, i64 16
-  %199 = load ptr, ptr %198, align 8, !nonnull !135
+  %199 = load ptr, ptr %198, align 8, !nonnull !132
   br label %200
 
 200:                                              ; preds = %200, %196
@@ -8181,12 +8043,12 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   store ptr %177, ptr %204, align 8
   %205 = load ptr, ptr %201, align 8
   %206 = icmp eq ptr %205, null
-  br i1 %206, label %207, label %200, !llvm.loop !136
+  br i1 %206, label %207, label %200, !llvm.loop !133
 
 207:                                              ; preds = %200
   %208 = load ptr, ptr %198, align 8
   %209 = load ptr, ptr %208, align 8
-  tail call void @list_NInsert(ptr noundef nonnull %186, ptr noundef %209) #18
+  tail call void @list_NInsert(ptr noundef nonnull %186, ptr noundef %209) #17
   %210 = load ptr, ptr %198, align 8
   %211 = getelementptr i8, ptr %210, i64 8
   %212 = load ptr, ptr %211, align 8
@@ -8218,7 +8080,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
 
 230:                                              ; preds = %207, %192, %185
   %231 = icmp eq ptr %189, null
-  br i1 %231, label %232, label %185, !llvm.loop !137
+  br i1 %231, label %232, label %185, !llvm.loop !134
 
 232:                                              ; preds = %230
   %233 = load i32, ptr %163, align 8
@@ -8237,7 +8099,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   %242 = load ptr, ptr %241, align 8
   %243 = getelementptr i8, ptr %242, i64 8
   %244 = load ptr, ptr %243, align 8
-  %245 = tail call ptr @term_Copy(ptr noundef %244) #18
+  %245 = tail call ptr @term_Copy(ptr noundef %244) #17
   %246 = load ptr, ptr %240, align 8
   %247 = load ptr, ptr %246, align 8
   %248 = getelementptr i8, ptr %247, i64 8
@@ -8245,7 +8107,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   br label %252
 
 250:                                              ; preds = %235
-  %251 = tail call ptr @term_Copy(ptr noundef nonnull %163) #18
+  %251 = tail call ptr @term_Copy(ptr noundef nonnull %163) #17
   br label %252
 
 252:                                              ; preds = %250, %239
@@ -8276,7 +8138,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   %268 = load ptr, ptr %266, align 8
   %269 = getelementptr i8, ptr %268, i64 8
   %270 = load ptr, ptr %269, align 8
-  %271 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %270) #18
+  %271 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %270) #17
   %272 = icmp eq i32 %271, 0
   br i1 %272, label %273, label %276
 
@@ -8288,13 +8150,13 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
 276:                                              ; preds = %273, %265
   %277 = getelementptr i8, ptr %267, i64 8
   %278 = load ptr, ptr %277, align 8
-  %279 = tail call ptr @list_PointerDeleteElementFree(ptr noundef nonnull %260, ptr noundef %278, ptr noundef nonnull @term_Delete) #18
+  %279 = tail call ptr @list_PointerDeleteElementFree(ptr noundef nonnull %260, ptr noundef %278, ptr noundef nonnull @term_Delete) #17
   br label %283
 
 280:                                              ; preds = %273
   %281 = load ptr, ptr %267, align 8
   %282 = icmp eq ptr %281, null
-  br i1 %282, label %283, label %265, !llvm.loop !138
+  br i1 %282, label %283, label %265, !llvm.loop !135
 
 283:                                              ; preds = %280, %276
   %284 = phi ptr [ %279, %276 ], [ %260, %280 ]
@@ -8303,18 +8165,18 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   br i1 %285, label %286, label %288
 
 286:                                              ; preds = %262, %283
-  tail call void @term_Delete(ptr noundef nonnull %254) #18
+  tail call void @term_Delete(ptr noundef nonnull %254) #17
   br label %356
 
 287:                                              ; preds = %252
-  tail call void @term_Delete(ptr noundef nonnull %254) #18
+  tail call void @term_Delete(ptr noundef nonnull %254) #17
   br label %356
 
 288:                                              ; preds = %283
-  %289 = tail call i32 @term_MaxVar(ptr noundef nonnull %254) #18
+  %289 = tail call i32 @term_MaxVar(ptr noundef nonnull %254) #17
   store i32 %289, ptr @symbol_STANDARDVARCOUNTER, align 4
-  %290 = tail call ptr @fol_BoundVariables(ptr noundef %2) #18
-  %291 = tail call ptr @list_DeleteDuplicates(ptr noundef %290, ptr noundef nonnull @term_Equal) #18
+  %290 = tail call ptr @fol_BoundVariables(ptr noundef %2) #17
+  %291 = tail call ptr @list_DeleteDuplicates(ptr noundef %290, ptr noundef nonnull @term_Equal) #17
   %292 = icmp eq ptr %291, null
   br i1 %292, label %314, label %293
 
@@ -8326,10 +8188,10 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   %298 = load i32, ptr @symbol_STANDARDVARCOUNTER, align 4
   %299 = add nsw i32 %298, 1
   store i32 %299, ptr @symbol_STANDARDVARCOUNTER, align 4
-  tail call void @term_ExchangeVariable(ptr noundef %2, i32 noundef %297, i32 noundef %299) #18
+  tail call void @term_ExchangeVariable(ptr noundef %2, i32 noundef %297, i32 noundef %299) #17
   %300 = load ptr, ptr %294, align 8
   %301 = icmp eq ptr %300, null
-  br i1 %301, label %302, label %293, !llvm.loop !139
+  br i1 %301, label %302, label %293, !llvm.loop !136
 
 302:                                              ; preds = %293, %302
   %303 = phi ptr [ %304, %302 ], [ %291, %293 ]
@@ -8360,45 +8222,45 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
   %321 = load i32, ptr %320, align 8
   %322 = getelementptr i8, ptr %317, i64 8
   %323 = load ptr, ptr %322, align 8
-  tail call void @term_ReplaceVariable(ptr noundef %2, i32 noundef %321, ptr noundef %323) #18
+  tail call void @term_ReplaceVariable(ptr noundef %2, i32 noundef %321, ptr noundef %323) #17
   %324 = load ptr, ptr %318, align 8
   %325 = load ptr, ptr %317, align 8
   %326 = icmp eq ptr %324, null
-  br i1 %326, label %327, label %316, !llvm.loop !140
+  br i1 %326, label %327, label %316, !llvm.loop !137
 
 327:                                              ; preds = %316, %314
   %328 = load i32, ptr @fol_NOT, align 4
-  %329 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %329 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %330 = getelementptr inbounds %struct.LIST_HELP, ptr %329, i64 0, i32 1
   store ptr %254, ptr %330, align 8
   store ptr null, ptr %329, align 8
-  %331 = tail call ptr @term_Create(i32 noundef %328, ptr noundef nonnull %329) #18
+  %331 = tail call ptr @term_Create(i32 noundef %328, ptr noundef nonnull %329) #17
   %332 = tail call ptr @cnf_NegationNormalFormula(ptr noundef %331)
   %333 = load i32, ptr @fol_IMPLIES, align 4
-  %334 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %334 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %335 = getelementptr inbounds %struct.LIST_HELP, ptr %334, i64 0, i32 1
   store ptr %2, ptr %335, align 8
   store ptr null, ptr %334, align 8
-  %336 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %336 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %337 = getelementptr inbounds %struct.LIST_HELP, ptr %336, i64 0, i32 1
   store ptr %331, ptr %337, align 8
   store ptr %334, ptr %336, align 8
-  %338 = tail call ptr @term_Create(i32 noundef %333, ptr noundef nonnull %336) #18
-  %339 = tail call ptr @fol_FreeVariables(ptr noundef %338) #18
-  tail call void @list_NMapCar(ptr noundef %339, ptr noundef nonnull @term_Copy) #18
+  %338 = tail call ptr @term_Create(i32 noundef %333, ptr noundef nonnull %336) #17
+  %339 = tail call ptr @fol_FreeVariables(ptr noundef %338) #17
+  tail call void @list_NMapCar(ptr noundef %339, ptr noundef nonnull @term_Copy) #17
   %340 = load i32, ptr @fol_ALL, align 4
-  %341 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %341 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %342 = getelementptr inbounds %struct.LIST_HELP, ptr %341, i64 0, i32 1
   store ptr %338, ptr %342, align 8
   store ptr null, ptr %341, align 8
-  %343 = tail call ptr @fol_CreateQuantifier(i32 noundef %340, ptr noundef %339, ptr noundef nonnull %341) #18
+  %343 = tail call ptr @fol_CreateQuantifier(i32 noundef %340, ptr noundef %339, ptr noundef nonnull %341) #17
   %344 = load i32, ptr %11, align 4
   %345 = icmp eq i32 %344, 0
   br i1 %345, label %348, label %346
 
 346:                                              ; preds = %327
   %347 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.12)
-  tail call void @fol_PrettyPrint(ptr noundef nonnull %163) #18
+  tail call void @fol_PrettyPrint(ptr noundef nonnull %163) #17
   br label %348
 
 348:                                              ; preds = %346, %327
@@ -8409,7 +8271,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
 
 352:                                              ; preds = %348
   %353 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.13)
-  tail call void @fol_PrettyPrint(ptr noundef %343) #18
+  tail call void @fol_PrettyPrint(ptr noundef %343) #17
   br label %354
 
 354:                                              ; preds = %352, %348
@@ -8419,7 +8281,7 @@ define dso_local ptr @cnf_DefTargetConvert(ptr noundef %0, ptr noundef %1, ptr n
 
 356:                                              ; preds = %286, %354, %287
   %357 = phi ptr [ %2, %286 ], [ %343, %354 ], [ %2, %287 ]
-  tail call void @term_Delete(ptr noundef %357) #18
+  tail call void @term_Delete(ptr noundef %357) #17
   ret ptr %163
 }
 
@@ -8439,7 +8301,7 @@ define internal fastcc ptr @cnf_RemoveImplFromFormulaPath(ptr noundef returned %
   %10 = sext i32 %9 to i64
   %11 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %10
   %12 = load ptr, ptr %11, align 8
-  %13 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %12) #18
+  %13 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %12) #17
   %14 = icmp eq i32 %13, 0
   br i1 %14, label %49, label %15
 
@@ -8457,11 +8319,11 @@ define internal fastcc ptr @cnf_RemoveImplFromFormulaPath(ptr noundef returned %
   %23 = load ptr, ptr %22, align 8
   %24 = getelementptr i8, ptr %23, i64 8
   %25 = load ptr, ptr %24, align 8
-  %26 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %26 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %27 = getelementptr inbounds %struct.LIST_HELP, ptr %26, i64 0, i32 1
   store ptr %25, ptr %27, align 8
   store ptr null, ptr %26, align 8
-  %28 = tail call ptr @term_CreateAddFather(i32 noundef %21, ptr noundef nonnull %26) #18
+  %28 = tail call ptr @term_CreateAddFather(i32 noundef %21, ptr noundef nonnull %26) #17
   %29 = load ptr, ptr %22, align 8
   %30 = getelementptr inbounds %struct.LIST_HELP, ptr %29, i64 0, i32 1
   store ptr %28, ptr %30, align 8
@@ -8492,12 +8354,12 @@ define internal fastcc ptr @cnf_RemoveImplFromFormulaPath(ptr noundef returned %
   store ptr %43, ptr %46, align 8
   %47 = load ptr, ptr %41, align 8
   %48 = icmp eq ptr %47, null
-  br i1 %48, label %49, label %39, !llvm.loop !141
+  br i1 %48, label %49, label %39, !llvm.loop !138
 
 49:                                               ; preds = %39, %32, %7
   %50 = load i32, ptr @vec_MAX, align 4
   %51 = icmp eq i32 %3, %50
-  br i1 %51, label %52, label %7, !llvm.loop !142
+  br i1 %51, label %52, label %7, !llvm.loop !139
 
 52:                                               ; preds = %49
   store i32 %3, ptr @vec_MAX, align 4
@@ -8507,14 +8369,14 @@ define internal fastcc ptr @cnf_RemoveImplFromFormulaPath(ptr noundef returned %
 ; Function Attrs: nounwind uwtable
 define internal fastcc ptr @cnf_NegationNormalFormulaPath(ptr noundef returned %0, ptr noundef %1) unnamed_addr #0 {
   %3 = icmp eq ptr %0, null
-  br i1 %3, label %199, label %4
+  br i1 %3, label %198, label %4
 
-4:                                                ; preds = %2, %196
-  %5 = phi ptr [ %197, %196 ], [ %0, %2 ]
+4:                                                ; preds = %2, %195
+  %5 = phi ptr [ %196, %195 ], [ %0, %2 ]
   %6 = load i32, ptr %5, align 8
   %7 = load i32, ptr @fol_NOT, align 4
   %8 = icmp eq i32 %6, %7
-  br i1 %8, label %9, label %180
+  br i1 %8, label %9, label %179
 
 9:                                                ; preds = %4
   %10 = getelementptr i8, ptr %5, i64 16
@@ -8607,7 +8469,7 @@ define internal fastcc ptr @cnf_NegationNormalFormulaPath(ptr noundef returned %
   store ptr %13, ptr %73, align 8
   %74 = load ptr, ptr %10, align 8
   %75 = icmp eq ptr %74, null
-  br i1 %75, label %196, label %76
+  br i1 %75, label %195, label %76
 
 76:                                               ; preds = %65, %76
   %77 = phi ptr [ %81, %76 ], [ %74, %65 ]
@@ -8617,7 +8479,7 @@ define internal fastcc ptr @cnf_NegationNormalFormulaPath(ptr noundef returned %
   store ptr %5, ptr %80, align 8
   %81 = load ptr, ptr %77, align 8
   %82 = icmp eq ptr %81, null
-  br i1 %82, label %196, label %76, !llvm.loop !143
+  br i1 %82, label %195, label %76, !llvm.loop !140
 
 83:                                               ; preds = %9
   %84 = load i32, ptr @fol_ALL, align 4
@@ -8634,11 +8496,11 @@ define internal fastcc ptr @cnf_NegationNormalFormulaPath(ptr noundef returned %
   %93 = load ptr, ptr %92, align 8
   %94 = getelementptr i8, ptr %93, i64 8
   %95 = load ptr, ptr %94, align 8
-  %96 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %96 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %97 = getelementptr inbounds %struct.LIST_HELP, ptr %96, i64 0, i32 1
   store ptr %95, ptr %97, align 8
   store ptr null, ptr %96, align 8
-  %98 = tail call ptr @term_CreateAddFather(i32 noundef %6, ptr noundef nonnull %96) #18
+  %98 = tail call ptr @term_CreateAddFather(i32 noundef %6, ptr noundef nonnull %96) #17
   %99 = load ptr, ptr %91, align 8
   %100 = load ptr, ptr %99, align 8
   %101 = getelementptr inbounds %struct.LIST_HELP, ptr %100, i64 0, i32 1
@@ -8681,128 +8543,129 @@ define internal fastcc ptr @cnf_NegationNormalFormulaPath(ptr noundef returned %
   store ptr %5, ptr %124, align 8
   %125 = load ptr, ptr %121, align 8
   %126 = icmp eq ptr %125, null
-  br i1 %126, label %127, label %120, !llvm.loop !144
+  br i1 %126, label %127, label %120, !llvm.loop !141
 
 127:                                              ; preds = %120, %117
   store ptr null, ptr %91, align 8
-  tail call void @term_Delete(ptr noundef nonnull %13) #18
-  br label %196
+  tail call void @term_Delete(ptr noundef nonnull %13) #17
+  br label %195
 
 128:                                              ; preds = %83
   %129 = load i32, ptr @fol_OR, align 4
   %130 = icmp eq i32 %14, %129
   %131 = load i32, ptr @fol_AND, align 4
-  %132 = icmp eq i32 %14, %131
-  %133 = select i1 %130, i1 true, i1 %132
-  br i1 %133, label %134, label %180
+  br i1 %130, label %134, label %132
 
-134:                                              ; preds = %128
-  %135 = select i1 %132, i32 %129, i32 %14
-  %136 = select i1 %130, i32 %131, i32 %135
-  %137 = getelementptr i8, ptr %13, i64 16
-  %138 = load ptr, ptr %137, align 8
-  %139 = icmp eq ptr %138, null
-  br i1 %139, label %140, label %141
+132:                                              ; preds = %128
+  %133 = icmp eq i32 %14, %131
+  br i1 %133, label %134, label %179
 
-140:                                              ; preds = %134
-  store i32 %136, ptr %5, align 8
-  br label %155
+134:                                              ; preds = %128, %132
+  %135 = phi i32 [ %129, %132 ], [ %131, %128 ]
+  %136 = getelementptr i8, ptr %13, i64 16
+  %137 = load ptr, ptr %136, align 8
+  %138 = icmp eq ptr %137, null
+  br i1 %138, label %139, label %140
 
-141:                                              ; preds = %134, %141
-  %142 = phi ptr [ %150, %141 ], [ %138, %134 ]
-  %143 = getelementptr i8, ptr %142, i64 8
-  %144 = load ptr, ptr %143, align 8
-  %145 = load i32, ptr @fol_NOT, align 4
-  %146 = tail call ptr @memory_Malloc(i32 noundef 16) #18
-  %147 = getelementptr inbounds %struct.LIST_HELP, ptr %146, i64 0, i32 1
-  store ptr %144, ptr %147, align 8
-  store ptr null, ptr %146, align 8
-  %148 = tail call ptr @term_CreateAddFather(i32 noundef %145, ptr noundef nonnull %146) #18
-  store ptr %148, ptr %143, align 8
-  %149 = getelementptr inbounds %struct.term, ptr %148, i64 0, i32 1
-  store ptr %13, ptr %149, align 8
-  %150 = load ptr, ptr %142, align 8
-  %151 = icmp eq ptr %150, null
-  br i1 %151, label %152, label %141, !llvm.loop !145
+139:                                              ; preds = %134
+  store i32 %135, ptr %5, align 8
+  br label %154
 
-152:                                              ; preds = %141
-  %153 = load ptr, ptr %10, align 8
-  store i32 %136, ptr %5, align 8
-  %154 = icmp eq ptr %153, null
-  br i1 %154, label %169, label %155
+140:                                              ; preds = %134, %140
+  %141 = phi ptr [ %149, %140 ], [ %137, %134 ]
+  %142 = getelementptr i8, ptr %141, i64 8
+  %143 = load ptr, ptr %142, align 8
+  %144 = load i32, ptr @fol_NOT, align 4
+  %145 = tail call ptr @memory_Malloc(i32 noundef 16) #17
+  %146 = getelementptr inbounds %struct.LIST_HELP, ptr %145, i64 0, i32 1
+  store ptr %143, ptr %146, align 8
+  store ptr null, ptr %145, align 8
+  %147 = tail call ptr @term_CreateAddFather(i32 noundef %144, ptr noundef nonnull %145) #17
+  store ptr %147, ptr %142, align 8
+  %148 = getelementptr inbounds %struct.term, ptr %147, i64 0, i32 1
+  store ptr %13, ptr %148, align 8
+  %149 = load ptr, ptr %141, align 8
+  %150 = icmp eq ptr %149, null
+  br i1 %150, label %151, label %140, !llvm.loop !142
 
-155:                                              ; preds = %140, %152
-  %156 = phi ptr [ %153, %152 ], [ %11, %140 ]
-  br label %157
+151:                                              ; preds = %140
+  %152 = load ptr, ptr %10, align 8
+  store i32 %135, ptr %5, align 8
+  %153 = icmp eq ptr %152, null
+  br i1 %153, label %168, label %154
 
-157:                                              ; preds = %155, %157
-  %158 = phi ptr [ %159, %157 ], [ %156, %155 ]
-  %159 = load ptr, ptr %158, align 8
-  %160 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %161 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %160, i64 0, i32 4
-  %162 = load i32, ptr %161, align 8
-  %163 = sext i32 %162 to i64
-  %164 = load i64, ptr @memory_FREEDBYTES, align 8
-  %165 = add i64 %164, %163
-  store i64 %165, ptr @memory_FREEDBYTES, align 8
-  %166 = load ptr, ptr %160, align 8
-  store ptr %166, ptr %158, align 8
-  %167 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %158, ptr %167, align 8
-  %168 = icmp eq ptr %159, null
-  br i1 %168, label %169, label %157, !llvm.loop !13
+154:                                              ; preds = %139, %151
+  %155 = phi ptr [ %152, %151 ], [ %11, %139 ]
+  br label %156
 
-169:                                              ; preds = %157, %152
-  %170 = load ptr, ptr %137, align 8
-  store ptr %170, ptr %10, align 8
-  %171 = icmp eq ptr %170, null
-  br i1 %171, label %179, label %172
+156:                                              ; preds = %154, %156
+  %157 = phi ptr [ %158, %156 ], [ %155, %154 ]
+  %158 = load ptr, ptr %157, align 8
+  %159 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %160 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %159, i64 0, i32 4
+  %161 = load i32, ptr %160, align 8
+  %162 = sext i32 %161 to i64
+  %163 = load i64, ptr @memory_FREEDBYTES, align 8
+  %164 = add i64 %163, %162
+  store i64 %164, ptr @memory_FREEDBYTES, align 8
+  %165 = load ptr, ptr %159, align 8
+  store ptr %165, ptr %157, align 8
+  %166 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %157, ptr %166, align 8
+  %167 = icmp eq ptr %158, null
+  br i1 %167, label %168, label %156, !llvm.loop !13
 
-172:                                              ; preds = %169, %172
-  %173 = phi ptr [ %177, %172 ], [ %170, %169 ]
-  %174 = getelementptr i8, ptr %173, i64 8
-  %175 = load ptr, ptr %174, align 8
-  %176 = getelementptr inbounds %struct.term, ptr %175, i64 0, i32 1
-  store ptr %5, ptr %176, align 8
-  %177 = load ptr, ptr %173, align 8
-  %178 = icmp eq ptr %177, null
-  br i1 %178, label %179, label %172, !llvm.loop !146
+168:                                              ; preds = %156, %151
+  %169 = load ptr, ptr %136, align 8
+  store ptr %169, ptr %10, align 8
+  %170 = icmp eq ptr %169, null
+  br i1 %170, label %178, label %171
 
-179:                                              ; preds = %172, %169
-  store ptr null, ptr %137, align 8
-  tail call void @term_Delete(ptr noundef nonnull %13) #18
-  br label %180
+171:                                              ; preds = %168, %171
+  %172 = phi ptr [ %176, %171 ], [ %169, %168 ]
+  %173 = getelementptr i8, ptr %172, i64 8
+  %174 = load ptr, ptr %173, align 8
+  %175 = getelementptr inbounds %struct.term, ptr %174, i64 0, i32 1
+  store ptr %5, ptr %175, align 8
+  %176 = load ptr, ptr %172, align 8
+  %177 = icmp eq ptr %176, null
+  br i1 %177, label %178, label %171, !llvm.loop !143
 
-180:                                              ; preds = %128, %179, %4
-  %181 = getelementptr i8, ptr %5, i64 16
-  %182 = load ptr, ptr %181, align 8
-  %183 = icmp eq ptr %182, null
-  br i1 %183, label %199, label %184
+178:                                              ; preds = %171, %168
+  store ptr null, ptr %136, align 8
+  tail call void @term_Delete(ptr noundef nonnull %13) #17
+  br label %179
 
-184:                                              ; preds = %180, %190
-  %185 = phi ptr [ %191, %190 ], [ %182, %180 ]
-  %186 = getelementptr i8, ptr %185, i64 8
-  %187 = load ptr, ptr %186, align 8
-  %188 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %187) #18
-  %189 = icmp eq i32 %188, 0
-  br i1 %189, label %190, label %193
+179:                                              ; preds = %178, %132, %4
+  %180 = getelementptr i8, ptr %5, i64 16
+  %181 = load ptr, ptr %180, align 8
+  %182 = icmp eq ptr %181, null
+  br i1 %182, label %198, label %186
 
-190:                                              ; preds = %184
-  %191 = load ptr, ptr %185, align 8
-  %192 = icmp eq ptr %191, null
-  br i1 %192, label %199, label %184, !llvm.loop !147
+183:                                              ; preds = %186
+  %184 = load ptr, ptr %187, align 8
+  %185 = icmp eq ptr %184, null
+  br i1 %185, label %198, label %186
 
-193:                                              ; preds = %184
-  %194 = getelementptr i8, ptr %185, i64 8
-  %195 = load ptr, ptr %194, align 8
-  br label %196
+186:                                              ; preds = %179, %183
+  %187 = phi ptr [ %184, %183 ], [ %181, %179 ]
+  %188 = getelementptr i8, ptr %187, i64 8
+  %189 = load ptr, ptr %188, align 8
+  %190 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %189) #17
+  %191 = icmp eq i32 %190, 0
+  br i1 %191, label %183, label %192, !llvm.loop !144
 
-196:                                              ; preds = %76, %65, %193, %127
-  %197 = phi ptr [ %98, %127 ], [ %195, %193 ], [ %5, %65 ], [ %5, %76 ]
-  %198 = icmp eq ptr %197, null
-  br i1 %198, label %199, label %4, !llvm.loop !148
+192:                                              ; preds = %186
+  %193 = getelementptr i8, ptr %187, i64 8
+  %194 = load ptr, ptr %193, align 8
+  br label %195
 
-199:                                              ; preds = %180, %196, %190, %2
+195:                                              ; preds = %76, %65, %192, %127
+  %196 = phi ptr [ %98, %127 ], [ %194, %192 ], [ %5, %65 ], [ %5, %76 ]
+  %197 = icmp eq ptr %196, null
+  br i1 %197, label %198, label %4, !llvm.loop !145
+
+198:                                              ; preds = %179, %195, %183, %2
   ret ptr %0
 }
 
@@ -8842,10 +8705,10 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
   %26 = load i32, ptr @fol_AND, align 4
   %27 = load i32, ptr @fol_OR, align 4
   %28 = select i1 %5, i32 %26, i32 %27
-  %29 = icmp ne i32 %4, %15
-  %30 = icmp ne i32 %6, %15
-  %31 = select i1 %29, i1 %30, i1 false
-  br i1 %31, label %35, label %32
+  %29 = icmp eq i32 %4, %15
+  %30 = icmp eq i32 %6, %15
+  %31 = select i1 %29, i1 true, i1 %30
+  br i1 %31, label %32, label %35
 
 32:                                               ; preds = %25
   %33 = tail call fastcc ptr @cnf_AntiPrenexPath(ptr noundef nonnull %14, ptr noundef %1)
@@ -8864,7 +8727,7 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
   %42 = getelementptr i8, ptr %41, i64 16
   %43 = load ptr, ptr %42, align 8
   %44 = tail call ptr @cnf_Flatten(ptr noundef nonnull %14, i32 noundef %28)
-  tail call void @term_AddFatherLinks(ptr noundef nonnull %14) #18
+  tail call void @term_AddFatherLinks(ptr noundef nonnull %14) #17
   %45 = getelementptr i8, ptr %14, i64 16
   %46 = load ptr, ptr %45, align 8
   %47 = icmp eq ptr %46, null
@@ -8874,15 +8737,15 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
   %49 = phi ptr [ %78, %77 ], [ %46, %38 ]
   %50 = getelementptr i8, ptr %49, i64 8
   %51 = load ptr, ptr %50, align 8
-  %52 = tail call ptr @fol_FreeVariables(ptr noundef %51) #18
-  %53 = tail call ptr @list_NIntersect(ptr noundef %52, ptr noundef %43, ptr noundef nonnull @term_Equal) #18
+  %52 = tail call ptr @fol_FreeVariables(ptr noundef %51) #17
+  %53 = tail call ptr @list_NIntersect(ptr noundef %52, ptr noundef %43, ptr noundef nonnull @term_Equal) #17
   %54 = icmp eq ptr %53, null
   br i1 %54, label %77, label %55
 
 55:                                               ; preds = %48
   %56 = load i32, ptr %51, align 8
   %57 = icmp eq i32 %3, %56
-  tail call void @list_NMapCar(ptr noundef nonnull %53, ptr noundef nonnull @term_Copy) #18
+  tail call void @list_NMapCar(ptr noundef nonnull %53, ptr noundef nonnull @term_Copy) #17
   br i1 %57, label %58, label %73
 
 58:                                               ; preds = %55
@@ -8911,24 +8774,24 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
   br label %77
 
 73:                                               ; preds = %55
-  %74 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %74 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %75 = getelementptr inbounds %struct.LIST_HELP, ptr %74, i64 0, i32 1
   store ptr %51, ptr %75, align 8
   store ptr null, ptr %74, align 8
-  %76 = tail call ptr @fol_CreateQuantifierAddFather(i32 noundef %3, ptr noundef nonnull %53, ptr noundef nonnull %74) #18
+  %76 = tail call ptr @fol_CreateQuantifierAddFather(i32 noundef %3, ptr noundef nonnull %53, ptr noundef nonnull %74) #17
   store ptr %76, ptr %50, align 8
   br label %77
 
 77:                                               ; preds = %48, %73, %71
   %78 = load ptr, ptr %49, align 8
   %79 = icmp eq ptr %78, null
-  br i1 %79, label %80, label %48, !llvm.loop !149
+  br i1 %79, label %80, label %48, !llvm.loop !146
 
 80:                                               ; preds = %77, %38
   %81 = load ptr, ptr %10, align 8
   %82 = getelementptr i8, ptr %81, i64 8
   %83 = load ptr, ptr %82, align 8
-  tail call void @term_Delete(ptr noundef %83) #18
+  tail call void @term_Delete(ptr noundef %83) #17
   %84 = load ptr, ptr %10, align 8
   %85 = icmp eq ptr %84, null
   br i1 %85, label %98, label %86
@@ -8965,7 +8828,7 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
   store ptr %106, ptr %14, align 8
   %107 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
   store ptr %14, ptr %107, align 8
-  tail call void @term_AddFatherLinks(ptr noundef nonnull %0) #18
+  tail call void @term_AddFatherLinks(ptr noundef nonnull %0) #17
   %108 = load ptr, ptr %10, align 8
   %109 = icmp eq ptr %108, null
   br i1 %109, label %173, label %110
@@ -8977,7 +8840,7 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
   %114 = getelementptr inbounds %struct.term, ptr %113, i64 0, i32 1
   store ptr %0, ptr %114, align 8
   %115 = load ptr, ptr %112, align 8
-  %116 = tail call i32 @term_HasPointerSubterm(ptr noundef %115, ptr noundef %1) #18
+  %116 = tail call i32 @term_HasPointerSubterm(ptr noundef %115, ptr noundef %1) #17
   %117 = icmp eq i32 %116, 0
   br i1 %117, label %123, label %118
 
@@ -8993,15 +8856,15 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
 123:                                              ; preds = %110, %118
   %124 = load ptr, ptr %111, align 8
   %125 = icmp eq ptr %124, null
-  br i1 %125, label %173, label %110, !llvm.loop !150
+  br i1 %125, label %173, label %110, !llvm.loop !147
 
 126:                                              ; preds = %35
   %127 = load i32, ptr @fol_ALL, align 4
-  %128 = icmp ne i32 %127, %36
+  %128 = icmp eq i32 %127, %36
   %129 = load i32, ptr @fol_EXIST, align 4
-  %130 = icmp ne i32 %129, %36
-  %131 = select i1 %128, i1 %130, i1 false
-  br i1 %131, label %132, label %173
+  %130 = icmp eq i32 %129, %36
+  %131 = select i1 %128, i1 true, i1 %130
+  br i1 %131, label %173, label %132
 
 132:                                              ; preds = %126
   tail call fastcc void @cnf_DistrQuantorNoVarSubPath(ptr noundef nonnull %0, ptr noundef %1)
@@ -9013,7 +8876,7 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
   %136 = phi ptr [ %145, %144 ], [ %133, %132 ]
   %137 = getelementptr i8, ptr %136, i64 8
   %138 = load ptr, ptr %137, align 8
-  %139 = tail call i32 @term_HasPointerSubterm(ptr noundef %138, ptr noundef %1) #18
+  %139 = tail call i32 @term_HasPointerSubterm(ptr noundef %138, ptr noundef %1) #17
   %140 = icmp eq i32 %139, 0
   br i1 %140, label %144, label %141
 
@@ -9025,7 +8888,7 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
 144:                                              ; preds = %135, %141
   %145 = load ptr, ptr %136, align 8
   %146 = icmp eq ptr %145, null
-  br i1 %146, label %173, label %135, !llvm.loop !151
+  br i1 %146, label %173, label %135, !llvm.loop !148
 
 147:                                              ; preds = %2
   %148 = load i32, ptr @fol_NOT, align 4
@@ -9034,16 +8897,14 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
 
 150:                                              ; preds = %147
   %151 = icmp sgt i32 %3, -1
-  br i1 %151, label %157, label %152
+  %152 = sub nsw i32 0, %3
+  %153 = load i32, ptr @symbol_TYPEMASK, align 4
+  %154 = and i32 %153, %152
+  %155 = icmp ne i32 %154, 2
+  %156 = select i1 %151, i1 true, i1 %155
+  br i1 %156, label %157, label %173
 
-152:                                              ; preds = %150
-  %153 = sub nsw i32 0, %3
-  %154 = load i32, ptr @symbol_TYPEMASK, align 4
-  %155 = and i32 %154, %153
-  %156 = icmp eq i32 %155, 2
-  br i1 %156, label %173, label %157
-
-157:                                              ; preds = %150, %152
+157:                                              ; preds = %150
   %158 = getelementptr i8, ptr %0, i64 16
   %159 = load ptr, ptr %158, align 8
   %160 = icmp eq ptr %159, null
@@ -9053,7 +8914,7 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
   %162 = phi ptr [ %171, %170 ], [ %159, %157 ]
   %163 = getelementptr i8, ptr %162, i64 8
   %164 = load ptr, ptr %163, align 8
-  %165 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %164) #18
+  %165 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %164) #17
   %166 = icmp eq i32 %165, 0
   br i1 %166, label %170, label %167
 
@@ -9065,10 +8926,10 @@ define internal fastcc ptr @cnf_AntiPrenexPath(ptr noundef returned %0, ptr noun
 170:                                              ; preds = %161, %167
   %171 = load ptr, ptr %162, align 8
   %172 = icmp eq ptr %171, null
-  br i1 %172, label %173, label %161, !llvm.loop !152
+  br i1 %172, label %173, label %161, !llvm.loop !149
 
-173:                                              ; preds = %170, %144, %123, %157, %132, %98, %9, %20, %126, %147, %152
-  tail call void @term_AddFatherLinks(ptr noundef nonnull %0) #18
+173:                                              ; preds = %170, %144, %123, %157, %132, %98, %9, %20, %126, %147, %150
+  tail call void @term_AddFatherLinks(ptr noundef nonnull %0) #17
   ret ptr %0
 }
 
@@ -9085,7 +8946,7 @@ define dso_local ptr @cnf_DefConvert(ptr noundef %0, ptr noundef %1, ptr nocaptu
   %6 = getelementptr i8, ptr %1, i64 8
   %7 = load ptr, ptr %6, align 8
   %8 = tail call fastcc ptr @cnf_SimplifyQuantors(ptr noundef %0)
-  tail call void @term_AddFatherLinks(ptr noundef %8) #18
+  tail call void @term_AddFatherLinks(ptr noundef %8) #17
   %9 = getelementptr i8, ptr %7, i64 8
   %10 = load ptr, ptr %9, align 8
   %11 = icmp eq ptr %10, %8
@@ -9106,17 +8967,17 @@ define dso_local ptr @cnf_DefConvert(ptr noundef %0, ptr noundef %1, ptr nocaptu
   %22 = icmp eq i32 %14, %21
   %23 = icmp ne ptr %8, %20
   %24 = and i1 %23, %22
-  br i1 %24, label %17, label %25, !llvm.loop !153
+  br i1 %24, label %17, label %25, !llvm.loop !150
 
 25:                                               ; preds = %17, %12
   %26 = phi ptr [ %13, %12 ], [ %20, %17 ]
   %27 = phi i32 [ %15, %12 ], [ %21, %17 ]
   %28 = load i32, ptr @fol_ALL, align 4
-  %29 = icmp ne i32 %28, %27
+  %29 = icmp eq i32 %28, %27
   %30 = load i32, ptr @fol_EXIST, align 4
-  %31 = icmp ne i32 %30, %27
-  %32 = select i1 %29, i1 %31, i1 false
-  br i1 %32, label %84, label %33
+  %31 = icmp eq i32 %30, %27
+  %32 = select i1 %29, i1 true, i1 %31
+  br i1 %32, label %33, label %84
 
 33:                                               ; preds = %25
   %34 = getelementptr i8, ptr %26, i64 16
@@ -9137,7 +8998,7 @@ define dso_local ptr @cnf_DefConvert(ptr noundef %0, ptr noundef %1, ptr nocaptu
   %47 = phi ptr [ %52, %56 ], [ %44, %33 ]
   %48 = getelementptr i8, ptr %47, i64 8
   %49 = load ptr, ptr %48, align 8
-  %50 = tail call i32 @fol_VarOccursFreely(ptr noundef %49, ptr noundef %7) #18
+  %50 = tail call i32 @fol_VarOccursFreely(ptr noundef %49, ptr noundef %7) #17
   %51 = icmp eq i32 %50, 0
   %52 = load ptr, ptr %47, align 8
   br i1 %51, label %56, label %53
@@ -9145,36 +9006,36 @@ define dso_local ptr @cnf_DefConvert(ptr noundef %0, ptr noundef %1, ptr nocaptu
 53:                                               ; preds = %46
   %54 = load ptr, ptr %48, align 8
   %55 = load i32, ptr %54, align 8
-  tail call void @fol_DeleteQuantifierVariable(ptr noundef nonnull %26, i32 noundef %55) #18
+  tail call void @fol_DeleteQuantifierVariable(ptr noundef nonnull %26, i32 noundef %55) #17
   br label %56
 
 56:                                               ; preds = %53, %46
   %57 = icmp eq ptr %52, null
-  br i1 %57, label %58, label %46, !llvm.loop !154
+  br i1 %57, label %58, label %46, !llvm.loop !151
 
 58:                                               ; preds = %56, %33
   %59 = load i32, ptr %26, align 8
   %60 = load i32, ptr @fol_ALL, align 4
-  %61 = icmp ne i32 %60, %59
+  %61 = icmp eq i32 %60, %59
   %62 = load i32, ptr @fol_EXIST, align 4
-  %63 = icmp ne i32 %62, %59
-  %64 = select i1 %61, i1 %63, i1 false
-  br i1 %64, label %86, label %65
+  %63 = icmp eq i32 %62, %59
+  %64 = select i1 %61, i1 true, i1 %63
+  br i1 %64, label %65, label %86
 
 65:                                               ; preds = %58
   %66 = getelementptr i8, ptr %38, i64 16
   %67 = load ptr, ptr %66, align 8
-  %68 = tail call ptr @list_PointerDeleteOneElement(ptr noundef %67, ptr noundef %7) #18
+  %68 = tail call ptr @list_PointerDeleteOneElement(ptr noundef %67, ptr noundef %7) #17
   store ptr %68, ptr %66, align 8
   %69 = load ptr, ptr %34, align 8
   store ptr null, ptr %34, align 8
   %70 = load i32, ptr %26, align 8
-  %71 = tail call ptr @term_Create(i32 noundef %70, ptr noundef %69) #18
-  %72 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %71 = tail call ptr @term_Create(i32 noundef %70, ptr noundef %69) #17
+  %72 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %73 = getelementptr inbounds %struct.LIST_HELP, ptr %72, i64 0, i32 1
   store ptr %71, ptr %73, align 8
   store ptr null, ptr %72, align 8
-  %74 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %74 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %75 = getelementptr inbounds %struct.LIST_HELP, ptr %74, i64 0, i32 1
   store ptr %7, ptr %75, align 8
   store ptr %72, ptr %74, align 8
@@ -9191,7 +9052,7 @@ define dso_local ptr @cnf_DefConvert(ptr noundef %0, ptr noundef %1, ptr nocaptu
   store ptr %26, ptr %81, align 8
   %82 = load ptr, ptr %78, align 8
   %83 = icmp eq ptr %82, null
-  br i1 %83, label %86, label %77, !llvm.loop !155
+  br i1 %83, label %86, label %77, !llvm.loop !152
 
 84:                                               ; preds = %25
   %85 = tail call ptr @cnf_Flatten(ptr noundef nonnull %26, i32 noundef %14)
@@ -9199,26 +9060,26 @@ define dso_local ptr @cnf_DefConvert(ptr noundef %0, ptr noundef %1, ptr nocaptu
 
 86:                                               ; preds = %77, %84, %58
   %87 = icmp eq ptr %26, %8
-  br i1 %87, label %88, label %12, !llvm.loop !156
+  br i1 %87, label %88, label %12, !llvm.loop !153
 
 88:                                               ; preds = %86, %3
-  %89 = tail call ptr @fol_FreeVariables(ptr noundef %8) #18
+  %89 = tail call ptr @fol_FreeVariables(ptr noundef %8) #17
   %90 = icmp eq ptr %89, null
   br i1 %90, label %96, label %91
 
 91:                                               ; preds = %88
-  tail call void @list_NMapCar(ptr noundef nonnull %89, ptr noundef nonnull @term_Copy) #18
+  tail call void @list_NMapCar(ptr noundef nonnull %89, ptr noundef nonnull @term_Copy) #17
   %92 = load i32, ptr @fol_ALL, align 4
-  %93 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %93 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %94 = getelementptr inbounds %struct.LIST_HELP, ptr %93, i64 0, i32 1
   store ptr %8, ptr %94, align 8
   store ptr null, ptr %93, align 8
-  %95 = tail call ptr @fol_CreateQuantifier(i32 noundef %92, ptr noundef nonnull %89, ptr noundef nonnull %93) #18
+  %95 = tail call ptr @fol_CreateQuantifier(i32 noundef %92, ptr noundef nonnull %89, ptr noundef nonnull %93) #17
   br label %96
 
 96:                                               ; preds = %88, %91
   %97 = phi ptr [ %8, %88 ], [ %95, %91 ]
-  tail call void @term_AddFatherLinks(ptr noundef %97) #18
+  tail call void @term_AddFatherLinks(ptr noundef %97) #17
   %98 = load i32, ptr %97, align 8
   %99 = load i32, ptr @fol_ALL, align 4
   %100 = icmp eq i32 %98, %99
@@ -9238,7 +9099,7 @@ define dso_local ptr @cnf_DefConvert(ptr noundef %0, ptr noundef %1, ptr nocaptu
 110:                                              ; preds = %101
   %111 = getelementptr i8, ptr %106, i64 16
   %112 = load ptr, ptr %111, align 8
-  %113 = tail call i32 @list_Length(ptr noundef %112) #18
+  %113 = tail call i32 @list_Length(ptr noundef %112) #17
   %114 = icmp eq i32 %113, 1
   %115 = load ptr, ptr %102, align 8
   %116 = load ptr, ptr %115, align 8
@@ -9279,7 +9140,7 @@ define dso_local ptr @cnf_DefConvert(ptr noundef %0, ptr noundef %1, ptr nocaptu
 140:                                              ; preds = %137
   %141 = getelementptr i8, ptr %97, i64 16
   %142 = load ptr, ptr %141, align 8
-  %143 = tail call i32 @list_Length(ptr noundef %142) #18
+  %143 = tail call i32 @list_Length(ptr noundef %142) #17
   %144 = icmp eq i32 %143, 1
   br i1 %144, label %145, label %165
 
@@ -9326,46 +9187,46 @@ define dso_local ptr @cnf_DefConvert(ptr noundef %0, ptr noundef %1, ptr nocaptu
   %172 = getelementptr i8, ptr %166, i64 16
   %173 = load ptr, ptr %172, align 8
   %174 = load ptr, ptr %6, align 8
-  %175 = tail call ptr @list_PointerDeleteElement(ptr noundef %173, ptr noundef %174) #18
+  %175 = tail call ptr @list_PointerDeleteElement(ptr noundef %173, ptr noundef %174) #17
   store ptr %175, ptr %172, align 8
-  %176 = tail call ptr @term_Copy(ptr noundef nonnull %166) #18
+  %176 = tail call ptr @term_Copy(ptr noundef nonnull %166) #17
   store ptr %176, ptr %2, align 8
   %177 = load i32, ptr @fol_NOT, align 4
-  %178 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %178 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %179 = getelementptr inbounds %struct.LIST_HELP, ptr %178, i64 0, i32 1
   store ptr %176, ptr %179, align 8
   store ptr null, ptr %178, align 8
-  %180 = tail call ptr @term_Create(i32 noundef %177, ptr noundef nonnull %178) #18
+  %180 = tail call ptr @term_Create(i32 noundef %177, ptr noundef nonnull %178) #17
   store ptr %180, ptr %2, align 8
   %181 = tail call ptr @cnf_NegationNormalFormula(ptr noundef %180)
   store ptr %180, ptr %2, align 8
-  tail call void @term_AddFatherLinks(ptr noundef %180) #18
+  tail call void @term_AddFatherLinks(ptr noundef %180) #17
   %182 = load i32, ptr @fol_IMPLIES, align 4
   store i32 %182, ptr %166, align 8
   %183 = load i32, ptr @fol_NOT, align 4
   %184 = load i32, ptr @fol_OR, align 4
   %185 = load ptr, ptr %172, align 8
-  %186 = tail call ptr @term_Create(i32 noundef %184, ptr noundef %185) #18
-  %187 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %186 = tail call ptr @term_Create(i32 noundef %184, ptr noundef %185) #17
+  %187 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %188 = getelementptr inbounds %struct.LIST_HELP, ptr %187, i64 0, i32 1
   store ptr %186, ptr %188, align 8
   store ptr null, ptr %187, align 8
-  %189 = tail call ptr @term_Create(i32 noundef %183, ptr noundef nonnull %187) #18
-  %190 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %189 = tail call ptr @term_Create(i32 noundef %183, ptr noundef nonnull %187) #17
+  %190 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %191 = getelementptr inbounds %struct.LIST_HELP, ptr %190, i64 0, i32 1
   store ptr %174, ptr %191, align 8
   store ptr null, ptr %190, align 8
-  %192 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %192 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %193 = getelementptr inbounds %struct.LIST_HELP, ptr %192, i64 0, i32 1
   store ptr %189, ptr %193, align 8
   store ptr %190, ptr %192, align 8
   store ptr %192, ptr %172, align 8
   %194 = tail call ptr @cnf_NegationNormalFormula(ptr noundef nonnull %97)
-  tail call void @term_AddFatherLinks(ptr noundef nonnull %97) #18
+  tail call void @term_AddFatherLinks(ptr noundef nonnull %97) #17
   br label %195
 
 195:                                              ; preds = %145, %119, %170, %171, %163
-  %196 = phi ptr [ %97, %163 ], [ %97, %170 ], [ %97, %171 ], [ %148, %145 ], [ %97, %119 ]
+  %196 = phi ptr [ %97, %170 ], [ %97, %171 ], [ %97, %163 ], [ %148, %145 ], [ %97, %119 ]
   ret ptr %196
 }
 
@@ -9380,7 +9241,7 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   %10 = alloca ptr, align 8
   %11 = alloca ptr, align 8
   %12 = alloca ptr, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #17
   %13 = getelementptr i8, ptr %0, i64 112
   %14 = load ptr, ptr %13, align 8
   %15 = getelementptr i8, ptr %0, i64 104
@@ -9392,9 +9253,9 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   br i1 %19, label %226, label %20
 
 20:                                               ; preds = %5
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #18
-  %21 = call ptr @list_Copy(ptr noundef %2) #18
-  %22 = call ptr @list_Copy(ptr noundef %3) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #17
+  %21 = call ptr @list_Copy(ptr noundef %2) #17
+  %22 = call ptr @list_Copy(ptr noundef %3) #17
   %23 = icmp eq ptr %21, null
   br i1 %23, label %33, label %24
 
@@ -9403,7 +9264,7 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   br i1 %25, label %26, label %28
 
 26:                                               ; preds = %24
-  %27 = call ptr @list_Copy(ptr noundef %4) #18
+  %27 = call ptr @list_Copy(ptr noundef %4) #17
   br label %37
 
 28:                                               ; preds = %24, %28
@@ -9418,7 +9279,7 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
 
 33:                                               ; preds = %20, %32
   %34 = phi ptr [ %21, %32 ], [ %22, %20 ]
-  %35 = call ptr @list_Copy(ptr noundef %4) #18
+  %35 = call ptr @list_Copy(ptr noundef %4) #17
   %36 = icmp eq ptr %34, null
   br i1 %36, label %46, label %37
 
@@ -9450,7 +9311,7 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   %53 = call i64 @fwrite(ptr nonnull @.str.14, i64 13, i64 1, ptr %52)
   %54 = load ptr, ptr %6, align 8
   %55 = load i32, ptr %54, align 8
-  call void @symbol_Print(i32 noundef %55) #18
+  call void @symbol_Print(i32 noundef %55) #17
   br label %56
 
 56:                                               ; preds = %51, %46
@@ -9459,9 +9320,9 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   %59 = load ptr, ptr %7, align 8
   %60 = freeze ptr %59
   %61 = icmp eq ptr %60, null
-  %62 = call ptr @term_Copy(ptr noundef %58) #18
+  %62 = call ptr @term_Copy(ptr noundef %58) #17
   %63 = load ptr, ptr %0, align 8
-  %64 = call ptr @memory_Malloc(i32 noundef 16) #18
+  %64 = call ptr @memory_Malloc(i32 noundef 16) #17
   %65 = getelementptr inbounds %struct.LIST_HELP, ptr %64, i64 0, i32 1
   store ptr %62, ptr %65, align 8
   store ptr %63, ptr %64, align 8
@@ -9474,7 +9335,7 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
 69:                                               ; preds = %56
   %70 = load ptr, ptr @stdout, align 8
   %71 = call i64 @fwrite(ptr nonnull @.str.15, i64 25, i64 1, ptr %70)
-  call void @fol_PrettyPrint(ptr noundef %58) #18
+  call void @fol_PrettyPrint(ptr noundef %58) #17
   br label %72
 
 72:                                               ; preds = %69, %56
@@ -9494,8 +9355,8 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
 
 83:                                               ; preds = %82, %137
   %84 = phi ptr [ %138, %137 ], [ %47, %82 ]
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #18
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #17
   %85 = getelementptr i8, ptr %84, i64 8
   %86 = load ptr, ptr %85, align 8
   %87 = icmp eq ptr %86, null
@@ -9507,9 +9368,9 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   br i1 %90, label %135, label %91
 
 91:                                               ; preds = %88
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #17
   store ptr null, ptr %12, align 8
   store ptr null, ptr %9, align 8
   %92 = load ptr, ptr %6, align 8
@@ -9576,9 +9437,9 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   br i1 %133, label %134, label %122, !llvm.loop !13
 
 134:                                              ; preds = %122, %119
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #17
   br label %137
 
 135:                                              ; preds = %88, %83
@@ -9587,15 +9448,15 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
 
 137:                                              ; preds = %135, %134
   %138 = phi ptr [ %104, %134 ], [ %136, %135 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #18
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #17
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #17
   %139 = icmp eq ptr %138, null
-  br i1 %139, label %206, label %83, !llvm.loop !157
+  br i1 %139, label %206, label %83, !llvm.loop !154
 
 140:                                              ; preds = %82, %203
   %141 = phi ptr [ %204, %203 ], [ %47, %82 ]
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #18
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #17
   %142 = getelementptr i8, ptr %141, i64 8
   %143 = load ptr, ptr %142, align 8
   %144 = icmp eq ptr %143, null
@@ -9607,9 +9468,9 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   br i1 %147, label %201, label %148
 
 148:                                              ; preds = %145
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #18
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %11) #17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %12) #17
   store ptr null, ptr %12, align 8
   store ptr null, ptr %9, align 8
   store i32 0, ptr %8, align 4
@@ -9620,7 +9481,7 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   br i1 %152, label %200, label %153
 
 153:                                              ; preds = %148
-  %154 = call ptr @term_Copy(ptr noundef nonnull %60) #18
+  %154 = call ptr @term_Copy(ptr noundef nonnull %60) #17
   %155 = load ptr, ptr %11, align 8
   %156 = load ptr, ptr %6, align 8
   %157 = getelementptr i8, ptr %156, i64 16
@@ -9689,9 +9550,9 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   br label %200
 
 200:                                              ; preds = %193, %196, %148
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %12) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %11) #17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #17
   br label %203
 
 201:                                              ; preds = %145, %140
@@ -9700,10 +9561,10 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
 
 203:                                              ; preds = %201, %200
   %204 = phi ptr [ %141, %200 ], [ %202, %201 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #18
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #17
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #17
   %205 = icmp eq ptr %204, null
-  br i1 %205, label %206, label %140, !llvm.loop !157
+  br i1 %205, label %206, label %140, !llvm.loop !154
 
 206:                                              ; preds = %203, %137
   br label %207
@@ -9735,16 +9596,16 @@ define dso_local ptr @cnf_HandleDefinition(ptr nocapture noundef %0, ptr noundef
   br i1 %223, label %225, label %224
 
 224:                                              ; preds = %221
-  call void @term_Delete(ptr noundef nonnull %222) #18
+  call void @term_Delete(ptr noundef nonnull %222) #17
   br label %225
 
 225:                                              ; preds = %224, %221
   store ptr %58, ptr %1, align 8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #17
   br label %226
 
 226:                                              ; preds = %225, %5
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #17
   ret ptr %1
 }
 
@@ -9753,7 +9614,7 @@ declare void @symbol_Print(i32 noundef) local_unnamed_addr #1
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @cnf_ApplyDefinitionToClause(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, ptr noundef %4) local_unnamed_addr #0 {
   %6 = alloca ptr, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #17
   %7 = getelementptr i8, ptr %0, i64 64
   %8 = getelementptr i8, ptr %0, i64 68
   %9 = getelementptr i8, ptr %0, i64 72
@@ -9778,8 +9639,8 @@ define dso_local ptr @cnf_ApplyDefinitionToClause(ptr noundef %0, ptr noundef %1
   %24 = load ptr, ptr %23, align 8
   %25 = getelementptr i8, ptr %24, i64 24
   %26 = load ptr, ptr %25, align 8
-  %27 = tail call ptr @term_Copy(ptr noundef %26) #18
-  %28 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %27 = tail call ptr @term_Copy(ptr noundef %26) #17
+  %28 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %29 = getelementptr inbounds %struct.LIST_HELP, ptr %28, i64 0, i32 1
   store ptr %27, ptr %29, align 8
   store ptr %20, ptr %28, align 8
@@ -9790,12 +9651,12 @@ define dso_local ptr @cnf_ApplyDefinitionToClause(ptr noundef %0, ptr noundef %1
   %34 = load i32, ptr %9, align 8
   %35 = add nsw i32 %33, %34
   %36 = icmp ult i32 %30, %35
-  br i1 %36, label %18, label %37, !llvm.loop !158
+  br i1 %36, label %18, label %37, !llvm.loop !155
 
 37:                                               ; preds = %18, %5
   %38 = phi ptr [ null, %5 ], [ %28, %18 ]
   %39 = load i32, ptr @fol_OR, align 4
-  %40 = tail call ptr @term_Create(i32 noundef %39, ptr noundef %38) #18
+  %40 = tail call ptr @term_Create(i32 noundef %39, ptr noundef %38) #17
   %41 = getelementptr i8, ptr %40, i64 16
   %42 = load ptr, ptr %41, align 8
   %43 = icmp eq ptr %42, null
@@ -9829,30 +9690,30 @@ define dso_local ptr @cnf_ApplyDefinitionToClause(ptr noundef %0, ptr noundef %1
   store i32 %59, ptr %63, align 4
   store i32 0, ptr @cont_BINDINGS, align 4
   %64 = load ptr, ptr @cont_LEFTCONTEXT, align 8
-  %65 = tail call i32 @unify_Match(ptr noundef %64, ptr noundef %1, ptr noundef %58) #18
+  %65 = tail call i32 @unify_Match(ptr noundef %64, ptr noundef %1, ptr noundef %58) #17
   %66 = icmp eq i32 %65, 0
   br i1 %66, label %79, label %67
 
 67:                                               ; preds = %57
-  %68 = tail call ptr @subst_ExtractMatcher() #18
-  %69 = tail call ptr @term_Copy(ptr noundef %2) #18
-  %70 = tail call ptr @subst_Apply(ptr noundef %68, ptr noundef %69) #18
-  tail call void @subst_Free(ptr noundef %68) #18
+  %68 = tail call ptr @subst_ExtractMatcher() #17
+  %69 = tail call ptr @term_Copy(ptr noundef %2) #17
+  %70 = tail call ptr @subst_Apply(ptr noundef %68, ptr noundef %69) #17
+  tail call void @subst_Free(ptr noundef %68) #17
   br i1 %51, label %71, label %76
 
 71:                                               ; preds = %67
   %72 = load i32, ptr @fol_NOT, align 4
-  %73 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %73 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %74 = getelementptr inbounds %struct.LIST_HELP, ptr %73, i64 0, i32 1
   store ptr %70, ptr %74, align 8
   store ptr null, ptr %73, align 8
-  %75 = tail call ptr @term_Create(i32 noundef %72, ptr noundef nonnull %73) #18
+  %75 = tail call ptr @term_Create(i32 noundef %72, ptr noundef nonnull %73) #17
   br label %76
 
 76:                                               ; preds = %71, %67
   %77 = phi ptr [ %75, %71 ], [ %70, %67 ]
   %78 = load ptr, ptr %47, align 8
-  tail call void @term_Delete(ptr noundef %78) #18
+  tail call void @term_Delete(ptr noundef %78) #17
   store ptr %77, ptr %47, align 8
   br label %79
 
@@ -9914,7 +9775,7 @@ define dso_local ptr @cnf_ApplyDefinitionToClause(ptr noundef %0, ptr noundef %1
   %112 = add nsw i32 %98, -2
   store i32 %112, ptr @cont_BINDINGS, align 4
   %113 = icmp ugt i32 %105, 1
-  br i1 %113, label %97, label %114, !llvm.loop !159
+  br i1 %113, label %97, label %114, !llvm.loop !156
 
 114:                                              ; preds = %94, %97, %79
   %115 = load i32, ptr @cont_STACKPOINTER, align 4
@@ -9933,7 +9794,7 @@ define dso_local ptr @cnf_ApplyDefinitionToClause(ptr noundef %0, ptr noundef %1
 122:                                              ; preds = %114, %117
   %123 = load ptr, ptr %45, align 8
   %124 = icmp eq ptr %123, null
-  br i1 %124, label %125, label %44, !llvm.loop !160
+  br i1 %124, label %125, label %44, !llvm.loop !157
 
 125:                                              ; preds = %122
   %126 = icmp eq i32 %80, 0
@@ -9947,11 +9808,11 @@ define dso_local ptr @cnf_ApplyDefinitionToClause(ptr noundef %0, ptr noundef %1
 
 131:                                              ; preds = %127
   %132 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.16)
-  tail call void @clause_Print(ptr noundef %0) #18
+  tail call void @clause_Print(ptr noundef %0) #17
   %133 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.17)
-  tail call void @fol_PrettyPrint(ptr noundef %1) #18
+  tail call void @fol_PrettyPrint(ptr noundef %1) #17
   %134 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.18)
-  tail call void @fol_PrettyPrint(ptr noundef %2) #18
+  tail call void @fol_PrettyPrint(ptr noundef %2) #17
   br label %135
 
 135:                                              ; preds = %131, %127
@@ -9980,7 +9841,7 @@ define dso_local ptr @cnf_ApplyDefinitionToClause(ptr noundef %0, ptr noundef %1
   br i1 %151, label %152, label %140, !llvm.loop !13
 
 152:                                              ; preds = %140, %135
-  call void @term_Delete(ptr noundef %136) #18
+  call void @term_Delete(ptr noundef %136) #17
   %153 = load i32, ptr %128, align 4
   %154 = icmp eq i32 %153, 0
   br i1 %154, label %167, label %155
@@ -9994,20 +9855,20 @@ define dso_local ptr @cnf_ApplyDefinitionToClause(ptr noundef %0, ptr noundef %1
   %159 = phi ptr [ %164, %158 ], [ %137, %155 ]
   %160 = getelementptr i8, ptr %159, i64 8
   %161 = load ptr, ptr %160, align 8
-  call void @clause_Print(ptr noundef %161) #18
+  call void @clause_Print(ptr noundef %161) #17
   %162 = load ptr, ptr @stdout, align 8
   %163 = call i32 @fputc(i32 10, ptr %162)
   %164 = load ptr, ptr %159, align 8
   %165 = icmp eq ptr %164, null
-  br i1 %165, label %167, label %158, !llvm.loop !161
+  br i1 %165, label %167, label %158, !llvm.loop !158
 
 166:                                              ; preds = %37, %125
-  tail call void @term_Delete(ptr noundef %40) #18
+  tail call void @term_Delete(ptr noundef %40) #17
   br label %167
 
 167:                                              ; preds = %158, %155, %152, %166
   %168 = phi ptr [ null, %166 ], [ %137, %152 ], [ null, %155 ], [ %137, %158 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #17
   ret ptr %168
 }
 
@@ -10034,7 +9895,7 @@ declare void @fol_DeleteQuantifierVariable(ptr noundef, i32 noundef) local_unnam
 declare void @fol_SetTrue(ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite)
-declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #11
+declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc ptr @cnf_IsDefinition(ptr nocapture noundef readonly %0) unnamed_addr #0 {
@@ -10044,16 +9905,14 @@ define internal fastcc ptr @cnf_IsDefinition(ptr nocapture noundef readonly %0) 
   %5 = load ptr, ptr %4, align 8
   %6 = load i32, ptr %5, align 8
   %7 = icmp sgt i32 %6, -1
-  br i1 %7, label %13, label %8
+  %8 = sub nsw i32 0, %6
+  %9 = load i32, ptr @symbol_TYPEMASK, align 4
+  %10 = and i32 %9, %8
+  %11 = icmp ne i32 %10, 2
+  %12 = select i1 %7, i1 true, i1 %11
+  br i1 %12, label %13, label %25
 
-8:                                                ; preds = %1
-  %9 = sub nsw i32 0, %6
-  %10 = load i32, ptr @symbol_TYPEMASK, align 4
-  %11 = and i32 %10, %9
-  %12 = icmp eq i32 %11, 2
-  br i1 %12, label %25, label %13
-
-13:                                               ; preds = %8, %1
+13:                                               ; preds = %1
   %14 = load ptr, ptr %3, align 8
   %15 = getelementptr i8, ptr %14, i64 8
   %16 = load ptr, ptr %15, align 8
@@ -10066,120 +9925,121 @@ define internal fastcc ptr @cnf_IsDefinition(ptr nocapture noundef readonly %0) 
   %21 = getelementptr i8, ptr %20, i64 8
   %22 = load ptr, ptr %21, align 8
   %23 = load i32, ptr %22, align 8
-  %24 = icmp sgt i32 %23, -1
-  br i1 %24, label %100, label %25
+  %24 = sub nsw i32 0, %23
+  br label %25
 
-25:                                               ; preds = %8, %13
-  %26 = phi ptr [ %20, %13 ], [ %3, %8 ]
-  %27 = phi i32 [ %23, %13 ], [ %6, %8 ]
-  %28 = sub nsw i32 0, %27
-  %29 = load i32, ptr @symbol_TYPEMASK, align 4
-  %30 = and i32 %29, %28
-  %31 = icmp eq i32 %30, 2
-  br i1 %31, label %32, label %100
+25:                                               ; preds = %13, %1
+  %26 = phi i32 [ %24, %13 ], [ %8, %1 ]
+  %27 = phi i32 [ %23, %13 ], [ %6, %1 ]
+  %28 = phi ptr [ %20, %13 ], [ %3, %1 ]
+  %29 = icmp sgt i32 %27, -1
+  %30 = and i32 %9, %26
+  %31 = icmp ne i32 %30, 2
+  %32 = select i1 %29, i1 true, i1 %31
+  br i1 %32, label %101, label %33
 
-32:                                               ; preds = %25
-  %33 = load ptr, ptr %26, align 8
-  %34 = getelementptr i8, ptr %33, i64 8
-  %35 = load ptr, ptr %34, align 8
-  %36 = tail call ptr @fol_FreeVariables(ptr noundef %35) #18
-  %37 = tail call ptr @list_DeleteDuplicates(ptr noundef %36, ptr noundef nonnull @term_Equal) #18
-  %38 = load ptr, ptr %2, align 8
-  %39 = getelementptr i8, ptr %38, i64 8
-  %40 = load ptr, ptr %39, align 8
-  %41 = tail call ptr @term_ListOfVariables(ptr noundef %40) #18
-  %42 = tail call ptr @list_DeleteDuplicates(ptr noundef %41, ptr noundef nonnull @term_Equal) #18
-  %43 = icmp eq ptr %42, null
-  br i1 %43, label %54, label %44
+33:                                               ; preds = %25
+  %34 = load ptr, ptr %28, align 8
+  %35 = getelementptr i8, ptr %34, i64 8
+  %36 = load ptr, ptr %35, align 8
+  %37 = tail call ptr @fol_FreeVariables(ptr noundef %36) #17
+  %38 = tail call ptr @list_DeleteDuplicates(ptr noundef %37, ptr noundef nonnull @term_Equal) #17
+  %39 = load ptr, ptr %2, align 8
+  %40 = getelementptr i8, ptr %39, i64 8
+  %41 = load ptr, ptr %40, align 8
+  %42 = tail call ptr @term_ListOfVariables(ptr noundef %41) #17
+  %43 = tail call ptr @list_DeleteDuplicates(ptr noundef %42, ptr noundef nonnull @term_Equal) #17
+  %44 = icmp eq ptr %43, null
+  br i1 %44, label %55, label %45
 
-44:                                               ; preds = %32, %44
-  %45 = phi ptr [ %49, %44 ], [ %37, %32 ]
-  %46 = phi ptr [ %50, %44 ], [ %42, %32 ]
-  %47 = getelementptr i8, ptr %46, i64 8
-  %48 = load ptr, ptr %47, align 8
-  %49 = tail call ptr @list_DeleteElement(ptr noundef %45, ptr noundef %48, ptr noundef nonnull @term_Equal) #18
-  %50 = load ptr, ptr %46, align 8
-  %51 = icmp eq ptr %50, null
-  br i1 %51, label %52, label %44, !llvm.loop !162
+45:                                               ; preds = %33, %45
+  %46 = phi ptr [ %50, %45 ], [ %38, %33 ]
+  %47 = phi ptr [ %51, %45 ], [ %43, %33 ]
+  %48 = getelementptr i8, ptr %47, i64 8
+  %49 = load ptr, ptr %48, align 8
+  %50 = tail call ptr @list_DeleteElement(ptr noundef %46, ptr noundef %49, ptr noundef nonnull @term_Equal) #17
+  %51 = load ptr, ptr %47, align 8
+  %52 = icmp eq ptr %51, null
+  br i1 %52, label %53, label %45, !llvm.loop !159
 
-52:                                               ; preds = %44
-  %53 = icmp eq ptr %49, null
-  br i1 %53, label %83, label %56
+53:                                               ; preds = %45
+  %54 = icmp eq ptr %50, null
+  br i1 %54, label %84, label %57
 
-54:                                               ; preds = %32
-  %55 = icmp eq ptr %37, null
-  br i1 %55, label %96, label %56
+55:                                               ; preds = %33
+  %56 = icmp eq ptr %38, null
+  br i1 %56, label %97, label %57
 
-56:                                               ; preds = %54, %52
-  %57 = phi ptr [ %49, %52 ], [ %37, %54 ]
-  br label %58
+57:                                               ; preds = %55, %53
+  %58 = phi ptr [ %50, %53 ], [ %38, %55 ]
+  br label %59
 
-58:                                               ; preds = %56, %58
-  %59 = phi ptr [ %60, %58 ], [ %57, %56 ]
-  %60 = load ptr, ptr %59, align 8
-  %61 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %62 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %61, i64 0, i32 4
-  %63 = load i32, ptr %62, align 8
-  %64 = sext i32 %63 to i64
-  %65 = load i64, ptr @memory_FREEDBYTES, align 8
-  %66 = add i64 %65, %64
-  store i64 %66, ptr @memory_FREEDBYTES, align 8
-  %67 = load ptr, ptr %61, align 8
-  store ptr %67, ptr %59, align 8
-  %68 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %59, ptr %68, align 8
-  %69 = icmp eq ptr %60, null
-  br i1 %69, label %70, label %58, !llvm.loop !13
+59:                                               ; preds = %57, %59
+  %60 = phi ptr [ %61, %59 ], [ %58, %57 ]
+  %61 = load ptr, ptr %60, align 8
+  %62 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %63 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %62, i64 0, i32 4
+  %64 = load i32, ptr %63, align 8
+  %65 = sext i32 %64 to i64
+  %66 = load i64, ptr @memory_FREEDBYTES, align 8
+  %67 = add i64 %66, %65
+  store i64 %67, ptr @memory_FREEDBYTES, align 8
+  %68 = load ptr, ptr %62, align 8
+  store ptr %68, ptr %60, align 8
+  %69 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %60, ptr %69, align 8
+  %70 = icmp eq ptr %61, null
+  br i1 %70, label %71, label %59, !llvm.loop !13
 
-70:                                               ; preds = %58
-  br i1 %43, label %100, label %71
+71:                                               ; preds = %59
+  br i1 %44, label %101, label %72
 
-71:                                               ; preds = %70, %71
-  %72 = phi ptr [ %73, %71 ], [ %42, %70 ]
-  %73 = load ptr, ptr %72, align 8
-  %74 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %75 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %74, i64 0, i32 4
-  %76 = load i32, ptr %75, align 8
-  %77 = sext i32 %76 to i64
-  %78 = load i64, ptr @memory_FREEDBYTES, align 8
-  %79 = add i64 %78, %77
-  store i64 %79, ptr @memory_FREEDBYTES, align 8
-  %80 = load ptr, ptr %74, align 8
-  store ptr %80, ptr %72, align 8
-  %81 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %72, ptr %81, align 8
-  %82 = icmp eq ptr %73, null
-  br i1 %82, label %100, label %71, !llvm.loop !13
+72:                                               ; preds = %71, %72
+  %73 = phi ptr [ %74, %72 ], [ %43, %71 ]
+  %74 = load ptr, ptr %73, align 8
+  %75 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %76 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %75, i64 0, i32 4
+  %77 = load i32, ptr %76, align 8
+  %78 = sext i32 %77 to i64
+  %79 = load i64, ptr @memory_FREEDBYTES, align 8
+  %80 = add i64 %79, %78
+  store i64 %80, ptr @memory_FREEDBYTES, align 8
+  %81 = load ptr, ptr %75, align 8
+  store ptr %81, ptr %73, align 8
+  %82 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %73, ptr %82, align 8
+  %83 = icmp eq ptr %74, null
+  br i1 %83, label %101, label %72, !llvm.loop !13
 
-83:                                               ; preds = %52
-  br i1 %43, label %96, label %84
+84:                                               ; preds = %53
+  br i1 %44, label %97, label %85
 
-84:                                               ; preds = %83, %84
-  %85 = phi ptr [ %86, %84 ], [ %42, %83 ]
-  %86 = load ptr, ptr %85, align 8
-  %87 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %88 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %87, i64 0, i32 4
-  %89 = load i32, ptr %88, align 8
-  %90 = sext i32 %89 to i64
-  %91 = load i64, ptr @memory_FREEDBYTES, align 8
-  %92 = add i64 %91, %90
-  store i64 %92, ptr @memory_FREEDBYTES, align 8
-  %93 = load ptr, ptr %87, align 8
-  store ptr %93, ptr %85, align 8
-  %94 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %85, ptr %94, align 8
-  %95 = icmp eq ptr %86, null
-  br i1 %95, label %96, label %84, !llvm.loop !13
+85:                                               ; preds = %84, %85
+  %86 = phi ptr [ %87, %85 ], [ %43, %84 ]
+  %87 = load ptr, ptr %86, align 8
+  %88 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %89 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %88, i64 0, i32 4
+  %90 = load i32, ptr %89, align 8
+  %91 = sext i32 %90 to i64
+  %92 = load i64, ptr @memory_FREEDBYTES, align 8
+  %93 = add i64 %92, %91
+  store i64 %93, ptr @memory_FREEDBYTES, align 8
+  %94 = load ptr, ptr %88, align 8
+  store ptr %94, ptr %86, align 8
+  %95 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %86, ptr %95, align 8
+  %96 = icmp eq ptr %87, null
+  br i1 %96, label %97, label %85, !llvm.loop !13
 
-96:                                               ; preds = %84, %54, %83
-  %97 = load ptr, ptr %2, align 8
-  %98 = getelementptr i8, ptr %97, i64 8
-  %99 = load ptr, ptr %98, align 8
-  br label %100
+97:                                               ; preds = %85, %55, %84
+  %98 = load ptr, ptr %2, align 8
+  %99 = getelementptr i8, ptr %98, i64 8
+  %100 = load ptr, ptr %99, align 8
+  br label %101
 
-100:                                              ; preds = %71, %13, %70, %25, %96
-  %101 = phi ptr [ %99, %96 ], [ null, %25 ], [ null, %70 ], [ null, %13 ], [ null, %71 ]
-  ret ptr %101
+101:                                              ; preds = %72, %71, %25, %97
+  %102 = phi ptr [ %100, %97 ], [ null, %25 ], [ null, %71 ], [ null, %72 ]
+  ret ptr %102
 }
 
 declare ptr @term_ListOfVariables(ptr noundef) local_unnamed_addr #1
@@ -10192,17 +10052,154 @@ declare void @list_DeleteWithElement(ptr noundef, ptr noundef) local_unnamed_add
 
 declare ptr @term_FindSubterm(ptr noundef, i32 noundef) local_unnamed_addr #1
 
+; Function Attrs: nounwind uwtable
+define internal fastcc void @cnf_RplacVar(ptr noundef %0, ptr noundef readonly %1, ptr nocapture noundef readonly %2) unnamed_addr #0 {
+  %4 = load i32, ptr @vec_MAX, align 4
+  %5 = add nsw i32 %4, 1
+  %6 = sext i32 %4 to i64
+  %7 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %6
+  store ptr %0, ptr %7, align 8
+  %8 = icmp eq ptr %1, null
+  br i1 %8, label %61, label %9
+
+9:                                                ; preds = %3, %35
+  %10 = phi i32 [ %36, %35 ], [ %5, %3 ]
+  %11 = add nsw i32 %10, -1
+  store i32 %11, ptr @vec_MAX, align 4
+  %12 = sext i32 %11 to i64
+  %13 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %12
+  %14 = load ptr, ptr %13, align 8
+  %15 = load i32, ptr %14, align 8
+  %16 = icmp sgt i32 %15, 0
+  br i1 %16, label %58, label %17
+
+17:                                               ; preds = %9
+  %18 = getelementptr i8, ptr %14, i64 16
+  %19 = load ptr, ptr %18, align 8
+  %20 = icmp eq ptr %19, null
+  br i1 %20, label %35, label %21
+
+21:                                               ; preds = %17, %21
+  %22 = phi i64 [ %26, %21 ], [ %12, %17 ]
+  %23 = phi ptr [ %29, %21 ], [ %19, %17 ]
+  %24 = getelementptr i8, ptr %23, i64 8
+  %25 = load ptr, ptr %24, align 8
+  %26 = add i64 %22, 1
+  %27 = trunc i64 %26 to i32
+  store i32 %27, ptr @vec_MAX, align 4
+  %28 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %22
+  store ptr %25, ptr %28, align 8
+  %29 = load ptr, ptr %23, align 8
+  %30 = icmp eq ptr %29, null
+  br i1 %30, label %33, label %21, !llvm.loop !160
+
+31:                                               ; preds = %53, %45
+  %32 = load i32, ptr @vec_MAX, align 4
+  br label %35
+
+33:                                               ; preds = %21
+  %34 = trunc i64 %26 to i32
+  br label %35
+
+35:                                               ; preds = %33, %31, %17
+  %36 = phi i32 [ %32, %31 ], [ %11, %17 ], [ %34, %33 ]
+  %37 = icmp eq i32 %4, %36
+  br i1 %37, label %91, label %9, !llvm.loop !161
+
+38:                                               ; preds = %58, %53
+  %39 = phi ptr [ %2, %58 ], [ %55, %53 ]
+  %40 = phi ptr [ %1, %58 ], [ %54, %53 ]
+  %41 = getelementptr i8, ptr %40, i64 8
+  %42 = load ptr, ptr %41, align 8
+  %43 = load i32, ptr %42, align 8
+  %44 = icmp ne i32 %60, %43
+  br i1 %44, label %53, label %45
+
+45:                                               ; preds = %38
+  %46 = getelementptr i8, ptr %39, i64 8
+  %47 = load ptr, ptr %46, align 8
+  %48 = load i32, ptr %47, align 8
+  store i32 %48, ptr %14, align 8
+  %49 = load ptr, ptr %46, align 8
+  %50 = getelementptr i8, ptr %49, i64 16
+  %51 = load ptr, ptr %50, align 8
+  %52 = tail call ptr @list_CopyWithElement(ptr noundef %51, ptr noundef nonnull @term_Copy) #17
+  store ptr %52, ptr %59, align 8
+  br label %31
+
+53:                                               ; preds = %38
+  %54 = load ptr, ptr %40, align 8
+  %55 = load ptr, ptr %39, align 8
+  %56 = icmp ne ptr %54, null
+  %57 = and i1 %56, %44
+  br i1 %57, label %38, label %31, !llvm.loop !162
+
+58:                                               ; preds = %9
+  %59 = getelementptr inbounds %struct.term, ptr %14, i64 0, i32 2
+  %60 = load i32, ptr %14, align 8
+  br label %38
+
+61:                                               ; preds = %3, %88
+  %62 = phi i32 [ %89, %88 ], [ %5, %3 ]
+  %63 = add nsw i32 %62, -1
+  store i32 %63, ptr @vec_MAX, align 4
+  %64 = sext i32 %63 to i64
+  %65 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %64
+  %66 = load ptr, ptr %65, align 8
+  %67 = load i32, ptr %66, align 8
+  %68 = icmp sgt i32 %67, 0
+  br i1 %68, label %88, label %69
+
+69:                                               ; preds = %61
+  %70 = getelementptr i8, ptr %66, i64 16
+  %71 = load ptr, ptr %70, align 8
+  %72 = icmp eq ptr %71, null
+  br i1 %72, label %88, label %73
+
+73:                                               ; preds = %69
+  %74 = sext i32 %62 to i64
+  %75 = add nsw i64 %74, -1
+  br label %76
+
+76:                                               ; preds = %73, %76
+  %77 = phi i64 [ %75, %73 ], [ %81, %76 ]
+  %78 = phi ptr [ %71, %73 ], [ %84, %76 ]
+  %79 = getelementptr i8, ptr %78, i64 8
+  %80 = load ptr, ptr %79, align 8
+  %81 = add i64 %77, 1
+  %82 = trunc i64 %81 to i32
+  store i32 %82, ptr @vec_MAX, align 4
+  %83 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %77
+  store ptr %80, ptr %83, align 8
+  %84 = load ptr, ptr %78, align 8
+  %85 = icmp eq ptr %84, null
+  br i1 %85, label %86, label %76, !llvm.loop !160
+
+86:                                               ; preds = %76
+  %87 = trunc i64 %81 to i32
+  br label %88
+
+88:                                               ; preds = %86, %61, %69
+  %89 = phi i32 [ %63, %69 ], [ %63, %61 ], [ %87, %86 ]
+  %90 = icmp eq i32 %4, %89
+  br i1 %90, label %91, label %61, !llvm.loop !161
+
+91:                                               ; preds = %35, %88
+  store i32 %4, ptr @vec_MAX, align 4
+  ret void
+}
+
 declare ptr @list_CopyWithElement(ptr noundef, ptr noundef) local_unnamed_addr #1
 
 declare ptr @list_DeleteDuplicatesFree(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: noreturn nounwind
-declare void @abort() local_unnamed_addr #12
+declare void @abort() local_unnamed_addr #11
 
 declare ptr @list_DeleteElementIfFree(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define internal i32 @fol_IsTrue(ptr nocapture noundef readonly %0) #13 {
+define internal i32 @fol_IsTrue(ptr nocapture noundef readonly %0) #12 {
   %2 = load i32, ptr @fol_TRUE, align 4
   %3 = load i32, ptr %0, align 8
   %4 = icmp eq i32 %2, %3
@@ -10211,7 +10208,7 @@ define internal i32 @fol_IsTrue(ptr nocapture noundef readonly %0) #13 {
 }
 
 ; Function Attrs: inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define internal i32 @fol_IsFalse(ptr nocapture noundef readonly %0) #13 {
+define internal i32 @fol_IsFalse(ptr nocapture noundef readonly %0) #12 {
   %2 = load i32, ptr @fol_FALSE, align 4
   %3 = load i32, ptr %0, align 8
   %4 = icmp eq i32 %2, %3
@@ -10254,22 +10251,22 @@ define internal fastcc ptr @cnf_MakeOneOrTerm(ptr noundef returned %0) unnamed_a
   %16 = icmp eq ptr %15, null
   br i1 %16, label %80, label %8, !llvm.loop !163
 
-17:                                               ; preds = %8, %25
-  %18 = phi ptr [ %26, %25 ], [ %4, %8 ]
-  %19 = getelementptr i8, ptr %18, i64 8
-  %20 = load ptr, ptr %19, align 8
-  %21 = load i32, ptr %20, align 8
-  %22 = icmp eq i32 %21, %7
-  br i1 %22, label %23, label %25
+17:                                               ; preds = %8, %21
+  %18 = phi ptr [ %19, %21 ], [ %3, %8 ]
+  %19 = load ptr, ptr %18, align 8
+  %20 = icmp eq ptr %19, null
+  br i1 %20, label %80, label %21
 
-23:                                               ; preds = %17
-  %24 = load i32, ptr @symbol_TYPEMASK, align 4
+21:                                               ; preds = %17
+  %22 = getelementptr i8, ptr %19, i64 8
+  %23 = load ptr, ptr %22, align 8
+  %24 = load i32, ptr %23, align 8
+  %25 = icmp eq i32 %24, %7
+  br i1 %25, label %26, label %17, !llvm.loop !164
+
+26:                                               ; preds = %21
+  %27 = load i32, ptr @symbol_TYPEMASK, align 4
   br label %32
-
-25:                                               ; preds = %17
-  %26 = load ptr, ptr %18, align 8
-  %27 = icmp eq ptr %26, null
-  br i1 %27, label %80, label %17, !llvm.loop !164
 
 28:                                               ; preds = %60
   %29 = icmp eq ptr %61, null
@@ -10279,9 +10276,9 @@ define internal fastcc ptr @cnf_MakeOneOrTerm(ptr noundef returned %0) unnamed_a
   %31 = load ptr, ptr %3, align 8
   br label %64
 
-32:                                               ; preds = %60, %23
-  %33 = phi ptr [ null, %23 ], [ %61, %60 ]
-  %34 = phi ptr [ %18, %23 ], [ %62, %60 ]
+32:                                               ; preds = %60, %26
+  %33 = phi ptr [ null, %26 ], [ %61, %60 ]
+  %34 = phi ptr [ %19, %26 ], [ %62, %60 ]
   %35 = getelementptr i8, ptr %34, i64 8
   %36 = load ptr, ptr %35, align 8
   %37 = load i32, ptr %36, align 8
@@ -10290,7 +10287,7 @@ define internal fastcc ptr @cnf_MakeOneOrTerm(ptr noundef returned %0) unnamed_a
 
 39:                                               ; preds = %32
   %40 = sub nsw i32 0, %37
-  %41 = and i32 %24, %40
+  %41 = and i32 %27, %40
   %42 = icmp eq i32 %41, 2
   br i1 %42, label %57, label %43
 
@@ -10310,12 +10307,12 @@ define internal fastcc ptr @cnf_MakeOneOrTerm(ptr noundef returned %0) unnamed_a
 
 53:                                               ; preds = %46
   %54 = sub nsw i32 0, %51
-  %55 = and i32 %24, %54
+  %55 = and i32 %27, %54
   %56 = icmp eq i32 %55, 2
   br i1 %56, label %57, label %60
 
 57:                                               ; preds = %53, %39
-  %58 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %58 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %59 = getelementptr inbounds %struct.LIST_HELP, ptr %58, i64 0, i32 1
   store ptr %36, ptr %59, align 8
   store ptr %33, ptr %58, align 8
@@ -10332,7 +10329,7 @@ define internal fastcc ptr @cnf_MakeOneOrTerm(ptr noundef returned %0) unnamed_a
   %66 = phi ptr [ %61, %30 ], [ %70, %64 ]
   %67 = getelementptr i8, ptr %66, i64 8
   %68 = load ptr, ptr %67, align 8
-  %69 = tail call ptr @list_PointerDeleteElement(ptr noundef %65, ptr noundef %68) #18
+  %69 = tail call ptr @list_PointerDeleteElement(ptr noundef %65, ptr noundef %68) #17
   store ptr %69, ptr %3, align 8
   %70 = load ptr, ptr %66, align 8
   %71 = icmp eq ptr %70, null
@@ -10356,7 +10353,7 @@ define internal fastcc ptr @cnf_MakeOneOrTerm(ptr noundef returned %0) unnamed_a
   store ptr %61, ptr %3, align 8
   br label %80
 
-80:                                               ; preds = %14, %25, %1, %28, %79
+80:                                               ; preds = %14, %17, %1, %28, %79
   ret ptr %0
 }
 
@@ -10396,7 +10393,7 @@ define internal fastcc ptr @cnf_MakeOneAnd(ptr noundef returned %0) unnamed_addr
   %19 = getelementptr i8, ptr %12, i64 16
   %20 = load ptr, ptr %19, align 8
   %21 = load ptr, ptr %6, align 8
-  %22 = tail call ptr @list_PointerDeleteElement(ptr noundef %21, ptr noundef nonnull %12) #18
+  %22 = tail call ptr @list_PointerDeleteElement(ptr noundef %21, ptr noundef nonnull %12) #17
   %23 = icmp eq ptr %20, null
   br i1 %23, label %31, label %24
 
@@ -10436,16 +10433,14 @@ define internal fastcc ptr @cnf_MakeOneAnd(ptr noundef returned %0) unnamed_addr
 
 43:                                               ; preds = %1
   %44 = icmp sgt i32 %2, -1
-  br i1 %44, label %50, label %45
+  %45 = sub nsw i32 0, %2
+  %46 = load i32, ptr @symbol_TYPEMASK, align 4
+  %47 = and i32 %46, %45
+  %48 = icmp ne i32 %47, 2
+  %49 = select i1 %44, i1 true, i1 %48
+  br i1 %49, label %50, label %61
 
-45:                                               ; preds = %43
-  %46 = sub nsw i32 0, %2
-  %47 = load i32, ptr @symbol_TYPEMASK, align 4
-  %48 = and i32 %47, %46
-  %49 = icmp eq i32 %48, 2
-  br i1 %49, label %61, label %50
-
-50:                                               ; preds = %43, %45
+50:                                               ; preds = %43
   %51 = getelementptr i8, ptr %0, i64 16
   %52 = load ptr, ptr %51, align 8
   %53 = icmp eq ptr %52, null
@@ -10460,7 +10455,7 @@ define internal fastcc ptr @cnf_MakeOneAnd(ptr noundef returned %0) unnamed_addr
   %60 = icmp eq ptr %59, null
   br i1 %60, label %61, label %54, !llvm.loop !168
 
-61:                                               ; preds = %54, %41, %50, %5, %45
+61:                                               ; preds = %54, %41, %50, %5, %43
   ret ptr %0
 }
 
@@ -10492,7 +10487,7 @@ define internal fastcc ptr @cnf_MakeOneOr(ptr noundef returned %0) unnamed_addr 
   %19 = getelementptr i8, ptr %12, i64 16
   %20 = load ptr, ptr %19, align 8
   %21 = load ptr, ptr %6, align 8
-  %22 = tail call ptr @list_PointerDeleteElement(ptr noundef %21, ptr noundef nonnull %12) #18
+  %22 = tail call ptr @list_PointerDeleteElement(ptr noundef %21, ptr noundef nonnull %12) #17
   %23 = icmp eq ptr %20, null
   br i1 %23, label %31, label %24
 
@@ -10532,16 +10527,14 @@ define internal fastcc ptr @cnf_MakeOneOr(ptr noundef returned %0) unnamed_addr 
 
 43:                                               ; preds = %1
   %44 = icmp sgt i32 %2, -1
-  br i1 %44, label %50, label %45
+  %45 = sub nsw i32 0, %2
+  %46 = load i32, ptr @symbol_TYPEMASK, align 4
+  %47 = and i32 %46, %45
+  %48 = icmp ne i32 %47, 2
+  %49 = select i1 %44, i1 true, i1 %48
+  br i1 %49, label %50, label %61
 
-45:                                               ; preds = %43
-  %46 = sub nsw i32 0, %2
-  %47 = load i32, ptr @symbol_TYPEMASK, align 4
-  %48 = and i32 %47, %46
-  %49 = icmp eq i32 %48, 2
-  br i1 %49, label %61, label %50
-
-50:                                               ; preds = %43, %45
+50:                                               ; preds = %43
   %51 = getelementptr i8, ptr %0, i64 16
   %52 = load ptr, ptr %51, align 8
   %53 = icmp eq ptr %52, null
@@ -10556,7 +10549,7 @@ define internal fastcc ptr @cnf_MakeOneOr(ptr noundef returned %0) unnamed_addr 
   %60 = icmp eq ptr %59, null
   br i1 %60, label %61, label %54, !llvm.loop !170
 
-61:                                               ; preds = %54, %41, %50, %5, %45
+61:                                               ; preds = %54, %41, %50, %5, %43
   ret ptr %0
 }
 
@@ -10585,7 +10578,7 @@ define internal fastcc void @cnf_DistrQuantorNoVarSub(ptr nocapture noundef %0) 
   %6 = load ptr, ptr %5, align 8
   %7 = getelementptr i8, ptr %6, i64 16
   %8 = load ptr, ptr %7, align 8
-  %9 = tail call ptr @list_Copy(ptr noundef %8) #18
+  %9 = tail call ptr @list_Copy(ptr noundef %8) #17
   %10 = load ptr, ptr %3, align 8
   %11 = load ptr, ptr %10, align 8
   %12 = getelementptr i8, ptr %11, i64 8
@@ -10612,13 +10605,13 @@ define internal fastcc void @cnf_DistrQuantorNoVarSub(ptr nocapture noundef %0) 
   %27 = phi ptr [ %37, %36 ], [ null, %19 ]
   %28 = getelementptr i8, ptr %26, i64 8
   %29 = load ptr, ptr %28, align 8
-  %30 = tail call i32 @fol_VarOccursFreely(ptr noundef %22, ptr noundef %29) #18
+  %30 = tail call i32 @fol_VarOccursFreely(ptr noundef %22, ptr noundef %29) #17
   %31 = icmp eq i32 %30, 0
   br i1 %31, label %32, label %36
 
 32:                                               ; preds = %25
   %33 = load ptr, ptr %28, align 8
-  %34 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %34 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %35 = getelementptr inbounds %struct.LIST_HELP, ptr %34, i64 0, i32 1
   store ptr %33, ptr %35, align 8
   store ptr %27, ptr %34, align 8
@@ -10636,7 +10629,7 @@ define internal fastcc void @cnf_DistrQuantorNoVarSub(ptr nocapture noundef %0) 
 
 42:                                               ; preds = %40
   %43 = load ptr, ptr %18, align 8
-  %44 = tail call ptr @list_NPointerDifference(ptr noundef %43, ptr noundef nonnull %37) #18
+  %44 = tail call ptr @list_NPointerDifference(ptr noundef %43, ptr noundef nonnull %37) #17
   %45 = load ptr, ptr %44, align 8
   %46 = icmp eq ptr %45, null
   br i1 %46, label %47, label %77
@@ -10655,7 +10648,7 @@ define internal fastcc void @cnf_DistrQuantorNoVarSub(ptr nocapture noundef %0) 
   %56 = load ptr, ptr %55, align 8
   %57 = getelementptr i8, ptr %56, i64 16
   %58 = load ptr, ptr %57, align 8
-  %59 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %59 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %60 = getelementptr inbounds %struct.LIST_HELP, ptr %59, i64 0, i32 1
   store ptr %22, ptr %60, align 8
   store ptr %58, ptr %59, align 8
@@ -10680,29 +10673,29 @@ define internal fastcc void @cnf_DistrQuantorNoVarSub(ptr nocapture noundef %0) 
   br i1 %72, label %84, label %61, !llvm.loop !13
 
 73:                                               ; preds = %47
-  %74 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %74 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %75 = getelementptr inbounds %struct.LIST_HELP, ptr %74, i64 0, i32 1
   store ptr %22, ptr %75, align 8
   store ptr null, ptr %74, align 8
-  %76 = tail call ptr @fol_CreateQuantifier(i32 noundef %2, ptr noundef nonnull %74, ptr noundef nonnull %44) #18
+  %76 = tail call ptr @fol_CreateQuantifier(i32 noundef %2, ptr noundef nonnull %74, ptr noundef nonnull %44) #17
   br label %84
 
 77:                                               ; preds = %42
-  %78 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %78 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %79 = getelementptr inbounds %struct.LIST_HELP, ptr %78, i64 0, i32 1
   store ptr %22, ptr %79, align 8
   store ptr null, ptr %78, align 8
-  %80 = tail call ptr @term_Create(i32 noundef %14, ptr noundef nonnull %44) #18
-  %81 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %80 = tail call ptr @term_Create(i32 noundef %14, ptr noundef nonnull %44) #17
+  %81 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %82 = getelementptr inbounds %struct.LIST_HELP, ptr %81, i64 0, i32 1
   store ptr %80, ptr %82, align 8
   store ptr null, ptr %81, align 8
-  %83 = tail call ptr @fol_CreateQuantifier(i32 noundef %2, ptr noundef nonnull %78, ptr noundef nonnull %81) #18
+  %83 = tail call ptr @fol_CreateQuantifier(i32 noundef %2, ptr noundef nonnull %78, ptr noundef nonnull %81) #17
   br label %84
 
 84:                                               ; preds = %61, %73, %77
   %85 = phi ptr [ %76, %73 ], [ %83, %77 ], [ %49, %61 ]
-  %86 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %86 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %87 = getelementptr inbounds %struct.LIST_HELP, ptr %86, i64 0, i32 1
   store ptr %85, ptr %87, align 8
   store ptr %37, ptr %86, align 8
@@ -10712,7 +10705,7 @@ define internal fastcc void @cnf_DistrQuantorNoVarSub(ptr nocapture noundef %0) 
   %90 = load ptr, ptr %89, align 8
   %91 = getelementptr i8, ptr %90, i64 16
   %92 = load ptr, ptr %91, align 8
-  %93 = tail call ptr @list_PointerDeleteElement(ptr noundef %92, ptr noundef %22) #18
+  %93 = tail call ptr @list_PointerDeleteElement(ptr noundef %92, ptr noundef %22) #17
   store ptr %93, ptr %91, align 8
   br label %94
 
@@ -10883,7 +10876,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %61 = load ptr, ptr %60, align 8
   %62 = getelementptr i8, ptr %61, i64 16
   %63 = load ptr, ptr %62, align 8
-  tail call void @list_DeleteWithElement(ptr noundef %63, ptr noundef nonnull @term_Delete) #18
+  tail call void @list_DeleteWithElement(ptr noundef %63, ptr noundef nonnull @term_Delete) #17
   %64 = load ptr, ptr %20, align 8
   %65 = getelementptr i8, ptr %64, i64 8
   %66 = load ptr, ptr %65, align 8
@@ -10958,7 +10951,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %116, label %28, label %1237
 
 117:                                              ; preds = %28
-  %118 = tail call ptr @fol_FreeVariables(ptr noundef nonnull %4) #18
+  %118 = tail call ptr @fol_FreeVariables(ptr noundef nonnull %4) #17
   %119 = load ptr, ptr %20, align 8
   %120 = load ptr, ptr %119, align 8
   %121 = getelementptr i8, ptr %120, i64 8
@@ -11011,20 +11004,20 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 152:                                              ; preds = %145
   %153 = getelementptr i8, ptr %144, i64 8
   %154 = load ptr, ptr %153, align 8
-  %155 = tail call ptr @term_Copy(ptr noundef %154) #18
-  %156 = tail call ptr @list_CopyWithElement(ptr noundef %136, ptr noundef nonnull @term_Copy) #18
+  %155 = tail call ptr @term_Copy(ptr noundef %154) #17
+  %156 = tail call ptr @list_CopyWithElement(ptr noundef %136, ptr noundef nonnull @term_Copy) #17
   %157 = load i32, ptr @fol_EXIST, align 4
-  %158 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %158 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %159 = getelementptr inbounds %struct.LIST_HELP, ptr %158, i64 0, i32 1
   store ptr %155, ptr %159, align 8
   store ptr null, ptr %158, align 8
-  %160 = tail call ptr @fol_CreateQuantifier(i32 noundef %157, ptr noundef %156, ptr noundef nonnull %158) #18
-  %161 = tail call ptr @fol_FreeVariables(ptr noundef %160) #18
+  %160 = tail call ptr @fol_CreateQuantifier(i32 noundef %157, ptr noundef %156, ptr noundef nonnull %158) #17
+  %161 = tail call ptr @fol_FreeVariables(ptr noundef %160) #17
   %162 = icmp eq ptr %161, null
   br i1 %162, label %182, label %163
 
 163:                                              ; preds = %152
-  %164 = tail call ptr @list_CopyWithElement(ptr noundef nonnull %161, ptr noundef nonnull @term_Copy) #18
+  %164 = tail call ptr @list_CopyWithElement(ptr noundef nonnull %161, ptr noundef nonnull @term_Copy) #17
   br label %165
 
 165:                                              ; preds = %165, %163
@@ -11046,27 +11039,27 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 
 177:                                              ; preds = %165
   %178 = load i32, ptr @fol_ALL, align 4
-  %179 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %179 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %180 = getelementptr inbounds %struct.LIST_HELP, ptr %179, i64 0, i32 1
   store ptr %160, ptr %180, align 8
   store ptr null, ptr %179, align 8
-  %181 = tail call ptr @fol_CreateQuantifier(i32 noundef %178, ptr noundef %164, ptr noundef nonnull %179) #18
+  %181 = tail call ptr @fol_CreateQuantifier(i32 noundef %178, ptr noundef %164, ptr noundef nonnull %179) #17
   br label %182
 
 182:                                              ; preds = %152, %177
   %183 = phi ptr [ %160, %152 ], [ %181, %177 ]
   %184 = load i32, ptr @fol_NOT, align 4
-  %185 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %185 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %186 = getelementptr inbounds %struct.LIST_HELP, ptr %185, i64 0, i32 1
   store ptr %183, ptr %186, align 8
   store ptr null, ptr %185, align 8
-  %187 = tail call ptr @term_Create(i32 noundef %184, ptr noundef nonnull %185) #18
+  %187 = tail call ptr @term_Create(i32 noundef %184, ptr noundef nonnull %185) #17
   %188 = load ptr, ptr %11, align 8
   %189 = load ptr, ptr %12, align 8
-  tail call void @term_AddFatherLinks(ptr noundef %187) #18
+  tail call void @term_AddFatherLinks(ptr noundef %187) #17
   %190 = tail call fastcc ptr @cnf_Cnf(ptr noundef %187, ptr noundef %189, ptr noundef %6)
   %191 = tail call fastcc ptr @cnf_MakeClauseList(ptr noundef %190, ptr noundef %188, ptr noundef %189)
-  tail call void @term_Delete(ptr noundef %190) #18
+  tail call void @term_Delete(ptr noundef %190) #17
   %192 = icmp eq ptr %191, null
   br i1 %192, label %244, label %193
 
@@ -11105,7 +11098,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %216 = getelementptr i8, ptr %215, i64 8
   %217 = load ptr, ptr %216, align 8
   %218 = icmp eq ptr %217, %205
-  br i1 %218, label %219, label %209, !llvm.loop !97
+  br i1 %218, label %219, label %209, !llvm.loop !94
 
 219:                                              ; preds = %213
   %220 = load ptr, ptr %215, align 8
@@ -11122,10 +11115,10 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 227:                                              ; preds = %222
   %228 = load ptr, ptr %223, align 8
   %229 = icmp eq ptr %228, null
-  br i1 %229, label %230, label %222, !llvm.loop !98
+  br i1 %229, label %230, label %222, !llvm.loop !95
 
 230:                                              ; preds = %227, %219
-  %231 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %231 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %232 = getelementptr inbounds %struct.LIST_HELP, ptr %231, i64 0, i32 1
   store ptr %2, ptr %232, align 8
   store ptr %220, ptr %231, align 8
@@ -11133,16 +11126,16 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br label %241
 
 233:                                              ; preds = %209
-  %234 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %234 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %235 = getelementptr inbounds %struct.LIST_HELP, ptr %234, i64 0, i32 1
   store ptr %2, ptr %235, align 8
   store ptr null, ptr %234, align 8
-  %236 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %236 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %237 = getelementptr inbounds %struct.LIST_HELP, ptr %236, i64 0, i32 1
   store ptr %205, ptr %237, align 8
   store ptr %234, ptr %236, align 8
   %238 = load ptr, ptr %208, align 8
-  %239 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %239 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %240 = getelementptr inbounds %struct.LIST_HELP, ptr %239, i64 0, i32 1
   store ptr %236, ptr %240, align 8
   store ptr %238, ptr %239, align 8
@@ -11193,13 +11186,13 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br label %266
 
 266:                                              ; preds = %264, %247
-  %267 = tail call ptr @list_PointerDeleteDuplicates(ptr noundef nonnull %245) #18
-  tail call void @clause_DeleteClauseList(ptr noundef %267) #18
+  %267 = tail call ptr @list_PointerDeleteDuplicates(ptr noundef nonnull %245) #17
+  tail call void @clause_DeleteClauseList(ptr noundef %267) #17
   br label %268
 
 268:                                              ; preds = %266, %244
   %269 = load ptr, ptr %22, align 8
-  %270 = tail call ptr @list_Copy(ptr noundef %269) #18
+  %270 = tail call ptr @list_Copy(ptr noundef %269) #17
   %271 = icmp eq ptr %270, null
   br i1 %271, label %297, label %272
 
@@ -11216,11 +11209,11 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %277, label %281, label %280
 
 280:                                              ; preds = %274
-  tail call void @prfs_MoveUsableDocProof(ptr noundef %0, ptr noundef %279) #18
+  tail call void @prfs_MoveUsableDocProof(ptr noundef %0, ptr noundef %279) #17
   br label %282
 
 281:                                              ; preds = %274
-  tail call void @prfs_DeleteUsable(ptr noundef %0, ptr noundef %279) #18
+  tail call void @prfs_DeleteUsable(ptr noundef %0, ptr noundef %279) #17
   br label %282
 
 282:                                              ; preds = %281, %280
@@ -11256,12 +11249,12 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 301:                                              ; preds = %298
   %302 = load ptr, ptr @stdout, align 8
   %303 = tail call i64 @fwrite(ptr nonnull @.str.25, i64 9, i64 1, ptr %302)
-  tail call void @term_Print(ptr noundef %1) #18
+  tail call void @term_Print(ptr noundef %1) #17
   %304 = load ptr, ptr @stdout, align 8
   %305 = tail call i64 @fwrite(ptr nonnull @.str.26, i64 10, i64 1, ptr %304)
   %306 = getelementptr i8, ptr %144, i64 8
   %307 = load ptr, ptr %306, align 8
-  tail call void @term_Print(ptr noundef %307) #18
+  tail call void @term_Print(ptr noundef %307) #17
   %308 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.27)
   br label %309
 
@@ -11274,9 +11267,9 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %315 = load ptr, ptr %314, align 8
   %316 = getelementptr i8, ptr %315, i64 16
   %317 = load ptr, ptr %316, align 8
-  %318 = tail call ptr @list_PointerDeleteElement(ptr noundef %317, ptr noundef %311) #18
+  %318 = tail call ptr @list_PointerDeleteElement(ptr noundef %317, ptr noundef %311) #17
   store ptr %318, ptr %316, align 8
-  %319 = tail call i32 @list_Length(ptr noundef %318) #18
+  %319 = tail call i32 @list_Length(ptr noundef %318) #17
   %320 = icmp ult i32 %319, 2
   br i1 %320, label %321, label %349
 
@@ -11330,10 +11323,10 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %352 = getelementptr i8, ptr %351, i64 8
   %353 = load ptr, ptr %352, align 8
   %354 = load i32, ptr %353, align 8
-  %355 = tail call i32 @list_Length(ptr noundef %118) #18
-  %356 = tail call i32 @symbol_CreateSkolemFunction(i32 noundef %355, ptr noundef %32) #18
-  %357 = tail call ptr @list_CopyWithElement(ptr noundef %118, ptr noundef nonnull @term_Copy) #18
-  %358 = tail call ptr @term_Create(i32 noundef %356, ptr noundef %357) #18
+  %355 = tail call i32 @list_Length(ptr noundef %118) #17
+  %356 = tail call i32 @symbol_CreateSkolemFunction(i32 noundef %355, ptr noundef %32) #17
+  %357 = tail call ptr @list_CopyWithElement(ptr noundef %118, ptr noundef nonnull @term_Copy) #17
+  %358 = tail call ptr @term_Create(i32 noundef %356, ptr noundef %357) #17
   %359 = load i32, ptr @vec_MAX, align 4
   %360 = add nsw i32 %359, 1
   %361 = sext i32 %359 to i64
@@ -11357,7 +11350,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %373 = load i32, ptr %358, align 8
   store i32 %373, ptr %369, align 8
   %374 = load ptr, ptr %363, align 8
-  %375 = tail call ptr @list_CopyWithElement(ptr noundef %374, ptr noundef nonnull @term_Copy) #18
+  %375 = tail call ptr @list_CopyWithElement(ptr noundef %374, ptr noundef nonnull @term_Copy) #17
   %376 = getelementptr inbounds %struct.term, ptr %369, i64 0, i32 2
   store ptr %375, ptr %376, align 8
   %377 = load i32, ptr @vec_MAX, align 4
@@ -11411,7 +11404,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %407 = load i32, ptr %358, align 8
   store i32 %407, ptr %403, align 8
   %408 = load ptr, ptr %363, align 8
-  %409 = tail call ptr @list_CopyWithElement(ptr noundef %408, ptr noundef nonnull @term_Copy) #18
+  %409 = tail call ptr @list_CopyWithElement(ptr noundef %408, ptr noundef nonnull @term_Copy) #17
   %410 = getelementptr inbounds %struct.term, ptr %403, i64 0, i32 2
   store ptr %409, ptr %410, align 8
   %411 = load i32, ptr @vec_MAX, align 4
@@ -11448,7 +11441,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 
 431:                                              ; preds = %428
   store i32 %359, ptr @vec_MAX, align 4
-  tail call void @term_Delete(ptr noundef %358) #18
+  tail call void @term_Delete(ptr noundef %358) #17
   %432 = load ptr, ptr %351, align 8
   %433 = icmp eq ptr %432, null
   br i1 %433, label %434, label %350, !llvm.loop !178
@@ -11458,13 +11451,13 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 
 435:                                              ; preds = %434
   %436 = load i32, ptr @fol_ALL, align 4
-  %437 = tail call ptr @list_CopyWithElement(ptr noundef nonnull %118, ptr noundef nonnull @term_Copy) #18
-  %438 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %437 = tail call ptr @list_CopyWithElement(ptr noundef nonnull %118, ptr noundef nonnull @term_Copy) #17
+  %438 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %439 = getelementptr inbounds %struct.LIST_HELP, ptr %438, i64 0, i32 1
   store ptr %311, ptr %439, align 8
   store ptr null, ptr %438, align 8
-  %440 = tail call ptr @fol_CreateQuantifier(i32 noundef %436, ptr noundef %437, ptr noundef nonnull %438) #18
-  %441 = tail call i32 @list_Length(ptr noundef nonnull %118) #18
+  %440 = tail call ptr @fol_CreateQuantifier(i32 noundef %436, ptr noundef %437, ptr noundef nonnull %438) #17
+  %441 = tail call i32 @list_Length(ptr noundef nonnull %118) #17
   %442 = icmp ugt i32 %441, 1
   br i1 %442, label %443, label %543
 
@@ -11485,11 +11478,11 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %453 = load ptr, ptr %452, align 8
   %454 = load i32, ptr %453, align 8
   %455 = load i32, ptr @fol_ALL, align 4
-  %456 = icmp ne i32 %455, %454
+  %456 = icmp eq i32 %455, %454
   %457 = load i32, ptr @fol_EXIST, align 4
-  %458 = icmp ne i32 %457, %454
-  %459 = select i1 %456, i1 %458, i1 false
-  br i1 %459, label %520, label %460
+  %458 = icmp eq i32 %457, %454
+  %459 = select i1 %456, i1 true, i1 %458
+  br i1 %459, label %460, label %520
 
 460:                                              ; preds = %448
   %461 = getelementptr i8, ptr %453, i64 16
@@ -11498,7 +11491,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %464 = load ptr, ptr %463, align 8
   %465 = getelementptr i8, ptr %464, i64 16
   %466 = load ptr, ptr %465, align 8
-  %467 = tail call i32 @list_Length(ptr noundef %466) #18
+  %467 = tail call i32 @list_Length(ptr noundef %466) #17
   %468 = icmp ugt i32 %467, 1
   br i1 %468, label %469, label %520
 
@@ -11509,7 +11502,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %473 = getelementptr i8, ptr %472, i64 16
   %474 = load ptr, ptr %473, align 8
   %475 = load ptr, ptr %474, align 8
-  %476 = tail call ptr @list_Copy(ptr noundef %475) #18
+  %476 = tail call ptr @list_Copy(ptr noundef %475) #17
   %477 = icmp eq ptr %476, null
   br i1 %477, label %520, label %478
 
@@ -11521,15 +11514,15 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %483 = load ptr, ptr %482, align 8
   %484 = getelementptr i8, ptr %479, i64 8
   %485 = load ptr, ptr %484, align 8
-  %486 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %486 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %487 = getelementptr inbounds %struct.LIST_HELP, ptr %486, i64 0, i32 1
   store ptr %485, ptr %487, align 8
   store ptr null, ptr %486, align 8
-  %488 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %488 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %489 = getelementptr inbounds %struct.LIST_HELP, ptr %488, i64 0, i32 1
   store ptr %483, ptr %489, align 8
   store ptr null, ptr %488, align 8
-  %490 = tail call ptr @fol_CreateQuantifier(i32 noundef %454, ptr noundef nonnull %486, ptr noundef nonnull %488) #18
+  %490 = tail call ptr @fol_CreateQuantifier(i32 noundef %454, ptr noundef nonnull %486, ptr noundef nonnull %488) #17
   %491 = load ptr, ptr %461, align 8
   %492 = load ptr, ptr %491, align 8
   %493 = getelementptr inbounds %struct.LIST_HELP, ptr %492, i64 0, i32 1
@@ -11547,7 +11540,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %502 = load ptr, ptr %501, align 8
   %503 = getelementptr i8, ptr %497, i64 8
   %504 = load ptr, ptr %503, align 8
-  %505 = tail call ptr @list_PointerDeleteElement(ptr noundef %502, ptr noundef %504) #18
+  %505 = tail call ptr @list_PointerDeleteElement(ptr noundef %502, ptr noundef %504) #17
   store ptr %505, ptr %501, align 8
   %506 = load ptr, ptr %497, align 8
   %507 = icmp eq ptr %506, null
@@ -11613,7 +11606,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %545 = load ptr, ptr %20, align 8
   %546 = getelementptr i8, ptr %545, i64 8
   %547 = load ptr, ptr %546, align 8
-  tail call void @term_Delete(ptr noundef %547) #18
+  tail call void @term_Delete(ptr noundef %547) #17
   %548 = load ptr, ptr %20, align 8
   %549 = icmp eq ptr %548, null
   br i1 %549, label %562, label %550
@@ -11652,7 +11645,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %572 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
   store ptr %315, ptr %572, align 8
   %573 = load ptr, ptr %23, align 8
-  %574 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %574 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %575 = getelementptr inbounds %struct.LIST_HELP, ptr %574, i64 0, i32 1
   store ptr %544, ptr %575, align 8
   store ptr %573, ptr %574, align 8
@@ -11664,7 +11657,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 578:                                              ; preds = %562
   %579 = load ptr, ptr @stdout, align 8
   %580 = tail call i64 @fwrite(ptr nonnull @.str.28, i64 9, i64 1, ptr %579)
-  tail call void @term_Print(ptr noundef nonnull %1) #18
+  tail call void @term_Print(ptr noundef nonnull %1) #17
   %581 = load ptr, ptr @stdout, align 8
   %582 = tail call i32 @putc(i32 noundef 10, ptr noundef %581)
   br label %586
@@ -11697,7 +11690,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %598, label %601, label %599
 
 599:                                              ; preds = %593
-  %600 = tail call i32 @term_MaxVar(ptr noundef %1) #18
+  %600 = tail call i32 @term_MaxVar(ptr noundef %1) #17
   store i32 %600, ptr @symbol_STANDARDVARCOUNTER, align 4
   br label %601
 
@@ -11718,7 +11711,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %613 = load i32, ptr %612, align 8
   %614 = sext i32 %613 to i64
   %615 = inttoptr i64 %614 to ptr
-  %616 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %616 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %617 = getelementptr inbounds %struct.LIST_HELP, ptr %616, i64 0, i32 1
   store ptr %615, ptr %617, align 8
   store ptr %609, ptr %616, align 8
@@ -11735,7 +11728,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 624:                                              ; preds = %601, %620
   %625 = phi ptr [ %604, %601 ], [ %623, %620 ]
   %626 = phi ptr [ null, %601 ], [ %616, %620 ]
-  tail call void @term_Delete(ptr noundef %625) #18
+  tail call void @term_Delete(ptr noundef %625) #17
   %627 = load ptr, ptr %20, align 8
   %628 = load ptr, ptr %627, align 8
   %629 = getelementptr i8, ptr %628, i64 8
@@ -11800,7 +11793,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %669 = phi ptr [ null, %665 ], [ %764, %763 ]
   %670 = getelementptr i8, ptr %668, i64 8
   %671 = load ptr, ptr %670, align 8
-  %672 = tail call ptr @fol_FreeVariables(ptr noundef %671) #18
+  %672 = tail call ptr @fol_FreeVariables(ptr noundef %671) #17
   %673 = icmp eq ptr %672, null
   %674 = or i1 %666, %673
   br i1 %674, label %695, label %675
@@ -11818,7 +11811,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %683 = phi ptr [ %689, %688 ], [ %626, %675 ]
   %684 = getelementptr i8, ptr %683, i64 8
   %685 = load ptr, ptr %684, align 8
-  %686 = tail call i32 @symbol_Equal(ptr noundef %681, ptr noundef %685) #18, !callees !14
+  %686 = tail call i32 @symbol_Equal(ptr noundef %681, ptr noundef %685) #17, !callees !14
   %687 = icmp eq i32 %686, 0
   br i1 %687, label %688, label %691
 
@@ -11837,8 +11830,8 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %694, label %695, label %675, !llvm.loop !185
 
 695:                                              ; preds = %692, %667
-  %696 = tail call ptr @list_PointerDeleteElement(ptr noundef %672, ptr noundef null) #18
-  %697 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %696 = tail call ptr @list_PointerDeleteElement(ptr noundef %672, ptr noundef null) #17
+  %697 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %698 = getelementptr inbounds %struct.LIST_HELP, ptr %697, i64 0, i32 1
   store ptr %671, ptr %698, align 8
   store ptr %696, ptr %697, align 8
@@ -11846,14 +11839,14 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %699, label %700, label %703
 
 700:                                              ; preds = %695
-  %701 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %701 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %702 = getelementptr inbounds %struct.LIST_HELP, ptr %701, i64 0, i32 1
   store ptr %697, ptr %702, align 8
   store ptr null, ptr %701, align 8
   br label %763
 
 703:                                              ; preds = %695
-  %704 = tail call i32 @list_Length(ptr noundef %696) #18
+  %704 = tail call i32 @list_Length(ptr noundef %696) #17
   br label %705
 
 705:                                              ; preds = %703, %751
@@ -11862,7 +11855,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %708 = getelementptr i8, ptr %706, i64 8
   %709 = load ptr, ptr %708, align 8
   %710 = load ptr, ptr %709, align 8
-  %711 = tail call i32 @list_Length(ptr noundef %710) #18
+  %711 = tail call i32 @list_Length(ptr noundef %710) #17
   %712 = icmp slt i32 %711, %704
   br i1 %712, label %751, label %713
 
@@ -11926,7 +11919,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %753, label %754, label %705, !llvm.loop !188
 
 754:                                              ; preds = %751
-  %755 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %755 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %756 = getelementptr inbounds %struct.LIST_HELP, ptr %755, i64 0, i32 1
   store ptr %697, ptr %756, align 8
   store ptr null, ptr %755, align 8
@@ -11938,17 +11931,17 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %758, label %759, label %762
 
 759:                                              ; preds = %757
-  %760 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %760 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %761 = getelementptr inbounds %struct.LIST_HELP, ptr %760, i64 0, i32 1
   store ptr %697, ptr %761, align 8
   store ptr %669, ptr %760, align 8
   br label %763
 
 762:                                              ; preds = %757
-  tail call void @list_InsertNext(ptr noundef nonnull %707, ptr noundef nonnull %697) #18
+  tail call void @list_InsertNext(ptr noundef nonnull %707, ptr noundef nonnull %697) #17
   br label %763
 
-763:                                              ; preds = %762, %759, %754, %700
+763:                                              ; preds = %754, %759, %762, %700
   %764 = phi ptr [ %701, %700 ], [ %669, %754 ], [ %760, %759 ], [ %669, %762 ]
   %765 = load ptr, ptr %668, align 8
   %766 = icmp eq ptr %765, null
@@ -11956,7 +11949,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 
 767:                                              ; preds = %763, %651
   %768 = phi ptr [ null, %651 ], [ %764, %763 ]
-  %769 = tail call ptr @fol_FreeVariables(ptr noundef nonnull %4) #18
+  %769 = tail call ptr @fol_FreeVariables(ptr noundef nonnull %4) #17
   %770 = icmp eq ptr %769, null
   %771 = icmp eq ptr %626, null
   %772 = or i1 %771, %770
@@ -11975,7 +11968,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %781 = phi ptr [ %787, %786 ], [ %626, %773 ]
   %782 = getelementptr i8, ptr %781, i64 8
   %783 = load ptr, ptr %782, align 8
-  %784 = tail call i32 @symbol_Equal(ptr noundef %779, ptr noundef %783) #18, !callees !14
+  %784 = tail call i32 @symbol_Equal(ptr noundef %779, ptr noundef %783) #17, !callees !14
   %785 = icmp eq i32 %784, 0
   br i1 %785, label %786, label %789
 
@@ -11994,29 +11987,29 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %792, label %793, label %773, !llvm.loop !185
 
 793:                                              ; preds = %790, %767
-  %794 = tail call ptr @list_PointerDeleteElement(ptr noundef %769, ptr noundef null) #18
-  %795 = tail call i32 @list_Length(ptr noundef %794) #18
+  %794 = tail call ptr @list_PointerDeleteElement(ptr noundef %769, ptr noundef null) #17
+  %795 = tail call i32 @list_Length(ptr noundef %794) #17
   br i1 %771, label %813, label %796
 
 796:                                              ; preds = %793, %796
   %797 = phi ptr [ %809, %796 ], [ null, %793 ]
   %798 = phi ptr [ %811, %796 ], [ %626, %793 ]
-  %799 = tail call i32 @symbol_CreateSkolemFunction(i32 noundef %795, ptr noundef %595) #18
+  %799 = tail call i32 @symbol_CreateSkolemFunction(i32 noundef %795, ptr noundef %595) #17
   %800 = sext i32 %799 to i64
   %801 = inttoptr i64 %800 to ptr
   %802 = load ptr, ptr %6, align 8
-  %803 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %803 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %804 = getelementptr inbounds %struct.LIST_HELP, ptr %803, i64 0, i32 1
   store ptr %801, ptr %804, align 8
   store ptr %802, ptr %803, align 8
   store ptr %803, ptr %6, align 8
   %805 = getelementptr i8, ptr %798, i64 8
   %806 = load ptr, ptr %805, align 8
-  %807 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %807 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %808 = getelementptr inbounds %struct.LIST_HELP, ptr %807, i64 0, i32 1
   store ptr %806, ptr %808, align 8
   store ptr %801, ptr %807, align 8
-  %809 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %809 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %810 = getelementptr inbounds %struct.LIST_HELP, ptr %809, i64 0, i32 1
   store ptr %807, ptr %810, align 8
   store ptr %797, ptr %809, align 8
@@ -12062,8 +12055,8 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 835:                                              ; preds = %828, %835
   %836 = phi ptr [ %839, %835 ], [ null, %828 ]
   %837 = phi i32 [ %841, %835 ], [ 0, %828 ]
-  %838 = tail call ptr @term_CreateStandardVariable() #18
-  %839 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %838 = tail call ptr @term_CreateStandardVariable() #17
+  %839 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %840 = getelementptr inbounds %struct.LIST_HELP, ptr %839, i64 0, i32 1
   store ptr %838, ptr %840, align 8
   store ptr %836, ptr %839, align 8
@@ -12106,8 +12099,8 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 
 865:                                              ; preds = %848, %858, %864
   %866 = phi ptr [ %853, %864 ], [ %856, %848 ], [ %853, %858 ]
-  %867 = tail call ptr @list_DeleteDuplicates(ptr noundef %866, ptr noundef nonnull @term_Equal) #18
-  %868 = tail call i32 @list_Length(ptr noundef %867) #18
+  %867 = tail call ptr @list_DeleteDuplicates(ptr noundef %866, ptr noundef nonnull @term_Equal) #17
+  %868 = tail call i32 @list_Length(ptr noundef %867) #17
   %869 = icmp eq i32 %868, %850
   br i1 %869, label %888, label %870
 
@@ -12116,7 +12109,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %872 = phi i32 [ %884, %870 ], [ 0, %865 ]
   %873 = getelementptr i8, ptr %871, i64 8
   %874 = load ptr, ptr %873, align 8
-  tail call void @term_Delete(ptr noundef %874) #18
+  tail call void @term_Delete(ptr noundef %874) #17
   %875 = load ptr, ptr %871, align 8
   %876 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %877 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %876, i64 0, i32 4
@@ -12130,18 +12123,18 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %883 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %871, ptr %883, align 8
   %884 = add nuw nsw i32 %872, 1
-  %885 = tail call i32 @list_Length(ptr noundef %867) #18
+  %885 = tail call i32 @list_Length(ptr noundef %867) #17
   %886 = sub i32 %885, %850
   %887 = icmp ult i32 %884, %886
   br i1 %887, label %870, label %888, !llvm.loop !192
 
 888:                                              ; preds = %870, %865
   %889 = phi ptr [ %849, %865 ], [ %875, %870 ]
-  %890 = tail call i32 @list_Length(ptr noundef %867) #18
+  %890 = tail call i32 @list_Length(ptr noundef %867) #17
   %891 = icmp eq ptr %889, null
   %892 = select i1 %891, i32 %851, i32 1
-  %893 = tail call ptr @list_Copy(ptr noundef %867) #18
-  %894 = tail call ptr @list_Copy(ptr noundef %889) #18
+  %893 = tail call ptr @list_Copy(ptr noundef %867) #17
+  %894 = tail call ptr @list_Copy(ptr noundef %889) #17
   %895 = icmp eq ptr %893, null
   br i1 %895, label %903, label %896
 
@@ -12229,7 +12222,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %950, label %951, label %939, !llvm.loop !13
 
 951:                                              ; preds = %939, %935
-  %952 = tail call ptr @list_CopyWithElement(ptr noundef %904, ptr noundef nonnull @term_Copy) #18
+  %952 = tail call ptr @list_CopyWithElement(ptr noundef %904, ptr noundef nonnull @term_Copy) #17
   store ptr %952, ptr %936, align 8
   %953 = load i32, ptr @vec_MAX, align 4
   br label %954
@@ -12307,7 +12300,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %999 = phi ptr [ %1002, %998 ], [ %846, %843 ]
   %1000 = getelementptr i8, ptr %999, i64 8
   %1001 = load ptr, ptr %1000, align 8
-  tail call void @term_Delete(ptr noundef %1001) #18
+  tail call void @term_Delete(ptr noundef %1001) #17
   %1002 = load ptr, ptr %999, align 8
   %1003 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %1004 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %1003, i64 0, i32 4
@@ -12345,7 +12338,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %1025, label %1026, label %1014, !llvm.loop !13
 
 1026:                                             ; preds = %1014, %1012
-  tail call void @list_DeleteWithElement(ptr noundef %768, ptr noundef nonnull @list_PairFree) #18
+  tail call void @list_DeleteWithElement(ptr noundef %768, ptr noundef nonnull @list_PairFree) #17
   br i1 %771, label %1039, label %1027
 
 1027:                                             ; preds = %1026, %1027
@@ -12366,7 +12359,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %1038, label %1039, label %1027, !llvm.loop !13
 
 1039:                                             ; preds = %1027, %1026
-  tail call void @list_DeleteWithElement(ptr noundef %814, ptr noundef nonnull @list_PairFree) #18
+  tail call void @list_DeleteWithElement(ptr noundef %814, ptr noundef nonnull @list_PairFree) #17
   %1040 = getelementptr inbounds i32, ptr %594, i64 34
   %1041 = load i32, ptr %1040, align 4
   %1042 = icmp ne i32 %1041, 0
@@ -12397,7 +12390,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %1061 = load i32, ptr %1060, align 8
   %1062 = sext i32 %1061 to i64
   %1063 = inttoptr i64 %1062 to ptr
-  %1064 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %1064 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %1065 = getelementptr inbounds %struct.LIST_HELP, ptr %1064, i64 0, i32 1
   store ptr %1063, ptr %1065, align 8
   store ptr %1057, ptr %1064, align 8
@@ -12414,7 +12407,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
 1072:                                             ; preds = %1068, %1048
   %1073 = phi ptr [ %1052, %1048 ], [ %1071, %1068 ]
   %1074 = phi ptr [ null, %1048 ], [ %1064, %1068 ]
-  tail call void @term_Delete(ptr noundef %1073) #18
+  tail call void @term_Delete(ptr noundef %1073) #17
   %1075 = load ptr, ptr %20, align 8
   %1076 = load ptr, ptr %1075, align 8
   %1077 = getelementptr i8, ptr %1076, i64 8
@@ -12467,7 +12460,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %1110 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
   store ptr %1078, ptr %1110, align 8
   %1111 = load i32, ptr @vec_MAX, align 4
-  %1112 = tail call i32 @list_Length(ptr noundef %118) #18
+  %1112 = tail call i32 @list_Length(ptr noundef %118) #17
   %1113 = icmp eq ptr %1074, null
   br i1 %1113, label %1114, label %1115
 
@@ -12488,10 +12481,10 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   %1122 = sext i32 %1118 to i64
   %1123 = getelementptr inbounds [10000 x ptr], ptr @vec_VECTOR, i64 0, i64 %1122
   store ptr %4, ptr %1123, align 8
-  %1124 = tail call i32 @symbol_CreateSkolemFunction(i32 noundef %1112, ptr noundef %32) #18
+  %1124 = tail call i32 @symbol_CreateSkolemFunction(i32 noundef %1112, ptr noundef %32) #17
   %1125 = sext i32 %1124 to i64
   %1126 = inttoptr i64 %1125 to ptr
-  %1127 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %1127 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %1128 = getelementptr inbounds %struct.LIST_HELP, ptr %1127, i64 0, i32 1
   store ptr %1126, ptr %1128, align 8
   store ptr %1120, ptr %1127, align 8
@@ -12547,7 +12540,7 @@ define internal fastcc void @cnf_OptimizedSkolemFormula(ptr noundef %0, ptr noun
   br i1 %1162, label %1163, label %1151, !llvm.loop !13
 
 1163:                                             ; preds = %1151, %1147
-  %1164 = tail call ptr @list_CopyWithElement(ptr noundef %118, ptr noundef nonnull @term_Copy) #18
+  %1164 = tail call ptr @list_CopyWithElement(ptr noundef %118, ptr noundef nonnull @term_Copy) #17
   store ptr %1164, ptr %1148, align 8
   %1165 = load i32, ptr @vec_MAX, align 4
   br label %1166
@@ -12717,8 +12710,8 @@ define internal fastcc ptr @cnf_GetUsedTerms(ptr noundef %0, ptr nocapture nound
 
 19:                                               ; preds = %7, %17
   %20 = phi ptr [ %18, %17 ], [ null, %7 ]
-  %21 = tail call ptr @list_Copy(ptr noundef %20) #18
-  %22 = tail call ptr @list_DeleteDuplicates(ptr noundef %21, ptr noundef nonnull @cnf_LabelEqual) #18
+  %21 = tail call ptr @list_Copy(ptr noundef %20) #17
+  %22 = tail call ptr @list_DeleteDuplicates(ptr noundef %21, ptr noundef nonnull @cnf_LabelEqual) #17
   %23 = icmp eq ptr %22, null
   br i1 %23, label %24, label %64
 
@@ -12742,19 +12735,19 @@ define internal fastcc ptr @cnf_GetUsedTerms(ptr noundef %0, ptr nocapture nound
   %37 = ptrtoint ptr %36 to i64
   %38 = trunc i64 %37 to i32
   %39 = load ptr, ptr %29, align 8
-  %40 = tail call ptr @clause_GetNumberedCl(i32 noundef %38, ptr noundef %39) #18
+  %40 = tail call ptr @clause_GetNumberedCl(i32 noundef %38, ptr noundef %39) #17
   %41 = icmp eq ptr %40, null
   br i1 %41, label %42, label %49
 
 42:                                               ; preds = %32
   %43 = load ptr, ptr %30, align 8
-  %44 = tail call ptr @clause_GetNumberedCl(i32 noundef %38, ptr noundef %43) #18
+  %44 = tail call ptr @clause_GetNumberedCl(i32 noundef %38, ptr noundef %43) #17
   %45 = icmp eq ptr %44, null
   br i1 %45, label %46, label %49
 
 46:                                               ; preds = %42
   %47 = load ptr, ptr %31, align 8
-  %48 = tail call ptr @clause_GetNumberedCl(i32 noundef %38, ptr noundef %47) #18
+  %48 = tail call ptr @clause_GetNumberedCl(i32 noundef %38, ptr noundef %47) #17
   br label %49
 
 49:                                               ; preds = %42, %46, %32
@@ -12802,10 +12795,10 @@ declare void @list_InsertNext(ptr noundef, ptr noundef) local_unnamed_addr #1
 declare ptr @term_CreateStandardVariable() local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
-declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #14
+declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #13
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
-declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #14
+declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #13
 
 declare ptr @list_DeleteDuplicates(ptr noundef, ptr noundef) local_unnamed_addr #1
 
@@ -12820,7 +12813,7 @@ declare ptr @flag_Name(i32 noundef) local_unnamed_addr #1
 declare i32 @flag_Maximum(i32 noundef) local_unnamed_addr #1
 
 ; Function Attrs: noreturn nounwind
-declare void @exit(i32 noundef) local_unnamed_addr #12
+declare void @exit(i32 noundef) local_unnamed_addr #11
 
 declare ptr @clause_ListSortWeighed(ptr noundef) local_unnamed_addr #1
 
@@ -12851,7 +12844,7 @@ define internal fastcc void @cnf_DistrQuantorNoVarSubPath(ptr noundef %0, ptr no
   %7 = load ptr, ptr %6, align 8
   %8 = getelementptr i8, ptr %7, i64 16
   %9 = load ptr, ptr %8, align 8
-  %10 = tail call ptr @list_Copy(ptr noundef %9) #18
+  %10 = tail call ptr @list_Copy(ptr noundef %9) #17
   %11 = load ptr, ptr %4, align 8
   %12 = load ptr, ptr %11, align 8
   %13 = getelementptr i8, ptr %12, i64 8
@@ -12878,13 +12871,13 @@ define internal fastcc void @cnf_DistrQuantorNoVarSubPath(ptr noundef %0, ptr no
   %28 = phi ptr [ %38, %37 ], [ null, %20 ]
   %29 = getelementptr i8, ptr %27, i64 8
   %30 = load ptr, ptr %29, align 8
-  %31 = tail call i32 @fol_VarOccursFreely(ptr noundef %23, ptr noundef %30) #18
+  %31 = tail call i32 @fol_VarOccursFreely(ptr noundef %23, ptr noundef %30) #17
   %32 = icmp eq i32 %31, 0
   br i1 %32, label %33, label %37
 
 33:                                               ; preds = %26
   %34 = load ptr, ptr %29, align 8
-  %35 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %35 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %36 = getelementptr inbounds %struct.LIST_HELP, ptr %35, i64 0, i32 1
   store ptr %34, ptr %36, align 8
   store ptr %28, ptr %35, align 8
@@ -12902,7 +12895,7 @@ define internal fastcc void @cnf_DistrQuantorNoVarSubPath(ptr noundef %0, ptr no
 
 43:                                               ; preds = %41
   %44 = load ptr, ptr %19, align 8
-  %45 = tail call ptr @list_NPointerDifference(ptr noundef %44, ptr noundef nonnull %38) #18
+  %45 = tail call ptr @list_NPointerDifference(ptr noundef %44, ptr noundef nonnull %38) #17
   %46 = load ptr, ptr %45, align 8
   %47 = icmp eq ptr %46, null
   br i1 %47, label %48, label %78
@@ -12921,7 +12914,7 @@ define internal fastcc void @cnf_DistrQuantorNoVarSubPath(ptr noundef %0, ptr no
   %57 = load ptr, ptr %56, align 8
   %58 = getelementptr i8, ptr %57, i64 16
   %59 = load ptr, ptr %58, align 8
-  %60 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %60 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %61 = getelementptr inbounds %struct.LIST_HELP, ptr %60, i64 0, i32 1
   store ptr %23, ptr %61, align 8
   store ptr %59, ptr %60, align 8
@@ -12946,29 +12939,29 @@ define internal fastcc void @cnf_DistrQuantorNoVarSubPath(ptr noundef %0, ptr no
   br i1 %73, label %85, label %62, !llvm.loop !13
 
 74:                                               ; preds = %48
-  %75 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %75 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %76 = getelementptr inbounds %struct.LIST_HELP, ptr %75, i64 0, i32 1
   store ptr %23, ptr %76, align 8
   store ptr null, ptr %75, align 8
-  %77 = tail call ptr @fol_CreateQuantifierAddFather(i32 noundef %3, ptr noundef nonnull %75, ptr noundef nonnull %45) #18
+  %77 = tail call ptr @fol_CreateQuantifierAddFather(i32 noundef %3, ptr noundef nonnull %75, ptr noundef nonnull %45) #17
   br label %85
 
 78:                                               ; preds = %43
-  %79 = tail call ptr @term_CreateAddFather(i32 noundef %15, ptr noundef nonnull %45) #18
-  %80 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %79 = tail call ptr @term_CreateAddFather(i32 noundef %15, ptr noundef nonnull %45) #17
+  %80 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %81 = getelementptr inbounds %struct.LIST_HELP, ptr %80, i64 0, i32 1
   store ptr %23, ptr %81, align 8
   store ptr null, ptr %80, align 8
-  %82 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %82 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %83 = getelementptr inbounds %struct.LIST_HELP, ptr %82, i64 0, i32 1
   store ptr %79, ptr %83, align 8
   store ptr null, ptr %82, align 8
-  %84 = tail call ptr @fol_CreateQuantifierAddFather(i32 noundef %3, ptr noundef nonnull %80, ptr noundef nonnull %82) #18
+  %84 = tail call ptr @fol_CreateQuantifierAddFather(i32 noundef %3, ptr noundef nonnull %80, ptr noundef nonnull %82) #17
   br label %85
 
 85:                                               ; preds = %62, %74, %78
   %86 = phi ptr [ %77, %74 ], [ %84, %78 ], [ %50, %62 ]
-  %87 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %86) #18
+  %87 = tail call i32 @term_HasProperSuperterm(ptr noundef %1, ptr noundef %86) #17
   %88 = icmp eq i32 %87, 0
   br i1 %88, label %91, label %89
 
@@ -12977,7 +12970,7 @@ define internal fastcc void @cnf_DistrQuantorNoVarSubPath(ptr noundef %0, ptr no
   br label %91
 
 91:                                               ; preds = %89, %85
-  %92 = tail call ptr @memory_Malloc(i32 noundef 16) #18
+  %92 = tail call ptr @memory_Malloc(i32 noundef 16) #17
   %93 = getelementptr inbounds %struct.LIST_HELP, ptr %92, i64 0, i32 1
   store ptr %86, ptr %93, align 8
   store ptr %38, ptr %92, align 8
@@ -12989,7 +12982,7 @@ define internal fastcc void @cnf_DistrQuantorNoVarSubPath(ptr noundef %0, ptr no
   %97 = load ptr, ptr %96, align 8
   %98 = getelementptr i8, ptr %97, i64 16
   %99 = load ptr, ptr %98, align 8
-  %100 = tail call ptr @list_PointerDeleteElement(ptr noundef %99, ptr noundef %23) #18
+  %100 = tail call ptr @list_PointerDeleteElement(ptr noundef %99, ptr noundef %23) #17
   store ptr %100, ptr %98, align 8
   br label %101
 
@@ -13101,45 +13094,44 @@ declare void @list_NMapCar(ptr noundef, ptr noundef) local_unnamed_addr #1
 declare ptr @list_PointerDeleteOneElement(ptr noundef, ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #15
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #15
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #16
+declare i32 @llvm.smax.i32(i32, i32) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.usub.sat.i32(i32, i32) #16
+declare i32 @llvm.usub.sat.i32(i32, i32) #15
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #17
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #16
+declare i64 @llvm.umax.i64(i64, i64) #15
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #14
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { inlinehint noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { inlinehint mustprogress nofree nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { inlinehint nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #13 = { inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #14 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #15 = { nofree nounwind }
-attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #17 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #18 = { nounwind }
-attributes #19 = { cold }
-attributes #20 = { noreturn nounwind }
-attributes #21 = { nounwind willreturn memory(read) }
+attributes #5 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #6 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #7 = { inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #8 = { inlinehint mustprogress nofree nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #9 = { inlinehint nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #10 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #11 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #12 = { inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #13 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #14 = { nofree nounwind }
+attributes #15 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #17 = { nounwind }
+attributes #18 = { cold }
+attributes #19 = { noreturn nounwind }
+attributes #20 = { nounwind willreturn memory(read) }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}
@@ -13197,13 +13189,13 @@ attributes #21 = { nounwind willreturn memory(read) }
 !50 = distinct !{!50, !8}
 !51 = distinct !{!51, !8}
 !52 = distinct !{!52, !8}
-!53 = distinct !{!53, !8}
-!54 = distinct !{!54, !8}
-!55 = distinct !{!55, !8}
-!56 = distinct !{!56, !8, !57, !58}
-!57 = !{!"llvm.loop.isvectorized", i32 1}
-!58 = !{!"llvm.loop.unroll.runtime.disable"}
-!59 = distinct !{!59, !8, !57}
+!53 = distinct !{!53, !8, !54, !55}
+!54 = !{!"llvm.loop.isvectorized", i32 1}
+!55 = !{!"llvm.loop.unroll.runtime.disable"}
+!56 = distinct !{!56, !8, !54}
+!57 = distinct !{!57, !8}
+!58 = distinct !{!58, !8}
+!59 = distinct !{!59, !8}
 !60 = distinct !{!60, !8}
 !61 = distinct !{!61, !8}
 !62 = distinct !{!62, !8}
@@ -13220,11 +13212,11 @@ attributes #21 = { nounwind willreturn memory(read) }
 !73 = distinct !{!73, !8}
 !74 = distinct !{!74, !8}
 !75 = distinct !{!75, !8}
-!76 = distinct !{!76, !8}
-!77 = distinct !{!77, !8}
+!76 = distinct !{!76, !77}
+!77 = !{!"llvm.loop.unroll.disable"}
 !78 = distinct !{!78, !8}
-!79 = distinct !{!79, !80}
-!80 = !{!"llvm.loop.unroll.disable"}
+!79 = distinct !{!79, !8}
+!80 = distinct !{!80, !8}
 !81 = distinct !{!81, !8}
 !82 = distinct !{!82, !8}
 !83 = distinct !{!83, !8}
@@ -13232,11 +13224,11 @@ attributes #21 = { nounwind willreturn memory(read) }
 !85 = distinct !{!85, !8}
 !86 = distinct !{!86, !8}
 !87 = distinct !{!87, !8}
-!88 = distinct !{!88, !8}
-!89 = distinct !{!89, !8}
+!88 = distinct !{!88, !8, !54, !55}
+!89 = distinct !{!89, !8, !54}
 !90 = distinct !{!90, !8}
-!91 = distinct !{!91, !8, !57, !58}
-!92 = distinct !{!92, !8, !57}
+!91 = distinct !{!91, !8}
+!92 = distinct !{!92, !8}
 !93 = distinct !{!93, !8}
 !94 = distinct !{!94, !8}
 !95 = distinct !{!95, !8}
@@ -13244,18 +13236,18 @@ attributes #21 = { nounwind willreturn memory(read) }
 !97 = distinct !{!97, !8}
 !98 = distinct !{!98, !8}
 !99 = distinct !{!99, !8}
-!100 = distinct !{!100, !8}
+!100 = distinct !{!100, !8, !54, !55}
 !101 = distinct !{!101, !8}
 !102 = distinct !{!102, !8}
-!103 = distinct !{!103, !8, !57, !58}
+!103 = distinct !{!103, !77}
 !104 = distinct !{!104, !8}
 !105 = distinct !{!105, !8}
-!106 = distinct !{!106, !80}
+!106 = distinct !{!106, !8}
 !107 = distinct !{!107, !8}
-!108 = distinct !{!108, !8}
+!108 = distinct !{!108, !8, !54}
 !109 = distinct !{!109, !8}
 !110 = distinct !{!110, !8}
-!111 = distinct !{!111, !8, !57}
+!111 = distinct !{!111, !8}
 !112 = distinct !{!112, !8}
 !113 = distinct !{!113, !8}
 !114 = distinct !{!114, !8}
@@ -13266,20 +13258,20 @@ attributes #21 = { nounwind willreturn memory(read) }
 !119 = distinct !{!119, !8}
 !120 = distinct !{!120, !8}
 !121 = distinct !{!121, !8}
-!122 = distinct !{!122, !8}
-!123 = distinct !{!123, !8}
+!122 = distinct !{!122, !8, !54, !55}
+!123 = distinct !{!123, !8, !54}
 !124 = distinct !{!124, !8}
-!125 = distinct !{!125, !8, !57, !58}
-!126 = distinct !{!126, !8, !57}
+!125 = distinct !{!125, !8}
+!126 = distinct !{!126, !8}
 !127 = distinct !{!127, !8}
 !128 = distinct !{!128, !8}
 !129 = distinct !{!129, !8}
 !130 = distinct !{!130, !8}
 !131 = distinct !{!131, !8}
-!132 = distinct !{!132, !8}
+!132 = !{}
 !133 = distinct !{!133, !8}
 !134 = distinct !{!134, !8}
-!135 = !{}
+!135 = distinct !{!135, !8}
 !136 = distinct !{!136, !8}
 !137 = distinct !{!137, !8}
 !138 = distinct !{!138, !8}

@@ -1101,11 +1101,11 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %18 = getelementptr inbounds %"class.std::ios_base", ptr %17, i64 0, i32 3
   %19 = load i32, ptr %18, align 8, !tbaa !49
   %20 = or i32 %19, 1028
-  store i32 %20, ptr %18, align 8, !tbaa !50
+  store i32 %20, ptr %18, align 8, !tbaa !49
   %21 = load i64, ptr %15, align 8
   %22 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %21
   %23 = getelementptr inbounds %"class.std::ios_base", ptr %22, i64 0, i32 1
-  store i64 2, ptr %23, align 8, !tbaa !51
+  store i64 2, ptr %23, align 8, !tbaa !50
   %24 = getelementptr inbounds ptr, ptr %1, i64 1
   %25 = load ptr, ptr %24, align 8, !tbaa !29
   %26 = tail call i64 @strtol(ptr nocapture noundef nonnull %25, ptr noundef null, i32 noundef 10) #27
@@ -1120,7 +1120,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 32:                                               ; preds = %13, %131
   %33 = phi ptr [ %133, %131 ], [ null, %13 ]
-  %34 = load i32, ptr %4, align 4, !tbaa !52
+  %34 = load i32, ptr %4, align 4, !tbaa !51
   switch i32 %34, label %128 [
     i32 1, label %35
     i32 7, label %56
@@ -1131,7 +1131,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 35:                                               ; preds = %32
   %36 = call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #26
-  %37 = load float, ptr %7, align 4, !tbaa !53
+  %37 = load float, ptr %7, align 4, !tbaa !52
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %36, align 8, !tbaa !5
   %38 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #25
   %39 = add i64 %38, 1
@@ -1167,7 +1167,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 56:                                               ; preds = %32
   %57 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
-  %58 = load float, ptr %7, align 4, !tbaa !53
+  %58 = load float, ptr %7, align 4, !tbaa !52
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %57, align 8, !tbaa !5
   %59 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #25
   %60 = add i64 %59, 1
@@ -1205,7 +1205,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 78:                                               ; preds = %32
   %79 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
-  %80 = load float, ptr %7, align 4, !tbaa !53
+  %80 = load float, ptr %7, align 4, !tbaa !52
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %79, align 8, !tbaa !5
   %81 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #25
   %82 = add i64 %81, 1
@@ -1243,7 +1243,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 
 100:                                              ; preds = %32
   %101 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
-  %102 = load float, ptr %7, align 4, !tbaa !53
+  %102 = load float, ptr %7, align 4, !tbaa !52
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %101, align 8, !tbaa !5
   %103 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #25
   %104 = add i64 %103, 1
@@ -1280,8 +1280,8 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 121:                                              ; preds = %32
   %122 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.9, ptr noundef nonnull %8)
   %123 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
-  %124 = load float, ptr %7, align 4, !tbaa !53
-  %125 = load float, ptr %8, align 4, !tbaa !53
+  %124 = load float, ptr %7, align 4, !tbaa !52
+  %125 = load float, ptr %8, align 4, !tbaa !52
   invoke void @_ZN18CommissionedWorkerC2EPKcS1_ff(ptr noundef nonnull align 8 dereferenceable(40) %123, ptr noundef nonnull %5, ptr noundef nonnull %6, float noundef %124, float noundef %125)
           to label %131 unwind label %126
 
@@ -1295,15 +1295,15 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
   %130 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %129, ptr noundef nonnull @.str.10, i32 noundef %34) #29
   br label %196
 
-131:                                              ; preds = %112, %90, %68, %47, %121
-  %132 = phi ptr [ %36, %47 ], [ %57, %68 ], [ %79, %90 ], [ %101, %112 ], [ %123, %121 ]
+131:                                              ; preds = %121, %112, %90, %68, %47
+  %132 = phi ptr [ %101, %112 ], [ %79, %90 ], [ %57, %68 ], [ %36, %47 ], [ %123, %121 ]
   %133 = call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #26
   store ptr %132, ptr %133, align 8, !tbaa !23
   %134 = getelementptr inbounds %class.EmployeeNode, ptr %133, i64 0, i32 1
   store ptr %33, ptr %134, align 8, !tbaa !25
   %135 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.8, ptr noundef nonnull %4, ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %7)
   %136 = icmp eq i32 %135, 4
-  br i1 %136, label %32, label %30, !llvm.loop !54
+  br i1 %136, label %32, label %30, !llvm.loop !53
 
 137:                                              ; preds = %30, %193
   %138 = phi i32 [ %150, %193 ], [ 0, %30 ]
@@ -1388,7 +1388,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonl
 193:                                              ; preds = %184, %181
   %194 = add nuw nsw i32 %139, 1
   %195 = icmp eq i32 %194, %27
-  br i1 %195, label %196, label %137, !llvm.loop !55
+  br i1 %195, label %196, label %137, !llvm.loop !54
 
 196:                                              ; preds = %193, %13, %30, %128, %10
   %197 = phi i32 [ 1, %10 ], [ -1, %128 ], [ 0, %30 ], [ 0, %13 ], [ 0, %193 ]
@@ -1697,10 +1697,9 @@ attributes #30 = { builtin nounwind }
 !46 = !{!"_ZTS11PieceWorker", !44, i64 0, !21, i64 32}
 !47 = !{!48, !12, i64 32}
 !48 = !{!"_ZTS12HourlyWorker", !44, i64 0, !12, i64 32}
-!49 = !{!16, !18, i64 24}
-!50 = !{!18, !18, i64 0}
-!51 = !{!16, !17, i64 8}
-!52 = !{!21, !21, i64 0}
-!53 = !{!12, !12, i64 0}
+!49 = !{!18, !18, i64 0}
+!50 = !{!16, !17, i64 8}
+!51 = !{!21, !21, i64 0}
+!52 = !{!12, !12, i64 0}
+!53 = distinct !{!53, !32}
 !54 = distinct !{!54, !32}
-!55 = distinct !{!55, !32}

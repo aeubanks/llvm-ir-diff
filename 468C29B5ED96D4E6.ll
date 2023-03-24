@@ -158,7 +158,7 @@ define dso_local noalias ptr @opt_parse(i32 noundef %0, ptr noundef %1, ptr noun
   call void @free(ptr noundef nonnull %39) #8
   br label %42
 
-42:                                               ; preds = %37, %41
+42:                                               ; preds = %41, %37
   call void @free(ptr noundef nonnull %7) #8
   br label %167
 
@@ -231,7 +231,7 @@ define dso_local noalias ptr @opt_parse(i32 noundef %0, ptr noundef %1, ptr noun
   call void @free(ptr noundef nonnull %79) #8
   br label %82
 
-82:                                               ; preds = %77, %81
+82:                                               ; preds = %81, %77
   call void @free(ptr noundef nonnull %7) #8
   br label %167
 
@@ -279,7 +279,7 @@ define dso_local noalias ptr @opt_parse(i32 noundef %0, ptr noundef %1, ptr noun
   call void @free(ptr noundef nonnull %103) #8
   br label %106
 
-106:                                              ; preds = %101, %105
+106:                                              ; preds = %105, %101
   call void @free(ptr noundef nonnull %7) #8
   br label %167
 

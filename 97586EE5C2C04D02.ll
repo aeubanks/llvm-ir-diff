@@ -1125,12 +1125,12 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
   br i1 %196, label %165, label %197, !llvm.loop !48
 
 197:                                              ; preds = %180
-  %198 = and i32 %187, 65535
-  %199 = add nuw nsw i32 %183, 8
-  store i32 %199, ptr %9, align 8, !tbaa !41
-  %200 = lshr i32 %187, 16
-  store i32 %200, ptr %56, align 4, !tbaa !42
-  %201 = xor i32 %198, 65535
+  %198 = add nuw nsw i32 %183, 8
+  store i32 %198, ptr %9, align 8, !tbaa !41
+  %199 = lshr i32 %187, 16
+  store i32 %199, ptr %56, align 4, !tbaa !42
+  %200 = and i32 %187, 65535
+  %201 = xor i32 %200, 65535
   %202 = icmp eq i32 %153, %201
   br label %639
 
@@ -1519,7 +1519,7 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
   %444 = getelementptr inbounds i8, ptr %6, i64 %443
   %445 = load i8, ptr %444, align 1, !tbaa !45
   %446 = icmp ult i8 %445, 16
-  br i1 %446, label %447, label %536
+  br i1 %446, label %447, label %540
 
 447:                                              ; preds = %442
   %448 = zext i8 %445 to i64
@@ -1533,7 +1533,7 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
   %454 = getelementptr inbounds i8, ptr %6, i64 %453
   %455 = load i8, ptr %454, align 1, !tbaa !45
   %456 = icmp ult i8 %455, 16
-  br i1 %456, label %457, label %536
+  br i1 %456, label %457, label %540
 
 457:                                              ; preds = %447
   %458 = zext i8 %455 to i64
@@ -1566,7 +1566,7 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
   %476 = shl i32 %474, %475
   %477 = add i32 %476, %471
   %478 = icmp ugt i32 %477, 32768
-  br i1 %478, label %536, label %479
+  br i1 %478, label %540, label %479
 
 479:                                              ; preds = %468
   %480 = icmp eq i64 %469, 15
@@ -1649,27 +1649,27 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
 533:                                              ; preds = %525, %520
   %534 = add nuw nsw i64 %508, 2
   %535 = icmp eq i64 %534, 288
-  br i1 %535, label %537, label %507, !llvm.loop !64
+  br i1 %535, label %536, label %507, !llvm.loop !64
 
-536:                                              ; preds = %442, %447, %468
+536:                                              ; preds = %533
+  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %5) #13
+  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %4) #13
+  %537 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 10
+  %538 = getelementptr inbounds %"struct.NCompress::NDeflate::CLevels", ptr %6, i64 0, i32 1
+  call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %2) #13
+  call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %3) #13
+  %539 = getelementptr inbounds i8, ptr %2, i64 4
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(60) %539, i8 0, i64 60, i1 false), !tbaa !53
+  br label %541
+
+540:                                              ; preds = %442, %447, %468
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %5) #13
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %4) #13
   br label %637
 
-537:                                              ; preds = %533
-  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %5) #13
-  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %4) #13
-  %538 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 10
-  %539 = getelementptr inbounds %"struct.NCompress::NDeflate::CLevels", ptr %6, i64 0, i32 1
-  call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %2) #13
-  call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %3) #13
-  %540 = getelementptr inbounds i8, ptr %2, i64 4
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(60) %540, i8 0, i64 60, i1 false), !tbaa !53
-  br label %541
-
-541:                                              ; preds = %556, %537
-  %542 = phi i64 [ 0, %537 ], [ %562, %556 ]
-  %543 = getelementptr inbounds i8, ptr %539, i64 %542
+541:                                              ; preds = %556, %536
+  %542 = phi i64 [ 0, %536 ], [ %562, %556 ]
+  %543 = getelementptr inbounds i8, ptr %538, i64 %542
   %544 = load i8, ptr %543, align 1, !tbaa !45
   %545 = icmp ult i8 %544, 16
   br i1 %545, label %546, label %635
@@ -1683,7 +1683,7 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
   %551 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 10, i32 2, i64 %542
   store i32 -1, ptr %551, align 8, !tbaa !53
   %552 = or i64 %542, 1
-  %553 = getelementptr inbounds i8, ptr %539, i64 %552
+  %553 = getelementptr inbounds i8, ptr %538, i64 %552
   %554 = load i8, ptr %553, align 1, !tbaa !45
   %555 = icmp ult i8 %554, 16
   br i1 %555, label %556, label %635
@@ -1702,7 +1702,7 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
 
 564:                                              ; preds = %556
   store i32 0, ptr %2, align 16, !tbaa !53
-  store i32 0, ptr %538, align 8, !tbaa !53
+  store i32 0, ptr %537, align 8, !tbaa !53
   %565 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 10, i32 1
   store i32 0, ptr %565, align 8, !tbaa !53
   %566 = getelementptr %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 10, i32 3
@@ -1724,7 +1724,7 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
 578:                                              ; preds = %567
   %579 = icmp eq i64 %568, 15
   %580 = select i1 %579, i32 32768, i32 %576
-  %581 = getelementptr inbounds [16 x i32], ptr %538, i64 0, i64 %568
+  %581 = getelementptr inbounds [16 x i32], ptr %537, i64 0, i64 %568
   store i32 %580, ptr %581, align 4, !tbaa !53
   %582 = add nsw i64 %568, -1
   %583 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 10, i32 1, i64 %582
@@ -1763,7 +1763,7 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
 
 606:                                              ; preds = %602, %632
   %607 = phi i64 [ %633, %632 ], [ 0, %602 ]
-  %608 = getelementptr inbounds i8, ptr %539, i64 %607
+  %608 = getelementptr inbounds i8, ptr %538, i64 %607
   %609 = load i8, ptr %608, align 1, !tbaa !45
   %610 = icmp eq i8 %609, 0
   br i1 %610, label %619, label %611
@@ -1782,7 +1782,7 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
 
 619:                                              ; preds = %611, %606
   %620 = or i64 %607, 1
-  %621 = getelementptr inbounds i8, ptr %539, i64 %620
+  %621 = getelementptr inbounds i8, ptr %538, i64 %620
   %622 = load i8, ptr %621, align 1, !tbaa !45
   %623 = icmp eq i8 %622, 0
   br i1 %623, label %632, label %624
@@ -1810,12 +1810,12 @@ define dso_local noundef zeroext i1 @_ZN9NCompress8NDeflate8NDecoder6CCoder10Rea
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %2) #13
   br label %637
 
-637:                                              ; preds = %348, %536, %438, %370, %635
-  %638 = phi i1 [ %636, %635 ], [ false, %438 ], [ false, %370 ], [ false, %536 ], [ false, %348 ]
+637:                                              ; preds = %348, %438, %370, %540, %635
+  %638 = phi i1 [ %636, %635 ], [ false, %438 ], [ false, %540 ], [ false, %370 ], [ false, %348 ]
   call void @llvm.lifetime.end.p0(i64 320, ptr nonnull %6) #13
   br label %639
 
-639:                                              ; preds = %100, %150, %637, %197
+639:                                              ; preds = %150, %100, %637, %197
   %640 = phi i1 [ %202, %197 ], [ %638, %637 ], [ false, %100 ], [ true, %150 ]
   ret i1 %640
 }
@@ -3477,11 +3477,11 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   %39 = icmp eq ptr %2, null
   %40 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 21
   %41 = icmp eq ptr %3, null
-  %42 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8
+  %42 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8, i32 0, i32 2, i32 4
   %43 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8, i32 0, i32 2
-  %44 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8, i32 0, i32 2, i32 4
+  %44 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8, i32 0, i32 3
   %45 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8, i32 0, i32 2, i32 2
-  %46 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8, i32 0, i32 3
+  %46 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8
   br i1 %41, label %47, label %79
 
 47:                                               ; preds = %38
@@ -3569,21 +3569,21 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
 
 87:                                               ; preds = %84
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #13
-  %88 = load i64, ptr %44, align 8, !tbaa !92
+  %88 = load i64, ptr %42, align 8, !tbaa !92
   %89 = load ptr, ptr %43, align 8, !tbaa !43
-  %90 = load ptr, ptr %45, align 8, !tbaa !93
-  %91 = ptrtoint ptr %89 to i64
-  %92 = ptrtoint ptr %90 to i64
-  %93 = load i32, ptr %46, align 8, !tbaa !46
-  %94 = zext i32 %93 to i64
-  %95 = load i32, ptr %42, align 8, !tbaa !41
+  %90 = ptrtoint ptr %89 to i64
+  %91 = load i32, ptr %44, align 8, !tbaa !46
+  %92 = zext i32 %91 to i64
+  %93 = load ptr, ptr %45, align 8, !tbaa !93
+  %94 = ptrtoint ptr %93 to i64
+  %95 = load i32, ptr %46, align 8, !tbaa !41
   %96 = sub i32 32, %95
   %97 = lshr i32 %96, 3
   %98 = zext i32 %97 to i64
   %99 = add i64 %88, %36
-  %100 = add i64 %99, %91
-  %101 = add i64 %100, %94
-  %102 = add i64 %92, %98
+  %100 = add i64 %99, %90
+  %101 = add i64 %100, %92
+  %102 = add i64 %94, %98
   %103 = sub i64 %101, %102
   store i64 %103, ptr %6, align 8, !tbaa !94
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #13
@@ -3686,21 +3686,21 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
 
 145:                                              ; preds = %142
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #13
-  %146 = load i64, ptr %44, align 8, !tbaa !92
+  %146 = load i64, ptr %42, align 8, !tbaa !92
   %147 = load ptr, ptr %43, align 8, !tbaa !43
-  %148 = load ptr, ptr %45, align 8, !tbaa !93
-  %149 = ptrtoint ptr %147 to i64
-  %150 = ptrtoint ptr %148 to i64
-  %151 = load i32, ptr %46, align 8, !tbaa !46
-  %152 = zext i32 %151 to i64
-  %153 = load i32, ptr %42, align 8, !tbaa !41
+  %148 = ptrtoint ptr %147 to i64
+  %149 = load i32, ptr %44, align 8, !tbaa !46
+  %150 = zext i32 %149 to i64
+  %151 = load ptr, ptr %45, align 8, !tbaa !93
+  %152 = ptrtoint ptr %151 to i64
+  %153 = load i32, ptr %46, align 8, !tbaa !41
   %154 = sub i32 32, %153
   %155 = lshr i32 %154, 3
   %156 = zext i32 %155 to i64
   %157 = add i64 %146, %36
-  %158 = add i64 %157, %149
-  %159 = add i64 %158, %152
-  %160 = add i64 %150, %156
+  %158 = add i64 %157, %148
+  %159 = add i64 %158, %150
+  %160 = add i64 %152, %156
   %161 = sub i64 %159, %160
   store i64 %161, ptr %6, align 8, !tbaa !94
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #13
@@ -3752,11 +3752,11 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   br i1 %183, label %306, label %184
 
 184:                                              ; preds = %177
-  %185 = load i32, ptr %42, align 8, !tbaa !41
+  %185 = load i32, ptr %46, align 8, !tbaa !41
   %186 = sub i32 0, %185
   %187 = and i32 %186, 7
   %188 = add i32 %187, %185
-  store i32 %188, ptr %42, align 8, !tbaa !41
+  store i32 %188, ptr %46, align 8, !tbaa !41
   %189 = getelementptr inbounds %"class.NCompress::NDeflate::NDecoder::CCoder", ptr %0, i64 0, i32 8, i32 1
   %190 = load i32, ptr %189, align 4, !tbaa !42
   %191 = lshr i32 %190, %187
@@ -3790,22 +3790,22 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   br label %214
 
 207:                                              ; preds = %200
-  %208 = load i32, ptr %46, align 8, !tbaa !46
+  %208 = load i32, ptr %44, align 8, !tbaa !46
   %209 = add i32 %208, 1
-  store i32 %209, ptr %46, align 8, !tbaa !46
+  store i32 %209, ptr %44, align 8, !tbaa !46
   br label %214
 
 210:                                              ; preds = %184
   %211 = trunc i32 %191 to i8
   %212 = add i32 %188, 8
-  store i32 %212, ptr %42, align 8, !tbaa !41
+  store i32 %212, ptr %46, align 8, !tbaa !41
   %213 = lshr i32 %191, 8
   store i32 %213, ptr %189, align 4, !tbaa !42
   br label %217
 
 214:                                              ; preds = %203, %207
   %215 = phi i8 [ %206, %203 ], [ -1, %207 ]
-  %216 = load i32, ptr %42, align 8, !tbaa !41
+  %216 = load i32, ptr %46, align 8, !tbaa !41
   br label %217
 
 217:                                              ; preds = %214, %210
@@ -3820,7 +3820,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   %223 = load i32, ptr %189, align 4, !tbaa !42
   %224 = trunc i32 %223 to i8
   %225 = add i32 %218, 8
-  store i32 %225, ptr %42, align 8, !tbaa !41
+  store i32 %225, ptr %46, align 8, !tbaa !41
   %226 = lshr i32 %223, 8
   store i32 %226, ptr %189, align 4, !tbaa !42
   br label %246
@@ -3839,9 +3839,9 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   br i1 %232, label %237, label %234
 
 234:                                              ; preds = %233
-  %235 = load i32, ptr %46, align 8, !tbaa !46
+  %235 = load i32, ptr %44, align 8, !tbaa !46
   %236 = add i32 %235, 1
-  store i32 %236, ptr %46, align 8, !tbaa !46
+  store i32 %236, ptr %44, align 8, !tbaa !46
   br label %243
 
 237:                                              ; preds = %233
@@ -3857,7 +3857,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
 
 243:                                              ; preds = %234, %239
   %244 = phi i8 [ %242, %239 ], [ -1, %234 ]
-  %245 = load i32, ptr %42, align 8, !tbaa !41
+  %245 = load i32, ptr %46, align 8, !tbaa !41
   br label %246
 
 246:                                              ; preds = %243, %222
@@ -3872,7 +3872,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   %252 = load i32, ptr %189, align 4, !tbaa !42
   %253 = trunc i32 %252 to i8
   %254 = add i32 %247, 8
-  store i32 %254, ptr %42, align 8, !tbaa !41
+  store i32 %254, ptr %46, align 8, !tbaa !41
   %255 = lshr i32 %252, 8
   store i32 %255, ptr %189, align 4, !tbaa !42
   br label %275
@@ -3891,9 +3891,9 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   br i1 %261, label %266, label %263
 
 263:                                              ; preds = %262
-  %264 = load i32, ptr %46, align 8, !tbaa !46
+  %264 = load i32, ptr %44, align 8, !tbaa !46
   %265 = add i32 %264, 1
-  store i32 %265, ptr %46, align 8, !tbaa !46
+  store i32 %265, ptr %44, align 8, !tbaa !46
   br label %272
 
 266:                                              ; preds = %262
@@ -3909,7 +3909,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
 
 272:                                              ; preds = %263, %268
   %273 = phi i8 [ %271, %268 ], [ -1, %263 ]
-  %274 = load i32, ptr %42, align 8, !tbaa !41
+  %274 = load i32, ptr %46, align 8, !tbaa !41
   br label %275
 
 275:                                              ; preds = %272, %251
@@ -3924,7 +3924,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   %281 = load i32, ptr %189, align 4, !tbaa !42
   %282 = trunc i32 %281 to i8
   %283 = add i32 %276, 8
-  store i32 %283, ptr %42, align 8, !tbaa !41
+  store i32 %283, ptr %46, align 8, !tbaa !41
   %284 = lshr i32 %281, 8
   store i32 %284, ptr %189, align 4, !tbaa !42
   br label %301
@@ -3943,9 +3943,9 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   br i1 %290, label %295, label %292
 
 292:                                              ; preds = %291
-  %293 = load i32, ptr %46, align 8, !tbaa !46
+  %293 = load i32, ptr %44, align 8, !tbaa !46
   %294 = add i32 %293, 1
-  store i32 %294, ptr %46, align 8, !tbaa !46
+  store i32 %294, ptr %44, align 8, !tbaa !46
   br label %301
 
 295:                                              ; preds = %291
@@ -3982,9 +3982,9 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder8CodeRealEP2
   br i1 %309, label %310, label %320
 
 310:                                              ; preds = %308
-  %311 = load i32, ptr %46, align 8, !tbaa !46
+  %311 = load i32, ptr %44, align 8, !tbaa !46
   %312 = icmp ne i32 %311, 0
-  %313 = load i32, ptr %42, align 8
+  %313 = load i32, ptr %46, align 8
   %314 = sub i32 32, %313
   %315 = shl i32 %311, 3
   %316 = icmp ult i32 %314, %315
@@ -4377,7 +4377,7 @@ define dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCoder4ReadEPvjPj(
   tail call void @__cxa_end_catch()
   br label %44
 
-44:                                               ; preds = %42, %25, %13
+44:                                               ; preds = %42, %13, %25
   %45 = phi i32 [ %12, %13 ], [ %26, %25 ], [ %43, %42 ]
   ret i32 %45
 }
@@ -4844,7 +4844,7 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCode
   %315 = icmp eq i8 %313, %314
   br i1 %315, label %394, label %316
 
-316:                                              ; preds = %306, %301, %296, %291, %286, %281, %276, %271, %266, %261, %256, %251, %246, %241, %238, %311
+316:                                              ; preds = %238, %241, %246, %251, %256, %261, %266, %271, %276, %281, %286, %291, %296, %301, %306, %311
   %317 = load i8, ptr @IID_ISequentialInStream, align 4, !tbaa !45
   %318 = icmp eq i8 %4, %317
   br i1 %318, label %319, label %401
@@ -4964,8 +4964,8 @@ define linkonce_odr dso_local noundef i32 @_ZN9NCompress8NDeflate8NDecoder6CCode
   %400 = tail call noundef i32 %399(ptr noundef nonnull align 8 dereferenceable(3474) %0)
   br label %401
 
-401:                                              ; preds = %394, %384, %379, %374, %369, %364, %359, %354, %349, %344, %339, %334, %329, %324, %319, %316, %389
-  %402 = phi i32 [ -2147467262, %389 ], [ -2147467262, %316 ], [ -2147467262, %319 ], [ -2147467262, %324 ], [ -2147467262, %329 ], [ -2147467262, %334 ], [ -2147467262, %339 ], [ -2147467262, %344 ], [ -2147467262, %349 ], [ -2147467262, %354 ], [ -2147467262, %359 ], [ -2147467262, %364 ], [ -2147467262, %369 ], [ -2147467262, %374 ], [ -2147467262, %379 ], [ -2147467262, %384 ], [ 0, %394 ]
+401:                                              ; preds = %394, %389, %384, %379, %374, %369, %364, %359, %354, %349, %344, %339, %334, %329, %324, %319, %316
+  %402 = phi i32 [ -2147467262, %316 ], [ -2147467262, %319 ], [ -2147467262, %324 ], [ -2147467262, %329 ], [ -2147467262, %334 ], [ -2147467262, %339 ], [ -2147467262, %344 ], [ -2147467262, %349 ], [ -2147467262, %354 ], [ -2147467262, %359 ], [ -2147467262, %364 ], [ -2147467262, %369 ], [ -2147467262, %374 ], [ -2147467262, %379 ], [ -2147467262, %384 ], [ -2147467262, %389 ], [ 0, %394 ]
   ret i32 %402
 }
 

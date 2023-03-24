@@ -202,15 +202,15 @@ define dso_local void @_Z24BENCHMARK_ORDERED_DITHERRN9benchmark5StateE(ptr nound
   %24 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
   br label %25
 
-25:                                               ; preds = %37, %21
+25:                                               ; preds = %41, %21
   %26 = load i64, ptr %0, align 8, !tbaa !17
   %27 = icmp eq i64 %26, 0
-  br i1 %27, label %28, label %37, !prof !31
+  br i1 %27, label %28, label %41, !prof !31
 
 28:                                               ; preds = %25
   %29 = load i8, ptr %23, align 8, !tbaa !32, !range !33, !noundef !34
   %30 = icmp eq i8 %29, 0
-  br i1 %30, label %31, label %41
+  br i1 %30, label %31, label %37
 
 31:                                               ; preds = %28
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -219,28 +219,28 @@ define dso_local void @_Z24BENCHMARK_ORDERED_DITHERRN9benchmark5StateE(ptr nound
   %34 = load i64, ptr %0, align 8
   %35 = icmp eq i64 %34, 0
   %36 = select i1 %33, i1 true, i1 %35
-  br i1 %36, label %41, label %37
+  br i1 %36, label %37, label %41
 
-37:                                               ; preds = %31, %25
-  %38 = phi i64 [ %26, %25 ], [ %34, %31 ]
-  %39 = add i64 %38, -1
-  store i64 %39, ptr %0, align 8, !tbaa !17
-  %40 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @orderedDitherKernel(i32 noundef %5, i32 noundef %5, ptr noundef %40, ptr noundef nonnull %16, ptr noundef %17, i32 noundef %11, i32 noundef %8)
+37:                                               ; preds = %31, %28
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %38 = load ptr, ptr %2, align 8, !tbaa !13
+  %39 = load i64, ptr %38, align 8, !tbaa !15
+  %40 = icmp eq i64 %39, 20
+  br i1 %40, label %45, label %46
+
+41:                                               ; preds = %31, %25
+  %42 = phi i64 [ %26, %25 ], [ %34, %31 ]
+  %43 = add i64 %42, -1
+  store i64 %43, ptr %0, align 8, !tbaa !17
+  %44 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @orderedDitherKernel(i32 noundef %5, i32 noundef %5, ptr noundef %44, ptr noundef nonnull %16, ptr noundef %17, i32 noundef %11, i32 noundef %8)
   br label %25, !llvm.loop !36
 
-41:                                               ; preds = %31, %28
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %42 = load ptr, ptr %2, align 8, !tbaa !13
-  %43 = load i64, ptr %42, align 8, !tbaa !15
-  %44 = icmp eq i64 %43, 20
-  br i1 %44, label %45, label %46
-
-45:                                               ; preds = %41
+45:                                               ; preds = %37
   tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %16, ptr noundef nonnull @.str.4, i32 noundef %5, i32 noundef %5)
   br label %46
 
-46:                                               ; preds = %45, %41
+46:                                               ; preds = %45, %37
   tail call void @free(ptr noundef %17) #16
   tail call void @free(ptr noundef %16) #16
   ret void
@@ -303,15 +303,15 @@ define dso_local void @_Z22BENCHMARK_FLOYD_DITHERRN9benchmark5StateE(ptr noundef
   %17 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
   br label %18
 
-18:                                               ; preds = %30, %14
+18:                                               ; preds = %34, %14
   %19 = load i64, ptr %0, align 8, !tbaa !17
   %20 = icmp eq i64 %19, 0
-  br i1 %20, label %21, label %30, !prof !31
+  br i1 %20, label %21, label %34, !prof !31
 
 21:                                               ; preds = %18
   %22 = load i8, ptr %16, align 8, !tbaa !32, !range !33, !noundef !34
   %23 = icmp eq i8 %22, 0
-  br i1 %23, label %24, label %34
+  br i1 %23, label %24, label %30
 
 24:                                               ; preds = %21
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -320,28 +320,28 @@ define dso_local void @_Z22BENCHMARK_FLOYD_DITHERRN9benchmark5StateE(ptr noundef
   %27 = load i64, ptr %0, align 8
   %28 = icmp eq i64 %27, 0
   %29 = select i1 %26, i1 true, i1 %28
-  br i1 %29, label %34, label %30
+  br i1 %29, label %30, label %34
 
-30:                                               ; preds = %24, %18
-  %31 = phi i64 [ %19, %18 ], [ %27, %24 ]
-  %32 = add i64 %31, -1
-  store i64 %32, ptr %0, align 8, !tbaa !17
-  %33 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @floydDitherKernel(i32 noundef %5, i32 noundef %5, ptr noundef %33, ptr noundef nonnull %10)
+30:                                               ; preds = %24, %21
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %31 = load ptr, ptr %2, align 8, !tbaa !13
+  %32 = load i64, ptr %31, align 8, !tbaa !15
+  %33 = icmp eq i64 %32, 20
+  br i1 %33, label %38, label %39
+
+34:                                               ; preds = %24, %18
+  %35 = phi i64 [ %19, %18 ], [ %27, %24 ]
+  %36 = add i64 %35, -1
+  store i64 %36, ptr %0, align 8, !tbaa !17
+  %37 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @floydDitherKernel(i32 noundef %5, i32 noundef %5, ptr noundef %37, ptr noundef nonnull %10)
   br label %18, !llvm.loop !37
 
-34:                                               ; preds = %24, %21
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %35 = load ptr, ptr %2, align 8, !tbaa !13
-  %36 = load i64, ptr %35, align 8, !tbaa !15
-  %37 = icmp eq i64 %36, 20
-  br i1 %37, label %38, label %39
-
-38:                                               ; preds = %34
+38:                                               ; preds = %30
   tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %10, ptr noundef nonnull @.str.4, i32 noundef %5, i32 noundef %5)
   br label %39
 
-39:                                               ; preds = %38, %34
+39:                                               ; preds = %38, %30
   tail call void @free(ptr noundef %10) #16
   ret void
 }

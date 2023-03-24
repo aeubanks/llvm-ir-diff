@@ -76,21 +76,21 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
 
 28:                                               ; preds = %22
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #10
-  %29 = getelementptr inbounds %class.CStringBase, ptr %6, i64 0, i32 2
-  %30 = getelementptr inbounds i8, ptr %6, i64 8
-  store i64 0, ptr %30, align 8
-  %31 = invoke noalias noundef nonnull dereferenceable(4) ptr @_Znam(i64 noundef 4) #11
-          to label %32 unwind label %51
+  %29 = getelementptr inbounds i8, ptr %6, i64 8
+  store i64 0, ptr %29, align 8
+  %30 = invoke noalias noundef nonnull dereferenceable(4) ptr @_Znam(i64 noundef 4) #11
+          to label %31 unwind label %51
 
-32:                                               ; preds = %28
-  store ptr %31, ptr %6, align 8, !tbaa !13
-  store i8 0, ptr %31, align 1, !tbaa !14
-  store i32 4, ptr %29, align 4, !tbaa !15
+31:                                               ; preds = %28
+  %32 = getelementptr inbounds %class.CStringBase, ptr %6, i64 0, i32 2
+  store ptr %30, ptr %6, align 8, !tbaa !13
+  store i8 0, ptr %30, align 1, !tbaa !14
+  store i32 4, ptr %32, align 4, !tbaa !15
   %33 = trunc i64 %23 to i32
   %34 = icmp slt i32 %33, 3
   br i1 %34, label %46, label %35
 
-35:                                               ; preds = %32
+35:                                               ; preds = %31
   %36 = add nuw nsw i32 %33, 2
   %37 = zext i32 %36 to i64
   %38 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %37) #11
@@ -98,20 +98,20 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
 
 39:                                               ; preds = %35
   %40 = getelementptr inbounds %class.CStringBase, ptr %6, i64 0, i32 1
-  call void @_ZdaPv(ptr noundef nonnull %31) #12
+  call void @_ZdaPv(ptr noundef nonnull %30) #12
   store ptr %38, ptr %6, align 8, !tbaa !13
   %41 = load i32, ptr %40, align 8, !tbaa !18
   %42 = sext i32 %41 to i64
   %43 = getelementptr inbounds i8, ptr %38, i64 %42
   store i8 0, ptr %43, align 1, !tbaa !14
-  store i32 %36, ptr %29, align 4, !tbaa !15
+  store i32 %36, ptr %32, align 4, !tbaa !15
   %44 = load i64, ptr %5, align 8, !tbaa !19
   %45 = trunc i64 %44 to i32
   br label %46
 
-46:                                               ; preds = %39, %32
-  %47 = phi i32 [ %45, %39 ], [ %33, %32 ]
-  %48 = phi ptr [ %38, %39 ], [ %31, %32 ]
+46:                                               ; preds = %31, %39
+  %47 = phi i32 [ %33, %31 ], [ %45, %39 ]
+  %48 = phi ptr [ %30, %31 ], [ %38, %39 ]
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %7) #10
   %49 = invoke noundef zeroext i1 @_ZN8NWindows5NFile3NIO7CInFile4ReadEPvjRj(ptr noundef nonnull align 8 dereferenceable(1084) %4, ptr noundef nonnull %48, i32 noundef %47, ptr noundef nonnull align 4 dereferenceable(4) %7)
           to label %50 unwind label %55
@@ -163,20 +163,20 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
 
 75:                                               ; preds = %68
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %8) #10
-  %76 = getelementptr inbounds %class.CStringBase.0, ptr %8, i64 0, i32 2
-  %77 = getelementptr inbounds i8, ptr %8, i64 8
-  store i64 0, ptr %77, align 8
-  %78 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #11
-          to label %79 unwind label %84
+  %76 = getelementptr inbounds i8, ptr %8, i64 8
+  store i64 0, ptr %76, align 8
+  %77 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #11
+          to label %78 unwind label %84
 
-79:                                               ; preds = %75
-  store ptr %78, ptr %8, align 8, !tbaa !23
-  store i32 0, ptr %78, align 4, !tbaa !25
-  store i32 4, ptr %76, align 4, !tbaa !27
+78:                                               ; preds = %75
+  %79 = getelementptr inbounds %class.CStringBase.0, ptr %8, i64 0, i32 2
+  store ptr %77, ptr %8, align 8, !tbaa !23
+  store i32 0, ptr %77, align 4, !tbaa !25
+  store i32 4, ptr %79, align 4, !tbaa !27
   %80 = icmp eq i32 %2, 65001
   br i1 %80, label %81, label %88
 
-81:                                               ; preds = %79
+81:                                               ; preds = %78
   %82 = invoke noundef zeroext i1 @_Z20ConvertUTF8ToUnicodeRK11CStringBaseIcERS_IwE(ptr noundef nonnull align 8 dereferenceable(16) %6, ptr noundef nonnull align 8 dereferenceable(16) %8)
           to label %83 unwind label %86
 
@@ -193,7 +193,7 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
           cleanup
   br label %383
 
-88:                                               ; preds = %79
+88:                                               ; preds = %78
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %9) #10
   invoke void @_Z24MultiByteToUnicodeStringRK11CStringBaseIcEj(ptr nonnull sret(%class.CStringBase.0) align 8 %9, ptr noundef nonnull align 8 dereferenceable(16) %6, i32 noundef %2)
           to label %89 unwind label %126
@@ -206,7 +206,7 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
   %92 = getelementptr inbounds %class.CStringBase.0, ptr %9, i64 0, i32 1
   %93 = load i32, ptr %92, align 8, !tbaa !28
   %94 = add nsw i32 %93, 1
-  %95 = load i32, ptr %76, align 4, !tbaa !27
+  %95 = load i32, ptr %79, align 4, !tbaa !27
   %96 = icmp eq i32 %94, %95
   br i1 %96, label %111, label %97
 
@@ -233,7 +233,7 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
   store ptr %102, ptr %8, align 8, !tbaa !23
   %110 = getelementptr inbounds i32, ptr %102, i64 %109
   store i32 0, ptr %110, align 4, !tbaa !25
-  store i32 %94, ptr %76, align 4, !tbaa !27
+  store i32 %94, ptr %79, align 4, !tbaa !27
   br label %111
 
 111:                                              ; preds = %108, %89
@@ -313,26 +313,26 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
 151:                                              ; preds = %145, %139, %135
   %152 = phi i32 [ %150, %145 ], [ %137, %139 ], [ 0, %135 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %10) #10
-  %153 = getelementptr inbounds %class.CStringBase.0, ptr %10, i64 0, i32 2
-  %154 = getelementptr inbounds i8, ptr %10, i64 8
-  store i64 0, ptr %154, align 8
-  %155 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #11
-          to label %156 unwind label %163
+  %153 = getelementptr inbounds i8, ptr %10, i64 8
+  store i64 0, ptr %153, align 8
+  %154 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #11
+          to label %155 unwind label %163
 
-156:                                              ; preds = %151
-  store ptr %155, ptr %10, align 8, !tbaa !23
-  store i32 0, ptr %155, align 4, !tbaa !25
-  store i32 4, ptr %153, align 4, !tbaa !27
+155:                                              ; preds = %151
+  %156 = getelementptr inbounds %class.CStringBase.0, ptr %10, i64 0, i32 2
+  store ptr %154, ptr %10, align 8, !tbaa !23
+  store i32 0, ptr %154, align 4, !tbaa !25
+  store i32 4, ptr %156, align 4, !tbaa !27
   %157 = icmp sgt i32 %152, 0
   br i1 %157, label %158, label %162
 
-158:                                              ; preds = %156
+158:                                              ; preds = %155
   %159 = getelementptr inbounds %class.CStringBase.0, ptr %10, i64 0, i32 1
   %160 = getelementptr inbounds %class.CBaseRecordVector, ptr %1, i64 0, i32 3
   %161 = getelementptr inbounds %class.CBaseRecordVector, ptr %1, i64 0, i32 2
   br label %165
 
-162:                                              ; preds = %315, %156
+162:                                              ; preds = %315, %155
   invoke void @_ZN11CStringBaseIwE4TrimEv(ptr noundef nonnull align 8 dereferenceable(16) %10)
           to label %323 unwind label %363
 
@@ -342,7 +342,7 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
   br label %375
 
 165:                                              ; preds = %158, %315
-  %166 = phi ptr [ %155, %158 ], [ %317, %315 ]
+  %166 = phi ptr [ %154, %158 ], [ %317, %315 ]
   %167 = phi i32 [ 0, %158 ], [ %318, %315 ]
   %168 = phi i64 [ 0, %158 ], [ %319, %315 ]
   %169 = ptrtoint ptr %166 to i64
@@ -440,7 +440,7 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
   br label %315
 
 215:                                              ; preds = %165
-  %216 = load i32, ptr %153, align 4, !tbaa !27
+  %216 = load i32, ptr %156, align 4, !tbaa !27
   %217 = xor i32 %167, -1
   %218 = add i32 %216, %217
   %219 = icmp slt i32 %218, 1
@@ -569,7 +569,7 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
   %305 = sext i32 %304 to i64
   %306 = getelementptr inbounds i32, ptr %238, i64 %305
   store i32 0, ptr %306, align 4, !tbaa !25
-  store i32 %231, ptr %153, align 4, !tbaa !27
+  store i32 %231, ptr %156, align 4, !tbaa !27
   br label %307
 
 307:                                              ; preds = %215, %220, %303
@@ -755,7 +755,7 @@ define dso_local noundef zeroext i1 @_Z21ReadNamesFromListFilePKwR13CObjectVecto
 
 400:                                              ; preds = %53, %396
   %401 = phi { ptr, i32 } [ %54, %53 ], [ %397, %396 ]
-  %402 = phi ptr [ %31, %53 ], [ %398, %396 ]
+  %402 = phi ptr [ %30, %53 ], [ %398, %396 ]
   call void @_ZdaPv(ptr noundef nonnull %402) #12
   br label %403
 
@@ -1005,9 +1005,9 @@ define internal fastcc void @_ZL11RemoveQuoteR11CStringBaseIwE(ptr nocapture nou
 22:                                               ; preds = %19
   tail call void @_ZdaPv(ptr noundef nonnull %17) #12, !noalias !50
   store i32 0, ptr %21, align 4, !tbaa !25, !noalias !50
-  %23 = icmp eq i32 %16, 0
+  %23 = icmp ugt i32 %3, 2
   %24 = load ptr, ptr %0, align 8, !tbaa !23
-  br i1 %23, label %93, label %25
+  br i1 %23, label %25, label %93
 
 25:                                               ; preds = %22, %15
   %26 = phi ptr [ %6, %15 ], [ %24, %22 ]

@@ -304,19 +304,19 @@ define dso_local i32 @gs_makeimagedevice(ptr nocapture noundef writeonly %0, ptr
 14:                                               ; preds = %12
   br label %63
 
-15:                                               ; preds = %13, %12
+15:                                               ; preds = %12, %13
   %16 = phi ptr [ @mem_mapped_color_device, %13 ], [ @mem_mono_device, %12 ]
   %17 = phi i32 [ 8, %13 ], [ 1, %12 ]
   %18 = mul nuw nsw i32 %5, 3
   br label %19
 
 19:                                               ; preds = %15, %51
-  %20 = phi i32 [ %55, %51 ], [ 0, %15 ]
-  %21 = phi ptr [ %57, %51 ], [ %8, %15 ]
-  %22 = phi ptr [ %56, %51 ], [ %4, %15 ]
-  %23 = phi i32 [ %54, %51 ], [ 0, %15 ]
-  %24 = phi i32 [ %53, %51 ], [ -1, %15 ]
-  %25 = phi i32 [ %52, %51 ], [ -1, %15 ]
+  %20 = phi i32 [ 0, %15 ], [ %55, %51 ]
+  %21 = phi ptr [ %8, %15 ], [ %57, %51 ]
+  %22 = phi ptr [ %4, %15 ], [ %56, %51 ]
+  %23 = phi i32 [ 0, %15 ], [ %54, %51 ]
+  %24 = phi i32 [ -1, %15 ], [ %53, %51 ]
+  %25 = phi i32 [ -1, %15 ], [ %52, %51 ]
   %26 = load float, ptr %22, align 4, !tbaa !43
   %27 = fpext float %26 to double
   %28 = fcmp olt double %27, -1.000000e-03
@@ -560,7 +560,7 @@ define dso_local void @gs_nulldevice(ptr noundef %0) local_unnamed_addr #2 {
   %36 = tail call i32 (ptr, ...) @gs_erasepage(ptr noundef nonnull %0) #13
   br label %37
 
-37:                                               ; preds = %31, %35, %8, %15
+37:                                               ; preds = %35, %31, %8, %15
   ret void
 }
 

@@ -139,8 +139,8 @@ define dso_local void @sharing_PushOnStack(ptr noundef %0) local_unnamed_addr #2
 ; Function Attrs: nofree nosync nounwind memory(readwrite, argmem: read, inaccessiblemem: none) uwtable
 define dso_local void @sharing_PushReverseOnStack(ptr noundef %0) local_unnamed_addr #2 {
   %2 = load i32, ptr %0, align 8
-  %3 = icmp slt i32 %2, 1
-  br i1 %3, label %4, label %19
+  %3 = icmp sgt i32 %2, 0
+  br i1 %3, label %19, label %4
 
 4:                                                ; preds = %1
   %5 = getelementptr i8, ptr %0, i64 16
@@ -173,8 +173,8 @@ define dso_local void @sharing_PushReverseOnStack(ptr noundef %0) local_unnamed_
 ; Function Attrs: nounwind uwtable
 define dso_local void @sharing_PushReverseOnStackExcept(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
   %3 = load i32, ptr %0, align 8
-  %4 = icmp slt i32 %3, 1
-  br i1 %4, label %5, label %31
+  %4 = icmp sgt i32 %3, 0
+  br i1 %4, label %31, label %5
 
 5:                                                ; preds = %2
   %6 = icmp eq ptr %1, null
@@ -224,8 +224,8 @@ define dso_local void @sharing_PushReverseOnStackExcept(ptr noundef %0, ptr noun
 ; Function Attrs: nofree nosync nounwind memory(readwrite, argmem: read, inaccessiblemem: none) uwtable
 define dso_local void @sharing_PushOnStackNoStamps(ptr noundef %0) local_unnamed_addr #2 {
   %2 = load i32, ptr %0, align 8
-  %3 = icmp slt i32 %2, 1
-  br i1 %3, label %4, label %23
+  %3 = icmp sgt i32 %2, 0
+  br i1 %3, label %23, label %4
 
 4:                                                ; preds = %1
   %5 = getelementptr i8, ptr %0, i64 24
@@ -341,29 +341,29 @@ define dso_local ptr @sharing_Insert(ptr noundef %0, ptr noundef %1, ptr nocaptu
   %8 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %7
   %9 = load ptr, ptr %8, align 8
   %10 = icmp eq i32 %5, %4
-  br i1 %10, label %130, label %11
+  br i1 %10, label %132, label %11
 
 11:                                               ; preds = %3
   %12 = load i32, ptr @symbol_TYPESTATBITS, align 4
   br label %13
 
-13:                                               ; preds = %125, %11
-  %14 = phi i32 [ %5, %11 ], [ %128, %125 ]
+13:                                               ; preds = %127, %11
+  %14 = phi i32 [ %5, %11 ], [ %130, %127 ]
   %15 = add i32 %14, -1
   store i32 %15, ptr @stack_POINTER, align 4
   %16 = zext i32 %15 to i64
   %17 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %16
   %18 = load ptr, ptr %17, align 8
   %19 = load i32, ptr %18, align 8
-  %20 = icmp slt i32 %19, 1
-  br i1 %20, label %38, label %21
+  %20 = icmp sgt i32 %19, 0
+  br i1 %20, label %21, label %38
 
 21:                                               ; preds = %13
   %22 = zext i32 %19 to i64
   %23 = getelementptr inbounds %struct.SHARED_INDEX_NODE, ptr %2, i64 0, i32 1, i64 %22
   %24 = load ptr, ptr %23, align 8
   %25 = icmp eq ptr %24, null
-  br i1 %25, label %26, label %125
+  br i1 %25, label %26, label %127
 
 26:                                               ; preds = %21
   %27 = tail call ptr @term_Create(i32 noundef %19, ptr noundef null) #10
@@ -379,13 +379,13 @@ define dso_local ptr @sharing_Insert(ptr noundef %0, ptr noundef %1, ptr nocaptu
   %35 = zext i32 %34 to i64
   %36 = getelementptr inbounds %struct.SHARED_INDEX_NODE, ptr %2, i64 0, i32 1, i64 %35
   %37 = load ptr, ptr %36, align 8
-  br label %125
+  br label %127
 
 38:                                               ; preds = %13
   %39 = getelementptr i8, ptr %18, i64 16
   %40 = load ptr, ptr %39, align 8
   %41 = icmp eq ptr %40, null
-  br i1 %41, label %42, label %65
+  br i1 %41, label %42, label %67
 
 42:                                               ; preds = %38
   %43 = sub nsw i32 0, %19
@@ -394,7 +394,7 @@ define dso_local ptr @sharing_Insert(ptr noundef %0, ptr noundef %1, ptr nocaptu
   %46 = getelementptr inbounds %struct.SHARED_INDEX_NODE, ptr %2, i64 0, i32 2, i64 %45
   %47 = load ptr, ptr %46, align 8
   %48 = icmp eq ptr %47, null
-  br i1 %48, label %49, label %125
+  br i1 %48, label %49, label %61
 
 49:                                               ; preds = %42
   %50 = tail call ptr @term_Create(i32 noundef %19, ptr noundef null) #10
@@ -410,120 +410,124 @@ define dso_local ptr @sharing_Insert(ptr noundef %0, ptr noundef %1, ptr nocaptu
   tail call void @st_EntryCreate(ptr noundef %51, ptr noundef %57, ptr noundef %57, ptr noundef %58) #10
   %59 = load i32, ptr %18, align 8
   %60 = sub nsw i32 0, %59
-  %61 = ashr i32 %60, %12
-  %62 = zext i32 %61 to i64
-  %63 = getelementptr inbounds %struct.SHARED_INDEX_NODE, ptr %2, i64 0, i32 2, i64 %62
-  %64 = load ptr, ptr %63, align 8
-  br label %125
+  br label %61
 
-65:                                               ; preds = %38
-  %66 = getelementptr i8, ptr %40, i64 8
-  %67 = load ptr, ptr %66, align 8
-  %68 = getelementptr i8, ptr %67, i64 8
+61:                                               ; preds = %49, %42
+  %62 = phi i32 [ %60, %49 ], [ %43, %42 ]
+  %63 = ashr i32 %62, %12
+  %64 = zext i32 %63 to i64
+  %65 = getelementptr inbounds %struct.SHARED_INDEX_NODE, ptr %2, i64 0, i32 2, i64 %64
+  %66 = load ptr, ptr %65, align 8
+  br label %127
+
+67:                                               ; preds = %38
+  %68 = getelementptr i8, ptr %40, i64 8
   %69 = load ptr, ptr %68, align 8
   %70 = getelementptr i8, ptr %69, i64 8
   %71 = load ptr, ptr %70, align 8
-  %72 = icmp eq ptr %71, null
-  br i1 %72, label %98, label %73
+  %72 = getelementptr i8, ptr %71, i64 8
+  %73 = load ptr, ptr %72, align 8
+  %74 = icmp eq ptr %73, null
+  br i1 %74, label %100, label %75
 
-73:                                               ; preds = %65, %95
-  %74 = phi ptr [ %96, %95 ], [ %71, %65 ]
-  %75 = getelementptr i8, ptr %74, i64 8
-  %76 = load ptr, ptr %75, align 8
-  %77 = load i32, ptr %76, align 8
-  %78 = icmp eq i32 %77, %19
-  br i1 %78, label %79, label %95
+75:                                               ; preds = %67, %97
+  %76 = phi ptr [ %98, %97 ], [ %73, %67 ]
+  %77 = getelementptr i8, ptr %76, i64 8
+  %78 = load ptr, ptr %77, align 8
+  %79 = load i32, ptr %78, align 8
+  %80 = icmp eq i32 %79, %19
+  br i1 %80, label %81, label %97
 
-79:                                               ; preds = %73
-  %80 = getelementptr i8, ptr %76, i64 16
-  br label %81
+81:                                               ; preds = %75
+  %82 = getelementptr i8, ptr %78, i64 16
+  br label %86
 
-81:                                               ; preds = %92, %79
-  %82 = phi ptr [ %80, %79 ], [ %84, %92 ]
-  %83 = phi ptr [ %40, %79 ], [ %93, %92 ]
-  %84 = load ptr, ptr %82, align 8
-  %85 = getelementptr i8, ptr %83, i64 8
-  %86 = load ptr, ptr %85, align 8
-  %87 = getelementptr i8, ptr %86, i64 8
-  %88 = load ptr, ptr %87, align 8
-  %89 = getelementptr i8, ptr %84, i64 8
-  %90 = load ptr, ptr %89, align 8
-  %91 = icmp eq ptr %88, %90
-  br i1 %91, label %92, label %95
+83:                                               ; preds = %86
+  %84 = load ptr, ptr %87, align 8
+  %85 = icmp eq ptr %84, null
+  br i1 %85, label %127, label %86, !llvm.loop !15
 
-92:                                               ; preds = %81
-  %93 = load ptr, ptr %83, align 8
-  %94 = icmp eq ptr %93, null
-  br i1 %94, label %125, label %81, !llvm.loop !15
+86:                                               ; preds = %83, %81
+  %87 = phi ptr [ %84, %83 ], [ %40, %81 ]
+  %88 = phi ptr [ %89, %83 ], [ %82, %81 ]
+  %89 = load ptr, ptr %88, align 8
+  %90 = getelementptr i8, ptr %87, i64 8
+  %91 = load ptr, ptr %90, align 8
+  %92 = getelementptr i8, ptr %91, i64 8
+  %93 = load ptr, ptr %92, align 8
+  %94 = getelementptr i8, ptr %89, i64 8
+  %95 = load ptr, ptr %94, align 8
+  %96 = icmp eq ptr %93, %95
+  br i1 %96, label %83, label %97, !llvm.loop !15
 
-95:                                               ; preds = %81, %73
-  %96 = load ptr, ptr %74, align 8
-  %97 = icmp eq ptr %96, null
-  br i1 %97, label %98, label %73
+97:                                               ; preds = %86, %75
+  %98 = load ptr, ptr %76, align 8
+  %99 = icmp eq ptr %98, null
+  br i1 %99, label %100, label %75, !llvm.loop !16
 
-98:                                               ; preds = %95, %65
-  %99 = tail call ptr @term_Create(i32 noundef %19, ptr noundef null) #10
-  %100 = load ptr, ptr %39, align 8
-  %101 = icmp eq ptr %100, null
-  br i1 %101, label %119, label %102
+100:                                              ; preds = %97, %67
+  %101 = tail call ptr @term_Create(i32 noundef %19, ptr noundef null) #10
+  %102 = load ptr, ptr %39, align 8
+  %103 = icmp eq ptr %102, null
+  br i1 %103, label %121, label %104
 
-102:                                              ; preds = %98
-  %103 = getelementptr i8, ptr %99, i64 16
-  br label %104
+104:                                              ; preds = %100
+  %105 = getelementptr i8, ptr %101, i64 16
+  br label %106
 
-104:                                              ; preds = %104, %102
-  %105 = phi ptr [ %100, %102 ], [ %117, %104 ]
-  %106 = getelementptr i8, ptr %105, i64 8
-  %107 = load ptr, ptr %106, align 8
+106:                                              ; preds = %106, %104
+  %107 = phi ptr [ %102, %104 ], [ %119, %106 ]
   %108 = getelementptr i8, ptr %107, i64 8
   %109 = load ptr, ptr %108, align 8
-  %110 = load ptr, ptr %103, align 8
-  %111 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %112 = getelementptr inbounds %struct.LIST_HELP, ptr %111, i64 0, i32 1
-  store ptr %109, ptr %112, align 8
-  store ptr %110, ptr %111, align 8
-  store ptr %111, ptr %103, align 8
-  %113 = getelementptr i8, ptr %109, i64 8
-  %114 = load ptr, ptr %113, align 8
-  %115 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %116 = getelementptr inbounds %struct.LIST_HELP, ptr %115, i64 0, i32 1
-  store ptr %99, ptr %116, align 8
-  store ptr %114, ptr %115, align 8
-  store ptr %115, ptr %113, align 8
-  %117 = load ptr, ptr %105, align 8
-  %118 = icmp eq ptr %117, null
-  br i1 %118, label %119, label %104, !llvm.loop !16
+  %110 = getelementptr i8, ptr %109, i64 8
+  %111 = load ptr, ptr %110, align 8
+  %112 = load ptr, ptr %105, align 8
+  %113 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %114 = getelementptr inbounds %struct.LIST_HELP, ptr %113, i64 0, i32 1
+  store ptr %111, ptr %114, align 8
+  store ptr %112, ptr %113, align 8
+  store ptr %113, ptr %105, align 8
+  %115 = getelementptr i8, ptr %111, i64 8
+  %116 = load ptr, ptr %115, align 8
+  %117 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %118 = getelementptr inbounds %struct.LIST_HELP, ptr %117, i64 0, i32 1
+  store ptr %101, ptr %118, align 8
+  store ptr %116, ptr %117, align 8
+  store ptr %117, ptr %115, align 8
+  %119 = load ptr, ptr %107, align 8
+  %120 = icmp eq ptr %119, null
+  br i1 %120, label %121, label %106, !llvm.loop !17
 
-119:                                              ; preds = %104, %98
-  %120 = getelementptr i8, ptr %99, i64 16
-  %121 = load ptr, ptr %120, align 8
-  %122 = tail call ptr @list_NReverse(ptr noundef %121) #10
-  store ptr %122, ptr %120, align 8
-  %123 = load ptr, ptr %2, align 8
-  %124 = load ptr, ptr @cont_LEFTCONTEXT, align 8
-  tail call void @st_EntryCreate(ptr noundef %123, ptr noundef %99, ptr noundef %99, ptr noundef %124) #10
-  br label %125
+121:                                              ; preds = %106, %100
+  %122 = getelementptr i8, ptr %101, i64 16
+  %123 = load ptr, ptr %122, align 8
+  %124 = tail call ptr @list_NReverse(ptr noundef %123) #10
+  store ptr %124, ptr %122, align 8
+  %125 = load ptr, ptr %2, align 8
+  %126 = load ptr, ptr @cont_LEFTCONTEXT, align 8
+  tail call void @st_EntryCreate(ptr noundef %125, ptr noundef %101, ptr noundef %101, ptr noundef %126) #10
+  br label %127
 
-125:                                              ; preds = %92, %42, %49, %119, %26, %21
-  %126 = phi ptr [ %37, %26 ], [ %24, %21 ], [ %99, %119 ], [ %64, %49 ], [ %47, %42 ], [ %76, %92 ]
-  %127 = getelementptr inbounds %struct.term, ptr %18, i64 0, i32 1
-  store ptr %126, ptr %127, align 8
-  %128 = load i32, ptr @stack_POINTER, align 4
-  %129 = icmp eq i32 %128, %4
-  br i1 %129, label %130, label %13, !llvm.loop !17
+127:                                              ; preds = %83, %121, %61, %26, %21
+  %128 = phi ptr [ %66, %61 ], [ %37, %26 ], [ %24, %21 ], [ %101, %121 ], [ %78, %83 ]
+  %129 = getelementptr inbounds %struct.term, ptr %18, i64 0, i32 1
+  store ptr %128, ptr %129, align 8
+  %130 = load i32, ptr @stack_POINTER, align 4
+  %131 = icmp eq i32 %130, %4
+  br i1 %131, label %132, label %13, !llvm.loop !18
 
-130:                                              ; preds = %125, %3
-  %131 = phi ptr [ %9, %3 ], [ %18, %125 ]
-  %132 = getelementptr i8, ptr %131, i64 8
-  %133 = load ptr, ptr %132, align 8
+132:                                              ; preds = %127, %3
+  %133 = phi ptr [ %9, %3 ], [ %18, %127 ]
   %134 = getelementptr i8, ptr %133, i64 8
   %135 = load ptr, ptr %134, align 8
-  %136 = tail call ptr @memory_Malloc(i32 noundef 16) #10
-  %137 = getelementptr inbounds %struct.LIST_HELP, ptr %136, i64 0, i32 1
-  store ptr %0, ptr %137, align 8
-  store ptr %135, ptr %136, align 8
-  store ptr %136, ptr %134, align 8
-  ret ptr %133
+  %136 = getelementptr i8, ptr %135, i64 8
+  %137 = load ptr, ptr %136, align 8
+  %138 = tail call ptr @memory_Malloc(i32 noundef 16) #10
+  %139 = getelementptr inbounds %struct.LIST_HELP, ptr %138, i64 0, i32 1
+  store ptr %0, ptr %139, align 8
+  store ptr %137, ptr %138, align 8
+  store ptr %138, ptr %136, align 8
+  ret ptr %135
 }
 
 ; Function Attrs: nounwind uwtable
@@ -584,7 +588,7 @@ define internal fastcc void @sharing_DeleteFromSharing(ptr noundef %0, ptr nocap
 
 27:                                               ; preds = %26, %9
   %28 = icmp eq ptr %13, null
-  br i1 %28, label %40, label %9, !llvm.loop !18
+  br i1 %28, label %40, label %9, !llvm.loop !19
 
 29:                                               ; preds = %2
   %30 = load i32, ptr %0, align 8
@@ -621,7 +625,7 @@ define internal fastcc void @sharing_DeleteFromSharing(ptr noundef %0, ptr nocap
   %54 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %45, ptr %54, align 8
   %55 = icmp eq ptr %46, null
-  br i1 %55, label %56, label %44, !llvm.loop !19
+  br i1 %55, label %56, label %44, !llvm.loop !20
 
 56:                                               ; preds = %44, %40
   %57 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
@@ -660,7 +664,7 @@ define dso_local ptr @sharing_GetDataList(ptr nocapture noundef readonly %0, ptr
 13:                                               ; preds = %12, %7
   %14 = add nuw nsw i64 %8, 1
   %15 = icmp eq i64 %14, 3001
-  br i1 %15, label %16, label %7, !llvm.loop !20
+  br i1 %15, label %16, label %7, !llvm.loop !21
 
 16:                                               ; preds = %13, %22
   %17 = phi i64 [ %23, %22 ], [ 0, %13 ]
@@ -676,7 +680,7 @@ define dso_local ptr @sharing_GetDataList(ptr nocapture noundef readonly %0, ptr
 22:                                               ; preds = %21, %16
   %23 = add nuw nsw i64 %17, 1
   %24 = icmp eq i64 %23, 4000
-  br i1 %24, label %25, label %16, !llvm.loop !21
+  br i1 %24, label %25, label %16, !llvm.loop !22
 
 25:                                               ; preds = %22, %2
   %26 = load i32, ptr @term_STAMP, align 4
@@ -706,7 +710,7 @@ define dso_local void @sharing_ResetAllTermStamps(ptr nocapture noundef readonly
 8:                                                ; preds = %2, %7
   %9 = add nuw nsw i64 %3, 1
   %10 = icmp eq i64 %9, 3001
-  br i1 %10, label %11, label %2, !llvm.loop !20
+  br i1 %10, label %11, label %2, !llvm.loop !21
 
 11:                                               ; preds = %8, %17
   %12 = phi i64 [ %18, %17 ], [ 0, %8 ]
@@ -722,7 +726,7 @@ define dso_local void @sharing_ResetAllTermStamps(ptr nocapture noundef readonly
 17:                                               ; preds = %11, %16
   %18 = add nuw nsw i64 %12, 1
   %19 = icmp eq i64 %18, 4000
-  br i1 %19, label %20, label %11, !llvm.loop !21
+  br i1 %19, label %20, label %11, !llvm.loop !22
 
 20:                                               ; preds = %17
   ret void
@@ -732,77 +736,73 @@ define dso_local void @sharing_ResetAllTermStamps(ptr nocapture noundef readonly
 define internal fastcc ptr @sharing_InternGetDataList(ptr nocapture noundef readonly %0) unnamed_addr #0 {
   %2 = load i32, ptr %0, align 8
   %3 = icmp sgt i32 %2, -1
-  br i1 %3, label %13, label %4
+  %4 = sub nsw i32 0, %2
+  %5 = load i32, ptr @symbol_TYPEMASK, align 4
+  %6 = and i32 %5, %4
+  %7 = icmp ne i32 %6, 2
+  %8 = select i1 %3, i1 true, i1 %7
+  %9 = getelementptr i8, ptr %0, i64 8
+  %10 = load ptr, ptr %9, align 8
+  br i1 %8, label %13, label %11
 
-4:                                                ; preds = %1
-  %5 = sub nsw i32 0, %2
-  %6 = load i32, ptr @symbol_TYPEMASK, align 4
-  %7 = and i32 %6, %5
-  %8 = icmp eq i32 %7, 2
-  br i1 %8, label %9, label %13
+11:                                               ; preds = %1
+  %12 = tail call ptr @list_Copy(ptr noundef %10) #10
+  br label %44
 
-9:                                                ; preds = %4
-  %10 = getelementptr i8, ptr %0, i64 8
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call ptr @list_Copy(ptr noundef %11) #10
-  br label %46
+13:                                               ; preds = %1
+  %14 = icmp eq ptr %10, null
+  br i1 %14, label %44, label %15
 
-13:                                               ; preds = %1, %4
-  %14 = getelementptr i8, ptr %0, i64 8
-  %15 = load ptr, ptr %14, align 8
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %46, label %17
+15:                                               ; preds = %13
+  %16 = load i32, ptr @term_STAMP, align 4
+  br label %17
 
-17:                                               ; preds = %13
-  %18 = load i32, ptr @term_STAMP, align 4
-  br label %19
+17:                                               ; preds = %15, %39
+  %18 = phi i32 [ %40, %39 ], [ %16, %15 ]
+  %19 = phi ptr [ %42, %39 ], [ %10, %15 ]
+  %20 = phi ptr [ %41, %39 ], [ null, %15 ]
+  %21 = getelementptr i8, ptr %19, i64 8
+  %22 = load ptr, ptr %21, align 8
+  %23 = getelementptr i8, ptr %22, i64 24
+  %24 = load i32, ptr %23, align 8
+  %25 = icmp eq i32 %18, %24
+  br i1 %25, label %39, label %26
 
-19:                                               ; preds = %17, %41
-  %20 = phi i32 [ %42, %41 ], [ %18, %17 ]
-  %21 = phi ptr [ %44, %41 ], [ %15, %17 ]
-  %22 = phi ptr [ %43, %41 ], [ null, %17 ]
-  %23 = getelementptr i8, ptr %21, i64 8
-  %24 = load ptr, ptr %23, align 8
-  %25 = getelementptr i8, ptr %24, i64 24
-  %26 = load i32, ptr %25, align 8
-  %27 = icmp eq i32 %20, %26
-  br i1 %27, label %41, label %28
+26:                                               ; preds = %17
+  %27 = tail call fastcc ptr @sharing_InternGetDataList(ptr noundef nonnull %22)
+  %28 = icmp eq ptr %27, null
+  br i1 %28, label %36, label %29
 
-28:                                               ; preds = %19
-  %29 = tail call fastcc ptr @sharing_InternGetDataList(ptr noundef nonnull %24)
-  %30 = icmp eq ptr %29, null
-  br i1 %30, label %38, label %31
+29:                                               ; preds = %26
+  %30 = icmp eq ptr %20, null
+  br i1 %30, label %36, label %31
 
-31:                                               ; preds = %28
-  %32 = icmp eq ptr %22, null
-  br i1 %32, label %38, label %33
+31:                                               ; preds = %29, %31
+  %32 = phi ptr [ %33, %31 ], [ %27, %29 ]
+  %33 = load ptr, ptr %32, align 8
+  %34 = icmp eq ptr %33, null
+  br i1 %34, label %35, label %31, !llvm.loop !23
 
-33:                                               ; preds = %31, %33
-  %34 = phi ptr [ %35, %33 ], [ %29, %31 ]
-  %35 = load ptr, ptr %34, align 8
-  %36 = icmp eq ptr %35, null
-  br i1 %36, label %37, label %33, !llvm.loop !22
+35:                                               ; preds = %31
+  store ptr %20, ptr %32, align 8
+  br label %36
 
-37:                                               ; preds = %33
-  store ptr %22, ptr %34, align 8
-  br label %38
+36:                                               ; preds = %26, %29, %35
+  %37 = phi ptr [ %27, %35 ], [ %20, %26 ], [ %27, %29 ]
+  %38 = load i32, ptr @term_STAMP, align 4
+  store i32 %38, ptr %23, align 8
+  br label %39
 
-38:                                               ; preds = %28, %31, %37
-  %39 = phi ptr [ %29, %37 ], [ %22, %28 ], [ %29, %31 ]
-  %40 = load i32, ptr @term_STAMP, align 4
-  store i32 %40, ptr %25, align 8
-  br label %41
+39:                                               ; preds = %36, %17
+  %40 = phi i32 [ %18, %17 ], [ %38, %36 ]
+  %41 = phi ptr [ %20, %17 ], [ %37, %36 ]
+  %42 = load ptr, ptr %19, align 8
+  %43 = icmp eq ptr %42, null
+  br i1 %43, label %44, label %17, !llvm.loop !24
 
-41:                                               ; preds = %38, %19
-  %42 = phi i32 [ %20, %19 ], [ %40, %38 ]
-  %43 = phi ptr [ %22, %19 ], [ %39, %38 ]
-  %44 = load ptr, ptr %21, align 8
-  %45 = icmp eq ptr %44, null
-  br i1 %45, label %46, label %19, !llvm.loop !23
-
-46:                                               ; preds = %41, %13, %9
-  %47 = phi ptr [ %12, %9 ], [ null, %13 ], [ %43, %41 ]
-  ret ptr %47
+44:                                               ; preds = %39, %13, %11
+  %45 = phi ptr [ %12, %11 ], [ null, %13 ], [ %41, %39 ]
+  ret ptr %45
 }
 
 ; Function Attrs: nounwind uwtable
@@ -827,7 +827,7 @@ define dso_local void @sharing_StartDataIterator(ptr nocapture noundef readonly 
 13:                                               ; preds = %12, %7
   %14 = add nuw nsw i64 %8, 1
   %15 = icmp eq i64 %14, 3001
-  br i1 %15, label %16, label %7, !llvm.loop !20
+  br i1 %15, label %16, label %7, !llvm.loop !21
 
 16:                                               ; preds = %13, %22
   %17 = phi i64 [ %23, %22 ], [ 0, %13 ]
@@ -843,7 +843,7 @@ define dso_local void @sharing_StartDataIterator(ptr nocapture noundef readonly 
 22:                                               ; preds = %21, %16
   %23 = add nuw nsw i64 %17, 1
   %24 = icmp eq i64 %23, 4000
-  br i1 %24, label %25, label %16, !llvm.loop !21
+  br i1 %24, label %25, label %16, !llvm.loop !22
 
 25:                                               ; preds = %22, %2
   %26 = load i32, ptr @term_STAMP, align 4
@@ -875,7 +875,7 @@ define dso_local void @sharing_StartDataIterator(ptr nocapture noundef readonly 
   %42 = load ptr, ptr %39, align 8
   %43 = getelementptr i8, ptr %42, i64 8
   %44 = load ptr, ptr %43, align 8
-  br label %29, !llvm.loop !24
+  br label %29, !llvm.loop !25
 
 45:                                               ; preds = %34
   %46 = getelementptr i8, ptr %31, i64 8
@@ -919,8 +919,8 @@ define dso_local ptr @sharing_GetNextData() local_unnamed_addr #4 {
 19:                                               ; preds = %23, %12
   %20 = phi ptr [ %15, %12 ], [ %21, %23 ]
   %21 = load ptr, ptr %20, align 8
-  %22 = icmp ne ptr %21, null
-  br i1 %22, label %23, label %29
+  %22 = icmp eq ptr %21, null
+  br i1 %22, label %29, label %23
 
 23:                                               ; preds = %19
   %24 = getelementptr i8, ptr %21, i64 8
@@ -928,12 +928,12 @@ define dso_local ptr @sharing_GetNextData() local_unnamed_addr #4 {
   %26 = getelementptr i8, ptr %25, i64 24
   %27 = load i32, ptr %26, align 8
   %28 = icmp eq i32 %10, %27
-  br i1 %28, label %19, label %32, !llvm.loop !25
+  br i1 %28, label %19, label %32, !llvm.loop !26
 
 29:                                               ; preds = %19
-  %30 = icmp ule ptr %14, @sharing_STACK
-  %31 = or i1 %30, %22
-  br i1 %31, label %59, label %12
+  %30 = icmp ugt ptr %14, @sharing_STACK
+  %31 = and i1 %30, %22
+  br i1 %31, label %12, label %59, !llvm.loop !27
 
 32:                                               ; preds = %23, %58
   %33 = phi ptr [ %50, %58 ], [ %21, %23 ]
@@ -971,16 +971,16 @@ define dso_local ptr @sharing_GetNextData() local_unnamed_addr #4 {
   %55 = getelementptr i8, ptr %54, i64 24
   %56 = load i32, ptr %55, align 8
   %57 = icmp eq i32 %47, %56
-  br i1 %57, label %48, label %58, !llvm.loop !26
+  br i1 %57, label %48, label %58, !llvm.loop !28
 
 58:                                               ; preds = %52
-  br label %32, !llvm.loop !27
+  br label %32, !llvm.loop !29
 
 59:                                               ; preds = %29, %48
   %60 = phi i32 [ %47, %48 ], [ %10, %29 ]
   %61 = phi ptr [ %44, %48 ], [ %14, %29 ]
   %62 = icmp ugt ptr %61, @sharing_STACK
-  br i1 %62, label %9, label %74, !llvm.loop !28
+  br i1 %62, label %9, label %74, !llvm.loop !30
 
 63:                                               ; preds = %39
   %64 = getelementptr inbounds ptr, ptr %34, i64 1
@@ -1041,7 +1041,7 @@ define dso_local ptr @sharing_GetAllSuperTerms(ptr nocapture noundef readonly %0
 12:                                               ; preds = %11, %6
   %13 = add nuw nsw i64 %7, 1
   %14 = icmp eq i64 %13, 3001
-  br i1 %14, label %15, label %6, !llvm.loop !20
+  br i1 %14, label %15, label %6, !llvm.loop !21
 
 15:                                               ; preds = %12, %21
   %16 = phi i64 [ %22, %21 ], [ 0, %12 ]
@@ -1057,7 +1057,7 @@ define dso_local ptr @sharing_GetAllSuperTerms(ptr nocapture noundef readonly %0
 21:                                               ; preds = %20, %15
   %22 = add nuw nsw i64 %16, 1
   %23 = icmp eq i64 %22, 4000
-  br i1 %23, label %24, label %15, !llvm.loop !21
+  br i1 %23, label %24, label %15, !llvm.loop !22
 
 24:                                               ; preds = %21, %1
   %25 = load i32, ptr @term_STAMP, align 4
@@ -1086,7 +1086,7 @@ define dso_local ptr @sharing_GetAllSuperTerms(ptr nocapture noundef readonly %0
   %39 = phi ptr [ %40, %38 ], [ %34, %36 ]
   %40 = load ptr, ptr %39, align 8
   %41 = icmp eq ptr %40, null
-  br i1 %41, label %42, label %38, !llvm.loop !22
+  br i1 %41, label %42, label %38, !llvm.loop !23
 
 42:                                               ; preds = %38
   store ptr %29, ptr %39, align 8
@@ -1096,7 +1096,7 @@ define dso_local ptr @sharing_GetAllSuperTerms(ptr nocapture noundef readonly %0
   %44 = phi ptr [ %29, %27 ], [ %34, %42 ], [ %29, %33 ], [ %34, %36 ]
   %45 = add nuw nsw i64 %28, 1
   %46 = icmp eq i64 %45, 3001
-  br i1 %46, label %47, label %27, !llvm.loop !29
+  br i1 %46, label %47, label %27, !llvm.loop !31
 
 47:                                               ; preds = %43, %63
   %48 = phi i64 [ %65, %63 ], [ 0, %43 ]
@@ -1119,7 +1119,7 @@ define dso_local ptr @sharing_GetAllSuperTerms(ptr nocapture noundef readonly %0
   %59 = phi ptr [ %60, %58 ], [ %54, %56 ]
   %60 = load ptr, ptr %59, align 8
   %61 = icmp eq ptr %60, null
-  br i1 %61, label %62, label %58, !llvm.loop !22
+  br i1 %61, label %62, label %58, !llvm.loop !23
 
 62:                                               ; preds = %58
   store ptr %49, ptr %59, align 8
@@ -1129,7 +1129,7 @@ define dso_local ptr @sharing_GetAllSuperTerms(ptr nocapture noundef readonly %0
   %64 = phi ptr [ %49, %47 ], [ %54, %62 ], [ %49, %53 ], [ %54, %56 ]
   %65 = add nuw nsw i64 %48, 1
   %66 = icmp eq i64 %65, 4000
-  br i1 %66, label %67, label %47, !llvm.loop !30
+  br i1 %66, label %67, label %47, !llvm.loop !32
 
 67:                                               ; preds = %63
   ret ptr %64
@@ -1139,16 +1139,14 @@ define dso_local ptr @sharing_GetAllSuperTerms(ptr nocapture noundef readonly %0
 define internal fastcc void @sharing_ResetTermStamp(ptr nocapture noundef readonly %0) unnamed_addr #3 {
   %2 = load i32, ptr %0, align 8
   %3 = icmp sgt i32 %2, -1
-  br i1 %3, label %9, label %4
+  %4 = sub nsw i32 0, %2
+  %5 = load i32, ptr @symbol_TYPEMASK, align 4
+  %6 = and i32 %5, %4
+  %7 = icmp ne i32 %6, 2
+  %8 = select i1 %3, i1 true, i1 %7
+  br i1 %8, label %9, label %24
 
-4:                                                ; preds = %1
-  %5 = sub nsw i32 0, %2
-  %6 = load i32, ptr @symbol_TYPEMASK, align 4
-  %7 = and i32 %6, %5
-  %8 = icmp eq i32 %7, 2
-  br i1 %8, label %24, label %9
-
-9:                                                ; preds = %1, %4
+9:                                                ; preds = %1
   %10 = getelementptr i8, ptr %0, i64 8
   %11 = load ptr, ptr %10, align 8
   %12 = icmp eq ptr %11, null
@@ -1171,9 +1169,9 @@ define internal fastcc void @sharing_ResetTermStamp(ptr nocapture noundef readon
 21:                                               ; preds = %13, %20
   %22 = load ptr, ptr %14, align 8
   %23 = icmp eq ptr %22, null
-  br i1 %23, label %24, label %13, !llvm.loop !31
+  br i1 %23, label %24, label %13, !llvm.loop !33
 
-24:                                               ; preds = %21, %9, %4
+24:                                               ; preds = %21, %9, %1
   ret void
 }
 
@@ -1181,41 +1179,37 @@ define internal fastcc void @sharing_ResetTermStamp(ptr nocapture noundef readon
 define dso_local i32 @sharing_GetNumberOfOccurances(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
   %2 = load i32, ptr %0, align 8
   %3 = icmp sgt i32 %2, -1
-  br i1 %3, label %13, label %4
+  %4 = sub nsw i32 0, %2
+  %5 = load i32, ptr @symbol_TYPEMASK, align 4
+  %6 = and i32 %5, %4
+  %7 = icmp ne i32 %6, 2
+  %8 = select i1 %3, i1 true, i1 %7
+  %9 = getelementptr i8, ptr %0, i64 8
+  %10 = load ptr, ptr %9, align 8
+  br i1 %8, label %13, label %11
 
-4:                                                ; preds = %1
-  %5 = sub nsw i32 0, %2
-  %6 = load i32, ptr @symbol_TYPEMASK, align 4
-  %7 = and i32 %6, %5
-  %8 = icmp eq i32 %7, 2
-  br i1 %8, label %9, label %13
+11:                                               ; preds = %1
+  %12 = tail call i32 @list_Length(ptr noundef %10) #10
+  br label %24
 
-9:                                                ; preds = %4
-  %10 = getelementptr i8, ptr %0, i64 8
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call i32 @list_Length(ptr noundef %11) #10
-  br label %26
+13:                                               ; preds = %1
+  %14 = icmp eq ptr %10, null
+  br i1 %14, label %24, label %15
 
-13:                                               ; preds = %1, %4
-  %14 = getelementptr i8, ptr %0, i64 8
-  %15 = load ptr, ptr %14, align 8
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %26, label %17
+15:                                               ; preds = %13, %15
+  %16 = phi ptr [ %22, %15 ], [ %10, %13 ]
+  %17 = phi i32 [ %21, %15 ], [ 0, %13 ]
+  %18 = getelementptr i8, ptr %16, i64 8
+  %19 = load ptr, ptr %18, align 8
+  %20 = tail call i32 @sharing_GetNumberOfOccurances(ptr noundef %19)
+  %21 = add i32 %20, %17
+  %22 = load ptr, ptr %16, align 8
+  %23 = icmp eq ptr %22, null
+  br i1 %23, label %24, label %15, !llvm.loop !34
 
-17:                                               ; preds = %13, %17
-  %18 = phi ptr [ %24, %17 ], [ %15, %13 ]
-  %19 = phi i32 [ %23, %17 ], [ 0, %13 ]
-  %20 = getelementptr i8, ptr %18, i64 8
-  %21 = load ptr, ptr %20, align 8
-  %22 = tail call i32 @sharing_GetNumberOfOccurances(ptr noundef %21)
-  %23 = add i32 %22, %19
-  %24 = load ptr, ptr %18, align 8
-  %25 = icmp eq ptr %24, null
-  br i1 %25, label %26, label %17, !llvm.loop !32
-
-26:                                               ; preds = %17, %13, %9
-  %27 = phi i32 [ %12, %9 ], [ 0, %13 ], [ %23, %17 ]
-  ret i32 %27
+24:                                               ; preds = %15, %13, %11
+  %25 = phi i32 [ %12, %11 ], [ 0, %13 ], [ %21, %15 ]
+  ret i32 %25
 }
 
 declare i32 @list_Length(ptr noundef) local_unnamed_addr #1
@@ -1235,7 +1229,7 @@ define dso_local i32 @sharing_GetNumberOfInstances(ptr noundef %0, ptr nocapture
   %11 = add i32 %10, %9
   %12 = tail call ptr @st_NextCandidate() #10
   %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %7, !llvm.loop !33
+  br i1 %13, label %14, label %7, !llvm.loop !35
 
 14:                                               ; preds = %7, %2
   %15 = phi i32 [ 0, %2 ], [ %11, %7 ]
@@ -1267,7 +1261,7 @@ define dso_local void @sharing_PrintVartable(ptr nocapture noundef readonly %0) 
 11:                                               ; preds = %2, %7
   %12 = add nuw nsw i64 %3, 1
   %13 = icmp eq i64 %12, 3001
-  br i1 %13, label %14, label %2, !llvm.loop !34
+  br i1 %13, label %14, label %2, !llvm.loop !36
 
 14:                                               ; preds = %11
   ret void
@@ -1299,7 +1293,7 @@ define dso_local void @sharing_PrintConsttable(ptr nocapture noundef readonly %0
 11:                                               ; preds = %2, %7
   %12 = add nuw nsw i64 %3, 1
   %13 = icmp eq i64 %12, 4000
-  br i1 %13, label %14, label %2, !llvm.loop !35
+  br i1 %13, label %14, label %2, !llvm.loop !37
 
 14:                                               ; preds = %11
   ret void
@@ -1329,7 +1323,7 @@ define dso_local void @sharing_PrintSharingConstterms1(ptr nocapture noundef rea
 13:                                               ; preds = %2, %7
   %14 = add nuw nsw i64 %3, 1
   %15 = icmp eq i64 %14, 4000
-  br i1 %15, label %16, label %2, !llvm.loop !36
+  br i1 %15, label %16, label %2, !llvm.loop !38
 
 16:                                               ; preds = %13
   ret void
@@ -1364,7 +1358,7 @@ define dso_local void @sharing_PrintSharingVarterms1(ptr nocapture noundef reado
 13:                                               ; preds = %2, %7
   %14 = add nuw nsw i64 %3, 1
   %15 = icmp eq i64 %14, 3001
-  br i1 %15, label %16, label %2, !llvm.loop !37
+  br i1 %15, label %16, label %2, !llvm.loop !39
 
 16:                                               ; preds = %13
   ret void
@@ -1389,7 +1383,7 @@ define dso_local void @sharing_PrintSharing(ptr nocapture noundef readonly %0) l
 9:                                                ; preds = %2, %7
   %10 = add nuw nsw i64 %3, 1
   %11 = icmp eq i64 %10, 4000
-  br i1 %11, label %12, label %2, !llvm.loop !38
+  br i1 %11, label %12, label %2, !llvm.loop !40
 
 12:                                               ; preds = %9
   %13 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.5)
@@ -1410,7 +1404,7 @@ define dso_local void @sharing_PrintSharing(ptr nocapture noundef readonly %0) l
 21:                                               ; preds = %14, %19
   %22 = add nuw nsw i64 %15, 1
   %23 = icmp eq i64 %22, 3001
-  br i1 %23, label %24, label %14, !llvm.loop !39
+  br i1 %23, label %24, label %14, !llvm.loop !41
 
 24:                                               ; preds = %21
   ret void
@@ -1420,23 +1414,20 @@ define dso_local void @sharing_PrintSharing(ptr nocapture noundef readonly %0) l
 define internal fastcc void @sharing_PrintWithSuperterms(ptr noundef %0) unnamed_addr #0 {
   %2 = load i32, ptr %0, align 8
   %3 = icmp sgt i32 %2, -1
-  br i1 %3, label %12, label %4
-
-4:                                                ; preds = %1
-  %5 = sub nsw i32 0, %2
-  %6 = load i32, ptr @symbol_TYPEMASK, align 4
-  %7 = and i32 %6, %5
-  %8 = icmp eq i32 %7, 2
-  br i1 %8, label %9, label %12
-
-9:                                                ; preds = %4
+  %4 = sub nsw i32 0, %2
+  %5 = load i32, ptr @symbol_TYPEMASK, align 4
+  %6 = and i32 %5, %4
+  %7 = icmp ne i32 %6, 2
+  %8 = select i1 %3, i1 true, i1 %7
   tail call void @term_Print(ptr noundef nonnull %0) #10
+  br i1 %8, label %12, label %9
+
+9:                                                ; preds = %1
   %10 = load ptr, ptr @stdout, align 8
   %11 = tail call i32 @putc(i32 noundef 10, ptr noundef %10)
   br label %26
 
-12:                                               ; preds = %1, %4
-  tail call void @term_Print(ptr noundef nonnull %0) #10
+12:                                               ; preds = %1
   %13 = getelementptr i8, ptr %0, i64 8
   %14 = load ptr, ptr %13, align 8
   %15 = icmp eq ptr %14, null
@@ -1456,7 +1447,7 @@ define internal fastcc void @sharing_PrintWithSuperterms(ptr noundef %0) unnamed
   tail call fastcc void @sharing_PrintWithSuperterms(ptr noundef %23)
   %24 = load ptr, ptr %21, align 8
   %25 = icmp eq ptr %24, null
-  br i1 %25, label %26, label %20, !llvm.loop !40
+  br i1 %25, label %26, label %20, !llvm.loop !42
 
 26:                                               ; preds = %20, %12, %9
   ret void
@@ -1485,7 +1476,7 @@ define dso_local void @sharing_PrintSameLevelTerms(ptr nocapture noundef readonl
 13:                                               ; preds = %12, %5
   %14 = load ptr, ptr %6, align 8
   %15 = icmp eq ptr %14, null
-  br i1 %15, label %16, label %5, !llvm.loop !41
+  br i1 %15, label %16, label %5, !llvm.loop !43
 
 16:                                               ; preds = %13, %1
   ret void
@@ -1507,7 +1498,7 @@ define dso_local void @sharing_PrintStack() local_unnamed_addr #0 {
   %9 = load ptr, ptr @stdout, align 8
   %10 = tail call i32 @putc(i32 noundef 10, ptr noundef %9)
   %11 = icmp ugt ptr %5, @sharing_STACK
-  br i1 %11, label %3, label %12, !llvm.loop !42
+  br i1 %11, label %3, label %12, !llvm.loop !44
 
 12:                                               ; preds = %3, %0
   ret void
@@ -1594,3 +1585,5 @@ attributes #10 = { nounwind }
 !40 = distinct !{!40, !6}
 !41 = distinct !{!41, !6}
 !42 = distinct !{!42, !6}
+!43 = distinct !{!43, !6}
+!44 = distinct !{!44, !6}

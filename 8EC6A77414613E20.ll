@@ -40,7 +40,7 @@ define dso_local i32 @gs_setgray(ptr nocapture noundef readonly %0, double nound
   %15 = fptoui float %14 to i16
   br label %16
 
-16:                                               ; preds = %8, %10, %12
+16:                                               ; preds = %12, %10, %8
   %17 = phi i16 [ %15, %12 ], [ 0, %8 ], [ -1, %10 ]
   %18 = insertelement <4 x i16> poison, i16 %17, i64 0
   %19 = shufflevector <4 x i16> %18, <4 x i16> poison, <4 x i32> zeroinitializer
@@ -188,7 +188,7 @@ define dso_local i32 @gs_sethsbcolor(ptr nocapture noundef readonly %0, double n
   %33 = fptoui float %32 to i16
   br label %34
 
-34:                                               ; preds = %25, %28, %30
+34:                                               ; preds = %30, %28, %25
   %35 = phi i16 [ %33, %30 ], [ 0, %25 ], [ -1, %28 ]
   %36 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 13
   %37 = load ptr, ptr %36, align 8, !tbaa !5
@@ -215,7 +215,7 @@ define dso_local i32 @tri_param(double noundef %0, double noundef %1, double nou
   %11 = fptoui float %10 to i16
   br label %12
 
-12:                                               ; preds = %4, %6, %8
+12:                                               ; preds = %8, %6, %4
   %13 = phi i16 [ %11, %8 ], [ 0, %4 ], [ -1, %6 ]
   %14 = fcmp olt double %1, 0.000000e+00
   br i1 %14, label %21, label %15
@@ -230,7 +230,7 @@ define dso_local i32 @tri_param(double noundef %0, double noundef %1, double nou
   %20 = fptoui float %19 to i16
   br label %21
 
-21:                                               ; preds = %12, %15, %17
+21:                                               ; preds = %17, %15, %12
   %22 = phi i16 [ %20, %17 ], [ 0, %12 ], [ -1, %15 ]
   %23 = fcmp olt double %2, 0.000000e+00
   br i1 %23, label %30, label %24
@@ -245,7 +245,7 @@ define dso_local i32 @tri_param(double noundef %0, double noundef %1, double nou
   %29 = fptoui float %28 to i16
   br label %30
 
-30:                                               ; preds = %21, %24, %26
+30:                                               ; preds = %26, %24, %21
   %31 = phi i16 [ %29, %26 ], [ 0, %21 ], [ -1, %24 ]
   store i16 %13, ptr %3, align 2, !tbaa !17
   %32 = getelementptr inbounds i16, ptr %3, i64 1
@@ -345,7 +345,7 @@ define dso_local i32 @gs_setrgbcolor(ptr nocapture noundef readonly %0, double n
   %33 = fptoui float %32 to i16
   br label %34
 
-34:                                               ; preds = %25, %28, %30
+34:                                               ; preds = %30, %28, %25
   %35 = phi i16 [ %33, %30 ], [ 0, %25 ], [ -1, %28 ]
   %36 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 13
   %37 = load ptr, ptr %36, align 8, !tbaa !5
@@ -458,7 +458,7 @@ define dso_local i32 @gs_setscreen(ptr noundef %0, double noundef %1, double nou
 44:                                               ; preds = %27, %42
   %45 = call i32 @gs_screen_currentpoint(ptr noundef nonnull %5, ptr noundef nonnull %6), !range !29
   %46 = icmp eq i32 %45, 0
-  br i1 %46, label %18, label %47, !llvm.loop !40
+  br i1 %46, label %18, label %47
 
 47:                                               ; preds = %44, %9
   %48 = phi i32 [ %10, %9 ], [ %45, %44 ]
@@ -467,7 +467,7 @@ define dso_local i32 @gs_setscreen(ptr noundef %0, double noundef %1, double nou
 
 50:                                               ; preds = %47
   %51 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 12
-  store ptr %3, ptr %51, align 8, !tbaa !42
+  store ptr %3, ptr %51, align 8, !tbaa !40
   br label %52
 
 52:                                               ; preds = %18, %47, %4, %50
@@ -540,13 +540,13 @@ define dso_local i32 @gs_screen_init(ptr noundef %0, ptr noundef %1, double noun
   %38 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 2
   store ptr %32, ptr %38, align 8, !tbaa !33
   %39 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 3
-  store <2 x i32> %25, ptr %39, align 8, !tbaa !43
+  store <2 x i32> %25, ptr %39, align 8, !tbaa !41
   %40 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 7
   store i32 0, ptr %40, align 4, !tbaa !35
   %41 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 6
   store i32 0, ptr %41, align 8, !tbaa !37
   %42 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 8
-  store ptr %1, ptr %42, align 8, !tbaa !44
+  store ptr %1, ptr %42, align 8, !tbaa !42
   %43 = sitofp i32 %28 to double
   %44 = fdiv double 2.000000e+00, %43
   %45 = fptrunc double %44 to float
@@ -555,19 +555,19 @@ define dso_local i32 @gs_screen_init(ptr noundef %0, ptr noundef %1, double noun
   %48 = fptrunc double %47 to float
   call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %9) #12
   call void @gs_make_identity(ptr noundef nonnull %9) #12
-  store float %45, ptr %9, align 8, !tbaa !45
+  store float %45, ptr %9, align 8, !tbaa !43
   %49 = getelementptr inbounds %struct.gs_matrix_s, ptr %9, i64 0, i32 6
-  store float %48, ptr %49, align 8, !tbaa !46
+  store float %48, ptr %49, align 8, !tbaa !44
   %50 = fpext float %45 to double
   %51 = call double @llvm.fmuladd.f64(double %50, double 5.000000e-01, double -1.000000e+00)
   %52 = fptrunc double %51 to float
   %53 = getelementptr inbounds %struct.gs_matrix_s, ptr %9, i64 0, i32 8
-  store float %52, ptr %53, align 8, !tbaa !47
+  store float %52, ptr %53, align 8, !tbaa !45
   %54 = fpext float %48 to double
   %55 = call double @llvm.fmuladd.f64(double %54, double 5.000000e-01, double -1.000000e+00)
   %56 = fptrunc double %55 to float
   %57 = getelementptr inbounds %struct.gs_matrix_s, ptr %9, i64 0, i32 10
-  store float %56, ptr %57, align 8, !tbaa !48
+  store float %56, ptr %57, align 8, !tbaa !46
   %58 = fneg double %3
   %59 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 5
   %60 = call i32 @gs_matrix_rotate(ptr noundef nonnull %9, double noundef %58, ptr noundef nonnull %59) #12
@@ -587,7 +587,7 @@ define dso_local i32 @gs_screen_currentpoint(ptr noundef %0, ptr nocapture nound
   %4 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 7
   %5 = load i32, ptr %4, align 4, !tbaa !35
   %6 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 4
-  %7 = load i32, ptr %6, align 4, !tbaa !49
+  %7 = load i32, ptr %6, align 4, !tbaa !47
   %8 = icmp slt i32 %5, %7
   br i1 %8, label %82, label %9
 
@@ -615,39 +615,39 @@ define dso_local i32 @gs_screen_currentpoint(ptr noundef %0, ptr nocapture nound
   %24 = phi i64 [ 0, %20 ], [ %49, %22 ]
   %25 = trunc i64 %23 to i16
   %26 = getelementptr inbounds %struct.ht_bit_s, ptr %11, i64 %23
-  store i16 %25, ptr %26, align 2, !tbaa !50
+  store i16 %25, ptr %26, align 2, !tbaa !48
   %27 = or i64 %23, 1
   %28 = trunc i64 %27 to i16
   %29 = getelementptr inbounds %struct.ht_bit_s, ptr %11, i64 %27
-  store i16 %28, ptr %29, align 2, !tbaa !50
+  store i16 %28, ptr %29, align 2, !tbaa !48
   %30 = or i64 %23, 2
   %31 = trunc i64 %30 to i16
   %32 = getelementptr inbounds %struct.ht_bit_s, ptr %11, i64 %30
-  store i16 %31, ptr %32, align 2, !tbaa !50
+  store i16 %31, ptr %32, align 2, !tbaa !48
   %33 = or i64 %23, 3
   %34 = trunc i64 %33 to i16
   %35 = getelementptr inbounds %struct.ht_bit_s, ptr %11, i64 %33
-  store i16 %34, ptr %35, align 2, !tbaa !50
+  store i16 %34, ptr %35, align 2, !tbaa !48
   %36 = or i64 %23, 4
   %37 = trunc i64 %36 to i16
   %38 = getelementptr inbounds %struct.ht_bit_s, ptr %11, i64 %36
-  store i16 %37, ptr %38, align 2, !tbaa !50
+  store i16 %37, ptr %38, align 2, !tbaa !48
   %39 = or i64 %23, 5
   %40 = trunc i64 %39 to i16
   %41 = getelementptr inbounds %struct.ht_bit_s, ptr %11, i64 %39
-  store i16 %40, ptr %41, align 2, !tbaa !50
+  store i16 %40, ptr %41, align 2, !tbaa !48
   %42 = or i64 %23, 6
   %43 = trunc i64 %42 to i16
   %44 = getelementptr inbounds %struct.ht_bit_s, ptr %11, i64 %42
-  store i16 %43, ptr %44, align 2, !tbaa !50
+  store i16 %43, ptr %44, align 2, !tbaa !48
   %45 = or i64 %23, 7
   %46 = trunc i64 %45 to i16
   %47 = getelementptr inbounds %struct.ht_bit_s, ptr %11, i64 %45
-  store i16 %46, ptr %47, align 2, !tbaa !50
+  store i16 %46, ptr %47, align 2, !tbaa !48
   %48 = add nuw nsw i64 %23, 8
   %49 = add i64 %24, 8
   %50 = icmp eq i64 %49, %21
-  br i1 %50, label %51, label %22, !llvm.loop !51
+  br i1 %50, label %51, label %22, !llvm.loop !49
 
 51:                                               ; preds = %22, %16
   %52 = phi i64 [ 0, %16 ], [ %48, %22 ]
@@ -659,40 +659,40 @@ define dso_local i32 @gs_screen_currentpoint(ptr noundef %0, ptr nocapture nound
   %56 = phi i64 [ %60, %54 ], [ 0, %51 ]
   %57 = trunc i64 %55 to i16
   %58 = getelementptr inbounds %struct.ht_bit_s, ptr %11, i64 %55
-  store i16 %57, ptr %58, align 2, !tbaa !50
+  store i16 %57, ptr %58, align 2, !tbaa !48
   %59 = add nuw nsw i64 %55, 1
   %60 = add i64 %56, 1
   %61 = icmp eq i64 %60, %18
-  br i1 %61, label %62, label %54, !llvm.loop !52
+  br i1 %61, label %62, label %54, !llvm.loop !51
 
 62:                                               ; preds = %51, %54, %9
   tail call void @gx_sort_ht_order(ptr noundef %11, i32 noundef %14) #12
   %63 = load ptr, ptr %10, align 8, !tbaa !33
   %64 = load i32, ptr %12, align 8, !tbaa !36
-  %65 = load i32, ptr %6, align 4, !tbaa !49
+  %65 = load i32, ptr %6, align 4, !tbaa !47
   %66 = tail call i32 (ptr, i32, i32, ...) @gx_ht_construct_order(ptr noundef %63, i32 noundef %64, i32 noundef %65) #12
   %67 = icmp slt i32 %66, 0
   br i1 %67, label %110, label %68
 
 68:                                               ; preds = %62
   %69 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 8
-  %70 = load ptr, ptr %69, align 8, !tbaa !44
+  %70 = load ptr, ptr %69, align 8, !tbaa !42
   %71 = getelementptr inbounds %struct.gs_state_s, ptr %70, i64 0, i32 11
-  %72 = load ptr, ptr %71, align 8, !tbaa !54
+  %72 = load ptr, ptr %71, align 8, !tbaa !53
   %73 = load <2 x float>, ptr %0, align 8, !tbaa !22
   store <2 x float> %73, ptr %72, align 8, !tbaa !22
   %74 = load i32, ptr %12, align 8, !tbaa !36
   %75 = getelementptr inbounds %struct.halftone_s, ptr %72, i64 0, i32 2
-  store i32 %74, ptr %75, align 8, !tbaa !55
-  %76 = load i32, ptr %6, align 4, !tbaa !49
+  store i32 %74, ptr %75, align 8, !tbaa !54
+  %76 = load i32, ptr %6, align 4, !tbaa !47
   %77 = getelementptr inbounds %struct.halftone_s, ptr %72, i64 0, i32 3
-  store i32 %76, ptr %77, align 4, !tbaa !57
+  store i32 %76, ptr %77, align 4, !tbaa !56
   %78 = load ptr, ptr %10, align 8, !tbaa !33
   %79 = getelementptr inbounds %struct.halftone_s, ptr %72, i64 0, i32 4
-  store ptr %78, ptr %79, align 8, !tbaa !58
+  store ptr %78, ptr %79, align 8, !tbaa !57
   %80 = mul nsw i32 %76, %74
   %81 = getelementptr inbounds %struct.halftone_s, ptr %72, i64 0, i32 5
-  store i32 %80, ptr %81, align 8, !tbaa !59
+  store i32 %80, ptr %81, align 8, !tbaa !58
   br label %110
 
 82:                                               ; preds = %2
@@ -745,8 +745,8 @@ define dso_local i32 @gs_screen_currentpoint(ptr noundef %0, ptr nocapture nound
   store i64 %109, ptr %1, align 4
   br label %110
 
-110:                                              ; preds = %68, %62, %82, %108
-  %111 = phi i32 [ 0, %108 ], [ %88, %82 ], [ 1, %68 ], [ %66, %62 ]
+110:                                              ; preds = %82, %68, %62, %108
+  %111 = phi i32 [ 0, %108 ], [ 1, %68 ], [ %66, %62 ], [ %88, %82 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #12
   ret i32 %111
 }
@@ -794,15 +794,15 @@ define dso_local i32 @gs_screen_next(ptr nocapture noundef %0, double noundef %1
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local i32 @gs_currentscreen(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef writeonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #7 {
   %5 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 11
-  %6 = load ptr, ptr %5, align 8, !tbaa !54
-  %7 = load float, ptr %6, align 8, !tbaa !60
+  %6 = load ptr, ptr %5, align 8, !tbaa !53
+  %7 = load float, ptr %6, align 8, !tbaa !59
   store float %7, ptr %1, align 4, !tbaa !22
   %8 = getelementptr inbounds %struct.halftone_s, ptr %6, i64 0, i32 1
-  %9 = load float, ptr %8, align 4, !tbaa !61
+  %9 = load float, ptr %8, align 4, !tbaa !60
   store float %9, ptr %2, align 4, !tbaa !22
   %10 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 12
-  %11 = load ptr, ptr %10, align 8, !tbaa !42
-  store ptr %11, ptr %3, align 8, !tbaa !62
+  %11 = load ptr, ptr %10, align 8, !tbaa !40
+  store ptr %11, ptr %3, align 8, !tbaa !61
   ret i32 0
 }
 
@@ -831,7 +831,7 @@ define dso_local i32 @gx_screen_finish(ptr nocapture noundef readonly %0) local_
   %4 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 3
   %5 = load i32, ptr %4, align 8, !tbaa !36
   %6 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 4
-  %7 = load i32, ptr %6, align 4, !tbaa !49
+  %7 = load i32, ptr %6, align 4, !tbaa !47
   %8 = mul nsw i32 %7, %5
   %9 = icmp eq i32 %8, 0
   br i1 %9, label %56, label %10
@@ -851,39 +851,39 @@ define dso_local i32 @gx_screen_finish(ptr nocapture noundef readonly %0) local_
   %18 = phi i64 [ 0, %14 ], [ %43, %16 ]
   %19 = trunc i64 %17 to i16
   %20 = getelementptr inbounds %struct.ht_bit_s, ptr %3, i64 %17
-  store i16 %19, ptr %20, align 2, !tbaa !50
+  store i16 %19, ptr %20, align 2, !tbaa !48
   %21 = or i64 %17, 1
   %22 = trunc i64 %21 to i16
   %23 = getelementptr inbounds %struct.ht_bit_s, ptr %3, i64 %21
-  store i16 %22, ptr %23, align 2, !tbaa !50
+  store i16 %22, ptr %23, align 2, !tbaa !48
   %24 = or i64 %17, 2
   %25 = trunc i64 %24 to i16
   %26 = getelementptr inbounds %struct.ht_bit_s, ptr %3, i64 %24
-  store i16 %25, ptr %26, align 2, !tbaa !50
+  store i16 %25, ptr %26, align 2, !tbaa !48
   %27 = or i64 %17, 3
   %28 = trunc i64 %27 to i16
   %29 = getelementptr inbounds %struct.ht_bit_s, ptr %3, i64 %27
-  store i16 %28, ptr %29, align 2, !tbaa !50
+  store i16 %28, ptr %29, align 2, !tbaa !48
   %30 = or i64 %17, 4
   %31 = trunc i64 %30 to i16
   %32 = getelementptr inbounds %struct.ht_bit_s, ptr %3, i64 %30
-  store i16 %31, ptr %32, align 2, !tbaa !50
+  store i16 %31, ptr %32, align 2, !tbaa !48
   %33 = or i64 %17, 5
   %34 = trunc i64 %33 to i16
   %35 = getelementptr inbounds %struct.ht_bit_s, ptr %3, i64 %33
-  store i16 %34, ptr %35, align 2, !tbaa !50
+  store i16 %34, ptr %35, align 2, !tbaa !48
   %36 = or i64 %17, 6
   %37 = trunc i64 %36 to i16
   %38 = getelementptr inbounds %struct.ht_bit_s, ptr %3, i64 %36
-  store i16 %37, ptr %38, align 2, !tbaa !50
+  store i16 %37, ptr %38, align 2, !tbaa !48
   %39 = or i64 %17, 7
   %40 = trunc i64 %39 to i16
   %41 = getelementptr inbounds %struct.ht_bit_s, ptr %3, i64 %39
-  store i16 %40, ptr %41, align 2, !tbaa !50
+  store i16 %40, ptr %41, align 2, !tbaa !48
   %42 = add nuw nsw i64 %17, 8
   %43 = add i64 %18, 8
   %44 = icmp eq i64 %43, %15
-  br i1 %44, label %45, label %16, !llvm.loop !51
+  br i1 %44, label %45, label %16, !llvm.loop !49
 
 45:                                               ; preds = %16, %10
   %46 = phi i64 [ 0, %10 ], [ %42, %16 ]
@@ -895,40 +895,40 @@ define dso_local i32 @gx_screen_finish(ptr nocapture noundef readonly %0) local_
   %50 = phi i64 [ %54, %48 ], [ 0, %45 ]
   %51 = trunc i64 %49 to i16
   %52 = getelementptr inbounds %struct.ht_bit_s, ptr %3, i64 %49
-  store i16 %51, ptr %52, align 2, !tbaa !50
+  store i16 %51, ptr %52, align 2, !tbaa !48
   %53 = add nuw nsw i64 %49, 1
   %54 = add i64 %50, 1
   %55 = icmp eq i64 %54, %12
-  br i1 %55, label %56, label %48, !llvm.loop !63
+  br i1 %55, label %56, label %48, !llvm.loop !62
 
 56:                                               ; preds = %45, %48, %1
   tail call void @gx_sort_ht_order(ptr noundef %3, i32 noundef %8) #12
   %57 = load ptr, ptr %2, align 8, !tbaa !33
   %58 = load i32, ptr %4, align 8, !tbaa !36
-  %59 = load i32, ptr %6, align 4, !tbaa !49
+  %59 = load i32, ptr %6, align 4, !tbaa !47
   %60 = tail call i32 (ptr, i32, i32, ...) @gx_ht_construct_order(ptr noundef %57, i32 noundef %58, i32 noundef %59) #12
   %61 = icmp slt i32 %60, 0
   br i1 %61, label %76, label %62
 
 62:                                               ; preds = %56
   %63 = getelementptr inbounds %struct.gs_screen_enum_s, ptr %0, i64 0, i32 8
-  %64 = load ptr, ptr %63, align 8, !tbaa !44
+  %64 = load ptr, ptr %63, align 8, !tbaa !42
   %65 = getelementptr inbounds %struct.gs_state_s, ptr %64, i64 0, i32 11
-  %66 = load ptr, ptr %65, align 8, !tbaa !54
+  %66 = load ptr, ptr %65, align 8, !tbaa !53
   %67 = load <2 x float>, ptr %0, align 8, !tbaa !22
   store <2 x float> %67, ptr %66, align 8, !tbaa !22
   %68 = load i32, ptr %4, align 8, !tbaa !36
   %69 = getelementptr inbounds %struct.halftone_s, ptr %66, i64 0, i32 2
-  store i32 %68, ptr %69, align 8, !tbaa !55
-  %70 = load i32, ptr %6, align 4, !tbaa !49
+  store i32 %68, ptr %69, align 8, !tbaa !54
+  %70 = load i32, ptr %6, align 4, !tbaa !47
   %71 = getelementptr inbounds %struct.halftone_s, ptr %66, i64 0, i32 3
-  store i32 %70, ptr %71, align 4, !tbaa !57
+  store i32 %70, ptr %71, align 4, !tbaa !56
   %72 = load ptr, ptr %2, align 8, !tbaa !33
   %73 = getelementptr inbounds %struct.halftone_s, ptr %66, i64 0, i32 4
-  store ptr %72, ptr %73, align 8, !tbaa !58
+  store ptr %72, ptr %73, align 8, !tbaa !57
   %74 = mul nsw i32 %70, %68
   %75 = getelementptr inbounds %struct.halftone_s, ptr %66, i64 0, i32 5
-  store i32 %74, ptr %75, align 8, !tbaa !59
+  store i32 %74, ptr %75, align 8, !tbaa !58
   br label %76
 
 76:                                               ; preds = %56, %62
@@ -1005,27 +1005,26 @@ attributes #12 = { nounwind }
 !37 = !{!34, !15, i64 120}
 !38 = !{!39, !18, i64 2}
 !39 = !{!"ht_bit_s", !18, i64 0, !18, i64 2}
-!40 = distinct !{!40, !41}
-!41 = !{!"llvm.loop.mustprogress"}
-!42 = !{!6, !7, i64 296}
-!43 = !{!15, !15, i64 0}
-!44 = !{!34, !7, i64 128}
-!45 = !{!14, !12, i64 0}
-!46 = !{!14, !12, i64 48}
-!47 = !{!14, !12, i64 64}
-!48 = !{!14, !12, i64 80}
-!49 = !{!34, !15, i64 20}
-!50 = !{!39, !18, i64 0}
-!51 = distinct !{!51, !41}
-!52 = distinct !{!52, !53}
-!53 = !{!"llvm.loop.unroll.disable"}
-!54 = !{!6, !7, i64 288}
-!55 = !{!56, !15, i64 8}
-!56 = !{!"halftone_s", !12, i64 0, !12, i64 4, !15, i64 8, !15, i64 12, !7, i64 16, !15, i64 24}
-!57 = !{!56, !15, i64 12}
-!58 = !{!56, !7, i64 16}
-!59 = !{!56, !15, i64 24}
-!60 = !{!56, !12, i64 0}
-!61 = !{!56, !12, i64 4}
-!62 = !{!7, !7, i64 0}
-!63 = distinct !{!63, !53}
+!40 = !{!6, !7, i64 296}
+!41 = !{!15, !15, i64 0}
+!42 = !{!34, !7, i64 128}
+!43 = !{!14, !12, i64 0}
+!44 = !{!14, !12, i64 48}
+!45 = !{!14, !12, i64 64}
+!46 = !{!14, !12, i64 80}
+!47 = !{!34, !15, i64 20}
+!48 = !{!39, !18, i64 0}
+!49 = distinct !{!49, !50}
+!50 = !{!"llvm.loop.mustprogress"}
+!51 = distinct !{!51, !52}
+!52 = !{!"llvm.loop.unroll.disable"}
+!53 = !{!6, !7, i64 288}
+!54 = !{!55, !15, i64 8}
+!55 = !{!"halftone_s", !12, i64 0, !12, i64 4, !15, i64 8, !15, i64 12, !7, i64 16, !15, i64 24}
+!56 = !{!55, !15, i64 12}
+!57 = !{!55, !7, i64 16}
+!58 = !{!55, !15, i64 24}
+!59 = !{!55, !12, i64 0}
+!60 = !{!55, !12, i64 4}
+!61 = !{!7, !7, i64 0}
+!62 = distinct !{!62, !52}

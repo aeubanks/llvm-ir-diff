@@ -23,12 +23,12 @@ target triple = "x86_64-unknown-linux-gnu"
 define hidden i32 @luaH_next(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
   %4 = getelementptr inbounds %struct.lua_TValue, ptr %2, i64 0, i32 1
   %5 = load i32, ptr %4, align 8, !tbaa !5
-  switch i32 %5, label %81 [
-    i32 0, label %130
+  switch i32 %5, label %79 [
+    i32 0, label %129
     i32 3, label %6
-    i32 2, label %66
-    i32 4, label %40
-    i32 1, label %54
+    i32 2, label %64
+    i32 4, label %38
+    i32 1, label %52
   ]
 
 6:                                                ; preds = %3
@@ -38,254 +38,251 @@ define hidden i32 @luaH_next(ptr noundef %0, ptr nocapture noundef readonly %1, 
   %10 = fcmp oeq double %7, %9
   %11 = icmp sgt i32 %8, 0
   %12 = and i1 %11, %10
-  br i1 %12, label %13, label %19
+  br i1 %12, label %13, label %17
 
 13:                                               ; preds = %6
   %14 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 10
   %15 = load i32, ptr %14, align 8, !tbaa !11
   %16 = icmp slt i32 %15, %8
-  br i1 %16, label %19, label %17
+  br i1 %16, label %17, label %129
 
-17:                                               ; preds = %13
-  %18 = add nsw i32 %8, -1
-  br label %130
+17:                                               ; preds = %13, %6
+  %18 = fcmp oeq double %7, 0.000000e+00
+  br i1 %18, label %19, label %22
 
-19:                                               ; preds = %13, %6
-  %20 = fcmp oeq double %7, 0.000000e+00
-  br i1 %20, label %21, label %24
+19:                                               ; preds = %17
+  %20 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
+  %21 = load ptr, ptr %20, align 8, !tbaa !14
+  br label %94
 
-21:                                               ; preds = %19
-  %22 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
-  %23 = load ptr, ptr %22, align 8, !tbaa !14
+22:                                               ; preds = %17
+  %23 = bitcast double %7 to i64
+  %24 = lshr i64 %23, 32
+  %25 = add i64 %24, %23
+  %26 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
+  %27 = load ptr, ptr %26, align 8, !tbaa !14
+  %28 = trunc i64 %25 to i32
+  %29 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
+  %30 = load i8, ptr %29, align 1, !tbaa !15
+  %31 = zext i8 %30 to i32
+  %32 = shl nsw i32 -1, %31
+  %33 = xor i32 %32, -1
+  %34 = or i32 %33, 1
+  %35 = urem i32 %28, %34
+  %36 = zext i32 %35 to i64
+  %37 = getelementptr inbounds %struct.Node, ptr %27, i64 %36
+  br label %94
+
+38:                                               ; preds = %3
+  %39 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
+  %40 = load ptr, ptr %39, align 8, !tbaa !14
+  %41 = load ptr, ptr %2, align 8, !tbaa !10
+  %42 = getelementptr inbounds %struct.anon.1, ptr %41, i64 0, i32 4
+  %43 = load i32, ptr %42, align 4, !tbaa !10
+  %44 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
+  %45 = load i8, ptr %44, align 1, !tbaa !15
+  %46 = zext i8 %45 to i32
+  %47 = shl nsw i32 -1, %46
+  %48 = xor i32 %47, -1
+  %49 = and i32 %43, %48
+  %50 = sext i32 %49 to i64
+  %51 = getelementptr inbounds %struct.Node, ptr %40, i64 %50
+  br label %94
+
+52:                                               ; preds = %3
+  %53 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
+  %54 = load ptr, ptr %53, align 8, !tbaa !14
+  %55 = load i32, ptr %2, align 8, !tbaa !10
+  %56 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
+  %57 = load i8, ptr %56, align 1, !tbaa !15
+  %58 = zext i8 %57 to i32
+  %59 = shl nsw i32 -1, %58
+  %60 = xor i32 %59, -1
+  %61 = and i32 %55, %60
+  %62 = sext i32 %61 to i64
+  %63 = getelementptr inbounds %struct.Node, ptr %54, i64 %62
+  br label %94
+
+64:                                               ; preds = %3
+  %65 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
+  %66 = load ptr, ptr %65, align 8, !tbaa !14
+  %67 = load ptr, ptr %2, align 8, !tbaa !10
+  %68 = ptrtoint ptr %67 to i64
+  %69 = trunc i64 %68 to i32
+  %70 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
+  %71 = load i8, ptr %70, align 1, !tbaa !15
+  %72 = zext i8 %71 to i32
+  %73 = shl nsw i32 -1, %72
+  %74 = xor i32 %73, -1
+  %75 = or i32 %74, 1
+  %76 = urem i32 %69, %75
+  %77 = zext i32 %76 to i64
+  %78 = getelementptr inbounds %struct.Node, ptr %66, i64 %77
+  br label %94
+
+79:                                               ; preds = %3
+  %80 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
+  %81 = load ptr, ptr %80, align 8, !tbaa !14
+  %82 = load ptr, ptr %2, align 8, !tbaa !10
+  %83 = ptrtoint ptr %82 to i64
+  %84 = trunc i64 %83 to i32
+  %85 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
+  %86 = load i8, ptr %85, align 1, !tbaa !15
+  %87 = zext i8 %86 to i32
+  %88 = shl nsw i32 -1, %87
+  %89 = xor i32 %88, -1
+  %90 = or i32 %89, 1
+  %91 = urem i32 %84, %90
+  %92 = zext i32 %91 to i64
+  %93 = getelementptr inbounds %struct.Node, ptr %81, i64 %92
+  br label %94
+
+94:                                               ; preds = %79, %64, %52, %38, %22, %19
+  %95 = phi ptr [ %37, %22 ], [ %21, %19 ], [ %51, %38 ], [ %63, %52 ], [ %78, %64 ], [ %93, %79 ]
   br label %96
 
-24:                                               ; preds = %19
-  %25 = bitcast double %7 to i64
-  %26 = lshr i64 %25, 32
-  %27 = add i64 %26, %25
-  %28 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
-  %29 = load ptr, ptr %28, align 8, !tbaa !14
-  %30 = trunc i64 %27 to i32
-  %31 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
-  %32 = load i8, ptr %31, align 1, !tbaa !15
-  %33 = zext i8 %32 to i32
-  %34 = shl nsw i32 -1, %33
-  %35 = xor i32 %34, -1
-  %36 = or i32 %35, 1
-  %37 = urem i32 %30, %36
-  %38 = zext i32 %37 to i64
-  %39 = getelementptr inbounds %struct.Node, ptr %29, i64 %38
-  br label %96
+96:                                               ; preds = %94, %124
+  %97 = phi ptr [ %126, %124 ], [ %95, %94 ]
+  %98 = getelementptr inbounds %struct.Node, ptr %97, i64 0, i32 1
+  %99 = tail call i32 @luaO_rawequalObj(ptr noundef nonnull %98, ptr noundef %2) #7
+  %100 = icmp eq i32 %99, 0
+  br i1 %100, label %101, label %112
 
-40:                                               ; preds = %3
-  %41 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
-  %42 = load ptr, ptr %41, align 8, !tbaa !14
-  %43 = load ptr, ptr %2, align 8, !tbaa !10
-  %44 = getelementptr inbounds %struct.anon.1, ptr %43, i64 0, i32 4
-  %45 = load i32, ptr %44, align 4, !tbaa !10
-  %46 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
-  %47 = load i8, ptr %46, align 1, !tbaa !15
-  %48 = zext i8 %47 to i32
-  %49 = shl nsw i32 -1, %48
-  %50 = xor i32 %49, -1
-  %51 = and i32 %45, %50
-  %52 = sext i32 %51 to i64
-  %53 = getelementptr inbounds %struct.Node, ptr %42, i64 %52
-  br label %96
+101:                                              ; preds = %96
+  %102 = getelementptr inbounds %struct.Node, ptr %97, i64 0, i32 1, i32 0, i32 1
+  %103 = load i32, ptr %102, align 8, !tbaa !10
+  %104 = icmp eq i32 %103, 11
+  br i1 %104, label %105, label %124
 
-54:                                               ; preds = %3
-  %55 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
-  %56 = load ptr, ptr %55, align 8, !tbaa !14
-  %57 = load i32, ptr %2, align 8, !tbaa !10
-  %58 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
-  %59 = load i8, ptr %58, align 1, !tbaa !15
-  %60 = zext i8 %59 to i32
-  %61 = shl nsw i32 -1, %60
-  %62 = xor i32 %61, -1
-  %63 = and i32 %57, %62
-  %64 = sext i32 %63 to i64
-  %65 = getelementptr inbounds %struct.Node, ptr %56, i64 %64
-  br label %96
+105:                                              ; preds = %101
+  %106 = load i32, ptr %4, align 8, !tbaa !5
+  %107 = icmp sgt i32 %106, 3
+  br i1 %107, label %108, label %124
 
-66:                                               ; preds = %3
-  %67 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
-  %68 = load ptr, ptr %67, align 8, !tbaa !14
-  %69 = load ptr, ptr %2, align 8, !tbaa !10
-  %70 = ptrtoint ptr %69 to i64
-  %71 = trunc i64 %70 to i32
-  %72 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
-  %73 = load i8, ptr %72, align 1, !tbaa !15
-  %74 = zext i8 %73 to i32
-  %75 = shl nsw i32 -1, %74
-  %76 = xor i32 %75, -1
-  %77 = or i32 %76, 1
-  %78 = urem i32 %71, %77
-  %79 = zext i32 %78 to i64
-  %80 = getelementptr inbounds %struct.Node, ptr %68, i64 %79
-  br label %96
+108:                                              ; preds = %105
+  %109 = load ptr, ptr %98, align 8, !tbaa !10
+  %110 = load ptr, ptr %2, align 8, !tbaa !10
+  %111 = icmp eq ptr %109, %110
+  br i1 %111, label %112, label %124
 
-81:                                               ; preds = %3
-  %82 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
-  %83 = load ptr, ptr %82, align 8, !tbaa !14
-  %84 = load ptr, ptr %2, align 8, !tbaa !10
-  %85 = ptrtoint ptr %84 to i64
-  %86 = trunc i64 %85 to i32
-  %87 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
-  %88 = load i8, ptr %87, align 1, !tbaa !15
-  %89 = zext i8 %88 to i32
-  %90 = shl nsw i32 -1, %89
-  %91 = xor i32 %90, -1
-  %92 = or i32 %91, 1
-  %93 = urem i32 %86, %92
-  %94 = zext i32 %93 to i64
-  %95 = getelementptr inbounds %struct.Node, ptr %83, i64 %94
-  br label %96
+112:                                              ; preds = %108, %96
+  %113 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
+  %114 = load ptr, ptr %113, align 8, !tbaa !14
+  %115 = ptrtoint ptr %97 to i64
+  %116 = ptrtoint ptr %114 to i64
+  %117 = sub i64 %115, %116
+  %118 = sdiv exact i64 %117, 40
+  %119 = trunc i64 %118 to i32
+  %120 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 10
+  %121 = load i32, ptr %120, align 8, !tbaa !11
+  %122 = add i32 %121, 1
+  %123 = add i32 %122, %119
+  br label %129
 
-96:                                               ; preds = %81, %66, %54, %40, %24, %21
-  %97 = phi ptr [ %39, %24 ], [ %23, %21 ], [ %53, %40 ], [ %65, %54 ], [ %80, %66 ], [ %95, %81 ]
-  br label %98
+124:                                              ; preds = %108, %105, %101
+  %125 = getelementptr inbounds %struct.Node, ptr %97, i64 0, i32 1, i32 0, i32 2
+  %126 = load ptr, ptr %125, align 8, !tbaa !10
+  %127 = icmp eq ptr %126, null
+  br i1 %127, label %128, label %96, !llvm.loop !16
 
-98:                                               ; preds = %96, %125
-  %99 = phi ptr [ %127, %125 ], [ %97, %96 ]
-  %100 = getelementptr inbounds %struct.Node, ptr %99, i64 0, i32 1
-  %101 = tail call i32 @luaO_rawequalObj(ptr noundef nonnull %100, ptr noundef %2) #7
-  %102 = icmp eq i32 %101, 0
-  br i1 %102, label %103, label %114
-
-103:                                              ; preds = %98
-  %104 = getelementptr inbounds %struct.Node, ptr %99, i64 0, i32 1, i32 0, i32 1
-  %105 = load i32, ptr %104, align 8, !tbaa !10
-  %106 = icmp eq i32 %105, 11
-  br i1 %106, label %107, label %125
-
-107:                                              ; preds = %103
-  %108 = load i32, ptr %4, align 8, !tbaa !5
-  %109 = icmp sgt i32 %108, 3
-  br i1 %109, label %110, label %125
-
-110:                                              ; preds = %107
-  %111 = load ptr, ptr %100, align 8, !tbaa !10
-  %112 = load ptr, ptr %2, align 8, !tbaa !10
-  %113 = icmp eq ptr %111, %112
-  br i1 %113, label %114, label %125
-
-114:                                              ; preds = %110, %98
-  %115 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
-  %116 = load ptr, ptr %115, align 8, !tbaa !14
-  %117 = ptrtoint ptr %99 to i64
-  %118 = ptrtoint ptr %116 to i64
-  %119 = sub i64 %117, %118
-  %120 = sdiv exact i64 %119, 40
-  %121 = trunc i64 %120 to i32
-  %122 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 10
-  %123 = load i32, ptr %122, align 8, !tbaa !11
-  %124 = add nsw i32 %123, %121
-  br label %130
-
-125:                                              ; preds = %110, %107, %103
-  %126 = getelementptr inbounds %struct.Node, ptr %99, i64 0, i32 1, i32 0, i32 2
-  %127 = load ptr, ptr %126, align 8, !tbaa !10
-  %128 = icmp eq ptr %127, null
-  br i1 %128, label %129, label %98, !llvm.loop !16
-
-129:                                              ; preds = %125
+128:                                              ; preds = %124
   tail call void (ptr, ptr, ...) @luaG_runerror(ptr noundef %0, ptr noundef nonnull @.str.2) #7
-  br label %130
+  br label %129
 
-130:                                              ; preds = %3, %17, %114, %129
-  %131 = phi i32 [ %18, %17 ], [ -1, %3 ], [ %124, %114 ], [ 0, %129 ]
-  %132 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 10
-  %133 = load i32, ptr %132, align 8, !tbaa !11
-  %134 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 6
-  %135 = sext i32 %131 to i64
-  %136 = sext i32 %133 to i64
-  %137 = add i32 %131, 1
-  %138 = sub i32 %137, %133
-  br label %139
+129:                                              ; preds = %13, %3, %112, %128
+  %130 = phi i32 [ %5, %3 ], [ %123, %112 ], [ 1, %128 ], [ %8, %13 ]
+  %131 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 10
+  %132 = load i32, ptr %131, align 8, !tbaa !11
+  %133 = icmp slt i32 %130, %132
+  br i1 %133, label %134, label %156
 
-139:                                              ; preds = %144, %130
-  %140 = phi i32 [ %149, %144 ], [ %138, %130 ]
-  %141 = phi i64 [ %142, %144 ], [ %135, %130 ]
-  %142 = add nsw i64 %141, 1
-  %143 = icmp slt i64 %142, %136
-  br i1 %143, label %144, label %159
+134:                                              ; preds = %129
+  %135 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 6
+  %136 = load ptr, ptr %135, align 8, !tbaa !18
+  %137 = sext i32 %130 to i64
+  br label %138
 
-144:                                              ; preds = %139
-  %145 = load ptr, ptr %134, align 8, !tbaa !18
-  %146 = getelementptr inbounds %struct.lua_TValue, ptr %145, i64 %142, i32 1
-  %147 = load i32, ptr %146, align 8, !tbaa !5
-  %148 = icmp eq i32 %147, 0
-  %149 = add i32 %140, 1
-  br i1 %148, label %139, label %150, !llvm.loop !19
+138:                                              ; preds = %134, %152
+  %139 = phi i64 [ %137, %134 ], [ %153, %152 ]
+  %140 = getelementptr inbounds %struct.lua_TValue, ptr %136, i64 %139, i32 1
+  %141 = load i32, ptr %140, align 8, !tbaa !5
+  %142 = icmp eq i32 %141, 0
+  br i1 %142, label %152, label %143
 
-150:                                              ; preds = %144
-  %151 = trunc i64 %141 to i32
-  %152 = add nsw i32 %151, 2
-  %153 = sitofp i32 %152 to double
-  store double %153, ptr %2, align 8, !tbaa !10
+143:                                              ; preds = %138
+  %144 = trunc i64 %139 to i32
+  %145 = add nsw i32 %144, 1
+  %146 = sitofp i32 %145 to double
+  store double %146, ptr %2, align 8, !tbaa !10
   store i32 3, ptr %4, align 8, !tbaa !5
-  %154 = load ptr, ptr %134, align 8, !tbaa !18
-  %155 = getelementptr inbounds %struct.lua_TValue, ptr %154, i64 %142
-  %156 = getelementptr inbounds %struct.lua_TValue, ptr %2, i64 1
-  %157 = load i64, ptr %155, align 8
-  store i64 %157, ptr %156, align 8
-  %158 = getelementptr inbounds %struct.lua_TValue, ptr %154, i64 %142, i32 1
-  br label %190
+  %147 = load ptr, ptr %135, align 8, !tbaa !18
+  %148 = getelementptr inbounds %struct.lua_TValue, ptr %147, i64 %139
+  %149 = getelementptr inbounds %struct.lua_TValue, ptr %2, i64 1
+  %150 = load i64, ptr %148, align 8
+  store i64 %150, ptr %149, align 8
+  %151 = getelementptr inbounds %struct.lua_TValue, ptr %147, i64 %139, i32 1
+  br label %187
 
-159:                                              ; preds = %139
-  %160 = trunc i64 %142 to i32
-  %161 = sub nsw i32 %160, %133
-  %162 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
-  %163 = load i8, ptr %162, align 1, !tbaa !15
-  %164 = zext i8 %163 to i32
-  %165 = shl nuw i32 1, %164
-  %166 = icmp slt i32 %161, %165
-  br i1 %166, label %167, label %194
+152:                                              ; preds = %138
+  %153 = add nsw i64 %139, 1
+  %154 = trunc i64 %153 to i32
+  %155 = icmp eq i32 %132, %154
+  br i1 %155, label %156, label %138, !llvm.loop !19
 
-167:                                              ; preds = %159
-  %168 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
-  %169 = load ptr, ptr %168, align 8, !tbaa !14
-  %170 = sext i32 %140 to i64
-  %171 = sext i32 %165 to i64
-  br label %175
+156:                                              ; preds = %152, %129
+  %157 = phi i32 [ %130, %129 ], [ %132, %152 ]
+  %158 = sub nsw i32 %157, %132
+  %159 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 4
+  %160 = load i8, ptr %159, align 1, !tbaa !15
+  %161 = zext i8 %160 to i32
+  %162 = shl nuw i32 1, %161
+  %163 = icmp slt i32 %158, %162
+  br i1 %163, label %164, label %191
 
-172:                                              ; preds = %175
-  %173 = add nsw i64 %176, 1
-  %174 = icmp slt i64 %173, %171
-  br i1 %174, label %175, label %194, !llvm.loop !20
+164:                                              ; preds = %156
+  %165 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 7
+  %166 = load ptr, ptr %165, align 8, !tbaa !14
+  %167 = sext i32 %158 to i64
+  br label %172
 
-175:                                              ; preds = %167, %172
-  %176 = phi i64 [ %170, %167 ], [ %173, %172 ]
-  %177 = getelementptr inbounds %struct.Node, ptr %169, i64 %176, i32 0, i32 1
-  %178 = load i32, ptr %177, align 8, !tbaa !21
-  %179 = icmp eq i32 %178, 0
-  br i1 %179, label %172, label %180
+168:                                              ; preds = %172
+  %169 = add nsw i64 %173, 1
+  %170 = trunc i64 %169 to i32
+  %171 = icmp eq i32 %162, %170
+  br i1 %171, label %191, label %172, !llvm.loop !20
 
-180:                                              ; preds = %175
-  %181 = getelementptr inbounds %struct.Node, ptr %169, i64 %176, i32 1
-  %182 = load i64, ptr %181, align 8
-  store i64 %182, ptr %2, align 8
-  %183 = getelementptr inbounds %struct.lua_TValue, ptr %181, i64 0, i32 1
-  %184 = load i32, ptr %183, align 8, !tbaa !5
-  store i32 %184, ptr %4, align 8, !tbaa !5
-  %185 = load ptr, ptr %168, align 8, !tbaa !14
-  %186 = getelementptr inbounds %struct.Node, ptr %185, i64 %176
-  %187 = getelementptr inbounds %struct.lua_TValue, ptr %2, i64 1
-  %188 = load i64, ptr %186, align 8
-  store i64 %188, ptr %187, align 8
-  %189 = getelementptr inbounds %struct.lua_TValue, ptr %186, i64 0, i32 1
-  br label %190
+172:                                              ; preds = %164, %168
+  %173 = phi i64 [ %167, %164 ], [ %169, %168 ]
+  %174 = getelementptr inbounds %struct.Node, ptr %166, i64 %173, i32 0, i32 1
+  %175 = load i32, ptr %174, align 8, !tbaa !21
+  %176 = icmp eq i32 %175, 0
+  br i1 %176, label %168, label %177
 
-190:                                              ; preds = %150, %180
-  %191 = phi ptr [ %189, %180 ], [ %158, %150 ]
-  %192 = load i32, ptr %191, align 8, !tbaa !5
-  %193 = getelementptr inbounds %struct.lua_TValue, ptr %2, i64 1, i32 1
-  store i32 %192, ptr %193, align 8, !tbaa !5
-  br label %194
+177:                                              ; preds = %172
+  %178 = getelementptr inbounds %struct.Node, ptr %166, i64 %173, i32 1
+  %179 = load i64, ptr %178, align 8
+  store i64 %179, ptr %2, align 8
+  %180 = getelementptr inbounds %struct.lua_TValue, ptr %178, i64 0, i32 1
+  %181 = load i32, ptr %180, align 8, !tbaa !5
+  store i32 %181, ptr %4, align 8, !tbaa !5
+  %182 = load ptr, ptr %165, align 8, !tbaa !14
+  %183 = getelementptr inbounds %struct.Node, ptr %182, i64 %173
+  %184 = getelementptr inbounds %struct.lua_TValue, ptr %2, i64 1
+  %185 = load i64, ptr %183, align 8
+  store i64 %185, ptr %184, align 8
+  %186 = getelementptr inbounds %struct.lua_TValue, ptr %183, i64 0, i32 1
+  br label %187
 
-194:                                              ; preds = %172, %190, %159
-  %195 = phi i32 [ 0, %159 ], [ 1, %190 ], [ 0, %172 ]
-  ret i32 %195
+187:                                              ; preds = %143, %177
+  %188 = phi ptr [ %186, %177 ], [ %151, %143 ]
+  %189 = load i32, ptr %188, align 8, !tbaa !5
+  %190 = getelementptr inbounds %struct.lua_TValue, ptr %2, i64 1, i32 1
+  store i32 %189, ptr %190, align 8, !tbaa !5
+  br label %191
+
+191:                                              ; preds = %168, %187, %156
+  %192 = phi i32 [ 0, %156 ], [ 1, %187 ], [ 0, %168 ]
+  ret i32 %192
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -405,7 +402,7 @@ define internal fastcc void @resize(ptr noundef %0, ptr noundef %1, i32 noundef 
 61:                                               ; preds = %60, %4
   tail call fastcc void @setnodevector(ptr noundef %0, ptr noundef nonnull %1, i32 noundef %3)
   %62 = icmp sgt i32 %7, %2
-  br i1 %62, label %63, label %146
+  br i1 %62, label %63, label %143
 
 63:                                               ; preds = %61
   store i32 %2, ptr %6, align 8, !tbaa !11
@@ -414,204 +411,199 @@ define internal fastcc void @resize(ptr noundef %0, ptr noundef %1, i32 noundef 
   %66 = sext i32 %2 to i64
   br label %67
 
-67:                                               ; preds = %63, %130
-  %68 = phi i64 [ %66, %63 ], [ %131, %130 ]
+67:                                               ; preds = %63, %128
+  %68 = phi i64 [ %66, %63 ], [ %74, %128 ]
   %69 = load ptr, ptr %64, align 8, !tbaa !18
-  %70 = getelementptr inbounds %struct.lua_TValue, ptr %69, i64 %68, i32 1
-  %71 = load i32, ptr %70, align 8, !tbaa !5
-  %72 = icmp eq i32 %71, 0
-  br i1 %72, label %73, label %75
-
-73:                                               ; preds = %67
+  %70 = getelementptr inbounds %struct.lua_TValue, ptr %69, i64 %68
+  %71 = getelementptr inbounds %struct.lua_TValue, ptr %69, i64 %68, i32 1
+  %72 = load i32, ptr %71, align 8, !tbaa !5
+  %73 = icmp eq i32 %72, 0
   %74 = add nsw i64 %68, 1
-  br label %130
+  br i1 %73, label %128, label %75
 
 75:                                               ; preds = %67
-  %76 = getelementptr inbounds %struct.lua_TValue, ptr %69, i64 %68
-  %77 = add nsw i64 %68, 1
-  %78 = load i32, ptr %6, align 8, !tbaa !11
-  %79 = trunc i64 %68 to i32
-  %80 = icmp ugt i32 %78, %79
-  br i1 %80, label %116, label %81
+  %76 = load i32, ptr %6, align 8, !tbaa !11
+  %77 = trunc i64 %68 to i32
+  %78 = icmp ugt i32 %76, %77
+  br i1 %78, label %114, label %79
 
-81:                                               ; preds = %75
-  %82 = trunc i64 %77 to i32
-  %83 = sitofp i32 %82 to double
-  %84 = icmp eq i32 %82, 0
-  br i1 %84, label %85, label %87
+79:                                               ; preds = %75
+  %80 = trunc i64 %74 to i32
+  %81 = sitofp i32 %80 to double
+  %82 = icmp eq i32 %80, 0
+  br i1 %82, label %83, label %85
 
-85:                                               ; preds = %81
-  %86 = load ptr, ptr %11, align 8, !tbaa !14
+83:                                               ; preds = %79
+  %84 = load ptr, ptr %11, align 8, !tbaa !14
+  br label %99
+
+85:                                               ; preds = %79
+  %86 = bitcast double %81 to i64
+  %87 = lshr i64 %86, 32
+  %88 = add i64 %87, %86
+  %89 = load ptr, ptr %11, align 8, !tbaa !14
+  %90 = trunc i64 %88 to i32
+  %91 = load i8, ptr %8, align 1, !tbaa !15
+  %92 = zext i8 %91 to i32
+  %93 = shl nsw i32 -1, %92
+  %94 = xor i32 %93, -1
+  %95 = or i32 %94, 1
+  %96 = urem i32 %90, %95
+  %97 = zext i32 %96 to i64
+  %98 = getelementptr inbounds %struct.Node, ptr %89, i64 %97
+  br label %99
+
+99:                                               ; preds = %85, %83
+  %100 = phi ptr [ %98, %85 ], [ %84, %83 ]
   br label %101
 
-87:                                               ; preds = %81
-  %88 = bitcast double %83 to i64
-  %89 = lshr i64 %88, 32
-  %90 = add i64 %89, %88
-  %91 = load ptr, ptr %11, align 8, !tbaa !14
-  %92 = trunc i64 %90 to i32
-  %93 = load i8, ptr %8, align 1, !tbaa !15
-  %94 = zext i8 %93 to i32
-  %95 = shl nsw i32 -1, %94
-  %96 = xor i32 %95, -1
-  %97 = or i32 %96, 1
-  %98 = urem i32 %92, %97
-  %99 = zext i32 %98 to i64
-  %100 = getelementptr inbounds %struct.Node, ptr %91, i64 %99
-  br label %101
+101:                                              ; preds = %99, %110
+  %102 = phi ptr [ %112, %110 ], [ %100, %99 ]
+  %103 = getelementptr inbounds %struct.Node, ptr %102, i64 0, i32 1, i32 0, i32 1
+  %104 = load i32, ptr %103, align 8, !tbaa !10
+  %105 = icmp eq i32 %104, 3
+  br i1 %105, label %106, label %110
 
-101:                                              ; preds = %87, %85
-  %102 = phi ptr [ %100, %87 ], [ %86, %85 ]
-  br label %103
+106:                                              ; preds = %101
+  %107 = getelementptr inbounds %struct.Node, ptr %102, i64 0, i32 1
+  %108 = load double, ptr %107, align 8, !tbaa !10
+  %109 = fcmp oeq double %108, %81
+  br i1 %109, label %114, label %110
 
-103:                                              ; preds = %101, %112
-  %104 = phi ptr [ %114, %112 ], [ %102, %101 ]
-  %105 = getelementptr inbounds %struct.Node, ptr %104, i64 0, i32 1, i32 0, i32 1
-  %106 = load i32, ptr %105, align 8, !tbaa !10
-  %107 = icmp eq i32 %106, 3
-  br i1 %107, label %108, label %112
+110:                                              ; preds = %106, %101
+  %111 = getelementptr inbounds %struct.Node, ptr %102, i64 0, i32 1, i32 0, i32 2
+  %112 = load ptr, ptr %111, align 8, !tbaa !10
+  %113 = icmp eq ptr %112, null
+  br i1 %113, label %120, label %101, !llvm.loop !26
 
-108:                                              ; preds = %103
-  %109 = getelementptr inbounds %struct.Node, ptr %104, i64 0, i32 1
-  %110 = load double, ptr %109, align 8, !tbaa !10
-  %111 = fcmp oeq double %110, %83
-  br i1 %111, label %116, label %112
+114:                                              ; preds = %106, %75
+  %115 = phi ptr [ %70, %75 ], [ %102, %106 ]
+  %116 = icmp eq ptr %115, @luaO_nilobject_
+  br i1 %116, label %117, label %123
 
-112:                                              ; preds = %108, %103
-  %113 = getelementptr inbounds %struct.Node, ptr %104, i64 0, i32 1, i32 0, i32 2
-  %114 = load ptr, ptr %113, align 8, !tbaa !10
-  %115 = icmp eq ptr %114, null
-  br i1 %115, label %122, label %103, !llvm.loop !26
+117:                                              ; preds = %114
+  %118 = trunc i64 %74 to i32
+  %119 = sitofp i32 %118 to double
+  br label %120
 
-116:                                              ; preds = %108, %75
-  %117 = phi ptr [ %76, %75 ], [ %104, %108 ]
-  %118 = icmp eq ptr %117, @luaO_nilobject_
-  br i1 %118, label %119, label %125
-
-119:                                              ; preds = %116
-  %120 = trunc i64 %77 to i32
-  %121 = sitofp i32 %120 to double
-  br label %122
-
-122:                                              ; preds = %112, %119
-  %123 = phi double [ %121, %119 ], [ %83, %112 ]
+120:                                              ; preds = %110, %117
+  %121 = phi double [ %119, %117 ], [ %81, %110 ]
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #7
-  store double %123, ptr %5, align 8, !tbaa !10
+  store double %121, ptr %5, align 8, !tbaa !10
   store i32 3, ptr %65, align 8, !tbaa !5
-  %124 = call fastcc ptr @newkey(ptr noundef %0, ptr noundef %1, ptr noundef nonnull %5)
+  %122 = call fastcc ptr @newkey(ptr noundef %0, ptr noundef %1, ptr noundef nonnull %5)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #7
-  br label %125
+  br label %123
 
-125:                                              ; preds = %116, %122
-  %126 = phi ptr [ %124, %122 ], [ %117, %116 ]
-  %127 = load i64, ptr %76, align 8
-  store i64 %127, ptr %126, align 8
-  %128 = load i32, ptr %70, align 8, !tbaa !5
-  %129 = getelementptr inbounds %struct.lua_TValue, ptr %126, i64 0, i32 1
-  store i32 %128, ptr %129, align 8, !tbaa !5
-  br label %130
+123:                                              ; preds = %114, %120
+  %124 = phi ptr [ %122, %120 ], [ %115, %114 ]
+  %125 = load i64, ptr %70, align 8
+  store i64 %125, ptr %124, align 8
+  %126 = load i32, ptr %71, align 8, !tbaa !5
+  %127 = getelementptr inbounds %struct.lua_TValue, ptr %124, i64 0, i32 1
+  store i32 %126, ptr %127, align 8, !tbaa !5
+  br label %128
 
-130:                                              ; preds = %73, %125
-  %131 = phi i64 [ %74, %73 ], [ %77, %125 ]
-  %132 = trunc i64 %131 to i32
-  %133 = icmp eq i32 %7, %132
-  br i1 %133, label %134, label %67, !llvm.loop !27
+128:                                              ; preds = %67, %123
+  %129 = trunc i64 %74 to i32
+  %130 = icmp eq i32 %7, %129
+  br i1 %130, label %131, label %67, !llvm.loop !27
 
-134:                                              ; preds = %130
-  %135 = icmp sgt i32 %2, -2
-  br i1 %135, label %136, label %142
+131:                                              ; preds = %128
+  %132 = icmp sgt i32 %2, -2
+  br i1 %132, label %133, label %139
 
-136:                                              ; preds = %134
-  %137 = load ptr, ptr %64, align 8, !tbaa !18
-  %138 = sext i32 %7 to i64
-  %139 = shl nsw i64 %138, 4
-  %140 = shl nsw i64 %66, 4
-  %141 = call ptr @luaM_realloc_(ptr noundef %0, ptr noundef %137, i64 noundef %139, i64 noundef %140) #7
-  br label %144
+133:                                              ; preds = %131
+  %134 = load ptr, ptr %64, align 8, !tbaa !18
+  %135 = sext i32 %7 to i64
+  %136 = shl nsw i64 %135, 4
+  %137 = shl nsw i64 %66, 4
+  %138 = call ptr @luaM_realloc_(ptr noundef %0, ptr noundef %134, i64 noundef %136, i64 noundef %137) #7
+  br label %141
 
-142:                                              ; preds = %134
-  %143 = call ptr @luaM_toobig(ptr noundef %0) #7
-  br label %144
+139:                                              ; preds = %131
+  %140 = call ptr @luaM_toobig(ptr noundef %0) #7
+  br label %141
 
-144:                                              ; preds = %142, %136
-  %145 = phi ptr [ %141, %136 ], [ %143, %142 ]
-  store ptr %145, ptr %64, align 8, !tbaa !18
-  br label %146
+141:                                              ; preds = %139, %133
+  %142 = phi ptr [ %138, %133 ], [ %140, %139 ]
+  store ptr %142, ptr %64, align 8, !tbaa !18
+  br label %143
 
-146:                                              ; preds = %144, %61
-  %147 = shl nuw i32 1, %10
-  %148 = icmp eq i8 %9, 31
-  br i1 %148, label %182, label %149
+143:                                              ; preds = %141, %61
+  %144 = shl nuw i32 1, %10
+  %145 = icmp eq i8 %9, 31
+  br i1 %145, label %179, label %146
 
-149:                                              ; preds = %146
-  %150 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 3
-  %151 = zext i32 %147 to i64
-  br label %152
+146:                                              ; preds = %143
+  %147 = getelementptr inbounds %struct.Table, ptr %1, i64 0, i32 3
+  %148 = zext i32 %144 to i64
+  br label %149
 
-152:                                              ; preds = %149, %179
-  %153 = phi i64 [ %151, %149 ], [ %154, %179 ]
-  %154 = add nsw i64 %153, -1
-  %155 = and i64 %154, 4294967295
-  %156 = getelementptr inbounds %struct.Node, ptr %12, i64 %155
-  %157 = getelementptr inbounds %struct.lua_TValue, ptr %156, i64 0, i32 1
-  %158 = load i32, ptr %157, align 8, !tbaa !21
-  %159 = icmp eq i32 %158, 0
-  br i1 %159, label %179, label %160
+149:                                              ; preds = %146, %176
+  %150 = phi i64 [ %148, %146 ], [ %151, %176 ]
+  %151 = add nsw i64 %150, -1
+  %152 = and i64 %151, 4294967295
+  %153 = getelementptr inbounds %struct.Node, ptr %12, i64 %152
+  %154 = getelementptr inbounds %struct.lua_TValue, ptr %153, i64 0, i32 1
+  %155 = load i32, ptr %154, align 8, !tbaa !21
+  %156 = icmp eq i32 %155, 0
+  br i1 %156, label %176, label %157
 
-160:                                              ; preds = %152
-  %161 = getelementptr inbounds %struct.Node, ptr %12, i64 %155, i32 1
-  %162 = call ptr @luaH_get(ptr noundef %1, ptr noundef nonnull %161)
-  store i8 0, ptr %150, align 2, !tbaa !28
-  %163 = icmp eq ptr %162, @luaO_nilobject_
-  br i1 %163, label %164, label %174
+157:                                              ; preds = %149
+  %158 = getelementptr inbounds %struct.Node, ptr %12, i64 %152, i32 1
+  %159 = call ptr @luaH_get(ptr noundef %1, ptr noundef nonnull %158)
+  store i8 0, ptr %147, align 2, !tbaa !28
+  %160 = icmp eq ptr %159, @luaO_nilobject_
+  br i1 %160, label %161, label %171
 
-164:                                              ; preds = %160
-  %165 = getelementptr inbounds %struct.lua_TValue, ptr %161, i64 0, i32 1
-  %166 = load i32, ptr %165, align 8, !tbaa !5
-  switch i32 %166, label %172 [
-    i32 0, label %170
-    i32 3, label %167
+161:                                              ; preds = %157
+  %162 = getelementptr inbounds %struct.lua_TValue, ptr %158, i64 0, i32 1
+  %163 = load i32, ptr %162, align 8, !tbaa !5
+  switch i32 %163, label %169 [
+    i32 0, label %167
+    i32 3, label %164
   ]
 
-167:                                              ; preds = %164
-  %168 = load double, ptr %161, align 8, !tbaa !10
-  %169 = fcmp ord double %168, 0.000000e+00
-  br i1 %169, label %172, label %170
+164:                                              ; preds = %161
+  %165 = load double, ptr %158, align 8, !tbaa !10
+  %166 = fcmp ord double %165, 0.000000e+00
+  br i1 %166, label %169, label %167
 
-170:                                              ; preds = %167, %164
-  %171 = phi ptr [ @.str, %164 ], [ @.str.1, %167 ]
-  call void (ptr, ptr, ...) @luaG_runerror(ptr noundef %0, ptr noundef nonnull %171) #7
-  br label %172
+167:                                              ; preds = %164, %161
+  %168 = phi ptr [ @.str, %161 ], [ @.str.1, %164 ]
+  call void (ptr, ptr, ...) @luaG_runerror(ptr noundef %0, ptr noundef nonnull %168) #7
+  br label %169
 
-172:                                              ; preds = %170, %167, %164
-  %173 = call fastcc ptr @newkey(ptr noundef %0, ptr noundef nonnull %1, ptr noundef nonnull %161)
-  br label %174
+169:                                              ; preds = %167, %161, %164
+  %170 = call fastcc ptr @newkey(ptr noundef %0, ptr noundef nonnull %1, ptr noundef nonnull %158)
+  br label %171
 
-174:                                              ; preds = %160, %172
-  %175 = phi ptr [ %173, %172 ], [ %162, %160 ]
-  %176 = load i64, ptr %156, align 8
-  store i64 %176, ptr %175, align 8
-  %177 = load i32, ptr %157, align 8, !tbaa !5
-  %178 = getelementptr inbounds %struct.lua_TValue, ptr %175, i64 0, i32 1
-  store i32 %177, ptr %178, align 8, !tbaa !5
-  br label %179
+171:                                              ; preds = %157, %169
+  %172 = phi ptr [ %170, %169 ], [ %159, %157 ]
+  %173 = load i64, ptr %153, align 8
+  store i64 %173, ptr %172, align 8
+  %174 = load i32, ptr %154, align 8, !tbaa !5
+  %175 = getelementptr inbounds %struct.lua_TValue, ptr %172, i64 0, i32 1
+  store i32 %174, ptr %175, align 8, !tbaa !5
+  br label %176
 
-179:                                              ; preds = %174, %152
-  %180 = trunc i64 %153 to i32
-  %181 = icmp sgt i32 %180, 1
-  br i1 %181, label %152, label %182, !llvm.loop !29
+176:                                              ; preds = %171, %149
+  %177 = trunc i64 %150 to i32
+  %178 = icmp sgt i32 %177, 1
+  br i1 %178, label %149, label %179, !llvm.loop !29
 
-182:                                              ; preds = %179, %146
-  %183 = icmp eq ptr %12, @dummynode_
-  br i1 %183, label %188, label %184
+179:                                              ; preds = %176, %143
+  %180 = icmp eq ptr %12, @dummynode_
+  br i1 %180, label %185, label %181
 
-184:                                              ; preds = %182
-  %185 = sext i32 %147 to i64
-  %186 = mul nsw i64 %185, 40
-  %187 = call ptr @luaM_realloc_(ptr noundef %0, ptr noundef %12, i64 noundef %186, i64 noundef 0) #7
-  br label %188
+181:                                              ; preds = %179
+  %182 = sext i32 %144 to i64
+  %183 = mul nsw i64 %182, 40
+  %184 = call ptr @luaM_realloc_(ptr noundef %0, ptr noundef %12, i64 noundef %183, i64 noundef 0) #7
+  br label %185
 
-188:                                              ; preds = %184, %182
+185:                                              ; preds = %181, %179
   ret void
 }
 
@@ -1435,7 +1427,7 @@ define internal fastcc ptr @newkey(ptr noundef %0, ptr noundef %1, ptr noundef %
   %169 = load i32, ptr %168, align 4, !tbaa !37
   %170 = add nsw i32 %169, %167
   store i32 %170, ptr %168, align 4, !tbaa !37
-  %171 = add nuw nsw i32 %167, %104
+  %171 = add nsw i32 %167, %104
   %172 = add nuw nsw i64 %102, 1
   %173 = shl nsw i32 %105, 1
   %174 = icmp eq i64 %172, 27
@@ -1592,7 +1584,7 @@ define internal fastcc ptr @newkey(ptr noundef %0, ptr noundef %1, ptr noundef %
   tail call void (ptr, ptr, ...) @luaG_runerror(ptr noundef %0, ptr noundef nonnull %278) #7
   br label %279
 
-279:                                              ; preds = %277, %274, %272
+279:                                              ; preds = %277, %272, %274
   br label %12
 
 280:                                              ; preds = %95

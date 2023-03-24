@@ -137,7 +137,7 @@ define hidden void @_Z8BM_emptyRN9benchmark5StateE(ptr noundef nonnull align 8 d
   %22 = add i64 %20, %21
   br label %23
 
-23:                                               ; preds = %17, %13
+23:                                               ; preds = %13, %17
   %24 = phi i64 [ %22, %17 ], [ 0, %13 ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %24) #8, !srcloc !32
   %25 = add i64 %14, -1
@@ -730,16 +730,16 @@ define hidden void @_Z14BM_KeepRunningRN9benchmark5StateE(ptr noundef nonnull al
   tail call void @__assert_fail(ptr noundef nonnull @.str.26, ptr noundef nonnull @.str.27, i32 noundef 101, ptr noundef nonnull @__PRETTY_FUNCTION__._Z14BM_KeepRunningRN9benchmark5StateE) #9
   unreachable
 
-20:                                               ; preds = %7, %33
-  %21 = phi i64 [ %35, %33 ], [ %8, %7 ]
-  %22 = phi i64 [ %36, %33 ], [ 0, %7 ]
+20:                                               ; preds = %7, %36
+  %21 = phi i64 [ %38, %36 ], [ %8, %7 ]
+  %22 = phi i64 [ %39, %36 ], [ 0, %7 ]
   %23 = icmp eq i64 %21, 0
-  br i1 %23, label %24, label %33, !prof !27
+  br i1 %23, label %24, label %36, !prof !27
 
 24:                                               ; preds = %20
   %25 = load i8, ptr %2, align 8, !tbaa !28, !range !25, !noundef !26
   %26 = icmp eq i8 %25, 0
-  br i1 %26, label %27, label %37
+  br i1 %26, label %27, label %33
 
 27:                                               ; preds = %24
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
@@ -748,22 +748,22 @@ define hidden void @_Z14BM_KeepRunningRN9benchmark5StateE(ptr noundef nonnull al
   %30 = load i64, ptr %0, align 8
   %31 = icmp eq i64 %30, 0
   %32 = select i1 %29, i1 true, i1 %31
-  br i1 %32, label %37, label %33
+  br i1 %32, label %33, label %36
 
-33:                                               ; preds = %27, %20
-  %34 = phi i64 [ %21, %20 ], [ %30, %27 ]
-  %35 = add i64 %34, -1
-  store i64 %35, ptr %0, align 8, !tbaa !30
-  %36 = add i64 %22, 1
+33:                                               ; preds = %27, %24
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %34 = load i8, ptr %2, align 8, !tbaa !28, !range !25, !noundef !26
+  %35 = icmp eq i8 %34, 0
+  br i1 %35, label %48, label %40, !prof !27
+
+36:                                               ; preds = %27, %20
+  %37 = phi i64 [ %21, %20 ], [ %30, %27 ]
+  %38 = add i64 %37, -1
+  store i64 %38, ptr %0, align 8, !tbaa !30
+  %39 = add i64 %22, 1
   br label %20, !llvm.loop !49
 
-37:                                               ; preds = %27, %24
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %38 = load i8, ptr %2, align 8, !tbaa !28, !range !25, !noundef !26
-  %39 = icmp eq i8 %38, 0
-  br i1 %39, label %48, label %40, !prof !27
-
-40:                                               ; preds = %37
+40:                                               ; preds = %33
   %41 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %42 = load i64, ptr %41, align 8, !tbaa !29
   %43 = load i64, ptr %0, align 8, !tbaa !30
@@ -773,8 +773,8 @@ define hidden void @_Z14BM_KeepRunningRN9benchmark5StateE(ptr noundef nonnull al
   %47 = add i64 %44, %46
   br label %48
 
-48:                                               ; preds = %37, %40
-  %49 = phi i64 [ %47, %40 ], [ 0, %37 ]
+48:                                               ; preds = %33, %40
+  %49 = phi i64 [ %47, %40 ], [ 0, %33 ]
   %50 = icmp eq i64 %22, %49
   br i1 %50, label %52, label %51
 
@@ -797,15 +797,15 @@ define hidden void @_Z19BM_KeepRunningBatchRN9benchmark5StateE(ptr noundef nonnu
   %5 = load i64, ptr %0, align 8, !tbaa !30
   br label %6
 
-6:                                                ; preds = %28, %1
-  %7 = phi i64 [ %5, %1 ], [ %29, %28 ]
-  %8 = phi i64 [ 0, %1 ], [ %30, %28 ]
+6:                                                ; preds = %31, %1
+  %7 = phi i64 [ %5, %1 ], [ %32, %31 ]
+  %8 = phi i64 [ 0, %1 ], [ %33, %31 ]
   %9 = icmp ult i64 %7, 1009
   br i1 %9, label %12, label %10, !prof !27
 
 10:                                               ; preds = %6
   %11 = add i64 %7, -1009
-  br label %28
+  br label %31
 
 12:                                               ; preds = %6
   %13 = load i8, ptr %2, align 8, !tbaa !28, !range !25, !noundef !26
@@ -823,31 +823,31 @@ define hidden void @_Z19BM_KeepRunningBatchRN9benchmark5StateE(ptr noundef nonnu
 
 21:                                               ; preds = %15
   %22 = add i64 %18, -1009
-  br label %28
+  br label %31
 
 23:                                               ; preds = %15, %12
   %24 = phi i64 [ %7, %12 ], [ %18, %15 ]
   %25 = icmp eq i64 %24, 0
-  br i1 %25, label %31, label %26
+  br i1 %25, label %28, label %26
 
 26:                                               ; preds = %23
   %27 = sub i64 1009, %24
   store i64 %27, ptr %4, align 8, !tbaa !31
-  br label %28
+  br label %31
 
-28:                                               ; preds = %10, %26, %21
-  %29 = phi i64 [ %11, %10 ], [ 0, %26 ], [ %22, %21 ]
-  store i64 %29, ptr %0, align 8, !tbaa !30
-  %30 = add i64 %8, 1009
+28:                                               ; preds = %23
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
+  %29 = load i8, ptr %2, align 8, !tbaa !28, !range !25, !noundef !26
+  %30 = icmp eq i8 %29, 0
+  br i1 %30, label %41, label %34, !prof !27
+
+31:                                               ; preds = %21, %26, %10
+  %32 = phi i64 [ %22, %21 ], [ 0, %26 ], [ %11, %10 ]
+  store i64 %32, ptr %0, align 8, !tbaa !30
+  %33 = add i64 %8, 1009
   br label %6, !llvm.loop !50
 
-31:                                               ; preds = %23
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %32 = load i8, ptr %2, align 8, !tbaa !28, !range !25, !noundef !26
-  %33 = icmp eq i8 %32, 0
-  br i1 %33, label %41, label %34, !prof !27
-
-34:                                               ; preds = %31
+34:                                               ; preds = %28
   %35 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 2
   %36 = load i64, ptr %35, align 8, !tbaa !29
   %37 = load i64, ptr %0, align 8, !tbaa !30
@@ -856,8 +856,8 @@ define hidden void @_Z19BM_KeepRunningBatchRN9benchmark5StateE(ptr noundef nonnu
   %40 = add i64 %38, %39
   br label %41
 
-41:                                               ; preds = %31, %34
-  %42 = phi i64 [ %40, %34 ], [ 0, %31 ]
+41:                                               ; preds = %28, %34
+  %42 = phi i64 [ %40, %34 ], [ 0, %28 ]
   %43 = icmp eq i64 %42, %8
   br i1 %43, label %45, label %44
 

@@ -3074,16 +3074,16 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   %215 = getelementptr inbounds %struct.img_par, ptr %0, i64 0, i32 106
   %216 = load i32, ptr %215, align 8, !tbaa !47
   %217 = icmp eq i32 %202, 0
-  %218 = sext i32 %1 to i64
-  %219 = getelementptr inbounds ptr, ptr %8, i64 %218
-  %220 = getelementptr inbounds %struct.pix_pos, ptr %4, i64 0, i32 5
-  %221 = load i32, ptr %220, align 4
-  %222 = sext i32 %221 to i64
-  %223 = getelementptr inbounds %struct.pix_pos, ptr %4, i64 0, i32 4
-  %224 = load i32, ptr %223, align 4
-  %225 = icmp eq i32 %203, 0
+  %218 = icmp eq i32 %203, 0
+  %219 = sext i32 %1 to i64
+  %220 = getelementptr inbounds ptr, ptr %8, i64 %219
+  %221 = getelementptr inbounds %struct.pix_pos, ptr %4, i64 0, i32 5
+  %222 = load i32, ptr %221, align 4
+  %223 = sext i32 %222 to i64
+  %224 = getelementptr inbounds %struct.pix_pos, ptr %4, i64 0, i32 4
+  %225 = load i32, ptr %224, align 4
   %226 = icmp eq i32 %204, 0
-  %227 = sext i32 %224 to i64
+  %227 = sext i32 %225 to i64
   %228 = zext i32 %211 to i64
   br label %229
 
@@ -3108,8 +3108,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %249, label %239
 
 239:                                              ; preds = %238
-  %240 = load ptr, ptr %219, align 8, !tbaa !5
-  %241 = getelementptr inbounds ptr, ptr %240, i64 %222
+  %240 = load ptr, ptr %220, align 8, !tbaa !5
+  %241 = getelementptr inbounds ptr, ptr %240, i64 %223
   %242 = load ptr, ptr %241, align 8, !tbaa !5
   %243 = zext i8 %234 to i64
   %244 = add nsw i64 %227, %243
@@ -3123,7 +3123,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %226, label %538, label %250
 
 250:                                              ; preds = %249
-  %251 = load ptr, ptr %219, align 8, !tbaa !5
+  %251 = load ptr, ptr %220, align 8, !tbaa !5
   br label %252
 
 252:                                              ; preds = %250, %239
@@ -3206,8 +3206,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %226, label %538, label %331
 
 319:                                              ; preds = %317
-  %320 = load ptr, ptr %219, align 8, !tbaa !5
-  %321 = getelementptr inbounds ptr, ptr %320, i64 %222
+  %320 = load ptr, ptr %220, align 8, !tbaa !5
+  %321 = getelementptr inbounds ptr, ptr %320, i64 %223
   %322 = load ptr, ptr %321, align 8, !tbaa !5
   %323 = zext i8 %234 to i64
   %324 = add nsw i64 %227, %323
@@ -3220,7 +3220,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br label %536
 
 331:                                              ; preds = %318
-  %332 = load ptr, ptr %219, align 8, !tbaa !5
+  %332 = load ptr, ptr %220, align 8, !tbaa !5
   %333 = zext i8 %232 to i64
   %334 = add nuw nsw i64 %333, 1
   %335 = getelementptr inbounds [17 x %struct.pix_pos], ptr %5, i64 0, i64 %334, i32 5
@@ -3278,13 +3278,13 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br label %536
 
 387:                                              ; preds = %229
-  br i1 %225, label %388, label %389
+  br i1 %218, label %388, label %389
 
 388:                                              ; preds = %387
   br i1 %217, label %538, label %445
 
 389:                                              ; preds = %387
-  %390 = load ptr, ptr %219, align 8, !tbaa !5
+  %390 = load ptr, ptr %220, align 8, !tbaa !5
   %391 = zext i8 %232 to i64
   %392 = add nuw nsw i64 %391, 1
   %393 = getelementptr inbounds [17 x %struct.pix_pos], ptr %5, i64 0, i64 %392, i32 5
@@ -3342,8 +3342,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br label %536
 
 445:                                              ; preds = %388
-  %446 = load ptr, ptr %219, align 8, !tbaa !5
-  %447 = getelementptr inbounds ptr, ptr %446, i64 %222
+  %446 = load ptr, ptr %220, align 8, !tbaa !5
+  %447 = getelementptr inbounds ptr, ptr %446, i64 %223
   %448 = load ptr, ptr %447, align 8, !tbaa !5
   %449 = zext i8 %234 to i64
   %450 = add nsw i64 %227, %449
@@ -3359,8 +3359,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %468, label %458
 
 458:                                              ; preds = %457
-  %459 = load ptr, ptr %219, align 8, !tbaa !5
-  %460 = getelementptr inbounds ptr, ptr %459, i64 %222
+  %459 = load ptr, ptr %220, align 8, !tbaa !5
+  %460 = getelementptr inbounds ptr, ptr %459, i64 %223
   %461 = load ptr, ptr %460, align 8, !tbaa !5
   %462 = zext i8 %234 to i64
   %463 = add nsw i64 %227, %462
@@ -3368,13 +3368,13 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   %465 = load <4 x i16>, ptr %464, align 2, !tbaa !28
   %466 = zext <4 x i16> %465 to <4 x i32>
   %467 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %466)
-  br i1 %225, label %530, label %471
+  br i1 %218, label %530, label %471
 
 468:                                              ; preds = %457
-  br i1 %225, label %538, label %469
+  br i1 %218, label %538, label %469
 
 469:                                              ; preds = %468
-  %470 = load ptr, ptr %219, align 8, !tbaa !5
+  %470 = load ptr, ptr %220, align 8, !tbaa !5
   br label %471
 
 471:                                              ; preds = %469, %458
@@ -3475,8 +3475,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %560, label %547
 
 547:                                              ; preds = %546
-  %548 = load ptr, ptr %219, align 8, !tbaa !5
-  %549 = getelementptr inbounds ptr, ptr %548, i64 %222
+  %548 = load ptr, ptr %220, align 8, !tbaa !5
+  %549 = getelementptr inbounds ptr, ptr %548, i64 %223
   %550 = load ptr, ptr %549, align 8, !tbaa !5
   %551 = zext i8 %542 to i64
   %552 = add nsw i64 %227, %551
@@ -3484,7 +3484,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   %554 = load <4 x i16>, ptr %553, align 2, !tbaa !28
   %555 = zext <4 x i16> %554 to <4 x i32>
   %556 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %555)
-  br i1 %225, label %557, label %563
+  br i1 %218, label %557, label %563
 
 557:                                              ; preds = %547
   %558 = add nuw nsw i32 %556, 2
@@ -3492,10 +3492,10 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br label %844
 
 560:                                              ; preds = %546
-  br i1 %225, label %846, label %561
+  br i1 %218, label %846, label %561
 
 561:                                              ; preds = %560
-  %562 = load ptr, ptr %219, align 8, !tbaa !5
+  %562 = load ptr, ptr %220, align 8, !tbaa !5
   br label %563
 
 563:                                              ; preds = %561, %547
@@ -3567,10 +3567,10 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br label %844
 
 625:                                              ; preds = %538
-  br i1 %225, label %682, label %626
+  br i1 %218, label %682, label %626
 
 626:                                              ; preds = %625
-  %627 = load ptr, ptr %219, align 8, !tbaa !5
+  %627 = load ptr, ptr %220, align 8, !tbaa !5
   %628 = zext i8 %540 to i64
   %629 = add nuw nsw i64 %628, 1
   %630 = getelementptr inbounds [17 x %struct.pix_pos], ptr %5, i64 0, i64 %629, i32 5
@@ -3631,8 +3631,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %846, label %683
 
 683:                                              ; preds = %682
-  %684 = load ptr, ptr %219, align 8, !tbaa !5
-  %685 = getelementptr inbounds ptr, ptr %684, i64 %222
+  %684 = load ptr, ptr %220, align 8, !tbaa !5
+  %685 = getelementptr inbounds ptr, ptr %684, i64 %223
   %686 = load ptr, ptr %685, align 8, !tbaa !5
   %687 = zext i8 %542 to i64
   %688 = add nsw i64 %227, %687
@@ -3648,8 +3648,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %708, label %696
 
 696:                                              ; preds = %695
-  %697 = load ptr, ptr %219, align 8, !tbaa !5
-  %698 = getelementptr inbounds ptr, ptr %697, i64 %222
+  %697 = load ptr, ptr %220, align 8, !tbaa !5
+  %698 = getelementptr inbounds ptr, ptr %697, i64 %223
   %699 = load ptr, ptr %698, align 8, !tbaa !5
   %700 = zext i8 %542 to i64
   %701 = add nsw i64 %227, %700
@@ -3665,7 +3665,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %226, label %846, label %709
 
 709:                                              ; preds = %708
-  %710 = load ptr, ptr %219, align 8, !tbaa !5
+  %710 = load ptr, ptr %220, align 8, !tbaa !5
   %711 = zext i8 %540 to i64
   %712 = add nuw nsw i64 %711, 1
   %713 = getelementptr inbounds [17 x %struct.pix_pos], ptr %5, i64 0, i64 %712, i32 5
@@ -3726,8 +3726,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %779, label %766
 
 766:                                              ; preds = %765
-  %767 = load ptr, ptr %219, align 8, !tbaa !5
-  %768 = getelementptr inbounds ptr, ptr %767, i64 %222
+  %767 = load ptr, ptr %220, align 8, !tbaa !5
+  %768 = getelementptr inbounds ptr, ptr %767, i64 %223
   %769 = load ptr, ptr %768, align 8, !tbaa !5
   %770 = zext i8 %542 to i64
   %771 = add nsw i64 %227, %770
@@ -3746,7 +3746,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %226, label %846, label %780
 
 780:                                              ; preds = %779
-  %781 = load ptr, ptr %219, align 8, !tbaa !5
+  %781 = load ptr, ptr %220, align 8, !tbaa !5
   br label %782
 
 782:                                              ; preds = %780, %766
@@ -3842,8 +3842,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %868, label %855
 
 855:                                              ; preds = %854
-  %856 = load ptr, ptr %219, align 8, !tbaa !5
-  %857 = getelementptr inbounds ptr, ptr %856, i64 %222
+  %856 = load ptr, ptr %220, align 8, !tbaa !5
+  %857 = getelementptr inbounds ptr, ptr %856, i64 %223
   %858 = load ptr, ptr %857, align 8, !tbaa !5
   %859 = zext i8 %850 to i64
   %860 = add nsw i64 %227, %859
@@ -3851,7 +3851,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   %862 = load <4 x i16>, ptr %861, align 2, !tbaa !28
   %863 = zext <4 x i16> %862 to <4 x i32>
   %864 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %863)
-  br i1 %225, label %865, label %871
+  br i1 %218, label %865, label %871
 
 865:                                              ; preds = %855
   %866 = add nuw nsw i32 %864, 2
@@ -3859,10 +3859,10 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br label %1152
 
 868:                                              ; preds = %854
-  br i1 %225, label %1154, label %869
+  br i1 %218, label %1154, label %869
 
 869:                                              ; preds = %868
-  %870 = load ptr, ptr %219, align 8, !tbaa !5
+  %870 = load ptr, ptr %220, align 8, !tbaa !5
   br label %871
 
 871:                                              ; preds = %869, %855
@@ -3934,10 +3934,10 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br label %1152
 
 933:                                              ; preds = %846
-  br i1 %225, label %990, label %934
+  br i1 %218, label %990, label %934
 
 934:                                              ; preds = %933
-  %935 = load ptr, ptr %219, align 8, !tbaa !5
+  %935 = load ptr, ptr %220, align 8, !tbaa !5
   %936 = zext i8 %848 to i64
   %937 = add nuw nsw i64 %936, 1
   %938 = getelementptr inbounds [17 x %struct.pix_pos], ptr %5, i64 0, i64 %937, i32 5
@@ -3998,8 +3998,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %1154, label %991
 
 991:                                              ; preds = %990
-  %992 = load ptr, ptr %219, align 8, !tbaa !5
-  %993 = getelementptr inbounds ptr, ptr %992, i64 %222
+  %992 = load ptr, ptr %220, align 8, !tbaa !5
+  %993 = getelementptr inbounds ptr, ptr %992, i64 %223
   %994 = load ptr, ptr %993, align 8, !tbaa !5
   %995 = zext i8 %850 to i64
   %996 = add nsw i64 %227, %995
@@ -4015,8 +4015,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %1016, label %1004
 
 1004:                                             ; preds = %1003
-  %1005 = load ptr, ptr %219, align 8, !tbaa !5
-  %1006 = getelementptr inbounds ptr, ptr %1005, i64 %222
+  %1005 = load ptr, ptr %220, align 8, !tbaa !5
+  %1006 = getelementptr inbounds ptr, ptr %1005, i64 %223
   %1007 = load ptr, ptr %1006, align 8, !tbaa !5
   %1008 = zext i8 %850 to i64
   %1009 = add nsw i64 %227, %1008
@@ -4032,7 +4032,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %226, label %1154, label %1017
 
 1017:                                             ; preds = %1016
-  %1018 = load ptr, ptr %219, align 8, !tbaa !5
+  %1018 = load ptr, ptr %220, align 8, !tbaa !5
   %1019 = zext i8 %848 to i64
   %1020 = add nuw nsw i64 %1019, 1
   %1021 = getelementptr inbounds [17 x %struct.pix_pos], ptr %5, i64 0, i64 %1020, i32 5
@@ -4093,8 +4093,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %1087, label %1074
 
 1074:                                             ; preds = %1073
-  %1075 = load ptr, ptr %219, align 8, !tbaa !5
-  %1076 = getelementptr inbounds ptr, ptr %1075, i64 %222
+  %1075 = load ptr, ptr %220, align 8, !tbaa !5
+  %1076 = getelementptr inbounds ptr, ptr %1075, i64 %223
   %1077 = load ptr, ptr %1076, align 8, !tbaa !5
   %1078 = zext i8 %850 to i64
   %1079 = add nsw i64 %227, %1078
@@ -4113,7 +4113,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %226, label %1154, label %1088
 
 1088:                                             ; preds = %1087
-  %1089 = load ptr, ptr %219, align 8, !tbaa !5
+  %1089 = load ptr, ptr %220, align 8, !tbaa !5
   br label %1090
 
 1090:                                             ; preds = %1088, %1074
@@ -4209,8 +4209,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %1176, label %1163
 
 1163:                                             ; preds = %1162
-  %1164 = load ptr, ptr %219, align 8, !tbaa !5
-  %1165 = getelementptr inbounds ptr, ptr %1164, i64 %222
+  %1164 = load ptr, ptr %220, align 8, !tbaa !5
+  %1165 = getelementptr inbounds ptr, ptr %1164, i64 %223
   %1166 = load ptr, ptr %1165, align 8, !tbaa !5
   %1167 = zext i8 %1158 to i64
   %1168 = add nsw i64 %227, %1167
@@ -4218,7 +4218,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   %1170 = load <4 x i16>, ptr %1169, align 2, !tbaa !28
   %1171 = zext <4 x i16> %1170 to <4 x i32>
   %1172 = call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %1171)
-  br i1 %225, label %1173, label %1179
+  br i1 %218, label %1173, label %1179
 
 1173:                                             ; preds = %1163
   %1174 = add nuw nsw i32 %1172, 2
@@ -4226,10 +4226,10 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br label %1460
 
 1176:                                             ; preds = %1162
-  br i1 %225, label %1462, label %1177
+  br i1 %218, label %1462, label %1177
 
 1177:                                             ; preds = %1176
-  %1178 = load ptr, ptr %219, align 8, !tbaa !5
+  %1178 = load ptr, ptr %220, align 8, !tbaa !5
   br label %1179
 
 1179:                                             ; preds = %1177, %1163
@@ -4301,10 +4301,10 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br label %1460
 
 1241:                                             ; preds = %1154
-  br i1 %225, label %1298, label %1242
+  br i1 %218, label %1298, label %1242
 
 1242:                                             ; preds = %1241
-  %1243 = load ptr, ptr %219, align 8, !tbaa !5
+  %1243 = load ptr, ptr %220, align 8, !tbaa !5
   %1244 = zext i8 %1156 to i64
   %1245 = add nuw nsw i64 %1244, 1
   %1246 = getelementptr inbounds [17 x %struct.pix_pos], ptr %5, i64 0, i64 %1245, i32 5
@@ -4365,8 +4365,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %1462, label %1299
 
 1299:                                             ; preds = %1298
-  %1300 = load ptr, ptr %219, align 8, !tbaa !5
-  %1301 = getelementptr inbounds ptr, ptr %1300, i64 %222
+  %1300 = load ptr, ptr %220, align 8, !tbaa !5
+  %1301 = getelementptr inbounds ptr, ptr %1300, i64 %223
   %1302 = load ptr, ptr %1301, align 8, !tbaa !5
   %1303 = zext i8 %1158 to i64
   %1304 = add nsw i64 %227, %1303
@@ -4382,8 +4382,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %1324, label %1312
 
 1312:                                             ; preds = %1311
-  %1313 = load ptr, ptr %219, align 8, !tbaa !5
-  %1314 = getelementptr inbounds ptr, ptr %1313, i64 %222
+  %1313 = load ptr, ptr %220, align 8, !tbaa !5
+  %1314 = getelementptr inbounds ptr, ptr %1313, i64 %223
   %1315 = load ptr, ptr %1314, align 8, !tbaa !5
   %1316 = zext i8 %1158 to i64
   %1317 = add nsw i64 %227, %1316
@@ -4399,7 +4399,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %226, label %1462, label %1325
 
 1325:                                             ; preds = %1324
-  %1326 = load ptr, ptr %219, align 8, !tbaa !5
+  %1326 = load ptr, ptr %220, align 8, !tbaa !5
   %1327 = zext i8 %1156 to i64
   %1328 = add nuw nsw i64 %1327, 1
   %1329 = getelementptr inbounds [17 x %struct.pix_pos], ptr %5, i64 0, i64 %1328, i32 5
@@ -4460,8 +4460,8 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %217, label %1395, label %1382
 
 1382:                                             ; preds = %1381
-  %1383 = load ptr, ptr %219, align 8, !tbaa !5
-  %1384 = getelementptr inbounds ptr, ptr %1383, i64 %222
+  %1383 = load ptr, ptr %220, align 8, !tbaa !5
+  %1384 = getelementptr inbounds ptr, ptr %1383, i64 %223
   %1385 = load ptr, ptr %1384, align 8, !tbaa !5
   %1386 = zext i8 %1158 to i64
   %1387 = add nsw i64 %227, %1386
@@ -4480,7 +4480,7 @@ define dso_local void @intrapred_chroma(ptr noundef %0, i32 noundef %1) local_un
   br i1 %226, label %1462, label %1396
 
 1396:                                             ; preds = %1395
-  %1397 = load ptr, ptr %219, align 8, !tbaa !5
+  %1397 = load ptr, ptr %220, align 8, !tbaa !5
   br label %1398
 
 1398:                                             ; preds = %1396, %1382
@@ -8879,9 +8879,6 @@ define dso_local void @itrans_sp_chroma(ptr nocapture noundef %0, i32 noundef %1
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -8889,6 +8886,9 @@ declare i32 @llvm.smin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.abs.i32(i32, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v16i32(<16 x i32>) #10

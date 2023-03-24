@@ -85,7 +85,7 @@ define dso_local i32 @next_data(ptr nocapture noundef %0) local_unnamed_addr #3 
   store i32 0, ptr %7, align 4
   %15 = load i32, ptr @ncol, align 4, !tbaa !5
   %16 = icmp ne i32 %14, %15
-  %17 = and i1 %10, %16
+  %17 = and i1 %16, %10
   br i1 %17, label %4, label %18, !llvm.loop !9
 
 18:                                               ; preds = %13, %11, %1
@@ -1281,32 +1281,32 @@ define dso_local ptr @make_play(i32 noundef %0) local_unnamed_addr #5 {
   %17 = phi ptr [ %111, %109 ], [ %8, %10 ]
   br label %18
 
-18:                                               ; preds = %15, %24
-  %19 = phi i64 [ 0, %15 ], [ %25, %24 ]
+18:                                               ; preds = %15, %28
+  %19 = phi i64 [ 0, %15 ], [ %29, %28 ]
   %20 = getelementptr inbounds i32, ptr %17, i64 %19
   %21 = load i32, ptr %20, align 4, !tbaa !5
   %22 = load i32, ptr @nrow, align 4, !tbaa !5
   %23 = icmp eq i32 %21, %22
-  br i1 %23, label %24, label %29
+  br i1 %23, label %28, label %24
 
 24:                                               ; preds = %18
-  %25 = add nuw i64 %19, 1
-  store i32 0, ptr %20, align 4
+  %25 = add nsw i32 %21, 1
+  store i32 %25, ptr %20, align 4
   %26 = load i32, ptr @ncol, align 4, !tbaa !5
-  %27 = zext i32 %26 to i64
-  %28 = icmp eq i64 %25, %27
-  br i1 %28, label %114, label %18, !llvm.loop !9
+  %27 = icmp eq i32 %26, 0
+  br i1 %27, label %46, label %33
 
-29:                                               ; preds = %18
-  %30 = add nsw i32 %21, 1
-  store i32 %30, ptr %20, align 4
-  %31 = load i32, ptr @ncol, align 4, !tbaa !5
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %46, label %33
+28:                                               ; preds = %18
+  %29 = add nuw i64 %19, 1
+  store i32 0, ptr %20, align 4
+  %30 = load i32, ptr @ncol, align 4, !tbaa !5
+  %31 = zext i32 %30 to i64
+  %32 = icmp eq i64 %29, %31
+  br i1 %32, label %114, label %18, !llvm.loop !9
 
-33:                                               ; preds = %29
+33:                                               ; preds = %24
   %34 = load i32, ptr @nrow, align 4, !tbaa !5
-  %35 = zext i32 %31 to i64
+  %35 = zext i32 %26 to i64
   br label %36
 
 36:                                               ; preds = %36, %33
@@ -1323,7 +1323,7 @@ define dso_local ptr @make_play(i32 noundef %0) local_unnamed_addr #5 {
 45:                                               ; preds = %36
   br i1 %41, label %46, label %109
 
-46:                                               ; preds = %29, %45
+46:                                               ; preds = %24, %45
   %47 = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #14
   %48 = getelementptr inbounds %struct._play, ptr %16, i64 0, i32 3
   store ptr %47, ptr %48, align 8, !tbaa !26
@@ -1336,20 +1336,20 @@ define dso_local ptr @make_play(i32 noundef %0) local_unnamed_addr #5 {
   br label %52
 
 52:                                               ; preds = %51, %46
-  %53 = sext i32 %31 to i64
+  %53 = sext i32 %26 to i64
   %54 = shl nsw i64 %53, 2
   %55 = tail call noalias ptr @malloc(i64 noundef %54) #14
-  br i1 %32, label %66, label %56
+  br i1 %27, label %66, label %56
 
 56:                                               ; preds = %52
-  %57 = add i32 %31, -1
+  %57 = add i32 %26, -1
   %58 = sext i32 %57 to i64
   %59 = zext i32 %57 to i64
   %60 = sub nsw i64 %58, %59
   %61 = shl nsw i64 %60, 2
   %62 = getelementptr i8, ptr %55, i64 %61
   %63 = getelementptr i8, ptr %17, i64 %61
-  %64 = zext i32 %31 to i64
+  %64 = zext i32 %26 to i64
   %65 = shl nuw nsw i64 %64, 2
   tail call void @llvm.memcpy.p0.p0.i64(ptr align 4 %62, ptr align 4 %63, i64 %65, i1 false), !tbaa !5
   br label %66
@@ -1376,30 +1376,30 @@ define dso_local ptr @make_play(i32 noundef %0) local_unnamed_addr #5 {
 
 78:                                               ; preds = %66
   tail call void @free(ptr noundef nonnull %17) #15
-  %79 = load i32, ptr @nrow, align 4, !tbaa !5
-  %80 = load i32, ptr @ncol, align 4, !tbaa !5
-  %81 = sext i32 %80 to i64
-  %82 = shl nsw i64 %81, 2
-  %83 = tail call noalias ptr @malloc(i64 noundef %82) #14
-  %84 = icmp eq i32 %80, 0
-  br i1 %84, label %114, label %85
+  %79 = load i32, ptr @ncol, align 4, !tbaa !5
+  %80 = sext i32 %79 to i64
+  %81 = shl nsw i64 %80, 2
+  %82 = tail call noalias ptr @malloc(i64 noundef %81) #14
+  %83 = icmp eq i32 %79, 0
+  br i1 %83, label %114, label %84
 
-85:                                               ; preds = %78
-  %86 = zext i32 %80 to i64
-  %87 = icmp ult i32 %80, 8
+84:                                               ; preds = %78
+  %85 = load i32, ptr @nrow, align 4, !tbaa !5
+  %86 = zext i32 %79 to i64
+  %87 = icmp ult i32 %79, 8
   br i1 %87, label %102, label %88
 
-88:                                               ; preds = %85
+88:                                               ; preds = %84
   %89 = and i64 %86, 4294967288
-  %90 = insertelement <4 x i32> poison, i32 %79, i64 0
+  %90 = insertelement <4 x i32> poison, i32 %85, i64 0
   %91 = shufflevector <4 x i32> %90, <4 x i32> poison, <4 x i32> zeroinitializer
-  %92 = insertelement <4 x i32> poison, i32 %79, i64 0
+  %92 = insertelement <4 x i32> poison, i32 %85, i64 0
   %93 = shufflevector <4 x i32> %92, <4 x i32> poison, <4 x i32> zeroinitializer
   br label %94
 
 94:                                               ; preds = %94, %88
   %95 = phi i64 [ 0, %88 ], [ %98, %94 ]
-  %96 = getelementptr inbounds i32, ptr %83, i64 %95
+  %96 = getelementptr inbounds i32, ptr %82, i64 %95
   store <4 x i32> %91, ptr %96, align 4, !tbaa !5
   %97 = getelementptr inbounds i32, ptr %96, i64 4
   store <4 x i32> %93, ptr %97, align 4, !tbaa !5
@@ -1411,26 +1411,26 @@ define dso_local ptr @make_play(i32 noundef %0) local_unnamed_addr #5 {
   %101 = icmp eq i64 %89, %86
   br i1 %101, label %109, label %102
 
-102:                                              ; preds = %85, %100
-  %103 = phi i64 [ 0, %85 ], [ %89, %100 ]
+102:                                              ; preds = %84, %100
+  %103 = phi i64 [ 0, %84 ], [ %89, %100 ]
   br label %104
 
 104:                                              ; preds = %102, %104
   %105 = phi i64 [ %107, %104 ], [ %103, %102 ]
-  %106 = getelementptr inbounds i32, ptr %83, i64 %105
-  store i32 %79, ptr %106, align 4, !tbaa !5
+  %106 = getelementptr inbounds i32, ptr %82, i64 %105
+  store i32 %85, ptr %106, align 4, !tbaa !5
   %107 = add nuw nsw i64 %105, 1
   %108 = icmp eq i64 %107, %86
   br i1 %108, label %109, label %104, !llvm.loop !51
 
 109:                                              ; preds = %104, %100, %76, %45
   %110 = phi i32 [ %77, %76 ], [ 1, %45 ], [ 1, %100 ], [ 1, %104 ]
-  %111 = phi ptr [ %17, %76 ], [ %17, %45 ], [ %83, %100 ], [ %83, %104 ]
+  %111 = phi ptr [ %17, %76 ], [ %17, %45 ], [ %82, %100 ], [ %82, %104 ]
   %112 = phi ptr [ %73, %76 ], [ %16, %45 ], [ %73, %100 ], [ %73, %104 ]
   %113 = icmp eq i32 %110, 0
   br i1 %113, label %114, label %15, !llvm.loop !52
 
-114:                                              ; preds = %78, %109, %24, %1
+114:                                              ; preds = %78, %109, %28, %1
   %115 = getelementptr inbounds %struct._play, ptr %4, i64 0, i32 3
   %116 = load ptr, ptr %115, align 8, !tbaa !26
   tail call void @free(ptr noundef %4) #15
@@ -2008,30 +2008,30 @@ define dso_local i32 @main() local_unnamed_addr #5 {
   %6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14)
   store i32 8, ptr @nrow, align 4, !tbaa !5
   %7 = tail call ptr @make_play(i32 noundef 1)
-  %8 = load i32, ptr @nrow, align 4, !tbaa !5
-  %9 = load i32, ptr @ncol, align 4, !tbaa !5
-  %10 = sext i32 %9 to i64
-  %11 = shl nsw i64 %10, 2
-  %12 = tail call noalias ptr @malloc(i64 noundef %11) #14
-  %13 = icmp eq i32 %9, 0
-  br i1 %13, label %38, label %14
+  %8 = load i32, ptr @ncol, align 4, !tbaa !5
+  %9 = sext i32 %8 to i64
+  %10 = shl nsw i64 %9, 2
+  %11 = tail call noalias ptr @malloc(i64 noundef %10) #14
+  %12 = icmp eq i32 %8, 0
+  br i1 %12, label %38, label %13
 
-14:                                               ; preds = %0
-  %15 = zext i32 %9 to i64
-  %16 = icmp ult i32 %9, 8
+13:                                               ; preds = %0
+  %14 = load i32, ptr @nrow, align 4, !tbaa !5
+  %15 = zext i32 %8 to i64
+  %16 = icmp ult i32 %8, 8
   br i1 %16, label %31, label %17
 
-17:                                               ; preds = %14
+17:                                               ; preds = %13
   %18 = and i64 %15, 4294967288
-  %19 = insertelement <4 x i32> poison, i32 %8, i64 0
+  %19 = insertelement <4 x i32> poison, i32 %14, i64 0
   %20 = shufflevector <4 x i32> %19, <4 x i32> poison, <4 x i32> zeroinitializer
-  %21 = insertelement <4 x i32> poison, i32 %8, i64 0
+  %21 = insertelement <4 x i32> poison, i32 %14, i64 0
   %22 = shufflevector <4 x i32> %21, <4 x i32> poison, <4 x i32> zeroinitializer
   br label %23
 
 23:                                               ; preds = %23, %17
   %24 = phi i64 [ 0, %17 ], [ %27, %23 ]
-  %25 = getelementptr inbounds i32, ptr %12, i64 %24
+  %25 = getelementptr inbounds i32, ptr %11, i64 %24
   store <4 x i32> %20, ptr %25, align 4, !tbaa !5
   %26 = getelementptr inbounds i32, ptr %25, i64 4
   store <4 x i32> %22, ptr %26, align 4, !tbaa !5
@@ -2043,29 +2043,29 @@ define dso_local i32 @main() local_unnamed_addr #5 {
   %30 = icmp eq i64 %18, %15
   br i1 %30, label %40, label %31
 
-31:                                               ; preds = %14, %29
-  %32 = phi i64 [ 0, %14 ], [ %18, %29 ]
+31:                                               ; preds = %13, %29
+  %32 = phi i64 [ 0, %13 ], [ %18, %29 ]
   br label %33
 
 33:                                               ; preds = %31, %33
   %34 = phi i64 [ %36, %33 ], [ %32, %31 ]
-  %35 = getelementptr inbounds i32, ptr %12, i64 %34
-  store i32 %8, ptr %35, align 4, !tbaa !5
+  %35 = getelementptr inbounds i32, ptr %11, i64 %34
+  store i32 %14, ptr %35, align 4, !tbaa !5
   %36 = add nuw nsw i64 %34, 1
   %37 = icmp eq i64 %36, %15
   br i1 %37, label %40, label %33, !llvm.loop !65
 
 38:                                               ; preds = %0
-  %39 = icmp eq ptr %12, null
+  %39 = icmp eq ptr %11, null
   br i1 %39, label %128, label %40
 
 40:                                               ; preds = %33, %29, %38
   br label %41
 
 41:                                               ; preds = %40, %123
-  %42 = phi i32 [ %127, %123 ], [ %9, %40 ]
+  %42 = phi i32 [ %127, %123 ], [ %8, %40 ]
   %43 = phi i32 [ %126, %123 ], [ 0, %40 ]
-  %44 = phi ptr [ %101, %123 ], [ %12, %40 ]
+  %44 = phi ptr [ %101, %123 ], [ %11, %40 ]
   %45 = sext i32 %42 to i64
   br label %46
 
@@ -2200,11 +2200,11 @@ define dso_local i32 @main() local_unnamed_addr #5 {
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #8
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
@@ -2220,8 +2220,8 @@ attributes #7 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapp
 attributes #8 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree nounwind memory(readwrite, argmem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nofree nounwind }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #12 = { nofree nounwind }
 attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #14 = { nounwind allocsize(0) }
 attributes #15 = { nounwind }

@@ -1341,12 +1341,12 @@ define internal fastcc void @p_ere(ptr noundef %0, i32 noundef %1) unnamed_addr 
   store ptr @nuls, ptr %5, align 8, !tbaa !17
   br label %287
 
-287:                                              ; preds = %286, %273, %271, %30
+287:                                              ; preds = %271, %273, %286, %30
   call fastcc void @ordinary(ptr noundef nonnull %0, i32 noundef %34)
   br label %288
 
-288:                                              ; preds = %253, %231, %287, %266, %258, %230, %223, %218, %206, %171, %143, %138, %130
-  %289 = phi i1 [ true, %230 ], [ true, %287 ], [ true, %266 ], [ true, %258 ], [ true, %223 ], [ true, %218 ], [ true, %206 ], [ false, %171 ], [ true, %143 ], [ true, %138 ], [ true, %130 ], [ true, %231 ], [ true, %253 ]
+288:                                              ; preds = %253, %231, %130, %138, %287, %266, %258, %230, %223, %218, %206, %171, %143
+  %289 = phi i1 [ true, %287 ], [ true, %266 ], [ true, %258 ], [ true, %230 ], [ true, %223 ], [ true, %218 ], [ true, %206 ], [ false, %171 ], [ true, %143 ], [ true, %138 ], [ true, %130 ], [ true, %231 ], [ true, %253 ]
   %290 = load ptr, ptr %0, align 8, !tbaa !16
   %291 = load ptr, ptr %5, align 8, !tbaa !17
   %292 = icmp ult ptr %290, %291
@@ -1378,7 +1378,7 @@ define internal fastcc void @p_ere(ptr noundef %0, i32 noundef %1) unnamed_addr 
   %307 = icmp eq i16 %306, 0
   br i1 %307, label %689, label %308
 
-308:                                              ; preds = %299, %293, %293, %293
+308:                                              ; preds = %293, %293, %293, %299
   %309 = getelementptr inbounds i8, ptr %290, i64 1
   store ptr %309, ptr %0, align 8, !tbaa !16
   br i1 %289, label %315, label %310
@@ -1930,9 +1930,9 @@ define internal fastcc void @p_ere(ptr noundef %0, i32 noundef %1) unnamed_addr 
   store ptr @nuls, ptr %5, align 8, !tbaa !17
   br label %634
 
-634:                                              ; preds = %631, %622, %571, %568, %566
-  %635 = phi i32 [ %557, %622 ], [ %557, %571 ], [ %557, %566 ], [ %557, %568 ], [ %632, %631 ]
-  %636 = phi i32 [ %623, %622 ], [ 256, %571 ], [ %557, %566 ], [ %557, %568 ], [ %633, %631 ]
+634:                                              ; preds = %631, %566, %568, %571, %622
+  %635 = phi i32 [ %557, %622 ], [ %557, %571 ], [ %557, %568 ], [ %557, %566 ], [ %632, %631 ]
+  %636 = phi i32 [ %623, %622 ], [ 256, %571 ], [ %557, %568 ], [ %557, %566 ], [ %633, %631 ]
   call fastcc void @repeat(ptr noundef nonnull %0, i64 noundef %33, i32 noundef %635, i32 noundef %636)
   %637 = load ptr, ptr %0, align 8, !tbaa !16
   %638 = load ptr, ptr %5, align 8, !tbaa !17
@@ -1988,7 +1988,7 @@ define internal fastcc void @p_ere(ptr noundef %0, i32 noundef %1) unnamed_addr 
   store ptr @nuls, ptr %5, align 8, !tbaa !17
   br label %666
 
-666:                                              ; preds = %478, %447, %418, %520, %487, %412, %385, %379, %353, %665, %644, %315
+666:                                              ; preds = %478, %447, %418, %487, %520, %412, %385, %379, %353, %665, %644, %315
   %667 = load ptr, ptr %0, align 8, !tbaa !16
   %668 = load ptr, ptr %5, align 8, !tbaa !17
   %669 = icmp ult ptr %667, %668
@@ -2019,7 +2019,7 @@ define internal fastcc void @p_ere(ptr noundef %0, i32 noundef %1) unnamed_addr 
   %683 = icmp eq i16 %682, 0
   br i1 %683, label %689, label %684
 
-684:                                              ; preds = %675, %670, %670, %670
+684:                                              ; preds = %670, %670, %670, %675
   %685 = load i32, ptr %6, align 8, !tbaa !18
   %686 = icmp eq i32 %685, 0
   br i1 %686, label %687, label %688
@@ -2033,9 +2033,9 @@ define internal fastcc void @p_ere(ptr noundef %0, i32 noundef %1) unnamed_addr 
   store ptr @nuls, ptr %5, align 8, !tbaa !17
   br label %693
 
-689:                                              ; preds = %288, %293, %296, %299, %666, %670, %672, %675
-  %690 = phi ptr [ %291, %288 ], [ %291, %293 ], [ %291, %296 ], [ %291, %299 ], [ %668, %666 ], [ %668, %670 ], [ %668, %672 ], [ %668, %675 ]
-  %691 = phi ptr [ %290, %288 ], [ %290, %293 ], [ %290, %296 ], [ %290, %299 ], [ %667, %666 ], [ %667, %670 ], [ %667, %672 ], [ %667, %675 ]
+689:                                              ; preds = %672, %675, %670, %666, %296, %299, %293, %288
+  %690 = phi ptr [ %668, %672 ], [ %668, %675 ], [ %668, %670 ], [ %668, %666 ], [ %291, %296 ], [ %291, %299 ], [ %291, %293 ], [ %291, %288 ]
+  %691 = phi ptr [ %667, %672 ], [ %667, %675 ], [ %667, %670 ], [ %667, %666 ], [ %290, %296 ], [ %290, %299 ], [ %290, %293 ], [ %290, %288 ]
   %692 = icmp ult ptr %691, %690
   br i1 %692, label %22, label %693, !llvm.loop !62
 
@@ -2847,17 +2847,17 @@ define internal fastcc void @p_bre(ptr noundef %0, i32 noundef %1, i32 noundef %
   %305 = getelementptr inbounds %struct.parse, ptr %0, i64 0, i32 8, i64 %270
   %306 = load i64, ptr %305, align 8, !tbaa !30
   %307 = add nsw i64 %306, 1
-  %308 = icmp eq i64 %304, %307
-  br i1 %308, label %333, label %309
+  %308 = sub nsw i64 %304, %307
+  %309 = icmp eq i64 %304, %307
+  br i1 %309, label %333, label %310
 
-309:                                              ; preds = %303
-  %310 = sub nsw i64 %304, %307
+310:                                              ; preds = %303
   %311 = load i64, ptr %67, align 8, !tbaa !12
-  %312 = add nsw i64 %311, %310
-  %313 = icmp sgt i64 %310, 0
+  %312 = add nsw i64 %311, %308
+  %313 = icmp sgt i64 %308, 0
   br i1 %313, label %314, label %325
 
-314:                                              ; preds = %309
+314:                                              ; preds = %310
   %315 = load ptr, ptr %68, align 8, !tbaa !14
   %316 = shl i64 %312, 3
   %317 = call ptr @cli_realloc(ptr noundef %315, i64 noundef %316) #11
@@ -2883,15 +2883,15 @@ define internal fastcc void @p_bre(ptr noundef %0, i32 noundef %1, i32 noundef %
   store i64 %312, ptr %67, align 8, !tbaa !12
   br label %325
 
-325:                                              ; preds = %324, %323, %309
+325:                                              ; preds = %324, %323, %310
   %326 = load ptr, ptr %68, align 8, !tbaa !14
   %327 = load i64, ptr %5, align 8, !tbaa !29
   %328 = getelementptr inbounds i64, ptr %326, i64 %327
   %329 = getelementptr inbounds i64, ptr %326, i64 %307
-  %330 = shl i64 %310, 3
+  %330 = shl i64 %308, 3
   call void @llvm.memmove.p0.p0.i64(ptr align 1 %328, ptr align 1 %329, i64 %330, i1 false)
   %331 = load i64, ptr %5, align 8, !tbaa !29
-  %332 = add nsw i64 %331, %310
+  %332 = add nsw i64 %331, %308
   store i64 %332, ptr %5, align 8, !tbaa !29
   br label %333
 
@@ -2984,13 +2984,13 @@ define internal fastcc void @p_bre(ptr noundef %0, i32 noundef %1, i32 noundef %
   store ptr @nuls, ptr %8, align 8, !tbaa !17
   br label %374
 
-374:                                              ; preds = %373, %368, %109
+374:                                              ; preds = %368, %373, %109
   %375 = shl i32 %113, 24
   %376 = ashr exact i32 %375, 24
   call fastcc void @ordinary(ptr noundef nonnull %0, i32 noundef %376)
   br label %377
 
-377:                                              ; preds = %143, %121, %374, %365, %266, %261, %255, %153, %148, %120
+377:                                              ; preds = %255, %261, %143, %121, %374, %365, %266, %153, %148, %120
   %378 = load ptr, ptr %0, align 8, !tbaa !16
   %379 = load ptr, ptr %8, align 8, !tbaa !17
   %380 = icmp ult ptr %378, %379
@@ -3293,9 +3293,9 @@ define internal fastcc void @p_bre(ptr noundef %0, i32 noundef %1, i32 noundef %
   store ptr @nuls, ptr %8, align 8, !tbaa !17
   br label %567
 
-567:                                              ; preds = %564, %556, %509, %506, %503, %501
-  %568 = phi i32 [ %492, %556 ], [ %492, %509 ], [ %492, %506 ], [ %492, %501 ], [ %492, %503 ], [ %565, %564 ]
-  %569 = phi i32 [ %546, %556 ], [ 256, %509 ], [ 256, %506 ], [ %492, %501 ], [ %492, %503 ], [ %566, %564 ]
+567:                                              ; preds = %564, %501, %503, %506, %509, %556
+  %568 = phi i32 [ %492, %556 ], [ %492, %509 ], [ %492, %506 ], [ %492, %503 ], [ %492, %501 ], [ %565, %564 ]
+  %569 = phi i32 [ %546, %556 ], [ 256, %509 ], [ 256, %506 ], [ %492, %503 ], [ %492, %501 ], [ %566, %564 ]
   call fastcc void @repeat(ptr noundef nonnull %0, i64 noundef %112, i32 noundef %568, i32 noundef %569)
   %570 = load ptr, ptr %0, align 8, !tbaa !16
   %571 = load ptr, ptr %8, align 8, !tbaa !17
@@ -3345,7 +3345,7 @@ define internal fastcc void @p_bre(ptr noundef %0, i32 noundef %1, i32 noundef %
   %598 = icmp eq i8 %597, 125
   br i1 %598, label %604, label %599
 
-599:                                              ; preds = %596, %593, %589
+599:                                              ; preds = %593, %589, %596
   store ptr %591, ptr %0, align 8, !tbaa !16
   %600 = icmp eq ptr %591, %588
   br i1 %600, label %601, label %589, !llvm.loop !63
@@ -5047,15 +5047,15 @@ define internal fastcc void @p_bracket(ptr noundef %0) unnamed_addr #0 {
   br i1 %793, label %803, label %794
 
 794:                                              ; preds = %789
-  %795 = trunc i32 %790 to i8
-  %796 = and i32 %790, 255
-  %797 = zext i32 %796 to i64
-  %798 = getelementptr inbounds i8, ptr %756, i64 %797
-  %799 = load i8, ptr %798, align 1, !tbaa !32
-  %800 = or i8 %799, %760
-  store i8 %800, ptr %798, align 1, !tbaa !32
-  %801 = load i8, ptr %191, align 1, !tbaa !70
-  %802 = add i8 %801, %795
+  %795 = and i32 %790, 255
+  %796 = zext i32 %795 to i64
+  %797 = getelementptr inbounds i8, ptr %756, i64 %796
+  %798 = load i8, ptr %797, align 1, !tbaa !32
+  %799 = or i8 %798, %760
+  store i8 %799, ptr %797, align 1, !tbaa !32
+  %800 = load i8, ptr %191, align 1, !tbaa !70
+  %801 = trunc i32 %790 to i8
+  %802 = add i8 %800, %801
   store i8 %802, ptr %191, align 1, !tbaa !70
   br label %803
 
@@ -5687,7 +5687,7 @@ define internal fastcc void @p_bracket(ptr noundef %0) unnamed_addr #0 {
   store i64 %1239, ptr %1244, align 8, !tbaa !30
   br label %1245
 
-1245:                                             ; preds = %1238, %1203, %1085, %1082, %735, %732, %174, %86, %45
+1245:                                             ; preds = %174, %1082, %1085, %1203, %1238, %735, %732, %86, %45
   ret void
 }
 
@@ -6396,17 +6396,17 @@ define internal fastcc void @repeat(ptr noundef %0, i64 noundef %1, i32 noundef 
   br label %377
 
 314:                                              ; preds = %23
-  %315 = icmp eq i64 %25, %27
-  br i1 %315, label %340, label %316
+  %315 = sub nsw i64 %25, %27
+  %316 = icmp eq i64 %25, %27
+  br i1 %316, label %340, label %317
 
-316:                                              ; preds = %314
-  %317 = sub nsw i64 %25, %27
+317:                                              ; preds = %314
   %318 = load i64, ptr %10, align 8, !tbaa !12
-  %319 = add nsw i64 %318, %317
-  %320 = icmp sgt i64 %317, 0
+  %319 = add nsw i64 %318, %315
+  %320 = icmp sgt i64 %315, 0
   br i1 %320, label %321, label %332
 
-321:                                              ; preds = %316
+321:                                              ; preds = %317
   %322 = load ptr, ptr %11, align 8, !tbaa !14
   %323 = shl i64 %319, 3
   %324 = tail call ptr @cli_realloc(ptr noundef %322, i64 noundef %323) #11
@@ -6432,15 +6432,15 @@ define internal fastcc void @repeat(ptr noundef %0, i64 noundef %1, i32 noundef 
   store i64 %319, ptr %10, align 8, !tbaa !12
   br label %332
 
-332:                                              ; preds = %331, %330, %316
+332:                                              ; preds = %331, %330, %317
   %333 = load ptr, ptr %11, align 8, !tbaa !14
   %334 = load i64, ptr %5, align 8, !tbaa !29
   %335 = getelementptr inbounds i64, ptr %333, i64 %334
   %336 = getelementptr inbounds i64, ptr %333, i64 %27
-  %337 = shl i64 %317, 3
+  %337 = shl i64 %315, 3
   tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %335, ptr align 1 %336, i64 %337, i1 false)
   %338 = load i64, ptr %5, align 8, !tbaa !29
-  %339 = add nsw i64 %338, %317
+  %339 = add nsw i64 %338, %315
   store i64 %339, ptr %5, align 8, !tbaa !29
   br label %340
 
@@ -6450,17 +6450,17 @@ define internal fastcc void @repeat(ptr noundef %0, i64 noundef %1, i32 noundef 
   br label %275
 
 343:                                              ; preds = %23
-  %344 = icmp eq i64 %25, %27
-  br i1 %344, label %370, label %345
+  %344 = sub nsw i64 %25, %27
+  %345 = icmp eq i64 %25, %27
+  br i1 %345, label %370, label %346
 
-345:                                              ; preds = %343
-  %346 = sub nsw i64 %25, %27
+346:                                              ; preds = %343
   %347 = load i64, ptr %10, align 8, !tbaa !12
-  %348 = add nsw i64 %347, %346
-  %349 = icmp sgt i64 %346, 0
+  %348 = add nsw i64 %347, %344
+  %349 = icmp sgt i64 %344, 0
   br i1 %349, label %350, label %361
 
-350:                                              ; preds = %345
+350:                                              ; preds = %346
   %351 = load ptr, ptr %11, align 8, !tbaa !14
   %352 = shl i64 %348, 3
   %353 = tail call ptr @cli_realloc(ptr noundef %351, i64 noundef %352) #11
@@ -6486,15 +6486,15 @@ define internal fastcc void @repeat(ptr noundef %0, i64 noundef %1, i32 noundef 
   store i64 %348, ptr %10, align 8, !tbaa !12
   br label %361
 
-361:                                              ; preds = %360, %359, %345
+361:                                              ; preds = %360, %359, %346
   %362 = load ptr, ptr %11, align 8, !tbaa !14
   %363 = load i64, ptr %5, align 8, !tbaa !29
   %364 = getelementptr inbounds i64, ptr %362, i64 %363
   %365 = getelementptr inbounds i64, ptr %362, i64 %27
-  %366 = shl i64 %346, 3
+  %366 = shl i64 %344, 3
   tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %364, ptr align 1 %365, i64 %366, i1 false)
   %367 = load i64, ptr %5, align 8, !tbaa !29
-  %368 = add nsw i64 %367, %346
+  %368 = add nsw i64 %367, %344
   store i64 %368, ptr %5, align 8, !tbaa !29
   %369 = load i32, ptr %6, align 8, !tbaa !18
   br label %370
@@ -6513,7 +6513,7 @@ define internal fastcc void @repeat(ptr noundef %0, i64 noundef %1, i32 noundef 
   store ptr @nuls, ptr %12, align 8, !tbaa !17
   br label %377
 
-377:                                              ; preds = %275, %370, %23, %95, %4, %64, %35, %308, %282, %137, %104, %34, %376
+377:                                              ; preds = %275, %370, %23, %95, %4, %64, %35, %104, %34, %376, %137, %282, %308
   ret void
 }
 

@@ -559,10 +559,10 @@ define dso_local i32 @hypre_SMG2BuildRAPSym(ptr noundef %0, ptr noundef %1, ptr 
   br i1 %370, label %371, label %257, !llvm.loop !29
 
 371:                                              ; preds = %360
-  %372 = add nsw i32 %365, %237
-  %373 = add nsw i32 %366, %239
+  %372 = add i32 %237, %365
+  %373 = add i32 %239, %366
   %374 = add nsw i32 %241, %367
-  %375 = add nsw i32 %368, %243
+  %375 = add i32 %243, %368
   %376 = add nuw nsw i32 %252, 1
   %377 = icmp eq i32 %376, %218
   br i1 %377, label %557, label %251, !llvm.loop !30
@@ -759,10 +759,10 @@ define dso_local i32 @hypre_SMG2BuildRAPSym(ptr noundef %0, ptr noundef %1, ptr 
   br i1 %549, label %550, label %413, !llvm.loop !32
 
 550:                                              ; preds = %539
-  %551 = add nsw i32 %544, %393
-  %552 = add nsw i32 %545, %395
+  %551 = add i32 %393, %544
+  %552 = add i32 %395, %545
   %553 = add nsw i32 %397, %546
-  %554 = add nsw i32 %547, %399
+  %554 = add i32 %399, %547
   %555 = add nuw nsw i32 %408, 1
   %556 = icmp eq i32 %555, %218
   br i1 %556, label %557, label %407, !llvm.loop !33
@@ -1213,10 +1213,10 @@ define dso_local i32 @hypre_SMG2BuildRAPNoSym(ptr noundef %0, ptr noundef %1, pt
   br i1 %340, label %341, label %255, !llvm.loop !37
 
 341:                                              ; preds = %330
-  %342 = add nsw i32 %335, %235
-  %343 = add nsw i32 %336, %237
+  %342 = add i32 %235, %335
+  %343 = add i32 %237, %336
   %344 = add nsw i32 %239, %337
-  %345 = add nsw i32 %338, %241
+  %345 = add i32 %241, %338
   %346 = add nuw nsw i32 %250, 1
   %347 = icmp eq i32 %346, %216
   br i1 %347, label %499, label %249, !llvm.loop !38
@@ -1384,10 +1384,10 @@ define dso_local i32 @hypre_SMG2BuildRAPNoSym(ptr noundef %0, ptr noundef %1, pt
   br i1 %491, label %492, label %383, !llvm.loop !40
 
 492:                                              ; preds = %481
-  %493 = add nsw i32 %486, %363
-  %494 = add nsw i32 %487, %365
+  %493 = add i32 %363, %486
+  %494 = add i32 %365, %487
   %495 = add nsw i32 %367, %488
-  %496 = add nsw i32 %489, %369
+  %496 = add i32 %369, %489
   %497 = add nuw nsw i32 %378, 1
   %498 = icmp eq i32 %497, %216
   br i1 %498, label %499, label %377, !llvm.loop !41
@@ -1646,7 +1646,7 @@ define dso_local i32 @hypre_SMG2RAPPeriodicSym(ptr noundef %0, ptr nocapture nou
   br i1 %191, label %192, label %136, !llvm.loop !60
 
 192:                                              ; preds = %186
-  %193 = add nsw i32 %189, %80
+  %193 = add nsw i32 %80, %189
   %194 = add nuw nsw i32 %134, 1
   %195 = icmp eq i32 %194, %72
   br i1 %195, label %196, label %133, !llvm.loop !61
@@ -1784,7 +1784,7 @@ define dso_local i32 @hypre_SMG2RAPPeriodicSym(ptr noundef %0, ptr nocapture nou
   br i1 %284, label %285, label %217, !llvm.loop !64
 
 285:                                              ; preds = %279
-  %286 = add nsw i32 %282, %203
+  %286 = add nsw i32 %203, %282
   %287 = add nuw nsw i32 %215, 1
   %288 = icmp eq i32 %287, %72
   br i1 %288, label %289, label %214, !llvm.loop !65
@@ -1906,7 +1906,7 @@ define dso_local i32 @hypre_SMG2RAPPeriodicNoSym(ptr noundef %0, ptr nocapture n
   %64 = icmp slt i32 %40, 1
   %65 = sub i32 %62, %40
   %66 = sub i32 %56, %41
-  %67 = mul i32 %62, %66
+  %67 = mul i32 %66, %62
   %68 = icmp slt i32 %41, 1
   %69 = select i1 %63, i1 true, i1 %68
   %70 = select i1 %69, i1 true, i1 %64
@@ -2214,7 +2214,7 @@ define dso_local i32 @hypre_SMG2RAPPeriodicNoSym(ptr noundef %0, ptr nocapture n
   br i1 %335, label %336, label %260, !llvm.loop !95
 
 336:                                              ; preds = %330
-  %337 = add nsw i32 %333, %67
+  %337 = add i32 %67, %333
   %338 = add nuw nsw i32 %258, 1
   %339 = icmp eq i32 %338, %42
   br i1 %339, label %340, label %257, !llvm.loop !96

@@ -114,10 +114,10 @@ define dso_local void @_Z14screen_destroyv() local_unnamed_addr #5 {
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @_Z9put_pointii(i32 noundef %0, i32 noundef %1) local_unnamed_addr #6 {
-  %3 = icmp ugt i32 %0, 39
-  %4 = icmp ugt i32 %1, 23
-  %5 = or i1 %3, %4
-  br i1 %5, label %10, label %6
+  %3 = icmp ult i32 %0, 40
+  %4 = icmp ult i32 %1, 24
+  %5 = and i1 %3, %4
+  br i1 %5, label %6, label %10
 
 6:                                                ; preds = %2
   %7 = zext i32 %0 to i64
@@ -150,10 +150,10 @@ define dso_local void @_Z8put_lineiiii(i32 noundef %0, i32 noundef %1, i32 nound
   %18 = phi i32 [ %1, %4 ], [ %41, %32 ]
   %19 = phi i32 [ %0, %4 ], [ %35, %32 ]
   %20 = phi i32 [ 0, %4 ], [ %43, %32 ]
-  %21 = icmp ugt i32 %19, 39
-  %22 = icmp ugt i32 %18, 23
-  %23 = or i1 %22, %21
-  br i1 %23, label %28, label %24
+  %21 = icmp ult i32 %19, 40
+  %22 = icmp ult i32 %18, 24
+  %23 = and i1 %22, %21
+  br i1 %23, label %24, label %28
 
 24:                                               ; preds = %17
   %25 = zext i32 %19 to i64
@@ -165,19 +165,19 @@ define dso_local void @_Z8put_lineiiii(i32 noundef %0, i32 noundef %1, i32 nound
 28:                                               ; preds = %17, %24
   %29 = icmp eq i32 %19, %2
   %30 = icmp eq i32 %18, %3
-  %31 = and i1 %30, %29
+  %31 = select i1 %29, i1 %30, i1 false
   br i1 %31, label %44, label %32
 
 32:                                               ; preds = %28
   %33 = icmp sgt i32 %20, %15
   %34 = select i1 %33, i32 0, i32 %8
-  %35 = add nsw i32 %34, %19
+  %35 = add nsw i32 %19, %34
   %36 = select i1 %33, i32 0, i32 %14
-  %37 = add nsw i32 %36, %20
+  %37 = add nsw i32 %20, %36
   %38 = icmp slt i32 %37, %6
   %39 = select i1 %38, i1 true, i1 %16
   %40 = select i1 %39, i32 0, i32 %11
-  %41 = add nsw i32 %40, %18
+  %41 = add nsw i32 %18, %40
   %42 = select i1 %39, i32 0, i32 %13
   %43 = sub nsw i32 %37, %42
   br label %17, !llvm.loop !8
@@ -359,10 +359,10 @@ define dso_local void @_ZN9rectangle4drawEv(ptr nocapture noundef nonnull readon
   %19 = phi i32 [ %8, %1 ], [ %40, %33 ]
   %20 = phi i32 [ %4, %1 ], [ %36, %33 ]
   %21 = phi i32 [ 0, %1 ], [ %42, %33 ]
-  %22 = icmp ugt i32 %20, 39
-  %23 = icmp ugt i32 %19, 23
-  %24 = or i1 %23, %22
-  br i1 %24, label %29, label %25
+  %22 = icmp ult i32 %20, 40
+  %23 = icmp ult i32 %19, 24
+  %24 = and i1 %23, %22
+  br i1 %24, label %25, label %29
 
 25:                                               ; preds = %18
   %26 = zext i32 %20 to i64
@@ -374,7 +374,7 @@ define dso_local void @_ZN9rectangle4drawEv(ptr nocapture noundef nonnull readon
 29:                                               ; preds = %25, %18
   %30 = icmp eq i32 %20, %9
   %31 = icmp eq i32 %19, %8
-  %32 = and i1 %31, %30
+  %32 = select i1 %30, i1 %31, i1 false
   br i1 %32, label %43, label %33
 
 33:                                               ; preds = %29
@@ -412,10 +412,10 @@ define dso_local void @_ZN9rectangle4drawEv(ptr nocapture noundef nonnull readon
   %61 = phi i32 [ %47, %43 ], [ %84, %75 ]
   %62 = phi i32 [ %45, %43 ], [ %78, %75 ]
   %63 = phi i32 [ 0, %43 ], [ %86, %75 ]
-  %64 = icmp ugt i32 %62, 39
-  %65 = icmp ugt i32 %61, 23
-  %66 = or i1 %65, %64
-  br i1 %66, label %71, label %67
+  %64 = icmp ult i32 %62, 40
+  %65 = icmp ult i32 %61, 24
+  %66 = and i1 %65, %64
+  br i1 %66, label %67, label %71
 
 67:                                               ; preds = %60
   %68 = zext i32 %62 to i64
@@ -427,7 +427,7 @@ define dso_local void @_ZN9rectangle4drawEv(ptr nocapture noundef nonnull readon
 71:                                               ; preds = %67, %60
   %72 = icmp eq i32 %62, %9
   %73 = icmp eq i32 %61, %11
-  %74 = and i1 %73, %72
+  %74 = select i1 %72, i1 %73, i1 false
   br i1 %74, label %87, label %75
 
 75:                                               ; preds = %71
@@ -467,10 +467,10 @@ define dso_local void @_ZN9rectangle4drawEv(ptr nocapture noundef nonnull readon
   %105 = phi i32 [ %11, %87 ], [ %128, %119 ]
   %106 = phi i32 [ %9, %87 ], [ %122, %119 ]
   %107 = phi i32 [ 0, %87 ], [ %130, %119 ]
-  %108 = icmp ugt i32 %106, 39
-  %109 = icmp ugt i32 %105, 23
-  %110 = or i1 %109, %108
-  br i1 %110, label %115, label %111
+  %108 = icmp ult i32 %106, 40
+  %109 = icmp ult i32 %105, 24
+  %110 = and i1 %109, %108
+  br i1 %110, label %111, label %115
 
 111:                                              ; preds = %104
   %112 = zext i32 %106 to i64
@@ -482,7 +482,7 @@ define dso_local void @_ZN9rectangle4drawEv(ptr nocapture noundef nonnull readon
 115:                                              ; preds = %111, %104
   %116 = icmp eq i32 %106, %89
   %117 = icmp eq i32 %105, %91
-  %118 = and i1 %117, %116
+  %118 = select i1 %116, i1 %117, i1 false
   br i1 %118, label %131, label %119
 
 119:                                              ; preds = %115
@@ -522,10 +522,10 @@ define dso_local void @_ZN9rectangle4drawEv(ptr nocapture noundef nonnull readon
   %149 = phi i32 [ %135, %131 ], [ %172, %163 ]
   %150 = phi i32 [ %133, %131 ], [ %166, %163 ]
   %151 = phi i32 [ 0, %131 ], [ %174, %163 ]
-  %152 = icmp ugt i32 %150, 39
-  %153 = icmp ugt i32 %149, 23
-  %154 = or i1 %153, %152
-  br i1 %154, label %159, label %155
+  %152 = icmp ult i32 %150, 40
+  %153 = icmp ult i32 %149, 24
+  %154 = and i1 %153, %152
+  br i1 %154, label %155, label %159
 
 155:                                              ; preds = %148
   %156 = zext i32 %150 to i64
@@ -537,7 +537,7 @@ define dso_local void @_ZN9rectangle4drawEv(ptr nocapture noundef nonnull readon
 159:                                              ; preds = %155, %148
   %160 = icmp eq i32 %150, %4
   %161 = icmp eq i32 %149, %8
-  %162 = and i1 %161, %160
+  %162 = select i1 %160, i1 %161, i1 false
   br i1 %162, label %175, label %163
 
 163:                                              ; preds = %159
@@ -635,10 +635,10 @@ define dso_local void @_ZN7myshape4drawEv(ptr noundef nonnull align 8 dereferenc
   %25 = load i32, ptr %24, align 4, !tbaa !28
   %26 = add nsw i32 %25, %19
   %27 = sdiv i32 %26, 2
-  %28 = icmp ugt i32 %13, 39
-  %29 = icmp ugt i32 %27, 23
-  %30 = or i1 %28, %29
-  br i1 %30, label %35, label %31
+  %28 = icmp ult i32 %13, 40
+  %29 = icmp ult i32 %27, 24
+  %30 = and i1 %28, %29
+  br i1 %30, label %31, label %35
 
 31:                                               ; preds = %1
   %32 = zext i32 %13 to i64
@@ -1269,10 +1269,10 @@ define linkonce_odr dso_local void @_ZN4line4drawEv(ptr noundef nonnull align 8 
   %25 = phi i32 [ %8, %1 ], [ %48, %39 ]
   %26 = phi i32 [ %6, %1 ], [ %42, %39 ]
   %27 = phi i32 [ 0, %1 ], [ %50, %39 ]
-  %28 = icmp ugt i32 %26, 39
-  %29 = icmp ugt i32 %25, 23
-  %30 = or i1 %29, %28
-  br i1 %30, label %35, label %31
+  %28 = icmp ult i32 %26, 40
+  %29 = icmp ult i32 %25, 24
+  %30 = and i1 %29, %28
+  br i1 %30, label %31, label %35
 
 31:                                               ; preds = %24
   %32 = zext i32 %26 to i64
@@ -1284,7 +1284,7 @@ define linkonce_odr dso_local void @_ZN4line4drawEv(ptr noundef nonnull align 8 
 35:                                               ; preds = %31, %24
   %36 = icmp eq i32 %26, %9
   %37 = icmp eq i32 %25, %11
-  %38 = and i1 %37, %36
+  %38 = select i1 %36, i1 %37, i1 false
   br i1 %38, label %51, label %39
 
 39:                                               ; preds = %35

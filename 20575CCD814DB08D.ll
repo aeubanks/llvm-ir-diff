@@ -35,20 +35,20 @@ define dso_local i32 @isamax(i32 noundef %0, ptr nocapture noundef readonly %1, 
   br label %25
 
 25:                                               ; preds = %25, %23
-  %26 = phi i32 [ 0, %23 ], [ %47, %25 ]
-  %27 = phi i32 [ 1, %23 ], [ %48, %25 ]
-  %28 = phi float [ %19, %23 ], [ %46, %25 ]
-  %29 = phi ptr [ %15, %23 ], [ %40, %25 ]
+  %26 = phi ptr [ %15, %23 ], [ %40, %25 ]
+  %27 = phi i32 [ 0, %23 ], [ %47, %25 ]
+  %28 = phi i32 [ 1, %23 ], [ %48, %25 ]
+  %29 = phi float [ %19, %23 ], [ %46, %25 ]
   %30 = phi i32 [ 0, %23 ], [ %49, %25 ]
-  %31 = getelementptr inbounds float, ptr %29, i64 %8
+  %31 = getelementptr inbounds float, ptr %26, i64 %8
   %32 = load float, ptr %31, align 4, !tbaa !5
   %33 = fcmp ogt float %32, 0.000000e+00
   %34 = fneg float %32
   %35 = select i1 %33, float %32, float %34
-  %36 = fcmp ogt float %35, %28
-  %37 = select i1 %36, float %35, float %28
-  %38 = select i1 %36, i32 %27, i32 %26
-  %39 = add nuw nsw i32 %27, 1
+  %36 = fcmp ogt float %35, %29
+  %37 = select i1 %36, float %35, float %29
+  %38 = select i1 %36, i32 %28, i32 %27
+  %39 = add nuw nsw i32 %28, 1
   %40 = getelementptr inbounds float, ptr %31, i64 %8
   %41 = load float, ptr %40, align 4, !tbaa !5
   %42 = fcmp ogt float %41, 0.000000e+00
@@ -57,7 +57,7 @@ define dso_local i32 @isamax(i32 noundef %0, ptr nocapture noundef readonly %1, 
   %45 = fcmp ogt float %44, %37
   %46 = select i1 %45, float %44, float %37
   %47 = select i1 %45, i32 %39, i32 %38
-  %48 = add nuw nsw i32 %27, 2
+  %48 = add nuw nsw i32 %28, 2
   %49 = add i32 %30, 2
   %50 = icmp eq i32 %49, %24
   br i1 %50, label %102, label %25, !llvm.loop !9
@@ -77,21 +77,21 @@ define dso_local i32 @isamax(i32 noundef %0, ptr nocapture noundef readonly %1, 
   br label %61
 
 61:                                               ; preds = %61, %59
-  %62 = phi i32 [ 0, %59 ], [ %83, %61 ]
-  %63 = phi i32 [ 1, %59 ], [ %84, %61 ]
-  %64 = phi float [ %55, %59 ], [ %82, %61 ]
-  %65 = phi ptr [ %1, %59 ], [ %76, %61 ]
+  %62 = phi ptr [ %1, %59 ], [ %76, %61 ]
+  %63 = phi i32 [ 0, %59 ], [ %83, %61 ]
+  %64 = phi i32 [ 1, %59 ], [ %84, %61 ]
+  %65 = phi float [ %55, %59 ], [ %82, %61 ]
   %66 = phi i32 [ 0, %59 ], [ %85, %61 ]
-  %67 = getelementptr inbounds float, ptr %65, i64 1
+  %67 = getelementptr inbounds float, ptr %62, i64 1
   %68 = load float, ptr %67, align 4, !tbaa !5
   %69 = fcmp ogt float %68, 0.000000e+00
   %70 = fneg float %68
   %71 = select i1 %69, float %68, float %70
-  %72 = fcmp ogt float %71, %64
-  %73 = select i1 %72, float %71, float %64
-  %74 = select i1 %72, i32 %63, i32 %62
-  %75 = add nuw nsw i32 %63, 1
-  %76 = getelementptr inbounds float, ptr %65, i64 2
+  %72 = fcmp ogt float %71, %65
+  %73 = select i1 %72, float %71, float %65
+  %74 = select i1 %72, i32 %64, i32 %63
+  %75 = add nuw nsw i32 %64, 1
+  %76 = getelementptr inbounds float, ptr %62, i64 2
   %77 = load float, ptr %76, align 4, !tbaa !5
   %78 = fcmp ogt float %77, 0.000000e+00
   %79 = fneg float %77
@@ -99,47 +99,47 @@ define dso_local i32 @isamax(i32 noundef %0, ptr nocapture noundef readonly %1, 
   %81 = fcmp ogt float %80, %73
   %82 = select i1 %81, float %80, float %73
   %83 = select i1 %81, i32 %75, i32 %74
-  %84 = add nuw nsw i32 %63, 2
+  %84 = add nuw nsw i32 %64, 2
   %85 = add i32 %66, 2
   %86 = icmp eq i32 %85, %60
   br i1 %86, label %87, label %61, !llvm.loop !11
 
 87:                                               ; preds = %61, %51
   %88 = phi i32 [ undef, %51 ], [ %83, %61 ]
-  %89 = phi i32 [ 0, %51 ], [ %83, %61 ]
-  %90 = phi i32 [ 1, %51 ], [ %84, %61 ]
-  %91 = phi float [ %55, %51 ], [ %82, %61 ]
-  %92 = phi ptr [ %1, %51 ], [ %76, %61 ]
+  %89 = phi ptr [ %1, %51 ], [ %76, %61 ]
+  %90 = phi i32 [ 0, %51 ], [ %83, %61 ]
+  %91 = phi i32 [ 1, %51 ], [ %84, %61 ]
+  %92 = phi float [ %55, %51 ], [ %82, %61 ]
   %93 = icmp eq i32 %57, 0
   br i1 %93, label %117, label %94
 
 94:                                               ; preds = %87
-  %95 = getelementptr inbounds float, ptr %92, i64 1
+  %95 = getelementptr inbounds float, ptr %89, i64 1
   %96 = load float, ptr %95, align 4, !tbaa !5
   %97 = fcmp ogt float %96, 0.000000e+00
   %98 = fneg float %96
   %99 = select i1 %97, float %96, float %98
-  %100 = fcmp ogt float %99, %91
-  %101 = select i1 %100, i32 %90, i32 %89
+  %100 = fcmp ogt float %99, %92
+  %101 = select i1 %100, i32 %91, i32 %90
   br label %117
 
 102:                                              ; preds = %25, %7
   %103 = phi i32 [ undef, %7 ], [ %47, %25 ]
-  %104 = phi i32 [ 0, %7 ], [ %47, %25 ]
-  %105 = phi i32 [ 1, %7 ], [ %48, %25 ]
-  %106 = phi float [ %19, %7 ], [ %46, %25 ]
-  %107 = phi ptr [ %15, %7 ], [ %40, %25 ]
+  %104 = phi ptr [ %15, %7 ], [ %40, %25 ]
+  %105 = phi i32 [ 0, %7 ], [ %47, %25 ]
+  %106 = phi i32 [ 1, %7 ], [ %48, %25 ]
+  %107 = phi float [ %19, %7 ], [ %46, %25 ]
   %108 = icmp eq i32 %21, 0
   br i1 %108, label %117, label %109
 
 109:                                              ; preds = %102
-  %110 = getelementptr inbounds float, ptr %107, i64 %8
+  %110 = getelementptr inbounds float, ptr %104, i64 %8
   %111 = load float, ptr %110, align 4, !tbaa !5
   %112 = fcmp ogt float %111, 0.000000e+00
   %113 = fneg float %111
   %114 = select i1 %112, float %111, float %113
-  %115 = fcmp ogt float %114, %106
-  %116 = select i1 %115, i32 %105, i32 %104
+  %115 = fcmp ogt float %114, %107
+  %116 = select i1 %115, i32 %106, i32 %105
   br label %117
 
 117:                                              ; preds = %109, %102, %94, %87, %3

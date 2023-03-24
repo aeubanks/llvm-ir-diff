@@ -514,7 +514,7 @@ define dso_local i32 @cli_check_jpeg_exploit(i32 noundef %0) local_unnamed_addr 
   %120 = call i64 @lseek(i32 noundef %0, i64 noundef %119, i32 noundef 0) #6
   br label %121
 
-121:                                              ; preds = %71, %75, %76, %79, %85, %95, %107, %116
+121:                                              ; preds = %95, %85, %79, %76, %71, %75, %107, %116
   %122 = phi i32 [ -1, %71 ], [ -1, %75 ], [ 0, %107 ], [ %113, %116 ], [ -1, %76 ], [ -1, %79 ], [ -1, %85 ], [ -1, %95 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #6
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #6
@@ -567,61 +567,59 @@ define dso_local i32 @cli_check_riff_exploit(i32 noundef %0) local_unnamed_addr 
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.5) #6
   %5 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %2, i32 noundef 4) #6
   %6 = icmp eq i32 %5, 4
-  br i1 %6, label %7, label %34
+  br i1 %6, label %7, label %35
 
 7:                                                ; preds = %1
   %8 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %3, i32 noundef 4) #6
   %9 = icmp eq i32 %8, 4
-  br i1 %9, label %10, label %34
+  br i1 %9, label %10, label %35
 
 10:                                               ; preds = %7
   %11 = call i32 @cli_readn(i32 noundef %0, ptr noundef nonnull %4, i32 noundef 4) #6
   %12 = icmp eq i32 %11, 4
-  br i1 %12, label %13, label %34
+  br i1 %12, label %13, label %35
 
 13:                                               ; preds = %10
   %14 = load i32, ptr %2, align 4
-  switch i32 %14, label %34 [
-    i32 1179011410, label %16
-    i32 1481001298, label %15
-  ]
+  %15 = icmp eq i32 %14, 1179011410
+  br i1 %15, label %18, label %16
 
-15:                                               ; preds = %13
-  br label %16
+16:                                               ; preds = %13
+  %17 = icmp eq i32 %14, 1481001298
+  br i1 %17, label %18, label %35
 
-16:                                               ; preds = %13, %15
-  %17 = phi i1 [ true, %13 ], [ false, %15 ]
-  %18 = phi i32 [ 0, %13 ], [ 1, %15 ]
-  %19 = load i32, ptr %4, align 4
-  %20 = icmp eq i32 %19, 1313817409
-  br i1 %20, label %21, label %34
+18:                                               ; preds = %16, %13
+  %19 = phi i32 [ 0, %13 ], [ 1, %16 ]
+  %20 = load i32, ptr %4, align 4
+  %21 = icmp eq i32 %20, 1313817409
+  br i1 %21, label %22, label %35
 
-21:                                               ; preds = %16
-  %22 = load i32, ptr %3, align 4, !tbaa !5
-  %23 = call i32 @llvm.bswap.i32(i32 %22)
-  %24 = select i1 %17, i32 %22, i32 %23
-  store i32 %24, ptr %3, align 4, !tbaa !5
-  br label %25
+22:                                               ; preds = %18
+  %23 = load i32, ptr %3, align 4, !tbaa !5
+  %24 = call i32 @llvm.bswap.i32(i32 %23)
+  %25 = select i1 %15, i32 %23, i32 %24
+  store i32 %25, ptr %3, align 4, !tbaa !5
+  br label %26
 
-25:                                               ; preds = %25, %21
-  %26 = call fastcc i32 @riff_read_chunk(i32 noundef %0, i32 noundef %18, i32 noundef 1), !range !16
-  %27 = icmp eq i32 %26, 1
-  br i1 %27, label %25, label %28, !llvm.loop !17
+26:                                               ; preds = %26, %22
+  %27 = call fastcc i32 @riff_read_chunk(i32 noundef %0, i32 noundef %19, i32 noundef 1), !range !16
+  %28 = icmp eq i32 %27, 1
+  br i1 %28, label %26, label %29, !llvm.loop !17
 
-28:                                               ; preds = %25
-  %29 = call i64 @lseek(i32 noundef %0, i64 noundef 0, i32 noundef 1) #6
-  %30 = load i32, ptr %3, align 4, !tbaa !5
-  %31 = zext i32 %30 to i64
-  %32 = icmp slt i64 %29, %31
-  %33 = select i1 %32, i32 2, i32 %26
-  br label %34
+29:                                               ; preds = %26
+  %30 = call i64 @lseek(i32 noundef %0, i64 noundef 0, i32 noundef 1) #6
+  %31 = load i32, ptr %3, align 4, !tbaa !5
+  %32 = zext i32 %31 to i64
+  %33 = icmp slt i64 %30, %32
+  %34 = select i1 %33, i32 2, i32 %27
+  br label %35
 
-34:                                               ; preds = %13, %16, %10, %7, %1, %28
-  %35 = phi i32 [ %33, %28 ], [ 0, %1 ], [ 0, %7 ], [ 0, %10 ], [ 0, %16 ], [ 0, %13 ]
+35:                                               ; preds = %18, %16, %10, %7, %1, %29
+  %36 = phi i32 [ %34, %29 ], [ 0, %1 ], [ 0, %7 ], [ 0, %10 ], [ 0, %16 ], [ 0, %18 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #6
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #6
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #6
-  ret i32 %35
+  ret i32 %36
 }
 
 ; Function Attrs: nounwind uwtable
@@ -685,7 +683,7 @@ define internal fastcc i32 @riff_read_chunk(i32 noundef %0, i32 noundef %1, i32 
   %31 = zext i32 %30 to i64
   %32 = add nsw i64 %29, %31
   %33 = and i64 %32, 1
-  %34 = add nsw i64 %33, %32
+  %34 = add nsw i64 %32, %33
   %35 = icmp slt i64 %34, %29
   br i1 %35, label %40, label %36
 

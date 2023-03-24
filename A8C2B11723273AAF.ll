@@ -73,21 +73,21 @@ define dso_local void @_ZN15btCylinderShapeC2ERK9btVector3(ptr noundef nonnull a
   %4 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 3
   %5 = load float, ptr %4, align 8, !tbaa !18
   %6 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1
-  %7 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %8 = load float, ptr %7, align 4, !tbaa !19
-  %9 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1, i32 0, i64 2
-  %10 = load float, ptr %9, align 8, !tbaa !19
-  %11 = fmul float %8, %10
-  %12 = load <2 x float>, ptr %1, align 4, !tbaa !19
-  %13 = load <2 x float>, ptr %6, align 8, !tbaa !19
-  %14 = fmul <2 x float> %12, %13
-  %15 = insertelement <2 x float> poison, float %5, i64 0
-  %16 = shufflevector <2 x float> %15, <2 x float> poison, <2 x i32> zeroinitializer
-  %17 = fsub <2 x float> %14, %16
-  %18 = fsub float %11, %5
+  %7 = load <2 x float>, ptr %1, align 4, !tbaa !19
+  %8 = load <2 x float>, ptr %6, align 8, !tbaa !19
+  %9 = fmul <2 x float> %7, %8
+  %10 = insertelement <2 x float> poison, float %5, i64 0
+  %11 = shufflevector <2 x float> %10, <2 x float> poison, <2 x i32> zeroinitializer
+  %12 = fsub <2 x float> %9, %11
+  %13 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %14 = load float, ptr %13, align 4, !tbaa !19
+  %15 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1, i32 0, i64 2
+  %16 = load float, ptr %15, align 8, !tbaa !19
+  %17 = fmul float %14, %16
+  %18 = fsub float %17, %5
   %19 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %18, i64 0
   %20 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 2
-  store <2 x float> %17, ptr %20, align 8, !tbaa.struct !20
+  store <2 x float> %12, ptr %20, align 8, !tbaa.struct !20
   %21 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 2, i32 0, i64 2
   store <2 x float> %19, ptr %21, align 8, !tbaa.struct !22
   %22 = getelementptr inbounds %class.btCollisionShape, ptr %0, i64 0, i32 1
@@ -117,21 +117,21 @@ define dso_local void @_ZN16btCylinderShapeXC2ERK9btVector3(ptr noundef nonnull 
   %4 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 3
   %5 = load float, ptr %4, align 8, !tbaa !18
   %6 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1
-  %7 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %8 = load float, ptr %7, align 4, !tbaa !19
-  %9 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1, i32 0, i64 2
-  %10 = load float, ptr %9, align 8, !tbaa !19
-  %11 = fmul float %8, %10
-  %12 = load <2 x float>, ptr %1, align 4, !tbaa !19
-  %13 = load <2 x float>, ptr %6, align 8, !tbaa !19
-  %14 = fmul <2 x float> %12, %13
-  %15 = insertelement <2 x float> poison, float %5, i64 0
-  %16 = shufflevector <2 x float> %15, <2 x float> poison, <2 x i32> zeroinitializer
-  %17 = fsub <2 x float> %14, %16
-  %18 = fsub float %11, %5
+  %7 = load <2 x float>, ptr %1, align 4, !tbaa !19
+  %8 = load <2 x float>, ptr %6, align 8, !tbaa !19
+  %9 = fmul <2 x float> %7, %8
+  %10 = insertelement <2 x float> poison, float %5, i64 0
+  %11 = shufflevector <2 x float> %10, <2 x float> poison, <2 x i32> zeroinitializer
+  %12 = fsub <2 x float> %9, %11
+  %13 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %14 = load float, ptr %13, align 4, !tbaa !19
+  %15 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1, i32 0, i64 2
+  %16 = load float, ptr %15, align 8, !tbaa !19
+  %17 = fmul float %14, %16
+  %18 = fsub float %17, %5
   %19 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %18, i64 0
   %20 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 2
-  store <2 x float> %17, ptr %20, align 8, !tbaa.struct !20
+  store <2 x float> %12, ptr %20, align 8, !tbaa.struct !20
   %21 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 2, i32 0, i64 2
   store <2 x float> %19, ptr %21, align 8, !tbaa.struct !22
   %22 = getelementptr inbounds %class.btCollisionShape, ptr %0, i64 0, i32 1
@@ -148,21 +148,21 @@ define dso_local void @_ZN16btCylinderShapeZC2ERK9btVector3(ptr noundef nonnull 
   %4 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 3
   %5 = load float, ptr %4, align 8, !tbaa !18
   %6 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1
-  %7 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %8 = load float, ptr %7, align 4, !tbaa !19
-  %9 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1, i32 0, i64 2
-  %10 = load float, ptr %9, align 8, !tbaa !19
-  %11 = fmul float %8, %10
-  %12 = load <2 x float>, ptr %1, align 4, !tbaa !19
-  %13 = load <2 x float>, ptr %6, align 8, !tbaa !19
-  %14 = fmul <2 x float> %12, %13
-  %15 = insertelement <2 x float> poison, float %5, i64 0
-  %16 = shufflevector <2 x float> %15, <2 x float> poison, <2 x i32> zeroinitializer
-  %17 = fsub <2 x float> %14, %16
-  %18 = fsub float %11, %5
+  %7 = load <2 x float>, ptr %1, align 4, !tbaa !19
+  %8 = load <2 x float>, ptr %6, align 8, !tbaa !19
+  %9 = fmul <2 x float> %7, %8
+  %10 = insertelement <2 x float> poison, float %5, i64 0
+  %11 = shufflevector <2 x float> %10, <2 x float> poison, <2 x i32> zeroinitializer
+  %12 = fsub <2 x float> %9, %11
+  %13 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
+  %14 = load float, ptr %13, align 4, !tbaa !19
+  %15 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1, i32 0, i64 2
+  %16 = load float, ptr %15, align 8, !tbaa !19
+  %17 = fmul float %14, %16
+  %18 = fsub float %17, %5
   %19 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %18, i64 0
   %20 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 2
-  store <2 x float> %17, ptr %20, align 8, !tbaa.struct !20
+  store <2 x float> %12, ptr %20, align 8, !tbaa.struct !20
   %21 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 2, i32 0, i64 2
   store <2 x float> %19, ptr %21, align 8, !tbaa.struct !22
   %22 = getelementptr inbounds %class.btCollisionShape, ptr %0, i64 0, i32 1
