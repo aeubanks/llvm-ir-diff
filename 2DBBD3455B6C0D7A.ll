@@ -375,8 +375,8 @@ define dso_local i32 @invdatecmplink(ptr nocapture noundef readonly %0, ptr noca
   %71 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %68, ptr noundef nonnull dereferenceable(1) %70)
   br label %72
 
-72:                                               ; preds = %66, %53, %56, %59, %46
-  %73 = phi i32 [ %51, %46 ], [ %55, %53 ], [ %64, %59 ], [ %57, %56 ], [ %71, %66 ]
+72:                                               ; preds = %66, %59, %46, %53, %56
+  %73 = phi i32 [ %55, %53 ], [ %57, %56 ], [ %51, %46 ], [ %64, %59 ], [ %71, %66 ]
   ret i32 %73
 }
 

@@ -179,7 +179,7 @@ define dso_local double @analyze() local_unnamed_addr #0 {
   %108 = zext i1 %107 to i32
   %109 = add nuw nsw i32 %102, %108
   %110 = select i1 %107, i32 %106, i32 0
-  %111 = add nsw i32 %101, %110
+  %111 = add nsw i32 %110, %101
   %112 = add nuw nsw i64 %100, 1
   %113 = getelementptr inbounds ptr, ptr %10, i64 %112
   %114 = load ptr, ptr %113, align 8, !tbaa !9
@@ -188,7 +188,7 @@ define dso_local double @analyze() local_unnamed_addr #0 {
   %117 = zext i1 %116 to i32
   %118 = add nuw nsw i32 %109, %117
   %119 = select i1 %116, i32 %115, i32 0
-  %120 = add nsw i32 %111, %119
+  %120 = add nsw i32 %119, %111
   %121 = add nuw nsw i64 %100, 2
   %122 = add i64 %103, 2
   %123 = icmp eq i64 %122, %42
@@ -211,7 +211,7 @@ define dso_local double @analyze() local_unnamed_addr #0 {
   %136 = zext i1 %135 to i32
   %137 = add nuw nsw i32 %129, %136
   %138 = select i1 %135, i32 %134, i32 0
-  %139 = add nsw i32 %128, %138
+  %139 = add nsw i32 %138, %128
   br label %140
 
 140:                                              ; preds = %124, %131
@@ -429,38 +429,38 @@ define dso_local double @analyze() local_unnamed_addr #0 {
 275:                                              ; preds = %275, %273
   %276 = phi i64 [ 1, %273 ], [ %299, %275 ]
   %277 = phi i32 [ 0, %273 ], [ %298, %275 ]
-  %278 = phi i32 [ 0, %273 ], [ %297, %275 ]
+  %278 = phi i32 [ 0, %273 ], [ %296, %275 ]
   %279 = phi i64 [ 0, %273 ], [ %300, %275 ]
   %280 = getelementptr inbounds ptr, ptr %10, i64 %276
   %281 = load ptr, ptr %280, align 8, !tbaa !9
   %282 = load i32, ptr %281, align 4, !tbaa !5
   %283 = icmp sgt i32 %282, 0
-  %284 = add i32 %277, -1
-  %285 = add i32 %284, %282
-  %286 = zext i1 %283 to i32
-  %287 = add nuw nsw i32 %278, %286
-  %288 = select i1 %283, i32 %285, i32 %277
+  %284 = add nsw i32 %282, -1
+  %285 = zext i1 %283 to i32
+  %286 = add nuw nsw i32 %278, %285
+  %287 = select i1 %283, i32 %284, i32 0
+  %288 = add nsw i32 %287, %277
   %289 = add nuw nsw i64 %276, 1
   %290 = getelementptr inbounds ptr, ptr %10, i64 %289
   %291 = load ptr, ptr %290, align 8, !tbaa !9
   %292 = load i32, ptr %291, align 4, !tbaa !5
   %293 = icmp sgt i32 %292, 0
-  %294 = add i32 %288, -1
-  %295 = add i32 %294, %292
-  %296 = zext i1 %293 to i32
-  %297 = add nuw nsw i32 %287, %296
-  %298 = select i1 %293, i32 %295, i32 %288
+  %294 = add nsw i32 %292, -1
+  %295 = zext i1 %293 to i32
+  %296 = add nuw nsw i32 %286, %295
+  %297 = select i1 %293, i32 %294, i32 0
+  %298 = add nsw i32 %297, %288
   %299 = add nuw nsw i64 %276, 2
   %300 = add i64 %279, 2
   %301 = icmp eq i64 %300, %274
   br i1 %301, label %302, label %275, !llvm.loop !24
 
 302:                                              ; preds = %275, %269
-  %303 = phi i32 [ undef, %269 ], [ %297, %275 ]
+  %303 = phi i32 [ undef, %269 ], [ %296, %275 ]
   %304 = phi i32 [ undef, %269 ], [ %298, %275 ]
   %305 = phi i64 [ 1, %269 ], [ %299, %275 ]
   %306 = phi i32 [ 0, %269 ], [ %298, %275 ]
-  %307 = phi i32 [ 0, %269 ], [ %297, %275 ]
+  %307 = phi i32 [ 0, %269 ], [ %296, %275 ]
   %308 = icmp eq i64 %271, 0
   br i1 %308, label %319, label %309
 
@@ -469,15 +469,15 @@ define dso_local double @analyze() local_unnamed_addr #0 {
   %311 = load ptr, ptr %310, align 8, !tbaa !9
   %312 = load i32, ptr %311, align 4, !tbaa !5
   %313 = icmp sgt i32 %312, 0
-  %314 = add i32 %306, -1
-  %315 = add i32 %314, %312
-  %316 = zext i1 %313 to i32
-  %317 = add nuw nsw i32 %307, %316
-  %318 = select i1 %313, i32 %315, i32 %306
+  %314 = add nsw i32 %312, -1
+  %315 = zext i1 %313 to i32
+  %316 = add nuw nsw i32 %307, %315
+  %317 = select i1 %313, i32 %314, i32 0
+  %318 = add nsw i32 %317, %306
   br label %319
 
 319:                                              ; preds = %302, %309
-  %320 = phi i32 [ %303, %302 ], [ %317, %309 ]
+  %320 = phi i32 [ %303, %302 ], [ %316, %309 ]
   %321 = phi i32 [ %304, %302 ], [ %318, %309 ]
   %322 = sitofp i32 %320 to double
   %323 = sitofp i32 %321 to double

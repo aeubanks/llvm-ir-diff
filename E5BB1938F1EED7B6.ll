@@ -313,35 +313,35 @@ define dso_local i32 @WriteRTPNALU(ptr nocapture noundef readonly %0) local_unna
   store i32 -1, ptr %2, align 4, !tbaa !24
   %58 = tail call i64 @fwrite(ptr noundef nonnull %56, i64 noundef 4, i64 noundef 1, ptr noundef %57)
   %59 = icmp eq i64 %58, 1
-  br i1 %59, label %60, label %69
+  br i1 %59, label %60, label %63
 
 60:                                               ; preds = %29
   %61 = call i64 @fwrite(ptr noundef nonnull %2, i64 noundef 4, i64 noundef 1, ptr noundef %57)
   %62 = icmp eq i64 %61, 1
-  br i1 %62, label %63, label %69
+  br i1 %62, label %65, label %63
 
-63:                                               ; preds = %60
-  %64 = load ptr, ptr %21, align 8, !tbaa !14
-  %65 = load i32, ptr %56, align 8, !tbaa !23
-  %66 = zext i32 %65 to i64
-  %67 = tail call i64 @fwrite(ptr noundef %64, i64 noundef %66, i64 noundef 1, ptr noundef %57)
-  %68 = icmp eq i64 %67, 1
+63:                                               ; preds = %29, %60
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #12
-  br i1 %68, label %74, label %71
-
-69:                                               ; preds = %60, %29
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #12
-  %70 = load i32, ptr %56, align 8, !tbaa !23
+  %64 = load i32, ptr %56, align 8, !tbaa !23
   br label %71
 
-71:                                               ; preds = %69, %63
-  %72 = phi i32 [ %70, %69 ], [ %65, %63 ]
+65:                                               ; preds = %60
+  %66 = load ptr, ptr %21, align 8, !tbaa !14
+  %67 = load i32, ptr %56, align 8, !tbaa !23
+  %68 = zext i32 %67 to i64
+  %69 = tail call i64 @fwrite(ptr noundef %66, i64 noundef %68, i64 noundef 1, ptr noundef %57)
+  %70 = icmp eq i64 %69, 1
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #12
+  br i1 %70, label %74, label %71
+
+71:                                               ; preds = %63, %65
+  %72 = phi i32 [ %64, %63 ], [ %67, %65 ]
   %73 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %72)
   tail call void @exit(i32 noundef -1) #14
   unreachable
 
-74:                                               ; preds = %63
-  tail call void @free(ptr noundef %64) #12
+74:                                               ; preds = %65
+  tail call void @free(ptr noundef %66) #12
   %75 = load ptr, ptr %26, align 8, !tbaa !21
   tail call void @free(ptr noundef %75) #12
   tail call void @free(ptr noundef nonnull %16) #12

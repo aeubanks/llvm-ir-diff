@@ -164,7 +164,7 @@ define dso_local noundef i32 @main() local_unnamed_addr #0 personality ptr @__gx
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %1) #12
   br label %44
 
-44:                                               ; preds = %42, %40
+44:                                               ; preds = %40, %42
   %45 = phi { ptr, i32 } [ %41, %40 ], [ %43, %42 ]
   call void @_ZdaPv(ptr noundef nonnull %3) #13
   resume { ptr, i32 } %45

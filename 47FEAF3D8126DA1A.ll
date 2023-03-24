@@ -65,7 +65,7 @@ define dso_local void @_Z13UpdateProduceRK13CRecordVectorI11CUpdatePairERKN14NUp
   br i1 %39, label %83, label %40
 
 40:                                               ; preds = %38, %36, %34, %13
-  %41 = phi i64 [ %29, %13 ], [ %35, %34 ], [ %24, %38 ], [ %29, %36 ]
+  %41 = phi i64 [ %29, %13 ], [ %35, %34 ], [ %29, %36 ], [ %24, %38 ]
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %2)
   %42 = load ptr, ptr %11, align 8, !tbaa !12
   %43 = load i32, ptr %12, align 4, !tbaa !5
@@ -149,8 +149,8 @@ define dso_local void @_Z13UpdateProduceRK13CRecordVectorI11CUpdatePairERKN14NUp
   %90 = or i64 %67, 65793
   br label %91
 
-91:                                               ; preds = %85, %81, %57, %89
-  %92 = phi i64 [ %72, %57 ], [ %90, %89 ], [ %67, %81 ], [ %72, %85 ]
+91:                                               ; preds = %81, %85, %57, %89
+  %92 = phi i64 [ %72, %57 ], [ %90, %89 ], [ %72, %85 ], [ %67, %81 ]
   tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %2)
   %93 = load ptr, ptr %11, align 8, !tbaa !12
   %94 = load i32, ptr %12, align 4, !tbaa !5

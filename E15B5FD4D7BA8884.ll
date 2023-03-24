@@ -13,8 +13,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.9 = private unnamed_addr constant [42 x i8] c"li2 first value wrong, wanted %d, got %d\0A\00", align 1
 @.str.12 = private unnamed_addr constant [4 x i8] c"%d\0A\00", align 1
 @str = private unnamed_addr constant [33 x i8] c"[last entry points to list head]\00", align 1
-@str.17 = private unnamed_addr constant [26 x i8] c"li2 and li1 are not equal\00", align 1
-@str.20 = private unnamed_addr constant [26 x i8] c"li1 and li2 are not equal\00", align 1
+@str.13 = private unnamed_addr constant [26 x i8] c"li2 and li1 are not equal\00", align 1
+@str.16 = private unnamed_addr constant [26 x i8] c"li1 and li2 are not equal\00", align 1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local void @list_push_tail(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
@@ -467,7 +467,7 @@ define dso_local i32 @test_lists() local_unnamed_addr #10 {
   br i1 %90, label %93, label %108
 
 91:                                               ; preds = %46, %61, %67
-  %92 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %92 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
@@ -670,7 +670,7 @@ define dso_local i32 @test_lists() local_unnamed_addr #10 {
   br i1 %206, label %209, label %207
 
 207:                                              ; preds = %182, %198, %203
-  %208 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
+  %208 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 

@@ -24,9 +24,9 @@ define dso_local i32 @bar() local_unnamed_addr #0 {
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
   %1 = load i8, ptr @a, align 1, !tbaa !5
-  %2 = sext i8 %1 to i64
-  %3 = and i64 %2, 4294967294
-  %4 = icmp eq i64 %3, 4294967292
+  %2 = sext i8 %1 to i32
+  %3 = and i32 %2, -2
+  %4 = icmp eq i32 %3, -4
   br i1 %4, label %6, label %5
 
 5:                                                ; preds = %0
@@ -34,16 +34,15 @@ define dso_local i32 @main() local_unnamed_addr #1 {
   unreachable
 
 6:                                                ; preds = %0
-  %7 = sext i8 %1 to i32
-  %8 = urem i32 %7, 5
-  %9 = icmp eq i32 %8, 2
-  br i1 %9, label %11, label %10
+  %7 = urem i32 %2, 5
+  %8 = icmp eq i32 %7, 2
+  br i1 %8, label %10, label %9
 
-10:                                               ; preds = %6
+9:                                                ; preds = %6
   tail call void @abort() #3
   unreachable
 
-11:                                               ; preds = %6
+10:                                               ; preds = %6
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

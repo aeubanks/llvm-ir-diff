@@ -19,7 +19,7 @@ define dso_local i32 @hypre_ProjectBox(ptr nocapture noundef %0, ptr nocapture n
   %11 = add nsw i32 %5, -1
   %12 = icmp sgt i32 %7, 0
   %13 = select i1 %12, i32 %11, i32 0
-  %14 = add nsw i32 %7, %13
+  %14 = add nsw i32 %13, %7
   %15 = icmp slt i32 %10, 0
   %16 = select i1 %15, i32 %11, i32 0
   %17 = sub nsw i32 %10, %16
@@ -46,7 +46,7 @@ define dso_local i32 @hypre_ProjectBox(ptr nocapture noundef %0, ptr nocapture n
   %36 = add nsw i32 %29, -1
   %37 = icmp sgt i32 %32, 0
   %38 = select i1 %37, i32 %36, i32 0
-  %39 = add nsw i32 %32, %38
+  %39 = add nsw i32 %38, %32
   %40 = icmp slt i32 %35, 0
   %41 = select i1 %40, i32 %36, i32 0
   %42 = sub nsw i32 %35, %41
@@ -73,7 +73,7 @@ define dso_local i32 @hypre_ProjectBox(ptr nocapture noundef %0, ptr nocapture n
   %61 = add nsw i32 %54, -1
   %62 = icmp sgt i32 %57, 0
   %63 = select i1 %62, i32 %61, i32 0
-  %64 = add nsw i32 %57, %63
+  %64 = add nsw i32 %63, %57
   %65 = icmp slt i32 %60, 0
   %66 = select i1 %65, i32 %61, i32 0
   %67 = sub nsw i32 %60, %66

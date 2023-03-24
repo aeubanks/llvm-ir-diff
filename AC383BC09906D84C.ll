@@ -835,7 +835,7 @@ define dso_local void @encode_one_macroblock_low() local_unnamed_addr #0 {
   %377 = getelementptr inbounds %struct.RD_PARAMS, ptr %3, i64 0, i32 3
   %378 = load i16, ptr %377, align 4, !tbaa !28
   %379 = icmp ne i16 %378, 0
-  %380 = and i1 %379, %15
+  %380 = and i1 %15, %379
   br i1 %380, label %381, label %455
 
 381:                                              ; preds = %376

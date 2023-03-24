@@ -652,7 +652,7 @@ define dso_local float @genG__align11(ptr nocapture noundef readonly %0, ptr noc
   %435 = load i32, ptr @outgap, align 4, !tbaa !5
   %436 = icmp ne i32 %435, 0
   %437 = zext i1 %436 to i32
-  %438 = add nsw i32 %20, %437
+  %438 = add nsw i32 %437, %20
   %439 = icmp sgt i32 %438, 1
   br i1 %439, label %440, label %619
 

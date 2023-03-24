@@ -673,7 +673,7 @@ define dso_local void @outer_loop(ptr noundef %0, ptr nocapture noundef readonly
   %107 = icmp eq i32 %106, 0
   %108 = icmp eq i32 %85, 0
   %109 = select i1 %107, i1 %108, i1 false
-  %110 = or i1 %109, %68
+  %110 = or i1 %68, %109
   br i1 %110, label %140, label %111
 
 111:                                              ; preds = %101
@@ -865,8 +865,8 @@ define dso_local void @VBR_iteration_loop(ptr noundef %0, ptr nocapture noundef 
 
 51:                                               ; preds = %45
   %52 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 46
-  %53 = call i32 @llvm.smax.i32(i32 %46, i32 125)
-  %54 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 20
+  %53 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 20
+  %54 = call i32 @llvm.smax.i32(i32 %46, i32 125)
   %55 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 22
   %56 = getelementptr inbounds [4 x double], ptr %15, i64 0, i64 3
   %57 = getelementptr inbounds [4 x double], ptr %15, i64 0, i64 2
@@ -923,7 +923,7 @@ define dso_local void @VBR_iteration_loop(ptr noundef %0, ptr nocapture noundef 
   store i32 0, ptr %90, align 8, !tbaa !21
   %91 = getelementptr inbounds %struct.gr_info, ptr %80, i64 0, i32 18
   store i32 0, ptr %91, align 8, !tbaa !22
-  %92 = load i32, ptr %54, align 4, !tbaa !23
+  %92 = load i32, ptr %53, align 4, !tbaa !23
   %93 = icmp eq i32 %92, 0
   br i1 %93, label %94, label %95
 
@@ -1079,7 +1079,7 @@ define dso_local void @VBR_iteration_loop(ptr noundef %0, ptr nocapture noundef 
   %215 = getelementptr inbounds [2 x %struct.III_psy_ratio], ptr %4, i64 %60, i64 %77
   %216 = call i32 @calc_xmin(ptr noundef %0, ptr noundef nonnull %81, ptr noundef %215, ptr noundef nonnull %80, ptr noundef nonnull %13) #13
   %217 = icmp eq i32 %216, 0
-  %218 = select i1 %217, i32 125, i32 %53
+  %218 = select i1 %217, i32 125, i32 %54
   %219 = select i1 %217, i32 1, i32 %78
   %220 = getelementptr inbounds %struct.gr_info, ptr %80, i64 0, i32 6
   %221 = load i32, ptr %220, align 8, !tbaa !24
@@ -2446,7 +2446,7 @@ define dso_local i32 @quant_compare(i32 noundef %0, i32 noundef %1, double nound
   %42 = fcmp ogt double %41, %6
   %43 = and i1 %40, %42
   %44 = and i1 %43, %29
-  %45 = and i1 %44, %36
+  %45 = and i1 %36, %44
   br i1 %45, label %81, label %46
 
 46:                                               ; preds = %39
@@ -2457,8 +2457,8 @@ define dso_local i32 @quant_compare(i32 noundef %0, i32 noundef %1, double nound
   %51 = and i1 %48, %50
   %52 = fadd double %6, %7
   %53 = fcmp olt double %52, %41
-  %54 = and i1 %51, %53
-  %55 = and i1 %54, %47
+  %54 = and i1 %53, %51
+  %55 = and i1 %47, %54
   br i1 %55, label %81, label %56
 
 56:                                               ; preds = %46
@@ -2466,7 +2466,7 @@ define dso_local i32 @quant_compare(i32 noundef %0, i32 noundef %1, double nound
   %58 = fadd double %4, 1.500000e+00
   %59 = fcmp ogt double %58, %8
   %60 = and i1 %57, %59
-  %61 = and i1 %60, %47
+  %61 = and i1 %47, %60
   br i1 %61, label %62, label %81
 
 62:                                               ; preds = %56
@@ -2969,10 +2969,10 @@ declare i32 @scale_bitcount_lsf(ptr noundef, ptr noundef) local_unnamed_addr #2
 declare double @log10(double noundef) local_unnamed_addr #6
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #12
+declare i32 @llvm.smax.i32(i32, i32) #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #12
+declare i32 @llvm.smin.i32(i32, i32) #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare double @llvm.sqrt.f64(double) #12

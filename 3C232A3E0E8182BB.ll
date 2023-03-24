@@ -341,10 +341,10 @@ define dso_local i32 @cli_regexec(ptr nocapture noundef readonly %0, ptr noundef
 225:                                              ; preds = %222, %218
   %226 = phi i64 [ %224, %222 ], [ %158, %218 ]
   %227 = and i64 %226, %88
-  %228 = icmp eq i64 %227, 0
-  %229 = icmp ne ptr %117, %48
-  %230 = select i1 %228, i1 %229, i1 false
-  br i1 %230, label %231, label %234
+  %228 = icmp ne i64 %227, 0
+  %229 = icmp eq ptr %117, %48
+  %230 = select i1 %228, i1 true, i1 %229
+  br i1 %230, label %234, label %231
 
 231:                                              ; preds = %225
   %232 = call fastcc i64 @sstep(ptr noundef %104, i64 noundef %28, i64 noundef %30, i64 noundef %226, i32 noundef %125, i64 noundef %105)
@@ -353,7 +353,7 @@ define dso_local i32 @cli_regexec(ptr nocapture noundef readonly %0, ptr noundef
 
 234:                                              ; preds = %225
   store ptr %127, ptr %89, align 8, !tbaa !41
-  br i1 %228, label %235, label %238
+  br i1 %228, label %238, label %235
 
 235:                                              ; preds = %234
   %236 = load ptr, ptr %81, align 8, !tbaa !31

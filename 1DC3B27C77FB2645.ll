@@ -859,7 +859,7 @@ define dso_local void @encode_one_macroblock_high() local_unnamed_addr #0 {
   %393 = getelementptr inbounds [9 x i32], ptr @mb_mode_table, i64 0, i64 %392
   %394 = load i32, ptr %393, align 4, !tbaa !5
   %395 = icmp eq i32 %394, 1
-  %396 = and i1 %395, %19
+  %396 = and i1 %19, %395
   br i1 %396, label %399, label %397
 
 397:                                              ; preds = %386
@@ -1197,7 +1197,7 @@ define dso_local void @encode_one_macroblock_high() local_unnamed_addr #0 {
   %655 = getelementptr inbounds %struct.InputParameters, ptr %653, i64 0, i32 46
   %656 = load i32, ptr %655, align 8, !tbaa !29
   %657 = icmp ne i32 %656, 0
-  %658 = and i1 %657, %19
+  %658 = and i1 %19, %657
   %659 = icmp eq i32 %420, 2
   %660 = select i1 %658, i1 %659, i1 false
   br i1 %660, label %661, label %676

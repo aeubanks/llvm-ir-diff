@@ -210,7 +210,7 @@ define dso_local void @_ZN25btTriangleRaycastCallback15processTriangleEP9btVecto
   %83 = and i32 %82, 1
   %84 = icmp ne i32 %83, 0
   %85 = fcmp ogt float %76, 0.000000e+00
-  %86 = select i1 %84, i1 %85, i1 false
+  %86 = and i1 %85, %84
   br i1 %86, label %182, label %87
 
 87:                                               ; preds = %80
@@ -303,7 +303,7 @@ define dso_local void @_ZN25btTriangleRaycastCallback15processTriangleEP9btVecto
   %164 = and i32 %82, 2
   %165 = icmp ne i32 %164, 0
   %166 = fcmp ole float %76, 0.000000e+00
-  %167 = select i1 %165, i1 true, i1 %166
+  %167 = or i1 %166, %165
   br i1 %167, label %168, label %177
 
 168:                                              ; preds = %157
@@ -330,7 +330,7 @@ define dso_local void @_ZN25btTriangleRaycastCallback15processTriangleEP9btVecto
   store float %181, ptr %90, align 4, !tbaa !17
   br label %182
 
-182:                                              ; preds = %87, %126, %168, %177, %143, %93, %80, %4
+182:                                              ; preds = %93, %143, %177, %168, %126, %87, %80, %4
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #15
   ret void
 }

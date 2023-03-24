@@ -426,7 +426,7 @@ define dso_local i32 @maskgen(ptr nocapture noundef %0, i32 noundef %1) local_un
 230:                                              ; preds = %229, %224
   %231 = phi i32 [ 1, %229 ], [ %112, %224 ]
   %232 = icmp ne i32 %110, 0
-  %233 = and i1 %103, %228
+  %233 = and i1 %228, %103
   %234 = select i1 %232, i1 true, i1 %233
   br i1 %234, label %235, label %238
 

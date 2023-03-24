@@ -2612,11 +2612,11 @@ define dso_local i32 @smpUMHEXFullSubPelBlockMotionSearch(ptr noundef %0, i16 no
   %211 = load ptr, ptr %210, align 8, !tbaa !9
   %212 = sub nsw i32 %179, %203
   %213 = tail call i32 %211(ptr noundef %0, i32 noundef %40, i32 noundef %38, i32 noundef %212, i32 noundef %206, i32 noundef %207) #10
-  %214 = add nsw i32 %213, %203
-  %215 = icmp eq i64 %178, 0
-  %216 = select i1 %215, i1 %35, i1 false
-  %217 = select i1 %216, i32 %168, i32 0
-  %218 = sub nsw i32 %214, %217
+  %214 = icmp eq i64 %178, 0
+  %215 = select i1 %214, i1 %35, i1 false
+  %216 = select i1 %215, i32 %168, i32 0
+  %217 = sub nsw i32 %203, %216
+  %218 = add i32 %217, %213
   %219 = icmp slt i32 %218, %179
   %220 = trunc i64 %178 to i32
   %221 = select i1 %219, i32 %220, i32 %180
@@ -6209,10 +6209,10 @@ define dso_local void @smpUMHEX_setup(i16 noundef signext %0, i32 noundef %1, i3
 declare i32 @llvm.abs.i32(i32, i1 immarg) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #8
+declare i32 @llvm.smax.i32(i32, i32) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #8
+declare i32 @llvm.smin.i32(i32, i32) #8
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

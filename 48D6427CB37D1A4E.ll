@@ -303,7 +303,7 @@ define dso_local void @fprint_pla(ptr nocapture noundef %0, ptr noundef %1, i32 
   %172 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 5, i64 1, ptr %0)
   br label %173
 
-173:                                              ; preds = %53, %20, %171, %110, %21, %41, %14, %6
+173:                                              ; preds = %53, %41, %20, %171, %110, %21, %14, %6
   ret void
 }
 

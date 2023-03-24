@@ -75,7 +75,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %23 = phi i64 [ %75, %22 ], [ 0, %12 ]
   %24 = trunc i64 %23 to i32
   %25 = shl i32 %24, 7
-  %26 = add nuw nsw i32 %17, %25
+  %26 = add nuw nsw i32 %25, %17
   %27 = sext i32 %26 to i64
   %28 = getelementptr inbounds float, ptr %5, i64 %27
   store <4 x float> %21, ptr %28, align 4, !tbaa !12
@@ -174,7 +174,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %84 = phi i64 [ %136, %83 ], [ 0, %80 ]
   %85 = trunc i64 %84 to i32
   %86 = shl i32 %85, 7
-  %87 = add nuw nsw i32 %82, %86
+  %87 = add nuw nsw i32 %86, %82
   %88 = sext i32 %87 to i64
   %89 = getelementptr inbounds float, ptr %6, i64 %88
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00>, ptr %89, align 4, !tbaa !12
@@ -278,7 +278,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %146 = phi i64 [ %198, %145 ], [ 0, %142 ]
   %147 = trunc i64 %146 to i32
   %148 = shl i32 %147, 7
-  %149 = add nuw nsw i32 %144, %148
+  %149 = add nuw nsw i32 %148, %144
   %150 = sext i32 %149 to i64
   %151 = getelementptr inbounds float, ptr %9, i64 %150
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00>, ptr %151, align 4, !tbaa !12
@@ -681,7 +681,7 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
   %394 = phi i64 [ %446, %393 ], [ 0, %390 ]
   %395 = trunc i64 %394 to i32
   %396 = shl i32 %395, 7
-  %397 = add nuw nsw i32 %392, %396
+  %397 = add nuw nsw i32 %396, %392
   %398 = sext i32 %397 to i64
   %399 = getelementptr inbounds float, ptr %11, i64 %398
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00>, ptr %399, align 4, !tbaa !12
@@ -1913,11 +1913,11 @@ define dso_local double @second() local_unnamed_addr #13 {
 ; Function Attrs: nofree nounwind
 declare noundef i32 @gettimeofday(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #2
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #15
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1933,8 +1933,8 @@ attributes #10 = { mustprogress nofree nounwind willreturn allockind("alloc,unin
 attributes #11 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #13 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #15 = { nofree nounwind }
+attributes #14 = { nofree nounwind }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #16 = { nounwind allocsize(0) }
 attributes #17 = { nounwind }
 attributes #18 = { nounwind willreturn memory(read) }

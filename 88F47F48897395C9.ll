@@ -1819,7 +1819,7 @@ define dso_local float @A__align(ptr noundef %0, ptr noundef %1, ptr noundef %2,
   %884 = load i32, ptr @outgap, align 4, !tbaa !11
   %885 = icmp ne i32 %884, 0
   %886 = zext i1 %885 to i32
-  %887 = add nsw i32 %28, %886
+  %887 = add nsw i32 %886, %28
   %888 = icmp sgt i32 %887, 1
   br i1 %888, label %889, label %1085
 
@@ -5267,7 +5267,7 @@ define dso_local float @A__align_gapmap(ptr noundef %0, ptr noundef %1, ptr noun
   %829 = load i32, ptr @outgap, align 4, !tbaa !11
   %830 = icmp ne i32 %829, 0
   %831 = zext i1 %830 to i32
-  %832 = add nsw i32 %24, %831
+  %832 = add nsw i32 %831, %24
   %833 = icmp sgt i32 %832, 1
   br i1 %833, label %834, label %1004
 

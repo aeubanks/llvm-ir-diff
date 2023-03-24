@@ -21,7 +21,7 @@ define dso_local i32 @main() local_unnamed_addr #1 {
   br i1 %2, label %3, label %7
 
 3:                                                ; preds = %0
-  %4 = load i32, ptr @d, align 4, !tbaa !5
+  %4 = load i32, ptr @d, align 4
   %5 = icmp eq i32 %4, 0
   br i1 %5, label %9, label %6
 

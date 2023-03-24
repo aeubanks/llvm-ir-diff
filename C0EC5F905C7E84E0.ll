@@ -720,8 +720,8 @@ define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef
   call void @alloc_free(ptr noundef %131, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.3) #8
   br label %132
 
-132:                                              ; preds = %13, %2, %122
-  %133 = phi i32 [ 0, %122 ], [ -25, %2 ], [ -25, %13 ]
+132:                                              ; preds = %2, %13, %122
+  %133 = phi i32 [ 0, %122 ], [ -25, %13 ], [ -25, %2 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #8
   ret i32 %133
 }

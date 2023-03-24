@@ -885,7 +885,7 @@ define linkonce_odr hidden void @_ZN7testing8internal24CmpHelperFloatingPointEQI
   tail call void @_ZN7testing16AssertionSuccessEv(ptr sret(%"class.testing::AssertionResult") align 8 %0)
   br label %134
 
-38:                                               ; preds = %16, %5, %23
+38:                                               ; preds = %5, %16, %23
   call void @llvm.lifetime.start.p0(i64 392, ptr nonnull %6) #13
   call void @_ZNSt7__cxx1118basic_stringstreamIcSt11char_traitsIcESaIcEEC1Ev(ptr noundef nonnull align 8 dereferenceable(128) %6)
   %39 = getelementptr inbounds i8, ptr %6, i64 16

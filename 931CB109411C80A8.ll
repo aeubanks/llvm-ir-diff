@@ -28,10 +28,10 @@ $_ZTIP1A = comdat any
 @str.13 = private unnamed_addr constant [17 x i8] c"Base pointer ok!\00", align 1
 @str.14 = private unnamed_addr constant [9 x i8] c"Copy ok!\00", align 1
 @str.15 = private unnamed_addr constant [17 x i8] c"Copy pointer ok!\00", align 1
-@str.16 = private unnamed_addr constant [18 x i8] c"caught negative T\00", align 1
-@str.17 = private unnamed_addr constant [20 x i8] c"Member negative ok!\00", align 1
-@str.18 = private unnamed_addr constant [16 x i8] c"Member zero ok!\00", align 1
-@str.19 = private unnamed_addr constant [20 x i8] c"Member positive ok!\00", align 1
+@str.18 = private unnamed_addr constant [18 x i8] c"caught negative T\00", align 1
+@str.19 = private unnamed_addr constant [20 x i8] c"Member negative ok!\00", align 1
+@str.21 = private unnamed_addr constant [16 x i8] c"Member zero ok!\00", align 1
+@str.22 = private unnamed_addr constant [20 x i8] c"Member positive ok!\00", align 1
 
 ; Function Attrs: uwtable
 define dso_local noundef i32 @_Z6simplev() local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
@@ -98,7 +98,7 @@ define dso_local noundef i32 @_Z6simplev() local_unnamed_addr #0 personality ptr
   %33 = load i32, ptr @_ZL1c, align 4, !tbaa !5
   %34 = add nsw i32 %33, 1
   store i32 %34, ptr @_ZL1c, align 4, !tbaa !5
-  invoke void @__cxa_throw(ptr %32, ptr nonnull @_ZTI1A, ptr nonnull @_ZN1AD2Ev) #8
+  invoke void @__cxa_throw(ptr nonnull %32, ptr nonnull @_ZTI1A, ptr nonnull @_ZN1AD2Ev) #8
           to label %127 unwind label %35
 
 35:                                               ; preds = %31
@@ -179,7 +179,7 @@ define dso_local noundef i32 @_Z6simplev() local_unnamed_addr #0 personality ptr
   %75 = load i32, ptr @_ZL1c, align 4, !tbaa !5
   %76 = add nsw i32 %75, 1
   store i32 %76, ptr @_ZL1c, align 4, !tbaa !5
-  invoke void @__cxa_throw(ptr %74, ptr nonnull @_ZTI1A, ptr nonnull @_ZN1AD2Ev) #8
+  invoke void @__cxa_throw(ptr nonnull %74, ptr nonnull @_ZTI1A, ptr nonnull @_ZN1AD2Ev) #8
           to label %127 unwind label %77
 
 77:                                               ; preds = %71
@@ -314,14 +314,14 @@ define dso_local noundef i32 @_Z6memberv() local_unnamed_addr #0 personality ptr
   br i1 %6, label %7, label %11
 
 7:                                                ; preds = %0
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
+  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
   %9 = load i32, ptr @_ZL1c, align 4, !tbaa !5
   %10 = load i32, ptr @_ZL1k, align 4, !tbaa !5
   br label %11
 
-11:                                               ; preds = %7, %0
-  %12 = phi i32 [ %10, %7 ], [ %3, %0 ]
-  %13 = phi i32 [ %9, %7 ], [ %1, %0 ]
+11:                                               ; preds = %0, %7
+  %12 = phi i32 [ %3, %0 ], [ %10, %7 ]
+  %13 = phi i32 [ %1, %0 ], [ %9, %7 ]
   %14 = add nsw i32 %12, 1
   store i32 %14, ptr @_ZL1k, align 4, !tbaa !5
   store i32 %13, ptr @_ZL1c, align 4, !tbaa !5
@@ -331,7 +331,7 @@ define dso_local noundef i32 @_Z6memberv() local_unnamed_addr #0 personality ptr
   br i1 %17, label %18, label %21
 
 18:                                               ; preds = %11
-  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
   %20 = load i32, ptr @_ZL1c, align 4, !tbaa !5
   br label %21
 
@@ -355,7 +355,7 @@ define dso_local noundef i32 @_Z6memberv() local_unnamed_addr #0 personality ptr
   store i32 %29, ptr @_ZL1c, align 4, !tbaa !5
   %30 = extractvalue { ptr, i32 } %27, 0
   %31 = tail call ptr @__cxa_begin_catch(ptr %30) #7
-  %32 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %32 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
   tail call void @__cxa_end_catch()
   %33 = load i32, ptr @_ZL1c, align 4, !tbaa !5
   %34 = icmp eq i32 %33, 0
@@ -365,7 +365,7 @@ define dso_local noundef i32 @_Z6memberv() local_unnamed_addr #0 personality ptr
   br i1 %37, label %38, label %41
 
 38:                                               ; preds = %26
-  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
   %40 = load i32, ptr @_ZL1c, align 4, !tbaa !5
   br label %41
 

@@ -457,9 +457,9 @@ define dso_local ptr @dp_PrintProof(ptr noundef %0, ptr noundef %1, ptr noundef 
   %276 = load i32, ptr @memory_ALIGN, align 4
   %277 = urem i32 %273, %276
   %278 = icmp eq i32 %277, 0
-  %279 = add i32 %276, %273
-  %280 = sub i32 %279, %277
-  %281 = select i1 %278, i32 %273, i32 %280
+  %279 = sub i32 %276, %277
+  %280 = select i1 %278, i32 0, i32 %279
+  %281 = add i32 %280, %273
   %282 = load i32, ptr @memory_OFFSET, align 4
   %283 = zext i32 %282 to i64
   %284 = sub nsw i64 0, %283
@@ -483,7 +483,7 @@ define dso_local ptr @dp_PrintProof(ptr noundef %0, ptr noundef %1, ptr noundef 
 
 297:                                              ; preds = %295, %275
   %298 = load i32, ptr @memory_MARKSIZE, align 4
-  %299 = add i32 %298, %281
+  %299 = add i32 %281, %298
   %300 = zext i32 %299 to i64
   %301 = add nuw nsw i64 %300, 16
   %302 = load i64, ptr @memory_FREEDBYTES, align 8

@@ -55,10 +55,10 @@ define dso_local void @TelescopingCABiCGStab(ptr noundef %0, i32 noundef %1, i32
   br i1 %27, label %1503, label %29
 
 29:                                               ; preds = %7
-  %30 = getelementptr inbounds %struct.domain_type, ptr %0, i64 0, i32 4
-  %31 = getelementptr inbounds %struct.domain_type, ptr %0, i64 0, i32 3
-  %32 = fmul double %28, %6
-  %33 = getelementptr inbounds i32, ptr %22, i64 1
+  %30 = getelementptr inbounds i32, ptr %22, i64 1
+  %31 = getelementptr inbounds %struct.domain_type, ptr %0, i64 0, i32 4
+  %32 = getelementptr inbounds %struct.domain_type, ptr %0, i64 0, i32 3
+  %33 = fmul double %28, %6
   br label %34
 
 34:                                               ; preds = %1497, %29
@@ -447,7 +447,7 @@ define dso_local void @TelescopingCABiCGStab(ptr noundef %0, i32 noundef %1, i32
   %297 = getelementptr inbounds [18 x i32], ptr %22, i64 0, i64 %296
   store i32 12, ptr %297, align 4, !tbaa !22
   %298 = zext i32 %108 to i64
-  %299 = getelementptr inbounds i32, ptr %33, i64 %298
+  %299 = getelementptr i32, ptr %30, i64 %298
   %300 = load i32, ptr %22, align 16, !tbaa !22
   call void @scale_grid(ptr noundef %0, i32 noundef %1, i32 noundef %300, double noundef 1.000000e+00, i32 noundef 14) #9
   %301 = zext i32 %169 to i64
@@ -487,9 +487,9 @@ define dso_local void @TelescopingCABiCGStab(ptr noundef %0, i32 noundef %1, i32
   br i1 %323, label %324, label %315, !llvm.loop !30
 
 324:                                              ; preds = %315
-  %325 = load i32, ptr %30, align 4, !tbaa !31
+  %325 = load i32, ptr %31, align 4, !tbaa !31
   %326 = add nsw i32 %325, 1
-  store i32 %326, ptr %30, align 4, !tbaa !31
+  store i32 %326, ptr %31, align 4, !tbaa !31
   %327 = or i32 %38, 2
   call void @matmul_grids(ptr noundef %0, i32 noundef %1, ptr noundef nonnull %21, ptr noundef nonnull %22, ptr noundef nonnull %22, i32 noundef %39, i32 noundef %327, i32 noundef 1) #9
   %328 = zext i32 %38 to i64
@@ -591,9 +591,9 @@ define dso_local void @TelescopingCABiCGStab(ptr noundef %0, i32 noundef %1, i32
 411:                                              ; preds = %1453, %352
   %412 = phi i32 [ 0, %352 ], [ %1454, %1453 ]
   %413 = phi double [ %37, %352 ], [ %1368, %1453 ]
-  %414 = load i32, ptr %31, align 8, !tbaa !38
+  %414 = load i32, ptr %32, align 8, !tbaa !38
   %415 = add nsw i32 %414, 1
-  store i32 %415, ptr %31, align 8, !tbaa !38
+  store i32 %415, ptr %32, align 8, !tbaa !38
   br label %416
 
 416:                                              ; preds = %411, %464
@@ -1363,7 +1363,7 @@ define dso_local void @TelescopingCABiCGStab(ptr noundef %0, i32 noundef %1, i32
 
 1034:                                             ; preds = %1030, %1032
   %1035 = phi double [ %1033, %1032 ], [ 0.000000e+00, %1030 ]
-  %1036 = fcmp olt double %1035, %32
+  %1036 = fcmp olt double %1035, %33
   br i1 %1036, label %1456, label %1037
 
 1037:                                             ; preds = %1034
@@ -1745,7 +1745,7 @@ define dso_local void @TelescopingCABiCGStab(ptr noundef %0, i32 noundef %1, i32
 
 1322:                                             ; preds = %1320, %1318
   %1323 = phi double [ %1321, %1320 ], [ 0.000000e+00, %1318 ]
-  %1324 = fcmp olt double %1323, %32
+  %1324 = fcmp olt double %1323, %33
   br i1 %1324, label %1456, label %1325
 
 1325:                                             ; preds = %1322
@@ -5195,23 +5195,23 @@ define dso_local i32 @IterativeSolver_NumGrids() local_unnamed_addr #5 {
   ret i32 0
 }
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #6
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #7
+declare i1 @llvm.is.fpclass.f64(double, i32 immarg) #6
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i1 @llvm.is.fpclass.f64(double, i32 immarg) #7
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #7
+declare i32 @llvm.smax.i32(i32, i32) #6
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #7
+declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -5219,8 +5219,8 @@ attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #3 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #5 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #9 = { nounwind }
 attributes #10 = { memory(none) }

@@ -386,7 +386,7 @@ define dso_local void @printSolution(ptr nocapture noundef readonly %0, i32 noun
 
 31:                                               ; preds = %27
   %32 = load i32, ptr %10, align 4, !tbaa !23
-  %33 = add nsw i32 %32, %29
+  %33 = add nsw i32 %29, %32
   br label %43
 
 34:                                               ; preds = %27
@@ -396,7 +396,7 @@ define dso_local void @printSolution(ptr nocapture noundef readonly %0, i32 noun
 
 37:                                               ; preds = %27
   %38 = load i32, ptr %10, align 4, !tbaa !23
-  %39 = mul nsw i32 %38, %29
+  %39 = mul nsw i32 %29, %38
   br label %43
 
 40:                                               ; preds = %27

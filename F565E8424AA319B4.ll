@@ -171,8 +171,8 @@ define dso_local noundef ptr @_Z14strait_or_leftP7roadletP7vehicle9direction(ptr
 18:                                               ; preds = %3, %12
   br label %19
 
-19:                                               ; preds = %12, %7, %18
-  %20 = phi ptr [ null, %18 ], [ %0, %7 ], [ %0, %12 ]
+19:                                               ; preds = %7, %12, %18
+  %20 = phi ptr [ null, %18 ], [ %0, %12 ], [ %0, %7 ]
   ret ptr %20
 }
 
@@ -201,8 +201,8 @@ define dso_local noundef ptr @_Z15strait_or_rightP7roadletP7vehicle9direction(pt
 18:                                               ; preds = %3, %12
   br label %19
 
-19:                                               ; preds = %12, %7, %18
-  %20 = phi ptr [ null, %18 ], [ %0, %7 ], [ %0, %12 ]
+19:                                               ; preds = %7, %12, %18
+  %20 = phi ptr [ null, %18 ], [ %0, %12 ], [ %0, %7 ]
   ret ptr %20
 }
 
@@ -330,13 +330,15 @@ define dso_local noundef ptr @_Z24green_OR_plan_rightONredP20intersection_roadle
   br label %52
 
 52:                                               ; preds = %46, %48, %50
-  %53 = phi i1 [ true, %50 ], [ true, %48 ], [ false, %46 ]
-  %54 = getelementptr inbounds %class.roadlet, ptr %0, i64 0, i32 1
-  %55 = load ptr, ptr %54, align 8, !tbaa !5
-  %56 = icmp eq ptr %55, null
-  %57 = and i1 %56, %53
-  %58 = select i1 %57, ptr %0, ptr null
-  ret ptr %58
+  %53 = phi i1 [ %28, %50 ], [ true, %48 ], [ false, %46 ]
+  %54 = phi i1 [ true, %50 ], [ false, %48 ], [ false, %46 ]
+  %55 = getelementptr inbounds %class.roadlet, ptr %0, i64 0, i32 1
+  %56 = load ptr, ptr %55, align 8, !tbaa !5
+  %57 = icmp eq ptr %56, null
+  %58 = or i1 %53, %54
+  %59 = and i1 %58, %57
+  %60 = select i1 %59, ptr %0, ptr null
+  ret ptr %60
 }
 
 declare noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8), i32) local_unnamed_addr #0

@@ -270,8 +270,8 @@ define dso_local noundef ptr @_ZN8sum_expr5derivEPc(ptr nocapture noundef nonnul
   store i8 43, ptr %42, align 8, !tbaa !17
   br label %43
 
-43:                                               ; preds = %32, %20, %38
-  %44 = phi ptr [ %39, %38 ], [ %14, %20 ], [ %8, %32 ]
+43:                                               ; preds = %38, %32, %20
+  %44 = phi ptr [ %14, %20 ], [ %8, %32 ], [ %39, %38 ]
   ret ptr %44
 }
 
@@ -562,8 +562,8 @@ define dso_local noundef ptr @_ZN9prod_expr5derivEPc(ptr nocapture noundef nonnu
           cleanup
   br label %180
 
-178:                                              ; preds = %32, %168, %149, %127, %104, %96, %82, %52, %50
-  %179 = phi ptr [ %51, %50 ], [ %53, %52 ], [ %83, %82 ], [ %97, %96 ], [ %102, %104 ], [ %128, %127 ], [ %146, %149 ], [ %160, %168 ], [ %8, %32 ]
+178:                                              ; preds = %168, %149, %104, %96, %32, %127, %82, %52, %50
+  %179 = phi ptr [ %51, %50 ], [ %53, %52 ], [ %83, %82 ], [ %128, %127 ], [ %8, %32 ], [ %97, %96 ], [ %102, %104 ], [ %146, %149 ], [ %160, %168 ]
   ret ptr %179
 
 180:                                              ; preds = %176, %157, %113

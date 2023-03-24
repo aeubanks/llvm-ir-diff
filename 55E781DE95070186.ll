@@ -155,7 +155,7 @@ define dso_local i32 @Proc5() local_unnamed_addr #7 {
 define dso_local i32 @Proc6(i32 noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #8 {
   %3 = icmp eq i32 %0, 10001
   %4 = select i1 %3, i32 10001, i32 10002
-  store i32 %4, ptr %1, align 4, !tbaa !18
+  store i32 %4, ptr %1, align 4
   switch i32 %0, label %13 [
     i32 0, label %11
     i32 10000, label %5

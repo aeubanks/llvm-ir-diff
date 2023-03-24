@@ -437,7 +437,7 @@ define dso_local i32 @u_1(ptr nocapture noundef readnone %0, i32 noundef %1, ptr
   %12 = add nsw i32 %11, -1
   store i32 %12, ptr %5, align 4, !tbaa !13
   %13 = icmp eq i32 %12, 0
-  br i1 %13, label %14, label %21
+  br i1 %13, label %14, label %21, !llvm.loop !17
 
 14:                                               ; preds = %3
   %15 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 9

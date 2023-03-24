@@ -311,7 +311,7 @@ define dso_local noundef i32 @_ZN10BitBoard6412readFromFileEP8_IO_FILE(ptr nocap
   br label %70
 
 70:                                               ; preds = %69, %63, %39
-  %71 = phi i32 [ -1, %39 ], [ 0, %63 ], [ -1, %69 ]
+  %71 = phi i32 [ -1, %39 ], [ -1, %69 ], [ 0, %63 ]
   ret i32 %71
 }
 
@@ -460,10 +460,10 @@ define dso_local noundef i32 @_Z6getBFPii(i32 noundef %0, i32 noundef %1) local_
   %29 = select i1 %27, i32 %28, i32 %26
   %30 = icmp ugt i32 %1, 4
   %31 = sext i1 %30 to i32
-  %32 = add nsw i32 %29, %31
-  %33 = xor i1 %14, true
-  %34 = sext i1 %33 to i32
-  %35 = add nsw i32 %32, %34
+  %32 = xor i1 %14, true
+  %33 = sext i1 %32 to i32
+  %34 = add nsw i32 %33, %31
+  %35 = add nsw i32 %34, %29
   %36 = icmp ugt i32 %1, 6
   %37 = add nsw i32 %35, -2
   %38 = select i1 %36, i32 %37, i32 %35
@@ -533,7 +533,7 @@ define dso_local void @_ZN10BitBoard645printEv(ptr nocapture noundef nonnull rea
   %40 = select i1 %21, i32 %39, i32 %38
   %41 = add nsw i32 %40, -2
   %42 = select i1 %22, i32 %41, i32 %40
-  %43 = add i32 %26, %42
+  %43 = add nsw i32 %26, %42
   %44 = add nsw i32 %43, -2
   %45 = select i1 %27, i32 %44, i32 %43
   %46 = add nsw i32 %45, -3

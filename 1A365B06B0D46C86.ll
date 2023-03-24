@@ -583,10 +583,10 @@ define dso_local void @on_pe(ptr nocapture noundef readonly %0, ptr nocapture no
   %36 = add nsw i32 %35, %21
   %37 = icmp sgt i32 %36, 4095
   %38 = sub nsw i32 4095, %21
-  %39 = call i32 @llvm.smin.i32(i32 %36, i32 4095)
-  %40 = select i1 %37, i32 %38, i32 %35
-  store i32 %39, ptr %22, align 4, !tbaa !17
-  %41 = sub nsw i32 %20, %40
+  %39 = select i1 %37, i32 %38, i32 %35
+  %40 = add nsw i32 %39, %21
+  store i32 %40, ptr %22, align 4, !tbaa !17
+  %41 = sub nsw i32 %20, %39
   %42 = add nuw nsw i64 %18, 1
   %43 = load i32, ptr %9, align 4, !tbaa !28
   %44 = sext i32 %43 to i64
@@ -1779,7 +1779,7 @@ define dso_local i32 @scale_bitcount_lsf(ptr nocapture noundef readonly %0, ptr 
   %365 = add i32 %364, %353
   %366 = shl i32 %365, 4
   %367 = shl i32 %357, 2
-  %368 = add i32 %366, %367
+  %368 = add i32 %367, %366
   %369 = add i32 %368, %361
   br label %374
 
@@ -2760,26 +2760,26 @@ define dso_local void @quantize_xrpow_ISO(ptr nocapture noundef readonly %0, ptr
 
 declare double @exp2(double) local_unnamed_addr
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.abs.i32(i32, i1 immarg) #15
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #16
+declare i32 @llvm.smax.i32(i32, i32) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #16
+declare i32 @llvm.smin.i32(i32, i32) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #16
+declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #16
+declare i32 @llvm.vector.reduce.smax.v4i32(<4 x i32>) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.smax.v4i32(<4 x i32>) #16
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #16
+declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #15
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2796,8 +2796,8 @@ attributes #11 = { nofree norecurse nosync nounwind memory(read, argmem: readwri
 attributes #12 = { nofree norecurse nosync nounwind memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #14 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #15 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #17 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

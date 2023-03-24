@@ -57,7 +57,7 @@ define dso_local i32 @main() local_unnamed_addr #1 {
   %16 = lshr i32 %14, %15
   store i32 %16, ptr @t, align 4, !tbaa !5
   store i32 %16, ptr @m, align 4, !tbaa !5
-  %17 = icmp eq i32 %16, %5
+  %17 = icmp eq i32 %5, %16
   %18 = zext i1 %17 to i32
   store i32 %18, ptr @o, align 4, !tbaa !5
   store i8 0, ptr @c, align 1, !tbaa !9

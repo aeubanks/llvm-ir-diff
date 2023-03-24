@@ -57,10 +57,10 @@ define dso_local i32 @g723_40_encoder(i32 noundef %0, i32 noundef %1, ptr nounde
   %38 = and i32 %34, 32767
   %39 = sub nsw i32 0, %38
   %40 = select i1 %37, i32 %39, i32 %36
-  %41 = add nsw i32 %17, %40
+  %41 = add nsw i32 %40, %17
   %42 = shl i32 %41, 16
   %43 = ashr exact i32 %42, 16
-  %44 = add nsw i32 %13, %40
+  %44 = add nsw i32 %40, %13
   %45 = getelementptr inbounds [32 x i16], ptr @_witab, i64 0, i64 %30
   %46 = load i16, ptr %45, align 2, !tbaa !5
   %47 = sext i16 %46 to i32
@@ -118,10 +118,10 @@ define dso_local i32 @g723_40_decoder(i32 noundef %0, i32 noundef %1, ptr nounde
   %24 = and i32 %20, 32767
   %25 = sub nsw i32 0, %24
   %26 = select i1 %23, i32 %25, i32 %22
-  %27 = add nsw i32 %11, %26
+  %27 = add nsw i32 %26, %11
   %28 = shl i32 %27, 16
   %29 = ashr exact i32 %28, 16
-  %30 = add nsw i32 %7, %26
+  %30 = add nsw i32 %26, %7
   %31 = getelementptr inbounds [32 x i16], ptr @_witab, i64 0, i64 %14
   %32 = load i16, ptr %31, align 2, !tbaa !5
   %33 = sext i16 %32 to i32

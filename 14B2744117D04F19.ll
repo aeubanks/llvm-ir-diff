@@ -106,8 +106,8 @@ define dso_local ptr @addString(ptr nocapture noundef %0, ptr nocapture noundef 
   br label %32
 
 32:                                               ; preds = %17, %21
-  %33 = phi i32 [ 1, %21 ], [ 0, %17 ]
-  %34 = phi ptr [ %22, %21 ], [ %13, %17 ]
+  %33 = phi i32 [ 0, %17 ], [ 1, %21 ]
+  %34 = phi ptr [ %13, %17 ], [ %22, %21 ]
   store i32 %33, ptr %3, align 4, !tbaa !19
   ret ptr %34
 }

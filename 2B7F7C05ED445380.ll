@@ -39,7 +39,7 @@ define internal fastcc void @foobar(ptr %0) unnamed_addr #3 {
   %5 = getelementptr inbounds %struct.bitmap_iterator, ptr %2, i64 0, i32 2
   br label %6
 
-6:                                                ; preds = %54, %1
+6:                                                ; preds = %53, %1
   %7 = load i32, ptr %3, align 4, !tbaa !5
   %8 = load i64, ptr %4, align 8, !tbaa !9
   %9 = icmp eq i64 %8, 0
@@ -62,7 +62,7 @@ define internal fastcc void @foobar(ptr %0) unnamed_addr #3 {
 20:                                               ; preds = %13, %10
   %21 = phi i32 [ %7, %10 ], [ %17, %13 ]
   store i32 %21, ptr %3, align 4, !tbaa !5
-  br label %54
+  br label %53
 
 22:                                               ; preds = %6
   %23 = add i32 %7, 63
@@ -72,10 +72,10 @@ define internal fastcc void @foobar(ptr %0) unnamed_addr #3 {
   %27 = load ptr, ptr %2, align 8, !tbaa !16
   br label %28
 
-28:                                               ; preds = %50, %22
-  %29 = phi i32 [ %24, %22 ], [ %53, %50 ]
-  %30 = phi i32 [ %26, %22 ], [ 0, %50 ]
-  %31 = phi ptr [ %27, %22 ], [ %47, %50 ]
+28:                                               ; preds = %49, %22
+  %29 = phi i32 [ %24, %22 ], [ %52, %49 ]
+  %30 = phi i32 [ %26, %22 ], [ 0, %49 ]
+  %31 = phi ptr [ %27, %22 ], [ %47, %49 ]
   %32 = icmp eq i32 %30, 2
   br i1 %32, label %46, label %33
 
@@ -95,7 +95,7 @@ define internal fastcc void @foobar(ptr %0) unnamed_addr #3 {
   store ptr %31, ptr %2, align 8, !tbaa !16
   call fastcc void @bmp_iter_set_tail(ptr noundef nonnull %2, ptr noundef nonnull %3)
   %41 = load i32, ptr %3, align 4, !tbaa !5
-  br label %54
+  br label %53
 
 42:                                               ; preds = %33
   %43 = add i32 %34, 64
@@ -106,24 +106,24 @@ define internal fastcc void @foobar(ptr %0) unnamed_addr #3 {
 46:                                               ; preds = %42, %28
   %47 = load ptr, ptr %31, align 8, !tbaa !19
   %48 = icmp eq ptr %47, null
-  br i1 %48, label %49, label %50
+  br i1 %48, label %55, label %49
 
 49:                                               ; preds = %46
+  %50 = getelementptr inbounds %struct.bitmap_element_def, ptr %47, i64 0, i32 2
+  %51 = load i32, ptr %50, align 8, !tbaa !21
+  %52 = shl i32 %51, 7
+  br label %28
+
+53:                                               ; preds = %20, %40
+  %54 = phi i32 [ %21, %20 ], [ %41, %40 ]
+  tail call fastcc void @catchme(i32 noundef %54)
+  call fastcc void @bmp_iter_next(ptr noundef nonnull %2, ptr noundef nonnull %3)
+  br label %6, !llvm.loop !22
+
+55:                                               ; preds = %46
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #8
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #8
   ret void
-
-50:                                               ; preds = %46
-  %51 = getelementptr inbounds %struct.bitmap_element_def, ptr %47, i64 0, i32 2
-  %52 = load i32, ptr %51, align 8, !tbaa !21
-  %53 = shl i32 %52, 7
-  br label %28
-
-54:                                               ; preds = %40, %20
-  %55 = phi i32 [ %41, %40 ], [ %21, %20 ]
-  tail call fastcc void @catchme(i32 noundef %55)
-  call fastcc void @bmp_iter_next(ptr noundef nonnull %2, ptr noundef nonnull %3)
-  br label %6, !llvm.loop !22
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

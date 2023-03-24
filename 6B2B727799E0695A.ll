@@ -11,10 +11,10 @@ define dso_local i32 @glibc_compat_rand() local_unnamed_addr #0 {
   %1 = load i32, ptr @next, align 4, !tbaa !5
   %2 = icmp slt i32 %1, 3
   %3 = select i1 %2, i32 341, i32 -3
-  %4 = add nsw i32 %1, %3
+  %4 = add nsw i32 %3, %1
   %5 = icmp slt i32 %1, 31
   %6 = select i1 %5, i32 313, i32 -31
-  %7 = add nsw i32 %1, %6
+  %7 = add nsw i32 %6, %1
   %8 = sext i32 %4 to i64
   %9 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %8
   %10 = load i32, ptr %9, align 4, !tbaa !5

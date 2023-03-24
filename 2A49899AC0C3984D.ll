@@ -778,14 +778,14 @@ define dso_local i32 @vspand(i32 noundef %0, i32 noundef %1, i32 noundef %2) loc
   %5 = load i32, ptr @nlin, align 4
   %6 = icmp sgt i32 %5, %0
   %7 = select i1 %4, i1 %6, i1 false
-  br i1 %7, label %8, label %33
+  br i1 %7, label %8, label %40
 
 8:                                                ; preds = %3
   %9 = zext i32 %0 to i64
   %10 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %9
   %11 = load ptr, ptr %10, align 8, !tbaa !5
   %12 = icmp eq ptr %11, null
-  br i1 %12, label %13, label %33
+  br i1 %12, label %13, label %40
 
 13:                                               ; preds = %8
   %14 = icmp eq i32 %2, 0
@@ -794,7 +794,7 @@ define dso_local i32 @vspand(i32 noundef %0, i32 noundef %1, i32 noundef %2) loc
 15:                                               ; preds = %13
   %16 = tail call i32 @ctype(i32 noundef %0, i32 noundef %1) #3
   %17 = icmp eq i32 %16, 94
-  br i1 %17, label %33, label %18
+  br i1 %17, label %40, label %18
 
 18:                                               ; preds = %15, %13
   %19 = getelementptr inbounds [0 x ptr], ptr @table, i64 0, i64 %9
@@ -804,22 +804,33 @@ define dso_local i32 @vspand(i32 noundef %0, i32 noundef %1, i32 noundef %2) loc
   %23 = getelementptr inbounds %struct.colstr, ptr %20, i64 %21, i32 1
   %24 = load ptr, ptr %23, align 8, !tbaa !20
   %25 = icmp eq ptr %24, null
-  br i1 %25, label %26, label %33
+  br i1 %25, label %26, label %40
 
 26:                                               ; preds = %18
   %27 = getelementptr inbounds [0 x i32], ptr @fullbot, i64 0, i64 %9
   %28 = load i32, ptr %27, align 4, !tbaa !9
   %29 = icmp eq i32 %28, 0
-  br i1 %29, label %30, label %33
+  br i1 %29, label %30, label %40
 
 30:                                               ; preds = %26
   %31 = load ptr, ptr %22, align 8, !tbaa !18
-  %32 = tail call i32 @vspen(ptr noundef %31)
-  br label %33
+  %32 = icmp eq ptr %31, null
+  br i1 %32, label %40, label %33
 
-33:                                               ; preds = %26, %18, %15, %8, %3, %30
-  %34 = phi i32 [ %32, %30 ], [ 0, %3 ], [ 0, %8 ], [ 1, %15 ], [ 0, %18 ], [ 0, %26 ]
-  ret i32 %34
+33:                                               ; preds = %30
+  %34 = ptrtoint ptr %31 to i64
+  %35 = trunc i64 %34 to i32
+  %36 = tail call i32 @point(i32 noundef %35) #3
+  %37 = icmp eq i32 %36, 0
+  br i1 %37, label %40, label %38
+
+38:                                               ; preds = %33
+  %39 = tail call i32 @match(ptr noundef nonnull %31, ptr noundef nonnull @.str.6) #3
+  br label %40
+
+40:                                               ; preds = %38, %33, %30, %26, %18, %15, %8, %3
+  %41 = phi i32 [ 0, %3 ], [ 0, %8 ], [ 1, %15 ], [ 0, %18 ], [ 0, %26 ], [ %39, %38 ], [ 0, %30 ], [ 0, %33 ]
+  ret i32 %41
 }
 
 declare i32 @prev(i32 noundef) local_unnamed_addr #1

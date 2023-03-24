@@ -618,8 +618,8 @@ define internal fastcc i32 @cdiff_execute(ptr noundef %0, ptr noundef %1) unname
   tail call void @free(ptr noundef nonnull %18) #18
   br label %80
 
-48:                                               ; preds = %20, %28, %31, %34, %40, %43
-  %49 = phi i64 [ 6, %43 ], [ 5, %40 ], [ 3, %34 ], [ 2, %31 ], [ 1, %28 ], [ 0, %20 ]
+48:                                               ; preds = %43, %40, %34, %31, %28, %20
+  %49 = phi i64 [ 0, %20 ], [ 1, %28 ], [ 2, %31 ], [ 3, %34 ], [ 5, %40 ], [ 6, %43 ]
   %50 = getelementptr inbounds [8 x %struct.cdiff_cmd], ptr @commands, i64 0, i64 %49, i32 2
   %51 = load ptr, ptr %50, align 8, !tbaa !34
   %52 = getelementptr inbounds [8 x %struct.cdiff_cmd], ptr @commands, i64 0, i64 %49, i32 1
@@ -2235,30 +2235,30 @@ define internal i32 @cdiff_cmd_move(ptr nocapture noundef readonly %0, ptr nocap
   call void @free(ptr noundef %175) #18
   %318 = call i32 @unlink(ptr noundef %240) #18
   call void @free(ptr noundef %240) #18
-  %319 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.68, ptr noundef nonnull %215, ptr noundef nonnull %302) #18
+  %319 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.68, ptr noundef %215, ptr noundef nonnull %302) #18
   call void @free(ptr noundef %215) #18
   call void @free(ptr noundef nonnull %302) #18
   br label %333
 
 320:                                              ; preds = %312
-  %321 = call i32 @unlink(ptr noundef nonnull %215) #18
+  %321 = call i32 @unlink(ptr noundef %215) #18
   %322 = icmp eq i32 %321, -1
   br i1 %322, label %323, label %326
 
 323:                                              ; preds = %320
-  %324 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.69, ptr noundef nonnull %215) #18
+  %324 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.69, ptr noundef %215) #18
   call void @free(ptr noundef %215) #18
   %325 = call i32 @unlink(ptr noundef %240) #18
   call void @free(ptr noundef %240) #18
   br label %333
 
 326:                                              ; preds = %320
-  %327 = call i32 @rename(ptr noundef %240, ptr noundef nonnull %215) #18
+  %327 = call i32 @rename(ptr noundef %240, ptr noundef %215) #18
   %328 = icmp eq i32 %327, -1
   br i1 %328, label %329, label %332
 
 329:                                              ; preds = %326
-  %330 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.70, ptr noundef %240, ptr noundef nonnull %215) #18
+  %330 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.70, ptr noundef %240, ptr noundef %215) #18
   call void @free(ptr noundef %215) #18
   %331 = call i32 @unlink(ptr noundef %240) #18
   call void @free(ptr noundef %240) #18

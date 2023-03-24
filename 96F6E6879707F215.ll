@@ -272,13 +272,13 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   br i1 %153, label %154, label %155
 
 154:                                              ; preds = %149, %159
-  br label %96
+  br label %96, !llvm.loop !13
 
 155:                                              ; preds = %149, %155
   %156 = load ptr, ptr @stdin, align 8, !tbaa !5
   %157 = call i32 @getc(ptr noundef %156)
   %158 = icmp eq i32 %157, 10
-  br i1 %158, label %159, label %155, !llvm.loop !13
+  br i1 %158, label %159, label %155, !llvm.loop !15
 
 159:                                              ; preds = %155
   %160 = and i32 %152, -33
@@ -352,7 +352,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   %204 = load i32, ptr %7, align 4, !tbaa !9
   %205 = and i32 %204, 2
   %206 = icmp eq i32 %205, 0
-  br i1 %206, label %207, label %172, !llvm.loop !15
+  br i1 %206, label %207, label %172, !llvm.loop !16
 
 207:                                              ; preds = %201, %176
   %208 = phi ptr [ %173, %176 ], [ %202, %201 ]
@@ -450,7 +450,7 @@ define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnon
   br label %21
 
 260:                                              ; preds = %108, %240, %141, %116, %110, %199, %197, %41
-  %261 = phi { ptr, i32 } [ %42, %41 ], [ %241, %240 ], [ %109, %108 ], [ %111, %110 ], [ %142, %141 ], [ %117, %116 ], [ %198, %197 ], [ %200, %199 ]
+  %261 = phi { ptr, i32 } [ %42, %41 ], [ %241, %240 ], [ %109, %108 ], [ %111, %110 ], [ %117, %116 ], [ %142, %141 ], [ %198, %197 ], [ %200, %199 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #7
   br label %267
 
@@ -564,3 +564,4 @@ attributes #8 = { nounwind willreturn memory(read) }
 !13 = distinct !{!13, !14}
 !14 = !{!"llvm.loop.mustprogress"}
 !15 = distinct !{!15, !14}
+!16 = distinct !{!16, !14}

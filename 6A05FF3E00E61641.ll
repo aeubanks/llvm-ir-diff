@@ -96,7 +96,7 @@ define dso_local i32 @hypre_PrintBoxArrayData(ptr nocapture noundef %0, ptr noca
   %81 = icmp slt i32 %73, 1
   %82 = sub i32 %70, %73
   %83 = sub i32 %63, %74
-  %84 = mul i32 %83, %70
+  %84 = mul i32 %70, %83
   %85 = icmp slt i32 %74, 1
   %86 = select i1 %80, i1 true, i1 %85
   %87 = select i1 %86, i1 true, i1 %81
@@ -156,7 +156,7 @@ define dso_local i32 @hypre_PrintBoxArrayData(ptr nocapture noundef %0, ptr noca
   br i1 %126, label %127, label %95, !llvm.loop !18
 
 127:                                              ; preds = %122
-  %128 = add i32 %84, %124
+  %128 = add nsw i32 %124, %84
   %129 = add nuw nsw i32 %94, 1
   %130 = icmp eq i32 %129, %75
   br i1 %130, label %131, label %92, !llvm.loop !19
@@ -276,7 +276,7 @@ define dso_local i32 @hypre_ReadBoxArrayData(ptr noundef %0, ptr nocapture nound
   %82 = icmp slt i32 %74, 1
   %83 = sub i32 %71, %74
   %84 = sub i32 %64, %75
-  %85 = mul i32 %84, %71
+  %85 = mul i32 %71, %84
   %86 = icmp slt i32 %75, 1
   %87 = select i1 %81, i1 true, i1 %86
   %88 = select i1 %87, i1 true, i1 %82
@@ -327,7 +327,7 @@ define dso_local i32 @hypre_ReadBoxArrayData(ptr noundef %0, ptr nocapture nound
   br i1 %118, label %119, label %95, !llvm.loop !23
 
 119:                                              ; preds = %114
-  %120 = add i32 %85, %116
+  %120 = add nsw i32 %116, %85
   %121 = add nuw nsw i32 %94, 1
   %122 = icmp eq i32 %121, %76
   br i1 %122, label %123, label %92, !llvm.loop !24

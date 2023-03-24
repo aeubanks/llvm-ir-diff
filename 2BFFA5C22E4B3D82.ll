@@ -699,7 +699,7 @@ define internal fastcc void @output(ptr nocapture noundef %0, i16 noundef signex
   tail call void %43(ptr noundef nonnull %40) #6
   br label %44
 
-44:                                               ; preds = %39, %30
+44:                                               ; preds = %30, %39
   store i32 0, ptr %16, align 8, !tbaa !55
   br label %45
 

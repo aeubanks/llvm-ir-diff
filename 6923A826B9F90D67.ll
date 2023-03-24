@@ -591,8 +591,8 @@ define dso_local i32 @MixCoder_SetFromMethod(ptr nocapture noundef %0, i32 nound
   store ptr @BraState_Code, ptr %35, align 8, !tbaa !30
   br label %36
 
-36:                                               ; preds = %29, %24, %19, %13, %8
-  %37 = phi i32 [ 0, %13 ], [ 2, %8 ], [ 4, %19 ], [ 0, %29 ], [ 2, %24 ]
+36:                                               ; preds = %29, %24, %13, %8, %19
+  %37 = phi i32 [ 4, %19 ], [ 0, %13 ], [ 2, %8 ], [ 0, %29 ], [ 2, %24 ]
   ret i32 %37
 }
 
@@ -1723,8 +1723,8 @@ define dso_local i32 @XzDec_Init(ptr nocapture noundef %0, ptr noundef %1) local
   %182 = icmp slt i64 %179, %181
   br i1 %182, label %173, label %183, !llvm.loop !46
 
-183:                                              ; preds = %106, %101, %90, %127, %173, %164
-  %184 = phi i32 [ 0, %164 ], [ 0, %173 ], [ %139, %127 ], [ 2, %90 ], [ 4, %101 ], [ 2, %106 ]
+183:                                              ; preds = %106, %90, %101, %127, %173, %164
+  %184 = phi i32 [ 0, %164 ], [ 0, %173 ], [ %139, %127 ], [ 4, %101 ], [ 2, %90 ], [ 2, %106 ]
   ret i32 %184
 }
 
@@ -2482,14 +2482,14 @@ declare i32 @Lzma2Dec_DecodeToBuf(ptr noundef, ptr noundef, ptr noundef, ptr nou
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umin.i64(i64, i64) #8
 
+; Function Attrs: nofree nounwind willreturn memory(argmem: read)
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #9
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umin.i32(i32, i32) #8
-
-; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #10
 
 attributes #0 = { nofree nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2500,8 +2500,8 @@ attributes #5 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #6 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #9 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #11 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

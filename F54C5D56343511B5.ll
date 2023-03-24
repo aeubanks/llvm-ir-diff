@@ -428,9 +428,9 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.328 = private unnamed_addr constant [34 x i8] c"CABAC is not allowed in extended.\00", align 1
 @.str.329 = private unnamed_addr constant [107 x i8] c"\0AWarning: LevelIDC 3.0 and above require direct_8x8_inference to be set to 1. Please check your settings.\0A\00", align 1
 @.str.330 = private unnamed_addr constant [103 x i8] c"\0AInterlace modes only supported for LevelIDC in the range of 2.1 and 4.1. Please check your settings.\0A\00", align 1
-@str.331 = private unnamed_addr constant [55 x i8] c"*               Encoder Parameters                   *\00", align 1
-@str.333 = private unnamed_addr constant [55 x i8] c"******************************************************\00", align 1
-@str.334 = private unnamed_addr constant [30 x i8] c"Setting Default Parameters...\00", align 1
+@str = private unnamed_addr constant [30 x i8] c"Setting Default Parameters...\00", align 1
+@str.332 = private unnamed_addr constant [55 x i8] c"*               Encoder Parameters                   *\00", align 1
+@str.334 = private unnamed_addr constant [55 x i8] c"******************************************************\00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local void @JMHelpExit() local_unnamed_addr #0 {
@@ -450,7 +450,7 @@ declare void @exit(i32 noundef) local_unnamed_addr #2
 define dso_local void @Configure(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #3 {
   %3 = alloca i32, align 4
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(5800) @configinput, i8 0, i64 5800, i1 false)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.334)
+  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %5 = load ptr, ptr @Map, align 16, !tbaa !9
   %6 = icmp eq ptr %5, null
   br i1 %6, label %27, label %7
@@ -2551,9 +2551,9 @@ define dso_local void @Configure(i32 noundef %0, ptr nocapture noundef readonly 
   br i1 %1331, label %1364, label %1332
 
 1332:                                             ; preds = %1327
-  %1333 = call i32 @puts(ptr nonnull dereferenceable(1) @str.333)
-  %1334 = call i32 @puts(ptr nonnull dereferenceable(1) @str.331)
-  %1335 = call i32 @puts(ptr nonnull dereferenceable(1) @str.333)
+  %1333 = call i32 @puts(ptr nonnull dereferenceable(1) @str.334)
+  %1334 = call i32 @puts(ptr nonnull dereferenceable(1) @str.332)
+  %1335 = call i32 @puts(ptr nonnull dereferenceable(1) @str.334)
   %1336 = load ptr, ptr @Map, align 16, !tbaa !9
   %1337 = icmp eq ptr %1336, null
   br i1 %1337, label %1362, label %1338
@@ -2597,7 +2597,7 @@ define dso_local void @Configure(i32 noundef %0, ptr nocapture noundef readonly 
   br i1 %1361, label %1362, label %1338, !llvm.loop !101
 
 1362:                                             ; preds = %1357, %1332
-  %1363 = call i32 @puts(ptr nonnull dereferenceable(1) @str.333)
+  %1363 = call i32 @puts(ptr nonnull dereferenceable(1) @str.334)
   br label %1364
 
 1364:                                             ; preds = %1362, %1327
@@ -3019,6 +3019,9 @@ declare i32 @__isoc99_fscanf(ptr noundef, ptr noundef, ...) local_unnamed_addr #
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
 
 ; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #16
+
+; Function Attrs: nofree nounwind
 declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -3026,9 +3029,6 @@ declare i32 @llvm.smax.i32(i32, i32) #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #17
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #16
 
 attributes #0 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

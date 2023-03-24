@@ -3007,7 +3007,7 @@ define dso_local ptr @MinSize(ptr noundef %0, i32 noundef %1, ptr noundef %2) lo
   store i32 0, ptr %1426, align 8, !tbaa !5
   br label %4259
 
-1428:                                             ; preds = %1355, %1396, %1376, %1259, %722, %718
+1428:                                             ; preds = %1355, %1259, %1396, %1376, %722, %718
   %1429 = load i8, ptr %14, align 8, !tbaa !5
   %1430 = icmp eq i8 %1429, 44
   br i1 %1430, label %1435, label %1431

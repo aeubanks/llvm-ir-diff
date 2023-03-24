@@ -255,7 +255,7 @@ define dso_local void @ADD_TO_TEXT_RECORD(ptr nocapture noundef readonly %0, i32
   %25 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %2, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
   br label %26
 
-26:                                               ; preds = %20, %17
+26:                                               ; preds = %17, %20
   store i32 %1, ptr @LOCATION, align 4, !tbaa !5
   store i8 0, ptr @INIT_RECORD, align 16
   store i8 0, ptr @RECORD, align 16
@@ -290,7 +290,7 @@ define dso_local void @ADD_TO_TEXT_RECORD(ptr nocapture noundef readonly %0, i32
   %44 = load i32, ptr @LOCATION, align 4, !tbaa !5
   br label %45
 
-45:                                               ; preds = %38, %35
+45:                                               ; preds = %35, %38
   %46 = phi i32 [ %44, %38 ], [ %30, %35 ]
   %47 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
   %48 = lshr i64 %47, 1

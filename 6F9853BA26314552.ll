@@ -573,7 +573,7 @@ define internal fastcc void @patchlistaux(ptr nocapture noundef readonly %0, i32
   %52 = or i32 %51, 26
   br label %53
 
-53:                                               ; preds = %44, %47
+53:                                               ; preds = %47, %44
   %54 = phi i32 [ %52, %47 ], [ %46, %44 ]
   store i32 %54, ptr %37, align 4, !tbaa !17
   %55 = xor i32 %13, -1
@@ -2357,7 +2357,7 @@ define hidden void @luaK_prefix(ptr nocapture noundef %0, i32 noundef %1, ptr no
   %18 = icmp eq i32 %17, -1
   br i1 %18, label %21, label %19
 
-19:                                               ; preds = %11, %8, %15
+19:                                               ; preds = %8, %11, %15
   %20 = tail call i32 @luaK_exp2anyreg(ptr noundef %0, ptr noundef nonnull %2)
   br label %21
 
@@ -2736,13 +2736,13 @@ define internal fastcc void @codearith(ptr nocapture noundef %0, i32 noundef %1,
   store double %56, ptr %27, align 8, !tbaa !25
   br label %139
 
-57:                                               ; preds = %52, %22, %18, %15, %11, %7, %4
+57:                                               ; preds = %22, %11, %52, %7, %4, %18, %15
   switch i32 %1, label %58 [
     i32 20, label %60
     i32 18, label %60
   ]
 
-58:                                               ; preds = %37, %41, %57
+58:                                               ; preds = %41, %37, %57
   %59 = tail call i32 @luaK_exp2RK(ptr noundef %0, ptr noundef %3)
   br label %60
 
@@ -3175,7 +3175,7 @@ define hidden void @luaK_infix(ptr nocapture noundef %0, i32 noundef %1, ptr noc
   %192 = icmp eq i32 %191, -1
   br i1 %192, label %197, label %193
 
-193:                                              ; preds = %185, %182, %189
+193:                                              ; preds = %182, %185, %189
   %194 = tail call i32 @luaK_exp2RK(ptr noundef %0, ptr noundef nonnull %2)
   br label %197
 

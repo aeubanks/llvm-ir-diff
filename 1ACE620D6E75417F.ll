@@ -34,7 +34,6 @@ declare void @abort() local_unnamed_addr #1
 define dso_local void @regrename_optimize(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
   %2 = alloca [2 x i64], align 16
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #6
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %2, i8 0, i64 16, i1 false)
   %3 = load ptr, ptr %0, align 8, !tbaa !9
   %4 = icmp eq ptr %3, null
   br i1 %4, label %27, label %5

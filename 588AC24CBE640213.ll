@@ -144,7 +144,7 @@ define dso_local void @_ZN7vehicle4moveEv(ptr noundef nonnull align 8 dereferenc
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %2, i8 0, i64 32, i1 false), !tbaa !30
   %28 = load ptr, ptr %0, align 8, !tbaa !21
   %29 = getelementptr inbounds %class.roadlet, ptr %28, i64 0, i32 3
-  %30 = load i32, ptr @N, align 4, !tbaa.struct !22
+  %30 = load i32, ptr @N, align 4, !tbaa !23
   %31 = load i32, ptr @NW, align 4, !tbaa.struct !22
   %32 = tail call noundef i32 @_Zle9directionS_(i32 %30, i32 %31)
   %33 = icmp eq i32 %32, 0
@@ -170,7 +170,7 @@ define dso_local void @_ZN7vehicle4moveEv(ptr noundef nonnull align 8 dereferenc
 47:                                               ; preds = %36
   %48 = sext i32 %38 to i64
   %49 = getelementptr inbounds [8 x %class.direction], ptr %2, i64 0, i64 %48
-  store i32 %44, ptr %49, align 4, !tbaa.struct !22
+  store i32 %44, ptr %49, align 4, !tbaa !23
   %50 = add nsw i32 %38, 1
   br label %51
 
@@ -265,7 +265,7 @@ define dso_local i32 @_ZN7vehicle11select_moveEv(ptr noundef nonnull align 8 der
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %2, i8 0, i64 32, i1 false), !tbaa !30
   %3 = load ptr, ptr %0, align 8, !tbaa !21
   %4 = getelementptr inbounds %class.roadlet, ptr %3, i64 0, i32 3
-  %5 = load i32, ptr @N, align 4, !tbaa.struct !22
+  %5 = load i32, ptr @N, align 4, !tbaa !23
   %6 = load i32, ptr @NW, align 4, !tbaa.struct !22
   %7 = tail call noundef i32 @_Zle9directionS_(i32 %5, i32 %6)
   %8 = icmp eq i32 %7, 0
@@ -291,7 +291,7 @@ define dso_local i32 @_ZN7vehicle11select_moveEv(ptr noundef nonnull align 8 der
 22:                                               ; preds = %11
   %23 = sext i32 %13 to i64
   %24 = getelementptr inbounds [8 x %class.direction], ptr %2, i64 0, i64 %23
-  store i32 %19, ptr %24, align 4, !tbaa.struct !22
+  store i32 %19, ptr %24, align 4, !tbaa !23
   %25 = add nsw i32 %13, 1
   br label %26
 

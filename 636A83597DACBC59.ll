@@ -3296,7 +3296,7 @@ define dso_local void @write_lost_non_ref_pic(i32 noundef %0, i32 noundef %1) lo
   store ptr %20, ptr @concealment_end, align 8, !tbaa !12
   br label %24
 
-24:                                               ; preds = %23, %12
+24:                                               ; preds = %12, %23
   call void @free(ptr noundef nonnull %18) #23
   br label %25
 
@@ -5504,10 +5504,10 @@ declare void @get_block(i32 noundef, ptr noundef, i32 noundef, i32 noundef, ptr 
 declare void @init_lists(i32 noundef, i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #19
+declare i32 @llvm.smin.i32(i32, i32) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #19
+declare i32 @llvm.smax.i32(i32, i32) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #19

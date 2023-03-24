@@ -181,20 +181,20 @@ define dso_local i64 @PPC_Convert(ptr nocapture noundef %0, i64 noundef %1, i32 
   %28 = load i8, ptr %27, align 1, !tbaa !5
   %29 = zext i8 %28 to i32
   %30 = shl nuw nsw i32 %29, 16
-  %31 = or i32 %30, %25
-  %32 = or i64 %10, 2
-  %33 = getelementptr inbounds i8, ptr %0, i64 %32
-  %34 = load i8, ptr %33, align 1, !tbaa !5
-  %35 = zext i8 %34 to i32
-  %36 = shl nuw nsw i32 %35, 8
-  %37 = or i32 %31, %36
-  %38 = and i32 %20, 252
-  %39 = or i32 %37, %38
-  %40 = trunc i64 %10 to i32
-  %41 = add i32 %40, %2
-  %42 = sub i32 0, %41
-  %43 = select i1 %8, i32 %42, i32 %41
-  %44 = add i32 %39, %43
+  %31 = or i64 %10, 2
+  %32 = getelementptr inbounds i8, ptr %0, i64 %31
+  %33 = load i8, ptr %32, align 1, !tbaa !5
+  %34 = zext i8 %33 to i32
+  %35 = shl nuw nsw i32 %34, 8
+  %36 = and i32 %20, 252
+  %37 = trunc i64 %10 to i32
+  %38 = add i32 %37, %2
+  %39 = sub i32 0, %38
+  %40 = select i1 %8, i32 %39, i32 %38
+  %41 = add i32 %25, %40
+  %42 = add i32 %41, %36
+  %43 = add i32 %42, %30
+  %44 = add i32 %43, %35
   %45 = lshr i32 %44, 24
   %46 = trunc i32 %45 to i8
   %47 = and i8 %46, 3
@@ -205,9 +205,9 @@ define dso_local i64 @PPC_Convert(ptr nocapture noundef %0, i64 noundef %1, i32 
   store i8 %50, ptr %27, align 1, !tbaa !5
   %51 = lshr i32 %44, 8
   %52 = trunc i32 %51 to i8
-  store i8 %52, ptr %33, align 1, !tbaa !5
+  store i8 %52, ptr %32, align 1, !tbaa !5
   %53 = and i8 %19, 3
-  %54 = trunc i32 %44 to i8
+  %54 = trunc i32 %42 to i8
   %55 = or i8 %53, %54
   store i8 %55, ptr %18, align 1, !tbaa !5
   br label %56

@@ -48,8 +48,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @spBMBtab1 = internal unnamed_addr constant [12 x %struct.VLCtab] [%struct.VLCtab { i8 26, i8 7 }, %struct.VLCtab { i8 22, i8 7 }, %struct.VLCtab { i8 1, i8 7 }, %struct.VLCtab { i8 30, i8 7 }, %struct.VLCtab { i8 40, i8 6 }, %struct.VLCtab { i8 40, i8 6 }, %struct.VLCtab { i8 42, i8 6 }, %struct.VLCtab { i8 42, i8 6 }, %struct.VLCtab { i8 36, i8 6 }, %struct.VLCtab { i8 36, i8 6 }, %struct.VLCtab { i8 38, i8 6 }, %struct.VLCtab { i8 38, i8 6 }], align 16
 @spBMBtab2 = internal unnamed_addr constant [8 x %struct.VLCtab] [%struct.VLCtab { i8 17, i8 8 }, %struct.VLCtab { i8 17, i8 8 }, %struct.VLCtab { i8 58, i8 8 }, %struct.VLCtab { i8 58, i8 8 }, %struct.VLCtab { i8 54, i8 9 }, %struct.VLCtab { i8 82, i8 9 }, %struct.VLCtab { i8 64, i8 9 }, %struct.VLCtab { i8 66, i8 9 }], align 16
 @SNRMBtab = internal unnamed_addr constant [8 x %struct.VLCtab] [%struct.VLCtab { i8 -1, i8 0 }, %struct.VLCtab { i8 0, i8 3 }, %struct.VLCtab { i8 18, i8 2 }, %struct.VLCtab { i8 18, i8 2 }, %struct.VLCtab { i8 2, i8 1 }, %struct.VLCtab { i8 2, i8 1 }, %struct.VLCtab { i8 2, i8 1 }, %struct.VLCtab { i8 2, i8 1 }], align 16
-@str.11 = private unnamed_addr constant [29 x i8] c"Invalid macroblock_type code\00", align 1
-@str.12 = private unnamed_addr constant [56 x i8] c"Get_macroblock_type(): unrecognized picture coding type\00", align 1
+@str = private unnamed_addr constant [56 x i8] c"Get_macroblock_type(): unrecognized picture coding type\00", align 1
+@str.12 = private unnamed_addr constant [29 x i8] c"Invalid macroblock_type code\00", align 1
 @str.13 = private unnamed_addr constant [33 x i8] c"Invalid coded_block_pattern code\00", align 1
 @str.14 = private unnamed_addr constant [42 x i8] c"Invalid macroblock_address_increment code\00", align 1
 
@@ -72,7 +72,7 @@ define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
   br i1 %10, label %11, label %13
 
 11:                                               ; preds = %8
-  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %13
 
 13:                                               ; preds = %11, %8
@@ -116,7 +116,7 @@ define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
   br i1 %33, label %34, label %36
 
 34:                                               ; preds = %31
-  %35 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %35 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %36
 
 36:                                               ; preds = %34, %31
@@ -150,7 +150,7 @@ define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
   br i1 %53, label %54, label %56
 
 54:                                               ; preds = %51
-  %55 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %55 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %56
 
 56:                                               ; preds = %54, %51
@@ -174,7 +174,7 @@ define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
   br i1 %66, label %67, label %69
 
 67:                                               ; preds = %64
-  %68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %69
 
 69:                                               ; preds = %67, %64
@@ -235,7 +235,7 @@ define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
   br i1 %105, label %106, label %108
 
 106:                                              ; preds = %103
-  %107 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %107 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %108
 
 108:                                              ; preds = %106, %103
@@ -298,7 +298,7 @@ define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
   br i1 %144, label %145, label %147
 
 145:                                              ; preds = %142
-  %146 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %146 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %147
 
 147:                                              ; preds = %145, %142
@@ -342,7 +342,7 @@ define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
   br i1 %171, label %172, label %174
 
 172:                                              ; preds = %169
-  %173 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %173 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %174
 
 174:                                              ; preds = %172, %169
@@ -371,7 +371,7 @@ define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
   br i1 %188, label %189, label %191
 
 189:                                              ; preds = %186
-  %190 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %190 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %191
 
 191:                                              ; preds = %189, %186
@@ -379,10 +379,10 @@ define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
   br label %194
 
 192:                                              ; preds = %22
-  %193 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %193 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %194
 
-194:                                              ; preds = %191, %183, %147, %148, %158, %174, %175, %69, %72, %81, %92, %108, %109, %36, %37, %45, %48, %56, %14, %13, %192
+194:                                              ; preds = %191, %183, %175, %174, %158, %148, %147, %109, %108, %92, %81, %72, %69, %56, %48, %45, %37, %36, %14, %13, %192
   %195 = phi i32 [ 0, %192 ], [ 0, %13 ], [ %21, %14 ], [ 0, %36 ], [ %44, %37 ], [ 1, %45 ], [ 17, %56 ], [ 17, %48 ], [ 0, %69 ], [ %80, %72 ], [ %88, %81 ], [ %100, %92 ], [ 0, %108 ], [ %116, %109 ], [ %154, %148 ], [ 0, %147 ], [ %166, %158 ], [ 0, %174 ], [ %182, %175 ], [ 1, %183 ], [ 1, %191 ]
   ret i32 %195
 }

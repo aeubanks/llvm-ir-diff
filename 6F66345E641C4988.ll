@@ -24,27 +24,27 @@ define dso_local void @Gsm_Coder(ptr noundef %0, ptr noundef %1, ptr noundef %2,
 15:                                               ; preds = %8
   %16 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 5), align 2, !tbaa !5, !alias.scope !9
   %17 = load <8 x i16>, ptr %10, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %18 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %17, <8 x i16> %16)
+  %18 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %16, <8 x i16> %17)
   store <8 x i16> %18, ptr %10, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   %19 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 13), align 2, !tbaa !5, !alias.scope !9
   %20 = getelementptr i16, ptr %0, i64 128
   %21 = load <8 x i16>, ptr %20, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %22 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %21, <8 x i16> %19)
+  %22 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %19, <8 x i16> %21)
   store <8 x i16> %22, ptr %20, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   %23 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 21), align 2, !tbaa !5, !alias.scope !9
   %24 = getelementptr i16, ptr %0, i64 136
   %25 = load <8 x i16>, ptr %24, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %26 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %25, <8 x i16> %23)
+  %26 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %23, <8 x i16> %25)
   store <8 x i16> %26, ptr %24, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   %27 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 29), align 2, !tbaa !5, !alias.scope !9
   %28 = getelementptr i16, ptr %0, i64 144
   %29 = load <8 x i16>, ptr %28, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %30 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %29, <8 x i16> %27)
+  %30 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %27, <8 x i16> %29)
   store <8 x i16> %30, ptr %28, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   %31 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 37), align 2, !tbaa !5, !alias.scope !9
   %32 = getelementptr i16, ptr %0, i64 152
   %33 = load <8 x i16>, ptr %32, align 2, !tbaa !5, !alias.scope !12, !noalias !9
-  %34 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %33, <8 x i16> %31)
+  %34 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %31, <8 x i16> %33)
   store <8 x i16> %34, ptr %32, align 2, !tbaa !5, !alias.scope !12, !noalias !9
   br label %45
 
@@ -55,7 +55,7 @@ define dso_local void @Gsm_Coder(ptr noundef %0, ptr noundef %1, ptr noundef %2,
   %39 = load i16, ptr %38, align 2, !tbaa !5
   %40 = getelementptr inbounds i16, ptr %10, i64 %36
   %41 = load i16, ptr %40, align 2, !tbaa !5
-  %42 = call i16 @llvm.sadd.sat.i16(i16 %41, i16 %39)
+  %42 = call i16 @llvm.sadd.sat.i16(i16 %39, i16 %41)
   store i16 %42, ptr %40, align 2, !tbaa !5
   %43 = add nuw nsw i64 %36, 1
   %44 = icmp eq i64 %43, 40
@@ -80,27 +80,27 @@ define dso_local void @Gsm_Coder(ptr noundef %0, ptr noundef %1, ptr noundef %2,
 57:                                               ; preds = %45
   %58 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 5), align 2, !tbaa !5, !alias.scope !17
   %59 = load <8 x i16>, ptr %50, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %60 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %59, <8 x i16> %58)
+  %60 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %58, <8 x i16> %59)
   store <8 x i16> %60, ptr %50, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   %61 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 13), align 2, !tbaa !5, !alias.scope !17
   %62 = getelementptr i16, ptr %0, i64 168
   %63 = load <8 x i16>, ptr %62, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %64 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %63, <8 x i16> %61)
+  %64 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %61, <8 x i16> %63)
   store <8 x i16> %64, ptr %62, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   %65 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 21), align 2, !tbaa !5, !alias.scope !17
   %66 = getelementptr i16, ptr %0, i64 176
   %67 = load <8 x i16>, ptr %66, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %68 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %67, <8 x i16> %65)
+  %68 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %65, <8 x i16> %67)
   store <8 x i16> %68, ptr %66, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   %69 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 29), align 2, !tbaa !5, !alias.scope !17
   %70 = getelementptr i16, ptr %0, i64 184
   %71 = load <8 x i16>, ptr %70, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %72 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %71, <8 x i16> %69)
+  %72 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %69, <8 x i16> %71)
   store <8 x i16> %72, ptr %70, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   %73 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 37), align 2, !tbaa !5, !alias.scope !17
   %74 = getelementptr i16, ptr %0, i64 192
   %75 = load <8 x i16>, ptr %74, align 2, !tbaa !5, !alias.scope !20, !noalias !17
-  %76 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %75, <8 x i16> %73)
+  %76 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %73, <8 x i16> %75)
   store <8 x i16> %76, ptr %74, align 2, !tbaa !5, !alias.scope !20, !noalias !17
   br label %87
 
@@ -111,7 +111,7 @@ define dso_local void @Gsm_Coder(ptr noundef %0, ptr noundef %1, ptr noundef %2,
   %81 = load i16, ptr %80, align 2, !tbaa !5
   %82 = getelementptr inbounds i16, ptr %50, i64 %78
   %83 = load i16, ptr %82, align 2, !tbaa !5
-  %84 = call i16 @llvm.sadd.sat.i16(i16 %83, i16 %81)
+  %84 = call i16 @llvm.sadd.sat.i16(i16 %81, i16 %83)
   store i16 %84, ptr %82, align 2, !tbaa !5
   %85 = add nuw nsw i64 %78, 1
   %86 = icmp eq i64 %85, 40
@@ -136,27 +136,27 @@ define dso_local void @Gsm_Coder(ptr noundef %0, ptr noundef %1, ptr noundef %2,
 99:                                               ; preds = %87
   %100 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 5), align 2, !tbaa !5, !alias.scope !23
   %101 = load <8 x i16>, ptr %92, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %102 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %101, <8 x i16> %100)
+  %102 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %100, <8 x i16> %101)
   store <8 x i16> %102, ptr %92, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   %103 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 13), align 2, !tbaa !5, !alias.scope !23
   %104 = getelementptr i16, ptr %0, i64 208
   %105 = load <8 x i16>, ptr %104, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %106 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %105, <8 x i16> %103)
+  %106 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %103, <8 x i16> %105)
   store <8 x i16> %106, ptr %104, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   %107 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 21), align 2, !tbaa !5, !alias.scope !23
   %108 = getelementptr i16, ptr %0, i64 216
   %109 = load <8 x i16>, ptr %108, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %110 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %109, <8 x i16> %107)
+  %110 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %107, <8 x i16> %109)
   store <8 x i16> %110, ptr %108, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   %111 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 29), align 2, !tbaa !5, !alias.scope !23
   %112 = getelementptr i16, ptr %0, i64 224
   %113 = load <8 x i16>, ptr %112, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %114 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %113, <8 x i16> %111)
+  %114 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %111, <8 x i16> %113)
   store <8 x i16> %114, ptr %112, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   %115 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 37), align 2, !tbaa !5, !alias.scope !23
   %116 = getelementptr i16, ptr %0, i64 232
   %117 = load <8 x i16>, ptr %116, align 2, !tbaa !5, !alias.scope !26, !noalias !23
-  %118 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %117, <8 x i16> %115)
+  %118 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %115, <8 x i16> %117)
   store <8 x i16> %118, ptr %116, align 2, !tbaa !5, !alias.scope !26, !noalias !23
   br label %129
 
@@ -167,7 +167,7 @@ define dso_local void @Gsm_Coder(ptr noundef %0, ptr noundef %1, ptr noundef %2,
   %123 = load i16, ptr %122, align 2, !tbaa !5
   %124 = getelementptr inbounds i16, ptr %92, i64 %120
   %125 = load i16, ptr %124, align 2, !tbaa !5
-  %126 = call i16 @llvm.sadd.sat.i16(i16 %125, i16 %123)
+  %126 = call i16 @llvm.sadd.sat.i16(i16 %123, i16 %125)
   store i16 %126, ptr %124, align 2, !tbaa !5
   %127 = add nuw nsw i64 %120, 1
   %128 = icmp eq i64 %127, 40
@@ -192,27 +192,27 @@ define dso_local void @Gsm_Coder(ptr noundef %0, ptr noundef %1, ptr noundef %2,
 141:                                              ; preds = %129
   %142 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 5), align 2, !tbaa !5, !alias.scope !29
   %143 = load <8 x i16>, ptr %134, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %144 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %143, <8 x i16> %142)
+  %144 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %142, <8 x i16> %143)
   store <8 x i16> %144, ptr %134, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   %145 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 13), align 2, !tbaa !5, !alias.scope !29
   %146 = getelementptr i16, ptr %0, i64 248
   %147 = load <8 x i16>, ptr %146, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %148 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %147, <8 x i16> %145)
+  %148 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %145, <8 x i16> %147)
   store <8 x i16> %148, ptr %146, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   %149 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 21), align 2, !tbaa !5, !alias.scope !29
   %150 = getelementptr i16, ptr %0, i64 256
   %151 = load <8 x i16>, ptr %150, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %152 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %151, <8 x i16> %149)
+  %152 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %149, <8 x i16> %151)
   store <8 x i16> %152, ptr %150, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   %153 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 29), align 2, !tbaa !5, !alias.scope !29
   %154 = getelementptr i16, ptr %0, i64 264
   %155 = load <8 x i16>, ptr %154, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %156 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %155, <8 x i16> %153)
+  %156 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %153, <8 x i16> %155)
   store <8 x i16> %156, ptr %154, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   %157 = load <8 x i16>, ptr getelementptr inbounds ([50 x i16], ptr @Gsm_Coder.e, i64 0, i64 37), align 2, !tbaa !5, !alias.scope !29
   %158 = getelementptr i16, ptr %0, i64 272
   %159 = load <8 x i16>, ptr %158, align 2, !tbaa !5, !alias.scope !32, !noalias !29
-  %160 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %159, <8 x i16> %157)
+  %160 = call <8 x i16> @llvm.sadd.sat.v8i16(<8 x i16> %157, <8 x i16> %159)
   store <8 x i16> %160, ptr %158, align 2, !tbaa !5, !alias.scope !32, !noalias !29
   br label %171
 
@@ -223,7 +223,7 @@ define dso_local void @Gsm_Coder(ptr noundef %0, ptr noundef %1, ptr noundef %2,
   %165 = load i16, ptr %164, align 2, !tbaa !5
   %166 = getelementptr inbounds i16, ptr %134, i64 %162
   %167 = load i16, ptr %166, align 2, !tbaa !5
-  %168 = call i16 @llvm.sadd.sat.i16(i16 %167, i16 %165)
+  %168 = call i16 @llvm.sadd.sat.i16(i16 %165, i16 %167)
   store i16 %168, ptr %166, align 2, !tbaa !5
   %169 = add nuw nsw i64 %162, 1
   %170 = icmp eq i64 %169, 40

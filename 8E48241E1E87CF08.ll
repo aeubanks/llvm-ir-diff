@@ -664,7 +664,7 @@ define dso_local void @_Z16GetCorrectFsPathRK11CStringBaseIwE(ptr noalias nocapt
   store i32 %16, ptr %33, align 8, !tbaa !21, !alias.scope !48
   br label %34
 
-34:                                               ; preds = %32, %10
+34:                                               ; preds = %10, %32
   ret void
 }
 

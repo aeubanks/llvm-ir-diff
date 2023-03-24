@@ -200,9 +200,9 @@ define dso_local void @litptr_Delete(ptr noundef %0) local_unnamed_addr #0 {
   %43 = load i32, ptr @memory_ALIGN, align 4
   %44 = urem i32 %40, %43
   %45 = icmp eq i32 %44, 0
-  %46 = add i32 %43, %40
-  %47 = sub i32 %46, %44
-  %48 = select i1 %45, i32 %40, i32 %47
+  %46 = sub i32 %43, %44
+  %47 = select i1 %45, i32 0, i32 %46
+  %48 = add i32 %47, %40
   %49 = load i32, ptr @memory_OFFSET, align 4
   %50 = zext i32 %49 to i64
   %51 = sub nsw i64 0, %50
@@ -226,7 +226,7 @@ define dso_local void @litptr_Delete(ptr noundef %0) local_unnamed_addr #0 {
 
 64:                                               ; preds = %62, %42
   %65 = load i32, ptr @memory_MARKSIZE, align 4
-  %66 = add i32 %65, %48
+  %66 = add i32 %48, %65
   %67 = zext i32 %66 to i64
   %68 = add nuw nsw i64 %67, 16
   %69 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -569,8 +569,8 @@ define dso_local ptr @subs_CompList(ptr nocapture noundef readonly %0) local_unn
   %142 = icmp eq ptr %133, null
   br i1 %142, label %143, label %131, !llvm.loop !5
 
-143:                                              ; preds = %46, %131, %52, %66, %1, %129
-  %144 = phi ptr [ %38, %129 ], [ null, %1 ], [ %122, %52 ], [ %122, %66 ], [ %38, %131 ], [ %47, %46 ]
+143:                                              ; preds = %46, %131, %52, %66, %129, %1
+  %144 = phi ptr [ null, %1 ], [ %38, %129 ], [ %122, %52 ], [ %122, %66 ], [ %38, %131 ], [ %47, %46 ]
   ret ptr %144
 }
 

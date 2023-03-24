@@ -507,7 +507,7 @@ define dso_local i32 @SliceHeader() local_unnamed_addr #0 {
   %251 = add nsw i32 %250, %241
   br label %252
 
-252:                                              ; preds = %198, %202, %224, %246, %234
+252:                                              ; preds = %202, %198, %224, %246, %234
   %253 = phi i32 [ %201, %198 ], [ %251, %246 ], [ %241, %234 ], [ %233, %224 ], [ %212, %202 ]
   %254 = load ptr, ptr @img, align 8, !tbaa !5
   %255 = getelementptr inbounds %struct.ImageParameters, ptr %254, i64 0, i32 60

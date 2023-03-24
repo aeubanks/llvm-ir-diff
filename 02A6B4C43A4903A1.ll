@@ -34,7 +34,7 @@ define dso_local noundef i32 @_Z10ReadStreamP19ISequentialInStreamPvPm(ptr nound
   %23 = sub i64 %7, %19
   %24 = icmp eq i32 %17, 0
   %25 = icmp ne i32 %18, 0
-  %26 = and i1 %25, %24
+  %26 = and i1 %24, %25
   %27 = select i1 %26, i32 %9, i32 0
   %28 = select i1 %24, i32 %27, i32 %17
   %29 = select i1 %24, i1 %25, i1 false

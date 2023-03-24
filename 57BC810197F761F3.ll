@@ -412,7 +412,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @_ZdlPv(ptr noundef %140) #10
   br label %143
 
-143:                                              ; preds = %136, %138, %142
+143:                                              ; preds = %142, %138, %136
   %144 = phi { ptr, i32 } [ %137, %136 ], [ %139, %138 ], [ %139, %142 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %15) #9
   br label %145
@@ -427,7 +427,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @_ZdlPv(ptr noundef %147) #10
   br label %150
 
-150:                                              ; preds = %132, %145, %149
+150:                                              ; preds = %149, %145, %132
   %151 = phi { ptr, i32 } [ %133, %132 ], [ %146, %145 ], [ %146, %149 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %14) #9
   br label %152
@@ -442,7 +442,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @_ZdlPv(ptr noundef %154) #10
   br label %157
 
-157:                                              ; preds = %128, %152, %156
+157:                                              ; preds = %156, %152, %128
   %158 = phi { ptr, i32 } [ %129, %128 ], [ %153, %152 ], [ %153, %156 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %13) #9
   br label %159
@@ -457,7 +457,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @_ZdlPv(ptr noundef %161) #10
   br label %164
 
-164:                                              ; preds = %124, %159, %163
+164:                                              ; preds = %163, %159, %124
   %165 = phi { ptr, i32 } [ %125, %124 ], [ %160, %159 ], [ %160, %163 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %12) #9
   br label %166
@@ -472,7 +472,7 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
   call void @_ZdlPv(ptr noundef %168) #10
   br label %171
 
-171:                                              ; preds = %120, %166, %170
+171:                                              ; preds = %170, %166, %120
   %172 = phi { ptr, i32 } [ %121, %120 ], [ %167, %166 ], [ %167, %170 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %11) #9
   br label %173
@@ -497,8 +497,8 @@ define hidden noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_ad
           cleanup
   br label %189
 
-182:                                              ; preds = %108, %111
-  %183 = phi i32 [ 1, %111 ], [ 0, %108 ]
+182:                                              ; preds = %111, %108
+  %183 = phi i32 [ 0, %108 ], [ 1, %111 ]
   %184 = load ptr, ptr %9, align 8, !tbaa !12
   %185 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %9, i64 0, i32 2
   %186 = icmp eq ptr %184, %185

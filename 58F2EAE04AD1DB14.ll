@@ -401,23 +401,22 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) lo
   %13 = tail call i64 @strtol(ptr nocapture noundef nonnull %12, ptr noundef null, i32 noundef 10) #11
   %14 = trunc i64 %13 to i32
   store i32 %14, ptr @BLOCK, align 4, !tbaa !5
-  %15 = load i32, ptr @NUM, align 4, !tbaa !5
-  %16 = icmp ugt i32 %15, 1024
-  %17 = icmp ult i32 %15, %14
-  %18 = or i1 %16, %17
-  br i1 %18, label %19, label %21
+  %15 = icmp ugt i32 %10, 1024
+  %16 = icmp ugt i32 %14, %10
+  %17 = or i1 %15, %16
+  br i1 %17, label %18, label %20
 
-19:                                               ; preds = %6
-  %20 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+18:                                               ; preds = %6
+  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef 1) #10
   unreachable
 
-21:                                               ; preds = %6
+20:                                               ; preds = %6
   tail call void @init()
   tail call void @matmult()
-  %22 = tail call float @sumup()
-  %23 = fpext float %22 to double
-  %24 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, double noundef %23)
+  %21 = tail call float @sumup()
+  %22 = fpext float %21 to double
+  %23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, double noundef %22)
   tail call void @exit(i32 noundef 0) #10
   unreachable
 }

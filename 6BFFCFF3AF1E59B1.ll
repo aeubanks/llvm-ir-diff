@@ -520,8 +520,8 @@ define dso_local i32 @subst_IsShallow(ptr noundef readonly %0) local_unnamed_add
   %5 = getelementptr i8, ptr %4, i64 16
   %6 = load ptr, ptr %5, align 8
   %7 = load i32, ptr %6, align 8
-  %8 = icmp sgt i32 %7, 0
-  br i1 %8, label %28, label %9
+  %8 = icmp slt i32 %7, 1
+  br i1 %8, label %9, label %28
 
 9:                                                ; preds = %3
   %10 = tail call i32 @term_IsGround(ptr noundef nonnull %6) #7
@@ -539,8 +539,8 @@ define dso_local i32 @subst_IsShallow(ptr noundef readonly %0) local_unnamed_add
   %18 = getelementptr i8, ptr %17, i64 8
   %19 = load ptr, ptr %18, align 8
   %20 = load i32, ptr %19, align 8
-  %21 = icmp sgt i32 %20, 0
-  br i1 %21, label %25, label %22
+  %21 = icmp slt i32 %20, 1
+  br i1 %21, label %22, label %25
 
 22:                                               ; preds = %16
   %23 = tail call i32 @term_IsGround(ptr noundef nonnull %19) #7
@@ -614,9 +614,9 @@ define dso_local i32 @subst_MatchReverse(ptr noundef %0, ptr noundef readonly %1
   br i1 %11, label %12, label %26
 
 12:                                               ; preds = %4
-  %13 = add i32 %7, -2001
-  %14 = icmp ult i32 %13, 1000
-  br i1 %14, label %15, label %36
+  %13 = add i32 %7, -3001
+  %14 = icmp ult i32 %13, -1000
+  br i1 %14, label %36, label %15
 
 15:                                               ; preds = %12
   %16 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1050,19 +1050,19 @@ declare ptr @list_CopyWithElement(ptr noundef, ptr noundef) local_unnamed_addr #
 
 declare void @list_DeleteWithElement(ptr noundef, ptr noundef) local_unnamed_addr #1
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #5
-
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #6
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #5
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #6 = { nofree nounwind }
+attributes #5 = { nofree nounwind }
+attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #7 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

@@ -103,7 +103,7 @@ define dso_local i32 @hypre_StructCopy(ptr nocapture noundef readonly %0, ptr no
   %86 = sub i32 %75, %44
   %87 = mul i32 %86, %81
   %88 = sub i32 %59, %44
-  %89 = mul i32 %88, %65
+  %89 = mul i32 %65, %88
   %90 = icmp slt i32 %44, 1
   %91 = select i1 %82, i1 true, i1 %90
   %92 = select i1 %91, i1 true, i1 %83
@@ -273,8 +273,8 @@ define dso_local i32 @hypre_StructCopy(ptr nocapture noundef readonly %0, ptr no
   br i1 %224, label %225, label %132, !llvm.loop !29
 
 225:                                              ; preds = %216
-  %226 = add i32 %87, %221
-  %227 = add i32 %89, %222
+  %226 = add nsw i32 %221, %87
+  %227 = add nsw i32 %222, %89
   %228 = add nuw nsw i32 %131, 1
   %229 = icmp eq i32 %228, %45
   br i1 %229, label %230, label %128, !llvm.loop !30

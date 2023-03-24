@@ -1926,9 +1926,9 @@ define dso_local ptr @FixAndPrintObject(ptr noundef returned %0, i32 noundef %1,
   %1249 = getelementptr inbounds %struct.word_type, ptr %1232, i64 0, i32 3, i32 1
   %1250 = getelementptr inbounds [2 x i32], ptr %1249, i64 0, i64 %1090
   %1251 = load i32, ptr %1250, align 4, !tbaa !5
-  %1252 = add i32 %1231, %1251
-  %1253 = add i32 %1094, %1248
-  %1254 = sub i32 %1252, %1253
+  %1252 = add i32 %1094, %1248
+  %1253 = sub i32 %1231, %1252
+  %1254 = add i32 %1253, %1251
   store i32 %1254, ptr %9, align 4, !tbaa !8
   br label %2580
 

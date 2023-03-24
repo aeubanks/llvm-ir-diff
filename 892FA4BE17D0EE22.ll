@@ -441,7 +441,7 @@ define dso_local void @compdecomp(ptr nocapture noundef %0, i64 noundef %1) loca
   %263 = phi i64 [ %269, %259 ], [ 1, %252 ]
   %264 = icmp slt i32 %260, 0
   %265 = select i1 %264, i64 %263, i64 0
-  %266 = add i64 %261, %265
+  %266 = add i64 %265, %261
   %267 = tail call i32 @llvm.abs.i32(i32 %260, i1 true)
   %268 = zext i32 %267 to i64
   %269 = shl i64 %263, 1

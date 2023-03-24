@@ -874,7 +874,7 @@ define dso_local void @calculate_micro_xs_doppler(ptr nocapture noundef writeonl
   %17 = fptosi double %16 to i32
   %18 = icmp eq i32 %13, %17
   %19 = sext i1 %18 to i32
-  %20 = add nsw i32 %17, %19
+  %20 = add nsw i32 %19, %17
   %21 = getelementptr inbounds i8, ptr %3, i64 24
   %22 = load i32, ptr %21, align 8
   %23 = icmp sgt i32 %22, 0
@@ -1142,7 +1142,7 @@ define dso_local void @calculate_micro_xs(ptr nocapture noundef writeonly %0, i3
   %15 = fptosi double %14 to i32
   %16 = icmp eq i32 %11, %15
   %17 = sext i1 %16 to i32
-  %18 = add nsw i32 %15, %17
+  %18 = add nsw i32 %17, %15
   %19 = getelementptr inbounds i8, ptr %3, i64 24
   %20 = load i32, ptr %19, align 8
   %21 = icmp sgt i32 %20, 0

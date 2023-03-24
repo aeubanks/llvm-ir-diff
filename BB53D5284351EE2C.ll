@@ -86,7 +86,7 @@ define dso_local i32 @main() local_unnamed_addr #0 {
   %56 = tail call <4 x float> @llvm.x86.sse.max.ps(<4 x float> %46, <4 x float> %55)
   br label %57
 
-57:                                               ; preds = %44, %53
+57:                                               ; preds = %53, %44
   %58 = phi <4 x float> [ %54, %53 ], [ %45, %44 ]
   %59 = phi <4 x float> [ %56, %53 ], [ %46, %44 ]
   %60 = extractelement <4 x float> %58, i64 0

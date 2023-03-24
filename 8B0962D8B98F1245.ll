@@ -116,13 +116,13 @@ define dso_local void @_ZN25btContinuousDynamicsWorld28internalSingleStepSimulat
   %25 = getelementptr inbounds ptr, ptr %24, i64 32
   %26 = load ptr, ptr %25, align 8
   tail call void %26(ptr noundef nonnull align 8 dereferenceable(372) %0)
-  %27 = getelementptr inbounds %class.btDynamicsWorld, ptr %0, i64 0, i32 5, i32 0, i32 3
-  store float %1, ptr %27, align 4, !tbaa !24
-  %28 = getelementptr inbounds %class.btDynamicsWorld, ptr %0, i64 0, i32 5
+  %27 = getelementptr inbounds %class.btDynamicsWorld, ptr %0, i64 0, i32 5
+  %28 = getelementptr inbounds %class.btDynamicsWorld, ptr %0, i64 0, i32 5, i32 0, i32 3
+  store float %1, ptr %28, align 4, !tbaa !24
   %29 = load ptr, ptr %0, align 8, !tbaa !5
   %30 = getelementptr inbounds ptr, ptr %29, i64 33
   %31 = load ptr, ptr %30, align 8
-  tail call void %31(ptr noundef nonnull align 8 dereferenceable(372) %0, ptr noundef nonnull align 4 dereferenceable(68) %28)
+  tail call void %31(ptr noundef nonnull align 8 dereferenceable(372) %0, ptr noundef nonnull align 4 dereferenceable(68) %27)
   %32 = load ptr, ptr %0, align 8, !tbaa !5
   %33 = getelementptr inbounds ptr, ptr %32, i64 40
   %34 = load ptr, ptr %33, align 8
@@ -276,6 +276,9 @@ define dso_local void @_ZN25btContinuousDynamicsWorld19updateTemporalAabbsEf(ptr
   %52 = fadd float %46, %51
   %53 = select i1 %50, float %49, float -0.000000e+00
   %54 = fadd float %45, %53
+  store float %52, ptr %11, align 8, !tbaa.struct !40
+  store float 0.000000e+00, ptr %12, align 4, !tbaa.struct !42
+  store float 0.000000e+00, ptr %13, align 4, !tbaa.struct !42
   %55 = load <2 x float>, ptr %3, align 8, !tbaa !39
   %56 = load <2 x float>, ptr %44, align 4, !tbaa !39
   %57 = fmul <2 x float> %56, %17
@@ -283,9 +286,6 @@ define dso_local void @_ZN25btContinuousDynamicsWorld19updateTemporalAabbsEf(ptr
   %59 = select <2 x i1> %58, <2 x float> <float -0.000000e+00, float -0.000000e+00>, <2 x float> %57
   %60 = fadd <2 x float> %55, %59
   store <2 x float> %60, ptr %3, align 8
-  store float %52, ptr %11, align 8, !tbaa.struct !40
-  store float 0.000000e+00, ptr %12, align 4, !tbaa.struct !42
-  store float 0.000000e+00, ptr %13, align 4, !tbaa.struct !42
   %61 = load <2 x float>, ptr %4, align 8, !tbaa !39
   %62 = select <2 x i1> %58, <2 x float> %57, <2 x float> <float -0.000000e+00, float -0.000000e+00>
   %63 = fadd <2 x float> %61, %62

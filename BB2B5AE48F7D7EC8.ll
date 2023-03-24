@@ -262,7 +262,7 @@ define dso_local i32 @IntVector_createFromString(ptr noundef %0, ptr noundef rea
   %95 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %94, ptr noundef nonnull @.str, i32 noundef %87) #15
   br label %104
 
-96:                                               ; preds = %92, %80
+96:                                               ; preds = %80, %92
   %97 = phi ptr [ %90, %92 ], [ %85, %80 ]
   %98 = sext i32 %82 to i64
   %99 = getelementptr inbounds i32, ptr %97, i64 %98
@@ -274,8 +274,8 @@ define dso_local i32 @IntVector_createFromString(ptr noundef %0, ptr noundef rea
   %103 = icmp eq ptr %81, null
   br i1 %103, label %104, label %31, !llvm.loop !22
 
-104:                                              ; preds = %15, %96, %2, %93
-  %105 = phi i32 [ 0, %93 ], [ 0, %2 ], [ %102, %96 ], [ 0, %15 ]
+104:                                              ; preds = %15, %96, %93, %2
+  %105 = phi i32 [ 0, %2 ], [ 0, %93 ], [ %102, %96 ], [ 0, %15 ]
   ret i32 %105
 }
 
@@ -470,7 +470,7 @@ define dso_local i32 @CharVector_getLineFromFile(ptr noundef %0, ptr noundef %1)
   %59 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %58, ptr noundef nonnull @.str, i32 noundef %52) #15
   br label %66
 
-60:                                               ; preds = %56, %44
+60:                                               ; preds = %44, %56
   %61 = phi ptr [ %54, %56 ], [ %50, %44 ]
   %62 = sext i32 %45 to i64
   %63 = getelementptr inbounds i8, ptr %61, i64 %62
@@ -480,8 +480,8 @@ define dso_local i32 @CharVector_getLineFromFile(ptr noundef %0, ptr noundef %1)
   store i32 %65, ptr %0, align 8, !tbaa !25
   br label %66
 
-66:                                               ; preds = %2, %60, %57, %29
-  %67 = phi i32 [ %65, %60 ], [ -1, %57 ], [ -1, %29 ], [ -1, %2 ]
+66:                                               ; preds = %57, %29, %2, %60
+  %67 = phi i32 [ %65, %60 ], [ -1, %2 ], [ -1, %29 ], [ -1, %57 ]
   ret i32 %67
 }
 

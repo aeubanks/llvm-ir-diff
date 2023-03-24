@@ -1010,11 +1010,11 @@ define dso_local void @tdiscard(ptr nocapture noundef %0, i32 noundef %1) local_
   br label %8
 
 19:                                               ; preds = %8
-  %20 = getelementptr inbounds %struct.tnode, ptr %9, i64 0, i32 9
-  %21 = load ptr, ptr %20, align 8, !tbaa !26
-  %22 = load i32, ptr %21, align 8, !tbaa !13
-  %23 = load i32, ptr %9, align 8, !tbaa !12
-  tail call void @tdelete(ptr noundef nonnull %0, i32 noundef %23, i32 noundef %22)
+  %20 = load i32, ptr %9, align 8, !tbaa !12
+  %21 = getelementptr inbounds %struct.tnode, ptr %9, i64 0, i32 9
+  %22 = load ptr, ptr %21, align 8, !tbaa !26
+  %23 = load i32, ptr %22, align 8, !tbaa !13
+  tail call void @tdelete(ptr noundef nonnull %0, i32 noundef %20, i32 noundef %23)
   %24 = add nuw i32 %5, 1
   %25 = icmp eq i32 %5, %1
   br i1 %25, label %26, label %4, !llvm.loop !30
@@ -2582,10 +2582,10 @@ define dso_local ptr @tplist(ptr noundef readonly %0, i32 noundef %1) local_unna
 }
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #12
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13

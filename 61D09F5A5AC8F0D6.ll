@@ -10,33 +10,26 @@ define dso_local void @ff(i32 noundef %0, i32 noundef %1, i32 noundef %2) local_
   %4 = icmp eq i32 %0, 0
   %5 = icmp eq i32 %2, 0
   %6 = or i1 %4, %5
-  br i1 %6, label %8, label %7
+  br i1 %6, label %7, label %9
 
 7:                                                ; preds = %3
-  tail call void @abort() #5
-  unreachable
+  br i1 %5, label %8, label %10, !llvm.loop !5
 
-8:                                                ; preds = %3
-  br i1 %5, label %14, label %9, !llvm.loop !5
-
-9:                                                ; preds = %8
-  %10 = load i32, ptr @f3.x, align 4, !tbaa !7
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %12, label %13
-
-12:                                               ; preds = %9
-  store i32 1, ptr @f3.x, align 4, !tbaa !7
-  tail call void @abort() #5
-  unreachable
-
-13:                                               ; preds = %9
-  store i32 0, ptr @f3.x, align 4, !tbaa !7
-  tail call void @abort() #5
-  unreachable
-
-14:                                               ; preds = %8
+8:                                                ; preds = %7
   store i32 0, ptr @f3.x, align 4, !tbaa !7
   ret void
+
+9:                                                ; preds = %3
+  tail call void @abort() #5
+  unreachable
+
+10:                                               ; preds = %7
+  %11 = load i32, ptr @f3.x, align 4, !tbaa !7
+  %12 = icmp eq i32 %11, 0
+  %13 = zext i1 %12 to i32
+  store i32 %13, ptr @f3.x, align 4, !tbaa !7
+  tail call void @abort() #5
+  unreachable
 }
 
 ; Function Attrs: noreturn nounwind uwtable

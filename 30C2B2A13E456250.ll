@@ -1088,7 +1088,7 @@ define dso_local i32 @binate_split_select(ptr nocapture noundef readonly %0, ptr
   %42 = xor i32 %40, -1
   %43 = lshr i32 %42, %41
   %44 = and i32 %43, 1
-  %45 = add nuw nsw i32 %34, %44
+  %45 = add nuw nsw i32 %44, %34
   %46 = add i32 %33, 1
   %47 = ashr i32 %46, 5
   %48 = add nsw i32 %47, 1
@@ -1099,7 +1099,7 @@ define dso_local i32 @binate_split_select(ptr nocapture noundef readonly %0, ptr
   %53 = xor i32 %51, -1
   %54 = lshr i32 %53, %52
   %55 = and i32 %54, 1
-  %56 = add nuw nsw i32 %45, %55
+  %56 = add nuw nsw i32 %55, %45
   %57 = add i32 %33, 2
   %58 = add i32 %35, 2
   %59 = icmp eq i32 %58, %31
@@ -1122,13 +1122,13 @@ define dso_local i32 @binate_split_select(ptr nocapture noundef readonly %0, ptr
   %72 = xor i32 %70, -1
   %73 = lshr i32 %72, %71
   %74 = and i32 %73, 1
-  %75 = add nuw nsw i32 %63, %74
+  %75 = add nuw nsw i32 %74, %63
   br label %76
 
 76:                                               ; preds = %60, %65
   %77 = phi i32 [ %61, %60 ], [ %75, %65 ]
-  %78 = icmp ugt i32 %77, 1
-  br i1 %78, label %79, label %81
+  %78 = icmp ult i32 %77, 2
+  br i1 %78, label %81, label %79
 
 79:                                               ; preds = %76
   %80 = lshr i32 %77, 1

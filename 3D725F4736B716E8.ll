@@ -379,9 +379,9 @@ define linkonce_odr dso_local void @_ZN19btSoftBodyWorldInfoD2Ev(ptr noundef non
   br label %10
 
 10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %struct.btSoftBodyWorldInfo, ptr %0, i64 0, i32 7, i32 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !18
   store ptr null, ptr %2, align 8, !tbaa !21
-  %11 = getelementptr inbounds %struct.btSoftBodyWorldInfo, ptr %0, i64 0, i32 7, i32 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !22
   %12 = getelementptr inbounds %struct.btSoftBodyWorldInfo, ptr %0, i64 0, i32 7, i32 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !23
@@ -415,9 +415,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP10btSoftBodyED2Ev
   br label %10
 
 10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !8
   store ptr null, ptr %2, align 8, !tbaa !15
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !16
   %12 = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !17
@@ -442,10 +442,10 @@ define dso_local void @_ZN24btSoftRigidDynamicsWorldD2Ev(ptr noundef nonnull ali
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
           to label %10 unwind label %24
 
-10:                                               ; preds = %9, %1
+10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %0, i64 0, i32 7, i32 7, i32 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !18
   store ptr null, ptr %2, align 8, !tbaa !21
-  %11 = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %0, i64 0, i32 7, i32 7, i32 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !22
   %12 = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %0, i64 0, i32 7, i32 7, i32 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !23
@@ -462,10 +462,10 @@ define dso_local void @_ZN24btSoftRigidDynamicsWorldD2Ev(ptr noundef nonnull ali
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %14)
           to label %21 unwind label %27
 
-21:                                               ; preds = %20, %10
+21:                                               ; preds = %10, %20
+  %22 = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %0, i64 0, i32 2, i32 2
   store i8 1, ptr %16, align 8, !tbaa !8
   store ptr null, ptr %13, align 8, !tbaa !15
-  %22 = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %0, i64 0, i32 2, i32 2
   store i32 0, ptr %22, align 4, !tbaa !16
   %23 = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %0, i64 0, i32 2, i32 3
   store i32 0, ptr %23, align 8, !tbaa !17

@@ -1451,7 +1451,7 @@ define internal void @_ZL21BM_DEL_DOT_VEC_2D_RAWRN9benchmark5StateE(ptr noundef 
 
 29:                                               ; preds = %25, %21, %17, %1
   %30 = phi i32 [ undef, %1 ], [ %28, %25 ], [ %24, %21 ], [ %20, %17 ]
-  %31 = add i32 %30, 3
+  %31 = add nsw i32 %30, 3
   %32 = mul nsw i32 %31, %31
   %33 = zext i32 %32 to i64
   %34 = shl nuw nsw i64 %33, 2
@@ -1536,7 +1536,7 @@ define internal void @_ZL21BM_DEL_DOT_VEC_2D_RAWRN9benchmark5StateE(ptr noundef 
   %89 = trunc i64 %85 to i32
   br label %90
 
-90:                                               ; preds = %29, %37, %88
+90:                                               ; preds = %29, %88, %37
   %91 = phi i32 [ %89, %88 ], [ 0, %37 ], [ 0, %29 ]
   %92 = getelementptr inbounds double, ptr %4, i64 1
   %93 = sext i32 %31 to i64
@@ -1795,14 +1795,14 @@ define internal void @_ZL13BM_COUPLE_RAWRN9benchmark5StateE(ptr noundef nonnull 
   %72 = add nsw i64 %71, %69
   %73 = getelementptr inbounds %"class.std::complex", ptr %11, i64 %72
   %74 = load double, ptr %73, align 8, !tbaa.struct !128
-  %75 = fmul double %74, 0x406E56FD83BA6863
-  %76 = getelementptr inbounds i8, ptr %73, i64 8
-  %77 = load double, ptr %76, align 8, !tbaa.struct !130
-  %78 = fmul double %77, 0x406E56FD83BA6863
+  %75 = getelementptr inbounds i8, ptr %73, i64 8
+  %76 = load double, ptr %75, align 8, !tbaa.struct !130
+  %77 = fmul double %74, 0x406E56FD83BA6863
+  %78 = fmul double %76, 0x406E56FD83BA6863
   %79 = add nsw i64 %71, %67
   %80 = getelementptr inbounds %"class.std::complex", ptr %13, i64 %79
   %81 = fmul double %78, %78
-  %82 = call double @llvm.fmuladd.f64(double %75, double %75, double %81)
+  %82 = call double @llvm.fmuladd.f64(double %77, double %77, double %81)
   %83 = getelementptr inbounds %"class.std::complex", ptr %5, i64 %79
   %84 = getelementptr inbounds %"class.std::complex", ptr %7, i64 %79
   %85 = getelementptr inbounds %"class.std::complex", ptr %9, i64 %79
@@ -1824,7 +1824,7 @@ define internal void @_ZL13BM_COUPLE_RAWRN9benchmark5StateE(ptr noundef nonnull 
   %101 = load double, ptr %85, align 8, !tbaa.struct !128
   %102 = load double, ptr %86, align 8, !tbaa.struct !130
   %103 = fdiv double 1.000000e+00, %94
-  %104 = fmul double %75, %103
+  %104 = fmul double %77, %103
   %105 = fmul double %78, %103
   %106 = insertelement <2 x double> poison, double %103, i64 0
   %107 = shufflevector <2 x double> %106, <2 x double> poison, <2 x i32> zeroinitializer
@@ -2114,9 +2114,9 @@ define internal void @_ZL13BM_COUPLE_RAWRN9benchmark5StateE(ptr noundef nonnull 
   %329 = fmul double %97, %327
   %330 = fmul double %97, %328
   %331 = fmul double %101, %276
-  %332 = fadd double %331, %306
-  %333 = fmul double %102, %276
-  %334 = fadd double %333, %307
+  %332 = fmul double %102, %276
+  %333 = fadd double %331, %306
+  %334 = fadd double %332, %307
   %335 = fmul double %329, 0.000000e+00
   %336 = fmul double %330, 0.000000e+00
   %337 = fsub double %335, %330
@@ -2137,7 +2137,7 @@ define internal void @_ZL13BM_COUPLE_RAWRN9benchmark5StateE(ptr noundef nonnull 
 346:                                              ; preds = %342, %340, %326
   %347 = phi double [ %337, %326 ], [ %337, %340 ], [ %344, %342 ]
   %348 = phi double [ %338, %326 ], [ %338, %340 ], [ %345, %342 ]
-  %349 = fsub double %332, %347
+  %349 = fsub double %333, %347
   %350 = fsub double %334, %348
   store double %349, ptr %85, align 8, !tbaa.struct !128
   store double %350, ptr %86, align 8, !tbaa.struct !130
@@ -2501,7 +2501,7 @@ define linkonce_odr dso_local void @_ZN7ADomainC2Eii(ptr noundef nonnull align 8
   store i32 %37, ptr %38, align 8, !tbaa !123
   %39 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 7
   store i32 %37, ptr %39, align 4, !tbaa !125
-  %40 = add i32 %34, 3
+  %40 = add nsw i32 %34, 3
   %41 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 9
   store i32 %40, ptr %41, align 4, !tbaa !80
   %42 = icmp eq i32 %2, 2

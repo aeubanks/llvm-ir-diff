@@ -129,9 +129,9 @@ define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayI20btCompoundShapeC
   br label %10
 
 10:                                               ; preds = %1, %9
+  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i8 1, ptr %5, align 8, !tbaa !13
   store ptr null, ptr %2, align 8, !tbaa !17
-  %11 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 2
   store i32 0, ptr %11, align 4, !tbaa !18
   %12 = getelementptr inbounds %class.btAlignedObjectArray, ptr %0, i64 0, i32 3
   store i32 0, ptr %12, align 8, !tbaa !19
@@ -188,9 +188,9 @@ define dso_local void @_ZN15btCompoundShapeD2Ev(ptr noundef nonnull align 8 dere
   br label %20
 
 20:                                               ; preds = %19, %11
+  %21 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %15, align 8, !tbaa !13
   store ptr null, ptr %12, align 8, !tbaa !17
-  %21 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %21, align 4, !tbaa !18
   %22 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %22, align 8, !tbaa !19
@@ -256,10 +256,10 @@ define dso_local void @_ZN15btCompoundShapeD0Ev(ptr noundef nonnull align 8 dere
   tail call void @__clang_call_terminate(ptr %22) #10
   unreachable
 
-23:                                               ; preds = %19, %11
+23:                                               ; preds = %11, %19
+  %24 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 2
   store i8 1, ptr %15, align 8, !tbaa !13
   store ptr null, ptr %12, align 8, !tbaa !17
-  %24 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 2
   store i32 0, ptr %24, align 4, !tbaa !18
   %25 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 3
   store i32 0, ptr %25, align 8, !tbaa !19
@@ -409,7 +409,7 @@ define dso_local void @_ZN15btCompoundShape13addChildShapeERK11btTransformP16btC
   br label %76
 
 76:                                               ; preds = %69, %65
-  %77 = phi ptr [ %75, %69 ], [ undef, %65 ]
+  %77 = phi ptr [ undef, %65 ], [ %75, %69 ]
   %78 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 2
   %79 = load i32, ptr %78, align 4, !tbaa !18
   %80 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 3
@@ -490,7 +490,7 @@ define dso_local void @_ZN15btCompoundShape13addChildShapeERK11btTransformP16btC
   br label %128
 
 128:                                              ; preds = %76, %83, %126
-  %129 = phi i32 [ %127, %126 ], [ %79, %83 ], [ %79, %76 ]
+  %129 = phi i32 [ %79, %76 ], [ %79, %83 ], [ %127, %126 ]
   %130 = getelementptr inbounds %class.btCompoundShape, ptr %0, i64 0, i32 1, i32 5
   %131 = load ptr, ptr %130, align 8, !tbaa !17
   %132 = sext i32 %129 to i64
@@ -795,13 +795,13 @@ define dso_local void @_ZN15btCompoundShape20recalculateLocalAabbEv(ptr nocaptur
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #11
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #11
   %22 = load ptr, ptr %10, align 8, !tbaa !17
-  %23 = getelementptr inbounds %struct.btCompoundShapeChild, ptr %22, i64 %21, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !29
-  %25 = getelementptr inbounds %struct.btCompoundShapeChild, ptr %22, i64 %21
-  %26 = load ptr, ptr %24, align 8, !tbaa !11
+  %23 = getelementptr inbounds %struct.btCompoundShapeChild, ptr %22, i64 %21
+  %24 = getelementptr inbounds %struct.btCompoundShapeChild, ptr %22, i64 %21, i32 1
+  %25 = load ptr, ptr %24, align 8, !tbaa !29
+  %26 = load ptr, ptr %25, align 8, !tbaa !11
   %27 = getelementptr inbounds ptr, ptr %26, i64 2
   %28 = load ptr, ptr %27, align 8
-  call void %28(ptr noundef nonnull align 8 dereferenceable(24) %24, ptr noundef nonnull align 4 dereferenceable(64) %25, ptr noundef nonnull align 4 dereferenceable(16) %2, ptr noundef nonnull align 4 dereferenceable(16) %3)
+  call void %28(ptr noundef nonnull align 8 dereferenceable(24) %25, ptr noundef nonnull align 4 dereferenceable(64) %23, ptr noundef nonnull align 4 dereferenceable(16) %2, ptr noundef nonnull align 4 dereferenceable(16) %3)
   %29 = load float, ptr %4, align 8, !tbaa !20
   %30 = load float, ptr %2, align 4, !tbaa !20
   %31 = fcmp ogt float %29, %30
@@ -903,10 +903,10 @@ define dso_local void @_ZNK15btCompoundShape7getAabbERK11btTransformR9btVector3S
   br label %27
 
 27:                                               ; preds = %26, %4
-  %28 = phi <2 x float> [ %20, %4 ], [ zeroinitializer, %26 ]
-  %29 = phi <2 x float> [ %22, %4 ], [ zeroinitializer, %26 ]
-  %30 = phi <2 x float> [ %18, %4 ], [ zeroinitializer, %26 ]
-  %31 = phi <2 x float> [ %13, %4 ], [ zeroinitializer, %26 ]
+  %28 = phi <2 x float> [ zeroinitializer, %26 ], [ %20, %4 ]
+  %29 = phi <2 x float> [ zeroinitializer, %26 ], [ %22, %4 ]
+  %30 = phi <2 x float> [ zeroinitializer, %26 ], [ %18, %4 ]
+  %31 = phi <2 x float> [ zeroinitializer, %26 ], [ %13, %4 ]
   %32 = load ptr, ptr %0, align 8, !tbaa !11
   %33 = getelementptr inbounds ptr, ptr %32, i64 11
   %34 = load ptr, ptr %33, align 8

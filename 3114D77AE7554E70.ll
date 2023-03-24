@@ -1410,7 +1410,7 @@ define internal void @_ZL24BM_DEL_DOT_VEC_2D_LAMBDARN9benchmark5StateE(ptr nound
 
 29:                                               ; preds = %25, %21, %17, %1
   %30 = phi i32 [ undef, %1 ], [ %28, %25 ], [ %24, %21 ], [ %20, %17 ]
-  %31 = add i32 %30, 3
+  %31 = add nsw i32 %30, 3
   %32 = mul nsw i32 %31, %31
   %33 = zext i32 %32 to i64
   %34 = shl nuw nsw i64 %33, 2
@@ -1495,7 +1495,7 @@ define internal void @_ZL24BM_DEL_DOT_VEC_2D_LAMBDARN9benchmark5StateE(ptr nound
   %89 = trunc i64 %85 to i32
   br label %90
 
-90:                                               ; preds = %29, %37, %88
+90:                                               ; preds = %29, %88, %37
   %91 = phi i32 [ %89, %88 ], [ 0, %37 ], [ 0, %29 ]
   %92 = getelementptr inbounds double, ptr %4, i64 1
   %93 = sext i32 %31 to i64
@@ -2459,7 +2459,7 @@ define linkonce_odr dso_local void @_ZN7ADomainC2Eii(ptr noundef nonnull align 8
   store i32 %37, ptr %38, align 8, !tbaa !122
   %39 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 7
   store i32 %37, ptr %39, align 4, !tbaa !124
-  %40 = add i32 %34, 3
+  %40 = add nsw i32 %34, 3
   %41 = getelementptr inbounds %struct.ADomain, ptr %0, i64 0, i32 9
   store i32 %40, ptr %41, align 4, !tbaa !80
   %42 = icmp eq i32 %2, 2

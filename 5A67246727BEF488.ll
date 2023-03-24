@@ -156,7 +156,7 @@ define dso_local noundef i32 @_Z21FindSignatureInStreamP19ISequentialInStreamPKh
   call void @llvm.memmove.p0.p0.i64(ptr nonnull align 1 %22, ptr nonnull align 1 %92, i64 %93, i1 false)
   br label %28, !llvm.loop !18
 
-94:                                               ; preds = %32, %49, %48, %84
+94:                                               ; preds = %32, %49, %84, %48
   %95 = phi i32 [ %45, %48 ], [ 0, %84 ], [ 1, %49 ], [ 1, %32 ]
   call void @_ZdaPv(ptr noundef nonnull %22) #9
   br label %98
@@ -168,8 +168,8 @@ define dso_local noundef i32 @_Z21FindSignatureInStreamP19ISequentialInStreamPKh
   call void @_ZdaPv(ptr noundef nonnull %22) #9
   br label %103
 
-98:                                               ; preds = %94, %18, %14
-  %99 = phi i32 [ %13, %14 ], [ 0, %18 ], [ %95, %94 ]
+98:                                               ; preds = %18, %14, %94
+  %99 = phi i32 [ %95, %94 ], [ %13, %14 ], [ 0, %18 ]
   %100 = icmp eq ptr %12, null
   br i1 %100, label %102, label %101
 
@@ -180,8 +180,8 @@ define dso_local noundef i32 @_Z21FindSignatureInStreamP19ISequentialInStreamPKh
 102:                                              ; preds = %98, %101
   ret i32 %99
 
-103:                                              ; preds = %35, %96, %16
-  %104 = phi { ptr, i32 } [ %17, %16 ], [ %97, %96 ], [ %36, %35 ]
+103:                                              ; preds = %96, %35, %16
+  %104 = phi { ptr, i32 } [ %17, %16 ], [ %36, %35 ], [ %97, %96 ]
   %105 = icmp eq ptr %12, null
   br i1 %105, label %107, label %106
 

@@ -555,7 +555,7 @@ define internal void @finish_output_bmp(ptr noundef %0, ptr nocapture noundef re
   %292 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %291, i64 0, i32 5
   store i32 36, ptr %292, align 8, !tbaa !25
   %293 = load ptr, ptr %291, align 8, !tbaa !27
-  tail call void %293(ptr noundef %0) #7
+  tail call void %293(ptr noundef nonnull %0) #7
   br label %294
 
 294:                                              ; preds = %290, %286

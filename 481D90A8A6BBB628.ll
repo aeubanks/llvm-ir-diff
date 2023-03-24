@@ -98,9 +98,9 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.83 = private unnamed_addr constant [3 x i8] c".*\00", align 1
 @.str.84 = private unnamed_addr constant [11 x i8] c"%s ^%s$ %s\00", align 1
 @.str.85 = private unnamed_addr constant [18 x i8] c"/usr/bin/egrep -i\00", align 1
-@str.87 = private unnamed_addr constant [4 x i8] c"\0D\0A\0D\00", align 1
+@str = private unnamed_addr constant [4 x i8] c"\0D\0A\0D\00", align 1
+@str.88 = private unnamed_addr constant [79 x i8] c"[SP] <number> R)epl A)ccept I)nsert L)ookup U)ncap Q)uit e(X)it or ? for help\0D\00", align 1
 @str.89 = private unnamed_addr constant [2 x i8] c"\0D\00", align 1
-@str.90 = private unnamed_addr constant [79 x i8] c"[SP] <number> R)epl A)ccept I)nsert L)ookup U)ncap Q)uit e(X)it or ? for help\0D\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @givehelp(i32 noundef %0) local_unnamed_addr #0 {
@@ -407,7 +407,7 @@ define dso_local void @correct(ptr noundef %0, i32 noundef %1, ptr noundef %2, i
   br label %44
 
 44:                                               ; preds = %42, %39
-  %45 = call i32 @puts(ptr nonnull dereferenceable(1) @str.87)
+  %45 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
   call void @makepossibilities(ptr noundef %2)
   %46 = load i32, ptr @li, align 4, !tbaa !11
   %47 = load i32, ptr @contextsize, align 4, !tbaa !11
@@ -554,7 +554,7 @@ define dso_local void @correct(ptr noundef %0, i32 noundef %1, ptr noundef %2, i
   %147 = load i32, ptr @li, align 4, !tbaa !11
   %148 = add nsw i32 %147, -2
   call void @move(i32 noundef %148, i32 noundef 0) #13
-  %149 = call i32 @puts(ptr nonnull dereferenceable(1) @str.90)
+  %149 = call i32 @puts(ptr nonnull dereferenceable(1) @str.88)
   br label %150
 
 150:                                              ; preds = %146, %140
@@ -2703,7 +2703,7 @@ define dso_local i32 @ins_root_cap(ptr nocapture noundef readonly %0, ptr nocapt
   store i32 %38, ptr @maxposslen, align 4, !tbaa !11
   br label %42
 
-42:                                               ; preds = %41, %32
+42:                                               ; preds = %32, %41
   %43 = icmp sgt i32 %20, 98
   br i1 %43, label %47, label %44
 
@@ -4020,7 +4020,7 @@ define internal fastcc i32 @ins_cap(ptr nocapture noundef readonly %0, ptr nocap
   store i32 %75, ptr @maxposslen, align 4, !tbaa !11
   br label %79
 
-79:                                               ; preds = %78, %69
+79:                                               ; preds = %69, %78
   %80 = icmp sgt i32 %57, 98
   br i1 %80, label %84, label %81
 
@@ -4043,17 +4043,17 @@ declare noundef i32 @sprintf(ptr noalias nocapture noundef writeonly, ptr nocapt
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.fshl.i64(i64, i64, i64) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memmove.p0.p0.i64(ptr nocapture writeonly, ptr nocapture readonly, i64, i1 immarg) #11
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
+declare void @llvm.memmove.p0.p0.i64(ptr nocapture writeonly, ptr nocapture readonly, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #10

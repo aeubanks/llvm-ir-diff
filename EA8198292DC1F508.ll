@@ -40,9 +40,9 @@ define dso_local { i64, i64 } @_ZN3foopLERKS_(ptr nocapture noundef nonnull alig
   %12 = shl nuw i64 %11, 32
   %13 = zext i32 %5 to i64
   %14 = or i64 %12, %13
-  store i64 %14, ptr %0, align 4, !tbaa.struct !11
   %15 = insertvalue { i64, i64 } poison, i64 %14, 0
   %16 = insertvalue { i64, i64 } %15, i64 undef, 1
+  store i64 %14, ptr %0, align 4, !tbaa.struct !11
   ret { i64, i64 } %16
 }
 

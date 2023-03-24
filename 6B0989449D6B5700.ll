@@ -185,7 +185,7 @@ define dso_local i32 @FullPelBlockMotionSearch(ptr noundef %0, i16 noundef signe
   %53 = load i32, ptr %52, align 4, !tbaa !23
   %54 = icmp ne i32 %53, 1
   %55 = icmp eq i16 %1, 0
-  %56 = and i1 %54, %55
+  %56 = and i1 %55, %54
   br label %57
 
 57:                                               ; preds = %51, %47, %13
@@ -1175,11 +1175,11 @@ define dso_local i32 @SubPelBlockMotionSearch(ptr noundef %0, i16 noundef signex
   %210 = load ptr, ptr %170, align 8, !tbaa !5
   %211 = sub nsw i32 %181, %205
   %212 = tail call i32 %210(ptr noundef %0, i32 noundef %40, i32 noundef %38, i32 noundef %211, i32 noundef %208, i32 noundef %209) #2
-  %213 = add nsw i32 %212, %205
-  %214 = icmp eq i64 %180, 0
-  %215 = select i1 %214, i1 %35, i1 false
-  %216 = select i1 %215, i32 %171, i32 0
-  %217 = sub nsw i32 %213, %216
+  %213 = icmp eq i64 %180, 0
+  %214 = select i1 %213, i1 %35, i1 false
+  %215 = select i1 %214, i32 %171, i32 0
+  %216 = sub nsw i32 %205, %215
+  %217 = add i32 %216, %212
   %218 = icmp slt i32 %217, %181
   %219 = trunc i64 %180 to i32
   %220 = select i1 %218, i32 %219, i32 %182
@@ -1962,13 +1962,13 @@ define dso_local i32 @SubPelBlockSearchBiPred(ptr noundef %0, i16 noundef signex
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #1
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #1
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #1
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #1
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }

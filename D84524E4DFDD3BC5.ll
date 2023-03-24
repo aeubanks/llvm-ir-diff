@@ -940,8 +940,8 @@ define internal fastcc void @WriteObject(ptr noundef %0, i32 noundef %1, ptr nou
   %380 = load ptr, ptr %360, align 8, !tbaa !9
   br label %381
 
-381:                                              ; preds = %366, %359, %375, %371
-  %382 = phi ptr [ %361, %366 ], [ %361, %359 ], [ %380, %375 ], [ %361, %371 ]
+381:                                              ; preds = %359, %366, %375, %371
+  %382 = phi ptr [ %361, %359 ], [ %361, %366 ], [ %380, %375 ], [ %361, %371 ]
   %383 = tail call ptr @SymName(ptr noundef %382) #8
   %384 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
   %385 = tail call i32 @fputs(ptr noundef %383, ptr noundef %384)
@@ -1822,7 +1822,7 @@ define internal fastcc void @WriteClosure(ptr noundef %0, ptr noundef %1, i16 no
   %235 = tail call i32 @fputc(i32 32, ptr %234)
   br label %236
 
-236:                                              ; preds = %233, %226, %216, %221
+236:                                              ; preds = %233, %226, %221, %216
   %237 = tail call ptr @SymName(ptr noundef nonnull %6) #8
   %238 = load ptr, ptr @last_write_fp, align 8, !tbaa !5
   %239 = tail call i32 @fputs(ptr noundef %237, ptr noundef %238)

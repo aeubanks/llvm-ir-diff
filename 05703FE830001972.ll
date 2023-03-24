@@ -160,7 +160,7 @@ define dso_local void @_ZN8NArchive9NItemName10GetOSName2ERK11CStringBaseIwE(ptr
   store i32 %31, ptr %30, align 8, !tbaa !5
   br label %40
 
-40:                                               ; preds = %29, %36, %6
+40:                                               ; preds = %36, %29, %6
   ret void
 }
 
@@ -268,7 +268,7 @@ define dso_local void @_ZN8NArchive9NItemName15WinNameToOSNameERK11CStringBaseIw
   %54 = icmp slt i32 %53, %4
   br i1 %54, label %29, label %55, !llvm.loop !25
 
-55:                                               ; preds = %43, %50, %35, %24
+55:                                               ; preds = %50, %43, %35, %24
   ret void
 }
 
